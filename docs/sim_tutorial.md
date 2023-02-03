@@ -246,7 +246,7 @@ The environment ROS programs run on works similarly to a distributed computers s
 - **Services -** the nodes communicate via a [Client/Server](https://en.wikipedia.org/wiki/Client%E2%80%93server_model) paradigm, where client nodes request data to server nodes in a blocking synchronous fashion (the client awaits the server’s response)
 - **Actions -** the nodes communicate via a [Client/Server](https://en.wikipedia.org/wiki/Client%E2%80%93server_model) paradigm, where client nodes request data to server nodes in a non-blocking asynchronous fashion (the client does not wait for the response). Actions are built on top of both topics and services.
 
-![ROS2 Environment Schema](./assets/sim_tutorial/ros2_environment_schema.png)
+![ROS2 Environment Schema](https://user-images.githubusercontent.com/123366776/216478136-cf1e8144-f48b-415e-b618-d2f514480d3c.png)
 
 ### ROS2 Programming
 
@@ -614,7 +614,7 @@ angular:
 
 **Aftermath:**
 
-![TurtleSim Screenshot](./assets/sim_tutorial/turtlesim_screenshot.png)
+![TurtleSim Screenshot](https://user-images.githubusercontent.com/123366776/216478300-b0fb1c21-45be-43ce-87f4-69f7575876b1.png)
 
 ## Create Basic ROS2 Package
 
@@ -636,7 +636,7 @@ cd src
 ros2 pkg create --build-type ament_cmake --node-name [desired_node_name] [desired_package_name] # CMake version
 ```
 
-![Screenshot package code editor](./assets/sim_tutorial/package_screenshot1.png)
+![Screenshot package code editor](https://user-images.githubusercontent.com/123366776/216478365-30e80f9d-96ab-407a-8ae3-d23f5cc60d13.png)
 
 **PYTHON**
 
@@ -647,7 +647,7 @@ cd src
 ros2 pkg create --build-type ament_python --node-name [desired_node_name] [desired_package_name]
 ```
 
-![Screenshot package code editor](./assets/sim_tutorial/package_screenshot2.png)
+![Screenshot package code editor](https://user-images.githubusercontent.com/123366776/216478388-27552399-c107-4c2a-aba1-65b3a0d4d8ec.png)
 
 ### Compile
 
@@ -673,7 +673,7 @@ rqt is a Qt-based framework for GUI development for ROS. Essentially, it enables
 rqt
 ```
 
-![RQT Screenshot](./assets/sim_tutorial/rqt_screenshot.png)
+![RQT Screenshot](https://user-images.githubusercontent.com/123366776/216478431-5ed90929-9d77-4d20-b475-c35fdd4137ef.png)
 
 You can not only construct GUIs with it, but it also serves as a GUI for ROS2 itself, as you can consult information on topics, subscribers and others without previously programming these interfaces.
 
@@ -693,7 +693,8 @@ In this menu, the user can choose:
 - **Vehicle Model Presets** - wet track vs dry track
 - Etc.
 
-![EUFS Sim Launcher Menu](./assets/sim_tutorial/eufs_sim_launcher_menu.png)
+![EUFS Sim Launcher Menu](https://user-images.githubusercontent.com/123366776/216478468-8b0b09d6-39b7-49ba-b976-993f2d892b03.png)
+
 
 ## GUIs
 
@@ -705,7 +706,7 @@ The RViz GUI has many functionalities:
 - Investigate properties on the model of the car (measurement and others)
 - TODO: search functionalities and complete this part
 
-![EUFS Sim Rviz](./assets/sim_tutorial/eufs_sim_rviz.png)
+![EUFS Sim Rviz](https://user-images.githubusercontent.com/123366776/216478503-83274fd3-5c03-4c02-92b8-7b400104fe2f.png)
 
 ### Gazebo
 
@@ -716,7 +717,7 @@ The Gazebo GUI seems a little bit more intuitive for the simulation of events. F
 - Change camera view points and configurations
 - TODO: search functionalities and complete this part
 
-![EUFS Sim Gazebo](./assets/sim_tutorial/eufs_sim_gazebo.png)
+![EUFS Sim Gazebo](https://user-images.githubusercontent.com/123366776/216478614-7571817f-1250-4115-a407-1cbd747d9b8c.png)
 
 ## RQT
 
@@ -726,11 +727,12 @@ Together with the program, the RQT is also launched, with a GUI constructed to e
 - Control the vehicle manually through the **********************************************EUFS Robot Steering GUI**********************************************; this GUI only works when the mission set is ‘Manual Drive’
 - Set the name of the topic from where the vehicle should read the steering and control information in case of an autonomous driving mission
 
-![EUFS Sim RQT](./assets/sim_tutorial/eufs_sim_rqt.png)
+![EUFS Sim RQT](https://user-images.githubusercontent.com/123366776/216478652-552aac3d-e18a-42d4-8473-4b915f647796.png)
+
 
 The following image depicts how the state machine defining the robots state works with inputs on the RQT GUI.
 
-![EUFS Sim State Machine Diagram](./assets/sim_tutorial/eufs_sim_statemachine_diagram.png)
+![EUFS Sim State Machine Diagram](https://user-images.githubusercontent.com/123366776/216478692-545dcaef-8f5b-4de5-bb6e-6eed479799ed.png)
 
 To better understand the simulator mission system, it is advised to read the [full wiki page](https://gitlab.com/eufs/eufs_sim/-/wikis/State-Machine) from where this picture was taken.
 
@@ -740,7 +742,7 @@ The simulator’s purpose is to test the system we are developing in a simulated
 
 The repo provides a diagram that illustrates how the system is suppose to work with the integration of the modules to develop by our team.
 
-![EUFS Sim Modules Diagram](./assets/sim_tutorial/eufs_sim_modules_diagram.png)
+![EUFS Sim Modules Diagram](https://user-images.githubusercontent.com/123366776/216478738-c9f33018-2ba5-4a73-b209-b4f8a310ee47.png)
 
 ### Using CLI - Publishing to Control
 
@@ -774,7 +776,7 @@ ros2 interface proto ackermann_msgs/msg/AckermannDriveStamped
 
 Posterior to that, you need to certify that the simulator is in ‘****DRIVING’**** mode and in an self-driving event.
 
-![Mission Control GUI on Driving mode in Acceleration event](./assets/sim_tutorial/eufs_sim_interaction_mission_control.png)
+![Mission Control GUI on Driving mode in Acceleration event](https://user-images.githubusercontent.com/123366776/216478796-768582f8-d6cd-4ab8-80a2-f606b02bd8ce.png)
 
 Mission Control GUI on Driving mode in Acceleration event
 
@@ -812,7 +814,7 @@ drive:
 
 Aftermath of the latter command:
 
-![EUFS Sim interaction result](./assets/sim_tutorial/eufs_sim_interaction_result_gazebo.png)
+![EUFS Sim interaction result](https://user-images.githubusercontent.com/123366776/216478834-eab4d9e3-d15f-4e0b-bc3b-f3d3e20e4777.png)
 
 ### Using a Node (via programming) - Publishing to Control
 
