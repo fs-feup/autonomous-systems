@@ -92,3 +92,26 @@ A package in ROS2 can be created via the command line. The created project alrea
 An example project can be found in the assets folder or on this [link]().
 
 ![Screenshot file structure](../assets/environment_setup_tutorial/Screenshot-example-filestructure.png)
+
+## Compiling and Running
+
+To compile code:
+
+```sh
+colcon build
+source install/setup.sh
+```
+
+To run code:
+
+```sh
+ros2 run [package_name] [node_name]
+```
+
+To run tests:
+
+```sh
+colcon test --event-handler=console_direct+ # Last part for verbose
+```
+
+
