@@ -8,5 +8,5 @@ There are many tutorials in this project in the [tutotials directory](./tutorial
 
 ## Other documentation
 
-- [Project Rules]()
-- [Project Specification]() - architecture and technologies
+- [Project Rules](./project-rules.md)
+- [Project Specification](./project-specification.md) - architecture and technologies
