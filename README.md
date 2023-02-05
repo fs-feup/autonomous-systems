@@ -4,10 +4,10 @@ This repository holds most of the data and all the code on the project for Formu
 
 ## Starting to Develop
 
-Before starting, check out our [Startup Guide](https://github.com/fsfeup-driverless/driverless/blob/main/docs/tutorials/startup_guide.md), as well as this [project's rules](https://github.com/fsfeup-driverless/driverless/blob/main/docs/project-rules.md).
+Before starting, check out our [Startup Guide](./docs/tutorials/startup_guide.md), as well as this [project's rules](./docs/project-rules.md).
 
 ## Documentation
-- [Documentation Home](https://github.com/fsfeup-driverless/driverless/tree/main/docs)
-- [Startup Guide](https://github.com/fsfeup-driverless/driverless/blob/main/docs/tutorials/startup_guide.md)
-- [Project Rules](https://github.com/fsfeup-driverless/driverless/blob/main/docs/project-rules.md)
-- [Project Specification](https://github.com/fsfeup-driverless/driverless/blob/main/docs/project-specification.md)
+- [Documentation Home](./docs)
+- [Startup Guide](./docs/tutorials/startup_guide.md)
+- [Project Rules](./docs/project-rules.md)
+- [Project Specification](./docs/project-specification.md)
