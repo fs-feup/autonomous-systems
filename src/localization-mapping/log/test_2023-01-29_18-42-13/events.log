@@ -1,0 +1,238 @@
+[0.000000] (-) TimerEvent: {}
+[0.000776] (experiment1) JobQueued: {'identifier': 'experiment1', 'dependencies': OrderedDict([('experiment1', '/home/marhcouto/Documents/training/install/experiment1')])}
+[0.001104] (experiment1) JobStarted: {'identifier': 'experiment1'}
+[0.051425] (experiment1) Command: {'cmd': ['/usr/bin/ctest', '-C', 'Release', '-D', 'ExperimentalTest', '--no-compress-output', '-V', '--force-new-ctest-process'], 'cwd': '/home/marhcouto/Documents/training/build/experiment1', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'marhcouto'), ('SSH_CLIENT', '10.0.3.2 59878 22'), ('LC_TIME', 'pt_PT.UTF-8'), ('XDG_SESSION_TYPE', 'tty'), ('GIT_ASKPASS', '/home/marhcouto/.vscode-server/bin/97dec172d3256f8ca4bfb2143f3f76b503ca0534/extensions/git/dist/askpass.sh'), ('SHLVL', '2'), ('LD_LIBRARY_PATH', '/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/galactic/opt/yaml_cpp_vendor/lib:/opt/ros/galactic/opt/rviz_ogre_vendor/lib:/opt/ros/galactic/lib/x86_64-linux-gnu:/opt/ros/galactic/lib'), ('BROWSER', '/home/marhcouto/.vscode-server/bin/97dec172d3256f8ca4bfb2143f3f76b503ca0534/bin/helpers/browser.sh'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/marhcouto'), ('TERM_PROGRAM_VERSION', '1.74.3'), ('VSCODE_IPC_HOOK_CLI', '/run/user/1000/vscode-ipc-739eb470-f961-49fc-8512-27b6a7be0a4c.sock'), ('ROS_PYTHON_VERSION', '3'), ('VSCODE_GIT_ASKPASS_MAIN', '/home/marhcouto/.vscode-server/bin/97dec172d3256f8ca4bfb2143f3f76b503ca0534/extensions/git/dist/askpass-main.js'), ('LC_MONETARY', 'pt_PT.UTF-8'), ('VSCODE_GIT_ASKPASS_NODE', '/home/marhcouto/.vscode-server/bin/97dec172d3256f8ca4bfb2143f3f76b503ca0534/node'), ('LC_CTYPE', 'pt_PT.UTF-8'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('COLCON_PREFIX_PATH', '/home/marhcouto/Documents/training/install'), ('ROS_DISTRO', 'galactic'), ('LOGNAME', 'marhcouto'), ('EUFS_MASTER', '/home/marhcouto/Documents/eufs_sim'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '4'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/marhcouto/.vscode-server/bin/97dec172d3256f8ca4bfb2143f3f76b503ca0534/bin/remote-cli:/opt/ros/galactic/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('LC_ADDRESS', 'pt_PT.UTF-8'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('LANG', 'en_US.UTF-8'), ('LC_TELEPHONE', 'pt_PT.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-4d00b231e8.sock'), ('TERM_PROGRAM', 'vscode'), ('AMENT_PREFIX_PATH', '/home/marhcouto/Documents/training/install/experiment1:/opt/ros/galactic'), ('SHELL', '/bin/bash'), ('LC_NAME', 'pt_PT.UTF-8'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'pt_PT.UTF-8'), ('LC_IDENTIFICATION', 'pt_PT.UTF-8'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('PWD', '/home/marhcouto/Documents/training/build/experiment1'), ('LC_ALL', 'en_US.UTF-8'), ('SSH_CONNECTION', '10.0.3.2 59878 10.0.3.15 22'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/galactic/lib/python3.8/site-packages'), ('LC_NUMERIC', 'pt_PT.UTF-8'), ('LC_PAPER', 'pt_PT.UTF-8'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/home/marhcouto/Documents/training/install/experiment1')]), 'shell': False}
+[0.068000] (experiment1) StdoutLine: {'line': b'UpdateCTestConfiguration  from :/home/marhcouto/Documents/training/build/experiment1/CTestConfiguration.ini\n'}
+[0.068559] (experiment1) StdoutLine: {'line': b'Parse Config file:/home/marhcouto/Documents/training/build/experiment1/CTestConfiguration.ini\n'}
+[0.068768] (experiment1) StdoutLine: {'line': b'   Site: marhcouto-VirtualBox\n'}
+[0.068926] (experiment1) StdoutLine: {'line': b'   Build name: (empty)\n'}
+[0.069072] (experiment1) StdoutLine: {'line': b' Add coverage exclude regular expressions.\n'}
+[0.069219] (experiment1) StdoutLine: {'line': b'SetCTestConfiguration:CMakeCommand:/usr/bin/cmake\n'}
+[0.069460] (experiment1) StdoutLine: {'line': b'Create new tag: 20230129-1842 - Experimental\n'}
+[0.069615] (experiment1) StdoutLine: {'line': b'UpdateCTestConfiguration  from :/home/marhcouto/Documents/training/build/experiment1/CTestConfiguration.ini\n'}
+[0.069758] (experiment1) StdoutLine: {'line': b'Parse Config file:/home/marhcouto/Documents/training/build/experiment1/CTestConfiguration.ini\n'}
+[0.069897] (experiment1) StdoutLine: {'line': b'Test project /home/marhcouto/Documents/training/build/experiment1\n'}
+[0.070038] (experiment1) StdoutLine: {'line': b'Constructing a list of tests\n'}
+[0.070577] (experiment1) StdoutLine: {'line': b'Done constructing a list of tests\n'}
+[0.070794] (experiment1) StdoutLine: {'line': b'Updating test list for fixtures\n'}
+[0.070937] (experiment1) StdoutLine: {'line': b'Added 0 tests to meet fixture requirements\n'}
+[0.071168] (experiment1) StdoutLine: {'line': b'Checking test dependency graph...\n'}
+[0.071294] (experiment1) StdoutLine: {'line': b'Checking test dependency graph end\n'}
+[0.071406] (experiment1) StdoutLine: {'line': b'test 1\n'}
+[0.071506] (experiment1) StdoutLine: {'line': b'    Start 1: copyright\n'}
+[0.071619] (experiment1) StdoutLine: {'line': b'\n'}
+[0.071732] (experiment1) StdoutLine: {'line': b'1: Test command: /usr/bin/python3 "-u" "/opt/ros/galactic/share/ament_cmake_test/cmake/run_test.py" "/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/copyright.xunit.xml" "--package-name" "experiment1" "--output-file" "/home/marhcouto/Documents/training/build/experiment1/ament_copyright/copyright.txt" "--command" "/opt/ros/galactic/bin/ament_copyright" "--xunit-file" "/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/copyright.xunit.xml"\n'}
+[0.071846] (experiment1) StdoutLine: {'line': b'1: Test timeout computed to be: 120\n'}
+[0.099320] (-) TimerEvent: {}
+[0.178437] (experiment1) StdoutLine: {'line': b"1: -- run_test.py: invoking following command in '/home/marhcouto/Documents/training/experiment1':\n"}
+[0.178732] (experiment1) StdoutLine: {'line': b'1:  - /opt/ros/galactic/bin/ament_copyright --xunit-file /home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/copyright.xunit.xml\n'}
+[0.199492] (-) TimerEvent: {}
+[0.300058] (-) TimerEvent: {}
+[0.400532] (-) TimerEvent: {}
+[0.501322] (-) TimerEvent: {}
+[0.570405] (experiment1) StdoutLine: {'line': b'1: include/experiment1/car.h: could not find copyright notice\n'}
+[0.571270] (experiment1) StdoutLine: {'line': b'1: src/car.cpp: could not find copyright notice\n'}
+[0.571579] (experiment1) StdoutLine: {'line': b'1: src/node1.cpp: could not find copyright notice\n'}
+[0.571799] (experiment1) StdoutLine: {'line': b'1: test/main.cpp: could not find copyright notice\n'}
+[0.572028] (experiment1) StdoutLine: {'line': b'1: 4 errors, checked 4 files\n'}
+[0.589622] (experiment1) StdoutLine: {'line': b'1: -- run_test.py: return code 1\n'}
+[0.590030] (experiment1) StdoutLine: {'line': b"1: -- run_test.py: verify result file '/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/copyright.xunit.xml'\n"}
+[0.601428] (-) TimerEvent: {}
+[0.603306] (experiment1) StdoutLine: {'line': b'1/6 Test #1: copyright ........................***Failed    0.53 sec\n'}
+[0.603834] (experiment1) StdoutLine: {'line': b'test 2\n'}
+[0.604046] (experiment1) StdoutLine: {'line': b'    Start 2: cppcheck\n'}
+[0.604234] (experiment1) StdoutLine: {'line': b'\n'}
+[0.604412] (experiment1) StdoutLine: {'line': b'2: Test command: /usr/bin/python3 "-u" "/opt/ros/galactic/share/ament_cmake_test/cmake/run_test.py" "/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/cppcheck.xunit.xml" "--package-name" "experiment1" "--output-file" "/home/marhcouto/Documents/training/build/experiment1/ament_cppcheck/cppcheck.txt" "--command" "/opt/ros/galactic/bin/ament_cppcheck" "--xunit-file" "/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/cppcheck.xunit.xml" "--include_dirs" "/home/marhcouto/Documents/training/experiment1/include"\n'}
+[0.604611] (experiment1) StdoutLine: {'line': b'2: Test timeout computed to be: 300\n'}
+[0.679823] (experiment1) StdoutLine: {'line': b"2: -- run_test.py: invoking following command in '/home/marhcouto/Documents/training/experiment1':\n"}
+[0.680244] (experiment1) StdoutLine: {'line': b'2:  - /opt/ros/galactic/bin/ament_cppcheck --xunit-file /home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/cppcheck.xunit.xml --include_dirs /home/marhcouto/Documents/training/experiment1/include\n'}
+[0.701620] (-) TimerEvent: {}
+[0.810534] (-) TimerEvent: {}
+[0.911006] (-) TimerEvent: {}
+[1.011522] (-) TimerEvent: {}
+[1.038597] (experiment1) StdoutLine: {'line': b"2: [include/experiment1/car.h:4]: (error: syntaxError) Code 'classCar{' is invalid C code. Use --std or --language to configure the language.\n"}
+[1.038952] (experiment1) StdoutLine: {'line': b'2: 1 errors\n'}
+[1.061265] (experiment1) StdoutLine: {'line': b'2: -- run_test.py: return code 1\n'}
+[1.061683] (experiment1) StdoutLine: {'line': b"2: -- run_test.py: verify result file '/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/cppcheck.xunit.xml'\n"}
+[1.074498] (experiment1) StdoutLine: {'line': b'2/6 Test #2: cppcheck .........................***Failed    0.47 sec\n'}
+[1.074987] (experiment1) StdoutLine: {'line': b'test 3\n'}
+[1.075293] (experiment1) StdoutLine: {'line': b'    Start 3: cpplint\n'}
+[1.075671] (experiment1) StdoutLine: {'line': b'\n'}
+[1.075920] (experiment1) StdoutLine: {'line': b'3: Test command: /usr/bin/python3 "-u" "/opt/ros/galactic/share/ament_cmake_test/cmake/run_test.py" "/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/cpplint.xunit.xml" "--package-name" "experiment1" "--output-file" "/home/marhcouto/Documents/training/build/experiment1/ament_cpplint/cpplint.txt" "--command" "/opt/ros/galactic/bin/ament_cpplint" "--xunit-file" "/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/cpplint.xunit.xml"\n'}
+[1.076168] (experiment1) StdoutLine: {'line': b'3: Test timeout computed to be: 120\n'}
+[1.111665] (-) TimerEvent: {}
+[1.149398] (experiment1) StdoutLine: {'line': b"3: -- run_test.py: invoking following command in '/home/marhcouto/Documents/training/experiment1':\n"}
+[1.150251] (experiment1) StdoutLine: {'line': b'3:  - /opt/ros/galactic/bin/ament_cpplint --xunit-file /home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/cpplint.xunit.xml\n'}
+[1.211832] (-) TimerEvent: {}
+[1.312423] (-) TimerEvent: {}
+[1.412859] (-) TimerEvent: {}
+[1.465563] (experiment1) StdoutLine: {'line': b'3: /home/marhcouto/Documents/training/experiment1/include/experiment1/car.h:0:  No copyright message found.  You should have a line: "Copyright [year] <Copyright Owner>"  [legal/copyright] [5]\n'}
+[1.465933] (experiment1) StdoutLine: {'line': b'3: /home/marhcouto/Documents/training/experiment1/include/experiment1/car.h:1:  #ifndef header guard has wrong style, please use: EXPERIMENT1__CAR_H_  [build/header_guard] [5]\n'}
+[1.466114] (experiment1) StdoutLine: {'line': b'3: /home/marhcouto/Documents/training/experiment1/include/experiment1/car.h:16:  #endif line should be "#endif  // EXPERIMENT1__CAR_H_"  [build/header_guard] [5]\n'}
+[1.466418] (experiment1) StdoutLine: {'line': b'3: /home/marhcouto/Documents/training/experiment1/include/experiment1/car.h:16:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]\n'}
+[1.467225] (experiment1) StdoutLine: {'line': b'3: /home/marhcouto/Documents/training/experiment1/include/experiment1/car.h:16:  Could not find a newline character at the end of the file.  [whitespace/ending_newline] [5]\n'}
+[1.467725] (experiment1) StdoutLine: {'line': b'3: /home/marhcouto/Documents/training/experiment1/src/car.cpp:0:  No copyright message found.  You should have a line: "Copyright [year] <Copyright Owner>"  [legal/copyright] [5]\n'}
+[1.468046] (experiment1) StdoutLine: {'line': b'3: /home/marhcouto/Documents/training/experiment1/src/node1.cpp:0:  No copyright message found.  You should have a line: "Copyright [year] <Copyright Owner>"  [legal/copyright] [5]\n'}
+[1.468252] (experiment1) StdoutLine: {'line': b'3: /home/marhcouto/Documents/training/experiment1/test/main.cpp:0:  No copyright message found.  You should have a line: "Copyright [year] <Copyright Owner>"  [legal/copyright] [5]\n'}
+[1.468425] (experiment1) StdoutLine: {'line': b"3: Category 'build/header_guard' errors found: 2\n"}
+[1.468602] (experiment1) StdoutLine: {'line': b"3: Category 'legal/copyright' errors found: 4\n"}
+[1.468778] (experiment1) StdoutLine: {'line': b"3: Category 'whitespace/end_of_line' errors found: 1\n"}
+[1.468951] (experiment1) StdoutLine: {'line': b"3: Category 'whitespace/ending_newline' errors found: 1\n"}
+[1.469152] (experiment1) StdoutLine: {'line': b'3: Total errors found: 8\n'}
+[1.469333] (experiment1) StdoutLine: {'line': b"3: Using '--root=/home/marhcouto/Documents/training/experiment1/include' argument\n"}
+[1.469687] (experiment1) StdoutLine: {'line': b'3: \n'}
+[1.469927] (experiment1) StdoutLine: {'line': b'3: Done processing /home/marhcouto/Documents/training/experiment1/include/experiment1/car.h\n'}
+[1.470085] (experiment1) StdoutLine: {'line': b'3: \n'}
+[1.470278] (experiment1) StdoutLine: {'line': b"3: Using '--root=/home/marhcouto/Documents/training/experiment1/src' argument\n"}
+[1.470488] (experiment1) StdoutLine: {'line': b'3: \n'}
+[1.470648] (experiment1) StdoutLine: {'line': b'3: Done processing /home/marhcouto/Documents/training/experiment1/src/car.cpp\n'}
+[1.470803] (experiment1) StdoutLine: {'line': b'3: \n'}
+[1.470954] (experiment1) StdoutLine: {'line': b'3: Done processing /home/marhcouto/Documents/training/experiment1/src/node1.cpp\n'}
+[1.471106] (experiment1) StdoutLine: {'line': b'3: \n'}
+[1.471249] (experiment1) StdoutLine: {'line': b"3: Using '--root=/home/marhcouto/Documents/training/experiment1/test' argument\n"}
+[1.471409] (experiment1) StdoutLine: {'line': b'3: \n'}
+[1.471581] (experiment1) StdoutLine: {'line': b'3: Done processing /home/marhcouto/Documents/training/experiment1/test/main.cpp\n'}
+[1.471725] (experiment1) StdoutLine: {'line': b'3: \n'}
+[1.487223] (experiment1) StdoutLine: {'line': b'3: -- run_test.py: return code 1\n'}
+[1.487582] (experiment1) StdoutLine: {'line': b"3: -- run_test.py: verify result file '/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/cpplint.xunit.xml'\n"}
+[1.497694] (experiment1) StdoutLine: {'line': b'3/6 Test #3: cpplint ..........................***Failed    0.42 sec\n'}
+[1.497995] (experiment1) StdoutLine: {'line': b'test 4\n'}
+[1.498312] (experiment1) StdoutLine: {'line': b'    Start 4: lint_cmake\n'}
+[1.498425] (experiment1) StdoutLine: {'line': b'\n'}
+[1.498539] (experiment1) StdoutLine: {'line': b'4: Test command: /usr/bin/python3 "-u" "/opt/ros/galactic/share/ament_cmake_test/cmake/run_test.py" "/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/lint_cmake.xunit.xml" "--package-name" "experiment1" "--output-file" "/home/marhcouto/Documents/training/build/experiment1/ament_lint_cmake/lint_cmake.txt" "--command" "/opt/ros/galactic/bin/ament_lint_cmake" "--xunit-file" "/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/lint_cmake.xunit.xml"\n'}
+[1.498660] (experiment1) StdoutLine: {'line': b'4: Test timeout computed to be: 60\n'}
+[1.512999] (-) TimerEvent: {}
+[1.572812] (experiment1) StdoutLine: {'line': b"4: -- run_test.py: invoking following command in '/home/marhcouto/Documents/training/experiment1':\n"}
+[1.573192] (experiment1) StdoutLine: {'line': b'4:  - /opt/ros/galactic/bin/ament_lint_cmake --xunit-file /home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/lint_cmake.xunit.xml\n'}
+[1.613251] (-) TimerEvent: {}
+[1.721344] (-) TimerEvent: {}
+[1.821879] (-) TimerEvent: {}
+[1.838982] (experiment1) StdoutLine: {'line': b'4: \n'}
+[1.839603] (experiment1) StdoutLine: {'line': b'4: No problems found\n'}
+[1.859586] (experiment1) StdoutLine: {'line': b'4: -- run_test.py: return code 0\n'}
+[1.860090] (experiment1) StdoutLine: {'line': b"4: -- run_test.py: verify result file '/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/lint_cmake.xunit.xml'\n"}
+[1.871739] (experiment1) StdoutLine: {'line': b'4/6 Test #4: lint_cmake .......................   Passed    0.37 sec\n'}
+[1.872193] (experiment1) StdoutLine: {'line': b'test 5\n'}
+[1.872397] (experiment1) StdoutLine: {'line': b'    Start 5: uncrustify\n'}
+[1.872596] (experiment1) StdoutLine: {'line': b'\n'}
+[1.872792] (experiment1) StdoutLine: {'line': b'5: Test command: /usr/bin/python3 "-u" "/opt/ros/galactic/share/ament_cmake_test/cmake/run_test.py" "/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/uncrustify.xunit.xml" "--package-name" "experiment1" "--output-file" "/home/marhcouto/Documents/training/build/experiment1/ament_uncrustify/uncrustify.txt" "--command" "/opt/ros/galactic/bin/ament_uncrustify" "--xunit-file" "/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/uncrustify.xunit.xml"\n'}
+[1.873014] (experiment1) StdoutLine: {'line': b'5: Test timeout computed to be: 60\n'}
+[1.922012] (-) TimerEvent: {}
+[1.939697] (experiment1) StdoutLine: {'line': b"5: -- run_test.py: invoking following command in '/home/marhcouto/Documents/training/experiment1':\n"}
+[1.940066] (experiment1) StdoutLine: {'line': b'5:  - /opt/ros/galactic/bin/ament_uncrustify --xunit-file /home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/uncrustify.xunit.xml\n'}
+[2.022162] (-) TimerEvent: {}
+[2.122578] (-) TimerEvent: {}
+[2.222953] (-) TimerEvent: {}
+[2.241582] (experiment1) StdoutLine: {'line': b"5: Code style divergence in file 'include/experiment1/car.h':\n"}
+[2.242360] (experiment1) StdoutLine: {'line': b'5: \n'}
+[2.242691] (experiment1) StdoutLine: {'line': b'5: --- include/experiment1/car.h\n'}
+[2.242945] (experiment1) StdoutLine: {'line': b'5: +++ include/experiment1/car.h.uncrustify\n'}
+[2.243153] (experiment1) StdoutLine: {'line': b'5: @@ -7,2 +7,3 @@\n'}
+[2.243347] (experiment1) StdoutLine: {'line': b'5: -    int speed;\n'}
+[2.243546] (experiment1) StdoutLine: {'line': b'5: -    int weight;\n'}
+[2.243733] (experiment1) StdoutLine: {'line': b'5: +  int speed;\n'}
+[2.243919] (experiment1) StdoutLine: {'line': b'5: +  int weight;\n'}
+[2.244121] (experiment1) StdoutLine: {'line': b'5: +\n'}
+[2.244306] (experiment1) StdoutLine: {'line': b'5: @@ -10,2 +11,2 @@\n'}
+[2.244496] (experiment1) StdoutLine: {'line': b'5: -    Car(int speed, int weight);\n'}
+[2.244681] (experiment1) StdoutLine: {'line': b'5: -    ~Car();\n'}
+[2.244866] (experiment1) StdoutLine: {'line': b'5: +  Car(int speed, int weight);\n'}
+[2.245071] (experiment1) StdoutLine: {'line': b'5: +  ~Car();\n'}
+[2.245343] (experiment1) StdoutLine: {'line': b'5: @@ -13 +14 @@\n'}
+[2.245582] (experiment1) StdoutLine: {'line': b'5: -    void use_horn();\n'}
+[2.245813] (experiment1) StdoutLine: {'line': b'5: +  void use_horn();\n'}
+[2.246006] (experiment1) StdoutLine: {'line': b'5: @@ -16 +17 @@\n'}
+[2.246187] (experiment1) StdoutLine: {'line': b'5: -#endif \n'}
+[2.246512] (experiment1) StdoutLine: {'line': b'5: +#endif\n'}
+[2.246739] (experiment1) StdoutLine: {'line': b'5: \n'}
+[2.246962] (experiment1) StdoutLine: {'line': b"5: Code style divergence in file 'src/car.cpp':\n"}
+[2.248866] (experiment1) StdoutLine: {'line': b'5: \n'}
+[2.249478] (experiment1) StdoutLine: {'line': b'5: --- src/car.cpp\n'}
+[2.249958] (experiment1) StdoutLine: {'line': b'5: +++ src/car.cpp.uncrustify\n'}
+[2.250434] (experiment1) StdoutLine: {'line': b'5: @@ -5,3 +5,4 @@\n'}
+[2.250724] (experiment1) StdoutLine: {'line': b'5: -Car::Car(int speed, int weight) {\n'}
+[2.251045] (experiment1) StdoutLine: {'line': b'5: -    this->speed = speed;\n'}
+[2.251284] (experiment1) StdoutLine: {'line': b'5: -    this->weight = weight;\n'}
+[2.252264] (experiment1) StdoutLine: {'line': b'5: +Car::Car(int speed, int weight)\n'}
+[2.252523] (experiment1) StdoutLine: {'line': b'5: +{\n'}
+[2.252724] (experiment1) StdoutLine: {'line': b'5: +  this->speed = speed;\n'}
+[2.252919] (experiment1) StdoutLine: {'line': b'5: +  this->weight = weight;\n'}
+[2.253132] (experiment1) StdoutLine: {'line': b'5: @@ -14,2 +15,3 @@\n'}
+[2.253340] (experiment1) StdoutLine: {'line': b'5: -void Car::use_horn() {\n'}
+[2.253519] (experiment1) StdoutLine: {'line': b'5: -    std::cout << "Beep" << std::endl;\n'}
+[2.253706] (experiment1) StdoutLine: {'line': b'5: +void Car::use_horn()\n'}
+[2.253903] (experiment1) StdoutLine: {'line': b'5: +{\n'}
+[2.254093] (experiment1) StdoutLine: {'line': b'5: +  std::cout << "Beep" << std::endl;\n'}
+[2.254609] (experiment1) StdoutLine: {'line': b'5: \n'}
+[2.255545] (experiment1) StdoutLine: {'line': b"5: Code style divergence in file 'test/main.cpp':\n"}
+[2.256582] (experiment1) StdoutLine: {'line': b'5: \n'}
+[2.257232] (experiment1) StdoutLine: {'line': b'5: --- test/main.cpp\n'}
+[2.257500] (experiment1) StdoutLine: {'line': b'5: +++ test/main.cpp.uncrustify\n'}
+[2.257700] (experiment1) StdoutLine: {'line': b'5: @@ -3 +3 @@\n'}
+[2.257882] (experiment1) StdoutLine: {'line': b'5: -int main(int argc, char const *argv[])\n'}
+[2.258066] (experiment1) StdoutLine: {'line': b'5: +int main(int argc, char const * argv[])\n'}
+[2.258245] (experiment1) StdoutLine: {'line': b'5: @@ -5,2 +5,2 @@\n'}
+[2.258534] (experiment1) StdoutLine: {'line': b'5: -    /* code */\n'}
+[2.258723] (experiment1) StdoutLine: {'line': b'5: -    return 0;\n'}
+[2.259493] (experiment1) StdoutLine: {'line': b'5: +  /* code */\n'}
+[2.259740] (experiment1) StdoutLine: {'line': b'5: +  return 0;\n'}
+[2.259951] (experiment1) StdoutLine: {'line': b'5: \n'}
+[2.260156] (experiment1) StdoutLine: {'line': b'5: 3 files with code style divergence\n'}
+[2.260368] (experiment1) StdoutLine: {'line': b"5: No code style divergence in file 'src/node1.cpp'\n"}
+[2.260570] (experiment1) StdoutLine: {'line': b'5: \n'}
+[2.269187] (experiment1) StdoutLine: {'line': b'5: -- run_test.py: return code 1\n'}
+[2.269622] (experiment1) StdoutLine: {'line': b"5: -- run_test.py: verify result file '/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/uncrustify.xunit.xml'\n"}
+[2.281382] (experiment1) StdoutLine: {'line': b'5/6 Test #5: uncrustify .......................***Failed    0.41 sec\n'}
+[2.281645] (experiment1) StdoutLine: {'line': b'test 6\n'}
+[2.281757] (experiment1) StdoutLine: {'line': b'    Start 6: xmllint\n'}
+[2.281934] (experiment1) StdoutLine: {'line': b'\n'}
+[2.282061] (experiment1) StdoutLine: {'line': b'6: Test command: /usr/bin/python3 "-u" "/opt/ros/galactic/share/ament_cmake_test/cmake/run_test.py" "/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/xmllint.xunit.xml" "--package-name" "experiment1" "--output-file" "/home/marhcouto/Documents/training/build/experiment1/ament_xmllint/xmllint.txt" "--command" "/opt/ros/galactic/bin/ament_xmllint" "--xunit-file" "/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/xmllint.xunit.xml"\n'}
+[2.282217] (experiment1) StdoutLine: {'line': b'6: Test timeout computed to be: 60\n'}
+[2.323124] (-) TimerEvent: {}
+[2.363331] (experiment1) StdoutLine: {'line': b"6: -- run_test.py: invoking following command in '/home/marhcouto/Documents/training/experiment1':\n"}
+[2.363766] (experiment1) StdoutLine: {'line': b'6:  - /opt/ros/galactic/bin/ament_xmllint --xunit-file /home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/xmllint.xunit.xml\n'}
+[2.423312] (-) TimerEvent: {}
+[2.523778] (-) TimerEvent: {}
+[2.624260] (-) TimerEvent: {}
+[2.728296] (-) TimerEvent: {}
+[2.828849] (-) TimerEvent: {}
+[2.929686] (-) TimerEvent: {}
+[3.030258] (-) TimerEvent: {}
+[3.133689] (-) TimerEvent: {}
+[3.234613] (-) TimerEvent: {}
+[3.335177] (-) TimerEvent: {}
+[3.435749] (-) TimerEvent: {}
+[3.538444] (-) TimerEvent: {}
+[3.641842] (-) TimerEvent: {}
+[3.743938] (-) TimerEvent: {}
+[3.844432] (-) TimerEvent: {}
+[3.890252] (experiment1) StdoutLine: {'line': b"6: File 'package.xml' is valid\n"}
+[3.890641] (experiment1) StdoutLine: {'line': b'6: \n'}
+[3.890810] (experiment1) StdoutLine: {'line': b'6: No problems found\n'}
+[3.911102] (experiment1) StdoutLine: {'line': b'6: -- run_test.py: return code 0\n'}
+[3.911528] (experiment1) StdoutLine: {'line': b"6: -- run_test.py: verify result file '/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/xmllint.xunit.xml'\n"}
+[3.930817] (experiment1) StdoutLine: {'line': b'6/6 Test #6: xmllint ..........................   Passed    1.65 sec\n'}
+[3.932070] (experiment1) StdoutLine: {'line': b'\n'}
+[3.932506] (experiment1) StdoutLine: {'line': b'33% tests passed\x1b[0;0m, \x1b[0;31m4 tests failed\x1b[0;0m out of 6\n'}
+[3.932723] (experiment1) StdoutLine: {'line': b'\n'}
+[3.932906] (experiment1) StdoutLine: {'line': b'Label Time Summary:\n'}
+[3.933086] (experiment1) StdoutLine: {'line': b'copyright     =   0.53 sec*proc (1 test)\n'}
+[3.933266] (experiment1) StdoutLine: {'line': b'cppcheck      =   0.47 sec*proc (1 test)\n'}
+[3.933477] (experiment1) StdoutLine: {'line': b'cpplint       =   0.42 sec*proc (1 test)\n'}
+[3.933653] (experiment1) StdoutLine: {'line': b'lint_cmake    =   0.37 sec*proc (1 test)\n'}
+[3.933828] (experiment1) StdoutLine: {'line': b'linter        =   3.86 sec*proc (6 tests)\n'}
+[3.934143] (experiment1) StdoutLine: {'line': b'uncrustify    =   0.41 sec*proc (1 test)\n'}
+[3.934349] (experiment1) StdoutLine: {'line': b'xmllint       =   1.65 sec*proc (1 test)\n'}
+[3.934491] (experiment1) StdoutLine: {'line': b'\n'}
+[3.934675] (experiment1) StdoutLine: {'line': b'Total Test time (real) =   3.86 sec\n'}
+[3.934856] (experiment1) StdoutLine: {'line': b'\n'}
+[3.935039] (experiment1) StdoutLine: {'line': b'The following tests FAILED:\n'}
+[3.935221] (experiment1) StdoutLine: {'line': b'\t\x1b[0;31m  1 - copyright (Failed)\x1b[0;0m\n'}
+[3.935409] (experiment1) StdoutLine: {'line': b'\t\x1b[0;31m  2 - cppcheck (Failed)\x1b[0;0m\n'}
+[3.935591] (experiment1) StdoutLine: {'line': b'\t\x1b[0;31m  3 - cpplint (Failed)\x1b[0;0m\n'}
+[3.935771] (experiment1) StdoutLine: {'line': b'\t\x1b[0;31m  5 - uncrustify (Failed)\x1b[0;0m\n'}
+[3.936021] (experiment1) StderrLine: {'line': b'Errors while running CTest\n'}
+[3.937560] (experiment1) CommandEnded: {'returncode': 8}
+[3.938586] (experiment1) TestFailure: {'identifier': 'experiment1'}
+[3.938697] (experiment1) JobEnded: {'identifier': 'experiment1', 'rc': 0}
+[3.939423] (-) EventReactorShutdown: {}

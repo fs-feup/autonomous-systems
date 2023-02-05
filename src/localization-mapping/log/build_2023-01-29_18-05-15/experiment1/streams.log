@@ -1,0 +1,25 @@
+[0.036s] Invoking command in '/home/marhcouto/Documents/training/build/experiment1': CMAKE_PREFIX_PATH=/opt/ros/galactic /usr/bin/cmake --build /home/marhcouto/Documents/training/build/experiment1 -- -j4 -l4
+[0.086s] [35m[1mScanning dependencies of target node1[0m
+[0.101s] [ 50%] [32mBuilding CXX object CMakeFiles/node1.dir/src/node1.cpp.o[0m
+[0.604s] [100%] [32m[1mLinking CXX executable node1[0m
+[0.739s] [100%] Built target node1
+[0.756s] Invoked command in '/home/marhcouto/Documents/training/build/experiment1' returned '0': CMAKE_PREFIX_PATH=/opt/ros/galactic /usr/bin/cmake --build /home/marhcouto/Documents/training/build/experiment1 -- -j4 -l4
+[0.801s] Invoking command in '/home/marhcouto/Documents/training/build/experiment1': CMAKE_PREFIX_PATH=/opt/ros/galactic /usr/bin/cmake --install /home/marhcouto/Documents/training/build/experiment1
+[0.813s] -- Install configuration: ""
+[0.814s] -- Installing: /home/marhcouto/Documents/training/install/experiment1/lib/experiment1/node1
+[0.814s] -- Up-to-date: /home/marhcouto/Documents/training/install/experiment1/share/ament_index/resource_index/package_run_dependencies/experiment1
+[0.815s] -- Up-to-date: /home/marhcouto/Documents/training/install/experiment1/share/ament_index/resource_index/parent_prefix_path/experiment1
+[0.815s] -- Up-to-date: /home/marhcouto/Documents/training/install/experiment1/share/experiment1/environment/ament_prefix_path.sh
+[0.816s] -- Installing: /home/marhcouto/Documents/training/install/experiment1/share/experiment1/environment/ament_prefix_path.dsv
+[0.816s] -- Up-to-date: /home/marhcouto/Documents/training/install/experiment1/share/experiment1/environment/path.sh
+[0.817s] -- Installing: /home/marhcouto/Documents/training/install/experiment1/share/experiment1/environment/path.dsv
+[0.817s] -- Up-to-date: /home/marhcouto/Documents/training/install/experiment1/share/experiment1/local_setup.bash
+[0.818s] -- Up-to-date: /home/marhcouto/Documents/training/install/experiment1/share/experiment1/local_setup.sh
+[0.818s] -- Up-to-date: /home/marhcouto/Documents/training/install/experiment1/share/experiment1/local_setup.zsh
+[0.818s] -- Installing: /home/marhcouto/Documents/training/install/experiment1/share/experiment1/local_setup.dsv
+[0.818s] -- Installing: /home/marhcouto/Documents/training/install/experiment1/share/experiment1/package.dsv
+[0.818s] -- Up-to-date: /home/marhcouto/Documents/training/install/experiment1/share/ament_index/resource_index/packages/experiment1
+[0.818s] -- Up-to-date: /home/marhcouto/Documents/training/install/experiment1/share/experiment1/cmake/experiment1Config.cmake
+[0.819s] -- Up-to-date: /home/marhcouto/Documents/training/install/experiment1/share/experiment1/cmake/experiment1Config-version.cmake
+[0.819s] -- Up-to-date: /home/marhcouto/Documents/training/install/experiment1/share/experiment1/package.xml
+[0.823s] Invoked command in '/home/marhcouto/Documents/training/build/experiment1' returned '0': CMAKE_PREFIX_PATH=/opt/ros/galactic /usr/bin/cmake --install /home/marhcouto/Documents/training/build/experiment1

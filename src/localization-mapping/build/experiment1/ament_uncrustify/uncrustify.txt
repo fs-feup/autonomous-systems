@@ -1,0 +1,74 @@
+-- run_test.py: invoking following command in '/home/marhcouto/Documents/training/experiment1':
+ - /opt/ros/galactic/bin/ament_uncrustify --xunit-file /home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/uncrustify.xunit.xml
+
+Code style divergence in file 'include/experiment1/car.h':
+
+--- include/experiment1/car.h
++++ include/experiment1/car.h.uncrustify
+@@ -7,2 +7,3 @@
+-    int speed;
+-    int weight;
++  int speed;
++  int weight;
++
+@@ -10,2 +11,2 @@
+-    Car(int speed, int weight);
+-    ~Car();
++  Car(int speed, int weight);
++  ~Car();
+@@ -13 +14 @@
+-    void use_horn();
++  void use_horn();
+@@ -16 +17 @@
+-#endif 
++#endif
+
+Code style divergence in file 'src/car.cpp':
+
+--- src/car.cpp
++++ src/car.cpp.uncrustify
+@@ -5,3 +5,4 @@
+-Car::Car(int speed, int weight) {
+-    this->speed = speed;
+-    this->weight = weight;
++Car::Car(int speed, int weight)
++{
++  this->speed = speed;
++  this->weight = weight;
+@@ -14,2 +15,3 @@
+-void Car::use_horn() {
+-    std::cout << "Beep" << std::endl;
++void Car::use_horn()
++{
++  std::cout << "Beep" << std::endl;
+
+Code style divergence in file 'test/car_test.cpp':
+
+--- test/car_test.cpp
++++ test/car_test.cpp.uncrustify
+@@ -4,2 +4,2 @@
+-    EXPECT_TRUE(true);
+-}
++  EXPECT_TRUE(true);
++}
+
+Code style divergence in file 'test/main.cpp':
+
+--- test/main.cpp
++++ test/main.cpp.uncrustify
+@@ -3 +3 @@
+-int main(int argc, char *argv[])
++int main(int argc, char * argv[])
+@@ -5,2 +5,2 @@
+-    ::testing::InitGoogleTest(&argc, argv);
+-    return RUN_ALL_TESTS();
++  ::testing::InitGoogleTest(&argc, argv);
++  return RUN_ALL_TESTS();
+
+4 files with code style divergence
+No code style divergence in file 'src/node1.cpp'
+
+
+
+-- run_test.py: return code 1
+-- run_test.py: verify result file '/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/uncrustify.xunit.xml'

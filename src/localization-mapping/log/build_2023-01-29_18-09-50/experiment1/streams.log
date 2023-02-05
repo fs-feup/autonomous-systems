@@ -1,0 +1,21 @@
+[0.033s] Invoking command in '/home/marhcouto/Documents/training/build/experiment1': CMAKE_PREFIX_PATH=/opt/ros/galactic /usr/bin/cmake --build /home/marhcouto/Documents/training/build/experiment1 -- -j4 -l4
+[0.088s] [35m[1mScanning dependencies of target experiment1[0m
+[0.103s] [ 25%] [32m[1mLinking CXX executable node1[0m
+[0.104s] [ 50%] [32mBuilding CXX object CMakeFiles/experiment1.dir/src/Car.cpp.o[0m
+[0.153s] [01m[K/home/marhcouto/Documents/training/experiment1/src/Car.cpp:3:10:[m[K [01;31m[Kfatal error: [m[Kexperiment1/Car.h: No such file or directory
+[0.153s]     3 | #include [01;31m[K"experiment1/Car.h"[m[K
+[0.154s]       |          [01;31m[K^~~~~~~~~~~~~~~~~~~[m[K
+[0.154s] compilation terminated.
+[0.155s] make[2]: *** [CMakeFiles/experiment1.dir/build.make:63: CMakeFiles/experiment1.dir/src/Car.cpp.o] Error 1
+[0.156s] make[1]: *** [CMakeFiles/Makefile2:80: CMakeFiles/experiment1.dir/all] Error 2
+[0.156s] make[1]: *** Waiting for unfinished jobs....
+[0.232s] /usr/bin/ld: CMakeFiles/node1.dir/src/node1.cpp.o: in function `main':
+[0.232s] node1.cpp:(.text+0x41): undefined reference to `Car::Car(int, int)'
+[0.232s] /usr/bin/ld: node1.cpp:(.text+0x4d): undefined reference to `Car::use_horn()'
+[0.232s] /usr/bin/ld: node1.cpp:(.text+0x5e): undefined reference to `Car::~Car()'
+[0.232s] /usr/bin/ld: node1.cpp:(.text+0x84): undefined reference to `Car::~Car()'
+[0.233s] collect2: error: ld returned 1 exit status
+[0.233s] make[2]: *** [CMakeFiles/node1.dir/build.make:84: node1] Error 1
+[0.233s] make[1]: *** [CMakeFiles/Makefile2:107: CMakeFiles/node1.dir/all] Error 2
+[0.234s] make: *** [Makefile:141: all] Error 2
+[0.237s] Invoked command in '/home/marhcouto/Documents/training/build/experiment1' returned '2': CMAKE_PREFIX_PATH=/opt/ros/galactic /usr/bin/cmake --build /home/marhcouto/Documents/training/build/experiment1 -- -j4 -l4

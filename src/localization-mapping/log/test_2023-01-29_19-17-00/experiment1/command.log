@@ -1,0 +1,2 @@
+Invoking command in '/home/marhcouto/Documents/training/build/experiment1': /usr/bin/ctest -C Release -D ExperimentalTest --no-compress-output -V --force-new-ctest-process
+Invoked command in '/home/marhcouto/Documents/training/build/experiment1' returned '0': /usr/bin/ctest -C Release -D ExperimentalTest --no-compress-output -V --force-new-ctest-process

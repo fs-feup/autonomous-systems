@@ -1,0 +1,38 @@
+-- run_test.py: invoking following command in '/home/marhcouto/Documents/training/experiment1':
+ - /opt/ros/galactic/bin/ament_cpplint --xunit-file /home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/cpplint.xunit.xml
+
+/home/marhcouto/Documents/training/experiment1/include/experiment1/car.h:0:  No copyright message found.  You should have a line: "Copyright [year] <Copyright Owner>"  [legal/copyright] [5]
+/home/marhcouto/Documents/training/experiment1/include/experiment1/car.h:1:  #ifndef header guard has wrong style, please use: EXPERIMENT1__CAR_H_  [build/header_guard] [5]
+/home/marhcouto/Documents/training/experiment1/include/experiment1/car.h:16:  #endif line should be "#endif  // EXPERIMENT1__CAR_H_"  [build/header_guard] [5]
+/home/marhcouto/Documents/training/experiment1/include/experiment1/car.h:16:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+/home/marhcouto/Documents/training/experiment1/include/experiment1/car.h:16:  Could not find a newline character at the end of the file.  [whitespace/ending_newline] [5]
+/home/marhcouto/Documents/training/experiment1/src/car.cpp:0:  No copyright message found.  You should have a line: "Copyright [year] <Copyright Owner>"  [legal/copyright] [5]
+/home/marhcouto/Documents/training/experiment1/src/node1.cpp:0:  No copyright message found.  You should have a line: "Copyright [year] <Copyright Owner>"  [legal/copyright] [5]
+/home/marhcouto/Documents/training/experiment1/test/car_test.cpp:0:  No copyright message found.  You should have a line: "Copyright [year] <Copyright Owner>"  [legal/copyright] [5]
+/home/marhcouto/Documents/training/experiment1/test/car_test.cpp:5:  Could not find a newline character at the end of the file.  [whitespace/ending_newline] [5]
+/home/marhcouto/Documents/training/experiment1/test/main.cpp:0:  No copyright message found.  You should have a line: "Copyright [year] <Copyright Owner>"  [legal/copyright] [5]
+Category 'build/header_guard' errors found: 2
+Category 'legal/copyright' errors found: 5
+Category 'whitespace/end_of_line' errors found: 1
+Category 'whitespace/ending_newline' errors found: 2
+Total errors found: 10
+Using '--root=/home/marhcouto/Documents/training/experiment1/include' argument
+
+Done processing /home/marhcouto/Documents/training/experiment1/include/experiment1/car.h
+
+Using '--root=/home/marhcouto/Documents/training/experiment1/src' argument
+
+Done processing /home/marhcouto/Documents/training/experiment1/src/car.cpp
+
+Done processing /home/marhcouto/Documents/training/experiment1/src/node1.cpp
+
+Using '--root=/home/marhcouto/Documents/training/experiment1/test' argument
+
+Done processing /home/marhcouto/Documents/training/experiment1/test/car_test.cpp
+
+Done processing /home/marhcouto/Documents/training/experiment1/test/main.cpp
+
+
+
+-- run_test.py: return code 1
+-- run_test.py: verify result file '/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/cpplint.xunit.xml'

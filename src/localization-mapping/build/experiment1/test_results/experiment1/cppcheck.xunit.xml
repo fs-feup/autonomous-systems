@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite
+  name="experiment1.cppcheck"
+  tests="5"
+  errors="0"
+  failures="1"
+  time="0.020"
+  skipped="0"
+>
+  <testcase
+    name="error: syntaxError (include/experiment1/car.h:4)"
+    classname="experiment1.cppcheck"
+  >
+      <failure message="Code 'classCar{' is invalid C code. Use --std or --language to configure the language."/>
+  </testcase>
+  <testcase
+    name="src/car.cpp"
+    classname="experiment1.cppcheck"/>
+  <testcase
+    name="src/node1.cpp"
+    classname="experiment1.cppcheck"/>
+  <testcase
+    name="test/car_test.cpp"
+    classname="experiment1.cppcheck"/>
+  <testcase
+    name="test/main.cpp"
+    classname="experiment1.cppcheck"/>
+  <system-out>Checked files:
+* include/experiment1/car.h
+* src/car.cpp
+* src/node1.cpp
+* test/car_test.cpp
+* test/main.cpp</system-out>
+</testsuite>
