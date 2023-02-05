@@ -1,0 +1,11 @@
+[0.024s] Invoking command in '/home/marhcouto/Documents/training/build/experiment1': CMAKE_PREFIX_PATH=/opt/ros/galactic /usr/bin/cmake --build /home/marhcouto/Documents/training/build/experiment1 -- -j4 -l4
+[0.086s] [35m[1mScanning dependencies of target node1[0m
+[0.105s] [ 50%] [32mBuilding CXX object CMakeFiles/node1.dir/src/node1.cpp.o[0m
+[0.124s] [01m[K/home/marhcouto/Documents/training/experiment1/src/node1.cpp:3:10:[m[K [01;31m[Kfatal error: [m[KCar.h: No such file or directory
+[0.124s]     3 | #include [01;31m[K"Car.h"[m[K
+[0.124s]       |          [01;31m[K^~~~~~~[m[K
+[0.126s] compilation terminated.
+[0.126s] make[2]: *** [CMakeFiles/node1.dir/build.make:63: CMakeFiles/node1.dir/src/node1.cpp.o] Error 1
+[0.126s] make[1]: *** [CMakeFiles/Makefile2:78: CMakeFiles/node1.dir/all] Error 2
+[0.126s] make: *** [Makefile:141: all] Error 2
+[0.129s] Invoked command in '/home/marhcouto/Documents/training/build/experiment1' returned '2': CMAKE_PREFIX_PATH=/opt/ros/galactic /usr/bin/cmake --build /home/marhcouto/Documents/training/build/experiment1 -- -j4 -l4

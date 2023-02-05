@@ -1,0 +1,1 @@
+/usr/bin/c++     CMakeFiles/experiment1_test.dir/test/main.cpp.o CMakeFiles/experiment1_test.dir/test/car_test.cpp.o  -o experiment1_test  gtest/libgtest_main.a gtest/libgtest.a -pthread 

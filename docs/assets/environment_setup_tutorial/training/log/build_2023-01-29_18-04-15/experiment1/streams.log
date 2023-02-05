@@ -1,0 +1,30 @@
+[0.034s] Invoking command in '/home/marhcouto/Documents/training/build/experiment1': CMAKE_PREFIX_PATH=/opt/ros/galactic /usr/bin/cmake --build /home/marhcouto/Documents/training/build/experiment1 -- -j4 -l4
+[0.063s] -- Found ament_cmake: 1.1.6 (/opt/ros/galactic/share/ament_cmake/cmake)
+[0.127s] -- Using PYTHON_EXECUTABLE: /usr/bin/python3
+[0.230s] -- Found ament_lint_auto: 0.10.7 (/opt/ros/galactic/share/ament_lint_auto/cmake)
+[0.310s] -- Added test 'copyright' to check source files copyright and LICENSE
+[0.312s] -- Added test 'cppcheck' to perform static code analysis on C / C++ code
+[0.312s] -- Configured cppcheck include dirs: $<BUILD_INTERFACE:/home/marhcouto/Documents/training/experiment1/include>
+[0.312s] -- Configured cppcheck exclude dirs and/or files: 
+[0.313s] -- Added test 'cpplint' to check C / C++ code against the Google style
+[0.313s] -- Configured cpplint exclude dirs and/or files: 
+[0.314s] -- Added test 'lint_cmake' to check CMake code style
+[0.315s] -- Added test 'uncrustify' to check C / C++ code style
+[0.315s] -- Configured uncrustify additional arguments: 
+[0.315s] -- Added test 'xmllint' to check XML markup files
+[0.317s] -- Configuring done
+[0.325s] -- Generating done
+[0.328s] -- Build files have been written to: /home/marhcouto/Documents/training/build/experiment1
+[0.361s] [35m[1mScanning dependencies of target node1[0m
+[0.378s] [ 50%] [32mBuilding CXX object CMakeFiles/node1.dir/src/node1.cpp.o[0m
+[0.418s] [100%] [32m[1mLinking CXX executable node1[0m
+[0.563s] /usr/bin/ld: CMakeFiles/node1.dir/src/node1.cpp.o: in function `main':
+[0.563s] node1.cpp:(.text+0x41): undefined reference to `Car::Car(int, int)'
+[0.564s] /usr/bin/ld: node1.cpp:(.text+0x4d): undefined reference to `Car::use_horn()'
+[0.565s] /usr/bin/ld: node1.cpp:(.text+0x5e): undefined reference to `Car::~Car()'
+[0.566s] /usr/bin/ld: node1.cpp:(.text+0x84): undefined reference to `Car::~Car()'
+[0.566s] collect2: error: ld returned 1 exit status
+[0.575s] make[2]: *** [CMakeFiles/node1.dir/build.make:84: node1] Error 1
+[0.577s] make[1]: *** [CMakeFiles/Makefile2:78: CMakeFiles/node1.dir/all] Error 2
+[0.577s] make: *** [Makefile:141: all] Error 2
+[0.581s] Invoked command in '/home/marhcouto/Documents/training/build/experiment1' returned '2': CMAKE_PREFIX_PATH=/opt/ros/galactic /usr/bin/cmake --build /home/marhcouto/Documents/training/build/experiment1 -- -j4 -l4

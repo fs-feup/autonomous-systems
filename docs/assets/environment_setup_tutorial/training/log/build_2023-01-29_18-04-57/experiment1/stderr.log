@@ -1,0 +1,17 @@
+In file included from [01m[K/home/marhcouto/Documents/training/experiment1/src/node1.cpp:3[m[K:
+[01m[K/home/marhcouto/Documents/training/experiment1/include/experiment1/Car.h:[m[K In member function ‘[01m[Kvoid Car::use_horn()[m[K’:
+[01m[K/home/marhcouto/Documents/training/experiment1/include/experiment1/Car.h:26:10:[m[K [01;31m[Kerror: [m[K‘[01m[Kcout[m[K’ is not a member of ‘[01m[Kstd[m[K’
+   26 |     std::[01;31m[Kcout[m[K << "Beep" << std::endl;
+      |          [01;31m[K^~~~[m[K
+[01m[K/home/marhcouto/Documents/training/experiment1/include/experiment1/Car.h:1:1:[m[K [01;36m[Knote: [m[K‘[01m[Kstd::cout[m[K’ is defined in header ‘[01m[K<iostream>[m[K’; did you forget to ‘[01m[K#include <iostream>[m[K’?
+  +++ |+[32m[K#include <iostream>[m[K
+    1 | #ifndef MYPROJECT_MYCLASS_HPP
+[01m[K/home/marhcouto/Documents/training/experiment1/include/experiment1/Car.h:26:33:[m[K [01;31m[Kerror: [m[K‘[01m[Kendl[m[K’ is not a member of ‘[01m[Kstd[m[K’
+   26 |     std::cout << "Beep" << std::[01;31m[Kendl[m[K;
+      |                                 [01;31m[K^~~~[m[K
+[01m[K/home/marhcouto/Documents/training/experiment1/include/experiment1/Car.h:1:1:[m[K [01;36m[Knote: [m[K‘[01m[Kstd::endl[m[K’ is defined in header ‘[01m[K<ostream>[m[K’; did you forget to ‘[01m[K#include <ostream>[m[K’?
+  +++ |+[32m[K#include <ostream>[m[K
+    1 | #ifndef MYPROJECT_MYCLASS_HPP
+make[2]: *** [CMakeFiles/node1.dir/build.make:63: CMakeFiles/node1.dir/src/node1.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:78: CMakeFiles/node1.dir/all] Error 2
+make: *** [Makefile:141: all] Error 2

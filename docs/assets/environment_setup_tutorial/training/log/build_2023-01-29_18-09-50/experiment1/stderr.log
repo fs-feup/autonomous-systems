@@ -1,0 +1,16 @@
+[01m[K/home/marhcouto/Documents/training/experiment1/src/Car.cpp:3:10:[m[K [01;31m[Kfatal error: [m[Kexperiment1/Car.h: No such file or directory
+    3 | #include [01;31m[K"experiment1/Car.h"[m[K
+      |          [01;31m[K^~~~~~~~~~~~~~~~~~~[m[K
+compilation terminated.
+make[2]: *** [CMakeFiles/experiment1.dir/build.make:63: CMakeFiles/experiment1.dir/src/Car.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:80: CMakeFiles/experiment1.dir/all] Error 2
+make[1]: *** Waiting for unfinished jobs....
+/usr/bin/ld: CMakeFiles/node1.dir/src/node1.cpp.o: in function `main':
+node1.cpp:(.text+0x41): undefined reference to `Car::Car(int, int)'
+/usr/bin/ld: node1.cpp:(.text+0x4d): undefined reference to `Car::use_horn()'
+/usr/bin/ld: node1.cpp:(.text+0x5e): undefined reference to `Car::~Car()'
+/usr/bin/ld: node1.cpp:(.text+0x84): undefined reference to `Car::~Car()'
+collect2: error: ld returned 1 exit status
+make[2]: *** [CMakeFiles/node1.dir/build.make:84: node1] Error 1
+make[1]: *** [CMakeFiles/Makefile2:107: CMakeFiles/node1.dir/all] Error 2
+make: *** [Makefile:141: all] Error 2
