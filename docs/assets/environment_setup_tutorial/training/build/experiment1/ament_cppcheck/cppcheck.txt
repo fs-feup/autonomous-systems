@@ -1,0 +1,9 @@
+-- run_test.py: invoking following command in '/home/marhcouto/Documents/training/experiment1':
+ - /opt/ros/galactic/bin/ament_cppcheck --xunit-file /home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/cppcheck.xunit.xml --include_dirs /home/marhcouto/Documents/training/experiment1/include
+
+[include/experiment1/car.h:4]: (error: syntaxError) Code 'classCar{' is invalid C code. Use --std or --language to configure the language.
+1 errors
+
+
+-- run_test.py: return code 1
+-- run_test.py: verify result file '/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/cppcheck.xunit.xml'

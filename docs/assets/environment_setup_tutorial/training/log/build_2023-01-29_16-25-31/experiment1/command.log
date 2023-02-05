@@ -1,0 +1,6 @@
+Invoking command in '/home/marhcouto/Documents/training/build/experiment1': CMAKE_PREFIX_PATH=/opt/ros/galactic /usr/bin/cmake /home/marhcouto/Documents/training/experiment1 -DCMAKE_INSTALL_PREFIX=/home/marhcouto/Documents/training/install/experiment1
+Invoked command in '/home/marhcouto/Documents/training/build/experiment1' returned '0': CMAKE_PREFIX_PATH=/opt/ros/galactic /usr/bin/cmake /home/marhcouto/Documents/training/experiment1 -DCMAKE_INSTALL_PREFIX=/home/marhcouto/Documents/training/install/experiment1
+Invoking command in '/home/marhcouto/Documents/training/build/experiment1': CMAKE_PREFIX_PATH=/opt/ros/galactic /usr/bin/cmake --build /home/marhcouto/Documents/training/build/experiment1 -- -j4 -l4
+Invoked command in '/home/marhcouto/Documents/training/build/experiment1' returned '0': CMAKE_PREFIX_PATH=/opt/ros/galactic /usr/bin/cmake --build /home/marhcouto/Documents/training/build/experiment1 -- -j4 -l4
+Invoking command in '/home/marhcouto/Documents/training/build/experiment1': CMAKE_PREFIX_PATH=/opt/ros/galactic /usr/bin/cmake --install /home/marhcouto/Documents/training/build/experiment1
+Invoked command in '/home/marhcouto/Documents/training/build/experiment1' returned '0': CMAKE_PREFIX_PATH=/opt/ros/galactic /usr/bin/cmake --install /home/marhcouto/Documents/training/build/experiment1

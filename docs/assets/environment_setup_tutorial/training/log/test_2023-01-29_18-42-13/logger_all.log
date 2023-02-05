@@ -1,0 +1,72 @@
+[0.309s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'test']
+[0.309s] DEBUG:colcon:Parsed command line arguments: Namespace(abort_on_error=False, allow_overriding=[], base_paths=['.'], build_base='build', ctest_args=None, event_handlers=None, executor='parallel', ignore_user_meta=False, install_base='install', log_base=None, log_level=None, main=<bound method TestVerb.main of <colcon_core.verb.test.TestVerb object at 0x7f5c1203f3a0>>, merge_install=False, metas=['./colcon.meta'], packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_end=None, packages_ignore=None, packages_ignore_regex=None, packages_select=None, packages_select_build_failed=False, packages_select_by_dep=None, packages_select_regex=None, packages_select_test_failures=False, packages_skip=None, packages_skip_build_finished=False, packages_skip_by_dep=None, packages_skip_regex=None, packages_skip_test_passed=False, packages_skip_up_to=None, packages_start=None, packages_up_to=None, packages_up_to_regex=None, parallel_workers=4, paths=None, pytest_args=None, pytest_with_coverage=False, python_testing=None, retest_until_fail=0, retest_until_pass=0, return_code_on_test_failure=False, test_result_base=None, unittest_args=None, verb_extension=<colcon_core.verb.test.TestVerb object at 0x7f5c1203f3a0>, verb_name='test', verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0x7f5c12047a60>)
+[0.337s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.337s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.337s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.337s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.337s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.337s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.338s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/marhcouto/Documents/training'
+[0.338s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.338s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.338s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.338s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.338s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.338s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.338s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.338s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.338s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.353s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[0.354s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[0.354s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[0.354s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[0.354s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[0.354s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[0.354s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[0.354s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[0.354s] Level 1:colcon.colcon_core.package_identification:_identify(experiment1) by extensions ['ignore', 'ignore_ament_install']
+[0.355s] Level 1:colcon.colcon_core.package_identification:_identify(experiment1) by extension 'ignore'
+[0.355s] Level 1:colcon.colcon_core.package_identification:_identify(experiment1) by extension 'ignore_ament_install'
+[0.355s] Level 1:colcon.colcon_core.package_identification:_identify(experiment1) by extensions ['colcon_pkg']
+[0.355s] Level 1:colcon.colcon_core.package_identification:_identify(experiment1) by extension 'colcon_pkg'
+[0.355s] Level 1:colcon.colcon_core.package_identification:_identify(experiment1) by extensions ['colcon_meta']
+[0.355s] Level 1:colcon.colcon_core.package_identification:_identify(experiment1) by extension 'colcon_meta'
+[0.355s] Level 1:colcon.colcon_core.package_identification:_identify(experiment1) by extensions ['ros']
+[0.355s] Level 1:colcon.colcon_core.package_identification:_identify(experiment1) by extension 'ros'
+[0.358s] DEBUG:colcon.colcon_core.package_identification:Package 'experiment1' with type 'ros.ament_cmake' and name 'experiment1'
+[0.358s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[0.359s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[0.359s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[0.359s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[0.359s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[0.359s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[0.359s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.359s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.359s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.359s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.360s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.368s] Level 5:colcon.colcon_core.verb:set package 'experiment1' test argument 'ctest_args' from command line to 'None'
+[0.368s] Level 5:colcon.colcon_core.verb:set package 'experiment1' test argument 'python_testing' from command line to 'None'
+[0.369s] Level 5:colcon.colcon_core.verb:set package 'experiment1' test argument 'pytest_args' from command line to 'None'
+[0.369s] Level 5:colcon.colcon_core.verb:set package 'experiment1' test argument 'pytest_with_coverage' from command line to 'False'
+[0.369s] Level 5:colcon.colcon_core.verb:set package 'experiment1' test argument 'unittest_args' from command line to 'None'
+[0.369s] Level 5:colcon.colcon_core.verb:set package 'experiment1' test argument 'retest_until_pass' from command line to '0'
+[0.369s] Level 5:colcon.colcon_core.verb:set package 'experiment1' test argument 'retest_until_fail' from command line to '0'
+[0.369s] DEBUG:colcon.colcon_core.verb.test:Testing package 'experiment1' with the following arguments: {'build_base': '/home/marhcouto/Documents/training/build/experiment1', 'ctest_args': None, 'install_base': '/home/marhcouto/Documents/training/install/experiment1', 'path': '/home/marhcouto/Documents/training/experiment1', 'pytest_args': None, 'pytest_with_coverage': False, 'python_testing': None, 'retest_until_fail': 0, 'retest_until_pass': 0, 'test_result_base': None, 'unittest_args': None}
+[0.370s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.375s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.375s] INFO:colcon.colcon_ros.task.ament_cmake.test:Testing ROS package in '/home/marhcouto/Documents/training/experiment1' with build type 'ament_cmake'
+[0.376s] INFO:colcon.colcon_cmake.task.cmake.test:Testing CMake package in '/home/marhcouto/Documents/training/experiment1'
+[0.384s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.384s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.384s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.431s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/marhcouto/Documents/training/build/experiment1': /usr/bin/ctest -C Release -D ExperimentalTest --no-compress-output -V --force-new-ctest-process
+[4.312s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[4.313s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[4.313s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/marhcouto/Documents/training/build/experiment1' returned '8': /usr/bin/ctest -C Release -D ExperimentalTest --no-compress-output -V --force-new-ctest-process
+[4.313s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[4.314s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[4.321s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[4.321s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[4.322s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[4.353s] DEBUG:colcon.colcon_core.event_reactor:joined thread

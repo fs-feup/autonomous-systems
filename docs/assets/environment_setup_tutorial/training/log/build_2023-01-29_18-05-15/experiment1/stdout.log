@@ -1,0 +1,21 @@
+[35m[1mScanning dependencies of target node1[0m
+[ 50%] [32mBuilding CXX object CMakeFiles/node1.dir/src/node1.cpp.o[0m
+[100%] [32m[1mLinking CXX executable node1[0m
+[100%] Built target node1
+-- Install configuration: ""
+-- Installing: /home/marhcouto/Documents/training/install/experiment1/lib/experiment1/node1
+-- Up-to-date: /home/marhcouto/Documents/training/install/experiment1/share/ament_index/resource_index/package_run_dependencies/experiment1
+-- Up-to-date: /home/marhcouto/Documents/training/install/experiment1/share/ament_index/resource_index/parent_prefix_path/experiment1
+-- Up-to-date: /home/marhcouto/Documents/training/install/experiment1/share/experiment1/environment/ament_prefix_path.sh
+-- Installing: /home/marhcouto/Documents/training/install/experiment1/share/experiment1/environment/ament_prefix_path.dsv
+-- Up-to-date: /home/marhcouto/Documents/training/install/experiment1/share/experiment1/environment/path.sh
+-- Installing: /home/marhcouto/Documents/training/install/experiment1/share/experiment1/environment/path.dsv
+-- Up-to-date: /home/marhcouto/Documents/training/install/experiment1/share/experiment1/local_setup.bash
+-- Up-to-date: /home/marhcouto/Documents/training/install/experiment1/share/experiment1/local_setup.sh
+-- Up-to-date: /home/marhcouto/Documents/training/install/experiment1/share/experiment1/local_setup.zsh
+-- Installing: /home/marhcouto/Documents/training/install/experiment1/share/experiment1/local_setup.dsv
+-- Installing: /home/marhcouto/Documents/training/install/experiment1/share/experiment1/package.dsv
+-- Up-to-date: /home/marhcouto/Documents/training/install/experiment1/share/ament_index/resource_index/packages/experiment1
+-- Up-to-date: /home/marhcouto/Documents/training/install/experiment1/share/experiment1/cmake/experiment1Config.cmake
+-- Up-to-date: /home/marhcouto/Documents/training/install/experiment1/share/experiment1/cmake/experiment1Config-version.cmake
+-- Up-to-date: /home/marhcouto/Documents/training/install/experiment1/share/experiment1/package.xml

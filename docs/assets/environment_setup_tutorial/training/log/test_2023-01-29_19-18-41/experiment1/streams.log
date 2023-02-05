@@ -1,0 +1,46 @@
+[0.068s] Invoking command in '/home/marhcouto/Documents/training/build/experiment1': /usr/bin/ctest -C Release -D ExperimentalTest --no-compress-output -V --force-new-ctest-process
+[0.080s] UpdateCTestConfiguration  from :/home/marhcouto/Documents/training/build/experiment1/CTestConfiguration.ini
+[0.082s] Parse Config file:/home/marhcouto/Documents/training/build/experiment1/CTestConfiguration.ini
+[0.083s]    Site: marhcouto-VirtualBox
+[0.085s]    Build name: (empty)
+[0.086s]  Add coverage exclude regular expressions.
+[0.088s] SetCTestConfiguration:CMakeCommand:/usr/bin/cmake
+[0.091s] Create new tag: 20230129-1918 - Experimental
+[0.093s] UpdateCTestConfiguration  from :/home/marhcouto/Documents/training/build/experiment1/CTestConfiguration.ini
+[0.094s] Parse Config file:/home/marhcouto/Documents/training/build/experiment1/CTestConfiguration.ini
+[0.096s] Test project /home/marhcouto/Documents/training/build/experiment1
+[0.097s] Constructing a list of tests
+[0.101s] Done constructing a list of tests
+[0.104s] Updating test list for fixtures
+[0.105s] Added 0 tests to meet fixture requirements
+[0.107s] Checking test dependency graph...
+[0.109s] Checking test dependency graph end
+[0.111s] test 1
+[0.113s]     Start 1: experiment1_test
+[0.114s] 
+[0.116s] 1: Test command: /usr/bin/python3 "-u" "/opt/ros/galactic/share/ament_cmake_test/cmake/run_test.py" "/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/experiment1_test.gtest.xml" "--package-name" "experiment1" "--output-file" "/home/marhcouto/Documents/training/build/experiment1/ament_cmake_gtest/experiment1_test.txt" "--command" "/home/marhcouto/Documents/training/build/experiment1/experiment1_test" "--gtest_output=xml:/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/experiment1_test.gtest.xml"
+[0.118s] 1: Test timeout computed to be: 60
+[0.209s] 1: -- run_test.py: invoking following command in '/home/marhcouto/Documents/training/build/experiment1':
+[0.210s] 1:  - /home/marhcouto/Documents/training/build/experiment1/experiment1_test --gtest_output=xml:/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/experiment1_test.gtest.xml
+[0.213s] 1: [==========] Running 1 test from 1 test suite.
+[0.214s] 1: [----------] Global test environment set-up.
+[0.215s] 1: [----------] 1 test from DEMO_TEST_SUITE
+[0.216s] 1: [ RUN      ] DEMO_TEST_SUITE.TEST_CAR
+[0.219s] 1: [       OK ] DEMO_TEST_SUITE.TEST_CAR (0 ms)
+[0.219s] 1: [----------] 1 test from DEMO_TEST_SUITE (0 ms total)
+[0.219s] 1: 
+[0.220s] 1: [----------] Global test environment tear-down
+[0.220s] 1: [==========] 1 test from 1 test suite ran. (0 ms total)
+[0.220s] 1: [  PASSED  ] 1 test.
+[0.224s] 1: -- run_test.py: return code 0
+[0.225s] 1: -- run_test.py: inject classname prefix into gtest result file '/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/experiment1_test.gtest.xml'
+[0.225s] 1: -- run_test.py: verify result file '/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/experiment1_test.gtest.xml'
+[0.247s] 1/1 Test #1: experiment1_test .................   Passed    0.16 sec
+[0.248s] 
+[0.248s] [0;32m100% tests passed[0;0m, 0 tests failed[0;0m out of 1
+[0.249s] 
+[0.249s] Label Time Summary:
+[0.249s] gtest    =   0.16 sec*proc (1 test)
+[0.250s] 
+[0.250s] Total Test time (real) =   0.16 sec
+[0.254s] Invoked command in '/home/marhcouto/Documents/training/build/experiment1' returned '0': /usr/bin/ctest -C Release -D ExperimentalTest --no-compress-output -V --force-new-ctest-process

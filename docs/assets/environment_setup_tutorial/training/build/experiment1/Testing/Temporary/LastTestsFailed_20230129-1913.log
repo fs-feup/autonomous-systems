@@ -1,0 +1,5 @@
+2:copyright
+3:cppcheck
+4:cpplint
+5:lint_cmake
+6:uncrustify

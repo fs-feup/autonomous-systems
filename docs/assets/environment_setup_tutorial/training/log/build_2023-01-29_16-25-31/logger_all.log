@@ -1,0 +1,128 @@
+[0.216s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build']
+[0.216s] DEBUG:colcon:Parsed command line arguments: Namespace(allow_overriding=[], ament_cmake_args=None, base_paths=['.'], build_base='build', catkin_cmake_args=None, catkin_skip_building_tests=False, cmake_args=None, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, cmake_target=None, cmake_target_skip_unavailable=False, continue_on_error=False, event_handlers=None, executor='parallel', ignore_user_meta=False, install_base='install', log_base=None, log_level=None, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x7f063c00d8b0>>, merge_install=False, metas=['./colcon.meta'], packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_end=None, packages_ignore=None, packages_ignore_regex=None, packages_select=None, packages_select_build_failed=False, packages_select_by_dep=None, packages_select_regex=None, packages_select_test_failures=False, packages_skip=None, packages_skip_build_finished=False, packages_skip_by_dep=None, packages_skip_regex=None, packages_skip_test_passed=False, packages_skip_up_to=None, packages_start=None, packages_up_to=None, packages_up_to_regex=None, parallel_workers=4, paths=None, symlink_install=False, test_result_base=None, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x7f063c00d8b0>, verb_name='build', verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0x7f063c00de20>)
+[0.258s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.259s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.259s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.259s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.259s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.259s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.259s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/marhcouto/Documents/training'
+[0.259s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.259s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.259s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.259s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.259s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.260s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.260s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.260s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.260s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.276s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[0.276s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[0.277s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[0.277s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[0.277s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[0.277s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[0.277s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[0.277s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[0.277s] Level 1:colcon.colcon_core.package_identification:_identify(experiment1) by extensions ['ignore', 'ignore_ament_install']
+[0.277s] Level 1:colcon.colcon_core.package_identification:_identify(experiment1) by extension 'ignore'
+[0.277s] Level 1:colcon.colcon_core.package_identification:_identify(experiment1) by extension 'ignore_ament_install'
+[0.277s] Level 1:colcon.colcon_core.package_identification:_identify(experiment1) by extensions ['colcon_pkg']
+[0.278s] Level 1:colcon.colcon_core.package_identification:_identify(experiment1) by extension 'colcon_pkg'
+[0.278s] Level 1:colcon.colcon_core.package_identification:_identify(experiment1) by extensions ['colcon_meta']
+[0.278s] Level 1:colcon.colcon_core.package_identification:_identify(experiment1) by extension 'colcon_meta'
+[0.278s] Level 1:colcon.colcon_core.package_identification:_identify(experiment1) by extensions ['ros']
+[0.278s] Level 1:colcon.colcon_core.package_identification:_identify(experiment1) by extension 'ros'
+[0.282s] DEBUG:colcon.colcon_core.package_identification:Package 'experiment1' with type 'ros.ament_cmake' and name 'experiment1'
+[0.282s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[0.282s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[0.282s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[0.282s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[0.282s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[0.282s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[0.282s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.283s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.283s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.283s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.283s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.333s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[0.333s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[0.337s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 277 installed packages in /opt/ros/galactic
+[0.340s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[0.455s] Level 5:colcon.colcon_core.verb:set package 'experiment1' build argument 'cmake_args' from command line to 'None'
+[0.455s] Level 5:colcon.colcon_core.verb:set package 'experiment1' build argument 'cmake_target' from command line to 'None'
+[0.455s] Level 5:colcon.colcon_core.verb:set package 'experiment1' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.455s] Level 5:colcon.colcon_core.verb:set package 'experiment1' build argument 'cmake_clean_cache' from command line to 'False'
+[0.455s] Level 5:colcon.colcon_core.verb:set package 'experiment1' build argument 'cmake_clean_first' from command line to 'False'
+[0.455s] Level 5:colcon.colcon_core.verb:set package 'experiment1' build argument 'cmake_force_configure' from command line to 'False'
+[0.455s] Level 5:colcon.colcon_core.verb:set package 'experiment1' build argument 'ament_cmake_args' from command line to 'None'
+[0.455s] Level 5:colcon.colcon_core.verb:set package 'experiment1' build argument 'catkin_cmake_args' from command line to 'None'
+[0.455s] Level 5:colcon.colcon_core.verb:set package 'experiment1' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.456s] DEBUG:colcon.colcon_core.verb:Building package 'experiment1' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/marhcouto/Documents/training/build/experiment1', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/marhcouto/Documents/training/install/experiment1', 'merge_install': False, 'path': '/home/marhcouto/Documents/training/experiment1', 'symlink_install': False, 'test_result_base': None}
+[0.457s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.464s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.465s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/marhcouto/Documents/training/experiment1' with build type 'ament_cmake'
+[0.465s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/marhcouto/Documents/training/experiment1'
+[0.472s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.472s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.472s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.493s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/marhcouto/Documents/training/build/experiment1': CMAKE_PREFIX_PATH=/opt/ros/galactic /usr/bin/cmake /home/marhcouto/Documents/training/experiment1 -DCMAKE_INSTALL_PREFIX=/home/marhcouto/Documents/training/install/experiment1
+[1.456s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/marhcouto/Documents/training/build/experiment1' returned '0': CMAKE_PREFIX_PATH=/opt/ros/galactic /usr/bin/cmake /home/marhcouto/Documents/training/experiment1 -DCMAKE_INSTALL_PREFIX=/home/marhcouto/Documents/training/install/experiment1
+[1.457s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/marhcouto/Documents/training/build/experiment1': CMAKE_PREFIX_PATH=/opt/ros/galactic /usr/bin/cmake --build /home/marhcouto/Documents/training/build/experiment1 -- -j4 -l4
+[1.655s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/marhcouto/Documents/training/build/experiment1' returned '0': CMAKE_PREFIX_PATH=/opt/ros/galactic /usr/bin/cmake --build /home/marhcouto/Documents/training/build/experiment1 -- -j4 -l4
+[1.705s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/marhcouto/Documents/training/build/experiment1': CMAKE_PREFIX_PATH=/opt/ros/galactic /usr/bin/cmake --install /home/marhcouto/Documents/training/build/experiment1
+[1.720s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(experiment1)
+[1.725s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/marhcouto/Documents/training/build/experiment1' returned '0': CMAKE_PREFIX_PATH=/opt/ros/galactic /usr/bin/cmake --install /home/marhcouto/Documents/training/build/experiment1
+[1.730s] Level 1:colcon.colcon_core.environment:checking '/home/marhcouto/Documents/training/install/experiment1' for CMake module files
+[1.730s] Level 1:colcon.colcon_core.environment:checking '/home/marhcouto/Documents/training/install/experiment1' for CMake config files
+[1.731s] Level 1:colcon.colcon_core.shell:create_environment_hook('experiment1', 'cmake_prefix_path')
+[1.733s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/marhcouto/Documents/training/install/experiment1/share/experiment1/hook/cmake_prefix_path.ps1'
+[1.734s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/marhcouto/Documents/training/install/experiment1/share/experiment1/hook/cmake_prefix_path.dsv'
+[1.735s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/marhcouto/Documents/training/install/experiment1/share/experiment1/hook/cmake_prefix_path.sh'
+[1.736s] Level 1:colcon.colcon_core.environment:checking '/home/marhcouto/Documents/training/install/experiment1/lib'
+[1.736s] Level 1:colcon.colcon_core.environment:checking '/home/marhcouto/Documents/training/install/experiment1/bin'
+[1.737s] Level 1:colcon.colcon_core.environment:checking '/home/marhcouto/Documents/training/install/experiment1/lib/pkgconfig/experiment1.pc'
+[1.737s] Level 1:colcon.colcon_core.environment:checking '/home/marhcouto/Documents/training/install/experiment1/lib/python3.8/site-packages'
+[1.737s] Level 1:colcon.colcon_core.environment:checking '/home/marhcouto/Documents/training/install/experiment1/bin'
+[1.739s] INFO:colcon.colcon_core.shell:Creating package script '/home/marhcouto/Documents/training/install/experiment1/share/experiment1/package.ps1'
+[1.741s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/marhcouto/Documents/training/install/experiment1/share/experiment1/package.dsv'
+[1.742s] INFO:colcon.colcon_core.shell:Creating package script '/home/marhcouto/Documents/training/install/experiment1/share/experiment1/package.sh'
+[1.743s] INFO:colcon.colcon_core.shell:Creating package script '/home/marhcouto/Documents/training/install/experiment1/share/experiment1/package.bash'
+[1.744s] INFO:colcon.colcon_core.shell:Creating package script '/home/marhcouto/Documents/training/install/experiment1/share/experiment1/package.zsh'
+[1.745s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/marhcouto/Documents/training/install/experiment1/share/colcon-core/packages/experiment1)
+[1.777s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(experiment1)
+[1.780s] Level 1:colcon.colcon_core.environment:checking '/home/marhcouto/Documents/training/install/experiment1' for CMake module files
+[1.781s] Level 1:colcon.colcon_core.environment:checking '/home/marhcouto/Documents/training/install/experiment1' for CMake config files
+[1.781s] Level 1:colcon.colcon_core.shell:create_environment_hook('experiment1', 'cmake_prefix_path')
+[1.783s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/marhcouto/Documents/training/install/experiment1/share/experiment1/hook/cmake_prefix_path.ps1'
+[1.784s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/marhcouto/Documents/training/install/experiment1/share/experiment1/hook/cmake_prefix_path.dsv'
+[1.785s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/marhcouto/Documents/training/install/experiment1/share/experiment1/hook/cmake_prefix_path.sh'
+[1.786s] Level 1:colcon.colcon_core.environment:checking '/home/marhcouto/Documents/training/install/experiment1/lib'
+[1.786s] Level 1:colcon.colcon_core.environment:checking '/home/marhcouto/Documents/training/install/experiment1/bin'
+[1.786s] Level 1:colcon.colcon_core.environment:checking '/home/marhcouto/Documents/training/install/experiment1/lib/pkgconfig/experiment1.pc'
+[1.787s] Level 1:colcon.colcon_core.environment:checking '/home/marhcouto/Documents/training/install/experiment1/lib/python3.8/site-packages'
+[1.787s] Level 1:colcon.colcon_core.environment:checking '/home/marhcouto/Documents/training/install/experiment1/bin'
+[1.789s] INFO:colcon.colcon_core.shell:Creating package script '/home/marhcouto/Documents/training/install/experiment1/share/experiment1/package.ps1'
+[1.790s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/marhcouto/Documents/training/install/experiment1/share/experiment1/package.dsv'
+[1.791s] INFO:colcon.colcon_core.shell:Creating package script '/home/marhcouto/Documents/training/install/experiment1/share/experiment1/package.sh'
+[1.791s] INFO:colcon.colcon_core.shell:Creating package script '/home/marhcouto/Documents/training/install/experiment1/share/experiment1/package.bash'
+[1.792s] INFO:colcon.colcon_core.shell:Creating package script '/home/marhcouto/Documents/training/install/experiment1/share/experiment1/package.zsh'
+[1.793s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/marhcouto/Documents/training/install/experiment1/share/colcon-core/packages/experiment1)
+[1.794s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[1.795s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[1.795s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[1.796s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[1.805s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[1.805s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[1.805s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[1.830s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[1.833s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/marhcouto/Documents/training/install/local_setup.ps1'
+[1.834s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/marhcouto/Documents/training/install/_local_setup_util_ps1.py'
+[1.837s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/marhcouto/Documents/training/install/setup.ps1'
+[1.839s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/marhcouto/Documents/training/install/local_setup.sh'
+[1.840s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/marhcouto/Documents/training/install/_local_setup_util_sh.py'
+[1.841s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/marhcouto/Documents/training/install/setup.sh'
+[1.843s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/marhcouto/Documents/training/install/local_setup.bash'
+[1.844s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/marhcouto/Documents/training/install/setup.bash'
+[1.847s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/marhcouto/Documents/training/install/local_setup.zsh'
+[1.848s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/marhcouto/Documents/training/install/setup.zsh'

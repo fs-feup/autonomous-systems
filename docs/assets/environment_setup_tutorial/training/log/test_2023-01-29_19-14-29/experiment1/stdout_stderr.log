@@ -1,0 +1,234 @@
+UpdateCTestConfiguration  from :/home/marhcouto/Documents/training/build/experiment1/CTestConfiguration.ini
+Parse Config file:/home/marhcouto/Documents/training/build/experiment1/CTestConfiguration.ini
+   Site: marhcouto-VirtualBox
+   Build name: (empty)
+ Add coverage exclude regular expressions.
+SetCTestConfiguration:CMakeCommand:/usr/bin/cmake
+Create new tag: 20230129-1914 - Experimental
+UpdateCTestConfiguration  from :/home/marhcouto/Documents/training/build/experiment1/CTestConfiguration.ini
+Parse Config file:/home/marhcouto/Documents/training/build/experiment1/CTestConfiguration.ini
+Test project /home/marhcouto/Documents/training/build/experiment1
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 1
+    Start 1: experiment1_test
+
+1: Test command: /usr/bin/python3 "-u" "/opt/ros/galactic/share/ament_cmake_test/cmake/run_test.py" "/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/experiment1_test.gtest.xml" "--package-name" "experiment1" "--output-file" "/home/marhcouto/Documents/training/build/experiment1/ament_cmake_gtest/experiment1_test.txt" "--command" "/home/marhcouto/Documents/training/build/experiment1/experiment1_test" "--gtest_output=xml:/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/experiment1_test.gtest.xml"
+1: Test timeout computed to be: 60
+1: -- run_test.py: invoking following command in '/home/marhcouto/Documents/training/build/experiment1':
+1:  - /home/marhcouto/Documents/training/build/experiment1/experiment1_test --gtest_output=xml:/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/experiment1_test.gtest.xml
+1: [==========] Running 1 test from 1 test suite.
+1: [----------] Global test environment set-up.
+1: [----------] 1 test from DEMO_TEST_SUITE
+1: [ RUN      ] DEMO_TEST_SUITE.TEST_CAR
+1: [       OK ] DEMO_TEST_SUITE.TEST_CAR (0 ms)
+1: [----------] 1 test from DEMO_TEST_SUITE (0 ms total)
+1: 
+1: [----------] Global test environment tear-down
+1: [==========] 1 test from 1 test suite ran. (0 ms total)
+1: [  PASSED  ] 1 test.
+1: -- run_test.py: return code 0
+1: -- run_test.py: inject classname prefix into gtest result file '/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/experiment1_test.gtest.xml'
+1: -- run_test.py: verify result file '/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/experiment1_test.gtest.xml'
+1/7 Test #1: experiment1_test .................   Passed    0.15 sec
+test 2
+    Start 2: copyright
+
+2: Test command: /usr/bin/python3 "-u" "/opt/ros/galactic/share/ament_cmake_test/cmake/run_test.py" "/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/copyright.xunit.xml" "--package-name" "experiment1" "--output-file" "/home/marhcouto/Documents/training/build/experiment1/ament_copyright/copyright.txt" "--command" "/opt/ros/galactic/bin/ament_copyright" "--xunit-file" "/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/copyright.xunit.xml"
+2: Test timeout computed to be: 120
+2: -- run_test.py: invoking following command in '/home/marhcouto/Documents/training/experiment1':
+2:  - /opt/ros/galactic/bin/ament_copyright --xunit-file /home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/copyright.xunit.xml
+2: include/experiment1/car.h: could not find copyright notice
+2: src/car.cpp: could not find copyright notice
+2: src/node1.cpp: could not find copyright notice
+2: test/car_test.cpp: could not find copyright notice
+2: test/main.cpp: could not find copyright notice
+2: 5 errors, checked 5 files
+2: -- run_test.py: return code 1
+2: -- run_test.py: verify result file '/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/copyright.xunit.xml'
+2/7 Test #2: copyright ........................***Failed    0.62 sec
+test 3
+    Start 3: cppcheck
+
+3: Test command: /usr/bin/python3 "-u" "/opt/ros/galactic/share/ament_cmake_test/cmake/run_test.py" "/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/cppcheck.xunit.xml" "--package-name" "experiment1" "--output-file" "/home/marhcouto/Documents/training/build/experiment1/ament_cppcheck/cppcheck.txt" "--command" "/opt/ros/galactic/bin/ament_cppcheck" "--xunit-file" "/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/cppcheck.xunit.xml" "--include_dirs" "/home/marhcouto/Documents/training/experiment1/include"
+3: Test timeout computed to be: 300
+3: -- run_test.py: invoking following command in '/home/marhcouto/Documents/training/experiment1':
+3:  - /opt/ros/galactic/bin/ament_cppcheck --xunit-file /home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/cppcheck.xunit.xml --include_dirs /home/marhcouto/Documents/training/experiment1/include
+3: [include/experiment1/car.h:4]: (error: syntaxError) Code 'classCar{' is invalid C code. Use --std or --language to configure the language.
+3: 1 errors
+3: -- run_test.py: return code 1
+3: -- run_test.py: verify result file '/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/cppcheck.xunit.xml'
+3/7 Test #3: cppcheck .........................***Failed    0.48 sec
+test 4
+    Start 4: cpplint
+
+4: Test command: /usr/bin/python3 "-u" "/opt/ros/galactic/share/ament_cmake_test/cmake/run_test.py" "/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/cpplint.xunit.xml" "--package-name" "experiment1" "--output-file" "/home/marhcouto/Documents/training/build/experiment1/ament_cpplint/cpplint.txt" "--command" "/opt/ros/galactic/bin/ament_cpplint" "--xunit-file" "/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/cpplint.xunit.xml"
+4: Test timeout computed to be: 120
+4: -- run_test.py: invoking following command in '/home/marhcouto/Documents/training/experiment1':
+4:  - /opt/ros/galactic/bin/ament_cpplint --xunit-file /home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/cpplint.xunit.xml
+4: /home/marhcouto/Documents/training/experiment1/include/experiment1/car.h:0:  No copyright message found.  You should have a line: "Copyright [year] <Copyright Owner>"  [legal/copyright] [5]
+4: /home/marhcouto/Documents/training/experiment1/include/experiment1/car.h:1:  #ifndef header guard has wrong style, please use: EXPERIMENT1__CAR_H_  [build/header_guard] [5]
+4: /home/marhcouto/Documents/training/experiment1/include/experiment1/car.h:16:  #endif line should be "#endif  // EXPERIMENT1__CAR_H_"  [build/header_guard] [5]
+4: /home/marhcouto/Documents/training/experiment1/include/experiment1/car.h:16:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+4: /home/marhcouto/Documents/training/experiment1/include/experiment1/car.h:16:  Could not find a newline character at the end of the file.  [whitespace/ending_newline] [5]
+4: /home/marhcouto/Documents/training/experiment1/src/car.cpp:0:  No copyright message found.  You should have a line: "Copyright [year] <Copyright Owner>"  [legal/copyright] [5]
+4: /home/marhcouto/Documents/training/experiment1/src/node1.cpp:0:  No copyright message found.  You should have a line: "Copyright [year] <Copyright Owner>"  [legal/copyright] [5]
+4: /home/marhcouto/Documents/training/experiment1/test/car_test.cpp:0:  No copyright message found.  You should have a line: "Copyright [year] <Copyright Owner>"  [legal/copyright] [5]
+4: /home/marhcouto/Documents/training/experiment1/test/car_test.cpp:5:  Could not find a newline character at the end of the file.  [whitespace/ending_newline] [5]
+4: /home/marhcouto/Documents/training/experiment1/test/main.cpp:0:  No copyright message found.  You should have a line: "Copyright [year] <Copyright Owner>"  [legal/copyright] [5]
+4: Category 'build/header_guard' errors found: 2
+4: Category 'legal/copyright' errors found: 5
+4: Category 'whitespace/end_of_line' errors found: 1
+4: Category 'whitespace/ending_newline' errors found: 2
+4: Total errors found: 10
+4: Using '--root=/home/marhcouto/Documents/training/experiment1/include' argument
+4: 
+4: Done processing /home/marhcouto/Documents/training/experiment1/include/experiment1/car.h
+4: 
+4: Using '--root=/home/marhcouto/Documents/training/experiment1/src' argument
+4: 
+4: Done processing /home/marhcouto/Documents/training/experiment1/src/car.cpp
+4: 
+4: Done processing /home/marhcouto/Documents/training/experiment1/src/node1.cpp
+4: 
+4: Using '--root=/home/marhcouto/Documents/training/experiment1/test' argument
+4: 
+4: Done processing /home/marhcouto/Documents/training/experiment1/test/car_test.cpp
+4: 
+4: Done processing /home/marhcouto/Documents/training/experiment1/test/main.cpp
+4: 
+4: -- run_test.py: return code 1
+4: -- run_test.py: verify result file '/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/cpplint.xunit.xml'
+4/7 Test #4: cpplint ..........................***Failed    0.50 sec
+test 5
+    Start 5: lint_cmake
+
+5: Test command: /usr/bin/python3 "-u" "/opt/ros/galactic/share/ament_cmake_test/cmake/run_test.py" "/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/lint_cmake.xunit.xml" "--package-name" "experiment1" "--output-file" "/home/marhcouto/Documents/training/build/experiment1/ament_lint_cmake/lint_cmake.txt" "--command" "/opt/ros/galactic/bin/ament_lint_cmake" "--xunit-file" "/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/lint_cmake.xunit.xml"
+5: Test timeout computed to be: 60
+5: -- run_test.py: invoking following command in '/home/marhcouto/Documents/training/experiment1':
+5:  - /opt/ros/galactic/bin/ament_lint_cmake --xunit-file /home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/lint_cmake.xunit.xml
+5: CMakeLists.txt:34: Mismatching spaces inside () after command [whitespace/mismatch]
+5: CMakeLists.txt:34: Line ends in whitespace [whitespace/eol]
+5: CMakeLists.txt:38: Line ends in whitespace [whitespace/eol]
+5: 
+5: 
+5: 3 errors
+5: -- run_test.py: return code 1
+5: -- run_test.py: verify result file '/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/lint_cmake.xunit.xml'
+5/7 Test #5: lint_cmake .......................***Failed    0.46 sec
+test 6
+    Start 6: uncrustify
+
+6: Test command: /usr/bin/python3 "-u" "/opt/ros/galactic/share/ament_cmake_test/cmake/run_test.py" "/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/uncrustify.xunit.xml" "--package-name" "experiment1" "--output-file" "/home/marhcouto/Documents/training/build/experiment1/ament_uncrustify/uncrustify.txt" "--command" "/opt/ros/galactic/bin/ament_uncrustify" "--xunit-file" "/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/uncrustify.xunit.xml"
+6: Test timeout computed to be: 60
+6: -- run_test.py: invoking following command in '/home/marhcouto/Documents/training/experiment1':
+6:  - /opt/ros/galactic/bin/ament_uncrustify --xunit-file /home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/uncrustify.xunit.xml
+6: Code style divergence in file 'include/experiment1/car.h':
+6: 
+6: --- include/experiment1/car.h
+6: +++ include/experiment1/car.h.uncrustify
+6: @@ -7,2 +7,3 @@
+6: -    int speed;
+6: -    int weight;
+6: +  int speed;
+6: +  int weight;
+6: +
+6: @@ -10,2 +11,2 @@
+6: -    Car(int speed, int weight);
+6: -    ~Car();
+6: +  Car(int speed, int weight);
+6: +  ~Car();
+6: @@ -13 +14 @@
+6: -    void use_horn();
+6: +  void use_horn();
+6: @@ -16 +17 @@
+6: -#endif 
+6: +#endif
+6: 
+6: Code style divergence in file 'src/car.cpp':
+6: 
+6: --- src/car.cpp
+6: +++ src/car.cpp.uncrustify
+6: @@ -5,3 +5,4 @@
+6: -Car::Car(int speed, int weight) {
+6: -    this->speed = speed;
+6: -    this->weight = weight;
+6: +Car::Car(int speed, int weight)
+6: +{
+6: +  this->speed = speed;
+6: +  this->weight = weight;
+6: @@ -14,2 +15,3 @@
+6: -void Car::use_horn() {
+6: -    std::cout << "Beep" << std::endl;
+6: +void Car::use_horn()
+6: +{
+6: +  std::cout << "Beep" << std::endl;
+6: 
+6: Code style divergence in file 'test/car_test.cpp':
+6: 
+6: --- test/car_test.cpp
+6: +++ test/car_test.cpp.uncrustify
+6: @@ -4,2 +4,2 @@
+6: -    EXPECT_TRUE(true);
+6: -}
+6: +  EXPECT_TRUE(true);
+6: +}
+6: 
+6: Code style divergence in file 'test/main.cpp':
+6: 
+6: --- test/main.cpp
+6: +++ test/main.cpp.uncrustify
+6: @@ -3 +3 @@
+6: -int main(int argc, char *argv[])
+6: +int main(int argc, char * argv[])
+6: @@ -5,2 +5,2 @@
+6: -    ::testing::InitGoogleTest(&argc, argv);
+6: -    return RUN_ALL_TESTS();
+6: +  ::testing::InitGoogleTest(&argc, argv);
+6: +  return RUN_ALL_TESTS();
+6: 
+6: 4 files with code style divergence
+6: No code style divergence in file 'src/node1.cpp'
+6: 
+6: -- run_test.py: return code 1
+6: -- run_test.py: verify result file '/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/uncrustify.xunit.xml'
+6/7 Test #6: uncrustify .......................***Failed    0.57 sec
+test 7
+    Start 7: xmllint
+
+7: Test command: /usr/bin/python3 "-u" "/opt/ros/galactic/share/ament_cmake_test/cmake/run_test.py" "/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/xmllint.xunit.xml" "--package-name" "experiment1" "--output-file" "/home/marhcouto/Documents/training/build/experiment1/ament_xmllint/xmllint.txt" "--command" "/opt/ros/galactic/bin/ament_xmllint" "--xunit-file" "/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/xmllint.xunit.xml"
+7: Test timeout computed to be: 60
+7: -- run_test.py: invoking following command in '/home/marhcouto/Documents/training/experiment1':
+7:  - /opt/ros/galactic/bin/ament_xmllint --xunit-file /home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/xmllint.xunit.xml
+7: File 'package.xml' is valid
+7: 
+7: No problems found
+7: -- run_test.py: return code 0
+7: -- run_test.py: verify result file '/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/xmllint.xunit.xml'
+7/7 Test #7: xmllint ..........................   Passed    1.00 sec
+
+29% tests passed[0;0m, [0;31m5 tests failed[0;0m out of 7
+
+Label Time Summary:
+copyright     =   0.62 sec*proc (1 test)
+cppcheck      =   0.48 sec*proc (1 test)
+cpplint       =   0.50 sec*proc (1 test)
+gtest         =   0.15 sec*proc (1 test)
+lint_cmake    =   0.46 sec*proc (1 test)
+linter        =   3.63 sec*proc (6 tests)
+uncrustify    =   0.57 sec*proc (1 test)
+xmllint       =   1.00 sec*proc (1 test)
+
+Total Test time (real) =   3.78 sec
+
+The following tests FAILED:
+	[0;31m  2 - copyright (Failed)[0;0m
+	[0;31m  3 - cppcheck (Failed)[0;0m
+	[0;31m  4 - cpplint (Failed)[0;0m
+	[0;31m  5 - lint_cmake (Failed)[0;0m
+	[0;31m  6 - uncrustify (Failed)[0;0m
+Errors while running CTest

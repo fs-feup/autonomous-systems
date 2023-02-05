@@ -1,0 +1,2 @@
+/usr/bin/ar qc libexperiment1.a  CMakeFiles/experiment1.dir/src/Car.cpp.o
+/usr/bin/ranlib libexperiment1.a

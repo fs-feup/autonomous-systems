@@ -1,0 +1,58 @@
+[0.027s] Invoking command in '/home/marhcouto/Documents/training/build/experiment1': CMAKE_PREFIX_PATH=/opt/ros/galactic /usr/bin/cmake /home/marhcouto/Documents/training/experiment1 -DCMAKE_INSTALL_PREFIX=/home/marhcouto/Documents/training/install/experiment1
+[0.112s] -- The C compiler identification is GNU 9.4.0
+[0.189s] -- The CXX compiler identification is GNU 9.4.0
+[0.204s] -- Check for working C compiler: /usr/bin/cc
+[0.314s] -- Check for working C compiler: /usr/bin/cc -- works
+[0.317s] -- Detecting C compiler ABI info
+[0.413s] -- Detecting C compiler ABI info - done
+[0.426s] -- Detecting C compile features
+[0.426s] -- Detecting C compile features - done
+[0.430s] -- Check for working CXX compiler: /usr/bin/c++
+[0.534s] -- Check for working CXX compiler: /usr/bin/c++ -- works
+[0.536s] -- Detecting CXX compiler ABI info
+[0.727s] -- Detecting CXX compiler ABI info - done
+[0.734s] -- Detecting CXX compile features
+[0.734s] -- Detecting CXX compile features - done
+[0.737s] -- Found ament_cmake: 1.1.6 (/opt/ros/galactic/share/ament_cmake/cmake)
+[0.772s] -- Found PythonInterp: /usr/bin/python3 (found suitable version "3.8.10", minimum required is "3") 
+[0.772s] -- Using PYTHON_EXECUTABLE: /usr/bin/python3
+[0.874s] -- Found ament_lint_auto: 0.10.7 (/opt/ros/galactic/share/ament_lint_auto/cmake)
+[0.968s] -- Added test 'copyright' to check source files copyright and LICENSE
+[0.969s] -- Added test 'cppcheck' to perform static code analysis on C / C++ code
+[0.969s] -- Configured cppcheck include dirs: $<BUILD_INTERFACE:/home/marhcouto/Documents/training/experiment1/include>
+[0.969s] -- Configured cppcheck exclude dirs and/or files: 
+[0.970s] -- Added test 'cpplint' to check C / C++ code against the Google style
+[0.970s] -- Configured cpplint exclude dirs and/or files: 
+[0.971s] -- Added test 'lint_cmake' to check CMake code style
+[0.972s] -- Added test 'uncrustify' to check C / C++ code style
+[0.972s] -- Configured uncrustify additional arguments: 
+[0.973s] -- Added test 'xmllint' to check XML markup files
+[0.976s] -- Configuring done
+[0.980s] -- Generating done
+[0.981s] -- Build files have been written to: /home/marhcouto/Documents/training/build/experiment1
+[0.990s] Invoked command in '/home/marhcouto/Documents/training/build/experiment1' returned '0': CMAKE_PREFIX_PATH=/opt/ros/galactic /usr/bin/cmake /home/marhcouto/Documents/training/experiment1 -DCMAKE_INSTALL_PREFIX=/home/marhcouto/Documents/training/install/experiment1
+[0.991s] Invoking command in '/home/marhcouto/Documents/training/build/experiment1': CMAKE_PREFIX_PATH=/opt/ros/galactic /usr/bin/cmake --build /home/marhcouto/Documents/training/build/experiment1 -- -j4 -l4
+[1.050s] [35m[1mScanning dependencies of target node1[0m
+[1.064s] [ 50%] [32mBuilding CXX object CMakeFiles/node1.dir/src/node1.cpp.o[0m
+[1.106s] [100%] [32m[1mLinking CXX executable node1[0m
+[1.169s] [100%] Built target node1
+[1.189s] Invoked command in '/home/marhcouto/Documents/training/build/experiment1' returned '0': CMAKE_PREFIX_PATH=/opt/ros/galactic /usr/bin/cmake --build /home/marhcouto/Documents/training/build/experiment1 -- -j4 -l4
+[1.239s] Invoking command in '/home/marhcouto/Documents/training/build/experiment1': CMAKE_PREFIX_PATH=/opt/ros/galactic /usr/bin/cmake --install /home/marhcouto/Documents/training/build/experiment1
+[1.248s] -- Install configuration: ""
+[1.249s] -- Installing: /home/marhcouto/Documents/training/install/experiment1/lib/experiment1/node1
+[1.249s] -- Installing: /home/marhcouto/Documents/training/install/experiment1/share/ament_index/resource_index/package_run_dependencies/experiment1
+[1.249s] -- Installing: /home/marhcouto/Documents/training/install/experiment1/share/ament_index/resource_index/parent_prefix_path/experiment1
+[1.250s] -- Installing: /home/marhcouto/Documents/training/install/experiment1/share/experiment1/environment/ament_prefix_path.sh
+[1.250s] -- Installing: /home/marhcouto/Documents/training/install/experiment1/share/experiment1/environment/ament_prefix_path.dsv
+[1.250s] -- Installing: /home/marhcouto/Documents/training/install/experiment1/share/experiment1/environment/path.sh
+[1.251s] -- Installing: /home/marhcouto/Documents/training/install/experiment1/share/experiment1/environment/path.dsv
+[1.251s] -- Installing: /home/marhcouto/Documents/training/install/experiment1/share/experiment1/local_setup.bash
+[1.251s] -- Installing: /home/marhcouto/Documents/training/install/experiment1/share/experiment1/local_setup.sh
+[1.251s] -- Installing: /home/marhcouto/Documents/training/install/experiment1/share/experiment1/local_setup.zsh
+[1.251s] -- Installing: /home/marhcouto/Documents/training/install/experiment1/share/experiment1/local_setup.dsv
+[1.251s] -- Installing: /home/marhcouto/Documents/training/install/experiment1/share/experiment1/package.dsv
+[1.252s] -- Installing: /home/marhcouto/Documents/training/install/experiment1/share/ament_index/resource_index/packages/experiment1
+[1.252s] -- Installing: /home/marhcouto/Documents/training/install/experiment1/share/experiment1/cmake/experiment1Config.cmake
+[1.252s] -- Installing: /home/marhcouto/Documents/training/install/experiment1/share/experiment1/cmake/experiment1Config-version.cmake
+[1.252s] -- Installing: /home/marhcouto/Documents/training/install/experiment1/share/experiment1/package.xml
+[1.259s] Invoked command in '/home/marhcouto/Documents/training/build/experiment1' returned '0': CMAKE_PREFIX_PATH=/opt/ros/galactic /usr/bin/cmake --install /home/marhcouto/Documents/training/build/experiment1
