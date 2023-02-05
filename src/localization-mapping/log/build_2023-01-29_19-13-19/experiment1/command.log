@@ -1,0 +1,2 @@
+Invoking command in '/home/marhcouto/Documents/training/build/experiment1': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/galactic /usr/bin/cmake --build /home/marhcouto/Documents/training/build/experiment1 -- -j4 -l4
+Invoked command in '/home/marhcouto/Documents/training/build/experiment1' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/galactic /usr/bin/cmake --build /home/marhcouto/Documents/training/build/experiment1 -- -j4 -l4
