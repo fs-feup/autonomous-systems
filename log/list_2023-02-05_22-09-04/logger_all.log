@@ -1,0 +1,316 @@
+[0.325s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'list', '-p', '--base-paths', '/home/marhcouto/Documents/driverless']
+[0.325s] DEBUG:colcon:Parsed command line arguments: Namespace(allow_overriding=[], base_paths=['/home/marhcouto/Documents/driverless'], build_base='build', ignore_user_meta=False, log_base=None, log_level=None, main=<bound method ListVerb.main of <colcon_package_information.verb.list.ListVerb object at 0x7f9f05acaee0>>, metas=['./colcon.meta'], names_only=False, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_end=None, packages_ignore=None, packages_ignore_regex=None, packages_select=None, packages_select_build_failed=False, packages_select_by_dep=None, packages_select_regex=None, packages_select_test_failures=False, packages_skip=None, packages_skip_build_finished=False, packages_skip_by_dep=None, packages_skip_regex=None, packages_skip_test_passed=False, packages_skip_up_to=None, packages_start=None, packages_up_to=None, packages_up_to_regex=None, paths=None, paths_only=True, topological_graph=False, topological_graph_density=False, topological_graph_dot=False, topological_graph_dot_cluster=False, topological_graph_dot_include_skipped=False, topological_graph_legend=False, topological_order=False, verb_extension=<colcon_package_information.verb.list.ListVerb object at 0x7f9f05acaee0>, verb_name='list', verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0x7f9f059fa910>)
+[0.382s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.382s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.382s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.382s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.382s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.382s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/marhcouto/Documents/driverless'
+[0.383s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless) by extensions ['ignore', 'ignore_ament_install']
+[0.383s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless) by extension 'ignore'
+[0.383s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless) by extension 'ignore_ament_install'
+[0.383s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless) by extensions ['colcon_pkg']
+[0.383s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless) by extension 'colcon_pkg'
+[0.384s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless) by extensions ['colcon_meta']
+[0.384s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless) by extension 'colcon_meta'
+[0.384s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless) by extensions ['ros']
+[0.384s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless) by extension 'ros'
+[0.411s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless) by extensions ['cmake', 'python']
+[0.411s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless) by extension 'cmake'
+[0.411s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless) by extension 'python'
+[0.411s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless) by extensions ['python_setup_py']
+[0.412s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless) by extension 'python_setup_py'
+[0.412s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs) by extensions ['ignore', 'ignore_ament_install']
+[0.412s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs) by extension 'ignore'
+[0.413s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs) by extension 'ignore_ament_install'
+[0.413s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs) by extensions ['colcon_pkg']
+[0.413s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs) by extension 'colcon_pkg'
+[0.413s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs) by extensions ['colcon_meta']
+[0.413s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs) by extension 'colcon_meta'
+[0.413s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs) by extensions ['ros']
+[0.413s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs) by extension 'ros'
+[0.414s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs) by extensions ['cmake', 'python']
+[0.414s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs) by extension 'cmake'
+[0.414s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs) by extension 'python'
+[0.414s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs) by extensions ['python_setup_py']
+[0.414s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs) by extension 'python_setup_py'
+[0.415s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets) by extensions ['ignore', 'ignore_ament_install']
+[0.415s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets) by extension 'ignore'
+[0.415s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets) by extension 'ignore_ament_install'
+[0.416s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets) by extensions ['colcon_pkg']
+[0.416s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets) by extension 'colcon_pkg'
+[0.416s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets) by extensions ['colcon_meta']
+[0.416s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets) by extension 'colcon_meta'
+[0.416s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets) by extensions ['ros']
+[0.416s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets) by extension 'ros'
+[0.416s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets) by extensions ['cmake', 'python']
+[0.416s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets) by extension 'cmake'
+[0.417s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets) by extension 'python'
+[0.417s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets) by extensions ['python_setup_py']
+[0.417s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets) by extension 'python_setup_py'
+[0.417s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial) by extensions ['ignore', 'ignore_ament_install']
+[0.418s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial) by extension 'ignore'
+[0.418s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial) by extension 'ignore_ament_install'
+[0.418s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial) by extensions ['colcon_pkg']
+[0.418s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial) by extension 'colcon_pkg'
+[0.418s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial) by extensions ['colcon_meta']
+[0.418s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial) by extension 'colcon_meta'
+[0.418s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial) by extensions ['ros']
+[0.418s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial) by extension 'ros'
+[0.419s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial) by extensions ['cmake', 'python']
+[0.419s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial) by extension 'cmake'
+[0.419s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial) by extension 'python'
+[0.419s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial) by extensions ['python_setup_py']
+[0.419s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial) by extension 'python_setup_py'
+[0.420s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training) by extensions ['ignore', 'ignore_ament_install']
+[0.420s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training) by extension 'ignore'
+[0.420s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training) by extension 'ignore_ament_install'
+[0.420s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training) by extensions ['colcon_pkg']
+[0.420s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training) by extension 'colcon_pkg'
+[0.420s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training) by extensions ['colcon_meta']
+[0.421s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training) by extension 'colcon_meta'
+[0.421s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training) by extensions ['ros']
+[0.421s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training) by extension 'ros'
+[0.421s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training) by extensions ['cmake', 'python']
+[0.421s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training) by extension 'cmake'
+[0.421s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training) by extension 'python'
+[0.422s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training) by extensions ['python_setup_py']
+[0.422s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training) by extension 'python_setup_py'
+[0.422s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/build) by extensions ['ignore', 'ignore_ament_install']
+[0.422s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/build) by extension 'ignore'
+[0.423s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/build) ignored
+[0.423s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/doxygen) by extensions ['ignore', 'ignore_ament_install']
+[0.424s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/doxygen) by extension 'ignore'
+[0.424s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/doxygen) by extension 'ignore_ament_install'
+[0.424s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/doxygen) by extensions ['colcon_pkg']
+[0.424s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/doxygen) by extension 'colcon_pkg'
+[0.425s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/doxygen) by extensions ['colcon_meta']
+[0.425s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/doxygen) by extension 'colcon_meta'
+[0.425s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/doxygen) by extensions ['ros']
+[0.425s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/doxygen) by extension 'ros'
+[0.426s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/doxygen) by extensions ['cmake', 'python']
+[0.426s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/doxygen) by extension 'cmake'
+[0.426s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/doxygen) by extension 'python'
+[0.426s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/doxygen) by extensions ['python_setup_py']
+[0.426s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/doxygen) by extension 'python_setup_py'
+[0.426s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/doxygen/html) by extensions ['ignore', 'ignore_ament_install']
+[0.426s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/doxygen/html) by extension 'ignore'
+[0.427s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/doxygen/html) by extension 'ignore_ament_install'
+[0.427s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/doxygen/html) by extensions ['colcon_pkg']
+[0.427s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/doxygen/html) by extension 'colcon_pkg'
+[0.427s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/doxygen/html) by extensions ['colcon_meta']
+[0.427s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/doxygen/html) by extension 'colcon_meta'
+[0.428s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/doxygen/html) by extensions ['ros']
+[0.428s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/doxygen/html) by extension 'ros'
+[0.428s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/doxygen/html) by extensions ['cmake', 'python']
+[0.428s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/doxygen/html) by extension 'cmake'
+[0.428s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/doxygen/html) by extension 'python'
+[0.428s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/doxygen/html) by extensions ['python_setup_py']
+[0.428s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/doxygen/html) by extension 'python_setup_py'
+[0.429s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/doxygen/html/search) by extensions ['ignore', 'ignore_ament_install']
+[0.429s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/doxygen/html/search) by extension 'ignore'
+[0.429s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/doxygen/html/search) by extension 'ignore_ament_install'
+[0.429s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/doxygen/html/search) by extensions ['colcon_pkg']
+[0.429s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/doxygen/html/search) by extension 'colcon_pkg'
+[0.430s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/doxygen/html/search) by extensions ['colcon_meta']
+[0.430s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/doxygen/html/search) by extension 'colcon_meta'
+[0.430s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/doxygen/html/search) by extensions ['ros']
+[0.430s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/doxygen/html/search) by extension 'ros'
+[0.431s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/doxygen/html/search) by extensions ['cmake', 'python']
+[0.431s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/doxygen/html/search) by extension 'cmake'
+[0.431s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/doxygen/html/search) by extension 'python'
+[0.432s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/doxygen/html/search) by extensions ['python_setup_py']
+[0.432s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/doxygen/html/search) by extension 'python_setup_py'
+[0.432s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/experiment1) by extensions ['ignore', 'ignore_ament_install']
+[0.433s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/experiment1) by extension 'ignore'
+[0.433s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/experiment1) by extension 'ignore_ament_install'
+[0.433s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/experiment1) by extensions ['colcon_pkg']
+[0.434s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/experiment1) by extension 'colcon_pkg'
+[0.434s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/experiment1) by extensions ['colcon_meta']
+[0.434s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/experiment1) by extension 'colcon_meta'
+[0.434s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/experiment1) by extensions ['ros']
+[0.434s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/experiment1) by extension 'ros'
+[0.441s] DEBUG:colcon.colcon_core.package_identification:Package '/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/experiment1' with type 'ros.ament_cmake' and name 'experiment1'
+[0.441s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/install) by extensions ['ignore', 'ignore_ament_install']
+[0.441s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/install) by extension 'ignore'
+[0.442s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/install) ignored
+[0.442s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/log) by extensions ['ignore', 'ignore_ament_install']
+[0.443s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/log) by extension 'ignore'
+[0.443s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/environment_setup_tutorial/training/log) ignored
+[0.443s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/ros2_tutorial) by extensions ['ignore', 'ignore_ament_install']
+[0.444s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/ros2_tutorial) by extension 'ignore'
+[0.444s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/ros2_tutorial) by extension 'ignore_ament_install'
+[0.444s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/ros2_tutorial) by extensions ['colcon_pkg']
+[0.444s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/ros2_tutorial) by extension 'colcon_pkg'
+[0.444s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/ros2_tutorial) by extensions ['colcon_meta']
+[0.444s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/ros2_tutorial) by extension 'colcon_meta'
+[0.444s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/ros2_tutorial) by extensions ['ros']
+[0.444s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/ros2_tutorial) by extension 'ros'
+[0.445s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/ros2_tutorial) by extensions ['cmake', 'python']
+[0.445s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/ros2_tutorial) by extension 'cmake'
+[0.445s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/ros2_tutorial) by extension 'python'
+[0.445s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/ros2_tutorial) by extensions ['python_setup_py']
+[0.445s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/ros2_tutorial) by extension 'python_setup_py'
+[0.446s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/sim_tutorial) by extensions ['ignore', 'ignore_ament_install']
+[0.446s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/sim_tutorial) by extension 'ignore'
+[0.446s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/sim_tutorial) by extension 'ignore_ament_install'
+[0.446s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/sim_tutorial) by extensions ['colcon_pkg']
+[0.446s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/sim_tutorial) by extension 'colcon_pkg'
+[0.446s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/sim_tutorial) by extensions ['colcon_meta']
+[0.446s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/sim_tutorial) by extension 'colcon_meta'
+[0.447s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/sim_tutorial) by extensions ['ros']
+[0.447s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/sim_tutorial) by extension 'ros'
+[0.447s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/sim_tutorial) by extensions ['cmake', 'python']
+[0.447s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/sim_tutorial) by extension 'cmake'
+[0.447s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/sim_tutorial) by extension 'python'
+[0.447s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/sim_tutorial) by extensions ['python_setup_py']
+[0.448s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/assets/sim_tutorial) by extension 'python_setup_py'
+[0.448s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/tutorials) by extensions ['ignore', 'ignore_ament_install']
+[0.448s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/tutorials) by extension 'ignore'
+[0.449s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/tutorials) by extension 'ignore_ament_install'
+[0.449s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/tutorials) by extensions ['colcon_pkg']
+[0.449s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/tutorials) by extension 'colcon_pkg'
+[0.449s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/tutorials) by extensions ['colcon_meta']
+[0.449s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/tutorials) by extension 'colcon_meta'
+[0.450s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/tutorials) by extensions ['ros']
+[0.450s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/tutorials) by extension 'ros'
+[0.450s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/tutorials) by extensions ['cmake', 'python']
+[0.450s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/tutorials) by extension 'cmake'
+[0.451s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/tutorials) by extension 'python'
+[0.451s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/tutorials) by extensions ['python_setup_py']
+[0.451s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/docs/tutorials) by extension 'python_setup_py'
+[0.451s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/log) by extensions ['ignore', 'ignore_ament_install']
+[0.452s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/log) by extension 'ignore'
+[0.452s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/log) ignored
+[0.452s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src) by extensions ['ignore', 'ignore_ament_install']
+[0.452s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src) by extension 'ignore'
+[0.453s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src) by extension 'ignore_ament_install'
+[0.453s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src) by extensions ['colcon_pkg']
+[0.453s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src) by extension 'colcon_pkg'
+[0.453s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src) by extensions ['colcon_meta']
+[0.453s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src) by extension 'colcon_meta'
+[0.453s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src) by extensions ['ros']
+[0.453s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src) by extension 'ros'
+[0.453s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src) by extensions ['cmake', 'python']
+[0.453s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src) by extension 'cmake'
+[0.453s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src) by extension 'python'
+[0.453s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src) by extensions ['python_setup_py']
+[0.453s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src) by extension 'python_setup_py'
+[0.454s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping) by extensions ['ignore', 'ignore_ament_install']
+[0.454s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping) by extension 'ignore'
+[0.454s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping) by extension 'ignore_ament_install'
+[0.454s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping) by extensions ['colcon_pkg']
+[0.454s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping) by extension 'colcon_pkg'
+[0.454s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping) by extensions ['colcon_meta']
+[0.454s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping) by extension 'colcon_meta'
+[0.454s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping) by extensions ['ros']
+[0.454s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping) by extension 'ros'
+[0.455s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping) by extensions ['cmake', 'python']
+[0.455s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping) by extension 'cmake'
+[0.455s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping) by extension 'python'
+[0.455s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping) by extensions ['python_setup_py']
+[0.455s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping) by extension 'python_setup_py'
+[0.456s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/build) by extensions ['ignore', 'ignore_ament_install']
+[0.456s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/build) by extension 'ignore'
+[0.456s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/build) ignored
+[0.456s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/doxygen) by extensions ['ignore', 'ignore_ament_install']
+[0.457s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/doxygen) by extension 'ignore'
+[0.457s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/doxygen) by extension 'ignore_ament_install'
+[0.457s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/doxygen) by extensions ['colcon_pkg']
+[0.457s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/doxygen) by extension 'colcon_pkg'
+[0.457s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/doxygen) by extensions ['colcon_meta']
+[0.457s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/doxygen) by extension 'colcon_meta'
+[0.457s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/doxygen) by extensions ['ros']
+[0.457s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/doxygen) by extension 'ros'
+[0.457s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/doxygen) by extensions ['cmake', 'python']
+[0.457s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/doxygen) by extension 'cmake'
+[0.457s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/doxygen) by extension 'python'
+[0.458s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/doxygen) by extensions ['python_setup_py']
+[0.458s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/doxygen) by extension 'python_setup_py'
+[0.458s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/doxygen/html) by extensions ['ignore', 'ignore_ament_install']
+[0.458s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/doxygen/html) by extension 'ignore'
+[0.458s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/doxygen/html) by extension 'ignore_ament_install'
+[0.458s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/doxygen/html) by extensions ['colcon_pkg']
+[0.459s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/doxygen/html) by extension 'colcon_pkg'
+[0.459s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/doxygen/html) by extensions ['colcon_meta']
+[0.459s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/doxygen/html) by extension 'colcon_meta'
+[0.459s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/doxygen/html) by extensions ['ros']
+[0.459s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/doxygen/html) by extension 'ros'
+[0.459s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/doxygen/html) by extensions ['cmake', 'python']
+[0.459s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/doxygen/html) by extension 'cmake'
+[0.459s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/doxygen/html) by extension 'python'
+[0.459s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/doxygen/html) by extensions ['python_setup_py']
+[0.459s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/doxygen/html) by extension 'python_setup_py'
+[0.460s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/doxygen/html/search) by extensions ['ignore', 'ignore_ament_install']
+[0.460s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/doxygen/html/search) by extension 'ignore'
+[0.460s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/doxygen/html/search) by extension 'ignore_ament_install'
+[0.461s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/doxygen/html/search) by extensions ['colcon_pkg']
+[0.461s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/doxygen/html/search) by extension 'colcon_pkg'
+[0.461s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/doxygen/html/search) by extensions ['colcon_meta']
+[0.461s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/doxygen/html/search) by extension 'colcon_meta'
+[0.461s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/doxygen/html/search) by extensions ['ros']
+[0.462s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/doxygen/html/search) by extension 'ros'
+[0.462s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/doxygen/html/search) by extensions ['cmake', 'python']
+[0.462s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/doxygen/html/search) by extension 'cmake'
+[0.462s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/doxygen/html/search) by extension 'python'
+[0.463s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/doxygen/html/search) by extensions ['python_setup_py']
+[0.463s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/doxygen/html/search) by extension 'python_setup_py'
+[0.463s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/experiment1) by extensions ['ignore', 'ignore_ament_install']
+[0.464s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/experiment1) by extension 'ignore'
+[0.464s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/experiment1) by extension 'ignore_ament_install'
+[0.465s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/experiment1) by extensions ['colcon_pkg']
+[0.465s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/experiment1) by extension 'colcon_pkg'
+[0.465s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/experiment1) by extensions ['colcon_meta']
+[0.466s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/experiment1) by extension 'colcon_meta'
+[0.466s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/experiment1) by extensions ['ros']
+[0.466s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/experiment1) by extension 'ros'
+[0.469s] DEBUG:colcon.colcon_core.package_identification:Package '/home/marhcouto/Documents/driverless/src/localization-mapping/experiment1' with type 'ros.ament_cmake' and name 'experiment1'
+[0.470s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/install) by extensions ['ignore', 'ignore_ament_install']
+[0.470s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/install) by extension 'ignore'
+[0.470s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/install) ignored
+[0.470s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/log) by extensions ['ignore', 'ignore_ament_install']
+[0.471s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/log) by extension 'ignore'
+[0.471s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/localization-mapping/log) ignored
+[0.471s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/perception) by extensions ['ignore', 'ignore_ament_install']
+[0.472s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/perception) by extension 'ignore'
+[0.472s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/perception) by extension 'ignore_ament_install'
+[0.472s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/perception) by extensions ['colcon_pkg']
+[0.472s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/perception) by extension 'colcon_pkg'
+[0.472s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/perception) by extensions ['colcon_meta']
+[0.472s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/perception) by extension 'colcon_meta'
+[0.472s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/perception) by extensions ['ros']
+[0.473s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/perception) by extension 'ros'
+[0.473s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/perception) by extensions ['cmake', 'python']
+[0.473s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/perception) by extension 'cmake'
+[0.473s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/perception) by extension 'python'
+[0.473s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/perception) by extensions ['python_setup_py']
+[0.474s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/perception) by extension 'python_setup_py'
+[0.474s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/planning-control) by extensions ['ignore', 'ignore_ament_install']
+[0.474s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/planning-control) by extension 'ignore'
+[0.474s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/planning-control) by extension 'ignore_ament_install'
+[0.475s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/planning-control) by extensions ['colcon_pkg']
+[0.475s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/planning-control) by extension 'colcon_pkg'
+[0.475s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/planning-control) by extensions ['colcon_meta']
+[0.475s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/planning-control) by extension 'colcon_meta'
+[0.475s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/planning-control) by extensions ['ros']
+[0.476s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/planning-control) by extension 'ros'
+[0.476s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/planning-control) by extensions ['cmake', 'python']
+[0.476s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/planning-control) by extension 'cmake'
+[0.476s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/planning-control) by extension 'python'
+[0.476s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/planning-control) by extensions ['python_setup_py']
+[0.476s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/planning-control) by extension 'python_setup_py'
+[0.477s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/simulation) by extensions ['ignore', 'ignore_ament_install']
+[0.477s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/simulation) by extension 'ignore'
+[0.477s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/simulation) by extension 'ignore_ament_install'
+[0.477s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/simulation) by extensions ['colcon_pkg']
+[0.477s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/simulation) by extension 'colcon_pkg'
+[0.477s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/simulation) by extensions ['colcon_meta']
+[0.477s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/simulation) by extension 'colcon_meta'
+[0.478s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/simulation) by extensions ['ros']
+[0.478s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/simulation) by extension 'ros'
+[0.478s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/simulation) by extensions ['cmake', 'python']
+[0.478s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/simulation) by extension 'cmake'
+[0.478s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/simulation) by extension 'python'
+[0.479s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/simulation) by extensions ['python_setup_py']
+[0.479s] Level 1:colcon.colcon_core.package_identification:_identify(/home/marhcouto/Documents/driverless/src/simulation) by extension 'python_setup_py'
+[0.480s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults

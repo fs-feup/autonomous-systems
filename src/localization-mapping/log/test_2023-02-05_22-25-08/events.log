@@ -1,0 +1,51 @@
+[0.000000] (-) TimerEvent: {}
+[0.000248] (experiment1) JobQueued: {'identifier': 'experiment1', 'dependencies': OrderedDict([('experiment1', '/home/marhcouto/Documents/driverless/src/localization-mapping/install/experiment1')])}
+[0.001128] (experiment1) JobStarted: {'identifier': 'experiment1'}
+[0.046286] (experiment1) Command: {'cmd': ['/usr/bin/ctest', '-C', 'Release', '-D', 'ExperimentalTest', '--no-compress-output', '-V', '--force-new-ctest-process'], 'cwd': '/home/marhcouto/Documents/driverless/src/localization-mapping/build/experiment1', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'marhcouto'), ('SSH_CLIENT', '10.0.3.2 40390 22'), ('LC_TIME', 'pt_PT.UTF-8'), ('XDG_SESSION_TYPE', 'tty'), ('GIT_ASKPASS', '/home/marhcouto/.vscode-server/bin/e2816fe719a4026ffa1ee0189dc89bdfdbafb164/extensions/git/dist/askpass.sh'), ('SHLVL', '2'), ('LD_LIBRARY_PATH', '/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/galactic/opt/yaml_cpp_vendor/lib:/opt/ros/galactic/opt/rviz_ogre_vendor/lib:/opt/ros/galactic/lib/x86_64-linux-gnu:/opt/ros/galactic/lib'), ('BROWSER', '/home/marhcouto/.vscode-server/bin/e2816fe719a4026ffa1ee0189dc89bdfdbafb164/bin/helpers/browser.sh'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/marhcouto'), ('OLDPWD', '/home/marhcouto/Documents/driverless'), ('TERM_PROGRAM_VERSION', '1.75.0'), ('VSCODE_IPC_HOOK_CLI', '/run/user/1000/vscode-ipc-5eaceb87-b12c-4878-b4ff-1c2d0a8d3486.sock'), ('ROS_PYTHON_VERSION', '3'), ('VSCODE_GIT_ASKPASS_MAIN', '/home/marhcouto/.vscode-server/bin/e2816fe719a4026ffa1ee0189dc89bdfdbafb164/extensions/git/dist/askpass-main.js'), ('LC_MONETARY', 'pt_PT.UTF-8'), ('VSCODE_GIT_ASKPASS_NODE', '/home/marhcouto/.vscode-server/bin/e2816fe719a4026ffa1ee0189dc89bdfdbafb164/node'), ('LC_CTYPE', 'pt_PT.UTF-8'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('ROS_DISTRO', 'galactic'), ('LOGNAME', 'marhcouto'), ('EUFS_MASTER', '/home/marhcouto/Documents/eufs_sim'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '5'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/marhcouto/.local/bin/:/home/marhcouto/.vscode-server/bin/e2816fe719a4026ffa1ee0189dc89bdfdbafb164/bin/remote-cli:/home/marhcouto/.local/bin:/home/marhcouto/.local/bin/:/opt/ros/galactic/bin:/home/marhcouto/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('LC_ADDRESS', 'pt_PT.UTF-8'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('LANG', 'en_US.UTF-8'), ('LC_TELEPHONE', 'pt_PT.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-08be55afd0.sock'), ('TERM_PROGRAM', 'vscode'), ('AMENT_PREFIX_PATH', '/home/marhcouto/Documents/training/install/experiment1:/opt/ros/galactic'), ('SHELL', '/bin/bash'), ('LC_NAME', 'pt_PT.UTF-8'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'pt_PT.UTF-8'), ('LC_IDENTIFICATION', 'pt_PT.UTF-8'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('PWD', '/home/marhcouto/Documents/driverless/src/localization-mapping/build/experiment1'), ('LC_ALL', 'en_US.UTF-8'), ('SSH_CONNECTION', '10.0.3.2 40390 10.0.3.15 22'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/galactic/lib/python3.8/site-packages'), ('LC_NUMERIC', 'pt_PT.UTF-8'), ('LC_PAPER', 'pt_PT.UTF-8'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/home/marhcouto/Documents/training/install/experiment1')]), 'shell': False}
+[0.068870] (experiment1) StdoutLine: {'line': b'UpdateCTestConfiguration  from :/home/marhcouto/Documents/driverless/src/localization-mapping/build/experiment1/CTestConfiguration.ini\n'}
+[0.069926] (experiment1) StdoutLine: {'line': b'Parse Config file:/home/marhcouto/Documents/driverless/src/localization-mapping/build/experiment1/CTestConfiguration.ini\n'}
+[0.070394] (experiment1) StdoutLine: {'line': b'   Site: marhcouto-VirtualBox\n'}
+[0.070869] (experiment1) StdoutLine: {'line': b'   Build name: (empty)\n'}
+[0.071213] (experiment1) StdoutLine: {'line': b' Add coverage exclude regular expressions.\n'}
+[0.071498] (experiment1) StdoutLine: {'line': b'SetCTestConfiguration:CMakeCommand:/usr/bin/cmake\n'}
+[0.071759] (experiment1) StdoutLine: {'line': b'UpdateCTestConfiguration  from :/home/marhcouto/Documents/training/build/experiment1/CTestConfiguration.ini\n'}
+[0.072006] (experiment1) StdoutLine: {'line': b'Parse Config file:/home/marhcouto/Documents/training/build/experiment1/CTestConfiguration.ini\n'}
+[0.072235] (experiment1) StdoutLine: {'line': b'Test project /home/marhcouto/Documents/training/build/experiment1\n'}
+[0.072512] (experiment1) StdoutLine: {'line': b'Constructing a list of tests\n'}
+[0.072731] (experiment1) StdoutLine: {'line': b'Done constructing a list of tests\n'}
+[0.072947] (experiment1) StdoutLine: {'line': b'Updating test list for fixtures\n'}
+[0.073160] (experiment1) StdoutLine: {'line': b'Added 0 tests to meet fixture requirements\n'}
+[0.073377] (experiment1) StdoutLine: {'line': b'Checking test dependency graph...\n'}
+[0.073589] (experiment1) StdoutLine: {'line': b'Checking test dependency graph end\n'}
+[0.073806] (experiment1) StdoutLine: {'line': b'test 1\n'}
+[0.074020] (experiment1) StdoutLine: {'line': b'    Start 1: experiment1_test\n'}
+[0.074236] (experiment1) StdoutLine: {'line': b'\n'}
+[0.074449] (experiment1) StdoutLine: {'line': b'1: Test command: /usr/bin/python3 "-u" "/opt/ros/galactic/share/ament_cmake_test/cmake/run_test.py" "/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/experiment1_test.gtest.xml" "--package-name" "experiment1" "--output-file" "/home/marhcouto/Documents/training/build/experiment1/ament_cmake_gtest/experiment1_test.txt" "--command" "/home/marhcouto/Documents/training/build/experiment1/experiment1_test" "--gtest_output=xml:/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/experiment1_test.gtest.xml"\n'}
+[0.074678] (experiment1) StdoutLine: {'line': b'1: Test timeout computed to be: 60\n'}
+[0.117525] (-) TimerEvent: {}
+[0.165642] (experiment1) StdoutLine: {'line': b"1: -- run_test.py: invoking following command in '/home/marhcouto/Documents/training/build/experiment1':\n"}
+[0.166166] (experiment1) StdoutLine: {'line': b'1:  - /home/marhcouto/Documents/training/build/experiment1/experiment1_test --gtest_output=xml:/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/experiment1_test.gtest.xml\n'}
+[0.168701] (experiment1) StdoutLine: {'line': b'1: [==========] Running 1 test from 1 test suite.\n'}
+[0.168993] (experiment1) StdoutLine: {'line': b'1: [----------] Global test environment set-up.\n'}
+[0.169152] (experiment1) StdoutLine: {'line': b'1: [----------] 1 test from DEMO_TEST_SUITE\n'}
+[0.170283] (experiment1) StdoutLine: {'line': b'1: [ RUN      ] DEMO_TEST_SUITE.TEST_CAR\n'}
+[0.170723] (experiment1) StdoutLine: {'line': b'1: [       OK ] DEMO_TEST_SUITE.TEST_CAR (0 ms)\n'}
+[0.171088] (experiment1) StdoutLine: {'line': b'1: [----------] 1 test from DEMO_TEST_SUITE (0 ms total)\n'}
+[0.171301] (experiment1) StdoutLine: {'line': b'1: \n'}
+[0.171446] (experiment1) StdoutLine: {'line': b'1: [----------] Global test environment tear-down\n'}
+[0.171586] (experiment1) StdoutLine: {'line': b'1: [==========] 1 test from 1 test suite ran. (0 ms total)\n'}
+[0.171719] (experiment1) StdoutLine: {'line': b'1: [  PASSED  ] 1 test.\n'}
+[0.176007] (experiment1) StdoutLine: {'line': b'1: -- run_test.py: return code 0\n'}
+[0.176533] (experiment1) StdoutLine: {'line': b"1: -- run_test.py: inject classname prefix into gtest result file '/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/experiment1_test.gtest.xml'\n"}
+[0.176837] (experiment1) StdoutLine: {'line': b"1: -- run_test.py: verify result file '/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/experiment1_test.gtest.xml'\n"}
+[0.192734] (experiment1) StdoutLine: {'line': b'1/1 Test #1: experiment1_test .................   Passed    0.12 sec\n'}
+[0.193971] (experiment1) StdoutLine: {'line': b'\n'}
+[0.194841] (experiment1) StdoutLine: {'line': b'\x1b[0;32m100% tests passed\x1b[0;0m, 0 tests failed\x1b[0;0m out of 1\n'}
+[0.195189] (experiment1) StdoutLine: {'line': b'\n'}
+[0.195484] (experiment1) StdoutLine: {'line': b'Label Time Summary:\n'}
+[0.195770] (experiment1) StdoutLine: {'line': b'gtest    =   0.12 sec*proc (1 test)\n'}
+[0.196043] (experiment1) StdoutLine: {'line': b'\n'}
+[0.197683] (experiment1) StdoutLine: {'line': b'Total Test time (real) =   0.12 sec\n'}
+[0.198467] (experiment1) CommandEnded: {'returncode': 0}
+[0.199587] (experiment1) JobEnded: {'identifier': 'experiment1', 'rc': 0}
+[0.201428] (-) EventReactorShutdown: {}

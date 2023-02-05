@@ -1,0 +1,45 @@
+[0.053s] Invoking command in '/home/marhcouto/Documents/driverless/src/localization-mapping/build/experiment1': AMENT_PREFIX_PATH=/home/marhcouto/Documents/training/install/experiment1:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/marhcouto/Documents/training/install/experiment1 /usr/bin/ctest -C Release -D ExperimentalTest --no-compress-output -V --force-new-ctest-process
+[0.068s] UpdateCTestConfiguration  from :/home/marhcouto/Documents/driverless/src/localization-mapping/build/experiment1/CTestConfiguration.ini
+[0.069s] Parse Config file:/home/marhcouto/Documents/driverless/src/localization-mapping/build/experiment1/CTestConfiguration.ini
+[0.069s]    Site: marhcouto-VirtualBox
+[0.070s]    Build name: (empty)
+[0.070s]  Add coverage exclude regular expressions.
+[0.070s] SetCTestConfiguration:CMakeCommand:/usr/bin/cmake
+[0.070s] UpdateCTestConfiguration  from :/home/marhcouto/Documents/training/build/experiment1/CTestConfiguration.ini
+[0.071s] Parse Config file:/home/marhcouto/Documents/training/build/experiment1/CTestConfiguration.ini
+[0.071s] Test project /home/marhcouto/Documents/training/build/experiment1
+[0.071s] Constructing a list of tests
+[0.071s] Done constructing a list of tests
+[0.072s] Updating test list for fixtures
+[0.072s] Added 0 tests to meet fixture requirements
+[0.072s] Checking test dependency graph...
+[0.072s] Checking test dependency graph end
+[0.072s] test 1
+[0.073s]     Start 1: experiment1_test
+[0.073s] 
+[0.073s] 1: Test command: /usr/bin/python3 "-u" "/opt/ros/galactic/share/ament_cmake_test/cmake/run_test.py" "/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/experiment1_test.gtest.xml" "--package-name" "experiment1" "--output-file" "/home/marhcouto/Documents/training/build/experiment1/ament_cmake_gtest/experiment1_test.txt" "--command" "/home/marhcouto/Documents/training/build/experiment1/experiment1_test" "--gtest_output=xml:/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/experiment1_test.gtest.xml"
+[0.074s] 1: Test timeout computed to be: 60
+[0.165s] 1: -- run_test.py: invoking following command in '/home/marhcouto/Documents/training/build/experiment1':
+[0.165s] 1:  - /home/marhcouto/Documents/training/build/experiment1/experiment1_test --gtest_output=xml:/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/experiment1_test.gtest.xml
+[0.167s] 1: [==========] Running 1 test from 1 test suite.
+[0.168s] 1: [----------] Global test environment set-up.
+[0.168s] 1: [----------] 1 test from DEMO_TEST_SUITE
+[0.169s] 1: [ RUN      ] DEMO_TEST_SUITE.TEST_CAR
+[0.169s] 1: [       OK ] DEMO_TEST_SUITE.TEST_CAR (0 ms)
+[0.170s] 1: [----------] 1 test from DEMO_TEST_SUITE (0 ms total)
+[0.170s] 1: 
+[0.170s] 1: [----------] Global test environment tear-down
+[0.170s] 1: [==========] 1 test from 1 test suite ran. (0 ms total)
+[0.170s] 1: [  PASSED  ] 1 test.
+[0.175s] 1: -- run_test.py: return code 0
+[0.175s] 1: -- run_test.py: inject classname prefix into gtest result file '/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/experiment1_test.gtest.xml'
+[0.176s] 1: -- run_test.py: verify result file '/home/marhcouto/Documents/training/build/experiment1/test_results/experiment1/experiment1_test.gtest.xml'
+[0.192s] 1/1 Test #1: experiment1_test .................   Passed    0.12 sec
+[0.193s] 
+[0.194s] [0;32m100% tests passed[0;0m, 0 tests failed[0;0m out of 1
+[0.194s] 
+[0.194s] Label Time Summary:
+[0.194s] gtest    =   0.12 sec*proc (1 test)
+[0.196s] 
+[0.197s] Total Test time (real) =   0.12 sec
+[0.197s] Invoked command in '/home/marhcouto/Documents/driverless/src/localization-mapping/build/experiment1' returned '0': AMENT_PREFIX_PATH=/home/marhcouto/Documents/training/install/experiment1:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/marhcouto/Documents/training/install/experiment1 /usr/bin/ctest -C Release -D ExperimentalTest --no-compress-output -V --force-new-ctest-process
