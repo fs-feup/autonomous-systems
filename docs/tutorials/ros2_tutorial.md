@@ -6,7 +6,6 @@ This tutorial is meant to help the developer learn [ROS2](https://docs.ros.org/e
 
 - [Youtube ROS2 tutorials](https://www.youtube.com/watch?v=uYW8UJZTuAg&list=PLRE44FoOoKf7NzWwxt3W2taZ7BiWyfhCp&index=6)
 - [ROS2 galactic documentation](https://docs.ros.org/en/galactic/index.html)
-- [SSH to Virtual Machine](https://averagelinuxuser.com/ssh-into-virtualbox/)
 
 ## Keywords
 
