@@ -44,7 +44,7 @@ In order to help future developers start contributing to this project, code shou
     - Use [this vscode extension](https://marketplace.visualstudio.com/items?itemName=cschlosser.doxdocgen) for automatic doxygen documentation generation
 - Run ```doxygen``` on the root directory to generate documentation
 
-There is an example doxyfile [here](../assets/Doxyfile.example)
+There is an example doxyfile [here](../assets/environment_setup_tutorial/Doxyfile.example)
 
 ## CPPCheck
 
