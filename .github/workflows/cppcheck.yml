@@ -24,4 +24,4 @@ jobs:
         run: cppcheck --enable=all src/
 
       - run: echo CPPCheck failed 
-        if {{ steps.cmd.output.stderr}}
+        if: {{ steps.cmd.output.stderr}}
