@@ -20,5 +20,6 @@ jobs:
         run: sudo apt install cppcheck
 
       - name: Run cppcheck
-        run: cppcheck --enable=all src/  
-        run: echo "something"
+        run: |
+          cppcheck --enable=all src/  
+          echo "something"
