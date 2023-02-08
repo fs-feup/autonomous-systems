@@ -2,3 +2,4 @@
 **/*.idea/
 **/log/*
 **/build/*
+**/install/*
