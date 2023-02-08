@@ -102,7 +102,7 @@ In order to ease the tracking down of possible bugs introduced to the code base 
 <commit message> e.g. docs: updated readme
 ```
 
-This structure is the automatic structure defined in GitHub.
+This structure is the automatic structure defined in Squash and Merge in GitHub.
 
 Don't forget to delete the source branches in the end, so that the project does not end up a jungle.
 
