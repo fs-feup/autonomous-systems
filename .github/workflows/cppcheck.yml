@@ -6,9 +6,6 @@ on:
   pull_request:
     branches: [ "main" ]
 
-env:
-  CPPCHECK_OUTPUT: ''
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,8 +17,4 @@ jobs:
         run: sudo apt install cppcheck
 
       - name: Run cppcheck
-        id: cmd
-        run: cppcheck --enable=all src/
-
-      - run: echo CPPCheck failed 
-        if: ${{ steps.cmd.outputs.stderr }}
+        run: cppcheck --enable=style --error-exitcode=1 src/
