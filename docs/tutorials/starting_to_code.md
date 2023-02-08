@@ -54,7 +54,7 @@ To use it, run ```cppcheck --enable=all  <directory>```.
 ## File Strucure and Guidelines
 
 A package in ROS2 can be created via the command line. The created project already constructs a certain file structure. However, some changes and additions ought to be mande in order for it to meat the guidelines established. To create a project:
-1. Run ```ros2 pkg create --build-type "ament_cmake" --node-name "<node_name>" "<package_name>"
+1. Run ```ros2 pkg create --build-type "ament_cmake" --node-name "<node_name>" "<package_name>"```
 2. Add Doxyfile to the root directory (can be inside or outside the folder created, I would advise outside)
 3. Create test folder inside the folder created (beside src folder)
 4. Change the CMakeLists.txt to file to support the tests (change 'if(BUILD_TESTING)' part to this 
