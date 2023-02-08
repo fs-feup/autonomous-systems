@@ -1,4 +1,4 @@
-name: CI
+name: CPPCheck
 
 on:
   push:
