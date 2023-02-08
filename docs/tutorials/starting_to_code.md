@@ -49,7 +49,7 @@ There is an example doxyfile [here](../assets/environment_setup_tutorial/Doxyfil
 ## CPPCheck
 
 In this project, we will be using CPPCheck as a static analysis tool, to check for any underlying bugs. We will be using it in the Gitlab pipeline, but it is handy that the developer can use it locally. To install it, in the Virtual Machine, just run ```sudo apt install cppcheck```
-To use it, run ```cppcheck --enable=all  <directory>```.
+To use it, run ```cppcheck --enable=all --error-exitcode=1 src/ -i test/```. This command already has some tunning to ignore some things and not ignore others. To learn more, run ```cppcheck -h```.
 
 ## File Strucure and Guidelines
 

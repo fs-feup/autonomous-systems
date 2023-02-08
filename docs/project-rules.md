@@ -98,12 +98,13 @@ In merge requests, it is mandatory that the author:
 In order to ease the tracking down of possible bugs introduced to the code base and to leave the commit log organized, commits should be squashed on merge and the message left on the commit should follow the standards described below:
 
 ```bash
-Merge branch <origin branch> into 'main'
+<Pull Request name>
 <commit message> e.g. docs: updated readme
-See merge request <link to merge request>
 ```
 
-This structure is the automatic structure defined in GitLab.
+This structure is the automatic structure defined in Squash and Merge in GitHub.
+
+Don't forget to delete the source branches in the end, so that the project does not end up a jungle.
 
 ## Wiki Repository
 
