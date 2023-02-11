@@ -49,12 +49,12 @@ There is an example doxyfile [here](../assets/environment_setup_tutorial/Doxyfil
 ## CPPCheck
 
 In this project, we will be using CPPCheck as a static analysis tool, to check for any underlying bugs. We will be using it in the Gitlab pipeline, but it is handy that the developer can use it locally. To install it, in the Virtual Machine, just run ```sudo apt install cppcheck```
-To use it, run ```cppcheck --enable=all  <directory>```.
+To use it, run ```cppcheck --enable=all --error-exitcode=1 src/ -i test/```. This command already has some tunning to ignore some things and not ignore others. To learn more, run ```cppcheck -h```.
 
 ## File Strucure and Guidelines
 
 A package in ROS2 can be created via the command line. The created project already constructs a certain file structure. However, some changes and additions ought to be mande in order for it to meat the guidelines established. To create a project:
-1. Run ```ros2 pkg create --build-type "ament_cmake" --node-name "<node_name>" "<package_name>"
+1. Run ```ros2 pkg create --build-type "ament_cmake" --node-name "<node_name>" "<package_name>"```
 2. Add Doxyfile to the root directory (can be inside or outside the folder created, I would advise outside)
 3. Create test folder inside the folder created (beside src folder)
 4. Change the CMakeLists.txt to file to support the tests (change 'if(BUILD_TESTING)' part to this 
