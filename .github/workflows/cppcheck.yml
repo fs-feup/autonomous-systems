@@ -1,0 +1,20 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install cppcheck
+        run: sudo apt install cppcheck
+
+      - name: Run cppcheck
+        run: cppcheck --enable=all --error-exitcode=1 src/ -i test/
