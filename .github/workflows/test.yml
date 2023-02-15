@@ -20,7 +20,8 @@ jobs:
       - name: Run entrypoint
         run: |
           cd /
-          ls
+          ls /opt/
+          source /opt/ros/galactic/setup.bash
           sudo chmod 777 ./ros_entrypoint.sh  
           ./ros_entrypoint.sh
 
