@@ -59,4 +59,4 @@ jobs:
       - name: Run tests for Localization and Mapping
         run: |
           cd ./src/localization-mapping/
-          colcon test --output-on-failure
+          colcon test --event-handler=console_direct+
