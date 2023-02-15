@@ -19,7 +19,7 @@ jobs:
 
       - name: Compile Localization and Mapping
         run: |
-          source /opt/ros/galactic/setup.bash
+          ls 
           cd ./src/localization-mapping/
           colcon build
           source install/setup.bash
@@ -42,8 +42,9 @@ jobs:
         run: |
           source /opt/ros/galactic/setup.bash
           cd ./src/localization-mapping/
+          ls
           colcon build
           source install/setup.bash
       
-      # - name: Run tests for Localization and Mapping
-      #   run: colcon test
+      - name: Run tests for Localization and Mapping
+        run: colcon test
