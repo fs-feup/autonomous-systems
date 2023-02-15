@@ -64,4 +64,6 @@ jobs:
           source install/setup.bash
       
       - name: Run tests for Localization and Mapping
-        run: colcon test
+        run: |
+          cd ./src/localization-mapping/
+          colcon test --event-handler=console_direct+
