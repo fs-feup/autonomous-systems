@@ -1,25 +1,57 @@
 import rclpy
 from rclpy.node import Node
 
-from custom_interfaces.msg import Point2d as Point
+from custom_interfaces.msg import PointArray
+from geometry_msgs.msg import Point
 
 
 class PathMockPublisher(Node):
 
     def __init__(self):
         super().__init__('path_mock_publisher')
-        self.publisher_ = self.create_publisher(Point, 'path_mock', 10)
+        self.create_path()
+
+        self.publisher_ = self.create_publisher(PointArray, 'path_mock', 10)
         timer_period = 0.5  # seconds
         self.timer = self.create_timer(timer_period, self.timer_callback)
-        self.i = 0.
+
+    def create_path(self):
+        path = PointArray()
+        for i in range(10):
+            point = Point()
+            point.x = 0.
+            point.y = float(i)
+            point.z = 0.
+
+            path.points.append(point)
+        for i in range(10):
+            point = Point()
+            point.x = float(i)
+            point.y = 9.
+            point.z = 0.
+
+            path.points.append(point)
+        for i in range(9,-1,-1):
+            point = Point()
+            point.x = 9.
+            point.y = float(i)
+            point.z = 0.
+
+            path.points.append(point)
+        for i in range(9,-1,-1):
+            point = Point()
+            point.x = float(i)
+            point.y = 0.
+            point.z = 0.
+
+            path.points.append(point)
+        self.path = path
 
     def timer_callback(self):
-        msg = Point()
-        msg.x = self.i
-        msg.y = self.i + 1.0
-        self.publisher_.publish(msg)
-        self.get_logger().info(f"Publishing: X:{msg.x}, Y:{msg.y}")
-        self.i += 1
+        if self.path is not None:
+            self.publisher_.publish(self.path)
+        else:
+            self.publisher_.publish([])
 
 
 def main(args=None):
