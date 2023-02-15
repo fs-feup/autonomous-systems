@@ -55,7 +55,6 @@ jobs:
           sudo apt install python3-rosdep
           sudo rosdep init
           rosdep update --include-eol-distros
-          rosdep install --from-paths $EUFS_MASTER --ignore-src -r -y
 
       - name: Compile Localization and Mapping
         run: |
