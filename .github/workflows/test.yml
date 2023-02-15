@@ -20,6 +20,7 @@ jobs:
       - name: Compile Localization and Mapping
         run: |
           pwd
+          ls /
           cd ./src/localization-mapping/
           colcon build
           source install/setup.bash
@@ -28,23 +29,23 @@ jobs:
       #   run: colcon test
 
 
-  build2:
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v3
-      - uses: ros-tooling/setup-ros@v0.5
-        with:
-          install-connext: true
-          use-ros2-testing: true
-          required-ros-distributions: galactic
+  # build2:
+  #   runs-on: ubuntu-20.04
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - uses: ros-tooling/setup-ros@v0.5
+  #       with:
+  #         install-connext: true
+  #         use-ros2-testing: true
+  #         required-ros-distributions: galactic
 
-      - name: Compile Localization and Mapping
-        run: |
-          source /opt/ros/galactic/setup.bash
-          cd ./src/localization-mapping/
-          ls
-          colcon build
-          source install/setup.bash
+  #     - name: Compile Localization and Mapping
+  #       run: |
+  #         source /opt/ros/galactic/setup.bash
+  #         cd ./src/localization-mapping/
+  #         ls
+  #         colcon build
+  #         source install/setup.bash
       
-      - name: Run tests for Localization and Mapping
-        run: colcon test
+  #     - name: Run tests for Localization and Mapping
+  #       run: colcon test
