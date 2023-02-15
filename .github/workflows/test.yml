@@ -22,7 +22,7 @@ jobs:
           pwd
           ls /
           ls /opt/
-          source /entrypoint.sh
+          source /ros_entrypoint.sh
           cd ./src/localization-mapping/
           colcon build
           source install/setup.bash
