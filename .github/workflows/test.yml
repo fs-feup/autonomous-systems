@@ -15,7 +15,7 @@ jobs:
         with:
           install-connext: true
           use-ros2-testing: true
-          required-ros-distributions: humble
+          required-ros-distributions: galactic
 
       - name: Compile Localization and Mapping
         run: |
