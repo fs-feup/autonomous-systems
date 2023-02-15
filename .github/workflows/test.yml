@@ -9,6 +9,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-20.04
+    container:
+      image: osrf/ros2:testing
+      
+  build2:
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
       - uses: ros-tooling/setup-ros@v0.5
@@ -20,8 +25,8 @@ jobs:
       - name: Compile Localization and Mapping
         run: |
           cd ./src/localization-mapping/
-          source install/setup.bash
           colcon build
+          source install/setup.bash
       
       - name: Run tests for Localization and Mapping
         run: colcon test
