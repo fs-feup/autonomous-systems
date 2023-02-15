@@ -10,7 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-20.04
     container:
-      image: osrf/ros2:source
+      image: osrf/ros:galactic-desktop
       volumes: 
       - ${{ github.workspace }}:/src
     steps:
@@ -58,4 +58,4 @@ jobs:
       - name: Run tests for Localization and Mapping
         run: |
           cd ./src/localization-mapping/
-          colcon test
+          colcon test --output-on-failure
