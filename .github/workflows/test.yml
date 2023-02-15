@@ -21,7 +21,7 @@ jobs:
         run: |
           cd /
           ls /opt/
-          source /opt/ros/galactic/setup.bash
+          ./opt/ros/galactic/setup.bash
           sudo chmod 777 ./ros_entrypoint.sh  
           ./ros_entrypoint.sh
 
