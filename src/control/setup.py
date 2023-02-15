@@ -20,7 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'pid = control.python_node:main',
+            'path_listener = control.control_node:main',
         ],
     },
 )
