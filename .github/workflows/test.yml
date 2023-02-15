@@ -19,7 +19,7 @@ jobs:
 
       - name: Compile Localization and Mapping
         run: |
-          ls 
+          pwd
           cd ./src/localization-mapping/
           colcon build
           source install/setup.bash
