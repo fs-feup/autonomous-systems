@@ -1,0 +1,27 @@
+name: Testing and Compiling
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ros-tooling/setup-ros@v0.5
+        with:
+          install-connext: true
+          use-ros2-testing: true
+          required-ros-distributions: humble
+
+      - name: Compile Localization and Mapping
+        run: |
+          cd ./src/localization-mapping/
+          source install/setup.bash
+          colcon build
+      
+      - name: Run tests for Localization and Mapping
+        run: colcon test
