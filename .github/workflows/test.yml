@@ -20,7 +20,9 @@ jobs:
       - name: Compile Localization and Mapping
         run: |
           pwd
+          ls /
           ls /opt/
+          source /entrypoint.sh
           cd ./src/localization-mapping/
           colcon build
           source install/setup.bash
