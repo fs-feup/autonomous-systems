@@ -59,8 +59,8 @@ jobs:
       - name: Compile Localization and Mapping
         run: |
           cd ./src/localization-mapping/
-          colcon build
           source install/setup.bash
+          colcon build
       
       - name: Run tests for Localization and Mapping
         run: colcon test
