@@ -17,17 +17,14 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Run entrypoint
+      - name: Compile and Test Localization and Mapping
         run: |
-          pwd
-          cd /
-          ls ./opt/ros/galactic/
-          sudo chmod u+x ./opt/ros/galactic/setup.sh
-          cat ./opt/ros/galactic/setup.sh
-          ./opt/ros/galactic/setup.sh
+          sudo chmod u+x /opt/ros/galactic/setup.sh
+          sh /opt/ros/galactic/setup.sh
           cd ./src/localization-mapping/
           colcon build
           source install/setup.bash
+          colcon test
       
       # - name: Run tests for Localization and Mapping
       #   run: colcon test
