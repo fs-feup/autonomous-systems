@@ -20,7 +20,7 @@ jobs:
       - name: Run entrypoint
         run: |
           cd /
-          sudo chmod 777 ./opt/ros/galactic/setup.bash  
+          sudo chmod u+x ./opt/ros/galactic/setup.bash  
           ./opt/ros/galactic/setup.bash
 
       - name: Compile Localization and Mapping
