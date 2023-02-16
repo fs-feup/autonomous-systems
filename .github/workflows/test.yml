@@ -31,7 +31,6 @@ jobs:
       - name: Update
         run: |          
           sudo apt update
-          sudo apt upgrade   
 
       - name: ROS2 Installation
         run: sudo apt install ros-galactic-desktop
