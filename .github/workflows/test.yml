@@ -21,8 +21,8 @@ jobs:
         run: |
           cd /
           ls ./opt/ros/galactic/
-          sudo chmod u+x ./opt/ros/galactic/setup.bash  
-          ./opt/ros/galactic/setup.bash
+          sudo chmod u+x ./opt/ros/galactic/setup.sh
+          ./opt/ros/galactic/setup.sh
 
       - name: Compile Localization and Mapping
         run: |
