@@ -20,6 +20,7 @@ jobs:
       - name: Run entrypoint
         run: |
           cd /
+          ls ./opt/ros/galactic/
           sudo chmod u+x ./opt/ros/galactic/setup.bash  
           ./opt/ros/galactic/setup.bash
 
@@ -54,4 +55,5 @@ jobs:
       - name: Run tests for Localization and Mapping
         run: |
           cd ./src/localization-mapping/
+          ls /opt/ros/galactic/share/ament_cmake_test/cmake/
           colcon test --event-handler=console_direct+
