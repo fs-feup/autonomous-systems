@@ -1,4 +1,4 @@
-name: Testing and Compiling
+name: Testing and Validating
 
 on:
   push:
@@ -7,6 +7,18 @@ on:
     branches: [ "main" ]
 
 jobs:
+  cppcheck:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install cppcheck
+        run: sudo apt install cppcheck
+
+      - name: Run cppcheck
+        run: cppcheck --enable=all --error-exitcode=1 src/ -i test/
+
   build:
     runs-on: ubuntu-20.04
 
