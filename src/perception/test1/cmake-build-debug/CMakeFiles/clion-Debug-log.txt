@@ -1,0 +1,5 @@
+/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/Applications/CLion.app/Contents/bin/ninja/mac/ninja -G Ninja -S /Users/tomascadete/Desktop/FS/driverless/src/perception/test1 -B /Users/tomascadete/Desktop/FS/driverless/src/perception/test1/cmake-build-debug
+-- Found OpenCV: /usr/local/Cellar/opencv/4.7.0_1 (found version "4.7.0") 
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /Users/tomascadete/Desktop/FS/driverless/src/perception/test1/cmake-build-debug
