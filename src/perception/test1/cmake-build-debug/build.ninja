@@ -1,0 +1,141 @@
+## This file contains all the build statements describing the
+# compilation DAG.
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# 
+# Which is the root file.
+# =============================================================================
+
+# =============================================================================
+# Project: test1
+# Configurations: Debug
+# =============================================================================
+
+#############################################
+# Minimal version of Ninja required by this file
+
+ninja_required_version = 1.5
+
+
+#############################################
+# Set configuration variable for custom commands.
+
+CONFIGURATION = Debug
+# =============================================================================
+# Include auxiliary files.
+
+
+#############################################
+# Include rules file.
+
+include CMakeFiles/rules.ninja
+
+# =============================================================================
+
+#############################################
+# Logical path to working directory; prefix for absolute paths.
+
+cmake_ninja_workdir = /Users/tomascadete/Desktop/FS/driverless/src/perception/test1/cmake-build-debug/
+# =============================================================================
+# Object build statements for EXECUTABLE target test1
+
+
+#############################################
+# Order-only phony target for test1
+
+build cmake_object_order_depends_target_test1: phony || CMakeFiles/test1.dir
+
+build CMakeFiles/test1.dir/main.cpp.o: CXX_COMPILER__test1_Debug /Users/tomascadete/Desktop/FS/driverless/src/perception/test1/main.cpp || cmake_object_order_depends_target_test1
+  DEP_FILE = CMakeFiles/test1.dir/main.cpp.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu++11
+  INCLUDES = -isystem /usr/local/Cellar/opencv/4.7.0_1/include/opencv4
+  OBJECT_DIR = CMakeFiles/test1.dir
+  OBJECT_FILE_DIR = CMakeFiles/test1.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target test1
+
+
+#############################################
+# Link the executable test1
+
+build test1: CXX_EXECUTABLE_LINKER__test1_Debug CMakeFiles/test1.dir/main.cpp.o | /usr/local/lib/libopencv_gapi.4.7.0.dylib /usr/local/lib/libopencv_stitching.4.7.0.dylib /usr/local/lib/libopencv_alphamat.4.7.0.dylib /usr/local/lib/libopencv_aruco.4.7.0.dylib /usr/local/lib/libopencv_barcode.4.7.0.dylib /usr/local/lib/libopencv_bgsegm.4.7.0.dylib /usr/local/lib/libopencv_bioinspired.4.7.0.dylib /usr/local/lib/libopencv_ccalib.4.7.0.dylib /usr/local/lib/libopencv_dnn_objdetect.4.7.0.dylib /usr/local/lib/libopencv_dnn_superres.4.7.0.dylib /usr/local/lib/libopencv_dpm.4.7.0.dylib /usr/local/lib/libopencv_face.4.7.0.dylib /usr/local/lib/libopencv_freetype.4.7.0.dylib /usr/local/lib/libopencv_fuzzy.4.7.0.dylib /usr/local/lib/libopencv_hfs.4.7.0.dylib /usr/local/lib/libopencv_img_hash.4.7.0.dylib /usr/local/lib/libopencv_intensity_transform.4.7.0.dylib /usr/local/lib/libopencv_line_descriptor.4.7.0.dylib /usr/local/lib/libopencv_mcc.4.7.0.dylib /usr/local/lib/libopencv_quality.4.7.0.dylib /usr/local/lib/libopencv_rapid.4.7.0.dylib /usr/local/lib/libopencv_reg.4.7.0.dylib /usr/local/lib/libopencv_rgbd.4.7.0.dylib /usr/local/lib/libopencv_saliency.4.7.0.dylib /usr/local/lib/libopencv_sfm.4.7.0.dylib /usr/local/lib/libopencv_stereo.4.7.0.dylib /usr/local/lib/libopencv_structured_light.4.7.0.dylib /usr/local/lib/libopencv_superres.4.7.0.dylib /usr/local/lib/libopencv_surface_matching.4.7.0.dylib /usr/local/lib/libopencv_tracking.4.7.0.dylib /usr/local/lib/libopencv_videostab.4.7.0.dylib /usr/local/lib/libopencv_viz.4.7.0.dylib /usr/local/lib/libopencv_wechat_qrcode.4.7.0.dylib /usr/local/lib/libopencv_xfeatures2d.4.7.0.dylib /usr/local/lib/libopencv_xobjdetect.4.7.0.dylib /usr/local/lib/libopencv_xphoto.4.7.0.dylib /usr/local/lib/libopencv_shape.4.7.0.dylib /usr/local/lib/libopencv_highgui.4.7.0.dylib /usr/local/lib/libopencv_datasets.4.7.0.dylib /usr/local/lib/libopencv_plot.4.7.0.dylib /usr/local/lib/libopencv_text.4.7.0.dylib /usr/local/lib/libopencv_ml.4.7.0.dylib /usr/local/lib/libopencv_phase_unwrapping.4.7.0.dylib /usr/local/lib/libopencv_optflow.4.7.0.dylib /usr/local/lib/libopencv_ximgproc.4.7.0.dylib /usr/local/lib/libopencv_video.4.7.0.dylib /usr/local/lib/libopencv_videoio.4.7.0.dylib /usr/local/lib/libopencv_imgcodecs.4.7.0.dylib /usr/local/lib/libopencv_objdetect.4.7.0.dylib /usr/local/lib/libopencv_calib3d.4.7.0.dylib /usr/local/lib/libopencv_dnn.4.7.0.dylib /usr/local/lib/libopencv_features2d.4.7.0.dylib /usr/local/lib/libopencv_flann.4.7.0.dylib /usr/local/lib/libopencv_photo.4.7.0.dylib /usr/local/lib/libopencv_imgproc.4.7.0.dylib /usr/local/lib/libopencv_core.4.7.0.dylib
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk
+  LINK_LIBRARIES = -Wl,-rpath,/usr/local/lib  /usr/local/lib/libopencv_gapi.4.7.0.dylib  /usr/local/lib/libopencv_stitching.4.7.0.dylib  /usr/local/lib/libopencv_alphamat.4.7.0.dylib  /usr/local/lib/libopencv_aruco.4.7.0.dylib  /usr/local/lib/libopencv_barcode.4.7.0.dylib  /usr/local/lib/libopencv_bgsegm.4.7.0.dylib  /usr/local/lib/libopencv_bioinspired.4.7.0.dylib  /usr/local/lib/libopencv_ccalib.4.7.0.dylib  /usr/local/lib/libopencv_dnn_objdetect.4.7.0.dylib  /usr/local/lib/libopencv_dnn_superres.4.7.0.dylib  /usr/local/lib/libopencv_dpm.4.7.0.dylib  /usr/local/lib/libopencv_face.4.7.0.dylib  /usr/local/lib/libopencv_freetype.4.7.0.dylib  /usr/local/lib/libopencv_fuzzy.4.7.0.dylib  /usr/local/lib/libopencv_hfs.4.7.0.dylib  /usr/local/lib/libopencv_img_hash.4.7.0.dylib  /usr/local/lib/libopencv_intensity_transform.4.7.0.dylib  /usr/local/lib/libopencv_line_descriptor.4.7.0.dylib  /usr/local/lib/libopencv_mcc.4.7.0.dylib  /usr/local/lib/libopencv_quality.4.7.0.dylib  /usr/local/lib/libopencv_rapid.4.7.0.dylib  /usr/local/lib/libopencv_reg.4.7.0.dylib  /usr/local/lib/libopencv_rgbd.4.7.0.dylib  /usr/local/lib/libopencv_saliency.4.7.0.dylib  /usr/local/lib/libopencv_sfm.4.7.0.dylib  /usr/local/lib/libopencv_stereo.4.7.0.dylib  /usr/local/lib/libopencv_structured_light.4.7.0.dylib  /usr/local/lib/libopencv_superres.4.7.0.dylib  /usr/local/lib/libopencv_surface_matching.4.7.0.dylib  /usr/local/lib/libopencv_tracking.4.7.0.dylib  /usr/local/lib/libopencv_videostab.4.7.0.dylib  /usr/local/lib/libopencv_viz.4.7.0.dylib  /usr/local/lib/libopencv_wechat_qrcode.4.7.0.dylib  /usr/local/lib/libopencv_xfeatures2d.4.7.0.dylib  /usr/local/lib/libopencv_xobjdetect.4.7.0.dylib  /usr/local/lib/libopencv_xphoto.4.7.0.dylib  /usr/local/lib/libopencv_shape.4.7.0.dylib  /usr/local/lib/libopencv_highgui.4.7.0.dylib  /usr/local/lib/libopencv_datasets.4.7.0.dylib  /usr/local/lib/libopencv_plot.4.7.0.dylib  /usr/local/lib/libopencv_text.4.7.0.dylib  /usr/local/lib/libopencv_ml.4.7.0.dylib  /usr/local/lib/libopencv_phase_unwrapping.4.7.0.dylib  /usr/local/lib/libopencv_optflow.4.7.0.dylib  /usr/local/lib/libopencv_ximgproc.4.7.0.dylib  /usr/local/lib/libopencv_video.4.7.0.dylib  /usr/local/lib/libopencv_videoio.4.7.0.dylib  /usr/local/lib/libopencv_imgcodecs.4.7.0.dylib  /usr/local/lib/libopencv_objdetect.4.7.0.dylib  /usr/local/lib/libopencv_calib3d.4.7.0.dylib  /usr/local/lib/libopencv_dnn.4.7.0.dylib  /usr/local/lib/libopencv_features2d.4.7.0.dylib  /usr/local/lib/libopencv_flann.4.7.0.dylib  /usr/local/lib/libopencv_photo.4.7.0.dylib  /usr/local/lib/libopencv_imgproc.4.7.0.dylib  /usr/local/lib/libopencv_core.4.7.0.dylib
+  OBJECT_DIR = CMakeFiles/test1.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = test1
+  TARGET_PDB = test1.dbg
+
+
+#############################################
+# Utility command for edit_cache
+
+build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/tomascadete/Desktop/FS/driverless/src/perception/test1/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build edit_cache: phony CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/tomascadete/Desktop/FS/driverless/src/perception/test1/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake --regenerate-during-build -S/Users/tomascadete/Desktop/FS/driverless/src/perception/test1 -B/Users/tomascadete/Desktop/FS/driverless/src/perception/test1/cmake-build-debug
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build rebuild_cache: phony CMakeFiles/rebuild_cache.util
+
+# =============================================================================
+# Target aliases.
+
+# =============================================================================
+# Folder targets.
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/tomascadete/Desktop/FS/driverless/src/perception/test1/cmake-build-debug
+
+build all: phony test1
+
+# =============================================================================
+# Built-in targets
+
+
+#############################################
+# Re-run CMake if any of its inputs changed.
+
+build build.ninja: RERUN_CMAKE | /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeCXXInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeCommonLanguageInclude.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeGenericSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeInitializeConfigs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeLanguageInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeSystemSpecificInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeSystemSpecificInitialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/FindPackageHandleStandardArgs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/FindPackageMessage.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-Clang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Darwin-Initialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Darwin.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/UnixPaths.cmake /Users/tomascadete/Desktop/FS/driverless/src/perception/test1/CMakeLists.txt /usr/local/lib/cmake/opencv4/OpenCVConfig-version.cmake /usr/local/lib/cmake/opencv4/OpenCVConfig.cmake /usr/local/lib/cmake/opencv4/OpenCVModules-release.cmake /usr/local/lib/cmake/opencv4/OpenCVModules.cmake CMakeCache.txt CMakeFiles/3.24.2/CMakeCCompiler.cmake CMakeFiles/3.24.2/CMakeCXXCompiler.cmake CMakeFiles/3.24.2/CMakeSystem.cmake
+  pool = console
+
+
+#############################################
+# A missing CMake input file is not an error.
+
+build /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeCXXInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeCommonLanguageInclude.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeGenericSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeInitializeConfigs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeLanguageInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeSystemSpecificInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeSystemSpecificInitialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/FindPackageHandleStandardArgs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/FindPackageMessage.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-Clang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Darwin-Initialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Darwin.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/UnixPaths.cmake /Users/tomascadete/Desktop/FS/driverless/src/perception/test1/CMakeLists.txt /usr/local/lib/cmake/opencv4/OpenCVConfig-version.cmake /usr/local/lib/cmake/opencv4/OpenCVConfig.cmake /usr/local/lib/cmake/opencv4/OpenCVModules-release.cmake /usr/local/lib/cmake/opencv4/OpenCVModules.cmake CMakeCache.txt CMakeFiles/3.24.2/CMakeCCompiler.cmake CMakeFiles/3.24.2/CMakeCXXCompiler.cmake CMakeFiles/3.24.2/CMakeSystem.cmake: phony
+
+
+#############################################
+# Clean all the built files.
+
+build clean: CLEAN
+
+
+#############################################
+# Print all primary targets available.
+
+build help: HELP
+
+
+#############################################
+# Make the all target the default.
+
+default all
