@@ -20,7 +20,7 @@ data = json.load(f)
 # Closing file
 f.close()
 
-f = open("map_mock.txt", "w")
+f = open("src/map_mock.txt", "w")
 for i in range (0, len(data['x'])):
     f.write(f"{data['x'][i]} {data['y'][i]} {color_encoding(data['color'][i])}\n")
 
