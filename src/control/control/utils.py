@@ -1,3 +1,6 @@
+import numpy as np
+import math
+
 def steer(self, error):
     kp = 0.03
     kd = 0.0
