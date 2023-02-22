@@ -19,7 +19,7 @@ class PathPlanner{
      * Constructor
      * @param track pathplanner track input data
     */
-    PathPlanner(Track *track);
+    explicit PathPlanner(Track *track);
 
     /**
      * Writes the output/result path to a file
@@ -41,5 +41,5 @@ class PathPlanner{
      */
     vector<pair<float, float>> getPath();
 
-    void sendPath(); // TODO send path to controller
+    //void sendPath(); // TODO send path to controller
 };

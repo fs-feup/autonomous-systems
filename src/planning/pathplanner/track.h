@@ -40,12 +40,12 @@ class Track{
         /**
          * Read file to populate track
         */
-        void fillTrack(string path);
+        void fillTrack(const string path);
 
         /**
          * Add cone to list
         */
-        void addConePair(Position* cone, string color); // adds the position of two cones to the track list
+        void addConePair(Position* cone, const string color); // adds the position of two cones to the track list
 
         void receiveConeData(); // TODO ros subscriber input (Position left, Position right, color);
 

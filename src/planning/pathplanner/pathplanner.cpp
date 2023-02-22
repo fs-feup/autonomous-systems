@@ -54,8 +54,8 @@ vector<pair<float, float>> PathPlanner::getPath() {
     return pathCopy;
 }
 
-void PathPlanner::sendPath(){
+/*void PathPlanner::sendPath(){
     // TODO send path to controller
-}
+}*/
 
 
