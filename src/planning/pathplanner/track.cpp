@@ -5,7 +5,7 @@ Track::Track(){
     completed = false;
 }
 
-void Track::fillTrack(const string path) {
+void Track::fillTrack(const string &path) {
     string x, y, color;
     ifstream trackFile;
     trackFile.open(path);
@@ -34,7 +34,7 @@ int Track::getLeftConesSize() {
     return leftCones.size();
 }
 
-void Track::addConePair(Position* cone, const string color){
+void Track::addConePair(Position* cone, const string &color){
     if (color == "b" || color == "or")
         rightCones.push_back(cone);
     else if (color == "y" || color == "ol")
