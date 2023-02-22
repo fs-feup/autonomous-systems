@@ -9,10 +9,10 @@ yMidList = []
 
 colorList = []
 count = 0
-with open('src\\files\\map_mock.txt', 'r') as f:
+with open('pathplanner\\files\\map_mock.txt', 'r') as f:
     for line in f:   
         lineList = line.split(" ")
-        lineList[2]=lineList[2][0]
+        lineList[2]=lineList[2].strip()
         if lineList[2] == "ol" or lineList[2] == "y": # yellow and orange left -> left cones
             xLeftList.append(float(lineList[0]))
             yLeftList.append(float(lineList[1]))
@@ -24,14 +24,15 @@ with open('src\\files\\map_mock.txt', 'r') as f:
 
 print(len(xLeftList))
 print(len(xRightList))
-with open('src\\files\\finalPath.txt', 'r') as f:
+
+with open('pathplanner\\files\\finalPath.txt', 'r') as f:
     for line in f:   
         lineList = line.split(" ")
         xMidList.append(float(lineList[0]))
         yMidList.append(float(lineList[1]))
-        colorList.append("#ff0000")
+        colorList.append("#aa0000")
 
             
-plt.scatter(xLeftList + xRightList + xMidList, yLeftList + yRightList + yMidList, s = 0.5, c = colorList)
+plt.scatter(xLeftList + xRightList + xMidList, yLeftList + yRightList + yMidList, s = 1.5, c = colorList)
 
 plt.show()

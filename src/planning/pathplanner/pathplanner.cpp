@@ -46,6 +46,14 @@ void PathPlanner::writeFinalPath() {
     finalPathFile.close();
 }
 
+vector<pair<float, float>> PathPlanner::getPath() {
+    vector<pair<float, float>> pathCopy;
+    for (int i = 0; i < finalPath.size(); i++)
+        pathCopy.push_back(make_pair(finalPath[i]->getX(), finalPath[i]->getY()));
+
+    return pathCopy;
+}
+
 void PathPlanner::sendPath(){
     // TODO send path to controller
 }

@@ -2,7 +2,9 @@
 
 #include "cmath"
 #include "vector"
-
+/**
+ * Position class. Stores the x and y values of the car
+*/
 class Position {
     float x, y;
 
@@ -17,6 +19,9 @@ public:
 
     void setY(float y);
 
+    /**
+     * Euclidean distance to another position
+    */
     float getDistanceTo(Position* dest);
 
 };

@@ -4,7 +4,7 @@
 int main() {
 
     Track* track = new Track();
-    track->fillTrack();
+    track->fillTrack("files\\map_mock.txt");
     PathPlanner* pathplanner = new PathPlanner(track);
     pathplanner->middlePath();
 

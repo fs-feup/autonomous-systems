@@ -5,10 +5,10 @@ Track::Track(){
     completed = false;
 }
 
-void Track::fillTrack() {
+void Track::fillTrack(string path) {
     string x, y, color;
     ifstream trackFile;
-    trackFile.open("files\\map_mock.txt");
+    trackFile.open(path);
 
     while (trackFile >> x >> y >> color) {
         cout << x;
