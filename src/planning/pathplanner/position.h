@@ -13,11 +13,11 @@ public:
 
     float getX() const;
 
-    void setX(float x);
+    //void setX(float x);
 
     float getY() const;
 
-    void setY(float y);
+    //void setY(float y);
 
     /**
      * Euclidean distance to another position
