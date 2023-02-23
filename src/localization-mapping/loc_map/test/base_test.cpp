@@ -4,4 +4,4 @@
  * @brief Construct a new TEST object
  *
  */
-TEST(DEMO_TEST_SUITE, TEST_CAR) { EXPECT_TRUE(true); }
+TEST(DEMO_TEST_SUITE, TEST_BASE) { EXPECT_TRUE(true); }

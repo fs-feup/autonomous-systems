@@ -1,7 +1,6 @@
 #ifndef SRC_PLANNING_PATHPLANNER_INCLUDE_POSITION_HPP_
 #define SRC_PLANNING_PATHPLANNER_INCLUDE_POSITION_HPP_
 
-
 #include <cmath>
 #include <vector>
 
@@ -28,5 +27,4 @@ class Position {
   float getDistanceTo(Position* dest);
 };
 
-
-#endif //SRC_PLANNING_PATHPLANNER_INCLUDE_POSITION_HPP_
+#endif  // SRC_PLANNING_PATHPLANNER_INCLUDE_POSITION_HPP_
