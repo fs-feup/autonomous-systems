@@ -1,4 +1,4 @@
-#include "pathplanner.h"
+#include "include/pathplanner.hpp"
 
 PathPlanner::PathPlanner(Track* track) : track(track) {}
 

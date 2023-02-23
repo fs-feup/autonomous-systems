@@ -1,4 +1,4 @@
-#include "position.h"
+#include "include/position.hpp"
 
 Position::Position(float x, float y) : x(x), y(y) {}
 

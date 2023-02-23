@@ -1,5 +1,11 @@
+#ifndef SRC_PLANNING_PATHPLANNER_INCLUDE_PATHPLANNER_HPP_
+#define SRC_PLANNING_PATHPLANNER_INCLUDE_PATHPLANNER_HPP_
+
+
+#include <vector>
+#include <utility>
 #include "track.hpp"
-#include "vector"
+
 
 using namespace std;
 
@@ -27,7 +33,7 @@ class PathPlanner {
   /**
    * Calculates the track central path
    */
-  void middlePath();  // TODO calculate middle path using track info
+  void middlePath();  // TODO(andre): calculate middle path using track info
 
   // void rrt();
   // void astar();
@@ -39,5 +45,7 @@ class PathPlanner {
    */
   vector<pair<float, float>> getPath();
 
-  // void sendPath(); // TODO send path to controller
+  // void sendPath(); // TODO(andre): send path to controller
 };
+
+#endif // SRC_PLANNING_PATHPLANNER_INCLUDE_PATHPLANNER_HPP_

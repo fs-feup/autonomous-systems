@@ -1,3 +1,7 @@
+#ifndef SRC_PLANNING_PATHPLANNER_INCLUDE_TRACK_HPP_
+#define SRC_PLANNING_PATHPLANNER_INCLUDE_TRACK_HPP_
+
+
 #include <cstring>
 #include <fstream>
 #include <iostream>
@@ -49,8 +53,10 @@ class Track {
       Position* cone,
       const string& color);  // adds the position of two cones to the track list
 
-  void receiveConeData();  // TODO ros subscriber input (Position left, Position
+  void receiveConeData();  // TODO(andre): ros subscriber input (Position left, Position
                            // right, color);
 
-  void sendTrack();  // TODO send track data to path planner
+  void sendTrack();  // TODO(andre): send track data to path planner
 };
+
+#endif // SRC_PLANNING_PATHPLANNER_INCLUDE_TRACK_HPP_

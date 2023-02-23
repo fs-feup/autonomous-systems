@@ -1,7 +1,10 @@
+#ifndef SRC_PLANNING_PATHPLANNER_INCLUDE_POSITION_HPP_
+#define SRC_PLANNING_PATHPLANNER_INCLUDE_POSITION_HPP_
 
 
-#include "cmath"
-#include "vector"
+#include <cmath>
+#include <vector>
+
 /**
  * Position class. Stores the x and y values of the car
  */
@@ -24,3 +27,6 @@ class Position {
    */
   float getDistanceTo(Position* dest);
 };
+
+
+#endif //SRC_PLANNING_PATHPLANNER_INCLUDE_POSITION_HPP_

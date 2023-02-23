@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "pathplanner.h"
+#include "include/pathplanner.hpp"
 
 int main() {
   Track* track = new Track();
