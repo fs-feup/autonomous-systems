@@ -1,15 +1,16 @@
 #include <cstdio>
 
-#include "experiment1/car.hpp" 
+#include "experiment1/car.hpp"
 
-int main(int argc, char **argv) {
-    (void) argc;
-    (void) argv;
+int main(int argc, char** argv) {
+  (void)argc;
 
-    printf("hello world experiment1 package\n");
+  (void)argv;
 
-    Car car1 = Car(10, 10);
-    car1.use_horn();
+  printf("hello world experiment1 package\n");
 
-    return 0;
+  Car car1 = Car(10, 10);
+  car1.use_horn();
+
+  return 0;
 }
