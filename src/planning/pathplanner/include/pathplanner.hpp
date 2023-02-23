@@ -1,11 +1,10 @@
 #ifndef SRC_PLANNING_PATHPLANNER_INCLUDE_PATHPLANNER_HPP_
 #define SRC_PLANNING_PATHPLANNER_INCLUDE_PATHPLANNER_HPP_
 
-
-#include <vector>
 #include <utility>
-#include "track.hpp"
+#include <vector>
 
+#include "track.hpp"
 
 using namespace std;
 
@@ -48,4 +47,4 @@ class PathPlanner {
   // void sendPath(); // TODO(andre): send path to controller
 };
 
-#endif // SRC_PLANNING_PATHPLANNER_INCLUDE_PATHPLANNER_HPP_
+#endif  // SRC_PLANNING_PATHPLANNER_INCLUDE_PATHPLANNER_HPP_

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(experiment1)
+project(loc_map)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -11,14 +11,13 @@ find_package(ament_cmake REQUIRED)
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 
-add_executable(node1 src/node1.cpp src/car.cpp)
-
-target_include_directories(node1 PUBLIC
+add_executable(loc_map src/loc_map.cpp)
+target_include_directories(loc_map PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
-target_compile_features(node1 PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+target_compile_features(loc_map PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
 
-install(TARGETS node1
+install(TARGETS loc_map
   DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)
@@ -33,11 +32,11 @@ if(BUILD_TESTING)
 
   set(TESTFILES 
     test/main.cpp
-    test/car_test.cpp
+    test/base_test.cpp
     )
   
   ament_add_gtest(${PROJECT_NAME}_test ${TESTFILES})
-  target_include_directories(node1 PUBLIC
+  target_include_directories(loc_map PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>)
 
