@@ -156,14 +156,7 @@ from tutorial_interfaces.msg import Num
 
 And not forget to complete the `package.xml` / `CMakeLists.txt` files.
 
-## 8. Interface usage improvements
-
-Since the usage of most custom interfaces can be tedious, we recommend building custom classes associated with the message itself.
-This allows for cleaner code development by creating specific methods relative to each class (msg) and therefore introduce more complex functionalities.
-
-An example could be the instantiation of these messages which require the set of one attribute at a time when with a class constructor we can isolate those "ugly" pieces of code in a hidden place.
-
-## 9. SRV files
+## 8. SRV files
 
 The `.srv` files may be used to create custom service messages. However, the focus of this tutorial is on topic-related messaging, so we will not cover any further steps.
 
