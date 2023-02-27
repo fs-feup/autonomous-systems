@@ -102,7 +102,7 @@ sudo apt install ros-galactic-desktop
 
 ### Environment Setup
 
-Run every time you open your shell
+Run every time you open your shell (**important** this is meant to be run in any shell that wants to use ros2 commands involving **eufs** custom interfaces).
 
 ```bash
 # Replace ".bash" with your shell if you're not using bash

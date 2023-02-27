@@ -162,4 +162,4 @@ TODO: Investigate where camera data comes from
 
 # Notes
 
-- Weird error when trying to get information on the groundtruth topics of the SIM: “The passed message type is invalid” and “The message type 'eufs_msgs/msg/ConeArrayWithCovariance' is invalid”
+- ~~Weird error when trying to get information on the groundtruth topics of the SIM: “The passed message type is invalid” and “The message type 'eufs_msgs/msg/ConeArrayWithCovariance' is invalid”~~ (problem is solved by running `source install/setup.bash` in every new shell that is opened).
