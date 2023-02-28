@@ -10,8 +10,14 @@ find_package(ament_cmake REQUIRED)
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(std_msgs REQUIRED)
+
+# custom_interfaces 
+find_package(custom_interfaces REQUIRED)
 
 add_executable(loc_map src/loc_map.cpp)
+ament_target_dependencies(loc_map rclcpp std_msgs custom_interfaces)
 target_include_directories(loc_map PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
