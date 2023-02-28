@@ -11,8 +11,11 @@ find_package(geometry_msgs REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
+  "msg/Cone.msg"
+  "msg/ConeArray.msg"
   "msg/Point2d.msg"
   "msg/PointArray.msg"
+  "msg/Pose.msg"
   DEPENDENCIES geometry_msgs
 )
 

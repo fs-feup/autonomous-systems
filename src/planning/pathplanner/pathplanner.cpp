@@ -11,14 +11,12 @@ void PathPlanner::middlePath() {
                      ->getDistanceTo(leftCone);  // previous cone distance
 
     while (true) {
-      Position* candidateRightCone =
-          track->getRightConeAt((count + 1) % rightConesSize);
-      float new_dist =
-          candidateRightCone->getDistanceTo(leftCone);  // next cone distance
+      Position* candidateRightCone = track->getRightConeAt((count + 1) % rightConesSize);
+      float new_dist = candidateRightCone->getDistanceTo(leftCone);  // next cone distance
 
       if (new_dist > dist)
-        break;  // if new cone is not closer to the left one the previous,
-                // break(near cone found),
+        break;          // if new cone is not closer to the left one the previous,
+                        // break(near cone found),
       dist = new_dist;  // else the new cone is now the candidate cone
       count++;
     }
@@ -35,8 +33,7 @@ void PathPlanner::middlePath() {
   }
 
   for (int i = 0; i < finalPath.size(); i++) {
-    cout << "x = " << finalPath[i]->getX() << " y = " << finalPath[i]->getY()
-         << endl;
+    cout << "x = " << finalPath[i]->getX() << " y = " << finalPath[i]->getY() << endl;
   }
   writeFinalPath();
 }
@@ -45,8 +42,7 @@ void PathPlanner::writeFinalPath() {
   ofstream finalPathFile("files\\finalPath.txt");
 
   for (int i = 0; i < finalPath.size(); i++)
-    finalPathFile << finalPath[i]->getX() << " " << finalPath[i]->getY()
-                  << "\n";
+    finalPathFile << finalPath[i]->getX() << " " << finalPath[i]->getY() << "\n";
 
   // Close the file
   finalPathFile.close();
