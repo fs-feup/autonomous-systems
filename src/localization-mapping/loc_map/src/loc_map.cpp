@@ -1,17 +1,21 @@
 #include <cstdio>
 
+#include "loc_map/minimal_publisher.hpp"
+#include "rclcpp/rclcpp.hpp"
+
 /**
  * @brief Main function
- * 
- * @param argc 
- * @param argv 
- * @return int 
+ *
+ * @param argc
+ * @param argv
+ * @return int
  */
-int main(int argc, char ** argv)
-{
-  (void) argc;
-  (void) argv;
+int main(int argc, char** argv) {
+  (void)argc;
+  (void)argv;
+  rclcpp::init(argc, argv);
+  rclcpp::spin(std::make_shared<MinimalPublisher>());
+  rclcpp::shutdown();
 
-  printf("hello world loc_map package\n");
   return 0;
 }
