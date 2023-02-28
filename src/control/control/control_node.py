@@ -17,9 +17,10 @@ class ControlNode(Node):
     def __init__(self):
         super().__init__('control_node')
         self.control_info = (STEER_CONTROL, SPEED_CONTROL, KEEP_GOING)
-        self.steering_angle_velocity = 0
+        self.steering_angle_velocity = 0.
         self.accelaration = 0
         self.old_error = 0
+        self.path = None
         
         self.path_subscription = self.create_subscription(
             PointArray,
@@ -40,7 +41,7 @@ class ControlNode(Node):
         self.odom_subscription
     
         self.publisher_ = self.create_publisher(
-            AckermannDriveStamped, 
+            AckermannDriveStamped,
             '/cmd', 
             10)
     
@@ -73,6 +74,9 @@ class ControlNode(Node):
 
 
     def odometry_callback(self, msg):
+        self.get_logger().info("Received odom!")
+        if self.path is None: return
+
         position = msg.pose.pose.position
         orientation = msg.pose.pose.orientation
         orientation_list = [orientation.x, orientation.y, orientation.z, orientation.w]
@@ -87,13 +91,17 @@ class ControlNode(Node):
 
         pos_error = right_or_left((position.x, position.y, yaw), coords)
 
-        self.steering_angle_rate = self.steer(pos_error)
+        self.steer(pos_error)
 
         self.old_error = pos_error
         
 
     def path_callback(self, path):
-        self.path = path
+        self.get_logger().info("Received path!")
+        self.path = []
+        
+        for point in path.points:
+            self.path.append([point.x, point.y])
 
 
     def steer(self, error):
