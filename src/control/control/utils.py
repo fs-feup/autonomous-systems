@@ -11,14 +11,14 @@ def steer(self, error):
     return float(steer_angle_rate)
 
 
-def get_closest_point(pose, spl_array):
+def get_closest_point(pose, points_array):
     position = np.array([pose[0], pose[1]]).reshape((1, 2))
-    position = np.repeat(position, len(spl_array), axis=0)
+    position = np.repeat(position, len(points_array), axis=0)
 
-    dists_sqrd = np.sum((position - spl_array)**2, axis=1)
+    dists_sqrd = np.sum((position - points_array)**2, axis=1)
     closest_index = np.argmin(dists_sqrd)
 
-    return (spl_array[closest_index, 0], spl_array[closest_index, 1]), closest_index
+    return points_array[closest_index], closest_index
 
 
 def right_or_left(pose, closest_point):
