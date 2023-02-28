@@ -1,6 +1,6 @@
 #include <cstdio>
 
-#include "loc_map/minimal_publisher.hpp"
+#include "loc_map/lm_publisher.hpp"
 #include "rclcpp/rclcpp.hpp"
 
 /**
@@ -14,7 +14,7 @@ int main(int argc, char** argv) {
   (void)argc;
   (void)argv;
   rclcpp::init(argc, argv);
-  rclcpp::spin(std::make_shared<MinimalPublisher>());
+  rclcpp::spin(std::make_shared<LMPublisher>());
   rclcpp::shutdown();
 
   return 0;

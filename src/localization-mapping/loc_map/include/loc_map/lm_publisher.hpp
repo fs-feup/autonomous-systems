@@ -1,4 +1,6 @@
-#include <chrono>
+#ifndef SRC_LOCALIZATION_MAPPING_LOC_MAP_INCLUDE_LOC_MAP_LM_PUBLISHER_HPP_
+#define SRC_LOCALIZATION_MAPPING_LOC_MAP_INCLUDE_LOC_MAP_LM_PUBLISHER_HPP_
+
 #include <functional>
 #include <memory>
 #include <string>
@@ -14,7 +16,7 @@ class LMPublisher : public rclcpp::Node {
   rclcpp::TimerBase::SharedPtr timer_;
   rclcpp::Publisher<std_msgs::msg::String>::SharedPtr publisher_;
   size_t count_;
-  
+
   void timer_callback() {
     auto message = std_msgs::msg::String();
     message.data = "Hello, world! " + std::to_string(count_++);
@@ -28,5 +30,6 @@ class LMPublisher : public rclcpp::Node {
     timer_ = this->create_wall_timer(
         500ms, std::bind(&LMPublisher::timer_callback, this));
   }
-
 };
+
+#endif  // SRC_LOCALIZATION_MAPPING_LOC_MAP_INCLUDE_LOC_MAP_LM_PUBLISHER_HPP_
