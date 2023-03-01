@@ -1,8 +1,7 @@
 import rclpy
 from rclpy.node import Node
 
-from custom_interfaces.msg import PointArray
-from geometry_msgs.msg import Point
+from custom_interfaces.msg import PointArray, Point2d
 
 class PathMockPublisher(Node):
 
@@ -17,31 +16,30 @@ class PathMockPublisher(Node):
     def create_path(self):
         path = PointArray()
 
-        def add_point(x, y, z):
-            point = Point(
+        def add_point(x, y):
+            point = Point2d(
                 x=float(x),
-                y=float(y),
-                z=float(z)
+                y=float(y)
             )
             path.points.append(point)
 
         for i in range(10):
-            add_point(0, i, 0)
+            add_point(0, i)
 
         for i in range(1, 10):
-            add_point(i, 9, 0)
+            add_point(i, 9)
 
         for i in range(8,-1,-1):
-            add_point(9, i, 0)
+            add_point(9, i)
 
         for i in range(8,-1,-1):
-            add_point(i, 0, 0)
+            add_point(i, 0)
 
         self.path = path
 
     def timer_callback(self):
         def path_to_str(path):
-            points = map(lambda v: str((v.x, v.y, v.z)), path.points)
+            points = map(lambda v: str((v.x, v.y)), path.points)
             return "[ " + ', '.join(points) + " ]"
         self.get_logger().info(f"Msg:\n{path_to_str(self.path)}")
         self.publisher_.publish(self.path)
