@@ -1,4 +1,4 @@
-#include "include/pathplanner.hpp"
+#include "../include/planning/pathplanner.hpp"
 
 PathPlanner::PathPlanner(Track* track) : track(track) {}
 
@@ -34,17 +34,19 @@ void PathPlanner::middlePath() {
     finalPath.push_back(new Position(midPointX, midPointY));
   }
 
-  for (int i = 0; i < finalPath.size(); i++) {
+  for (size_t i = 0; i < finalPath.size(); i++) {
     cout << "x = " << finalPath[i]->getX() << " y = " << finalPath[i]->getY()
          << endl;
   }
+
+  cout << "Middle path calculated with " << finalPath.size() << " points\n";
   writeFinalPath();
 }
 
 void PathPlanner::writeFinalPath() {
-  ofstream finalPathFile("files\\finalPath.txt");
+  ofstream finalPathFile("../files/finalPath.txt");
 
-  for (int i = 0; i < finalPath.size(); i++)
+  for (size_t i = 0; i < finalPath.size(); i++)
     finalPathFile << finalPath[i]->getX() << " " << finalPath[i]->getY()
                   << "\n";
 
@@ -54,7 +56,8 @@ void PathPlanner::writeFinalPath() {
 
 vector<pair<float, float>> PathPlanner::getPath() {
   vector<pair<float, float>> pathCopy;
-  for (int i = 0; i < finalPath.size(); i++)
+
+  for (size_t i = 0; i < finalPath.size(); i++)
     pathCopy.push_back(make_pair(finalPath[i]->getX(), finalPath[i]->getY()));
 
   return pathCopy;
