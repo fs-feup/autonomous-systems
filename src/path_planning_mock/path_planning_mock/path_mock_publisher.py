@@ -1,9 +1,7 @@
 import rclpy
 from rclpy.node import Node
 
-from custom_interfaces.msg import PointArray
-from geometry_msgs.msg import Point
-
+from custom_interfaces.msg import PointArray, Point2d
 
 class PathMockPublisher(Node):
 
@@ -17,41 +15,34 @@ class PathMockPublisher(Node):
 
     def create_path(self):
         path = PointArray()
+
+        def add_point(x, y):
+            point = Point2d(
+                x=float(x),
+                y=float(y)
+            )
+            path.points.append(point)
+
         for i in range(10):
-            point = Point()
-            point.x = 0.
-            point.y = float(i)
-            point.z = 0.
+            add_point(0, i)
 
-            path.points.append(point)
-        for i in range(10):
-            point = Point()
-            point.x = float(i)
-            point.y = 9.
-            point.z = 0.
+        for i in range(1, 10):
+            add_point(i, 9)
 
-            path.points.append(point)
-        for i in range(9,-1,-1):
-            point = Point()
-            point.x = 9.
-            point.y = float(i)
-            point.z = 0.
+        for i in range(8,-1,-1):
+            add_point(9, i)
 
-            path.points.append(point)
-        for i in range(9,-1,-1):
-            point = Point()
-            point.x = float(i)
-            point.y = 0.
-            point.z = 0.
+        for i in range(8,-1,-1):
+            add_point(i, 0)
 
-            path.points.append(point)
         self.path = path
 
     def timer_callback(self):
-        if self.path is not None:
-            self.publisher_.publish(self.path)
-        else:
-            self.publisher_.publish([])
+        def path_to_str(path):
+            points = map(lambda v: str((v.x, v.y)), path.points)
+            return "[ " + ', '.join(points) + " ]"
+        self.get_logger().info(f"Msg:\n{path_to_str(self.path)}")
+        self.publisher_.publish(self.path)
 
 
 def main(args=None):
