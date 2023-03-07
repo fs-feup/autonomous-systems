@@ -14,8 +14,7 @@ TEST(PathPlanner, middlePath1) {
   vector<pair<float, float>> finalPath = pathplanner->getPath();
 
   vector<pair<float, float>> expected{
-      make_pair(0, 0), make_pair(2, 0), make_pair(4, 0),
-      make_pair(6, 0), make_pair(8, 0),
+      make_pair(0, 0), make_pair(2, 0), make_pair(4, 0), make_pair(6, 0), make_pair(8, 0),
   };
 
   EXPECT_EQ(expected, finalPath);
@@ -31,9 +30,8 @@ TEST(PathPlanner, middlePath2) {
   vector<pair<float, float>> finalPath = pathplanner->getPath();
 
   vector<pair<float, float>> expected{
-      make_pair(0.5, 0),     make_pair(0.5, 1),   make_pair(0.875, 1.75),
-      make_pair(1.25, 2.25), make_pair(1.5, 2.5), make_pair(1.75, 2.25),
-      make_pair(2.25, 1.75),
+      make_pair(0.5, 0),   make_pair(0.5, 1),     make_pair(0.875, 1.75), make_pair(1.25, 2.25),
+      make_pair(1.5, 2.5), make_pair(1.75, 2.25), make_pair(2.25, 1.75),
   };
 
   EXPECT_EQ(expected, finalPath);

@@ -11,9 +11,9 @@ find_package(ament_cmake REQUIRED)
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 
-add_executable(node1 src/node1.cpp src/car.cpp)
+add_executable(${PROJECT_NAME} src/node1.cpp src/car.cpp)
 
-target_include_directories(node1 PUBLIC
+target_include_directories(${PROJECT_NAME} PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
 target_compile_features(node1 PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
@@ -37,7 +37,7 @@ if(BUILD_TESTING)
     )
   
   ament_add_gtest(${PROJECT_NAME}_test ${TESTFILES})
-  target_include_directories(node1 PUBLIC
+  target_include_directories(${PROJECT_NAME}_test PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>)
 
