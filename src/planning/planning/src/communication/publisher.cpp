@@ -30,10 +30,6 @@ class Publisher : public rclcpp::Node{
         //timer_ = this->create_wall_timer(
         //500ms, std::bind(&Publisher::publish_track_points, this));
 
-        //std::string filePackage = ament_index_cpp::get_package_share_directory("planning");
-        //filePackage += "/files/map_mock.txt";
-        //std::cout << filePackage << std::endl;
-
         std::string filePackage = rcpputils::fs::current_path().string();
         filePackage += "/planning/files/map_mock.txt";
 
@@ -60,7 +56,7 @@ class Publisher : public rclcpp::Node{
           publisher_->publish(message);
         }
       }
-
+      /*
       void timer_callback() {
         auto message = custom_interfaces::msg::Point2d();
         message.x = 1;
@@ -69,6 +65,7 @@ class Publisher : public rclcpp::Node{
         publisher_->publish(message);
       }
       rclcpp::TimerBase::SharedPtr timer_;
+      */
       rclcpp::Publisher<custom_interfaces::msg::Point2d>::SharedPtr publisher_;
       size_t count_;
 };
