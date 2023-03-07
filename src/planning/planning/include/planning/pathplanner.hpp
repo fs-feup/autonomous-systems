@@ -47,4 +47,4 @@ class PathPlanner {
   // void sendPath(); // TODO(andre): send path to controller
 };
 
-#endif // RC_PLANNING_PLANNING_INCLUDE_PLANNING_PATHPLANNER_HPP_
+#endif // SRC_PLANNING_PLANNING_INCLUDE_PLANNING_PATHPLANNER_HPP_
