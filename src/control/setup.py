@@ -11,7 +11,7 @@ setup(
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
     ],
-    install_requires=['setuptools'],
+    install_requires=['setuptools', 'transform3d'],
     zip_safe=True,
     maintainer='TODO: Name',
     maintainer_email='user@todo.todo',
@@ -20,7 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'path_listener = control.control_node:main',
+            'controller = control.control_node:main',
         ],
     },
 )
