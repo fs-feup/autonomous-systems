@@ -1,1 +1,1 @@
-geometry_msgs/Point[] points
+custom_interfaces/Point2d[] points
