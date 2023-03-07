@@ -10,8 +10,12 @@ find_package(ament_cmake REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
+  "msg/Cone.msg"
+  "msg/ConeArray.msg"
   "msg/Point2d.msg"
   "msg/PointArray.msg"
+  "msg/Pose.msg"
+  DEPENDENCIES geometry_msgs
 )
 
 ament_export_dependencies(rosidl_default_runtime)

@@ -48,9 +48,8 @@ class Track {
   /**
    * Add cone to list
    */
-  void addConePair(
-      Position* cone,
-      const string& color);  // adds the position of two cones to the track list
+  void addConePair(Position* cone,
+                   const string& color);  // adds the position of two cones to the track list
 
   void receiveConeData();  // TODO(andre): ros subscriber input (Position left,
                            // Position right, color);
