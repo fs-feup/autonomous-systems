@@ -5,8 +5,8 @@
 
 #include <ament_index_cpp/get_package_share_directory.hpp>
 #include "rclcpp/rclcpp.hpp"
-#include "std_msgs/msg/string.hpp"
 #include "custom_interfaces/msg/point2d.hpp"
+#include "custom_interfaces/msg/point_array.hpp"
 
 #include "../../include/planning/pathplanner.hpp"
 
@@ -26,12 +26,13 @@ class Publisher : public rclcpp::Node{
       */
       Publisher()
       : Node("planning_endurance"), count_(0) {
-        publisher_ = this->create_publisher<custom_interfaces::msg::Point2d>("topic", 10);
+        publisher_ = this->create_publisher<custom_interfaces::msg::PointArray>("path_topic", 10);
         //timer_ = this->create_wall_timer(
         //500ms, std::bind(&Publisher::publish_track_points, this));
 
         std::string filePackage = rcpputils::fs::current_path().string();
-        filePackage += "/planning/files/map_mock.txt";
+        filePackage += "/planning/planning/files/map_mock.txt";
+        std::cout << filePackage;
 
         Track* track = new Track();
         track->fillTrack(filePackage);
@@ -47,14 +48,18 @@ class Publisher : public rclcpp::Node{
       * Publisher point by point
       */
       void publish_track_points() {
-        auto message = custom_interfaces::msg::Point2d();
+        auto message = custom_interfaces::msg::PointArray();
         std::cout << "Starting publisher\n";
         for (size_t i = 0; i < fullPath.size(); i++) {
-          message.x = fullPath[i].first;
-          message.y = fullPath[i].second;
-          RCLCPP_INFO(this->get_logger(), "Publishing: x = %f | y = %f", message.x, message.y);
-          publisher_->publish(message);
+          auto point = custom_interfaces::msg::Point2d();
+          point.x = fullPath[i].first;
+          point.y = fullPath[i].second;
+          //RCLCPP_INFO(this->get_logger(), "Publishing: x = %f | y = %f", message.x, message.y);
+          message.points.push_back(point);
         }
+        RCLCPP_INFO(this->get_logger(), "Publishing message with size %ld", message.points.size());
+        publisher_->publish(message);
+
       }
       /*
       void timer_callback() {
@@ -66,7 +71,7 @@ class Publisher : public rclcpp::Node{
       }
       rclcpp::TimerBase::SharedPtr timer_;
       */
-      rclcpp::Publisher<custom_interfaces::msg::Point2d>::SharedPtr publisher_;
+      rclcpp::Publisher<custom_interfaces::msg::PointArray>::SharedPtr publisher_;
       size_t count_;
 };
 
