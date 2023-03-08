@@ -1,1 +1,1 @@
-cppcheck --enable=all --error-exitcode=1 src/ -i test/
+cppcheck --enable=all --error-exitcode=1 ./ -i test/
