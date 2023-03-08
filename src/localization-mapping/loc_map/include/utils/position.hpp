@@ -3,7 +3,7 @@
 
 /**
  * @brief Struct for position
- * 
+ *
  */
 struct Position {
   int x = 0;
