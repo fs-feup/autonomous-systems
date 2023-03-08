@@ -12,13 +12,16 @@ find_package(ament_cmake REQUIRED)
 # find_package(<dependency> REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
-
-# custom_interfaces 
 find_package(custom_interfaces REQUIRED)
 
-add_executable(loc_map src/loc_map.cpp)
-ament_target_dependencies(loc_map rclcpp std_msgs custom_interfaces)
-target_include_directories(loc_map PUBLIC
+set(IMPLEMENTATION_FILES 
+  src/lm_publisher.cpp
+  src/utils/position.cpp
+  )
+
+add_executable(${PROJECT_NAME} src/loc_map.cpp ${IMPLEMENTATION_FILES})
+ament_target_dependencies(${PROJECT_NAME} rclcpp std_msgs custom_interfaces)
+target_include_directories(${PROJECT_NAME} PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
 target_compile_features(loc_map PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
@@ -35,14 +38,17 @@ if(BUILD_TESTING)
   # uncomment the line when this package is not in a git repo
   #set(ament_cmake_cpplint_FOUND TRUE)
   find_package(ament_cmake_gtest REQUIRED)
+  find_package(custom_interfaces REQUIRED)
+  find_package(rclcpp REQUIRED)
 
   set(TESTFILES 
     test/main.cpp
-    test/base_test.cpp
+    test/lm_publisher_test.cpp
     )
   
-  ament_add_gtest(${PROJECT_NAME}_test ${TESTFILES})
-  target_include_directories(loc_map PUBLIC
+  ament_add_gtest(${PROJECT_NAME}_test ${TESTFILES} ${IMPLEMENTATION_FILES})
+  ament_target_dependencies(${PROJECT_NAME}_test rclcpp std_msgs custom_interfaces)
+  target_include_directories(${PROJECT_NAME}_test PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>)
 
