@@ -1,5 +1,5 @@
-#ifndef SRC_LOCALIZATION_MAPPING_LOC_MAP_INCLUDE_LOC_MAP_LM_PUBLISHER_HPP_
-#define SRC_LOCALIZATION_MAPPING_LOC_MAP_INCLUDE_LOC_MAP_LM_PUBLISHER_HPP_
+#ifndef SRC_LOC_MAP_INCLUDE_LOC_MAP_LM_PUBLISHER_HPP_
+#define SRC_LOC_MAP_INCLUDE_LOC_MAP_LM_PUBLISHER_HPP_
 
 #include <functional>
 #include <memory>
@@ -57,4 +57,4 @@ class LMPublisher : public rclcpp::Node {
   LMPublisher(Localization* vehicle_localization, Map* track_map);
 };
 
-#endif  // SRC_LOCALIZATION_MAPPING_LOC_MAP_INCLUDE_LOC_MAP_LM_PUBLISHER_HPP_
+#endif  // SRC_LOC_MAP_INCLUDE_LOC_MAP_LM_PUBLISHER_HPP_

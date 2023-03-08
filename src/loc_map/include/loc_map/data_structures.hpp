@@ -1,5 +1,5 @@
-#ifndef SRC_LOCALIZATION_MAPPING_LOC_MAP_INCLUDE_LOC_MAP_DATA_STRUCTURES_HPP_
-#define SRC_LOCALIZATION_MAPPING_LOC_MAP_INCLUDE_LOC_MAP_DATA_STRUCTURES_HPP_
+#ifndef SRC_LOC_MAP_INCLUDE_LOC_MAP_DATA_STRUCTURES_HPP_
+#define SRC_LOC_MAP_INCLUDE_LOC_MAP_DATA_STRUCTURES_HPP_
 
 #include <map>
 #include <string>
@@ -9,7 +9,7 @@
 
 /**
  * @brief Struct for localization
- * 
+ *
  */
 struct Localization {
   Position position;
@@ -18,10 +18,10 @@ struct Localization {
 
 /**
  * @brief Struct for map
- * 
+ *
  */
 struct Map {
   std::map<Position, colors::Color> map;
 };
 
-#endif  // SRC_LOCALIZATION_MAPPING_LOC_MAP_INCLUDE_LOC_MAP_DATA_STRUCTURES_HPP_
+#endif  // SRC_LOC_MAP_INCLUDE_LOC_MAP_DATA_STRUCTURES_HPP_
