@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
 
-#include "position.hpp"
+#include "./position.hpp"
 
 using namespace std;
 /**
@@ -57,4 +57,4 @@ class Track {
   void sendTrack();  // TODO(andre): send track data to path planner
 };
 
-#endif // SRC_PLANNING_PLANNING_INCLUDE_PLANNING_TRACK_HPP_
+#endif  // SRC_PLANNING_PLANNING_INCLUDE_PLANNING_TRACK_HPP_

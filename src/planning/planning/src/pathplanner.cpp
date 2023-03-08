@@ -32,7 +32,7 @@ void PathPlanner::middlePath() {
     finalPath.push_back(new Position(midPointX, midPointY));
   }
 
-  for (int i = 0; i < finalPath.size(); i++) {
+  for (size_t i = 0; i < finalPath.size(); i++) {
     cout << "x = " << finalPath[i]->getX() << " y = " << finalPath[i]->getY() << endl;
   }
 
@@ -43,7 +43,7 @@ void PathPlanner::middlePath() {
 void PathPlanner::writeFinalPath() {
   ofstream finalPathFile("../files/finalPath.txt");
 
-  for (int i = 0; i < finalPath.size(); i++)
+  for (size_t i = 0; i < finalPath.size(); i++)
     finalPathFile << finalPath[i]->getX() << " " << finalPath[i]->getY() << "\n";
 
   // Close the file

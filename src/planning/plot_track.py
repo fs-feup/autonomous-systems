@@ -9,7 +9,7 @@ yMidList = []
 
 colorList = []
 count = 0
-with open('pathplanner\\files\\map_mock.txt', 'r') as f:
+with open('planning/files/map_mock.txt', 'r') as f:
     for line in f:   
         lineList = line.split(" ")
         lineList[2]=lineList[2].strip()
@@ -25,7 +25,7 @@ with open('pathplanner\\files\\map_mock.txt', 'r') as f:
 print(len(xLeftList))
 print(len(xRightList))
 
-with open('pathplanner\\files\\finalPath.txt', 'r') as f:
+with open('planning/files/finalPath.txt', 'r') as f:
     for line in f:   
         lineList = line.split(" ")
         xMidList.append(float(lineList[0]))
