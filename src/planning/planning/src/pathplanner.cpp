@@ -11,14 +11,12 @@ void PathPlanner::middlePath() {
                      ->getDistanceTo(leftCone);  // previous cone distance
 
     while (true) {
-      Position* candidateRightCone =
-          track->getRightConeAt((count + 1) % rightConesSize);
-      float new_dist =
-          candidateRightCone->getDistanceTo(leftCone);  // next cone distance
+      Position* candidateRightCone = track->getRightConeAt((count + 1) % rightConesSize);
+      float new_dist = candidateRightCone->getDistanceTo(leftCone);  // next cone distance
 
       if (new_dist > dist)
-        break;  // if new cone is not closer to the left one the previous,
-                // break(near cone found),
+        break;          // if new cone is not closer to the left one the previous,
+                        // break(near cone found),
       dist = new_dist;  // else the new cone is now the candidate cone
       count++;
     }
