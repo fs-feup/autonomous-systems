@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## Sprint 2
+
+### Localization and Mapping
+- Localization and Mapping publisher node
+- Cone, ConeArray and Pose messages
+
 ## Sprint 1
 
 ### Control
