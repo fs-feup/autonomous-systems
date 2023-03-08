@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
 
-#include "position.hpp"
+#include "./position.hpp"
 
 using namespace std;
 /**
