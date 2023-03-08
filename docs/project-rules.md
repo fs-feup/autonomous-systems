@@ -83,7 +83,7 @@ Trunk based development:
 
 The need for the development branch is rendered useless by the usage of ********tags******** and ******************releases:****************** in order to keep a healthy and functional project, it is important that there is some point to where the code can be rolled back to that ensures functionality of the project. This is the case because not even a great test suit and a dedicated team can completely fight off annoying bugs. However, the usage of another branch for this matter (development branch, for instance), is not necessary. Periodically, the project is subject to more intense manual testing to ensure its functionality. When the necessary conditions are met, the commit is tagged as ‘stable’ and a **release** is performed. Releases will be made once per sprint.
 
-### Contributing - Merge Requests
+### Contributing - Pull Requests
 
 Committing directly to the main branch should be avoided. Instead, the creation of a new branch and the usage of a **Merge Request** is preferred because:
 
@@ -106,12 +106,6 @@ This structure is the automatic structure defined in Squash and Merge in GitHub.
 
 Don't forget to delete the source branches in the end, so that the project does not end up a jungle.
 
-## Wiki Repository
-
-There is another repository associated to the project’s repository: the wiki
-
-This repository should be used for any extended documentation, such as this file or tutorials.
-
 ## Coding
 
 - New code should be often accompanied with 
@@ -120,11 +114,19 @@ This repository should be used for any extended documentation, such as this file
 - Try to follow the SOLID principles:
     - **Singe-Responsability:** do not construct code structures that should harness multiple responsibilities. Instead, divide it into smaller structures (multiple functions, classes, etc.)
     - **Open-closed:** software entities should be open for extension but closed for modification: try to not change code structure’s purposes and functionalities often
-    - Liskov substitution: specifications of objects have to be capable to substitute general implementations i.e. a user of a parent class should be able to use an object of a child class instead
+    - **Liskov substitution:** specifications of objects have to be capable to substitute general implementations i.e. a user of a parent class should be able to use an object of a child class instead
     - etc.
 - There are no restrictions to the tools that can be used to develop the code. However, some base ones:
     - Google test for unit testing
     - [Doxygen](https://www.doxygen.nl/) for code documentation in C++
+
+**Important:** Each time a PR is going to be open and a contribution made, you should:
+- update the Changelog if a feature was implemented
+- run the static analysis tools to make sure the code is secure
+- create tests to ensure quality of code
+- document your code and run the documentation tools
+
+Check [this guide](./tutorials/contribute.md) for more. 
 
 ## Roles
 
