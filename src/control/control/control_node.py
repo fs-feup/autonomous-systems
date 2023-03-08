@@ -24,7 +24,7 @@ class ControlNode(Node):
         
         self.path_subscription = self.create_subscription(
             PointArray,
-            'path_mock',
+            'path_topic',
             self.path_callback,
             10
         )
