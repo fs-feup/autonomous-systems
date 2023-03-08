@@ -11,3 +11,4 @@ Before starting, check out our [Startup Guide](./docs/tutorials/startup_guide.md
 - [Startup Guide](./docs/tutorials/startup_guide.md)
 - [Project Rules](./docs/project-rules.md)
 - [Project Specification](./docs/project-specification.md)
+- [Technologies](./docs/technologies.md)

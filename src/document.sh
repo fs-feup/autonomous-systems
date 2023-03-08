@@ -4,7 +4,7 @@ sudo rm -rf ./documentation/doxygen_cpp
 sudo rm -rf ./documentation/doxygen_py
 doxygen ./documentation/Doxyfile_cpp
 doxygen ./documentation/Doxyfile_py
-cd ./documentation/doxygen_cpp/latex
-make
-cd ..
-mv latex/refman.pdf ./documentation.pdf
+# cd ./documentation/doxygen_cpp/latex
+# make
+# cd ..
+# mv latex/refman.pdf ./documentation.pdf
