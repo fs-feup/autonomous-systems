@@ -6,9 +6,9 @@ This document compiles the versions of all tools and technologies used in this p
 
 - [Ubuntu 20.04](https://releases.ubuntu.com/focal/)
 - [ROS2 Galactic desktop](http://docs.ros.org/en/galactic/Installation/Ubuntu-Install-Debians.html)
-- [Cpplint 1.6.1](https://github.com/cpplint/cpplint)
-- [Cppcheck 1.90](https://cppcheck.sourceforge.io/)
-- [Clangformat 10.0.0-4ubuntu1](https://clang.llvm.org/docs/ClangFormat.html)
+- [Cpplint 1.6.1](https://github.com/cpplint/cpplint) - C++ only
+- [Cppcheck 1.90](https://cppcheck.sourceforge.io/) - C++ only
+- [Clangformat 10.0.0-4ubuntu1](https://clang.llvm.org/docs/ClangFormat.html) - C++ only
 - [Doxygen 1.9.6](https://doxygen.nl/download.html)
 
 ## Libraries

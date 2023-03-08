@@ -18,7 +18,8 @@ This guide is meant to help the developer setup the environment required to work
 - [ROS2 and Simulator Setup](./sim_setup_tutorial.md)
 - [ROS2 Basics](./ros2_tutorial.md)
 - [EUFS Simulator Tutorial](./sim_tutorial.md)
-- [Coding Environment](./coding_environment.md) - example of coding environment to use in VSCode, as well as explaining of project structure 
+- [Coding Environment](./coding_environment.md) - example of coding environment to use in VSCode, as well as explaining of package structure 
+- [How to contribute](./contribute.md) - what tasks are required before a PR
 - [Testing](./testing.md)
 - [Static Analysis Tools](./static_analysis_tools.md) - tutorial on using the static analysis and formatting adopted
 - [Documentation](./documentation.md) - tutorial on how to document code
