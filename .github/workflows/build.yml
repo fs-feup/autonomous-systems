@@ -60,6 +60,7 @@ jobs:
         run: |
           source /opt/ros/galactic/setup.bash
           cd ./src/
+          ros2 interface list
           colcon build --packages-select custom_interfaces loc_map
           source install/setup.bash
           colcon test --packages-select loc_map --event-handler=console_direct+
