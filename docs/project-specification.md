@@ -15,6 +15,8 @@ Other technologies used in this project:
 - Google Tests
 - ...
 
+Refer to [technologies file](./technologies.md) for more.
+
 ## Architecture
 
 The AI computer is divided into 4 main components:
