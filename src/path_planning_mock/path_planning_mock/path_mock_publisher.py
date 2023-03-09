@@ -3,16 +3,27 @@ from rclpy.node import Node
 
 from custom_interfaces.msg import PointArray, Point2d
 
+"""!
+@brief Class for publishing path mock
+"""
 class PathMockPublisher(Node):
 
+    """!
+    Constructor sets up publisher, timer and creates path
+    @param self The object pointer
+    """
     def __init__(self):
         super().__init__('path_mock_publisher')
         self.create_path()
 
         self.publisher_ = self.create_publisher(PointArray, 'path_mock', 10)
-        timer_period = 0.5  # seconds
+        timer_period = 0.01  # seconds
         self.timer = self.create_timer(timer_period, self.timer_callback)
 
+    """!
+    Creates path
+    @param self The object pointer
+    """
     def create_path(self):
         path = PointArray()
 
@@ -37,13 +48,16 @@ class PathMockPublisher(Node):
 
         self.path = path
 
+    """!
+    Publishes path
+    @param self The object pointer
+    """
     def timer_callback(self):
         def path_to_str(path):
             points = map(lambda v: str((v.x, v.y)), path.points)
             return "[ " + ', '.join(points) + " ]"
         self.get_logger().info(f"Msg:\n{path_to_str(self.path)}")
         self.publisher_.publish(self.path)
-
 
 def main(args=None):
     rclpy.init(args=args)
