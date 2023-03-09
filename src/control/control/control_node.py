@@ -107,7 +107,6 @@ class ControlNode(Node):
     def steer(self, error):
         kp = 0.03
         kd = 0.0
-        ki = 0
 
         steer_angle_rate = kp*min(error, 10000000) + kd*(error - self.old_error)
 
