@@ -82,10 +82,13 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ad15b899811f35dfe1e37145f5111f684"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecontrol_1_1utils.html#ad15b899811f35dfe1e37145f5111f684">get_closest_point</a> (pose, points_array)</td></tr>
+<tr class="memdesc:ad15b899811f35dfe1e37145f5111f684"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the closest point to the car.  <br /></td></tr>
 <tr class="separator:ad15b899811f35dfe1e37145f5111f684"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa7fb2cc6c133b2c05195233a5c17f88f"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecontrol_1_1utils.html#aa7fb2cc6c133b2c05195233a5c17f88f">right_or_left</a> (pose, closest_point)</td></tr>
+<tr class="memdesc:aa7fb2cc6c133b2c05195233a5c17f88f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the car is to the right or left of the path.  <br /></td></tr>
 <tr class="separator:aa7fb2cc6c133b2c05195233a5c17f88f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a045cb70701479d102990d2471caeffeb"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecontrol_1_1utils.html#a045cb70701479d102990d2471caeffeb">steer</a> (self, error)</td></tr>
+<tr class="memdesc:a045cb70701479d102990d2471caeffeb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Steers the car.  <br /></td></tr>
 <tr class="separator:a045cb70701479d102990d2471caeffeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -115,6 +118,17 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Gets the closest point to the car. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>The object pointer. </td></tr>
+    <tr><td class="paramname">pose</td><td>Pose. </td></tr>
+    <tr><td class="paramname">points_array</td><td>Array of points. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Closest point. </dd></dl>
+
 </div>
 </div>
 <a id="aa7fb2cc6c133b2c05195233a5c17f88f" name="aa7fb2cc6c133b2c05195233a5c17f88f"></a>
@@ -143,6 +157,17 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Checks if the car is to the right or left of the path. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>The object pointer. </td></tr>
+    <tr><td class="paramname">pose</td><td>Pose. </td></tr>
+    <tr><td class="paramname">closest_point</td><td>Closest point. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Error. </dd></dl>
+
 </div>
 </div>
 <a id="a045cb70701479d102990d2471caeffeb" name="a045cb70701479d102990d2471caeffeb"></a>
@@ -170,6 +195,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Steers the car. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>The object pointer. </td></tr>
+    <tr><td class="paramname">error</td><td>Error. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
