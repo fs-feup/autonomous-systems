@@ -13,13 +13,30 @@ SPEED_CONTROL = 1
 KEEP_GOING = 0
 
 class ControlNode(Node):
+    """!
+    @brief Class that controls the car's steering and speed.
+    """
 
     def __init__(self):
+        """!
+        @brief Constructor of the class.
+        @param self The object pointer.
+        """
         super().__init__('control_node')
+        
+        ## Tuple that contains the control information.
         self.control_info = (STEER_CONTROL, SPEED_CONTROL, KEEP_GOING)
+        
+        ## Steering angle velocity.
         self.steering_angle_velocity = 0.
+        
+        ## Acceleration.
         self.accelaration = 0
+
+        ## Old error.
         self.old_error = 0
+
+        ## Path.
         self.path = None
         
         self.path_subscription = self.create_subscription(
@@ -51,11 +68,10 @@ class ControlNode(Node):
         # Create the timer
         self.timer = self.create_timer(timer_period, self.timer_callback)
 
-
     def timer_callback(self):
-        """
-        Callback function.
-        This function gets called every 0.5 seconds.
+        """!
+        @brief Controls publisher callback.
+        @param self The object pointer.
         """
         # Create a String message
         ack_msg = AckermannDriveStamped()
@@ -74,6 +90,12 @@ class ControlNode(Node):
 
 
     def odometry_callback(self, msg):
+        """!
+        @brief Odometry callback.
+        @param self The object pointer.
+        @param msg Odometry message.
+        """
+
         self.get_logger().info("Received odom!")
         if self.path is None:
             return
@@ -98,6 +120,11 @@ class ControlNode(Node):
         
 
     def path_callback(self, path):
+        """!
+        @brief Path callback.
+        @param self The object pointer.
+        @param path Path message.
+        """
         self.get_logger().info("Received path!")
         self.path = []
         
@@ -106,6 +133,11 @@ class ControlNode(Node):
 
 
     def steer(self, error):
+        """!
+        @brief Steers the car.
+        @param self The object pointer.
+        @param error Error.
+        """
         kp = 0.03
         kd = 0.0
 

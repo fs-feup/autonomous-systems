@@ -2,6 +2,11 @@ import numpy as np
 import math
 
 def steer(self, error):
+    """!
+    @brief Steers the car.
+    @param self The object pointer.
+    @param error Error.
+    """
     kp = 0.03
     kd = 0.0
 
@@ -11,6 +16,13 @@ def steer(self, error):
 
 
 def get_closest_point(pose, points_array):
+    """!
+    @brief Gets the closest point to the car.
+    @param self The object pointer.
+    @param pose Pose.
+    @param points_array Array of points.
+    @return Closest point.
+    """
     position = np.array([pose[0], pose[1]]).reshape((1, 2))
     position = np.repeat(position, len(points_array), axis=0)
 
@@ -21,6 +33,13 @@ def get_closest_point(pose, points_array):
 
 
 def right_or_left(pose, closest_point):
+    """!
+    @brief Checks if the car is to the right or left of the path.
+    @param self The object pointer.
+    @param pose Pose.
+    @param closest_point Closest point.
+    @return Error.
+    """
     x = pose[0]
     y = pose[1]
     angle = math.radians(pose[2])
