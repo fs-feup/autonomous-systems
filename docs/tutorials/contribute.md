@@ -35,6 +35,11 @@ FOR C++:
   ```sh 
   ./cpplint.sh
   ```
+For Python:
+- Run liner/formatter
+  ```sh
+  ./ruff.sh 
+  ```
 For everybody:
 - Run documentator
   ```sh

@@ -23,7 +23,6 @@ You work with your **shell always in this directory**. In it, you can find mutip
   colcon test --packages-select [your package and others necessary] [--event-handler=console_direct+] #last part for verbose
   ```
 FOR C++:
-- Delete build install and log folders
 - Run static analysis
   ```sh
   ./cppcheck.sh
@@ -35,6 +34,11 @@ FOR C++:
 - Run linter
   ```sh 
   ./cpplint.sh
+  ```
+For Python:
+- Run liner/formatter
+  ```sh
+  ./ruff.sh 
   ```
 For everybody:
 - Run documentator
