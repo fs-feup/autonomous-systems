@@ -6,7 +6,7 @@ from ackermann_msgs.msg import AckermannDriveStamped
 from nav_msgs.msg import Odometry
 
 from tf_transformations import euler_from_quaternion
-from .utils import *
+from .utils import get_closest_point, right_or_left
 
 STEER_CONTROL = 1
 SPEED_CONTROL = 1
@@ -75,7 +75,8 @@ class ControlNode(Node):
 
     def odometry_callback(self, msg):
         self.get_logger().info("Received odom!")
-        if self.path is None: return
+        if self.path is None:
+            return
 
         position = msg.pose.pose.position
         orientation = msg.pose.pose.orientation
@@ -107,7 +108,6 @@ class ControlNode(Node):
     def steer(self, error):
         kp = 0.03
         kd = 0.0
-        ki = 0
 
         steer_angle_rate = kp*min(error, 10000000) + kd*(error - self.old_error)
 
