@@ -22,7 +22,7 @@ You work with your **shell always in this directory**. In it, you can find mutip
   ```sh
   colcon test --packages-select [your package and others necessary] [--event-handler=console_direct+] #last part for verbose
   ```
-FOR C++:
+For C++:
 - Run static analysis
   ```sh
   ./cppcheck.sh
