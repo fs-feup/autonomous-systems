@@ -7,6 +7,7 @@ from nav_msgs.msg import Odometry
 
 from tf_transformations import euler_from_quaternion
 from .utils import get_closest_point, right_or_left
+import numpy as np
 
 STEER_CONTROL = 1
 SPEED_CONTROL = 1
@@ -107,12 +108,12 @@ class ControlNode(Node):
         # Converts quartenions base to euler's base, and updates the class' attributes
         (roll, pitch, yaw) = euler_from_quaternion(orientation_list)
 
-        coords, closest_index = get_closest_point(
-            (position.x, position.y, yaw),
+        closest_point = get_closest_point(
+            [position.x, position.y],
             self.path,
         )
 
-        pos_error = right_or_left((position.x, position.y, yaw), coords)
+        pos_error = right_or_left((position.x, position.y, yaw), closest_point)
 
         self.steer(pos_error)
 
@@ -126,7 +127,7 @@ class ControlNode(Node):
         @param path Path message.
         """
         self.get_logger().info("Received path!")
-        self.path = []
+        self.path = np.array([])
         
         for point in path.points:
             self.path.append([point.x, point.y])

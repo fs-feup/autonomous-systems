@@ -15,22 +15,17 @@ def steer(self, error):
     return float(steer_angle_rate)
 
 
-def get_closest_point(pose, points_array):
+def get_closest_point(position, points_array):
     """!
-    @brief Gets the closest point to the car.
+    @brief Gets the closest point to the given position.
     @param self The object pointer.
-    @param pose Pose.
-    @param points_array Array of points.
-    @return Closest point.
+    @param position List with x and y coordinates.
+    @param points_array Numpy array of points.
+    @return Closest point to position in points_array.
     """
-    position = np.array([pose[0], pose[1]]).reshape((1, 2))
-    position = np.repeat(position, len(points_array), axis=0)
 
-    dists_sqrd = np.sum((position - points_array)**2, axis=1)
-    closest_index = np.argmin(dists_sqrd)
-
-    return points_array[closest_index], closest_index
-
+    dists_sqrd = np.sum((points_array - position)**2, axis=1)
+    return points_array[np.argmin(dists_sqrd)]
 
 def right_or_left(pose, closest_point):
     """!
@@ -62,3 +57,6 @@ def right_or_left(pose, closest_point):
     new_closest = np.dot(rotation_matrix, np.array(position)-np.array(transl_vector))
 
     return new_closest[0]
+
+if __name__ == '__main__':
+    p = get_closest_point([0, 0], [[0, 2], [1, 0], [1, 1]])
