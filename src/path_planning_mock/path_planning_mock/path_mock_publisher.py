@@ -1,5 +1,6 @@
 import rclpy
 from rclpy.node import Node
+import numpy as np
 
 from custom_interfaces.msg import PointArray, Point2d
 
@@ -9,19 +10,19 @@ class PathMockPublisher(Node):
     @brief Class for publishing path mock
     """
 
-    def __init__(self):
+    def __init__(self, straight):
         """!
         @brief Constructor sets up publisher, timer and creates path
         @param self The object pointer
         """
         super().__init__('path_mock_publisher')
-        self.create_path()
+        self.create_path(straight)
 
         self.publisher_ = self.create_publisher(PointArray, 'path_mock', 10)
         timer_period = 0.01  # seconds
         self.timer = self.create_timer(timer_period, self.timer_callback)
 
-    def create_path(self):
+    def create_path(self, straight):
         """!
         @brief Creates path
         @param self The object pointer
@@ -35,17 +36,23 @@ class PathMockPublisher(Node):
             )
             path.points.append(point)
 
-        for i in range(10):
-            add_point(0, i)
+        if straight:
+            # straight path
+            for i in np.arange(0, 100, 0.5):
+                add_point(i,-10)
+        else:
+            # square path
+            for i in range(10):
+                add_point(0, i)
 
-        for i in range(1, 10):
-            add_point(i, 9)
+            for i in range(1, 10):
+                add_point(i, 9)
 
-        for i in range(8,-1,-1):
-            add_point(9, i)
+            for i in range(8,-1,-1):
+                add_point(9, i)
 
-        for i in range(8,-1,-1):
-            add_point(i, 0)
+            for i in range(8,-1,-1):
+                add_point(i, 0)
 
         self.path = path
 
@@ -61,10 +68,10 @@ class PathMockPublisher(Node):
         self.get_logger().info(f"Msg:\n{path_to_str(self.path)}")
         self.publisher_.publish(self.path)
 
-def main(args=None):
+def main(args=None, straight=False):
     rclpy.init(args=args)
 
-    path_mock_publisher = PathMockPublisher()
+    path_mock_publisher = PathMockPublisher(straight)
 
     rclpy.spin(path_mock_publisher)
 
@@ -76,4 +83,4 @@ def main(args=None):
 
 
 if __name__ == '__main__':
-    main()
+    main(straight=True)
