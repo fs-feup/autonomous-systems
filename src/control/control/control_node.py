@@ -7,7 +7,7 @@ from ackermann_msgs.msg import AckermannDriveStamped
 from nav_msgs.msg import Odometry
 
 from tf_transformations import euler_from_quaternion
-from .utils import get_closest_point, right_or_left
+from .utils import get_closest_point, get_position_error
 import numpy as np
 
 STEER_CONTROL = 1
@@ -111,7 +111,7 @@ class ControlNode(Node):
         self.lin_speed = math.sqrt(speed.x**2 + speed.y**2)
 
         # Converts quartenions base to euler's base, and updates the class' attributes
-        (roll, pitch, yaw) = euler_from_quaternion(orientation_list)
+        yaw = euler_from_quaternion(orientation_list)[2]
 
         closest_point = get_closest_point(
             [position.x, position.y],
@@ -119,7 +119,7 @@ class ControlNode(Node):
         )
 
         # gets position error
-        pos_error = right_or_left((position.x, position.y, yaw), closest_point)
+        pos_error = get_position_error([position.x, position.y, yaw], closest_point)
 
         self.steer(pos_error)
 

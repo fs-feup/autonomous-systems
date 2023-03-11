@@ -40,19 +40,20 @@ class PathMockPublisher(Node):
             # straight path
             for i in np.arange(0, 100, 0.5):
                 add_point(i,-10)
-        else:
-            # square path
-            for i in range(10):
-                add_point(0, i)
+            return
 
-            for i in range(1, 10):
-                add_point(i, 9)
+        # square path
+        for i in range(10):
+            add_point(0, i)
 
-            for i in range(8,-1,-1):
-                add_point(9, i)
+        for i in range(1, 10):
+            add_point(i, 9)
 
-            for i in range(8,-1,-1):
-                add_point(i, 0)
+        for i in range(8,-1,-1):
+            add_point(9, i)
+
+        for i in range(8,-1,-1):
+            add_point(i, 0)
 
         self.path = path
 
