@@ -1,20 +1,6 @@
 import numpy as np
 import math
 
-def steer(self, error):
-    """!
-    @brief Steers the car.
-    @param self The object pointer.
-    @param error Error.
-    """
-    kp = 0.03
-    kd = 0.0
-
-    steer_angle_rate = kp*min(error, 10000000) + kd*(error - self.old_error)
-
-    return float(steer_angle_rate)
-
-
 def get_closest_point(position, points_array):
     """!
     @brief Gets the closest point to the given position.
@@ -37,13 +23,13 @@ def right_or_left(pose, closest_point):
     """
     x = pose[0]
     y = pose[1]
-    angle = math.radians(pose[2])
+    angle = pose[2]
 
     c_x = closest_point[0]
     c_y = closest_point[1]
 
-    rotation_matrix = [[math.cos(angle), -math.sin(angle), 0],
-                       [math.sin(angle), math.cos(angle), 0],
+    rotation_matrix = [[math.cos(angle), math.sin(angle), 0],
+                       [-math.sin(angle), math.cos(angle), 0],
                        [0, 0, 1]]
 
     transl_vector = [[x],
@@ -56,7 +42,4 @@ def right_or_left(pose, closest_point):
 
     new_closest = np.dot(rotation_matrix, np.array(position)-np.array(transl_vector))
 
-    return new_closest[0]
-
-if __name__ == '__main__':
-    p = get_closest_point([0, 0], [[0, 2], [1, 0], [1, 1]])
+    return new_closest[1]

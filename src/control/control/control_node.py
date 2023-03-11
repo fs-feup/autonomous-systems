@@ -1,5 +1,6 @@
 import rclpy
 from rclpy.node import Node
+import math
 
 from custom_interfaces.msg import PointArray
 from ackermann_msgs.msg import AckermannDriveStamped
@@ -32,7 +33,7 @@ class ControlNode(Node):
         self.steering_angle_velocity = 0.
         
         ## Acceleration.
-        self.accelaration = 0
+        self.lin_speed = 0
 
         ## Old error.
         self.old_error = 0
@@ -42,7 +43,7 @@ class ControlNode(Node):
         
         self.path_subscription = self.create_subscription(
             PointArray,
-            'path_topic',
+            'path_mock',
             self.path_callback,
             10
         )
@@ -81,7 +82,7 @@ class ControlNode(Node):
         ack_msg.drive.steering_angle = min(self.steering_angle_velocity, 30.0)
         # ack_msg.drive.steering_angle_velocity = self.steering_angle_velocity
 
-        ack_msg.drive.acceleration = 1.0
+        ack_msg.drive.acceleration = 1.0 if self.lin_speed < 1.5 else 0.0
         
         # Publish the message to the topic
         self.publisher_.publish(ack_msg)
@@ -97,13 +98,17 @@ class ControlNode(Node):
         @param msg Odometry message.
         """
 
-        self.get_logger().info("Received odom!")
+        # self.get_logger().info("Received odom!")
         if self.path is None:
             return
 
         position = msg.pose.pose.position
         orientation = msg.pose.pose.orientation
+        speed = msg.twist.twist.linear
         orientation_list = [orientation.x, orientation.y, orientation.z, orientation.w]
+
+
+        self.lin_speed = math.sqrt(speed.x**2 + speed.y**2)
 
         # Converts quartenions base to euler's base, and updates the class' attributes
         (roll, pitch, yaw) = euler_from_quaternion(orientation_list)
@@ -113,11 +118,19 @@ class ControlNode(Node):
             self.path,
         )
 
+        # gets position error
         pos_error = right_or_left((position.x, position.y, yaw), closest_point)
 
         self.steer(pos_error)
 
         self.old_error = pos_error
+
+        # show info
+        self.get_logger().info(f"\n\n\n\nerror: {pos_error}"+
+            f"\nsteerin angle velocity: {self.steering_angle_velocity}," + 
+            f"\nspeed: {self.lin_speed}" + 
+            f"\nclosest: {closest_point}"
+            f"\nposition: {(position.x, position.y, yaw)}")
         
 
     def path_callback(self, path):
@@ -126,11 +139,12 @@ class ControlNode(Node):
         @param self The object pointer.
         @param path Path message.
         """
-        self.get_logger().info("Received path!")
-        self.path = np.array([])
+        # self.get_logger().info("Received path!")
+        self.path = []
         
         for point in path.points:
             self.path.append([point.x, point.y])
+        self.path = np.array(self.path)
 
 
     def steer(self, error):
@@ -139,8 +153,8 @@ class ControlNode(Node):
         @param self The object pointer.
         @param error Error.
         """
-        kp = 0.03
-        kd = 0.0
+        kp = 0.3
+        kd = 4
 
         steer_angle_rate = kp*min(error, 10000000) + kd*(error - self.old_error)
 
