@@ -28,32 +28,44 @@ class PathMockPublisher(Node):
         @param self The object pointer
         """
         path = PointArray()
+        delta_l = 0.5
 
         def add_point(x, y):
             point = Point2d(
                 x=float(x),
                 y=float(y)
             )
-            path.points.append(point)
+            path.points.append(point) if point not in path.points else None
 
         if straight:
             # straight path
-            for i in np.arange(0, 100, 0.5):
-                add_point(i,-10)
+            for i in np.arange(0, 100, delta_l):
+                add_point(i,-5)
+            self.path = path
             return
 
         # square path
-        for i in range(10):
-            add_point(0, i)
-
-        for i in range(1, 10):
-            add_point(i, 9)
-
-        for i in range(8,-1,-1):
-            add_point(9, i)
-
-        for i in range(8,-1,-1):
+        for i in np.arange(0, 37, 1):
             add_point(i, 0)
+
+        for i in np.linspace(36, 41, 12):
+            add_point(i, 36-i)
+
+        for i in np.linspace(40, 47, 18):
+            add_point(i, 36-i)
+            add_point(i, i-36)
+
+        for i in np.arange(46, 55, 0.5):
+            add_point(i, -10)
+            add_point(i, 10)
+
+        for i in np.linspace(34, 61, 18):
+            add_point(i, i-64)
+            add_point(i, 64-i)
+
+        for i in np.arange(-8, 8, 0.5):
+            add_point(40, i)
+            add_point(60, i)
 
         self.path = path
 
@@ -84,4 +96,4 @@ def main(args=None, straight=False):
 
 
 if __name__ == '__main__':
-    main(straight=True)
+    main()
