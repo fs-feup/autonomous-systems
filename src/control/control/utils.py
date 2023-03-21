@@ -75,15 +75,46 @@ def get_cte(closest_index, points_array, pose_car):
         closest1 = points_array[closest_index - 1]
         closest2 = points_array[closest_index]
 
-    yaw_track = math.atan(((closest1[1] - closest2[1]) + 0.001)/(closest1[0] - closest2[0]))
+    yaw_track = math.atan(((closest1[1] - closest2[1]) + 0.00)/(closest1[0] - closest2[0]))
 
     alpha = yaw_car - yaw_track
+    alpha_car = math.tan(yaw_car)
+    alpha_track = math.tan(yaw_track)
 
     # get intersection coordinates
-    x_int = (y_car - y_track) - (yaw_car*x_car - yaw_track*x_track) / alpha
-    y_int = yaw_track*x_int + yaw_track - yaw_track*x_track
+    x_int = ((y_car - y_track) - (alpha_car*x_car - alpha_track*x_track)) / (alpha_track - alpha_car)
+    y_int = alpha_track*x_int + y_track - alpha_track*x_track
 
     car_to_int = math.sqrt((x_car - x_int)**2 + (y_car - y_int)**2)
 
     return math.sin(alpha)*car_to_int
 
+
+def get_cte2(closest_index, points_array, pose_car):
+    x_car = pose_car[0]
+    y_car = pose_car[1]
+    yaw_car = pose_car[2]
+
+    closest1 = points_array[closest_index]
+    x_track = closest1[0]
+    y_track = closest1[1]
+
+    try:
+        closest2 = points_array[closest_index + 1]
+    except IndexError as e:
+        closest1 = points_array[closest_index - 1]
+        closest2 = points_array[closest_index]
+
+    yaw_track = math.atan(((closest1[1] - closest2[1]) + 0.00)/(closest1[0] - closest2[0]))
+
+    lambda2_num = (x_track - x_car)/math.cos(yaw_car) - (y_track - y_car)/math.sin(yaw_car)
+    lambda2_den = math.sin(yaw_track)/math.sin(yaw_car) - math.cos(yaw_track)/math.cos(yaw_car)
+
+    lambda2 = lambda2_num / lambda2_den
+
+    x_int = math.cos(yaw_track)*lambda2 + x_track
+    y_int = math.sin(yaw_track)*lambda2 + y_track
+
+    car_to_int = math.sqrt((x_car - x_int)**2 + (y_car - y_int)**2)
+
+    return math.sin(yaw_car - yaw_track)*car_to_int
