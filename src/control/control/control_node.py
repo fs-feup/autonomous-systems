@@ -159,8 +159,8 @@ class ControlNode(Node):
         @param self The object pointer.
         @param error Error.
         """
-        kp = 0.01
-        kd = 0.4
+        kp = 0.3
+        kd = 3
 
         error = 0*pos_error + 0*yaw_error - 1*ct_error
 
@@ -172,7 +172,7 @@ class ControlNode(Node):
         self.steering_angle_velocity = float(steer_angle_rate)
 
         # show info
-        self.get_logger().info(f"\ntotal error: {error}")
+        # self.get_logger().info(f"\ntotal error: {error}")
 
 
 def main(args=None):
