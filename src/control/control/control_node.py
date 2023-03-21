@@ -7,8 +7,8 @@ from ackermann_msgs.msg import AckermannDriveStamped
 from nav_msgs.msg import Odometry
 
 from tf_transformations import euler_from_quaternion
-from .utils import get_closest_point, get_position_error
-import numpy as np
+from .utils import get_closest_point, get_position_error, get_orientation_error, get_cte
+import numpy as np  
 
 STEER_CONTROL = 1
 SPEED_CONTROL = 1
@@ -65,7 +65,7 @@ class ControlNode(Node):
             10)
     
         # We will publish a message every 0.5 seconds
-        timer_period = 0.5  # seconds
+        timer_period = 0.2  # seconds
     
         # Create the timer
         self.timer = self.create_timer(timer_period, self.timer_callback)
@@ -82,7 +82,7 @@ class ControlNode(Node):
         ack_msg.drive.steering_angle = min(self.steering_angle_velocity, 30.0)
         # ack_msg.drive.steering_angle_velocity = self.steering_angle_velocity
 
-        ack_msg.drive.acceleration = 1.0 if self.lin_speed < 1.5 else 0.0
+        ack_msg.drive.acceleration = 1.0 if self.lin_speed < 1.0 else 0.0
         
         # Publish the message to the topic
         self.publisher_.publish(ack_msg)
@@ -113,7 +113,7 @@ class ControlNode(Node):
         # Converts quartenions base to euler's base, and updates the class' attributes
         yaw = euler_from_quaternion(orientation_list)[2]
 
-        closest_point = get_closest_point(
+        closest_point, closest_index = get_closest_point(
             [position.x, position.y],
             self.path,
         )
@@ -121,17 +121,23 @@ class ControlNode(Node):
         # gets position error
         pos_error = get_position_error([position.x, position.y, yaw], closest_point)
 
-        self.steer(pos_error)
+        # gets orientation error
+        yaw_error = get_orientation_error(closest_index, self.path, yaw)
 
-        self.old_error = pos_error
+        # gets cross track error
+        ct_error = get_cte(closest_index, self.path, [position.x, position.y, yaw])
+
+        self.steer(pos_error, yaw_error, ct_error)
 
         # show info
-        self.get_logger().info(f"\n\n\n\nerror: {pos_error}"+
+        self.get_logger().info(f"\n\n\n\npos error: {pos_error}"+
+            f"\nyaw error: {yaw_error}," + 
+            f"\ncross track error: {ct_error}," + 
             f"\nsteerin angle velocity: {self.steering_angle_velocity}," + 
-            f"\nspeed: {self.lin_speed}" + 
-            f"\nclosest: {closest_point}"
-            f"\nposition: {(position.x, position.y, yaw)}")
-        
+            f"\nspeed: {self.lin_speed}," + 
+            f"\nclosest: {closest_point},"
+            f"\nposition: {(position.x, position.y, yaw)},")
+
 
     def path_callback(self, path):
         """!
@@ -147,20 +153,26 @@ class ControlNode(Node):
         self.path = np.array(self.path)
 
 
-    def steer(self, error):
+    def steer(self, pos_error, yaw_error, ct_error):
         """!
         @brief Steers the car.
         @param self The object pointer.
         @param error Error.
         """
-        kp = 0.3
-        kd = 4
+        kp = 0.01
+        kd = 0.4
+
+        error = 0*pos_error + 0*yaw_error - 1*ct_error
 
         steer_angle_rate = kp*min(error, 10000000) + kd*(error - self.old_error)
+        
 
         self.old_error = error
 
         self.steering_angle_velocity = float(steer_angle_rate)
+
+        # show info
+        self.get_logger().info(f"\ntotal error: {error}")
 
 
 def main(args=None):

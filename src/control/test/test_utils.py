@@ -7,13 +7,13 @@ class TestUtilsMethods(unittest.TestCase):
         points_array = np.asarray([[0, 2], [1, 0], [1, 1]])
         
         position = [0, 0]
-        closest_point = utils.get_closest_point(position, points_array)
+        closest_point, _ = utils.get_closest_point(position, points_array)
         self.assertEqual(list(closest_point), [1, 0])
 
         position = [-1, 1]
-        closest_point = utils.get_closest_point(position, points_array)
+        closest_point, _ = utils.get_closest_point(position, points_array)
         self.assertEqual(list(closest_point), [0, 2])
 
         points_array = np.asarray([[-4,10],[-3,10],[-1,10],[0,10],[1,10],[2,10],[2,10]])
-        closest_point = utils.get_closest_point(position, points_array)
+        closest_point, _ = utils.get_closest_point(position, points_array)
         self.assertEqual(list(closest_point), [-1, 10])
