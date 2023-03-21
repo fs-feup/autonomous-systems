@@ -40,32 +40,40 @@ class PathMockPublisher(Node):
         if straight:
             # straight path
             for i in np.arange(0, 100, delta_l):
-                add_point(i,-5)
+                add_point(i,-10)
             self.path = path
             return
 
-        # square path
-        for i in np.arange(0, 37, 1):
+                # square path
+        for i in np.arange(0, 36, 1):
             add_point(i, 0)
 
-        for i in np.linspace(36, 41, 12):
+        for i in np.linspace(36, 40, 12)[:-1]:
             add_point(i, 36-i)
 
-        for i in np.linspace(40, 47, 18):
+        for i in np.linspace(40, 46, 17)[:-1]:
             add_point(i, 36-i)
-            add_point(i, i-36)
 
-        for i in np.arange(46, 55, 0.5):
+        for i in np.arange(46, 54, 0.5):
             add_point(i, -10)
-            add_point(i, 10)
 
-        for i in np.linspace(34, 61, 18):
+        for i in np.linspace(54, 60, 17)[:-1]:
             add_point(i, i-64)
+
+        for i in np.arange(-4, 4, 0.5):
+            add_point(60, i)
+
+        for i in np.linspace(60, 54, 17)[:-1]:
             add_point(i, 64-i)
 
-        for i in np.arange(-8, 8, 0.5):
+        for i in np.arange(54, 46, -0.5):
+            add_point(i, 10)
+
+        for i in np.linspace(46, 40, 17)[:-1]:
+            add_point(i, i-36)
+
+        for i in np.arange(4, 0, -0.5):
             add_point(40, i)
-            add_point(60, i)
 
         self.path = path
 
@@ -81,7 +89,7 @@ class PathMockPublisher(Node):
         self.get_logger().info(f"Msg:\n{path_to_str(self.path)}")
         self.publisher_.publish(self.path)
 
-def main(args=None, straight=False):
+def main(args=None, straight=True):
     rclpy.init(args=args)
 
     path_mock_publisher = PathMockPublisher(straight)
