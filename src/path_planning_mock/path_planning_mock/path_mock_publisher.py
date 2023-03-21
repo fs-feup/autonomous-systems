@@ -89,7 +89,7 @@ class PathMockPublisher(Node):
         self.get_logger().info(f"Msg:\n{path_to_str(self.path)}")
         self.publisher_.publish(self.path)
 
-def main(args=None, straight=True):
+def main(args=None, straight=False):
     rclpy.init(args=args)
 
     path_mock_publisher = PathMockPublisher(straight)
