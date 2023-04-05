@@ -61,6 +61,15 @@ def get_orientation_error(closest_index, points_array, yaw_car):
 
 
 def get_cte(closest_index, points_array, pose_car):
+    """!
+    @brief Calculates the cross track error (CTE). 
+    CTE is defined as the distance between the car and the line tangent to the 
+    closest point of the track to the car.
+    @param closest_index position of closest point of the track to the car.
+    @param points_array List containing PointArray. Represent track points.
+    @param pose_array List containing car x position, y position and yaw.
+    @return CTE.
+    """
     x_car = pose_car[0]
     y_car = pose_car[1]
     yaw_car = pose_car[2]
@@ -75,46 +84,39 @@ def get_cte(closest_index, points_array, pose_car):
         closest1 = points_array[closest_index - 1]
         closest2 = points_array[closest_index]
 
-    yaw_track = math.atan(((closest1[1] - closest2[1]) + 0.00)/(closest1[0] - closest2[0]))
+    track_vector = np.array([closest1[0] - closest2[0], closest1[1] - closest2[1]])
+    i_vector = np.array([1, 0])
 
-    alpha = yaw_car - yaw_track
-    alpha_car = math.tan(yaw_car)
-    alpha_track = math.tan(yaw_track)
+    t_vector_norm = np.linalg.norm(track_vector)
 
-    # get intersection coordinates
-    x_int = ((y_car - y_track) - (alpha_car*x_car - alpha_track*x_track)) / (alpha_track - alpha_car)
-    y_int = alpha_track*x_int + y_track - alpha_track*x_track
+    yaw_track = math.atan((track_vector[1])/(track_vector[0] + 0.00000001))
+    yaw_track2 = math.acos(np.dot(track_vector, i_vector)/math.sqrt(track_vector[0]**2 + track_vector[1]**2))
 
-    car_to_int = math.sqrt((x_car - x_int)**2 + (y_car - y_int)**2)
+    D = np.array(
+        [[math.cos(yaw_car), -math.cos(yaw_track)],
+         [math.sin(yaw_car), -math.sin(yaw_track)]]
+    )
 
-    return math.sin(alpha)*car_to_int
+    Dx = np.array(
+        [[(x_track - x_car), -math.cos(yaw_track)],
+         [(y_track - y_car), -math.sin(yaw_track)]]
+    )
 
+    Dy = np.array(
+        [[math.cos(yaw_car), (x_track - x_car)],
+         [math.sin(yaw_car), (y_track - y_car)]]
+    )
 
-def get_cte2(closest_index, points_array, pose_car):
-    x_car = pose_car[0]
-    y_car = pose_car[1]
-    yaw_car = pose_car[2]
-
-    closest1 = points_array[closest_index]
-    x_track = closest1[0]
-    y_track = closest1[1]
-
-    try:
-        closest2 = points_array[closest_index + 1]
-    except IndexError as e:
-        closest1 = points_array[closest_index - 1]
-        closest2 = points_array[closest_index]
-
-    yaw_track = math.atan(((closest1[1] - closest2[1]) + 0.00)/(closest1[0] - closest2[0]))
-
-    lambda2_num = (x_track - x_car)/math.cos(yaw_car) - (y_track - y_car)/math.sin(yaw_car)
-    lambda2_den = math.sin(yaw_track)/math.sin(yaw_car) - math.cos(yaw_track)/math.cos(yaw_car)
-
-    lambda2 = lambda2_num / lambda2_den
+    lambda2 = np.linalg.det(Dy)/np.linalg.det(D)
+    lambda1 = np.linalg.det(Dx)/np.linalg.det(D)
 
     x_int = math.cos(yaw_track)*lambda2 + x_track
     y_int = math.sin(yaw_track)*lambda2 + y_track
 
     car_to_int = math.sqrt((x_car - x_int)**2 + (y_car - y_int)**2)
 
-    return math.sin(yaw_car - yaw_track)*car_to_int
+    mult = 1 if lambda1 > 0 else -1
+    mult2 = 1 if math.cos(yaw_track2) < 0 else -1
+
+    return math.sin(yaw_car - yaw_track)*car_to_int*mult*mult2
+

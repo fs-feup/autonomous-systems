@@ -82,7 +82,7 @@ class ControlNode(Node):
         ack_msg.drive.steering_angle = min(self.steering_angle_velocity, 30.0)
         # ack_msg.drive.steering_angle_velocity = self.steering_angle_velocity
 
-        ack_msg.drive.acceleration = 1.0 if self.lin_speed < 1.0 else 0.0
+        ack_msg.drive.acceleration = 1.0 if self.lin_speed < 1. else 0.0
         
         # Publish the message to the topic
         self.publisher_.publish(ack_msg)
@@ -159,19 +159,24 @@ class ControlNode(Node):
         @param self The object pointer.
         @param error Error.
         """
+
+        # PID params
         kp = 0.3
         kd = 3
 
-        error = 0*pos_error + 0*yaw_error - 1*ct_error
+        # compute global error
+        error = 0*pos_error + 0*yaw_error + 1*ct_error
 
+        # calculate steering angle reference
         steer_angle_rate = kp*min(error, 10000000) + kd*(error - self.old_error)
         
-
+        # save old error for derivative of error calculation
         self.old_error = error
 
+        # save reference in node's attribute to be accessed by other methods
         self.steering_angle_velocity = float(steer_angle_rate)
 
-        # show info
+        # show error
         # self.get_logger().info(f"\ntotal error: {error}")
 
 
