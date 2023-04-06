@@ -120,3 +120,10 @@ def get_cte(closest_index, points_array, pose_car):
 
     return math.sin(yaw_car - yaw_track)*car_to_int*mult*mult2
 
+
+def get_reference_speed(speeds, closest_index):
+    return speeds[closest_index]
+
+def get_speed_error(lin_speed, ref_speed):
+    return ref_speed - lin_speed
+
