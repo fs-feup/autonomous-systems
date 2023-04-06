@@ -7,12 +7,12 @@ from ackermann_msgs.msg import AckermannDriveStamped
 from nav_msgs.msg import Odometry
 
 from tf_transformations import euler_from_quaternion
-from .utils import get_closest_point, get_position_error, get_orientation_error, get_cte
+from .utils import get_closest_point, get_position_error, get_orientation_error, get_cte, get_reference_speed, get_speed_error
 import numpy as np  
 
-STEER_CONTROL = 1
-SPEED_CONTROL = 1
-KEEP_GOING = 0
+STD_SPEED = 1.5
+START_BREAKING_POS = 12
+LOOK_AHEAD = 0
 
 class ControlNode(Node):
     """!
@@ -26,20 +26,23 @@ class ControlNode(Node):
         """
         super().__init__('control_node')
         
-        ## Tuple that contains the control information.
-        self.control_info = (STEER_CONTROL, SPEED_CONTROL, KEEP_GOING)
-        
-        ## Steering angle velocity.
+        # Steering angle velocity.
         self.steering_angle_velocity = 0.
         
-        ## Acceleration.
-        self.lin_speed = 0
+        # Acceleration.
+        self.acceleration = 0
 
-        ## Old error.
+        # Old error.
         self.old_error = 0
 
-        ## Path.
+        # Path.
         self.path = None
+
+        # Reference speeds
+        self.speeds = None
+
+        # Task completion
+        self.done = False
         
         self.path_subscription = self.create_subscription(
             PointArray,
@@ -79,10 +82,11 @@ class ControlNode(Node):
         ack_msg = AckermannDriveStamped()
 
         # Set the String message's data
-        ack_msg.drive.steering_angle = min(self.steering_angle_velocity, 30.0)
+        ack_msg.drive.steering_angle = min(self.steering_angle_velocity, 30.0) if not self.done else 0.
         # ack_msg.drive.steering_angle_velocity = self.steering_angle_velocity
 
-        ack_msg.drive.acceleration = 1.0 if self.lin_speed < 1. else 0.0
+        # Set car acceleration
+        ack_msg.drive.acceleration = self.acceleration if not self.done else -1.
         
         # Publish the message to the topic
         self.publisher_.publish(ack_msg)
@@ -102,21 +106,26 @@ class ControlNode(Node):
         if self.path is None:
             return
 
+        # get pose feedback
         position = msg.pose.pose.position
         orientation = msg.pose.pose.orientation
-        speed = msg.twist.twist.linear
         orientation_list = [orientation.x, orientation.y, orientation.z, orientation.w]
 
-
-        self.lin_speed = math.sqrt(speed.x**2 + speed.y**2)
+        # get speed feedback
+        speed = msg.twist.twist.linear
+        lin_speed = math.sqrt(speed.x**2 + speed.y**2)
 
         # Converts quartenions base to euler's base, and updates the class' attributes
         yaw = euler_from_quaternion(orientation_list)[2]
 
+        # get postion reference
         closest_point, closest_index = get_closest_point(
             [position.x, position.y],
             self.path,
         )
+
+        # get speed reference
+        ref_speed = get_reference_speed(self.speeds, closest_index)
 
         # gets position error
         pos_error = get_position_error([position.x, position.y, yaw], closest_point)
@@ -127,47 +136,76 @@ class ControlNode(Node):
         # gets cross track error
         ct_error = get_cte(closest_index, self.path, [position.x, position.y, yaw])
 
+        # get speed error
+        speed_error = get_speed_error(lin_speed, ref_speed)
+
         self.steer(pos_error, yaw_error, ct_error)
+        self.accelerate(speed_error)
+
+        if lin_speed < 0.2 and closest_index == len(self.path) - 1 and not self.done:
+            self.done = True
 
         # show info
+        """
         self.get_logger().info(f"\n\n\n\npos error: {pos_error}"+
             f"\nyaw error: {yaw_error}," + 
             f"\ncross track error: {ct_error}," + 
             f"\nsteerin angle velocity: {self.steering_angle_velocity}," + 
-            f"\nspeed: {self.lin_speed}," + 
+            f"\nspeed: {lin_speed}," + 
             f"\nclosest: {closest_point},"
-            f"\nposition: {(position.x, position.y, yaw)},")
+            f"\nposition: {(position.x, position.y, yaw)}," +
+            f"\ndone: {self.done}")
+        """
+        
+        self.get_logger().info(f"\n\n\n\npos error: {pos_error}"+
+            f"\nyaw error: {yaw_error}," + 
+            f"\ncross track error: {ct_error}," + 
+            f"\nsteerin angle velocity: {self.steering_angle_velocity}," + 
+            f"\nspeed: {lin_speed}," + 
+            f"\nclosest: {closest_point},"
+            f"\nposition: {(position.x, position.y, yaw)}," +
+            f"\ndone: {self.done}")
 
 
-    def path_callback(self, path):
+    def path_callback(self, points_list):
         """!
         @brief Path callback.
         @param self The object pointer.
         @param path Path message.
         """
         # self.get_logger().info("Received path!")
-        self.path = []
+        path = []
+        speeds = []
         
-        for point in path.points:
-            self.path.append([point.x, point.y])
-        self.path = np.array(self.path)
+        for i, point in enumerate(points_list.points):
+            path.append([point.x, point.y])
+
+            dist_from_end = len(points_list.points) - i
+
+            speed = STD_SPEED*min(1, dist_from_end/START_BREAKING_POS) # min -> start breaking or not
+            speeds.append([speed])
+
+        self.path = np.array(path)
+        self.speeds = np.array(speeds)
 
 
     def steer(self, pos_error, yaw_error, ct_error):
         """!
         @brief Steers the car.
         @param self The object pointer.
-        @param error Error.
+        @param pos_error Position Error.
+        @param yaw_error Orientation Error.
+        @param ct_error Cross Track Error.
         """
 
         # PID params
         kp = 0.3
-        kd = 3
+        kd = 8
 
         # compute global error
         error = 0*pos_error + 0*yaw_error + 1*ct_error
 
-        # calculate steering angle reference
+        # calculate steering angle command
         steer_angle_rate = kp*min(error, 10000000) + kd*(error - self.old_error)
         
         # save old error for derivative of error calculation
@@ -178,6 +216,20 @@ class ControlNode(Node):
 
         # show error
         # self.get_logger().info(f"\ntotal error: {error}")
+
+    def accelerate(self, error):
+        """!
+        @brief Accelerates the car.
+        @param self The object pointer.
+        @param speed_error Speed Error.
+        """
+        # PID params
+        kp = 1
+
+        # calculate acceleration command
+        acceleration = kp*min(error, 10000000)
+
+        self.acceleration = float(acceleration)
 
 
 def main(args=None):
