@@ -7,7 +7,8 @@ from ackermann_msgs.msg import AckermannDriveStamped
 from nav_msgs.msg import Odometry
 
 from tf_transformations import euler_from_quaternion
-from .utils import get_closest_point, get_position_error, get_orientation_error, get_cte, get_reference_speed, get_speed_error
+from .utils import get_closest_point, get_position_error, get_orientation_error,\
+                   get_cte, get_reference_speed, get_speed_error
 import numpy as np  
 
 STD_SPEED = 1.5
@@ -27,7 +28,7 @@ class ControlNode(Node):
         super().__init__('control_node')
         
         # Steering angle velocity.
-        self.steering_angle_velocity = 0.
+        self.steering_angle = 0.
         
         # Acceleration.
         self.acceleration = 0
@@ -82,8 +83,9 @@ class ControlNode(Node):
         ack_msg = AckermannDriveStamped()
 
         # Set the String message's data
-        ack_msg.drive.steering_angle = min(self.steering_angle_velocity, 30.0) if not self.done else 0.
-        # ack_msg.drive.steering_angle_velocity = self.steering_angle_velocity
+        # TODO: Set the minimum and maximum steering angle
+        ack_msg.drive.steering_angle = self.steering_angle if not self.done else 0.
+        # ack_msg.drive.steering_angle = self.steering_angle
 
         # Set car acceleration
         ack_msg.drive.acceleration = self.acceleration if not self.done else -1.
@@ -146,21 +148,10 @@ class ControlNode(Node):
             self.done = True
 
         # show info
-        """
         self.get_logger().info(f"\n\n\n\npos error: {pos_error}"+
             f"\nyaw error: {yaw_error}," + 
             f"\ncross track error: {ct_error}," + 
-            f"\nsteerin angle velocity: {self.steering_angle_velocity}," + 
-            f"\nspeed: {lin_speed}," + 
-            f"\nclosest: {closest_point},"
-            f"\nposition: {(position.x, position.y, yaw)}," +
-            f"\ndone: {self.done}")
-        """
-        
-        self.get_logger().info(f"\n\n\n\npos error: {pos_error}"+
-            f"\nyaw error: {yaw_error}," + 
-            f"\ncross track error: {ct_error}," + 
-            f"\nsteerin angle velocity: {self.steering_angle_velocity}," + 
+            f"\nsteerin angle velocity: {self.steering_angle}," + 
             f"\nspeed: {lin_speed}," + 
             f"\nclosest: {closest_point},"
             f"\nposition: {(position.x, position.y, yaw)}," +
@@ -182,7 +173,8 @@ class ControlNode(Node):
 
             dist_from_end = len(points_list.points) - i
 
-            speed = STD_SPEED*min(1, dist_from_end/START_BREAKING_POS) # min -> start breaking or not
+            # min -> start breaking or not
+            speed = STD_SPEED*min(1, dist_from_end/START_BREAKING_POS)
             speeds.append([speed])
 
         self.path = np.array(path)
@@ -212,7 +204,7 @@ class ControlNode(Node):
         self.old_error = error
 
         # save reference in node's attribute to be accessed by other methods
-        self.steering_angle_velocity = float(steer_angle_rate)
+        self.steering_angle = float(steer_angle_rate)
 
         # show error
         # self.get_logger().info(f"\ntotal error: {error}")
