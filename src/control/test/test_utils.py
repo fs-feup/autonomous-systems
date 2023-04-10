@@ -29,7 +29,9 @@ class TestUtilsMethods(unittest.TestCase):
 
                 x_car = math.cos(angle)
                 y_car = math.sin(angle)
-                yaw_car = angle + math.pi/2 + 70  # 0.5 can be any number. Just to avoid inf divisions
+
+                # 0.5 can be any number. Just to avoid inf divisions
+                yaw_car = angle + math.pi/2 + 70
 
                 x_track_1 = math.cos(angle + math.pi)
                 y_track_1 = math.sin(angle + + math.pi)
@@ -38,7 +40,8 @@ class TestUtilsMethods(unittest.TestCase):
                 x_track_2 = x_track_1 + 0.1*math.cos(yaw_track)
                 y_track_2 = y_track_1 + 0.1*math.sin(yaw_track)
                 
-                points_array = np.array([[x_track_1, y_track_1], [x_track_2, y_track_2]])
+                points_array = np.array([[x_track_1, y_track_1],
+                                         [x_track_2, y_track_2]])
                 pose_car = [x_car, y_car, yaw_car]
                 closest_index = 0
                 cte = get_cte(closest_index, points_array, pose_car)

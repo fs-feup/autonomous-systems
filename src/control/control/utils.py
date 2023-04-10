@@ -51,7 +51,7 @@ def get_orientation_error(closest_index, points_array, yaw_car):
 
     try:
         closest2 = points_array[closest_index + 1]
-    except IndexError as e:
+    except IndexError:
         closest1 = points_array[closest_index - 1]
         closest2 = points_array[closest_index]
 
@@ -80,17 +80,18 @@ def get_cte(closest_index, points_array, pose_car):
 
     try:
         closest2 = points_array[closest_index + 1]
-    except IndexError as e:
+    except IndexError:
         closest1 = points_array[closest_index - 1]
         closest2 = points_array[closest_index]
 
     track_vector = np.array([closest1[0] - closest2[0], closest1[1] - closest2[1]])
     i_vector = np.array([1, 0])
 
-    t_vector_norm = np.linalg.norm(track_vector)
+    np.linalg.norm(track_vector)
 
     yaw_track = math.atan((track_vector[1])/(track_vector[0] + 0.00000001))
-    yaw_track2 = math.acos(np.dot(track_vector, i_vector)/math.sqrt(track_vector[0]**2 + track_vector[1]**2))
+    yaw_track2 = math.acos(np.dot(track_vector, i_vector)/
+                           math.sqrt(track_vector[0]**2 + track_vector[1]**2))
 
     D = np.array(
         [[math.cos(yaw_car), -math.cos(yaw_track)],
@@ -110,15 +111,15 @@ def get_cte(closest_index, points_array, pose_car):
     lambda2 = np.linalg.det(Dy)/np.linalg.det(D)
     lambda1 = np.linalg.det(Dx)/np.linalg.det(D)
 
-    x_int = math.cos(yaw_track)*lambda2 + x_track
-    y_int = math.sin(yaw_track)*lambda2 + y_track
+    x_intersect  = math.cos(yaw_track)*lambda2 + x_track
+    y_intersect = math.sin(yaw_track)*lambda2 + y_track
 
-    car_to_int = math.sqrt((x_car - x_int)**2 + (y_car - y_int)**2)
+    car_to_intersect = math.sqrt((x_car - x_intersect)**2 + (y_car - y_intersect)**2)
 
     mult = 1 if lambda1 > 0 else -1
     mult2 = 1 if math.cos(yaw_track2) < 0 else -1
 
-    return math.sin(yaw_car - yaw_track)*car_to_int*mult*mult2
+    return math.sin(yaw_car - yaw_track) * car_to_intersect * mult * mult2
 
 
 def get_reference_speed(speeds, closest_index):
