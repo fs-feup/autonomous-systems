@@ -30,7 +30,7 @@ class TestUtilsMethods(unittest.TestCase):
                 x_car = math.cos(angle)
                 y_car = math.sin(angle)
 
-                # 0.5 can be any number. Just to avoid inf divisions
+                # 70 can be any number. Just to avoid inf divisions
                 yaw_car = angle + math.pi/2 + 70
 
                 x_track_1 = math.cos(angle + math.pi)
