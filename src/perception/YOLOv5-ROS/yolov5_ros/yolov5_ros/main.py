@@ -193,7 +193,7 @@ class yolov5_ros(Node):
 
         self.sub_image = self.create_subscription(
             Image,
-            "/zed/left/image_rect_color",
+            "/zed/image_raw",
             self.image_callback,
              QoSProfile(reliability=rclpy.qos.ReliabilityPolicy.BEST_EFFORT,
                 history=rclpy.qos.HistoryPolicy.KEEP_LAST,
@@ -261,6 +261,7 @@ class yolov5_ros(Node):
             one_box.ymax = int(bboxes[3][i])
             one_box.probability = float(score)
             one_box.class_id = cls[i]
+            one_box.class_id_int = i
             bboxes_msg.bounding_boxes.append(one_box)
             i = i+1
         
@@ -276,10 +277,6 @@ class yolov5_ros(Node):
         self.pub_bbox.publish(msg)
 
         self.pub_image.publish(image)
-
-        print("start ==================")
-        print(class_list, confidence_list, x_min_list, y_min_list, x_max_list, y_max_list)
-        print("end ====================")
 
 def ros_main(args=None):
     rclpy.init(args=args)
