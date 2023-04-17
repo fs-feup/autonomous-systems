@@ -22,7 +22,7 @@ from yolov5_ros.utils.torch_utils import select_device, time_sync
 
 from yolov5_ros.utils.datasets import letterbox
 
-from rclpy.qos import QoSProfile
+from rclpy.qos import QoSProfile, qos_profile_sensor_data
 
 import rclpy
 from rclpy.node import Node
@@ -195,10 +195,7 @@ class yolov5_ros(Node):
             Image,
             "/zed/image_raw",
             self.image_callback,
-             QoSProfile(reliability=rclpy.qos.ReliabilityPolicy.BEST_EFFORT,
-                history=rclpy.qos.HistoryPolicy.KEEP_LAST,
-                depth=5)
-        )
+             qos_profile=qos_profile_sensor_data)
 
         # parameter
         FILE = Path(__file__).resolve()
@@ -272,7 +269,6 @@ class yolov5_ros(Node):
         image_raw = self.bridge.imgmsg_to_cv2(image, "bgr8")
         # return (class_list, confidence_list, x_min_list, y_min_list, x_max_list, y_max_list)
         class_list, confidence_list, x_min_list, y_min_list, x_max_list, y_max_list = self.yolov5.image_callback(image_raw)
-
         msg = self.yolovFive2bboxes_msgs(bboxes=[x_min_list, y_min_list, x_max_list, y_max_list], scores=confidence_list, cls=class_list, img_header=image.header)
         self.pub_bbox.publish(msg)
 
