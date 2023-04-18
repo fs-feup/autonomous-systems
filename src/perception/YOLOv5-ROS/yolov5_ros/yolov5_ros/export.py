@@ -284,7 +284,7 @@ def export_saved_model(model,
         import tensorflow as tf
         from tensorflow.python.framework.convert_to_constants import convert_variables_to_constants_v2
 
-        from models.tf import TFDetect, TFModel
+        from models.tf import TFModel
 
         LOGGER.info(f'\n{prefix} starting export with tensorflow {tf.__version__}...')
         f = str(file).replace('.pt', '_saved_model')

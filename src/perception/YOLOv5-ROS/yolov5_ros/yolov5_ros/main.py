@@ -1,9 +1,9 @@
 #ADAPTED FROM https://github.com/Ar-Ray-code/YOLOv5-ROS
-#Removed self.data and self.device from the constructor and changed the way the model is created 
+#Removed self.data and self.device from the constructor and changed the way the model 
+#is created 
 
 
 
-import argparse
 import os
 import sys
 from pathlib import Path
@@ -14,15 +14,14 @@ import numpy as np
 import torch
 import torch.backends.cudnn as cudnn
 
-from yolov5_ros.models.common import DetectMultiBackend
-from yolov5_ros.utils.datasets import IMG_FORMATS, VID_FORMATS
-from yolov5_ros.utils.general import (LOGGER, check_img_size, check_imshow, non_max_suppression, scale_coords, xyxy2xywh)
+from yolov5_ros.utils.general import (check_img_size, check_imshow, 
+                                      non_max_suppression, scale_coords, xyxy2xywh)
 from yolov5_ros.utils.plots import Annotator, colors
-from yolov5_ros.utils.torch_utils import select_device, time_sync
+from yolov5_ros.utils.torch_utils import time_sync
 
 from yolov5_ros.utils.datasets import letterbox
 
-from rclpy.qos import QoSProfile, qos_profile_sensor_data
+from rclpy.qos import qos_profile_sensor_data
 
 import rclpy
 from rclpy.node import Node
@@ -67,29 +66,30 @@ class yolov5_demo():
         imgsz = (self.imagez_height, self.imagez_width)
 
         # Load model
-        #self.model = DetectMultiBackend(self.weights, device=self.device, dnn=self.dnn) #OLD
+        #OLD
+        #self.model = DetectMultiBackend(self.weights, device=self.device, dnn=self.dnn)
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         self.model = torch.hub.load('ultralytics/yolov5','custom', path=self.weights)
         stride, self.names, pt = self.model.stride, self.model.names, self.model.pt
         imgsz = check_img_size(imgsz, s=stride)  # check image size
 
         # Half
-        self.half &= (pt) and self.device.type != 'cpu'  # FP16 supported on limited backends with CUDA
+        # FP16 supported on limited backends with CUDA
+        self.half &= (pt) and self.device.type != 'cpu'  
         if pt:
             self.model.model.half() if self.half else self.model.model.float()
 
-        source = 0
         # Dataloader
         webcam = True
         if webcam:
-            view_img = check_imshow()
+            check_imshow()
             cudnn.benchmark = True
         bs = 1
         self.vid_path, self.vid_writer = [None] * bs, [None] * bs
 
         self.dt, self.seen = [0.0, 0.0, 0.0], 0
 
-    # callback ==========================================================================
+    # callback =================================================================
 
     # return ---------------------------------------
     # 1. class (str)                                +
@@ -124,16 +124,16 @@ class yolov5_demo():
         self.dt[0] += t2 - t1
 
         # Inference
-        save_dir = "runs/detect/exp7"
-        path = ['0']
 
-        # visualize = increment_path(save_dir / Path(path).stem, mkdir=True) if visualize else False
+        # visualize = increment_path(save_dir / Path(path).stem, mkdir=True) 
+        # if visualize else False
         pred = self.model(im, augment=False)
         t3 = time_sync()
         self.dt[1] += t3 - t2
 
         # NMS
-        pred = non_max_suppression(pred, self.conf_thres, self.iou_thres, self.classes, self.agnostic_nms, max_det=self.max_det)
+        pred = non_max_suppression(pred, self.conf_thres, self.iou_thres, self.classes, 
+                                   self.agnostic_nms, max_det=self.max_det)
         self.dt[2] += time_sync() - t3
 
         # Process predictions
@@ -145,7 +145,8 @@ class yolov5_demo():
             self.s += '%gx%g ' % im.shape[2:]  # print string
             gn = torch.tensor(im0.shape)[[1, 0, 1, 0]]  # normalization gain whwh
             # imc = im0.copy() if save_crop else im0  # for save_crop
-            annotator = Annotator(im0, line_width=self.line_thickness, example=str(self.names))
+            annotator = Annotator(im0, line_width=self.line_thickness, 
+                                  example=str(self.names))
             if len(det):
                 # Rescale boxes from img_size to im0 size
                 det[:, :4] = scale_coords(im.shape[2:], det[:, :4], im0.shape).round()
@@ -153,12 +154,12 @@ class yolov5_demo():
                 # Print results
                 for c in det[:, -1].unique():
                     n = (det[:, -1] == c).sum()  # detections per class
-                    self.s += f"{n} {self.names[int(c)]}{'s' * (n > 1)}, "  # add to string
+                    # add to string
+                    self.s += f"{n} {self.names[int(c)]}{'s' * (n > 1)}, "  
 
                 for *xyxy, conf, cls in reversed(det):
-                    xywh = (xyxy2xywh(torch.tensor(xyxy).view(1, 4)) / gn).view(-1).tolist()  # normalized xywh
-                    save_conf = False
-                    line = (cls, *xywh, conf) if save_conf else (cls, *xywh)  # label format
+                    # normalized xywh
+                    (xyxy2xywh(torch.tensor(xyxy).view(1, 4)) / gn).view(-1).tolist()  
                     
                     # Add bbox to image
                     c = int(cls)  # integer class
@@ -180,7 +181,7 @@ class yolov5_demo():
                 cv2.imshow("yolov5", im0)
                 cv2.waitKey(1)  # 1 millisecond
 
-            return class_list, confidence_list, x_min_list, y_min_list, x_max_list, y_max_list
+            return class_list, confidence_list, x_min_list, y_min_list, x_max_list, y_max_list  # noqa: E501
 
 class yolov5_ros(Node):
     def __init__(self):
@@ -188,7 +189,8 @@ class yolov5_ros(Node):
 
         self.bridge = CvBridge()
 
-        self.pub_bbox = self.create_publisher(BoundingBoxes, 'yolov5/bounding_boxes', 10)
+        self.pub_bbox = self.create_publisher(BoundingBoxes, 
+        'yolov5/bounding_boxes', 10)
         self.pub_image = self.create_publisher(Image, 'yolov5/image_raw', 10)
 
         self.sub_image = self.create_subscription(
@@ -244,7 +246,8 @@ class yolov5_ros(Node):
                                 self.dnn)
 
     
-    def yolovFive2bboxes_msgs(self, bboxes:list, scores:list, cls:list, img_header:Header):
+    def yolovFive2bboxes_msgs(self, bboxes:list, scores:list, cls:list, 
+                              img_header:Header):
         bboxes_msg = BoundingBoxes()
         bboxes_msg.header = img_header
         print(bboxes)
@@ -267,9 +270,15 @@ class yolov5_ros(Node):
 
     def image_callback(self, image:Image):
         image_raw = self.bridge.imgmsg_to_cv2(image, "bgr8")
-        # return (class_list, confidence_list, x_min_list, y_min_list, x_max_list, y_max_list)
-        class_list, confidence_list, x_min_list, y_min_list, x_max_list, y_max_list = self.yolov5.image_callback(image_raw)
-        msg = self.yolovFive2bboxes_msgs(bboxes=[x_min_list, y_min_list, x_max_list, y_max_list], scores=confidence_list, cls=class_list, img_header=image.header)
+        # return (class_list, confidence_list, x_min_list, y_min_list, 
+        # x_max_list, y_max_list)
+        class_list, confidence_list, x_min_list, y_min_list, x_max_list, y_max_list = self.yolov5.image_callback(image_raw)  # noqa: E501
+        
+        msg = self.yolovFive2bboxes_msgs(bboxes=[x_min_list, y_min_list, 
+                                                 x_max_list, y_max_list], 
+                                                 scores=confidence_list, 
+                                                 cls=class_list, 
+                                                 img_header=image.header)
         self.pub_bbox.publish(msg)
 
         self.pub_image.publish(image)
