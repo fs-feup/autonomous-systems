@@ -2,7 +2,6 @@ from setuptools import setup
 
 import os
 from glob import glob
-from urllib.request import urlretrieve
 from setuptools import find_packages
 
 package_name = 'yolov5_ros'
