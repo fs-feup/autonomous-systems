@@ -1,18 +1,15 @@
 #!/usr/bin/env python3
 import rclpy
 from rclpy.node import Node
-from rclpy.qos import QoSProfile, qos_profile_sensor_data
-from rclpy.duration import Duration
-from rclpy.time import Time
+from rclpy.qos import qos_profile_sensor_data
 
 from sensor_msgs.msg import Image
-from bboxes_ex_msgs.msg import BoundingBoxes, BoundingBox
+from bboxes_ex_msgs.msg import BoundingBoxes
 from cone_coordinates_msg.msg import ConeCoordinates
-from sensor_msgs.msg import PointCloud2, CameraInfo
+from sensor_msgs.msg import CameraInfo
 from cv_bridge import CvBridge
 
 import numpy as np
-import cv2
 
 class DepthProcessing(Node):
     def __init__(self):
@@ -48,7 +45,9 @@ class DepthProcessing(Node):
         #self.pointcloud = None
         self.camera_matrix = None
 
-        self.pub_cone_coordinates = self.create_publisher(ConeCoordinates, 'perception/cone_coordinates', 10)
+        self.pub_cone_coordinates = self.create_publisher(ConeCoordinates, 
+                                                          'perception/cone_coordinates', 
+                                                          10)
         
         timer_period = 0.01  # seconds
         self.timer = self.create_timer(timer_period, self.process)
@@ -68,11 +67,13 @@ class DepthProcessing(Node):
         self.camera_matrix = np.array(msg.p).reshape(3, 4)
 
     def process(self):
-        # if self.depth_image is None or len(self.bounding_boxes_msgs) == 0 or self.pointcloud is None:
+        # if self.depth_image is None or len(self.bounding_boxes_msgs) == 0 
+        # or self.pointcloud is None:
         #     return
         
-        if self.depth_image is None or len(self.bounding_boxes_msgs) == 0 or self.camera_matrix is None:
-            return
+        
+        if self.camera_matrix is None or self.depth_image is None or len(self.bounding_boxes_msgs) == 0:  # noqa: E501
+                return
     
         for bounding_boxes in self.bounding_boxes_msgs:
             for bounding_box in bounding_boxes.bounding_boxes:
@@ -85,22 +86,26 @@ class DepthProcessing(Node):
                 # roi = self.depth_image[y-1:y+1, x-1:x+1]
 
                 #get depth from all points in bounding box that are not inf
-                roi = self.depth_image[bounding_box.ymin:bounding_box.ymax, bounding_box.xmin:bounding_box.xmax]
+                roi = self.depth_image[bounding_box.ymin:bounding_box.ymax, 
+                                       bounding_box.xmin:bounding_box.xmax]
                 roi = roi[~np.isinf(roi)]
 
                 if len(roi) == 0:
                     continue
                 
-                # Given a 3D point [X Y Z]', the projection (x, y) of the point onto the rectified image is given by:
+                # Given a 3D point [X Y Z]', the projection (x, y) of the point onto 
+                # the rectified image is given by:
                 #[u v w]' = P * [X Y Z 1]'
                 #x = u / w
                 #y = v / w
-                #where P is the 3x4 projection matrix, and [u v w]' is the homogeneous image coordinate of the projected point.
+                #where P is the 3x4 projection matrix, and [u v w]' is the homogeneous 
+                # image coordinate of the projected point.
                 z = roi.min()
                 x = (x - self.camera_matrix[0, 2]) * z / self.camera_matrix[0, 0]
                 y = (y - self.camera_matrix[1, 2]) * z / self.camera_matrix[1, 1]
                 print("x: " + str(x) + " y: " + str(y) + " z: " + str(z))
-                print(bounding_box.class_id + " ID " + str(bounding_box.class_id_int) + ": " + str(roi.min()) + "m")
+                print(bounding_box.class_id + " ID " + str(bounding_box.class_id_int) 
+                      + ": " + str(roi.min()) + "m")
 
                 #publish cone coordinates
                 cone_coordinates = ConeCoordinates()
