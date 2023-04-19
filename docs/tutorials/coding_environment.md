@@ -79,7 +79,7 @@ An example project can be found in the assets folder or on this [link]().
 
 ## Compiling and Running
 
-To compile code:
+To compile code (run these commands in src/ folder preferably):
 
 ```sh
 colcon build
@@ -98,4 +98,5 @@ To run tests:
 colcon test --event-handler=console_direct+ # Last part for verbose
 ```
 
+Optionally you can use ```colcon build/test --packages-select [list of packages]``` to only affect certain packages.
 
