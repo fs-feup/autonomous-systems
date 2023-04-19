@@ -84,14 +84,15 @@ def get_cte(closest_index, points_array, pose_car):
         closest1 = points_array[closest_index - 1]
         closest2 = points_array[closest_index]
 
-    track_vector = np.array([closest1[0] - closest2[0], closest1[1] - closest2[1]])
+    track_vector = np.array([closest2[0] - closest1[0], closest2[1] - closest1[1]])
     i_vector = np.array([1, 0])
 
     np.linalg.norm(track_vector)
 
-    yaw_track = math.atan((track_vector[1])/(track_vector[0] + 0.00000001))
-    yaw_track2 = math.acos(np.dot(track_vector, i_vector)/
-                           math.sqrt(track_vector[0]**2 + track_vector[1]**2))
+    yaw_track = math.acos(np.dot(track_vector, i_vector)/math.sqrt(track_vector[0]**2 + track_vector[1]**2))
+
+    if track_vector[1] < 0:
+        yaw_track = 2*math.pi - yaw_track
 
     D = np.array(
         [[math.cos(yaw_car), -math.cos(yaw_track)],
@@ -117,9 +118,8 @@ def get_cte(closest_index, points_array, pose_car):
     car_to_intersect = math.sqrt((x_car - x_intersect)**2 + (y_car - y_intersect)**2)
 
     mult = 1 if lambda1 > 0 else -1
-    mult2 = 1 if math.cos(yaw_track2) < 0 else -1
 
-    return math.sin(yaw_car - yaw_track) * car_to_intersect * mult * mult2
+    return math.sin(yaw_car - yaw_track)*car_to_int*mult
 
 
 def get_reference_speed(speeds, closest_index):
