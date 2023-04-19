@@ -18,11 +18,13 @@ In order to help future developers start contributing to this project, code shou
         - Check the INPUT variable, for this is the one that defines what files will be read to generate the documentation
 - Comment the code with doxygen comments
     - Use [this vscode extension](https://marketplace.visualstudio.com/items?itemName=cschlosser.doxdocgen) for automatic doxygen documentation generation
-- Run ```doxygen``` on the root directory to generate documentation
+- Run ```doxygen``` on the [src folder](../../src/) to generate documentation
+    **IMPORTANT:** In this project, there is already a script that runs documentation on all packages automatically [here](../../src/document.sh).
 
 There is an example doxyfile [here](../assets/environment_setup_tutorial/Doxyfile.example). This doxyfile is configured to generate only latex documentation (as oposed to latex + html).
 
 The [example project](../assets/environment_setup_tutorial/training/) also contains a Doxyfile (it is the same as the one mentioned above) and a [script](../assets/environment_setup_tutorial/training/document.sh) that generates a pdf file + the latex output from doxygen. This script required the installation of [pdflatex](https://gist.github.com/rain1024/98dd5e2c6c8c28f9ea9d). The example project also contains commented code.
+
 
 ## Doxygen Python
 

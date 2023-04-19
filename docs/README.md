@@ -10,3 +10,4 @@ There are many tutorials in this project in the [tutorials directory](./tutorial
 
 - [Project Rules](./project-rules.md)
 - [Project Specification](./project-specification.md) - architecture and technologies
+- [Technologies](./technologies.md) - software used
