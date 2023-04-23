@@ -1,6 +1,8 @@
 import numpy as np
 import math
 
+from scipy import interpolate
+
 def get_closest_point(position, points_array):
     """!
     @brief Gets the closest point to the given position.
@@ -74,16 +76,29 @@ def get_cte(closest_index, points_array, pose_car):
     y_car = pose_car[1]
     yaw_car = pose_car[2]
 
-    closest1 = points_array[closest_index]
+    spline_window = 10
+    win_amplitude = int(spline_window/2)
+    n_new_points = 50
+
+    filtered_points = points_array[max(closest_index-win_amplitude, 0):min(closest_index+win_amplitude, 26), :]
+
+    tck, u = interpolate.splprep([filtered_points[:, 0], filtered_points[:, 1]], s=0, per=False)
+    x0, y0 = interpolate.splev(np.linspace(0, 1, new_closest_index), tck)
+
+    new_points_array = np.concatenate((x0[:, np.newaxis], y0[:, np.newaxis]), axis=1)
+
+    _, new_closest_index = get_closest_point([x_car, y_car], new_points_array)
+
+    closest1 = new_points_array[new_closest_index]
     x_track = closest1[0]
     y_track = closest1[1]
-
+     
     try:
-        closest2 = points_array[closest_index + 1]
+        closest2 = new_points_array[new_closest_index + 1]
     except IndexError:
-        closest1 = points_array[closest_index - 1]
-        closest2 = points_array[closest_index]
-
+        closest1 = new_points_array[new_closest_index - 1]
+        closest2 = new_points_array[new_closest_index]
+    
     track_vector = np.array([closest2[0] - closest1[0], closest2[1] - closest1[1]])
     i_vector = np.array([1, 0])
 
@@ -119,8 +134,8 @@ def get_cte(closest_index, points_array, pose_car):
 
     mult = 1 if lambda1 > 0 else -1
 
-    return math.sin(yaw_car - yaw_track)*car_to_int*mult
-
+    return math.sin(yaw_car - yaw_track)*car_to_intersect*mult
+    
 
 def get_reference_speed(speeds, closest_index):
     return speeds[closest_index]
