@@ -78,11 +78,12 @@ def get_cte(closest_index, points_array, pose_car):
 
     spline_window = 10
     win_amplitude = int(spline_window/2)
-    n_new_points = 50
 
-    filtered_points = points_array[max(closest_index-win_amplitude, 0):min(closest_index+win_amplitude, 26), :]
+    filtered_points = points_array[max(closest_index-win_amplitude, 0):
+                                   min(closest_index+win_amplitude, 26), :]
 
-    tck, u = interpolate.splprep([filtered_points[:, 0], filtered_points[:, 1]], s=0, per=False)
+    tck, u = interpolate.splprep([filtered_points[:, 0], filtered_points[:, 1]],
+                                  s=0, per=False)
     x0, y0 = interpolate.splev(np.linspace(0, 1, new_closest_index), tck)
 
     new_points_array = np.concatenate((x0[:, np.newaxis], y0[:, np.newaxis]), axis=1)
@@ -104,7 +105,8 @@ def get_cte(closest_index, points_array, pose_car):
 
     np.linalg.norm(track_vector)
 
-    yaw_track = math.acos(np.dot(track_vector, i_vector)/math.sqrt(track_vector[0]**2 + track_vector[1]**2))
+    yaw_track = math.acos(np.dot(track_vector, i_vector) /
+                          math.sqrt(track_vector[0]**2 + track_vector[1]**2))
 
     if track_vector[1] < 0:
         yaw_track = 2*math.pi - yaw_track
