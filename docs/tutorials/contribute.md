@@ -14,9 +14,9 @@ You work with your **shell always in this directory**. In it, you can find mutip
   colcon build --packages-select [your package and others necessary]
   source install/setup.bash
   ```
-- Run code
+- Run code (`ros-args` are optional)
   ```sh
-  ros2 run [package_name] [node_name]
+  ros2 run [package_name] [node_name] (--ros-args -p [param_name]:=[param_value])
   ```
 - Run tests
   ```sh
