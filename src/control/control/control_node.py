@@ -3,12 +3,12 @@ from rclpy.node import Node
 import math
 
 from custom_interfaces.msg import PointArray
-from ackermann_msgs.msg import AckermannDriveStamped
 from nav_msgs.msg import Odometry
 
 from tf_transformations import euler_from_quaternion
 from .utils import get_closest_point, get_position_error, get_orientation_error,\
                    get_cte, get_reference_speed, get_speed_error
+from .abstraction_layer import create_abstraction_layer
 import numpy as np  
 
 STD_SPEED = 1.5
@@ -26,12 +26,15 @@ class ControlNode(Node):
         @param self The object pointer.
         """
         super().__init__('control_node')
+
+        # Declare parameters.
+        self.declare_parameter('mode', 'sim')
         
         # Steering angle velocity.
         self.steering_angle = 0.
         
         # Acceleration.
-        self.acceleration = 0
+        self.acceleration = 0.
 
         # Old error.
         self.old_error = 0
@@ -63,38 +66,7 @@ class ControlNode(Node):
         self.path_subscription
         self.odom_subscription
     
-        self.publisher_ = self.create_publisher(
-            AckermannDriveStamped,
-            '/cmd', 
-            10)
-    
-        # We will publish a message every 0.5 seconds
-        timer_period = 0.2  # seconds
-    
-        # Create the timer
-        self.timer = self.create_timer(timer_period, self.timer_callback)
-
-    def timer_callback(self):
-        """!
-        @brief Controls publisher callback.
-        @param self The object pointer.
-        """
-        # Create a String message
-        ack_msg = AckermannDriveStamped()
-
-        # Set the String message's data
-        # TODO: Set the minimum and maximum steering angle
-        ack_msg.drive.steering_angle = self.steering_angle if not self.done else 0.
-        # ack_msg.drive.steering_angle = self.steering_angle
-
-        # Set car acceleration
-        ack_msg.drive.acceleration = self.acceleration if not self.done else -1.
-        
-        # Publish the message to the topic
-        self.publisher_.publish(ack_msg)
-        
-        # Display the message on the console
-        self.get_logger().info('publishing')
+        self.abstraction_layer = create_abstraction_layer(self)
 
 
     def odometry_callback(self, msg):
