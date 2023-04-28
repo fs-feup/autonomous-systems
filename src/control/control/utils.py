@@ -78,13 +78,14 @@ def get_cte(closest_index, points_array, pose_car):
 
     spline_window = 10
     win_amplitude = int(spline_window/2)
+    n_new_points = 50
 
     filtered_points = points_array[max(closest_index-win_amplitude, 0):
                                    min(closest_index+win_amplitude, 26), :]
 
     tck, u = interpolate.splprep([filtered_points[:, 0], filtered_points[:, 1]],
                                   s=0, per=False)
-    x0, y0 = interpolate.splev(np.linspace(0, 1, new_closest_index), tck)
+    x0, y0 = interpolate.splev(np.linspace(0, 1, n_new_points), tck)
 
     new_points_array = np.concatenate((x0[:, np.newaxis], y0[:, np.newaxis]), axis=1)
 
