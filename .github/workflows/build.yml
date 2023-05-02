@@ -60,7 +60,30 @@ jobs:
         run: |
           source /opt/ros/galactic/setup.bash
           cd ./src/
-          ros2 interface list
           colcon build --packages-select custom_interfaces loc_map
           source install/setup.bash
           colcon test --packages-select loc_map --event-handler=console_direct+
+
+      - name: Compile and Test Control
+        run: |
+          source /opt/ros/galactic/setup.bash
+          cd ./src/
+          colcon build --packages-select custom_interfaces control
+          source install/setup.bash
+          colcon test --packages-select control --event-handler=console_direct+
+
+      - name: Compile and Test Planning
+        run: |
+          source /opt/ros/galactic/setup.bash
+          cd ./src/
+          colcon build --packages-select custom_interfaces planning
+          source install/setup.bash
+          colcon test --packages-select planning --event-handler=console_direct+
+
+      # - name: Compile and Test Perception
+      #   run: |
+      #     source /opt/ros/galactic/setup.bash
+      #     cd ./src/
+      #     colcon build --packages-select custom_interfaces perception
+      #     source install/setup.bash
+      #     colcon test --packages-select perception --event-handler=console_direct+
