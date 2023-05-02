@@ -1,6 +1,7 @@
 import rclpy
 from rclpy.node import Node
 import numpy as np
+import math
 
 from custom_interfaces.msg import PointArray, Point2d
 
@@ -28,7 +29,7 @@ class PathMockPublisher(Node):
         @param self The object pointer
         """
         path = PointArray()
-        delta_l = 0.5
+        delta_l = 3.5
 
         def add_point(x, y):
             point = Point2d(
@@ -44,37 +45,79 @@ class PathMockPublisher(Node):
             self.path = path
             return
 
-                # square path
-        for i in np.arange(0, 36, 1):
+        chunck_begging = 0
+        length = 36
+        n_points = length/ delta_l + 1
+        chunck_ending = chunck_begging + length - 1
+        for i in np.arange(chunck_begging, chunck_ending, delta_l):
             add_point(i, 0)
 
-        for i in np.linspace(36, 40, 12)[:-1]:
+        chunck_begging += length
+        length = 4
+        n_points = int(math.sqrt(2)*length/ delta_l) + 1
+        chunck_ending = chunck_begging + length - 1
+        for i in np.linspace(chunck_begging, chunck_ending, n_points)[:-1]:
             add_point(i, 36-i)
 
-        for i in np.linspace(40, 46, 17)[:-1]:
+        chunck_begging += length
+        length = 6
+        n_points = int(math.sqrt(2)*length/ delta_l) + 1
+        chunck_ending = chunck_begging + length - 1
+        for i in np.linspace(chunck_begging, chunck_ending, n_points)[:-1]:
             add_point(i, 36-i)
 
-        for i in np.arange(46, 54, 0.5):
+        chunck_begging += length
+        length = 8
+        n_points = int(length/ delta_l) + 1
+        chunck_ending = chunck_begging + length - 1
+        for i in np.arange(chunck_begging, chunck_ending, delta_l):
             add_point(i, -10)
 
-        for i in np.linspace(54, 60, 17)[:-1]:
+        chunck_begging += length
+        length = 6
+        n_points = int(math.sqrt(2)*length/ delta_l) + 1
+        chunck_ending = chunck_begging + length - 1
+        for i in np.linspace(chunck_begging, chunck_ending, n_points)[:-1]:
             add_point(i, i-64)
 
-        for i in np.arange(-4, 4, 0.5):
+        chunck_begging = -4
+        length = 8
+        n_points = int(math.sqrt(2)*length/ delta_l) + 1
+        chunck_ending = chunck_begging + length - 1
+        for i in np.arange(chunck_begging, chunck_ending, delta_l):
             add_point(60, i)
 
-        for i in np.linspace(60, 54, 17)[:-1]:
+        chunck_begging = 60
+        length = -6
+        n_points = abs(int(math.sqrt(2)*length/ delta_l))+ 1
+        chunck_ending = chunck_begging + length - 1
+        for i in np.linspace(chunck_begging, chunck_ending, n_points)[:-1]:
             add_point(i, 64-i)
 
-        for i in np.arange(54, 46, -0.5):
+        chunck_begging += length
+        length = -8
+        n_points = abs(int(math.sqrt(2)*length/ delta_l)) + 1
+        chunck_ending = chunck_begging + length + 1
+        for i in np.arange(chunck_begging, chunck_ending, -delta_l):
             add_point(i, 10)
 
-        for i in np.linspace(46, 40, 17)[:-1]:
+
+        """ 
+        chunck_begging = 46
+        length = -6
+        n_points = abs(int(math.sqrt(2)*length/ delta_l)) + 1
+        chunck_ending = chunck_begging + length - 1
+        for i in np.linspace(chunck_begging, chunck_ending, n_points)[:-1]:
             add_point(i, i-36)
 
-        for i in np.arange(4, 0, -0.5):
+        chunck_begging = 4
+        length = -4
+        n_points = int(int(math.sqrt(2)*length/ delta_l) + 1)
+        chunck_ending = chunck_begging + length - 1
+        for i in np.arange(4, 0, -delta_l):
             add_point(40, i)
 
+         """
         self.path = path
 
 
