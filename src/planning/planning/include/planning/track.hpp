@@ -7,7 +7,9 @@
 #include <string>
 #include <vector>
 
-#include "./position.hpp"
+#include "./cone.hpp"
+
+// TODO DESTRUCTOR
 
 using namespace std;
 /**
@@ -16,20 +18,19 @@ using namespace std;
 
 class Track {
   bool completed;
-  vector<Position*> leftCones;  /**<left side cone list*/
-  vector<Position*> rightCones; /**<right side cone list*/
+  vector<Cone*> leftCones;  /**<left side cone list*/
+  vector<Cone*> rightCones; /**<right side cone list*/
 
  public:
   Track();
-
   /**
    * Access right cone in the list in a specified index
    */
-  Position* getRightConeAt(int index);
+  Cone* getRightConeAt(int index);
   /**
    * Access left cone in the list in a specified index
    */
-  Position* getLeftConeAt(int index);
+  Cone* getLeftConeAt(int index);
 
   /**
    * Get right cones number
@@ -48,13 +49,11 @@ class Track {
   /**
    * Add cone to list
    */
-  void addConePair(Position* cone,
-                   const string& color);  // adds the position of two cones to the track list
+  void addCone(float xValue, float yValue, const string& color);  // adds the position of two cones to the track list
 
-  void receiveConeData();  // TODO(andre): ros subscriber input (Position left,
-                           // Position right, color);
+  // TODO CHANGE TO RECEIVE ID WITH PAIR SIDE DIFF INSTEAD OF COLOR
 
-  void sendTrack();  // TODO(andre): send track data to path planner
+  void setCone(Cone* cone);
 };
 
 #endif  // SRC_PLANNING_PLANNING_INCLUDE_PLANNING_TRACK_HPP_
