@@ -11,23 +11,57 @@ void Track::fillTrack(const string& path) {
     cout << x;
     float xValue = stof(x);
     float yValue = stof(y);
-    addConePair(new Position(xValue, yValue), color);
+
+    addCone(xValue, yValue, color);
   }
 }
 
-Position* Track::getLeftConeAt(int index) { return leftCones[index]; }
+Cone* Track::getLeftConeAt(int index) { return leftCones[index]; }
 
-Position* Track::getRightConeAt(int index) { return rightCones[index]; }
+Cone* Track::getRightConeAt(int index) { return rightCones[index]; }
 
 int Track::getRightConesSize() { return rightCones.size(); }
 
 int Track::getLeftConesSize() { return leftCones.size(); }
 
-void Track::addConePair(Position* cone, const string& color) {
-  if (color == "b" || color == "or")
-    rightCones.push_back(cone);
-  else if (color == "y" || color == "ol")
-    leftCones.push_back(cone);
+void Track::addCone(float xValue, float yValue, const string& color) {
+  int rightCount = 0;
+  int leftCount = 0;
+  if (color == "b" || color == "or"){
+    rightCones.push_back(new Cone(rightCount * 2, xValue, yValue));
+    rightCount++;
+  }
+  else if (color == "y" || color == "ol"){
+    leftCones.push_back(new Cone(leftCount * 2 + 1, xValue, yValue));
+    leftCount++;
+    }
   else
     cout << "Error adding cone\n";
+}
+
+void Track::setCone(Cone* cone){
+  switch(cone->getId() % 2){
+      // todo binary search
+      // todo orange cones case
+      case 0:
+        for (int i = 0; i < leftCones.size(); i++){
+          if (leftCones[i]->getId() == cone->getId() ){
+            leftCones[i]->setX(cone->getX());
+            leftCones[i]->setY(cone->getY());
+            return;
+          }
+          leftCones.push_back(cone);
+        }
+        break;
+      case 1:
+        for (int i = 0; i < rightCones.size(); i++){
+          if (rightCones[i]->getId() == cone->getId()){
+            rightCones[i]->setX(cone->getX());
+            rightCones[i]->setY(cone->getY());
+            return;
+          }
+          rightCones.push_back(cone);
+        }
+
+  }
 }
