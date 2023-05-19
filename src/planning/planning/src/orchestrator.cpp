@@ -16,7 +16,7 @@ using std::placeholders::_1;
 
 class Planning : public rclcpp::Node
 {
-  vector<pair<float, float>> fullPath; /**<path data container */
+  vector<Position*> fullPath; /**<path data container */
   SlamPathPlanner* slampathplanner  = new SlamPathPlanner();
 
   public:
@@ -31,12 +31,30 @@ class Planning : public rclcpp::Node
       slam_pub_ = this->create_publisher<custom_interfaces::msg::PointArray>("planning_slam", 10);
       endurance_pub_ = this->create_publisher<custom_interfaces::msg::PointArray>("planning_endurance", 10);
       
+      // TEST
+      std::cout << "Here\n";
       std::string filePrefix = rcpputils::fs::current_path().string();
-      std::string filePackage =  filePrefix + "/planning/planning/files/hairpins.txt";
-      std::cout << filePackage;
+      std::cout << "Here\n";
+      std::string filePackage =  filePrefix + "/planning/planning/files/skidpad.txt";
 
       Track* track = new Track();
       track->fillTrack(filePackage);
+
+      std::cout << filePackage << "\n";
+
+      fullPath = slampathplanner->processNewArray(track);  // test only
+      std::cout << "Here\n";
+
+      std::string finalPath =  filePrefix + "/planning/planning/files/finalPath.txt";
+      ofstream finalPathFile(finalPath);
+      std::cout << finalPath;
+
+      
+      for (size_t i = 0; i <fullPath.size(); i++)
+        finalPathFile << fullPath[i]->getX() << " " << fullPath[i]->getY() << "\n";
+
+      // Close the files
+      finalPathFile.close();
 
       // FinalPathPlanner* finalpathplanner = new FinalPathPlanner(track);
       // finalpathplanner->middlePath();
@@ -44,6 +62,8 @@ class Planning : public rclcpp::Node
       // fullPath = finalpathplanner->getPath();
           
       publish_track_points(); 
+
+
     }
 
   private:
@@ -52,26 +72,27 @@ class Planning : public rclcpp::Node
       RCLCPP_INFO(this->get_logger(), "Received x = '%f' | y = '%f'", msg.position.x, msg.position.y);
     }
 
-    void track_map_callback(const custom_interfaces::msg::ConeArray msg) const {
+    void track_map_callback(const custom_interfaces::msg::ConeArray msg) {
       RCLCPP_INFO(this->get_logger(), "Received Cone Array with size = '%ld'", msg.cone_array.size());
-      Track track = new Track();
-      for (int i = 0; i < msg.cone_array.size(); i++){
+      Track* track = new Track();
+      for (size_t i = 0; i < msg.cone_array.size(); i++){
         auto cone = msg.cone_array[i];
-        track.addCone(cone.position.x, cone.position.y, cone.color);
+        track->addCone(cone.position.x, cone.position.y, cone.color);
       }
-      slampathplanner->processNewArray(track);  
+      fullPath = slampathplanner->processNewArray(track);
+      publish_track_points();
     }
 
     /**
      * Publisher point by point
      */
-    void publish_track_points() {
+    void publish_track_points() const {
       auto message = custom_interfaces::msg::PointArray();
       std::cout << "Starting publisher\n";
       for (size_t i = 0; i < fullPath.size(); i++) {
         auto point = custom_interfaces::msg::Point2d();
-        point.x = fullPath[i].first;
-        point.y = fullPath[i].second;
+        point.x = fullPath[i]->getX();
+        point.y = fullPath[i]->getY();
         message.points.push_back(point);
       }
       RCLCPP_INFO(this->get_logger(), "Publishing message with size %ld", message.points.size());

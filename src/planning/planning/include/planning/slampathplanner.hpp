@@ -4,14 +4,17 @@
 #include <utility>
 #include <vector>
 
+
 #include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
 #include <CGAL/Delaunay_triangulation_2.h>
+#include "rclcpp/rclcpp.hpp"
 #include "./track.hpp"
 #include "./position.hpp"
 
 typedef CGAL::Exact_predicates_inexact_constructions_kernel K;
 typedef CGAL::Delaunay_triangulation_2<K> DT;
 typedef K::Point_2 Point;
+
 
 using namespace std;
 
@@ -31,8 +34,7 @@ class SlamPathPlanner {
    */
   explicit SlamPathPlanner();
 
-  void processNewArray(Track* cone_array);
-
+  vector<Position*> processNewArray(Track* cone_array);
 };
 
 #endif  // SRC_PLANNING_PLANNING_INCLUDE_PLANNING_SLAMPATHPLANNER_HPP_

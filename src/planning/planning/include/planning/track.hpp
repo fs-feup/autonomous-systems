@@ -21,6 +21,9 @@ class Track {
   vector<Cone*> leftCones;  /**<left side cone list*/
   vector<Cone*> rightCones; /**<right side cone list*/
 
+  int rightCount = 0;
+  int leftCount = 0;
+
  public:
   Track();
   /**
@@ -54,6 +57,8 @@ class Track {
   // TODO CHANGE TO RECEIVE ID WITH PAIR SIDE DIFF INSTEAD OF COLOR
 
   void setCone(Cone* cone);
+
+  Cone* findCone(float x, float y);
 };
 
 #endif  // SRC_PLANNING_PLANNING_INCLUDE_PLANNING_TRACK_HPP_
