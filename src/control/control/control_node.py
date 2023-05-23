@@ -9,11 +9,13 @@ from tf_transformations import euler_from_quaternion
 from .utils import get_closest_point, get_position_error, get_orientation_error,\
                    get_cte, get_reference_speed, get_speed_error
 from .abstraction_layer import create_abstraction_layer
+from .main import do_sim
 import numpy as np  
 
 STD_SPEED = 1.5
 START_BREAKING_POS = 12
 LOOK_AHEAD = 0
+MAX_ACC = 1.0
 
 class ControlNode(Node):
     """!
@@ -34,7 +36,7 @@ class ControlNode(Node):
         self.steering_angle = 0.
         
         # Acceleration.
-        self.acceleration = 0.
+        self.acceleration = 0. # MAX_ACC / 2
 
         # Old error.
         self.old_error = 0
@@ -58,7 +60,7 @@ class ControlNode(Node):
         self.odom_subscription = self.create_subscription(
             Odometry,
             '/ground_truth/odom',
-            self.odometry_callback,
+            self.odometry_callback_mpc,
             10
         )
         
@@ -69,7 +71,7 @@ class ControlNode(Node):
         self.abstraction_layer = create_abstraction_layer(self)
 
 
-    def odometry_callback(self, msg):
+    def odometry_callback_pid(self, msg):
         """!
         @brief Odometry callback.
         @param self The object pointer.
@@ -77,7 +79,7 @@ class ControlNode(Node):
         """
 
         # self.get_logger().info("Received odom!")
-        if self.path is None:
+        if self.path is None or self.done:
             return
 
         # get pose feedback
@@ -128,6 +130,54 @@ class ControlNode(Node):
             f"\nclosest: {closest_point},"
             f"\nposition: {(position.x, position.y, yaw)}," +
             f"\ndone: {self.done}")
+
+    def odometry_callback_mpc(self, msg):
+        self.get_logger().info(f"OIIII")
+        if self.path is None or self.done:
+            return
+
+        # get pose feedback
+        position = msg.pose.pose.position
+        orientation = msg.pose.pose.orientation
+        orientation_list = [orientation.x, orientation.y, orientation.z, orientation.w]
+
+        # get speed feedback
+        speed = msg.twist.twist.linear
+        lin_speed = math.sqrt(speed.x**2 + speed.y**2)
+
+        # Converts quartenions base to euler's base, and updates the class' attributes
+        yaw = euler_from_quaternion(orientation_list)[2]
+
+        # get postion reference
+        closest_point, closest_index = get_closest_point(
+            [position.x, position.y],
+            self.path,
+        )
+
+        if lin_speed < 0.2 and closest_index == len(self.path) - 1 and not self.done:
+            self.done = True
+
+        action = np.array([self.acceleration, self.steering_angle])
+        state = np.array([position.x, position.y, lin_speed, yaw])
+        new_action = do_sim(action, state, self.path)
+
+        if new_action is None:
+            return
+
+        self.acceleration = new_action[0]
+        self.steering_angle = new_action[1]
+        self.get_logger().info(f"\n\n\n\nsteering: {self.steering_angle}, acceleration: {self.acceleration}")
+
+        # show info
+        # self.get_logger().info(f"\n\n\n\npos error: {pos_error}"+
+        #     f"\nyaw error: {yaw_error}," + 
+        #     f"\ncross track error: {ct_error}," + 
+        #     f"\nsteerin angle velocity: {self.steering_angle}," + 
+        #     f"\nspeed: {lin_speed}," + 
+        #     f"\nclosest: {closest_point},"
+        #     f"\nposition: {(position.x, position.y, yaw)}," +
+        #     f"\ndone: {self.done}")
+
 
 
     def path_callback(self, points_list):
