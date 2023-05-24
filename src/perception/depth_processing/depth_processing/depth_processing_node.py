@@ -3,10 +3,8 @@ import rclpy
 from rclpy.node import Node
 from rclpy.qos import qos_profile_sensor_data
 
-from sensor_msgs.msg import Image
-from bboxes_ex_msgs.msg import BoundingBoxes
-from cone_coordinates_msg.msg import ConeCoordinates
-from sensor_msgs.msg import CameraInfo
+from sensor_msgs.msg import CameraInfo, Image
+from custom_interfaces.msg import BoundingBoxes, Cone, ConeArray, Point2d
 from cv_bridge import CvBridge
 
 import numpy as np
@@ -45,7 +43,7 @@ class DepthProcessing(Node):
         #self.pointcloud = None
         self.camera_matrix = None
 
-        self.pub_cone_coordinates = self.create_publisher(ConeCoordinates, 
+        self.pub_cone_coordinates = self.create_publisher(ConeArray, 
                                                           'perception/cone_coordinates', 
                                                           10)
         
@@ -74,6 +72,8 @@ class DepthProcessing(Node):
         
         if self.camera_matrix is None or self.depth_image is None or len(self.bounding_boxes_msgs) == 0:  # noqa: E501
                 return
+
+        cone_array = ConeArray()
     
         for bounding_boxes in self.bounding_boxes_msgs:
             for bounding_box in bounding_boxes.bounding_boxes:
@@ -92,30 +92,21 @@ class DepthProcessing(Node):
 
                 if len(roi) == 0:
                     continue
-                
-                # Given a 3D point [X Y Z]', the projection (x, y) of the point onto 
-                # the rectified image is given by:
-                #[u v w]' = P * [X Y Z 1]'
-                #x = u / w
-                #y = v / w
-                #where P is the 3x4 projection matrix, and [u v w]' is the homogeneous 
-                # image coordinate of the projected point.
-                z = roi.min()
-                x = (x - self.camera_matrix[0, 2]) * z / self.camera_matrix[0, 0]
-                y = (y - self.camera_matrix[1, 2]) * z / self.camera_matrix[1, 1]
-                print("x: " + str(x) + " y: " + str(y) + " z: " + str(z))
-                print(bounding_box.class_id + " ID " + str(bounding_box.class_id_int) 
-                      + ": " + str(roi.min()) + "m")
+
+                p = np.matmul(np.array([x, y, 1]), self.camera_matrix)
+
+                self.get_logger().info("({}, {})\td={}m\t{}".format(p[0], p[1], roi.min(), bounding_box.class_id))
 
                 #publish cone coordinates
-                cone_coordinates = ConeCoordinates()
-                cone_coordinates.header = bounding_boxes.header
-                cone_coordinates.x = x
-                cone_coordinates.y = y
-                cone_coordinates.class_id = bounding_box.class_id
-                cone_coordinates.class_id_int = bounding_box.class_id_int
-                self.pub_cone_coordinates.publish(cone_coordinates)
-                
+                cone = Cone()
+                position = Point2d()
+                position.x = p[0]
+                position.y = p[1]
+                cone.position = position
+                cone.color = bounding_box.class_id
+                cone_array.cone_array.append(cone)
+
+        self.pub_cone_coordinates.publish(cone_array)
         print("--------------------")
         self.bounding_boxes_msgs = []
         self.depth_image = None
