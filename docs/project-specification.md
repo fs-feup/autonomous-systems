@@ -15,6 +15,8 @@ Other technologies used in this project:
 - Google Tests
 - ...
 
+Refer to [technologies file](./technologies.md) for more.
+
 ## Architecture
 
 The AI computer is divided into 4 main components:
@@ -23,4 +25,4 @@ The AI computer is divided into 4 main components:
 - Path Planning - plan a path for the vehicle to follow
 - Control - traduce the designed path into controls to the vehicle
 
-![Components Diagram Diagram](./assets/architecure-tentative.drawio.png)
+![Components Diagram Diagram](./assets/architecure-tentative.drawio.svg)
