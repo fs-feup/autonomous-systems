@@ -8,6 +8,10 @@ All notable changes to this project will be documented in this file.
 - Localization and Mapping publisher node
 - Cone, ConeArray and Pose messages
 
+### Control
+- Interface setup for control/path-planning exchange
+- Communication with simulator, although not with the right path information
+
 ## Sprint 1
 
 ### Control
