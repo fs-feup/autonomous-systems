@@ -11,6 +11,10 @@ from cv_bridge import CvBridge
 
 import numpy as np
 
+import cv2
+
+import matplotlib.pyplot as plt
+
 class DepthProcessing(Node):
     def __init__(self):
         super().__init__('depth_processing')
@@ -74,16 +78,38 @@ class DepthProcessing(Node):
         
         if self.camera_matrix is None or self.depth_image is None or len(self.bounding_boxes_msgs) == 0:  # noqa: E501
                 return
+        
+        
+        
+        # blue2        yellow2
+        #
+        # blue1        yellow1
+
+        #blue1, blue2, yellow1, yellow2
+        #calibration matrix, requires 4 points (in our case, cones)
+        imgPts = np.float32([[430, 325], [483, 310], [790, 325], [736, 310]])
+
+        objPts = np.float32([[-2.795184, 6.102409], [-3.088784, 8.926933], [1.836005, 6.092231], [1.77159, 8.985139]]) # noqa: E501
+
+        # Apply perspective transformation function of openCV2.
+        # This function will return the matrix which you can feed into warpPerspective 
+        # function to get the warped image.
+        matrix = cv2.getPerspectiveTransform(imgPts, objPts)
+
+        points = []
     
         for bounding_boxes in self.bounding_boxes_msgs:
             for bounding_box in bounding_boxes.bounding_boxes:
                 #check if confidence is high enough
-                if bounding_box.probability < 0.70:
+                if bounding_box.probability < 0.50:
                     continue
                 #get bounding box's center
-                x = int(bounding_box.xmin + (bounding_box.xmax - bounding_box.xmin)/2)
-                y = int(bounding_box.ymin + (bounding_box.ymax - bounding_box.ymin)/2)
+                # x = int(bounding_box.xmin + (bounding_box.xmax - bounding_box.xmin)/2)
+                # y = int(bounding_box.ymin + (bounding_box.ymax - bounding_box.ymin)/2)
                 # roi = self.depth_image[y-1:y+1, x-1:x+1]
+
+                x = int(bounding_box.xmin + (bounding_box.xmax - bounding_box.xmin)/2)
+                y = bounding_box.ymax
 
                 #get depth from all points in bounding box that are not inf
                 roi = self.depth_image[bounding_box.ymin:bounding_box.ymax, 
@@ -92,33 +118,53 @@ class DepthProcessing(Node):
 
                 if len(roi) == 0:
                     continue
-                
-                # Given a 3D point [X Y Z]', the projection (x, y) of the point onto 
-                # the rectified image is given by:
-                #[u v w]' = P * [X Y Z 1]'
-                #x = u / w
-                #y = v / w
-                #where P is the 3x4 projection matrix, and [u v w]' is the homogeneous 
-                # image coordinate of the projected point.
-                z = roi.min()
-                x = (x - self.camera_matrix[0, 2]) * z / self.camera_matrix[0, 0]
-                y = (y - self.camera_matrix[1, 2]) * z / self.camera_matrix[1, 1]
-                print("x: " + str(x) + " y: " + str(y) + " z: " + str(z))
+            
+                bb_point = np.float32([[[x, y]]])
+                point = cv2.perspectiveTransform(bb_point, matrix)
+                points.append((point, bounding_box.class_id))
+                print(point)
+                print(bb_point)
+                print(matrix)
                 print(bounding_box.class_id + " ID " + str(bounding_box.class_id_int) 
                       + ": " + str(roi.min()) + "m")
 
                 #publish cone coordinates
-                cone_coordinates = ConeCoordinates()
-                cone_coordinates.header = bounding_boxes.header
-                cone_coordinates.x = x
-                cone_coordinates.y = y
-                cone_coordinates.class_id = bounding_box.class_id
-                cone_coordinates.class_id_int = bounding_box.class_id_int
-                self.pub_cone_coordinates.publish(cone_coordinates)
+                # cone_coordinates = ConeCoordinates()
+                # cone_coordinates.header = bounding_boxes.header
+                # cone_coordinates.x = x
+                # cone_coordinates.y = y
+                # cone_coordinates.class_id = bounding_box.class_id
+                # cone_coordinates.class_id_int = bounding_box.class_id_int
+                # self.pub_cone_coordinates.publish(cone_coordinates)
                 
         print("--------------------")
         self.bounding_boxes_msgs = []
         self.depth_image = None
+
+
+        #plot every point in points list according to its class
+
+        #fix axis
+        self.plot_points(points)
+
+    def plot_points(self, points):
+        plt.axis([-10, 10, 0, 20])
+        for pts, cl in points:
+            if cl == "blue_cone":
+                color = "b"
+            elif cl == "yellow_cone":
+                color = "y"
+            else:
+                color = "r" 
+            plt.scatter(pts[0][0][0], pts[0][0][1], c=color)
+            plt.draw()
+            
+            
+        plt.pause(0.001)
+        #clear plot
+        plt.clf()
+
+
 
 def main(args=None):
     rclpy.init(args=args)
