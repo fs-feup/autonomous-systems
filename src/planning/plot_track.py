@@ -12,10 +12,12 @@ with open('planning/files/skidpad.txt', 'r') as f:
     for line in f:   
         lineList = line.split(" ")
         lineList[2]=lineList[2].strip()
-        if lineList[2] == "ol" or lineList[2] == "y": # yellow and orange left -> left cones
+        if lineList[2] == "ol" or lineList[2] == "y": 
+            # yellow and orange left -> left cones
             xTrackList.append(float(lineList[0]))
             yTrackList.append(float(lineList[1]))
-            colorList.append("#000000") # adds cone color in color list to the respective index, equal to the cone list(left + right + mid)
+            colorList.append("#000000") 
+            # adds cone color in color list to the respective index
         elif lineList[2] == "or" or lineList[2] == "b": # blue and orange right -> right cones
             xTrackList.append(float(lineList[0]))
             yTrackList.append(float(lineList[1]))
