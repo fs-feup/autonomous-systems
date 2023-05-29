@@ -2,6 +2,17 @@
 
 Track::Track() { completed = false; }
 
+Track::~Track() {
+  int lSize = leftCones.size();
+  int rSize = rightCones.size();
+
+  for (int i = 0; i < lSize; i++)
+    delete leftCones[i];
+
+  for (int i = 0; i < rSize; i++)
+    delete rightCones[i];
+}
+
 void Track::fillTrack(const string& path) {
   string x, y, color;
   ifstream trackFile;
@@ -25,12 +36,10 @@ int Track::getRightConesSize() { return rightCones.size(); }
 int Track::getLeftConesSize() { return leftCones.size(); }
 
 void Track::addCone(float xValue, float yValue, const string& color) {
-  
-  if (color == "b" || color == "or"){
+  if (color == "b" || color == "or") {
     rightCones.push_back(new Cone(this->rightCount * 2, xValue, yValue));
     rightCount++;
-  }
-  else if (color == "y" || color == "ol"){
+  } else if (color == "y" || color == "ol") {
     leftCones.push_back(new Cone(this->leftCount * 2 + 1, xValue, yValue));
     leftCount++;
     }
@@ -38,45 +47,42 @@ void Track::addCone(float xValue, float yValue, const string& color) {
     cout << "Error adding cone\n";
 }
 
-void Track::setCone(Cone* cone){
-  //std::cout << (cone->getId() % 2); 
-  switch(cone->getId() % 2){
+void Track::setCone(Cone* cone) {
+  switch(cone->getId() % 2) {
       // todo binary search
       // todo orange cones case
       case 0:
-        for (size_t i = 0; i < leftCones.size(); i++){
-          if (leftCones[i]->getId() == cone->getId() ){
+        for (size_t i = 0; i < leftCones.size(); i++) {
+          if (leftCones[i]->getId() == cone->getId()) {
             leftCones[i]->setX(cone->getX());
             leftCones[i]->setY(cone->getY());
             return;
           }
-          
         }
         leftCones.push_back(cone);
         break;
       case 1:
-        for (size_t i = 0; i < rightCones.size(); i++){
-          if (rightCones[i]->getId() == cone->getId()){
+        for (size_t i = 0; i < rightCones.size(); i++) {
+          if (rightCones[i]->getId() == cone->getId()) {
             rightCones[i]->setX(cone->getX());
             rightCones[i]->setY(cone->getY());
             return;
-          }
-          
+          }       
         }
         rightCones.push_back(cone);
   }
 }
 
-  Cone* Track::findCone(float x, float y){
-    for(size_t i = 0; i < leftCones.size(); i++){
-      if (leftCones[i]->getX() == x && leftCones[i]->getY() == y)
-        return leftCones[i];
-    }
-
-    for(size_t i = 0; i < rightCones.size(); i++){
-      if (rightCones[i]->getX() == x && rightCones[i]->getY() == y)
-        return rightCones[i];
-    }
-
-    return nullptr;
+Cone* Track::findCone(float x, float y) {
+  for(size_t i = 0; i < leftCones.size(); i++) {
+    if (leftCones[i]->getX() == x && leftCones[i]->getY() == y)
+      return leftCones[i];
   }
+
+  for(size_t i = 0; i < rightCones.size(); i++) {
+    if (rightCones[i]->getX() == x && rightCones[i]->getY() == y)
+      return rightCones[i];
+  }
+
+  return nullptr;
+}

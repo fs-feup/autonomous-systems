@@ -1,12 +1,12 @@
 #ifndef SRC_PLANNING_PLANNING_INCLUDE_PLANNING_SLAMPATHPLANNER_HPP_
 #define SRC_PLANNING_PLANNING_INCLUDE_PLANNING_SLAMPATHPLANNER_HPP_
 
+#include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
+#include <CGAL/Delaunay_triangulation_2.h>
+
 #include <utility>
 #include <vector>
 
-
-#include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
-#include <CGAL/Delaunay_triangulation_2.h>
 #include "rclcpp/rclcpp.hpp"
 #include "./track.hpp"
 #include "./position.hpp"
@@ -24,15 +24,16 @@ using namespace std;
  */
 
 class SlamPathPlanner {
-  Track* track;                /**<track input data */
-  vector<Position*> path; /**<path calculation result */
+  Track* track; /**<track input data */
 
  public:
   /**
    * Constructor
    * @param track pathplanner track input data
    */
-  explicit SlamPathPlanner();
+  SlamPathPlanner();
+
+  ~SlamPathPlanner();
 
   vector<Position*> processNewArray(Track* cone_array);
 };
