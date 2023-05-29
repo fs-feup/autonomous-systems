@@ -22,7 +22,7 @@ class Cone {
 
   float getY() const;
 
-   void setY(float y);
+  void setY(float y);
 
   std::string print();
 

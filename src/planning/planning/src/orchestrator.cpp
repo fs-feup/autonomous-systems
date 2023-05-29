@@ -14,14 +14,13 @@
 
 using std::placeholders::_1;
 
-class Planning : public rclcpp::Node
-{
+class Planning : public rclcpp::Node {
   vector<Position*> fullPath; /**<path data container */
   SlamPathPlanner* slampathplanner  = new SlamPathPlanner();
 
-  public:
+   public:
     Planning()
-    : Node("planning"), count_(0){
+    : Node("planning"), count_(0) {
       vl_sub_ = this->create_subscription<custom_interfaces::msg::Pose>(
       "vehicle_localization", 10, std::bind(&Planning::vehicle_localisation_callback, this, _1));
     
@@ -31,10 +30,7 @@ class Planning : public rclcpp::Node
       slam_pub_ = this->create_publisher<custom_interfaces::msg::PointArray>("planning_slam", 10);
       endurance_pub_ = this->create_publisher<custom_interfaces::msg::PointArray>("planning_endurance", 10);
       
-      // TEST
-      std::cout << "Here\n";
       std::string filePrefix = rcpputils::fs::current_path().string();
-      std::cout << "Here\n";
       std::string filePackage =  filePrefix + "/planning/planning/files/skidpad.txt";
 
       Track* track = new Track();
@@ -42,8 +38,7 @@ class Planning : public rclcpp::Node
 
       std::cout << filePackage << "\n";
 
-      fullPath = slampathplanner->processNewArray(track);  // test only
-      std::cout << "Here\n";
+      fullPath = slampathplanner->processNewArray(track); // test only
 
       std::string finalPath =  filePrefix + "/planning/planning/files/finalPath.txt";
       ofstream finalPathFile(finalPath);
@@ -61,13 +56,10 @@ class Planning : public rclcpp::Node
       // finalpathplanner->writeFinalPath(filePrefix);
       // fullPath = finalpathplanner->getPath();
           
-      publish_track_points(); 
-
-
+      publish_track_points();
     }
 
-  private:
-   
+   private:
     void vehicle_localisation_callback(const custom_interfaces::msg::Pose msg) const {
       RCLCPP_INFO(this->get_logger(), "Received x = '%f' | y = '%f'", msg.position.x, msg.position.y);
     }
@@ -75,12 +67,13 @@ class Planning : public rclcpp::Node
     void track_map_callback(const custom_interfaces::msg::ConeArray msg) {
       RCLCPP_INFO(this->get_logger(), "Received Cone Array with size = '%ld'", msg.cone_array.size());
       Track* track = new Track();
-      for (size_t i = 0; i < msg.cone_array.size(); i++){
+      for (size_t i = 0; i < msg.cone_array.size(); i++) {
         auto cone = msg.cone_array[i];
         track->addCone(cone.position.x, cone.position.y, cone.color);
       }
       fullPath = slampathplanner->processNewArray(track);
       publish_track_points();
+      delete track;
     }
 
     /**
@@ -106,8 +99,7 @@ class Planning : public rclcpp::Node
     size_t count_;
 };
 
-int main(int argc, char * argv[])
-{
+int main(int argc, char * argv[]) {
   rclcpp::init(argc, argv);
   rclcpp::spin(std::make_shared<Planning>());
   rclcpp::shutdown();

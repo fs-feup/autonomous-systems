@@ -9,8 +9,6 @@
 
 #include "./cone.hpp"
 
-// TODO DESTRUCTOR
-
 using namespace std;
 /**
  * Track class. Contains the track information data and the cones position
@@ -26,6 +24,8 @@ class Track {
 
  public:
   Track();
+
+  ~Track();
   /**
    * Access right cone in the list in a specified index
    */
@@ -54,7 +54,7 @@ class Track {
    */
   void addCone(float xValue, float yValue, const string& color);  // adds the position of two cones to the track list
 
-  // TODO CHANGE TO RECEIVE ID WITH PAIR SIDE DIFF INSTEAD OF COLOR
+  // TODO(andre): CHANGE TO RECEIVE ID WITH PAIR SIDE DIFF INSTEAD OF COLOR
 
   void setCone(Cone* cone);
 
