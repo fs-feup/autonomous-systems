@@ -1,6 +1,9 @@
 #ifndef SRC_LOC_MAP_INCLUDE_UTILS_COLOR_HPP_
 #define SRC_LOC_MAP_INCLUDE_UTILS_COLOR_HPP_
 
+#include <map>
+#include <string>
+
 /**
  * @brief Enum for colors
  *

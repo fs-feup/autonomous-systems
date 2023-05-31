@@ -32,7 +32,7 @@ class LMSubscriber : public rclcpp::Node {
    * @brief Construct a new LMSubscriber object
    *
    */
-  LMSubscriber(Map* _map);
+  explicit LMSubscriber(Map* _map);
 };
 
 #endif  // SRC_LOC_MAP_INCLUDE_LOC_MAP_LM_SUBSCRIBER_HPP_

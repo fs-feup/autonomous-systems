@@ -112,7 +112,8 @@ class DepthProcessing(Node):
                 cone.color = bounding_box.class_id
                 cone_array.cone_array.append(cone)
 
-                self.get_logger().info("({}, {})\td={}m\t{}".format(x, y, roi.min(), bounding_box.class_id))
+                self.get_logger().info("({}, {})\td={}m\t{}"
+                    .format(x, y, roi.min(), bounding_box.class_id))
                 
         self.pub_cone_coordinates.publish(cone_array)
         print("--------------------")
