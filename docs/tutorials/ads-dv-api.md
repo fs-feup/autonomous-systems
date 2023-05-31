@@ -144,6 +144,7 @@ typedef volatile struct fs_ai_api_ai2vcu_struct {
 void fs_ai_api_imu_get_data(fs_ai_api_imu *data);
 ```
 Povoa a estrutura de dados `fs_ai_api_imu` com os últimos dados recebidos do PCAN-GPS que está equipado no veículo. A recepção dos dados é feita de forma assíncrona e armazenada temporariamente conforme vai sendo recebido.
+[Informações extra sobre os argumentos na página 36 (e seguintes) deste documento](https://github.com/FS-AI/FS-AI_API/blob/main/Docs/PCAN-GPS_UserMan_eng.pdf)
 
 #### Parâmetros
 `fs_ai_api_imu *data`
@@ -188,6 +189,7 @@ void fs_ai_api_gps_get_data(fs_ai_api_gps *data);
 ```
 
 Povoa a estrutura de dados `fs_ai_api_gps` com os últimos dados recebidos do PCAN-GPS que está equipado no veículo. A recepção dos dados é feita de forma assíncrona e armazenada temporariamente conforme vai sendo recebido. A única diferença em relação à função anterior é o fato de ser uma estrutura de dados diferente.
+[Informações extra sobre os argumentos na página 36 (e seguintes) deste documento](https://github.com/FS-AI/FS-AI_API/blob/main/Docs/PCAN-GPS_UserMan_eng.pdf)
 
 ```c
 #ifdef __cplusplus
