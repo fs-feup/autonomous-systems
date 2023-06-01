@@ -26,18 +26,20 @@ class Planning : public rclcpp::Node {
   vector<Position*> fullPath; /**<path data container */
   LocalPathPlanner* localpathplanner  = new LocalPathPlanner();
 
-   public:
+ public:
     Planning()
     : Node("planning"), count_(0) {
       vl_sub_ = this->create_subscription<custom_interfaces::msg::Pose>(
       "vehicle_localization", 10, std::bind(&Planning::vehicle_localisation_callback, this, _1));
-    
+
       track_sub_ = this->create_subscription<custom_interfaces::msg::ConeArray>(
         "track_map", 10, std::bind(&Planning::track_map_callback, this, _1));
-      
-      local_pub_ = this->create_publisher<custom_interfaces::msg::PointArray>("planning_local", 10);
-      global_pub_ = this->create_publisher<custom_interfaces::msg::PointArray>("planning_global", 10);
-      
+
+      local_pub_ = this->create_publisher<custom_interfaces::msg::PointArray>
+      ("planning_local", 10);
+      global_pub_ = this->create_publisher<custom_interfaces::msg::PointArray>
+      ("planning_global", 10);
+
       // =========== Tmp read loc_map from file ==============
       std::string filePrefix = rcpputils::fs::current_path().string();
       std::string filePackage =  filePrefix + "/planning/planning/files/skidpad.txt";
@@ -59,17 +61,19 @@ class Planning : public rclcpp::Node {
       // globalpathplanner->middlePath();
       // globalpathplanner->writeGlobalPath(filePrefix);
       // fullPath = globalpathplanner->getPath();
-          
+
       publish_track_points();
     }
 
-   private:
+ private:
     void vehicle_localisation_callback(const custom_interfaces::msg::Pose msg) const {
-      RCLCPP_INFO(this->get_logger(), "Received x = '%f' | y = '%f'", msg.position.x, msg.position.y);
+      RCLCPP_INFO(this->get_logger(),
+       "Received x = '%f' | y = '%f'", msg.position.x, msg.position.y);
     }
 
     void track_map_callback(const custom_interfaces::msg::ConeArray msg) {
-      RCLCPP_INFO(this->get_logger(), "Received Cone Array with size = '%ld'", msg.cone_array.size());
+      RCLCPP_INFO(this->get_logger(),
+       "Received Cone Array with size = '%ld'", msg.cone_array.size());
       Track* track = new Track();
       for (size_t i = 0; i < msg.cone_array.size(); i++) {
         auto cone = msg.cone_array[i];
