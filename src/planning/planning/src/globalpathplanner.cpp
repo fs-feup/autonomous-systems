@@ -1,8 +1,8 @@
-#include "../include/planning/finalpathplanner.hpp"
+#include "../include/planning/globalpathplanner.hpp"
 
-FinalPathPlanner::FinalPathPlanner(Track* track) : track(track) {}
+GlobalPathPlanner::GlobalPathPlanner(Track* track) : track(track) {}
 
-void FinalPathPlanner::middlePath() {
+void GlobalPathPlanner::middlePath() {
   int count = 0;
   int rightConesSize = track->getRightConesSize();
   for (int i = 0; i < track->getLeftConesSize(); i++) {
@@ -39,7 +39,7 @@ void FinalPathPlanner::middlePath() {
   cout << "Middle path calculated with " << finalPath.size() << " points\n";
 }
 
-void FinalPathPlanner::writeFinalPath(const std::string filePrefix) {
+void GlobalPathPlanner::writeFinalPath(const std::string filePrefix) {
   ofstream finalPathFile(filePrefix + "/planning/planning/files/finalPath.txt");
 
   for (size_t i = 0; i < finalPath.size(); i++)
@@ -49,7 +49,7 @@ void FinalPathPlanner::writeFinalPath(const std::string filePrefix) {
   finalPathFile.close();
 }
 
-vector<pair<float, float>> FinalPathPlanner::getPath() {
+vector<pair<float, float>> GlobalPathPlanner::getPath() {
   vector<pair<float, float>> pathCopy;
 
   for (size_t i = 0; i < finalPath.size(); i++)

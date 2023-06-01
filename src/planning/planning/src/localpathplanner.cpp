@@ -1,14 +1,14 @@
-#include "../include/planning/slampathplanner.hpp"
+#include "../include/planning/localpathplanner.hpp"
 
-SlamPathPlanner::SlamPathPlanner() {
+LocalPathPlanner::LocalPathPlanner() {
     track = new Track();
 }
 
-SlamPathPlanner::~SlamPathPlanner() {
+LocalPathPlanner::~LocalPathPlanner() {
     delete track;
 }
 
-vector<Position*> SlamPathPlanner::processNewArray(Track* cone_array) {
+vector<Position*> LocalPathPlanner::processNewArray(Track* cone_array) {
     vector<Position*> path;
     for (int i = 0; i < cone_array->getLeftConesSize(); i++)
         this->track->setCone(cone_array->getLeftConeAt(i));
