@@ -19,7 +19,6 @@ set(IMPLEMENTATION_FILES
   src/loc_map/lm_subscriber.cpp
   src/loc_map/lm_publisher.cpp
   src/utils/position.cpp
-  src/kalman_filter/ekf.cpp
   )
 
 add_executable(${PROJECT_NAME} src/loc_map.cpp ${IMPLEMENTATION_FILES})
