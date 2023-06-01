@@ -24,7 +24,7 @@ using namespace std;
  */
 
 class LocalPathPlanner {
-  Track* track; /**<track input data */
+  Track track; /**<track input data */
 
  public:
   /**
@@ -32,8 +32,6 @@ class LocalPathPlanner {
    * @param track pathplanner track input data
    */
   LocalPathPlanner();
-
-  ~LocalPathPlanner();
 
   vector<Position*> processNewArray(Track* cone_array);
 };

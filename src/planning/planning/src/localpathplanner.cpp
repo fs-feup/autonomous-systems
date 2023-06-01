@@ -1,32 +1,28 @@
 #include "../include/planning/localpathplanner.hpp"
 
 LocalPathPlanner::LocalPathPlanner() {
-    track = new Track();
-}
-
-LocalPathPlanner::~LocalPathPlanner() {
-    delete track;
+    track = Track();
 }
 
 vector<Position*> LocalPathPlanner::processNewArray(Track* cone_array) {
     vector<Position*> path;
     for (int i = 0; i < cone_array->getLeftConesSize(); i++)
-        this->track->setCone(cone_array->getLeftConeAt(i));
+        this->track.setCone(cone_array->getLeftConeAt(i));
 
     for (int i = 0; i < cone_array->getRightConesSize(); i++)
-        this->track->setCone(cone_array->getRightConeAt(i));
+        this->track.setCone(cone_array->getRightConeAt(i));
 
     delete(cone_array);
 
     DT dt;
 
-    for (int i = 0; i < track->getLeftConesSize(); i++) {
-        Cone* lCone = track->getLeftConeAt(i);
+    for (int i = 0; i < track.getLeftConesSize(); i++) {
+        Cone* lCone = track.getLeftConeAt(i);
         dt.insert(Point(lCone->getX(), lCone->getY()));
     }
 
-    for (int i = 0; i < track->getRightConesSize(); i++) {
-        Cone* rCone = track->getRightConeAt(i);
+    for (int i = 0; i < track.getRightConesSize(); i++) {
+        Cone* rCone = track.getRightConeAt(i);
         dt.insert(Point(rCone->getX(), rCone->getY()));
     }
 
@@ -37,8 +33,8 @@ vector<Position*> LocalPathPlanner::processNewArray(Track* cone_array) {
         float x2 = it->first->vertex((it->second + 2) % 3)->point().x();
         float y2 = it->first->vertex((it->second + 2) % 3)->point().y();
 
-        Cone* cone1 = track->findCone(x1, y1);
-        Cone* cone2 = track->findCone(x2, y2);
+        Cone* cone1 = track.findCone(x1, y1);
+        Cone* cone2 = track.findCone(x2, y2);
 
         if (cone1 != nullptr && cone2 != nullptr
             && cone1->getId() % 2 != cone2->getId() % 2) {

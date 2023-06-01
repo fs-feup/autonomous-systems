@@ -29,7 +29,7 @@ class GlobalPathPlanner {
   /**
    * Writes the output/result path to a file
    */
-  void writeFinalPath(const std::string filePrefix);
+  void writeFinalPath(const std::string &filePrefix);
 
   /**
    * Calculates the track central path

@@ -37,7 +37,7 @@ for angle in np.arange(0, 2*math.pi, 2*math.pi / coneDivisions):
     colorList.append("#0000ff")
 
 # ========= Outer =========
-for angle in np.arange(3 * math.pi / 4, -6.99 * math.pi / 8, -2*math.pi / coneDivisions):
+for angle in np.arange(3 * math.pi / 4, -6.9 * math.pi / 8, -2*math.pi / coneDivisions):
     x = center_x + outerRadius * math.cos(angle)
     y = center_y + outerRadius * math.sin(angle)
     xCones.append(x)

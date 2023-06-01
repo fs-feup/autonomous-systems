@@ -18,7 +18,8 @@ with open('planning/files/skidpad.txt', 'r') as f:
             yTrackList.append(float(lineList[1]))
             colorList.append("#000000") 
             # adds cone color in color list to the respective index
-        elif lineList[2] == "or" or lineList[2] == "b": # blue and orange right -> right cones
+        elif lineList[2] == "or" or lineList[2] == "b": 
+            # blue and orange right -> right cones
             xTrackList.append(float(lineList[0]))
             yTrackList.append(float(lineList[1]))
             colorList.append("#0000ff")
