@@ -86,7 +86,7 @@ class TestSubscriber : public rclcpp::Node {
  */
 TEST(LM_PUBLISHER_TEST_SUITE, PUBLISHER_INTEGRATION_TEST) {
   // Data
-  Localization *vehicle_localization = new Localization();
+  Pose *vehicle_localization = new Pose();
   Map *track_map = new Map();
   track_map->map.insert({{1, 2}, colors::yellow});
 

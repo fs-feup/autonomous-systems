@@ -11,17 +11,19 @@ find_package(ament_cmake REQUIRED)
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(Eigen3 REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(custom_interfaces REQUIRED)
 
 set(IMPLEMENTATION_FILES 
-  src/lm_publisher.cpp
-  src/lm_subscriber.cpp
+  src/loc_map/lm_subscriber.cpp
+  src/loc_map/lm_publisher.cpp
   src/utils/position.cpp
+  src/kalman_filter/ekf.cpp
   )
 
 add_executable(${PROJECT_NAME} src/loc_map.cpp ${IMPLEMENTATION_FILES})
-ament_target_dependencies(${PROJECT_NAME} rclcpp std_msgs custom_interfaces)
+ament_target_dependencies(${PROJECT_NAME} rclcpp std_msgs custom_interfaces Eigen3)
 target_include_directories(${PROJECT_NAME} PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)

@@ -3,6 +3,7 @@
 #include "loc_map/lm_publisher.hpp"
 #include "loc_map/lm_subscriber.hpp"
 #include "rclcpp/rclcpp.hpp"
+#include "kalman_filter/ekf.hpp"
 
 /**
  * @brief Main function
@@ -12,7 +13,7 @@
  * @return int
  */
 int main(int argc, char **argv) {
-  Localization *vehicle_localization = new Localization();
+  Pose *vehicle_localization = new Pose();
   Map *track_map = new Map();
 
   (void)argc;

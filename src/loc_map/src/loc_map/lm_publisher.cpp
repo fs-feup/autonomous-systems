@@ -1,6 +1,6 @@
 #include "loc_map/lm_publisher.hpp"
 
-LMPublisher::LMPublisher(Localization* vehicle_localization, Map* map)
+LMPublisher::LMPublisher(Pose* vehicle_localization, Map* map)
     : Node("loc_map_publisher"),
       _vehicle_localization(vehicle_localization),
       _track_map(map),
@@ -17,7 +17,7 @@ void LMPublisher::_timer_callback() {
   this->_publish_map(*(this->_track_map));
 }
 
-void LMPublisher::_publish_localization(Localization vehicle_localization) {
+void LMPublisher::_publish_localization(Pose vehicle_localization) {
   auto message = custom_interfaces::msg::Pose();
   message.position.x = vehicle_localization.position.x;
   message.position.y = vehicle_localization.position.y;

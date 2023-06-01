@@ -11,7 +11,7 @@
  * @brief Struct for localization
  *
  */
-struct Localization {
+struct Pose {
   Position position;
   double orientation = 0.0;
 };
