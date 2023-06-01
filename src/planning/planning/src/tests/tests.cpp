@@ -6,11 +6,10 @@
 
 using testing::Eq;
 
-std::string filePrefix = rcpputils::fs::current_path().string();
-
 TEST(GlobalPathPlanner, middlePath1) {
+  std::string filePrefix = rcpputils::fs::current_path().string();
   Track* track = new Track();
-  track->fillTrack("/planning/planning/files/map_test1.txt");
+  track->fillTrack(filePrefix + "/planning/planning/files/map_test1.txt");
 
   GlobalPathPlanner* pathplanner = new GlobalPathPlanner(track);
   pathplanner->middlePath();
@@ -25,8 +24,9 @@ TEST(GlobalPathPlanner, middlePath1) {
 }
 
 TEST(GlobalPathPlanner, middlePath2) {
+  std::string filePrefix = rcpputils::fs::current_path().string();
   Track* track = new Track();
-  track->fillTrack("/planning/planning/files/map_test2.txt");
+  track->fillTrack(filePrefix + "/planning/planning/files/map_test2.txt");
 
   GlobalPathPlanner* pathplanner = new GlobalPathPlanner(track);
   pathplanner->middlePath();
@@ -42,8 +42,9 @@ TEST(GlobalPathPlanner, middlePath2) {
 }
 
 TEST(GlobalPathPlanner, middlePath3) {
+  std::string filePrefix = rcpputils::fs::current_path().string();
   Track* track = new Track();
-  track->fillTrack("/planning/planning/files/map_test3.txt");
+  track->fillTrack(filePrefix + "/planning/planning/files/map_test3.txt");
 
   GlobalPathPlanner* pathplanner = new GlobalPathPlanner(track);
   pathplanner->middlePath();
@@ -58,9 +59,10 @@ TEST(GlobalPathPlanner, middlePath3) {
   EXPECT_EQ(expected, finalPath);
 }
 
-TEST(LocalPathPlanner, delauney1){
+TEST(LocalPathPlanner, delauney1) {
+  std::string filePrefix = rcpputils::fs::current_path().string();
   Track* track = new Track();
-  track->fillTrack("/planning/planning/files/map_test1.txt");
+  track->fillTrack(filePrefix + "/planning/planning/files/map_test1.txt");
 
   LocalPathPlanner* pathplanner = new LocalPathPlanner();
   std::vector<Position> path;
@@ -68,7 +70,6 @@ TEST(LocalPathPlanner, delauney1){
   for (size_t i = 0; i < pathPointers.size(); i++)
     path.push_back(*pathPointers[i]);
 
-  
   // std::vector<Position*> expected{Position(0, 0), Position(0, 1)}
   // preencher com as Positions que a função deveria retornar
   // EXPECT_EQ(expected, path);

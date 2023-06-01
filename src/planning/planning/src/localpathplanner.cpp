@@ -12,7 +12,7 @@ vector<Position*> LocalPathPlanner::processNewArray(Track* cone_array) {
     vector<Position*> path;
     for (int i = 0; i < cone_array->getLeftConesSize(); i++)
         this->track->setCone(cone_array->getLeftConeAt(i));
-             
+
     for (int i = 0; i < cone_array->getRightConesSize(); i++)
         this->track->setCone(cone_array->getRightConeAt(i));
 

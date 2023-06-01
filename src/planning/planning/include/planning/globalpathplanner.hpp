@@ -3,6 +3,7 @@
 
 #include <utility>
 #include <vector>
+#include <string>
 
 #include "./track.hpp"
 #include "./position.hpp"

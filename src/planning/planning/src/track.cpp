@@ -42,13 +42,13 @@ void Track::addCone(float xValue, float yValue, const string& color) {
   } else if (color == "y" || color == "ol") {
     leftCones.push_back(new Cone(this->leftCount * 2 + 1, xValue, yValue));
     leftCount++;
-    }
-  else
+  } else {
     cout << "Error adding cone\n";
+  }
 }
 
 void Track::setCone(Cone* cone) {
-  switch(cone->getId() % 2) {
+  switch (cone->getId() % 2) {
       // todo binary search
       // todo orange cones case
       case 0:
@@ -67,19 +67,19 @@ void Track::setCone(Cone* cone) {
             rightCones[i]->setX(cone->getX());
             rightCones[i]->setY(cone->getY());
             return;
-          }       
+          }
         }
         rightCones.push_back(cone);
   }
 }
 
 Cone* Track::findCone(float x, float y) {
-  for(size_t i = 0; i < leftCones.size(); i++) {
+  for (size_t i = 0; i < leftCones.size(); i++) {
     if (leftCones[i]->getX() == x && leftCones[i]->getY() == y)
       return leftCones[i];
   }
 
-  for(size_t i = 0; i < rightCones.size(); i++) {
+  for (size_t i = 0; i < rightCones.size(); i++) {
     if (rightCones[i]->getX() == x && rightCones[i]->getY() == y)
       return rightCones[i];
   }
