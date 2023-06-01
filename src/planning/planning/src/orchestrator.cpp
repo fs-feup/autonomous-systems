@@ -3,8 +3,8 @@
 #include <memory>
 #include <string>
 
-#include "../include/planning/finalpathplanner.hpp"
-#include "../include/planning/slampathplanner.hpp"
+#include "../include/planning/globalpathplanner.hpp"
+#include "../include/planning/localpathplanner.hpp"
 
 #include "custom_interfaces/msg/point2d.hpp"
 #include "custom_interfaces/msg/point_array.hpp"
@@ -14,9 +14,17 @@
 
 using std::placeholders::_1;
 
+enum eventState{
+  acceleration,
+  skidpad,
+  trackdrive,
+  autocross
+};
+
 class Planning : public rclcpp::Node {
+  eventState state = skidpad;
   vector<Position*> fullPath; /**<path data container */
-  SlamPathPlanner* slampathplanner  = new SlamPathPlanner();
+  LocalPathPlanner* localpathplanner  = new LocalPathPlanner();
 
    public:
     Planning()
@@ -27,34 +35,30 @@ class Planning : public rclcpp::Node {
       track_sub_ = this->create_subscription<custom_interfaces::msg::ConeArray>(
         "track_map", 10, std::bind(&Planning::track_map_callback, this, _1));
       
-      slam_pub_ = this->create_publisher<custom_interfaces::msg::PointArray>("planning_slam", 10);
-      endurance_pub_ = this->create_publisher<custom_interfaces::msg::PointArray>("planning_endurance", 10);
+      local_pub_ = this->create_publisher<custom_interfaces::msg::PointArray>("planning_local", 10);
+      global_pub_ = this->create_publisher<custom_interfaces::msg::PointArray>("planning_global", 10);
       
+      // =========== Tmp read loc_map from file ==============
       std::string filePrefix = rcpputils::fs::current_path().string();
       std::string filePackage =  filePrefix + "/planning/planning/files/skidpad.txt";
-
       Track* track = new Track();
       track->fillTrack(filePackage);
+      // =====================================================
 
-      std::cout << filePackage << "\n";
+      fullPath = localpathplanner->processNewArray(track); // test only
 
-      fullPath = slampathplanner->processNewArray(track); // test only
-
+      // ============= Tmp write path to file ================
       std::string finalPath =  filePrefix + "/planning/planning/files/finalPath.txt";
       ofstream finalPathFile(finalPath);
-      std::cout << finalPath;
-
-      
       for (size_t i = 0; i <fullPath.size(); i++)
         finalPathFile << fullPath[i]->getX() << " " << fullPath[i]->getY() << "\n";
-
-      // Close the files
       finalPathFile.close();
+      // =====================================================
 
-      // FinalPathPlanner* finalpathplanner = new FinalPathPlanner(track);
-      // finalpathplanner->middlePath();
-      // finalpathplanner->writeFinalPath(filePrefix);
-      // fullPath = finalpathplanner->getPath();
+      // GlobalPathPlanner* globalpathplanner = new GlobalPathPlanner(track);
+      // globalpathplanner->middlePath();
+      // globalpathplanner->writeGlobalPath(filePrefix);
+      // fullPath = globalpathplanner->getPath();
           
       publish_track_points();
     }
@@ -71,7 +75,7 @@ class Planning : public rclcpp::Node {
         auto cone = msg.cone_array[i];
         track->addCone(cone.position.x, cone.position.y, cone.color);
       }
-      fullPath = slampathplanner->processNewArray(track);
+      fullPath = localpathplanner->processNewArray(track);
       publish_track_points();
       delete track;
     }
@@ -89,13 +93,13 @@ class Planning : public rclcpp::Node {
         message.points.push_back(point);
       }
       RCLCPP_INFO(this->get_logger(), "Publishing message with size %ld", message.points.size());
-      endurance_pub_->publish(message);
+      global_pub_->publish(message);
     }
 
     rclcpp::Subscription<custom_interfaces::msg::Pose>::SharedPtr vl_sub_;
     rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr track_sub_;
-    rclcpp::Publisher<custom_interfaces::msg::PointArray>::SharedPtr slam_pub_;
-    rclcpp::Publisher<custom_interfaces::msg::PointArray>::SharedPtr endurance_pub_;
+    rclcpp::Publisher<custom_interfaces::msg::PointArray>::SharedPtr local_pub_;
+    rclcpp::Publisher<custom_interfaces::msg::PointArray>::SharedPtr global_pub_;
     size_t count_;
 };
 

@@ -1,5 +1,5 @@
-#ifndef SRC_PLANNING_PLANNING_INCLUDE_PLANNING_FINALPATHPLANNER_HPP_
-#define SRC_PLANNING_PLANNING_INCLUDE_PLANNING_FINALPATHPLANNER_HPP_
+#ifndef SRC_PLANNING_PLANNING_INCLUDE_PLANNING_GLOBALPATHPLANNER_HPP_
+#define SRC_PLANNING_PLANNING_INCLUDE_PLANNING_GLOBALPATHPLANNER_HPP_
 
 #include <utility>
 #include <vector>
@@ -14,7 +14,7 @@ using namespace std;
  * results and inputs
  */
 
-class FinalPathPlanner {
+class GlobalPathPlanner {
   Track* track;                /**<track input data */
   vector<Position*> finalPath; /**<path calculation result */
 
@@ -23,7 +23,7 @@ class FinalPathPlanner {
    * Constructor
    * @param track pathplanner track input data
    */
-  explicit FinalPathPlanner(Track* track);
+  explicit GlobalPathPlanner(Track* track);
 
   /**
    * Writes the output/result path to a file
@@ -48,4 +48,4 @@ class FinalPathPlanner {
   // void sendPath(); // TODO(andre): send path to controller
 };
 
-#endif  // SRC_PLANNING_PLANNING_INCLUDE_PLANNING_FINALPATHPLANNER_HPP_
+#endif  // SRC_PLANNING_PLANNING_INCLUDE_PLANNING_GLOBALPATHPLANNER_HPP_

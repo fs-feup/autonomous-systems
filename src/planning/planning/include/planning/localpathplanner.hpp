@@ -1,5 +1,5 @@
-#ifndef SRC_PLANNING_PLANNING_INCLUDE_PLANNING_SLAMPATHPLANNER_HPP_
-#define SRC_PLANNING_PLANNING_INCLUDE_PLANNING_SLAMPATHPLANNER_HPP_
+#ifndef SRC_PLANNING_PLANNING_INCLUDE_PLANNING_LOCALPATHPLANNER_HPP_
+#define SRC_PLANNING_PLANNING_INCLUDE_PLANNING_LOCALPATHPLANNER_HPP_
 
 #include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
 #include <CGAL/Delaunay_triangulation_2.h>
@@ -23,7 +23,7 @@ using namespace std;
  * results and inputs
  */
 
-class SlamPathPlanner {
+class LocalPathPlanner {
   Track* track; /**<track input data */
 
  public:
@@ -31,11 +31,11 @@ class SlamPathPlanner {
    * Constructor
    * @param track pathplanner track input data
    */
-  SlamPathPlanner();
+  LocalPathPlanner();
 
-  ~SlamPathPlanner();
+  ~LocalPathPlanner();
 
   vector<Position*> processNewArray(Track* cone_array);
 };
 
-#endif  // SRC_PLANNING_PLANNING_INCLUDE_PLANNING_SLAMPATHPLANNER_HPP_
+#endif  // SRC_PLANNING_PLANNING_INCLUDE_PLANNING_LOCALPATHPLANNER_HPP_
