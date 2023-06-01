@@ -8,6 +8,8 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
+find_package(builtin_interfaces REQUIRED)
+find_package(std_msgs REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/Cone.msg"
@@ -15,6 +17,9 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/Point2d.msg"
   "msg/PointArray.msg"
   "msg/Pose.msg"
+  "msg/BoundingBox.msg"
+  "msg/BoundingBoxes.msg"
+  DEPENDENCIES builtin_interfaces std_msgs 
 )
 
 ament_export_dependencies(rosidl_default_runtime)
