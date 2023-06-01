@@ -16,6 +16,7 @@ find_package(custom_interfaces REQUIRED)
 
 set(IMPLEMENTATION_FILES 
   src/lm_publisher.cpp
+  src/lm_subscriber.cpp
   src/utils/position.cpp
   )
 
