@@ -1,8 +1,6 @@
 #include "../include/planning/localpathplanner.hpp"
 
-LocalPathPlanner::LocalPathPlanner() {
-    track = Track();
-}
+LocalPathPlanner::LocalPathPlanner():track() {}
 
 vector<Position*> LocalPathPlanner::processNewArray(Track* cone_array) {
     vector<Position*> path;
