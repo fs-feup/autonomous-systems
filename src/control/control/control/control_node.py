@@ -88,7 +88,7 @@ class ControlNode(Node):
         # ack_msg.drive.steering_angle = self.steering_angle
 
         # Set car acceleration
-        ack_msg.drive.acceleration = self.acceleration if not self.done else -1.
+        ack_msg.drive.acceleration = float(self.acceleration) if not self.done else -1.
         
         # Publish the message to the topic
         self.publisher_.publish(ack_msg)
