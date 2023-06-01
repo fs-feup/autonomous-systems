@@ -52,7 +52,8 @@ class Track {
   /**
    * Add cone to list
    */
-  void addCone(float xValue, float yValue, const string& color);  // adds the position of two cones to the track list
+  void addCone(float xValue, float yValue, const string& color);
+  // adds the position of two cones to the track list
 
   // TODO(andre): CHANGE TO RECEIVE ID WITH PAIR SIDE DIFF INSTEAD OF COLOR
 
