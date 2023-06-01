@@ -39,7 +39,7 @@ void GlobalPathPlanner::middlePath() {
   cout << "Middle path calculated with " << finalPath.size() << " points\n";
 }
 
-void GlobalPathPlanner::writeFinalPath(const std::string filePrefix) {
+void GlobalPathPlanner::writeFinalPath(const std::string &filePrefix) {
   ofstream finalPathFile(filePrefix + "/planning/planning/files/finalPath.txt");
 
   for (size_t i = 0; i < finalPath.size(); i++)
