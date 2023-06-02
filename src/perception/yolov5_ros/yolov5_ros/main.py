@@ -26,7 +26,7 @@ from rclpy.qos import qos_profile_sensor_data
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Image
-from bboxes_ex_msgs.msg import BoundingBoxes, BoundingBox
+from custom_interfaces.msg import BoundingBoxes, BoundingBox
 from std_msgs.msg import Header
 from cv_bridge import CvBridge
 
