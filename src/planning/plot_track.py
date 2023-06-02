@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 
-
 xTrackList = []
 yTrackList = []
 xMidList = []
@@ -26,14 +25,12 @@ with open('planning/files/skidpad.txt', 'r') as f:
 
 print(len(xTrackList))
 
-
 with open('planning/files/finalPath.txt', 'r') as f:
     for line in f:   
         lineList = line.split(" ")
         xMidList.append(float(lineList[0]))
         yMidList.append(float(lineList[1]))
         colorList.append("#aa0000")
-
             
 plt.scatter(xTrackList+ xMidList, yTrackList + yMidList, s = 10, c = colorList)
 
