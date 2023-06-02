@@ -88,7 +88,7 @@ TEST(LM_PUBLISHER_TEST_SUITE, PUBLISHER_INTEGRATION_TEST) {
   // Data
   Localization *vehicle_localization = new Localization();
   Map *track_map = new Map();
-  track_map->map.insert({{1, 2}, colors::red});
+  track_map->map.insert({{1, 2}, colors::yellow});
 
   rclcpp::init(0, nullptr);
 
@@ -115,8 +115,7 @@ TEST(LM_PUBLISHER_TEST_SUITE, PUBLISHER_INTEGRATION_TEST) {
     for (auto cone : msg.cone_array) {
       EXPECT_TRUE(cone.position.x < 10000 && cone.position.x >= -10000);
       EXPECT_TRUE(cone.position.y < 10000 && cone.position.y >= -10000);
-      EXPECT_TRUE(cone.color == colors::color_names[colors::red] ||
-                  cone.color == colors::color_names[colors::blue] ||
+      EXPECT_TRUE(cone.color == colors::color_names[colors::blue] ||
                   cone.color == colors::color_names[colors::yellow]);
     }
   }
