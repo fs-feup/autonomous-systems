@@ -1,4 +1,4 @@
-#include "../include/planning/localpathplanner.hpp"
+#include "../include/planning/local_path_planner.hpp"
 
 LocalPathPlanner::LocalPathPlanner():track() {}
 

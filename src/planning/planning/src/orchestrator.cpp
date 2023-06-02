@@ -3,8 +3,8 @@
 #include <memory>
 #include <string>
 
-#include "../include/planning/globalpathplanner.hpp"
-#include "../include/planning/localpathplanner.hpp"
+#include "../include/planning/global_path_planner.hpp"
+#include "../include/planning/local_path_planner.hpp"
 
 #include "custom_interfaces/msg/point2d.hpp"
 #include "custom_interfaces/msg/point_array.hpp"
