@@ -14,7 +14,7 @@
 
 using std::placeholders::_1;
 
-enum eventState{
+enum EventState{
   acceleration,
   skidpad,
   trackdrive,
@@ -22,9 +22,9 @@ enum eventState{
 };
 
 class Planning : public rclcpp::Node {
-  eventState state = skidpad;
-  vector<Position*> fullPath; /**<path data container */
-  LocalPathPlanner* localpathplanner  = new LocalPathPlanner();
+  EventState state = skidpad;
+  vector<Position*> fullPath;
+  LocalPathPlanner* local_path_planner = new LocalPathPlanner();
 
  public:
     Planning()
@@ -41,20 +41,20 @@ class Planning : public rclcpp::Node {
       ("planning_global", 10);
 
       // =========== Tmp read loc_map from file ==============
-      std::string filePrefix = rcpputils::fs::current_path().string();
-      std::string filePackage =  filePrefix + "/planning/planning/files/skidpad.txt";
-      Track* track = new Track();
-      track->fillTrack(filePackage);
+      // std::string filePrefix = rcpputils::fs::current_path().string();
+      // std::string filePackage =  filePrefix + "/planning/planning/files/skidpad.txt";
+      // Track* track = new Track();
+      // track->fillTrack(filePackage);
       // =====================================================
 
-      fullPath = localpathplanner->processNewArray(track); // test only
+      // fullPath = local_path_planner->processNewArray(track); // test only
 
       // ============= Tmp write path to file ================
-      std::string finalPath =  filePrefix + "/planning/planning/files/finalPath.txt";
-      ofstream finalPathFile(finalPath);
-      for (size_t i = 0; i <fullPath.size(); i++)
-        finalPathFile << fullPath[i]->getX() << " " << fullPath[i]->getY() << "\n";
-      finalPathFile.close();
+      // std::string finalPath =  filePrefix + "/planning/planning/files/finalPath.txt";
+      // ofstream finalPathFile(finalPath);
+      // for (size_t i = 0; i <fullPath.size(); i++)
+      //   finalPathFile << fullPath[i]->getX() << " " << fullPath[i]->getY() << "\n";
+      // finalPathFile.close();
       // =====================================================
 
       // GlobalPathPlanner* globalpathplanner = new GlobalPathPlanner(track);
@@ -62,24 +62,25 @@ class Planning : public rclcpp::Node {
       // globalpathplanner->writeGlobalPath(filePrefix);
       // fullPath = globalpathplanner->getPath();
 
-      publish_track_points();
+      // publish_track_points();
     }
 
  private:
     void vehicle_localisation_callback(const custom_interfaces::msg::Pose msg) const {
-      RCLCPP_INFO(this->get_logger(),
-       "Received x = '%f' | y = '%f'", msg.position.x, msg.position.y);
+      RCLCPP_INFO(this->get_logger(), "(%f, %f)", msg.position.x, msg.position.y);
     }
 
     void track_map_callback(const custom_interfaces::msg::ConeArray msg) {
-      RCLCPP_INFO(this->get_logger(),
-       "Received Cone Array with size = '%ld'", msg.cone_array.size());
       Track* track = new Track();
-      for (size_t i = 0; i < msg.cone_array.size(); i++) {
-        auto cone = msg.cone_array[i];
+      auto cone_array = msg.cone_array;
+
+      for (auto& cone : cone_array) {
         track->addCone(cone.position.x, cone.position.y, cone.color);
+        RCLCPP_INFO(this->get_logger(), "(%f, %f)\t%s", cone.position.x, cone.position.y, cone.color.c_str());
       }
-      fullPath = localpathplanner->processNewArray(track);
+      RCLCPP_INFO(this->get_logger(), "--------------------------------------");
+
+      fullPath = local_path_planner->process_new_array(track);
       publish_track_points();
       delete track;
     }
@@ -89,14 +90,13 @@ class Planning : public rclcpp::Node {
      */
     void publish_track_points() const {
       auto message = custom_interfaces::msg::PointArray();
-      std::cout << "Starting publisher\n";
       for (size_t i = 0; i < fullPath.size(); i++) {
         auto point = custom_interfaces::msg::Point2d();
         point.x = fullPath[i]->getX();
         point.y = fullPath[i]->getY();
         message.points.push_back(point);
       }
-      RCLCPP_INFO(this->get_logger(), "Publishing message with size %ld", message.points.size());
+      RCLCPP_INFO(this->get_logger(), "Published message size = %ld", message.points.size());
       global_pub_->publish(message);
     }
 

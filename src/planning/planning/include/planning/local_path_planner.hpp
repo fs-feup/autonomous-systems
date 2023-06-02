@@ -33,7 +33,7 @@ class LocalPathPlanner {
    */
   LocalPathPlanner();
 
-  vector<Position*> processNewArray(Track* cone_array);
+  vector<Position*> process_new_array(Track* cone_array);
 };
 
 #endif  // SRC_PLANNING_PLANNING_INCLUDE_PLANNING_LOCAL_PATH_PLANNER_HPP_

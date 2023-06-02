@@ -24,8 +24,8 @@ class Track {
 
  public:
   Track();
-
   ~Track();
+
   /**
    * Access right cone in the list in a specified index
    */
