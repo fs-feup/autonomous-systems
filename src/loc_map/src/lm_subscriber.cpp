@@ -20,5 +20,6 @@ void LMSubscriber::_subscription_callback(const custom_interfaces::msg::ConeArra
 
     this->_map->map.insert({position, color});
   }
+  RCLCPP_INFO(this->get_logger(), "Map size: %d", this->_map->map.size());
   RCLCPP_INFO(this->get_logger(), "--------------------------------------");
 }
