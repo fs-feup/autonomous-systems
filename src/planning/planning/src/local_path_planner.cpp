@@ -2,7 +2,9 @@
 
 LocalPathPlanner::LocalPathPlanner():track() {}
 
-vector<Position*> LocalPathPlanner::processNewArray(Track* cone_array) {
+vector<Position*> LocalPathPlanner::process_new_array(Track* cone_array) {
+    cout << "Cone array sizes: " << cone_array->getLeftConesSize() << "," << cone_array->getRightConesSize() << endl;
+
     vector<Position*> path;
     for (int i = 0; i < cone_array->getLeftConesSize(); i++)
         this->track.setCone(cone_array->getLeftConeAt(i));
@@ -43,6 +45,8 @@ vector<Position*> LocalPathPlanner::processNewArray(Track* cone_array) {
             path.push_back(position);
         }
     }
+
+    cout << "Path size: " << path.size() << endl;
 
     return path;
 }

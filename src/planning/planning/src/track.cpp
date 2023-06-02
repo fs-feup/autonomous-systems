@@ -19,7 +19,6 @@ void Track::fillTrack(const string& path) {
   trackFile.open(path);
 
   while (trackFile >> x >> y >> color) {
-    std::cout << x << " " << y << "\n";
     float xValue = stof(x);
     float yValue = stof(y);
 
@@ -36,14 +35,14 @@ int Track::getRightConesSize() { return rightCones.size(); }
 int Track::getLeftConesSize() { return leftCones.size(); }
 
 void Track::addCone(float xValue, float yValue, const string& color) {
-  if (color == "b" || color == "or") {
+  if (color == "blue" || color == "or") {
     rightCones.push_back(new Cone(this->rightCount * 2, xValue, yValue));
     rightCount++;
-  } else if (color == "y" || color == "ol") {
+  } else if (color == "yellow" || color == "ol") {
     leftCones.push_back(new Cone(this->leftCount * 2 + 1, xValue, yValue));
     leftCount++;
   } else {
-    cout << "Error adding cone\n";
+    cout << "Error adding cone: " << color << endl;
   }
 }
 
