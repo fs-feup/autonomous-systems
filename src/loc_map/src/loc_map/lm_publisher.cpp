@@ -1,24 +1,22 @@
 #include "loc_map/lm_publisher.hpp"
 
-LMPublisher::LMPublisher(Pose* vehicle_localization, Map* map)
-    : Node("loc_map_publisher"),
-      _vehicle_localization(vehicle_localization),
-      _track_map(map),
-      _count(0) {
-  this->_localization_publisher =
-      this->create_publisher<custom_interfaces::msg::Pose>("vehicle_localization", 10);
+LMPublisher::LMPublisher(Map* map, VehicleState* vehicle_state)
+    : Node("loc_map_publisher"), _vehicle_state(vehicle_state), _track_map(map), _count(0) {
+  this->_localization_publisher = this->create_publisher<custom_interfaces::msg::Pose>(
+      "vehicle_localization", 10);  // TODO(marhcouto): check what the integer does
   this->_mapping_publisher =
       this->create_publisher<custom_interfaces::msg::ConeArray>("track_map", 10);
   this->_timer = this->create_wall_timer(500ms, std::bind(&LMPublisher::_timer_callback, this));
 }
 
 void LMPublisher::_timer_callback() {
-  this->_publish_localization(*(this->_vehicle_localization));
+  this->_publish_localization(*(this->_vehicle_state));
   this->_publish_map(*(this->_track_map));
 }
 
-void LMPublisher::_publish_localization(Pose vehicle_localization) {
+void LMPublisher::_publish_localization(VehicleState vehicle_state) {
   auto message = custom_interfaces::msg::Pose();
+  const Pose vehicle_localization = vehicle_state.pose;
   message.position.x = vehicle_localization.position.x;
   message.position.y = vehicle_localization.position.y;
   message.theta = vehicle_localization.orientation;

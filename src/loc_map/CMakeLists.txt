@@ -13,6 +13,7 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)
 find_package(custom_interfaces REQUIRED)
 
 set(IMPLEMENTATION_FILES 
@@ -22,7 +23,7 @@ set(IMPLEMENTATION_FILES
   )
 
 add_executable(${PROJECT_NAME} src/loc_map.cpp ${IMPLEMENTATION_FILES})
-ament_target_dependencies(${PROJECT_NAME} rclcpp std_msgs custom_interfaces Eigen3)
+ament_target_dependencies(${PROJECT_NAME} rclcpp std_msgs sensor_msgs custom_interfaces Eigen3)
 target_include_directories(${PROJECT_NAME} PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
@@ -42,6 +43,7 @@ if(BUILD_TESTING)
   find_package(ament_cmake_gtest REQUIRED)
   find_package(custom_interfaces REQUIRED)
   find_package(rclcpp REQUIRED)
+  find_package(sensor_msgs REQUIRED)
 
   set(TESTFILES 
     test/main.cpp
@@ -49,7 +51,7 @@ if(BUILD_TESTING)
     )
   
   ament_add_gtest(${PROJECT_NAME}_test ${TESTFILES} ${IMPLEMENTATION_FILES})
-  ament_target_dependencies(${PROJECT_NAME}_test rclcpp std_msgs custom_interfaces)
+  ament_target_dependencies(${PROJECT_NAME}_test rclcpp std_msgs sensor_msgs custom_interfaces)
   target_include_directories(${PROJECT_NAME}_test PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>)
