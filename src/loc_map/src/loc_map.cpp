@@ -18,7 +18,7 @@ int main(int argc, char **argv) {
   (void)argc;
   (void)argv;
   rclcpp::init(argc, argv);
-  
+
   auto subscriber = std::make_shared<LMSubscriber>(track_map);
   auto publisher = std::make_shared<LMPublisher>(vehicle_localization, track_map);
 

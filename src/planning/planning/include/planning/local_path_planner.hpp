@@ -9,7 +9,7 @@
 
 #include "rclcpp/rclcpp.hpp"
 #include "./track.hpp"
-#include "./position.hpp"
+#include "../utils/position.hpp"
 
 typedef CGAL::Exact_predicates_inexact_constructions_kernel K;
 typedef CGAL::Delaunay_triangulation_2<K> DT;

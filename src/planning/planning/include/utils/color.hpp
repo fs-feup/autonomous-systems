@@ -1,5 +1,5 @@
-#ifndef SRC_LOC_MAP_INCLUDE_UTILS_COLOR_HPP_
-#define SRC_LOC_MAP_INCLUDE_UTILS_COLOR_HPP_
+#ifndef SRC_PLANNING_PLANNING_INCLUDE_UTILS_COLOR_HPP_
+#define SRC_PLANNING_PLANNING_INCLUDE_UTILS_COLOR_HPP_
 
 #include <map>
 #include <string>
@@ -24,4 +24,4 @@ static const std::map<std::string, Color> color_map = {
 };
 }  // namespace colors
 
-#endif  // SRC_LOC_MAP_INCLUDE_UTILS_COLOR_HPP_
+#endif  // SRC_PLANNING_PLANNING_INCLUDE_UTILS_COLOR_HPP_
