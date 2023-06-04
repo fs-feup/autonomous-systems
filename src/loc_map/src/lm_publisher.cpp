@@ -24,7 +24,8 @@ void LMPublisher::_publish_localization(Localization vehicle_localization) {
   message.position.y = vehicle_localization.position.y;
   message.theta = vehicle_localization.orientation;
 
-  RCLCPP_INFO(this->get_logger(), "(%f, %f)\t%f", message.position.x, message.position.y, message.theta);
+  RCLCPP_INFO(this->get_logger(), "(%f, %f)\t%f", message.position.x, message.position.y,
+              message.theta);
   this->_localization_publisher->publish(message);
 }
 
@@ -40,9 +41,10 @@ void LMPublisher::_publish_map(Map track_map) {
     cone_message.color = colors::color_names[element.second];
     message.cone_array.push_back(cone_message);
   }
-  
+
   for (auto& cone : message.cone_array) {
-    RCLCPP_INFO(this->get_logger(), "(%f, %f)\t%s", cone.position.x, cone.position.y, cone.color.c_str());
+    RCLCPP_INFO(this->get_logger(), "(%f\t%f)\t%s", cone.position.x, cone.position.y,
+                cone.color.c_str());
   }
   RCLCPP_INFO(this->get_logger(), "--------------------------------------");
 
