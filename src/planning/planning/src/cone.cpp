@@ -16,9 +16,9 @@ void Cone::setY(float y) {
     this->y = y;
 }
 
-std::string Cone::print() {
-  return "(" +std::to_string(x) + ", " + std::to_string(y) + ")";
-}
+// std::string Cone::print() {
+//   return "(" +std::to_string(x) + ", " + std::to_string(y) + ")";
+// }
 
 float Cone::getDistanceTo(Cone *dest) {
   return sqrt(pow(this->x - dest->getX(), 2) + pow(this->y - dest->getY(), 2));

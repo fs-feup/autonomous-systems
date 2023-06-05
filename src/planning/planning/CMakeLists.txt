@@ -25,7 +25,7 @@ set(TESTFILES
     )
 
 set(IMPLEMENTATION_FILES
-   src/globalpathplanner.cpp src/localpathplanner.cpp
+   src/global_path_planner.cpp src/local_path_planner.cpp
    src/cone.cpp src/track.cpp src/position.cpp
 )
 
