@@ -29,9 +29,9 @@ exclude = [
     "dist",
     "node_modules",
     "venv",
-    "perception/YOLOv5-ROS/yolov5_ros/yolov5_ros/export.py",
-    "perception/YOLOv5-ROS/yolov5_ros/yolov5_ros/models",
-    "perception/YOLOv5-ROS/yolov5_ros/yolov5_ros/utils",
+    "perception/yolov5_ros/yolov5_ros/export.py",
+    "perception/yolov5_ros/yolov5_ros/models",
+    "perception/yolov5_ros/yolov5_ros/utils",
 ]
 
 # Same as Black.

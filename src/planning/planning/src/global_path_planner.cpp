@@ -1,4 +1,4 @@
-#include "../include/planning/globalpathplanner.hpp"
+#include "../include/planning/global_path_planner.hpp"
 
 GlobalPathPlanner::GlobalPathPlanner(Track* track) : track(track) {}
 
@@ -39,15 +39,14 @@ void GlobalPathPlanner::middlePath() {
   cout << "Middle path calculated with " << finalPath.size() << " points\n";
 }
 
-void GlobalPathPlanner::writeFinalPath(const std::string &filePrefix) {
-  ofstream finalPathFile(filePrefix + "/planning/planning/files/finalPath.txt");
+// void GlobalPathPlanner::writeFinalPath(const std::string &filePrefix) {
+//   ofstream finalPathFile(filePrefix + "/planning/planning/files/finalPath.txt");
 
-  for (size_t i = 0; i < finalPath.size(); i++)
-    finalPathFile << finalPath[i]->getX() << " " << finalPath[i]->getY() << "\n";
+//   for (size_t i = 0; i < finalPath.size(); i++)
+//     finalPathFile << finalPath[i]->getX() << " " << finalPath[i]->getY() << "\n";
 
-  // Close the file
-  finalPathFile.close();
-}
+//   finalPathFile.close();
+// }
 
 vector<pair<float, float>> GlobalPathPlanner::getPath() {
   vector<pair<float, float>> pathCopy;

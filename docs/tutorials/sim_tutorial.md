@@ -1,4 +1,4 @@
-# EUFS SIM Tutoria
+# EUFS SIM Tutorial
 
 This tutorial is meant to aid the user understand the basics of the EUFS Simulator.
 
