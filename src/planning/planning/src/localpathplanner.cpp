@@ -10,8 +10,6 @@ vector<Position*> LocalPathPlanner::processNewArray(Track* cone_array) {
     for (int i = 0; i < cone_array->getRightConesSize(); i++)
         this->track.setCone(cone_array->getRightConeAt(i));
 
-    delete(cone_array);
-
     DT dt;
 
     for (int i = 0; i < track.getLeftConesSize(); i++) {
@@ -43,6 +41,8 @@ vector<Position*> LocalPathPlanner::processNewArray(Track* cone_array) {
             path.push_back(position);
         }
     }
+
+    // delete(cone_array);
 
     return path;
 }

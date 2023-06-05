@@ -42,7 +42,7 @@ class Planning : public rclcpp::Node {
 
       // =========== Tmp read loc_map from file ==============
       std::string filePrefix = rcpputils::fs::current_path().string();
-      std::string filePackage =  filePrefix + "/planning/planning/files/skidpad.txt";
+      std::string filePackage =  filePrefix + "/planning/planning/files/hairpins.txt";
       Track* track = new Track();
       track->fillTrack(filePackage);
       // =====================================================
