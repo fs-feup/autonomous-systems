@@ -65,7 +65,7 @@ TEST(LocalPathPlanner, delauney1) {
 
   LocalPathPlanner* pathplanner = new LocalPathPlanner();
   std::vector<Position> path;
-  std::vector<Position*> pathPointers = pathplanner->processNewArray(track);
+  std::vector<Position*> pathPointers = pathplanner->process_new_array(track);
   for (size_t i = 0; i < pathPointers.size(); i++)
     path.push_back(*pathPointers[i]);
 

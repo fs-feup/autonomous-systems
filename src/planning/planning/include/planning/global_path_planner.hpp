@@ -6,7 +6,7 @@
 #include <string>
 
 #include "./track.hpp"
-#include "./position.hpp"
+#include "../utils/position.hpp"
 
 using namespace std;
 

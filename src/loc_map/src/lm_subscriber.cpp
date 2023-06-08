@@ -10,15 +10,19 @@ LMSubscriber::LMSubscriber(Map* map) : Node("loc_map_subscriber"), _map(map) {
 void LMSubscriber::_subscription_callback(const custom_interfaces::msg::ConeArray message) {
   auto cone_array = message.cone_array;
 
+  this->_map->map.clear();
+
   for (auto& cone : cone_array) {
     auto position = Position();
     position.x = cone.position.x;
     position.y = cone.position.y;
     auto color = colors::color_map.at(cone.color);
 
-    RCLCPP_INFO(this->get_logger(), "(%f, %f)\t%s", position.x, position.y, cone.color.c_str());
+    RCLCPP_INFO(this->get_logger(), "(%f,\t%f)\t%s", position.x, position.y, cone.color.c_str());
 
     this->_map->map.insert({position, color});
   }
+
+  RCLCPP_INFO(this->get_logger(), "Map size: %ld", this->_map->map.size());
   RCLCPP_INFO(this->get_logger(), "--------------------------------------");
 }

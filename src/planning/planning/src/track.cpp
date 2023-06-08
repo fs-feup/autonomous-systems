@@ -1,4 +1,5 @@
 #include "../include/planning/track.hpp"
+#include "../include/utils/color.hpp"
 
 Track::Track() { completed = false; }
 
@@ -19,7 +20,6 @@ void Track::fillTrack(const string& path) {
   trackFile.open(path);
 
   while (trackFile >> x >> y >> color) {
-    std::cout << x << " " << y << "\n";
     float xValue = stof(x);
     float yValue = stof(y);
 
@@ -36,22 +36,19 @@ int Track::getRightConesSize() { return rightCones.size(); }
 int Track::getLeftConesSize() { return leftCones.size(); }
 
 void Track::addCone(float xValue, float yValue, const string& color) {
-  if (color == "b" || color == "or") {
+  if (color == colors::color_names[colors::blue]) {
     rightCones.push_back(new Cone(this->rightCount * 2, xValue, yValue));
     rightCount++;
-  } else if (color == "y" || color == "ol") {
+  } else if (color == colors::color_names[colors::yellow]) {
     leftCones.push_back(new Cone(this->leftCount * 2 + 1, xValue, yValue));
     leftCount++;
-  } else {
-    cout << "Error adding cone\n";
   }
 }
 
 void Track::setCone(Cone* cone) {
   switch (cone->getId() % 2) {
       // todo binary search
-      // todo orange cones case
-      case 0:
+      case colors::blue:
         for (size_t i = 0; i < leftCones.size(); i++) {
           if (leftCones[i]->getId() == cone->getId()) {
             leftCones[i]->setX(cone->getX());
@@ -61,7 +58,7 @@ void Track::setCone(Cone* cone) {
         }
         leftCones.push_back(cone);
         break;
-      case 1:
+      case colors::yellow:
         for (size_t i = 0; i < rightCones.size(); i++) {
           if (rightCones[i]->getId() == cone->getId()) {
             rightCones[i]->setX(cone->getX());
@@ -85,4 +82,9 @@ Cone* Track::findCone(float x, float y) {
   }
 
   return nullptr;
+}
+
+void Track::reset() {
+  leftCones.clear();
+  rightCones.clear();
 }

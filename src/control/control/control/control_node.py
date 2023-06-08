@@ -47,7 +47,7 @@ class ControlNode(Node):
         
         self.path_subscription = self.create_subscription(
             PointArray,
-            'path_topic',
+            'planning_local',
             self.path_callback,
             10
         )
@@ -94,7 +94,8 @@ class ControlNode(Node):
         self.publisher_.publish(ack_msg)
         
         # Display the message on the console
-        self.get_logger().info('publishing')
+        self.get_logger().info("acc: {}\tsteer: {}"
+            .format(ack_msg.drive.steering_angle, ack_msg.drive.acceleration))
 
 
     def odometry_callback(self, msg):
@@ -164,7 +165,7 @@ class ControlNode(Node):
         @param self The object pointer.
         @param path Path message.
         """
-        # self.get_logger().info("Received path!")
+        self.get_logger().info("[received] {} points".format(len(points_list.points)))
         path = []
         speeds = []
         

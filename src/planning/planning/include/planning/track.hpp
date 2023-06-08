@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
 
-#include "./cone.hpp"
+#include "../utils/cone.hpp"
 
 using namespace std;
 /**
@@ -24,8 +24,8 @@ class Track {
 
  public:
   Track();
-
   ~Track();
+
   /**
    * Access right cone in the list in a specified index
    */
@@ -60,6 +60,8 @@ class Track {
   void setCone(Cone* cone);
 
   Cone* findCone(float x, float y);
+
+  void reset();
 };
 
 #endif  // SRC_PLANNING_PLANNING_INCLUDE_PLANNING_TRACK_HPP_
