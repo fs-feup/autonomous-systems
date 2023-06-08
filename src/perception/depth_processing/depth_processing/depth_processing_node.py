@@ -116,27 +116,9 @@ class DepthProcessing(Node):
                 
         self.pub_cone_coordinates.publish(cone_array)
         print("--------------------")
-        # self.plot_points(points)
 
         self.bounding_boxes_msgs = []
         self.depth_image = None
-
-    def plot_points(self, points):
-        plt.axis([-10, 10, 0, 20])
-        for pts, cl in points:
-            if cl == "blue_cone":
-                color = "b"
-            elif cl == "yellow_cone":
-                color = "y"
-            else:
-                color = "r" 
-            plt.scatter(pts[0][0][0], pts[0][0][1], c=color)
-            plt.draw()
-            
-            
-        plt.pause(0.001)
-        #clear plot
-        plt.clf()
 
 def main(args=None):
     rclpy.init(args=args)
