@@ -40,7 +40,8 @@ class Plots(Node):
 
     def plot_perception_callback(self, msg):
         for cone in msg.cone_array:
-            self.perception_points.append([cone.position.x, cone.position.y, self.perception_color])
+            self.perception_points.append([cone.position.x, cone.position.y,
+            self.perception_color])
 
     def plot_map_callback(self, msg):
         for cone in msg.cone_array:
@@ -76,8 +77,6 @@ class Plots(Node):
             ax2.scatter(x, y, c=color)
 
         plt.draw()
-        # plt.pause(0.001)
-        # plt.clf()
 
 def main(args=None):
     rclpy.init(args=args)

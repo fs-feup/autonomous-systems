@@ -5,7 +5,6 @@ from rclpy.qos import qos_profile_sensor_data
 
 import numpy as np
 import cv2
-import matplotlib.pyplot as plt
 
 from sensor_msgs.msg import CameraInfo, Image
 from custom_interfaces.msg import BoundingBoxes, Cone, ConeArray, Point2d
