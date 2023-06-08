@@ -25,8 +25,8 @@ set(TESTFILES
     )
 
 set(IMPLEMENTATION_FILES
-   src/global_path_planner.cpp src/local_path_planner.cpp
-   src/cone.cpp src/track.cpp src/position.cpp
+   src/global_path_planner.cpp src/local_path_planner.cpp src/track.cpp
+   src/utils/cone.cpp src/utils/position.cpp
 )
 
 add_definitions(-DCGAL_USE_BASIC_VIEWER)
