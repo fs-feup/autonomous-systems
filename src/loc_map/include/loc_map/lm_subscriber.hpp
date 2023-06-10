@@ -22,7 +22,7 @@ class LMSubscriber : public rclcpp::Node {
   rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr _perception_subscription;
   rclcpp::Subscription<sensor_msgs::msg::Imu>::SharedPtr _imu_subscription;
   Map* _map;
-  VehicleState* _vehicle_state;
+  ImuUpdate* _imu_update;
 
   /**
    * @brief function to be called everytime information is received from the
@@ -41,7 +41,7 @@ class LMSubscriber : public rclcpp::Node {
    * @brief Construct a new LMSubscriber object
    *
    */
-  explicit LMSubscriber(Map* map, VehicleState* state);
+  explicit LMSubscriber(Map* map, ImuUpdate* imu_update);
 };
 
 #endif  // SRC_LOC_MAP_INCLUDE_LOC_MAP_LM_SUBSCRIBER_HPP_

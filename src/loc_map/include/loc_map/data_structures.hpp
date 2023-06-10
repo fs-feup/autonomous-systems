@@ -24,19 +24,26 @@ struct Pose {
  * @brief Struct for state of the vehicle
  *
  * @param pose Pose of the vehicle
- * @param translational_velocity_x Translational velocity of the vehicle in x direction
- * @param translational_velocity_y Translational velocity of the vehicle in y direction
- * @param rotational_velocity_x Rotational velocity of the vehicle in x axis
- * @param rotational_velocity_y Rotational velocity of the vehicle in y axis
+ * @param last_update Timestamp of last update
  *
  */
 struct VehicleState {
   Pose pose;
-  float translational_velocity_x = 0.0;
-  float translational_velocity_y = 0.0;
-  float rotational_velocity_x = 0.0;
-  float rotational_velocity_y = 0.0;
   std::chrono::time_point<std::chrono::high_resolution_clock> last_update;
+};
+
+/**
+ * @brief Struct for IMU update
+ * 
+ * @param translational_velocity Translational velocity of the vehicle
+ * @param rotational_velocity Rotational velocity of the vehicle
+ * @param last_update Timestamp of last update
+ * 
+ */
+struct ImuUpdate {
+  float translational_velocity = 0.0; /**< Meters per sec */
+  float rotational_velocity = 0.0; /**< Degrees per sec */
+  std::chrono::time_point<std::chrono::high_resolution_clock> last_update; /**< Timestamp of last update */
 };
 
 /**

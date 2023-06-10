@@ -15,12 +15,14 @@
 int main(int argc, char **argv) {
   VehicleState *state = new VehicleState();
   state->last_update = std::chrono::high_resolution_clock::now();
+  ImuUpdate *imu_update = new ImuUpdate();
+  imu_update->last_update = std::chrono::high_resolution_clock::now();
   Map *track_map = new Map();
 
   (void)argc;
   (void)argv;
   rclcpp::init(argc, argv);
-  rclcpp::spin(std::make_shared<LMSubscriber>(track_map, state));
+  rclcpp::spin(std::make_shared<LMSubscriber>(track_map, imu_update));
   rclcpp::spin(std::make_shared<LMPublisher>(track_map, state));
   rclcpp::shutdown();
 
