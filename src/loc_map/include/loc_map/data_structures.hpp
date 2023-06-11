@@ -33,17 +33,20 @@ struct VehicleState {
 };
 
 /**
- * @brief Struct for IMU update
- * 
+ * @brief Struct for data retrieved by the IMU
+ *
  * @param translational_velocity Translational velocity of the vehicle
  * @param rotational_velocity Rotational velocity of the vehicle
  * @param last_update Timestamp of last update
- * 
+ * @param delta_time Time since last update
+ *
  */
 struct ImuUpdate {
   float translational_velocity = 0.0; /**< Meters per sec */
-  float rotational_velocity = 0.0; /**< Degrees per sec */
-  std::chrono::time_point<std::chrono::high_resolution_clock> last_update; /**< Timestamp of last update */
+  float rotational_velocity = 0.0;    /**< Degrees per sec */
+  std::chrono::time_point<std::chrono::high_resolution_clock>
+      last_update;         /**< Timestamp of last update */
+  double delta_time = 0.0; /**< Time since last update */
 };
 
 /**

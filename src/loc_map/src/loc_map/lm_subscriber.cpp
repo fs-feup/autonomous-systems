@@ -6,7 +6,8 @@ LMSubscriber::LMSubscriber(Map* map, ImuUpdate* imu_update)
       "perception/cone_coordinates", 10,
       std::bind(&LMSubscriber::_perception_subscription_callback, this, std::placeholders::_1));
   this->_imu_subscription = this->create_subscription<sensor_msgs::msg::Imu>(
-      "/imu/data", 10, std::bind(&LMSubscriber::_imu_subscription_callback, this, std::placeholders::_1));
+      "/imu/data", 10,
+      std::bind(&LMSubscriber::_imu_subscription_callback, this, std::placeholders::_1));
   RCLCPP_INFO(this->get_logger(), "[LOC_MAP] Subscriber started");
 }
 
@@ -37,11 +38,12 @@ void LMSubscriber::_imu_subscription_callback(const sensor_msgs::msg::Imu messag
       std::chrono::duration_cast<std::chrono::milliseconds>(now - this->_imu_update->last_update)
           .count();
   this->_imu_update->last_update = now;
+  this->_imu_update->delta_time = delta;
   float translational_velocity_x = acceleration_x * delta;
   float translational_velocity_y = acceleration_y * delta;
-  this->_imu_update->translational_velocity = sqrt(translational_velocity_x * translational_velocity_x +
-                                              translational_velocity_y * translational_velocity_y);
+  this->_imu_update->translational_velocity =
+      sqrt(translational_velocity_x * translational_velocity_x +
+           translational_velocity_y * translational_velocity_y);
   RCLCPP_INFO(this->get_logger(), "New estimated state from IMU: v:%f - w:%f",
-              this->_imu_update->translational_velocity,
-              this->_imu_update->rotational_velocity);
+              this->_imu_update->translational_velocity, this->_imu_update->rotational_velocity);
 }

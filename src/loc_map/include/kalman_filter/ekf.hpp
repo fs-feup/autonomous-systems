@@ -7,16 +7,36 @@
 
 /**
  * @brief Function to calculate the next state of the vehicle
- * 
- * @param pose Pose of the vehicle 
+ *
+ * @param pose Pose of the vehicle
  * @param translational_velocity_x meters per second
  * @param translational_velocity_y meters per second
  * @param rotational_velocity_z degrees per second
  * @param time_interval time interval in seconds
- * @return Eigen::Vector3d 
+ * @return Eigen::Vector3d
  */
-Eigen::VectorXd motion_model_expected_state(const Eigen::VectorXd& expected_state, const float translational_velocity_x, const float translational_velocity_y, const float rotational_velocity_z, const double time_interval);
-Eigen::MatrixXd motion_model_covariance_matrix(const Eigen::VectorXd& state_covariance_matrix, const float translational_velocity_x, const float translational_velocity_y, const float rotational_velocity_z, const double time_interval);
+Eigen::VectorXd motion_model_expected_state(const Eigen::VectorXd& expected_state,
+                                            const float translational_velocity_x,
+                                            const float translational_velocity_y,
+                                            const float rotational_velocity_z,
+                                            const double time_interval);
+
+/**
+ * @brief Function to calculate the new state covariance matrix using the jacobian of the motion
+ * model
+ *
+ * @param state_covariance_matrix
+ * @param translational_velocity_x
+ * @param translational_velocity_y
+ * @param rotational_velocity_z
+ * @param time_interval
+ * @return Eigen::MatrixXd
+ */
+Eigen::MatrixXd motion_model_covariance_matrix(const Eigen::VectorXd& state_covariance_matrix,
+                                               const float translational_velocity_x,
+                                               const float translational_velocity_y,
+                                               const float rotational_velocity_z,
+                                               const double time_interval);
 
 /**
  * @brief Extended Kalman Filter class
@@ -29,35 +49,30 @@ Eigen::MatrixXd motion_model_covariance_matrix(const Eigen::VectorXd& state_cova
  *
  */
 class ExtendedKalmanFilter {
-  Eigen::MatrixXd A; /**< Recursive state transition matrix: describes how the state evolves from
-                        one time step to the next */
-  Eigen::MatrixXd
-      B; /**< Motion to state matrix: describes how the controls/odometry affect the state */
-  Eigen::MatrixXd C; /**< Measurements to state matrix: describes how the sensor measurements
-                        affect the state */
   Eigen::MatrixXd R; /**< Motion noise covariance matrix */
   Eigen::MatrixXd Q; /**< Measurement noise covariance matrix */
   Eigen::MatrixXd P; /**< State error covariance  matrix */
-  Eigen::VectorXd expected_state; /**< Expected state vector (localization + mapping) */
+  Eigen::VectorXd X; /**< Expected state vector (localization + mapping) */
+
+  ImuUpdate* _imu_update;       /**< Pointer to the IMU update */
+  VehicleState* _vehicle_state; /**< Pointer to the vehicle state to be published */
+  Map* _map;                    /**< Pointer to the map to be published */
 
  public:
   /**
    * @brief Construct a new Extended Kalman Filter object
    *
-   * @param A - Recursive state transition matrix: describes how the state evolves from one time
-   * step to the next
-   * @param B - Motion to state matrix: describes how the controls/odometry affect the state
-   * @param C - Measuremenets to state matrix: describes how the sensor measurements affect the
-   * state
-   * @param R - Motion noise matrix
-   * @param Q - Measurement noise matrix
+   * @param vehicle_state
+   * @param map
+   * @param imu_update data retrieved by the IMU
    */
-  ExtendedKalmanFilter(const Eigen::MatrixXd& A, const Eigen::MatrixXd& B, const Eigen::MatrixXd& C,
-                       const Eigen::MatrixXd& R, const Eigen::MatrixXd& Q);
+  ExtendedKalmanFilter(
+      VehicleState* vehicle_state, Map* map,
+      ImuUpdate* imu_update);  // TODO(marhcouto): add constructor that uses noise matrixes
 
-  void next_state(Eigen::VectorXd& control, Eigen::VectorXd& measurement);
-
-  void prediction_step(Eigen::VectorXd& control, Eigen::VectorXd (*motion_model_function));
+  void next_state(const Eigen::VectorXd& control,
+                  const Eigen::VectorXd& measurement);  // Not implemented yet
+  void prediction_step();
 };
 
 #endif  // SRC_LOC_MAP_INCLUDE_KALMAN_FILTER_EKF_HPP_
