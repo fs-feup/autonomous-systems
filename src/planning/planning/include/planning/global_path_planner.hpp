@@ -1,12 +1,12 @@
 #ifndef SRC_PLANNING_PLANNING_INCLUDE_PLANNING_GLOBAL_PATH_PLANNER_HPP_
 #define SRC_PLANNING_PLANNING_INCLUDE_PLANNING_GLOBAL_PATH_PLANNER_HPP_
 
+#include <string>
 #include <utility>
 #include <vector>
-#include <string>
 
-#include "./track.hpp"
 #include "../utils/position.hpp"
+#include "./track.hpp"
 
 using namespace std;
 
@@ -29,7 +29,7 @@ class GlobalPathPlanner {
   /**
    * Writes the output/result path to a file
    */
-  void writeFinalPath(const std::string &filePrefix);
+  void writeFinalPath(const std::string& filePrefix);
 
   /**
    * Calculates the track central path

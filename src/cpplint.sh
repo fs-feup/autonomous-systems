@@ -1,1 +1,1 @@
-cpplint --recursive .
+cpplint --exclude=./loc_map/include/Eigen/* --recursive . 

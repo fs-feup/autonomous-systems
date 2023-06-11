@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['accelaration_0',['accelaration',['../classcontrol_1_1control__node_1_1ControlNode.html#ac0ce8993d28cddc6aee341f87d501690',1,'control::control_node::ControlNode']]]
+  ['entry_5fpoints_0',['entry_points',['../namespacesetup.html#a0afb2eb153236846e2dd516c55a0e0dd',1,'setup']]]
 ];

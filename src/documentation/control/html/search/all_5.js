@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['main_0',['main',['../namespacecontrol_1_1control__node.html#acb5075a1c586e00088ef12d5117d3902',1,'control::control_node']]]
+  ['name_0',['name',['../namespacesetup.html#ab74e6bf80237ddc4109968cedc58c151',1,'setup']]]
 ];

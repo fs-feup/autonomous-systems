@@ -23,6 +23,10 @@ You work with your **shell always in this directory**. In it, you can find mutip
   colcon test --packages-select [your package and others necessary] [--event-handler=console_direct+] #last part for verbose
   ```
 FOR C++:
+- Remove compilation result folders
+  ```sh
+  rm -rf build install log
+  ```
 - Run static analysis
   ```sh
   ./cppcheck.sh

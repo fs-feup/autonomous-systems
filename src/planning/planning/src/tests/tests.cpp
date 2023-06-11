@@ -1,7 +1,7 @@
 #include "../../include/planning/global_path_planner.hpp"
 #include "../../include/planning/local_path_planner.hpp"
-#include "rclcpp/rclcpp.hpp"
 #include "gtest/gtest.h"
+#include "rclcpp/rclcpp.hpp"
 
 using testing::Eq;
 
@@ -66,8 +66,7 @@ TEST(LocalPathPlanner, delauney1) {
   LocalPathPlanner* pathplanner = new LocalPathPlanner();
   std::vector<Position> path;
   std::vector<Position*> pathPointers = pathplanner->process_new_array(track);
-  for (size_t i = 0; i < pathPointers.size(); i++)
-    path.push_back(*pathPointers[i]);
+  for (size_t i = 0; i < pathPointers.size(); i++) path.push_back(*pathPointers[i]);
 
   // std::vector<Position*> expected{Position(0, 0), Position(0, 1)}
   // preencher com as Positions que a função deveria retornar
