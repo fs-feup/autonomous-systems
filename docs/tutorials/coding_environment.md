@@ -11,18 +11,21 @@ This tutorial aims to aid in teaching the developer how to use multiple tools es
 
 This project is divided into multiple folders inside **src** folder. Each of these folders contain a ROS2 package. Essentially, the project is composed of multiple ROS2 packages whose nodes interact with each other in runtime. More details on the system's architecture can be found in [here](../project-specification.md). 
 
-## IDE
+## Coding Environment
 
-In order to properly contribute to this project, a code editor or IDE is suggested. In this tutorial, a suggestion for an environment will be presented.
+In order to properly contribute to this project, a code editor or IDE is suggested. In this tutorial, some **suggestions** for an environment will be presented.
+
+
+### VSCode with ssh connection
 
 Visual Studio Code is a general purpose IDE very widely used. VSCode is our choice due to the great quantity of extensions available, namely:
 - extensions for ROS environment and ROS2 syntax
 - extensions for C++ and Python syntax check
 - extensions for remote development via ssh (in Virtual Machines, for instance)
 
-As the simulator required specific versions of Ubuntu to function, the setup chosen takes into account developping in the host machine while the project is held in the virtual machine.
+As the simulator required specific versions of Ubuntu to function, the setup chosen takes into account developping in the host machine while the project is held in the virtual machine, for faster typing response.
 
-### Steps
+**Steps:**
 
 - Install [VSCode](https://code.visualstudio.com/Download) on HostMachine
 - [Install SSH server in virtual machine](https://averagelinuxuser.com/ssh-into-virtualbox/)
@@ -30,10 +33,20 @@ As the simulator required specific versions of Ubuntu to function, the setup cho
     - [SSH Connection 1](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh)
     - [SSH Connection 2](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh-edit)
     - [SSH Connection 3](https://marketplace.visualstudio.com/items?itemName=ms-vscode.remote-explorer)
-- (Optional) Install VSCode and Extensions in Virtual Machine
+- (Optional) Install VSCode Extensions in Virtual Machine
     - CMake extension 
     - C++ Intellisense extension
 
+### VSCode without ssh connection
+
+As an alternative to the latter suggestion, one can install Visual Studio Code in the virtual machine and use it from there.
+
+**Steps:**
+
+- Install [VSCode](https://code.visualstudio.com/Download) on HostMachine
+- (Optional) Install VSCode Extensions in Virtual Machine
+    - CMake extension 
+    - C++ Intellisense extension
 
 ## File Strucure and Guidelines
 
