@@ -1,7 +1,7 @@
 #include "loc_map/lm_publisher.hpp"
 
 LMPublisher::LMPublisher(Map* map, VehicleState* vehicle_state)
-    : Node("loc_map_publisher"), _vehicle_state(vehicle_state), _track_map(map), _count(0) {
+    : Node("loc_map_publisher"), _vehicle_state(vehicle_state), _track_map(map) {
   this->_localization_publisher = this->create_publisher<custom_interfaces::msg::Pose>(
       "vehicle_localization", 10);  // TODO(marhcouto): check what the integer does
   this->_mapping_publisher =

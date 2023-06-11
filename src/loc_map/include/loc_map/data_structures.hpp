@@ -18,6 +18,10 @@
 struct Pose {
   Position position;
   double orientation = 0.0;
+  Pose() {};
+  Pose(Position position, double orientation)
+      : position(position), orientation(orientation) {};
+  Pose(double x, double y, double theta) : position(x, y), orientation(theta) {};
 };
 
 /**

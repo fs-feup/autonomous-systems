@@ -4,19 +4,20 @@
 #include <cmath>
 
 #include "utils/position.hpp"
+#include "loc_map/data_structures.hpp"
 
-ExtendedKalmanFilter::ExtendedKalmanFilter(VehicleState* state, Map* map, ImuUpdate* imu_update)
-    : _vehicle_state(state),
+ExtendedKalmanFilter::ExtendedKalmanFilter(VehicleState* vehicle_state, Map* map, ImuUpdate* imu_update)
+    : X(Eigen::VectorXf::Zero(200)),
+      P(Eigen::MatrixXf::Zero(200, 200)),
+      _vehicle_state(vehicle_state),
       _map(map),
-      _imu_update(imu_update),
-      X(Eigen::ArrayXf::Zero(200)),
-      P(Eigen::MatrixXf::Zero(200)){};
+      _imu_update(imu_update) {}
 
-Eigen::VectorXd motion_model_expected_state(const Eigen::VectorXd& expected_state,
+Eigen::VectorXf motion_model_expected_state(const Eigen::VectorXf& expected_state,
                                             const float translational_velocity,
                                             const float rotational_velocity,
                                             const double time_interval) {
-  Eigen::Vector3d next_state = expected_state;
+  Eigen::VectorXf next_state = expected_state;
   next_state(0) = expected_state(0) -
                   (translational_velocity / rotational_velocity) * sin(expected_state(2)) +
                   (translational_velocity / rotational_velocity) *
@@ -29,12 +30,12 @@ Eigen::VectorXd motion_model_expected_state(const Eigen::VectorXd& expected_stat
   return next_state;
 }
 
-Eigen::MatrixXd motion_model_covariance_matrix(
-    const Eigen::MatrixXd& state_covariance_matrix,
-    const Eigen::MatrixXd& motion_noise_covariance_matrix, const float translational_velocity,
+Eigen::MatrixXf motion_model_covariance_matrix(
+    const Eigen::MatrixXf& state_covariance_matrix,
+    const Eigen::MatrixXf& motion_noise_covariance_matrix, const float translational_velocity,
     const float rotational_velocity, const double time_interval) {
-  Eigen::MatrixXd jacobian =
-      Eigen::MatrixXd::Identity(state_covariance_matrix.rows(), state_covariance_matrix.cols());
+  Eigen::MatrixXf jacobian =
+      Eigen::MatrixXf::Identity(state_covariance_matrix.rows(), state_covariance_matrix.cols());
   jacobian(0, 2) =
       -(translational_velocity / rotational_velocity) * cos(state_covariance_matrix(2)) +
       (translational_velocity / rotational_velocity) *
@@ -43,7 +44,7 @@ Eigen::MatrixXd motion_model_covariance_matrix(
       -(translational_velocity / rotational_velocity) * sin(state_covariance_matrix(2)) +
       (translational_velocity / rotational_velocity) *
           sin(state_covariance_matrix(2) + rotational_velocity * time_interval);
-  Eigen::MatrixXd new_state_covariance_matrix =
+  Eigen::MatrixXf new_state_covariance_matrix =
       jacobian * state_covariance_matrix *
       jacobian.transpose();  // TODO(marhcouto): introduce multiplication
                              // by the noise matrix in simulation
@@ -56,8 +57,12 @@ void ExtendedKalmanFilter::prediction_step() {
                                   this->_imu_update->rotational_velocity,
                                   this->_imu_update->delta_time);
   P = motion_model_covariance_matrix(
-      P, Eigen::MatrixXd::Identity(P.rows(), P.cols()), this->_imu_update->translational_velocity,
+      P, Eigen::MatrixXf::Identity(P.rows(), P.cols()), this->_imu_update->translational_velocity,
       this->_imu_update->rotational_velocity,
       this->_imu_update->delta_time);  // TODO(marhcouto): introduce multiplication by the noise
                                        // matrix in simulation
+}
+
+void ExtendedKalmanFilter::update() {
+    this->_vehicle_state->pose = Pose(X(0), X(1), X(2));
 }

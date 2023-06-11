@@ -1,9 +1,10 @@
 #include <cstdio>
 
-#include "kalman_filter/ekf.hpp"
+#include "rclcpp/rclcpp.hpp"
+
 #include "loc_map/lm_publisher.hpp"
 #include "loc_map/lm_subscriber.hpp"
-#include "rclcpp/rclcpp.hpp"
+#include "loc_map/lm_ekf_node.hpp"
 
 /**
  * @brief Main function
@@ -18,6 +19,7 @@ int main(int argc, char **argv) {
   ImuUpdate *imu_update = new ImuUpdate();
   imu_update->last_update = std::chrono::high_resolution_clock::now();
   Map *track_map = new Map();
+  ExtendedKalmanFilter *ekf = new ExtendedKalmanFilter(vehicle_state, track_map, imu_update);
 
   (void)argc;
   (void)argv;
@@ -25,10 +27,12 @@ int main(int argc, char **argv) {
 
   auto subscriber = std::make_shared<LMSubscriber>(track_map, imu_update);
   auto publisher = std::make_shared<LMPublisher>(track_map, vehicle_state);
+  auto ekf_node = std::make_shared<EKFNode>(ekf);
 
   rclcpp::executors::MultiThreadedExecutor executor;
   executor.add_node(subscriber);
   executor.add_node(publisher);
+  executor.add_node(ekf_node);
 
   while (rclcpp::ok()) {
     executor.spin_some();

@@ -15,7 +15,7 @@
  * @param time_interval time interval in seconds
  * @return Eigen::Vector3d
  */
-Eigen::VectorXd motion_model_expected_state(const Eigen::VectorXd& expected_state,
+Eigen::VectorXf motion_model_expected_state(const Eigen::VectorXf& expected_state,
                                             const float translational_velocity_x,
                                             const float translational_velocity_y,
                                             const float rotational_velocity_z,
@@ -30,9 +30,9 @@ Eigen::VectorXd motion_model_expected_state(const Eigen::VectorXd& expected_stat
  * @param translational_velocity_y
  * @param rotational_velocity_z
  * @param time_interval
- * @return Eigen::MatrixXd
+ * @return Eigen::MatrixXf
  */
-Eigen::MatrixXd motion_model_covariance_matrix(const Eigen::VectorXd& state_covariance_matrix,
+Eigen::MatrixXf motion_model_covariance_matrix(const Eigen::VectorXf& state_covariance_matrix,
                                                const float translational_velocity_x,
                                                const float translational_velocity_y,
                                                const float rotational_velocity_z,
@@ -49,14 +49,14 @@ Eigen::MatrixXd motion_model_covariance_matrix(const Eigen::VectorXd& state_cova
  *
  */
 class ExtendedKalmanFilter {
-  Eigen::MatrixXd R; /**< Motion noise covariance matrix */
-  Eigen::MatrixXd Q; /**< Measurement noise covariance matrix */
-  Eigen::MatrixXd P; /**< State error covariance  matrix */
-  Eigen::VectorXd X; /**< Expected state vector (localization + mapping) */
+  Eigen::VectorXf X; /**< Expected state vector (localization + mapping) */
+  Eigen::MatrixXf P; /**< State covariance  matrix */
+  Eigen::MatrixXf R; /**< Motion noise covariance matrix */
+  Eigen::MatrixXf Q; /**< Measurement noise covariance matrix */
 
-  ImuUpdate* _imu_update;       /**< Pointer to the IMU update */
   VehicleState* _vehicle_state; /**< Pointer to the vehicle state to be published */
   Map* _map;                    /**< Pointer to the map to be published */
+  ImuUpdate* _imu_update;       /**< Pointer to the IMU update */
 
  public:
   /**
@@ -70,9 +70,24 @@ class ExtendedKalmanFilter {
       VehicleState* vehicle_state, Map* map,
       ImuUpdate* imu_update);  // TODO(marhcouto): add constructor that uses noise matrixes
 
-  void next_state(const Eigen::VectorXd& control,
-                  const Eigen::VectorXd& measurement);  // Not implemented yet
+  void next_state(const Eigen::VectorXf& control,
+                  const Eigen::VectorXf& measurement);  // Not implemented yet
+
+  /**
+   * @brief Updates vehicle state and map variables according 
+   * to the state vector X
+   * 
+   */
+  void update();
+
+  /**
+   * @brief Prediction step:
+   * 1. Calculate the expected state regarding pose estimates
+   * 2. Calculate the expected state covariance matrix regarding pose estimates
+  */
   void prediction_step();
+
+  VehicleState* get_vehicle_state() const { return this->_vehicle_state; }
 };
 
 #endif  // SRC_LOC_MAP_INCLUDE_KALMAN_FILTER_EKF_HPP_

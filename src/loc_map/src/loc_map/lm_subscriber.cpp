@@ -6,7 +6,7 @@ LMSubscriber::LMSubscriber(Map* map, ImuUpdate* imu_update)
       "perception/cone_coordinates", 10,
       std::bind(&LMSubscriber::_perception_subscription_callback, this, std::placeholders::_1));
   this->_imu_subscription = this->create_subscription<sensor_msgs::msg::Imu>(
-      "/imu/data", 10,
+      "imu/data", 10,
       std::bind(&LMSubscriber::_imu_subscription_callback, this, std::placeholders::_1));
   RCLCPP_INFO(this->get_logger(), "[LOC_MAP] Subscriber started");
 }
