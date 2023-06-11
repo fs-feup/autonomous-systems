@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['timer_0',['timer',['../classcontrol_1_1control__node_1_1ControlNode.html#a9fabcf6aa0647a2414f7cb1a2ab2634a',1,'control::control_node::ControlNode']]]
+  ['package_5fname_0',['package_name',['../namespacesetup.html#aa48882c93d6310532bdb08686e19cb0f',1,'setup']]],
+  ['packages_1',['packages',['../namespacesetup.html#a5191bfd75a28371588f75471591d5500',1,'setup']]]
 ];

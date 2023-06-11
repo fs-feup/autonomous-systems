@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['keep_5fgoing_0',['KEEP_GOING',['../namespacecontrol_1_1control__node.html#a661e5fc20a2ef18cf716515929b834d9',1,'control::control_node']]]
+  ['maintainer_0',['maintainer',['../namespacesetup.html#aed90451693186afcd612a6e3422085c9',1,'setup']]],
+  ['maintainer_5femail_1',['maintainer_email',['../namespacesetup.html#a3fc04e51dfecacd97621c848af907697',1,'setup']]]
 ];

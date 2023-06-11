@@ -6,15 +6,11 @@ int Cone::getId() const { return id; }
 
 float Cone::getX() const { return x; }
 
-void Cone::setX(float x) {
-  this->x = x;
-}
+void Cone::setX(float x) { this->x = x; }
 
 float Cone::getY() const { return y; }
 
-void Cone::setY(float y) {
-    this->y = y;
-}
+void Cone::setY(float y) { this->y = y; }
 
 // std::string Cone::print() {
 //   return "(" +std::to_string(x) + ", " + std::to_string(y) + ")";

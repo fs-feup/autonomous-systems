@@ -1,20 +1,19 @@
 #ifndef SRC_PLANNING_PLANNING_INCLUDE_PLANNING_LOCAL_PATH_PLANNER_HPP_
 #define SRC_PLANNING_PLANNING_INCLUDE_PLANNING_LOCAL_PATH_PLANNER_HPP_
 
-#include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
 #include <CGAL/Delaunay_triangulation_2.h>
+#include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
 
 #include <utility>
 #include <vector>
 
-#include "rclcpp/rclcpp.hpp"
-#include "./track.hpp"
 #include "../utils/position.hpp"
+#include "./track.hpp"
+#include "rclcpp/rclcpp.hpp"
 
 typedef CGAL::Exact_predicates_inexact_constructions_kernel K;
 typedef CGAL::Delaunay_triangulation_2<K> DT;
 typedef K::Point_2 Point;
-
 
 using namespace std;
 

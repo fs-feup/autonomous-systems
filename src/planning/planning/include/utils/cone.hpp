@@ -2,14 +2,14 @@
 #define SRC_PLANNING_PLANNING_INCLUDE_UTILS_CONE_HPP_
 
 #include <cmath>
-#include <vector>
 #include <string>
+#include <vector>
 /**
  * Position class. Stores the x and y values of the car
  */
 class Cone {
-    int id;
-    float x, y;
+  int id;
+  float x, y;
 
  public:
   Cone(int id, float x, float y);

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['get_5fclosest_5fpoint_0',['get_closest_point',['../namespacecontrol_1_1utils.html#ad15b899811f35dfe1e37145f5111f684',1,'control::utils']]]
+  ['license_0',['license',['../namespacesetup.html#a4e659be027e258b72df12349200a263e',1,'setup']]]
 ];
