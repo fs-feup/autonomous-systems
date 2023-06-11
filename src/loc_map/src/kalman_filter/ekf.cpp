@@ -33,7 +33,6 @@ Eigen::MatrixXd motion_model_covariance_matrix(
     const Eigen::MatrixXd& state_covariance_matrix,
     const Eigen::MatrixXd& motion_noise_covariance_matrix, const float translational_velocity,
     const float rotational_velocity, const double time_interval) {
-  Eigen::MatrixXd new_state_covariance_matrix = state_covariance_matrix;
   Eigen::MatrixXd jacobian =
       Eigen::MatrixXd::Identity(state_covariance_matrix.rows(), state_covariance_matrix.cols());
   jacobian(0, 2) =
@@ -44,9 +43,10 @@ Eigen::MatrixXd motion_model_covariance_matrix(
       -(translational_velocity / rotational_velocity) * sin(state_covariance_matrix(2)) +
       (translational_velocity / rotational_velocity) *
           sin(state_covariance_matrix(2) + rotational_velocity * time_interval);
-  new_state_covariance_matrix = jacobian * state_covariance_matrix *
-                                jacobian.transpose();  // TODO(marhcouto): introduce multiplication
-                                                       // by the noise matrix in simulation
+  Eigen::MatrixXd new_state_covariance_matrix =
+      jacobian * state_covariance_matrix *
+      jacobian.transpose();  // TODO(marhcouto): introduce multiplication
+                             // by the noise matrix in simulation
 
   return new_state_covariance_matrix;
 }

@@ -23,8 +23,8 @@ int main(int argc, char **argv) {
   (void)argv;
   rclcpp::init(argc, argv);
 
-  auto subscriber = std::make_shared<LMSubscriber>(imu_update, track_map);
-  auto publisher = std::make_shared<LMPublisher>(vehicle_state, track_map);
+  auto subscriber = std::make_shared<LMSubscriber>(track_map, imu_update);
+  auto publisher = std::make_shared<LMPublisher>(track_map, vehicle_state);
 
   rclcpp::executors::MultiThreadedExecutor executor;
   executor.add_node(subscriber);
