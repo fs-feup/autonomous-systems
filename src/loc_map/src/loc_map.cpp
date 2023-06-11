@@ -13,8 +13,8 @@
  * @return int
  */
 int main(int argc, char **argv) {
-  VehicleState *state = new VehicleState();
-  state->last_update = std::chrono::high_resolution_clock::now();
+  VehicleState *vehicle_state = new VehicleState();
+  vehicle_state->last_update = std::chrono::high_resolution_clock::now();
   ImuUpdate *imu_update = new ImuUpdate();
   imu_update->last_update = std::chrono::high_resolution_clock::now();
   Map *track_map = new Map();
@@ -22,8 +22,18 @@ int main(int argc, char **argv) {
   (void)argc;
   (void)argv;
   rclcpp::init(argc, argv);
-  rclcpp::spin(std::make_shared<LMSubscriber>(track_map, imu_update));
-  rclcpp::spin(std::make_shared<LMPublisher>(track_map, state));
+
+  auto subscriber = std::make_shared<LMSubscriber>(imu_update, track_map);
+  auto publisher = std::make_shared<LMPublisher>(vehicle_state, track_map);
+
+  rclcpp::executors::MultiThreadedExecutor executor;
+  executor.add_node(subscriber);
+  executor.add_node(publisher);
+
+  while (rclcpp::ok()) {
+    executor.spin_some();
+  }
+
   rclcpp::shutdown();
 
   return 0;

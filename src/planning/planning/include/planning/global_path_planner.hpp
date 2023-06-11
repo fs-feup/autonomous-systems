@@ -1,10 +1,12 @@
-#ifndef SRC_PLANNING_PLANNING_INCLUDE_PLANNING_PATHPLANNER_HPP_
-#define SRC_PLANNING_PLANNING_INCLUDE_PLANNING_PATHPLANNER_HPP_
+#ifndef SRC_PLANNING_PLANNING_INCLUDE_PLANNING_GLOBAL_PATH_PLANNER_HPP_
+#define SRC_PLANNING_PLANNING_INCLUDE_PLANNING_GLOBAL_PATH_PLANNER_HPP_
 
 #include <utility>
 #include <vector>
+#include <string>
 
 #include "./track.hpp"
+#include "../utils/position.hpp"
 
 using namespace std;
 
@@ -13,7 +15,7 @@ using namespace std;
  * results and inputs
  */
 
-class PathPlanner {
+class GlobalPathPlanner {
   Track* track;                /**<track input data */
   vector<Position*> finalPath; /**<path calculation result */
 
@@ -22,12 +24,12 @@ class PathPlanner {
    * Constructor
    * @param track pathplanner track input data
    */
-  explicit PathPlanner(Track* track);
+  explicit GlobalPathPlanner(Track* track);
 
   /**
    * Writes the output/result path to a file
    */
-  void writeFinalPath();
+  void writeFinalPath(const std::string &filePrefix);
 
   /**
    * Calculates the track central path
@@ -47,4 +49,4 @@ class PathPlanner {
   // void sendPath(); // TODO(andre): send path to controller
 };
 
-#endif  // SRC_PLANNING_PLANNING_INCLUDE_PLANNING_PATHPLANNER_HPP_
+#endif  // SRC_PLANNING_PLANNING_INCLUDE_PLANNING_GLOBAL_PATH_PLANNER_HPP_

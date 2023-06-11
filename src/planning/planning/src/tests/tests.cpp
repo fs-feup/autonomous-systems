@@ -1,14 +1,16 @@
-#include <gtest/gtest.h>
-
-#include "../pathplanner.h"
+#include "../../include/planning/global_path_planner.hpp"
+#include "../../include/planning/local_path_planner.hpp"
+#include "rclcpp/rclcpp.hpp"
+#include "gtest/gtest.h"
 
 using testing::Eq;
 
-TEST(PathPlanner, middlePath1) {
+TEST(GlobalPathPlanner, middlePath1) {
+  std::string filePrefix = rcpputils::fs::current_path().string();
   Track* track = new Track();
-  track->fillTrack("files\\map_test1.txt");
+  track->fillTrack(filePrefix + "/planning/planning/files/map_test1.txt");
 
-  PathPlanner* pathplanner = new PathPlanner(track);
+  GlobalPathPlanner* pathplanner = new GlobalPathPlanner(track);
   pathplanner->middlePath();
 
   vector<pair<float, float>> finalPath = pathplanner->getPath();
@@ -20,11 +22,12 @@ TEST(PathPlanner, middlePath1) {
   EXPECT_EQ(expected, finalPath);
 }
 
-TEST(PathPlanner, middlePath2) {
+TEST(GlobalPathPlanner, middlePath2) {
+  std::string filePrefix = rcpputils::fs::current_path().string();
   Track* track = new Track();
-  track->fillTrack("files\\map_test2.txt");
+  track->fillTrack(filePrefix + "/planning/planning/files/map_test2.txt");
 
-  PathPlanner* pathplanner = new PathPlanner(track);
+  GlobalPathPlanner* pathplanner = new GlobalPathPlanner(track);
   pathplanner->middlePath();
 
   vector<pair<float, float>> finalPath = pathplanner->getPath();
@@ -37,11 +40,12 @@ TEST(PathPlanner, middlePath2) {
   EXPECT_EQ(expected, finalPath);
 }
 
-TEST(PathPlanner, middlePath3) {
+TEST(GlobalPathPlanner, middlePath3) {
+  std::string filePrefix = rcpputils::fs::current_path().string();
   Track* track = new Track();
-  track->fillTrack("files\\map_test3.txt");
+  track->fillTrack(filePrefix + "/planning/planning/files/map_test3.txt");
 
-  PathPlanner* pathplanner = new PathPlanner(track);
+  GlobalPathPlanner* pathplanner = new GlobalPathPlanner(track);
   pathplanner->middlePath();
 
   vector<pair<float, float>> finalPath = pathplanner->getPath();
@@ -52,4 +56,21 @@ TEST(PathPlanner, middlePath3) {
   };
 
   EXPECT_EQ(expected, finalPath);
+}
+
+TEST(LocalPathPlanner, delauney1) {
+  std::string filePrefix = rcpputils::fs::current_path().string();
+  Track* track = new Track();
+  track->fillTrack(filePrefix + "/planning/planning/files/map_test1.txt");
+
+  LocalPathPlanner* pathplanner = new LocalPathPlanner();
+  std::vector<Position> path;
+  std::vector<Position*> pathPointers = pathplanner->process_new_array(track);
+  for (size_t i = 0; i < pathPointers.size(); i++)
+    path.push_back(*pathPointers[i]);
+
+  // std::vector<Position*> expected{Position(0, 0), Position(0, 1)}
+  // preencher com as Positions que a função deveria retornar
+  // EXPECT_EQ(expected, path);
+  // naclass position é preciso definir um operator== para ele saber comparar. Há exemplos na net
 }
