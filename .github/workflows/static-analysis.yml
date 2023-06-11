@@ -29,7 +29,7 @@ jobs:
         run: pip install cpplint
 
       - name: Run cpplint
-        run: cpplint --recursive ./src/
+        run: cpplint --exclude=./loc_map/include/Eigen/* --recursive ./src/ 
   
   ruff:
     runs-on: ubuntu-latest
