@@ -19,7 +19,6 @@ void Track::fillTrack(const string& path) {
   trackFile.open(path);
 
   while (trackFile >> x >> y >> color) {
-    std::cout << x << " " << y << "\n";
     float xValue = stof(x);
     float yValue = stof(y);
 
@@ -71,6 +70,20 @@ void Track::setCone(Cone* cone) {
         }
         rightCones.push_back(cone);
   }
+}
+
+Cone* Track::findCone(int id) {
+  for (size_t i = 0; i < leftCones.size(); i++) {
+    if (leftCones[i]->getId() == id)
+      return leftCones[i];
+  }
+
+  for (size_t i = 0; i < rightCones.size(); i++) {
+    if (rightCones[i]->getId() == id)
+      return rightCones[i];
+  }
+
+  return nullptr;
 }
 
 Cone* Track::findCone(float x, float y) {
