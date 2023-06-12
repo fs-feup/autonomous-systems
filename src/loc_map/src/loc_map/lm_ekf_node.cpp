@@ -14,5 +14,5 @@ void EKFNode::_timer_callback() {
     // this->_ekf->validation_step(); // TODO(marhcouto): finish this
     // this->_ekf->discovery_step();
     VehicleState* vehicle_state = this->_ekf->get_vehicle_state();
-    RCLCPP_INFO(this->get_logger(), "EFK Updated state: x-%lf  y-%lf  theta-%lf", vehicle_state->pose.position.x, vehicle_state->pose.position.y, vehicle_state->pose.orientation);
+    RCLCPP_INFO(this->get_logger(), "[LOC_MAP] EFK Updated state: x:%lf  y:%lf  theta:%lf", vehicle_state->pose.position.x, vehicle_state->pose.position.y, vehicle_state->pose.orientation);
 }

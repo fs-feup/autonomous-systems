@@ -44,6 +44,6 @@ void LMSubscriber::_imu_subscription_callback(const sensor_msgs::msg::Imu messag
   this->_imu_update->translational_velocity =
       sqrt(translational_velocity_x * translational_velocity_x +
            translational_velocity_y * translational_velocity_y);
-  RCLCPP_INFO(this->get_logger(), "New estimated state from IMU: v:%f - w:%f",
+  RCLCPP_INFO(this->get_logger(), "[LOC_MAP] New estimated state from IMU: v:%f - w:%f",
               this->_imu_update->translational_velocity, this->_imu_update->rotational_velocity);
 }
