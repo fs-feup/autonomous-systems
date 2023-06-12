@@ -59,6 +59,8 @@ class Track {
 
   void setCone(Cone* cone);
 
+  Cone* findCone(int id);
+
   Cone* findCone(float x, float y);
 };
 
