@@ -22,6 +22,7 @@ set(IMPLEMENTATION_FILES
   src/loc_map/lm_ekf_node.cpp
   src/kalman_filter/ekf.cpp
   src/utils/position.cpp
+  src/utils/formulas.cpp
   )
 
 add_executable(${PROJECT_NAME} src/loc_map.cpp ${IMPLEMENTATION_FILES})
@@ -46,10 +47,14 @@ if(BUILD_TESTING)
   find_package(custom_interfaces REQUIRED)
   find_package(rclcpp REQUIRED)
   find_package(sensor_msgs REQUIRED)
+  find_package(rclcpp REQUIRED)
+  find_package(Eigen3 REQUIRED)
+  find_package(std_msgs REQUIRED)
 
   set(TESTFILES 
     test/main.cpp
     test/lm_publisher_test.cpp
+    test/slam_test.cpp
     )
   
   ament_add_gtest(${PROJECT_NAME}_test ${TESTFILES} ${IMPLEMENTATION_FILES})

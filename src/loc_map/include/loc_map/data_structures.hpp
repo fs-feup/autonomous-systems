@@ -46,11 +46,12 @@ struct VehicleState {
  *
  */
 struct ImuUpdate {
-  float translational_velocity = 0.0; /**< Meters per sec */
-  float rotational_velocity = 0.0;    /**< Degrees per sec */
+  double translational_velocity_x = 0.0; /**< Meters per sec */
+  double translational_velocity_y = 0.0; /**< Meters per sec */
+  double translational_velocity = 0.0; /**< Meters per sec */
+  double rotational_velocity = 0.0;    /**< Degrees per sec */
   std::chrono::time_point<std::chrono::high_resolution_clock>
       last_update;         /**< Timestamp of last update */
-  double delta_time = 0.0; /**< Time since last update */
 };
 
 /**

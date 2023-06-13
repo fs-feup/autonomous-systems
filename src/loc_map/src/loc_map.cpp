@@ -19,7 +19,8 @@ int main(int argc, char **argv) {
   ImuUpdate *imu_update = new ImuUpdate();
   imu_update->last_update = std::chrono::high_resolution_clock::now();
   Map *track_map = new Map();
-  ExtendedKalmanFilter *ekf = new ExtendedKalmanFilter(vehicle_state, track_map, imu_update);
+  MotionModel *motion_model = new ImuVelocityModel();
+  ExtendedKalmanFilter *ekf = new ExtendedKalmanFilter(vehicle_state, track_map, imu_update, *motion_model);
 
   (void)argc;
   (void)argv;
