@@ -56,3 +56,4 @@ For everybody:
   git commit -m "feat(<package>): <description>"
   git push
   ```
+For the specific ways of running each of the modules, refer to the README.md in their folder.
