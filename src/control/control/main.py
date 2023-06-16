@@ -18,7 +18,7 @@ VEL = 1.0  # m/s
 
 # Classes
 class MPCSim:
-    def __init__(self, action, state, path):
+    def __init__(self, action, state, path, closest_ind):
 
         # State for the robot mathematical model [x,y,heading]
         self.state = state
@@ -44,6 +44,9 @@ class MPCSim:
             P.path_tick,
         )
 
+        self.closest_ind = None
+        self.old_closest_ind = closest_ind
+
         # Sim help vars
         self.sim_time = 0
         self.x_history = []
@@ -66,8 +69,8 @@ class MPCSim:
         # State Matrices
         A, B, C = get_linear_model_matrices(curr_state, self.action)
         # Get Reference_traj -> inputs are in worldframe
-        target, _ = get_ref_trajectory(
-            self.state, self.path, VEL, dl=P.path_tick
+        target, _, self.closest_ind = get_ref_trajectory(
+            self.state, self.path, VEL, dl=P.path_tick, old_ind=self.old_closest_ind
         )
 
         x_mpc, u_mpc = self.mpc.optimize_linearized_model(
@@ -86,12 +89,16 @@ class MPCSim:
             )
         )
         self.action[:] = [u_mpc.value[0, 0], u_mpc.value[1, 0]]
-        print("CVXPY Optimization Time: {:.4f}s".format(time.time()-start))
+        # print("CVXPY Optimization Time: {:.4f}s".format(time.time()-start))
+        # print("closest index: ", self.closest_ind)
+        #print(target)
 
-def do_sim(action, state, path):
-    sim = MPCSim(action, state, path)
+def do_sim(action, state, path, old_closest_ind):
+    sim = MPCSim(action, state, path, old_closest_ind)
     try:
         sim.run()
-        return sim.action
+        return sim.action, sim.closest_ind
     except Exception as e:
-        return None
+        sim.run()
+        return None, None
+    
