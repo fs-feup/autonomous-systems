@@ -12,7 +12,7 @@ from .abstraction_layer import create_abstraction_layer
 from .main import do_sim
 import numpy as np  
 
-STD_SPEED = 1.5
+STD_SPEED = 2.5
 START_BREAKING_POS = 12
 LOOK_AHEAD = 0
 MAX_ACC = 1.0
@@ -46,6 +46,9 @@ class ControlNode(Node):
 
         # Reference speeds
         self.speeds = None
+
+        # old closest index
+        self.old_closest_index = 0
 
         # Task completion
         self.done = False
@@ -132,7 +135,6 @@ class ControlNode(Node):
             f"\ndone: {self.done}")
 
     def odometry_callback_mpc(self, msg):
-        self.get_logger().info(f"OIIII")
         if self.path is None or self.done:
             return
 
@@ -154,19 +156,20 @@ class ControlNode(Node):
             self.path,
         )
 
-        if lin_speed < 0.2 and closest_index == len(self.path) - 1 and not self.done:
+        if lin_speed < 0.2 and closest_index == len(self.path) - 1 and not self.done and False:
             self.done = True
 
         action = np.array([self.acceleration, self.steering_angle])
         state = np.array([position.x, position.y, lin_speed, yaw])
-        new_action = do_sim(action, state, self.path)
+        new_action, closest_index2 = do_sim(action, state, self.path, self.old_closest_index)
 
         if new_action is None:
             return
 
         self.acceleration = new_action[0]
         self.steering_angle = new_action[1]
-        self.get_logger().info(f"\n\n\n\nsteering: {self.steering_angle}, acceleration: {self.acceleration}")
+
+        self.old_closest_index = closest_index2
 
         # show info
         # self.get_logger().info(f"\n\n\n\npos error: {pos_error}"+

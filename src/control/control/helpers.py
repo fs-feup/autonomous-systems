@@ -32,14 +32,21 @@ def compute_path_from_wp(path, step=0.1):
     return np.vstack((final_xp, final_yp, theta))
 
 
-def get_nn_idx(state, path):
+def get_nn_idx(state, path, old_nn_idx):
     """
     Computes the index of the waypoint closest to vehicle
     """
-    dx = state[0] - path[0, :]
-    dy = state[1] - path[1, :]
+    search_window = 100
+    
+    windowed_path = path[:, max(old_nn_idx - search_window, 0): min(old_nn_idx + search_window, path.shape[1])]
+    
+    dx = state[0] - windowed_path[0, :]
+    dy = state[1] - windowed_path[1, :]
+
     dist = np.hypot(dx, dy)
-    nn_idx = np.argmin(dist)
+    
+    nn_idx = np.argmin(dist) + max(old_nn_idx - search_window, 0)
+    
     try:
         v = [
             path[0, nn_idx + 1] - path[0, nn_idx],
@@ -67,7 +74,7 @@ def normalize_angle(angle):
     return angle
 
 
-def get_ref_trajectory(state, path, target_v, dl=0.1):
+def get_ref_trajectory(state, path, target_v, dl=0.1, old_ind=0):
     """
     For each step in the time horizon
     modified reference in robot frame
@@ -76,7 +83,7 @@ def get_ref_trajectory(state, path, target_v, dl=0.1):
     dref = np.zeros((1, P.T + 1))
     # sp = np.ones((1,T +1))*target_v #speed profile
     ncourse = path.shape[1]
-    ind = get_nn_idx(state, path)
+    ind = get_nn_idx(state, path, old_ind)
     dx = path[0, ind] - state[0]
     dy = path[1, ind] - state[1]
     xref[0, 0] = dx * np.cos(-state[3]) - dy * np.sin(-state[3])  # X
@@ -104,4 +111,4 @@ def get_ref_trajectory(state, path, target_v, dl=0.1):
             xref[2, i] = 0.0  # stop? #sp[ncourse - 1]
             xref[3, i] = normalize_angle(path[2, ncourse - 1] - state[3])
             dref[0, i] = 0.0
-    return xref, dref
+    return xref, dref, ind
