@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['_5f_5finit_5f_5f_0',['__init__',['../classcontrol_1_1control__node_1_1ControlNode.html#ae64f0875afe3067b97ba370b354b9213',1,'control::control_node::ControlNode']]],
-  ['_5f_5finit_5f_5f_2epy_1',['__init__.py',['../____init_____8py.html',1,'']]]
+  ['data_5ffiles_0',['data_files',['../namespacesetup.html#ab2a4f143e926c57a50df01bb182a4fd5',1,'setup']]],
+  ['description_1',['description',['../namespacesetup.html#a2661f439a4a94ffdcd5e47ae1da0bb1d',1,'setup']]]
 ];
