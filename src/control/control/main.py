@@ -32,9 +32,9 @@ class MPCSim:
 
         # Cost Matrices
         Q = np.diag([20, 20, 10, 20])  # state error cost
-        Qf = np.diag([30, 30, 30, 30])  # state final error cost
+        np.diag([30, 30, 30, 30])  # state final error cost
         R = np.diag([10, 10])  # input cost
-        R_ = np.diag([10, 10])  # input rate of change cost
+        np.diag([10, 10])  # input rate of change cost
 
         self.mpc = MPC(P.N, P.M, Q, R)
 
@@ -62,7 +62,7 @@ class MPCSim:
         [TODO:summary]
         [TODO:description]
         """
-        start = time.time()
+        time.time()
 
         # dynamycs w.r.t robot frame
         curr_state = np.array([0, 0, self.state[2], 0])
@@ -98,7 +98,7 @@ def do_sim(action, state, path, old_closest_ind):
     try:
         sim.run()
         return sim.action, sim.closest_ind
-    except Exception as e:
+    except Exception:
         sim.run()
         return None, None
     

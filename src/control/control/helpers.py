@@ -38,7 +38,8 @@ def get_nn_idx(state, path, old_nn_idx):
     """
     search_window = 100
     
-    windowed_path = path[:, max(old_nn_idx - search_window, 0): min(old_nn_idx + search_window, path.shape[1])]
+    windowed_path = path[:, max(old_nn_idx - search_window, 0): 
+                            min(old_nn_idx + search_window, path.shape[1])]
     
     dx = state[0] - windowed_path[0, :]
     dy = state[1] - windowed_path[1, :]
@@ -58,7 +59,7 @@ def get_nn_idx(state, path, old_nn_idx):
             target_idx = nn_idx
         else:
             target_idx = nn_idx + 1
-    except IndexError as e:
+    except IndexError:
         target_idx = nn_idx
     return target_idx
 

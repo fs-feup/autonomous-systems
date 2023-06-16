@@ -156,12 +156,19 @@ class ControlNode(Node):
             self.path,
         )
 
-        if lin_speed < 0.2 and closest_index == len(self.path) - 1 and not self.done and False:
+        if lin_speed < 0.2 and \
+            closest_index == len(self.path) - 1 and \
+            not self.done and False:
             self.done = True
 
         action = np.array([self.acceleration, self.steering_angle])
         state = np.array([position.x, position.y, lin_speed, yaw])
-        new_action, closest_index2 = do_sim(action, state, self.path, self.old_closest_index)
+        new_action, closest_index2 = do_sim(
+            action, 
+            state, 
+            self.path, 
+            self.old_closest_index
+        )
 
         if new_action is None:
             return
@@ -172,15 +179,15 @@ class ControlNode(Node):
         self.old_closest_index = closest_index2
 
         # show info
-        # self.get_logger().info(f"\n\n\n\npos error: {pos_error}"+
-        #     f"\nyaw error: {yaw_error}," + 
-        #     f"\ncross track error: {ct_error}," + 
-        #     f"\nsteerin angle velocity: {self.steering_angle}," + 
-        #     f"\nspeed: {lin_speed}," + 
-        #     f"\nclosest: {closest_point},"
-        #     f"\nposition: {(position.x, position.y, yaw)}," +
-        #     f"\ndone: {self.done}")
-
+        """
+        self.get_logger().info(f"\n\n\n"+
+            f"\nsteerin angle velocity: {self.steering_angle}," + 
+            f'\nacceleration: {self.acceleration}'
+            f"\nspeed: {lin_speed}," + 
+            f"\nclosest: {closest_point},"
+            f"\nposition: {(position.x, position.y, yaw)}," +
+            f"\ndone: {self.done}")
+        """
 
 
     def path_callback(self, points_list):
