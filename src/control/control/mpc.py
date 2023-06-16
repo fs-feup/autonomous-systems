@@ -1,12 +1,8 @@
 import numpy as np
+import cvxpy as opt
+from .config import Params
 
 np.seterr(divide="ignore", invalid="ignore")
-
-from scipy.integrate import odeint
-from scipy.interpolate import interp1d
-import cvxpy as opt
-from .helpers import *
-from .config import Params
 
 P = Params()
 
@@ -16,8 +12,8 @@ def get_linear_model_matrices(x_bar, u_bar):
     Computes the LTI approximated state space model x' = Ax + Bu + C
     """
 
-    x = x_bar[0]
-    y = x_bar[1]
+    x_bar[0]
+    x_bar[1]
     v = x_bar[2]
     theta = x_bar[3]
 
@@ -90,7 +86,7 @@ class MPC:
 
         assert len(initial_state) == self.state_len
 
-        if Q == None or R == None:
+        if Q is None or R is None:
             Q = self.state_cost
             R = self.action_cost
 
@@ -123,7 +119,8 @@ class MPC:
                 _constraints += [opt.abs(u[1, t + 1] - u[1, t]) / P.DT <= P.MAX_D_STEER]
 
             if t == 0:
-                # _constraints += [opt.norm(target[:, time_horizon] - x[:, time_horizon], 1) <= 0.01,
+                # _constraints += [
+                # opt.norm(target[:, time_horizon] - x[:, time_horizon], 1) <= 0.01,
                 #                x[:, 0] == initial_state]
                 _constraints += [x[:, 0] == initial_state]
 
