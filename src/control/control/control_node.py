@@ -1,21 +1,27 @@
-import rclpy
 from rclpy.node import Node
+
+import numpy as np 
 import math
+import rclpy
 
 from custom_interfaces.msg import PointArray
 from nav_msgs.msg import Odometry
-
 from tf_transformations import euler_from_quaternion
-from .utils import get_closest_point, get_position_error, get_orientation_error,\
-                   get_cte, get_reference_speed, get_speed_error
+from .pid_utils import (
+    get_closest_point,
+    get_position_error,
+    get_orientation_error,
+    get_cte,
+    get_reference_speed,
+    get_speed_error,
+    steer,
+    accelerate
+)
 from .abstraction_layer import create_abstraction_layer
-from .main import do_sim
-import numpy as np  
+from .mpc import run_mpc
+from .config import Params
 
-STD_SPEED = 2.5
-START_BREAKING_POS = 12
-LOOK_AHEAD = 0
-MAX_ACC = 1.0
+P = Params()
 
 class ControlNode(Node):
     """!
@@ -55,7 +61,7 @@ class ControlNode(Node):
         
         self.path_subscription = self.create_subscription(
             PointArray,
-            'planning_local',
+            'path_mock',
             self.path_callback,
             10
         )
@@ -118,8 +124,10 @@ class ControlNode(Node):
         # get speed error
         speed_error = get_speed_error(lin_speed, ref_speed)
 
-        self.steer(pos_error, yaw_error, ct_error)
-        self.accelerate(speed_error)
+        self.steering_angle, self.old_error = steer(
+            pos_error, yaw_error, ct_error, self.old_error
+        )
+        self.acceleration = accelerate(speed_error)
 
         if lin_speed < 0.2 and closest_index == len(self.path) - 1 and not self.done:
             self.done = True
@@ -163,7 +171,7 @@ class ControlNode(Node):
 
         action = np.array([self.acceleration, self.steering_angle])
         state = np.array([position.x, position.y, lin_speed, yaw])
-        new_action, closest_index2 = do_sim(
+        new_action, closest_index2 = run_mpc(
             action, 
             state, 
             self.path, 
@@ -206,54 +214,11 @@ class ControlNode(Node):
             dist_from_end = len(points_list.points) - i
 
             # min -> start breaking or not
-            speed = STD_SPEED*min(1, dist_from_end/START_BREAKING_POS)
+            speed = P.VEL*min(1, dist_from_end / P.START_BREAKING_POS)
             speeds.append([speed])
 
         self.path = np.array(path)
         self.speeds = np.array(speeds)
-
-
-    def steer(self, pos_error, yaw_error, ct_error):
-        """!
-        @brief Steers the car.
-        @param self The object pointer.
-        @param pos_error Position Error.
-        @param yaw_error Orientation Error.
-        @param ct_error Cross Track Error.
-        """
-
-        # PID params
-        kp = 0.3
-        kd = 8
-
-        # compute global error
-        error = 0*pos_error + 0*yaw_error + 1*ct_error
-
-        # calculate steering angle command
-        steer_angle_rate = kp*min(error, 10000000) + kd*(error - self.old_error)
-        
-        # save old error for derivative of error calculation
-        self.old_error = error
-
-        # save reference in node's attribute to be accessed by other methods
-        self.steering_angle = float(steer_angle_rate)
-
-        # show error
-        # self.get_logger().info(f"\ntotal error: {error}")
-
-    def accelerate(self, error):
-        """!
-        @brief Accelerates the car.
-        @param self The object pointer.
-        @param speed_error Speed Error.
-        """
-        # PID params
-        kp = 1
-
-        # calculate acceleration command
-        acceleration = kp*min(error, 10000000)
-
-        self.acceleration = float(acceleration)
 
 
 def main(args=None):
