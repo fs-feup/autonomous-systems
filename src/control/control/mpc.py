@@ -1,5 +1,9 @@
 import numpy as np
-from .mpc_utils import compute_path_from_wp, get_ref_trajectory, get_linear_model_matrices
+from .mpc_utils import (
+    compute_path_from_wp,
+    get_ref_trajectory,
+    get_linear_model_matrices
+)
 from .optimizer import Optimizer, Params
 import time
 
