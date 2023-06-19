@@ -146,3 +146,42 @@ def get_reference_speed(speeds, closest_index):
 def get_speed_error(lin_speed, ref_speed):
     return ref_speed - lin_speed
 
+def accelerate(error):
+    """!
+    @brief Accelerates the car.
+    @param self The object pointer.
+    @param speed_error Speed Error.
+    """
+    # PID params
+    kp = 1
+
+    # calculate acceleration command
+    acceleration = kp*min(error, 10000000)
+
+    return float(acceleration)
+
+def steer(pos_error, yaw_error, ct_error, old_error):
+    """!
+    @brief Steers the car.
+    @param self The object pointer.
+    @param pos_error Position Error.
+    @param yaw_error Orientation Error.
+    @param ct_error Cross Track Error.
+    """
+
+    # PID params
+    kp = 0.3
+    kd = 8
+
+    # compute global error
+    error = 0*pos_error + 0*yaw_error + 1*ct_error
+
+    # calculate steering angle command
+    steer_angle = kp*min(error, 10000000) + kd*(error - old_error)
+    
+    # save old error for derivative of error calculation
+    old_error = error
+
+    # save reference in node's attribute to be accessed by other methods
+    return float(steer_angle), old_error
+
