@@ -60,7 +60,7 @@ class SimInterface(AbstractionLayer):
         # ack_msg.drive.steering_angle = node.steering_angle
 
         # Set car acceleration
-        ack_msg.drive.acceleration = node.acceleration if not node.done else -1.
+        ack_msg.drive.speed = node.velocity if not node.done else -1.
         
         # Publish the message to the topic
         node.publisher_.publish(ack_msg)
