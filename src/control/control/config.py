@@ -15,5 +15,5 @@ class Params:
         self.MAX_STEER = np.radians(30)  # rad
         self.MAX_D_STEER = np.radians(30)  # rad/s
         self.VEL = 1  # m/s
-        self.START_BREAKING_POS = 12  # index (backwards) where car starts breaking (PID) 
+        self.START_BREAKING_POS = 12  # neg index where car starts breaking (PID) 
         self.LOOK_AHEAD = 0  # cte look-ahead (PID)
