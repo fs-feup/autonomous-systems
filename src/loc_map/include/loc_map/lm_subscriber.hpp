@@ -41,7 +41,7 @@ class LMSubscriber : public rclcpp::Node {
    * @brief Construct a new LMSubscriber object
    *
    */
-  explicit LMSubscriber(Map* map, ImuUpdate* imu_update);
+  LMSubscriber(Map* map, ImuUpdate* imu_update);
 };
 
 #endif  // SRC_LOC_MAP_INCLUDE_LOC_MAP_LM_SUBSCRIBER_HPP_
