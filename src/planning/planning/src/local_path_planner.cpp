@@ -3,7 +3,7 @@
 LocalPathPlanner::LocalPathPlanner():track() {}
 
 vector<Position*> LocalPathPlanner::processNewArray(Track* cone_array) {
-    vector<std::pair<Position*, float>> path;
+    vector<std::pair<Position*, bool>> unorderedPath;
     for (int i = 0; i < cone_array->getLeftConesSize(); i++)
         this->track.setCone(cone_array->getLeftConeAt(i));
 
@@ -44,21 +44,39 @@ vector<Position*> LocalPathPlanner::processNewArray(Track* cone_array) {
             float xDist = cone2->getX() - cone1->getX();
             float yDist = cone2->getY() - cone1->getY();
             Position* position = new Position(cone1->getX() + xDist / 2, cone1->getY() + yDist / 2);
-            auto pair = std::make_pair(position, cone1->getId() + cone2->getId());
-
-            auto it = std::upper_bound(path.begin(), path.end(), pair,
-                [](const std::pair<Position*, float>& pair1, const std::pair<Position*, float>& pair2) {
-                    return pair1.second < pair2.second;
-                });
-            path.insert(it, pair);
+         
+            unorderedPath.push_back(std::make_pair(position, false));
         }        
     }
 
     vector<Position*> finalPath;
+
+    size_t i = 0;
+    size_t iterNumber = 0;
+    while (iterNumber < unorderedPath.size()){
+        Position* p1 = unorderedPath[i].first;
+        float minDist = MAXFLOAT; 
+        int minIndex = 0;
+        for (size_t j = 0; j < unorderedPath.size(); j++){        
+            Position* p2 = unorderedPath[j].first;
+            if (unorderedPath[j].second == false && j != i){
+                float newDist = p1->getDistanceTo(p2);
+                if (newDist < minDist){
+                    minDist = newDist;
+                    minIndex = j;
+                }
+            }   
+        }
+        i = minIndex;
+        iterNumber++;
+        unorderedPath[minIndex].second = true;
+        finalPath.push_back(unorderedPath[minIndex].first);
+    }
+
+    
   
-    for (size_t i = 0; i < path.size(); i++){
-        finalPath.push_back(path[i].first);
-        std::cout << path[i].first->getX() << " " << path[i].first->getY() << "\n";
+    for (size_t i = 0; i < finalPath.size(); i++){
+        std::cout << finalPath[i]->getX() << " " << finalPath[i]->getY() << "\n";
     }
     // delete(cone_array);
 
