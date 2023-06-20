@@ -21,6 +21,7 @@ set(IMPLEMENTATION_FILES
   src/loc_map/lm_publisher.cpp
   src/loc_map/lm_ekf_node.cpp
   src/kalman_filter/ekf.cpp
+  src/kalman_filter/motion_models.cpp
   src/utils/position.cpp
   src/utils/formulas.cpp
   )
