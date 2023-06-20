@@ -12,7 +12,8 @@
  * @brief Struct for localization
  *
  * @param position Position of the vehicle
- * @param orientation Orientation of the vehicle
+ * @param orientation Orientation of the vehicle in radians
+ * 0 radians is pointing in the positive x direction
  *
  */
 struct Pose {

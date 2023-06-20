@@ -6,18 +6,18 @@
 #include "loc_map/data_structures.hpp"
 #include "utils/formulas.hpp"
 
-ExtendedKalmanFilter::ExtendedKalmanFilter(VehicleState* vehicle_state, Map* map,
+ExtendedKalmanFilter::ExtendedKalmanFilter(Eigen::MatrixXf R, Eigen::MatrixXf Q,
+                                           VehicleState* vehicle_state, Map* map,
                                            ImuUpdate* imu_update, Map* map_from_perception,
-                                           Eigen::MatrixXf R, Eigen::MatrixXf Q,
-                                           MotionModel& motion_model)
+                                           const MotionModel& motion_model)
     : X(Eigen::VectorXf::Zero(200)),
       P(Eigen::MatrixXf::Zero(200, 200)),
+      R(R),
+      Q(Q),
       _vehicle_state(vehicle_state),
       _map(map),
       _imu_update(imu_update),
       _map_from_perception(map_from_perception),
-      R(R),
-      Q(Q),
       _last_update(std::chrono::high_resolution_clock::now()),
       _motion_model(motion_model) {}
 
@@ -32,7 +32,6 @@ void ExtendedKalmanFilter::prediction_step() {
   X = this->_motion_model.motion_model_expected_state(X, prediction_data, delta / 1000000);
   P = this->_motion_model.motion_model_covariance_matrix(P, this->R, prediction_data,
                                                          delta / 1000000);
-  // matrix in simulation
   this->_last_update = now;
 }
 
@@ -52,7 +51,7 @@ void ExtendedKalmanFilter::update() { this->_vehicle_state->pose = Pose(X(0), X(
 // Not working
 Eigen::VectorXf NormalVelocityModel::motion_model_expected_state(
     const Eigen::VectorXf& expected_state, const MotionPredictionData& motion_prediction_data,
-    const double time_interval) {
+    const double time_interval) const {
   Eigen::VectorXf next_state = expected_state;
   if (motion_prediction_data.rotational_velocity == 0.0) {  // Rectilinear movement
     next_state(0) +=
@@ -82,7 +81,7 @@ Eigen::VectorXf NormalVelocityModel::motion_model_expected_state(
 
 Eigen::MatrixXf NormalVelocityModel::motion_model_covariance_matrix(
     const Eigen::MatrixXf& state_covariance_matrix, const Eigen::MatrixXf& motion_noise_matrix,
-    const MotionPredictionData& motion_prediction_data, const double time_interval) {
+    const MotionPredictionData& motion_prediction_data, const double time_interval) const {
   Eigen::MatrixXf jacobian =
       Eigen::MatrixXf::Identity(state_covariance_matrix.rows(), state_covariance_matrix.cols());
 
@@ -115,7 +114,7 @@ Eigen::MatrixXf NormalVelocityModel::motion_model_covariance_matrix(
 
 Eigen::VectorXf ImuVelocityModel::motion_model_expected_state(
     const Eigen::VectorXf& expected_state, const MotionPredictionData& motion_prediction_data,
-    const double time_interval) {
+    const double time_interval) const {
   Eigen::VectorXf next_state = expected_state;
   next_state(0) += motion_prediction_data.translational_velocity_x * time_interval;
   next_state(1) += motion_prediction_data.translational_velocity_y * time_interval;
@@ -128,8 +127,9 @@ Eigen::VectorXf ImuVelocityModel::motion_model_expected_state(
 Eigen::MatrixXf ImuVelocityModel::motion_model_covariance_matrix(
     const Eigen::MatrixXf& state_covariance_matrix, const Eigen::MatrixXf& motion_noise_matrix,
     const MotionPredictionData& motion_prediction_data,
-    const double time_interval) {  // In this implementation, as the motion model is already linear,
-                                   // we do not use the derivative of the model
+    const double time_interval)
+    const {  // In this implementation, as the motion model is already linear,
+             // we do not use the derivative of the model
   Eigen::MatrixXf motion_to_state_matrix =
       Eigen::MatrixXf::Identity(state_covariance_matrix.rows(), state_covariance_matrix.cols());
   Eigen::MatrixXf new_state_covariance_matrix =
