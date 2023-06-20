@@ -35,7 +35,7 @@ class MotionModel {
    */
   virtual Eigen::VectorXf motion_model_expected_state(
       const Eigen::VectorXf& expected_state, const MotionPredictionData& motion_prediction_data,
-      const double time_interval) = 0;
+      const double time_interval) const = 0;
 
   /**
    * @brief Calculate state covariance matrix from
@@ -48,7 +48,7 @@ class MotionModel {
    */
   virtual Eigen::MatrixXf motion_model_covariance_matrix(
       const Eigen::MatrixXf& state_covariance_matrix, const Eigen::MatrixXf& motion_noise_matrix,
-      const MotionPredictionData& motion_prediction_data, const double time_interval) = 0;
+      const MotionPredictionData& motion_prediction_data, const double time_interval) const = 0;
 };
 
 /**
@@ -72,7 +72,7 @@ class ImuVelocityModel : public MotionModel {
    */
   Eigen::VectorXf motion_model_expected_state(const Eigen::VectorXf& expected_state,
                                               const MotionPredictionData& motion_prediction_data,
-                                              const double time_interval) override;
+                                              const double time_interval) const override;
   /**
    * @brief Calculate state covariance matrix from
    * velocity model using IMU data and linear functions
@@ -86,7 +86,7 @@ class ImuVelocityModel : public MotionModel {
   Eigen::MatrixXf motion_model_covariance_matrix(const Eigen::MatrixXf& state_covariance_matrix,
                                                  const Eigen::MatrixXf& motion_noise_matrix,
                                                  const MotionPredictionData& motion_prediction_data,
-                                                 const double time_interval) override;
+                                                 const double time_interval) const override;
 };
 
 /**
@@ -109,7 +109,7 @@ class NormalVelocityModel : public MotionModel {
    */
   Eigen::VectorXf motion_model_expected_state(const Eigen::VectorXf& expected_state,
                                               const MotionPredictionData& motion_prediction_data,
-                                              const double time_interval) override;
+                                              const double time_interval) const override;
 
   /**
    * @brief Calculate state covariance matrix from
@@ -124,7 +124,7 @@ class NormalVelocityModel : public MotionModel {
   Eigen::MatrixXf motion_model_covariance_matrix(const Eigen::MatrixXf& state_covariance_matrix,
                                                  const Eigen::MatrixXf& motion_noise_matrix,
                                                  const MotionPredictionData& motion_prediction_data,
-                                                 const double time_interval) override;
+                                                 const double time_interval) const override;
 };
 
 /**
@@ -150,7 +150,7 @@ class ExtendedKalmanFilter {
   std::chrono::time_point<std::chrono::high_resolution_clock>
       _last_update; /**< Timestamp of last update */
 
-  MotionModel& _motion_model; /**< Motion Model chosen for prediction step */
+  const MotionModel& _motion_model; /**< Motion Model chosen for prediction step */
 
  public:
   /**
@@ -160,8 +160,8 @@ class ExtendedKalmanFilter {
    * @param map
    * @param imu_update data retrieved by the IMU
    */
-  ExtendedKalmanFilter(VehicleState* vehicle_state, Map* map, ImuUpdate* imu_update,
-                       Map* map_from_perception, Eigen::MatrixXf R, Eigen::MatrixXf Q,
+  ExtendedKalmanFilter(Eigen::MatrixXf R, Eigen::MatrixXf Q, VehicleState* vehicle_state, Map* map,
+                       ImuUpdate* imu_update, Map* map_from_perception,
                        const MotionModel& motion_model);
 
   /**

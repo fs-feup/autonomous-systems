@@ -21,8 +21,8 @@ int main(int argc, char **argv) {
   Map *predicted_map = new Map();  // Map from perception
   MotionModel *motion_model = new ImuVelocityModel();
   ExtendedKalmanFilter *ekf = new ExtendedKalmanFilter(
-      vehicle_state, track_map, imu_update, predicted_map, Eigen::MatrixXf::Identity(200, 200),
-      Eigen::MatrixXf::Identity(200, 200),
+      Eigen::MatrixXf::Identity(200, 200), Eigen::MatrixXf::Identity(200, 200), vehicle_state,
+      track_map, imu_update, predicted_map,
       *motion_model);  // TODO(marhcouto): put non zero noise matrixes
 
   (void)argc;
