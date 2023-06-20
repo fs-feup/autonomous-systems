@@ -29,7 +29,8 @@ void LMSubscriber::_perception_subscription_callback(
 }
 
 void LMSubscriber::_imu_subscription_callback(const sensor_msgs::msg::Imu message) {
-  this->_imu_update->rotational_velocity = message.angular_velocity.z;
+  this->_imu_update->rotational_velocity =
+      message.angular_velocity.z * (180 / M_PI);  // Angular velocity in radians
   double acceleration_x = message.linear_acceleration.x;
   double acceleration_y = message.linear_acceleration.y;
   std::chrono::time_point<std::chrono::high_resolution_clock> now =
@@ -38,14 +39,16 @@ void LMSubscriber::_imu_subscription_callback(const sensor_msgs::msg::Imu messag
       std::chrono::duration_cast<std::chrono::microseconds>(now - this->_imu_update->last_update)
           .count();
   this->_imu_update->last_update = now;
-  this->_imu_update->translational_velocity_y += (acceleration_x * delta) / 1000000; // Switched x and y, because the referencials are inverted
-  this->_imu_update->translational_velocity_x += (acceleration_y * delta) / 1000000; // TODO(marhcouto): check if this also happens in the ADS
-  this->_imu_update->translational_velocity = 
-      sqrt(this->_imu_update->translational_velocity_x * this->_imu_update->translational_velocity_x +
-           this->_imu_update->translational_velocity_y * this->_imu_update->translational_velocity_y);
-  RCLCPP_INFO(this->get_logger(), "[LOC_MAP] Raw from IMU: ax:%f - ay:%f - w:%f",
-              acceleration_x, acceleration_y, this->_imu_update->rotational_velocity);
+  this->_imu_update->translational_velocity_y += (acceleration_y * delta) / 1000000;
+  this->_imu_update->translational_velocity_x +=
+      (acceleration_x * delta) / 1000000;  // TODO(marhcouto): check referentials in the ADS
+  this->_imu_update->translational_velocity = sqrt(
+      this->_imu_update->translational_velocity_x * this->_imu_update->translational_velocity_x +
+      this->_imu_update->translational_velocity_y * this->_imu_update->translational_velocity_y);
+  RCLCPP_INFO(this->get_logger(), "[LOC_MAP] Raw from IMU: ax:%f - ay:%f - w:%f", acceleration_x,
+              acceleration_y, this->_imu_update->rotational_velocity);
   RCLCPP_INFO(this->get_logger(), "[LOC_MAP] Translated from IMU: v:%f - w:%f - vx:%f - vy:%f",
               this->_imu_update->translational_velocity, this->_imu_update->rotational_velocity,
-              this->_imu_update->translational_velocity_x, this->_imu_update->translational_velocity_y);
+              this->_imu_update->translational_velocity_x,
+              this->_imu_update->translational_velocity_y);
 }

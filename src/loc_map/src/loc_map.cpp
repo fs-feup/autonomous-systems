@@ -1,10 +1,9 @@
 #include <cstdio>
 
-#include "rclcpp/rclcpp.hpp"
-
+#include "loc_map/lm_ekf_node.hpp"
 #include "loc_map/lm_publisher.hpp"
 #include "loc_map/lm_subscriber.hpp"
-#include "loc_map/lm_ekf_node.hpp"
+#include "rclcpp/rclcpp.hpp"
 
 /**
  * @brief Main function
@@ -18,17 +17,22 @@ int main(int argc, char **argv) {
   vehicle_state->last_update = std::chrono::high_resolution_clock::now();
   ImuUpdate *imu_update = new ImuUpdate();
   imu_update->last_update = std::chrono::high_resolution_clock::now();
-  Map *track_map = new Map();
+  Map *track_map = new Map();      // Map to publish
+  Map *predicted_map = new Map();  // Map from perception
   MotionModel *motion_model = new ImuVelocityModel();
-  ExtendedKalmanFilter *ekf = new ExtendedKalmanFilter(vehicle_state, track_map, imu_update, *motion_model);
+  ExtendedKalmanFilter *ekf = new ExtendedKalmanFilter(
+      vehicle_state, track_map, imu_update, predicted_map, Eigen::MatrixXf::Identity(200, 200),
+      Eigen::MatrixXf::Identity(200, 200),
+      *motion_model);  // TODO(marhcouto): put non zero noise matrixes
 
   (void)argc;
   (void)argv;
   rclcpp::init(argc, argv);
 
-  auto subscriber = std::make_shared<LMSubscriber>(track_map, imu_update);
+  auto subscriber = std::make_shared<LMSubscriber>(predicted_map, imu_update);
   auto publisher = std::make_shared<LMPublisher>(track_map, vehicle_state);
-  auto ekf_node = std::make_shared<EKFNode>(ekf);
+  auto ekf_node = std::make_shared<EKFNode>(
+      ekf);  // TODO(marhcouto): check if this is the best distribution of nodes
 
   rclcpp::executors::MultiThreadedExecutor executor;
   executor.add_node(subscriber);
