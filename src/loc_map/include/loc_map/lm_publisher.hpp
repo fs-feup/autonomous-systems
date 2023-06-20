@@ -26,7 +26,6 @@ class LMPublisher : public rclcpp::Node {
   rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr _mapping_publisher;
   VehicleState* _vehicle_state;
   Map* _track_map;
-  size_t _count;  // TODO(marhcouto): remove this variable
 
   /**
    * @brief timer callback function for publishing the localization and the map
