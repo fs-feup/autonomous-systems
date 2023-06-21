@@ -1,7 +1,7 @@
 #include "kalman_filter/motion_models.hpp"
 #include "utils/formulas.hpp"
 
-Eigen::VectorXf NormalVelocityModel::motion_model_expected_state(
+Eigen::VectorXf NormalVelocityModel::predict_expected_state(
     const Eigen::VectorXf& expected_state, const MotionPredictionData& motion_prediction_data,
     const double time_interval) const {
   Eigen::VectorXf next_state = expected_state;
@@ -31,7 +31,7 @@ Eigen::VectorXf NormalVelocityModel::motion_model_expected_state(
   return next_state;
 }
 
-Eigen::MatrixXf NormalVelocityModel::motion_model_covariance_matrix(
+Eigen::MatrixXf NormalVelocityModel::predict_state_covariance(
     const Eigen::MatrixXf& state_covariance_matrix, const Eigen::MatrixXf& motion_noise_matrix,
     const MotionPredictionData& motion_prediction_data, const double time_interval) const {
   Eigen::MatrixXf jacobian =
@@ -64,7 +64,7 @@ Eigen::MatrixXf NormalVelocityModel::motion_model_covariance_matrix(
   return new_state_covariance_matrix;
 }
 
-Eigen::VectorXf ImuVelocityModel::motion_model_expected_state(
+Eigen::VectorXf ImuVelocityModel::predict_expected_state(
     const Eigen::VectorXf& expected_state, const MotionPredictionData& motion_prediction_data,
     const double time_interval) const {
   Eigen::VectorXf next_state = expected_state;
@@ -76,7 +76,7 @@ Eigen::VectorXf ImuVelocityModel::motion_model_expected_state(
 }
 
 // TODO(marhcouto): check what to do about the unused paramter warnings
-Eigen::MatrixXf ImuVelocityModel::motion_model_covariance_matrix(
+Eigen::MatrixXf ImuVelocityModel::predict_state_covariance(
     const Eigen::MatrixXf& state_covariance_matrix, const Eigen::MatrixXf& motion_noise_matrix,
     const MotionPredictionData& motion_prediction_data,
     const double time_interval)

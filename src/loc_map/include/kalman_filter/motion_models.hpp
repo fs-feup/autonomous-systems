@@ -31,7 +31,7 @@ class MotionModel {
    * @param time_interval in seconds
    * @return Eigen::VectorXf
    */
-  virtual Eigen::VectorXf motion_model_expected_state(
+  virtual Eigen::VectorXf predict_expected_state(
       const Eigen::VectorXf& expected_state, const MotionPredictionData& motion_prediction_data,
       const double time_interval) const = 0;
 
@@ -44,7 +44,7 @@ class MotionModel {
    * @param time_interval in seconds
    * @return Eigen::MatrixXf
    */
-  virtual Eigen::MatrixXf motion_model_covariance_matrix(
+  virtual Eigen::MatrixXf predict_state_covariance(
       const Eigen::MatrixXf& state_covariance_matrix, const Eigen::MatrixXf& motion_noise_matrix,
       const MotionPredictionData& motion_prediction_data, const double time_interval) const = 0;
 };
@@ -68,7 +68,7 @@ class ImuVelocityModel : public MotionModel {
    * @param time_interval in seconds
    * @return Eigen::VectorXf
    */
-  Eigen::VectorXf motion_model_expected_state(const Eigen::VectorXf& expected_state,
+  Eigen::VectorXf predict_expected_state(const Eigen::VectorXf& expected_state,
                                               const MotionPredictionData& motion_prediction_data,
                                               const double time_interval) const override;
   /**
@@ -81,7 +81,7 @@ class ImuVelocityModel : public MotionModel {
    * @param time_interval in seconds
    * @return Eigen::MatrixXf
    */
-  Eigen::MatrixXf motion_model_covariance_matrix(const Eigen::MatrixXf& state_covariance_matrix,
+  Eigen::MatrixXf predict_state_covariance(const Eigen::MatrixXf& state_covariance_matrix,
                                                  const Eigen::MatrixXf& motion_noise_matrix,
                                                  const MotionPredictionData& motion_prediction_data,
                                                  const double time_interval) const override;
@@ -105,7 +105,7 @@ class NormalVelocityModel : public MotionModel {
    * @param time_interval in seconds
    * @return Eigen::VectorXf
    */
-  Eigen::VectorXf motion_model_expected_state(const Eigen::VectorXf& expected_state,
+  Eigen::VectorXf predict_expected_state(const Eigen::VectorXf& expected_state,
                                               const MotionPredictionData& motion_prediction_data,
                                               const double time_interval) const override;
 
@@ -119,7 +119,7 @@ class NormalVelocityModel : public MotionModel {
    * @param time_interval in seconds
    * @return Eigen::MatrixXf
    */
-  Eigen::MatrixXf motion_model_covariance_matrix(const Eigen::MatrixXf& state_covariance_matrix,
+  Eigen::MatrixXf predict_state_covariance(const Eigen::MatrixXf& state_covariance_matrix,
                                                  const Eigen::MatrixXf& motion_noise_matrix,
                                                  const MotionPredictionData& motion_prediction_data,
                                                  const double time_interval) const override;
