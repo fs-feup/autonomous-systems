@@ -1,7 +1,5 @@
 #include "gtest/gtest.h"
 #include "kalman_filter/motion_models.hpp"
-#include "loc_map/data_structures.hpp"
-#include "loc_map/lm_subscriber.hpp"
 
 /* ---------------------- Normal Velocity Model ---------------------------*/
 
