@@ -2,6 +2,7 @@
 #define SRC_LOC_MAP_INCLUDE_KALMAN_FILTER_EKF_HPP_
 
 #include <Eigen/Dense>
+#include <vector>
 
 #include "kalman_filter/motion_models.hpp"
 #include "kalman_filter/observation_models.hpp"
@@ -30,10 +31,13 @@
  *
  */
 class ExtendedKalmanFilter {
+  static float max_landmark_deviation; /**< Maximum deviation of the landmark position from the expected position */
+
   Eigen::VectorXf X; /**< Expected state vector (localization + mapping) */
   Eigen::MatrixXf P; /**< State covariance matrix */
   Eigen::MatrixXf R; /**< Motion noise matrix */
   Eigen::MatrixXf Q; /**< Measurement noise matrix */
+  std::vector<colors::Color> _colors; /**< Vector of colors of the landmarks */
 
   VehicleState* _vehicle_state; /**< Pointer to the vehicle state to be published */
   Map* _map;                    /**< Pointer to the map to be published */

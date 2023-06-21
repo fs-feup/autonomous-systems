@@ -44,9 +44,9 @@ class MotionModel {
    * @param time_interval in seconds
    * @return Eigen::MatrixXf
    */
-  virtual Eigen::MatrixXf predict_state_covariance(
-      const Eigen::MatrixXf& state_covariance_matrix, const Eigen::MatrixXf& motion_noise_matrix,
-      const MotionPredictionData& motion_prediction_data, const double time_interval) const = 0;
+  virtual Eigen::MatrixXf get_motion_to_state_matrix(const Eigen::VectorXf& expected_state,
+                                              const MotionPredictionData& motion_prediction_data,
+                                              const double time_interval) const = 0;
 };
 
 /**
@@ -81,10 +81,9 @@ class ImuVelocityModel : public MotionModel {
    * @param time_interval in seconds
    * @return Eigen::MatrixXf
    */
-  Eigen::MatrixXf predict_state_covariance(const Eigen::MatrixXf& state_covariance_matrix,
-                                                 const Eigen::MatrixXf& motion_noise_matrix,
-                                                 const MotionPredictionData& motion_prediction_data,
-                                                 const double time_interval) const override;
+  Eigen::MatrixXf get_motion_to_state_matrix(const Eigen::VectorXf& expected_state,
+                                              const MotionPredictionData& motion_prediction_data,
+                                              const double time_interval) const override;
 };
 
 /**
@@ -119,10 +118,9 @@ class NormalVelocityModel : public MotionModel {
    * @param time_interval in seconds
    * @return Eigen::MatrixXf
    */
-  Eigen::MatrixXf predict_state_covariance(const Eigen::MatrixXf& state_covariance_matrix,
-                                                 const Eigen::MatrixXf& motion_noise_matrix,
-                                                 const MotionPredictionData& motion_prediction_data,
-                                                 const double time_interval) const override;
+  Eigen::MatrixXf get_motion_to_state_matrix(const Eigen::VectorXf& expected_state,
+                                              const MotionPredictionData& motion_prediction_data,
+                                              const double time_interval) const override;
 };
 
 
