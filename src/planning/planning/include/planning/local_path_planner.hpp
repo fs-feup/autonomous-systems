@@ -27,6 +27,7 @@ using namespace std;
 
 class LocalPathPlanner {
   Track track; /**<track input data */
+  float orientation = 0;
 
  public:
   /**
@@ -34,6 +35,10 @@ class LocalPathPlanner {
    * @param track pathplanner track input data
    */
   LocalPathPlanner();
+
+  void setOrientation(float theta);
+
+  bool vectorDirection(Position* p1, Position* p2);
 
   vector<Position*> processNewArray(Track* cone_array);
 
