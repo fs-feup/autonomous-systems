@@ -15,6 +15,7 @@
 struct ObservationData {
   Position position;
   colors::Color color;
+  ObservationData();
   ObservationData(Position position, colors::Color color) : position(position), color(color) {}
   ObservationData(double x, double y, colors::Color color) : position(x, y), color(color) {}
 };
