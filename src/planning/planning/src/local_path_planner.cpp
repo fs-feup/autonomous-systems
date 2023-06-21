@@ -2,6 +2,21 @@
 
 LocalPathPlanner::LocalPathPlanner():track() {}
 
+void LocalPathPlanner::setOrientation(float theta){
+    orientation = theta;
+}
+
+bool LocalPathPlanner::vectorDirection(Position* p1, Position* p2){
+    float vx = p2->getX() - p1->getX();
+    float vy = p2->getY() - p1->getY();
+
+    float angle = std::atan2(vy, vx) * 180 / M_PI; // convert to degrees
+
+    float diff = std::abs(orientation - angle);
+
+    return (diff < 90 || diff > 270);
+}
+
 vector<Position*> LocalPathPlanner::processNewArray(Track* cone_array) {
     vector<std::pair<Position*, bool>> unorderedPath;
     for (int i = 0; i < cone_array->getLeftConesSize(); i++)
@@ -22,8 +37,7 @@ vector<Position*> LocalPathPlanner::processNewArray(Track* cone_array) {
         dt.insert(Point(rCone->getX(), rCone->getY()));
     }
 
-    std::map<Cone*, Cone*> connectionMap;
-    std::map<Cone*, Cone*> connectionMap2;
+    size_t startIndex = 0;
 
     // Select the valid triangulations and add them to the map
 
@@ -44,19 +58,46 @@ vector<Position*> LocalPathPlanner::processNewArray(Track* cone_array) {
             float xDist = cone2->getX() - cone1->getX();
             float yDist = cone2->getY() - cone1->getY();
             Position* position = new Position(cone1->getX() + xDist / 2, cone1->getY() + yDist / 2);
-         
-            unorderedPath.push_back(std::make_pair(position, false));
+            
+            // store start position
+            if ((cone1->getId() == 0 && cone2->getId() == 1) || (cone1->getId() == 1 || cone2->getId() == 0)) {
+                startIndex = unorderedPath.size();
+                unorderedPath.push_back(std::make_pair(position, true));
+            }
+            else {
+                unorderedPath.push_back(std::make_pair(position, false));
+            }    
         }        
     }
 
-    vector<Position*> finalPath;
+    Position* startPos = unorderedPath[startIndex].first;
+    vector<Position*> finalPath={startPos};
 
-    size_t i = 0;
+    float minDist = MAXFLOAT;
+    size_t minIndex = 0;
+    for (size_t j = 0; j < unorderedPath.size(); j++){        
+        Position* p2 = unorderedPath[j].first;
+        if (unorderedPath[j].second == false && j != startIndex){
+            // checks if vector is pointing to the same side of the car orientation
+            if (vectorDirection(startPos, p2)){           
+                float newDist = startPos->getDistanceTo(p2);
+                if (newDist < minDist){
+                    minDist = newDist;
+                    minIndex = j;
+                }
+            }
+        }   
+    }
+
+    finalPath.push_back(unorderedPath[minIndex].first);
+    unorderedPath[minIndex].second = true;
+
+    size_t i = minIndex;
     size_t iterNumber = 0;
-    while (iterNumber < unorderedPath.size()){
+    while (iterNumber < unorderedPath.size() - 2){
         Position* p1 = unorderedPath[i].first;
-        float minDist = MAXFLOAT; 
-        int minIndex = 0;
+        minDist = MAXFLOAT; 
+        minIndex = 0;
         for (size_t j = 0; j < unorderedPath.size(); j++){        
             Position* p2 = unorderedPath[j].first;
             if (unorderedPath[j].second == false && j != i){
@@ -65,7 +106,7 @@ vector<Position*> LocalPathPlanner::processNewArray(Track* cone_array) {
                     minDist = newDist;
                     minIndex = j;
                 }
-            }   
+            }
         }
         i = minIndex;
         iterNumber++;
