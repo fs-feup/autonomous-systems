@@ -9,8 +9,8 @@ TEST(NORMAL_VELOCITY_MODEL, STANDING_STILL_TEST) {
   NormalVelocityModel motion_model = NormalVelocityModel();
   MotionPredictionData prediction_data = {0, 0, 0, 0};
   Eigen::VectorXf new_state =
-      motion_model.motion_model_expected_state(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
-  Eigen::MatrixXf new_covariance = motion_model.motion_model_covariance_matrix(
+      motion_model.predict_expected_state(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
+  Eigen::MatrixXf new_covariance = motion_model.predict_state_covariance(
       Eigen::MatrixXf::Zero(10, 10), Eigen::MatrixXf::Zero(10, 10), prediction_data, 1.0);
   EXPECT_DOUBLE_EQ(new_state(0), 0.0);
   EXPECT_DOUBLE_EQ(new_state(1), 0.0);
@@ -26,8 +26,8 @@ TEST(NORMAL_VELOCITY_MODEL, LINEAR_FORWARD_MOVEMENT_TEST) {
   NormalVelocityModel motion_model = NormalVelocityModel();
   MotionPredictionData prediction_data = {1, 0, 0, 0};
   Eigen::VectorXf new_state =
-      motion_model.motion_model_expected_state(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
-  Eigen::MatrixXf new_covariance = motion_model.motion_model_covariance_matrix(
+      motion_model.predict_expected_state(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
+  Eigen::MatrixXf new_covariance = motion_model.predict_state_covariance(
       Eigen::MatrixXf::Ones(10, 10), Eigen::MatrixXf::Zero(10, 10), prediction_data,
       1.0);                             // Covariance with ones to check if it is modified
   EXPECT_DOUBLE_EQ(new_state(0), 1.0);  // x
@@ -49,8 +49,8 @@ TEST(NORMAL_VELOCITY_MODEL, LINEAR_VELOCITY_CURVE_TEST) {
   // Moving in a curve with linear acceleration
   MotionPredictionData prediction_data = {1, 0, 0, M_PI / 180};
   Eigen::VectorXf new_state =
-      motion_model.motion_model_expected_state(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
-  Eigen::MatrixXf new_covariance = motion_model.motion_model_covariance_matrix(
+      motion_model.predict_expected_state(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
+  Eigen::MatrixXf new_covariance = motion_model.predict_state_covariance(
       Eigen::MatrixXf::Ones(10, 10), Eigen::MatrixXf::Zero(10, 10), prediction_data,
       1.0);                               // Covariance with ones to check if it is modified
   EXPECT_NEAR(new_state(0), 0.99, 0.05);  // x
@@ -79,8 +79,8 @@ TEST(NORMAL_VELOCITY_MODEL, CIRCULAR_MOVEMENT_TEST) {
     prediction_data.translational_velocity = 10;
     prediction_data.rotational_velocity = M_PI / 4;
     temp_state = new_state;
-    new_state = motion_model.motion_model_expected_state(new_state, prediction_data, 0.1);
-    new_covariance = motion_model.motion_model_covariance_matrix(
+    new_state = motion_model.predict_expected_state(new_state, prediction_data, 0.1);
+    new_covariance = motion_model.predict_state_covariance(
         new_covariance, Eigen::MatrixXf::Zero(10, 10), prediction_data, 0.1);
     // Max 0.01 percent calculation error
     EXPECT_LT(new_state(0), radius + 0.1);  // x
@@ -106,8 +106,8 @@ TEST(IMU_VELOCITY_MODEL, STANDING_STILL_TEST) {
   ImuVelocityModel motion_model = ImuVelocityModel();
   MotionPredictionData prediction_data = {0, 0, 0, 0};
   Eigen::VectorXf new_state =
-      motion_model.motion_model_expected_state(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
-  Eigen::MatrixXf new_covariance = motion_model.motion_model_covariance_matrix(
+      motion_model.predict_expected_state(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
+  Eigen::MatrixXf new_covariance = motion_model.predict_state_covariance(
       Eigen::MatrixXf::Zero(10, 10), Eigen::MatrixXf::Zero(10, 10), prediction_data, 1.0);
   EXPECT_DOUBLE_EQ(new_state(0), 0.0);
   EXPECT_DOUBLE_EQ(new_state(1), 0.0);
@@ -123,8 +123,8 @@ TEST(IMU_VELOCITY_MODEL, LINEAR_FORWARD_MOVEMENT_TEST) {
   ImuVelocityModel motion_model = ImuVelocityModel();
   MotionPredictionData prediction_data = {0, 1, 0, 0};
   Eigen::VectorXf new_state =
-      motion_model.motion_model_expected_state(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
-  Eigen::MatrixXf new_covariance = motion_model.motion_model_covariance_matrix(
+      motion_model.predict_expected_state(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
+  Eigen::MatrixXf new_covariance = motion_model.predict_state_covariance(
       Eigen::MatrixXf::Ones(10, 10), Eigen::MatrixXf::Zero(10, 10), prediction_data, 1.0);
   EXPECT_DOUBLE_EQ(new_state(0), 1.0);  // x
   EXPECT_DOUBLE_EQ(new_state(1), 0.0);  // y
@@ -140,8 +140,8 @@ TEST(IMU_VELOCITY_MODEL, LINEAR_VELOCITY_CURVE_TEST) {
   ImuVelocityModel motion_model = ImuVelocityModel();
   MotionPredictionData prediction_data = {0, 0.3, 0.7, M_PI / 16};
   Eigen::VectorXf new_state =
-      motion_model.motion_model_expected_state(Eigen::VectorXf::Zero(10), prediction_data, 0.1);
-  Eigen::MatrixXf new_covariance = motion_model.motion_model_covariance_matrix(
+      motion_model.predict_expected_state(Eigen::VectorXf::Zero(10), prediction_data, 0.1);
+  Eigen::MatrixXf new_covariance = motion_model.predict_state_covariance(
       Eigen::MatrixXf::Ones(10, 10), Eigen::MatrixXf::Zero(10, 10), prediction_data,
       1.0);                                  // Covariance with ones to check if it is modified
   EXPECT_NEAR(new_state(0), 0.03, 0.00001);  // x
@@ -165,8 +165,8 @@ TEST(IMU_VELOCITY_MODEL, COMPLEX_MOVEMENT_TEST) {
     prediction_data.translational_velocity_y = 5 * i;
     prediction_data.rotational_velocity = 5 * i;
     temp_state = new_state;
-    new_state = motion_model.motion_model_expected_state(new_state, prediction_data, 0.1);
-    new_covariance = motion_model.motion_model_covariance_matrix(
+    new_state = motion_model.predict_expected_state(new_state, prediction_data, 0.1);
+    new_covariance = motion_model.predict_state_covariance(
         new_covariance, Eigen::MatrixXf::Zero(10, 10), prediction_data, 0.1);
     // Max 0.01 percent calculation error
     EXPECT_NEAR(new_state(0), temp_state(0) + i, 0.0001 * temp_state(0));        // x

@@ -4,7 +4,19 @@
 #include <Eigen/Dense>
 
 #include "kalman_filter/motion_models.hpp"
+#include "kalman_filter/observation_models.hpp"
 #include "loc_map/data_structures.hpp"
+
+/**
+ * @brief Notas
+ * 
+ * - No inicio, software engineers specialized in AI - no
+ * - Integration with buses of ifrastructure in system design - no
+ * - We will not be developping simulation models - no
+ * - Not vehicles from the bus manufacturing company - no
+ * 
+ * 
+ */
 
 
 /**
@@ -31,6 +43,27 @@ class ExtendedKalmanFilter {
       _last_update; /**< Timestamp of last update */
 
   const MotionModel& _motion_model; /**< Motion Model chosen for prediction step */
+  const ObservationModel& _observation_model; /**< Observation Model chosen for correction step */
+
+  /**
+   * @brief Discovery step:
+   * Adds a new landmark to the map
+   * if there are no matches for the observation
+   * 
+   * @param observation_data 
+   * @return unsigned int 
+   */
+  unsigned int discovery(const ObservationData& observation_data);
+
+  /**
+   * @brief Calculate the kalman gain
+   * 
+   * @param H jacobian observation model matrix
+   * @param P state covariance matrix
+   * @param Q measurement noise matrix
+   * @return Eigen::MatrixXf kalman gain matrix
+   */
+  static Eigen::MatrixXf get_kalman_gain(const Eigen::MatrixXf& H, const Eigen::MatrixXf& P, const Eigen::MatrixXf& Q);
 
  public:
   /**
@@ -42,7 +75,7 @@ class ExtendedKalmanFilter {
    */
   ExtendedKalmanFilter(Eigen::MatrixXf R, Eigen::MatrixXf Q, VehicleState* vehicle_state, Map* map,
                        ImuUpdate* imu_update, Map* map_from_perception,
-                       const MotionModel& motion_model);
+                       const MotionModel& motion_model, const ObservationModel& observation_model);
 
   /**
    * @brief Updates vehicle state and map variables according
