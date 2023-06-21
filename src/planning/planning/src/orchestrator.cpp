@@ -28,7 +28,7 @@ class Planning : public rclcpp::Node {
 
  public:
     Planning()
-    : Node("planning"), count_(0) {
+    : Node("planning"), count_(0), initialOrientation(0) {
       vl_sub_ = this->create_subscription<custom_interfaces::msg::Pose>(
       "vehicle_localization", 10, std::bind(&Planning::vehicle_localisation_callback, this, _1));
 
@@ -66,9 +66,15 @@ class Planning : public rclcpp::Node {
     }
 
  private:
-    void vehicle_localisation_callback(const custom_interfaces::msg::Pose msg) const {
+    void vehicle_localisation_callback(const custom_interfaces::msg::Pose msg) {
+      std::cout << "angle: " << msg.theta << "\n";
+      
       RCLCPP_INFO(this->get_logger(),
        "Received x = '%f' | y = '%f'", msg.position.x, msg.position.y);
+      if (initialOrientation == -1){
+        initialOrientation = msg.theta;
+        localpathplanner->setOrientation(msg.theta);
+      }
     }
 
     void track_map_callback(const custom_interfaces::msg::ConeArray msg) {
@@ -105,6 +111,7 @@ class Planning : public rclcpp::Node {
     rclcpp::Publisher<custom_interfaces::msg::PointArray>::SharedPtr local_pub_;
     rclcpp::Publisher<custom_interfaces::msg::PointArray>::SharedPtr global_pub_;
     size_t count_;
+    float initialOrientation;
 };
 
 int main(int argc, char * argv[]) {
