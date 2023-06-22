@@ -1,0 +1,142 @@
+\hypertarget{namespacecontrol_1_1pid__utils}{}\doxysection{control.\+pid\+\_\+utils Namespace Reference}
+\label{namespacecontrol_1_1pid__utils}\index{control.pid\_utils@{control.pid\_utils}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{namespacecontrol_1_1pid__utils_a99fcbfce05bf34b1d258d76cd5d973db}{accelerate}} (error)
+\begin{DoxyCompactList}\small\item\em Accelerates the car. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{namespacecontrol_1_1pid__utils_a2ac2563c8c25ad59deddafa4d2782af7}{get\+\_\+closest\+\_\+point}} (position, points\+\_\+array)
+\begin{DoxyCompactList}\small\item\em Gets the closest point to the given position. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{namespacecontrol_1_1pid__utils_a1ef86cd545d8d60e1a649ccefeef9343}{get\+\_\+cte}} (closest\+\_\+index, points\+\_\+array, pose\+\_\+car)
+\begin{DoxyCompactList}\small\item\em Calculates the cross track error (CTE). \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{namespacecontrol_1_1pid__utils_a755fbc8f57664d72d7b902ac5c1f669c}{get\+\_\+orientation\+\_\+error}} (closest\+\_\+index, points\+\_\+array, yaw\+\_\+car)
+\item 
+def \mbox{\hyperlink{namespacecontrol_1_1pid__utils_a22d7520909fea1a0ca3f39b8b3a4c3b3}{get\+\_\+position\+\_\+error}} (pose, closest\+\_\+point)
+\begin{DoxyCompactList}\small\item\em Calculates the position error between pose and closest\+\_\+point. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{namespacecontrol_1_1pid__utils_a8158e09b80716055507b507c55496677}{get\+\_\+reference\+\_\+speed}} (speeds, closest\+\_\+index)
+\item 
+def \mbox{\hyperlink{namespacecontrol_1_1pid__utils_a0ab299aca30bf1b82a94b96c5a89bc1a}{get\+\_\+speed\+\_\+error}} (lin\+\_\+speed, ref\+\_\+speed)
+\item 
+def \mbox{\hyperlink{namespacecontrol_1_1pid__utils_a8a9c94d149164aabb927d49ee8723dbe}{steer}} (pos\+\_\+error, yaw\+\_\+error, ct\+\_\+error, old\+\_\+error)
+\begin{DoxyCompactList}\small\item\em Steers the car. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacecontrol_1_1pid__utils_a99fcbfce05bf34b1d258d76cd5d973db}\label{namespacecontrol_1_1pid__utils_a99fcbfce05bf34b1d258d76cd5d973db}} 
+\index{control.pid\_utils@{control.pid\_utils}!accelerate@{accelerate}}
+\index{accelerate@{accelerate}!control.pid\_utils@{control.pid\_utils}}
+\doxysubsubsection{\texorpdfstring{accelerate()}{accelerate()}}
+{\footnotesize\ttfamily def accelerate (\begin{DoxyParamCaption}\item[{}]{error }\end{DoxyParamCaption})}
+
+
+
+Accelerates the car. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & The object pointer. \\
+\hline
+{\em speed\+\_\+error} & Speed Error. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{namespacecontrol_1_1pid__utils_a2ac2563c8c25ad59deddafa4d2782af7}\label{namespacecontrol_1_1pid__utils_a2ac2563c8c25ad59deddafa4d2782af7}} 
+\index{control.pid\_utils@{control.pid\_utils}!get\_closest\_point@{get\_closest\_point}}
+\index{get\_closest\_point@{get\_closest\_point}!control.pid\_utils@{control.pid\_utils}}
+\doxysubsubsection{\texorpdfstring{get\_closest\_point()}{get\_closest\_point()}}
+{\footnotesize\ttfamily def get\+\_\+closest\+\_\+point (\begin{DoxyParamCaption}\item[{}]{position,  }\item[{}]{points\+\_\+array }\end{DoxyParamCaption})}
+
+
+
+Gets the closest point to the given position. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em position} & List with x and y coordinates. \\
+\hline
+{\em points\+\_\+array} & Numpy array of points. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Closest point to position in points\+\_\+array. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacecontrol_1_1pid__utils_a1ef86cd545d8d60e1a649ccefeef9343}\label{namespacecontrol_1_1pid__utils_a1ef86cd545d8d60e1a649ccefeef9343}} 
+\index{control.pid\_utils@{control.pid\_utils}!get\_cte@{get\_cte}}
+\index{get\_cte@{get\_cte}!control.pid\_utils@{control.pid\_utils}}
+\doxysubsubsection{\texorpdfstring{get\_cte()}{get\_cte()}}
+{\footnotesize\ttfamily def get\+\_\+cte (\begin{DoxyParamCaption}\item[{}]{closest\+\_\+index,  }\item[{}]{points\+\_\+array,  }\item[{}]{pose\+\_\+car }\end{DoxyParamCaption})}
+
+
+
+Calculates the cross track error (CTE). 
+
+CTE is defined as the distance between the car and the line tangent to the closest point of the track to the car. 
+\begin{DoxyParams}{Parameters}
+{\em closest\+\_\+index} & position of closest point of the track to the car. \\
+\hline
+{\em points\+\_\+array} & List containing Point\+Array. Represent track points. \\
+\hline
+{\em pose\+\_\+array} & List containing car x position, y position and yaw. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+CTE. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacecontrol_1_1pid__utils_a755fbc8f57664d72d7b902ac5c1f669c}\label{namespacecontrol_1_1pid__utils_a755fbc8f57664d72d7b902ac5c1f669c}} 
+\index{control.pid\_utils@{control.pid\_utils}!get\_orientation\_error@{get\_orientation\_error}}
+\index{get\_orientation\_error@{get\_orientation\_error}!control.pid\_utils@{control.pid\_utils}}
+\doxysubsubsection{\texorpdfstring{get\_orientation\_error()}{get\_orientation\_error()}}
+{\footnotesize\ttfamily def get\+\_\+orientation\+\_\+error (\begin{DoxyParamCaption}\item[{}]{closest\+\_\+index,  }\item[{}]{points\+\_\+array,  }\item[{}]{yaw\+\_\+car }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespacecontrol_1_1pid__utils_a22d7520909fea1a0ca3f39b8b3a4c3b3}\label{namespacecontrol_1_1pid__utils_a22d7520909fea1a0ca3f39b8b3a4c3b3}} 
+\index{control.pid\_utils@{control.pid\_utils}!get\_position\_error@{get\_position\_error}}
+\index{get\_position\_error@{get\_position\_error}!control.pid\_utils@{control.pid\_utils}}
+\doxysubsubsection{\texorpdfstring{get\_position\_error()}{get\_position\_error()}}
+{\footnotesize\ttfamily def get\+\_\+position\+\_\+error (\begin{DoxyParamCaption}\item[{}]{pose,  }\item[{}]{closest\+\_\+point }\end{DoxyParamCaption})}
+
+
+
+Calculates the position error between pose and closest\+\_\+point. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pose} & Pose information. \\
+\hline
+{\em closest\+\_\+point} & Coordinates off the closest point. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Position error. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespacecontrol_1_1pid__utils_a8158e09b80716055507b507c55496677}\label{namespacecontrol_1_1pid__utils_a8158e09b80716055507b507c55496677}} 
+\index{control.pid\_utils@{control.pid\_utils}!get\_reference\_speed@{get\_reference\_speed}}
+\index{get\_reference\_speed@{get\_reference\_speed}!control.pid\_utils@{control.pid\_utils}}
+\doxysubsubsection{\texorpdfstring{get\_reference\_speed()}{get\_reference\_speed()}}
+{\footnotesize\ttfamily def get\+\_\+reference\+\_\+speed (\begin{DoxyParamCaption}\item[{}]{speeds,  }\item[{}]{closest\+\_\+index }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespacecontrol_1_1pid__utils_a0ab299aca30bf1b82a94b96c5a89bc1a}\label{namespacecontrol_1_1pid__utils_a0ab299aca30bf1b82a94b96c5a89bc1a}} 
+\index{control.pid\_utils@{control.pid\_utils}!get\_speed\_error@{get\_speed\_error}}
+\index{get\_speed\_error@{get\_speed\_error}!control.pid\_utils@{control.pid\_utils}}
+\doxysubsubsection{\texorpdfstring{get\_speed\_error()}{get\_speed\_error()}}
+{\footnotesize\ttfamily def get\+\_\+speed\+\_\+error (\begin{DoxyParamCaption}\item[{}]{lin\+\_\+speed,  }\item[{}]{ref\+\_\+speed }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespacecontrol_1_1pid__utils_a8a9c94d149164aabb927d49ee8723dbe}\label{namespacecontrol_1_1pid__utils_a8a9c94d149164aabb927d49ee8723dbe}} 
+\index{control.pid\_utils@{control.pid\_utils}!steer@{steer}}
+\index{steer@{steer}!control.pid\_utils@{control.pid\_utils}}
+\doxysubsubsection{\texorpdfstring{steer()}{steer()}}
+{\footnotesize\ttfamily def steer (\begin{DoxyParamCaption}\item[{}]{pos\+\_\+error,  }\item[{}]{yaw\+\_\+error,  }\item[{}]{ct\+\_\+error,  }\item[{}]{old\+\_\+error }\end{DoxyParamCaption})}
+
+
+
+Steers the car. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & The object pointer. \\
+\hline
+{\em pos\+\_\+error} & Position Error. \\
+\hline
+{\em yaw\+\_\+error} & Orientation Error. \\
+\hline
+{\em ct\+\_\+error} & Cross Track Error. \\
+\hline
+\end{DoxyParams}
