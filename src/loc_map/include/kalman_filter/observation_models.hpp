@@ -15,7 +15,7 @@
 struct ObservationData {
   Position position;
   colors::Color color;
-  ObservationData();
+  ObservationData() : position(0, 0), color(colors::blue) {}
   ObservationData(Position position, colors::Color color) : position(position), color(color) {}
   ObservationData(double x, double y, colors::Color color) : position(x, y), color(color) {}
 };
@@ -32,7 +32,7 @@ class ObservationModel {
    * the state vector
    * 
    * @param expected_state 
-   * @param landmark_index 
+   * @param landmark_index index of the x variable of the landmark in the state vector
    * @return Eigen::Vector2f 
    */
   Eigen::Vector2f observation_model(const Eigen::VectorXf& expected_state, const unsigned int landmark_index) const;
