@@ -25,6 +25,7 @@ This guide is meant to help the developer setup the environment required to work
 - [Testing](./testing.md) - about creating tests for the code
 - [Static Analysis Tools](./static_analysis_tools.md) - tutorial on using the static analysis and formatting tools adopted
 - [Documentation](./documentation.md) - tutorial on how to document code
+- [Libraries](./libraries.md) - more insight on the libraries used
 - [How to contribute](./contribute.md) - what tasks are required before a PR
 - [ROS2 Interfaces](./new_interface_tutorial.md) - tutorial on how to create ros2 interfaces
 
