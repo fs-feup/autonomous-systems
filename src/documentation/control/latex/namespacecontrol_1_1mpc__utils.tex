@@ -1,0 +1,73 @@
+\hypertarget{namespacecontrol_1_1mpc__utils}{}\doxysection{control.\+mpc\+\_\+utils Namespace Reference}
+\label{namespacecontrol_1_1mpc__utils}\index{control.mpc\_utils@{control.mpc\_utils}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{namespacecontrol_1_1mpc__utils_a5a9104473526169527a600993900f9bc}{compute\+\_\+path\+\_\+from\+\_\+wp}} (path, step=0.\+1)
+\item 
+def \mbox{\hyperlink{namespacecontrol_1_1mpc__utils_af94e509dd72ad36a29bdd0c9456aee0a}{get\+\_\+linear\+\_\+model\+\_\+matrices}} (x\+\_\+bar, u\+\_\+bar)
+\item 
+def \mbox{\hyperlink{namespacecontrol_1_1mpc__utils_aedd9e0a3b8b8d55fce9edb7ebc32359b}{get\+\_\+nn\+\_\+idx}} (state, path, old\+\_\+nn\+\_\+idx)
+\item 
+def \mbox{\hyperlink{namespacecontrol_1_1mpc__utils_a93533c1453c78d974b4e130e8c6cfdbc}{get\+\_\+ref\+\_\+trajectory}} (state, path, target\+\_\+v, dl=0.\+1, old\+\_\+ind=0)
+\item 
+def \mbox{\hyperlink{namespacecontrol_1_1mpc__utils_af2ddd3b193d0f1d5cbbc19ccd62d836c}{normalize\+\_\+angle}} (angle)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classcontrol_1_1config_1_1Params}{Params}} \mbox{\hyperlink{namespacecontrol_1_1mpc__utils_a15f85a5188efbe3d3c5e9c9d877a8fe8}{P}} = \mbox{\hyperlink{classcontrol_1_1config_1_1Params}{Params}}()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacecontrol_1_1mpc__utils_a5a9104473526169527a600993900f9bc}\label{namespacecontrol_1_1mpc__utils_a5a9104473526169527a600993900f9bc}} 
+\index{control.mpc\_utils@{control.mpc\_utils}!compute\_path\_from\_wp@{compute\_path\_from\_wp}}
+\index{compute\_path\_from\_wp@{compute\_path\_from\_wp}!control.mpc\_utils@{control.mpc\_utils}}
+\doxysubsubsection{\texorpdfstring{compute\_path\_from\_wp()}{compute\_path\_from\_wp()}}
+{\footnotesize\ttfamily def compute\+\_\+path\+\_\+from\+\_\+wp (\begin{DoxyParamCaption}\item[{}]{path,  }\item[{}]{step = {\ttfamily 0.1} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Computes a reference path given a set of waypoints
+\end{DoxyVerb}
+ \mbox{\Hypertarget{namespacecontrol_1_1mpc__utils_af94e509dd72ad36a29bdd0c9456aee0a}\label{namespacecontrol_1_1mpc__utils_af94e509dd72ad36a29bdd0c9456aee0a}} 
+\index{control.mpc\_utils@{control.mpc\_utils}!get\_linear\_model\_matrices@{get\_linear\_model\_matrices}}
+\index{get\_linear\_model\_matrices@{get\_linear\_model\_matrices}!control.mpc\_utils@{control.mpc\_utils}}
+\doxysubsubsection{\texorpdfstring{get\_linear\_model\_matrices()}{get\_linear\_model\_matrices()}}
+{\footnotesize\ttfamily def get\+\_\+linear\+\_\+model\+\_\+matrices (\begin{DoxyParamCaption}\item[{}]{x\+\_\+bar,  }\item[{}]{u\+\_\+bar }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Computes the LTI approximated state space model x' = Ax + Bu + C
+\end{DoxyVerb}
+ \mbox{\Hypertarget{namespacecontrol_1_1mpc__utils_aedd9e0a3b8b8d55fce9edb7ebc32359b}\label{namespacecontrol_1_1mpc__utils_aedd9e0a3b8b8d55fce9edb7ebc32359b}} 
+\index{control.mpc\_utils@{control.mpc\_utils}!get\_nn\_idx@{get\_nn\_idx}}
+\index{get\_nn\_idx@{get\_nn\_idx}!control.mpc\_utils@{control.mpc\_utils}}
+\doxysubsubsection{\texorpdfstring{get\_nn\_idx()}{get\_nn\_idx()}}
+{\footnotesize\ttfamily def get\+\_\+nn\+\_\+idx (\begin{DoxyParamCaption}\item[{}]{state,  }\item[{}]{path,  }\item[{}]{old\+\_\+nn\+\_\+idx }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Computes the index of the waypoint closest to vehicle
+\end{DoxyVerb}
+ \mbox{\Hypertarget{namespacecontrol_1_1mpc__utils_a93533c1453c78d974b4e130e8c6cfdbc}\label{namespacecontrol_1_1mpc__utils_a93533c1453c78d974b4e130e8c6cfdbc}} 
+\index{control.mpc\_utils@{control.mpc\_utils}!get\_ref\_trajectory@{get\_ref\_trajectory}}
+\index{get\_ref\_trajectory@{get\_ref\_trajectory}!control.mpc\_utils@{control.mpc\_utils}}
+\doxysubsubsection{\texorpdfstring{get\_ref\_trajectory()}{get\_ref\_trajectory()}}
+{\footnotesize\ttfamily def get\+\_\+ref\+\_\+trajectory (\begin{DoxyParamCaption}\item[{}]{state,  }\item[{}]{path,  }\item[{}]{target\+\_\+v,  }\item[{}]{dl = {\ttfamily 0.1},  }\item[{}]{old\+\_\+ind = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}For each step in the time horizon
+modified reference in car frame
+\end{DoxyVerb}
+ \mbox{\Hypertarget{namespacecontrol_1_1mpc__utils_af2ddd3b193d0f1d5cbbc19ccd62d836c}\label{namespacecontrol_1_1mpc__utils_af2ddd3b193d0f1d5cbbc19ccd62d836c}} 
+\index{control.mpc\_utils@{control.mpc\_utils}!normalize\_angle@{normalize\_angle}}
+\index{normalize\_angle@{normalize\_angle}!control.mpc\_utils@{control.mpc\_utils}}
+\doxysubsubsection{\texorpdfstring{normalize\_angle()}{normalize\_angle()}}
+{\footnotesize\ttfamily def normalize\+\_\+angle (\begin{DoxyParamCaption}\item[{}]{angle }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Normalize an angle to [-pi, pi]
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{namespacecontrol_1_1mpc__utils_a15f85a5188efbe3d3c5e9c9d877a8fe8}\label{namespacecontrol_1_1mpc__utils_a15f85a5188efbe3d3c5e9c9d877a8fe8}} 
+\index{control.mpc\_utils@{control.mpc\_utils}!P@{P}}
+\index{P@{P}!control.mpc\_utils@{control.mpc\_utils}}
+\doxysubsubsection{\texorpdfstring{P}{P}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classcontrol_1_1config_1_1Params}{Params}} P = \mbox{\hyperlink{classcontrol_1_1config_1_1Params}{Params}}()}
+
