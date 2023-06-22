@@ -7,9 +7,8 @@ This repository holds most of the data and all the code on the project for Formu
 ## Starting to Develop
 
 Before starting, check out:
-- [Startup Guide](./docs/tutorials/startup_guide.md)
 - [Project's Rules](./docs/project-rules.md)
-
+- [Startup Guide](./docs/tutorials/startup_guide.md)
 
 ## Documentation
 - [Documentation Home](./docs)
