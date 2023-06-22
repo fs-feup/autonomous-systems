@@ -11,8 +11,8 @@ ExtendedKalmanFilter::ExtendedKalmanFilter(Eigen::MatrixXf R, Eigen::MatrixXf Q,
                                            VehicleState* vehicle_state, Map* map,
                                            ImuUpdate* imu_update, Map* map_from_perception,
                                            const MotionModel& motion_model, const ObservationModel& observation_model)
-    : X(Eigen::VectorXf::Zero(200)),
-      P(Eigen::MatrixXf::Zero(200, 200)),
+    : X(Eigen::VectorXf::Zero(3)),
+      P(Eigen::MatrixXf::Zero(3, 3)),
       R(R),
       Q(Q),
       _vehicle_state(vehicle_state),
@@ -34,7 +34,7 @@ void ExtendedKalmanFilter::prediction_step() {
   this->X = this->_motion_model.predict_expected_state(X, prediction_data, delta / 1000000);
   Eigen::MatrixXf G = this->_motion_model.get_motion_to_state_matrix(X, prediction_data,
                                                          delta / 1000000);
-  this->P = G * this->P * G.transpose() + this->R;
+  this->P = G * this->P * G.transpose();
   this->_last_update = now;
 }
 
