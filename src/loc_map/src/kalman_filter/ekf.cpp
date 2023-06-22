@@ -34,7 +34,7 @@ void ExtendedKalmanFilter::prediction_step() {
   this->X = this->_motion_model.predict_expected_state(X, prediction_data, delta / 1000000);
   Eigen::MatrixXf G = this->_motion_model.get_motion_to_state_matrix(X, prediction_data,
                                                          delta / 1000000);
-  this->P = G * this->P * G.transpose();
+  this->P = G * this->P * G.transpose(); // TODO(marhcouto): Add R
   this->_last_update = now;
 }
 
@@ -53,7 +53,7 @@ void ExtendedKalmanFilter::correction_step() {
 }
 
 Eigen::MatrixXf ExtendedKalmanFilter::get_kalman_gain(const Eigen::MatrixXf& H, const Eigen::MatrixXf& P, const Eigen::MatrixXf& Q) {
-  Eigen::MatrixXf S = H * P * H.transpose() + Q;
+  Eigen::MatrixXf S = H * P * H.transpose(); // TODO(marhcouto): Add Q
   Eigen::MatrixXf K = P * H.transpose() * S.inverse();
   return K;
 }
