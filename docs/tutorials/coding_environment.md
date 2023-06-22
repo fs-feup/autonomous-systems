@@ -50,7 +50,9 @@ As an alternative to the latter suggestion, one can install Visual Studio Code i
 
 ## File Strucure and Guidelines
 
-A package in ROS2 can be created via the command line. The created project already constructs a certain file structure. However, some changes and additions ought to be mande in order for it to meat the guidelines established. To create a project:
+**THIS SECTION IS ONLY MEANT FOR THE CREATION OF NEW PARTS OF THE PROJECT**
+
+A package in ROS2 can be created via the command line. The created project already constructs a certain file structure. However, some changes and additions ought to be made in order for it to meat the guidelines established. To create a project:
 1. Run ```ros2 pkg create --build-type "ament_cmake" --node-name "<node_name>" "<package_name>"```
 2. Add Doxyfile to the root directory (can be inside or outside the folder created, I would advise outside)
 3. Create test folder inside the folder created (beside src folder)
@@ -89,27 +91,4 @@ A package in ROS2 can be created via the command line. The created project alrea
 An example project can be found in the assets folder or on this [link]().
 
 ![Screenshot file structure](../assets/environment_setup_tutorial/Screenshot-example-filestructure.png)
-
-## Compiling and Running
-
-To compile code (run these commands in src/ folder preferably):
-
-```sh
-colcon build
-source install/setup.sh
-```
-
-To run code:
-
-```sh
-ros2 run [package_name] [node_name]
-```
-
-To run tests:
-
-```sh
-colcon test --event-handler=console_direct+ # Last part for verbose
-```
-
-Optionally you can use ```colcon build/test --packages-select [list of packages]``` to only affect certain packages.
 
