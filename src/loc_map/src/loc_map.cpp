@@ -22,7 +22,7 @@ int main(int argc, char **argv) {
   MotionModel *motion_model = new ImuVelocityModel();
   ObservationModel observation_model = ObservationModel();
   ExtendedKalmanFilter *ekf = new ExtendedKalmanFilter(
-      Eigen::MatrixXf::Identity(3, 3), Eigen::MatrixXf::Identity(3, 3), vehicle_state,
+      Eigen::MatrixXf::Zero(3, 3), Eigen::MatrixXf::Zero(3, 3), vehicle_state,
       track_map, imu_update, predicted_map,
       *motion_model, observation_model);  // TODO(marhcouto): put non zero noise matrixes
 
