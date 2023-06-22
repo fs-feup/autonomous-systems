@@ -31,22 +31,22 @@ class MotionModel {
    * @param time_interval in seconds
    * @return Eigen::VectorXf
    */
-  virtual Eigen::VectorXf predict_expected_state(
-      const Eigen::VectorXf& expected_state, const MotionPredictionData& motion_prediction_data,
-      const double time_interval) const = 0;
+  virtual Eigen::VectorXf predict_expected_state(const Eigen::VectorXf& expected_state,
+                                                 const MotionPredictionData& motion_prediction_data,
+                                                 const double time_interval) const = 0;
 
   /**
    * @brief Calculate state covariance matrix from
    * motion estimation
    *
-   * @param state_covariance_matrix
+   * @param expected_state
    * @param motion_prediction_data
    * @param time_interval in seconds
    * @return Eigen::MatrixXf
    */
-  virtual Eigen::MatrixXf get_motion_to_state_matrix(const Eigen::VectorXf& expected_state,
-                                              const MotionPredictionData& motion_prediction_data,
-                                              const double time_interval) const = 0;
+  virtual Eigen::MatrixXf get_motion_to_state_matrix(
+      const Eigen::VectorXf& expected_state, const MotionPredictionData& motion_prediction_data,
+      const double time_interval) const = 0;
 };
 
 /**
@@ -69,21 +69,21 @@ class ImuVelocityModel : public MotionModel {
    * @return Eigen::VectorXf
    */
   Eigen::VectorXf predict_expected_state(const Eigen::VectorXf& expected_state,
-                                              const MotionPredictionData& motion_prediction_data,
-                                              const double time_interval) const override;
+                                         const MotionPredictionData& motion_prediction_data,
+                                         const double time_interval) const override;
   /**
    * @brief Calculate state covariance matrix from
    * velocity model using IMU data and linear functions
    * Uses translational velocity in x and y axis
    *
-   * @param state_covariance_matrix
+   * @param expected_state
    * @param motion_prediction_data
    * @param time_interval in seconds
    * @return Eigen::MatrixXf
    */
   Eigen::MatrixXf get_motion_to_state_matrix(const Eigen::VectorXf& expected_state,
-                                              const MotionPredictionData& motion_prediction_data,
-                                              const double time_interval) const override;
+                                             const MotionPredictionData& motion_prediction_data,
+                                             const double time_interval) const override;
 };
 
 /**
@@ -105,23 +105,22 @@ class NormalVelocityModel : public MotionModel {
    * @return Eigen::VectorXf
    */
   Eigen::VectorXf predict_expected_state(const Eigen::VectorXf& expected_state,
-                                              const MotionPredictionData& motion_prediction_data,
-                                              const double time_interval) const override;
+                                         const MotionPredictionData& motion_prediction_data,
+                                         const double time_interval) const override;
 
   /**
    * @brief Calculate state covariance matrix from
    * velocity model using normal motion data
    * Uses translation velocity only
    *
-   * @param state_covariance_matrix
+   * @param expected_state
    * @param motion_prediction_data
    * @param time_interval in seconds
    * @return Eigen::MatrixXf
    */
   Eigen::MatrixXf get_motion_to_state_matrix(const Eigen::VectorXf& expected_state,
-                                              const MotionPredictionData& motion_prediction_data,
-                                              const double time_interval) const override;
+                                             const MotionPredictionData& motion_prediction_data,
+                                             const double time_interval) const override;
 };
 
-
-#endif // SRC_LOC_MAP_INCLUDE_KALMAN_FILTER_MOTION_MODELS_HPP_
+#endif  // SRC_LOC_MAP_INCLUDE_KALMAN_FILTER_MOTION_MODELS_HPP_

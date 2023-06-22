@@ -8,7 +8,8 @@ TEST(NORMAL_VELOCITY_MODEL, STANDING_STILL_TEST) {
   MotionPredictionData prediction_data = {0, 0, 0, 0};
   Eigen::VectorXf new_state =
       motion_model.predict_expected_state(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
-  Eigen::MatrixXf G = motion_model.get_motion_to_state_matrix(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
+  Eigen::MatrixXf G =
+      motion_model.get_motion_to_state_matrix(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
   Eigen::MatrixXf new_covariance = G * Eigen::MatrixXf::Zero(10, 10) * G.transpose();
   EXPECT_DOUBLE_EQ(new_state(0), 0.0);
   EXPECT_DOUBLE_EQ(new_state(1), 0.0);
@@ -25,8 +26,11 @@ TEST(NORMAL_VELOCITY_MODEL, LINEAR_FORWARD_MOVEMENT_TEST) {
   MotionPredictionData prediction_data = {1, 0, 0, 0};
   Eigen::VectorXf new_state =
       motion_model.predict_expected_state(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
-  Eigen::MatrixXf G = motion_model.get_motion_to_state_matrix(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
-  Eigen::MatrixXf new_covariance = G * Eigen::MatrixXf::Ones(10, 10) * G.transpose(); // Covariance with ones to check if it is modified
+  Eigen::MatrixXf G =
+      motion_model.get_motion_to_state_matrix(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
+  Eigen::MatrixXf new_covariance =
+      G * Eigen::MatrixXf::Ones(10, 10) *
+      G.transpose();                    // Covariance with ones to check if it is modified
   EXPECT_DOUBLE_EQ(new_state(0), 1.0);  // x
   EXPECT_DOUBLE_EQ(new_state(1), 0.0);  // y
   EXPECT_DOUBLE_EQ(new_state(2), 0.0);  // theta
@@ -47,8 +51,11 @@ TEST(NORMAL_VELOCITY_MODEL, LINEAR_VELOCITY_CURVE_TEST) {
   MotionPredictionData prediction_data = {1, 0, 0, M_PI / 180};
   Eigen::VectorXf new_state =
       motion_model.predict_expected_state(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
-  Eigen::MatrixXf G = motion_model.get_motion_to_state_matrix(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
-  Eigen::MatrixXf new_covariance = G * Eigen::MatrixXf::Ones(10, 10) * G.transpose(); // Covariance with ones to check if it is modified
+  Eigen::MatrixXf G =
+      motion_model.get_motion_to_state_matrix(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
+  Eigen::MatrixXf new_covariance =
+      G * Eigen::MatrixXf::Ones(10, 10) *
+      G.transpose();                      // Covariance with ones to check if it is modified
   EXPECT_NEAR(new_state(0), 0.99, 0.05);  // x
   EXPECT_NEAR(new_state(1), 0.01, 0.05);  // y
   EXPECT_NEAR(new_state(2), M_PI / 180, 0.00001);  // theta
@@ -70,7 +77,8 @@ TEST(NORMAL_VELOCITY_MODEL, CIRCULAR_MOVEMENT_TEST) {
   double radius = 12.7324;
   new_state(0) = 0;
   new_state(1) = -radius;  // Radius of the circle
-  Eigen::MatrixXf G = motion_model.get_motion_to_state_matrix(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
+  Eigen::MatrixXf G =
+      motion_model.get_motion_to_state_matrix(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
   Eigen::MatrixXf new_covariance = Eigen::MatrixXf::Ones(10, 10);
   for (int i = 0; i < 1000; i++) {
     prediction_data.translational_velocity = 10;
@@ -104,7 +112,8 @@ TEST(IMU_VELOCITY_MODEL, STANDING_STILL_TEST) {
   MotionPredictionData prediction_data = {0, 0, 0, 0};
   Eigen::VectorXf new_state =
       motion_model.predict_expected_state(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
-  Eigen::MatrixXf G = motion_model.get_motion_to_state_matrix(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
+  Eigen::MatrixXf G =
+      motion_model.get_motion_to_state_matrix(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
   Eigen::MatrixXf new_covariance = G * Eigen::MatrixXf::Zero(10, 10) * G.transpose();
   EXPECT_DOUBLE_EQ(new_state(0), 0.0);
   EXPECT_DOUBLE_EQ(new_state(1), 0.0);
@@ -121,7 +130,8 @@ TEST(IMU_VELOCITY_MODEL, LINEAR_FORWARD_MOVEMENT_TEST) {
   MotionPredictionData prediction_data = {0, 1, 0, 0};
   Eigen::VectorXf new_state =
       motion_model.predict_expected_state(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
-  Eigen::MatrixXf G = motion_model.get_motion_to_state_matrix(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
+  Eigen::MatrixXf G =
+      motion_model.get_motion_to_state_matrix(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
   Eigen::MatrixXf new_covariance = G * Eigen::MatrixXf::Ones(10, 10) * G.transpose();
   EXPECT_DOUBLE_EQ(new_state(0), 1.0);  // x
   EXPECT_DOUBLE_EQ(new_state(1), 0.0);  // y
@@ -138,8 +148,11 @@ TEST(IMU_VELOCITY_MODEL, LINEAR_VELOCITY_CURVE_TEST) {
   MotionPredictionData prediction_data = {0, 0.3, 0.7, M_PI / 16};
   Eigen::VectorXf new_state =
       motion_model.predict_expected_state(Eigen::VectorXf::Zero(10), prediction_data, 0.1);
-  Eigen::MatrixXf G = motion_model.get_motion_to_state_matrix(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
-  Eigen::MatrixXf new_covariance = G * Eigen::MatrixXf::Ones(10, 10) * G.transpose(); // Covariance with ones to check if it is modified
+  Eigen::MatrixXf G =
+      motion_model.get_motion_to_state_matrix(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
+  Eigen::MatrixXf new_covariance =
+      G * Eigen::MatrixXf::Ones(10, 10) *
+      G.transpose();                         // Covariance with ones to check if it is modified
   EXPECT_NEAR(new_state(0), 0.03, 0.00001);  // x
   EXPECT_NEAR(new_state(1), 0.07, 0.00001);  // y
   EXPECT_NEAR(new_state(2), M_PI / 160, 0.00001);  // theta
