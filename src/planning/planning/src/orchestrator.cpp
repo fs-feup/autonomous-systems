@@ -25,11 +25,12 @@ class Planning : public rclcpp::Node {
   float initialOrientation_;
 
   void vehicle_localisation_callback(const custom_interfaces::msg::Pose msg) {
-    RCLCPP_INFO(this->get_logger(), "Vehicle Localisation: (%f, %f, %fdeg)", msg.position.x, msg.position.y, msg.theta);
-    if (initialOrientation_ == -1){
+    RCLCPP_INFO(this->get_logger(), "Vehicle Localisation: (%f, %f, %fdeg)",
+      msg.position.x, msg.position.y, msg.theta);
+    if (initialOrientation_ == -1) {
       initialOrientation_ = msg.theta;
       local_path_planner->setOrientation(msg.theta);
-      RCLCPP_INFO(this->get_logger(), "Orientation set to %f degrees.", initialOrientation_);   
+      RCLCPP_INFO(this->get_logger(), "Orientation set to %f degrees.", initialOrientation_);
     }
   }
 
@@ -76,11 +77,11 @@ class Planning : public rclcpp::Node {
 
     local_pub_ = this->create_publisher<custom_interfaces::msg::PointArray>("planning_local", 10);
     global_pub_ = this->create_publisher<custom_interfaces::msg::PointArray>("planning_global", 10);
-  
+
     // test only
     std::cout << "Testing planning from file.\n";
-    Track* track = read_track_file("hairpins.txt");    
-    std::vector<Position*> fullPath = local_path_planner->processNewArray(track); 
+    Track* track = read_track_file("hairpins.txt");
+    std::vector<Position*> fullPath = local_path_planner->processNewArray(track);
     write_path_file("finalPath.txt", fullPath);
     std::cout << "Writing test planning to file with size " << fullPath.size() << "\n";
   }
