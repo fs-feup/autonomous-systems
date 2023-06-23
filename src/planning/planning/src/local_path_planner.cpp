@@ -91,8 +91,8 @@ std::vector<Position*> LocalPathPlanner::processNewArray(Track* cone_array) {
     unorderedPath[minIndex].second = true;
 
     size_t i = minIndex;
-    size_t iterNumber = 1;
-    while (iterNumber < unorderedPath.size()) {
+    size_t iterCount = 2;
+    while (iterCount < unorderedPath.size()) {
         Position* p1 = unorderedPath[i].first;
         minDist = MAXFLOAT;
         minIndex = 0;
@@ -108,7 +108,7 @@ std::vector<Position*> LocalPathPlanner::processNewArray(Track* cone_array) {
             }
         }
         i = minIndex;
-        iterNumber++;
+        iterCount++;
         unorderedPath[minIndex].second = true;
         finalPath.push_back(unorderedPath[minIndex].first);
     }
