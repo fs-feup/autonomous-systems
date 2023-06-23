@@ -4,7 +4,7 @@ from .config import Params
 
 np.seterr(divide="ignore", invalid="ignore")
 
-P = Params()
+P = Params()    
 
 class Optimizer:
     def __init__(self, N, M, Q, R):
@@ -61,8 +61,8 @@ class Optimizer:
 
             _constraints = [
                 x[:, t + 1] == A @ x[:, t] + B @ u[:, t] + C,
-                u[0, t] >= -P.MAX_ACC,
-                u[0, t] <= P.MAX_ACC,
+                u[0, t] >= -P.MAX_SPEED,
+                u[0, t] <= P.MAX_SPEED,
                 u[1, t] >= -P.MAX_STEER,
                 u[1, t] <= P.MAX_STEER,
             ]
@@ -70,7 +70,7 @@ class Optimizer:
             # Actuation rate of change
             if t < (time_horizon - 1):
                 _cost += opt.quad_form(u[:, t + 1] - u[:, t], R * 1)
-                _constraints += [opt.abs(u[0, t + 1] - u[0, t]) / P.DT <= P.MAX_D_ACC]
+                _constraints += [opt.abs(u[0, t + 1] - u[0, t]) / P.DT <= P.MAX_ACC]
                 _constraints += [opt.abs(u[1, t + 1] - u[1, t]) / P.DT <= P.MAX_D_STEER]
 
             if t == 0:

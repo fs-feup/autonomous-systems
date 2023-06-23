@@ -38,14 +38,14 @@ class ControlNode(Node):
         # Declare parameters.
         self.declare_parameter('mode', 'sim')
         
-        # Steering angle velocity.
+        # Steering angle.
         self.steering_angle = 0.
         
-        # Acceleration.
-        self.acceleration = 0. # MAX_ACC / 2
+        # Velocity.
+        self.velocity = 0.
 
         # Old error.
-        self.old_error = 0
+        self.old_error = 0.
 
         # Path.
         self.path = None
@@ -169,8 +169,8 @@ class ControlNode(Node):
             not self.done and False:
             self.done = True
 
-        action = np.array([self.acceleration, self.steering_angle])
-        state = np.array([position.x, position.y, lin_speed, yaw])
+        action = np.array([self.velocity, self.steering_angle])
+        state = np.array([position.x, position.y, yaw])
         new_action, closest_index2 = run_mpc(
             action, 
             state, 
@@ -178,10 +178,12 @@ class ControlNode(Node):
             self.old_closest_index
         )
 
+        print(f"index 1: {closest_index}, index 2: {closest_index2}")
+
         if new_action is None:
             return
 
-        self.acceleration = new_action[0]
+        self.velocity = new_action[0]
         self.steering_angle = new_action[1]
 
         self.old_closest_index = closest_index2
