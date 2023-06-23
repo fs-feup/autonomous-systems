@@ -1,6 +1,6 @@
 #include "../../include/utils/files.hpp"
 
-Track* read_track_file(std::string filename) {
+Track* read_track_file(const std::string& filename) {
     std::string filePrefix = rcpputils::fs::current_path().string();
     std::string filePackage =  filePrefix + "/planning/planning/files/" + filename;
     Track* track = new Track();
@@ -8,7 +8,7 @@ Track* read_track_file(std::string filename) {
     return track;
 }
 
-void write_path_file(std::string filename, std::vector<Position*> path) {
+void write_path_file(const std::string& filename, std::vector<Position*> path) {
     std::string filePrefix = rcpputils::fs::current_path().string();
     std::string finalPath =  filePrefix + "/planning/planning/files/" + filename;
     std::ofstream finalPathFile(finalPath);
