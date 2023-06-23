@@ -1,6 +1,6 @@
 #include "../include/planning/local_path_planner.hpp"
 
-LocalPathPlanner::LocalPathPlanner():track() {}
+LocalPathPlanner::LocalPathPlanner() : track() {}
 
 void LocalPathPlanner::setOrientation(float theta){
     orientation = theta;
@@ -17,25 +17,25 @@ bool LocalPathPlanner::vectorDirection(Position* p1, Position* p2){
     return (diff < 90 || diff > 270);
 }
 
-vector<Position*> LocalPathPlanner::processNewArray(Track* cone_array) {
-    vector<std::pair<Position*, bool>> unorderedPath;
+std::vector<Position*> LocalPathPlanner::processNewArray(Track* cone_array) {
+    std::vector<std::pair<Position*, bool>> unorderedPath;
     for (int i = 0; i < cone_array->getLeftConesSize(); i++)
-        this->track.setCone(cone_array->getLeftConeAt(i));
+    this->track.setCone(cone_array->getLeftConeAt(i));
 
-    for (int i = 0; i < cone_array->getRightConesSize(); i++)
-        this->track.setCone(cone_array->getRightConeAt(i));
+  for (int i = 0; i < cone_array->getRightConesSize(); i++)
+    this->track.setCone(cone_array->getRightConeAt(i));
 
-    DT dt;
+  DT dt;
 
-    for (int i = 0; i < track.getLeftConesSize(); i++) {
-        Cone* lCone = track.getLeftConeAt(i);
-        dt.insert(Point(lCone->getX(), lCone->getY()));
-    }
+  for (int i = 0; i < track.getLeftConesSize(); i++) {
+    Cone* lCone = track.getLeftConeAt(i);
+    dt.insert(Point(lCone->getX(), lCone->getY()));
+  }
 
-    for (int i = 0; i < track.getRightConesSize(); i++) {
-        Cone* rCone = track.getRightConeAt(i);
-        dt.insert(Point(rCone->getX(), rCone->getY()));
-    }
+  for (int i = 0; i < track.getRightConesSize(); i++) {
+    Cone* rCone = track.getRightConeAt(i);
+    dt.insert(Point(rCone->getX(), rCone->getY()));
+  }
 
     size_t startIndex = 0;
 
@@ -50,7 +50,6 @@ vector<Position*> LocalPathPlanner::processNewArray(Track* cone_array) {
 
         Cone* cone1 = track.findCone(x1, y1);
         Cone* cone2 = track.findCone(x2, y2);
-        //std::cout << cone1->getId() << " " << cone2->getId() << "\n";
 
         if (cone1 != nullptr && cone2 != nullptr
             && cone1->getId() % 2 != cone2->getId() % 2) {   
@@ -60,7 +59,7 @@ vector<Position*> LocalPathPlanner::processNewArray(Track* cone_array) {
             Position* position = new Position(cone1->getX() + xDist / 2, cone1->getY() + yDist / 2);
             
             // store start position
-            if ((cone1->getId() == 0 && cone2->getId() == 1) || (cone1->getId() == 1 || cone2->getId() == 0)) {
+            if ((cone1->getId() == 0 && cone2->getId() == 1) || (cone1->getId() == 1 && cone2->getId() == 0)) {
                 startIndex = unorderedPath.size();
                 unorderedPath.push_back(std::make_pair(position, true));
             }
@@ -69,9 +68,9 @@ vector<Position*> LocalPathPlanner::processNewArray(Track* cone_array) {
             }    
         }        
     }
-
+    
     Position* startPos = unorderedPath[startIndex].first;
-    vector<Position*> finalPath={startPos};
+    std::vector<Position*> finalPath={startPos};
 
     float minDist = MAXFLOAT;
     size_t minIndex = 0;
@@ -93,11 +92,12 @@ vector<Position*> LocalPathPlanner::processNewArray(Track* cone_array) {
     unorderedPath[minIndex].second = true;
 
     size_t i = minIndex;
-    size_t iterNumber = 0;
-    while (iterNumber < unorderedPath.size() - 2){
+    size_t iterNumber = 1;
+    while (iterNumber < unorderedPath.size()){
         Position* p1 = unorderedPath[i].first;
         minDist = MAXFLOAT; 
         minIndex = 0;
+        //std::cout << p1->getX() << " " << p1->getY() << " " << i << "\n";
         for (size_t j = 0; j < unorderedPath.size(); j++){        
             Position* p2 = unorderedPath[j].first;
             if (unorderedPath[j].second == false && j != i){
@@ -112,14 +112,11 @@ vector<Position*> LocalPathPlanner::processNewArray(Track* cone_array) {
         iterNumber++;
         unorderedPath[minIndex].second = true;
         finalPath.push_back(unorderedPath[minIndex].first);
-    }
-
-    
+    }    
   
-    for (size_t i = 0; i < finalPath.size(); i++){
-        std::cout << finalPath[i]->getX() << " " << finalPath[i]->getY() << "\n";
-    }
     // delete(cone_array);
+
+    this->track.reset();
 
     return finalPath;
 }
