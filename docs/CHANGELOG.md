@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## Sprint 8
+
+### Localization and Mapping
+- Full EKF SLAM implemented, without noise matrixes
+
 ## Sprint 2
 
 ### Localization and Mapping

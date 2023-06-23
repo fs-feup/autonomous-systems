@@ -1,5 +1,5 @@
-#ifndef SRC_PLANNING_PLANNING_INCLUDE_PLANNING_LOCALPATHPLANNER_HPP_
-#define SRC_PLANNING_PLANNING_INCLUDE_PLANNING_LOCALPATHPLANNER_HPP_
+#ifndef SRC_PLANNING_PLANNING_INCLUDE_PLANNING_LOCAL_PATH_PLANNER_HPP_
+#define SRC_PLANNING_PLANNING_INCLUDE_PLANNING_LOCAL_PATH_PLANNER_HPP_
 
 #include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
 #include <CGAL/Delaunay_triangulation_2.h>
@@ -11,14 +11,11 @@
 
 #include "rclcpp/rclcpp.hpp"
 #include "./track.hpp"
-#include "./position.hpp"
+#include "../utils/position.hpp"
 
 typedef CGAL::Exact_predicates_inexact_constructions_kernel K;
 typedef CGAL::Delaunay_triangulation_2<K> DT;
 typedef K::Point_2 Point;
-
-
-using namespace std;
 
 /**
  * PathPlanner class. Contains the best path calculation methods and stores the
@@ -40,9 +37,9 @@ class LocalPathPlanner {
 
   bool vectorDirection(Position* p1, Position* p2);
 
-  vector<Position*> processNewArray(Track* cone_array);
+  std::vector<Position*> processNewArray(Track* cone_array);
 
   float euclideanDist(Position* p1, Position* p2);
 };
 
-#endif  // SRC_PLANNING_PLANNING_INCLUDE_PLANNING_LOCALPATHPLANNER_HPP_
+#endif  // SRC_PLANNING_PLANNING_INCLUDE_PLANNING_LOCAL_PATH_PLANNER_HPP_
