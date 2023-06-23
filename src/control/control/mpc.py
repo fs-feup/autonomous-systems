@@ -2,14 +2,13 @@ import numpy as np
 from .mpc_utils import (
     compute_path_from_wp,
     get_ref_trajectory,
-    get_linear_model_matrices
+    get_linear_model_matrices,
 )
 from .optimizer import Optimizer, Params
 import time
 
 P = Params()
 
-# Classes
 class MPC:
     def __init__(self, action, state, path, closest_ind):
         # State for the car mathematical model [x,y,heading]
@@ -21,10 +20,8 @@ class MPC:
         self.opt_u = np.zeros((P.M, P.T))
 
         # Cost Matrices
-        Q = np.diag([20, 20, 10, 20])  # state error cost
-        np.diag([30, 30, 30, 30])  # state final error cost
+        Q = np.diag([20, 20, 20])  # state error cost
         R = np.diag([10, 10])  # input cost
-        np.diag([10, 10])  # input rate of change cost
 
         self.optimizer = Optimizer(P.N, P.M, Q, R)
 
@@ -56,7 +53,7 @@ class MPC:
         time.time()
 
         # dynamycs w.r.t car frame
-        curr_state = np.array([0, 0, self.state[2], 0])
+        curr_state = np.array([0, 0, 0])
 
         # State Matrices
         A, B, C = get_linear_model_matrices(curr_state, self.action)
