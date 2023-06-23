@@ -97,7 +97,6 @@ int main(int argc, char* argv[]) {
     throw std::runtime_error("Planning runtime error!");
   }
   rclcpp::shutdown();
-  throw std::runtime_error("End");
   std::cout << "Finished properly!\n";
   return 0;
 }
