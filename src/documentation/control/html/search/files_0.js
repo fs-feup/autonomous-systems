@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['setup_2epy_0',['setup.py',['../setup_8py.html',1,'']]]
+  ['_5f_5finit_5f_5f_2epy_0',['__init__.py',['../____init_____8py.html',1,'']]]
 ];
