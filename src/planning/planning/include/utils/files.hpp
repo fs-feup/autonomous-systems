@@ -1,5 +1,6 @@
 #include <string>
 #include <filesystem>
+#include <vector>
 #include "../planning/track.hpp"
 #include "./position.hpp"
 #include "rclcpp/rclcpp.hpp"

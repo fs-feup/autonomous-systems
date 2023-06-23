@@ -2,11 +2,11 @@
 
 LocalPathPlanner::LocalPathPlanner() : track() {}
 
-void LocalPathPlanner::setOrientation(float theta){
+void LocalPathPlanner::setOrientation(float theta) {
     orientation = theta;
 }
 
-bool LocalPathPlanner::vectorDirection(Position* p1, Position* p2){
+bool LocalPathPlanner::vectorDirection(Position* p1, Position* p2) {
     float vx = p2->getX() - p1->getX();
     float vy = p2->getY() - p1->getY();
 
@@ -42,7 +42,7 @@ std::vector<Position*> LocalPathPlanner::processNewArray(Track* cone_array) {
     // Select the valid triangulations and add them to the map
 
     for (DT::Finite_edges_iterator it = dt.finite_edges_begin();
-        it != dt.finite_edges_end(); ++it) {        
+        it != dt.finite_edges_end(); ++it) {
         float x1 = it->first->vertex((it->second + 1) % 3)->point().x();
         float y1 = it->first->vertex((it->second + 1) % 3)->point().y();
         float x2 = it->first->vertex((it->second + 2) % 3)->point().x();
@@ -52,40 +52,39 @@ std::vector<Position*> LocalPathPlanner::processNewArray(Track* cone_array) {
         Cone* cone2 = track.findCone(x2, y2);
 
         if (cone1 != nullptr && cone2 != nullptr
-            && cone1->getId() % 2 != cone2->getId() % 2) {   
-   
+            && cone1->getId() % 2 != cone2->getId() % 2) {
             float xDist = cone2->getX() - cone1->getX();
             float yDist = cone2->getY() - cone1->getY();
             Position* position = new Position(cone1->getX() + xDist / 2, cone1->getY() + yDist / 2);
-            
+
             // store start position
-            if ((cone1->getId() == 0 && cone2->getId() == 1) || (cone1->getId() == 1 && cone2->getId() == 0)) {
+            if ((cone1->getId() == 0 && cone2->getId() == 1) ||
+                (cone1->getId() == 1 && cone2->getId() == 0)) {
                 startIndex = unorderedPath.size();
                 unorderedPath.push_back(std::make_pair(position, true));
-            }
-            else {
+            } else {
                 unorderedPath.push_back(std::make_pair(position, false));
-            }    
-        }        
+            }
+        }
     }
-    
+
     Position* startPos = unorderedPath[startIndex].first;
-    std::vector<Position*> finalPath={startPos};
+    std::vector<Position*> finalPath = {startPos};
 
     float minDist = MAXFLOAT;
     size_t minIndex = 0;
-    for (size_t j = 0; j < unorderedPath.size(); j++){        
+    for (size_t j = 0; j < unorderedPath.size(); j++) {
         Position* p2 = unorderedPath[j].first;
-        if (unorderedPath[j].second == false && j != startIndex){
+        if (unorderedPath[j].second == false && j != startIndex) {
             // checks if vector is pointing to the same side of the car orientation
-            if (vectorDirection(startPos, p2)){           
+            if (vectorDirection(startPos, p2)) {
                 float newDist = startPos->getDistanceTo(p2);
-                if (newDist < minDist){
+                if (newDist < minDist) {
                     minDist = newDist;
                     minIndex = j;
                 }
             }
-        }   
+        }
     }
 
     finalPath.push_back(unorderedPath[minIndex].first);
@@ -93,16 +92,16 @@ std::vector<Position*> LocalPathPlanner::processNewArray(Track* cone_array) {
 
     size_t i = minIndex;
     size_t iterNumber = 1;
-    while (iterNumber < unorderedPath.size()){
+    while (iterNumber < unorderedPath.size()) {
         Position* p1 = unorderedPath[i].first;
-        minDist = MAXFLOAT; 
+        minDist = MAXFLOAT;
         minIndex = 0;
         //std::cout << p1->getX() << " " << p1->getY() << " " << i << "\n";
-        for (size_t j = 0; j < unorderedPath.size(); j++){        
+        for (size_t j = 0; j < unorderedPath.size(); j++) {
             Position* p2 = unorderedPath[j].first;
-            if (unorderedPath[j].second == false && j != i){
+            if (unorderedPath[j].second == false && j != i) {
                 float newDist = p1->getDistanceTo(p2);
-                if (newDist < minDist){
+                if (newDist < minDist) {
                     minDist = newDist;
                     minIndex = j;
                 }
@@ -112,8 +111,7 @@ std::vector<Position*> LocalPathPlanner::processNewArray(Track* cone_array) {
         iterNumber++;
         unorderedPath[minIndex].second = true;
         finalPath.push_back(unorderedPath[minIndex].first);
-    }    
-  
+    }
     // delete(cone_array);
 
     this->track.reset();
@@ -121,6 +119,6 @@ std::vector<Position*> LocalPathPlanner::processNewArray(Track* cone_array) {
     return finalPath;
 }
 
-float LocalPathPlanner::euclideanDist(Position* p1, Position* p2){
+float LocalPathPlanner::euclideanDist(Position* p1, Position* p2) {
     return sqrt(pow(p2->getX() - p1->getX(), 2) + pow(p2->getY() - p1->getY(), 2));
 }

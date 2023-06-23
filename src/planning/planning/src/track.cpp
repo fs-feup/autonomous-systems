@@ -16,7 +16,7 @@ Track::~Track() {
 void Track::fillTrack(const std::string& path) {
   std::string x, y, color;
   std::ifstream trackFile;
-  
+
   trackFile.open(path);
 
   while (trackFile >> x >> y >> color) {
