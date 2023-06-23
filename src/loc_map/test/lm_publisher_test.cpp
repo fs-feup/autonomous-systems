@@ -86,7 +86,7 @@ class TestSubscriber : public rclcpp::Node {
  */
 TEST(LM_PUBLISHER_TEST_SUITE, PUBLISHER_INTEGRATION_TEST) {
   // Data
-  Localization *vehicle_localization = new Localization();
+  VehicleState *vehicle_state = new VehicleState();
   Map *track_map = new Map();
   track_map->map.insert({{1, 2}, colors::yellow});
 
@@ -94,7 +94,7 @@ TEST(LM_PUBLISHER_TEST_SUITE, PUBLISHER_INTEGRATION_TEST) {
 
   // Nodes
   auto tester = std::make_shared<TestSubscriber>();
-  auto publisher = std::make_shared<LMPublisher>(vehicle_localization, track_map);
+  auto publisher = std::make_shared<LMPublisher>(track_map, vehicle_state);
 
   rclcpp::executors::MultiThreadedExecutor executor;
   executor.add_node(tester);
