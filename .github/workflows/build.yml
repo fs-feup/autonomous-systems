@@ -58,8 +58,7 @@ jobs:
 
       - name: Dependencies Installation
         run: |
-          sudo apt-get install python-scipy
-          pip install scipy
+          pip3 install scipy
 
       - name: Compile and Test Localization and Mapping
         run: |
