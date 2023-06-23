@@ -3,7 +3,7 @@ import numpy as np
 
 class Params:
     def __init__(self):
-        self.N = 4  # number of state variables
+        self.N = 3  # number of state variables
         self.M = 2  # number of control variables
         self.T = 10  # Prediction Horizon
         self.DT = 0.2  # discretization step
