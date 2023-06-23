@@ -61,6 +61,7 @@ jobs:
           pip3 install scipy
           sudo apt-get install libcgal-dev
           pip3 install torchvision
+          pip3 install tensorboard
 
       - name: Compile and Test Localization and Mapping
         run: |
