@@ -59,6 +59,7 @@ jobs:
       - name: Dependencies Installation
         run: |
           pip3 install scipy
+          sudo apt-get install libcgal-dev
 
       - name: Compile and Test Localization and Mapping
         run: |
