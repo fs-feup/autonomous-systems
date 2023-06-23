@@ -56,6 +56,11 @@ jobs:
           sudo rosdep init
           rosdep update --include-eol-distros
 
+      - name: Dependencies Installation
+        run: |
+          sudo apt-get install python-scipy
+          pip install scipy
+
       - name: Compile and Test Localization and Mapping
         run: |
           source /opt/ros/galactic/setup.bash
@@ -84,6 +89,6 @@ jobs:
         run: |
           source /opt/ros/galactic/setup.bash
           cd ./src/
-          colcon build --packages-select custom_interfaces perception
+          colcon build --packages-select custom_interfaces depth_processing yolov5_ros
           source install/setup.bash
-          colcon test --packages-select perception --event-handler=console_direct+
+          colcon test --packages-select depth_processing yolov5_ros --event-handler=console_direct+
