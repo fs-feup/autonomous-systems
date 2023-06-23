@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['entry_5fpoints_0',['entry_points',['../namespacesetup.html#a0afb2eb153236846e2dd516c55a0e0dd',1,'setup']]]
+  ['closest_5find_0',['closest_ind',['../classcontrol_1_1mpc_1_1MPC.html#ad7f250f1385e71df230853fc1a37c7f5',1,'control::mpc::MPC']]]
 ];

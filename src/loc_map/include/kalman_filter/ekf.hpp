@@ -2,130 +2,22 @@
 #define SRC_LOC_MAP_INCLUDE_KALMAN_FILTER_EKF_HPP_
 
 #include <Eigen/Dense>
+#include <vector>
 
+#include "kalman_filter/motion_models.hpp"
+#include "kalman_filter/observation_models.hpp"
 #include "loc_map/data_structures.hpp"
 
 /**
- * @brief Struct containing motion prediction data
- * Depending on the motion model, some data may be irrelevant
+ * @brief Notas
+ *
+ * - No inicio, software engineers specialized in AI - no
+ * - Integration with buses of ifrastructure in system design - no
+ * - We will not be developping simulation models - no
+ * - Not vehicles from the bus manufacturing company - no
+ *
  *
  */
-struct MotionPredictionData {
-  double translational_velocity = 0.0;   /**< Translational Velocity Mod */
-  double translational_velocity_x = 0.0; /**< Translational Velocity in X axis */
-  double translational_velocity_y = 0.0; /**< Translational Velocity in Y axis */
-  double rotational_velocity = 0.0;      /**< Rotational Velocity */
-};
-
-/**
- * @brief Abstract Moiton Model class
- * designed to be implemented by the different motion models
- *
- */
-class MotionModel {
- public:
-  /**
-   * @brief Calculate expected state vector from
-   * motion estimation
-   *
-   * @param expected_state
-   * @param motion_prediction_data
-   * @param time_interval in seconds
-   * @return Eigen::VectorXf
-   */
-  virtual Eigen::VectorXf motion_model_expected_state(
-      const Eigen::VectorXf& expected_state, const MotionPredictionData& motion_prediction_data,
-      const double time_interval) const = 0;
-
-  /**
-   * @brief Calculate state covariance matrix from
-   * motion estimation
-   *
-   * @param state_covariance_matrix
-   * @param motion_prediction_data
-   * @param time_interval in seconds
-   * @return Eigen::MatrixXf
-   */
-  virtual Eigen::MatrixXf motion_model_covariance_matrix(
-      const Eigen::MatrixXf& state_covariance_matrix, const Eigen::MatrixXf& motion_noise_matrix,
-      const MotionPredictionData& motion_prediction_data, const double time_interval) const = 0;
-};
-
-/**
- * @brief Motion estimation that uses
- * the specific values of the x and y axis
- * accelerations, being the angle of the
- * vehicle and its position independent
- *
- */
-class ImuVelocityModel : public MotionModel {
- public:
-  /**
-   * @brief Calculate expected state vector from
-   * velocity model using IMU data and linear functions
-   * Uses translational velocity in x and y axis
-   *
-   * @param expected_state
-   * @param motion_prediction_data
-   * @param time_interval in seconds
-   * @return Eigen::VectorXf
-   */
-  Eigen::VectorXf motion_model_expected_state(const Eigen::VectorXf& expected_state,
-                                              const MotionPredictionData& motion_prediction_data,
-                                              const double time_interval) const override;
-  /**
-   * @brief Calculate state covariance matrix from
-   * velocity model using IMU data and linear functions
-   * Uses translational velocity in x and y axis
-   *
-   * @param state_covariance_matrix
-   * @param motion_prediction_data
-   * @param time_interval in seconds
-   * @return Eigen::MatrixXf
-   */
-  Eigen::MatrixXf motion_model_covariance_matrix(const Eigen::MatrixXf& state_covariance_matrix,
-                                                 const Eigen::MatrixXf& motion_noise_matrix,
-                                                 const MotionPredictionData& motion_prediction_data,
-                                                 const double time_interval) const override;
-};
-
-/**
- * @brief Motion estimation that uses
- * the module of the velocity and the
- * rotational velocity
- *
- */
-class NormalVelocityModel : public MotionModel {
- public:
-  /**
-   * @brief Calculate expected state vector from
-   * velocity model using normal motion data
-   * Uses translation velocity only
-   *
-   * @param expected_state
-   * @param motion_prediction_data
-   * @param time_interval in seconds
-   * @return Eigen::VectorXf
-   */
-  Eigen::VectorXf motion_model_expected_state(const Eigen::VectorXf& expected_state,
-                                              const MotionPredictionData& motion_prediction_data,
-                                              const double time_interval) const override;
-
-  /**
-   * @brief Calculate state covariance matrix from
-   * velocity model using normal motion data
-   * Uses translation velocity only
-   *
-   * @param state_covariance_matrix
-   * @param motion_prediction_data
-   * @param time_interval in seconds
-   * @return Eigen::MatrixXf
-   */
-  Eigen::MatrixXf motion_model_covariance_matrix(const Eigen::MatrixXf& state_covariance_matrix,
-                                                 const Eigen::MatrixXf& motion_noise_matrix,
-                                                 const MotionPredictionData& motion_prediction_data,
-                                                 const double time_interval) const override;
-};
 
 /**
  * @brief Extended Kalman Filter class
@@ -138,10 +30,14 @@ class NormalVelocityModel : public MotionModel {
  *
  */
 class ExtendedKalmanFilter {
-  Eigen::VectorXf X; /**< Expected state vector (localization + mapping) */
-  Eigen::MatrixXf P; /**< State covariance matrix */
-  Eigen::MatrixXf R; /**< Motion noise matrix */
-  Eigen::MatrixXf Q; /**< Measurement noise matrix */
+  static float max_landmark_deviation; /**< Maximum deviation of the landmark position from the
+                                          expected position */
+
+  Eigen::VectorXf X;                  /**< Expected state vector (localization + mapping) */
+  Eigen::MatrixXf P;                  /**< State covariance matrix */
+  Eigen::MatrixXf R;                  /**< Motion noise matrix */
+  Eigen::MatrixXf Q;                  /**< Measurement noise matrix */
+  std::vector<colors::Color> _colors; /**< Vector of colors of the landmarks */
 
   VehicleState* _vehicle_state; /**< Pointer to the vehicle state to be published */
   Map* _map;                    /**< Pointer to the map to be published */
@@ -150,19 +46,46 @@ class ExtendedKalmanFilter {
   std::chrono::time_point<std::chrono::high_resolution_clock>
       _last_update; /**< Timestamp of last update */
 
-  const MotionModel& _motion_model; /**< Motion Model chosen for prediction step */
+  const MotionModel& _motion_model;           /**< Motion Model chosen for prediction step */
+  const ObservationModel& _observation_model; /**< Observation Model chosen for correction step */
+
+  /**
+   * @brief Discovery step:
+   * Adds a new landmark to the map
+   * if there are no matches for the observation
+   *
+   * @param observation_data
+   * @return unsigned int
+   */
+  unsigned int discovery(const ObservationData& observation_data);
+
+  /**
+   * @brief Calculate the kalman gain
+   *
+   * @param H jacobian observation model matrix
+   * @param P state covariance matrix
+   * @param Q measurement noise matrix
+   * @return Eigen::MatrixXf kalman gain matrix
+   */
+  static Eigen::MatrixXf get_kalman_gain(const Eigen::MatrixXf& H, const Eigen::MatrixXf& P,
+                                         const Eigen::MatrixXf& Q);
 
  public:
   /**
    * @brief Construct a new Extended Kalman Filter object
-   *
-   * @param vehicle_state
-   * @param map
-   * @param imu_update data retrieved by the IMU
+   * 
+   * @param R Process/Motion noise matrix
+   * @param Q Measurement noise matrix
+   * @param vehicle_state pointer to the vehicle state to be published
+   * @param map pointer to the map to be published
+   * @param imu_update pointer to the data coming from IMU
+   * @param map_from_perception pointer to the map predicted from perception
+   * @param motion_model motion model chosen for prediction step
+   * @param observation_model observation model chosen for correction step
    */
   ExtendedKalmanFilter(Eigen::MatrixXf R, Eigen::MatrixXf Q, VehicleState* vehicle_state, Map* map,
                        ImuUpdate* imu_update, Map* map_from_perception,
-                       const MotionModel& motion_model);
+                       const MotionModel& motion_model, const ObservationModel& observation_model);
 
   /**
    * @brief Updates vehicle state and map variables according

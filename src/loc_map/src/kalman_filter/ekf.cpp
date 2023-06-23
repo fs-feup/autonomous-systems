@@ -1,17 +1,20 @@
+
 #include "kalman_filter/ekf.hpp"
 
 #include <Eigen/Dense>
 #include <iostream>
 
 #include "loc_map/data_structures.hpp"
-#include "utils/formulas.hpp"
+
+float ExtendedKalmanFilter::max_landmark_deviation = 0.1;
 
 ExtendedKalmanFilter::ExtendedKalmanFilter(Eigen::MatrixXf R, Eigen::MatrixXf Q,
                                            VehicleState* vehicle_state, Map* map,
                                            ImuUpdate* imu_update, Map* map_from_perception,
-                                           const MotionModel& motion_model)
-    : X(Eigen::VectorXf::Zero(200)),
-      P(Eigen::MatrixXf::Zero(200, 200)),
+                                           const MotionModel& motion_model,
+                                           const ObservationModel& observation_model)
+    : X(Eigen::VectorXf::Zero(3)),
+      P(Eigen::MatrixXf::Zero(3, 3)),
       R(R),
       Q(Q),
       _vehicle_state(vehicle_state),
@@ -19,7 +22,8 @@ ExtendedKalmanFilter::ExtendedKalmanFilter(Eigen::MatrixXf R, Eigen::MatrixXf Q,
       _imu_update(imu_update),
       _map_from_perception(map_from_perception),
       _last_update(std::chrono::high_resolution_clock::now()),
-      _motion_model(motion_model) {}
+      _motion_model(motion_model),
+      _observation_model(observation_model) {}
 
 void ExtendedKalmanFilter::prediction_step() {
   std::chrono::time_point<std::chrono::high_resolution_clock> now =
@@ -29,112 +33,60 @@ void ExtendedKalmanFilter::prediction_step() {
   MotionPredictionData prediction_data = {
       this->_imu_update->translational_velocity, this->_imu_update->translational_velocity_x,
       this->_imu_update->translational_velocity_y, this->_imu_update->rotational_velocity};
-  X = this->_motion_model.motion_model_expected_state(X, prediction_data, delta / 1000000);
-  P = this->_motion_model.motion_model_covariance_matrix(P, this->R, prediction_data,
-                                                         delta / 1000000);
+  this->X = this->_motion_model.predict_expected_state(X, prediction_data, delta / 1000000);
+  Eigen::MatrixXf G =
+      this->_motion_model.get_motion_to_state_matrix(X, prediction_data, delta / 1000000);
+  this->P = G * this->P * G.transpose();  // TODO(marhcouto): Add R
   this->_last_update = now;
 }
 
 void ExtendedKalmanFilter::correction_step() {
-  // TODO(marhcouto): implement this
-  // for (auto cone : this->_map_from_perception->map) {
-  //   double absolute_x = cone.first.x + this->_vehicle_state->pose.position.x;
-  //   double absolute_y = cone.first.y + this->_vehicle_state->pose.position.y;
-
-  // }
-}
-
-void ExtendedKalmanFilter::update() { this->_vehicle_state->pose = Pose(X(0), X(1), X(2)); }
-
-// ------------------ Motion Models ------------------
-
-// Not working
-Eigen::VectorXf NormalVelocityModel::motion_model_expected_state(
-    const Eigen::VectorXf& expected_state, const MotionPredictionData& motion_prediction_data,
-    const double time_interval) const {
-  Eigen::VectorXf next_state = expected_state;
-  if (motion_prediction_data.rotational_velocity == 0.0) {  // Rectilinear movement
-    next_state(0) +=
-        motion_prediction_data.translational_velocity * cos(expected_state(2)) * time_interval;
-    next_state(1) +=
-        motion_prediction_data.translational_velocity * sin(expected_state(2)) * time_interval;
-  } else {  // Curvilinear movement
-    next_state(0) +=
-        -(motion_prediction_data.translational_velocity /
-          motion_prediction_data.rotational_velocity) *
-            sin(expected_state(2)) +
-        (motion_prediction_data.translational_velocity /
-         motion_prediction_data.rotational_velocity) *
-            sin(expected_state(2) + motion_prediction_data.rotational_velocity * time_interval);
-    next_state(1) +=
-        (motion_prediction_data.translational_velocity /
-         motion_prediction_data.rotational_velocity) *
-            cos(expected_state(2)) -
-        (motion_prediction_data.translational_velocity /
-         motion_prediction_data.rotational_velocity) *
-            cos(expected_state(2) + motion_prediction_data.rotational_velocity * time_interval);
+  for (auto cone : this->_map_from_perception->map) {
+    ObservationData observation_data = ObservationData(
+        this->_vehicle_state->pose.position.x, this->_vehicle_state->pose.position.y, cone.second);
+    unsigned int landmark_index = this->discovery(observation_data);
+    Eigen::MatrixXf H = this->_observation_model.get_jacobian(landmark_index, this->X.size());
+    Eigen::MatrixXf K = this->get_kalman_gain(H, this->P, this->Q);
+    Eigen::Vector2f z_hat = this->_observation_model.observation_model(this->X, landmark_index);
+    Eigen::Vector2f z = Eigen::Vector2f(observation_data.position.x, observation_data.position.y);
+    this->X = this->X + K * (z - z_hat);
+    this->P = (Eigen::MatrixXf::Identity(this->P.rows(), this->P.cols()) - K * H) * this->P;
   }
-  next_state(2) = normalize_angle(expected_state(2) +
-                                  motion_prediction_data.rotational_velocity * time_interval);
-  return next_state;
 }
 
-Eigen::MatrixXf NormalVelocityModel::motion_model_covariance_matrix(
-    const Eigen::MatrixXf& state_covariance_matrix, const Eigen::MatrixXf& motion_noise_matrix,
-    const MotionPredictionData& motion_prediction_data, const double time_interval) const {
-  Eigen::MatrixXf jacobian =
-      Eigen::MatrixXf::Identity(state_covariance_matrix.rows(), state_covariance_matrix.cols());
+Eigen::MatrixXf ExtendedKalmanFilter::get_kalman_gain(const Eigen::MatrixXf& H,
+                                                      const Eigen::MatrixXf& P,
+                                                      const Eigen::MatrixXf& Q) {
+  Eigen::MatrixXf S = H * P * H.transpose();  // TODO(marhcouto): Add Q
+  Eigen::MatrixXf K = P * H.transpose() * S.inverse();
+  return K;
+}
 
-  if (motion_prediction_data.rotational_velocity == 0.0) {  // Rectilinear movement
-    jacobian(0, 2) = -motion_prediction_data.translational_velocity *
-                     sin(state_covariance_matrix(2)) * time_interval;
-    jacobian(1, 2) = motion_prediction_data.translational_velocity *
-                     cos(state_covariance_matrix(2)) * time_interval;
-  } else {  // Curvilinear movement
-    jacobian(0, 2) = -(motion_prediction_data.translational_velocity /
-                       motion_prediction_data.rotational_velocity) *
-                         cos(state_covariance_matrix(2)) +
-                     (motion_prediction_data.translational_velocity /
-                      motion_prediction_data.rotational_velocity) *
-                         cos(state_covariance_matrix(2) +
-                             motion_prediction_data.rotational_velocity * time_interval);
-    jacobian(1, 2) = -(motion_prediction_data.translational_velocity /
-                       motion_prediction_data.rotational_velocity) *
-                         sin(state_covariance_matrix(2)) +
-                     (motion_prediction_data.translational_velocity /
-                      motion_prediction_data.rotational_velocity) *
-                         sin(state_covariance_matrix(2) +
-                             motion_prediction_data.rotational_velocity * time_interval);
+unsigned int ExtendedKalmanFilter::discovery(const ObservationData& observation_data) {
+  Eigen::Vector2f landmark_absolute =
+      this->_observation_model.inverse_observation_model(this->X, observation_data);
+  for (int i = 3; i < this->X.size() - 1; i += 2) {
+    double delta_x = this->X(i) - landmark_absolute(0);
+    double delta_y = this->X(i + 1) - landmark_absolute(1);
+    double delta = std::sqrt(std::pow(delta_x, 2) + std::pow(delta_y, 2));
+    if (delta <= ExtendedKalmanFilter::max_landmark_deviation &&
+        this->_colors[(i - 3) / 2] == observation_data.color)
+      return i;
   }
-  Eigen::MatrixXf new_state_covariance_matrix =
-      jacobian * state_covariance_matrix * jacobian.transpose() + motion_noise_matrix;
-
-  return new_state_covariance_matrix;
+  // If not found, add to the map
+  this->X.conservativeResize(this->X.size() + 2);
+  this->X(this->X.size() - 2) = landmark_absolute(0);
+  this->X(this->X.size() - 1) = landmark_absolute(1);
+  this->P.conservativeResize(this->P.rows() + 2, this->P.cols() + 2);
+  this->_colors.push_back(observation_data.color);
+  return this->X.size() - 2;
 }
 
-Eigen::VectorXf ImuVelocityModel::motion_model_expected_state(
-    const Eigen::VectorXf& expected_state, const MotionPredictionData& motion_prediction_data,
-    const double time_interval) const {
-  Eigen::VectorXf next_state = expected_state;
-  next_state(0) += motion_prediction_data.translational_velocity_x * time_interval;
-  next_state(1) += motion_prediction_data.translational_velocity_y * time_interval;
-  next_state(2) =
-      normalize_angle(next_state(2) + motion_prediction_data.rotational_velocity * time_interval);
-  return next_state;
-}
-
-// TODO(marhcouto): check what to do about the unused paramter warnings
-Eigen::MatrixXf ImuVelocityModel::motion_model_covariance_matrix(
-    const Eigen::MatrixXf& state_covariance_matrix, const Eigen::MatrixXf& motion_noise_matrix,
-    const MotionPredictionData& motion_prediction_data,
-    const double time_interval)
-    const {  // In this implementation, as the motion model is already linear,
-             // we do not use the derivative of the model
-  Eigen::MatrixXf motion_to_state_matrix =
-      Eigen::MatrixXf::Identity(state_covariance_matrix.rows(), state_covariance_matrix.cols());
-  Eigen::MatrixXf new_state_covariance_matrix =
-      motion_to_state_matrix * state_covariance_matrix * motion_to_state_matrix.transpose() +
-      motion_noise_matrix;
-
-  return new_state_covariance_matrix;
+void ExtendedKalmanFilter::update() {
+  this->_vehicle_state->pose = Pose(X(0), X(1), X(2));
+  this->_map->map.clear();
+  for (int i = 3; i < this->X.size() - 1; i += 2) {
+    this->_map->map.insert(
+        std::pair<Position, colors::Color>(Position(X(i), X(i + 1)), this->_colors[(i - 3) / 2]));
+  }
 }
