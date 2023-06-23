@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['speed_5fcontrol_0',['SPEED_CONTROL',['../namespacecontrol_1_1control__node.html#a62524c03d532a5b6febdc1632c68a934',1,'control::control_node']]],
-  ['steer_1',['steer',['../classcontrol_1_1control__node_1_1ControlNode.html#a045cb70701479d102990d2471caeffeb',1,'control.control_node.ControlNode.steer()'],['../namespacecontrol_1_1utils.html#a045cb70701479d102990d2471caeffeb',1,'control.utils.steer()']]],
-  ['steer_5fcontrol_2',['STEER_CONTROL',['../namespacecontrol_1_1control__node.html#a43b82f211814c4f79f9adb08c8051f95',1,'control::control_node']]],
-  ['steering_5fangle_5fvelocity_3',['steering_angle_velocity',['../classcontrol_1_1control__node_1_1ControlNode.html#abeaa88966043d0e4caaac21502f4a31b',1,'control::control_node::ControlNode']]]
+  ['n_0',['N',['../classcontrol_1_1config_1_1Params.html#a8cc2e7240164328fdc3f0e5e21032c56',1,'control::config::Params']]],
+  ['node_1',['node',['../classcontrol_1_1abstraction__layer_1_1AbstractionLayer.html#ae0682e96cacac1e6c208357a99dbd6d0',1,'control::abstraction_layer::AbstractionLayer']]],
+  ['normalize_5fangle_2',['normalize_angle',['../namespacecontrol_1_1mpc__utils.html#af2ddd3b193d0f1d5cbbc19ccd62d836c',1,'control::mpc_utils']]]
 ];

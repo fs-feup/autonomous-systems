@@ -1,5 +1,6 @@
+from control.pid_utils import get_cte, get_closest_point
+
 import unittest
-from control.utils import get_cte, get_closest_point
 import numpy as np
 import math
 
@@ -41,9 +42,14 @@ class TestUtilsMethods(unittest.TestCase):
                 y_track_2 = y_track_1 + 0.1*math.sin(yaw_track)
                 
                 points_array = np.array([[x_track_1, y_track_1],
+                                         [x_track_1, y_track_1],
+                                         [x_track_2, y_track_2],
                                          [x_track_2, y_track_2]])
                 pose_car = [x_car, y_car, yaw_car]
                 closest_index = 0
+
+                print(points_array)
+
                 cte = get_cte(closest_index, points_array, pose_car)
 
                 ans_mult = 1 if same_dir else -1
