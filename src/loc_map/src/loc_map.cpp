@@ -20,10 +20,11 @@ int main(int argc, char **argv) {
   Map *track_map = new Map();      // Map to publish
   Map *predicted_map = new Map();  // Map from perception
   MotionModel *motion_model = new ImuVelocityModel();
-  ExtendedKalmanFilter *ekf = new ExtendedKalmanFilter(
-      Eigen::MatrixXf::Identity(200, 200), Eigen::MatrixXf::Identity(200, 200), vehicle_state,
-      track_map, imu_update, predicted_map,
-      *motion_model);  // TODO(marhcouto): put non zero noise matrixes
+  ObservationModel observation_model = ObservationModel();
+  ExtendedKalmanFilter *ekf =
+      new ExtendedKalmanFilter(Eigen::MatrixXf::Zero(3, 3), Eigen::MatrixXf::Zero(3, 3),
+                               vehicle_state, track_map, imu_update, predicted_map, *motion_model,
+                               observation_model);  // TODO(marhcouto): put non zero noise matrixes
 
   (void)argc;
   (void)argv;

@@ -21,6 +21,8 @@ set(IMPLEMENTATION_FILES
   src/loc_map/lm_publisher.cpp
   src/loc_map/lm_ekf_node.cpp
   src/kalman_filter/ekf.cpp
+  src/kalman_filter/motion_models.cpp
+  src/kalman_filter/observation_models.cpp
   src/utils/position.cpp
   src/utils/formulas.cpp
   )
@@ -55,6 +57,7 @@ if(BUILD_TESTING)
     test/main.cpp
     test/lm_publisher_test.cpp
     test/motion_model_test.cpp
+    test/observation_model_test.cpp
     )
   
   ament_add_gtest(${PROJECT_NAME}_test ${TESTFILES} ${IMPLEMENTATION_FILES})
