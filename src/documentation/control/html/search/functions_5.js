@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['right_5for_5fleft_0',['right_or_left',['../namespacecontrol_1_1utils.html#aa7fb2cc6c133b2c05195233a5c17f88f',1,'control::utils']]]
+  ['normalize_5fangle_0',['normalize_angle',['../namespacecontrol_1_1mpc__utils.html#af2ddd3b193d0f1d5cbbc19ccd62d836c',1,'control::mpc_utils']]]
 ];
