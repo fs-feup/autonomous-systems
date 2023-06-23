@@ -5,6 +5,6 @@
 #include "./position.hpp"
 #include "rclcpp/rclcpp.hpp"
 
-Track* read_track_file(std::string filename);
+Track* read_track_file(const std::string& filename);
 
-void write_path_file(std::string filename, std::vector<Position*> path);
+void write_path_file(const std::string& filename, std::vector<Position*> path);
