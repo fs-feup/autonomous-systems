@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['speed_5fcontrol_0',['SPEED_CONTROL',['../namespacecontrol_1_1control__node.html#a62524c03d532a5b6febdc1632c68a934',1,'control::control_node']]],
-  ['steer_5fcontrol_1',['STEER_CONTROL',['../namespacecontrol_1_1control__node.html#a43b82f211814c4f79f9adb08c8051f95',1,'control::control_node']]],
-  ['steering_5fangle_5fvelocity_2',['steering_angle_velocity',['../classcontrol_1_1control__node_1_1ControlNode.html#abeaa88966043d0e4caaac21502f4a31b',1,'control::control_node::ControlNode']]]
+  ['l_0',['L',['../classcontrol_1_1config_1_1Params.html#a67824ecf84f5816f07b74fa956bdbcd2',1,'control::config::Params']]],
+  ['look_5fahead_1',['LOOK_AHEAD',['../classcontrol_1_1config_1_1Params.html#a1d55d6a061102573655136920924a886',1,'control::config::Params']]]
 ];

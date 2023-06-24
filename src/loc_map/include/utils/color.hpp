@@ -9,12 +9,19 @@
  *
  */
 namespace colors {
-enum Color { orange = 0, large_orange, yellow, blue };
-static const char* color_names[] = {"orange", "large_orange", "yellow", "blue"};
-static const std::map<std::string, Color> color_map = {{"orange_cone", Color::orange},
-                                                       {"large_orange_cone", Color::large_orange},
-                                                       {"yellow_cone", Color::yellow},
-                                                       {"blue_cone", Color::blue}};
+enum Color {
+  blue = 0,
+  yellow,
+  orange,
+  large_orange,
+};
+static const char* color_names[] = {"blue_cone", "yellow_cone", "orange_cone", "large_orange_cone"};
+static const std::map<std::string, Color> color_map = {
+    {"blue_cone", Color::blue},
+    {"yellow_cone", Color::yellow},
+    {"orange_cone", Color::orange},
+    {"large_orange_cone", Color::large_orange},
+};
 }  // namespace colors
 
 #endif  // SRC_LOC_MAP_INCLUDE_UTILS_COLOR_HPP_

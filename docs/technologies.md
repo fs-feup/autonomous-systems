@@ -18,7 +18,9 @@ This document compiles the versions of all tools and technologies used in this p
 - [rclcpp](https://docs.ros2.org/latest/api/rclcpp/)
 - [gtest](https://google.github.io/googletest/)
 - [unittest](https://docs.python.org/3/library/unittest.html)
+- [Eigen](https://eigen.tuxfamily.org/index.php?title=Main_Page)
 
+Note: these all come with ROS2 or are already in the project
 ## Languages
 
 - [python](https://www.python.org/)
