@@ -1,4 +1,4 @@
-# EUFS SIM Simulator Tutorial
+# EUFS SIM Simulator and ROS2 Tutorial
 
 This tutorial is meant to guide on the setup and installation of the [EUFS Simulator](https://gitlab.com/eufs/eufs_sim) and its prerequesites.
 

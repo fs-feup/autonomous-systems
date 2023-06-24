@@ -24,9 +24,8 @@ class LMPublisher : public rclcpp::Node {
   rclcpp::TimerBase::SharedPtr _timer;
   rclcpp::Publisher<custom_interfaces::msg::Pose>::SharedPtr _localization_publisher;
   rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr _mapping_publisher;
-  Localization* _vehicle_localization;
+  VehicleState* _vehicle_state;
   Map* _track_map;
-  size_t _count;  // TODO(marhcouto): remove this variable
 
   /**
    * @brief timer callback function for publishing the localization and the map
@@ -40,7 +39,7 @@ class LMPublisher : public rclcpp::Node {
    *
    * @param vehicle_pose
    */
-  void _publish_localization(Localization vehicle_localization);
+  void _publish_localization(VehicleState vehicle_state);
 
   /**
    * @brief publishes the map ('track_map') to the topic track_map
@@ -54,7 +53,7 @@ class LMPublisher : public rclcpp::Node {
    * @brief Construct a new LMPublisher object
    *
    */
-  LMPublisher(Localization* vehicle_localization, Map* track_map);
+  LMPublisher(Map* track_map, VehicleState* state);
 };
 
 #endif  // SRC_LOC_MAP_INCLUDE_LOC_MAP_LM_PUBLISHER_HPP_

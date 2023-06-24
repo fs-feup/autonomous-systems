@@ -17,7 +17,9 @@ class PathMockPublisher(Node):
         @param self The object pointer
         """
         super().__init__('path_mock_publisher')
-        self.create_path(straight)
+        self.track_path = '/home/vitor/Downloads/skidpadpath.txt'
+        # self.create_path(straight)
+        self.create_path2()
 
         self.publisher_ = self.create_publisher(PointArray, 'path_mock', 10)
         timer_period = 0.01  # seconds
@@ -120,6 +122,22 @@ class PathMockPublisher(Node):
          """
         self.path = path
 
+    def create_path2(self):
+        path = PointArray()
+
+        def add_point(x, y):
+            point = Point2d(
+                y=float(x)/1.8246,
+                x=float(y)/1.8246 + 14.4
+            )
+            path.points.append(point) if point not in path.points else None
+
+        with open(self.track_path, 'r') as f:
+            for line in f.readlines()[:]:
+                coords = line.split(' ')
+                add_point(coords[0], coords[1])
+
+        self.path = path
 
     def timer_callback(self):
         """!
@@ -148,3 +166,25 @@ def main(args=None, straight=False):
 
 if __name__ == '__main__':
     main()
+
+
+    '''
+
+    path = PointArray()
+
+    def add_point(x, y):
+        point = Point2d(
+            x=float(x),
+            y=float(y)
+        )
+        path.points.append(point) if point not in path.points else None
+
+    with open(self.track_path, 'r') as f:
+        for line in f.readlines():
+            coords = line.split(' ')
+            add_point(coords[1], coords[2])
+
+    print(path)
+    '''
+
+

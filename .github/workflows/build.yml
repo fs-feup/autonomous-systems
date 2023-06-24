@@ -80,10 +80,10 @@ jobs:
           source install/setup.bash
           colcon test --packages-select planning --event-handler=console_direct+
 
-      # - name: Compile and Test Perception
-      #   run: |
-      #     source /opt/ros/galactic/setup.bash
-      #     cd ./src/
-      #     colcon build --packages-select custom_interfaces perception
-      #     source install/setup.bash
-      #     colcon test --packages-select perception --event-handler=console_direct+
+      - name: Compile and Test Perception
+        run: |
+          source /opt/ros/galactic/setup.bash
+          cd ./src/
+          colcon build --packages-select custom_interfaces perception
+          source install/setup.bash
+          colcon test --packages-select perception --event-handler=console_direct+
