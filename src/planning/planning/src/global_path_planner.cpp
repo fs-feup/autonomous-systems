@@ -33,10 +33,10 @@ void GlobalPathPlanner::middlePath() {
   }
 
   for (size_t i = 0; i < finalPath.size(); i++) {
-    cout << "x = " << finalPath[i]->getX() << " y = " << finalPath[i]->getY() << endl;
+    std::cout << "x = " << finalPath[i]->getX() << " y = " << finalPath[i]->getY() << std::endl;
   }
 
-  cout << "Middle path calculated with " << finalPath.size() << " points\n";
+  std::cout << "Middle path calculated with " << finalPath.size() << " points\n";
 }
 
 // void GlobalPathPlanner::writeFinalPath(const std::string &filePrefix) {
@@ -48,11 +48,11 @@ void GlobalPathPlanner::middlePath() {
 //   finalPathFile.close();
 // }
 
-vector<pair<float, float>> GlobalPathPlanner::getPath() {
-  vector<pair<float, float>> pathCopy;
+std::vector<std::pair<float, float>> GlobalPathPlanner::getPath() {
+  std::vector<std::pair<float, float>> pathCopy;
 
   for (size_t i = 0; i < finalPath.size(); i++)
-    pathCopy.push_back(make_pair(finalPath[i]->getX(), finalPath[i]->getY()));
+    pathCopy.push_back(std::make_pair(finalPath[i]->getX(), finalPath[i]->getY()));
 
   return pathCopy;
 }

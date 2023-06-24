@@ -25,6 +25,30 @@ There is an example doxyfile [here](../assets/environment_setup_tutorial/Doxyfil
 
 The [example project](../assets/environment_setup_tutorial/training/) also contains a Doxyfile (it is the same as the one mentioned above) and a [script](../assets/environment_setup_tutorial/training/document.sh) that generates a pdf file + the latex output from doxygen. This script required the installation of [pdflatex](https://gist.github.com/rain1024/98dd5e2c6c8c28f9ea9d). The example project also contains commented code.
 
+## Doxygen C++
+
+C++ code example:
+```c++
+/**
+ * @brief Class for Kalman Filter
+ * Used for SLAM
+ * 
+*/
+class KalmanFilter {
+
+ public:
+  /**
+   * @brief Base constructor
+   * 
+   * @param MotionModel motion_model motion model to be used
+   * @param ObservationModel observation_model validation model to be used
+   * 
+  */ 
+  KalmanFilter(const MotionModel& motion_model, const ObservationModel& observation_model);
+}
+
+```
+
 
 ## Doxygen Python
 

@@ -1,7 +1,7 @@
 #include "../../include/planning/global_path_planner.hpp"
 #include "../../include/planning/local_path_planner.hpp"
-#include "rclcpp/rclcpp.hpp"
 #include "gtest/gtest.h"
+#include "rclcpp/rclcpp.hpp"
 
 using testing::Eq;
 

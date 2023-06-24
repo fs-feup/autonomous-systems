@@ -7,25 +7,24 @@
 #include <string>
 #include <vector>
 
-#include "./cone.hpp"
+#include "../utils/cone.hpp"
 
-using namespace std;
 /**
  * Track class. Contains the track information data and the cones position
  */
 
 class Track {
   bool completed;
-  vector<Cone*> leftCones;  /**<left side cone list*/
-  vector<Cone*> rightCones; /**<right side cone list*/
+  std::vector<Cone*> leftCones;  /**<left side cone list*/
+  std::vector<Cone*> rightCones; /**<right side cone list*/
 
   int rightCount = 0;
   int leftCount = 0;
 
  public:
   Track();
-
   ~Track();
+
   /**
    * Access right cone in the list in a specified index
    */
@@ -47,12 +46,12 @@ class Track {
   /**
    * Read file to populate track
    */
-  void fillTrack(const string& path);
+  void fillTrack(const std::string& path);
 
   /**
    * Add cone to list
    */
-  void addCone(float xValue, float yValue, const string& color);
+  void addCone(float xValue, float yValue, const std::string& color);
   // adds the position of two cones to the track list
 
   // TODO(andre): CHANGE TO RECEIVE ID WITH PAIR SIDE DIFF INSTEAD OF COLOR
@@ -62,6 +61,8 @@ class Track {
   Cone* findCone(int id);
 
   Cone* findCone(float x, float y);
+
+  void reset();
 };
 
 #endif  // SRC_PLANNING_PLANNING_INCLUDE_PLANNING_TRACK_HPP_
