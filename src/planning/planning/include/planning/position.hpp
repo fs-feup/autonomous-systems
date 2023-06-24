@@ -3,6 +3,7 @@
 
 #include <cmath>
 #include <vector>
+#include <fstream>
 
 /**
  * Position class. Stores the x and y values of the car
@@ -25,6 +26,10 @@ class Position {
    * Euclidean distance to another position
    */
   float getDistanceTo(Position* dest);
+
+  bool operator==(const Position& p) const;
+
+  //std::ostream& operator<<(std::ostream& os,const Position& p);
 };
 
 #endif  // SRC_PLANNING_PLANNING_INCLUDE_PLANNING_POSITION_HPP_

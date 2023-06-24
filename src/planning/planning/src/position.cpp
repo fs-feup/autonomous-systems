@@ -17,3 +17,10 @@ float Position::getY() const { return y; }
 float Position::getDistanceTo(Position *dest) {
   return sqrt(pow(this->x - dest->getX(), 2) + pow(this->y - dest->getY(), 2));
 }
+
+bool Position::operator==(const Position& p) const{
+  if(this-> x == p.getX() && this-> y == p.getY() ){
+    return true;
+  }
+  return false;
+}
