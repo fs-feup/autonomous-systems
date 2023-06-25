@@ -56,10 +56,10 @@ TEST(GlobalPathPlanner, middlePath3) {
   };
 
   EXPECT_EQ(expected, finalPath);
-}*/
+}
 
-std::ostream& operator<<(std::ostream& os,const Position& p) {
-    return os << '(' << p.getX() << ',' << p.getY() << ')';
+std::ostream& operator<<(std::ostream& os, const Position& p) {
+  return os << '(' << p.getX() << ',' << p.getY() << ')';
 }
 
 TEST(LocalPathPlanner, delauney1) {
@@ -70,21 +70,20 @@ TEST(LocalPathPlanner, delauney1) {
   LocalPathPlanner* pathplanner = new LocalPathPlanner();
   std::vector<Position> path;
   std::vector<Position*> pathPointers = pathplanner->processNewArray(track);
-  for (size_t i = 0; i < pathPointers.size(); i++)
-    path.push_back(*pathPointers[i]);
+  for (size_t i = 0; i < pathPointers.size(); i++) path.push_back(*pathPointers[i]);
 
-  //expected for map_test1:
-  //std::vector<Position> expected{Position(0,0),Position(1,0), Position(2,0), Position(3,0), Position(4,0), Position(5,0), Position(6,0), Position(7,0),Position(8,0)};
-  
-  //dummy expected until sort done:
-  std::vector<Position> expected{Position(0,0)};
+  // expected for map_test1:
+  // std::vector<Position> expected{Position(0,0),Position(1,0), Position(2,0), Position(3,0),
+  // Position(4,0), Position(5,0), Position(6,0), Position(7,0),Position(8,0)};
+
+  // dummy expected until sort done:
+  std::vector<Position> expected{Position(0, 0)};
   EXPECT_EQ(expected, path);
 
   // ============= Tmp write path to file ================
-      std::string finalPath =  filePrefix + "/planning/planning/files/finalPath.txt";
-      ofstream finalPathFile(finalPath);
-      for (size_t i = 0; i <pathPointers.size(); i++)
-        finalPathFile << pathPointers[i]->getX() << " " << pathPointers[i]->getY() << "\n";
-      finalPathFile.close();
-
-}
+  std::string finalPath = filePrefix + "/planning/planning/files/finalPath.txt";
+  std::ofstream finalPathFile(finalPath);
+  for (size_t i = 0; i < pathPointers.size(); i++)
+    finalPathFile << pathPointers[i]->getX() << " " << pathPointers[i]->getY() << "\n";
+  finalPathFile.close();
+}*/
