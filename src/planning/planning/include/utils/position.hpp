@@ -2,8 +2,8 @@
 #define SRC_PLANNING_PLANNING_INCLUDE_UTILS_POSITION_HPP_
 
 #include <cmath>
-#include <vector>
 #include <fstream>
+#include <vector>
 
 /**
  * Position class. Stores the x and y values of the car
@@ -29,7 +29,7 @@ class Position {
 
   bool operator==(const Position& p) const;
 
-  //std::ostream& operator<<(std::ostream& os,const Position& p);
+  // std::ostream& operator<<(std::ostream& os,const Position& p);
 };
 
 #endif  // SRC_PLANNING_PLANNING_INCLUDE_UTILS_POSITION_HPP_
