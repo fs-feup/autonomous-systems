@@ -1,5 +1,9 @@
 #include "../include/planning/global_path_planner.hpp"
 
+#include <string>
+#include <utility>
+#include <vector>
+
 GlobalPathPlanner::GlobalPathPlanner(Track* track) : track(track) {}
 
 void GlobalPathPlanner::middlePath() {

@@ -15,8 +15,8 @@
 
 class Track {
   bool completed;
-  std::vector<Cone*> leftCones;  /**<left side cone list*/
-  std::vector<Cone*> rightCones; /**<right side cone list*/
+  std::vector<Cone*> leftCones;   // left side cone list
+  std::vector<Cone*> rightCones;  // right side cone list
 
   int rightCount = 0;
   int leftCount = 0;
