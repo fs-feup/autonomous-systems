@@ -1,5 +1,6 @@
-#include "../include/planning/track.hpp"
+#include <string>
 
+#include "../include/planning/track.hpp"
 #include "../include/utils/color.hpp"
 
 Track::Track() { completed = false; }
@@ -13,9 +14,10 @@ Track::~Track() {
   for (int i = 0; i < rSize; i++) delete rightCones[i];
 }
 
-void Track::fillTrack(const string& path) {
-  string x, y, color;
-  ifstream trackFile;
+void Track::fillTrack(const std::string& path) {
+  std::string x, y, color;
+  std::ifstream trackFile;
+
   trackFile.open(path);
 
   while (trackFile >> x >> y >> color) {
@@ -34,7 +36,7 @@ int Track::getRightConesSize() { return rightCones.size(); }
 
 int Track::getLeftConesSize() { return leftCones.size(); }
 
-void Track::addCone(float xValue, float yValue, const string& color) {
+void Track::addCone(float xValue, float yValue, const std::string& color) {
   if (color == colors::color_names[colors::blue]) {
     rightCones.push_back(new Cone(this->rightCount * 2, xValue, yValue));
     rightCount++;
@@ -67,6 +69,20 @@ void Track::setCone(Cone* cone) {
       }
       rightCones.push_back(cone);
   }
+}
+
+Cone* Track::findCone(int id) {
+  for (size_t i = 0; i < leftCones.size(); i++) {
+    if (leftCones[i]->getId() == id)
+      return leftCones[i];
+  }
+
+  for (size_t i = 0; i < rightCones.size(); i++) {
+    if (rightCones[i]->getId() == id)
+      return rightCones[i];
+  }
+
+  return nullptr;
 }
 
 Cone* Track::findCone(float x, float y) {
