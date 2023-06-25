@@ -51,8 +51,6 @@ for angle in np.arange(math.pi / 4, 15 * math.pi / 8, 2*math.pi / coneDivisions)
     yCones.append(y)
     colorList.append("#ff0000")
 
-
-
 for i in range(0, 2):
     for angle in np.arange(math.pi, -math.pi, -2*math.pi / circleDivisions):
         x = center_x + radius * math.cos(angle)
@@ -69,9 +67,6 @@ for i in range(0, 2):
         yPoints.append(y)
         colorList.append("#00aa00")
 
-# for point in points:
-#     print(f"({point[0]:.2f}, {point[1]:.2f})")
-
 print(len(xPoints))
 print(len(yPoints))
 print(len(xCones))
@@ -79,6 +74,18 @@ print(len(yCones))
 print(len(yPoints + yCones))
 print(len(colorList))
 
-plt.scatter(xCones + xPoints, yCones + yPoints, s=2, c = colorList)
+f = open("skidpadpath.txt", "w")
+for i in range(0, len(xPoints)):
+    f.write(f"{xPoints[i]} {yPoints[i]}\n")
+
+# Iterating through the json
+# list
+# for i in data['emp_details']:
+# for i in range(0, len(data['x'])):
+#     print(f"{data['x'][i]} {data['y'][i]} {color_encoding(data['color'][i])}")
+
+f.close()
+
+plt.scatter(xCones + xPoints, yCones + yPoints, s=2, c=colorList)
 plt.axis('equal')
 plt.show()

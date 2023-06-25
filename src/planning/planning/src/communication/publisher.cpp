@@ -2,6 +2,8 @@
 #include <functional>
 #include <memory>
 #include <string>
+#include <utility>
+#include <vector>
 #include <ament_index_cpp/get_package_share_directory.hpp>
 
 #include "../../include/planning/pathplanner.hpp"

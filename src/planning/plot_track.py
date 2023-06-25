@@ -7,17 +7,17 @@ yMidList = []
 
 colorList = []
 count = 0
-with open('planning/files/skidpad.txt', 'r') as f:
+with open('planning/files/map_test5.txt', 'r') as f:
     for line in f:   
         lineList = line.split(" ")
         lineList[2]=lineList[2].strip()
-        if lineList[2] == "ol" or lineList[2] == "y": 
+        if lineList[2] == "ol" or lineList[2] == "yellow": 
             # yellow and orange left -> left cones
             xTrackList.append(float(lineList[0]))
             yTrackList.append(float(lineList[1]))
             colorList.append("#000000") 
             # adds cone color in color list to the respective index
-        elif lineList[2] == "or" or lineList[2] == "b": 
+        elif lineList[2] == "or" or lineList[2] == "blue": 
             # blue and orange right -> right cones
             xTrackList.append(float(lineList[0]))
             yTrackList.append(float(lineList[1]))
