@@ -7,7 +7,7 @@ yMidList = []
 
 colorList = []
 count = 0
-with open('planning/files/hairpins.txt', 'r') as f:
+with open('planning/files/map_test5.txt', 'r') as f:
     for line in f:   
         lineList = line.split(" ")
         lineList[2]=lineList[2].strip()

@@ -1,6 +1,7 @@
 #include <functional>
 #include <memory>
 #include <string>
+#include <vector>
 
 #include "../include/planning/global_path_planner.hpp"
 #include "../include/planning/local_path_planner.hpp"
@@ -25,8 +26,8 @@ class Planning : public rclcpp::Node {
   float initialOrientation_;
 
   void vehicle_localisation_callback(const custom_interfaces::msg::Pose msg) {
-    RCLCPP_INFO(this->get_logger(), "Vehicle Localisation: (%f, %f, %fdeg)",
-      msg.position.x, msg.position.y, msg.theta);
+    RCLCPP_INFO(this->get_logger(), "Vehicle Localisation: (%f, %f, %fdeg)", msg.position.x,
+                msg.position.y, msg.theta);
     if (initialOrientation_ == -1) {
       initialOrientation_ = msg.theta;
       local_path_planner->setOrientation(msg.theta);
@@ -44,8 +45,8 @@ class Planning : public rclcpp::Node {
                   cone.color.c_str());
     }
 
-    //std::vector<Position*> path = local_path_planner->processNewArray(track);
-    //publish_track_points(path);
+    // std::vector<Position*> path = local_path_planner->processNewArray(track);
+    // publish_track_points(path);
     delete (track);
 
     RCLCPP_INFO(this->get_logger(), "--------------------------------------");
@@ -68,7 +69,7 @@ class Planning : public rclcpp::Node {
   }
 
  public:
-  Planning() : Node("planning"),  initialOrientation_(-1) {
+  Planning() : Node("planning"), initialOrientation_(-1) {
     vl_sub_ = this->create_subscription<custom_interfaces::msg::Pose>(
         "vehicle_localization", 10, std::bind(&Planning::vehicle_localisation_callback, this, _1));
 

@@ -2,6 +2,7 @@
 #define SRC_PLANNING_PLANNING_INCLUDE_UTILS_POSITION_HPP_
 
 #include <cmath>
+#include <fstream>
 #include <vector>
 
 /**
@@ -25,6 +26,10 @@ class Position {
    * Euclidean distance to another position
    */
   float getDistanceTo(Position* dest);
+
+  bool operator==(const Position& p) const;
+
+  // std::ostream& operator<<(std::ostream& os,const Position& p);
 };
 
 #endif  // SRC_PLANNING_PLANNING_INCLUDE_UTILS_POSITION_HPP_

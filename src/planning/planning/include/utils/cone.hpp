@@ -4,6 +4,7 @@
 #include <cmath>
 #include <string>
 #include <vector>
+
 /**
  * Position class. Stores the x and y values of the car
  */
