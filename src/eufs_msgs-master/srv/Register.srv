@@ -1,0 +1,4 @@
+string node_name
+uint8 severity
+---
+uint8 id
