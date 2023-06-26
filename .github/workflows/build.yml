@@ -56,6 +56,13 @@ jobs:
           sudo rosdep init
           rosdep update --include-eol-distros
 
+      - name: Dependencies Installation
+        run: |
+          pip3 install scipy
+          sudo apt-get install libcgal-dev
+          pip3 install torchvision
+          pip3 install tensorboard
+
       - name: Compile and Test Localization and Mapping
         run: |
           source /opt/ros/galactic/setup.bash
@@ -84,6 +91,6 @@ jobs:
         run: |
           source /opt/ros/galactic/setup.bash
           cd ./src/
-          colcon build --packages-select custom_interfaces perception
+          colcon build --packages-select custom_interfaces depth_processing yolov5_ros
           source install/setup.bash
-          colcon test --packages-select perception --event-handler=console_direct+
+          colcon test --packages-select depth_processing --event-handler=console_direct+
