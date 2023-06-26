@@ -1,0 +1,12 @@
+float64 imu_acceleration_x_mg
+float64 imu_acceleration_y_mg
+float64 imu_acceleration_z_mg
+float64 imu_temperature_degc
+uint8 imu_verticalaxis
+uint8 imu_orientation
+float64 imu_magneticfield_x_ut
+float64 imu_magneticfield_y_ut
+float64 imu_magneticfield_z_ut
+float64 imu_rotation_x_degps
+float64 imu_rotation_y_degps
+float64 imu_rotation_z_degps

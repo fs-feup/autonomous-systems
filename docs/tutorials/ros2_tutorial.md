@@ -113,6 +113,26 @@ ros2 -h
 - topic      Various topic related sub-commands
 - wtf        Use `wtf` as alias to `doctor`
 
+### Run
+
+Run commands allows for the execution of nodes in packages. 
+
+```bash
+ros2 run -h
+usage: ros2 run [-h] [--prefix PREFIX] package_name executable_name ...
+
+Run a package specific executable
+
+positional arguments:
+  package_name     Name of the ROS package
+  executable_name  Name of the executable
+  argv             Pass arbitrary arguments to the executable
+
+optional arguments:
+  -h, --help       show this help message and exit
+  --prefix PREFIX  Prefix command, which should go before the executable. Command must be wrapped in quotes if it contains spaces (e.g. --prefix 'gdb -ex run --args').
+```
+
 ### Node
 
 Node command gives information on, you guessed it, nodes:
@@ -399,6 +419,20 @@ angular:
 **Aftermath:**
 
 ![TurtleSim Screenshot](../assets/ros2_tutorial/turtlesim_screenshot.png)
+
+## Logging
+
+ROS2's logging system works on 5 levels:
+- DEBUG: Information that you never need to see if the system is working properly.
+- INFO: Small amounts of information that may be useful to a user.
+- WARN: Information that the user may find alarming, and may affect the output of the application, but is part of the expected working of the system.
+- ERROR: Something serious (but recoverable) has gone wrong.
+- FATAL: Something unrecoverable has happened.
+
+To control the level of logging in which a node is executing, use the log-level ros argument as so:
+```sh
+ros2 run [package_name] [node_name] --ros-args --log-level [level]
+```
 
 ## Create Basic ROS2 Package
 

@@ -26,7 +26,16 @@ struct ObservationData {
  *
  */
 class ObservationModel {
+  Eigen::Matrix2f _observation_noise_covariance_matrix; /**< H or C */
+
  public:
+  /**
+   * @brief Construct a new Observation Model object
+   *
+   * @param observation_noise_covariance_matrix covariance matrix of the observation noise (Q)
+   */
+  explicit ObservationModel(const Eigen::Matrix2f& observation_noise_covariance_matrix);
+
   /**
    * @brief Calculate expected observation from
    * the state vector
@@ -51,15 +60,23 @@ class ObservationModel {
                                             const ObservationData& observation_data) const;
 
   /**
-   * @brief Get the jacobian matrix
-   * of the observation model
+   * @brief Get the state to observation matrix
+   * of the observation model (H)
    *
    * @param landmark_index index of the x variable of the landmark in the state vector
    * @param state_size size of the state vector
    * @return Eigen::MatrixXf
    */
-  Eigen::MatrixXf get_jacobian(const unsigned int landmark_index, const unsigned int state_size)
-      const;  // TODO(marhcouto): refactor this maybe
+  Eigen::MatrixXf get_state_to_observation_matrix(
+      const unsigned int landmark_index,
+      const unsigned int state_size) const;  // TODO(marhcouto): refactor this maybe
+
+  /**
+   * @brief Get the observation noise covariance matrix (C or H)
+   *
+   * @return Eigen::MatrixXf
+   */
+  Eigen::MatrixXf get_observation_noise_covariance_matrix() const;
 };
 
 #endif  // SRC_LOC_MAP_INCLUDE_KALMAN_FILTER_CORRECTION_MODELS_HPP_
