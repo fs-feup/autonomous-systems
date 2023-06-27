@@ -34,9 +34,6 @@ class ControlNode(Node):
         @param self The object pointer.
         """
         super().__init__('control_node')
-
-        # Declare parameters.
-        self.declare_parameter('mode', 'sim')
         
         # Steering angle.
         self.steering_angle = 0.
@@ -59,26 +56,46 @@ class ControlNode(Node):
         # Task completion
         self.done = False
         
-        self.path_subscription = self.create_subscription(
+        self.create_subscription(
             PointArray,
             'path_mock',
             self.path_callback,
             10
         )
         
-        self.odom_subscription = self.create_subscription(
+        self.create_subscription(
             Odometry,
             '/ground_truth/odom',
             self.odometry_callback_mpc,
             10
         )
-        
-        # prevent unused variable warning
-        self.path_subscription
-        self.odom_subscription
-    
-        self.abstraction_layer = create_abstraction_layer(self)
 
+        timer_period = 0.2  # seconds
+        node.timer = node.create_timer(timer_period, self.timer_callback)
+        self.node.create_publisher(AckermannDriveStamped, "/cmd", 10)
+
+    def timer_callback(self):
+        """!
+        @brief Sim publisher callback.
+        @param self The object pointer.
+        """
+        node = self.node
+        
+        # Create a String message
+        ack_msg = AckermannDriveStamped()
+
+        # TODO: Set the minimum and maximum steering angle
+        ack_msg.drive.steering_angle = node.steering_angle if not node.done else 0.
+        # ack_msg.drive.steering_angle = node.steering_angle
+
+        # Set car acceleration
+        ack_msg.drive.speed = node.velocity if not node.done else -1.
+        
+        # Publish the message to the topic
+        node.publisher_.publish(ack_msg)
+        
+        # Display the message on the console
+        node.get_logger().info('Published to Simulator!')
 
     def odometry_callback_pid(self, msg):
         """!
