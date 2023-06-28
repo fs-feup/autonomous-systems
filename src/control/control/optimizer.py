@@ -20,7 +20,8 @@ class Optimizer:
         B,
         C,
         initial_state,
-        target,
+        x_ref,
+        u_ref,
         time_horizon=10,
         Q=None,
         R=None,
@@ -55,8 +56,8 @@ class Optimizer:
 
         for t in range(time_horizon):
 
-            _cost = opt.quad_form(target[:, t + 1] - x[:, t + 1], Q) + opt.quad_form(
-                u[:, t], R
+            _cost = opt.quad_form(x_ref[:, t + 1] - x[:, t + 1], Q) + opt.quad_form(
+                u[:, t] - u_ref[:, t], R
             )
 
             _constraints = [
