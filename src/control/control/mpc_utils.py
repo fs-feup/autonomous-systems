@@ -10,9 +10,12 @@ def compute_path_from_wp(path, step=0.1):
     """
     start_xp = path[:, 0]
     start_yp = path[:, 1]
+
     final_xp = []
     final_yp = []
+
     delta = step  # [m]
+
     for idx in range(len(path) - 1):
         section_len = np.sum(
             np.sqrt(
@@ -20,9 +23,12 @@ def compute_path_from_wp(path, step=0.1):
                 + np.power(np.diff(start_yp[idx : idx + 2]), 2)
             )
         )
+
         interp_range = np.linspace(0, 1, np.floor(section_len / delta).astype(int))
+
         fx = interp1d(np.linspace(0, 1, 2), start_xp[idx : idx + 2], kind=1)
         fy = interp1d(np.linspace(0, 1, 2), start_yp[idx : idx + 2], kind=1)
+
         # watch out to duplicate points!
         final_xp = np.append(final_xp, fx(interp_range)[1:])
         final_yp = np.append(final_yp, fy(interp_range)[1:])
@@ -80,10 +86,12 @@ def get_ref_trajectory(state, path, target_v, dl=0.1, old_ind=0):
     For each step in the time horizon
     modified reference in car frame
     """
+
     # initialize variables
     xref = np.zeros((P.N, P.T + 1))
-    dref = np.zeros((1, P.T + 1))
-    # sp = np.ones((1,T +1))*target_v #speed profile
+    uref = np.zeros((P.M, P.T + 1))
+
+    uref[1, :] = np.ones((1,P.T +1))*target_v #speed profile
 
     path_len = path.shape[1]
 
@@ -95,9 +103,6 @@ def get_ref_trajectory(state, path, target_v, dl=0.1, old_ind=0):
     xref[0, 0] = dx * np.cos(-state[2]) - dy * np.sin(-state[2])  # X
     xref[1, 0] = dy * np.cos(-state[2]) + dx * np.sin(-state[2])  # Y
     xref[2, 0] = normalize_angle(path[2, ind] - state[2])  # Theta
-
-    # first steering reference
-    dref[0, 0] = 0.0  # Steer operational point should be 0
 
     travel = 0.0  # distance traveled based on reference velocity
 
@@ -116,17 +121,17 @@ def get_ref_trajectory(state, path, target_v, dl=0.1, old_ind=0):
             xref[0, i] = dx * np.cos(-state[2]) - dy * np.sin(-state[2])
             xref[1, i] = dy * np.cos(-state[2]) + dx * np.sin(-state[2])
             xref[2, i] = normalize_angle(path[2, ind + dind] - state[2])
-
-            # steering angle 
-            dref[0, i] = 0.0
         else:
             dx = path[0, path_len - 1] - state[0]
             dy = path[1, path_len - 1] - state[1]
             xref[0, i] = dx * np.cos(-state[2]) - dy * np.sin(-state[2])
             xref[1, i] = dy * np.cos(-state[2]) + dx * np.sin(-state[2])
             xref[2, i] = normalize_angle(path[2, path_len - 1] - state[2])
-            dref[0, i] = 0.0
-    return xref, dref, ind
+
+            # final speed reference
+            uref[1, i] = 0
+
+    return xref, uref, ind
 
 
 def get_linear_model_matrices(x_bar, u_bar):

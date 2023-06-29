@@ -3,18 +3,42 @@ import math
 
 from scipy import interpolate
 
-def get_closest_point(position, points_array):
-    """!
-    @brief Gets the closest point to the given position.
-    @param position List with x and y coordinates.
-    @param points_array Numpy array of points.
-    @return Closest point to position in points_array.
+def get_closest_point(state, path, old_nn_idx=None, search_window=None):
+    """
+    Computes the index of the waypoint closest to vehicle
     """
 
-    dists_sqrd = np.sum((points_array - position)**2, axis=1)
-    closest_index = np.argmin(dists_sqrd)
+    if old_nn_idx and search_window:
+        windowed_path = path[max(old_nn_idx - search_window, 0): 
+                            min(old_nn_idx + search_window, path.shape[0]), :]
 
-    return points_array[closest_index], closest_index
+        index_offset = max(old_nn_idx - search_window, 0)
+    else:
+
+        windowed_path = path
+        index_offset = 0
+    
+    dx = state[0] - windowed_path[:, 0]
+    dy = state[1] - windowed_path[:, 1]
+
+    dist = np.hypot(dx, dy)
+    
+    nn_idx = np.argmin(dist) + index_offset
+    
+    try:
+        v = [
+            path[nn_idx + 1, 0] - path[nn_idx, 0],
+            path[nn_idx + 1, 1] - path[nn_idx, 1],
+        ]
+        v /= np.linalg.norm(v)
+        d = [path[nn_idx, 0] - state[0], path[nn_idx, 1] - state[1]]
+        if np.dot(d, v) > 0:
+            target_idx = nn_idx
+        else:
+            target_idx = nn_idx + 1
+    except IndexError:
+        target_idx = nn_idx
+    return target_idx
 
 
 def get_position_error(pose, closest_point):
@@ -81,7 +105,7 @@ def get_cte(closest_index, points_array, pose_car):
     n_new_points = 50
 
     filtered_points = points_array[max(closest_index-win_amplitude, 0):
-                                   min(closest_index+win_amplitude, 26), :]
+        min(closest_index+win_amplitude, len(points_array)), :]
 
     tck, u = interpolate.splprep([filtered_points[:, 0], filtered_points[:, 1]],
                                   s=0, per=False)
@@ -89,7 +113,7 @@ def get_cte(closest_index, points_array, pose_car):
 
     new_points_array = np.concatenate((x0[:, np.newaxis], y0[:, np.newaxis]), axis=1)
 
-    _, new_closest_index = get_closest_point([x_car, y_car], new_points_array)
+    new_closest_index = get_closest_point([x_car, y_car], new_points_array)
 
     closest1 = new_points_array[new_closest_index]
     x_track = closest1[0]
@@ -140,25 +164,9 @@ def get_cte(closest_index, points_array, pose_car):
     return math.sin(yaw_car - yaw_track)*car_to_intersect*mult
     
 
-def get_reference_speed(speeds, closest_index):
+def get_speed_command(speeds, closest_index):
     return speeds[closest_index]
 
-def get_speed_error(lin_speed, ref_speed):
-    return ref_speed - lin_speed
-
-def accelerate(error):
-    """!
-    @brief Accelerates the car.
-    @param self The object pointer.
-    @param speed_error Speed Error.
-    """
-    # PID params
-    kp = 1
-
-    # calculate acceleration command
-    acceleration = kp*min(error, 10000000)
-
-    return float(acceleration)
 
 def steer(pos_error, yaw_error, ct_error, old_error):
     """!
