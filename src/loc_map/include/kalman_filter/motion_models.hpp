@@ -21,7 +21,16 @@ struct MotionPredictionData {
  *
  */
 class MotionModel {
+  Eigen::MatrixXf _process_noise_covariance_matrix; /**< R */
  public:
+
+  /**
+   * @brief Construct a new Motion Model object
+   * 
+   * @param process_noise_covariance_matrix covariance matrix of the process noise (R)
+   */
+  MotionModel(Eigen::MatrixXf& process_noise_covariance_matrix);
+
   /**
    * @brief Calculate expected state vector from
    * motion estimation
@@ -47,6 +56,8 @@ class MotionModel {
   virtual Eigen::MatrixXf get_motion_to_state_matrix(
       const Eigen::VectorXf& expected_state, const MotionPredictionData& motion_prediction_data,
       const double time_interval) const = 0;
+
+  Eigen::MatrixXf get_process_noise_covariance_matrix(const unsigned int state_size) const;
 };
 
 /**
@@ -57,7 +68,14 @@ class MotionModel {
  *
  */
 class ImuVelocityModel : public MotionModel {
+  Eigen::MatrixXf _process_noise_covariance_matrix;
  public:
+  /**
+   * @brief Construct a new Motion Model object
+   * 
+   * @param process_noise_covariance_matrix covariance matrix of the process noise (R)
+   */
+  ImuVelocityModel(Eigen::MatrixXf& process_noise_covariance_matrix);
   /**
    * @brief Calculate expected state vector from
    * velocity model using IMU data and linear functions
@@ -93,7 +111,14 @@ class ImuVelocityModel : public MotionModel {
  *
  */
 class NormalVelocityModel : public MotionModel {
+  Eigen::MatrixXf _process_noise_covariance_matrix;
  public:
+  /**
+   * @brief Construct a new Motion Model object
+   * 
+   * @param process_noise_covariance_matrix covariance matrix of the process noise (R)
+   */
+  NormalVelocityModel(Eigen::MatrixXf& process_noise_covariance_matrix);
   /**
    * @brief Calculate expected state vector from
    * velocity model using normal motion data

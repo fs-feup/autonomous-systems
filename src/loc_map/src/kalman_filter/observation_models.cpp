@@ -2,6 +2,9 @@
 
 // TODO(marhcouto): add colors
 
+ObservationModel::ObservationModel(Eigen::Matrix2f& observation_noise_covariance_matrix): 
+  _observation_noise_covariance_matrix(observation_noise_covariance_matrix) {}
+
 Eigen::Vector2f ObservationModel::inverse_observation_model(
     const Eigen::VectorXf& expected_state, const ObservationData& observation_data) const {
   const double cone_x = observation_data.position.x + expected_state(0);
@@ -18,7 +21,7 @@ Eigen::Vector2f ObservationModel::observation_model(const Eigen::VectorXf& expec
   return Eigen::Vector2f(delta_x, delta_y);  // TODO(marhcouto): fix color
 }
 
-Eigen::MatrixXf ObservationModel::get_jacobian(const unsigned int landmark_index,
+Eigen::MatrixXf ObservationModel::get_state_to_observation_matrix(const unsigned int landmark_index,
                                                const unsigned int state_size) const {
   Eigen::MatrixXf validation_jacobian = Eigen::MatrixXf::Zero(2, state_size);
   validation_jacobian(0, 0) = -1;
@@ -28,3 +31,8 @@ Eigen::MatrixXf ObservationModel::get_jacobian(const unsigned int landmark_index
 
   return validation_jacobian;
 }
+
+
+Eigen::MatrixXf ObservationModel::get_observation_noise_covariance_matrix() const {
+    return this->_observation_noise_covariance_matrix;
+  }
