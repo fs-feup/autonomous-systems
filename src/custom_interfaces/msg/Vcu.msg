@@ -13,6 +13,3 @@ uint16 fl_pulse_count
 uint16 fr_pulse_count
 uint16 rl_pulse_count
 uint16 rr_pulse_count
-
-# dados imu
-# dados gps

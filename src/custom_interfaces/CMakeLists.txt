@@ -19,8 +19,8 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/Pose.msg"
   "msg/BoundingBox.msg"
   "msg/BoundingBoxes.msg"
-  "msg/VehicleCommand.msg"
-  "msg/VehicleInfo.msg"
+  "msg/VcuCommand.msg"
+  "msg/Vcu.msg"
   DEPENDENCIES builtin_interfaces std_msgs 
 )
 

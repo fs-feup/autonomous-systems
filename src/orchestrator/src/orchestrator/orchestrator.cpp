@@ -3,8 +3,8 @@
 #include "communicators/ads-dv.hpp"
 #include "communicators/eufs.hpp"
 #include "communicators/fsds.hpp"
-#include "custom_interfaces/msg/vehicle_command.hpp"
-#include "custom_interfaces/msg/vehicle_info.hpp"
+#include "custom_interfaces/msg/vcu_command.hpp"
+#include "custom_interfaces/msg/vcu.hpp"
 #include "rclcpp/rclcpp.hpp"
 
 Orchestrator::Orchestrator(const std::string& mode) : Node("orchestrator") {
@@ -19,16 +19,16 @@ Orchestrator::Orchestrator(const std::string& mode) : Node("orchestrator") {
   }
 
   this->info_publisher_ =
-      this->create_publisher<custom_interfaces::msg::VehicleInfo>("vehicle_info", 10);
-  this->command_subscriber_ = this->create_subscription<custom_interfaces::msg::VehicleCommand>(
-      "vehicle_command", 10,
+      this->create_publisher<custom_interfaces::msg::Vcu>("vcu", 10);
+  this->command_subscriber_ = this->create_subscription<custom_interfaces::msg::VcuCommand>(
+      "vcu_command", 10,
       std::bind(&Orchestrator::send_to_car, this, std::placeholders::_1));
 }
 
-void Orchestrator::send_to_car(custom_interfaces::msg::VehicleCommand msg) {
+void Orchestrator::send_to_car(custom_interfaces::msg::VcuCommand msg) {
   this->communicator_->send_to_car(msg);
 }
 
-void Orchestrator::publish_info(custom_interfaces::msg::VehicleInfo msg) {
+void Orchestrator::publish_info(custom_interfaces::msg::Vcu msg) {
   this->info_publisher_->publish(msg);
 }
