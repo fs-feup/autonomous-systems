@@ -23,6 +23,8 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/Vcu.msg"
   "msg/Imu.msg"
   "msg/Gps.msg"
+  "msg/Odom.msg"
+  "msg/State.msg"
   DEPENDENCIES builtin_interfaces std_msgs 
 )
 
