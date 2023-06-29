@@ -1,0 +1,12 @@
+float IMU_Acceleration_X_mG
+float IMU_Acceleration_Y_mG
+float IMU_Acceleration_Z_mG
+float IMU_Temperature_degC
+uint8_t IMU_VerticalAxis
+uint8_t IMU_Orientation
+float IMU_MagneticField_X_uT
+float IMU_MagneticField_Y_uT
+float IMU_MagneticField_Z_uT
+float IMU_Rotation_X_degps
+float IMU_Rotation_Y_degps
+float IMU_Rotation_Z_degps
