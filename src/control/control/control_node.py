@@ -4,7 +4,7 @@ import numpy as np
 import math
 import rclpy
 
-from custom_interfaces.msg import PointArray
+from custom_interfaces.msg import PointArray, VcuCommand, Imu
 from nav_msgs.msg import Odometry
 from tf_transformations import euler_from_quaternion
 from .pid_utils import (
@@ -17,11 +17,21 @@ from .pid_utils import (
     steer,
     accelerate
 )
-from .abstraction_layer import create_abstraction_layer
 from .mpc import run_mpc
 from .config import Params
 
 P = Params()
+
+test_config = {
+    "path_topic": "path_mock",
+    "odometry_topic": "/ground_truth/odometry",
+}
+
+real_config = {
+    
+}
+
+config = test_config
 
 class ControlNode(Node):
     """!
@@ -64,15 +74,15 @@ class ControlNode(Node):
         )
         
         self.create_subscription(
-            Odometry,
-            '/ground_truth/odom',
+            Imu,
+            'vehcile_info',
             self.odometry_callback_mpc,
             10
         )
 
         timer_period = 0.2  # seconds
         node.timer = node.create_timer(timer_period, self.timer_callback)
-        self.node.create_publisher(AckermannDriveStamped, "/cmd", 10)
+        self.node.create_publisher(AckermannDriveStamped, "vehcile_command", 10)
 
     def timer_callback(self):
         """!
@@ -81,21 +91,15 @@ class ControlNode(Node):
         """
         node = self.node
         
-        # Create a String message
-        ack_msg = AckermannDriveStamped()
+        cmd_msg = VcuCommand()
 
         # TODO: Set the minimum and maximum steering angle
-        ack_msg.drive.steering_angle = node.steering_angle if not node.done else 0.
-        # ack_msg.drive.steering_angle = node.steering_angle
+        cmd_msg.steering_angle_request = node.steering_angle if not node.done else 0.
+        cmd_msg.axle_speed_request = node.velocity if not node.done else -1.
 
-        # Set car acceleration
-        ack_msg.drive.speed = node.velocity if not node.done else -1.
-        
-        # Publish the message to the topic
-        node.publisher_.publish(ack_msg)
-        
-        # Display the message on the console
-        node.get_logger().info('Published to Simulator!')
+        node.publisher_.publish(cmd_msg)
+
+        node.get_logger().info('Published Vehicle Command')
 
     def odometry_callback_pid(self, msg):
         """!
@@ -104,7 +108,6 @@ class ControlNode(Node):
         @param msg Odometry message.
         """
 
-        # self.get_logger().info("Received odom!")
         if self.path is None or self.done:
             return
 

@@ -5,8 +5,8 @@
 
 #include <cstdio>
 
-#include "custom_interfaces/msg/vehicle_command.hpp"
-#include "custom_interfaces/msg/vehicle_info.hpp"
+#include "custom_interfaces/msg/vcu_command.hpp"
+#include "custom_interfaces/msg/vcu.hpp"
 #include "fs-ai_api/fs-ai_api.h"
 #include "rclcpp/rclcpp.hpp"
 
@@ -17,7 +17,7 @@ AdsDvCommunicator::AdsDvCommunicator(Orchestrator* orchestrator)
   }
 }
 
-void AdsDvCommunicator::send_to_car(const custom_interfaces::msg::VehicleCommand msg) {
+void AdsDvCommunicator::send_to_car(const custom_interfaces::msg::VcuCommand msg) {
   // TODO: adapt to new structures
   fs_ai_api_vcu2ai vcu2ai_data;
   fs_ai_api_ai2vcu ai2vcu_data;
@@ -68,7 +68,7 @@ void AdsDvCommunicator::send_from_car() {
   fs_ai_api_vcu2ai vcu2ai_data;
   fs_ai_api_vcu2ai_get_data(&vcu2ai_data);
 
-  custom_interfaces::msg::VehicleInfo msg;
+  custom_interfaces::msg::Vcu msg;
 
   msg.handshake_receive_bit = vcu2ai_data.VCU2AI_HANDSHAKE_RECEIVE_BIT;
   msg.res_go_signal = vcu2ai_data.VCU2AI_RES_GO_SIGNAL;
