@@ -1,4 +1,4 @@
-#include "communicators/ads-dv.hpp"
+#include "can.hpp"
 
 #include <stdio.h>
 #include <unistd.h>
@@ -10,14 +10,18 @@
 #include "fs-ai_api/fs-ai_api.h"
 #include "rclcpp/rclcpp.hpp"
 
-AdsDvCommunicator::AdsDvCommunicator(Orchestrator* orchestrator)
-    : Communicator(), orchestrator_(orchestrator) {
+Can::Can() : Node("can") {
   if (fs_ai_api_init((char*)"can0", 1, 1)) {
     printf("fs_ai_api_init() failed\r\n");
   }
+
+  this->_publisher = this->create_publisher<custom_interfaces::msg::Vcu>("/vcu", 10);
+  this->_subscription = this->create_subscription<custom_interfaces::msg::Vcu>(
+      "/cmd", 10,
+      std::bind(&Can::send_to_car, this, std::placeholders::_1));
 }
 
-void AdsDvCommunicator::send_to_car(const custom_interfaces::msg::VcuCommand msg) {
+void Can::send_to_car(const custom_interfaces::msg::VcuCommand msg) {
   // TODO: adapt to new structures
   fs_ai_api_vcu2ai vcu2ai_data;
   fs_ai_api_ai2vcu ai2vcu_data;
@@ -64,7 +68,7 @@ void AdsDvCommunicator::send_to_car(const custom_interfaces::msg::VcuCommand msg
   fs_ai_api_ai2vcu_set_data(&ai2vcu_data);
 }
 
-void AdsDvCommunicator::send_from_car() {
+void Can::send_from_car() {
   fs_ai_api_vcu2ai vcu2ai_data;
   fs_ai_api_vcu2ai_get_data(&vcu2ai_data);
 
@@ -86,5 +90,5 @@ void AdsDvCommunicator::send_from_car() {
   msg.rl_pulse_count = vcu2ai_data.VCU2AI_RL_PULSE_COUNT;
   msg.rr_pulse_count = vcu2ai_data.VCU2AI_RR_PULSE_COUNT;
 
-  this->orchestrator_->publish_vcu(msg);
+  // TODO: write message
 }

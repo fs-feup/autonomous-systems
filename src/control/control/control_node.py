@@ -53,32 +53,18 @@ class ControlNode(Node):
 
         # Task completion
         self.done = False
-        
-        self.create_subscription(
-            PointArray,
-            'path_mock',
-            self.path_callback,
-            10
-        )
-        
-        # self.create_subscription(
-        #     Pose,
-        #     'vehcile_localization',
-        #     self.vehcile_localization_callback,
-        #     10
-        # )
 
-        # Used for testing purposes on the simulator
-        self.create_subscription(
-            AckermannDriveStamped,
-            '/ground_truth/odom',
-            self.odometry_callback,
+
+        self.node.create_subscription(
+            PointArray,
+            "/planning_local",
+            node.path_callback,
             10
         )
+        self.adapter = ControlAdapter("eufs", self)
 
         timer_period = 0.2  # seconds
         node.timer = node.create_timer(timer_period, self.timer_callback)
-        self.node.create_publisher(AckermannDriveStamped, "vehcile_command", 10)
 
     def timer_callback(self):
         """!
@@ -86,44 +72,23 @@ class ControlNode(Node):
         @param self The object pointer.
         """
         node = self.node
-        
-        cmd_msg = VcuCommand()
 
         # TODO: Set the minimum and maximum steering angle
-        cmd_msg.steering_angle_request = node.steering_angle if not node.done else 0.
-        cmd_msg.axle_speed_request = node.velocity if not node.done else -1.
+        steering_angle = node.steering_angle if not node.done else 0.
+        speed = node.velocity if not node.done else -1.
 
-        node.publisher_.publish(cmd_msg)
+        adapter.publish(steering_angle, speed)
 
-        node.get_logger().info('Published Vehicle Command')
-
-    def vehcile_localization_callback(self, msg):
-        if self.path is None or self.done:
-            return
-
-        position = msg.position
-        yaw = msg.orientation
-        self.mpc_callback(position, yaw)
-
-    def odometry_callback(self, msg):
-        if self.path is None or self.done:
-            return
-
-        # get pose feedback
-        position = msg.pose.pose.position
-        orientation = msg.pose.pose.orientation
-        orientation_list = [orientation.x, orientation.y, orientation.z, orientation.w]
-
-        # Converts quartenions base to euler's base, and updates the class' attributes
-        yaw = euler_from_quaternion(orientation_list)[2]
-        self.mpc_callback(position, yaw)
-
+        node.get_logger().info('Published EUFS Command')
+        
     def pid_callback(self, position, yaw):
         """!
         @brief Odometry callback.
         @param self The object pointer.
         @param msg Odometry message.
         """
+        if self.path is None or self.done:
+            return
 
         # get postion reference
         closest_index = get_closest_point(
@@ -154,6 +119,9 @@ class ControlNode(Node):
         self.old_closest_index = closest_index
 
     def mpc_callback(self, position, yaw):
+        if self.path is None or self.done:
+            return
+
         action = np.array([self.velocity, self.steering_angle])
         state = np.array([position.x, position.y, yaw])
 
