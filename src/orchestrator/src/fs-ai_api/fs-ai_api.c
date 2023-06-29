@@ -44,9 +44,9 @@ SOFTWARE.
 
 #include <time.h>
 
-#include "FS-AI_API/can.h"
+#include "fs-ai_api/can.h"
 
-#include "FS-AI_API/fs-ai_api.h"
+#include "fs-ai_api/fs-ai_api.h"
 
 
 // typedefs

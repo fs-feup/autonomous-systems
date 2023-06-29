@@ -1,4 +1,4 @@
-#include "orchestrator.hpp"
+#include "orchestrator/orchestrator.hpp"
 
 int main(int argc, char** argv) {
   rclcpp::init(argc, argv);
@@ -9,7 +9,8 @@ int main(int argc, char** argv) {
     return 1;
   }
 
-  rclcpp::spin(std::make_shared<Orchestrator>(argv[1]));
+  std::shared_ptr<Orchestrator> node = std::make_shared<Orchestrator>(argv[1]);
+  rclcpp::spin(node);
   rclcpp::shutdown();
 
   return 0;

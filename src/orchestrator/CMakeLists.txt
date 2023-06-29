@@ -12,16 +12,28 @@ find_package(ament_cmake REQUIRED)
 # find_package(<dependency> REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(custom_interfaces REQUIRED)
+find_package(nav_msgs REQUIRED)
+find_package(ackermann_msgs REQUIRED)
 
-add_executable(${PROJECT_NAME} src/orchestrator.cpp ${IMPLEMENTATION_FILES})
-ament_target_dependencies(orchestrator rclcpp custom_interfaces)
-target_include_directories(orchestrator PUBLIC
+set(IMPLEMENTATION_FILES 
+  src/communicators/ads-dv.cpp
+  src/communicators/eufs.cpp
+  src/communicators/fsds.cpp
+  src/orchestrator/orchestrator.cpp
+
+  src/fs-ai_api/can.c
+  src/fs-ai_api/fs-ai_api.c
+  )
+
+add_executable(${PROJECT_NAME} src/main.cpp ${IMPLEMENTATION_FILES} include/communicators/communicator.hpp)
+ament_target_dependencies(${PROJECT_NAME} rclcpp custom_interfaces nav_msgs ackermann_msgs)
+target_include_directories(${PROJECT_NAME} PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
-target_compile_features(orchestrator PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+target_compile_features(${PROJECT_NAME} PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
 
 # Link against the required libraries
-target_link_libraries(orchestrator pthread)  # Add pthread library
+target_link_libraries(${PROJECT_NAME} pthread)  # Add pthread library
 
 install(TARGETS orchestrator
   DESTINATION lib/${PROJECT_NAME})
