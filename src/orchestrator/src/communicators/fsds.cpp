@@ -15,5 +15,5 @@ void FsdsCommunicator::FsdsCommunicator::send_to_car(
 
 void FsdsCommunicator::send_from_car() {
   custom_interfaces::msg::Vcu res;
-  this->orchestrator_->publish_info(res);
+  this->orchestrator_->publish_vcu(res);
 }
