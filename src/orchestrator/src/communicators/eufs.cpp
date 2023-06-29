@@ -30,5 +30,5 @@ void EufsCommunicator::send_to_car(const custom_interfaces::msg::VcuCommand msg)
 
 void EufsCommunicator::send_from_car(const nav_msgs::msg::Odometry msg) {
   custom_interfaces::msg::Vcu res;
-  this->orchestrator_->publish_info(res);
+  this->orchestrator_->publish_vcu(res);
 }

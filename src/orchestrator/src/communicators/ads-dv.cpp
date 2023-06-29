@@ -86,5 +86,5 @@ void AdsDvCommunicator::send_from_car() {
   msg.rl_pulse_count = vcu2ai_data.VCU2AI_RL_PULSE_COUNT;
   msg.rr_pulse_count = vcu2ai_data.VCU2AI_RR_PULSE_COUNT;
 
-  this->orchestrator_->publish_info(msg);
+  this->orchestrator_->publish_vcu(msg);
 }

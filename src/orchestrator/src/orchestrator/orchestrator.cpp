@@ -3,8 +3,10 @@
 #include "communicators/ads-dv.hpp"
 #include "communicators/eufs.hpp"
 #include "communicators/fsds.hpp"
-#include "custom_interfaces/msg/vcu_command.hpp"
+#include "custom_interfaces/msg/gps.hpp"
+#include "custom_interfaces/msg/imu.hpp"
 #include "custom_interfaces/msg/vcu.hpp"
+#include "custom_interfaces/msg/vcu_command.hpp"
 #include "rclcpp/rclcpp.hpp"
 
 Orchestrator::Orchestrator(const std::string& mode) : Node("orchestrator") {
@@ -18,17 +20,25 @@ Orchestrator::Orchestrator(const std::string& mode) : Node("orchestrator") {
     printf("Invalid mode!\r\n");
   }
 
-  this->info_publisher_ =
-      this->create_publisher<custom_interfaces::msg::Vcu>("vcu", 10);
+  this->vcu_publisher_ = this->create_publisher<custom_interfaces::msg::Vcu>("vcu", 10);
+  this->imu_publisher_ = this->create_publisher<custom_interfaces::msg::Imu>("imu", 10);
+  this->gps_publisher_ = this->create_publisher<custom_interfaces::msg::Gps>("gps", 10);
   this->command_subscriber_ = this->create_subscription<custom_interfaces::msg::VcuCommand>(
-      "vcu_command", 10,
-      std::bind(&Orchestrator::send_to_car, this, std::placeholders::_1));
+      "vcu_command", 10, std::bind(&Orchestrator::send_to_car, this, std::placeholders::_1));
 }
 
 void Orchestrator::send_to_car(custom_interfaces::msg::VcuCommand msg) {
   this->communicator_->send_to_car(msg);
 }
 
-void Orchestrator::publish_info(custom_interfaces::msg::Vcu msg) {
-  this->info_publisher_->publish(msg);
+void Orchestrator::publish_vcu(custom_interfaces::msg::Vcu msg) {
+  this->vcu_publisher_->publish(msg);
+}
+
+void Orchestrator::publish_imu(custom_interfaces::msg::Imu msg) {
+  this->imu_publisher_->publish(msg);
+}
+
+void Orchestrator::publish_gps(custom_interfaces::msg::Gps msg) {
+  this->gps_publisher_->publish(msg);
 }

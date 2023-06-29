@@ -4,7 +4,8 @@ import numpy as np
 import math
 import rclpy
 
-from custom_interfaces.msg import PointArray, VcuCommand, Imu
+from custom_interfaces.msg import PointArray, VcuCommand
+from ackermann_msgs.msg import AckermannDriveStamped
 from nav_msgs.msg import Odometry
 from tf_transformations import euler_from_quaternion
 from .pid_utils import (
@@ -19,17 +20,6 @@ from .mpc import run_mpc
 from .config import Params
 
 P = Params()
-
-test_config = {
-    "path_topic": "path_mock",
-    "odometry_topic": "/ground_truth/odometry",
-}
-
-real_config = {
-    
-}
-
-config = test_config
 
 class ControlNode(Node):
     """!
@@ -71,10 +61,18 @@ class ControlNode(Node):
             10
         )
         
+        # self.create_subscription(
+        #     Pose,
+        #     'vehcile_localization',
+        #     self.vehcile_localization_callback,
+        #     10
+        # )
+
+        # Used for testing purposes on the simulator
         self.create_subscription(
-            Imu,
-            'vehcile_info',
-            self.odometry_callback_mpc,
+            AckermannDriveStamped,
+            '/ground_truth/odom',
+            self.odometry_callback,
             10
         )
 
@@ -99,13 +97,15 @@ class ControlNode(Node):
 
         node.get_logger().info('Published Vehicle Command')
 
-    def odometry_callback_pid(self, msg):
-        """!
-        @brief Odometry callback.
-        @param self The object pointer.
-        @param msg Odometry message.
-        """
+    def vehcile_localization_callback(self, msg):
+        if self.path is None or self.done:
+            return
 
+        position = msg.position
+        yaw = msg.orientation
+        self.mpc_callback(position, yaw)
+
+    def odometry_callback(self, msg):
         if self.path is None or self.done:
             return
 
@@ -116,6 +116,14 @@ class ControlNode(Node):
 
         # Converts quartenions base to euler's base, and updates the class' attributes
         yaw = euler_from_quaternion(orientation_list)[2]
+        self.mpc_callback(position, yaw)
+
+    def pid_callback(self, position, yaw):
+        """!
+        @brief Odometry callback.
+        @param self The object pointer.
+        @param msg Odometry message.
+        """
 
         # get postion reference
         closest_index = get_closest_point(
@@ -143,36 +151,9 @@ class ControlNode(Node):
 
         self.velocity = get_speed_command(self.speeds, closest_index)
 
-        # show info
-        """
-        self.get_logger().info(f"\n\n\n\npos error: {pos_error}"+
-            f"\nyaw error: {yaw_error}," + 
-            f"\ncross track error: {ct_error}," + 
-            f"\nsteerin angle velocity: {self.steering_angle}," + 
-            f"\nspeed: {lin_speed}," + 
-            f"\nclosest idx: {closest_index},"
-            f"\nposition: {(position.x, position.y, yaw)}," +
-            f"\ndone: {self.done}")
-        """
-
         self.old_closest_index = closest_index
 
-    def odometry_callback_mpc(self, msg):
-        if self.path is None or self.done:
-            return
-
-        # get pose feedback
-        position = msg.pose.pose.position
-        orientation = msg.pose.pose.orientation
-        orientation_list = [orientation.x, orientation.y, orientation.z, orientation.w]
-
-        # get speed feedback
-        speed = msg.twist.twist.linear
-        math.sqrt(speed.x**2 + speed.y**2)
-
-        # Converts quartenions base to euler's base, and updates the class' attributes
-        yaw = euler_from_quaternion(orientation_list)[2]
-
+    def mpc_callback(self, position, yaw):
         action = np.array([self.velocity, self.steering_angle])
         state = np.array([position.x, position.y, yaw])
 
@@ -190,17 +171,6 @@ class ControlNode(Node):
         self.steering_angle = new_action[1]
 
         self.old_closest_index = closest_index
-
-        # show info
-        """
-        self.get_logger().info(f"\n\n\n"+
-            f"\nsteerin angle velocity: {self.steering_angle}," + 
-            f'\nacceleration: {self.acceleration}'
-            f"\nspeed: {lin_speed}," + 
-            f"\nclosest: {closest_point},"
-            f"\nposition: {(position.x, position.y, yaw)}," +
-            f"\ndone: {self.done}")
-        """
 
 
     def path_callback(self, points_list):
