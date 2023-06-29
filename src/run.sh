@@ -13,5 +13,5 @@ ros2 run planning planning&
 # Control
 ros2 run control controller&
 
-# Orchestrator [eufs, fsds, ads-dv]
-ros2 run orchestrator orchestrator $1&
+# Can [eufs, fsds, ads-dv]
+ros2 run can can $1&

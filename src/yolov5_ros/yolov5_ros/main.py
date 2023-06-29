@@ -1,8 +1,4 @@
 #ADAPTED FROM https://github.com/Ar-Ray-code/YOLOv5-ROS
-#Removed self.data and self.device from the constructor and changed the way the model 
-#is created 
-
-
 
 import os
 import sys
@@ -14,8 +10,8 @@ import numpy as np
 import torch
 import torch.backends.cudnn as cudnn
 
-from yolov5_ros.utils.general import (check_img_size, check_imshow, 
-                                      non_max_suppression, scale_coords, xyxy2xywh)
+from yolov5_ros.utils.general import (check_img_size, check_imshow, LOGGER,
+                                      non_max_suppression, scale_coords, xyxy2xywh,)
 from yolov5_ros.utils.plots import Annotator, colors
 from yolov5_ros.utils.torch_utils import time_sync
 
@@ -30,8 +26,10 @@ from custom_interfaces.msg import BoundingBoxes, BoundingBox
 from std_msgs.msg import Header
 from cv_bridge import CvBridge
 
+from yolov5_ros.depth_processor import DepthProcessor
+from custom_interfaces.msg import ConeArray
 
-class yolov5_demo():
+class yolov5():
     def __init__(self,  weights,
                         imagez_height,
                         imagez_width,
@@ -66,8 +64,6 @@ class yolov5_demo():
         imgsz = (self.imagez_height, self.imagez_width)
 
         # Load model
-        #OLD
-        #self.model = DetectMultiBackend(self.weights, device=self.device, dnn=self.dnn)
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         self.model = torch.hub.load('ultralytics/yolov5','custom', path=self.weights)
         stride, self.names, pt = self.model.stride, self.model.names, self.model.pt
@@ -88,8 +84,6 @@ class yolov5_demo():
         self.vid_path, self.vid_writer = [None] * bs, [None] * bs
 
         self.dt, self.seen = [0.0, 0.0, 0.0], 0
-
-    # callback =================================================================
 
     # return ---------------------------------------
     # 1. class (str)                                +
@@ -124,9 +118,6 @@ class yolov5_demo():
         self.dt[0] += t2 - t1
 
         # Inference
-
-        # visualize = increment_path(save_dir / Path(path).stem, mkdir=True) 
-        # if visualize else False
         pred = self.model(im, augment=False)
         t3 = time_sync()
         self.dt[1] += t3 - t2
@@ -144,7 +135,6 @@ class yolov5_demo():
             # p = Path(str(p))  # to Path
             self.s += '%gx%g ' % im.shape[2:]  # print string
             gn = torch.tensor(im0.shape)[[1, 0, 1, 0]]  # normalization gain whwh
-            # imc = im0.copy() if save_crop else im0  # for save_crop
             annotator = Annotator(im0, line_width=self.line_thickness, 
                                   example=str(self.names))
             if len(det):
@@ -153,7 +143,8 @@ class yolov5_demo():
 
                 # Print results
                 for c in det[:, -1].unique():
-                    n = (det[:, -1] == c).sum()  # detections per class
+                    # detections per class
+                    n = (det[:, -1] == c).sum()
                     # add to string
                     self.s += f"{n} {self.names[int(c)]}{'s' * (n > 1)}, "  
 
@@ -189,15 +180,15 @@ class yolov5_ros(Node):
 
         self.bridge = CvBridge()
 
-        self.pub_bbox = self.create_publisher(BoundingBoxes, 
-        'yolov5/bounding_boxes', 10)
-        self.pub_image = self.create_publisher(Image, 'yolov5/image_raw', 10)
-
         self.sub_image = self.create_subscription(
             Image,
             "/zed/image_raw",
             self.image_callback,
-             qos_profile=qos_profile_sensor_data)
+            qos_profile=qos_profile_sensor_data)
+
+        self.pub_cone_coordinates = self.create_publisher(ConeArray, 
+                                                          'perception/cone_coordinates', 
+                                                          10)
 
         # parameter
         FILE = Path(__file__).resolve()
@@ -206,33 +197,20 @@ class yolov5_ros(Node):
             sys.path.append(str(ROOT))  # add ROOT to PATH
         ROOT = Path(os.path.relpath(ROOT, Path.cwd()))
 
-        self.declare_parameter('weights', str(ROOT) + '/config/best_cones.pt')
-        self.declare_parameter('imagez_height', 640)
-        self.declare_parameter('imagez_width', 640)
-        self.declare_parameter('conf_thres', 0.25)
-        self.declare_parameter('iou_thres', 0.45)
-        self.declare_parameter('max_det', 1000)
-        self.declare_parameter('view_img', True)
-        self.declare_parameter('classes', None)
-        self.declare_parameter('agnostic_nms', False)
-        self.declare_parameter('line_thickness', 2)
-        self.declare_parameter('half', False)
-        self.declare_parameter('dnn', False)
+        self.weights = str(ROOT) + '/config/best_cones.pt'
+        self.imagez_height = 640
+        self.imagez_width = 640
+        self.conf_thres = 0.25
+        self.iou_thres = 0.45
+        self.max_det = 1000
+        self.view_img = False
+        self.classes = None
+        self.agnostic_nms = False
+        self.line_thickness = 2
+        self.half = False
+        self.dnn = False
 
-        self.weights = self.get_parameter('weights').value
-        self.imagez_height = self.get_parameter('imagez_height').value
-        self.imagez_width = self.get_parameter('imagez_width').value
-        self.conf_thres = self.get_parameter('conf_thres').value
-        self.iou_thres = self.get_parameter('iou_thres').value
-        self.max_det = self.get_parameter('max_det').value
-        self.view_img = self.get_parameter('view_img').value
-        self.classes = self.get_parameter('classes').value
-        self.agnostic_nms = self.get_parameter('agnostic_nms').value
-        self.line_thickness = self.get_parameter('line_thickness').value
-        self.half = self.get_parameter('half').value
-        self.dnn = self.get_parameter('dnn').value
-
-        self.yolov5 = yolov5_demo(self.weights,
+        self.yolov5 = yolov5(self.weights,
                                 self.imagez_height,
                                 self.imagez_width,
                                 self.conf_thres,
@@ -245,13 +223,12 @@ class yolov5_ros(Node):
                                 self.half,
                                 self.dnn)
 
+        self.depth_processor = DepthProcessor(LOGGER)
     
     def yolovFive2bboxes_msgs(self, bboxes:list, scores:list, cls:list, 
                               img_header:Header):
         bboxes_msg = BoundingBoxes()
         bboxes_msg.header = img_header
-        print(bboxes)
-        # print(bbox[0][0])
         i = 0
         for score in scores:
             one_box = BoundingBox()
@@ -267,21 +244,19 @@ class yolov5_ros(Node):
         
         return bboxes_msg
 
-
     def image_callback(self, image:Image):
         image_raw = self.bridge.imgmsg_to_cv2(image, "bgr8")
-        # return (class_list, confidence_list, x_min_list, y_min_list, 
-        # x_max_list, y_max_list)
-        class_list, confidence_list, x_min_list, y_min_list, x_max_list, y_max_list = self.yolov5.image_callback(image_raw)  # noqa: E501
+        class_list, confidence_list, x_min_list, y_min_list, x_max_list, y_max_list = self.yolov5.image_callback(image_raw)
         
         msg = self.yolovFive2bboxes_msgs(bboxes=[x_min_list, y_min_list, 
                                                  x_max_list, y_max_list], 
                                                  scores=confidence_list, 
                                                  cls=class_list, 
                                                  img_header=image.header)
-        self.pub_bbox.publish(msg)
-
-        self.pub_image.publish(image)
+        
+        cone_array = self.depth_processor.process(msg, image_raw)
+        self.pub_cone_coordinates.publish(cone_array)
+        LOGGER.info("")
 
 def ros_main(args=None):
     rclpy.init(args=args)
