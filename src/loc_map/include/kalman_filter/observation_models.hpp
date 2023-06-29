@@ -27,13 +27,14 @@ struct ObservationData {
  */
 class ObservationModel {
   Eigen::Matrix2f _observation_noise_covariance_matrix; /**< H or C */
+
  public:
   /**
    * @brief Construct a new Observation Model object
    *
    * @param observation_noise_covariance_matrix covariance matrix of the observation noise (Q)
    */
-  ObservationModel(Eigen::Matrix2f& observation_noise_covariance_matrix);
+  explicit ObservationModel(const Eigen::Matrix2f& observation_noise_covariance_matrix);
 
   /**
    * @brief Calculate expected observation from
@@ -66,13 +67,14 @@ class ObservationModel {
    * @param state_size size of the state vector
    * @return Eigen::MatrixXf
    */
-  Eigen::MatrixXf get_state_to_observation_matrix(const unsigned int landmark_index, const unsigned int state_size)
-      const;  // TODO(marhcouto): refactor this maybe
+  Eigen::MatrixXf get_state_to_observation_matrix(
+      const unsigned int landmark_index,
+      const unsigned int state_size) const;  // TODO(marhcouto): refactor this maybe
 
   /**
    * @brief Get the observation noise covariance matrix (C or H)
-   * 
-   * @return Eigen::MatrixXf 
+   *
+   * @return Eigen::MatrixXf
    */
   Eigen::MatrixXf get_observation_noise_covariance_matrix() const;
 };

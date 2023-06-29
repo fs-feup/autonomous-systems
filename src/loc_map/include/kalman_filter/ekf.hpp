@@ -66,12 +66,12 @@ class ExtendedKalmanFilter {
    * @return Eigen::MatrixXf kalman gain matrix
    */
   Eigen::MatrixXf get_kalman_gain(const Eigen::MatrixXf& H, const Eigen::MatrixXf& P,
-                                         const Eigen::MatrixXf& Q);
+                                  const Eigen::MatrixXf& Q);
 
  public:
   /**
    * @brief Construct a new Extended Kalman Filter object
-   * 
+   *
    * @param vehicle_state pointer to the vehicle state to be published
    * @param map pointer to the map to be published
    * @param imu_update pointer to the data coming from IMU
@@ -79,9 +79,9 @@ class ExtendedKalmanFilter {
    * @param motion_model motion model chosen for prediction step
    * @param observation_model observation model chosen for correction step
    */
-  ExtendedKalmanFilter(VehicleState* vehicle_state, Map* map,
-                       ImuUpdate* imu_update, Map* map_from_perception,
-                       const MotionModel& motion_model, const ObservationModel& observation_model);
+  ExtendedKalmanFilter(VehicleState* vehicle_state, Map* map, ImuUpdate* imu_update,
+                       Map* map_from_perception, const MotionModel& motion_model,
+                       const ObservationModel& observation_model);
 
   /**
    * @brief Updates vehicle state and map variables according
@@ -108,6 +108,9 @@ class ExtendedKalmanFilter {
 
   VehicleState* get_vehicle_state() const { return this->_vehicle_state; }
   Map* get_map() const { return this->_map; }
+  std::chrono::time_point<std::chrono::high_resolution_clock> get_last_update() const {
+    return this->_last_update;
+  }
 };
 
 #endif  // SRC_LOC_MAP_INCLUDE_KALMAN_FILTER_EKF_HPP_

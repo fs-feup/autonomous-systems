@@ -1,6 +1,23 @@
 #include "gtest/gtest.h"
 #include "kalman_filter/motion_models.hpp"
 
+/* ---------------------- Motion Model -------------------------------------*/
+
+TEST(MOTION_MODEL, NOISE_MATRIX_SHAPE_TEST) {
+  Eigen::MatrixXf R = Eigen::Matrix3f::Zero();
+  R(0, 0) = 0.1;
+  R(1, 1) = 0.1;
+  R(2, 2) = 0.1;
+
+  MotionModel* motion_model = new NormalVelocityModel(R);
+  Eigen::MatrixXf noise_matrix = motion_model->get_process_noise_covariance_matrix(10);
+  EXPECT_EQ(noise_matrix.rows(), 10);
+  EXPECT_EQ(noise_matrix.cols(), 10);
+  EXPECT_NEAR(noise_matrix(0, 0), 0.1, 0.0001);
+  EXPECT_NEAR(noise_matrix(1, 1), 0.1, 0.0001);
+  EXPECT_NEAR(noise_matrix(2, 2), 0.1, 0.0001);
+}
+
 /* ---------------------- Normal Velocity Model ---------------------------*/
 
 TEST(NORMAL_VELOCITY_MODEL, STANDING_STILL_TEST) {

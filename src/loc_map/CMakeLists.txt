@@ -58,6 +58,7 @@ if(BUILD_TESTING)
     test/lm_publisher_test.cpp
     test/motion_model_test.cpp
     test/observation_model_test.cpp
+    test/slam_test.cpp
     )
   
   ament_add_gtest(${PROJECT_NAME}_test ${TESTFILES} ${IMPLEMENTATION_FILES})

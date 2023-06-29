@@ -1,9 +1,7 @@
 #include "kalman_filter/observation_models.hpp"
 
-// TODO(marhcouto): add colors
-
-ObservationModel::ObservationModel(Eigen::Matrix2f& observation_noise_covariance_matrix): 
-  _observation_noise_covariance_matrix(observation_noise_covariance_matrix) {}
+ObservationModel::ObservationModel(const Eigen::Matrix2f& observation_noise_covariance_matrix)
+    : _observation_noise_covariance_matrix(observation_noise_covariance_matrix) {}
 
 Eigen::Vector2f ObservationModel::inverse_observation_model(
     const Eigen::VectorXf& expected_state, const ObservationData& observation_data) const {
@@ -18,11 +16,11 @@ Eigen::Vector2f ObservationModel::observation_model(const Eigen::VectorXf& expec
   const double delta_x = expected_state(landmark_index) - expected_state(0);
   const double delta_y = expected_state(landmark_index + 1) - expected_state(1);
 
-  return Eigen::Vector2f(delta_x, delta_y);  // TODO(marhcouto): fix color
+  return Eigen::Vector2f(delta_x, delta_y);
 }
 
-Eigen::MatrixXf ObservationModel::get_state_to_observation_matrix(const unsigned int landmark_index,
-                                               const unsigned int state_size) const {
+Eigen::MatrixXf ObservationModel::get_state_to_observation_matrix(
+    const unsigned int landmark_index, const unsigned int state_size) const {
   Eigen::MatrixXf validation_jacobian = Eigen::MatrixXf::Zero(2, state_size);
   validation_jacobian(0, 0) = -1;
   validation_jacobian(1, 1) = -1;
@@ -32,7 +30,6 @@ Eigen::MatrixXf ObservationModel::get_state_to_observation_matrix(const unsigned
   return validation_jacobian;
 }
 
-
 Eigen::MatrixXf ObservationModel::get_observation_noise_covariance_matrix() const {
-    return this->_observation_noise_covariance_matrix;
-  }
+  return this->_observation_noise_covariance_matrix;
+}

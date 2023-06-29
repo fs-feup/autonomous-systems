@@ -31,7 +31,8 @@ int main(int argc, char **argv) {
   ObservationModel observation_model = ObservationModel(Q);
 
   ExtendedKalmanFilter *ekf =
-      new ExtendedKalmanFilter(vehicle_state, track_map, imu_update, predicted_map, *motion_model, observation_model);  // TODO(marhcouto): put non zero noise matrixes
+      new ExtendedKalmanFilter(vehicle_state, track_map, imu_update, predicted_map, *motion_model,
+                               observation_model);  // TODO(marhcouto): put non zero noise matrixes
 
   (void)argc;
   (void)argv;
