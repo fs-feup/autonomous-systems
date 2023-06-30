@@ -10,24 +10,22 @@ import numpy as np
 import torch
 import torch.backends.cudnn as cudnn
 
+from yolov5_ros.utils.datasets import letterbox
 from yolov5_ros.utils.general import (check_img_size, check_imshow, LOGGER,
-                                      non_max_suppression, scale_coords, xyxy2xywh,)
+                                      non_max_suppression, scale_coords, xyxy2xywh)
 from yolov5_ros.utils.plots import Annotator, colors
 from yolov5_ros.utils.torch_utils import time_sync
 
-from yolov5_ros.utils.datasets import letterbox
-
-from rclpy.qos import qos_profile_sensor_data
+from yolov5_ros.depth_processor import DepthProcessor
+from yolov5_ros.adapter import PerceptionAdapter
 
 import rclpy
+from rclpy.qos import qos_profile_sensor_data
 from rclpy.node import Node
 from sensor_msgs.msg import Image
-from custom_interfaces.msg import BoundingBoxes, BoundingBox
+from custom_interfaces.msg import BoundingBoxes, BoundingBox, ConeArray
 from std_msgs.msg import Header
 from cv_bridge import CvBridge
-
-from yolov5_ros.depth_processor import DepthProcessor
-from custom_interfaces.msg import ConeArray
 
 class yolov5():
     def __init__(self,  weights,
@@ -180,12 +178,7 @@ class yolov5_ros(Node):
 
         self.bridge = CvBridge()
 
-        self.sub_image = self.create_subscription(
-            Image,
-            "/zed/image_raw",
-            self.image_callback,
-            qos_profile=qos_profile_sensor_data)
-
+        self.adapter = PerceptionAdapter("eufs", self)
         self.pub_cone_coordinates = self.create_publisher(ConeArray, 
                                                           'perception/cone_coordinates', 
                                                           10)
