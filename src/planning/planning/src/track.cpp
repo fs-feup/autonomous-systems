@@ -1,6 +1,7 @@
+#include "../include/planning/track.hpp"
+
 #include <string>
 
-#include "../include/planning/track.hpp"
 #include "../include/utils/color.hpp"
 
 Track::Track() { completed = false; }
@@ -73,13 +74,11 @@ void Track::setCone(Cone* cone) {
 
 Cone* Track::findCone(int id) {
   for (size_t i = 0; i < leftCones.size(); i++) {
-    if (leftCones[i]->getId() == id)
-      return leftCones[i];
+    if (leftCones[i]->getId() == id) return leftCones[i];
   }
 
   for (size_t i = 0; i < rightCones.size(); i++) {
-    if (rightCones[i]->getId() == id)
-      return rightCones[i];
+    if (rightCones[i]->getId() == id) return rightCones[i];
   }
 
   return nullptr;
