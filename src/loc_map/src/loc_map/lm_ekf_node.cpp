@@ -17,4 +17,11 @@ void EKFNode::_timer_callback() {
   RCLCPP_INFO(this->get_logger(), "[LOC_MAP] EFK Updated state: x:%lf  y:%lf  theta:%lf",
               vehicle_state->pose.position.x, vehicle_state->pose.position.y,
               vehicle_state->pose.orientation);
+  RCLCPP_INFO(this->get_logger(),
+              "[LOC_MAP] EFK Updated map:\n--------------------------------------");
+  for (auto& cone : this->_ekf->get_map()->map) {
+    RCLCPP_INFO(this->get_logger(), "(%lf, %lf) - color:%s", cone.first.x, cone.first.y,
+                colors::color_names[cone.second]);
+  }
+  RCLCPP_INFO(this->get_logger(), "--------------------------------------");
 }

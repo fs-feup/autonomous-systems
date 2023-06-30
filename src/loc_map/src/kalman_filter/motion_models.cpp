@@ -1,6 +1,23 @@
 #include "kalman_filter/motion_models.hpp"
 
+#include <iostream>
+
 #include "utils/formulas.hpp"
+
+MotionModel::MotionModel(const Eigen::MatrixXf& process_noise_covariance_matrix)
+    : _process_noise_covariance_matrix(process_noise_covariance_matrix) {}
+
+NormalVelocityModel::NormalVelocityModel(const Eigen::MatrixXf& process_noise_covariance_matrix)
+    : MotionModel(process_noise_covariance_matrix) {}
+
+ImuVelocityModel::ImuVelocityModel(const Eigen::MatrixXf& process_noise_covariance_matrix)
+    : MotionModel(process_noise_covariance_matrix) {}
+
+Eigen::MatrixXf MotionModel::get_process_noise_covariance_matrix(
+    const unsigned int state_size) const {
+  return Eigen::MatrixXf::Identity(state_size, 3) * this->_process_noise_covariance_matrix *
+         Eigen::MatrixXf::Identity(3, state_size);
+}
 
 Eigen::VectorXf NormalVelocityModel::predict_expected_state(
     const Eigen::VectorXf& expected_state, const MotionPredictionData& motion_prediction_data,

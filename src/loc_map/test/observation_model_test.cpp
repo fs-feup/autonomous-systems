@@ -1,8 +1,11 @@
+#include <Eigen/Dense>
+
 #include "gtest/gtest.h"
 #include "kalman_filter/observation_models.hpp"
 
 TEST(BASE_OBSERVATION_MODEL, SIMPLE_RANDOM_TEST) {
-  ObservationModel observation_model;
+  Eigen::Matrix2f Q = Eigen::Matrix2f::Zero();
+  ObservationModel observation_model(Q);
   ObservationData observation_data;
   for (unsigned int i = 0; i < 1000; i++) {
     Eigen::VectorXf expected_state(5);
