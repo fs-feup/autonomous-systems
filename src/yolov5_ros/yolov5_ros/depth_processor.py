@@ -1,13 +1,9 @@
 #!/usr/bin/env python3
-import rclpy
-from rclpy.node import Node
-from rclpy.qos import qos_profile_sensor_data
 
 import numpy as np
 import cv2
 
-from sensor_msgs.msg import CameraInfo, Image
-from custom_interfaces.msg import BoundingBoxes, Cone, ConeArray, Point2d
+from custom_interfaces.msg import Cone, ConeArray, Point2d
 from cv_bridge import CvBridge
 
 class DepthProcessor():
