@@ -20,7 +20,6 @@ from yolov5_ros.depth_processor import DepthProcessor
 from yolov5_ros.adapter import PerceptionAdapter
 
 import rclpy
-from rclpy.qos import qos_profile_sensor_data
 from rclpy.node import Node
 from sensor_msgs.msg import Image
 from custom_interfaces.msg import BoundingBoxes, BoundingBox, ConeArray
@@ -239,7 +238,9 @@ class yolov5_ros(Node):
 
     def image_callback(self, image:Image):
         image_raw = self.bridge.imgmsg_to_cv2(image, "bgr8")
-        class_list, confidence_list, x_min_list, y_min_list, x_max_list, y_max_list = self.yolov5.image_callback(image_raw)
+        class_list, confidence_list,\
+        x_min_list, y_min_list, x_max_list, y_max_list =\
+            self.yolov5.image_callback(image_raw)
         
         msg = self.yolovFive2bboxes_msgs(bboxes=[x_min_list, y_min_list, 
                                                  x_max_list, y_max_list], 

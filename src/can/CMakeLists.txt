@@ -13,7 +13,7 @@ find_package(nav_msgs REQUIRED)
 find_package(ackermann_msgs REQUIRED)
 
 set(IMPLEMENTATION_FILES
-  src/can.cpp
+  src/can/can.cpp
   src/main.cpp
 
   src/fs-ai_api/can.c

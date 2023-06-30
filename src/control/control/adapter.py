@@ -1,27 +1,32 @@
 from ackermann_msgs.msg import AckermannDriveStamped
-from custom_interfaces.msg import VcuCommand
+from custom_interfaces.msg import VcuCommand, Pose
+
+from tf.transformations import euler_from_quaternion
 
 class ControlAdapter():
     def __init__(self, mode, node):
         self.mode = mode
         self.node = node
 
-        if mode == "eufs": self.eufs_init(),
-        elif mode == "fsds": self.fsds_init(),
-        elif mode == "ads_dv": self.ads_dv_init()
+        if mode == "eufs":
+            self.eufs_init(),
+        elif mode == "fsds":
+            self.fsds_init(),
+        elif mode == "ads_dv":
+            self.ads_dv_init()
 
     def publish(self, steering_angle, speed):
-        if mode == "eufs":
+        if self.mode == "eufs":
             msg = AckermannDriveStamped(
                 steering_angle=steering_angle,
                 speed=speed
             )
-        elif mode == "fsds":
+        elif self.mode == "fsds":
             msg = AckermannDriveStamped(
                 steering_angle=steering_angle,
                 speed=speed
             )
-        elif mode == "ads_dv":
+        elif self.mode == "ads_dv":
             msg = VcuCommand(
                 steering_angle_request=steering_angle,
                 axle_speed_request=speed
@@ -33,7 +38,7 @@ class ControlAdapter():
         self.node.create_subscription(
             Pose,
             "/odometry_integration/car_state",
-            node.eufs_odometry_callback,
+            self.node.eufs_odometry_callback,
             10
         )
         
@@ -42,7 +47,7 @@ class ControlAdapter():
         self.node.create_subscription(
             Pose,
             "/odometry_integration/car_state",
-            node.eufs_odometry_callback,
+            self.node.eufs_odometry_callback,
             10
         )
 
@@ -51,7 +56,7 @@ class ControlAdapter():
         self.node.create_subscription(
             Pose,
             "vehicle_localization",
-            node.localisation_callback,
+            self.node.localisation_callback,
             10
         )
 

@@ -1,28 +1,26 @@
-#include "can.hpp"
+#include "can/can.hpp"
 
 #include <stdio.h>
 #include <unistd.h>
 
 #include <cstdio>
 
-#include "custom_interfaces/msg/vcu_command.hpp"
 #include "custom_interfaces/msg/vcu.hpp"
+#include "custom_interfaces/msg/vcu_command.hpp"
 #include "fs-ai_api/fs-ai_api.h"
 #include "rclcpp/rclcpp.hpp"
 
 Can::Can() : Node("can") {
-  if (fs_ai_api_init((char*)"can0", 1, 1)) {
+  if (fs_ai_api_init(const_cast<char*>("can0"), 1, 1)) {
     printf("fs_ai_api_init() failed\r\n");
   }
 
   this->_publisher = this->create_publisher<custom_interfaces::msg::Vcu>("/vcu", 10);
   this->_subscription = this->create_subscription<custom_interfaces::msg::Vcu>(
-      "/cmd", 10,
-      std::bind(&Can::send_to_car, this, std::placeholders::_1));
+      "/cmd", 10, std::bind(&Can::send_to_car, this, std::placeholders::_1));
 }
 
 void Can::send_to_car(const custom_interfaces::msg::VcuCommand msg) {
-  // TODO: adapt to new structures
   fs_ai_api_vcu2ai vcu2ai_data;
   fs_ai_api_ai2vcu ai2vcu_data;
 
@@ -89,6 +87,4 @@ void Can::send_from_car() {
   msg.fr_pulse_count = vcu2ai_data.VCU2AI_FR_PULSE_COUNT;
   msg.rl_pulse_count = vcu2ai_data.VCU2AI_RL_PULSE_COUNT;
   msg.rr_pulse_count = vcu2ai_data.VCU2AI_RR_PULSE_COUNT;
-
-  // TODO: write message
 }
