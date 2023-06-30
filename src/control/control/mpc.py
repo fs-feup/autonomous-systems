@@ -59,7 +59,7 @@ class MPC:
         A, B, C = get_linear_model_matrices(curr_state, self.action)
         
         # Get Reference_traj -> inputs are in worldframe
-        target, _, self.closest_ind = get_ref_trajectory(
+        x_target, u_target, self.closest_ind = get_ref_trajectory(
             self.state, self.path, P.VEL, dl=P.path_tick, old_ind=self.old_closest_ind
         )
 
@@ -68,10 +68,12 @@ class MPC:
             B,
             C,
             curr_state,
-            target,
+            x_target,
+            u_target,
             time_horizon=P.T,
-            verbose=False,
+            verbose=False
         )
+        
         self.opt_u = np.vstack(
             (
                 np.array(u_mpc.value[0, :]).flatten(),
