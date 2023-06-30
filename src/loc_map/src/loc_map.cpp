@@ -19,11 +19,19 @@ int main(int argc, char **argv) {
   imu_update->last_update = std::chrono::high_resolution_clock::now();
   Map *track_map = new Map();      // Map to publish
   Map *predicted_map = new Map();  // Map from perception
-  MotionModel *motion_model = new ImuVelocityModel();
-  ObservationModel observation_model = ObservationModel();
+
+  Eigen::Matrix2f Q = Eigen::Matrix2f::Zero();
+  Q(0, 0) = 0.1;
+  Q(1, 1) = 0.1;
+  Eigen::MatrixXf R = Eigen::Matrix3f::Zero();
+  R(0, 0) = 0.1;
+  R(1, 1) = 0.1;
+  R(2, 2) = 0.1;
+  MotionModel *motion_model = new ImuVelocityModel(R);
+  ObservationModel observation_model = ObservationModel(Q);
+
   ExtendedKalmanFilter *ekf =
-      new ExtendedKalmanFilter(Eigen::MatrixXf::Zero(3, 3), Eigen::MatrixXf::Zero(3, 3),
-                               vehicle_state, track_map, imu_update, predicted_map, *motion_model,
+      new ExtendedKalmanFilter(vehicle_state, track_map, imu_update, predicted_map, *motion_model,
                                observation_model);  // TODO(marhcouto): put non zero noise matrixes
 
   (void)argc;
