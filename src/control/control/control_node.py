@@ -1,13 +1,10 @@
 from rclpy.node import Node
 
 import numpy as np 
-import math
 import rclpy
 
-from custom_interfaces.msg import PointArray, VcuCommand
-from ackermann_msgs.msg import AckermannDriveStamped
-from nav_msgs.msg import Odometry
-from tf_transformations import euler_from_quaternion
+from custom_interfaces.msg import PointArray
+
 from .pid_utils import (
     get_closest_point,
     get_position_error,
@@ -18,6 +15,7 @@ from .pid_utils import (
 )
 from .mpc import run_mpc
 from .config import Params
+from .adapter import ControlAdapter
 
 P = Params()
 
@@ -54,17 +52,16 @@ class ControlNode(Node):
         # Task completion
         self.done = False
 
-
         self.node.create_subscription(
             PointArray,
             "/planning_local",
-            node.path_callback,
+            self.path_callback,
             10
         )
         self.adapter = ControlAdapter("eufs", self)
 
         timer_period = 0.2  # seconds
-        node.timer = node.create_timer(timer_period, self.timer_callback)
+        self.timer = self.create_timer(timer_period, self.timer_callback)
 
     def timer_callback(self):
         """!
@@ -77,7 +74,7 @@ class ControlNode(Node):
         steering_angle = node.steering_angle if not node.done else 0.
         speed = node.velocity if not node.done else -1.
 
-        adapter.publish(steering_angle, speed)
+        self.adapter.publish(steering_angle, speed)
 
         node.get_logger().info('Published EUFS Command')
         
