@@ -17,7 +17,7 @@ jobs:
         run: sudo apt install cppcheck
 
       - name: Run cppcheck
-        run: cppcheck --enable=all --error-exitcode=1 src/ -i test/
+        run: cppcheck --enable=all --error-exitcode=1 ./ -i test/ -i build/ -i install/ -i can/include/fs-ai_api/ -i can/src/fs-ai_api/
 
   cpplint:
     runs-on: ubuntu-latest
@@ -29,7 +29,7 @@ jobs:
         run: pip install cpplint
 
       - name: Run cpplint
-        run: cpplint --exclude=./src/loc_map/include/Eigen/* --recursive ./src/ 
+        run: cpplint --exclude=./loc_map/include/Eigen/* --exclude=./can/include/fs-ai_api/* --exclude=./can/src/fs-ai_api/* --exclude=./build/* --exclude=./install/* --exclude=./log/* --recursive . 
   
   ruff:
     runs-on: ubuntu-latest
