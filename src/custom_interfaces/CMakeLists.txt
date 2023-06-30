@@ -19,6 +19,12 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/Pose.msg"
   "msg/BoundingBox.msg"
   "msg/BoundingBoxes.msg"
+  "msg/VcuCommand.msg"
+  "msg/Vcu.msg"
+  "msg/Imu.msg"
+  "msg/Gps.msg"
+  "msg/Odom.msg"
+  "msg/State.msg"
   DEPENDENCIES builtin_interfaces std_msgs 
 )
 
