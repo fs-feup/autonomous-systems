@@ -1,7 +1,10 @@
 #include "loc_map/lm_subscriber.hpp"
 
 LMSubscriber::LMSubscriber(Map* map, ImuUpdate* imu_update, OdometryUpdate* odometry_update)
-    : Node("loc_map_subscriber"), _map(map), _imu_update(imu_update), _odometry_update(odometry_update) {
+    : Node("loc_map_subscriber"),
+      _map(map),
+      _imu_update(imu_update),
+      _odometry_update(odometry_update) {
   this->_perception_subscription = this->create_subscription<custom_interfaces::msg::ConeArray>(
       "perception/cone_coordinates", 10,
       std::bind(&LMSubscriber::_perception_subscription_callback, this, std::placeholders::_1));
