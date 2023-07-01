@@ -7,14 +7,12 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
-# uncomment the following section in order to fill in
-# further dependencies manually.
-# find_package(<dependency> REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(custom_interfaces REQUIRED)
+find_package(eufs_msgs REQUIRED)
 
 set(IMPLEMENTATION_FILES 
   src/loc_map/lm_subscriber.cpp
@@ -28,7 +26,7 @@ set(IMPLEMENTATION_FILES
   )
 
 add_executable(${PROJECT_NAME} src/loc_map.cpp ${IMPLEMENTATION_FILES})
-ament_target_dependencies(${PROJECT_NAME} rclcpp std_msgs sensor_msgs custom_interfaces Eigen3)
+ament_target_dependencies(${PROJECT_NAME} rclcpp std_msgs sensor_msgs eufs_msgs custom_interfaces Eigen3)
 target_include_directories(${PROJECT_NAME} PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
@@ -49,6 +47,7 @@ if(BUILD_TESTING)
   find_package(custom_interfaces REQUIRED)
   find_package(rclcpp REQUIRED)
   find_package(sensor_msgs REQUIRED)
+  find_package(eufs_msgs REQUIRED)
   find_package(rclcpp REQUIRED)
   find_package(Eigen3 REQUIRED)
   find_package(std_msgs REQUIRED)
@@ -62,7 +61,7 @@ if(BUILD_TESTING)
     )
   
   ament_add_gtest(${PROJECT_NAME}_test ${TESTFILES} ${IMPLEMENTATION_FILES})
-  ament_target_dependencies(${PROJECT_NAME}_test rclcpp std_msgs sensor_msgs custom_interfaces)
+  ament_target_dependencies(${PROJECT_NAME}_test rclcpp std_msgs eufs_msgs sensor_msgs custom_interfaces)
   target_include_directories(${PROJECT_NAME}_test PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>)

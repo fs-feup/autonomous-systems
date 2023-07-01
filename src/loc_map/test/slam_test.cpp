@@ -12,7 +12,7 @@
  * linear movement with constant velocity
  *
  */
-TEST(EKF_SLAM, LINEAR_MOVEMENT_INTEGRITY_TEST) { // This test is not that great, to be improved
+TEST(EKF_SLAM, LINEAR_MOVEMENT_INTEGRITY_TEST) {  // This test is not that great, to be improved
   VehicleState *vehicle_state = new VehicleState();
   vehicle_state->last_update = std::chrono::high_resolution_clock::now();
   ImuUpdate *imu_update = new ImuUpdate();
@@ -61,7 +61,7 @@ TEST(EKF_SLAM, LINEAR_MOVEMENT_INTEGRITY_TEST) { // This test is not that great,
     int delta_t = std::chrono::duration_cast<std::chrono::milliseconds>(imu_update->last_update -
                                                                         ekf->get_last_update())
                       .count();
-    double delta_x = static_cast<double> (i * delta_t) / 1000;
+    double delta_x = static_cast<double>(i * delta_t) / 1000;
     ekf->prediction_step();
 
     predicted_map->map.clear();
