@@ -14,15 +14,14 @@ LMSubscriber::LMSubscriber(Map* map, ImuUpdate* imu_update, OdometryUpdate* odom
   this->_wheel_speeds_subscription = this->create_subscription<eufs_msgs::msg::WheelSpeedsStamped>(
       "ros_can/wheel_speeds", 10,
       std::bind(&LMSubscriber::_wheel_speeds_subscription_callback, this, std::placeholders::_1));
-  RCLCPP_INFO(this->get_logger(), "[LOC_MAP] Subscriber started");
+  RCLCPP_INFO(this->get_logger(), "Subscriber started");
 }
 
 void LMSubscriber::_perception_subscription_callback(
     const custom_interfaces::msg::ConeArray message) {
   auto cone_array = message.cone_array;
   this->_map->map.clear();
-  RCLCPP_INFO(this->get_logger(),
-              "[LOC_MAP] Cones from perception:\n--------------------------------------");
+  RCLCPP_INFO(this->get_logger(), "Cones from perception:\n--------------------------------------");
   for (auto& cone : cone_array) {
     auto position = Position();
     position.x = cone.position.x;
@@ -53,9 +52,9 @@ void LMSubscriber::_imu_subscription_callback(const sensor_msgs::msg::Imu messag
   this->_imu_update->translational_velocity = sqrt(
       this->_imu_update->translational_velocity_x * this->_imu_update->translational_velocity_x +
       this->_imu_update->translational_velocity_y * this->_imu_update->translational_velocity_y);
-  RCLCPP_INFO(this->get_logger(), "[LOC_MAP] Raw from IMU: ax:%f - ay:%f - w:%f", acceleration_x,
+  RCLCPP_INFO(this->get_logger(), "Raw from IMU: ax:%f - ay:%f - w:%f", acceleration_x,
               acceleration_y, this->_imu_update->rotational_velocity);
-  RCLCPP_INFO(this->get_logger(), "[LOC_MAP] Translated from IMU: v:%f - w:%f - vx:%f - vy:%f",
+  RCLCPP_INFO(this->get_logger(), "Translated from IMU: v:%f - w:%f - vx:%f - vy:%f",
               this->_imu_update->translational_velocity, this->_imu_update->rotational_velocity,
               this->_imu_update->translational_velocity_x,
               this->_imu_update->translational_velocity_y);
@@ -70,7 +69,7 @@ void LMSubscriber::_wheel_speeds_subscription_callback(
   this->_odometry_update->steering_angle = message.speeds.steering;
 
   RCLCPP_INFO(this->get_logger(),
-              "[LOC_MAP] Raw from wheel speeds: lb:%f - rb:%f - lf:%f - rf:%f - steering: %f",
+              "Raw from wheel speeds: lb:%f - rb:%f - lf:%f - rf:%f - steering: %f",
               this->_odometry_update->lb_speed, this->_odometry_update->rb_speed,
               this->_odometry_update->lf_speed, this->_odometry_update->rf_speed,
               this->_odometry_update->steering_angle);
