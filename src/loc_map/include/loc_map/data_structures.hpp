@@ -55,24 +55,23 @@ struct ImuUpdate {
       last_update; /**< Timestamp of last update */
 };
 
-
 /**
  * @brief Struct for data retrieved by the Odometry
- * 
+ *
  * @param steering_angle Steering Angle
  * @param lf_speed Left Front Wheel Speed
  * @param rf_speed Right Front Wheel Speed
  * @param lb_speed Left Back Wheel Speed
  * @param rb_speed Right Back Wheel Speed
  * @param last_update Timestamp of last update
- * 
+ *
  */
 struct OdometryUpdate {
   double steering_angle = 0.0; /**< in radians */
   double lf_speed = 0.0;       /**< in RPMs */
-	double rf_speed = 0.0;       /**< in RPMs */
-	double lb_speed = 0.0;       /**< in RPMs */
-	double rb_speed = 0.0;       /**< in RPMs */
+  double rf_speed = 0.0;       /**< in RPMs */
+  double lb_speed = 0.0;       /**< in RPMs */
+  double rb_speed = 0.0;       /**< in RPMs */
   std::chrono::time_point<std::chrono::high_resolution_clock>
       last_update; /**< Timestamp of last update */
 };

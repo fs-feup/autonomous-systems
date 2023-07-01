@@ -9,7 +9,6 @@
  *
  */
 struct MotionPredictionData {
-
   // IMU
   double translational_velocity = 0.0;   /**< Translational Velocity Mod */
   double translational_velocity_x = 0.0; /**< Translational Velocity in X axis */
@@ -18,10 +17,10 @@ struct MotionPredictionData {
 
   // Odometry
   double steering_angle = 0.0; /**< Steering Angle */
-  double lf_speed = 0.0;      /**< Left Front Wheel Speed */
-	double rf_speed = 0.0;     /**< Right Front Wheel Speed */
-	double lb_speed = 0.0;    /**< Left Back Wheel Speed */
-	double rb_speed = 0.0;  /**< Right Back Wheel Speed */
+  double lf_speed = 0.0;       /**< Left Front Wheel Speed */
+  double rf_speed = 0.0;       /**< Right Front Wheel Speed */
+  double lb_speed = 0.0;       /**< Left Back Wheel Speed */
+  double rb_speed = 0.0;       /**< Right Back Wheel Speed */
 };
 
 /**
@@ -163,8 +162,8 @@ class NormalVelocityModel : public MotionModel {
 
 class OdometryModel : public NormalVelocityModel {
   Eigen::MatrixXf _process_noise_covariance_matrix;
-  static constexpr double wheelbase = 1.530; /**< space between axises in meters */
-  static constexpr double axis_length = 1.2; /**< space between wheels in meters */
+  static constexpr double wheelbase = 1.530;    /**< space between axises in meters */
+  static constexpr double axis_length = 1.2;    /**< space between wheels in meters */
   static constexpr double wheel_diameter = 0.5; /**< wheel radius in meters */
 
  public:
@@ -208,11 +207,12 @@ class OdometryModel : public NormalVelocityModel {
   /**
    * @brief Transform odometry data to velocities
    *  (wheel speeds and steering to linear and angular velocities)
-   * 
-   * @param motion_prediction_data 
-   * @return MotionPredictionData 
+   *
+   * @param motion_prediction_data
+   * @return MotionPredictionData
    */
-  MotionPredictionData odometry_to_velocities_transform(const MotionPredictionData& motion_prediction_data) const;
+  MotionPredictionData odometry_to_velocities_transform(
+      const MotionPredictionData& motion_prediction_data) const;
 };
 
 #endif  // SRC_LOC_MAP_INCLUDE_KALMAN_FILTER_MOTION_MODELS_HPP_

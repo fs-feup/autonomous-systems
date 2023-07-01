@@ -221,10 +221,9 @@ TEST(IMU_VELOCITY_MODEL, COMPLEX_MOVEMENT_TEST) {
 /**
  * @brief Tests the conversion from wheel revolutions
  * to velocities using the bycicle model
- * 
+ *
  */
 TEST(ODOMETRY_MODEL, CONVERSION_TEST) {
-
   // Straight Line
   OdometryModel odometry_model = OdometryModel(Eigen::Matrix3f::Zero());
   MotionPredictionData prediction_data_from_odometry;
@@ -233,7 +232,8 @@ TEST(ODOMETRY_MODEL, CONVERSION_TEST) {
   prediction_data_from_odometry.lf_speed = 60;
   prediction_data_from_odometry.rf_speed = 60;
   prediction_data_from_odometry.steering_angle = 0;
-  MotionPredictionData velocity_data = odometry_model.odometry_to_velocities_transform(prediction_data_from_odometry);
+  MotionPredictionData velocity_data =
+      odometry_model.odometry_to_velocities_transform(prediction_data_from_odometry);
   EXPECT_NEAR(velocity_data.translational_velocity, 1.5708, 0.0001);
   EXPECT_DOUBLE_EQ(velocity_data.rotational_velocity, 0);
   EXPECT_DOUBLE_EQ(velocity_data.translational_velocity_x, 0);
@@ -258,14 +258,15 @@ TEST(ODOMETRY_MODEL, CONVERSION_TEST) {
   prediction_data_from_odometry.rb_speed = 60;
   prediction_data_from_odometry.lf_speed = 60;
   prediction_data_from_odometry.rf_speed = 60;
-  prediction_data_from_odometry.steering_angle = - M_PI / 8;
-  MotionPredictionData velocity_data_2 = odometry_model.odometry_to_velocities_transform(prediction_data_from_odometry);
+  prediction_data_from_odometry.steering_angle = -M_PI / 8;
+  MotionPredictionData velocity_data_2 =
+      odometry_model.odometry_to_velocities_transform(prediction_data_from_odometry);
   EXPECT_GE(velocity_data_2.translational_velocity, 1.5708);
   EXPECT_LE(velocity_data_2.translational_velocity, 1.5708 * 2);
-  EXPECT_GE(velocity_data_2.rotational_velocity, - M_PI);
-  EXPECT_LE(velocity_data_2.rotational_velocity, - M_PI / 8);
+  EXPECT_GE(velocity_data_2.rotational_velocity, -M_PI);
+  EXPECT_LE(velocity_data_2.rotational_velocity, -M_PI / 8);
   EXPECT_DOUBLE_EQ(velocity_data_2.translational_velocity_x, 0);
   EXPECT_DOUBLE_EQ(velocity_data_2.translational_velocity_y, 0);
   EXPECT_DOUBLE_EQ(velocity_data_2.translational_velocity, velocity_data.translational_velocity);
-  EXPECT_DOUBLE_EQ(velocity_data_2.rotational_velocity, - velocity_data.rotational_velocity);
+  EXPECT_DOUBLE_EQ(velocity_data_2.rotational_velocity, -velocity_data.rotational_velocity);
 }

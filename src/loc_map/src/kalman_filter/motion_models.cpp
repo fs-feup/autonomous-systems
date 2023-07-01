@@ -111,35 +111,54 @@ double OdometryModel::get_wheel_velocity_from_rpm(const double rpm) {
 
 MotionPredictionData OdometryModel::odometry_to_velocities_transform(
     const MotionPredictionData& motion_prediction_data) const {
-
   MotionPredictionData motion_prediction_data_transformed = motion_prediction_data;
-  if (motion_prediction_data.steering_angle == 0) { // If no steering angle, moving straight
-    double lb_velocity = OdometryModel::get_wheel_velocity_from_rpm(motion_prediction_data.lb_speed);
-    double rb_velocity = OdometryModel::get_wheel_velocity_from_rpm(motion_prediction_data.rb_speed);
-    double lf_velocity = OdometryModel::get_wheel_velocity_from_rpm(motion_prediction_data.lf_speed);
-    double rf_velocity = OdometryModel::get_wheel_velocity_from_rpm(motion_prediction_data.rf_speed);
-    motion_prediction_data_transformed.translational_velocity = (lb_velocity + rb_velocity + lf_velocity + rf_velocity) / 4;
+  if (motion_prediction_data.steering_angle == 0) {  // If no steering angle, moving straight
+    double lb_velocity =
+        OdometryModel::get_wheel_velocity_from_rpm(motion_prediction_data.lb_speed);
+    double rb_velocity =
+        OdometryModel::get_wheel_velocity_from_rpm(motion_prediction_data.rb_speed);
+    double lf_velocity =
+        OdometryModel::get_wheel_velocity_from_rpm(motion_prediction_data.lf_speed);
+    double rf_velocity =
+        OdometryModel::get_wheel_velocity_from_rpm(motion_prediction_data.rf_speed);
+    motion_prediction_data_transformed.translational_velocity =
+        (lb_velocity + rb_velocity + lf_velocity + rf_velocity) / 4;
   } else if (motion_prediction_data.steering_angle > 0) {
-    double lb_velocity = OdometryModel::get_wheel_velocity_from_rpm(motion_prediction_data.lb_speed);
-    double rear_axis_center_rotation_radius = OdometryModel::wheelbase / tan(motion_prediction_data.steering_angle);
-    motion_prediction_data_transformed.rotational_velocity = lb_velocity / (rear_axis_center_rotation_radius - (OdometryModel::axis_length / 2));
-    motion_prediction_data_transformed.translational_velocity = sqrt(pow(rear_axis_center_rotation_radius, 2) + pow(OdometryModel::wheelbase / 2, 2)) * abs(motion_prediction_data_transformed.rotational_velocity);
+    double lb_velocity =
+        OdometryModel::get_wheel_velocity_from_rpm(motion_prediction_data.lb_speed);
+    double rear_axis_center_rotation_radius =
+        OdometryModel::wheelbase / tan(motion_prediction_data.steering_angle);
+    motion_prediction_data_transformed.rotational_velocity =
+        lb_velocity / (rear_axis_center_rotation_radius - (OdometryModel::axis_length / 2));
+    motion_prediction_data_transformed.translational_velocity =
+        sqrt(pow(rear_axis_center_rotation_radius, 2) + pow(OdometryModel::wheelbase / 2, 2)) *
+        abs(motion_prediction_data_transformed.rotational_velocity);
   } else {
-    double rb_velocity = OdometryModel::get_wheel_velocity_from_rpm(motion_prediction_data.rb_speed);
-    double rear_axis_center_rotation_radius = OdometryModel::wheelbase / tan(motion_prediction_data.steering_angle);
-    motion_prediction_data_transformed.rotational_velocity = rb_velocity / (rear_axis_center_rotation_radius + (OdometryModel::axis_length / 2));
-    motion_prediction_data_transformed.translational_velocity = sqrt(pow(rear_axis_center_rotation_radius, 2) + pow(OdometryModel::wheelbase / 2, 2)) * abs(motion_prediction_data_transformed.rotational_velocity);
+    double rb_velocity =
+        OdometryModel::get_wheel_velocity_from_rpm(motion_prediction_data.rb_speed);
+    double rear_axis_center_rotation_radius =
+        OdometryModel::wheelbase / tan(motion_prediction_data.steering_angle);
+    motion_prediction_data_transformed.rotational_velocity =
+        rb_velocity / (rear_axis_center_rotation_radius + (OdometryModel::axis_length / 2));
+    motion_prediction_data_transformed.translational_velocity =
+        sqrt(pow(rear_axis_center_rotation_radius, 2) + pow(OdometryModel::wheelbase / 2, 2)) *
+        abs(motion_prediction_data_transformed.rotational_velocity);
   }
   return motion_prediction_data_transformed;
 }
 
-Eigen::VectorXf OdometryModel::predict_expected_state(    const Eigen::VectorXf& expected_state, const MotionPredictionData& motion_prediction_data,
+Eigen::VectorXf OdometryModel::predict_expected_state(
+    const Eigen::VectorXf& expected_state, const MotionPredictionData& motion_prediction_data,
     const double time_interval) const {
-  return NormalVelocityModel::predict_expected_state(expected_state, this->odometry_to_velocities_transform(motion_prediction_data), time_interval);
+  return NormalVelocityModel::predict_expected_state(
+      expected_state, this->odometry_to_velocities_transform(motion_prediction_data),
+      time_interval);
 }
 
 Eigen::MatrixXf OdometryModel::get_motion_to_state_matrix(
     const Eigen::VectorXf& expected_state, const MotionPredictionData& motion_prediction_data,
     const double time_interval) const {
-  return NormalVelocityModel::get_motion_to_state_matrix(expected_state, this->odometry_to_velocities_transform(motion_prediction_data), time_interval);
+  return NormalVelocityModel::get_motion_to_state_matrix(
+      expected_state, this->odometry_to_velocities_transform(motion_prediction_data),
+      time_interval);
 }
