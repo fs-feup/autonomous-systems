@@ -12,6 +12,7 @@
 #include "loc_map/data_structures.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/imu.hpp"
+// #include "eufs_msgs/msg/wheel_speeds_stamped.hpp"
 #include "std_msgs/msg/string.hpp"
 
 /**
@@ -21,6 +22,7 @@
 class LMSubscriber : public rclcpp::Node {
   rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr _perception_subscription;
   rclcpp::Subscription<sensor_msgs::msg::Imu>::SharedPtr _imu_subscription;
+  // rclcpp::Subscription<
   Map* _map;
   ImuUpdate* _imu_update;
 

@@ -61,7 +61,7 @@ class ControlNode(Node):
         
         self.path_subscription = self.create_subscription(
             PointArray,
-            'path_mock',
+            'planning_local',
             self.path_callback,
             10
         )
