@@ -1,7 +1,7 @@
-from ackermann_msgs.msg import AckermannDriveStamped
+from ackermann_msgs.msg import AckermannDriveStamped, AckermannDrive
 from custom_interfaces.msg import VcuCommand, Pose
 
-from tf.transformations import euler_from_quaternion
+from tf_transformations import euler_from_quaternion
 
 class ControlAdapter():
     def __init__(self, mode, node):
@@ -17,20 +17,23 @@ class ControlAdapter():
 
     def publish(self, steering_angle, speed):
         if self.mode == "eufs":
-            msg = AckermannDriveStamped(
-                steering_angle=steering_angle,
-                speed=speed
-            )
+            msg = AckermannDriveStamped()
+
+            msg.drive.speed = speed
+            msg.drive.steering_angle = steering_angle
+            
         elif self.mode == "fsds":
-            msg = AckermannDriveStamped(
-                steering_angle=steering_angle,
-                speed=speed
-            )
+            msg = AckermannDriveStamped()
+
+            msg.drive.speed = speed
+            msg.drive.steering_angle = steering_angle
+
         elif self.mode == "ads_dv":
-            msg = VcuCommand(
-                steering_angle_request=steering_angle,
-                axle_speed_request=speed
-            )
+            msg = VcuCommand()
+
+            msg.axle_speed_request = speed
+            msg.steering_angle_request = steering_angle
+            
         self.publisher.publish(msg)
 
     def eufs_init(self):
@@ -38,7 +41,7 @@ class ControlAdapter():
         self.node.create_subscription(
             Pose,
             "/odometry_integration/car_state",
-            self.node.eufs_odometry_callback,
+            self.eufs_odometry_callback,
             10
         )
         
@@ -47,7 +50,7 @@ class ControlAdapter():
         self.node.create_subscription(
             Pose,
             "/odometry_integration/car_state",
-            self.node.eufs_odometry_callback,
+            self.eufs_odometry_callback,
             10
         )
 
@@ -56,7 +59,7 @@ class ControlAdapter():
         self.node.create_subscription(
             Pose,
             "vehicle_localization",
-            self.node.localisation_callback,
+            self.localisation_callback,
             10
         )
 
