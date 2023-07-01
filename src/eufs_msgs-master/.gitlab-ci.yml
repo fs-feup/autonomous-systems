@@ -1,0 +1,37 @@
+image: ros:galactic-ros-base-focal
+
+workflow:
+  # Only run on ros2 branch and merge requests
+  rules:
+    - if: $CI_MERGE_REQUEST_ID
+    - if: $CI_COMMIT_BRANCH == "master"
+
+variables:
+  PROJECT_BASE_DIR: $CI_PROJECT_DIR/src/eufs_msgs
+
+stages:
+  - build
+
+build:
+  stage: build 
+  before_script:
+    # Setup file structure
+    - mkdir -p $PROJECT_BASE_DIR
+    - shopt -s extglob dotglob
+    - mv !(src) $PROJECT_BASE_DIR
+    - shopt -u extglob dotglob
+
+    # Setup EUFS rosdep sources
+    - echo "yaml https://gitlab.com/eufs/eufs_rosdep/-/raw/master/python.yaml" >> /etc/ros/rosdep/sources.list.d/19-eufs.list
+
+    # Install ROS package dependencies
+    - apt-get update -qq
+    - rosdep update -q --rosdistro=$ROS_DISTRO
+    - rosdep install -y -q --from-paths $CI_PROJECT_DIR --ignore-src
+    - rm -rf /var/lib/apt/lists/*
+  script:    
+    # Build packages
+    - . /opt/ros/$ROS_DISTRO/setup.sh
+    - colcon build
+  variables:
+    GIT_STRATEGY: clone
