@@ -52,7 +52,7 @@ class ControlNode(Node):
         # Task completion
         self.done = False
 
-        self.node.create_subscription(
+        self.create_subscription(
             PointArray,
             "/planning_local",
             self.path_callback,
@@ -68,15 +68,12 @@ class ControlNode(Node):
         @brief Sim publisher callback.
         @param self The object pointer.
         """
-        node = self.node
 
         # TODO: Set the minimum and maximum steering angle
-        steering_angle = node.steering_angle if not node.done else 0.
-        speed = node.velocity if not node.done else -1.
+        steering_angle = self.steering_angle if not self.done else 0.
+        speed = self.velocity if not self.done else -1.
 
-        self.adapter.publish(steering_angle, speed)
-
-        node.get_logger().info('Published EUFS Command')
+        self.adapter.publish_cmd(steering_angle, speed)
         
     def pid_callback(self, position, yaw):
         """!
@@ -159,6 +156,10 @@ class ControlNode(Node):
 
         self.path = np.array(path)
         self.speeds = np.array(speeds)
+
+    def mission_state_callback(self, mission, state):
+        self.get_logger().info("mission: {} state: {}".format(mission, state))
+        # TODO()
 
 
 def main(args=None):
