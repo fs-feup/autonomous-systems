@@ -23,6 +23,7 @@ set(IMPLEMENTATION_FILES
   src/kalman_filter/observation_models.cpp
   src/utils/position.cpp
   src/utils/formulas.cpp
+  src/utils/color.cpp
   )
 
 add_executable(${PROJECT_NAME} src/loc_map.cpp ${IMPLEMENTATION_FILES})
