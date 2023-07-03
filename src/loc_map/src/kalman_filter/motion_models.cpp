@@ -22,6 +22,9 @@ Eigen::MatrixXf MotionModel::get_process_noise_covariance_matrix(
          Eigen::MatrixXf::Identity(3, state_size);
 }
 
+
+/*------------------------Normal Velocity Model-----------------------*/
+
 Eigen::VectorXf NormalVelocityModel::predict_expected_state(
     const Eigen::VectorXf& expected_state, const MotionPredictionData& motion_prediction_data,
     const double time_interval) const {
@@ -53,8 +56,8 @@ Eigen::VectorXf NormalVelocityModel::predict_expected_state(
 }
 
 Eigen::MatrixXf NormalVelocityModel::get_motion_to_state_matrix(
-    const Eigen::VectorXf& expected_state, const MotionPredictionData& motion_prediction_data,
-    const double time_interval) const {
+    const Eigen::VectorXf& expected_state, [[maybe_unused]] const MotionPredictionData& motion_prediction_data,
+    [[maybe_unused]] const double time_interval) const {
   Eigen::MatrixXf jacobian =
       Eigen::MatrixXf::Identity(expected_state.size(), expected_state.size());
 
@@ -83,6 +86,9 @@ Eigen::MatrixXf NormalVelocityModel::get_motion_to_state_matrix(
   return jacobian;
 }
 
+
+/*----------------------IMU Velocity Model ------------------------*/
+
 Eigen::VectorXf ImuVelocityModel::predict_expected_state(
     const Eigen::VectorXf& expected_state, const MotionPredictionData& motion_prediction_data,
     const double time_interval) const {
@@ -94,16 +100,18 @@ Eigen::VectorXf ImuVelocityModel::predict_expected_state(
   return next_state;
 }
 
-// TODO(marhcouto): check what to do about the unused parameter warnings
 Eigen::MatrixXf ImuVelocityModel::get_motion_to_state_matrix(
-    const Eigen::VectorXf& expected_state, const MotionPredictionData& motion_prediction_data,
-    const double time_interval) const {  // In this implementation, as the motion model is already
+    const Eigen::VectorXf& expected_state, [[maybe_unused]] const MotionPredictionData& motion_prediction_data,
+    [[maybe_unused]] const double time_interval) const {  // In this implementation, as the motion model is already
                                          // linear, we do not use the derivative of the model
   Eigen::MatrixXf motion_to_state_matrix =
       Eigen::MatrixXf::Identity(expected_state.size(), expected_state.size());
 
   return motion_to_state_matrix;
 }
+
+
+/*----------------------Odometry Model ------------------------*/
 
 double OdometryModel::get_wheel_velocity_from_rpm(const double rpm) {
   return rpm * OdometryModel::wheel_diameter * M_PI / 60;
@@ -156,8 +164,8 @@ Eigen::VectorXf OdometryModel::predict_expected_state(
 }
 
 Eigen::MatrixXf OdometryModel::get_motion_to_state_matrix(
-    const Eigen::VectorXf& expected_state, const MotionPredictionData& motion_prediction_data,
-    const double time_interval) const {
+    const Eigen::VectorXf& expected_state, [[maybe_unused]] const MotionPredictionData& motion_prediction_data,
+    [[maybe_unused]] const double time_interval) const {
   return NormalVelocityModel::get_motion_to_state_matrix(
       expected_state, this->odometry_to_velocities_transform(motion_prediction_data),
       time_interval);

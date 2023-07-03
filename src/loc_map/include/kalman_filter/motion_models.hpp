@@ -62,9 +62,15 @@ class MotionModel {
    * @return Eigen::MatrixXf
    */
   virtual Eigen::MatrixXf get_motion_to_state_matrix(
-      const Eigen::VectorXf& expected_state, const MotionPredictionData& motion_prediction_data,
+      const Eigen::VectorXf& expected_state, [[maybe_unused]] const MotionPredictionData& motion_prediction_data,
       const double time_interval) const = 0;
 
+  /**
+   * @brief Get the process noise covariance matrix object
+   * 
+   * @param state_size 
+   * @return Eigen::MatrixXf 
+   */
   Eigen::MatrixXf get_process_noise_covariance_matrix(const unsigned int state_size) const;
 };
 
@@ -110,8 +116,8 @@ class ImuVelocityModel : public MotionModel {
    * @return Eigen::MatrixXf
    */
   Eigen::MatrixXf get_motion_to_state_matrix(const Eigen::VectorXf& expected_state,
-                                             const MotionPredictionData& motion_prediction_data,
-                                             const double time_interval) const override;
+                                             [[maybe_unused]] const MotionPredictionData& motion_prediction_data,
+                                             [[maybe_unused]] const double time_interval) const override;
 };
 
 /**
@@ -156,8 +162,8 @@ class NormalVelocityModel : public MotionModel {
    * @return Eigen::MatrixXf
    */
   Eigen::MatrixXf get_motion_to_state_matrix(const Eigen::VectorXf& expected_state,
-                                             const MotionPredictionData& motion_prediction_data,
-                                             const double time_interval) const override;
+                                             [[maybe_unused]] const MotionPredictionData& motion_prediction_data,
+                                             [[maybe_unused]] const double time_interval) const override;
 };
 
 class OdometryModel : public NormalVelocityModel {
@@ -199,9 +205,15 @@ class OdometryModel : public NormalVelocityModel {
    * @return Eigen::MatrixXf
    */
   Eigen::MatrixXf get_motion_to_state_matrix(const Eigen::VectorXf& expected_state,
-                                             const MotionPredictionData& motion_prediction_data,
-                                             const double time_interval) const override;
+                                             [[maybe_unused]] const MotionPredictionData& motion_prediction_data,
+                                             [[maybe_unused]] const double time_interval) const override;
 
+  /**
+   * @brief Get the wheel velocity in m/s from rpm
+   * 
+   * @param rpm rotations per minute
+   * @return double 
+   */
   static double get_wheel_velocity_from_rpm(const double rpm);
 
   /**
