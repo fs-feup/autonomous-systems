@@ -171,7 +171,9 @@ class NormalVelocityModel : public MotionModel {
 
 class OdometryModel : public NormalVelocityModel {
   Eigen::MatrixXf _process_noise_covariance_matrix;
-  static constexpr double wheelbase = 1.530;    /**< space between axises in meters */
+  static constexpr double wheelbase = 1.530; /**< space between axises in meters */
+  static constexpr double rear_axis_to_camera =
+      0.79;                                     /**< space between rear axis and camera in meters */
   static constexpr double axis_length = 1.2;    /**< space between wheels in meters */
   static constexpr double wheel_diameter = 0.5; /**< wheel radius in meters */
 
