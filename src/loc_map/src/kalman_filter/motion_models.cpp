@@ -139,7 +139,8 @@ MotionPredictionData OdometryModel::odometry_to_velocities_transform(
     motion_prediction_data_transformed.rotational_velocity =
         lb_velocity / (rear_axis_center_rotation_radius - (OdometryModel::axis_length / 2));
     motion_prediction_data_transformed.translational_velocity =
-        sqrt(pow(rear_axis_center_rotation_radius, 2) + pow(OdometryModel::wheelbase / 2, 2)) *
+        sqrt(pow(rear_axis_center_rotation_radius, 2) +
+             pow(OdometryModel::rear_axis_to_camera, 2)) *
         abs(motion_prediction_data_transformed.rotational_velocity);
   } else {
     double rb_velocity =
@@ -149,7 +150,8 @@ MotionPredictionData OdometryModel::odometry_to_velocities_transform(
     motion_prediction_data_transformed.rotational_velocity =
         rb_velocity / (rear_axis_center_rotation_radius + (OdometryModel::axis_length / 2));
     motion_prediction_data_transformed.translational_velocity =
-        sqrt(pow(rear_axis_center_rotation_radius, 2) + pow(OdometryModel::wheelbase / 2, 2)) *
+        sqrt(pow(rear_axis_center_rotation_radius, 2) +
+             pow(OdometryModel::rear_axis_to_camera, 2)) *
         abs(motion_prediction_data_transformed.rotational_velocity);
   }
   return motion_prediction_data_transformed;
