@@ -22,7 +22,6 @@ Eigen::MatrixXf MotionModel::get_process_noise_covariance_matrix(
          Eigen::MatrixXf::Identity(3, state_size);
 }
 
-
 /*------------------------Normal Velocity Model-----------------------*/
 
 Eigen::VectorXf NormalVelocityModel::predict_expected_state(
@@ -56,7 +55,8 @@ Eigen::VectorXf NormalVelocityModel::predict_expected_state(
 }
 
 Eigen::MatrixXf NormalVelocityModel::get_motion_to_state_matrix(
-    const Eigen::VectorXf& expected_state, [[maybe_unused]] const MotionPredictionData& motion_prediction_data,
+    const Eigen::VectorXf& expected_state,
+    [[maybe_unused]] const MotionPredictionData& motion_prediction_data,
     [[maybe_unused]] const double time_interval) const {
   Eigen::MatrixXf jacobian =
       Eigen::MatrixXf::Identity(expected_state.size(), expected_state.size());
@@ -86,7 +86,6 @@ Eigen::MatrixXf NormalVelocityModel::get_motion_to_state_matrix(
   return jacobian;
 }
 
-
 /*----------------------IMU Velocity Model ------------------------*/
 
 Eigen::VectorXf ImuVelocityModel::predict_expected_state(
@@ -101,15 +100,16 @@ Eigen::VectorXf ImuVelocityModel::predict_expected_state(
 }
 
 Eigen::MatrixXf ImuVelocityModel::get_motion_to_state_matrix(
-    const Eigen::VectorXf& expected_state, [[maybe_unused]] const MotionPredictionData& motion_prediction_data,
-    [[maybe_unused]] const double time_interval) const {  // In this implementation, as the motion model is already
-                                         // linear, we do not use the derivative of the model
+    const Eigen::VectorXf& expected_state,
+    [[maybe_unused]] const MotionPredictionData& motion_prediction_data,
+    [[maybe_unused]] const double time_interval)
+    const {  // In this implementation, as the motion model is already
+             // linear, we do not use the derivative of the model
   Eigen::MatrixXf motion_to_state_matrix =
       Eigen::MatrixXf::Identity(expected_state.size(), expected_state.size());
 
   return motion_to_state_matrix;
 }
-
 
 /*----------------------Odometry Model ------------------------*/
 
@@ -164,7 +164,8 @@ Eigen::VectorXf OdometryModel::predict_expected_state(
 }
 
 Eigen::MatrixXf OdometryModel::get_motion_to_state_matrix(
-    const Eigen::VectorXf& expected_state, [[maybe_unused]] const MotionPredictionData& motion_prediction_data,
+    const Eigen::VectorXf& expected_state,
+    [[maybe_unused]] const MotionPredictionData& motion_prediction_data,
     [[maybe_unused]] const double time_interval) const {
   return NormalVelocityModel::get_motion_to_state_matrix(
       expected_state, this->odometry_to_velocities_transform(motion_prediction_data),
