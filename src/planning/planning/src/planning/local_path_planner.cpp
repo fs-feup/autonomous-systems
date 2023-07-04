@@ -1,4 +1,4 @@
-#include "../include/planning/local_path_planner.hpp"
+#include "planning/local_path_planner.hpp"
 
 #include <cmath>
 #include <map>

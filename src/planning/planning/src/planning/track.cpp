@@ -1,8 +1,8 @@
-#include "../include/planning/track.hpp"
+#include "planning/track.hpp"
 
 #include <string>
 
-#include "../include/utils/color.hpp"
+#include "utils/color.hpp"
 
 Track::Track() { completed = false; }
 

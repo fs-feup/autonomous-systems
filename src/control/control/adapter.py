@@ -107,4 +107,4 @@ class ControlAdapter():
         if future.result() is not None:
             self.node.get_logger().info('Result: %d' % future.result().success)
         else:
-            self.node.get_logger().info('Service call failed %r' % (result.exception(),))
+            self.node.get_logger().info('Service call failed %r' % (future.exception(),))
