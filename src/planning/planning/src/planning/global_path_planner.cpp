@@ -1,4 +1,4 @@
-#include "../include/planning/global_path_planner.hpp"
+#include "planning/global_path_planner.hpp"
 
 #include <string>
 #include <utility>
