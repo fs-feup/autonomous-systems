@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
 
-#include "../utils/cone.hpp"
+#include "utils/cone.hpp"
 
 /**
  * Track class. Contains the track information data and the cones position
