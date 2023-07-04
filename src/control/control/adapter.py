@@ -1,4 +1,4 @@
-from ackermann_msgs.msg import AckermannDriveStamped, AckermannDrive
+from ackermann_msgs.msg import AckermannDriveStamped
 from custom_interfaces.msg import VcuCommand, Pose
 from nav_msgs.msg import Odometry
 from tf_transformations import euler_from_quaternion
