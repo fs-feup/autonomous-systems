@@ -1,7 +1,11 @@
 from ackermann_msgs.msg import AckermannDriveStamped, AckermannDrive
 from custom_interfaces.msg import VcuCommand, Pose
-
+from nav_msgs.msg import Odometry
 from tf_transformations import euler_from_quaternion
+from .config import Params
+import numpy as np
+
+P = Params()
 
 class ControlAdapter():
     def __init__(self, mode, node):
@@ -31,16 +35,16 @@ class ControlAdapter():
         elif self.mode == "ads_dv":
             msg = VcuCommand()
 
-            msg.axle_speed_request = speed
-            msg.steering_angle_request = steering_angle
-            
+            msg.axle_speed_request = 2 * speed * 60 / P.tire_diam
+            msg.steering_angle_request = np.degrees(steering_angle)
+              
         self.publisher.publish(msg)
 
     def eufs_init(self):
         self.publisher = self.node.create_publisher(AckermannDriveStamped, "/cmd", 10)
         self.node.create_subscription(
-            Pose,
-            "/odometry_integration/car_state",
+            Odometry,
+            '/ground_truth/odom',
             self.eufs_odometry_callback,
             10
         )
