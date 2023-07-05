@@ -80,4 +80,4 @@ void Planning::publish_track_points(std::vector<Position*> path) const {
   RCLCPP_INFO(this->get_logger(), "[published] %ld points", message.points.size());
 }
 
-void Planning::set_state(EventState state) { this->state = state; }
+void Planning::set_mission(Mission mission) { this->mission = mission; }

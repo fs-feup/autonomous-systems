@@ -17,10 +17,10 @@
 
 using std::placeholders::_1;
 
-enum EventState { acceleration, skidpad, trackdrive, autocross };
+enum Mission { acceleration, skidpad, trackdrive, autocross };
 
 class Planning : public rclcpp::Node {
-  EventState state = skidpad;
+  Mission mission = acceleration;
   LocalPathPlanner* local_path_planner = new LocalPathPlanner();
   Adapter* adapter;
   float initialOrientation_;
@@ -38,7 +38,7 @@ class Planning : public rclcpp::Node {
 
  public:
   Planning();
-  void set_state(EventState state);
+  void set_mission(Mission mission);
 };
 
 #endif  // SRC_PLANNING_PLANNING_INCLUDE_PLANNING_PLANNING_HPP_
