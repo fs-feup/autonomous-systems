@@ -1,7 +1,11 @@
 from ackermann_msgs.msg import AckermannDriveStamped
 from custom_interfaces.msg import VcuCommand, Pose
+from nav_msgs.msg import Odometry
+from tf_transformations import euler_from_quaternion
+from .config import Params
+import numpy as np
 
-from tf.transformations import euler_from_quaternion
+P = Params()
 
 class ControlAdapter():
     def __init__(self, mode, node):
@@ -17,28 +21,31 @@ class ControlAdapter():
 
     def publish(self, steering_angle, speed):
         if self.mode == "eufs":
-            msg = AckermannDriveStamped(
-                steering_angle=steering_angle,
-                speed=speed
-            )
+            msg = AckermannDriveStamped()
+
+            msg.drive.speed = speed
+            msg.drive.steering_angle = steering_angle
+            
         elif self.mode == "fsds":
-            msg = AckermannDriveStamped(
-                steering_angle=steering_angle,
-                speed=speed
-            )
+            msg = AckermannDriveStamped()
+
+            msg.drive.speed = speed
+            msg.drive.steering_angle = steering_angle
+
         elif self.mode == "ads_dv":
-            msg = VcuCommand(
-                steering_angle_request=steering_angle,
-                axle_speed_request=speed
-            )
+            msg = VcuCommand()
+
+            msg.axle_speed_request = 2 * speed * 60 / P.tire_diam
+            msg.steering_angle_request = np.degrees(steering_angle)
+              
         self.publisher.publish(msg)
 
     def eufs_init(self):
         self.publisher = self.node.create_publisher(AckermannDriveStamped, "/cmd", 10)
         self.node.create_subscription(
-            Pose,
-            "/odometry_integration/car_state",
-            self.node.eufs_odometry_callback,
+            Odometry,
+            '/ground_truth/odom',
+            self.eufs_odometry_callback,
             10
         )
         
@@ -47,7 +54,7 @@ class ControlAdapter():
         self.node.create_subscription(
             Pose,
             "/odometry_integration/car_state",
-            self.node.eufs_odometry_callback,
+            self.eufs_odometry_callback,
             10
         )
 
@@ -56,7 +63,7 @@ class ControlAdapter():
         self.node.create_subscription(
             Pose,
             "vehicle_localization",
-            self.node.localisation_callback,
+            self.localisation_callback,
             10
         )
 
