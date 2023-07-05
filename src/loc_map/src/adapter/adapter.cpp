@@ -1,9 +1,9 @@
 #include "adapter/adapter.hpp"
 
-#include "planning/planning.hpp"
+#include "loc_map/lm_subscriber.hpp"
 
-Adapter::Adapter(std::string mode, Planning* planning) {
-  this->node = planning;
+Adapter::Adapter(std::string mode, LMSubscriber* subscriber) {
+  this->node = subscriber;
 
   if (mode == "eufs") {
     this->eufs_init();
@@ -16,7 +16,14 @@ Adapter::Adapter(std::string mode, Planning* planning) {
 
 void Adapter::eufs_init() {
   this->node->create_subscription<eufs_msgs::msg::CanState>(
-      "/ros_can/state", 10, std::bind(&Adapter::eufs_mission_state_callback, this, _1));
+      "/ros_can/state", 10,
+      std::bind(&Adapter::eufs_mission_state_callback, this, std::placeholders::_1));
+  this->node->create_subscription<sensor_msgs::msg::Imu>(
+      "imu/data", rclcpp::QoS(10).reliability(RMW_QOS_POLICY_RELIABILITY_BEST_EFFORT),
+      std::bind(&Adapter::eufs_imu_subscription_callback, this, std::placeholders::_1));
+  this->node->create_subscription<eufs_msgs::msg::WheelSpeedsStamped>(
+      "ros_can/wheel_speeds", 10,
+      std::bind(&Adapter::eufs_wheel_speeds_subscription_callback, this, std::placeholders::_1));
 
   this->eufs_mission_state_client_ =
       this->node->create_client<eufs_msgs::srv::SetCanState>("/ros_can/set_mission");
@@ -28,7 +35,7 @@ void Adapter::fsds_init() {}
 
 void Adapter::ads_dv_init() {}
 
-void Adapter::eufs_mission_state_callback(eufs_msgs::msg::CanState msg) {
+void Adapter::eufs_mission_state_callback(const eufs_msgs::msg::CanState msg) {
   RCLCPP_INFO(this->node->get_logger(), "I heard: '%d' and '%d'", msg.ami_state, msg.as_state);
 
   auto mission = msg.ami_state;
@@ -42,6 +49,21 @@ void Adapter::eufs_mission_state_callback(eufs_msgs::msg::CanState msg) {
   } else if (mission == eufs_msgs::msg::CanState::AMI_AUTOCROSS) {
     this->node->set_mission(Mission::autocross);
   }
+}
+
+void Adapter::eufs_imu_subscription_callback(const sensor_msgs::msg::Imu msg) {
+  double angular_velocity = msg.angular_velocity.z;
+  double acceleration_x = msg.linear_acceleration.x;
+  double acceleration_y = msg.linear_acceleration.y;
+
+  this->node->_imu_subscription_callback(angular_velocity, acceleration_x, acceleration_y);
+}
+
+void Adapter::eufs_wheel_speeds_subscription_callback(
+    const eufs_msgs::msg::WheelSpeedsStamped msg) {
+  this->node->_wheel_speeds_subscription_callback(
+      msg.speeds.lb_speed, msg.speeds.lf_speed, msg.speeds.rb_speed,
+      msg.speeds.rf_speed, msg.speeds.steering);
 }
 
 void Adapter::eufs_set_mission_state(int mission, int state) {

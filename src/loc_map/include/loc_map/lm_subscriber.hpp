@@ -26,6 +26,7 @@ class LMSubscriber : public rclcpp::Node {
   Map* _map;
   ImuUpdate* _imu_update;
   OdometryUpdate* _odometry_update;
+  Mission _mission;
 
   /**
    * @brief function to be called everytime information is received from the
@@ -33,26 +34,30 @@ class LMSubscriber : public rclcpp::Node {
    */
   void _perception_subscription_callback(const custom_interfaces::msg::ConeArray message);
 
-  /**
-   * @brief function to be called everytime information is received from the
-   * imu
-   */
-  void _imu_subscription_callback(const sensor_msgs::msg::Imu message);
-
-  /**
-   * @brief function to be called everytime information is received from the
-   * wheel encoders
-   *
-   * @param message
-   */
-  void _wheel_speeds_subscription_callback(const eufs_msgs::msg::WheelSpeedsStamped message);
-
  public:
   /**
    * @brief Construct a new LMSubscriber object
    *
    */
   LMSubscriber(Map* map, ImuUpdate* imu_update, OdometryUpdate* odometry_update);
+
+  /**
+   * @brief function to be called everytime information is received from the
+   * imu
+   */
+  void _imu_subscription_callback(double rotational_velocity, double acceleration_x,
+                                  double acceleration_y);
+
+  /**
+   * @brief function to be called everytime information is received from the
+   * wheel encoders
+   */
+  void _wheel_speeds_subscription_callback(double lb_speed, double lf_speed, double rb_speed,
+                                           double rf_speed, double steering_angle);
+
+  void set_mission(Mission mission);
+
+  Mission get_mission();
 };
 
 #endif  // SRC_LOC_MAP_INCLUDE_LOC_MAP_LM_SUBSCRIBER_HPP_
