@@ -2,7 +2,7 @@ from setuptools import setup
 
 from setuptools import find_packages
 
-package_name = 'yolov5_ros'
+package_name = 'perception'
 
 setup(
     name=package_name,
@@ -24,7 +24,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'yolov5_ros = '+package_name+'.main:ros_main',
+            'perception = ' + package_name + '.main:ros_main',
         ],
     },
 )

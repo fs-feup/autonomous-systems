@@ -14,7 +14,7 @@ class PerceptionAdapter():
             self.ads_dv_init()
 
     def eufs_init(self):
-        self.sub_image = self.create_subscription(
+        self.node.create_subscription(
             Image,
             "/zed/image_raw",
             self.node.image_callback,
@@ -22,7 +22,7 @@ class PerceptionAdapter():
         )
         
     def fsds_init(self):
-        self.sub_image = self.create_subscription(
+        self.node.create_subscription(
             Image,
             "/zed/image_raw",
             self.node.image_callback,
@@ -30,7 +30,7 @@ class PerceptionAdapter():
         )
 
     def ads_dv_init(self):
-        self.sub_image = self.create_subscription(
+        self.node.create_subscription(
             Image,
             "/zed/image_raw",
             self.node.image_callback,
