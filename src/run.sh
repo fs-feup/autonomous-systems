@@ -1,8 +1,7 @@
 colcon build --symlink-install
 
 # Perception
-ros2 launch yolov5_ros yolov5s_simple.launch.py& --ros-args --log-level warn
-ros2 run depth_processing depth_processing_node& --ros-args --log-level warn
+ros2 run perception perception& --ros-args --log-level warn
 
 # Localisation and Mapping
 ros2 run loc_map loc_map& --ros-args --log-level warn
