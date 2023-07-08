@@ -1,7 +1,9 @@
 import numpy as np
 import math
-
 from scipy import interpolate
+from .config import Params
+
+P = Params()
 
 def get_closest_point(state, path, old_nn_idx=None, search_window=None):
     """
@@ -177,15 +179,11 @@ def steer(pos_error, yaw_error, ct_error, old_error):
     @param ct_error Cross Track Error.
     """
 
-    # PID params
-    kp_steer = 0.3
-    kd_steer = 8
-
     # compute global error
     error = 0*pos_error + 0*yaw_error + 1*ct_error
 
     # calculate steering angle command
-    steer_angle = kp_steer*error + kd_steer*(error - old_error)
+    steer_angle = P.kp_steer*error + P.kd_steer*(error - old_error)
     
     # save old error for derivative of error calculation
     old_error = error
@@ -197,25 +195,17 @@ def steer(pos_error, yaw_error, ct_error, old_error):
 def get_torque_break_commands(actual_speed, desired_speed, old_error):
     error = desired_speed - actual_speed
 
-    # PID params
-    kp_torque = 1
-    kd_torque = 0
-
-    # PID params
-    kp_break = 1
-    kd_break = 0
-
     torque_req = 0
     break_req = 0
 
     # calculate steering angle command
     if error > 0:
         # torque
-        torque_req = max(kp_torque*error + kd_torque*(error - old_error), 0)
+        torque_req = max(P.kp_torque*error + P.kd_torque*(error - old_error), 0)
 
     else:
         # break
-        break_req = -min(kp_break*error + kd_break*(error - old_error), 0)
+        break_req = -min(P.kp_break*error + P.kd_break*(error - old_error), 0)
 
     return torque_req, break_req, error
 
