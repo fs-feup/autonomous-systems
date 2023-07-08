@@ -14,8 +14,14 @@ class Params:
         self.path_tick = 0.05  # average distance btw path points
 
         # PID variables
-        self.START_BREAKING_POS = 12  # neg index where car starts breaking (PID) 
+        self.START_BREAKING_POS = 4  # neg index where car starts breaking (PID) 
         self.LOOK_AHEAD = 0  # cte look-ahead (PID)
+        self.kp_torque = 1
+        self.kd_torque = 0
+        self.kp_break = 1
+        self.kd_break = 0
+        self.kp_steer = 0.5
+        self.kd_steer = 8
         
         # Perfomance variables
         self.MAX_SPEED = 1.5  # m/s
