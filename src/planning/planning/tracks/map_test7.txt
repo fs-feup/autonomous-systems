@@ -1,0 +1,9 @@
+0 0 yellow
+3 0 blue
+3.5 2 blue
+0.5 2 yellow
+5.5 3.5 blue
+2.5 3.5 yellow
+6 5 blue
+1 4 yellow
+-2 5 blue
