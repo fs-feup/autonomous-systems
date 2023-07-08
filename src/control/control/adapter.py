@@ -1,5 +1,7 @@
+import math
 from ackermann_msgs.msg import AckermannDriveStamped
-from custom_interfaces.msg import VcuCommand, Pose
+from .mpc_utils import wheels_vel_2_vehicle_vel
+from custom_interfaces.msg import VcuCommand, Vcu, Pose
 from nav_msgs.msg import Odometry
 from tf_transformations import euler_from_quaternion
 from .config import Params
@@ -19,7 +21,7 @@ class ControlAdapter():
         elif mode == "ads_dv":
             self.ads_dv_init()
 
-    def publish(self, steering_angle, speed):
+    def publish(self, steering_angle, speed, torque_req=0, break_req=0):
         if self.mode == "eufs":
             msg = AckermannDriveStamped()
 
@@ -37,6 +39,8 @@ class ControlAdapter():
 
             msg.axle_speed_request = 2 * speed * 60 / P.tire_diam
             msg.steering_angle_request = np.degrees(steering_angle)
+            msg.axle_torque_request = torque_req
+            msg.brake_press_request = break_req
               
         self.publisher.publish(msg)
 
@@ -61,8 +65,14 @@ class ControlAdapter():
     def ads_dv_init(self):
         self.publisher = self.node.create_publisher(VcuCommand, "/cmd", 10)
         self.node.create_subscription(
+            Vcu,
+            "/vcu",
+            self.vcu_callback,
+            10
+        )
+        self.node.create_subscription(
             Pose,
-            "vehicle_localization",
+            "/vehicle_localization",
             self.localisation_callback,
             10
         )
@@ -77,6 +87,23 @@ class ControlAdapter():
         orientation = msg.pose.pose.orientation
         orientation_list = [orientation.x, orientation.y, orientation.z, orientation.w]
 
+        decomp_speed = msg.twist.twist.linear
+
+        # get actual action variables
+        self.node.velocity_actual = math.sqrt(decomp_speed.x**2 + decomp_speed.y**2)
+        self.node.steering_angle_actual = self.node.steering_angle_command
+
         # Converts quartenions base to euler's base, and updates the class' attributes
         yaw = euler_from_quaternion(orientation_list)[2]
         self.node.mpc_callback(position, yaw)
+
+    def vcu_callback(self, msg):
+        self.node.steering_angle_actual = msg.steering_angle
+
+        self.node.velocity_actual = wheels_vel_2_vehicle_vel(
+            msg.fl_wheel_speed,
+            msg.fr_wheel_speed,
+            msg.rl_wheel_speed,
+            msg.rr_wheel_speed,
+            msg.steering_angle
+        )
