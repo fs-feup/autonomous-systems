@@ -85,7 +85,8 @@ class ControlNode(Node):
         velocity_command = self.velocity_command if not self.done else 0.
 
         # after mpc, convert velocity command to torque/break command
-        torque_command, break_command, self.old_velocity_error = get_torque_break_commands(
+        torque_command, break_command, self.old_velocity_error = \
+            get_torque_break_commands(
             self.velocity_actual,
             velocity_command,
             self.old_velocity_error
