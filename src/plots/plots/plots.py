@@ -1,6 +1,9 @@
 import rclpy
 from rclpy.node import Node
+import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
+import time
 
 from custom_interfaces.msg import PointArray, ConeArray
 
@@ -36,7 +39,15 @@ class Plots(Node):
             10
         )
 
-        self.timer = self.create_timer(0.5, self.timer_callback)
+        self.fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(8, 4))
+        ax1.set_title("Perception")
+        ax2.set_title("Map + Planning")
+
+        self.scatter1 = ax1.scatter([], [], c=self.perception_color)
+        self.scatter2 = ax2.scatter([], [], c=self.map_color)
+
+        anim = FuncAnimation(self.fig, self.plot_points, frames=range(100), interval=200)
+        plt.show()
 
     def plot_perception_callback(self, msg):
         for cone in msg.cone_array:
@@ -51,32 +62,21 @@ class Plots(Node):
         for point in msg.points:
             self.map_points.append([point.x, point.y, self.path_color])
 
-    def timer_callback(self):
-        self.plot_points()
-        self.map_points = []
-        self.perception_points = []
+    def plot_points(self, frame):
+        p_x = []
+        p_y = []
+        for x, y, _ in self.perception_points:
+            p_x.append(x)
+            p_y.append(y)
+        self.scatter1.set_offsets(np.column_stack((p_x, p_y)))
 
-    def plot_points(self):
-        if len(plt.get_fignums()) > 0:
-            fig = plt.gcf()
-            if len(fig.axes) > 0:
-                ax1, ax2 = fig.axes
-            else:
-                ax1, ax2 = fig.subplots(nrows=1, ncols=2)
-        else:
-            fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(8, 4))
+        m_x = []
+        m_y = []
+        for x, y, _ in self.map_points:
+            m_x.append(x)
+            m_y.append(y)
+        self.scatter2.set_offsets(np.column_stack((m_x, m_y)))
 
-        fig.suptitle("Cones' coordinates")
-
-        ax1.set_title("Perception")
-        for x, y, color in self.perception_points:
-            ax1.scatter(x, y, c=color)
-
-        ax2.set_title("Map")
-        for x, y, color in self.map_points:
-            ax2.scatter(x, y, c=color)
-
-        plt.draw()
 
 def main(args=None):
     rclpy.init(args=args)
@@ -85,6 +85,6 @@ def main(args=None):
     plots.destroy_node()
     rclpy.shutdown()
 
-
 if __name__ == '__main__':
     main()
+    

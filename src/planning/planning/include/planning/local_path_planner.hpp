@@ -38,8 +38,6 @@ class LocalPathPlanner {
   bool vectorDirection(Position* p1, Position* p2);
 
   std::vector<Position*> processNewArray(Track* cone_array);
-
-  // float euclideanDist(Position* p1, Position* p2);
 };
 
 #endif  // SRC_PLANNING_PLANNING_INCLUDE_PLANNING_LOCAL_PATH_PLANNER_HPP_

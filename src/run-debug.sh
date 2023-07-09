@@ -10,7 +10,7 @@ ros2 run loc_map loc_map&
 ros2 run planning planning&
 
 # Control
-ros2 run control controller&
+ros2 run control control&
 
 # Can [eufs, fsds, ads-dv]
 ros2 run can can $1&
