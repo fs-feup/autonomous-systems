@@ -20,7 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'controller = control.control_node:main',
+            'control = control.control_node:main',
         ],
     },
 )

@@ -11,3 +11,9 @@ pip3 install ultralytics
 
 # planning
 sudo apt install libcgal-dev
+
+# control
+pip3 install transform3d
+pip3 install transforms3d
+pip3 install cvxpy
+sudo apt install ros-galactic-tf-transformations

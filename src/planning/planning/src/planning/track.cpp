@@ -44,7 +44,11 @@ void Track::addCone(float xValue, float yValue, const std::string& color) {
   } else if (color == colors::color_names[colors::yellow]) {
     leftCones.push_back(new Cone(this->leftCount * 2 + 1, xValue, yValue));
     leftCount++;
+  } else if (color != colors::color_names[colors::orange] &&
+             color != colors::color_names[colors::large_orange]) {
+    std::cout << "Invalid color: " << color << std::endl;
   }
+
 }
 
 void Track::setCone(Cone* cone) {

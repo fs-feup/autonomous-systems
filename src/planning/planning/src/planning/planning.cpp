@@ -30,11 +30,11 @@ Planning::Planning() : Node("planning"), initialOrientation_(-1) {
   this->adapter = new Adapter("eufs", this);
 
   // test only
-  std::cout << "Testing planning from file.\n";
-  Track* track = read_track_file("hairpins.txt");
-  std::vector<Position*> fullPath = local_path_planner->processNewArray(track);
-  write_path_file("finalPath.txt", fullPath);
-  std::cout << "Writing test planning to file with size " << fullPath.size() << "\n";
+  // std::cout << "Testing planning from file.\n";
+  // Track* track = read_track_file("hairpins.txt");
+  // std::vector<Position*> fullPath = local_path_planner->processNewArray(track);
+  // write_path_file("finalPath.txt", fullPath);
+  // std::cout << "Writing test planning to file with size " << fullPath.size() << "\n";
 }
 
 void Planning::vehicle_localisation_callback(const custom_interfaces::msg::Pose msg) {
@@ -57,9 +57,16 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray msg) {
                 cone.color.c_str());
   }
 
-  // std::vector<Position*> path = local_path_planner->processNewArray(track);
-  // publish_track_points(path);
-  delete (track);
+  try {
+    std::vector<Position*> path = local_path_planner->processNewArray(track);
+    RCLCPP_INFO(this->get_logger(), "Processed!");
+    publish_track_points(path);
+    RCLCPP_INFO(this->get_logger(), "Published!");
+    delete (track);
+  } catch (const std::exception& e) {
+    RCLCPP_ERROR(this->get_logger(), "%s", e.what());
+    throw std::runtime_error("Planning runtime error!");
+  }
 
   RCLCPP_INFO(this->get_logger(), "--------------------------------------");
 }
