@@ -158,9 +158,8 @@ class ControlNode(Node):
         self.speeds = np.array(speeds)
 
     def mission_state_callback(self, mission, state):
-        self.get_logger().info("mission: {} state: {}".format(mission, state))
         # TODO()
-
+        return
 
 def main(args=None):
     rclpy.init(args=args)

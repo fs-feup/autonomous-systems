@@ -22,6 +22,7 @@ bool LocalPathPlanner::vectorDirection(Position* p1, Position* p2) {
 
 std::vector<Position*> LocalPathPlanner::processNewArray(Track* cone_array) {
   std::vector<std::pair<Position*, bool>> unorderedPath;
+
   for (int i = 0; i < cone_array->getLeftConesSize(); i++)
     this->track.setCone(cone_array->getLeftConeAt(i));
 
@@ -97,7 +98,7 @@ std::vector<Position*> LocalPathPlanner::processNewArray(Track* cone_array) {
     Position* p1 = unorderedPath[i].first;
     minDist = MAXFLOAT;
     minIndex = 0;
-    // std::cout << p1->getX() << " " << p1->getY() << " " << i << "\n";
+
     for (size_t j = 0; j < unorderedPath.size(); j++) {
       Position* p2 = unorderedPath[j].first;
       if (unorderedPath[j].second == false && j != i) {
@@ -113,13 +114,8 @@ std::vector<Position*> LocalPathPlanner::processNewArray(Track* cone_array) {
     unorderedPath[minIndex].second = true;
     finalPath.push_back(unorderedPath[minIndex].first);
   }
-  // delete(cone_array);
 
   this->track.reset();
 
   return finalPath;
 }
-
-// float LocalPathPlanner::euclideanDist(Position* p1, Position* p2) {
-//   return sqrt(pow(p2->getX() - p1->getX(), 2) + pow(p2->getY() - p1->getY(), 2));
-// }
