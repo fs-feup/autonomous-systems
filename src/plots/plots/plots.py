@@ -56,8 +56,6 @@ class Plots(Node):
 
     def timer_callback(self):
         self.plot_points()
-        self.map_points = []
-        self.perception_points = []
 
     def plot_points(self):
         self.ax1.cla()
@@ -72,7 +70,7 @@ class Plots(Node):
         self.ax2.set_title("Map + Trajectory")
 
         self.fig.canvas.draw()
-        plt.pause(0.001)
+        plt.pause(0.1)
 
 def main(args=None):
     rclpy.init(args=args)

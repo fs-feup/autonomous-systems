@@ -74,6 +74,7 @@ class ControlNode(Node):
         speed = self.velocity if not self.done else -1.
 
         self.adapter.publish_cmd(steering_angle, speed)
+        self.get_logger().info("[command] steering angle: {} speed: {}".format(steering_angle, speed))
         
     def pid_callback(self, position, yaw):
         """!
@@ -141,11 +142,11 @@ class ControlNode(Node):
         @param self The object pointer.
         @param path Path message.
         """
-        self.get_logger().info("[received] {} points".format(len(points_list.points)))
         path = []
         speeds = []
         
         for i, point in enumerate(points_list.points):
+            self.get_logger().info("[received] ({}, {})".format(point.x, point.y))
             path.append([point.x, point.y])
 
             dist_from_end = len(points_list.points) - i

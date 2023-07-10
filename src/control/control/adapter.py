@@ -45,16 +45,22 @@ class ControlAdapter():
         # Example call to be removed later
         # self.eufs_set_mission_state(CanState.AMI_SKIDPAD, CanState.AS_READY)
 
-        self.node.create_subscription(
-            Odometry,
-            "/ground_truth/odom",
-            self.eufs_odometry_callback,
-            10
-        )
+        # self.node.create_subscription(
+        #     Odometry,
+        #     "/ground_truth/odom",
+        #     self.eufs_odometry_callback,
+        #     10
+        # )
         self.node.create_subscription(
             CanState,
             "/ros_can/state",
             self.eufs_mission_state_callback,
+            10
+        )
+        self.node.create_subscription(
+            Pose,
+            "vehicle_localization",
+            self.localisation_callback,
             10
         )
         
@@ -62,9 +68,9 @@ class ControlAdapter():
         self.cmd_publisher = self.node.create_publisher(AckermannDriveStamped, "/cmd", 10)
         self.mission_state_client = self.node.create_client(SetCanState, '/ros_can/set_mission')
         self.node.create_subscription(
-            Odometry,
-            "/ground_truth/odom",
-            self.eufs_odometry_callback,
+            Pose,
+            "vehicle_localization",
+            self.localisation_callback,
             10
         )
 
@@ -80,7 +86,10 @@ class ControlAdapter():
 
     def localisation_callback(self, msg):
         position = msg.position
-        yaw = msg.orientation
+        yaw = msg.theta
+
+        self.node.get_logger().info("[localisation] ({},{}) {}".format(msg.position.x, msg.position.y, msg.theta))
+
         self.node.mpc_callback(position, yaw)
 
     def eufs_odometry_callback(self, msg):
