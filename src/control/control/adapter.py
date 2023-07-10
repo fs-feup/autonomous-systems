@@ -6,6 +6,10 @@ from eufs_msgs.srv import SetCanState
 
 from tf_transformations import euler_from_quaternion
 import rclpy
+from .config import Params
+import numpy as np
+
+P = Params()
 
 class ControlAdapter():
     def __init__(self, mode, node):
@@ -22,20 +26,23 @@ class ControlAdapter():
     def publish_cmd(self, steering_angle, speed):
         if self.mode == "eufs":
             msg = AckermannDriveStamped()
-            msg.drive.steering_angle = steering_angle
-            msg.drive.speed = speed
 
+            msg.drive.speed = speed
+            msg.drive.steering_angle = steering_angle
+            
         elif self.mode == "fsds":
             msg = AckermannDriveStamped()
-            msg.drive.steering_angle = steering_angle
+
             msg.drive.speed = speed
+            msg.drive.steering_angle = steering_angle
 
         elif self.mode == "ads_dv":
-            msg = VcuCommand(
-                steering_angle_request=steering_angle,
-                axle_speed_request=speed
-            )
-        self.cmd_publisher.publish(msg)
+            msg = VcuCommand()
+
+            msg.axle_speed_request = 2 * speed * 60 / P.tire_diam
+            msg.steering_angle_request = np.degrees(steering_angle)
+              
+        self.publisher.publish(msg)
 
     def eufs_init(self):
         self.cmd_publisher = self.node.create_publisher(AckermannDriveStamped, "/cmd", 10)
