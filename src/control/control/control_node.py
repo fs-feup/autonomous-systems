@@ -85,7 +85,7 @@ class ControlNode(Node):
         if self.path is None or self.done:
             return
 
-        # get postion reference
+        # get position reference
         closest_index = get_closest_point(
             [position.x, position.y],
             self.path,

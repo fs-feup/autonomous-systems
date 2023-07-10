@@ -45,12 +45,6 @@ class ControlAdapter():
         # Example call to be removed later
         # self.eufs_set_mission_state(CanState.AMI_SKIDPAD, CanState.AS_READY)
 
-        # self.node.create_subscription(
-        #     Odometry,
-        #     "/ground_truth/odom",
-        #     self.eufs_odometry_callback,
-        #     10
-        # )
         self.node.create_subscription(
             CanState,
             "/ros_can/state",
@@ -90,7 +84,8 @@ class ControlAdapter():
 
         self.node.get_logger().info("[localisation] ({},{}) {}".format(msg.position.x, msg.position.y, msg.theta))
 
-        self.node.mpc_callback(position, yaw)
+        # self.node.mpc_callback(position, yaw)
+        self.node.pid_callback(position, yaw)
 
     def eufs_odometry_callback(self, msg):
         position = msg.pose.pose.position
