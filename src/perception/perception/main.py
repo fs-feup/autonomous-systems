@@ -10,14 +10,14 @@ import numpy as np
 import torch
 import torch.backends.cudnn as cudnn
 
-from yolov5_ros.utils.datasets import letterbox
-from yolov5_ros.utils.general import (check_img_size, check_imshow, LOGGER,
+from .utils.datasets import letterbox
+from .utils.general import (check_img_size, check_imshow, LOGGER,
                                       non_max_suppression, scale_coords, xyxy2xywh)
-from yolov5_ros.utils.plots import Annotator, colors
-from yolov5_ros.utils.torch_utils import time_sync
+from .utils.plots import Annotator, colors
+from perception.utils.torch_utils import time_sync
 
-from yolov5_ros.depth_processor import DepthProcessor
-from yolov5_ros.adapter import PerceptionAdapter
+from .depth_processor import DepthProcessor
+from .adapter import PerceptionAdapter
 
 import rclpy
 from rclpy.node import Node
@@ -171,9 +171,9 @@ class yolov5():
 
             return class_list, confidence_list, x_min_list, y_min_list, x_max_list, y_max_list  # noqa: E501
 
-class yolov5_ros(Node):
+class perception(Node):
     def __init__(self):
-        super().__init__('yolov5_ros')
+        super().__init__('perception')
 
         self.bridge = CvBridge()
 
@@ -254,9 +254,9 @@ class yolov5_ros(Node):
 
 def ros_main(args=None):
     rclpy.init(args=args)
-    yolov5_node = yolov5_ros()
-    rclpy.spin(yolov5_node)
-    yolov5_node.destroy_node()
+    perception_node = perception()
+    rclpy.spin(perception_node)
+    perception_node.destroy_node()
     rclpy.shutdown()
 
 if __name__ == '__main__':
