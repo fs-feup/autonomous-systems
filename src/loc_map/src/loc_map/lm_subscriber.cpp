@@ -20,7 +20,6 @@ void LMSubscriber::_perception_subscription_callback(
     const custom_interfaces::msg::ConeArray message) {
   auto cone_array = message.cone_array;
   this->_map->map.clear();
-  RCLCPP_INFO(this->get_logger(), "Cones from perception:\n--------------------------------------");
   for (auto& cone : cone_array) {
     auto position = Position();
     position.x = cone.position.x;
