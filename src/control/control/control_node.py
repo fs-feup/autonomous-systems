@@ -63,6 +63,7 @@ class ControlNode(Node):
         timer_period = 0.2  # seconds
         self.timer = self.create_timer(timer_period, self.timer_callback)
 
+
     def timer_callback(self):
         """!
         @brief Sim publisher callback.
@@ -76,6 +77,7 @@ class ControlNode(Node):
         self.adapter.publish_cmd(steering_angle, speed)
         self.get_logger().info("[command] steering angle: {} speed: {}".format(steering_angle, speed))
         
+
     def pid_callback(self, position, yaw):
         """!
         @brief Odometry callback.
@@ -112,6 +114,7 @@ class ControlNode(Node):
         self.velocity = get_speed_command(self.speeds, closest_index)
 
         self.old_closest_index = closest_index
+
 
     def mpc_callback(self, position, yaw):
         if self.path is None or self.done:

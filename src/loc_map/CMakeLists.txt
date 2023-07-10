@@ -23,6 +23,7 @@ set(IMPLEMENTATION_FILES
   src/kalman_filter/observation_models.cpp
   src/utils/position.cpp
   src/utils/formulas.cpp
+  src/utils/color.cpp
   src/adapter/adapter.cpp
   )
 
