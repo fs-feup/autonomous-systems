@@ -48,7 +48,6 @@ void Track::addCone(float xValue, float yValue, const std::string& color) {
              color != colors::color_names[colors::large_orange]) {
     std::cout << "Invalid color: " << color << std::endl;
   }
-
 }
 
 void Track::setCone(Cone* cone) {

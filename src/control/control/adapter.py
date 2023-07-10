@@ -1,6 +1,5 @@
 from ackermann_msgs.msg import AckermannDriveStamped
 from custom_interfaces.msg import VcuCommand, Vcu, Pose
-from nav_msgs.msg import Odometry
 from eufs_msgs.msg import CanState
 from eufs_msgs.srv import SetCanState
 
@@ -49,8 +48,10 @@ class ControlAdapter():
         self.cmd_publisher.publish(msg)
 
     def eufs_init(self):
-        self.cmd_publisher = self.node.create_publisher(AckermannDriveStamped, "/cmd", 10)
-        self.mission_state_client = self.node.create_client(SetCanState, '/ros_can/set_mission')
+        self.cmd_publisher =\
+            self.node.create_publisher(AckermannDriveStamped, "/cmd", 10)
+        self.mission_state_client =\
+            self.node.create_client(SetCanState, '/ros_can/set_mission')
         self.ebs = self.node.create_client(SetCanState, '/ros_can/ebs')
 
         # Example call to be removed later
@@ -70,8 +71,10 @@ class ControlAdapter():
         )
         
     def fsds_init(self):
-        self.cmd_publisher = self.node.create_publisher(AckermannDriveStamped, "/cmd", 10)
-        self.mission_state_client = self.node.create_client(SetCanState, '/ros_can/set_mission')
+        self.cmd_publisher =\
+            self.node.create_publisher(AckermannDriveStamped, "/cmd", 10)
+        self.mission_state_client =\
+            self.node.create_client(SetCanState, '/ros_can/set_mission')
         self.node.create_subscription(
             Pose,
             "/vehicle_localization",
@@ -81,7 +84,8 @@ class ControlAdapter():
 
     def ads_dv_init(self):
         self.cmd_publisher = self.node.create_publisher(VcuCommand, "/cmd", 10)
-        self.mission_state_client = self.node.create_client(SetCanState, '/ros_can/set_mission')
+        self.mission_state_client =\
+            self.node.create_client(SetCanState, '/ros_can/set_mission')
         self.node.create_subscription(
             Vcu,
             "/vcu",
@@ -99,7 +103,11 @@ class ControlAdapter():
         position = msg.position
         yaw = msg.theta
 
-        self.node.get_logger().info("[localisation] ({}, {}) {}".format(msg.position.x, msg.position.y, msg.theta))
+        self.node.get_logger().info(
+            "[localisation] ({}, {}) {}".format(
+                msg.position.x, msg.position.y, msg.theta
+            )
+        )
 
         self.node.mpc_callback(position, yaw)
         # self.node.pid_callback(position, yaw)
@@ -134,7 +142,9 @@ class ControlAdapter():
         if future.result() is not None:
             self.node.get_logger().info('Result: %d' % future.result().success)
         else:
-            self.node.get_logger().info('Service call failed %r' % (future.exception(),))
+            self.node.get_logger().info(
+                'Service call failed %r' % (future.exception(),)
+            )
     
     def vcu_callback(self, msg):
         self.node.steering_angle_actual = msg.steering_angle
