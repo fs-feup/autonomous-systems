@@ -29,8 +29,8 @@ exclude = [
     "dist",
     "node_modules",
     "venv",
-    "yolov5_ros/yolov5_ros/config",
-    "yolov5_ros/yolov5_ros/utils",
+    "perception/perception/config",
+    "perception/perception/utils",
 ]
 
 # Same as Black.

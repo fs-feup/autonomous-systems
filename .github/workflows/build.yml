@@ -91,6 +91,6 @@ jobs:
         run: |
           source /opt/ros/galactic/setup.bash
           cd ./src/
-          colcon build --packages-select custom_interfaces depth_processing yolov5_ros
+          colcon build --packages-select custom_interfaces perception
           source install/setup.bash
           colcon test --packages-select depth_processing --event-handler=console_direct+

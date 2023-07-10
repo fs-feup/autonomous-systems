@@ -36,6 +36,9 @@ class Plots(Node):
             10
         )
 
+        self.fig, (self.ax1, self.ax2) = plt.subplots(nrows=1, ncols=2, figsize=(8, 4))
+        self.fig.canvas.manager.set_window_title("Cones' coordinates")
+
         self.timer = self.create_timer(0.5, self.timer_callback)
 
     def plot_perception_callback(self, msg):
@@ -53,30 +56,21 @@ class Plots(Node):
 
     def timer_callback(self):
         self.plot_points()
-        self.map_points = []
-        self.perception_points = []
 
     def plot_points(self):
-        if len(plt.get_fignums()) > 0:
-            fig = plt.gcf()
-            if len(fig.axes) > 0:
-                ax1, ax2 = fig.axes
-            else:
-                ax1, ax2 = fig.subplots(nrows=1, ncols=2)
-        else:
-            fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(8, 4))
+        self.ax1.cla()
+        self.ax2.cla()
 
-        fig.suptitle("Cones' coordinates")
-
-        ax1.set_title("Perception")
         for x, y, color in self.perception_points:
-            ax1.scatter(x, y, c=color)
+            self.ax1.scatter(x, y, c=color)
+        self.ax1.set_title("Perception")
 
-        ax2.set_title("Map")
         for x, y, color in self.map_points:
-            ax2.scatter(x, y, c=color)
+            self.ax2.scatter(x, y, c=color)
+        self.ax2.set_title("Map + Trajectory")
 
-        plt.draw()
+        self.fig.canvas.draw()
+        plt.pause(0.1)
 
 def main(args=None):
     rclpy.init(args=args)

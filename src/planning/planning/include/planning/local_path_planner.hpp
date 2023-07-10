@@ -35,11 +35,9 @@ class LocalPathPlanner {
 
   void setOrientation(float theta);
 
-  bool vectorDirection(Position* p1, Position* p2);
+  bool vector_direction(Position* p1, Position* p2, float prev_vx, float prev_vy);
 
   std::vector<Position*> processNewArray(Track* cone_array);
-
-  // float euclideanDist(Position* p1, Position* p2);
 };
 
 #endif  // SRC_PLANNING_PLANNING_INCLUDE_PLANNING_LOCAL_PATH_PLANNER_HPP_
