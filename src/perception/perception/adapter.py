@@ -20,11 +20,11 @@ class PerceptionAdapter():
             self.node.image_callback,
             qos_profile=qos_profile_sensor_data
         )
-        
+
     def fsds_init(self):
         self.node.create_subscription(
             Image,
-            "/zed/image_raw",
+            "/fsds/cameracam1/image_color",
             self.node.image_callback,
             qos_profile=qos_profile_sensor_data
         )

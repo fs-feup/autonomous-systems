@@ -19,6 +19,7 @@ from perception.utils.torch_utils import time_sync
 from .depth_processor import DepthProcessor
 from .adapter import PerceptionAdapter
 
+import argparse
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Image
@@ -177,7 +178,11 @@ class perception(Node):
 
         self.bridge = CvBridge()
 
-        self.adapter = PerceptionAdapter("eufs", self)
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--interface', default="eufs", help='Environment the simulator is running in')
+        args = parser.parse_args()
+
+        self.adapter = PerceptionAdapter(args.interface, self)
         self.pub_cone_coordinates = self.create_publisher(ConeArray, 
                                                           'perception/cone_coordinates', 
                                                           10)
@@ -250,7 +255,6 @@ class perception(Node):
         
         cone_array = self.depth_processor.process(msg, image_raw)
         self.pub_cone_coordinates.publish(cone_array)
-        LOGGER.info("")
 
 def ros_main(args=None):
     rclpy.init(args=args)
