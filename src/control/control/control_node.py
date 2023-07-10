@@ -82,7 +82,11 @@ class ControlNode(Node):
 
         steering_angle_command = self.steering_angle_command if not self.done else 0.
         velocity_command = self.velocity_command if not self.done else 0.
-        self.get_logger().info("[command] steering angle: {} speed: {}".format(steering_angle_command, velocity_command))
+        self.get_logger().info(
+            "[command] steering angle: {} speed: {}".format(
+                steering_angle_command, velocity_command
+            )
+        )
 
         # after mpc, convert velocity command to torque/break command
         torque_command, break_command, self.old_velocity_error = \

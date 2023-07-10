@@ -56,7 +56,7 @@ class Publisher : public rclcpp::Node {
     RCLCPP_INFO(this->get_logger(), "Publishing message with size %ld", message.points.size());
     publisher_->publish(message);
   }
-  
+
   rclcpp::Publisher<custom_interfaces::msg::PointArray>::SharedPtr publisher_;
   size_t count_;
 };
