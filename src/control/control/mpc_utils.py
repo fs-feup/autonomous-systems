@@ -148,23 +148,37 @@ def get_linear_model_matrices(x_bar, u_bar):
 
     ct = np.cos(theta)
     st = np.sin(theta)
+
     cd = np.cos(delta)
-    td = np.tan(delta)
+    sd = np.sin(delta)
+
+    L_ratio = P.Lc / P.L
 
     A = np.zeros((P.N, P.N))
-    A[0, 2] = -v * st
-    A[1, 2] = v * ct
+    A[0, 2] = -v * (st*cd + L_ratio*ct*sd)
+    A[1, 2] = v * (ct*cd - L_ratio*st*sd)
 
     A_lin = np.eye(P.N) + P.DT * A
 
     B = np.zeros((P.N, P.M))
-    B[0, 0] = ct
-    B[1, 0] = st
-    B[2, 0] = td / P.L
-    B[2, 1] = v / (P.L * cd**2)
+    B[0, 0] = ct*cd - L_ratio*st*sd
+    B[1, 0] = L_ratio*ct*sd + st*cd
+    B[2, 0] = sd / P.L
+    
+    B[0, 1] = - v * (ct*sd + L_ratio * st*cd) 
+    B[1, 1] = v * (L_ratio*ct*sd + st*cd) 
+    B[2, 1] = v * cd / P.L
+
     B_lin = P.DT * B
 
-    f_xu = np.array([v * ct, v * st, v * td / P.L]).reshape(P.N, 1)
+    f_xu = np.array(
+        [
+            v * (ct*cd - L_ratio*st*sd), 
+            v * (L_ratio*ct*sd + st*cd), 
+            v * sd / P.L
+        ]
+    ).reshape(P.N, 1)
+
     C_lin = (
         P.DT
         * (
@@ -172,5 +186,16 @@ def get_linear_model_matrices(x_bar, u_bar):
         ).flatten()
     )
 
-    # return np.round(A_lin,6), np.round(B_lin,6), np.round(C_lin,6)
-    return A_lin, B_lin, C_lin
+    return np.round(A_lin,6), np.round(B_lin,6), np.round(C_lin,6)
+
+
+def wheels_vel_2_vehicle_vel(fl_vel, fr_vel, rl_vel, rr_vel, steering_angle):
+    if not steering_angle:
+        return fl_vel
+
+    s1 = P.L / np.tan(steering_angle)
+    w = rl_vel / (s1 - P.car_width)
+
+    r = np.sqrt(P.Lc**2 + s1**2)
+
+    return w*r
