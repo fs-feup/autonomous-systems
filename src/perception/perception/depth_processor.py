@@ -58,14 +58,16 @@ class DepthProcessor():
             #publish cone coordinates
             cone = Cone()
             position = Point2d()
-            position.x = x
-            position.y = y
+
+            # rotate coordinates -90 degrees so they match localisation logic
+            position.x = y
+            position.y = x
             cone.position = position
             cone.color = bounding_box.class_id
             cone_array.cone_array.append(cone)
 
             self.logger.info("({},\t{})\t{}"
-                .format(x, y, bounding_box.class_id))
+                .format(position.x, position.y, bounding_box.class_id))
 
         self.bounding_boxes_msgs = []
         self.image = None

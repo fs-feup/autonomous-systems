@@ -11,6 +11,7 @@ from .pid_utils import (
     get_orientation_error,
     get_cte,
     get_speed_command,
+    get_torque_break_commands,
     steer
 )
 from .mpc import run_mpc
@@ -32,19 +33,28 @@ class ControlNode(Node):
         super().__init__('control_node')
         
         # Steering angle.
-        self.steering_angle = 0.
-        
-        # Velocity.
-        self.velocity = 0.
+        self.steering_angle_command = 0.
 
-        # Old error.
-        self.old_error = 0.
+        # Actual steering angle
+        self.steering_angle_actual = 0.
+        
+        # Velocity command.
+        self.velocity_command = 0.
+
+        # Actual car velocity
+        self.velocity_actual = 0.
+
+        # Old steer error.
+        self.old_steer_error = 0.
+
+        # Old velocity error
+        self.old_velocity_error = 0.
 
         # Path.
         self.path = None
 
         # Reference speeds
-        self.speeds = None
+        self.path_speeds = None
 
         # old closest index
         self.old_closest_index = 0
@@ -58,7 +68,7 @@ class ControlNode(Node):
             self.path_callback,
             10
         )
-        self.adapter = ControlAdapter("eufs", self)
+        self.adapter = ControlAdapter(P.env, self)
 
         timer_period = 0.2  # seconds
         self.timer = self.create_timer(timer_period, self.timer_callback)
@@ -70,14 +80,30 @@ class ControlNode(Node):
         @param self The object pointer.
         """
 
-        # TODO: Set the minimum and maximum steering angle
-        steering_angle = self.steering_angle if not self.done else 0.
-        speed = self.velocity if not self.done else -1.  
+        steering_angle_command = self.steering_angle_command if not self.done else 0.
+        velocity_command = self.velocity_command if not self.done else 0.
+        self.get_logger().info(
+            "[command] steering angle: {} speed: {}".format(
+                steering_angle_command, velocity_command
+            )
+        )
 
-        self.adapter.publish(steering_angle, speed)
+        # after mpc, convert velocity command to torque/break command
+        torque_command, break_command, self.old_velocity_error = \
+            get_torque_break_commands(
+            self.velocity_actual,
+            velocity_command,
+            self.old_velocity_error
+        )
 
-        self.get_logger().info('Published EUFS Command')
-        
+        torque_command = torque_command if not self.done else 0.
+        break_command = break_command if not self.done else 0.
+
+        self.adapter.publish_cmd(steering_angle_command,
+            velocity_command,
+            torque_command,
+            break_command
+        )
 
     def pid_callback(self, position, yaw):
         """!
@@ -88,7 +114,7 @@ class ControlNode(Node):
         if self.path is None or self.done:
             return
 
-        # get postion reference
+        # get position reference
         closest_index = get_closest_point(
             [position.x, position.y],
             self.path,
@@ -108,11 +134,11 @@ class ControlNode(Node):
         # gets cross track error
         ct_error  = get_cte(closest_index, self.path, [position.x, position.y, yaw])
 
-        self.steering_angle, self.old_error = steer(
-            pos_error, yaw_error, ct_error, self.old_error
+        self.steering_angle_command, self.old_steer_error = steer(
+            pos_error, yaw_error, ct_error, self.old_steer_error
         )
 
-        self.velocity = get_speed_command(self.speeds, closest_index)
+        self.velocity_command = get_speed_command(self.path_speeds, closest_index)
 
         self.old_closest_index = closest_index
 
@@ -121,12 +147,12 @@ class ControlNode(Node):
         if self.path is None or self.done:
             return
 
-        action = np.array([self.velocity, self.steering_angle])
-        state = np.array([position.x, position.y, yaw])
+        current_action = np.array([self.velocity_actual, self.steering_angle_actual])
+        current_state = np.array([position.x, position.y, yaw])
 
         new_action, closest_index = run_mpc(
-            action, 
-            state, 
+            current_action, 
+            current_state, 
             self.path, 
             self.old_closest_index
         )
@@ -134,8 +160,8 @@ class ControlNode(Node):
         if new_action is None:
             return
 
-        self.velocity = new_action[0]
-        self.steering_angle = new_action[1]
+        self.velocity_command = new_action[0]
+        self.steering_angle_command = new_action[1]
 
         self.old_closest_index = closest_index
 
@@ -146,22 +172,25 @@ class ControlNode(Node):
         @param self The object pointer.
         @param path Path message.
         """
-        self.get_logger().info("[received] {} points".format(len(points_list.points)))
         path = []
-        speeds = []
+        path_speeds = []
         
         for i, point in enumerate(points_list.points):
+            self.get_logger().info("[received] ({}, {})".format(point.x, point.y))
             path.append([point.x, point.y])
 
             dist_from_end = len(points_list.points) - i
 
             # min -> start breaking or not
             speed = P.VEL*min(1.0, dist_from_end / P.START_BREAKING_POS)
-            speeds.append(speed)
+            path_speeds.append(speed)
 
         self.path = np.array(path)
-        self.speeds = np.array(speeds)
+        self.path_speeds = np.array(path_speeds)
 
+    def mission_state_callback(self, mission, state):
+        # TODO()
+        return
 
 def main(args=None):
     rclpy.init(args=args)

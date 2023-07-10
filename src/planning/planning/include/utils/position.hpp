@@ -16,11 +16,7 @@ class Position {
 
   float getX() const;
 
-  // void setX(float x);
-
   float getY() const;
-
-  // void setY(float y);
 
   /**
    * Euclidean distance to another position
@@ -28,8 +24,6 @@ class Position {
   float getDistanceTo(Position* dest);
 
   bool operator==(const Position& p) const;
-
-  // std::ostream& operator<<(std::ostream& os,const Position& p);
 };
 
 #endif  // SRC_PLANNING_PLANNING_INCLUDE_UTILS_POSITION_HPP_

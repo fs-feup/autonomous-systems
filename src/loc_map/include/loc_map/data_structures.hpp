@@ -52,7 +52,7 @@ struct ImuUpdate {
   double translational_velocity = 0.0;   /**< Meters per sec */
   double rotational_velocity = 0.0;      /**< Degrees per sec */
   std::chrono::time_point<std::chrono::high_resolution_clock>
-      last_update; /**< Timestamp of last update */
+      last_update;                       /**< Timestamp of last update */
 };
 
 /**
@@ -73,7 +73,7 @@ struct OdometryUpdate {
   double lb_speed = 0.0;       /**< in RPMs */
   double rb_speed = 0.0;       /**< in RPMs */
   std::chrono::time_point<std::chrono::high_resolution_clock>
-      last_update; /**< Timestamp of last update */
+      last_update;             /**< Timestamp of last update */
 };
 
 /**
@@ -88,5 +88,7 @@ struct Map {
   std::chrono::time_point<std::chrono::high_resolution_clock>
       last_update; /**< Timestamp of last update */
 };
+
+enum Mission { acceleration, skidpad, trackdrive, autocross };
 
 #endif  // SRC_LOC_MAP_INCLUDE_LOC_MAP_DATA_STRUCTURES_HPP_
