@@ -11,7 +11,7 @@ class Planning;
 
 class Adapter {
   Planning* node;
-  
+
   rclcpp::Client<eufs_msgs::srv::SetCanState>::SharedPtr eufs_mission_state_client_;
   rclcpp::Client<eufs_msgs::srv::SetCanState>::SharedPtr eufs_ebs_client_;
 
