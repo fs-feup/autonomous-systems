@@ -68,7 +68,7 @@ class ObservationModel {
    * @return Eigen::MatrixXf
    */
   Eigen::MatrixXf get_state_to_observation_matrix(
-      const unsigned int landmark_index,
+      const Eigen::VectorXf& expected_state, const unsigned int landmark_index,
       const unsigned int state_size) const;  // TODO(marhcouto): refactor this maybe
 
   /**
