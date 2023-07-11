@@ -1,7 +1,6 @@
 import rclpy
 from rclpy.node import Node
 import matplotlib.pyplot as plt
-import numpy as np
 import matplotlib
 import math
 
@@ -66,17 +65,24 @@ class Cone(Position):
 @param localization Localization of the vehicle.
 @return Absolute coordinates.
 """
-def relative_to_absolute_coordinates(relative_coordinates: Position, localization: Pose) -> Position:
+def relative_to_absolute_coordinates(relative_coordinates: Position,
+                                      localization: Pose) -> Position:
     translation = (localization.x, localization.y)
     rotation_angle = localization.orientation
-    x = math.cos(rotation_angle) * relative_coordinates.x - math.sin(rotation_angle) * relative_coordinates.y + translation[0]
-    y = math.sin(rotation_angle) * relative_coordinates.x + math.cos(rotation_angle) * relative_coordinates.y + translation[1]
+    x = math.cos(rotation_angle) * relative_coordinates.x - math.sin(
+        rotation_angle) * relative_coordinates.y + translation[0]
+    y = math.sin(rotation_angle) * relative_coordinates.x + math.cos(
+        rotation_angle) * relative_coordinates.y + translation[1]
     return Position(x, y)
 
 
 class Plots(Node):
-    map_color_dict = {"orange_cone": "#d07413", "blue_cone": "#0b5394", "yellow_cone": "#f1c232", "large_orange_cone": "#990000"}
-    true_map_color_dict = {"orange_cone": "#f6b26b", "blue_cone": "#2986cc", "yellow_cone": "#d07413", "large_orange_cone": "#e06666"}
+    map_color_dict = {"orange_cone": "#d07413", "blue_cone": "#0b5394",
+                       "yellow_cone": "#f1c232",
+                         "large_orange_cone": "#990000"}
+    true_map_color_dict = {"orange_cone": "#f6b26b", "blue_cone": "#2986cc",
+                            "yellow_cone": "#d07413",
+                              "large_orange_cone": "#e06666"}
 
     def __init__(self):
         super().__init__('plots')
@@ -131,9 +137,11 @@ class Plots(Node):
             10
         )
 
-        self.fig, (self.ax1, self.ax2, self.ax3) = plt.subplots(nrows=1, ncols=3, figsize=(15, 5))
+        self.fig, (self.ax1, self.ax2, self.ax3) = plt.subplots(
+            nrows=1, ncols=3, figsize=(15, 5))
         self.fig.canvas.manager.set_window_title("Evaluation")
-        self.fig.canvas.mpl_connect('close_event', lambda event: self.on_close(event))
+        self.fig.canvas.mpl_connect('close_event', 
+                                    lambda event: self.on_close(event))
         self.timer = self.create_timer(0.5, self.timer_callback)
         self.fig.set_size_inches(15, 5)
 
@@ -156,7 +164,8 @@ class Plots(Node):
     """
     def plot_map_callback(self, msg):
         for cone in msg.cone_array:
-            self.map_points.append(Cone(-cone.position.y, cone.position.x, Plots.map_color_dict[cone.color])) # Rotate axis
+            self.map_points.append(Cone(-cone.position.y, cone.position.x,
+                    Plots.map_color_dict[cone.color])) # Rotate axis
 
 
     """!
@@ -165,7 +174,8 @@ class Plots(Node):
     @param msg Pose message.
     """
     def plot_localization_callback(self, msg):
-        self.localization = Pose(-msg.position.y, msg.position.x, msg.theta) # Rotate axis
+        self.localization = Pose(-msg.position.y, msg.position.x, 
+                                 msg.theta) # Rotate axis
 
 
     """!
@@ -175,15 +185,20 @@ class Plots(Node):
     """
     def plot_true_map_callback(self, msg):
         for cone in msg.blue_cones:
-            self.true_map_points.append(Cone(-cone.point.y, cone.point.x, Plots.true_map_color_dict["blue_cone"]))
+            self.true_map_points.append(Cone(-cone.point.y, cone.point.x,
+             Plots.true_map_color_dict["blue_cone"]))
         for cone in msg.yellow_cones:
-            self.true_map_points.append(Cone(-cone.point.y, cone.point.x, Plots.true_map_color_dict["yellow_cone"]))
+            self.true_map_points.append(Cone(-cone.point.y, cone.point.x,
+             Plots.true_map_color_dict["yellow_cone"]))
         for cone in msg.orange_cones:
-            self.true_map_points.append(Cone(-cone.point.y, cone.point.x, Plots.true_map_color_dict["orange_cone"]))
+            self.true_map_points.append(Cone(-cone.point.y, cone.point.x,
+             Plots.true_map_color_dict["orange_cone"]))
         for cone in msg.big_orange_cones:
-            self.true_map_points.append(Cone(-cone.point.y, cone.point.x, Plots.true_map_color_dict["large_orange_cone"]))
+            self.true_map_points.append(Cone(-cone.point.y, cone.point.x,
+             Plots.true_map_color_dict["large_orange_cone"]))
         for cone in msg.unknown_color_cones:
-            self.true_map_points.append(Cone(-cone.point.y, cone.point.x, "grey"))
+            self.true_map_points.append(Cone(-cone.point.y, cone.point.x,
+             "grey"))
 
         if not self.adjusted_bounds and len(self.true_map_points) > 0:
             self.adjust_bounds()
@@ -210,7 +225,8 @@ class Plots(Node):
     @param msg CarState message.
     """
     def plot_true_localization_callback(self, msg):
-        self.true_localization = Pose(- msg.pose.pose.position.y, msg.pose.pose.position.x, msg.pose.pose.orientation.z) # Rotate axis
+        self.true_localization = Pose(- msg.pose.pose.position.y,
+            msg.pose.pose.position.x, msg.pose.pose.orientation.z) #Rotate axis
 
 
     def plot_path_callback(self, msg):
@@ -219,14 +235,15 @@ class Plots(Node):
 
     def generate_statistics(self):
         print("Generating statistics...")
-        difference_in_number_of_cones = abs(len(self.true_map_points) - len(self.map_points))
-        cone_distances = [[i.distance(j) for j in self.true_map_points] for i in self.map_points]
+        abs(len(self.true_map_points) - len(self.map_points))
+        cone_distances = [[i.distance(j) for j in self.true_map_points]
+                           for i in self.map_points]
         displacements_by_cone = [min(distances) for distances in cone_distances]
-        biggest_displacement = max(displacements_by_cone)
-        smallest_displacement = min(displacements_by_cone)
+        max(displacements_by_cone)
+        min(displacements_by_cone)
         total_displacement = sum(displacements_by_cone)
-        average_displacement = total_displacement / len(cone_distances)
-        localization_displacement = self.localization.distance(self.true_localization)
+        total_displacement / len(cone_distances)
+        self.localization.distance(self.true_localization)
 
 
     def timer_callback(self):
@@ -261,13 +278,18 @@ class Plots(Node):
         for cone in self.map_points:
             self.ax2.scatter(cone.x, cone.y, c=cone.color, marker="*")
 
-        # ax2.annotate(f"({self.localization[0]:.1f}, {self.localization[1]:.1f})", (self.localization[0], self.localization[1]))
-        self.ax2.scatter(self.true_localization.x, self.true_localization.y, c="grey", marker="^")
-        self.ax2.scatter(self.localization.x, self.localization.y, c="black", marker="^")
+        # ax2.annotate(f"({self.localization[0]:.1f}, 
+        # {self.localization[1]:.1f})", (self.localization[0],
+        # self.localization[1]))
+        self.ax2.scatter(self.true_localization.x, self.true_localization.y, 
+                         c="grey", marker="^")
+        self.ax2.scatter(self.localization.x, self.localization.y, 
+                         c="black", marker="^")
         
         # Statistics
         self.ax3.set_title("Statistics")
-        self.ax3.table(cellText=self.statistics, colLabels=["Metric", "Value"], loc="center", cellLoc="center", colWidths=[0.5, 0.5])
+        self.ax3.table(cellText=self.statistics, colLabels=["Metric", "Value"],
+                        loc="center", cellLoc="center", colWidths=[0.5, 0.5])
 
         self.ax1.set_aspect('equal', adjustable='box')
         self.ax2.set_aspect('equal', adjustable='box')
