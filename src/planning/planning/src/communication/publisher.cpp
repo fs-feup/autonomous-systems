@@ -11,10 +11,6 @@
 #include "custom_interfaces/msg/point_array.hpp"
 #include "rclcpp/rclcpp.hpp"
 
-// using namespace std::chrono_literals;
-
-/* This example creates a subclass of Node and uses std::bind() to register a
- * member function as a callback from the timer. */
 /**
  * Planning Publisher Class. Overwrites node. Allows message sending to the control section
  */
@@ -60,16 +56,7 @@ class Publisher : public rclcpp::Node {
     RCLCPP_INFO(this->get_logger(), "Publishing message with size %ld", message.points.size());
     publisher_->publish(message);
   }
-  /*
-  void timer_callback() {
-    auto message = custom_interfaces::msg::Point2d();
-    message.x = 1;
-    message.y = 2;
-    RCLCPP_INFO(this->get_logger(), "Publishing: x = %f | y = %f", message.x, message.y);
-    publisher_->publish(message);
-  }
-  rclcpp::TimerBase::SharedPtr timer_;
-  */
+
   rclcpp::Publisher<custom_interfaces::msg::PointArray>::SharedPtr publisher_;
   size_t count_;
 };

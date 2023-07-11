@@ -18,10 +18,10 @@ class PathMockPublisher(Node):
         """
         super().__init__('path_mock_publisher')
         self.track_path = '/home/vitor/Downloads/skidpadpath.txt'
-        # self.create_path(straight)
-        self.create_path2()
+        self.create_path(straight)
+        # self.create_path2()
 
-        self.publisher_ = self.create_publisher(PointArray, 'path_mock', 10)
+        self.publisher_ = self.create_publisher(PointArray, 'planning_local', 10)
         timer_period = 0.01  # seconds
         self.timer = self.create_timer(timer_period, self.timer_callback)
 

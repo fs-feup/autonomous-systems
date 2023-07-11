@@ -130,9 +130,14 @@ class Plots(Node):
             self.plot_true_map_callback,
             10
         )
-        self.timer = self.create_timer(1, self.timer_callback)
 
+        self.fig, (self.ax1, self.ax2, self.ax3) = plt.subplots(nrows=1, ncols=3, figsize=(15, 5))
+        self.fig.canvas.manager.set_window_title("Evaluation")
+        self.fig.canvas.mpl_connect('close_event', lambda event: self.on_close(event))
+        self.timer = self.create_timer(0.5, self.timer_callback)
+        self.fig.set_size_inches(15, 5)
 
+        
     """!
     @brief Callback function to plot the cones positions given 
     by perception.
@@ -239,43 +244,35 @@ class Plots(Node):
     @brief Plot the points - plot mapping, perception, etc.
     """
     def plot_points(self):
-        plt.clf()
-        if len(plt.get_fignums()) > 0:
-            fig = plt.gcf()
-            if len(fig.axes) > 0:
-                ax1, ax2, ax3 = fig.axes
-            else:
-                ax1, ax2, ax3 = fig.subplots(nrows=1, ncols=3)
-        else:
-            fig, (ax1, ax2, ax3) = plt.subplots(nrows=1, ncols=3, figsize=(15, 5))
-        fig.set_size_inches(15, 5)
-        fig.suptitle("Evaluation")
-        fig.canvas.mpl_connect('close_event', lambda event: self.on_close(event))
 
-        # Perception
-        ax1.set_title("Perception")
+        self.ax1.cla()
+        self.ax2.cla()
+        self.ax3.cla()
+
+        self.ax1.set_title("Perception")
         for x, y, color in self.perception_points:
-            ax1.scatter(x, y, c=color)
+            self.ax1.scatter(x, y, c=color)
+
 
         # Mapping
-        ax2.set_title("Mapping Map")
+        self.ax2.set_title("Mapping Map")
         for cone in self.true_map_points:
-            ax2.scatter(cone.x, cone.y, c=cone.color, marker="*")
+            self.ax2.scatter(cone.x, cone.y, c=cone.color, marker="*")
         for cone in self.map_points:
-            ax2.scatter(cone.x, cone.y, c=cone.color, marker="*")
+            self.ax2.scatter(cone.x, cone.y, c=cone.color, marker="*")
 
         # ax2.annotate(f"({self.localization[0]:.1f}, {self.localization[1]:.1f})", (self.localization[0], self.localization[1]))
-        ax2.scatter(self.true_localization.x, self.true_localization.y, c="grey", marker="^")
-        ax2.scatter(self.localization.x, self.localization.y, c="black", marker="^")
+        self.ax2.scatter(self.true_localization.x, self.true_localization.y, c="grey", marker="^")
+        self.ax2.scatter(self.localization.x, self.localization.y, c="black", marker="^")
         
         # Statistics
-        ax3.set_title("Statistics")
-        ax3.table(cellText=self.statistics, colLabels=["Metric", "Value"], loc="center", cellLoc="center", colWidths=[0.5, 0.5])
+        self.ax3.set_title("Statistics")
+        self.ax3.table(cellText=self.statistics, colLabels=["Metric", "Value"], loc="center", cellLoc="center", colWidths=[0.5, 0.5])
 
-        ax1.set_aspect('equal', adjustable='box')
-        ax2.set_aspect('equal', adjustable='box')
-        ax2.set_xlim(self.x_bounds[0], self.x_bounds[1])
-        ax2.set_ylim(self.y_bounds[0], self.y_bounds[1])
+        self.ax1.set_aspect('equal', adjustable='box')
+        self.ax2.set_aspect('equal', adjustable='box')
+        self.ax2.set_xlim(self.x_bounds[0], self.x_bounds[1])
+        self.ax2.set_ylim(self.y_bounds[0], self.y_bounds[1])
 
         plt.draw()
         plt.pause(0.9)
