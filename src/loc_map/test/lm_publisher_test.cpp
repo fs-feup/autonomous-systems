@@ -89,6 +89,8 @@ TEST(LM_PUBLISHER_TEST_SUITE, PUBLISHER_INTEGRATION_TEST) {
   VehicleState *vehicle_state = new VehicleState();
   Map *track_map = new Map();
   track_map->map.insert({{1, 2}, colors::yellow});
+  track_map->map.insert({{1, 4}, colors::yellow});
+  track_map->map.insert({{1, 6}, colors::yellow});
 
   rclcpp::init(0, nullptr);
 

@@ -1,5 +1,7 @@
 colcon build --symlink-install
 
+source install/setup.bash
+
 # Perception
 ros2 run perception perception& --ros-args --log-level warn
 

@@ -43,8 +43,8 @@ void ExtendedKalmanFilter::correction_step() {
   for (auto cone : this->_map_from_perception->map) {
     ObservationData observation_data = ObservationData(cone.first.x, cone.first.y, cone.second);
     unsigned int landmark_index = this->discovery(observation_data);
-    Eigen::MatrixXf H =
-        this->_observation_model.get_state_to_observation_matrix(landmark_index, this->X.size());
+    Eigen::MatrixXf H = this->_observation_model.get_state_to_observation_matrix(
+        this->X, landmark_index, this->X.size());
     Eigen::MatrixXf Q = this->_observation_model
                             .get_observation_noise_covariance_matrix();  // Observation Noise Matrix
     Eigen::MatrixXf K = this->get_kalman_gain(H, this->P, Q);
