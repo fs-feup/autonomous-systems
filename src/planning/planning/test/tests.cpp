@@ -1,6 +1,6 @@
+#include "gtest/gtest.h"
 #include "planning/global_path_planner.hpp"
 #include "planning/local_path_planner.hpp"
-#include "gtest/gtest.h"
 #include "rclcpp/rclcpp.hpp"
 
 using testing::Eq;

@@ -61,9 +61,9 @@ void Adapter::eufs_imu_subscription_callback(const sensor_msgs::msg::Imu msg) {
 
 void Adapter::eufs_wheel_speeds_subscription_callback(
     const eufs_msgs::msg::WheelSpeedsStamped msg) {
-  this->node->_wheel_speeds_subscription_callback(
-      msg.speeds.lb_speed, msg.speeds.lf_speed, msg.speeds.rb_speed,
-      msg.speeds.rf_speed, msg.speeds.steering);
+  this->node->_wheel_speeds_subscription_callback(msg.speeds.lb_speed, msg.speeds.lf_speed,
+                                                  msg.speeds.rb_speed, msg.speeds.rf_speed,
+                                                  msg.speeds.steering);
 }
 
 void Adapter::eufs_set_mission_state(int mission, int state) {

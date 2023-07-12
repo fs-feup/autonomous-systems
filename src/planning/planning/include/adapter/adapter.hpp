@@ -3,8 +3,8 @@
 
 #include <string>
 
-#include "eufs_msgs/srv/set_can_state.hpp"
 #include "eufs_msgs/msg/can_state.hpp"
+#include "eufs_msgs/srv/set_can_state.hpp"
 #include "rclcpp/rclcpp.hpp"
 
 class Planning;
