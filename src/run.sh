@@ -5,7 +5,7 @@ source install/setup.bash
 # Perception
 ros2 run perception perception& --ros-args --log-level warn
 
-# Localisation and Mapping
+# Localization and Mapping
 ros2 run loc_map loc_map& --ros-args --log-level warn
 
 # Planning

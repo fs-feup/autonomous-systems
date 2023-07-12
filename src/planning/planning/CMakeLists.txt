@@ -12,6 +12,7 @@ find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(custom_interfaces REQUIRED)
 find_package(eufs_msgs REQUIRED)
+find_package(fs_msgs REQUIRED)
 # sudo apt-get install libcgal-dev libgmp-dev libmpfr-dev
 
 set(GMP_DIR ${CGAL_INSTALLATION_PACKAGE_DIR}/auxiliary/gmp/)
@@ -40,7 +41,7 @@ add_definitions(-DCGAL_USE_BASIC_VIEWER)
 set(CMAKE_BUILD_TYPE "Release")
 
 add_executable(planning src/main.cpp ${IMPLEMENTATION_FILES})
-ament_target_dependencies(planning ament_index_cpp rclcpp std_msgs custom_interfaces eufs_msgs)
+ament_target_dependencies(planning ament_index_cpp rclcpp std_msgs custom_interfaces eufs_msgs fs_msgs)
 
 # Link the CGAL library and its dependencies to the target
 target_link_libraries(planning ${CGAL_LIBRARIES} ${GMP_LIBRARIES} ${MPFR_LIBRARIES} ${QT5_LIBRARIES})
@@ -56,7 +57,7 @@ if(BUILD_TESTING)
   # ament_lint_auto_find_test_dependencies()
 
   ament_add_gtest(planning_test ${TESTFILES} ${IMPLEMENTATION_FILES})
-  ament_target_dependencies(planning_test ament_index_cpp rclcpp std_msgs custom_interfaces eufs_msgs)
+  ament_target_dependencies(planning_test ament_index_cpp rclcpp std_msgs custom_interfaces eufs_msgs fs_msgs)
   target_include_directories(planning_test PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>)

@@ -143,9 +143,12 @@ class ControlNode(Node):
         self.old_closest_index = closest_index
 
 
-    def mpc_callback(self, position, yaw):
+    def mpc_callback(self, position, yaw, speed, steering_angle):
         if self.path is None or self.done:
             return
+
+        self.velocity_actual = speed
+        self.steering_angle_actual = steering_angle
 
         current_action = np.array([self.velocity_actual, self.steering_angle_actual])
         current_state = np.array([position.x, position.y, yaw])
