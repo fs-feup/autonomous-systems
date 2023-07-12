@@ -9,30 +9,29 @@
 float ExtendedKalmanFilter::max_landmark_deviation = 0.1;
 
 ExtendedKalmanFilter::ExtendedKalmanFilter(VehicleState* vehicle_state, Map* map,
-                                           ImuUpdate* imu_update, Map* map_from_perception,
+                                           MotionUpdate* motion_update, Map* map_from_perception,
                                            const MotionModel& motion_model,
                                            const ObservationModel& observation_model)
     : X(Eigen::VectorXf::Zero(3)),
       P(Eigen::MatrixXf::Zero(3, 3)),
       _vehicle_state(vehicle_state),
       _map(map),
-      _imu_update(imu_update),
+      _motion_update(motion_update),
       _map_from_perception(map_from_perception),
       _last_update(std::chrono::high_resolution_clock::now()),
       _motion_model(motion_model),
-      _observation_model(observation_model) {}
+      _observation_model(observation_model),
+      _last_motion_update(*motion_update) {}
 
 void ExtendedKalmanFilter::prediction_step() {
   std::chrono::time_point<std::chrono::high_resolution_clock> now =
       std::chrono::high_resolution_clock::now();
   double delta =
       std::chrono::duration_cast<std::chrono::microseconds>(now - this->_last_update).count();
-  MotionPredictionData prediction_data = {
-      this->_imu_update->translational_velocity, this->_imu_update->translational_velocity_x,
-      this->_imu_update->translational_velocity_y, this->_imu_update->rotational_velocity};
-  this->X = this->_motion_model.predict_expected_state(X, prediction_data, delta / 1000000);
+  this->_last_motion_update = *(this->_motion_update);
+  this->X = this->_motion_model.predict_expected_state(X, *(this->_motion_update), delta / 1000000);
   Eigen::MatrixXf G =
-      this->_motion_model.get_motion_to_state_matrix(X, prediction_data, delta / 1000000);
+      this->_motion_model.get_motion_to_state_matrix(X, *(this->_motion_update), delta / 1000000);
   Eigen::MatrixXf R = this->_motion_model.get_process_noise_covariance_matrix(
       this->X.size());  // Process Noise Matrix
   this->P = G * this->P * G.transpose() + R;
@@ -85,6 +84,8 @@ unsigned int ExtendedKalmanFilter::discovery(const ObservationData& observation_
 
 void ExtendedKalmanFilter::update() {
   this->_vehicle_state->pose = Pose(X(0), X(1), X(2));
+  this->_vehicle_state->steering_angle = this->_last_motion_update.steering_angle;
+  this->_vehicle_state->translational_velocity = this->_last_motion_update.translational_velocity;
   this->_map->map.clear();
   for (int i = 3; i < this->X.size() - 1; i += 2) {
     this->_map->map.insert(
