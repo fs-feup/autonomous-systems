@@ -9,14 +9,14 @@
 float ExtendedKalmanFilter::max_landmark_deviation = 0.1;
 
 ExtendedKalmanFilter::ExtendedKalmanFilter(VehicleState* vehicle_state, Map* map,
-                                           ImuUpdate* imu_update, Map* map_from_perception,
+                                           MotionUpdate* imu_update, Map* map_from_perception,
                                            const MotionModel& motion_model,
                                            const ObservationModel& observation_model)
     : X(Eigen::VectorXf::Zero(3)),
       P(Eigen::MatrixXf::Zero(3, 3)),
       _vehicle_state(vehicle_state),
       _map(map),
-      _imu_update(imu_update),
+      _motion_update(imu_update),
       _map_from_perception(map_from_perception),
       _last_update(std::chrono::high_resolution_clock::now()),
       _motion_model(motion_model),
@@ -28,8 +28,9 @@ void ExtendedKalmanFilter::prediction_step() {
   double delta =
       std::chrono::duration_cast<std::chrono::microseconds>(now - this->_last_update).count();
   MotionPredictionData prediction_data = {
-      this->_imu_update->translational_velocity, this->_imu_update->translational_velocity_x,
-      this->_imu_update->translational_velocity_y, this->_imu_update->rotational_velocity};
+      this->_motion_update->translational_velocity, this->_motion_update->translational_velocity_x,
+      this->_motion_update->translational_velocity_y, this->_motion_update->rotational_velocity,
+      this->_motion_update->steering_angle};
   this->X = this->_motion_model.predict_expected_state(X, prediction_data, delta / 1000000);
   Eigen::MatrixXf G =
       this->_motion_model.get_motion_to_state_matrix(X, prediction_data, delta / 1000000);

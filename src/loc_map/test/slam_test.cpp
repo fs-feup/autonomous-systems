@@ -15,7 +15,7 @@
 TEST(EKF_SLAM, LINEAR_MOVEMENT_INTEGRITY_TEST) {  // This test is not that great, to be improved
   VehicleState *vehicle_state = new VehicleState();
   vehicle_state->last_update = std::chrono::high_resolution_clock::now();
-  ImuUpdate *imu_update = new ImuUpdate();
+  MotionUpdate *imu_update = new MotionUpdate();
   imu_update->last_update = std::chrono::high_resolution_clock::now();
   Map *track_map = new Map();
   Map initial_map = Map();
