@@ -47,6 +47,8 @@ class ExtendedKalmanFilter {
   const MotionModel& _motion_model;           /**< Motion Model chosen for prediction step */
   const ObservationModel& _observation_model; /**< Observation Model chosen for correction step */
 
+  MotionUpdate _last_motion_update; /**< Last motion update */
+
   /**
    * @brief Discovery step:
    * Adds a new landmark to the map
