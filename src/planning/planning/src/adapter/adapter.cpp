@@ -24,7 +24,13 @@ void Adapter::eufs_init() {
   this->eufs_ebs_client_ = this->node->create_client<eufs_msgs::srv::SetCanState>("/ros_can/ebs");
 }
 
-void Adapter::fsds_init() {}
+void Adapter::fsds_init() {
+  this->node->create_subscription<fs_msgs::msg::GoSignal>(
+      "/signal/go", 10,
+      std::bind(&Adapter::fsds_mission_state_callback, this, std::placeholders::_1));
+  this->fsds_ebs_publisher_ =
+      this->node->create_publisher<fs_msgs::msg::FinishedSignal>("/signal/finished", 10);
+}
 
 void Adapter::ads_dv_init() {}
 
@@ -40,6 +46,20 @@ void Adapter::eufs_mission_state_callback(eufs_msgs::msg::CanState msg) {
   } else if (mission == eufs_msgs::msg::CanState::AMI_TRACK_DRIVE) {
     this->node->set_mission(Mission::trackdrive);
   } else if (mission == eufs_msgs::msg::CanState::AMI_AUTOCROSS) {
+    this->node->set_mission(Mission::autocross);
+  }
+}
+
+void Adapter::fsds_mission_state_callback(const fs_msgs::msg::GoSignal msg) {
+  std::string mission = msg.mission;
+
+  if (mission == "acceleration") {
+    this->node->set_mission(Mission::acceleration);
+  } else if (mission == "skidpad") {
+    this->node->set_mission(Mission::skidpad);
+  } else if (mission == "trackdrive") {
+    this->node->set_mission(Mission::trackdrive);
+  } else if (mission == "autocross") {
     this->node->set_mission(Mission::autocross);
   }
 }
