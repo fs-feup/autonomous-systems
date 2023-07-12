@@ -4,7 +4,6 @@
 #include <vector>
 
 std::vector<Position*> read_path_file(const std::string& filename) {
-    std::string file_prefix = rcpputils::fs::current_path().string();
     std::ifstream path_file(filename);
     std::vector<Position*> path;
     float x, y;
