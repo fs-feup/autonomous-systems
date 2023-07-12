@@ -3,7 +3,7 @@ colcon build --symlink-install
 # Perception
 ros2 run perception perception&
 
-# Localisation and Mapping
+# Localization and Mapping
 ros2 run loc_map loc_map&
 
 # Planning
