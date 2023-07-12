@@ -179,7 +179,7 @@ class perception(Node):
         self.bridge = CvBridge()
 
         parser = argparse.ArgumentParser()
-        parser.add_argument('--interface', default="eufs", help='Environment the simulator is running in')
+        parser.add_argument('--interface', default="eufs")
         args = parser.parse_args()
 
         self.adapter = PerceptionAdapter(args.interface, self)

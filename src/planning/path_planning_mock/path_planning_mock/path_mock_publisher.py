@@ -17,9 +17,9 @@ class PathMockPublisher(Node):
         @param self The object pointer
         """
         super().__init__('path_mock_publisher')
-        self.track_path = '/home/vitor/Downloads/skidpadpath.txt'
-        self.create_path(straight)
-        # self.create_path2()
+        self.track_path = '/home/jromao/Downloads/skidpadpath.txt'
+        # self.create_path(straight)
+        self.create_path2()
 
         self.publisher_ = self.create_publisher(PointArray, 'planning_local', 10)
         timer_period = 0.01  # seconds
