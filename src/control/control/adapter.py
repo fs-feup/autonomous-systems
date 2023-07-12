@@ -2,6 +2,7 @@ from ackermann_msgs.msg import AckermannDriveStamped
 from custom_interfaces.msg import VcuCommand, Vcu, Pose
 from eufs_msgs.msg import CanState
 from eufs_msgs.srv import SetCanState
+from fs_msgs.msg import ControlCommand
 
 import math
 from .mpc_utils import wheels_vel_2_vehicle_vel
@@ -32,10 +33,11 @@ class ControlAdapter():
             msg.drive.steering_angle = steering_angle
             
         elif self.mode == "fsds":
-            msg = AckermannDriveStamped()
+            msg = ControlCommand()
 
-            msg.drive.speed = speed
-            msg.drive.steering_angle = steering_angle
+            msg.throttle = speed # change from speed to throttle position [0, 1]
+            msg.drive.steering = steering_angle # change from radians to [-1, 1]
+            msg.brake = break_req # change from break_req to brake position [0, 1]
 
         elif self.mode == "ads_dv":
             msg = VcuCommand()
