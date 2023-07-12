@@ -1,6 +1,8 @@
 #ifndef SRC_LOC_MAP_INCLUDE_LOC_MAP_LM_SUBSCRIBER_HPP_
 #define SRC_LOC_MAP_INCLUDE_LOC_MAP_LM_SUBSCRIBER_HPP_
 
+#include <gtest/gtest_prod.h>
+
 #include <functional>
 #include <memory>
 #include <string>
@@ -24,22 +26,15 @@ class LMSubscriber : public rclcpp::Node {
   rclcpp::Subscription<sensor_msgs::msg::Imu>::SharedPtr _imu_subscription;
   rclcpp::Subscription<eufs_msgs::msg::WheelSpeedsStamped>::SharedPtr _wheel_speeds_subscription;
   Map* _map;
-  ImuUpdate* _imu_update;
-  OdometryUpdate* _odometry_update;
+  MotionUpdate* _motion_update;
   Mission _mission;
+  bool _use_odometry;
 
   /**
    * @brief function to be called everytime information is received from the
    * perception module
    */
   void _perception_subscription_callback(const custom_interfaces::msg::ConeArray message);
-
- public:
-  /**
-   * @brief Construct a new LMSubscriber object
-   *
-   */
-  LMSubscriber(Map* map, ImuUpdate* imu_update, OdometryUpdate* odometry_update);
 
   /**
    * @brief function to be called everytime information is received from the
@@ -55,9 +50,31 @@ class LMSubscriber : public rclcpp::Node {
   void _wheel_speeds_subscription_callback(double lb_speed, double lf_speed, double rb_speed,
                                            double rf_speed, double steering_angle);
 
+  /**
+   * @brief
+   *
+   */
+  static MotionUpdate odometry_to_velocities_transform(double lb_speed, double lf_speed,
+                                                       double rb_speed, double rf_speed,
+                                                       double steering_angle);
+
+ public:
+  /**
+   * @brief Construct a new LMSubscriber object
+   *
+   * @param map Pointer to the map
+   * @param motion_update Pointer to the motion update
+   * @param use_odometry Whether to use odometry or IMU
+   *
+   */
+  LMSubscriber(Map* map, MotionUpdate* motion_update, bool use_odometry);
+
   void set_mission(Mission mission);
 
   Mission get_mission();
+
+  friend class Adapter;
+  FRIEND_TEST(ODOMETRY_SUBSCRIBER, CONVERSION_TEST);
 };
 
 #endif  // SRC_LOC_MAP_INCLUDE_LOC_MAP_LM_SUBSCRIBER_HPP_
