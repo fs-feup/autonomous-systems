@@ -44,7 +44,7 @@ class ControlAdapter():
             msg.steering_angle_request = np.degrees(steering_angle)
             msg.axle_torque_request = torque_req
             msg.brake_press_request = break_req
-              
+
         self.cmd_publisher.publish(msg)
 
     def eufs_init(self):
@@ -66,9 +66,17 @@ class ControlAdapter():
         self.node.create_subscription(
             Pose,
             "/vehicle_localization",
-            self.localisation_callback,
+            self.localization_callback,
             10
         )
+
+        # test reasons only
+        # self.node.create_subscription(
+        #     Odometry,
+        #     '/ground_truth/odom',
+        #     self.eufs_odometry_callback,
+        #     10
+        # )
         
     def fsds_init(self):
         self.cmd_publisher =\
@@ -78,7 +86,7 @@ class ControlAdapter():
         self.node.create_subscription(
             Pose,
             "/vehicle_localization",
-            self.localisation_callback,
+            self.localization_callback,
             10
         )
 
@@ -95,21 +103,23 @@ class ControlAdapter():
         self.node.create_subscription(
             Pose,
             "/vehicle_localization",
-            self.localisation_callback,
+            self.localization_callback,
             10
         )
 
-    def localisation_callback(self, msg):
+    def localization_callback(self, msg):
         position = msg.position
         yaw = msg.theta
+        speed = msg.speed
+        steering_angle = msg.steering_angle
 
         self.node.get_logger().info(
-            "[localisation] ({}, {}) {}".format(
-                msg.position.x, msg.position.y, msg.theta
+            "[localization] ({}, {})\t{} rad\{} m/s\t{} rad".format(
+                msg.position.x, msg.position.y, msg.theta, msg.speed, msg.steering_angle
             )
         )
 
-        self.node.mpc_callback(position, yaw)
+        self.node.mpc_callback(position, yaw, speed, steering_angle)
         # self.node.pid_callback(position, yaw)
 
     def eufs_odometry_callback(self, msg):
@@ -120,12 +130,16 @@ class ControlAdapter():
         decomp_speed = msg.twist.twist.linear
 
         # get actual action variables
-        self.node.velocity_actual = math.sqrt(decomp_speed.x**2 + decomp_speed.y**2)
-        self.node.steering_angle_actual = self.node.steering_angle_command
+        speed = math.sqrt(decomp_speed.x**2 + decomp_speed.y**2)
+        steering_angle = self.node.steering_angle_command
+
+        print("actual speed: ", speed)
+        print("actual steering angle: ", steering_angle)
 
         # Converts quartenions base to euler's base, and updates the class' attributes
         yaw = euler_from_quaternion(orientation_list)[2]
-        self.node.mpc_callback(position, yaw)
+        self.node.mpc_callback(position, yaw, speed, steering_angle)
+        # self.node.pid_callback(position, yaw)
 
     def eufs_mission_state_callback(self, msg):
         mission = msg.ami_state
