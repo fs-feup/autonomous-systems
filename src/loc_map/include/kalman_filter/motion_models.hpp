@@ -3,18 +3,20 @@
 
 #include <Eigen/Dense>
 
-/**
- * @brief Struct containing motion prediction data
- * Depending on the motion model, some data may be irrelevant
- *
- */
-struct MotionPredictionData {
-  double translational_velocity = 0.0;   /**< Translational Velocity Mod */
-  double translational_velocity_x = 0.0; /**< Translational Velocity in X axis */
-  double translational_velocity_y = 0.0; /**< Translational Velocity in Y axis */
-  double rotational_velocity = 0.0;      /**< Rotational Velocity */
-  double steering_angle = 0.0;           /**< Steering Angle */
-};
+#include "loc_map/data_structures.hpp"
+
+// /**
+//  * @brief Struct containing motion prediction data
+//  * Depending on the motion model, some data may be irrelevant
+//  *
+//  */
+// struct MotionPredictionData {
+//   double translational_velocity = 0.0;   /**< Translational Velocity Mod */
+//   double translational_velocity_x = 0.0; /**< Translational Velocity in X axis */
+//   double translational_velocity_y = 0.0; /**< Translational Velocity in Y axis */
+//   double rotational_velocity = 0.0;      /**< Rotational Velocity */
+//   double steering_angle = 0.0;           /**< Steering Angle */
+// };
 
 /**
  * @brief Abstract Moiton Model class
@@ -42,7 +44,7 @@ class MotionModel {
    * @return Eigen::VectorXf
    */
   virtual Eigen::VectorXf predict_expected_state(const Eigen::VectorXf& expected_state,
-                                                 const MotionPredictionData& motion_prediction_data,
+                                                 const MotionUpdate& motion_prediction_data,
                                                  const double time_interval) const = 0;
 
   /**
@@ -56,7 +58,7 @@ class MotionModel {
    */
   virtual Eigen::MatrixXf get_motion_to_state_matrix(
       const Eigen::VectorXf& expected_state,
-      [[maybe_unused]] const MotionPredictionData& motion_prediction_data,
+      [[maybe_unused]] const MotionUpdate& motion_prediction_data,
       const double time_interval) const = 0;
 
   /**
@@ -97,7 +99,7 @@ class ImuVelocityModel : public MotionModel {
    * @return Eigen::VectorXf
    */
   Eigen::VectorXf predict_expected_state(const Eigen::VectorXf& expected_state,
-                                         const MotionPredictionData& motion_prediction_data,
+                                         const MotionUpdate& motion_prediction_data,
                                          const double time_interval) const override;
   /**
    * @brief Calculate state covariance matrix from
@@ -111,7 +113,7 @@ class ImuVelocityModel : public MotionModel {
    */
   Eigen::MatrixXf get_motion_to_state_matrix(
       const Eigen::VectorXf& expected_state,
-      [[maybe_unused]] const MotionPredictionData& motion_prediction_data,
+      [[maybe_unused]] const MotionUpdate& motion_prediction_data,
       [[maybe_unused]] const double time_interval) const override;
 };
 
@@ -143,7 +145,7 @@ class NormalVelocityModel : public MotionModel {
    * @return Eigen::VectorXf
    */
   Eigen::VectorXf predict_expected_state(const Eigen::VectorXf& expected_state,
-                                         const MotionPredictionData& motion_prediction_data,
+                                         const MotionUpdate& motion_prediction_data,
                                          const double time_interval) const override;
 
   /**
@@ -158,7 +160,7 @@ class NormalVelocityModel : public MotionModel {
    */
   Eigen::MatrixXf get_motion_to_state_matrix(
       const Eigen::VectorXf& expected_state,
-      [[maybe_unused]] const MotionPredictionData& motion_prediction_data,
+      [[maybe_unused]] const MotionUpdate& motion_prediction_data,
       [[maybe_unused]] const double time_interval) const override;
 };
 

@@ -21,6 +21,8 @@ void LMPublisher::_publish_localization(VehicleState vehicle_state) {
   message.position.x = vehicle_localization.position.x;
   message.position.y = vehicle_localization.position.y;
   message.theta = vehicle_localization.orientation;
+  message.velocity = vehicle_state.translational_velocity;
+  message.steering_angle = vehicle_state.steering_angle;
 
   RCLCPP_INFO(this->get_logger(), "(%f, %f)\t%f", message.position.x, message.position.y,
               message.theta);
