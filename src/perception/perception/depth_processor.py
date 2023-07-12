@@ -59,7 +59,7 @@ class DepthProcessor():
             cone = Cone()
             position = Point2d()
 
-            # rotate coordinates -90 degrees so they match localisation logic
+            # rotate coordinates -90 degrees so they match localization logic
             position.x = y
             position.y = x
             cone.position = position
