@@ -1,5 +1,6 @@
 #include "gtest/gtest.h"
 #include "kalman_filter/motion_models.hpp"
+#include "loc_map/lm_subscriber.hpp"
 
 /* ---------------------- Motion Model -------------------------------------*/
 
@@ -223,29 +224,29 @@ TEST(IMU_VELOCITY_MODEL, COMPLEX_MOVEMENT_TEST) {
  * to velocities using the bycicle model
  *
  */
-TEST(ODOMETRY_MODEL, CONVERSION_TEST) {
+TEST(ODOMETRY_SUBSCRIBER, CONVERSION_TEST) {
   // Straight Line
-  OdometryModel odometry_model = OdometryModel(Eigen::Matrix3f::Zero());
   MotionPredictionData prediction_data_from_odometry;
-  prediction_data_from_odometry.lb_speed = 60;
-  prediction_data_from_odometry.rb_speed = 60;
-  prediction_data_from_odometry.lf_speed = 60;
-  prediction_data_from_odometry.rf_speed = 60;
-  prediction_data_from_odometry.steering_angle = 0;
-  MotionPredictionData velocity_data =
-      odometry_model.odometry_to_velocities_transform(prediction_data_from_odometry);
+  double lb_speed = 60;
+  double rb_speed = 60;
+  double lf_speed = 60;
+  double rf_speed = 60;
+  double steering_angle = 0;
+  MotionUpdate velocity_data = LMSubscriber::odometry_to_velocities_transform(
+      lb_speed, rb_speed, lf_speed, rf_speed, steering_angle);
   EXPECT_NEAR(velocity_data.translational_velocity, 1.5708, 0.0001);
   EXPECT_DOUBLE_EQ(velocity_data.rotational_velocity, 0);
   EXPECT_DOUBLE_EQ(velocity_data.translational_velocity_x, 0);
   EXPECT_DOUBLE_EQ(velocity_data.translational_velocity_y, 0);
 
   // Curving left
-  prediction_data_from_odometry.lb_speed = 60;
-  prediction_data_from_odometry.rb_speed = 60;
-  prediction_data_from_odometry.lf_speed = 60;
-  prediction_data_from_odometry.rf_speed = 60;
-  prediction_data_from_odometry.steering_angle = M_PI / 8;
-  velocity_data = odometry_model.odometry_to_velocities_transform(prediction_data_from_odometry);
+  lb_speed = 60;
+  rb_speed = 60;
+  lf_speed = 60;
+  rf_speed = 60;
+  steering_angle = M_PI / 8;
+  velocity_data = LMSubscriber::odometry_to_velocities_transform(lb_speed, rb_speed, lf_speed,
+                                                                 rf_speed, steering_angle);
   EXPECT_GE(velocity_data.translational_velocity, 1.5708);
   EXPECT_LE(velocity_data.translational_velocity, 1.5708 * 2);
   EXPECT_LE(velocity_data.rotational_velocity, M_PI);
@@ -254,13 +255,13 @@ TEST(ODOMETRY_MODEL, CONVERSION_TEST) {
   EXPECT_DOUBLE_EQ(velocity_data.translational_velocity_y, 0);
 
   // Curving right
-  prediction_data_from_odometry.lb_speed = 60;
-  prediction_data_from_odometry.rb_speed = 60;
-  prediction_data_from_odometry.lf_speed = 60;
-  prediction_data_from_odometry.rf_speed = 60;
-  prediction_data_from_odometry.steering_angle = -M_PI / 8;
-  MotionPredictionData velocity_data_2 =
-      odometry_model.odometry_to_velocities_transform(prediction_data_from_odometry);
+  lb_speed = 60;
+  rb_speed = 60;
+  lf_speed = 60;
+  rf_speed = 60;
+  steering_angle = -M_PI / 8;
+  MotionUpdate velocity_data_2 = LMSubscriber::odometry_to_velocities_transform(
+      lb_speed, rb_speed, lf_speed, rf_speed, steering_angle);
   EXPECT_GE(velocity_data_2.translational_velocity, 1.5708);
   EXPECT_LE(velocity_data_2.translational_velocity, 1.5708 * 2);
   EXPECT_GE(velocity_data_2.rotational_velocity, -M_PI);
