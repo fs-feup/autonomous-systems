@@ -39,13 +39,15 @@ class ExtendedKalmanFilter {
 
   VehicleState* _vehicle_state; /**< Pointer to the vehicle state to be published */
   Map* _map;                    /**< Pointer to the map to be published */
-  ImuUpdate* _imu_update;       /**< Pointer to the IMU update */
+  MotionUpdate* _motion_update; /**< Pointer to the IMU update */
   Map* _map_from_perception;    /**< Pointer to the map predicted from perception */
   std::chrono::time_point<std::chrono::high_resolution_clock>
       _last_update; /**< Timestamp of last update */
 
   const MotionModel& _motion_model;           /**< Motion Model chosen for prediction step */
   const ObservationModel& _observation_model; /**< Observation Model chosen for correction step */
+
+  MotionUpdate _last_motion_update; /**< Last motion update */
 
   /**
    * @brief Discovery step:
@@ -79,7 +81,7 @@ class ExtendedKalmanFilter {
    * @param motion_model motion model chosen for prediction step
    * @param observation_model observation model chosen for correction step
    */
-  ExtendedKalmanFilter(VehicleState* vehicle_state, Map* map, ImuUpdate* imu_update,
+  ExtendedKalmanFilter(VehicleState* vehicle_state, Map* map, MotionUpdate* imu_update,
                        Map* map_from_perception, const MotionModel& motion_model,
                        const ObservationModel& observation_model);
 
