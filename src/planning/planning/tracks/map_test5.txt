@@ -1,0 +1,15 @@
+3 0 blue
+3 3 blue
+3.75 4.5 blue
+4.5 6 blue
+4.5 4.5 blue
+0 0 yellow
+0 3 yellow
+0.7639 5 yellow
+2.0917 7 yellow
+2.8417 8.5 yellow
+4.5 9 yellow
+6.1583 8.5 yellow
+7.5 6 yellow
+7.5 4.5 yellow
+7 2.84169 yellow
