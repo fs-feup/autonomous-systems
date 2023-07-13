@@ -34,15 +34,11 @@ Planning::Planning() : Node("planning"), initial_orientation(-1) {
 }
 
 void Planning::vehicle_localization_callback(const custom_interfaces::msg::Pose msg) {
-  if (this->mission != Mission::trackdrive && this->mission != Mission::autocross) {
-    return;
-  }
-
   RCLCPP_INFO(this->get_logger(), "[localization] (%f, \t%f, \t%fdeg)", msg.position.x,
               msg.position.y, msg.theta);
   if (initial_orientation == -1) {
     initial_orientation = msg.theta;
-    local_path_planner->setOrientation(msg.theta);
+    local_path_planner->set_orientation(msg.theta);
     RCLCPP_INFO(this->get_logger(), "Orientation set to %f degrees.", initial_orientation);
   }
 }

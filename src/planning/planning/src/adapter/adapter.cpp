@@ -5,6 +5,8 @@
 Adapter::Adapter(std::string mode, Planning* planning) {
   this->node = planning;
 
+  RCLCPP_INFO(this->node->get_logger(), "mode: %s", mode.c_str());
+
   if (mode == "eufs") {
     this->eufs_init();
   } else if (mode == "fsds") {
@@ -15,8 +17,9 @@ Adapter::Adapter(std::string mode, Planning* planning) {
 }
 
 void Adapter::eufs_init() {
-  this->node->create_subscription<eufs_msgs::msg::CanState>(
-      "/ros_can/state", 10, std::bind(&Adapter::eufs_mission_state_callback, this, _1));
+  this->eufs_state_subscription_ = this->node->create_subscription<eufs_msgs::msg::CanState>(
+      "/ros_can/state", 10,
+      std::bind(&Adapter::eufs_mission_state_callback, this, std::placeholders::_1));
 
   this->eufs_mission_state_client_ =
       this->node->create_client<eufs_msgs::srv::SetCanState>("/ros_can/set_mission");
@@ -25,7 +28,7 @@ void Adapter::eufs_init() {
 }
 
 void Adapter::fsds_init() {
-  this->node->create_subscription<fs_msgs::msg::GoSignal>(
+  this->fsds_state_subscription_ = this->node->create_subscription<fs_msgs::msg::GoSignal>(
       "/signal/go", 10,
       std::bind(&Adapter::fsds_mission_state_callback, this, std::placeholders::_1));
   this->fsds_ebs_publisher_ =
@@ -34,9 +37,7 @@ void Adapter::fsds_init() {
 
 void Adapter::ads_dv_init() {}
 
-void Adapter::eufs_mission_state_callback(eufs_msgs::msg::CanState msg) {
-  RCLCPP_INFO(this->node->get_logger(), "I heard: '%d' and '%d'", msg.ami_state, msg.as_state);
-
+void Adapter::eufs_mission_state_callback(const eufs_msgs::msg::CanState msg) {
   auto mission = msg.ami_state;
 
   if (mission == eufs_msgs::msg::CanState::AMI_ACCELERATION) {
@@ -51,7 +52,7 @@ void Adapter::eufs_mission_state_callback(eufs_msgs::msg::CanState msg) {
 }
 
 void Adapter::fsds_mission_state_callback(const fs_msgs::msg::GoSignal msg) {
-  std::string mission = msg.mission;
+  auto mission = msg.mission;
 
   if (mission == "acceleration") {
     this->node->set_mission(Mission::acceleration);
