@@ -33,7 +33,7 @@ class LocalPathPlanner {
    */
   LocalPathPlanner();
 
-  void setOrientation(float theta);
+  void set_orientation(float theta);
 
   bool vector_direction(Position* p1, Position* p2, float prev_vx, float prev_vy);
 

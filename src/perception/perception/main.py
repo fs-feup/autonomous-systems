@@ -220,7 +220,7 @@ class perception(Node):
                                 self.half,
                                 self.dnn)
 
-        self.depth_processor = DepthProcessor(LOGGER)
+        self.depth_processor = DepthProcessor(self.get_logger())
     
     def yolovFive2bboxes_msgs(self, bboxes:list, scores:list, cls:list, 
                               img_header:Header):
