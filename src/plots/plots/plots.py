@@ -1,6 +1,7 @@
 import rclpy
 from rclpy.node import Node
 import matplotlib.pyplot as plt
+import matplotlib.lines as mlines
 import matplotlib
 import math
 import time
@@ -172,6 +173,15 @@ class Plots(Node):
                                     lambda event: self.on_close(event))
         self.timer = self.create_timer(0.5, self.timer_callback)
         self.fig.set_size_inches(15, 5)
+        self.ax1.set_title("Perception")
+        self.ax2.set_title("Mapping")
+        self.ax3.set_title("Statistics")
+        self.ax1.set_ylabel("x [m]")
+        self.ax1.set_xlabel("y [m]")
+        self.ax2.set_ylabel("x [m]")
+        self.ax2.set_xlabel("y [m]")
+        self.ax3.set_ylabel("Displacement [m]")
+        self.ax3.set_xlabel("Time [s]")
 
 
     """!
@@ -289,7 +299,8 @@ class Plots(Node):
     """
     def generate_statistics(self):
         # Mapping
-        cone_number_difference = abs(len(self.true_map_points) - len(self.map_points))
+        cone_number_difference = abs(len(self.true_map_points) - len(
+            self.map_points))
         cone_distances_mapping = [[i.distance(j) for j in self.true_map_points]
                            for i in self.map_points]
         max_displacement_mapping = 0
@@ -297,11 +308,13 @@ class Plots(Node):
         total_displacement_mapping = 0
         avg_displacement_mapping = 0
         if len(cone_distances_mapping) != 0:
-            displacements_by_cone_mapping = [min(distances) for distances in cone_distances_mapping]
+            displacements_by_cone_mapping = [min(distances) 
+                                    for distances in cone_distances_mapping]
             max_displacement_mapping = max(displacements_by_cone_mapping)
             min_displacement_mapping = min(displacements_by_cone_mapping)
             total_displacement_mapping = sum(displacements_by_cone_mapping)
-            avg_displacement_mapping = total_displacement_mapping / len(cone_distances_mapping)
+            avg_displacement_mapping = total_displacement_mapping / len(
+                cone_distances_mapping)
         localization_displacement = self.localization.distance(self.true_localization)
 
         # Perception
@@ -312,17 +325,23 @@ class Plots(Node):
         total_displacement_perception = 0
         avg_displacement_perception = 0
         if len(cone_distances_perception) != 0:
-            displacements_by_cone_perception = [min(distances) for distances in cone_distances_perception]
+            displacements_by_cone_perception = [min(distances) 
+                                    for distances in cone_distances_perception]
             max_displacement_perception = max(displacements_by_cone_perception)
             min_displacement_perception = min(displacements_by_cone_perception)
             total_displacement_perception = sum(displacements_by_cone_perception)
-            avg_displacement_perception = total_displacement_perception / len(cone_distances_perception)
-        return {"max_displacement_mapping": max_displacement_mapping, "total_displacement_mapping": total_displacement_mapping, 
-                "min_displacement_mapping": min_displacement_mapping, "avg_displacement_mapping": avg_displacement_mapping,
+            avg_displacement_perception = total_displacement_perception / len(
+                cone_distances_perception)
+        return {"max_displacement_mapping": max_displacement_mapping,
+         "total_displacement_mapping": total_displacement_mapping, 
+                "min_displacement_mapping": min_displacement_mapping,
+                 "avg_displacement_mapping": avg_displacement_mapping,
                 "localization_displacement": localization_displacement,
-                  "cone_number_difference": cone_number_difference, "max_displacement_perception": max_displacement_perception, 
+                  "cone_number_difference": cone_number_difference,
+                    "max_displacement_perception": max_displacement_perception, 
                   "total_displacement_perception": total_displacement_perception, 
-                "min_displacement_perception": min_displacement_perception, "avg_displacement_perception": avg_displacement_perception,
+                "min_displacement_perception": min_displacement_perception,
+                  "avg_displacement_perception": avg_displacement_perception,
                 "time": time.time() - self.start_time}
 
 
@@ -344,6 +363,7 @@ class Plots(Node):
     @brief Callback function for clicking the close button.
     """
     def on_close(self, _):
+        self.final_plots()
         exit(0)
 
 
@@ -354,7 +374,52 @@ class Plots(Node):
         clear()
         print("Statistics:")
         for statistic in self.last_statistic.items():
-            print("{}: {}".format(statistic[0], statistic[1]))
+            print("{} -> {}".format(statistic[0], statistic[1]))
+
+    """!
+    @brief Save plots on the statistics.
+    """
+    def final_plots(self):
+        plt.figure(2)
+        plt.title("Mapping Statistics")
+        plt.xlabel("Time [s]")
+        plt.ylabel("Displacement [m]")
+        plt.plot([statistic["time"] for statistic in self.statistics],
+         [statistic["max_displacement_mapping"] 
+         for statistic in self.statistics], label="Max Displacement")
+        plt.plot([statistic["time"] for statistic in self.statistics],
+         [statistic["min_displacement_mapping"] 
+         for statistic in self.statistics], label="Min Displacement")
+        plt.plot([statistic["time"] for statistic in self.statistics],
+         [statistic["avg_displacement_mapping"] 
+         for statistic in self.statistics], label="Avg Displacement")
+        plt.plot([statistic["time"] for statistic in self.statistics],
+         [statistic["total_displacement_mapping"] 
+         for statistic in self.statistics], label="Total Displacement")
+        plt.plot([statistic["time"] for statistic in self.statistics],
+         [statistic["localization_displacement"] 
+         for statistic in self.statistics], label="Localization Displacement")
+        plt.legend()
+        plt.savefig("mapping_statistics.png")
+
+        plt.figure(3)
+        plt.title("Perception Statistics")
+        plt.xlabel("Time [s]")
+        plt.ylabel("Displacement [m]")
+        plt.plot([statistic["time"] for statistic in self.statistics],
+         [statistic["max_displacement_perception"] 
+         for statistic in self.statistics], label="Max Displacement")
+        plt.plot([statistic["time"] for statistic in self.statistics],
+         [statistic["min_displacement_perception"] 
+         for statistic in self.statistics], label="Min Displacement")
+        plt.plot([statistic["time"] for statistic in self.statistics],
+         [statistic["avg_displacement_perception"] 
+         for statistic in self.statistics], label="Avg Displacement")
+        plt.plot([statistic["time"] for statistic in self.statistics],
+         [statistic["total_displacement_perception"] 
+         for statistic in self.statistics], label="Total Displacement")
+        plt.legend()
+        plt.savefig("perception_statistics.png")
 
 
     """!
@@ -371,14 +436,21 @@ class Plots(Node):
         for cone in self.perception_points:
             self.ax1.scatter(cone.x, cone.y, c=cone.color, marker="*")
         for cone in self.true_perception_points:
-            self.ax1.scatter(cone.x, cone.y, c=cone.color, marker="*")
+            self.ax1.scatter(cone.x, cone.y, c=cone.color, marker="P")
+        patch1 = mlines.Line2D([], [],
+                          markersize=5, color='black', label='Perception', 
+                          marker="*")
+        patch2 = mlines.Line2D([], [],
+                          markersize=5, color='black', label='Sim. Perception',
+                            marker="P")
+        self.ax1.legend(handles=[patch1, patch2], loc="upper right")
 
         # Mapping
         self.ax2.set_title("Mapping Map")
-        for cone in self.true_map_points:
-            self.ax2.scatter(cone.x, cone.y, c=cone.color, marker="*")
         for cone in self.map_points:
             self.ax2.scatter(cone.x, cone.y, c=cone.color, marker="*")
+        for cone in self.true_map_points:
+            self.ax2.scatter(cone.x, cone.y, c=cone.color, marker="P")
 
         # ax2.annotate(f"({self.localization[0]:.1f}, 
         # {self.localization[1]:.1f})", (self.localization[0],
@@ -387,16 +459,34 @@ class Plots(Node):
                          c="grey", marker="^")
         self.ax2.scatter(self.localization.x, self.localization.y, 
                          c="black", marker="^")
+        patch1 = mlines.Line2D([], [],
+                          markersize=5, color='black', label='Mapping', 
+                          marker="*")
+        patch2 = mlines.Line2D([], [],
+                          markersize=5, color='black', label='Sim. Mapping', 
+                          marker="P")
+        patch3 = mlines.Line2D([], [],
+                          markersize=5, color='black', label='Localization', 
+                          marker="^")
+        patch4 = mlines.Line2D([], [],
+                          markersize=5, color='grey', label='Sim. Loc.',
+                            marker="^")
+        self.ax2.legend(handles=[patch1, patch2, patch3, patch4], 
+                        loc="upper right")
         
         # Statistics
-        self.ax3.set_title("Statistics")
-        print([i["time"] for i in self.statistics])
-        self.ax3.plot([i["avg_displacement_mapping"] for i in self.statistics])
-        self.ax3.plot([i["max_displacement_mapping"] for i in self.statistics])
-        self.ax3.plot([i["avg_displacement_perception"] for i in self.statistics])
-        self.ax3.plot([i["localization_displacement"] for i in self.statistics])
-        # self.ax3.table(cellText=[[x, y] for (x, y) in self.last_statistic.items()], colLabels=["Metric", "Value"],
-        #                 loc="bottom", cellLoc="center", colWidths=[0.5, 0.5])
+        self.ax3.plot([i["time"] for i in self.statistics], 
+        [i["avg_displacement_mapping"] for i in self.statistics])
+        self.ax3.plot([i["time"] for i in self.statistics], 
+        [i["max_displacement_mapping"] for i in self.statistics])
+        self.ax3.plot([i["time"] for i in self.statistics], 
+        [i["avg_displacement_perception"] for i in self.statistics])
+        self.ax3.plot([i["time"] for i in self.statistics], 
+        [i["localization_displacement"] for i in self.statistics])
+        self.ax3.legend(["avg_displacement_mapping",
+                          "max_displacement_mapping", 
+                          "avg_displacement_perception", 
+                          "localization_displacement"])
 
         self.ax1.set_aspect('equal', adjustable='box')
         self.ax1.set_xlim(self.x_bounds[0], self.x_bounds[1])
@@ -404,8 +494,8 @@ class Plots(Node):
         self.ax2.set_aspect('equal', adjustable='box')
         self.ax2.set_xlim(self.x_bounds[0], self.x_bounds[1])
         self.ax2.set_ylim(self.y_bounds[0], self.y_bounds[1])
-        self.ax3.set_xlim(0, 50)
-        self.ax3.set_ylim(0, 50)
+        self.ax3.set_xlim(0, math.ceil(self.last_statistic["time"] * 1.1))
+        self.ax3.set_ylim(0, self.x_bounds[1] - self.x_bounds[0])
 
         plt.draw()
         plt.pause(0.9)
