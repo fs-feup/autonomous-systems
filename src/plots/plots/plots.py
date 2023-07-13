@@ -1,11 +1,27 @@
 import rclpy
 from rclpy.node import Node
 import matplotlib.pyplot as plt
+import matplotlib.lines as mlines
 import matplotlib
 import math
+import time
+from os import system, name
 
 from custom_interfaces.msg import PointArray, ConeArray, Pose as PoseMsg
 from eufs_msgs.msg import ConeArrayWithCovariance, CarState
+
+"""!
+@brief Function to clear the terminal.
+"""
+def clear():
+   # for windows
+   if name == 'nt':
+      _ = system('cls')
+
+   # for mac and linux
+   else:
+    _ = system('clear')
+
 
 class Position:
     def __init__(self, x: float, y: float):
@@ -92,12 +108,18 @@ class Plots(Node):
         self.path_color = "y"
         self.x_bounds = (-50, 50)
         self.y_bounds = (-50, 50)
-        self.adjusted_bounds: bool = False
+        self.adjusted_bounds_mapping: bool = False
         self.localization: Pose = Pose(0, 0, 0)
         self.true_localization: Pose = Pose(0, 0, 0)
         self.perception_points: list(Cone) = []
+        self.true_perception_points: list(Cone) = []
         self.map_points: list(Cone) = []
         self.true_map_points: list(Cone) = []
+        self.last_statistic: dict = {"max_displacement": 0, "total_displacement": 0, 
+                "min_displacement": 0, "avg_dispacement": 0,
+                "localization_displacement": 0, "cone_number_difference": 0}
+        self.statistics: list = []
+        self.start_time = time.time()
 
         # Subscriptions
         self.perception_subscription = self.create_subscription(
@@ -136,7 +158,14 @@ class Plots(Node):
             self.plot_true_map_callback,
             10
         )
+        self.true_perception_points_subscription = self.create_subscription(
+            ConeArrayWithCovariance,
+            'ground_truth/cones',
+            self.true_perception_points_callback,
+            10
+        )
 
+        # Plots
         self.fig, (self.ax1, self.ax2, self.ax3) = plt.subplots(
             nrows=1, ncols=3, figsize=(15, 5))
         self.fig.canvas.manager.set_window_title("Evaluation")
@@ -144,17 +173,48 @@ class Plots(Node):
                                     lambda event: self.on_close(event))
         self.timer = self.create_timer(0.5, self.timer_callback)
         self.fig.set_size_inches(15, 5)
+        self.ax1.set_title("Perception")
+        self.ax2.set_title("Mapping")
+        self.ax3.set_title("Statistics")
+        self.ax1.set_ylabel("x [m]")
+        self.ax1.set_xlabel("y [m]")
+        self.ax2.set_ylabel("x [m]")
+        self.ax2.set_xlabel("y [m]")
+        self.ax3.set_ylabel("Displacement [m]")
+        self.ax3.set_xlabel("Time [s]")
 
+
+    """!
+    @brief Callback function for the true perception cones topic.
+    @param msg ConeArrayWithCovariance message.
+    """
+    def true_perception_points_callback(self, msg: ConeArrayWithCovariance):
+        for cone in msg.blue_cones:
+            self.true_perception_points.append(Cone(-cone.point.y, cone.point.x,
+             Plots.true_map_color_dict["blue_cone"]))
+        for cone in msg.yellow_cones:
+            self.true_perception_points.append(Cone(-cone.point.y, cone.point.x,
+             Plots.true_map_color_dict["yellow_cone"]))
+        for cone in msg.orange_cones:
+            self.true_perception_points.append(Cone(-cone.point.y, cone.point.x,
+             Plots.true_map_color_dict["orange_cone"]))
+        for cone in msg.big_orange_cones:
+            self.true_perception_points.append(Cone(-cone.point.y, cone.point.x,
+             Plots.true_map_color_dict["large_orange_cone"]))
+        for cone in msg.unknown_color_cones:
+            self.true_perception_points.append(Cone(-cone.point.y, cone.point.x,
+             "grey"))
+            
         
     """!
     @brief Callback function to plot the cones positions given 
     by perception.
     @param msg ConeArray message.
     """
-    def plot_perception_callback(self, msg):
+    def plot_perception_callback(self, msg: ConeArray):
         for cone in msg.cone_array:
-            self.perception_points.append([cone.position.x, -cone.position.y,
-            self.perception_color])
+            self.perception_points.append(Cone(-cone.position.y, cone.position.x,
+                                            Plots.map_color_dict[cone.color]))
 
 
     """!
@@ -162,7 +222,7 @@ class Plots(Node):
     EKF SLAM.
     @param msg ConeArray message.
     """
-    def plot_map_callback(self, msg):
+    def plot_map_callback(self, msg: ConeArray):
         for cone in msg.cone_array:
             self.map_points.append(Cone(-cone.position.y, cone.position.x,
                     Plots.map_color_dict[cone.color])) # Rotate axis
@@ -173,7 +233,7 @@ class Plots(Node):
     EKF SLAM.
     @param msg Pose message.
     """
-    def plot_localization_callback(self, msg):
+    def plot_localization_callback(self, msg: PoseMsg):
         self.localization = Pose(-msg.position.y, msg.position.x, 
                                  msg.theta) # Rotate axis
 
@@ -183,7 +243,7 @@ class Plots(Node):
     simulator.
     @param msg ConeArrayWithCovariance message.
     """
-    def plot_true_map_callback(self, msg):
+    def plot_true_map_callback(self, msg: ConeArrayWithCovariance):
         for cone in msg.blue_cones:
             self.true_map_points.append(Cone(-cone.point.y, cone.point.x,
              Plots.true_map_color_dict["blue_cone"]))
@@ -200,9 +260,9 @@ class Plots(Node):
             self.true_map_points.append(Cone(-cone.point.y, cone.point.x,
              "grey"))
 
-        if not self.adjusted_bounds and len(self.true_map_points) > 0:
+        if not self.adjusted_bounds_mapping and len(self.true_map_points) > 0:
             self.adjust_bounds()
-            self.adjusted_bounds = True
+            self.adjusted_bounds_mapping = True
 
 
     """!
@@ -224,7 +284,7 @@ class Plots(Node):
     simulator.
     @param msg CarState message.
     """
-    def plot_true_localization_callback(self, msg):
+    def plot_true_localization_callback(self, msg: CarState):
         self.true_localization = Pose(- msg.pose.pose.position.y,
             msg.pose.pose.position.x, msg.pose.pose.orientation.z) #Rotate axis
 
@@ -233,28 +293,133 @@ class Plots(Node):
         for point in msg.points:
             self.map_points.append([point.x, point.y, self.path_color])
 
+
+    """!
+    @brief Generate evaluation statistics.
+    """
     def generate_statistics(self):
-        print("Generating statistics...")
-        abs(len(self.true_map_points) - len(self.map_points))
-        cone_distances = [[i.distance(j) for j in self.true_map_points]
+        # Mapping
+        cone_number_difference = abs(len(self.true_map_points) - len(
+            self.map_points))
+        cone_distances_mapping = [[i.distance(j) for j in self.true_map_points]
                            for i in self.map_points]
-        displacements_by_cone = [min(distances) for distances in cone_distances]
-        max(displacements_by_cone)
-        min(displacements_by_cone)
-        total_displacement = sum(displacements_by_cone)
-        total_displacement / len(cone_distances)
-        self.localization.distance(self.true_localization)
+        max_displacement_mapping = 0
+        min_displacement_mapping = 0
+        total_displacement_mapping = 0
+        avg_displacement_mapping = 0
+        if len(cone_distances_mapping) != 0:
+            displacements_by_cone_mapping = [min(distances) 
+                                    for distances in cone_distances_mapping]
+            max_displacement_mapping = max(displacements_by_cone_mapping)
+            min_displacement_mapping = min(displacements_by_cone_mapping)
+            total_displacement_mapping = sum(displacements_by_cone_mapping)
+            avg_displacement_mapping = total_displacement_mapping / len(
+                cone_distances_mapping)
+        localization_displacement = self.localization.distance(self.true_localization)
+
+        # Perception
+        cone_distances_perception = [[i.distance(j) for j in self.true_map_points]
+                            for i in self.perception_points]
+        max_displacement_perception = 0
+        min_displacement_perception = 0
+        total_displacement_perception = 0
+        avg_displacement_perception = 0
+        if len(cone_distances_perception) != 0:
+            displacements_by_cone_perception = [min(distances) 
+                                    for distances in cone_distances_perception]
+            max_displacement_perception = max(displacements_by_cone_perception)
+            min_displacement_perception = min(displacements_by_cone_perception)
+            total_displacement_perception = sum(displacements_by_cone_perception)
+            avg_displacement_perception = total_displacement_perception / len(
+                cone_distances_perception)
+        return {"max_displacement_mapping": max_displacement_mapping,
+         "total_displacement_mapping": total_displacement_mapping, 
+                "min_displacement_mapping": min_displacement_mapping,
+                 "avg_displacement_mapping": avg_displacement_mapping,
+                "localization_displacement": localization_displacement,
+                  "cone_number_difference": cone_number_difference,
+                    "max_displacement_perception": max_displacement_perception, 
+                  "total_displacement_perception": total_displacement_perception, 
+                "min_displacement_perception": min_displacement_perception,
+                  "avg_displacement_perception": avg_displacement_perception,
+                "time": time.time() - self.start_time}
 
 
+    """!
+    @brief Callback function from timer.
+    """
     def timer_callback(self):
+        self.statistics.append(self.generate_statistics())
+        self.last_statistic = self.statistics[-1]
         self.plot_points()
+        self.print_statistics()
         self.map_points = []
+        self.true_perception_points = []
         self.true_map_points = []
         self.perception_points = []
 
 
-    def on_close(self, event):
+    """!
+    @brief Callback function for clicking the close button.
+    """
+    def on_close(self, _):
+        self.final_plots()
         exit(0)
+
+
+    """!
+    @brief Print the latest statistics.
+    """
+    def print_statistics(self):
+        clear()
+        print("Statistics:")
+        for statistic in self.last_statistic.items():
+            print("{} -> {}".format(statistic[0], statistic[1]))
+
+    """!
+    @brief Save plots on the statistics.
+    """
+    def final_plots(self):
+        plt.figure(2)
+        plt.title("Mapping Statistics")
+        plt.xlabel("Time [s]")
+        plt.ylabel("Displacement [m]")
+        plt.plot([statistic["time"] for statistic in self.statistics],
+         [statistic["max_displacement_mapping"] 
+         for statistic in self.statistics], label="Max Displacement")
+        plt.plot([statistic["time"] for statistic in self.statistics],
+         [statistic["min_displacement_mapping"] 
+         for statistic in self.statistics], label="Min Displacement")
+        plt.plot([statistic["time"] for statistic in self.statistics],
+         [statistic["avg_displacement_mapping"] 
+         for statistic in self.statistics], label="Avg Displacement")
+        plt.plot([statistic["time"] for statistic in self.statistics],
+         [statistic["total_displacement_mapping"] 
+         for statistic in self.statistics], label="Total Displacement")
+        plt.plot([statistic["time"] for statistic in self.statistics],
+         [statistic["localization_displacement"] 
+         for statistic in self.statistics], label="Localization Displacement")
+        plt.legend()
+        plt.savefig("mapping_statistics.png")
+
+        plt.figure(3)
+        plt.title("Perception Statistics")
+        plt.xlabel("Time [s]")
+        plt.ylabel("Displacement [m]")
+        plt.plot([statistic["time"] for statistic in self.statistics],
+         [statistic["max_displacement_perception"] 
+         for statistic in self.statistics], label="Max Displacement")
+        plt.plot([statistic["time"] for statistic in self.statistics],
+         [statistic["min_displacement_perception"] 
+         for statistic in self.statistics], label="Min Displacement")
+        plt.plot([statistic["time"] for statistic in self.statistics],
+         [statistic["avg_displacement_perception"] 
+         for statistic in self.statistics], label="Avg Displacement")
+        plt.plot([statistic["time"] for statistic in self.statistics],
+         [statistic["total_displacement_perception"] 
+         for statistic in self.statistics], label="Total Displacement")
+        plt.legend()
+        plt.savefig("perception_statistics.png")
 
 
     """!
@@ -266,17 +431,26 @@ class Plots(Node):
         self.ax2.cla()
         self.ax3.cla()
 
+        # Perception
         self.ax1.set_title("Perception")
-        for x, y, color in self.perception_points:
-            self.ax1.scatter(x, y, c=color)
-
+        for cone in self.perception_points:
+            self.ax1.scatter(cone.x, cone.y, c=cone.color, marker="*")
+        for cone in self.true_perception_points:
+            self.ax1.scatter(cone.x, cone.y, c=cone.color, marker="P")
+        patch1 = mlines.Line2D([], [],
+                          markersize=5, color='black', label='Perception', 
+                          marker="*")
+        patch2 = mlines.Line2D([], [],
+                          markersize=5, color='black', label='Sim. Perception',
+                            marker="P")
+        self.ax1.legend(handles=[patch1, patch2], loc="upper right")
 
         # Mapping
         self.ax2.set_title("Mapping Map")
-        for cone in self.true_map_points:
-            self.ax2.scatter(cone.x, cone.y, c=cone.color, marker="*")
         for cone in self.map_points:
             self.ax2.scatter(cone.x, cone.y, c=cone.color, marker="*")
+        for cone in self.true_map_points:
+            self.ax2.scatter(cone.x, cone.y, c=cone.color, marker="P")
 
         # ax2.annotate(f"({self.localization[0]:.1f}, 
         # {self.localization[1]:.1f})", (self.localization[0],
@@ -285,16 +459,43 @@ class Plots(Node):
                          c="grey", marker="^")
         self.ax2.scatter(self.localization.x, self.localization.y, 
                          c="black", marker="^")
+        patch1 = mlines.Line2D([], [],
+                          markersize=5, color='black', label='Mapping', 
+                          marker="*")
+        patch2 = mlines.Line2D([], [],
+                          markersize=5, color='black', label='Sim. Mapping', 
+                          marker="P")
+        patch3 = mlines.Line2D([], [],
+                          markersize=5, color='black', label='Localization', 
+                          marker="^")
+        patch4 = mlines.Line2D([], [],
+                          markersize=5, color='grey', label='Sim. Loc.',
+                            marker="^")
+        self.ax2.legend(handles=[patch1, patch2, patch3, patch4], 
+                        loc="upper right")
         
         # Statistics
-        self.ax3.set_title("Statistics")
-        self.ax3.table(cellText=self.statistics, colLabels=["Metric", "Value"],
-                        loc="center", cellLoc="center", colWidths=[0.5, 0.5])
+        self.ax3.plot([i["time"] for i in self.statistics], 
+        [i["avg_displacement_mapping"] for i in self.statistics])
+        self.ax3.plot([i["time"] for i in self.statistics], 
+        [i["max_displacement_mapping"] for i in self.statistics])
+        self.ax3.plot([i["time"] for i in self.statistics], 
+        [i["avg_displacement_perception"] for i in self.statistics])
+        self.ax3.plot([i["time"] for i in self.statistics], 
+        [i["localization_displacement"] for i in self.statistics])
+        self.ax3.legend(["avg_displacement_mapping",
+                          "max_displacement_mapping", 
+                          "avg_displacement_perception", 
+                          "localization_displacement"])
 
         self.ax1.set_aspect('equal', adjustable='box')
+        self.ax1.set_xlim(self.x_bounds[0], self.x_bounds[1])
+        self.ax1.set_ylim(self.y_bounds[0], self.y_bounds[1])
         self.ax2.set_aspect('equal', adjustable='box')
         self.ax2.set_xlim(self.x_bounds[0], self.x_bounds[1])
         self.ax2.set_ylim(self.y_bounds[0], self.y_bounds[1])
+        self.ax3.set_xlim(0, math.ceil(self.last_statistic["time"] * 1.1))
+        self.ax3.set_ylim(0, self.x_bounds[1] - self.x_bounds[0])
 
         plt.draw()
         plt.pause(0.9)
