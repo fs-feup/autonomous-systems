@@ -7,17 +7,17 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
+# find_package(ament_cmake_gtest REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(custom_interfaces REQUIRED)
 find_package(eufs_msgs REQUIRED)
+find_package(fs_msgs REQUIRED)
 
 set(IMPLEMENTATION_FILES 
-  src/loc_map/lm_subscriber.cpp
-  src/loc_map/lm_publisher.cpp
-  src/loc_map/lm_ekf_node.cpp
+  src/loc_map/lm_node.cpp
   src/kalman_filter/ekf.cpp
   src/kalman_filter/motion_models.cpp
   src/kalman_filter/observation_models.cpp
@@ -28,7 +28,7 @@ set(IMPLEMENTATION_FILES
   )
 
 add_executable(${PROJECT_NAME} src/loc_map.cpp ${IMPLEMENTATION_FILES})
-ament_target_dependencies(${PROJECT_NAME} rclcpp std_msgs sensor_msgs eufs_msgs custom_interfaces Eigen3)
+ament_target_dependencies(${PROJECT_NAME} rclcpp std_msgs sensor_msgs eufs_msgs fs_msgs custom_interfaces Eigen3)
 target_include_directories(${PROJECT_NAME} PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
@@ -53,17 +53,18 @@ if(BUILD_TESTING)
   find_package(rclcpp REQUIRED)
   find_package(Eigen3 REQUIRED)
   find_package(std_msgs REQUIRED)
+  find_package(fs_msgs REQUIRED)
 
   set(TESTFILES 
     test/main.cpp
-    test/lm_publisher_test.cpp
+    test/integration_test.cpp
     test/motion_model_test.cpp
     test/observation_model_test.cpp
     test/slam_test.cpp
     )
   
   ament_add_gtest(${PROJECT_NAME}_test ${TESTFILES} ${IMPLEMENTATION_FILES})
-  ament_target_dependencies(${PROJECT_NAME}_test rclcpp std_msgs eufs_msgs sensor_msgs custom_interfaces)
+  ament_target_dependencies(${PROJECT_NAME}_test rclcpp std_msgs eufs_msgs sensor_msgs fs_msgs custom_interfaces)
   target_include_directories(${PROJECT_NAME}_test PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>)

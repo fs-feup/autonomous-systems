@@ -15,7 +15,7 @@
 TEST(EKF_SLAM, LINEAR_MOVEMENT_INTEGRITY_TEST) {  // This test is not that great, to be improved
   VehicleState *vehicle_state = new VehicleState();
   vehicle_state->last_update = std::chrono::high_resolution_clock::now();
-  ImuUpdate *imu_update = new ImuUpdate();
+  MotionUpdate *imu_update = new MotionUpdate();
   imu_update->last_update = std::chrono::high_resolution_clock::now();
   Map *track_map = new Map();
   Map initial_map = Map();
@@ -50,9 +50,8 @@ TEST(EKF_SLAM, LINEAR_MOVEMENT_INTEGRITY_TEST) {  // This test is not that great
   initial_map.map[Position(7, 6)] = colors::orange;
   initial_map.map[Position(7, 6)] = colors::orange;
 
-  ExtendedKalmanFilter *ekf =
-      new ExtendedKalmanFilter(vehicle_state, track_map, imu_update, predicted_map, *motion_model,
-                               observation_model);  // TODO(marhcouto): put non zero noise matrixes
+  ExtendedKalmanFilter *ekf = new ExtendedKalmanFilter(
+      *motion_model, observation_model);  // TODO(marhcouto): put non zero noise matrixes
 
   for (unsigned int i = 0; i < 10; i++) {
     imu_update->translational_velocity_x = 1;
@@ -62,7 +61,7 @@ TEST(EKF_SLAM, LINEAR_MOVEMENT_INTEGRITY_TEST) {  // This test is not that great
                                                                         ekf->get_last_update())
                       .count();
     double delta_x = static_cast<double>(i * delta_t) / 1000;
-    ekf->prediction_step();
+    ekf->prediction_step(*imu_update);
 
     predicted_map->map.clear();
     predicted_map->map[Position(0 - delta_x, -2)] = colors::large_orange;
@@ -82,8 +81,8 @@ TEST(EKF_SLAM, LINEAR_MOVEMENT_INTEGRITY_TEST) {  // This test is not that great
     predicted_map->map[Position(7 - delta_x, 4)] = colors::orange;
     predicted_map->map[Position(7 - delta_x, 6)] = colors::orange;
     predicted_map->map[Position(7 - delta_x, 6)] = colors::orange;
-    ekf->correction_step();
-    ekf->update();
+    ekf->correction_step(*predicted_map);
+    ekf->update(vehicle_state, track_map);
 
     int orange_count, blue_count, big_orange_count;
     orange_count = 0;

@@ -1,7 +1,19 @@
-#include "../../include/utils/files.hpp"
+#include "utils/files.hpp"
 
 #include <string>
 #include <vector>
+
+std::vector<Position*> read_path_file(const std::string& filename) {
+  std::ifstream path_file(filename);
+  std::vector<Position*> path;
+  float x, y;
+  while (path_file >> x >> y) {
+    Position* position = new Position(x, y);
+    path.push_back(position);
+  }
+  path_file.close();
+  return path;
+}
 
 // Track* read_track_file(const std::string& filename) {
 //   std::string filePrefix = rcpputils::fs::current_path().string();

@@ -11,14 +11,15 @@ import torch
 import torch.backends.cudnn as cudnn
 
 from .utils.datasets import letterbox
-from .utils.general import (check_img_size, check_imshow, LOGGER,
-                                      non_max_suppression, scale_coords, xyxy2xywh)
+from .utils.general import (check_img_size, check_imshow,
+                            non_max_suppression, scale_coords, xyxy2xywh)
 from .utils.plots import Annotator, colors
 from perception.utils.torch_utils import time_sync
 
 from .depth_processor import DepthProcessor
 from .adapter import PerceptionAdapter
 
+import argparse
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Image
@@ -177,7 +178,12 @@ class perception(Node):
 
         self.bridge = CvBridge()
 
-        self.adapter = PerceptionAdapter("eufs", self) # 3rd arg as true to get stereo cam depth map
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--interface', default="eufs")
+        parser.add_argument('--stereodepth', default=False)
+        args = parser.parse_args()
+
+        self.adapter = PerceptionAdapter(args.interface, self, args.stereodepth)
         self.pub_cone_coordinates = self.create_publisher(ConeArray, 
                                                           'perception/cone_coordinates', 
                                                           10)
@@ -215,7 +221,7 @@ class perception(Node):
                                 self.half,
                                 self.dnn)
 
-        self.depth_processor = DepthProcessor(LOGGER)
+        self.depth_processor = DepthProcessor(self.get_logger())
     
     def yolovFive2bboxes_msgs(self, bboxes:list, scores:list, cls:list, 
                               img_header:Header):
@@ -250,7 +256,6 @@ class perception(Node):
         
         cone_array = self.depth_processor.process(msg, image_raw)
         self.pub_cone_coordinates.publish(cone_array)
-        LOGGER.info("")
 
     def left_callback(self, image:Image):
         self.depth_processor.recv_stereo_img(image, 1) # 1 for left

@@ -2,6 +2,10 @@ from ackermann_msgs.msg import AckermannDriveStamped
 from custom_interfaces.msg import VcuCommand, Vcu, Pose
 from eufs_msgs.msg import CanState
 from eufs_msgs.srv import SetCanState
+from fs_msgs.msg import ControlCommand
+
+# used for testing purposes only
+# from nav_msgs.msg import Odometry
 
 import math
 from .mpc_utils import wheels_vel_2_vehicle_vel
@@ -32,10 +36,11 @@ class ControlAdapter():
             msg.drive.steering_angle = steering_angle
             
         elif self.mode == "fsds":
-            msg = AckermannDriveStamped()
+            msg = ControlCommand()
 
-            msg.drive.speed = speed
-            msg.drive.steering_angle = steering_angle
+            msg.throttle = speed # change from speed to throttle position [0, 1]
+            msg.drive.steering = steering_angle # change from radians to [-1, 1]
+            msg.brake = break_req # change from break_req to brake position [0, 1]
 
         elif self.mode == "ads_dv":
             msg = VcuCommand()
@@ -44,7 +49,7 @@ class ControlAdapter():
             msg.steering_angle_request = np.degrees(steering_angle)
             msg.axle_torque_request = torque_req
             msg.brake_press_request = break_req
-              
+
         self.cmd_publisher.publish(msg)
 
     def eufs_init(self):
@@ -66,9 +71,17 @@ class ControlAdapter():
         self.node.create_subscription(
             Pose,
             "/vehicle_localization",
-            self.localisation_callback,
+            self.localization_callback,
             10
         )
+
+        # test reasons only
+        # self.node.create_subscription(
+        #     Odometry,
+        #     '/ground_truth/odom',
+        #     self.eufs_odometry_callback,
+        #     10
+        # )
         
     def fsds_init(self):
         self.cmd_publisher =\
@@ -78,7 +91,7 @@ class ControlAdapter():
         self.node.create_subscription(
             Pose,
             "/vehicle_localization",
-            self.localisation_callback,
+            self.localization_callback,
             10
         )
 
@@ -95,21 +108,29 @@ class ControlAdapter():
         self.node.create_subscription(
             Pose,
             "/vehicle_localization",
-            self.localisation_callback,
+            self.localization_callback,
             10
         )
 
-    def localisation_callback(self, msg):
+    def localization_callback(self, msg):
         position = msg.position
-        yaw = msg.theta
+        yaw = msg.theta 
+        
+        # convert from [0, 2pi] to [-pi, pi]
+        if yaw > math.pi:
+            yaw -= 2 * math.pi
+
+        speed = msg.velocity
+        steering_angle = msg.steering_angle
 
         self.node.get_logger().info(
-            "[localisation] ({}, {}) {}".format(
-                msg.position.x, msg.position.y, msg.theta
+            "[localization] ({}, {})\t{} rad\t{} m/s\t{} rad".format(
+                msg.position.x, msg.position.y, msg.theta,
+                msg.velocity, msg.steering_angle
             )
         )
 
-        self.node.mpc_callback(position, yaw)
+        self.node.mpc_callback(position, yaw, speed, steering_angle)
         # self.node.pid_callback(position, yaw)
 
     def eufs_odometry_callback(self, msg):
@@ -120,12 +141,18 @@ class ControlAdapter():
         decomp_speed = msg.twist.twist.linear
 
         # get actual action variables
-        self.node.velocity_actual = math.sqrt(decomp_speed.x**2 + decomp_speed.y**2)
-        self.node.steering_angle_actual = self.node.steering_angle_command
+        speed = math.sqrt(decomp_speed.x**2 + decomp_speed.y**2)
+        steering_angle = self.node.steering_angle_command
 
         # Converts quartenions base to euler's base, and updates the class' attributes
         yaw = euler_from_quaternion(orientation_list)[2]
-        self.node.mpc_callback(position, yaw)
+
+        print("actual speed: ", speed)
+        print("actual steering angle: ", steering_angle)
+        print("yaw: ", yaw)
+
+        self.node.mpc_callback(position, yaw, speed, steering_angle)
+        # self.node.pid_callback(position, yaw)
 
     def eufs_mission_state_callback(self, msg):
         mission = msg.ami_state

@@ -67,7 +67,7 @@ jobs:
         run: |
           source /opt/ros/galactic/setup.bash
           cd ./src/
-          colcon build --packages-select custom_interfaces loc_map
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs loc_map
           source install/setup.bash
           colcon test --packages-select loc_map --event-handler=console_direct+
 
@@ -75,7 +75,7 @@ jobs:
         run: |
           source /opt/ros/galactic/setup.bash
           cd ./src/
-          colcon build --packages-select custom_interfaces control
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs control
           source install/setup.bash
           colcon test --packages-select control --event-handler=console_direct+
 
@@ -83,7 +83,7 @@ jobs:
         run: |
           source /opt/ros/galactic/setup.bash
           cd ./src/
-          colcon build --packages-select custom_interfaces planning
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs planning
           source install/setup.bash
           colcon test --packages-select planning --event-handler=console_direct+
 
@@ -91,6 +91,6 @@ jobs:
         run: |
           source /opt/ros/galactic/setup.bash
           cd ./src/
-          colcon build --packages-select custom_interfaces perception
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs perception
           source install/setup.bash
           colcon test --packages-select depth_processing --event-handler=console_direct+

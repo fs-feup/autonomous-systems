@@ -9,7 +9,7 @@
 
 LocalPathPlanner::LocalPathPlanner() : track() {}
 
-void LocalPathPlanner::setOrientation(float theta) { orientation = theta; }
+void LocalPathPlanner::set_orientation(float theta) { orientation = theta; }
 
 bool LocalPathPlanner::vector_direction(Position* p1, Position* p2, float prev_vx, float prev_vy) {
   float vx = p2->getX() - p1->getX();
