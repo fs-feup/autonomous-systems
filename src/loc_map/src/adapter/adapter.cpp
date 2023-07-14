@@ -16,9 +16,12 @@ void Adapter::eufs_init() {
   this->_eufs_imu_subscription = this->node->create_subscription<sensor_msgs::msg::Imu>(
       "/imu/data", rclcpp::QoS(10).reliability(RMW_QOS_POLICY_RELIABILITY_BEST_EFFORT),
       std::bind(&Adapter::imu_subscription_callback, this, std::placeholders::_1));
-  this->_eufs_wheel_speeds_subscription = this->node->create_subscription<eufs_msgs::msg::WheelSpeedsStamped>(
-      "ros_can/wheel_speeds", rclcpp::QoS(10).reliability(RMW_QOS_POLICY_RELIABILITY_BEST_EFFORT),
-      std::bind(&Adapter::eufs_wheel_speeds_subscription_callback, this, std::placeholders::_1));
+  this->_eufs_wheel_speeds_subscription =
+      this->node->create_subscription<eufs_msgs::msg::WheelSpeedsStamped>(
+          "ros_can/wheel_speeds",
+          rclcpp::QoS(10).reliability(RMW_QOS_POLICY_RELIABILITY_BEST_EFFORT),
+          std::bind(&Adapter::eufs_wheel_speeds_subscription_callback, this,
+                    std::placeholders::_1));
 
   // mission control
   this->node->create_subscription<eufs_msgs::msg::CanState>(

@@ -1,6 +1,5 @@
-#include "loc_map/lm_node.hpp"
-
 #include "gtest/gtest.h"
+#include "loc_map/lm_node.hpp"
 #include "rclcpp/rclcpp.hpp"
 
 /**
@@ -95,11 +94,12 @@ TEST(LM_PUBLISH_TEST_SUITE, PUBLISH_INTEGRATION_TEST) {
   rclcpp::init(0, nullptr);
   if (rcutils_logging_set_logger_level("loc_map", RCUTILS_LOG_SEVERITY_ERROR) != RCUTILS_RET_OK) {
     RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "Error setting logger level");
-  } // suppress warnings and info
+  }  // suppress warnings and info
 
   // Nodes
   auto tester = std::make_shared<TestSubscriber>();
-  auto publisher = std::make_shared<LMNode>(nullptr, nullptr, nullptr, track_map, vehicle_state, true);
+  auto publisher =
+      std::make_shared<LMNode>(nullptr, nullptr, nullptr, track_map, vehicle_state, true);
 
   rclcpp::executors::MultiThreadedExecutor executor;
   executor.add_node(tester);

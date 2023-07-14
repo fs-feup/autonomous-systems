@@ -8,11 +8,11 @@
 #include <string>
 #include <typeinfo>
 
-#include "kalman_filter/ekf.hpp"
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "custom_interfaces/msg/point2d.hpp"
 #include "custom_interfaces/msg/pose.hpp"
 #include "eufs_msgs/msg/wheel_speeds_stamped.hpp"
+#include "kalman_filter/ekf.hpp"
 #include "loc_map/data_structures.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/imu.hpp"
@@ -44,6 +44,10 @@ class LMNode : public rclcpp::Node {
   /**
    * @brief function to be called everytime information is received from the
    * imu
+   *
+   * @param rotational_velocity
+   * @param acceleration_x
+   * @param acceleration_y
    */
   void _imu_subscription_callback(double rotational_velocity, double acceleration_x,
                                   double acceleration_y);
@@ -51,14 +55,20 @@ class LMNode : public rclcpp::Node {
   /**
    * @brief function to be called everytime information is received from the
    * wheel encoders
+   *
+   * @param lb_speed wheel speeds in rpm
+   * @param lf_speed wheel speeds in rpm
+   * @param rb_speed wheel speeds in rpm
+   * @param rf_speed wheel speeds in rpm
    */
   void _wheel_speeds_subscription_callback(double lb_speed, double lf_speed, double rb_speed,
                                            double rf_speed, double steering_angle);
 
   /**
    * @brief Executes:
-   *  - the prediction, validation and discovery steps of the EKF
-   *  - 
+   * - the prediction, validation and discovery steps of the EKF
+   * - publication of localization
+   * - publication of map
    *
    */
   void _timer_callback();
@@ -67,41 +77,49 @@ class LMNode : public rclcpp::Node {
    * @brief publishes the localization ('vehicle_localization') to the topic
    * vehicle_location
    *
-   * @param vehicle_pose
    */
   void _publish_localization();
 
   /**
    * @brief publishes the map ('track_map') to the topic track_map
    *
-   * @param track_map
    */
   void _publish_map();
 
   /**
    * @brief executes the prediction step of the EKF
-   * 
+   *
    */
   void _ekf_step();
 
   /**
    * @brief Converts the odometry data to translational and rotational velocities
    *
+   * @param lb_speed wheel speeds in rpm
+   * @param lf_speed wheel speeds in rpm
+   * @param rb_speed wheel speeds in rpm
+   * @param rf_speed wheel speeds in rpm
    */
-  static MotionUpdate odometry_to_velocities_transform(double lb_speed, [[maybe_unused]] double lf_speed,
-                                                       double rb_speed, [[maybe_unused]] double rf_speed,
+  static MotionUpdate odometry_to_velocities_transform(double lb_speed,
+                                                       [[maybe_unused]] double lf_speed,
+                                                       double rb_speed,
+                                                       [[maybe_unused]] double rf_speed,
                                                        double steering_angle);
 
  public:
   /**
    * @brief Construct a new LMNode object
    *
+   * @param ekf Pointer to the EKF
    * @param map Pointer to the map
    * @param motion_update Pointer to the motion update
+   * @param track_map Pointer to the track map
+   * @param vehicle_state Pointer to the vehicle state
    * @param use_odometry Whether to use odometry or IMU
    *
    */
-  LMNode(ExtendedKalmanFilter* ekf, Map* perception_map, MotionUpdate* motion_update, Map* track_map, VehicleState* vehicle_state, bool use_odometry);
+  LMNode(ExtendedKalmanFilter* ekf, Map* perception_map, MotionUpdate* motion_update,
+         Map* track_map, VehicleState* vehicle_state, bool use_odometry);
 
   void set_mission(Mission mission);
 

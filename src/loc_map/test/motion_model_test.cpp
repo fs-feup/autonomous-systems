@@ -247,8 +247,8 @@ TEST(ODOMETRY_SUBSCRIBER, CONVERSION_TEST) {
   lf_speed = 60;
   rf_speed = 60;
   steering_angle = M_PI / 8;
-  velocity_data = LMNode::odometry_to_velocities_transform(lb_speed, rb_speed, lf_speed,
-                                                                 rf_speed, steering_angle);
+  velocity_data = LMNode::odometry_to_velocities_transform(lb_speed, rb_speed, lf_speed, rf_speed,
+                                                           steering_angle);
   EXPECT_GE(velocity_data.translational_velocity, 1.5708);
   EXPECT_LE(velocity_data.translational_velocity, 1.5708 * 2);
   EXPECT_LE(velocity_data.rotational_velocity, M_PI);
