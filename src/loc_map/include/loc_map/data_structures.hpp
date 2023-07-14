@@ -33,23 +33,27 @@ struct Pose {
  */
 struct VehicleState {
   Pose pose;
+  double translational_velocity = 0.0; /**< Meters per sec */
+  double steering_angle = 0.0;         /**< Degrees */
   std::chrono::time_point<std::chrono::high_resolution_clock> last_update;
 };
 
 /**
  * @brief Struct for data retrieved by the IMU
  *
+ * @param translational_velocity_x Translational velocity in X axis
+ * @param translational_velocity_y Translational velocity in Y axis
  * @param translational_velocity Translational velocity of the vehicle
  * @param rotational_velocity Rotational velocity of the vehicle
  * @param last_update Timestamp of last update
- * @param delta_time Time since last update
  *
  */
-struct ImuUpdate {
+struct MotionUpdate {
+  double translational_velocity = 0.0;   /**< Meters per sec */
   double translational_velocity_x = 0.0; /**< Meters per sec */
   double translational_velocity_y = 0.0; /**< Meters per sec */
-  double translational_velocity = 0.0;   /**< Meters per sec */
   double rotational_velocity = 0.0;      /**< Degrees per sec */
+  double steering_angle = 0.0;           /**< Degrees */
   std::chrono::time_point<std::chrono::high_resolution_clock>
       last_update; /**< Timestamp of last update */
 };
@@ -66,5 +70,7 @@ struct Map {
   std::chrono::time_point<std::chrono::high_resolution_clock>
       last_update; /**< Timestamp of last update */
 };
+
+enum Mission { acceleration, skidpad, trackdrive, autocross };
 
 #endif  // SRC_LOC_MAP_INCLUDE_LOC_MAP_DATA_STRUCTURES_HPP_

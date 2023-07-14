@@ -8,16 +8,14 @@
 #include "../utils/position.hpp"
 #include "./track.hpp"
 
-using namespace std;
-
 /**
  * PathPlanner class. Contains the best path calculation methods and stores the
  * results and inputs
  */
 
 class GlobalPathPlanner {
-  Track* track;                /**<track input data */
-  vector<Position*> finalPath; /**<path calculation result */
+  Track* track;                      // track input data
+  std::vector<Position*> finalPath;  // path calculation result
 
  public:
   /**
@@ -44,7 +42,7 @@ class GlobalPathPlanner {
    * Retrieves the final path using copied values. Used for testing purposes
    * @return
    */
-  vector<pair<float, float>> getPath();
+  std::vector<std::pair<float, float>> getPath();
 
   // void sendPath(); // TODO(andre): send path to controller
 };

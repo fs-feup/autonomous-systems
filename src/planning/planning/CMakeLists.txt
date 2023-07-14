@@ -11,6 +11,8 @@ find_package(ament_index_cpp REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(custom_interfaces REQUIRED)
+find_package(eufs_msgs REQUIRED)
+find_package(fs_msgs REQUIRED)
 # sudo apt-get install libcgal-dev libgmp-dev libmpfr-dev
 
 set(GMP_DIR ${CGAL_INSTALLATION_PACKAGE_DIR}/auxiliary/gmp/)
@@ -19,21 +21,27 @@ find_package(GMP)
 find_package(MPFR)
 # find_package(Qt5)
 
-set(TESTFILES 
-    src/tests/main.cpp
-    src/tests/tests.cpp
-    )
+set(TESTFILES
+  test/main.cpp
+  test/tests.cpp
+)
 
 set(IMPLEMENTATION_FILES
-   src/global_path_planner.cpp src/local_path_planner.cpp src/track.cpp
-   src/utils/cone.cpp src/utils/position.cpp
+  src/adapter/adapter.cpp
+  src/planning/global_path_planner.cpp
+  src/planning/local_path_planner.cpp
+  src/planning/track.cpp
+  src/planning/planning.cpp
+  src/utils/cone.cpp
+  src/utils/position.cpp
+  src/utils/files.cpp
 )
 
 add_definitions(-DCGAL_USE_BASIC_VIEWER)
 set(CMAKE_BUILD_TYPE "Release")
 
-add_executable(planning src/orchestrator.cpp ${IMPLEMENTATION_FILES})
-ament_target_dependencies(planning ament_index_cpp rclcpp std_msgs custom_interfaces)
+add_executable(planning src/main.cpp ${IMPLEMENTATION_FILES})
+ament_target_dependencies(planning ament_index_cpp rclcpp std_msgs custom_interfaces eufs_msgs fs_msgs)
 
 # Link the CGAL library and its dependencies to the target
 target_link_libraries(planning ${CGAL_LIBRARIES} ${GMP_LIBRARIES} ${MPFR_LIBRARIES} ${QT5_LIBRARIES})
@@ -46,19 +54,20 @@ target_compile_features(planning PUBLIC c_std_99 cxx_std_17)
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   find_package(ament_cmake_gtest REQUIRED)
-  ament_lint_auto_find_test_dependencies()
-endif()
+  # ament_lint_auto_find_test_dependencies()
 
-ament_add_gtest(planning_test ${TESTFILES} ${IMPLEMENTATION_FILES})
-ament_target_dependencies(planning_test ament_index_cpp rclcpp std_msgs custom_interfaces)
-target_include_directories(planning_test PUBLIC
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:include>)
-target_link_libraries(planning_test ${CGAL_LIBRARIES} ${GMP_LIBRARIES} ${MPFR_LIBRARIES} ${QT5_LIBRARIES})
+  ament_add_gtest(planning_test ${TESTFILES} ${IMPLEMENTATION_FILES})
+  ament_target_dependencies(planning_test ament_index_cpp rclcpp std_msgs custom_interfaces eufs_msgs fs_msgs)
+  target_include_directories(planning_test PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>)
+  target_link_libraries(planning_test ${CGAL_LIBRARIES} ${GMP_LIBRARIES} ${MPFR_LIBRARIES} ${QT5_LIBRARIES})
+
+  install(TARGETS
+    planning
+    planning_test
+    DESTINATION lib/${PROJECT_NAME})
+endif()
 
 ament_package()
 
-install(TARGETS
-  planning
-  planning_test
-  DESTINATION lib/${PROJECT_NAME})

@@ -1,9 +1,28 @@
 #include "kalman_filter/motion_models.hpp"
 
+#include <iostream>
+
 #include "utils/formulas.hpp"
 
+MotionModel::MotionModel(const Eigen::MatrixXf& process_noise_covariance_matrix)
+    : _process_noise_covariance_matrix(process_noise_covariance_matrix) {}
+
+NormalVelocityModel::NormalVelocityModel(const Eigen::MatrixXf& process_noise_covariance_matrix)
+    : MotionModel(process_noise_covariance_matrix) {}
+
+ImuVelocityModel::ImuVelocityModel(const Eigen::MatrixXf& process_noise_covariance_matrix)
+    : MotionModel(process_noise_covariance_matrix) {}
+
+Eigen::MatrixXf MotionModel::get_process_noise_covariance_matrix(
+    const unsigned int state_size) const {
+  return Eigen::MatrixXf::Identity(state_size, 3) * this->_process_noise_covariance_matrix *
+         Eigen::MatrixXf::Identity(3, state_size);
+}
+
+/*------------------------Normal Velocity Model-----------------------*/
+
 Eigen::VectorXf NormalVelocityModel::predict_expected_state(
-    const Eigen::VectorXf& expected_state, const MotionPredictionData& motion_prediction_data,
+    const Eigen::VectorXf& expected_state, const MotionUpdate& motion_prediction_data,
     const double time_interval) const {
   Eigen::VectorXf next_state = expected_state;
   if (motion_prediction_data.rotational_velocity == 0.0) {  // Rectilinear movement
@@ -33,8 +52,9 @@ Eigen::VectorXf NormalVelocityModel::predict_expected_state(
 }
 
 Eigen::MatrixXf NormalVelocityModel::get_motion_to_state_matrix(
-    const Eigen::VectorXf& expected_state, const MotionPredictionData& motion_prediction_data,
-    const double time_interval) const {
+    const Eigen::VectorXf& expected_state,
+    [[maybe_unused]] const MotionUpdate& motion_prediction_data,
+    [[maybe_unused]] const double time_interval) const {
   Eigen::MatrixXf jacobian =
       Eigen::MatrixXf::Identity(expected_state.size(), expected_state.size());
 
@@ -63,9 +83,11 @@ Eigen::MatrixXf NormalVelocityModel::get_motion_to_state_matrix(
   return jacobian;
 }
 
-Eigen::VectorXf ImuVelocityModel::predict_expected_state(
-    const Eigen::VectorXf& expected_state, const MotionPredictionData& motion_prediction_data,
-    const double time_interval) const {
+/*----------------------IMU Velocity Model ------------------------*/
+
+Eigen::VectorXf ImuVelocityModel::predict_expected_state(const Eigen::VectorXf& expected_state,
+                                                         const MotionUpdate& motion_prediction_data,
+                                                         const double time_interval) const {
   Eigen::VectorXf next_state = expected_state;
   next_state(0) += motion_prediction_data.translational_velocity_x * time_interval;
   next_state(1) += motion_prediction_data.translational_velocity_y * time_interval;
@@ -74,11 +96,12 @@ Eigen::VectorXf ImuVelocityModel::predict_expected_state(
   return next_state;
 }
 
-// TODO(marhcouto): check what to do about the unused paramter warnings
 Eigen::MatrixXf ImuVelocityModel::get_motion_to_state_matrix(
-    const Eigen::VectorXf& expected_state, const MotionPredictionData& motion_prediction_data,
-    const double time_interval) const {  // In this implementation, as the motion model is already
-                                         // linear, we do not use the derivative of the model
+    const Eigen::VectorXf& expected_state,
+    [[maybe_unused]] const MotionUpdate& motion_prediction_data,
+    [[maybe_unused]] const double time_interval)
+    const {  // In this implementation, as the motion model is already
+             // linear, we do not use the derivative of the model
   Eigen::MatrixXf motion_to_state_matrix =
       Eigen::MatrixXf::Identity(expected_state.size(), expected_state.size());
 

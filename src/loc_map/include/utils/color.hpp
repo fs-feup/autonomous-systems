@@ -15,13 +15,8 @@ enum Color {
   orange,
   large_orange,
 };
-static const char* color_names[] = {"blue_cone", "yellow_cone", "orange_cone", "large_orange_cone"};
-static const std::map<std::string, Color> color_map = {
-    {"blue_cone", Color::blue},
-    {"yellow_cone", Color::yellow},
-    {"orange_cone", Color::orange},
-    {"large_orange_cone", Color::large_orange},
-};
+extern const char* color_names[4];
+extern const std::map<std::string, Color> color_map;
 }  // namespace colors
 
 #endif  // SRC_LOC_MAP_INCLUDE_UTILS_COLOR_HPP_

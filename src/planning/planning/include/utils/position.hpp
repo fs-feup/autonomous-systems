@@ -2,6 +2,7 @@
 #define SRC_PLANNING_PLANNING_INCLUDE_UTILS_POSITION_HPP_
 
 #include <cmath>
+#include <fstream>
 #include <vector>
 
 /**
@@ -15,16 +16,14 @@ class Position {
 
   float getX() const;
 
-  // void setX(float x);
-
   float getY() const;
-
-  // void setY(float y);
 
   /**
    * Euclidean distance to another position
    */
   float getDistanceTo(Position* dest);
+
+  bool operator==(const Position& p) const;
 };
 
 #endif  // SRC_PLANNING_PLANNING_INCLUDE_UTILS_POSITION_HPP_
