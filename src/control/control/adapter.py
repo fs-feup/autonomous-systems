@@ -124,8 +124,9 @@ class ControlAdapter():
         steering_angle = msg.steering_angle
 
         self.node.get_logger().info(
-            "[localization] ({}, {})\t{} rad\{} m/s\t{} rad".format(
-                msg.position.x, msg.position.y, msg.theta, msg.velocity, msg.steering_angle
+            "[localization] ({}, {})\t{} rad\t{} m/s\t{} rad".format(
+                msg.position.x, msg.position.y, msg.theta,
+                msg.velocity, msg.steering_angle
             )
         )
 
