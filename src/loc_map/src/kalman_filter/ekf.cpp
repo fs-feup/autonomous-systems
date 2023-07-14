@@ -8,38 +8,31 @@
 
 float ExtendedKalmanFilter::max_landmark_deviation = 0.1;
 
-ExtendedKalmanFilter::ExtendedKalmanFilter(VehicleState* vehicle_state, Map* map,
-                                           MotionUpdate* motion_update, Map* map_from_perception,
-                                           const MotionModel& motion_model,
+ExtendedKalmanFilter::ExtendedKalmanFilter(const MotionModel& motion_model,
                                            const ObservationModel& observation_model)
     : X(Eigen::VectorXf::Zero(3)),
       P(Eigen::MatrixXf::Zero(3, 3)),
-      _vehicle_state(vehicle_state),
-      _map(map),
-      _motion_update(motion_update),
-      _map_from_perception(map_from_perception),
       _last_update(std::chrono::high_resolution_clock::now()),
       _motion_model(motion_model),
-      _observation_model(observation_model),
-      _last_motion_update(*motion_update) {}
+      _observation_model(observation_model) {}
 
-void ExtendedKalmanFilter::prediction_step() {
+void ExtendedKalmanFilter::prediction_step(const MotionUpdate& motion_update) {
   std::chrono::time_point<std::chrono::high_resolution_clock> now =
       std::chrono::high_resolution_clock::now();
   double delta =
       std::chrono::duration_cast<std::chrono::microseconds>(now - this->_last_update).count();
-  this->_last_motion_update = *(this->_motion_update);
-  this->X = this->_motion_model.predict_expected_state(X, *(this->_motion_update), delta / 1000000);
+  this->_last_motion_update = motion_update;
+  this->X = this->_motion_model.predict_expected_state(X, motion_update, delta / 1000000);
   Eigen::MatrixXf G =
-      this->_motion_model.get_motion_to_state_matrix(X, *(this->_motion_update), delta / 1000000);
+      this->_motion_model.get_motion_to_state_matrix(X, motion_update, delta / 1000000);
   Eigen::MatrixXf R = this->_motion_model.get_process_noise_covariance_matrix(
       this->X.size());  // Process Noise Matrix
   this->P = G * this->P * G.transpose() + R;
   this->_last_update = now;
 }
 
-void ExtendedKalmanFilter::correction_step() {
-  for (auto cone : this->_map_from_perception->map) {
+void ExtendedKalmanFilter::correction_step(const Map& perception_map) {
+  for (auto cone : perception_map.map) {
     ObservationData observation_data = ObservationData(cone.first.x, cone.first.y, cone.second);
     unsigned int landmark_index = this->discovery(observation_data);
     Eigen::MatrixXf H = this->_observation_model.get_state_to_observation_matrix(
@@ -57,7 +50,7 @@ void ExtendedKalmanFilter::correction_step() {
 Eigen::MatrixXf ExtendedKalmanFilter::get_kalman_gain(const Eigen::MatrixXf& H,
                                                       const Eigen::MatrixXf& P,
                                                       const Eigen::MatrixXf& Q) {
-  Eigen::MatrixXf S = H * P * H.transpose() + Q;  // TODO(marhcouto): Add Q
+  Eigen::MatrixXf S = H * P * H.transpose() + Q;
   Eigen::MatrixXf K = P * H.transpose() * S.inverse();
   return K;
 }
@@ -82,13 +75,11 @@ unsigned int ExtendedKalmanFilter::discovery(const ObservationData& observation_
   return this->X.size() - 2;
 }
 
-void ExtendedKalmanFilter::update() {
-  this->_vehicle_state->pose = Pose(X(0), X(1), X(2));
-  this->_vehicle_state->steering_angle = this->_last_motion_update.steering_angle;
-  this->_vehicle_state->translational_velocity = this->_last_motion_update.translational_velocity;
-  this->_map->map.clear();
+void ExtendedKalmanFilter::update(VehicleState* vehicle_state, Map* track_map) {
+  vehicle_state->pose = Pose(X(0), X(1), X(2));
+  track_map->map.clear();
   for (int i = 3; i < this->X.size() - 1; i += 2) {
-    this->_map->map.insert(
+    track_map->map.insert(
         std::pair<Position, colors::Color>(Position(X(i), X(i + 1)), this->_colors[(i - 3) / 2]));
   }
 }

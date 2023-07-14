@@ -1,8 +1,6 @@
 #include <cstdio>
 
-#include "loc_map/lm_ekf_node.hpp"
-#include "loc_map/lm_publisher.hpp"
-#include "loc_map/lm_subscriber.hpp"
+#include "loc_map/lm_node.hpp"
 #include "rclcpp/rclcpp.hpp"
 
 /**
@@ -30,22 +28,22 @@ int main(int argc, char **argv) {
   MotionModel *motion_model = new NormalVelocityModel(R);
   ObservationModel observation_model = ObservationModel(Q);
 
-  ExtendedKalmanFilter *ekf = new ExtendedKalmanFilter(
-      vehicle_state, track_map, motion_update, predicted_map, *motion_model, observation_model);
+  ExtendedKalmanFilter *ekf = new ExtendedKalmanFilter(*motion_model, observation_model);
 
   (void)argc;
   (void)argv;
   rclcpp::init(argc, argv);
 
-  auto subscriber = std::make_shared<LMSubscriber>(predicted_map, motion_update, true);
-  auto publisher = std::make_shared<LMPublisher>(track_map, vehicle_state);
-  auto ekf_node = std::make_shared<EKFNode>(
-      ekf);  // TODO(marhcouto): check if this is the best distribution of nodes
+  auto subscriber =
+      std::make_shared<LMNode>(ekf, predicted_map, motion_update, track_map, vehicle_state, true);
+  // auto publisher = std::make_shared<LMPublisher>(track_map, vehicle_state);
+  // auto ekf_node = std::make_shared<EKFNode>(
+  //     ekf);  // TODO(marhcouto): check if this is the best distribution of nodes
 
   rclcpp::executors::MultiThreadedExecutor executor;
   executor.add_node(subscriber);
-  executor.add_node(publisher);
-  executor.add_node(ekf_node);
+  // executor.add_node(publisher);
+  // executor.add_node(ekf_node);
 
   while (rclcpp::ok()) {
     executor.spin_some();
