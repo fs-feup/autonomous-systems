@@ -1,8 +1,6 @@
 #include "adapter/adapter.hpp"
 
-#include "loc_map/lm_subscriber.hpp"
-
-Adapter::Adapter(std::string mode, LMSubscriber* subscriber) {
+Adapter::Adapter(std::string mode, LMNode* subscriber) {
   this->node = subscriber;
 
   if (mode == "eufs") {
@@ -15,12 +13,15 @@ Adapter::Adapter(std::string mode, LMSubscriber* subscriber) {
 }
 
 void Adapter::eufs_init() {
-  this->node->create_subscription<sensor_msgs::msg::Imu>(
+  this->_eufs_imu_subscription = this->node->create_subscription<sensor_msgs::msg::Imu>(
       "/imu/data", rclcpp::QoS(10).reliability(RMW_QOS_POLICY_RELIABILITY_BEST_EFFORT),
       std::bind(&Adapter::imu_subscription_callback, this, std::placeholders::_1));
-  this->node->create_subscription<eufs_msgs::msg::WheelSpeedsStamped>(
-      "/ros_can/wheel_speeds", 10,
-      std::bind(&Adapter::eufs_wheel_speeds_subscription_callback, this, std::placeholders::_1));
+  this->_eufs_wheel_speeds_subscription =
+      this->node->create_subscription<eufs_msgs::msg::WheelSpeedsStamped>(
+          "/ros_can/wheel_speeds",
+          rclcpp::QoS(10).reliability(RMW_QOS_POLICY_RELIABILITY_BEST_EFFORT),
+          std::bind(&Adapter::eufs_wheel_speeds_subscription_callback, this,
+                    std::placeholders::_1));
 
   // mission control
   this->node->create_subscription<eufs_msgs::msg::CanState>(
@@ -32,10 +33,10 @@ void Adapter::eufs_init() {
 }
 
 void Adapter::fsds_init() {
-  this->node->create_subscription<sensor_msgs::msg::Imu>(
+  this->_fs_imu_subscription = this->node->create_subscription<sensor_msgs::msg::Imu>(
       "/imu", rclcpp::QoS(10).reliability(RMW_QOS_POLICY_RELIABILITY_BEST_EFFORT),
       std::bind(&Adapter::imu_subscription_callback, this, std::placeholders::_1));
-  this->node->create_subscription<fs_msgs::msg::WheelStates>(
+  this->_fs_wheel_speeds_subscription = this->node->create_subscription<fs_msgs::msg::WheelStates>(
       "/wheel_states", 10,
       std::bind(&Adapter::fsds_wheel_speeds_subscription_callback, this, std::placeholders::_1));
 

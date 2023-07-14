@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 #include "kalman_filter/motion_models.hpp"
-#include "loc_map/lm_subscriber.hpp"
+#include "loc_map/lm_node.hpp"
 
 /* ---------------------- Motion Model -------------------------------------*/
 
@@ -234,7 +234,7 @@ TEST(ODOMETRY_SUBSCRIBER, CONVERSION_TEST) {
   double lf_speed = 60;
   double rf_speed = 60;
   double steering_angle = 0;
-  MotionUpdate velocity_data = LMSubscriber::odometry_to_velocities_transform(
+  MotionUpdate velocity_data = LMNode::odometry_to_velocities_transform(
       lb_speed, rb_speed, lf_speed, rf_speed, steering_angle);
   EXPECT_NEAR(velocity_data.translational_velocity, 1.5708, 0.0001);
   EXPECT_DOUBLE_EQ(velocity_data.rotational_velocity, 0);
@@ -247,8 +247,8 @@ TEST(ODOMETRY_SUBSCRIBER, CONVERSION_TEST) {
   lf_speed = 60;
   rf_speed = 60;
   steering_angle = M_PI / 8;
-  velocity_data = LMSubscriber::odometry_to_velocities_transform(lb_speed, rb_speed, lf_speed,
-                                                                 rf_speed, steering_angle);
+  velocity_data = LMNode::odometry_to_velocities_transform(lb_speed, rb_speed, lf_speed, rf_speed,
+                                                           steering_angle);
   EXPECT_GE(velocity_data.translational_velocity, 1.5708);
   EXPECT_LE(velocity_data.translational_velocity, 1.5708 * 2);
   EXPECT_LE(velocity_data.rotational_velocity, M_PI);
@@ -262,7 +262,7 @@ TEST(ODOMETRY_SUBSCRIBER, CONVERSION_TEST) {
   lf_speed = 60;
   rf_speed = 60;
   steering_angle = -M_PI / 8;
-  MotionUpdate velocity_data_2 = LMSubscriber::odometry_to_velocities_transform(
+  MotionUpdate velocity_data_2 = LMNode::odometry_to_velocities_transform(
       lb_speed, rb_speed, lf_speed, rf_speed, steering_angle);
   EXPECT_GE(velocity_data_2.translational_velocity, 1.5708);
   EXPECT_LE(velocity_data_2.translational_velocity, 1.5708 * 2);

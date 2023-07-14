@@ -11,8 +11,8 @@ import torch
 import torch.backends.cudnn as cudnn
 
 from .utils.datasets import letterbox
-from .utils.general import (check_img_size, check_imshow, LOGGER,
-                                      non_max_suppression, scale_coords, xyxy2xywh)
+from .utils.general import (check_img_size, check_imshow,
+                            non_max_suppression, scale_coords, xyxy2xywh)
 from .utils.plots import Annotator, colors
 from perception.utils.torch_utils import time_sync
 

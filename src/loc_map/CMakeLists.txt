@@ -17,9 +17,7 @@ find_package(eufs_msgs REQUIRED)
 find_package(fs_msgs REQUIRED)
 
 set(IMPLEMENTATION_FILES 
-  src/loc_map/lm_subscriber.cpp
-  src/loc_map/lm_publisher.cpp
-  src/loc_map/lm_ekf_node.cpp
+  src/loc_map/lm_node.cpp
   src/kalman_filter/ekf.cpp
   src/kalman_filter/motion_models.cpp
   src/kalman_filter/observation_models.cpp
@@ -59,7 +57,7 @@ if(BUILD_TESTING)
 
   set(TESTFILES 
     test/main.cpp
-    test/lm_publisher_test.cpp
+    test/integration_test.cpp
     test/motion_model_test.cpp
     test/observation_model_test.cpp
     test/slam_test.cpp

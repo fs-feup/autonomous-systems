@@ -37,10 +37,6 @@ class ExtendedKalmanFilter {
   Eigen::MatrixXf P;                  /**< State covariance matrix */
   std::vector<colors::Color> _colors; /**< Vector of colors of the landmarks */
 
-  VehicleState* _vehicle_state; /**< Pointer to the vehicle state to be published */
-  Map* _map;                    /**< Pointer to the map to be published */
-  MotionUpdate* _motion_update; /**< Pointer to the IMU update */
-  Map* _map_from_perception;    /**< Pointer to the map predicted from perception */
   std::chrono::time_point<std::chrono::high_resolution_clock>
       _last_update; /**< Timestamp of last update */
 
@@ -74,30 +70,29 @@ class ExtendedKalmanFilter {
   /**
    * @brief Construct a new Extended Kalman Filter object
    *
-   * @param vehicle_state pointer to the vehicle state to be published
-   * @param map pointer to the map to be published
-   * @param imu_update pointer to the data coming from IMU
-   * @param map_from_perception pointer to the map predicted from perception
    * @param motion_model motion model chosen for prediction step
    * @param observation_model observation model chosen for correction step
    */
-  ExtendedKalmanFilter(VehicleState* vehicle_state, Map* map, MotionUpdate* imu_update,
-                       Map* map_from_perception, const MotionModel& motion_model,
-                       const ObservationModel& observation_model);
+  ExtendedKalmanFilter(const MotionModel& motion_model, const ObservationModel& observation_model);
 
   /**
    * @brief Updates vehicle state and map variables according
    * to the state vector X
    *
+   * @param vehicle_state pose
+   * @param track_map map
+   *
    */
-  void update();
+  void update(VehicleState* vehicle_state, Map* track_map);
 
   /**
    * @brief Prediction step:
    * 1. Calculate the expected state regarding pose estimates
    * 2. Calculate the expected state covariance matrix regarding pose estimates
+   *
+   * @param motion_update data of motion (velocities)
    */
-  void prediction_step();
+  void prediction_step(const MotionUpdate& motion_update);
 
   /**
    * @brief Correction step:
@@ -105,11 +100,10 @@ class ExtendedKalmanFilter {
    * 2. Calculate the expected measurement
    * 3. Calculate the expected measurement covariance matrix
    *
+   * @param perception_map map from perception
    */
-  void correction_step();
+  void correction_step(const Map& perception_map);
 
-  VehicleState* get_vehicle_state() const { return this->_vehicle_state; }
-  Map* get_map() const { return this->_map; }
   std::chrono::time_point<std::chrono::high_resolution_clock> get_last_update() const {
     return this->_last_update;
   }

@@ -291,7 +291,7 @@ class Plots(Node):
 
     def plot_path_callback(self, msg):
         for point in msg.points:
-            self.map_points.append([point.x, point.y, self.path_color])
+            self.map_points.append(Cone(point.x, point.y, self.path_color))
 
 
     """!
