@@ -16,7 +16,7 @@ You work with your **shell always in the src directory**. In it, you can find mu
   colcon build --packages-select [your package and others necessary]
   source install/setup.bash
   ```
-- Run code (`ros-args` are optional) (check specific instructions for each node in [here](../docs/tutorials/project_general_tutorial.md))
+- Run code (`ros-args` are optional) (check specific instructions for each node in [here](../docs/tutorials/compile-test-run.md))
   ```sh
   ros2 run [package_name] [node_name] (--ros-args -p [param_name]:=[param_value])
   ```

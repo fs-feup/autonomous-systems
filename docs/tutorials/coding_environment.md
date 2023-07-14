@@ -1,15 +1,33 @@
 # Coding environment
 
-This tutorial aims to aid in teaching the developer how to use multiple tools established for this project, as well as creating a base ROS package.
+This tutorial aims to aid in teaching the developer how to use multiple tools established for this project, as well as creating the base environment for the project and understanding the project's structure.
+
+### Note:
+Before proceeding with this guide, please ensure that you have the following prerequisites in place:
+
+- [ROS2 and Simulator Setup](sim_setup_tutorial.md#Nonfunctional-requirements#Colcon-setup)
+
 
 ## Links
 
 - [SSH to Virtual Machine](https://averagelinuxuser.com/ssh-into-virtualbox/)
 - [VSCode](https://code.visualstudio.com/Download)
 
+## Cloning the project
+
+Before anything else, you need to clone the project into your laptop using [git](https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control). Make sure you setup an ssh connection with the repository. For more details on that, checkout the Github tutorials: [Generating a new SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) and [Adding a new SSH key to your GitHub account](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account).
+
 ## Project Structure
 
-This project is divided into multiple folders inside **src** folder. Each of these folders contain a ROS2 package. Essentially, the project is composed of multiple ROS2 packages whose nodes interact with each other in runtime. More details on the system's architecture can be found in [here](../project-specification.md). 
+This project is divided into multiple folders inside **src** folder. Each of these folders contain a ROS2 package. Essentially, the project is composed of multiple ROS2 packages whose nodes interact with each other in runtime. More details on the system's architecture can be found in [here](../project-specification.md).
+
+### Notes on C++ Modules
+
+- Each module is divided into three folders:
+  - **src:** executables *.cpp files
+  - **include:** libraries and headers *.hpp files
+  - **test:** test files
+- CMakeLists.txt is used as a build system (ROS2 default): it is a tool used to generate makefiles for c++. Everytime you creat e a new .cpp file, it must be added to the list of executable files in this CMakeLists.txt
 
 ## Coding Environment
 
