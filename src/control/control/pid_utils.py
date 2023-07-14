@@ -189,7 +189,7 @@ def steer(pos_error, yaw_error, ct_error, old_error):
     old_error = error
 
     # save reference in node's attribute to be accessed by other methods
-    return float(steer_angle), old_error
+    return np.clip(float(steer_angle), -P.MAX_STEER, P.MAX_STEER), old_error
 
 
 def get_torque_break_commands(actual_speed, desired_speed, old_error):
@@ -207,5 +207,4 @@ def get_torque_break_commands(actual_speed, desired_speed, old_error):
         # break
         break_req = -min(P.kp_break*error + P.kd_break*(error - old_error), 0)
 
-    return torque_req, break_req, error
-
+    return np.clip(torque_req, 0, P.MAX_TORQUE), np.clip(break_req, 0, P.MAX_BREAK), error
