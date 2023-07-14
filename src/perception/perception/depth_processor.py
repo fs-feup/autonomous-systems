@@ -103,10 +103,12 @@ class DepthProcessor():
         disparity_map = stereo.compute(left_gray, right_gray) + 0.0001
 
         # Convert disparity map to depth map
-        # focal length (in pixels), B = baseline (distance between the cameras), p = pixel size in real world coords
-        f = 700  # 700 for zed or zed mini
-        B = 0.120  # m
-        p = 0.004 # mm
+        # f = focal length (in pixels)
+        # B = baseline (distance between the cameras)
+        # p = pixel size in real world coords
+        f = 700  # 700 - zed & zed mini
+        B = 0.120  # meters
+        # p = 0.004 # milimeters
         
         self.depth_map = (f) * (B / disparity_map)
 

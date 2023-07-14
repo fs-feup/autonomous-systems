@@ -180,7 +180,7 @@ class perception(Node):
 
         parser = argparse.ArgumentParser()
         parser.add_argument('--interface', default="eufs")
-        parser.add_argument('--stereodepth', default=False)
+        parser.add_argument('--stereodepth', default=False, action="store_true")
         args = parser.parse_args()
 
         self.adapter = PerceptionAdapter(args.interface, self, args.stereodepth)

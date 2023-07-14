@@ -1,8 +1,8 @@
-from sensor_msgs.msg import Image, CameraInfo
+from sensor_msgs.msg import Image
 from rclpy.qos import qos_profile_sensor_data
 
 class PerceptionAdapter():
-    def __init__(self, mode, node, withDepth = False):
+    def __init__(self, mode, node, withDepth):
         self.mode = mode
         self.node = node
         self.depth = withDepth
@@ -14,7 +14,7 @@ class PerceptionAdapter():
         elif mode == "ads_dv":
             self.ads_dv_init()
 
-        if self.depth == True:
+        if self.depth:
             self.stereo_depth_init()
 
     def eufs_init(self):
