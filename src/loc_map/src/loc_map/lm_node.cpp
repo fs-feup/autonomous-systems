@@ -39,19 +39,19 @@ void LMNode::_perception_subscription_callback(const custom_interfaces::msg::Con
     return;
   }
   this->_perception_map->map.clear();
-  RCLCPP_INFO(this->get_logger(), "SUB - cones from perception:");
-  RCLCPP_INFO(this->get_logger(), "--------------------------------------");
+  RCLCPP_DEBUG(this->get_logger(), "SUB - cones from perception:");
+  RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
   for (auto& cone : cone_array) {
     auto position = Position();
     position.x = cone.position.x;
     position.y = cone.position.y;
     auto color = colors::color_map.at(cone.color);
 
-    RCLCPP_INFO(this->get_logger(), "(%f, %f)\t%s", position.x, position.y, cone.color.c_str());
+    RCLCPP_DEBUG(this->get_logger(), "(%f, %f)\t%s", position.x, position.y, cone.color.c_str());
 
     this->_perception_map->map.insert({position, color});
   }
-  RCLCPP_INFO(this->get_logger(), "--------------------------------------");
+  RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
 }
 
 void LMNode::_imu_subscription_callback(double angular_velocity, double acceleration_x,
@@ -79,13 +79,13 @@ void LMNode::_imu_subscription_callback(double angular_velocity, double accelera
                this->_motion_update->translational_velocity_x +
            this->_motion_update->translational_velocity_y *
                this->_motion_update->translational_velocity_y);
-  RCLCPP_INFO(this->get_logger(), "SUB - raw from IMU: ax:%f - ay:%f - w:%f", acceleration_x,
-              acceleration_y, this->_motion_update->rotational_velocity);
-  RCLCPP_INFO(this->get_logger(), "SUB - translated from IMU: v:%f - w:%f - vx:%f - vy:%f",
-              this->_motion_update->translational_velocity,
-              this->_motion_update->rotational_velocity,
-              this->_motion_update->translational_velocity_x,
-              this->_motion_update->translational_velocity_y);
+  RCLCPP_DEBUG(this->get_logger(), "SUB - raw from IMU: ax:%f - ay:%f - w:%f", acceleration_x,
+               acceleration_y, this->_motion_update->rotational_velocity);
+  RCLCPP_DEBUG(this->get_logger(), "SUB - translated from IMU: v:%f - w:%f - vx:%f - vy:%f",
+               this->_motion_update->translational_velocity,
+               this->_motion_update->rotational_velocity,
+               this->_motion_update->translational_velocity_x,
+               this->_motion_update->translational_velocity_y);
 }
 
 /**
@@ -136,18 +136,18 @@ void LMNode::_wheel_speeds_subscription_callback(double lb_speed, double lf_spee
   if (!this->_use_odometry) {
     return;
   }
-  RCLCPP_INFO(this->get_logger(),
-              "SUB - Raw from wheel speeds: lb:%f - rb:%f - lf:%f - rf:%f - steering: %f", lb_speed,
-              rb_speed, lf_speed, rf_speed, steering_angle);
+  RCLCPP_DEBUG(this->get_logger(),
+               "SUB - Raw from wheel speeds: lb:%f - rb:%f - lf:%f - rf:%f - steering: %f",
+               lb_speed, rb_speed, lf_speed, rf_speed, steering_angle);
   MotionUpdate motion_prediction_data = LMNode::odometry_to_velocities_transform(
       lb_speed, lf_speed, rb_speed, rf_speed, steering_angle);
   this->_motion_update->translational_velocity = motion_prediction_data.translational_velocity;
   this->_motion_update->rotational_velocity = motion_prediction_data.rotational_velocity;
   this->_motion_update->steering_angle = steering_angle;
   this->_motion_update->last_update = std::chrono::high_resolution_clock::now();
-  RCLCPP_INFO(this->get_logger(), "SUB - translated from wheel speeds: v:%f - w:%f",
-              this->_motion_update->translational_velocity,
-              this->_motion_update->rotational_velocity);
+  RCLCPP_DEBUG(this->get_logger(), "SUB - translated from wheel speeds: v:%f - w:%f",
+               this->_motion_update->translational_velocity,
+               this->_motion_update->rotational_velocity);
 }
 
 void LMNode::set_mission(Mission mission) { this->_mission = mission; }
@@ -175,17 +175,17 @@ void LMNode::_publish_localization() {
   message.velocity = this->_vehicle_state->translational_velocity;
   message.steering_angle = this->_vehicle_state->steering_angle;
 
-  RCLCPP_INFO(this->get_logger(), "PUB - Pose: (%f, %f, %f)", message.position.x,
-              message.position.y, message.theta);
-  RCLCPP_INFO(this->get_logger(), "PUB - Car Data: velocity -> %f  steering_angle -> %f",
-              message.velocity, message.steering_angle);
+  RCLCPP_DEBUG(this->get_logger(), "PUB - Pose: (%f, %f, %f)", message.position.x,
+               message.position.y, message.theta);
+  RCLCPP_DEBUG(this->get_logger(), "PUB - Car Data: velocity -> %f  steering_angle -> %f",
+               message.velocity, message.steering_angle);
   this->_localization_publisher->publish(message);
 }
 
 void LMNode::_publish_map() {
   auto message = custom_interfaces::msg::ConeArray();
-  RCLCPP_INFO(this->get_logger(), "PUB - cone map:");
-  RCLCPP_INFO(this->get_logger(), "--------------------------------------");
+  RCLCPP_DEBUG(this->get_logger(), "PUB - cone map:");
+  RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
   for (auto const& element : this->_track_map->map) {
     auto position = custom_interfaces::msg::Point2d();
     position.x = element.first.x;
@@ -195,10 +195,10 @@ void LMNode::_publish_map() {
     cone_message.position = position;
     cone_message.color = colors::color_names[element.second];
     message.cone_array.push_back(cone_message);
-    RCLCPP_INFO(this->get_logger(), "(%f\t%f)\t%s", cone_message.position.x,
-                cone_message.position.y, cone_message.color.c_str());
+    RCLCPP_DEBUG(this->get_logger(), "(%f\t%f)\t%s", cone_message.position.x,
+                 cone_message.position.y, cone_message.color.c_str());
   }
-  RCLCPP_INFO(this->get_logger(), "--------------------------------------");
+  RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
 
   this->_mapping_publisher->publish(message);
 }
@@ -214,13 +214,5 @@ void LMNode::_ekf_step() {
   this->_ekf->update(this->_vehicle_state, this->_track_map);
   this->_vehicle_state->translational_velocity = temp_update.translational_velocity;
   this->_vehicle_state->steering_angle = temp_update.steering_angle;
-  RCLCPP_INFO(this->get_logger(), "PUB - EFK Updated state: x:%lf  y:%lf  theta:%lf",
-              this->_vehicle_state->pose.position.x, this->_vehicle_state->pose.position.y,
-              this->_vehicle_state->pose.orientation);
-  RCLCPP_INFO(this->get_logger(), "--------------------------------------");
-  for (auto& cone : this->_track_map->map) {
-    RCLCPP_INFO(this->get_logger(), "(%lf, %lf) - color:%s", cone.first.x, cone.first.y,
-                colors::color_names[cone.second]);
-  }
-  RCLCPP_INFO(this->get_logger(), "--------------------------------------");
+  RCLCPP_DEBUG(this->get_logger(), "EKF - EFK Step");
 }

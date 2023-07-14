@@ -6,7 +6,7 @@
 
 #include "loc_map/data_structures.hpp"
 
-float ExtendedKalmanFilter::max_landmark_deviation = 0.1;
+float ExtendedKalmanFilter::max_landmark_deviation = 0.3;
 
 ExtendedKalmanFilter::ExtendedKalmanFilter(const MotionModel& motion_model,
                                            const ObservationModel& observation_model)

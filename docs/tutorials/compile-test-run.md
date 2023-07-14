@@ -57,7 +57,7 @@ ros2 run control_mpc control_mpc
 
 You can also change the **log configurations** of the running node:
 ```sh
-ros2 run [package_name] [node_name] --ros-args --log-level [log_level] # Can be warn, error, info and debug
+ros2 run [package_name] [node_name] --ros-args --log-level [node_name]:=[log_level] # Can be warn, error, info and debug
 ```
 
 
