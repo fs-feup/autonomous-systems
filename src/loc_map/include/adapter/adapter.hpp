@@ -10,14 +10,20 @@
 #include "fs_msgs/msg/go_signal.hpp"
 #include "fs_msgs/msg/wheel_states.hpp"
 #include "loc_map/data_structures.hpp"
+#include "loc_map/lm_node.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/imu.hpp"
 
-class LMSubscriber;
+class LMNode;
 
 class Adapter {
-  LMSubscriber* node;
+  LMNode* node;
   Mission mission = Mission::acceleration;
+
+  rclcpp::Subscription<sensor_msgs::msg::Imu>::SharedPtr _eufs_imu_subscription;
+  rclcpp::Subscription<eufs_msgs::msg::WheelSpeedsStamped>::SharedPtr _eufs_wheel_speeds_subscription;
+  rclcpp::Subscription<sensor_msgs::msg::Imu>::SharedPtr _fs_imu_subscription;
+  rclcpp::Subscription<fs_msgs::msg::WheelStates>::SharedPtr _fs_wheel_speeds_subscription;
 
   rclcpp::Client<eufs_msgs::srv::SetCanState>::SharedPtr eufs_mission_state_client_;
   rclcpp::Client<eufs_msgs::srv::SetCanState>::SharedPtr eufs_ebs_client_;
@@ -37,7 +43,7 @@ class Adapter {
   void eufs_set_mission_state(int mission, int state);
 
  public:
-  Adapter(std::string mode, LMSubscriber* subscriber);
+  Adapter(std::string mode, LMNode* subscriber);
 
   void set_mission(Mission mission);
 };

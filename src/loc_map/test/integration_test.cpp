@@ -1,4 +1,4 @@
-#include "loc_map/lm_publisher.hpp"
+#include "loc_map/lm_node.hpp"
 
 #include "gtest/gtest.h"
 #include "rclcpp/rclcpp.hpp"
@@ -79,12 +79,12 @@ class TestSubscriber : public rclcpp::Node {
 };
 
 /**
- * @brief TEST for LMPublisher class
- * tests if the publisher node is publishing the messages
+ * @brief TEST for LMNode class
+ * tests if the node is publishing the messages
  * and if they are in the correct format and correct topics
  *
  */
-TEST(LM_PUBLISHER_TEST_SUITE, PUBLISHER_INTEGRATION_TEST) {
+TEST(LM_PUBLISH_TEST_SUITE, PUBLISH_INTEGRATION_TEST) {
   // Data
   VehicleState *vehicle_state = new VehicleState();
   Map *track_map = new Map();
@@ -93,10 +93,13 @@ TEST(LM_PUBLISHER_TEST_SUITE, PUBLISHER_INTEGRATION_TEST) {
   track_map->map.insert({{1, 6}, colors::yellow});
 
   rclcpp::init(0, nullptr);
+  if (rcutils_logging_set_logger_level("loc_map", RCUTILS_LOG_SEVERITY_ERROR) != RCUTILS_RET_OK) {
+    RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "Error setting logger level");
+  } // suppress warnings and info
 
   // Nodes
   auto tester = std::make_shared<TestSubscriber>();
-  auto publisher = std::make_shared<LMPublisher>(track_map, vehicle_state);
+  auto publisher = std::make_shared<LMNode>(nullptr, nullptr, nullptr, track_map, vehicle_state, true);
 
   rclcpp::executors::MultiThreadedExecutor executor;
   executor.add_node(tester);
@@ -108,15 +111,17 @@ TEST(LM_PUBLISHER_TEST_SUITE, PUBLISHER_INTEGRATION_TEST) {
   EXPECT_GE((int)tester->get_localization_messages().size(), 3);
 
   for (auto msg : tester->get_localization_messages()) {
-    EXPECT_TRUE(msg.position.x < 10000 && msg.position.x >= -10000);
-    EXPECT_TRUE(msg.position.y < 10000 && msg.position.y >= -10000);
-    EXPECT_TRUE(msg.theta < 360 && msg.theta >= 0);
+    EXPECT_EQ(msg.position.x, 0);
+    EXPECT_EQ(msg.position.y, 0);
+    EXPECT_EQ(msg.theta, 0);
+    EXPECT_EQ(msg.velocity, 0);
+    EXPECT_EQ(msg.steering_angle, 0);
   }
 
   for (auto msg : tester->get_mapping_messages()) {
     for (auto cone : msg.cone_array) {
-      EXPECT_TRUE(cone.position.x < 10000 && cone.position.x >= -10000);
-      EXPECT_TRUE(cone.position.y < 10000 && cone.position.y >= -10000);
+      EXPECT_EQ(cone.position.x, 1);
+      EXPECT_TRUE(cone.position.y <= 6 && cone.position.y >= 2);
       EXPECT_TRUE(cone.color == colors::color_names[colors::blue] ||
                   cone.color == colors::color_names[colors::yellow]);
     }

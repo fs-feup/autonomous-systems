@@ -57,7 +57,7 @@ void ExtendedKalmanFilter::correction_step() {
 Eigen::MatrixXf ExtendedKalmanFilter::get_kalman_gain(const Eigen::MatrixXf& H,
                                                       const Eigen::MatrixXf& P,
                                                       const Eigen::MatrixXf& Q) {
-  Eigen::MatrixXf S = H * P * H.transpose() + Q;  // TODO(marhcouto): Add Q
+  Eigen::MatrixXf S = H * P * H.transpose() + Q; 
   Eigen::MatrixXf K = P * H.transpose() * S.inverse();
   return K;
 }
