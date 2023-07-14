@@ -6,10 +6,16 @@ import cv2
 from custom_interfaces.msg import Cone, ConeArray, Point2d
 from cv_bridge import CvBridge
 
+
 class DepthProcessor():
     def __init__(self, logger):
         self.logger = logger
         self.bridge = CvBridge()
+
+        # Calculate stereo depth
+        self.image_left=[]
+        self.image_right=[]
+        self.depthmap = []
 
     def process(self, msg, img):
         cone_array = ConeArray()
@@ -72,3 +78,39 @@ class DepthProcessor():
         self.bounding_boxes_msgs = []
         self.image = None
         return cone_array
+
+    def recv_stereo_img(self, image, side):
+        if side == 1:
+            self.image_left = self.bridge.imgmsg_to_cv2(image, "bgr8")
+            if self.image_right != []:
+                self.calculate_depthmap()
+
+        if side == 0:
+            self.image_right = self.bridge.imgmsg_to_cv2(image, "bgr8")
+            if self.image_left != []:
+                self.calculate_depthmap()
+
+
+    def calculate_depthmap(self):
+        # Convert images to gray scale
+        left_gray = cv2.cvtColor(self.image_left, cv2.COLOR_BGR2GRAY)
+        right_gray = cv2.cvtColor(self.image_right, cv2.COLOR_BGR2GRAY)
+
+        # Set up stereo parameters
+        stereo = cv2.StereoBM_create(numDisparities=64, blockSize=25)
+
+        # Compute disparity map - 1e4 offset to protect divs by 0
+        disparity_map = stereo.compute(left_gray, right_gray) + 0.0001
+
+        # Convert disparity map to depth map
+        # focal length (in pixels), B = baseline (distance between the cameras), p = pixel size in real world coords
+        f = 700  # 700 for zed or zed mini
+        B = 0.120  # m
+        p = 0.004 # mm
+        
+        self.depth_map = (f) * (B / disparity_map)
+
+        # Plot depth map
+        cv2.imshow('Depth Map', self.depth_map)
+        cv2.waitKey(0)  
+        cv2.destroyAllWindows() 

@@ -177,7 +177,7 @@ class perception(Node):
 
         self.bridge = CvBridge()
 
-        self.adapter = PerceptionAdapter("eufs", self)
+        self.adapter = PerceptionAdapter("eufs", self) # 3rd arg as true to get stereo cam depth map
         self.pub_cone_coordinates = self.create_publisher(ConeArray, 
                                                           'perception/cone_coordinates', 
                                                           10)
@@ -251,6 +251,12 @@ class perception(Node):
         cone_array = self.depth_processor.process(msg, image_raw)
         self.pub_cone_coordinates.publish(cone_array)
         LOGGER.info("")
+
+    def left_callback(self, image:Image):
+        self.depth_processor.recv_stereo_img(image, 1) # 1 for left
+
+    def right_callback(self, image:Image):
+        self.depth_processor.recv_stereo_img(image, 0) # 0 for right
 
 def ros_main(args=None):
     rclpy.init(args=args)
