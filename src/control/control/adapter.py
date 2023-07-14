@@ -4,6 +4,9 @@ from eufs_msgs.msg import CanState
 from eufs_msgs.srv import SetCanState
 from fs_msgs.msg import ControlCommand
 
+# used for testing purposes only
+# from nav_msgs.msg import Odometry
+
 import math
 from .mpc_utils import wheels_vel_2_vehicle_vel
 from tf_transformations import euler_from_quaternion
@@ -111,13 +114,18 @@ class ControlAdapter():
 
     def localization_callback(self, msg):
         position = msg.position
-        yaw = msg.theta
-        speed = msg.speed
+        yaw = msg.theta 
+        
+        # convert from [0, 2pi] to [-pi, pi]
+        if yaw > math.pi:
+            yaw -= 2 * math.pi
+
+        speed = msg.velocity
         steering_angle = msg.steering_angle
 
         self.node.get_logger().info(
             "[localization] ({}, {})\t{} rad\{} m/s\t{} rad".format(
-                msg.position.x, msg.position.y, msg.theta, msg.speed, msg.steering_angle
+                msg.position.x, msg.position.y, msg.theta, msg.velocity, msg.steering_angle
             )
         )
 
@@ -135,11 +143,13 @@ class ControlAdapter():
         speed = math.sqrt(decomp_speed.x**2 + decomp_speed.y**2)
         steering_angle = self.node.steering_angle_command
 
-        print("actual speed: ", speed)
-        print("actual steering angle: ", steering_angle)
-
         # Converts quartenions base to euler's base, and updates the class' attributes
         yaw = euler_from_quaternion(orientation_list)[2]
+
+        print("actual speed: ", speed)
+        print("actual steering angle: ", steering_angle)
+        print("yaw: ", yaw)
+
         self.node.mpc_callback(position, yaw, speed, steering_angle)
         # self.node.pid_callback(position, yaw)
 
