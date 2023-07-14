@@ -1,20 +1,46 @@
 import numpy as np
 import math
-
 from scipy import interpolate
+from .config import Params
 
-def get_closest_point(position, points_array):
-    """!
-    @brief Gets the closest point to the given position.
-    @param position List with x and y coordinates.
-    @param points_array Numpy array of points.
-    @return Closest point to position in points_array.
+P = Params()
+
+def get_closest_point(state, path, old_nn_idx=None, search_window=None):
+    """
+    Computes the index of the waypoint closest to vehicle
     """
 
-    dists_sqrd = np.sum((points_array - position)**2, axis=1)
-    closest_index = np.argmin(dists_sqrd)
+    if old_nn_idx and search_window:
+        windowed_path = path[max(old_nn_idx - search_window, 0): 
+                            min(old_nn_idx + search_window, path.shape[0]), :]
 
-    return points_array[closest_index], closest_index
+        index_offset = max(old_nn_idx - search_window, 0)
+    else:
+
+        windowed_path = path
+        index_offset = 0
+    
+    dx = state[0] - windowed_path[:, 0]
+    dy = state[1] - windowed_path[:, 1]
+
+    dist = np.hypot(dx, dy)
+    
+    nn_idx = np.argmin(dist) + index_offset
+    
+    try:
+        v = [
+            path[nn_idx + 1, 0] - path[nn_idx, 0],
+            path[nn_idx + 1, 1] - path[nn_idx, 1],
+        ]
+        v /= np.linalg.norm(v)
+        d = [path[nn_idx, 0] - state[0], path[nn_idx, 1] - state[1]]
+        if np.dot(d, v) > 0:
+            target_idx = nn_idx
+        else:
+            target_idx = nn_idx + 1
+    except IndexError:
+        target_idx = nn_idx
+    return target_idx
 
 
 def get_position_error(pose, closest_point):
@@ -81,7 +107,7 @@ def get_cte(closest_index, points_array, pose_car):
     n_new_points = 50
 
     filtered_points = points_array[max(closest_index-win_amplitude, 0):
-                                   min(closest_index+win_amplitude, 26), :]
+        min(closest_index+win_amplitude, len(points_array)), :]
 
     tck, u = interpolate.splprep([filtered_points[:, 0], filtered_points[:, 1]],
                                   s=0, per=False)
@@ -89,7 +115,7 @@ def get_cte(closest_index, points_array, pose_car):
 
     new_points_array = np.concatenate((x0[:, np.newaxis], y0[:, np.newaxis]), axis=1)
 
-    _, new_closest_index = get_closest_point([x_car, y_car], new_points_array)
+    new_closest_index = get_closest_point([x_car, y_car], new_points_array)
 
     closest1 = new_points_array[new_closest_index]
     x_track = closest1[0]
@@ -140,25 +166,9 @@ def get_cte(closest_index, points_array, pose_car):
     return math.sin(yaw_car - yaw_track)*car_to_intersect*mult
     
 
-def get_reference_speed(speeds, closest_index):
+def get_speed_command(speeds, closest_index):
     return speeds[closest_index]
 
-def get_speed_error(lin_speed, ref_speed):
-    return ref_speed - lin_speed
-
-def accelerate(error):
-    """!
-    @brief Accelerates the car.
-    @param self The object pointer.
-    @param speed_error Speed Error.
-    """
-    # PID params
-    kp = 1
-
-    # calculate acceleration command
-    acceleration = kp*min(error, 10000000)
-
-    return float(acceleration)
 
 def steer(pos_error, yaw_error, ct_error, old_error):
     """!
@@ -169,19 +179,33 @@ def steer(pos_error, yaw_error, ct_error, old_error):
     @param ct_error Cross Track Error.
     """
 
-    # PID params
-    kp = 0.3
-    kd = 8
-
     # compute global error
     error = 0*pos_error + 0*yaw_error + 1*ct_error
 
     # calculate steering angle command
-    steer_angle = kp*min(error, 10000000) + kd*(error - old_error)
+    steer_angle = P.kp_steer*error + P.kd_steer*(error - old_error)
     
     # save old error for derivative of error calculation
     old_error = error
 
     # save reference in node's attribute to be accessed by other methods
     return float(steer_angle), old_error
+
+
+def get_torque_break_commands(actual_speed, desired_speed, old_error):
+    error = desired_speed - actual_speed
+
+    torque_req = 0
+    break_req = 0
+
+    # calculate steering angle command
+    if error > 0:
+        # torque
+        torque_req = max(P.kp_torque*error + P.kd_torque*(error - old_error), 0)
+
+    else:
+        # break
+        break_req = -min(P.kp_break*error + P.kd_break*(error - old_error), 0)
+
+    return torque_req, break_req, error
 

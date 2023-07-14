@@ -10,9 +10,12 @@ def compute_path_from_wp(path, step=0.1):
     """
     start_xp = path[:, 0]
     start_yp = path[:, 1]
+
     final_xp = []
     final_yp = []
+
     delta = step  # [m]
+
     for idx in range(len(path) - 1):
         section_len = np.sum(
             np.sqrt(
@@ -20,9 +23,12 @@ def compute_path_from_wp(path, step=0.1):
                 + np.power(np.diff(start_yp[idx : idx + 2]), 2)
             )
         )
+
         interp_range = np.linspace(0, 1, np.floor(section_len / delta).astype(int))
+
         fx = interp1d(np.linspace(0, 1, 2), start_xp[idx : idx + 2], kind=1)
         fy = interp1d(np.linspace(0, 1, 2), start_yp[idx : idx + 2], kind=1)
+
         # watch out to duplicate points!
         final_xp = np.append(final_xp, fx(interp_range)[1:])
         final_yp = np.append(final_yp, fy(interp_range)[1:])
@@ -80,10 +86,12 @@ def get_ref_trajectory(state, path, target_v, dl=0.1, old_ind=0):
     For each step in the time horizon
     modified reference in car frame
     """
+
     # initialize variables
     xref = np.zeros((P.N, P.T + 1))
-    dref = np.zeros((1, P.T + 1))
-    # sp = np.ones((1,T +1))*target_v #speed profile
+    uref = np.zeros((P.M, P.T + 1))
+
+    uref[1, :] = np.ones((1,P.T +1))*target_v #speed profile
 
     path_len = path.shape[1]
 
@@ -95,9 +103,6 @@ def get_ref_trajectory(state, path, target_v, dl=0.1, old_ind=0):
     xref[0, 0] = dx * np.cos(-state[2]) - dy * np.sin(-state[2])  # X
     xref[1, 0] = dy * np.cos(-state[2]) + dx * np.sin(-state[2])  # Y
     xref[2, 0] = normalize_angle(path[2, ind] - state[2])  # Theta
-
-    # first steering reference
-    dref[0, 0] = 0.0  # Steer operational point should be 0
 
     travel = 0.0  # distance traveled based on reference velocity
 
@@ -116,17 +121,17 @@ def get_ref_trajectory(state, path, target_v, dl=0.1, old_ind=0):
             xref[0, i] = dx * np.cos(-state[2]) - dy * np.sin(-state[2])
             xref[1, i] = dy * np.cos(-state[2]) + dx * np.sin(-state[2])
             xref[2, i] = normalize_angle(path[2, ind + dind] - state[2])
-
-            # steering angle 
-            dref[0, i] = 0.0
         else:
             dx = path[0, path_len - 1] - state[0]
             dy = path[1, path_len - 1] - state[1]
             xref[0, i] = dx * np.cos(-state[2]) - dy * np.sin(-state[2])
             xref[1, i] = dy * np.cos(-state[2]) + dx * np.sin(-state[2])
             xref[2, i] = normalize_angle(path[2, path_len - 1] - state[2])
-            dref[0, i] = 0.0
-    return xref, dref, ind
+
+            # final speed reference
+            uref[1, i] = 0
+
+    return xref, uref, ind
 
 
 def get_linear_model_matrices(x_bar, u_bar):
@@ -143,23 +148,37 @@ def get_linear_model_matrices(x_bar, u_bar):
 
     ct = np.cos(theta)
     st = np.sin(theta)
+
     cd = np.cos(delta)
-    td = np.tan(delta)
+    sd = np.sin(delta)
+
+    L_ratio = P.Lc / P.L
 
     A = np.zeros((P.N, P.N))
-    A[0, 2] = -v * st
-    A[1, 2] = v * ct
+    A[0, 2] = -v * (st*cd + L_ratio*ct*sd)
+    A[1, 2] = v * (ct*cd - L_ratio*st*sd)
 
     A_lin = np.eye(P.N) + P.DT * A
 
     B = np.zeros((P.N, P.M))
-    B[0, 0] = ct
-    B[1, 0] = st
-    B[2, 0] = td / P.L
-    B[2, 1] = v / (P.L * cd**2)
+    B[0, 0] = ct*cd - L_ratio*st*sd
+    B[1, 0] = L_ratio*ct*sd + st*cd
+    B[2, 0] = sd / P.L
+    
+    B[0, 1] = - v * (ct*sd + L_ratio * st*cd) 
+    B[1, 1] = v * (L_ratio*ct*sd + st*cd) 
+    B[2, 1] = v * cd / P.L
+
     B_lin = P.DT * B
 
-    f_xu = np.array([v * ct, v * st, v * td / P.L]).reshape(P.N, 1)
+    f_xu = np.array(
+        [
+            v * (ct*cd - L_ratio*st*sd), 
+            v * (L_ratio*ct*sd + st*cd), 
+            v * sd / P.L
+        ]
+    ).reshape(P.N, 1)
+
     C_lin = (
         P.DT
         * (
@@ -167,5 +186,16 @@ def get_linear_model_matrices(x_bar, u_bar):
         ).flatten()
     )
 
-    # return np.round(A_lin,6), np.round(B_lin,6), np.round(C_lin,6)
-    return A_lin, B_lin, C_lin
+    return np.round(A_lin,6), np.round(B_lin,6), np.round(C_lin,6)
+
+
+def wheels_vel_2_vehicle_vel(fl_vel, fr_vel, rl_vel, rr_vel, steering_angle):
+    if not steering_angle:
+        return fl_vel
+
+    s1 = P.L / np.tan(steering_angle)
+    w = rl_vel / (s1 - P.car_width)
+
+    r = np.sqrt(P.Lc**2 + s1**2)
+
+    return w*r

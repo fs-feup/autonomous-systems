@@ -3,17 +3,20 @@
 
 #include <Eigen/Dense>
 
-/**
- * @brief Struct containing motion prediction data
- * Depending on the motion model, some data may be irrelevant
- *
- */
-struct MotionPredictionData {
-  double translational_velocity = 0.0;   /**< Translational Velocity Mod */
-  double translational_velocity_x = 0.0; /**< Translational Velocity in X axis */
-  double translational_velocity_y = 0.0; /**< Translational Velocity in Y axis */
-  double rotational_velocity = 0.0;      /**< Rotational Velocity */
-};
+#include "loc_map/data_structures.hpp"
+
+// /**
+//  * @brief Struct containing motion prediction data
+//  * Depending on the motion model, some data may be irrelevant
+//  *
+//  */
+// struct MotionPredictionData {
+//   double translational_velocity = 0.0;   /**< Translational Velocity Mod */
+//   double translational_velocity_x = 0.0; /**< Translational Velocity in X axis */
+//   double translational_velocity_y = 0.0; /**< Translational Velocity in Y axis */
+//   double rotational_velocity = 0.0;      /**< Rotational Velocity */
+//   double steering_angle = 0.0;           /**< Steering Angle */
+// };
 
 /**
  * @brief Abstract Moiton Model class
@@ -21,7 +24,16 @@ struct MotionPredictionData {
  *
  */
 class MotionModel {
+  Eigen::MatrixXf _process_noise_covariance_matrix; /**< R */
+
  public:
+  /**
+   * @brief Construct a new Motion Model object
+   *
+   * @param process_noise_covariance_matrix covariance matrix of the process noise (R)
+   */
+  explicit MotionModel(const Eigen::MatrixXf& process_noise_covariance_matrix);
+
   /**
    * @brief Calculate expected state vector from
    * motion estimation
@@ -32,7 +44,7 @@ class MotionModel {
    * @return Eigen::VectorXf
    */
   virtual Eigen::VectorXf predict_expected_state(const Eigen::VectorXf& expected_state,
-                                                 const MotionPredictionData& motion_prediction_data,
+                                                 const MotionUpdate& motion_prediction_data,
                                                  const double time_interval) const = 0;
 
   /**
@@ -45,8 +57,17 @@ class MotionModel {
    * @return Eigen::MatrixXf
    */
   virtual Eigen::MatrixXf get_motion_to_state_matrix(
-      const Eigen::VectorXf& expected_state, const MotionPredictionData& motion_prediction_data,
+      const Eigen::VectorXf& expected_state,
+      [[maybe_unused]] const MotionUpdate& motion_prediction_data,
       const double time_interval) const = 0;
+
+  /**
+   * @brief Get the process noise covariance matrix object
+   *
+   * @param state_size
+   * @return Eigen::MatrixXf
+   */
+  Eigen::MatrixXf get_process_noise_covariance_matrix(const unsigned int state_size) const;
 };
 
 /**
@@ -57,7 +78,16 @@ class MotionModel {
  *
  */
 class ImuVelocityModel : public MotionModel {
+  Eigen::MatrixXf _process_noise_covariance_matrix;
+
  public:
+  /**
+   * @brief Construct a new Motion Model object
+   *
+   * @param process_noise_covariance_matrix covariance matrix of the process noise (R)
+   */
+  explicit ImuVelocityModel(const Eigen::MatrixXf& process_noise_covariance_matrix);
+
   /**
    * @brief Calculate expected state vector from
    * velocity model using IMU data and linear functions
@@ -69,7 +99,7 @@ class ImuVelocityModel : public MotionModel {
    * @return Eigen::VectorXf
    */
   Eigen::VectorXf predict_expected_state(const Eigen::VectorXf& expected_state,
-                                         const MotionPredictionData& motion_prediction_data,
+                                         const MotionUpdate& motion_prediction_data,
                                          const double time_interval) const override;
   /**
    * @brief Calculate state covariance matrix from
@@ -81,9 +111,10 @@ class ImuVelocityModel : public MotionModel {
    * @param time_interval in seconds
    * @return Eigen::MatrixXf
    */
-  Eigen::MatrixXf get_motion_to_state_matrix(const Eigen::VectorXf& expected_state,
-                                             const MotionPredictionData& motion_prediction_data,
-                                             const double time_interval) const override;
+  Eigen::MatrixXf get_motion_to_state_matrix(
+      const Eigen::VectorXf& expected_state,
+      [[maybe_unused]] const MotionUpdate& motion_prediction_data,
+      [[maybe_unused]] const double time_interval) const override;
 };
 
 /**
@@ -93,7 +124,16 @@ class ImuVelocityModel : public MotionModel {
  *
  */
 class NormalVelocityModel : public MotionModel {
+  Eigen::MatrixXf _process_noise_covariance_matrix;
+
  public:
+  /**
+   * @brief Construct a new Motion Model object
+   *
+   * @param process_noise_covariance_matrix covariance matrix of the process noise (R)
+   */
+  explicit NormalVelocityModel(const Eigen::MatrixXf& process_noise_covariance_matrix);
+
   /**
    * @brief Calculate expected state vector from
    * velocity model using normal motion data
@@ -105,7 +145,7 @@ class NormalVelocityModel : public MotionModel {
    * @return Eigen::VectorXf
    */
   Eigen::VectorXf predict_expected_state(const Eigen::VectorXf& expected_state,
-                                         const MotionPredictionData& motion_prediction_data,
+                                         const MotionUpdate& motion_prediction_data,
                                          const double time_interval) const override;
 
   /**
@@ -118,9 +158,10 @@ class NormalVelocityModel : public MotionModel {
    * @param time_interval in seconds
    * @return Eigen::MatrixXf
    */
-  Eigen::MatrixXf get_motion_to_state_matrix(const Eigen::VectorXf& expected_state,
-                                             const MotionPredictionData& motion_prediction_data,
-                                             const double time_interval) const override;
+  Eigen::MatrixXf get_motion_to_state_matrix(
+      const Eigen::VectorXf& expected_state,
+      [[maybe_unused]] const MotionUpdate& motion_prediction_data,
+      [[maybe_unused]] const double time_interval) const override;
 };
 
 #endif  // SRC_LOC_MAP_INCLUDE_KALMAN_FILTER_MOTION_MODELS_HPP_
