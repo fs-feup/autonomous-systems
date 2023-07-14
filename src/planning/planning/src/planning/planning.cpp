@@ -34,7 +34,7 @@ Planning::Planning() : Node("planning"), initial_orientation(-1) {
 }
 
 void Planning::vehicle_localization_callback(const custom_interfaces::msg::Pose msg) {
-  RCLCPP_INFO(this->get_logger(), "[localization] (%f, \t%f, \t%fdeg)", msg.position.x,
+  RCLCPP_INFO(this->get_logger(), "[localization] (%f, %f) \t%f deg", msg.position.x,
               msg.position.y, msg.theta);
   if (initial_orientation == -1) {
     initial_orientation = msg.theta;
@@ -53,7 +53,7 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray msg) {
 
   for (auto& cone : cone_array) {
     track->addCone(cone.position.x, cone.position.y, cone.color);
-    RCLCPP_INFO(this->get_logger(), "[received] (%f, \t%f)\t%s", cone.position.x, cone.position.y,
+    RCLCPP_INFO(this->get_logger(), "[received] (%f, %f)\t%s", cone.position.x, cone.position.y,
                 cone.color.c_str());
   }
 
@@ -74,7 +74,7 @@ void Planning::publish_track_points(std::vector<Position*> path) const {
     point.x = element->getX();
     point.y = element->getY();
     message.points.push_back(point);
-    RCLCPP_INFO(this->get_logger(), "[published] (%f, \t%f)", point.x, point.y);
+    RCLCPP_INFO(this->get_logger(), "[published] (%f, %f)", point.x, point.y);
   }
   local_pub_->publish(message);
 }
