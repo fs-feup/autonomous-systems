@@ -18,7 +18,7 @@ void EKFNode::_timer_callback() {
               vehicle_state->pose.position.x, vehicle_state->pose.position.y,
               vehicle_state->pose.orientation);
   for (auto& cone : this->_ekf->get_map()->map) {
-    RCLCPP_INFO(this->get_logger(), "(%lf, %lf) - color:%s", cone.first.x, cone.first.y,
+    RCLCPP_INFO(this->get_logger(), "(%lf, %lf)\t%s", cone.first.x, cone.first.y,
                 colors::color_names[cone.second]);
   }
   RCLCPP_INFO(this->get_logger(), "--------------------------------------");
