@@ -1,11 +1,30 @@
 #include "gtest/gtest.h"
 #include "kalman_filter/motion_models.hpp"
+#include "loc_map/lm_node.hpp"
+
+/* ---------------------- Motion Model -------------------------------------*/
+
+TEST(MOTION_MODEL, NOISE_MATRIX_SHAPE_TEST) {
+  Eigen::MatrixXf R = Eigen::Matrix3f::Zero();
+  R(0, 0) = 0.1;
+  R(1, 1) = 0.1;
+  R(2, 2) = 0.1;
+
+  MotionModel* motion_model = new NormalVelocityModel(R);
+  Eigen::MatrixXf noise_matrix = motion_model->get_process_noise_covariance_matrix(10);
+  EXPECT_EQ(noise_matrix.rows(), 10);
+  EXPECT_EQ(noise_matrix.cols(), 10);
+  EXPECT_NEAR(noise_matrix(0, 0), 0.1, 0.0001);
+  EXPECT_NEAR(noise_matrix(1, 1), 0.1, 0.0001);
+  EXPECT_NEAR(noise_matrix(2, 2), 0.1, 0.0001);
+}
 
 /* ---------------------- Normal Velocity Model ---------------------------*/
 
 TEST(NORMAL_VELOCITY_MODEL, STANDING_STILL_TEST) {
-  NormalVelocityModel motion_model = NormalVelocityModel();
-  MotionPredictionData prediction_data = {0, 0, 0, 0};
+  Eigen::MatrixXf R = Eigen::Matrix3f::Zero();
+  NormalVelocityModel motion_model = NormalVelocityModel(R);
+  MotionUpdate prediction_data = {0, 0, 0, 0, 0, std::chrono::high_resolution_clock::now()};
   Eigen::VectorXf new_state =
       motion_model.predict_expected_state(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
   Eigen::MatrixXf G =
@@ -22,8 +41,9 @@ TEST(NORMAL_VELOCITY_MODEL, STANDING_STILL_TEST) {
 }
 
 TEST(NORMAL_VELOCITY_MODEL, LINEAR_FORWARD_MOVEMENT_TEST) {
-  NormalVelocityModel motion_model = NormalVelocityModel();
-  MotionPredictionData prediction_data = {1, 0, 0, 0};
+  Eigen::MatrixXf R = Eigen::Matrix3f::Zero();
+  NormalVelocityModel motion_model = NormalVelocityModel(R);
+  MotionUpdate prediction_data = {1, 0, 0, 0, 0, std::chrono::high_resolution_clock::now()};
   Eigen::VectorXf new_state =
       motion_model.predict_expected_state(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
   Eigen::MatrixXf G =
@@ -45,10 +65,12 @@ TEST(NORMAL_VELOCITY_MODEL, LINEAR_FORWARD_MOVEMENT_TEST) {
 }
 
 TEST(NORMAL_VELOCITY_MODEL, LINEAR_VELOCITY_CURVE_TEST) {
-  NormalVelocityModel motion_model = NormalVelocityModel();
+  Eigen::MatrixXf R = Eigen::Matrix3f::Zero();
+  NormalVelocityModel motion_model = NormalVelocityModel(R);
 
   // Moving in a curve with linear acceleration
-  MotionPredictionData prediction_data = {1, 0, 0, M_PI / 180};
+  MotionUpdate prediction_data = {1,          0, 0,
+                                  M_PI / 180, 0, std::chrono::high_resolution_clock::now()};
   Eigen::VectorXf new_state =
       motion_model.predict_expected_state(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
   Eigen::MatrixXf G =
@@ -70,8 +92,9 @@ TEST(NORMAL_VELOCITY_MODEL, LINEAR_VELOCITY_CURVE_TEST) {
 }
 
 TEST(NORMAL_VELOCITY_MODEL, CIRCULAR_MOVEMENT_TEST) {
-  NormalVelocityModel motion_model = NormalVelocityModel();
-  MotionPredictionData prediction_data = {0, 0, 0, 0};
+  Eigen::MatrixXf R = Eigen::Matrix3f::Zero();
+  NormalVelocityModel motion_model = NormalVelocityModel(R);
+  MotionUpdate prediction_data = {0, 0, 0, 0, 0, std::chrono::high_resolution_clock::now()};
   Eigen::VectorXf temp_state;
   Eigen::VectorXf new_state = Eigen::VectorXf::Zero(10);
   double radius = 12.7324;
@@ -108,8 +131,9 @@ TEST(NORMAL_VELOCITY_MODEL, CIRCULAR_MOVEMENT_TEST) {
 /* ----------------------- IMU VELOCITY MODEL -------------------------*/
 
 TEST(IMU_VELOCITY_MODEL, STANDING_STILL_TEST) {
-  ImuVelocityModel motion_model = ImuVelocityModel();
-  MotionPredictionData prediction_data = {0, 0, 0, 0};
+  Eigen::MatrixXf R = Eigen::Matrix3f::Zero();
+  ImuVelocityModel motion_model = ImuVelocityModel(R);
+  MotionUpdate prediction_data = {0, 0, 0, 0, 0, std::chrono::high_resolution_clock::now()};
   Eigen::VectorXf new_state =
       motion_model.predict_expected_state(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
   Eigen::MatrixXf G =
@@ -126,8 +150,9 @@ TEST(IMU_VELOCITY_MODEL, STANDING_STILL_TEST) {
 }
 
 TEST(IMU_VELOCITY_MODEL, LINEAR_FORWARD_MOVEMENT_TEST) {
-  ImuVelocityModel motion_model = ImuVelocityModel();
-  MotionPredictionData prediction_data = {0, 1, 0, 0};
+  Eigen::MatrixXf R = Eigen::Matrix3f::Zero();
+  ImuVelocityModel motion_model = ImuVelocityModel(R);
+  MotionUpdate prediction_data = {0, 1, 0, 0, 0, std::chrono::high_resolution_clock::now()};
   Eigen::VectorXf new_state =
       motion_model.predict_expected_state(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
   Eigen::MatrixXf G =
@@ -144,8 +169,10 @@ TEST(IMU_VELOCITY_MODEL, LINEAR_FORWARD_MOVEMENT_TEST) {
 }
 
 TEST(IMU_VELOCITY_MODEL, LINEAR_VELOCITY_CURVE_TEST) {
-  ImuVelocityModel motion_model = ImuVelocityModel();
-  MotionPredictionData prediction_data = {0, 0.3, 0.7, M_PI / 16};
+  Eigen::MatrixXf R = Eigen::Matrix3f::Zero();
+  ImuVelocityModel motion_model = ImuVelocityModel(R);
+  MotionUpdate prediction_data = {0,         0.3, 0.7,
+                                  M_PI / 16, 0,   std::chrono::high_resolution_clock::now()};
   Eigen::VectorXf new_state =
       motion_model.predict_expected_state(Eigen::VectorXf::Zero(10), prediction_data, 0.1);
   Eigen::MatrixXf G =
@@ -164,8 +191,9 @@ TEST(IMU_VELOCITY_MODEL, LINEAR_VELOCITY_CURVE_TEST) {
 }
 
 TEST(IMU_VELOCITY_MODEL, COMPLEX_MOVEMENT_TEST) {
-  ImuVelocityModel motion_model = ImuVelocityModel();
-  MotionPredictionData prediction_data = {0, 1, 0, 0};
+  Eigen::MatrixXf R = Eigen::Matrix3f::Zero();
+  ImuVelocityModel motion_model = ImuVelocityModel(R);
+  MotionUpdate prediction_data = {0, 1, 0, 0, 0, std::chrono::high_resolution_clock::now()};
   Eigen::VectorXf temp_state;
   Eigen::VectorXf new_state = Eigen::VectorXf::Zero(10);
   Eigen::MatrixXf G;
@@ -189,4 +217,59 @@ TEST(IMU_VELOCITY_MODEL, COMPLEX_MOVEMENT_TEST) {
       }
     }
   }
+}
+
+/* ----------------------- ODOMETRY MODEL -------------------------*/
+
+/**
+ * @brief Tests the conversion from wheel revolutions
+ * to velocities using the bycicle model
+ *
+ */
+TEST(ODOMETRY_SUBSCRIBER, CONVERSION_TEST) {
+  // Straight Line
+  MotionUpdate prediction_data_from_odometry;
+  double lb_speed = 60;
+  double rb_speed = 60;
+  double lf_speed = 60;
+  double rf_speed = 60;
+  double steering_angle = 0;
+  MotionUpdate velocity_data = LMNode::odometry_to_velocities_transform(
+      lb_speed, rb_speed, lf_speed, rf_speed, steering_angle);
+  EXPECT_NEAR(velocity_data.translational_velocity, 1.5708, 0.0001);
+  EXPECT_DOUBLE_EQ(velocity_data.rotational_velocity, 0);
+  EXPECT_DOUBLE_EQ(velocity_data.translational_velocity_x, 0);
+  EXPECT_DOUBLE_EQ(velocity_data.translational_velocity_y, 0);
+
+  // Curving left
+  lb_speed = 60;
+  rb_speed = 60;
+  lf_speed = 60;
+  rf_speed = 60;
+  steering_angle = M_PI / 8;
+  velocity_data = LMNode::odometry_to_velocities_transform(lb_speed, rb_speed, lf_speed, rf_speed,
+                                                           steering_angle);
+  EXPECT_GE(velocity_data.translational_velocity, 1.5708);
+  EXPECT_LE(velocity_data.translational_velocity, 1.5708 * 2);
+  EXPECT_LE(velocity_data.rotational_velocity, M_PI);
+  EXPECT_GE(velocity_data.rotational_velocity, M_PI / 8);
+  EXPECT_DOUBLE_EQ(velocity_data.translational_velocity_x, 0);
+  EXPECT_DOUBLE_EQ(velocity_data.translational_velocity_y, 0);
+
+  // Curving right
+  lb_speed = 60;
+  rb_speed = 60;
+  lf_speed = 60;
+  rf_speed = 60;
+  steering_angle = -M_PI / 8;
+  MotionUpdate velocity_data_2 = LMNode::odometry_to_velocities_transform(
+      lb_speed, rb_speed, lf_speed, rf_speed, steering_angle);
+  EXPECT_GE(velocity_data_2.translational_velocity, 1.5708);
+  EXPECT_LE(velocity_data_2.translational_velocity, 1.5708 * 2);
+  EXPECT_GE(velocity_data_2.rotational_velocity, -M_PI);
+  EXPECT_LE(velocity_data_2.rotational_velocity, -M_PI / 8);
+  EXPECT_DOUBLE_EQ(velocity_data_2.translational_velocity_x, 0);
+  EXPECT_DOUBLE_EQ(velocity_data_2.translational_velocity_y, 0);
+  EXPECT_DOUBLE_EQ(velocity_data_2.translational_velocity, velocity_data.translational_velocity);
+  EXPECT_DOUBLE_EQ(velocity_data_2.rotational_velocity, -velocity_data.rotational_velocity);
 }
