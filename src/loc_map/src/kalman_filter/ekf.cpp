@@ -82,8 +82,8 @@ int ExtendedKalmanFilter::discovery(const ObservationData& observation_data) {
     return -1;
   }
   for (int i = 3; i < this->X.size() - 1; i += 2) {
-    if (ExtendedKalmanFilter::cone_match(this->X(i), this->X(i + 1), observation_data.position.x,
-                                         observation_data.position.y, distance) &&
+    if (ExtendedKalmanFilter::cone_match(this->X(i), this->X(i + 1), landmark_absolute(0),
+                                         landmark_absolute(1), distance) &&
         this->_colors[(i - 3) / 2] == observation_data.color) {
       return i;
     }
