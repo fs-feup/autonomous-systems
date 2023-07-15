@@ -4,6 +4,7 @@ import numpy as np
 import rclpy
 
 from custom_interfaces.msg import PointArray
+from eufs_msgs.msg import CanState
 
 from .pid_utils import (
     get_closest_point,
@@ -17,6 +18,7 @@ from .pid_utils import (
 from .mpc import run_mpc
 from .config import Params
 from .adapter import ControlAdapter
+from .inspection import ddt_inspection_a, ddt_inspection_b, autonomous_demo
 
 P = Params()
 
@@ -32,6 +34,10 @@ class ControlNode(Node):
         """
         super().__init__('control_node')
         
+        self.mission = CanState.AMI_NOT_SELECTED
+
+        self.state = CanState.AS_OFF
+
         # Steering angle.
         self.steering_angle_command = 0.
 
@@ -79,7 +85,18 @@ class ControlNode(Node):
         @brief Sim publisher callback.
         @param self The object pointer.
         """
+        if self.state != CanState.AS_DRIVING:
+            return
 
+        if self.mission == CanState.AMI_ACCELERATION or \
+            self.mission == CanState.AMI_SKIDPAD or \
+            self.mission == CanState.AMI_AUTOCROSS or \
+            self.mission == CanState.AMI_TRACK_DRIVE:
+            self.dynamic_callback()
+        else:
+            self.inspection_callback()
+
+    def dynamic_callback(self):
         steering_angle_command = self.steering_angle_command if not self.done else 0.
         velocity_command = self.velocity_command if not self.done else 0.
         self.get_logger().info(
@@ -91,10 +108,10 @@ class ControlNode(Node):
         # after mpc, convert velocity command to torque/break command
         torque_command, break_command, self.old_velocity_error = \
             get_torque_break_commands(
-            self.velocity_actual,
-            velocity_command,
-            self.old_velocity_error
-        )
+                self.velocity_actual,
+                velocity_command,
+                self.old_velocity_error
+            )
 
         torque_command = torque_command if not self.done else 0.
         break_command = break_command if not self.done else 0.
@@ -104,6 +121,16 @@ class ControlNode(Node):
             torque_command,
             break_command
         )
+
+    def inspection_callback(self):
+        if self.mission == CanState.AMI_DDT_INSPECTION_A:
+            ddt_inspection_a(self)
+        elif self.mission == CanState.AMI_DDT_INSPECTION_B:
+            ddt_inspection_b(self)
+        elif self.mission == CanState.AMI_AUTONOMOUS_DEMO:
+            autonomous_demo(self)
+        else:
+            self.get_logger().info("Inspection not selected")
 
     def pid_callback(self, position, yaw):
         """!
@@ -142,13 +169,15 @@ class ControlNode(Node):
 
         self.old_closest_index = closest_index
 
+    def mpc_callback(self, position, yaw):
+        if self.path is None or self.done: return
 
-    def mpc_callback(self, position, yaw, speed, steering_angle):
-        if self.path is None or self.done:
-            return
-
-        self.velocity_actual = speed
-        self.steering_angle_actual = steering_angle
+        self.get_logger().info(
+            "[localization] ({}, {})\t{} rad\t{} m/s\t{} rad".format(
+                position.x, position.y, yaw,
+                self.velocity_actual, self.steering_angle_actual
+            )
+        )
 
         current_action = np.array([self.velocity_actual, self.steering_angle_actual])
         current_state = np.array([position.x, position.y, yaw])
@@ -192,8 +221,8 @@ class ControlNode(Node):
         self.path_speeds = np.array(path_speeds)
 
     def mission_state_callback(self, mission, state):
-        # TODO()
-        return
+        self.mission = mission
+        self.state = state
 
 def main(args=None):
     rclpy.init(args=args)

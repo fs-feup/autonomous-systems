@@ -22,6 +22,8 @@ Can::Can() : Node("can") {
 
 void Can::send_to_car(const custom_interfaces::msg::VcuCommand msg) {
   fs_ai_api_vcu2ai vcu2ai_data;
+  fs_ai_api_vcu2ai_get_data(&vcu2ai_data);
+
   fs_ai_api_ai2vcu ai2vcu_data;
 
   // Send handshake bit
