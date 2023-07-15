@@ -148,6 +148,13 @@ class ControlAdapter():
         self.node.velocity_actual = msg.velocity
         self.node.steering_angle_actual = msg.steering_angle
 
+        self.node.get_logger().debug(
+            "[localization] ({}, {})\t{} rad\t{} m/s\t{} rad".format(
+                msg.position.x, msg.position.y, msg.theta,
+                msg.velocity, msg.steering_angle
+            )
+        )
+
         self.node.mpc_callback(position, yaw)
         # self.node.pid_callback(position, yaw)
 

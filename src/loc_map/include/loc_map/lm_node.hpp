@@ -71,7 +71,7 @@ class LMNode : public rclcpp::Node {
    * - publication of map
    *
    */
-  void _timer_callback();
+  void _update_and_publish();
 
   /**
    * @brief publishes the localization ('vehicle_localization') to the topic

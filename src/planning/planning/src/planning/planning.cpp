@@ -48,15 +48,15 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray msg) {
 
   for (auto& cone : cone_array) {
     track->addCone(cone.position.x, cone.position.y, cone.color);
-    RCLCPP_INFO(this->get_logger(), "[received] (%f, %f)\t%s", cone.position.x, cone.position.y,
-                cone.color.c_str());
+    RCLCPP_DEBUG(this->get_logger(), "[received] (%f, %f)\t%s", cone.position.x, cone.position.y,
+                 cone.color.c_str());
   }
 
   std::vector<Position*> path = local_path_planner->processNewArray(track);
   publish_track_points(path);
   delete (track);
 
-  RCLCPP_INFO(this->get_logger(), "--------------------------------------");
+  RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
 }
 
 /**
@@ -69,7 +69,7 @@ void Planning::publish_track_points(std::vector<Position*> path) const {
     point.x = element->getX();
     point.y = element->getY();
     message.points.push_back(point);
-    RCLCPP_INFO(this->get_logger(), "[published] (%f, %f)", point.x, point.y);
+    RCLCPP_DEBUG(this->get_logger(), "[published] (%f, %f)", point.x, point.y);
   }
   local_pub_->publish(message);
 }

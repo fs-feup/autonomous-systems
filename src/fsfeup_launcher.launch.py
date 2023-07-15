@@ -11,7 +11,8 @@ def generate_launch_description():
         Node(
             package='loc_map',
             executable='loc_map',
-            output='screen'
+            output='screen',
+            arguments=['--ros-args', '--log-level', 'loc_map:=DEBUG']
         ),
         Node(
             package='planning',
