@@ -19,8 +19,8 @@ int main(int argc, char **argv) {
   Map *predicted_map = new Map();  // Map from perception
 
   Eigen::Matrix2f Q = Eigen::Matrix2f::Zero();
-  Q(0, 0) = 0.1;
-  Q(1, 1) = 0.1;
+  Q(0, 0) = 0.3;
+  Q(1, 1) = 0.3;
   Eigen::MatrixXf R = Eigen::Matrix3f::Zero();
   R(0, 0) = 0.1;
   R(1, 1) = 0.1;

@@ -180,6 +180,7 @@ class perception(Node):
 
         parser = argparse.ArgumentParser()
         parser.add_argument('--interface', default="eufs")
+        parser.add_argument('--ros-args', nargs='*')
         args = parser.parse_args()
 
         self.adapter = PerceptionAdapter(args.interface, self)
@@ -219,8 +220,9 @@ class perception(Node):
                                 self.line_thickness,
                                 self.half,
                                 self.dnn)
-
+        self.get_logger().info("Yolov5 model loaded")
         self.depth_processor = DepthProcessor(self.get_logger())
+        self.get_logger().debug("Depth Processing loaded")
     
     def yolovFive2bboxes_msgs(self, bboxes:list, scores:list, cls:list, 
                               img_header:Header):

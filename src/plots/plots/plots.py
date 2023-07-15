@@ -289,9 +289,14 @@ class Plots(Node):
             msg.pose.pose.position.x, msg.pose.pose.orientation.z) #Rotate axis
 
 
-    def plot_path_callback(self, msg):
+    """!
+    @brief Callback function to plot the path given by the
+    path planning.
+    @param msg PointArray message.
+    """
+    def plot_path_callback(self, msg: PointArray):
         for point in msg.points:
-            self.map_points.append(Cone(point.x, point.y, self.path_color))
+            self.map_points.append(Cone(-point.y, point.x, self.path_color))
 
 
     """!

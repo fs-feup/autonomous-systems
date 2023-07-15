@@ -59,9 +59,9 @@ class DepthProcessor():
             cone = Cone()
             position = Point2d()
 
-            # rotate coordinates -90 degrees so they match localization logic
+            # rotate coordinates 90 degrees so they match localization logic
             position.x = y
-            position.y = x
+            position.y = -x
             cone.position = position
             cone.color = bounding_box.class_id
             cone_array.cone_array.append(cone)

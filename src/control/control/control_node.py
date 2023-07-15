@@ -82,7 +82,7 @@ class ControlNode(Node):
 
         steering_angle_command = self.steering_angle_command if not self.done else 0.
         velocity_command = self.velocity_command if not self.done else 0.
-        self.get_logger().info(
+        self.get_logger().debug(
             "[command] steering angle: {} speed: {}".format(
                 steering_angle_command, velocity_command
             )
@@ -179,7 +179,7 @@ class ControlNode(Node):
         path_speeds = []
         
         for i, point in enumerate(points_list.points):
-            self.get_logger().info("[received] ({}, {})".format(point.x, point.y))
+            self.get_logger().debug("[received] ({}, {})".format(point.x, point.y))
             path.append([point.x, point.y])
 
             dist_from_end = len(points_list.points) - i
