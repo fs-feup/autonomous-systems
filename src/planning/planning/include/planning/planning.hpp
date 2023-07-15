@@ -18,22 +18,23 @@
 
 using std::placeholders::_1;
 
-enum Mission { acceleration, skidpad, trackdrive, autocross };
+enum Mission { not_selected, acceleration, skidpad, trackdrive, autocross };
 
 class Planning : public rclcpp::Node {
-  Mission mission = acceleration;
+  Mission mission = not_selected;
   LocalPathPlanner* local_path_planner = new LocalPathPlanner();
   Adapter* adapter;
   float initial_orientation;
 
   std::map<Mission, std::string> predictive_paths = {
-      {Mission::acceleration, "../events/acceleration.txt"},
-      {Mission::skidpad, "../events/skidpad.txt"}};
+      {Mission::acceleration, "/events/acceleration.txt"},
+      {Mission::skidpad, "/events/skidpad.txt"}};
 
   rclcpp::Subscription<custom_interfaces::msg::Pose>::SharedPtr vl_sub_;
   rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr track_sub_;
   rclcpp::Publisher<custom_interfaces::msg::PointArray>::SharedPtr local_pub_;
   rclcpp::Publisher<custom_interfaces::msg::PointArray>::SharedPtr global_pub_;
+  rclcpp::TimerBase::SharedPtr timer_;
 
   void vehicle_localization_callback(const custom_interfaces::msg::Pose msg);
 

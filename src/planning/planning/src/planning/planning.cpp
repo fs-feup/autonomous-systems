@@ -27,7 +27,7 @@ Planning::Planning() : Node("planning"), initial_orientation(-1) {
   this->global_pub_ =
       this->create_publisher<custom_interfaces::msg::PointArray>("planning_global", 10);
 
-  this->create_wall_timer(std::chrono::milliseconds(100),
+  this->timer_ = this->create_wall_timer(std::chrono::milliseconds(100),
                           std::bind(&Planning::publish_predicitive_track_points, this));
 
   this->adapter = new Adapter("eufs", this);
@@ -83,7 +83,6 @@ void Planning::publish_predicitive_track_points() {
   if (!this->is_predicitve_mission()) {
     return;
   }
-
   std::vector<Position*> path = read_path_file(this->predictive_paths[this->mission]);
   this->publish_track_points(path);
 }
@@ -91,5 +90,5 @@ void Planning::publish_predicitive_track_points() {
 void Planning::set_mission(Mission mission) { this->mission = mission; }
 
 bool Planning::is_predicitve_mission() const {
-  return this->mission != Mission::trackdrive && this->mission != Mission::autocross;
+  return this->mission == Mission::skidpad || this->mission == Mission::acceleration;
 }
