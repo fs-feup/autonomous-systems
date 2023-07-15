@@ -2,7 +2,8 @@ from ackermann_msgs.msg import AckermannDriveStamped
 from custom_interfaces.msg import VcuCommand, Vcu, Pose
 from eufs_msgs.msg import CanState
 from eufs_msgs.srv import SetCanState
-from fs_msgs.msg import ControlCommand
+from fs_msgs.msg import ControlCommand, GoSignal
+from std_srvs.srv import Trigger
 
 # used for testing purposes only
 # from nav_msgs.msg import Odometry
@@ -28,12 +29,12 @@ class ControlAdapter():
         elif mode == "ads_dv":
             self.ads_dv_init()
 
-    def publish_cmd(self, steering_angle, speed, torque_req=0, break_req=0):
+    def publish_cmd(self, steering_angle=0., speed=0., torque_req=0, break_req=0):
         if self.mode == "eufs":
             msg = AckermannDriveStamped()
 
-            msg.drive.speed = speed
-            msg.drive.steering_angle = steering_angle
+            msg.drive.speed = float(speed)
+            msg.drive.steering_angle = float(steering_angle)
             
         elif self.mode == "fsds":
             msg = ControlCommand()
@@ -52,15 +53,32 @@ class ControlAdapter():
 
         self.cmd_publisher.publish(msg)
 
+    def set_mission_state(self, mission, state):
+        if self.mode == "eufs":
+            self.eufs_set_mission_state(mission, state)
+        elif self.mode == "fsds":
+            # TODO
+            return
+        elif self.mode == "ads_dv":
+            # TODO
+            return
+
+    def ebs(self):
+        if self.mode == "eufs":
+            self.eufs_ebs()
+        elif self.mode == "fsds":
+            # TODO
+            return
+        elif self.mode == "ads_dv":
+            # TODO
+            return
+
     def eufs_init(self):
         self.cmd_publisher =\
             self.node.create_publisher(AckermannDriveStamped, "/cmd", 10)
         self.mission_state_client =\
-            self.node.create_client(SetCanState, '/ros_can/set_mission')
-        self.ebs = self.node.create_client(SetCanState, '/ros_can/ebs')
-
-        # Example call to be removed later
-        # self.eufs_set_mission_state(CanState.AMI_SKIDPAD, CanState.AS_READY)
+            self.node.create_client(SetCanState, "/ros_can/set_mission")
+        self.ebs_client = self.node.create_client(Trigger, "/ros_can/ebs")
 
         self.node.create_subscription(
             CanState,
@@ -78,7 +96,7 @@ class ControlAdapter():
         # test reasons only
         # self.node.create_subscription(
         #     Odometry,
-        #     '/ground_truth/odom',
+        #     "/ground_truth/odom",
         #     self.eufs_odometry_callback,
         #     10
         # )
@@ -87,7 +105,13 @@ class ControlAdapter():
         self.cmd_publisher =\
             self.node.create_publisher(AckermannDriveStamped, "/cmd", 10)
         self.mission_state_client =\
-            self.node.create_client(SetCanState, '/ros_can/set_mission')
+            self.node.create_client(SetCanState, "/ros_can/set_mission")
+        self.node.create_subscription(
+            GoSignal,
+            "/signal/go",
+            self.fsds_state_callback,
+            10
+        )
         self.node.create_subscription(
             Pose,
             "/vehicle_localization",
@@ -98,7 +122,7 @@ class ControlAdapter():
     def ads_dv_init(self):
         self.cmd_publisher = self.node.create_publisher(VcuCommand, "/cmd", 10)
         self.mission_state_client =\
-            self.node.create_client(SetCanState, '/ros_can/set_mission')
+            self.node.create_client(SetCanState, "/ros_can/set_mission")
         self.node.create_subscription(
             Vcu,
             "/vcu",
@@ -120,8 +144,9 @@ class ControlAdapter():
         if yaw > math.pi:
             yaw -= 2 * math.pi
 
-        speed = msg.velocity
-        steering_angle = msg.steering_angle
+        self.node.position = position
+        self.node.velocity_actual = msg.velocity
+        self.node.steering_angle_actual = msg.steering_angle
 
         self.node.get_logger().debug(
             "[localization] ({}, {})\t{} rad\t{} m/s\t{} rad".format(
@@ -130,7 +155,7 @@ class ControlAdapter():
             )
         )
 
-        self.node.mpc_callback(position, yaw, speed, steering_angle)
+        self.node.mpc_callback(position, yaw)
         # self.node.pid_callback(position, yaw)
 
     def eufs_odometry_callback(self, msg):
@@ -140,18 +165,14 @@ class ControlAdapter():
 
         decomp_speed = msg.twist.twist.linear
 
-        # get actual action variables
-        speed = math.sqrt(decomp_speed.x**2 + decomp_speed.y**2)
-        steering_angle = self.node.steering_angle_command
+        self.node.position = position
+        self.node.velocity_actual = math.sqrt(decomp_speed.x**2 + decomp_speed.y**2)
+        self.node.steering_angle_actual = self.node.steering_angle_command
 
         # Converts quartenions base to euler's base, and updates the class' attributes
         yaw = euler_from_quaternion(orientation_list)[2]
 
-        print("actual speed: ", speed)
-        print("actual steering angle: ", steering_angle)
-        print("yaw: ", yaw)
-
-        self.node.mpc_callback(position, yaw, speed, steering_angle)
+        self.node.mpc_callback(position, yaw)
         # self.node.pid_callback(position, yaw)
 
     def eufs_mission_state_callback(self, msg):
@@ -167,12 +188,30 @@ class ControlAdapter():
         rclpy.spin_until_future_complete(self.node, future)
 
         if future.result() is not None:
-            self.node.get_logger().info('Result: %d' % future.result().success)
+            self.node.get_logger().info("Result: %d" % future.result().success)
         else:
             self.node.get_logger().info(
-                'Service call failed %r' % (future.exception(),)
+                "Service call failed %r" % (future.exception(),)
+            )
+
+    def eufs_ebs(self):
+        while not self.ebs_client.wait_for_service(timeout_sec=1.0):
+            self.node.get_logger().info('EBS service not available, waiting...')
+
+        req = Trigger.Request()
+        future = self.ebs_client.call_async(req)
+        rclpy.spin_until_future_complete(self.node, future)
+
+        if future.result() is not None:
+            self.node.get_logger().info("Result: %d" % future.result().success)
+        else:
+            self.node.get_logger().info(
+                "Service call failed %r" % (future.exception(),)
             )
     
+    def fsds_state_callback(self, msg):
+        return
+
     def vcu_callback(self, msg):
         self.node.steering_angle_actual = msg.steering_angle
 

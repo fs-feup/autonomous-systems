@@ -1,6 +1,5 @@
 import numpy as np
 
-
 class Params:
     def __init__(self):
         # enviroment choice
@@ -27,8 +26,8 @@ class Params:
         self.MAX_SPEED = 1.5  # m/s
         self.MAX_ACC = 1.0  # m/ss
         self.MAX_D_ACC = 1.0  # m/sss
-        self.MAX_STEER = np.radians(30)  # rad
-        self.MAX_D_STEER = np.radians(30)  # rad/s
+        self.MAX_STEER = np.radians(21)  # rad
+        self.MAX_D_STEER = np.radians(21)  # rad/s
         self.VEL = 1.5  # m/s - reference velocity
 
         # Vehicle specification
