@@ -58,10 +58,8 @@ jobs:
 
       - name: Dependencies Installation
         run: |
-          pip3 install scipy
-          sudo apt-get install libcgal-dev
-          pip3 install torchvision
-          pip3 install tensorboard
+          cd ./src/
+          ./install_dependencies.sh
 
       - name: Compile and Test Localization and Mapping
         run: |
