@@ -22,10 +22,6 @@ LMNode::LMNode(ExtendedKalmanFilter* ekf, Map* perception_map, MotionUpdate* imu
       "vehicle_localization", 10);  // TODO(marhcouto): check what the integer does
   this->_mapping_publisher =
       this->create_publisher<custom_interfaces::msg::ConeArray>("track_map", 10);
-  this->_timer = this->create_wall_timer(
-      std::chrono::milliseconds(100),
-      std::bind(&LMNode::_timer_callback,
-                this));  // TODO(marhcouto): check if this is the best place to start the timer
 
   new Adapter("eufs", this);
 
@@ -52,6 +48,8 @@ void LMNode::_perception_subscription_callback(const custom_interfaces::msg::Con
     this->_perception_map->map.insert({position, color});
   }
   RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
+
+  this->_update_and_publish();  // Update rate is dictated by perception
 }
 
 void LMNode::_imu_subscription_callback(double angular_velocity, double acceleration_x,
@@ -156,7 +154,7 @@ Mission LMNode::get_mission() { return this->_mission; }
 
 /*---------------------- Publications --------------------*/
 
-void LMNode::_timer_callback() {
+void LMNode::_update_and_publish() {
   this->_ekf_step();
   this->_publish_localization();
   this->_publish_map();

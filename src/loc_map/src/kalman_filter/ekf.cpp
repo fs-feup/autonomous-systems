@@ -6,7 +6,22 @@
 
 #include "loc_map/data_structures.hpp"
 
-float ExtendedKalmanFilter::max_landmark_deviation = 0.3;
+double ExtendedKalmanFilter::max_landmark_distance = 5.0;
+
+bool ExtendedKalmanFilter::cone_match(const double x_from_state, const double y_from_state,
+                                      const double x_from_perception,
+                                      const double y_from_perception,
+                                      const double distance_to_vehicle) {
+  double delta_x = x_from_state - x_from_perception;
+  double delta_y = y_from_state - y_from_perception;
+  double delta = std::sqrt(std::pow(delta_x, 2) + std::pow(delta_y, 2));
+  auto limit_function = [](double distance) {
+    double curvature = 12.0;
+    double initial_limit = 0.5;
+    return pow(M_E, distance / curvature) - (1 - initial_limit);
+  };
+  return delta <= limit_function(distance_to_vehicle);
+}
 
 ExtendedKalmanFilter::ExtendedKalmanFilter(const MotionModel& motion_model,
                                            const ObservationModel& observation_model)
@@ -34,7 +49,10 @@ void ExtendedKalmanFilter::prediction_step(const MotionUpdate& motion_update) {
 void ExtendedKalmanFilter::correction_step(const Map& perception_map) {
   for (auto cone : perception_map.map) {
     ObservationData observation_data = ObservationData(cone.first.x, cone.first.y, cone.second);
-    unsigned int landmark_index = this->discovery(observation_data);
+    int landmark_index = this->discovery(observation_data);
+    if (landmark_index == -1) {  // Too far away landmark
+      continue;
+    }
     Eigen::MatrixXf H = this->_observation_model.get_state_to_observation_matrix(
         this->X, landmark_index, this->X.size());
     Eigen::MatrixXf Q = this->_observation_model
@@ -55,16 +73,20 @@ Eigen::MatrixXf ExtendedKalmanFilter::get_kalman_gain(const Eigen::MatrixXf& H,
   return K;
 }
 
-unsigned int ExtendedKalmanFilter::discovery(const ObservationData& observation_data) {
+int ExtendedKalmanFilter::discovery(const ObservationData& observation_data) {
   Eigen::Vector2f landmark_absolute =
       this->_observation_model.inverse_observation_model(this->X, observation_data);
+  double distance =
+      std::sqrt(pow(observation_data.position.x, 2) + pow(observation_data.position.y, 2));
+  if (distance > ExtendedKalmanFilter::max_landmark_distance) {
+    return -1;
+  }
   for (int i = 3; i < this->X.size() - 1; i += 2) {
-    double delta_x = this->X(i) - landmark_absolute(0);
-    double delta_y = this->X(i + 1) - landmark_absolute(1);
-    double delta = std::sqrt(std::pow(delta_x, 2) + std::pow(delta_y, 2));
-    if (delta <= ExtendedKalmanFilter::max_landmark_deviation &&
-        this->_colors[(i - 3) / 2] == observation_data.color)
+    if (ExtendedKalmanFilter::cone_match(this->X(i), this->X(i + 1), observation_data.position.x,
+                                         observation_data.position.y, distance) &&
+        this->_colors[(i - 3) / 2] == observation_data.color) {
       return i;
+    }
   }
   // If not found, add to the map
   this->X.conservativeResizeLike(Eigen::VectorXf::Zero(this->X.size() + 2));
