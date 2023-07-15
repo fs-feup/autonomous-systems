@@ -3,7 +3,6 @@ from custom_interfaces.msg import VcuCommand, Vcu, Pose
 from eufs_msgs.msg import CanState
 from eufs_msgs.srv import SetCanState
 from fs_msgs.msg import ControlCommand, GoSignal
-from std_msgs.msg import Bool
 from std_srvs.srv import Trigger
 
 # used for testing purposes only
@@ -145,6 +144,7 @@ class ControlAdapter():
         if yaw > math.pi:
             yaw -= 2 * math.pi
 
+        self.node.position = position
         self.node.velocity_actual = msg.velocity
         self.node.steering_angle_actual = msg.steering_angle
 
@@ -158,7 +158,7 @@ class ControlAdapter():
 
         decomp_speed = msg.twist.twist.linear
 
-        # get actual action variables
+        self.node.position = position
         self.node.velocity_actual = math.sqrt(decomp_speed.x**2 + decomp_speed.y**2)
         self.node.steering_angle_actual = self.node.steering_angle_command
 

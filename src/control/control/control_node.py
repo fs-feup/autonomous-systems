@@ -170,7 +170,8 @@ class ControlNode(Node):
         self.old_closest_index = closest_index
 
     def mpc_callback(self, position, yaw):
-        if self.path is None or self.done: return
+        if self.path is None or self.done:
+            return
 
         self.get_logger().info(
             "[localization] ({}, {})\t{} rad\t{} m/s\t{} rad".format(

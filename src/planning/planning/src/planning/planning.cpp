@@ -15,7 +15,7 @@
 
 using std::placeholders::_1;
 
-Planning::Planning() : Node("planning"), initial_orientation(-1) {
+Planning::Planning() : Node("planning") {
   this->vl_sub_ = this->create_subscription<custom_interfaces::msg::Pose>(
       "vehicle_localization", 10, std::bind(&Planning::vehicle_localization_callback, this, _1));
 
@@ -36,11 +36,6 @@ Planning::Planning() : Node("planning"), initial_orientation(-1) {
 void Planning::vehicle_localization_callback(const custom_interfaces::msg::Pose msg) {
   RCLCPP_INFO(this->get_logger(), "[localization] (%f, %f) \t%f deg", msg.position.x,
               msg.position.y, msg.theta);
-  if (initial_orientation == -1) {
-    initial_orientation = msg.theta;
-    local_path_planner->set_orientation(msg.theta);
-    RCLCPP_INFO(this->get_logger(), "Orientation set to %f degrees.", initial_orientation);
-  }
 }
 
 void Planning::track_map_callback(const custom_interfaces::msg::ConeArray msg) {
