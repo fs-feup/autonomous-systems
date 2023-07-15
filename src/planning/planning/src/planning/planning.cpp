@@ -15,7 +15,7 @@
 
 using std::placeholders::_1;
 
-Planning::Planning() : Node("planning"), initial_orientation(-1) {
+Planning::Planning() : Node("planning") {
   this->vl_sub_ = this->create_subscription<custom_interfaces::msg::Pose>(
       "vehicle_localization", 10, std::bind(&Planning::vehicle_localization_callback, this, _1));
 
@@ -27,20 +27,15 @@ Planning::Planning() : Node("planning"), initial_orientation(-1) {
   this->global_pub_ =
       this->create_publisher<custom_interfaces::msg::PointArray>("planning_global", 10);
 
-  this->create_wall_timer(std::chrono::milliseconds(100),
+  this->timer_ = this->create_wall_timer(std::chrono::milliseconds(100),
                           std::bind(&Planning::publish_predicitive_track_points, this));
 
   this->adapter = new Adapter("eufs", this);
 }
 
 void Planning::vehicle_localization_callback(const custom_interfaces::msg::Pose msg) {
-  RCLCPP_DEBUG(this->get_logger(), "[localization] (%f, %f) \t%f deg", msg.position.x,
-               msg.position.y, msg.theta);
-  if (initial_orientation == -1) {
-    initial_orientation = msg.theta;
-    local_path_planner->set_orientation(msg.theta);
-    RCLCPP_INFO(this->get_logger(), "Orientation set to %f degrees.", initial_orientation);
-  }
+  RCLCPP_INFO(this->get_logger(), "[localization] (%f, %f) \t%f deg", msg.position.x,
+              msg.position.y, msg.theta);
 }
 
 void Planning::track_map_callback(const custom_interfaces::msg::ConeArray msg) {
@@ -83,7 +78,6 @@ void Planning::publish_predicitive_track_points() {
   if (!this->is_predicitve_mission()) {
     return;
   }
-
   std::vector<Position*> path = read_path_file(this->predictive_paths[this->mission]);
   this->publish_track_points(path);
 }
@@ -91,5 +85,5 @@ void Planning::publish_predicitive_track_points() {
 void Planning::set_mission(Mission mission) { this->mission = mission; }
 
 bool Planning::is_predicitve_mission() const {
-  return this->mission != Mission::trackdrive && this->mission != Mission::autocross;
+  return this->mission == Mission::skidpad || this->mission == Mission::acceleration;
 }
