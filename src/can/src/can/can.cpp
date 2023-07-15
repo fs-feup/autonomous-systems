@@ -29,6 +29,8 @@ void Can::send_to_car(const custom_interfaces::msg::VcuCommand msg) {
 
   fs_ai_api_ai2vcu ai2vcu_data;
 
+  bool _ebs_request = false;
+
   // Send handshake bit
   if (HANDSHAKE_RECEIVE_BIT_OFF == vcu2ai_data.VCU2AI_HANDSHAKE_RECEIVE_BIT) {
     ai2vcu_data.AI2VCU_HANDSHAKE_SEND_BIT = HANDSHAKE_SEND_BIT_OFF;
@@ -36,6 +38,7 @@ void Can::send_to_car(const custom_interfaces::msg::VcuCommand msg) {
     ai2vcu_data.AI2VCU_HANDSHAKE_SEND_BIT = HANDSHAKE_SEND_BIT_ON;
   } else {
     printf("HANDSHAKE_BIT error\r\n");
+    _ebs_request = true;
   }
 
   // Send mission status
@@ -45,28 +48,62 @@ void Can::send_to_car(const custom_interfaces::msg::VcuCommand msg) {
     ai2vcu_data.AI2VCU_MISSION_STATUS = MISSION_RUNNING;
   } else if (msg.status == 1) {
     ai2vcu_data.AI2VCU_MISSION_STATUS = MISSION_SELECTED;
+  } else if (msg.status == 0) {
+    ai2vcu_data.AI2VCU_MISSION_STATUS = MISSION_NOT_SELECTED;
   } else {
     ai2vcu_data.AI2VCU_MISSION_STATUS = MISSION_NOT_SELECTED;
+    _ebs_request = true;
   }
 
   // Send direction request
   if (msg.direction_request == 1) {
     ai2vcu_data.AI2VCU_DIRECTION_REQUEST = DIRECTION_FORWARD;
+  } else if (msg.direction_request == 0) {
+    ai2vcu_data.AI2VCU_DIRECTION_REQUEST = DIRECTION_NEUTRAL;
   } else {
     ai2vcu_data.AI2VCU_DIRECTION_REQUEST = DIRECTION_NEUTRAL;
+    _ebs_request = true;
+  }
+
+  // Send control requests
+  ai2vcu_data.AI2VCU_STEER_ANGLE_REQUEST_deg = msg.steering_angle_request;
+  ai2vcu_data.AI2VCU_AXLE_SPEED_REQUEST_rpm = msg.axle_speed_request;
+  ai2vcu_data.AI2VCU_AXLE_TORQUE_REQUEST_Nm = msg.axle_torque_request;
+  ai2vcu_data.AI2VCU_BRAKE_PRESS_REQUEST_pct = msg.brake_press_request;
+
+  // Check for errors
+  if (msg.steering_angle_request < -21.0 || msg.steering_angle_request > 21.0) {
+    _ebs_request = true;
+    ai2vcu_data.AI2VCU_STEER_ANGLE_REQUEST_deg = 0;
+  }
+
+  if (msg.axle_speed_request < 0.0 || msg.axle_speed_request > 4000.0) {
+    _ebs_request = true;
+    ai2vcu_data.AI2VCU_AXLE_SPEED_REQUEST_rpm = 0;
+  }
+
+  if (msg.axle_torque_request < 0.0 || msg.axle_torque_request > 195.0) {
+    _ebs_request = true;
+    ai2vcu_data.AI2VCU_AXLE_TORQUE_REQUEST_Nm = 0;
+  }
+
+  if (msg.brake_press_request > 0.0 || msg.brake_press_request < 100.0) {
+    _ebs_request = true;
+    ai2vcu_data.AI2VCU_BRAKE_PRESS_REQUEST_pct = 100.0;
+  }
+
+  if (msg.brake_press_request > 0.0 && msg.axle_torque_request > 0.0) {
+    _ebs_request = true;
+    ai2vcu_data.AI2VCU_BRAKE_PRESS_REQUEST_pct = 100.0;
+    ai2vcu_data.AI2VCU_AXLE_TORQUE_REQUEST_Nm = 0.0;
   }
 
   // Send estop request
   if (msg.estop_request == 0) {
     ai2vcu_data.AI2VCU_ESTOP_REQUEST = ESTOP_NO;
-  } else {
+  } else if (msg.estop_request == 0 || _ebs_request){
     ai2vcu_data.AI2VCU_ESTOP_REQUEST = ESTOP_YES;
   }
-
-  ai2vcu_data.AI2VCU_STEER_ANGLE_REQUEST_deg = msg.steering_angle_request;
-  ai2vcu_data.AI2VCU_AXLE_SPEED_REQUEST_rpm = msg.axle_speed_request;
-  ai2vcu_data.AI2VCU_AXLE_TORQUE_REQUEST_Nm = msg.axle_torque_request;
-  ai2vcu_data.AI2VCU_BRAKE_PRESS_REQUEST_pct = msg.brake_press_request;
 
   fs_ai_api_ai2vcu_set_data(&ai2vcu_data);
 }
