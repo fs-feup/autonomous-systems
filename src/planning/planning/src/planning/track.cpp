@@ -101,7 +101,7 @@ Cone* Track::findCone(float x, float y) {
 
 int Track::validateCones() {
   int leftOutliers = deleteOutliers(leftCones, 1.5, 3, 3);
-  int rightOutliers = 0; //deleteOutliers(rightCones, 1.5, 3, 3);
+  int rightOutliers = deleteOutliers(rightCones, 1.5, 3, 3);
 
   std::cout << "Deleted " << leftOutliers << " left outliers and "
     << rightOutliers << " right outliers\n";
