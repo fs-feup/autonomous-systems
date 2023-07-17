@@ -10,7 +10,7 @@ def get_closest_point(state, path, old_nn_idx=None, search_window=None):
     Computes the index of the waypoint closest to vehicle
     """
 
-    if old_nn_idx and search_window:
+    if search_window:
         windowed_path = path[max(old_nn_idx - search_window, 0): 
                             min(old_nn_idx + search_window, path.shape[0]), :]
 
