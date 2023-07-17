@@ -106,11 +106,17 @@ def get_cte(closest_index, points_array, pose_car):
     win_amplitude = int(spline_window/2)
     n_new_points = 50
 
+    k = 3
+
+    # implement look ahead
+    if closest_index + P.LOOK_AHEAD < len(points_array) - (k + 1) -1:
+        closest_index += P.LOOK_AHEAD
+
     filtered_points = points_array[max(closest_index-win_amplitude, 0):
         min(closest_index+win_amplitude, len(points_array)), :]
 
     tck, u = interpolate.splprep([filtered_points[:, 0], filtered_points[:, 1]],
-                                  s=0, per=False)
+                                  s=0, per=False, k=3)
     x0, y0 = interpolate.splev(np.linspace(0, 1, n_new_points), tck)
 
     new_points_array = np.concatenate((x0[:, np.newaxis], y0[:, np.newaxis]), axis=1)
@@ -207,4 +213,8 @@ def get_torque_break_commands(actual_speed, desired_speed, old_error):
         # break
         break_req = -min(P.kp_break*error + P.kd_break*(error - old_error), 0)
 
-    return np.clip(torque_req, 0, P.MAX_TORQUE), np.clip(break_req, 0, P.MAX_BREAK), error
+    return (
+        np.clip(torque_req, 0, P.MAX_TORQUE),
+        np.clip(break_req, 0, P.MAX_BREAK),
+        error
+    )
