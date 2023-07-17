@@ -1,6 +1,5 @@
 import numpy as np
 
-
 class Params:
     def __init__(self):
         # enviroment choice

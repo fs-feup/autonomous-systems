@@ -9,17 +9,6 @@
 #include "loc_map/data_structures.hpp"
 
 /**
- * @brief Notas
- *
- * - No inicio, software engineers specialized in AI - no
- * - Integration with buses of ifrastructure in system design - no
- * - We will not be developping simulation models - no
- * - Not vehicles from the bus manufacturing company - no
- *
- *
- */
-
-/**
  * @brief Extended Kalman Filter class
  *
  * @details
@@ -30,8 +19,9 @@
  *
  */
 class ExtendedKalmanFilter {
-  static float max_landmark_deviation; /**< Maximum deviation of the landmark position from the
-                                          expected position */
+  static double max_landmark_distance; /**< Maximum deviation of the landmark position from the
+                                          expected position when the landmark is perceived
+                                          to be 1 meter away */
 
   Eigen::VectorXf X;                  /**< Expected state vector (localization + mapping) */
   Eigen::MatrixXf P;                  /**< State covariance matrix */
@@ -51,9 +41,9 @@ class ExtendedKalmanFilter {
    * if there are no matches for the observation
    *
    * @param observation_data
-   * @return unsigned int
+   * @return int index of the landmark or, in case of rejection, -1
    */
-  unsigned int discovery(const ObservationData& observation_data);
+  int discovery(const ObservationData& observation_data);
 
   /**
    * @brief Calculate the kalman gain
@@ -65,6 +55,21 @@ class ExtendedKalmanFilter {
    */
   Eigen::MatrixXf get_kalman_gain(const Eigen::MatrixXf& H, const Eigen::MatrixXf& P,
                                   const Eigen::MatrixXf& Q);
+
+  /**
+   * @brief Check if the cone matches with the landmark
+   *
+   * @param x_from_state x absolute coordinate of the landmark in state
+   * @param y_from_state y absolute coordinate of the landmark in state
+   * @param x_from_perception x coordinate of the landmark from perception
+   * @param y_from_perception y coordinate of the landmark from perception
+   * @param distance_to_vehicle distance of the cone to the vehicle
+   * @return true
+   * @return false
+   */
+  static bool cone_match(const double x_from_state, const double y_from_state,
+                         const double x_from_perception, const double y_from_perception,
+                         const double distance_to_vehicle);
 
  public:
   /**

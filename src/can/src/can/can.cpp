@@ -18,10 +18,15 @@ Can::Can() : Node("can") {
   this->_publisher = this->create_publisher<custom_interfaces::msg::Vcu>("/vcu", 10);
   this->_subscription = this->create_subscription<custom_interfaces::msg::Vcu>(
       "/cmd", 10, std::bind(&Can::send_to_car, this, std::placeholders::_1));
+
+  this->_timer = this->create_wall_timer(
+      std::chrono::milliseconds(100), std::bind(&Can::send_from_car, this));
 }
 
 void Can::send_to_car(const custom_interfaces::msg::VcuCommand msg) {
   fs_ai_api_vcu2ai vcu2ai_data;
+  fs_ai_api_vcu2ai_get_data(&vcu2ai_data);
+
   fs_ai_api_ai2vcu ai2vcu_data;
 
   // Send handshake bit
@@ -87,4 +92,6 @@ void Can::send_from_car() {
   msg.fr_pulse_count = vcu2ai_data.VCU2AI_FR_PULSE_COUNT;
   msg.rl_pulse_count = vcu2ai_data.VCU2AI_RL_PULSE_COUNT;
   msg.rr_pulse_count = vcu2ai_data.VCU2AI_RR_PULSE_COUNT;
+
+  this->_publisher->publish(msg);
 }

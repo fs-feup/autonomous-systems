@@ -1,13 +1,17 @@
 #include "utils/files.hpp"
 
+#include <filesystem>
 #include <string>
 #include <vector>
 
 std::vector<Position*> read_path_file(const std::string& filename) {
-  std::ifstream path_file(filename);
+  std::filesystem::path cwd = std::filesystem::current_path();
+  std::string filepath = cwd.generic_string() + "/planning/planning" + filename;
+  std::ifstream path_file(filepath);
   std::vector<Position*> path;
   float x, y;
   while (path_file >> x >> y) {
+    std::cout << "x: " << x << " y: " << y << "\n";
     Position* position = new Position(x, y);
     path.push_back(position);
   }

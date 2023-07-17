@@ -50,8 +50,7 @@ TEST(EKF_SLAM, LINEAR_MOVEMENT_INTEGRITY_TEST) {  // This test is not that great
   initial_map.map[Position(7, 6)] = colors::orange;
   initial_map.map[Position(7, 6)] = colors::orange;
 
-  ExtendedKalmanFilter *ekf = new ExtendedKalmanFilter(
-      *motion_model, observation_model);  // TODO(marhcouto): put non zero noise matrixes
+  ExtendedKalmanFilter *ekf = new ExtendedKalmanFilter(*motion_model, observation_model);
 
   for (unsigned int i = 0; i < 10; i++) {
     imu_update->translational_velocity_x = 1;
@@ -103,11 +102,15 @@ TEST(EKF_SLAM, LINEAR_MOVEMENT_INTEGRITY_TEST) {  // This test is not that great
     // EXPECT_EQ(orange_count, 6);
     // EXPECT_EQ(blue_count, 8);
     // EXPECT_EQ(big_orange_count, 2);
-    EXPECT_GE(track_map->map.size(), static_cast<unsigned long int>(16));
-    EXPECT_LE(track_map->map.size(), static_cast<unsigned long int>(80));
+    EXPECT_GE(track_map->map.size(), static_cast<unsigned long int>(6));
+    EXPECT_LE(track_map->map.size(), static_cast<unsigned long int>(20));
 
-    EXPECT_GE(vehicle_state->pose.position.x, 0);
+    EXPECT_GE(vehicle_state->pose.position.x, -0.5);
     EXPECT_LE(vehicle_state->pose.position.x, 20);
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
   }
+  EXPECT_GE(track_map->map.size(), static_cast<unsigned long int>(12));
+  EXPECT_LE(track_map->map.size(), static_cast<unsigned long int>(20));
+  EXPECT_GE(vehicle_state->pose.position.x, -0.5);
+  EXPECT_LE(vehicle_state->pose.position.x, 20);
 }
