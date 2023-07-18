@@ -162,7 +162,7 @@ int Track::deleteOutliers(bool side, float distance_threshold,
   for (size_t i = 0; i < unord_cone_seq.size(); i++)
     nn_unord_cone_seq.push_back(std::make_pair(unord_cone_seq[i], false));
   std::vector<Cone*> cone_seq;
-  Cone* c1 = new Cone(-1, 0, 0);
+  Cone* cone1 = new Cone(-1, 0, 0);
   float vx = 1;
   float vy = 0;
 
@@ -171,10 +171,10 @@ int Track::deleteOutliers(bool side, float distance_threshold,
     size_t min_index = 0;
 
     for (size_t i = 0; i < nn_unord_cone_seq.size(); i++) {
-      Cone* c2 = nn_unord_cone_seq[i].first;
+      Cone* cone2 = nn_unord_cone_seq[i].first;
       if (nn_unord_cone_seq[i].second == false ||
-        (iter_number == 0 && vector_direction(c1, c2, vx, vy))) {
-        float new_dist = c1->getDistanceTo(c2);
+        (iter_number == 0 && vector_direction(cone1, cone2, vx, vy))) {
+        float new_dist = cone1->getDistanceTo(cone2);
         if (new_dist < min_dist) {
           min_dist = new_dist;
           min_index = i;
@@ -183,10 +183,10 @@ int Track::deleteOutliers(bool side, float distance_threshold,
     }
     nn_unord_cone_seq[min_index].second = true;
 
-    vx = nn_unord_cone_seq[min_index].first->getX() - c1->getX();
-    vy = nn_unord_cone_seq[min_index].first->getY() - c1->getY();
+    vx = nn_unord_cone_seq[min_index].first->getX() - cone1->getX();
+    vy = nn_unord_cone_seq[min_index].first->getY() - cone1->getY();
 
-    c1 = nn_unord_cone_seq[min_index].first;
+    cone1 = nn_unord_cone_seq[min_index].first;
     cone_seq.push_back(nn_unord_cone_seq[min_index].first);
   }
   unord_cone_seq = cone_seq;
