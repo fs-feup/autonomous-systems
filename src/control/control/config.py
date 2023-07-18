@@ -48,6 +48,8 @@ class Params:
         self.kd_break = 0
         self.kp_steer = 0.5
         self.kd_steer = 8
+        self.kp_acc = 1 / (self.cicles_to_achieve_speed * self.DT)
+        self.kd_acc = 0
 
         # distance to final point to trigger ControlNode.done
         self.done_trigger_dist = 0.5  # m
