@@ -26,7 +26,8 @@ def generate_launch_description():
         Node(
             package='can',
             executable='can', 
-            output='screen'
+            output='screen',
+            arguments=['--ros-args', '--log-level', 'can:=DEBUG']
         )
     ]
 

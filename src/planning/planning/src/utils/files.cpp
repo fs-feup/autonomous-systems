@@ -11,7 +11,7 @@ std::vector<Position*> read_path_file(const std::string& filename) {
   std::vector<Position*> path;
   float x, y;
   while (path_file >> x >> y) {
-    std::cout << "x: " << x << " y: " << y << "\n";
+    // std::cout << "x: " << x << " y: " << y << "\n";
     Position* position = new Position(x, y);
     path.push_back(position);
   }
