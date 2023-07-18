@@ -3,6 +3,7 @@ from custom_interfaces.msg import VcuCommand, Vcu, Pose
 from eufs_msgs.msg import CanState
 from eufs_msgs.srv import SetCanState
 from fs_msgs.msg import ControlCommand, GoSignal
+from std_srvs.msg import Bool
 from std_srvs.srv import Trigger
 
 # used for testing purposes only
@@ -33,7 +34,8 @@ class ControlAdapter():
         if self.mode == "eufs":
             msg = AckermannDriveStamped()
 
-            msg.drive.speed = float(speed)
+            # msg.drive.speed = float(speed)
+            msg.drive.acceleration = torque_req / P.MAX_TORQUE # [0, 1]
             msg.drive.steering_angle = float(steering_angle)
             
         elif self.mode == "fsds":
@@ -90,6 +92,12 @@ class ControlAdapter():
             Pose,
             "/vehicle_localization",
             self.localization_callback,
+            10
+        )
+        self.node.create_subscription(
+            Bool,
+            "/state_machine/driving_flag",
+            self.ready_to_drive_callback,
             10
         )
 
@@ -222,3 +230,8 @@ class ControlAdapter():
             msg.rr_wheel_speed,
             msg.steering_angle
         )
+
+    def ready_to_drive_callback(self, msg):
+        self.node.get_logger().info("ready_to_drive_callback: {}".format(msg.data))
+        if msg.data:
+            self.node.mission = CanState.AS_DRIVING
