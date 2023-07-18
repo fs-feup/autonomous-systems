@@ -99,23 +99,34 @@ Cone* Track::findCone(float x, float y) {
   return nullptr;
 }
 
+bool Track::vector_direction(Cone* c1, Cone* c2, float prev_vx, float prev_vy) {
+  float vx = c2->getX() - c1->getX();
+  float vy = c2->getY() - c1->getY();
+
+  return (vx * prev_vx + vy * prev_vy) > 0;
+}
+
 int Track::validateCones() {
-  int leftOutliers = deleteOutliers(leftCones, 1.5, 3, 3);
-  int rightOutliers = deleteOutliers(rightCones, 1.5, 3, 3);
+  int leftOutliers = deleteOutliers(1, 1.5, 3, 3);
+  int rightOutliers = deleteOutliers(0, 1.5, 3, 3);
 
   std::cout << "Deleted " << leftOutliers << " left outliers and "
     << rightOutliers << " right outliers\n";
   return leftOutliers + rightOutliers;
 }
 
-int Track::deleteOutliers(const std::vector<Cone*>& cone_seq, float distance_threshold,
+int Track::deleteOutliers(bool side, float distance_threshold,
   int order, float coeffs_ratio) {
-  const size_t n = cone_seq.size();
+  std::vector<Cone*> unord_cone_seq = side ? leftCones : rightCones;
+  // if side = 1(left) | = 0(right)
+
+  const size_t n = unord_cone_seq.size();
   const size_t ncoeffs = n / coeffs_ratio; // n > = ncoeffs
   const size_t nbreak = ncoeffs - order + 2;
 
   if (nbreak < 2) {
     std::cout << "Too few points to calculate spline\n";
+    return 0;
   }
 
   // Initialize vars
@@ -145,6 +156,40 @@ int Track::deleteOutliers(const std::vector<Cone*>& cone_seq, float distance_thr
   cov2 = gsl_matrix_alloc(ncoeffs, ncoeffs);
   mw = gsl_multifit_linear_alloc(n, ncoeffs);
   mw2 = gsl_multifit_linear_alloc(n, ncoeffs);
+
+  // Order cone_array
+  std::vector<std::pair<Cone*, bool>> nn_unord_cone_seq;
+  for (size_t i = 0; i < unord_cone_seq.size(); i++)
+    nn_unord_cone_seq.push_back(std::make_pair(unord_cone_seq[i], false));
+  std::vector<Cone*> cone_seq;
+  Cone* c1 = new Cone(-1, 0, 0);
+  float vx = 1;
+  float vy = 0;
+
+  for (size_t iter_number = 0; iter_number < unord_cone_seq.size(); iter_number++) {
+    float min_dist = MAXFLOAT;
+    size_t min_index = 0;
+
+    for (size_t i = 0; i < nn_unord_cone_seq.size(); i++) {
+      Cone* c2 = nn_unord_cone_seq[i].first;
+      if (nn_unord_cone_seq[i].second == false ||
+        (iter_number == 0 && vector_direction(c1, c2, vx, vy))) {
+        float new_dist = c1->getDistanceTo(c2);
+        if (new_dist < min_dist) {
+          min_dist = new_dist;
+          min_index = i;
+        }
+      }
+    }
+    nn_unord_cone_seq[min_index].second = true;
+
+    vx = nn_unord_cone_seq[min_index].first->getX() - c1->getX();
+    vy = nn_unord_cone_seq[min_index].first->getY() - c1->getY();
+
+    c1 = nn_unord_cone_seq[min_index].first;
+    cone_seq.push_back(nn_unord_cone_seq[min_index].first);
+  }
+  unord_cone_seq = cone_seq;
 
   // Set spline data
   for (size_t i = 0; i < n; i++) {
@@ -232,14 +277,18 @@ int Track::deleteOutliers(const std::vector<Cone*>& cone_seq, float distance_thr
   gsl_multifit_linear_free(mw2);
 
   // Write outputs in files
+  std::string fileSide = side ? "1" : "0";
+
   std::string filePrefix = rcpputils::fs::current_path().string();
-  std::string splinePath = filePrefix + "/planning/planning/tracks/spline.txt";
+  std::string splinePath = filePrefix + "/planning/planning/plots/spline" + fileSide +  ".txt";
   std::ofstream splinePathFile(splinePath);
+
   for (size_t i = 0; i < i_eval.size(); i++)
     splinePathFile << x_eval[i] << " " << y_eval[i] << "\n";
   splinePathFile.close();
 
-  std::string outlierPath = filePrefix + "/planning/planning/tracks/deletedoutliers.txt";
+  std::string outlierPath = filePrefix + "/planning/planning/plots/deletedoutliers"
+     + fileSide +  ".txt";
   std::ofstream outlierPathFile(outlierPath);
   for (size_t i = 0; i < cone_seq.size(); i++)
     outlierPathFile << cone_seq[i]->getX() << " " << cone_seq[i]->getY() << "\n";

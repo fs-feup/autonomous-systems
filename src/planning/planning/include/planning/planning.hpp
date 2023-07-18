@@ -24,7 +24,6 @@ class Planning : public rclcpp::Node {
   Mission mission = acceleration;
   LocalPathPlanner* local_path_planner = new LocalPathPlanner();
   Adapter* adapter;
-  float initial_orientation;
 
   std::map<Mission, std::string> predictive_paths = {
       {Mission::acceleration, "../events/acceleration.txt"},

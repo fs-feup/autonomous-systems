@@ -64,9 +64,11 @@ class Track {
 
   Cone* findCone(float x, float y);
 
+  bool vector_direction(Cone* c1, Cone* c2, float prev_vx, float prev_vy);
+
   int validateCones();
 
-  int deleteOutliers(const std::vector<Cone*>& cone_seq, float distance_threshold,
+  int deleteOutliers(bool side, float distance_threshold,
     int order, float coeffs_ratio);
 
   void reset();
