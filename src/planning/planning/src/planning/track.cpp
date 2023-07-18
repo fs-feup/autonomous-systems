@@ -117,7 +117,7 @@ int Track::validateCones() {
 
 int Track::deleteOutliers(bool side, float distance_threshold,
   int order, float coeffs_ratio) {
-  std::vector<Cone*> unord_cone_seq = side ? leftCones : rightCones;
+  std::vector<Cone*>& unord_cone_seq = side ? leftCones : rightCones;
   // if side = 1(left) | = 0(right)
 
   const size_t n = unord_cone_seq.size();
