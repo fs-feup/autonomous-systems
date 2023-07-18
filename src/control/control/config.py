@@ -3,7 +3,7 @@ import numpy as np
 class Params:
     def __init__(self):
         # enviroment choice
-        self.env = "ads_dv"
+        self.env = "eufs"
 
         # MPC variables
         self.N = 3  # number of state variables
