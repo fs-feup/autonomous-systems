@@ -30,7 +30,7 @@ Planning::Planning() : Node("planning") {
   this->timer_ = this->create_wall_timer(std::chrono::milliseconds(100),
                           std::bind(&Planning::publish_predicitive_track_points, this));
 
-  this->adapter = new Adapter("eufs", this);
+  this->adapter = new Adapter("ads_dv", this);
 }
 
 void Planning::vehicle_localization_callback(const custom_interfaces::msg::Pose msg) {
