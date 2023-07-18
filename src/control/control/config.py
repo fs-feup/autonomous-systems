@@ -36,6 +36,7 @@ class Params:
         self.neg_acceleration_max_break = 5  # m/ss 
 
         # PID variables
+        self.error_list_size = 20
         self.START_BREAKING_POS = 4  # neg index where car starts breaking (PID) 
         self.LOOK_AHEAD = 0  # cte look-ahead (PID)
         self.kp_torque = \
@@ -43,9 +44,11 @@ class Params:
                 (self.gear_ratio * self.power_train_efficiency * \
                     self.cicles_to_achieve_speed*self.DT)
         self.kd_torque = 0
+        self.ki_torque = self.torque_adjuster * self.kp_torque / self.error_list_size
         self.kp_break = self.break_adjuster * self.MAX_BREAK / \
             (self.neg_acceleration_max_break * self.cicles_to_achieve_speed * self.DT)
         self.kd_break = 0
+        self.ki_break = self.break_adjuster * self.kp_break / self.error_list_size
         self.kp_steer = 0.5
         self.kd_steer = 8
 

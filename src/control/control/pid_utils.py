@@ -198,8 +198,13 @@ def steer(pos_error, yaw_error, ct_error, old_error):
     return np.clip(float(steer_angle), -P.MAX_STEER, P.MAX_STEER), old_error
 
 
-def get_torque_break_commands(actual_speed, desired_speed, old_error):
+def get_torque_break_commands(actual_speed, desired_speed, old_error, error_list):
     error = desired_speed - actual_speed
+
+    error_list.append(error)
+
+    if len(error_list) > P.torque_error_list_size:
+        error_list.pop(0)
 
     torque_req = 0
     break_req = 0
@@ -207,14 +212,24 @@ def get_torque_break_commands(actual_speed, desired_speed, old_error):
     # calculate steering angle command
     if error > 0:
         # torque
-        torque_req = max(P.kp_torque*error + P.kd_torque*(error - old_error), 0)
-
+        torque_req = max(
+            P.kp_torque*error + \
+            P.kd_torque*(error - old_error) + \
+            P.ki_torque*sum(error_list), 
+            0
+        )
     else:
         # break
-        break_req = -min(P.kp_break*error + P.kd_break*(error - old_error), 0)
+        break_req = -min(
+            P.kp_break*error + \
+            P.kd_break*(error - old_error) + \
+            P.ki_break*sum(error_list), 
+            0
+        )
 
     return (
         np.clip(torque_req, 0, P.MAX_TORQUE),
         np.clip(break_req, 0, P.MAX_BREAK),
-        error
+        error,
+        error_list
     )

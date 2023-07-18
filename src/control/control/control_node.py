@@ -56,6 +56,9 @@ class ControlNode(Node):
         # Old velocity error
         self.old_velocity_error = 0.
 
+        # Velocity error list
+        self.velocity_error_list = []
+
         # Path.
         self.path = None
 
@@ -106,11 +109,12 @@ class ControlNode(Node):
         )
 
         # after mpc, convert velocity command to torque/break command
-        torque_command, break_command, self.old_velocity_error = \
+        torque_command, break_command, self.old_velocity_error, self.velocity_error_list = \
             get_torque_break_commands(
                 self.velocity_actual,
                 velocity_command,
-                self.old_velocity_error
+                self.old_velocity_error,
+                self.velocity_error_list
             )
 
         torque_command = torque_command if not self.done else 0.
