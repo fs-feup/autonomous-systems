@@ -39,9 +39,9 @@ class ControlAdapter():
         elif self.mode == "fsds":
             msg = ControlCommand()
 
-            msg.throttle = speed # change from speed to throttle position [0, 1]
-            msg.drive.steering = steering_angle # change from radians to [-1, 1]
-            msg.brake = break_req # change from break_req to brake position [0, 1]
+            msg.throttle = torque_req / P.MAX_TORQUE # [0, 1]
+            msg.drive.steering = steering_angle / P.MAX_STEER # [-1, 1]
+            msg.brake = break_req / P.MAX_BREAK # [0, 1]
 
         elif self.mode == "ads_dv":
             msg = VcuCommand()
