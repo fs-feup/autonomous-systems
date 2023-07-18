@@ -1,5 +1,6 @@
 from sensor_msgs.msg import Image
 from rclpy.qos import qos_profile_sensor_data
+import pyzed.sl as sl
 
 class PerceptionAdapter():
     def __init__(self, mode, node):
@@ -30,9 +31,25 @@ class PerceptionAdapter():
         )
 
     def ads_dv_init(self):
-        self.node.create_subscription(
-            Image,
-            "/zed/image_raw",
-            self.node.image_callback,
-            qos_profile=qos_profile_sensor_data
-        )
+        zed = sl.Camera()
+
+        init_params = sl.InitParameters()
+        init_params.camera_resolution = sl.RESOLUTION.HD1080
+        init_params.camera_fps = 30
+
+        err = zed.open(init_params)
+        if err != sl.ERROR_CODE.SUCCESS:
+            exit(1)
+
+        image = sl.Mat()
+        runtime_parameters = sl.RuntimeParameters()
+        while True:
+            if zed.grab(runtime_parameters) == sl.ERROR_CODE.SUCCESS:
+                zed.retrieve_image(image, sl.VIEW.LEFT)
+                zed.get_timestamp(sl.TIME_REFERENCE.CURRENT)
+                self.node.image_callback(image)
+            else:
+                print("Error grabbing image!\n")
+                break
+
+        zed.close()
