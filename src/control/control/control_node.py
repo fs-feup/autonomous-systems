@@ -114,7 +114,14 @@ class ControlNode(Node):
             )
 
         torque_command = torque_command if not self.done else 0.
-        break_command = break_command if not self.done else 0.
+        break_command = break_command if not self.done else 100.
+
+        # clip to limits
+        steering_angle_command = np.clip(steering_angle_command, 
+                                         -P.MAX_STEER, P.MAX_STEER)
+        velocity_command = np.clip(velocity_command, 0, P.MAX_SPEED)
+        torque_command = np.clip(torque_command, 0, P.MAX_TORQUE)
+        break_command = np.clip(break_command, 0, P.MAX_BREAK)
 
         self.adapter.publish_cmd(steering_angle_command,
             velocity_command,
@@ -169,6 +176,16 @@ class ControlNode(Node):
 
         self.old_closest_index = closest_index
 
+        # set done
+        to_end = [
+            position.x - self.path[-1][0],
+            position.y - self.path[-1][1]
+        ]
+        if (np.linalg.norm(to_end) <= P.done_trigger_dist) and \
+            (closest_index == (len(self.path) - 1)):
+            self.done = True
+
+
     def mpc_callback(self, position, yaw):
         if self.path is None or self.done:
             return
@@ -183,10 +200,10 @@ class ControlNode(Node):
         current_action = np.array([self.velocity_actual, self.steering_angle_actual])
         current_state = np.array([position.x, position.y, yaw])
 
-        new_action, closest_index = run_mpc(
+        new_action, self.old_closest_index, mpc_path_size = run_mpc(
             current_action, 
             current_state, 
-            self.path, 
+            self.path,
             self.old_closest_index
         )
 
@@ -196,7 +213,15 @@ class ControlNode(Node):
         self.velocity_command = new_action[0]
         self.steering_angle_command = new_action[1]
 
-        self.old_closest_index = closest_index
+        # set done
+        to_end = [
+            position.x - self.path[-1][0],
+            position.y - self.path[-1][1]
+        ]
+
+        if (np.linalg.norm(to_end) <= P.done_trigger_dist) and \
+            (self.old_closest_index == (mpc_path_size - 1)):
+            self.done = True
 
 
     def path_callback(self, points_list):
@@ -224,6 +249,7 @@ class ControlNode(Node):
     def mission_state_callback(self, mission, state):
         self.mission = mission
         self.state = state
+
 
 def main(args=None):
     rclpy.init(args=args)

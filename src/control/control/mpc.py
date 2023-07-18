@@ -87,6 +87,6 @@ def run_mpc(action, state, path, old_closest_ind):
     mpc = MPC(action, state, path, old_closest_ind)
     try:
         mpc.run()
-        return mpc.action, mpc.closest_ind
+        return mpc.action, mpc.closest_ind, len(mpc.path)
     except Exception:
-        return None, None
+        return None, None, None

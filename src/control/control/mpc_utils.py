@@ -1,5 +1,7 @@
 import numpy as np
 from scipy.interpolate import interp1d
+
+from .pid_utils import get_closest_point
 from .config import Params
 
 P = Params()
@@ -35,20 +37,21 @@ def compute_path_from_wp(path, step=0.1):
     dx = np.append(0, np.diff(final_xp))
     dy = np.append(0, np.diff(final_yp))
     theta = np.arctan2(dy, dx)
-    return np.vstack((final_xp, final_yp, theta))
+    return np.vstack((final_xp, final_yp, theta)).T
 
 
 def get_nn_idx(state, path, old_nn_idx):
     """
     Computes the index of the waypoint closest to vehicle
     """
+
     search_window = 100
     
-    windowed_path = path[:, max(old_nn_idx - search_window, 0): 
-                            min(old_nn_idx + search_window, path.shape[1])]
+    windowed_path = path[max(old_nn_idx - search_window, 0): 
+                            min(old_nn_idx + search_window, path.shape[0]), :]
     
-    dx = state[0] - windowed_path[0, :]
-    dy = state[1] - windowed_path[1, :]
+    dx = state[0] - windowed_path[:, 0]
+    dy = state[1] - windowed_path[:, 1]
 
     dist = np.hypot(dx, dy)
     
@@ -56,11 +59,11 @@ def get_nn_idx(state, path, old_nn_idx):
     
     try:
         v = [
-            path[0, nn_idx + 1] - path[0, nn_idx],
-            path[1, nn_idx + 1] - path[1, nn_idx],
+            path[nn_idx + 1, 0] - path[nn_idx, 0],
+            path[nn_idx + 1, 1] - path[nn_idx, 1],
         ]
         v /= np.linalg.norm(v)
-        d = [path[0, nn_idx] - state[0], path[1, nn_idx] - state[1]]
+        d = [path[nn_idx, 0] - state[0], path[nn_idx, 1] - state[1]]
         if np.dot(d, v) > 0:
             target_idx = nn_idx
         else:
@@ -93,16 +96,17 @@ def get_ref_trajectory(state, path, target_v, dl=0.1, old_ind=0):
 
     uref[1, :] = np.ones((1,P.T +1))*target_v #speed profile
 
-    path_len = path.shape[1]
+    path_len = path.shape[0]
 
-    ind = get_nn_idx(state, path, old_ind)
-    dx = path[0, ind] - state[0]
-    dy = path[1, ind] - state[1]
+    ind = get_closest_point(state, path, old_ind, search_window=100)
+
+    dx = path[ind, 0] - state[0]
+    dy = path[ind, 1] - state[1]
 
     # first position references
     xref[0, 0] = dx * np.cos(-state[2]) - dy * np.sin(-state[2])  # X
     xref[1, 0] = dy * np.cos(-state[2]) + dx * np.sin(-state[2])  # Y
-    xref[2, 0] = normalize_angle(path[2, ind] - state[2])  # Theta
+    xref[2, 0] = normalize_angle(path[ind, 2] - state[2])  # Theta
 
     travel = 0.0  # distance traveled based on reference velocity
 
@@ -114,19 +118,19 @@ def get_ref_trajectory(state, path, target_v, dl=0.1, old_ind=0):
         
         if (ind + dind) < path_len:
             # update expected position
-            dx = path[0, ind + dind] - state[0]
-            dy = path[1, ind + dind] - state[1]
+            dx = path[ind + dind, 0] - state[0]
+            dy = path[ind + dind, 1] - state[1]
 
             # position references
             xref[0, i] = dx * np.cos(-state[2]) - dy * np.sin(-state[2])
             xref[1, i] = dy * np.cos(-state[2]) + dx * np.sin(-state[2])
-            xref[2, i] = normalize_angle(path[2, ind + dind] - state[2])
+            xref[2, i] = normalize_angle(path[ind + dind, 2] - state[2])
         else:
-            dx = path[0, path_len - 1] - state[0]
-            dy = path[1, path_len - 1] - state[1]
+            dx = path[path_len - 1, 0] - state[0]
+            dy = path[path_len - 1, 1] - state[1]
             xref[0, i] = dx * np.cos(-state[2]) - dy * np.sin(-state[2])
             xref[1, i] = dy * np.cos(-state[2]) + dx * np.sin(-state[2])
-            xref[2, i] = normalize_angle(path[2, path_len - 1] - state[2])
+            xref[2, i] = normalize_angle(path[path_len - 1, 2] - state[2])
 
             # final speed reference
             uref[1, i] = 0
