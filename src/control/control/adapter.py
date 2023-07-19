@@ -3,11 +3,11 @@ from custom_interfaces.msg import VcuCommand, Vcu, Pose
 from eufs_msgs.msg import CanState
 from eufs_msgs.srv import SetCanState
 from fs_msgs.msg import ControlCommand, GoSignal
-from std_srvs.msg import Bool
+from std_msgs.msg import Bool
 from std_srvs.srv import Trigger
 
 # used for testing purposes only
-# from nav_msgs.msg import Odometry
+from nav_msgs.msg import Odometry
 
 import math
 from .mpc_utils import wheels_vel_2_vehicle_vel
@@ -102,12 +102,12 @@ class ControlAdapter():
         )
 
         # test reasons only
-        # self.node.create_subscription(
-        #     Odometry,
-        #     "/ground_truth/odom",
-        #     self.eufs_odometry_callback,
-        #     10
-        # )
+        self.node.create_subscription(
+            Odometry,
+            "/ground_truth/odom",
+            self.eufs_odometry_callback,
+            10
+        )
         
     def fsds_init(self):
         self.cmd_publisher =\
