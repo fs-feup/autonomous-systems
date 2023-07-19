@@ -48,7 +48,8 @@ def ddt_inspection_a(node):
     global P
     global A_STATE
 
-    print(A_STATE, node.steering_angle_actual, node.velocity_actual, P.MAX_STEER)
+    node.get_logger().debug("State: {} - Steering angle actual: {} - Velocity actual: {} - Max steer: {}"
+        .format(A_STATE, node.steering_angle_actual, node.velocity_actual, P.MAX_STEER))
 
     if (A_STATE == DDTStateA.START):
         node.adapter.publish_cmd(steering_angle=P.MAX_STEER)
