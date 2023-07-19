@@ -27,7 +27,7 @@ void Adapter::eufs_init() {
   }
 
   // mission control
-  this->node->create_subscription<eufs_msgs::msg::CanState>(
+  this->_eufs_mission_state_subscription = this->node->create_subscription<eufs_msgs::msg::CanState>(
       "/ros_can/state", 10,
       std::bind(&Adapter::eufs_mission_state_callback, this, std::placeholders::_1));
   this->eufs_mission_state_client_ =
@@ -67,7 +67,8 @@ void Adapter::imu_subscription_callback(const sensor_msgs::msg::Imu msg) {
 }
 
 void Adapter::eufs_mission_state_callback(const eufs_msgs::msg::CanState msg) {
-  RCLCPP_INFO(this->node->get_logger(), "I heard: '%d' and '%d'", msg.ami_state, msg.as_state);
+  RCLCPP_INFO_ONCE(this->node->get_logger(), "Mission: '%d' - Car state: '%d'", msg.ami_state, msg.as_state);
+  RCLCPP_DEBUG(this->node->get_logger(), "Mission: '%d' - Car state: '%d'", msg.ami_state, msg.as_state);
 
   auto mission = msg.ami_state;
 

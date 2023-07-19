@@ -21,6 +21,7 @@ class Adapter {
   Mission mission = Mission::acceleration;
 
   rclcpp::Subscription<sensor_msgs::msg::Imu>::SharedPtr _eufs_imu_subscription;
+  rclcpp::Subscription<eufs_msgs::msg::CanState>::SharedPtr _eufs_mission_state_subscription;
   rclcpp::Subscription<eufs_msgs::msg::WheelSpeedsStamped>::SharedPtr
       _eufs_wheel_speeds_subscription;
   rclcpp::Subscription<sensor_msgs::msg::Imu>::SharedPtr _fs_imu_subscription;

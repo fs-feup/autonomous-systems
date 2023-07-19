@@ -88,7 +88,7 @@ void LMNode::_imu_subscription_callback(double angular_velocity, double accelera
                this->_motion_update->translational_velocity_y);
   
   if (this->_mission == Mission::static_inspection_A || this->_mission == Mission::static_inspection_B) {
-    this->_update_and_publish();  // Update rate is dictated by perception
+    this->_update_and_publish(); 
   }
 }
 
@@ -152,6 +152,10 @@ void LMNode::_wheel_speeds_subscription_callback(double lb_speed, double lf_spee
   RCLCPP_DEBUG(this->get_logger(), "SUB - translated from wheel speeds: v:%f - w:%f",
                this->_motion_update->translational_velocity,
                this->_motion_update->rotational_velocity);
+
+  if (this->_mission == Mission::static_inspection_A || this->_mission == Mission::static_inspection_B) {
+    this->_update_and_publish();  
+  }
 }
 
 void LMNode::set_mission(Mission mission) { this->_mission = mission; }
