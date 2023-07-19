@@ -1,6 +1,6 @@
 from ackermann_msgs.msg import AckermannDriveStamped
 from custom_interfaces.msg import VcuCommand, Vcu, Pose
-from eufs_msgs.msg import CanState
+from eufs_msgs.msg import CanState, WheelSpeedsStamped
 from eufs_msgs.srv import SetCanState
 from fs_msgs.msg import ControlCommand, GoSignal
 from std_msgs.msg import Bool
@@ -29,13 +29,15 @@ class ControlAdapter():
             self.fsds_init(),
         elif mode == "ads_dv":
             self.ads_dv_init()
+        elif mode == "eufs_ads_dv":
+            self.eufs_ads_dv_init()
 
     def publish_cmd(self, steering_angle=0., speed=0., torque_req=0, break_req=0, accel=0.):
-        if self.mode == "eufs":
+        if self.mode == "eufs" or self.mode == "eufs_ads_dv":
             msg = AckermannDriveStamped()
 
             # msg.drive.speed = float(speed)
-            msg.drive.acceleration = float(accel) # [0, 1]
+            msg.drive.acceleration = float(accel)
             msg.drive.steering_angle = float(steering_angle)
             
         elif self.mode == "fsds":
@@ -64,6 +66,9 @@ class ControlAdapter():
         elif self.mode == "ads_dv":
             # TODO
             return
+        elif self.mode == "eufs_ads_dv":
+            # TODO
+            return
 
     def ebs(self):
         if self.mode == "eufs":
@@ -72,6 +77,9 @@ class ControlAdapter():
             # TODO
             return
         elif self.mode == "ads_dv":
+            # TODO
+            return
+        elif self.mode == "eufs_ads_dv":
             # TODO
             return
 
@@ -97,19 +105,19 @@ class ControlAdapter():
             10
         )
         self.node.create_subscription(
-            Bool,
-            "/state_machine/driving_flag",
-            self.ready_to_drive_callback,
+            WheelSpeedsStamped,
+            "/ros_can/wheel_speeds",
+            self.eufs_odometry_callback,
             10
         )
 
         # test reasons only
-        self.node.create_subscription(
-            Odometry,
-            "/ground_truth/odom",
-            self.eufs_odometry_callback,
-            10
-        )
+        # self.node.create_subscription(
+        #     Odometry,
+        #     "/ground_truth/odom",
+        #     self.eufs_sim_odometry_callback,
+        #     10
+        # )
         
     def fsds_init(self):
         self.cmd_publisher =\
@@ -146,6 +154,31 @@ class ControlAdapter():
             10
         )
 
+    def eufs_ads_dv_init(self):
+        self.cmd_publisher =\
+            self.node.create_publisher(AckermannDriveStamped, "/cmd", 10)
+        self.driving_publisher =\
+            self.node.create_publisher(Bool, "/state_machine/driving_flag", 10)
+
+        self.node.create_subscription(
+            CanState,
+            "/ros_can/state",
+            self.eufs_mission_state_callback,
+            10
+        )
+        self.node.create_subscription(
+            Pose,
+            "/vehicle_localization",
+            self.localization_callback,
+            10
+        )
+        self.node.create_subscription(
+            WheelSpeedsStamped,
+            "/ros_can/wheel_speeds",
+            self.eufs_odometry_callback,
+            10
+        )
+
     def localization_callback(self, msg):
         position = msg.position
         yaw = msg.theta 
@@ -155,20 +188,17 @@ class ControlAdapter():
             yaw -= 2 * math.pi
 
         self.node.position = position
-        self.node.velocity_actual = msg.velocity
-        self.node.steering_angle_actual = msg.steering_angle
 
         self.node.get_logger().debug(
             "[localization] ({}, {})\t{} rad\t{} m/s\t{} rad".format(
-                msg.position.x, msg.position.y, msg.theta,
-                msg.velocity, msg.steering_angle
+                msg.position.x, msg.position.y, msg.theta
             )
         )
 
         self.node.mpc_callback(position, yaw)
         # self.node.pid_callback(position, yaw)
 
-    def eufs_odometry_callback(self, msg):
+    def eufs_sim_odometry_callback(self, msg):
         position = msg.pose.pose.position
         orientation = msg.pose.pose.orientation
         orientation_list = [orientation.x, orientation.y, orientation.z, orientation.w]
@@ -183,13 +213,19 @@ class ControlAdapter():
         yaw = euler_from_quaternion(orientation_list)[2]
 
         self.node.mpc_callback(position, yaw)
-        # self.node.pid_callback(position, yaw)
+        self.node.pid_callback(position, yaw)
+
+    def eufs_odometry_callback(self, msg):
+        # TODO: average of wheels speeds in rpm
+        self.node.velocity_actual = msg.speeds.lf_speed
+        self.node.steering_angle_actual = msg.speeds.steering
 
     def eufs_mission_state_callback(self, msg):
-        mission = msg.ami_state
-        state = msg.as_state
+        if self.node.state != CanState.AS_DRIVING and msg.as_state == CanState.AS_DRIVING:
+            self.eufs_ready_to_drive_callback()
 
-        self.node.mission_state_callback(mission, state)
+        self.node.mission = msg.ami_state
+        self.node.state = msg.as_state
 
     def eufs_set_mission_state(self, mission, state):
         req = SetCanState.Request(as_state=state, ami_state=mission)
@@ -233,11 +269,8 @@ class ControlAdapter():
             msg.steering_angle
         )
 
-    def ready_to_drive_callback(self, msg):
-        self.node.get_logger().info("ready_to_drive_callback: {}".format(msg.data))
-        if msg.data:
-            self.node.mission = CanState.AS_DRIVING
-
-            diving_msg = Bool()
-            diving_msg.data = True
-            self.driving_publisher.publish(diving_msg)
+    def eufs_ready_to_drive_callback(self):
+        self.node.get_logger().info("Ready to drive callback!")
+        diving_msg = Bool()
+        diving_msg.data = True
+        self.driving_publisher.publish(diving_msg)
