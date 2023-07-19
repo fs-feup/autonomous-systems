@@ -32,7 +32,7 @@ class Params:
         self.gear_ratio = 3.5
         self.torque_adjuster = 1.
         self.break_adjuster = 1.
-        self.cicles_to_achieve_speed = 2
+        self.cicles_to_achieve_speed = 7
         self.neg_acceleration_max_break = 5  # m/ss 
 
         # PID variables
