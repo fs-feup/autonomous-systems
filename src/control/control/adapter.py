@@ -87,6 +87,8 @@ class ControlAdapter():
             self.node.create_publisher(Bool, "/state_machine/driving_flag", 10)
         self.driving_mission_publisher =\
             self.node.create_publisher(Bool, "/ros_can/mission_flag", 10)
+        self.mission_completed_publisher =\
+            self.node.create_publisher(Bool, "/ros_can/mission_completed", 10)
 
         self.node.create_subscription(
             CanState,
@@ -134,11 +136,9 @@ class ControlAdapter():
         self.node.mpc_callback(position, yaw)
         # self.node.pid_callback(position, yaw)
 
-    def eufs_odometry_callback(self, msg):
-        self.node.wheel_speed = (msg.speeds.lf_speed +
-            msg.speeds.rf_speed +
-            msg.speeds.lb_speed +
-            msg.speeds.rb_speed) / 4
+    def eufs_odometry_callback(self, msg, sim=False):
+        self.node.wheel_speed = (msg.speeds.lb_speed +
+            msg.speeds.rb_speed) / 2
 
         self.node.velocity_actual = wheels_vel_2_vehicle_vel(
             msg.speeds.lf_speed,
@@ -170,6 +170,12 @@ class ControlAdapter():
                 "Service call failed %r" % (future.exception(),)
             )
 
+    def eufs_mission_finished(self):
+        print("Mission finished!")
+        msg = Bool()
+        msg.data = True
+        self.mission_completed_publisher.publish(msg)
+
     def eufs_ebs(self):
         while not self.ebs_client.wait_for_service(timeout_sec=1.0):
             self.node.get_logger().info('EBS service not available, waiting...')
@@ -197,8 +203,6 @@ class ControlAdapter():
     def fsds_init(self):
         self.cmd_publisher =\
             self.node.create_publisher(AckermannDriveStamped, "/cmd", 10)
-        self.mission_state_client =\
-            self.node.create_client(SetCanState, "/ros_can/set_mission")
         self.node.create_subscription(
             GoSignal,
             "/signal/go",

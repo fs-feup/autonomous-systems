@@ -85,6 +85,7 @@ class ControlNode(Node):
         @brief Sim publisher callback.
         @param self The object pointer.
         """
+
         if self.state != CanState.AS_DRIVING:
             return
 

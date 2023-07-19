@@ -50,6 +50,7 @@ def ddt_inspection_a(node):
 
     node.get_logger().debug("State: {} - Steering angle actual: {} - Velocity actual: {} - Max steer: {}"
         .format(A_STATE, node.steering_angle_actual, node.velocity_actual, P.MAX_STEER))
+    print(A_STATE)
 
     if (A_STATE == DDTStateA.START):
         node.adapter.publish_cmd(steering_angle=P.MAX_STEER)
@@ -67,18 +68,23 @@ def ddt_inspection_a(node):
 
     elif (A_STATE == DDTStateA.TURNING_CENTER):
         if (node.steering_angle_actual == 0.):
-            node.adapter.publish_cmd(accel=2.)
+            node.adapter.publish_cmd(accel=10.)
             A_STATE = DDTStateA.RPM200
 
     elif (A_STATE == DDTStateA.RPM200):
         if (node.wheel_speed >= 250.):
-            node.adapter.publish_cmd(accel=-2.)
-            A_STATE = DDTStateA.FINISH
+            node.adapter.publish_cmd(accel=-10.)
+            A_STATE = DDTStateA.STOP
+        else:
+            node.adapter.publish_cmd(accel=10.)
 
     elif (A_STATE == DDTStateA.STOP):
-        if (node.wheel_speed == 0.):
-            node.adapter.set_mission_state(
-                CanState.AMI_DDT_INSPECTION_A, CanState.AS_FINISHED)
+        if (node.wheel_speed <= 0.):
+            node.adapter.eufs_mission_finished()
+            A_STATE = DDTStateA.FINISH
+        else:
+            node.adapter.publish_cmd(accel=-10.)
+            
 
 def ddt_inspection_b(node):
     global P
@@ -87,16 +93,18 @@ def ddt_inspection_b(node):
     print(B_STATE)
 
     if (B_STATE == DDTStateB.START):
-        node.adapter.publish_cmd(accel=2.)
+        node.adapter.publish_cmd(accel=5.)
         B_STATE = DDTStateB.RPM50
 
     elif (B_STATE == DDTStateB.RPM50):
         if (node.wheel_speed >= 100.):
             node.adapter.ebs()
             B_STATE = DDTStateB.EBS
+        else:
+            node.adapter.publish_cmd(accel=5.)
 
     elif (B_STATE == DDTStateB.EBS):
-        if (node.wheel_speed == 0.):
+        if (node.wheel_speed <= 0.):
             B_STATE = DDTStateB.FINISH
 
 def autonomous_demo(node):
@@ -115,28 +123,26 @@ def autonomous_demo(node):
 
     elif (AUTONOMOUS_STATE == AutonomousState.TURNING_RIGHT):
         if (node.steering_angle_actual <= -P.MAX_STEER):
-            node.adapter.publish_cmd(steering_angle=0)
+            node.adapter.publish_cmd(steering_angle=0.)
             AUTONOMOUS_STATE = AutonomousState.TURNING_CENTER
 
     elif (AUTONOMOUS_STATE == AutonomousState.TURNING_CENTER):
         if (node.steering_angle_actual == 0):
             START_POINT = np.array([node.position.x, node.position.y])
-            node.adapter.publish_cmd(speed=kmh_to_ms(20))
+            node.adapter.publish_cmd(accel=2.)
             AUTONOMOUS_STATE = AutonomousState.KMH15_M10_1
 
     elif (AUTONOMOUS_STATE == AutonomousState.KMH15_M10_1):
         dist = np.linalg.norm(
             START_POINT - np.array([node.position.x, node.position.y]))
         if (node.velocity_actual >= kmh_to_ms(15) and dist >= 10):
-            node.adapter.publish_cmd()
+            node.adapter.publish_cmd(accel=-2.)
             AUTONOMOUS_STATE = AutonomousState.BRAKING
-        else:
-            node.adapter.publish_cmd(speed=kmh_to_ms(20))
 
     elif (AUTONOMOUS_STATE == AutonomousState.BRAKING):
         if (node.velocity_actual <= 0):
             START_POINT = np.array([node.position.x, node.position.y])
-            node.adapter.publish_cmd(speed=kmh_to_ms(20))
+            node.adapter.publish_cmd(accel=2.)
             AUTONOMOUS_STATE = AutonomousState.KMH15_M10_2
 
     elif (AUTONOMOUS_STATE == AutonomousState.KMH15_M10_2):
@@ -145,8 +151,6 @@ def autonomous_demo(node):
         if (node.velocity_actual >= kmh_to_ms(15) and dist >= 10):
             node.adapter.ebs()
             AUTONOMOUS_STATE = AutonomousState.EBS
-        else:
-            node.adapter.publish_cmd(speed=kmh_to_ms(20))
 
     elif (AUTONOMOUS_STATE == AutonomousState.EBS):
         if (node.velocity_actual == 0):
