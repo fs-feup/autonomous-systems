@@ -172,8 +172,23 @@ def get_cte(closest_index, points_array, pose_car):
     return math.sin(yaw_car - yaw_track)*car_to_intersect*mult
     
 
-def get_speed_command(speeds, closest_index):
+def get_reference_speed(speeds, closest_index):
     return speeds[closest_index]
+
+
+def accelerate(error):
+    """!
+    @brief Accelerates the car.
+    @param self The object pointer.
+    @param speed_error Speed Error.
+    """
+    # PID params
+    kp = 1
+
+    # calculate acceleration command
+    acceleration = kp*error
+
+    return float(acceleration)
 
 
 def steer(pos_error, yaw_error, ct_error, old_error):

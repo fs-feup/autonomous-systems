@@ -6,7 +6,7 @@ class Params:
         self.env = "eufs"
 
         # MPC variables
-        self.N = 3  # number of state variables
+        self.N = 4  # number of state variables
         self.M = 2  # number of control variables
         self.T = 10  # Prediction Horizon
         self.DT = 0.2  # discretization step

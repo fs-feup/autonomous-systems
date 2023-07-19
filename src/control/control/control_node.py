@@ -45,7 +45,7 @@ class ControlNode(Node):
         self.steering_angle_actual = 0.
         
         # Velocity command.
-        self.velocity_command = 0.
+        self.acceleration_command = 0.
 
         # Actual car velocity
         self.velocity_actual = 0.
@@ -101,21 +101,15 @@ class ControlNode(Node):
 
     def dynamic_callback(self):
         steering_angle_command = self.steering_angle_command if not self.done else 0.
-        velocity_command = self.velocity_command if not self.done else 0.
+        acceleration_command = self.acceleration_command if not self.done else 0.
         self.get_logger().debug(
             "[command] steering angle: {} speed: {}".format(
-                steering_angle_command, velocity_command
+                steering_angle_command, acceleration_command
             )
         )
 
         # after mpc, convert velocity command to torque/break command
-        torque_command, break_command, self.old_velocity_error, self.velocity_error_list = \
-            get_torque_break_commands(
-                self.velocity_actual,
-                velocity_command,
-                self.old_velocity_error,
-                self.velocity_error_list
-            )
+        torque_command, break_command = get_torque_break_commands(acceleration_command)
 
         torque_command = torque_command if not self.done else 0.
         break_command = break_command if not self.done else 100.
@@ -123,12 +117,12 @@ class ControlNode(Node):
         # clip to limits
         steering_angle_command = np.clip(steering_angle_command, 
                                          -P.MAX_STEER, P.MAX_STEER)
-        velocity_command = np.clip(velocity_command, 0, P.MAX_SPEED)
+        acceleration_command = np.clip(acceleration_command, 0, P.MAX_SPEED)
         torque_command = np.clip(torque_command, 0, P.MAX_TORQUE)
         break_command = np.clip(break_command, 0, P.MAX_BREAK)
 
         self.adapter.publish_cmd(steering_angle_command,
-            velocity_command,
+            acceleration_command,
             torque_command,
             break_command
         )
@@ -176,7 +170,7 @@ class ControlNode(Node):
             pos_error, yaw_error, ct_error, self.old_steer_error
         )
 
-        self.velocity_command = get_speed_command(self.path_speeds, closest_index)
+        self.acceleration_command = get_acceleration_command(self.path_speeds, closest_index)
 
         self.old_closest_index = closest_index
 
@@ -201,7 +195,7 @@ class ControlNode(Node):
             )
         )
 
-        current_action = np.array([self.velocity_actual, self.steering_angle_actual])
+        current_action = np.array([self.acceleration_command, self.steering_angle_actual])
         current_state = np.array([position.x, position.y, yaw])
 
         new_action, self.old_closest_index, mpc_path_size = run_mpc(
@@ -214,7 +208,7 @@ class ControlNode(Node):
         if new_action is None:
             return
 
-        self.velocity_command = new_action[0]
+        self.acceleration_command = new_action[0]
         self.steering_angle_command = new_action[1]
 
         # set done
