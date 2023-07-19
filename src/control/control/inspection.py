@@ -48,7 +48,7 @@ def ddt_inspection_a(node):
     global P
     global A_STATE
 
-    print(A_STATE)
+    print(A_STATE, node.steering_angle_actual, node.velocity_actual, P.MAX_STEER)
 
     if (A_STATE == DDTStateA.START):
         node.adapter.publish_cmd(steering_angle=P.MAX_STEER)
@@ -66,12 +66,12 @@ def ddt_inspection_a(node):
 
     elif (A_STATE == DDTStateA.TURNING_CENTER):
         if (node.steering_angle_actual == 0):
-            node.adapter.publish_cmd(accel=2)
+            node.adapter.publish_cmd(accel=2.)
             A_STATE = DDTStateA.RPM200
 
     elif (A_STATE == DDTStateA.RPM200):
         if (node.velocity_actual >= rpm_to_velocity(200)):
-            node.adapter.publish_cmd(accel=-2)
+            node.adapter.publish_cmd(accel=-2.)
             A_STATE = DDTStateA.FINISH
 
     elif (A_STATE == DDTStateA.STOP):
@@ -86,7 +86,7 @@ def ddt_inspection_b(node):
     print(B_STATE)
 
     if (B_STATE == DDTStateB.START):
-        node.adapter.publish_cmd(accel=2)
+        node.adapter.publish_cmd(accel=2.)
         B_STATE = DDTStateB.RPM50
 
     elif (B_STATE == DDTStateB.RPM50):

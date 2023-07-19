@@ -30,12 +30,12 @@ class ControlAdapter():
         elif mode == "ads_dv":
             self.ads_dv_init()
 
-    def publish_cmd(self, steering_angle=0., speed=0., torque_req=0, break_req=0, accel=0):
+    def publish_cmd(self, steering_angle=0., speed=0., torque_req=0, break_req=0, accel=0.):
         if self.mode == "eufs":
             msg = AckermannDriveStamped()
 
             # msg.drive.speed = float(speed)
-            msg.drive.acceleration = accel # [0, 1]
+            msg.drive.acceleration = float(accel) # [0, 1]
             msg.drive.steering_angle = float(steering_angle)
             
         elif self.mode == "fsds":
