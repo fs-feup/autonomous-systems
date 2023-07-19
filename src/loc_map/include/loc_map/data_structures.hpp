@@ -71,6 +71,6 @@ struct Map {
       last_update; /**< Timestamp of last update */
 };
 
-enum Mission { acceleration, skidpad, trackdrive, autocross };
+enum Mission { acceleration, skidpad, trackdrive, autocross, static_inspection_A, static_inspection_B };
 
 #endif  // SRC_LOC_MAP_INCLUDE_LOC_MAP_DATA_STRUCTURES_HPP_

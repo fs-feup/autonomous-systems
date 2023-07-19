@@ -79,6 +79,10 @@ void Adapter::eufs_mission_state_callback(const eufs_msgs::msg::CanState msg) {
     this->node->set_mission(Mission::trackdrive);
   } else if (mission == eufs_msgs::msg::CanState::AMI_AUTOCROSS) {
     this->node->set_mission(Mission::autocross);
+  } else if (mission == eufs_msgs::msg::CanState::AMI_DDT_INSPECTION_A) {
+    this->node->set_mission(Mission::static_inspection_A);
+  } else if (mission == eufs_msgs::msg::CanState::AMI_DDT_INSPECTION_B) {
+    this->node->set_mission(Mission::static_inspection_B);
   }
 }
 
