@@ -79,7 +79,7 @@ class ControlAdapter():
         self.cmd_publisher =\
             self.node.create_publisher(AckermannDriveStamped, "/cmd", 10)
         self.driving_publisher =\
-            self.node.create_client(Bool, "/state_machine/driving_flag")
+            self.node.create_publisher(Bool, "/state_machine/driving_flag", 10)
         self.mission_state_client =\
             self.node.create_client(SetCanState, "/ros_can/set_mission")
         self.ebs_client = self.node.create_client(Trigger, "/ros_can/ebs")
