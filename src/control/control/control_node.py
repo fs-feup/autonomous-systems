@@ -106,7 +106,7 @@ class ControlNode(Node):
         )
 
         # after mpc, convert velocity command to torque/break command
-        torque_command, break_command, self.old_velocity_error = \
+        torque_command, break_command, acceleration_command, self.old_velocity_error = \
             get_torque_break_commands(
                 self.velocity_actual,
                 velocity_command,
@@ -126,7 +126,8 @@ class ControlNode(Node):
         self.adapter.publish_cmd(steering_angle_command,
             velocity_command,
             torque_command,
-            break_command
+            break_command,
+            acceleration_command,
         )
 
     def inspection_callback(self):

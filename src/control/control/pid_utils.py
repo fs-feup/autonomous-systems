@@ -216,5 +216,6 @@ def get_torque_break_commands(actual_speed, desired_speed, old_error):
     return (
         np.clip(torque_req, 0, P.MAX_TORQUE),
         np.clip(break_req, 0, P.MAX_BREAK),
+        error / (P.cicles_to_achieve_speed*P.DT),
         error
     )

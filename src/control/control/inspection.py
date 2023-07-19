@@ -44,9 +44,6 @@ def rpm_to_velocity(rpm):
 def kmh_to_ms(kmh):
     return kmh / 3.6
 
-def rpm_to_accel(rpm):
-    return rpm * math.pi * P.tire_diam
-
 def ddt_inspection_a(node):
     global P
     global A_STATE
@@ -69,12 +66,12 @@ def ddt_inspection_a(node):
 
     elif (A_STATE == DDTStateA.TURNING_CENTER):
         if (node.steering_angle_actual == 0):
-            node.adapter.publish_cmd(accel=rpm_to_accel(200))
+            node.adapter.publish_cmd(accel=2)
             A_STATE = DDTStateA.RPM200
 
     elif (A_STATE == DDTStateA.RPM200):
-        if (node.velocity_actual >= rpm_to_accel(200)):
-            node.adapter.publish_cmd()
+        if (node.velocity_actual >= rpm_to_velocity(200)):
+            node.adapter.publish_cmd(accel=-2)
             A_STATE = DDTStateA.FINISH
 
     elif (A_STATE == DDTStateA.STOP):
@@ -89,11 +86,11 @@ def ddt_inspection_b(node):
     print(B_STATE)
 
     if (B_STATE == DDTStateB.START):
-        node.adapter.publish_cmd(accel=rpm_to_accel(50))
+        node.adapter.publish_cmd(accel=2)
         B_STATE = DDTStateB.RPM50
 
     elif (B_STATE == DDTStateB.RPM50):
-        if (node.velocity_actual >= rpm_to_accel(50)):
+        if (node.velocity_actual >= rpm_to_velocity(50)):
             node.adapter.ebs()
             B_STATE = DDTStateB.EBS
 
