@@ -51,6 +51,8 @@ def ddt_inspection_a(node):
     global P
     global A_STATE
 
+    print(A_STATE)
+
     if (A_STATE == DDTStateA.START):
         node.adapter.publish_cmd(steering_angle=P.MAX_STEER)
         A_STATE = DDTStateA.TURNING_LEFT
@@ -83,6 +85,8 @@ def ddt_inspection_a(node):
 def ddt_inspection_b(node):
     global P
     global B_STATE
+
+    print(B_STATE)
 
     if (B_STATE == DDTStateB.START):
         node.adapter.publish_cmd(accel=rpm_to_accel(50))
