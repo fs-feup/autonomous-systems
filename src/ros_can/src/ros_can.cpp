@@ -12,7 +12,7 @@ CanInterface::CanInterface() : Node("ros_can") {
   loop_rate = declare_parameter<int>("loop_rate", loop_rate);
   max_dec_ = declare_parameter<float>("max_dec", max_dec_);
   engine_threshold_ = declare_parameter<float>("engine_threshold", engine_threshold_);
-  rpm_limit_ = declare_parameter<float>("rpm_limit", rpm_limit_);
+  rpm_limit_ = declare_parameter<int>("rpm_limit", rpm_limit_);
   cmd_timeout_ = declare_parameter<double>("cmd_timeout", cmd_timeout_);
   if (declare_parameter<bool>("debug_logging", false)) {
     get_logger().set_level(rclcpp::Logger::Level::Debug);

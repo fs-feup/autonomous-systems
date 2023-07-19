@@ -19,7 +19,7 @@ LMNode::LMNode(ExtendedKalmanFilter* ekf, Map* perception_map, MotionUpdate* imu
       "perception/cone_coordinates", 10,
       std::bind(&LMNode::_perception_subscription_callback, this, std::placeholders::_1));
   this->_localization_publisher = this->create_publisher<custom_interfaces::msg::Pose>(
-      "vehicle_localization", 10);  // TODO(marhcouto): check what the integer does
+      "vehicle_localization", 10);  
   this->_mapping_publisher =
       this->create_publisher<custom_interfaces::msg::ConeArray>("track_map", 10);
 
@@ -49,7 +49,9 @@ void LMNode::_perception_subscription_callback(const custom_interfaces::msg::Con
   }
   RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
 
-  this->_update_and_publish();  // Update rate is dictated by perception
+  if (this->_mission != Mission::static_inspection_A && this->_mission != Mission::static_inspection_B) {
+    this->_update_and_publish();  // Update rate is dictated by perception
+  }
 }
 
 void LMNode::_imu_subscription_callback(double angular_velocity, double acceleration_x,
@@ -71,7 +73,7 @@ void LMNode::_imu_subscription_callback(double angular_velocity, double accelera
   this->_motion_update->last_update = now;
   this->_motion_update->translational_velocity_y += (acceleration_y * delta) / 1000000;
   this->_motion_update->translational_velocity_x +=
-      (acceleration_x * delta) / 1000000;  // TODO(marhcouto): check referentials in the ADS
+      (acceleration_x * delta) / 1000000;
   this->_motion_update->translational_velocity =
       sqrt(this->_motion_update->translational_velocity_x *
                this->_motion_update->translational_velocity_x +
@@ -84,6 +86,10 @@ void LMNode::_imu_subscription_callback(double angular_velocity, double accelera
                this->_motion_update->rotational_velocity,
                this->_motion_update->translational_velocity_x,
                this->_motion_update->translational_velocity_y);
+  
+  if (this->_mission == Mission::static_inspection_A || this->_mission == Mission::static_inspection_B) {
+    this->_update_and_publish();  // Update rate is dictated by perception
+  }
 }
 
 /**

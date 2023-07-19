@@ -30,12 +30,12 @@ class ControlAdapter():
         elif mode == "ads_dv":
             self.ads_dv_init()
 
-    def publish_cmd(self, steering_angle=0., speed=0., torque_req=0, break_req=0, accel=0):
+    def publish_cmd(self, steering_angle=0., speed=0., torque_req=0, break_req=0, accel=0.):
         if self.mode == "eufs":
             msg = AckermannDriveStamped()
 
             # msg.drive.speed = float(speed)
-            msg.drive.acceleration = accel # [0, 1]
+            msg.drive.acceleration = float(accel) # [0, 1]
             msg.drive.steering_angle = float(steering_angle)
             
         elif self.mode == "fsds":
@@ -78,6 +78,8 @@ class ControlAdapter():
     def eufs_init(self):
         self.cmd_publisher =\
             self.node.create_publisher(AckermannDriveStamped, "/cmd", 10)
+        self.driving_publisher =\
+            self.node.create_publisher(Bool, "/state_machine/driving_flag", 10)
         self.mission_state_client =\
             self.node.create_client(SetCanState, "/ros_can/set_mission")
         self.ebs_client = self.node.create_client(Trigger, "/ros_can/ebs")
@@ -235,3 +237,7 @@ class ControlAdapter():
         self.node.get_logger().info("ready_to_drive_callback: {}".format(msg.data))
         if msg.data:
             self.node.mission = CanState.AS_DRIVING
+
+            diving_msg = Bool()
+            diving_msg.data = True
+            self.driving_publisher.publish(diving_msg)
