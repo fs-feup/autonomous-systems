@@ -78,6 +78,8 @@ class ControlAdapter():
     def eufs_init(self):
         self.cmd_publisher =\
             self.node.create_publisher(AckermannDriveStamped, "/cmd", 10)
+        self.driving_publisher =\
+            self.node.create_client(Bool, "/state_machine/driving_flag")
         self.mission_state_client =\
             self.node.create_client(SetCanState, "/ros_can/set_mission")
         self.ebs_client = self.node.create_client(Trigger, "/ros_can/ebs")
@@ -235,3 +237,7 @@ class ControlAdapter():
         self.node.get_logger().info("ready_to_drive_callback: {}".format(msg.data))
         if msg.data:
             self.node.mission = CanState.AS_DRIVING
+
+            diving_msg = Bool()
+            diving_msg.data = True
+            self.driving_publisher.publish(diving_msg)
