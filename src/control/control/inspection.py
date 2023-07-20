@@ -75,7 +75,7 @@ def ddt_inspection_a(node):
 
     elif (A_STATE == DDTStateA.TURNING_CENTER):
         if (node.steering_angle_actual == 0.):
-            node.adapter.publish_cmd(accel=10.)
+            node.adapter.publish_cmd(accel=2.)
             A_STATE = DDTStateA.RPM200
         else:
             node.adapter.publish_cmd(steering_angle=0.)
@@ -90,28 +90,29 @@ def ddt_inspection_a(node):
 
     elif (A_STATE == DDTStateA.ROLLING):
         if (time.perf_counter() - TIME > 3):
-            node.adapter.publish_cmd(accel=-10.)
+            node.adapter.publish_cmd(accel=-4.)
             A_STATE = DDTStateA.STOP
         else:
             node.adapter.publish_cmd(accel=0.)
 
     elif (A_STATE == DDTStateA.STOP):
-        if (node.wheel_speed <= 0.05 or node.wheel_speed >= -0.05):
+        # if (node.wheel_speed <= 0.05 or node.wheel_speed >= -0.05):
+        if (node.wheel_speed == 0.):
             node.adapter.eufs_mission_finished()
+            node.adapter.publish_cmd(accel=0.)
             A_STATE = DDTStateA.FINISH
         else:
-            node.adapter.publish_cmd(accel=-10.)
-            
+            node.adapter.publish_cmd(accel=-4.)
 
 def ddt_inspection_b(node):
     global P
     global B_STATE
     global TIMER
 
-    print(B_STATE)
+    print(B_STATE, node.wheel_speed)
 
     if (B_STATE == DDTStateB.START):
-        node.adapter.publish_cmd(accel=5.)
+        node.adapter.publish_cmd(accel=.5)
         B_STATE = DDTStateB.RPM50
 
     elif (B_STATE == DDTStateB.RPM50):
@@ -127,10 +128,10 @@ def ddt_inspection_b(node):
             node.adapter.ebs()
             B_STATE = DDTStateB.EBS
         else:
-            node.adapter.publish_cmd(accel=.)
+            node.adapter.publish_cmd(accel=0.)
 
     elif (B_STATE == DDTStateB.EBS):
-        if (node.wheel_speed <= 0.05 or node.wheel_speed >= -0.05):
+        if (node.wheel_speed == 0.):
             node.adapter.eufs_mission_finished()
             B_STATE = DDTStateB.FINISH
 

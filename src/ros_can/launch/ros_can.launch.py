@@ -15,7 +15,7 @@ def generate_launch_description():
             {"rpm_limit": 1000},
             {"max_acc": 50.0},
             {"max_braking": 5.0},
-            {"cmd_timeout": 5.0}
+            {"cmd_timeout": 10.0}
         ]
     )
 
