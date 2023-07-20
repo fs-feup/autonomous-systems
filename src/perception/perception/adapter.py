@@ -46,11 +46,13 @@ class PerceptionAdapter():
             exit(1)
 
         image = sl.Mat()
+        point_cloud = sl.Mat()
         runtime_parameters = sl.RuntimeParameters()
         while True:
             if zed.grab(runtime_parameters) == sl.ERROR_CODE.SUCCESS:
                 zed.retrieve_image(image, sl.VIEW.LEFT)
                 zed.get_timestamp(sl.TIME_REFERENCE.CURRENT)
+                zed.retrieve_measure(point_cloud, sl.MEASURE.XYZRGBA)
                 ros_img = cv2.cvtColor(image.get_data(), cv2.COLOR_RGBA2RGB)
                 self.node.image_callback(ros_img, sim=False)
             else:

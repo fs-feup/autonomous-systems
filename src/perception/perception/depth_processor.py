@@ -11,27 +11,27 @@ class DepthProcessor():
         self.logger = logger
         self.bridge = CvBridge()
 
-    def process(self, msg, img):
-        cone_array = ConeArray()
-        points = []
-        
-        imgPts = np.float32([
+        self.imgPts = np.float32([
             [430, 325],
             [483, 310],
             [790, 325],
             [736, 310]
         ])
-        objPts = np.float32([
+        self.objPts = np.float32([
             [-2.795184, 6.102409],
             [-3.088784, 8.926933],
             [1.836005, 6.092231],
             [1.77159, 8.985139]
         ])
 
+    def process(self, msg, img, point_cloud=None):
+        cone_array = ConeArray()
+        points = []
+
         # Apply perspective transformation function of openCV2.
         # This function will return the matrix which you can feed into warpPerspective 
         # function to get the warped image.
-        matrix = cv2.getPerspectiveTransform(imgPts, objPts)
+        matrix = cv2.getPerspectiveTransform(self.imgPts, self.objPts)
     
         for bounding_box in msg.bounding_boxes:
             #check if confidence is high enough
@@ -49,11 +49,20 @@ class DepthProcessor():
             if len(roi) == 0:
                 continue
         
-            bb_point = np.float32([[[x, y]]])
-            point = cv2.perspectiveTransform(bb_point, matrix)
-            x = float(point[0][0][0])
-            y = float(point[0][0][1])
-            points.append((point, bounding_box.class_id))
+            if point_cloud != None:
+                point3D = point_cloud.get_value(i, j)
+                x = point3D[0]
+                y = point3D[1]
+                z = point3D[2]
+
+                print(x, y, z)
+                points.append((x, y))
+            else:
+                bb_point = np.float32([[[x, y]]])
+                point = cv2.perspectiveTransform(bb_point, matrix)
+                x = float(point[0][0][0])
+                y = float(point[0][0][1])
+                points.append((point, bounding_box.class_id))
 
             #publish cone coordinates
             cone = Cone()
