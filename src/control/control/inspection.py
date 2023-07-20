@@ -89,15 +89,14 @@ def ddt_inspection_a(node):
             node.adapter.publish_cmd(accel=10.)
 
     elif (A_STATE == DDTStateA.ROLLING):
-        if (time.perf_counter() - TIME > 3):
+        if (time.perf_counter() - TIMER > 3):
             node.adapter.publish_cmd(accel=-4.)
             A_STATE = DDTStateA.STOP
         else:
             node.adapter.publish_cmd(accel=0.)
 
     elif (A_STATE == DDTStateA.STOP):
-        # if (node.wheel_speed <= 0.05 or node.wheel_speed >= -0.05):
-        if (node.wheel_speed == 0.):
+        if (node.wheel_speed <= 0.05 and node.wheel_speed >= -0.05):
             node.adapter.eufs_mission_finished()
             node.adapter.publish_cmd(accel=0.)
             A_STATE = DDTStateA.FINISH
@@ -124,7 +123,7 @@ def ddt_inspection_b(node):
             node.adapter.publish_cmd(accel=5.)
 
     elif (B_STATE == DDTStateB.ROLLING):
-        if (time.perf_counter() - TIME > 3):
+        if (time.perf_counter() - TIMER > 3):
             node.adapter.ebs()
             B_STATE = DDTStateB.EBS
         else:
