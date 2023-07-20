@@ -118,7 +118,7 @@ class ControlAdapter():
         # )
 
     def localization_callback(self, msg):
-        node.position = msg.position
+        position = msg.position
         yaw = msg.theta 
         
         # convert from [0, 2pi] to [-pi, pi]
