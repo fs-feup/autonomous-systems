@@ -101,7 +101,7 @@ def ddt_inspection_b(node):
         B_STATE = DDTStateB.RPM50
 
     elif (B_STATE == DDTStateB.RPM50):
-        if (node.wheel_speed >= 100.):
+        if (node.wheel_speed >= 100.): # 100 rpms because scruteneer says 50 rpms is too slow to be 50 rpms
             node.adapter.ebs()
             B_STATE = DDTStateB.EBS
         else:
