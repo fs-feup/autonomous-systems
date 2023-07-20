@@ -163,7 +163,7 @@ def autonomous_demo(node):
 
     elif (AUTONOMOUS_STATE == AutonomousState.TURNING_CENTER):
         if (node.steering_angle_actual == 0):
-            START_POINT = np.array([node.position.x, node.position.y])
+            START_POINT = np.array(node.position)
             node.adapter.publish_cmd(accel=2.)
             AUTONOMOUS_STATE = AutonomousState.KMH15_M10_1
         else:
@@ -171,17 +171,16 @@ def autonomous_demo(node):
 
     elif (AUTONOMOUS_STATE == AutonomousState.KMH15_M10_1):
         dist = np.linalg.norm(
-            START_POINT - np.array([node.position.x, node.position.y]))
+            START_POINT - np.array(node.position))
         if (node.velocity_actual >= kmh_to_ms(15) and dist >= 10):
             node.adapter.publish_cmd(accel=-2.)
             AUTONOMOUS_STATE = AutonomousState.BRAKING
         else:
             node.adapter.publish_cmd(accel=2.)
 
-
     elif (AUTONOMOUS_STATE == AutonomousState.BRAKING):
         if (node.velocity_actual <= 0):
-            START_POINT = np.array([node.position.x, node.position.y])
+            START_POINT = np.array(node.position)
             node.adapter.publish_cmd(accel=2.)
             AUTONOMOUS_STATE = AutonomousState.KMH15_M10_2
         else:
@@ -190,7 +189,7 @@ def autonomous_demo(node):
 
     elif (AUTONOMOUS_STATE == AutonomousState.KMH15_M10_2):
         dist = np.linalg.norm(
-            START_POINT - np.array([node.position.x, node.position.y]))
+            START_POINT - np.array(node.position))
         if (node.velocity_actual >= kmh_to_ms(15) and dist >= 10):
             node.adapter.ebs()
             AUTONOMOUS_STATE = AutonomousState.EBS
