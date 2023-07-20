@@ -179,7 +179,7 @@ class perception(Node):
         self.bridge = CvBridge()
 
         parser = argparse.ArgumentParser()
-        parser.add_argument('--interface', default="eufs")
+        parser.add_argument('--interface', default="ads_dv")
         parser.add_argument('--ros-args', nargs='*')
         args = parser.parse_args()
 
@@ -201,7 +201,7 @@ class perception(Node):
         self.conf_thres = 0.25
         self.iou_thres = 0.45
         self.max_det = 1000
-        self.view_img = False
+        self.view_img = True
         self.classes = None
         self.agnostic_nms = False
         self.line_thickness = 2

@@ -118,7 +118,7 @@ class ControlAdapter():
         # )
 
     def localization_callback(self, msg):
-        position = msg.position
+        node.position = msg.position
         yaw = msg.theta 
         
         # convert from [0, 2pi] to [-pi, pi]
@@ -183,12 +183,8 @@ class ControlAdapter():
 
         req = Trigger.Request()
 
-        print("EBS call")
-
         future = self.ebs_client.call_async(req)
         # rclpy.spin_until_future_complete(self.node, future)
-
-        print("EBS end")
 
         return future
 
