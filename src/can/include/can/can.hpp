@@ -6,8 +6,8 @@
 
 #include "custom_interfaces/msg/vcu.hpp"
 #include "custom_interfaces/msg/vcu_command.hpp"
-#include "rclcpp/rclcpp.hpp"
 #include "fs-ai_api/fs-ai_api.h"
+#include "rclcpp/rclcpp.hpp"
 
 using namespace std::chrono_literals;
 

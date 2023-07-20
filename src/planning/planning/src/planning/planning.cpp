@@ -27,8 +27,8 @@ Planning::Planning() : Node("planning") {
   this->global_pub_ =
       this->create_publisher<custom_interfaces::msg::PointArray>("planning_global", 10);
 
-  this->timer_ = this->create_wall_timer(std::chrono::milliseconds(100),
-                          std::bind(&Planning::publish_predicitive_track_points, this));
+  this->timer_ = this->create_wall_timer(
+      std::chrono::milliseconds(100), std::bind(&Planning::publish_predicitive_track_points, this));
 
   this->adapter = new Adapter("eufs", this);
 }

@@ -16,10 +16,10 @@ Can::Can() : Node("can") {
 
   this->_publisher = this->create_publisher<custom_interfaces::msg::Vcu>("/vcu", 10);
   this->_subscription = this->create_subscription<custom_interfaces::msg::VcuCommand>(
-     "/cmd", 10, std::bind(&Can::send_to_car, this, std::placeholders::_1));
+      "/cmd", 10, std::bind(&Can::send_to_car, this, std::placeholders::_1));
 
-  this->_timer = this->create_wall_timer(
-      std::chrono::milliseconds(100), std::bind(&Can::send_from_car, this));
+  this->_timer =
+      this->create_wall_timer(std::chrono::milliseconds(100), std::bind(&Can::send_from_car, this));
 }
 
 void Can::send_to_car(const custom_interfaces::msg::VcuCommand msg) {
@@ -98,7 +98,7 @@ void Can::send_to_car(const custom_interfaces::msg::VcuCommand msg) {
   // Send estop request
   if (msg.estop_request == 0) {
     this->ai2vcu_data.AI2VCU_ESTOP_REQUEST = ESTOP_NO;
-  } else if (msg.estop_request == 0 || _ebs_request){
+  } else if (msg.estop_request == 0 || _ebs_request) {
     this->ai2vcu_data.AI2VCU_ESTOP_REQUEST = ESTOP_YES;
   }
 

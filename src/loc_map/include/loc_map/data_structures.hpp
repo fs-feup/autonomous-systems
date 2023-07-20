@@ -33,8 +33,6 @@ struct Pose {
  */
 struct VehicleState {
   Pose pose;
-  double translational_velocity = 0.0; /**< Meters per sec */
-  double steering_angle = 0.0;         /**< Degrees */
   std::chrono::time_point<std::chrono::high_resolution_clock> last_update;
 };
 
@@ -71,6 +69,14 @@ struct Map {
       last_update; /**< Timestamp of last update */
 };
 
-enum Mission { acceleration, skidpad, trackdrive, autocross, static_inspection_A, static_inspection_B };
+enum Mission {
+  acceleration,
+  skidpad,
+  trackdrive,
+  autocross,
+  static_inspection_A,
+  static_inspection_B,
+  autonomous_demo
+};
 
 #endif  // SRC_LOC_MAP_INCLUDE_LOC_MAP_DATA_STRUCTURES_HPP_

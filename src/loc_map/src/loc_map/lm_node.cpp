@@ -18,8 +18,8 @@ LMNode::LMNode(ExtendedKalmanFilter* ekf, Map* perception_map, MotionUpdate* imu
   this->_perception_subscription = this->create_subscription<custom_interfaces::msg::ConeArray>(
       "perception/cone_coordinates", 10,
       std::bind(&LMNode::_perception_subscription_callback, this, std::placeholders::_1));
-  this->_localization_publisher = this->create_publisher<custom_interfaces::msg::Pose>(
-      "vehicle_localization", 10);  
+  this->_localization_publisher =
+      this->create_publisher<custom_interfaces::msg::Pose>("vehicle_localization", 10);
   this->_mapping_publisher =
       this->create_publisher<custom_interfaces::msg::ConeArray>("track_map", 10);
 
@@ -49,7 +49,9 @@ void LMNode::_perception_subscription_callback(const custom_interfaces::msg::Con
   }
   RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
 
-  if (this->_mission != Mission::static_inspection_A && this->_mission != Mission::static_inspection_B) {
+  if (this->_mission != Mission::static_inspection_A &&
+      this->_mission != Mission::static_inspection_B &&
+      this->_mission != Mission::autonomous_demo) {
     this->_update_and_publish();  // Update rate is dictated by perception
   }
 }
@@ -72,8 +74,7 @@ void LMNode::_imu_subscription_callback(double angular_velocity, double accelera
           .count();
   this->_motion_update->last_update = now;
   this->_motion_update->translational_velocity_y += (acceleration_y * delta) / 1000000;
-  this->_motion_update->translational_velocity_x +=
-      (acceleration_x * delta) / 1000000;
+  this->_motion_update->translational_velocity_x += (acceleration_x * delta) / 1000000;
   this->_motion_update->translational_velocity =
       sqrt(this->_motion_update->translational_velocity_x *
                this->_motion_update->translational_velocity_x +
@@ -86,9 +87,11 @@ void LMNode::_imu_subscription_callback(double angular_velocity, double accelera
                this->_motion_update->rotational_velocity,
                this->_motion_update->translational_velocity_x,
                this->_motion_update->translational_velocity_y);
-  
-  if (this->_mission == Mission::static_inspection_A || this->_mission == Mission::static_inspection_B) {
-    this->_update_and_publish(); 
+
+  if (this->_mission == Mission::static_inspection_A ||
+      this->_mission == Mission::static_inspection_B ||
+      this->_mission == Mission::autonomous_demo) {
+    this->_update_and_publish();
   }
 }
 
@@ -153,8 +156,10 @@ void LMNode::_wheel_speeds_subscription_callback(double lb_speed, double lf_spee
                this->_motion_update->translational_velocity,
                this->_motion_update->rotational_velocity);
 
-  if (this->_mission == Mission::static_inspection_A || this->_mission == Mission::static_inspection_B) {
-    this->_update_and_publish();  
+  if (this->_mission == Mission::static_inspection_A ||
+      this->_mission == Mission::static_inspection_B ||
+      this->_mission == Mission::autonomous_demo) {
+    this->_update_and_publish();
   }
 }
 
@@ -180,13 +185,9 @@ void LMNode::_publish_localization() {
   message.position.x = vehicle_localization.position.x;
   message.position.y = vehicle_localization.position.y;
   message.theta = vehicle_localization.orientation;
-  message.velocity = this->_vehicle_state->translational_velocity;
-  message.steering_angle = this->_vehicle_state->steering_angle;
 
   RCLCPP_DEBUG(this->get_logger(), "PUB - Pose: (%f, %f, %f)", message.position.x,
                message.position.y, message.theta);
-  RCLCPP_DEBUG(this->get_logger(), "PUB - Car Data: velocity -> %f  steering_angle -> %f",
-               message.velocity, message.steering_angle);
   this->_localization_publisher->publish(message);
 }
 
@@ -220,7 +221,7 @@ void LMNode::_ekf_step() {
   this->_ekf->prediction_step(temp_update);
   this->_ekf->correction_step(*(this->_perception_map));
   this->_ekf->update(this->_vehicle_state, this->_track_map);
-  this->_vehicle_state->translational_velocity = temp_update.translational_velocity;
-  this->_vehicle_state->steering_angle = temp_update.steering_angle;
+  // this->_vehicle_state->translational_velocity = temp_update.translational_velocity;
+  // this->_vehicle_state->steering_angle = temp_update.steering_angle;
   RCLCPP_DEBUG(this->get_logger(), "EKF - EFK Step");
 }

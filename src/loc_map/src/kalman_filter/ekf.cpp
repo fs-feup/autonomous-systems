@@ -8,10 +8,10 @@
 
 double ExtendedKalmanFilter::max_landmark_distance = 5.0;
 
-bool ExtendedKalmanFilter::cone_match(const double x_from_state, const double y_from_state,
-                                      const double x_from_perception,
-                                      const double y_from_perception,
-                                      const double distance_to_vehicle) {
+double ExtendedKalmanFilter::cone_match(const double x_from_state, const double y_from_state,
+                                        const double x_from_perception,
+                                        const double y_from_perception,
+                                        const double distance_to_vehicle) {
   double delta_x = x_from_state - x_from_perception;
   double delta_y = y_from_state - y_from_perception;
   double delta = std::sqrt(std::pow(delta_x, 2) + std::pow(delta_y, 2));
@@ -20,7 +20,7 @@ bool ExtendedKalmanFilter::cone_match(const double x_from_state, const double y_
     double initial_limit = 0.5;
     return pow(M_E, distance / curvature) - (1 - initial_limit);
   };
-  return delta <= limit_function(distance_to_vehicle);
+  return limit_function(distance_to_vehicle) - delta;
 }
 
 ExtendedKalmanFilter::ExtendedKalmanFilter(const MotionModel& motion_model,
@@ -81,12 +81,18 @@ int ExtendedKalmanFilter::discovery(const ObservationData& observation_data) {
   if (distance > ExtendedKalmanFilter::max_landmark_distance) {
     return -1;
   }
+  double best_score = 0.0;
+  int best_index = -1;
   for (int i = 3; i < this->X.size() - 1; i += 2) {
-    if (ExtendedKalmanFilter::cone_match(this->X(i), this->X(i + 1), landmark_absolute(0),
-                                         landmark_absolute(1), distance) &&
-        this->_colors[(i - 3) / 2] == observation_data.color) {
-      return i;
+    double score = ExtendedKalmanFilter::cone_match(
+        this->X(i), this->X(i + 1), landmark_absolute(0), landmark_absolute(1), distance);
+    if (score > best_score && this->_colors[(i - 3) / 2] == observation_data.color) {
+      best_index = i;
+      best_score = score;
     }
+  }
+  if (best_index != -1) {
+    return best_index;
   }
   // If not found, add to the map
   this->X.conservativeResizeLike(Eigen::VectorXf::Zero(this->X.size() + 2));

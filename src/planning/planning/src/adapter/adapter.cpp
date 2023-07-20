@@ -37,8 +37,7 @@ void Adapter::fsds_init() {
 
 void Adapter::ads_dv_init() {
   this->ads_dv_state_subscription_ = this->node->create_subscription<custom_interfaces::msg::Vcu>(
-      "/vcu", 10,
-      std::bind(&Adapter::ads_dv_mission_state_callback, this, std::placeholders::_1));
+      "/vcu", 10, std::bind(&Adapter::ads_dv_mission_state_callback, this, std::placeholders::_1));
 }
 
 void Adapter::eufs_mission_state_callback(const eufs_msgs::msg::CanState msg) {

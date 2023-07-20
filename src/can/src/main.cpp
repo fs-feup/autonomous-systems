@@ -3,14 +3,12 @@
 
 using namespace std::chrono_literals;
 
-
-int main(int argc, char** argv)
-{
+int main(int argc, char** argv) {
   rclcpp::init(argc, argv);
 
   // Comment if testing
   rclcpp::spin(std::make_shared<Can>());
-  
+
   // Uncomment if testing
   /*
   // Create instances of the nodes
@@ -27,7 +25,7 @@ int main(int argc, char** argv)
   // Spin the nodes using the executor
   executor->spin();
   */
-  
+
   rclcpp::shutdown();
 
   return 0;

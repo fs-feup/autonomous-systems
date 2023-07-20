@@ -58,18 +58,18 @@ class ExtendedKalmanFilter {
 
   /**
    * @brief Check if the cone matches with the landmark
+   * the score is greater the best the match is
    *
    * @param x_from_state x absolute coordinate of the landmark in state
    * @param y_from_state y absolute coordinate of the landmark in state
    * @param x_from_perception x coordinate of the landmark from perception
    * @param y_from_perception y coordinate of the landmark from perception
    * @param distance_to_vehicle distance of the cone to the vehicle
-   * @return true
-   * @return false
+   * @return difference between limit and delta (score)
    */
-  static bool cone_match(const double x_from_state, const double y_from_state,
-                         const double x_from_perception, const double y_from_perception,
-                         const double distance_to_vehicle);
+  static double cone_match(const double x_from_state, const double y_from_state,
+                           const double x_from_perception, const double y_from_perception,
+                           const double distance_to_vehicle);
 
  public:
   /**

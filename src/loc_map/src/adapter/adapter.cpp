@@ -27,9 +27,10 @@ void Adapter::eufs_init() {
   }
 
   // mission control
-  this->_eufs_mission_state_subscription = this->node->create_subscription<eufs_msgs::msg::CanState>(
-      "/ros_can/state", 10,
-      std::bind(&Adapter::eufs_mission_state_callback, this, std::placeholders::_1));
+  this->_eufs_mission_state_subscription =
+      this->node->create_subscription<eufs_msgs::msg::CanState>(
+          "/ros_can/state", 10,
+          std::bind(&Adapter::eufs_mission_state_callback, this, std::placeholders::_1));
   this->eufs_mission_state_client_ =
       this->node->create_client<eufs_msgs::srv::SetCanState>("/ros_can/set_mission");
   this->eufs_ebs_client_ = this->node->create_client<eufs_msgs::srv::SetCanState>("/ros_can/ebs");
@@ -67,8 +68,10 @@ void Adapter::imu_subscription_callback(const sensor_msgs::msg::Imu msg) {
 }
 
 void Adapter::eufs_mission_state_callback(const eufs_msgs::msg::CanState msg) {
-  RCLCPP_INFO_ONCE(this->node->get_logger(), "Mission: '%d' - Car state: '%d'", msg.ami_state, msg.as_state);
-  RCLCPP_DEBUG(this->node->get_logger(), "Mission: '%d' - Car state: '%d'", msg.ami_state, msg.as_state);
+  RCLCPP_INFO_ONCE(this->node->get_logger(), "Mission: '%d' - Car state: '%d'", msg.ami_state,
+                   msg.as_state);
+  RCLCPP_DEBUG(this->node->get_logger(), "Mission: '%d' - Car state: '%d'", msg.ami_state,
+               msg.as_state);
 
   auto mission = msg.ami_state;
 
@@ -84,6 +87,8 @@ void Adapter::eufs_mission_state_callback(const eufs_msgs::msg::CanState msg) {
     this->node->set_mission(Mission::static_inspection_A);
   } else if (mission == eufs_msgs::msg::CanState::AMI_DDT_INSPECTION_B) {
     this->node->set_mission(Mission::static_inspection_B);
+  } else if (mission == eufs_msgs::msg::CanState::AMI_AUTONOMOUS_DEMO) {
+    this->node->set_mission(Mission::autonomous_demo);
   }
 }
 
