@@ -247,10 +247,6 @@ class ControlNode(Node):
         self.path = np.array(path)
         self.path_speeds = np.array(path_speeds)
 
-    def mission_state_callback(self, mission, state):
-        self.mission = mission
-        self.state = state
-
 
 def main(args=None):
     rclpy.init(args=args)

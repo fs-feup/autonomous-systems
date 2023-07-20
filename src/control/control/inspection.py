@@ -62,21 +62,21 @@ def ddt_inspection_a(node):
 
     elif (A_STATE == DDTStateA.TURNING_RIGHT):
         if (node.steering_angle_actual <= -P.MAX_STEER):
-            node.adapter.publish_cmd(steering_angle=0)
+            node.adapter.publish_cmd(steering_angle=0.)
             A_STATE = DDTStateA.TURNING_CENTER
 
     elif (A_STATE == DDTStateA.TURNING_CENTER):
-        if (node.steering_angle_actual == 0):
+        if (node.steering_angle_actual == 0.):
             node.adapter.publish_cmd(accel=2.)
             A_STATE = DDTStateA.RPM200
 
     elif (A_STATE == DDTStateA.RPM200):
-        if (node.velocity_actual >= rpm_to_velocity(200)):
+        if (node.wheel_speed >= 250.):
             node.adapter.publish_cmd(accel=-2.)
             A_STATE = DDTStateA.FINISH
 
     elif (A_STATE == DDTStateA.STOP):
-        if (node.velocity_actual == 0):
+        if (node.wheel_speed == 0.):
             node.adapter.set_mission_state(
                 CanState.AMI_DDT_INSPECTION_A, CanState.AS_FINISHED)
 
@@ -91,12 +91,12 @@ def ddt_inspection_b(node):
         B_STATE = DDTStateB.RPM50
 
     elif (B_STATE == DDTStateB.RPM50):
-        if (node.velocity_actual >= rpm_to_velocity(50)):
+        if (node.wheel_speed >= 100.):
             node.adapter.ebs()
             B_STATE = DDTStateB.EBS
 
     elif (B_STATE == DDTStateB.EBS):
-        if (node.velocity_actual == 0):
+        if (node.wheel_speed == 0.):
             B_STATE = DDTStateB.FINISH
 
 def autonomous_demo(node):

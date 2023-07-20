@@ -16,7 +16,7 @@ class Params:
         self.MAX_SPEED = 30.5  # m/s  eq. to 4000 rpm
         self.MAX_ACC = 2.0  # m/ss
         self.MAX_D_ACC = 1.0  # m/sss
-        self.MAX_STEER = 21  # rad
+        self.MAX_STEER = np.radians(21)  # rad
         self.MAX_D_STEER = np.radians(30)  # rad/s - assumption
         self.VEL = 1.5  # m/s - reference velocity
         self.MAX_TORQUE = 150.0  # Nm
