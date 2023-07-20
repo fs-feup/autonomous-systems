@@ -3,6 +3,7 @@ from eufs_msgs.msg import CanState
 
 import math
 import numpy as np
+import time
 
 from .config import Params
 
@@ -12,14 +13,16 @@ class DDTStateA(Enum):
     TURNING_RIGHT = 2
     TURNING_CENTER = 3
     RPM200 = 4
-    STOP = 5
-    FINISH = 6
+    ROLLING = 5
+    STOP = 6
+    FINISH = 7
 
 class DDTStateB(Enum):
     START = 0
     RPM50 = 1
-    EBS = 2
-    FINISH = 3
+    ROLLING = 2
+    EBS = 3
+    FINISH = 4
 
 class AutonomousState(Enum):
     START = 0
@@ -37,6 +40,7 @@ A_STATE = DDTStateA.START
 B_STATE = DDTStateB.START
 AUTONOMOUS_STATE = AutonomousState.START
 START_POINT = np.array([0, 0])
+TIMER = 0
 
 def rpm_to_velocity(rpm):
     return rpm * P.tire_diam * math.pi / 60
@@ -47,6 +51,7 @@ def kmh_to_ms(kmh):
 def ddt_inspection_a(node):
     global P
     global A_STATE
+    global TIMER
 
     print(A_STATE, node.steering_angle_actual, node.velocity_actual, P.MAX_STEER)
 
@@ -69,18 +74,26 @@ def ddt_inspection_a(node):
             node.adapter.publish_cmd(steering_angle=-P.MAX_STEER)
 
     elif (A_STATE == DDTStateA.TURNING_CENTER):
-        if (node.steering_angle_actual <= 0.05 or node.steering_angle_actual >= -0.05):
+        if (node.steering_angle_actual == 0.):
             node.adapter.publish_cmd(accel=10.)
             A_STATE = DDTStateA.RPM200
         else:
-            node.adapter.publish_cmd(steering_angle=0.) 
+            node.adapter.publish_cmd(steering_angle=0.)
 
     elif (A_STATE == DDTStateA.RPM200):
         if (node.wheel_speed >= 250.):
+            node.adapter.publish_cmd(accel=0.)
+            A_STATE = DDTStateA.ROLLING
+            TIMER = time.perf_counter()
+        else:
+            node.adapter.publish_cmd(accel=10.)
+
+    elif (A_STATE == DDTStateA.ROLLING):
+        if (time.perf_counter() - TIME > 3):
             node.adapter.publish_cmd(accel=-10.)
             A_STATE = DDTStateA.STOP
         else:
-            node.adapter.publish_cmd(accel=10.)
+            node.adapter.publish_cmd(accel=0.)
 
     elif (A_STATE == DDTStateA.STOP):
         if (node.wheel_speed <= 0.05 or node.wheel_speed >= -0.05):
@@ -93,6 +106,7 @@ def ddt_inspection_a(node):
 def ddt_inspection_b(node):
     global P
     global B_STATE
+    global TIMER
 
     print(B_STATE)
 
@@ -101,11 +115,19 @@ def ddt_inspection_b(node):
         B_STATE = DDTStateB.RPM50
 
     elif (B_STATE == DDTStateB.RPM50):
-        if (node.wheel_speed >= 100.): # 100 rpms because scruteneer says 50 rpms is too slow to be 50 rpms
+        if (node.wheel_speed >= 100.):
+            node.adapter.publish_cmd(accel=0.)
+            B_STATE = DDTStateB.ROLLING
+            TIMER = time.perf_counter()
+        else:
+            node.adapter.publish_cmd(accel=5.)
+
+    elif (B_STATE == DDTStateB.ROLLING):
+        if (time.perf_counter() - TIME > 3):
             node.adapter.ebs()
             B_STATE = DDTStateB.EBS
         else:
-            node.adapter.publish_cmd(accel=5.)
+            node.adapter.publish_cmd(accel=.)
 
     elif (B_STATE == DDTStateB.EBS):
         if (node.wheel_speed <= 0.05 or node.wheel_speed >= -0.05):
