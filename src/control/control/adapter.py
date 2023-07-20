@@ -181,15 +181,15 @@ class ControlAdapter():
             self.node.get_logger().info('EBS service not available, waiting...')
 
         req = Trigger.Request()
-        future = self.ebs_client.call_async(req)
-        rclpy.spin_until_future_complete(self.node, future)
 
-        if future.result() is not None:
-            self.node.get_logger().info("Result: %d" % future.result().success)
-        else:
-            self.node.get_logger().info(
-                "Service call failed %r" % (future.exception(),)
-            )
+        def callback(future):
+            result = future.result()
+            print("Client result:", result)
+
+        future = self.ebs_client.call_async(req, callback)
+        # rclpy.spin_until_future_complete(self.node, future)
+
+        return future
 
     def eufs_ready_to_drive_callback(self):
         self.node.get_logger().info("Ready to drive callback!")
