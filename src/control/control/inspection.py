@@ -48,21 +48,19 @@ def ddt_inspection_a(node):
     global P
     global A_STATE
 
-    node.get_logger().debug("State: {} - Steering angle actual: {} - Velocity actual: {} - Max steer: {}"
-        .format(A_STATE, node.steering_angle_actual, node.velocity_actual, P.MAX_STEER))
-    print(A_STATE)
+    print(A_STATE, node.steering_angle_actual, node.velocity_actual, P.MAX_STEER)
 
     if (A_STATE == DDTStateA.START):
         node.adapter.publish_cmd(steering_angle=P.MAX_STEER)
         A_STATE = DDTStateA.TURNING_LEFT
 
     elif (A_STATE == DDTStateA.TURNING_LEFT):
-        if (node.steering_angle_actual >= P.MAX_STEER):
+        if (node.steering_angle_actual >= P.MAX_STEER - 0.05):
             node.adapter.publish_cmd(steering_angle=-P.MAX_STEER)
             A_STATE = DDTStateA.TURNING_RIGHT
 
     elif (A_STATE == DDTStateA.TURNING_RIGHT):
-        if (node.steering_angle_actual <= -P.MAX_STEER):
+        if (node.steering_angle_actual <= -P.MAX_STEER + 0.05):
             node.adapter.publish_cmd(steering_angle=0.)
             A_STATE = DDTStateA.TURNING_CENTER
 
