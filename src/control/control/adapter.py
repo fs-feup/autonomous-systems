@@ -177,17 +177,18 @@ class ControlAdapter():
         self.mission_completed_publisher.publish(msg)
 
     def eufs_ebs(self):
-        while not self.ebs_client.wait_for_service(timeout_sec=1.0):
-            self.node.get_logger().info('EBS service not available, waiting...')
+        print("EBS call")
+        # while not self.ebs_client.wait_for_service(timeout_sec=1.0):
+        #     self.node.get_logger().info('EBS service not available, waiting...')
 
         req = Trigger.Request()
 
-        def callback(future):
-            result = future.result()
-            print("Client result:", result)
+        print("EBS call")
 
-        future = self.ebs_client.call_async(req, callback)
+        future = self.ebs_client.call_async(req)
         # rclpy.spin_until_future_complete(self.node, future)
+
+        print("EBS end")
 
         return future
 
