@@ -203,6 +203,8 @@ def autonomous_demo(node):
             node.adapter.ebs()
             AUTONOMOUS_STATE = AutonomousState.EBS
             dist = 0
+        elif node.velocity_actual >= kmh_to_ms(15):
+            node.adapter.publish_cmd(accel=0.)
         else:
             node.adapter.publish_cmd(accel=DEMO_ACCEL)
 

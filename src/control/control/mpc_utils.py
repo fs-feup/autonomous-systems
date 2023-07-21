@@ -1,4 +1,5 @@
 import numpy as np
+import math
 from scipy.interpolate import interp1d
 
 from .pid_utils import get_closest_point
@@ -193,13 +194,22 @@ def get_linear_model_matrices(x_bar, u_bar):
     return np.round(A_lin,6), np.round(B_lin,6), np.round(C_lin,6)
 
 
+def wheel_rpm_2_wheel_vel(rpm):
+    return rpm * 0.5 * math.pi / 60
+
+
 def wheels_vel_2_vehicle_vel(fl_vel, fr_vel, rl_vel, rr_vel, steering_angle):
     if not steering_angle:
-        return rl_vel
-
-    s1 = P.L / np.tan(steering_angle)
-    w = rl_vel / (s1 - P.car_width)
-
-    r = np.sqrt(P.Lc**2 + s1**2)
-
-    return w*r
+        return wheel_rpm_2_wheel_vel(rl_vel)
+    elif steering_angle > 0:
+        wheel_velocity = wheel_rpm_2_wheel_vel(rl_vel)
+        rear_axis_center_rotation_radius = P.L / np.tan(steering_angle)
+        w = wheel_velocity / (rear_axis_center_rotation_radius - (P.car_width / 2))
+        r = np.sqrt(P.Lc**2 + rear_axis_center_rotation_radius**2)
+        return w * r
+    else:
+        wheel_velocity = wheel_rpm_2_wheel_vel(rr_vel)
+        rear_axis_center_rotation_radius = P.L / np.tan(steering_angle)
+        w = wheel_velocity / (rear_axis_center_rotation_radius + (P.car_width / 2))
+        r = np.sqrt(P.Lc**2 + rear_axis_center_rotation_radius**2)
+        return w * r
