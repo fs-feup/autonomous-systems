@@ -22,7 +22,7 @@ circleDivisions = 32
 coneDivisions = 16
 
 def shift(x):
-    return x + 15.0
+    return x + 14.4
 
 # =========== Cones ===========
 
@@ -113,12 +113,13 @@ print(len(yPoints + yCones))
 print(len(colorList))
 
 f1 = open("skidpad.txt", "w")
-for i in range(0, len(xPoints)):
+f1.write(f"{1.0} {0.0}\n")
+for i in range(1, len(xPoints)):
     f1.write(f"{xPoints[i]} {yPoints[i]}\n")
 f1.close()
 
 f2 = open("skidpad_map.txt", "w")
-for i in range(0, len(xCones)):
+for i in range(1, len(xCones)):
     f2.write(f"{xCones[i]} {yCones[i]}\n")
 f2.close()
 

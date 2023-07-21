@@ -100,31 +100,37 @@ class ControlNode(Node):
             self.inspection_callback()
 
     def dynamic_callback(self):
-        steering_angle_command = self.steering_angle_command if not self.done else 0.
-        velocity_command = self.velocity_command if not self.done else 0.
-        self.get_logger().debug(
-            "[command] steering angle: {} speed: {}".format(
-                steering_angle_command, velocity_command
+        if self.done:
+            self.adapter.publish_cmd(
+                steering_angle_command = 0.,
+                velocity_command = 0.,
+                torque_command = 0.,
+                break_command = 100.,
+                acceleration_command = 0.
             )
-        )
+            return
 
         # after mpc, convert velocity command to torque/break command
         torque_command, break_command, acceleration_command, self.old_velocity_error = \
             get_torque_break_commands(
                 self.velocity_actual,
-                velocity_command,
+                self.velocity_command,
                 self.old_velocity_error
             )
 
-        torque_command = torque_command if not self.done else 0.
-        break_command = break_command if not self.done else 100.
 
         # clip to limits
-        steering_angle_command = np.clip(steering_angle_command, 
+        steering_angle_command = np.clip(self.steering_angle_command, 
                                          -P.MAX_STEER, P.MAX_STEER)
-        velocity_command = np.clip(velocity_command, 0, P.MAX_SPEED)
+        velocity_command = np.clip(self.velocity_command, 0, P.MAX_SPEED)
         torque_command = np.clip(torque_command, 0, P.MAX_TORQUE)
         break_command = np.clip(break_command, 0, P.MAX_BREAK)
+
+        self.get_logger().debug(
+            "[command] steering angle: {} speed: {}".format(
+                steering_angle_command, velocity_command
+            )
+        )
 
         self.adapter.publish_cmd(steering_angle_command,
             velocity_command,
@@ -188,6 +194,7 @@ class ControlNode(Node):
         if (np.linalg.norm(to_end) <= P.done_trigger_dist) and \
             (closest_index == (len(self.path) - 1)):
             self.done = True
+            self.adapter.eufs_mission_finished()
 
 
     def mpc_callback(self, position, yaw):
@@ -226,6 +233,7 @@ class ControlNode(Node):
         if (np.linalg.norm(to_end) <= P.done_trigger_dist) and \
             (self.old_closest_index == (mpc_path_size - 1)):
             self.done = True
+            self.adapter.eufs_mission_finished()
 
 
     def path_callback(self, points_list):
