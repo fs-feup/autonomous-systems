@@ -35,6 +35,8 @@ class ExtendedKalmanFilter {
 
   MotionUpdate _last_motion_update; /**< Last motion update */
 
+  bool _fixed_map = false; /**< Flag to indicate if the map is fixed */
+
   /**
    * @brief Discovery step:
    * Adds a new landmark to the map
@@ -79,6 +81,15 @@ class ExtendedKalmanFilter {
    * @param observation_model observation model chosen for correction step
    */
   ExtendedKalmanFilter(const MotionModel& motion_model, const ObservationModel& observation_model);
+
+  /**
+   * @brief Build the EKF for specific events
+   * 
+   * @param ekf 
+   * @return ExtendedKalmanFilter 
+   */
+  ExtendedKalmanFilter(const MotionModel& motion_model,
+                                           const ObservationModel& observation_model, const Mission& mission);
 
   /**
    * @brief Updates vehicle state and map variables according
