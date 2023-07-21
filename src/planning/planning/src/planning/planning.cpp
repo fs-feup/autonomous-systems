@@ -69,12 +69,13 @@ void Planning::publish_track_points(std::vector<Position*> path) const {
     point.x = element->getX();
     point.y = element->getY();
     message.points.push_back(point);
-    RCLCPP_DEBUG(this->get_logger(), "[published] (%f, %f)", point.x, point.y);
+    RCLCPP_INFO(this->get_logger(), "[published] (%f, %f)", point.x, point.y);
   }
   local_pub_->publish(message);
 }
 
 void Planning::publish_predicitive_track_points() {
+  RCLCPP_INFO(this->get_logger(), "[mission] (%d)", this->mission);
   if (!this->is_predicitve_mission()) {
     return;
   }

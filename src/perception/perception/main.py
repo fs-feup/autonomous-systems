@@ -190,7 +190,7 @@ class perception(Node):
             sys.path.append(str(ROOT))  # add ROOT to PATH
         ROOT = Path(os.path.relpath(ROOT, Path.cwd()))
 
-        self.weights = str(ROOT) + '/config/best_cones.pt'
+        self.weights = str(ROOT) + '/config/best_noaugments.pt'
         self.imagez_height = 768 # 640 # 768
         self.imagez_width = 1280 # 640 # 1280
         self.conf_thres = 0.25
@@ -242,7 +242,7 @@ class perception(Node):
         
         return bboxes_msg
 
-    def image_callback(self, image: Image, sim=True):
+    def image_callback(self, image, sim=True, point_cloud=None):
         if sim:
             image_raw = self.bridge.imgmsg_to_cv2(image, "bgr8")
         else:
@@ -257,7 +257,7 @@ class perception(Node):
                                                  scores=confidence_list, 
                                                  cls=class_list)
         
-        cone_array = self.depth_processor.process(msg, image_raw)
+        cone_array = self.depth_processor.process(msg, image_raw, point_cloud)
         self.pub_cone_coordinates.publish(cone_array)
 
 def ros_main(args=None):
