@@ -103,19 +103,19 @@ class ControlAdapter():
             10
         )
 
-        # self.node.create_subscription(
-        #     Pose,
-        #     "/vehicle_localization",
-        #     self.localization_callback,
-        #     10
-        # )
-        # test reasons only
         self.node.create_subscription(
-            Odometry,
-            "/ground_truth/odom",
-            self.eufs_sim_odometry_callback,
+            Pose,
+            "/vehicle_localization",
+            self.localization_callback,
             10
         )
+        # test reasons only
+        # self.node.create_subscription(
+        #     Odometry,
+        #     "/ground_truth/odom",
+        #     self.eufs_sim_odometry_callback,
+        #     10
+        # )
 
     def localization_callback(self, msg):
         position = msg.position
@@ -125,15 +125,15 @@ class ControlAdapter():
         if yaw > math.pi:
             yaw -= 2 * math.pi
 
-        self.node.position = position
+        self.node.position = [position.x, position.y]
 
         self.node.get_logger().debug(
-            "[localization] ({}, {})\t{} rad\t{} m/s\t{} rad".format(
+            "[localization] ({}, {})\t{} rad".format(
                 msg.position.x, msg.position.y, msg.theta
             )
         )
 
-        self.node.mpc_callback(position, yaw)
+        # self.node.mpc_callback(position, yaw)
         # self.node.pid_callback(position, yaw)
 
     def eufs_odometry_callback(self, msg, sim=False):

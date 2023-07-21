@@ -39,7 +39,7 @@ P = Params()
 A_STATE = DDTStateA.START
 B_STATE = DDTStateB.START
 AUTONOMOUS_STATE = AutonomousState.START
-START_POINT = np.array([0, 0])
+START_POINT = [0, 0]
 TIMER = 0
 
 def rpm_to_velocity(rpm):
@@ -136,6 +136,9 @@ def ddt_inspection_b(node):
             node.adapter.eufs_mission_finished()
             B_STATE = DDTStateB.FINISH
 
+def distance(p1, p2):
+    return math.sqrt((p2[0] - p1[0])**2 + (p2[1] - p1[1])**2)
+
 def autonomous_demo(node):
     global P
     global AUTONOMOUS_STATE
@@ -163,39 +166,38 @@ def autonomous_demo(node):
 
     elif (AUTONOMOUS_STATE == AutonomousState.TURNING_CENTER):
         if (node.steering_angle_actual == 0):
-            START_POINT = np.array(node.position)
-            node.adapter.publish_cmd(accel=2.)
+            START_POINT = [node.position[0], node.position[1]]
+            node.adapter.publish_cmd(accel=0.2)
             AUTONOMOUS_STATE = AutonomousState.KMH15_M10_1
         else:
             node.adapter.publish_cmd(steering_angle=0.)
 
     elif (AUTONOMOUS_STATE == AutonomousState.KMH15_M10_1):
-        dist = np.linalg.norm(
-            START_POINT - np.array(node.position))
+        dist = distance(START_POINT, [node.position[0], node.position[1]])
         if (node.velocity_actual >= kmh_to_ms(15) and dist >= 10):
-            node.adapter.publish_cmd(accel=-2.)
+            node.adapter.publish_cmd(accel=-2)
             AUTONOMOUS_STATE = AutonomousState.BRAKING
         else:
-            node.adapter.publish_cmd(accel=2.)
+            node.adapter.publish_cmd(accel=0.2)
 
     elif (AUTONOMOUS_STATE == AutonomousState.BRAKING):
-        if (node.velocity_actual <= 0):
-            START_POINT = np.array(node.position)
-            node.adapter.publish_cmd(accel=2.)
+        if (node.velocity_actual <= 0.):
+            START_POINT = [node.position[0], node.position[1]]
+            node.adapter.publish_cmd(accel=0.2)
             AUTONOMOUS_STATE = AutonomousState.KMH15_M10_2
         else:
             node.adapter.publish_cmd(accel=-2.)
 
 
     elif (AUTONOMOUS_STATE == AutonomousState.KMH15_M10_2):
-        dist = np.linalg.norm(
-            START_POINT - np.array(node.position))
+        dist = distance(START_POINT, [node.position[0], node.position[1]])
         if (node.velocity_actual >= kmh_to_ms(15) and dist >= 10):
             node.adapter.ebs()
             AUTONOMOUS_STATE = AutonomousState.EBS
         else:
-            node.adapter.publish_cmd(accel=2.)
+            node.adapter.publish_cmd(accel=.2)
 
     elif (AUTONOMOUS_STATE == AutonomousState.EBS):
-        if (node.velocity_actual == 0):
+        if (node.velocity_actual == 0.):
+            node.adapter.eufs_mission_finished()
             AUTONOMOUS_STATE = AutonomousState.FINISH
