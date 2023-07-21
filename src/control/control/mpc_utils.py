@@ -195,7 +195,7 @@ def get_linear_model_matrices(x_bar, u_bar):
 
 def wheels_vel_2_vehicle_vel(fl_vel, fr_vel, rl_vel, rr_vel, steering_angle):
     if not steering_angle:
-        return fl_vel
+        return rl_vel
 
     s1 = P.L / np.tan(steering_angle)
     w = rl_vel / (s1 - P.car_width)

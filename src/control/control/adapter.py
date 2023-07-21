@@ -17,7 +17,7 @@ from .config import Params
 import numpy as np
 
 P = Params()
-TEST = True
+TEST = False
 
 class ControlAdapter():
     def __init__(self, mode, node):
@@ -136,8 +136,8 @@ class ControlAdapter():
         )
 
         if self.node.mission != CanState.AMI_AUTONOMOUS_DEMO:
-            self.node.mpc_callback(position, yaw)
-            # self.node.pid_callback(position, yaw)
+            # self.node.mpc_callback(position, yaw)
+            self.node.pid_callback(position, yaw)
 
     def eufs_odometry_callback(self, msg, sim=False):
         self.node.wheel_speed = (msg.speeds.lb_speed +

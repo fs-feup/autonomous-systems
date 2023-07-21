@@ -41,6 +41,7 @@ B_STATE = DDTStateB.START
 AUTONOMOUS_STATE = AutonomousState.START
 START_POINT = [0, 0]
 TIMER = 0
+dist = 0
 
 def rpm_to_velocity(rpm):
     return rpm * P.tire_diam * math.pi / 60
@@ -143,8 +144,13 @@ def autonomous_demo(node):
     global P
     global AUTONOMOUS_STATE
     global START_POINT
+    global dist
 
-    print(AUTONOMOUS_STATE)
+    DEMO_ACCEL = 1.3
+    DEMO_BRAKE = -2.6
+    VEL_ZERO = 0.005
+
+    print(AUTONOMOUS_STATE, node.steering_angle_actual, node.velocity_actual, dist)
 
     if (AUTONOMOUS_STATE == AutonomousState.START):
         node.adapter.publish_cmd(steering_angle=P.MAX_STEER)
@@ -166,38 +172,42 @@ def autonomous_demo(node):
 
     elif (AUTONOMOUS_STATE == AutonomousState.TURNING_CENTER):
         if (node.steering_angle_actual == 0):
-            START_POINT = [node.position[0], node.position[1]]
-            node.adapter.publish_cmd(accel=0.2)
+            START_POINT = node.position
+            node.adapter.publish_cmd(accel=DEMO_ACCEL)
             AUTONOMOUS_STATE = AutonomousState.KMH15_M10_1
         else:
             node.adapter.publish_cmd(steering_angle=0.)
 
     elif (AUTONOMOUS_STATE == AutonomousState.KMH15_M10_1):
-        dist = distance(START_POINT, [node.position[0], node.position[1]])
+        dist = distance(START_POINT, node.position)
         if (node.velocity_actual >= kmh_to_ms(15) and dist >= 10):
-            node.adapter.publish_cmd(accel=-2)
+            node.adapter.publish_cmd(accel=DEMO_BRAKE)
             AUTONOMOUS_STATE = AutonomousState.BRAKING
+            dist = 0
+        elif node.velocity_actual >= kmh_to_ms(15):
+            node.adapter.publish_cmd(accel=0.)
         else:
-            node.adapter.publish_cmd(accel=0.2)
+            node.adapter.publish_cmd(accel=DEMO_ACCEL)
 
     elif (AUTONOMOUS_STATE == AutonomousState.BRAKING):
-        if (node.velocity_actual <= 0.):
-            START_POINT = [node.position[0], node.position[1]]
-            node.adapter.publish_cmd(accel=0.2)
+        if (node.velocity_actual <= VEL_ZERO):
+            START_POINT = node.position
+            node.adapter.publish_cmd(accel=DEMO_ACCEL)
             AUTONOMOUS_STATE = AutonomousState.KMH15_M10_2
         else:
-            node.adapter.publish_cmd(accel=-2.)
+            node.adapter.publish_cmd(accel=DEMO_BRAKE)
 
 
     elif (AUTONOMOUS_STATE == AutonomousState.KMH15_M10_2):
-        dist = distance(START_POINT, [node.position[0], node.position[1]])
+        dist = distance(START_POINT, node.position)
         if (node.velocity_actual >= kmh_to_ms(15) and dist >= 10):
             node.adapter.ebs()
             AUTONOMOUS_STATE = AutonomousState.EBS
+            dist = 0
         else:
-            node.adapter.publish_cmd(accel=.2)
+            node.adapter.publish_cmd(accel=DEMO_ACCEL)
 
     elif (AUTONOMOUS_STATE == AutonomousState.EBS):
-        if (node.velocity_actual == 0.):
+        if (node.velocity_actual <= VEL_ZERO):
             node.adapter.eufs_mission_finished()
             AUTONOMOUS_STATE = AutonomousState.FINISH
