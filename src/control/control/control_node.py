@@ -38,6 +38,8 @@ class ControlNode(Node):
 
         self.state = CanState.AS_OFF
 
+        self.position = np.array([0, 0])
+
         # Steering angle.
         self.steering_angle_command = 0.
 

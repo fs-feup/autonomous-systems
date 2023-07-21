@@ -1,6 +1,10 @@
 from sensor_msgs.msg import Image
 from rclpy.qos import qos_profile_sensor_data
+
 import pyzed.sl as sl
+import cv2
+from cv_bridge import CvBridge
+from sensor_msgs.msg import Image
 
 class PerceptionAdapter():
     def __init__(self, mode, node):
@@ -34,8 +38,8 @@ class PerceptionAdapter():
         zed = sl.Camera()
 
         init_params = sl.InitParameters()
-        init_params.camera_resolution = sl.RESOLUTION.HD1080
-        init_params.camera_fps = 30
+        init_params.camera_resolution = sl.RESOLUTION.HD720
+        init_params.camera_fps = 60
 
         err = zed.open(init_params)
         if err != sl.ERROR_CODE.SUCCESS:
@@ -47,9 +51,9 @@ class PerceptionAdapter():
             if zed.grab(runtime_parameters) == sl.ERROR_CODE.SUCCESS:
                 zed.retrieve_image(image, sl.VIEW.LEFT)
                 zed.get_timestamp(sl.TIME_REFERENCE.CURRENT)
-                self.node.image_callback(image)
+                ros_img = cv2.cvtColor(image.get_data(), cv2.COLOR_RGBA2RGB)
+                self.node.image_callback(ros_img, sim=False)
             else:
                 print("Error grabbing image!\n")
-                break
 
         zed.close()

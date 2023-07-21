@@ -99,7 +99,7 @@ class yolov5():
         # im is  NDArray[_SCT@ascontiguousarray
         # im = im.transpose(2, 0, 1)
         self.stride = 32  # stride
-        self.img_size = 640
+        self.img_size = 768 # 640 # 768
         img = letterbox(image_raw, self.img_size, stride=self.stride)[0]
 
         # Convert
@@ -179,14 +179,9 @@ class perception(Node):
         self.bridge = CvBridge()
 
         parser = argparse.ArgumentParser()
-        parser.add_argument('--interface', default="eufs")
+        parser.add_argument('--interface', default="ads_dv")
         parser.add_argument('--ros-args', nargs='*')
         args = parser.parse_args()
-
-        self.adapter = PerceptionAdapter(args.interface, self)
-        self.pub_cone_coordinates = self.create_publisher(ConeArray, 
-                                                          'perception/cone_coordinates', 
-                                                          10)
 
         # parameter
         FILE = Path(__file__).resolve()
@@ -196,12 +191,12 @@ class perception(Node):
         ROOT = Path(os.path.relpath(ROOT, Path.cwd()))
 
         self.weights = str(ROOT) + '/config/best_cones.pt'
-        self.imagez_height = 640
-        self.imagez_width = 640
+        self.imagez_height = 768 # 640 # 768
+        self.imagez_width = 1280 # 640 # 1280
         self.conf_thres = 0.25
         self.iou_thres = 0.45
         self.max_det = 1000
-        self.view_img = False
+        self.view_img = True
         self.classes = None
         self.agnostic_nms = False
         self.line_thickness = 2
@@ -221,13 +216,17 @@ class perception(Node):
                                 self.half,
                                 self.dnn)
         self.get_logger().info("Yolov5 model loaded")
+
         self.depth_processor = DepthProcessor(self.get_logger())
-        self.get_logger().debug("Depth Processing loaded")
+        self.get_logger().info("Depth Processing loaded")
+
+        self.pub_cone_coordinates = self.create_publisher(ConeArray, 
+                                                          'perception/cone_coordinates', 
+                                                          10)
+        self.adapter = PerceptionAdapter(args.interface, self)
     
-    def yolovFive2bboxes_msgs(self, bboxes:list, scores:list, cls:list, 
-                              img_header:Header):
+    def yolovFive2bboxes_msgs(self, bboxes:list, scores:list, cls:list):
         bboxes_msg = BoundingBoxes()
-        bboxes_msg.header = img_header
         i = 0
         for score in scores:
             one_box = BoundingBox()
@@ -243,8 +242,12 @@ class perception(Node):
         
         return bboxes_msg
 
-    def image_callback(self, image:Image):
-        image_raw = self.bridge.imgmsg_to_cv2(image, "bgr8")
+    def image_callback(self, image: Image, sim=True):
+        if sim:
+            image_raw = self.bridge.imgmsg_to_cv2(image, "bgr8")
+        else:
+            image_raw = image
+
         class_list, confidence_list,\
         x_min_list, y_min_list, x_max_list, y_max_list =\
             self.yolov5.image_callback(image_raw)
@@ -252,8 +255,7 @@ class perception(Node):
         msg = self.yolovFive2bboxes_msgs(bboxes=[x_min_list, y_min_list, 
                                                  x_max_list, y_max_list], 
                                                  scores=confidence_list, 
-                                                 cls=class_list, 
-                                                 img_header=image.header)
+                                                 cls=class_list)
         
         cone_array = self.depth_processor.process(msg, image_raw)
         self.pub_cone_coordinates.publish(cone_array)
