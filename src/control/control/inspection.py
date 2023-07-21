@@ -120,7 +120,6 @@ def ddt_inspection_b(node):
             node.adapter.publish_cmd(accel=0.1)
             B_STATE = DDTStateB.ROLLING
             TIMER = time.perf_counter()
-            print(TIMER)
         else:
             node.adapter.publish_cmd(accel=.5)
 
