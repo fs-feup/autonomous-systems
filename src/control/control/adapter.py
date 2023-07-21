@@ -97,25 +97,25 @@ class ControlAdapter():
             10
         )
         self.node.create_subscription(
-            Pose,
-            "/vehicle_localization",
-            self.localization_callback,
-            10
-        )
-        self.node.create_subscription(
             WheelSpeedsStamped,
             "/ros_can/wheel_speeds",
             self.eufs_odometry_callback,
             10
         )
 
-        # test reasons only
         # self.node.create_subscription(
-        #     Odometry,
-        #     "/ground_truth/odom",
-        #     self.eufs_sim_odometry_callback,
+        #     Pose,
+        #     "/vehicle_localization",
+        #     self.localization_callback,
         #     10
         # )
+        # test reasons only
+        self.node.create_subscription(
+            Odometry,
+            "/ground_truth/odom",
+            self.eufs_sim_odometry_callback,
+            10
+        )
 
     def localization_callback(self, msg):
         position = msg.position
@@ -171,21 +171,15 @@ class ControlAdapter():
             )
 
     def eufs_mission_finished(self):
-        print("Mission finished!")
+        self.node.get_logger().info("Mission finished!")
         msg = Bool()
         msg.data = True
         self.mission_completed_publisher.publish(msg)
 
     def eufs_ebs(self):
-        print("EBS call")
-        # while not self.ebs_client.wait_for_service(timeout_sec=1.0):
-        #     self.node.get_logger().info('EBS service not available, waiting...')
-
+        self.node.get_logger().info("EBS triggered!")
         req = Trigger.Request()
-
         future = self.ebs_client.call_async(req)
-        # rclpy.spin_until_future_complete(self.node, future)
-
         return future
 
     def eufs_ready_to_drive_callback(self):
@@ -247,19 +241,19 @@ class ControlAdapter():
         )
 
     # test reasons only
-    # def eufs_sim_odometry_callback(self, msg):
-    #     position = msg.pose.pose.position
-    #     orientation = msg.pose.pose.orientation
-    #     orientation_list = [orientation.x, orientation.y, orientation.z, orientation.w]
+    def eufs_sim_odometry_callback(self, msg):
+        position = msg.pose.pose.position
+        orientation = msg.pose.pose.orientation
+        orientation_list = [orientation.x, orientation.y, orientation.z, orientation.w]
 
-    #     decomp_speed = msg.twist.twist.linear
+        decomp_speed = msg.twist.twist.linear
 
-    #     self.node.position = position
-    #     self.node.velocity_actual = math.sqrt(decomp_speed.x**2 + decomp_speed.y**2)
-    #     self.node.steering_angle_actual = self.node.steering_angle_command
+        self.node.position = position
+        self.node.velocity_actual = math.sqrt(decomp_speed.x**2 + decomp_speed.y**2)
+        self.node.steering_angle_actual = self.node.steering_angle_command
 
-    #     # Converts quartenions base to euler's base, and updates the class' attributes
-    #     yaw = euler_from_quaternion(orientation_list)[2]
+        # Converts quartenions base to euler's base, and updates the class' attributes
+        yaw = euler_from_quaternion(orientation_list)[2]
 
-    #     self.node.mpc_callback(position, yaw)
-    #     self.node.pid_callback(position, yaw)
+        self.node.mpc_callback(position, yaw)
+        # self.node.pid_callback(position, yaw)
