@@ -17,6 +17,7 @@ from .config import Params
 import numpy as np
 
 P = Params()
+TEST = True
 
 class ControlAdapter():
     def __init__(self, mode, node):
@@ -103,19 +104,20 @@ class ControlAdapter():
             10
         )
 
-        self.node.create_subscription(
-            Pose,
-            "/vehicle_localization",
-            self.localization_callback,
-            10
-        )
-        # test reasons only
-        # self.node.create_subscription(
-        #     Odometry,
-        #     "/ground_truth/odom",
-        #     self.eufs_sim_odometry_callback,
-        #     10
-        # )
+        if TEST:
+            self.node.create_subscription(
+                Odometry,
+                "/ground_truth/odom",
+                self.eufs_sim_odometry_callback,
+                10
+            )
+        else:
+            self.node.create_subscription(
+                Pose,
+                "/vehicle_localization",
+                self.localization_callback,
+                10
+            )
 
     def localization_callback(self, msg):
         position = msg.position
@@ -133,8 +135,9 @@ class ControlAdapter():
             )
         )
 
-        # self.node.mpc_callback(position, yaw)
-        # self.node.pid_callback(position, yaw)
+        if self.node.mission != CanState.AMI_AUTONOMOUS_DEMO:
+            self.node.mpc_callback(position, yaw)
+            # self.node.pid_callback(position, yaw)
 
     def eufs_odometry_callback(self, msg, sim=False):
         self.node.wheel_speed = (msg.speeds.lb_speed +

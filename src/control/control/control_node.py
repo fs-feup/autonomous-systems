@@ -102,11 +102,11 @@ class ControlNode(Node):
     def dynamic_callback(self):
         if self.done:
             self.adapter.publish_cmd(
-                steering_angle_command = 0.,
-                velocity_command = 0.,
-                torque_command = 0.,
-                break_command = 100.,
-                acceleration_command = 0.
+                steering_angle = 0.,
+                speed = 0.,
+                torque_req = 0.,
+                break_req = 100.,
+                accel = 0.
             )
             return
 
