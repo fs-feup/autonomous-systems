@@ -40,11 +40,14 @@ void ExtendedKalmanFilter::prediction_step(const MotionUpdate& motion_update) {
   double delta =
       std::chrono::duration_cast<std::chrono::microseconds>(now - this->_last_update).count();
   this->_last_motion_update = motion_update;
-  this->X = this->_motion_model.predict_expected_state(X, motion_update, delta / 1000000);
+  Eigen::VectorXf tempX = this->X;
+  std::cout << "X before: " << this->X(0) << " " << this->X(1) << std::endl;
+  this->X = this->_motion_model.predict_expected_state(tempX, motion_update, delta / 1000000);
   Eigen::MatrixXf G =
-      this->_motion_model.get_motion_to_state_matrix(X, motion_update, delta / 1000000);
+      this->_motion_model.get_motion_to_state_matrix(tempX, motion_update, delta / 1000000);
   Eigen::MatrixXf R = this->_motion_model.get_process_noise_covariance_matrix(
       this->X.size());  // Process Noise Matrix
+  std::cout << "X after: " << this->X(0) << " " << this->X(1) << std::endl;
   this->P = G * this->P * G.transpose() + R;
   this->_last_update = now;
 }

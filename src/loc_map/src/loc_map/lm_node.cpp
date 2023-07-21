@@ -163,7 +163,10 @@ void LMNode::_wheel_speeds_subscription_callback(double lb_speed, double lf_spee
   }
 }
 
-void LMNode::set_mission(Mission mission) { 
+void LMNode::set_mission(Mission mission) {
+  if (this->_mission == mission) {
+    return;
+  }
   this->_mission = mission;
   Eigen::Matrix2f Q = Eigen::Matrix2f::Zero();
   Q(0, 0) = 0.3;
