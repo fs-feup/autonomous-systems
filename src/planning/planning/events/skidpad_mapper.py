@@ -21,6 +21,9 @@ circleDivisions = 32
 
 coneDivisions = 16
 
+def shift(x):
+    return x + 15.0
+
 # =========== Cones ===========
 
 # ========= inner ==========
@@ -62,8 +65,6 @@ for angle in np.arange(math.pi / 4, 15 * math.pi / 8, 2*math.pi / coneDivisions)
     yCones.append(y)
     colorList.append("#ff0000")
 
-
-
 for i in np.arange(startLine, 0, abs(startLine) // straightPoints):
     x = 0.0
     y = round(i, roundCases)
@@ -98,6 +99,12 @@ for i in np.arange(0, endLine + 0.01, endLine // straightPoints):
     yPoints.append(y)
     colorList.append("#00aa00")
 
+for i in range(len(yCones)):
+    yCones[i], xCones[i] = -xCones[i], shift(yCones[i])
+
+for i in range(len(yPoints)):
+    yPoints[i], xPoints[i] = -xPoints[i], shift(yPoints[i])
+
 print(len(xPoints))
 print(len(yPoints))
 print(len(xCones))
@@ -105,17 +112,15 @@ print(len(yCones))
 print(len(yPoints + yCones))
 print(len(colorList))
 
-f = open("skidpad.txt", "w")
+f1 = open("skidpad.txt", "w")
 for i in range(0, len(xPoints)):
-    f.write(f"{xPoints[i]} {yPoints[i]}\n")
+    f1.write(f"{xPoints[i]} {yPoints[i]}\n")
+f1.close()
 
-# Iterating through the json
-# list
-# for i in data['emp_details']:
-# for i in range(0, len(data['x'])):
-#     print(f"{data['x'][i]} {data['y'][i]} {color_encoding(data['color'][i])}")
-
-f.close()
+f2 = open("skidpad_map.txt", "w")
+for i in range(0, len(xCones)):
+    f2.write(f"{xCones[i]} {yCones[i]}\n")
+f2.close()
 
 plt.scatter(xCones + xPoints, yCones + yPoints, s=2, c=colorList)
 plt.axis('equal')
