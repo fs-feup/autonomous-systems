@@ -50,27 +50,22 @@ class DepthProcessor():
                 continue
         
             if point_cloud != None:
-                point3D = point_cloud.get_value(i, j)
-                x = point3D[0]
-                y = point3D[1]
-                z = point3D[2]
-
-                print(x, y, z)
-                points.append((x, y))
+                point3D = point_cloud.get_value(x, y)
+                x = point3D[1][0]
+                y = point3D[1][2]
             else:
                 bb_point = np.float32([[[x, y]]])
                 point = cv2.perspectiveTransform(bb_point, matrix)
                 x = float(point[0][0][0])
                 y = float(point[0][0][1])
-                points.append((point, bounding_box.class_id))
 
             #publish cone coordinates
             cone = Cone()
             position = Point2d()
 
             # rotate coordinates 90 degrees so they match localization logic
-            position.x = y
-            position.y = -x
+            position.x = float(y)
+            position.y = float(-x)
             cone.position = position
             cone.color = bounding_box.class_id
             cone_array.cone_array.append(cone)

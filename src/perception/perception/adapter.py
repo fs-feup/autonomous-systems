@@ -54,7 +54,7 @@ class PerceptionAdapter():
                 zed.get_timestamp(sl.TIME_REFERENCE.CURRENT)
                 zed.retrieve_measure(point_cloud, sl.MEASURE.XYZRGBA)
                 ros_img = cv2.cvtColor(image.get_data(), cv2.COLOR_RGBA2RGB)
-                self.node.image_callback(ros_img, sim=False)
+                self.node.image_callback(ros_img, sim=False, point_cloud=point_cloud)
             else:
                 print("Error grabbing image!\n")
 
