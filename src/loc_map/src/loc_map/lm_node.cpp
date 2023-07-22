@@ -234,7 +234,7 @@ void LMNode::_ekf_step() {
   }
   MotionUpdate temp_update = *(this->_motion_update);
   this->_ekf->prediction_step(temp_update);
-  // this->_ekf->correction_step(*(this->_perception_map));
+  this->_ekf->correction_step(*(this->_perception_map));
   this->_ekf->update(this->_vehicle_state, this->_track_map);
   // this->_vehicle_state->translational_velocity = temp_update.translational_velocity;
   // this->_vehicle_state->steering_angle = temp_update.steering_angle;

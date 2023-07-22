@@ -16,8 +16,8 @@
 using std::placeholders::_1;
 
 Planning::Planning() : Node("planning") {
-  this->vl_sub_ = this->create_subscription<custom_interfaces::msg::Pose>(
-      "vehicle_localization", 10, std::bind(&Planning::vehicle_localization_callback, this, _1));
+  // this->vl_sub_ = this->create_subscription<custom_interfaces::msg::Pose>(
+  //     "vehicle_localization", 10, std::bind(&Planning::vehicle_localization_callback, this, _1));
 
   this->track_sub_ = this->create_subscription<custom_interfaces::msg::ConeArray>(
       "track_map", 10, std::bind(&Planning::track_map_callback, this, _1));
@@ -33,10 +33,10 @@ Planning::Planning() : Node("planning") {
   this->adapter = new Adapter("eufs", this);
 }
 
-void Planning::vehicle_localization_callback(const custom_interfaces::msg::Pose msg) {
-  RCLCPP_INFO(this->get_logger(), "[localization] (%f, %f) \t%f deg", msg.position.x,
-              msg.position.y, msg.theta);
-}
+// void Planning::vehicle_localization_callback(const custom_interfaces::msg::Pose msg) {
+//   RCLCPP_INFO(this->get_logger(), "[localization] (%f, %f) \t%f deg", msg.position.x,
+//               msg.position.y, msg.theta);
+// }
 
 void Planning::track_map_callback(const custom_interfaces::msg::ConeArray msg) {
   if (this->is_predicitve_mission()) {

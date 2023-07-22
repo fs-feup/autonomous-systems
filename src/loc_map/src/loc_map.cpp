@@ -37,7 +37,7 @@ int main(int argc, char **argv) {
   auto subscriber =
       std::make_shared<LMNode>(ekf, predicted_map, motion_update, track_map, vehicle_state, true);
   // auto publisher = std::make_shared<LMPublisher>(track_map, vehicle_state);
-  // auto ekf_node = std::make_shared<EKFNode>(
+    // auto ekf_node = std::make_shared<EKFNode>(
   //     ekf);  // TODO(marhcouto): check if this is the best distribution of nodes
 
   rclcpp::executors::MultiThreadedExecutor executor;
