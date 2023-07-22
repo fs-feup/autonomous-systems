@@ -199,8 +199,8 @@ def wheel_rpm_2_wheel_vel(rpm):
 
 
 def wheels_vel_2_vehicle_vel(fl_vel, fr_vel, rl_vel, rr_vel, steering_angle):
-    if not steering_angle:
-        return wheel_rpm_2_wheel_vel(rl_vel)
+    if not steering_angle or (steering_angle <= 0.05 and steering_angle >= -0.05):
+        return (wheel_rpm_2_wheel_vel(fl_vel) + wheel_rpm_2_wheel_vel(fr_vel) + wheel_rpm_2_wheel_vel(rl_vel) + wheel_rpm_2_wheel_vel(rr_vel)) / 4
     elif steering_angle > 0:
         wheel_velocity = wheel_rpm_2_wheel_vel(rl_vel)
         rear_axis_center_rotation_radius = P.L / np.tan(steering_angle)
