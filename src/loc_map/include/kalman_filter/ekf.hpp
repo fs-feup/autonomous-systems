@@ -69,7 +69,7 @@ class ExtendedKalmanFilter {
    * @param distance_to_vehicle distance of the cone to the vehicle
    * @return difference between limit and delta (score)
    */
-  static double cone_match(const double x_from_state, const double y_from_state,
+  static bool cone_match(const double x_from_state, const double y_from_state,
                            const double x_from_perception, const double y_from_perception,
                            const double distance_to_vehicle);
 
@@ -119,6 +119,14 @@ class ExtendedKalmanFilter {
    * @param perception_map map from perception
    */
   void correction_step(const Map& perception_map);
+
+  Eigen::VectorXf get_state() const {
+    return this->X;
+  }
+
+  Eigen::MatrixXf get_covariance() const {
+    return this->P;
+  }
 
   std::chrono::time_point<std::chrono::high_resolution_clock> get_last_update() const {
     return this->_last_update;

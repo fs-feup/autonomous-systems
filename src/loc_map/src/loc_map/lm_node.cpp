@@ -115,7 +115,7 @@ MotionUpdate LMNode::odometry_to_velocities_transform(double lb_speed,
     double lb_velocity = get_wheel_velocity_from_rpm(lb_speed, WHEEL_DIAMETER);
     double rb_velocity = get_wheel_velocity_from_rpm(rb_speed, WHEEL_DIAMETER);
     // double lf_velocity = get_wheel_velocity_from_rpm(lf_speed, WHEEL_DIAMETER); // Simulator
-    // front wheels double rf_velocity = get_wheel_velocity_from_rpm(rf_speed, WHEEL_DIAMETER); //
+    // double rf_velocity = get_wheel_velocity_from_rpm(rf_speed, WHEEL_DIAMETER); //
     // Are always 0
     motion_prediction_data_transformed.translational_velocity = (lb_velocity + rb_velocity) / 2;
   } else if (steering_angle > 0) {
@@ -168,16 +168,16 @@ void LMNode::set_mission(Mission mission) {
     return;
   }
   this->_mission = mission;
-  Eigen::Matrix2f Q = Eigen::Matrix2f::Zero();
-  Q(0, 0) = 0.3;
-  Q(1, 1) = 0.3;
-  Eigen::MatrixXf R = Eigen::Matrix3f::Zero();
-  R(0, 0) = 0.1;
-  R(1, 1) = 0.1;
-  R(2, 2) = 0.1;
-  MotionModel *motion_model = new NormalVelocityModel(R);
-  ObservationModel observation_model = ObservationModel(Q);
-  this->_ekf = new ExtendedKalmanFilter(*motion_model, observation_model, mission); 
+  // Eigen::Matrix2f Q = Eigen::Matrix2f::Zero();
+  // Q(0, 0) = 0.3;
+  // Q(1, 1) = 0.3;
+  // Eigen::MatrixXf R = Eigen::Matrix3f::Zero();
+  // R(0, 0) = 0.1;
+  // R(1, 1) = 0.1;
+  // R(2, 2) = 0.1;
+  // MotionModel *motion_model = new NormalVelocityModel(R);
+  // ObservationModel observation_model = ObservationModel(Q);
+  // this->_ekf = new ExtendedKalmanFilter(*motion_model, observation_model, mission); // Track drive does not need this
 }
 
 Mission LMNode::get_mission() { return this->_mission; }
@@ -234,7 +234,7 @@ void LMNode::_ekf_step() {
   }
   MotionUpdate temp_update = *(this->_motion_update);
   this->_ekf->prediction_step(temp_update);
-  // this->_ekf->correction_step(*(this->_perception_map));
+  this->_ekf->correction_step(*(this->_perception_map));
   this->_ekf->update(this->_vehicle_state, this->_track_map);
   // this->_vehicle_state->translational_velocity = temp_update.translational_velocity;
   // this->_vehicle_state->steering_angle = temp_update.steering_angle;
