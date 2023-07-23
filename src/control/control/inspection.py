@@ -213,3 +213,69 @@ def autonomous_demo(node):
         if (node.velocity_actual <= VEL_ZERO):
             node.adapter.eufs_mission_finished()
             AUTONOMOUS_STATE = AutonomousState.FINISH
+
+def autonomous_demo_timed(node):
+    global P
+    global AUTONOMOUS_STATE
+    global TIMER
+
+    DEMO_ACCEL = 3
+    DEMO_BRAKE = -3
+    VEL_ZERO = 0.01
+    TARGET_TIME = 4
+
+    print(AUTONOMOUS_STATE, node.steering_angle_actual, node.velocity_actual, TIMER)
+
+    if (AUTONOMOUS_STATE == AutonomousState.START):
+        node.adapter.publish_cmd(steering_angle=P.MAX_STEER)
+        AUTONOMOUS_STATE = AutonomousState.TURNING_LEFT
+
+    elif (AUTONOMOUS_STATE == AutonomousState.TURNING_LEFT):
+        if (node.steering_angle_actual >= P.MAX_STEER - 0.05):
+            node.adapter.publish_cmd(steering_angle=-P.MAX_STEER)
+            AUTONOMOUS_STATE = AutonomousState.TURNING_RIGHT
+        else:
+            node.adapter.publish_cmd(steering_angle=P.MAX_STEER)
+
+    elif (AUTONOMOUS_STATE == AutonomousState.TURNING_RIGHT):
+        if (node.steering_angle_actual <= -P.MAX_STEER + 0.05):
+            node.adapter.publish_cmd(steering_angle=0.)
+            AUTONOMOUS_STATE = AutonomousState.TURNING_CENTER
+        else:
+            node.adapter.publish_cmd(steering_angle=-P.MAX_STEER)
+
+    elif (AUTONOMOUS_STATE == AutonomousState.TURNING_CENTER):
+        if (node.steering_angle_actual == 0):
+            node.adapter.publish_cmd(accel=DEMO_ACCEL)
+            TIMER = time.perf_counter()
+            AUTONOMOUS_STATE = AutonomousState.KMH15_M10_1
+        else:
+            node.adapter.publish_cmd(steering_angle=0.)
+
+    elif (AUTONOMOUS_STATE == AutonomousState.KMH15_M10_1):
+        if (time.perf_counter() - TIMER > TARGET_TIME):
+            node.adapter.publish_cmd(accel=DEMO_BRAKE)
+            AUTONOMOUS_STATE = AutonomousState.BRAKING
+        else:
+            node.adapter.publish_cmd(accel=DEMO_ACCEL)
+
+    elif (AUTONOMOUS_STATE == AutonomousState.BRAKING):
+        if (node.velocity_actual <= VEL_ZERO):
+            START_POINT = node.position
+            node.adapter.publish_cmd(accel=DEMO_ACCEL)
+            TIMER = time.perf_counter()
+            AUTONOMOUS_STATE = AutonomousState.KMH15_M10_2
+        else:
+            node.adapter.publish_cmd(accel=DEMO_BRAKE)
+
+    elif (AUTONOMOUS_STATE == AutonomousState.KMH15_M10_2):
+        if (time.perf_counter() - TIMER > TARGET_TIME):
+            node.adapter.ebs()
+            AUTONOMOUS_STATE = AutonomousState.EBS
+        else:
+            node.adapter.publish_cmd(accel=DEMO_ACCEL)
+
+    elif (AUTONOMOUS_STATE == AutonomousState.EBS):
+        if (node.velocity_actual <= VEL_ZERO):
+            node.adapter.eufs_mission_finished()
+            AUTONOMOUS_STATE = AutonomousState.FINISH
