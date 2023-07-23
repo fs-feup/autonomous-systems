@@ -244,7 +244,9 @@ class ControlNode(Node):
         """
         path = []
         path_speeds = []
-        
+
+        print("Received path\n{}".format(points_list.points))
+        print("------------")
         for i, point in enumerate(points_list.points):
             self.get_logger().debug("[received] ({}, {})".format(point.x, point.y))
             path.append([point.x, point.y])

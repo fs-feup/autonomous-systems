@@ -109,17 +109,20 @@ def get_cte(closest_index, points_array, pose_car):
     k = 3
 
     # implement look ahead
-    if closest_index + P.LOOK_AHEAD < len(points_array) - (k + 1) -1:
+    if closest_index + P.LOOK_AHEAD < len(points_array) - (k + 1) - 1:
         closest_index += P.LOOK_AHEAD
 
-    filtered_points = points_array[max(closest_index-win_amplitude, 0):
-        min(closest_index+win_amplitude, len(points_array)), :]
+    if len(points_array) > 3:
+        filtered_points = points_array[max(closest_index-win_amplitude, 0):
+            min(closest_index+win_amplitude, len(points_array)), :]
 
-    tck, u = interpolate.splprep([filtered_points[:, 0], filtered_points[:, 1]],
-                                  s=0, per=False, k=3)
-    x0, y0 = interpolate.splev(np.linspace(0, 1, n_new_points), tck)
+        tck, u = interpolate.splprep([filtered_points[:, 0], filtered_points[:, 1]],
+                                    s=0, per=False, k=3)
+        x0, y0 = interpolate.splev(np.linspace(0, 1, n_new_points), tck)
 
-    new_points_array = np.concatenate((x0[:, np.newaxis], y0[:, np.newaxis]), axis=1)
+        new_points_array = np.concatenate((x0[:, np.newaxis], y0[:, np.newaxis]), axis=1)
+    else:
+        new_points_array = points_array
 
     new_closest_index = get_closest_point([x_car, y_car], new_points_array)
 

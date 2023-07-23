@@ -168,6 +168,7 @@ void LMNode::set_mission(Mission mission) {
     return;
   }
   this->_mission = mission;
+  return;
   Eigen::Matrix2f Q = Eigen::Matrix2f::Zero();
   Q(0, 0) = 0.3;
   Q(1, 1) = 0.3;
@@ -201,6 +202,8 @@ void LMNode::_publish_localization() {
   message.position.y = vehicle_localization.position.y;
   message.theta = vehicle_localization.orientation;
 
+  RCLCPP_INFO(this->get_logger(), "PUB - Pose: (%f, %f, %f)", message.position.x,
+               message.position.y, message.theta);
   RCLCPP_DEBUG(this->get_logger(), "PUB - Pose: (%f, %f, %f)", message.position.x,
                message.position.y, message.theta);
   this->_localization_publisher->publish(message);
