@@ -70,7 +70,7 @@ class DepthProcessor():
             cone.color = bounding_box.class_id
             cone_array.cone_array.append(cone)
 
-            self.logger.info("({},{})\t{}"
+            self.logger.debug("({},{})\t{}"
                 .format(position.x, position.y, bounding_box.class_id))
 
         self.bounding_boxes_msgs = []

@@ -22,9 +22,9 @@ int main(int argc, char **argv) {
   Q(0, 0) = 0.3;
   Q(1, 1) = 0.3;
   Eigen::MatrixXf R = Eigen::Matrix3f::Zero();
-  R(0, 0) = 0.1;
-  R(1, 1) = 0.1;
-  R(2, 2) = 0.1;
+  R(0, 0) = 0.8;
+  R(1, 1) = 0.8;
+  R(2, 2) = 0.8;
   MotionModel *motion_model = new NormalVelocityModel(R);
   ObservationModel observation_model = ObservationModel(Q);
 
