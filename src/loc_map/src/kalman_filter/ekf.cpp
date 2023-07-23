@@ -16,7 +16,7 @@ bool ExtendedKalmanFilter::cone_match(const double x_from_state, const double y_
   double delta_y = y_from_state - y_from_perception;
   double delta = std::sqrt(std::pow(delta_x, 2) + std::pow(delta_y, 2));
   auto limit_function = [](double distance) {
-    double curvature = 10.0;
+    double curvature = 8.0;
     double initial_limit = 0.5;
     return pow(M_E, distance / curvature) - (1 - initial_limit);
   };

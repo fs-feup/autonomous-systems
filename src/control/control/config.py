@@ -13,10 +13,10 @@ class Params:
         self.path_tick = 0.05  # average distance btw path points
         
         # Perfomance variables
-        self.MAX_SPEED = 3.0 # m/s
+        self.MAX_SPEED = 1.0 # m/s
         self.MAX_ACC = 1.0  # m/ss
         self.MAX_D_ACC = 1.0  # m/sss
-        self.MAX_STEER = np.radians(10)  # rad
+        self.MAX_STEER = np.radians(21)  # rad
         self.MAX_D_STEER = np.radians(30)  # rad/s - assumption
         self.VEL = 1.0 # m/s - reference velocity
         self.MAX_TORQUE = 50.0  # Nm

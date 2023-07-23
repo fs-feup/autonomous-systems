@@ -155,7 +155,7 @@ class ControlNode(Node):
         @param self The object pointer.
         @param msg Odometry message.
         """
-        if self.path is None or self.done:
+        if self.path is None or len(self.path) == 0 or self.done:
             return
 
         # get position reference

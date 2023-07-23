@@ -49,11 +49,22 @@ void LMNode::_perception_subscription_callback(const custom_interfaces::msg::Con
   }
   RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
 
-  if (this->_mission != Mission::static_inspection_A &&
-      this->_mission != Mission::static_inspection_B &&
-      this->_mission != Mission::autonomous_demo) {
-    this->_update_and_publish();  // Update rate is dictated by perception
+  // if (this->_mission != Mission::static_inspection_A &&
+  //     this->_mission != Mission::static_inspection_B &&
+  //     this->_mission != Mission::autonomous_demo) {
+  //   this->_update_and_publish();  // Update rate is dictated by perception
+  // }
+  if (this->_ekf == nullptr) {
+    RCLCPP_WARN(this->get_logger(), "PUB - EKF object is null");
+    return;
   }
+  this->_ekf->correction_step(*(this->_perception_map));
+  this->_ekf->update(this->_vehicle_state, this->_track_map);
+  // this->_vehicle_state->translational_velocity = temp_update.translational_velocity;
+  // this->_vehicle_state->steering_angle = temp_update.steering_angle;
+  RCLCPP_DEBUG(this->get_logger(), "EKF - EFK correction Step");
+  this->_publish_localization();
+  this->_publish_map();
 }
 
 void LMNode::_imu_subscription_callback(double angular_velocity, double acceleration_x,
@@ -156,11 +167,21 @@ void LMNode::_wheel_speeds_subscription_callback(double lb_speed, double lf_spee
                this->_motion_update->translational_velocity,
                this->_motion_update->rotational_velocity);
 
-  if (this->_mission == Mission::static_inspection_A ||
-      this->_mission == Mission::static_inspection_B ||
-      this->_mission == Mission::autonomous_demo) {
-    this->_update_and_publish();
+  // if (this->_mission == Mission::static_inspection_A ||
+  //     this->_mission == Mission::static_inspection_B ||
+  //     this->_mission == Mission::autonomous_demo) {
+  //   this->_update_and_publish();
+  // }
+  if (this->_ekf == nullptr) {
+    RCLCPP_WARN(this->get_logger(), "PUB - EKF object is null");
+    return;
   }
+  MotionUpdate temp_update = *(this->_motion_update);
+  this->_ekf->prediction_step(temp_update);
+  this->_ekf->update(this->_vehicle_state, this->_track_map);
+  RCLCPP_DEBUG(this->get_logger(), "EKF - EFK prediction Step");
+  this->_publish_localization();
+  this->_publish_map();
 }
 
 void LMNode::set_mission(Mission mission) {
