@@ -104,14 +104,13 @@ class ControlAdapter():
             10
         )
 
-        if TEST:
+        if True:
             self.node.create_subscription(
                 Odometry,
                 "/ground_truth/odom",
                 self.eufs_sim_odometry_callback,
                 10
             )
-        else:
             self.node.create_subscription(
                 Pose,
                 "/vehicle_localization",
@@ -127,9 +126,9 @@ class ControlAdapter():
         if yaw > math.pi:
             yaw -= 2 * math.pi
 
-        self.node.position = [position.x, position.y]
+        # self.node.position = [position.x, position.y]
 
-        self.node.get_logger().debug(
+        self.node.get_logger().info(
             "[localization] ({}, {})\t{} rad".format(
                 msg.position.x, msg.position.y, msg.theta
             )
@@ -137,7 +136,8 @@ class ControlAdapter():
 
         if self.node.mission != CanState.AMI_AUTONOMOUS_DEMO:
             # self.node.mpc_callback(position, yaw)
-            self.node.pid_callback(position, yaw)
+            # self.node.pid_callback(position, yaw)
+            pass
 
     def eufs_odometry_callback(self, msg, sim=False):
         self.node.wheel_speed = (msg.speeds.lb_speed +
@@ -249,6 +249,12 @@ class ControlAdapter():
         orientation = msg.pose.pose.orientation
         orientation_list = [orientation.x, orientation.y, orientation.z, orientation.w]
 
+        self.node.get_logger().info(
+            "[eufs odom] ({}, {})\t{} rad".format(
+                position.x, position.y, orientation
+            )
+        )
+
         decomp_speed = msg.twist.twist.linear
 
         self.node.position = position
@@ -258,5 +264,5 @@ class ControlAdapter():
         # Converts quartenions base to euler's base, and updates the class' attributes
         yaw = euler_from_quaternion(orientation_list)[2]
 
-        self.node.mpc_callback(position, yaw)
-        # self.node.pid_callback(position, yaw)
+        # self.node.mpc_callback(position, yaw)
+        self.node.pid_callback(position, yaw)
