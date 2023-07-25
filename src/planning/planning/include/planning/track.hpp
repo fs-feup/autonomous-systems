@@ -7,6 +7,10 @@
 #include <string>
 #include <vector>
 
+#include <gsl/gsl_bspline.h>
+#include <gsl/gsl_multifit.h>
+#include "rclcpp/rclcpp.hpp"
+
 #include "utils/cone.hpp"
 
 /**
@@ -54,13 +58,18 @@ class Track {
   void addCone(float xValue, float yValue, const std::string& color);
   // adds the position of two cones to the track list
 
-  // TODO(andre): CHANGE TO RECEIVE ID WITH PAIR SIDE DIFF INSTEAD OF COLOR
-
   void setCone(Cone* cone);
 
   Cone* findCone(int id);
 
   Cone* findCone(float x, float y);
+
+  bool vector_direction(Cone* c1, Cone* c2, float prev_vx, float prev_vy);
+
+  int validateCones();
+
+  int deleteOutliers(bool side, float distance_threshold,
+    int order, float coeffs_ratio);
 
   void reset();
 };

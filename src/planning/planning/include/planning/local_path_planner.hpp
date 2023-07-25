@@ -24,7 +24,6 @@ typedef K::Point_2 Point;
 
 class LocalPathPlanner {
   Track track;  // track input data
-  float orientation = 0;
 
  public:
   /**
@@ -32,8 +31,6 @@ class LocalPathPlanner {
    * @param track pathplanner track input data
    */
   LocalPathPlanner();
-
-  void set_orientation(float theta);
 
   bool vector_direction(Position* p1, Position* p2, float prev_vx, float prev_vy);
 

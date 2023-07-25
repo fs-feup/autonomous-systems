@@ -19,6 +19,8 @@ set(GMP_DIR ${CGAL_INSTALLATION_PACKAGE_DIR}/auxiliary/gmp/)
 find_package(CGAL REQUIRED Core)
 find_package(GMP)
 find_package(MPFR)
+find_package(GSL REQUIRED)
+
 # find_package(Qt5)
 
 set(TESTFILES
@@ -43,8 +45,9 @@ set(CMAKE_BUILD_TYPE "Release")
 add_executable(planning src/main.cpp ${IMPLEMENTATION_FILES})
 ament_target_dependencies(planning ament_index_cpp rclcpp std_msgs custom_interfaces eufs_msgs fs_msgs)
 
+include_directories(${GSL_INCLUDE_DIRS})
 # Link the CGAL library and its dependencies to the target
-target_link_libraries(planning ${CGAL_LIBRARIES} ${GMP_LIBRARIES} ${MPFR_LIBRARIES} ${QT5_LIBRARIES})
+target_link_libraries(planning ${CGAL_LIBRARIES} ${GMP_LIBRARIES} ${MPFR_LIBRARIES} ${QT5_LIBRARIES} ${GSL_LIBRARIES})
 
 target_include_directories(planning PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -55,13 +58,12 @@ if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   find_package(ament_cmake_gtest REQUIRED)
   # ament_lint_auto_find_test_dependencies()
-
   ament_add_gtest(planning_test ${TESTFILES} ${IMPLEMENTATION_FILES})
   ament_target_dependencies(planning_test ament_index_cpp rclcpp std_msgs custom_interfaces eufs_msgs fs_msgs)
   target_include_directories(planning_test PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>)
-  target_link_libraries(planning_test ${CGAL_LIBRARIES} ${GMP_LIBRARIES} ${MPFR_LIBRARIES} ${QT5_LIBRARIES})
+  target_link_libraries(planning_test ${CGAL_LIBRARIES} ${GMP_LIBRARIES} ${MPFR_LIBRARIES} ${QT5_LIBRARIES} ${GSL_LIBRARIES})
 
   install(TARGETS
     planning

@@ -9,8 +9,6 @@
 
 LocalPathPlanner::LocalPathPlanner() : track() {}
 
-void LocalPathPlanner::set_orientation(float theta) { orientation = theta; }
-
 bool LocalPathPlanner::vector_direction(Position* p1, Position* p2, float prev_vx, float prev_vy) {
   float vx = p2->getX() - p1->getX();
   float vy = p2->getY() - p1->getY();
@@ -60,11 +58,10 @@ std::vector<Position*> LocalPathPlanner::processNewArray(Track* cone_array) {
 
   std::vector<Position*> final_path;
   Position* p1 = new Position(0, 0);
-  size_t iter_number = 1;
   float vx = 1;
   float vy = 0;
 
-  while (iter_number <= unordered_path.size()) {
+  for (size_t iter_number = 0; iter_number < unordered_path.size(); iter_number++) {
     float min_dist = MAXFLOAT;
     size_t min_index = 0;
 
@@ -78,7 +75,6 @@ std::vector<Position*> LocalPathPlanner::processNewArray(Track* cone_array) {
         }
       }
     }
-    iter_number++;
     unordered_path[min_index].second = true;
 
     vx = unordered_path[min_index].first->getX() - p1->getX();
