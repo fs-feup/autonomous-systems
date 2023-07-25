@@ -18,7 +18,7 @@ from .pid_utils import (
 from .mpc import run_mpc
 from .config import Params
 from .adapter import ControlAdapter
-from .inspection import ddt_inspection_a, ddt_inspection_b, autonomous_demo
+from .inspection import ddt_inspection_a, ddt_inspection_b, autonomous_demo, autonomous_demo_timed
 
 P = Params()
 
@@ -145,7 +145,8 @@ class ControlNode(Node):
         elif self.mission == CanState.AMI_DDT_INSPECTION_B:
             ddt_inspection_b(self)
         elif self.mission == CanState.AMI_AUTONOMOUS_DEMO:
-            autonomous_demo(self)
+            # autonomous_demo(self)
+            autonomous_demo_timed(self)
         else:
             self.get_logger().info("Inspection not selected")
 
