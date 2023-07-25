@@ -53,7 +53,7 @@ class MPC:
         time.time()
 
         # dynamycs w.r.t car frame
-        curr_state = np.array([0, 0, 0])
+        curr_state = np.array([0, 0, self.state[2], 0])
 
         # State Matrices
         A, B, C = get_linear_model_matrices(curr_state, self.action)
