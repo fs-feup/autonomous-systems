@@ -109,7 +109,7 @@ def get_cte(closest_index, points_array, pose_car):
     k = 3
 
     # implement look ahead
-    if closest_index + P.LOOK_AHEAD < len(points_array) - (k + 1) -1:
+    if closest_index + P.LOOK_AHEAD < len(points_array) - (k + 1) - 1:
         closest_index += P.LOOK_AHEAD
 
     if len(points_array) > 3:
