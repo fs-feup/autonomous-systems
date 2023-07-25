@@ -3,8 +3,6 @@ from rclpy.qos import qos_profile_sensor_data
 
 import pyzed.sl as sl
 import cv2
-from cv_bridge import CvBridge
-from sensor_msgs.msg import Image
 
 class PerceptionAdapter():
     def __init__(self, mode, node):

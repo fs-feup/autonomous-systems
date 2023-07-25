@@ -11,14 +11,13 @@ from .pid_utils import (
     get_position_error,
     get_orientation_error,
     get_cte,
-    get_speed_command,
     get_torque_break_commands,
     steer
 )
 from .mpc import run_mpc
 from .config import Params
 from .adapter import ControlAdapter
-from .inspection import ddt_inspection_a, ddt_inspection_b, autonomous_demo, autonomous_demo_timed
+from .inspection import ddt_inspection_a, ddt_inspection_b, autonomous_demo_timed
 
 P = Params()
 
@@ -114,27 +113,22 @@ class ControlNode(Node):
             return
 
         # after mpc, convert velocity command to torque/break command
-        torque_command, break_command = get_torque_break_commands(acceleration_command)
+        torque_command, break_command = \
+            get_torque_break_commands(self.acceleration_command)
 
 
         # clip to limits
         steering_angle_command = np.clip(self.steering_angle_command, 
                                          -P.MAX_STEER, P.MAX_STEER)
-        acceleration_command = np.clip(acceleration_command, 0, P.MAX_SPEED)
+        self.acceleration_command = \
+            np.clip(self.acceleration_command, 0, P.MAX_SPEED)
         torque_command = np.clip(torque_command, 0, P.MAX_TORQUE)
         break_command = np.clip(break_command, 0, P.MAX_BREAK)
 
-        self.get_logger().debug(
-            "[command] steering angle: {} speed: {}".format(
-                steering_angle_command, velocity_command
-            )
-        )
-
         self.adapter.publish_cmd(steering_angle_command,
-            acceleration_command,
-            torque_command,
-            break_command,
-            acceleration_command,
+            accel=self.acceleration_command,
+            torque_req=torque_command,
+            break_req=break_command
         )
 
     def inspection_callback(self):
@@ -181,7 +175,9 @@ class ControlNode(Node):
             pos_error, yaw_error, ct_error, self.old_steer_error
         )
 
-        self.acceleration_command = get_acceleration_command(self.path_speeds, closest_index)
+        # TODO: understand what get_acceleration_command definition should be
+        # self.acceleration_command = \
+        #     get_acceleration_command(self.path_speeds, closest_index)
 
         self.old_closest_index = closest_index
 
@@ -207,7 +203,8 @@ class ControlNode(Node):
             )
         )
 
-        current_action = np.array([self.acceleration_command, self.steering_angle_actual])
+        current_action = np.array(
+            [self.acceleration_command, self.steering_angle_actual])
         current_state = np.array([position.x, position.y, yaw])
 
         new_action, self.old_closest_index, mpc_path_size = run_mpc(

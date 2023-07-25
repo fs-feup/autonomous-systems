@@ -121,7 +121,8 @@ def get_cte(closest_index, points_array, pose_car):
                                     s=0, per=False, k=3)
         x0, y0 = interpolate.splev(np.linspace(0, 1, n_new_points), tck)
 
-        new_points_array = np.concatenate((x0[:, np.newaxis], y0[:, np.newaxis]), axis=1)
+        new_points_array = \
+            np.concatenate((x0[:, np.newaxis], y0[:, np.newaxis]), axis=1)
     else:
         new_points_array = points_array
 

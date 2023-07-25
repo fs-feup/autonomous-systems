@@ -1,10 +1,7 @@
-from enum import Enum
-from eufs_msgs.msg import CanState
-
 import math
-import numpy as np
 import time
 
+from enum import Enum
 from .config import Params
 
 class DDTStateA(Enum):
@@ -53,6 +50,8 @@ def ddt_inspection_a(node):
     global P
     global A_STATE
     global TIMER
+
+    DEMO_NEUTRAL_ACCEL = 0.
 
     print(A_STATE, node.steering_angle_actual, node.velocity_actual, P.MAX_STEER)
 
@@ -261,7 +260,6 @@ def autonomous_demo_timed(node):
 
     elif (AUTONOMOUS_STATE == AutonomousState.BRAKING):
         if (node.velocity_actual <= VEL_ZERO):
-            START_POINT = node.position
             node.adapter.publish_cmd(accel=DEMO_ACCEL)
             TIMER = time.perf_counter()
             AUTONOMOUS_STATE = AutonomousState.KMH15_M10_2

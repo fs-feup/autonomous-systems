@@ -47,5 +47,5 @@ class TestNode : public rclcpp::Node {
 
     // Publish the message to the topic named "addison"
     publisher_->publish(message);
-  };
+  }
 };

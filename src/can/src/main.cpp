@@ -1,5 +1,4 @@
 #include "can/can.hpp"
-#include "test_node.cpp"
 
 using namespace std::chrono_literals;
 

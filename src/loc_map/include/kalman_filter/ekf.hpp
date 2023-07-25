@@ -23,19 +23,19 @@ class ExtendedKalmanFilter {
                                           expected position when the landmark is perceived
                                           to be 1 meter away */
 
-  Eigen::VectorXf X;                  /**< Expected state vector (localization + mapping) */
-  Eigen::MatrixXf P;                  /**< State covariance matrix */
-  std::vector<colors::Color> _colors; /**< Vector of colors of the landmarks */
+  Eigen::VectorXf X;                   /**< Expected state vector (localization + mapping) */
+  Eigen::MatrixXf P;                   /**< State covariance matrix */
+  std::vector<colors::Color> _colors;  /**< Vector of colors of the landmarks */
 
   std::chrono::time_point<std::chrono::high_resolution_clock>
-      _last_update; /**< Timestamp of last update */
+      _last_update;                           /**< Timestamp of last update */
 
   const MotionModel& _motion_model;           /**< Motion Model chosen for prediction step */
   const ObservationModel& _observation_model; /**< Observation Model chosen for correction step */
 
-  MotionUpdate _last_motion_update; /**< Last motion update */
+  MotionUpdate _last_motion_update;           /**< Last motion update */
 
-  bool _fixed_map = false; /**< Flag to indicate if the map is fixed */
+  bool _fixed_map = false;                    /**< Flag to indicate if the map is fixed */
 
   /**
    * @brief Discovery step:
@@ -70,8 +70,8 @@ class ExtendedKalmanFilter {
    * @return difference between limit and delta (score)
    */
   static bool cone_match(const double x_from_state, const double y_from_state,
-                           const double x_from_perception, const double y_from_perception,
-                           const double distance_to_vehicle);
+                         const double x_from_perception, const double y_from_perception,
+                         const double distance_to_vehicle);
 
  public:
   /**
@@ -84,12 +84,12 @@ class ExtendedKalmanFilter {
 
   /**
    * @brief Build the EKF for specific events
-   * 
-   * @param ekf 
-   * @return ExtendedKalmanFilter 
+   *
+   * @param ekf
+   * @return ExtendedKalmanFilter
    */
-  ExtendedKalmanFilter(const MotionModel& motion_model,
-                                           const ObservationModel& observation_model, const Mission& mission);
+  ExtendedKalmanFilter(const MotionModel& motion_model, const ObservationModel& observation_model,
+                       const Mission& mission);
 
   /**
    * @brief Updates vehicle state and map variables according
@@ -120,13 +120,9 @@ class ExtendedKalmanFilter {
    */
   void correction_step(const Map& perception_map);
 
-  Eigen::VectorXf get_state() const {
-    return this->X;
-  }
+  Eigen::VectorXf get_state() const { return this->X; }
 
-  Eigen::MatrixXf get_covariance() const {
-    return this->P;
-  }
+  Eigen::MatrixXf get_covariance() const { return this->P; }
 
   std::chrono::time_point<std::chrono::high_resolution_clock> get_last_update() const {
     return this->_last_update;

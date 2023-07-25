@@ -190,16 +190,17 @@ void LMNode::set_mission(Mission mission) {
   }
   this->_mission = mission;
   return;
-  Eigen::Matrix2f Q = Eigen::Matrix2f::Zero();
-  Q(0, 0) = 0.3;
-  Q(1, 1) = 0.3;
-  Eigen::MatrixXf R = Eigen::Matrix3f::Zero();
-  R(0, 0) = 0.1;
-  R(1, 1) = 0.1;
-  R(2, 2) = 0.1;
-  MotionModel *motion_model = new NormalVelocityModel(R);
-  ObservationModel observation_model = ObservationModel(Q);
-  this->_ekf = new ExtendedKalmanFilter(*motion_model, observation_model, mission); 
+
+  // Eigen::Matrix2f Q = Eigen::Matrix2f::Zero();
+  // Q(0, 0) = 0.3;
+  // Q(1, 1) = 0.3;
+  // Eigen::MatrixXf R = Eigen::Matrix3f::Zero();
+  // R(0, 0) = 0.1;
+  // R(1, 1) = 0.1;
+  // R(2, 2) = 0.1;
+  // MotionModel *motion_model = new NormalVelocityModel(R);
+  // ObservationModel observation_model = ObservationModel(Q);
+  // this->_ekf = new ExtendedKalmanFilter(*motion_model, observation_model, mission);
 }
 
 Mission LMNode::get_mission() { return this->_mission; }
@@ -224,7 +225,7 @@ void LMNode::_publish_localization() {
   message.theta = vehicle_localization.orientation;
 
   RCLCPP_INFO(this->get_logger(), "PUB - Pose: (%f, %f, %f)", message.position.x,
-               message.position.y, message.theta);
+              message.position.y, message.theta);
   RCLCPP_DEBUG(this->get_logger(), "PUB - Pose: (%f, %f, %f)", message.position.x,
                message.position.y, message.theta);
   this->_localization_publisher->publish(message);

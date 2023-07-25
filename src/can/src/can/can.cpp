@@ -84,11 +84,6 @@ void Can::send_to_car(const custom_interfaces::msg::VcuCommand msg) {
     this->ai2vcu_data.AI2VCU_AXLE_TORQUE_REQUEST_Nm = 0;
   }
 
-  if (msg.brake_press_request > 0.0 || msg.brake_press_request < 100.0) {
-    _ebs_request = true;
-    this->ai2vcu_data.AI2VCU_BRAKE_PRESS_REQUEST_pct = 100.0;
-  }
-
   if (msg.brake_press_request > 0.0 && msg.axle_torque_request > 0.0) {
     _ebs_request = true;
     this->ai2vcu_data.AI2VCU_BRAKE_PRESS_REQUEST_pct = 100.0;
@@ -96,9 +91,9 @@ void Can::send_to_car(const custom_interfaces::msg::VcuCommand msg) {
   }
 
   // Send estop request
-  if (msg.estop_request == 0) {
+  if (msg.estop_request == 0.0) {
     this->ai2vcu_data.AI2VCU_ESTOP_REQUEST = ESTOP_NO;
-  } else if (msg.estop_request == 0 || _ebs_request) {
+  } else if (msg.estop_request == 0.0 || _ebs_request) {
     this->ai2vcu_data.AI2VCU_ESTOP_REQUEST = ESTOP_YES;
   }
 

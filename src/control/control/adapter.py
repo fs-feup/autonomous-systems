@@ -31,7 +31,8 @@ class ControlAdapter():
         elif mode == "ads_dv":
             self.ads_dv_init()
 
-    def publish_cmd(self, steering_angle=0., speed=0., torque_req=0, break_req=0, accel=0.):
+    def publish_cmd(self, steering_angle=0., speed=0., torque_req=0,
+        break_req=0, accel=0.):
         if self.mode == "eufs":
             msg = AckermannDriveStamped()
 
@@ -119,7 +120,6 @@ class ControlAdapter():
             )
 
     def localization_callback(self, msg):
-        position = msg.position
         yaw = msg.theta 
         
         # convert from [0, 2pi] to [-pi, pi]
@@ -154,7 +154,8 @@ class ControlAdapter():
         self.node.steering_angle_actual = msg.speeds.steering
 
     def eufs_mission_state_callback(self, msg):
-        if self.node.state != CanState.AS_DRIVING and msg.as_state == CanState.AS_DRIVING:
+        if self.node.state != CanState.AS_DRIVING and \
+            msg.as_state == CanState.AS_DRIVING:
             self.eufs_ready_to_drive_callback()
 
         self.node.mission = msg.ami_state

@@ -56,7 +56,7 @@ TEST(NORMAL_VELOCITY_MODEL, LINEAR_FORWARD_MOVEMENT_TEST) {
   EXPECT_DOUBLE_EQ(new_state(2), 0.0);  // theta
   for (int i = 0; i < 10; i++) {        // Covariance
     for (int j = 0; j < 10; j++) {
-      if (i == 1 || j == 1)  // Only y is affected because of the Jacobian
+      if (i == 1 || j == 1)             // Only y is affected because of the Jacobian
         EXPECT_NE(new_covariance(i, j), 1.0);
       else
         EXPECT_DOUBLE_EQ(new_covariance(i, j), 1.0);
@@ -96,17 +96,17 @@ TEST(NORMAL_VELOCITY_MODEL, AUTONOMOUS_DEMO_TEST) {
   Eigen::VectorXf temp_state = Eigen::Vector3f::Zero();
   NormalVelocityModel motion_model = NormalVelocityModel(R);
   MotionUpdate prediction_data = {2.5, 0, 0, 0.001, 0, std::chrono::high_resolution_clock::now()};
-  for(unsigned int i = 0; i < 4; i++) {
+  for (unsigned int i = 0; i < 4; i++) {
     temp_state = motion_model.predict_expected_state(temp_state, prediction_data, 1);
     EXPECT_NEAR(temp_state(0), 2.5 * (i + 1), 0.01 * (i + 1));
   }
   prediction_data = {0, 0, 0, 0.001, 0, std::chrono::high_resolution_clock::now()};
-  for(unsigned int i = 0; i < 4; i++) {
+  for (unsigned int i = 0; i < 4; i++) {
     temp_state = motion_model.predict_expected_state(temp_state, prediction_data, 1);
     EXPECT_NEAR(temp_state(0), 10, 0.05);
   }
   prediction_data = {2.5, 0, 0, 0.001, 0, std::chrono::high_resolution_clock::now()};
-  for(unsigned int i = 0; i < 4; i++) {
+  for (unsigned int i = 0; i < 4; i++) {
     temp_state = motion_model.predict_expected_state(temp_state, prediction_data, 1);
     EXPECT_NEAR(temp_state(0), 10 + 2.5 * (i + 1), 0.01 * (i + 1));
   }
@@ -138,9 +138,9 @@ TEST(NORMAL_VELOCITY_MODEL, CIRCULAR_MOVEMENT_TEST) {
                 0.0001 * radius * radius);  // Radius
     EXPECT_LT(new_state(2), 2 * M_PI);      // theta
 
-    for (int i = 0; i < 10; i++) {  // Covariance
+    for (int i = 0; i < 10; i++) {          // Covariance
       for (int j = 0; j < 10; j++) {
-        if (i < 2 || j < 2)  // Only x and y are affected because of the Jacobian
+        if (i < 2 || j < 2)                 // Only x and y are affected because of the Jacobian
           EXPECT_NE(new_covariance(i, j), 1.0);
         else
           EXPECT_DOUBLE_EQ(new_covariance(i, j), 1.0);

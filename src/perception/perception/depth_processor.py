@@ -26,7 +26,6 @@ class DepthProcessor():
 
     def process(self, msg, img, point_cloud=None):
         cone_array = ConeArray()
-        points = []
 
         # Apply perspective transformation function of openCV2.
         # This function will return the matrix which you can feed into warpPerspective 
@@ -49,7 +48,7 @@ class DepthProcessor():
             if len(roi) == 0:
                 continue
         
-            if point_cloud != None:
+            if point_cloud is not None:
                 point3D = point_cloud.get_value(x, y)
                 x = point3D[1][0]
                 y = point3D[1][2]

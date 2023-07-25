@@ -22,9 +22,7 @@ from .adapter import PerceptionAdapter
 import argparse
 import rclpy
 from rclpy.node import Node
-from sensor_msgs.msg import Image
 from custom_interfaces.msg import BoundingBoxes, BoundingBox, ConeArray
-from std_msgs.msg import Header
 from cv_bridge import CvBridge
 
 class yolov5():
