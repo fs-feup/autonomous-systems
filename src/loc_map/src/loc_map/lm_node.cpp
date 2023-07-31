@@ -4,10 +4,10 @@
 #include "utils/car.hpp"
 #include "utils/formulas.hpp"
 
-/*---------------------- Subscriptions --------------------*/
+/*---------------------- Constructor --------------------*/
 
-LMNode::LMNode(ExtendedKalmanFilter* ekf, Map* perception_map, MotionUpdate* imu_update,
-               Map* track_map, VehicleState* vehicle_state, bool use_odometry)
+LMNode::LMNode(ExtendedKalmanFilter* ekf, ConeMap* perception_map, MotionUpdate* imu_update,
+               ConeMap* track_map, VehicleState* vehicle_state, bool use_odometry)
     : Node("loc_map"),
       _ekf(ekf),
       _perception_map(perception_map),
@@ -20,16 +20,18 @@ LMNode::LMNode(ExtendedKalmanFilter* ekf, Map* perception_map, MotionUpdate* imu
       std::bind(&LMNode::_perception_subscription_callback, this, std::placeholders::_1));
   this->_localization_publisher =
       this->create_publisher<custom_interfaces::msg::Pose>("vehicle_localization", 10);
-  this->_mapping_publisher =
+  this->_map_publisher =
       this->create_publisher<custom_interfaces::msg::ConeArray>("track_map", 10);
 
-  new Adapter("eufs", this);
+  new Adapter(this);
 
   RCLCPP_INFO(this->get_logger(), "Node started");
 }
 
-void LMNode::_perception_subscription_callback(const custom_interfaces::msg::ConeArray message) {
-  auto cone_array = message.cone_array;
+/*---------------------- Subscriptions --------------------*/
+
+void LMNode::_perception_subscription_callback(const custom_interfaces::msg::ConeArray msg) {
+  auto cone_array = msg.cone_array;
   if (this->_perception_map == nullptr) {
     RCLCPP_WARN(this->get_logger(), "SUB - Perception map is null");
     return;
@@ -49,13 +51,8 @@ void LMNode::_perception_subscription_callback(const custom_interfaces::msg::Con
   }
   RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
 
-  // if (this->_mission != Mission::static_inspection_A &&
-  //     this->_mission != Mission::static_inspection_B &&
-  //     this->_mission != Mission::autonomous_demo) {
-  //   this->_update_and_publish();  // Update rate is dictated by perception
-  // }
   if (this->_ekf == nullptr) {
-    RCLCPP_WARN(this->get_logger(), "PUB - EKF object is null");
+    RCLCPP_WARN(this->get_logger(), "ATTR - EKF object is null");
     return;
   }
   this->_ekf->correction_step(*(this->_perception_map));
@@ -65,6 +62,15 @@ void LMNode::_perception_subscription_callback(const custom_interfaces::msg::Con
   RCLCPP_DEBUG(this->get_logger(), "EKF - EFK correction Step");
   this->_publish_localization();
   this->_publish_map();
+
+  /* TODO (JoaoAMarinho): Mission should not be taken into account,
+      all modules should only run in dynamic events
+  */
+  // if (this->_mission != Mission::static_inspection_A &&
+  //     this->_mission != Mission::static_inspection_B &&
+  //     this->_mission != Mission::autonomous_demo) {
+  //   this->_update_and_publish(); // Update rate is dictated by perception
+  // }
 }
 
 void LMNode::_imu_subscription_callback(double angular_velocity, double acceleration_x,
@@ -73,7 +79,7 @@ void LMNode::_imu_subscription_callback(double angular_velocity, double accelera
     return;
   }
   if (this->_motion_update == nullptr) {
-    RCLCPP_WARN(this->get_logger(), "SUB - Motion update object is null");
+    RCLCPP_WARN(this->get_logger(), "ATTR - Motion update object is null");
     return;
   }
   this->_motion_update->rotational_velocity =
@@ -99,6 +105,7 @@ void LMNode::_imu_subscription_callback(double angular_velocity, double accelera
                this->_motion_update->translational_velocity_x,
                this->_motion_update->translational_velocity_y);
 
+  // NOTE (JoaoAMarinho): Why this code?
   if (this->_mission == Mission::static_inspection_A ||
       this->_mission == Mission::static_inspection_B ||
       this->_mission == Mission::autonomous_demo) {
@@ -249,7 +256,7 @@ void LMNode::_publish_map() {
   }
   RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
 
-  this->_mapping_publisher->publish(message);
+  this->_map_publisher->publish(message);
 }
 
 void LMNode::_ekf_step() {

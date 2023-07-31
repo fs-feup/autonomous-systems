@@ -19,31 +19,35 @@
 #include "std_msgs/msg/string.hpp"
 
 /**
- * @brief Class for the node responsible for subscribing the cones' colors and
- * coordinates published by the perception module.
+ * @brief Class representing the main loc_map node responsible for publishing the
+ * calculated vehicle localization and the map. As well as, subscribing and interpreting
+ * information, such as the cone's position and colors, from the perception module.
+ *
  */
 class LMNode : public rclcpp::Node {
   rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr _perception_subscription;
   rclcpp::Publisher<custom_interfaces::msg::Pose>::SharedPtr _localization_publisher;
-  rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr _mapping_publisher;
+  rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr _map_publisher;
   rclcpp::TimerBase::SharedPtr _timer; /**< timer */
   ExtendedKalmanFilter* _ekf;          /**< SLAM EKF object */
-  Map* _perception_map;
+  ConeMap* _perception_map;
   MotionUpdate* _motion_update;
-  Map* _track_map;
+  ConeMap* _track_map;
   VehicleState* _vehicle_state;
   Mission _mission;
   bool _use_odometry;
 
   /**
-   * @brief function to be called everytime information is received from the
-   * perception module
+   * @brief Callback that updates everytime information
+   * is received from the perception module
+   * 
+   * @param msg Message containing the array of perceived cones
    */
-  void _perception_subscription_callback(const custom_interfaces::msg::ConeArray message);
+  void _perception_subscription_callback(const custom_interfaces::msg::ConeArray msg);
 
   /**
-   * @brief function to be called everytime information is received from the
-   * imu
+   * @brief Function to be called everytime information is received from the
+   * IMU
    *
    * @param rotational_velocity
    * @param acceleration_x
@@ -53,13 +57,14 @@ class LMNode : public rclcpp::Node {
                                   double acceleration_y);
 
   /**
-   * @brief function to be called everytime information is received from the
+   * @brief Function to be called everytime information is received from the
    * wheel encoders
    *
    * @param lb_speed wheel speeds in rpm
    * @param lf_speed wheel speeds in rpm
    * @param rb_speed wheel speeds in rpm
    * @param rf_speed wheel speeds in rpm
+   * @param steering_angle steering angle in radians
    */
   void _wheel_speeds_subscription_callback(double lb_speed, double lf_speed, double rb_speed,
                                            double rf_speed, double steering_angle);
@@ -108,7 +113,7 @@ class LMNode : public rclcpp::Node {
 
  public:
   /**
-   * @brief Construct a new LMNode object
+   * @brief LMNode constructor declaration
    *
    * @param ekf Pointer to the EKF
    * @param map Pointer to the map
@@ -116,10 +121,9 @@ class LMNode : public rclcpp::Node {
    * @param track_map Pointer to the track map
    * @param vehicle_state Pointer to the vehicle state
    * @param use_odometry Whether to use odometry or IMU
-   *
    */
-  LMNode(ExtendedKalmanFilter* ekf, Map* perception_map, MotionUpdate* motion_update,
-         Map* track_map, VehicleState* vehicle_state, bool use_odometry);
+  LMNode(ExtendedKalmanFilter* ekf, ConeMap* perception_map, MotionUpdate* motion_update,
+         ConeMap* track_map, VehicleState* vehicle_state, bool use_odometry);
 
   void set_mission(Mission mission);
 

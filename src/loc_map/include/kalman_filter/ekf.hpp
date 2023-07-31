@@ -99,7 +99,7 @@ class ExtendedKalmanFilter {
    * @param track_map map
    *
    */
-  void update(VehicleState* vehicle_state, Map* track_map);
+  void update(VehicleState* vehicle_state, ConeMap* track_map);
 
   /**
    * @brief Prediction step:
@@ -118,7 +118,7 @@ class ExtendedKalmanFilter {
    *
    * @param perception_map map from perception
    */
-  void correction_step(const Map& perception_map);
+  void correction_step(const ConeMap& perception_map);
 
   Eigen::VectorXf get_state() const { return this->X; }
 

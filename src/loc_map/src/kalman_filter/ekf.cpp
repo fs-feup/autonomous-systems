@@ -339,7 +339,7 @@ ExtendedKalmanFilter::ExtendedKalmanFilter(const MotionModel& motion_model,
 
 /*-----------------------Algorithms-----------------------*/
 
-void ExtendedKalmanFilter::correction_step(const Map& perception_map) {
+void ExtendedKalmanFilter::correction_step(const ConeMap& perception_map) {
   for (auto cone : perception_map.map) {
     ObservationData observation_data = ObservationData(cone.first.x, cone.first.y, cone.second);
     int landmark_index = this->discovery(observation_data);
@@ -405,7 +405,7 @@ int ExtendedKalmanFilter::discovery(const ObservationData& observation_data) {
   return this->X.size() - 2;
 }
 
-void ExtendedKalmanFilter::update(VehicleState* vehicle_state, Map* track_map) {
+void ExtendedKalmanFilter::update(VehicleState* vehicle_state, ConeMap* track_map) {
   vehicle_state->pose = Pose(X(0), X(1), X(2));
   track_map->map.clear();
   for (int i = 3; i < this->X.size() - 1; i += 2) {
