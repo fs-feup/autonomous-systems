@@ -88,7 +88,7 @@ def get_orientation_error(closest_index, points_array, yaw_car):
     return yaw_track - yaw_car
 
 
-def get_cte(closest_index, points_array, pose_car):
+def get_steering_command(closest_index, points_array, pose_car):
     """!
     @brief Calculates the cross track error (CTE). 
     CTE is defined as the distance between the car and the line tangent to the 
@@ -181,17 +181,19 @@ def get_reference_speed(speeds, closest_index):
     return speeds[closest_index]
 
 
-def accelerate(error):
+def get_speed_error(ref_speed, actual_speed):
+    return ref_speed - actual_speed
+
+
+def get_acceleration_command(error):
     """!
     @brief Accelerates the car.
     @param self The object pointer.
     @param speed_error Speed Error.
     """
-    # PID params
-    kp = 1
 
     # calculate acceleration command
-    acceleration = kp*error
+    acceleration = P.kp_acc*error
 
     return float(acceleration)
 
@@ -218,38 +220,17 @@ def steer(pos_error, yaw_error, ct_error, old_error):
     return np.clip(float(steer_angle), -P.MAX_STEER, P.MAX_STEER), old_error
 
 
-def get_torque_break_commands(actual_speed, desired_speed, old_error, error_list):
-    error = desired_speed - actual_speed
-
-    error_list.append(error)
-
-    if len(error_list) > P.torque_error_list_size:
-        error_list.pop(0)
+def get_torque_break_commands(acceleration):
 
     torque_req = 0
     break_req = 0
 
     # calculate steering angle command
-    if error > 0:
+    if acceleration > 0:
         # torque
-        torque_req = max(
-            P.kp_torque*error + \
-            P.kd_torque*(error - old_error) + \
-            P.ki_torque*sum(error_list), 
-            0
-        )
+        torque_req = P.kp_torque*acceleration
     else:
         # break
-        break_req = -min(
-            P.kp_break*error + \
-            P.kd_break*(error - old_error) + \
-            P.ki_break*sum(error_list), 
-            0
-        )
+        break_req = - P.kp_break*acceleration
 
-    return (
-        np.clip(torque_req, 0, P.MAX_TORQUE),
-        np.clip(break_req, 0, P.MAX_BREAK),
-        error,
-        error_list
-    )
+    return torque_req, break_req

@@ -105,13 +105,14 @@ class ControlAdapter():
             10
         )
 
-        if True:
+        if TEST:
             self.node.create_subscription(
                 Odometry,
                 "/ground_truth/odom",
                 self.eufs_sim_odometry_callback,
                 10
             )
+        else:
             self.node.create_subscription(
                 Pose,
                 "/vehicle_localization",
@@ -120,13 +121,14 @@ class ControlAdapter():
             )
 
     def localization_callback(self, msg):
-        yaw = msg.theta 
+        yaw = msg.theta
+        position = msg.position
         
         # convert from [0, 2pi] to [-pi, pi]
         if yaw > math.pi:
             yaw -= 2 * math.pi
 
-        # self.node.position = [position.x, position.y]
+        self.node.position = [position.x, position.y]
 
         self.node.get_logger().info(
             "[localization] ({}, {})\t{} rad".format(
@@ -136,8 +138,7 @@ class ControlAdapter():
 
         if self.node.mission != CanState.AMI_AUTONOMOUS_DEMO:
             # self.node.mpc_callback(position, yaw)
-            # self.node.pid_callback(position, yaw)
-            pass
+            self.node.pid_callback(position, yaw)
 
     def eufs_odometry_callback(self, msg, sim=False):
         self.node.wheel_speed = (msg.speeds.lb_speed +
@@ -188,10 +189,10 @@ class ControlAdapter():
 
     def eufs_ready_to_drive_callback(self):
         self.node.get_logger().info("Ready to drive callback!")
-        diving_msg = Bool()
-        diving_msg.data = True
-        self.driving_publisher.publish(diving_msg)
-        self.driving_mission_publisher.publish(diving_msg)
+        driving_msg = Bool()
+        driving_msg.data = True
+        self.driving_publisher.publish(driving_msg)
+        self.driving_mission_publisher.publish(driving_msg)
     
     # FSDS
 

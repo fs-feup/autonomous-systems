@@ -12,7 +12,10 @@ from .pid_utils import (
     get_orientation_error,
     get_cte,
     get_torque_break_commands,
-    steer
+    get_acceleration_command,
+    get_steering_command,
+    get_reference_speed,
+    get_speed_error
 )
 from .mpc import run_mpc
 from .config import Params
@@ -37,7 +40,7 @@ class ControlNode(Node):
 
         self.state = CanState.AS_OFF
 
-        self.position = np.array([0, 0])
+        self.position = None
 
         # Steering angle.
         self.steering_angle_command = 0.
@@ -121,7 +124,7 @@ class ControlNode(Node):
         steering_angle_command = np.clip(self.steering_angle_command, 
                                          -P.MAX_STEER, P.MAX_STEER)
         self.acceleration_command = \
-            np.clip(self.acceleration_command, 0, P.MAX_SPEED)
+            np.clip(self.acceleration_command, 0, P.MAX_ACC)
         torque_command = np.clip(torque_command, 0, P.MAX_TORQUE)
         break_command = np.clip(break_command, 0, P.MAX_BREAK)
 
@@ -159,25 +162,31 @@ class ControlNode(Node):
             search_window=7
         )
 
-        # gets position error
+        # get velocity reference
+        ref_speed = get_reference_speed(self.path_speeds, closest_index)
+
+        # get position error
         pos_error = get_position_error(
             [position.x, position.y, yaw],
             self.path[closest_index]
         )
 
-        # gets orientation error
+        # get orientation error
         yaw_error = get_orientation_error(closest_index, self.path, yaw)
 
-        # gets cross track error
+        # get cross track error
         ct_error  = get_cte(closest_index, self.path, [position.x, position.y, yaw])
 
-        self.steering_angle_command, self.old_steer_error = steer(
+        # get speed error
+        speed_error = get_speed_error(ref_speed, self.velocity_actual)
+
+        # get steering command
+        self.steering_angle_command, self.old_steer_error = get_steering_command(
             pos_error, yaw_error, ct_error, self.old_steer_error
         )
 
-        # TODO: understand what get_acceleration_command definition should be
-        # self.acceleration_command = \
-        #     get_acceleration_command(self.path_speeds, closest_index)
+        # get acceleration command
+        self.acceleration_command = get_acceleration_command(speed_error)
 
         self.old_closest_index = closest_index
 
