@@ -4,10 +4,10 @@
 #include "utils/car.hpp"
 #include "utils/formulas.hpp"
 
-/*---------------------- Subscriptions --------------------*/
+/*---------------------- Constructor --------------------*/
 
-LMNode::LMNode(ExtendedKalmanFilter* ekf, Map* perception_map, MotionUpdate* imu_update,
-               Map* track_map, VehicleState* vehicle_state, bool use_odometry)
+LMNode::LMNode(ExtendedKalmanFilter* ekf, ConeMap* perception_map, MotionUpdate* imu_update,
+               ConeMap* track_map, VehicleState* vehicle_state, bool use_odometry)
     : Node("loc_map"),
       _ekf(ekf),
       _perception_map(perception_map),
@@ -20,16 +20,18 @@ LMNode::LMNode(ExtendedKalmanFilter* ekf, Map* perception_map, MotionUpdate* imu
       std::bind(&LMNode::_perception_subscription_callback, this, std::placeholders::_1));
   this->_localization_publisher =
       this->create_publisher<custom_interfaces::msg::Pose>("vehicle_localization", 10);
-  this->_mapping_publisher =
+  this->_map_publisher =
       this->create_publisher<custom_interfaces::msg::ConeArray>("track_map", 10);
 
-  new Adapter("eufs", this);
+  new Adapter(this);
 
   RCLCPP_INFO(this->get_logger(), "Node started");
 }
 
-void LMNode::_perception_subscription_callback(const custom_interfaces::msg::ConeArray message) {
-  auto cone_array = message.cone_array;
+/*---------------------- Subscriptions --------------------*/
+
+void LMNode::_perception_subscription_callback(const custom_interfaces::msg::ConeArray msg) {
+  auto cone_array = msg.cone_array;
   if (this->_perception_map == nullptr) {
     RCLCPP_WARN(this->get_logger(), "SUB - Perception map is null");
     return;
@@ -49,13 +51,8 @@ void LMNode::_perception_subscription_callback(const custom_interfaces::msg::Con
   }
   RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
 
-  // if (this->_mission != Mission::static_inspection_A &&
-  //     this->_mission != Mission::static_inspection_B &&
-  //     this->_mission != Mission::autonomous_demo) {
-  //   this->_update_and_publish();  // Update rate is dictated by perception
-  // }
   if (this->_ekf == nullptr) {
-    RCLCPP_WARN(this->get_logger(), "PUB - EKF object is null");
+    RCLCPP_WARN(this->get_logger(), "ATTR - EKF object is null");
     return;
   }
   this->_ekf->correction_step(*(this->_perception_map));
@@ -65,6 +62,15 @@ void LMNode::_perception_subscription_callback(const custom_interfaces::msg::Con
   RCLCPP_DEBUG(this->get_logger(), "EKF - EFK correction Step");
   this->_publish_localization();
   this->_publish_map();
+
+  /* TODO (JoaoAMarinho): Mission should not be taken into account,
+      all modules should only run in dynamic events
+  */
+  // if (this->_mission != Mission::static_inspection_A &&
+  //     this->_mission != Mission::static_inspection_B &&
+  //     this->_mission != Mission::autonomous_demo) {
+  //   this->_update_and_publish(); // Update rate is dictated by perception
+  // }
 }
 
 void LMNode::_imu_subscription_callback(double angular_velocity, double acceleration_x,
@@ -73,7 +79,7 @@ void LMNode::_imu_subscription_callback(double angular_velocity, double accelera
     return;
   }
   if (this->_motion_update == nullptr) {
-    RCLCPP_WARN(this->get_logger(), "SUB - Motion update object is null");
+    RCLCPP_WARN(this->get_logger(), "ATTR - Motion update object is null");
     return;
   }
   this->_motion_update->rotational_velocity =
@@ -99,54 +105,12 @@ void LMNode::_imu_subscription_callback(double angular_velocity, double accelera
                this->_motion_update->translational_velocity_x,
                this->_motion_update->translational_velocity_y);
 
+  // NOTE (JoaoAMarinho): Why this code?
   if (this->_mission == Mission::static_inspection_A ||
       this->_mission == Mission::static_inspection_B ||
       this->_mission == Mission::autonomous_demo) {
     this->_update_and_publish();
   }
-}
-
-/**
- * @brief Transforms the odometry data to velocities
- *
- * @param lb_speed
- * @param lf_speed
- * @param rb_speed
- * @param rf_speed
- * @param steering_angle
- * @return MotionUpdate
- */
-MotionUpdate LMNode::odometry_to_velocities_transform(double lb_speed,
-                                                      [[maybe_unused]] double lf_speed,
-                                                      double rb_speed,
-                                                      [[maybe_unused]] double rf_speed,
-                                                      double steering_angle) {
-  MotionUpdate motion_prediction_data_transformed;
-  if (steering_angle == 0) {  // If no steering angle, moving straight
-    double lb_velocity = get_wheel_velocity_from_rpm(lb_speed, WHEEL_DIAMETER);
-    double rb_velocity = get_wheel_velocity_from_rpm(rb_speed, WHEEL_DIAMETER);
-    // double lf_velocity = get_wheel_velocity_from_rpm(lf_speed, WHEEL_DIAMETER); // Simulator
-    // double rf_velocity = get_wheel_velocity_from_rpm(rf_speed, WHEEL_DIAMETER); //
-    // Are always 0
-    motion_prediction_data_transformed.translational_velocity = (lb_velocity + rb_velocity) / 2;
-  } else if (steering_angle > 0) {
-    double lb_velocity = get_wheel_velocity_from_rpm(lb_speed, WHEEL_DIAMETER);
-    double rear_axis_center_rotation_radius = WHEELBASE / tan(steering_angle);
-    motion_prediction_data_transformed.rotational_velocity =
-        lb_velocity / (rear_axis_center_rotation_radius - (AXIS_LENGTH / 2));
-    motion_prediction_data_transformed.translational_velocity =
-        sqrt(pow(rear_axis_center_rotation_radius, 2) + pow(REAR_AXIS_TO_CAMERA, 2)) *
-        abs(motion_prediction_data_transformed.rotational_velocity);
-  } else {
-    double rb_velocity = get_wheel_velocity_from_rpm(rb_speed, WHEEL_DIAMETER);
-    double rear_axis_center_rotation_radius = WHEELBASE / tan(steering_angle);
-    motion_prediction_data_transformed.rotational_velocity =
-        rb_velocity / (rear_axis_center_rotation_radius + (AXIS_LENGTH / 2));
-    motion_prediction_data_transformed.translational_velocity =
-        sqrt(pow(rear_axis_center_rotation_radius, 2) + pow(REAR_AXIS_TO_CAMERA, 2)) *
-        abs(motion_prediction_data_transformed.rotational_velocity);
-  }
-  return motion_prediction_data_transformed;
 }
 
 void LMNode::_wheel_speeds_subscription_callback(double lb_speed, double lf_speed, double rb_speed,
@@ -203,8 +167,6 @@ void LMNode::set_mission(Mission mission) {
   // this->_ekf = new ExtendedKalmanFilter(*motion_model, observation_model, mission);
 }
 
-Mission LMNode::get_mission() { return this->_mission; }
-
 /*---------------------- Publications --------------------*/
 
 void LMNode::_update_and_publish() {
@@ -249,8 +211,10 @@ void LMNode::_publish_map() {
   }
   RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
 
-  this->_mapping_publisher->publish(message);
+  this->_map_publisher->publish(message);
 }
+
+/*---------------------- Others --------------------*/
 
 void LMNode::_ekf_step() {
   if (this->_ekf == nullptr) {
@@ -266,4 +230,37 @@ void LMNode::_ekf_step() {
   // this->_vehicle_state->translational_velocity = temp_update.translational_velocity;
   // this->_vehicle_state->steering_angle = temp_update.steering_angle;
   RCLCPP_DEBUG(this->get_logger(), "EKF - EFK Step");
+}
+
+MotionUpdate LMNode::odometry_to_velocities_transform(double lb_speed,
+                                                      [[maybe_unused]] double lf_speed,
+                                                      double rb_speed,
+                                                      [[maybe_unused]] double rf_speed,
+                                                      double steering_angle) {
+  MotionUpdate motion_prediction_data_transformed;
+  if (steering_angle == 0) {  // If no steering angle, moving straight
+    double lb_velocity = get_wheel_velocity_from_rpm(lb_speed, WHEEL_DIAMETER);
+    double rb_velocity = get_wheel_velocity_from_rpm(rb_speed, WHEEL_DIAMETER);
+    // double lf_velocity = get_wheel_velocity_from_rpm(lf_speed, WHEEL_DIAMETER); // Simulator
+    // double rf_velocity = get_wheel_velocity_from_rpm(rf_speed, WHEEL_DIAMETER); //
+    // Are always 0
+    motion_prediction_data_transformed.translational_velocity = (lb_velocity + rb_velocity) / 2;
+  } else if (steering_angle > 0) {
+    double lb_velocity = get_wheel_velocity_from_rpm(lb_speed, WHEEL_DIAMETER);
+    double rear_axis_center_rotation_radius = WHEELBASE / tan(steering_angle);
+    motion_prediction_data_transformed.rotational_velocity =
+        lb_velocity / (rear_axis_center_rotation_radius - (AXIS_LENGTH / 2));
+    motion_prediction_data_transformed.translational_velocity =
+        sqrt(pow(rear_axis_center_rotation_radius, 2) + pow(REAR_AXIS_TO_CAMERA, 2)) *
+        abs(motion_prediction_data_transformed.rotational_velocity);
+  } else {
+    double rb_velocity = get_wheel_velocity_from_rpm(rb_speed, WHEEL_DIAMETER);
+    double rear_axis_center_rotation_radius = WHEELBASE / tan(steering_angle);
+    motion_prediction_data_transformed.rotational_velocity =
+        rb_velocity / (rear_axis_center_rotation_radius + (AXIS_LENGTH / 2));
+    motion_prediction_data_transformed.translational_velocity =
+        sqrt(pow(rear_axis_center_rotation_radius, 2) + pow(REAR_AXIS_TO_CAMERA, 2)) *
+        abs(motion_prediction_data_transformed.rotational_velocity);
+  }
+  return motion_prediction_data_transformed;
 }

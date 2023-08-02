@@ -23,7 +23,7 @@ bool ExtendedKalmanFilter::cone_match(const double x_from_state, const double y_
   return limit_function(distance_to_vehicle) > delta;
 }
 
-/*--------------------Constructors--------------------*/
+/*---------------------- Constructors --------------------*/
 
 ExtendedKalmanFilter::ExtendedKalmanFilter(const MotionModel& motion_model,
                                            const ObservationModel& observation_model)
@@ -33,22 +33,6 @@ ExtendedKalmanFilter::ExtendedKalmanFilter(const MotionModel& motion_model,
       _motion_model(motion_model),
       _observation_model(observation_model),
       _fixed_map(false) {}
-
-void ExtendedKalmanFilter::prediction_step(const MotionUpdate& motion_update) {
-  std::chrono::time_point<std::chrono::high_resolution_clock> now =
-      std::chrono::high_resolution_clock::now();
-  double delta =
-      std::chrono::duration_cast<std::chrono::microseconds>(now - this->_last_update).count();
-  this->_last_motion_update = motion_update;
-  Eigen::VectorXf tempX = this->X;
-  this->X = this->_motion_model.predict_expected_state(tempX, motion_update, delta / 1000000);
-  Eigen::MatrixXf G =
-      this->_motion_model.get_motion_to_state_matrix(tempX, motion_update, delta / 1000000);
-  Eigen::MatrixXf R = this->_motion_model.get_process_noise_covariance_matrix(
-      this->X.size());  // Process Noise Matrix
-  this->P = G * this->P * G.transpose() + R;
-  this->_last_update = now;
-}
 
 ExtendedKalmanFilter::ExtendedKalmanFilter(const MotionModel& motion_model,
                                            const ObservationModel& observation_model,
@@ -329,7 +313,6 @@ ExtendedKalmanFilter::ExtendedKalmanFilter(const MotionModel& motion_model,
     }
     default: {
       this->_fixed_map = false;
-      std::cout << "AUTOCROSSSS" << std::endl;
       this->X = Eigen::VectorXf::Zero(3);
       this->P = Eigen::MatrixXf::Zero(3, 3);
       break;
@@ -339,7 +322,23 @@ ExtendedKalmanFilter::ExtendedKalmanFilter(const MotionModel& motion_model,
 
 /*-----------------------Algorithms-----------------------*/
 
-void ExtendedKalmanFilter::correction_step(const Map& perception_map) {
+void ExtendedKalmanFilter::prediction_step(const MotionUpdate& motion_update) {
+  std::chrono::time_point<std::chrono::high_resolution_clock> now =
+      std::chrono::high_resolution_clock::now();
+  double delta =
+      std::chrono::duration_cast<std::chrono::microseconds>(now - this->_last_update).count();
+  this->_last_motion_update = motion_update;
+  Eigen::VectorXf tempX = this->X;
+  this->X = this->_motion_model.predict_expected_state(tempX, motion_update, delta / 1000000);
+  Eigen::MatrixXf G =
+      this->_motion_model.get_motion_to_state_matrix(tempX, motion_update, delta / 1000000);
+  Eigen::MatrixXf R = this->_motion_model.get_process_noise_covariance_matrix(
+      this->X.size());  // Process Noise Matrix
+  this->P = G * this->P * G.transpose() + R;
+  this->_last_update = now;
+}
+
+void ExtendedKalmanFilter::correction_step(const ConeMap& perception_map) {
   for (auto cone : perception_map.map) {
     ObservationData observation_data = ObservationData(cone.first.x, cone.first.y, cone.second);
     int landmark_index = this->discovery(observation_data);
@@ -405,7 +404,7 @@ int ExtendedKalmanFilter::discovery(const ObservationData& observation_data) {
   return this->X.size() - 2;
 }
 
-void ExtendedKalmanFilter::update(VehicleState* vehicle_state, Map* track_map) {
+void ExtendedKalmanFilter::update(VehicleState* vehicle_state, ConeMap* track_map) {
   vehicle_state->pose = Pose(X(0), X(1), X(2));
   track_map->map.clear();
   for (int i = 3; i < this->X.size() - 1; i += 2) {

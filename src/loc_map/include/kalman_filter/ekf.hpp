@@ -14,7 +14,7 @@
  * @details
  * The Extended Kalman Filter (EKF) is a recursive state estimator for nonlinear systems.
  * It is a nonlinear version of the Kalman Filter (KF).
- * This implementation is used to performe state estimation for the localization of
+ * This implementation is used to perform state estimation for the localization of
  * the vehicle and the map.
  *
  */
@@ -75,7 +75,7 @@ class ExtendedKalmanFilter {
 
  public:
   /**
-   * @brief Construct a new Extended Kalman Filter object
+   * @brief Extended Kalman Filter constructor declaration
    *
    * @param motion_model motion model chosen for prediction step
    * @param observation_model observation model chosen for correction step
@@ -85,8 +85,9 @@ class ExtendedKalmanFilter {
   /**
    * @brief Build the EKF for specific events
    *
-   * @param ekf
-   * @return ExtendedKalmanFilter
+   * @param motion_model motion model chosen for prediction step
+   * @param observation_model observation model chosen for correction step
+   * @param mission mission chosen
    */
   ExtendedKalmanFilter(const MotionModel& motion_model, const ObservationModel& observation_model,
                        const Mission& mission);
@@ -97,9 +98,8 @@ class ExtendedKalmanFilter {
    *
    * @param vehicle_state pose
    * @param track_map map
-   *
    */
-  void update(VehicleState* vehicle_state, Map* track_map);
+  void update(VehicleState* vehicle_state, ConeMap* track_map);
 
   /**
    * @brief Prediction step:
@@ -118,12 +118,27 @@ class ExtendedKalmanFilter {
    *
    * @param perception_map map from perception
    */
-  void correction_step(const Map& perception_map);
+  void correction_step(const ConeMap& perception_map);
 
+  /**
+   * @brief Get the state vector
+   *
+   * @return Eigen::VectorXf state vector
+   */
   Eigen::VectorXf get_state() const { return this->X; }
 
+  /**
+   * @brief Get the state covariance matrix
+   *
+   * @return Eigen::MatrixXf covariance matrix
+   */
   Eigen::MatrixXf get_covariance() const { return this->P; }
 
+  /**
+   * @brief Get the last update timestamp
+   *
+   * @return std::chrono::time_point<std::chrono::high_resolution_clock> timestamp
+   */
   std::chrono::time_point<std::chrono::high_resolution_clock> get_last_update() const {
     return this->_last_update;
   }

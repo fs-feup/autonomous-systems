@@ -15,8 +15,8 @@ int main(int argc, char **argv) {
   vehicle_state->last_update = std::chrono::high_resolution_clock::now();
   MotionUpdate *motion_update = new MotionUpdate();
   motion_update->last_update = std::chrono::high_resolution_clock::now();
-  Map *track_map = new Map();      // Map to publish
-  Map *predicted_map = new Map();  // Map from perception
+  ConeMap *track_map = new ConeMap();       // Map to publish
+  ConeMap *perception_map = new ConeMap();  // Map from perception
 
   Eigen::Matrix2f Q = Eigen::Matrix2f::Zero();
   Q(0, 0) = 0.3;
@@ -30,25 +30,16 @@ int main(int argc, char **argv) {
 
   ExtendedKalmanFilter *ekf = new ExtendedKalmanFilter(*motion_model, observation_model);
 
+  bool use_odometry = true;
+
   (void)argc;
   (void)argv;
   rclcpp::init(argc, argv);
 
-  auto subscriber =
-      std::make_shared<LMNode>(ekf, predicted_map, motion_update, track_map, vehicle_state, true);
-  // auto publisher = std::make_shared<LMPublisher>(track_map, vehicle_state);
-    // auto ekf_node = std::make_shared<EKFNode>(
-  //     ekf);  // TODO(marhcouto): check if this is the best distribution of nodes
-
-  rclcpp::executors::MultiThreadedExecutor executor;
-  executor.add_node(subscriber);
-  // executor.add_node(publisher);
-  // executor.add_node(ekf_node);
-
-  while (rclcpp::ok()) {
-    executor.spin_some();
-  }
-
+  auto loc_map =
+      std::make_shared<LMNode>(ekf, perception_map, motion_update,
+                               track_map, vehicle_state, use_odometry);
+  rclcpp::spin(loc_map);
   rclcpp::shutdown();
 
   return 0;
