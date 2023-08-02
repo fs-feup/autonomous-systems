@@ -113,49 +113,6 @@ void LMNode::_imu_subscription_callback(double angular_velocity, double accelera
   }
 }
 
-/**
- * @brief Transforms the odometry data to velocities
- *
- * @param lb_speed
- * @param lf_speed
- * @param rb_speed
- * @param rf_speed
- * @param steering_angle
- * @return MotionUpdate
- */
-MotionUpdate LMNode::odometry_to_velocities_transform(double lb_speed,
-                                                      [[maybe_unused]] double lf_speed,
-                                                      double rb_speed,
-                                                      [[maybe_unused]] double rf_speed,
-                                                      double steering_angle) {
-  MotionUpdate motion_prediction_data_transformed;
-  if (steering_angle == 0) {  // If no steering angle, moving straight
-    double lb_velocity = get_wheel_velocity_from_rpm(lb_speed, WHEEL_DIAMETER);
-    double rb_velocity = get_wheel_velocity_from_rpm(rb_speed, WHEEL_DIAMETER);
-    // double lf_velocity = get_wheel_velocity_from_rpm(lf_speed, WHEEL_DIAMETER); // Simulator
-    // double rf_velocity = get_wheel_velocity_from_rpm(rf_speed, WHEEL_DIAMETER); //
-    // Are always 0
-    motion_prediction_data_transformed.translational_velocity = (lb_velocity + rb_velocity) / 2;
-  } else if (steering_angle > 0) {
-    double lb_velocity = get_wheel_velocity_from_rpm(lb_speed, WHEEL_DIAMETER);
-    double rear_axis_center_rotation_radius = WHEELBASE / tan(steering_angle);
-    motion_prediction_data_transformed.rotational_velocity =
-        lb_velocity / (rear_axis_center_rotation_radius - (AXIS_LENGTH / 2));
-    motion_prediction_data_transformed.translational_velocity =
-        sqrt(pow(rear_axis_center_rotation_radius, 2) + pow(REAR_AXIS_TO_CAMERA, 2)) *
-        abs(motion_prediction_data_transformed.rotational_velocity);
-  } else {
-    double rb_velocity = get_wheel_velocity_from_rpm(rb_speed, WHEEL_DIAMETER);
-    double rear_axis_center_rotation_radius = WHEELBASE / tan(steering_angle);
-    motion_prediction_data_transformed.rotational_velocity =
-        rb_velocity / (rear_axis_center_rotation_radius + (AXIS_LENGTH / 2));
-    motion_prediction_data_transformed.translational_velocity =
-        sqrt(pow(rear_axis_center_rotation_radius, 2) + pow(REAR_AXIS_TO_CAMERA, 2)) *
-        abs(motion_prediction_data_transformed.rotational_velocity);
-  }
-  return motion_prediction_data_transformed;
-}
-
 void LMNode::_wheel_speeds_subscription_callback(double lb_speed, double lf_speed, double rb_speed,
                                                  double rf_speed, double steering_angle) {
   if (!this->_use_odometry) {
@@ -210,8 +167,6 @@ void LMNode::set_mission(Mission mission) {
   // this->_ekf = new ExtendedKalmanFilter(*motion_model, observation_model, mission);
 }
 
-Mission LMNode::get_mission() { return this->_mission; }
-
 /*---------------------- Publications --------------------*/
 
 void LMNode::_update_and_publish() {
@@ -259,6 +214,8 @@ void LMNode::_publish_map() {
   this->_map_publisher->publish(message);
 }
 
+/*---------------------- Others --------------------*/
+
 void LMNode::_ekf_step() {
   if (this->_ekf == nullptr) {
     RCLCPP_WARN(this->get_logger(), "PUB - EKF object is null");
@@ -273,4 +230,37 @@ void LMNode::_ekf_step() {
   // this->_vehicle_state->translational_velocity = temp_update.translational_velocity;
   // this->_vehicle_state->steering_angle = temp_update.steering_angle;
   RCLCPP_DEBUG(this->get_logger(), "EKF - EFK Step");
+}
+
+MotionUpdate LMNode::odometry_to_velocities_transform(double lb_speed,
+                                                      [[maybe_unused]] double lf_speed,
+                                                      double rb_speed,
+                                                      [[maybe_unused]] double rf_speed,
+                                                      double steering_angle) {
+  MotionUpdate motion_prediction_data_transformed;
+  if (steering_angle == 0) {  // If no steering angle, moving straight
+    double lb_velocity = get_wheel_velocity_from_rpm(lb_speed, WHEEL_DIAMETER);
+    double rb_velocity = get_wheel_velocity_from_rpm(rb_speed, WHEEL_DIAMETER);
+    // double lf_velocity = get_wheel_velocity_from_rpm(lf_speed, WHEEL_DIAMETER); // Simulator
+    // double rf_velocity = get_wheel_velocity_from_rpm(rf_speed, WHEEL_DIAMETER); //
+    // Are always 0
+    motion_prediction_data_transformed.translational_velocity = (lb_velocity + rb_velocity) / 2;
+  } else if (steering_angle > 0) {
+    double lb_velocity = get_wheel_velocity_from_rpm(lb_speed, WHEEL_DIAMETER);
+    double rear_axis_center_rotation_radius = WHEELBASE / tan(steering_angle);
+    motion_prediction_data_transformed.rotational_velocity =
+        lb_velocity / (rear_axis_center_rotation_radius - (AXIS_LENGTH / 2));
+    motion_prediction_data_transformed.translational_velocity =
+        sqrt(pow(rear_axis_center_rotation_radius, 2) + pow(REAR_AXIS_TO_CAMERA, 2)) *
+        abs(motion_prediction_data_transformed.rotational_velocity);
+  } else {
+    double rb_velocity = get_wheel_velocity_from_rpm(rb_speed, WHEEL_DIAMETER);
+    double rear_axis_center_rotation_radius = WHEELBASE / tan(steering_angle);
+    motion_prediction_data_transformed.rotational_velocity =
+        rb_velocity / (rear_axis_center_rotation_radius + (AXIS_LENGTH / 2));
+    motion_prediction_data_transformed.translational_velocity =
+        sqrt(pow(rear_axis_center_rotation_radius, 2) + pow(REAR_AXIS_TO_CAMERA, 2)) *
+        abs(motion_prediction_data_transformed.rotational_velocity);
+  }
+  return motion_prediction_data_transformed;
 }

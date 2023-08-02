@@ -14,7 +14,6 @@
  * @param position Vehicle coordinates, x and y
  * @param orientation Orientation of the vehicle in radians
  * 0 radians is pointing in the positive x direction
- *
  */
 struct Pose {
   Position position;
@@ -29,7 +28,6 @@ struct Pose {
  *
  * @param pose Pose of the vehicle
  * @param last_update Timestamp of last update
- *
  */
 struct VehicleState {
   Pose pose;
@@ -44,7 +42,6 @@ struct VehicleState {
  * @param translational_velocity Translational velocity of the vehicle
  * @param rotational_velocity Rotational velocity of the vehicle
  * @param last_update Timestamp of last update
- *
  */
 struct MotionUpdate {
   double translational_velocity = 0.0;   /**< Meters per sec */
@@ -63,7 +60,6 @@ struct MotionUpdate {
  * the position of the cones and their color
  * @param last_update Timestamp of last update
  * NOTE (JoaoAMarinho): Almost never used
- *
  */
 struct ConeMap {
   std::map<Position, colors::Color> map;

@@ -104,6 +104,8 @@ class LMNode : public rclcpp::Node {
    * @param lf_speed wheel speeds in rpm
    * @param rb_speed wheel speeds in rpm
    * @param rf_speed wheel speeds in rpm
+   * @param steering_angle steering angle in radians
+   * @return MotionUpdate transformed motion update data
    */
   static MotionUpdate odometry_to_velocities_transform(double lb_speed,
                                                        [[maybe_unused]] double lf_speed,
@@ -125,9 +127,12 @@ class LMNode : public rclcpp::Node {
   LMNode(ExtendedKalmanFilter* ekf, ConeMap* perception_map, MotionUpdate* motion_update,
          ConeMap* track_map, VehicleState* vehicle_state, bool use_odometry);
 
+  /**
+   * @brief Mission setter
+   * 
+   * @param mission New mission
+   */
   void set_mission(Mission mission);
-
-  Mission get_mission();
 
   friend class Adapter;
   FRIEND_TEST(ODOMETRY_SUBSCRIBER, CONVERSION_TEST);
