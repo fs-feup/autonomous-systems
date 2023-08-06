@@ -39,6 +39,9 @@ class Params:
         self.error_list_size = 20
         self.START_BREAKING_POS = 4  # neg index where car starts breaking (PID) 
         self.LOOK_AHEAD = 0  # cte look-ahead (PID)
+        self.spline_window = 10
+        self.spline_n_new_points = 100
+        self.spline_degree = 3
         self.kp_torque = \
             0.5 * self.torque_adjuster * (self.car_mass * (0.5 * self.tire_diam)) / \
                 (self.gear_ratio * self.power_train_efficiency)

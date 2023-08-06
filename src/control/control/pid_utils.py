@@ -102,14 +102,10 @@ def get_steering_command(closest_index, points_array, pose_car):
     y_car = pose_car[1]
     yaw_car = pose_car[2]
 
-    spline_window = 10
-    win_amplitude = int(spline_window/2)
-    n_new_points = 50
-
-    k = 3
+    win_amplitude = int(P.spline_n_new_points/2)
 
     # implement look ahead
-    if closest_index + P.LOOK_AHEAD < len(points_array) - (k + 1) - 1:
+    if closest_index + P.LOOK_AHEAD < len(points_array) - (P.spline_degree + 1) - 1:
         closest_index += P.LOOK_AHEAD
 
     if len(points_array) > 3:
@@ -118,8 +114,8 @@ def get_steering_command(closest_index, points_array, pose_car):
             min(closest_index+win_amplitude, len(points_array)), :]
 
         tck, u = interpolate.splprep([filtered_points[:, 0], filtered_points[:, 1]],
-                                    s=0, per=False, k=3)
-        x0, y0 = interpolate.splev(np.linspace(0, 1, n_new_points), tck)
+                                    s=0, per=False, k=P.spline_degree)
+        x0, y0 = interpolate.splev(np.linspace(0, 1, P.spline_n_new_points), tck)
 
         new_points_array = \
             np.concatenate((x0[:, np.newaxis], y0[:, np.newaxis]), axis=1)
