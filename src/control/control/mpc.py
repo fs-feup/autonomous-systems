@@ -3,23 +3,23 @@ from .mpc_utils import (
     compute_path_from_wp,
     get_ref_trajectory,
     get_linear_model_matrices,
+    optimize,
 )
-from .optimizer import Optimizer, Params
 import time
+
+from .config import Params
 
 P = Params()
 
 class MPC:
     def __init__(self, action, state, path, closest_ind):
-        # State for the car mathematical model [x,y,heading]
+        # State for the car mathematical model [x,y,v, orientation]
         self.state = state
 
-        # starting guess
+        # starting guess -> last command [steering angle, acceleration]
         self.action = action 
 
-        self.opt_u = np.zeros((P.command_len, P.T))
-
-        self.optimizer = Optimizer()
+        self.opt_u = np.zeros((P.command_len, P.prediction_horizon))
 
         # Interpolated Path to follow given waypoints
         self.path = compute_path_from_wp(
@@ -59,14 +59,13 @@ class MPC:
             self.state, self.path, P.VEL, dl=P.path_tick, old_ind=self.old_closest_ind
         )
 
-        x_mpc, u_mpc = self.optimizer.optimize_linearized_model(
+        x_mpc, u_mpc = optimize(
             A,
             B,
             C,
             curr_state,
             x_target,
             u_target,
-            time_horizon=P.T,
             verbose=False
         )
         

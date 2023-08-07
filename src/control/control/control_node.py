@@ -214,7 +214,7 @@ class ControlNode(Node):
 
         current_action = np.array(
             [self.acceleration_command, self.steering_angle_actual])
-        current_state = np.array([position.x, position.y, yaw])
+        current_state = np.array([position.x, position.y, yaw, self.velocity_actual])
 
         new_action, self.old_closest_index, mpc_path_size = run_mpc(
             current_action, 
@@ -224,6 +224,7 @@ class ControlNode(Node):
         )
 
         if new_action is None:
+            self.get_logger().debug("No action calculated")
             return
 
         self.acceleration_command = new_action[0]

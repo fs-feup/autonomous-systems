@@ -1,8 +1,12 @@
 import numpy as np
 import math
 from scipy.interpolate import interp1d
+import cvxpy as opt
 
 from .config import Params
+
+np.seterr(divide="ignore", invalid="ignore")
+
 
 P = Params()
 
@@ -91,8 +95,8 @@ def get_ref_trajectory(state, path, target_v, dl=0.1, old_ind=0):
     """
 
     # initialize variables
-    xref = np.zeros((P.state_len, P.T + 1))
-    uref = np.zeros((P.command_len, P.T + 1))
+    xref = np.zeros((P.state_len, P.prediction_horizon + 1))
+    uref = np.zeros((P.command_len, P.prediction_horizon + 1))
 
     path_len = path.shape[1]
 
@@ -111,7 +115,7 @@ def get_ref_trajectory(state, path, target_v, dl=0.1, old_ind=0):
     travel = 0.0  # distance traveled based on reference velocity
 
     # iterate over timesteps in the optimization
-    for i in range(1, P.T + 1):
+    for i in range(1, P.prediction_horizon + 1):
         # update distance traveled
         travel += abs(target_v) * P.DT
         dind = int(round(travel / dl))
@@ -180,6 +184,63 @@ def get_linear_model_matrices(x_bar, u_bar):
     )
 
     return np.round(A_lin,6), np.round(B_lin,6), np.round(C_lin,6)
+
+
+def optimize(A, B, C, initial_state, x_ref, u_ref, verbose=False):
+        """
+        Optimisation problem defined for the linearised model,
+        :param A: model matrix A'
+        :param B: model matrix B'
+        :param C: model matrix C'
+        :param initial_state: car's initial state
+        :param verbose: verbose for optimization problem
+        :return: optimized states and actions
+        """
+
+        assert len(initial_state) == P.state_len
+
+        # Create variables
+        x = opt.Variable((P.state_len, P.prediction_horizon + 1), name="states")
+        u = opt.Variable((P.command_len, P.prediction_horizon), name="actions")
+
+        # Loop through the entire time_horizon and append costs
+        cost_function = []
+
+        for t in range(P.prediction_horizon):
+
+            _cost = \
+                opt.quad_form(x_ref[:, t + 1] - x[:, t + 1], P.state_cost) + \
+                opt.quad_form(u_ref[:, t] - u[:, t], P.command_cost)
+
+            _constraints = [
+                x[:, t + 1] == A @ x[:, t] + B @ u[:, t] + C,
+                u[0, t] >= -P.MAX_ACC,
+                u[0, t] <= P.MAX_ACC,
+                u[1, t] >= -P.MAX_STEER,
+                u[1, t] <= P.MAX_STEER,
+            ]
+
+            # Actuation rate of change
+            if t < (P.prediction_horizon - 1):
+                _cost += opt.quad_form(u[:, t + 1] - u[:, t], P.command_cost * 1)
+
+                _constraints += [opt.abs(u[0, t + 1] - u[0, t]) / P.DT <= P.MAX_D_ACC]
+                _constraints += [opt.abs(u[1, t + 1] - u[1, t]) / P.DT <= P.MAX_D_STEER]
+
+            if t == 0:
+                _constraints += [x[:, 0] == initial_state]
+
+            cost_function.append(
+                opt.Problem(opt.Minimize(_cost), constraints=_constraints)
+            )
+
+        # Add final cost
+        problem = sum(cost_function)
+
+        # Minimize Problem
+        problem.solve(verbose=verbose, solver=opt.OSQP)
+
+        return x, u
 
 
 def wheel_rpm_2_wheel_vel(rpm):
