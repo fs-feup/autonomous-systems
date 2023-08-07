@@ -8,7 +8,7 @@ class Params:
         # MPC variables
         self.N = 4  # number of state variables
         self.M = 2  # number of control variables
-        self.T = 10  # Prediction Horizon
+        self.T = 10  # Prediction Horizon (iterations)
         self.DT = 0.2  # discretization step
         self.path_tick = 0.05  # average distance btw path points
         

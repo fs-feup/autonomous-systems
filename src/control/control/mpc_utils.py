@@ -92,23 +92,21 @@ def get_ref_trajectory(state, path, target_v, dl=0.1, old_ind=0):
 
     # initialize variables
     xref = np.zeros((P.N, P.T + 1))
-    dref = np.zeros((1, P.T + 1))
-    # sp = np.ones((1,T +1))*target_v #speed profile
+    uref = np.zeros((P.M, P.T + 1))
 
     path_len = path.shape[1]
 
     ind = get_nn_idx(state, path, old_ind)
+
+    # current distance to path
     dx = path[0, ind] - state[0]
     dy = path[1, ind] - state[1]
 
-    # first position references
+    # first position references (using local coordinate system)
     xref[0, 0] = dx * np.cos(-state[3]) - dy * np.sin(-state[3])  # X
     xref[1, 0] = dy * np.cos(-state[3]) + dx * np.sin(-state[3])  # Y
     xref[2, 0] = target_v  # V
     xref[3, 0] = normalize_angle(path[2, ind] - state[3])  # Theta
-
-    # first steering reference
-    dref[0, 0] = 0.0  # Steer operational point should be 0
 
     travel = 0.0  # distance traveled based on reference velocity
 
@@ -126,122 +124,54 @@ def get_ref_trajectory(state, path, target_v, dl=0.1, old_ind=0):
             # position references
             xref[0, i] = dx * np.cos(-state[3]) - dy * np.sin(-state[3])
             xref[1, i] = dy * np.cos(-state[3]) + dx * np.sin(-state[3])
-            xref[2, i] = target_v  # sp[ind + dind]
+            xref[2, i] = target_v
             xref[3, i] = normalize_angle(path[ind + dind, 2] - state[3])
 
-            # steering angle 
-            dref[0, i] = 0.0
         else:
             dx = path[path_len - 1, 0] - state[0]
             dy = path[path_len - 1, 1] - state[1]
             xref[0, i] = dx * np.cos(-state[3]) - dy * np.sin(-state[3])
             xref[1, i] = dy * np.cos(-state[3]) + dx * np.sin(-state[3])
-            xref[2, i] = 0.0  # stop? if not: #sp[ncourse - 1]
+            xref[2, i] = 0.0
             xref[3, i] = normalize_angle(path[path_len - 1, 2] - state[3])
-            dref[0, i] = 0.0
-    return xref, dref, ind
+    return xref, uref, ind
 
 
 def get_linear_model_matrices(x_bar, u_bar):
     """
-    Computes the LTI approximated state space model x' = Ax + Bu + C
+    Computes the LTI approximated state space model x' = A'x + B'u + C
     """
 
-    x_bar[0]
-    x_bar[1]
-    theta = x_bar[2]
+    # state variables (x)
+    x = x_bar[0]
+    y = x_bar[1]
+    v = x_bar[2]
+    theta = x_bar[3]
 
-    v = u_bar[0]
+    # command variables (u)
+    a = u_bar[0]
     delta = u_bar[1]
 
     ct = np.cos(theta)
     st = np.sin(theta)
-
     cd = np.cos(delta)
-    sd = np.sin(delta)
-
-    L_ratio = P.Lc / P.L
+    td = np.tan(delta)
 
     A = np.zeros((P.N, P.N))
-    A[0, 2] = -v * (st*cd + L_ratio*ct*sd)
-    A[1, 2] = v * (ct*cd - L_ratio*st*sd)
-
+    A[0, 2] = ct
+    A[0, 3] = -v * st
+    A[1, 2] = st
+    A[1, 3] = v * ct
+    A[3, 2] = v * td / P.L
     A_lin = np.eye(P.N) + P.DT * A
 
     B = np.zeros((P.N, P.M))
-    B[0, 0] = ct*cd - L_ratio*st*sd
-    B[1, 0] = L_ratio*ct*sd + st*cd
-    B[2, 0] = sd / P.L
-    
-    B[0, 1] = - v * (ct*sd + L_ratio * st*cd) 
-    B[1, 1] = v * (L_ratio*ct*sd + st*cd) 
-    B[2, 1] = v * cd / P.L
-
+    B[2, 0] = 1
+    B[3, 1] = v / (P.L * cd**2)
     B_lin = P.DT * B
 
-    f_xu = np.array(
-        [
-            v * (ct*cd - L_ratio*st*sd), 
-            v * (L_ratio*ct*sd + st*cd), 
-            v * sd / P.L
-        ]
-    ).reshape(P.N, 1)
-
-    C_lin = (
-        P.DT
-        * (
-            f_xu - np.dot(A, x_bar.reshape(P.N, 1)) - np.dot(B, u_bar.reshape(P.M, 1))
-        ).flatten()
-    )
-
-    return np.round(A_lin,6), np.round(B_lin,6), np.round(C_lin,6)
-
-
-def get_linear_model_matrices2(x_bar, u_bar):
-    """
-    Computes the LTI approximated state space model x' = Ax + Bu + C
-    """
-
-    x_bar[0]
-    x_bar[1]
-    theta = x_bar[2]
-
-    v = u_bar[0]
-    delta = u_bar[1]
-
-    ct = np.cos(theta)
-    st = np.sin(theta)
-
-    cd = np.cos(delta)
-    sd = np.sin(delta)
-
-    L_ratio = P.Lc / P.L
-
-    A = np.zeros((P.N, P.N))
-    A[0, 2] = -v * (st*cd + L_ratio*ct*sd)
-    A[1, 2] = v * (ct*cd - L_ratio*st*sd)
-
-    A_lin = np.eye(P.N) + P.DT * A
-
-    B = np.zeros((P.N, P.M))
-    B[0, 0] = ct*cd - L_ratio*st*sd
-    B[1, 0] = L_ratio*ct*sd + st*cd
-    B[2, 0] = sd / P.L
+    f_xu = np.array([v * ct, v * st, a, v * td / P.L]).reshape(P.N, 1)
     
-    B[0, 1] = - v * (ct*sd + L_ratio * st*cd) 
-    B[1, 1] = v * (L_ratio*ct*sd + st*cd) 
-    B[2, 1] = v * cd / P.L
-
-    B_lin = P.DT * B
-
-    f_xu = np.array(
-        [
-            v * (ct*cd - L_ratio*st*sd), 
-            v * (L_ratio*ct*sd + st*cd), 
-            v * sd / P.L
-        ]
-    ).reshape(P.N, 1)
-
     C_lin = (
         P.DT
         * (

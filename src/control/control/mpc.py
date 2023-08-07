@@ -20,7 +20,7 @@ class MPC:
         self.opt_u = np.zeros((P.M, P.T))
 
         # Cost Matrices
-        Q = np.diag([30, 30, 20])  # state error cost
+        Q = np.diag([30, 30, 30, 20])  # state error cost
         R = np.diag([10, 10])  # input cost
 
         self.optimizer = Optimizer(P.N, P.M, Q, R)
@@ -50,7 +50,7 @@ class MPC:
         and save the actions.
         @param self The object pointer.
         """
-        time.time()
+        # start = time.time()
 
         # dynamycs w.r.t car frame
         curr_state = np.array([0, 0, self.state[2], 0])

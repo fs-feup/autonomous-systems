@@ -56,14 +56,14 @@ class Optimizer:
 
         for t in range(time_horizon):
 
-            _cost = opt.quad_form(x_ref[:, t + 1] - x[:, t + 1], Q) + opt.quad_form(
-                u[:, t] - u_ref[:, t], R
-            )
+            _cost = \
+                opt.quad_form(x_ref[:, t + 1] - x[:, t + 1], Q) + \
+                opt.quad_form(u_ref[:, t] - u[:, t], R)
 
             _constraints = [
                 x[:, t + 1] == A @ x[:, t] + B @ u[:, t] + C,
-                u[0, t] >= -P.MAX_SPEED,
-                u[0, t] <= P.MAX_SPEED,
+                u[0, t] >= -P.MAX_ACC,
+                u[0, t] <= P.MAX_ACC,
                 u[1, t] >= -P.MAX_STEER,
                 u[1, t] <= P.MAX_STEER,
             ]
@@ -71,7 +71,8 @@ class Optimizer:
             # Actuation rate of change
             if t < (time_horizon - 1):
                 _cost += opt.quad_form(u[:, t + 1] - u[:, t], R * 1)
-                _constraints += [opt.abs(u[0, t + 1] - u[0, t]) / P.DT <= P.MAX_ACC]
+                
+                _constraints += [opt.abs(u[0, t + 1] - u[0, t]) / P.DT <= P.MAX_D_ACC]
                 _constraints += [opt.abs(u[1, t + 1] - u[1, t]) / P.DT <= P.MAX_D_STEER]
 
             if t == 0:
