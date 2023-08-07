@@ -91,8 +91,8 @@ def get_ref_trajectory(state, path, target_v, dl=0.1, old_ind=0):
     """
 
     # initialize variables
-    xref = np.zeros((P.N, P.T + 1))
-    uref = np.zeros((P.M, P.T + 1))
+    xref = np.zeros((P.state_len, P.T + 1))
+    uref = np.zeros((P.command_len, P.T + 1))
 
     path_len = path.shape[1]
 
@@ -157,25 +157,25 @@ def get_linear_model_matrices(x_bar, u_bar):
     cd = np.cos(delta)
     td = np.tan(delta)
 
-    A = np.zeros((P.N, P.N))
+    A = np.zeros((P.state_len, P.state_len))
     A[0, 2] = ct
     A[0, 3] = -v * st
     A[1, 2] = st
     A[1, 3] = v * ct
     A[3, 2] = v * td / P.L
-    A_lin = np.eye(P.N) + P.DT * A
+    A_lin = np.eye(P.state_len) + P.DT * A
 
-    B = np.zeros((P.N, P.M))
+    B = np.zeros((P.state_len, P.command_len))
     B[2, 0] = 1
     B[3, 1] = v / (P.L * cd**2)
     B_lin = P.DT * B
 
-    f_xu = np.array([v * ct, v * st, a, v * td / P.L]).reshape(P.N, 1)
-    
+    f_xu = np.array([v * ct, v * st, a, v * td / P.L]).reshape(P.state_len, 1)
+
     C_lin = (
         P.DT
         * (
-            f_xu - np.dot(A, x_bar.reshape(P.N, 1)) - np.dot(B, u_bar.reshape(P.M, 1))
+            f_xu - np.dot(A, x_bar.reshape(P.state_len, 1)) - np.dot(B, u_bar.reshape(P.command_len, 1))
         ).flatten()
     )
 
@@ -192,6 +192,7 @@ def wheels_vel_2_vehicle_vel(fl_vel, fr_vel, rl_vel, rr_vel, steering_angle):
             wheel_rpm_2_wheel_vel(fr_vel) +
             wheel_rpm_2_wheel_vel(rl_vel) +
             wheel_rpm_2_wheel_vel(rr_vel)) / 4
+    
     if not steering_angle:
         return wheel_rpm_2_wheel_vel(rl_vel)
     elif steering_angle > 0:

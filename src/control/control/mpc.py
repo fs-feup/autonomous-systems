@@ -17,13 +17,9 @@ class MPC:
         # starting guess
         self.action = action 
 
-        self.opt_u = np.zeros((P.M, P.T))
+        self.opt_u = np.zeros((P.command_len, P.T))
 
-        # Cost Matrices
-        Q = np.diag([30, 30, 30, 20])  # state error cost
-        R = np.diag([10, 10])  # input cost
-
-        self.optimizer = Optimizer(P.N, P.M, Q, R)
+        self.optimizer = Optimizer()
 
         # Interpolated Path to follow given waypoints
         self.path = compute_path_from_wp(

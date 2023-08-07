@@ -6,8 +6,10 @@ class Params:
         self.env = "eufs"
 
         # MPC variables
-        self.N = 4  # number of state variables
-        self.M = 2  # number of control variables
+        self.state_len = 4  # number of state variables
+        self.command_len = 2  # number of control 
+        self.state_cost = np.diag([30, 30, 30, 20])  # state error cost
+        self.command_cost = np.diag([10, 10])  # command cost
         self.T = 10  # Prediction Horizon (iterations)
         self.DT = 0.2  # discretization step
         self.path_tick = 0.05  # average distance btw path points

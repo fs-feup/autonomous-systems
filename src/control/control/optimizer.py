@@ -7,12 +7,9 @@ np.seterr(divide="ignore", invalid="ignore")
 P = Params()    
 
 class Optimizer:
-    def __init__(self, N, M, Q, R):
-        """ """
-        self.state_len = N
-        self.action_len = M
-        self.state_cost = Q
-        self.action_cost = R
+    def __init__(self):
+        """"""
+        pass
 
     def optimize_linearized_model(
         self,
@@ -23,8 +20,6 @@ class Optimizer:
         x_ref,
         u_ref,
         time_horizon=10,
-        Q=None,
-        R=None,
         verbose=False,
     ):
         """
@@ -43,10 +38,6 @@ class Optimizer:
 
         assert len(initial_state) == self.state_len
 
-        if Q is None or R is None:
-            Q = self.state_cost
-            R = self.action_cost
-
         # Create variables
         x = opt.Variable((self.state_len, time_horizon + 1), name="states")
         u = opt.Variable((self.action_len, time_horizon), name="actions")
@@ -57,8 +48,8 @@ class Optimizer:
         for t in range(time_horizon):
 
             _cost = \
-                opt.quad_form(x_ref[:, t + 1] - x[:, t + 1], Q) + \
-                opt.quad_form(u_ref[:, t] - u[:, t], R)
+                opt.quad_form(x_ref[:, t + 1] - x[:, t + 1], P.state_cost) + \
+                opt.quad_form(u_ref[:, t] - u[:, t], P.command_cost)
 
             _constraints = [
                 x[:, t + 1] == A @ x[:, t] + B @ u[:, t] + C,
@@ -70,8 +61,8 @@ class Optimizer:
 
             # Actuation rate of change
             if t < (time_horizon - 1):
-                _cost += opt.quad_form(u[:, t + 1] - u[:, t], R * 1)
-                
+                _cost += opt.quad_form(u[:, t + 1] - u[:, t], P.command_cost * 1)
+
                 _constraints += [opt.abs(u[0, t + 1] - u[0, t]) / P.DT <= P.MAX_D_ACC]
                 _constraints += [opt.abs(u[1, t + 1] - u[1, t]) / P.DT <= P.MAX_D_STEER]
 
