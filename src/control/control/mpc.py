@@ -11,7 +11,7 @@ P = Params()
 
 class MPC:
     def __init__(self, action, state, path, closest_ind):
-        # State for the car mathematical model [x,y,heading]
+        # State for the car mathematical model [x, y, vel, heading]
         self.state = state
 
         # starting guess
@@ -19,7 +19,7 @@ class MPC:
 
         self.opt_u = np.zeros((P.M, P.T))
 
-        # Cost Matrices
+        # Cost/Importance Matrices for (x, y, vel, heading) and (a, steering)
         Q = np.diag([30, 30, 20])  # state error cost
         R = np.diag([10, 10])  # input cost
 
@@ -52,17 +52,18 @@ class MPC:
         """
         time.time()
 
-        # dynamycs w.r.t car frame
+        # (x, y, vel, heading) state - car frame
         curr_state = np.array([0, 0, self.state[2], 0])
 
         # State Matrices
         A, B, C = get_linear_model_matrices(curr_state, self.action)
         
-        # Get Reference_traj -> inputs are in worldframe
+        # Get Reference_Trajectory Values (Inputs -> Worldframe - Outputs - Carframe)
         x_target, u_target, self.closest_ind = get_ref_trajectory(
-            self.state, self.path, P.VEL, dl=P.path_tick, old_ind=self.old_closest_ind
+            self.state, self.path, P.VEL, old_ind=self.old_closest_ind
         )
 
+        # Get Optimized Actions for Given Trajectory Values
         x_mpc, u_mpc = self.optimizer.optimize_linearized_model(
             A,
             B,
@@ -80,6 +81,7 @@ class MPC:
                 (np.array(u_mpc.value[1, :]).flatten()),
             )
         )
+        # Select the first action only - the one to be performed in current instant
         self.action[:] = [u_mpc.value[0, 0], u_mpc.value[1, 0]]
         # print("CVXPY Optimization Time: {:.4f}s".format(time.time()-start))
 
