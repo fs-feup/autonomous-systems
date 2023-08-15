@@ -88,7 +88,7 @@ def get_orientation_error(closest_index, points_array, yaw_car):
     return yaw_track - yaw_car
 
 
-def get_steering_command(closest_index, points_array, pose_car):
+def get_cte(closest_index, points_array, pose_car):
     """!
     @brief Calculates the cross track error (CTE). 
     CTE is defined as the distance between the car and the line tangent to the 
@@ -194,7 +194,7 @@ def get_acceleration_command(error):
     return float(acceleration)
 
 
-def steer(pos_error, yaw_error, ct_error, old_error):
+def get_steering_command(pos_error, yaw_error, ct_error, old_error):
     """!
     @brief Steers the car.
     @param self The object pointer.
