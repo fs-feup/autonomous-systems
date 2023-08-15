@@ -115,7 +115,7 @@ class ControlNode(Node):
             )
             return
 
-        # after mpc, convert velocity command to torque/break command
+        # after mpc(velocity version), convert velocity command to torque/break command
         torque_command, break_command = \
             get_torque_break_commands(self.acceleration_command)
 
@@ -216,6 +216,7 @@ class ControlNode(Node):
             [self.acceleration_command, self.steering_angle_actual])
         current_state = np.array([position.x, position.y, yaw, self.velocity_actual])
 
+        # mpc action for current instant
         new_action, self.old_closest_index, mpc_path_size = run_mpc(
             current_action, 
             current_state, 
@@ -259,7 +260,7 @@ class ControlNode(Node):
 
             dist_from_end = len(points_list.points) - i
 
-            # min -> start breaking or not
+            # velocity reference is decreased to 0 uniformly after start break pos
             speed = P.VEL*min(1.0, dist_from_end / P.START_BREAKING_POS)
             path_speeds.append(speed)
 

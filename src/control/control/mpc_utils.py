@@ -23,6 +23,7 @@ def compute_path_from_wp(path, step=0.1):
     delta = step  # [m]
 
     for idx in range(len(path) - 1):
+        # distance between 2 consecutive points
         section_len = np.sum(
             np.sqrt(
                 np.power(np.diff(start_xp[idx : idx + 2]), 2)
@@ -30,14 +31,17 @@ def compute_path_from_wp(path, step=0.1):
             )
         )
 
+        # generated divisions to generate new points 
         interp_range = np.linspace(0, 1, np.floor(section_len / delta).astype(int))
 
+        # linear function between 2 consecutive positions
         fx = interp1d(np.linspace(0, 1, 2), start_xp[idx : idx + 2], kind=1)
         fy = interp1d(np.linspace(0, 1, 2), start_yp[idx : idx + 2], kind=1)
 
-        # watch out to duplicate points!
+        # watch out to duplicate points! - do not add first index
         final_xp = np.append(final_xp, fx(interp_range)[1:])
         final_yp = np.append(final_yp, fy(interp_range)[1:])
+    # add (0, 0) point to first index
     dx = np.append(0, np.diff(final_xp))
     dy = np.append(0, np.diff(final_yp))
     theta = np.arctan2(dy, dx)
@@ -51,17 +55,20 @@ def get_nn_idx(state, path, old_nn_idx):
 
     search_window = 100
     
+    # window in intersection [0, len(path)] and [index - 100, index + 100]
     windowed_path = path[max(old_nn_idx - search_window, 0): 
                             min(old_nn_idx + search_window, path.shape[0]), :]
     
+    # distances between state and path points
     dx = state[0] - windowed_path[:, 0]
     dy = state[1] - windowed_path[:, 1]
-
     dist = np.hypot(dx, dy)
-    
+
+    # get index of min dist 
     nn_idx = np.argmin(dist) + max(old_nn_idx - search_window, 0)
-    
+
     try:
+        # enforce the closest point to be the one in front of vehicle
         v = [
             path[nn_idx + 1, 0] - path[nn_idx, 0],
             path[nn_idx + 1, 1] - path[nn_idx, 1],
@@ -88,7 +95,7 @@ def normalize_angle(angle):
     return angle
 
 
-def get_ref_trajectory(state, path, target_v, dl=0.1, old_ind=0):
+def get_ref_trajectory(state, path, target_v, old_ind=0):
     """
     For each step in the time horizon
     modified reference in car frame
@@ -100,6 +107,7 @@ def get_ref_trajectory(state, path, target_v, dl=0.1, old_ind=0):
 
     path_len = path.shape[1]
 
+    # get next point in path (relative to car)
     ind = get_nn_idx(state, path, old_ind)
 
     # current distance to path
@@ -118,14 +126,15 @@ def get_ref_trajectory(state, path, target_v, dl=0.1, old_ind=0):
     for i in range(1, P.prediction_horizon + 1):
         # update distance traveled
         travel += abs(target_v) * P.DT
-        dind = int(round(travel / dl))
+        dind = int(round(travel / P.path_tick))
         
+        # if path ends, no calculation performed
         if (ind + dind) < path_len:
-            # update expected position
+            # update expected position (relative to car)
             dx = path[ind + dind, 0] - state[0]
             dy = path[ind + dind, 1] - state[1]
 
-            # position references
+            # position references (local ref)
             xref[0, i] = dx * np.cos(-state[3]) - dy * np.sin(-state[3])
             xref[1, i] = dy * np.cos(-state[3]) + dx * np.sin(-state[3])
             xref[2, i] = target_v

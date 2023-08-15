@@ -24,16 +24,17 @@ class Params:
         self.MAX_TORQUE = 50.0  # Nm
         self.MAX_BREAK = 100
 
+        # TODO: test params and approximate them to real life
         # Vehicle specification
         self.L = 0.3  # vehicle wheelbase
         self.Lc = self.L / 2  # Disctance from rear axle to vehicle center
         self.tire_diam = 0.51  # m
         self.car_width = 1.201  # m
         self.car_mass = 200  # Kg
-        self.power_train_efficiency = 0.85
-        self.gear_ratio = 3.5
-        self.torque_adjuster = 1.
-        self.break_adjuster = 1.
+        self.power_train_efficiency = 0.85 # % of power generated received by the wheels  
+        self.gear_ratio = 3.5 # ratio between driver(effort) gear and driven(load) gear
+        self.torque_adjuster = 1. # aid variable to quickly variate scale
+        self.break_adjuster = 1. # aid variable to quickly variate scale
         self.cicles_to_achieve_speed = 7
         self.neg_acceleration_max_break = 5  # m/ss 
 

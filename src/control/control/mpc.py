@@ -48,15 +48,15 @@ class MPC:
         """
         # start = time.time()
 
-        # dynamycs w.r.t car frame
+        # (x, y, vel, heading) state - car frame
         curr_state = np.array([0, 0, self.state[2], 0])
 
         # State Matrices
         A, B, C = get_linear_model_matrices(curr_state, self.action)
         
-        # Get Reference_traj -> inputs are in worldframe
+        # Get Reference_Trajectory Values (Inputs -> Worldframe - Outputs - Carframe)
         x_target, u_target, self.closest_ind = get_ref_trajectory(
-            self.state, self.path, P.VEL, dl=P.path_tick, old_ind=self.old_closest_ind
+            self.state, self.path, P.VEL, old_ind=self.old_closest_ind
         )
 
         x_mpc, u_mpc = optimize(
@@ -75,6 +75,7 @@ class MPC:
                 (np.array(u_mpc.value[1, :]).flatten()),
             )
         )
+        # Select the first action only - the one to be performed in current instant
         self.action[:] = [u_mpc.value[0, 0], u_mpc.value[1, 0]]
         # print("CVXPY Optimization Time: {:.4f}s".format(time.time()-start))
 
