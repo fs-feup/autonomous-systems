@@ -105,20 +105,20 @@ def get_ref_trajectory(state, path, target_v, old_ind=0):
     xref = np.zeros((P.state_len, P.prediction_horizon + 1))
     uref = np.zeros((P.command_len, P.prediction_horizon + 1))
 
-    path_len = path.shape[1]
+    path_len = path.shape[0]
 
     # get next point in path (relative to car)
     ind = get_nn_idx(state, path, old_ind)
 
     # current distance to path
-    dx = path[0, ind] - state[0]
-    dy = path[1, ind] - state[1]
+    dx = path[ind, 0] - state[0]
+    dy = path[ind, 1] - state[1]
 
     # first position references (using local coordinate system)
     xref[0, 0] = dx * np.cos(-state[3]) - dy * np.sin(-state[3])  # X
     xref[1, 0] = dy * np.cos(-state[3]) + dx * np.sin(-state[3])  # Y
     xref[2, 0] = target_v  # V
-    xref[3, 0] = normalize_angle(path[2, ind] - state[3])  # Theta
+    xref[3, 0] = normalize_angle(path[ind, 2] - state[3])  # Theta
 
     travel = 0.0  # distance traveled based on reference velocity
 

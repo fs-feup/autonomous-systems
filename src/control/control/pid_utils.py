@@ -102,7 +102,7 @@ def get_cte(closest_index, points_array, pose_car):
     y_car = pose_car[1]
     yaw_car = pose_car[2]
 
-    win_amplitude = int(P.spline_n_new_points/2)
+    win_amplitude = int(P.spline_window/2)
 
     # implement look ahead
     if closest_index + P.LOOK_AHEAD < len(points_array) - (P.spline_degree + 1) - 1:
