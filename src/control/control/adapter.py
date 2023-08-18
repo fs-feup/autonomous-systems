@@ -137,8 +137,12 @@ class ControlAdapter():
         )
 
         if self.node.mission != CanState.AMI_AUTONOMOUS_DEMO:
-            # self.node.mpc_callback(position, yaw)
-            self.node.pid_callback(position, yaw)
+            if P.controller == "pid":
+                self.node.pid_callback(position, yaw)
+            elif P.controller == "mpc":
+                self.node.mpc_callback(position, yaw)
+            else:
+                raise Exception('Choose a valid controller. Either "mpc" or "pid"') 
 
     def eufs_odometry_callback(self, msg, sim=False):
         self.node.wheel_speed = (msg.speeds.lb_speed +
@@ -266,5 +270,10 @@ class ControlAdapter():
         # Converts quartenions base to euler's base, and updates the class' attributes
         yaw = euler_from_quaternion(orientation_list)[2]
 
-        # self.node.mpc_callback(position, yaw)
-        self.node.pid_callback(position, yaw)
+        if P.controller == "pid":
+            self.node.pid_callback(position, yaw)
+        elif P.controller == "mpc":
+            self.node.mpc_callback(position, yaw)
+        else:
+            raise Exception('Choose a valid controller. Either "mpc" or "pid"') 
+    

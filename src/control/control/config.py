@@ -5,6 +5,9 @@ class Params:
         # enviroment choice
         self.env = "eufs"
 
+        # controller choice (either "pid or "mpc")
+        self.controller = "pid"
+
         # MPC variables
         self.state_len = 4  # number of state variables
         self.command_len = 2  # number of control 
