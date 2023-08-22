@@ -26,6 +26,11 @@ from custom_interfaces.msg import BoundingBoxes, BoundingBox, ConeArray
 from cv_bridge import CvBridge
 
 class yolov5():
+
+    """!
+    @brief Class for performing object detection using YOLOv5 model
+    """
+
     def __init__(self,  weights,
                         imagez_height,
                         imagez_width,
@@ -39,6 +44,24 @@ class yolov5():
                         half,
                         dnn
                         ):
+        
+        """!
+        @brief Constructor for initializing the YOLOv5 object detection model
+        @param self The object pointer
+        @param weights Path to the YOLOv5 model weights
+        @param imagez_height Height of the input images
+        @param imagez_width Width of the input images
+        @param conf_thres Confidence Threshold
+        @param iou_thres IoU threshold
+        @param max_det Maximum number of detections/image
+        @param view_img Whether to display the processed images with detections
+        @param classes List of class names
+        @param agnostic_nms Whether to apply agnostic NMS
+        @param line_thickness Line thickness for bounding box visualization
+        @param half Whether to use half-precision floating-point
+        @param dnn Not specified in the template, so left as it is
+        """
+
         self.weights = weights
         self.imagez_height = imagez_height
         self.imagez_width = imagez_width
@@ -57,6 +80,12 @@ class yolov5():
         self.load_model()
 
     def load_model(self):
+
+        """!
+        @brief Load the YOLOv5 model and perform initialization steps
+        @param self The object pointer
+        """
+
         imgsz = (self.imagez_height, self.imagez_width)
 
         # Load model
@@ -87,6 +116,19 @@ class yolov5():
     # 3. x_min, y_min, x_max, y_max (float)         +
     # ----------------------------------------------
     def image_callback(self, image_raw):
+
+        """!
+        @brief Perform object detection on a provided image
+        @param self The object pointer
+        @param image_raw The input image
+        @return class_list detected classes
+        @return confidence_list confidences list
+        @return x_min x min of the bounding boxes
+        @return y_min y min of the bounding boxes
+        @return x_max x max of the bounding boxes
+        @return y_max y max of the bounding boxes
+        """
+
         class_list = []
         confidence_list = []
         x_min_list = []
@@ -171,7 +213,18 @@ class yolov5():
             return class_list, confidence_list, x_min_list, y_min_list, x_max_list, y_max_list  # noqa: E501
 
 class perception(Node):
+
+    """!
+    @brief ROS2 node for perception tasks
+    """
+
     def __init__(self):
+        
+        """!
+        @brief Constructor for initializing the perception node
+        @param self The object pointer
+        """
+
         super().__init__('perception')
 
         self.bridge = CvBridge()
@@ -224,6 +277,16 @@ class perception(Node):
         self.adapter = PerceptionAdapter(args.interface, self)
     
     def yolovFive2bboxes_msgs(self, bboxes:list, scores:list, cls:list):
+        """!
+        @brief Convert YOLOv5 bounding box info to BoundingBoxes ROS2 message
+        @param self The object pointer
+        @param bboxes List of the bounding boxes coordinates
+        @param scores List of the confidence scores of detection
+        @param cls List of class IDs
+        @return Bounding Boxes information in message format
+        """
+
+
         bboxes_msg = BoundingBoxes()
         i = 0
         for score in scores:
@@ -241,6 +304,15 @@ class perception(Node):
         return bboxes_msg
 
     def image_callback(self, image, sim=True, point_cloud=None):
+
+        """!
+        @brief Image processing and coordinates publish
+        @param self The object pointer
+        @param image Input image
+        @param sim Flag indicating if the image is from simulation
+        @param point_cloud Point cloud data associated with the image
+        """
+
         if sim:
             image_raw = self.bridge.imgmsg_to_cv2(image, "bgr8")
         else:
