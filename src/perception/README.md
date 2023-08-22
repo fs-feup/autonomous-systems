@@ -16,9 +16,9 @@
 
 ## Architecture
 
-<div style="text-align:center">
-    <img src="../../docs/assets/Perception/architecture.png" alt="Beautiful Sunset">
-</div>
+<p align="center">
+  <img src="../../docs/assets/Perception/architecture.png" />
+</p>
 
 
 ## Main External Libraries
