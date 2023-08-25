@@ -1,5 +1,4 @@
 #include "adapter/adapter.hpp"
-
 #include "planning/planning.hpp"
 
 Adapter::Adapter(std::string mode, Planning* planning) {

@@ -129,7 +129,7 @@ int Track::deleteOutliers(bool side, float distance_threshold,
     return 0;
   }
 
-  // Initialize vars
+  // Initialize vars (pointers)
   gsl_bspline_workspace *bw, *cw;
   gsl_vector *B, *C;
   gsl_vector *c, *c2, *w;
@@ -138,6 +138,7 @@ int Track::deleteOutliers(bool side, float distance_threshold,
   gsl_multifit_linear_workspace *mw, *mw2;
   double chisq, chisq2;
 
+  //allocate memory for the actual objects the pointers will point to
   bw = gsl_bspline_alloc(order, nbreak);
   cw = gsl_bspline_alloc(order, nbreak);
   B = gsl_vector_alloc(ncoeffs);
@@ -158,6 +159,8 @@ int Track::deleteOutliers(bool side, float distance_threshold,
   mw2 = gsl_multifit_linear_alloc(n, ncoeffs);
 
   // Order cone_array
+  //The algorithm works by iteratively selecting the nearest unvisited cone to the current cone and updating the traversal direction accordingly.
+  //This approach creates an ordered sequence that efficiently connects nearby cones.
   std::vector<std::pair<Cone*, bool>> nn_unord_cone_seq;
   for (size_t i = 0; i < unord_cone_seq.size(); i++)
     nn_unord_cone_seq.push_back(std::make_pair(unord_cone_seq[i], false));
@@ -173,7 +176,7 @@ int Track::deleteOutliers(bool side, float distance_threshold,
     for (size_t i = 0; i < nn_unord_cone_seq.size(); i++) {
       Cone* cone2 = nn_unord_cone_seq[i].first;
       if (nn_unord_cone_seq[i].second == false ||
-        (iter_number == 0 && vector_direction(cone1, cone2, vx, vy))) {
+        (iter_number == 0 && vector_direction(cone1, cone2, vx, vy))) {//first iteration we assure the direction is correct (avoid going backwards)
         float new_dist = cone1->getDistanceTo(cone2);
         if (new_dist < min_dist) {
           min_dist = new_dist;
@@ -196,7 +199,7 @@ int Track::deleteOutliers(bool side, float distance_threshold,
     gsl_vector_set(i_values, i, i);
     gsl_vector_set(x_values, i, cone_seq[i]->getX());
     gsl_vector_set(y_values, i, cone_seq[i]->getY());
-    gsl_vector_set(w, i, 1.0 / pow(cone_seq[i]->getDistanceTo(cone_seq[(i + 1) % n]), 2));
+    gsl_vector_set(w, i, 1.0 / pow(cone_seq[i]->getDistanceTo(cone_seq[(i + 1) % n]), 2));//closer cones more important(better stability)
   }
 
   // Set i range within cone set length
