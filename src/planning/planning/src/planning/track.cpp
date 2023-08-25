@@ -199,7 +199,7 @@ int Track::deleteOutliers(bool side, float distance_threshold,
   unord_cone_seq = cone_seq;
 
   // Set spline data
-  for (size_t i = 0; i < n; i++){
+  for (size_t i = 0; i < n; i++) {
     gsl_vector_set(i_values, i, i);
     gsl_vector_set(x_values, i, cone_seq[i]->getX());
     gsl_vector_set(y_values, i, cone_seq[i]->getY());
