@@ -159,7 +159,8 @@ int Track::deleteOutliers(bool side, float distance_threshold,
   mw2 = gsl_multifit_linear_alloc(n, ncoeffs);
 
   // Order cone_array
-  //The algorithm works by iteratively selecting the nearest unvisited cone to the current cone and updating the traversal direction accordingly.
+  //The algorithm works by iteratively selecting the nearest unvisited 
+  //cone to the current cone and updating the traversal direction accordingly.
   //This approach creates an ordered sequence that efficiently connects nearby cones.
   std::vector<std::pair<Cone*, bool>> nn_unord_cone_seq;
   for (size_t i = 0; i < unord_cone_seq.size(); i++)
@@ -176,7 +177,10 @@ int Track::deleteOutliers(bool side, float distance_threshold,
     for (size_t i = 0; i < nn_unord_cone_seq.size(); i++) {
       Cone* cone2 = nn_unord_cone_seq[i].first;
       if (nn_unord_cone_seq[i].second == false ||
-        (iter_number == 0 && vector_direction(cone1, cone2, vx, vy))) {//first iteration we assure the direction is correct (avoid going backwards)
+        (iter_number == 0 && 
+        vector_direction(cone1, cone2, vx, vy))) {
+        //first iteration we assure the direction is correct 
+        //(avoid going backwards)
         float new_dist = cone1->getDistanceTo(cone2);
         if (new_dist < min_dist) {
           min_dist = new_dist;
@@ -195,7 +199,8 @@ int Track::deleteOutliers(bool side, float distance_threshold,
   unord_cone_seq = cone_seq;
 
   // Set spline data
-  for (size_t i = 0; i < n; i++) {
+  for (size_t i = 0; i < n; i++) 
+  {
     gsl_vector_set(i_values, i, i);
     gsl_vector_set(x_values, i, cone_seq[i]->getX());
     gsl_vector_set(y_values, i, cone_seq[i]->getY());

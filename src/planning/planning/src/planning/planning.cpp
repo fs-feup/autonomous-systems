@@ -16,7 +16,6 @@
 using std::placeholders::_1;
 
 Planning::Planning() : Node("planning") {
-  
   // this->vl_sub_ = this->create_subscription<custom_interfaces::msg::Pose>(
   //     "vehicle_localization", 10, std::bind(&Planning::vehicle_localization_callback, this, _1));
 
