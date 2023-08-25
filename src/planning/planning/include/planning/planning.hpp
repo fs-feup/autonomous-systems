@@ -39,16 +39,16 @@ class Planning : public rclcpp::Node {
       {Mission::acceleration, "/events/acceleration.txt"},
       {Mission::skidpad, "/events/skidpad.txt"}};/**< Predictive paths for different missions */
 
-  rclcpp::Subscription<custom_interfaces::msg::Pose>::SharedPtr vl_sub_;/**< Subscription to vehicle localization */
-
-  rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr track_sub_;/**< Subscription to track map */
-
-  rclcpp::Publisher<custom_interfaces::msg::PointArray>::SharedPtr local_pub_;/**< Local path points publisher */
-
-  rclcpp::Publisher<custom_interfaces::msg::PointArray>::SharedPtr global_pub_;/**< Global path points publisher */
-
-  rclcpp::TimerBase::SharedPtr timer_;/**< Timer for the periodic publishing */
-  
+  /**< Subscription to vehicle localization */
+  rclcpp::Subscription<custom_interfaces::msg::Pose>::SharedPtr vl_sub_;
+  /**< Subscription to track map */
+  rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr track_sub_;
+  /**< Local path points publisher */
+  rclcpp::Publisher<custom_interfaces::msg::PointArray>::SharedPtr local_pub_;
+  /**< Global path points publisher */
+  rclcpp::Publisher<custom_interfaces::msg::PointArray>::SharedPtr global_pub_;
+  /**< Timer for the periodic publishing */
+  rclcpp::TimerBase::SharedPtr timer_;
   /**
    * @brief Callback for vehicle localization updates (undefined).
    *
