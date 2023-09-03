@@ -181,7 +181,7 @@ def get_linear_model_matrices(x_bar, u_bar):
 
     B = np.zeros((P.state_len, P.command_len))
     B[2, 0] = 1
-    B[3, 1] = v / (P.L * cd**2) # todo check if alright
+    B[3, 1] = v / (P.L * cd**2)
     B_lin = P.DT * B
 
     f_xu = np.array([v * ct, v * st, a, v * td / P.L]).reshape(P.state_len, 1)
@@ -264,7 +264,7 @@ def wheel_rpm_2_wheel_vel(rpm):
 
 def wheels_vel_2_vehicle_vel(fl_vel, fr_vel, rl_vel, rr_vel, steering_angle):
     """
-        Compiles the velocity from the 4 wheels and the steering angle and returns the vehicle velocity
+        Compiles velocity from the 4 wheels and steering angle and returns vehicle velocity
     """
 
     if not steering_angle or (steering_angle <= 0.05 and steering_angle >= -0.05):
