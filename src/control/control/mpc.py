@@ -5,7 +5,6 @@ from .mpc_utils import (
     get_linear_model_matrices,
     optimize,
 )
-import time
 
 from .config import Params
 

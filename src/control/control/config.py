@@ -34,7 +34,7 @@ class Params:
         self.tire_diam = 0.51  # m
         self.car_width = 1.201  # m
         self.car_mass = 200  # Kg
-        self.power_train_efficiency = 0.85 # % of power generated received by the wheels  
+        self.power_train_efficiency = 0.85 # % of power generated recvd by the wheels  
         self.gear_ratio = 3.5 # ratio between driver(effort) gear and driven(load) gear
         self.torque_adjuster = 1. # aid variable to quickly variate scale
         self.break_adjuster = 1. # aid variable to quickly variate scale

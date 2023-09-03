@@ -154,10 +154,11 @@ def get_linear_model_matrices(x_bar, u_bar):
     """
     Computes the LTI approximated state space model x' = A'x + B'u + C
     """
+    # Further explained in documentation
 
-    # state variables (x)
-    x = x_bar[0]
-    y = x_bar[1]
+    # state variables (x) - x, y unnecessary
+    # x = x_bar[0]
+    # y = x_bar[1]
     v = x_bar[2]
     theta = x_bar[3]
 
@@ -180,7 +181,7 @@ def get_linear_model_matrices(x_bar, u_bar):
 
     B = np.zeros((P.state_len, P.command_len))
     B[2, 0] = 1
-    B[3, 1] = v / (P.L * cd**2)
+    B[3, 1] = v / (P.L * cd**2) # todo check if alright
     B_lin = P.DT * B
 
     f_xu = np.array([v * ct, v * st, a, v * td / P.L]).reshape(P.state_len, 1)
@@ -188,7 +189,8 @@ def get_linear_model_matrices(x_bar, u_bar):
     C_lin = (
         P.DT
         * (
-            f_xu - np.dot(A, x_bar.reshape(P.state_len, 1)) - np.dot(B, u_bar.reshape(P.command_len, 1))
+            f_xu - np.dot(A, x_bar.reshape(P.state_len, 1)) \
+                - np.dot(B, u_bar.reshape(P.command_len, 1))
         ).flatten()
     )
 
@@ -253,10 +255,18 @@ def optimize(A, B, C, initial_state, x_ref, u_ref, verbose=False):
 
 
 def wheel_rpm_2_wheel_vel(rpm):
+    """
+        Converts the wheel speed from rpm to m/s
+    """
+    
     return rpm * 0.5 * math.pi / 60
 
 
 def wheels_vel_2_vehicle_vel(fl_vel, fr_vel, rl_vel, rr_vel, steering_angle):
+    """
+        Compiles the velocity from the 4 wheels and the steering angle and returns the vehicle velocity
+    """
+
     if not steering_angle or (steering_angle <= 0.05 and steering_angle >= -0.05):
         return (wheel_rpm_2_wheel_vel(fl_vel) +
             wheel_rpm_2_wheel_vel(fr_vel) +
