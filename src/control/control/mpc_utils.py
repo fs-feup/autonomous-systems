@@ -264,7 +264,7 @@ def wheel_rpm_2_wheel_vel(rpm):
 
 def wheels_vel_2_vehicle_vel(fl_vel, fr_vel, rl_vel, rr_vel, steering_angle):
     """
-        Compiles velocity from the 4 wheels and steering angle and returns vehicle velocity
+        Compiles velocity from 4 wheels and steering angle and returns vehicle velocity
     """
 
     if not steering_angle or (steering_angle <= 0.05 and steering_angle >= -0.05):
