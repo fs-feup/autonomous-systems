@@ -102,14 +102,10 @@ def get_cte(closest_index, points_array, pose_car):
     y_car = pose_car[1]
     yaw_car = pose_car[2]
 
-    spline_window = 10
-    win_amplitude = int(spline_window/2)
-    n_new_points = 50
-
-    k = 3
+    win_amplitude = int(P.spline_window/2)
 
     # implement look ahead
-    if closest_index + P.LOOK_AHEAD < len(points_array) - (k + 1) - 1:
+    if closest_index + P.LOOK_AHEAD < len(points_array) - (P.spline_degree + 1) - 1:
         closest_index += P.LOOK_AHEAD
 
     if len(points_array) > 3:
@@ -118,8 +114,8 @@ def get_cte(closest_index, points_array, pose_car):
             min(closest_index+win_amplitude, len(points_array)), :]
 
         tck, u = interpolate.splprep([filtered_points[:, 0], filtered_points[:, 1]],
-                                    s=0, per=False, k=3)
-        x0, y0 = interpolate.splev(np.linspace(0, 1, n_new_points), tck)
+                                    s=0, per=False, k=P.spline_degree)
+        x0, y0 = interpolate.splev(np.linspace(0, 1, P.spline_n_new_points), tck)
 
         new_points_array = \
             np.concatenate((x0[:, np.newaxis], y0[:, np.newaxis]), axis=1)
@@ -181,22 +177,24 @@ def get_reference_speed(speeds, closest_index):
     return speeds[closest_index]
 
 
-def accelerate(error):
+def get_speed_error(ref_speed, actual_speed):
+    return ref_speed - actual_speed
+
+
+def get_acceleration_command(error):
     """!
     @brief Accelerates the car.
     @param self The object pointer.
     @param speed_error Speed Error.
     """
-    # PID params
-    kp = 1
 
     # calculate acceleration command
-    acceleration = kp*error
+    acceleration = P.kp_acc*error
 
     return float(acceleration)
 
 
-def steer(pos_error, yaw_error, ct_error, old_error):
+def get_steering_command(pos_error, yaw_error, ct_error, old_error):
     """!
     @brief Steers the car.
     @param self The object pointer.
@@ -218,38 +216,17 @@ def steer(pos_error, yaw_error, ct_error, old_error):
     return np.clip(float(steer_angle), -P.MAX_STEER, P.MAX_STEER), old_error
 
 
-def get_torque_break_commands(actual_speed, desired_speed, old_error, error_list):
-    error = desired_speed - actual_speed
-
-    error_list.append(error)
-
-    if len(error_list) > P.torque_error_list_size:
-        error_list.pop(0)
+def get_torque_break_commands(acceleration):
 
     torque_req = 0
     break_req = 0
 
     # calculate steering angle command
-    if error > 0:
+    if acceleration > 0:
         # torque
-        torque_req = max(
-            P.kp_torque*error + \
-            P.kd_torque*(error - old_error) + \
-            P.ki_torque*sum(error_list), 
-            0
-        )
+        torque_req = P.kp_torque*acceleration
     else:
         # break
-        break_req = -min(
-            P.kp_break*error + \
-            P.kd_break*(error - old_error) + \
-            P.ki_break*sum(error_list), 
-            0
-        )
+        break_req = - P.kp_break*acceleration
 
-    return (
-        np.clip(torque_req, 0, P.MAX_TORQUE),
-        np.clip(break_req, 0, P.MAX_BREAK),
-        error,
-        error_list
-    )
+    return torque_req, break_req

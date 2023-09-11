@@ -1,8 +1,12 @@
 import numpy as np
 import math
 from scipy.interpolate import interp1d
+import cvxpy as opt
 
 from .config import Params
+
+np.seterr(divide="ignore", invalid="ignore")
+
 
 P = Params()
 
@@ -19,6 +23,7 @@ def compute_path_from_wp(path, step=0.1):
     delta = step  # [m]
 
     for idx in range(len(path) - 1):
+        # distance between 2 consecutive points
         section_len = np.sum(
             np.sqrt(
                 np.power(np.diff(start_xp[idx : idx + 2]), 2)
@@ -26,14 +31,17 @@ def compute_path_from_wp(path, step=0.1):
             )
         )
 
+        # generated divisions to generate new points 
         interp_range = np.linspace(0, 1, np.floor(section_len / delta).astype(int))
 
+        # linear function between 2 consecutive positions
         fx = interp1d(np.linspace(0, 1, 2), start_xp[idx : idx + 2], kind=1)
         fy = interp1d(np.linspace(0, 1, 2), start_yp[idx : idx + 2], kind=1)
 
-        # watch out to duplicate points!
+        # watch out to duplicate points! - do not add first index
         final_xp = np.append(final_xp, fx(interp_range)[1:])
         final_yp = np.append(final_yp, fy(interp_range)[1:])
+    # add (0, 0) point to first index
     dx = np.append(0, np.diff(final_xp))
     dy = np.append(0, np.diff(final_yp))
     theta = np.arctan2(dy, dx)
@@ -47,17 +55,20 @@ def get_nn_idx(state, path, old_nn_idx):
 
     search_window = 100
     
+    # window in intersection [0, len(path)] and [index - 100, index + 100]
     windowed_path = path[max(old_nn_idx - search_window, 0): 
                             min(old_nn_idx + search_window, path.shape[0]), :]
     
+    # distances between state and path points
     dx = state[0] - windowed_path[:, 0]
     dy = state[1] - windowed_path[:, 1]
-
     dist = np.hypot(dx, dy)
-    
+
+    # get index of min dist 
     nn_idx = np.argmin(dist) + max(old_nn_idx - search_window, 0)
-    
+
     try:
+        # enforce the closest point to be the one in front of vehicle
         v = [
             path[nn_idx + 1, 0] - path[nn_idx, 0],
             path[nn_idx + 1, 1] - path[nn_idx, 1],
@@ -84,184 +95,184 @@ def normalize_angle(angle):
     return angle
 
 
-def get_ref_trajectory(state, path, target_v, dl=0.1, old_ind=0):
+def get_ref_trajectory(state, path, target_v, old_ind=0):
     """
     For each step in the time horizon
     modified reference in car frame
     """
 
     # initialize variables
-    xref = np.zeros((P.N, P.T + 1))
-    dref = np.zeros((1, P.T + 1))
-    # sp = np.ones((1,T +1))*target_v #speed profile
+    xref = np.zeros((P.state_len, P.prediction_horizon + 1))
+    uref = np.zeros((P.command_len, P.prediction_horizon + 1))
 
-    path_len = path.shape[1]
+    path_len = path.shape[0]
 
+    # get next point in path (relative to car)
     ind = get_nn_idx(state, path, old_ind)
-    dx = path[0, ind] - state[0]
-    dy = path[1, ind] - state[1]
 
-    # first position references
+    # current distance to path
+    dx = path[ind, 0] - state[0]
+    dy = path[ind, 1] - state[1]
+
+    # first position references (using local coordinate system)
     xref[0, 0] = dx * np.cos(-state[3]) - dy * np.sin(-state[3])  # X
     xref[1, 0] = dy * np.cos(-state[3]) + dx * np.sin(-state[3])  # Y
     xref[2, 0] = target_v  # V
-    xref[3, 0] = normalize_angle(path[2, ind] - state[3])  # Theta
-
-    # first steering reference
-    dref[0, 0] = 0.0  # Steer operational point should be 0
+    xref[3, 0] = normalize_angle(path[ind, 2] - state[3])  # Theta
 
     travel = 0.0  # distance traveled based on reference velocity
 
     # iterate over timesteps in the optimization
-    for i in range(1, P.T + 1):
+    for i in range(1, P.prediction_horizon + 1):
         # update distance traveled
         travel += abs(target_v) * P.DT
-        dind = int(round(travel / dl))
+        dind = int(round(travel / P.path_tick))
         
+        # if path ends, no calculation performed
         if (ind + dind) < path_len:
-            # update expected position
+            # update expected position (relative to car)
             dx = path[ind + dind, 0] - state[0]
             dy = path[ind + dind, 1] - state[1]
 
-            # position references
+            # position references (local ref)
             xref[0, i] = dx * np.cos(-state[3]) - dy * np.sin(-state[3])
             xref[1, i] = dy * np.cos(-state[3]) + dx * np.sin(-state[3])
-            xref[2, i] = target_v  # sp[ind + dind]
+            xref[2, i] = target_v
             xref[3, i] = normalize_angle(path[ind + dind, 2] - state[3])
 
-            # steering angle 
-            dref[0, i] = 0.0
         else:
             dx = path[path_len - 1, 0] - state[0]
             dy = path[path_len - 1, 1] - state[1]
             xref[0, i] = dx * np.cos(-state[3]) - dy * np.sin(-state[3])
             xref[1, i] = dy * np.cos(-state[3]) + dx * np.sin(-state[3])
-            xref[2, i] = 0.0  # stop? if not: #sp[ncourse - 1]
+            xref[2, i] = 0.0
             xref[3, i] = normalize_angle(path[path_len - 1, 2] - state[3])
-            dref[0, i] = 0.0
-    return xref, dref, ind
+    return xref, uref, ind
 
 
 def get_linear_model_matrices(x_bar, u_bar):
     """
-    Computes the LTI approximated state space model x' = Ax + Bu + C
+    Computes the LTI approximated state space model x' = A'x + B'u + C
     """
+    # Further explained in documentation
 
-    x_bar[0]
-    x_bar[1]
-    theta = x_bar[2]
+    # state variables (x) - x, y unnecessary
+    # x = x_bar[0]
+    # y = x_bar[1]
+    v = x_bar[2]
+    theta = x_bar[3]
 
-    v = u_bar[0]
+    # command variables (u)
+    a = u_bar[0]
     delta = u_bar[1]
 
     ct = np.cos(theta)
     st = np.sin(theta)
-
     cd = np.cos(delta)
-    sd = np.sin(delta)
+    td = np.tan(delta)
 
-    L_ratio = P.Lc / P.L
+    A = np.zeros((P.state_len, P.state_len))
+    A[0, 2] = ct
+    A[0, 3] = -v * st
+    A[1, 2] = st
+    A[1, 3] = v * ct
+    A[3, 2] = v * td / P.L
+    A_lin = np.eye(P.state_len) + P.DT * A
 
-    A = np.zeros((P.N, P.N))
-    A[0, 2] = -v * (st*cd + L_ratio*ct*sd)
-    A[1, 2] = v * (ct*cd - L_ratio*st*sd)
-
-    A_lin = np.eye(P.N) + P.DT * A
-
-    B = np.zeros((P.N, P.M))
-    B[0, 0] = ct*cd - L_ratio*st*sd
-    B[1, 0] = L_ratio*ct*sd + st*cd
-    B[2, 0] = sd / P.L
-    
-    B[0, 1] = - v * (ct*sd + L_ratio * st*cd) 
-    B[1, 1] = v * (L_ratio*ct*sd + st*cd) 
-    B[2, 1] = v * cd / P.L
-
+    B = np.zeros((P.state_len, P.command_len))
+    B[2, 0] = 1
+    B[3, 1] = v / (P.L * cd**2)
     B_lin = P.DT * B
 
-    f_xu = np.array(
-        [
-            v * (ct*cd - L_ratio*st*sd), 
-            v * (L_ratio*ct*sd + st*cd), 
-            v * sd / P.L
-        ]
-    ).reshape(P.N, 1)
+    f_xu = np.array([v * ct, v * st, a, v * td / P.L]).reshape(P.state_len, 1)
 
     C_lin = (
         P.DT
         * (
-            f_xu - np.dot(A, x_bar.reshape(P.N, 1)) - np.dot(B, u_bar.reshape(P.M, 1))
+            f_xu - np.dot(A, x_bar.reshape(P.state_len, 1)) \
+                - np.dot(B, u_bar.reshape(P.command_len, 1))
         ).flatten()
     )
 
     return np.round(A_lin,6), np.round(B_lin,6), np.round(C_lin,6)
 
 
-def get_linear_model_matrices2(x_bar, u_bar):
-    """
-    Computes the LTI approximated state space model x' = Ax + Bu + C
-    """
+def optimize(A, B, C, initial_state, x_ref, u_ref, verbose=False):
+        """
+        Optimisation problem defined for the linearised model,
+        :param A: model matrix A'
+        :param B: model matrix B'
+        :param C: model matrix C'
+        :param initial_state: car's initial state
+        :param verbose: verbose for optimization problem
+        :return: optimized states and actions
+        """
 
-    x_bar[0]
-    x_bar[1]
-    theta = x_bar[2]
+        assert len(initial_state) == P.state_len
 
-    v = u_bar[0]
-    delta = u_bar[1]
+        # Create variables
+        x = opt.Variable((P.state_len, P.prediction_horizon + 1), name="states")
+        u = opt.Variable((P.command_len, P.prediction_horizon), name="actions")
 
-    ct = np.cos(theta)
-    st = np.sin(theta)
+        # Loop through the entire time_horizon and append costs
+        cost_function = []
 
-    cd = np.cos(delta)
-    sd = np.sin(delta)
+        for t in range(P.prediction_horizon):
 
-    L_ratio = P.Lc / P.L
+            _cost = \
+                opt.quad_form(x_ref[:, t + 1] - x[:, t + 1], P.state_cost) + \
+                opt.quad_form(u_ref[:, t] - u[:, t], P.command_cost)
 
-    A = np.zeros((P.N, P.N))
-    A[0, 2] = -v * (st*cd + L_ratio*ct*sd)
-    A[1, 2] = v * (ct*cd - L_ratio*st*sd)
+            _constraints = [
+                x[:, t + 1] == A @ x[:, t] + B @ u[:, t] + C,
+                u[0, t] >= -P.MAX_ACC,
+                u[0, t] <= P.MAX_ACC,
+                u[1, t] >= -P.MAX_STEER,
+                u[1, t] <= P.MAX_STEER,
+            ]
 
-    A_lin = np.eye(P.N) + P.DT * A
+            # Actuation rate of change
+            if t < (P.prediction_horizon - 1):
+                _cost += opt.quad_form(u[:, t + 1] - u[:, t], P.command_cost * 1)
 
-    B = np.zeros((P.N, P.M))
-    B[0, 0] = ct*cd - L_ratio*st*sd
-    B[1, 0] = L_ratio*ct*sd + st*cd
-    B[2, 0] = sd / P.L
-    
-    B[0, 1] = - v * (ct*sd + L_ratio * st*cd) 
-    B[1, 1] = v * (L_ratio*ct*sd + st*cd) 
-    B[2, 1] = v * cd / P.L
+                _constraints += [opt.abs(u[0, t + 1] - u[0, t]) / P.DT <= P.MAX_D_ACC]
+                _constraints += [opt.abs(u[1, t + 1] - u[1, t]) / P.DT <= P.MAX_D_STEER]
 
-    B_lin = P.DT * B
+            if t == 0:
+                _constraints += [x[:, 0] == initial_state]
 
-    f_xu = np.array(
-        [
-            v * (ct*cd - L_ratio*st*sd), 
-            v * (L_ratio*ct*sd + st*cd), 
-            v * sd / P.L
-        ]
-    ).reshape(P.N, 1)
+            cost_function.append(
+                opt.Problem(opt.Minimize(_cost), constraints=_constraints)
+            )
 
-    C_lin = (
-        P.DT
-        * (
-            f_xu - np.dot(A, x_bar.reshape(P.N, 1)) - np.dot(B, u_bar.reshape(P.M, 1))
-        ).flatten()
-    )
+        # Add final cost
+        problem = sum(cost_function)
 
-    return np.round(A_lin,6), np.round(B_lin,6), np.round(C_lin,6)
+        # Minimize Problem
+        problem.solve(verbose=verbose, solver=opt.OSQP)
+
+        return x, u
 
 
 def wheel_rpm_2_wheel_vel(rpm):
+    """
+        Converts the wheel speed from rpm to m/s
+    """
+    
     return rpm * 0.5 * math.pi / 60
 
 
 def wheels_vel_2_vehicle_vel(fl_vel, fr_vel, rl_vel, rr_vel, steering_angle):
+    """
+        Compiles velocity from 4 wheels and steering angle and returns vehicle velocity
+    """
+
     if not steering_angle or (steering_angle <= 0.05 and steering_angle >= -0.05):
         return (wheel_rpm_2_wheel_vel(fl_vel) +
             wheel_rpm_2_wheel_vel(fr_vel) +
             wheel_rpm_2_wheel_vel(rl_vel) +
             wheel_rpm_2_wheel_vel(rr_vel)) / 4
+    
     if not steering_angle:
         return wheel_rpm_2_wheel_vel(rl_vel)
     elif steering_angle > 0:
