@@ -18,22 +18,47 @@ typedef CGAL::Delaunay_triangulation_2<K> DT;
 typedef K::Point_2 Point;
 
 /**
- * PathPlanner class. Contains the best path calculation methods and stores the
- * results and inputs
+ * @brief LocalPathPlanner class for generating local paths.
+ *
+ * The LocalPathPlanner class contains methods for calculating the best local path
+ * and stores input data and results related to path planning.
  */
-
 class LocalPathPlanner {
   Track track;  // track input data
 
  public:
   /**
-   * Constructor
-   * @param track pathplanner track input data
+   * @brief Constructor for LocalPathPlanner.
+   *
+   * @param track Pointer to the path planner track input data.
    */
   LocalPathPlanner();
 
+  /**
+   * @brief Determine if two positions align in a certain direction.
+   *
+   * This function checks whether the direction vector formed by two positions aligns
+   * with a specified direction (prev_vx, prev_vy).
+   *
+   * @param p1 Pointer to the first position.
+   * @param p2 Pointer to the second position.
+   * @param prev_vx Previous direction vector's x-component.
+   * @param prev_vy Previous direction vector's y-component.
+   * @return True if the direction aligns; false otherwise.
+   */
   bool vector_direction(Position* p1, Position* p2, float prev_vx, float prev_vy);
 
+  /**
+   * @brief Process an array of cones to generate a local path.
+   *
+   * This function processes an array of cones representing a track and generates
+   * a local path by selecting positions based on certain criteria.
+   *
+   * @param cone_array Pointer to the array of cones representing the track.
+   * @return A vector of pointers to Position objects representing the generated path.
+   * @details The function utilizes Delaunay triangulation (CGAL) and direction-based selection
+   * of positions to create a meaningful local path.
+   */
   std::vector<Position*> processNewArray(Track* cone_array);
 };
 
