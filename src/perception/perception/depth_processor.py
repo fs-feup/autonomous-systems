@@ -7,7 +7,19 @@ from custom_interfaces.msg import Cone, ConeArray, Point2d
 from cv_bridge import CvBridge
 
 class DepthProcessor():
+
+    """!
+    @brief Class dedicated to processing the depth and distance information of obstacles
+    """
+
     def __init__(self, logger):
+
+        """!
+        @brief Constructor for initializing the DepthProcessor
+        @param self The object pointer
+        @param logger Node logger
+        """
+
         self.logger = logger
         self.bridge = CvBridge()
 
@@ -25,6 +37,17 @@ class DepthProcessor():
         ])
 
     def process(self, msg, img, point_cloud=None):
+
+        """!
+        @brief Process the distance of obstacles
+        @param self The object pointer
+        @param msg Detected bounding boxes and their properties
+        @param img Input image containing the detected bounding boxes
+        @param point_cloud Point Cloud data associated with the image and 3D information
+        @return ConeArray object containing information about detected cones
+        """
+
+
         cone_array = ConeArray()
 
         # Apply perspective transformation function of openCV2.
