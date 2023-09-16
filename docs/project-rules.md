@@ -56,12 +56,12 @@ Trunk based development:
 - **dev branch:** branch for the sprint essentially. The objective is to perform a test run and a check at the end of each sprint before merging to the stable main branch 
 - **short-lived branches:** branches used to make changes to the main branch
 ### Pull Requests
-Committing directly to the main branch should be avoided. Instead, the creation of a new branch and the usage of a **Merge Request** is preferred because:
-- with a merge request, we can have automatic test running as well as an optimized environment for code review (even if code review should be brief) before the code is included in the main project
-In merge requests, it is mandatory that the author:
+Committing directly to the main branch should be avoided. Instead, the creation of a new branch and the usage of a **Pull Request** is preferred because:
+- with a pull request, we can have automatic test running as well as an optimized environment for code review (even if code review should be brief) before the code is included in the main project
+In pull requests, it is mandatory that the author:
 - Selects himself or someone else as **assignee** for the merge request (designing someone to be responsible for it)
 - Selects someone within his team for **review**
-- Uses a description, including “Closes #number of issue” if the merge request is to **conclude a task**
+- Uses a description, including “Closes #github task id on clickup” if the merge request is to **conclude a task**
 In order to ease the tracking down of possible bugs introduced to the code base and to leave the commit log organized, commits should be squashed on merge and the message left on the commit should follow the standards described below:
 ```bash
 <Pull Request name>
