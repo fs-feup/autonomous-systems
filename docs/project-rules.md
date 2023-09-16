@@ -5,7 +5,7 @@ For the task management, we will be using ClickUp. There will be 5 phases to a t
 - **Product backlog:** tasks that are necessary to be completed but foreseen for other sprints
 - **Sprint backlog:** tasks to be taken care of in the current sprint
 - **In progress:** tasks currently being worked on
-- **For review:** tasks that are waiting review
+- **For review:** tasks that are waiting review (if a task is reviewed and changes are requested, it goes back to in progress status)
 - **Done:** Completed tasks
 
 Each task should always have a reviewer assigned. Tasks should last at most one sprint. This also helps with the evaluation and reviewing of the task, as there is less to understand and grade at each time.
