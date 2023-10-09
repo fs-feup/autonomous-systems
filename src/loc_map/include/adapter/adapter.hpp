@@ -15,7 +15,15 @@
 #include "sensor_msgs/msg/imu.hpp"
 
 class LMNode;
-
+/**
+ * @brief Enum for the existing modes
+ *
+*/
+enum Mode {
+  eufs,
+  fsds,
+  ads_dv
+};
 /**
  * @brief Class that handles the communication between the loc_map node and the
  * other nodes in the system according to the selected mode
@@ -110,14 +118,6 @@ class Adapter {
   explicit Adapter(LMNode* loc_map_node) : Adapter(Mode::eufs, loc_map_node) {}
 };
 
-/**
- * @brief Enum for the existing modes
- *
-*/
-enum Mode {
-  eufs,
-  fsds,
-  ads_dv
-};
+
 
 #endif  // SRC_PLANNING_PLANNING_INCLUDE_ADAPTER_ADAPTER_HPP_
