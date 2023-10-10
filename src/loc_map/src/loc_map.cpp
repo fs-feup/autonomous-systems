@@ -36,9 +36,8 @@ int main(int argc, char **argv) {
   (void)argv;
   rclcpp::init(argc, argv);
 
-  auto loc_map =
-      std::make_shared<LMNode>(ekf, perception_map, motion_update,
-                               track_map, vehicle_state, use_odometry);
+  auto loc_map = std::make_shared<LMNode>(ekf, perception_map, motion_update, track_map,
+                                          vehicle_state, use_odometry);
   rclcpp::spin(loc_map);
   rclcpp::shutdown();
 

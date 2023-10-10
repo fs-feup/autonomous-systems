@@ -110,18 +110,17 @@ int Track::validateCones() {
   int leftOutliers = deleteOutliers(1, 1.5, 3, 3);
   int rightOutliers = deleteOutliers(0, 1.5, 3, 3);
 
-  std::cout << "Deleted " << leftOutliers << " left outliers and "
-    << rightOutliers << " right outliers\n";
+  std::cout << "Deleted " << leftOutliers << " left outliers and " << rightOutliers
+            << " right outliers\n";
   return leftOutliers + rightOutliers;
 }
 
-int Track::deleteOutliers(bool side, float distance_threshold,
-  int order, float coeffs_ratio) {
+int Track::deleteOutliers(bool side, float distance_threshold, int order, float coeffs_ratio) {
   std::vector<Cone*>& unord_cone_seq = side ? leftCones : rightCones;
   // if side = 1(left) | = 0(right)
 
   const size_t n = unord_cone_seq.size();
-  const size_t ncoeffs = n / coeffs_ratio; // n > = ncoeffs
+  const size_t ncoeffs = n / coeffs_ratio;  // n > = ncoeffs
   const size_t nbreak = ncoeffs - order + 2;
 
   if (nbreak < 2) {
@@ -138,7 +137,7 @@ int Track::deleteOutliers(bool side, float distance_threshold,
   gsl_multifit_linear_workspace *mw, *mw2;
   double chisq, chisq2;
 
-  //allocate memory for the actual objects the pointers will point to
+  // allocate memory for the actual objects the pointers will point to
   bw = gsl_bspline_alloc(order, nbreak);
   cw = gsl_bspline_alloc(order, nbreak);
   B = gsl_vector_alloc(ncoeffs);
@@ -159,9 +158,9 @@ int Track::deleteOutliers(bool side, float distance_threshold,
   mw2 = gsl_multifit_linear_alloc(n, ncoeffs);
 
   // Order cone_array
-  //The algorithm works by iteratively selecting the nearest unvisited
-  //cone to the current cone and updating the traversal direction accordingly.
-  //This approach creates an ordered sequence that efficiently connects nearby cones.
+  // The algorithm works by iteratively selecting the nearest unvisited
+  // cone to the current cone and updating the traversal direction accordingly.
+  // This approach creates an ordered sequence that efficiently connects nearby cones.
   std::vector<std::pair<Cone*, bool>> nn_unord_cone_seq;
   for (size_t i = 0; i < unord_cone_seq.size(); i++)
     nn_unord_cone_seq.push_back(std::make_pair(unord_cone_seq[i], false));
@@ -177,9 +176,8 @@ int Track::deleteOutliers(bool side, float distance_threshold,
     for (size_t i = 0; i < nn_unord_cone_seq.size(); i++) {
       Cone* cone2 = nn_unord_cone_seq[i].first;
       if (nn_unord_cone_seq[i].second == false ||
-        (iter_number == 0 &&
-        vector_direction(cone1, cone2, vx, vy))) {
-        //first iteration we assure the direction is correct
+          (iter_number == 0 && vector_direction(cone1, cone2, vx, vy))) {
+        // first iteration we assure the direction is correct
         //(avoid going backwards)
         float new_dist = cone1->getDistanceTo(cone2);
         if (new_dist < min_dist) {
@@ -204,7 +202,7 @@ int Track::deleteOutliers(bool side, float distance_threshold,
     gsl_vector_set(x_values, i, cone_seq[i]->getX());
     gsl_vector_set(y_values, i, cone_seq[i]->getY());
     gsl_vector_set(w, i, 1.0 / pow(cone_seq[i]->getDistanceTo(cone_seq[(i + 1) % n]), 2));
-    //closer cones more important(better stability)
+    // closer cones more important(better stability)
   }
 
   // Set i range within cone set length
@@ -234,10 +232,10 @@ int Track::deleteOutliers(bool side, float distance_threshold,
   double xi, yi, yerr, yerr2;
   size_t divs = 10;
   std::vector<double> i_eval, x_eval, y_eval;
-  std::vector<std::pair<double, double>> cone_seq_eval; // Eval key_values
+  std::vector<std::pair<double, double>> cone_seq_eval;  // Eval key_values
 
   for (size_t i = 0; i < n; i++) {
-    for (size_t j = 0; j < divs; j += 1) { // decimals loop
+    for (size_t j = 0; j < divs; j += 1) {  // decimals loop
       gsl_bspline_eval(i + static_cast<float>(j) / divs, B, bw);
       gsl_bspline_eval(i + static_cast<float>(j) / divs, C, cw);
       gsl_multifit_linear_est(B, c, cov, &xi, &yerr);
@@ -247,7 +245,7 @@ int Track::deleteOutliers(bool side, float distance_threshold,
       y_eval.push_back(yi);
       if (j == 0) {
         cone_seq_eval.push_back(std::make_pair(xi, yi));
-        if (i == n - 1) // Decimals can't go over last int
+        if (i == n - 1)  // Decimals can't go over last int
           break;
       }
     }
@@ -257,12 +255,12 @@ int Track::deleteOutliers(bool side, float distance_threshold,
   int outlierCount = 0;
 
   for (size_t i = 0; i < n; i++) {
-    int index = i - outlierCount; // decrease deleted indexes
-    double dist = sqrt(pow(cone_seq[index]->getX() - cone_seq_eval[i].first, 2)
-       + pow(cone_seq[index]->getY() - cone_seq_eval[i].second, 2));
+    int index = i - outlierCount;  // decrease deleted indexes
+    double dist = sqrt(pow(cone_seq[index]->getX() - cone_seq_eval[i].first, 2) +
+                       pow(cone_seq[index]->getY() - cone_seq_eval[i].second, 2));
     if (dist > distance_threshold) {
-      std::cout << "Deleted " << cone_seq[index]->getX() << " " << cone_seq[index]->getY()
-        << " " << cone_seq_eval[i].first << " " << cone_seq_eval[i].second << "\n";
+      std::cout << "Deleted " << cone_seq[index]->getX() << " " << cone_seq[index]->getY() << " "
+                << cone_seq_eval[i].first << " " << cone_seq_eval[i].second << "\n";
       cone_seq.erase(cone_seq.begin() + index);
       outlierCount++;
     }
@@ -288,15 +286,15 @@ int Track::deleteOutliers(bool side, float distance_threshold,
   std::string fileSide = side ? "1" : "0";
 
   std::string filePrefix = rcpputils::fs::current_path().string();
-  std::string splinePath = filePrefix + "/planning/planning/plots/spline" + fileSide +  ".txt";
+  std::string splinePath = filePrefix + "/planning/planning/plots/spline" + fileSide + ".txt";
   std::ofstream splinePathFile(splinePath);
 
   for (size_t i = 0; i < i_eval.size(); i++)
     splinePathFile << x_eval[i] << " " << y_eval[i] << "\n";
   splinePathFile.close();
 
-  std::string outlierPath = filePrefix + "/planning/planning/plots/deletedoutliers"
-     + fileSide +  ".txt";
+  std::string outlierPath =
+      filePrefix + "/planning/planning/plots/deletedoutliers" + fileSide + ".txt";
   std::ofstream outlierPathFile(outlierPath);
   for (size_t i = 0; i < cone_seq.size(); i++)
     outlierPathFile << cone_seq[i]->getX() << " " << cone_seq[i]->getY() << "\n";

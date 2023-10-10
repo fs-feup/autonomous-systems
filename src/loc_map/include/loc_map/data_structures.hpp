@@ -56,7 +56,7 @@ struct MotionUpdate {
 /**
  * @brief Struct for cone map
  *
- * @param map Map of the environment, containing 
+ * @param map Map of the environment, containing
  * the position of the cones and their color
  * @param last_update Timestamp of last update
  * NOTE (JoaoAMarinho): Almost never used

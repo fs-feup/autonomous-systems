@@ -61,7 +61,7 @@ std::vector<Position*> LocalPathPlanner::processNewArray(Track* cone_array) {
       unordered_path.push_back(std::make_pair(position, false));
     }
   }
-  //process unordered_path to generate the final path
+  // process unordered_path to generate the final path
   std::vector<Position*> final_path;
   Position* p1 = new Position(0, 0);
   float vx = 1;

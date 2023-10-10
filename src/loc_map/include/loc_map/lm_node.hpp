@@ -40,7 +40,7 @@ class LMNode : public rclcpp::Node {
   /**
    * @brief Callback that updates everytime information
    * is received from the perception module
-   * 
+   *
    * @param msg Message containing the array of perceived cones
    */
   void _perception_subscription_callback(const custom_interfaces::msg::ConeArray msg);
@@ -129,7 +129,7 @@ class LMNode : public rclcpp::Node {
 
   /**
    * @brief Mission setter
-   * 
+   *
    * @param mission New mission
    */
   void set_mission(Mission mission);
