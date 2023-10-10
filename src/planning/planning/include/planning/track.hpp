@@ -129,6 +129,7 @@ class Track {
  * @param distance_threshold The distance threshold for identifying outliers.
  * @param order The order for fitting the spline.
  * @param coeffs_ratio The ratio of coefficients to cone count for fitting the spline.
+ * @param writing Whether it's pretended to write splines or removed cones information to a file
  * @return The number of deleted outliers.
  * @details The `deleteOutliers` function is designed to remove the cone outliers from the track.
  * Outliers are data points that significantly deviate from the expected pattern or behavior of the track.
@@ -155,7 +156,7 @@ class Track {
  * from the track.
  */
   int deleteOutliers(bool side, float distance_threshold,
-    int order, float coeffs_ratio);
+    int order, float coeffs_ratio, bool writing);
   /**
  * @brief Reset the track by clearing cone lists.
  */
