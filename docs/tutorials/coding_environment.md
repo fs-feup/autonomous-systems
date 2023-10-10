@@ -2,20 +2,82 @@
 
 This tutorial aims to aid in teaching the developer how to use multiple tools established for this project, as well as creating the base environment for the project and understanding the project's structure.
 
-### Note:
-Before proceeding with this guide, please ensure that you have the following prerequisites in place:
-
-- [ROS2 and Simulator Setup](sim_setup_tutorial.md#Nonfunctional-requirements#Colcon-setup)
-
+### Notes
+- Before proceeding with this guide, please ensure that you have the following prerequisites in place:
+    - [ROS2 Setup](./ros2_setup.md)
 
 ## Links
-
-- [SSH to Virtual Machine](https://averagelinuxuser.com/ssh-into-virtualbox/)
 - [VSCode](https://code.visualstudio.com/Download)
+
+## Git
+
+If you already use git and github, you can skip this step. If you use windows, make sure to be inside your wsl for this.
+
+### Installation
+
+```sh
+sudo apt install git
+```
+
+### Configuration
+
+Configure according to github account. For global configuration:
+
+```sh
+git config --global user.name "username"
+git config --global user.email "useremail"
+```
+
+To configure independently per project:
+
+```sh
+git config user.name "username"
+git config user.email "useremail"
+```
+
+### SSH connection to Github
+
+1. Generate ssh key pair:
+    ```sh
+    ssh-keygen -t ed25519 -C "your_email@example.com"
+    ```
+    You can leave the default file. Setup password if you wish.
+2. Start the ssh-agent in the background:
+    ```sh
+    eval "$(ssh-agent -s)"
+    ```
+1. Add the ssh key to the agent:
+    ```sh
+    ssh-add ~/.ssh/id_ed25519
+    ```
+1. Copy the SSH public key to your clipboard:
+    ```sh
+    cat ~/.ssh/id_ed25519.pub
+    # Then select and copy the contents of the id_ed25519.pub file
+    # displayed in the terminal to your clipboard
+    ```
+    **Tip:** Alternatively, you can locate the hidden .ssh folder, open the file in your favorite text editor, and copy it to your clipboard.
+1. In the upper-right corner of any page, click your profile photo, then click Settings.
+
+    ![Screenshot of GitHub's account menu showing options for users to view and edit their profile, content, and settings. The menu item "Settings" is outlined in dark orange.](../assets/coding_environment/ssh-github.png)
+
+    Screenshot of GitHub's account menu showing options for users to view and edit their profile, content, and settings. The menu item "Settings" is outlined in dark orange.
+    In the "Access" section of the sidebar, click  SSH and GPG keys.
+1. Click New SSH key or Add SSH key.
+1. In the "Title" field, add a descriptive label for the new key. For example, if you're using a personal laptop, you might call this key "Personal laptop".
+1. Select the type of key, either authentication or signing. For more information about commit signing, see "About commit signature verification."
+1. In the "Key" field, paste your public key.
+1. Click Add SSH key.
+1. If prompted, confirm access to your account on GitHub. For more information, see "Sudo mode."
+
+For more details on that, checkout the Github tutorials: [Generating a new SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) and [Adding a new SSH key to your GitHub account](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account). 
 
 ## Cloning the project
 
-Before anything else, you need to clone the project into your laptop using [git](https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control). Make sure you setup an ssh connection with the repository. For more details on that, checkout the Github tutorials: [Generating a new SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) and [Adding a new SSH key to your GitHub account](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account).
+Before anything else, you need to clone the project into your laptop using [git](https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control). Simply hit clone in the home page of the project, select ssh, copy the command and run git clone, or:
+```sh
+git clone git@github.com:fsfeup-driverless/driverless.git
+```
 
 ## Project Structure
 
@@ -34,41 +96,29 @@ This project is divided into multiple folders inside **src** folder. Each of the
 In order to properly contribute to this project, a code editor or IDE is suggested. In this tutorial, some **suggestions** for an environment will be presented.
 
 
-### VSCode with ssh connection
+### VSCode
 
 Visual Studio Code is a general purpose IDE very widely used. VSCode is our choice due to the great quantity of extensions available, namely:
 - extensions for ROS environment and ROS2 syntax
 - extensions for C++ and Python syntax check
-- extensions for remote development via ssh (in Virtual Machines, for instance)
-
-As the simulator required specific versions of Ubuntu to function, the setup chosen takes into account developping in the host machine while the project is held in the virtual machine, for faster typing response.
+- overall simplicity and great array of tools
 
 **Steps:**
 
-- Install [VSCode](https://code.visualstudio.com/Download) on HostMachine
-- [Install SSH server in virtual machine](https://averagelinuxuser.com/ssh-into-virtualbox/)
-- Install vscode extensions in host machine:
-    - [SSH Connection 1](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh)
-    - [SSH Connection 2](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh-edit)
-    - [SSH Connection 3](https://marketplace.visualstudio.com/items?itemName=ms-vscode.remote-explorer)
+- Install [VSCode](https://code.visualstudio.com/Download)
 - (Optional) Install VSCode Extensions in Virtual Machine
     - CMake extension 
     - C++ Intellisense extension
 
-### VSCode without ssh connection
+#### VSCode in WSL
 
-As an alternative to the latter suggestion, one can install Visual Studio Code in the virtual machine and use it from there.
+To get VSCode inside wsl, simply run ```code``` inside WSL and it will install the dependencies necessary and connect to the existing installation of vscode on the Windows system.
 
-**Steps:**
-
-- Install [VSCode](https://code.visualstudio.com/Download) on HostMachine
-- (Optional) Install VSCode Extensions in Virtual Machine
-    - CMake extension 
-    - C++ Intellisense extension
+The rest of the tutorial should be followed using the WSL environment through the terminal. Only perform one of the alternatives.
 
 ## File Strucure and Guidelines
 
-**THIS SECTION IS ONLY MEANT FOR THE CREATION OF NEW PARTS OF THE PROJECT**
+**THIS SECTION IS ONLY MEANT FOR THE CREATION OF NEW PARTS OF THE PROJECT, NOT FOR THE USUAL STARTING MEMBER (USED FOR THE BEGINNING OF THE PROJECT)**
 
 A package in ROS2 can be created via the command line. The created project already constructs a certain file structure. However, some changes and additions ought to be made in order for it to meat the guidelines established. To create a project:
 1. Run ```ros2 pkg create --build-type "ament_cmake" --node-name "<node_name>" "<package_name>"```
