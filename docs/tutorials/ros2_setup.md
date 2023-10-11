@@ -224,25 +224,8 @@ You should see the `talker`
  saying `I heard`
  those messages. This verifies both the C++ and Python APIs are working properly. Hooray!
 
-### Colcon setup
-
-[Colcon](https://colcon.readthedocs.io/en/released/) is a **command line tool** with the goal of improving building, testing and the usage of multi-package software applications in general. Essentially, it is a great **build tool** to help manage ROS2 packages.
-
-#### Setup
-
-```bash
-sudo sh -c 'echo "deb [arch=amd64,arm64] http://repo.ros2.org/ubuntu/main `lsb_release -cs` main" > /etc/apt/sources.list.d/ros2-latest.list'
-curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
-sudo apt update
-sudo apt install python3-colcon-common-extensions
-```
-
 Install pip3 if you haven’t
 
 ```bash
 sudo apt install python3-pip
-```
-
-```bash
-pip3 install colcon-common-extensions -U
 ```
