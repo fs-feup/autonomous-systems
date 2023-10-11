@@ -25,4 +25,10 @@ The AI computer is divided into 4 main components:
 - Path Planning - plan a path for the vehicle to follow
 - Control - traduce the designed path into controls to the vehicle
 
-![Components Diagram Diagram](./assets/architecure-tentative.drawio.svg)
+The following components diagram illustrates the structure of the system.
+
+![Components Diagram](./assets/architecure.drawio.svg)
+
+The activity diagram / flow chart below illustrates the behaviour of the system and the flow of information through it.
+
+![Activity Diagram](./assets/system-flow-chart.drawio.svg)
