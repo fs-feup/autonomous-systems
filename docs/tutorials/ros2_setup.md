@@ -178,7 +178,7 @@ sudo apt upgrade
 **Desktop Install:** ROS, RViz, demos, tutorials.
 
 ```bash
-sudo apt install ros-galactic-desktop
+sudo apt install ros-humble-desktop
 ```
 **Dev tools:**
 ```sh
@@ -191,7 +191,7 @@ Run every time you open your shell (**important** this is meant to be run in any
 ```bash
 # Replace ".bash" with your shell if you're not using bash
 # Possible values are: setup.bash, setup.sh, setup.zsh
-source /opt/ros/galactic/setup.bash
+source /opt/ros/humble/setup.bash
 ```
 
 Or edit your shell rc file
@@ -199,7 +199,7 @@ Or edit your shell rc file
 ```bash
 # Replace ".bash" with your shell if you're not using bash
 # Possible values are: setup.bash, setup.sh, setup.zsh
-echo "source /opt/ros/galactic/setup.bash" >> ~/.bashrc
+echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 ```
 
 ### Some examples
@@ -207,14 +207,14 @@ echo "source /opt/ros/galactic/setup.bash" >> ~/.bashrc
 In one terminal, source the setup file and then run a C++ `talker`:
 
 ```bash
-source /opt/ros/galactic/setup.bash
+source /opt/ros/humble/setup.bash
 ros2 run demo_nodes_cpp talker
 ```
 
 In another terminal source the setup file and then run a Python `listener`:
 
 ```bash
-source /opt/ros/galactic/setup.bash
+source /opt/ros/humble/setup.bash
 ros2 run demo_nodes_py listener
 ```
 
