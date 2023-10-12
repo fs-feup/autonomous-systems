@@ -11,6 +11,7 @@ pip3 install ultralytics
 
 # planning
 sudo apt install libcgal-dev
+sudo apt-get install libgsl-dev
 
 # control
 pip3 install transform3d
