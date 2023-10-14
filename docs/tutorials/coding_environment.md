@@ -106,9 +106,9 @@ Visual Studio Code is a general purpose IDE very widely used. VSCode is our choi
 **Steps:**
 
 - Install [VSCode](https://code.visualstudio.com/Download)
-- (Optional) Install VSCode Extensions in Virtual Machine
-    - CMake extension 
-    - C++ Intellisense extension
+- (Optional but suggested) Install VSCode Extensions
+    - [C++ extension pack](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools-extension-pack) (highly suggested)
+    - [ROS extension](https://marketplace.visualstudio.com/items?itemName=ms-iot.vscode-ros) (suggested)
 
 #### VSCode in WSL
 
