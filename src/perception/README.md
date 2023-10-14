@@ -5,13 +5,19 @@
 ### Compile
 
 ```SHELL
-	colcon build --symlink-install --packages-select perception
+	colcon build --symlink-install --packages-select perception custom_interfaces
 ```
 
 ### Run
 
 ```SHELL
 	ros2 run perception perception
+```
+
+### Test
+
+```SHELL
+    colcon test --packages-select perception --event-handler=console_direct+
 ```
 
 ## Architecture

@@ -69,7 +69,7 @@ ros2 run [package_name] [node_name] --ros-args --log-level [node_name]:=[log_lev
 | ------ | ------------ | --------- | ------------------------ | -------|
 | Control | control | control | colcon build --packages-select custom_interfaces eufs_msgs fs_msgs control | ros2 run control control | 
 | Localization and Mapping | loc_map | loc_map | colcon build --packages-select loc_map custom_interfaces eufs_msgs fs_msgs | ros2 run loc_map loc_map | 
-| Perception | perception | perception | colcon build --symlink-install --packages-select perception | ros2 run perception perception | 
+| Perception | perception | perception | colcon build --symlink-install --packages-select perception custom_interfaces | ros2 run perception perception | 
 | Path Planning | planning | planning | colcon build --packages-select custom_interfaces planning | ros2 run planning planning |
 | All 4 | - | - | colcon build --symlink-install | ros2 launch fsfeup_launcher.launch.py 
 | Evaluation Module | plots | plots | colcon build --packages-select plots eufs_msgs custom_interfaces | ros2 run plots plots |
