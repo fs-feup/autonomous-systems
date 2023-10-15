@@ -21,15 +21,18 @@ LMNode::LMNode(ExtendedKalmanFilter* ekf, ConeMap* perception_map, MotionUpdate*
   this->_localization_publisher =
       this->create_publisher<custom_interfaces::msg::Pose>("vehicle_localization", 10);
   this->_map_publisher = this->create_publisher<custom_interfaces::msg::ConeArray>("track_map", 10);
+  //this->_update_and_publish(); constrruct
+  
+  
+  
 
   new Adapter(this);
-
-  RCLCPP_INFO(this->get_logger(), "Node started");
 }
 
 /*---------------------- Subscriptions --------------------*/
 
 void LMNode::_perception_subscription_callback(const custom_interfaces::msg::ConeArray msg) {
+  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n\n GOT PERCEPTION CALLBACK \n\n"); 
   auto cone_array = msg.cone_array;
   if (this->_perception_map == nullptr) {
     RCLCPP_WARN(this->get_logger(), "SUB - Perception map is null");
@@ -38,17 +41,28 @@ void LMNode::_perception_subscription_callback(const custom_interfaces::msg::Con
   this->_perception_map->map.clear();
   RCLCPP_DEBUG(this->get_logger(), "SUB - cones from perception:");
   RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
+
+  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n\n INSIDE PERCEPTION CALLBACK TEST#1 \n\n");
+
   for (auto& cone : cone_array) {
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n\n INSIDE FOR LOOP \n\n");
     auto position = Position();
     position.x = cone.position.x;
     position.y = cone.position.y;
+
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n\n BEFORE MAP ACCESS \n\n");
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n\n CONE COLOR:%d  CONE X:%d  CONE Y:%d   \n\n",cone.color, cone.position.x, cone.position.y);
     auto color = colors::color_map.at(cone.color);
+
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n\n AFTER MAP ACCESS \n\n");
 
     RCLCPP_DEBUG(this->get_logger(), "(%f, %f)\t%s", position.x, position.y, cone.color.c_str());
 
     this->_perception_map->map.insert({position, color});
   }
   RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
+
+  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n\n INSIDE PERCEPTION CALLBACK TEST#2 \n\n");
 
   if (this->_ekf == nullptr) {
     RCLCPP_WARN(this->get_logger(), "ATTR - EKF object is null");
@@ -59,6 +73,8 @@ void LMNode::_perception_subscription_callback(const custom_interfaces::msg::Con
   RCLCPP_DEBUG(this->get_logger(), "EKF - EFK correction Step");
   this->_publish_localization();
   this->_publish_map();
+  
+  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n\n GOT HERE AFTER PERCEPTION CALLBACK \n\n");
 }
 
 void LMNode::_imu_subscription_callback(double angular_velocity, double acceleration_x,
