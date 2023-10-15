@@ -153,7 +153,7 @@ TEST(LM_PUBLISH_TEST_SUITE,
   //point.set__y(2);
   point.x=1;
   point.y=2;
-  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n\n POINT X:%d  POINT Y:%d   \n\n", point.x, point.y );
+  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n\n POINT X:%d  POINT Y:%d   \n\n", point.x, point.y );//até so o ponto da print errado.
   cone_to_send.set__position(point);
   //cone_to_send = cone_to_send.set__position(point);
   //cone_to_send = cone_to_send.set__color("yellow"); //colors::yellow;//created a cone
