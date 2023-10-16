@@ -101,7 +101,8 @@ def calculate_displacements(estimated_cones: list, true_cones: list):
     for est_cone in estimated_cones:
         distance_f = np.vectorize(lambda cone: est_cone.distance(cone))
         cone_distances = distance_f(true_cones)
-        closest_distance, closest_index = np.min(cone_distances), np.argmin(cone_distances)
+        closest_distance, closest_index = np.min(cone_distances
+                                                 ), np.argmin(cone_distances)
         np.delete(true_cones, closest_index)
         distances.append(closest_distance)
 
@@ -330,13 +331,15 @@ class Plots(Node):
         if len(self.true_map_points) > 0 and len(self.map_points) > 0:
             # Get displacement between true node and estimated node by assuming
             #the correspondent nodes are the closest ones
-            displacements_by_cone_mapping = calculate_displacements(self.map_points, self.true_map_points)
+            displacements_by_cone_mapping = \
+                calculate_displacements(self.map_points, self.true_map_points)
             max_displacement_mapping = max(displacements_by_cone_mapping)
             min_displacement_mapping = min(displacements_by_cone_mapping)
             total_displacement_mapping = sum(displacements_by_cone_mapping)
             avg_displacement_mapping = total_displacement_mapping / len(
                 displacements_by_cone_mapping)
-        localization_displacement = self.localization.distance(self.true_localization)
+        localization_displacement = \
+            self.localization.distance(self.true_localization)
 
         # Perception
         max_displacement_perception = 0
@@ -346,8 +349,9 @@ class Plots(Node):
         if len(self.true_perception_points) > 0 and len(self.perception_points) > 0:
             # Get displacement between true node and estimated node by assuming
             #the correspondent nodes are the closest ones
-            displacements_by_cone_perception = calculate_displacements(self.perception_points, 
-                                                                       self.true_perception_points)
+            displacements_by_cone_perception = \
+                calculate_displacements(self.perception_points, 
+                                        self.true_perception_points)
             max_displacement_perception = max(displacements_by_cone_perception)
             min_displacement_perception = min(displacements_by_cone_perception)
             total_displacement_perception = sum(displacements_by_cone_perception)
