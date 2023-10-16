@@ -66,7 +66,7 @@ class Adapter {
   void eufs_set_mission_state(int mission, int state);
 
  public:
- /**
+  /**
    * @brief Constructor for the Adapter class.
    * @param mode The selected mode.
    * @param planning A pointer to the Planning module.

@@ -9,20 +9,28 @@
 class TestSubscriber : public rclcpp::Node {
   rclcpp::Subscription<custom_interfaces::msg::Pose>::SharedPtr _localization_subscription;
   rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr _mapping_subscription;
+  rclcpp::TimerBase::SharedPtr _timer;
   std::vector<custom_interfaces::msg::ConeArray> _mapping_messages;
   std::vector<custom_interfaces::msg::Pose> _localization_messages;
   int callback_count = 0;
+  int timer_count = 0;
 
   /**
-   * @brief Check if the callback has been called 10 times and increase the counter
+   * @brief Check if the callback has been called 5 times and increase the counter
    *
    */
   void _check_callback_count() {
     this->callback_count++;
-    if (this->callback_count >= 10) {
+    if (this->callback_count >= 5 || this->timer_count >= 10) {
       rclcpp::shutdown();
     }
   }
+
+  /**
+   * @brief Callback for the timer, to increase the timer count for the execution time limit
+   *
+   */
+  void _timer_callback() { this->timer_count++; }
 
   /**
    * @brief Callback for receiving message from localization topic
@@ -56,6 +64,8 @@ class TestSubscriber : public rclcpp::Node {
     _mapping_subscription = this->create_subscription<custom_interfaces::msg::ConeArray>(
         "track_map", 10,
         std::bind(&TestSubscriber::_mapping_callback, this, std::placeholders::_1));
+    _timer = this->create_wall_timer(std::chrono::milliseconds(1000),
+                                     std::bind(&TestSubscriber::_check_callback_count, this));
   }
 
   /**
@@ -85,47 +95,46 @@ class TestSubscriber : public rclcpp::Node {
  */
 TEST(LM_PUBLISH_TEST_SUITE,
      PUBLISH_INTEGRATION_TEST) {  // TODO(marhcouto): implement good integration test
-  // // Data
-  // VehicleState *vehicle_state = new VehicleState();
-  // Map *track_map = new Map();
-  // track_map->map.insert({{1, 2}, colors::yellow});
-  // track_map->map.insert({{1, 4}, colors::yellow});
-  // track_map->map.insert({{1, 6}, colors::yellow});
+  // Data
+  VehicleState *vehicle_state = new VehicleState();
+  ConeMap *track_map = new ConeMap();
+  track_map->map.insert({{1, 2}, colors::yellow});
+  track_map->map.insert({{1, 4}, colors::yellow});
+  track_map->map.insert({{1, 6}, colors::yellow});
 
-  // rclcpp::init(0, nullptr);
-  // if (rcutils_logging_set_logger_level("loc_map", RCUTILS_LOG_SEVERITY_ERROR) != RCUTILS_RET_OK)
-  // {
-  //   RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "Error setting logger level");
-  // }  // suppress warnings and info
+  rclcpp::init(0, nullptr);
+  if (rcutils_logging_set_logger_level("loc_map", RCUTILS_LOG_SEVERITY_ERROR) != RCUTILS_RET_OK) {
+    RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "Error setting logger level");
+  }  // suppress warnings and info
 
-  // // Nodes
-  // auto tester = std::make_shared<TestSubscriber>();
-  // auto publisher =
-  //     std::make_shared<LMNode>(nullptr, nullptr, nullptr, track_map, vehicle_state, true);
+  // Nodes
+  auto tester = std::make_shared<TestSubscriber>();
+  auto publisher =
+      std::make_shared<LMNode>(nullptr, nullptr, nullptr, track_map, vehicle_state, true);
 
-  // rclcpp::executors::MultiThreadedExecutor executor;
-  // executor.add_node(tester);
-  // executor.add_node(publisher);
-  // executor.spin();
-  // rclcpp::shutdown();
+  rclcpp::executors::MultiThreadedExecutor executor;
+  executor.add_node(tester);
+  executor.add_node(publisher);
+  executor.spin();
+  rclcpp::shutdown();
 
-  // EXPECT_GE((int)tester->get_mapping_messages().size(), 3);
-  // EXPECT_GE((int)tester->get_localization_messages().size(), 3);
+  EXPECT_GE((int)tester->get_mapping_messages().size(), 3);
+  EXPECT_GE((int)tester->get_localization_messages().size(), 3);
 
-  // for (auto msg : tester->get_localization_messages()) {
-  //   EXPECT_EQ(msg.position.x, 0);
-  //   EXPECT_EQ(msg.position.y, 0);
-  //   EXPECT_EQ(msg.theta, 0);
-  //   EXPECT_EQ(msg.velocity, 0);
-  //   EXPECT_EQ(msg.steering_angle, 0);
-  // }
+  for (auto msg : tester->get_localization_messages()) {
+    EXPECT_EQ(msg.position.x, 0);
+    EXPECT_EQ(msg.position.y, 0);
+    EXPECT_EQ(msg.theta, 0);
+    EXPECT_EQ(msg.velocity, 0);
+    EXPECT_EQ(msg.steering_angle, 0);
+  }
 
-  // for (auto msg : tester->get_mapping_messages()) {
-  //   for (auto cone : msg.cone_array) {
-  //     EXPECT_EQ(cone.position.x, 1);
-  //     EXPECT_TRUE(cone.position.y <= 6 && cone.position.y >= 2);
-  //     EXPECT_TRUE(cone.color == colors::color_names[colors::blue] ||
-  //                 cone.color == colors::color_names[colors::yellow]);
-  //   }
-  // }
+  for (auto msg : tester->get_mapping_messages()) {
+    for (auto cone : msg.cone_array) {
+      EXPECT_EQ(cone.position.x, 1);
+      EXPECT_TRUE(cone.position.y <= 6 && cone.position.y >= 2);
+      EXPECT_TRUE(cone.color == colors::color_names[colors::blue] ||
+                  cone.color == colors::color_names[colors::yellow]);
+    }
+  }
 }

@@ -16,4 +16,3 @@ Before starting, check out:
 - [Project Rules](./docs/project-rules.md)
 - [Project Specification](./docs/project-specification.md)
 - [Technologies](./docs/technologies.md)
-- [Changelog](./docs/CHANGELOG.md)

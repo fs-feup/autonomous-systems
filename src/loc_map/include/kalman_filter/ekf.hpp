@@ -23,19 +23,19 @@ class ExtendedKalmanFilter {
                                           expected position when the landmark is perceived
                                           to be 1 meter away */
 
-  Eigen::VectorXf X;                   /**< Expected state vector (localization + mapping) */
-  Eigen::MatrixXf P;                   /**< State covariance matrix */
-  std::vector<colors::Color> _colors;  /**< Vector of colors of the landmarks */
+  Eigen::VectorXf X;                  /**< Expected state vector (localization + mapping) */
+  Eigen::MatrixXf P;                  /**< State covariance matrix */
+  std::vector<colors::Color> _colors; /**< Vector of colors of the landmarks */
 
   std::chrono::time_point<std::chrono::high_resolution_clock>
-      _last_update;                           /**< Timestamp of last update */
+      _last_update; /**< Timestamp of last update */
 
   const MotionModel& _motion_model;           /**< Motion Model chosen for prediction step */
   const ObservationModel& _observation_model; /**< Observation Model chosen for correction step */
 
-  MotionUpdate _last_motion_update;           /**< Last motion update */
+  MotionUpdate _last_motion_update; /**< Last motion update */
 
-  bool _fixed_map = false;                    /**< Flag to indicate if the map is fixed */
+  bool _fixed_map = false; /**< Flag to indicate if the map is fixed */
 
   /**
    * @brief Discovery step:

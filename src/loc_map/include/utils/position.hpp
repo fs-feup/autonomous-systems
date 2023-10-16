@@ -3,7 +3,7 @@
 
 /**
  * @brief Struct for position
- * 
+ *
  * @param x X coordinate
  * @param y Y coordinate
  *

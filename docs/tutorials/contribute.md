@@ -49,7 +49,6 @@ For everybody:
   ```sh
   ./document.sh
   ```
-- Update changelog if a feature was implemented
 - Finally push changes to repository
   ```sh
   git add -A

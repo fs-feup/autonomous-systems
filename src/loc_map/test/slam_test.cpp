@@ -17,9 +17,9 @@ TEST(EKF_SLAM, LINEAR_MOVEMENT_INTEGRITY_TEST) {  // This test is not that great
   vehicle_state->last_update = std::chrono::high_resolution_clock::now();
   MotionUpdate *imu_update = new MotionUpdate();
   imu_update->last_update = std::chrono::high_resolution_clock::now();
-  Map *track_map = new Map();
-  Map initial_map = Map();
-  Map *predicted_map = new Map();
+  ConeMap *track_map = new ConeMap();
+  ConeMap initial_map = ConeMap();
+  ConeMap *predicted_map = new ConeMap();
 
   Eigen::Matrix2f Q = Eigen::Matrix2f::Zero();
   Q(0, 0) = 0.1;
