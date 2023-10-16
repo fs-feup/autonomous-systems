@@ -1,14 +1,12 @@
 import cv2 as cv
 import os
-original_imread = cv.imread # It is necessary to keep this function. It will be overrided 
 import unittest
 import rclpy
-from rclpy.node import Node
-from custom_interfaces.msg import ConeArray
 from perception.main import perception
-import numpy as np
-import base64
 import time
+
+# It is necessary to keep this function. It will be overrided 
+original_imread = cv.imread 
 
 
 class TestPerceptionNode(unittest.TestCase):
@@ -26,9 +24,9 @@ class TestPerceptionNode(unittest.TestCase):
 
     def test_depthProcessor(self):
 
-        file = open('test/output/output.csv', 'a')
+        file = open('../performance/exec_time/perception.csv', 'a')
 
-        if (os.stat("test/output/output.csv").st_size == 0):
+        if (os.stat("../performance/exec_time/perception.csv").st_size == 0):
             file.write("Module,Scope,Scenario,Execution Time (ms)\n")
 
         dir = os.path.dirname(os.path.abspath(__file__))
