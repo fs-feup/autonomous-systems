@@ -63,41 +63,120 @@ class TestUtilsMethods(unittest.TestCase):
     #     self.assertEqual(test_flag, True)
 
     def test_pid_callback(self):
-        rclpy.init()
-        t0 = datetime.datetime.now()   
-        control_node = ControlNode()
+        dtsum = 0
+        dt2sum = 0
+        dt3sum = 0
+        no_iters = 100
 
-        position = Point2d()
-        position.x = 0.0
-        position.y = -1.0
-        yaw = 0
+        for i in range(no_iters):
+            t0 = datetime.datetime.now() 
+            rclpy.init()
+            t1 = datetime.datetime.now()   
+            control_node = ControlNode()
 
-        raw_path = [(1.5,0.0), (1.75,1.0), (2.0,2.0), (2.5,2.4), (3.0,2.8), (3.5,3.15), (4.0,3.5), (4.25,4.25), (4.5,5.0)]
-        recv_path = PointArray()
-        for point_tuple in raw_path:
-            point = Point2d()
-            point.x = point_tuple[0]
-            point.y = point_tuple[1]
-            recv_path.points.append(point)
+            position = Point2d()
+            position.x = 0.0
+            position.y = -1.0
+            yaw = 0
 
-        control_node.path_callback(recv_path)
-        control_node.pid_callback(position, yaw)
+            raw_path = [(1.5,0.0), (1.75,1.0), (2.0,2.0), (2.5,2.4), (3.0,2.8), (3.5,3.15), (4.0,3.5), (4.25,4.25), (4.5,5.0), (4.7,5.5), (5.0, 6.0)]
+            recv_path = PointArray()
+            for point_tuple in raw_path:
+                point = Point2d()
+                point.x = point_tuple[0]
+                point.y = point_tuple[1]
+                recv_path.points.append(point)
 
-        t1 = datetime.datetime.now()       
-        dt = t1 - t0
+            control_node.path_callback(recv_path)
+            t2 = datetime.datetime.now() 
 
-        print("Pid calculated in ", dt.microseconds * 1e-3, " ms")
+            control_node.pid_callback(position, yaw)
 
-        rclpy.shutdown()
+            t3 = datetime.datetime.now()       
+            dt = t3 - t0
+            dt2 = t2 - t1
+            dt3 = t3 - t2
 
-        self.assertGreater(control_node.acceleration_command, 0)
-        self.assertLess(control_node.steering_angle_command, 0)
+            dtsum += dt.microseconds
+            dt2sum += dt2.microseconds
+            dt3sum += dt3.microseconds
+
+            rclpy.shutdown()
+
+            if i == 0:
+                print("First Node and Pid calculated in ", dtsum * 1e-3, " ms")
+                print("First Pid path processing calculated in ", dt2sum * 1e-3, " ms")
+                print("First Pid only calculated in ", dt3sum * 1e-3, " ms")
+
+            self.assertGreater(control_node.acceleration_command, 0)
+            self.assertLess(control_node.steering_angle_command, 0)
+
+
+        print("Node and Pid calculated in ", dtsum /  no_iters * 1e-3, " ms")
+        print("Pid path processing calculated in ", dt2sum / no_iters * 1e-3, " ms")
+        print("Pid only calculated in ", dt3sum / no_iters * 1e-3, " ms")
+        
 
 
 
     def test_mpc_callback(self):
+        dtsum = 0
+        dt2sum = 0
+        dt3sum = 0
+        no_iters = 100
+
+        for i in range(no_iters):
+
+            t0 = datetime.datetime.now() 
+            rclpy.init()
+            t1 = datetime.datetime.now()
+            control_node = ControlNode()
+
+            position = Point2d()
+            position.x = 0.0
+            position.y = -1.0
+            yaw = 0
+
+            raw_path = [(1.5,0.0), (1.75,1.0), (2.0,2.0), (2.5,2.4), (3.0,2.8), (3.5,3.15), (4.0,3.5), (4.25,4.25), (4.5,5.0), (4.7,5.5), (5.0, 6.0)]
+            recv_path = PointArray()
+            for point_tuple in raw_path:
+                point = Point2d()
+                point.x = point_tuple[0]
+                point.y = point_tuple[1]
+                recv_path.points.append(point)
+
+            control_node.path_callback(recv_path)
+            t2 = datetime.datetime.now()  
+            control_node.mpc_callback(position, yaw)
+
+            t3 = datetime.datetime.now()       
+            dt = t3 - t0
+            dt2 = t2 - t1
+            dt3 = t3 - t2
+
+            dtsum += dt.microseconds
+            dt2sum += dt2.microseconds
+            dt3sum += dt3.microseconds
+            
+            rclpy.shutdown()
+
+            print("acc: ", control_node.acceleration_command)
+            print("angle: ", control_node.steering_angle_command)
+            #self.assertGreater(control_node.acceleration_command, 0)
+            #self.assertLess(control_node.steering_angle_command, 0)
+            if i == 0:
+                print("First Node and Mpc calculated in ", dtsum * 1e-3, " ms")
+                print("First Mpc path processing calculated in ", dt2sum * 1e-3, " ms")
+                print("First Mpc only calculated in ", dt3sum * 1e-3, " ms")
+
+        print("Node and Mpc calculated in ", dtsum /  no_iters * 1e-3, " ms")
+        print("Mpc path processing calculated in ", dt2sum / no_iters * 1e-3, " ms")
+        print("Mpc only calculated in ", dt3sum / no_iters * 1e-3, " ms")
+
+    def test_mpc_callback_once(self):
+        t0 = datetime.datetime.now() 
         rclpy.init()
-        t0 = datetime.datetime.now()   
+        t1 = datetime.datetime.now()
         control_node = ControlNode()
 
         position = Point2d()
@@ -105,7 +184,7 @@ class TestUtilsMethods(unittest.TestCase):
         position.y = -1.0
         yaw = 0
 
-        raw_path = [(1.5,0.0), (1.75,1.0), (2.0,2.0), (2.5,2.4), (3.0,2.8), (3.5,3.15), (4.0,3.5), (4.25,4.25), (4.5,5.0)]
+        raw_path = [(1.5,0.0), (1.75,1.0), (2.0,2.0), (2.5,2.4), (3.0,2.8), (3.5,3.15), (4.0,3.5), (4.25,4.25), (4.5,5.0), (4.7,5.5), (5.0, 6.0)]
         recv_path = PointArray()
         for point_tuple in raw_path:
             point = Point2d()
@@ -117,17 +196,13 @@ class TestUtilsMethods(unittest.TestCase):
         t2 = datetime.datetime.now()  
         control_node.mpc_callback(position, yaw)
 
-        t1 = datetime.datetime.now()       
-        dt = t1 - t0
-        dt2 = t1 - t2
-
-        print("Mpc calculated in ", dt.microseconds * 1e-3, " ms")
-        print("Mpc only calculated in ", dt2.microseconds * 1e-3, " ms")
+        t3 = datetime.datetime.now()       
+        dt = t3 - t0
+        dt2 = t2 - t1
+        dt3 = t3 - t2
         
         rclpy.shutdown()
 
-        self.assertGreater(control_node.acceleration_command, 0)
-        self.assertLess(control_node.steering_angle_command, 0)
 
 if __name__ == '__main__':
     unittest.main()

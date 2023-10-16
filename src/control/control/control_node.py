@@ -1,8 +1,6 @@
-from rclpy.node import Node
-
 import numpy as np 
 import rclpy
-
+from rclpy.node import Node
 from custom_interfaces.msg import PointArray
 from eufs_msgs.msg import CanState
 
@@ -252,8 +250,6 @@ class ControlNode(Node):
         path = []
         path_speeds = []
 
-        print("Received path\n{}".format(points_list.points))
-        print("------------")
         for i, point in enumerate(points_list.points):
             self.get_logger().debug("[received] ({}, {})".format(point.x, point.y))
             path.append([point.x, point.y])

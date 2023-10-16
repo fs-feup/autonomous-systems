@@ -1,4 +1,5 @@
 import numpy as np
+import datetime
 from .mpc_utils import (
     compute_path_from_wp,
     get_ref_trajectory,
@@ -58,6 +59,8 @@ class MPC:
             self.state, self.path, P.VEL, old_ind=self.old_closest_ind
         )
 
+        t0 = datetime.datetime.now()  
+
         x_mpc, u_mpc = optimize(
             A,
             B,
@@ -67,6 +70,12 @@ class MPC:
             u_target,
             verbose=False
         )
+
+        t1 = datetime.datetime.now()
+
+        dt = t1 - t0
+        
+        self.get_logger().debug("Otimization step calculated in ", dt.microseconds * 1e-3, " ms")
         
         self.opt_u = np.vstack(
             (
