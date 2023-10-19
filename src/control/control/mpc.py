@@ -1,5 +1,6 @@
 import numpy as np
 import datetime
+import os
 from .mpc_utils import (
     compute_path_from_wp,
     get_ref_trajectory,
@@ -40,12 +41,13 @@ class MPC:
         self.d_history = []
         self.predicted = None
 
-    def run(self):
+    def run(self, isTesting = False):
         """!
         @brief MPC run function. Pre-processes the current state, calls the optimizer 
         and save the actions.
         @param self The object pointer.
         """
+
         # start = time.time()
 
         # (x, y, vel, heading) state - car frame
@@ -74,8 +76,52 @@ class MPC:
         t1 = datetime.datetime.now()
 
         dt = t1 - t0
+
+        print("Testing: ", isTesting)
+        if isTesting:
+            dtsum = 0
+            no_iters = 100
+            for i in range(no_iters):
+
+                t0 = datetime.datetime.now()  
+
+                x_mpc, u_mpc = optimize(
+                    A,
+                    B,
+                    C,
+                    curr_state,
+                    x_target,
+                    u_target,
+                    verbose=False
+                )
+
+                t1 = datetime.datetime.now()
+
+                dtsum += (t1 - t0).microseconds
+
+            current_path = os.path.abspath(__file__)
+
+            print("Absolute Path to Current Python Script:", current_path)
+            index = current_path.find("install")
+    
+            if index != -1:
+                current_path = current_path[:index]    
+            
+            print(current_path)
+            print("AAAAAAAAAAA")
+            with open(current_path + 'control/test/control_measures.csv', 'a') as f:
+                print(f)
+                print("BBBBBBBBBBBBBB")
+                f.flush()
+                writer = csv.writer(f)
+                print("CCCCCCCCCCCCCC")
+                writer.writerow(['t','t','t','t','t'])
+                writer.writerow(['control', 'mpc', 'optimization_step-' + str(P.prediction_horizon) + 'ph', dtsum / no_iters * 1e-3, dt])
+            
+            print("Average optimization step is ", dtsum / no_iters * 1e-3)
         
         self.get_logger().debug("Otimization step calculated in ", dt.microseconds * 1e-3, " ms")
+
         
         self.opt_u = np.vstack(
             (
@@ -87,10 +133,10 @@ class MPC:
         self.action[:] = [u_mpc.value[0, 0], u_mpc.value[1, 0]]
         # print("CVXPY Optimization Time: {:.4f}s".format(time.time()-start))
 
-def run_mpc(action, state, path, old_closest_ind):
+def run_mpc(action, state, path, old_closest_ind, isTesting):
     mpc = MPC(action, state, path, old_closest_ind)
     try:
-        mpc.run()
+        mpc.run(isTesting)
         return mpc.action, mpc.closest_ind, len(mpc.path)
     except Exception:
         return None, None, None

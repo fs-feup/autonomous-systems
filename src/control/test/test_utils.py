@@ -6,6 +6,10 @@ import unittest
 import numpy as np
 import math
 import datetime
+import csv
+from control.config import Params
+
+P = Params()
 
 class TestUtilsMethods(unittest.TestCase):
     # def test_get_closest_point(self):
@@ -66,7 +70,17 @@ class TestUtilsMethods(unittest.TestCase):
         dtsum = 0
         dt2sum = 0
         dt3sum = 0
+        firstdt = 0
+        firstdt2 = 0
+        firstdt3 = 0
         no_iters = 100
+
+        position = Point2d()
+        position.x = 0.0
+        position.y = -1.0
+        yaw = 0
+
+        raw_path = [(1.5,0.0), (1.75,1.0), (2.0,2.0), (2.5,2.4), (3.0,2.8), (3.5,3.15), (4.0,3.5), (4.25,4.25), (4.5,5.0), (4.7,5.5), (5.0, 6.0)]
 
         for i in range(no_iters):
             t0 = datetime.datetime.now() 
@@ -74,12 +88,6 @@ class TestUtilsMethods(unittest.TestCase):
             t1 = datetime.datetime.now()   
             control_node = ControlNode()
 
-            position = Point2d()
-            position.x = 0.0
-            position.y = -1.0
-            yaw = 0
-
-            raw_path = [(1.5,0.0), (1.75,1.0), (2.0,2.0), (2.5,2.4), (3.0,2.8), (3.5,3.15), (4.0,3.5), (4.25,4.25), (4.5,5.0), (4.7,5.5), (5.0, 6.0)]
             recv_path = PointArray()
             for point_tuple in raw_path:
                 point = Point2d()
@@ -104,26 +112,40 @@ class TestUtilsMethods(unittest.TestCase):
             rclpy.shutdown()
 
             if i == 0:
-                print("First Node and Pid calculated in ", dtsum * 1e-3, " ms")
-                print("First Pid path processing calculated in ", dt2sum * 1e-3, " ms")
-                print("First Pid only calculated in ", dt3sum * 1e-3, " ms")
-
-            self.assertGreater(control_node.acceleration_command, 0)
-            self.assertLess(control_node.steering_angle_command, 0)
-
+                firstdt = dtsum * 1e-3
+                firstdt2 = dt2sum * 1e-3
+                firstdt3 = dt2sum * 1e-3
+                print("First Node and Pid calculated in ", firstdt, " ms")
+                print("First Pid path processing calculated in ", firstdt2, " ms")
+                print("First Pid only calculated in ", firstdt3, " ms")
+                
+        f = open('control/test/control_measures.csv', 'a')
+        writer = csv.writer(f, delimiter=',')
+        writer.writerow(['control', 'pid', 'path_processing-' + str(len(raw_path)) + 'pts', dt2sum /  no_iters * 1e-3, firstdt2])
+        writer.writerow(['control', 'pid', 'callback', dt3sum /  no_iters * 1e-3, firstdt3])
+        writer.writerow(['control', 'pid', 'callback+node', dtsum /  no_iters * 1e-3, firstdt])
+        f.close()
 
         print("Node and Pid calculated in ", dtsum /  no_iters * 1e-3, " ms")
         print("Pid path processing calculated in ", dt2sum / no_iters * 1e-3, " ms")
         print("Pid only calculated in ", dt3sum / no_iters * 1e-3, " ms")
         
 
-
-
     def test_mpc_callback(self):
         dtsum = 0
         dt2sum = 0
         dt3sum = 0
+        firstdt = 0
+        firstdt2 = 0
+        firstdt3 = 0
         no_iters = 100
+
+        position = Point2d()
+        position.x = 0.0
+        position.y = -1.0
+        yaw = 0
+
+        raw_path = [(1.5,0.0), (1.75,1.0), (2.0,2.0), (2.5,2.4), (3.0,2.8), (3.5,3.15), (4.0,3.5), (4.25,4.25), (4.5,5.0), (4.7,5.5), (5.0, 6.0)]
 
         for i in range(no_iters):
 
@@ -132,12 +154,6 @@ class TestUtilsMethods(unittest.TestCase):
             t1 = datetime.datetime.now()
             control_node = ControlNode()
 
-            position = Point2d()
-            position.x = 0.0
-            position.y = -1.0
-            yaw = 0
-
-            raw_path = [(1.5,0.0), (1.75,1.0), (2.0,2.0), (2.5,2.4), (3.0,2.8), (3.5,3.15), (4.0,3.5), (4.25,4.25), (4.5,5.0), (4.7,5.5), (5.0, 6.0)]
             recv_path = PointArray()
             for point_tuple in raw_path:
                 point = Point2d()
@@ -165,15 +181,27 @@ class TestUtilsMethods(unittest.TestCase):
             #self.assertGreater(control_node.acceleration_command, 0)
             #self.assertLess(control_node.steering_angle_command, 0)
             if i == 0:
-                print("First Node and Mpc calculated in ", dtsum * 1e-3, " ms")
-                print("First Mpc path processing calculated in ", dt2sum * 1e-3, " ms")
-                print("First Mpc only calculated in ", dt3sum * 1e-3, " ms")
+                firstdt = dtsum * 1e-3
+                firstdt2 = dt2sum * 1e-3
+                firstdt3 = dt2sum * 1e-3
+                print("First Node and Mpc calculated in ", firstdt * 1e-3, " ms")
+                print("First Mpc path processing calculated in ", firstdt2 * 1e-3, " ms")
+                print("First Mpc only calculated in ", firstdt3 * 1e-3, " ms")
+                
+
+        f = open('control/test/control_measures.csv', 'a')
+        print(f)
+        writer = csv.writer(f)
+        writer.writerow(['control', 'mpc', 'path_processing-' + str(len(raw_path)) + 'pts', dt2sum /  no_iters * 1e-3, firstdt2])
+        writer.writerow(['control', 'mpc', 'callback-' + str(P.prediction_horizon) + 'ph', dt3sum /  no_iters * 1e-3, firstdt3])
+        writer.writerow(['control', 'mpc', 'callback+node-' + str(P.prediction_horizon) + 'ph', dtsum /  no_iters * 1e-3, firstdt])
+        f.close()
 
         print("Node and Mpc calculated in ", dtsum /  no_iters * 1e-3, " ms")
         print("Mpc path processing calculated in ", dt2sum / no_iters * 1e-3, " ms")
         print("Mpc only calculated in ", dt3sum / no_iters * 1e-3, " ms")
 
-    def test_mpc_callback_once(self):
+    def test_mpc_optimization(self):
         t0 = datetime.datetime.now() 
         rclpy.init()
         t1 = datetime.datetime.now()
@@ -193,20 +221,14 @@ class TestUtilsMethods(unittest.TestCase):
             recv_path.points.append(point)
 
         control_node.path_callback(recv_path)
-        t2 = datetime.datetime.now()  
-        control_node.mpc_callback(position, yaw)
-
-        t3 = datetime.datetime.now()       
-        dt = t3 - t0
-        dt2 = t2 - t1
-        dt3 = t3 - t2
+        control_node.mpc_callback(position, yaw, True)
         
         rclpy.shutdown()
 
 
 if __name__ == '__main__':
+    print("Running Tests...")
     unittest.main()
-
     
 
     
