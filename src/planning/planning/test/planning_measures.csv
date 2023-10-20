@@ -1,0 +1,9 @@
+module,scope,scenario,avgtime_ms,firsttime_ms
+planning,delaunay,10points,0.00598264,0.018232
+planning,delaunay,100points,0.161311,0.239226
+planning,delaunay,250points,0.909884,0.898326
+planning,delaunay,250randompoints,0.125268,0.157101
+planning,outliers,250points_2outliers,14.3801,15.293
+planning,outliers,250points_10outliers,16.7605,14.1067
+planning,outliers,250points_25outliers,14.8499,14.5198
+planning,outliers,250points_50outliers,15.1222,14.6879
