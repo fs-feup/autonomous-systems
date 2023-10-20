@@ -1,6 +1,6 @@
 import numpy as np
 import datetime
-import os
+import csv
 from .mpc_utils import (
     compute_path_from_wp,
     get_ref_trajectory,
@@ -77,7 +77,6 @@ class MPC:
 
         dt = t1 - t0
 
-        print("Testing: ", isTesting)
         if isTesting:
             dtsum = 0
             no_iters = 100
@@ -99,24 +98,9 @@ class MPC:
 
                 dtsum += (t1 - t0).microseconds
 
-            current_path = os.path.abspath(__file__)
-
-            print("Absolute Path to Current Python Script:", current_path)
-            index = current_path.find("install")
-    
-            if index != -1:
-                current_path = current_path[:index]    
-            
-            print(current_path)
-            print("AAAAAAAAAAA")
-            with open(current_path + 'control/test/control_measures.csv', 'a') as f:
-                print(f)
-                print("BBBBBBBBBBBBBB")
-                f.flush()
+            with open('control/test/control_measures.csv', 'a') as f:
                 writer = csv.writer(f)
-                print("CCCCCCCCCCCCCC")
-                writer.writerow(['t','t','t','t','t'])
-                writer.writerow(['control', 'mpc', 'optimization_step-' + str(P.prediction_horizon) + 'ph', dtsum / no_iters * 1e-3, dt])
+                writer.writerow(['control', 'mpc', 'optimization_step-' + str(P.prediction_horizon) + 'ph', dtsum / no_iters * 1e-3, dt.microseconds * 1e-3])
             
             print("Average optimization step is ", dtsum / no_iters * 1e-3)
         

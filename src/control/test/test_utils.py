@@ -176,8 +176,8 @@ class TestUtilsMethods(unittest.TestCase):
             
             rclpy.shutdown()
 
-            print("acc: ", control_node.acceleration_command)
-            print("angle: ", control_node.steering_angle_command)
+            #print("acc: ", control_node.acceleration_command)
+            #print("angle: ", control_node.steering_angle_command)
             #self.assertGreater(control_node.acceleration_command, 0)
             #self.assertLess(control_node.steering_angle_command, 0)
             if i == 0:
@@ -190,7 +190,6 @@ class TestUtilsMethods(unittest.TestCase):
                 
 
         f = open('control/test/control_measures.csv', 'a')
-        print(f)
         writer = csv.writer(f)
         writer.writerow(['control', 'mpc', 'path_processing-' + str(len(raw_path)) + 'pts', dt2sum /  no_iters * 1e-3, firstdt2])
         writer.writerow(['control', 'mpc', 'callback-' + str(P.prediction_horizon) + 'ph', dt3sum /  no_iters * 1e-3, firstdt3])
