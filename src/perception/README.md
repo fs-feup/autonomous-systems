@@ -58,6 +58,10 @@ Below is an Activity Diagram illustrating the operational flow of the perception
   <img src="../../docs/assets/Perception/ActivityDiagram.png" style="width: 50%; height: auto;">
 </p>
 
+## Full Documentation
+
+A more precise information about the Perception Module can be found [here](https://www.overleaf.com/read/ryspphvyxmny)
+
 
 
 ## Main External Libraries
