@@ -1,7 +1,7 @@
 from sensor_msgs.msg import Image
 from rclpy.qos import qos_profile_sensor_data
 
-import pyzed.sl as sl
+import pyzed as sl
 import cv2
 
 class PerceptionAdapter():

@@ -329,6 +329,7 @@ class perception(Node):
         
         cone_array = self.depth_processor.process(msg, image_raw, point_cloud)
         self.pub_cone_coordinates.publish(cone_array)
+        return cone_array
 
 def ros_main(args=None):
     rclpy.init(args=args)
