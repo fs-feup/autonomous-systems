@@ -100,11 +100,14 @@ class MPC:
 
             with open('control/test/control_measures.csv', 'a') as f:
                 writer = csv.writer(f)
-                writer.writerow(['control', 'mpc', 'optimization_step-' + str(P.prediction_horizon) + 'ph', dtsum / no_iters * 1e-3, dt.microseconds * 1e-3])
+                writer.writerow(['control', 'mpc',\
+                    'optimization_step-' + str(P.prediction_horizon) + 'ph',\
+                    dtsum / no_iters * 1e-3, dt.microseconds * 1e-3])
             
             print("Average optimization step is ", dtsum / no_iters * 1e-3)
         
-        self.get_logger().debug("Otimization step calculated in ", dt.microseconds * 1e-3, " ms")
+        self.get_logger().debug("Otimization step calculated in ",\
+            dt.microseconds * 1e-3, " ms")
 
         
         self.opt_u = np.vstack(

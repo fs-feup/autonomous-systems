@@ -17,7 +17,8 @@ count = 0
 
 for i in range(len(x_values)):
     if i % 25 == 0:
-        f.write(str(x_values[i] + 3) + " " + str(y_values[i]) + " " + c_values[i] + "\n")
+        f.write(str(x_values[i] + 3) + " " +\
+            str(y_values[i]) + " " + c_values[i] + "\n")
     else:
         f.write(str(x_values[i]) + " " + str(y_values[i]) + " " + c_values[i] + "\n")
 

@@ -1,10 +1,10 @@
-from control.pid_utils import get_cte, get_closest_point
+#from control.pid_utils import get_cte, get_closest_point
 from control.control_node import ControlNode
 from custom_interfaces.msg import PointArray, Point2d
 import rclpy
 import unittest
-import numpy as np
-import math
+#import numpy as np
+#import math
 import datetime
 import csv
 from control.config import Params
@@ -23,7 +23,8 @@ class TestUtilsMethods(unittest.TestCase):
     #     closest_point, _ = get_closest_point(position, points_array)
     #     self.assertEqual(list(closest_point), [0, 2])
 
-    #     points_array = np.asarray([[-4,10],[-3,10],[-1,10],[0,10],[1,10],[2,10],[2,10]])
+    #     points_array = np.asarray([[-4,10],[-3,10],\
+    #       [-1,10],[0,10],[1,10],[2,10],[2,10]])
     #     closest_point, _ = get_closest_point(position, points_array)
     #     self.assertEqual(list(closest_point), [-1, 10])
 
@@ -80,7 +81,8 @@ class TestUtilsMethods(unittest.TestCase):
         position.y = -1.0
         yaw = 0
 
-        raw_path = [(1.5,0.0), (1.75,1.0), (2.0,2.0), (2.5,2.4), (3.0,2.8), (3.5,3.15), (4.0,3.5), (4.25,4.25), (4.5,5.0), (4.7,5.5), (5.0, 6.0)]
+        raw_path = [(1.5,0.0), (1.75,1.0), (2.0,2.0), (2.5,2.4), (3.0,2.8),\
+            (3.5,3.15), (4.0,3.5), (4.25,4.25), (4.5,5.0), (4.7,5.5), (5.0, 6.0)]
 
         for i in range(no_iters):
             t0 = datetime.datetime.now() 
@@ -121,9 +123,12 @@ class TestUtilsMethods(unittest.TestCase):
                 
         f = open('control/test/control_measures.csv', 'a')
         writer = csv.writer(f, delimiter=',')
-        writer.writerow(['control', 'pid', 'path_processing-' + str(len(raw_path)) + 'pts', dt2sum /  no_iters * 1e-3, firstdt2])
-        writer.writerow(['control', 'pid', 'callback', dt3sum /  no_iters * 1e-3, firstdt3])
-        writer.writerow(['control', 'pid', 'callback+node', dtsum /  no_iters * 1e-3, firstdt])
+        writer.writerow(['control', 'pid', 'path_processing-' +\
+             str(len(raw_path)) + 'pts', dt2sum /  no_iters * 1e-3, firstdt2])
+        writer.writerow(['control', 'pid', 'callback',\
+            dt3sum /  no_iters * 1e-3, firstdt3])
+        writer.writerow(['control', 'pid', 'callback+node',\
+            dtsum /  no_iters * 1e-3, firstdt])
         f.close()
 
         print("Node and Pid calculated in ", dtsum /  no_iters * 1e-3, " ms")
@@ -145,7 +150,8 @@ class TestUtilsMethods(unittest.TestCase):
         position.y = -1.0
         yaw = 0
 
-        raw_path = [(1.5,0.0), (1.75,1.0), (2.0,2.0), (2.5,2.4), (3.0,2.8), (3.5,3.15), (4.0,3.5), (4.25,4.25), (4.5,5.0), (4.7,5.5), (5.0, 6.0)]
+        raw_path = [(1.5,0.0), (1.75,1.0), (2.0,2.0), (2.5,2.4), (3.0,2.8),\
+            (3.5,3.15), (4.0,3.5), (4.25,4.25), (4.5,5.0), (4.7,5.5), (5.0, 6.0)]
 
         for i in range(no_iters):
 
@@ -185,15 +191,19 @@ class TestUtilsMethods(unittest.TestCase):
                 firstdt2 = dt2sum * 1e-3
                 firstdt3 = dt2sum * 1e-3
                 print("First Node and Mpc calculated in ", firstdt * 1e-3, " ms")
-                print("First Mpc path processing calculated in ", firstdt2 * 1e-3, " ms")
+                print("First Mpc path processing calculated in ",\
+                    firstdt2 * 1e-3, " ms")
                 print("First Mpc only calculated in ", firstdt3 * 1e-3, " ms")
                 
 
         f = open('control/test/control_measures.csv', 'a')
         writer = csv.writer(f)
-        writer.writerow(['control', 'mpc', 'path_processing-' + str(len(raw_path)) + 'pts', dt2sum /  no_iters * 1e-3, firstdt2])
-        writer.writerow(['control', 'mpc', 'callback-' + str(P.prediction_horizon) + 'ph', dt3sum /  no_iters * 1e-3, firstdt3])
-        writer.writerow(['control', 'mpc', 'callback+node-' + str(P.prediction_horizon) + 'ph', dtsum /  no_iters * 1e-3, firstdt])
+        writer.writerow(['control', 'mpc', 'path_processing-'\
+            + str(len(raw_path)) + 'pts', dt2sum /  no_iters * 1e-3, firstdt2])
+        writer.writerow(['control', 'mpc', 'callback-' +\
+            str(P.prediction_horizon) + 'ph', dt3sum /  no_iters * 1e-3, firstdt3])
+        writer.writerow(['control', 'mpc', 'callback+node-' +\
+            str(P.prediction_horizon) + 'ph', dtsum /  no_iters * 1e-3, firstdt])
         f.close()
 
         print("Node and Mpc calculated in ", dtsum /  no_iters * 1e-3, " ms")
@@ -201,9 +211,7 @@ class TestUtilsMethods(unittest.TestCase):
         print("Mpc only calculated in ", dt3sum / no_iters * 1e-3, " ms")
 
     def test_mpc_optimization(self):
-        t0 = datetime.datetime.now() 
         rclpy.init()
-        t1 = datetime.datetime.now()
         control_node = ControlNode()
 
         position = Point2d()
@@ -211,7 +219,8 @@ class TestUtilsMethods(unittest.TestCase):
         position.y = -1.0
         yaw = 0
 
-        raw_path = [(1.5,0.0), (1.75,1.0), (2.0,2.0), (2.5,2.4), (3.0,2.8), (3.5,3.15), (4.0,3.5), (4.25,4.25), (4.5,5.0), (4.7,5.5), (5.0, 6.0)]
+        raw_path = [(1.5,0.0), (1.75,1.0), (2.0,2.0), (2.5,2.4), (3.0,2.8), (3.5,3.15),\
+            (4.0,3.5), (4.25,4.25), (4.5,5.0), (4.7,5.5), (5.0, 6.0)]
         recv_path = PointArray()
         for point_tuple in raw_path:
             point = Point2d()

@@ -159,7 +159,7 @@ class Track {
  */
   int deleteOutliers(bool side, float distance_threshold,
     int order, float coeffs_ratio, bool writing);
-  
+
   /**
    * @brief Reset the track by clearing cone lists.
    */
