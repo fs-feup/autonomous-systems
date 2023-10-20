@@ -159,7 +159,7 @@ void LMNode::_publish_localization() {
   message.position.y = vehicle_localization.position.y;
   message.theta = vehicle_localization.orientation;
 
-  RCLCPP_INFO(this->get_logger(), "PUB - Pose: (%f, %f, %f)", message.position.x,
+  RCLCPP_INFO(this->get_logger(), "\nPUB - Pose: (%f, %f, %f)\n", message.position.x,
               message.position.y, message.theta);
   RCLCPP_DEBUG(this->get_logger(), "PUB - Pose: (%f, %f, %f)", message.position.x,
                message.position.y, message.theta);
@@ -167,6 +167,7 @@ void LMNode::_publish_localization() {
 }
 
 void LMNode::_publish_map() {
+  RCLCPP_INFO(this->get_logger(), "\nPUB - MAP\n");
   auto message = custom_interfaces::msg::ConeArray();
   RCLCPP_DEBUG(this->get_logger(), "PUB - cone map:");
   RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
