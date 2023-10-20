@@ -23,17 +23,14 @@ LMNode::LMNode(ExtendedKalmanFilter* ekf, ConeMap* perception_map, MotionUpdate*
   this->_map_publisher = this->create_publisher<custom_interfaces::msg::ConeArray>("track_map", 10);
   //this->_update_and_publish(); constrruct
   
-  
-  
-
   new Adapter(this);
 }
 
 /*---------------------- Subscriptions --------------------*/
 
 void LMNode::_perception_subscription_callback(const custom_interfaces::msg::ConeArray msg) {
-  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n\n GOT PERCEPTION CALLBACK \n\n"); 
   auto cone_array = msg.cone_array;
+  RCLCPP_INFO(this->get_logger(), "\n  %ld \n", cone_array.size());
   if (this->_perception_map == nullptr) {
     RCLCPP_WARN(this->get_logger(), "SUB - Perception map is null");
     return;
@@ -42,16 +39,13 @@ void LMNode::_perception_subscription_callback(const custom_interfaces::msg::Con
   RCLCPP_DEBUG(this->get_logger(), "SUB - cones from perception:");
   RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
 
-  //RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n\n INSIDE PERCEPTION CALLBACK TEST#1 \n\n");
-
-  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n\n SIZE IN LMNODE:%d \n\n", cone_array.size());
+  
   for (auto& cone : cone_array) {
-    
-    auto position = Position();
+    RCLCPP_INFO(this->get_logger(), "\n  A CONE \n");
+
+    auto position = Position(); 
     position.x = cone.position.x;
     position.y = cone.position.y;
-
-    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n\n CONE_COLOR:%s  CONE X:%f  CONE Y:%f   \n\n",cone.color.c_str(), cone.position.x, cone.position.y);
 
     auto color = colors::color_map.at(cone.color.c_str());
 
@@ -61,7 +55,6 @@ void LMNode::_perception_subscription_callback(const custom_interfaces::msg::Con
   }
   RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
 
-  //RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n\n INSIDE PERCEPTION CALLBACK TEST#2 \n\n");
 
   if (this->_ekf == nullptr) {
     RCLCPP_WARN(this->get_logger(), "ATTR - EKF object is null");
@@ -73,7 +66,6 @@ void LMNode::_perception_subscription_callback(const custom_interfaces::msg::Con
   this->_publish_localization();
   this->_publish_map();
   
-  //RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n\n GOT HERE AFTER PERCEPTION CALLBACK \n\n");
 }
 
 void LMNode::_imu_subscription_callback(double angular_velocity, double acceleration_x,
