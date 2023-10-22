@@ -15,7 +15,7 @@ Track::~Track() {
   for (int i = 0; i < rSize; i++) delete rightCones[i];
 }
 
-void Track::fillTrack(const std::string& path, const std::string& testname) {
+void Track::fillTrack(const std::string& path) {
   std::string x, y, color;
   std::ifstream trackFile;
 
@@ -27,42 +27,6 @@ void Track::fillTrack(const std::string& path, const std::string& testname) {
     addCone(xValue, yValue, color);
   }
   trackFile.close();
-
-  auto s0 = std::chrono::high_resolution_clock::now();
-  validateCones();
-  auto s1 = std::chrono::high_resolution_clock::now();
-  double elapsed_time_iter0_ms = std::chrono::duration<double, std::milli>(s1 - s0).count();
-  std::cout << "Outliers removed in " << elapsed_time_iter0_ms << " ms\n";
-
-  if (testname != "") {
-    int no_iters = 100;
-    double total_time = 0;
-    for (int i = 0; i < no_iters; i++) {
-      this->reset();
-      trackFile.open(path);
-      while (trackFile >> x >> y >> color) {
-        float xValue = stof(x);
-        float yValue = stof(y);
-        addCone(xValue, yValue, color);
-      }
-      trackFile.close();
-
-      auto t0 = std::chrono::high_resolution_clock::now();
-      validateCones();
-      auto t1 = std::chrono::high_resolution_clock::now();
-      double elapsed_time_iter_ms = std::chrono::duration<double, std::milli>(t1 - t0).count();
-      total_time += elapsed_time_iter_ms;
-    }
-
-    std::string filePrefix = rcpputils::fs::current_path().string();
-    std::string filePath = filePrefix + "/planning/planning/test/planning_measures.csv";
-    std::ofstream measuresPath(filePath, std::ios_base::app);
-    measuresPath << "planning,outliers," << testname << ","
-      << total_time / no_iters << "," << elapsed_time_iter0_ms << "\n";
-    measuresPath.close();
-
-    std::cout << "Outliers removed in average " << total_time / no_iters << " ms\n";
-  }
 }
 
 Cone* Track::getLeftConeAt(int index) { return leftCones[index]; }

@@ -199,7 +199,7 @@ class ControlNode(Node):
             self.adapter.eufs_mission_finished()
 
 
-    def mpc_callback(self, position, yaw, isTesting=False):
+    def mpc_callback(self, position, yaw):
         if self.path is None or self.done:
             return
 
@@ -219,8 +219,7 @@ class ControlNode(Node):
             current_action, 
             current_state, 
             self.path,
-            self.old_closest_index,
-            isTesting
+            self.old_closest_index
         )
 
         if new_action is None:

@@ -72,7 +72,7 @@ class Track {
    *
    * @param path The path to the file containing track data.
    */
-  void fillTrack(const std::string& path, const std::string& testname = "");
+  void fillTrack(const std::string& path);
 
   /**
    * @brief Add a cone to the track if the color is appropriate.

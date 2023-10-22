@@ -3,11 +3,18 @@ from control.control_node import ControlNode
 from custom_interfaces.msg import PointArray, Point2d
 import rclpy
 import unittest
-#import numpy as np
+import numpy as np
 #import math
 import datetime
 import csv
 from control.config import Params
+from control.mpc import MPC
+from control.mpc_utils import (
+    compute_path_from_wp,
+    get_ref_trajectory,
+    get_linear_model_matrices,
+    optimize,
+)
 
 P = Params()
 
@@ -229,7 +236,68 @@ class TestUtilsMethods(unittest.TestCase):
             recv_path.points.append(point)
 
         control_node.path_callback(recv_path)
-        control_node.mpc_callback(position, yaw, True)
+
+        # Set mpc
+
+        current_action = np.array(
+            [control_node.acceleration_command, control_node.steering_angle_actual])
+        current_state = np.array([position.x, position.y, control_node.velocity_actual, yaw])
+
+        mpc = MPC(current_action, current_state, control_node.path, control_node.old_closest_index)
+        
+        curr_state = np.array([0, 0, mpc.state[2], 0])
+
+        A, B, C = get_linear_model_matrices(curr_state, mpc.action)
+        
+        x_target, u_target, mpc.closest_ind = get_ref_trajectory(
+            mpc.state, mpc.path, P.VEL, old_ind=mpc.old_closest_ind
+        )
+
+        # Test
+
+        t0 = datetime.datetime.now()  
+
+        x_mpc, u_mpc = optimize(
+            A,
+            B,
+            C,
+            curr_state,
+            x_target,
+            u_target,
+            verbose=False
+        )
+
+        t1 = datetime.datetime.now()
+
+        dt = t1 - t0
+    
+        dtsum = 0
+        no_iters = 100
+        for i in range(no_iters):
+
+            t0 = datetime.datetime.now()  
+
+            x_mpc, u_mpc = optimize(
+                A,
+                B,
+                C,
+                curr_state,
+                x_target,
+                u_target,
+                verbose=False
+            )
+
+            t1 = datetime.datetime.now()
+
+            dtsum += (t1 - t0).microseconds
+
+        with open('control/test/control_measures.csv', 'a') as f:
+            writer = csv.writer(f)
+            writer.writerow(['control', 'mpc',\
+                'optimization_step-' + str(P.prediction_horizon) + 'ph',\
+                dtsum / no_iters * 1e-3, dt.microseconds * 1e-3])
+        
+        print("Average optimization step is ", dtsum / no_iters * 1e-3)
         
         rclpy.shutdown()
 

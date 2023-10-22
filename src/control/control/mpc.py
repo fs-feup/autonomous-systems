@@ -41,7 +41,7 @@ class MPC:
         self.d_history = []
         self.predicted = None
 
-    def run(self, isTesting = False):
+    def run(self):
         """!
         @brief MPC run function. Pre-processes the current state, calls the optimizer 
         and save the actions.
@@ -76,40 +76,10 @@ class MPC:
         t1 = datetime.datetime.now()
 
         dt = t1 - t0
-
-        if isTesting:
-            dtsum = 0
-            no_iters = 100
-            for i in range(no_iters):
-
-                t0 = datetime.datetime.now()  
-
-                x_mpc, u_mpc = optimize(
-                    A,
-                    B,
-                    C,
-                    curr_state,
-                    x_target,
-                    u_target,
-                    verbose=False
-                )
-
-                t1 = datetime.datetime.now()
-
-                dtsum += (t1 - t0).microseconds
-
-            with open('control/test/control_measures.csv', 'a') as f:
-                writer = csv.writer(f)
-                writer.writerow(['control', 'mpc',\
-                    'optimization_step-' + str(P.prediction_horizon) + 'ph',\
-                    dtsum / no_iters * 1e-3, dt.microseconds * 1e-3])
-            
-            print("Average optimization step is ", dtsum / no_iters * 1e-3)
-        
+    
         self.get_logger().debug("Otimization step calculated in ",\
             dt.microseconds * 1e-3, " ms")
-
-        
+     
         self.opt_u = np.vstack(
             (
                 np.array(u_mpc.value[0, :]).flatten(),
@@ -120,10 +90,11 @@ class MPC:
         self.action[:] = [u_mpc.value[0, 0], u_mpc.value[1, 0]]
         # print("CVXPY Optimization Time: {:.4f}s".format(time.time()-start))
 
-def run_mpc(action, state, path, old_closest_ind, isTesting):
+def run_mpc(action, state, path, old_closest_ind):
     mpc = MPC(action, state, path, old_closest_ind)
     try:
-        mpc.run(isTesting)
+        mpc.run()
         return mpc.action, mpc.closest_ind, len(mpc.path)
     except Exception:
         return None, None, None
+
