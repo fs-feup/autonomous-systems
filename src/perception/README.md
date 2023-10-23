@@ -62,6 +62,8 @@ Below is an Activity Diagram illustrating the operational flow of the perception
 
 A more precise information about the Perception Module can be found [here](https://www.overleaf.com/read/ryspphvyxmny)
 
+You can check the original YOLO repository [here](https://github.com/ultralytics/yolov5)
+
 
 
 ## Main External Libraries
@@ -70,3 +72,5 @@ A more precise information about the Perception Module can be found [here](https
 2. [ROS](https://docs.ros.org/en/foxy/index.html)
 3. [CV2](https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html)
 4. [Numpy](https://numpy.org/doc/stable/)
+
+
