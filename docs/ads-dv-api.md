@@ -443,7 +443,7 @@ Caso tenha havido erros tentar correr:
 | :-------- | :------- | :-------------------------------- |
 | `FRONT_AXLE_TRQ_REQUEST`      | `Unsigned` |Solicitação do ângulo de direção. Um ângulo positivo move as rodas da frente para a esquerda de acordo com o ISO 8855 sistema de coordenadas|
 
-![Steering example image place holder](docs/assets/API/steering.png)
+![Steering example image place holder](../assets/API/steering.png)
 
 
 **AI2VCU_Brake:** Pedido de pressão do travão hidráulico 

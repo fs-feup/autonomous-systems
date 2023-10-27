@@ -1,3 +1,5 @@
+# Libraries
+
 ## RCL - ROS Client Library
 
 The RCL stands for ROS Client Library and is the main interaction form with the ROS2 environment. RCL has two different implementations for each language supported by ROS: python (rclpy) and c++ (rclcpp). 
@@ -18,22 +20,15 @@ Essentially this library allows for programming of custom nodes and communicatio
 
 ## PyTorch
 
-[PyTorch](https://pytorch.org) is a machine learning framework based on the Torch library, used for applications such as computer vision and natural language processing. It is used in the Perception Module in Yolo algorithm.
+[PyTorch](https://pytorch.org) is a machine learning framework based on the Torch library, used for applications such as computer vision and natural language processing. It is used in the Perception Module in Yolo algorithm. Documentation [here](https://pytorch.org/docs/2.1/).
 
 ## OpenCV
 
-[OpenCV](https://opencv.org) is a library of programming functions mainly for real-time computer vision.
-
-
-### Links
-- [Documentation page](https://eigen.tuxfamily.org/index.php?title=Main_Page)
+[OpenCV](https://opencv.org) is a library of programming functions mainly for real-time computer vision. Documentation [here](https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html).
 
 ## Google Test
 
-Google test is a c++ unit test framework. 
-
-### Links
-- [Tutorial](https://www.youtube.com/watch?v=JJqRlSTQlh4&t=1453s)
+Google test is a c++ unit test framework. Here is a [Tutorial](https://www.youtube.com/watch?v=JJqRlSTQlh4&t=1453s).
 
 
 

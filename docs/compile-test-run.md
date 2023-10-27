@@ -16,7 +16,7 @@ cd driverless/src
 ./install_dependencies.sh
 ```
 
-4. Once you have set up the environment, it's time to **compile** the project using [Colcon](sim_setup_tutorial.md#Nonfunctional-requirements#Colcon-setup)
+4. Once you have set up the environment, it's time to **compile** the project using Colcon
 
 If you only wish to **compile specific packages**, you can use the following command:
 ```sh

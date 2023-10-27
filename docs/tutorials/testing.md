@@ -24,7 +24,7 @@ These two projects are setup for testing [python](../assets/test_tutorial/theman
 
 Integration tests acess the system's different functions from top to bottom. In our case, integration tests would reflect in something like testing the behaviour of a certain node or group of nodes.
 
-Using the same tools as for the unit tests, we can create integration tests by simply coding other ROS2 nodes inside the tests that are able to communicate with the actual nodes of the system. This way can be seen being aplied in [this test file](../../src/localization-mapping/loc_map/test/). The idea is simply coding a simpler node to test the other nodes and launch it together with the real nodes in a mocked environment.
+Using the same tools as for the unit tests, we can create integration tests by simply coding other ROS2 nodes inside the tests that are able to communicate with the actual nodes of the system. This way can be seen being aplied in [this test file](../../src/loc_map/test/). The idea is simply coding a simpler node to test the other nodes and launch it together with the real nodes in a mocked environment.
 
 **Rostest** is a ROS package that allows the user to run testing nodes to ease the running of integration tests built with the tools mentioned above. Rostest is designed to integrate with gtest and unittest rather smoothely. More details on this tool can be found [here](http://wiki.ros.org/rostest).
 
