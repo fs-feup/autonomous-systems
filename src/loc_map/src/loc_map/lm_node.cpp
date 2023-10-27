@@ -41,7 +41,7 @@ void LMNode::_perception_subscription_callback(const custom_interfaces::msg::Con
 
   
   for (auto& cone : cone_array) {
-    RCLCPP_INFO(this->get_logger(), "\n  A CONE \n");
+    //RCLCPP_INFO(this->get_logger(), "\n  A CONE IN X:%f Y:%f COLOR:%s  \n", cone.position.x , cone.position.y, cone.color.c_str());
 
     auto position = Position(); 
     position.x = cone.position.x;
@@ -159,15 +159,15 @@ void LMNode::_publish_localization() {
   message.position.y = vehicle_localization.position.y;
   message.theta = vehicle_localization.orientation;
 
-  RCLCPP_INFO(this->get_logger(), "\nPUB - Pose: (%f, %f, %f)\n", message.position.x,
-              message.position.y, message.theta);
+  //RCLCPP_INFO(this->get_logger(), "\nPUB - Pose: (%f, %f, %f)\n", message.position.x,
+              //message.position.y, message.theta);
   RCLCPP_DEBUG(this->get_logger(), "PUB - Pose: (%f, %f, %f)", message.position.x,
                message.position.y, message.theta);
   this->_localization_publisher->publish(message);
 }
 
 void LMNode::_publish_map() {
-  RCLCPP_INFO(this->get_logger(), "\nPUB - MAP\n");
+  //RCLCPP_INFO(this->get_logger(), "\nPUB - MAP\n");
   auto message = custom_interfaces::msg::ConeArray();
   RCLCPP_DEBUG(this->get_logger(), "PUB - cone map:");
   RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");

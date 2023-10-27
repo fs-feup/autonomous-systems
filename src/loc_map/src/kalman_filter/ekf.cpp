@@ -6,7 +6,7 @@
 
 #include "loc_map/data_structures.hpp"
 
-double ExtendedKalmanFilter::max_landmark_distance = 10.0;
+double ExtendedKalmanFilter::max_landmark_distance = 71.0;
 
 bool ExtendedKalmanFilter::cone_match(const double x_from_state, const double y_from_state,
                                       const double x_from_perception,
