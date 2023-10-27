@@ -14,7 +14,16 @@ Essentially this library allows for programming of custom nodes and communicatio
 
 ## Eigen
 
-Eigen is a c++ library for efficient linear algebra operations. It is used for eficient matrix calculations, for example, in the Kalman Filter. 
+[Eigen](https://eigen.tuxfamily.org/index.php?title=Main_Page) is a c++ library for efficient linear algebra operations. It is used for eficient matrix calculations, for example, in the Kalman Filter.
+
+## PyTorch
+
+[PyTorch](https://pytorch.org) is a machine learning framework based on the Torch library, used for applications such as computer vision and natural language processing. It is used in the Perception Module in Yolo algorithm.
+
+## OpenCV
+
+[OpenCV](https://opencv.org) is a library of programming functions mainly for real-time computer vision.
+
 
 ### Links
 - [Documentation page](https://eigen.tuxfamily.org/index.php?title=Main_Page)
