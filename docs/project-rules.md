@@ -105,7 +105,7 @@ All pull requests should also have de department leader's approval before merge.
 ## Design and Investigation
 Design and Investigation tasks will also be present in the management tool. The document being developed should always be attached to the task in some way.
 ### Latex Documents
-Latex documents are to be used for investigation and other more serious documentation. They are to follow the template provided and the guidelines attached to it. For design documents specifically, the chapter structure should be followed exactly as is. For others, chapters can be altered and removed/added but introduction must always be present.
+Latex documents are to be used for investigation and other more serious documentation. They are to follow the [template](https://www.overleaf.com/project/64f9ef0ccb7ebc1387cbc673) provided and the guidelines attached to it. For design documents specifically, the chapter structure should be followed exactly as is. For others, chapters can be altered and removed/added but introduction must always be present.
 ### Evaluation
 Most documents on design are to be evaluated by the department leader and possibly some other peer. The documents are evaluated on:
 - their structure
