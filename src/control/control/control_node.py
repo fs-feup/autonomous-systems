@@ -38,7 +38,7 @@ class ControlNode(Node):
 
         self.state = CanState.AS_OFF
 
-        self.position = None
+        self.position = [0, 0]
 
         # Steering angle.
         self.steering_angle_command = 0.

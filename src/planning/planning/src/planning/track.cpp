@@ -107,8 +107,8 @@ bool Track::vector_direction(Cone* c1, Cone* c2, float prev_vx, float prev_vy) {
 }
 
 int Track::validateCones() {
-  int leftOutliers = deleteOutliers(1, 1.5, 3, 3, true);
-  int rightOutliers = deleteOutliers(0, 1.5, 3, 3, true);
+  int leftOutliers = deleteOutliers(1, 1.5, 3, 3, false);
+  int rightOutliers = deleteOutliers(0, 1.5, 3, 3, false);
 
   std::cout << "Deleted " << leftOutliers << " left outliers and " << rightOutliers
             << " right outliers\n";
@@ -120,9 +120,9 @@ int Track::deleteOutliers(bool side, float distance_threshold,
   std::vector<Cone*>& unord_cone_seq = side ? leftCones : rightCones;
   // if side = 1(left) | = 0(right)
 
-  const size_t n = unord_cone_seq.size();
-  const size_t ncoeffs = n / coeffs_ratio;  // n > = ncoeffs
-  const size_t nbreak = ncoeffs - order + 2;
+  const int n = unord_cone_seq.size();
+  const int ncoeffs = n / coeffs_ratio;  // n > = ncoeffs
+  const int nbreak = ncoeffs - order + 2;
 
   if (nbreak < 2) {
     std::cout << "Too few points to calculate spline\n";
@@ -163,18 +163,18 @@ int Track::deleteOutliers(bool side, float distance_threshold,
   // cone to the current cone and updating the traversal direction accordingly.
   // This approach creates an ordered sequence that efficiently connects nearby cones.
   std::vector<std::pair<Cone*, bool>> nn_unord_cone_seq;
-  for (size_t i = 0; i < unord_cone_seq.size(); i++)
+  for (int i = 0; i < static_cast<int>(unord_cone_seq.size()); i++)
     nn_unord_cone_seq.push_back(std::make_pair(unord_cone_seq[i], false));
   std::vector<Cone*> cone_seq;
   Cone* cone1 = new Cone(-1, 0, 0);
   float vx = 1;
   float vy = 0;
 
-  for (size_t iter_number = 0; iter_number < unord_cone_seq.size(); iter_number++) {
+  for (int iter_number = 0; iter_number < static_cast<int>(unord_cone_seq.size()); iter_number++) {
     float min_dist = MAXFLOAT;
-    size_t min_index = 0;
+    int min_index = 0;
 
-    for (size_t i = 0; i < nn_unord_cone_seq.size(); i++) {
+    for (int i = 0; i < static_cast<int>(nn_unord_cone_seq.size()); i++) {
       Cone* cone2 = nn_unord_cone_seq[i].first;
       if (nn_unord_cone_seq[i].second == false ||
           (iter_number == 0 && vector_direction(cone1, cone2, vx, vy))) {
@@ -197,7 +197,7 @@ int Track::deleteOutliers(bool side, float distance_threshold,
   }
 
   // Set spline data
-  for (size_t i = 0; i < n; i++) {
+  for (int i = 0; i < n; i++) {
     gsl_vector_set(i_values, i, i);
     gsl_vector_set(x_values, i, cone_seq[i]->getX());
     gsl_vector_set(y_values, i, cone_seq[i]->getY());
@@ -210,13 +210,13 @@ int Track::deleteOutliers(bool side, float distance_threshold,
   gsl_bspline_knots_uniform(0, n, cw);
 
   /* construct the fit matrix X */
-  for (size_t i = 0; i < n; i++) {
+  for (int i = 0; i < n; i++) {
     /* compute B_j(xi) for all j */
     gsl_bspline_eval(i, B, bw);
     gsl_bspline_eval(i, C, cw);
 
     /* fill in row i of X */
-    for (size_t j = 0; j < ncoeffs; j++) {
+    for (int j = 0; j < ncoeffs; j++) {
       double Bj = gsl_vector_get(B, j);
       gsl_matrix_set(X, i, j, Bj);
       double Cj = gsl_vector_get(C, j);
@@ -230,12 +230,12 @@ int Track::deleteOutliers(bool side, float distance_threshold,
 
   // Output the smoothed curve and store key value pairs*/
   double xi, yi, yerr, yerr2;
-  size_t divs = 10;
+  int divs = 10;
   std::vector<double> i_eval, x_eval, y_eval;
   std::vector<std::pair<double, double>> cone_seq_eval;  // Eval key_values
 
-  for (size_t i = 0; i < n; i++) {
-    for (size_t j = 0; j < divs; j += 1) {  // decimals loop
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < divs; j += 1) {  // decimals loop
       gsl_bspline_eval(i + static_cast<float>(j) / divs, B, bw);
       gsl_bspline_eval(i + static_cast<float>(j) / divs, C, cw);
       gsl_multifit_linear_est(B, c, cov, &xi, &yerr);
@@ -254,7 +254,7 @@ int Track::deleteOutliers(bool side, float distance_threshold,
   // Delete Outliers
   int outlierCount = 0;
 
-  for (size_t i = 0; i < n; i++) {
+  for (int i = 0; i < n; i++) {
     int index = i - outlierCount;  // decrease deleted indexes
     double dist = sqrt(pow(cone_seq[index]->getX() - cone_seq_eval[i].first, 2) +
                        pow(cone_seq[index]->getY() - cone_seq_eval[i].second, 2));
@@ -292,14 +292,14 @@ int Track::deleteOutliers(bool side, float distance_threshold,
     std::string splinePath = filePrefix + "/planning/planning/plots/spline" + fileSide +  ".txt";
     std::ofstream splinePathFile(splinePath);
 
-    for (size_t i = 0; i < i_eval.size(); i++)
+    for (int i = 0; i < static_cast<int>(i_eval.size()); i++)
       splinePathFile << x_eval[i] << " " << y_eval[i] << "\n";
     splinePathFile.close();
 
     std::string outlierPath = filePrefix + "/planning/planning/plots/deletedoutliers"
       + fileSide +  ".txt";
     std::ofstream outlierPathFile(outlierPath);
-    for (size_t i = 0; i < cone_seq.size(); i++)
+    for (int i = 0; i < static_cast<int>(cone_seq.size()); i++)
       outlierPathFile << cone_seq[i]->getX() << " " << cone_seq[i]->getY() << "\n";
     outlierPathFile.close();
   }

@@ -26,7 +26,7 @@ std::vector<Position> processTriangulations(std::string filename,
 
   double elapsed_time_zero_ms = std::chrono::duration<double, std::milli>(s1 - s0).count();
   std::cout << "\nDelaunay Triangulations processed in " <<elapsed_time_zero_ms << " ms.\n";
-  
+
   for (int i = 0; i < no_iters; i++) {
     auto t0 = std::chrono::high_resolution_clock::now();
 
@@ -50,12 +50,12 @@ std::vector<Position> processTriangulations(std::string filename,
 
   std::cout << "\nAverage Delaunay Triangulations processed in "
     << total_time / no_iters << " ms.\n";
-  
+
   return path;
 }
 
 void outlierCalculations(std::string filename,
-  std::string testname){
+  std::string testname) {
   Track* track = new Track();
 
   track->fillTrack(filename);

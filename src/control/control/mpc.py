@@ -1,6 +1,5 @@
 import numpy as np
 import datetime
-import csv
 from .mpc_utils import (
     compute_path_from_wp,
     get_ref_trajectory,

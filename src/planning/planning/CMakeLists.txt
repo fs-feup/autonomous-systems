@@ -25,6 +25,7 @@ find_package(GSL REQUIRED)
 
 set(TESTFILES
   test/main.cpp
+  test/tests.cpp
   test/integration_tests.cpp
 )
 

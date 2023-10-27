@@ -10,7 +10,7 @@ import csv
 from control.config import Params
 from control.mpc import MPC
 from control.mpc_utils import (
-    compute_path_from_wp,
+    #compute_path_from_wp,
     get_ref_trajectory,
     get_linear_model_matrices,
     optimize,
@@ -241,9 +241,11 @@ class TestUtilsMethods(unittest.TestCase):
 
         current_action = np.array(
             [control_node.acceleration_command, control_node.steering_angle_actual])
-        current_state = np.array([position.x, position.y, control_node.velocity_actual, yaw])
+        current_state = np.array([position.x, position.y,\
+            control_node.velocity_actual, yaw])
 
-        mpc = MPC(current_action, current_state, control_node.path, control_node.old_closest_index)
+        mpc = MPC(current_action, current_state, control_node.path,\
+            control_node.old_closest_index)
         
         curr_state = np.array([0, 0, mpc.state[2], 0])
 

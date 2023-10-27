@@ -18,7 +18,6 @@ using std::placeholders::_1;
 Planning::Planning() : Node("planning") {
   // this->vl_sub_ = this->create_subscription<custom_interfaces::msg::Pose>(
   //     "vehicle_localization", 10, std::bind(&Planning::vehicle_localization_callback, this, _1));
-  std::cout << "Created planning\n";
 
   this->track_sub_ = this->create_subscription<custom_interfaces::msg::ConeArray>(
       "track_map", 10, std::bind(&Planning::track_map_callback, this, _1));
@@ -28,16 +27,10 @@ Planning::Planning() : Node("planning") {
   this->global_pub_ =
       this->create_publisher<custom_interfaces::msg::PointArray>("planning_global", 10);
 
-  std::cout << "Created nodes\n";
-
   this->timer_ = this->create_wall_timer(
       std::chrono::milliseconds(100), std::bind(&Planning::publish_predicitive_track_points, this));
 
-
   this->adapter = new Adapter("eufs", this);
-
-  std::cout << "After adapter\n";
-
 }
 
 // void Planning::vehicle_localization_callback(const custom_interfaces::msg::Pose msg) {
@@ -46,27 +39,18 @@ Planning::Planning() : Node("planning") {
 // }
 
 void Planning::track_map_callback(const custom_interfaces::msg::ConeArray msg) {
-  std::cout << "Received message\n";
-
   if (this->is_predicitve_mission()) {
     return;
   }
 
-  std::this_thread::sleep_for(std::chrono::seconds(3));
-
-  std::cout << "Check segmentation\n";
-
   Track* track = new Track();
 
-  std::cout << "Check segmentation2\n";
-
-  std::cout << "Size: " << msg.cone_array.size();
   auto cone_array = msg.cone_array;
 
   for (auto& cone : cone_array) {
-    track->addCone(cone.position.x, cone.position.y, cone.color);
     RCLCPP_DEBUG(this->get_logger(), "[received] (%f, %f)\t%s", cone.position.x, cone.position.y,
                  cone.color.c_str());
+    track->addCone(cone.position.x, cone.position.y, cone.color);
   }
 
   track->validateCones();  // Delete cone outliers
