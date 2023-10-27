@@ -835,7 +835,6 @@ TEST_F(ExecTimeTest, PUBLISH_INTEGRATION_TEST_5X100CONE) {
 // }
 
 
-
+// TODO(PedroRomao3)
 // rever finalização
-// média valores
 // EKF steps
