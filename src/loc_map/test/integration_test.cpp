@@ -34,7 +34,7 @@ class ExecTimeTest : public ::testing::Test {
   std::chrono::_V2::system_clock::time_point end_time;
   int helper_1;
   void SetUp() override {  // SetUpTestSuite
-    //rclcpp::shutdown();
+    // rclcpp::shutdown();
     rclcpp::init(0, nullptr);
     helper = 0;
     helper_1 = 0;
@@ -105,7 +105,6 @@ class ExecTimeTest : public ::testing::Test {
 
   // void TearDown() override {}
 };
-
 
 // TEST_F(ExecTimeTest, PUBLISH_INTEGRATION_TEST_1CONE) {
 //   // if (rcutils_logging_set_logger_level("loc_map", RCUTILS_LOG_SEVERITY_ERROR) !=
@@ -396,15 +395,11 @@ class ExecTimeTest : public ::testing::Test {
 //   EXPECT_GE(received_track_map.cone_array.size(), (long unsigned int)3);
 // }
 
-
-
-
-
 // PERFORMANCE TESTS
 
 TEST_F(ExecTimeTest, PUBLISH_INTEGRATION_TEST_1X100CONE) {
   // if (rcutils_logging_set_logger_level("loc_map", RCUTILS_LOG_SEVERITY_ERROR) !=
-  //RCUTILS_RET_OK)
+  // RCUTILS_RET_OK)
   // {
   //   RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "Error setting logger level");
   // }  // suppress warnings and info
@@ -473,20 +468,14 @@ TEST_F(ExecTimeTest, PUBLISH_INTEGRATION_TEST_1X100CONE) {
   //   //err
   // }
 
-
   EXPECT_GE(received_track_map.cone_array.size(), (long unsigned int)1);
   executor.cancel();
   rclcpp::shutdown();
 }
 
-
-
-
-
-
 TEST_F(ExecTimeTest, PUBLISH_INTEGRATION_TEST_5X100CONE) {
   // if (rcutils_logging_set_logger_level("loc_map", RCUTILS_LOG_SEVERITY_ERROR) !=
-  //RCUTILS_RET_OK)
+  // RCUTILS_RET_OK)
   // {
   //   RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "Error setting logger level");
   // }  // suppress warnings and info
@@ -558,7 +547,7 @@ TEST_F(ExecTimeTest, PUBLISH_INTEGRATION_TEST_5X100CONE) {
   end_time = std::chrono::high_resolution_clock::now();
   duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
   // RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Execution time: %ld ms", duration.count());
-  
+
   // char cwd[1024];
   // if (getcwd(cwd, sizeof(cwd)) != nullptr) {
   //   //RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n///////\nDIR: %s \n///////", cwd);
@@ -568,9 +557,6 @@ TEST_F(ExecTimeTest, PUBLISH_INTEGRATION_TEST_5X100CONE) {
 
   EXPECT_GE(received_track_map.cone_array.size(), (long unsigned int)3);
 }
-
-
-
 
 // TEST_F(ExecTimeTest, PUBLISH_INTEGRATION_TEST_50X100CONE) {
 //   // if (rcutils_logging_set_logger_level("loc_map", RCUTILS_LOG_SEVERITY_ERROR) !=
@@ -586,9 +572,11 @@ TEST_F(ExecTimeTest, PUBLISH_INTEGRATION_TEST_5X100CONE) {
 
 //         end_time = std::chrono::high_resolution_clock::now();
 //         duration = (duration +
-//                     std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time));
+//                     std::chrono::duration_cast<std::chrono::microseconds>(end_time -
+//                     start_time));
 //         RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n DURATION STEP: %ld  \n",
-//                     std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time));
+//                     std::chrono::duration_cast<std::chrono::microseconds>(end_time -
+//                     start_time));
 //         start_time = std::chrono::high_resolution_clock::now();
 //         cones_publisher->publish(*cone_array_msg);
 //         helper++;
@@ -653,9 +641,6 @@ TEST_F(ExecTimeTest, PUBLISH_INTEGRATION_TEST_5X100CONE) {
 //   EXPECT_GE(received_track_map.cone_array.size(), (long unsigned int)4);
 // }
 
-
-
-
 // TEST_F(ExecTimeTest, PUBLISH_INTEGRATION_TEST_200X100CONE) {
 //   // if (rcutils_logging_set_logger_level("loc_map", RCUTILS_LOG_SEVERITY_ERROR) !=
 //   // RCUTILS_RET_OK)
@@ -670,9 +655,11 @@ TEST_F(ExecTimeTest, PUBLISH_INTEGRATION_TEST_5X100CONE) {
 
 //         end_time = std::chrono::high_resolution_clock::now();
 //         duration = (duration +
-//                     std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time));
+//                     std::chrono::duration_cast<std::chrono::microseconds>(end_time -
+//                     start_time));
 //         RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n DURATION STEP: %ld  \n",
-//                     std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time));
+//                     std::chrono::duration_cast<std::chrono::microseconds>(end_time -
+//                     start_time));
 //         start_time = std::chrono::high_resolution_clock::now();
 //         cones_publisher->publish(*cone_array_msg);
 //         helper++;
@@ -745,9 +732,6 @@ TEST_F(ExecTimeTest, PUBLISH_INTEGRATION_TEST_5X100CONE) {
 //   std::this_thread::sleep_for(std::chrono::seconds(2));
 // }
 
-
-
-
 // TEST_F(ExecTimeTest, PUBLISH_INTEGRATION_TEST_100X100CONE) {
 //   // if (rcutils_logging_set_logger_level("loc_map", RCUTILS_LOG_SEVERITY_ERROR) !=
 //   // RCUTILS_RET_OK)
@@ -762,9 +746,11 @@ TEST_F(ExecTimeTest, PUBLISH_INTEGRATION_TEST_5X100CONE) {
 
 //         end_time = std::chrono::high_resolution_clock::now();
 //         duration = (duration +
-//                     std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time));
+//                     std::chrono::duration_cast<std::chrono::microseconds>(end_time -
+//                     start_time));
 //         RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n DURATION STEP: %ld  \n",
-//                     std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time));
+//                     std::chrono::duration_cast<std::chrono::microseconds>(end_time -
+//                     start_time));
 //         start_time = std::chrono::high_resolution_clock::now();
 //         cones_publisher->publish(*cone_array_msg);
 //         helper++;
@@ -833,7 +819,6 @@ TEST_F(ExecTimeTest, PUBLISH_INTEGRATION_TEST_5X100CONE) {
 //   EXPECT_GE(received_track_map.cone_array.size(), (long unsigned int)4);
 //   std::this_thread::sleep_for(std::chrono::seconds(2));
 // }
-
 
 // TODO(PedroRomao3)
 // rever finalização
