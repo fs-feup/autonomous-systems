@@ -194,7 +194,7 @@ TEST_F(IntegrationTest, PUBLISH_PATH1) {
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
 
     std::string filePath = rcpputils::fs::current_path().string()
-        + "/planning/planning/test/integration_tests.csv";
+        + "/performance/exec_time/planning.csv";
     std::ofstream file(filePath, std::ios::app);
     file << "planning, all, 4 cones, " << duration.count() << "\n";
     file.close();

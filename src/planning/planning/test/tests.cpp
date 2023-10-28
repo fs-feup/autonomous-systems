@@ -42,7 +42,7 @@ std::vector<Position> processTriangulations(std::string filename,
   }
 
   std::string filePrefix = rcpputils::fs::current_path().string();
-  std::string filePath = filePrefix + "/planning/planning/test/planning_measures.csv";
+  std::string filePath = filePrefix + "/performance/exec_time/planning.csv";
   std::ofstream measuresPath(filePath, std::ios_base::app);
   measuresPath << "planning,delaunay," << testname << "," << total_time / no_iters
     << "," << elapsed_time_zero_ms << "\n";
@@ -80,7 +80,7 @@ void outlierCalculations(std::string filename,
   }
 
   std::string filePrefix = rcpputils::fs::current_path().string();
-  std::string filePath = filePrefix + "/planning/planning/test/planning_measures.csv";
+  std::string filePath = filePrefix + "/performance/exec_time/planning.csv";
   std::ofstream measuresPath(filePath, std::ios_base::app);
   measuresPath << "planning,outliers," << testname << ","
     << total_time / no_iters << "," << elapsed_time_iter0_ms << "\n";
