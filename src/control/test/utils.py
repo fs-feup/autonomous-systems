@@ -1,7 +1,8 @@
 import os 
 import csv 
 
-EXEC_TIME_OUTPUT_FILE = os.path.dirname(os.path.abspath(__file__)) + '/../../performance/exec_time/control.csv'
+EXEC_TIME_OUTPUT_FILE = os.path.dirname(os.path.abspath(__file__)) + \
+    '/../../performance/exec_time/control.csv'
 
 
 #! 

@@ -64,9 +64,12 @@ class TestUtilsMethods(unittest.TestCase):
         save_exec_time('control', 'pid', 'callback+node',\
             np.array(dt).mean() * 1000)
 
-        print("Node and Pid calculated in ", np.array(dt).mean() * 1000, " ms. First time was {}".format(dt[0] * 1000))
-        print("Pid path processing calculated in ", np.array(dt2).mean() * 1000, " ms. First time was {}".format(dt2[0] * 1000))
-        print("Pid only calculated in ", np.array(dt3).mean() * 1000, " ms. First time was {}".format(dt3[0] * 1000))
+        print("Node and Pid calculated in ", np.array(dt).mean() * 1000, \
+              " ms. First time was {}".format(dt[0] * 1000))
+        print("Pid path processing calculated in ", np.array(dt2).mean() * 1000, \
+              " ms. First time was {}".format(dt2[0] * 1000))
+        print("Pid only calculated in ", np.array(dt3).mean() * 1000, \
+              " ms. First time was {}".format(dt3[0] * 1000))
         
 
     def test_mpc_callback(self):
@@ -114,9 +117,12 @@ class TestUtilsMethods(unittest.TestCase):
         save_exec_time('control', 'mpc', 'callback+node-' +\
             str(P.prediction_horizon) + 'ph', np.array(dt).mean() * 1000)
 
-        print("Node and Mpc calculated in ", np.array(dt).mean() * 1000, " ms. First time was {}".format(dt[0] * 1000))
-        print("Mpc path processing calculated in ", np.array(dt2).mean() * 1000, " ms. First time was {}".format(dt2[0] * 1000))
-        print("Mpc only calculated in ", np.array(dt3).mean() * 1000, " ms. First time was {}".format(dt3[0] * 1000))
+        print("Node and Mpc calculated in ", np.array(dt).mean() * 1000, \
+              " ms. First time was {}".format(dt[0] * 1000))
+        print("Mpc path processing calculated in ", np.array(dt2).mean() * 1000, \
+              " ms. First time was {}".format(dt2[0] * 1000))
+        print("Mpc only calculated in ", np.array(dt3).mean() * 1000, \
+              " ms. First time was {}".format(dt3[0] * 1000))
 
 
     def test_mpc_optimization(self):
@@ -179,7 +185,8 @@ class TestUtilsMethods(unittest.TestCase):
         save_exec_time('control', 'mpc', 'optimization_step-' +\
             str(P.prediction_horizon) + 'ph', np.array(dt).mean() * 1000)
         
-        print("Average optimization step is ", np.array(dt).mean() * 1000, " ms. First time was {}".format(dt[0] * 1000))
+        print("Average optimization step is ", np.array(dt).mean() * 1000, \
+              " ms. First time was {}".format(dt[0] * 1000))
         
         rclpy.shutdown()
 

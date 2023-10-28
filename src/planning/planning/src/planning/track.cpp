@@ -115,8 +115,8 @@ int Track::validateCones() {
   return leftOutliers + rightOutliers;
 }
 
-int Track::deleteOutliers(bool side, float distance_threshold,
-  int order, float coeffs_ratio, bool writing) {
+int Track::deleteOutliers(bool side, float distance_threshold, int order, float coeffs_ratio,
+                          bool writing) {
   std::vector<Cone*>& unord_cone_seq = side ? leftCones : rightCones;
   // if side = 1(left) | = 0(right)
 
@@ -289,15 +289,15 @@ int Track::deleteOutliers(bool side, float distance_threshold,
     std::string fileSide = side ? "1" : "0";
 
     std::string filePrefix = rcpputils::fs::current_path().string();
-    std::string splinePath = filePrefix + "/planning/planning/plots/spline" + fileSide +  ".txt";
+    std::string splinePath = filePrefix + "/planning/planning/plots/spline" + fileSide + ".txt";
     std::ofstream splinePathFile(splinePath);
 
     for (int i = 0; i < static_cast<int>(i_eval.size()); i++)
       splinePathFile << x_eval[i] << " " << y_eval[i] << "\n";
     splinePathFile.close();
 
-    std::string outlierPath = filePrefix + "/planning/planning/plots/deletedoutliers"
-      + fileSide +  ".txt";
+    std::string outlierPath =
+        filePrefix + "/planning/planning/plots/deletedoutliers" + fileSide + ".txt";
     std::ofstream outlierPathFile(outlierPath);
     for (int i = 0; i < static_cast<int>(cone_seq.size()); i++)
       outlierPathFile << cone_seq[i]->getX() << " " << cone_seq[i]->getY() << "\n";
