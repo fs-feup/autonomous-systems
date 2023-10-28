@@ -1340,7 +1340,7 @@ TEST_F(ExecTimeTest, PUBLISH_INTEGRATION_TEST_EKF_PRED_50) {
 }
 TEST_F(ExecTimeTest, PUBLISH_INTEGRATION_TEST_EKF_PRED_100) {
   // create motion update and state with adequate workload(size)
-  
+
   ekf_test->set_X(203);
   ekf_test->set_P(203);
   ekf_test->set_X_y(0, -15.0);
@@ -1904,7 +1904,7 @@ TEST_F(ExecTimeTest, PUBLISH_INTEGRATION_TEST_EKF_CORR_50) {
   ekf_test->push_to_colors(colors::Color::yellow);
 
   start_time = std::chrono::high_resolution_clock::now();
-  
+
   ekf_test->correction_step(coneMap);
 
   end_time = std::chrono::high_resolution_clock::now();
@@ -2234,9 +2234,8 @@ TEST_F(ExecTimeTest, PUBLISH_INTEGRATION_TEST_EKF_CORR_100) {
   ekf_test->set_X_y(202, 13.115020942687988);
   ekf_test->push_to_colors(colors::Color::yellow);
 
-
   start_time = std::chrono::high_resolution_clock::now();
-  
+
   ekf_test->correction_step(coneMap);
 
   end_time = std::chrono::high_resolution_clock::now();
@@ -2252,4 +2251,4 @@ TEST_F(ExecTimeTest, PUBLISH_INTEGRATION_TEST_EKF_CORR_100) {
 
 // TODO(PedroRomao3)
 // imrpove EKF step tests
-//clean up code and remove duplicate code
+// clean up code and remove duplicate code

@@ -3,8 +3,9 @@
 
 #include <Eigen/Dense>
 #include <iostream>
-#include "rclcpp/rclcpp.hpp"
+
 #include "loc_map/data_structures.hpp"
+#include "rclcpp/rclcpp.hpp"
 
 double ExtendedKalmanFilter::max_landmark_distance = 71.0;
 
