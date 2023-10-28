@@ -812,9 +812,7 @@ TEST_F(ExecTimeTest, PUBLISH_INTEGRATION_TEST_5CONES_AFTER_5) {
         received_track_map = *msg;
         if (helper > 0) {
           done = true;
-        }
-
-        else {
+        } else {
           helper++;
           cone_array_msg->cone_array.clear();
           cone_to_send.position.x = 4;
