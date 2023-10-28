@@ -226,3 +226,23 @@ LOC_MAP, EKF Prediction Step, 100, 90340
 LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 2568
 LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 77476
 LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 526331
+//TEST
+LOC_MAP, all, 1 cones, 394
+LOC_MAP, all, 3 cones, 365
+LOC_MAP, all, 50 cones, 3610
+LOC_MAP, all, 100 cones, 13525
+LOC_MAP, all, 200 cones, 33324
+LOC_MAP, all, 1X100 cones, 237
+LOC_MAP, all, 5X100 cones, 439
+LOC_MAP, all, 50X100 cones, 5431
+LOC_MAP, all, 100X100 cones, 13085
+LOC_MAP, all, 200X100 cones, 46884
+LOC_MAP, all,5 after 5, 1199
+LOC_MAP, all,50 after 50, 9121
+LOC_MAP, all,100 after 100, 37689
+LOC_MAP, EKF Prediction Step, 10, 334
+LOC_MAP, EKF Prediction Step, 50, 12540
+LOC_MAP, EKF Prediction Step, 100, 90506
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 2473
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 75751
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 513649

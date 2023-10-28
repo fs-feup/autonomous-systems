@@ -812,7 +812,8 @@ TEST_F(ExecTimeTest, PUBLISH_INTEGRATION_TEST_5CONES_AFTER_5) {
         received_track_map = *msg;
         if (helper > 0)
           done = true;
-        else {
+        else 
+        {
           helper++;
           cone_array_msg->cone_array.clear();
           cone_to_send.position.x = 4;
@@ -914,7 +915,8 @@ TEST_F(ExecTimeTest, PUBLISH_INTEGRATION_TEST_50CONES_AFTER_50) {
         received_track_map = *msg;
         if (helper > 0)
           done = true;
-        else {
+        else 
+        {
           helper++;
           cone_array_msg->cone_array.clear();
           for (int i = 0; i < 50; i++) {
@@ -1006,7 +1008,8 @@ TEST_F(ExecTimeTest, PUBLISH_INTEGRATION_TEST_100CONES_AFTER_100) {
         received_track_map = *msg;
         if (helper > 0)
           done = true;
-        else {
+        else 
+        {
           helper++;
           cone_array_msg->cone_array.clear();
           for (int i = 0; i < 100; i++) {
