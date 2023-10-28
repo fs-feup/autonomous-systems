@@ -810,8 +810,10 @@ TEST_F(ExecTimeTest, PUBLISH_INTEGRATION_TEST_5CONES_AFTER_5) {
       "track_map", 10, [this](const custom_interfaces::msg::ConeArray::SharedPtr msg) {
         // RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n\n TRACK RECEIVED \n\n");
         received_track_map = *msg;
-        if (helper > 0)
+        if (helper > 0) {
           done = true;
+        }
+
         else {
           helper++;
           cone_array_msg->cone_array.clear();
@@ -912,9 +914,9 @@ TEST_F(ExecTimeTest, PUBLISH_INTEGRATION_TEST_50CONES_AFTER_50) {
       "track_map", 10, [this](const custom_interfaces::msg::ConeArray::SharedPtr msg) {
         // RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n\n TRACK RECEIVED \n\n");
         received_track_map = *msg;
-        if (helper > 0)
+        if (helper > 0) {
           done = true;
-        else {
+        } else {
           helper++;
           cone_array_msg->cone_array.clear();
           for (int i = 0; i < 50; i++) {
@@ -1004,9 +1006,9 @@ TEST_F(ExecTimeTest, PUBLISH_INTEGRATION_TEST_100CONES_AFTER_100) {
       "track_map", 10, [this](const custom_interfaces::msg::ConeArray::SharedPtr msg) {
         // RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n\n TRACK RECEIVED \n\n");
         received_track_map = *msg;
-        if (helper > 0)
+        if (helper > 0) {
           done = true;
-        else {
+        } else {
           helper++;
           cone_array_msg->cone_array.clear();
           for (int i = 0; i < 100; i++) {
