@@ -121,6 +121,27 @@ class ExtendedKalmanFilter {
   void correction_step(const ConeMap& perception_map);
 
   /**
+   * @brief set X at y
+   *
+   * @param y index of X
+   * @param value value of X at y
+   */
+  void set_X_y(int y, float value);
+
+  
+  void set_P(const int size);
+
+  void set_X(const int size);
+
+
+  /**
+   * @brief pushes back to colors vector
+   *
+   * @param color color to be pushed back
+   */
+  void push_to_colors(colors::Color color);
+
+  /**
    * @brief Get the state vector
    *
    * @return Eigen::VectorXf state vector

@@ -3,7 +3,7 @@
 
 #include <Eigen/Dense>
 #include <iostream>
-
+#include "rclcpp/rclcpp.hpp"
 #include "loc_map/data_structures.hpp"
 
 double ExtendedKalmanFilter::max_landmark_distance = 71.0;
@@ -41,14 +41,19 @@ void ExtendedKalmanFilter::prediction_step(const MotionUpdate& motion_update) {
       std::chrono::high_resolution_clock::now();
   double delta =
       std::chrono::duration_cast<std::chrono::microseconds>(now - this->_last_update).count();
+  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n\n HERE I AM THIS IS ME#12 \n\n");
   this->_last_motion_update = motion_update;
   Eigen::VectorXf tempX = this->X;
   this->X = this->_motion_model.predict_expected_state(tempX, motion_update, delta / 1000000);
+  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n\n HERE I AM THIS IS ME#13 \n\n");
   Eigen::MatrixXf G =
       this->_motion_model.get_motion_to_state_matrix(tempX, motion_update, delta / 1000000);
+  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n\n HERE I AM THIS IS ME#14 \n\n");
   Eigen::MatrixXf R = this->_motion_model.get_process_noise_covariance_matrix(
       this->X.size());  // Process Noise Matrix
+  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n\n HERE I AM THIS IS ME#15 \n\n");
   this->P = G * this->P * G.transpose() + R;
+  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n\n HERE I AM THIS IS ME#16 \n\n");
   this->_last_update = now;
 }
 
@@ -71,6 +76,16 @@ void ExtendedKalmanFilter::correction_step(const ConeMap& perception_map) {
   }
 }
 
+void ExtendedKalmanFilter::set_X_y(int y, float value) { this->X(y) = value; }
+void ExtendedKalmanFilter::push_to_colors(colors::Color color) { _colors.push_back(color); }
+
+void ExtendedKalmanFilter::set_P(int size) {
+  this->P = Eigen::MatrixXf::Zero(size, size);
+  this->P(0, 0) = 1.1;
+  this->P(1, 1) = 1.1;
+  this->P(2, 2) = 1.1;
+}
+void ExtendedKalmanFilter::set_X(int size) { this->X = Eigen::VectorXf::Zero(size); }
 Eigen::MatrixXf ExtendedKalmanFilter::get_kalman_gain(const Eigen::MatrixXf& H,
                                                       const Eigen::MatrixXf& P,
                                                       const Eigen::MatrixXf& Q) {
