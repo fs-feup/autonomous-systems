@@ -1,6 +1,6 @@
 # Planning Module
 
-The planning module is the third main module in the autonomous system. It comes after the Localization and Mapping processing and precedes the control module. It is responsible for processing the cones information(position and color) and to calculate the best path for the car to follow considering the received track. It then sends the desired path to the control in the form of a ordered position sequence.
+The planning module is the third main module in the autonomous system. It comes after the Localization and Mapping processing and precedes the Control module. It is responsible for processing the cones information(position and color) and to calculate the best path for the car to follow considering the received track. It then sends the desired path to the control in the form of a ordered position sequence.
 
 ## Run the Node
 
