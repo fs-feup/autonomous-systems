@@ -7,7 +7,6 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
-# find_package(ament_cmake_gtest REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(std_msgs REQUIRED)
@@ -25,26 +24,20 @@ set(IMPLEMENTATION_FILES
   src/utils/formulas.cpp
   src/utils/color.cpp
   src/adapter/adapter.cpp
-  )
+)
 
 add_executable(${PROJECT_NAME} src/loc_map.cpp ${IMPLEMENTATION_FILES})
 ament_target_dependencies(${PROJECT_NAME} rclcpp std_msgs sensor_msgs eufs_msgs fs_msgs custom_interfaces Eigen3)
 target_include_directories(${PROJECT_NAME} PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
-target_compile_features(loc_map PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+target_compile_features(loc_map PUBLIC c_std_99 cxx_std_17)
 
 install(TARGETS loc_map
   DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
-  # the following line skips the linter which checks for copyrights
-  # uncomment the line when a copyright and license is not present in all source files
-  #set(ament_cmake_copyright_FOUND TRUE)
-  # the following line skips cpplint (only works in a git repo)
-  # uncomment the line when this package is not in a git repo
-  #set(ament_cmake_cpplint_FOUND TRUE)
   find_package(ament_cmake_gtest REQUIRED)
   find_package(custom_interfaces REQUIRED)
   find_package(rclcpp REQUIRED)
@@ -58,24 +51,21 @@ if(BUILD_TESTING)
   set(TESTFILES 
     test/main.cpp
     test/integration_test.cpp
-    #test/performance_test.cpp
-    #test/motion_model_test.cpp
-    #test/observation_model_test.cpp
-    #test/slam_test.cpp
-    )
+    test/EKF_steps_exec_time.cpp
+    test/motion_model_test.cpp
+    test/observation_model_test.cpp
+    test/slam_test.cpp
+  )
   
+  include_directories(test)  # Include the 'test' directory for your test targets
+  include_directories(${CMAKE_CURRENT_SOURCE_DIR})  # Include the current source directory
   ament_add_gtest(${PROJECT_NAME}_test ${TESTFILES} ${IMPLEMENTATION_FILES})
   ament_target_dependencies(${PROJECT_NAME}_test rclcpp std_msgs eufs_msgs sensor_msgs fs_msgs custom_interfaces)
   target_include_directories(${PROJECT_NAME}_test PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>)
 
-  install(TARGETS
-    ${PROJECT_NAME}_test
-    # Install the generated test executable file to the path after DESTINATION
-    DESTINATION lib/${PROJECT_NAME})
-
-  # ament_lint_auto_find_test_dependencies()
+  install(TARGETS ${PROJECT_NAME}_test DESTINATION lib/${PROJECT_NAME})
 endif()
 
 ament_package()

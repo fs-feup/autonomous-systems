@@ -42,19 +42,14 @@ void ExtendedKalmanFilter::prediction_step(const MotionUpdate& motion_update) {
       std::chrono::high_resolution_clock::now();
   double delta =
       std::chrono::duration_cast<std::chrono::microseconds>(now - this->_last_update).count();
-  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n\n HERE I AM THIS IS ME#12 \n\n");
   this->_last_motion_update = motion_update;
   Eigen::VectorXf tempX = this->X;
   this->X = this->_motion_model.predict_expected_state(tempX, motion_update, delta / 1000000);
-  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n\n HERE I AM THIS IS ME#13 \n\n");
   Eigen::MatrixXf G =
       this->_motion_model.get_motion_to_state_matrix(tempX, motion_update, delta / 1000000);
-  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n\n HERE I AM THIS IS ME#14 \n\n");
   Eigen::MatrixXf R = this->_motion_model.get_process_noise_covariance_matrix(
       this->X.size());  // Process Noise Matrix
-  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n\n HERE I AM THIS IS ME#15 \n\n");
   this->P = G * this->P * G.transpose() + R;
-  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n\n HERE I AM THIS IS ME#16 \n\n");
   this->_last_update = now;
 }
 

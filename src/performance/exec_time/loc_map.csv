@@ -1,47 +1,57 @@
-LOC_MAP, EKF Correction Step, 100 and 10 From "perception",, 639846
-LOC_MAP, all,1 CONE, 864
-LOC_MAP, all,3 CONES, 658
-LOC_MAP, all,50 CONES, 5797
-LOC_MAP, all,100 CONES, 15743
-LOC_MAP, all,200 CONES, 48641
-LOC_MAP, all,1 X 100 CONES, 311
-LOC_MAP, all,5 X 100 CONES, 706
-LOC_MAP, all,50 X 100 CONES, 6447
-LOC_MAP, all,100 X 100 CONES, 16724
-LOC_MAP, all,200 X 100 CONES, 56166
-LOC_MAP, all,5 AFTER 5 CONES, 1610
-LOC_MAP, all,50 AFTER 50, 15955
-LOC_MAP, all,100 AFTER 100 CONES, 46532
-LOC_MAP, EKF pred step, 10, 443
-LOC_MAP, EKF pred step, 50, 14871
-LOC_MAP, EKF pred step, 100, 105916
-LOC_MAP, EKF Correction Step, 10 and 10 From "perception",, 3992
-LOC_MAP, EKF Correction Step, 50 and 10 From "perception",, 97358
-LOC_MAP, EKF Correction Step, 100 and 10 From "perception",, 647095
-//LOC_MAP, all,1 CONE, 725
-LOC_MAP, all,3 CONES, 710
-LOC_MAP, all,50 CONES, 6388
-LOC_MAP, all,100 CONES, 17273
-LOC_MAP, all,200 CONES, 41835
-LOC_MAP, all,1 X 100 CONES, 331
-LOC_MAP, all,5 X 100 CONES, 835
-LOC_MAP, all,50 X 100 CONES, 8571
-LOC_MAP, all,100 X 100 CONES, 15952
-LOC_MAP, all,200 X 100 CONES, 57922
-LOC_MAP, all,5 AFTER 5 CONES, 1523
-LOC_MAP, all,50 AFTER 50, 15019
-LOC_MAP, all,100 AFTER 100 CONES, 57542
-LOC_MAP, EKF pred step, 10, 335
-LOC_MAP, EKF pred step, 50, 20110
-LOC_MAP, EKF pred step, 100, 155397
-LOC_MAP, EKF Correction Step, 10 and 10 From "perception",, 4059
-LOC_MAP, EKF Correction Step, 50 and 10 From "perception",, 97745
-LOC_MAP, EKF Correction Step, 100 and 10 From "perception",, 640138
-LOC_MAP, all,1 CONE, 806
-LOC_MAP, all,3 CONES, 512
-LOC_MAP, all,50 CONES, 4634
-LOC_MAP, all,100 CONES, 15871
-LOC_MAP, all,200 CONES, 36984
-LOC_MAP, all,1 X 100 CONES, 308
-LOC_MAP, all,5 X 100 CONES, 754
-LOC_MAP, all,50 X 100 CONES, 6564
+LOC_MAP, all,1 CONE, 0.442000 ms
+LOC_MAP, all,3 CONES, 0.398000 ms
+LOC_MAP, all,50 CONES, 3.677000 ms
+LOC_MAP, all,100 CONES, 13.999000 ms
+LOC_MAP, all,200 CONES, 34.842000 ms
+LOC_MAP, all,1 X 100 CONES, 0.169000 ms
+LOC_MAP, all,5 X 100 CONES, 0.476000 ms
+LOC_MAP, all,50 X 100 CONES, 5.255000 ms
+LOC_MAP, all,100 X 100 CONES, 13.228000 ms
+LOC_MAP, all,200 X 100 CONES, 48.552000 ms
+LOC_MAP, all,5 AFTER 5 CONES, 1.224000 ms
+LOC_MAP, all,50 AFTER 50, 9.161000 ms
+LOC_MAP, all,100 AFTER 100 CONES, 39.605000 ms
+LOC_MAP, EKF pred step, 10, 0.259000 ms
+LOC_MAP, EKF pred step, 50, 12.817000 ms
+LOC_MAP, EKF pred step, 100, 94.971000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 2.383000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 82.967000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 556.204000 ms
+LOC_MAP, all,1 CONE, 0.503000 ms
+LOC_MAP, all,3 CONES, 0.400000 ms
+LOC_MAP, all,50 CONES, 3.811000 ms
+LOC_MAP, all,100 CONES, 14.253000 ms
+LOC_MAP, all,200 CONES, 35.002000 ms
+LOC_MAP, all,1 X 100 CONES, 0.180000 ms
+LOC_MAP, all,5 X 100 CONES, 0.488000 ms
+LOC_MAP, all,50 X 100 CONES, 5.395000 ms
+LOC_MAP, all,100 X 100 CONES, 13.785000 ms
+LOC_MAP, all,200 X 100 CONES, 49.336000 ms
+LOC_MAP, all,5 AFTER 5 CONES, 1.229000 ms
+LOC_MAP, all,50 AFTER 50, 9.388000 ms
+LOC_MAP, all,100 AFTER 100 CONES, 40.334000 ms
+LOC_MAP, EKF pred step, 10, 0.325000 ms
+LOC_MAP, EKF pred step, 50, 12.939000 ms
+LOC_MAP, EKF pred step, 100, 95.918000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 2.399000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 83.922000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 541.877000 ms
+LOC_MAP, all,1 CONE, 0.466000 ms
+LOC_MAP, all,3 CONES, 0.400000 ms
+LOC_MAP, all,50 CONES, 3.971000 ms
+LOC_MAP, all,100 CONES, 13.939000 ms
+LOC_MAP, all,200 CONES, 33.332000 ms
+LOC_MAP, all,1 X 100 CONES, 0.159000 ms
+LOC_MAP, all,5 X 100 CONES, 0.454000 ms
+LOC_MAP, all,50 X 100 CONES, 5.032000 ms
+LOC_MAP, all,100 X 100 CONES, 13.176000 ms
+LOC_MAP, all,200 X 100 CONES, 47.276000 ms
+LOC_MAP, all,5 AFTER 5 CONES, 1.255000 ms
+LOC_MAP, all,50 AFTER 50, 9.650000 ms
+LOC_MAP, all,100 AFTER 100 CONES, 38.402000 ms
+LOC_MAP, EKF pred step, 10, 0.230000 ms
+LOC_MAP, EKF pred step, 50, 12.392000 ms
+LOC_MAP, EKF pred step, 100, 90.735000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 2.417000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 80.919000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 527.573000 ms
