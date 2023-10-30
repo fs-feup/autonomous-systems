@@ -7,9 +7,6 @@
 
 #include <fstream>  //to write file
 
-#include "gtest/gtest.h"
-#include "loc_map/lm_node.hpp"
-#include "rclcpp/rclcpp.hpp"
 #include "test/fixture.hpp"
 
 TEST_F(ExecTimeTest, PUBLISH_INTEGRATION_TEST_EKF_PRED_10) {
