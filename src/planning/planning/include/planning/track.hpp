@@ -12,6 +12,7 @@
 
 #include "rclcpp/rclcpp.hpp"
 #include "utils/cone.hpp"
+#include "utils/files.hpp"
 
 /**
  * Track class. Contains the track information data and the cones position
@@ -124,39 +125,43 @@ class Track {
    */
   int validateCones();
   /**
-   * @brief Delete outliers from the track.
-   *
-   * @param side Whether to delete outliers from the left (true) or right (false) cone list.
-   * @param distance_threshold The distance threshold for identifying outliers.
-   * @param order The order for fitting the spline.
-   * @param coeffs_ratio The ratio of coefficients to cone count for fitting the spline.
-   * @return The number of deleted outliers.
-   * @details The `deleteOutliers` function is designed to remove the cone outliers from the track.
-   * Outliers are data points that significantly deviate from the expected pattern or behavior of
-   * the track.
-   *
-   * The function operates based on the provided parameters:
-   *
-   * - `side`: When `side` is set to `true`, outliers are removed from the left side
-   *   of the cone list; when set to `false`, outliers are removed from the right side.
-   * - `distance_threshold`: This parameter determines the maximum allowable distance
-   *   for a point to be considered an outlier. Points exceeding this distance from
-   *   the expected behavior are identified as outliers.
-   * - `order`: The order parameter influences the degree of the B-spline used for
-   *   modeling the track. A higher order generally allows for more flexible curve fitting.
-   * - `coeffs_ratio`: This parameter controls the complexity of the B-spline fitting
-   *   process by specifying the ratio of coefficients to the total cone count.
-   *
-   * The function combines B-spline modeling, linear regression, and outlier detection
-   * techniques to identify and remove outliers effectively. The specific implementation
-   * details, such as how B-splines are created and evaluated, how linear regression is
-   * applied, and how the outlier detection process works, are encapsulated within the
-   * function's logic.
-   *
-   * @return The function returns the count of outliers that were successfully removed
-   * from the track.
-   */
-  int deleteOutliers(bool side, float distance_threshold, int order, float coeffs_ratio);
+
+ * @brief Delete outliers from the track.
+ *
+ * @param side Whether to delete outliers from the left (true) or right (false) cone list.
+ * @param distance_threshold The distance threshold for identifying outliers.
+ * @param order The order for fitting the spline.
+ * @param coeffs_ratio The ratio of coefficients to cone count for fitting the spline.
+ * @param writing Whether it's pretended to write splines or removed cones information to a file
+ * @return The number of deleted outliers.
+ * @details The `deleteOutliers` function is designed to remove the cone outliers from the track.
+ * Outliers are data points that significantly deviate from the expected pattern or behavior of the
+ track.
+ *
+ * The function operates based on the provided parameters:
+ *
+ * - `side`: When `side` is set to `true`, outliers are removed from the left side
+ *   of the cone list; when set to `false`, outliers are removed from the right side.
+ * - `distance_threshold`: This parameter determines the maximum allowable distance
+ *   for a point to be considered an outlier. Points exceeding this distance from
+ *   the expected behavior are identified as outliers.
+ * - `order`: The order parameter influences the degree of the B-spline used for
+ *   modeling the track. A higher order generally allows for more flexible curve fitting.
+ * - `coeffs_ratio`: This parameter controls the complexity of the B-spline fitting
+ *   process by specifying the ratio of coefficients to the total cone count.
+ *
+ * The function combines B-spline modeling, linear regression, and outlier detection
+ * techniques to identify and remove outliers effectively. The specific implementation
+ * details, such as how B-splines are created and evaluated, how linear regression is
+ * applied, and how the outlier detection process works, are encapsulated within the
+ * function's logic.
+ *
+ * @return The function returns the count of outliers that were successfully removed
+ * from the track.
+ */
+  int deleteOutliers(bool side, float distance_threshold, int order, float coeffs_ratio,
+                     bool writing);
+
   /**
    * @brief Reset the track by clearing cone lists.
    */

@@ -7,7 +7,7 @@ yMidList = []
 
 colorList = []
 count = 0
-with open('../tracks/map_test2.txt', 'r') as f:
+with open('../tracks/outlier_test1.txt', 'r') as f:
     for line in f:   
         lineList = line.split(" ")
         lineList[2]=lineList[2].strip()
@@ -32,6 +32,6 @@ with open('../tracks/finalPath.txt', 'r') as f:
         yMidList.append(float(lineList[1]))
         colorList.append("#00aa00")
             
-plt.scatter(xTrackList+ xMidList, yTrackList + yMidList, s = 50, c = colorList)
+plt.scatter(xTrackList+ xMidList, yTrackList + yMidList, s = 5, c = colorList)
 plt.axis('equal')
 plt.show()

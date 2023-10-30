@@ -52,8 +52,8 @@ class ControlAdapter():
 
             msg.axle_speed_request = 2 * speed * 60 / P.tire_diam
             msg.steering_angle_request = np.degrees(steering_angle)
-            msg.axle_torque_request = torque_req
-            msg.brake_press_request = break_req
+            msg.axle_torque_request = float(torque_req)
+            msg.brake_press_request = float(break_req)
 
         self.cmd_publisher.publish(msg)
 
