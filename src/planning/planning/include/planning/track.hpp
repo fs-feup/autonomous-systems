@@ -12,6 +12,7 @@
 
 #include "rclcpp/rclcpp.hpp"
 #include "utils/cone.hpp"
+#include "utils/files.hpp"
 
 /**
  * Track class. Contains the track information data and the cones position

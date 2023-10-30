@@ -3,39 +3,42 @@
 #include "gtest/gtest.h"
 #include "planning/planning.hpp"
 #include "rclcpp/rclcpp.hpp"
+#include "utils/files.hpp"
 
 class IntegrationTest : public ::testing::Test {
  protected:
+  // Required Nodes
   std::shared_ptr<rclcpp::Node> locmap_sender;
   std::shared_ptr<rclcpp::Node> control_receiver;
   std::shared_ptr<rclcpp::Node> planning_test;
 
-  custom_interfaces::msg::ConeArray cone_array_msg;
-  custom_interfaces::msg::PointArray received_path;
+  custom_interfaces::msg::ConeArray cone_array_msg; // message to receive
+  custom_interfaces::msg::PointArray received_path; // message to send
 
+  // Publisher and Subscriber
   std::shared_ptr<rclcpp::Publisher<custom_interfaces::msg::ConeArray>> map_publisher;
-
   std::shared_ptr<rclcpp::Subscription<custom_interfaces::msg::PointArray>> control_sub;
 
   void SetUp() override {
     rclcpp::init(0, nullptr);
 
-    control_receiver =
-        rclcpp::Node::make_shared("control_receiver");           // receives path from planning
+    // Init Nodes
+    control_receiver = rclcpp::Node::make_shared("control_receiver"); // gets path from planning
     locmap_sender = rclcpp::Node::make_shared("locmap_sender");  // publishes map from loc_map
+    planning_test = std::make_shared<Planning>(); // processes planning
 
-    cone_array_msg = custom_interfaces::msg::ConeArray();
+    cone_array_msg = custom_interfaces::msg::ConeArray(); // init received message
 
+    // Init Publisher
     map_publisher =
         locmap_sender->create_publisher<custom_interfaces::msg::ConeArray>("track_map", 10);
 
+    // Init Subscriber
     control_sub = control_receiver->create_subscription<custom_interfaces::msg::PointArray>(
         "planning_local", 10, [this](const custom_interfaces::msg::PointArray::SharedPtr msg) {
           received_path = *msg;
-          rclcpp::shutdown();
-        });  // subscribe to planning topic to get the published path
-
-    planning_test = std::make_shared<Planning>();
+          rclcpp::shutdown(); // When receives message shuts down
+        });
   }
 
   void TearDown() override {
@@ -181,21 +184,22 @@ TEST_F(IntegrationTest, PUBLISH_PATH1) {
 
   // std::this_thread::sleep_for(std::chrono::seconds(3));
   map_publisher->publish(cone_array_msg);  // send the cones
+
+  // Add nodes to be executed
   rclcpp::executors::MultiThreadedExecutor executor;
   executor.add_node(locmap_sender);
   executor.add_node(planning_test);
   executor.add_node(control_receiver);
-  auto start_time = std::chrono::high_resolution_clock::now();
-  executor.spin();
 
+  auto start_time = std::chrono::high_resolution_clock::now();
+  executor.spin(); // Execute nodes
   auto end_time = std::chrono::high_resolution_clock::now();
+
   auto duration = std::chrono::duration<double, std::milli>(end_time - start_time);
 
   RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
 
-  std::string filePath =
-      rcpputils::fs::current_path().string() + "/performance/exec_time/planning.csv";
-  std::ofstream file(filePath, std::ios::app);
+  std::ofstream file = openWriteFile("performance/exec_time/planning.csv");
   file << "planning, all, 4 cones, " << duration.count() << "\n";
   file.close();
 
