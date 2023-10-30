@@ -160,6 +160,12 @@ TODO: Investigate where camera data comes from
 
 ### Using a Node (via programming) - Publishing Sensor Data
 
-# Notes
+## Evaluation Tool
+
+An evaluation tool ([plots](../../src/plots/README.md)) was developed, with the goal of enabling the generation of metrics and graphics that can register the performance of the system. More information about it is in its readme.
+
+![Screenshot of Plots](../../docs/assets/plots/screenshot.png)
+
+## Notes
 
 - ~~Weird error when trying to get information on the groundtruth topics of the SIM: “The passed message type is invalid” and “The message type 'eufs_msgs/msg/ConeArrayWithCovariance' is invalid”~~ (problem is solved by running `source install/setup.bash` in every new shell that is open).
