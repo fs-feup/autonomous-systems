@@ -38,8 +38,7 @@ class ExecTimeTest : public ::testing::Test {
   bool done;
   std::string workload;
   void print_to_file() {
-    std::ofstream file(
-        "../../src/performance/exec_time/loc_map.csv", std::ios::app);  // append
+    std::ofstream file("../../src/performance/exec_time/loc_map.csv", std::ios::app);  // append
     file << "LOC_MAP, " << workload << ", " << duration.count() << "\n";
     file.close();
   }
