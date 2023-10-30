@@ -13,7 +13,8 @@ pip install cvbridge3
 pip install pyzed
 
 # planning
-sudo apt install libcgal-dev
+sudo apt-get install libcgal-dev
+sudo apt-get install libgsl-dev
 
 # control
 pip3 install transform3d
