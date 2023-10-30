@@ -1,16 +1,12 @@
 
 #include <fstream>  //to write file
+#include <memory>
+#include <string>
 
 #include "gtest/gtest.h"
 #include "loc_map/lm_node.hpp"
 #include "rclcpp/rclcpp.hpp"
 // microsegundos - /100
-
-#include <fstream>  //to write file
-
-#include "gtest/gtest.h"
-#include "loc_map/lm_node.hpp"
-#include "rclcpp/rclcpp.hpp"
 
 class ExecTimeTest : public ::testing::Test {
  protected:
@@ -58,8 +54,8 @@ class ExecTimeTest : public ::testing::Test {
 
   void fill_X(int size) {
     for (int i = 3; i <= size; i++) {
-      double randomX = ((double)rand() / RAND_MAX) * 50.0;
-      double randomY = ((double)rand() / RAND_MAX) * 50.0;
+      double randomX = (static_cast<double> (rand() / RAND_MAX)) * 50.0;
+      double randomY = (static_cast<double> (rand() / RAND_MAX)) * 50.0;
 
       // Call set_X_y for X and Y values
       ekf_test->set_X_y(i, randomX);
