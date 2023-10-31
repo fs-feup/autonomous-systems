@@ -16,6 +16,11 @@ You will need CGAL library for the Delaunay Triangulations. GSL library for the 
 ```SHELL
 	colcon build --packages-select planning custom_interfaces
 ```
+### Souce 
+
+```SHELL
+	source ./install/setup.bash
+```
 
 ### Run
 
