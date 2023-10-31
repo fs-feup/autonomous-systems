@@ -1,0 +1,159 @@
+\hypertarget{classcontrol_1_1mpc_1_1MPC}{}\doxysection{MPC Class Reference}
+\label{classcontrol_1_1mpc_1_1MPC}\index{MPC@{MPC}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{classcontrol_1_1mpc_1_1MPC_a174685134793a058401a63de31685aef}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classcontrol_1_1mpc_1_1MPC_a2f4ab7bf743142dae2e459aa18f9f1d4}{action}}, \mbox{\hyperlink{classcontrol_1_1mpc_1_1MPC_adc6e5733fc3c22f0a7b2914188c49c90}{state}}, \mbox{\hyperlink{classcontrol_1_1mpc_1_1MPC_aa28dc103258589d9cb421197fe2de90b}{path}}, \mbox{\hyperlink{classcontrol_1_1mpc_1_1MPC_ad7f250f1385e71df230853fc1a37c7f5}{closest\+\_\+ind}})
+\item 
+def \mbox{\hyperlink{classcontrol_1_1mpc_1_1MPC_ad22709b2e67308af35f55680d5a026e0}{run}} (self)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classcontrol_1_1mpc_1_1MPC}{MPC}} run function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classcontrol_1_1mpc_1_1MPC_a7690ebdf56fb15ed349c1bab5fef1790}{a\+\_\+history}}
+\item 
+\mbox{\hyperlink{classcontrol_1_1mpc_1_1MPC_a2f4ab7bf743142dae2e459aa18f9f1d4}{action}}
+\item 
+\mbox{\hyperlink{classcontrol_1_1mpc_1_1MPC_ad7f250f1385e71df230853fc1a37c7f5}{closest\+\_\+ind}}
+\item 
+\mbox{\hyperlink{classcontrol_1_1mpc_1_1MPC_affdd5e4bc19f1957c45df0aa4bc5e6c1}{d\+\_\+history}}
+\item 
+\mbox{\hyperlink{classcontrol_1_1mpc_1_1MPC_a0b10589f51b050e9d29efa636372331b}{h\+\_\+history}}
+\item 
+\mbox{\hyperlink{classcontrol_1_1mpc_1_1MPC_a52d081305056eef43558c450f6b7a798}{old\+\_\+closest\+\_\+ind}}
+\item 
+\mbox{\hyperlink{classcontrol_1_1mpc_1_1MPC_ad88e76f3545491d01bde8eae56cee493}{opt\+\_\+u}}
+\item 
+\mbox{\hyperlink{classcontrol_1_1mpc_1_1MPC_aa28dc103258589d9cb421197fe2de90b}{path}}
+\item 
+\mbox{\hyperlink{classcontrol_1_1mpc_1_1MPC_a894ef3fa8e3517d883a1685076e4e38a}{predicted}}
+\item 
+\mbox{\hyperlink{classcontrol_1_1mpc_1_1MPC_a6bb04973e551c83f6002b333c3bd56df}{sim\+\_\+time}}
+\item 
+\mbox{\hyperlink{classcontrol_1_1mpc_1_1MPC_adc6e5733fc3c22f0a7b2914188c49c90}{state}}
+\item 
+\mbox{\hyperlink{classcontrol_1_1mpc_1_1MPC_a26ba1eabf900fcd6a9542f6e1ae99c56}{v\+\_\+history}}
+\item 
+\mbox{\hyperlink{classcontrol_1_1mpc_1_1MPC_a27576dd52b42606cf1e4798bda17483c}{x\+\_\+history}}
+\item 
+\mbox{\hyperlink{classcontrol_1_1mpc_1_1MPC_a68920d37fbe5a403aa79e71b932c6167}{y\+\_\+history}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classcontrol_1_1mpc_1_1MPC_a174685134793a058401a63de31685aef}\label{classcontrol_1_1mpc_1_1MPC_a174685134793a058401a63de31685aef}} 
+\index{MPC@{MPC}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!MPC@{MPC}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def \+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{action,  }\item[{}]{state,  }\item[{}]{path,  }\item[{}]{closest\+\_\+ind }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classcontrol_1_1mpc_1_1MPC_ad22709b2e67308af35f55680d5a026e0}\label{classcontrol_1_1mpc_1_1MPC_ad22709b2e67308af35f55680d5a026e0}} 
+\index{MPC@{MPC}!run@{run}}
+\index{run@{run}!MPC@{MPC}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily def run (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classcontrol_1_1mpc_1_1MPC}{MPC}} run function. 
+
+Pre-\/processes the current state, calls the optimizer and save the actions. 
+\begin{DoxyParams}{Parameters}
+{\em self} & The object pointer. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classcontrol_1_1mpc_1_1MPC_a7690ebdf56fb15ed349c1bab5fef1790}\label{classcontrol_1_1mpc_1_1MPC_a7690ebdf56fb15ed349c1bab5fef1790}} 
+\index{MPC@{MPC}!a\_history@{a\_history}}
+\index{a\_history@{a\_history}!MPC@{MPC}}
+\doxysubsubsection{\texorpdfstring{a\_history}{a\_history}}
+{\footnotesize\ttfamily a\+\_\+history}
+
+\mbox{\Hypertarget{classcontrol_1_1mpc_1_1MPC_a2f4ab7bf743142dae2e459aa18f9f1d4}\label{classcontrol_1_1mpc_1_1MPC_a2f4ab7bf743142dae2e459aa18f9f1d4}} 
+\index{MPC@{MPC}!action@{action}}
+\index{action@{action}!MPC@{MPC}}
+\doxysubsubsection{\texorpdfstring{action}{action}}
+{\footnotesize\ttfamily action}
+
+\mbox{\Hypertarget{classcontrol_1_1mpc_1_1MPC_ad7f250f1385e71df230853fc1a37c7f5}\label{classcontrol_1_1mpc_1_1MPC_ad7f250f1385e71df230853fc1a37c7f5}} 
+\index{MPC@{MPC}!closest\_ind@{closest\_ind}}
+\index{closest\_ind@{closest\_ind}!MPC@{MPC}}
+\doxysubsubsection{\texorpdfstring{closest\_ind}{closest\_ind}}
+{\footnotesize\ttfamily closest\+\_\+ind}
+
+\mbox{\Hypertarget{classcontrol_1_1mpc_1_1MPC_affdd5e4bc19f1957c45df0aa4bc5e6c1}\label{classcontrol_1_1mpc_1_1MPC_affdd5e4bc19f1957c45df0aa4bc5e6c1}} 
+\index{MPC@{MPC}!d\_history@{d\_history}}
+\index{d\_history@{d\_history}!MPC@{MPC}}
+\doxysubsubsection{\texorpdfstring{d\_history}{d\_history}}
+{\footnotesize\ttfamily d\+\_\+history}
+
+\mbox{\Hypertarget{classcontrol_1_1mpc_1_1MPC_a0b10589f51b050e9d29efa636372331b}\label{classcontrol_1_1mpc_1_1MPC_a0b10589f51b050e9d29efa636372331b}} 
+\index{MPC@{MPC}!h\_history@{h\_history}}
+\index{h\_history@{h\_history}!MPC@{MPC}}
+\doxysubsubsection{\texorpdfstring{h\_history}{h\_history}}
+{\footnotesize\ttfamily h\+\_\+history}
+
+\mbox{\Hypertarget{classcontrol_1_1mpc_1_1MPC_a52d081305056eef43558c450f6b7a798}\label{classcontrol_1_1mpc_1_1MPC_a52d081305056eef43558c450f6b7a798}} 
+\index{MPC@{MPC}!old\_closest\_ind@{old\_closest\_ind}}
+\index{old\_closest\_ind@{old\_closest\_ind}!MPC@{MPC}}
+\doxysubsubsection{\texorpdfstring{old\_closest\_ind}{old\_closest\_ind}}
+{\footnotesize\ttfamily old\+\_\+closest\+\_\+ind}
+
+\mbox{\Hypertarget{classcontrol_1_1mpc_1_1MPC_ad88e76f3545491d01bde8eae56cee493}\label{classcontrol_1_1mpc_1_1MPC_ad88e76f3545491d01bde8eae56cee493}} 
+\index{MPC@{MPC}!opt\_u@{opt\_u}}
+\index{opt\_u@{opt\_u}!MPC@{MPC}}
+\doxysubsubsection{\texorpdfstring{opt\_u}{opt\_u}}
+{\footnotesize\ttfamily opt\+\_\+u}
+
+\mbox{\Hypertarget{classcontrol_1_1mpc_1_1MPC_aa28dc103258589d9cb421197fe2de90b}\label{classcontrol_1_1mpc_1_1MPC_aa28dc103258589d9cb421197fe2de90b}} 
+\index{MPC@{MPC}!path@{path}}
+\index{path@{path}!MPC@{MPC}}
+\doxysubsubsection{\texorpdfstring{path}{path}}
+{\footnotesize\ttfamily path}
+
+\mbox{\Hypertarget{classcontrol_1_1mpc_1_1MPC_a894ef3fa8e3517d883a1685076e4e38a}\label{classcontrol_1_1mpc_1_1MPC_a894ef3fa8e3517d883a1685076e4e38a}} 
+\index{MPC@{MPC}!predicted@{predicted}}
+\index{predicted@{predicted}!MPC@{MPC}}
+\doxysubsubsection{\texorpdfstring{predicted}{predicted}}
+{\footnotesize\ttfamily predicted}
+
+\mbox{\Hypertarget{classcontrol_1_1mpc_1_1MPC_a6bb04973e551c83f6002b333c3bd56df}\label{classcontrol_1_1mpc_1_1MPC_a6bb04973e551c83f6002b333c3bd56df}} 
+\index{MPC@{MPC}!sim\_time@{sim\_time}}
+\index{sim\_time@{sim\_time}!MPC@{MPC}}
+\doxysubsubsection{\texorpdfstring{sim\_time}{sim\_time}}
+{\footnotesize\ttfamily sim\+\_\+time}
+
+\mbox{\Hypertarget{classcontrol_1_1mpc_1_1MPC_adc6e5733fc3c22f0a7b2914188c49c90}\label{classcontrol_1_1mpc_1_1MPC_adc6e5733fc3c22f0a7b2914188c49c90}} 
+\index{MPC@{MPC}!state@{state}}
+\index{state@{state}!MPC@{MPC}}
+\doxysubsubsection{\texorpdfstring{state}{state}}
+{\footnotesize\ttfamily state}
+
+\mbox{\Hypertarget{classcontrol_1_1mpc_1_1MPC_a26ba1eabf900fcd6a9542f6e1ae99c56}\label{classcontrol_1_1mpc_1_1MPC_a26ba1eabf900fcd6a9542f6e1ae99c56}} 
+\index{MPC@{MPC}!v\_history@{v\_history}}
+\index{v\_history@{v\_history}!MPC@{MPC}}
+\doxysubsubsection{\texorpdfstring{v\_history}{v\_history}}
+{\footnotesize\ttfamily v\+\_\+history}
+
+\mbox{\Hypertarget{classcontrol_1_1mpc_1_1MPC_a27576dd52b42606cf1e4798bda17483c}\label{classcontrol_1_1mpc_1_1MPC_a27576dd52b42606cf1e4798bda17483c}} 
+\index{MPC@{MPC}!x\_history@{x\_history}}
+\index{x\_history@{x\_history}!MPC@{MPC}}
+\doxysubsubsection{\texorpdfstring{x\_history}{x\_history}}
+{\footnotesize\ttfamily x\+\_\+history}
+
+\mbox{\Hypertarget{classcontrol_1_1mpc_1_1MPC_a68920d37fbe5a403aa79e71b932c6167}\label{classcontrol_1_1mpc_1_1MPC_a68920d37fbe5a403aa79e71b932c6167}} 
+\index{MPC@{MPC}!y\_history@{y\_history}}
+\index{y\_history@{y\_history}!MPC@{MPC}}
+\doxysubsubsection{\texorpdfstring{y\_history}{y\_history}}
+{\footnotesize\ttfamily y\+\_\+history}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+control/control/\mbox{\hyperlink{mpc_8py}{mpc.\+py}}\end{DoxyCompactItemize}

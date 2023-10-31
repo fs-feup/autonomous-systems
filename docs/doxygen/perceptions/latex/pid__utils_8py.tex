@@ -1,0 +1,33 @@
+\hypertarget{pid__utils_8py}{}\doxysection{control/control/pid\+\_\+utils.py File Reference}
+\label{pid__utils_8py}\index{control/control/pid\_utils.py@{control/control/pid\_utils.py}}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacecontrol_1_1pid__utils}{control.\+pid\+\_\+utils}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{namespacecontrol_1_1pid__utils_ab8cbc31ef83e264405b57226287ccfaf}{get\+\_\+acceleration\+\_\+command}} (error)
+\begin{DoxyCompactList}\small\item\em Accelerates the car. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{namespacecontrol_1_1pid__utils_a68dc856299de1d251539e872817575c9}{get\+\_\+closest\+\_\+point}} (state, path, old\+\_\+nn\+\_\+idx=None, search\+\_\+window=None)
+\item 
+def \mbox{\hyperlink{namespacecontrol_1_1pid__utils_ab25f8ad378391793d2fc05152ee80e9d}{get\+\_\+cte}} (closest\+\_\+index, points\+\_\+array, pose\+\_\+car)
+\begin{DoxyCompactList}\small\item\em Calculates the cross track error (CTE). \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{namespacecontrol_1_1pid__utils_ab5cca2dd74dfb82da8e20b6f16943ca3}{get\+\_\+orientation\+\_\+error}} (closest\+\_\+index, points\+\_\+array, yaw\+\_\+car)
+\item 
+def \mbox{\hyperlink{namespacecontrol_1_1pid__utils_a57084bda076da0e24797f489dcdac1ce}{get\+\_\+position\+\_\+error}} (pose, closest\+\_\+point)
+\begin{DoxyCompactList}\small\item\em Calculates the position error between pose and closest\+\_\+point. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{namespacecontrol_1_1pid__utils_a5b1b2b99e5042957427715dd036a70a3}{get\+\_\+reference\+\_\+speed}} (speeds, closest\+\_\+index)
+\item 
+def \mbox{\hyperlink{namespacecontrol_1_1pid__utils_a2db34d40e16bdc4583307130e93c86af}{get\+\_\+speed\+\_\+error}} (ref\+\_\+speed, actual\+\_\+speed)
+\item 
+def \mbox{\hyperlink{namespacecontrol_1_1pid__utils_af560a2afce5f9042c82c3c8b67d5427b}{get\+\_\+steering\+\_\+command}} (pos\+\_\+error, yaw\+\_\+error, ct\+\_\+error, old\+\_\+error)
+\begin{DoxyCompactList}\small\item\em Steers the car. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{namespacecontrol_1_1pid__utils_a8c8f96f7e8ac6d3aabfb3b803518f714}{get\+\_\+torque\+\_\+break\+\_\+commands}} (acceleration)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacecontrol_1_1pid__utils_a4baee84af7a92177c9064ddc2fc010ce}{P}} = Params()
+\end{DoxyCompactItemize}
