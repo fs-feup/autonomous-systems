@@ -125,10 +125,15 @@ To switch to the new branch, use the following command:
 git checkout documentation
 ```
 
+Alternatively, you can do both steps at once as so:
+```shell
+git checkout -b documentation
+```
+
 If you want to list all the branches, use the command:
 
 ```shell
-git branch
+git branch -A
 ```
 
 9. **Commit to the branch**
@@ -223,5 +228,5 @@ Every pull request must have a reviewer who must approve the pull request. Addit
 
 ## More information
 
-This tutorial was based on the slides of Prof. André Restivo. You can find them [here](https://paginas.fe.up.pt/~arestivo/slides/?s=git#1) for more precise information about how Git works.
+This tutorial was based on the slides of Prof. André Restivo. You can find them [here](https://paginas.fe.up.pt/~arestivo/slides/?s=git#1) for more precise information about how Git works. You can also check [this tutorial](https://www.youtube.com/watch?v=tRZGeaHPoaw&t=28s).
 
