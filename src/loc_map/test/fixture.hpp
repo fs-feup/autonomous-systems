@@ -40,7 +40,7 @@ class ExecTimeTest : public ::testing::Test {
   bool done;
   std::string workload;
   void print_to_file() {
-    std::ofstream file("../../src/performance/exec_time/loc_map.csv", std::ios::app);  // append
+    std::ofstream file("../../performance/exec_time/loc_map.csv", std::ios::app);  // append
 
     // Convert the duration from microseconds to milliseconds
     double milliseconds =
@@ -54,8 +54,8 @@ class ExecTimeTest : public ::testing::Test {
 
   void fill_X(int size) {
     for (int i = 3; i <= size; i++) {
-      double randomX = (static_cast<double> (rand() / RAND_MAX)) * 50.0;
-      double randomY = (static_cast<double> (rand() / RAND_MAX)) * 50.0;
+      double randomX = (static_cast<double>(rand() / RAND_MAX)) * 50.0;
+      double randomY = (static_cast<double>(rand() / RAND_MAX)) * 50.0;
 
       // Call set_X_y for X and Y values
       ekf_test->set_X_y(i, randomX);

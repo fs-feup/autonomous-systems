@@ -1,4 +1,4 @@
-// #include <unistd.h>
+#include <unistd.h>
 
 #include <fstream>  //to write file
 
@@ -10,10 +10,10 @@
 #include "test/fixture.hpp"
 
 TEST_F(ExecTimeTest, PUBLISH_INTEGRATION_TEST_1CONE) {
-  // char cwd[PATH_MAX];
-  // if (getcwd(cwd, sizeof(cwd)) != NULL) {
-  //   printf("\n CWD:%s \n", cwd);
-  // }
+  char cwd[PATH_MAX];
+  if (getcwd(cwd, sizeof(cwd)) != NULL) {
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n\n|||||Current working dir: %s\n\n", cwd);
+  }
   cone_to_send.position.x = 1;
   cone_to_send.position.y = 2;
   cone_to_send.color = "yellow_cone";  // colors::yellow;//created a cone
