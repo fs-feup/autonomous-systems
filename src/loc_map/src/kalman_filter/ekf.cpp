@@ -81,7 +81,8 @@ void ExtendedKalmanFilter::set_P(int size) {
   this->P(1, 1) = 1.1;
   this->P(2, 2) = 1.1;
 }
-void ExtendedKalmanFilter::set_X(int size) { this->X = Eigen::VectorXf::Zero(size); }
+void ExtendedKalmanFilter::init_X_size(int size) { this->X = Eigen::VectorXf::Zero(size); }
+
 Eigen::MatrixXf ExtendedKalmanFilter::get_kalman_gain(const Eigen::MatrixXf& H,
                                                       const Eigen::MatrixXf& P,
                                                       const Eigen::MatrixXf& Q) {

@@ -130,7 +130,7 @@ class ExtendedKalmanFilter {
 
   void set_P(const int size);
 
-  void set_X(const int size);
+  void init_X_size(const int size);
 
   /**
    * @brief pushes back to colors vector
