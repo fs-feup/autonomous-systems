@@ -5,7 +5,7 @@ This document compiles the versions of all tools and technologies used in this p
 ## Tools
 
 - [Ubuntu 20.04](https://releases.ubuntu.com/focal/)
-- [ROS2 Galactic desktop](http://docs.ros.org/en/galactic/Installation/Ubuntu-Install-Debians.html)
+- [ROS2 Humble desktop](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html)
 - [Cpplint 1.6.1](https://github.com/cpplint/cpplint) - C++ only
 - [Cppcheck 1.90](https://cppcheck.sourceforge.io/) - C++ only
 - [Clangformat 10.0.0-4ubuntu1](https://clang.llvm.org/docs/ClangFormat.html) - C++ only
