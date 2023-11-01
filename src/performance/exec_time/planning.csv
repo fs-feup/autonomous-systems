@@ -1,0 +1,9 @@
+planning,delaunay,10points,0.00469798,0.016571
+planning,delaunay,100points,0.32895,0.174238
+planning,delaunay,250points,0.824974,0.844938
+planning,delaunay,250randompoints,1.52726,1.52026
+planning,outliers,250points_2outliers,9.86826,13.1428
+planning,outliers,250points_10outliers,9.45455,13.3859
+planning,outliers,250points_25outliers,9.35277,12.6576
+planning,outliers,250points_50outliers,10.4787,9.76911
+planning, all, 4 cones, 1.9636
