@@ -46,7 +46,7 @@ with open("deletedoutliers1.txt", "r") as file:
             ox_values1.append(float(x))
             oy_values1.append(float(y))
 
-with open("../tracks/map_mock.txt", "r") as file:
+with open("../tracks/outlier_test1.txt", "r") as file:
     for line in file:
         line = line.strip()  # Remove leading/trailing whitespace
         if line:

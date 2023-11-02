@@ -3,7 +3,7 @@ import numpy as np
 class Params:
     def __init__(self):
         # enviroment choice
-        self.env = "eufs"
+        self.env = "ads_dv"
 
         # controller choice (either "pid or "mpc")
         self.controller = "pid"

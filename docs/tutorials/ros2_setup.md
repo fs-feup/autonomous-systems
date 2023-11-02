@@ -30,6 +30,14 @@ Open the Windows Terminal and type ubuntu. The final setup and installation of t
 
 ![Windows Terminal Selecting WSL](../assets/ros2_setup/wsl-dropdown.jpeg).
 
+#### Other option - Multipass
+
+[Multipass](https://multipass.run) is a tool to generate cloud-style Ubuntu VMs quickly on Linux, macOS, and Windows.
+
+It gives you a simple but powerful CLI that allows you to quickly access an Ubuntu command line or create your own local mini-cloud.
+
+You can follow the tutorial to the installation [here](https://multipass.run/docs/how-to-guides#heading--install-multipass-).
+
 
 ## First Alternative - Mamba, Robostack
 **Warning:** This alternative is very easy to set up but is a bit limited and can result in some problems when dealing with other packages and tools such as simulators.

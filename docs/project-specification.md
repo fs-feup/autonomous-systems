@@ -1,6 +1,6 @@
 # Project Specifications
 
-This project aims to develop an Aritificial Inteligence system for a computer to be installed in a car, with the objective of making said vehicle autonomous in the driving tasks pruposed in multiple Formula Student competitions.
+This project aims to develop an Artificial Inteligence system for a computer to be installed in a car, with the objective of making said vehicle autonomous in the driving tasks pruposed in multiple Formula Student competitions.
 
 ## Technologies
 

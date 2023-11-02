@@ -16,27 +16,23 @@
 using std::placeholders::_1;
 
 Planning::Planning() : Node("planning") {
-  // this->vl_sub_ = this->create_subscription<custom_interfaces::msg::Pose>(
-  //     "vehicle_localization", 10, std::bind(&Planning::vehicle_localization_callback, this, _1));
-
+  // LocMap Subscriber
   this->track_sub_ = this->create_subscription<custom_interfaces::msg::ConeArray>(
       "track_map", 10, std::bind(&Planning::track_map_callback, this, _1));
 
+  // Control Publishers
   this->local_pub_ =
       this->create_publisher<custom_interfaces::msg::PointArray>("planning_local", 10);
   this->global_pub_ =
       this->create_publisher<custom_interfaces::msg::PointArray>("planning_global", 10);
 
+  // Publishes path from file in Skidpad & Acceleration events
   this->timer_ = this->create_wall_timer(
       std::chrono::milliseconds(100), std::bind(&Planning::publish_predicitive_track_points, this));
 
+  // Adapter to communicate with the car
   this->adapter = new Adapter("eufs", this);
 }
-
-// void Planning::vehicle_localization_callback(const custom_interfaces::msg::Pose msg) {
-//   RCLCPP_INFO(this->get_logger(), "[localization] (%f, %f) \t%f deg", msg.position.x,
-//               msg.position.y, msg.theta);
-// }
 
 void Planning::track_map_callback(const custom_interfaces::msg::ConeArray msg) {
   if (this->is_predicitve_mission()) {
@@ -44,16 +40,18 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray msg) {
   }
 
   Track* track = new Track();
+
   auto cone_array = msg.cone_array;
 
   for (auto& cone : cone_array) {
-    track->addCone(cone.position.x, cone.position.y, cone.color);
     RCLCPP_DEBUG(this->get_logger(), "[received] (%f, %f)\t%s", cone.position.x, cone.position.y,
                  cone.color.c_str());
+    track->addCone(cone.position.x, cone.position.y, cone.color);
   }
 
   track->validateCones();  // Delete cone outliers
-  std::vector<Position*> path = local_path_planner->processNewArray(track);
+
+  std::vector<Position*> path = local_path_planner->processNewArray(track); // Calculate Path
   publish_track_points(path);
   delete (track);
 
