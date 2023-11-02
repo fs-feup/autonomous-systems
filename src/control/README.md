@@ -22,6 +22,12 @@ To run this module, some python libraries and the tf-transormations package in t
 	colcon build --packages-select control custom_interfaces
 ```
 
+### Source 
+
+```SHELL
+	source ./install/setup.bash
+```
+
 ### Run
 
 ```SHELL
