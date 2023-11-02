@@ -68,7 +68,6 @@ class ExecTimeTestEKFTests : public ::testing::Test {
   }
 
   void SetUp() override { /**< Set up test environment */
-
     start_time = std::chrono::high_resolution_clock::now();
     end_time = std::chrono::high_resolution_clock::now();
     duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
