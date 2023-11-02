@@ -131,7 +131,7 @@ class ExecTimeTest : public ::testing::Test {
 
     map_sub = receiver_publisher_mock->create_subscription<
         custom_interfaces::msg::
-            ConeArray>(/**< subscribes to track_map where loc_map publishes every time loc_map
+            ConeArray>(/**< subscribes to track_map where loc_map publishes, every time loc_map
                           publishes it means computation is done so we compute duration and add to
                           duration variable that will in the end be divided by 10 to get the
                           average, since we want to publish 10 times  */

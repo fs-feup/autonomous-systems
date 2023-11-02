@@ -168,8 +168,6 @@ TEST_F(ExecTimeTestEKFTests, TEST_EKF_PRED_10) {
  */
 
 TEST_F(ExecTimeTestEKFTests, TEST_EKF_PRED_50) {
-  // create motion update and state with adequate workload
-
   ekf_test->init_X_size(103);
   ekf_test->set_P(103);
   ekf_test->set_X_y(0, -15.0);
@@ -301,7 +299,6 @@ TEST_F(ExecTimeTestEKFTests, TEST_EKF_CORR_10) {
  */
 
 TEST_F(ExecTimeTestEKFTests, TEST_EKF_CORR_50) {
-  // create cone map , maybe state
   ConeMap coneMap;
   for (int i = 0; i < 10; i++) {
     Position conePosition(i * 2.0, i * 2.0);
@@ -341,7 +338,6 @@ TEST_F(ExecTimeTestEKFTests, TEST_EKF_CORR_50) {
  */
 
 TEST_F(ExecTimeTestEKFTests, TEST_EKF_CORR_100) {
-  // create cone map , maybe state
   ConeMap coneMap;
   for (int i = 0; i < 10; i++) {
     Position conePosition(i * 2.0, i * 2.0);
