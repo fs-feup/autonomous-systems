@@ -1,21 +1,26 @@
 Node, Scope, Workload, Exec time
-LOC_MAP, all,1 X 100 CONES, 0.244000 ms
-LOC_MAP, all,5 X 100 CONES, 3.386000 ms
-LOC_MAP, all,1 X 100 CONES, 0.243000 ms
-LOC_MAP, all,1 X 100 CONES, 0.311000 ms
-LOC_MAP, all,5 X 100 CONES, 3.491000 ms
-LOC_MAP, all,50 X 100 CONES, 1129.782000 ms
-LOC_MAP, all,100 X 100 CONES, 16355.153000 ms
-LOC_MAP, all,1 X 100 CONES, 0.332000 ms
-LOC_MAP, all, 5 X 100 CONES, 3.941000 ms
-LOC_MAP, all,50 X 100 CONES, 1172.071000 ms
-LOC_MAP, all,100 X 100 CONES, 16524.821000 ms
-LOC_MAP, all,1 X 100 CONES, 0.332000 ms
-LOC_MAP, all, 5 X 100 CONES, 4.356000 ms
-LOC_MAP, all,50 X 100 CONES, 1184.392000 ms
-LOC_MAP, all, 5 X 100 CONES, 0.151000 ms
-LOC_MAP, all, 5 X 100 CONES, 2.220000 ms
-LOC_MAP, all, 5 X 100 CONES, 0.020000 ms
-LOC_MAP, all, 5 X 100 CONES, 0.104000 ms
-LOC_MAP, all, 5 X 100 CONES, 64.344000 ms
-LOC_MAP, all, 5 X 100 CONES, 781.809000 ms
+LOC_MAP, all, 1 X 10 CONES, 0.019000 ms
+LOC_MAP, all, 5 X 10 CONES, 0.111000 ms
+LOC_MAP, all, 50 X 10 CONES, 69.821000 ms
+LOC_MAP, all, 100 X 10 CONES, 816.326000 ms
+LOC_MAP, all, 200 X 10 CONES, 10577.862000 ms
+LOC_MAP, EKF pred step, 10, 0.200000 ms
+LOC_MAP, EKF pred step, 50, 12.628000 ms
+LOC_MAP, EKF pred step, 100, 92.896000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.115000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 106.212000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 611.121000 ms
+LOC_MAP, all, 1 X 10 CONES, 0.022000 ms
+LOC_MAP, all, 5 X 10 CONES, 0.114000 ms
+LOC_MAP, all, 50 X 10 CONES, 71.369000 ms
+LOC_MAP, all, 1 X 10 CONES, 0.024000 ms
+LOC_MAP, all, 5 X 10 CONES, 0.121000 ms
+LOC_MAP, all, 50 X 10 CONES, 68.714000 ms
+LOC_MAP, all, 100 X 10 CONES, 790.966000 ms
+LOC_MAP, all, 200 X 10 CONES, 10678.759000 ms
+LOC_MAP, EKF pred step, 10, 0.204000 ms
+LOC_MAP, EKF pred step, 50, 12.400000 ms
+LOC_MAP, EKF pred step, 100, 91.290000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.084000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 104.528000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 595.640000 ms

@@ -23,6 +23,24 @@ bool ExtendedKalmanFilter::cone_match(const double x_from_state, const double y_
   };
   return limit_function(distance_to_vehicle) > delta;
 }
+/*---------------------- Tests helper functions --------------------*/
+/**
+ * @brief set value of X at y to parameter value
+ *
+ */
+void ExtendedKalmanFilter::set_X_y(int y, float value) { this->X(y) = value; }
+void ExtendedKalmanFilter::push_to_colors(colors::Color color) { _colors.push_back(color); }
+
+void ExtendedKalmanFilter::set_P(int size) {
+  this->P = Eigen::MatrixXf::Zero(size, size);
+  this->P(0, 0) = 1.1;
+  this->P(1, 1) = 1.1;
+  this->P(2, 2) = 1.1;
+}
+/**
+ * @brief Initializes state X with size equal to parameter size
+ */
+void ExtendedKalmanFilter::init_X_size(int size) { this->X = Eigen::VectorXf::Zero(size); }
 
 /*---------------------- Constructors --------------------*/
 
@@ -71,17 +89,6 @@ void ExtendedKalmanFilter::correction_step(const ConeMap& perception_map) {
     this->P = (Eigen::MatrixXf::Identity(this->P.rows(), this->P.cols()) - K * H) * this->P;
   }
 }
-
-void ExtendedKalmanFilter::set_X_y(int y, float value) { this->X(y) = value; }
-void ExtendedKalmanFilter::push_to_colors(colors::Color color) { _colors.push_back(color); }
-
-void ExtendedKalmanFilter::set_P(int size) {
-  this->P = Eigen::MatrixXf::Zero(size, size);
-  this->P(0, 0) = 1.1;
-  this->P(1, 1) = 1.1;
-  this->P(2, 2) = 1.1;
-}
-void ExtendedKalmanFilter::init_X_size(int size) { this->X = Eigen::VectorXf::Zero(size); }
 
 Eigen::MatrixXf ExtendedKalmanFilter::get_kalman_gain(const Eigen::MatrixXf& H,
                                                       const Eigen::MatrixXf& P,

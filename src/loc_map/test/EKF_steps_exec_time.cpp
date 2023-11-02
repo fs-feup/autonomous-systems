@@ -1,25 +1,36 @@
-#include <fstream>  //to write file
+#include <fstream> /**< To write file */
+#include <memory>
+#include <string>
 
 #include "gtest/gtest.h"
 #include "loc_map/lm_node.hpp"
 #include "rclcpp/rclcpp.hpp"
-// microsegundos - /100
 
+/**
+ * @class ExecTimeTestEKFTests
+ * @brief Test class for performance measurements of Extended Kalman Filter steps.
+ */
 class ExecTimeTestEKFTests : public ::testing::Test {
  protected:
-  ExtendedKalmanFilter *ekf_test;
-  MotionUpdate *motion_update_test;
-  std::chrono::_V2::system_clock::time_point start_time;
-  std::chrono::microseconds duration;
-  std::chrono::_V2::system_clock::time_point end_time;
-  std::string workload;
-  Eigen::Matrix2f Q_test;
-  Eigen::MatrixXf R_test;
-  MotionModel *motion_model_test;
-  ObservationModel observation_model_test = ObservationModel(Q_test);
+  ExtendedKalmanFilter *ekf_test;   /**< Pointer to the ExtendedKalmanFilter object for testing */
+  MotionUpdate *motion_update_test; /**< Pointer to the MotionUpdate object for testing */
+  std::chrono::_V2::system_clock::time_point
+      start_time;                     /**< Start time for performance measurement */
+  std::chrono::microseconds duration; /**< Duration of execution */
+  std::chrono::_V2::system_clock::time_point end_time; /**< End time for performance measurement */
+  std::string workload;                                /**< Description of the workload */
+  Eigen::Matrix2f Q_test;                              /**< Test Eigen Matrix for Q */
+  Eigen::MatrixXf R_test;                              /**< Test Eigen Matrix for R */
+  MotionModel *motion_model_test; /**< Pointer to the MotionModel object for testing */
+  ObservationModel observation_model_test =
+      ObservationModel(Q_test); /**< ObservationModel object for testing */
 
+  /**
+   * @brief Writes performance data to a CSV file.
+   */
   void print_to_file() {
-    std::ofstream file("../../performance/exec_time/loc_map.csv", std::ios::app);  // append
+    std::ofstream file("../../performance/exec_time/loc_map.csv",
+                       std::ios::app); /**< Output file for performance data (append) */
 
     // Convert the duration from microseconds to milliseconds
     double milliseconds =
@@ -31,12 +42,16 @@ class ExecTimeTestEKFTests : public ::testing::Test {
     file.close();
   }
 
+  /**
+   * @brief Fills the state vector with random values.
+   * @param size ~Number of state vector elements to fill.
+   */
   void fill_X(int size) {
     for (int i = 3; i <= size; i++) {
       double randomX = (static_cast<double>(rand() / RAND_MAX)) * 50.0;
       double randomY = (static_cast<double>(rand() / RAND_MAX)) * 50.0;
 
-      // Call set_X_y for X and Y values
+      // Call set_X_y for X and Y values, sets the value if X at y
       ekf_test->set_X_y(i, randomX);
       ekf_test->set_X_y(i + 1, randomY);
 
@@ -52,12 +67,17 @@ class ExecTimeTestEKFTests : public ::testing::Test {
     }
   }
 
-  void SetUp() override {  // TODO(PedroRomao3) //SetUpTestSuite
+  void SetUp() override { /**< Set up test environment */
 
     start_time = std::chrono::high_resolution_clock::now();
     end_time = std::chrono::high_resolution_clock::now();
     duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
     motion_update_test = new MotionUpdate();
+    motion_update_test->translational_velocity = 1.58113883;
+    motion_update_test->translational_velocity_x = 1.5;
+    motion_update_test->translational_velocity_y = 0.5;
+    motion_update_test->rotational_velocity = 6.0;
+    motion_update_test->steering_angle = 2.0;
     motion_update_test->last_update = std::chrono::high_resolution_clock::now();
 
     Q_test = Eigen::Matrix2f::Zero();
@@ -71,27 +91,24 @@ class ExecTimeTestEKFTests : public ::testing::Test {
     observation_model_test = ObservationModel(Q_test);
     ekf_test = new ExtendedKalmanFilter(*motion_model_test, observation_model_test);
   }
+
   void TearDown() override {
     delete ekf_test;
     delete motion_update_test;
   }
 };
 
-TEST_F(ExecTimeTestEKFTests, TEST_EKF_PRED_10) {
-  // create motion update and state with adequate workload
+/**
+ * @brief Test case for the Extended Kalman Filter prediction step with a workload of 10.
+ */
 
-  motion_update_test->translational_velocity = 1.58113883;
-  motion_update_test->translational_velocity_x = 1.5;
-  motion_update_test->translational_velocity_y = 0.5;
-  motion_update_test->rotational_velocity = 6.0;
-  motion_update_test->steering_angle = 2.0;
-  motion_update_test->last_update = std::chrono::high_resolution_clock::now();
+TEST_F(ExecTimeTestEKFTests, TEST_EKF_PRED_10) {
+  // fill state vector
   ekf_test->init_X_size(23);
   ekf_test->set_P(23);
   ekf_test->set_X_y(0, -15.0);
   ekf_test->set_X_y(1, 0.0);
   ekf_test->set_X_y(2, 0.0);
-  // necessary?
   ekf_test->set_X_y(3, -1.637208342552185);
   ekf_test->set_X_y(4, 14.400202751159668);
   ekf_test->push_to_colors(colors::Color::blue);
@@ -126,26 +143,33 @@ TEST_F(ExecTimeTestEKFTests, TEST_EKF_PRED_10) {
   ekf_test->set_X_y(21, 9.249764442443848);
   ekf_test->set_X_y(22, 6.788164138793945);
   ekf_test->push_to_colors(colors::Color::yellow);
-  //\necessary?
 
-  start_time = std::chrono::high_resolution_clock::now();
-  ekf_test->prediction_step(*motion_update_test);
-  end_time = std::chrono::high_resolution_clock::now();
-  duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
+  // run the prediction step 10 times and average the duration
+  for (int i = 0; i < 10; i++) {
+    start_time = std::chrono::high_resolution_clock::now();
+
+    ekf_test->prediction_step(*motion_update_test);
+
+    end_time = std::chrono::high_resolution_clock::now();
+    duration += std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
+
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n DURATION STEP: %ld  \n",
+                std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time));
+  }
+
+  duration = duration / 10;
 
   workload = "EKF pred step, 10";
   print_to_file();
-
 }
+
+/**
+ * @brief Test case for the Extended Kalman Filter prediction step with a workload of 50.
+ */
+
 TEST_F(ExecTimeTestEKFTests, TEST_EKF_PRED_50) {
   // create motion update and state with adequate workload
 
-  motion_update_test->translational_velocity = 1.58113883;
-  motion_update_test->translational_velocity_x = 1.5;
-  motion_update_test->translational_velocity_y = 0.5;
-  motion_update_test->rotational_velocity = 6.0;
-  motion_update_test->steering_angle = 2.0;
-  motion_update_test->last_update = std::chrono::high_resolution_clock::now();
   ekf_test->init_X_size(103);
   ekf_test->set_P(103);
   ekf_test->set_X_y(0, -15.0);
@@ -154,18 +178,27 @@ TEST_F(ExecTimeTestEKFTests, TEST_EKF_PRED_50) {
 
   fill_X(102);
 
-  start_time = std::chrono::high_resolution_clock::now();
-  ekf_test->prediction_step(*motion_update_test);
+  for (int i = 0; i < 10; i++) {
+    start_time = std::chrono::high_resolution_clock::now();
 
-  end_time = std::chrono::high_resolution_clock::now();
-  duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
+    ekf_test->prediction_step(*motion_update_test);
+
+    end_time = std::chrono::high_resolution_clock::now();
+    duration += std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
+
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n DURATION STEP: %ld  \n",
+                std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time));
+  }
+
+  duration = duration / 10;
 
   workload = "EKF pred step, 50";
   print_to_file();
-
 }
+/**
+ * @brief Test case for the Extended Kalman Filter prediction step with a workload of 100.
+ */
 TEST_F(ExecTimeTestEKFTests, TEST_EKF_PRED_100) {
-
   ekf_test->init_X_size(203);
   ekf_test->set_P(203);
   ekf_test->set_X_y(0, -15.0);
@@ -174,18 +207,28 @@ TEST_F(ExecTimeTestEKFTests, TEST_EKF_PRED_100) {
 
   fill_X(202);
 
-  start_time = std::chrono::high_resolution_clock::now();
-  ekf_test->prediction_step(*motion_update_test);
+  for (int i = 0; i < 10; i++) {
+    start_time = std::chrono::high_resolution_clock::now();
 
-  end_time = std::chrono::high_resolution_clock::now();
-  duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
+    ekf_test->prediction_step(*motion_update_test);
+
+    end_time = std::chrono::high_resolution_clock::now();
+    duration += std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
+
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n DURATION STEP: %ld  \n",
+                std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time));
+  }
+
+  duration = duration / 10;
 
   workload = "EKF pred step, 100";
   print_to_file();
-
 }
-
+/**
+ * @brief Test case for the Extended Kalman Filter correction step with a workload of 10.
+ */
 TEST_F(ExecTimeTestEKFTests, TEST_EKF_CORR_10) {
+  // create conemap with 10 cones
   ConeMap coneMap;
   for (int i = 0; i < 10; i++) {
     Position conePosition(i * 2.0, i * 2.0);
@@ -234,17 +277,28 @@ TEST_F(ExecTimeTestEKFTests, TEST_EKF_CORR_10) {
   ekf_test->set_X_y(21, 9.249764442443848);
   ekf_test->set_X_y(22, 6.788164138793945);
   ekf_test->push_to_colors(colors::Color::yellow);
+  // run 10 times and average duration
+  for (int i = 0; i < 10; i++) {
+    start_time = std::chrono::high_resolution_clock::now();
 
-  start_time = std::chrono::high_resolution_clock::now();
-  ekf_test->correction_step(coneMap);
+    ekf_test->correction_step(coneMap);
 
-  end_time = std::chrono::high_resolution_clock::now();
-  duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
+    end_time = std::chrono::high_resolution_clock::now();
+    duration += std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
+
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n DURATION STEP: %ld  \n",
+                std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time));
+  }
+
+  duration = duration / 10;
 
   workload = "EKF Correction Step, 10 and 10 From \"perception\"";
   print_to_file();
-
 }
+
+/**
+ * @brief Test case for the Extended Kalman Filter correction step with a workload of 50.
+ */
 
 TEST_F(ExecTimeTestEKFTests, TEST_EKF_CORR_50) {
   // create cone map , maybe state
@@ -262,20 +316,29 @@ TEST_F(ExecTimeTestEKFTests, TEST_EKF_CORR_50) {
   ekf_test->set_X_y(0, -15.0);
   ekf_test->set_X_y(1, 0.0);
   ekf_test->set_X_y(2, 0.0);
-  // necessary?
   fill_X(102);
 
-  start_time = std::chrono::high_resolution_clock::now();
+  for (int i = 0; i < 10; i++) {
+    start_time = std::chrono::high_resolution_clock::now();
 
-  ekf_test->correction_step(coneMap);
+    ekf_test->correction_step(coneMap);
 
-  end_time = std::chrono::high_resolution_clock::now();
-  duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
+    end_time = std::chrono::high_resolution_clock::now();
+    duration += std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
+
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n DURATION STEP: %ld  \n",
+                std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time));
+  }
+
+  duration = duration / 10;
 
   workload = "EKF Correction Step, 50 and 10 From \"perception\"";
   print_to_file();
-
 }
+
+/**
+ * @brief Test case for the Extended Kalman Filter correction step with a workload of 100.
+ */
 
 TEST_F(ExecTimeTestEKFTests, TEST_EKF_CORR_100) {
   // create cone map , maybe state
@@ -293,7 +356,7 @@ TEST_F(ExecTimeTestEKFTests, TEST_EKF_CORR_100) {
   ekf_test->set_X_y(1, 0.0);
   ekf_test->set_X_y(2, 0.0);
   fill_X(202);
-  for (int i = 0; i < 100; i++) {
+  for (int i = 0; i < 10; i++) {
     start_time = std::chrono::high_resolution_clock::now();
 
     ekf_test->correction_step(coneMap);
@@ -305,8 +368,7 @@ TEST_F(ExecTimeTestEKFTests, TEST_EKF_CORR_100) {
                 std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time));
   }
 
-  duration = duration / 100;
+  duration = duration / 10;
   workload = "EKF Correction Step, 100 and 10 From \"perception\"";
   print_to_file();
-
 }
