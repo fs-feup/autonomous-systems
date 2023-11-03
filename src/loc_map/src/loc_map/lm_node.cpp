@@ -38,7 +38,6 @@ void LMNode::_perception_subscription_callback(const custom_interfaces::msg::Con
   RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
 
   for (auto& cone : cone_array) {
-
     auto position = Position();
     position.x = cone.position.x;
     position.y = cone.position.y;

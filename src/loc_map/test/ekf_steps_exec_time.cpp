@@ -151,8 +151,9 @@ TEST_F(ExecTimeTestEKFTests, TEST_EKF_PRED_10) {
     end_time = std::chrono::high_resolution_clock::now();
     duration += std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
 
-    RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "\n DURATION STEP: %ld  \n",
-                std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time).count());
+    RCLCPP_DEBUG(
+        rclcpp::get_logger("rclcpp"), "\n DURATION STEP: %ld  \n",
+        std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time).count());
   }
 
   duration = duration / 10;
@@ -181,8 +182,9 @@ TEST_F(ExecTimeTestEKFTests, TEST_EKF_PRED_50) {
     end_time = std::chrono::high_resolution_clock::now();
     duration += std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
 
-    RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "\n DURATION STEP: %ld  \n",
-                std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time).count());
+    RCLCPP_DEBUG(
+        rclcpp::get_logger("rclcpp"), "\n DURATION STEP: %ld  \n",
+        std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time).count());
   }
 
   duration = duration / 10;
@@ -211,8 +213,9 @@ TEST_F(ExecTimeTestEKFTests, TEST_EKF_PRED_100) {
     end_time = std::chrono::high_resolution_clock::now();
     duration += std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
 
-    RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "\n DURATION STEP: %ld  \n",
-                std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time).count());
+    RCLCPP_DEBUG(
+        rclcpp::get_logger("rclcpp"), "\n DURATION STEP: %ld  \n",
+        std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time).count());
   }
 
   duration = duration / 10;
@@ -283,8 +286,9 @@ TEST_F(ExecTimeTestEKFTests, TEST_EKF_CORR_10) {
     end_time = std::chrono::high_resolution_clock::now();
     duration += std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
 
-    RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "\n DURATION STEP: %ld  \n",
-                std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time).count());
+    RCLCPP_DEBUG(
+        rclcpp::get_logger("rclcpp"), "\n DURATION STEP: %ld  \n",
+        std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time).count());
   }
 
   duration = duration / 10;
@@ -322,7 +326,8 @@ TEST_F(ExecTimeTestEKFTests, TEST_EKF_CORR_10) {
 //     duration += std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
 
 //     RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "\n DURATION STEP: %ld  \n",
-//                 std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time).count());
+//                 std::chrono::duration_cast<std::chrono::microseconds>(end_time -
+//                 start_time).count());
 //   }
 
 //   duration = duration / 10;
@@ -358,7 +363,8 @@ TEST_F(ExecTimeTestEKFTests, TEST_EKF_CORR_10) {
 //     duration += std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
 
 //     RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "\n DURATION STEP: %ld  \n",
-//                 std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time).count());
+//                 std::chrono::duration_cast<std::chrono::microseconds>(end_time -
+//                 start_time).count());
 //   }
 
 //   duration = duration / 10;

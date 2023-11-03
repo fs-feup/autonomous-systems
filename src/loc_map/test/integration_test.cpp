@@ -129,33 +129,29 @@ class ExecTimeTest : public ::testing::Test {
         "perception/cone_coordinates",
         10); /**< Publishes cone array that will be received by LMNode */
 
-    map_sub = receiver_publisher_mock->create_subscription<
-        custom_interfaces::msg::
-            ConeArray>("track_map", 1,
-                       [this](const custom_interfaces::msg::ConeArray::SharedPtr msg) {
-                         received_track_map = *msg;
+    map_sub = receiver_publisher_mock->create_subscription<custom_interfaces::msg::ConeArray>(
+        "track_map", 1, [this](const custom_interfaces::msg::ConeArray::SharedPtr msg) {
+          received_track_map = *msg;
 
-                         end_time = std::chrono::high_resolution_clock::now();
-                         duration =
-                             (duration + std::chrono::duration_cast<std::chrono::microseconds>(
-                                             end_time - start_time));
-                         RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"),
-                                     "\n DURATION STEP: %ld X_TIME:%d MAP_SIZE:%ld  \n",
-                                     std::chrono::duration_cast<std::chrono::microseconds>(
-                                         end_time - start_time).count(),
-                                     helper, received_track_map.cone_array.size());
-                         start_time = std::chrono::high_resolution_clock::now();
-                         cones_publisher->publish(*cone_array_msg);
-                         helper++;
-                         if (helper == 10) {
-                           duration = duration / 100;
-                           print_to_file();
-                           done = true;
-                         }
-                       }); /**< subscribes to track_map where loc_map publishes, every time loc_map
-                          publishes it means computation is done so we compute duration && add to
-                          duration variable that will in the end be divided by 10 to get the
-                          average, since we want to publish 10 times  */
+          end_time = std::chrono::high_resolution_clock::now();
+          duration = (duration +
+                      std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time));
+          RCLCPP_DEBUG(
+              rclcpp::get_logger("rclcpp"), "\n DURATION STEP: %ld X_TIME:%d MAP_SIZE:%ld  \n",
+              std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time).count(),
+              helper, received_track_map.cone_array.size());
+          start_time = std::chrono::high_resolution_clock::now();
+          cones_publisher->publish(*cone_array_msg);
+          helper++;
+          if (helper == 10) {
+            duration = duration / 100;
+            print_to_file();
+            done = true;
+          }
+        }); /**< subscribes to track_map where loc_map publishes, every time loc_map
+           publishes it means computation is done so we compute duration && add to
+           duration variable that will in the end be divided by 10 to get the
+           average, since we want to publish 10 times  */
 
     localization_sub = receiver_publisher_mock->create_subscription<custom_interfaces::msg::Pose>(
         "vehicle_localization", 10,
