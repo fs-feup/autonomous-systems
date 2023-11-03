@@ -23,8 +23,6 @@ LMNode::LMNode(ExtendedKalmanFilter* ekf, ConeMap* perception_map, MotionUpdate*
   this->_map_publisher = this->create_publisher<custom_interfaces::msg::ConeArray>("track_map", 10);
 
   new Adapter(this);
-
-  RCLCPP_INFO(this->get_logger(), "Node started");
 }
 
 /*---------------------- Subscriptions --------------------*/
@@ -38,11 +36,13 @@ void LMNode::_perception_subscription_callback(const custom_interfaces::msg::Con
   this->_perception_map->map.clear();
   RCLCPP_DEBUG(this->get_logger(), "SUB - cones from perception:");
   RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
+
   for (auto& cone : cone_array) {
     auto position = Position();
     position.x = cone.position.x;
     position.y = cone.position.y;
-    auto color = colors::color_map.at(cone.color);
+
+    auto color = colors::color_map.at(cone.color.c_str());
 
     RCLCPP_DEBUG(this->get_logger(), "(%f, %f)\t%s", position.x, position.y, cone.color.c_str());
 
@@ -152,8 +152,6 @@ void LMNode::_publish_localization() {
   message.position.y = vehicle_localization.position.y;
   message.theta = vehicle_localization.orientation;
 
-  RCLCPP_INFO(this->get_logger(), "PUB - Pose: (%f, %f, %f)", message.position.x,
-              message.position.y, message.theta);
   RCLCPP_DEBUG(this->get_logger(), "PUB - Pose: (%f, %f, %f)", message.position.x,
                message.position.y, message.theta);
   this->_localization_publisher->publish(message);
