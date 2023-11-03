@@ -21,7 +21,6 @@ LMNode::LMNode(ExtendedKalmanFilter* ekf, ConeMap* perception_map, MotionUpdate*
   this->_localization_publisher =
       this->create_publisher<custom_interfaces::msg::Pose>("vehicle_localization", 10);
   this->_map_publisher = this->create_publisher<custom_interfaces::msg::ConeArray>("track_map", 10);
-  // this->_update_and_publish(); constrruct
 
   new Adapter(this);
 }
@@ -30,7 +29,6 @@ LMNode::LMNode(ExtendedKalmanFilter* ekf, ConeMap* perception_map, MotionUpdate*
 
 void LMNode::_perception_subscription_callback(const custom_interfaces::msg::ConeArray msg) {
   auto cone_array = msg.cone_array;
-  RCLCPP_INFO(this->get_logger(), "\n  %ld \n", cone_array.size());
   if (this->_perception_map == nullptr) {
     RCLCPP_WARN(this->get_logger(), "SUB - Perception map is null");
     return;
@@ -40,8 +38,6 @@ void LMNode::_perception_subscription_callback(const custom_interfaces::msg::Con
   RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
 
   for (auto& cone : cone_array) {
-    // RCLCPP_INFO(this->get_logger(), "\n  A CONE IN X:%f Y:%f COLOR:%s  \n", cone.position.x ,
-    // cone.position.y, cone.color.c_str());
 
     auto position = Position();
     position.x = cone.position.x;
@@ -157,15 +153,12 @@ void LMNode::_publish_localization() {
   message.position.y = vehicle_localization.position.y;
   message.theta = vehicle_localization.orientation;
 
-  // RCLCPP_INFO(this->get_logger(), "\nPUB - Pose: (%f, %f, %f)\n", message.position.x,
-  // message.position.y, message.theta);
   RCLCPP_DEBUG(this->get_logger(), "PUB - Pose: (%f, %f, %f)", message.position.x,
                message.position.y, message.theta);
   this->_localization_publisher->publish(message);
 }
 
 void LMNode::_publish_map() {
-  // RCLCPP_INFO(this->get_logger(), "\nPUB - MAP\n");
   auto message = custom_interfaces::msg::ConeArray();
   RCLCPP_DEBUG(this->get_logger(), "PUB - cone map:");
   RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");

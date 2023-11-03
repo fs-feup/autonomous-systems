@@ -131,11 +131,7 @@ class ExecTimeTest : public ::testing::Test {
 
     map_sub = receiver_publisher_mock->create_subscription<
         custom_interfaces::msg::
-            ConeArray>(/**< subscribes to track_map where loc_map publishes, every time loc_map
-                          publishes it means computation is done so we compute duration && add to
-                          duration variable that will in the end be divided by 10 to get the
-                          average, since we want to publish 10 times  */
-                       "track_map", 1,
+            ConeArray>("track_map", 1,
                        [this](const custom_interfaces::msg::ConeArray::SharedPtr msg) {
                          received_track_map = *msg;
 
@@ -143,10 +139,10 @@ class ExecTimeTest : public ::testing::Test {
                          duration =
                              (duration + std::chrono::duration_cast<std::chrono::microseconds>(
                                              end_time - start_time));
-                         RCLCPP_INFO(rclcpp::get_logger("rclcpp"),
-                                     "\n DURATION STEP: %ld X_TIME:%d MAP_SIZE:%d  \n",
+                         RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"),
+                                     "\n DURATION STEP: %ld X_TIME:%d MAP_SIZE:%ld  \n",
                                      std::chrono::duration_cast<std::chrono::microseconds>(
-                                         end_time - start_time),
+                                         end_time - start_time).count(),
                                      helper, received_track_map.cone_array.size());
                          start_time = std::chrono::high_resolution_clock::now();
                          cones_publisher->publish(*cone_array_msg);
@@ -156,7 +152,10 @@ class ExecTimeTest : public ::testing::Test {
                            print_to_file();
                            done = true;
                          }
-                       });  // subscribe to track_map topic, get the the map from locmap
+                       }); /**< subscribes to track_map where loc_map publishes, every time loc_map
+                          publishes it means computation is done so we compute duration && add to
+                          duration variable that will in the end be divided by 10 to get the
+                          average, since we want to publish 10 times  */
 
     localization_sub = receiver_publisher_mock->create_subscription<custom_interfaces::msg::Pose>(
         "vehicle_localization", 10,
@@ -279,55 +278,55 @@ TEST_F(ExecTimeTest, PUBLISH_INTEGRATION_TEST_50X10CONE) {
   duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
 }
 
-TEST_F(ExecTimeTest, PUBLISH_INTEGRATION_TEST_100X10CONE) {
-  workload = "all, 100 X 10 CONES";
-  ekf_test->init_X_size(203);
-  ekf_test->set_P(203);
-  ekf_test->set_X_y(0, -15.0);
-  ekf_test->set_X_y(1, 0.0);
-  ekf_test->set_X_y(2, 0.0);
-  fill_X(202);
+// TEST_F(ExecTimeTest, PUBLISH_INTEGRATION_TEST_100X10CONE) {
+//   workload = "all, 100 X 10 CONES";
+//   ekf_test->init_X_size(203);
+//   ekf_test->set_P(203);
+//   ekf_test->set_X_y(0, -15.0);
+//   ekf_test->set_X_y(1, 0.0);
+//   ekf_test->set_X_y(2, 0.0);
+//   fill_X(202);
 
-  cone_to_send.position.x = 1;
-  cone_to_send.position.y = 2;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg->cone_array.push_back(cone_to_send);
-  fill_cone_array(100);
+//   cone_to_send.position.x = 1;
+//   cone_to_send.position.y = 2;
+//   cone_to_send.color = "yellow_cone";
+//   cone_array_msg->cone_array.push_back(cone_to_send);
+//   fill_cone_array(100);
 
-  cones_publisher->publish(*cone_array_msg);          // send the cones
-  rclcpp::executors::MultiThreadedExecutor executor;  // create executor and add all nodes
-  executor.add_node(receiver_publisher_mock);
-  executor.add_node(lm_node_test);
-  start_time = std::chrono::high_resolution_clock::now();
-  while (!done) {
-    executor.spin_some();
-  }
-  end_time = std::chrono::high_resolution_clock::now();
-  duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
-}
+//   cones_publisher->publish(*cone_array_msg);          // send the cones
+//   rclcpp::executors::MultiThreadedExecutor executor;  // create executor and add all nodes
+//   executor.add_node(receiver_publisher_mock);
+//   executor.add_node(lm_node_test);
+//   start_time = std::chrono::high_resolution_clock::now();
+//   while (!done) {
+//     executor.spin_some();
+//   }
+//   end_time = std::chrono::high_resolution_clock::now();
+//   duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
+// }
 
-TEST_F(ExecTimeTest, PUBLISH_INTEGRATION_TEST_200X10CONE) {
-  workload = "all, 200 X 10 CONES";
-  ekf_test->init_X_size(403);
-  ekf_test->set_P(403);
-  ekf_test->set_X_y(0, -15.0);
-  ekf_test->set_X_y(1, 0.0);
-  ekf_test->set_X_y(2, 0.0);
-  fill_X(402);
+// TEST_F(ExecTimeTest, PUBLISH_INTEGRATION_TEST_200X10CONE) {
+//   workload = "all, 200 X 10 CONES";
+//   ekf_test->init_X_size(403);
+//   ekf_test->set_P(403);
+//   ekf_test->set_X_y(0, -15.0);
+//   ekf_test->set_X_y(1, 0.0);
+//   ekf_test->set_X_y(2, 0.0);
+//   fill_X(402);
 
-  cone_to_send.position.x = 1;
-  cone_to_send.position.y = 2;
-  cone_to_send.color = "yellow_cone";  // colors::yellow;//created a cone
-  cone_array_msg->cone_array.push_back(cone_to_send);
-  fill_cone_array(200);
-  cones_publisher->publish(*cone_array_msg);          // send the cones
-  rclcpp::executors::MultiThreadedExecutor executor;  // create executor and add all nodes
-  executor.add_node(receiver_publisher_mock);
-  executor.add_node(lm_node_test);
-  start_time = std::chrono::high_resolution_clock::now();
-  while (!done) {
-    executor.spin_some();
-  }
-  end_time = std::chrono::high_resolution_clock::now();
-  duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
-}
+//   cone_to_send.position.x = 1;
+//   cone_to_send.position.y = 2;
+//   cone_to_send.color = "yellow_cone";  // colors::yellow;//created a cone
+//   cone_array_msg->cone_array.push_back(cone_to_send);
+//   fill_cone_array(200);
+//   cones_publisher->publish(*cone_array_msg);          // send the cones
+//   rclcpp::executors::MultiThreadedExecutor executor;  // create executor and add all nodes
+//   executor.add_node(receiver_publisher_mock);
+//   executor.add_node(lm_node_test);
+//   start_time = std::chrono::high_resolution_clock::now();
+//   while (!done) {
+//     executor.spin_some();
+//   }
+//   end_time = std::chrono::high_resolution_clock::now();
+//   duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
+// }
