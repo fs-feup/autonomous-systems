@@ -51,7 +51,7 @@ if(BUILD_TESTING)
   set(TESTFILES 
     test/main.cpp
     test/integration_test.cpp
-    test/EKF_steps_exec_time.cpp
+    test/ekf_steps_exec_time.cpp
     test/motion_model_test.cpp
     test/observation_model_test.cpp
     test/slam_test.cpp
