@@ -22,12 +22,15 @@ from .adapter import PerceptionAdapter
 import argparse
 import rclpy
 from rclpy.node import Node
-from sensor_msgs.msg import Image
 from custom_interfaces.msg import BoundingBoxes, BoundingBox, ConeArray
-from std_msgs.msg import Header
 from cv_bridge import CvBridge
 
 class yolov5():
+
+    """!
+    @brief Class for performing object detection using YOLOv5 model
+    """
+
     def __init__(self,  weights,
                         imagez_height,
                         imagez_width,
@@ -41,6 +44,24 @@ class yolov5():
                         half,
                         dnn
                         ):
+        
+        """!
+        @brief Constructor for initializing the YOLOv5 object detection model
+        @param self The object pointer
+        @param weights Path to the YOLOv5 model weights
+        @param imagez_height Height of the input images
+        @param imagez_width Width of the input images
+        @param conf_thres Confidence Threshold
+        @param iou_thres IoU threshold
+        @param max_det Maximum number of detections/image
+        @param view_img Whether to display the processed images with detections
+        @param classes List of class names
+        @param agnostic_nms Whether to apply agnostic NMS
+        @param line_thickness Line thickness for bounding box visualization
+        @param half Whether to use half-precision floating-point
+        @param dnn Not specified in the template, so left as it is
+        """
+
         self.weights = weights
         self.imagez_height = imagez_height
         self.imagez_width = imagez_width
@@ -59,6 +80,12 @@ class yolov5():
         self.load_model()
 
     def load_model(self):
+
+        """!
+        @brief Load the YOLOv5 model and perform initialization steps
+        @param self The object pointer
+        """
+
         imgsz = (self.imagez_height, self.imagez_width)
 
         # Load model
@@ -89,6 +116,19 @@ class yolov5():
     # 3. x_min, y_min, x_max, y_max (float)         +
     # ----------------------------------------------
     def image_callback(self, image_raw):
+
+        """!
+        @brief Perform object detection on a provided image
+        @param self The object pointer
+        @param image_raw The input image
+        @return class_list detected classes
+        @return confidence_list confidences list
+        @return x_min x min of the bounding boxes
+        @return y_min y min of the bounding boxes
+        @return x_max x max of the bounding boxes
+        @return y_max y max of the bounding boxes
+        """
+
         class_list = []
         confidence_list = []
         x_min_list = []
@@ -99,7 +139,7 @@ class yolov5():
         # im is  NDArray[_SCT@ascontiguousarray
         # im = im.transpose(2, 0, 1)
         self.stride = 32  # stride
-        self.img_size = 640
+        self.img_size = 768 # 640 # 768
         img = letterbox(image_raw, self.img_size, stride=self.stride)[0]
 
         # Convert
@@ -173,19 +213,26 @@ class yolov5():
             return class_list, confidence_list, x_min_list, y_min_list, x_max_list, y_max_list  # noqa: E501
 
 class perception(Node):
+
+    """!
+    @brief ROS2 node for perception tasks
+    """
+
     def __init__(self):
+        
+        """!
+        @brief Constructor for initializing the perception node
+        @param self The object pointer
+        """
+
         super().__init__('perception')
 
         self.bridge = CvBridge()
 
         parser = argparse.ArgumentParser()
         parser.add_argument('--interface', default="eufs")
+        parser.add_argument('--ros-args', nargs='*')
         args = parser.parse_args()
-
-        self.adapter = PerceptionAdapter(args.interface, self)
-        self.pub_cone_coordinates = self.create_publisher(ConeArray, 
-                                                          'perception/cone_coordinates', 
-                                                          10)
 
         # parameter
         FILE = Path(__file__).resolve()
@@ -194,9 +241,9 @@ class perception(Node):
             sys.path.append(str(ROOT))  # add ROOT to PATH
         ROOT = Path(os.path.relpath(ROOT, Path.cwd()))
 
-        self.weights = str(ROOT) + '/config/best_cones.pt'
-        self.imagez_height = 640
-        self.imagez_width = 640
+        self.weights = str(ROOT) + '/config/best_noaugments.pt'
+        self.imagez_height = 768 # 640 # 768
+        self.imagez_width = 1280 # 640 # 1280
         self.conf_thres = 0.25
         self.iou_thres = 0.45
         self.max_det = 1000
@@ -219,13 +266,28 @@ class perception(Node):
                                 self.line_thickness,
                                 self.half,
                                 self.dnn)
+        self.get_logger().info("Yolov5 model loaded")
 
         self.depth_processor = DepthProcessor(self.get_logger())
+        self.get_logger().info("Depth Processing loaded")
+
+        self.pub_cone_coordinates = self.create_publisher(ConeArray, 
+                                                          'perception/cone_coordinates', 
+                                                          10)
+        self.adapter = PerceptionAdapter(args.interface, self)
     
-    def yolovFive2bboxes_msgs(self, bboxes:list, scores:list, cls:list, 
-                              img_header:Header):
+    def yolovFive2bboxes_msgs(self, bboxes:list, scores:list, cls:list):
+        """!
+        @brief Convert YOLOv5 bounding box info to BoundingBoxes ROS2 message
+        @param self The object pointer
+        @param bboxes List of the bounding boxes coordinates
+        @param scores List of the confidence scores of detection
+        @param cls List of class IDs
+        @return Bounding Boxes information in message format
+        """
+
+
         bboxes_msg = BoundingBoxes()
-        bboxes_msg.header = img_header
         i = 0
         for score in scores:
             one_box = BoundingBox()
@@ -241,8 +303,21 @@ class perception(Node):
         
         return bboxes_msg
 
-    def image_callback(self, image:Image):
-        image_raw = self.bridge.imgmsg_to_cv2(image, "bgr8")
+    def image_callback(self, image, sim=True, point_cloud=None):
+
+        """!
+        @brief Image processing and coordinates publish
+        @param self The object pointer
+        @param image Input image
+        @param sim Flag indicating if the image is from simulation
+        @param point_cloud Point cloud data associated with the image
+        """
+
+        if sim:
+            image_raw = self.bridge.imgmsg_to_cv2(image, "bgr8")
+        else:
+            image_raw = image
+
         class_list, confidence_list,\
         x_min_list, y_min_list, x_max_list, y_max_list =\
             self.yolov5.image_callback(image_raw)
@@ -250,11 +325,11 @@ class perception(Node):
         msg = self.yolovFive2bboxes_msgs(bboxes=[x_min_list, y_min_list, 
                                                  x_max_list, y_max_list], 
                                                  scores=confidence_list, 
-                                                 cls=class_list, 
-                                                 img_header=image.header)
+                                                 cls=class_list)
         
-        cone_array = self.depth_processor.process(msg, image_raw)
+        cone_array = self.depth_processor.process(msg, image_raw, point_cloud)
         self.pub_cone_coordinates.publish(cone_array)
+        return cone_array
 
 def ros_main(args=None):
     rclpy.init(args=args)

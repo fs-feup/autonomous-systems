@@ -1,0 +1,4 @@
+<map id="NormalVelocityModel::get_motion_to_state_matrix" name="NormalVelocityModel::get_motion_to_state_matrix">
+<area shape="rect" id="node1" title="Calculate state covariance matrix from velocity model using normal motion data Uses translation veloc..." alt="" coords="109,5,257,61"/>
+<area shape="rect" id="node2" href="$motion__model__test_8cpp.html#abaac5c4600343357227b100565bf0831" title=" " alt="" coords="5,20,61,47"/>
+</map>

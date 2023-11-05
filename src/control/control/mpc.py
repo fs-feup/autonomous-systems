@@ -1,29 +1,25 @@
 import numpy as np
+import datetime
 from .mpc_utils import (
     compute_path_from_wp,
     get_ref_trajectory,
     get_linear_model_matrices,
+    optimize,
 )
-from .optimizer import Optimizer, Params
-import time
+
+from .config import Params
 
 P = Params()
 
 class MPC:
     def __init__(self, action, state, path, closest_ind):
-        # State for the car mathematical model [x,y,heading]
+        # State for the car mathematical model [x,y,v, orientation]
         self.state = state
 
-        # starting guess
+        # starting guess -> last command [steering angle, acceleration]
         self.action = action 
 
-        self.opt_u = np.zeros((P.M, P.T))
-
-        # Cost Matrices
-        Q = np.diag([20, 20, 20])  # state error cost
-        R = np.diag([10, 10])  # input cost
-
-        self.optimizer = Optimizer(P.N, P.M, Q, R)
+        self.opt_u = np.zeros((P.command_len, P.prediction_horizon))
 
         # Interpolated Path to follow given waypoints
         self.path = compute_path_from_wp(
@@ -50,36 +46,46 @@ class MPC:
         and save the actions.
         @param self The object pointer.
         """
-        time.time()
 
-        # dynamycs w.r.t car frame
-        curr_state = np.array([0, 0, 0])
+        # start = time.time()
+
+        # (x, y, vel, heading) state - car frame
+        curr_state = np.array([0, 0, self.state[2], 0])
 
         # State Matrices
         A, B, C = get_linear_model_matrices(curr_state, self.action)
         
-        # Get Reference_traj -> inputs are in worldframe
+        # Get Reference_Trajectory Values (Inputs -> Worldframe - Outputs - Carframe)
         x_target, u_target, self.closest_ind = get_ref_trajectory(
-            self.state, self.path, P.VEL, dl=P.path_tick, old_ind=self.old_closest_ind
+            self.state, self.path, P.VEL, old_ind=self.old_closest_ind
         )
 
-        x_mpc, u_mpc = self.optimizer.optimize_linearized_model(
+        t0 = datetime.datetime.now()  
+
+        x_mpc, u_mpc = optimize(
             A,
             B,
             C,
             curr_state,
             x_target,
             u_target,
-            time_horizon=P.T,
             verbose=False
         )
-        
+
+        t1 = datetime.datetime.now()
+
+        dt = t1 - t0
+    
+        self.get_logger().debug("Otimization step calculated in ",\
+            dt.microseconds * 1e-3, " ms")
+     
         self.opt_u = np.vstack(
             (
                 np.array(u_mpc.value[0, :]).flatten(),
                 (np.array(u_mpc.value[1, :]).flatten()),
             )
         )
+        # Select the first action only - the one to be performed in current instant
         self.action[:] = [u_mpc.value[0, 0], u_mpc.value[1, 0]]
         # print("CVXPY Optimization Time: {:.4f}s".format(time.time()-start))
 
@@ -87,6 +93,7 @@ def run_mpc(action, state, path, old_closest_ind):
     mpc = MPC(action, state, path, old_closest_ind)
     try:
         mpc.run()
-        return mpc.action, mpc.closest_ind
+        return mpc.action, mpc.closest_ind, len(mpc.path)
     except Exception:
-        return None, None
+        return None, None, None
+

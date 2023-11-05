@@ -1,0 +1,5 @@
+<map id="TEST" name="TEST">
+<area shape="rect" id="node1" title="Test the observation model in a scenario where the vehicle is always aligned with the x axis." alt="" coords="5,46,61,73"/>
+<area shape="rect" id="node2" href="$classObservationModel.html#a1e57d72d1b32a2260c9dfc8d25bd802d" title="Calculate landmark position from observation." alt="" coords="122,5,299,47"/>
+<area shape="rect" id="node3" href="$classObservationModel.html#a0f8d3fc26c59869171ad60d08322d1d7" title="Calculate expected observation from the state vector." alt="" coords="109,71,312,112"/>
+</map>
