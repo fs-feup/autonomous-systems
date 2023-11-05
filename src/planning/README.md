@@ -6,6 +6,7 @@ The planning module is the third main module in the autonomous system. It comes 
 
 ### Install Dependencies
 You will need CGAL library for the Delaunay Triangulations. GSL library for the splines.
+
 ```SHELL
   sudo apt-get install libcgal-dev
   sudo apt-get install libgsl-dev
@@ -38,7 +39,7 @@ B) Or you can run using the test executable, after compiling.
     ros2 run planning planning_test
 ```
 
-## Architecture
+## Design
 
 The architecture of the module may be described according to the following diagrams.
 

@@ -40,7 +40,7 @@ To run this module, some python libraries and the tf-transormations package in t
     colcon test --packages-select control --event-handler=console_direct+
 ```
 
-## Architecture
+## Design
 
 The architecture of the module may be described according to the following diagrams.
 

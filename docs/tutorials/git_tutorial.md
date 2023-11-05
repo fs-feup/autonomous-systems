@@ -1,12 +1,10 @@
 # Git Tutorial
 
-Git is a version control system (VCS) for tracking changes in computer files and coordinating work on those files among multiple people.
+Git is a version control system (VCS) for tracking changes in computer files and coordinating work on those files among multiple people. It records file changes among directories and is creates an history of the changes made. It is also capable of merging different histories of changes into a new file, combining, for instance, the work developed by two different people in parallel, making it popular for collaboration.
 
 ## Instalation of git
 
 First and foremost, before using Git, you must have it installed. You can follow the steps outlined [here](https://github.com/git-guides/install-git) to complete the installation process.
-
-
 
 ## Step by step using git
 
@@ -192,6 +190,8 @@ git merge master
 
 In this case, the documentation branch is the one that is updated. The master branch remains the same.
 
+Beware that sometimes git cannot merge to branches or commits, in some cases where the same document has been altered in both paths, generating a **merge conflict**. In these cases, git will notify you and you will have to edit the documents with conflicts by hand, choosing the prefered version for each part of the documents that are conflicting. You will then have to stage and commit again.
+
 11. **Integration with a remote repository**
 
 Now, we will integrate our local repository with a remote repository, such as GitHub. With GitHub, several people can interact with the same repository. You can follow a step-by-step tutorial on how to integrate your machine with GitHub [here](https://youtu.be/iWs34DO_H2M?feature=shared).
@@ -225,8 +225,25 @@ Directly committing to the main (dev) branch should be avoided. Instead, you sho
 
 Every pull request must have a reviewer who must approve the pull request. Additionally, the pull request must have the approval of the department leader. When both reviewers approve the pull request, it can be merged.
 
+Another point worth noting is that we use a trunk based development system, where we have one main branch and multiple temporary (feature) branches, where all the work is done. The work is introduced in the main branch through **pull requests**.
+
+## Extra
+
+### Git Rebase
+
+A rebase is kind of like the reverse of a merge. Essentially, when you are in a short lived branch and important updates were introduced into the main branch, you can use rebase to retrieve those important updates. The next two figures denote the git history graph before and after a rebase in branch 'feature-branch' from 'master'.
+
+![Before Rebase](../assets/git_tutorial/rebase.svg)
+
+![After Rebase](../assets/git_tutorial/rebase2.svg)
+
+Contrarily to a merge, these updates will be included before any commits that you have introduced instead of after. Beware that this operation is also susceptible to merge conflicts.
+
+### Git stash
+
+Git stash can be used when you want to save the current directory state for later but do not want to add it to the history, for instance when you want to take in updates from a remote but don't want to make a commit out of the current work, as it is not ready yet. It essentially hads the current directory state to a stack (the changes, that is, git only records changes) upon execution of the command ```git stash```. To retrieve these changes, simply use ```git stash pop```. You can also use ```git stash list``` to list all stashed changes and ```git stash drop``` to drop the changes that are currently on the top of the stack (the last ones stashed).
 
 ## More information
 
-This tutorial was based on the slides of Prof. André Restivo. You can find them [here](https://paginas.fe.up.pt/~arestivo/slides/?s=git#1) for more precise information about how Git works. You can also check [this tutorial](https://www.youtube.com/watch?v=tRZGeaHPoaw&t=28s).
+This tutorial was based on the slides of Prof. André Restivo. You can find them [here](https://paginas.fe.up.pt/~arestivo/slides/?s=git#1) for more precise information about how Git works. You can also check [this tutorial](https://www.youtube.com/watch?v=tRZGeaHPoaw&t=28s). [This cheatsheet](../assets/git_tutorial/git-cheat-sheet-education.pdf) is also very useful, as noone always remembers the commands.
 

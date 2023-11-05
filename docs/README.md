@@ -12,6 +12,9 @@ Eventhough the documentation present in this repository in the form of markdown 
 
 ## Other documentation
 
-- [Project Rules](./project-rules.md)
+- [Project Rules](./project-rules.md) (better to check on ClickUp)
 - [Project Specification](./project-specification.md) - architecture and technologies
 - [Technologies](./technologies.md) - software used
+- [ADS-DV api](./ads-dv-api.md) - Imeche vehicle CAN api
+- [Technologies](./technologies.md)
+- [Compile Test Run](./compile-test-run.md) - for consult on how to compile test and run different parts of the project. 

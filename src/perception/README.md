@@ -4,6 +4,12 @@ The autonomous system's initial stage, the perception module, is responsible for
 
 ## Run the Node
 
+### Install dependencies
+
+```SHELL
+./dependencies_install.sh
+```
+
 ### Compile
 
 ```SHELL
@@ -22,7 +28,7 @@ The autonomous system's initial stage, the perception module, is responsible for
     colcon test --packages-select perception --event-handler=console_direct+
 ```
 
-## Architecture
+## Design
 
 Below are several diagrams from the documentation illustrating the details of the Perception Module.
 

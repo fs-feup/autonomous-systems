@@ -20,4 +20,4 @@ sudo apt-get install libgsl-dev
 pip3 install transform3d
 pip3 install transforms3d
 pip3 install cvxpy
-sudo apt install ros-galactic-tf-transformations
+sudo apt install ros-humble-tf-transformations

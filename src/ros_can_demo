@@ -1,2 +1,0 @@
-ros2 launch ros_can/launch/ros_can.launch.py
-
