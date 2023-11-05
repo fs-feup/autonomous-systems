@@ -15,6 +15,7 @@ find_package(ackermann_msgs REQUIRED)
 set(IMPLEMENTATION_FILES
   src/can/can.cpp
   src/main.cpp
+  src/test_node.cpp
 
   src/fs-ai_api/can.c
   src/fs-ai_api/fs-ai_api.c

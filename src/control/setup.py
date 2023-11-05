@@ -21,6 +21,7 @@ setup(
     entry_points={
         'console_scripts': [
             'control = control.control_node:main',
+            'control_test = control.control_test:main'
         ],
     },
 )

@@ -1,60 +1,200 @@
-from control.pid_utils import get_cte, get_closest_point
-
+from control.control_node import ControlNode
+from custom_interfaces.msg import PointArray, Point2d
+import rclpy
 import unittest
 import numpy as np
-import math
+import time
+
+from control.config import Params
+from control.mpc import MPC
+from control.mpc_utils import (
+    get_ref_trajectory,
+    get_linear_model_matrices,
+    optimize,
+)
+
+from utils import save_exec_time
+
+P = Params()
 
 class TestUtilsMethods(unittest.TestCase):
-    def test_get_closest_point(self):
-        points_array = np.asarray([[0, 2], [1, 0], [1, 1]])
+
+    def test_pid_callback(self):
+        dt = []
+        dt2 = []
+        dt3 = []
+        no_iters = 100
+
+        position = Point2d()
+        position.x = 0.0
+        position.y = -1.0
+        yaw = 0
+
+        raw_path = [(1.5,0.0), (1.75,1.0), (2.0,2.0), (2.5,2.4), (3.0,2.8),\
+            (3.5,3.15), (4.0,3.5), (4.25,4.25), (4.5,5.0), (4.7,5.5), (5.0, 6.0)]
+
+        for i in range(no_iters):
+            t0 = time.perf_counter() 
+            rclpy.init()
+            t1 = time.perf_counter()   
+            control_node = ControlNode()
+
+            recv_path = PointArray()
+            for point_tuple in raw_path:
+                point = Point2d()
+                point.x = point_tuple[0]
+                point.y = point_tuple[1]
+                recv_path.points.append(point)
+
+            control_node.path_callback(recv_path)
+            t2 = time.perf_counter() 
+            control_node.pid_callback(position, yaw)
+
+            t3 = time.perf_counter()      
+            dt.append(float(t3 - t0))
+            dt2.append(float(t2 - t1))
+            dt3.append(float(t3 - t2)) 
+
+            rclpy.shutdown()
+
+        save_exec_time('control', 'pid', 'path_processing-' +\
+            str(len(raw_path)) + 'pts', np.array(dt2).mean() * 1000)
+        save_exec_time('control', 'pid', 'callback',\
+            np.array(dt3).mean() * 1000)
+        save_exec_time('control', 'pid', 'callback+node',\
+            np.array(dt).mean() * 1000)
+
+        print("Node and Pid calculated in ", np.array(dt).mean() * 1000, \
+              " ms. First time was {}".format(dt[0] * 1000))
+        print("Pid path processing calculated in ", np.array(dt2).mean() * 1000, \
+              " ms. First time was {}".format(dt2[0] * 1000))
+        print("Pid only calculated in ", np.array(dt3).mean() * 1000, \
+              " ms. First time was {}".format(dt3[0] * 1000))
         
-        position = [0, 0]
-        closest_point, _ = get_closest_point(position, points_array)
-        self.assertEqual(list(closest_point), [1, 0])
 
-        position = [-1, 1]
-        closest_point, _ = get_closest_point(position, points_array)
-        self.assertEqual(list(closest_point), [0, 2])
+    def test_mpc_callback(self):
+        dt = []
+        dt2 = []
+        dt3 = []
+        no_iters = 100
 
-        points_array = np.asarray([[-4,10],[-3,10],[-1,10],[0,10],[1,10],[2,10],[2,10]])
-        closest_point, _ = get_closest_point(position, points_array)
-        self.assertEqual(list(closest_point), [-1, 10])
+        position = Point2d()
+        position.x = 0.0
+        position.y = -1.0
+        yaw = 0
 
+        raw_path = [(1.5,0.0), (1.75,1.0), (2.0,2.0), (2.5,2.4), (3.0,2.8),\
+            (3.5,3.15), (4.0,3.5), (4.25,4.25), (4.5,5.0), (4.7,5.5), (5.0, 6.0)]
 
-    def test_get_cte(self):
-        test_flag = True
+        for i in range(no_iters):
 
-        for same_dir in [True, False]:
-            for deg_angle in range(-180, 180 + 15, 15):
-                angle = math.radians(deg_angle + 90)
+            t0 = time.perf_counter() 
+            rclpy.init()
+            t1 = time.perf_counter()
+            control_node = ControlNode()
 
-                x_car = math.cos(angle)
-                y_car = math.sin(angle)
+            recv_path = PointArray()
+            for point_tuple in raw_path:
+                point = Point2d()
+                point.x = point_tuple[0]
+                point.y = point_tuple[1]
+                recv_path.points.append(point)
 
-                # 70 can be any number. Just to avoid inf divisions
-                yaw_car = angle + math.pi/2 + 70
-
-                x_track_1 = math.cos(angle + math.pi)
-                y_track_1 = math.sin(angle + + math.pi)
-                yaw_track = angle + math.pi/2 if same_dir else angle - math.pi/2
-
-                x_track_2 = x_track_1 + 0.1*math.cos(yaw_track)
-                y_track_2 = y_track_1 + 0.1*math.sin(yaw_track)
-                
-                points_array = np.array([[x_track_1, y_track_1],
-                                         [x_track_1, y_track_1],
-                                         [x_track_2, y_track_2],
-                                         [x_track_2, y_track_2]])
-                pose_car = [x_car, y_car, yaw_car]
-                closest_index = 0
-
-                print(points_array)
-
-                cte = get_cte(closest_index, points_array, pose_car)
-
-                ans_mult = 1 if same_dir else -1
-
-                if round(cte, 3) != ans_mult*2.0:
-                    test_flag = False
+            control_node.path_callback(recv_path)
+            t2 = time.perf_counter()  
+            control_node.mpc_callback(position, yaw)
+            t3 = time.perf_counter()       
+            dt.append(t3 - t0)
+            dt2.append(t2 - t1)
+            dt3.append(t3 - t2) 
             
-        self.assertEqual(test_flag, True)
+            rclpy.shutdown()
+                
+        save_exec_time('control', 'mpc', 'path_processing-' +\
+            str(len(raw_path)) + 'pts', np.array(dt2).mean() * 1000)
+        save_exec_time('control', 'mpc', 'callback-' +\
+            str(P.prediction_horizon) + 'ph', np.array(dt3).mean() * 1000)
+        save_exec_time('control', 'mpc', 'callback+node-' +\
+            str(P.prediction_horizon) + 'ph', np.array(dt).mean() * 1000)
+
+        print("Node and Mpc calculated in ", np.array(dt).mean() * 1000, \
+              " ms. First time was {}".format(dt[0] * 1000))
+        print("Mpc path processing calculated in ", np.array(dt2).mean() * 1000, \
+              " ms. First time was {}".format(dt2[0] * 1000))
+        print("Mpc only calculated in ", np.array(dt3).mean() * 1000, \
+              " ms. First time was {}".format(dt3[0] * 1000))
+
+
+    def test_mpc_optimization(self):
+        rclpy.init()
+        control_node = ControlNode()
+
+        position = Point2d()
+        position.x = 0.0
+        position.y = -1.0
+        yaw = 0
+
+        raw_path = [(1.5,0.0), (1.75,1.0), (2.0,2.0), (2.5,2.4), (3.0,2.8), (3.5,3.15),\
+            (4.0,3.5), (4.25,4.25), (4.5,5.0), (4.7,5.5), (5.0, 6.0)]
+        recv_path = PointArray()
+        for point_tuple in raw_path:
+            point = Point2d()
+            point.x = point_tuple[0]
+            point.y = point_tuple[1]
+            recv_path.points.append(point)
+
+        control_node.path_callback(recv_path)
+
+        # Set mpc
+        current_action = np.array(
+            [control_node.acceleration_command, control_node.steering_angle_actual])
+        current_state = np.array([position.x, position.y,\
+            control_node.velocity_actual, yaw])
+
+        mpc = MPC(current_action, current_state, control_node.path,\
+            control_node.old_closest_index)
+        
+        curr_state = np.array([0, 0, mpc.state[2], 0])
+
+        A, B, C = get_linear_model_matrices(curr_state, mpc.action)
+        
+        x_target, u_target, mpc.closest_ind = get_ref_trajectory(
+            mpc.state, mpc.path, P.VEL, old_ind=mpc.old_closest_ind
+        )
+
+        # Test
+        dt = []
+        no_iters = 100
+        for _ in range(no_iters):
+
+            t0 = time.perf_counter()  
+
+            _, _ = optimize(
+                A,
+                B,
+                C,
+                curr_state,
+                x_target,
+                u_target,
+                verbose=False
+            )
+
+            t1 = time.perf_counter()
+            dt.append(t1 - t0)
+
+        save_exec_time('control', 'mpc', 'optimization_step-' +\
+            str(P.prediction_horizon) + 'ph', np.array(dt).mean() * 1000)
+        
+        print("Average optimization step is ", np.array(dt).mean() * 1000, \
+              " ms. First time was {}".format(dt[0] * 1000))
+        
+        rclpy.shutdown()
+
+
+if __name__ == '__main__':
+    print("Running Tests...")
+    unittest.main()
+    
+
+    
+

@@ -1,0 +1,260 @@
+\hypertarget{classcontrol_1_1control__node_1_1ControlNode}{}\doxysection{Control\+Node Class Reference}
+\label{classcontrol_1_1control__node_1_1ControlNode}\index{ControlNode@{ControlNode}}
+
+
+Class that controls the car\textquotesingle{}s steering and speed.  
+
+
+Inheritance diagram for Control\+Node\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classcontrol_1_1control__node_1_1ControlNode}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{classcontrol_1_1control__node_1_1ControlNode_ae64f0875afe3067b97ba370b354b9213}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self)
+\begin{DoxyCompactList}\small\item\em Constructor of the class. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classcontrol_1_1control__node_1_1ControlNode_a4269a759fab3068ec207f82080cceab9}{dynamic\+\_\+callback}} (self)
+\item 
+def \mbox{\hyperlink{classcontrol_1_1control__node_1_1ControlNode_a688e4f7c026f2b48a838fd0ccd9170f7}{inspection\+\_\+callback}} (self)
+\item 
+def \mbox{\hyperlink{classcontrol_1_1control__node_1_1ControlNode_a4d9a9c007b8a83f4e26060f05d070f09}{mpc\+\_\+callback}} (self, \mbox{\hyperlink{classcontrol_1_1control__node_1_1ControlNode_a7130b1618285588513fd1ff97884b9d9}{position}}, yaw)
+\item 
+def \mbox{\hyperlink{classcontrol_1_1control__node_1_1ControlNode_abbea8ccf7a120651acb708e16b0eba0e}{path\+\_\+callback}} (self, points\+\_\+list)
+\begin{DoxyCompactList}\small\item\em Path callback. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classcontrol_1_1control__node_1_1ControlNode_a847be70957c7c6312c12cd201b66b3d4}{pid\+\_\+callback}} (self, \mbox{\hyperlink{classcontrol_1_1control__node_1_1ControlNode_a7130b1618285588513fd1ff97884b9d9}{position}}, yaw)
+\begin{DoxyCompactList}\small\item\em Odometry callback. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classcontrol_1_1control__node_1_1ControlNode_a9692d7a212fa89bc61dacc687e826097}{timer\+\_\+callback}} (self)
+\begin{DoxyCompactList}\small\item\em Sim publisher callback. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classcontrol_1_1control__node_1_1ControlNode_a839f64bbaf566274f5fd6cb16c27175d}{acceleration\+\_\+command}}
+\item 
+\mbox{\hyperlink{classcontrol_1_1control__node_1_1ControlNode_a6858ffc396644c8b625ced8997e50da0}{adapter}}
+\item 
+\mbox{\hyperlink{classcontrol_1_1control__node_1_1ControlNode_ad604cff3eb5d475cdc9f8eb5ab570fee}{done}}
+\item 
+\mbox{\hyperlink{classcontrol_1_1control__node_1_1ControlNode_a898d895bba14091bc391338277cf5869}{mission}}
+\item 
+\mbox{\hyperlink{classcontrol_1_1control__node_1_1ControlNode_abb5eeaf0f0c3899d5c7b4be10cb0cea3}{old\+\_\+closest\+\_\+index}}
+\item 
+\mbox{\hyperlink{classcontrol_1_1control__node_1_1ControlNode_ade22416269a8d2b3cb5e4610160d9270}{old\+\_\+steer\+\_\+error}}
+\item 
+\mbox{\hyperlink{classcontrol_1_1control__node_1_1ControlNode_a3c9655224054895ef1b61ababe9ac4fd}{old\+\_\+velocity\+\_\+error}}
+\item 
+\mbox{\hyperlink{classcontrol_1_1control__node_1_1ControlNode_aa28dc103258589d9cb421197fe2de90b}{path}}
+\item 
+\mbox{\hyperlink{classcontrol_1_1control__node_1_1ControlNode_a9d1ad0a8ae1e1a083fee31bfa3c96f04}{path\+\_\+speeds}}
+\item 
+\mbox{\hyperlink{classcontrol_1_1control__node_1_1ControlNode_a7130b1618285588513fd1ff97884b9d9}{position}}
+\item 
+\mbox{\hyperlink{classcontrol_1_1control__node_1_1ControlNode_adc6e5733fc3c22f0a7b2914188c49c90}{state}}
+\item 
+\mbox{\hyperlink{classcontrol_1_1control__node_1_1ControlNode_abc58a1f20834ddea596a9040edb7da02}{steering\+\_\+angle\+\_\+actual}}
+\item 
+\mbox{\hyperlink{classcontrol_1_1control__node_1_1ControlNode_ad29a5c336cc809d2a43a131f3a2579eb}{steering\+\_\+angle\+\_\+command}}
+\item 
+\mbox{\hyperlink{classcontrol_1_1control__node_1_1ControlNode_a9fabcf6aa0647a2414f7cb1a2ab2634a}{timer}}
+\item 
+\mbox{\hyperlink{classcontrol_1_1control__node_1_1ControlNode_a1a4d93fabb2efc475323e992db5ec15d}{velocity\+\_\+actual}}
+\item 
+\mbox{\hyperlink{classcontrol_1_1control__node_1_1ControlNode_aa5f6a2a55b791d61294176d18fd24187}{velocity\+\_\+error\+\_\+list}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class that controls the car\textquotesingle{}s steering and speed. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classcontrol_1_1control__node_1_1ControlNode_ae64f0875afe3067b97ba370b354b9213}\label{classcontrol_1_1control__node_1_1ControlNode_ae64f0875afe3067b97ba370b354b9213}} 
+\index{ControlNode@{ControlNode}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!ControlNode@{ControlNode}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def \+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Constructor of the class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & The object pointer. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classcontrol_1_1control__node_1_1ControlNode_a4269a759fab3068ec207f82080cceab9}\label{classcontrol_1_1control__node_1_1ControlNode_a4269a759fab3068ec207f82080cceab9}} 
+\index{ControlNode@{ControlNode}!dynamic\_callback@{dynamic\_callback}}
+\index{dynamic\_callback@{dynamic\_callback}!ControlNode@{ControlNode}}
+\doxysubsubsection{\texorpdfstring{dynamic\_callback()}{dynamic\_callback()}}
+{\footnotesize\ttfamily def dynamic\+\_\+callback (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classcontrol_1_1control__node_1_1ControlNode_a688e4f7c026f2b48a838fd0ccd9170f7}\label{classcontrol_1_1control__node_1_1ControlNode_a688e4f7c026f2b48a838fd0ccd9170f7}} 
+\index{ControlNode@{ControlNode}!inspection\_callback@{inspection\_callback}}
+\index{inspection\_callback@{inspection\_callback}!ControlNode@{ControlNode}}
+\doxysubsubsection{\texorpdfstring{inspection\_callback()}{inspection\_callback()}}
+{\footnotesize\ttfamily def inspection\+\_\+callback (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classcontrol_1_1control__node_1_1ControlNode_a4d9a9c007b8a83f4e26060f05d070f09}\label{classcontrol_1_1control__node_1_1ControlNode_a4d9a9c007b8a83f4e26060f05d070f09}} 
+\index{ControlNode@{ControlNode}!mpc\_callback@{mpc\_callback}}
+\index{mpc\_callback@{mpc\_callback}!ControlNode@{ControlNode}}
+\doxysubsubsection{\texorpdfstring{mpc\_callback()}{mpc\_callback()}}
+{\footnotesize\ttfamily def mpc\+\_\+callback (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{position,  }\item[{}]{yaw }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classcontrol_1_1control__node_1_1ControlNode_abbea8ccf7a120651acb708e16b0eba0e}\label{classcontrol_1_1control__node_1_1ControlNode_abbea8ccf7a120651acb708e16b0eba0e}} 
+\index{ControlNode@{ControlNode}!path\_callback@{path\_callback}}
+\index{path\_callback@{path\_callback}!ControlNode@{ControlNode}}
+\doxysubsubsection{\texorpdfstring{path\_callback()}{path\_callback()}}
+{\footnotesize\ttfamily def path\+\_\+callback (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{points\+\_\+list }\end{DoxyParamCaption})}
+
+
+
+Path callback. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & The object pointer. \\
+\hline
+{\em path} & Path message. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classcontrol_1_1control__node_1_1ControlNode_a847be70957c7c6312c12cd201b66b3d4}\label{classcontrol_1_1control__node_1_1ControlNode_a847be70957c7c6312c12cd201b66b3d4}} 
+\index{ControlNode@{ControlNode}!pid\_callback@{pid\_callback}}
+\index{pid\_callback@{pid\_callback}!ControlNode@{ControlNode}}
+\doxysubsubsection{\texorpdfstring{pid\_callback()}{pid\_callback()}}
+{\footnotesize\ttfamily def pid\+\_\+callback (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{position,  }\item[{}]{yaw }\end{DoxyParamCaption})}
+
+
+
+Odometry callback. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & The object pointer. \\
+\hline
+{\em msg} & Odometry message. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classcontrol_1_1control__node_1_1ControlNode_a9692d7a212fa89bc61dacc687e826097}\label{classcontrol_1_1control__node_1_1ControlNode_a9692d7a212fa89bc61dacc687e826097}} 
+\index{ControlNode@{ControlNode}!timer\_callback@{timer\_callback}}
+\index{timer\_callback@{timer\_callback}!ControlNode@{ControlNode}}
+\doxysubsubsection{\texorpdfstring{timer\_callback()}{timer\_callback()}}
+{\footnotesize\ttfamily def timer\+\_\+callback (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Sim publisher callback. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & The object pointer. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classcontrol_1_1control__node_1_1ControlNode_a839f64bbaf566274f5fd6cb16c27175d}\label{classcontrol_1_1control__node_1_1ControlNode_a839f64bbaf566274f5fd6cb16c27175d}} 
+\index{ControlNode@{ControlNode}!acceleration\_command@{acceleration\_command}}
+\index{acceleration\_command@{acceleration\_command}!ControlNode@{ControlNode}}
+\doxysubsubsection{\texorpdfstring{acceleration\_command}{acceleration\_command}}
+{\footnotesize\ttfamily acceleration\+\_\+command}
+
+\mbox{\Hypertarget{classcontrol_1_1control__node_1_1ControlNode_a6858ffc396644c8b625ced8997e50da0}\label{classcontrol_1_1control__node_1_1ControlNode_a6858ffc396644c8b625ced8997e50da0}} 
+\index{ControlNode@{ControlNode}!adapter@{adapter}}
+\index{adapter@{adapter}!ControlNode@{ControlNode}}
+\doxysubsubsection{\texorpdfstring{adapter}{adapter}}
+{\footnotesize\ttfamily adapter}
+
+\mbox{\Hypertarget{classcontrol_1_1control__node_1_1ControlNode_ad604cff3eb5d475cdc9f8eb5ab570fee}\label{classcontrol_1_1control__node_1_1ControlNode_ad604cff3eb5d475cdc9f8eb5ab570fee}} 
+\index{ControlNode@{ControlNode}!done@{done}}
+\index{done@{done}!ControlNode@{ControlNode}}
+\doxysubsubsection{\texorpdfstring{done}{done}}
+{\footnotesize\ttfamily done}
+
+\mbox{\Hypertarget{classcontrol_1_1control__node_1_1ControlNode_a898d895bba14091bc391338277cf5869}\label{classcontrol_1_1control__node_1_1ControlNode_a898d895bba14091bc391338277cf5869}} 
+\index{ControlNode@{ControlNode}!mission@{mission}}
+\index{mission@{mission}!ControlNode@{ControlNode}}
+\doxysubsubsection{\texorpdfstring{mission}{mission}}
+{\footnotesize\ttfamily mission}
+
+\mbox{\Hypertarget{classcontrol_1_1control__node_1_1ControlNode_abb5eeaf0f0c3899d5c7b4be10cb0cea3}\label{classcontrol_1_1control__node_1_1ControlNode_abb5eeaf0f0c3899d5c7b4be10cb0cea3}} 
+\index{ControlNode@{ControlNode}!old\_closest\_index@{old\_closest\_index}}
+\index{old\_closest\_index@{old\_closest\_index}!ControlNode@{ControlNode}}
+\doxysubsubsection{\texorpdfstring{old\_closest\_index}{old\_closest\_index}}
+{\footnotesize\ttfamily old\+\_\+closest\+\_\+index}
+
+\mbox{\Hypertarget{classcontrol_1_1control__node_1_1ControlNode_ade22416269a8d2b3cb5e4610160d9270}\label{classcontrol_1_1control__node_1_1ControlNode_ade22416269a8d2b3cb5e4610160d9270}} 
+\index{ControlNode@{ControlNode}!old\_steer\_error@{old\_steer\_error}}
+\index{old\_steer\_error@{old\_steer\_error}!ControlNode@{ControlNode}}
+\doxysubsubsection{\texorpdfstring{old\_steer\_error}{old\_steer\_error}}
+{\footnotesize\ttfamily old\+\_\+steer\+\_\+error}
+
+\mbox{\Hypertarget{classcontrol_1_1control__node_1_1ControlNode_a3c9655224054895ef1b61ababe9ac4fd}\label{classcontrol_1_1control__node_1_1ControlNode_a3c9655224054895ef1b61ababe9ac4fd}} 
+\index{ControlNode@{ControlNode}!old\_velocity\_error@{old\_velocity\_error}}
+\index{old\_velocity\_error@{old\_velocity\_error}!ControlNode@{ControlNode}}
+\doxysubsubsection{\texorpdfstring{old\_velocity\_error}{old\_velocity\_error}}
+{\footnotesize\ttfamily old\+\_\+velocity\+\_\+error}
+
+\mbox{\Hypertarget{classcontrol_1_1control__node_1_1ControlNode_aa28dc103258589d9cb421197fe2de90b}\label{classcontrol_1_1control__node_1_1ControlNode_aa28dc103258589d9cb421197fe2de90b}} 
+\index{ControlNode@{ControlNode}!path@{path}}
+\index{path@{path}!ControlNode@{ControlNode}}
+\doxysubsubsection{\texorpdfstring{path}{path}}
+{\footnotesize\ttfamily path}
+
+\mbox{\Hypertarget{classcontrol_1_1control__node_1_1ControlNode_a9d1ad0a8ae1e1a083fee31bfa3c96f04}\label{classcontrol_1_1control__node_1_1ControlNode_a9d1ad0a8ae1e1a083fee31bfa3c96f04}} 
+\index{ControlNode@{ControlNode}!path\_speeds@{path\_speeds}}
+\index{path\_speeds@{path\_speeds}!ControlNode@{ControlNode}}
+\doxysubsubsection{\texorpdfstring{path\_speeds}{path\_speeds}}
+{\footnotesize\ttfamily path\+\_\+speeds}
+
+\mbox{\Hypertarget{classcontrol_1_1control__node_1_1ControlNode_a7130b1618285588513fd1ff97884b9d9}\label{classcontrol_1_1control__node_1_1ControlNode_a7130b1618285588513fd1ff97884b9d9}} 
+\index{ControlNode@{ControlNode}!position@{position}}
+\index{position@{position}!ControlNode@{ControlNode}}
+\doxysubsubsection{\texorpdfstring{position}{position}}
+{\footnotesize\ttfamily position}
+
+\mbox{\Hypertarget{classcontrol_1_1control__node_1_1ControlNode_adc6e5733fc3c22f0a7b2914188c49c90}\label{classcontrol_1_1control__node_1_1ControlNode_adc6e5733fc3c22f0a7b2914188c49c90}} 
+\index{ControlNode@{ControlNode}!state@{state}}
+\index{state@{state}!ControlNode@{ControlNode}}
+\doxysubsubsection{\texorpdfstring{state}{state}}
+{\footnotesize\ttfamily state}
+
+\mbox{\Hypertarget{classcontrol_1_1control__node_1_1ControlNode_abc58a1f20834ddea596a9040edb7da02}\label{classcontrol_1_1control__node_1_1ControlNode_abc58a1f20834ddea596a9040edb7da02}} 
+\index{ControlNode@{ControlNode}!steering\_angle\_actual@{steering\_angle\_actual}}
+\index{steering\_angle\_actual@{steering\_angle\_actual}!ControlNode@{ControlNode}}
+\doxysubsubsection{\texorpdfstring{steering\_angle\_actual}{steering\_angle\_actual}}
+{\footnotesize\ttfamily steering\+\_\+angle\+\_\+actual}
+
+\mbox{\Hypertarget{classcontrol_1_1control__node_1_1ControlNode_ad29a5c336cc809d2a43a131f3a2579eb}\label{classcontrol_1_1control__node_1_1ControlNode_ad29a5c336cc809d2a43a131f3a2579eb}} 
+\index{ControlNode@{ControlNode}!steering\_angle\_command@{steering\_angle\_command}}
+\index{steering\_angle\_command@{steering\_angle\_command}!ControlNode@{ControlNode}}
+\doxysubsubsection{\texorpdfstring{steering\_angle\_command}{steering\_angle\_command}}
+{\footnotesize\ttfamily steering\+\_\+angle\+\_\+command}
+
+\mbox{\Hypertarget{classcontrol_1_1control__node_1_1ControlNode_a9fabcf6aa0647a2414f7cb1a2ab2634a}\label{classcontrol_1_1control__node_1_1ControlNode_a9fabcf6aa0647a2414f7cb1a2ab2634a}} 
+\index{ControlNode@{ControlNode}!timer@{timer}}
+\index{timer@{timer}!ControlNode@{ControlNode}}
+\doxysubsubsection{\texorpdfstring{timer}{timer}}
+{\footnotesize\ttfamily timer}
+
+\mbox{\Hypertarget{classcontrol_1_1control__node_1_1ControlNode_a1a4d93fabb2efc475323e992db5ec15d}\label{classcontrol_1_1control__node_1_1ControlNode_a1a4d93fabb2efc475323e992db5ec15d}} 
+\index{ControlNode@{ControlNode}!velocity\_actual@{velocity\_actual}}
+\index{velocity\_actual@{velocity\_actual}!ControlNode@{ControlNode}}
+\doxysubsubsection{\texorpdfstring{velocity\_actual}{velocity\_actual}}
+{\footnotesize\ttfamily velocity\+\_\+actual}
+
+\mbox{\Hypertarget{classcontrol_1_1control__node_1_1ControlNode_aa5f6a2a55b791d61294176d18fd24187}\label{classcontrol_1_1control__node_1_1ControlNode_aa5f6a2a55b791d61294176d18fd24187}} 
+\index{ControlNode@{ControlNode}!velocity\_error\_list@{velocity\_error\_list}}
+\index{velocity\_error\_list@{velocity\_error\_list}!ControlNode@{ControlNode}}
+\doxysubsubsection{\texorpdfstring{velocity\_error\_list}{velocity\_error\_list}}
+{\footnotesize\ttfamily velocity\+\_\+error\+\_\+list}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+control/control/\mbox{\hyperlink{control__node_8py}{control\+\_\+node.\+py}}\end{DoxyCompactItemize}

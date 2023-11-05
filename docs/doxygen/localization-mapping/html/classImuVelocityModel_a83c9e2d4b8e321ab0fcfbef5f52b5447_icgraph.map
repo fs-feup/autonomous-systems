@@ -1,0 +1,4 @@
+<map id="ImuVelocityModel::predict_expected_state" name="ImuVelocityModel::predict_expected_state">
+<area shape="rect" id="node1" title="Calculate expected state vector from velocity model using IMU data and linear functions Uses translat..." alt="" coords="109,5,283,47"/>
+<area shape="rect" id="node2" href="$motion__model__test_8cpp.html#a6fbede91fc0c55e0beeee30fb29a34bf" title=" " alt="" coords="5,13,61,39"/>
+</map>

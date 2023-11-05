@@ -4,8 +4,8 @@ This tutorial is meant to help the developer learn [ROS2](https://docs.ros.org/e
 
 ## Links
 
-- [Youtube ROS2 tutorials](https://www.youtube.com/watch?v=uYW8UJZTuAg&list=PLRE44FoOoKf7NzWwxt3W2taZ7BiWyfhCp&index=6)
-- [ROS2 galactic documentation](https://docs.ros.org/en/galactic/index.html)
+- [Youtube ROS2 tutorials](https://www.youtube.com/watch?v=0aPbWsyENA8&list=PLLSegLrePWgJudpPUof4-nVFHGkB62Izy)
+- [ROS2 humble tutorials](https://docs.ros.org/en/humble/Tutorials.html)
 
 ## Keywords
 

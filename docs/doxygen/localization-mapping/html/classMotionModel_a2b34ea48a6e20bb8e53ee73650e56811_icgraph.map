@@ -1,0 +1,5 @@
+<map id="MotionModel::get_motion_to_state_matrix" name="MotionModel::get_motion_to_state_matrix">
+<area shape="rect" id="node1" title="Calculate state covariance matrix from motion estimation." alt="" coords="308,5,476,47"/>
+<area shape="rect" id="node2" href="$classExtendedKalmanFilter.html#aa5aeb5c329fffcbcb1a197de8e263427" title="Prediction step:" alt="" coords="109,5,260,47"/>
+<area shape="rect" id="node3" href="$slam__test_8cpp.html#aa751639fa208fe991a3ba5969c0daa28" title="Test the EKF SLAM algorithm in a linear movement." alt="" coords="5,13,61,39"/>
+</map>

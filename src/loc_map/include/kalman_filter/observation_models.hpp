@@ -10,7 +10,6 @@
  *
  * @param position
  * @param color
- *
  */
 struct ObservationData {
   Position position;
@@ -23,7 +22,6 @@ struct ObservationData {
 /**
  * @brief Observation Model class
  * compiled of functions for observation model
- *
  */
 class ObservationModel {
   Eigen::Matrix2f _observation_noise_covariance_matrix; /**< H or C */

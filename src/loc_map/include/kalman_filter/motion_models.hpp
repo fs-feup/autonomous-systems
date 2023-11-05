@@ -5,19 +5,6 @@
 
 #include "loc_map/data_structures.hpp"
 
-// /**
-//  * @brief Struct containing motion prediction data
-//  * Depending on the motion model, some data may be irrelevant
-//  *
-//  */
-// struct MotionPredictionData {
-//   double translational_velocity = 0.0;   /**< Translational Velocity Mod */
-//   double translational_velocity_x = 0.0; /**< Translational Velocity in X axis */
-//   double translational_velocity_y = 0.0; /**< Translational Velocity in Y axis */
-//   double rotational_velocity = 0.0;      /**< Rotational Velocity */
-//   double steering_angle = 0.0;           /**< Steering Angle */
-// };
-
 /**
  * @brief Abstract Moiton Model class
  * designed to be implemented by the different motion models

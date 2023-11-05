@@ -1,0 +1,13 @@
+<map id="TEST" name="TEST">
+<area shape="rect" id="node1" title="Test the EKF SLAM algorithm in a linear movement." alt="" coords="5,253,61,280"/>
+<area shape="rect" id="node2" href="$classExtendedKalmanFilter.html#a230559bb9193f7acf494ae9e889fb6f8" title="Correction step:" alt="" coords="109,111,260,153"/>
+<area shape="rect" id="node6" href="$classExtendedKalmanFilter.html#a842e67053722fb368101139a5c0a542b" title="Get the last update timestamp." alt="" coords="109,213,260,254"/>
+<area shape="rect" id="node7" href="$classExtendedKalmanFilter.html#aa5aeb5c329fffcbcb1a197de8e263427" title="Prediction step:" alt="" coords="109,278,260,319"/>
+<area shape="rect" id="node11" href="$classExtendedKalmanFilter.html#ae59429128f079a8a03c53360f7a9bf4f" title="Updates vehicle state and map variables according to the state vector X." alt="" coords="109,343,260,385"/>
+<area shape="rect" id="node3" href="$classObservationModel.html#a97a9e71e7cee696be91a569eb65b9df9" title="Get the observation noise covariance matrix (C or H)" alt="" coords="308,5,512,61"/>
+<area shape="rect" id="node4" href="$classObservationModel.html#aa789708c6a934ba1edfc8386b1f38d4f" title="Get the state to observation matrix of the observation model (H)" alt="" coords="333,85,487,141"/>
+<area shape="rect" id="node5" href="$classObservationModel.html#a0f8d3fc26c59869171ad60d08322d1d7" title="Calculate expected observation from the state vector." alt="" coords="309,166,511,207"/>
+<area shape="rect" id="node8" href="$classMotionModel.html#a2b34ea48a6e20bb8e53ee73650e56811" title="Calculate state covariance matrix from motion estimation." alt="" coords="326,231,494,273"/>
+<area shape="rect" id="node9" href="$classMotionModel.html#a76de9b7caf93cd717bf388aff40ab589" title="Get the process noise covariance matrix object." alt="" coords="323,297,497,338"/>
+<area shape="rect" id="node10" href="$classMotionModel.html#a24a7f8fab182b07ba116911cdd33893f" title="Calculate expected state vector from motion estimation." alt="" coords="339,362,481,403"/>
+</map>

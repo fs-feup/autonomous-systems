@@ -5,6 +5,7 @@ import matplotlib.lines as mlines
 import matplotlib
 import math
 import time
+import numpy as np
 from os import system, name
 
 from custom_interfaces.msg import PointArray, ConeArray, Pose as PoseMsg
@@ -90,6 +91,23 @@ def relative_to_absolute_coordinates(relative_coordinates: Position,
     y = math.sin(rotation_angle) * relative_coordinates.x + math.cos(
         rotation_angle) * relative_coordinates.y + translation[1]
     return Position(x, y)
+
+
+def calculate_displacements(estimated_cones: list, true_cones: list):
+    estimated_cones: np.array = np.array(estimated_cones)
+    true_cones: np.array = np.array(true_cones)
+    distances = []
+
+    for est_cone in estimated_cones:
+        distance_f = np.vectorize(lambda cone: est_cone.distance(cone))
+        cone_distances = distance_f(true_cones)
+        closest_distance, closest_index = np.min(cone_distances
+                                                 ), np.argmin(cone_distances)
+        np.delete(true_cones, closest_index)
+        distances.append(closest_distance)
+
+    return distances
+
 
 
 class Plots(Node):
@@ -289,9 +307,14 @@ class Plots(Node):
             msg.pose.pose.position.x, msg.pose.pose.orientation.z) #Rotate axis
 
 
-    def plot_path_callback(self, msg):
+    """!
+    @brief Callback function to plot the path given by the
+    path planning.
+    @param msg PointArray message.
+    """
+    def plot_path_callback(self, msg: PointArray):
         for point in msg.points:
-            self.map_points.append(Cone(point.x, point.y, self.path_color))
+            self.map_points.append(Cone(-point.y, point.x, self.path_color))
 
 
     """!
@@ -301,37 +324,39 @@ class Plots(Node):
         # Mapping
         cone_number_difference = abs(len(self.true_map_points) - len(
             self.map_points))
-        cone_distances_mapping = [[i.distance(j) for j in self.true_map_points]
-                           for i in self.map_points]
         max_displacement_mapping = 0
         min_displacement_mapping = 0
         total_displacement_mapping = 0
         avg_displacement_mapping = 0
-        if len(cone_distances_mapping) != 0:
-            displacements_by_cone_mapping = [min(distances) 
-                                    for distances in cone_distances_mapping]
+        if len(self.true_map_points) > 0 and len(self.map_points) > 0:
+            # Get displacement between true node and estimated node by assuming
+            #the correspondent nodes are the closest ones
+            displacements_by_cone_mapping = \
+                calculate_displacements(self.map_points, self.true_map_points)
             max_displacement_mapping = max(displacements_by_cone_mapping)
             min_displacement_mapping = min(displacements_by_cone_mapping)
             total_displacement_mapping = sum(displacements_by_cone_mapping)
             avg_displacement_mapping = total_displacement_mapping / len(
-                cone_distances_mapping)
-        localization_displacement = self.localization.distance(self.true_localization)
+                displacements_by_cone_mapping)
+        localization_displacement = \
+            self.localization.distance(self.true_localization)
 
         # Perception
-        cone_distances_perception = [[i.distance(j) for j in self.true_map_points]
-                            for i in self.perception_points]
         max_displacement_perception = 0
         min_displacement_perception = 0
         total_displacement_perception = 0
         avg_displacement_perception = 0
-        if len(cone_distances_perception) != 0:
-            displacements_by_cone_perception = [min(distances) 
-                                    for distances in cone_distances_perception]
+        if len(self.true_perception_points) > 0 and len(self.perception_points) > 0:
+            # Get displacement between true node and estimated node by assuming
+            #the correspondent nodes are the closest ones
+            displacements_by_cone_perception = \
+                calculate_displacements(self.perception_points, 
+                                        self.true_perception_points)
             max_displacement_perception = max(displacements_by_cone_perception)
             min_displacement_perception = min(displacements_by_cone_perception)
             total_displacement_perception = sum(displacements_by_cone_perception)
             avg_displacement_perception = total_displacement_perception / len(
-                cone_distances_perception)
+                displacements_by_cone_perception)
         return {"max_displacement_mapping": max_displacement_mapping,
          "total_displacement_mapping": total_displacement_mapping, 
                 "min_displacement_mapping": min_displacement_mapping,

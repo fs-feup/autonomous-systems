@@ -7,31 +7,53 @@ from custom_interfaces.msg import Cone, ConeArray, Point2d
 from cv_bridge import CvBridge
 
 class DepthProcessor():
+
+    """!
+    @brief Class dedicated to processing the depth and distance information of obstacles
+    """
+
     def __init__(self, logger):
+
+        """!
+        @brief Constructor for initializing the DepthProcessor
+        @param self The object pointer
+        @param logger Node logger
+        """
+
         self.logger = logger
         self.bridge = CvBridge()
 
-    def process(self, msg, img):
-        cone_array = ConeArray()
-        points = []
-        
-        imgPts = np.float32([
+        self.imgPts = np.float32([
             [430, 325],
             [483, 310],
             [790, 325],
             [736, 310]
         ])
-        objPts = np.float32([
+        self.objPts = np.float32([
             [-2.795184, 6.102409],
             [-3.088784, 8.926933],
             [1.836005, 6.092231],
             [1.77159, 8.985139]
         ])
 
+    def process(self, msg, img, point_cloud=None):
+
+        """!
+        @brief Process the distance of obstacles
+        @param self The object pointer
+        @param msg Detected bounding boxes and their properties
+        @param img Input image containing the detected bounding boxes
+        @param point_cloud Point Cloud data associated with the image and 3D information
+        @return ConeArray object containing information about detected cones
+        """
+
+
+        cone_array = ConeArray()
+
         # Apply perspective transformation function of openCV2.
         # This function will return the matrix which you can feed into warpPerspective 
         # function to get the warped image.
-        matrix = cv2.getPerspectiveTransform(imgPts, objPts)
+        matrix = cv2.getPerspectiveTransform(self.imgPts, self.objPts)
     
         for bounding_box in msg.bounding_boxes:
             #check if confidence is high enough
@@ -49,24 +71,28 @@ class DepthProcessor():
             if len(roi) == 0:
                 continue
         
-            bb_point = np.float32([[[x, y]]])
-            point = cv2.perspectiveTransform(bb_point, matrix)
-            x = float(point[0][0][0])
-            y = float(point[0][0][1])
-            points.append((point, bounding_box.class_id))
+            if point_cloud is not None:
+                point3D = point_cloud.get_value(x, y)
+                x = point3D[1][0]
+                y = point3D[1][2]
+            else:
+                bb_point = np.float32([[[x, y]]])
+                point = cv2.perspectiveTransform(bb_point, matrix)
+                x = float(point[0][0][0])
+                y = float(point[0][0][1])
 
             #publish cone coordinates
             cone = Cone()
             position = Point2d()
 
-            # rotate coordinates -90 degrees so they match localization logic
-            position.x = y
-            position.y = x
+            # rotate coordinates 90 degrees so they match localization logic
+            position.x = float(y)
+            position.y = float(-x)
             cone.position = position
             cone.color = bounding_box.class_id
             cone_array.cone_array.append(cone)
 
-            self.logger.info("({},{})\t{}"
+            self.logger.debug("({},{})\t{}"
                 .format(position.x, position.y, bounding_box.class_id))
 
         self.bounding_boxes_msgs = []

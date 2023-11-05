@@ -1,6 +1,6 @@
 # Project Specifications
 
-This project aims to develop an Aritificial Inteligence system for a computer to be installed in a car, with the objective of making said vehicle autonomous in the driving tasks pruposed in multiple Formula Student competitions.
+This project aims to develop an Artificial Inteligence system for a computer to be installed in a car, with the objective of making said vehicle autonomous in the driving tasks pruposed in multiple Formula Student competitions.
 
 ## Technologies
 
@@ -25,4 +25,10 @@ The AI computer is divided into 4 main components:
 - Path Planning - plan a path for the vehicle to follow
 - Control - traduce the designed path into controls to the vehicle
 
-![Components Diagram Diagram](./assets/architecure-tentative.drawio.svg)
+The following components diagram illustrates the structure of the system.
+
+![Components Diagram](./assets/architecure.drawio.svg)
+
+The activity diagram / flow chart below illustrates the behaviour of the system and the flow of information through it.
+
+![Activity Diagram](./assets/system-flow-chart.drawio.svg)

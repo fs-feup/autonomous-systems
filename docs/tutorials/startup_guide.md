@@ -11,17 +11,18 @@ It is also necessary to learn how to use certain tools and programming languages
 
 This guide is meant to help the developer setup the environment required to work for this project and get an insight on the technologies used.
 
-**NOTE:** This guide and all the tutorials are supposed to be incremental. As the knowledge expands, new tutorials should be created and existing ones improved.
-
-**NOTE 2:** Before reading this guide, make sure you are on par with the [project general rules](../project-rules.md).
+### Notes
+- This guide and all the tutorials are supposed to be incremental. As the knowledge expands, new tutorials should be created and existing ones improved.
+- Before reading this guide, make sure you are on par with the [project general rules](../project-rules.md).
 
 ## Chapters
 
-- [ROS2 and Simulator Setup](./sim_setup_tutorial.md)
+- [Git tutorial](./git_tutorial.md)
+- [ROS2 Setup](./ros2_setup.md)
+- [Coding Environment](./coding_environment.md)
 - [ROS2 Basics](./ros2_tutorial.md)
-- [EUFS Simulator Tutorial](./sim_tutorial.md)
-- [Coding Environment](./coding_environment.md) - example of coding environment to use in VSCode, as well as explaining of package structure 
-- [The Project itself](./project_general_tutorial.md) - how to compile and run the code on each node, file structure and other details on the project itself
+- [Compile, Test, Run](./compile-test-run.md) - how to compile and run the code on each node
+- [Developing](./developing.md) - how to program
 - [Testing](./testing.md) - about creating tests for the code
 - [Static Analysis Tools](./static_analysis_tools.md) - tutorial on using the static analysis and formatting tools adopted
 - [Documentation](./documentation.md) - tutorial on how to document code

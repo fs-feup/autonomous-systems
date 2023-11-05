@@ -35,7 +35,10 @@ void Adapter::fsds_init() {
       this->node->create_publisher<fs_msgs::msg::FinishedSignal>("/signal/finished", 10);
 }
 
-void Adapter::ads_dv_init() {}
+void Adapter::ads_dv_init() {
+  this->ads_dv_state_subscription_ = this->node->create_subscription<custom_interfaces::msg::Vcu>(
+      "/vcu", 10, std::bind(&Adapter::ads_dv_mission_state_callback, this, std::placeholders::_1));
+}
 
 void Adapter::eufs_mission_state_callback(const eufs_msgs::msg::CanState msg) {
   auto mission = msg.ami_state;
@@ -62,6 +65,20 @@ void Adapter::fsds_mission_state_callback(const fs_msgs::msg::GoSignal msg) {
     this->node->set_mission(Mission::trackdrive);
   } else if (mission == "autocross") {
     this->node->set_mission(Mission::autocross);
+  }
+}
+
+void Adapter::ads_dv_mission_state_callback(const custom_interfaces::msg::Vcu msg) {
+  auto mission = msg.ami_state;
+
+  if (mission == 1) {
+    this->node->set_mission(Mission::acceleration);
+  } else if (mission == 2) {
+    this->node->set_mission(Mission::skidpad);
+  } else if (mission == 3) {
+    this->node->set_mission(Mission::autocross);
+  } else if (mission == 4) {
+    this->node->set_mission(Mission::trackdrive);
   }
 }
 

@@ -34,7 +34,7 @@ CPPLint does not have the possibility of defining full directories to be ignored
 ```sh
 cpplint --recursive ./
 ```
-In the src folder there is a [script](../../src/cpplint.sh) that already runs this command called **cppint.sh**.
+In the src folder there is a [script](../../src/cpplint.sh) that already runs this command called **cpplint.sh**.
 
 ### Clang-format
 
