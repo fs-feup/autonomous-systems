@@ -91,6 +91,27 @@ TEST(NORMAL_VELOCITY_MODEL, LINEAR_VELOCITY_CURVE_TEST) {
   }
 }
 
+TEST(NORMAL_VELOCITY_MODEL, AUTONOMOUS_DEMO_TEST) {
+  Eigen::MatrixXf R = Eigen::Matrix3f::Zero();
+  Eigen::VectorXf temp_state = Eigen::Vector3f::Zero();
+  NormalVelocityModel motion_model = NormalVelocityModel(R);
+  MotionUpdate prediction_data = {2.5, 0, 0, 0.001, 0, std::chrono::high_resolution_clock::now()};
+  for (unsigned int i = 0; i < 4; i++) {
+    temp_state = motion_model.predict_expected_state(temp_state, prediction_data, 1);
+    EXPECT_NEAR(temp_state(0), 2.5 * (i + 1), 0.01 * (i + 1));
+  }
+  prediction_data = {0, 0, 0, 0.001, 0, std::chrono::high_resolution_clock::now()};
+  for (unsigned int i = 0; i < 4; i++) {
+    temp_state = motion_model.predict_expected_state(temp_state, prediction_data, 1);
+    EXPECT_NEAR(temp_state(0), 10, 0.05);
+  }
+  prediction_data = {2.5, 0, 0, 0.001, 0, std::chrono::high_resolution_clock::now()};
+  for (unsigned int i = 0; i < 4; i++) {
+    temp_state = motion_model.predict_expected_state(temp_state, prediction_data, 1);
+    EXPECT_NEAR(temp_state(0), 10 + 2.5 * (i + 1), 0.01 * (i + 1));
+  }
+}
+
 TEST(NORMAL_VELOCITY_MODEL, CIRCULAR_MOVEMENT_TEST) {
   Eigen::MatrixXf R = Eigen::Matrix3f::Zero();
   NormalVelocityModel motion_model = NormalVelocityModel(R);

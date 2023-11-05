@@ -10,7 +10,7 @@ def get_closest_point(state, path, old_nn_idx=None, search_window=None):
     Computes the index of the waypoint closest to vehicle
     """
 
-    if old_nn_idx and search_window:
+    if search_window:
         windowed_path = path[max(old_nn_idx - search_window, 0): 
                             min(old_nn_idx + search_window, path.shape[0]), :]
 
@@ -102,18 +102,25 @@ def get_cte(closest_index, points_array, pose_car):
     y_car = pose_car[1]
     yaw_car = pose_car[2]
 
-    spline_window = 10
-    win_amplitude = int(spline_window/2)
-    n_new_points = 50
+    win_amplitude = int(P.spline_window/2)
 
-    filtered_points = points_array[max(closest_index-win_amplitude, 0):
-        min(closest_index+win_amplitude, len(points_array)), :]
+    # implement look ahead
+    if closest_index + P.LOOK_AHEAD < len(points_array) - (P.spline_degree + 1) - 1:
+        closest_index += P.LOOK_AHEAD
 
-    tck, u = interpolate.splprep([filtered_points[:, 0], filtered_points[:, 1]],
-                                  s=0, per=False)
-    x0, y0 = interpolate.splev(np.linspace(0, 1, n_new_points), tck)
+    if len(points_array) > 3:
 
-    new_points_array = np.concatenate((x0[:, np.newaxis], y0[:, np.newaxis]), axis=1)
+        filtered_points = points_array[max(closest_index-win_amplitude, 0):
+            min(closest_index+win_amplitude, len(points_array)), :]
+
+        tck, u = interpolate.splprep([filtered_points[:, 0], filtered_points[:, 1]],
+                                    s=0, per=False, k=P.spline_degree)
+        x0, y0 = interpolate.splev(np.linspace(0, 1, P.spline_n_new_points), tck)
+
+        new_points_array = \
+            np.concatenate((x0[:, np.newaxis], y0[:, np.newaxis]), axis=1)
+    else:
+        new_points_array = points_array
 
     new_closest_index = get_closest_point([x_car, y_car], new_points_array)
 
@@ -166,11 +173,28 @@ def get_cte(closest_index, points_array, pose_car):
     return math.sin(yaw_car - yaw_track)*car_to_intersect*mult
     
 
-def get_speed_command(speeds, closest_index):
+def get_reference_speed(speeds, closest_index):
     return speeds[closest_index]
 
 
-def steer(pos_error, yaw_error, ct_error, old_error):
+def get_speed_error(ref_speed, actual_speed):
+    return ref_speed - actual_speed
+
+
+def get_acceleration_command(error):
+    """!
+    @brief Accelerates the car.
+    @param self The object pointer.
+    @param speed_error Speed Error.
+    """
+
+    # calculate acceleration command
+    acceleration = P.kp_acc*error
+
+    return float(acceleration)
+
+
+def get_steering_command(pos_error, yaw_error, ct_error, old_error):
     """!
     @brief Steers the car.
     @param self The object pointer.
@@ -189,23 +213,20 @@ def steer(pos_error, yaw_error, ct_error, old_error):
     old_error = error
 
     # save reference in node's attribute to be accessed by other methods
-    return float(steer_angle), old_error
+    return np.clip(float(steer_angle), -P.MAX_STEER, P.MAX_STEER), old_error
 
 
-def get_torque_break_commands(actual_speed, desired_speed, old_error):
-    error = desired_speed - actual_speed
+def get_torque_break_commands(acceleration):
 
     torque_req = 0
     break_req = 0
 
     # calculate steering angle command
-    if error > 0:
+    if acceleration > 0:
         # torque
-        torque_req = max(P.kp_torque*error + P.kd_torque*(error - old_error), 0)
-
+        torque_req = P.kp_torque*acceleration
     else:
         # break
-        break_req = -min(P.kp_break*error + P.kd_break*(error - old_error), 0)
+        break_req = - P.kp_break*acceleration
 
-    return torque_req, break_req, error
-
+    return torque_req, break_req

@@ -9,29 +9,19 @@
 #include "loc_map/data_structures.hpp"
 
 /**
- * @brief Notas
- *
- * - No inicio, software engineers specialized in AI - no
- * - Integration with buses of ifrastructure in system design - no
- * - We will not be developping simulation models - no
- * - Not vehicles from the bus manufacturing company - no
- *
- *
- */
-
-/**
  * @brief Extended Kalman Filter class
  *
  * @details
  * The Extended Kalman Filter (EKF) is a recursive state estimator for nonlinear systems.
  * It is a nonlinear version of the Kalman Filter (KF).
- * This implementation is used to performe state estimation for the localization of
+ * This implementation is used to perform state estimation for the localization of
  * the vehicle and the map.
  *
  */
 class ExtendedKalmanFilter {
-  static float max_landmark_deviation; /**< Maximum deviation of the landmark position from the
-                                          expected position */
+  static double max_landmark_distance; /**< Maximum deviation of the landmark position from the
+                                          expected position when the landmark is perceived
+                                          to be 1 meter away */
 
   Eigen::VectorXf X;                  /**< Expected state vector (localization + mapping) */
   Eigen::MatrixXf P;                  /**< State covariance matrix */
@@ -45,15 +35,17 @@ class ExtendedKalmanFilter {
 
   MotionUpdate _last_motion_update; /**< Last motion update */
 
+  bool _fixed_map = false; /**< Flag to indicate if the map is fixed */
+
   /**
    * @brief Discovery step:
    * Adds a new landmark to the map
    * if there are no matches for the observation
    *
    * @param observation_data
-   * @return unsigned int
+   * @return int index of the landmark or, in case of rejection, -1
    */
-  unsigned int discovery(const ObservationData& observation_data);
+  int discovery(const ObservationData& observation_data);
 
   /**
    * @brief Calculate the kalman gain
@@ -66,9 +58,24 @@ class ExtendedKalmanFilter {
   Eigen::MatrixXf get_kalman_gain(const Eigen::MatrixXf& H, const Eigen::MatrixXf& P,
                                   const Eigen::MatrixXf& Q);
 
+  /**
+   * @brief Check if the cone matches with the landmark
+   * the score is greater the best the match is
+   *
+   * @param x_from_state x absolute coordinate of the landmark in state
+   * @param y_from_state y absolute coordinate of the landmark in state
+   * @param x_from_perception x coordinate of the landmark from perception
+   * @param y_from_perception y coordinate of the landmark from perception
+   * @param distance_to_vehicle distance of the cone to the vehicle
+   * @return difference between limit and delta (score)
+   */
+  static bool cone_match(const double x_from_state, const double y_from_state,
+                         const double x_from_perception, const double y_from_perception,
+                         const double distance_to_vehicle);
+
  public:
   /**
-   * @brief Construct a new Extended Kalman Filter object
+   * @brief Extended Kalman Filter constructor declaration
    *
    * @param motion_model motion model chosen for prediction step
    * @param observation_model observation model chosen for correction step
@@ -76,14 +83,23 @@ class ExtendedKalmanFilter {
   ExtendedKalmanFilter(const MotionModel& motion_model, const ObservationModel& observation_model);
 
   /**
+   * @brief Build the EKF for specific events
+   *
+   * @param motion_model motion model chosen for prediction step
+   * @param observation_model observation model chosen for correction step
+   * @param mission mission chosen
+   */
+  ExtendedKalmanFilter(const MotionModel& motion_model, const ObservationModel& observation_model,
+                       const Mission& mission);
+
+  /**
    * @brief Updates vehicle state and map variables according
    * to the state vector X
    *
    * @param vehicle_state pose
    * @param track_map map
-   *
    */
-  void update(VehicleState* vehicle_state, Map* track_map);
+  void update(VehicleState* vehicle_state, ConeMap* track_map);
 
   /**
    * @brief Prediction step:
@@ -102,8 +118,46 @@ class ExtendedKalmanFilter {
    *
    * @param perception_map map from perception
    */
-  void correction_step(const Map& perception_map);
+  void correction_step(const ConeMap& perception_map);
 
+  /**
+   * @brief set X at y
+   *
+   * @param y index of X
+   * @param value value of X at y
+   */
+  void set_X_y(int y, float value);
+
+  void set_P(const int size);
+
+  void init_X_size(const int size);
+
+  /**
+   * @brief pushes back to colors vector
+   *
+   * @param color color to be pushed back
+   */
+  void push_to_colors(colors::Color color);
+
+  /**
+   * @brief Get the state vector
+   *
+   * @return Eigen::VectorXf state vector
+   */
+  Eigen::VectorXf get_state() const { return this->X; }
+
+  /**
+   * @brief Get the state covariance matrix
+   *
+   * @return Eigen::MatrixXf covariance matrix
+   */
+  Eigen::MatrixXf get_covariance() const { return this->P; }
+
+  /**
+   * @brief Get the last update timestamp
+   *
+   * @return std::chrono::time_point<std::chrono::high_resolution_clock> timestamp
+   */
   std::chrono::time_point<std::chrono::high_resolution_clock> get_last_update() const {
     return this->_last_update;
   }

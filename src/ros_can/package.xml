@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<package format="3">
+    <name>ros_can</name>
+    <version>2.0.0</version>
+    <description>This is a ROS 2 node used to communicate with the ADS-DV over the CAN bus</description>
+    <author email="ignat.m.georgiev@gmail.com">Ignat Georgiev</author>
+    <author email="rokasgied@gmail.com">Rokas Giedraitis</author>
+    <maintainer email="niklasburggraaff@gmail.com">Niklas Burggraaff</maintainer>
+
+    <license>MIT</license>
+
+    <url type="website">http://eufs.co</url>
+    <url type="repository">https://gitlab.com/eufs/ros_can</url>
+    <url type="bugtracker">https://gitlab.com/eufs/ros_can/issues</url>
+
+    <buildtool_depend>ament_cmake</buildtool_depend>
+
+    <depend>rclcpp</depend>
+    <depend>tf2</depend>
+    <depend>tf2_ros</depend>
+    <depend>sensor_msgs</depend>
+    <depend>std_srvs</depend>
+    <depend>std_msgs</depend>
+    <depend>eufs_msgs</depend>
+    <depend>ackermann_msgs</depend>
+
+    <export>
+        <build_type>ament_cmake</build_type>
+    </export>
+
+</package>
