@@ -9,9 +9,9 @@ In order to pass down the knowledge aquired to the next generations of driverles
 ## Doxygen Setup
 
 In order to help future developers start contributing to this project, code should be easy to read and staightforward. However, this is easier said than done. For this reason, it is helpful to use a documentation tool to document the code developed. Doxygen is the de-fact tool for documentation in C++. To use it you should:
-- [Install doxygen](https://www.doxygen.nl/download.html) in your machine (virtual machine in this case)
+- [Install doxygen](https://www.doxygen.nl/download.html) in your machine (virtual machine in this case). Download the binaries version.
     - Download
-    - Follow the compilation and installation instructions in the manual
+    - Run ```sudo make install```
 - Create doxygen file in the project home directory
     - Run ```doxygen -g``` on the command line
     - Edit the file to your liking
