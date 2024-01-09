@@ -190,14 +190,14 @@ int Track::deleteOutliers(bool side, float distance_threshold, int order, float 
         }
       }
     }
-    nn_unord_cone_seq[min_index].second = true; // mark as visited
+    nn_unord_cone_seq[min_index].second = true;  // mark as visited
 
     // new visited cones is the reference for the next search. Arrays and Cone updated
     vx = nn_unord_cone_seq[min_index].first->getX() - cone1->getX();
     vy = nn_unord_cone_seq[min_index].first->getY() - cone1->getY();
     cone1 = nn_unord_cone_seq[min_index].first;
 
-    cone_seq.push_back(nn_unord_cone_seq[min_index].first); // add cone to ordered sequence
+    cone_seq.push_back(nn_unord_cone_seq[min_index].first);  // add cone to ordered sequence
   }
 
   // Set spline data
@@ -290,15 +290,15 @@ int Track::deleteOutliers(bool side, float distance_threshold, int order, float 
     // Write outputs in files
     std::string fileSide = side ? "1" : "0";
 
-    std::ofstream splinePathFile = openWriteFile(
-      "planning/planning/plots/spline" + fileSide + ".txt");
+    std::ofstream splinePathFile =
+        openWriteFile("planning/planning/plots/spline" + fileSide + ".txt");
 
     for (int i = 0; i < static_cast<int>(i_eval.size()); i++)
       splinePathFile << x_eval[i] << " " << y_eval[i] << "\n";
     splinePathFile.close();
 
-    std::ofstream outlierPathFile = openWriteFile(
-      "planning/planning/plots/deletedoutliers" + fileSide + ".txt");
+    std::ofstream outlierPathFile =
+        openWriteFile("planning/planning/plots/deletedoutliers" + fileSide + ".txt");
     for (int i = 0; i < static_cast<int>(cone_seq.size()); i++)
       outlierPathFile << cone_seq[i]->getX() << " " << cone_seq[i]->getY() << "\n";
     outlierPathFile.close();

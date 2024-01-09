@@ -12,8 +12,8 @@ class IntegrationTest : public ::testing::Test {
   std::shared_ptr<rclcpp::Node> control_receiver;
   std::shared_ptr<rclcpp::Node> planning_test;
 
-  custom_interfaces::msg::ConeArray cone_array_msg; // message to receive
-  custom_interfaces::msg::PointArray received_path; // message to send
+  custom_interfaces::msg::ConeArray cone_array_msg;  // message to receive
+  custom_interfaces::msg::PointArray received_path;  // message to send
 
   // Publisher and Subscriber
   std::shared_ptr<rclcpp::Publisher<custom_interfaces::msg::ConeArray>> map_publisher;
@@ -23,11 +23,11 @@ class IntegrationTest : public ::testing::Test {
     rclcpp::init(0, nullptr);
 
     // Init Nodes
-    control_receiver = rclcpp::Node::make_shared("control_receiver"); // gets path from planning
-    locmap_sender = rclcpp::Node::make_shared("locmap_sender");  // publishes map from loc_map
-    planning_test = std::make_shared<Planning>(); // processes planning
+    control_receiver = rclcpp::Node::make_shared("control_receiver");  // gets path from planning
+    locmap_sender = rclcpp::Node::make_shared("locmap_sender");        // publishes map from loc_map
+    planning_test = std::make_shared<Planning>();                      // processes planning
 
-    cone_array_msg = custom_interfaces::msg::ConeArray(); // init received message
+    cone_array_msg = custom_interfaces::msg::ConeArray();  // init received message
 
     // Init Publisher
     map_publisher =
@@ -37,7 +37,7 @@ class IntegrationTest : public ::testing::Test {
     control_sub = control_receiver->create_subscription<custom_interfaces::msg::PointArray>(
         "planning_local", 10, [this](const custom_interfaces::msg::PointArray::SharedPtr msg) {
           received_path = *msg;
-          rclcpp::shutdown(); // When receives message shuts down
+          rclcpp::shutdown();  // When receives message shuts down
         });
   }
 
@@ -192,7 +192,7 @@ TEST_F(IntegrationTest, PUBLISH_PATH1) {
   executor.add_node(control_receiver);
 
   auto start_time = std::chrono::high_resolution_clock::now();
-  executor.spin(); // Execute nodes
+  executor.spin();  // Execute nodes
   auto end_time = std::chrono::high_resolution_clock::now();
 
   auto duration = std::chrono::duration<double, std::milli>(end_time - start_time);
