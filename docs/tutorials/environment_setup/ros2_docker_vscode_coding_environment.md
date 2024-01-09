@@ -27,7 +27,7 @@ Create a .devcontainer folder in the root of this repository and add a devcontai
 ```ssh
 ws_[project]
 ├── cache
-|   ├── [humble-ros-base]
+|   ├── [humble-ros-base-jammy]
 |   |   ├── build
 |   |   ├── install
 |   |   └── log
@@ -79,9 +79,9 @@ For the Dev Container to function properly, we have to build it with the correct
     "mounts": [
        "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached",
         "source=/dev/dri,target=/dev/dri,type=bind,consistency=cached",
-        "source=${localWorkspaceFolder}/cache/humble-ros-base/build,target=/home/ws/build,type=bind",
-        "source=${localWorkspaceFolder}/cache/humble-ros-base/install,target=/home/ws/install,type=bind",
-        "source=${localWorkspaceFolder}/cache/humble-ros-base/log,target=/home/ws/log,type=bind"
+        "source=${localWorkspaceFolder}/cache/humble-ros-base-jammy/build,target=/home/ws/build,type=bind",
+        "source=${localWorkspaceFolder}/cache/humble-ros-base-jammy/install,target=/home/ws/install,type=bind",
+        "source=${localWorkspaceFolder}/cache/humble-ros-base-jammy/log,target=/home/ws/log,type=bind"
     ],
     "postCreateCommand": "sudo rosdep update && sudo rosdep install --from-paths src --ignore-src -y && sudo chown -R user /home/ws/",
 	"initializeCommand": "echo Initialize...."
@@ -90,7 +90,7 @@ For the Dev Container to function properly, we have to build it with the correct
 With CTRL+F find "user" and replace it by your pc user (for sudo access). Run `echo $USERNAME` in the terminal if you don't know this.
 Next, add the following to the Dockerfile
 ```dockerfile
-FROM ros:humble-ros-base
+FROM ros:humble-ros-base-jammy
 ARG USERNAME=user
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
