@@ -1,24 +1,33 @@
 # ROS2 + Docker + VSCode Coding Environment
 
 ## Requirements
+
 - Install VSCode: https://code.visualstudio.com/
-- Install Docker (Engine or Desktop): https://docs.docker.com/engine/
+    - with [Remote Development Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack)
+- Install Docker Engine (or Desktop): https://docs.docker.com/engine/
+- (MacOS) Install [XQuartz](https://www.xquartz.org/)
+- (Windows) Install [VcXsrv Windows X Server ](https://sourceforge.net/projects/vcxsrv/)
+
 ## Installation Steps
-Inside VSCODE, install Remote Development extension
-### Workspace Setup
-Create a workspace, or if you have your own, skip this step.
-```bash
-cd ~/
-mkdir ws_[project]
-cd ws_[project]
-mkdir src
-```
+
+#### Extra for MacOS
+
+Follow all the steps in [the tutorial video](https://www.youtube.com/watch?v=cNDR6Z24KLM), especially the part of allowing connections from network clients in the preferences.
+
+#### Extra for Windows
+
+Run Xlaunch from the start menu and perform the initial configuration.
+Make sure to save to configuration file before you click finish. Save it to one of the following locations: ```%appdata%\Xming %userprofile%\Desktop %userprofile%```
+
+[example of usage](https://www.youtube.com/watch?v=BDilFZ9C9mw)
+
 ### Docker Setup
-Now create a .devcontainer folder in the root of your workspace and add a devcontainer.json and Dockerfile to this .devcontainer folder. Additionally, you need to create a cache folder in which you can cache the build and install folders for different ROS 2 distros. Make sure to create the distro, build, log, and install folders.
+
+Create a .devcontainer folder in the root of this repository and add a devcontainer.json and Dockerfile to this .devcontainer folder. Additionally, you need to create a cache folder in which you can cache the build and install folders for different ROS 2 distros. Make sure to create the distro, build, log, and install folders.
 ```ssh
 ws_[project]
 ├── cache
-|   ├── [ROS2_DISTRO]
+|   ├── [humble-ros-base]
 |   |   ├── build
 |   |   ├── install
 |   |   └── log
@@ -31,7 +40,6 @@ ws_[project]
     ├── package1
     └── package2
 ```
-Go to VSCode, File->Open Folder... src/ folder of the workspace (not the root).
 
 For the Dev Container to function properly, we have to build it with the correct user. Therefore add the following to .devcontainer/devcontainer.json
 ```json
@@ -46,7 +54,7 @@ For the Dev Container to function properly, we have to build it with the correct
         }
     },
     "workspaceFolder": "/home/ws",
-    "workspaceMount": "source=${localWorkspaceFolder},target=/home/ws/src,type=bind",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/home/ws,type=bind",
     "customizations": {
         "vscode": {
             "extensions":[
@@ -71,19 +79,18 @@ For the Dev Container to function properly, we have to build it with the correct
     "mounts": [
        "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached",
         "source=/dev/dri,target=/dev/dri,type=bind,consistency=cached",
-        "source=${localWorkspaceFolder}/../cache/ROS_DISTRO/build,target=/home/ws/build,type=bind",
-        "source=${localWorkspaceFolder}/../cache/ROS_DISTRO/install,target=/home/ws/install,type=bind",
-        "source=${localWorkspaceFolder}/../cache/ROS_DISTRO/log,target=/home/ws/log,type=bind"
+        "source=${localWorkspaceFolder}/cache/humble-ros-base/build,target=/home/ws/build,type=bind",
+        "source=${localWorkspaceFolder}/cache/humble-ros-base/install,target=/home/ws/install,type=bind",
+        "source=${localWorkspaceFolder}/cache/humble-ros-base/log,target=/home/ws/log,type=bind"
     ],
-    "postCreateCommand": "sudo rosdep update && sudo rosdep install --from-paths src --ignore-src -y && sudo chown -R user /home/ws/"
+    "postCreateCommand": "sudo rosdep update && sudo rosdep install --from-paths src --ignore-src -y && sudo chown -R user /home/ws/",
+	"initializeCommand": "echo Initialize...."
 }
 ```
 With CTRL+F find "user" and replace it by your pc user (for sudo access). Run `echo $USERNAME` in the terminal if you don't know this.
-Find "ROS_DISTRO" and replace it by your distro (in this case 'humble').
-8:
-Add the following to the Dockerfile
+Next, add the following to the Dockerfile
 ```dockerfile
-FROM ros:ROS_DISTRO
+FROM ros:humble-ros-base
 ARG USERNAME=user
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
@@ -99,6 +106,7 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME
 RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y python3-pip
+RUN apt install ros-$ROS_DISTRO-rviz2 -y
 ENV SHELL /bin/bash
 
 # ********************************************************
@@ -110,16 +118,19 @@ USER $USERNAME
 CMD ["/bin/bash"]
 ```
 
-Again replace "USERNAME" by your user and ROS_DISTRO by your ROS2 distro.
+Again replace "user" by your user.
+
 ### Attaching VSCode to Dev Container
+
 Do CTRL+SHIFT+P and select `Dev Containers: (Re-)build and Reopen in Container` and execute.
 
-Open terminal on host and run `xhost +`.
+**Note:** Everytime graphical features are to be ran on the container, open terminal on host machine (your Ubuntu computer) and run `xhost +local:docker`. You should also run `xhost -local:docker` after using.
+
 ### Testing Environment
+
 Run:
 ```bash
-sudo apt install ros-$ROS_DISTRO-rviz2 -y
-source /opt/ros/$ROS_DISTRO/setup.bash
+source /opt/ros/humble/setup.bash
 rviz2
 ```
 If all correct, should open a window with no errors.
