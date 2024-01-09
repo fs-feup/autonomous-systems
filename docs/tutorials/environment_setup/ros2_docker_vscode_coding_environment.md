@@ -110,6 +110,8 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME
 RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y python3-pip
+RUN pip3 install cpplint
+RUN apt install clang-format -y
 RUN apt install ros-$ROS_DISTRO-rviz2 -y
 ENV SHELL /bin/bash
 

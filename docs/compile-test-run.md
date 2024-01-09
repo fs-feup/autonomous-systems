@@ -11,7 +11,7 @@ This document serves as a guide for compiling and running the project, as well a
 cd driverless/src
 ```
 
-3. **Intall** all dependencies:
+3. **Install** all dependencies:
 ```sh
 ./install_dependencies.sh
 ```

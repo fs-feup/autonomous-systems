@@ -51,7 +51,7 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray msg) {
 
   track->validateCones();  // Delete cone outliers
 
-  std::vector<Position*> path = local_path_planner->processNewArray(track); // Calculate Path
+  std::vector<Position*> path = local_path_planner->processNewArray(track);  // Calculate Path
   publish_track_points(path);
   delete (track);
 

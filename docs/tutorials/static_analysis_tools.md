@@ -36,6 +36,8 @@ cpplint --recursive ./
 ```
 In the src folder there is a [script](../../src/cpplint.sh) that already runs this command called **cpplint.sh**.
 
+**Note:** if cpplint is not found, add ~/.local/bin directory to path: ```export PATH=$PATH:~/.local/bin/```.
+
 ### Clang-format
 
 CLang-format is a formatter i.e. it automatically formats code following a certain suite of guidelines provided in a configuration file (like clang-format.txt). This will be used to format c++ code, maintaining similar code style throughout the codebase.
