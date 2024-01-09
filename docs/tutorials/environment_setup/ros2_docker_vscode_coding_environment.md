@@ -53,6 +53,9 @@ For the Dev Container to function properly, we have to build it with the correct
             "USERNAME": "user"
         }
     },
+    "features": {
+        "ghcr.io/itsmechlark/features/act:1": {}
+    },
     "workspaceFolder": "/home/ws",
     "workspaceMount": "source=${localWorkspaceFolder},target=/home/ws,type=bind",
     "customizations": {
@@ -63,7 +66,8 @@ For the Dev Container to function properly, we have to build it with the correct
                 "twxs.cmake",
                 "donjayamanne.python-extension-pack",
                 "eamodio.gitlens",
-                "ms-iot.vscode-ros"
+                "ms-iot.vscode-ros",
+                "GitHub.vscode-github-actions"
             ]
         }
     },
