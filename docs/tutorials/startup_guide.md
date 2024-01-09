@@ -18,15 +18,13 @@ This guide is meant to help the developer setup the environment required to work
 ## Chapters
 
 - [Git tutorial](./git_tutorial.md)
-- [ROS2 Setup](./ros2_setup.md)
-- [Coding Environment](./coding_environment.md)
+- [Environment Setup](./environment_setup.md)
 - [ROS2 Basics](./ros2_tutorial.md)
-- [Compile, Test, Run](./compile-test-run.md) - how to compile and run the code on each node
+- [Compile, Test, Run](../compile-test-run.md) - how to compile and run the code on each node
 - [Developing](./developing.md) - how to program
 - [Testing](./testing.md) - about creating tests for the code
 - [Static Analysis Tools](./static_analysis_tools.md) - tutorial on using the static analysis and formatting tools adopted
 - [Documentation](./documentation.md) - tutorial on how to document code
-- [Libraries](./libraries.md) - more insight on the libraries used
 - [How to contribute](./contribute.md) - what tasks are required before a PR
 - [ROS2 Interfaces](./new_interface_tutorial.md) - tutorial on how to create ros2 interfaces
 
