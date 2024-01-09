@@ -1,6 +1,6 @@
 #include "adapter/adapter.hpp"
 
-Adapter::Adapter(Mode mode, LMNode* loc_map_node) {
+Adapter::Adapter(Mode mode, LMNode *loc_map_node) {
   this->node = loc_map_node;
 
   if (mode == Mode::eufs) {

@@ -10,7 +10,7 @@ TEST(MOTION_MODEL, NOISE_MATRIX_SHAPE_TEST) {
   R(1, 1) = 0.1;
   R(2, 2) = 0.1;
 
-  MotionModel* motion_model = new NormalVelocityModel(R);
+  MotionModel *motion_model = new NormalVelocityModel(R);
   Eigen::MatrixXf noise_matrix = motion_model->get_process_noise_covariance_matrix(10);
   EXPECT_EQ(noise_matrix.rows(), 10);
   EXPECT_EQ(noise_matrix.cols(), 10);
@@ -228,9 +228,10 @@ TEST(IMU_VELOCITY_MODEL, COMPLEX_MOVEMENT_TEST) {
     G = motion_model.get_motion_to_state_matrix(new_state, prediction_data, 0.1);
     new_covariance = G * new_covariance * G.transpose();
     // Max 0.01 percent calculation error
-    EXPECT_NEAR(new_state(0), temp_state(0) + i, 0.0001 * temp_state(0));        // x
-    EXPECT_NEAR(new_state(1), temp_state(1) + 0.5 * i, 0.0001 * temp_state(1));  // y
-    EXPECT_LT(new_state(2), 2 * M_PI);                                           // theta
+    EXPECT_NEAR(new_state(0), temp_state(0) + i, 0.0001 * temp_state(0));  // x
+    EXPECT_NEAR(new_state(1), temp_state(1) + 0.5 * i,
+                0.0001 * temp_state(1));  // y
+    EXPECT_LT(new_state(2), 2 * M_PI);    // theta
 
     for (int i = 0; i < 10; i++) {
       for (int j = 0; j < 10; j++) {

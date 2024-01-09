@@ -15,7 +15,7 @@ Track::~Track() {
   for (int i = 0; i < rSize; i++) delete rightCones[i];
 }
 
-void Track::fillTrack(const std::string& path) {
+void Track::fillTrack(const std::string &path) {
   std::string x, y, color;
   std::ifstream trackFile = openReadFile(path);
 
@@ -27,15 +27,15 @@ void Track::fillTrack(const std::string& path) {
   trackFile.close();
 }
 
-Cone* Track::getLeftConeAt(int index) { return leftCones[index]; }
+Cone *Track::getLeftConeAt(int index) { return leftCones[index]; }
 
-Cone* Track::getRightConeAt(int index) { return rightCones[index]; }
+Cone *Track::getRightConeAt(int index) { return rightCones[index]; }
 
 int Track::getRightConesSize() { return rightCones.size(); }
 
 int Track::getLeftConesSize() { return leftCones.size(); }
 
-void Track::addCone(float xValue, float yValue, const std::string& color) {
+void Track::addCone(float xValue, float yValue, const std::string &color) {
   if (color == colors::color_names[colors::blue]) {
     // Blue Cones always have an even number id (2*x)
     rightCones.push_back(new Cone(this->rightCount * 2, xValue, yValue));
@@ -50,7 +50,7 @@ void Track::addCone(float xValue, float yValue, const std::string& color) {
   }
 }
 
-void Track::setCone(Cone* cone) {
+void Track::setCone(Cone *cone) {
   switch (cone->getId() % 2) {
     // todo binary search
     case colors::blue:
@@ -75,7 +75,7 @@ void Track::setCone(Cone* cone) {
   }
 }
 
-Cone* Track::findCone(int id) {
+Cone *Track::findCone(int id) {
   for (size_t i = 0; i < leftCones.size(); i++) {
     if (leftCones[i]->getId() == id) return leftCones[i];
   }
@@ -87,7 +87,7 @@ Cone* Track::findCone(int id) {
   return nullptr;
 }
 
-Cone* Track::findCone(float x, float y) {
+Cone *Track::findCone(float x, float y) {
   for (size_t i = 0; i < leftCones.size(); i++) {
     if (leftCones[i]->getX() == x && leftCones[i]->getY() == y) return leftCones[i];
   }
@@ -99,7 +99,7 @@ Cone* Track::findCone(float x, float y) {
   return nullptr;
 }
 
-bool Track::vector_direction(Cone* c1, Cone* c2, float prev_vx, float prev_vy) {
+bool Track::vector_direction(Cone *c1, Cone *c2, float prev_vx, float prev_vy) {
   float vx = c2->getX() - c1->getX();
   float vy = c2->getY() - c1->getY();
   // Cos(angle) higher than 0 yhe vectors are pointing to the same half
@@ -117,7 +117,7 @@ int Track::validateCones() {
 
 int Track::deleteOutliers(bool side, float distance_threshold, int order, float coeffs_ratio,
                           bool writing) {
-  std::vector<Cone*>& unord_cone_seq = side ? leftCones : rightCones;
+  std::vector<Cone *> &unord_cone_seq = side ? leftCones : rightCones;
   // if side = 1(left) | = 0(right)
 
   const int n = unord_cone_seq.size();
@@ -161,14 +161,15 @@ int Track::deleteOutliers(bool side, float distance_threshold, int order, float 
   // Order cone_array
   // The algorithm works by iteratively selecting the nearest unvisited
   // cone to the current cone and updating the traversal direction accordingly.
-  // This approach creates an ordered sequence that efficiently connects nearby cones.
-  std::vector<std::pair<Cone*, bool>> nn_unord_cone_seq;
+  // This approach creates an ordered sequence that efficiently connects nearby
+  // cones.
+  std::vector<std::pair<Cone *, bool>> nn_unord_cone_seq;
   for (int i = 0; i < static_cast<int>(unord_cone_seq.size()); i++)
     nn_unord_cone_seq.push_back(std::make_pair(unord_cone_seq[i], false));
 
   // Values for first iteration
-  std::vector<Cone*> cone_seq;
-  Cone* cone1 = new Cone(-1, 0, 0);
+  std::vector<Cone *> cone_seq;
+  Cone *cone1 = new Cone(-1, 0, 0);
   float vx = 1;
   float vy = 0;
 
@@ -177,11 +178,12 @@ int Track::deleteOutliers(bool side, float distance_threshold, int order, float 
     int min_index = 0;
 
     for (int i = 0; i < static_cast<int>(nn_unord_cone_seq.size()); i++) {
-      Cone* cone2 = nn_unord_cone_seq[i].first;
+      Cone *cone2 = nn_unord_cone_seq[i].first;
       // Check only if not visited
       if (nn_unord_cone_seq[i].second == false ||
           (iter_number == 0 && vector_direction(cone1, cone2, vx, vy))) {
-        // first iteration we assure the direction is correct to avoid going backwards
+        // first iteration we assure the direction is correct to avoid going
+        // backwards
 
         float new_dist = cone1->getDistanceTo(cone2);
         if (new_dist < min_dist) {
@@ -192,7 +194,8 @@ int Track::deleteOutliers(bool side, float distance_threshold, int order, float 
     }
     nn_unord_cone_seq[min_index].second = true;  // mark as visited
 
-    // new visited cones is the reference for the next search. Arrays and Cone updated
+    // new visited cones is the reference for the next search. Arrays and Cone
+    // updated
     vx = nn_unord_cone_seq[min_index].first->getX() - cone1->getX();
     vy = nn_unord_cone_seq[min_index].first->getY() - cone1->getY();
     cone1 = nn_unord_cone_seq[min_index].first;

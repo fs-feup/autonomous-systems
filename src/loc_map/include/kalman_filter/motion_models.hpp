@@ -17,9 +17,10 @@ class MotionModel {
   /**
    * @brief Construct a new Motion Model object
    *
-   * @param process_noise_covariance_matrix covariance matrix of the process noise (R)
+   * @param process_noise_covariance_matrix covariance matrix of the process
+   * noise (R)
    */
-  explicit MotionModel(const Eigen::MatrixXf& process_noise_covariance_matrix);
+  explicit MotionModel(const Eigen::MatrixXf &process_noise_covariance_matrix);
 
   /**
    * @brief Calculate expected state vector from
@@ -30,8 +31,8 @@ class MotionModel {
    * @param time_interval in seconds
    * @return Eigen::VectorXf
    */
-  virtual Eigen::VectorXf predict_expected_state(const Eigen::VectorXf& expected_state,
-                                                 const MotionUpdate& motion_prediction_data,
+  virtual Eigen::VectorXf predict_expected_state(const Eigen::VectorXf &expected_state,
+                                                 const MotionUpdate &motion_prediction_data,
                                                  const double time_interval) const = 0;
 
   /**
@@ -44,8 +45,8 @@ class MotionModel {
    * @return Eigen::MatrixXf
    */
   virtual Eigen::MatrixXf get_motion_to_state_matrix(
-      const Eigen::VectorXf& expected_state,
-      [[maybe_unused]] const MotionUpdate& motion_prediction_data,
+      const Eigen::VectorXf &expected_state,
+      [[maybe_unused]] const MotionUpdate &motion_prediction_data,
       const double time_interval) const = 0;
 
   /**
@@ -71,9 +72,10 @@ class ImuVelocityModel : public MotionModel {
   /**
    * @brief Construct a new Motion Model object
    *
-   * @param process_noise_covariance_matrix covariance matrix of the process noise (R)
+   * @param process_noise_covariance_matrix covariance matrix of the process
+   * noise (R)
    */
-  explicit ImuVelocityModel(const Eigen::MatrixXf& process_noise_covariance_matrix);
+  explicit ImuVelocityModel(const Eigen::MatrixXf &process_noise_covariance_matrix);
 
   /**
    * @brief Calculate expected state vector from
@@ -85,8 +87,8 @@ class ImuVelocityModel : public MotionModel {
    * @param time_interval in seconds
    * @return Eigen::VectorXf
    */
-  Eigen::VectorXf predict_expected_state(const Eigen::VectorXf& expected_state,
-                                         const MotionUpdate& motion_prediction_data,
+  Eigen::VectorXf predict_expected_state(const Eigen::VectorXf &expected_state,
+                                         const MotionUpdate &motion_prediction_data,
                                          const double time_interval) const override;
   /**
    * @brief Calculate state covariance matrix from
@@ -99,8 +101,8 @@ class ImuVelocityModel : public MotionModel {
    * @return Eigen::MatrixXf
    */
   Eigen::MatrixXf get_motion_to_state_matrix(
-      const Eigen::VectorXf& expected_state,
-      [[maybe_unused]] const MotionUpdate& motion_prediction_data,
+      const Eigen::VectorXf &expected_state,
+      [[maybe_unused]] const MotionUpdate &motion_prediction_data,
       [[maybe_unused]] const double time_interval) const override;
 };
 
@@ -117,9 +119,10 @@ class NormalVelocityModel : public MotionModel {
   /**
    * @brief Construct a new Motion Model object
    *
-   * @param process_noise_covariance_matrix covariance matrix of the process noise (R)
+   * @param process_noise_covariance_matrix covariance matrix of the process
+   * noise (R)
    */
-  explicit NormalVelocityModel(const Eigen::MatrixXf& process_noise_covariance_matrix);
+  explicit NormalVelocityModel(const Eigen::MatrixXf &process_noise_covariance_matrix);
 
   /**
    * @brief Calculate expected state vector from
@@ -131,8 +134,8 @@ class NormalVelocityModel : public MotionModel {
    * @param time_interval in seconds
    * @return Eigen::VectorXf
    */
-  Eigen::VectorXf predict_expected_state(const Eigen::VectorXf& expected_state,
-                                         const MotionUpdate& motion_prediction_data,
+  Eigen::VectorXf predict_expected_state(const Eigen::VectorXf &expected_state,
+                                         const MotionUpdate &motion_prediction_data,
                                          const double time_interval) const override;
 
   /**
@@ -146,8 +149,8 @@ class NormalVelocityModel : public MotionModel {
    * @return Eigen::MatrixXf
    */
   Eigen::MatrixXf get_motion_to_state_matrix(
-      const Eigen::VectorXf& expected_state,
-      [[maybe_unused]] const MotionUpdate& motion_prediction_data,
+      const Eigen::VectorXf &expected_state,
+      [[maybe_unused]] const MotionUpdate &motion_prediction_data,
       [[maybe_unused]] const double time_interval) const override;
 };
 

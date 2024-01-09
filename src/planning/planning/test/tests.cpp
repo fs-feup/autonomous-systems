@@ -10,10 +10,10 @@
 using testing::Eq;
 
 std::vector<Position> processTriangulations(std::string filename, std::string testname) {
-  Track* track = new Track();
+  Track *track = new Track();
   track->fillTrack(filename);  // fill track with file data
 
-  LocalPathPlanner* pathplanner = new LocalPathPlanner();
+  LocalPathPlanner *pathplanner = new LocalPathPlanner();
   std::vector<Position> path;
 
   double total_time = 0;
@@ -22,7 +22,7 @@ std::vector<Position> processTriangulations(std::string filename, std::string te
   // One time iteration
   auto s0 = std::chrono::high_resolution_clock::now();
 
-  std::vector<Position*> pathPointers = pathplanner->processNewArray(track);
+  std::vector<Position *> pathPointers = pathplanner->processNewArray(track);
 
   auto s1 = std::chrono::high_resolution_clock::now();
 
@@ -33,7 +33,7 @@ std::vector<Position> processTriangulations(std::string filename, std::string te
   for (int i = 0; i < no_iters; i++) {
     auto t0 = std::chrono::high_resolution_clock::now();
 
-    std::vector<Position*> pathPointers = pathplanner->processNewArray(track);
+    std::vector<Position *> pathPointers = pathplanner->processNewArray(track);
 
     auto t1 = std::chrono::high_resolution_clock::now();
 
@@ -56,7 +56,7 @@ std::vector<Position> processTriangulations(std::string filename, std::string te
 }
 
 void outlierCalculations(std::string filename, std::string testname) {
-  Track* track = new Track();
+  Track *track = new Track();
   track->fillTrack(filename);  // fill track with file data
 
   // Remove outliers once
@@ -88,17 +88,18 @@ void outlierCalculations(std::string filename, std::string testname) {
   std::cout << "Outliers removed in average " << total_time / no_iters << " ms\n";
 }
 
-std::ostream& operator<<(std::ostream& os, const Position& p) {
+std::ostream &operator<<(std::ostream &os, const Position &p) {
   return os << '(' << p.getX() << ',' << p.getY() << ')';
 }
 
 TEST(LocalPathPlanner, outliers) {
   std::string filePath = "planning/planning/tracks/outlier_test1.txt";
 
-  Track* track = new Track();
+  Track *track = new Track();
   track->fillTrack(filePath);
   track->validateCones();
-  EXPECT_EQ(track->getLeftConesSize(), 8);  // Both Have 9, 1 outlier should be removed
+  EXPECT_EQ(track->getLeftConesSize(),
+            8);  // Both Have 9, 1 outlier should be removed
   EXPECT_EQ(track->getRightConesSize(), 8);
 }
 
