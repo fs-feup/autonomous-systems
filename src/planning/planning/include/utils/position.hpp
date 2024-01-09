@@ -21,9 +21,9 @@ class Position {
   /**
    * Euclidean distance to another position
    */
-  float getDistanceTo(Position* dest);
+  float getDistanceTo(Position *dest);
 
-  bool operator==(const Position& p) const;
+  bool operator==(const Position &p) const;
 };
 
 #endif  // SRC_PLANNING_PLANNING_INCLUDE_UTILS_POSITION_HPP_

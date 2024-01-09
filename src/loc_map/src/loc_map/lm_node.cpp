@@ -6,8 +6,8 @@
 
 /*---------------------- Constructor --------------------*/
 
-LMNode::LMNode(ExtendedKalmanFilter* ekf, ConeMap* perception_map, MotionUpdate* imu_update,
-               ConeMap* track_map, VehicleState* vehicle_state, bool use_odometry)
+LMNode::LMNode(ExtendedKalmanFilter *ekf, ConeMap *perception_map, MotionUpdate *imu_update,
+               ConeMap *track_map, VehicleState *vehicle_state, bool use_odometry)
     : Node("loc_map"),
       _ekf(ekf),
       _perception_map(perception_map),
@@ -37,7 +37,7 @@ void LMNode::_perception_subscription_callback(const custom_interfaces::msg::Con
   RCLCPP_DEBUG(this->get_logger(), "SUB - cones from perception:");
   RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
 
-  for (auto& cone : cone_array) {
+  for (auto &cone : cone_array) {
     auto position = Position();
     position.x = cone.position.x;
     position.y = cone.position.y;
@@ -100,7 +100,8 @@ void LMNode::_wheel_speeds_subscription_callback(double lb_speed, double lf_spee
     return;
   }
   RCLCPP_DEBUG(this->get_logger(),
-               "SUB - Raw from wheel speeds: lb:%f - rb:%f - lf:%f - rf:%f - steering: %f",
+               "SUB - Raw from wheel speeds: lb:%f - rb:%f - lf:%f - rf:%f - "
+               "steering: %f",
                lb_speed, rb_speed, lf_speed, rf_speed, steering_angle);
   MotionUpdate motion_prediction_data = LMNode::odometry_to_velocities_transform(
       lb_speed, lf_speed, rb_speed, rf_speed, steering_angle);
@@ -134,8 +135,9 @@ void LMNode::set_mission(Mission mission) {
 
 /*---------------------- Publications --------------------*/
 
-void LMNode::_update_and_publish() {  // Currently unused, as correction step and prediction step
-                                      // are carried out separately
+void LMNode::_update_and_publish() {  // Currently unused, as correction step and
+                                      // prediction step are carried out
+                                      // separately
   this->_ekf_step();
   this->_publish_localization();
   this->_publish_map();
@@ -161,7 +163,7 @@ void LMNode::_publish_map() {
   auto message = custom_interfaces::msg::ConeArray();
   RCLCPP_DEBUG(this->get_logger(), "PUB - cone map:");
   RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
-  for (auto const& element : this->_track_map->map) {
+  for (auto const &element : this->_track_map->map) {
     auto position = custom_interfaces::msg::Point2d();
     position.x = element.first.x;
     position.y = element.first.y;
@@ -201,9 +203,9 @@ MotionUpdate LMNode::odometry_to_velocities_transform(double lb_speed,
   if (steering_angle == 0) {  // If no steering angle, moving straight
     double lb_velocity = get_wheel_velocity_from_rpm(lb_speed, WHEEL_DIAMETER);
     double rb_velocity = get_wheel_velocity_from_rpm(rb_speed, WHEEL_DIAMETER);
-    // double lf_velocity = get_wheel_velocity_from_rpm(lf_speed, WHEEL_DIAMETER); // Simulator
-    // double rf_velocity = get_wheel_velocity_from_rpm(rf_speed, WHEEL_DIAMETER); //
-    // Are always 0
+    // double lf_velocity = get_wheel_velocity_from_rpm(lf_speed,
+    // WHEEL_DIAMETER); // Simulator double rf_velocity =
+    // get_wheel_velocity_from_rpm(rf_speed, WHEEL_DIAMETER); // Are always 0
     motion_prediction_data_transformed.translational_velocity = (lb_velocity + rb_velocity) / 2;
   } else if (steering_angle > 0) {
     double lb_velocity = get_wheel_velocity_from_rpm(lb_speed, WHEEL_DIAMETER);

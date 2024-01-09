@@ -30,7 +30,7 @@ class Cone {
   /**
    * Euclidean distance to another position
    */
-  float getDistanceTo(Cone* dest);
+  float getDistanceTo(Cone *dest);
 };
 
 #endif  // SRC_PLANNING_PLANNING_INCLUDE_UTILS_CONE_HPP_

@@ -26,7 +26,7 @@ enum Mode { eufs, fsds, ads_dv };
  *
  */
 class Adapter {
-  LMNode* node;
+  LMNode *node;
 
   rclcpp::Subscription<sensor_msgs::msg::Imu>::SharedPtr _eufs_imu_subscription;
   rclcpp::Subscription<eufs_msgs::msg::CanState>::SharedPtr _eufs_mission_state_subscription;
@@ -110,8 +110,8 @@ class Adapter {
    * @param mode Mode relative to the test environment, default is eufs
    * @param loc_map_node Pointer to the loc_map node
    */
-  Adapter(Mode mode, LMNode* loc_map_node);
-  explicit Adapter(LMNode* loc_map_node) : Adapter(Mode::eufs, loc_map_node) {}
+  Adapter(Mode mode, LMNode *loc_map_node);
+  explicit Adapter(LMNode *loc_map_node) : Adapter(Mode::eufs, loc_map_node) {}
 };
 
 #endif  // SRC_PLANNING_PLANNING_INCLUDE_ADAPTER_ADAPTER_HPP_

@@ -14,20 +14,20 @@
  */
 
 class GlobalPathPlanner {
-  Track* track;                      // track input data
-  std::vector<Position*> finalPath;  // path calculation result
+  Track *track;                       // track input data
+  std::vector<Position *> finalPath;  // path calculation result
 
  public:
   /**
    * Constructor
    * @param track pathplanner track input data
    */
-  explicit GlobalPathPlanner(Track* track);
+  explicit GlobalPathPlanner(Track *track);
 
   /**
    * Writes the output/result path to a file
    */
-  void writeFinalPath(const std::string& filePrefix);
+  void writeFinalPath(const std::string &filePrefix);
 
   /**
    * Calculates the track central path

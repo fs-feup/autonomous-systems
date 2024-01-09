@@ -12,10 +12,11 @@
 
 class Planning;
 /**
- * @brief Adapter class for coordinating communication between different modes and Planning module.
+ * @brief Adapter class for coordinating communication between different modes
+ * and Planning module.
  */
 class Adapter {
-  Planning* node;
+  Planning *node;
 
   rclcpp::Subscription<eufs_msgs::msg::CanState>::SharedPtr eufs_state_subscription_;
   rclcpp::Subscription<fs_msgs::msg::GoSignal>::SharedPtr fsds_state_subscription_;
@@ -71,7 +72,7 @@ class Adapter {
    * @param mode The selected mode.
    * @param planning A pointer to the Planning module.
    */
-  Adapter(std::string mode, Planning* planning);
+  Adapter(std::string mode, Planning *planning);
 };
 
 #endif  // SRC_PLANNING_PLANNING_INCLUDE_ADAPTER_ADAPTER_HPP_

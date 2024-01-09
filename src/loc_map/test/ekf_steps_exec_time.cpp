@@ -8,7 +8,8 @@
 
 /**
  * @class ExecTimeTestEKFTests
- * @brief Test class for performance measurements of Extended Kalman Filter steps.
+ * @brief Test class for performance measurements of Extended Kalman Filter
+ * steps.
  */
 class ExecTimeTestEKFTests : public ::testing::Test {
  protected:
@@ -98,7 +99,8 @@ class ExecTimeTestEKFTests : public ::testing::Test {
 };
 
 /**
- * @brief Test case for the Extended Kalman Filter prediction step with a workload of 10.
+ * @brief Test case for the Extended Kalman Filter prediction step with a
+ * workload of 10.
  */
 TEST_F(ExecTimeTestEKFTests, TEST_EKF_PRED_10) {
   // fill state vector
@@ -163,7 +165,8 @@ TEST_F(ExecTimeTestEKFTests, TEST_EKF_PRED_10) {
 }
 
 /**
- * @brief Test case for the Extended Kalman Filter prediction step with a workload of 50.
+ * @brief Test case for the Extended Kalman Filter prediction step with a
+ * workload of 50.
  */
 TEST_F(ExecTimeTestEKFTests, TEST_EKF_PRED_50) {
   ekf_test->init_X_size(103);
@@ -194,7 +197,8 @@ TEST_F(ExecTimeTestEKFTests, TEST_EKF_PRED_50) {
 }
 
 /**
- * @brief Test case for the Extended Kalman Filter prediction step with a workload of 100.
+ * @brief Test case for the Extended Kalman Filter prediction step with a
+ * workload of 100.
  */
 TEST_F(ExecTimeTestEKFTests, TEST_EKF_PRED_100) {
   ekf_test->init_X_size(203);
@@ -225,7 +229,8 @@ TEST_F(ExecTimeTestEKFTests, TEST_EKF_PRED_100) {
 }
 
 /**
- * @brief Test case for the Extended Kalman Filter correction step with a workload of 10.
+ * @brief Test case for the Extended Kalman Filter correction step with a
+ * workload of 10.
  */
 TEST_F(ExecTimeTestEKFTests, TEST_EKF_CORR_10) {
   // create conemap with 10 cones
@@ -298,7 +303,8 @@ TEST_F(ExecTimeTestEKFTests, TEST_EKF_CORR_10) {
 }
 
 /**
- * @brief Test case for the Extended Kalman Filter correction step with a workload of 50.
+ * @brief Test case for the Extended Kalman Filter correction step with a
+ * workload of 50.
  */
 // TEST_F(ExecTimeTestEKFTests, TEST_EKF_CORR_50) {
 //   ConeMap coneMap;
@@ -323,11 +329,13 @@ TEST_F(ExecTimeTestEKFTests, TEST_EKF_CORR_10) {
 //     ekf_test->correction_step(coneMap);
 
 //     end_time = std::chrono::high_resolution_clock::now();
-//     duration += std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
+//     duration +=
+//     std::chrono::duration_cast<std::chrono::microseconds>(end_time -
+//     start_time);
 
 //     RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "\n DURATION STEP: %ld  \n",
-//                 std::chrono::duration_cast<std::chrono::microseconds>(end_time -
-//                 start_time).count());
+//                 std::chrono::duration_cast<std::chrono::microseconds>(end_time
+//                 - start_time).count());
 //   }
 
 //   duration = duration / 10;
@@ -337,7 +345,8 @@ TEST_F(ExecTimeTestEKFTests, TEST_EKF_CORR_10) {
 // }
 
 /**
- * @brief Test case for the Extended Kalman Filter correction step with a workload of 100.
+ * @brief Test case for the Extended Kalman Filter correction step with a
+ * workload of 100.
  */
 // TEST_F(ExecTimeTestEKFTests, TEST_EKF_CORR_100) {
 //   ConeMap coneMap;
@@ -360,11 +369,13 @@ TEST_F(ExecTimeTestEKFTests, TEST_EKF_CORR_10) {
 //     ekf_test->correction_step(coneMap);
 
 //     end_time = std::chrono::high_resolution_clock::now();
-//     duration += std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
+//     duration +=
+//     std::chrono::duration_cast<std::chrono::microseconds>(end_time -
+//     start_time);
 
 //     RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "\n DURATION STEP: %ld  \n",
-//                 std::chrono::duration_cast<std::chrono::microseconds>(end_time -
-//                 start_time).count());
+//                 std::chrono::duration_cast<std::chrono::microseconds>(end_time
+//                 - start_time).count());
 //   }
 
 //   duration = duration / 10;

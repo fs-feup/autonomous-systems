@@ -51,13 +51,15 @@ TEST(BASE_OBSERVATION_MODEL, ALIGNED_RANDOM_TEST) {
 //     landmark_x = rand() % 1000 - 500;
 //     landmark_y = rand() % 1000 - 500;
 
-//     expected_state << vehicle_x, vehicle_y, orientation, landmark_x, landmark_y;
-//     observation_data.position.x = landmark_x - vehicle_x;
+//     expected_state << vehicle_x, vehicle_y, orientation, landmark_x,
+//     landmark_y; observation_data.position.x = landmark_x - vehicle_x;
 //     observation_data.position.y = landmark_y - vehicle_y;
 //     Eigen::Vector2f observed_landmark_position =
-//         observation_model.inverse_observation_model(expected_state, observation_data);
-//     Eigen::Vector2f predicted_observation = observation_model.observation_model(expected_state,
-//     3); EXPECT_EQ(observed_landmark_position(0), landmark_x);
+//         observation_model.inverse_observation_model(expected_state,
+//         observation_data);
+//     Eigen::Vector2f predicted_observation =
+//     observation_model.observation_model(expected_state, 3);
+//     EXPECT_EQ(observed_landmark_position(0), landmark_x);
 //     EXPECT_EQ(observed_landmark_position(1), landmark_y);
 //     EXPECT_EQ(predicted_observation(0), observation_data.position.x);
 //     EXPECT_EQ(predicted_observation(1), observation_data.position.y);

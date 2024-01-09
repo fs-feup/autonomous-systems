@@ -39,11 +39,11 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray msg) {
     return;
   }
 
-  Track* track = new Track();
+  Track *track = new Track();
 
   auto cone_array = msg.cone_array;
 
-  for (auto& cone : cone_array) {
+  for (auto &cone : cone_array) {
     RCLCPP_DEBUG(this->get_logger(), "[received] (%f, %f)\t%s", cone.position.x, cone.position.y,
                  cone.color.c_str());
     track->addCone(cone.position.x, cone.position.y, cone.color);
@@ -51,7 +51,7 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray msg) {
 
   track->validateCones();  // Delete cone outliers
 
-  std::vector<Position*> path = local_path_planner->processNewArray(track);  // Calculate Path
+  std::vector<Position *> path = local_path_planner->processNewArray(track);  // Calculate Path
   publish_track_points(path);
   delete (track);
 
@@ -61,9 +61,9 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray msg) {
 /**
  * Publisher point by point
  */
-void Planning::publish_track_points(std::vector<Position*> path) const {
+void Planning::publish_track_points(std::vector<Position *> path) const {
   auto message = custom_interfaces::msg::PointArray();
-  for (auto const& element : path) {
+  for (auto const &element : path) {
     auto point = custom_interfaces::msg::Point2d();
     point.x = element->getX();
     point.y = element->getY();
@@ -78,7 +78,7 @@ void Planning::publish_predicitive_track_points() {
   if (!this->is_predicitve_mission()) {
     return;
   }
-  std::vector<Position*> path = read_path_file(this->predictive_paths[this->mission]);
+  std::vector<Position *> path = read_path_file(this->predictive_paths[this->mission]);
   this->publish_track_points(path);
 }
 

@@ -19,9 +19,10 @@
 #include "std_msgs/msg/string.hpp"
 
 /**
- * @brief Class representing the main loc_map node responsible for publishing the
- * calculated vehicle localization and the map. As well as, subscribing and interpreting
- * information, such as the cone's position and colors, from the perception module.
+ * @brief Class representing the main loc_map node responsible for publishing
+ * the calculated vehicle localization and the map. As well as, subscribing and
+ * interpreting information, such as the cone's position and colors, from the
+ * perception module.
  *
  */
 class LMNode : public rclcpp::Node {
@@ -29,11 +30,11 @@ class LMNode : public rclcpp::Node {
   rclcpp::Publisher<custom_interfaces::msg::Pose>::SharedPtr _localization_publisher;
   rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr _map_publisher;
   rclcpp::TimerBase::SharedPtr _timer; /**< timer */
-  ExtendedKalmanFilter* _ekf;          /**< SLAM EKF object */
-  ConeMap* _perception_map;
-  MotionUpdate* _motion_update;
-  ConeMap* _track_map;
-  VehicleState* _vehicle_state;
+  ExtendedKalmanFilter *_ekf;          /**< SLAM EKF object */
+  ConeMap *_perception_map;
+  MotionUpdate *_motion_update;
+  ConeMap *_track_map;
+  VehicleState *_vehicle_state;
   Mission _mission;
   bool _use_odometry;
 
@@ -98,7 +99,8 @@ class LMNode : public rclcpp::Node {
   void _ekf_step();
 
   /**
-   * @brief Converts the odometry data to translational and rotational velocities
+   * @brief Converts the odometry data to translational and rotational
+   * velocities
    *
    * @param lb_speed wheel speeds in rpm
    * @param lf_speed wheel speeds in rpm
@@ -124,8 +126,8 @@ class LMNode : public rclcpp::Node {
    * @param vehicle_state Pointer to the vehicle state
    * @param use_odometry Whether to use odometry or IMU
    */
-  LMNode(ExtendedKalmanFilter* ekf, ConeMap* perception_map, MotionUpdate* motion_update,
-         ConeMap* track_map, VehicleState* vehicle_state, bool use_odometry);
+  LMNode(ExtendedKalmanFilter *ekf, ConeMap *perception_map, MotionUpdate *motion_update,
+         ConeMap *track_map, VehicleState *vehicle_state, bool use_odometry);
 
   /**
    * @brief Mission setter
