@@ -86,7 +86,7 @@ std::vector<Position*> LocalPathPlanner::processNewArray(Track* cone_array) {
         }
       }
     }
-    unordered_path[min_index].second = true; // mark as visited
+    unordered_path[min_index].second = true;  // mark as visited
 
     // Update new visited point to be the reference for next iteration
     vx = unordered_path[min_index].first->getX() - p1->getX();

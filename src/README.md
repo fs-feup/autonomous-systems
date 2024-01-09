@@ -2,14 +2,10 @@
 
 This guide aims to clarify the necessary steps for creating code that will result in an accepting pull request following the project's norms.
 
-You work with your **shell always in the src directory**. In it, you can find mutiple scripts that will help you on the upcoming tasks. You need to install the tools in [this file](../docs/technologies.md) to contribute. The tutorials listed before this one on the [Startup Guide](../docs/tutorials/startup_guide.md) should have given you a decent insight on their purposes and how to use them in this project.
+You work with your **shell always in the root directory**. In it, you can find mutiple scripts that will help you on the upcoming tasks. You need to install the tools in [this file](../docs/technologies.md) to contribute. The tutorials listed before this one on the [Startup Guide](../docs/tutorials/startup_guide.md) should have given you a decent insight on their purposes and how to use them in this project.
 
 ## Natural Workflow 
 
-- Change directory to *src* if you haven't already
-  ```sh
-  cd src
-  ```
 - Program
 - Compile
   ```sh
@@ -32,25 +28,25 @@ You work with your **shell always in the src directory**. In it, you can find mu
 For C++:
 - Run cppcheck
   ```sh
-  ./cppcheck.sh
+  ./static-tools.sh cppcheck
   ```
 - Format code
   ```sh
-  ./clang-format.sh
+  ./static-tools.sh clang-format
   ```
 - Run linter
   ```sh 
-  ./cpplint.sh
+  ./static-tools.sh cpplint
   ```
 For Python:
 - Run liner/formatter
   ```sh
-  ./ruff.sh 
+  ./static-tools.sh ruff 
   ```
 For everybody:
 - Run documentator
   ```sh
-  ./document.sh
+  ./static-tools.sh doxygen
   ```
 - Finally push changes to repository
   ```sh

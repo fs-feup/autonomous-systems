@@ -11,7 +11,7 @@ using testing::Eq;
 
 std::vector<Position> processTriangulations(std::string filename, std::string testname) {
   Track* track = new Track();
-  track->fillTrack(filename); // fill track with file data
+  track->fillTrack(filename);  // fill track with file data
 
   LocalPathPlanner* pathplanner = new LocalPathPlanner();
   std::vector<Position> path;
@@ -57,7 +57,7 @@ std::vector<Position> processTriangulations(std::string filename, std::string te
 
 void outlierCalculations(std::string filename, std::string testname) {
   Track* track = new Track();
-  track->fillTrack(filename); // fill track with file data
+  track->fillTrack(filename);  // fill track with file data
 
   // Remove outliers once
   auto s0 = std::chrono::high_resolution_clock::now();
