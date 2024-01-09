@@ -18,6 +18,7 @@ This guide is meant to help the developer setup the environment required to work
 ## Chapters
 
 - [Git tutorial](./git_tutorial.md)
+- [Docker tutorial](./docker-tutorial.md)
 - [Environment Setup](./environment_setup.md)
 - [ROS2 Basics](./ros2_tutorial.md)
 - [Compile, Test, Run](../compile-test-run.md) - how to compile and run the code on each node
