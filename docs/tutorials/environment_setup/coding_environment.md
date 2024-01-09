@@ -2,10 +2,6 @@
 
 This tutorial aims to aid in teaching the developer how to use multiple tools established for this project, as well as creating the base environment for the project and understanding the project's structure.
 
-### Notes
-- Before proceeding with this guide, please ensure that you have the following prerequisites in place:
-    - [ROS2 Setup](./ros2_setup.md)
-
 ## Links
 - [VSCode](https://code.visualstudio.com/Download)
 
@@ -109,6 +105,7 @@ Visual Studio Code is a general purpose IDE very widely used. VSCode is our choi
 - (Optional but suggested) Install VSCode Extensions
     - [C++ extension pack](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools-extension-pack) (highly suggested)
     - [ROS extension](https://marketplace.visualstudio.com/items?itemName=ms-iot.vscode-ros) (suggested)
+    - [Remote Development](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack) (mandatory for docker environment)
 
 #### VSCode in WSL
 

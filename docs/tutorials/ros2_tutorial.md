@@ -2,11 +2,6 @@
 
 This tutorial is meant to help the developer learn [ROS2](https://docs.ros.org/en/foxy/index.html)'s basics. 
 
-## Links
-
-- [Youtube ROS2 tutorials](https://www.youtube.com/watch?v=0aPbWsyENA8&list=PLLSegLrePWgJudpPUof4-nVFHGkB62Izy)
-- [ROS2 humble tutorials](https://docs.ros.org/en/humble/Tutorials.html)
-
 ## Keywords
 
 - ROS - Robot Operating System
@@ -502,3 +497,8 @@ rqt
 ![RQT Screenshot](../assets/ros2_tutorial/rqt_screenshot.png)
 
 You can not only construct GUIs with it, but it also serves as a GUI for ROS2 itself, as you can consult information on topics, subscribers and others without previously programming these interfaces.
+
+## Extra tutorials
+
+- [Beginner tutorials](https://www.youtube.com/watch?v=0aPbWsyENA8&list=PLLSegLrePWgJudpPUof4-nVFHGkB62Izy)
+- [Official tutorials](https://docs.ros.org/en/humble/Tutorials.html)
