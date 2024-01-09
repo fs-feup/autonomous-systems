@@ -15,7 +15,7 @@ enum Color {
   orange,
   large_orange,
 };
-extern const char* color_names[4];
+extern const char *color_names[4];
 extern const std::map<std::string, Color> color_map;
 }  // namespace colors
 

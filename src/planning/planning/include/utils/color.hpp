@@ -15,7 +15,7 @@ enum Color {
   orange,
   large_orange,
 };
-static const char* color_names[] = {"blue_cone", "yellow_cone", "orange_cone", "large_orange_cone"};
+static const char *color_names[] = {"blue_cone", "yellow_cone", "orange_cone", "large_orange_cone"};
 static const std::map<std::string, Color> color_map = {
     {"blue_cone", Color::blue},
     {"yellow_cone", Color::yellow},

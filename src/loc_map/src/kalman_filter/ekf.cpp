@@ -44,8 +44,8 @@ void ExtendedKalmanFilter::init_X_size(int size) { this->X = Eigen::VectorXf::Ze
 
 /*---------------------- Constructors --------------------*/
 
-ExtendedKalmanFilter::ExtendedKalmanFilter(const MotionModel& motion_model,
-                                           const ObservationModel& observation_model)
+ExtendedKalmanFilter::ExtendedKalmanFilter(const MotionModel &motion_model,
+                                           const ObservationModel &observation_model)
     : X(Eigen::VectorXf::Zero(3)),
       P(Eigen::MatrixXf::Zero(3, 3)),
       _last_update(std::chrono::high_resolution_clock::now()),
@@ -55,7 +55,7 @@ ExtendedKalmanFilter::ExtendedKalmanFilter(const MotionModel& motion_model,
 
 /*-----------------------Algorithms-----------------------*/
 
-void ExtendedKalmanFilter::prediction_step(const MotionUpdate& motion_update) {
+void ExtendedKalmanFilter::prediction_step(const MotionUpdate &motion_update) {
   std::chrono::time_point<std::chrono::high_resolution_clock> now =
       std::chrono::high_resolution_clock::now();
   double delta =
@@ -71,7 +71,7 @@ void ExtendedKalmanFilter::prediction_step(const MotionUpdate& motion_update) {
   this->_last_update = now;
 }
 
-void ExtendedKalmanFilter::correction_step(const ConeMap& perception_map) {
+void ExtendedKalmanFilter::correction_step(const ConeMap &perception_map) {
   for (auto cone : perception_map.map) {
     ObservationData observation_data = ObservationData(cone.first.x, cone.first.y, cone.second);
     int landmark_index = this->discovery(observation_data);
@@ -80,8 +80,9 @@ void ExtendedKalmanFilter::correction_step(const ConeMap& perception_map) {
     }
     Eigen::MatrixXf H = this->_observation_model.get_state_to_observation_matrix(
         this->X, landmark_index, this->X.size());
-    Eigen::MatrixXf Q = this->_observation_model
-                            .get_observation_noise_covariance_matrix();  // Observation Noise Matrix
+    Eigen::MatrixXf Q =
+        this->_observation_model.get_observation_noise_covariance_matrix();  // Observation Noise
+                                                                             // Matrix
     Eigen::MatrixXf K = this->get_kalman_gain(H, this->P, Q);
     Eigen::Vector2f z_hat = this->_observation_model.observation_model(this->X, landmark_index);
     Eigen::Vector2f z = Eigen::Vector2f(observation_data.position.x, observation_data.position.y);
@@ -90,15 +91,15 @@ void ExtendedKalmanFilter::correction_step(const ConeMap& perception_map) {
   }
 }
 
-Eigen::MatrixXf ExtendedKalmanFilter::get_kalman_gain(const Eigen::MatrixXf& H,
-                                                      const Eigen::MatrixXf& P,
-                                                      const Eigen::MatrixXf& Q) {
+Eigen::MatrixXf ExtendedKalmanFilter::get_kalman_gain(const Eigen::MatrixXf &H,
+                                                      const Eigen::MatrixXf &P,
+                                                      const Eigen::MatrixXf &Q) {
   Eigen::MatrixXf S = H * P * H.transpose() + Q;
   Eigen::MatrixXf K = P * H.transpose() * S.inverse();
   return K;
 }
 
-int ExtendedKalmanFilter::discovery(const ObservationData& observation_data) {
+int ExtendedKalmanFilter::discovery(const ObservationData &observation_data) {
   Eigen::Vector2f landmark_absolute =
       this->_observation_model.inverse_observation_model(this->X, observation_data);
   double distance =
@@ -135,7 +136,7 @@ int ExtendedKalmanFilter::discovery(const ObservationData& observation_data) {
   return this->X.size() - 2;
 }
 
-void ExtendedKalmanFilter::update(VehicleState* vehicle_state, ConeMap* track_map) {
+void ExtendedKalmanFilter::update(VehicleState *vehicle_state, ConeMap *track_map) {
   vehicle_state->pose = Pose(X(0), X(1), X(2));
   track_map->map.clear();
   for (int i = 3; i < this->X.size() - 1; i += 2) {

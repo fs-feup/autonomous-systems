@@ -2,7 +2,7 @@
 
 #include "planning/planning.hpp"
 
-Adapter::Adapter(std::string mode, Planning* planning) {
+Adapter::Adapter(std::string mode, Planning *planning) {
   this->node = planning;
 
   RCLCPP_INFO(this->node->get_logger(), "mode: %s", mode.c_str());

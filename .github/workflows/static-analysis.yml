@@ -29,7 +29,7 @@ jobs:
         run: pip install cpplint
 
       - name: Run cpplint
-        run: ls & ./static-tools.sh cpplint
+        run: cd src && cpplint --exclude=./loc_map/include/Eigen/* --exclude=./can/include/fs-ai_api/* --exclude=./can/src/fs-ai_api/* --exclude=./build/* --exclude=./install/* --exclude=./log/* --exclude=./ros_can/* --recursive . 
   
   ruff:
     runs-on: ubuntu-latest

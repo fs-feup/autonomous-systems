@@ -12,7 +12,8 @@
  * linear movement with constant velocity
  *
  */
-TEST(EKF_SLAM, LINEAR_MOVEMENT_INTEGRITY_TEST) {  // This test is not that great, to be improved
+TEST(EKF_SLAM, LINEAR_MOVEMENT_INTEGRITY_TEST) {  // This test is not that great,
+                                                  // to be improved
   VehicleState *vehicle_state = new VehicleState();
   vehicle_state->last_update = std::chrono::high_resolution_clock::now();
   MotionUpdate *imu_update = new MotionUpdate();

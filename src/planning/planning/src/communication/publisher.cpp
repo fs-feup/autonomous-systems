@@ -12,7 +12,8 @@
 #include "rclcpp/rclcpp.hpp"
 
 /**
- * Planning Publisher Class. Overwrites node. Allows message sending to the control section
+ * Planning Publisher Class. Overwrites node. Allows message sending to the
+ * control section
  */
 class Publisher : public rclcpp::Node {
   vector<pair<float, float>> fullPath; /**<path data container */
@@ -30,9 +31,9 @@ class Publisher : public rclcpp::Node {
     filePackage += "/planning/planning/files/map_mock.txt";
     std::cout << filePackage;
 
-    Track* track = new Track();
+    Track *track = new Track();
     track->fillTrack(filePackage);
-    PathPlanner* pathplanner = new PathPlanner(track);
+    PathPlanner *pathplanner = new PathPlanner(track);
     pathplanner->middlePath();
     fullPath = pathplanner->getPath();
 
@@ -50,7 +51,8 @@ class Publisher : public rclcpp::Node {
       auto point = custom_interfaces::msg::Point2d();
       point.x = fullPath[i].first;
       point.y = fullPath[i].second;
-      // RCLCPP_INFO(this->get_logger(), "Publishing: x = %f | y = %f", message.x, message.y);
+      // RCLCPP_INFO(this->get_logger(), "Publishing: x = %f | y = %f",
+      // message.x, message.y);
       message.points.push_back(point);
     }
     RCLCPP_INFO(this->get_logger(), "Publishing message with size %ld", message.points.size());
@@ -64,7 +66,7 @@ class Publisher : public rclcpp::Node {
 /**
  * Publisher orchestrator
  */
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
   rclcpp::init(argc, argv);
   rclcpp::spin(std::make_shared<Publisher>());
   rclcpp::shutdown();
