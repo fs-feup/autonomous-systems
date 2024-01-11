@@ -462,6 +462,10 @@ ros2 pkg create --build-type ament_python --node-name [desired_node_name] [desir
 
 ![Screenshot package code editor](../assets/ros2_tutorial/package_screenshot2.png)
 
+These commands will originate a folder structure as well as:
+- a package.xml file, which defines the package, dependencies and other important properties
+- setup.py files or CMakeLists.txt files, which help with the building process, also defining dependencies, paths, libraries and other definitions
+
 ### Compile
 
 To compile any project, go to the base folder (parent folder to src)
@@ -476,15 +480,48 @@ colcon build
 source install/setup.bash
 ```
 
-### Run package
+### Run node
 
 To run package:
 
 ```bash
 ros2 run [package_name] [node_name]
 ```
+#### Launching
 
-Running a package is different from launching because running will only launch one node while launching can run multiple nodes.
+Running a node is different from launching because running will only execute one node while launching can execute multiple nodes. Launching can be done with the aid of launch files, which can define particular scenarios with combinations of nodes from multiple packages and their respective arguments.
+
+Launch file example:
+
+```python
+from launch import LaunchDescription
+from launch_ros.actions import Node
+
+def generate_launch_description():
+    return LaunchDescription([
+        Node(
+            package='turtlesim',
+            namespace='turtlesim1',
+            executable='turtlesim_node',
+            name='sim'
+        ),
+        Node(
+            package='turtlesim',
+            namespace='turtlesim2',
+            executable='turtlesim_node',
+            name='sim'
+        ),
+        Node(
+            package='turtlesim',
+            executable='mimic',
+            name='mimic',
+            remappings=[
+                ('/input/pose', '/turtlesim1/turtle1/pose'),
+                ('/output/cmd_vel', '/turtlesim2/turtle1/cmd_vel'),
+            ]
+        )
+    ])
+```
 
 ## RQT
 
@@ -497,6 +534,10 @@ rqt
 ![RQT Screenshot](../assets/ros2_tutorial/rqt_screenshot.png)
 
 You can not only construct GUIs with it, but it also serves as a GUI for ROS2 itself, as you can consult information on topics, subscribers and others without previously programming these interfaces.
+
+## RCLPY and RCLCPP
+
+RCLPY and RCLCPP are two libraries, for CPP and Python respectively, used to ease the interaction with the ROS2 system and create Object Oriented programs with multiple nodes. Follow [this tutorial](https://docs.ros.org/en/foxy/Tutorials/Beginner-Client-Libraries/Writing-A-Simple-Cpp-Publisher-And-Subscriber.html) to get started using the libraries to create nodes.
 
 ## Extra tutorials
 

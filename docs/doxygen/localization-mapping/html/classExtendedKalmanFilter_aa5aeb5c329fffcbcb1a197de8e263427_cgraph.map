@@ -1,6 +1,0 @@
-<map id="ExtendedKalmanFilter::prediction_step" name="ExtendedKalmanFilter::prediction_step">
-<area shape="rect" id="node1" title="Prediction step:" alt="" coords="5,71,156,112"/>
-<area shape="rect" id="node2" href="$classMotionModel.html#a2b34ea48a6e20bb8e53ee73650e56811" title="Calculate state covariance matrix from motion estimation." alt="" coords="207,5,375,47"/>
-<area shape="rect" id="node3" href="$classMotionModel.html#a76de9b7caf93cd717bf388aff40ab589" title="Get the process noise covariance matrix object." alt="" coords="204,71,379,112"/>
-<area shape="rect" id="node4" href="$classMotionModel.html#a24a7f8fab182b07ba116911cdd33893f" title="Calculate expected state vector from motion estimation." alt="" coords="220,136,363,177"/>
-</map>

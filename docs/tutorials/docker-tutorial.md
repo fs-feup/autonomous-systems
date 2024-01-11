@@ -1,6 +1,6 @@
 # Docker Tutorial
 
-This tutorial goes over the basics of Docker and the information necessary to be able to comfortably use containers.
+This tutorial goes over the basics of Docker and the information necessary to be able to comfortably use containers. All information is well explained in the internet though, so mostly external videos are used.
 
 ## Tutorials
 

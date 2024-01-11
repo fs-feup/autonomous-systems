@@ -4,7 +4,7 @@ This document compiles the versions of all tools and technologies used in this p
 
 ## Tools
 
-- [Ubuntu 20.04](https://releases.ubuntu.com/focal/)
+- [Ubuntu 22.04](https://releases.ubuntu.com/focal/)
 - [ROS2 Humble desktop](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html)
 - [Cpplint 1.6.1](https://github.com/cpplint/cpplint) - C++ only
 - [Cppcheck 1.90](https://cppcheck.sourceforge.io/) - C++ only
@@ -22,14 +22,11 @@ This document compiles the versions of all tools and technologies used in this p
 - [unittest](https://docs.python.org/3/library/unittest.html)
 - [Eigen](https://eigen.tuxfamily.org/index.php?title=Main_Page)
 Note: these all come with ROS2 or are already in the project
+
 - [libcgal](https://www.cgal.org/)
 - [libgsl](https://www.gnu.org/software/gsl/)
 
 To get an insight on the all the libraries to be installed, check the [dependencies installation script](../src/dependencies_install.sh).
-
-### Not currently used
-
-- [PyTorch](https://pytorch.org) - old camera based perception
 
 ### RCL - ROS Client Library
 
@@ -49,14 +46,6 @@ Essentially this library allows for programming of custom nodes and communicatio
 ### Eigen
 
 [Eigen](https://eigen.tuxfamily.org/index.php?title=Main_Page) is a c++ library for efficient linear algebra operations. It is used for eficient matrix calculations, for example, in the Kalman Filter.
-
-### PyTorch
-
-[PyTorch](https://pytorch.org) is a machine learning framework based on the Torch library, used for applications such as computer vision and natural language processing. It is used in the Perception Module in Yolo algorithm. Documentation [here](https://pytorch.org/docs/2.1/).
-
-### OpenCV
-
-[OpenCV](https://opencv.org) is a library of programming functions mainly for real-time computer vision. Documentation [here](https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html).
 
 ### Google Test
 

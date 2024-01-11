@@ -1,4 +1,0 @@
-<map id="NormalVelocityModel::predict_expected_state" name="NormalVelocityModel::predict_expected_state">
-<area shape="rect" id="node1" title="Calculate expected state vector from velocity model using normal motion data Uses translation velocit..." alt="" coords="5,5,171,47"/>
-<area shape="rect" id="node2" href="$formulas_8hpp.html#a5dda4c5d809de2f2716a49c5703a6f60" title="Function to keep angle between 0 and 2Pi radians." alt="" coords="219,13,335,39"/>
-</map>

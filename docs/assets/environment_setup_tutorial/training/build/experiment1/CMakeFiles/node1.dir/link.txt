@@ -1,1 +1,0 @@
-/usr/bin/c++     CMakeFiles/node1.dir/src/node1.cpp.o CMakeFiles/node1.dir/src/car.cpp.o  -o node1 
