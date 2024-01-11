@@ -8,7 +8,7 @@ This repository holds most of the data and all the code on the project for Formu
 ## Starting to Develop
 
 Before starting, check out:
-- [Project's Rules](./docs/project-rules.md) (might not be updated, check ClickUp)
+- [Project Rules](https://docs.google.com/document/d/1-YuD-V7zwE_rMwYZ7jmOQysz29_Zj9U-KQ5oIUk4dAc/edit?usp=sharing) and [AS Rules](https://docs.google.com/document/d/1kmiW4-pkKHlYM9V2sTS_4IJR4ODCaD_m/edit?usp=sharing&ouid=108427086324647392265&rtpof=true&sd=true)
 - [Startup Guide](./docs/tutorials/startup_guide.md)
 
 ## Documentation
@@ -16,13 +16,12 @@ Before starting, check out:
 - [Startup Guide](./docs/tutorials/startup_guide.md)
 - [Project Rules](./docs/project-rules.md)
 - [Project Specification](./docs/project-specification.md)
-- [Technologies](./docs/technologies.md)
 
 ## Contributing
 
 This guide aims to clarify the necessary steps for creating code that will result in an accepting pull request following the project's norms.
 
-You work with your **shell always in the root directory**. In it, you can find mutiple scripts that will help you on the upcoming tasks. You need to install the tools in [this file](../technologies.md) to contribute. The tutorials listed before this one on the [Startup Guide](./startup_guide.md) should have given you a decent insight on their purposes and how to use them in this project.
+You work with your **shell always in the root directory**. In it, you can find mutiple scripts that will help you on the upcoming tasks. You need to install the tools in [this file](./docs/project-specification.md) to contribute. The tutorials listed before this one on the [Startup Guide](./docs/tutorials/startup_guide.md) should have given you a decent insight on their purposes and how to use them in this project.
 
 ### Natural Workflow 
 
