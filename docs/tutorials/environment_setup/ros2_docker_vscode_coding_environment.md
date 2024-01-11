@@ -25,20 +25,20 @@ Make sure to save to configuration file before you click finish. Save it to one 
 
 Create a .devcontainer folder in the root of this repository and add a devcontainer.json and Dockerfile to this .devcontainer folder. Additionally, you need to create a cache folder in which you can cache the build and install folders for different ROS 2 distros. Make sure to create the distro, build, log, and install folders.
 ```ssh
-ws_[project]
+project_root
 ├── cache
-|   ├── [humble-ros-base-jammy]
+|   ├── humble-ros-base-jammy
 |   |   ├── build
 |   |   ├── install
 |   |   └── log
 |   └── ...
 |
+├── .devcontainer
+│   ├── devcontainer.json
+│   └── Dockerfile
 ├── src
-    ├── .devcontainer
-    │   ├── devcontainer.json
-    │   └── Dockerfile
-    ├── package1
-    └── package2
+|   ├── package1
+|   └── package2
 ```
 
 For the Dev Container to function properly, we have to build it with the correct user. Therefore add the following to .devcontainer/devcontainer.json
