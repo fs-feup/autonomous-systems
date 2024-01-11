@@ -1,3 +1,0 @@
-[35m[1mScanning dependencies of target experiment1[0m
-[ 25%] [32m[1mLinking CXX executable node1[0m
-[ 50%] [32mBuilding CXX object CMakeFiles/experiment1.dir/src/Car.cpp.o[0m

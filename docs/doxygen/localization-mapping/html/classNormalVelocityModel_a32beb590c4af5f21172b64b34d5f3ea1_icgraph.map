@@ -1,4 +1,0 @@
-<map id="NormalVelocityModel::predict_expected_state" name="NormalVelocityModel::predict_expected_state">
-<area shape="rect" id="node1" title="Calculate expected state vector from velocity model using normal motion data Uses translation velocit..." alt="" coords="109,5,275,47"/>
-<area shape="rect" id="node2" href="$motion__model__test_8cpp.html#abaac5c4600343357227b100565bf0831" title=" " alt="" coords="5,13,61,39"/>
-</map>

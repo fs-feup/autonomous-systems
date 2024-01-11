@@ -1,4 +1,0 @@
-<map id="ImuVelocityModel::get_motion_to_state_matrix" name="ImuVelocityModel::get_motion_to_state_matrix">
-<area shape="rect" id="node1" title="Calculate state covariance matrix from velocity model using IMU data and linear functions Uses transl..." alt="" coords="109,5,275,47"/>
-<area shape="rect" id="node2" href="$motion__model__test_8cpp.html#a6fbede91fc0c55e0beeee30fb29a34bf" title=" " alt="" coords="5,13,61,39"/>
-</map>

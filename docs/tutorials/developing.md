@@ -3,16 +3,12 @@
 This tutorial will teach you the steps behind developing a component / feature for this system. It also links sources that will teach you how to develop elegant and well built programs - a well built program is understood as a program that is coded in the most computationally efficient way possible without compromising readability and extensibility (the ability of a program to be extended).
 
 ## Steps to contruct a component
-
-- **Conceptualize** the program
+- **Investigate** how to make the program
 - **Design** the program
 - **Code** the program (includes the creation of unit tests)
 - **Evaluation** of the program with simulators and other tools
+- update the **Design**
 - **Documentation** of the program
-
-## Concept
-
-The concept of a component is often easy to establish on the basis of the larger concept of the program. However, the idea is to idealize in rough terms what the program will be, what problem it will solve and how it will do it vaguely. It includes the research of methodologies and routes available and is motly a note taking and learning process that occurs before the component's design.
 
 ## Design
 

@@ -1,4 +1,0 @@
-<map id="ObservationModel::inverse_observation_model" name="ObservationModel::inverse_observation_model">
-<area shape="rect" id="node1" title="Calculate landmark position from observation." alt="" coords="109,5,287,47"/>
-<area shape="rect" id="node2" href="$observation__model__test_8cpp.html#ace83b03e85ae2ce2ae7e32c548597d3f" title="Test the observation model in a scenario where the vehicle is always aligned with the x axis." alt="" coords="5,13,61,39"/>
-</map>

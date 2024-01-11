@@ -44,6 +44,7 @@ ws_[project]
 For the Dev Container to function properly, we have to build it with the correct user. Therefore add the following to .devcontainer/devcontainer.json
 ```json
 {
+    {
     "name": "ROS 2 Development Container",
     "privileged": true,
     "remoteUser": "user",
@@ -54,7 +55,8 @@ For the Dev Container to function properly, we have to build it with the correct
         }
     },
     "features": {
-        "ghcr.io/itsmechlark/features/act:1": {}
+        "ghcr.io/itsmechlark/features/act:1": {},
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {}
     },
     "workspaceFolder": "/home/ws",
     "workspaceMount": "source=${localWorkspaceFolder},target=/home/ws,type=bind",
@@ -62,6 +64,7 @@ For the Dev Container to function properly, we have to build it with the correct
         "vscode": {
             "extensions":[
                 "ms-vscode.cpptools",
+                "ms-azuretools.vscode-docker",
                 "ms-vscode.cpptools-themes",
                 "twxs.cmake",
                 "donjayamanne.python-extension-pack",
@@ -110,9 +113,14 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME
 RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y python3-pip
+RUN apt install ros-$ROS_DISTRO-rviz2 -y
+RUN apt install openssh-client -y
+RUN apt install openssh-server -y
+RUN apt update
+RUN apt install python-is-python3 -y
 RUN pip3 install cpplint
 RUN apt install clang-format -y
-RUN apt install ros-$ROS_DISTRO-rviz2 -y
+RUN curl -O https://www.doxygen.nl/files/doxygen-1.10.0.linux.bin.tar.gz && tar -xvzf doxygen-1.10.0.linux.bin.tar.gz && cd doxygen-1.10.0 && make install && cd .. && rm -rf doxygen-1.10.0 && rm doxygen-1.10.0.linux.bin.tar.gz
 ENV SHELL /bin/bash
 
 # ********************************************************

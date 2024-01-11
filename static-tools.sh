@@ -14,7 +14,18 @@ elif [ $1 = "doxygen" ]; then
 elif [ $1 = "ruff" ]; then
 	echo "Running ruff..."
     ./scripts/ruff.sh
+elif [ $1 = "all" ]; then
+	echo "Formatting with clang-format..."
+    ./scripts/clang-format.sh
+	echo "Running cpplint..."
+    ./scripts/cpplint.sh
+	echo "Running cppcheck..."
+    ./scripts/cppcheck.sh
+	echo "Running ruff..."
+    ./scripts/ruff.sh
+	echo "Generating doxygen documentation..."
+    ./scripts/document.sh
 else
 	echo "Wrong configuration. How to use: static-tools.sh <tool>"
-	echo "Tool Options: 'cppcheck', 'cpplint', 'clang-format', 'doxygen', 'ruff'"
+	echo "Tool Options: 'all', 'cppcheck', 'cpplint', 'clang-format', 'doxygen', 'ruff'"
 fi

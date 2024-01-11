@@ -50,3 +50,7 @@ For each of the approaches, there are different steps here:
 4. **Docker Environment on Windows** - Follow [this tutorial](./environment_setup/ros2_docker_vscode_coding_environment.md)
 5. **Direct installation on Ubuntu** - Follow [this tutorial](./environment_setup/ros2_setup.md)
 6. **Direct installation on Windows WSL** - Follow [this tutorial](./environment_setup/ros2_setup.md)
+
+## Other tools
+
+Some other tools are required for development in the AS department, such as Static Analysis tools. These tools are already installed in the Docker Image provided but their installation process is still reviewed in tutorials further ahead in the guide.

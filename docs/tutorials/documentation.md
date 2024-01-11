@@ -11,20 +11,17 @@ In order to pass down the knowledge aquired to the next generations of driverles
 In order to help future developers start contributing to this project, code should be easy to read and staightforward. However, this is easier said than done. For this reason, it is helpful to use a documentation tool to document the code developed. Doxygen is the de-fact tool for documentation in C++. To use it you should:
 - [Install doxygen](https://www.doxygen.nl/download.html) in your machine (virtual machine in this case). Download the binaries version.
     - Download
-    - Run ```sudo make install```
-- Create doxygen file in the project home directory
+    - Run ```sudo make install``` inside
+- Create doxygen file in the project home directory (when creating a new project, that is)
     - Run ```doxygen -g``` on the command line
     - Edit the file to your liking
         - Check the INPUT variable, for this is the one that defines what files will be read to generate the documentation
 - Comment the code with doxygen comments
     - Use [this vscode extension](https://marketplace.visualstudio.com/items?itemName=cschlosser.doxdocgen) for automatic doxygen documentation generation
 - Run ```doxygen``` on the [src folder](../../src/) to generate documentation
-    **IMPORTANT:** In this project, there is already a script that runs documentation on all packages automatically [here](../../src/document.sh).
+    **IMPORTANT:** In this project, there is already a script that runs documentation on all packages automatically [here](../../scripts/document.sh). This functionality is also included in [this script](../../static-tools.sh).
 
-There is an example doxyfile [here](../assets/environment_setup_tutorial/Doxyfile.example). This doxyfile is configured to generate only latex documentation (as oposed to latex + html).
-
-The [example project](../assets/environment_setup_tutorial/training/) also contains a Doxyfile (it is the same as the one mentioned above) and a [script](../assets/environment_setup_tutorial/training/document.sh) that generates a pdf file + the latex output from doxygen. This script required the installation of [pdflatex](https://gist.github.com/rain1024/98dd5e2c6c8c28f9ea9d). The example project also contains commented code.
-
+T
 ## Doxygen C++
 
 C++ code example:
