@@ -16,7 +16,7 @@ In ROS2, the main testing tools are [unittest](https://docs.python.org/3/library
 
 Unit testing is a software testing method where individual components or units of a software application are tested in isolation. The primary goal of unit testing is to validate that each unit of the software performs as expected. Typically, a unit is the smallest testable part of an application, such as a function, method, or procedure. Unit testing is often conducted by developers during the development phase to identify and fix bugs early in the development cycle, ensuring the reliability and stability of the software. This is the environment the tools mentioned above were born to thrive on. They are equiped with multiple mocking tools for the developer to be able to isolate components and test them individually. 
 
-There are also many tutorials for these tools. You can also check the [ROS documentation](http://wiki.ros.org/Quality/Tutorials/UnitTesting) on these tools for more information. These two projects are setup for testing [python](../assets/test_tutorial/theman/) and [c++](../assets/environment_setup_tutorial/training/experiment1/) respectively. Check them out for reference.
+There are also many tutorials for these tools. You can also check the [ROS documentation](http://wiki.ros.org/Quality/Tutorials/UnitTesting) on these tools for more information.
 
 ### Structure
 
@@ -89,12 +89,14 @@ To run normal tests:
     ```sh
     ros2 run loc_map loc_map_test # (for loc_map)
     ```
-- run only on test in python ```python <test_file>```
+- run only one test in python ```python <test_file>```
 
 ## Further Instruction
 
+You should watch at least some of these videos to understand the basic syntax of the tools.
+
 - [ROS2 C++ Testing Tutorial Video](https://www.youtube.com/watch?v=t2Jm1Nt49-A&t=2031s)
 - [ROS2 Python Testing Tutorial Video](https://www.youtube.com/watch?v=h-1IhC01T1c)
+- [Google test tutorial](https://www.youtube.com/watch?v=JJqRlSTQlh4&t=92s)
 - [gtest](https://google.github.io/googletest/)
 - [unittest](https://docs.python.org/3/library/unittest.html)
-- [Google test tutorial](https://www.youtube.com/watch?v=JJqRlSTQlh4&t=92s)

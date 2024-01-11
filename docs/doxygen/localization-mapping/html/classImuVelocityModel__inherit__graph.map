@@ -1,4 +1,0 @@
-<map id="ImuVelocityModel" name="ImuVelocityModel">
-<area shape="rect" id="node1" title="Motion estimation that uses the specific values of the x and y axis accelerations,..." alt="" coords="23,204,201,325"/>
-<area shape="rect" id="node2" href="$classMotionModel.html" title="Abstract Moiton Model class designed to be implemented by the different motion models." alt="" coords="5,5,219,156"/>
-</map>

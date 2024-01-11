@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="1" failures="0" disabled="0" errors="0" time="0" timestamp="2023-01-29T19:18:41" name="AllTests">
-  <testsuite name="DEMO_TEST_SUITE" tests="1" failures="0" disabled="0" errors="0" time="0" timestamp="2023-01-29T19:18:41">
-    <testcase name="TEST_CAR" status="run" result="completed" time="0" timestamp="2023-01-29T19:18:41" classname="experiment1.DEMO_TEST_SUITE" />
-  </testsuite>
-</testsuites>

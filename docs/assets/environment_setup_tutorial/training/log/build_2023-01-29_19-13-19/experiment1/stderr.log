@@ -1,5 +1,0 @@
-CMake Error at CMakeLists.txt:39 (amend_add_gtest):
-  Unknown CMake command "amend_add_gtest".
-
-
-make: *** [Makefile:296: cmake_check_build_system] Error 1
