@@ -18,17 +18,17 @@ For each of the approaches, there are different steps here:
 
 1. **Docker Environment on Ubuntu**
     1. Install Ubuntu 22.04 - [video tutorial](https://www.youtube.com/watch?v=GXxTxBPKecQ)
-    2. Install [Docker Engine](https://docs.docker.com/engine/install/ubuntu/) (docker engine preferrably, but you can also try Docker Desktop at your own risk) - follow the apt repository method
+    2. Install [Docker](./environment_setup/docker-install.md)
 2. **Docker Environment on Windows WSL**
     1. Install Windows - if you don't have it, don't do it, Windows sucks
     2. Install WSL 2 inside windows - [tutorial](./environment_setup/installing_wsl.md)
-    3. Install [Docker Desktop on windows](https://docs.docker.com/desktop/install/windows-install/) - follow indications for WLS2 backend instead of HyperV backend
+    3. Install [Docker](./environment_setup/docker-install.md)
     4. Install [VcXSrv](https://sourceforge.net/projects/vcxsrv/) - for graphical interfaces ([example of usage](https://www.youtube.com/watch?v=BDilFZ9C9mw)) 
 3. **Docker Environment on Mac** both steps can be seen being executed in [this tutorial](https://www.youtube.com/watch?v=cNDR6Z24KLM)
-    1. Install [Docker Desktop on Mac](https://docs.docker.com/desktop/install/mac-install/)
+    1. Install [Docker](./environment_setup/docker-install.md)
     2. Install [XQuartz](https://www.xquartz.org/) - for graphical interfaces
 4. **Docker Environment on Windows**
-    1. Install [Docker Desktop on Windows](https://docs.docker.com/desktop/install/windows-install/) - - follow indications for HyperV backend
+    1. Install [Docker](./environment_setup/docker-install.md)
     2. Install [VcXSrv](https://sourceforge.net/projects/vcxsrv/) - for graphical interfaces ([example of usage](https://www.youtube.com/watch?v=BDilFZ9C9mw)) 
 5. **Direct installation on Ubuntu**
     1. Install Ubuntu 22.04 - [video tutorial](https://www.youtube.com/watch?v=GXxTxBPKecQ)
