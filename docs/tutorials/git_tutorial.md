@@ -1,6 +1,6 @@
 # Git Tutorial
 
-Git is a version control system (VCS) for tracking changes in computer files and coordinating work on those files among multiple people. It records file changes among directories and is creates an history of the changes made. It is also capable of merging different histories of changes into a new file, combining, for instance, the work developed by two different people in parallel, making it popular for collaboration.
+Git is a version control system (VCS) for tracking changes in computer files and coordinating work on those files among multiple people. It records file changes among directories and is creates an history of the changes made. It is also capable of merging different histories of changes into a new file, combining, for instance, the work developed by two different people in parallel, making it popular for collaboration. This tutorial teaches the basics of git.
 
 ## Instalation of git
 
