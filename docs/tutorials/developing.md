@@ -1,6 +1,6 @@
 # How to develop
 
-This tutorial will teach you the steps behind developing a component / feature for this system. It also links sources that will teach you how to develop elegant and well built programs - a well built program is understood as a program that is coded in the most computationally efficient way possible without compromising readability and extensibility (the ability of a program to be extended).
+This tutorial will teach you the steps behind developing a component / feature for this system. It also links sources that will teach you how to develop elegant and well built programs - a well built program is understood as a program that is coded in the most computationally efficient way possible without compromising readability and extensibility (the ability of a program to be extended). All the rules below listed are also in the regulamentation.
 
 ## Steps to contruct a component
 - **Investigate** how to make the program
