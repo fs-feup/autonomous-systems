@@ -20,12 +20,12 @@ This guide is meant to help the developer setup the environment required to work
 
 ### Basic Tutorials
 
+- [Environment Setup](./environment_setup.md)
 - [Git tutorial](./git_tutorial.md)
 - [Docker tutorial](./docker-tutorial.md)
 - [C++ and Python Basics](./C++_basics.md)
 - [ROS2 Basics](./ros2_tutorial.md)
 - [Developing](./developing.md)
-- [Environment Setup](./environment_setup.md)
 - [Static Analysis Tools](./static_analysis_tools.md) - tutorial on using the static analysis and formatting tools adopted
 - [Documentation](./documentation.md) - tutorial on how to document code
 - [How to contribute (how to compile, test, run, etc.)](./contribute.md) - what tasks are required before a PR
