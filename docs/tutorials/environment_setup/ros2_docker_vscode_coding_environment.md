@@ -17,13 +17,16 @@ Follow all the steps in [the tutorial video](https://www.youtube.com/watch?v=cND
 #### Extra for Windows
 
 Run Xlaunch from the start menu and perform the initial configuration.
-Make sure to save to configuration file before you click finish. Save it to one of the following locations: ```%appdata%\Xming %userprofile%\Desktop %userprofile%```
+Make sure to save to the configuration file before you click finish. Save it to one of the following locations: ```%appdata%\Xming %userprofile%\Desktop %userprofile%```
 
 [example of usage](https://www.youtube.com/watch?v=BDilFZ9C9mw)
 
 ### Docker Setup
 
-Create a .devcontainer folder in the root of this repository and add a devcontainer.json and Dockerfile to this .devcontainer folder. Additionally, you need to create a cache folder in which you can cache the build and install folders for different ROS 2 distros. Make sure to create the distro, build, log, and install folders.
+This step goes over how to set up a docker dev container as a development environment for our project. For more information on docker, there is a [tutorial further ahead](https://github.com/fs-feup/autonomous-systems/blob/main/docs/tutorials/docker-tutorial.md) in the startup guide that links some content for education on the topic.
+
+Create a ".devcontainer" folder in the root of this repository and add a "devcontainer.json" and "Dockerfile" to this .devcontainer folder (names and extensions as mentioned). Additionally, you need to create a cache folder in which you can cache the build and install folders for different ROS 2 distros. Make sure to create the distro, build, log, and install folders.
+
 ```ssh
 project_root
 ├── cache
@@ -31,8 +34,6 @@ project_root
 |   |   ├── build
 |   |   ├── install
 |   |   └── log
-|   └── ...
-|
 ├── .devcontainer
 │   ├── devcontainer.json
 │   └── Dockerfile
@@ -44,7 +45,6 @@ project_root
 For the Dev Container to function properly, we have to build it with the correct user. Therefore add the following to .devcontainer/devcontainer.json
 ```json
 {
-    {
     "name": "ROS 2 Development Container",
     "privileged": true,
     "remoteUser": "user",
@@ -94,8 +94,9 @@ For the Dev Container to function properly, we have to build it with the correct
 	"initializeCommand": "echo Initialize...."
 }
 ```
-With CTRL+F find "user" and replace it by your pc user (for sudo access). Run `echo $USERNAME` in the terminal if you don't know this.
+With CTRL+F find "user" and replace it by your pc user (for sudo access). Run `echo $USERNAME` or `echo $USER` in the terminal if you don't know this.
 Next, add the following to the Dockerfile
+
 ```dockerfile
 FROM ros:humble-ros-base-jammy
 ARG USERNAME=user
