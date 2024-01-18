@@ -415,20 +415,6 @@ angular:
 
 ![TurtleSim Screenshot](../assets/ros2_tutorial/turtlesim_screenshot.png)
 
-## Logging
-
-ROS2's logging system works on 5 levels:
-- DEBUG: Information that you never need to see if the system is working properly.
-- INFO: Small amounts of information that may be useful to a user.
-- WARN: Information that the user may find alarming, and may affect the output of the application, but is part of the expected working of the system.
-- ERROR: Something serious (but recoverable) has gone wrong.
-- FATAL: Something unrecoverable has happened.
-
-To control the level of logging in which a node is executing, use the log-level ros argument as so:
-```sh
-ros2 run [package_name] [node_name] --ros-args --log-level [level]
-```
-
 ## Create Basic ROS2 Package
 
 A ROS2 package is like a container of ROS2 software. It can contain code for nodes, services, topics, messages… a whole ROS2 subsystem. By default, you can create a ROS2 package with two different build tools:
@@ -468,17 +454,44 @@ These commands will originate a folder structure as well as:
 
 ### Compile
 
+#### Source ROS
+Whenever you open a new shell, you **must** run the following command:
+
+```bash
+source /opt/ros/humble/setup.bash
+```
+
+This command tells the shell where the compilation results are, in this case, where ROS itself is.
+
+If you don't want to always do this, add it to the shell startup file. Bash case:
+
+```bash
+echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
+```
+
+#### Compilation
+
 To compile any project, go to the base folder (parent folder to src)
 
 ```bash
 colcon build 
 ```
 
+If you only wish to **compile specific packages**, you can use the following command:
+```sh
+colcon build --packages-select [your package and others necessary]
+```
+
+
 ### Run setup file
+
+Whenever you open a new shell, you **must** run the following command:
 
 ```bash
 source install/setup.bash
 ```
+
+This command tells the shell where the compilation results are.
 
 ### Run node
 
@@ -523,6 +536,20 @@ def generate_launch_description():
     ])
 ```
 
+## Logging
+
+ROS2's logging system works on 5 levels:
+- DEBUG: Information that you never need to see if the system is working properly.
+- INFO: Small amounts of information that may be useful to a user.
+- WARN: Information that the user may find alarming, and may affect the output of the application, but is part of the expected working of the system.
+- ERROR: Something serious (but recoverable) has gone wrong.
+- FATAL: Something unrecoverable has happened.
+
+To control the level of logging in which a node is executing, use the log-level ros argument as so:
+```sh
+ros2 run [package_name] [node_name] --ros-args --log-level [level]
+```
+
 ## RQT
 
 rqt is a Qt-based framework for GUI development for ROS. Essentially, it enables the construction of simple GUIs for ROS programs.
@@ -537,7 +564,7 @@ You can not only construct GUIs with it, but it also serves as a GUI for ROS2 it
 
 ## RCLPY and RCLCPP
 
-RCLPY and RCLCPP are two libraries, for CPP and Python respectively, used to ease the interaction with the ROS2 system and create Object Oriented programs with multiple nodes. Follow [this tutorial](https://docs.ros.org/en/foxy/Tutorials/Beginner-Client-Libraries/Writing-A-Simple-Cpp-Publisher-And-Subscriber.html) to get started using the libraries to create nodes.
+RCLPY and RCLCPP are two libraries, for CPP and Python respectively, used to ease the interaction with the ROS2 system and create Object Oriented programs with multiple nodes. We shall be using these libraries for all our nodes. Follow [this tutorial](https://docs.ros.org/en/foxy/Tutorials/Beginner-Client-Libraries/Writing-A-Simple-Cpp-Publisher-And-Subscriber.html) to get started using the libraries to create nodes.
 
 ## Extra tutorials
 

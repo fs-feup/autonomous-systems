@@ -149,3 +149,25 @@ source /opt/ros/humble/setup.bash
 rviz2
 ```
 If all correct, should open a window with no errors.
+
+## Usage of the Environment
+
+### Notes
+
+The environment is all installed inside a docker container, which works like a lightweight virtual machine, having its own file system, etc. This means ROS2 and all other tools and libraries were not installed in your computer, but inside the container, meaning you won't have access to them in a shell/terminal connected to your computer. The terminal that VSCode opens when inside the docker container is a special terminal that automatically connects to the container, meaning it works inside it. Therefore, all work should be done inside this terminal. You can also [connect your own terminal application to the container](https://kodekloud.com/blog/docker-exec/). The folders between the container and your pc are synchronized with Docker Volumes, so any change in your pc will reflect in the docker and vice versa.
+
+Another important note: as described in the tutorial further ahead on Docker, docker images and docker containers are two different things. If you select rebuild and reopen container again, all changes you made to the container afterwards will be wiped out.
+
+Remember you will always have to run ```source /opt/ros/humble/setup.bash``` every time you open a shell in order to tell it where ROS2 is. If you don't want to do this all the time, add the line to your .bashrc file like so ```echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc```.
+
+### Steps for Usage
+
+1. If using Docker desktop and it does not start on start-up, open it.
+2. Open VSCode. If the last project opened in VSCode was this one, it should open inside the container rightaway. If not, proceed with the next steps.
+3. Select the remote connection extension on the left side bar.
+    ![Screenshot](../../assets/ros2_docker_setup/1.png)
+4. Click on the ws folder inside the docker container. Make sure you have the remote explorer selected to dev containers.
+5. Check that you are inside the docker container.
+    
+    ![Screenshot](../../assets/ros2_docker_setup/1.png)
+6. Program

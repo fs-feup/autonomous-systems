@@ -205,6 +205,8 @@ Next, we need to configure our local repository with the remote one. First, use:
 git remote add origin git@github.com:<your username>/<repository name>.git
 ```
 
+In a repository originated by clone, there is no need for the previous step.
+
 Then, use the `push` command to update the GitHub repository with our local changes.
 
 ```shell
@@ -213,11 +215,11 @@ git push
 
 ## Our Repository Context
 
-If you are already comfortable with Git, the next step is to follow [this tutorial](../compile-test-run.md), which provides tips on cloning the project, installing its dependencies, compiling the code, and running and testing the code. However, here are some additional pieces of advice:
+If you are already comfortable with Git, the next step is to follow [this tutorial](./contribute.md), which provides tips on cloning the project, installing its dependencies, compiling the code, and running and testing the code. However, here are some additional pieces of advice:
 
 1. **Commit Rules**
 
-There are git norms that must be respected. They can be found [here](../project-rules.md#commits).
+There are git norms that must be respected. They can be found among the rules of the project.
 
 2. **Pull Requests**
 
@@ -226,6 +228,16 @@ Directly committing to the main (dev) branch should be avoided. Instead, you sho
 Every pull request must have a reviewer who must approve the pull request. Additionally, the pull request must have the approval of the department leader. When both reviewers approve the pull request, it can be merged.
 
 Another point worth noting is that we use a trunk based development system, where we have one main branch and multiple temporary (feature) branches, where all the work is done. The work is introduced in the main branch through **pull requests**.
+
+### How to Make Pull Requests
+
+Pull Requests are like requests for merging your changes with the main branch. When you want to develop something, you create a new branch from the main one and start doing stuff. You should make regular commits, as it will help if you want to backtrack. When you are finished, you run:
+
+```sh
+git push -u origin <name of the branch>
+```
+
+With this, you will create a remote branch with the same as yours and tracking your local one, meaning they are linked. After this, just go to Github and create a pull request. There is a tab for this but a comment should pop right away asking you if you want to create one. Just make sure you are merging from your branch to the main branch. Also add a description of what you've done and the id of the task in ClickUp it corresponds to. 
 
 ## Extra
 
@@ -246,4 +258,3 @@ Git stash can be used when you want to save the current directory state for late
 ## More information
 
 This tutorial was based on the slides of Prof. André Restivo. You can find them [here](https://paginas.fe.up.pt/~arestivo/slides/?s=git#1) for more precise information about how Git works. You can also check [this tutorial](https://www.youtube.com/watch?v=tRZGeaHPoaw&t=28s). [This cheatsheet](../assets/git_tutorial/git-cheat-sheet-education.pdf) is also very useful, as noone always remembers the commands.
-
