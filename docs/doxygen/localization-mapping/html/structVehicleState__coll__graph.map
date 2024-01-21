@@ -1,0 +1,7 @@
+<map id="VehicleState" name="VehicleState">
+<area shape="rect" id="Node000001" title="Struct for state of the vehicle." alt="" coords="5,341,111,407"/>
+<area shape="rect" id="Node000002" href="$structPose.html" title="Struct for pose representation." alt="" coords="8,173,108,279"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="61,279,61,325,55,325,55,279"/>
+<area shape="rect" id="Node000003" href="$structPosition.html" title="Struct for position." alt="" coords="13,5,103,111"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="61,111,61,157,55,157,55,111"/>
+</map>

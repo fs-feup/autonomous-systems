@@ -1,0 +1,7 @@
+<map id="MotionModel" name="MotionModel">
+<area shape="rect" id="Node000001" title="Abstract Moiton Model class designed to be implemented by the different motion models." alt="" coords="94,5,321,160"/>
+<area shape="rect" id="Node000002" href="$classImuVelocityModel.html" title="Motion estimation that uses the specific values of the x and y axis accelerations,..." alt="" coords="5,208,196,328"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="158,173,137,209,133,206,154,171"/>
+<area shape="rect" id="Node000003" href="$classNormalVelocityModel.html" title="Motion estimation that uses the module of the velocity and the rotational velocity." alt="" coords="220,208,411,328"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="262,171,283,206,278,209,257,173"/>
+</map>
