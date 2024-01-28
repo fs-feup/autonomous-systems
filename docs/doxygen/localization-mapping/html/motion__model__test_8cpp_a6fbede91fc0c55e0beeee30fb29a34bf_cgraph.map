@@ -1,0 +1,9 @@
+<map id="TEST" name="TEST">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,45,60,70"/>
+<area shape="rect" id="Node000002" href="$classImuVelocityModel.html#a5df11744dfe9180fc5937945e39eb836" title="Calculate state covariance matrix from velocity model using IMU data and linear functions Uses transl..." alt="" coords="111,5,297,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,50,97,43,98,48,61,55"/>
+<area shape="rect" id="Node000003" href="$classImuVelocityModel.html#a83c9e2d4b8e321ab0fcfbef5f52b5447" title="Calculate expected state vector from velocity model using IMU data and linear functions Uses translat..." alt="" coords="108,69,300,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="61,60,95,66,94,71,60,65"/>
+<area shape="rect" id="Node000004" href="$formulas_8cpp.html#a5dda4c5d809de2f2716a49c5703a6f60" title="Function to keep angle between 0 and 2Pi radians." alt="" coords="348,77,479,102"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="300,87,334,87,334,92,300,92"/>
+</map>
