@@ -11,8 +11,12 @@ find_package(std_msgs REQUIRED)
 find_package(custom_interfaces REQUIRED)
 find_package(sensor_msgs REQUIRED)
 
+set(IMPLEMENTATION_FILES 
+  src/perception/perception_node.cpp
+)
 
-add_executable(perception src/perception.cpp)
+
+add_executable(perception src/perception.cpp ${IMPLEMENTATION_FILES})
 target_include_directories(perception PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
