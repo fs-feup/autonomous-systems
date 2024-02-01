@@ -9,7 +9,7 @@
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/bool.hpp"
 
-void LateralControl::publish_steeringcommand(custom_interfaces::msg::ConeArray path){                                      
+void LateralControl::publish_steeringcommand(custom_interfaces::msg::ConeArray path) {
   auto steering_command_msg = std_msgs::msg::String();
 
   RCLCPP_INFO(this->get_logger(), "Publishing: '%s'", steering_command_msg.data.c_str());
@@ -24,8 +24,9 @@ void LateralControl::publish_latctrl_ebs_status() {
 }
 
 LateralControl::LateralControl() : Node("lateral_control_node") {
-  ebs_status_pub= this->create_publisher<std_msgs::msg::Bool>("ebs_status_topic", 10);
-  steering_command_pub= this->create_publisher<std_msgs::msg::String>("steering_command_topic", 10);
+  ebs_status_pub = this->create_publisher<std_msgs::msg::Bool>("ebs_status_topic", 10);
+  steering_command_pub =
+      this->create_publisher<std_msgs::msg::String>("steering_command_topic", 10);
 
   path_subscription = this->create_subscription<custom_interfaces::msg::ConeArray>(
       "local_planning", 10,
