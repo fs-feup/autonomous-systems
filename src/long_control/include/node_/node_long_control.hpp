@@ -7,18 +7,34 @@
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
 
-//class that holds fucntions to publish and hold data
+/**
+ * @class LongitudinalControl
+ * @brief Class responsible for the longitudinal control of the car
+ *
+ * This class inherits from rclcpp::Node, subscribing to current velocity
+ * and ideal path topics, and publishing torque (or other output to the actuators).
+ */
 class LongitudinalControl : public rclcpp::Node{
  private:
-        //declaration of 4 variables
         rclcpp::Publisher<std_msgs::msg::String>::SharedPtr result;
         rclcpp::Subscription<std_msgs::msg::String>::SharedPtr current_velcoity;
         rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr path_subscription;
         double velocity;
-        // function that only publishes torque (or other output such as acceleration)
+
+        /**
+        * @brief Function to publish the desired output (provisionally torque)
+        * when a new map is recieved
+        */
         void publish_torque(custom_interfaces::msg::ConeArray path);
-        //function to transfer data to the variable "velocity"
+
+        /**
+         * @brief Function to hold the value of the velocity when
+         * new velocity data is recieved
+        */
         void velocity_estimation_callback(std_msgs::msg::String velocity);
  public:
+       /**
+        * @brief Contructor for the LongitudinalControl class
+       */
         LongitudinalControl();
 };
