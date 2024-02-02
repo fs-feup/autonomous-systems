@@ -10,17 +10,23 @@ find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(custom_interfaces REQUIRED)
 find_package(sensor_msgs REQUIRED)
+find_package(tf2 REQUIRED)
+find_package(tf2_geometry_msgs REQUIRED)
+find_package(tf2_ros REQUIRED)
+find_package(PCL REQUIRED)
 
 set(IMPLEMENTATION_FILES 
   src/perception/perception_node.cpp
+  src/ground_removal/ransac.cpp
 )
-
 
 add_executable(perception src/perception.cpp ${IMPLEMENTATION_FILES})
 target_include_directories(perception PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
 target_compile_features(perception PUBLIC c_std_99 cxx_std_17)
+
+target_link_libraries(perception ${PCL_LIBRARIES} ${PCL_INCLUDE_DIRS})
 
 install(TARGETS perception
   DESTINATION lib/${PROJECT_NAME})
