@@ -150,6 +150,17 @@ rviz2
 ```
 If all correct, should open a window with no errors.
 
+### Set Up C++ Extension
+
+1. Ctrl+Shift+P and write 'C/C++: Edit Configurations (UI)
+2. Scroll down to 'Include Path'
+3. Add this to the text box:
+    ```
+    ${workspaceFolder}/**
+    /opt/ros/humble/include/**
+    /usr/include/**
+    ```
+
 ## Usage of the Environment
 
 ### Notes
@@ -168,6 +179,5 @@ Remember you will always have to run ```source /opt/ros/humble/setup.bash``` eve
     ![Screenshot](../../assets/ros2_docker_setup/1.png)
 4. Click on the ws folder inside the docker container. Make sure you have the remote explorer selected to dev containers.
 5. Check that you are inside the docker container.
-    
-    ![Screenshot](../../assets/ros2_docker_setup/1.png)
+    ![Screenshot](../../assets/ros2_docker_setup/2.png)
 6. Program
