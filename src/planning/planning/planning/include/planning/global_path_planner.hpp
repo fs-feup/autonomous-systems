@@ -29,6 +29,11 @@ class GlobalPathPlanner {
    */
   void writeFinalPath(const std::string &filePrefix);
 
+  /**
+   * Calculates the track central path
+   */
+  void middlePath();  // TODO(andre): calculate middle path using track info
+
   // void rrt();
   // void astar();
   // other future algorithms
