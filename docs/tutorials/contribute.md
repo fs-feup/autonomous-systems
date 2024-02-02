@@ -25,6 +25,14 @@ You work with your **shell always in the root directory**. In it, you can find m
   ```sh
   ./static-tools.sh all
   ```
+  or just checking part:
+  ```sh
+  ./static-tools.sh check
+  ```
+  or just modifying tools:
+  ```sh
+  ./static-tools.sh act
+  ```
   or individually like so:
   ```sh
   ./static-tools.sh clang-format # C++
