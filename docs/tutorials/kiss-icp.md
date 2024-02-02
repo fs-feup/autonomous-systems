@@ -43,7 +43,6 @@ source ./install/setup.bash
 
 The only required argument to provide is the topic name so KISS-ICP knows which PointCloud2 to process:
 
-
 ```sh
 ros2 launch kiss_icp odometry.launch.py bagfile:=<path_to_rosbag> topic:=<topic_name>
 ```
@@ -52,11 +51,26 @@ You can optionally launch the node with any bagfile, and play the bagfiles on a 
 ```sh
 ros2 launch kiss_icp odometry.launch.py topic:=<topic_name>
 ```
-
 and then,
 
 ```sh
 ros2 bag play <path>*.bag
+```
+
+The topic_name should be the topic of the bagfile. In case you do not know, run the following commands and see which topic has the lidar data from the bagfile, and then repeat the commands above:
+
+```sh
+ros2 bag play <path>*.bag
+ros2 topic list
+```
+
+
+
+
+To get the pose from kiss_icp, in a new terminal you should run:
+
+```sh
+ros2 topic echo /kiss/odometry
 ```
 
 # Internal structure of the package
