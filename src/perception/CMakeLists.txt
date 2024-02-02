@@ -20,6 +20,11 @@ set(IMPLEMENTATION_FILES
   src/ground_removal/ransac.cpp
 )
 
+include_directories(${PCL_INCLUDE_DIRS})
+include_directories(${PCL_CONVERSIONS_INCLUDE_DIRS})
+link_directories(${PCL_LIBRARY_DIRS})
+add_definitions(${PCL_DEFINITIONS})
+
 add_executable(perception src/perception.cpp ${IMPLEMENTATION_FILES})
 target_include_directories(perception PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
