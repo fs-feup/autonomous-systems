@@ -1,0 +1,10 @@
+0 0 yellow_cone
+3 0 blue_cone
+3.5 2 blue_cone
+4.5 2.8 blue_cone
+0.5 2 yellow_cone
+1.5 2.8 yellow_cone
+3 5 yellow_cone
+5.5 3.5 blue_cone
+2.5 3.5 yellow_cone
+6 5 blue_cone
