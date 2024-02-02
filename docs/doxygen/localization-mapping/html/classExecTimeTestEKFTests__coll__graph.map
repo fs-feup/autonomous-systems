@@ -1,0 +1,13 @@
+<map id="ExecTimeTestEKFTests" name="ExecTimeTestEKFTests">
+<area shape="rect" id="Node000001" title="Test class for performance measurements of Extended Kalman Filter steps." alt="" coords="343,353,503,579"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,115,99,181"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="65,193,83,242,96,267,113,289,165,338,226,378,287,410,344,435,341,440,285,415,223,383,162,342,109,292,92,270,78,245,60,195"/>
+<area shape="rect" id="Node000003" href="$classExtendedKalmanFilter.html" title="Extended Kalman Filter class." alt="" coords="123,5,306,291"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="308,287,343,338,338,341,304,290"/>
+<area shape="rect" id="Node000004" href="$structMotionUpdate.html" title="Struct for data retrieved by the IMU." alt="" coords="330,65,515,231"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="425,231,425,337,420,337,420,231"/>
+<area shape="rect" id="Node000005" href="$classMotionModel.html" title="Abstract Moiton Model class designed to be implemented by the different motion models." alt="" coords="540,71,767,225"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="630,226,606,279,576,331,548,364,517,395,513,391,544,361,571,328,602,277,625,224"/>
+<area shape="rect" id="Node000006" href="$classObservationModel.html" title="Observation Model class compiled of functions for observation model." alt="" coords="791,53,985,243"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="823,245,781,293,720,343,651,383,582,416,519,440,517,435,580,411,649,379,717,338,777,289,819,241"/>
+</map>
