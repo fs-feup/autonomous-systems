@@ -1,7 +1,9 @@
 #include "perception/perception_node.hpp"
-//#include <pcl_conversions/pcl_conversions.h>
-//#include <pcl/point_cloud.h>
-//#include <pcl/point_types.h>
+#include <pcl/PCLPointField.h>
+#include <pcl/PCLPointCloud2.h>
+#include <pcl/point_cloud.h>
+#include <pcl/point_types.h>
+#include "../../lib/pcl_conversions/pcl_conversions.h"
 #include <cstdio>
 
 Perception::Perception(GroundRemoval* groundRemoval) : Node("perception"), groundRemoval(groundRemoval) {
@@ -13,15 +15,10 @@ Perception::Perception(GroundRemoval* groundRemoval) : Node("perception"), groun
 }
 
 void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2 msg) {
-  
-  auto point_cloud = msg.data;
 
-  // Convert byte data to a string
-  std::ostringstream ss;
-  for (const auto& byte : point_cloud) {
-    ss << std::hex << static_cast<int>(byte) << " ";
-  }
+    pcl::PointCloud<pcl::PointXYZ>::Ptr pcl_cloud(new pcl::PointCloud<pcl::PointXYZ>);
 
-  //RCLCPP_INFO(this->get_logger(), "PointCloud Data: %s", ss.str().c_str());
-  RCLCPP_INFO(this->get_logger(), "Perception is alive!");
+    //fromPCLPointCloud2(msg, *pcl_cloud);
+
+    RCLCPP_INFO(this->get_logger(), "Perception is alive!");
 }
