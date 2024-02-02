@@ -14,6 +14,8 @@ class Position {
  public:
   Position(float x, float y);
 
+  
+
   float getX() const;
 
   float getY() const;

@@ -1,3 +1,6 @@
+"""!
+Generates a random path which is written to a file for testing
+"""
 
 from random import random
 from random import seed
