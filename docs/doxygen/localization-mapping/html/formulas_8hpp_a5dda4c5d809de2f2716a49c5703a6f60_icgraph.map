@@ -1,0 +1,25 @@
+<map id="normalize_angle" name="normalize_angle">
+<area shape="rect" id="Node000001" title="Function to keep angle between 0 and 2Pi radians." alt="" coords="348,203,479,228"/>
+<area shape="rect" id="Node000002" href="$classImuVelocityModel.html#a83c9e2d4b8e321ab0fcfbef5f52b5447" title="Calculate expected state vector from velocity model using IMU data and linear functions Uses translat..." alt="" coords="108,97,300,137"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="372,199,246,139,249,134,374,194"/>
+<area shape="rect" id="Node000007" href="$classNormalVelocityModel.html#a32beb590c4af5f21172b64b34d5f3ea1" title="Calculate expected state vector from velocity model using normal motion data Uses translation velocit..." alt="" coords="113,269,295,309"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="364,235,263,271,261,266,362,230"/>
+<area shape="rect" id="Node000003" href="$motion__model__test_8cpp.html#ae0937a30b47fc882eb19bb57e6ca6bbf" title=" " alt="" coords="5,5,60,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="155,92,54,33,57,28,158,87"/>
+<area shape="rect" id="Node000004" href="$motion__model__test_8cpp.html#a9c31f0345da32c0c5eaa421433ba5ec3" title=" " alt="" coords="5,55,60,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="120,95,59,78,61,72,122,90"/>
+<area shape="rect" id="Node000005" href="$motion__model__test_8cpp.html#a13d66ed5f0bcb51eb59eaeb8da3fe292" title=" " alt="" coords="5,104,60,129"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="95,119,60,119,60,114,95,114"/>
+<area shape="rect" id="Node000006" href="$motion__model__test_8cpp.html#a6fbede91fc0c55e0beeee30fb29a34bf" title=" " alt="" coords="5,153,60,179"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="122,143,61,161,59,156,120,138"/>
+<area shape="rect" id="Node000008" href="$motion__model__test_8cpp.html#a89bd5d192ba500ce6cd5d7ff246df691" title=" " alt="" coords="5,203,60,228"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="143,266,59,229,61,224,145,261"/>
+<area shape="rect" id="Node000009" href="$motion__model__test_8cpp.html#a4b4be8c03914d03c683a1fecbcbdf310" title=" " alt="" coords="5,252,60,277"/>
+<area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="99,277,60,271,61,266,99,271"/>
+<area shape="rect" id="Node000010" href="$motion__model__test_8cpp.html#ac536fb8afc350c3ccd4907c25a507b81" title=" " alt="" coords="5,301,60,327"/>
+<area shape="poly" id="edge9_Node000007_Node000010" title=" " alt="" coords="99,307,61,313,60,307,99,302"/>
+<area shape="rect" id="Node000011" href="$motion__model__test_8cpp.html#a985258fd91e481fac6ee05ad73bab7fd" title=" " alt="" coords="5,351,60,376"/>
+<area shape="poly" id="edge10_Node000007_Node000011" title=" " alt="" coords="146,317,61,354,59,349,144,312"/>
+<area shape="rect" id="Node000012" href="$motion__model__test_8cpp.html#abaac5c4600343357227b100565bf0831" title=" " alt="" coords="5,400,60,425"/>
+<area shape="poly" id="edge11_Node000007_Node000012" title=" " alt="" coords="166,319,53,402,50,398,163,315"/>
+</map>

@@ -21,7 +21,7 @@ In order to help future developers start contributing to this project, code shou
 - Run ```doxygen``` on the [src folder](../../src/) to generate documentation
     **IMPORTANT:** In this project, there is already a script that runs documentation on all packages automatically [here](../../scripts/document.sh). This functionality is also included in [this script](../../static-tools.sh).
 
-T
+
 ## Doxygen C++
 
 C++ code example:
@@ -45,6 +45,8 @@ class KalmanFilter {
 }
 
 ```
+
+Full comment [style guide](https://micro-os-plus.github.io/develop/doxygen-style-guide/).
 
 
 ## Doxygen Python
