@@ -15,17 +15,16 @@ Perception::Perception(GroundRemoval* groundRemoval) : Node("perception"), groun
 }
 
 void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
-    // Create a PCL PointCloud
+
     pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_cloud(new pcl::PointCloud<pcl::PointXYZI>);
 
-    // Convert the ROS PointCloud2 message to PCL PointCloud
     pcl::fromROSMsg(*msg, *pcl_cloud);
 
-    // Iterate over points and print x, y, z, and intensity
-    for (const auto& point : pcl_cloud->points) {
-        RCLCPP_INFO(this->get_logger(), "Point: x=%f, y=%f, z=%f, intensity=%f",
-                    point.x, point.y, point.z, point.intensity); break;
-    }
+    pcl::PointCloud<pcl::PointXYZI> ground_removed_cloud;
+    groundRemoval->groundRemoval(pcl_cloud, ground_removed_cloud);
 
-    RCLCPP_INFO(this->get_logger(), "Perception is alive!");
+    for (const auto& point : ground_removed_cloud.points) {
+        RCLCPP_INFO(this->get_logger(), "Point: x=%f, y=%f, z=%f, intensity=%f",
+                    point.x, point.y, point.z, point.intensity);
+    }
 }
