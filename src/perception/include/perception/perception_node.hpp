@@ -10,7 +10,7 @@ private:
 
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr _point_cloud_subscription;
   rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr _cones_publisher;
-  void pointCloudCallback(const sensor_msgs::msg::PointCloud2 msg);
+  void pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg);
 
  public:
   Perception(GroundRemoval* groundRemoval);

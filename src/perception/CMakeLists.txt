@@ -14,6 +14,9 @@ find_package(tf2 REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(PCL REQUIRED)
+find_package(message_filters REQUIRED)
+find_package(pcl_conversions REQUIRED)
+
 
 set(IMPLEMENTATION_FILES 
   src/perception/perception_node.cpp
@@ -36,7 +39,7 @@ target_link_libraries(perception ${PCL_LIBRARIES} ${PCL_INCLUDE_DIRS})
 install(TARGETS perception
   DESTINATION lib/${PROJECT_NAME})
 
-ament_target_dependencies(perception rclcpp custom_interfaces sensor_msgs)
+ament_target_dependencies(perception rclcpp custom_interfaces sensor_msgs message_filters)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
