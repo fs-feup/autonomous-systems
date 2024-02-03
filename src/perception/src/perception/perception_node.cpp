@@ -3,7 +3,7 @@
 #include <pcl/PCLPointCloud2.h>
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
-#include "../../lib/pcl_conversions/pcl_conversions.h"
+#include <pcl_conversions/pcl_conversions.h>
 #include <cstdio>
 
 Perception::Perception(GroundRemoval* groundRemoval) : Node("perception"), groundRemoval(groundRemoval) {
@@ -14,11 +14,18 @@ Perception::Perception(GroundRemoval* groundRemoval) : Node("perception"), groun
   this->_cones_publisher = this->create_publisher<custom_interfaces::msg::ConeArray>("cones", 10);
 }
 
-void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2 msg) {
+void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
+    // Create a PCL PointCloud
+    pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_cloud(new pcl::PointCloud<pcl::PointXYZI>);
 
-    pcl::PointCloud<pcl::PointXYZ>::Ptr pcl_cloud(new pcl::PointCloud<pcl::PointXYZ>);
+    // Convert the ROS PointCloud2 message to PCL PointCloud
+    pcl::fromROSMsg(*msg, *pcl_cloud);
 
-    //fromPCLPointCloud2(msg, *pcl_cloud);
+    // Iterate over points and print x, y, z, and intensity
+    for (const auto& point : pcl_cloud->points) {
+        RCLCPP_INFO(this->get_logger(), "Point: x=%f, y=%f, z=%f, intensity=%f",
+                    point.x, point.y, point.z, point.intensity); break;
+    }
 
     RCLCPP_INFO(this->get_logger(), "Perception is alive!");
 }
