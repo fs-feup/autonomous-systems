@@ -18,7 +18,6 @@ Track::~Track() {
 void Track::fillTrack(const std::string &path) {
   std::string x, y, color;
   std::ifstream trackFile = openReadFile(path);
-
   while (trackFile >> x >> y >> color) {
     float xValue = stof(x);
     float yValue = stof(y);

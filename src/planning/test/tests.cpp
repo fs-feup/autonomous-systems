@@ -93,8 +93,7 @@ std::ostream &operator<<(std::ostream &os, const Position &p) {
 }
 
 TEST(LocalPathPlanner, outliers) {
-  std::string filePath = "planning/planning/tracks/outlier_test1.txt";
-
+  std::string filePath = "src/planning/tracks/outlier_test1.txt";
   Track *track = new Track();
   track->fillTrack(filePath);
   track->validateCones();
@@ -104,7 +103,7 @@ TEST(LocalPathPlanner, outliers) {
 }
 
 TEST(LocalPathPlanner, delauney10) {
-  std::string filePath = "planning/planning/tracks/map_10.txt";
+  std::string filePath = "src/planning/tracks/map_10.txt";
   std::vector<Position> path = processTriangulations(filePath, "10points");
 
   std::vector<Position> expected{Position(1.5, 0),   Position(1.75, 1),    Position(2, 2),
@@ -115,36 +114,36 @@ TEST(LocalPathPlanner, delauney10) {
 }
 
 TEST(LocalPathPlanner, delauney100) {
-  std::string filePath = "planning/planning/tracks/map_100.txt";
+  std::string filePath = "src/planning/tracks/map_100.txt";
   std::vector<Position> path = processTriangulations(filePath, "100points");
 }
 
 TEST(LocalPathPlanner, delauney250) {
-  std::string filePath = "planning/planning/tracks/map_250.txt";
+  std::string filePath = "src/planning/tracks/map_250.txt";
   std::vector<Position> path = processTriangulations(filePath, "250points");
 }
 
 TEST(LocalPathPlanner, delauneyrng) {
-  std::string filePath = "planning/planning/tracks/map_250_rng.txt";
+  std::string filePath = "src/planning/tracks/map_250_rng.txt";
   std::vector<Position> path = processTriangulations(filePath, "250randompoints");
 }
 
 TEST(LocalPathPlanner, delauneyoutliers0) {
-  std::string filePath = "planning/planning/tracks/map_250.txt";
+  std::string filePath = "src/planning/tracks/map_250.txt";
   outlierCalculations(filePath, "250points_2outliers");
 }
 
 TEST(LocalPathPlanner, delauneyoutliers1) {
-  std::string filePath = "planning/planning/tracks/map_250_out10.txt";
+  std::string filePath = "src/planning/tracks/map_250_out10.txt";
   outlierCalculations(filePath, "250points_10outliers");
 }
 
 TEST(LocalPathPlanner, delauneyoutliers2) {
-  std::string filePath = "planning/planning/tracks/map_250_out25.txt";
+  std::string filePath = "src/planning/tracks/map_250_out25.txt";
   outlierCalculations(filePath, "250points_25outliers");
 }
 
 TEST(LocalPathPlanner, delauneyoutliers3) {
-  std::string filePath = "planning/planning/tracks/map_250_out50.txt";
+  std::string filePath = "src/planning/tracks/map_250_out50.txt";
   outlierCalculations(filePath, "250points_50outliers");
 }

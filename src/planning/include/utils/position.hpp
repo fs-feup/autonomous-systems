@@ -9,16 +9,16 @@
  * Position class. Stores the x and y values of the car
  */
 class Position {
-  float x, y;
+  float x, y, v;
 
  public:
-  Position(float x, float y);
-
-  
+  Position(float x, float y, float v=0);
 
   float getX() const;
 
   float getY() const;
+
+  float getV() const;
 
   /**
    * Euclidean distance to another position
