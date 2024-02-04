@@ -6,7 +6,6 @@
 
 GlobalPathPlanner::GlobalPathPlanner(Track *track) : track(track) {}
 
-
 // void GlobalPathPlanner::writeFinalPath(const std::string &filePrefix) {
 //   ofstream finalPathFile(filePrefix +
 //   "/planning/planning/files/finalPath.txt");
