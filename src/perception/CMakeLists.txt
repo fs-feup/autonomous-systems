@@ -42,12 +42,19 @@ install(TARGETS perception
 ament_target_dependencies(perception rclcpp custom_interfaces sensor_msgs message_filters)
 
 if(BUILD_TESTING)
-  find_package(ament_lint_auto REQUIRED)
-  find_package(custom_interfaces REQUIRED)
-  find_package(sensor_msgs REQUIRED)
-  set(ament_cmake_copyright_FOUND TRUE)
-  set(ament_cmake_cpplint_FOUND TRUE)
-  ament_lint_auto_find_test_dependencies()
+  find_package(ament_cmake_gtest REQUIRED)
+  
+  ament_add_gtest(perception_test test/ransac_test.cpp src/ground_removal/ransac.cpp)
+
+
+target_link_libraries(perception_test ${PCL_LIBRARIES} ${PCL_INCLUDE_DIRS})
+  target_include_directories(perception_test PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>)
+  ament_target_dependencies(perception_test rclcpp custom_interfaces ament_cmake_gtest)
+
 endif()
+
+
 
 ament_package()
