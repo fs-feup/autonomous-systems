@@ -24,8 +24,8 @@ std::ofstream openWriteFile(const std::string &filename) {
   filePrefix = filePrefix.substr(0, filePrefix.find("install"));
   std::ofstream file(filePrefix + filename, std::ios::app);
   if (!file.is_open()) {
-        std::cerr << "Error opening file: " << filePrefix + filename << std::endl;
-    }
+    std::cerr << "Error opening file: " << filePrefix + filename << std::endl;
+  }
   return file;
 }
 
@@ -34,8 +34,8 @@ std::ifstream openReadFile(const std::string &filename) {
   filePrefix = filePrefix.substr(0, filePrefix.find("install"));
   std::ifstream file(filePrefix + filename);
   if (!file.is_open()) {
-        std::cerr << "Error opening file: " << filePrefix + filename << std::endl;
-    }
+    std::cerr << "Error opening file: " << filePrefix + filename << std::endl;
+  }
   return file;
 }
 // Track* read_track_file(const std::string& filename) {
