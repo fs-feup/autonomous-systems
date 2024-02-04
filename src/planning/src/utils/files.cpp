@@ -23,6 +23,9 @@ std::ofstream openWriteFile(const std::string &filename) {
   std::string filePrefix = ament_index_cpp::get_package_share_directory("planning");
   filePrefix = filePrefix.substr(0, filePrefix.find("install"));
   std::ofstream file(filePrefix + filename, std::ios::app);
+  if (!file.is_open()) {
+        std::cerr << "Error opening file: " << filePrefix + filename << std::endl;
+    }
   return file;
 }
 
@@ -30,6 +33,9 @@ std::ifstream openReadFile(const std::string &filename) {
   std::string filePrefix = ament_index_cpp::get_package_share_directory("planning");
   filePrefix = filePrefix.substr(0, filePrefix.find("install"));
   std::ifstream file(filePrefix + filename);
+  if (!file.is_open()) {
+        std::cerr << "Error opening file: " << filePrefix + filename << std::endl;
+    }
   return file;
 }
 // Track* read_track_file(const std::string& filename) {
