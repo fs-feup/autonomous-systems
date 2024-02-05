@@ -7,10 +7,10 @@
 #include <vector>
 
 #include "../planning/track.hpp"
-#include "./position.hpp"
+#include "./pathpoint.hpp"
 #include "rclcpp/rclcpp.hpp"
 
-std::vector<Position *> read_path_file(const std::string &filename);
+std::vector<PathPoint *> read_path_file(const std::string &filename);
 
 std::ofstream openWriteFile(const std::string &filename);
 
@@ -18,7 +18,7 @@ std::ifstream openReadFile(const std::string &filename);
 
 // Track* read_track_file(const std::string& filename);
 
-// void write_path_file(const std::string& filename, std::vector<Position*>
+// void write_path_file(const std::string& filename, std::vector<PathPoint*>
 // path);
 
 #endif  // SRC_PLANNING_PLANNING_INCLUDE_UTILS_FILES_HPP_

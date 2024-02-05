@@ -9,12 +9,12 @@
 
 using testing::Eq;
 
-std::vector<Position> processTriangulations(std::string filename, std::string testname) {
+std::vector<PathPoint> processTriangulations(std::string filename, std::string testname) {
   Track *track = new Track();
   track->fillTrack(filename);  // fill track with file data
 
   LocalPathPlanner *pathplanner = new LocalPathPlanner();
-  std::vector<Position> path;
+  std::vector<PathPoint> path;
 
   double total_time = 0;
   int no_iters = 100;
@@ -22,7 +22,7 @@ std::vector<Position> processTriangulations(std::string filename, std::string te
   // One time iteration
   auto s0 = std::chrono::high_resolution_clock::now();
 
-  std::vector<Position *> pathPointers = pathplanner->processNewArray(track);
+  std::vector<PathPoint *> pathPointers = pathplanner->processNewArray(track);
 
   auto s1 = std::chrono::high_resolution_clock::now();
 
@@ -34,7 +34,7 @@ std::vector<Position> processTriangulations(std::string filename, std::string te
   for (int i = 0; i < no_iters; i++) {
     auto t0 = std::chrono::high_resolution_clock::now();
 
-    std::vector<Position *> pathPointers = pathplanner->processNewArray(track);
+    std::vector<PathPoint *> pathPointers = pathplanner->processNewArray(track);
 
     auto t1 = std::chrono::high_resolution_clock::now();
 
@@ -89,7 +89,7 @@ void outlierCalculations(std::string filename, std::string testname) {
               (total_time / no_iters));
 }
 
-std::ostream &operator<<(std::ostream &os, const Position &p) {
+std::ostream &operator<<(std::ostream &os, const PathPoint &p) {
   return os << '(' << p.getX() << ',' << p.getY() << ')';
 }
 
@@ -105,28 +105,28 @@ TEST(LocalPathPlanner, outliers) {
 
 TEST(LocalPathPlanner, delauney10) {
   std::string filePath = "src/planning/tracks/map_10.txt";
-  std::vector<Position> path = processTriangulations(filePath, "10points");
+  std::vector<PathPoint> path = processTriangulations(filePath, "10points");
 
-  std::vector<Position> expected{Position(1.5, 0),   Position(1.75, 1),    Position(2, 2),
-                                 Position(2.5, 2.4), Position(3, 2.8),     Position(3.5, 3.15),
-                                 Position(4, 3.5),   Position(4.25, 4.25), Position(4.5, 5)};
+  std::vector<PathPoint> expected{PathPoint(1.5, 0),   PathPoint(1.75, 1),    PathPoint(2, 2),
+                                 PathPoint(2.5, 2.4), PathPoint(3, 2.8),     PathPoint(3.5, 3.15),
+                                 PathPoint(4, 3.5),   PathPoint(4.25, 4.25), PathPoint(4.5, 5)};
 
   // EXPECT_EQ(expected, path);
 }
 
 TEST(LocalPathPlanner, delauney100) {
   std::string filePath = "src/planning/tracks/map_100.txt";
-  std::vector<Position> path = processTriangulations(filePath, "100points");
+  std::vector<PathPoint> path = processTriangulations(filePath, "100points");
 }
 
 TEST(LocalPathPlanner, delauney250) {
   std::string filePath = "src/planning/tracks/map_250.txt";
-  std::vector<Position> path = processTriangulations(filePath, "250points");
+  std::vector<PathPoint> path = processTriangulations(filePath, "250points");
 }
 
 TEST(LocalPathPlanner, delauneyrng) {
   std::string filePath = "src/planning/tracks/map_250_rng.txt";
-  std::vector<Position> path = processTriangulations(filePath, "250randompoints");
+  std::vector<PathPoint> path = processTriangulations(filePath, "250randompoints");
 }
 
 TEST(LocalPathPlanner, delauneyoutliers0) {

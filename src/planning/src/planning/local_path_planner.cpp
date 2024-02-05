@@ -9,15 +9,15 @@
 
 LocalPathPlanner::LocalPathPlanner() : track() {}
 
-bool LocalPathPlanner::vector_direction(Position *p1, Position *p2, float prev_vx, float prev_vy) {
+bool LocalPathPlanner::vector_direction(PathPoint *p1, PathPoint *p2, float prev_vx, float prev_vy) {
   float vx = p2->getX() - p1->getX();
   float vy = p2->getY() - p1->getY();
 
   return (vx * prev_vx + vy * prev_vy) > 0;
 }
 
-std::vector<Position *> LocalPathPlanner::processNewArray(Track *cone_array) {
-  std::vector<std::pair<Position *, bool>> unordered_path;
+std::vector<PathPoint *> LocalPathPlanner::processNewArray(Track *cone_array) {
+  std::vector<std::pair<PathPoint *, bool>> unordered_path;
 
   // Loop through left cones and add them to the track
   for (int i = 0; i < cone_array->getLeftConesSize(); i++)
@@ -57,15 +57,15 @@ std::vector<Position *> LocalPathPlanner::processNewArray(Track *cone_array) {
       // Calculate the midpoint between the two cones
       float xDist = cone2->getX() - cone1->getX();
       float yDist = cone2->getY() - cone1->getY();
-      Position *position = new Position(cone1->getX() + xDist / 2, cone1->getY() + yDist / 2);
+      PathPoint *position = new PathPoint(cone1->getX() + xDist / 2, cone1->getY() + yDist / 2);
       unordered_path.push_back(std::make_pair(position, false));
     }
   }
   // Process unordered_path to generate the final path
 
   // first iterations placeholders
-  std::vector<Position *> final_path;
-  Position *p1 = new Position(0, 0);
+  std::vector<PathPoint *> final_path;
+  PathPoint *p1 = new PathPoint(0, 0);
   float vx = 1;
   float vy = 0;
 
@@ -74,7 +74,7 @@ std::vector<Position *> LocalPathPlanner::processNewArray(Track *cone_array) {
     size_t min_index = 0;
 
     for (size_t i = 0; i < unordered_path.size(); i++) {
-      Position *p2 = unordered_path[i].first;
+      PathPoint *p2 = unordered_path[i].first;
       // check only if not visited
       if (unordered_path[i].second == false && vector_direction(p1, p2, vx, vy)) {
         // first iteration we assure the direction is correct to avoid going
