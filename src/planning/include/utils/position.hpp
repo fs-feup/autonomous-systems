@@ -12,13 +12,13 @@ class Position {
   float x, y, v;
 
  public:
-  Position(float x, float y, float v=0);
+  Position(float x, float y, float v = 0);
 
   float getX() const;
 
   float getY() const;
 
-  float getV() const;
+//float getV() const;
 
   /**
    * Euclidean distance to another position

@@ -46,7 +46,7 @@ class Publisher : public rclcpp::Node {
    */
   void publish_track_points() {
     auto message = custom_interfaces::msg::PointArray();
-    std::cout << "Starting publisher\n";
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Starting publisher\n");
     for (size_t i = 0; i < fullPath.size(); i++) {
       auto point = custom_interfaces::msg::Point2d();
       point.x = fullPath[i].first;

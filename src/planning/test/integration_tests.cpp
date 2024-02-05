@@ -199,7 +199,7 @@ TEST_F(IntegrationTest, PUBLISH_PATH1) {
 
   RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
 
-  std::ofstream file = openWriteFile("performance/exec_time/planning.csv");
+  std::ofstream file = openWriteFile("src/performance/exec_time/planning.csv");
   file << "planning, all, 4 cones, " << duration.count() << "\n";
   file.close();
 

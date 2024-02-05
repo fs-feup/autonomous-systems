@@ -6,7 +6,7 @@ float Position::getX() const { return x; }
 
 float Position::getY() const { return y; }
 
-float Position::getV() const { return v; }
+//float Position::getV() const { return v; }
 
 float Position::getDistanceTo(Position *dest) {
   return sqrt(pow(this->x - dest->getX(), 2) + pow(this->y - dest->getY(), 2));

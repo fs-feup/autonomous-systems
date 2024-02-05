@@ -45,7 +45,7 @@ void Track::addCone(float xValue, float yValue, const std::string &color) {
     leftCount++;
   } else if (color != colors::color_names[colors::orange] &&
              color != colors::color_names[colors::large_orange]) {
-    std::cout << "Invalid color: " << color << std::endl;
+    RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "Invalid color: %s\n", color.c_str());
   }
 }
 
@@ -109,8 +109,8 @@ int Track::validateCones() {
   int leftOutliers = deleteOutliers(1, 1.5, 3, 3, false);
   int rightOutliers = deleteOutliers(0, 1.5, 3, 3, false);
 
-  std::cout << "Deleted " << leftOutliers << " left outliers and " << rightOutliers
-            << " right outliers\n";
+  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Deleted %i leftOutliers and %i right outliers\n",
+              leftOutliers, rightOutliers);
   return leftOutliers + rightOutliers;
 }
 
@@ -124,7 +124,7 @@ int Track::deleteOutliers(bool side, float distance_threshold, int order, float 
   const int nbreak = ncoeffs - order + 2;
 
   if (nbreak < 2) {
-    std::cout << "Too few points to calculate spline\n";
+    RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "Too few points to calculate spline\n");
     return 0;
   }
 
@@ -292,15 +292,14 @@ int Track::deleteOutliers(bool side, float distance_threshold, int order, float 
     // Write outputs in files
     std::string fileSide = side ? "1" : "0";
 
-    std::ofstream splinePathFile =
-        openWriteFile("planning/planning/plots/spline" + fileSide + ".txt");
+    std::ofstream splinePathFile = openWriteFile("src/planning/plots/spline" + fileSide + ".txt");
 
     for (int i = 0; i < static_cast<int>(i_eval.size()); i++)
       splinePathFile << x_eval[i] << " " << y_eval[i] << "\n";
     splinePathFile.close();
 
     std::ofstream outlierPathFile =
-        openWriteFile("planning/planning/plots/deletedoutliers" + fileSide + ".txt");
+        openWriteFile("src/planning/plots/deletedoutliers" + fileSide + ".txt");
     for (int i = 0; i < static_cast<int>(cone_seq.size()); i++)
       outlierPathFile << cone_seq[i]->getX() << " " << cone_seq[i]->getY() << "\n";
     outlierPathFile.close();
