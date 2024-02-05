@@ -76,3 +76,8 @@ planning,outliers,250points_2outliers,10.116,10.0243
 planning,outliers,250points_10outliers,10.0011,9.83858
 planning,outliers,250points_25outliers,9.95963,9.95975
 planning,outliers,250points_50outliers,10.0921,9.93399
+planning, all, 4 cones, 2.24814
+planning, all, 4 cones, 1.89907
+planning, all, 4 cones, 1.9364
+planning, all, 4 cones, 2.10453
+planning, all, 4 cones, 2.16085
