@@ -9,7 +9,8 @@
 
 LocalPathPlanner::LocalPathPlanner() : track() {}
 
-bool LocalPathPlanner::vector_direction(PathPoint *p1, PathPoint *p2, float prev_vx, float prev_vy) {
+bool LocalPathPlanner::vector_direction(PathPoint *p1, PathPoint *p2,
+   float prev_vx, float prev_vy) {
   float vx = p2->getX() - p1->getX();
   float vy = p2->getY() - p1->getY();
 
