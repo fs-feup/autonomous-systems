@@ -8,3 +8,47 @@ planning,outliers,250points_25outliers,9.35277,12.6576
 planning,outliers,250points_50outliers,10.4787,9.76911
 planning, all, 4 cones, 1.9636
 
+planning,delaunay,10points,0.00479985,0.028479
+planning,delaunay,100points,0.166021,0.216993
+planning,delaunay,250points,0.843192,0.921923
+planning,delaunay,250randompoints,1.72513,1.75848
+planning,outliers,250points_2outliers,9.8495,9.98292
+planning,outliers,250points_10outliers,9.85362,9.89414
+planning,outliers,250points_25outliers,9.90854,9.993
+planning,outliers,250points_50outliers,9.92019,9.96552
+planning,delaunay,10points,0.0049786,0.020108
+planning,delaunay,100points,0.162074,0.216447
+planning,delaunay,250points,0.852357,0.939352
+planning,delaunay,250randompoints,1.72571,1.7525
+planning,outliers,250points_2outliers,9.9171,10.0025
+planning,outliers,250points_10outliers,9.92183,9.94237
+planning,outliers,250points_25outliers,9.97601,10.0297
+planning,outliers,250points_50outliers,10.0057,10.0135
+planning, all, 4 cones, 1.94615
+planning,delaunay,10points,0.00490822,0.019343
+planning,delaunay,100points,0.164982,0.218884
+planning,delaunay,250points,0.897032,0.964659
+planning,delaunay,250randompoints,1.7593,1.76015
+planning,outliers,250points_2outliers,10.0708,10.1188
+planning,outliers,250points_10outliers,9.98824,9.98923
+planning,outliers,250points_25outliers,9.92472,10.1845
+planning,outliers,250points_50outliers,9.93748,9.95201
+planning, all, 4 cones, 2.07174
+planning,delaunay,10points,0.00523877,0.024082
+planning,delaunay,100points,0.181212,0.251592
+planning,delaunay,250points,0.857903,0.92416
+planning,delaunay,250randompoints,1.71618,1.73926
+planning,outliers,250points_2outliers,9.89451,9.94906
+planning,outliers,250points_10outliers,9.86743,9.93815
+planning,outliers,250points_25outliers,9.93303,9.98428
+planning,outliers,250points_50outliers,0.00437187,0.009174
+planning, all, 4 cones, 2.01343
+planning,delaunay,10points,0.00486048,0.019234
+planning,delaunay,100points,0.16553,0.216665
+planning,delaunay,250points,0.881056,0.950069
+planning,delaunay,250randompoints,1.72982,1.76614
+planning,outliers,250points_2outliers,9.93946,10.0413
+planning,outliers,250points_10outliers,9.933,9.98802
+planning,outliers,250points_25outliers,9.95775,10.2085
+planning,outliers,250points_50outliers,9.96681,9.96227
+planning, all, 4 cones, 1.58851

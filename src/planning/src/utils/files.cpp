@@ -21,20 +21,24 @@ std::vector<Position *> read_path_file(const std::string &filename) {
 
 std::ofstream openWriteFile(const std::string &filename) {
   std::string filePrefix = ament_index_cpp::get_package_share_directory("planning");
+  std::string logger_varible;
   filePrefix = filePrefix.substr(0, filePrefix.find("install"));
   std::ofstream file(filePrefix + filename, std::ios::app);
   if (!file.is_open()) {
-    std::cerr << "Error opening file: " << filePrefix + filename << std::endl;
+    logger_varible = (filePrefix + filename);
+    RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "ERROR opening file: %s\n", logger_varible.c_str());
   }
   return file;
 }
 
 std::ifstream openReadFile(const std::string &filename) {
   std::string filePrefix = ament_index_cpp::get_package_share_directory("planning");
+  std::string logger_variable;
   filePrefix = filePrefix.substr(0, filePrefix.find("install"));
   std::ifstream file(filePrefix + filename);
   if (!file.is_open()) {
-    std::cerr << "Error opening file: " << filePrefix + filename << std::endl;
+    logger_variable = (filePrefix + filename);
+    RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "ERROR opening file: %s\n", logger_variable.c_str());
   }
   return file;
 }
