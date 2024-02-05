@@ -73,7 +73,7 @@ class Planning : public rclcpp::Node {
    * created PointArray message.
    */
 
-  void publish_track_points(std::vector<Position *> path) const;
+  void publish_track_points(std::vector<PathPoint *> path) const;
   /**
    * @brief Publishes predictive track points.
    * @details Depending on the selected mission, this function publishes

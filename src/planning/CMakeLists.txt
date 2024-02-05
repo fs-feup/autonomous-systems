@@ -36,7 +36,7 @@ set(IMPLEMENTATION_FILES
   src/planning/track.cpp
   src/planning/planning.cpp
   src/utils/cone.cpp
-  src/utils/position.cpp
+  src/utils/pathpoint.cpp
   src/utils/files.cpp
 )
 

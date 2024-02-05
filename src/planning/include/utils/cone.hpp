@@ -6,7 +6,7 @@
 #include <vector>
 
 /**
- * Position class. Stores the x and y values of the car
+ * Cone class. Stores the id, x and y values of a cone
  */
 class Cone {
   int id;

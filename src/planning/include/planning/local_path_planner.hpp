@@ -9,7 +9,7 @@
 #include <utility>
 #include <vector>
 
-#include "../utils/position.hpp"
+#include "../utils/pathpoint.hpp"
 #include "./track.hpp"
 #include "rclcpp/rclcpp.hpp"
 
@@ -46,7 +46,7 @@ class LocalPathPlanner {
    * @param prev_vy Previous direction vector's y-component.
    * @return True if the direction aligns; false otherwise.
    */
-  bool vector_direction(Position *p1, Position *p2, float prev_vx, float prev_vy);
+  bool vector_direction(PathPoint *p1, PathPoint *p2, float prev_vx, float prev_vy);
 
   /**
    * @brief Process an array of cones to generate a local path.
@@ -60,7 +60,7 @@ class LocalPathPlanner {
    * @details The function utilizes Delaunay triangulation (CGAL) and
    * direction-based selection of positions to create a meaningful local path.
    */
-  std::vector<Position *> processNewArray(Track *cone_array);
+  std::vector<PathPoint *> processNewArray(Track *cone_array);
 };
 
 #endif  // SRC_PLANNING_PLANNING_INCLUDE_PLANNING_LOCAL_PATH_PLANNER_HPP_
