@@ -27,7 +27,8 @@ std::vector<Position> processTriangulations(std::string filename, std::string te
   auto s1 = std::chrono::high_resolution_clock::now();
 
   double elapsed_time_zero_ms = std::chrono::duration<double, std::milli>(s1 - s0).count();
-  std::cout << "\nDelaunay Triangulations processed in " << elapsed_time_zero_ms << " ms.\n";
+  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\nDelaunay Triangulations processed in %f ms.\n",
+              elapsed_time_zero_ms);
 
   // No_iters repetitions to get average
   for (int i = 0; i < no_iters; i++) {
@@ -44,13 +45,13 @@ std::vector<Position> processTriangulations(std::string filename, std::string te
     for (size_t i = 0; i < pathPointers.size(); i++) path.push_back(*pathPointers[i]);
   }
 
-  std::ofstream measuresPath = openWriteFile("performance/exec_time/planning.csv");
+  std::ofstream measuresPath = openWriteFile("src/performance/exec_time/planning.csv");
   measuresPath << "planning,delaunay," << testname << "," << total_time / no_iters << ","
                << elapsed_time_zero_ms << "\n";
   measuresPath.close();
 
-  std::cout << "\nAverage Delaunay Triangulations processed in " << total_time / no_iters
-            << " ms.\n";
+  RCLCPP_INFO(rclcpp::get_logger("rclcpp"),
+              "\nAverage Delaunay Triangulations processed in %f ms.\n", (total_time / no_iters));
 
   return path;
 }
@@ -64,7 +65,7 @@ void outlierCalculations(std::string filename, std::string testname) {
   track->validateCones();
   auto s1 = std::chrono::high_resolution_clock::now();
   double elapsed_time_iter0_ms = std::chrono::duration<double, std::milli>(s1 - s0).count();
-  std::cout << "Outliers removed in " << elapsed_time_iter0_ms << " ms\n";
+  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Outliers removed in %f ms\n", (elapsed_time_iter0_ms));
 
   // Remove outliers no_iters times to get average
   int no_iters = 100;
@@ -72,7 +73,6 @@ void outlierCalculations(std::string filename, std::string testname) {
   for (int i = 0; i < no_iters; i++) {
     track->reset();
     track->fillTrack(filename);
-
     auto t0 = std::chrono::high_resolution_clock::now();
     track->validateCones();
     auto t1 = std::chrono::high_resolution_clock::now();
@@ -80,12 +80,13 @@ void outlierCalculations(std::string filename, std::string testname) {
     total_time += elapsed_time_iter_ms;
   }
 
-  std::ofstream measuresPath = openWriteFile("performance/exec_time/planning.csv");
+  std::ofstream measuresPath = openWriteFile("src/performance/exec_time/planning.csv");
   measuresPath << "planning,outliers," << testname << "," << total_time / no_iters << ","
                << elapsed_time_iter0_ms << "\n";
   measuresPath.close();
 
-  std::cout << "Outliers removed in average " << total_time / no_iters << " ms\n";
+  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Outliers removed in average %f ms\n",
+              (total_time / no_iters));
 }
 
 std::ostream &operator<<(std::ostream &os, const Position &p) {
