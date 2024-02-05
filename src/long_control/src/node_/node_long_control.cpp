@@ -8,24 +8,22 @@
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
-//This example creates a subclass of Node and uses std::bind()
-//to define which function gets executed at each time
 
+//This creates a subclass of Node and uses std::bind()
+//to define which function gets executed at each time
 
 //function that publishes data whenever a new path is obtained
 void LongitudinalControl::publish_torque(custom_interfaces::msg::ConeArray path) {
   auto torque = std_msgs::msg::String();
 
   RCLCPP_INFO(this->get_logger(), "Publishing: '%s'", torque.data.c_str());
-  //publish torque
-  result->publish(torque);
+
+  result->publish(torque); //publish torque
 }
 
-//function to transfer the velocity data to a variable
 void LongitudinalControl::velocity_estimation_callback(std_msgs::msg::String velocity) {}
 
 
-//constructor
 LongitudinalControl::LongitudinalControl() : Node("node_long_control") {
   // get velocity data from state estimation
   current_velcoity = this->create_subscription<std_msgs::msg::String>("velocity_estimation",

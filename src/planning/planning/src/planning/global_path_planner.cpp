@@ -9,7 +9,7 @@ GlobalPathPlanner::GlobalPathPlanner(Track *track) : track(track) {}
 void GlobalPathPlanner::middlePath() {
   int count = 0;
   int rightConesSize = track->getRightConesSize();
-  for (int i = 0; i < track->getLeftConesSize(); i++) {
+  for (int i = 0; i < track->getLeftConesSize(); i++) {m
     Cone *leftCone = track->getLeftConeAt(i);
     float dist = track->getRightConeAt(count % rightConesSize)
                      ->getDistanceTo(leftCone);  // previous cone distance
