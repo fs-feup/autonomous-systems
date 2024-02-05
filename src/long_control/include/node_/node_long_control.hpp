@@ -14,7 +14,7 @@
  * This class inherits from rclcpp::Node, subscribing to current velocity
  * and ideal path topics, and publishing torque (or other output to the actuators).
  */
-class LongitudinalControl : public rclcpp::Node{
+class LongitudinalControl : public rclcpp::Node {
  private:
         rclcpp::Publisher<std_msgs::msg::String>::SharedPtr result;
         rclcpp::Subscription<std_msgs::msg::String>::SharedPtr current_velcoity;
