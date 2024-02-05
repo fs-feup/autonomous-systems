@@ -51,7 +51,7 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray msg) {
 
   track->validateCones();  // Delete cone outliers
 
-  std::vector<Position *> path = local_path_planner->processNewArray(track);  // Calculate Path
+  std::vector<PathPoint *> path = local_path_planner->processNewArray(track);  // Calculate Path
   publish_track_points(path);
   delete (track);
 
@@ -61,7 +61,7 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray msg) {
 /**
  * Publisher point by point
  */
-void Planning::publish_track_points(std::vector<Position *> path) const {
+void Planning::publish_track_points(std::vector<PathPoint *> path) const {
   auto message = custom_interfaces::msg::PointArray();
   for (auto const &element : path) {
     auto point = custom_interfaces::msg::Point2d();
@@ -78,7 +78,7 @@ void Planning::publish_predicitive_track_points() {
   if (!this->is_predicitve_mission()) {
     return;
   }
-  std::vector<Position *> path = read_path_file(this->predictive_paths[this->mission]);
+  std::vector<PathPoint *> path = read_path_file(this->predictive_paths[this->mission]);
   this->publish_track_points(path);
 }
 

@@ -5,7 +5,7 @@
 #include <utility>
 #include <vector>
 
-#include "../utils/position.hpp"
+#include "../utils/pathpoint.hpp"
 #include "./track.hpp"
 
 /**
@@ -15,7 +15,7 @@
 
 class GlobalPathPlanner {
   Track *track;                       // track input data
-  std::vector<Position *> finalPath;  // path calculation result
+  std::vector<PathPoint *> finalPath;  // path calculation result
 
  public:
   /**
