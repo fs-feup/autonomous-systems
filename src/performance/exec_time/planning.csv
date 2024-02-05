@@ -1,83 +1,17 @@
-planning,delaunay,10points,0.00469798,0.016571
-planning,delaunay,100points,0.32895,0.174238
-planning,delaunay,250points,0.824974,0.844938
-planning,delaunay,250randompoints,1.52726,1.52026
-planning,outliers,250points_2outliers,9.86826,13.1428
-planning,outliers,250points_10outliers,9.45455,13.3859
-planning,outliers,250points_25outliers,9.35277,12.6576
-planning,outliers,250points_50outliers,10.4787,9.76911
-planning, all, 4 cones, 1.9636
-
-planning,delaunay,10points,0.00479985,0.028479
-planning,delaunay,100points,0.166021,0.216993
-planning,delaunay,250points,0.843192,0.921923
-planning,delaunay,250randompoints,1.72513,1.75848
-planning,outliers,250points_2outliers,9.8495,9.98292
-planning,outliers,250points_10outliers,9.85362,9.89414
-planning,outliers,250points_25outliers,9.90854,9.993
-planning,outliers,250points_50outliers,9.92019,9.96552
-planning,delaunay,10points,0.0049786,0.020108
-planning,delaunay,100points,0.162074,0.216447
-planning,delaunay,250points,0.852357,0.939352
-planning,delaunay,250randompoints,1.72571,1.7525
-planning,outliers,250points_2outliers,9.9171,10.0025
-planning,outliers,250points_10outliers,9.92183,9.94237
-planning,outliers,250points_25outliers,9.97601,10.0297
-planning,outliers,250points_50outliers,10.0057,10.0135
-planning, all, 4 cones, 1.94615
-planning,delaunay,10points,0.00490822,0.019343
-planning,delaunay,100points,0.164982,0.218884
-planning,delaunay,250points,0.897032,0.964659
-planning,delaunay,250randompoints,1.7593,1.76015
-planning,outliers,250points_2outliers,10.0708,10.1188
-planning,outliers,250points_10outliers,9.98824,9.98923
-planning,outliers,250points_25outliers,9.92472,10.1845
-planning,outliers,250points_50outliers,9.93748,9.95201
-planning, all, 4 cones, 2.07174
-planning,delaunay,10points,0.00523877,0.024082
-planning,delaunay,100points,0.181212,0.251592
-planning,delaunay,250points,0.857903,0.92416
-planning,delaunay,250randompoints,1.71618,1.73926
-planning,outliers,250points_2outliers,9.89451,9.94906
-planning,outliers,250points_10outliers,9.86743,9.93815
-planning,outliers,250points_25outliers,9.93303,9.98428
-planning,outliers,250points_50outliers,0.00437187,0.009174
-planning, all, 4 cones, 2.01343
-planning,delaunay,10points,0.00486048,0.019234
-planning,delaunay,100points,0.16553,0.216665
-planning,delaunay,250points,0.881056,0.950069
-planning,delaunay,250randompoints,1.72982,1.76614
-planning,outliers,250points_2outliers,9.93946,10.0413
-planning,outliers,250points_10outliers,9.933,9.98802
-planning,outliers,250points_25outliers,9.95775,10.2085
-planning,outliers,250points_50outliers,9.96681,9.96227
-planning, all, 4 cones, 1.58851
-planning,delaunay,10points,0.00499753,0.01917
-planning,delaunay,100points,0.15998,0.214525
-planning,delaunay,250points,0.84032,0.943231
-planning,delaunay,250randompoints,1.72381,1.739
-planning,outliers,250points_2outliers,9.90743,10.015
-planning,outliers,250points_10outliers,9.88804,9.96357
-planning,outliers,250points_25outliers,9.95367,9.96062
-planning,outliers,250points_50outliers,9.95999,9.9301
-planning,delaunay,10points,0.00484054,0.023243
-planning,delaunay,100points,0.164116,0.217606
-planning,delaunay,250points,0.858171,0.915491
-planning,delaunay,250randompoints,1.72464,1.77703
-planning,outliers,250points_2outliers,9.89701,9.94092
-planning,outliers,250points_10outliers,9.89706,10.0015
-planning,outliers,250points_25outliers,9.93976,9.96075
-planning,outliers,250points_50outliers,10.0238,9.9331
-planning,delaunay,10points,0.00488845,0.019167
-planning,delaunay,100points,0.159884,0.217984
-planning,delaunay,250points,0.842633,0.927132
-planning,delaunay,250randompoints,1.72083,1.81523
-planning,outliers,250points_2outliers,10.116,10.0243
-planning,outliers,250points_10outliers,10.0011,9.83858
-planning,outliers,250points_25outliers,9.95963,9.95975
-planning,outliers,250points_50outliers,10.0921,9.93399
-planning, all, 4 cones, 2.24814
-planning, all, 4 cones, 1.89907
-planning, all, 4 cones, 1.9364
-planning, all, 4 cones, 2.10453
-planning, all, 4 cones, 2.16085
+Node, function, test name, first execution time in ms, average execution time in ms
+planning, delaunay, 100points, 0.229939, 0.163374
+planning, delaunay, 250points, 0.938948, 0.859249
+planning, delaunay, 250randompoints, 1.74842, 1.72044
+planning, outliers, 250points_2outliers, 10.2969, 10.0231
+planning, outliers, 250points_10outliers, 10.2786, 9.97466
+planning, outliers, 250points_25outliers, 10.0034, 10.0455
+planning, outliers, 250points_50outliers, 10.0127, 10.0067
+planning, all, 4 cones, 1.85123
+planning, delaunay, 100points, 0.230495, 0.163263
+planning, delaunay, 250points, 0.932997, 0.853494
+planning, delaunay, 250randompoints, 1.75106, 1.71097
+planning, outliers, 250points_2outliers, 9.97761, 9.93631
+planning, outliers, 250points_10outliers, 9.93256, 9.9145
+planning, outliers, 250points_25outliers, 10.0748, 9.95718
+planning, outliers, 250points_50outliers, 10.0846, 9.97569
+planning, all, 4 cones, 2.13218
