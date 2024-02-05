@@ -251,6 +251,12 @@ A rebase is kind of like the reverse of a merge. Essentially, when you are in a 
 
 Contrarily to a merge, these updates will be included before any commits that you have introduced instead of after. Beware that this operation is also susceptible to merge conflicts.
 
+You can also use git rebase to rename and restructure the commits made (like squashing them), with interactive rebase:
+```sh
+git rebase -i HEAD~3
+```
+The example allows you to edit the last 3 commits.
+
 ### Git stash
 
 Git stash can be used when you want to save the current directory state for later but do not want to add it to the history, for instance when you want to take in updates from a remote but don't want to make a commit out of the current work, as it is not ready yet. It essentially hads the current directory state to a stack (the changes, that is, git only records changes) upon execution of the command ```git stash```. To retrieve these changes, simply use ```git stash pop```. You can also use ```git stash list``` to list all stashed changes and ```git stash drop``` to drop the changes that are currently on the top of the stack (the last ones stashed).
