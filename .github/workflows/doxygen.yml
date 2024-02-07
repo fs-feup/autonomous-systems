@@ -24,10 +24,10 @@ jobs:
           submodules: true  # Fetch Hugo themes (true OR recursive)
           fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
 
-      - uses: mattnotmitt/doxygen-action@v1.9.5
+      - uses: mattnotmitt/doxygen-action@v1.9.8
         with:
-          working-directory: 'src/'
-          doxyfile-path: 'src/Doxyfile'
+          working-directory: './'
+          doxyfile-path: './Doxyfile'
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
