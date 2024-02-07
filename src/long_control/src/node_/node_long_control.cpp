@@ -9,6 +9,8 @@
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
 
+#include <drake/systems/controllers/pid_controller.h>
+
 //This creates a subclass of Node and uses std::bind()
 //to define which function gets executed at each time
 

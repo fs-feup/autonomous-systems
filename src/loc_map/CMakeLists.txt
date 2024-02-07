@@ -5,6 +5,8 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../lib)
+
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
@@ -14,6 +16,7 @@ find_package(sensor_msgs REQUIRED)
 find_package(custom_interfaces REQUIRED)
 find_package(eufs_msgs REQUIRED)
 find_package(fs_msgs REQUIRED)
+
 
 set(IMPLEMENTATION_FILES 
   src/loc_map/lm_node.cpp
