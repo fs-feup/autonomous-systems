@@ -1,6 +1,6 @@
-#include "perception/perception_node.hpp"
 #include <cstdio>
 
+#include "perception/perception_node.hpp"
 
 int main(int argc, char** argv) {
   rclcpp::init(argc, argv);
