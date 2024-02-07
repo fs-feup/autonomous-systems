@@ -1,0 +1,9 @@
+<map id="ExtendedKalmanFilter::correction_step" name="ExtendedKalmanFilter::correction_step">
+<area shape="rect" id="Node000001" title="Correction step:" alt="" coords="5,93,153,134"/>
+<area shape="rect" id="Node000002" href="$classObservationModel.html#a97a9e71e7cee696be91a569eb65b9df9" title="Get the observation noise covariance matrix (C or H)" alt="" coords="201,5,404,61"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="137,90,207,64,209,69,139,95"/>
+<area shape="rect" id="Node000003" href="$classObservationModel.html#aa789708c6a934ba1edfc8386b1f38d4f" title="Get the state to observation matrix of the observation model (H)" alt="" coords="227,85,378,141"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="153,111,211,111,211,116,153,116"/>
+<area shape="rect" id="Node000004" href="$classObservationModel.html#a0f8d3fc26c59869171ad60d08322d1d7" title="Calculate expected observation from the state vector." alt="" coords="203,165,402,206"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="144,132,201,151,222,157,220,162,200,156,142,137"/>
+</map>

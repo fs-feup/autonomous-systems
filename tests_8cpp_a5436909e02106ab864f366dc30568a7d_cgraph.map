@@ -1,0 +1,32 @@
+<map id="TEST" name="TEST">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,131,60,156"/>
+<area shape="rect" id="Node000002" href="$tests_8cpp.html#a079261152f3ac81df46a49a1b3fb0f2d" title=" " alt="" coords="108,131,235,156"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,141,92,141,92,146,60,146"/>
+<area shape="rect" id="Node000003" href="$classTrack.html#af563702e457e6b2da5e127a7981b9453" title="Fill the track data from a file." alt="" coords="302,55,407,80"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="203,128,306,84,308,89,205,133"/>
+<area shape="rect" id="Node000006" href="$files_8cpp.html#a257b6927df658c26c8eded5bf6d569d2" title=" " alt="" coords="688,92,788,118"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="235,137,672,107,672,112,235,142"/>
+<area shape="rect" id="Node000007" href="$classTrack.html#ab4e7e111378109011379f2a7aa984145" title="Reset the track by clearing cone lists." alt="" coords="310,205,399,231"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="201,155,284,192,298,197,296,202,282,197,199,159"/>
+<area shape="rect" id="Node000008" href="$classTrack.html#a23bfa04cf9977718fa8b482a6371c9b2" title="Validate the cones in the track by deleting outliers." alt="" coords="283,156,425,182"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="236,150,268,154,267,159,235,155"/>
+<area shape="rect" id="Node000004" href="$classTrack.html#adc534b0f22848fc22d7001bd7e1789dd" title="Add a cone to the track if the color is appropriate." alt="" coords="488,5,599,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="406,51,476,33,477,38,407,57"/>
+<area shape="rect" id="Node000005" href="$files_8cpp.html#a440bc5364e11c37c13f14f7a0d1c7208" title=" " alt="" coords="493,55,594,80"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="407,65,478,65,478,70,407,70"/>
+<area shape="rect" id="Node000009" href="$classTrack.html#a621e3153e10358d3be704ac51bcc400d" title="Delete outliers from the track." alt="" coords="473,168,614,194"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="426,171,458,173,458,178,425,176"/>
+<area shape="poly" id="edge14_Node000009_Node000006" title=" " alt="" coords="578,165,688,121,690,126,580,170"/>
+<area shape="rect" id="Node000010" href="$classCone.html#a1fd598dec938e232ee09e16abe1b6a0d" title=" " alt="" coords="667,243,809,268"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="574,192,663,229,679,235,677,240,661,234,572,197"/>
+<area shape="rect" id="Node000011" href="$classCone.html#a51a49cc249e79d06f6a983250fe809b3" title=" " alt="" coords="862,193,946,219"/>
+<area shape="poly" id="edge12_Node000009_Node000011" title=" " alt="" coords="614,173,709,171,814,178,851,186,849,191,814,183,709,176,614,178"/>
+<area shape="rect" id="Node000012" href="$classCone.html#a952987a9de5d20d7930b3e93c04fd278" title=" " alt="" coords="862,243,946,268"/>
+<area shape="poly" id="edge13_Node000009_Node000012" title=" " alt="" coords="557,192,599,238,629,261,663,278,711,289,762,289,810,282,852,271,853,276,811,287,762,294,711,294,661,283,626,265,596,242,553,196"/>
+<area shape="rect" id="Node000013" href="$classTrack.html#aceda92bc02f39cd9127b31bc04ef7feb" title="Check if the direction of two cones is consistent." alt="" coords="662,193,814,219"/>
+<area shape="poly" id="edge15_Node000009_Node000013" title=" " alt="" coords="614,187,647,192,646,197,614,193"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="783,239,846,220,848,226,785,245"/>
+<area shape="poly" id="edge11_Node000010_Node000012" title=" " alt="" coords="809,253,846,253,846,258,809,258"/>
+<area shape="poly" id="edge16_Node000013_Node000011" title=" " alt="" coords="814,204,846,204,846,209,814,209"/>
+<area shape="poly" id="edge17_Node000013_Node000012" title=" " alt="" coords="785,217,848,236,846,241,783,222"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="IntegrationTest" name="IntegrationTest">
+<area shape="rect" id="Node000001" title=" " alt="" coords="93,134,207,299"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,89,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="75,82,105,132,100,135,71,84"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="113,5,187,71"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="153,70,153,117,147,117,147,70"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="249,5,323,71"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="278,72,259,111,221,157,217,153,254,108,274,69"/>
+</map>

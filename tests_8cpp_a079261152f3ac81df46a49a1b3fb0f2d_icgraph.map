@@ -1,0 +1,11 @@
+<map id="outlierCalculations" name="outlierCalculations">
+<area shape="rect" id="Node000001" title=" " alt="" coords="108,80,235,106"/>
+<area shape="rect" id="Node000002" href="$tests_8cpp.html#aa39b06d40b7290dacc01a79720a31e09" title=" " alt="" coords="5,5,60,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="131,75,57,34,60,29,134,70"/>
+<area shape="rect" id="Node000003" href="$tests_8cpp.html#a5436909e02106ab864f366dc30568a7d" title=" " alt="" coords="5,55,60,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="92,81,60,75,61,70,93,76"/>
+<area shape="rect" id="Node000004" href="$tests_8cpp.html#a6c463cf30fcc67ae6b2ff38e382cecd0" title=" " alt="" coords="5,104,60,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="93,109,61,115,60,110,92,104"/>
+<area shape="rect" id="Node000005" href="$tests_8cpp.html#a08dff1d6d2b732a0cd35660ad29e426e" title=" " alt="" coords="5,153,60,179"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="133,116,60,155,57,150,131,111"/>
+</map>

@@ -1,0 +1,32 @@
+<map id="openWriteFile" name="openWriteFile">
+<area shape="rect" id="Node000001" title=" " alt="" coords="670,108,770,134"/>
+<area shape="rect" id="Node000002" href="$classTrack.html#a621e3153e10358d3be704ac51bcc400d" title="Delete outliers from the track." alt="" coords="477,31,618,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="676,103,621,78,579,59,581,54,623,73,678,99"/>
+<area shape="rect" id="Node000004" href="$tests_8cpp.html#a079261152f3ac81df46a49a1b3fb0f2d" title=" " alt="" coords="108,80,235,106"/>
+<area shape="poly" id="edge9_Node000001_Node000004" title=" " alt="" coords="654,120,235,99,236,93,654,115"/>
+<area shape="rect" id="Node000010" href="$tests_8cpp.html#aef57f8f537bed02c0940fcd1dde6144a" title=" " alt="" coords="473,157,622,183"/>
+<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="658,141,596,159,594,154,657,136"/>
+<area shape="rect" id="Node000015" href="$integration__tests_8cpp.html#ab54a29800640d74d1c9206fcbc7bd38e" title=" " alt="" coords="513,207,582,232"/>
+<area shape="poly" id="edge15_Node000001_Node000015" title=" " alt="" coords="695,146,662,173,623,198,584,213,582,208,620,193,659,168,692,142"/>
+<area shape="rect" id="Node000003" href="$classTrack.html#a23bfa04cf9977718fa8b482a6371c9b2" title="Validate the cones in the track by deleting outliers." alt="" coords="283,31,425,56"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="462,46,426,46,426,41,462,41"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="290,63,223,82,221,77,289,58"/>
+<area shape="rect" id="Node000009" href="$tests_8cpp.html#ac9d004c8db77da8d75a6229a398bfcba" title=" " alt="" coords="144,31,199,56"/>
+<area shape="poly" id="edge8_Node000003_Node000009" title=" " alt="" coords="268,46,199,46,199,41,268,41"/>
+<area shape="rect" id="Node000005" href="$tests_8cpp.html#aa39b06d40b7290dacc01a79720a31e09" title=" " alt="" coords="5,5,60,31"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="116,76,106,71,49,34,52,29,109,67,119,71"/>
+<area shape="rect" id="Node000006" href="$tests_8cpp.html#a5436909e02106ab864f366dc30568a7d" title=" " alt="" coords="5,55,60,80"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="92,81,60,75,61,70,93,76"/>
+<area shape="rect" id="Node000007" href="$tests_8cpp.html#a6c463cf30fcc67ae6b2ff38e382cecd0" title=" " alt="" coords="5,104,60,130"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="93,109,61,115,60,110,92,104"/>
+<area shape="rect" id="Node000008" href="$tests_8cpp.html#a08dff1d6d2b732a0cd35660ad29e426e" title=" " alt="" coords="5,153,60,179"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="133,116,60,155,57,150,131,111"/>
+<area shape="rect" id="Node000011" href="$tests_8cpp.html#afdc65423b0a5a3ca636f3aacfb1dba56" title=" " alt="" coords="327,132,381,158"/>
+<area shape="poly" id="edge11_Node000010_Node000011" title=" " alt="" coords="458,161,381,151,382,146,458,156"/>
+<area shape="rect" id="Node000012" href="$tests_8cpp.html#aa4387a361b1943b82c6e9ef915917c12" title=" " alt="" coords="327,181,381,207"/>
+<area shape="poly" id="edge12_Node000010_Node000012" title=" " alt="" coords="458,184,382,194,381,188,458,179"/>
+<area shape="rect" id="Node000013" href="$tests_8cpp.html#a978f4baa8d39fb740ed92fd44ba50933" title=" " alt="" coords="327,231,381,256"/>
+<area shape="poly" id="edge13_Node000010_Node000013" title=" " alt="" coords="488,191,474,197,426,222,383,238,381,233,424,217,472,192,486,186"/>
+<area shape="rect" id="Node000014" href="$tests_8cpp.html#aaff9fd771beea10b1e522702042da27c" title=" " alt="" coords="327,280,381,306"/>
+<area shape="poly" id="edge14_Node000010_Node000014" title=" " alt="" coords="480,193,475,196,459,214,452,232,444,252,427,271,405,283,383,291,381,286,403,278,424,267,439,249,447,230,455,211,472,192,477,189"/>
+</map>

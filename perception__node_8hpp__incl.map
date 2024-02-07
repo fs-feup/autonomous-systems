@@ -1,0 +1,9 @@
+<map id="src/perception/include/perception/perception_node.hpp" name="src/perception/include/perception/perception_node.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="172,5,321,61"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,109,163,150"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="201,64,132,103,130,99,198,59"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="187,117,306,142"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="249,62,249,101,244,101,244,62"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="331,109,491,150"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="295,59,365,99,362,103,293,64"/>
+</map>

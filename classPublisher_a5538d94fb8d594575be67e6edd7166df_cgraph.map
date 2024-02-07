@@ -1,0 +1,9 @@
+<map id="Publisher::Publisher" name="Publisher::Publisher">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,141,56"/>
+<area shape="rect" id="Node000002" href="$classTrack.html#af563702e457e6b2da5e127a7981b9453" title="Fill the track data from a file." alt="" coords="189,31,294,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="141,41,173,41,173,46,141,46"/>
+<area shape="rect" id="Node000003" href="$classTrack.html#adc534b0f22848fc22d7001bd7e1789dd" title="Add a cone to the track if the color is appropriate." alt="" coords="342,5,453,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="294,32,326,27,327,32,295,38"/>
+<area shape="rect" id="Node000004" href="$files_8cpp.html#a440bc5364e11c37c13f14f7a0d1c7208" title=" " alt="" coords="348,55,448,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="295,49,333,55,332,60,294,54"/>
+</map>

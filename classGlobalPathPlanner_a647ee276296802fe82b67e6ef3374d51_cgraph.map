@@ -1,0 +1,19 @@
+<map id="GlobalPathPlanner::middlePath" name="GlobalPathPlanner::middlePath">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,132,141,173"/>
+<area shape="rect" id="Node000002" href="$classCone.html#a1fd598dec938e232ee09e16abe1b6a0d" title=" " alt="" coords="203,39,345,64"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="104,130,187,81,218,68,220,73,190,86,106,134"/>
+<area shape="rect" id="Node000003" href="$classCone.html#a51a49cc249e79d06f6a983250fe809b3" title=" " alt="" coords="407,15,491,40"/>
+<area shape="poly" id="edge8_Node000001_Node000003" title=" " alt="" coords="83,131,100,104,123,74,153,45,188,24,240,8,294,3,346,5,392,12,391,17,346,11,294,8,241,13,190,28,156,50,127,78,104,107,88,133"/>
+<area shape="rect" id="Node000004" href="$classCone.html#a952987a9de5d20d7930b3e93c04fd278" title=" " alt="" coords="407,64,491,90"/>
+<area shape="poly" id="edge9_Node000001_Node000004" title=" " alt="" coords="140,135,188,125,391,85,392,90,189,130,141,140"/>
+<area shape="rect" id="Node000005" href="$classTrack.html#aeb46e6fbc74096c298262b84cd81b77f" title="Get the left cone at a specified index." alt="" coords="202,140,346,166"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="141,150,186,150,186,155,141,155"/>
+<area shape="rect" id="Node000006" href="$classTrack.html#a394133c01100ca42facbb28150db9e7d" title="Get the number of left cones." alt="" coords="192,189,356,215"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="142,167,204,182,203,188,140,172"/>
+<area shape="rect" id="Node000007" href="$classTrack.html#a95fe146ead9aae192047e1f0a2c6c3c8" title="Get the right cone at a specified index." alt="" coords="198,239,350,264"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="103,171,143,199,190,225,203,231,201,235,188,230,140,203,100,176"/>
+<area shape="rect" id="Node000008" href="$classTrack.html#a509060ab3a7c34a9fc435b507e4bd49d" title="Get the number of right cones." alt="" coords="189,288,359,314"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="90,172,131,224,159,251,190,274,198,279,196,284,187,279,155,255,127,227,86,175"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="345,39,391,33,392,38,345,44"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="345,59,392,66,391,71,345,64"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="main" name="main">
+<area shape="rect" id="Node000001" title="Main function." alt="" coords="103,29,152,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="143,16,137,10,127,8,118,10,113,14,112,20,115,28,110,30,106,21,108,12,116,5,127,3,140,5,147,12"/>
+<area shape="rect" id="Node000002" href="$loc__map_2test_2main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title=" " alt="" coords="5,29,55,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="87,45,55,45,55,40,87,40"/>
+</map>

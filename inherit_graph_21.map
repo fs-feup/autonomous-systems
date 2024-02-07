@@ -1,0 +1,15 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,129,99,155"/>
+<area shape="rect" id="Node000001" href="$classCanInterface.html" title="Interface to communicate with the ADS&#45;DV autonomous car through CAN." alt="" coords="165,5,261,31"/>
+<area shape="poly" id="edge7_Node000000_Node000001" title=" " alt="" coords="69,115,102,77,145,40,166,29,168,34,148,44,106,81,73,119"/>
+<area shape="rect" id="Node000002" href="$classLMNode.html" title="Class representing the main loc_map node responsible for publishing the calculated vehicle localizati..." alt="" coords="177,55,249,80"/>
+<area shape="poly" id="edge8_Node000000_Node000002" title=" " alt="" coords="88,119,146,89,176,77,178,82,148,94,90,124"/>
+<area shape="rect" id="Node000003" href="$classLongitudinalControl.html" title="Class responsible for the longitudinal control of the car." alt="" coords="147,104,279,130"/>
+<area shape="poly" id="edge9_Node000000_Node000003" title=" " alt="" coords="114,130,146,125,147,130,115,135"/>
+<area shape="rect" id="Node000004" href="$classPerception.html" title=" " alt="" coords="171,153,255,179"/>
+<area shape="poly" id="edge10_Node000000_Node000004" title=" " alt="" coords="114,149,171,157,170,163,114,154"/>
+<area shape="rect" id="Node000005" href="$classPlanning.html" title="Class responsible for planning and path generation for our car." alt="" coords="177,203,249,228"/>
+<area shape="poly" id="edge11_Node000000_Node000005" title=" " alt="" coords="91,161,148,189,177,201,176,206,146,194,89,165"/>
+<area shape="rect" id="Node000006" href="$classPublisher.html" title=" " alt="" coords="175,252,251,278"/>
+<area shape="poly" id="edge12_Node000000_Node000006" title=" " alt="" coords="74,165,106,203,148,239,176,252,174,257,145,243,102,207,70,169"/>
+</map>

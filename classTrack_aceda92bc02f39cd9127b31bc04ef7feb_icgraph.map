@@ -1,0 +1,19 @@
+<map id="Track::vector_direction" name="Track::vector_direction">
+<area shape="rect" id="Node000001" title="Check if the direction of two cones is consistent." alt="" coords="662,105,814,131"/>
+<area shape="rect" id="Node000002" href="$classTrack.html#a621e3153e10358d3be704ac51bcc400d" title="Delete outliers from the track." alt="" coords="473,105,614,131"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="646,121,614,121,614,116,646,116"/>
+<area shape="rect" id="Node000003" href="$classTrack.html#a23bfa04cf9977718fa8b482a6371c9b2" title="Validate the cones in the track by deleting outliers." alt="" coords="283,105,425,131"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="458,121,425,121,425,116,458,116"/>
+<area shape="rect" id="Node000004" href="$tests_8cpp.html#a079261152f3ac81df46a49a1b3fb0f2d" title=" " alt="" coords="108,80,235,106"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="267,109,235,104,236,99,268,104"/>
+<area shape="rect" id="Node000009" href="$tests_8cpp.html#ac9d004c8db77da8d75a6229a398bfcba" title=" " alt="" coords="144,129,199,155"/>
+<area shape="poly" id="edge8_Node000003_Node000009" title=" " alt="" coords="268,132,199,141,198,136,267,127"/>
+<area shape="rect" id="Node000005" href="$tests_8cpp.html#aa39b06d40b7290dacc01a79720a31e09" title=" " alt="" coords="5,5,60,31"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="131,75,57,34,60,29,134,70"/>
+<area shape="rect" id="Node000006" href="$tests_8cpp.html#a5436909e02106ab864f366dc30568a7d" title=" " alt="" coords="5,55,60,80"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="92,81,60,75,61,70,93,76"/>
+<area shape="rect" id="Node000007" href="$tests_8cpp.html#a6c463cf30fcc67ae6b2ff38e382cecd0" title=" " alt="" coords="5,104,60,130"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="93,109,61,115,60,110,92,104"/>
+<area shape="rect" id="Node000008" href="$tests_8cpp.html#a08dff1d6d2b732a0cd35660ad29e426e" title=" " alt="" coords="5,153,60,179"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="119,115,109,119,53,155,50,151,106,115,116,110"/>
+</map>

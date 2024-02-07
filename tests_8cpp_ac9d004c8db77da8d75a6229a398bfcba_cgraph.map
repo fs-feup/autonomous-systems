@@ -1,0 +1,31 @@
+<map id="TEST" name="TEST">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,104,60,130"/>
+<area shape="rect" id="Node000002" href="$classTrack.html#af563702e457e6b2da5e127a7981b9453" title="Fill the track data from a file." alt="" coords="140,29,246,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="48,101,75,82,106,64,124,56,126,61,109,69,78,87,51,106"/>
+<area shape="rect" id="Node000005" href="$classTrack.html#a394133c01100ca42facbb28150db9e7d" title="Get the number of left cones." alt="" coords="111,79,275,104"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="60,110,95,104,96,110,61,115"/>
+<area shape="rect" id="Node000006" href="$classTrack.html#a509060ab3a7c34a9fc435b507e4bd49d" title="Get the number of right cones." alt="" coords="108,128,278,154"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="61,118,93,123,92,128,60,123"/>
+<area shape="rect" id="Node000007" href="$classTrack.html#a23bfa04cf9977718fa8b482a6371c9b2" title="Validate the cones in the track by deleting outliers." alt="" coords="122,177,264,203"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="52,128,78,146,109,164,122,169,120,174,106,169,75,151,49,132"/>
+<area shape="rect" id="Node000003" href="$classTrack.html#adc534b0f22848fc22d7001bd7e1789dd" title="Add a cone to the track if the color is appropriate." alt="" coords="341,55,452,80"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="246,46,326,56,325,61,246,51"/>
+<area shape="rect" id="Node000004" href="$files_8cpp.html#a440bc5364e11c37c13f14f7a0d1c7208" title=" " alt="" coords="346,5,446,31"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="246,33,330,23,331,29,246,39"/>
+<area shape="rect" id="Node000008" href="$classTrack.html#a621e3153e10358d3be704ac51bcc400d" title="Delete outliers from the track." alt="" coords="326,177,466,203"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="264,188,310,188,310,193,264,193"/>
+<area shape="rect" id="Node000009" href="$classCone.html#a1fd598dec938e232ee09e16abe1b6a0d" title=" " alt="" coords="520,177,661,203"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="467,188,504,188,504,193,467,193"/>
+<area shape="rect" id="Node000010" href="$classCone.html#a51a49cc249e79d06f6a983250fe809b3" title=" " alt="" coords="715,128,799,154"/>
+<area shape="poly" id="edge11_Node000008_Node000010" title=" " alt="" coords="410,175,454,142,483,125,514,113,563,105,613,105,660,111,701,121,700,126,659,117,612,110,563,110,515,118,485,130,457,146,414,179"/>
+<area shape="rect" id="Node000011" href="$classCone.html#a952987a9de5d20d7930b3e93c04fd278" title=" " alt="" coords="715,177,799,203"/>
+<area shape="poly" id="edge12_Node000008_Node000011" title=" " alt="" coords="449,201,515,213,591,219,666,213,702,205,703,210,667,218,591,224,514,218,448,206"/>
+<area shape="rect" id="Node000012" href="$files_8cpp.html#a257b6927df658c26c8eded5bf6d569d2" title=" " alt="" coords="540,279,641,304"/>
+<area shape="poly" id="edge13_Node000008_Node000012" title=" " alt="" coords="419,201,516,257,542,270,540,275,513,262,417,206"/>
+<area shape="rect" id="Node000013" href="$classTrack.html#aceda92bc02f39cd9127b31bc04ef7feb" title="Check if the direction of two cones is consistent." alt="" coords="514,128,667,154"/>
+<area shape="poly" id="edge14_Node000008_Node000013" title=" " alt="" coords="449,174,521,156,523,161,451,179"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="636,174,699,155,700,160,637,179"/>
+<area shape="poly" id="edge10_Node000009_Node000011" title=" " alt="" coords="662,188,699,188,699,193,662,193"/>
+<area shape="poly" id="edge15_Node000013_Node000010" title=" " alt="" coords="667,138,699,138,699,144,667,144"/>
+<area shape="poly" id="edge16_Node000013_Node000011" title=" " alt="" coords="637,152,700,171,699,176,636,157"/>
+</map>
