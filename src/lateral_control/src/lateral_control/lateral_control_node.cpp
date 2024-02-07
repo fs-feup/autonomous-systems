@@ -9,6 +9,12 @@
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/bool.hpp"
 
+/**
+ * @brief Publish Steering command when a new path is received
+ *
+ * @param path - the new path
+ * @return void
+ */
 void LateralControl::publish_steeringcommand(custom_interfaces::msg::ConeArray path) {
   auto steering_command_msg = std_msgs::msg::String();
 
@@ -16,6 +22,12 @@ void LateralControl::publish_steeringcommand(custom_interfaces::msg::ConeArray p
   steering_command_pub->publish(steering_command_msg);
 }
 
+/**
+ * @brief Publish the EBS Status
+ *
+ * @param tbd
+ * @return void
+ */
 void LateralControl::publish_latctrl_ebs_status() {
   auto ebs_status_msg = std_msgs::msg::Bool();
 
@@ -23,6 +35,9 @@ void LateralControl::publish_latctrl_ebs_status() {
   ebs_status_pub->publish(ebs_status_msg);
 }
 
+/**
+ * @brief Class Constructor
+ */
 LateralControl::LateralControl() : Node("lateral_control_node") {
   ebs_status_pub = this->create_publisher<std_msgs::msg::Bool>("ebs_status_topic", 10);
   steering_command_pub =
