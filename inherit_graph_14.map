@@ -1,7 +1,13 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" title=" " alt="" coords="5,42,58,68"/>
-<area shape="rect" id="Node000001" href="$d9/d84/classpath__planning__mock_1_1path__mock__publisher_1_1_path_mock_publisher.html" title="Class for publishing path mock." alt="" coords="106,5,341,46"/>
-<area shape="poly" id="edge3_Node000000_Node000001" title=" " alt="" coords="72,46,105,41,106,46,73,51"/>
-<area shape="rect" id="Node000002" href="$d8/dee/classplots_1_1plots_1_1_plots.html" title=" " alt="" coords="167,70,280,96"/>
-<area shape="poly" id="edge4_Node000000_Node000002" title=" " alt="" coords="74,58,166,72,166,77,73,64"/>
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,104,99,130"/>
+<area shape="rect" id="Node000001" href="$dd/db3/class_l_m_node.html" title="Class representing the main loc_map node responsible for publishing the calculated vehicle localizati..." alt="" coords="177,5,249,31"/>
+<area shape="poly" id="edge7_Node000000_Node000001" title=" " alt="" coords="76,91,108,65,145,40,176,26,178,31,148,44,111,69,80,96"/>
+<area shape="rect" id="Node000002" href="$d4/de8/class_longitudinal_control.html" title="Class responsible for the longitudinal control of the car." alt="" coords="147,55,279,80"/>
+<area shape="poly" id="edge8_Node000000_Node000002" title=" " alt="" coords="110,96,168,78,169,84,111,101"/>
+<area shape="rect" id="Node000003" href="$de/d07/class_perception.html" title=" " alt="" coords="171,104,255,130"/>
+<area shape="poly" id="edge9_Node000000_Node000003" title=" " alt="" coords="114,114,171,114,171,120,114,120"/>
+<area shape="rect" id="Node000004" href="$d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car." alt="" coords="177,153,249,179"/>
+<area shape="poly" id="edge10_Node000000_Node000004" title=" " alt="" coords="111,132,178,153,176,158,110,137"/>
+<area shape="rect" id="Node000005" href="$df/d57/class_publisher.html" title=" " alt="" coords="175,203,251,228"/>
+<area shape="poly" id="edge11_Node000000_Node000005" title=" " alt="" coords="80,138,111,164,148,189,176,202,173,207,145,194,108,169,76,142"/>
 </map>

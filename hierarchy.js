@@ -1,15 +1,9 @@
 var hierarchy =
 [
     [ "Adapter", "d3/d7f/class_adapter.html", null ],
-    [ "can_data_t", "da/d9a/unioncan__data__t.html", null ],
-    [ "can_stats_struct", "de/d7c/structcan__stats__struct.html", null ],
     [ "Cone", "d8/da1/class_cone.html", null ],
     [ "ConeMap", "dc/d59/struct_cone_map.html", null ],
     [ "ExtendedKalmanFilter", "da/da6/class_extended_kalman_filter.html", null ],
-    [ "fs_ai_api_ai2vcu_struct", "db/dde/structfs__ai__api__ai2vcu__struct.html", null ],
-    [ "fs_ai_api_gps_struct", "d5/dfd/structfs__ai__api__gps__struct.html", null ],
-    [ "fs_ai_api_imu_struct", "d4/d24/structfs__ai__api__imu__struct.html", null ],
-    [ "fs_ai_api_vcu2ai_struct", "de/d81/structfs__ai__api__vcu2ai__struct.html", null ],
     [ "GlobalPathPlanner", "d2/da4/class_global_path_planner.html", null ],
     [ "LocalPathPlanner", "d3/da1/class_local_path_planner.html", null ],
     [ "MotionModel", "db/d66/class_motion_model.html", [
@@ -18,7 +12,6 @@ var hierarchy =
     ] ],
     [ "MotionUpdate", "db/d6d/struct_motion_update.html", null ],
     [ "rclcpp::Node", null, [
-      [ "CanInterface", "dd/d4c/class_can_interface.html", null ],
       [ "LMNode", "dd/db3/class_l_m_node.html", null ],
       [ "LongitudinalControl", "d4/de8/class_longitudinal_control.html", null ],
       [ "Perception", "de/d07/class_perception.html", null ],
@@ -27,7 +20,6 @@ var hierarchy =
     ] ],
     [ "ObservationData", "d9/d90/struct_observation_data.html", null ],
     [ "ObservationModel", "d7/d64/class_observation_model.html", null ],
-    [ "pack_16_t", "dc/d7a/structpack__16__t.html", null ],
     [ "Pose", "d8/d11/struct_pose.html", null ],
     [ "plots.plots.Position", "d3/d6d/classplots_1_1plots_1_1_position.html", [
       [ "plots.plots.Cone", "db/d27/classplots_1_1plots_1_1_cone.html", null ],

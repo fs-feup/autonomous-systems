@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['direction_5fforward_0',['DIRECTION_FORWARD',['../d6/d8b/fs-ai__api_8h.html#a492506ebbd0f9e5050bd099ab88d9601adbadcbdea8b3c8deab0b1f0c30f55d0c',1,'fs-ai_api.h']]],
-  ['direction_5fneutral_1',['DIRECTION_NEUTRAL',['../d6/d8b/fs-ai__api_8h.html#a492506ebbd0f9e5050bd099ab88d9601abe0b6575777b77dc2d54ced6f0003b94',1,'fs-ai_api.h']]]
+  ['eufs_0',['eufs',['../d4/d32/loc__map_2include_2adapter_2adapter_8hpp.html#a46c8a310cf4c094f8c80e1cb8dc1f911ae4af656a3fed3dbabc473e9670ddf36c',1,'adapter.hpp']]]
 ];

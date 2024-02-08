@@ -83,12 +83,6 @@ var namespaces_dup =
       [ "x", "de/da7/namespacerandom__points.html#ad6e2e4a7b9f2c406d66374be3e62afd9", null ],
       [ "y", "de/da7/namespacerandom__points.html#ae888b532a92ecf74d9946d6c956bc13c", null ]
     ] ],
-    [ "ros_can", "d7/de3/namespaceros__can.html", [
-      [ "generate_launch_description", "d7/de3/namespaceros__can.html#a263eb987cfe44cedda6d8db58c172813", null ]
-    ] ],
-    [ "ros_can_debug", "d8/d9e/namespaceros__can__debug.html", [
-      [ "generate_launch_description", "d8/d9e/namespaceros__can__debug.html#a135d6bc1d84312ae42950991e6bcb57f", null ]
-    ] ],
     [ "setup", "dd/dc4/namespacesetup.html", [
       [ "data_files", "dd/dc4/namespacesetup.html#ad027a8e9452da003dca32bf7467bd16e", null ],
       [ "description", "dd/dc4/namespacesetup.html#aedf461ec52a946bda975938ba0b93ec0", null ],

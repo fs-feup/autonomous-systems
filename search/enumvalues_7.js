@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['mission_5ffinished_0',['MISSION_FINISHED',['../d6/d8b/fs-ai__api_8h.html#a2d4cb6c50817afdcd0e2f041b8417839af34a3e7401c0d326a2f136ffddedaa0f',1,'fs-ai_api.h']]],
-  ['mission_5fnot_5fselected_1',['MISSION_NOT_SELECTED',['../d6/d8b/fs-ai__api_8h.html#a2d4cb6c50817afdcd0e2f041b8417839a9149708810a2fa960f6286c5eac75e81',1,'fs-ai_api.h']]],
-  ['mission_5frunning_2',['MISSION_RUNNING',['../d6/d8b/fs-ai__api_8h.html#a2d4cb6c50817afdcd0e2f041b8417839aba430d8348528ba2684f4728d0fb139f',1,'fs-ai_api.h']]],
-  ['mission_5fselected_3',['MISSION_SELECTED',['../d6/d8b/fs-ai__api_8h.html#a2d4cb6c50817afdcd0e2f041b8417839a08f11bc1ae0e5e5addbb448929cb9cfe',1,'fs-ai_api.h']]]
+  ['skidpad_0',['skidpad',['../d7/d59/data__structures_8hpp.html#af686af98019fe71e9f18190349618431a11165e149a0a9f6f98fc14da6baa8666',1,'skidpad:&#160;data_structures.hpp'],['../d0/dcc/planning_8hpp.html#af686af98019fe71e9f18190349618431a11165e149a0a9f6f98fc14da6baa8666',1,'skidpad:&#160;planning.hpp']]],
+  ['static_5finspection_5fa_1',['static_inspection_A',['../d7/d59/data__structures_8hpp.html#af686af98019fe71e9f18190349618431a63f7e188e6b6fb7536d00e80350792b1',1,'data_structures.hpp']]],
+  ['static_5finspection_5fb_2',['static_inspection_B',['../d7/d59/data__structures_8hpp.html#af686af98019fe71e9f18190349618431aaf00f2fa0844611e82dba057fe49c10b',1,'data_structures.hpp']]]
 ];

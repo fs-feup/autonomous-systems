@@ -1,13 +1,18 @@
 var searchData=
 [
-  ['s_0',['s',['../d9/de5/namespaceacceleration__mapper.html#a47cf6955c94241bd5cf0092fb5d3f168',1,'acceleration_mapper.s'],['../d2/de4/namespaceskidpad__mapper.html#a2b63d9d357244854f4e74183d810f27a',1,'skidpad_mapper.s'],['../dc/d1a/namespaceplot__track.html#abfc4a64551159a6e82e949d1e3da0e52',1,'plot_track.s']]],
-  ['sbytes_1',['sbytes',['../da/d9a/unioncan__data__t.html#a5328cb6801719169bd567e54e9fc8648',1,'can_data_t']]],
-  ['slongs_2',['slongs',['../da/d9a/unioncan__data__t.html#adae65f65cb190a0f3ce5181da08d0fe4',1,'can_data_t']]],
-  ['start_5ftime_3',['start_time',['../d2/dac/class_exec_time_test_e_k_f_tests.html#aeb571a11cf34b4dccb194a735c71fab6',1,'ExecTimeTestEKFTests::start_time'],['../df/d59/class_exec_time_test.html#a9927b4696bac829d85e0b178f4e0e623',1,'ExecTimeTest::start_time'],['../d8/dee/classplots_1_1plots_1_1_plots.html#aef191da45af1b5033dcdfb5f054de541',1,'plots.plots.Plots.start_time']]],
-  ['startline_4',['startline',['../d9/de5/namespaceacceleration__mapper.html#afa7f404d099ac0274e7b9501b353ad8f',1,'acceleration_mapper.startLine'],['../d2/de4/namespaceskidpad__mapper.html#a1e5b8e66cfc8a80efb64c1bbbb54b0fc',1,'skidpad_mapper.startLine']]],
-  ['steering_5fangle_5',['steering_angle',['../db/d6d/struct_motion_update.html#a87e8e0c4bca0060025e89ea9dac9b421',1,'MotionUpdate']]],
-  ['straightpoints_6',['straightpoints',['../d9/de5/namespaceacceleration__mapper.html#a9b380571f426452caf2fb71bbab761a9',1,'acceleration_mapper.straightPoints'],['../d2/de4/namespaceskidpad__mapper.html#a1eef21edd99ad7e9bbf1a88bda9939fc',1,'skidpad_mapper.straightPoints']]],
-  ['strcolor_7',['strColor',['../dc/dee/namespacesim__conversor.html#aff0a6ad2a1d7ab1e683a1ed83b8ec310',1,'sim_conversor']]],
-  ['sword_8',['sword',['../dc/d7a/structpack__16__t.html#afdfe2013c452d0fcc23c32acaca84201',1,'pack_16_t']]],
-  ['swords_9',['swords',['../da/d9a/unioncan__data__t.html#a6303135c29728d2ea7799e508b75d674',1,'can_data_t']]]
+  ['tests_5frequire_0',['tests_require',['../dd/dc4/namespacesetup.html#a6369bb060267ccf90b93519796e7cc2c',1,'setup']]],
+  ['timer_1',['timer',['../d9/d84/classpath__planning__mock_1_1path__mock__publisher_1_1_path_mock_publisher.html#a2e8366aeaa21a7b71012c235602e5bdd',1,'path_planning_mock.path_mock_publisher.PathMockPublisher.timer'],['../d8/dee/classplots_1_1plots_1_1_plots.html#a2a6ee387d35a046e65f7c1004e78dd81',1,'plots.plots.Plots.timer']]],
+  ['track_5fmap_5ftest_2',['track_map_test',['../df/d59/class_exec_time_test.html#aca977b15f9bf2e1f452063a4da485f30',1,'ExecTimeTest']]],
+  ['track_5fpath_3',['track_path',['../d9/d84/classpath__planning__mock_1_1path__mock__publisher_1_1_path_mock_publisher.html#acab85eda3240c502406625ebc3cbef77',1,'path_planning_mock::path_mock_publisher::PathMockPublisher']]],
+  ['translational_5fvelocity_4',['translational_velocity',['../db/d6d/struct_motion_update.html#a1049e83ac5ff8baa3e00a9f5d6a4d6ab',1,'MotionUpdate']]],
+  ['translational_5fvelocity_5fx_5',['translational_velocity_x',['../db/d6d/struct_motion_update.html#a9e379a3961481052b24b69a8531eae76',1,'MotionUpdate']]],
+  ['translational_5fvelocity_5fy_6',['translational_velocity_y',['../db/d6d/struct_motion_update.html#a13590c3adfe4160d5fe911c05713d316',1,'MotionUpdate']]],
+  ['true_5flocalization_7',['true_localization',['../d8/dee/classplots_1_1plots_1_1_plots.html#a79535ddcea26907479a10e80c5a43a41',1,'plots::plots::Plots']]],
+  ['true_5flocalization_5fsubscription_8',['true_localization_subscription',['../d8/dee/classplots_1_1plots_1_1_plots.html#acfd556fde48f833259e65b21e42695b7',1,'plots::plots::Plots']]],
+  ['true_5fmap_5fcolor_5fdict_9',['true_map_color_dict',['../d8/dee/classplots_1_1plots_1_1_plots.html#a4263c91bc8f7e3271f594159badea426',1,'plots::plots::Plots']]],
+  ['true_5fmap_5fpoints_10',['true_map_points',['../d8/dee/classplots_1_1plots_1_1_plots.html#a8c63def3f72d320135c23dc03a4a49dc',1,'plots::plots::Plots']]],
+  ['true_5fmap_5fpoints_5fsubscription_11',['true_map_points_subscription',['../d8/dee/classplots_1_1plots_1_1_plots.html#a7394b4790a7b8354765813d1f811bf87',1,'plots::plots::Plots']]],
+  ['true_5fperception_5fpoints_12',['true_perception_points',['../d8/dee/classplots_1_1plots_1_1_plots.html#a19ab2a8654642242ea11ac66ced9e345',1,'plots::plots::Plots']]],
+  ['true_5fperception_5fpoints_5fcallback_13',['true_perception_points_callback',['../d8/dee/classplots_1_1plots_1_1_plots.html#adaa3865a3efbf541c67ef117bac9500a',1,'plots::plots::Plots']]],
+  ['true_5fperception_5fpoints_5fsubscription_14',['true_perception_points_subscription',['../d8/dee/classplots_1_1plots_1_1_plots.html#ad70ff4ff86dba8926017de5c0b7bca6b',1,'plots::plots::Plots']]]
 ];
