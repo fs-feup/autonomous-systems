@@ -128,14 +128,13 @@ Natural Workflow</h3>
 </div><!-- fragment --></li>
 <li>Run tests <div class="fragment"><div class="line">colcon test --packages-select [your package and others necessary] [--event-handler=console_direct+] #last part for verbose</div>
 </div><!-- fragment --></li>
-<li>Run static analysis (runs clang-format, cpplint, cppcheck, ruff and doxygen): <div class="fragment"><div class="line">./static-tools.sh all</div>
+<li>Run static analysis (runs clang-format, cpplint, cppcheck, ruff): <div class="fragment"><div class="line">./static-tools.sh all</div>
 </div><!-- fragment --> or just checking part: <div class="fragment"><div class="line">./static-tools.sh check</div>
 </div><!-- fragment --> or just modifying tools: <div class="fragment"><div class="line">./static-tools.sh act</div>
 </div><!-- fragment --> or individually like so: <div class="fragment"><div class="line">./static-tools.sh clang-format # C++</div>
 <div class="line">./static-tools.sh cppcheck # C++</div>
 <div class="line">./static-tools.sh cpplint # C++</div>
 <div class="line">./static-tools.sh ruff # Python</div>
-<div class="line">./static-tools.sh doxygen # Both</div>
 </div><!-- fragment --></li>
 <li>Finally push changes to repository <div class="fragment"><div class="line">git add -A</div>
 <div class="line">git commit -m &quot;feat(&lt;package&gt;): &lt;description&gt;&quot;</div>

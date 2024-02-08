@@ -4,6 +4,5 @@ var searchData=
   ['sim_5fconversor_2epy_1',['sim_conversor.py',['../df/d8e/sim__conversor_8py.html',1,'']]],
   ['skidpad_5fmapper_2epy_2',['skidpad_mapper.py',['../d0/d6d/skidpad__mapper_8py.html',1,'']]],
   ['slam_5ftest_2ecpp_3',['slam_test.cpp',['../d3/dc5/slam__test_8cpp.html',1,'']]],
-  ['spline_2epy_4',['spline.py',['../d4/dfa/spline_8py.html',1,'']]],
-  ['static_5finspection_2epy_5',['static_inspection.py',['../d7/d59/static__inspection_8py.html',1,'']]]
+  ['spline_2epy_4',['spline.py',['../d4/dfa/spline_8py.html',1,'']]]
 ];
