@@ -170,6 +170,7 @@ EXCLUDE                =
 EXCLUDE_SYMLINKS       = NO
 EXCLUDE_PATTERNS       = */Eigen/*
 EXCLUDE_PATTERNS       += */fs_msgs/* 
+EXCLUDE_PATTERNS       += */launch/* 
 EXCLUDE_SYMBOLS        =
 EXAMPLE_PATH           =
 EXAMPLE_PATTERNS       = *

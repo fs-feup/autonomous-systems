@@ -121,7 +121,6 @@ RUN apt update
 RUN apt install python-is-python3 -y
 RUN pip3 install cpplint
 RUN apt install clang-format -y
-RUN curl -O https://www.doxygen.nl/files/doxygen-1.10.0.linux.bin.tar.gz && tar -xvzf doxygen-1.10.0.linux.bin.tar.gz && cd doxygen-1.10.0 && make install && cd .. && rm -rf doxygen-1.10.0 && rm doxygen-1.10.0.linux.bin.tar.gz
 ENV SHELL /bin/bash
 
 # ********************************************************

@@ -21,7 +21,7 @@ You work with your **shell always in the root directory**. In it, you can find m
   ```sh
   colcon test --packages-select [your package and others necessary] [--event-handler=console_direct+] #last part for verbose
   ```
-- Run static analysis (runs clang-format, cpplint, cppcheck, ruff and doxygen):
+- Run static analysis (runs clang-format, cpplint, cppcheck, ruff):
   ```sh
   ./static-tools.sh all
   ```
@@ -39,7 +39,6 @@ You work with your **shell always in the root directory**. In it, you can find m
   ./static-tools.sh cppcheck # C++
   ./static-tools.sh cpplint # C++
   ./static-tools.sh ruff # Python
-  ./static-tools.sh doxygen # Both
   ```
 - Finally push changes to repository
   ```sh
