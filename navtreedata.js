@@ -35,49 +35,63 @@ var NAVTREE =
         ] ]
       ] ]
     ] ],
+    [ "Changelog", "dc/d24/md_src_2eufs__msgs_2_c_h_a_n_g_e_l_o_g.html", [
+      [ "[2.0.0] - 2022-01-05", "dc/d24/md_src_2eufs__msgs_2_c_h_a_n_g_e_l_o_g.html#autotoc_md8", [
+        [ "Added", "dc/d24/md_src_2eufs__msgs_2_c_h_a_n_g_e_l_o_g.html#autotoc_md9", null ],
+        [ "Changed", "dc/d24/md_src_2eufs__msgs_2_c_h_a_n_g_e_l_o_g.html#autotoc_md10", null ],
+        [ "Removed", "dc/d24/md_src_2eufs__msgs_2_c_h_a_n_g_e_l_o_g.html#autotoc_md11", null ]
+      ] ],
+      [ "[1.0.0] - 2022-01-05", "dc/d24/md_src_2eufs__msgs_2_c_h_a_n_g_e_l_o_g.html#autotoc_md12", [
+        [ "Added", "dc/d24/md_src_2eufs__msgs_2_c_h_a_n_g_e_l_o_g.html#autotoc_md13", null ]
+      ] ]
+    ] ],
+    [ "eufs_msgs", "dd/d41/md_src_2eufs__msgs_2_r_e_a_d_m_e.html", [
+      [ "Messages:", "dd/d41/md_src_2eufs__msgs_2_r_e_a_d_m_e.html#autotoc_md15", null ],
+      [ "Services:", "dd/d41/md_src_2eufs__msgs_2_r_e_a_d_m_e.html#autotoc_md16", null ]
+    ] ],
     [ "Localization and Mapping Package", "d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html", [
-      [ "Run the Node", "d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md8", [
-        [ "Compiling", "d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md9", null ]
+      [ "Run the Node", "d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md18", [
+        [ "Compiling", "d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md19", null ]
       ] ],
-      [ "Testing", "d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md10", [
-        [ "Running the node", "d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md11", null ]
+      [ "Testing", "d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md20", [
+        [ "Running the node", "d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md21", null ]
       ] ],
-      [ "Design", "d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md12", [
-        [ "Behaviour", "d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md13", null ],
-        [ "Structure", "d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md14", null ]
+      [ "Design", "d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md22", [
+        [ "Behaviour", "d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md23", null ],
+        [ "Structure", "d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md24", null ]
       ] ],
-      [ "Full Documentation", "d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md15", null ],
-      [ "Main External Libraries", "d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md16", null ]
+      [ "Full Documentation", "d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md25", null ],
+      [ "Main External Libraries", "d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md26", null ]
     ] ],
     [ "Planning Module", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html", [
-      [ "Run the Node", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md18", [
-        [ "Install Dependencies", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md19", null ],
-        [ "Compile", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md20", null ],
-        [ "Source", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md21", null ],
-        [ "Run", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md22", null ],
-        [ "Test", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md23", null ]
+      [ "Run the Node", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md28", [
+        [ "Install Dependencies", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md29", null ],
+        [ "Compile", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md30", null ],
+        [ "Source", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md31", null ],
+        [ "Run", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md32", null ],
+        [ "Test", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md33", null ]
       ] ],
-      [ "Design", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md24", [
-        [ "Class Diagram", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md25", null ],
-        [ "Sequence Diagram", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md26", null ],
-        [ "Activity Diagram", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md27", null ]
+      [ "Design", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md34", [
+        [ "Class Diagram", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md35", null ],
+        [ "Sequence Diagram", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md36", null ],
+        [ "Activity Diagram", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md37", null ]
       ] ],
-      [ "Full Documentation", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md28", null ],
-      [ "Main External Libraries", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md29", null ]
+      [ "Full Documentation", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md38", null ],
+      [ "Main External Libraries", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md39", null ]
     ] ],
     [ "Evaluation Tool (Plots) Module", "df/dc0/md_src_2plots_2_r_e_a_d_m_e.html", [
-      [ "Run the Node", "df/dc0/md_src_2plots_2_r_e_a_d_m_e.html#autotoc_md31", [
-        [ "Compile", "df/dc0/md_src_2plots_2_r_e_a_d_m_e.html#autotoc_md32", null ],
-        [ "Run", "df/dc0/md_src_2plots_2_r_e_a_d_m_e.html#autotoc_md33", null ]
+      [ "Run the Node", "df/dc0/md_src_2plots_2_r_e_a_d_m_e.html#autotoc_md41", [
+        [ "Compile", "df/dc0/md_src_2plots_2_r_e_a_d_m_e.html#autotoc_md42", null ],
+        [ "Run", "df/dc0/md_src_2plots_2_r_e_a_d_m_e.html#autotoc_md43", null ]
       ] ],
-      [ "Main External Libraries", "df/dc0/md_src_2plots_2_r_e_a_d_m_e.html#autotoc_md34", null ]
+      [ "Main External Libraries", "df/dc0/md_src_2plots_2_r_e_a_d_m_e.html#autotoc_md44", null ]
     ] ],
     [ "Contributing", "d7/d37/md_src_2_r_e_a_d_m_e.html", [
-      [ "Natural Workflow", "d7/d37/md_src_2_r_e_a_d_m_e.html#autotoc_md36", null ],
-      [ "Notes on Nodes, Packages, Compiling, Executing and Dependencies", "d7/d37/md_src_2_r_e_a_d_m_e.html#autotoc_md37", [
-        [ "Compile and Run Extended", "d7/d37/md_src_2_r_e_a_d_m_e.html#autotoc_md38", null ],
-        [ "Compilation Dependencies", "d7/d37/md_src_2_r_e_a_d_m_e.html#autotoc_md39", null ],
-        [ "Testing", "d7/d37/md_src_2_r_e_a_d_m_e.html#autotoc_md40", null ]
+      [ "Natural Workflow", "d7/d37/md_src_2_r_e_a_d_m_e.html#autotoc_md46", null ],
+      [ "Notes on Nodes, Packages, Compiling, Executing and Dependencies", "d7/d37/md_src_2_r_e_a_d_m_e.html#autotoc_md47", [
+        [ "Compile and Run Extended", "d7/d37/md_src_2_r_e_a_d_m_e.html#autotoc_md48", null ],
+        [ "Compilation Dependencies", "d7/d37/md_src_2_r_e_a_d_m_e.html#autotoc_md49", null ],
+        [ "Testing", "d7/d37/md_src_2_r_e_a_d_m_e.html#autotoc_md50", null ]
       ] ]
     ] ],
     [ "Namespaces", "namespaces.html", [
@@ -120,7 +134,7 @@ var NAVTREEINDEX =
 "annotated.html",
 "d5/d8c/files_8hpp.html#a257b6927df658c26c8eded5bf6d569d2",
 "d9/d0d/namespacetest__flake8.html",
-"dd/d6b/namespaceoffsettrack.html#a542da5b04a1e712f612e5ea00a5a720c"
+"dd/d41/md_src_2eufs__msgs_2_r_e_a_d_m_e.html#autotoc_md15"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
