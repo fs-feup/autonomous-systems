@@ -550,6 +550,22 @@ To control the level of logging in which a node is executing, use the log-level 
 ros2 run [package_name] [node_name] --ros-args --log-level [level]
 ```
 
+## ROS BAGs
+
+ROS Bags are a method of storing information on the messages going through a ROS system at a given point in time. It is, therefore, a method of storing information of robotics, as information in ROS systems is always in the form of messages going through topics or services. Essentially, it is a way to freeze a ROS moment in time to play it back later. Bags can be easily recorded by using the ```ros2 bag record``` command, which allows for recording one or multiple topics or streams ot data at a time. ```ros2 bag play``` is used to playback a ros2 bag after is has been recorded, providing the originated folder in the previous step as argument.
+
+In ROS1, bags had their own format (.bag). In ROS2, they are formed by a folder containing a .yaml metadata file and a .db3 database file. You can use an handy tool to convert between ROS1 and ROS2 formats called rosbags. Install it via pip:
+
+```sh
+pip install rosbags
+```
+
+To use it to convert from ROS1 to ROS2:
+
+```sh
+rosbags-convert ros1bag.bag --dst ./ros2bag/
+```
+
 ## RQT
 
 rqt is a Qt-based framework for GUI development for ROS. Essentially, it enables the construction of simple GUIs for ROS programs.
