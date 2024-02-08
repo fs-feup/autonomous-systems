@@ -18,7 +18,8 @@ kiss_icp_pipeline --help
 From the src folder:
 
 ```sh
-git clone https://github.com/PRBonn/kiss-icp
+git submodule init
+git submodule update --recursive --remote
 ```
 
 Now go to the wd and build it by running the following command:
@@ -75,7 +76,7 @@ ros2 topic echo /kiss/odometry
 
 # Internal structure of the package
 
-There are to nodes, one for kiss-icp and another one for rviz2, to visualize the simulation. 
+There are two nodes, one run kiss-icp and another used to just send data to rviz, in order to visualize the simulation.
 
 
 The kiss-icp node is the node where the point cloud is recieved and the kiss-icp is executed. Inside this node there are several parameters that can be changed, from both ROS2 and kiss-icp.
