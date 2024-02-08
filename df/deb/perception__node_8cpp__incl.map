@@ -1,0 +1,13 @@
+<map id="src/perception/src/perception/perception_node.cpp" name="src/perception/src/perception/perception_node.cpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="235,5,384,61"/>
+<area shape="rect" id="Node000002" href="$de/da5/perception__node_8hpp.html" title=" " alt="" coords="174,109,319,150"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="293,63,270,98,266,95,289,60"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="344,117,400,142"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="330,60,358,102,353,105,325,63"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,198,163,238"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="211,153,135,192,133,188,209,148"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="187,205,306,231"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="249,150,249,190,244,190,244,150"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="331,198,491,238"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="285,148,361,188,359,193,283,153"/>
+</map>

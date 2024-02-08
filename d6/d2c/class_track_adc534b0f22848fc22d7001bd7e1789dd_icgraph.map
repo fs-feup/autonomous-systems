@@ -1,0 +1,29 @@
+<map id="Track::addCone" name="Track::addCone">
+<area shape="rect" id="Node000001" title="Add a cone to the track if the color is appropriate." alt="" coords="457,277,569,303"/>
+<area shape="rect" id="Node000002" href="$d6/d2c/class_track.html#af563702e457e6b2da5e127a7981b9453" title="Fill the track data from a file." alt="" coords="304,277,409,303"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="442,293,410,293,410,288,442,288"/>
+<area shape="rect" id="Node000003" href="$d9/d1e/tests_8cpp.html#a079261152f3ac81df46a49a1b3fb0f2d" title=" " alt="" coords="118,104,246,130"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="330,268,194,132,198,128,334,264"/>
+<area shape="rect" id="Node000008" href="$d9/d1e/tests_8cpp.html#aef57f8f537bed02c0940fcd1dde6144a" title=" " alt="" coords="108,252,256,278"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="288,283,256,278,257,273,289,278"/>
+<area shape="rect" id="Node000013" href="$df/d57/class_publisher.html#a5538d94fb8d594575be67e6edd7166df" title=" " alt="" coords="114,301,250,327"/>
+<area shape="poly" id="edge12_Node000002_Node000013" title=" " alt="" coords="289,302,250,307,250,302,288,297"/>
+<area shape="rect" id="Node000014" href="$d9/d1e/tests_8cpp.html#ac9d004c8db77da8d75a6229a398bfcba" title=" " alt="" coords="155,351,209,376"/>
+<area shape="poly" id="edge13_Node000002_Node000014" title=" " alt="" coords="319,313,257,342,210,358,209,353,255,337,317,308"/>
+<area shape="rect" id="Node000004" href="$d9/d1e/tests_8cpp.html#aa39b06d40b7290dacc01a79720a31e09" title=" " alt="" coords="5,5,60,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="147,97,52,34,55,29,150,93"/>
+<area shape="rect" id="Node000005" href="$d9/d1e/tests_8cpp.html#a5436909e02106ab864f366dc30568a7d" title=" " alt="" coords="5,55,60,80"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="125,101,59,79,61,74,127,96"/>
+<area shape="rect" id="Node000006" href="$d9/d1e/tests_8cpp.html#a6c463cf30fcc67ae6b2ff38e382cecd0" title=" " alt="" coords="5,104,60,130"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="103,120,60,120,60,114,103,114"/>
+<area shape="rect" id="Node000007" href="$d9/d1e/tests_8cpp.html#a08dff1d6d2b732a0cd35660ad29e426e" title=" " alt="" coords="5,153,60,179"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="127,138,61,160,59,155,125,133"/>
+<area shape="rect" id="Node000009" href="$d9/d1e/tests_8cpp.html#afdc65423b0a5a3ca636f3aacfb1dba56" title=" " alt="" coords="5,203,60,228"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="125,249,59,227,61,222,127,244"/>
+<area shape="rect" id="Node000010" href="$d9/d1e/tests_8cpp.html#aa4387a361b1943b82c6e9ef915917c12" title=" " alt="" coords="5,252,60,278"/>
+<area shape="poly" id="edge9_Node000008_Node000010" title=" " alt="" coords="92,268,60,268,60,262,92,262"/>
+<area shape="rect" id="Node000011" href="$d9/d1e/tests_8cpp.html#a978f4baa8d39fb740ed92fd44ba50933" title=" " alt="" coords="5,301,60,327"/>
+<area shape="poly" id="edge10_Node000008_Node000011" title=" " alt="" coords="126,286,109,291,61,308,59,303,107,286,124,281"/>
+<area shape="rect" id="Node000012" href="$d9/d1e/tests_8cpp.html#aaff9fd771beea10b1e522702042da27c" title=" " alt="" coords="5,351,60,376"/>
+<area shape="poly" id="edge11_Node000008_Node000012" title=" " alt="" coords="117,287,109,291,94,303,84,314,62,341,50,352,46,349,58,338,80,310,90,299,106,287,114,282"/>
+</map>

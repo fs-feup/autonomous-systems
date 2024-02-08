@@ -1,9 +1,0 @@
-<map id="Track::setCone" name="Track::setCone">
-<area shape="rect" id="Node000001" title="Change the position of a cone based on the id of the parameter cone or creates a new cone in case the..." alt="" coords="5,55,114,80"/>
-<area shape="rect" id="Node000002" href="$classCone.html#ad6448719967d79b51a6e9586d28897d8" title=" " alt="" coords="162,5,248,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="99,51,149,34,151,39,101,57"/>
-<area shape="rect" id="Node000003" href="$classCone.html#a51a49cc249e79d06f6a983250fe809b3" title=" " alt="" coords="163,55,247,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="114,65,147,65,147,70,114,70"/>
-<area shape="rect" id="Node000004" href="$classCone.html#a952987a9de5d20d7930b3e93c04fd278" title=" " alt="" coords="163,104,247,130"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="101,78,151,96,149,101,99,84"/>
-</map>

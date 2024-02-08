@@ -1,0 +1,5 @@
+<map id="ImuVelocityModel::predict_expected_state" name="ImuVelocityModel::predict_expected_state">
+<area shape="rect" id="Node000001" title="Calculate expected state vector from velocity model using IMU data and linear functions Uses translat..." alt="" coords="5,5,175,46"/>
+<area shape="rect" id="Node000002" href="$da/d5d/formulas_8cpp.html#a5dda4c5d809de2f2716a49c5703a6f60" title="Function to keep angle between 0 and 2Pi radians." alt="" coords="223,13,337,39"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="175,23,207,23,207,28,175,28"/>
+</map>

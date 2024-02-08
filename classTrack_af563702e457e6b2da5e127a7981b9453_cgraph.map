@@ -1,7 +1,0 @@
-<map id="Track::fillTrack" name="Track::fillTrack">
-<area shape="rect" id="Node000001" title="Fill the track data from a file." alt="" coords="5,31,111,56"/>
-<area shape="rect" id="Node000002" href="$classTrack.html#adc534b0f22848fc22d7001bd7e1789dd" title="Add a cone to the track if the color is appropriate." alt="" coords="159,5,270,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="110,32,143,27,143,32,111,38"/>
-<area shape="rect" id="Node000003" href="$files_8cpp.html#a440bc5364e11c37c13f14f7a0d1c7208" title=" " alt="" coords="164,55,265,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="111,49,149,55,148,60,111,54"/>
-</map>

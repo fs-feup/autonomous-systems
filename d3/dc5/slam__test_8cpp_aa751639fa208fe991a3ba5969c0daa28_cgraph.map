@@ -1,0 +1,23 @@
+<map id="TEST" name="TEST">
+<area shape="rect" id="Node000001" title="Test the EKF SLAM algorithm in a linear movement." alt="" coords="5,254,60,279"/>
+<area shape="rect" id="Node000002" href="$da/da6/class_extended_kalman_filter.html#a230559bb9193f7acf494ae9e889fb6f8" title="Correction step:" alt="" coords="108,112,255,152"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="47,251,145,161,148,165,50,255"/>
+<area shape="rect" id="Node000006" href="$da/da6/class_extended_kalman_filter.html#ac268c50848bb01fcdb6a0156280564a4" title="Get the last update timestamp." alt="" coords="108,213,255,254"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="60,258,92,251,93,256,61,263"/>
+<area shape="rect" id="Node000007" href="$da/da6/class_extended_kalman_filter.html#aa5aeb5c329fffcbcb1a197de8e263427" title="Prediction step:" alt="" coords="108,278,255,319"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="61,270,93,277,92,282,60,275"/>
+<area shape="rect" id="Node000011" href="$da/da6/class_extended_kalman_filter.html#ae59429128f079a8a03c53360f7a9bf4f" title="Updates vehicle state and map variables according to the state vector X." alt="" coords="108,344,255,384"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="48,278,75,303,109,328,118,333,115,338,106,333,72,307,45,281"/>
+<area shape="rect" id="Node000003" href="$d7/d64/class_observation_model.html#a97a9e71e7cee696be91a569eb65b9df9" title="Get the observation noise covariance matrix (C or H)" alt="" coords="303,5,506,61"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="222,109,302,71,315,65,317,70,304,76,225,113"/>
+<area shape="rect" id="Node000004" href="$d7/d64/class_observation_model.html#aa789708c6a934ba1edfc8386b1f38d4f" title="Get the state to observation matrix of the observation model (H)" alt="" coords="330,85,480,141"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="255,123,314,118,314,123,256,128"/>
+<area shape="rect" id="Node000005" href="$d7/d64/class_observation_model.html#a0f8d3fc26c59869171ad60d08322d1d7" title="Calculate expected observation from the state vector." alt="" coords="305,165,504,206"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="256,147,302,158,301,163,255,152"/>
+<area shape="rect" id="Node000008" href="$db/d66/class_motion_model.html#aad4c79b92acd351e94e7b847b61f965b" title="Calculate state covariance matrix from motion estimation." alt="" coords="322,230,487,271"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="255,280,306,269,307,274,256,285"/>
+<area shape="rect" id="Node000009" href="$db/d66/class_motion_model.html#a76de9b7caf93cd717bf388aff40ab589" title="Get the process noise covariance matrix object." alt="" coords="319,296,491,336"/>
+<area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="256,302,303,305,303,311,255,307"/>
+<area shape="rect" id="Node000010" href="$db/d66/class_motion_model.html#a24a7f8fab182b07ba116911cdd33893f" title="Calculate expected state vector from motion estimation." alt="" coords="335,361,475,402"/>
+<area shape="poly" id="edge9_Node000007_Node000010" title=" " alt="" coords="233,317,304,345,325,353,323,358,302,350,231,322"/>
+</map>

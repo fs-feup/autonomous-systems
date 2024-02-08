@@ -1,0 +1,43 @@
+<map id="Cone::getY" name="Cone::getY">
+<area shape="rect" id="Node000001" title=" " alt="" coords="904,179,988,204"/>
+<area shape="rect" id="Node000002" href="$d6/d2c/class_track.html#a621e3153e10358d3be704ac51bcc400d" title="Delete outliers from the track." alt="" coords="497,104,638,130"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="928,167,898,127,878,108,855,94,822,83,788,77,719,79,655,91,604,106,602,101,653,85,718,73,789,72,824,78,857,89,881,104,902,123,932,163"/>
+<area shape="rect" id="Node000010" href="$d8/da1/class_cone.html#a1fd598dec938e232ee09e16abe1b6a0d" title=" " alt="" coords="709,153,851,179"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="888,185,851,180,852,174,889,180"/>
+<area shape="rect" id="Node000011" href="$d2/da4/class_global_path_planner.html#a647ee276296802fe82b67e6ef3374d51" title=" " alt="" coords="500,181,635,221"/>
+<area shape="poly" id="edge12_Node000001_Node000011" title=" " alt="" coords="889,196,636,202,635,197,889,190"/>
+<area shape="rect" id="Node000012" href="$d3/da1/class_local_path_planner.html#ae64befc2d63ed4eb841f7d94e464625b" title="Process an array of cones to generate a local path." alt="" coords="479,263,656,304"/>
+<area shape="poly" id="edge13_Node000001_Node000012" title=" " alt="" coords="889,208,655,265,654,260,888,203"/>
+<area shape="rect" id="Node000018" href="$d6/d2c/class_track.html#a0da16ce65cc4d3f67a79073e0d632f6f" title="Change the position of a cone based on the id of the parameter cone or creates a new cone in case the..." alt="" coords="726,305,834,331"/>
+<area shape="poly" id="edge19_Node000001_Node000018" title=" " alt="" coords="928,218,897,254,858,288,822,307,820,302,854,284,893,250,924,215"/>
+<area shape="rect" id="Node000019" href="$d6/d2c/class_track.html#aceda92bc02f39cd9127b31bc04ef7feb" title="Check if the direction of two cones is consistent." alt="" coords="704,104,856,130"/>
+<area shape="poly" id="edge21_Node000001_Node000019" title=" " alt="" coords="910,173,855,143,827,133,829,128,857,138,913,168"/>
+<area shape="rect" id="Node000003" href="$d6/d2c/class_track.html#a23bfa04cf9977718fa8b482a6371c9b2" title="Validate the cones in the track by deleting outliers." alt="" coords="286,104,428,130"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="482,120,429,120,429,114,482,114"/>
+<area shape="rect" id="Node000004" href="$d9/d1e/tests_8cpp.html#a079261152f3ac81df46a49a1b3fb0f2d" title=" " alt="" coords="108,79,235,104"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="270,108,235,103,236,98,271,102"/>
+<area shape="rect" id="Node000009" href="$d9/d1e/tests_8cpp.html#ac9d004c8db77da8d75a6229a398bfcba" title=" " alt="" coords="144,128,199,154"/>
+<area shape="poly" id="edge8_Node000003_Node000009" title=" " alt="" coords="271,131,199,140,199,135,270,125"/>
+<area shape="rect" id="Node000005" href="$d9/d1e/tests_8cpp.html#aa39b06d40b7290dacc01a79720a31e09" title=" " alt="" coords="5,5,60,31"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="131,73,57,34,60,29,133,69"/>
+<area shape="rect" id="Node000006" href="$d9/d1e/tests_8cpp.html#a5436909e02106ab864f366dc30568a7d" title=" " alt="" coords="5,55,60,80"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="92,80,60,75,61,69,93,75"/>
+<area shape="rect" id="Node000007" href="$d9/d1e/tests_8cpp.html#a6c463cf30fcc67ae6b2ff38e382cecd0" title=" " alt="" coords="5,104,60,130"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="93,109,61,115,60,109,92,103"/>
+<area shape="rect" id="Node000008" href="$d9/d1e/tests_8cpp.html#a08dff1d6d2b732a0cd35660ad29e426e" title=" " alt="" coords="5,153,60,179"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="119,113,109,118,52,155,49,151,106,113,116,108"/>
+<area shape="poly" id="edge10_Node000010_Node000002" title=" " alt="" coords="706,152,625,133,627,128,707,147"/>
+<area shape="poly" id="edge11_Node000010_Node000011" title=" " alt="" coords="694,183,636,192,635,187,694,178"/>
+<area shape="rect" id="Node000013" href="$d9/d1e/tests_8cpp.html#aef57f8f537bed02c0940fcd1dde6144a" title=" " alt="" coords="283,271,431,296"/>
+<area shape="poly" id="edge14_Node000012_Node000013" title=" " alt="" coords="463,286,431,286,431,281,463,281"/>
+<area shape="rect" id="Node000014" href="$d9/d1e/tests_8cpp.html#afdc65423b0a5a3ca636f3aacfb1dba56" title=" " alt="" coords="144,196,199,222"/>
+<area shape="poly" id="edge15_Node000013_Node000014" title=" " alt="" coords="310,267,234,235,198,221,200,216,236,230,312,262"/>
+<area shape="rect" id="Node000015" href="$d9/d1e/tests_8cpp.html#aa4387a361b1943b82c6e9ef915917c12" title=" " alt="" coords="144,245,199,271"/>
+<area shape="poly" id="edge16_Node000013_Node000015" title=" " alt="" coords="267,274,199,264,199,259,268,269"/>
+<area shape="rect" id="Node000016" href="$d9/d1e/tests_8cpp.html#a978f4baa8d39fb740ed92fd44ba50933" title=" " alt="" coords="144,295,199,320"/>
+<area shape="poly" id="edge17_Node000013_Node000016" title=" " alt="" coords="268,298,199,307,199,301,267,292"/>
+<area shape="rect" id="Node000017" href="$d9/d1e/tests_8cpp.html#aaff9fd771beea10b1e522702042da27c" title=" " alt="" coords="144,344,199,370"/>
+<area shape="poly" id="edge18_Node000013_Node000017" title=" " alt="" coords="311,305,236,335,200,349,198,344,234,330,309,300"/>
+<area shape="poly" id="edge20_Node000018_Node000012" title=" " alt="" coords="710,310,656,301,656,295,711,304"/>
+<area shape="poly" id="edge22_Node000019_Node000002" title=" " alt="" coords="688,120,638,120,638,114,688,114"/>
+</map>

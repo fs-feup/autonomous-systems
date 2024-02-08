@@ -1,7 +1,0 @@
-<map id="ObservationModel::get_state_to_observation_matrix" name="ObservationModel::get_state_to_observation_matrix">
-<area shape="rect" id="Node000001" title="Get the state to observation matrix of the observation model (H)" alt="" coords="303,5,453,61"/>
-<area shape="rect" id="Node000002" href="$classExtendedKalmanFilter.html#a230559bb9193f7acf494ae9e889fb6f8" title="Correction step:" alt="" coords="108,13,255,54"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="288,36,255,36,255,31,288,31"/>
-<area shape="rect" id="Node000003" href="$slam__test_8cpp.html#aa751639fa208fe991a3ba5969c0daa28" title="Test the EKF SLAM algorithm in a linear movement." alt="" coords="5,20,60,46"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="92,36,60,36,60,31,92,31"/>
-</map>
