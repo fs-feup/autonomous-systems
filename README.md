@@ -1,5 +1,6 @@
-[![Static Analysis](https://github.com/fsfeup-driverless/driverless/actions/workflows/static-analysis.yml/badge.svg)](https://github.com/fsfeup-driverless/driverless/actions/workflows/static-analysis.yml)
-[![Testing and Building](https://github.com/fsfeup-driverless/driverless/actions/workflows/build.yml/badge.svg)](https://github.com/fsfeup-driverless/driverless/actions/workflows/build.yml)
+[![Static Analysis](https://github.com/fs-feup/autonomous-systems/actions/workflows/static-analysis.yml/badge.svg)](https://github.com/fs-feup/autonomous-systems/actions/workflows/static-analysis.yml)
+[![Testing and Building](https://github.com/fs-feup/autonomous-systems/actions/workflows/build.yml/badge.svg)](https://github.com/fs-feup/autonomous-systems/actions/workflows/build.yml)
+[![Doxygen Documentation Page](https://github.com/fs-feup/autonomous-systems/actions/workflows/doxygen.yml/badge.svg)](https://github.com/fs-feup/autonomous-systems/actions/workflows/doxygen.yml)
 
 # FS-FEUP Autonomous Systems
 
