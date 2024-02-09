@@ -12,9 +12,7 @@
  * Inherit from this class to implement specific ground removal algorithms.
  */
 class GroundRemoval {
-
-    public:
-
+ public:
         /**
          * @brief Perform ground removal on the input point cloud.
          *
@@ -23,5 +21,6 @@ class GroundRemoval {
          * @param point_cloud The input point cloud to be processed.
          * @param[out] ret The resulting point cloud after ground removal.
          */
-        virtual void groundRemoval(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud, pcl::PointCloud<pcl::PointXYZI> &ret) const = 0;
+        virtual void groundRemoval(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
+                                   pcl::PointCloud<pcl::PointXYZI>::Ptr ret) const = 0;
 };
