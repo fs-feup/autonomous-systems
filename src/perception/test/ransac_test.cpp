@@ -36,7 +36,7 @@ class RANSACTest : public ::testing::Test {
  * @brief Test Scenario: All points fit in the model (Epsilon threshold very high).
  * 
  */
-TEST_F(RANSACTest, Test1) {
+TEST_F(RANSACTest, TestBigEpsilon) {
     auto ground_removal = new RANSAC(10000, 1);
 
     pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
@@ -49,7 +49,7 @@ TEST_F(RANSACTest, Test1) {
  * @brief Test Scenario: Only points that fit into the plane are considered as part of the plane (No points close enough to the plane).
  * 
  */
-TEST_F(RANSACTest, Test2) {
+TEST_F(RANSACTest, TestCommonScenario) {
     auto ground_removal = new RANSAC(0.05, 100);
 
     pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
@@ -62,7 +62,7 @@ TEST_F(RANSACTest, Test2) {
  * @brief Test Scenario: The points in the plane and a close enough point is removed - 1 point left.
  * 
  */
-TEST_F(RANSACTest, Test3) {
+TEST_F(RANSACTest, TestCommonScenario2) {
     auto ground_removal = new RANSAC(0.5, 100);
 
     pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
@@ -76,7 +76,7 @@ TEST_F(RANSACTest, Test3) {
  * @brief Test Scenario: The epsilon threshold is set to 0 - No points are removed.
  * 
  */
-TEST_F(RANSACTest, Test4) {
+TEST_F(RANSACTest, TestThresholdZero) {
     auto ground_removal = new RANSAC(0, 10);
 
     pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
@@ -90,7 +90,7 @@ TEST_F(RANSACTest, Test4) {
  * @brief Test Scenario: Number of repetitions is set to 0 - Expected a point cloud with 0 points.
  * 
  */
-TEST_F(RANSACTest, Test5) {
+TEST_F(RANSACTest, TestZeroRepetitions) {
     auto ground_removal = new RANSAC(100, 0);
 
     pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
@@ -104,7 +104,7 @@ TEST_F(RANSACTest, Test5) {
  * @brief Test Scenario: Really small threshold. Only the points of the plane are considered as part of the ground.
  * 
  */
-TEST_F(RANSACTest, Test6) {
+TEST_F(RANSACTest, TestSmallEpsilon) {
     auto ground_removal = new RANSAC(0.00000000000000001, 10);
 
     pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
@@ -118,7 +118,7 @@ TEST_F(RANSACTest, Test6) {
  * @brief Test Scenario: Really great threshold - All points are considered as part of the plane.
  * 
  */
-TEST_F(RANSACTest, Test7) {
+TEST_F(RANSACTest, TestBigEpsilon2) {
     auto ground_removal = new RANSAC(1000000, 1);
 
     pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
@@ -132,7 +132,7 @@ TEST_F(RANSACTest, Test7) {
  * @brief Test Scenario: Point cloud with only 3 points: 0 points are expected after the ground removal.
  * 
  */
-TEST_F(RANSACTest, Test8) {
+TEST_F(RANSACTest, TestCommonScenario3Points) {
     auto ground_removal = new RANSAC(100, 100);
 
     pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
@@ -145,7 +145,7 @@ TEST_F(RANSACTest, Test8) {
  * @brief Test Scenario: Point cloud with only 3 points: The epsilon threshold is set to 0 - No points are removed.
  * 
  */
-TEST_F(RANSACTest, Test9) {
+TEST_F(RANSACTest, Test3PointsThresholdZero) {
     auto ground_removal = new RANSAC(0, 100);
 
     pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
@@ -158,7 +158,7 @@ TEST_F(RANSACTest, Test9) {
  * @brief Test Scenario: Point cloud with 0 points - Must return a point with 0 points also.
  * 
  */
-TEST_F(RANSACTest, Test10) {
+TEST_F(RANSACTest, TestEmptyPointCloud) {
     auto ground_removal = new RANSAC(100, 100);
 
     pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
@@ -172,7 +172,7 @@ TEST_F(RANSACTest, Test10) {
  * @brief Test Scenario: Point cloud with 0 points. Epsilon and repetitions set to 0 - Expected 0 points.
  * 
  */
-TEST_F(RANSACTest, Test11) {
+TEST_F(RANSACTest, TestEmptyPointCloud2) {
     auto ground_removal = new RANSAC(0, 0);
 
     pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
