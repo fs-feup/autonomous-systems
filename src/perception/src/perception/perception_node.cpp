@@ -1,9 +1,8 @@
 #include "perception/perception_node.hpp"
-#include <pcl/PCLPointField.h>
-#include <pcl/PCLPointCloud2.h>
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 #include <pcl_conversions/pcl_conversions.h>
+
 #include <cstdio>
 
 Perception::Perception(GroundRemoval* groundRemoval) : Node("perception"), groundRemoval(groundRemoval) {
