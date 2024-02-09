@@ -8,6 +8,7 @@ endif()
 set(IMPLEMENTATION_FILES 
   src/main.cpp
   src/node_/node_long_control.cpp
+  src/pid/pid.cpp
 )
 
 # find dependencies
@@ -16,14 +17,13 @@ find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(custom_interfaces REQUIRED)
-find_package(drake REQUIRED)
-#find_package(pybind11 REQUIRED HINTS "$/opt/drake/lib/../pybind11" NO_DEFAULT_PATH)
+
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 
 add_executable(node_long_control ${IMPLEMENTATION_FILES})
-ament_target_dependencies(node_long_control rclcpp std_msgs sensor_msgs custom_interfaces drake)
+ament_target_dependencies(node_long_control rclcpp std_msgs sensor_msgs custom_interfaces)
 target_include_directories(node_long_control PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
