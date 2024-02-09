@@ -14,18 +14,18 @@ class RANSACTest : public ::testing::Test {
      */
     void SetUp() override {
         pcl_cloud.reset(new pcl::PointCloud<pcl::PointXYZI>);
-        pcl_cloud->points.push_back(pcl::PointXYZI({1.0, 0.0, 0.0, 0.5}));
-        pcl_cloud->points.push_back(pcl::PointXYZI({0.0, 1.0, 0.0, 1.0}));
-        pcl_cloud->points.push_back(pcl::PointXYZI({0.0, 0.0, 1.0, 1.5}));
-        pcl_cloud->points.push_back(pcl::PointXYZI({0.0060, 0.0060, 0.0060, 2.0}));
-        pcl_cloud->points.push_back(pcl::PointXYZI({10, 10, 10, 2.5}));
+        pcl_cloud->points.push_back(pcl::PointXYZI{1.0, 0.0, 0.0, 0.5});
+        pcl_cloud->points.push_back(pcl::PointXYZI{0.0, 1.0, 0.0, 1.0});
+        pcl_cloud->points.push_back(pcl::PointXYZI{0.0, 0.0, 1.0, 1.5});
+        pcl_cloud->points.push_back(pcl::PointXYZI{0.0060, 0.0060, 0.0060, 2.0});
+        pcl_cloud->points.push_back(pcl::PointXYZI{10, 10, 10, 2.5});
 
         pcl_cloud_empty.reset(new pcl::PointCloud<pcl::PointXYZI>);
 
         pcl_cloud_3_points.reset(new pcl::PointCloud<pcl::PointXYZI>);
-        pcl_cloud_3_points->points.push_back(pcl::PointXYZI({1.0, 0.0, 0.0, 0.5}));
-        pcl_cloud_3_points->points.push_back(pcl::PointXYZI({0.0, 1.0, 0.0, 1.0}));
-        pcl_cloud_3_points->points.push_back(pcl::PointXYZI({0.0, 0.0, 1.0, 1.5}));
+        pcl_cloud_3_points->points.push_back(pcl::PointXYZI{1.0, 0.0, 0.0, 0.5});
+        pcl_cloud_3_points->points.push_back(pcl::PointXYZI{0.0, 1.0, 0.0, 1.0});
+        pcl_cloud_3_points->points.push_back(pcl::PointXYZI{0.0, 0.0, 1.0, 1.5});
     }
 
     pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_cloud;
@@ -43,6 +43,7 @@ TEST_F(RANSACTest, Test1) {
 
     pcl::PointCloud<pcl::PointXYZI> ground_removed_cloud;
     ground_removal->groundRemoval(pcl_cloud, ground_removed_cloud);
+
     ASSERT_EQ(ground_removed_cloud.points.size(), 0);
 }
 
