@@ -5,7 +5,8 @@
 
 #include <cstdio>
 
-Perception::Perception(GroundRemoval* groundRemoval) : Node("perception"), groundRemoval(groundRemoval) {
+Perception::Perception(GroundRemoval* groundRemoval) : Node("perception"),
+        groundRemoval(groundRemoval) {
   this->_point_cloud_subscription = this->create_subscription<sensor_msgs::msg::PointCloud2>(
       "/livox/lidar", 10,
       std::bind(&Perception::pointCloudCallback, this, std::placeholders::_1));
@@ -14,15 +15,17 @@ Perception::Perception(GroundRemoval* groundRemoval) : Node("perception"), groun
 }
 
 void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
-
     pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_cloud(new pcl::PointCloud<pcl::PointXYZI>);
 
     pcl::fromROSMsg(*msg, *pcl_cloud);
 
-    pcl::PointCloud<pcl::PointXYZI> ground_removed_cloud;
+
+    pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
+
+
     groundRemoval->groundRemoval(pcl_cloud, ground_removed_cloud);
 
-    for (const auto& point : ground_removed_cloud.points) {
+    for (const auto& point : ground_removed_cloud->points) {
         RCLCPP_INFO(this->get_logger(), "Point: x=%f, y=%f, z=%f, intensity=%f",
                     point.x, point.y, point.z, point.intensity);
     }

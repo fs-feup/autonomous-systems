@@ -12,13 +12,14 @@
  * cone detection results on a custom topic.
  */
 class Perception : public rclcpp::Node {
-
-private:
+ private:
   GroundRemoval* groundRemoval; ///< Pointer to the GroundRemoval object.
 
-  rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr _point_cloud_subscription;  ///< PointCloud2 subscription.
-  rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr _cones_publisher; ///< ConeArray publisher.
-  
+  rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr
+      _point_cloud_subscription;  ///< PointCloud2 subscription.
+  rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr
+      _cones_publisher; ///< ConeArray publisher.
+
   /**
    * @brief Callback function for the PointCloud2 subscription.
    * @param msg The received PointCloud2 message.
@@ -26,10 +27,9 @@ private:
   void pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg);
 
  public:
-
    /**
    * @brief Constructor for the Perception node.
    * @param groundRemoval Pointer to the GroundRemoval object.
    */
-  Perception(GroundRemoval* groundRemoval);
+  explicit Perception(GroundRemoval* groundRemoval);
 };
