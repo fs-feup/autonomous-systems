@@ -1,4 +1,4 @@
-#include "ground_removal.hpp"
+#include "ground_removal/ground_removal.hpp"
 #include <pcl/sample_consensus/ransac.h>
 #include <string>
 
@@ -10,12 +10,11 @@
  * on a point cloud using the Random Sample Consensus (RANSAC) algorithm.
  */
 class RANSAC : public GroundRemoval {
-  private:
+ private:
     double epsilon; ///< Epsilon threshold for ground removal.
     int n_tries;    ///< Number of RANSAC iterations.
 
-  public:
-
+ public:
     /**
      * @brief Constructor for the RANSAC ground removal algorithm.
      * @param epsilon Epsilon threshold for ground removal.
@@ -32,5 +31,6 @@ class RANSAC : public GroundRemoval {
      * @param point_cloud The input point cloud to be processed.
      * @param[out] ret The resulting point cloud after ground removal.
      */
-    void groundRemoval(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud, pcl::PointCloud<pcl::PointXYZI> &ret) const override;
+    void groundRemoval(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
+                       pcl::PointCloud<pcl::PointXYZI>::Ptr ret) const override;
 };

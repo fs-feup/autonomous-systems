@@ -10,28 +10,32 @@
 RANSAC::RANSAC(double epsilon, int n_tries) : epsilon(epsilon), n_tries(n_tries) {}
 
 
-void RANSAC::groundRemoval(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud, pcl::PointCloud<pcl::PointXYZI> &ret) const{
-
+void RANSAC::groundRemoval(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
+                           pcl::PointCloud<pcl::PointXYZI>::Ptr ret) const {
     pcl::ModelCoefficients::Ptr coefficients (new pcl::ModelCoefficients);
     pcl::PointIndices::Ptr inliers_indices (new pcl::PointIndices);
 
+
+    // Segmentation Object creation
     pcl::SACSegmentation<pcl::PointXYZI> seg;
 
-    seg.setOptimizeCoefficients (true);
+    // Optional: Increases Accuracy
+    seg.setOptimizeCoefficients(true);
 
-    seg.setModelType (pcl::SACMODEL_PLANE);
-    seg.setMethodType (pcl::SAC_RANSAC);
-    seg.setDistanceThreshold (epsilon);
+    // Defining RANSAC properties in the segmentation Object
+    seg.setModelType(pcl::SACMODEL_PLANE);
+    seg.setMethodType(pcl::SAC_RANSAC);
+    seg.setDistanceThreshold(epsilon);
     seg.setMaxIterations(n_tries);
 
 
-    seg.setInputCloud (point_cloud);
-    seg.segment (*inliers_indices, *coefficients);
+    seg.setInputCloud(point_cloud);
+    seg.segment(*inliers_indices, *coefficients);
 
     pcl::ExtractIndices<pcl::PointXYZI> extract;
     extract.setInputCloud(point_cloud);
     extract.setIndices(inliers_indices);
 
     extract.setNegative(true); // Extract outliers
-    extract.filter(ret);
+    extract.filter(*ret);
 }
