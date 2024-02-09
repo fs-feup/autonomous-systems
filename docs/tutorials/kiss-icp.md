@@ -42,7 +42,8 @@ source ./install/setup.bash
 
 # How to run
 
-The only required argument to provide is the topic name so KISS-ICP knows which PointCloud2 to process:
+The only required argument to provide is the
+ topic name so KISS-ICP knows which PointCloud2 to process:
 
 ```sh
 ros2 launch kiss_icp odometry.launch.py bagfile:=<path_to_rosbag> topic:=<topic_name>
@@ -66,18 +67,9 @@ ros2 topic list
 ```
 
 
-
-
-To get the pose from kiss_icp, in a new terminal you should run:
-
-```sh
-ros2 topic echo /kiss/odometry
-```
-
 # Internal structure of the package
 
 There are two nodes, one run kiss-icp and another used to just send data to rviz, in order to visualize the simulation.
-
 
 The kiss-icp node is the node where the point cloud is recieved and the kiss-icp is executed. Inside this node there are several parameters that can be changed, from both ROS2 and kiss-icp.
 
@@ -85,9 +77,20 @@ The kiss-icp node is the node where the point cloud is recieved and the kiss-icp
 
 **Kiss-icp parameters:** deskew, max_range, min_range
 
+This parameters can be changed inside the files, as well as using services available by the wrapper. To see this services just do:
+
+```sh
+ros2 service list
+```
+
+This node publishes to some topics which are the following:
+
+* /kiss/frame: Gives the pointcloud at that exact moment (frame)
+* /kiss/keypoints: Outputs data of the reduced pointcloud only composed by keypoints
+* /kiss/local_map: Gives all the pointclouds of previous scans from the sensor
+* /kiss/odometry: Outputs the Pose and Orietation of the vehicle in the current frame
+* /kiss/trajectory: Returns an array of all the odometry (Pose and Orientation) since the beginning until the current frame
 
 The rviz2 node is a simple node that only serves to visualize the map, and can read from a bagfile.
 
 To have a better understanding of kiss-icp see this git repository https://github.com/PRBonn/kiss-icp?tab=readme-ov-file
-
-
