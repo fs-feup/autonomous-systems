@@ -72,7 +72,7 @@ For more details on that, checkout the Github tutorials: [Generating a new SSH k
 
 Before anything else, you need to clone the project into your laptop using [git](https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control). Simply hit clone in the home page of the project, select ssh, copy the command and run git clone, or:
 ```sh
-git clone git@github.com:fsfeup-driverless/driverless.git
+git clone git@github.com:fs-feup/autonomous-systems.git
 ```
 
 ## Project Structure

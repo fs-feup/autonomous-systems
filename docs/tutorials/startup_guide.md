@@ -18,6 +18,11 @@ This guide is meant to help the developer setup the environment required to work
 
 ## Chapters
 
+### Rules
+
+- [Rules](https://docs.google.com/document/d/1-YuD-V7zwE_rMwYZ7jmOQysz29_Zj9U-KQ5oIUk4dAc/edit?usp=sharing)
+- [Department Rules](https://docs.google.com/document/d/1kmiW4-pkKHlYM9V2sTS_4IJR4ODCaD_m/edit?usp=sharing&ouid=108427086324647392265&rtpof=true&sd=true)
+
 ### Basic Tutorials
 
 - [Environment Setup](./environment_setup.md) - setup everything
