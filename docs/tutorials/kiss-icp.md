@@ -75,13 +75,28 @@ The kiss-icp node is the node where the point cloud is recieved and the kiss-icp
 
 **ROS2 parameters:** topic, bagfile, visualize, odom_frame, base_frame, publish_odom_tf.
 
-**Kiss-icp parameters:** deskew, max_range, min_range
+**Kiss-icp parameters:** deskew, preprocess, max_range, min_range, voxel_size, max_points_per_voxel, fixed_threshold
 
-This parameters can be changed inside the files, as well as using services available by the wrapper. To see this services just do:
+
+* deskew - Compensate the frame by estimatng the velocity between the given poses
+* preprocess - Crop the frame with max/min ranges
+* max_range - This sets the maximum range for valid points in the LiDAR scan. Points beyond this range will be ignored
+* min_range - This sets the minimum range for valid points in the LiDAR scan. Points closer than this will be ignored
+* voxel_size - This parameter controls the size of voxels (3D grids used to represent the environment). A smaller size leads to higher resolution but also increases computational cost
+* max_points_per_voxel - This limits the number of points allowed within each voxel
+* fixed_threshold - The fixed_threshold defines the maximum allowed distance difference between a point and its candidate match (comparing the previous to the current frame)
+
+In most of the cases it should be enough to use the default parameters "as is". With this said, if needed, they can be changed inside the files (see the README in "/src/kiss-icp/config/README.md" to understand how to create a new config file), as well as using services available by the wrapper. To see this services just do:
 
 ```sh
 ros2 service list
 ```
+
+This should be the output
+
+![Service list](../assets/kiss_icp/Screenshot%20from%202024-02-09%2009-35-54.png)
+
+Kiss-icp node does not have any ros2 actions.
 
 This node publishes to some topics which are the following:
 
