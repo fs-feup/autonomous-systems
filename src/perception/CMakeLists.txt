@@ -35,7 +35,7 @@ target_include_directories(perception PUBLIC
   $<INSTALL_INTERFACE:include> ${pcl_conversions_INCLUDE_DIRS})
 target_compile_features(perception PUBLIC c_std_99 cxx_std_17)
 
-target_link_libraries(perception ${PCL_LIBRARIES} ${PCL_INCLUDE_DIRS})
+target_link_libraries(perception ${PCL_LIBRARIES})
 
 install(TARGETS perception
   DESTINATION lib/${PROJECT_NAME})
@@ -48,11 +48,12 @@ if(BUILD_TESTING)
   ament_add_gtest(perception_test test/ransac_test.cpp src/ground_removal/ransac.cpp)
 
 
-target_link_libraries(perception_test ${PCL_LIBRARIES} ${PCL_INCLUDE_DIRS})
+target_link_libraries(perception_test ${PCL_LIBRARIES})
   target_include_directories(perception_test PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>)
-  ament_target_dependencies(perception_test rclcpp custom_interfaces ament_cmake_gtest)
+
+    ament_target_dependencies(perception_test rclcpp custom_interfaces ament_cmake_gtest)
 
 endif()
 
