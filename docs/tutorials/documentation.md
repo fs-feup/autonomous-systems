@@ -8,20 +8,9 @@ In order to pass down the knowledge aquired to the next generations of driverles
 
 ## Doxygen Setup
 
-In order to help future developers start contributing to this project, code should be easy to read and staightforward. However, this is easier said than done. For this reason, it is helpful to use a documentation tool to document the code developed. Doxygen is the de-fact tool for documentation in C++. To use it you should:
-- [Install doxygen](https://www.doxygen.nl/download.html) in your machine (virtual machine in this case). Download the binaries version.
-    - Download
-    - Run ```sudo make install``` inside
-- Create doxygen file in the project home directory (when creating a new project, that is)
-    - Run ```doxygen -g``` on the command line
-    - Edit the file to your liking
-        - Check the INPUT variable, for this is the one that defines what files will be read to generate the documentation
-- Comment the code with doxygen comments
-    - Use [this vscode extension](https://marketplace.visualstudio.com/items?itemName=cschlosser.doxdocgen) for automatic doxygen documentation generation
-- Run ```doxygen``` on the [src folder](../../src/) to generate documentation
-    **IMPORTANT:** In this project, there is already a script that runs documentation on all packages automatically [here](../../scripts/document.sh). This functionality is also included in [this script](../../static-tools.sh).
+In order to help future developers start contributing to this project, code should be easy to read and staightforward. However, this is easier said than done. For this reason, it is helpful to use a documentation tool to document the code developed. Doxygen is the de-fact tool for documentation in C++. Doxygen is set up in our repository so that the documentation is generated at every push to main branch. It is deployed on github-pages environments in [this link](https://fs-feup.github.io/autonomous-systems/), which is in the home page of the repo as well.
 
-T
+
 ## Doxygen C++
 
 C++ code example:
@@ -45,6 +34,8 @@ class KalmanFilter {
 }
 
 ```
+
+Full comment [style guide](https://micro-os-plus.github.io/develop/doxygen-style-guide/).
 
 
 ## Doxygen Python

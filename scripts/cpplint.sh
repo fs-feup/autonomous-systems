@@ -1,9 +1,9 @@
 cpplint \
-    --exclude=../src/loc_map/include/Eigen/* \
-    --exclude=../src/can/include/fs-ai_api/* \
-    --exclude=../src/can/src/fs-ai_api/* \
-    --exclude=../src/ros_can/* \
-    --exclude=../src/build/* \
-    --exclude=../src/install/* \
-    --exclude=../src/log/* \
-    --recursive ../src 
+    --exclude=./src/loc_map/include/Eigen/* \
+    --exclude=./src/can/include/fs-ai_api/* \
+    --exclude=./src/can/src/fs-ai_api/* \
+    --exclude=./src/ros_can/* \
+    --exclude=./src/build/* \
+    --exclude=./src/install/* \
+    --exclude=./src/log/* \
+    --recursive ./src 
