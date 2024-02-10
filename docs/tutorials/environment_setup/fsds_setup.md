@@ -14,7 +14,7 @@ The Formula Student Driverless Simulator is a simulator originally created for o
     ```sh
     ./AirSim/setup.sh
     ./AirSim/build.sh
-    ```sh
+    ```
 4. Build the ROS2 bridge package:
     ```sh
     cd ros2
