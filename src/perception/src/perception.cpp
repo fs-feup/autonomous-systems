@@ -1,8 +1,6 @@
 #include <perception/perception_node.hpp>
 #include <pcl/common/io.h>
 #include <pcl/conversions.h>
-#include <cstdio>
-
 
 int main(int argc, char** argv) {
   rclcpp::init(argc, argv);
