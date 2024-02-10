@@ -1,3 +1,6 @@
 [submodule "lib/kiss-icp"]
 	path = lib/kiss-icp
 	url = https://github.com/PRBonn/kiss-icp/
+[submodule "docs/doxygen/doxygen-awesome-css"]
+	path = docs/doxygen/doxygen-awesome-css
+	url = https://github.com/jothepro/doxygen-awesome-css.git
