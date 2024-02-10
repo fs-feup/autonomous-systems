@@ -1,7 +1,7 @@
 #ifndef SRC_LOC_MAP_INCLUDE_KALMAN_FILTER_EKF_HPP_
 #define SRC_LOC_MAP_INCLUDE_KALMAN_FILTER_EKF_HPP_
 
-#include <Eigen/Dense>
+#include <eigen3/Eigen/Dense>
 #include <vector>
 
 #include "kalman_filter/motion_models.hpp"
