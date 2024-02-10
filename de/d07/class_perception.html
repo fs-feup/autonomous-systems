@@ -98,13 +98,16 @@ $(document).ready(function(){initNavTree('de/d07/class_perception.html','../../'
 </div><!--header-->
 <div class="contents">
 
+<p>Node for perception tasks, such as ground removal and cone detection.  
+ <a href="../../de/d07/class_perception.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="../../de/da5/perception__node_8hpp_source.html">perception_node.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for Perception:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../db/d9d/class_perception__inherit__graph.png" border="0" usemap="#a_perception_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_perception_inherit__map" id="a_perception_inherit__map">
-<area shape="rect" title=" " alt="" coords="5,119,99,184"/>
+<area shape="rect" title="Node for perception tasks, such as ground removal and cone detection." alt="" coords="5,119,99,184"/>
 <area shape="rect" title=" " alt="" coords="9,5,95,71"/>
 <area shape="poly" title=" " alt="" coords="55,85,55,119,49,119,49,85"/>
 </map>
@@ -114,7 +117,7 @@ Collaboration diagram for Perception:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d5/d96/class_perception__coll__graph.png" border="0" usemap="#a_perception_coll__map" alt="Collaboration graph"/></div>
 <map name="a_perception_coll__map" id="a_perception_coll__map">
-<area shape="rect" title=" " alt="" coords="5,119,99,184"/>
+<area shape="rect" title="Node for perception tasks, such as ground removal and cone detection." alt="" coords="5,119,99,184"/>
 <area shape="rect" title=" " alt="" coords="9,5,95,71"/>
 <area shape="poly" title=" " alt="" coords="55,85,55,119,49,119,49,85"/>
 </map>
@@ -122,29 +125,49 @@ Collaboration diagram for Perception:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a8bcf74df62599f91509d3fd2df14c5f7" id="r_a8bcf74df62599f91509d3fd2df14c5f7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d07/class_perception.html#a8bcf74df62599f91509d3fd2df14c5f7">Perception</a> ()</td></tr>
-<tr class="separator:a8bcf74df62599f91509d3fd2df14c5f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb1fc583d5fb7add7253a0fe860a0d1d" id="r_adb1fc583d5fb7add7253a0fe860a0d1d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d07/class_perception.html#adb1fc583d5fb7add7253a0fe860a0d1d">Perception</a> (<a class="el" href="../../dc/d84/class_ground_removal.html">GroundRemoval</a> *groundRemoval)</td></tr>
+<tr class="memdesc:adb1fc583d5fb7add7253a0fe860a0d1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for the <a class="el" href="../../de/d07/class_perception.html" title="Node for perception tasks, such as ground removal and cone detection.">Perception</a> node.  <br /></td></tr>
+<tr class="separator:adb1fc583d5fb7add7253a0fe860a0d1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="../../de/da5/perception__node_8hpp_source.html#l00005">5</a> of file <a class="el" href="../../de/da5/perception__node_8hpp_source.html">perception_node.hpp</a>.</p>
+<div class="textblock"><p>Node for perception tasks, such as ground removal and cone detection. </p>
+<p>This class is a ROS 2 node that subscribes to a PointCloud2 topic, performs ground removal using the specified <a class="el" href="../../dc/d84/class_ground_removal.html" title="Abstract class for ground removal from a point cloud.">GroundRemoval</a> algorithm, and publishes cone detection results on a custom topic. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../de/da5/perception__node_8hpp_source.html#l00014">14</a> of file <a class="el" href="../../de/da5/perception__node_8hpp_source.html">perception_node.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a8bcf74df62599f91509d3fd2df14c5f7" name="a8bcf74df62599f91509d3fd2df14c5f7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8bcf74df62599f91509d3fd2df14c5f7">&#9670;&#160;</a></span>Perception()</h2>
+<a id="adb1fc583d5fb7add7253a0fe860a0d1d" name="adb1fc583d5fb7add7253a0fe860a0d1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb1fc583d5fb7add7253a0fe860a0d1d">&#9670;&#160;</a></span>Perception()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">Perception::Perception </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype"><a class="el" href="../../dc/d84/class_ground_removal.html">GroundRemoval</a> *&#160;</td>
+          <td class="paramname"><em>groundRemoval</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dc/dfb/perception__node_8cpp_source.html#l00005">5</a> of file <a class="el" href="../../dc/dfb/perception__node_8cpp_source.html">perception_node.cpp</a>.</p>
+<p>Constructor for the <a class="el" href="../../de/d07/class_perception.html" title="Node for perception tasks, such as ground removal and cone detection.">Perception</a> node. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">groundRemoval</td><td>Pointer to the <a class="el" href="../../dc/d84/class_ground_removal.html" title="Abstract class for ground removal from a point cloud.">GroundRemoval</a> object. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="../../dc/dfb/perception__node_8cpp_source.html#l00008">8</a> of file <a class="el" href="../../dc/dfb/perception__node_8cpp_source.html">perception_node.cpp</a>.</p>
 
 </div>
 </div>

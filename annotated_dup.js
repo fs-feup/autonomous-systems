@@ -15,6 +15,7 @@ var annotated_dup =
     [ "ExecTimeTestEKFTests", "d2/dac/class_exec_time_test_e_k_f_tests.html", "d2/dac/class_exec_time_test_e_k_f_tests" ],
     [ "ExtendedKalmanFilter", "da/da6/class_extended_kalman_filter.html", "da/da6/class_extended_kalman_filter" ],
     [ "GlobalPathPlanner", "d2/da4/class_global_path_planner.html", "d2/da4/class_global_path_planner" ],
+    [ "GroundRemoval", "dc/d84/class_ground_removal.html", "dc/d84/class_ground_removal" ],
     [ "ImuVelocityModel", "d2/d58/class_imu_velocity_model.html", "d2/d58/class_imu_velocity_model" ],
     [ "IntegrationTest", "d7/d4e/class_integration_test.html", "d7/d4e/class_integration_test" ],
     [ "LateralControl", "d4/d45/class_lateral_control.html", "d4/d45/class_lateral_control" ],
@@ -32,6 +33,8 @@ var annotated_dup =
     [ "Pose", "d8/d11/struct_pose.html", "d8/d11/struct_pose" ],
     [ "Position", "d1/d26/struct_position.html", "d1/d26/struct_position" ],
     [ "Publisher", "df/d57/class_publisher.html", "df/d57/class_publisher" ],
+    [ "RANSAC", "d6/dc3/class_r_a_n_s_a_c.html", "d6/dc3/class_r_a_n_s_a_c" ],
+    [ "RANSACTest", "d8/d5a/class_r_a_n_s_a_c_test.html", "d8/d5a/class_r_a_n_s_a_c_test" ],
     [ "Track", "d6/d2c/class_track.html", "d6/d2c/class_track" ],
     [ "VehicleState", "de/dfe/struct_vehicle_state.html", "de/dfe/struct_vehicle_state" ]
 ];

@@ -5,6 +5,9 @@ var hierarchy =
     [ "ConeMap", "dc/d59/struct_cone_map.html", null ],
     [ "ExtendedKalmanFilter", "da/da6/class_extended_kalman_filter.html", null ],
     [ "GlobalPathPlanner", "d2/da4/class_global_path_planner.html", null ],
+    [ "GroundRemoval", "dc/d84/class_ground_removal.html", [
+      [ "RANSAC", "d6/dc3/class_r_a_n_s_a_c.html", null ]
+    ] ],
     [ "LocalPathPlanner", "d3/da1/class_local_path_planner.html", null ],
     [ "MotionModel", "db/d66/class_motion_model.html", [
       [ "ImuVelocityModel", "d2/d58/class_imu_velocity_model.html", null ],
@@ -31,7 +34,8 @@ var hierarchy =
     [ "testing::Test", null, [
       [ "ExecTimeTest", "df/d59/class_exec_time_test.html", null ],
       [ "ExecTimeTestEKFTests", "d2/dac/class_exec_time_test_e_k_f_tests.html", null ],
-      [ "IntegrationTest", "d7/d4e/class_integration_test.html", null ]
+      [ "IntegrationTest", "d7/d4e/class_integration_test.html", null ],
+      [ "RANSACTest", "d8/d5a/class_r_a_n_s_a_c_test.html", null ]
     ] ],
     [ "Track", "d6/d2c/class_track.html", null ],
     [ "VehicleState", "de/dfe/struct_vehicle_state.html", null ],

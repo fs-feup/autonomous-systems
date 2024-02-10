@@ -100,22 +100,29 @@ $(document).ready(function(){initNavTree('de/da5/perception__node_8hpp_source.ht
 </div><!--header-->
 <div class="contents">
 <a href="../../de/da5/perception__node_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;custom_interfaces/msg/cone_array.hpp&quot;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;rclcpp/rclcpp.hpp&quot;</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;sensor_msgs/msg/point_cloud2.hpp&quot;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="foldopen" id="foldopen00005" data-start="{" data-end="};">
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno"><a class="line" href="../../de/d07/class_perception.html">    5</a></span><span class="keyword">class </span><a class="code hl_class" href="../../de/d07/class_perception.html">Perception</a> : <span class="keyword">public</span> rclcpp::Node {</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>  rclcpp::Subscription&lt;sensor_msgs::msg::PointCloud2&gt;::SharedPtr _point_cloud_subscription;</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>  rclcpp::Publisher&lt;custom_interfaces::msg::ConeArray&gt;::SharedPtr _cones_publisher;</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>  <span class="keywordtype">void</span> pointCloudCallback(<span class="keyword">const</span> sensor_msgs::msg::PointCloud2::SharedPtr msg);</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>  <a class="code hl_function" href="../../de/d07/class_perception.html#a8bcf74df62599f91509d3fd2df14c5f7">Perception</a>();</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>};</div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;sensor_msgs/msg/point_cloud2.hpp&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="../../d9/dad/ransac_8hpp.html">ground_removal/ransac.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;rclcpp/rclcpp.hpp&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="foldopen" id="foldopen00014" data-start="{" data-end="};">
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="../../de/d07/class_perception.html">   14</a></span><span class="keyword">class </span><a class="code hl_class" href="../../de/d07/class_perception.html">Perception</a> : <span class="keyword">public</span> rclcpp::Node {</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>  <a class="code hl_class" href="../../dc/d84/class_ground_removal.html">GroundRemoval</a>* groundRemoval; </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>  rclcpp::Subscription&lt;sensor_msgs::msg::PointCloud2&gt;::SharedPtr</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>      _point_cloud_subscription;  </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>  rclcpp::Publisher&lt;custom_interfaces::msg::ConeArray&gt;::SharedPtr</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>      _cones_publisher; </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  <span class="keywordtype">void</span> pointCloudCallback(<span class="keyword">const</span> sensor_msgs::msg::PointCloud2::SharedPtr msg);</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>  <span class="keyword">explicit</span> <a class="code hl_class" href="../../de/d07/class_perception.html">Perception</a>(<a class="code hl_class" href="../../dc/d84/class_ground_removal.html">GroundRemoval</a>* groundRemoval);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>};</div>
 </div>
-<div class="ttc" id="aclass_perception_html"><div class="ttname"><a href="../../de/d07/class_perception.html">Perception</a></div><div class="ttdef"><b>Definition</b> <a href="../../de/da5/perception__node_8hpp_source.html#l00005">perception_node.hpp:5</a></div></div>
-<div class="ttc" id="aclass_perception_html_a8bcf74df62599f91509d3fd2df14c5f7"><div class="ttname"><a href="../../de/d07/class_perception.html#a8bcf74df62599f91509d3fd2df14c5f7">Perception::Perception</a></div><div class="ttdeci">Perception()</div><div class="ttdef"><b>Definition</b> <a href="../../dc/dfb/perception__node_8cpp_source.html#l00005">perception_node.cpp:5</a></div></div>
+<div class="ttc" id="aclass_ground_removal_html"><div class="ttname"><a href="../../dc/d84/class_ground_removal.html">GroundRemoval</a></div><div class="ttdoc">Abstract class for ground removal from a point cloud.</div><div class="ttdef"><b>Definition</b> <a href="../../d2/d96/ground__removal_8hpp_source.html#l00014">ground_removal.hpp:14</a></div></div>
+<div class="ttc" id="aclass_perception_html"><div class="ttname"><a href="../../de/d07/class_perception.html">Perception</a></div><div class="ttdoc">Node for perception tasks, such as ground removal and cone detection.</div><div class="ttdef"><b>Definition</b> <a href="../../de/da5/perception__node_8hpp_source.html#l00014">perception_node.hpp:14</a></div></div>
+<div class="ttc" id="aransac_8hpp_html"><div class="ttname"><a href="../../d9/dad/ransac_8hpp.html">ransac.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

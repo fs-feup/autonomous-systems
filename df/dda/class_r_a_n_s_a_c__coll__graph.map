@@ -1,0 +1,5 @@
+<map id="RANSAC" name="RANSAC">
+<area shape="rect" id="Node000001" title="Ground removal using the RANSAC algorithm." alt="" coords="5,119,127,204"/>
+<area shape="rect" id="Node000002" href="$dc/d84/class_ground_removal.html" title="Abstract class for ground removal from a point cloud." alt="" coords="5,5,127,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="69,85,69,119,63,119,63,85"/>
+</map>

@@ -16,9 +16,11 @@ var searchData=
   ['getpath_13',['getPath',['../d2/da4/class_global_path_planner.html#ae85477a0bfd1f8026033033640531794',1,'GlobalPathPlanner']]],
   ['getrightconeat_14',['getRightConeAt',['../d6/d2c/class_track.html#a95fe146ead9aae192047e1f0a2c6c3c8',1,'Track']]],
   ['getrightconessize_15',['getRightConesSize',['../d6/d2c/class_track.html#a509060ab3a7c34a9fc435b507e4bd49d',1,'Track']]],
-  ['getx_16',['getx',['../d8/da1/class_cone.html#a51a49cc249e79d06f6a983250fe809b3',1,'Cone::getX()'],['../d9/d32/class_path_point.html#a4f84d924fd7ffcbfd9ae67b669251306',1,'PathPoint::getX()']]],
-  ['gety_17',['gety',['../d8/da1/class_cone.html#a952987a9de5d20d7930b3e93c04fd278',1,'Cone::getY()'],['../d9/d32/class_path_point.html#a722e36fc4d8964c3efe0fb96315be015',1,'PathPoint::getY()']]],
+  ['getx_16',['getx',['../d8/da1/class_cone.html#a51a49cc249e79d06f6a983250fe809b3',1,'Cone::getX()'],['../d9/d32/class_path_point.html#a4f84d924fd7ffcbfd9ae67b669251306',1,'PathPoint::getX() const']]],
+  ['gety_17',['gety',['../d9/d32/class_path_point.html#a722e36fc4d8964c3efe0fb96315be015',1,'PathPoint::getY()'],['../d8/da1/class_cone.html#a952987a9de5d20d7930b3e93c04fd278',1,'Cone::getY()']]],
   ['global_5fpath_5fplanner_2ecpp_18',['global_path_planner.cpp',['../d9/d94/global__path__planner_8cpp.html',1,'']]],
   ['global_5fpath_5fplanner_2ehpp_19',['global_path_planner.hpp',['../d6/d97/global__path__planner_8hpp.html',1,'']]],
-  ['globalpathplanner_20',['globalpathplanner',['../d2/da4/class_global_path_planner.html',1,'GlobalPathPlanner'],['../d2/da4/class_global_path_planner.html#a04a4cbd5b1042ec0d9bd8be8b1dca68e',1,'GlobalPathPlanner::GlobalPathPlanner()']]]
+  ['globalpathplanner_20',['globalpathplanner',['../d2/da4/class_global_path_planner.html',1,'GlobalPathPlanner'],['../d2/da4/class_global_path_planner.html#a04a4cbd5b1042ec0d9bd8be8b1dca68e',1,'GlobalPathPlanner::GlobalPathPlanner()']]],
+  ['ground_5fremoval_2ehpp_21',['ground_removal.hpp',['../d2/d96/ground__removal_8hpp.html',1,'']]],
+  ['groundremoval_22',['groundremoval',['../dc/d84/class_ground_removal.html#aa4013df7d013e238aa1b5bd88033703c',1,'GroundRemoval::groundRemoval()'],['../d6/dc3/class_r_a_n_s_a_c.html#ae90496d6f2bbf05a54bd2e13cd3e4b4e',1,'RANSAC::groundRemoval()'],['../dc/d84/class_ground_removal.html',1,'GroundRemoval']]]
 ];

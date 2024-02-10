@@ -1,0 +1,21 @@
+<map id="src/perception/test/ransac_test.cpp" name="src/perception/test/ransac_test.cpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="368,5,497,46"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="306,94,399,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="414,48,377,85,373,81,411,45"/>
+<area shape="rect" id="Node000003" href="$d9/dad/ransac_8hpp.html" title=" " alt="" coords="423,94,604,120"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="454,44,492,81,488,85,450,48"/>
+<area shape="rect" id="Node000004" href="$d2/d96/ground__removal_8hpp.html" title=" " alt="" coords="255,168,412,208"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="487,123,393,163,391,159,485,118"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="436,168,591,208"/>
+<area shape="poly" id="edge8_Node000003_Node000009" title=" " alt="" coords="516,120,516,152,511,152,511,120"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="615,175,668,201"/>
+<area shape="poly" id="edge9_Node000003_Node000010" title=" " alt="" coords="534,118,610,164,607,169,532,122"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="5,256,166,297"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="278,211,157,253,155,248,276,206"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="189,264,326,290"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="318,211,280,254,276,251,314,207"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="350,264,469,290"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="353,207,391,251,387,254,349,211"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="493,264,611,290"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="384,206,509,255,507,260,382,211"/>
+</map>

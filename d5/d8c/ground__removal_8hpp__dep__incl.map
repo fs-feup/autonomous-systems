@@ -1,0 +1,15 @@
+<map id="src/perception/include/ground_removal/ground_removal.hpp" name="src/perception/include/ground_removal/ground_removal.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="259,5,419,61"/>
+<area shape="rect" id="Node000002" href="$d9/dad/ransac_8hpp.html" title=" " alt="" coords="247,109,431,150"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="341,77,341,109,336,109,336,77"/>
+<area shape="rect" id="Node000003" href="$de/da5/perception__node_8hpp.html" title=" " alt="" coords="73,198,223,253"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="286,159,204,200,202,195,284,155"/>
+<area shape="rect" id="Node000006" href="$db/d67/ransac_8cpp.html" title=" " alt="" coords="247,205,431,246"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="341,165,341,205,336,205,336,165"/>
+<area shape="rect" id="Node000007" href="$d3/da8/ransac__test_8cpp.html" title=" " alt="" coords="455,205,585,246"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="391,155,483,202,481,207,389,160"/>
+<area shape="rect" id="Node000004" href="$d9/dc1/perception_8cpp.html" title=" " alt="" coords="5,309,131,350"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="119,267,85,310,81,307,115,264"/>
+<area shape="rect" id="Node000005" href="$dc/dfb/perception__node_8cpp.html" title=" " alt="" coords="155,301,304,357"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="181,264,210,299,205,302,177,267"/>
+</map>
