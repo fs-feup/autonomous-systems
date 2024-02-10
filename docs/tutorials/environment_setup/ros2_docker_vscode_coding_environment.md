@@ -17,13 +17,16 @@ Follow all the steps in [the tutorial video](https://www.youtube.com/watch?v=cND
 #### Extra for Windows
 
 Run Xlaunch from the start menu and perform the initial configuration.
-Make sure to save to configuration file before you click finish. Save it to one of the following locations: ```%appdata%\Xming %userprofile%\Desktop %userprofile%```
+Make sure to save to the configuration file before you click finish. Save it to one of the following locations: ```%appdata%\Xming %userprofile%\Desktop %userprofile%```
 
 [example of usage](https://www.youtube.com/watch?v=BDilFZ9C9mw)
 
 ### Docker Setup
 
-Create a .devcontainer folder in the root of this repository and add a devcontainer.json and Dockerfile to this .devcontainer folder. Additionally, you need to create a cache folder in which you can cache the build and install folders for different ROS 2 distros. Make sure to create the distro, build, log, and install folders.
+This step goes over how to set up a docker dev container as a development environment for our project. For more information on docker, there is a [tutorial further ahead](https://github.com/fs-feup/autonomous-systems/blob/main/docs/tutorials/docker-tutorial.md) in the startup guide that links some content for education on the topic.
+
+Create a ".devcontainer" folder in the root of this repository and add a "devcontainer.json" and "Dockerfile" to this .devcontainer folder (names and extensions as mentioned). Additionally, you need to create a cache folder in which you can cache the build and install folders for different ROS 2 distros. Make sure to create the distro, build, log, and install folders.
+
 ```ssh
 project_root
 ├── cache
@@ -31,8 +34,6 @@ project_root
 |   |   ├── build
 |   |   ├── install
 |   |   └── log
-|   └── ...
-|
 ├── .devcontainer
 │   ├── devcontainer.json
 │   └── Dockerfile
@@ -44,7 +45,6 @@ project_root
 For the Dev Container to function properly, we have to build it with the correct user. Therefore add the following to .devcontainer/devcontainer.json
 ```json
 {
-    {
     "name": "ROS 2 Development Container",
     "privileged": true,
     "remoteUser": "user",
@@ -94,8 +94,9 @@ For the Dev Container to function properly, we have to build it with the correct
 	"initializeCommand": "echo Initialize...."
 }
 ```
-With CTRL+F find "user" and replace it by your pc user (for sudo access). Run `echo $USERNAME` in the terminal if you don't know this.
+With CTRL+F find "user" and replace it by your pc user (for sudo access). Run `echo $USERNAME` or `echo $USER` in the terminal if you don't know this.
 Next, add the following to the Dockerfile
+
 ```dockerfile
 FROM ros:humble-ros-base-jammy
 ARG USERNAME=user
@@ -119,8 +120,8 @@ RUN apt install openssh-server -y
 RUN apt update
 RUN apt install python-is-python3 -y
 RUN pip3 install cpplint
+RUN pip install rosbags
 RUN apt install clang-format -y
-RUN curl -O https://www.doxygen.nl/files/doxygen-1.10.0.linux.bin.tar.gz && tar -xvzf doxygen-1.10.0.linux.bin.tar.gz && cd doxygen-1.10.0 && make install && cd .. && rm -rf doxygen-1.10.0 && rm doxygen-1.10.0.linux.bin.tar.gz
 ENV SHELL /bin/bash
 
 # ********************************************************
@@ -148,3 +149,35 @@ source /opt/ros/humble/setup.bash
 rviz2
 ```
 If all correct, should open a window with no errors.
+
+### Set Up C++ Extension
+
+1. Ctrl+Shift+P and write 'C/C++: Edit Configurations (UI)
+2. Scroll down to 'Include Path'
+3. Add this to the text box:
+    ```
+    ${workspaceFolder}/**
+    /opt/ros/humble/include/**
+    /usr/include/**
+    ```
+
+## Usage of the Environment
+
+### Notes
+
+The environment is all installed inside a docker container, which works like a lightweight virtual machine, having its own file system, etc. This means ROS2 and all other tools and libraries were not installed in your computer, but inside the container, meaning you won't have access to them in a shell/terminal connected to your computer. The terminal that VSCode opens when inside the docker container is a special terminal that automatically connects to the container, meaning it works inside it. Therefore, all work should be done inside this terminal. You can also [connect your own terminal application to the container](https://kodekloud.com/blog/docker-exec/). The folders between the container and your pc are synchronized with Docker Volumes, so any change in your pc will reflect in the docker and vice versa.
+
+Another important note: as described in the tutorial further ahead on Docker, docker images and docker containers are two different things. If you select rebuild and reopen container again, all changes you made to the container afterwards will be wiped out.
+
+Remember you will always have to run ```source /opt/ros/humble/setup.bash``` every time you open a shell in order to tell it where ROS2 is. If you don't want to do this all the time, add the line to your .bashrc file like so ```echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc```.
+
+### Steps for Usage
+
+1. If using Docker desktop and it does not start on start-up, open it.
+2. Open VSCode. If the last project opened in VSCode was this one, it should open inside the container rightaway. If not, proceed with the next steps.
+3. Select the remote connection extension on the left side bar.
+    ![Screenshot](../../assets/ros2_docker_setup/1.png)
+4. Click on the ws folder inside the docker container. Make sure you have the remote explorer selected to dev containers.
+5. Check that you are inside the docker container.
+    ![Screenshot](../../assets/ros2_docker_setup/2.png)
+6. Program
