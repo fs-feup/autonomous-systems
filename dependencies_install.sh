@@ -18,5 +18,9 @@ rospack find sensor_msgs -y
 sudo apt-get install libpcap-dev -y
 
 
-source /opt/ros/humble/setup.bash
+# rslidar_sdk
+sudo apt-get update
+sudo apt-get install -y libyaml-cpp-dev
+sudo apt-get install -y  libpcap-dev
 
+source /opt/ros/humble/setup.bash
