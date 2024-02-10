@@ -4,14 +4,16 @@
 
 class DBSCAN : public Clustering {
  private:
-    double n_neighbours;
-    int dist_threshold;
+    int n_neighbours;
+    double neighbours_dist_threshold;
+    double dist_threshold;
     int min_cluster_size;
 
  public:
 
-    DBSCAN(double epsilon, int n_tries);
+    DBSCAN(int n_neighbours, double neighbours_dist_threshold,
+           double dist_threshold, int min_cluster_size);
 
     void clustering(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
-                       pcl::PointCloud<pcl::PointXYZI>::Ptr ret) const override;
+            std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr>& clusters) const override;
 };
