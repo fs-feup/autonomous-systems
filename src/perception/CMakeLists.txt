@@ -21,6 +21,7 @@ find_package(pcl_conversions REQUIRED)
 set(IMPLEMENTATION_FILES 
   src/perception/perception_node.cpp
   src/ground_removal/ransac.cpp
+  src/clustering/dbscan.cpp
 )
 
 include_directories(${PCL_INCLUDE_DIRS})
