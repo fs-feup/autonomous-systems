@@ -86,7 +86,7 @@ The kiss-icp node is the node where the point cloud is recieved and the kiss-icp
 * max_points_per_voxel - This limits the number of points allowed within each voxel
 * fixed_threshold - The fixed_threshold defines the maximum allowed distance difference between a point and its candidate match (comparing the previous to the current frame)
 
-In most of the cases it should be enough to use the default parameters "as is". With this said, if needed, they can be changed inside the files (see the README in "/src/kiss-icp/config/README.md" to understand how to create a new config file), as well as using services available by the wrapper. To see this services just do:
+In most of the cases it should be enough to use the default parameters "as is". With this said, if needed, they can be changed inside the files (see the README in "autonomous-systems/lib/kiss-icp/config/README.md" to understand how to create a new config file), as well as using services available by the wrapper. To see this services just do:
 
 ```sh
 ros2 service list
