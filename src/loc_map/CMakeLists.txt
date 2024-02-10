@@ -8,12 +8,14 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
-find_package(Eigen3 REQUIRED)
+find_package (Eigen3 REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(custom_interfaces REQUIRED)
 find_package(eufs_msgs REQUIRED)
 find_package(fs_msgs REQUIRED)
+
+link_directories(${Eigen_INCLUDE_DIRS})
 
 set(IMPLEMENTATION_FILES 
   src/loc_map/lm_node.cpp
@@ -26,12 +28,17 @@ set(IMPLEMENTATION_FILES
   src/adapter/adapter.cpp
 )
 
+
 add_executable(${PROJECT_NAME} src/loc_map.cpp ${IMPLEMENTATION_FILES})
 ament_target_dependencies(${PROJECT_NAME} rclcpp std_msgs sensor_msgs eufs_msgs fs_msgs custom_interfaces Eigen3)
 target_include_directories(${PROJECT_NAME} PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
+
 target_compile_features(loc_map PUBLIC c_std_99 cxx_std_17)
+
+include_directories(${EIGEN_INCLUDE_DIR} ${EIGEN_ROOT_DIR})
+target_link_libraries(loc_map ${Eigen_LIBRARIES})
 
 install(TARGETS loc_map
   DESTINATION lib/${PROJECT_NAME})
