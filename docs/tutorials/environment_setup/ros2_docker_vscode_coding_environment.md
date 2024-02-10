@@ -120,6 +120,7 @@ RUN apt install openssh-server -y
 RUN apt update
 RUN apt install python-is-python3 -y
 RUN pip3 install cpplint
+RUN pip install rosbags
 RUN apt install clang-format -y
 ENV SHELL /bin/bash
 

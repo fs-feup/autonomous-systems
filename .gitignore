@@ -6,3 +6,6 @@
 **/log/*
 .devcontainer
 **/doxygen/html/** 
+**/bags/*
+*.bag
+*.db3
