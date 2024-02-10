@@ -1,6 +1,6 @@
 <map id="Track::validateCones" name="Track::validateCones">
 <area shape="rect" id="Node000001" title="Validate the cones in the track by deleting outliers." alt="" coords="283,105,425,131"/>
-<area shape="rect" id="Node000002" href="$d9/d1e/tests_8cpp.html#a079261152f3ac81df46a49a1b3fb0f2d" title=" " alt="" coords="108,80,235,106"/>
+<area shape="rect" id="Node000002" href="$d9/d1e/tests_8cpp.html#a079261152f3ac81df46a49a1b3fb0f2d" title="Test function for outlier removal&#39;s efficiency. Runs 100 times and calculates average duration." alt="" coords="108,80,235,106"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="267,109,235,104,236,99,268,104"/>
 <area shape="rect" id="Node000007" href="$d9/d1e/tests_8cpp.html#ac9d004c8db77da8d75a6229a398bfcba" title=" " alt="" coords="144,129,199,155"/>
 <area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="268,132,199,141,198,136,267,127"/>

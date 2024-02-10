@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['pathmockpublisher_0',['PathMockPublisher',['../d9/d84/classpath__planning__mock_1_1path__mock__publisher_1_1_path_mock_publisher.html',1,'path_planning_mock::path_mock_publisher']]],
+  ['pathpoint_0',['PathPoint',['../d9/d32/class_path_point.html',1,'']]],
   ['perception_1',['Perception',['../de/d07/class_perception.html',1,'']]],
   ['planning_2',['Planning',['../d9/db5/class_planning.html',1,'']]],
   ['plots_3',['Plots',['../d8/dee/classplots_1_1plots_1_1_plots.html',1,'plots::plots']]],

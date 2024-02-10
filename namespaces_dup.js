@@ -52,7 +52,6 @@ var namespaces_dup =
       [ "y", "dd/d6b/namespaceoffsettrack.html#a46b3906444c8b6a09043b680a5c2dd4b", null ],
       [ "y_values", "dd/d6b/namespaceoffsettrack.html#a3e5524acd402b6af74b3fe7fab06fd6f", null ]
     ] ],
-    [ "path_planning_mock", "dc/d64/namespacepath__planning__mock.html", "dc/d64/namespacepath__planning__mock" ],
     [ "plot_track", "dc/d1a/namespaceplot__track.html", [
       [ "c", "dc/d1a/namespaceplot__track.html#a09b7f1440e109d150d176d50da28a8e3", null ],
       [ "colorList", "dc/d1a/namespaceplot__track.html#abb40af2cfaf74a657e52243efa784a25", null ],
@@ -80,18 +79,11 @@ var namespaces_dup =
       [ "maintainer", "dd/dc4/namespacesetup.html#aa1a7cf9bbf76004bb72697dc00bbee9d", null ],
       [ "maintainer_email", "dd/dc4/namespacesetup.html#a92a81adbfdd219564d5246ce8d77f869", null ],
       [ "name", "dd/dc4/namespacesetup.html#ab3a7a0638d76a01367c5bc3cc699447f", null ],
-      [ "package_name", "dd/dc4/namespacesetup.html#ae1914c6379853aac13554579d9b6b4ec", null ],
+      [ "package_name", "dd/dc4/namespacesetup.html#a69903e4f05cebc9e005b22b36f5724eb", null ],
       [ "packages", "dd/dc4/namespacesetup.html#aff2375a361fd5865c77bd9aa093be747", null ],
       [ "tests_require", "dd/dc4/namespacesetup.html#a6369bb060267ccf90b93519796e7cc2c", null ],
       [ "version", "dd/dc4/namespacesetup.html#a2aa722b36a933088812b50ea79b97a5c", null ],
       [ "zip_safe", "dd/dc4/namespacesetup.html#a13510753661cb74083a0c664db11dde9", null ]
-    ] ],
-    [ "sim_conversor", "dc/dee/namespacesim__conversor.html", [
-      [ "color", "dc/dee/namespacesim__conversor.html#a3ccf3eb96f77e406f909a1ef98ed6a3b", null ],
-      [ "count", "dc/dee/namespacesim__conversor.html#a77d24ae19c04b6dfbbce3a7782651109", null ],
-      [ "data", "dc/dee/namespacesim__conversor.html#a4bd29887f6de9053a095ea2762f49e28", null ],
-      [ "f", "dc/dee/namespacesim__conversor.html#ab9cb2998d94a0ba6e642282fb9654a39", null ],
-      [ "strColor", "dc/dee/namespacesim__conversor.html#aff0a6ad2a1d7ab1e683a1ed83b8ec310", null ]
     ] ],
     [ "skidpad_mapper", "d2/de4/namespaceskidpad__mapper.html", [
       [ "shift", "d2/de4/namespaceskidpad__mapper.html#a525cc4232cf215956ee076464a1c476d", null ],
@@ -140,17 +132,12 @@ var namespaces_dup =
       [ "y_values1", "d7/dc1/namespacespline.html#a1bb02af9cadbf53b53d01fb995d5ef22", null ]
     ] ],
     [ "test_copyright", "d0/d36/namespacetest__copyright.html", [
-      [ "test_copyright", "d0/d36/namespacetest__copyright.html#a006aa5870d5f4a2f60991ed4868abe33", null ]
+      [ "test_copyright", "d0/d36/namespacetest__copyright.html#a2f0d547fdc7431d3dd7641ff4e01c102", null ]
     ] ],
     [ "test_flake8", "d9/d0d/namespacetest__flake8.html", [
-      [ "test_flake8", "d9/d0d/namespacetest__flake8.html#a982900ee0a36d4aa72c32b73dc1b3fdb", null ]
+      [ "test_flake8", "d9/d0d/namespacetest__flake8.html#aa03dada197705fd5e8d710de753ca95c", null ]
     ] ],
     [ "test_pep257", "d0/d5e/namespacetest__pep257.html", [
-      [ "test_pep257", "d0/d5e/namespacetest__pep257.html#ab7a6c2326534d69991f8f775f6e96f4d", null ]
-    ] ],
-    [ "track_mock_conversor", "dd/d15/namespacetrack__mock__conversor.html", [
-      [ "color_encoding", "dd/d15/namespacetrack__mock__conversor.html#aefabe3d8180673c615eeb84053ac733e", null ],
-      [ "data", "dd/d15/namespacetrack__mock__conversor.html#a9b242ec6136c806fb4ec644b173be1f2", null ],
-      [ "f", "dd/d15/namespacetrack__mock__conversor.html#a15ede6916338e4523723ffadf8e179d7", null ]
+      [ "test_pep257", "d0/d5e/namespacetest__pep257.html#a25dd726750a66bf2fc6439546bfdfcd9", null ]
     ] ]
 ];

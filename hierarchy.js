@@ -21,6 +21,7 @@ var hierarchy =
     ] ],
     [ "ObservationData", "d9/d90/struct_observation_data.html", null ],
     [ "ObservationModel", "d7/d64/class_observation_model.html", null ],
+    [ "PathPoint", "d9/d32/class_path_point.html", null ],
     [ "Pose", "d8/d11/struct_pose.html", null ],
     [ "plots.plots.Position", "d3/d6d/classplots_1_1plots_1_1_position.html", [
       [ "plots.plots.Cone", "db/d27/classplots_1_1plots_1_1_cone.html", null ],
@@ -35,7 +36,6 @@ var hierarchy =
     [ "Track", "d6/d2c/class_track.html", null ],
     [ "VehicleState", "de/dfe/struct_vehicle_state.html", null ],
     [ "Node", null, [
-      [ "path_planning_mock.path_mock_publisher.PathMockPublisher", "d9/d84/classpath__planning__mock_1_1path__mock__publisher_1_1_path_mock_publisher.html", null ],
       [ "plots.plots.Plots", "d8/dee/classplots_1_1plots_1_1_plots.html", null ]
     ] ]
 ];

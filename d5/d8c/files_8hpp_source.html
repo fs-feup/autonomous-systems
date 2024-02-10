@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Formula Student Autonomous Systems: src/planning/planning/include/utils/files.hpp Source File</title>
+<title>Formula Student Autonomous Systems: src/planning/include/utils/files.hpp Source File</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -108,10 +108,10 @@ $(document).ready(function(){initNavTree('d5/d8c/files_8hpp_source.html','../../
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;../planning/track.hpp&quot;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="../../d8/dd3/planning_2planning_2include_2utils_2position_8hpp.html">./position.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="../../d4/dd1/pathpoint_8hpp.html">./pathpoint.hpp</a>&quot;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;rclcpp/rclcpp.hpp&quot;</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>std::vector&lt;Position *&gt; <a class="code hl_function" href="../../d5/d8c/files_8hpp.html#abee730ce95a1c6e07b85e82fb3d7c2cf">read_path_file</a>(<span class="keyword">const</span> std::string &amp;filename);</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>std::vector&lt;PathPoint *&gt; <a class="code hl_function" href="../../d5/d8c/files_8hpp.html#a3e0a28fc547b70f244a9afff9ba15657">read_path_file</a>(<span class="keyword">const</span> std::string &amp;filename);</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>std::ofstream <a class="code hl_function" href="../../d5/d8c/files_8hpp.html#a257b6927df658c26c8eded5bf6d569d2">openWriteFile</a>(<span class="keyword">const</span> std::string &amp;filename);</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
@@ -119,20 +119,20 @@ $(document).ready(function(){initNavTree('d5/d8c/files_8hpp_source.html','../../
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="comment">// Track* read_track_file(const std::string&amp; filename);</span></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment">// void write_path_file(const std::string&amp; filename, std::vector&lt;Position*&gt;</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment">// void write_path_file(const std::string&amp; filename, std::vector&lt;PathPoint*&gt;</span></div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment">// path);</span></div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#endif  </span><span class="comment">// SRC_PLANNING_PLANNING_INCLUDE_UTILS_FILES_HPP_</span></div>
 <div class="ttc" id="afiles_8hpp_html_a257b6927df658c26c8eded5bf6d569d2"><div class="ttname"><a href="../../d5/d8c/files_8hpp.html#a257b6927df658c26c8eded5bf6d569d2">openWriteFile</a></div><div class="ttdeci">std::ofstream openWriteFile(const std::string &amp;filename)</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d8b/files_8cpp_source.html#l00022">files.cpp:22</a></div></div>
-<div class="ttc" id="afiles_8hpp_html_a440bc5364e11c37c13f14f7a0d1c7208"><div class="ttname"><a href="../../d5/d8c/files_8hpp.html#a440bc5364e11c37c13f14f7a0d1c7208">openReadFile</a></div><div class="ttdeci">std::ifstream openReadFile(const std::string &amp;filename)</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d8b/files_8cpp_source.html#l00029">files.cpp:29</a></div></div>
-<div class="ttc" id="afiles_8hpp_html_abee730ce95a1c6e07b85e82fb3d7c2cf"><div class="ttname"><a href="../../d5/d8c/files_8hpp.html#abee730ce95a1c6e07b85e82fb3d7c2cf">read_path_file</a></div><div class="ttdeci">std::vector&lt; Position * &gt; read_path_file(const std::string &amp;filename)</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d8b/files_8cpp_source.html#l00007">files.cpp:7</a></div></div>
-<div class="ttc" id="aplanning_2planning_2include_2utils_2position_8hpp_html"><div class="ttname"><a href="../../d8/dd3/planning_2planning_2include_2utils_2position_8hpp.html">position.hpp</a></div></div>
+<div class="ttc" id="afiles_8hpp_html_a3e0a28fc547b70f244a9afff9ba15657"><div class="ttname"><a href="../../d5/d8c/files_8hpp.html#a3e0a28fc547b70f244a9afff9ba15657">read_path_file</a></div><div class="ttdeci">std::vector&lt; PathPoint * &gt; read_path_file(const std::string &amp;filename)</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d8b/files_8cpp_source.html#l00007">files.cpp:7</a></div></div>
+<div class="ttc" id="afiles_8hpp_html_a440bc5364e11c37c13f14f7a0d1c7208"><div class="ttname"><a href="../../d5/d8c/files_8hpp.html#a440bc5364e11c37c13f14f7a0d1c7208">openReadFile</a></div><div class="ttdeci">std::ifstream openReadFile(const std::string &amp;filename)</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d8b/files_8cpp_source.html#l00034">files.cpp:34</a></div></div>
+<div class="ttc" id="apathpoint_8hpp_html"><div class="ttname"><a href="../../d4/dd1/pathpoint_8hpp.html">pathpoint.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../dir_46b0e589fccff8619305fc89ea463298.html">planning</a></li><li class="navelem"><a class="el" href="../../dir_ea581a7c20c42fb120be606ae70c23cf.html">planning</a></li><li class="navelem"><a class="el" href="../../dir_f489571871df2b16215e5440737a40fb.html">include</a></li><li class="navelem"><a class="el" href="../../dir_0662f0f0313ef38921abcae9e46f3ceb.html">utils</a></li><li class="navelem"><a class="el" href="../../d5/d8c/files_8hpp.html">files.hpp</a></li>
+    <li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../dir_46b0e589fccff8619305fc89ea463298.html">planning</a></li><li class="navelem"><a class="el" href="../../dir_40bf0790876c7902aa0163cf40811af2.html">include</a></li><li class="navelem"><a class="el" href="../../dir_97637c55d5d139afd0cf1525efeff486.html">utils</a></li><li class="navelem"><a class="el" href="../../d5/d8c/files_8hpp.html">files.hpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

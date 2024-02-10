@@ -1,7 +1,0 @@
-<map id="LocalPathPlanner::vector_direction" name="LocalPathPlanner::vector_direction">
-<area shape="rect" id="Node000001" title="Determine if two positions align in a certain direction." alt="" coords="5,23,172,64"/>
-<area shape="rect" id="Node000002" href="$d1/d26/struct_position.html#a252efaf275c7276a6f35338d198de7ee" title=" " alt="" coords="220,5,321,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="172,29,204,25,205,30,172,35"/>
-<area shape="rect" id="Node000003" href="$d1/d26/struct_position.html#a53ad8ec2f8383db4d615b3fc4e888f77" title=" " alt="" coords="220,55,321,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="172,52,205,56,204,62,172,57"/>
-</map>

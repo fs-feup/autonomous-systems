@@ -1,10 +1,5 @@
 var annotated_dup =
 [
-    [ "path_planning_mock", "dc/d64/namespacepath__planning__mock.html", [
-      [ "path_mock_publisher", "d5/d8d/namespacepath__planning__mock_1_1path__mock__publisher.html", [
-        [ "PathMockPublisher", "d9/d84/classpath__planning__mock_1_1path__mock__publisher_1_1_path_mock_publisher.html", "d9/d84/classpath__planning__mock_1_1path__mock__publisher_1_1_path_mock_publisher" ]
-      ] ]
-    ] ],
     [ "plots", "da/dc0/namespaceplots.html", [
       [ "plots", "d3/d43/namespaceplots_1_1plots.html", [
         [ "Cone", "db/d27/classplots_1_1plots_1_1_cone.html", "db/d27/classplots_1_1plots_1_1_cone" ],
@@ -31,6 +26,7 @@ var annotated_dup =
     [ "NormalVelocityModel", "d7/df9/class_normal_velocity_model.html", "d7/df9/class_normal_velocity_model" ],
     [ "ObservationData", "d9/d90/struct_observation_data.html", "d9/d90/struct_observation_data" ],
     [ "ObservationModel", "d7/d64/class_observation_model.html", "d7/d64/class_observation_model" ],
+    [ "PathPoint", "d9/d32/class_path_point.html", "d9/d32/class_path_point" ],
     [ "Perception", "de/d07/class_perception.html", "de/d07/class_perception" ],
     [ "Planning", "d9/db5/class_planning.html", "d9/db5/class_planning" ],
     [ "Pose", "d8/d11/struct_pose.html", "d8/d11/struct_pose" ],

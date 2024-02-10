@@ -1,9 +1,9 @@
 <map id="Track::reset" name="Track::reset">
 <area shape="rect" id="Node000001" title="Reset the track by clearing cone lists." alt="" coords="528,153,618,179"/>
-<area shape="rect" id="Node000002" href="$d9/d1e/tests_8cpp.html#a079261152f3ac81df46a49a1b3fb0f2d" title=" " alt="" coords="329,104,456,130"/>
+<area shape="rect" id="Node000002" href="$d9/d1e/tests_8cpp.html#a079261152f3ac81df46a49a1b3fb0f2d" title="Test function for outlier removal&#39;s efficiency. Runs 100 times and calculates average duration." alt="" coords="329,104,456,130"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="513,153,441,133,442,128,514,147"/>
-<area shape="rect" id="Node000007" href="$d3/da1/class_local_path_planner.html#ae64befc2d63ed4eb841f7d94e464625b" title="Process an array of cones to generate a local path." alt="" coords="304,174,480,215"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="513,178,481,183,480,178,513,173"/>
+<area shape="rect" id="Node000007" href="$d3/da1/class_local_path_planner.html#a47071d4f5dd1c080bf087089023d5382" title="Process an array of cones to generate a local path." alt="" coords="304,195,480,236"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="514,185,470,197,469,192,513,180"/>
 <area shape="rect" id="Node000003" href="$d9/d1e/tests_8cpp.html#aa39b06d40b7290dacc01a79720a31e09" title=" " alt="" coords="155,5,209,31"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="355,98,308,71,255,45,209,28,210,23,257,40,311,66,358,93"/>
 <area shape="rect" id="Node000004" href="$d9/d1e/tests_8cpp.html#a5436909e02106ab864f366dc30568a7d" title=" " alt="" coords="155,55,209,80"/>
@@ -12,14 +12,14 @@
 <area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="313,120,210,120,210,114,313,114"/>
 <area shape="rect" id="Node000006" href="$d9/d1e/tests_8cpp.html#a08dff1d6d2b732a0cd35660ad29e426e" title=" " alt="" coords="155,153,209,179"/>
 <area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="320,136,210,162,209,157,319,131"/>
-<area shape="rect" id="Node000008" href="$d9/d1e/tests_8cpp.html#aef57f8f537bed02c0940fcd1dde6144a" title=" " alt="" coords="108,203,256,228"/>
-<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="288,207,256,211,256,205,288,202"/>
-<area shape="rect" id="Node000009" href="$d9/d1e/tests_8cpp.html#afdc65423b0a5a3ca636f3aacfb1dba56" title=" " alt="" coords="5,128,60,154"/>
-<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="118,199,106,194,75,175,48,156,52,152,78,171,109,189,120,194"/>
-<area shape="rect" id="Node000010" href="$d9/d1e/tests_8cpp.html#aa4387a361b1943b82c6e9ef915917c12" title=" " alt="" coords="5,177,60,203"/>
-<area shape="poly" id="edge9_Node000008_Node000010" title=" " alt="" coords="92,203,60,197,61,192,93,198"/>
-<area shape="rect" id="Node000011" href="$d9/d1e/tests_8cpp.html#a978f4baa8d39fb740ed92fd44ba50933" title=" " alt="" coords="5,227,60,252"/>
-<area shape="poly" id="edge10_Node000008_Node000011" title=" " alt="" coords="93,233,60,238,60,233,92,227"/>
-<area shape="rect" id="Node000012" href="$d9/d1e/tests_8cpp.html#aaff9fd771beea10b1e522702042da27c" title=" " alt="" coords="5,276,60,302"/>
-<area shape="poly" id="edge11_Node000008_Node000012" title=" " alt="" coords="141,238,61,278,59,273,139,233"/>
+<area shape="rect" id="Node000008" href="$d9/d1e/tests_8cpp.html#a55704aa7075eaaa1347216362cef2762" title="Test function for Delaunay Triangulations&#39; efficiency. Runs 100 times to get average execution time." alt="" coords="108,203,256,228"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="288,218,256,218,256,213,288,213"/>
+<area shape="rect" id="Node000012" href="$d9/d1e/tests_8cpp.html#afdc65423b0a5a3ca636f3aacfb1dba56" title=" " alt="" coords="155,252,209,278"/>
+<area shape="poly" id="edge11_Node000007_Node000012" title=" " alt="" coords="289,242,210,261,209,256,288,237"/>
+<area shape="rect" id="Node000009" href="$d9/d1e/tests_8cpp.html#aa4387a361b1943b82c6e9ef915917c12" title=" " alt="" coords="5,153,60,179"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="124,200,107,194,59,178,61,173,109,189,126,195"/>
+<area shape="rect" id="Node000010" href="$d9/d1e/tests_8cpp.html#a978f4baa8d39fb740ed92fd44ba50933" title=" " alt="" coords="5,203,60,228"/>
+<area shape="poly" id="edge9_Node000008_Node000010" title=" " alt="" coords="92,218,60,218,60,213,92,213"/>
+<area shape="rect" id="Node000011" href="$d9/d1e/tests_8cpp.html#aaff9fd771beea10b1e522702042da27c" title=" " alt="" coords="5,252,60,278"/>
+<area shape="poly" id="edge10_Node000008_Node000011" title=" " alt="" coords="126,236,109,242,61,258,59,253,107,237,124,231"/>
 </map>

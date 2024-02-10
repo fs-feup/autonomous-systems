@@ -1,5 +1,5 @@
 <map id="outlierCalculations" name="outlierCalculations">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,131,133,156"/>
+<area shape="rect" id="Node000001" title="Test function for outlier removal&#39;s efficiency. Runs 100 times and calculates average duration." alt="" coords="5,131,133,156"/>
 <area shape="rect" id="Node000002" href="$d6/d2c/class_track.html#af563702e457e6b2da5e127a7981b9453" title="Fill the track data from a file." alt="" coords="199,55,305,80"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,128,204,84,206,89,103,133"/>
 <area shape="rect" id="Node000005" href="$dd/d8b/files_8cpp.html#a257b6927df658c26c8eded5bf6d569d2" title=" " alt="" coords="585,92,686,118"/>
