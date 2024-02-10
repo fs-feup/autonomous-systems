@@ -94,9 +94,9 @@ $(document).ready(function(){initNavTree('d7/d37/md_src_2_r_e_a_d_m_e.html','../
   <div class="headertitle"><div class="title">Contributing</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md45"></a> This guide aims to clarify the necessary steps for creating code that will result in an accepting pull request following the project's norms.</p>
+<div class="textblock"><p><a class="anchor" id="autotoc_md55"></a> This guide aims to clarify the necessary steps for creating code that will result in an accepting pull request following the project's norms.</p>
 <p>You work with your <b>shell always in the root directory</b>. In it, you can find mutiple scripts that will help you on the upcoming tasks. You need to install the tools in this file to contribute. The tutorials listed before this one on the Startup Guide should have given you a decent insight on their purposes and how to use them in this project.</p>
-<h1><a class="anchor" id="autotoc_md46"></a>
+<h1><a class="anchor" id="autotoc_md56"></a>
 Natural Workflow</h1>
 <ul>
 <li>Run dependencies_install.sh script to make sure everything is installed: <code>./dependencies_install.sh</code></li>
@@ -121,9 +121,9 @@ Natural Workflow</h1>
 <div class="line">git push</div>
 </div><!-- fragment --> Note that the commit message should more or less follow the <a href="https://www.conventionalcommits.org/en/v1.0.0-beta.4/">Conventional Commits norms</a></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md47"></a>
+<h1><a class="anchor" id="autotoc_md57"></a>
 Notes on Nodes, Packages, Compiling, Executing and Dependencies</h1>
-<h2><a class="anchor" id="autotoc_md48"></a>
+<h2><a class="anchor" id="autotoc_md58"></a>
 Compile and Run Extended</h2>
 <p>If you only wish to <b>compile specific packages</b>, you can use the following command: </p><div class="fragment"><div class="line">colcon build --packages-select [your package and others necessary]</div>
 </div><!-- fragment --><p> Alternatively, to <b>compile everything</b>, execute: </p><div class="fragment"><div class="line">colcon build --symlink--install # Extra required for perception</div>
@@ -132,7 +132,7 @@ Compile and Run Extended</h2>
 <div class="fragment"><div class="line">source install/setup.bash</div>
 </div><!-- fragment --><div class="fragment"><div class="line">ros2 run [package_name] [node_name]</div>
 </div><!-- fragment --><p>You can also change the <b>log configurations</b> of the running node: </p><div class="fragment"><div class="line">ros2 run [package_name] [node_name] --ros-args --log-level [node_name]:=[log_level] # Can be warn, error, info and debug</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md49"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md59"></a>
 Compilation Dependencies</h2>
 <p><br  />
 </p>
@@ -152,7 +152,7 @@ Compilation Dependencies</h2>
 </table>
 <p><br  />
 </p>
-<h2><a class="anchor" id="autotoc_md50"></a>
+<h2><a class="anchor" id="autotoc_md60"></a>
 Testing</h2>
 <p>The mechanism associated with running the <b>unit and integration tests</b> developed for each node is similar to the compilation one, as it also uses colcon. If you only wish to <b>run specific packages' tests</b>, you can use the following command: </p><div class="fragment"><div class="line">colcon test --packages-select [your package and others necessary]</div>
 </div><!-- fragment --><p> Alternatively, to <b>run all tests</b>, execute: </p><div class="fragment"><div class="line">colcon test</div>

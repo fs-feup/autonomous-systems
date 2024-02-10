@@ -13,6 +13,7 @@ var hierarchy =
     [ "MotionUpdate", "db/d6d/struct_motion_update.html", null ],
     [ "rclcpp::Node", null, [
       [ "LMNode", "dd/db3/class_l_m_node.html", null ],
+      [ "LateralControl", "d4/d45/class_lateral_control.html", null ],
       [ "LongitudinalControl", "d4/de8/class_longitudinal_control.html", null ],
       [ "Perception", "de/d07/class_perception.html", null ],
       [ "Planning", "d9/db5/class_planning.html", null ],

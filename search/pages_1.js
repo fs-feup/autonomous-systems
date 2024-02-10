@@ -1,5 +1,6 @@
 var searchData=
 [
   ['changelog_0',['Changelog',['../dc/d24/md_src_2eufs__msgs_2_c_h_a_n_g_e_l_o_g.html',1,'']]],
-  ['contributing_1',['Contributing',['../d7/d37/md_src_2_r_e_a_d_m_e.html',1,'']]]
+  ['contributing_1',['Contributing',['../d7/d37/md_src_2_r_e_a_d_m_e.html',1,'']]],
+  ['control_20package_2',['Lateral Control Package',['../dd/d4c/md_src_2lateral__control_2_r_e_a_d_m_e.html',1,'']]]
 ];

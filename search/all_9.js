@@ -18,5 +18,5 @@ var searchData=
   ['friend_5ftest_15',['FRIEND_TEST',['../dd/db3/class_l_m_node.html#a31ef40f5f95576c34bda830dcdd88c68',1,'LMNode']]],
   ['fs_20feup_20autonomous_20systems_16',['FS-FEUP Autonomous Systems',['../index.html#autotoc_md0',1,'']]],
   ['fsds_17',['fsds',['../d4/d32/loc__map_2include_2adapter_2adapter_8hpp.html#a46c8a310cf4c094f8c80e1cb8dc1f911ac7d06d82a7f2d8db319d5d711e7b8f20',1,'adapter.hpp']]],
-  ['full_20documentation_18',['full documentation',['../d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md25',1,'Full Documentation'],['../d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md38',1,'Full Documentation']]]
+  ['full_20documentation_18',['full documentation',['../dd/d4c/md_src_2lateral__control_2_r_e_a_d_m_e.html#autotoc_md25',1,'Full Documentation'],['../d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md35',1,'Full Documentation'],['../d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md48',1,'Full Documentation']]]
 ];
