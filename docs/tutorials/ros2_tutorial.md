@@ -552,7 +552,7 @@ ros2 run [package_name] [node_name] --ros-args --log-level [level]
 
 ## ROS BAGs
 
-ROS Bags are a method of storing information on the messages going through a ROS system at a given point in time. It is, therefore, a method of storing information of robotics, as information in ROS systems is always in the form of messages going through topics or services. Essentially, it is a way to freeze a ROS moment in time to play it back later. Bags can be easily recorded by using the ```ros2 bag record``` command, which allows for recording one or multiple topics or streams ot data at a time. ```ros2 bag play``` is used to playback a ros2 bag after is has been recorded, providing the originated folder in the previous step as argument.
+ROS Bags are a method of storing information on the messages going through a ROS system at a given point in time. It is, therefore, a method of storing information of robotics, as information in ROS systems is always in the form of messages going through topics or services. Essentially, it is a way to freeze a ROS moment in time to play it back later. Bags can be easily recorded by using the ```ros2 bag record``` command, which allows for recording one or multiple topics or streams of data at a time. ```ros2 bag play``` is used to playback a ros2 bag after is has been recorded, providing the originated folder in the previous step as argument.
 
 In ROS1, bags had their own format (.bag). In ROS2, they are formed by a folder containing a .yaml metadata file and a .db3 database file. You can use an handy tool to convert between ROS1 and ROS2 formats called rosbags. Install it via pip:
 
@@ -566,7 +566,7 @@ To use it to convert from ROS1 to ROS2:
 rosbags-convert ros1bag.bag --dst ./ros2bag/
 ```
 
-ROS Bags will be stored in the drive of the team in [this folder](https://drive.google.com/drive/u/2/folders/137Hw0NdZebkGi6DKBwr099P10TXo0yyP), inside the Simulation & Infrastructure subsystem, due to their large file size making them impractical to use with git.
+ROS Bags will be stored in the drive of the team in [this folder](https://drive.google.com/drive/u/2/folders/137Hw0NdZebkGi6DKBwr099P10TXo0yyP), inside the Simulation & Infrastructure subsystem, due to their large file size making them impractical to use with git. Despite this, you can create a 'bags' folder in the root of this repository for your own use, as it will be ignored.
 
 ## RQT
 
