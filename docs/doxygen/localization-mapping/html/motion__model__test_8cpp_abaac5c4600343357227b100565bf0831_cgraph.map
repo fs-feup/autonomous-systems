@@ -1,9 +1,0 @@
-<map id="TEST" name="TEST">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,56,60,81"/>
-<area shape="rect" id="Node000002" href="$classNormalVelocityModel.html#a4cc51e8d60df5f14946b94ec3ad9d874" title="Calculate state covariance matrix from velocity model using normal motion data Uses translation veloc..." alt="" coords="117,5,281,60"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,60,103,51,104,56,61,65"/>
-<area shape="rect" id="Node000003" href="$classNormalVelocityModel.html#a32beb590c4af5f21172b64b34d5f3ea1" title="Calculate expected state vector from velocity model using normal motion data Uses translation velocit..." alt="" coords="108,85,291,125"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="61,72,95,79,94,85,60,77"/>
-<area shape="rect" id="Node000004" href="$formulas_8cpp.html#a5dda4c5d809de2f2716a49c5703a6f60" title="Function to keep angle between 0 and 2Pi radians." alt="" coords="339,92,469,117"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="291,102,325,102,325,107,291,107"/>
-</map>

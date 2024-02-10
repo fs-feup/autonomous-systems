@@ -217,11 +217,27 @@ git push
 
 If you are already comfortable with Git, the next step is to follow [this tutorial](./contribute.md), which provides tips on cloning the project, installing its dependencies, compiling the code, and running and testing the code. However, here are some additional pieces of advice:
 
-1. **Commit Rules**
+### Commit Rules
 
-There are git norms that must be respected. They can be found among the rules of the project.
+There are git norms that must be respected. They essentially enforce following the [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) logic. Below is presented the logic simplified:
 
-2. **Pull Requests**
+```sh
+git commit -m "<commit type>(<scope>): <description>" 
+```
+
+Commit types:
+- **ref**: refactor (improve something)
+- **fix**: fix something broken
+- **feat**: add new functionality
+- **docs**: documentation related
+- **core**: related to chore functionalities of the repo
+- (some other you make up if you need, as long as it is perceptible)
+
+You can combine two types like so: "docs-fix(...".
+
+The scope is to which part of the repo changes apply ('loc_map', 'perception', 'static_tools', etc.). There is no limit to the options. If it is something general, it may not have scope.
+
+### Pull Requests
 
 Directly committing to the main (dev) branch should be avoided. Instead, you should create a branch for your development and create a pull request for review when you believe that your work is complete and can be added to the dev branch.
 
@@ -250,6 +266,12 @@ A rebase is kind of like the reverse of a merge. Essentially, when you are in a 
 ![After Rebase](../assets/git_tutorial/rebase2.svg)
 
 Contrarily to a merge, these updates will be included before any commits that you have introduced instead of after. Beware that this operation is also susceptible to merge conflicts.
+
+You can also use git rebase to rename and restructure the commits made (like squashing them), with interactive rebase:
+```sh
+git rebase -i HEAD~3
+```
+The example allows you to edit the last 3 commits.
 
 ### Git stash
 
