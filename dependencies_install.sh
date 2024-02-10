@@ -15,6 +15,7 @@ sudo apt-get install ros-humble-pcl-conversions -y
 sudo apt-get install ros-humble-pcl-ros -y
 sudo apt install rospack-tools -y
 rospack find sensor_msgs -y
+sudo apt-get install libpcap-dev -y
 
 
 source /opt/ros/humble/setup.bash
