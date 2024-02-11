@@ -26,11 +26,13 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
 
     std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> clusters;
 
-    clustering->clustering(ground_removed_cloud, clusters);
+    clustering->clustering(ground_removed_cloud, &clusters);
 
     RCLCPP_INFO(this->get_logger(), "---------- Point Cloud Received ----------");
-    RCLCPP_INFO(this->get_logger(), "Point Cloud Before Ground Removal: %ld points", pcl_cloud->points.size());
-    RCLCPP_INFO(this->get_logger(), "Point Cloud After Ground Removal: %ld points", ground_removed_cloud->points.size());
-    RCLCPP_INFO(this->get_logger(), "Point Cloud after Clustering: %ld clusters", clusters.size());
-
+    RCLCPP_INFO(this->get_logger(), "Point Cloud Before Ground Removal: %ld points",
+        pcl_cloud->points.size());
+    RCLCPP_INFO(this->get_logger(), "Point Cloud After Ground Removal: %ld points",
+        ground_removed_cloud->points.size());
+    RCLCPP_INFO(this->get_logger(), "Point Cloud after Clustering: %ld clusters",
+        clusters.size());
 }

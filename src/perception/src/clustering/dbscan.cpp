@@ -3,15 +3,13 @@
 #include <pcl/kdtree/kdtree_flann.h>
 
 
-DBSCAN::DBSCAN(int n_neighbours, double neighbours_dist_threshold, 
-               double dist_threshold, int min_cluster_size) 
-               : n_neighbours(n_neighbours), neighbours_dist_threshold(neighbours_dist_threshold),
-                 dist_threshold(dist_threshold), min_cluster_size(min_cluster_size) {}
+DBSCAN::DBSCAN(int min_cluster_size, double neighbours_dist_threshold)
+               : min_cluster_size(min_cluster_size),
+                 neighbours_dist_threshold(neighbours_dist_threshold) {}
 
 
 void DBSCAN::clustering(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
-                        std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr>& clusters) const {
-
+                    std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr>* clusters) const {
     pcl::search::KdTree<pcl::PointXYZI>::Ptr tree(new pcl::search::KdTree<pcl::PointXYZI>);
     tree->setInputCloud(point_cloud);
 
@@ -33,6 +31,6 @@ void DBSCAN::clustering(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
         cluster->width = cluster->size();
         cluster->height = 1;
         cluster->is_dense = true;
-        clusters.push_back(cluster);
+        clusters->push_back(cluster);
     }
 }
