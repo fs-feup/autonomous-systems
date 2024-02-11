@@ -51,6 +51,10 @@ For each of the approaches, there are different steps here:
 5. **Direct installation on Ubuntu** - Follow [this tutorial](./environment_setup/ros2_setup.md)
 6. **Direct installation on Windows WSL** - Follow [this tutorial](./environment_setup/ros2_setup.md)
 
+## Simulator Setup
+
+The simulator requires Ubuntu to work (or WSL). The tutorial regarding its setup is [here](./environment_setup/fsds_setup.md).
+
 ## Other tools
 
 ### C/C++ VSCode Syntax Analysis Extension
