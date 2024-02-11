@@ -6,7 +6,6 @@
 
 class Clustering {
  public:
-
-        virtual void clustering(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
-                           std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr>& clusters) const = 0;
+       virtual void clustering(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
+                           std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr>* clusters) const = 0;
 };

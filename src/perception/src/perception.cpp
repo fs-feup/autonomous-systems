@@ -7,7 +7,7 @@ int main(int argc, char** argv) {
 
   auto ground_removal = new RANSAC(0.1, 1000);
 
-  auto clustering = new DBSCAN(10, 0.2, 0.2, 5);
+  auto clustering = new DBSCAN(0, 0);
 
   auto node = std::make_shared<Perception>(ground_removal, clustering);
 
