@@ -1,6 +1,11 @@
 #include <gtest/gtest.h>
 #include "clustering/dbscan.hpp"
 
+/**
+ * @brief Test fixture for the DBSCAN class.
+ * 
+ * The DBSCANTest class provides a test fixture for testing the DBSCAN clustering algorithm.
+ */
 class DBSCANTest : public ::testing::Test {
  protected:
     void SetUp() override {
@@ -19,6 +24,10 @@ class DBSCANTest : public ::testing::Test {
 };
 
 
+/**
+ * @brief Minimum values for cluster size and distance threshold
+ * 
+ */
 TEST_F(DBSCANTest, Test1) {
     auto clustering = new DBSCAN(0, 0);
 
@@ -29,7 +38,10 @@ TEST_F(DBSCANTest, Test1) {
 }
 
 
-
+/**
+ * @brief Large distance threshold (Expecting two clusters).
+ * 
+ */
 TEST_F(DBSCANTest, Test2) {
     auto clustering = new DBSCAN(0, 30);
 
@@ -39,7 +51,10 @@ TEST_F(DBSCANTest, Test2) {
     ASSERT_EQ(clusters.size(), 2);
 }
 
-
+/**
+ * @brief Minimum cluster size requirement with one outlier (Expecting one large cluster).
+ * 
+ */
 TEST_F(DBSCANTest, Test3) {
     auto clustering = new DBSCAN(2, 30);
 
@@ -49,8 +64,10 @@ TEST_F(DBSCANTest, Test3) {
     ASSERT_EQ(clusters.size(), 1);
 }
 
-
-
+/**
+ * @brief Large distance threshold (Expecting one large cluster)
+ * 
+ */
 TEST_F(DBSCANTest, Test4) {
     auto clustering = new DBSCAN(0, 50);
 
@@ -60,6 +77,10 @@ TEST_F(DBSCANTest, Test4) {
     ASSERT_EQ(clusters.size(), 1);
 }
 
+/**
+ * @brief Smaller distance threshold (Expecting multiple clusters)
+ * 
+ */
 TEST_F(DBSCANTest, Test5) {
     auto clustering = new DBSCAN(0, 1.5);
 
@@ -69,6 +90,10 @@ TEST_F(DBSCANTest, Test5) {
     ASSERT_EQ(clusters.size(), 5);
 }
 
+/**
+ * @brief Minimum cluster size requirement with small distance threshold 
+ * 
+ */
 TEST_F(DBSCANTest, Test6) {
     auto clustering = new DBSCAN(2, 1.5);
 
@@ -78,6 +103,10 @@ TEST_F(DBSCANTest, Test6) {
     ASSERT_EQ(clusters.size(), 1);
 }
 
+/**
+ * @brief Small distance threshold (Expecting all points as separate clusters)
+ * 
+ */
 TEST_F(DBSCANTest, Test7) {
     auto clustering = new DBSCAN(0, 0.4);
 
@@ -87,6 +116,10 @@ TEST_F(DBSCANTest, Test7) {
     ASSERT_EQ(clusters.size(), 8);
 }
 
+/**
+ * @brief Distance for aggregate the two nearest points (Expecting one less cluster).
+ * 
+ */
 TEST_F(DBSCANTest, Test8) {
     auto clustering = new DBSCAN(0, 0.6);
 
@@ -96,6 +129,10 @@ TEST_F(DBSCANTest, Test8) {
     ASSERT_EQ(clusters.size(), 7);
 }
 
+/**
+ * @brief Large minimum cluster size requirement (Expecting no clusters).
+ * 
+ */
 TEST_F(DBSCANTest, Test9) {
     auto clustering = new DBSCAN(10, 50);
 
@@ -105,7 +142,10 @@ TEST_F(DBSCANTest, Test9) {
     ASSERT_EQ(clusters.size(), 0);
 }
 
-
+/**
+ * @brief Small minimum cluster size requirement with very small distance 
+ * 
+ */
 TEST_F(DBSCANTest, Test10) {
     auto clustering = new DBSCAN(1, 0.1);
 
