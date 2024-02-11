@@ -119,6 +119,15 @@ class Track {
    * @return True if the direction is consistent, false otherwise.
    */
   bool vector_direction(Cone *c1, Cone *c2, float prev_vx, float prev_vy);
+
+  /**
+   * @brief Order the cones before fitting splines
+   *
+   * @param unord_cone_seq Unordered array of cones
+   * @return Ordered array of cones
+  */
+  std::vector<Cone *> orderCones(std::vector<Cone *> &unord_cone_seq);
+
   /**
    * @brief Validate the cones in the track by deleting outliers.
    *

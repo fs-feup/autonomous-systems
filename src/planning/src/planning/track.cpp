@@ -105,58 +105,7 @@ bool Track::vector_direction(Cone *c1, Cone *c2, float prev_vx, float prev_vy) {
   return (vx * prev_vx + vy * prev_vy) > 0;
 }
 
-int Track::validateCones() {
-  int leftOutliers = deleteOutliers(1, 1.5, 3, 3, false);
-  int rightOutliers = deleteOutliers(0, 1.5, 3, 3, false);
-
-  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Deleted %i leftOutliers and %i right outliers\n",
-              leftOutliers, rightOutliers);
-  return leftOutliers + rightOutliers;
-}
-
-int Track::deleteOutliers(bool side, float distance_threshold, int order, float coeffs_ratio,
-                          bool writing) {
-  std::vector<Cone *> &unord_cone_seq = side ? leftCones : rightCones;
-  // if side = 1(left) | = 0(right)
-
-  const int n = unord_cone_seq.size();
-  const int ncoeffs = n / coeffs_ratio;  // n > = ncoeffs
-  const int nbreak = ncoeffs - order + 2;
-
-  if (nbreak < 2) {
-    RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "Too few points to calculate spline\n");
-    return 0;
-  }
-
-  // Initialize vars (pointers)
-  gsl_bspline_workspace *bw, *cw;
-  gsl_vector *B, *C;
-  gsl_vector *c, *c2, *w;
-  gsl_vector *x_values, *y_values, *i_values;
-  gsl_matrix *X, *Y, *cov, *cov2;
-  gsl_multifit_linear_workspace *mw, *mw2;
-  double chisq, chisq2;
-
-  // allocate memory for the actual objects the pointers will point to
-  bw = gsl_bspline_alloc(order, nbreak);
-  cw = gsl_bspline_alloc(order, nbreak);
-  B = gsl_vector_alloc(ncoeffs);
-  C = gsl_vector_alloc(ncoeffs);
-
-  i_values = gsl_vector_alloc(n);
-  x_values = gsl_vector_alloc(n);
-  y_values = gsl_vector_alloc(n);
-
-  X = gsl_matrix_alloc(n, ncoeffs);
-  Y = gsl_matrix_alloc(n, ncoeffs);
-  c = gsl_vector_alloc(ncoeffs);
-  c2 = gsl_vector_alloc(ncoeffs);
-  w = gsl_vector_alloc(n);
-  cov = gsl_matrix_alloc(ncoeffs, ncoeffs);
-  cov2 = gsl_matrix_alloc(ncoeffs, ncoeffs);
-  mw = gsl_multifit_linear_alloc(n, ncoeffs);
-  mw2 = gsl_multifit_linear_alloc(n, ncoeffs);
-
+std::vector<Cone *> Track::orderCones(std::vector<Cone *> &unord_cone_seq){
   // Order cone_array
   // The algorithm works by iteratively selecting the nearest unvisited
   // cone to the current cone and updating the traversal direction accordingly.
@@ -201,6 +150,40 @@ int Track::deleteOutliers(bool side, float distance_threshold, int order, float 
 
     cone_seq.push_back(nn_unord_cone_seq[min_index].first);  // add cone to ordered sequence
   }
+  return cone_seq;
+}
+
+std::vector<std::pair<double, double>> fitSpline (bool side, bool writing, int order
+, const int nbreak, const int ncoeffs, const int n, std::vector<Cone *> cone_seq){
+  // Initialize vars (pointers)
+  gsl_bspline_workspace *bw, *cw;
+  gsl_vector *B, *C;
+  gsl_vector *c, *c2, *w;
+  gsl_vector *x_values, *y_values, *i_values;
+  gsl_matrix *X, *Y, *cov, *cov2;
+  gsl_multifit_linear_workspace *mw, *mw2;
+  double chisq, chisq2;
+
+  // allocate memory for the actual objects the pointers will point to
+  bw = gsl_bspline_alloc(order, nbreak);
+  cw = gsl_bspline_alloc(order, nbreak);
+  B = gsl_vector_alloc(ncoeffs);
+  C = gsl_vector_alloc(ncoeffs);
+
+  i_values = gsl_vector_alloc(n);
+  x_values = gsl_vector_alloc(n);
+  y_values = gsl_vector_alloc(n);
+
+  X = gsl_matrix_alloc(n, ncoeffs);
+  Y = gsl_matrix_alloc(n, ncoeffs);
+  c = gsl_vector_alloc(ncoeffs);
+  c2 = gsl_vector_alloc(ncoeffs);
+  w = gsl_vector_alloc(n);
+  cov = gsl_matrix_alloc(ncoeffs, ncoeffs);
+  cov2 = gsl_matrix_alloc(ncoeffs, ncoeffs);
+  mw = gsl_multifit_linear_alloc(n, ncoeffs);
+  mw2 = gsl_multifit_linear_alloc(n, ncoeffs);
+
 
   // Set spline data
   for (int i = 0; i < n; i++) {
@@ -234,6 +217,24 @@ int Track::deleteOutliers(bool side, float distance_threshold, int order, float 
   gsl_multifit_wlinear(X, w, x_values, c, cov, &chisq, mw);
   gsl_multifit_wlinear(Y, w, y_values, c2, cov2, &chisq2, mw2);
 
+
+  //Log spline coefficients held in gsl_vectors c and c2
+  double *it = c->data;
+  double *it2 = c2->data;
+  std::string  accx= "spline coefficients in x: ";
+  std::string  accy= "spline coefficients in y: ";
+  for (int t=0; t<ncoeffs; t++){
+    accx += std::to_string(*it);
+    accx += " ";
+    accy += std::to_string(*it2);
+    accy += " ";
+    it++;
+    it2++;
+  }
+  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "%s\n", accx.c_str());
+  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "%s\n", accy.c_str());
+
+
   double xi, yi, yerr, yerr2;
   int divs = 10;
   std::vector<double> i_eval, x_eval, y_eval;
@@ -256,21 +257,6 @@ int Track::deleteOutliers(bool side, float distance_threshold, int order, float 
       }
     }
   }
-
-  // Delete Outliers
-  int outlierCount = 0;
-
-  for (int i = 0; i < n; i++) {
-    int index = i - outlierCount;  // decrease iterator indeleted indexes
-    double dist = sqrt(pow(cone_seq[index]->getX() - cone_seq_eval[i].first, 2) +
-                       pow(cone_seq[index]->getY() - cone_seq_eval[i].second, 2));
-    if (dist > distance_threshold) {
-      cone_seq.erase(cone_seq.begin() + index);
-      outlierCount++;
-    }
-  }
-
-  unord_cone_seq = cone_seq;
 
   // Free Memory
   gsl_bspline_free(bw);
@@ -304,6 +290,52 @@ int Track::deleteOutliers(bool side, float distance_threshold, int order, float 
       outlierPathFile << cone_seq[i]->getX() << " " << cone_seq[i]->getY() << "\n";
     outlierPathFile.close();
   }
+
+  return cone_seq_eval;
+}
+
+int Track::validateCones() {
+  int leftOutliers = deleteOutliers(1, 1.5, 3, 3, false);
+  int rightOutliers = deleteOutliers(0, 1.5, 3, 3, false);
+
+  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Deleted %i leftOutliers and %i right outliers\n",
+              leftOutliers, rightOutliers);
+  return leftOutliers + rightOutliers;
+}
+
+int Track::deleteOutliers(bool side, float distance_threshold, int order, float coeffs_ratio,
+                          bool writing) {
+  std::vector<Cone *> &unord_cone_seq = side ? leftCones : rightCones;
+  // if side = 1(left) | = 0(right)
+
+  const int n = unord_cone_seq.size();
+  const int ncoeffs = n / coeffs_ratio;  // n > = ncoeffs
+  const int nbreak = ncoeffs - order + 2;
+
+  if (nbreak < 2) {
+    RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "Too few points to calculate spline\n");
+    return 0;
+  }
+
+  std::vector<Cone *> cone_seq  = orderCones(unord_cone_seq);
+
+  std::vector<std::pair<double, double>> cone_seq_eval = fitSpline(side, writing, order,
+  nbreak, ncoeffs, n, cone_seq);
+
+  // Delete Outliers
+  int outlierCount = 0;
+
+  for (int i = 0; i < n; i++) {
+    int index = i - outlierCount;  // decrease iterator indeleted indexes
+    double dist = sqrt(pow(cone_seq[index]->getX() - cone_seq_eval[i].first, 2) +
+                       pow(cone_seq[index]->getY() - cone_seq_eval[i].second, 2));
+    if (dist > distance_threshold) {
+      cone_seq.erase(cone_seq.begin() + index);
+      outlierCount++;
+    }
+  }
+
+  unord_cone_seq = cone_seq;
 
   return outlierCount;
 }
