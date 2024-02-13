@@ -16,6 +16,18 @@ git rebase -i HEAD~3
 ```
 The example allows you to edit the last 3 commits. Just follow the instructions on your text editor, which will open and close multiple times, asking you what actions you want to perform and to rename or select the commits to leave/squash, etc.
 
+The pictures below showcase the process of squashing one commit and renaming another one:
+1. Log before
+    ![Screenshot 1](../assets/git_advanced_tutorial/Screenshot%20from%202024-02-13%2017-10-39.png)
+2. First text editor: choose actions
+    ![Screenshot 2](../assets/git_advanced_tutorial/Screenshot%20from%202024-02-13%2017-11-28.png)
+3. Second text editor: Reword
+    ![Screenshot 3](../assets/git_advanced_tutorial/Screenshot%20from%202024-02-13%2017-11-51.png)
+4. Third text editor: choose the commit message to keep after squashing
+    ![Screenshot 4](../assets/git_advanced_tutorial/Screenshot%20from%202024-02-13%2017-12-11.png)
+5. Log afterwards
+    ![Screenshot 5](../assets/git_advanced_tutorial/Screenshot%20from%202024-02-13%2017-12-18.png)
+
 
 ## Git stash
 

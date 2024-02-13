@@ -245,6 +245,8 @@ Every pull request must have a reviewer who must approve the pull request. Addit
 
 Another point worth noting is that we use a trunk based development system, where we have one main branch and multiple temporary (feature) branches, where all the work is done. The work is introduced in the main branch through **pull requests**.
 
+Finally, use **Squash Merge** to reduce the amount of commits in the main branch to one commit per pull request, so it is easier to identify where things came from.
+
 ### How to Make Pull Requests
 
 Pull Requests are like requests for merging your changes with the main branch. When you want to develop something, you create a new branch from the main one and start doing stuff. You should make regular commits, as it will help if you want to backtrack. When you are finished, you run:
