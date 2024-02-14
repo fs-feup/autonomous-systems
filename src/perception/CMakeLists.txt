@@ -21,7 +21,7 @@ find_package(pcl_conversions REQUIRED)
 set(IMPLEMENTATION_FILES 
   src/perception/perception_node.cpp
   src/ground_removal/ransac.cpp
-  src/color_differentiation/least_squares_differentiation.cpp
+  src/cone_differentiation/least_squares_differentiation.cpp
 )
 
 include_directories(${PCL_INCLUDE_DIRS})
@@ -46,7 +46,7 @@ ament_target_dependencies(perception rclcpp custom_interfaces sensor_msgs messag
 if(BUILD_TESTING)
   find_package(ament_cmake_gtest REQUIRED)
   
-  ament_add_gtest(perception_test test/ransac_test.cpp src/ground_removal/ransac.cpp)
+  ament_add_gtest(perception_test test/ransac_test.cpp test/least_squares_test.cpp src/cone_differentiation/least_squares_differentiation.cpp src/ground_removal/ransac.cpp)
 
 
 target_link_libraries(perception_test ${PCL_LIBRARIES})
