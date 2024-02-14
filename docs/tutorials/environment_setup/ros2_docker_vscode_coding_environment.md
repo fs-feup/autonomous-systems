@@ -81,6 +81,8 @@ For the Dev Container to function properly, we have to build it with the correct
     },
     "runArgs": [
         "--net=host",
+        "--ipc=host",
+        "--pid=host",
         "-e", "DISPLAY=${env:DISPLAY}"
     ],
     "mounts": [
@@ -90,7 +92,7 @@ For the Dev Container to function properly, we have to build it with the correct
         "source=${localWorkspaceFolder}/cache/humble-ros-base-jammy/install,target=/home/ws/install,type=bind",
         "source=${localWorkspaceFolder}/cache/humble-ros-base-jammy/log,target=/home/ws/log,type=bind"
     ],
-    "postCreateCommand": "sudo rosdep update && sudo rosdep install --from-paths src --ignore-src -y && sudo chown -R user /home/ws/",
+    "postCreateCommand": "sudo apt update && rosdep update && rosdep install --from-paths src --ignore-src -y && sudo chown -R user /home/ws/",
 	"initializeCommand": "echo Initialize...."
 }
 ```
@@ -120,6 +122,7 @@ RUN apt install openssh-server -y
 RUN apt update
 RUN apt install python-is-python3 -y
 RUN pip3 install cpplint
+RUN pip install rosbags
 RUN apt install clang-format -y
 ENV SHELL /bin/bash
 
