@@ -7,7 +7,9 @@ int main(int argc, char** argv) {
 
   auto ground_removal = new RANSAC(0.1, 1000);
 
-  auto node = std::make_shared<Perception>(ground_removal);
+  auto coneDifferentiator = new LeastSquaresDifferentiation();
+
+  auto node = std::make_shared<Perception>(ground_removal, coneDifferentiator);
 
   RCLCPP_INFO(node->get_logger(), "Perception is alive!");
 
