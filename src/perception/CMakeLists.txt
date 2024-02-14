@@ -21,6 +21,7 @@ find_package(pcl_conversions REQUIRED)
 set(IMPLEMENTATION_FILES 
   src/perception/perception_node.cpp
   src/ground_removal/ransac.cpp
+  src/color_differentiation/least_squares_differentiation.cpp
 )
 
 include_directories(${PCL_INCLUDE_DIRS})
