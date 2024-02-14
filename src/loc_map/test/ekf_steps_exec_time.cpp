@@ -30,7 +30,7 @@ class ExecTimeTestEKFTests : public ::testing::Test {
    * @brief Writes performance data to a CSV file.
    */
   void print_to_file() {
-    std::ofstream file("../../performance/exec_time/loc_map.csv",
+    std::ofstream file("../../src/performance/exec_time/loc_map.csv",
                        std::ios::app); /**< Output file for performance data (append) */
 
     // Convert the duration from microseconds to milliseconds
@@ -38,7 +38,15 @@ class ExecTimeTestEKFTests : public ::testing::Test {
         static_cast<double>(
             std::chrono::duration_cast<std::chrono::microseconds>(duration).count()) /
         1000.0;
-
+    printf("The Test Duration Was: %f ms\n", milliseconds);
+    //print current working directory
+    char cwd[1024];
+    if (getcwd(cwd, sizeof(cwd)) != NULL) {
+      printf("Current working dir: %s\n", cwd);
+    } else {
+      perror("getcwd() error");
+    }
+    //end print current working directory
     file << "LOC_MAP, " << workload << ", " << std::fixed << milliseconds << " ms\n";
     file.close();
   }

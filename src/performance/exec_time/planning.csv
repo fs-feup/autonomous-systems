@@ -15,3 +15,11 @@ planning, outliers, 250points_10outliers, 9.93256, 9.9145
 planning, outliers, 250points_25outliers, 10.0748, 9.95718
 planning, outliers, 250points_50outliers, 10.0846, 9.97569
 planning, all, 4 cones, 2.13218
+planning, delaunay, 100points, 0.256954, 0.12481
+planning, delaunay, 250points, 0.845504, 0.7303
+planning, delaunay, 250randompoints, 1.42988, 1.22587
+planning, outliers, 250points_2outliers, 8.15594, 7.90021
+planning, outliers, 250points_10outliers, 8.12594, 7.91436
+planning, outliers, 250points_25outliers, 8.28938, 7.88371
+planning, outliers, 250points_50outliers, 8.36612, 7.99474
+planning, all, 4 cones, 2.36362
