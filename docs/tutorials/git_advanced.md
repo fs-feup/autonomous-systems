@@ -79,3 +79,5 @@ git checkout main
 ```
 After this, the submodule should be tracking the new repository and be up-to-date.
 
+**Note:** If posterior to this you have made new commits in the submodule repos, you will (stupidly) have to also commit in the main repo (this one).
+
