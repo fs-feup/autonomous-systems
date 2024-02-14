@@ -1,6 +1,7 @@
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
 #include "ground_removal/ransac.hpp"
+#include "cone_differentiation/least_squares_differentiation.hpp"
 #include "rclcpp/rclcpp.hpp"
 
 /**
@@ -14,6 +15,9 @@
 class Perception : public rclcpp::Node {
  private:
   GroundRemoval* groundRemoval; ///< Pointer to the GroundRemoval object.
+
+  ConeDifferentiation* coneDifferentiator; ///< Pointer to ConeDifferentiation object.
+
 
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr
       _point_cloud_subscription;  ///< PointCloud2 subscription.
@@ -30,6 +34,7 @@ class Perception : public rclcpp::Node {
    /**
    * @brief Constructor for the Perception node.
    * @param groundRemoval Pointer to the GroundRemoval object.
+   * @param coneDifferentiator Pointer to ConeDifferentiation object
    */
-  explicit Perception(GroundRemoval* groundRemoval);
+  Perception(GroundRemoval* groundRemoval, ConeDifferentiation* coneDifferentiator);
 };

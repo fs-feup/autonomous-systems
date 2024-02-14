@@ -5,8 +5,9 @@
 
 #include <cstdio>
 
-Perception::Perception(GroundRemoval* groundRemoval) : Node("perception"),
-        groundRemoval(groundRemoval) {
+Perception::Perception(GroundRemoval* groundRemoval, ConeDifferentiation* coneDifferentiator) :
+            Node("perception"), groundRemoval(groundRemoval),
+            coneDifferentiator(coneDifferentiator) {
   this->_point_cloud_subscription = this->create_subscription<sensor_msgs::msg::PointCloud2>(
       "/livox/lidar", 10,
       std::bind(&Perception::pointCloudCallback, this, std::placeholders::_1));
