@@ -28,7 +28,7 @@ class DBSCANTest : public ::testing::Test {
  * @brief Minimum values for cluster size and distance threshold
  * 
  */
-TEST_F(DBSCANTest, Test1) {
+TEST_F(DBSCANTest, TestZeroNieghboursZeroEpsilon) {
     auto clustering = new DBSCAN(0, 0);
 
     std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> clusters;
@@ -42,7 +42,7 @@ TEST_F(DBSCANTest, Test1) {
  * @brief Large distance threshold (Expecting two clusters).
  * 
  */
-TEST_F(DBSCANTest, Test2) {
+TEST_F(DBSCANTest, TestLargeEpsilon) {
     auto clustering = new DBSCAN(0, 30);
 
     std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> clusters;
@@ -55,7 +55,7 @@ TEST_F(DBSCANTest, Test2) {
  * @brief Minimum cluster size requirement with one outlier (Expecting one large cluster).
  * 
  */
-TEST_F(DBSCANTest, Test3) {
+TEST_F(DBSCANTest, TestMinClusterSize) {
     auto clustering = new DBSCAN(2, 30);
 
     std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> clusters;
@@ -68,7 +68,7 @@ TEST_F(DBSCANTest, Test3) {
  * @brief Large distance threshold (Expecting one large cluster)
  * 
  */
-TEST_F(DBSCANTest, Test4) {
+TEST_F(DBSCANTest, TestLargeEpsilon2) {
     auto clustering = new DBSCAN(0, 50);
 
     std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> clusters;
@@ -81,7 +81,7 @@ TEST_F(DBSCANTest, Test4) {
  * @brief Smaller distance threshold (Expecting multiple clusters)
  * 
  */
-TEST_F(DBSCANTest, Test5) {
+TEST_F(DBSCANTest, TestSmallThreshold) {
     auto clustering = new DBSCAN(0, 1.5);
 
     std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> clusters;
@@ -94,7 +94,7 @@ TEST_F(DBSCANTest, Test5) {
  * @brief Minimum cluster size requirement with small distance threshold 
  * 
  */
-TEST_F(DBSCANTest, Test6) {
+TEST_F(DBSCANTest, TestMinClusterSize2) {
     auto clustering = new DBSCAN(2, 1.5);
 
     std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> clusters;
@@ -107,7 +107,7 @@ TEST_F(DBSCANTest, Test6) {
  * @brief Small distance threshold (Expecting all points as separate clusters)
  * 
  */
-TEST_F(DBSCANTest, Test7) {
+TEST_F(DBSCANTest, TestSmallThreshold3) {
     auto clustering = new DBSCAN(0, 0.4);
 
     std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> clusters;
@@ -120,7 +120,7 @@ TEST_F(DBSCANTest, Test7) {
  * @brief Distance for aggregate the two nearest points (Expecting one less cluster).
  * 
  */
-TEST_F(DBSCANTest, Test8) {
+TEST_F(DBSCANTest, TestAggregate2Points) {
     auto clustering = new DBSCAN(0, 0.6);
 
     std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> clusters;
@@ -133,7 +133,7 @@ TEST_F(DBSCANTest, Test8) {
  * @brief Large minimum cluster size requirement (Expecting no clusters).
  * 
  */
-TEST_F(DBSCANTest, Test9) {
+TEST_F(DBSCANTest, TestMorePointsThanThreshold) {
     auto clustering = new DBSCAN(10, 50);
 
     std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> clusters;
@@ -146,7 +146,7 @@ TEST_F(DBSCANTest, Test9) {
  * @brief Small minimum cluster size requirement with very small distance 
  * 
  */
-TEST_F(DBSCANTest, Test10) {
+TEST_F(DBSCANTest, TestMinClusterWithSmallThreshold) {
     auto clustering = new DBSCAN(1, 0.1);
 
     std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> clusters;
