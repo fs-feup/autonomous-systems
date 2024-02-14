@@ -48,6 +48,8 @@ Eigen::MatrixXf ObservationModel::get_state_to_observation_matrix(
   reformating_matrix(3, landmark_index) = 1;
   reformating_matrix(4, landmark_index + 1) = 1;
   Eigen::MatrixXf low_jacobian = Eigen::MatrixXf::Zero(2, 5);
+  // partial derivative of h(x) or z_hat (from observation model) with respect to
+  // (x,y,theta,landmark_x,landmark_y)
   low_jacobian(0, 0) = -cos(-expected_state(2));
   low_jacobian(1, 0) = -sin(-expected_state(2));
   low_jacobian(0, 1) = sin(-expected_state(2));
