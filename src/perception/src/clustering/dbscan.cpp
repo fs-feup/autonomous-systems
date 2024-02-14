@@ -20,9 +20,12 @@ void DBSCAN::clustering(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
     ec.setSearchMethod(tree);
     ec.setInputCloud(point_cloud);
 
+
+    // PointIndices - A defined PCL struct - vector of indices of cluster's points
     std::vector<pcl::PointIndices> cluster_indices;
     ec.extract(cluster_indices);
 
+    // Iterate over clusters to get the values of the points
     for (const auto& indices : cluster_indices) {
         pcl::PointCloud<pcl::PointXYZI>::Ptr cluster(new pcl::PointCloud<pcl::PointXYZI>);
         for (const int& index : indices.indices) {
