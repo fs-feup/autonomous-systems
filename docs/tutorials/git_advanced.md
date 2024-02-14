@@ -65,7 +65,7 @@ git submodule add <repo url> <directory to add to>
 In the case of this repository, you will often have to update the submodules you are depending on. If a change is made to the submodules you can do the following to reset the structure:
 
 ```sh
-git submodule deinit
+git submodule deinit --all -f 
 git submodule sync --recursive
 git submodule update --init --recursive
 ```
@@ -73,7 +73,7 @@ git submodule update --init --recursive
 If changes have been made to the repository which you have a submodule for, just add and commit them as usual. If you want to access the repositories you have as submodule (in case you are their owner), you can just travel to the subfolder they are on and it works just as a normal clone. Finally, if you have changed the remote location or changed a submodule to another repository (for instance, if you forked a repository and you want to use that fork now rather than the original repository), you are advised to follow the update steps mentioned above, as well as these on the sub-folder of the sub-module:
 
 ```sh
-git pull remote main # or the name of the branch you use
+git pull origin main # or the name of the branch you use
 git branch main -f
 git checkout main
 ```
