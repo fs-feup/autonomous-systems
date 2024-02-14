@@ -93,3 +93,10 @@ void Adapter::eufs_set_mission_state(int mission, int state) {
     RCLCPP_ERROR(this->node->get_logger(), "Failed to call service");
   }
 }
+
+void Adapter::fsds_finish(){
+  auto message = fs_msgs::msg::FinishedSignal();
+  message.placeholder = true; // unnecessary
+
+  this->fsds_ebs_publisher_->publish(message);
+}

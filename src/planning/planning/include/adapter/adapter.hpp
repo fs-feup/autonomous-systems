@@ -66,6 +66,8 @@ class Adapter {
    */
   void eufs_set_mission_state(int mission, int state);
 
+  void fsds_finish();
+
  public:
   /**
    * @brief Constructor for the Adapter class.
