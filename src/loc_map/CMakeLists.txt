@@ -30,7 +30,7 @@ set(IMPLEMENTATION_FILES
 
 
 add_executable(${PROJECT_NAME} src/loc_map.cpp ${IMPLEMENTATION_FILES})
-ament_target_dependencies(${PROJECT_NAME} rclcpp std_msgs sensor_msgs eufs_msgs fs_msgs custom_interfaces Eigen3)
+ament_target_dependencies(loc_map rclcpp std_msgs sensor_msgs eufs_msgs fs_msgs custom_interfaces Eigen3)
 target_include_directories(${PROJECT_NAME} PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
