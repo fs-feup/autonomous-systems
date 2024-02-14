@@ -1,15 +1,4 @@
-Node, Scope, Workload, Exec time
-LOC_MAP, all, 1 X 10 CONES, 0.022000 ms
-LOC_MAP, all, 5 X 10 CONES, 0.114000 ms
-LOC_MAP, all, 50 X 10 CONES, 71.369000 ms
-LOC_MAP, all, 1 X 10 CONES, 0.024000 ms
-LOC_MAP, all, 5 X 10 CONES, 0.121000 ms
-LOC_MAP, all, 50 X 10 CONES, 68.714000 ms
-LOC_MAP, all, 100 X 10 CONES, 790.966000 ms
-LOC_MAP, all, 200 X 10 CONES, 10678.759000 ms
-LOC_MAP, EKF pred step, 10, 0.204000 ms
-LOC_MAP, EKF pred step, 50, 12.400000 ms
-LOC_MAP, EKF pred step, 100, 91.290000 ms
-LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.084000 ms
-LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 104.528000 ms
-LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 595.640000 ms
+LOC_MAP, EKF pred step, 10, 0.208000 ms
+LOC_MAP, EKF pred step, 50, 12.820000 ms
+LOC_MAP, EKF pred step, 100, 99.266000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.212000 ms
