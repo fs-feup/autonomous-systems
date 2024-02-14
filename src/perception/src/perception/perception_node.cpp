@@ -22,7 +22,6 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
 
     pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
 
-
     groundRemoval->groundRemoval(pcl_cloud, ground_removed_cloud);
 
     for (const auto& point : ground_removed_cloud->points) {
