@@ -1,9 +1,12 @@
-#include <color_differentiation/least_squares_differentiation.hpp>
+#include <cone_differentiation/least_squares_differentiation.hpp>
 #include <Eigen/Dense>
 
-Color LeastSquaresDifferentiation::colorDifferentiation(const pcl::PointCloud<pcl::PointXYZI>::Ptr
+Color LeastSquaresDifferentiation::coneDifferentiation(const pcl::PointCloud<pcl::PointXYZI>::Ptr
                                                         cone_point_cloud) const {
     int n = cone_point_cloud->points.size();
+
+    if (n < 3) return UNDEFINED;
+
     Eigen::MatrixXd A(n, 3);
     Eigen::VectorXd B(n);
 

@@ -4,12 +4,13 @@
 
 typedef enum {
     BLUE,
-    YELLOW
+    YELLOW,
+    UNDEFINED
 } Color;
 
 
-class ColorDifferentiation {
+class ConeDifferentiation {
  public:
-    virtual Color colorDifferentiation(const pcl::PointCloud<pcl::PointXYZI>::Ptr
+    virtual Color coneDifferentiation(const pcl::PointCloud<pcl::PointXYZI>::Ptr
                                        cone_point_cloud) const = 0;
 };
