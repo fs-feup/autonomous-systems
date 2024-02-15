@@ -314,79 +314,66 @@ TEST_F(ExecTimeTestEKFTests, TEST_EKF_CORR_10) {
  * @brief Test case for the Extended Kalman Filter correction step with a
  * workload of 50.
  */
-// TEST_F(ExecTimeTestEKFTests, TEST_EKF_CORR_50) {
-//   ConeMap coneMap;
-//   for (int i = 0; i < 10; i++) {
-//     Position conePosition(i * 2.0, i * 2.0);
-
-//     // Add the cone to the map
-//     coneMap.map[conePosition] = colors::blue;
-//   }
-//   coneMap.last_update = std::chrono::high_resolution_clock::now();
-
-//   ekf_test->init_X_size(103);
-//   ekf_test->set_P(103);
-//   ekf_test->set_X_y(0, -15.0);
-//   ekf_test->set_X_y(1, 0.0);
-//   ekf_test->set_X_y(2, 0.0);
-//   fill_X(102);
-
-//   for (int i = 0; i < 10; i++) {
-//     start_time = std::chrono::high_resolution_clock::now();
-
-//     ekf_test->correction_step(coneMap);
-
-//     end_time = std::chrono::high_resolution_clock::now();
-//     duration +=
-//     std::chrono::duration_cast<std::chrono::microseconds>(end_time -
-//     start_time);
-
-//     RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "\n DURATION STEP: %ld  \n",
-//                 std::chrono::duration_cast<std::chrono::microseconds>(end_time
-//                 - start_time).count());
-//   }
-
-//   duration = duration / 10;
-
-//   workload = "EKF Correction Step, 50 and 10 From \"perception\"";
-//   print_to_file();
-// }
+TEST_F(ExecTimeTestEKFTests, TEST_EKF_CORR_50) {
+  ConeMap coneMap;
+  for (int i = 0; i < 10; i++) {
+    Position conePosition(i * 2.0, i * 2.0);
+    // Add the cone to the map
+    coneMap.map[conePosition] = colors::blue;
+  }
+  coneMap.last_update = std::chrono::high_resolution_clock::now();
+  ekf_test->init_X_size(103);
+  ekf_test->set_P(103);
+  ekf_test->set_X_y(0, -15.0);
+  ekf_test->set_X_y(1, 0.0);
+  ekf_test->set_X_y(2, 0.0);
+  fill_X(102);
+  for (int i = 0; i < 10; i++) {
+    start_time = std::chrono::high_resolution_clock::now();
+    ekf_test->correction_step(coneMap);
+    end_time = std::chrono::high_resolution_clock::now();
+    duration +=
+    std::chrono::duration_cast<std::chrono::microseconds>(end_time -
+    start_time);
+    RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "\n DURATION STEP: %ld  \n",
+                std::chrono::duration_cast<std::chrono::microseconds>(end_time
+                - start_time).count());
+  }
+  duration = duration / 10;
+  workload = "EKF Correction Step, 50 and 10 From \"perception\"";
+  print_to_file();
+}
 
 /**
  * @brief Test case for the Extended Kalman Filter correction step with a
  * workload of 100.
  */
-// TEST_F(ExecTimeTestEKFTests, TEST_EKF_CORR_100) {
-//   ConeMap coneMap;
-//   for (int i = 0; i < 10; i++) {
-//     Position conePosition(i * 2.0, i * 2.0);
-
-//     // Add the cone to the map
-//     coneMap.map[conePosition] = colors::blue;
-//   }
-//   coneMap.last_update = std::chrono::high_resolution_clock::now();
-//   ekf_test->init_X_size(203);
-//   ekf_test->set_P(203);
-//   ekf_test->set_X_y(0, -15.0);
-//   ekf_test->set_X_y(1, 0.0);
-//   ekf_test->set_X_y(2, 0.0);
-//   fill_X(202);
-//   for (int i = 0; i < 10; i++) {
-//     start_time = std::chrono::high_resolution_clock::now();
-
-//     ekf_test->correction_step(coneMap);
-
-//     end_time = std::chrono::high_resolution_clock::now();
-//     duration +=
-//     std::chrono::duration_cast<std::chrono::microseconds>(end_time -
-//     start_time);
-
-//     RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "\n DURATION STEP: %ld  \n",
-//                 std::chrono::duration_cast<std::chrono::microseconds>(end_time
-//                 - start_time).count());
-//   }
-
-//   duration = duration / 10;
-//   workload = "EKF Correction Step, 100 and 10 From \"perception\"";
-//   print_to_file();
-// }
+TEST_F(ExecTimeTestEKFTests, TEST_EKF_CORR_100) {
+  ConeMap coneMap;
+  for (int i = 0; i < 10; i++) {
+    Position conePosition(i * 2.0, i * 2.0);
+    // Add the cone to the map
+    coneMap.map[conePosition] = colors::blue;
+  }
+  coneMap.last_update = std::chrono::high_resolution_clock::now();
+  ekf_test->init_X_size(203);
+  ekf_test->set_P(203);
+  ekf_test->set_X_y(0, -15.0);
+  ekf_test->set_X_y(1, 0.0);
+  ekf_test->set_X_y(2, 0.0);
+  fill_X(202);
+  for (int i = 0; i < 10; i++) {
+    start_time = std::chrono::high_resolution_clock::now();
+    ekf_test->correction_step(coneMap);
+    end_time = std::chrono::high_resolution_clock::now();
+    duration +=
+    std::chrono::duration_cast<std::chrono::microseconds>(end_time -
+    start_time);
+    RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "\n DURATION STEP: %ld  \n",
+                std::chrono::duration_cast<std::chrono::microseconds>(end_time
+                - start_time).count());
+  }
+  duration = duration / 10;
+  workload = "EKF Correction Step, 100 and 10 From \"perception\"";
+  print_to_file();
+}
