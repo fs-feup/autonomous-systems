@@ -3,6 +3,7 @@
 #include <memory>
 #include <string>
 
+#include "adapter/adapter.hpp"
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
@@ -20,6 +21,7 @@ class LongitudinalControl : public rclcpp::Node {
   rclcpp::Subscription<std_msgs::msg::String>::SharedPtr current_velcoity;
   rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr path_subscription;
   double velocity;
+  Adapter *adapter;
 
   /**
    * @brief Function to publish the desired output (provisionally torque)

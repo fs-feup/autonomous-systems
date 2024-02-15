@@ -15,14 +15,11 @@
 #include "planning/global_path_planner.hpp"
 #include "planning/local_path_planner.hpp"
 #include "utils/files.hpp"
+#include "utils/mission.hpp"
 
 using std::placeholders::_1;
 
-/**
- * @enum Mission
- * @brief Enumeration representing the different missions.
- */
-enum Mission { not_selected, acceleration, skidpad, trackdrive, autocross };
+
 /**
  * @class Planning
  * @brief Class responsible for planning and path generation for our car.

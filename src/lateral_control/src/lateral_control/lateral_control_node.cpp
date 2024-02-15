@@ -46,4 +46,8 @@ LateralControl::LateralControl() : Node("lateral_control_node") {
   path_subscription = this->create_subscription<custom_interfaces::msg::ConeArray>(
       "local_planning", 10,
       std::bind(&LateralControl::publish_steeringcommand, this, std::placeholders::_1));
+
+  // Adapter to communicate with the car
+  // TODO: mode is set somewhere not hardcoded
+  this->adapter = new Adapter("fsds", this);
 }

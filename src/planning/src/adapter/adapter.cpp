@@ -4,6 +4,7 @@
 
 Adapter::Adapter(std::string mode, Planning *planning) {
   this->node = planning;
+  this->mode = mode;
 
   RCLCPP_INFO(this->node->get_logger(), "mode: %s", mode.c_str());
 
