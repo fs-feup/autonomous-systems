@@ -36,7 +36,12 @@ This guide is meant to help the developer setup the environment required to work
 - [How to contribute (how to compile, test, run, etc.)](./contribute.md) - what tasks are required before a PR
 - [Testing](./testing.md) - about creating tests for the code
 
-### Advanced Turorials 
+### Advanced Tutorials
+
+- [Using KISS-ICP](https://github.com/fs-feup/kiss-icp/) - check the README
+- [Using Robosense SDK](https://github.com/fs-feup/rslidar_sdk) - check the README
+
+### Extra Turorials 
 
 - [ROS2 Interfaces](./new_interface_tutorial.md) - tutorial on how to create ros2 interfaces
 - [Youtube C++ tutorials](https://www.youtube.com/watch?v=18c3MTX0PK0&list=PLlrATfBNZ98dudnM48yfGUldqGD0S4FFb)
