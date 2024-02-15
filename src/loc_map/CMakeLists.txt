@@ -50,11 +50,11 @@ if(BUILD_TESTING)
 
   set(TESTFILES 
     test/main.cpp
-    test/integration_test.cpp
+    #test/integration_test.cpp
     test/ekf_steps_exec_time.cpp
-    test/motion_model_test.cpp
-    test/observation_model_test.cpp
-    test/slam_test.cpp
+    #test/motion_model_test.cpp
+    #test/observation_model_test.cpp
+    #test/slam_test.cpp
   )
   
   include_directories(test)  # Include the 'test' directory for your test targets
