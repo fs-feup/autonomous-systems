@@ -3,6 +3,7 @@
 #include "ground_removal/ransac.hpp"
 #include "cone_differentiation/least_squares_differentiation.hpp"
 #include "rclcpp/rclcpp.hpp"
+#include "clustering/dbscan.hpp"
 
 /**
  * @class Perception
@@ -15,7 +16,7 @@
 class Perception : public rclcpp::Node {
  private:
   GroundRemoval* groundRemoval; ///< Pointer to the GroundRemoval object.
-
+  Clustering* clustering;
   ConeDifferentiation* coneDifferentiator; ///< Pointer to ConeDifferentiation object.
 
 
@@ -36,5 +37,5 @@ class Perception : public rclcpp::Node {
    * @param groundRemoval Pointer to the GroundRemoval object.
    * @param coneDifferentiator Pointer to ConeDifferentiation object
    */
-  Perception(GroundRemoval* groundRemoval, ConeDifferentiation* coneDifferentiator);
+  Perception(GroundRemoval* groundRemoval, Clustering* clustering,ConeDifferentiation* coneDifferentiator);
 };
