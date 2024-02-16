@@ -1,0 +1,5 @@
+<map id="DBSCANTest" name="DBSCANTest">
+<area shape="rect" id="Node000001" title="Test fixture for the DBSCAN class." alt="" coords="5,119,99,184"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="10,5,94,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="55,85,55,119,49,119,49,85"/>
+</map>

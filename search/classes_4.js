@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['imuvelocitymodel_0',['ImuVelocityModel',['../d2/d58/class_imu_velocity_model.html',1,'']]],
-  ['integrationtest_1',['IntegrationTest',['../d7/d4e/class_integration_test.html',1,'']]]
+  ['globalpathplanner_0',['GlobalPathPlanner',['../d2/da4/class_global_path_planner.html',1,'']]],
+  ['groundremoval_1',['GroundRemoval',['../dc/d84/class_ground_removal.html',1,'']]]
 ];

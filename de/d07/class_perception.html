@@ -125,38 +125,40 @@ Collaboration diagram for Perception:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:adb1fc583d5fb7add7253a0fe860a0d1d" id="r_adb1fc583d5fb7add7253a0fe860a0d1d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d07/class_perception.html#adb1fc583d5fb7add7253a0fe860a0d1d">Perception</a> (<a class="el" href="../../dc/d84/class_ground_removal.html">GroundRemoval</a> *groundRemoval)</td></tr>
-<tr class="memdesc:adb1fc583d5fb7add7253a0fe860a0d1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for the <a class="el" href="../../de/d07/class_perception.html" title="Node for perception tasks, such as ground removal and cone detection.">Perception</a> node.  <br /></td></tr>
-<tr class="separator:adb1fc583d5fb7add7253a0fe860a0d1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7ef82b1cfe3a87587936552eed8f23f" id="r_aa7ef82b1cfe3a87587936552eed8f23f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d07/class_perception.html#aa7ef82b1cfe3a87587936552eed8f23f">Perception</a> (<a class="el" href="../../dc/d84/class_ground_removal.html">GroundRemoval</a> *groundRemoval, <a class="el" href="../../d9/d10/class_clustering.html">Clustering</a> *clustering)</td></tr>
+<tr class="memdesc:aa7ef82b1cfe3a87587936552eed8f23f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for the <a class="el" href="../../de/d07/class_perception.html" title="Node for perception tasks, such as ground removal and cone detection.">Perception</a> node.  <br /></td></tr>
+<tr class="separator:aa7ef82b1cfe3a87587936552eed8f23f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Node for perception tasks, such as ground removal and cone detection. </p>
 <p>This class is a ROS 2 node that subscribes to a PointCloud2 topic, performs ground removal using the specified <a class="el" href="../../dc/d84/class_ground_removal.html" title="Abstract class for ground removal from a point cloud.">GroundRemoval</a> algorithm, and publishes cone detection results on a custom topic. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../de/da5/perception__node_8hpp_source.html#l00014">14</a> of file <a class="el" href="../../de/da5/perception__node_8hpp_source.html">perception_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/da5/perception__node_8hpp_source.html#l00015">15</a> of file <a class="el" href="../../de/da5/perception__node_8hpp_source.html">perception_node.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="adb1fc583d5fb7add7253a0fe860a0d1d" name="adb1fc583d5fb7add7253a0fe860a0d1d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adb1fc583d5fb7add7253a0fe860a0d1d">&#9670;&#160;</a></span>Perception()</h2>
+<a id="aa7ef82b1cfe3a87587936552eed8f23f" name="aa7ef82b1cfe3a87587936552eed8f23f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7ef82b1cfe3a87587936552eed8f23f">&#9670;&#160;</a></span>Perception()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">Perception::Perception </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../dc/d84/class_ground_removal.html">GroundRemoval</a> *&#160;</td>
-          <td class="paramname"><em>groundRemoval</em></td><td>)</td>
+          <td class="paramname"><em>groundRemoval</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="../../d9/d10/class_clustering.html">Clustering</a> *&#160;</td>
+          <td class="paramname"><em>clustering</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 <p>Constructor for the <a class="el" href="../../de/d07/class_perception.html" title="Node for perception tasks, such as ground removal and cone detection.">Perception</a> node. </p>

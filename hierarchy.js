@@ -1,6 +1,9 @@
 var hierarchy =
 [
     [ "Adapter", "d3/d7f/class_adapter.html", null ],
+    [ "Clustering", "d9/d10/class_clustering.html", [
+      [ "DBSCAN", "df/d6a/class_d_b_s_c_a_n.html", null ]
+    ] ],
     [ "Cone", "d8/da1/class_cone.html", null ],
     [ "ConeMap", "dc/d59/struct_cone_map.html", null ],
     [ "ExtendedKalmanFilter", "da/da6/class_extended_kalman_filter.html", null ],
@@ -32,6 +35,7 @@ var hierarchy =
     ] ],
     [ "Position", "d1/d26/struct_position.html", null ],
     [ "testing::Test", null, [
+      [ "DBSCANTest", "d8/d90/class_d_b_s_c_a_n_test.html", null ],
       [ "ExecTimeTest", "df/d59/class_exec_time_test.html", null ],
       [ "ExecTimeTestEKFTests", "d2/dac/class_exec_time_test_e_k_f_tests.html", null ],
       [ "IntegrationTest", "d7/d4e/class_integration_test.html", null ],

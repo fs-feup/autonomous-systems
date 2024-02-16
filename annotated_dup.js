@@ -9,8 +9,11 @@ var annotated_dup =
       ] ]
     ] ],
     [ "Adapter", "d3/d7f/class_adapter.html", "d3/d7f/class_adapter" ],
+    [ "Clustering", "d9/d10/class_clustering.html", "d9/d10/class_clustering" ],
     [ "Cone", "d8/da1/class_cone.html", "d8/da1/class_cone" ],
     [ "ConeMap", "dc/d59/struct_cone_map.html", "dc/d59/struct_cone_map" ],
+    [ "DBSCAN", "df/d6a/class_d_b_s_c_a_n.html", "df/d6a/class_d_b_s_c_a_n" ],
+    [ "DBSCANTest", "d8/d90/class_d_b_s_c_a_n_test.html", "d8/d90/class_d_b_s_c_a_n_test" ],
     [ "ExecTimeTest", "df/d59/class_exec_time_test.html", "df/d59/class_exec_time_test" ],
     [ "ExecTimeTestEKFTests", "d2/dac/class_exec_time_test_e_k_f_tests.html", "d2/dac/class_exec_time_test_e_k_f_tests" ],
     [ "ExtendedKalmanFilter", "da/da6/class_extended_kalman_filter.html", "da/da6/class_extended_kalman_filter" ],

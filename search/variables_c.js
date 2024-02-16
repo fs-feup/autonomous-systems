@@ -18,6 +18,7 @@ var searchData=
   ['plot_5fperception_5fcallback_15',['plot_perception_callback',['../d8/dee/classplots_1_1plots_1_1_plots.html#aefcb30de78b984f9d6514ae32fbc87a6',1,'plots::plots::Plots']]],
   ['plot_5ftrue_5flocalization_5fcallback_16',['plot_true_localization_callback',['../d8/dee/classplots_1_1plots_1_1_plots.html#a21d948237859bcc2975b9b3efc3cee5b',1,'plots::plots::Plots']]],
   ['plot_5ftrue_5fmap_5fcallback_17',['plot_true_map_callback',['../d8/dee/classplots_1_1plots_1_1_plots.html#a4d46e0fe8467c3fc2d03cb377b5d42c7',1,'plots::plots::Plots']]],
-  ['pose_18',['pose',['../de/dfe/struct_vehicle_state.html#a78345e46dc22525ad8865db0df4b81e5',1,'VehicleState']]],
-  ['position_19',['position',['../d9/d90/struct_observation_data.html#a387f245230a9fd12af54fc8b6b2cb0ec',1,'ObservationData::position'],['../d8/d11/struct_pose.html#aae8ae43d254398d6e006032ae4ef72b1',1,'Pose::position']]]
+  ['point_5fcloud_18',['point_cloud',['../d8/d90/class_d_b_s_c_a_n_test.html#a3b24dcf992364f05c3ee57e8156fe81a',1,'DBSCANTest']]],
+  ['pose_19',['pose',['../de/dfe/struct_vehicle_state.html#a78345e46dc22525ad8865db0df4b81e5',1,'VehicleState']]],
+  ['position_20',['position',['../d9/d90/struct_observation_data.html#a387f245230a9fd12af54fc8b6b2cb0ec',1,'ObservationData::position'],['../d8/d11/struct_pose.html#aae8ae43d254398d6e006032ae4ef72b1',1,'Pose::position']]]
 ];

@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['exectimetest_0',['ExecTimeTest',['../df/d59/class_exec_time_test.html',1,'']]],
-  ['exectimetestekftests_1',['ExecTimeTestEKFTests',['../d2/dac/class_exec_time_test_e_k_f_tests.html',1,'']]],
-  ['extendedkalmanfilter_2',['ExtendedKalmanFilter',['../da/da6/class_extended_kalman_filter.html',1,'']]]
+  ['dbscan_0',['DBSCAN',['../df/d6a/class_d_b_s_c_a_n.html',1,'']]],
+  ['dbscantest_1',['DBSCANTest',['../d8/d90/class_d_b_s_c_a_n_test.html',1,'']]]
 ];
