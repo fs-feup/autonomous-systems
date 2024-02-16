@@ -17,6 +17,7 @@ class Planning;
  */
 class Adapter {
   Planning *node;
+  std::string mode;
 
   rclcpp::Subscription<eufs_msgs::msg::CanState>::SharedPtr eufs_state_subscription_;
   rclcpp::Subscription<fs_msgs::msg::GoSignal>::SharedPtr fsds_state_subscription_;

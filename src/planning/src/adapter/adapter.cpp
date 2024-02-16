@@ -29,6 +29,7 @@ void Adapter::eufs_init() {
 }
 
 void Adapter::fsds_init() {
+  std::cout << "fsds_init\n";
   this->fsds_state_subscription_ = this->node->create_subscription<fs_msgs::msg::GoSignal>(
       "/signal/go", 10,
       std::bind(&Adapter::fsds_mission_state_callback, this, std::placeholders::_1));
@@ -43,46 +44,20 @@ void Adapter::ads_dv_init() {
 
 void Adapter::eufs_mission_state_callback(const eufs_msgs::msg::CanState msg) {
   auto mission = msg.ami_state;
-
-  if (mission == eufs_msgs::msg::CanState::AMI_ACCELERATION) {
-    this->node->set_mission(Mission::acceleration);
-  } else if (mission == eufs_msgs::msg::CanState::AMI_SKIDPAD) {
-    this->node->set_mission(Mission::skidpad);
-  } else if (mission == eufs_msgs::msg::CanState::AMI_TRACK_DRIVE) {
-    this->node->set_mission(Mission::trackdrive);
-  } else if (mission == eufs_msgs::msg::CanState::AMI_AUTOCROSS) {
-    this->node->set_mission(Mission::autocross);
-  }
+  this->node->set_mission(eufsToSystem.at(static_cast<uint16_t>(mission))); // map eufs mission to system mission
 }
 
 void Adapter::fsds_mission_state_callback(const fs_msgs::msg::GoSignal msg) {
   auto mission = msg.mission;
-
-  if (mission == "acceleration") {
-    this->node->set_mission(Mission::acceleration);
-  } else if (mission == "skidpad") {
-    this->node->set_mission(Mission::skidpad);
-  } else if (mission == "trackdrive") {
-    this->node->set_mission(Mission::trackdrive);
-  } else if (mission == "autocross") {
-    this->node->set_mission(Mission::autocross);
-  }
+  this->node->set_mission(fsdsToSystem.at(mission)); // map fsds mission to system mission
 }
 
 void Adapter::ads_dv_mission_state_callback(const custom_interfaces::msg::Vcu msg) {
   auto mission = msg.ami_state;
-
-  if (mission == 1) {
-    this->node->set_mission(Mission::acceleration);
-  } else if (mission == 2) {
-    this->node->set_mission(Mission::skidpad);
-  } else if (mission == 3) {
-    this->node->set_mission(Mission::autocross);
-  } else if (mission == 4) {
-    this->node->set_mission(Mission::trackdrive);
-  }
+  this->node->set_mission(adsdvToSystem.at(mission)); // map adsdv mission to system mission
 }
 
+// TODO: Check if works / refactor
 void Adapter::eufs_set_mission_state(int mission, int state) {
   auto request = std::make_shared<eufs_msgs::srv::SetCanState::Request>();
   request->ami_state = mission;

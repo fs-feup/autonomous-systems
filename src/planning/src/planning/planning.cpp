@@ -31,6 +31,7 @@ Planning::Planning() : Node("planning") {
       std::chrono::milliseconds(100), std::bind(&Planning::publish_predicitive_track_points, this));
 
   // Adapter to communicate with the car
+  // TODO: change to not hardcoded node
   this->adapter = new Adapter("fsds", this);
 }
 
