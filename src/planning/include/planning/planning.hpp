@@ -8,6 +8,7 @@
 #include <vector>
 
 #include "adapter/adapter.hpp"
+#include "sensor_msgs/msg/point_cloud2.hpp"
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "custom_interfaces/msg/point2d.hpp"
 #include "custom_interfaces/msg/point_array.hpp"

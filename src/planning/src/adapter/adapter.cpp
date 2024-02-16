@@ -29,7 +29,6 @@ void Adapter::eufs_init() {
 }
 
 void Adapter::fsds_init() {
-  std::cout << "fsds_init\n";
   this->fsds_state_subscription_ = this->node->create_subscription<fs_msgs::msg::GoSignal>(
       "/signal/go", 10,
       std::bind(&Adapter::fsds_mission_state_callback, this, std::placeholders::_1));

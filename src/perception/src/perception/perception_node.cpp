@@ -7,9 +7,7 @@
 
 Perception::Perception(GroundRemoval* groundRemoval) : Node("perception"),
         groundRemoval(groundRemoval) {
-  this->_point_cloud_subscription = this->create_subscription<sensor_msgs::msg::PointCloud2>(
-      "/livox/lidar", 10,
-      std::bind(&Perception::pointCloudCallback, this, std::placeholders::_1));
+  this->adapter = new Adapter("fsds", this);
 
   this->_cones_publisher = this->create_publisher<custom_interfaces::msg::ConeArray>("cones", 10);
 }
