@@ -2,6 +2,8 @@
 #include "kalman_filter/ekf.hpp"
 
 #include <Eigen/Dense>
+#include <Eigen/Sparse>
+#include <fstream>
 #include <iostream>
 
 #include "loc_map/data_structures.hpp"
@@ -32,11 +34,19 @@ void ExtendedKalmanFilter::set_X_y(int y, float value) { this->X(y) = value; }
 void ExtendedKalmanFilter::push_to_colors(colors::Color color) { _colors.push_back(color); }
 
 void ExtendedKalmanFilter::set_P(int size) {
-  this->P = Eigen::MatrixXf::Zero(size, size);
-  this->P(0, 0) = 1.1;
-  this->P(1, 1) = 1.1;
-  this->P(2, 2) = 1.1;
+  this->P = Eigen::SparseMatrix<float>(size, size);
+  this->P.coeffRef(0, 0) = 1.1;
+  this->P.coeffRef(1, 1) = 1.1;
+  this->P.coeffRef(2, 2) = 1.1;
 }
+// void ExtendedKalmanFilter::set_P(int size) {
+//   this->P = Eigen::MatrixXf::Zero(size, size);
+//   this->P(0, 0) = 1.1;
+//   this->P(1, 1) = 1.1;
+//   this->P(2, 2) = 1.1;
+// }
+
+
 /**
  * @brief Initializes state X with size equal to parameter size
  */
@@ -47,12 +57,22 @@ void ExtendedKalmanFilter::init_X_size(int size) { this->X = Eigen::VectorXf::Ze
 ExtendedKalmanFilter::ExtendedKalmanFilter(const MotionModel &motion_model,
                                            const ObservationModel &observation_model)
     : X(Eigen::VectorXf::Zero(3)),
-      P(Eigen::MatrixXf::Zero(3, 3)),
+      P(3, 3),
       _last_update(std::chrono::high_resolution_clock::now()),
       _motion_model(motion_model),
       _observation_model(observation_model),
-      _fixed_map(false) {}
-
+      _fixed_map(false) {
+  P.setZero();
+}
+// ExtendedKalmanFilter::ExtendedKalmanFilter(const MotionModel &motion_model,
+//                                            const ObservationModel &observation_model)
+//     : X(Eigen::VectorXf::Zero(3)),
+//       P(Eigen::MatrixXf::Zero(3, 3)), // Change this line
+//       _last_update(std::chrono::high_resolution_clock::now()),
+//       _motion_model(motion_model),
+//       _observation_model(observation_model),
+//       _fixed_map(false) {
+// }
 /*-----------------------Algorithms-----------------------*/
 
 void ExtendedKalmanFilter::prediction_step(const MotionUpdate &motion_update) {
@@ -67,36 +87,61 @@ void ExtendedKalmanFilter::prediction_step(const MotionUpdate &motion_update) {
       this->_motion_model.get_motion_to_state_matrix(tempX, motion_update, delta / 1000000);
   Eigen::MatrixXf R = this->_motion_model.get_process_noise_covariance_matrix(
       this->X.size());  // Process Noise Matrix
-  this->P = G * this->P * G.transpose() + R;
+  // this->P = G * this->P * G.transpose() + R;
+  Eigen::MatrixXf P_dense = G * Eigen::MatrixXf(this->P) * G.transpose() + R;
+  this->P = P_dense.sparseView();
   this->_last_update = now;
 }
 
 void ExtendedKalmanFilter::correction_step(const ConeMap &perception_map) {
   for (auto cone : perception_map.map) {
-    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "EKF correction step");
+    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "EKF correction step");
     ObservationData observation_data = ObservationData(cone.first.x, cone.first.y, cone.second);
     int landmark_index = this->discovery(observation_data);
-    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "After discovery");
+    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "After discovery");
     if (landmark_index == -1) {  // Too far away landmark
       continue;
     }
     Eigen::MatrixXf H = this->_observation_model.get_state_to_observation_matrix(
         this->X, landmark_index, this->X.size());
-    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "After H matrix calculation");
+    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "After H matrix calculation");
     Eigen::MatrixXf Q =
         this->_observation_model.get_observation_noise_covariance_matrix();  // Observation Noise
                                                                              // Matrix
-    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "After Q matrix calculation");
+    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "After Q matrix calculation");
+
     Eigen::MatrixXf K = this->get_kalman_gain(H, this->P, Q);
-    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "After K matrix calculation");
+
+    // std::ofstream file("../../src/performance/exec_time/loc_map_K.csv", std::ios::app);
+
+    // Write K to file
+    // for (int i = 0; i < K.rows(); i++) {
+    //   for (int j = 0; j < K.cols(); j++) {
+    //     file << K(i, j);
+    //     if (j != K.cols() - 1) {
+    //       file << ",";
+    //     }
+    //   }
+    //   file << "\n";
+    // }
+    // // Close file
+    // file << "\n";
+    // file << "\n";
+    // file.close();
+
+    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "After K matrix calculation");
     Eigen::Vector2f z_hat = this->_observation_model.observation_model(this->X, landmark_index);
-    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "After z_hat calculation");
+    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "After z_hat calculation");
     Eigen::Vector2f z = Eigen::Vector2f(observation_data.position.x, observation_data.position.y);
-    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "After z calculation");
+    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "After z calculation");
     this->X = this->X + K * (z - z_hat);
-    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "After X calculation");
-    this->P = (Eigen::MatrixXf::Identity(this->P.rows(), this->P.cols()) - K * H) * this->P;
-    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "After P calculation");
+    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "After X calculation");
+    // std::cout << "P:\n" << this->P << std::endl;
+    //this->P = (Eigen::MatrixXf::Identity(this->P.rows(), this->P.cols()) - K * H) * this->P;
+    Eigen::SparseMatrix<float> temp =
+        (Eigen::MatrixXf::Identity(this->P.rows(), this->P.cols()) - K * H).sparseView();
+    this->P = temp * this->P;
+    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "After P calculation");
   }
 }
 
@@ -140,7 +185,21 @@ int ExtendedKalmanFilter::discovery(const ObservationData &observation_data) {
   this->X.conservativeResizeLike(Eigen::VectorXf::Zero(this->X.size() + 2));
   this->X(this->X.size() - 2) = landmark_absolute(0);
   this->X(this->X.size() - 1) = landmark_absolute(1);
-  this->P.conservativeResizeLike(Eigen::MatrixXf::Zero(this->P.rows() + 2, this->P.cols() + 2));
+  //this->P.conservativeResizeLike(Eigen::MatrixXf::Zero(this->P.rows() + 2, this->P.cols() + 2));
+
+  // Create a new sparse matrix of the correct size
+  Eigen::SparseMatrix<float> newP(this->P.rows() + 2, this->P.cols() + 2);
+
+  // Copy the values from P into newP
+  for (int i = 0; i < this->P.rows(); i++) {
+    for (int j = 0; j < this->P.cols(); j++) {
+      newP.coeffRef(i, j) = this->P.coeff(i, j);
+    }
+  }
+
+  // Replace P with newP
+  this->P.swap(newP);
+
   this->_colors.push_back(observation_data.color);
   return this->X.size() - 2;
 }
