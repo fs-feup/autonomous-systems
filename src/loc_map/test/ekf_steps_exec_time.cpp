@@ -27,6 +27,31 @@ class ExecTimeTestEKFTests : public ::testing::Test {
       ObservationModel(Q_test); /**< ObservationModel object for testing */
 
   /**
+   * @brief Writes the covariance matrix P to a CSV file.
+   */
+  void print_P() {
+    // Get covariance matrix
+    Eigen::MatrixXf P = ekf_test->get_covariance();
+
+    // Open file
+    std::ofstream file("../../src/performance/exec_time/loc_map_P.csv", std::ios::app);
+
+    // Write P to file
+    for (int i = 0; i < P.rows(); i++) {
+      for (int j = 0; j < P.cols(); j++) {
+        file << P(i, j);
+        if (j != P.cols() - 1) {
+          file << ",";
+        }
+      }
+      file << "\n";
+    }
+    file << "\n";file << "\n";file << "\n";
+    // Close file
+    file.close();
+  }
+
+  /**
    * @brief Writes performance data to a CSV file.
    */
   void print_to_file() {
@@ -39,14 +64,14 @@ class ExecTimeTestEKFTests : public ::testing::Test {
             std::chrono::duration_cast<std::chrono::microseconds>(duration).count()) /
         1000.0;
     printf("The Test Duration Was: %f ms\n", milliseconds);
-    //print current working directory
+    // print current working directory
     char cwd[1024];
     if (getcwd(cwd, sizeof(cwd)) != NULL) {
       printf("Current working dir: %s\n", cwd);
     } else {
       perror("getcwd() error");
     }
-    //end print current working directory
+    // end print current working directory
     file << "LOC_MAP, " << workload << ", " << std::fixed << milliseconds << " ms\n";
     file.close();
   }
@@ -293,9 +318,9 @@ TEST_F(ExecTimeTestEKFTests, TEST_EKF_CORR_10) {
   // run 10 times and average duration
   for (int i = 0; i < 10; i++) {
     start_time = std::chrono::high_resolution_clock::now();
-
+    print_P();
     ekf_test->correction_step(coneMap);
-
+    print_P();
     end_time = std::chrono::high_resolution_clock::now();
     duration += std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
 
@@ -332,12 +357,10 @@ TEST_F(ExecTimeTestEKFTests, TEST_EKF_CORR_50) {
     start_time = std::chrono::high_resolution_clock::now();
     ekf_test->correction_step(coneMap);
     end_time = std::chrono::high_resolution_clock::now();
-    duration +=
-    std::chrono::duration_cast<std::chrono::microseconds>(end_time -
-    start_time);
-    RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "\n DURATION STEP: %ld  \n",
-                std::chrono::duration_cast<std::chrono::microseconds>(end_time
-                - start_time).count());
+    duration += std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
+    RCLCPP_DEBUG(
+        rclcpp::get_logger("rclcpp"), "\n DURATION STEP: %ld  \n",
+        std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time).count());
   }
   duration = duration / 10;
   workload = "EKF Correction Step, 50 and 10 From \"perception\"";
@@ -366,12 +389,10 @@ TEST_F(ExecTimeTestEKFTests, TEST_EKF_CORR_100) {
     start_time = std::chrono::high_resolution_clock::now();
     ekf_test->correction_step(coneMap);
     end_time = std::chrono::high_resolution_clock::now();
-    duration +=
-    std::chrono::duration_cast<std::chrono::microseconds>(end_time -
-    start_time);
-    RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "\n DURATION STEP: %ld  \n",
-                std::chrono::duration_cast<std::chrono::microseconds>(end_time
-                - start_time).count());
+    duration += std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
+    RCLCPP_DEBUG(
+        rclcpp::get_logger("rclcpp"), "\n DURATION STEP: %ld  \n",
+        std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time).count());
   }
   duration = duration / 10;
   workload = "EKF Correction Step, 100 and 10 From \"perception\"";
