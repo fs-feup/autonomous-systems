@@ -5,7 +5,7 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
-# find dependencies
+#find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(Eigen3 REQUIRED)
@@ -14,6 +14,12 @@ find_package(sensor_msgs REQUIRED)
 find_package(custom_interfaces REQUIRED)
 find_package(eufs_msgs REQUIRED)
 find_package(fs_msgs REQUIRED)
+
+#Enable OpenMP
+find_package(OpenMP)
+if(OpenMP_CXX_FOUND)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
+endif()
 
 set(IMPLEMENTATION_FILES 
   src/loc_map/lm_node.cpp
@@ -35,7 +41,6 @@ target_compile_features(loc_map PUBLIC c_std_99 cxx_std_17)
 
 install(TARGETS loc_map
   DESTINATION lib/${PROJECT_NAME})
-
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   find_package(ament_cmake_gtest REQUIRED)
@@ -56,7 +61,7 @@ if(BUILD_TESTING)
     #test/observation_model_test.cpp
     #test/slam_test.cpp
   )
-  
+
   include_directories(test)  # Include the 'test' directory for your test targets
   include_directories(${CMAKE_CURRENT_SOURCE_DIR})  # Include the current source directory
   ament_add_gtest(${PROJECT_NAME}_test ${TESTFILES} ${IMPLEMENTATION_FILES})
