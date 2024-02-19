@@ -4,6 +4,7 @@
 #include "cone_differentiation/least_squares_differentiation.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "clustering/dbscan.hpp"
+#include <vector>
 
 /**
  * @class Perception
@@ -31,11 +32,14 @@ class Perception : public rclcpp::Node {
    */
   void pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg);
 
+  void publishCones(const std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr>* clusters);
+
  public:
    /**
    * @brief Constructor for the Perception node.
    * @param groundRemoval Pointer to the GroundRemoval object.
    * @param coneDifferentiator Pointer to ConeDifferentiation object
    */
-  Perception(GroundRemoval* groundRemoval, Clustering* clustering,ConeDifferentiation* coneDifferentiator);
+  Perception(GroundRemoval* groundRemoval, Clustering* clustering,
+             ConeDifferentiation* coneDifferentiator);
 };
