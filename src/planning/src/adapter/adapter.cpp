@@ -1,77 +1,8 @@
 #include "adapter/adapter.hpp"
-
 #include "planning/planning.hpp"
 
-Adapter::Adapter(std::string mode, Planning *planning) {
+Adapter::Adapter(Planning *planning) {
   this->node = planning;
-  this->mode = mode;
 
-  RCLCPP_INFO(this->node->get_logger(), "mode: %s", mode.c_str());
-
-  if (mode == "eufs") {
-    this->eufs_init();
-  } else if (mode == "fsds") {
-    this->fsds_init();
-  } else if (mode == "ads_dv") {
-    this->ads_dv_init();
-  }
-}
-
-void Adapter::eufs_init() {
-  this->eufs_state_subscription_ = this->node->create_subscription<eufs_msgs::msg::CanState>(
-      "/ros_can/state", 10,
-      std::bind(&Adapter::eufs_mission_state_callback, this, std::placeholders::_1));
-
-  this->eufs_mission_state_client_ =
-      this->node->create_client<eufs_msgs::srv::SetCanState>("/ros_can/set_mission");
-
-  this->eufs_ebs_client_ = this->node->create_client<eufs_msgs::srv::SetCanState>("/ros_can/ebs");
-}
-
-void Adapter::fsds_init() {
-  this->fsds_state_subscription_ = this->node->create_subscription<fs_msgs::msg::GoSignal>(
-      "/signal/go", 10,
-      std::bind(&Adapter::fsds_mission_state_callback, this, std::placeholders::_1));
-  this->fsds_ebs_publisher_ =
-      this->node->create_publisher<fs_msgs::msg::FinishedSignal>("/signal/finished", 10);
-}
-
-void Adapter::ads_dv_init() {
-  this->ads_dv_state_subscription_ = this->node->create_subscription<custom_interfaces::msg::Vcu>(
-      "/vcu", 10, std::bind(&Adapter::ads_dv_mission_state_callback, this, std::placeholders::_1));
-}
-
-void Adapter::eufs_mission_state_callback(const eufs_msgs::msg::CanState msg) {
-  auto mission = msg.ami_state;
-  this->node->set_mission(eufsToSystem.at(static_cast<uint16_t>(mission))); // map eufs mission to system mission
-}
-
-void Adapter::fsds_mission_state_callback(const fs_msgs::msg::GoSignal msg) {
-  auto mission = msg.mission;
-  this->node->set_mission(fsdsToSystem.at(mission)); // map fsds mission to system mission
-}
-
-void Adapter::ads_dv_mission_state_callback(const custom_interfaces::msg::Vcu msg) {
-  auto mission = msg.ami_state;
-  this->node->set_mission(adsdvToSystem.at(mission)); // map adsdv mission to system mission
-}
-
-// TODO: Check if works / refactor
-void Adapter::eufs_set_mission_state(int mission, int state) {
-  auto request = std::make_shared<eufs_msgs::srv::SetCanState::Request>();
-  request->ami_state = mission;
-  request->as_state = state;
-
-  auto result_future = this->eufs_mission_state_client_->async_send_request(request);
-  if (rclcpp::spin_until_future_complete(this->node->get_node_base_interface(), result_future) !=
-      rclcpp::FutureReturnCode::SUCCESS) {
-    RCLCPP_ERROR(this->node->get_logger(), "Failed to call service");
-  }
-}
-
-void Adapter::fsds_finish(){
-  auto message = fs_msgs::msg::FinishedSignal();
-  message.placeholder = true; // unnecessary
-
-  this->fsds_ebs_publisher_->publish(message);
+  RCLCPP_INFO(this->node->get_logger(), "Adapter created");
 }

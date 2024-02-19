@@ -7,7 +7,8 @@
 #include <string>
 #include <vector>
 
-#include "adapter/adapter.hpp"
+// #include "adapter/adapter.hpp"
+
 #include "sensor_msgs/msg/point_cloud2.hpp"
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "custom_interfaces/msg/point2d.hpp"
@@ -18,8 +19,10 @@
 #include "utils/files.hpp"
 #include "utils/mission.hpp"
 
+
 using std::placeholders::_1;
 
+class Adapter;
 
 /**
  * @class Planning
