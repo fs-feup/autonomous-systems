@@ -2,14 +2,14 @@
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 #include <pcl_conversions/pcl_conversions.h>
-
+#include <string>
 #include <cstdio>
 
 
-Perception::Perception(GroundRemoval* groundRemoval, Clustering* clustering, ConeDifferentiation* coneDifferentiator) :
+Perception::Perception(GroundRemoval* groundRemoval, Clustering* clustering,
+            ConeDifferentiation* coneDifferentiator) :
             Node("perception"), groundRemoval(groundRemoval),
             clustering(clustering), coneDifferentiator(coneDifferentiator) {
-
   this->_point_cloud_subscription = this->create_subscription<sensor_msgs::msg::PointCloud2>(
       "/livox/lidar", 10,
       std::bind(&Perception::pointCloudCallback, this, std::placeholders::_1));
@@ -27,7 +27,7 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
 
     groundRemoval->groundRemoval(pcl_cloud, ground_removed_cloud);
 
-    std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> clusters;
+    std::vector<Cluster> clusters;
 
     clustering->clustering(ground_removed_cloud, &clusters);
 
@@ -39,8 +39,9 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
     RCLCPP_INFO(this->get_logger(), "Point Cloud after Clustering: %ld clusters",
         clusters.size());
 
-    for (int i = 0; i < clusters.size();i++){
-        Color color = coneDifferentiator->coneDifferentiation(clusters[i]);
-        RCLCPP_INFO(this->get_logger(), "Color %d: %d", i, color);
+    for (int i = 0; i < clusters.size(); i++) {
+        coneDifferentiator->coneDifferentiation(&clusters[i]);
+        std::string color = clusters[i].getColor();
+        RCLCPP_INFO(this->get_logger(), "Color %d: %s", i, color.c_str());
     }
 }

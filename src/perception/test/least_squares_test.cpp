@@ -1,9 +1,16 @@
 #include <gtest/gtest.h>
 #include "cone_differentiation/least_squares_differentiation.hpp"
+#include <utils/cluster.hpp>
 
 
+/**
+ * @brief Fixture for testing the LeastSquaresDifferentiation class.
+ */
 class LeastSquaresDifferentiationTest : public ::testing::Test {
  protected:
+    /**
+     * @brief Set up the test fixtures.
+     */
     void SetUp() override {
         blue_cone.reset(new pcl::PointCloud<pcl::PointXYZI>);
         blue_cone->points.push_back(pcl::PointXYZI{1.0, 0.0, 0.0, 20});
@@ -15,6 +22,7 @@ class LeastSquaresDifferentiationTest : public ::testing::Test {
         blue_cone->points.push_back(pcl::PointXYZI{10, 10, 7, 49});
         blue_cone->points.push_back(pcl::PointXYZI{10, 10, 9, 30});
         blue_cone->points.push_back(pcl::PointXYZI{10, 10, 10, 20});
+
 
         yellow_cone.reset(new pcl::PointCloud<pcl::PointXYZI>);
 
@@ -30,6 +38,7 @@ class LeastSquaresDifferentiationTest : public ::testing::Test {
         yellow_cone->points.push_back(pcl::PointXYZI{10, 10, 9, 60});
         yellow_cone->points.push_back(pcl::PointXYZI{10, 10, 10, 80});
 
+
         pcl_cloud_2_points.reset(new pcl::PointCloud<pcl::PointXYZI>);
         pcl_cloud_2_points->points.push_back(pcl::PointXYZI{1.0, 0.0, 0.0, 0.5});
         pcl_cloud_2_points->points.push_back(pcl::PointXYZI{0.0, 1.0, 0.0, 1.0});
@@ -41,20 +50,43 @@ class LeastSquaresDifferentiationTest : public ::testing::Test {
     pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_cloud_2_points;
 };
 
+
+/**
+ * @brief Test case to validate the cone differentiation for a yellow cone.
+ */
 TEST_F(LeastSquaresDifferentiationTest, TestYellowCone) {
+    Cluster* cluster = new Cluster(yellow_cone);
     auto cone_differentiator = new LeastSquaresDifferentiation();
 
-    ASSERT_EQ(cone_differentiator->coneDifferentiation(yellow_cone), YELLOW);
+    cone_differentiator->coneDifferentiation(cluster);
+
+    ASSERT_EQ(cluster->getColor(), "yellow");
 }
 
+/**
+ * @brief Test case to validate the cone differentiation for a blue cone.
+ */
 TEST_F(LeastSquaresDifferentiationTest, TestBlueCone) {
+    Cluster* cluster = new Cluster(blue_cone);
     auto cone_differentiator = new LeastSquaresDifferentiation();
 
-    ASSERT_EQ(cone_differentiator->coneDifferentiation(blue_cone), BLUE);
+    cone_differentiator->coneDifferentiation(cluster);
+
+    ASSERT_EQ(cluster->getColor(), "blue");
 }
 
+
+/**
+ * @brief Test case to validate the cone differentiation for an undefined cone.
+ */
 TEST_F(LeastSquaresDifferentiationTest, TestUndefinedCone) {
+    Cluster* cluster = new Cluster(pcl_cloud_2_points);
+
     auto cone_differentiator = new LeastSquaresDifferentiation();
 
-    ASSERT_EQ(cone_differentiator->coneDifferentiation(pcl_cloud_2_points), UNDEFINED);
+    cone_differentiator->coneDifferentiation(cluster);
+
+    ASSERT_EQ(cluster->getColor(), "undefined");
 }
+
+

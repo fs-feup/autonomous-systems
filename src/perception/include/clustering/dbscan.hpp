@@ -37,5 +37,5 @@ class DBSCAN : public Clustering {
     * @param clusters A pointer to a vector of shared pointers to point clouds to store the resulting clusters.
     */
     void clustering(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
-            std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr>* clusters) const override;
+            std::vector<Cluster>* clusters) const override;
 };

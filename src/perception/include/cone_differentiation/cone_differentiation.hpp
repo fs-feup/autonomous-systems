@@ -1,15 +1,10 @@
+#ifndef CONE_DIFFERENTIATION_HPP
+#define CONE_DIFFERENTIATION_HPP
+
 #include "sensor_msgs/msg/point_cloud2.hpp"
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
-
-/**
- * @brief Enumeration for cone colors.
- */
-typedef enum {
-    BLUE,      ///< Blue cone.
-    YELLOW,    ///< Yellow cone.
-    UNDEFINED  ///< Undefined color.
-} Color;
+#include <utils/cluster.hpp>
 
 /**
  * @class ConeDifferentiation
@@ -24,6 +19,7 @@ class ConeDifferentiation {
      * @param cone_point_cloud Cluster's point cloud.
      * @return Color The cone's color.
      */
-    virtual Color coneDifferentiation(const pcl::PointCloud<pcl::PointXYZI>::Ptr
-                                       cone_point_cloud) const = 0;
+    virtual void coneDifferentiation(Cluster* cone_point_cloud) const = 0;
 };
+
+#endif // CONE_DIFFERENTIATION_HPP
