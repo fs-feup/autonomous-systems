@@ -1,3 +1,4 @@
+#define EIGEN_USE_THREADS
 
 #include "kalman_filter/ekf.hpp"
 
