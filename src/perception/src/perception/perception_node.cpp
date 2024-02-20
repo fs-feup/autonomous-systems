@@ -2,14 +2,20 @@
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 #include <pcl_conversions/pcl_conversions.h>
+#include "adapter/fsds.hpp"
+#include "adapter/testlidar.hpp"
 
 #include <cstdio>
 
 Perception::Perception(GroundRemoval* groundRemoval) : Node("perception"),
         groundRemoval(groundRemoval) {
-  this->adapter = new Adapter("fsds", this);
-
   this->_cones_publisher = this->create_publisher<custom_interfaces::msg::ConeArray>("cones", 10);
+
+  std::string mode = "fsds"; // Turn this not hardcoded later
+  if (mode == "fsds")
+    this->adapter = new FsdsAdapter(this);
+  else if (mode == "test")
+    this->adapter = new TestAdapter(this);
 }
 
 void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg) {

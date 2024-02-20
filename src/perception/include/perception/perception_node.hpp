@@ -1,8 +1,12 @@
+#ifndef SRC_PERCEPTION_PERCEPTION_INCLUDE_PERCEPTION_PERCEPTION_NODE_HPP_
+#define SRC_PERCEPTION_PERCEPTION_INCLUDE_PERCEPTION_PERCEPTION_NODE_HPP_
+
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
 #include "ground_removal/ransac.hpp"
 #include "rclcpp/rclcpp.hpp"
-#include "adapter/adapter.hpp"
+
+class Adapter;
 
 /**
  * @class Perception
@@ -36,3 +40,5 @@ class Perception : public rclcpp::Node {
   void pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg);
 
 };
+
+#endif
