@@ -32,7 +32,15 @@ class Perception : public rclcpp::Node {
    */
   void pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg);
 
-  void publishCones(const std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr>* clusters);
+  /**
+     * @brief Publishes information about clusters (cones) using a custom ROS2 message.
+     *
+     * This function takes a vector of Cluster objects, extracts relevant information such as
+     * centroid and color, and publishes this information using a custom ROS2 message type ConeArray.
+     *
+     * @param cones A reference to a vector of Cluster objects representing the clusters (cones) to be published.
+  */
+  void publishCones(std::vector<Cluster>* cones);
 
  public:
    /**
