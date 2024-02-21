@@ -47,7 +47,6 @@ void ExtendedKalmanFilter::set_P(int size) {
 //   this->P(2, 2) = 1.1;
 // }
 
-
 /**
  * @brief Initializes state X with size equal to parameter size
  */
@@ -96,53 +95,24 @@ void ExtendedKalmanFilter::prediction_step(const MotionUpdate &motion_update) {
 
 void ExtendedKalmanFilter::correction_step(const ConeMap &perception_map) {
   for (auto cone : perception_map.map) {
-    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "EKF correction step");
     ObservationData observation_data = ObservationData(cone.first.x, cone.first.y, cone.second);
     int landmark_index = this->discovery(observation_data);
-    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "After discovery");
     if (landmark_index == -1) {  // Too far away landmark
       continue;
     }
     Eigen::MatrixXf H = this->_observation_model.get_state_to_observation_matrix(
         this->X, landmark_index, this->X.size());
-    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "After H matrix calculation");
     Eigen::MatrixXf Q =
         this->_observation_model.get_observation_noise_covariance_matrix();  // Observation Noise
                                                                              // Matrix
-    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "After Q matrix calculation");
 
     Eigen::MatrixXf K = this->get_kalman_gain(H, this->P, Q);
-
-    // std::ofstream file("../../src/performance/exec_time/loc_map_K.csv", std::ios::app);
-
-    // Write K to file
-    // for (int i = 0; i < K.rows(); i++) {
-    //   for (int j = 0; j < K.cols(); j++) {
-    //     file << K(i, j);
-    //     if (j != K.cols() - 1) {
-    //       file << ",";
-    //     }
-    //   }
-    //   file << "\n";
-    // }
-    // // Close file
-    // file << "\n";
-    // file << "\n";
-    // file.close();
-
-    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "After K matrix calculation");
     Eigen::Vector2f z_hat = this->_observation_model.observation_model(this->X, landmark_index);
-    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "After z_hat calculation");
     Eigen::Vector2f z = Eigen::Vector2f(observation_data.position.x, observation_data.position.y);
-    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "After z calculation");
     this->X = this->X + K * (z - z_hat);
-    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "After X calculation");
-    // std::cout << "P:\n" << this->P << std::endl;
-    //this->P = (Eigen::MatrixXf::Identity(this->P.rows(), this->P.cols()) - K * H) * this->P;
     Eigen::SparseMatrix<float> temp =
         (Eigen::MatrixXf::Identity(this->P.rows(), this->P.cols()) - K * H).sparseView();
     this->P = temp * this->P;
-    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "After P calculation");
   }
 }
 
@@ -186,7 +156,7 @@ int ExtendedKalmanFilter::discovery(const ObservationData &observation_data) {
   this->X.conservativeResizeLike(Eigen::VectorXf::Zero(this->X.size() + 2));
   this->X(this->X.size() - 2) = landmark_absolute(0);
   this->X(this->X.size() - 1) = landmark_absolute(1);
-  //this->P.conservativeResizeLike(Eigen::MatrixXf::Zero(this->P.rows() + 2, this->P.cols() + 2));
+  // this->P.conservativeResizeLike(Eigen::MatrixXf::Zero(this->P.rows() + 2, this->P.cols() + 2));
 
   // Create a new sparse matrix of the correct size
   Eigen::SparseMatrix<float> newP(this->P.rows() + 2, this->P.cols() + 2);
