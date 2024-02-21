@@ -318,9 +318,7 @@ TEST_F(ExecTimeTestEKFTests, TEST_EKF_CORR_10) {
   // run 10 times and average duration
   for (int i = 0; i < 10; i++) {
     start_time = std::chrono::high_resolution_clock::now();
-    //print_P();
     ekf_test->correction_step(coneMap);
-    //print_P();
     end_time = std::chrono::high_resolution_clock::now();
     duration += std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
 
