@@ -64,15 +64,6 @@ ExtendedKalmanFilter::ExtendedKalmanFilter(const MotionModel &motion_model,
       _fixed_map(false) {
   P.setZero();
 }
-// ExtendedKalmanFilter::ExtendedKalmanFilter(const MotionModel &motion_model,
-//                                            const ObservationModel &observation_model)
-//     : X(Eigen::VectorXf::Zero(3)),
-//       P(Eigen::MatrixXf::Zero(3, 3)), // Change this line
-//       _last_update(std::chrono::high_resolution_clock::now()),
-//       _motion_model(motion_model),
-//       _observation_model(observation_model),
-//       _fixed_map(false) {
-// }
 /*-----------------------Algorithms-----------------------*/
 
 void ExtendedKalmanFilter::prediction_step(const MotionUpdate &motion_update) {
