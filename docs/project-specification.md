@@ -21,8 +21,8 @@ This project aims to develop an Artificial Inteligence system for a computer to 
 - [rclcpp](https://docs.ros2.org/latest/api/rclcpp/)
 - [gtest](https://google.github.io/googletest/)
 - [unittest](https://docs.python.org/3/library/unittest.html)
-- [Eigen](https://eigen.tuxfamily.org/index.php?title=Main_Page)
-Note: these all come with ROS2 or are already in the project
+- [Eigen](https://eigen.tuxfamily.org/index.php?title=Main_Page) - [Documentation](https://eigen.tuxfamily.org/dox/group__TutorialSTL.html)
+- [PCL](https://pointclouds.org)
 
 - [libcgal](https://www.cgal.org/)
 - [libgsl](https://www.gnu.org/software/gsl/)
