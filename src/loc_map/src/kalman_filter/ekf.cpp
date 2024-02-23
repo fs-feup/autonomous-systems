@@ -1,7 +1,7 @@
 
 #include "kalman_filter/ekf.hpp"
 
-#include <Eigen/Dense>
+#include <eigen3/Eigen/Dense>
 #include <iostream>
 
 #include "loc_map/data_structures.hpp"

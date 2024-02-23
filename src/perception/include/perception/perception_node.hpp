@@ -5,6 +5,7 @@
 #include "sensor_msgs/msg/point_cloud2.hpp"
 #include "ground_removal/ransac.hpp"
 #include "rclcpp/rclcpp.hpp"
+#include "clustering/dbscan.hpp"
 
 class Adapter;
 
@@ -20,6 +21,7 @@ class Perception : public rclcpp::Node {
  private:
   GroundRemoval* groundRemoval; ///< Pointer to the GroundRemoval object.
   Adapter *adapter; /**< Adapter instance for external communication */
+  Clustering* clustering;
 
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr
       _point_cloud_subscription;  ///< PointCloud2 subscription.
@@ -31,7 +33,8 @@ class Perception : public rclcpp::Node {
    * @brief Constructor for the Perception node.
    * @param groundRemoval Pointer to the GroundRemoval object.
    */
-  explicit Perception(GroundRemoval* groundRemoval);
+
+  Perception(GroundRemoval* groundRemoval, Clustering* clustering);
 
     /**
    * @brief Callback function for the PointCloud2 subscription.
@@ -41,3 +44,5 @@ class Perception : public rclcpp::Node {
 };
 
 #endif
+
+

@@ -1,4 +1,4 @@
-#include <Eigen/Dense>
+#include <eigen3/Eigen/Dense>
 
 #include "gtest/gtest.h"
 #include "kalman_filter/observation_models.hpp"

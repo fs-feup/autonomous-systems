@@ -25,6 +25,7 @@ set(IMPLEMENTATION_FILES
   src/adapter/adapter.cpp
   src/adapter/fsds.cpp
   src/adapter/testlidar.cpp
+  src/clustering/dbscan.cpp
 )
 
 include_directories(${PCL_INCLUDE_DIRS})
@@ -49,7 +50,8 @@ ament_target_dependencies(perception rclcpp custom_interfaces sensor_msgs fs_msg
 if(BUILD_TESTING)
   find_package(ament_cmake_gtest REQUIRED)
   
-  ament_add_gtest(perception_test test/ransac_test.cpp src/ground_removal/ransac.cpp)
+  ament_add_gtest(perception_test test/ransac_test.cpp test/dbscan_test.cpp src/ground_removal/ransac.cpp
+                  src/clustering/dbscan.cpp)
 
 
 target_link_libraries(perception_test ${PCL_LIBRARIES})
