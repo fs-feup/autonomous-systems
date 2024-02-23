@@ -42,12 +42,19 @@ class LeastSquaresDifferentiationTest : public ::testing::Test {
         pcl_cloud_2_points.reset(new pcl::PointCloud<pcl::PointXYZI>);
         pcl_cloud_2_points->points.push_back(pcl::PointXYZI{1.0, 0.0, 0.0, 0.5});
         pcl_cloud_2_points->points.push_back(pcl::PointXYZI{0.0, 1.0, 0.0, 1.0});
+
+        real_blue_cone.reset(new pcl::PointCloud<pcl::PointXYZI>);
+
+        real_blue_cone->points.push_back(pcl::PointXYZI{1.0, 0.0, 0.3, 5});
+        real_blue_cone->points.push_back(pcl::PointXYZI{1.0, 0.0, 0.3, 1});
+        real_blue_cone->points.push_back(pcl::PointXYZI{1.0, 0.0, 0.3, 72});
+        real_blue_cone->points.push_back(pcl::PointXYZI{1.0, 0.0, 0.27, 6});
     }
 
     pcl::PointCloud<pcl::PointXYZI>::Ptr blue_cone;
     pcl::PointCloud<pcl::PointXYZI>::Ptr yellow_cone;
-
     pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_cloud_2_points;
+    pcl::PointCloud<pcl::PointXYZI>::Ptr real_blue_cone;
 };
 
 

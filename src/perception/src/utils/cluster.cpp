@@ -21,7 +21,8 @@ std::string Cluster::getColor() {
 }
 
 void Cluster::setColor(std::string new_color) {
-    this->color = new_color;
+    if (new_color == "blue" || new_color == "yellow")
+        this->color = new_color;
 }
 
 void Cluster::setPointCloud(pcl::PointCloud<pcl::PointXYZI>::Ptr new_point_cloud) {
