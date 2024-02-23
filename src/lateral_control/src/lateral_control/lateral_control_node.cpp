@@ -8,6 +8,7 @@
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/bool.hpp"
+#include "adapter/fsds.hpp"
 
 /**
  * @brief Publish Steering command when a new path is received
@@ -49,5 +50,7 @@ LateralControl::LateralControl() : Node("lateral_control_node") {
 
   // Adapter to communicate with the car
   // TODO: mode is set somewhere not hardcoded
-  this->adapter = new Adapter("fsds", this);
+  std::string mode = "fsds";
+  if (mode == "fsds")
+    this->adapter = new FsdsAdapter(this);
 }

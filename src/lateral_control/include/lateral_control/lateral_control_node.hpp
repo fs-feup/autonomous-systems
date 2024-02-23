@@ -10,6 +10,8 @@
 #include "std_msgs/msg/bool.hpp"
 #include "std_msgs/msg/string.hpp"
 
+class Adapter;
+
 /**
  * @class LateralControl
  * @brief Class responsible for the Lateral control of the car

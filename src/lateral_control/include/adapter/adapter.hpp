@@ -15,30 +15,8 @@ class LateralControl;
  * and LateralControl module.
  */
 class Adapter {
+ protected:
   LateralControl *node;
-  std::string mode;
-
-  rclcpp::Subscription<fs_msgs::msg::GoSignal>::SharedPtr fsds_state_subscription_;
-  
-  rclcpp::Publisher<fs_msgs::msg::FinishedSignal>::SharedPtr fsds_ebs_publisher_;
-  rclcpp::Publisher<fs_msgs::msg::ControlCommand>::SharedPtr fsds_cmd_publisher_;
-
-  /**
-   * @brief Initialize communication interfaces for FSDS mode.
-   */
-  void fsds_init();
-
-  /**
-   * @brief Callback for FSDS mode mission state updates.
-   * @param msg The received GoSignal message.
-   */
-  void fsds_mission_state_callback(const fs_msgs::msg::GoSignal);
-
-  void fsds_publish_cmd(float steering);
-
-  void publish_cmd(float steering);
-
-  void fsds_finish();
 
  public:
   /**
@@ -46,7 +24,12 @@ class Adapter {
    * @param mode The selected mode.
    * @param lat_control A pointer to the LateralControl module.
    */
-  Adapter(std::string mode, LateralControl *lat_control);
+  Adapter(LateralControl *lat_control);
+
+  virtual void init() = 0;
+  virtual void finish() = 0;
+  virtual void publish_cmd(float acceleration, float braking, float steering) = 0;
+
 };
 
 #endif  // SRC_LAT_CONTROL_LAT_CONTROL_INCLUDE_ADAPTER_ADAPTER_HPP_

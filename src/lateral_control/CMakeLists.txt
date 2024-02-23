@@ -20,6 +20,7 @@ set(IMPLEMENTATION_FILES
   src/main.cpp
   src/lateral_control/lateral_control_node.cpp
   src/adapter/adapter.cpp
+  src/adapter/fsds.cpp
 )
 
 add_executable(lateral_control_node ${IMPLEMENTATION_FILES})

@@ -8,6 +8,9 @@
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
 
+
+class Adapter;
+
 /**
  * @class LongitudinalControl
  * @brief Class responsible for the longitudinal control of the car

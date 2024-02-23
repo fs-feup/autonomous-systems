@@ -9,6 +9,7 @@ set(IMPLEMENTATION_FILES
   src/main.cpp
   src/node_/node_long_control.cpp
   src/adapter/adapter.cpp
+  src/adapter/fsds.cpp
 )
 
 # find dependencies

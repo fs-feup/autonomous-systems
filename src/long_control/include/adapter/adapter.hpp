@@ -1,5 +1,5 @@
-#ifndef SRC_LONG_CONTROL_LONG_CONTROL_INCLUDE_ADAPTER_ADAPTER_HPP_
-#define SRC_LONG_CONTROL_LONG_CONTROL_INCLUDE_ADAPTER_ADAPTER_HPP_
+#ifndef SRC_LAT_CONTROL_LAT_CONTROL_INCLUDE_ADAPTER_ADAPTER_HPP_
+#define SRC_LAT_CONTROL_LAT_CONTROL_INCLUDE_ADAPTER_ADAPTER_HPP_
 
 #include <string>
 
@@ -15,30 +15,8 @@ class LongitudinalControl;
  * and LongitudinalControl module.
  */
 class Adapter {
+ protected:
   LongitudinalControl *node;
-  std::string mode;
-
-  rclcpp::Subscription<fs_msgs::msg::GoSignal>::SharedPtr fsds_state_subscription_;
-  
-  rclcpp::Publisher<fs_msgs::msg::FinishedSignal>::SharedPtr fsds_ebs_publisher_;
-  rclcpp::Publisher<fs_msgs::msg::ControlCommand>::SharedPtr fsds_cmd_publisher_;
-
-  /**
-   * @brief Initialize communication interfaces for FSDS mode.
-   */
-  void fsds_init();
-
-  /**
-   * @brief Callback for FSDS mode mission state updates.
-   * @param msg The received GoSignal message.
-   */
-  void fsds_mission_state_callback(const fs_msgs::msg::GoSignal);
-
-  void fsds_publish_cmd(float throttle, float brake);
-
-  void publish_cmd(float throttle, float brake);
-
-  void fsds_finish();
 
  public:
   /**
@@ -46,7 +24,12 @@ class Adapter {
    * @param mode The selected mode.
    * @param long_control A pointer to the LongitudinalControl module.
    */
-  Adapter(std::string mode, LongitudinalControl *long_control);
+  Adapter(LongitudinalControl *long_control);
+
+  virtual void init() = 0;
+  virtual void finish() = 0;
+  virtual void publish_cmd(float acceleration, float braking, float steering) = 0;
+
 };
 
-#endif  // SRC_LONG_CONTROL_LONG_CONTROL_INCLUDE_ADAPTER_ADAPTER_HPP_
+#endif  // SRC_LAT_CONTROL_LAT_CONTROL_INCLUDE_ADAPTER_ADAPTER_HPP_
