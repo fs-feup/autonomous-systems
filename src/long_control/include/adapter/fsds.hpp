@@ -10,8 +10,8 @@ class FsdsAdapter : public Adapter {
     rclcpp::Publisher<fs_msgs::msg::FinishedSignal>::SharedPtr fsds_ebs_publisher_;
     rclcpp::Publisher<fs_msgs::msg::ControlCommand>::SharedPtr fsds_cmd_publisher_;
 
-public:
-    FsdsAdapter(LongitudinalControl* long_control);
+ public:
+    explicit FsdsAdapter(LongitudinalControl* long_control);
 
     void init() override;
     void fsds_mission_state_callback(const fs_msgs::msg::GoSignal msg);

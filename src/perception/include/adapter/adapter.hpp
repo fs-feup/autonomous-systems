@@ -16,10 +16,11 @@ class Perception;
  * and Planning module.
  */
 class Adapter {
-protected:
-  rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr _point_cloud_subscription;  ///< PointCloud2 subscription.
-public:
-    Adapter(Perception* perception);
+ protected:
+    ///< PointCloud2 subscription.
+    rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr _point_cloud_subscription;
+ public:
+    explicit Adapter(Perception* perception);
     Perception* node;
 
     virtual void init() = 0;

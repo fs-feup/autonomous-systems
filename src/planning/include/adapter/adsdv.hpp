@@ -8,8 +8,8 @@ class Planning;
 class AdsdvAdapter : public Adapter {
     rclcpp::Subscription<custom_interfaces::msg::Vcu>::SharedPtr ads_dv_state_subscription_;
 
-public:
-    AdsdvAdapter(Planning* planning);
+ public:
+    explicit AdsdvAdapter(Planning* planning);
 
     void init() override;
     void mission_state_callback(custom_interfaces::msg::Vcu msg);

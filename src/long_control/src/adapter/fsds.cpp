@@ -13,7 +13,6 @@ void FsdsAdapter::init() {
       this->node->create_publisher<fs_msgs::msg::FinishedSignal>("/signal/finished", 10);
   this->fsds_cmd_publisher_ =
       this->node->create_publisher<fs_msgs::msg::ControlCommand>("/control_command", 10);
-  
 }
 
 void FsdsAdapter::fsds_mission_state_callback(const fs_msgs::msg::GoSignal msg) {
@@ -22,7 +21,7 @@ void FsdsAdapter::fsds_mission_state_callback(const fs_msgs::msg::GoSignal msg) 
   return;
 }
 
-void FsdsAdapter::publish_cmd(float acceleration, float braking, float steering){
+void FsdsAdapter::publish_cmd(float acceleration, float braking, float steering) {
   // Throttle [0, 1] - Steering [-1, 1] - Brake [0, 1]
   auto message = fs_msgs::msg::ControlCommand();
 
@@ -35,7 +34,7 @@ void FsdsAdapter::publish_cmd(float acceleration, float braking, float steering)
   this->fsds_cmd_publisher_->publish(message);
 }
 
-void FsdsAdapter::finish(){
+void FsdsAdapter::finish() {
   auto message = fs_msgs::msg::FinishedSignal();
   message.placeholder = true; // unnecessary
 

@@ -1,3 +1,4 @@
+#include <string>
 #include "custom_interfaces/msg/vcu.hpp"
 #include "eufs_msgs/msg/can_state.hpp"
 #include "eufs_msgs/srv/set_can_state.hpp"
@@ -24,7 +25,7 @@ const std::unordered_map<std::string, Mission> fsdsToSystem = {
     {"acceleration", Mission::acceleration},
     {"skidpad", Mission::skidpad},
     {"autocross", Mission::autocross},
-    {"trackdrive", Mission::trackdrive}    
+    {"trackdrive", Mission::trackdrive}
 };
 
 const std::unordered_map<int, Mission> adsdvToSystem = {

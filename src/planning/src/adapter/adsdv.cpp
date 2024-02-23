@@ -11,11 +11,11 @@ void AdsdvAdapter::init() {
 }
 
 void AdsdvAdapter::mission_state_callback(custom_interfaces::msg::Vcu msg) {
-   auto mission = msg.ami_state;
+  auto mission = msg.ami_state;
   this->node->set_mission(adsdvToSystem.at(mission)); // map adsdv mission to system mission
 }
 
-void AdsdvAdapter::set_mission_state(int mission, int state){
+void AdsdvAdapter::set_mission_state(int mission, int state) {
     // TODO
 }
 

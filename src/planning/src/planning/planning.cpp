@@ -29,7 +29,6 @@ Planning::Planning() : Node("planning") {
     this->adapter = new EufsAdapter(this);
   else if (mode == "adsdv")
     this->adapter = new AdsdvAdapter(this);
- 
 }
 
 void Planning::track_map_callback(const custom_interfaces::msg::ConeArray msg) {

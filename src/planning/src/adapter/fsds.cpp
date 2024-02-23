@@ -15,10 +15,11 @@ void FsdsAdapter::init() {
 
 void FsdsAdapter::mission_state_callback(const fs_msgs::msg::GoSignal msg) {
   auto mission = msg.mission;
-  this->node->set_mission(fsdsToSystem.at(mission)); // map fsds mission to system mission
+  // map fsds mission to system mission
+  this->node->set_mission(fsdsToSystem.at(mission));
 }
 
-void FsdsAdapter::set_mission_state(int mission, int state){
+void FsdsAdapter::set_mission_state(int mission, int state) {
     // TODO
 }
 

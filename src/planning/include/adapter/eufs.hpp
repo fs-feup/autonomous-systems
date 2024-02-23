@@ -8,8 +8,8 @@ class EufsAdapter : public Adapter {
     rclcpp::Client<eufs_msgs::srv::SetCanState>::SharedPtr eufs_mission_state_client_;
     rclcpp::Client<eufs_msgs::srv::SetCanState>::SharedPtr eufs_ebs_client_;
 
-public:
-    EufsAdapter(Planning* planning);
+ public:
+    explicit EufsAdapter(Planning* planning);
 
     void init() override;
     void mission_state_callback(eufs_msgs::msg::CanState msg);

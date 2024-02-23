@@ -38,7 +38,6 @@ class Perception : public rclcpp::Node {
    * @param msg The received PointCloud2 message.
    */
   void pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg);
-
 };
 
 #endif

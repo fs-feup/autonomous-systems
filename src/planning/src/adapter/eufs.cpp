@@ -18,7 +18,8 @@ void EufsAdapter::init() {
 
 void EufsAdapter::mission_state_callback(eufs_msgs::msg::CanState msg) {
   auto mission = msg.ami_state;
-  this->node->set_mission(eufsToSystem.at(static_cast<uint16_t>(mission))); // map eufs mission to system mission
+  // map eufs mission to system mission
+  this->node->set_mission(eufsToSystem.at(static_cast<uint16_t>(mission)));
 }
 
 void EufsAdapter::set_mission_state(int mission, int state) {
@@ -33,7 +34,7 @@ void EufsAdapter::set_mission_state(int mission, int state) {
   }
 }
 
-void EufsAdapter::finish(){
+void EufsAdapter::finish() {
     // TODO
 }
 

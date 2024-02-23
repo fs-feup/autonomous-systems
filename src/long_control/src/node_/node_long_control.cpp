@@ -25,8 +25,6 @@ void LongitudinalControl::publish_torque(custom_interfaces::msg::ConeArray path)
 void LongitudinalControl::velocity_estimation_callback(std_msgs::msg::String velocity) {}
 
 LongitudinalControl::LongitudinalControl() : Node("node_long_control") {
-  
-
   // get velocity data from state estimation
   current_velcoity = this->create_subscription<std_msgs::msg::String>(
       "velocity_estimation", 10,
@@ -39,7 +37,7 @@ LongitudinalControl::LongitudinalControl() : Node("node_long_control") {
 
   // creates publisher that should yield torque/acceleration/...
   result = this->create_publisher<std_msgs::msg::String>("torque_topic", 10);
-  
+
   // Adapter to communicate with the car
   // TODO: mode is set somewhere not hardcoded
   std::string mode = "fsds";

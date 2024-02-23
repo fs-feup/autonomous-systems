@@ -16,8 +16,8 @@ class Planning;
  * and Planning module.
  */
 class Adapter {
-public:
-    Adapter(Planning* planning);
+ public:
+    explicit Adapter(Planning* planning);
     Planning* node;
 
     virtual void init() = 0;
