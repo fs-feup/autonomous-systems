@@ -9,7 +9,7 @@
 /**
  * @class ConeDifferentiation
  * 
- * @brief Abstract class for cone differentiation based on color.
+ * @brief Abstract class for cone differentiation based on cone reflectivity patterns.
  */
 class ConeDifferentiation {
  public:

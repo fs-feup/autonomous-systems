@@ -31,18 +31,18 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
 
     clustering->clustering(ground_removed_cloud, &clusters);
 
-    RCLCPP_INFO(this->get_logger(), "---------- Point Cloud Received ----------");
-    RCLCPP_INFO(this->get_logger(), "Point Cloud Before Ground Removal: %ld points",
+    RCLCPP_DEBUG(this->get_logger(), "---------- Point Cloud Received ----------");
+    RCLCPP_DEBUG(this->get_logger(), "Point Cloud Before Ground Removal: %ld points",
         pcl_cloud->points.size());
-    RCLCPP_INFO(this->get_logger(), "Point Cloud After Ground Removal: %ld points",
+    RCLCPP_DEBUG(this->get_logger(), "Point Cloud After Ground Removal: %ld points",
         ground_removed_cloud->points.size());
-    RCLCPP_INFO(this->get_logger(), "Point Cloud after Clustering: %ld clusters",
+    RCLCPP_DEBUG(this->get_logger(), "Point Cloud after Clustering: %ld clusters",
         clusters.size());
 
     for (int i = 0; i < clusters.size(); i++) {
         coneDifferentiator->coneDifferentiation(&clusters[i]);
         std::string color = clusters[i].getColor();
-        RCLCPP_INFO(this->get_logger(), "Cone %d: %s", i, color.c_str());
+        RCLCPP_DEBUG(this->get_logger(), "Cone %d: %s", i, color.c_str());
     }
 
     publishCones(&clusters);
@@ -58,7 +58,7 @@ void Perception::publishCones(std::vector<Cluster>* cones) {
 
     auto cone_message = custom_interfaces::msg::Cone();
     cone_message.position = position;
-    cone_message.color = cones->at().getColor();
+    cone_message.color = cones->at(i).getColor();
     message.cone_array.push_back(cone_message);
   }
 
