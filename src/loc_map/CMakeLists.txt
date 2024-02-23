@@ -24,6 +24,8 @@ set(IMPLEMENTATION_FILES
   src/utils/formulas.cpp
   src/utils/color.cpp
   src/adapter/adapter.cpp
+  src/adapter/eufs.cpp
+  src/adapter/fsds.cpp
 )
 
 add_executable(${PROJECT_NAME} src/loc_map.cpp ${IMPLEMENTATION_FILES})

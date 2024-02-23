@@ -17,6 +17,10 @@
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/imu.hpp"
 #include "std_msgs/msg/string.hpp"
+#include "adapter/fsds.hpp"
+#include "adapter/eufs.hpp"
+
+class Adapter;
 
 /**
  * @brief Class representing the main loc_map node responsible for publishing
@@ -37,7 +41,9 @@ class LMNode : public rclcpp::Node {
   VehicleState *_vehicle_state;
   Mission _mission;
   bool _use_odometry;
+  Adapter* adapter;
 
+ public:
   /**
    * @brief Callback that updates everytime information
    * is received from the perception module
@@ -136,8 +142,8 @@ class LMNode : public rclcpp::Node {
    */
   void set_mission(Mission mission);
 
-  friend class Adapter;
-  FRIEND_TEST(ODOMETRY_SUBSCRIBER, CONVERSION_TEST);
+  // friend class Adapter;
+  // FRIEND_TEST(ODOMETRY_SUBSCRIBER, CONVERSION_TEST);
 };
 
 #endif  // SRC_LOC_MAP_INCLUDE_LOC_MAP_LM_SUBSCRIBER_HPP_
