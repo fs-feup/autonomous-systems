@@ -6,7 +6,7 @@ float PathPoint::getX() const { return x; }
 
 float PathPoint::getY() const { return y; }
 
-//float PathPoint::getV() const { return v; }
+float PathPoint::getV() const { return v; }
 
 float PathPoint::getDistanceTo(PathPoint *dest) {
   return sqrt(pow(this->x - dest->getX(), 2) + pow(this->y - dest->getY(), 2));

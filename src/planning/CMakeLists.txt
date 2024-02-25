@@ -35,6 +35,7 @@ set(IMPLEMENTATION_FILES
   src/planning/local_path_planner.cpp
   src/planning/track.cpp
   src/planning/planning.cpp
+  src/planning/path_smoothing.cpp
   src/utils/cone.cpp
   src/utils/pathpoint.cpp
   src/utils/files.cpp

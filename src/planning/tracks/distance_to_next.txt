@@ -1,0 +1,15 @@
+0 0 yellow_cone
+1 1 yellow_cone
+2 2 yellow_cone
+3 3 yellow_cone
+4 4 yellow_cone
+5 5 yellow_cone
+6 6 yellow_cone
+7 7 yellow_cone
+8 8 yellow_cone
+9 9 yellow_cone
+10 10 yellow_cone
+11 11 yellow_cone
+12 12 yellow_cone
+13 13 yellow_cone
+14 5 yellow_cone

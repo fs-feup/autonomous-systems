@@ -18,7 +18,7 @@ class PathPoint {
 
   float getY() const;
 
-//float getV() const;
+  float getV() const;
 
   /**
    * Euclidean distance to another path point

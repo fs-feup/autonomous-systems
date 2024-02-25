@@ -32,6 +32,7 @@ std::ofstream openWriteFile(const std::string &filename) {
 }
 
 std::ifstream openReadFile(const std::string &filename) {
+  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Start openReadFile");
   std::string filePrefix = ament_index_cpp::get_package_share_directory("planning");
   filePrefix = filePrefix.substr(0, filePrefix.find("install"));
   std::string logger_variable = filePrefix + filename;
@@ -40,8 +41,24 @@ std::ifstream openReadFile(const std::string &filename) {
     RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "ERROR opening file: %s\n", logger_variable.c_str());
   } else {RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"),
    "Successfully opened %s \n", logger_variable.c_str());}
+    RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "End openReadFile");
   return file;
 }
+
+void deleteContentsInFile(const std::string &filename) {
+  std::string filePrefix = ament_index_cpp::get_package_share_directory("planning");
+  filePrefix = filePrefix.substr(0, filePrefix.find("install"));
+  std::string logger_variable = filePrefix + filename;
+  std::ofstream ofs;
+  ofs.open(logger_variable, std::ofstream::out | std::ofstream::trunc);
+  if (!ofs.is_open()) {
+    RCLCPP_ERROR(rclcpp::get_logger("rclcpp"),
+    "ERROR cleaning file: %s\n", logger_variable.c_str());
+  } else {RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"),
+   "Successfully cleaned file:  %s \n", logger_variable.c_str());}
+  ofs.close();
+}
+
 // Track* read_track_file(const std::string& filename) {
 //   std::string filePrefix = rcpputils::fs::current_path().string();
 //   std::string filePackage = filePrefix + "/planning/planning/files/" +
