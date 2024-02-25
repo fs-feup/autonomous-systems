@@ -220,3 +220,35 @@ LOC_MAP, EKF pred step, 100, 56.734000 ms
 LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.257000 ms
 LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 49.706000 ms
 LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 214.446000 ms
+LOC_MAP, EKF pred step, 10, 0.213000 ms
+LOC_MAP, EKF pred step, 50, 39.063000 ms
+LOC_MAP, EKF pred step, 100, 47.059000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.173000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 47.214000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 205.460000 ms
+LOC_MAP, EKF pred step, 10, 0.218000 ms
+LOC_MAP, EKF pred step, 50, 39.227000 ms
+LOC_MAP, EKF pred step, 10, 0.216000 ms
+LOC_MAP, EKF pred step, 50, 39.226000 ms
+LOC_MAP, EKF pred step, 100, 48.430000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.306000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 48.833000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 211.673000 ms
+LOC_MAP, EKF pred step, 10, 0.215000 ms
+LOC_MAP, EKF pred step, 50, 39.708000 ms
+LOC_MAP, EKF pred step, 100, 50.371000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.166000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 46.703000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 204.091000 ms
+LOC_MAP, EKF pred step, 10, 0.220000 ms
+LOC_MAP, EKF pred step, 50, 35.114000 ms
+LOC_MAP, EKF pred step, 100, 47.067000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.312000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 49.068000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 213.401000 ms
+LOC_MAP, EKF pred step, 10, 0.213000 ms
+LOC_MAP, EKF pred step, 50, 39.128000 ms
+LOC_MAP, EKF pred step, 100, 48.297000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.071000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 46.291000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 208.663000 ms
