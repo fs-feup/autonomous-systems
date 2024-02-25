@@ -27,6 +27,11 @@ class PathSmoothing {
      */
     PathSmoothing();
 
+    /**
+     * @brief Get the Path object
+     * 
+     * @return path (vector of pointers to PathPoints)
+     */
     std::vector<PathPoint *> getPath();
 
     /**
@@ -82,7 +87,7 @@ class PathSmoothing {
     void validate(std::vector<PathPoint *> a_path);
 
     /**
-     * @brief 
+     * @brief Fits spline to path
      * 
      * @param precision Number of spline points for each input PathPoint
      * @param order Order of the spline
@@ -94,10 +99,13 @@ class PathSmoothing {
                         std::vector<PathPoint *> path);
 
     /**
-     * @brief smoothes out the path
+     * @brief Function designed to smooth the path via spline
      * 
-     * @param unord_path Path point array after outlier removal and triangulations
-     * @return smoothed out path
+     * @param precision Number of spline points for each input PathPoint
+     * @param order Order of the spline
+     * @param coeffs_ratio Ratio of coefficients to PathPoints
+     * @param unord_path Ordered PathPoints
+     * @return Smoothed path
      */
     std::vector<PathPoint *> pathSmoother(int precision, int order, float coeffs_ratio
     , std::vector<PathPoint *> unord_path);
