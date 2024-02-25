@@ -46,7 +46,7 @@ class ExecTimeTestEKFTests : public ::testing::Test {
       }
       file << "\n";
     }
-    file << "\n";file << "\n";file << "\n";
+    file << "\n\n";
     // Close file
     file.close();
   }
