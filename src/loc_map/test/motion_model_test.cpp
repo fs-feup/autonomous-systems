@@ -95,8 +95,8 @@ TEST(NORMAL_VELOCITY_MODEL, AUTONOMOUS_DEMO_TEST) {
   Eigen::MatrixXf R = Eigen::Matrix3f::Zero();
   Eigen::VectorXf temp_state = Eigen::Vector3f::Zero();
   NormalVelocityModel motion_model = NormalVelocityModel(R);
-  MotionUpdate prediction_data = {2.5, 0, 0, 0.001, 0,
-  std::chrono::high_resolution_clock::now()}; for (unsigned int i = 0; i < 4; i++) {
+  MotionUpdate prediction_data = {2.5, 0, 0, 0.001, 0, std::chrono::high_resolution_clock::now()};
+  for (unsigned int i = 0; i < 4; i++) {
     temp_state = motion_model.predict_expected_state(temp_state, prediction_data, 1);
     EXPECT_NEAR(temp_state(0), 2.5 * (i + 1), 0.01 * (i + 1));
   }
@@ -200,9 +200,9 @@ TEST(IMU_VELOCITY_MODEL, LINEAR_VELOCITY_CURVE_TEST) {
       motion_model.get_motion_to_state_matrix(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
   Eigen::MatrixXf new_covariance =
       G * Eigen::MatrixXf::Ones(10, 10) *
-      G.transpose();                         // Covariance with ones to check if it is modified
-  EXPECT_NEAR(new_state(0), 0.076, 0.001);  // x 
-  EXPECT_NEAR(new_state(1), 0.001, 0.001);  // y 
+      G.transpose();                           // Covariance with ones to check if it is modified
+  EXPECT_NEAR(new_state(0), 0.076, 0.001);     // x
+  EXPECT_NEAR(new_state(1), 0.001, 0.001);     // y
   EXPECT_NEAR(new_state(2), M_PI / 160, 0.1);  // theta
   for (int i = 0; i < 10; i++) {
     for (int j = 0; j < 10; j++) {
@@ -242,7 +242,7 @@ TEST(IMU_VELOCITY_MODEL, COMPLEX_MOVEMENT_TEST) {
     for (int i = 0; i < 10; i++) {  // Covariance
       for (int j = 0; j < 10; j++) {
         if (i < 2 || j < 2)  // Only x and y are affected because of the Jacobian
-          EXPECT_NE(new_covariance(i, j), 0.0);//TODO change back to one!!
+          EXPECT_NE(new_covariance(i, j), 0.0);  // // TODO(PedroRomao3): correct values.
         else
           EXPECT_DOUBLE_EQ(new_covariance(i, j), 1.0);
       }
@@ -278,8 +278,7 @@ TEST(ODOMETRY_SUBSCRIBER, CONVERSION_TEST) {
   lf_speed = 60;
   rf_speed = 60;
   steering_angle = M_PI / 8;
-  velocity_data = LMNode::odometry_to_velocities_transform(lb_speed, rb_speed, lf_speed,
-  rf_speed,
+  velocity_data = LMNode::odometry_to_velocities_transform(lb_speed, rb_speed, lf_speed, rf_speed,
                                                            steering_angle);
   EXPECT_GE(velocity_data.translational_velocity, 1.5708);
   EXPECT_LE(velocity_data.translational_velocity, 1.5708 * 2);
