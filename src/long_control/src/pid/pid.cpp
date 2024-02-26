@@ -6,20 +6,24 @@
  * @param Kp Proporcional gain
  * @param Ki Integral gain
  * @param Kd Derivative gain
+ * @param antiWindup Anti-windup constant
  * @param tau Derivative low pass filter time constant
  * @param T Sampling time
  * @param limMin Minimum output value
  * @param limMax Maximum output value
  */
 
-PID::PID(float Kp, float Ki, float Kd, float tau, float T, float limMin, float limMax) {
+PID::PID(float Kp, float Ki, float Kd, float antiWindup, float tau, float T, float limMin,
+         float limMax) {
   this->Kp = Kp;
   this->Ki = Ki;
   this->Kd = Kd;
+  this->antiWindup = antiWindup;
   this->tau = tau;
   this->T = T;
   this->limMin = limMin;
   this->limMax = limMax;
+  this->proportional = 0.0f;
   this->integrator = 0.0f;
   this->prevError = 0.0f;
   this->differentiator = 0.0f;
@@ -34,6 +38,7 @@ PID::PID(float Kp, float Ki, float Kd, float tau, float T, float limMin, float l
  * @param measurement
  * @return float
  */
+
 float PID::update(float setpoint, float measurement) {
   /*
    * Error signal
@@ -43,27 +48,27 @@ float PID::update(float setpoint, float measurement) {
   /*
    * Proportional term
    */
-  float proportional = calculateProportionalTerm(this->Kp, error);
+  calculateProportionalTerm(error);
 
   /*
    * Integral term
    */
-  calculateIntegralTerm(this,error);
-
-  /*
-   * Anti-wind-up via dynamic integrator clamping
-   */
-  antiWindUp(this, proportional);
+  this->calculateIntegralTerm(error);
 
   /*
    * Derivative term , derivative on measurement
    */
-  calculateDerivativeTerm(this,measurement);
+  this->calculateDerivativeTerm(measurement);
+
+  /*
+   * Anti-wind-up integrator
+   */
+  this->antiWindUp();
 
   /*
    * Compute output and apply limits
    */
-  computeOutput(this,proportional);  
+  this->computeOutput();
 
   /*
    * Store error and measurement for the next iteration
@@ -77,54 +82,34 @@ float PID::update(float setpoint, float measurement) {
   return this->out;
 }
 
-float calculateError(float setpoint, float measurement) { return setpoint - measurement; }
+float PID::calculateError(float setpoint, float measurement) { return setpoint - measurement; }
 
-float calculateProportionalTerm(float Kp, float error) { return Kp * error; }
+void PID::calculateProportionalTerm(float error) { this->proportional = this->Kp * error; }
 
-void calculateIntegralTerm(PID* pid, float error) {
-  pid->integrator = pid->integrator + 0.5f * pid->Ki * pid->T * (error + pid->prevError);
+void PID::calculateIntegralTerm(float error) {
+  this->integrator = this->integrator + 0.5f * this->Ki * this->T * (error + this->prevError);
 }
 
-float antiWindUp(PID *pid,float proportional) {
-  float limMinInt; /* lim min integrator term */
-  float limMaxInt; /* lim max integrator term */
+void PID::antiWindUp() {
+  float curOutput = this->proportional + this->integrator + this->differentiator;
 
-
-  /* Compute integrator limits */
-  if (pid->limMax > proportional) {
-    limMaxInt = pid->limMax - proportional;
-  } else {
-    limMaxInt = 0.0f;  // anti-wind-up is active
-  }
-
-  if (pid->limMin < proportional) {
-    limMinInt = pid->limMin - proportional;
-  } else {
-    limMinInt = 0.0f;  // anti-wind-up is active
-  }
-
-  /*
-   * Clamp the integrator
-   */
-  if (pid->integrator > limMaxInt) {
-    pid->integrator = limMaxInt;
-  } else if (pid->integrator < limMinInt) {
-    pid->integrator = limMinInt;
+  if (curOutput > this->limMax || curOutput < this->limMin) {
+    this->integrator = this->integrator * this->antiWindup;
   }
 }
 
-void calculateDerivativeTerm(PID *pid, float measurement) {
-  pid->differentiator = (-2.0f * pid->Kd * (measurement - pid->prevMeasurement) +
-                          (2.0f * pid->tau - pid->T) * pid->differentiator) /
-                         (2.0f * pid->tau + pid->T);
+void PID::calculateDerivativeTerm(float measurement) {
+  this->differentiator = (-2.0f * this->Kd * (measurement - this->prevMeasurement) +
+                          (2.0f * this->tau - this->T) * this->differentiator) /
+                         (2.0f * this->tau + this->T);
 }
 
-void computeOutput(PID *pid, float proportional) {
-  pid->out = proportional + pid->integrator + pid->differentiator;
+void PID::computeOutput() {
+  this->out = this->proportional + this->integrator + this->differentiator;
 
-  if (pid->out > pid->limMax) {
-    pid->out = pid->limMax;
-  } else if (pid->out < pid->limMin) {
-    pid->out = pid->limMin;
+  if (this->out > this->limMax) {
+    this->out = this->limMax;
+  } else if (this->out < this->limMin) {
+    this->out = this->limMin;
   }
 }

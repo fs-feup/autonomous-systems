@@ -12,10 +12,11 @@
  */
 
 class PID {
-    public:
-  float Kp; /**< Proporcional gain */
-  float Ki; /**< Integral gain */
-  float Kd; /**< Derivative gain */
+ public:            // pirvate vs public
+  float Kp;         /**< Proporcional gain */
+  float Ki;         /**< Integral gain */
+  float Kd;         /**< Derivative gain */
+  float antiWindup; /**< Gain of integrator impact when saturated */
 
   float tau; /**< Derivative low pass filter time constant */
 
@@ -24,9 +25,11 @@ class PID {
   float limMin; /**< Minimum output value */
   float limMax; /**< Maximum output value */
 
-  float integrator;      /**< Integrator value */
+  float proportional;   /**< Integrator value */
+  float integrator;     /**< Integrator value */
+  float differentiator; /**< Differentiator value */
+
   float prevError;       /**< Previous error value, required for integrator */
-  float differentiator;  /**< Differentiator value */
   float prevMeasurement; /**< Previous measurement value, required for defferentiator */
 
   float out; /**< Output value */
@@ -40,78 +43,59 @@ class PID {
    */
   float update(float setpoint, float measurement);
 
-  public:
-    /**
-     * @brief Construct a new PID object
-     *
-     * @param Kp Proporcional gain
-     * @param Ki Integral gain
-     * @param Kd Derivative gain
-     * @param tau Derivative low pass filter time constant
-     * @param T Sampling time
-     * @param limMin Minimum output value
-     * @param limMax Maximum output value
-     */
-    PID(float Kp, float Ki, float Kd, float tau, float T, float limMin, float limMax);
+ public:
+  /**
+   * @brief Construct a new PID object
+   *
+   * @param Kp Proporcional gain
+   * @param Ki Integral gain
+   * @param Kd Derivative gain
+   * @param tau Derivative low pass filter time constant
+   * @param T Sampling time
+   * @param limMin Minimum output value
+   * @param limMax Maximum output value
+   */
+  PID(float Kp, float Ki, float Kd, float tau, float T, float limMin, float limMax,
+      float antiWindup);
 
-    /**
-     * @brief Calculate the error signal
-     *
-     * @param setpoint
-     * @param measurement
-     * @return error (float)
-     */
-    float calculateError(float setpoint, float measurement);
+  /**
+   * @brief Calculate the error signal
+   *
+   * @param setpoint
+   * @param measurement
+   * @return error (float)
+   */
+  float calculateError(float setpoint, float measurement);
 
-    /**
-     * @brief Calculate the proportional term
-     *
-     * @param Kp
-     * @param error
-     * @return float
-     */
-    float calculateProportionalTerm(float Kp, float error);
+  /**
+   * @brief Calculate the proportional term
+   *
+   * @param error
+   */
+  void calculateProportionalTerm(float error);
 
+  /**
+   * @brief Calculate the integral term
+   *
+   * @param error
+   */
+  void calculateIntegralTerm(float error);
 
-    /**
-     * @brief Calculate the integral term
-     *
-     * @param pid
-     * @param error
-     */
-    void calculateIntegralTerm(PID* pid, float error);
+  /**
+   * @brief Anti-wind-up via dynamic integrator clamping
+   */
+  void antiWindUp();
 
-    /**
-     * @brief Calculate the derivative term
-     *
-     * @param pid
-     * @param measurement
-     */
-    float antiWindUp(PID *pid,float proportional);
-    
-    /**
-     * @brief Calculate the derivative term
-     *
-     * @param pid
-     * @param measurement
-     */
-    void calculateIntegralTerm(PID* pid, float error);
+  /**
+   * @brief Calculate the derivative term (derivative on measurement)
+   *
+   * @param measurement
+   */
+  void calculateDerivativeTerm(float measurement);
 
-    /**
-     * @brief Calculate the derivative term (derivative on measurement)
-     *
-     * @param pid
-     * @param measurement
-     */
-    void calculateDerivativeTerm(PID *pid, float measurement);
-
-    /**
-     * @brief Compute the output value and apply limits
-     *
-     * @param pid
-     * @param proportional
-     */
-    void computeOutput(PID *pid, float proportional);
-
+  /**
+   * @brief Compute the output value and apply limits
+   */
+  void computeOutput();
 };
 #endif  // PID_CONTROLLER_HPP_
