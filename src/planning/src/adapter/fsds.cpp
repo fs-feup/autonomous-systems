@@ -20,7 +20,7 @@ void FsdsAdapter::mission_state_callback(const fs_msgs::msg::GoSignal msg) {
 }
 
 void FsdsAdapter::set_mission_state(int mission, int state) {
-    // TODO
+    std::cout << "Set mission undefined for Eufs\n";
 }
 
 void FsdsAdapter::finish() {

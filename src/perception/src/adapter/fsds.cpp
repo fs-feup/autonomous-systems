@@ -18,7 +18,7 @@ void FsdsAdapter::init() {
 }
 
 void FsdsAdapter::mission_state_callback(const fs_msgs::msg::GoSignal msg) {
-  // TODO: Unnecessary process, just to know if signal go is being sent
+  std::cout << "Mission State undefined for Fsds\n";
 }
 
 void FsdsAdapter::finish() {

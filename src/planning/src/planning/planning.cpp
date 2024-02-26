@@ -20,8 +20,6 @@ Planning::Planning() : Node("planning") {
   this->timer_ = this->create_wall_timer(
       std::chrono::milliseconds(100), std::bind(&Planning::publish_predicitive_track_points, this));
 
-
-  std::string mode = "fsds";
   // Adapter to communicate with the car
   if (mode == "fsds")
     this->adapter = new FsdsAdapter(this);

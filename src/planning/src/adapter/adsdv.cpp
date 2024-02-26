@@ -16,9 +16,9 @@ void AdsdvAdapter::mission_state_callback(custom_interfaces::msg::Vcu msg) {
 }
 
 void AdsdvAdapter::set_mission_state(int mission, int state) {
-    // TODO
+    std::cout << "Set mission undefined for Ads Dv\n";
 }
 
 void AdsdvAdapter::finish() {
-  // TODO
+  std::cout << "Finish undefined for Ads Dv\n";
 }

@@ -9,10 +9,8 @@
 
 Perception::Perception(GroundRemoval* groundRemoval, Clustering* clustering) : Node("perception"),
         groundRemoval(groundRemoval), clustering(clustering) {
-
   this->_cones_publisher = this->create_publisher<custom_interfaces::msg::ConeArray>("cones", 10);
 
-  std::string mode = "fsds"; // Turn this not hardcoded later
   if (mode == "fsds")
     this->adapter = new FsdsAdapter(this);
   else if (mode == "test")
@@ -23,7 +21,6 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
     pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_cloud(new pcl::PointCloud<pcl::PointXYZI>);
 
     pcl::fromROSMsg(*msg, *pcl_cloud);
-
 
     pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
 

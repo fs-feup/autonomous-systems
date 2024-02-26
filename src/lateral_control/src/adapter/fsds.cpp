@@ -16,16 +16,14 @@ void FsdsAdapter::init() {
 }
 
 void FsdsAdapter::fsds_mission_state_callback(const fs_msgs::msg::GoSignal msg) {
-  // Mission is unnecessary
-  // TODO: just info that the message is being received
-  return;
+  std::cout << "Mission State for Fsds\n";
 }
 
 void FsdsAdapter::publish_cmd(float acceleration, float braking, float steering) {
   // Throttle [0, 1] - Steering [-1, 1] - Brake [0, 1]
   auto message = fs_msgs::msg::ControlCommand();
 
-  // TODO: Convert values to range according to the units sent by AS
+  // TODO(andre): Convert values to range according to the units sent by AS
 
   message.throttle = acceleration;
   message.brake = braking;

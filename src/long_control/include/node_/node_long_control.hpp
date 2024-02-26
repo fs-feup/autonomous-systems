@@ -25,6 +25,7 @@ class LongitudinalControl : public rclcpp::Node {
   rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr path_subscription;
   double velocity;
   Adapter *adapter;
+  std::string mode = "fsds"; // Temporary, change as desired. TODO(andre): Make not hardcoded
 
   /**
    * @brief Function to publish the desired output (provisionally torque)

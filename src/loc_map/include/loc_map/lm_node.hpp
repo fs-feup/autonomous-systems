@@ -42,6 +42,7 @@ class LMNode : public rclcpp::Node {
   Mission _mission;
   bool _use_odometry;
   Adapter* adapter;
+  std::string mode = "fsds"; // Temporary, change as desired. TODO(andre): Make not hardcoded
 
  public:
   /**

@@ -34,7 +34,7 @@ void EufsAdapter::mission_state_callback(eufs_msgs::msg::CanState msg) {
 }
 
 void EufsAdapter::finish() {
-    // TODO
+    std::cout << "Finish undefined for Eufs\n";
 }
 
 void EufsAdapter::wheel_speeds_subscription_callback(

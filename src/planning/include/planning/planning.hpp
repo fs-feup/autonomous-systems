@@ -36,6 +36,7 @@ class Planning : public rclcpp::Node {
   Mission mission = not_selected;                                /**< Current planning mission */
   LocalPathPlanner *local_path_planner = new LocalPathPlanner(); /**< Local path planner instance */
   Adapter *adapter; /**< Adapter instance for external communication */
+  std::string mode = "fsds"; // Temporary, change as desired. TODO(andre): Make not hardcoded
 
   std::map<Mission, std::string> predictive_paths = {
       {Mission::acceleration, "/events/acceleration.txt"},

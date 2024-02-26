@@ -1,6 +1,7 @@
 #ifndef SRC_PERCEPTION_PERCEPTION_INCLUDE_PERCEPTION_PERCEPTION_NODE_HPP_
 #define SRC_PERCEPTION_PERCEPTION_INCLUDE_PERCEPTION_PERCEPTION_NODE_HPP_
 
+#include <string>
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
 #include "ground_removal/ransac.hpp"
@@ -22,6 +23,7 @@ class Perception : public rclcpp::Node {
   GroundRemoval* groundRemoval; ///< Pointer to the GroundRemoval object.
   Adapter *adapter; /**< Adapter instance for external communication */
   Clustering* clustering;
+  std::string mode = "fsds"; // Temporary, change as desired. TODO(andre): Make not hardcoded
 
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr
       _point_cloud_subscription;  ///< PointCloud2 subscription.

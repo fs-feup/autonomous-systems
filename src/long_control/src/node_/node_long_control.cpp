@@ -39,8 +39,6 @@ LongitudinalControl::LongitudinalControl() : Node("node_long_control") {
   result = this->create_publisher<std_msgs::msg::String>("torque_topic", 10);
 
   // Adapter to communicate with the car
-  // TODO: mode is set somewhere not hardcoded
-  std::string mode = "fsds";
   if (mode == "fsds")
     this->adapter = new FsdsAdapter(this);
 }

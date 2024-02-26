@@ -49,8 +49,6 @@ LateralControl::LateralControl() : Node("lateral_control_node") {
       std::bind(&LateralControl::publish_steeringcommand, this, std::placeholders::_1));
 
   // Adapter to communicate with the car
-  // TODO: mode is set somewhere not hardcoded
-  std::string mode = "fsds";
   if (mode == "fsds")
     this->adapter = new FsdsAdapter(this);
 }

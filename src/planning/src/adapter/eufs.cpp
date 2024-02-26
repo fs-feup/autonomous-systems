@@ -35,6 +35,6 @@ void EufsAdapter::set_mission_state(int mission, int state) {
 }
 
 void EufsAdapter::finish() {
-    // TODO
+    std::cout << "Finish undefined for Eufs\n";
 }
 

@@ -22,7 +22,6 @@ LMNode::LMNode(ExtendedKalmanFilter *ekf, ConeMap *perception_map, MotionUpdate 
       this->create_publisher<custom_interfaces::msg::Pose>("vehicle_localization", 10);
   this->_map_publisher = this->create_publisher<custom_interfaces::msg::ConeArray>("track_map", 10);
 
-  std::string mode = "fsds";
   if (mode == "fsds")
     adapter = new FsdsAdapter(this);
   else if (mode == "eufs")
