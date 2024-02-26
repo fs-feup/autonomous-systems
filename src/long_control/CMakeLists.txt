@@ -37,9 +37,6 @@ if(BUILD_TESTING)
   find_package(custom_interfaces REQUIRED)
   find_package(rclcpp REQUIRED)
   find_package(sensor_msgs REQUIRED)
-  find_package(eufs_msgs REQUIRED)
-  find_package(rclcpp REQUIRED)
-  find_package(Eigen3 REQUIRED)
   find_package(std_msgs REQUIRED)
   find_package(fs_msgs REQUIRED)
 
@@ -51,7 +48,7 @@ if(BUILD_TESTING)
   include_directories(${CMAKE_CURRENT_SOURCE_DIR})  # Include the current source directory
   ament_add_gtest(${PROJECT_NAME}_test ${TESTFILES} ${IMPLEMENTATION_FILES})
 
-  ament_target_dependencies(${PROJECT_NAME}_test rclcpp std_msgs eufs_msgs sensor_msgs fs_msgs custom_interfaces)
+  ament_target_dependencies(${PROJECT_NAME}_test rclcpp std_msgs sensor_msgs fs_msgs custom_interfaces)
   target_include_directories(${PROJECT_NAME}_test PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>)
