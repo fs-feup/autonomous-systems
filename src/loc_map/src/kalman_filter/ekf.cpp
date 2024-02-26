@@ -101,7 +101,8 @@ void ExtendedKalmanFilter::correction_step(const ConeMap &perception_map) {
     Eigen::Vector2f z_hat = this->_observation_model.observation_model(this->X, landmark_index);
     Eigen::Vector2f z = Eigen::Vector2f(observation_data.position.x, observation_data.position.y);
     this->X = this->X + K * (z - z_hat);
-    this->P = (Eigen::MatrixXf::Identity(this->P.rows(), this->P.cols()) - K * H).sparseView() * this->P;
+    this->P =
+        (Eigen::MatrixXf::Identity(this->P.rows(), this->P.cols()) - K * H).sparseView() * this->P;
   }
 }
 
