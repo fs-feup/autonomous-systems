@@ -252,3 +252,16 @@ LOC_MAP, EKF pred step, 100, 48.297000 ms
 LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.071000 ms
 LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 46.291000 ms
 LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 208.663000 ms
+LOC_MAP, EKF pred step, 10, 0.222000 ms
+LOC_MAP, EKF pred step, 50, 31.023000 ms
+LOC_MAP, EKF pred step, 100, 46.457000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.240000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 57.016000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 249.296000 ms
+LOC_MAP, EKF pred step, 10, 0.217000 ms
+LOC_MAP, EKF pred step, 50, 32.315000 ms
+LOC_MAP, EKF pred step, 100, 46.146000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.301000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 47.829000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 207.019000 ms
+LOC_MAP, EKF Correction Step, 200 and 10 From "perception", 1165.553000 ms
