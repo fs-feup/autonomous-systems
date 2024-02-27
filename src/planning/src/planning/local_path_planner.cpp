@@ -9,8 +9,8 @@
 
 LocalPathPlanner::LocalPathPlanner() : track() {}
 
-bool LocalPathPlanner::vector_direction(PathPoint *p1, PathPoint *p2,
-   float prev_vx, float prev_vy) {
+bool LocalPathPlanner::vector_direction(PathPoint *p1, PathPoint *p2, float prev_vx,
+                                        float prev_vy) {
   float vx = p2->getX() - p1->getX();
   float vy = p2->getY() - p1->getY();
 
@@ -62,7 +62,7 @@ std::vector<PathPoint *> LocalPathPlanner::processNewArray(Track *cone_array) {
       PathPoint *position = new PathPoint(cone1->getX() + xDist / 2, cone1->getY() + yDist / 2);
       unordered_path.push_back(std::make_pair(position, false));
     }
-  } 
+  }
   // Process unordered_path to generate the final path
 
   // first iterations placeholders
