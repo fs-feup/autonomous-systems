@@ -27,4 +27,4 @@ class Adapter {
     virtual void finish() = 0;
 };
 
-#endif  // SRC_PLANNING_PLANNING_INCLUDE_ADAPTER_ADAPTER_HPP_
+#endif  // SRC_PERCEPTION_INCLUDE_ADAPTER_ADAPTER_HPP_

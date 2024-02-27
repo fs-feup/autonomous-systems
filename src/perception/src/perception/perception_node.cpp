@@ -4,6 +4,7 @@
 #include <pcl_conversions/pcl_conversions.h>
 #include "adapter/fsds.hpp"
 #include "adapter/testlidar.hpp"
+#include "adapter/map.hpp"
 
 #include <cstdio>
 
@@ -11,10 +12,7 @@ Perception::Perception(GroundRemoval* groundRemoval, Clustering* clustering) : N
         groundRemoval(groundRemoval), clustering(clustering) {
   this->_cones_publisher = this->create_publisher<custom_interfaces::msg::ConeArray>("cones", 10);
 
-  if (mode == "fsds")
-    this->adapter = new FsdsAdapter(this);
-  else if (mode == "test")
-    this->adapter = new TestAdapter(this);
+  this->adapter = adapter_map[mode](this);
 }
 
 void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg) {

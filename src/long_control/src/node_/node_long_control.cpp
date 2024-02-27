@@ -9,6 +9,7 @@
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
 #include "adapter/fsds.hpp"
+#include "adapter/map.hpp"
 
 // This creates a subclass of Node and uses std::bind()
 // to define which function gets executed at each time
@@ -39,6 +40,5 @@ LongitudinalControl::LongitudinalControl() : Node("node_long_control") {
   result = this->create_publisher<std_msgs::msg::String>("torque_topic", 10);
 
   // Adapter to communicate with the car
-  if (mode == "fsds")
-    this->adapter = new FsdsAdapter(this);
+  this->adapter = adapter_map[mode](this);
 }

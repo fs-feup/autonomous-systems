@@ -3,6 +3,7 @@
 #include "utils/formulas.hpp"
 #include "adapter/eufs.hpp"
 #include "adapter/fsds.hpp"
+#include "adapter/map.hpp"
 
 /*---------------------- Constructor --------------------*/
 
@@ -22,10 +23,7 @@ LMNode::LMNode(ExtendedKalmanFilter *ekf, ConeMap *perception_map, MotionUpdate 
       this->create_publisher<custom_interfaces::msg::Pose>("vehicle_localization", 10);
   this->_map_publisher = this->create_publisher<custom_interfaces::msg::ConeArray>("track_map", 10);
 
-  if (mode == "fsds")
-    adapter = new FsdsAdapter(this);
-  else if (mode == "eufs")
-    adapter = new EufsAdapter(this);
+  adapter = adapter_map[mode](this);
 }
 
 /*---------------------- Subscriptions --------------------*/
