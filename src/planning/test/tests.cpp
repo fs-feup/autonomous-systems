@@ -12,6 +12,15 @@
 
 using testing::Eq;
 
+/**
+ * @brief Defines the way in which two pairs of doubles should be 
+ * compared when ordering them (lexicographic comparison)
+ * 
+ * @param a One of the pairs of doubles to be compared
+ * @param b One of the pairs of doubles to be compared
+ * @return true if a<b
+ * @return false if a>b
+ */
 bool customComparator(const std::pair<double,  double>& a,  const std::pair<double,  double>& b) {
     if (a.first != b.first) {
         return a.first < b.first;
@@ -19,12 +28,33 @@ bool customComparator(const std::pair<double,  double>& a,  const std::pair<doub
     return a.second < b.second;
 }
 
+/**
+ * @brief orders a vector of pairs to make it easier to compare them
+ * 
+ * @param vec vector of pairs to be ordered
+ * @return ordered vector of pairs
+ */
 std::vector<std::pair<double,  double>> orderVectorOfPairs
 (const std::vector<std::pair<double,  double>>& vec) {
     std::vector<std::pair<double,  double>> result = vec;
     std::sort(result.begin(),  result.end(),  customComparator);
     return result;
 }
+
+/**
+ * @brief rounds float to n decimal places
+ * 
+ * @param num number to be rounded
+ * @param decimal_places number of decimal places
+ * @return rounded number
+ */
+float round_n(float num, int decimal_places) {
+  num *= pow(10, decimal_places);
+  int intermediate = round(num);
+  num = intermediate/pow(10, decimal_places);
+  return num;
+}
+
 /**
  * @brief Test function for Delaunay Triangulations' efficiency. 
  * Runs 100 times to get average execution time.
@@ -116,6 +146,11 @@ std::ostream &operator<<(std::ostream &os,  const PathPoint &p) {
   return os << '(' << p.getX() << ', ' << p.getY() << ')';
 }
 
+/**
+ * @brief simple case in which there are cones only in the left size 
+ * and no significant outliers
+ * 
+ */
 TEST(LocalPathPlanner,  outlier_test2) {
   std::string filePath = "src/planning/tracks/outlier_test2.txt";
   Track *track = new Track();
@@ -125,8 +160,8 @@ TEST(LocalPathPlanner,  outlier_test2) {
   int n1_left = track -> getLeftConesSize();
   int n1_right = track -> getRightConesSize();
   track->validateCones();
-  EXPECT_FLOAT_EQ(track -> round_n(track -> getMaxDistance(true),  3),  2.028);
-  EXPECT_FLOAT_EQ(track -> round_n(track -> getMaxDistance(false),  3),  0);
+  EXPECT_FLOAT_EQ(round_n(track -> getMaxDistance(true),  3),  2.028);
+  EXPECT_FLOAT_EQ(round_n(track -> getMaxDistance(false),  3),  0);
   int n2_left = track -> getLeftConesSize();
   int n2_right = track -> getRightConesSize();
   EXPECT_EQ(n1_left,  n2_left);
@@ -136,7 +171,10 @@ TEST(LocalPathPlanner,  outlier_test2) {
   // track -> logCones(false);
 }
 
-
+/**
+ * @brief simple scenario only with left cones but with 4 significant outliers
+ * 
+ */
 TEST(LocalPathPlanner,  outliers_test1) {
   std::string filePath = "src/planning/tracks/outlier_test1.txt";
   Track *track = new Track();
@@ -146,8 +184,8 @@ TEST(LocalPathPlanner,  outliers_test1) {
   int n1_left = track -> getLeftConesSize();
   int n1_right = track -> getRightConesSize();
   track->validateCones();
-  EXPECT_FLOAT_EQ(track -> round_n(track -> getMaxDistance(true),  3),  1.342);
-  EXPECT_FLOAT_EQ(track -> round_n(track -> getMaxDistance(false),  3),  0);
+  EXPECT_FLOAT_EQ(round_n(track -> getMaxDistance(true),  3),  1.342);
+  EXPECT_FLOAT_EQ(round_n(track -> getMaxDistance(false),  3),  0);
   int n2_left = track -> getLeftConesSize();
   int n2_right = track -> getRightConesSize();
   EXPECT_EQ(n1_left,  n2_left);
@@ -157,6 +195,10 @@ TEST(LocalPathPlanner,  outliers_test1) {
   // track -> logCones(false);
 }
 
+/**
+ * @brief scenario with large track but few outliers
+ * 
+ */
 TEST(LocalPathPlanner,  map250_out10) {
   std::string filePath = "src/planning/tracks/map_250_out10.txt";
   Track *track = new Track();
@@ -166,8 +208,8 @@ TEST(LocalPathPlanner,  map250_out10) {
   int n1_left = track -> getLeftConesSize();
   int n1_right = track -> getRightConesSize();
   track->validateCones();
-  EXPECT_FLOAT_EQ(track -> round_n(track -> getMaxDistance(true),  3),  3.755);
-  EXPECT_FLOAT_EQ(track -> round_n(track -> getMaxDistance(false),  3),  3.629);
+  EXPECT_FLOAT_EQ(round_n(track -> getMaxDistance(true),  3),  3.755);
+  EXPECT_FLOAT_EQ(round_n(track -> getMaxDistance(false),  3),  3.629);
   int n2_left = track -> getLeftConesSize();
   int n2_right = track -> getRightConesSize();
   EXPECT_EQ(n1_left,  n2_left);
@@ -176,6 +218,10 @@ TEST(LocalPathPlanner,  map250_out10) {
   // track -> logCones(false);
 }
 
+/**
+ * @brief scenario with large track and moderate number of outliers
+ * 
+ */
 TEST(LocalPathPlanner,  map250_out25) {
   std::string filePath = "src/planning/tracks/map_250_out25.txt";
   Track *track = new Track();
@@ -185,8 +231,8 @@ TEST(LocalPathPlanner,  map250_out25) {
   int n1_left = track -> getLeftConesSize();
   int n1_right = track -> getRightConesSize();
   track -> validateCones();
-  EXPECT_FLOAT_EQ(track -> round_n(track -> getMaxDistance(true),  3),  4.188);
-  EXPECT_FLOAT_EQ(track -> round_n(track -> getMaxDistance(false),  3),  3.834);
+  EXPECT_FLOAT_EQ(round_n(track -> getMaxDistance(true),  3),  4.188);
+  EXPECT_FLOAT_EQ(round_n(track -> getMaxDistance(false),  3),  3.834);
   int n2_left = track -> getLeftConesSize();
   int n2_right = track -> getRightConesSize();
   EXPECT_EQ(n1_left,  n2_left);
@@ -195,6 +241,10 @@ TEST(LocalPathPlanner,  map250_out25) {
   // track -> logCones(false);
 }
 
+/**
+ * @brief scenario with large track and abundant outliers
+ * 
+ */
 TEST(LocalPathPlanner,  map250_out50) {
   std::string filePath = "src/planning/tracks/map_250_out50.txt";
   Track *track = new Track();
@@ -204,8 +254,8 @@ TEST(LocalPathPlanner,  map250_out50) {
   int n1_left = track -> getLeftConesSize();
   int n1_right = track -> getRightConesSize();
   track->validateCones();
-  EXPECT_FLOAT_EQ(track -> round_n(track -> getMaxDistance(true),  3),  4.099);
-  EXPECT_FLOAT_EQ(track -> round_n(track -> getMaxDistance(false),  3),  3.663);
+  EXPECT_FLOAT_EQ(round_n(track -> getMaxDistance(true),  3),  4.099);
+  EXPECT_FLOAT_EQ(round_n(track -> getMaxDistance(false),  3),  3.663);
   int n2_left = track -> getLeftConesSize();
   int n2_right = track -> getRightConesSize();
   EXPECT_EQ(n1_left,  n2_left);
@@ -214,6 +264,10 @@ TEST(LocalPathPlanner,  map250_out50) {
   // track -> logCones(false);
 }
 
+/**
+ * @brief scenario with large track that barely has outliers (only 2)
+ * 
+ */
 TEST(LocalPathPlanner,  map250) {
   std::string filePath = "src/planning/tracks/map_250.txt";
   Track *track = new Track();
@@ -223,8 +277,8 @@ TEST(LocalPathPlanner,  map250) {
   int n1_left = track -> getLeftConesSize();
   int n1_right = track -> getRightConesSize();
   track->validateCones();
-  EXPECT_FLOAT_EQ(track -> round_n(track -> getMaxDistance(true),  3),  3.755);
-  EXPECT_FLOAT_EQ(track -> round_n(track -> getMaxDistance(false),  3),  3.755);
+  EXPECT_FLOAT_EQ(round_n(track -> getMaxDistance(true),  3),  3.755);
+  EXPECT_FLOAT_EQ(round_n(track -> getMaxDistance(false),  3),  3.755);
   int n2_left = track -> getLeftConesSize();
   int n2_right = track -> getRightConesSize();
   EXPECT_EQ(n1_left,  n2_left);
@@ -233,6 +287,10 @@ TEST(LocalPathPlanner,  map250) {
   // track -> logCones(false);
 }
 
+/**
+ * @brief unrealistic scenario with cones randomly positioned in 100 by 100 square
+ * 
+ */
 TEST(LocalPathPlanner,  map_250_rng) {
   std::string filePath = "src/planning/tracks/map_250_rng.txt";
   Track *track = new Track();
@@ -242,8 +300,8 @@ TEST(LocalPathPlanner,  map_250_rng) {
   int n1_left = track -> getLeftConesSize();
   int n1_right = track -> getRightConesSize();
   track->validateCones();
-  EXPECT_FLOAT_EQ(track -> round_n(track -> getMaxDistance(true),  3),  5.044);
-  EXPECT_FLOAT_EQ(track -> round_n(track -> getMaxDistance(false),  3),  9.759);
+  EXPECT_FLOAT_EQ(round_n(track -> getMaxDistance(true),  3),  5.044);
+  EXPECT_FLOAT_EQ(round_n(track -> getMaxDistance(false),  3),  9.759);
   int n2_left = track -> getLeftConesSize();
   int n2_right = track -> getRightConesSize();
   EXPECT_EQ(n1_left,  n2_left);
@@ -252,26 +310,10 @@ TEST(LocalPathPlanner,  map_250_rng) {
   // track -> logCones(false);
 }
 
-TEST(LocalPathPlanner,  left_outliers) {
-  std::string filePath = "src/planning/tracks/left_side_outliers.txt";
-  Track *track = new Track();
-  track->fillTrack(filePath);
-  // track -> logCones(true);
-  // track -> logCones(false);
-  int n1_left = track -> getLeftConesSize();
-  int n1_right = track -> getRightConesSize();
-  track->validateCones();
-  EXPECT_FLOAT_EQ(track -> round_n(track -> getMaxDistance(true),  3),  1.342);
-  EXPECT_FLOAT_EQ(track -> round_n(track -> getMaxDistance(false),  3),  0);
-  int n2_left = track -> getLeftConesSize();
-  int n2_right = track -> getRightConesSize();
-  EXPECT_EQ(n1_left,  n2_left);
-  EXPECT_EQ(n1_right,  0);
-  EXPECT_EQ(n2_right,  1);
-  // track -> logCones(true);
-  // track -> logCones(false);
-}
-
+/**
+ * @brief simplest scenario with cones forming a line and one outlier
+ * 
+ */
 TEST(LocalPathPlanner,  distance_next_outliers) {
   std::string filePath = "src/planning/tracks/distance_to_next.txt";
   Track *track = new Track();
@@ -281,8 +323,8 @@ TEST(LocalPathPlanner,  distance_next_outliers) {
   int n1_left = track -> getLeftConesSize();
   int n1_right = track -> getRightConesSize();
   track->validateCones();
-  EXPECT_FLOAT_EQ(track -> round_n(track -> getMaxDistance(true),  3),  0);
-  EXPECT_FLOAT_EQ(track -> round_n(track -> getMaxDistance(false),  3),  1.437);
+  EXPECT_FLOAT_EQ(round_n(track -> getMaxDistance(true),  3),  0);
+  EXPECT_FLOAT_EQ(round_n(track -> getMaxDistance(false),  3),  1.437);
   int n2_left = track -> getLeftConesSize();
   int n2_right = track -> getRightConesSize();
   EXPECT_EQ(n1_left,  0);
@@ -292,30 +334,39 @@ TEST(LocalPathPlanner,  distance_next_outliers) {
   // track -> logCones(false);
 }
 
-
+/**
+ * @brief simple scenario with few points in the path
+ * 
+ */
 TEST(LocalPathPlanner,  path_smooth1) {
   std::string filePath = "src/planning/tracks/path_smooth1.txt";
   PathSmoothing *new_path = new PathSmoothing();
   new_path->fillPath(filePath);
   // new_path -> logPathPoints();
-  new_path -> validate(new_path -> getPath());
+  new_path -> defaultSmoother(new_path -> getPath());
   EXPECT_EQ(new_path -> getPointAmount(),  1101);
   // new_path -> logPathPoints();
 }
 
+/**
+ * @brief more complex scenario with cones deviating from path and with significant curvature
+ * 
+ */
 TEST(LocalPathPlanner,  path_smooth2) {
   std::string filePath = "src/planning/tracks/path_smooth2.txt";
   PathSmoothing *new_path = new PathSmoothing();
   new_path->fillPath(filePath);
   //new_path -> logPathPoints();
-  new_path -> validate(new_path -> getPath());
+  new_path -> defaultSmoother(new_path -> getPath());
   EXPECT_EQ(new_path -> getPointAmount(),  3801);
   //new_path -> logPathPoints();
 }
 
 
-
-
+/**
+ * @brief simple but realistic scenario with few cones and fwe outliers
+ * 
+ */
 TEST(LocalPathPlanner,  delauney10) {
   std::string filePath = "src/planning/tracks/map_10.txt";
   Track *track = new Track();
@@ -332,6 +383,10 @@ TEST(LocalPathPlanner,  delauney10) {
   EXPECT_EQ(expected,  path);
 }
 
+/**
+ * @brief scenario: Large piece of track with no outliers
+ * 
+ */
 TEST(LocalPathPlanner,  delauney3_0) {
   std::string filePath = "src/planning/tracks/map_100.txt";
   Track *track = new Track();
@@ -417,6 +472,10 @@ TEST(LocalPathPlanner,  delauney3_0) {
   // Delaunay Triangulations but vary minimally. This should be reviewed later
 }
 
+/**
+ * @brief scenario with large track that barely has outliers (only 2)
+ * 
+ */
 TEST(LocalPathPlanner,  delauney_250) {
   std::string filePath = "src/planning/tracks/map_250.txt";
   Track *track = new Track();
@@ -614,6 +673,11 @@ TEST(LocalPathPlanner,  delauney_250) {
   }
 }
 
+/**
+ * @brief scenario: cones in parallel straight lines that shows that cones exaclty
+ * in a circumference are not counted as being inside a circle
+ * 
+ */
 TEST(LocalPathPlanner,  map_test1_void) {
   std::string filePath = "src/planning/tracks/map_test1.txt";
   Track *track = new Track();
@@ -628,6 +692,10 @@ TEST(LocalPathPlanner,  map_test1_void) {
   EXPECT_EQ(expected,  path);
 }
 
+/**
+ * @brief scenario: small track with sharp edge
+ * 
+ */
 TEST(LocalPathPlanner,  map_test2) {
   std::string filePath = "src/planning/tracks/map_test2.txt";
   Track *track = new Track();
@@ -650,6 +718,8 @@ TEST(LocalPathPlanner,  map_test2) {
   }
 }
 
+// All tests below are performance tests that run the algorithms 100 times
+// to get the average execution time. All scenarios have been described above
 
 TEST(LocalPathPlanner,  delauney100) {
   std::string filePath = "src/planning/tracks/map_100.txt";

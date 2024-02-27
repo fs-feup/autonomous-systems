@@ -30,12 +30,7 @@ void Track::logCones(bool side) {
   std::cout << std::endl;
 }
 
-float Track::round_n(float num, int decimal_places) {
-  num *= pow(10, decimal_places);
-  int intermediate = round(num);
-  num = intermediate/pow(10, decimal_places);
-  return num;
-}
+
 float Track::getMaxDistance(bool side) {
   float distance = 0;
   if (side) {

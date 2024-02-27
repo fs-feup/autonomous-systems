@@ -23,7 +23,7 @@ void PathSmoothing::logPathPoints() {
 }
 
 void PathSmoothing::fillPath(const std::string &path) {
-  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "START fillTrack");
+  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "START fillPath");
   std::string x, y, v;
   std::ifstream trackFile = openReadFile(path);
   while (trackFile >> x >> y >> v) {
@@ -33,7 +33,7 @@ void PathSmoothing::fillPath(const std::string &path) {
     addPathPoint(xValue, yValue, vValue);
   }
   trackFile.close();
-  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "END fillTrack");
+  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "END fillPath");
 }
 
 bool PathSmoothing::vector_direction(PathPoint *c1, PathPoint *c2, float prev_vx, float prev_vy) {
@@ -92,7 +92,7 @@ std::vector<PathPoint *> PathSmoothing::orderPath(std::vector<PathPoint *> *unor
   return path;
 }
 
-void PathSmoothing::validate(std::vector<PathPoint *> a_path) {
+void PathSmoothing::defaultSmoother(std::vector<PathPoint *> a_path) {
   path = pathSmoother(100, 3, 3 , a_path);
 }
 

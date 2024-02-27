@@ -51,15 +51,6 @@ class Track {
   void logCones(bool side);
 
   /**
-   * @brief rounds numbers to n decimal places
-   * 
-   * @param num number to be rounded
-   * @param decimal_places number of decimal places
-   * @return rounded number
-   */
-  float round_n(float num, int decimal_places);
-
-  /**
    * @brief used to calculate max distance between consecutive cones for testing
    * 
    * @param side true -> left | false -> right

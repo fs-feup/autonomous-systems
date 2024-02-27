@@ -83,8 +83,13 @@ class PathSmoothing {
      */
     std::vector<PathPoint *> orderPath(std::vector<PathPoint *> *unord_path);
 
-
-    void validate(std::vector<PathPoint *> a_path);
+    /**
+     * @brief calls pathSmoother with default values for precision,
+     *  order and coeffs_ratio that were determined to work well
+     * 
+     * @param a_path path to be smoothed
+     */
+    void defaultSmoother(std::vector<PathPoint *> a_path);
 
     /**
      * @brief Fits spline to path
