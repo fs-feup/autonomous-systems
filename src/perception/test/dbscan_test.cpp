@@ -31,7 +31,7 @@ class DBSCANTest : public ::testing::Test {
 TEST_F(DBSCANTest, TestZeroNieghboursZeroEpsilon) {
     auto clustering = new DBSCAN(0, 0);
 
-    std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> clusters;
+    std::vector<Cluster> clusters;
     clustering->clustering(point_cloud, &clusters);
 
     ASSERT_EQ(clusters.size(), 8);
@@ -45,7 +45,7 @@ TEST_F(DBSCANTest, TestZeroNieghboursZeroEpsilon) {
 TEST_F(DBSCANTest, TestLargeEpsilon) {
     auto clustering = new DBSCAN(0, 30);
 
-    std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> clusters;
+    std::vector<Cluster> clusters;
     clustering->clustering(point_cloud, &clusters);
 
     ASSERT_EQ(clusters.size(), 2);
@@ -58,7 +58,7 @@ TEST_F(DBSCANTest, TestLargeEpsilon) {
 TEST_F(DBSCANTest, TestMinClusterSize) {
     auto clustering = new DBSCAN(2, 30);
 
-    std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> clusters;
+    std::vector<Cluster> clusters;
     clustering->clustering(point_cloud, &clusters);
 
     ASSERT_EQ(clusters.size(), 1);
@@ -71,7 +71,7 @@ TEST_F(DBSCANTest, TestMinClusterSize) {
 TEST_F(DBSCANTest, TestLargeEpsilon2) {
     auto clustering = new DBSCAN(0, 50);
 
-    std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> clusters;
+    std::vector<Cluster> clusters;
     clustering->clustering(point_cloud, &clusters);
 
     ASSERT_EQ(clusters.size(), 1);
@@ -84,7 +84,7 @@ TEST_F(DBSCANTest, TestLargeEpsilon2) {
 TEST_F(DBSCANTest, TestSmallThreshold) {
     auto clustering = new DBSCAN(0, 1.5);
 
-    std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> clusters;
+    std::vector<Cluster> clusters;
     clustering->clustering(point_cloud, &clusters);
 
     ASSERT_EQ(clusters.size(), 5);
@@ -97,7 +97,7 @@ TEST_F(DBSCANTest, TestSmallThreshold) {
 TEST_F(DBSCANTest, TestMinClusterSize2) {
     auto clustering = new DBSCAN(2, 1.5);
 
-    std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> clusters;
+    std::vector<Cluster> clusters;
     clustering->clustering(point_cloud, &clusters);
 
     ASSERT_EQ(clusters.size(), 1);
@@ -110,7 +110,7 @@ TEST_F(DBSCANTest, TestMinClusterSize2) {
 TEST_F(DBSCANTest, TestSmallThreshold3) {
     auto clustering = new DBSCAN(0, 0.4);
 
-    std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> clusters;
+    std::vector<Cluster> clusters;
     clustering->clustering(point_cloud, &clusters);
 
     ASSERT_EQ(clusters.size(), 8);
@@ -123,7 +123,7 @@ TEST_F(DBSCANTest, TestSmallThreshold3) {
 TEST_F(DBSCANTest, TestAggregate2Points) {
     auto clustering = new DBSCAN(0, 0.6);
 
-    std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> clusters;
+    std::vector<Cluster> clusters;
     clustering->clustering(point_cloud, &clusters);
 
     ASSERT_EQ(clusters.size(), 7);
@@ -136,7 +136,7 @@ TEST_F(DBSCANTest, TestAggregate2Points) {
 TEST_F(DBSCANTest, TestMorePointsThanThreshold) {
     auto clustering = new DBSCAN(10, 50);
 
-    std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> clusters;
+    std::vector<Cluster> clusters;
     clustering->clustering(point_cloud, &clusters);
 
     ASSERT_EQ(clusters.size(), 0);
@@ -149,7 +149,7 @@ TEST_F(DBSCANTest, TestMorePointsThanThreshold) {
 TEST_F(DBSCANTest, TestMinClusterWithSmallThreshold) {
     auto clustering = new DBSCAN(1, 0.1);
 
-    std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> clusters;
+    std::vector<Cluster> clusters;
     clustering->clustering(point_cloud, &clusters);
 
     ASSERT_EQ(clusters.size(), 8);
