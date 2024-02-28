@@ -23,6 +23,10 @@ Eigen::Vector2f ObservationModel::inverse_observation_model(
 Eigen::Vector2f ObservationModel::observation_model(const Eigen::VectorXf &expected_state,
                                                     const unsigned int landmark_index) const {
   Eigen::Matrix3f transformation_matrix = Eigen::Matrix3f::Identity();
+  // transformation matrix is the matrix that transforms the landmark position from the world
+  // coordinate system to the robot coordinate system for future comparison with the observed
+  // landmark position
+
   transformation_matrix(0, 0) = cos(-expected_state(2));
   transformation_matrix(0, 1) = -sin(-expected_state(2));
   transformation_matrix(0, 2) =
@@ -60,39 +64,6 @@ Eigen::MatrixXf ObservationModel::get_state_to_observation_matrix(
   // validation_jacobian(1, landmark_index) = sin(-expected_state(2));
   // validation_jacobian(0, landmark_index + 1) = -sin(-expected_state(2));
   // validation_jacobian(1, landmark_index + 1) = cos(-expected_state(2));
-
-  // // test with blocks
-  // Eigen::MatrixXf block_1 = Eigen::MatrixXf::Identity(3, 3);
-  // Eigen::MatrixXf block_2 = Eigen::MatrixXf::Identity(2, 2);
-
-  // Eigen::MatrixXf low_jacobian_1 = Eigen::MatrixXf::Zero(2, 3);
-  // Eigen::MatrixXf low_jacobian_2 = Eigen::MatrixXf::Zero(2, 2);
-
-  // low_jacobian_1(0, 0) = -cos(-expected_state(2));
-  // low_jacobian_1(1, 0) = -sin(-expected_state(2));
-  // low_jacobian_1(0, 1) = sin(-expected_state(2));
-  // low_jacobian_1(1, 1) = -cos(-expected_state(2));
-  // low_jacobian_1(0, 2) = -expected_state(landmark_index) * sin(expected_state(2)) +
-  //                        expected_state(landmark_index + 1) * cos(-expected_state(2)) +
-  //                        expected_state(0) * sin(expected_state(2)) -
-  //                        expected_state(1) * cos(-expected_state(2));
-  // low_jacobian_1(1, 2) = -expected_state(landmark_index) * cos(-expected_state(2)) -
-  //                        expected_state(landmark_index + 1) * sin(expected_state(2)) +
-  //                        expected_state(0) * cos(-expected_state(2)) +
-  //                        expected_state(1) * sin(expected_state(2));
-
-  // low_jacobian_2(0, 0) = cos(-expected_state(2));
-  // low_jacobian_2(1, 0) = sin(-expected_state(2));
-  // low_jacobian_2(0, 1) = -sin(-expected_state(2));
-  // low_jacobian_2(1, 1) = cos(-expected_state(2));
-
-  // Eigen::MatrixXf validation_jacobian_1 = low_jacobian_1 * block_1;
-  // Eigen::MatrixXf validation_jacobian_2 = low_jacobian_2 * block_2;
-
-  // Eigen::MatrixXf validation_jacobian = Eigen::MatrixXf::Zero(2, state_size);
-
-  // validation_jacobian.block(0, 0, 2, 3) = validation_jacobian_1;
-  // validation_jacobian.block(0, landmark_index, 2, 2) = validation_jacobian_2;
 
   // old imlementation
   Eigen::MatrixXf reformating_matrix = Eigen::MatrixXf::Zero(5, state_size);
@@ -135,6 +106,39 @@ Eigen::MatrixXf ObservationModel::get_state_to_observation_matrix(
   Eigen::MatrixXf validation_jacobian = low_jacobian * reformating_matrix;
 
   return validation_jacobian;
+
+  // // test with blocks
+  // Eigen::MatrixXf block_1 = Eigen::MatrixXf::Identity(3, 3);
+  // Eigen::MatrixXf block_2 = Eigen::MatrixXf::Identity(2, 2);
+
+  // Eigen::MatrixXf low_jacobian_1 = Eigen::MatrixXf::Zero(2, 3);
+  // Eigen::MatrixXf low_jacobian_2 = Eigen::MatrixXf::Zero(2, 2);
+
+  // low_jacobian_1(0, 0) = -cos(-expected_state(2));
+  // low_jacobian_1(1, 0) = -sin(-expected_state(2));
+  // low_jacobian_1(0, 1) = sin(-expected_state(2));
+  // low_jacobian_1(1, 1) = -cos(-expected_state(2));
+  // low_jacobian_1(0, 2) = -expected_state(landmark_index) * sin(expected_state(2)) +
+  //                        expected_state(landmark_index + 1) * cos(-expected_state(2)) +
+  //                        expected_state(0) * sin(expected_state(2)) -
+  //                        expected_state(1) * cos(-expected_state(2));
+  // low_jacobian_1(1, 2) = -expected_state(landmark_index) * cos(-expected_state(2)) -
+  //                        expected_state(landmark_index + 1) * sin(expected_state(2)) +
+  //                        expected_state(0) * cos(-expected_state(2)) +
+  //                        expected_state(1) * sin(expected_state(2));
+
+  // low_jacobian_2(0, 0) = cos(-expected_state(2));
+  // low_jacobian_2(1, 0) = sin(-expected_state(2));
+  // low_jacobian_2(0, 1) = -sin(-expected_state(2));
+  // low_jacobian_2(1, 1) = cos(-expected_state(2));
+
+  // Eigen::MatrixXf validation_jacobian_1 = low_jacobian_1 * block_1;
+  // Eigen::MatrixXf validation_jacobian_2 = low_jacobian_2 * block_2;
+
+  // Eigen::MatrixXf validation_jacobian = Eigen::MatrixXf::Zero(2, state_size);
+
+  // validation_jacobian.block(0, 0, 2, 3) = validation_jacobian_1;
+  // validation_jacobian.block(0, landmark_index, 2, 2) = validation_jacobian_2;
 }
 
 Eigen::MatrixXf ObservationModel::get_observation_noise_covariance_matrix() const {
