@@ -112,8 +112,8 @@ $(document).ready(function(){initNavTree('da/dad/dbscan_8cpp_source.html','../..
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
 <div class="foldopen" id="foldopen00011" data-start="{" data-end="}">
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="../../df/d6a/class_d_b_s_c_a_n.html#a4e9f1de7731943c1ba6f5515bfd778b0">   11</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../df/d6a/class_d_b_s_c_a_n.html#a4e9f1de7731943c1ba6f5515bfd778b0">DBSCAN::clustering</a>(<span class="keyword">const</span> pcl::PointCloud&lt;pcl::PointXYZI&gt;::Ptr point_cloud,</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>                    std::vector&lt;pcl::PointCloud&lt;pcl::PointXYZI&gt;::Ptr&gt;* clusters)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="../../df/d6a/class_d_b_s_c_a_n.html#a9a9605c898a26dbd557113419f4c8c6e">   11</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../df/d6a/class_d_b_s_c_a_n.html#a9a9605c898a26dbd557113419f4c8c6e">DBSCAN::clustering</a>(<span class="keyword">const</span> pcl::PointCloud&lt;pcl::PointXYZI&gt;::Ptr point_cloud,</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>                    std::vector&lt;Cluster&gt;* clusters)<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    pcl::search::KdTree&lt;pcl::PointXYZI&gt;::Ptr tree(<span class="keyword">new</span> pcl::search::KdTree&lt;pcl::PointXYZI&gt;);</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    tree-&gt;setInputCloud(point_cloud);</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
@@ -138,12 +138,13 @@ $(document).ready(function(){initNavTree('da/dad/dbscan_8cpp_source.html','../..
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        cluster-&gt;width = cluster-&gt;size();</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        cluster-&gt;height = 1;</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        cluster-&gt;is_dense = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        clusters-&gt;push_back(cluster);</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        clusters-&gt;push_back(<a class="code hl_class" href="../../d2/d23/class_cluster.html">Cluster</a>(cluster));</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    }</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>}</div>
 </div>
-<div class="ttc" id="aclass_d_b_s_c_a_n_html_a4e9f1de7731943c1ba6f5515bfd778b0"><div class="ttname"><a href="../../df/d6a/class_d_b_s_c_a_n.html#a4e9f1de7731943c1ba6f5515bfd778b0">DBSCAN::clustering</a></div><div class="ttdeci">void clustering(const pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr point_cloud, std::vector&lt; pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr &gt; *clusters) const override</div><div class="ttdoc">Clusters the input point cloud into groups using the DBSCAN algorithm.</div><div class="ttdef"><b>Definition</b> <a href="../../da/dad/dbscan_8cpp_source.html#l00011">dbscan.cpp:11</a></div></div>
+<div class="ttc" id="aclass_cluster_html"><div class="ttname"><a href="../../d2/d23/class_cluster.html">Cluster</a></div><div class="ttdoc">Represents a cluster of 3D points using PCL (Point Cloud Library).</div><div class="ttdef"><b>Definition</b> <a href="../../d2/d49/cluster_8hpp_source.html#l00012">cluster.hpp:12</a></div></div>
 <div class="ttc" id="aclass_d_b_s_c_a_n_html_a94493ac3bb1a2e9df61bed66ad78ced8"><div class="ttname"><a href="../../df/d6a/class_d_b_s_c_a_n.html#a94493ac3bb1a2e9df61bed66ad78ced8">DBSCAN::DBSCAN</a></div><div class="ttdeci">DBSCAN(int min_cluster_size, double neighbours_dist_threshold)</div><div class="ttdoc">Constructor for the DBSCAN clustering algorithm.</div><div class="ttdef"><b>Definition</b> <a href="../../da/dad/dbscan_8cpp_source.html#l00006">dbscan.cpp:6</a></div></div>
+<div class="ttc" id="aclass_d_b_s_c_a_n_html_a9a9605c898a26dbd557113419f4c8c6e"><div class="ttname"><a href="../../df/d6a/class_d_b_s_c_a_n.html#a9a9605c898a26dbd557113419f4c8c6e">DBSCAN::clustering</a></div><div class="ttdeci">void clustering(const pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr point_cloud, std::vector&lt; Cluster &gt; *clusters) const override</div><div class="ttdoc">Clusters the input point cloud into groups using the DBSCAN algorithm.</div><div class="ttdef"><b>Definition</b> <a href="../../da/dad/dbscan_8cpp_source.html#l00011">dbscan.cpp:11</a></div></div>
 <div class="ttc" id="adbscan_8hpp_html"><div class="ttname"><a href="../../dd/d8d/dbscan_8hpp.html">dbscan.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

@@ -1,0 +1,11 @@
+<map id="src/perception/include/utils/cluster.hpp" name="src/perception/include/utils/cluster.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="222,5,371,46"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,94,124,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="239,49,116,91,114,86,238,44"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="148,94,266,120"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="276,48,234,86,230,82,273,44"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="290,94,484,120"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="321,44,364,82,360,86,317,48"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="509,94,562,120"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="357,44,494,89,492,94,355,49"/>
+</map>

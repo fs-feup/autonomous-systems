@@ -158,9 +158,10 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"d4/dfa/spline_8py.html#aa49f95a60d0a0741eef1ef2d511d49fd",
-"d8/dee/classplots_1_1plots_1_1_plots.html#ad47f0a64b7eac8591cc8396375e9069d",
-"dd/d06/test__pep257_8py.html#a25dd726750a66bf2fc6439546bfdfcd9"
+"d4/dfa/spline_8py.html",
+"d8/dee/classplots_1_1plots_1_1_plots.html#a8c63def3f72d320135c23dc03a4a49dc",
+"dc/d1a/namespaceplot__track.html#a91203fcd36bc9a8d7cc13275ae9b8a1f",
+"functions_p.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

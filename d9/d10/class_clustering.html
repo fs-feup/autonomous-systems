@@ -123,18 +123,18 @@ Collaboration diagram for Clustering:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a646d8dc2267e4fc10c9cab0740040939" id="r_a646d8dc2267e4fc10c9cab0740040939"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d10/class_clustering.html#a646d8dc2267e4fc10c9cab0740040939">clustering</a> (const pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr point_cloud, std::vector&lt; pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr &gt; *clusters) const =0</td></tr>
-<tr class="memdesc:a646d8dc2267e4fc10c9cab0740040939"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clusters the input point cloud into groups.  <br /></td></tr>
-<tr class="separator:a646d8dc2267e4fc10c9cab0740040939"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17e55a061852f4a7d6bbb48c3dec5bba" id="r_a17e55a061852f4a7d6bbb48c3dec5bba"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d10/class_clustering.html#a17e55a061852f4a7d6bbb48c3dec5bba">clustering</a> (const pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr point_cloud, std::vector&lt; <a class="el" href="../../d2/d23/class_cluster.html">Cluster</a> &gt; *clusters) const =0</td></tr>
+<tr class="memdesc:a17e55a061852f4a7d6bbb48c3dec5bba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clusters the input point cloud into groups.  <br /></td></tr>
+<tr class="separator:a17e55a061852f4a7d6bbb48c3dec5bba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Abstract base class for clustering point clouds. </p>
-<p>The <a class="el" href="../../d9/d10/class_clustering.html" title="Abstract base class for clustering point clouds.">Clustering</a> class defines an interface for clustering point clouds into groups or clusters. Subclasses must implement the pure virtual function <a class="el" href="../../d9/d10/class_clustering.html#a646d8dc2267e4fc10c9cab0740040939" title="Clusters the input point cloud into groups.">clustering()</a>. </p>
+<p>The <a class="el" href="../../d9/d10/class_clustering.html" title="Abstract base class for clustering point clouds.">Clustering</a> class defines an interface for clustering point clouds into groups or clusters. Subclasses must implement the pure virtual function <a class="el" href="../../d9/d10/class_clustering.html#a17e55a061852f4a7d6bbb48c3dec5bba" title="Clusters the input point cloud into groups.">clustering()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../de/d1f/clustering_8hpp_source.html#l00014">14</a> of file <a class="el" href="../../de/d1f/clustering_8hpp_source.html">clustering.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/d1f/clustering_8hpp_source.html#l00015">15</a> of file <a class="el" href="../../de/d1f/clustering_8hpp_source.html">clustering.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a646d8dc2267e4fc10c9cab0740040939" name="a646d8dc2267e4fc10c9cab0740040939"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a646d8dc2267e4fc10c9cab0740040939">&#9670;&#160;</a></span>clustering()</h2>
+<a id="a17e55a061852f4a7d6bbb48c3dec5bba" name="a17e55a061852f4a7d6bbb48c3dec5bba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17e55a061852f4a7d6bbb48c3dec5bba">&#9670;&#160;</a></span>clustering()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -151,7 +151,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::vector&lt; pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr &gt; *&#160;</td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="../../d2/d23/class_cluster.html">Cluster</a> &gt; *&#160;</td>
           <td class="paramname"><em>clusters</em>&#160;</td>
         </tr>
         <tr>
@@ -177,7 +177,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../df/d6a/class_d_b_s_c_a_n.html#a4e9f1de7731943c1ba6f5515bfd778b0">DBSCAN</a>.</p>
+<p>Implemented in <a class="el" href="../../df/d6a/class_d_b_s_c_a_n.html#a9a9605c898a26dbd557113419f4c8c6e">DBSCAN</a>.</p>
 
 </div>
 </div>

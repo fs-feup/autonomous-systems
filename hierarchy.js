@@ -1,10 +1,14 @@
 var hierarchy =
 [
     [ "Adapter", "d3/d7f/class_adapter.html", null ],
+    [ "Cluster", "d2/d23/class_cluster.html", null ],
     [ "Clustering", "d9/d10/class_clustering.html", [
       [ "DBSCAN", "df/d6a/class_d_b_s_c_a_n.html", null ]
     ] ],
     [ "Cone", "d8/da1/class_cone.html", null ],
+    [ "ConeDifferentiation", "d7/d4e/class_cone_differentiation.html", [
+      [ "LeastSquaresDifferentiation", "d7/d15/class_least_squares_differentiation.html", null ]
+    ] ],
     [ "ConeMap", "dc/d59/struct_cone_map.html", null ],
     [ "ExtendedKalmanFilter", "da/da6/class_extended_kalman_filter.html", null ],
     [ "GlobalPathPlanner", "d2/da4/class_global_path_planner.html", null ],
@@ -39,6 +43,7 @@ var hierarchy =
       [ "ExecTimeTest", "df/d59/class_exec_time_test.html", null ],
       [ "ExecTimeTestEKFTests", "d2/dac/class_exec_time_test_e_k_f_tests.html", null ],
       [ "IntegrationTest", "d7/d4e/class_integration_test.html", null ],
+      [ "LeastSquaresDifferentiationTest", "de/d1e/class_least_squares_differentiation_test.html", null ],
       [ "RANSACTest", "d8/d5a/class_r_a_n_s_a_c_test.html", null ]
     ] ],
     [ "Track", "d6/d2c/class_track.html", null ],

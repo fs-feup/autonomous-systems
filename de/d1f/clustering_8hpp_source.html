@@ -103,18 +103,20 @@ $(document).ready(function(){initNavTree('de/d1f/clustering_8hpp_source.html','.
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &lt;pcl/PCLPointField.h&gt;</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;pcl/point_cloud.h&gt;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;pcl/point_types.h&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="../../d2/d49/cluster_8hpp.html">utils/cluster.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="foldopen" id="foldopen00014" data-start="{" data-end="};">
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="../../d9/d10/class_clustering.html">   14</a></span><span class="keyword">class </span><a class="code hl_class" href="../../d9/d10/class_clustering.html">Clustering</a> {</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="../../d9/d10/class_clustering.html#a646d8dc2267e4fc10c9cab0740040939">   24</a></span>       <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d9/d10/class_clustering.html#a646d8dc2267e4fc10c9cab0740040939">clustering</a>(<span class="keyword">const</span> pcl::PointCloud&lt;pcl::PointXYZI&gt;::Ptr point_cloud,</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>                           std::vector&lt;pcl::PointCloud&lt;pcl::PointXYZI&gt;::Ptr&gt;* clusters) <span class="keyword">const</span> = 0;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>};</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="foldopen" id="foldopen00015" data-start="{" data-end="};">
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="../../d9/d10/class_clustering.html">   15</a></span><span class="keyword">class </span><a class="code hl_class" href="../../d9/d10/class_clustering.html">Clustering</a> {</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="../../d9/d10/class_clustering.html#a17e55a061852f4a7d6bbb48c3dec5bba">   25</a></span>       <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d9/d10/class_clustering.html#a17e55a061852f4a7d6bbb48c3dec5bba">clustering</a>(<span class="keyword">const</span> pcl::PointCloud&lt;pcl::PointXYZI&gt;::Ptr point_cloud,</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>                           std::vector&lt;Cluster&gt;* clusters) <span class="keyword">const</span> = 0;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>};</div>
 </div>
-<div class="ttc" id="aclass_clustering_html"><div class="ttname"><a href="../../d9/d10/class_clustering.html">Clustering</a></div><div class="ttdoc">Abstract base class for clustering point clouds.</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1f/clustering_8hpp_source.html#l00014">clustering.hpp:14</a></div></div>
-<div class="ttc" id="aclass_clustering_html_a646d8dc2267e4fc10c9cab0740040939"><div class="ttname"><a href="../../d9/d10/class_clustering.html#a646d8dc2267e4fc10c9cab0740040939">Clustering::clustering</a></div><div class="ttdeci">virtual void clustering(const pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr point_cloud, std::vector&lt; pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr &gt; *clusters) const =0</div><div class="ttdoc">Clusters the input point cloud into groups.</div></div>
+<div class="ttc" id="aclass_clustering_html"><div class="ttname"><a href="../../d9/d10/class_clustering.html">Clustering</a></div><div class="ttdoc">Abstract base class for clustering point clouds.</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1f/clustering_8hpp_source.html#l00015">clustering.hpp:15</a></div></div>
+<div class="ttc" id="aclass_clustering_html_a17e55a061852f4a7d6bbb48c3dec5bba"><div class="ttname"><a href="../../d9/d10/class_clustering.html#a17e55a061852f4a7d6bbb48c3dec5bba">Clustering::clustering</a></div><div class="ttdeci">virtual void clustering(const pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr point_cloud, std::vector&lt; Cluster &gt; *clusters) const =0</div><div class="ttdoc">Clusters the input point cloud into groups.</div></div>
+<div class="ttc" id="acluster_8hpp_html"><div class="ttname"><a href="../../d2/d49/cluster_8hpp.html">cluster.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

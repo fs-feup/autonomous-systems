@@ -96,54 +96,73 @@ $(document).ready(function(){initNavTree('d9/dc1/perception_8cpp.html','../../')
   <div class="headertitle"><div class="title">perception.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="../../de/da5/perception__node_8hpp_source.html">perception/perception_node.hpp</a>&gt;</code><br />
-<code>#include &lt;pcl/common/io.h&gt;</code><br />
+<div class="textblock"><code>#include &lt;pcl/common/io.h&gt;</code><br />
+<code>#include &lt;pcl/features/normal_3d.h&gt;</code><br />
 <code>#include &lt;pcl/conversions.h&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../de/da5/perception__node_8hpp_source.html">perception/perception_node.hpp</a>&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for perception.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../da/db0/perception_8cpp__incl.png" border="0" usemap="#asrc_2perception_2src_2perception_8cpp" alt=""/></div>
 <map name="asrc_2perception_2src_2perception_8cpp" id="asrc_2perception_2src_2perception_8cpp">
-<area shape="rect" title=" " alt="" coords="468,5,593,46"/>
-<area shape="rect" href="../../de/da5/perception__node_8hpp.html" title=" " alt="" coords="303,94,449,135"/>
-<area shape="poly" title=" " alt="" coords="497,49,425,89,423,84,494,44"/>
-<area shape="rect" title=" " alt="" coords="473,102,589,127"/>
-<area shape="poly" title=" " alt="" coords="533,47,533,86,528,86,528,47"/>
-<area shape="rect" title=" " alt="" coords="614,102,736,127"/>
-<area shape="poly" title=" " alt="" coords="565,44,643,91,640,96,562,49"/>
-<area shape="rect" title=" " alt="" coords="5,183,163,223"/>
-<area shape="poly" title=" " alt="" coords="310,138,165,180,164,175,309,133"/>
-<area shape="rect" title=" " alt="" coords="209,360,370,401"/>
-<area shape="poly" title=" " alt="" coords="338,138,305,158,275,184,244,224,228,272,224,292,228,311,239,331,254,348,250,351,235,334,223,313,218,292,223,271,240,222,271,181,302,154,335,133"/>
-<area shape="rect" href="../../d9/dad/ransac_8hpp.html" title=" " alt="" coords="286,190,466,216"/>
-<area shape="poly" title=" " alt="" coords="379,135,379,175,373,175,373,135"/>
-<area shape="rect" title=" " alt="" coords="490,190,609,216"/>
-<area shape="poly" title=" " alt="" coords="417,133,513,181,511,185,414,138"/>
-<area shape="rect" href="../../dd/d8d/dbscan_8hpp.html" title=" " alt="" coords="657,190,804,216"/>
-<area shape="poly" title=" " alt="" coords="450,131,666,183,665,188,448,136"/>
-<area shape="rect" href="../../d2/d96/ground__removal_8hpp.html" title=" " alt="" coords="238,271,394,312"/>
-<area shape="poly" title=" " alt="" coords="370,218,340,260,336,257,365,215"/>
-<area shape="rect" title=" " alt="" coords="419,271,573,312"/>
-<area shape="poly" title=" " alt="" coords="394,214,458,260,455,264,391,218"/>
-<area shape="rect" title=" " alt="" coords="597,279,651,305"/>
-<area shape="poly" title=" " alt="" coords="421,214,499,238,586,269,588,270,586,275,584,274,497,243,420,219"/>
-<area shape="poly" title=" " alt="" coords="312,313,302,346,297,344,307,312"/>
-<area shape="rect" title=" " alt="" coords="393,368,530,393"/>
-<area shape="poly" title=" " alt="" coords="350,310,429,357,427,362,348,315"/>
-<area shape="rect" title=" " alt="" coords="554,368,673,393"/>
-<area shape="poly" title=" " alt="" coords="385,310,558,360,556,365,383,315"/>
-<area shape="rect" title=" " alt="" coords="697,368,815,393"/>
-<area shape="poly" title=" " alt="" coords="395,307,407,309,546,332,685,357,698,361,697,366,683,363,545,337,406,315,394,312"/>
-<area shape="poly" title=" " alt="" coords="718,218,652,271,649,267,714,214"/>
-<area shape="rect" href="../../de/d1f/clustering_8hpp.html" title=" " alt="" coords="675,279,837,305"/>
-<area shape="poly" title=" " alt="" coords="737,216,751,263,746,265,732,217"/>
-<area shape="rect" title=" " alt="" coords="842,368,899,393"/>
-<area shape="poly" title=" " alt="" coords="770,214,813,235,834,251,852,270,862,289,869,311,874,351,869,352,864,312,857,292,847,273,831,255,810,240,768,219"/>
-<area shape="poly" title=" " alt="" coords="698,308,663,315,386,362,385,357,662,309,697,303"/>
-<area shape="poly" title=" " alt="" coords="715,308,518,365,517,360,714,303"/>
-<area shape="poly" title=" " alt="" coords="738,307,648,361,645,357,735,303"/>
-<area shape="poly" title=" " alt="" coords="759,305,759,352,753,352,753,305"/>
-<area shape="poly" title=" " alt="" coords="774,303,844,356,841,360,770,307"/>
+<area shape="rect" title=" " alt="" coords="248,5,373,46"/>
+<area shape="rect" title=" " alt="" coords="5,102,122,127"/>
+<area shape="poly" title=" " alt="" coords="255,49,113,98,112,93,253,44"/>
+<area shape="rect" title=" " alt="" coords="146,102,309,127"/>
+<area shape="poly" title=" " alt="" coords="293,48,251,92,247,89,289,45"/>
+<area shape="rect" title=" " alt="" coords="333,102,455,127"/>
+<area shape="poly" title=" " alt="" coords="331,45,374,89,370,92,327,48"/>
+<area shape="rect" href="../../de/da5/perception__node_8hpp.html" title=" " alt="" coords="479,94,624,135"/>
+<area shape="poly" title=" " alt="" coords="366,44,483,86,481,91,364,49"/>
+<area shape="rect" title=" " alt="" coords="8,183,165,223"/>
+<area shape="poly" title=" " alt="" coords="479,135,468,137,326,162,184,185,181,186,180,181,183,180,325,157,467,132,478,130"/>
+<area shape="rect" title=" " alt="" coords="278,360,438,401"/>
+<area shape="poly" title=" " alt="" coords="479,135,468,137,430,142,395,143,333,138,306,139,280,145,255,160,230,184,223,208,224,245,232,283,243,311,264,333,290,351,287,355,261,337,239,313,226,285,219,246,217,208,225,181,252,155,278,140,305,134,334,133,395,137,429,137,467,132,478,130"/>
+<area shape="rect" href="../../d9/dad/ransac_8hpp.html" title=" " alt="" coords="240,190,420,216"/>
+<area shape="poly" title=" " alt="" coords="502,138,376,187,374,182,500,133"/>
+<area shape="rect" href="../../d1/d27/least__squares__differentiation_8hpp.html" title=" " alt="" coords="444,183,659,223"/>
+<area shape="poly" title=" " alt="" coords="554,135,554,167,549,167,549,135"/>
+<area shape="rect" title=" " alt="" coords="683,190,802,216"/>
+<area shape="poly" title=" " alt="" coords="596,133,703,181,701,186,594,138"/>
+<area shape="rect" href="../../dd/d8d/dbscan_8hpp.html" title=" " alt="" coords="826,190,973,216"/>
+<area shape="poly" title=" " alt="" coords="625,131,836,183,835,189,624,136"/>
+<area shape="rect" title=" " alt="" coords="938,368,995,393"/>
+<area shape="poly" title=" " alt="" coords="625,113,722,117,830,128,881,136,926,148,962,162,987,181,1000,201,1007,223,1009,247,1007,271,996,317,982,354,977,352,991,315,1002,270,1003,247,1001,224,995,203,983,184,960,167,924,153,880,141,829,133,721,123,625,119"/>
+<area shape="rect" href="../../d2/d96/ground__removal_8hpp.html" title=" " alt="" coords="8,271,164,312"/>
+<area shape="poly" title=" " alt="" coords="297,219,157,268,155,263,295,214"/>
+<area shape="rect" title=" " alt="" coords="253,271,407,312"/>
+<area shape="poly" title=" " alt="" coords="333,216,333,256,328,256,328,216"/>
+<area shape="rect" title=" " alt="" coords="876,449,929,474"/>
+<area shape="poly" title=" " alt="" coords="393,214,433,221,516,227,623,232,728,243,771,254,804,269,824,286,841,306,869,350,888,395,899,433,894,435,883,397,864,353,837,309,820,290,801,274,769,259,727,248,622,237,515,232,433,226,392,219"/>
+<area shape="poly" title=" " alt="" coords="149,310,283,352,281,357,147,315"/>
+<area shape="rect" title=" " alt="" coords="118,368,254,393"/>
+<area shape="poly" title=" " alt="" coords="111,310,163,356,160,360,107,315"/>
+<area shape="rect" title=" " alt="" coords="372,449,491,474"/>
+<area shape="poly" title=" " alt="" coords="75,314,65,334,57,357,56,379,64,399,83,413,111,425,188,442,275,452,357,456,357,462,275,457,187,448,109,430,80,418,60,402,50,380,52,356,60,332,71,311"/>
+<area shape="rect" title=" " alt="" coords="515,449,633,474"/>
+<area shape="poly" title=" " alt="" coords="86,312,88,357,95,380,108,399,137,416,179,429,230,436,286,440,401,442,500,446,499,451,401,448,285,445,229,441,178,434,135,421,104,403,90,382,82,358,81,313"/>
+<area shape="rect" href="../../d8/de7/cone__differentiation_8hpp.html" title=" " alt="" coords="443,271,604,312"/>
+<area shape="poly" title=" " alt="" coords="548,225,537,257,532,256,543,223"/>
+<area shape="poly" title=" " alt="" coords="487,315,410,355,408,350,485,310"/>
+<area shape="poly" title=" " alt="" coords="515,313,448,436,443,434,511,311"/>
+<area shape="poly" title=" " alt="" coords="532,311,569,433,564,435,527,313"/>
+<area shape="rect" href="../../d2/d49/cluster_8hpp.html" title=" " alt="" coords="665,368,777,393"/>
+<area shape="poly" title=" " alt="" coords="569,310,680,358,678,363,567,315"/>
+<area shape="poly" title=" " alt="" coords="677,396,492,447,490,441,676,391"/>
+<area shape="poly" title=" " alt="" coords="700,396,611,443,609,439,697,391"/>
+<area shape="poly" title=" " alt="" coords="750,391,862,440,860,445,748,396"/>
+<area shape="rect" title=" " alt="" coords="657,449,851,474"/>
+<area shape="poly" title=" " alt="" coords="728,393,746,433,741,435,723,395"/>
+<area shape="poly" title=" " alt="" coords="902,216,905,433,899,433,897,216"/>
+<area shape="rect" href="../../de/d1f/clustering_8hpp.html" title=" " alt="" coords="628,279,790,305"/>
+<area shape="poly" title=" " alt="" coords="874,219,751,274,748,270,871,214"/>
+<area shape="poly" title=" " alt="" coords="907,215,959,352,954,354,902,217"/>
+<area shape="poly" title=" " alt="" coords="660,308,454,358,452,353,659,303"/>
+<area shape="poly" title=" " alt="" coords="653,308,617,315,519,329,442,338,365,347,267,363,249,366,248,361,266,357,364,341,441,332,518,324,616,309,653,303"/>
+<area shape="poly" title=" " alt="" coords="690,307,466,442,463,438,688,303"/>
+<area shape="poly" title=" " alt="" coords="701,306,655,362,595,438,590,435,651,358,697,303"/>
+<area shape="poly" title=" " alt="" coords="713,305,720,352,714,353,708,305"/>
+<area shape="poly" title=" " alt="" coords="746,303,924,362,922,367,744,308"/>
 </map>
 </div>
 </div>
@@ -181,7 +200,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/dc1/perception_8cpp_source.html#l00005">5</a> of file <a class="el" href="../../d9/dc1/perception_8cpp_source.html">perception.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/dc1/perception_8cpp_source.html#l00006">6</a> of file <a class="el" href="../../d9/dc1/perception_8cpp_source.html">perception.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
