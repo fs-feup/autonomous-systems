@@ -7,6 +7,7 @@
 #include "kalman_filter/motion_models.hpp"
 #include "kalman_filter/observation_models.hpp"
 #include "loc_map/data_structures.hpp"
+#include "utils/mission.hpp"
 
 /**
  * @brief Extended Kalman Filter class

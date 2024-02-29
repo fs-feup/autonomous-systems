@@ -1,67 +1,11 @@
 #include "adapter/adapter.hpp"
+#include "loc_map/lm_node.hpp"
 
-Adapter::Adapter(Mode mode, LMNode *loc_map_node) {
-  this->node = loc_map_node;
+Adapter::Adapter(LMNode *loc_map) {
+  this->node = loc_map;
 
-  if (mode == Mode::eufs) {
-    this->eufs_init();
-  } else if (mode == Mode::fsds) {
-    this->fsds_init();
-  } else if (mode == Mode::ads_dv) {
-    this->ads_dv_init();
-  }
+  RCLCPP_INFO(this->node->get_logger(), "Adapter created");
 }
-
-/*---------------------- Inits --------------------*/
-
-void Adapter::eufs_init() {
-  if (this->node->_use_odometry) {
-    this->_eufs_wheel_speeds_subscription =
-        this->node->create_subscription<eufs_msgs::msg::WheelSpeedsStamped>(
-            "/ros_can/wheel_speeds",
-            rclcpp::QoS(10).reliability(RMW_QOS_POLICY_RELIABILITY_BEST_EFFORT),
-            std::bind(&Adapter::eufs_wheel_speeds_subscription_callback, this,
-                      std::placeholders::_1));
-  } else {
-    this->_eufs_imu_subscription = this->node->create_subscription<sensor_msgs::msg::Imu>(
-        "/imu/data", rclcpp::QoS(10).reliability(RMW_QOS_POLICY_RELIABILITY_BEST_EFFORT),
-        std::bind(&Adapter::imu_subscription_callback, this, std::placeholders::_1));
-  }
-
-  // mission control
-  this->_eufs_mission_state_subscription =
-      this->node->create_subscription<eufs_msgs::msg::CanState>(
-          "/ros_can/state", 10,
-          std::bind(&Adapter::eufs_mission_state_callback, this, std::placeholders::_1));
-  this->eufs_mission_state_client_ =
-      this->node->create_client<eufs_msgs::srv::SetCanState>("/ros_can/set_mission");
-  this->eufs_ebs_client_ = this->node->create_client<eufs_msgs::srv::SetCanState>("/ros_can/ebs");
-}
-
-void Adapter::fsds_init() {
-  if (this->node->_use_odometry) {
-    this->_fs_wheel_speeds_subscription =
-        this->node->create_subscription<fs_msgs::msg::WheelStates>(
-            "/wheel_states", 10,
-            std::bind(&Adapter::fsds_wheel_speeds_subscription_callback, this,
-                      std::placeholders::_1));
-  } else {
-    this->_fs_imu_subscription = this->node->create_subscription<sensor_msgs::msg::Imu>(
-        "/imu", rclcpp::QoS(10).reliability(RMW_QOS_POLICY_RELIABILITY_BEST_EFFORT),
-        std::bind(&Adapter::imu_subscription_callback, this, std::placeholders::_1));
-  }
-
-  // mission control
-  this->node->create_subscription<fs_msgs::msg::GoSignal>(
-      "/signal/go", 10,
-      std::bind(&Adapter::fsds_mission_state_callback, this, std::placeholders::_1));
-  this->fsds_ebs_publisher_ =
-      this->node->create_publisher<fs_msgs::msg::FinishedSignal>("/signal/finished", 10);
-}
-
-void Adapter::ads_dv_init() {}
-
-/*---------------------- Subscriptions --------------------*/
 
 void Adapter::imu_subscription_callback(const sensor_msgs::msg::Imu msg) {
   double angular_velocity = msg.angular_velocity.z;
@@ -71,54 +15,3 @@ void Adapter::imu_subscription_callback(const sensor_msgs::msg::Imu msg) {
   this->node->_imu_subscription_callback(angular_velocity, acceleration_x, acceleration_y);
 }
 
-void Adapter::eufs_mission_state_callback(const eufs_msgs::msg::CanState msg) {
-  RCLCPP_INFO_ONCE(this->node->get_logger(), "Mission: '%d' - Car state: '%d'", msg.ami_state,
-                   msg.as_state);
-  RCLCPP_DEBUG(this->node->get_logger(), "Mission: '%d' - Car state: '%d'", msg.ami_state,
-               msg.as_state);
-
-  auto mission = msg.ami_state;
-
-  if (mission == eufs_msgs::msg::CanState::AMI_ACCELERATION) {
-    this->node->set_mission(Mission::acceleration);
-  } else if (mission == eufs_msgs::msg::CanState::AMI_SKIDPAD) {
-    this->node->set_mission(Mission::skidpad);
-  } else if (mission == eufs_msgs::msg::CanState::AMI_TRACK_DRIVE) {
-    this->node->set_mission(Mission::trackdrive);
-  } else if (mission == eufs_msgs::msg::CanState::AMI_AUTOCROSS) {
-    this->node->set_mission(Mission::autocross);
-  } else if (mission == eufs_msgs::msg::CanState::AMI_DDT_INSPECTION_A) {
-    this->node->set_mission(Mission::static_inspection_A);
-  } else if (mission == eufs_msgs::msg::CanState::AMI_DDT_INSPECTION_B) {
-    this->node->set_mission(Mission::static_inspection_B);
-  } else if (mission == eufs_msgs::msg::CanState::AMI_AUTONOMOUS_DEMO) {
-    this->node->set_mission(Mission::autonomous_demo);
-  }
-}
-
-void Adapter::eufs_wheel_speeds_subscription_callback(
-    const eufs_msgs::msg::WheelSpeedsStamped msg) {
-  this->node->_wheel_speeds_subscription_callback(msg.speeds.lb_speed, msg.speeds.lf_speed,
-                                                  msg.speeds.rb_speed, msg.speeds.rf_speed,
-                                                  msg.speeds.steering);
-}
-
-void Adapter::fsds_mission_state_callback(const fs_msgs::msg::GoSignal msg) {
-  std::string mission = msg.mission;
-
-  if (mission == "acceleration") {
-    this->node->set_mission(Mission::acceleration);
-  } else if (mission == "skidpad") {
-    this->node->set_mission(Mission::skidpad);
-  } else if (mission == "trackdrive") {
-    this->node->set_mission(Mission::trackdrive);
-  } else if (mission == "autocross") {
-    this->node->set_mission(Mission::autocross);
-  }
-}
-
-void Adapter::fsds_wheel_speeds_subscription_callback(const fs_msgs::msg::WheelStates msg) {
-  float steering_angle = (msg.fl_steering_angle + msg.fr_steering_angle) / 2.0;
-  this->node->_wheel_speeds_subscription_callback(msg.rl_rpm, msg.fl_rpm, msg.rr_rpm, msg.fr_rpm,
-                                                  steering_angle);
-}

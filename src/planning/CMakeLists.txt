@@ -31,6 +31,9 @@ set(TESTFILES
 
 set(IMPLEMENTATION_FILES
   src/adapter/adapter.cpp
+  src/adapter/adsdv.cpp
+  src/adapter/eufs.cpp
+  src/adapter/fsds.cpp
   src/planning/global_path_planner.cpp
   src/planning/local_path_planner.cpp
   src/planning/track.cpp

@@ -1,17 +1,8 @@
 #include "planning/planning.hpp"
-
-#include <functional>
-#include <memory>
-#include <string>
-#include <vector>
-
-#include "custom_interfaces/msg/cone_array.hpp"
-#include "custom_interfaces/msg/point2d.hpp"
-#include "custom_interfaces/msg/point_array.hpp"
-#include "custom_interfaces/msg/pose.hpp"
-#include "planning/global_path_planner.hpp"
-#include "planning/local_path_planner.hpp"
-#include "utils/files.hpp"
+#include "adapter/adsdv.hpp"
+#include "adapter/eufs.hpp"
+#include "adapter/fsds.hpp"
+#include "adapter/map.hpp"
 
 using std::placeholders::_1;
 
@@ -31,7 +22,7 @@ Planning::Planning() : Node("planning") {
       std::chrono::milliseconds(100), std::bind(&Planning::publish_predicitive_track_points, this));
 
   // Adapter to communicate with the car
-  this->adapter = new Adapter("eufs", this);
+  this->adapter = adapter_map[mode](this);
 }
 
 void Planning::track_map_callback(const custom_interfaces::msg::ConeArray msg) {

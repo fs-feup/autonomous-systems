@@ -2,26 +2,25 @@
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 #include <pcl_conversions/pcl_conversions.h>
-#include <string>
+#include "adapter/fsds.hpp"
+#include "adapter/testlidar.hpp"
+#include "adapter/map.hpp"
+
 #include <cstdio>
-
-
+#include <string>
 Perception::Perception(GroundRemoval* groundRemoval, Clustering* clustering,
             ConeDifferentiation* coneDifferentiator) :
             Node("perception"), groundRemoval(groundRemoval),
             clustering(clustering), coneDifferentiator(coneDifferentiator) {
-  this->_point_cloud_subscription = this->create_subscription<sensor_msgs::msg::PointCloud2>(
-      "/livox/lidar", 10,
-      std::bind(&Perception::pointCloudCallback, this, std::placeholders::_1));
-
   this->_cones_publisher = this->create_publisher<custom_interfaces::msg::ConeArray>("cones", 10);
+
+  this->adapter = adapter_map[mode](this);
 }
 
 void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
     pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_cloud(new pcl::PointCloud<pcl::PointXYZI>);
 
     pcl::fromROSMsg(*msg, *pcl_cloud);
-
 
     pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
 
