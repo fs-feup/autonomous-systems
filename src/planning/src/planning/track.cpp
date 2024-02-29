@@ -110,7 +110,7 @@ int Track::validateCones() {
   int rightOutliers = deleteOutliers(0, 1.5, 3, 3, false);
 
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Deleted %i leftOutliers and %i right outliers\n",
-              leftOutliers, rightOutliers);
+               leftOutliers, rightOutliers);
   return leftOutliers + rightOutliers;
 }
 
