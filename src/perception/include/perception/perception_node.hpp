@@ -5,8 +5,10 @@
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
 #include "ground_removal/ransac.hpp"
+#include "cone_differentiation/least_squares_differentiation.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "clustering/dbscan.hpp"
+#include <vector>
 
 class Adapter;
 
@@ -24,19 +26,31 @@ class Perception : public rclcpp::Node {
   Adapter *adapter; /**< Adapter instance for external communication */
   Clustering* clustering;
   std::string mode = "fsds"; // Temporary, change as desired. TODO(andre): Make not hardcoded
+  ConeDifferentiation* coneDifferentiator; ///< Pointer to ConeDifferentiation object.
 
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr
       _point_cloud_subscription;  ///< PointCloud2 subscription.
   rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr
       _cones_publisher; ///< ConeArray publisher.
 
+  /**
+     * @brief Publishes information about clusters (cones) using a custom ROS2 message.
+     *
+     * This function takes a vector of Cluster objects, extracts relevant information such as
+     * centroid and color, and publishes this information using a custom ROS2 message type ConeArray.
+     *
+     * @param cones A reference to a vector of Cluster objects representing the clusters (cones) to be published.
+  */
+  void publishCones(std::vector<Cluster>* cones);
+
  public:
    /**
    * @brief Constructor for the Perception node.
    * @param groundRemoval Pointer to the GroundRemoval object.
+   * @param coneDifferentiator Pointer to ConeDifferentiation object
    */
-
-  Perception(GroundRemoval* groundRemoval, Clustering* clustering);
+  Perception(GroundRemoval* groundRemoval, Clustering* clustering,
+             ConeDifferentiation* coneDifferentiator);
 
     /**
    * @brief Callback function for the PointCloud2 subscription.
@@ -46,5 +60,3 @@ class Perception : public rclcpp::Node {
 };
 
 #endif
-
-
