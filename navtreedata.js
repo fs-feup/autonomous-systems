@@ -136,9 +136,8 @@ var NAVTREE =
       [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
       [ "Class Members", "functions.html", [
         [ "All", "functions.html", "functions_dup" ],
-        [ "Functions", "functions_func.html", null ],
-        [ "Variables", "functions_vars.html", null ],
-        [ "Related Symbols", "functions_rela.html", null ]
+        [ "Functions", "functions_func.html", "functions_func" ],
+        [ "Variables", "functions_vars.html", null ]
       ] ]
     ] ],
     [ "Files", "files.html", [
@@ -146,6 +145,7 @@ var NAVTREE =
       [ "File Members", "globals.html", [
         [ "All", "globals.html", null ],
         [ "Functions", "globals_func.html", null ],
+        [ "Variables", "globals_vars.html", null ],
         [ "Typedefs", "globals_type.html", null ],
         [ "Enumerations", "globals_enum.html", null ],
         [ "Enumerator", "globals_eval.html", null ],
@@ -158,10 +158,10 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"d4/dfa/spline_8py.html",
-"d8/dee/classplots_1_1plots_1_1_plots.html#a8c63def3f72d320135c23dc03a4a49dc",
-"dc/d1a/namespaceplot__track.html#a91203fcd36bc9a8d7cc13275ae9b8a1f",
-"functions_p.html"
+"d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md52",
+"d8/d06/planning_2include_2adapter_2map_8hpp.html",
+"da/da6/class_extended_kalman_filter.html#a230559bb9193f7acf494ae9e889fb6f8",
+"df/d10/testlidar_8hpp_source.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -103,78 +103,82 @@ $(document).ready(function(){initNavTree('dc/dfb/perception__node_8cpp_source.ht
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &lt;pcl/point_cloud.h&gt;</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;pcl/point_types.h&gt;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;pcl_conversions/pcl_conversions.h&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;cstdio&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;adapter/fsds.hpp&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="../../df/d10/testlidar_8hpp.html">adapter/testlidar.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;adapter/map.hpp&quot;</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="foldopen" id="foldopen00009" data-start="{" data-end="}">
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="../../de/d07/class_perception.html#a7075f800843f38d0ef33f496e5e52fbe">    9</a></span><a class="code hl_function" href="../../de/d07/class_perception.html#a7075f800843f38d0ef33f496e5e52fbe">Perception::Perception</a>(<a class="code hl_class" href="../../dc/d84/class_ground_removal.html">GroundRemoval</a>* groundRemoval, <a class="code hl_class" href="../../d9/d10/class_clustering.html">Clustering</a>* clustering,</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>            <a class="code hl_class" href="../../d7/d4e/class_cone_differentiation.html">ConeDifferentiation</a>* coneDifferentiator) :</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>            Node(<span class="stringliteral">&quot;perception&quot;</span>), groundRemoval(groundRemoval),</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>            clustering(clustering), coneDifferentiator(coneDifferentiator) {</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>  this-&gt;_point_cloud_subscription = this-&gt;create_subscription&lt;sensor_msgs::msg::PointCloud2&gt;(</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>      <span class="stringliteral">&quot;/livox/lidar&quot;</span>, 10,</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>      std::bind(&amp;Perception::pointCloudCallback, <span class="keyword">this</span>, std::placeholders::_1));</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;cstdio&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="foldopen" id="foldopen00011" data-start="{" data-end="}">
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="../../de/d07/class_perception.html#a7075f800843f38d0ef33f496e5e52fbe">   11</a></span><a class="code hl_function" href="../../de/d07/class_perception.html#a7075f800843f38d0ef33f496e5e52fbe">Perception::Perception</a>(<a class="code hl_class" href="../../dc/d84/class_ground_removal.html">GroundRemoval</a>* groundRemoval, <a class="code hl_class" href="../../d9/d10/class_clustering.html">Clustering</a>* clustering,</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>            <a class="code hl_class" href="../../d7/d4e/class_cone_differentiation.html">ConeDifferentiation</a>* coneDifferentiator) :</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>            Node(<span class="stringliteral">&quot;perception&quot;</span>), groundRemoval(groundRemoval),</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>            clustering(clustering), coneDifferentiator(coneDifferentiator) {</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>  this-&gt;_cones_publisher = this-&gt;create_publisher&lt;custom_interfaces::msg::ConeArray&gt;(<span class="stringliteral">&quot;cones&quot;</span>, 10);</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>  this-&gt;_cones_publisher = this-&gt;create_publisher&lt;custom_interfaces::msg::ConeArray&gt;(<span class="stringliteral">&quot;cones&quot;</span>, 10);</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>  this-&gt;adapter = <a class="code hl_variable" href="../../d9/da5/lateral__control_2include_2adapter_2map_8hpp.html#a05933f6d04b3f277b7e80c4fdd1a0c2d">adapter_map</a>[mode](<span class="keyword">this</span>);</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>}</div>
 </div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keywordtype">void</span> Perception::pointCloudCallback(<span class="keyword">const</span> sensor_msgs::msg::PointCloud2::SharedPtr msg) {</div>
+<div class="foldopen" id="foldopen00020" data-start="{" data-end="}">
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="../../de/d07/class_perception.html#afaf42fed2ffa3ed23d5c636bf3fdadd7">   20</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../de/d07/class_perception.html#afaf42fed2ffa3ed23d5c636bf3fdadd7">Perception::pointCloudCallback</a>(<span class="keyword">const</span> sensor_msgs::msg::PointCloud2::SharedPtr msg) {</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    pcl::PointCloud&lt;pcl::PointXYZI&gt;::Ptr pcl_cloud(<span class="keyword">new</span> pcl::PointCloud&lt;pcl::PointXYZI&gt;);</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    pcl::fromROSMsg(*msg, *pcl_cloud);</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    pcl::PointCloud&lt;pcl::PointXYZI&gt;::Ptr ground_removed_cloud(<span class="keyword">new</span> pcl::PointCloud&lt;pcl::PointXYZI&gt;);</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    groundRemoval-&gt;<a class="code hl_function" href="../../dc/d84/class_ground_removal.html#aa4013df7d013e238aa1b5bd88033703c">groundRemoval</a>(pcl_cloud, ground_removed_cloud);</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    std::vector&lt;Cluster&gt; clusters;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    clustering-&gt;<a class="code hl_function" href="../../d9/d10/class_clustering.html#a17e55a061852f4a7d6bbb48c3dec5bba">clustering</a>(ground_removed_cloud, &amp;clusters);</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    RCLCPP_DEBUG(this-&gt;get_logger(), <span class="stringliteral">&quot;---------- Point Cloud Received ----------&quot;</span>);</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    RCLCPP_DEBUG(this-&gt;get_logger(), <span class="stringliteral">&quot;Point Cloud Before Ground Removal: %ld points&quot;</span>,</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        pcl_cloud-&gt;points.size());</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    RCLCPP_DEBUG(this-&gt;get_logger(), <span class="stringliteral">&quot;Point Cloud After Ground Removal: %ld points&quot;</span>,</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        ground_removed_cloud-&gt;points.size());</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    RCLCPP_DEBUG(this-&gt;get_logger(), <span class="stringliteral">&quot;Point Cloud after Clustering: %ld clusters&quot;</span>,</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        clusters.size());</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; clusters.size(); i++) {</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        coneDifferentiator-&gt;<a class="code hl_function" href="../../d7/d4e/class_cone_differentiation.html#a0a094ce1ef52e4f23fe34764c948ae7f">coneDifferentiation</a>(&amp;clusters[i]);</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        std::string color = clusters[i].getColor();</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        RCLCPP_DEBUG(this-&gt;get_logger(), <span class="stringliteral">&quot;Cone %d: %s&quot;</span>, i, color.c_str());</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    }</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    publishCones(&amp;clusters);</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>}</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    pcl::PointCloud&lt;pcl::PointXYZI&gt;::Ptr ground_removed_cloud(<span class="keyword">new</span> pcl::PointCloud&lt;pcl::PointXYZI&gt;);</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    groundRemoval-&gt;<a class="code hl_function" href="../../dc/d84/class_ground_removal.html#aa4013df7d013e238aa1b5bd88033703c">groundRemoval</a>(pcl_cloud, ground_removed_cloud);</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    std::vector&lt;Cluster&gt; clusters;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    clustering-&gt;<a class="code hl_function" href="../../d9/d10/class_clustering.html#a17e55a061852f4a7d6bbb48c3dec5bba">clustering</a>(ground_removed_cloud, &amp;clusters);</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    RCLCPP_DEBUG(this-&gt;get_logger(), <span class="stringliteral">&quot;---------- Point Cloud Received ----------&quot;</span>);</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    RCLCPP_DEBUG(this-&gt;get_logger(), <span class="stringliteral">&quot;Point Cloud Before Ground Removal: %ld points&quot;</span>,</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        pcl_cloud-&gt;points.size());</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    RCLCPP_DEBUG(this-&gt;get_logger(), <span class="stringliteral">&quot;Point Cloud After Ground Removal: %ld points&quot;</span>,</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        ground_removed_cloud-&gt;points.size());</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    RCLCPP_DEBUG(this-&gt;get_logger(), <span class="stringliteral">&quot;Point Cloud after Clustering: %ld clusters&quot;</span>,</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        clusters.size());</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; clusters.size(); i++) {</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        coneDifferentiator-&gt;<a class="code hl_function" href="../../d7/d4e/class_cone_differentiation.html#a0a094ce1ef52e4f23fe34764c948ae7f">coneDifferentiation</a>(&amp;clusters[i]);</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        std::string color = clusters[i].getColor();</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        RCLCPP_DEBUG(this-&gt;get_logger(), <span class="stringliteral">&quot;Cone %d: %s&quot;</span>, i, color.c_str());</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    }</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    publishCones(&amp;clusters);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>}</div>
+</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="keywordtype">void</span> Perception::publishCones(std::vector&lt;Cluster&gt;* cones) {</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  <span class="keyword">auto</span> message = custom_interfaces::msg::ConeArray();</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; cones-&gt;size(); i++) {</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keyword">auto</span> position = custom_interfaces::msg::Point2d();</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    position.x = cones-&gt;at(i).getCentroid().x();</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    position.y = cones-&gt;at(i).getCentroid().y();</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keyword">auto</span> cone_message = custom_interfaces::msg::Cone();</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    cone_message.position = position;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    cone_message.color = cones-&gt;at(i).getColor();</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    message.cone_array.push_back(cone_message);</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>  }</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>  this-&gt;_cones_publisher-&gt;publish(message);</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>}</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="keywordtype">void</span> Perception::publishCones(std::vector&lt;Cluster&gt;* cones) {</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>  <span class="keyword">auto</span> message = custom_interfaces::msg::ConeArray();</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; cones-&gt;size(); i++) {</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keyword">auto</span> position = custom_interfaces::msg::Point2d();</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    position.x = cones-&gt;at(i).getCentroid().x();</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    position.y = cones-&gt;at(i).getCentroid().y();</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keyword">auto</span> cone_message = custom_interfaces::msg::Cone();</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    cone_message.position = position;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    cone_message.color = cones-&gt;at(i).getColor();</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    message.cone_array.push_back(cone_message);</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>  }</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>  this-&gt;_cones_publisher-&gt;publish(message);</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>}</div>
 <div class="ttc" id="aclass_clustering_html"><div class="ttname"><a href="../../d9/d10/class_clustering.html">Clustering</a></div><div class="ttdoc">Abstract base class for clustering point clouds.</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1f/clustering_8hpp_source.html#l00015">clustering.hpp:15</a></div></div>
 <div class="ttc" id="aclass_clustering_html_a17e55a061852f4a7d6bbb48c3dec5bba"><div class="ttname"><a href="../../d9/d10/class_clustering.html#a17e55a061852f4a7d6bbb48c3dec5bba">Clustering::clustering</a></div><div class="ttdeci">virtual void clustering(const pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr point_cloud, std::vector&lt; Cluster &gt; *clusters) const =0</div><div class="ttdoc">Clusters the input point cloud into groups.</div></div>
 <div class="ttc" id="aclass_cone_differentiation_html"><div class="ttname"><a href="../../d7/d4e/class_cone_differentiation.html">ConeDifferentiation</a></div><div class="ttdoc">Abstract class for cone differentiation based on cone reflectivity patterns.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/de7/cone__differentiation_8hpp_source.html#l00014">cone_differentiation.hpp:14</a></div></div>
 <div class="ttc" id="aclass_cone_differentiation_html_a0a094ce1ef52e4f23fe34764c948ae7f"><div class="ttname"><a href="../../d7/d4e/class_cone_differentiation.html#a0a094ce1ef52e4f23fe34764c948ae7f">ConeDifferentiation::coneDifferentiation</a></div><div class="ttdeci">virtual void coneDifferentiation(Cluster *cone_point_cloud) const =0</div><div class="ttdoc">Perform cone differentiation on a cone's point cloud.</div></div>
 <div class="ttc" id="aclass_ground_removal_html"><div class="ttname"><a href="../../dc/d84/class_ground_removal.html">GroundRemoval</a></div><div class="ttdoc">Abstract class for ground removal from a point cloud.</div><div class="ttdef"><b>Definition</b> <a href="../../d2/d96/ground__removal_8hpp_source.html#l00014">ground_removal.hpp:14</a></div></div>
 <div class="ttc" id="aclass_ground_removal_html_aa4013df7d013e238aa1b5bd88033703c"><div class="ttname"><a href="../../dc/d84/class_ground_removal.html#aa4013df7d013e238aa1b5bd88033703c">GroundRemoval::groundRemoval</a></div><div class="ttdeci">virtual void groundRemoval(const pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr point_cloud, pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr ret) const =0</div><div class="ttdoc">Perform ground removal on the input point cloud.</div></div>
-<div class="ttc" id="aclass_perception_html_a7075f800843f38d0ef33f496e5e52fbe"><div class="ttname"><a href="../../de/d07/class_perception.html#a7075f800843f38d0ef33f496e5e52fbe">Perception::Perception</a></div><div class="ttdeci">Perception(GroundRemoval *groundRemoval, Clustering *clustering, ConeDifferentiation *coneDifferentiator)</div><div class="ttdoc">Constructor for the Perception node.</div><div class="ttdef"><b>Definition</b> <a href="../../dc/dfb/perception__node_8cpp_source.html#l00009">perception_node.cpp:9</a></div></div>
+<div class="ttc" id="aclass_perception_html_a7075f800843f38d0ef33f496e5e52fbe"><div class="ttname"><a href="../../de/d07/class_perception.html#a7075f800843f38d0ef33f496e5e52fbe">Perception::Perception</a></div><div class="ttdeci">Perception(GroundRemoval *groundRemoval, Clustering *clustering, ConeDifferentiation *coneDifferentiator)</div><div class="ttdoc">Constructor for the Perception node.</div><div class="ttdef"><b>Definition</b> <a href="../../dc/dfb/perception__node_8cpp_source.html#l00011">perception_node.cpp:11</a></div></div>
+<div class="ttc" id="aclass_perception_html_afaf42fed2ffa3ed23d5c636bf3fdadd7"><div class="ttname"><a href="../../de/d07/class_perception.html#afaf42fed2ffa3ed23d5c636bf3fdadd7">Perception::pointCloudCallback</a></div><div class="ttdeci">void pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg)</div><div class="ttdoc">Callback function for the PointCloud2 subscription.</div><div class="ttdef"><b>Definition</b> <a href="../../dc/dfb/perception__node_8cpp_source.html#l00020">perception_node.cpp:20</a></div></div>
+<div class="ttc" id="alateral__control_2include_2adapter_2map_8hpp_html_a05933f6d04b3f277b7e80c4fdd1a0c2d"><div class="ttname"><a href="../../d9/da5/lateral__control_2include_2adapter_2map_8hpp.html#a05933f6d04b3f277b7e80c4fdd1a0c2d">adapter_map</a></div><div class="ttdeci">std::map&lt; std::string, std::function&lt; Adapter *(LateralControl *)&gt; &gt; adapter_map</div><div class="ttdef"><b>Definition</b> <a href="../../d9/da5/lateral__control_2include_2adapter_2map_8hpp_source.html#l00008">map.hpp:8</a></div></div>
 <div class="ttc" id="aperception__node_8hpp_html"><div class="ttname"><a href="../../de/da5/perception__node_8hpp.html">perception_node.hpp</a></div></div>
+<div class="ttc" id="atestlidar_8hpp_html"><div class="ttname"><a href="../../df/d10/testlidar_8hpp.html">testlidar.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

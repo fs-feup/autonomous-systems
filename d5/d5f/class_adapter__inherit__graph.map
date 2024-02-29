@@ -1,0 +1,16 @@
+<map id="Adapter" name="Adapter">
+<area shape="rect" id="Node000001" title="Adapter class for coordinating communication between different modes and LateralControl module." alt="" coords="405,5,589,391"/>
+<area shape="rect" id="Node000002" href="$db/db2/class_adsdv_adapter.html" title=" " alt="" coords="5,513,173,659"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="394,268,290,346,237,392,187,440,158,477,132,515,127,512,153,474,183,437,233,388,286,342,391,264"/>
+<area shape="rect" id="Node000003" href="$d0/d1d/class_eufs_adapter.html" title=" " alt="" coords="197,456,381,716"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="400,368,352,458,348,455,396,365"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="401,401,370,457,365,455,396,398"/>
+<area shape="rect" id="Node000004" href="$d7/d8e/class_fsds_adapter.html" title=" " alt="" coords="405,439,589,733"/>
+<area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="464,405,465,439,460,439,459,406"/>
+<area shape="poly" id="edge5_Node000001_Node000004" title=" " alt="" coords="482,406,482,439,477,439,477,406"/>
+<area shape="poly" id="edge6_Node000001_Node000004" title=" " alt="" coords="500,406,500,439,495,439,495,406"/>
+<area shape="poly" id="edge7_Node000001_Node000004" title=" " alt="" coords="518,406,518,439,512,439,513,406"/>
+<area shape="poly" id="edge8_Node000001_Node000004" title=" " alt="" coords="536,406,535,439,530,439,531,405"/>
+<area shape="rect" id="Node000005" href="$df/df3/class_test_adapter.html" title=" " alt="" coords="613,523,781,649"/>
+<area shape="poly" id="edge9_Node000001_Node000005" title=" " alt="" coords="598,388,668,522,663,525,594,390"/>
+</map>

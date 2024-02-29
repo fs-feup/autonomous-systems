@@ -1,6 +1,16 @@
 var hierarchy =
 [
-    [ "Adapter", "d3/d7f/class_adapter.html", null ],
+    [ "Adapter", "d3/d7f/class_adapter.html", [
+      [ "AdsdvAdapter", "db/db2/class_adsdv_adapter.html", null ],
+      [ "EufsAdapter", "d0/d1d/class_eufs_adapter.html", null ],
+      [ "EufsAdapter", "d0/d1d/class_eufs_adapter.html", null ],
+      [ "FsdsAdapter", "d7/d8e/class_fsds_adapter.html", null ],
+      [ "FsdsAdapter", "d7/d8e/class_fsds_adapter.html", null ],
+      [ "FsdsAdapter", "d7/d8e/class_fsds_adapter.html", null ],
+      [ "FsdsAdapter", "d7/d8e/class_fsds_adapter.html", null ],
+      [ "FsdsAdapter", "d7/d8e/class_fsds_adapter.html", null ],
+      [ "TestAdapter", "df/df3/class_test_adapter.html", null ]
+    ] ],
     [ "Cluster", "d2/d23/class_cluster.html", null ],
     [ "Clustering", "d9/d10/class_clustering.html", [
       [ "DBSCAN", "df/d6a/class_d_b_s_c_a_n.html", null ]

@@ -93,82 +93,175 @@ $(document).ready(function(){initNavTree('d3/d7f/class_adapter.html','../../'); 
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="../../d4/d8f/class_adapter-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">Adapter Class Reference</div></div>
+  <div class="headertitle"><div class="title">Adapter Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Class that handles the communication between the loc_map node and the other nodes in the system according to the selected mode.  
+<p><a class="el" href="../../d3/d7f/class_adapter.html" title="Adapter class for coordinating communication between different modes and LateralControl module.">Adapter</a> class for coordinating communication between different modes and <a class="el" href="../../d4/d45/class_lateral_control.html" title="Class responsible for the Lateral control of the car.">LateralControl</a> module.  
  <a href="../../d3/d7f/class_adapter.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../d4/d32/loc__map_2include_2adapter_2adapter_8hpp_source.html">adapter.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../df/dee/lateral__control_2include_2adapter_2adapter_8hpp_source.html">adapter.hpp</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for Adapter:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d5/d5f/class_adapter__inherit__graph.png" border="0" usemap="#a_adapter_inherit__map" alt="Inheritance graph"/></div>
+<map name="a_adapter_inherit__map" id="a_adapter_inherit__map">
+<area shape="rect" title="Adapter class for coordinating communication between different modes and LateralControl module." alt="" coords="405,5,589,391"/>
+<area shape="rect" href="../../db/db2/class_adsdv_adapter.html" title=" " alt="" coords="5,513,173,659"/>
+<area shape="poly" title=" " alt="" coords="394,268,290,346,237,392,187,440,158,477,132,515,127,512,153,474,183,437,233,388,286,342,391,264"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html" title=" " alt="" coords="197,456,381,716"/>
+<area shape="poly" title=" " alt="" coords="400,368,352,458,348,455,396,365"/>
+<area shape="poly" title=" " alt="" coords="401,401,370,457,365,455,396,398"/>
+<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html" title=" " alt="" coords="405,439,589,733"/>
+<area shape="poly" title=" " alt="" coords="464,405,465,439,460,439,459,406"/>
+<area shape="poly" title=" " alt="" coords="482,406,482,439,477,439,477,406"/>
+<area shape="poly" title=" " alt="" coords="500,406,500,439,495,439,495,406"/>
+<area shape="poly" title=" " alt="" coords="518,406,518,439,512,439,513,406"/>
+<area shape="poly" title=" " alt="" coords="536,406,535,439,530,439,531,405"/>
+<area shape="rect" href="../../df/df3/class_test_adapter.html" title=" " alt="" coords="613,523,781,649"/>
+<area shape="poly" title=" " alt="" coords="598,388,668,522,663,525,594,390"/>
+</map>
+</div>
 <div class="dynheader">
 Collaboration diagram for Adapter:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../de/d02/class_adapter__coll__graph.png" border="0" usemap="#a_adapter_coll__map" alt="Collaboration graph"/></div>
 <map name="a_adapter_coll__map" id="a_adapter_coll__map">
-<area shape="rect" title="Class that handles the communication between the loc_map node and the other nodes in the system accor..." alt="" coords="5,5,81,111"/>
+<area shape="rect" title="Adapter class for coordinating communication between different modes and LateralControl module." alt="" coords="337,472,521,758"/>
+<area shape="rect" href="../../d4/d45/class_lateral_control.html" title="Class responsible for the Lateral control of the car." alt="" coords="5,232,117,297"/>
+<area shape="poly" title=" " alt="" coords="73,296,96,351,112,381,131,408,175,452,224,492,275,527,324,557,321,562,272,532,221,497,171,456,127,411,107,383,91,354,68,298"/>
+<area shape="rect" title=" " alt="" coords="387,5,472,71"/>
+<area shape="poly" title=" " alt="" coords="372,43,317,50,253,63,188,86,158,102,131,122,108,147,91,176,70,233,65,231,86,174,104,144,128,118,156,98,186,81,251,58,316,44,372,38"/>
+<area shape="rect" href="../../dd/db3/class_l_m_node.html" title="Class representing the main loc_map node responsible for publishing the calculated vehicle localizati..." alt="" coords="141,120,333,409"/>
+<area shape="poly" title=" " alt="" coords="386,83,347,122,335,136,331,132,343,118,382,79"/>
+<area shape="rect" href="../../d4/de8/class_longitudinal_control.html" title="Class responsible for the longitudinal control of the car." alt="" coords="358,232,501,297"/>
+<area shape="poly" title=" " alt="" coords="432,86,432,232,427,232,427,86"/>
+<area shape="rect" href="../../de/d07/class_perception.html" title="Node for perception tasks, such as ground removal and cone detection." alt="" coords="525,222,667,307"/>
+<area shape="poly" title=" " alt="" coords="478,79,514,118,550,171,578,221,574,224,545,174,510,122,474,83"/>
+<area shape="rect" href="../../d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car." alt="" coords="692,222,793,307"/>
+<area shape="poly" title=" " alt="" coords="487,42,533,50,584,65,635,87,680,118,701,141,717,168,736,221,731,223,712,170,696,144,677,122,632,91,582,70,532,55,486,47"/>
+<area shape="poly" title=" " alt="" coords="319,408,345,456,341,459,314,410"/>
+<area shape="poly" title=" " alt="" coords="432,297,432,455,427,455,427,297"/>
+<area shape="poly" title=" " alt="" coords="579,308,507,458,502,456,574,306"/>
+<area shape="poly" title=" " alt="" coords="733,308,712,359,681,411,648,449,612,485,536,547,533,543,608,481,644,446,676,408,707,357,728,306"/>
 </map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a640d345249284e5299a4d39d10e03b0f" id="r_a640d345249284e5299a4d39d10e03b0f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d7f/class_adapter.html#a640d345249284e5299a4d39d10e03b0f">Adapter</a> (<a class="el" href="../../d4/d32/loc__map_2include_2adapter_2adapter_8hpp.html#a46c8a310cf4c094f8c80e1cb8dc1f911">Mode</a> mode, <a class="el" href="../../dd/db3/class_l_m_node.html">LMNode</a> *loc_map_node)</td></tr>
-<tr class="memdesc:a640d345249284e5299a4d39d10e03b0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">LM <a class="el" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the loc_map node and the other nodes in the system accor...">Adapter</a> constructor declaration.  <br /></td></tr>
-<tr class="separator:a640d345249284e5299a4d39d10e03b0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0bcd5ecd649ef2740bd4de2f1f0fe0eb" id="r_a0bcd5ecd649ef2740bd4de2f1f0fe0eb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d7f/class_adapter.html#a0bcd5ecd649ef2740bd4de2f1f0fe0eb">Adapter</a> (<a class="el" href="../../dd/db3/class_l_m_node.html">LMNode</a> *loc_map_node)</td></tr>
-<tr class="separator:a0bcd5ecd649ef2740bd4de2f1f0fe0eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:accd953d8f3298f83069aeb90388c862d" id="r_accd953d8f3298f83069aeb90388c862d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d7f/class_adapter.html#accd953d8f3298f83069aeb90388c862d">Adapter</a> (std::string mode, <a class="el" href="../../d9/db5/class_planning.html">Planning</a> *planning)</td></tr>
-<tr class="memdesc:accd953d8f3298f83069aeb90388c862d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for the <a class="el" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the loc_map node and the other nodes in the system accor...">Adapter</a> class.  <br /></td></tr>
-<tr class="separator:accd953d8f3298f83069aeb90388c862d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83746a14028b5c4239aa9b47769367b0" id="r_a83746a14028b5c4239aa9b47769367b0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d7f/class_adapter.html#a83746a14028b5c4239aa9b47769367b0">Adapter</a> (<a class="el" href="../../d4/d45/class_lateral_control.html">LateralControl</a> *lat_control)</td></tr>
+<tr class="memdesc:a83746a14028b5c4239aa9b47769367b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for the <a class="el" href="../../d3/d7f/class_adapter.html" title="Adapter class for coordinating communication between different modes and LateralControl module.">Adapter</a> class.  <br /></td></tr>
+<tr class="separator:a83746a14028b5c4239aa9b47769367b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bacd6b9efd4c9c6b1709130d879c627" id="r_a0bacd6b9efd4c9c6b1709130d879c627"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d7f/class_adapter.html#a0bacd6b9efd4c9c6b1709130d879c627">init</a> ()=0</td></tr>
+<tr class="separator:a0bacd6b9efd4c9c6b1709130d879c627"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02f2211c1a8595dbfb00946cacaaabc9" id="r_a02f2211c1a8595dbfb00946cacaaabc9"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d7f/class_adapter.html#a02f2211c1a8595dbfb00946cacaaabc9">finish</a> ()=0</td></tr>
+<tr class="separator:a02f2211c1a8595dbfb00946cacaaabc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4b950e6b31750c9a65249c89381c69d" id="r_ab4b950e6b31750c9a65249c89381c69d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d7f/class_adapter.html#ab4b950e6b31750c9a65249c89381c69d">publish_cmd</a> (float <a class="el" href="../../d6/d14/loc__map_2include_2utils_2mission_8hpp.html#af686af98019fe71e9f18190349618431a146c0b61ec6916af010baa3da802d5e9">acceleration</a>, float braking, float steering)=0</td></tr>
+<tr class="separator:ab4b950e6b31750c9a65249c89381c69d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca0006e511f5856cf39de61f8d93443a" id="r_aca0006e511f5856cf39de61f8d93443a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d7f/class_adapter.html#aca0006e511f5856cf39de61f8d93443a">Adapter</a> (<a class="el" href="../../dd/db3/class_l_m_node.html">LMNode</a> *loc_map)</td></tr>
+<tr class="separator:aca0006e511f5856cf39de61f8d93443a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bacd6b9efd4c9c6b1709130d879c627" id="r_a0bacd6b9efd4c9c6b1709130d879c627"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d7f/class_adapter.html#a0bacd6b9efd4c9c6b1709130d879c627">init</a> ()=0</td></tr>
+<tr class="separator:a0bacd6b9efd4c9c6b1709130d879c627"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02f2211c1a8595dbfb00946cacaaabc9" id="r_a02f2211c1a8595dbfb00946cacaaabc9"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d7f/class_adapter.html#a02f2211c1a8595dbfb00946cacaaabc9">finish</a> ()=0</td></tr>
+<tr class="separator:a02f2211c1a8595dbfb00946cacaaabc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40ae0680bfe11fe116802d2a139b93f1" id="r_a40ae0680bfe11fe116802d2a139b93f1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d7f/class_adapter.html#a40ae0680bfe11fe116802d2a139b93f1">imu_subscription_callback</a> (const sensor_msgs::msg::Imu msg)</td></tr>
+<tr class="memdesc:a40ae0680bfe11fe116802d2a139b93f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function that parses the message sent from the ros IMU topic and calls the respective node's function to update the motion.  <br /></td></tr>
+<tr class="separator:a40ae0680bfe11fe116802d2a139b93f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1331712933e0e5bf578819cc07950f0f" id="r_a1331712933e0e5bf578819cc07950f0f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d7f/class_adapter.html#a1331712933e0e5bf578819cc07950f0f">Adapter</a> (<a class="el" href="../../d4/de8/class_longitudinal_control.html">LongitudinalControl</a> *long_control)</td></tr>
+<tr class="memdesc:a1331712933e0e5bf578819cc07950f0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for the <a class="el" href="../../d3/d7f/class_adapter.html" title="Adapter class for coordinating communication between different modes and LateralControl module.">Adapter</a> class.  <br /></td></tr>
+<tr class="separator:a1331712933e0e5bf578819cc07950f0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bacd6b9efd4c9c6b1709130d879c627" id="r_a0bacd6b9efd4c9c6b1709130d879c627"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d7f/class_adapter.html#a0bacd6b9efd4c9c6b1709130d879c627">init</a> ()=0</td></tr>
+<tr class="separator:a0bacd6b9efd4c9c6b1709130d879c627"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02f2211c1a8595dbfb00946cacaaabc9" id="r_a02f2211c1a8595dbfb00946cacaaabc9"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d7f/class_adapter.html#a02f2211c1a8595dbfb00946cacaaabc9">finish</a> ()=0</td></tr>
+<tr class="separator:a02f2211c1a8595dbfb00946cacaaabc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4b950e6b31750c9a65249c89381c69d" id="r_ab4b950e6b31750c9a65249c89381c69d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d7f/class_adapter.html#ab4b950e6b31750c9a65249c89381c69d">publish_cmd</a> (float <a class="el" href="../../d6/d14/loc__map_2include_2utils_2mission_8hpp.html#af686af98019fe71e9f18190349618431a146c0b61ec6916af010baa3da802d5e9">acceleration</a>, float braking, float steering)=0</td></tr>
+<tr class="separator:ab4b950e6b31750c9a65249c89381c69d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c4350c2de205cda004827316fbb9494" id="r_a0c4350c2de205cda004827316fbb9494"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d7f/class_adapter.html#a0c4350c2de205cda004827316fbb9494">Adapter</a> (<a class="el" href="../../de/d07/class_perception.html">Perception</a> *perception)</td></tr>
+<tr class="separator:a0c4350c2de205cda004827316fbb9494"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bacd6b9efd4c9c6b1709130d879c627" id="r_a0bacd6b9efd4c9c6b1709130d879c627"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d7f/class_adapter.html#a0bacd6b9efd4c9c6b1709130d879c627">init</a> ()=0</td></tr>
+<tr class="separator:a0bacd6b9efd4c9c6b1709130d879c627"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02f2211c1a8595dbfb00946cacaaabc9" id="r_a02f2211c1a8595dbfb00946cacaaabc9"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d7f/class_adapter.html#a02f2211c1a8595dbfb00946cacaaabc9">finish</a> ()=0</td></tr>
+<tr class="separator:a02f2211c1a8595dbfb00946cacaaabc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ee0421f86b71ca453f8e1bbac6471fa" id="r_a1ee0421f86b71ca453f8e1bbac6471fa"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d7f/class_adapter.html#a1ee0421f86b71ca453f8e1bbac6471fa">Adapter</a> (<a class="el" href="../../d9/db5/class_planning.html">Planning</a> *planning)</td></tr>
+<tr class="separator:a1ee0421f86b71ca453f8e1bbac6471fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bacd6b9efd4c9c6b1709130d879c627" id="r_a0bacd6b9efd4c9c6b1709130d879c627"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d7f/class_adapter.html#a0bacd6b9efd4c9c6b1709130d879c627">init</a> ()=0</td></tr>
+<tr class="separator:a0bacd6b9efd4c9c6b1709130d879c627"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0ae5d2dc606afd0caab1079de5a34cc" id="r_aa0ae5d2dc606afd0caab1079de5a34cc"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d7f/class_adapter.html#aa0ae5d2dc606afd0caab1079de5a34cc">set_mission_state</a> (int mission, int state)=0</td></tr>
+<tr class="separator:aa0ae5d2dc606afd0caab1079de5a34cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02f2211c1a8595dbfb00946cacaaabc9" id="r_a02f2211c1a8595dbfb00946cacaaabc9"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d7f/class_adapter.html#a02f2211c1a8595dbfb00946cacaaabc9">finish</a> ()=0</td></tr>
+<tr class="separator:a02f2211c1a8595dbfb00946cacaaabc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:aecda5ceab5ed43d4d3088e98ea41f9ef" id="r_aecda5ceab5ed43d4d3088e98ea41f9ef"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/db3/class_l_m_node.html">LMNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d7f/class_adapter.html#aecda5ceab5ed43d4d3088e98ea41f9ef">node</a></td></tr>
+<tr class="separator:aecda5ceab5ed43d4d3088e98ea41f9ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8295211bddc437f302cb5baf7fb331f5" id="r_a8295211bddc437f302cb5baf7fb331f5"><td class="memItemLeft" align="right" valign="top">rclcpp::Subscription&lt; sensor_msgs::msg::Imu &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d7f/class_adapter.html#a8295211bddc437f302cb5baf7fb331f5">_imu_subscription</a></td></tr>
+<tr class="separator:a8295211bddc437f302cb5baf7fb331f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41a373313b556ed019176a50b54918ea" id="r_a41a373313b556ed019176a50b54918ea"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d07/class_perception.html">Perception</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d7f/class_adapter.html#a41a373313b556ed019176a50b54918ea">node</a></td></tr>
+<tr class="separator:a41a373313b556ed019176a50b54918ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12e08a32d9b7787994923da3cf15645c" id="r_a12e08a32d9b7787994923da3cf15645c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/db5/class_planning.html">Planning</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d7f/class_adapter.html#a12e08a32d9b7787994923da3cf15645c">node</a></td></tr>
+<tr class="separator:a12e08a32d9b7787994923da3cf15645c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:a5a266d38511af4a1cc5f369a618c36ed" id="r_a5a266d38511af4a1cc5f369a618c36ed"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d45/class_lateral_control.html">LateralControl</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d7f/class_adapter.html#a5a266d38511af4a1cc5f369a618c36ed">node</a></td></tr>
+<tr class="separator:a5a266d38511af4a1cc5f369a618c36ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e05b58b1b2d57ce2f388b229a8b95ee" id="r_a5e05b58b1b2d57ce2f388b229a8b95ee"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/de8/class_longitudinal_control.html">LongitudinalControl</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d7f/class_adapter.html#a5e05b58b1b2d57ce2f388b229a8b95ee">node</a></td></tr>
+<tr class="separator:a5e05b58b1b2d57ce2f388b229a8b95ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc778eea3cfdb75a881153fb5c1d2d6c" id="r_adc778eea3cfdb75a881153fb5c1d2d6c"><td class="memItemLeft" align="right" valign="top">rclcpp::Subscription&lt; sensor_msgs::msg::PointCloud2 &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d7f/class_adapter.html#adc778eea3cfdb75a881153fb5c1d2d6c">_point_cloud_subscription</a></td></tr>
+<tr class="memdesc:adc778eea3cfdb75a881153fb5c1d2d6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">&lt; PointCloud2 subscription.  <br /></td></tr>
+<tr class="separator:adc778eea3cfdb75a881153fb5c1d2d6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Class that handles the communication between the loc_map node and the other nodes in the system according to the selected mode. </p>
-<p><a class="el" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the loc_map node and the other nodes in the system accor...">Adapter</a> class for coordinating communication between different modes and <a class="el" href="../../d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car.">Planning</a> module. </p>
+<div class="textblock"><p><a class="el" href="../../d3/d7f/class_adapter.html" title="Adapter class for coordinating communication between different modes and LateralControl module.">Adapter</a> class for coordinating communication between different modes and <a class="el" href="../../d4/d45/class_lateral_control.html" title="Class responsible for the Lateral control of the car.">LateralControl</a> module. </p>
+<p><a class="el" href="../../d3/d7f/class_adapter.html" title="Adapter class for coordinating communication between different modes and LateralControl module.">Adapter</a> class for coordinating communication between different modes and <a class="el" href="../../d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car.">Planning</a> module.</p>
+<p><a class="el" href="../../d3/d7f/class_adapter.html" title="Adapter class for coordinating communication between different modes and LateralControl module.">Adapter</a> class for coordinating communication between different modes and <a class="el" href="../../d4/de8/class_longitudinal_control.html" title="Class responsible for the longitudinal control of the car.">LongitudinalControl</a> module.</p>
+<p>Class that handles the communication between the loc_map node and the other nodes in the system according to the selected mode. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d32/loc__map_2include_2adapter_2adapter_8hpp_source.html#l00028">28</a> of file <a class="el" href="../../d4/d32/loc__map_2include_2adapter_2adapter_8hpp_source.html">adapter.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/dee/lateral__control_2include_2adapter_2adapter_8hpp_source.html#l00017">17</a> of file <a class="el" href="../../df/dee/lateral__control_2include_2adapter_2adapter_8hpp_source.html">adapter.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a640d345249284e5299a4d39d10e03b0f" name="a640d345249284e5299a4d39d10e03b0f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a640d345249284e5299a4d39d10e03b0f">&#9670;&#160;</a></span>Adapter() <span class="overload">[1/3]</span></h2>
+<a id="a83746a14028b5c4239aa9b47769367b0" name="a83746a14028b5c4239aa9b47769367b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83746a14028b5c4239aa9b47769367b0">&#9670;&#160;</a></span>Adapter() <span class="overload">[1/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">Adapter::Adapter </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d4/d32/loc__map_2include_2adapter_2adapter_8hpp.html#a46c8a310cf4c094f8c80e1cb8dc1f911">Mode</a>&#160;</td>
-          <td class="paramname"><em>mode</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="../../d4/d45/class_lateral_control.html">LateralControl</a> *&#160;</td>
+          <td class="paramname"><em>lat_control</em></td><td>)</td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../dd/db3/class_l_m_node.html">LMNode</a> *&#160;</td>
-          <td class="paramname"><em>loc_map_node</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>LM <a class="el" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the loc_map node and the other nodes in the system accor...">Adapter</a> constructor declaration. </p>
+<p>Constructor for the <a class="el" href="../../d3/d7f/class_adapter.html" title="Adapter class for coordinating communication between different modes and LateralControl module.">Adapter</a> class. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">mode</td><td>Mode relative to the test environment, default is eufs </td></tr>
-    <tr><td class="paramname">loc_map_node</td><td>Pointer to the loc_map node </td></tr>
+    <tr><td class="paramname">mode</td><td>The selected mode. </td></tr>
+    <tr><td class="paramname">lat_control</td><td>A pointer to the <a class="el" href="../../d4/d45/class_lateral_control.html" title="Class responsible for the Lateral control of the car.">LateralControl</a> module. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/dcf/loc__map_2src_2adapter_2adapter_8cpp_source.html#l00003">3</a> of file <a class="el" href="../../d5/dcf/loc__map_2src_2adapter_2adapter_8cpp_source.html">adapter.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/de7/lateral__control_2src_2adapter_2adapter_8cpp_source.html#l00004">4</a> of file <a class="el" href="../../d7/de7/lateral__control_2src_2adapter_2adapter_8cpp_source.html">adapter.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a0bcd5ecd649ef2740bd4de2f1f0fe0eb" name="a0bcd5ecd649ef2740bd4de2f1f0fe0eb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0bcd5ecd649ef2740bd4de2f1f0fe0eb">&#9670;&#160;</a></span>Adapter() <span class="overload">[2/3]</span></h2>
+<a id="aca0006e511f5856cf39de61f8d93443a" name="aca0006e511f5856cf39de61f8d93443a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca0006e511f5856cf39de61f8d93443a">&#9670;&#160;</a></span>Adapter() <span class="overload">[2/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -180,38 +273,453 @@ Public Member Functions</h2></td></tr>
           <td class="memname">Adapter::Adapter </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../dd/db3/class_l_m_node.html">LMNode</a> *&#160;</td>
-          <td class="paramname"><em>loc_map_node</em></td><td>)</td>
+          <td class="paramname"><em>loc_map</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span></span>  </td>
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d32/loc__map_2include_2adapter_2adapter_8hpp_source.html#l00114">114</a> of file <a class="el" href="../../d4/d32/loc__map_2include_2adapter_2adapter_8hpp_source.html">adapter.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/dcf/loc__map_2src_2adapter_2adapter_8cpp_source.html#l00004">4</a> of file <a class="el" href="../../d5/dcf/loc__map_2src_2adapter_2adapter_8cpp_source.html">adapter.cpp</a>.</p>
 
 </div>
 </div>
-<a id="accd953d8f3298f83069aeb90388c862d" name="accd953d8f3298f83069aeb90388c862d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#accd953d8f3298f83069aeb90388c862d">&#9670;&#160;</a></span>Adapter() <span class="overload">[3/3]</span></h2>
+<a id="a1331712933e0e5bf578819cc07950f0f" name="a1331712933e0e5bf578819cc07950f0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1331712933e0e5bf578819cc07950f0f">&#9670;&#160;</a></span>Adapter() <span class="overload">[3/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Adapter::Adapter </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d4/de8/class_longitudinal_control.html">LongitudinalControl</a> *&#160;</td>
+          <td class="paramname"><em>long_control</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor for the <a class="el" href="../../d3/d7f/class_adapter.html" title="Adapter class for coordinating communication between different modes and LateralControl module.">Adapter</a> class. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mode</td><td>The selected mode. </td></tr>
+    <tr><td class="paramname">long_control</td><td>A pointer to the <a class="el" href="../../d4/de8/class_longitudinal_control.html" title="Class responsible for the longitudinal control of the car.">LongitudinalControl</a> module. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="../../df/d5c/long__control_2src_2adapter_2adapter_8cpp_source.html#l00004">4</a> of file <a class="el" href="../../df/d5c/long__control_2src_2adapter_2adapter_8cpp_source.html">adapter.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a0c4350c2de205cda004827316fbb9494" name="a0c4350c2de205cda004827316fbb9494"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c4350c2de205cda004827316fbb9494">&#9670;&#160;</a></span>Adapter() <span class="overload">[4/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Adapter::Adapter </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../de/d07/class_perception.html">Perception</a> *&#160;</td>
+          <td class="paramname"><em>perception</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d8/da6/perception_2src_2adapter_2adapter_8cpp_source.html#l00004">4</a> of file <a class="el" href="../../d8/da6/perception_2src_2adapter_2adapter_8cpp_source.html">adapter.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a1ee0421f86b71ca453f8e1bbac6471fa" name="a1ee0421f86b71ca453f8e1bbac6471fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ee0421f86b71ca453f8e1bbac6471fa">&#9670;&#160;</a></span>Adapter() <span class="overload">[5/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Adapter::Adapter </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d9/db5/class_planning.html">Planning</a> *&#160;</td>
+          <td class="paramname"><em>planning</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../de/d2f/planning_2src_2adapter_2adapter_8cpp_source.html#l00004">4</a> of file <a class="el" href="../../de/d2f/planning_2src_2adapter_2adapter_8cpp_source.html">adapter.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a02f2211c1a8595dbfb00946cacaaabc9" name="a02f2211c1a8595dbfb00946cacaaabc9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02f2211c1a8595dbfb00946cacaaabc9">&#9670;&#160;</a></span>finish() <span class="overload">[1/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void Adapter::finish </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="../../d7/d8e/class_fsds_adapter.html#aa676564b124e980e23d559c64a2f15d8">FsdsAdapter</a>, <a class="el" href="../../d0/d1d/class_eufs_adapter.html#a501d731335e6ff602ec145d9e655d4e3">EufsAdapter</a>, <a class="el" href="../../d7/d8e/class_fsds_adapter.html#aa676564b124e980e23d559c64a2f15d8">FsdsAdapter</a>, <a class="el" href="../../d7/d8e/class_fsds_adapter.html#aa676564b124e980e23d559c64a2f15d8">FsdsAdapter</a>, <a class="el" href="../../d7/d8e/class_fsds_adapter.html#aa676564b124e980e23d559c64a2f15d8">FsdsAdapter</a>, <a class="el" href="../../df/df3/class_test_adapter.html#a94f7fb1ec02e23c2891314487f670b96">TestAdapter</a>, <a class="el" href="../../db/db2/class_adsdv_adapter.html#ad37023bd842f857ab0278a025bb6feac">AdsdvAdapter</a>, <a class="el" href="../../d0/d1d/class_eufs_adapter.html#a501d731335e6ff602ec145d9e655d4e3">EufsAdapter</a>, and <a class="el" href="../../d7/d8e/class_fsds_adapter.html#aa676564b124e980e23d559c64a2f15d8">FsdsAdapter</a>.</p>
+
+</div>
+</div>
+<a id="a02f2211c1a8595dbfb00946cacaaabc9" name="a02f2211c1a8595dbfb00946cacaaabc9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02f2211c1a8595dbfb00946cacaaabc9">&#9670;&#160;</a></span>finish() <span class="overload">[2/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void Adapter::finish </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="../../d7/d8e/class_fsds_adapter.html#aa676564b124e980e23d559c64a2f15d8">FsdsAdapter</a>, <a class="el" href="../../d0/d1d/class_eufs_adapter.html#a501d731335e6ff602ec145d9e655d4e3">EufsAdapter</a>, <a class="el" href="../../d7/d8e/class_fsds_adapter.html#aa676564b124e980e23d559c64a2f15d8">FsdsAdapter</a>, <a class="el" href="../../d7/d8e/class_fsds_adapter.html#aa676564b124e980e23d559c64a2f15d8">FsdsAdapter</a>, <a class="el" href="../../d7/d8e/class_fsds_adapter.html#aa676564b124e980e23d559c64a2f15d8">FsdsAdapter</a>, <a class="el" href="../../df/df3/class_test_adapter.html#a94f7fb1ec02e23c2891314487f670b96">TestAdapter</a>, <a class="el" href="../../db/db2/class_adsdv_adapter.html#ad37023bd842f857ab0278a025bb6feac">AdsdvAdapter</a>, <a class="el" href="../../d0/d1d/class_eufs_adapter.html#a501d731335e6ff602ec145d9e655d4e3">EufsAdapter</a>, and <a class="el" href="../../d7/d8e/class_fsds_adapter.html#aa676564b124e980e23d559c64a2f15d8">FsdsAdapter</a>.</p>
+
+</div>
+</div>
+<a id="a02f2211c1a8595dbfb00946cacaaabc9" name="a02f2211c1a8595dbfb00946cacaaabc9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02f2211c1a8595dbfb00946cacaaabc9">&#9670;&#160;</a></span>finish() <span class="overload">[3/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void Adapter::finish </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="../../d7/d8e/class_fsds_adapter.html#aa676564b124e980e23d559c64a2f15d8">FsdsAdapter</a>, <a class="el" href="../../d0/d1d/class_eufs_adapter.html#a501d731335e6ff602ec145d9e655d4e3">EufsAdapter</a>, <a class="el" href="../../d7/d8e/class_fsds_adapter.html#aa676564b124e980e23d559c64a2f15d8">FsdsAdapter</a>, <a class="el" href="../../d7/d8e/class_fsds_adapter.html#aa676564b124e980e23d559c64a2f15d8">FsdsAdapter</a>, <a class="el" href="../../d7/d8e/class_fsds_adapter.html#aa676564b124e980e23d559c64a2f15d8">FsdsAdapter</a>, <a class="el" href="../../df/df3/class_test_adapter.html#a94f7fb1ec02e23c2891314487f670b96">TestAdapter</a>, <a class="el" href="../../db/db2/class_adsdv_adapter.html#ad37023bd842f857ab0278a025bb6feac">AdsdvAdapter</a>, <a class="el" href="../../d0/d1d/class_eufs_adapter.html#a501d731335e6ff602ec145d9e655d4e3">EufsAdapter</a>, and <a class="el" href="../../d7/d8e/class_fsds_adapter.html#aa676564b124e980e23d559c64a2f15d8">FsdsAdapter</a>.</p>
+
+</div>
+</div>
+<a id="a02f2211c1a8595dbfb00946cacaaabc9" name="a02f2211c1a8595dbfb00946cacaaabc9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02f2211c1a8595dbfb00946cacaaabc9">&#9670;&#160;</a></span>finish() <span class="overload">[4/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void Adapter::finish </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="../../d7/d8e/class_fsds_adapter.html#aa676564b124e980e23d559c64a2f15d8">FsdsAdapter</a>, <a class="el" href="../../d0/d1d/class_eufs_adapter.html#a501d731335e6ff602ec145d9e655d4e3">EufsAdapter</a>, <a class="el" href="../../d7/d8e/class_fsds_adapter.html#aa676564b124e980e23d559c64a2f15d8">FsdsAdapter</a>, <a class="el" href="../../d7/d8e/class_fsds_adapter.html#aa676564b124e980e23d559c64a2f15d8">FsdsAdapter</a>, <a class="el" href="../../d7/d8e/class_fsds_adapter.html#aa676564b124e980e23d559c64a2f15d8">FsdsAdapter</a>, <a class="el" href="../../df/df3/class_test_adapter.html#a94f7fb1ec02e23c2891314487f670b96">TestAdapter</a>, <a class="el" href="../../db/db2/class_adsdv_adapter.html#ad37023bd842f857ab0278a025bb6feac">AdsdvAdapter</a>, <a class="el" href="../../d0/d1d/class_eufs_adapter.html#a501d731335e6ff602ec145d9e655d4e3">EufsAdapter</a>, and <a class="el" href="../../d7/d8e/class_fsds_adapter.html#aa676564b124e980e23d559c64a2f15d8">FsdsAdapter</a>.</p>
+
+</div>
+</div>
+<a id="a02f2211c1a8595dbfb00946cacaaabc9" name="a02f2211c1a8595dbfb00946cacaaabc9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02f2211c1a8595dbfb00946cacaaabc9">&#9670;&#160;</a></span>finish() <span class="overload">[5/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void Adapter::finish </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="../../d7/d8e/class_fsds_adapter.html#aa676564b124e980e23d559c64a2f15d8">FsdsAdapter</a>, <a class="el" href="../../d0/d1d/class_eufs_adapter.html#a501d731335e6ff602ec145d9e655d4e3">EufsAdapter</a>, <a class="el" href="../../d7/d8e/class_fsds_adapter.html#aa676564b124e980e23d559c64a2f15d8">FsdsAdapter</a>, <a class="el" href="../../d7/d8e/class_fsds_adapter.html#aa676564b124e980e23d559c64a2f15d8">FsdsAdapter</a>, <a class="el" href="../../d7/d8e/class_fsds_adapter.html#aa676564b124e980e23d559c64a2f15d8">FsdsAdapter</a>, <a class="el" href="../../df/df3/class_test_adapter.html#a94f7fb1ec02e23c2891314487f670b96">TestAdapter</a>, <a class="el" href="../../db/db2/class_adsdv_adapter.html#ad37023bd842f857ab0278a025bb6feac">AdsdvAdapter</a>, <a class="el" href="../../d0/d1d/class_eufs_adapter.html#a501d731335e6ff602ec145d9e655d4e3">EufsAdapter</a>, and <a class="el" href="../../d7/d8e/class_fsds_adapter.html#aa676564b124e980e23d559c64a2f15d8">FsdsAdapter</a>.</p>
+
+</div>
+</div>
+<a id="a40ae0680bfe11fe116802d2a139b93f1" name="a40ae0680bfe11fe116802d2a139b93f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40ae0680bfe11fe116802d2a139b93f1">&#9670;&#160;</a></span>imu_subscription_callback()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">Adapter::Adapter </td>
+          <td class="memname">void Adapter::imu_subscription_callback </td>
           <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
-          <td class="paramname"><em>mode</em>, </td>
+          <td class="paramtype">const sensor_msgs::msg::Imu&#160;</td>
+          <td class="paramname"><em>msg</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function that parses the message sent from the ros IMU topic and calls the respective node's function to update the motion. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">msg</td><td>Message sent from the ros IMU topic </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d5/dcf/loc__map_2src_2adapter_2adapter_8cpp_source.html#l00010">10</a> of file <a class="el" href="../../d5/dcf/loc__map_2src_2adapter_2adapter_8cpp_source.html">adapter.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d3/d7f/class_adapter_a40ae0680bfe11fe116802d2a139b93f1_icgraph.png" border="0" usemap="#ad3/d7f/class_adapter_a40ae0680bfe11fe116802d2a139b93f1_icgraph" alt=""/></div>
+<map name="ad3/d7f/class_adapter_a40ae0680bfe11fe116802d2a139b93f1_icgraph" id="ad3/d7f/class_adapter_a40ae0680bfe11fe116802d2a139b93f1_icgraph">
+<area shape="rect" title="Function that parses the message sent from the ros IMU topic and calls the respective node&#39;s function..." alt="" coords="386,23,556,64"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#afb57c4eba2192b5277c27858f443811d" title=" " alt="" coords="223,31,338,56"/>
+<area shape="poly" title=" " alt="" coords="371,46,338,46,338,41,371,41"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#ab764c5ff5794e7606508d4ca6e5037cf" title=" " alt="" coords="5,5,175,31"/>
+<area shape="poly" title=" " alt="" coords="207,36,175,32,176,27,208,31"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a17a85a1ef1c217ae4bef7b4244e17fdb" title=" " alt="" coords="5,55,175,80"/>
+<area shape="poly" title=" " alt="" coords="208,55,176,59,175,54,207,50"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a0bacd6b9efd4c9c6b1709130d879c627" name="a0bacd6b9efd4c9c6b1709130d879c627"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bacd6b9efd4c9c6b1709130d879c627">&#9670;&#160;</a></span>init() <span class="overload">[1/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void Adapter::init </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="../../d7/d8e/class_fsds_adapter.html#a0cd24b4faf0f5f8ef7bcc5c8c8dbec48">FsdsAdapter</a>, <a class="el" href="../../d0/d1d/class_eufs_adapter.html#afb57c4eba2192b5277c27858f443811d">EufsAdapter</a>, <a class="el" href="../../d7/d8e/class_fsds_adapter.html#a0cd24b4faf0f5f8ef7bcc5c8c8dbec48">FsdsAdapter</a>, <a class="el" href="../../d7/d8e/class_fsds_adapter.html#a0cd24b4faf0f5f8ef7bcc5c8c8dbec48">FsdsAdapter</a>, <a class="el" href="../../d7/d8e/class_fsds_adapter.html#a0cd24b4faf0f5f8ef7bcc5c8c8dbec48">FsdsAdapter</a>, <a class="el" href="../../df/df3/class_test_adapter.html#a0bfdf0c9bbd9346df8aa7c17c810f746">TestAdapter</a>, <a class="el" href="../../db/db2/class_adsdv_adapter.html#a9ad834efbd2354205783b00f00f989f9">AdsdvAdapter</a>, <a class="el" href="../../d0/d1d/class_eufs_adapter.html#afb57c4eba2192b5277c27858f443811d">EufsAdapter</a>, and <a class="el" href="../../d7/d8e/class_fsds_adapter.html#a0cd24b4faf0f5f8ef7bcc5c8c8dbec48">FsdsAdapter</a>.</p>
+
+</div>
+</div>
+<a id="a0bacd6b9efd4c9c6b1709130d879c627" name="a0bacd6b9efd4c9c6b1709130d879c627"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bacd6b9efd4c9c6b1709130d879c627">&#9670;&#160;</a></span>init() <span class="overload">[2/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void Adapter::init </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="../../d7/d8e/class_fsds_adapter.html#a0cd24b4faf0f5f8ef7bcc5c8c8dbec48">FsdsAdapter</a>, <a class="el" href="../../d0/d1d/class_eufs_adapter.html#afb57c4eba2192b5277c27858f443811d">EufsAdapter</a>, <a class="el" href="../../d7/d8e/class_fsds_adapter.html#a0cd24b4faf0f5f8ef7bcc5c8c8dbec48">FsdsAdapter</a>, <a class="el" href="../../d7/d8e/class_fsds_adapter.html#a0cd24b4faf0f5f8ef7bcc5c8c8dbec48">FsdsAdapter</a>, <a class="el" href="../../d7/d8e/class_fsds_adapter.html#a0cd24b4faf0f5f8ef7bcc5c8c8dbec48">FsdsAdapter</a>, <a class="el" href="../../df/df3/class_test_adapter.html#a0bfdf0c9bbd9346df8aa7c17c810f746">TestAdapter</a>, <a class="el" href="../../db/db2/class_adsdv_adapter.html#a9ad834efbd2354205783b00f00f989f9">AdsdvAdapter</a>, <a class="el" href="../../d0/d1d/class_eufs_adapter.html#afb57c4eba2192b5277c27858f443811d">EufsAdapter</a>, and <a class="el" href="../../d7/d8e/class_fsds_adapter.html#a0cd24b4faf0f5f8ef7bcc5c8c8dbec48">FsdsAdapter</a>.</p>
+
+</div>
+</div>
+<a id="a0bacd6b9efd4c9c6b1709130d879c627" name="a0bacd6b9efd4c9c6b1709130d879c627"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bacd6b9efd4c9c6b1709130d879c627">&#9670;&#160;</a></span>init() <span class="overload">[3/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void Adapter::init </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="../../d7/d8e/class_fsds_adapter.html#a0cd24b4faf0f5f8ef7bcc5c8c8dbec48">FsdsAdapter</a>, <a class="el" href="../../d0/d1d/class_eufs_adapter.html#afb57c4eba2192b5277c27858f443811d">EufsAdapter</a>, <a class="el" href="../../d7/d8e/class_fsds_adapter.html#a0cd24b4faf0f5f8ef7bcc5c8c8dbec48">FsdsAdapter</a>, <a class="el" href="../../d7/d8e/class_fsds_adapter.html#a0cd24b4faf0f5f8ef7bcc5c8c8dbec48">FsdsAdapter</a>, <a class="el" href="../../d7/d8e/class_fsds_adapter.html#a0cd24b4faf0f5f8ef7bcc5c8c8dbec48">FsdsAdapter</a>, <a class="el" href="../../df/df3/class_test_adapter.html#a0bfdf0c9bbd9346df8aa7c17c810f746">TestAdapter</a>, <a class="el" href="../../db/db2/class_adsdv_adapter.html#a9ad834efbd2354205783b00f00f989f9">AdsdvAdapter</a>, <a class="el" href="../../d0/d1d/class_eufs_adapter.html#afb57c4eba2192b5277c27858f443811d">EufsAdapter</a>, and <a class="el" href="../../d7/d8e/class_fsds_adapter.html#a0cd24b4faf0f5f8ef7bcc5c8c8dbec48">FsdsAdapter</a>.</p>
+
+</div>
+</div>
+<a id="a0bacd6b9efd4c9c6b1709130d879c627" name="a0bacd6b9efd4c9c6b1709130d879c627"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bacd6b9efd4c9c6b1709130d879c627">&#9670;&#160;</a></span>init() <span class="overload">[4/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void Adapter::init </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="../../d7/d8e/class_fsds_adapter.html#a0cd24b4faf0f5f8ef7bcc5c8c8dbec48">FsdsAdapter</a>, <a class="el" href="../../d0/d1d/class_eufs_adapter.html#afb57c4eba2192b5277c27858f443811d">EufsAdapter</a>, <a class="el" href="../../d7/d8e/class_fsds_adapter.html#a0cd24b4faf0f5f8ef7bcc5c8c8dbec48">FsdsAdapter</a>, <a class="el" href="../../d7/d8e/class_fsds_adapter.html#a0cd24b4faf0f5f8ef7bcc5c8c8dbec48">FsdsAdapter</a>, <a class="el" href="../../d7/d8e/class_fsds_adapter.html#a0cd24b4faf0f5f8ef7bcc5c8c8dbec48">FsdsAdapter</a>, <a class="el" href="../../df/df3/class_test_adapter.html#a0bfdf0c9bbd9346df8aa7c17c810f746">TestAdapter</a>, <a class="el" href="../../db/db2/class_adsdv_adapter.html#a9ad834efbd2354205783b00f00f989f9">AdsdvAdapter</a>, <a class="el" href="../../d0/d1d/class_eufs_adapter.html#afb57c4eba2192b5277c27858f443811d">EufsAdapter</a>, and <a class="el" href="../../d7/d8e/class_fsds_adapter.html#a0cd24b4faf0f5f8ef7bcc5c8c8dbec48">FsdsAdapter</a>.</p>
+
+</div>
+</div>
+<a id="a0bacd6b9efd4c9c6b1709130d879c627" name="a0bacd6b9efd4c9c6b1709130d879c627"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bacd6b9efd4c9c6b1709130d879c627">&#9670;&#160;</a></span>init() <span class="overload">[5/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void Adapter::init </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="../../d7/d8e/class_fsds_adapter.html#a0cd24b4faf0f5f8ef7bcc5c8c8dbec48">FsdsAdapter</a>, <a class="el" href="../../d0/d1d/class_eufs_adapter.html#afb57c4eba2192b5277c27858f443811d">EufsAdapter</a>, <a class="el" href="../../d7/d8e/class_fsds_adapter.html#a0cd24b4faf0f5f8ef7bcc5c8c8dbec48">FsdsAdapter</a>, <a class="el" href="../../d7/d8e/class_fsds_adapter.html#a0cd24b4faf0f5f8ef7bcc5c8c8dbec48">FsdsAdapter</a>, <a class="el" href="../../d7/d8e/class_fsds_adapter.html#a0cd24b4faf0f5f8ef7bcc5c8c8dbec48">FsdsAdapter</a>, <a class="el" href="../../df/df3/class_test_adapter.html#a0bfdf0c9bbd9346df8aa7c17c810f746">TestAdapter</a>, <a class="el" href="../../db/db2/class_adsdv_adapter.html#a9ad834efbd2354205783b00f00f989f9">AdsdvAdapter</a>, <a class="el" href="../../d0/d1d/class_eufs_adapter.html#afb57c4eba2192b5277c27858f443811d">EufsAdapter</a>, and <a class="el" href="../../d7/d8e/class_fsds_adapter.html#a0cd24b4faf0f5f8ef7bcc5c8c8dbec48">FsdsAdapter</a>.</p>
+
+</div>
+</div>
+<a id="ab4b950e6b31750c9a65249c89381c69d" name="ab4b950e6b31750c9a65249c89381c69d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4b950e6b31750c9a65249c89381c69d">&#9670;&#160;</a></span>publish_cmd() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void Adapter::publish_cmd </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>acceleration</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d9/db5/class_planning.html">Planning</a> *&#160;</td>
-          <td class="paramname"><em>planning</em>&#160;</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>braking</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>steering</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -219,25 +727,248 @@ Public Member Functions</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Constructor for the <a class="el" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the loc_map node and the other nodes in the system accor...">Adapter</a> class. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">mode</td><td>The selected mode. </td></tr>
-    <tr><td class="paramname">planning</td><td>A pointer to the <a class="el" href="../../d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car.">Planning</a> module. </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Implemented in <a class="el" href="../../d7/d8e/class_fsds_adapter.html#a426bd02cc91be3ee4dcab642da217832">FsdsAdapter</a>, and <a class="el" href="../../d7/d8e/class_fsds_adapter.html#a426bd02cc91be3ee4dcab642da217832">FsdsAdapter</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../de/d2f/planning_2src_2adapter_2adapter_8cpp_source.html#l00005">5</a> of file <a class="el" href="../../de/d2f/planning_2src_2adapter_2adapter_8cpp_source.html">adapter.cpp</a>.</p>
+</div>
+</div>
+<a id="ab4b950e6b31750c9a65249c89381c69d" name="ab4b950e6b31750c9a65249c89381c69d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4b950e6b31750c9a65249c89381c69d">&#9670;&#160;</a></span>publish_cmd() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void Adapter::publish_cmd </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>acceleration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>braking</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>steering</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="../../d7/d8e/class_fsds_adapter.html#a426bd02cc91be3ee4dcab642da217832">FsdsAdapter</a>, and <a class="el" href="../../d7/d8e/class_fsds_adapter.html#a426bd02cc91be3ee4dcab642da217832">FsdsAdapter</a>.</p>
+
+</div>
+</div>
+<a id="aa0ae5d2dc606afd0caab1079de5a34cc" name="aa0ae5d2dc606afd0caab1079de5a34cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0ae5d2dc606afd0caab1079de5a34cc">&#9670;&#160;</a></span>set_mission_state()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void Adapter::set_mission_state </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>mission</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>state</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="../../db/db2/class_adsdv_adapter.html#a8a2b330673da054f426ed64c6dd66573">AdsdvAdapter</a>, <a class="el" href="../../d0/d1d/class_eufs_adapter.html#a0226246b94ccf9707c6295a19cb18781">EufsAdapter</a>, and <a class="el" href="../../d7/d8e/class_fsds_adapter.html#a0be977affe9a594c15dada1eb4a960e1">FsdsAdapter</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a8295211bddc437f302cb5baf7fb331f5" name="a8295211bddc437f302cb5baf7fb331f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8295211bddc437f302cb5baf7fb331f5">&#9670;&#160;</a></span>_imu_subscription</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">rclcpp::Subscription&lt;sensor_msgs::msg::Imu&gt;::SharedPtr Adapter::_imu_subscription</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d4/d32/loc__map_2include_2adapter_2adapter_8hpp_source.html#l00026">26</a> of file <a class="el" href="../../d4/d32/loc__map_2include_2adapter_2adapter_8hpp_source.html">adapter.hpp</a>.</p>
+
+</div>
+</div>
+<a id="adc778eea3cfdb75a881153fb5c1d2d6c" name="adc778eea3cfdb75a881153fb5c1d2d6c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc778eea3cfdb75a881153fb5c1d2d6c">&#9670;&#160;</a></span>_point_cloud_subscription</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rclcpp::Subscription&lt;sensor_msgs::msg::PointCloud2&gt;::SharedPtr Adapter::_point_cloud_subscription</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>&lt; PointCloud2 subscription. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d2/d3d/perception_2include_2adapter_2adapter_8hpp_source.html#l00021">21</a> of file <a class="el" href="../../d2/d3d/perception_2include_2adapter_2adapter_8hpp_source.html">adapter.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5a266d38511af4a1cc5f369a618c36ed" name="a5a266d38511af4a1cc5f369a618c36ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a266d38511af4a1cc5f369a618c36ed">&#9670;&#160;</a></span>node <span class="overload">[1/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d4/d45/class_lateral_control.html">LateralControl</a>* Adapter::node</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../df/dee/lateral__control_2include_2adapter_2adapter_8hpp_source.html#l00019">19</a> of file <a class="el" href="../../df/dee/lateral__control_2include_2adapter_2adapter_8hpp_source.html">adapter.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aecda5ceab5ed43d4d3088e98ea41f9ef" name="aecda5ceab5ed43d4d3088e98ea41f9ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aecda5ceab5ed43d4d3088e98ea41f9ef">&#9670;&#160;</a></span>node <span class="overload">[2/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dd/db3/class_l_m_node.html">LMNode</a>* Adapter::node</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d4/d32/loc__map_2include_2adapter_2adapter_8hpp_source.html#l00024">24</a> of file <a class="el" href="../../d4/d32/loc__map_2include_2adapter_2adapter_8hpp_source.html">adapter.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5e05b58b1b2d57ce2f388b229a8b95ee" name="a5e05b58b1b2d57ce2f388b229a8b95ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e05b58b1b2d57ce2f388b229a8b95ee">&#9670;&#160;</a></span>node <span class="overload">[3/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d4/de8/class_longitudinal_control.html">LongitudinalControl</a>* Adapter::node</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d8/da3/long__control_2include_2adapter_2adapter_8hpp_source.html#l00019">19</a> of file <a class="el" href="../../d8/da3/long__control_2include_2adapter_2adapter_8hpp_source.html">adapter.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a41a373313b556ed019176a50b54918ea" name="a41a373313b556ed019176a50b54918ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41a373313b556ed019176a50b54918ea">&#9670;&#160;</a></span>node <span class="overload">[4/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../de/d07/class_perception.html">Perception</a>* Adapter::node</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d2/d3d/perception_2include_2adapter_2adapter_8hpp_source.html#l00024">24</a> of file <a class="el" href="../../d2/d3d/perception_2include_2adapter_2adapter_8hpp_source.html">adapter.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a12e08a32d9b7787994923da3cf15645c" name="a12e08a32d9b7787994923da3cf15645c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12e08a32d9b7787994923da3cf15645c">&#9670;&#160;</a></span>node <span class="overload">[5/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d9/db5/class_planning.html">Planning</a>* Adapter::node</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/de5/planning_2include_2adapter_2adapter_8hpp_source.html#l00021">21</a> of file <a class="el" href="../../dc/de5/planning_2include_2adapter_2adapter_8hpp_source.html">adapter.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
+<li>src/lateral_control/include/adapter/<a class="el" href="../../df/dee/lateral__control_2include_2adapter_2adapter_8hpp_source.html">adapter.hpp</a></li>
 <li>src/loc_map/include/adapter/<a class="el" href="../../d4/d32/loc__map_2include_2adapter_2adapter_8hpp_source.html">adapter.hpp</a></li>
+<li>src/long_control/include/adapter/<a class="el" href="../../d8/da3/long__control_2include_2adapter_2adapter_8hpp_source.html">adapter.hpp</a></li>
+<li>src/perception/include/adapter/<a class="el" href="../../d2/d3d/perception_2include_2adapter_2adapter_8hpp_source.html">adapter.hpp</a></li>
 <li>src/planning/include/adapter/<a class="el" href="../../dc/de5/planning_2include_2adapter_2adapter_8hpp_source.html">adapter.hpp</a></li>
+<li>src/lateral_control/src/adapter/<a class="el" href="../../d7/de7/lateral__control_2src_2adapter_2adapter_8cpp_source.html">adapter.cpp</a></li>
 <li>src/loc_map/src/adapter/<a class="el" href="../../d5/dcf/loc__map_2src_2adapter_2adapter_8cpp_source.html">adapter.cpp</a></li>
+<li>src/long_control/src/adapter/<a class="el" href="../../df/d5c/long__control_2src_2adapter_2adapter_8cpp_source.html">adapter.cpp</a></li>
+<li>src/perception/src/adapter/<a class="el" href="../../d8/da6/perception_2src_2adapter_2adapter_8cpp_source.html">adapter.cpp</a></li>
 <li>src/planning/src/adapter/<a class="el" href="../../de/d2f/planning_2src_2adapter_2adapter_8cpp_source.html">adapter.cpp</a></li>
 </ul>
 </div><!-- contents -->

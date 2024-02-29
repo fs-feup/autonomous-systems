@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['eufs_0',['eufs',['../d4/d32/loc__map_2include_2adapter_2adapter_8hpp.html#a46c8a310cf4c094f8c80e1cb8dc1f911ae4af656a3fed3dbabc473e9670ddf36c',1,'adapter.hpp']]]
+  ['large_5forange_0',['large_orange',['../dc/d04/namespacecolors.html#a76f863e71ce8e67d1ef1850029f93b0aaaf2b6f76efaa141241b71cc3eb6b15f6',1,'colors']]]
 ];

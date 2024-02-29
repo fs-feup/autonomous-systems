@@ -9,6 +9,7 @@ var annotated_dup =
       ] ]
     ] ],
     [ "Adapter", "d3/d7f/class_adapter.html", "d3/d7f/class_adapter" ],
+    [ "AdsdvAdapter", "db/db2/class_adsdv_adapter.html", "db/db2/class_adsdv_adapter" ],
     [ "Cluster", "d2/d23/class_cluster.html", "d2/d23/class_cluster" ],
     [ "Clustering", "d9/d10/class_clustering.html", "d9/d10/class_clustering" ],
     [ "Cone", "d8/da1/class_cone.html", "d8/da1/class_cone" ],
@@ -16,9 +17,11 @@ var annotated_dup =
     [ "ConeMap", "dc/d59/struct_cone_map.html", "dc/d59/struct_cone_map" ],
     [ "DBSCAN", "df/d6a/class_d_b_s_c_a_n.html", "df/d6a/class_d_b_s_c_a_n" ],
     [ "DBSCANTest", "d8/d90/class_d_b_s_c_a_n_test.html", "d8/d90/class_d_b_s_c_a_n_test" ],
+    [ "EufsAdapter", "d0/d1d/class_eufs_adapter.html", "d0/d1d/class_eufs_adapter" ],
     [ "ExecTimeTest", "df/d59/class_exec_time_test.html", "df/d59/class_exec_time_test" ],
     [ "ExecTimeTestEKFTests", "d2/dac/class_exec_time_test_e_k_f_tests.html", "d2/dac/class_exec_time_test_e_k_f_tests" ],
     [ "ExtendedKalmanFilter", "da/da6/class_extended_kalman_filter.html", "da/da6/class_extended_kalman_filter" ],
+    [ "FsdsAdapter", "d7/d8e/class_fsds_adapter.html", "d7/d8e/class_fsds_adapter" ],
     [ "GlobalPathPlanner", "d2/da4/class_global_path_planner.html", "d2/da4/class_global_path_planner" ],
     [ "GroundRemoval", "dc/d84/class_ground_removal.html", "dc/d84/class_ground_removal" ],
     [ "ImuVelocityModel", "d2/d58/class_imu_velocity_model.html", "d2/d58/class_imu_velocity_model" ],
@@ -42,6 +45,7 @@ var annotated_dup =
     [ "Publisher", "df/d57/class_publisher.html", "df/d57/class_publisher" ],
     [ "RANSAC", "d6/dc3/class_r_a_n_s_a_c.html", "d6/dc3/class_r_a_n_s_a_c" ],
     [ "RANSACTest", "d8/d5a/class_r_a_n_s_a_c_test.html", "d8/d5a/class_r_a_n_s_a_c_test" ],
+    [ "TestAdapter", "df/df3/class_test_adapter.html", "df/df3/class_test_adapter" ],
     [ "Track", "d6/d2c/class_track.html", "d6/d2c/class_track" ],
     [ "VehicleState", "de/dfe/struct_vehicle_state.html", "de/dfe/struct_vehicle_state" ]
 ];

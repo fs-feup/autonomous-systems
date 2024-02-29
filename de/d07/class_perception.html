@@ -107,9 +107,9 @@ Inheritance diagram for Perception:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../db/d9d/class_perception__inherit__graph.png" border="0" usemap="#a_perception_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_perception_inherit__map" id="a_perception_inherit__map">
-<area shape="rect" title="Node for perception tasks, such as ground removal and cone detection." alt="" coords="5,119,99,184"/>
-<area shape="rect" title=" " alt="" coords="9,5,95,71"/>
-<area shape="poly" title=" " alt="" coords="55,85,55,119,49,119,49,85"/>
+<area shape="rect" title="Node for perception tasks, such as ground removal and cone detection." alt="" coords="5,119,148,204"/>
+<area shape="rect" title=" " alt="" coords="34,5,119,71"/>
+<area shape="poly" title=" " alt="" coords="79,85,79,119,74,119,74,85"/>
 </map>
 </div>
 <div class="dynheader">
@@ -117,9 +117,9 @@ Collaboration diagram for Perception:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d5/d96/class_perception__coll__graph.png" border="0" usemap="#a_perception_coll__map" alt="Collaboration graph"/></div>
 <map name="a_perception_coll__map" id="a_perception_coll__map">
-<area shape="rect" title="Node for perception tasks, such as ground removal and cone detection." alt="" coords="5,119,99,184"/>
-<area shape="rect" title=" " alt="" coords="9,5,95,71"/>
-<area shape="poly" title=" " alt="" coords="55,85,55,119,49,119,49,85"/>
+<area shape="rect" title="Node for perception tasks, such as ground removal and cone detection." alt="" coords="5,119,148,204"/>
+<area shape="rect" title=" " alt="" coords="34,5,119,71"/>
+<area shape="poly" title=" " alt="" coords="79,85,79,119,74,119,74,85"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -128,12 +128,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a7075f800843f38d0ef33f496e5e52fbe" id="r_a7075f800843f38d0ef33f496e5e52fbe"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d07/class_perception.html#a7075f800843f38d0ef33f496e5e52fbe">Perception</a> (<a class="el" href="../../dc/d84/class_ground_removal.html">GroundRemoval</a> *groundRemoval, <a class="el" href="../../d9/d10/class_clustering.html">Clustering</a> *clustering, <a class="el" href="../../d7/d4e/class_cone_differentiation.html">ConeDifferentiation</a> *coneDifferentiator)</td></tr>
 <tr class="memdesc:a7075f800843f38d0ef33f496e5e52fbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for the <a class="el" href="../../de/d07/class_perception.html" title="Node for perception tasks, such as ground removal and cone detection.">Perception</a> node.  <br /></td></tr>
 <tr class="separator:a7075f800843f38d0ef33f496e5e52fbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afaf42fed2ffa3ed23d5c636bf3fdadd7" id="r_afaf42fed2ffa3ed23d5c636bf3fdadd7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d07/class_perception.html#afaf42fed2ffa3ed23d5c636bf3fdadd7">pointCloudCallback</a> (const sensor_msgs::msg::PointCloud2::SharedPtr msg)</td></tr>
+<tr class="memdesc:afaf42fed2ffa3ed23d5c636bf3fdadd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function for the PointCloud2 subscription.  <br /></td></tr>
+<tr class="separator:afaf42fed2ffa3ed23d5c636bf3fdadd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Node for perception tasks, such as ground removal and cone detection. </p>
 <p>This class is a ROS 2 node that subscribes to a PointCloud2 topic, performs ground removal using the specified <a class="el" href="../../dc/d84/class_ground_removal.html" title="Abstract class for ground removal from a point cloud.">GroundRemoval</a> algorithm, and publishes cone detection results on a custom topic. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../de/da5/perception__node_8hpp_source.html#l00017">17</a> of file <a class="el" href="../../de/da5/perception__node_8hpp_source.html">perception_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/da5/perception__node_8hpp_source.html#l00023">23</a> of file <a class="el" href="../../de/da5/perception__node_8hpp_source.html">perception_node.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a7075f800843f38d0ef33f496e5e52fbe" name="a7075f800843f38d0ef33f496e5e52fbe"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7075f800843f38d0ef33f496e5e52fbe">&#9670;&#160;</a></span>Perception()</h2>
@@ -176,7 +179,50 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/dfb/perception__node_8cpp_source.html#l00009">9</a> of file <a class="el" href="../../dc/dfb/perception__node_8cpp_source.html">perception_node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/dfb/perception__node_8cpp_source.html#l00011">11</a> of file <a class="el" href="../../dc/dfb/perception__node_8cpp_source.html">perception_node.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="afaf42fed2ffa3ed23d5c636bf3fdadd7" name="afaf42fed2ffa3ed23d5c636bf3fdadd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afaf42fed2ffa3ed23d5c636bf3fdadd7">&#9670;&#160;</a></span>pointCloudCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Perception::pointCloudCallback </td>
+          <td>(</td>
+          <td class="paramtype">const sensor_msgs::msg::PointCloud2::SharedPtr&#160;</td>
+          <td class="paramname"><em>msg</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Callback function for the PointCloud2 subscription. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">msg</td><td>The received PointCloud2 message. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="../../dc/dfb/perception__node_8cpp_source.html#l00020">20</a> of file <a class="el" href="../../dc/dfb/perception__node_8cpp_source.html">perception_node.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../de/d07/class_perception_afaf42fed2ffa3ed23d5c636bf3fdadd7_cgraph.png" border="0" usemap="#ade/d07/class_perception_afaf42fed2ffa3ed23d5c636bf3fdadd7_cgraph" alt=""/></div>
+<map name="ade/d07/class_perception_afaf42fed2ffa3ed23d5c636bf3fdadd7_cgraph" id="ade/d07/class_perception_afaf42fed2ffa3ed23d5c636bf3fdadd7_cgraph">
+<area shape="rect" title="Callback function for the PointCloud2 subscription." alt="" coords="5,63,206,88"/>
+<area shape="rect" href="../../d9/d10/class_clustering.html#a17e55a061852f4a7d6bbb48c3dec5bba" title="Clusters the input point cloud into groups." alt="" coords="288,5,430,31"/>
+<area shape="poly" title=" " alt="" coords="165,59,283,32,285,38,166,65"/>
+<area shape="rect" href="../../d7/d4e/class_cone_differentiation.html#a0a094ce1ef52e4f23fe34764c948ae7f" title="Perform cone differentiation on a cone&#39;s point cloud." alt="" coords="292,55,426,96"/>
+<area shape="poly" title=" " alt="" coords="206,73,276,73,276,78,206,78"/>
+<area shape="rect" href="../../dc/d84/class_ground_removal.html#aa4013df7d013e238aa1b5bd88033703c" title="Perform ground removal on the input point cloud." alt="" coords="254,120,464,146"/>
+<area shape="poly" title=" " alt="" coords="166,86,285,113,283,119,165,92"/>
+</map>
+</div>
 
 </div>
 </div>
