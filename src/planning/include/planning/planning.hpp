@@ -7,7 +7,9 @@
 #include <string>
 #include <vector>
 
-#include "adapter/adapter.hpp"
+// #include "adapter/adapter.hpp"
+
+#include "sensor_msgs/msg/point_cloud2.hpp"
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "custom_interfaces/msg/point2d.hpp"
 #include "custom_interfaces/msg/point_array.hpp"
@@ -15,14 +17,13 @@
 #include "planning/global_path_planner.hpp"
 #include "planning/local_path_planner.hpp"
 #include "utils/files.hpp"
+#include "utils/mission.hpp"
+
 
 using std::placeholders::_1;
 
-/**
- * @enum Mission
- * @brief Enumeration representing the different missions.
- */
-enum Mission { not_selected, acceleration, skidpad, trackdrive, autocross };
+class Adapter;
+
 /**
  * @class Planning
  * @brief Class responsible for planning and path generation for our car.
@@ -35,6 +36,7 @@ class Planning : public rclcpp::Node {
   Mission mission = not_selected;                                /**< Current planning mission */
   LocalPathPlanner *local_path_planner = new LocalPathPlanner(); /**< Local path planner instance */
   Adapter *adapter; /**< Adapter instance for external communication */
+  std::string mode = "fsds"; // Temporary, change as desired. TODO(andre): Make not hardcoded
 
   std::map<Mission, std::string> predictive_paths = {
       {Mission::acceleration, "/events/acceleration.txt"},
