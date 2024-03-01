@@ -45,8 +45,8 @@ Eigen::Vector2f ObservationModel::observation_model(const Eigen::VectorXf &expec
 Eigen::MatrixXf ObservationModel::get_state_to_observation_matrix(
     const Eigen::VectorXf &expected_state, const unsigned int landmark_index,
     const unsigned int state_size) const {
-  // //Direct Insertion Approach, we did the multiplication and just inserted the values on a new matrix
-  // Eigen::MatrixXf validation_jacobian = Eigen::MatrixXf::Zero(2, state_size);
+  // //Direct Insertion Approach, we did the multiplication and just inserted the values on a new
+  // matrix Eigen::MatrixXf validation_jacobian = Eigen::MatrixXf::Zero(2, state_size);
 
   // validation_jacobian(0, 0) = -cos(-expected_state(2));
   // validation_jacobian(1, 0) = -sin(-expected_state(2));
