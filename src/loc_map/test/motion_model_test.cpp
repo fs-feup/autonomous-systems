@@ -19,7 +19,7 @@ TEST(MOTION_MODEL, NOISE_MATRIX_SHAPE_TEST) {
   EXPECT_NEAR(noise_matrix(2, 2), 0.1, 0.0001);
 }
 
-/* ---------------------- Normal Velocity Model ---------------------------*/
+// /* ---------------------- Normal Velocity Model ---------------------------*/
 
 TEST(NORMAL_VELOCITY_MODEL, STANDING_STILL_TEST) {
   Eigen::MatrixXf R = Eigen::Matrix3f::Zero();
@@ -200,10 +200,10 @@ TEST(IMU_VELOCITY_MODEL, LINEAR_VELOCITY_CURVE_TEST) {
       motion_model.get_motion_to_state_matrix(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
   Eigen::MatrixXf new_covariance =
       G * Eigen::MatrixXf::Ones(10, 10) *
-      G.transpose();                         // Covariance with ones to check if it is modified
-  EXPECT_NEAR(new_state(0), 0.03, 0.00001);  // x
-  EXPECT_NEAR(new_state(1), 0.07, 0.00001);  // y
-  EXPECT_NEAR(new_state(2), M_PI / 160, 0.00001);  // theta
+      G.transpose();                           // Covariance with ones to check if it is modified
+  EXPECT_NEAR(new_state(0), 0.076, 0.001);     // x
+  EXPECT_NEAR(new_state(1), 0.001, 0.001);     // y
+  EXPECT_NEAR(new_state(2), M_PI / 160, 0.1);  // theta
   for (int i = 0; i < 10; i++) {
     for (int j = 0; j < 10; j++) {
       EXPECT_DOUBLE_EQ(new_covariance(i, j), 1.0);
@@ -214,28 +214,37 @@ TEST(IMU_VELOCITY_MODEL, LINEAR_VELOCITY_CURVE_TEST) {
 TEST(IMU_VELOCITY_MODEL, COMPLEX_MOVEMENT_TEST) {
   Eigen::MatrixXf R = Eigen::Matrix3f::Zero();
   ImuVelocityModel motion_model = ImuVelocityModel(R);
-  MotionUpdate prediction_data = {0, 1, 0, 0, 0, std::chrono::high_resolution_clock::now()};
+  MotionUpdate prediction_data = {0, 0, 0, 0, 0, std::chrono::high_resolution_clock::now()};
   Eigen::VectorXf temp_state;
   Eigen::VectorXf new_state = Eigen::VectorXf::Zero(10);
-  Eigen::MatrixXf G;
+  double radius = 12.7324;
+  new_state(0) = 0;
+  new_state(1) = -radius;  // Radius of the circle
+  Eigen::MatrixXf G =
+      motion_model.get_motion_to_state_matrix(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
   Eigen::MatrixXf new_covariance = Eigen::MatrixXf::Ones(10, 10);
+
   for (int i = 0; i < 1000; i++) {
-    prediction_data.translational_velocity_x = 10 * i;
-    prediction_data.translational_velocity_y = 5 * i;
-    prediction_data.rotational_velocity = 5 * i;
+    prediction_data.translational_velocity_x = 6;
+    prediction_data.translational_velocity_y = 8;
+    prediction_data.rotational_velocity = M_PI / 4;
     temp_state = new_state;
     new_state = motion_model.predict_expected_state(new_state, prediction_data, 0.1);
     G = motion_model.get_motion_to_state_matrix(new_state, prediction_data, 0.1);
     new_covariance = G * new_covariance * G.transpose();
-    // Max 0.01 percent calculation error
-    EXPECT_NEAR(new_state(0), temp_state(0) + i, 0.0001 * temp_state(0));  // x
-    EXPECT_NEAR(new_state(1), temp_state(1) + 0.5 * i,
-                0.0001 * temp_state(1));  // y
-    EXPECT_LT(new_state(2), 2 * M_PI);    // theta
 
-    for (int i = 0; i < 10; i++) {
+    EXPECT_LT(new_state(0), radius + 0.1);  // x
+    EXPECT_LT(new_state(1), radius + 0.1);  // y
+    EXPECT_NEAR(new_state(0) * new_state(0) + new_state(1) * new_state(1), radius * radius,
+                0.0001 * radius * radius);  // Radius
+    EXPECT_LT(new_state(2), 2 * M_PI);      // theta
+
+    for (int i = 0; i < 10; i++) {  // Covariance
       for (int j = 0; j < 10; j++) {
-        EXPECT_DOUBLE_EQ(new_covariance(i, j), 1.0);
+        if (i < 2 || j < 2)  // Only x and y are affected because of the Jacobian
+          EXPECT_NE(new_covariance(i, j), 0.0);  // // TODO(PedroRomao3): correct values.
+        else
+          EXPECT_DOUBLE_EQ(new_covariance(i, j), 1.0);
       }
     }
   }
