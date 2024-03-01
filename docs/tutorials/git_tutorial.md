@@ -217,17 +217,35 @@ git push
 
 If you are already comfortable with Git, the next step is to follow [this tutorial](./contribute.md), which provides tips on cloning the project, installing its dependencies, compiling the code, and running and testing the code. However, here are some additional pieces of advice:
 
-1. **Commit Rules**
+### Commit Rules
 
-There are git norms that must be respected. They can be found among the rules of the project.
+There are git norms that must be respected. They essentially enforce following the [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) logic. Below is presented the logic simplified:
 
-2. **Pull Requests**
+```sh
+git commit -m "<commit type>(<scope>): <description>" 
+```
+
+Commit types:
+- **ref**: refactor (improve something)
+- **fix**: fix something broken
+- **feat**: add new functionality
+- **docs**: documentation related
+- **core**: related to chore functionalities of the repo
+- (some other you make up if you need, as long as it is perceptible)
+
+You can combine two types like so: "docs-fix(...".
+
+The scope is to which part of the repo changes apply ('loc_map', 'perception', 'static_tools', etc.). There is no limit to the options. If it is something general, it may not have scope.
+
+### Pull Requests
 
 Directly committing to the main (dev) branch should be avoided. Instead, you should create a branch for your development and create a pull request for review when you believe that your work is complete and can be added to the dev branch.
 
 Every pull request must have a reviewer who must approve the pull request. Additionally, the pull request must have the approval of the department leader. When both reviewers approve the pull request, it can be merged.
 
 Another point worth noting is that we use a trunk based development system, where we have one main branch and multiple temporary (feature) branches, where all the work is done. The work is introduced in the main branch through **pull requests**.
+
+Finally, use **Squash Merge** to reduce the amount of commits in the main branch to one commit per pull request, so it is easier to identify where things came from.
 
 ### How to Make Pull Requests
 
@@ -238,22 +256,6 @@ git push -u origin <name of the branch>
 ```
 
 With this, you will create a remote branch with the same as yours and tracking your local one, meaning they are linked. After this, just go to Github and create a pull request. There is a tab for this but a comment should pop right away asking you if you want to create one. Just make sure you are merging from your branch to the main branch. Also add a description of what you've done and the id of the task in ClickUp it corresponds to. 
-
-## Extra
-
-### Git Rebase
-
-A rebase is kind of like the reverse of a merge. Essentially, when you are in a short lived branch and important updates were introduced into the main branch, you can use rebase to retrieve those important updates. The next two figures denote the git history graph before and after a rebase in branch 'feature-branch' from 'master'.
-
-![Before Rebase](../assets/git_tutorial/rebase.svg)
-
-![After Rebase](../assets/git_tutorial/rebase2.svg)
-
-Contrarily to a merge, these updates will be included before any commits that you have introduced instead of after. Beware that this operation is also susceptible to merge conflicts.
-
-### Git stash
-
-Git stash can be used when you want to save the current directory state for later but do not want to add it to the history, for instance when you want to take in updates from a remote but don't want to make a commit out of the current work, as it is not ready yet. It essentially hads the current directory state to a stack (the changes, that is, git only records changes) upon execution of the command ```git stash```. To retrieve these changes, simply use ```git stash pop```. You can also use ```git stash list``` to list all stashed changes and ```git stash drop``` to drop the changes that are currently on the top of the stack (the last ones stashed).
 
 ## More information
 

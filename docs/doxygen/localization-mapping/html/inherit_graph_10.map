@@ -1,7 +1,0 @@
-<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" title=" " alt="" coords="5,31,107,56"/>
-<area shape="rect" id="Node000001" href="$classExecTimeTest.html" title=" " alt="" coords="183,5,294,31"/>
-<area shape="poly" id="edge4_Node000000_Node000001" title=" " alt="" coords="120,32,182,23,183,28,121,37"/>
-<area shape="rect" id="Node000002" href="$classExecTimeTestEKFTests.html" title="Test class for performance measurements of Extended Kalman Filter steps." alt="" coords="155,55,323,80"/>
-<area shape="poly" id="edge5_Node000000_Node000002" title=" " alt="" coords="121,49,155,54,154,59,120,54"/>
-</map>

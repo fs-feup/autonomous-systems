@@ -11,7 +11,6 @@ This project aims to develop an Artificial Inteligence system for a computer to 
 - [Cpplint 1.6.1](https://github.com/cpplint/cpplint) - C++ only
 - [Cppcheck 1.90](https://cppcheck.sourceforge.io/) - C++ only
 - [Clangformat 10.0.0-4ubuntu1](https://clang.llvm.org/docs/ClangFormat.html) - C++ only
-- [Doxygen 1.9.6](https://doxygen.nl/download.html)
 - [Ruff 0.0.254](https://beta.ruff.rs/docs/configuration/#using-pyprojecttoml), [git](https://github.com/charliermarsh/ruff) - Python only
 
 ### Libraries
@@ -22,8 +21,8 @@ This project aims to develop an Artificial Inteligence system for a computer to 
 - [rclcpp](https://docs.ros2.org/latest/api/rclcpp/)
 - [gtest](https://google.github.io/googletest/)
 - [unittest](https://docs.python.org/3/library/unittest.html)
-- [Eigen](https://eigen.tuxfamily.org/index.php?title=Main_Page)
-Note: these all come with ROS2 or are already in the project
+- [Eigen](https://eigen.tuxfamily.org/index.php?title=Main_Page) - [Documentation](https://eigen.tuxfamily.org/dox/group__TutorialSTL.html)
+- [PCL](https://pointclouds.org)
 
 - [libcgal](https://www.cgal.org/)
 - [libgsl](https://www.gnu.org/software/gsl/)

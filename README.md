@@ -1,5 +1,6 @@
-[![Static Analysis](https://github.com/fsfeup-driverless/driverless/actions/workflows/static-analysis.yml/badge.svg)](https://github.com/fsfeup-driverless/driverless/actions/workflows/static-analysis.yml)
-[![Testing and Building](https://github.com/fsfeup-driverless/driverless/actions/workflows/build.yml/badge.svg)](https://github.com/fsfeup-driverless/driverless/actions/workflows/build.yml)
+[![Static Analysis](https://github.com/fs-feup/autonomous-systems/actions/workflows/static-analysis.yml/badge.svg)](https://github.com/fs-feup/autonomous-systems/actions/workflows/static-analysis.yml)
+[![Testing and Building](https://github.com/fs-feup/autonomous-systems/actions/workflows/build.yml/badge.svg)](https://github.com/fs-feup/autonomous-systems/actions/workflows/build.yml)
+[![Doxygen Documentation Page](https://github.com/fs-feup/autonomous-systems/actions/workflows/doxygen.yml/badge.svg)](https://github.com/fs-feup/autonomous-systems/actions/workflows/doxygen.yml)
 
 # FS-FEUP Autonomous Systems
 
@@ -40,7 +41,7 @@ You work with your **shell always in the root directory**. In it, you can find m
   ```sh
   colcon test --packages-select [your package and others necessary] [--event-handler=console_direct+] #last part for verbose
   ```
-- Run static analysis (runs clang-format, cpplint, cppcheck, ruff and doxygen):
+- Run static analysis (runs clang-format, cpplint, cppcheck, ruff):
   ```sh
   ./static-tools.sh all
   ```
@@ -58,7 +59,6 @@ You work with your **shell always in the root directory**. In it, you can find m
   ./static-tools.sh cppcheck # C++
   ./static-tools.sh cpplint # C++
   ./static-tools.sh ruff # Python
-  ./static-tools.sh doxygen # Both
   ```
 - Finally push changes to repository
   ```sh
@@ -90,6 +90,7 @@ ros2 run [package_name] [node_name] --ros-args --log-level [node_name]:=[log_lev
 | ------ | ------------ | --------- | ------------------------ | -------|
 | Localization and Mapping | loc_map | loc_map | colcon build --packages-select loc_map custom_interfaces eufs_msgs fs_msgs | ros2 run loc_map loc_map | 
 | Path Planning | planning | planning | colcon build --packages-select custom_interfaces planning | ros2 run planning planning |
+| Perception | perception | perception | colcon build --packages-select perception custom_interfaces | ros2 run perception perception |
 | All | - | - | colcon build --symlink-install | -
 | Evaluation Module | plots | plots | colcon build --packages-select plots eufs_msgs custom_interfaces | ros2 run plots plots |
 | Mission Control | can | can | colcon build --packages-select can custom_interfaces | ros2 run can can |
