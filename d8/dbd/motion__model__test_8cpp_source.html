@@ -122,7 +122,7 @@ $(document).ready(function(){initNavTree('d8/dbd/motion__model__test_8cpp_source
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>}</div>
 </div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment">/* ---------------------- Normal Velocity Model ---------------------------*/</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment">// /* ---------------------- Normal Velocity Model ---------------------------*/</span></div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
 <div class="foldopen" id="foldopen00024" data-start="{" data-end="}">
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="../../d8/dbd/motion__model__test_8cpp.html#abaac5c4600343357227b100565bf0831">   24</a></span><a class="code hl_function" href="../../d8/dbd/motion__model__test_8cpp.html#acc27b86c37d2d289be41247829ecfaf2">TEST</a>(NORMAL_VELOCITY_MODEL, STANDING_STILL_TEST) {</div>
@@ -318,10 +318,10 @@ $(document).ready(function(){initNavTree('d8/dbd/motion__model__test_8cpp_source
 <div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>      motion_model.<a class="code hl_function" href="../../d2/d58/class_imu_velocity_model.html#a5df11744dfe9180fc5937945e39eb836">get_motion_to_state_matrix</a>(Eigen::VectorXf::Zero(10), prediction_data, 1.0);</div>
 <div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>  Eigen::MatrixXf new_covariance =</div>
 <div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>      G * Eigen::MatrixXf::Ones(10, 10) *</div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>      G.transpose();                         <span class="comment">// Covariance with ones to check if it is modified</span></div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>  EXPECT_NEAR(new_state(0), 0.03, 0.00001);  <span class="comment">// x</span></div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>  EXPECT_NEAR(new_state(1), 0.07, 0.00001);  <span class="comment">// y</span></div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>  EXPECT_NEAR(new_state(2), M_PI / 160, 0.00001);  <span class="comment">// theta</span></div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>      G.transpose();                           <span class="comment">// Covariance with ones to check if it is modified</span></div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>  EXPECT_NEAR(new_state(0), 0.076, 0.001);     <span class="comment">// x</span></div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>  EXPECT_NEAR(new_state(1), 0.001, 0.001);     <span class="comment">// y</span></div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>  EXPECT_NEAR(new_state(2), M_PI / 160, 0.1);  <span class="comment">// theta</span></div>
 <div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 10; i++) {</div>
 <div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; 10; j++) {</div>
 <div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>      EXPECT_DOUBLE_EQ(new_covariance(i, j), 1.0);</div>
@@ -334,87 +334,96 @@ $(document).ready(function(){initNavTree('d8/dbd/motion__model__test_8cpp_source
 <div class="line"><a id="l00214" name="l00214"></a><span class="lineno"><a class="line" href="../../d8/dbd/motion__model__test_8cpp.html#ae0937a30b47fc882eb19bb57e6ca6bbf">  214</a></span><a class="code hl_function" href="../../d8/dbd/motion__model__test_8cpp.html#acc27b86c37d2d289be41247829ecfaf2">TEST</a>(IMU_VELOCITY_MODEL, COMPLEX_MOVEMENT_TEST) {</div>
 <div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>  Eigen::MatrixXf R = Eigen::Matrix3f::Zero();</div>
 <div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>  <a class="code hl_class" href="../../d2/d58/class_imu_velocity_model.html">ImuVelocityModel</a> motion_model = <a class="code hl_class" href="../../d2/d58/class_imu_velocity_model.html">ImuVelocityModel</a>(R);</div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>  <a class="code hl_struct" href="../../db/d6d/struct_motion_update.html">MotionUpdate</a> prediction_data = {0, 1, 0, 0, 0, std::chrono::high_resolution_clock::now()};</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>  <a class="code hl_struct" href="../../db/d6d/struct_motion_update.html">MotionUpdate</a> prediction_data = {0, 0, 0, 0, 0, std::chrono::high_resolution_clock::now()};</div>
 <div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>  Eigen::VectorXf temp_state;</div>
 <div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>  Eigen::VectorXf new_state = Eigen::VectorXf::Zero(10);</div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>  Eigen::MatrixXf G;</div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>  Eigen::MatrixXf new_covariance = Eigen::MatrixXf::Ones(10, 10);</div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 1000; i++) {</div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>    prediction_data.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a9e379a3961481052b24b69a8531eae76">translational_velocity_x</a> = 10 * i;</div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>    prediction_data.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a13590c3adfe4160d5fe911c05713d316">translational_velocity_y</a> = 5 * i;</div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>    prediction_data.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a0a7390da3d4ef6ce0efbae0b990741fd">rotational_velocity</a> = 5 * i;</div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>    temp_state = new_state;</div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    new_state = motion_model.<a class="code hl_function" href="../../d2/d58/class_imu_velocity_model.html#a83c9e2d4b8e321ab0fcfbef5f52b5447">predict_expected_state</a>(new_state, prediction_data, 0.1);</div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>    G = motion_model.<a class="code hl_function" href="../../d2/d58/class_imu_velocity_model.html#a5df11744dfe9180fc5937945e39eb836">get_motion_to_state_matrix</a>(new_state, prediction_data, 0.1);</div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>    new_covariance = G * new_covariance * G.transpose();</div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>    <span class="comment">// Max 0.01 percent calculation error</span></div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>    EXPECT_NEAR(new_state(0), temp_state(0) + i, 0.0001 * temp_state(0));  <span class="comment">// x</span></div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    EXPECT_NEAR(new_state(1), temp_state(1) + 0.5 * i,</div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>                0.0001 * temp_state(1));  <span class="comment">// y</span></div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    EXPECT_LT(new_state(2), 2 * M_PI);    <span class="comment">// theta</span></div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>  <span class="keywordtype">double</span> radius = 12.7324;</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>  new_state(0) = 0;</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>  new_state(1) = -radius;  <span class="comment">// Radius of the circle</span></div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>  Eigen::MatrixXf G =</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>      motion_model.<a class="code hl_function" href="../../d2/d58/class_imu_velocity_model.html#a5df11744dfe9180fc5937945e39eb836">get_motion_to_state_matrix</a>(Eigen::VectorXf::Zero(10), prediction_data, 1.0);</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>  Eigen::MatrixXf new_covariance = Eigen::MatrixXf::Ones(10, 10);</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span> </div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 1000; i++) {</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>    prediction_data.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a9e379a3961481052b24b69a8531eae76">translational_velocity_x</a> = 6;</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>    prediction_data.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a13590c3adfe4160d5fe911c05713d316">translational_velocity_y</a> = 8;</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>    prediction_data.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a0a7390da3d4ef6ce0efbae0b990741fd">rotational_velocity</a> = M_PI / 4;</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>    temp_state = new_state;</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    new_state = motion_model.<a class="code hl_function" href="../../d2/d58/class_imu_velocity_model.html#a83c9e2d4b8e321ab0fcfbef5f52b5447">predict_expected_state</a>(new_state, prediction_data, 0.1);</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>    G = motion_model.<a class="code hl_function" href="../../d2/d58/class_imu_velocity_model.html#a5df11744dfe9180fc5937945e39eb836">get_motion_to_state_matrix</a>(new_state, prediction_data, 0.1);</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    new_covariance = G * new_covariance * G.transpose();</div>
 <div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span> </div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 10; i++) {</div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; 10; j++) {</div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>        EXPECT_DOUBLE_EQ(new_covariance(i, j), 1.0);</div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>      }</div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    }</div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>  }</div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>}</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    EXPECT_LT(new_state(0), radius + 0.1);  <span class="comment">// x</span></div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>    EXPECT_LT(new_state(1), radius + 0.1);  <span class="comment">// y</span></div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>    EXPECT_NEAR(new_state(0) * new_state(0) + new_state(1) * new_state(1), radius * radius,</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>                0.0001 * radius * radius);  <span class="comment">// Radius</span></div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    EXPECT_LT(new_state(2), 2 * M_PI);      <span class="comment">// theta</span></div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span> </div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 10; i++) {  <span class="comment">// Covariance</span></div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; 10; j++) {</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>        <span class="keywordflow">if</span> (i &lt; 2 || j &lt; 2)  <span class="comment">// Only x and y are affected because of the Jacobian</span></div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>          EXPECT_NE(new_covariance(i, j), 0.0);  <span class="comment">// // TODO(PedroRomao3): correct values.</span></div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>        <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>          EXPECT_DOUBLE_EQ(new_covariance(i, j), 1.0);</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>      }</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>    }</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>  }</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>}</div>
 </div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span> </div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span><span class="comment">/* ----------------------- ODOMETRY MODEL -------------------------*/</span></div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span> </div>
-<div class="foldopen" id="foldopen00251" data-start="{" data-end="}">
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno"><a class="line" href="../../d8/dbd/motion__model__test_8cpp.html#a2e006feda9100c097f7afbbf79420825">  251</a></span><a class="code hl_function" href="../../d8/dbd/motion__model__test_8cpp.html#acc27b86c37d2d289be41247829ecfaf2">TEST</a>(ODOMETRY_SUBSCRIBER, CONVERSION_TEST) {</div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>  <span class="comment">// Straight Line</span></div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>  <a class="code hl_struct" href="../../db/d6d/struct_motion_update.html">MotionUpdate</a> prediction_data_from_odometry;</div>
-<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>  <span class="keywordtype">double</span> lb_speed = 60;</div>
-<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>  <span class="keywordtype">double</span> rb_speed = 60;</div>
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>  <span class="keywordtype">double</span> lf_speed = 60;</div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>  <span class="keywordtype">double</span> rf_speed = 60;</div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>  <span class="keywordtype">double</span> steering_angle = 0;</div>
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>  <a class="code hl_struct" href="../../db/d6d/struct_motion_update.html">MotionUpdate</a> velocity_data = <a class="code hl_function" href="../../dd/db3/class_l_m_node.html#a28a0317cd05f770daba784ab06a389c8">LMNode::odometry_to_velocities_transform</a>(</div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>      lb_speed, rb_speed, lf_speed, rf_speed, steering_angle);</div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>  EXPECT_NEAR(velocity_data.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a1049e83ac5ff8baa3e00a9f5d6a4d6ab">translational_velocity</a>, 1.5708, 0.0001);</div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>  EXPECT_DOUBLE_EQ(velocity_data.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a0a7390da3d4ef6ce0efbae0b990741fd">rotational_velocity</a>, 0);</div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>  EXPECT_DOUBLE_EQ(velocity_data.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a9e379a3961481052b24b69a8531eae76">translational_velocity_x</a>, 0);</div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>  EXPECT_DOUBLE_EQ(velocity_data.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a13590c3adfe4160d5fe911c05713d316">translational_velocity_y</a>, 0);</div>
-<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span> </div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>  <span class="comment">// Curving left</span></div>
-<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>  lb_speed = 60;</div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>  rb_speed = 60;</div>
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>  lf_speed = 60;</div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>  rf_speed = 60;</div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>  steering_angle = M_PI / 8;</div>
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>  velocity_data = <a class="code hl_function" href="../../dd/db3/class_l_m_node.html#a28a0317cd05f770daba784ab06a389c8">LMNode::odometry_to_velocities_transform</a>(lb_speed, rb_speed, lf_speed, rf_speed,</div>
-<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>                                                           steering_angle);</div>
-<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>  EXPECT_GE(velocity_data.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a1049e83ac5ff8baa3e00a9f5d6a4d6ab">translational_velocity</a>, 1.5708);</div>
-<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>  EXPECT_LE(velocity_data.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a1049e83ac5ff8baa3e00a9f5d6a4d6ab">translational_velocity</a>, 1.5708 * 2);</div>
-<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>  EXPECT_LE(velocity_data.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a0a7390da3d4ef6ce0efbae0b990741fd">rotational_velocity</a>, M_PI);</div>
-<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>  EXPECT_GE(velocity_data.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a0a7390da3d4ef6ce0efbae0b990741fd">rotational_velocity</a>, M_PI / 8);</div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>  EXPECT_DOUBLE_EQ(velocity_data.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a9e379a3961481052b24b69a8531eae76">translational_velocity_x</a>, 0);</div>
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>  EXPECT_DOUBLE_EQ(velocity_data.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a13590c3adfe4160d5fe911c05713d316">translational_velocity_y</a>, 0);</div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span> </div>
-<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>  <span class="comment">// Curving right</span></div>
-<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>  lb_speed = 60;</div>
-<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>  rb_speed = 60;</div>
-<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>  lf_speed = 60;</div>
-<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>  rf_speed = 60;</div>
-<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>  steering_angle = -M_PI / 8;</div>
-<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>  <a class="code hl_struct" href="../../db/d6d/struct_motion_update.html">MotionUpdate</a> velocity_data_2 = <a class="code hl_function" href="../../dd/db3/class_l_m_node.html#a28a0317cd05f770daba784ab06a389c8">LMNode::odometry_to_velocities_transform</a>(</div>
-<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>      lb_speed, rb_speed, lf_speed, rf_speed, steering_angle);</div>
-<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>  EXPECT_GE(velocity_data_2.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a1049e83ac5ff8baa3e00a9f5d6a4d6ab">translational_velocity</a>, 1.5708);</div>
-<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>  EXPECT_LE(velocity_data_2.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a1049e83ac5ff8baa3e00a9f5d6a4d6ab">translational_velocity</a>, 1.5708 * 2);</div>
-<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>  EXPECT_GE(velocity_data_2.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a0a7390da3d4ef6ce0efbae0b990741fd">rotational_velocity</a>, -M_PI);</div>
-<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>  EXPECT_LE(velocity_data_2.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a0a7390da3d4ef6ce0efbae0b990741fd">rotational_velocity</a>, -M_PI / 8);</div>
-<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>  EXPECT_DOUBLE_EQ(velocity_data_2.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a9e379a3961481052b24b69a8531eae76">translational_velocity_x</a>, 0);</div>
-<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>  EXPECT_DOUBLE_EQ(velocity_data_2.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a13590c3adfe4160d5fe911c05713d316">translational_velocity_y</a>, 0);</div>
-<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>  EXPECT_DOUBLE_EQ(velocity_data_2.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a1049e83ac5ff8baa3e00a9f5d6a4d6ab">translational_velocity</a>, velocity_data.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a1049e83ac5ff8baa3e00a9f5d6a4d6ab">translational_velocity</a>);</div>
-<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>  EXPECT_DOUBLE_EQ(velocity_data_2.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a0a7390da3d4ef6ce0efbae0b990741fd">rotational_velocity</a>, -velocity_data.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a0a7390da3d4ef6ce0efbae0b990741fd">rotational_velocity</a>);</div>
-<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>}</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span> </div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span><span class="comment">/* ----------------------- ODOMETRY MODEL -------------------------*/</span></div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span> </div>
+<div class="foldopen" id="foldopen00260" data-start="{" data-end="}">
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno"><a class="line" href="../../d8/dbd/motion__model__test_8cpp.html#a2e006feda9100c097f7afbbf79420825">  260</a></span><a class="code hl_function" href="../../d8/dbd/motion__model__test_8cpp.html#acc27b86c37d2d289be41247829ecfaf2">TEST</a>(ODOMETRY_SUBSCRIBER, CONVERSION_TEST) {</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>  <span class="comment">// Straight Line</span></div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>  <a class="code hl_struct" href="../../db/d6d/struct_motion_update.html">MotionUpdate</a> prediction_data_from_odometry;</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>  <span class="keywordtype">double</span> lb_speed = 60;</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>  <span class="keywordtype">double</span> rb_speed = 60;</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>  <span class="keywordtype">double</span> lf_speed = 60;</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>  <span class="keywordtype">double</span> rf_speed = 60;</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>  <span class="keywordtype">double</span> steering_angle = 0;</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>  <a class="code hl_struct" href="../../db/d6d/struct_motion_update.html">MotionUpdate</a> velocity_data = <a class="code hl_function" href="../../dd/db3/class_l_m_node.html#a28a0317cd05f770daba784ab06a389c8">LMNode::odometry_to_velocities_transform</a>(</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>      lb_speed, rb_speed, lf_speed, rf_speed, steering_angle);</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>  EXPECT_NEAR(velocity_data.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a1049e83ac5ff8baa3e00a9f5d6a4d6ab">translational_velocity</a>, 1.5708, 0.0001);</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>  EXPECT_DOUBLE_EQ(velocity_data.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a0a7390da3d4ef6ce0efbae0b990741fd">rotational_velocity</a>, 0);</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>  EXPECT_DOUBLE_EQ(velocity_data.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a9e379a3961481052b24b69a8531eae76">translational_velocity_x</a>, 0);</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>  EXPECT_DOUBLE_EQ(velocity_data.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a13590c3adfe4160d5fe911c05713d316">translational_velocity_y</a>, 0);</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span> </div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>  <span class="comment">// Curving left</span></div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>  lb_speed = 60;</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>  rb_speed = 60;</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>  lf_speed = 60;</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>  rf_speed = 60;</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>  steering_angle = M_PI / 8;</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>  velocity_data = <a class="code hl_function" href="../../dd/db3/class_l_m_node.html#a28a0317cd05f770daba784ab06a389c8">LMNode::odometry_to_velocities_transform</a>(lb_speed, rb_speed, lf_speed, rf_speed,</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>                                                           steering_angle);</div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>  EXPECT_GE(velocity_data.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a1049e83ac5ff8baa3e00a9f5d6a4d6ab">translational_velocity</a>, 1.5708);</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>  EXPECT_LE(velocity_data.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a1049e83ac5ff8baa3e00a9f5d6a4d6ab">translational_velocity</a>, 1.5708 * 2);</div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>  EXPECT_LE(velocity_data.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a0a7390da3d4ef6ce0efbae0b990741fd">rotational_velocity</a>, M_PI);</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>  EXPECT_GE(velocity_data.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a0a7390da3d4ef6ce0efbae0b990741fd">rotational_velocity</a>, M_PI / 8);</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>  EXPECT_DOUBLE_EQ(velocity_data.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a9e379a3961481052b24b69a8531eae76">translational_velocity_x</a>, 0);</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>  EXPECT_DOUBLE_EQ(velocity_data.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a13590c3adfe4160d5fe911c05713d316">translational_velocity_y</a>, 0);</div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span> </div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>  <span class="comment">// Curving right</span></div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>  lb_speed = 60;</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>  rb_speed = 60;</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>  lf_speed = 60;</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>  rf_speed = 60;</div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>  steering_angle = -M_PI / 8;</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>  <a class="code hl_struct" href="../../db/d6d/struct_motion_update.html">MotionUpdate</a> velocity_data_2 = <a class="code hl_function" href="../../dd/db3/class_l_m_node.html#a28a0317cd05f770daba784ab06a389c8">LMNode::odometry_to_velocities_transform</a>(</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>      lb_speed, rb_speed, lf_speed, rf_speed, steering_angle);</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>  EXPECT_GE(velocity_data_2.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a1049e83ac5ff8baa3e00a9f5d6a4d6ab">translational_velocity</a>, 1.5708);</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>  EXPECT_LE(velocity_data_2.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a1049e83ac5ff8baa3e00a9f5d6a4d6ab">translational_velocity</a>, 1.5708 * 2);</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>  EXPECT_GE(velocity_data_2.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a0a7390da3d4ef6ce0efbae0b990741fd">rotational_velocity</a>, -M_PI);</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>  EXPECT_LE(velocity_data_2.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a0a7390da3d4ef6ce0efbae0b990741fd">rotational_velocity</a>, -M_PI / 8);</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>  EXPECT_DOUBLE_EQ(velocity_data_2.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a9e379a3961481052b24b69a8531eae76">translational_velocity_x</a>, 0);</div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>  EXPECT_DOUBLE_EQ(velocity_data_2.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a13590c3adfe4160d5fe911c05713d316">translational_velocity_y</a>, 0);</div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>  EXPECT_DOUBLE_EQ(velocity_data_2.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a1049e83ac5ff8baa3e00a9f5d6a4d6ab">translational_velocity</a>, velocity_data.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a1049e83ac5ff8baa3e00a9f5d6a4d6ab">translational_velocity</a>);</div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>  EXPECT_DOUBLE_EQ(velocity_data_2.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a0a7390da3d4ef6ce0efbae0b990741fd">rotational_velocity</a>, -velocity_data.<a class="code hl_variable" href="../../db/d6d/struct_motion_update.html#a0a7390da3d4ef6ce0efbae0b990741fd">rotational_velocity</a>);</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>}</div>
 </div>
 <div class="ttc" id="aclass_imu_velocity_model_html"><div class="ttname"><a href="../../d2/d58/class_imu_velocity_model.html">ImuVelocityModel</a></div><div class="ttdoc">Motion estimation that uses the specific values of the x and y axis accelerations,...</div><div class="ttdef"><b>Definition</b> <a href="../../df/dc4/motion__models_8hpp_source.html#l00068">motion_models.hpp:68</a></div></div>
-<div class="ttc" id="aclass_imu_velocity_model_html_a5df11744dfe9180fc5937945e39eb836"><div class="ttname"><a href="../../d2/d58/class_imu_velocity_model.html#a5df11744dfe9180fc5937945e39eb836">ImuVelocityModel::get_motion_to_state_matrix</a></div><div class="ttdeci">Eigen::MatrixXf get_motion_to_state_matrix(const Eigen::VectorXf &amp;expected_state, const MotionUpdate &amp;motion_prediction_data, const double time_interval) const override</div><div class="ttdoc">Calculate state covariance matrix from velocity model using IMU data and linear functions Uses transl...</div><div class="ttdef"><b>Definition</b> <a href="../../d1/d56/motion__models_8cpp_source.html#l00099">motion_models.cpp:99</a></div></div>
+<div class="ttc" id="aclass_imu_velocity_model_html_a5df11744dfe9180fc5937945e39eb836"><div class="ttname"><a href="../../d2/d58/class_imu_velocity_model.html#a5df11744dfe9180fc5937945e39eb836">ImuVelocityModel::get_motion_to_state_matrix</a></div><div class="ttdeci">Eigen::MatrixXf get_motion_to_state_matrix(const Eigen::VectorXf &amp;expected_state, const MotionUpdate &amp;motion_prediction_data, const double time_interval) const override</div><div class="ttdoc">Calculate state covariance matrix from velocity model using IMU data and linear functions Uses transl...</div><div class="ttdef"><b>Definition</b> <a href="../../d1/d56/motion__models_8cpp_source.html#l00117">motion_models.cpp:117</a></div></div>
 <div class="ttc" id="aclass_imu_velocity_model_html_a83c9e2d4b8e321ab0fcfbef5f52b5447"><div class="ttname"><a href="../../d2/d58/class_imu_velocity_model.html#a83c9e2d4b8e321ab0fcfbef5f52b5447">ImuVelocityModel::predict_expected_state</a></div><div class="ttdeci">Eigen::VectorXf predict_expected_state(const Eigen::VectorXf &amp;expected_state, const MotionUpdate &amp;motion_prediction_data, const double time_interval) const override</div><div class="ttdoc">Calculate expected state vector from velocity model using IMU data and linear functions Uses translat...</div><div class="ttdef"><b>Definition</b> <a href="../../d1/d56/motion__models_8cpp_source.html#l00088">motion_models.cpp:88</a></div></div>
 <div class="ttc" id="aclass_l_m_node_html_a28a0317cd05f770daba784ab06a389c8"><div class="ttname"><a href="../../dd/db3/class_l_m_node.html#a28a0317cd05f770daba784ab06a389c8">LMNode::odometry_to_velocities_transform</a></div><div class="ttdeci">static MotionUpdate odometry_to_velocities_transform(double lb_speed, double lf_speed, double rb_speed, double rf_speed, double steering_angle)</div><div class="ttdoc">Converts the odometry data to translational and rotational velocities.</div><div class="ttdef"><b>Definition</b> <a href="../../d5/df0/lm__node_8cpp_source.html#l00198">lm_node.cpp:198</a></div></div>
 <div class="ttc" id="aclass_motion_model_html"><div class="ttname"><a href="../../db/d66/class_motion_model.html">MotionModel</a></div><div class="ttdoc">Abstract Moiton Model class designed to be implemented by the different motion models.</div><div class="ttdef"><b>Definition</b> <a href="../../df/dc4/motion__models_8hpp_source.html#l00013">motion_models.hpp:13</a></div></div>

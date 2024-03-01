@@ -96,7 +96,8 @@ $(document).ready(function(){initNavTree('d5/d5e/ekf_8hpp.html','../../'); initR
   <div class="headertitle"><div class="title">ekf.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;eigen3/Eigen/Dense&gt;</code><br />
+<div class="textblock"><code>#include &lt;Eigen/Dense&gt;</code><br />
+<code>#include &lt;Eigen/Sparse&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &quot;<a class="el" href="../../df/dc4/motion__models_8hpp_source.html">kalman_filter/motion_models.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d9/def/observation__models_8hpp_source.html">kalman_filter/observation_models.hpp</a>&quot;</code><br />
@@ -107,33 +108,36 @@ Include dependency graph for ekf.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d0/dc6/ekf_8hpp__incl.png" border="0" usemap="#asrc_2loc__map_2include_2kalman__filter_2ekf_8hpp" alt=""/></div>
 <map name="asrc_2loc__map_2include_2kalman__filter_2ekf_8hpp" id="asrc_2loc__map_2include_2kalman__filter_2ekf_8hpp">
-<area shape="rect" title=" " alt="" coords="258,5,402,46"/>
-<area shape="rect" title=" " alt="" coords="21,183,157,208"/>
-<area shape="poly" title=" " alt="" coords="258,35,188,42,115,54,53,72,30,83,15,96,9,105,8,113,15,133,31,155,52,172,49,176,27,159,10,136,3,114,4,103,11,92,27,79,51,67,114,49,188,37,257,29"/>
-<area shape="rect" title=" " alt="" coords="428,102,485,127"/>
-<area shape="poly" title=" " alt="" coords="360,44,428,90,425,95,357,49"/>
-<area shape="rect" href="../../df/dc4/motion__models_8hpp.html" title=" " alt="" coords="25,94,163,135"/>
-<area shape="poly" title=" " alt="" coords="277,49,163,91,161,86,276,44"/>
-<area shape="rect" href="../../d7/d59/data__structures_8hpp.html" title=" " alt="" coords="181,183,370,208"/>
-<area shape="poly" title=" " alt="" coords="348,45,359,64,369,87,373,112,367,136,347,160,322,178,319,173,344,156,362,133,368,112,364,89,355,67,343,48"/>
-<area shape="rect" href="../../d9/def/observation__models_8hpp.html" title=" " alt="" coords="187,94,353,135"/>
-<area shape="poly" title=" " alt="" coords="319,48,295,83,290,80,314,45"/>
-<area shape="rect" title=" " alt="" coords="510,102,628,127"/>
-<area shape="poly" title=" " alt="" coords="385,44,522,93,520,98,383,49"/>
-<area shape="poly" title=" " alt="" coords="95,135,93,167,88,167,90,135"/>
-<area shape="poly" title=" " alt="" coords="140,133,235,174,233,179,138,138"/>
-<area shape="rect" title=" " alt="" coords="95,256,155,282"/>
-<area shape="poly" title=" " alt="" coords="251,211,165,252,163,247,249,206"/>
-<area shape="rect" title=" " alt="" coords="179,256,225,282"/>
-<area shape="poly" title=" " alt="" coords="265,210,227,247,223,244,261,207"/>
-<area shape="rect" title=" " alt="" coords="249,256,302,282"/>
-<area shape="poly" title=" " alt="" coords="278,209,278,241,273,241,273,209"/>
-<area shape="rect" title=" " alt="" coords="326,256,427,282"/>
-<area shape="poly" title=" " alt="" coords="294,207,349,245,345,249,291,211"/>
-<area shape="rect" href="../../d5/d91/position_8hpp.html" title=" " alt="" coords="451,256,569,282"/>
-<area shape="poly" title=" " alt="" coords="316,206,456,249,455,254,314,211"/>
-<area shape="poly" title=" " alt="" coords="226,138,131,179,129,174,224,133"/>
-<area shape="poly" title=" " alt="" coords="274,135,276,167,271,167,269,135"/>
+<area shape="rect" title=" " alt="" coords="338,5,482,46"/>
+<area shape="rect" title=" " alt="" coords="5,102,100,127"/>
+<area shape="poly" title=" " alt="" coords="338,44,231,67,112,97,103,99,101,94,110,91,230,62,337,39"/>
+<area shape="rect" title=" " alt="" coords="123,102,222,127"/>
+<area shape="poly" title=" " alt="" coords="357,49,221,98,219,93,355,44"/>
+<area shape="rect" title=" " alt="" coords="245,102,303,127"/>
+<area shape="poly" title=" " alt="" coords="380,49,307,95,304,91,378,44"/>
+<area shape="rect" href="../../df/dc4/motion__models_8hpp.html" title=" " alt="" coords="517,94,655,135"/>
+<area shape="poly" title=" " alt="" coords="451,44,533,84,531,89,449,49"/>
+<area shape="rect" href="../../d7/d59/data__structures_8hpp.html" title=" " alt="" coords="502,183,691,208"/>
+<area shape="poly" title=" " alt="" coords="483,33,592,55,639,72,657,81,669,92,675,103,677,114,670,136,654,158,634,176,630,172,650,155,665,133,672,113,670,105,665,96,654,86,637,76,591,60,482,39"/>
+<area shape="rect" href="../../d9/def/observation__models_8hpp.html" title=" " alt="" coords="327,94,493,135"/>
+<area shape="poly" title=" " alt="" coords="413,47,413,78,407,78,407,47"/>
+<area shape="rect" title=" " alt="" coords="729,102,848,127"/>
+<area shape="poly" title=" " alt="" coords="483,40,712,91,726,95,724,100,711,97,482,45"/>
+<area shape="rect" title=" " alt="" coords="342,183,478,208"/>
+<area shape="poly" title=" " alt="" coords="543,138,452,178,450,174,541,133"/>
+<area shape="poly" title=" " alt="" coords="591,135,595,167,590,167,586,135"/>
+<area shape="rect" title=" " alt="" coords="416,256,476,282"/>
+<area shape="poly" title=" " alt="" coords="572,211,486,252,484,247,570,206"/>
+<area shape="rect" title=" " alt="" coords="500,256,546,282"/>
+<area shape="poly" title=" " alt="" coords="586,210,548,247,544,244,583,207"/>
+<area shape="rect" title=" " alt="" coords="570,256,623,282"/>
+<area shape="poly" title=" " alt="" coords="599,209,599,241,594,241,594,209"/>
+<area shape="rect" title=" " alt="" coords="647,256,749,282"/>
+<area shape="poly" title=" " alt="" coords="615,207,670,245,666,249,612,211"/>
+<area shape="rect" href="../../d5/d91/position_8hpp.html" title=" " alt="" coords="772,256,890,282"/>
+<area shape="poly" title=" " alt="" coords="637,206,777,249,776,254,636,211"/>
+<area shape="poly" title=" " alt="" coords="413,135,413,167,407,167,407,135"/>
+<area shape="poly" title=" " alt="" coords="457,133,555,174,553,179,455,138"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
