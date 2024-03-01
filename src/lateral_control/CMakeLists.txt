@@ -11,6 +11,7 @@ find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(custom_interfaces REQUIRED)
+find_package(fs_msgs REQUIRED)
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
@@ -18,10 +19,12 @@ find_package(custom_interfaces REQUIRED)
 set(IMPLEMENTATION_FILES 
   src/main.cpp
   src/lateral_control/lateral_control_node.cpp
+  src/adapter/adapter.cpp
+  src/adapter/fsds.cpp
 )
 
 add_executable(lateral_control_node ${IMPLEMENTATION_FILES})
-ament_target_dependencies(lateral_control_node rclcpp std_msgs sensor_msgs custom_interfaces)
+ament_target_dependencies(lateral_control_node rclcpp std_msgs sensor_msgs custom_interfaces fs_msgs)
 target_include_directories(lateral_control_node PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
