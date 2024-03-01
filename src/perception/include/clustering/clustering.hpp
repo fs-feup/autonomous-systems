@@ -2,6 +2,7 @@
 #include <pcl/PCLPointField.h>
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
+#include "utils/cluster.hpp"
 #include <vector>
 
 
@@ -22,5 +23,5 @@ class Clustering {
        * @param[out] clusters A pointer to a vector of shared pointers to point clouds to store the resulting clusters.
        */
        virtual void clustering(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
-                           std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr>* clusters) const = 0;
+                           std::vector<Cluster>* clusters) const = 0;
 };
