@@ -24,9 +24,9 @@ class ExtendedKalmanFilter {
                                           from the expected position when the landmark is
                                           perceived to be 1 meter away */
 
-  Eigen::VectorXf X;                  /**< Expected state vector (localization + mapping) */
-  //Eigen::MatrixXf P;                  /**< State covariance matrix */
-  Eigen::SparseMatrix<float> P;
+  Eigen::VectorXf X; /**< Expected state vector (localization + mapping) */
+  // Eigen::MatrixXf P;                  /**< State covariance matrix */
+  Eigen::SparseMatrix<float> P;       /**< Sparse State covariance matrix */
   std::vector<colors::Color> _colors; /**< Vector of colors of the landmarks */
 
   std::chrono::time_point<std::chrono::high_resolution_clock>

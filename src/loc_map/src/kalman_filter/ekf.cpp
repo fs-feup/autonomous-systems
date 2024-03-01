@@ -148,7 +148,7 @@ int ExtendedKalmanFilter::discovery(const ObservationData &observation_data) {
   // this->P.conservativeResizeLike(Eigen::MatrixXf::Zero(this->P.rows() + 2, this->P.cols() + 2));
 
   // Create a new sparse matrix of the correct size
-  Eigen::SparseMatrix<float> newP(this->P.rows() + 2, this->P.cols() + 2);
+  Eigen::SparseMatrix<float> newP(this-> P.rows() + 2, this->P.cols() + 2);
 
   // Copy the values from P into newP
   for (int i = 0; i < this->P.rows(); i++) {
