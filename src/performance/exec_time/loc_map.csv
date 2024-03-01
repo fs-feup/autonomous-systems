@@ -1,15 +1,267 @@
-Node, Scope, Workload, Exec time
-LOC_MAP, all, 1 X 10 CONES, 0.022000 ms
-LOC_MAP, all, 5 X 10 CONES, 0.114000 ms
-LOC_MAP, all, 50 X 10 CONES, 71.369000 ms
-LOC_MAP, all, 1 X 10 CONES, 0.024000 ms
-LOC_MAP, all, 5 X 10 CONES, 0.121000 ms
-LOC_MAP, all, 50 X 10 CONES, 68.714000 ms
-LOC_MAP, all, 100 X 10 CONES, 790.966000 ms
-LOC_MAP, all, 200 X 10 CONES, 10678.759000 ms
-LOC_MAP, EKF pred step, 10, 0.204000 ms
-LOC_MAP, EKF pred step, 50, 12.400000 ms
-LOC_MAP, EKF pred step, 100, 91.290000 ms
-LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.084000 ms
-LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 104.528000 ms
-LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 595.640000 ms
+LOC_MAP, EKF pred step, 10, 0.208000 ms
+LOC_MAP, EKF pred step, 50, 13.054000 ms
+LOC_MAP, EKF pred step, 100, 95.968000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.636000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 112.740000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 631.584000 ms
+LOC_MAP, EKF pred step, 10, 0.203000 ms
+LOC_MAP, EKF pred step, 50, 13.126000 ms
+LOC_MAP, EKF pred step, 100, 96.301000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.715000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 112.408000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 630.028000 ms
+LOC_MAP, EKF pred step, 10, 0.194000 ms
+LOC_MAP, EKF pred step, 50, 12.031000 ms
+LOC_MAP, EKF pred step, 100, 90.239000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.552000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 104.113000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 584.000000 ms
+LOC_MAP, EKF pred step, 10, 0.220000 ms
+LOC_MAP, EKF pred step, 50, 12.515000 ms
+LOC_MAP, EKF pred step, 100, 96.456000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 10.613000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 212.223000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 952.871000 ms
+LOC_MAP, EKF pred step, 10, 0.208000 ms
+LOC_MAP, EKF pred step, 50, 12.494000 ms
+LOC_MAP, EKF pred step, 100, 90.731000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 4.884000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 104.948000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 604.991000 ms
+LOC_MAP, EKF pred step, 10, 0.260000 ms
+LOC_MAP, EKF pred step, 50, 12.514000 ms
+LOC_MAP, EKF pred step, 100, 92.683000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.816000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 105.615000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 611.558000 ms
+LOC_MAP, EKF pred step, 10, 0.207000 ms
+LOC_MAP, EKF pred step, 50, 12.362000 ms
+LOC_MAP, EKF pred step, 100, 95.050000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.943000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 108.516000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 630.503000 ms
+LOC_MAP, EKF pred step, 10, 0.233000 ms
+LOC_MAP, EKF pred step, 50, 12.432000 ms
+LOC_MAP, EKF pred step, 100, 92.878000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.667000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 108.902000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 598.003000 ms
+LOC_MAP, EKF pred step, 10, 0.219000 ms
+LOC_MAP, EKF pred step, 50, 13.142000 ms
+LOC_MAP, EKF pred step, 100, 102.159000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 4.318000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 115.791000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 627.184000 ms
+LOC_MAP, EKF pred step, 10, 0.219000 ms
+LOC_MAP, EKF pred step, 50, 13.982000 ms
+LOC_MAP, EKF pred step, 100, 103.402000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 4.598000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 121.683000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 709.452000 ms
+LOC_MAP, EKF pred step, 10, 0.214000 ms
+LOC_MAP, EKF pred step, 50, 12.890000 ms
+LOC_MAP, EKF pred step, 100, 96.510000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 5.347000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 130.870000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 777.755000 ms
+LOC_MAP, EKF pred step, 10, 0.212000 ms
+LOC_MAP, EKF pred step, 50, 12.268000 ms
+LOC_MAP, EKF pred step, 100, 90.995000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 2.947000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 47.204000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 204.789000 ms
+LOC_MAP, EKF pred step, 10, 0.207000 ms
+LOC_MAP, EKF pred step, 50, 12.290000 ms
+LOC_MAP, EKF pred step, 100, 92.747000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.049000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 47.520000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 203.794000 ms
+LOC_MAP, EKF pred step, 10, 0.220000 ms
+LOC_MAP, EKF pred step, 50, 12.660000 ms
+LOC_MAP, EKF pred step, 100, 95.843000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.706000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 46.907000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 205.439000 ms
+LOC_MAP, EKF pred step, 10, 0.337000 ms
+LOC_MAP, EKF pred step, 50, 13.477000 ms
+LOC_MAP, EKF pred step, 100, 99.007000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.956000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 109.922000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 632.741000 ms
+LOC_MAP, EKF pred step, 10, 0.218000 ms
+LOC_MAP, EKF pred step, 50, 13.391000 ms
+LOC_MAP, EKF pred step, 100, 97.632000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.554000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 48.521000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 206.593000 ms
+LOC_MAP, EKF pred step, 10, 0.206000 ms
+LOC_MAP, EKF pred step, 50, 12.293000 ms
+LOC_MAP, EKF pred step, 100, 89.657000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.372000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 46.223000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 198.047000 ms
+LOC_MAP, EKF pred step, 10, 0.311000 ms
+LOC_MAP, EKF pred step, 50, 31.677000 ms
+LOC_MAP, EKF pred step, 100, 48.824000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 4.378000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 56.645000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 246.628000 ms
+LOC_MAP, EKF pred step, 10, 0.269000 ms
+LOC_MAP, EKF pred step, 50, 47.189000 ms
+LOC_MAP, EKF pred step, 100, 56.784000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.430000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 50.640000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 223.409000 ms
+LOC_MAP, EKF pred step, 10, 0.224000 ms
+LOC_MAP, EKF pred step, 50, 46.087000 ms
+LOC_MAP, EKF pred step, 100, 57.545000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 5.246000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 56.261000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 242.800000 ms
+LOC_MAP, EKF pred step, 10, 0.225000 ms
+LOC_MAP, EKF pred step, 50, 53.427000 ms
+LOC_MAP, EKF pred step, 100, 51.183000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.867000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 55.950000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 239.635000 ms
+LOC_MAP, EKF pred step, 10, 0.260000 ms
+LOC_MAP, EKF pred step, 50, 47.993000 ms
+LOC_MAP, EKF pred step, 100, 57.863000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 4.906000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 52.001000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 219.457000 ms
+LOC_MAP, EKF pred step, 10, 0.234000 ms
+LOC_MAP, EKF pred step, 50, 46.483000 ms
+LOC_MAP, EKF pred step, 100, 55.850000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.470000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 50.936000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 219.670000 ms
+LOC_MAP, EKF pred step, 10, 0.240000 ms
+LOC_MAP, EKF pred step, 50, 43.464000 ms
+LOC_MAP, EKF pred step, 100, 58.652000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 4.850000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 49.958000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 221.904000 ms
+LOC_MAP, EKF pred step, 10, 0.221000 ms
+LOC_MAP, EKF pred step, 50, 55.579000 ms
+LOC_MAP, EKF pred step, 100, 53.167000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.238000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 47.279000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 201.831000 ms
+LOC_MAP, EKF pred step, 10, 0.218000 ms
+LOC_MAP, EKF pred step, 50, 40.745000 ms
+LOC_MAP, EKF pred step, 100, 49.640000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.234000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 47.342000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 203.197000 ms
+LOC_MAP, EKF pred step, 10, 0.218000 ms
+LOC_MAP, EKF pred step, 50, 44.157000 ms
+LOC_MAP, EKF pred step, 100, 54.809000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.275000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 46.747000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 195.941000 ms
+LOC_MAP, EKF pred step, 10, 0.226000 ms
+LOC_MAP, EKF pred step, 50, 24.230000 ms
+LOC_MAP, EKF pred step, 100, 58.082000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.342000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 48.070000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 204.637000 ms
+LOC_MAP, EKF pred step, 10, 0.245000 ms
+LOC_MAP, EKF pred step, 50, 39.464000 ms
+LOC_MAP, EKF pred step, 100, 54.049000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.316000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 47.183000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 199.768000 ms
+LOC_MAP, EKF pred step, 10, 0.225000 ms
+LOC_MAP, EKF pred step, 50, 45.988000 ms
+LOC_MAP, EKF pred step, 100, 54.134000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.019000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 45.708000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 196.448000 ms
+LOC_MAP, EKF pred step, 10, 0.219000 ms
+LOC_MAP, EKF pred step, 50, 47.770000 ms
+LOC_MAP, EKF pred step, 100, 56.604000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.344000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 51.666000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 222.275000 ms
+LOC_MAP, EKF pred step, 10, 0.217000 ms
+LOC_MAP, EKF pred step, 50, 43.704000 ms
+LOC_MAP, EKF pred step, 100, 56.018000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.505000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 50.906000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 224.478000 ms
+LOC_MAP, EKF pred step, 10, 0.227000 ms
+LOC_MAP, EKF pred step, 50, 47.279000 ms
+LOC_MAP, EKF pred step, 100, 55.849000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.138000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 51.337000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 220.929000 ms
+LOC_MAP, EKF pred step, 10, 0.217000 ms
+LOC_MAP, EKF pred step, 50, 40.649000 ms
+LOC_MAP, EKF pred step, 100, 59.494000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.205000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 47.962000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 216.089000 ms
+LOC_MAP, EKF pred step, 10, 0.221000 ms
+LOC_MAP, EKF pred step, 50, 38.866000 ms
+LOC_MAP, EKF pred step, 100, 59.046000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.670000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 54.714000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 230.882000 ms
+LOC_MAP, EKF pred step, 10, 0.223000 ms
+LOC_MAP, EKF pred step, 50, 34.215000 ms
+LOC_MAP, EKF pred step, 100, 54.439000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.327000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 52.170000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 219.018000 ms
+LOC_MAP, EKF pred step, 10, 0.231000 ms
+LOC_MAP, EKF pred step, 50, 37.635000 ms
+LOC_MAP, EKF pred step, 100, 56.734000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.257000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 49.706000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 214.446000 ms
+LOC_MAP, EKF pred step, 10, 0.213000 ms
+LOC_MAP, EKF pred step, 50, 39.063000 ms
+LOC_MAP, EKF pred step, 100, 47.059000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.173000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 47.214000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 205.460000 ms
+LOC_MAP, EKF pred step, 10, 0.218000 ms
+LOC_MAP, EKF pred step, 50, 39.227000 ms
+LOC_MAP, EKF pred step, 10, 0.216000 ms
+LOC_MAP, EKF pred step, 50, 39.226000 ms
+LOC_MAP, EKF pred step, 100, 48.430000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.306000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 48.833000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 211.673000 ms
+LOC_MAP, EKF pred step, 10, 0.215000 ms
+LOC_MAP, EKF pred step, 50, 39.708000 ms
+LOC_MAP, EKF pred step, 100, 50.371000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.166000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 46.703000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 204.091000 ms
+LOC_MAP, EKF pred step, 10, 0.220000 ms
+LOC_MAP, EKF pred step, 50, 35.114000 ms
+LOC_MAP, EKF pred step, 100, 47.067000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.312000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 49.068000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 213.401000 ms
+LOC_MAP, EKF pred step, 10, 0.213000 ms
+LOC_MAP, EKF pred step, 50, 39.128000 ms
+LOC_MAP, EKF pred step, 100, 48.297000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.071000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 46.291000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 208.663000 ms
+LOC_MAP, EKF pred step, 10, 0.222000 ms
+LOC_MAP, EKF pred step, 50, 31.023000 ms
+LOC_MAP, EKF pred step, 100, 46.457000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.240000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 57.016000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 249.296000 ms
+LOC_MAP, EKF pred step, 10, 0.217000 ms
+LOC_MAP, EKF pred step, 50, 32.315000 ms
+LOC_MAP, EKF pred step, 100, 46.146000 ms
+LOC_MAP, EKF Correction Step, 10 and 10 From "perception", 3.301000 ms
+LOC_MAP, EKF Correction Step, 50 and 10 From "perception", 47.829000 ms
+LOC_MAP, EKF Correction Step, 100 and 10 From "perception", 207.019000 ms
+LOC_MAP, EKF Correction Step, 200 and 10 From "perception", 1165.553000 ms
