@@ -1,7 +1,8 @@
 #ifndef SRC_LOC_MAP_INCLUDE_KALMAN_FILTER_EKF_HPP_
 #define SRC_LOC_MAP_INCLUDE_KALMAN_FILTER_EKF_HPP_
 
-#include <eigen3/Eigen/Dense>
+#include <Eigen/Dense>
+#include <Eigen/Sparse>
 #include <vector>
 
 #include "kalman_filter/motion_models.hpp"
@@ -24,8 +25,9 @@ class ExtendedKalmanFilter {
                                           from the expected position when the landmark is
                                           perceived to be 1 meter away */
 
-  Eigen::VectorXf X;                  /**< Expected state vector (localization + mapping) */
-  Eigen::MatrixXf P;                  /**< State covariance matrix */
+  Eigen::VectorXf X; /**< Expected state vector (localization + mapping) */
+  // Eigen::MatrixXf P;                  /**< State covariance matrix */
+  Eigen::SparseMatrix<float> P;       /**< Sparse State covariance matrix */
   std::vector<colors::Color> _colors; /**< Vector of colors of the landmarks */
 
   std::chrono::time_point<std::chrono::high_resolution_clock>
