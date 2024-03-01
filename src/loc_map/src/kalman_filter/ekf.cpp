@@ -40,12 +40,6 @@ void ExtendedKalmanFilter::set_P(int size) {
   this->P.coeffRef(1, 1) = 1.1;
   this->P.coeffRef(2, 2) = 1.1;
 }
-// void ExtendedKalmanFilter::set_P(int size) {
-//   this->P = Eigen::MatrixXf::Zero(size, size);
-//   this->P(0, 0) = 1.1;
-//   this->P(1, 1) = 1.1;
-//   this->P(2, 2) = 1.1;
-// }
 
 /**
  * @brief Initializes state X with size equal to parameter size
@@ -104,6 +98,8 @@ void ExtendedKalmanFilter::correction_step(const ConeMap &perception_map) {
         Eigen::Vector2f(observation_data.position.x,
                         observation_data.position.y);  // position of the landmark  observed
     this->X = this->X + K * (z - z_hat);
+    // TODO: divide into multiple calculation and measure time
+    // TODO: Diagram
     this->P =
         (Eigen::MatrixXf::Identity(this->P.rows(), this->P.cols()) - K * H).sparseView() * this->P;
   }
