@@ -8,6 +8,8 @@
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/bool.hpp"
+#include "adapter/fsds.hpp"
+#include "adapter/map.hpp"
 
 /**
  * @brief Publish Steering command when a new path is received
@@ -46,4 +48,7 @@ LateralControl::LateralControl() : Node("lateral_control_node") {
   path_subscription = this->create_subscription<custom_interfaces::msg::ConeArray>(
       "local_planning", 10,
       std::bind(&LateralControl::publish_steeringcommand, this, std::placeholders::_1));
+
+  // Adapter to communicate with the car
+  this->adapter = adapter_map[mode](this);
 }

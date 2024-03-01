@@ -15,6 +15,7 @@
   <depend>rclcpp</depend>
   <depend>std_msgs</depend>
   <depend>sensor_msgs</depend>
+  <depend>fs_msgs</depend>
   <depend>custom_interfaces</depend>
 
   <export>

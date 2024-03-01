@@ -1,8 +1,9 @@
 #include "loc_map/lm_node.hpp"
-
-#include "adapter/adapter.hpp"
 #include "utils/car.hpp"
 #include "utils/formulas.hpp"
+#include "adapter/eufs.hpp"
+#include "adapter/fsds.hpp"
+#include "adapter/map.hpp"
 
 /*---------------------- Constructor --------------------*/
 
@@ -22,7 +23,7 @@ LMNode::LMNode(ExtendedKalmanFilter *ekf, ConeMap *perception_map, MotionUpdate 
       this->create_publisher<custom_interfaces::msg::Pose>("vehicle_localization", 10);
   this->_map_publisher = this->create_publisher<custom_interfaces::msg::ConeArray>("track_map", 10);
 
-  new Adapter(this);
+  adapter = adapter_map[mode](this);
 }
 
 /*---------------------- Subscriptions --------------------*/
