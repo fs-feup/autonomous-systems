@@ -4,9 +4,9 @@
 #include <string>
 
 #include "custom_interfaces/msg/vcu.hpp"
+#include "fs_msgs/msg/control_command.hpp"
 #include "fs_msgs/msg/finished_signal.hpp"
 #include "fs_msgs/msg/go_signal.hpp"
-#include "fs_msgs/msg/control_command.hpp"
 #include "rclcpp/rclcpp.hpp"
 
 class LateralControl;

@@ -1,9 +1,8 @@
 #include "adapter/fsds.hpp"
+
 #include "lateral_control/lateral_control_node.hpp"
 
-FsdsAdapter::FsdsAdapter(LateralControl* lat_control) : Adapter(lat_control) {
-  this->init();
-}
+FsdsAdapter::FsdsAdapter(LateralControl* lat_control) : Adapter(lat_control) { this->init(); }
 
 void FsdsAdapter::init() {
   this->fsds_state_subscription_ = this->node->create_subscription<fs_msgs::msg::GoSignal>(
@@ -34,7 +33,7 @@ void FsdsAdapter::publish_cmd(float acceleration, float braking, float steering)
 
 void FsdsAdapter::finish() {
   auto message = fs_msgs::msg::FinishedSignal();
-  message.placeholder = true; // unnecessary
+  message.placeholder = true;  // unnecessary
 
   this->fsds_ebs_publisher_->publish(message);
 }

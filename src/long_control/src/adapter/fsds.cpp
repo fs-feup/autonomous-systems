@@ -1,4 +1,5 @@
 #include "adapter/fsds.hpp"
+
 #include "node_/node_long_control.hpp"
 
 FsdsAdapter::FsdsAdapter(LongitudinalControl* long_control) : Adapter(long_control) {
@@ -35,7 +36,7 @@ void FsdsAdapter::publish_cmd(float acceleration, float braking, float steering)
 
 void FsdsAdapter::finish() {
   auto message = fs_msgs::msg::FinishedSignal();
-  message.placeholder = true; // unnecessary
+  message.placeholder = true;  // unnecessary
 
   this->fsds_ebs_publisher_->publish(message);
 }
