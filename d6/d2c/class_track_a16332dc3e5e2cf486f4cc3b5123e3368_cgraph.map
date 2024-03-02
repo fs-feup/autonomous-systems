@@ -1,0 +1,23 @@
+<map id="Track::deleteOutliers" name="Track::deleteOutliers">
+<area shape="rect" id="Node000001" title="Delete outliers from the track." alt="" coords="5,56,146,82"/>
+<area shape="rect" id="Node000002" href="$d6/d2c/class_track.html#a0a96070bdb3ec817c8db998823b32610" title="function to fit spline to cone sequence" alt="" coords="204,7,310,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="125,53,191,34,193,40,126,58"/>
+<area shape="rect" id="Node000004" href="$dd/d8b/files_8cpp.html#a257b6927df658c26c8eded5bf6d569d2" title=" " alt="" coords="207,56,307,82"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="146,66,192,66,192,72,146,72"/>
+<area shape="rect" id="Node000005" href="$d6/d2c/class_track.html#a2926e21af0cc187d3f4f2b1194ee98cd" title="Order the cones before fitting splines." alt="" coords="194,107,320,132"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="125,80,195,99,193,105,124,85"/>
+<area shape="rect" id="Node000003" href="$d6/d2c/class_track.html#af8be3556aade761aa0851df8b6371dce" title="Used for logging content of gsl_vectors." alt="" coords="373,5,515,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="311,16,357,16,357,21,311,22"/>
+<area shape="rect" id="Node000006" href="$d8/da1/class_cone.html#a1fd598dec938e232ee09e16abe1b6a0d" title=" " alt="" coords="374,156,515,182"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="309,130,379,149,377,154,308,136"/>
+<area shape="rect" id="Node000007" href="$d8/da1/class_cone.html#a51a49cc249e79d06f6a983250fe809b3" title=" " alt="" coords="568,107,653,132"/>
+<area shape="poly" id="edge8_Node000005_Node000007" title=" " alt="" coords="305,103,368,92,444,85,521,92,557,99,556,104,520,97,444,90,368,97,306,109"/>
+<area shape="rect" id="Node000008" href="$d8/da1/class_cone.html#a952987a9de5d20d7930b3e93c04fd278" title=" " alt="" coords="568,156,653,182"/>
+<area shape="poly" id="edge9_Node000005_Node000008" title=" " alt="" coords="273,131,314,163,340,180,369,192,417,200,466,200,514,193,555,184,556,189,515,199,467,205,416,206,367,197,338,184,311,168,270,135"/>
+<area shape="rect" id="Node000009" href="$d6/d2c/class_track.html#aceda92bc02f39cd9127b31bc04ef7feb" title="Check if the direction of two cones is consistent." alt="" coords="368,107,520,132"/>
+<area shape="poly" id="edge10_Node000005_Node000009" title=" " alt="" coords="320,117,353,117,353,122,320,122"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="489,153,553,134,554,139,491,158"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="515,166,553,166,553,172,515,172"/>
+<area shape="poly" id="edge11_Node000009_Node000007" title=" " alt="" coords="521,117,553,117,553,122,521,122"/>
+<area shape="poly" id="edge12_Node000009_Node000008" title=" " alt="" coords="491,130,554,149,553,155,489,136"/>
+</map>

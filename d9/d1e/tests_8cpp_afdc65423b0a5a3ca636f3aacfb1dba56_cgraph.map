@@ -1,5 +1,5 @@
 <map id="TEST" name="TEST">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,229,60,255"/>
+<area shape="rect" id="Node000001" title="simple but realistic scenario with few cones and fwe outliers" alt="" coords="5,229,60,255"/>
 <area shape="rect" id="Node000002" href="$d6/d2c/class_track.html#af563702e457e6b2da5e127a7981b9453" title="Fill the track data from a file." alt="" coords="143,55,249,80"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="44,227,170,90,174,93,48,231"/>
 <area shape="rect" id="Node000005" href="$d3/da1/class_local_path_planner.html#a47071d4f5dd1c080bf087089023d5382" title="Process an array of cones to generate a local path." alt="" coords="108,395,284,436"/>

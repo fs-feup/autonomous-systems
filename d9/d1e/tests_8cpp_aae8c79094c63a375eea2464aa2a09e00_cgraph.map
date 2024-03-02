@@ -1,0 +1,9 @@
+<map id="TEST" name="TEST">
+<area shape="rect" id="Node000001" title="more complex scenario with cones deviating from path and with significant curvature" alt="" coords="5,31,60,56"/>
+<area shape="rect" id="Node000002" href="$d7/db7/class_path_smoothing.html#a353e6d4bfab4b2a3f92cd630d8dd2175" title="Fill the track data from a file." alt="" coords="108,31,263,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,41,92,41,92,46,60,46"/>
+<area shape="rect" id="Node000003" href="$d7/db7/class_path_smoothing.html#a0ea650cb431af618f5c4b0977dfcca4a" title="adds point to path" alt="" coords="311,5,505,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="263,32,295,28,296,34,263,37"/>
+<area shape="rect" id="Node000004" href="$dd/d8b/files_8cpp.html#a440bc5364e11c37c13f14f7a0d1c7208" title=" " alt="" coords="358,55,458,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="263,49,343,58,342,63,263,54"/>
+</map>

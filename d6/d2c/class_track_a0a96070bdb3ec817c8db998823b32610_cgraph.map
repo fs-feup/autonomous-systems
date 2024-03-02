@@ -1,0 +1,5 @@
+<map id="Track::fitSpline" name="Track::fitSpline">
+<area shape="rect" id="Node000001" title="function to fit spline to cone sequence" alt="" coords="5,5,112,31"/>
+<area shape="rect" id="Node000002" href="$d6/d2c/class_track.html#af8be3556aade761aa0851df8b6371dce" title="Used for logging content of gsl_vectors." alt="" coords="160,5,302,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="112,16,145,16,145,21,112,21"/>
+</map>

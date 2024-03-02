@@ -10,5 +10,6 @@ var searchData=
   ['setup_7',['setup',['../d2/dac/class_exec_time_test_e_k_f_tests.html#aa83fc30d94e975858d4c9dc1776224b4',1,'ExecTimeTestEKFTests::SetUp()'],['../df/d59/class_exec_time_test.html#a64000aac86caa614a48abb2db86fa6e8',1,'ExecTimeTest::SetUp()'],['../d8/d90/class_d_b_s_c_a_n_test.html#a7ffdae0cc4ecc8b60bf500c26c10822a',1,'DBSCANTest::SetUp()'],['../de/d1e/class_least_squares_differentiation_test.html#ad6ddecb71e84de48c2c5245d081af7b4',1,'LeastSquaresDifferentiationTest::SetUp()'],['../d8/d5a/class_r_a_n_s_a_c_test.html#a072616236371d0a7d1b227925765b208',1,'RANSACTest::SetUp()'],['../d7/d4e/class_integration_test.html#a86a6d164c257739c10d039798dc7a500',1,'IntegrationTest::SetUp()']]],
   ['setx_8',['setX',['../d8/da1/class_cone.html#af72e761554d3e39ba6ac88f9971f5bc7',1,'Cone']]],
   ['sety_9',['setY',['../d8/da1/class_cone.html#a9136643a197ccd7b38f32391b965d808',1,'Cone']]],
-  ['shift_10',['shift',['../d2/de4/namespaceskidpad__mapper.html#a525cc4232cf215956ee076464a1c476d',1,'skidpad_mapper']]]
+  ['shift_10',['shift',['../d2/de4/namespaceskidpad__mapper.html#a525cc4232cf215956ee076464a1c476d',1,'skidpad_mapper']]],
+  ['splinesmoother_11',['splineSmoother',['../d7/db7/class_path_smoothing.html#a91c756b1034319b0f4d90f1b897348d6',1,'PathSmoothing']]]
 ];

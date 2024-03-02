@@ -1,15 +1,29 @@
 <map id="PathPoint::getDistanceTo" name="PathPoint::getDistanceTo">
-<area shape="rect" id="Node000001" title=" " alt="" coords="528,80,697,106"/>
-<area shape="rect" id="Node000002" href="$d3/da1/class_local_path_planner.html#a47071d4f5dd1c080bf087089023d5382" title="Process an array of cones to generate a local path." alt="" coords="304,73,480,113"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="513,96,481,96,481,90,513,90"/>
-<area shape="rect" id="Node000003" href="$d9/d1e/tests_8cpp.html#a55704aa7075eaaa1347216362cef2762" title="Test function for Delaunay Triangulations&#39; efficiency. Runs 100 times to get average execution time." alt="" coords="108,55,256,80"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="288,83,256,79,256,74,288,78"/>
-<area shape="rect" id="Node000007" href="$d9/d1e/tests_8cpp.html#afdc65423b0a5a3ca636f3aacfb1dba56" title=" " alt="" coords="155,104,209,130"/>
-<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="288,107,210,116,209,111,288,102"/>
-<area shape="rect" id="Node000004" href="$d9/d1e/tests_8cpp.html#aa4387a361b1943b82c6e9ef915917c12" title=" " alt="" coords="5,5,60,31"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="125,52,59,29,61,24,127,47"/>
-<area shape="rect" id="Node000005" href="$d9/d1e/tests_8cpp.html#a978f4baa8d39fb740ed92fd44ba50933" title=" " alt="" coords="5,55,60,80"/>
-<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="92,70,60,70,60,65,92,65"/>
-<area shape="rect" id="Node000006" href="$d9/d1e/tests_8cpp.html#aaff9fd771beea10b1e522702042da27c" title=" " alt="" coords="5,104,60,130"/>
-<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="126,88,109,94,61,110,59,105,107,89,124,83"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="734,149,903,175"/>
+<area shape="rect" id="Node000002" href="$d7/db7/class_path_smoothing.html#a17371b9028a6c6daa56717aa143b59fb" title="Orders the path to fit spline." alt="" coords="512,75,684,100"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="763,146,638,104,640,98,765,141"/>
+<area shape="rect" id="Node000005" href="$d3/da1/class_local_path_planner.html#a47071d4f5dd1c080bf087089023d5382" title="Process an array of cones to generate a local path." alt="" coords="510,170,686,211"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="720,177,687,182,687,176,719,172"/>
+<area shape="rect" id="Node000003" href="$d7/db7/class_path_smoothing.html#aae6d8b2ff86ec4829ddb3fc2b0ba0856" title="Function designed to smooth the path via spline." alt="" coords="265,29,462,55"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="512,74,433,58,434,53,513,68"/>
+<area shape="rect" id="Node000004" href="$d7/db7/class_path_smoothing.html#a3d01e4505290cebb79be3b8c645a8d77" title="calls pathSmoother with default values for precision, order and coeffs_ratio that were determined to ..." alt="" coords="5,5,217,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="249,34,217,31,217,26,249,29"/>
+<area shape="rect" id="Node000006" href="$d9/d1e/tests_8cpp.html#a55704aa7075eaaa1347216362cef2762" title="Test function for Delaunay Triangulations&#39; efficiency. Runs 100 times to get average execution time." alt="" coords="289,79,438,104"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="550,164,508,140,461,118,428,107,430,102,463,113,510,135,553,159"/>
+<area shape="rect" id="Node000010" href="$d9/d1e/tests_8cpp.html#afdc65423b0a5a3ca636f3aacfb1dba56" title="simple but realistic scenario with few cones and fwe outliers" alt="" coords="336,128,391,154"/>
+<area shape="poly" id="edge9_Node000005_Node000010" title=" " alt="" coords="495,171,390,149,392,144,496,166"/>
+<area shape="rect" id="Node000011" href="$d9/d1e/tests_8cpp.html#af9952ff008604d30cd729682048e2167" title="scenario: Large piece of track with no outliers" alt="" coords="336,177,391,203"/>
+<area shape="poly" id="edge10_Node000005_Node000011" title=" " alt="" coords="495,193,391,193,391,188,495,188"/>
+<area shape="rect" id="Node000012" href="$d9/d1e/tests_8cpp.html#ad18f9702442704e6ba155492f9317546" title="scenario with large track that barely has outliers (only 2)" alt="" coords="336,227,391,252"/>
+<area shape="poly" id="edge11_Node000005_Node000012" title=" " alt="" coords="496,214,392,237,390,231,495,209"/>
+<area shape="rect" id="Node000013" href="$d9/d1e/tests_8cpp.html#ac52f5bb92ce5fead956b460602be5875" title="scenario: cones in parallel straight lines that shows that cones exaclty in a circumference are not c..." alt="" coords="336,276,391,302"/>
+<area shape="poly" id="edge12_Node000005_Node000013" title=" " alt="" coords="553,221,510,245,463,267,392,287,390,282,461,262,508,241,550,217"/>
+<area shape="rect" id="Node000014" href="$d9/d1e/tests_8cpp.html#a24abd4bbadec3144e9f2562ff43add80" title="scenario: small track with sharp edge" alt="" coords="336,325,391,351"/>
+<area shape="poly" id="edge13_Node000005_Node000014" title=" " alt="" coords="573,224,525,272,495,296,463,317,427,331,392,338,391,333,425,325,461,312,492,292,521,268,569,220"/>
+<area shape="rect" id="Node000007" href="$d9/d1e/tests_8cpp.html#aa4387a361b1943b82c6e9ef915917c12" title=" " alt="" coords="84,55,138,80"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="273,86,138,73,139,67,274,80"/>
+<area shape="rect" id="Node000008" href="$d9/d1e/tests_8cpp.html#a978f4baa8d39fb740ed92fd44ba50933" title=" " alt="" coords="84,104,138,130"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="274,103,139,117,138,112,273,98"/>
+<area shape="rect" id="Node000009" href="$d9/d1e/tests_8cpp.html#aaff9fd771beea10b1e522702042da27c" title=" " alt="" coords="84,153,138,179"/>
+<area shape="poly" id="edge8_Node000006_Node000009" title=" " alt="" coords="284,112,266,118,242,131,218,145,177,157,139,165,138,160,175,152,216,140,239,127,264,113,282,107"/>
 </map>

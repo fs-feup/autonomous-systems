@@ -1,3 +1,15 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$d6/d2c/class_track.html" title=" " alt="" coords="5,5,60,31"/>
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,129,98,155"/>
+<area shape="rect" id="Node000001" href="$d8/d90/class_d_b_s_c_a_n_test.html" title="Test fixture for the DBSCAN class." alt="" coords="198,5,301,31"/>
+<area shape="poly" id="edge19_Node000000_Node000001" title=" " alt="" coords="68,115,100,76,121,56,144,40,170,28,197,21,199,26,172,33,147,44,124,60,104,80,72,118"/>
+<area shape="rect" id="Node000002" href="$df/d59/class_exec_time_test.html" title=" " alt="" coords="197,55,302,80"/>
+<area shape="poly" id="edge20_Node000000_Node000002" title=" " alt="" coords="85,119,145,89,196,74,197,79,147,94,87,123"/>
+<area shape="rect" id="Node000003" href="$d2/dac/class_exec_time_test_e_k_f_tests.html" title="Test class for performance measurements of Extended Kalman Filter steps." alt="" coords="168,104,331,130"/>
+<area shape="poly" id="edge21_Node000000_Node000003" title=" " alt="" coords="112,132,167,125,168,130,113,137"/>
+<area shape="rect" id="Node000004" href="$d7/d4e/class_integration_test.html" title=" " alt="" coords="195,153,304,179"/>
+<area shape="poly" id="edge22_Node000000_Node000004" title=" " alt="" coords="114,147,195,157,194,162,113,152"/>
+<area shape="rect" id="Node000005" href="$de/d1e/class_least_squares_differentiation_test.html" title="Fixture for testing the LeastSquaresDifferentiation class." alt="" coords="146,203,353,228"/>
+<area shape="poly" id="edge23_Node000000_Node000005" title=" " alt="" coords="89,161,147,189,180,199,179,205,145,194,86,166"/>
+<area shape="rect" id="Node000006" href="$d8/d5a/class_r_a_n_s_a_c_test.html" title="Test class for setting up data and testing RANSAC algorithm." alt="" coords="198,252,301,278"/>
+<area shape="poly" id="edge24_Node000000_Node000006" title=" " alt="" coords="72,166,104,204,124,223,147,239,172,250,199,257,197,262,170,255,144,243,121,227,100,208,68,169"/>
 </map>

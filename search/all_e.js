@@ -32,6 +32,8 @@ var searchData=
   ['localization_5fsubscription_29',['localization_subscription',['../d8/dee/classplots_1_1plots_1_1_plots.html#a3bbc3bfc6d94f02b7265c7d04fec110a',1,'plots::plots::Plots']]],
   ['localpathplanner_30',['localpathplanner',['../d3/da1/class_local_path_planner.html#a12f6c5e61ef29f78904ccaedb3b4b80f',1,'LocalPathPlanner::LocalPathPlanner()'],['../d3/da1/class_local_path_planner.html',1,'LocalPathPlanner']]],
   ['locmap_5fsender_31',['locmap_sender',['../d7/d4e/class_integration_test.html#a9af8879bf09a9767daab48d991af0046',1,'IntegrationTest']]],
-  ['longitudinal_20controller_32',['Longitudinal Controller',['../d9/dbb/md_src_2long__control_2_r_e_a_d_m_e.html',1,'']]],
-  ['longitudinalcontrol_33',['longitudinalcontrol',['../d4/de8/class_longitudinal_control.html#a0e42e93bf2f90317c7895fbab3d2ebe2',1,'LongitudinalControl::LongitudinalControl()'],['../d4/de8/class_longitudinal_control.html',1,'LongitudinalControl']]]
+  ['logcones_32',['logCones',['../d6/d2c/class_track.html#a74da16c54345ef8158d6dacf1045986c',1,'Track']]],
+  ['logpathpoints_33',['logPathPoints',['../d7/db7/class_path_smoothing.html#a87de9c2f357b06e04b33311cdf822485',1,'PathSmoothing']]],
+  ['longitudinal_20controller_34',['Longitudinal Controller',['../d9/dbb/md_src_2long__control_2_r_e_a_d_m_e.html',1,'']]],
+  ['longitudinalcontrol_35',['longitudinalcontrol',['../d4/de8/class_longitudinal_control.html#a0e42e93bf2f90317c7895fbab3d2ebe2',1,'LongitudinalControl::LongitudinalControl()'],['../d4/de8/class_longitudinal_control.html',1,'LongitudinalControl']]]
 ];

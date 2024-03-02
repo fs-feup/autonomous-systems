@@ -1,0 +1,9 @@
+<map id="PathSmoothing::vector_direction" name="PathSmoothing::vector_direction">
+<area shape="rect" id="Node000001" title="Check if the direction of two cones is consistent." alt="" coords="730,5,883,46"/>
+<area shape="rect" id="Node000002" href="$d7/db7/class_path_smoothing.html#a17371b9028a6c6daa56717aa143b59fb" title="Orders the path to fit spline." alt="" coords="510,13,682,39"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="715,28,683,28,683,23,715,23"/>
+<area shape="rect" id="Node000003" href="$d7/db7/class_path_smoothing.html#aae6d8b2ff86ec4829ddb3fc2b0ba0856" title="Function designed to smooth the path via spline." alt="" coords="265,13,462,39"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="494,28,463,28,463,23,494,23"/>
+<area shape="rect" id="Node000004" href="$d7/db7/class_path_smoothing.html#a3d01e4505290cebb79be3b8c645a8d77" title="calls pathSmoother with default values for precision, order and coeffs_ratio that were determined to ..." alt="" coords="5,13,217,39"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="249,28,217,28,217,23,249,23"/>
+</map>

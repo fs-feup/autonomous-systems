@@ -42,6 +42,7 @@ var hierarchy =
     [ "ObservationData", "d9/d90/struct_observation_data.html", null ],
     [ "ObservationModel", "d7/d64/class_observation_model.html", null ],
     [ "PathPoint", "d9/d32/class_path_point.html", null ],
+    [ "PathSmoothing", "d7/db7/class_path_smoothing.html", null ],
     [ "PID", "d6/d5a/class_p_i_d.html", null ],
     [ "Pose", "d8/d11/struct_pose.html", null ],
     [ "plots.plots.Position", "d3/d6d/classplots_1_1plots_1_1_position.html", [

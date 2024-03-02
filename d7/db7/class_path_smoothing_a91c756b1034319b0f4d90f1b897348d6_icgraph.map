@@ -1,0 +1,7 @@
+<map id="PathSmoothing::splineSmoother" name="PathSmoothing::splineSmoother">
+<area shape="rect" id="Node000001" title="Fits spline to path." alt="" coords="510,5,716,31"/>
+<area shape="rect" id="Node000002" href="$d7/db7/class_path_smoothing.html#aae6d8b2ff86ec4829ddb3fc2b0ba0856" title="Function designed to smooth the path via spline." alt="" coords="265,5,462,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="494,21,463,21,463,16,494,16"/>
+<area shape="rect" id="Node000003" href="$d7/db7/class_path_smoothing.html#a3d01e4505290cebb79be3b8c645a8d77" title="calls pathSmoother with default values for precision, order and coeffs_ratio that were determined to ..." alt="" coords="5,5,217,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="249,21,217,21,217,16,249,16"/>
+</map>
