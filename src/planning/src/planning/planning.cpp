@@ -1,9 +1,26 @@
 #include "planning/planning.hpp"
 
+
+#include <functional>
+#include <memory>
+#include <string>
+#include <vector>
+
+#include "custom_interfaces/msg/cone_array.hpp"
+#include "custom_interfaces/msg/point2d.hpp"
+#include "custom_interfaces/msg/point_array.hpp"
+#include "custom_interfaces/msg/pose.hpp"
+#include "custom_interfaces/msg/path_point.hpp"
+#include "custom_interfaces/msg/path_point_array.hpp"
+#include "planning/global_path_planner.hpp"
+#include "planning/local_path_planner.hpp"
+#include "utils/files.hpp"
+
 #include "adapter/adsdv.hpp"
 #include "adapter/eufs.hpp"
 #include "adapter/fsds.hpp"
 #include "adapter/map.hpp"
+
 
 using std::placeholders::_1;
 
@@ -14,9 +31,9 @@ Planning::Planning() : Node("planning") {
 
   // Control Publishers
   this->local_pub_ =
-      this->create_publisher<custom_interfaces::msg::PointArray>("planning_local", 10);
+      this->create_publisher<custom_interfaces::msg::PathPointArray>("planning_local", 10);
   this->global_pub_ =
-      this->create_publisher<custom_interfaces::msg::PointArray>("planning_global", 10);
+      this->create_publisher<custom_interfaces::msg::PathPointArray>("planning_global", 10);
 
   // Publishes path from file in Skidpad & Acceleration events
   this->timer_ = this->create_wall_timer(
@@ -54,12 +71,13 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray msg) {
  * Publisher point by point
  */
 void Planning::publish_track_points(std::vector<PathPoint *> path) const {
-  auto message = custom_interfaces::msg::PointArray();
+  auto message = custom_interfaces::msg::PathPointArray();
   for (auto const &element : path) {
-    auto point = custom_interfaces::msg::Point2d();
+    auto point = custom_interfaces::msg::PathPoint();
     point.x = element->getX();
     point.y = element->getY();
-    message.points.push_back(point);
+    point.v = element->getV();
+    message.pathpoint_array.push_back(point);
     RCLCPP_DEBUG(this->get_logger(), "[published] (%f, %f)", point.x, point.y);
   }
   local_pub_->publish(message);
