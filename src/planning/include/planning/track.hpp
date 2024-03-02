@@ -1,5 +1,5 @@
-#ifndef SRC_PLANNING_PLANNING_INCLUDE_PLANNING_TRACK_HPP_
-#define SRC_PLANNING_PLANNING_INCLUDE_PLANNING_TRACK_HPP_
+#ifndef SRC_PLANNING_INCLUDE_PLANNING_TRACK_HPP_
+#define SRC_PLANNING_INCLUDE_PLANNING_TRACK_HPP_
 
 #include <gsl/gsl_bspline.h>
 #include <gsl/gsl_multifit.h>
@@ -9,6 +9,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <utility>
+#include <cmath>
 
 #include "rclcpp/rclcpp.hpp"
 #include "utils/cone.hpp"
@@ -40,6 +42,21 @@ class Track {
    * Frees memory by deleting all cone objects in the left and right cone lists.
    */
   ~Track();
+
+  /**
+   * @brief log cones on one side of the track
+   *
+   * @param side if true -> left, false -> right
+  */
+  void logCones(bool side);
+
+  /**
+   * @brief used to calculate max distance between consecutive cones for testing
+   * 
+   * @param side true -> left | false -> right
+   * @return maximum distance between consecutive cones
+   */
+  float getMaxDistance(bool side);
 
   /**
    * @brief Get the right cone at a specified index.
@@ -109,6 +126,16 @@ class Track {
    * @return A pointer to the found cone or nullptr if not found.
    */
   Cone *findCone(float x, float y);
+
+  /**
+   * @brief Used for logging content of gsl_vectors
+   * 
+   * @param gsl gsl_vector of pointers
+   * @param n number of elements in the gsl_vector
+   * @return content of the gsl_vector separated with spaces
+   */
+  std::string gsl_vectorLog(gsl_vector *gsl, int n);
+
   /**
    * @brief Check if the direction of two cones is consistent.
    *
@@ -119,12 +146,38 @@ class Track {
    * @return True if the direction is consistent, false otherwise.
    */
   bool vector_direction(Cone *c1, Cone *c2, float prev_vx, float prev_vy);
+
+  /**
+   * @brief Order the cones before fitting splines
+   *
+   * @param unord_cone_seq Unordered array of cones
+   * @return Ordered array of cones
+  */
+  std::vector<Cone *> orderCones(std::vector<Cone *> *unord_cone_seq);
+
+  /**
+   * @brief function to fit spline to cone sequence
+   * 
+   * @param side Whether to fit spline to the left (true) or right (false)
+   * cone list.
+   * @param precision controls the amount of points in the parametrized 
+   * spline (1 means one point per unit of the parameter unit). As a good rule of thumb 
+   * use 1 for outlier removal (that will mean each cone has its corresponding spline point) 
+   * and 10-100 for path smoothing
+   * @param order Degree of the B-spline. It is a parameter that determines
+   * the degree of the polynomial functions used to interpolate between breakpoints.
+   * @param coeffs_ratio The ratio of coefficients to cone count for fitting the
+   * spline
+   * @param cone_seq ordered sequence of cones
+   * @return cones in the spline
+   */
+  std::vector<Cone  *> fitSpline(bool side, int precision,
+  int order, float coeffs_ratio, std::vector<Cone *> cone_seq);
+
   /**
    * @brief Validate the cones in the track by deleting outliers.
-   *
-   * @return The total number of deleted outliers.
    */
-  int validateCones();
+  void validateCones();
   /**
 
  * @brief Delete outliers from the track.
@@ -135,48 +188,20 @@ class Track {
  * @param order The order for fitting the spline.
  * @param coeffs_ratio The ratio of coefficients to cone count for fitting the
  spline.
- * @param writing Whether it's pretended to write splines or removed cones
+ * @param writing Whether it's intended to write splines or removed cones'
  information to a file
- * @return The number of deleted outliers.
- * @details The `deleteOutliers` function is designed to remove the cone
- outliers from the track.
- * Outliers are data points that significantly deviate from the expected pattern
- or behavior of the track.
- *
- * The function operates based on the provided parameters:
- *
- * - `side`: When `side` is set to `true`, outliers are removed from the left
- side
- *   of the cone list; when set to `false`, outliers are removed from the right
- side.
- * - `distance_threshold`: This parameter determines the maximum allowable
- distance
- *   for a point to be considered an outlier. Points exceeding this distance
- from
- *   the expected behavior are identified as outliers.
- * - `order`: The order parameter influences the degree of the B-spline used for
- *   modeling the track. A higher order generally allows for more flexible curve
- fitting.
- * - `coeffs_ratio`: This parameter controls the complexity of the B-spline
- fitting
- *   process by specifying the ratio of coefficients to the total cone count.
- *
- * The function combines B-spline modeling, linear regression, and outlier
+ * @param precision Ratio of cones in the cones to the initial number of cones
+ * @details The function combines B-spline modeling, linear regression, and outlier
  detection
  * techniques to identify and remove outliers effectively. The specific
  implementation
  * details, such as how B-splines are created and evaluated, how linear
  regression is
  * applied, and how the outlier detection process works, are encapsulated within
- the
- * function's logic.
- *
- * @return The function returns the count of outliers that were successfully
- removed
- * from the track.
+ the function's logic.
  */
-  int deleteOutliers(bool side, float distance_threshold, int order, float coeffs_ratio,
-                     bool writing);
+  void deleteOutliers(bool side, int order, float coeffs_ratio,
+                     bool writing, int precision);
 
   /**
    * @brief Reset the track by clearing cone lists.
