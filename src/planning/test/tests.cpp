@@ -58,7 +58,7 @@ float round_n(float num, int decimal_places) {
 /**
  * @brief Test function for Delaunay Triangulations' efficiency. 
  * Runs 100 times to get average execution time.
- * 
+ *
  * @param filename path to the file that contains the data for testing
  * @param testname name of the test
  * @return path after Delaunay Triangulations
@@ -105,9 +105,9 @@ std::vector<PathPoint> processTriangulations(std::string filename,  std::string 
 }
 
 /**
- * @brief Test function for outlier removal's efficiency. 
+ * @brief Test function for outlier removal's efficiency.
  * Runs 100 times and calculates average duration.
- * 
+ *
  * @param filename path to the file that contains the data for testing
  * @param testname name of the test
  */

@@ -5,6 +5,8 @@
 #include <memory>
 #include <string>
 
+#include "adapter/fsds.hpp"
+#include "adapter/map.hpp"
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
@@ -36,4 +38,7 @@ LongitudinalControl::LongitudinalControl() : Node("node_long_control") {
 
   // creates publisher that should yield torque/acceleration/...
   result = this->create_publisher<std_msgs::msg::String>("torque_topic", 10);
+
+  // Adapter to communicate with the car
+  this->adapter = adapter_map[mode](this);
 }

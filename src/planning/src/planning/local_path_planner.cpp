@@ -9,8 +9,8 @@
 
 LocalPathPlanner::LocalPathPlanner() : track() {}
 
-bool LocalPathPlanner::vector_direction(PathPoint *p1, PathPoint *p2,
-   float prev_vx, float prev_vy) {
+bool LocalPathPlanner::vector_direction(PathPoint *p1, PathPoint *p2, float prev_vx,
+                                        float prev_vy) {
   float vx = p2->getX() - p1->getX();
   float vy = p2->getY() - p1->getY();
 
@@ -44,7 +44,7 @@ std::vector<PathPoint *> LocalPathPlanner::processNewArray(Track *cone_array) {
   // Process valid triangulations and add positions to unordered_path
 
   for (DT::Finite_edges_iterator it = dt.finite_edges_begin(); it != dt.finite_edges_end(); ++it) {
-    // Extract vertices' coordinates from the edge
+    // Extract vertices' coordinates from both edges
     float x1 = it->first->vertex((it->second + 1) % 3)->point().x();
     float y1 = it->first->vertex((it->second + 1) % 3)->point().y();
     float x2 = it->first->vertex((it->second + 2) % 3)->point().x();
@@ -55,7 +55,8 @@ std::vector<PathPoint *> LocalPathPlanner::processNewArray(Track *cone_array) {
     Cone *cone2 = track.findCone(x2, y2);
 
     // Check conditions for valid triangulation
-    if (cone1 != nullptr && cone2 != nullptr && cone1->getId() % 2 != cone2->getId() % 2) {
+    // both cones are not null and one of them is left and the other is right
+    if (cone1 != nullptr && cone2 != nullptr && (cone1->getId() % 2 != cone2->getId() % 2)) {
       // Calculate the midpoint between the two cones
       float xDist = cone2->getX() - cone1->getX();
       float yDist = cone2->getY() - cone1->getY();

@@ -14,7 +14,7 @@
  */
 
 class GlobalPathPlanner {
-  Track *track;                       // track input data
+  Track *track;                        // track input data
   std::vector<PathPoint *> finalPath;  // path calculation result
 
  public:

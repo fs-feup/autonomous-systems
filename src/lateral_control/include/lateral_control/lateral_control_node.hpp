@@ -4,10 +4,13 @@
 #include <memory>
 #include <string>
 
+#include "adapter/adapter.hpp"
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/bool.hpp"
 #include "std_msgs/msg/string.hpp"
+
+class Adapter;
 
 /**
  * @class LateralControl
@@ -24,6 +27,8 @@ class LateralControl : public rclcpp::Node {
   // rclcpp::Subscription<std_msgs::msg::String>::SharedPtr current_velocity;
   // rclcpp::Subscription<std_msgs::msg::String>::SharedPtr current_pos;
   rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr path_subscription;
+  Adapter *adapter;
+  std::string mode = "fsds";  // Temporary, change as desired. TODO(andre): Make not hardcoded
 
   /**
    * @brief Publish Steering command when a new path is received
