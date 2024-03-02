@@ -17,6 +17,7 @@ bool LocalPathPlanner::vector_direction(PathPoint *p1, PathPoint *p2, float prev
   return (vx * prev_vx + vy * prev_vy) > 0;
 }
 
+
 std::vector<PathPoint *> LocalPathPlanner::processNewArray(Track *cone_array) {
   std::vector<std::pair<PathPoint *, bool>> unordered_path;
 
