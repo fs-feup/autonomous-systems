@@ -1,7 +1,10 @@
 #include <pcl/common/io.h>
-#include <pcl/features/normal_3d.h>
 #include <pcl/conversions.h>
-#include <perception/perception_node.hpp>
+#include <pcl/features/normal_3d.h>
+
+#include <cstdio>
+
+#include "perception/perception_node.hpp"
 
 int main(int argc, char** argv) {
   rclcpp::init(argc, argv);

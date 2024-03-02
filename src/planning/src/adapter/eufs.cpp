@@ -1,9 +1,8 @@
 #include "adapter/eufs.hpp"
+
 #include "planning/planning.hpp"
 
-EufsAdapter::EufsAdapter(Planning* planning) : Adapter(planning) {
-  this->init();
-}
+EufsAdapter::EufsAdapter(Planning* planning) : Adapter(planning) { this->init(); }
 
 void EufsAdapter::init() {
   this->eufs_state_subscription_ = this->node->create_subscription<eufs_msgs::msg::CanState>(
@@ -34,7 +33,4 @@ void EufsAdapter::set_mission_state(int mission, int state) {
   }
 }
 
-void EufsAdapter::finish() {
-    std::cout << "Finish undefined for Eufs\n";
-}
-
+void EufsAdapter::finish() { std::cout << "Finish undefined for Eufs\n"; }

@@ -1,9 +1,8 @@
 #include "adapter/fsds.hpp"
+
 #include "planning/planning.hpp"
 
-FsdsAdapter::FsdsAdapter(Planning* planning) : Adapter(planning) {
-  this->init();
-}
+FsdsAdapter::FsdsAdapter(Planning* planning) : Adapter(planning) { this->init(); }
 
 void FsdsAdapter::init() {
   this->fsds_state_subscription_ = this->node->create_subscription<fs_msgs::msg::GoSignal>(
@@ -20,15 +19,12 @@ void FsdsAdapter::mission_state_callback(const fs_msgs::msg::GoSignal msg) {
 }
 
 void FsdsAdapter::set_mission_state(int mission, int state) {
-    std::cout << "Set mission undefined for Eufs\n";
+  std::cout << "Set mission undefined for Eufs\n";
 }
 
 void FsdsAdapter::finish() {
   auto message = fs_msgs::msg::FinishedSignal();
-  message.placeholder = true; // unnecessary
+  message.placeholder = true;  // unnecessary
 
   this->fsds_ebs_publisher_->publish(message);
 }
-
-
-
