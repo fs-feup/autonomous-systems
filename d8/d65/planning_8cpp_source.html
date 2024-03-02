@@ -100,93 +100,94 @@ $(document).ready(function(){initNavTree('d8/d65/planning_8cpp_source.html','../
 </div><!--header-->
 <div class="contents">
 <a href="../../d8/d65/planning_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="../../d0/dcc/planning_8hpp.html">planning/planning.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;<a class="code" href="../../df/d7a/adsdv_8hpp.html">adapter/adsdv.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;adapter/eufs.hpp&quot;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;adapter/fsds.hpp&quot;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;adapter/map.hpp&quot;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">using </span>std::placeholders::_1;</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="foldopen" id="foldopen00009" data-start="{" data-end="}">
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="../../d9/db5/class_planning.html#a42a788755e4dedf591d0703a87d70bf2">    9</a></span><a class="code hl_function" href="../../d9/db5/class_planning.html#a42a788755e4dedf591d0703a87d70bf2">Planning::Planning</a>() : Node(<span class="stringliteral">&quot;planning&quot;</span>) {</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>  <span class="comment">// LocMap Subscriber</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>  this-&gt;track_sub_ = this-&gt;create_subscription&lt;custom_interfaces::msg::ConeArray&gt;(</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>      <span class="stringliteral">&quot;track_map&quot;</span>, 10, std::bind(&amp;Planning::track_map_callback, <span class="keyword">this</span>, _1));</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>  <span class="comment">// Control Publishers</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>  this-&gt;local_pub_ =</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>      this-&gt;create_publisher&lt;custom_interfaces::msg::PointArray&gt;(<span class="stringliteral">&quot;planning_local&quot;</span>, 10);</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>  this-&gt;global_pub_ =</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>      this-&gt;create_publisher&lt;custom_interfaces::msg::PointArray&gt;(<span class="stringliteral">&quot;planning_global&quot;</span>, 10);</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>  <span class="comment">// Publishes path from file in Skidpad &amp; Acceleration events</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>  this-&gt;timer_ = this-&gt;create_wall_timer(</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>      std::chrono::milliseconds(100), std::bind(&amp;Planning::publish_predicitive_track_points, <span class="keyword">this</span>));</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>  <span class="comment">// Adapter to communicate with the car</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>  this-&gt;adapter = <a class="code hl_variable" href="../../d9/da5/lateral__control_2include_2adapter_2map_8hpp.html#a05933f6d04b3f277b7e80c4fdd1a0c2d">adapter_map</a>[mode](<span class="keyword">this</span>);</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>}</div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="../../df/d7a/adsdv_8hpp.html">adapter/adsdv.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;adapter/eufs.hpp&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;adapter/fsds.hpp&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;adapter/map.hpp&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">using </span>std::placeholders::_1;</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="foldopen" id="foldopen00010" data-start="{" data-end="}">
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="../../d9/db5/class_planning.html#a42a788755e4dedf591d0703a87d70bf2">   10</a></span><a class="code hl_function" href="../../d9/db5/class_planning.html#a42a788755e4dedf591d0703a87d70bf2">Planning::Planning</a>() : Node(<span class="stringliteral">&quot;planning&quot;</span>) {</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>  <span class="comment">// LocMap Subscriber</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>  this-&gt;track_sub_ = this-&gt;create_subscription&lt;custom_interfaces::msg::ConeArray&gt;(</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>      <span class="stringliteral">&quot;track_map&quot;</span>, 10, std::bind(&amp;Planning::track_map_callback, <span class="keyword">this</span>, _1));</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>  <span class="comment">// Control Publishers</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>  this-&gt;local_pub_ =</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>      this-&gt;create_publisher&lt;custom_interfaces::msg::PointArray&gt;(<span class="stringliteral">&quot;planning_local&quot;</span>, 10);</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>  this-&gt;global_pub_ =</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>      this-&gt;create_publisher&lt;custom_interfaces::msg::PointArray&gt;(<span class="stringliteral">&quot;planning_global&quot;</span>, 10);</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>  <span class="comment">// Publishes path from file in Skidpad &amp; Acceleration events</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>  this-&gt;timer_ = this-&gt;create_wall_timer(</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>      std::chrono::milliseconds(100), std::bind(&amp;Planning::publish_predicitive_track_points, <span class="keyword">this</span>));</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>  <span class="comment">// Adapter to communicate with the car</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>  this-&gt;adapter = <a class="code hl_variable" href="../../d9/da5/lateral__control_2include_2adapter_2map_8hpp.html#a05933f6d04b3f277b7e80c4fdd1a0c2d">adapter_map</a>[mode](<span class="keyword">this</span>);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>}</div>
 </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keywordtype">void</span> Planning::track_map_callback(<span class="keyword">const</span> custom_interfaces::msg::ConeArray msg) {</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>  <span class="keywordflow">if</span> (this-&gt;is_predicitve_mission()) {</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>  }</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>  <a class="code hl_class" href="../../d6/d2c/class_track.html">Track</a> *track = <span class="keyword">new</span> <a class="code hl_class" href="../../d6/d2c/class_track.html">Track</a>();</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>  <span class="keyword">auto</span> cone_array = msg.cone_array;</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>  <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;cone : cone_array) {</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    RCLCPP_DEBUG(this-&gt;get_logger(), <span class="stringliteral">&quot;[received] (%f, %f)\t%s&quot;</span>, cone.position.x, cone.position.y,</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>                 cone.color.c_str());</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    track-&gt;<a class="code hl_function" href="../../d6/d2c/class_track.html#adc534b0f22848fc22d7001bd7e1789dd">addCone</a>(cone.position.x, cone.position.y, cone.color);</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>  }</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>  track-&gt;<a class="code hl_function" href="../../d6/d2c/class_track.html#a23bfa04cf9977718fa8b482a6371c9b2">validateCones</a>();  <span class="comment">// Delete cone outliers</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>  std::vector&lt;PathPoint *&gt; path = local_path_planner-&gt;<a class="code hl_function" href="../../d3/da1/class_local_path_planner.html#a47071d4f5dd1c080bf087089023d5382">processNewArray</a>(track);  <span class="comment">// Calculate Path</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>  publish_track_points(path);</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>  <span class="keyword">delete</span> (track);</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>  RCLCPP_DEBUG(this-&gt;get_logger(), <span class="stringliteral">&quot;--------------------------------------&quot;</span>);</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>}</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="keywordtype">void</span> Planning::publish_track_points(std::vector&lt;PathPoint *&gt; path)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>  <span class="keyword">auto</span> message = custom_interfaces::msg::PointArray();</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>  <span class="keywordflow">for</span> (<span class="keyword">auto</span> <span class="keyword">const</span> &amp;element : path) {</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keyword">auto</span> point = custom_interfaces::msg::Point2d();</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    point.x = element-&gt;getX();</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    point.y = element-&gt;getY();</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    message.points.push_back(point);</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    RCLCPP_DEBUG(this-&gt;get_logger(), <span class="stringliteral">&quot;[published] (%f, %f)&quot;</span>, point.x, point.y);</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>  }</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>  local_pub_-&gt;publish(message);</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>}</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="keywordtype">void</span> Planning::publish_predicitive_track_points() {</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>  <span class="comment">// RCLCPP_INFO(this-&gt;get_logger(), &quot;[mission] (%d)&quot;, this-&gt;mission);</span></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>  <span class="keywordflow">if</span> (!this-&gt;is_predicitve_mission()) {</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>  }</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>  std::vector&lt;PathPoint *&gt; path = <a class="code hl_function" href="../../d5/d8c/files_8hpp.html#a3e0a28fc547b70f244a9afff9ba15657">read_path_file</a>(this-&gt;predictive_paths[this-&gt;mission]);</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>  this-&gt;publish_track_points(path);</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>}</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno"><a class="line" href="../../d9/db5/class_planning.html#a4b1103d56245c7e28e2a2b708d8b3b12">   76</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d9/db5/class_planning.html#a4b1103d56245c7e28e2a2b708d8b3b12">Planning::set_mission</a>(<a class="code hl_enumeration" href="../../d6/d14/loc__map_2include_2utils_2mission_8hpp.html#af686af98019fe71e9f18190349618431">Mission</a> mission) { this-&gt;mission = mission; }</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="keywordtype">bool</span> Planning::is_predicitve_mission()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>  <span class="keywordflow">return</span> this-&gt;mission == <a class="code hl_enumvalue" href="../../d6/d14/loc__map_2include_2utils_2mission_8hpp.html#af686af98019fe71e9f18190349618431a11165e149a0a9f6f98fc14da6baa8666">Mission::skidpad</a> || this-&gt;mission == <a class="code hl_enumvalue" href="../../d6/d14/loc__map_2include_2utils_2mission_8hpp.html#af686af98019fe71e9f18190349618431a146c0b61ec6916af010baa3da802d5e9">Mission::acceleration</a>;</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>}</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keywordtype">void</span> Planning::track_map_callback(<span class="keyword">const</span> custom_interfaces::msg::ConeArray msg) {</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>  <span class="keywordflow">if</span> (this-&gt;is_predicitve_mission()) {</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>  }</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>  <a class="code hl_class" href="../../d6/d2c/class_track.html">Track</a> *track = <span class="keyword">new</span> <a class="code hl_class" href="../../d6/d2c/class_track.html">Track</a>();</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>  <span class="keyword">auto</span> cone_array = msg.cone_array;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>  <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;cone : cone_array) {</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    RCLCPP_DEBUG(this-&gt;get_logger(), <span class="stringliteral">&quot;[received] (%f, %f)\t%s&quot;</span>, cone.position.x, cone.position.y,</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>                 cone.color.c_str());</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    track-&gt;<a class="code hl_function" href="../../d6/d2c/class_track.html#adc534b0f22848fc22d7001bd7e1789dd">addCone</a>(cone.position.x, cone.position.y, cone.color);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>  }</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>  track-&gt;<a class="code hl_function" href="../../d6/d2c/class_track.html#a23bfa04cf9977718fa8b482a6371c9b2">validateCones</a>();  <span class="comment">// Delete cone outliers</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>  std::vector&lt;PathPoint *&gt; path = local_path_planner-&gt;<a class="code hl_function" href="../../d3/da1/class_local_path_planner.html#a47071d4f5dd1c080bf087089023d5382">processNewArray</a>(track);  <span class="comment">// Calculate Path</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>  publish_track_points(path);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>  <span class="keyword">delete</span> (track);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>  RCLCPP_DEBUG(this-&gt;get_logger(), <span class="stringliteral">&quot;--------------------------------------&quot;</span>);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>}</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="keywordtype">void</span> Planning::publish_track_points(std::vector&lt;PathPoint *&gt; path)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>  <span class="keyword">auto</span> message = custom_interfaces::msg::PointArray();</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>  <span class="keywordflow">for</span> (<span class="keyword">auto</span> <span class="keyword">const</span> &amp;element : path) {</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keyword">auto</span> point = custom_interfaces::msg::Point2d();</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    point.x = element-&gt;getX();</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    point.y = element-&gt;getY();</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    message.points.push_back(point);</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    RCLCPP_DEBUG(this-&gt;get_logger(), <span class="stringliteral">&quot;[published] (%f, %f)&quot;</span>, point.x, point.y);</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>  }</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>  local_pub_-&gt;publish(message);</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>}</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="keywordtype">void</span> Planning::publish_predicitive_track_points() {</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>  <span class="comment">// RCLCPP_INFO(this-&gt;get_logger(), &quot;[mission] (%d)&quot;, this-&gt;mission);</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>  <span class="keywordflow">if</span> (!this-&gt;is_predicitve_mission()) {</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>  }</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>  std::vector&lt;PathPoint *&gt; path = <a class="code hl_function" href="../../d5/d8c/files_8hpp.html#a3e0a28fc547b70f244a9afff9ba15657">read_path_file</a>(this-&gt;predictive_paths[this-&gt;mission]);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>  this-&gt;publish_track_points(path);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>}</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="../../d9/db5/class_planning.html#a4b1103d56245c7e28e2a2b708d8b3b12">   77</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d9/db5/class_planning.html#a4b1103d56245c7e28e2a2b708d8b3b12">Planning::set_mission</a>(<a class="code hl_enumeration" href="../../d6/d14/loc__map_2include_2utils_2mission_8hpp.html#af686af98019fe71e9f18190349618431">Mission</a> mission) { this-&gt;mission = mission; }</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="keywordtype">bool</span> Planning::is_predicitve_mission()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>  <span class="keywordflow">return</span> this-&gt;mission == <a class="code hl_enumvalue" href="../../d6/d14/loc__map_2include_2utils_2mission_8hpp.html#af686af98019fe71e9f18190349618431a11165e149a0a9f6f98fc14da6baa8666">Mission::skidpad</a> || this-&gt;mission == <a class="code hl_enumvalue" href="../../d6/d14/loc__map_2include_2utils_2mission_8hpp.html#af686af98019fe71e9f18190349618431a146c0b61ec6916af010baa3da802d5e9">Mission::acceleration</a>;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>}</div>
 <div class="ttc" id="aadsdv_8hpp_html"><div class="ttname"><a href="../../df/d7a/adsdv_8hpp.html">adsdv.hpp</a></div></div>
 <div class="ttc" id="aclass_local_path_planner_html_a47071d4f5dd1c080bf087089023d5382"><div class="ttname"><a href="../../d3/da1/class_local_path_planner.html#a47071d4f5dd1c080bf087089023d5382">LocalPathPlanner::processNewArray</a></div><div class="ttdeci">std::vector&lt; PathPoint * &gt; processNewArray(Track *cone_array)</div><div class="ttdoc">Process an array of cones to generate a local path.</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d02/local__path__planner_8cpp_source.html#l00020">local_path_planner.cpp:20</a></div></div>
-<div class="ttc" id="aclass_planning_html_a42a788755e4dedf591d0703a87d70bf2"><div class="ttname"><a href="../../d9/db5/class_planning.html#a42a788755e4dedf591d0703a87d70bf2">Planning::Planning</a></div><div class="ttdeci">Planning()</div><div class="ttdoc">Constructor for the Planning class.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d65/planning_8cpp_source.html#l00009">planning.cpp:9</a></div></div>
-<div class="ttc" id="aclass_planning_html_a4b1103d56245c7e28e2a2b708d8b3b12"><div class="ttname"><a href="../../d9/db5/class_planning.html#a4b1103d56245c7e28e2a2b708d8b3b12">Planning::set_mission</a></div><div class="ttdeci">void set_mission(Mission mission)</div><div class="ttdoc">Set the mission for planning.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d65/planning_8cpp_source.html#l00076">planning.cpp:76</a></div></div>
+<div class="ttc" id="aclass_planning_html_a42a788755e4dedf591d0703a87d70bf2"><div class="ttname"><a href="../../d9/db5/class_planning.html#a42a788755e4dedf591d0703a87d70bf2">Planning::Planning</a></div><div class="ttdeci">Planning()</div><div class="ttdoc">Constructor for the Planning class.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d65/planning_8cpp_source.html#l00010">planning.cpp:10</a></div></div>
+<div class="ttc" id="aclass_planning_html_a4b1103d56245c7e28e2a2b708d8b3b12"><div class="ttname"><a href="../../d9/db5/class_planning.html#a4b1103d56245c7e28e2a2b708d8b3b12">Planning::set_mission</a></div><div class="ttdeci">void set_mission(Mission mission)</div><div class="ttdoc">Set the mission for planning.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d65/planning_8cpp_source.html#l00077">planning.cpp:77</a></div></div>
 <div class="ttc" id="aclass_track_html"><div class="ttname"><a href="../../d6/d2c/class_track.html">Track</a></div><div class="ttdef"><b>Definition</b> <a href="../../de/d76/track_8hpp_source.html#l00021">track.hpp:21</a></div></div>
 <div class="ttc" id="aclass_track_html_a23bfa04cf9977718fa8b482a6371c9b2"><div class="ttname"><a href="../../d6/d2c/class_track.html#a23bfa04cf9977718fa8b482a6371c9b2">Track::validateCones</a></div><div class="ttdeci">int validateCones()</div><div class="ttdoc">Validate the cones in the track by deleting outliers.</div><div class="ttdef"><b>Definition</b> <a href="../../dc/de1/track_8cpp_source.html#l00108">track.cpp:108</a></div></div>
 <div class="ttc" id="aclass_track_html_adc534b0f22848fc22d7001bd7e1789dd"><div class="ttname"><a href="../../d6/d2c/class_track.html#adc534b0f22848fc22d7001bd7e1789dd">Track::addCone</a></div><div class="ttdeci">void addCone(float xValue, float yValue, const std::string &amp;color)</div><div class="ttdoc">Add a cone to the track if the color is appropriate.</div><div class="ttdef"><b>Definition</b> <a href="../../dc/de1/track_8cpp_source.html#l00037">track.cpp:37</a></div></div>
 <div class="ttc" id="afiles_8hpp_html_a3e0a28fc547b70f244a9afff9ba15657"><div class="ttname"><a href="../../d5/d8c/files_8hpp.html#a3e0a28fc547b70f244a9afff9ba15657">read_path_file</a></div><div class="ttdeci">std::vector&lt; PathPoint * &gt; read_path_file(const std::string &amp;filename)</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d8b/files_8cpp_source.html#l00007">files.cpp:7</a></div></div>
-<div class="ttc" id="alateral__control_2include_2adapter_2map_8hpp_html_a05933f6d04b3f277b7e80c4fdd1a0c2d"><div class="ttname"><a href="../../d9/da5/lateral__control_2include_2adapter_2map_8hpp.html#a05933f6d04b3f277b7e80c4fdd1a0c2d">adapter_map</a></div><div class="ttdeci">std::map&lt; std::string, std::function&lt; Adapter *(LateralControl *)&gt; &gt; adapter_map</div><div class="ttdef"><b>Definition</b> <a href="../../d9/da5/lateral__control_2include_2adapter_2map_8hpp_source.html#l00008">map.hpp:8</a></div></div>
+<div class="ttc" id="alateral__control_2include_2adapter_2map_8hpp_html_a05933f6d04b3f277b7e80c4fdd1a0c2d"><div class="ttname"><a href="../../d9/da5/lateral__control_2include_2adapter_2map_8hpp.html#a05933f6d04b3f277b7e80c4fdd1a0c2d">adapter_map</a></div><div class="ttdeci">std::map&lt; std::string, std::function&lt; Adapter *(LateralControl *)&gt; &gt; adapter_map</div><div class="ttdef"><b>Definition</b> <a href="../../d9/da5/lateral__control_2include_2adapter_2map_8hpp_source.html#l00009">map.hpp:9</a></div></div>
 <div class="ttc" id="aloc__map_2include_2utils_2mission_8hpp_html_af686af98019fe71e9f18190349618431"><div class="ttname"><a href="../../d6/d14/loc__map_2include_2utils_2mission_8hpp.html#af686af98019fe71e9f18190349618431">Mission</a></div><div class="ttdeci">Mission</div><div class="ttdoc">Enumeration representing the different missions.</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d14/loc__map_2include_2utils_2mission_8hpp_source.html#l00014">mission.hpp:14</a></div></div>
 <div class="ttc" id="aloc__map_2include_2utils_2mission_8hpp_html_af686af98019fe71e9f18190349618431a11165e149a0a9f6f98fc14da6baa8666"><div class="ttname"><a href="../../d6/d14/loc__map_2include_2utils_2mission_8hpp.html#af686af98019fe71e9f18190349618431a11165e149a0a9f6f98fc14da6baa8666">skidpad</a></div><div class="ttdeci">@ skidpad</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d14/loc__map_2include_2utils_2mission_8hpp_source.html#l00014">mission.hpp:14</a></div></div>
 <div class="ttc" id="aloc__map_2include_2utils_2mission_8hpp_html_af686af98019fe71e9f18190349618431a146c0b61ec6916af010baa3da802d5e9"><div class="ttname"><a href="../../d6/d14/loc__map_2include_2utils_2mission_8hpp.html#af686af98019fe71e9f18190349618431a146c0b61ec6916af010baa3da802d5e9">acceleration</a></div><div class="ttdeci">@ acceleration</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d14/loc__map_2include_2utils_2mission_8hpp_source.html#l00014">mission.hpp:14</a></div></div>

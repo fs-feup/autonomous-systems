@@ -1,0 +1,15 @@
+<map id="PID::update" name="PID::update">
+<area shape="rect" id="Node000001" title="Calculate the output value." alt="" coords="5,129,94,155"/>
+<area shape="rect" id="Node000002" href="$d6/d5a/class_p_i_d.html#a1c91b40d887b0edfe0bdaa4c260c9406" title="Anti&#45;wind&#45;up via dynamic integrator clamping." alt="" coords="184,5,300,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="57,127,90,84,113,60,140,40,168,28,170,33,143,44,117,64,94,87,61,130"/>
+<area shape="rect" id="Node000003" href="$d6/d5a/class_p_i_d.html#a97c3f8ac6b1826d306f886bb088a22ff" title="Calculate the derivative term (derivative on measurement)" alt="" coords="147,55,337,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="70,127,102,107,141,89,159,83,161,88,143,94,105,112,72,131"/>
+<area shape="rect" id="Node000004" href="$d6/d5a/class_p_i_d.html#aa7c1ae59795351d098403900cd043c8a" title="Calculate the error signal." alt="" coords="178,104,306,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="94,134,162,125,162,130,94,139"/>
+<area shape="rect" id="Node000005" href="$d6/d5a/class_p_i_d.html#ac220bbb60e7bdd5bba14df5bd7aa3976" title="Calculate the integral term." alt="" coords="155,153,329,179"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="94,145,140,151,139,156,94,150"/>
+<area shape="rect" id="Node000006" href="$d6/d5a/class_p_i_d.html#ab1d53386cc6bd977039e9cad0ea2d88e" title="Calculate the proportional term." alt="" coords="142,203,342,228"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="73,153,105,172,143,189,162,195,160,201,141,194,103,176,70,158"/>
+<area shape="rect" id="Node000007" href="$d6/d5a/class_p_i_d.html#acb3c398cbb425f0b8260b16400325199" title="Compute the output value and apply limits." alt="" coords="173,252,311,278"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="61,154,94,196,117,219,143,239,159,246,157,251,140,243,113,223,90,200,57,157"/>
+</map>

@@ -1,11 +1,11 @@
 <map id="src/perception/include/ground_removal/ground_removal.hpp" name="src/perception/include/ground_removal/ground_removal.hpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="253,5,414,61"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,109,166,150"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="263,64,152,106,151,101,261,59"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="189,117,326,142"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="314,63,279,106,275,103,309,60"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="350,117,469,142"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="358,60,392,103,388,106,353,63"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="493,117,611,142"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="398,59,511,108,509,113,396,64"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="216,5,376,61"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,117,142,142"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="233,64,117,113,115,108,231,59"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="166,117,285,142"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="278,63,246,106,241,102,274,60"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="309,117,427,142"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="319,60,352,103,348,106,315,63"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="452,109,612,150"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="365,59,470,100,468,105,363,64"/>
 </map>

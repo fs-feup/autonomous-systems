@@ -1,0 +1,11 @@
+<map id="PID::calculateIntegralTerm" name="PID::calculateIntegralTerm">
+<area shape="rect" id="Node000001" title="Calculate the integral term." alt="" coords="244,55,418,80"/>
+<area shape="rect" id="Node000002" href="$d3/d6a/pid__test_8cpp.html#a48d5dc0bd38dfb02fe54f10303a97fbd" title="Test PID class &#45; calculateIntegralTerm error positive." alt="" coords="125,5,179,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="266,52,179,28,180,23,267,47"/>
+<area shape="rect" id="Node000003" href="$d3/d6a/pid__test_8cpp.html#a5e3e11aeb33cf8c7f9b54c7fc5b53fc3" title="Test PID class &#45; calculateIntegralTerm error negative." alt="" coords="125,55,179,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="228,70,180,70,180,65,228,65"/>
+<area shape="rect" id="Node000004" href="$d6/d5a/class_p_i_d.html#a9d748479c3c4fb64765c0ca886c88e92" title="Calculate the output value." alt="" coords="108,104,196,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="268,88,197,107,196,102,267,82"/>
+<area shape="rect" id="Node000005" href="$d3/d6a/pid__test_8cpp.html#aa955b6a9298278b14ec50652fd165ecb" title="Test PID class &#45; update Test all the methods." alt="" coords="5,104,60,130"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="92,120,60,120,60,114,92,114"/>
+</map>

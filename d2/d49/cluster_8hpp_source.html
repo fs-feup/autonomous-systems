@@ -102,41 +102,42 @@ $(document).ready(function(){initNavTree('d2/d49/cluster_8hpp_source.html','../.
 <a href="../../d2/d49/cluster_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef CLUSTER_HPP</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define CLUSTER_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;pcl/point_types.h&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;pcl/point_cloud.h&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;pcl/common/impl/centroid.hpp&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="foldopen" id="foldopen00012" data-start="{" data-end="};">
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="../../d2/d23/class_cluster.html">   12</a></span><span class="keyword">class </span><a class="code hl_class" href="../../d2/d23/class_cluster.html">Cluster</a> {</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    pcl::PointCloud&lt;pcl::PointXYZI&gt;::Ptr point_cloud; </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    std::string color; </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    Eigen::Vector4f centroid; </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keywordtype">bool</span> centroidIsDefined; </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">explicit</span> <a class="code hl_class" href="../../d2/d23/class_cluster.html">Cluster</a>(pcl::PointCloud&lt;pcl::PointXYZI&gt;::Ptr point_cloud);</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    Eigen::Vector4f <a class="code hl_function" href="../../d2/d23/class_cluster.html#a10c9083c69c40e95596c95a8870bfc34">getCentroid</a>();</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    std::string <a class="code hl_function" href="../../d2/d23/class_cluster.html#a8f05a4df1d8860c60b1cb32b662664a1">getColor</a>();</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="../../d2/d23/class_cluster.html#ac90ff3ed7eaaeb5aa28e107fb556b517">setColor</a>(std::string new_color);</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="../../d2/d23/class_cluster.html#a053a67267ab8b64723c43a66d2ddae61">setPointCloud</a>(pcl::PointCloud&lt;pcl::PointXYZI&gt;::Ptr new_point_cloud);</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    pcl::PointCloud&lt;pcl::PointXYZI&gt;::Ptr <a class="code hl_function" href="../../d2/d23/class_cluster.html#aaa6717bc93a9becc88bb43b9a1b6e168">getPointCloud</a>();</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>};</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;pcl/point_cloud.h&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;pcl/point_types.h&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;pcl/common/impl/centroid.hpp&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="foldopen" id="foldopen00013" data-start="{" data-end="};">
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="../../d2/d23/class_cluster.html">   13</a></span><span class="keyword">class </span><a class="code hl_class" href="../../d2/d23/class_cluster.html">Cluster</a> {</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>  pcl::PointCloud&lt;pcl::PointXYZI&gt;::Ptr point_cloud;  </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>  std::string color;                                 </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>  Eigen::Vector4f centroid;                          </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>  <span class="keywordtype">bool</span> centroidIsDefined;  </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>  <span class="keyword">explicit</span> <a class="code hl_class" href="../../d2/d23/class_cluster.html">Cluster</a>(pcl::PointCloud&lt;pcl::PointXYZI&gt;::Ptr point_cloud);</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>  Eigen::Vector4f <a class="code hl_function" href="../../d2/d23/class_cluster.html#a10c9083c69c40e95596c95a8870bfc34">getCentroid</a>();</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>  std::string <a class="code hl_function" href="../../d2/d23/class_cluster.html#a8f05a4df1d8860c60b1cb32b662664a1">getColor</a>();</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>  <span class="keywordtype">void</span> <a class="code hl_function" href="../../d2/d23/class_cluster.html#ac90ff3ed7eaaeb5aa28e107fb556b517">setColor</a>(std::string new_color);</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>  <span class="keywordtype">void</span> <a class="code hl_function" href="../../d2/d23/class_cluster.html#a053a67267ab8b64723c43a66d2ddae61">setPointCloud</a>(pcl::PointCloud&lt;pcl::PointXYZI&gt;::Ptr new_point_cloud);</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>  pcl::PointCloud&lt;pcl::PointXYZI&gt;::Ptr <a class="code hl_function" href="../../d2/d23/class_cluster.html#aaa6717bc93a9becc88bb43b9a1b6e168">getPointCloud</a>();</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>};</div>
 </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="preprocessor">#endif </span><span class="comment">// CLUSTER_HPP</span></div>
-<div class="ttc" id="aclass_cluster_html"><div class="ttname"><a href="../../d2/d23/class_cluster.html">Cluster</a></div><div class="ttdoc">Represents a cluster of 3D points using PCL (Point Cloud Library).</div><div class="ttdef"><b>Definition</b> <a href="../../d2/d49/cluster_8hpp_source.html#l00012">cluster.hpp:12</a></div></div>
-<div class="ttc" id="aclass_cluster_html_a053a67267ab8b64723c43a66d2ddae61"><div class="ttname"><a href="../../d2/d23/class_cluster.html#a053a67267ab8b64723c43a66d2ddae61">Cluster::setPointCloud</a></div><div class="ttdeci">void setPointCloud(pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr new_point_cloud)</div><div class="ttdoc">Set the Point Cloud data for the cluster.</div><div class="ttdef"><b>Definition</b> <a href="../../db/d0d/cluster_8cpp_source.html#l00028">cluster.cpp:28</a></div></div>
-<div class="ttc" id="aclass_cluster_html_a10c9083c69c40e95596c95a8870bfc34"><div class="ttname"><a href="../../d2/d23/class_cluster.html#a10c9083c69c40e95596c95a8870bfc34">Cluster::getCentroid</a></div><div class="ttdeci">Eigen::Vector4f getCentroid()</div><div class="ttdoc">Get the centroid of the cluster.</div><div class="ttdef"><b>Definition</b> <a href="../../db/d0d/cluster_8cpp_source.html#l00009">cluster.cpp:9</a></div></div>
-<div class="ttc" id="aclass_cluster_html_a8f05a4df1d8860c60b1cb32b662664a1"><div class="ttname"><a href="../../d2/d23/class_cluster.html#a8f05a4df1d8860c60b1cb32b662664a1">Cluster::getColor</a></div><div class="ttdeci">std::string getColor()</div><div class="ttdoc">Get the color associated with the cluster.</div><div class="ttdef"><b>Definition</b> <a href="../../db/d0d/cluster_8cpp_source.html#l00019">cluster.cpp:19</a></div></div>
-<div class="ttc" id="aclass_cluster_html_aaa6717bc93a9becc88bb43b9a1b6e168"><div class="ttname"><a href="../../d2/d23/class_cluster.html#aaa6717bc93a9becc88bb43b9a1b6e168">Cluster::getPointCloud</a></div><div class="ttdeci">pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr getPointCloud()</div><div class="ttdoc">Get the Point Cloud data of the cluster.</div><div class="ttdef"><b>Definition</b> <a href="../../db/d0d/cluster_8cpp_source.html#l00036">cluster.cpp:36</a></div></div>
-<div class="ttc" id="aclass_cluster_html_ac90ff3ed7eaaeb5aa28e107fb556b517"><div class="ttname"><a href="../../d2/d23/class_cluster.html#ac90ff3ed7eaaeb5aa28e107fb556b517">Cluster::setColor</a></div><div class="ttdeci">void setColor(std::string new_color)</div><div class="ttdoc">Set the color for the cluster.</div><div class="ttdef"><b>Definition</b> <a href="../../db/d0d/cluster_8cpp_source.html#l00023">cluster.cpp:23</a></div></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="preprocessor">#endif  </span><span class="comment">// CLUSTER_HPP</span></div>
+<div class="ttc" id="aclass_cluster_html"><div class="ttname"><a href="../../d2/d23/class_cluster.html">Cluster</a></div><div class="ttdoc">Represents a cluster of 3D points using PCL (Point Cloud Library).</div><div class="ttdef"><b>Definition</b> <a href="../../d2/d49/cluster_8hpp_source.html#l00013">cluster.hpp:13</a></div></div>
+<div class="ttc" id="aclass_cluster_html_a053a67267ab8b64723c43a66d2ddae61"><div class="ttname"><a href="../../d2/d23/class_cluster.html#a053a67267ab8b64723c43a66d2ddae61">Cluster::setPointCloud</a></div><div class="ttdeci">void setPointCloud(pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr new_point_cloud)</div><div class="ttdoc">Set the Point Cloud data for the cluster.</div><div class="ttdef"><b>Definition</b> <a href="../../db/d0d/cluster_8cpp_source.html#l00024">cluster.cpp:24</a></div></div>
+<div class="ttc" id="aclass_cluster_html_a10c9083c69c40e95596c95a8870bfc34"><div class="ttname"><a href="../../d2/d23/class_cluster.html#a10c9083c69c40e95596c95a8870bfc34">Cluster::getCentroid</a></div><div class="ttdeci">Eigen::Vector4f getCentroid()</div><div class="ttdoc">Get the centroid of the cluster.</div><div class="ttdef"><b>Definition</b> <a href="../../db/d0d/cluster_8cpp_source.html#l00008">cluster.cpp:8</a></div></div>
+<div class="ttc" id="aclass_cluster_html_a8f05a4df1d8860c60b1cb32b662664a1"><div class="ttname"><a href="../../d2/d23/class_cluster.html#a8f05a4df1d8860c60b1cb32b662664a1">Cluster::getColor</a></div><div class="ttdeci">std::string getColor()</div><div class="ttdoc">Get the color associated with the cluster.</div><div class="ttdef"><b>Definition</b> <a href="../../db/d0d/cluster_8cpp_source.html#l00018">cluster.cpp:18</a></div></div>
+<div class="ttc" id="aclass_cluster_html_aaa6717bc93a9becc88bb43b9a1b6e168"><div class="ttname"><a href="../../d2/d23/class_cluster.html#aaa6717bc93a9becc88bb43b9a1b6e168">Cluster::getPointCloud</a></div><div class="ttdeci">pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr getPointCloud()</div><div class="ttdoc">Get the Point Cloud data of the cluster.</div><div class="ttdef"><b>Definition</b> <a href="../../db/d0d/cluster_8cpp_source.html#l00032">cluster.cpp:32</a></div></div>
+<div class="ttc" id="aclass_cluster_html_ac90ff3ed7eaaeb5aa28e107fb556b517"><div class="ttname"><a href="../../d2/d23/class_cluster.html#ac90ff3ed7eaaeb5aa28e107fb556b517">Cluster::setColor</a></div><div class="ttdeci">void setColor(std::string new_color)</div><div class="ttdoc">Set the color for the cluster.</div><div class="ttdef"><b>Definition</b> <a href="../../db/d0d/cluster_8cpp_source.html#l00020">cluster.cpp:20</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

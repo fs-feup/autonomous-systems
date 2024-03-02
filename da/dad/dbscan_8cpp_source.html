@@ -100,51 +100,48 @@ $(document).ready(function(){initNavTree('da/dad/dbscan_8cpp_source.html','../..
 </div><!--header-->
 <div class="contents">
 <a href="../../da/dad/dbscan_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="../../dd/d8d/dbscan_8hpp.html">clustering/dbscan.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &lt;pcl/segmentation/extract_clusters.h&gt;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;pcl/kdtree/kdtree_flann.h&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;pcl/segmentation/extract_clusters.h&gt;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
 <div class="foldopen" id="foldopen00006" data-start="{" data-end="}">
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno"><a class="line" href="../../df/d6a/class_d_b_s_c_a_n.html#a94493ac3bb1a2e9df61bed66ad78ced8">    6</a></span><a class="code hl_function" href="../../df/d6a/class_d_b_s_c_a_n.html#a94493ac3bb1a2e9df61bed66ad78ced8">DBSCAN::DBSCAN</a>(<span class="keywordtype">int</span> min_cluster_size, <span class="keywordtype">double</span> neighbours_dist_threshold)</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>               : min_cluster_size(min_cluster_size),</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>                 neighbours_dist_threshold(neighbours_dist_threshold) {}</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    : min_cluster_size(min_cluster_size), neighbours_dist_threshold(neighbours_dist_threshold) {}</div>
 </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="foldopen" id="foldopen00011" data-start="{" data-end="}">
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="../../df/d6a/class_d_b_s_c_a_n.html#a9a9605c898a26dbd557113419f4c8c6e">   11</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../df/d6a/class_d_b_s_c_a_n.html#a9a9605c898a26dbd557113419f4c8c6e">DBSCAN::clustering</a>(<span class="keyword">const</span> pcl::PointCloud&lt;pcl::PointXYZI&gt;::Ptr point_cloud,</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>                    std::vector&lt;Cluster&gt;* clusters)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    pcl::search::KdTree&lt;pcl::PointXYZI&gt;::Ptr tree(<span class="keyword">new</span> pcl::search::KdTree&lt;pcl::PointXYZI&gt;);</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    tree-&gt;setInputCloud(point_cloud);</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    pcl::EuclideanClusterExtraction&lt;pcl::PointXYZI&gt; ec;</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    ec.setClusterTolerance(neighbours_dist_threshold);</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    ec.setMinClusterSize(min_cluster_size);</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    ec.setSearchMethod(tree);</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    ec.setInputCloud(point_cloud);</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="comment">// PointIndices - A defined PCL struct - vector of indices of cluster&#39;s points</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    std::vector&lt;pcl::PointIndices&gt; cluster_indices;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    ec.extract(cluster_indices);</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="comment">// Iterate over clusters to get the values of the points</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; indices : cluster_indices) {</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        pcl::PointCloud&lt;pcl::PointXYZI&gt;::Ptr cluster(<span class="keyword">new</span> pcl::PointCloud&lt;pcl::PointXYZI&gt;);</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keywordtype">int</span>&amp; index : indices.indices) {</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>            cluster-&gt;points.push_back(point_cloud-&gt;points[index]);</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        }</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        cluster-&gt;width = cluster-&gt;size();</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        cluster-&gt;height = 1;</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        cluster-&gt;is_dense = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        clusters-&gt;push_back(<a class="code hl_class" href="../../d2/d23/class_cluster.html">Cluster</a>(cluster));</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    }</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>}</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="foldopen" id="foldopen00009" data-start="{" data-end="}">
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="../../df/d6a/class_d_b_s_c_a_n.html#a9a9605c898a26dbd557113419f4c8c6e">    9</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../df/d6a/class_d_b_s_c_a_n.html#a9a9605c898a26dbd557113419f4c8c6e">DBSCAN::clustering</a>(<span class="keyword">const</span> pcl::PointCloud&lt;pcl::PointXYZI&gt;::Ptr point_cloud,</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>                        std::vector&lt;Cluster&gt;* clusters)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>  pcl::search::KdTree&lt;pcl::PointXYZI&gt;::Ptr tree(<span class="keyword">new</span> pcl::search::KdTree&lt;pcl::PointXYZI&gt;);</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>  tree-&gt;setInputCloud(point_cloud);</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>  pcl::EuclideanClusterExtraction&lt;pcl::PointXYZI&gt; ec;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>  ec.setClusterTolerance(neighbours_dist_threshold);</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>  ec.setMinClusterSize(min_cluster_size);</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>  ec.setSearchMethod(tree);</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>  ec.setInputCloud(point_cloud);</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>  <span class="comment">// PointIndices - A defined PCL struct - vector of indices of cluster&#39;s points</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>  std::vector&lt;pcl::PointIndices&gt; cluster_indices;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>  ec.extract(cluster_indices);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>  <span class="comment">// Iterate over clusters to get the values of the points</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>  <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; indices : cluster_indices) {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    pcl::PointCloud&lt;pcl::PointXYZI&gt;::Ptr cluster(<span class="keyword">new</span> pcl::PointCloud&lt;pcl::PointXYZI&gt;);</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keywordtype">int</span>&amp; index : indices.indices) {</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>      cluster-&gt;points.push_back(point_cloud-&gt;points[index]);</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    }</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    cluster-&gt;width = cluster-&gt;size();</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    cluster-&gt;height = 1;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    cluster-&gt;is_dense = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    clusters-&gt;push_back(<a class="code hl_class" href="../../d2/d23/class_cluster.html">Cluster</a>(cluster));</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>  }</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>}</div>
 </div>
-<div class="ttc" id="aclass_cluster_html"><div class="ttname"><a href="../../d2/d23/class_cluster.html">Cluster</a></div><div class="ttdoc">Represents a cluster of 3D points using PCL (Point Cloud Library).</div><div class="ttdef"><b>Definition</b> <a href="../../d2/d49/cluster_8hpp_source.html#l00012">cluster.hpp:12</a></div></div>
+<div class="ttc" id="aclass_cluster_html"><div class="ttname"><a href="../../d2/d23/class_cluster.html">Cluster</a></div><div class="ttdoc">Represents a cluster of 3D points using PCL (Point Cloud Library).</div><div class="ttdef"><b>Definition</b> <a href="../../d2/d49/cluster_8hpp_source.html#l00013">cluster.hpp:13</a></div></div>
 <div class="ttc" id="aclass_d_b_s_c_a_n_html_a94493ac3bb1a2e9df61bed66ad78ced8"><div class="ttname"><a href="../../df/d6a/class_d_b_s_c_a_n.html#a94493ac3bb1a2e9df61bed66ad78ced8">DBSCAN::DBSCAN</a></div><div class="ttdeci">DBSCAN(int min_cluster_size, double neighbours_dist_threshold)</div><div class="ttdoc">Constructor for the DBSCAN clustering algorithm.</div><div class="ttdef"><b>Definition</b> <a href="../../da/dad/dbscan_8cpp_source.html#l00006">dbscan.cpp:6</a></div></div>
-<div class="ttc" id="aclass_d_b_s_c_a_n_html_a9a9605c898a26dbd557113419f4c8c6e"><div class="ttname"><a href="../../df/d6a/class_d_b_s_c_a_n.html#a9a9605c898a26dbd557113419f4c8c6e">DBSCAN::clustering</a></div><div class="ttdeci">void clustering(const pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr point_cloud, std::vector&lt; Cluster &gt; *clusters) const override</div><div class="ttdoc">Clusters the input point cloud into groups using the DBSCAN algorithm.</div><div class="ttdef"><b>Definition</b> <a href="../../da/dad/dbscan_8cpp_source.html#l00011">dbscan.cpp:11</a></div></div>
+<div class="ttc" id="aclass_d_b_s_c_a_n_html_a9a9605c898a26dbd557113419f4c8c6e"><div class="ttname"><a href="../../df/d6a/class_d_b_s_c_a_n.html#a9a9605c898a26dbd557113419f4c8c6e">DBSCAN::clustering</a></div><div class="ttdeci">void clustering(const pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr point_cloud, std::vector&lt; Cluster &gt; *clusters) const override</div><div class="ttdoc">Clusters the input point cloud into groups using the DBSCAN algorithm.</div><div class="ttdef"><b>Definition</b> <a href="../../da/dad/dbscan_8cpp_source.html#l00009">dbscan.cpp:9</a></div></div>
 <div class="ttc" id="adbscan_8hpp_html"><div class="ttname"><a href="../../dd/d8d/dbscan_8hpp.html">dbscan.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

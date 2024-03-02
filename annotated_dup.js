@@ -39,6 +39,7 @@ var annotated_dup =
     [ "ObservationModel", "d7/d64/class_observation_model.html", "d7/d64/class_observation_model" ],
     [ "PathPoint", "d9/d32/class_path_point.html", "d9/d32/class_path_point" ],
     [ "Perception", "de/d07/class_perception.html", "de/d07/class_perception" ],
+    [ "PID", "d6/d5a/class_p_i_d.html", "d6/d5a/class_p_i_d" ],
     [ "Planning", "d9/db5/class_planning.html", "d9/db5/class_planning" ],
     [ "Pose", "d8/d11/struct_pose.html", "d8/d11/struct_pose" ],
     [ "Position", "d1/d26/struct_position.html", "d1/d26/struct_position" ],
