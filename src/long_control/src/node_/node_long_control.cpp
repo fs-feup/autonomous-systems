@@ -5,11 +5,11 @@
 #include <memory>
 #include <string>
 
+#include "adapter/fsds.hpp"
+#include "adapter/map.hpp"
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
-#include "adapter/fsds.hpp"
-#include "adapter/map.hpp"
 
 // This creates a subclass of Node and uses std::bind()
 // to define which function gets executed at each time

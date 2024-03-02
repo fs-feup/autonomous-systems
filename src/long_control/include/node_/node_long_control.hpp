@@ -8,7 +8,6 @@
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
 
-
 class Adapter;
 
 /**
@@ -26,7 +25,7 @@ class LongitudinalControl : public rclcpp::Node {
   double velocity;
 
   Adapter *adapter;
-  std::string mode = "fsds"; // Temporary, change as desired. TODO(andre): Make not hardcoded
+  std::string mode = "fsds";  // Temporary, change as desired. TODO(andre): Make not hardcoded
 
   /**
    * @brief Function to publish the desired output (provisionally torque)

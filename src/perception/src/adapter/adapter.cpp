@@ -1,4 +1,5 @@
 #include "adapter/adapter.hpp"
+
 #include "perception/perception_node.hpp"
 
 Adapter::Adapter(Perception *perception) {

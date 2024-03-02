@@ -23,7 +23,7 @@ find_package(fs_msgs REQUIRED)
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 
-add_executable(node_long_control ${IMPLEMENTATION_FILES})
+add_executable(node_long_control src/main.cpp ${IMPLEMENTATION_FILES})
 ament_target_dependencies(node_long_control rclcpp std_msgs sensor_msgs custom_interfaces fs_msgs)
 target_include_directories(node_long_control PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>

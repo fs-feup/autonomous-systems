@@ -48,7 +48,7 @@ float PID::update(float setpoint, float measurement) {
   /*
    * Proportional term
    */
-  calculateProportionalTerm(error);
+  this->calculateProportionalTerm(error);
 
   /*
    * Integral term

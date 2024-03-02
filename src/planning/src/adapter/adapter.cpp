@@ -1,4 +1,5 @@
 #include "adapter/adapter.hpp"
+
 #include "planning/planning.hpp"
 
 Adapter::Adapter(Planning *planning) {
