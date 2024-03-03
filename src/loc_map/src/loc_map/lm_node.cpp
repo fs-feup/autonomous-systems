@@ -1,9 +1,10 @@
 #include "loc_map/lm_node.hpp"
-#include "utils/car.hpp"
-#include "utils/formulas.hpp"
+
 #include "adapter/eufs.hpp"
 #include "adapter/fsds.hpp"
 #include "adapter/map.hpp"
+#include "utils/car.hpp"
+#include "utils/formulas.hpp"
 
 /*---------------------- Constructor --------------------*/
 

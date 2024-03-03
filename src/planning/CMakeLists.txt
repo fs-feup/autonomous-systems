@@ -60,9 +60,7 @@ target_include_directories(planning PUBLIC
 target_compile_features(planning PUBLIC c_std_99 cxx_std_17)
 
 if(BUILD_TESTING)
-  find_package(ament_lint_auto REQUIRED)
   find_package(ament_cmake_gtest REQUIRED)
-  # ament_lint_auto_find_test_dependencies()
   ament_add_gtest(planning_test ${TESTFILES} ${IMPLEMENTATION_FILES})
   ament_target_dependencies(planning_test ament_index_cpp rclcpp std_msgs custom_interfaces eufs_msgs fs_msgs)
   target_include_directories(planning_test PUBLIC

@@ -13,8 +13,8 @@
  * @param limMax Maximum output value
  */
 
-PID::PID(float Kp, float Ki, float Kd, float antiWindup, float tau, float T, float limMin,
-         float limMax) {
+PID::PID(float Kp, float Ki, float Kd, float tau, float T, float limMin,
+         float limMax, float antiWindup) {
   this->Kp = Kp;
   this->Ki = Ki;
   this->Kd = Kd;
