@@ -10,6 +10,7 @@ void PathSmoothing::addPathPoint(float xValue, float yValue, float vValue) {
 
 int PathSmoothing::getPointAmount() { return static_cast<int>(path.size()); }
 
+// cppcheck-suppress unusedFunction
 void PathSmoothing::logPathPoints() {
   int n = getPointAmount();
   for (int i = 0; i < n; i++) {
@@ -18,6 +19,7 @@ void PathSmoothing::logPathPoints() {
   std::cout << std::endl;
 }
 
+// cppcheck-suppress unusedFunction
 void PathSmoothing::fillPath(const std::string &path) {
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "START fillPath");
   std::string x, y, v;
@@ -87,7 +89,8 @@ std::vector<PathPoint *> PathSmoothing::orderPath(std::vector<PathPoint *> *unor
   return path;
 }
 
-void PathSmoothing::defaultSmoother(const std::vector<PathPoint *>& a_path) {
+// cppcheck-suppress unusedFunction
+void PathSmoothing::defaultSmoother(const std::vector<PathPoint *> &a_path) {
   path = pathSmoother(100, 3, 3, a_path);
 }
 

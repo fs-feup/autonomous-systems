@@ -27,13 +27,10 @@ bool ExtendedKalmanFilter::cone_match(const double x_from_state, const double y_
   return limit_function(distance_to_vehicle) > delta;
 }
 /*---------------------- Tests helper functions --------------------*/
-/**
- * @brief set value of X at y to parameter value
- *
- */
+// cppcheck-suppress unusedFunction
 void ExtendedKalmanFilter::set_X_y(int y, float value) { this->X(y) = value; }
-void ExtendedKalmanFilter::push_to_colors(colors::Color color) { _colors.push_back(color); }
 
+// cppcheck-suppress unusedFunction
 void ExtendedKalmanFilter::set_P(int size) {
   this->P = Eigen::SparseMatrix<float>(size, size);
   this->P.coeffRef(0, 0) = 1.1;
@@ -41,10 +38,12 @@ void ExtendedKalmanFilter::set_P(int size) {
   this->P.coeffRef(2, 2) = 1.1;
 }
 
-/**
- * @brief Initializes state X with size equal to parameter size
- */
+// cppcheck-suppress unusedFunction
+void ExtendedKalmanFilter::push_to_colors(colors::Color color) { _colors.push_back(color); }
+
+// cppcheck-suppress unusedFunction
 void ExtendedKalmanFilter::init_X_size(int size) { this->X = Eigen::VectorXf::Zero(size); }
+
 
 /*---------------------- Constructors --------------------*/
 

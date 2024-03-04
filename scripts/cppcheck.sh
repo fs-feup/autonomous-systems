@@ -1,5 +1,5 @@
 cppcheck --enable=all \
-    --error-exitcode=1 ./src/ \
+    --error-exitcode=1 --inline-suppr ./src/ \
     -i test/ -i build/ -i install/ \
     -I ./src/loc_map/include/ \
     -I ./src/perception/include/ \

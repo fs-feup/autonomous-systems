@@ -31,6 +31,7 @@ void EufsAdapter::mission_state_callback(eufs_msgs::msg::CanState msg) {
   this->node->set_mission(eufsToSystem.at(static_cast<uint16_t>(mission)));
 }
 
+// cppcheck-suppress unusedFunction
 void EufsAdapter::finish() { std::cout << "Finish undefined for Eufs\n"; }
 
 void EufsAdapter::wheel_speeds_subscription_callback(const eufs_msgs::msg::WheelSpeedsStamped msg) {

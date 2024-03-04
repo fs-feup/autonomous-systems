@@ -137,6 +137,7 @@ void LMNode::set_mission(Mission mission) {
 
 /*---------------------- Publications --------------------*/
 
+// cppcheck-suppress unusedFunction
 void LMNode::_update_and_publish() {  // Currently unused, as correction step and
                                       // prediction step are carried out
                                       // separately

@@ -88,7 +88,7 @@ class PathSmoothing {
    *
    * @param a_path path to be smoothed
    */
-  void defaultSmoother(const std::vector<PathPoint *>& a_path);
+  void defaultSmoother(const std::vector<PathPoint *> &a_path);
 
   /**
    * @brief Fits spline to path

@@ -15,6 +15,7 @@ Track::~Track() {
   for (int i = 0; i < rSize; i++) delete rightCones[i];
 }
 
+// cppcheck-suppress unusedFunction
 void Track::logCones(bool side) {
   if (side) {
     std::cout << "LEFT CONES: ";
@@ -30,6 +31,7 @@ void Track::logCones(bool side) {
   std::cout << std::endl;
 }
 
+// cppcheck-suppress unusedFunction
 float Track::getMaxDistance(bool side) {
   float distance = 0;
   if (side) {
