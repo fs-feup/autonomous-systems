@@ -1,0 +1,6 @@
+max_angle 3.14159265358979323846264338327950288/6.0
+ideal_speed 1.0
+turning_period 4.0
+wheel_radius 0.254
+gain 0.25
+max_speed 1.0
