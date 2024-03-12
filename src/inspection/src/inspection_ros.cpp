@@ -9,18 +9,18 @@ InspectionMission::InspectionMission() : Node("inspection") {
   finish_publisher = this->create_publisher<fs_msgs::msg::FinishedSignal>("/signal/finished", 10);
 
   // get mission
-  mission_subscription = this->create_subscription<fs_msgs::msg::GoSignal>(
+  mission_signal = this->create_subscription<fs_msgs::msg::GoSignal>(
       "/wheel_states", 10,
       std::bind(&InspectionMission::mission_decider, this, std::placeholders::_1));
 }
 
-void InspectionMission::mission_decider(fs_msgs::msg::GoSignal mission_subscription) {
+void InspectionMission::mission_decider(fs_msgs::msg::GoSignal mission_signal) {
   initial_time = std::chrono::system_clock::now();
-  if (mission_subscription.mission == "inspection") {
+  if (mission_signal.mission == "inspection") {
     rpm_subscription = this->create_subscription<fs_msgs::msg::WheelStates>(
         "/wheel_states", 10,
         std::bind(&InspectionMission::inspection_script, this, std::placeholders::_1));
-  } else if (mission_subscription.mission == "inspection_test_EBS") {
+  } else if (mission_signal.mission == "inspection_test_EBS") {
     rpm_subscription = this->create_subscription<fs_msgs::msg::WheelStates>(
         "/wheel_states", 10,
         std::bind(&InspectionMission::test_EBS, this, std::placeholders::_1));

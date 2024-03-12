@@ -24,7 +24,7 @@ class InspectionMission : public rclcpp::Node {
  private:
   rclcpp::Publisher<fs_msgs::msg::FinishedSignal>::SharedPtr finish_publisher;
   rclcpp::Publisher<fs_msgs::msg::ControlCommand>::SharedPtr control_command_publisher;
-  rclcpp::Subscription<fs_msgs::msg::GoSignal>::SharedPtr mission_subscription;
+  rclcpp::Subscription<fs_msgs::msg::GoSignal>::SharedPtr mission_signal;
   rclcpp::Subscription<fs_msgs::msg::WheelStates>::SharedPtr rpm_subscription;
   std::chrono::_V2::system_clock::time_point initial_time;
   InspectionFunctions *inspection_object = new InspectionFunctions();
@@ -33,9 +33,9 @@ class InspectionMission : public rclcpp::Node {
   /**
    * @brief recieves GoSignal and decides what mission should be used
    * 
-   * @param mission_subscription GoSignal
+   * @param mission_signal GoSignal
    */
-  void mission_decider(fs_msgs::msg::GoSignal mission_subscription);
+  void mission_decider(fs_msgs::msg::GoSignal mission_signal);
 
   /**
    * @brief Function to publish control command while time is less than 26 seconds

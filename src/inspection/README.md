@@ -1,6 +1,6 @@
 # Inspection package
 
-This package is responsible for running two scripts used for testing the car. One of them performs the autonomous mission described in the rules: "T14.11.2 The inspection mission is defined by slowly spinning the drivetrain and actuating the steering system with a sine wave while the vehicle is jacked up and all wheels are removed. After 25 s to 30 s the AS must transition to 'AS Finished'". The other script is used to accelerate the car to a maximum speed and then braking.
+This package is responsible for running two scripts used for testing the car. One of them performs the autonomous mission described in the rules: "T14.11.2 The inspection mission is defined by slowly spinning the drivetrain and actuating the steering system with a sine wave while the vehicle is jacked up and all wheels are removed. After 25 s to 30 s the AS must transition to 'AS Finished'". The other script is an implementation of the EBS test described in the rules. The parameters to be used when running this node can be configured by changing the config.txt file.
 
 ## Compiling
 From src folder:
