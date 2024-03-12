@@ -9,7 +9,6 @@ var annotated_dup =
       ] ]
     ] ],
     [ "Adapter", "d3/d7f/class_adapter.html", "d3/d7f/class_adapter" ],
-    [ "AdsdvAdapter", "db/db2/class_adsdv_adapter.html", "db/db2/class_adsdv_adapter" ],
     [ "Cluster", "d2/d23/class_cluster.html", "d2/d23/class_cluster" ],
     [ "Clustering", "d9/d10/class_clustering.html", "d9/d10/class_clustering" ],
     [ "Cone", "d8/da1/class_cone.html", "d8/da1/class_cone" ],
@@ -26,7 +25,6 @@ var annotated_dup =
     [ "GroundRemoval", "dc/d84/class_ground_removal.html", "dc/d84/class_ground_removal" ],
     [ "ImuVelocityModel", "d2/d58/class_imu_velocity_model.html", "d2/d58/class_imu_velocity_model" ],
     [ "IntegrationTest", "d7/d4e/class_integration_test.html", "d7/d4e/class_integration_test" ],
-    [ "LateralControl", "d4/d45/class_lateral_control.html", "d4/d45/class_lateral_control" ],
     [ "LeastSquaresDifferentiation", "d7/d15/class_least_squares_differentiation.html", "d7/d15/class_least_squares_differentiation" ],
     [ "LeastSquaresDifferentiationTest", "de/d1e/class_least_squares_differentiation_test.html", "de/d1e/class_least_squares_differentiation_test" ],
     [ "LMNode", "dd/db3/class_l_m_node.html", "dd/db3/class_l_m_node" ],

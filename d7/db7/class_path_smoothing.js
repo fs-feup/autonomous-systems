@@ -2,7 +2,7 @@ var class_path_smoothing =
 [
     [ "PathSmoothing", "d7/db7/class_path_smoothing.html#aa0f1399c1e8115f2dd25c73dc31ed1b1", null ],
     [ "addPathPoint", "d7/db7/class_path_smoothing.html#a0ea650cb431af618f5c4b0977dfcca4a", null ],
-    [ "defaultSmoother", "d7/db7/class_path_smoothing.html#a3d01e4505290cebb79be3b8c645a8d77", null ],
+    [ "defaultSmoother", "d7/db7/class_path_smoothing.html#af9365cf145ba25661e8c287a5dd6814c", null ],
     [ "fillPath", "d7/db7/class_path_smoothing.html#a353e6d4bfab4b2a3f92cd630d8dd2175", null ],
     [ "getPath", "d7/db7/class_path_smoothing.html#a3df41d3ad694f3794ff4dc5b010cc825", null ],
     [ "getPointAmount", "d7/db7/class_path_smoothing.html#aa166fa4fdd74344246256ee161adc562", null ],

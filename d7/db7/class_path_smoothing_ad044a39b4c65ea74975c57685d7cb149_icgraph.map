@@ -1,9 +1,13 @@
 <map id="PathSmoothing::vector_direction" name="PathSmoothing::vector_direction">
-<area shape="rect" id="Node000001" title="Check if the direction of two cones is consistent." alt="" coords="730,5,883,46"/>
-<area shape="rect" id="Node000002" href="$d7/db7/class_path_smoothing.html#a17371b9028a6c6daa56717aa143b59fb" title="Orders the path to fit spline." alt="" coords="510,13,682,39"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="715,28,683,28,683,23,715,23"/>
-<area shape="rect" id="Node000003" href="$d7/db7/class_path_smoothing.html#aae6d8b2ff86ec4829ddb3fc2b0ba0856" title="Function designed to smooth the path via spline." alt="" coords="265,13,462,39"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="494,28,463,28,463,23,494,23"/>
-<area shape="rect" id="Node000004" href="$d7/db7/class_path_smoothing.html#a3d01e4505290cebb79be3b8c645a8d77" title="calls pathSmoother with default values for precision, order and coeffs_ratio that were determined to ..." alt="" coords="5,13,217,39"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="249,28,217,28,217,23,249,23"/>
+<area shape="rect" id="Node000001" title="Check if the direction of two cones is consistent." alt="" coords="833,23,985,64"/>
+<area shape="rect" id="Node000002" href="$d7/db7/class_path_smoothing.html#a17371b9028a6c6daa56717aa143b59fb" title="Orders the path to fit spline." alt="" coords="612,31,785,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="817,46,785,46,785,41,817,41"/>
+<area shape="rect" id="Node000003" href="$d7/db7/class_path_smoothing.html#aae6d8b2ff86ec4829ddb3fc2b0ba0856" title="Function designed to smooth the path via spline." alt="" coords="367,31,564,56"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="597,46,565,46,565,41,597,41"/>
+<area shape="rect" id="Node000004" href="$d7/db7/class_path_smoothing.html#af9365cf145ba25661e8c287a5dd6814c" title="calls pathSmoother with default values for precision, order and coeffs_ratio that were determined to ..." alt="" coords="108,31,319,56"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="351,46,319,46,319,41,351,41"/>
+<area shape="rect" id="Node000005" href="$d9/d1e/tests_8cpp.html#a6df4e4f75ec78a003fe012ee9a5172f8" title="simple scenario with few points in the path" alt="" coords="5,5,60,31"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="102,31,60,25,61,19,102,25"/>
+<area shape="rect" id="Node000006" href="$d9/d1e/tests_8cpp.html#aae8c79094c63a375eea2464aa2a09e00" title="more complex scenario with cones deviating from path and with significant curvature" alt="" coords="5,55,60,80"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="97,62,60,67,60,61,97,56"/>
 </map>

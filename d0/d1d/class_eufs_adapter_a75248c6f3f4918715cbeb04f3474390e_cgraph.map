@@ -1,0 +1,23 @@
+<map id="EufsAdapter::wheel_speeds_subscription_callback" name="EufsAdapter::wheel_speeds_subscription_callback">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,97,153,153"/>
+<area shape="rect" id="Node000002" href="$dd/db3/class_l_m_node.html#a714e7a6776e47cbd6ae4f14ef9513195" title="Function to be called everytime information is received from the wheel encoders." alt="" coords="201,105,368,145"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="153,122,185,122,185,128,153,128"/>
+<area shape="rect" id="Node000003" href="$dd/db3/class_l_m_node.html#abbb3b2569d755a40a5e90c896787ecf1" title="publishes the localization (&#39;vehicle_localization&#39;) to the topic vehicle_location" alt="" coords="416,5,612,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="311,102,358,70,415,40,431,34,433,39,417,45,361,75,314,106"/>
+<area shape="rect" id="Node000004" href="$dd/db3/class_l_m_node.html#a2bf25930993183e7c24702634532adab" title="publishes the map (&#39;track_map&#39;) to the topic track_map" alt="" coords="436,55,593,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="368,101,444,82,445,87,369,107"/>
+<area shape="rect" id="Node000005" href="$dd/db3/class_l_m_node.html#a28a0317cd05f770daba784ab06a389c8" title="Converts the odometry data to translational and rotational velocities." alt="" coords="440,105,588,145"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="368,122,424,122,424,128,368,128"/>
+<area shape="rect" id="Node000007" href="$da/da6/class_extended_kalman_filter.html#aa5aeb5c329fffcbcb1a197de8e263427" title="Prediction step:" alt="" coords="441,170,588,211"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="359,143,426,162,425,168,357,148"/>
+<area shape="rect" id="Node000011" href="$da/da6/class_extended_kalman_filter.html#ae59429128f079a8a03c53360f7a9bf4f" title="Updates vehicle state and map variables according to the state vector X." alt="" coords="441,235,588,276"/>
+<area shape="poly" id="edge10_Node000002_Node000011" title=" " alt="" coords="310,143,358,182,417,220,431,226,428,231,415,224,355,186,307,148"/>
+<area shape="rect" id="Node000006" href="$da/d5d/formulas_8cpp.html#aa977d636c53692b00cc02c90dab37cff" title="Function to get the translational velocity of a wheel from rpm and wheel diameter." alt="" coords="681,71,812,112"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="588,112,665,100,666,106,589,117"/>
+<area shape="rect" id="Node000008" href="$db/d66/class_motion_model.html#aad4c79b92acd351e94e7b847b61f965b" title="Calculate state covariance matrix from motion estimation." alt="" coords="664,137,829,177"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="588,177,648,168,649,174,589,182"/>
+<area shape="rect" id="Node000009" href="$db/d66/class_motion_model.html#a76de9b7caf93cd717bf388aff40ab589" title="Get the process noise covariance matrix object." alt="" coords="660,202,833,243"/>
+<area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="589,198,645,206,644,211,588,203"/>
+<area shape="rect" id="Node000010" href="$db/d66/class_motion_model.html#a24a7f8fab182b07ba116911cdd33893f" title="Calculate expected state vector from motion estimation." alt="" coords="676,267,817,308"/>
+<area shape="poly" id="edge9_Node000007_Node000010" title=" " alt="" coords="584,209,614,221,638,236,662,252,675,258,673,263,659,256,635,241,611,226,582,214"/>
+</map>

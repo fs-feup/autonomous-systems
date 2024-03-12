@@ -1,0 +1,7 @@
+<map id="Track::getMaxDistance" name="Track::getMaxDistance">
+<area shape="rect" id="Node000001" title="used to calculate max distance between consecutive cones for testing" alt="" coords="5,31,159,56"/>
+<area shape="rect" id="Node000002" href="$d8/da1/class_cone.html#a51a49cc249e79d06f6a983250fe809b3" title=" " alt="" coords="207,5,291,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="159,29,191,24,191,30,160,34"/>
+<area shape="rect" id="Node000003" href="$d8/da1/class_cone.html#a952987a9de5d20d7930b3e93c04fd278" title=" " alt="" coords="207,55,291,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="160,52,191,57,191,62,159,57"/>
+</map>

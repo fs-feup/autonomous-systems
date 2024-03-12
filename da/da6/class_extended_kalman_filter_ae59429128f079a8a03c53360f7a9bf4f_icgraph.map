@@ -1,15 +1,35 @@
 <map id="ExtendedKalmanFilter::update" name="ExtendedKalmanFilter::update">
-<area shape="rect" id="Node000001" title="Updates vehicle state and map variables according to the state vector X." alt="" coords="420,96,567,137"/>
-<area shape="rect" id="Node000002" href="$dd/db3/class_l_m_node.html#ab7d786f4a04bdd59ce770cffb2872551" title="executes the prediction step of the EKF" alt="" coords="221,13,356,39"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="444,90,371,53,338,42,340,37,373,49,447,86"/>
-<area shape="rect" id="Node000004" href="$dd/db3/class_l_m_node.html#a50dea5d57d22503eca329e8ce5064d47" title="Callback that updates everytime information is received from the perception module." alt="" coords="212,63,365,103"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="404,105,365,98,366,93,405,99"/>
-<area shape="rect" id="Node000006" href="$dd/db3/class_l_m_node.html#a714e7a6776e47cbd6ae4f14ef9513195" title="Function to be called everytime information is received from the wheel encoders." alt="" coords="205,128,372,169"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="405,133,373,138,372,133,404,128"/>
-<area shape="rect" id="Node000007" href="$d3/dc5/slam__test_8cpp.html#aa751639fa208fe991a3ba5969c0daa28" title="Test the EKF SLAM algorithm in a linear movement." alt="" coords="261,193,316,219"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="446,147,373,183,317,201,315,196,371,178,443,142"/>
-<area shape="rect" id="Node000003" href="$dd/db3/class_l_m_node.html#a8c430d2c36500207447268a8d02e0f2f" title="Executes:" alt="" coords="5,5,157,46"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="206,28,157,28,157,23,206,23"/>
-<area shape="rect" id="Node000005" href="$dd/db3/class_l_m_node.html#aea4573760aba34091b51cc9af85c4ed5" title="LMNode constructor declaration." alt="" coords="17,70,145,96"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="196,86,145,86,145,80,196,80"/>
+<area shape="rect" id="Node000001" title="Updates vehicle state and map variables according to the state vector X." alt="" coords="810,96,957,137"/>
+<area shape="rect" id="Node000002" href="$dd/db3/class_l_m_node.html#ab7d786f4a04bdd59ce770cffb2872551" title="executes the prediction step of the EKF" alt="" coords="611,13,745,39"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="834,90,761,53,728,42,730,37,763,49,836,86"/>
+<area shape="rect" id="Node000004" href="$dd/db3/class_l_m_node.html#a50dea5d57d22503eca329e8ce5064d47" title="Callback that updates everytime information is received from the perception module." alt="" coords="601,63,755,103"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="794,105,755,98,756,93,795,99"/>
+<area shape="rect" id="Node000006" href="$dd/db3/class_l_m_node.html#a714e7a6776e47cbd6ae4f14ef9513195" title="Function to be called everytime information is received from the wheel encoders." alt="" coords="594,128,762,169"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="795,133,763,138,762,133,794,128"/>
+<area shape="rect" id="Node000017" href="$d3/dc5/slam__test_8cpp.html#aa751639fa208fe991a3ba5969c0daa28" title="Test the EKF SLAM algorithm in a linear movement." alt="" coords="651,193,705,219"/>
+<area shape="poly" id="edge16_Node000001_Node000017" title=" " alt="" coords="835,147,763,183,707,201,705,196,761,178,833,142"/>
+<area shape="rect" id="Node000003" href="$dd/db3/class_l_m_node.html#a8c430d2c36500207447268a8d02e0f2f" title="Executes:" alt="" coords="395,5,546,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="595,28,547,28,547,23,595,23"/>
+<area shape="rect" id="Node000005" href="$dd/db3/class_l_m_node.html#aea4573760aba34091b51cc9af85c4ed5" title="LMNode constructor declaration." alt="" coords="407,70,534,96"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="586,86,535,86,535,80,586,80"/>
+<area shape="rect" id="Node000007" href="$d0/d1d/class_eufs_adapter.html#a75248c6f3f4918715cbeb04f3474390e" title=" " alt="" coords="397,121,544,176"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="579,151,544,151,544,146,579,146"/>
+<area shape="rect" id="Node000011" href="$d7/d8e/class_fsds_adapter.html#a0185721ab73bc504fda033fc2e935d5a" title=" " alt="" coords="397,210,544,266"/>
+<area shape="poly" id="edge10_Node000006_Node000011" title=" " alt="" coords="608,177,595,183,531,212,529,207,593,178,606,172"/>
+<area shape="rect" id="Node000008" href="$d0/d1d/class_eufs_adapter.html#afb57c4eba2192b5277c27858f443811d" title=" " alt="" coords="230,132,346,157"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="381,149,346,148,346,143,382,144"/>
+<area shape="rect" id="Node000009" href="$d0/d1d/class_eufs_adapter.html#ab764c5ff5794e7606508d4ca6e5037cf" title=" " alt="" coords="8,82,178,108"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="219,130,146,111,147,106,220,124"/>
+<area shape="rect" id="Node000010" href="$d0/d1d/class_eufs_adapter.html#a17a85a1ef1c217ae4bef7b4244e17fdb" title=" " alt="" coords="8,132,178,157"/>
+<area shape="poly" id="edge9_Node000008_Node000010" title=" " alt="" coords="215,147,178,147,178,142,215,142"/>
+<area shape="rect" id="Node000012" href="$d7/d8e/class_fsds_adapter.html#a0cd24b4faf0f5f8ef7bcc5c8c8dbec48" title=" " alt="" coords="229,230,347,256"/>
+<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="381,243,347,244,347,239,381,238"/>
+<area shape="rect" id="Node000013" href="$d7/d8e/class_fsds_adapter.html#a216d89a2fa6596111b227de5f584fcd3" title=" " alt="" coords="5,181,181,207"/>
+<area shape="poly" id="edge12_Node000012_Node000013" title=" " alt="" coords="219,228,146,210,147,205,220,223"/>
+<area shape="rect" id="Node000014" href="$d7/d8e/class_fsds_adapter.html#a0f0ad1e3015b4422aaaaabaff8f3191e" title=" " alt="" coords="5,230,181,256"/>
+<area shape="poly" id="edge13_Node000012_Node000014" title=" " alt="" coords="213,246,181,246,181,240,213,240"/>
+<area shape="rect" id="Node000015" href="$d7/d8e/class_fsds_adapter.html#a4f1ccffb0cc622ea55c9d2400674c738" title=" " alt="" coords="5,280,181,305"/>
+<area shape="poly" id="edge14_Node000012_Node000015" title=" " alt="" coords="220,263,147,281,146,276,219,258"/>
+<area shape="rect" id="Node000016" href="$d7/d8e/class_fsds_adapter.html#a3326ea8b3c0ec0d0bc1e7432de507155" title=" " alt="" coords="5,329,181,355"/>
+<area shape="poly" id="edge15_Node000012_Node000016" title=" " alt="" coords="261,268,225,295,182,320,154,331,152,326,180,315,222,291,258,264"/>
 </map>

@@ -1,13 +1,13 @@
 var searchData=
 [
   ['s_0',['s',['../d9/de5/namespaceacceleration__mapper.html#a47cf6955c94241bd5cf0092fb5d3f168',1,'acceleration_mapper.s'],['../d2/de4/namespaceskidpad__mapper.html#a2b63d9d357244854f4e74183d810f27a',1,'skidpad_mapper.s'],['../dc/d1a/namespaceplot__track.html#abfc4a64551159a6e82e949d1e3da0e52',1,'plot_track.s']]],
-  ['sequence_20diagram_1',['Sequence Diagram',['../d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md59',1,'']]],
+  ['sequence_20diagram_1',['Sequence Diagram',['../d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md49',1,'']]],
   ['services_3a_2',['Services:',['../dd/d41/md_src_2eufs__msgs_2_r_e_a_d_m_e.html#autotoc_md16',1,'']]],
   ['set_5fmission_3',['set_mission',['../dd/db3/class_l_m_node.html#a88d954224798c10f160ef922ca270c85',1,'LMNode::set_mission()'],['../d9/db5/class_planning.html#a4b1103d56245c7e28e2a2b708d8b3b12',1,'Planning::set_mission()']]],
-  ['set_5fmission_5fstate_4',['set_mission_state',['../d3/d7f/class_adapter.html#aa0ae5d2dc606afd0caab1079de5a34cc',1,'Adapter::set_mission_state()'],['../db/db2/class_adsdv_adapter.html#a8a2b330673da054f426ed64c6dd66573',1,'AdsdvAdapter::set_mission_state()'],['../d0/d1d/class_eufs_adapter.html#a0226246b94ccf9707c6295a19cb18781',1,'EufsAdapter::set_mission_state()'],['../d7/d8e/class_fsds_adapter.html#a0be977affe9a594c15dada1eb4a960e1',1,'FsdsAdapter::set_mission_state()']]],
+  ['set_5fmission_5fstate_4',['set_mission_state',['../d3/d7f/class_adapter.html#aa0ae5d2dc606afd0caab1079de5a34cc',1,'Adapter::set_mission_state()'],['../d0/d1d/class_eufs_adapter.html#a0226246b94ccf9707c6295a19cb18781',1,'EufsAdapter::set_mission_state()'],['../d7/d8e/class_fsds_adapter.html#a0be977affe9a594c15dada1eb4a960e1',1,'FsdsAdapter::set_mission_state()']]],
   ['set_5fp_5',['set_P',['../da/da6/class_extended_kalman_filter.html#aab0de862af1f628d7a85a4a6141a07eb',1,'ExtendedKalmanFilter']]],
   ['set_5fx_5fy_6',['set_X_y',['../da/da6/class_extended_kalman_filter.html#ada3c7923554c8e0f35bb81ef5bb47f35',1,'ExtendedKalmanFilter']]],
-  ['setcolor_7',['setColor',['../d2/d23/class_cluster.html#ac90ff3ed7eaaeb5aa28e107fb556b517',1,'Cluster']]],
+  ['setcolor_7',['setColor',['../d2/d23/class_cluster.html#a3355a1a02e5509a92859d324c6f9f5a2',1,'Cluster']]],
   ['setcone_8',['setCone',['../d6/d2c/class_track.html#a0da16ce65cc4d3f67a79073e0d632f6f',1,'Track']]],
   ['setpointcloud_9',['setPointCloud',['../d2/d23/class_cluster.html#a053a67267ab8b64723c43a66d2ddae61',1,'Cluster']]],
   ['setup_10',['setup',['../d2/dac/class_exec_time_test_e_k_f_tests.html#aa83fc30d94e975858d4c9dc1776224b4',1,'ExecTimeTestEKFTests::SetUp()'],['../df/d59/class_exec_time_test.html#a64000aac86caa614a48abb2db86fa6e8',1,'ExecTimeTest::SetUp()'],['../d8/d90/class_d_b_s_c_a_n_test.html#a7ffdae0cc4ecc8b60bf500c26c10822a',1,'DBSCANTest::SetUp()'],['../de/d1e/class_least_squares_differentiation_test.html#ad6ddecb71e84de48c2c5245d081af7b4',1,'LeastSquaresDifferentiationTest::SetUp()'],['../d8/d5a/class_r_a_n_s_a_c_test.html#a072616236371d0a7d1b227925765b208',1,'RANSACTest::SetUp()'],['../d7/d4e/class_integration_test.html#a86a6d164c257739c10d039798dc7a500',1,'IntegrationTest::SetUp()'],['../dd/dc4/namespacesetup.html',1,'setup']]],
@@ -19,7 +19,7 @@ var searchData=
   ['skidpad_5fmapper_16',['skidpad_mapper',['../d2/de4/namespaceskidpad__mapper.html',1,'']]],
   ['skidpad_5fmapper_2epy_17',['skidpad_mapper.py',['../d0/d6d/skidpad__mapper_8py.html',1,'']]],
   ['slam_5ftest_2ecpp_18',['slam_test.cpp',['../d3/dc5/slam__test_8cpp.html',1,'']]],
-  ['source_19',['Source',['../d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md54',1,'']]],
+  ['source_19',['Source',['../d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md44',1,'']]],
   ['spline_20',['spline',['../d7/dc1/namespacespline.html',1,'']]],
   ['spline_2epy_21',['spline.py',['../d4/dfa/spline_8py.html',1,'']]],
   ['splinesmoother_22',['splineSmoother',['../d7/db7/class_path_smoothing.html#a91c756b1034319b0f4d90f1b897348d6',1,'PathSmoothing']]],
@@ -30,7 +30,7 @@ var searchData=
   ['static_5finspection_5fb_27',['static_inspection_B',['../d6/d14/loc__map_2include_2utils_2mission_8hpp.html#af686af98019fe71e9f18190349618431aaf00f2fa0844611e82dba057fe49c10b',1,'mission.hpp']]],
   ['steering_5fangle_28',['steering_angle',['../db/d6d/struct_motion_update.html#a87e8e0c4bca0060025e89ea9dac9b421',1,'MotionUpdate']]],
   ['straightpoints_29',['straightpoints',['../d9/de5/namespaceacceleration__mapper.html#a9b380571f426452caf2fb71bbab761a9',1,'acceleration_mapper.straightPoints'],['../d2/de4/namespaceskidpad__mapper.html#a1eef21edd99ad7e9bbf1a88bda9939fc',1,'skidpad_mapper.straightPoints']]],
-  ['structure_30',['structure',['../dd/d4c/md_src_2lateral__control_2_r_e_a_d_m_e.html#autotoc_md24',1,'Structure'],['../d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md34',1,'Structure']]],
+  ['structure_30',['Structure',['../d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md24',1,'']]],
   ['student_20autonomous_20systems_31',['Formula Student Autonomous Systems',['../index.html',1,'']]],
   ['systems_32',['systems',['../index.html',1,'Formula Student Autonomous Systems'],['../index.html#autotoc_md0',1,'FS-FEUP Autonomous Systems']]]
 ];
