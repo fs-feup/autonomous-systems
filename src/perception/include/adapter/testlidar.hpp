@@ -10,7 +10,7 @@ class TestAdapter : public Adapter {
   explicit TestAdapter(Perception* perception);
 
   void init() override;
-  void mission_state_callback(const std::string msg);
+  void mission_state_callback(const std::string& msg);
   void finish() override;
 };
 

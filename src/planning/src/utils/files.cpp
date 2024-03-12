@@ -41,12 +41,13 @@ std::ifstream openReadFile(const std::string &filename) {
   std::ifstream file(filePrefix + filename);
   if (!file.is_open()) {
     RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "ERROR opening file: %s\n", logger_variable.c_str());
-  } else {RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"),
-   "Successfully opened %s \n", logger_variable.c_str());}
-    RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "End openReadFile");
+  } else {
+    RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Successfully opened %s \n",
+                 logger_variable.c_str());
+  }
+  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "End openReadFile");
   return file;
 }
-
 
 // Track* read_track_file(const std::string& filename) {
 //   std::string filePrefix = rcpputils::fs::current_path().string();
