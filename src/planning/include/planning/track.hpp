@@ -4,13 +4,13 @@
 #include <gsl/gsl_bspline.h>
 #include <gsl/gsl_multifit.h>
 
+#include <cmath>
 #include <cstring>
 #include <fstream>
 #include <iostream>
 #include <string>
-#include <vector>
 #include <utility>
-#include <cmath>
+#include <vector>
 
 #include "rclcpp/rclcpp.hpp"
 #include "utils/cone.hpp"
@@ -47,12 +47,12 @@ class Track {
    * @brief log cones on one side of the track
    *
    * @param side if true -> left, false -> right
-  */
+   */
   void logCones(bool side);
 
   /**
    * @brief used to calculate max distance between consecutive cones for testing
-   * 
+   *
    * @param side true -> left | false -> right
    * @return maximum distance between consecutive cones
    */
@@ -129,7 +129,7 @@ class Track {
 
   /**
    * @brief Used for logging content of gsl_vectors
-   * 
+   *
    * @param gsl gsl_vector of pointers
    * @param n number of elements in the gsl_vector
    * @return content of the gsl_vector separated with spaces
@@ -152,17 +152,17 @@ class Track {
    *
    * @param unord_cone_seq Unordered array of cones
    * @return Ordered array of cones
-  */
+   */
   std::vector<Cone *> orderCones(std::vector<Cone *> *unord_cone_seq);
 
   /**
    * @brief function to fit spline to cone sequence
-   * 
+   *
    * @param side Whether to fit spline to the left (true) or right (false)
    * cone list.
-   * @param precision controls the amount of points in the parametrized 
-   * spline (1 means one point per unit of the parameter unit). As a good rule of thumb 
-   * use 1 for outlier removal (that will mean each cone has its corresponding spline point) 
+   * @param precision controls the amount of points in the parametrized
+   * spline (1 means one point per unit of the parameter unit). As a good rule of thumb
+   * use 1 for outlier removal (that will mean each cone has its corresponding spline point)
    * and 10-100 for path smoothing
    * @param order Degree of the B-spline. It is a parameter that determines
    * the degree of the polynomial functions used to interpolate between breakpoints.
@@ -171,8 +171,8 @@ class Track {
    * @param cone_seq ordered sequence of cones
    * @return cones in the spline
    */
-  std::vector<Cone  *> fitSpline(bool side, int precision,
-  int order, float coeffs_ratio, std::vector<Cone *> cone_seq);
+  std::vector<Cone *> fitSpline(bool side, int precision, int order, float coeffs_ratio,
+                                std::vector<Cone *> cone_seq);
 
   /**
    * @brief Validate the cones in the track by deleting outliers.
@@ -200,8 +200,7 @@ class Track {
  * applied, and how the outlier detection process works, are encapsulated within
  the function's logic.
  */
-  void deleteOutliers(bool side, int order, float coeffs_ratio,
-                     bool writing, int precision);
+  void deleteOutliers(bool side, int order, float coeffs_ratio, bool writing, int precision);
 
   /**
    * @brief Reset the track by clearing cone lists.

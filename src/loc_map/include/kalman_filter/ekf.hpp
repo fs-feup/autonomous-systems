@@ -131,8 +131,15 @@ class ExtendedKalmanFilter {
    */
   void set_X_y(int y, float value);
 
+  /**
+   * @brief set value of P to a 3x3 with 1.1 in diagonal
+   *
+   */
   void set_P(const int size);
 
+  /**
+   * @brief Initializes state X with size equal to parameter size
+   */
   void init_X_size(const int size);
 
   /**
