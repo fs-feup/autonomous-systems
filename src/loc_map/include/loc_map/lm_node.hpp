@@ -8,6 +8,8 @@
 #include <string>
 #include <typeinfo>
 
+#include "adapter/eufs.hpp"
+#include "adapter/fsds.hpp"
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "custom_interfaces/msg/point2d.hpp"
 #include "custom_interfaces/msg/pose.hpp"
@@ -17,8 +19,6 @@
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/imu.hpp"
 #include "std_msgs/msg/string.hpp"
-#include "adapter/fsds.hpp"
-#include "adapter/eufs.hpp"
 
 class Adapter;
 
@@ -41,8 +41,8 @@ class LMNode : public rclcpp::Node {
   VehicleState *_vehicle_state;
   Mission _mission;
   bool _use_odometry;
-  Adapter* adapter;
-  std::string mode = "fsds"; // Temporary, change as desired. TODO(andre): Make not hardcoded
+  Adapter *adapter;
+  std::string mode = "fsds";  // Temporary, change as desired. TODO(andre): Make not hardcoded
 
  public:
   /**

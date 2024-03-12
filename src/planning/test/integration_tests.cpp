@@ -12,7 +12,7 @@ class IntegrationTest : public ::testing::Test {
   std::shared_ptr<rclcpp::Node> control_receiver;
   std::shared_ptr<rclcpp::Node> planning_test;
 
-  custom_interfaces::msg::ConeArray cone_array_msg;  // message to receive
+  custom_interfaces::msg::ConeArray cone_array_msg;      // message to receive
   custom_interfaces::msg::PathPointArray received_path;  // message to send
 
   // Publisher and Subscriber
@@ -198,6 +198,6 @@ TEST_F(IntegrationTest, PUBLISH_PATH1) {
   std::ofstream file = openWriteFile("src/performance/exec_time/planning.csv");
   file << "planning, all, 4 cones, " << duration.count() << "\n";
   file.close();
-  EXPECT_EQ(static_cast<long unsigned>(
-  received_path.pathpoint_array.size()), (long unsigned int)21);
+  EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()),
+            (long unsigned int)21);
 }

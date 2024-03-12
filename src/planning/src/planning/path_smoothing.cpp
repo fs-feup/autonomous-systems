@@ -2,26 +2,24 @@
 
 PathSmoothing::PathSmoothing() {}
 
-std::vector<PathPoint *> PathSmoothing::getPath() {
-  return path;
-}
+std::vector<PathPoint *> PathSmoothing::getPath() { return path; }
 
 void PathSmoothing::addPathPoint(float xValue, float yValue, float vValue) {
   path.push_back(new PathPoint(xValue, yValue, vValue));
 }
 
-int PathSmoothing::getPointAmount() {
-  return static_cast<int>(path.size());
-}
+int PathSmoothing::getPointAmount() { return static_cast<int>(path.size()); }
 
+// cppcheck-suppress unusedFunction
 void PathSmoothing::logPathPoints() {
   int n = getPointAmount();
   for (int i = 0; i < n; i++) {
-    std::cout << "(" << path[i] -> getX() << "," << path[i] -> getY() << "),";
+    std::cout << "(" << path[i]->getX() << "," << path[i]->getY() << "),";
   }
   std::cout << std::endl;
 }
 
+// cppcheck-suppress unusedFunction
 void PathSmoothing::fillPath(const std::string &path) {
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "START fillPath");
   std::string x, y, v;
@@ -50,7 +48,7 @@ std::vector<PathPoint *> PathSmoothing::orderPath(std::vector<PathPoint *> *unor
   // This approach creates an ordered sequence that efficiently connects nearby
   // path points.
   std::vector<std::pair<PathPoint *, bool>> new_unord_path;
-  for (int i = 0; i < static_cast<int>(unord_path -> size()); i++)
+  for (int i = 0; i < static_cast<int>(unord_path->size()); i++)
     new_unord_path.push_back(std::make_pair((*unord_path)[i], false));
 
   // Values for first iteration
@@ -59,8 +57,7 @@ std::vector<PathPoint *> PathSmoothing::orderPath(std::vector<PathPoint *> *unor
   float vx = 1;
   float vy = 0;
 
-  for (int iter_number = 0; iter_number < static_cast<int>(unord_path->size());
-       iter_number++) {
+  for (int iter_number = 0; iter_number < static_cast<int>(unord_path->size()); iter_number++) {
     float min_dist = MAXFLOAT;
     int min_index = 0;
 
@@ -92,14 +89,15 @@ std::vector<PathPoint *> PathSmoothing::orderPath(std::vector<PathPoint *> *unor
   return path;
 }
 
-void PathSmoothing::defaultSmoother(std::vector<PathPoint *> a_path) {
-  path = pathSmoother(100, 3, 3 , a_path);
+// cppcheck-suppress unusedFunction
+void PathSmoothing::defaultSmoother(const std::vector<PathPoint *> &a_path) {
+  path = pathSmoother(100, 3, 3, a_path);
 }
 
 std::vector<PathPoint *> PathSmoothing::splineSmoother(int precision, int order, float coeffs_ratio,
-                        std::vector<PathPoint *> path) {
-  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"),
-  "START splineSmoother with %i path points", static_cast<int>(path.size()));
+                                                       std::vector<PathPoint *> path) {
+  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "START splineSmoother with %i path points",
+               static_cast<int>(path.size()));
 
   const int n = path.size();
   const int ncoeffs = n / coeffs_ratio;  // n > = ncoeffs
@@ -131,7 +129,6 @@ std::vector<PathPoint *> PathSmoothing::splineSmoother(int precision, int order,
   cov2 = gsl_matrix_alloc(ncoeffs, ncoeffs);
   mw = gsl_multifit_linear_alloc(n, ncoeffs);
   mw2 = gsl_multifit_linear_alloc(n, ncoeffs);
-
 
   // Set spline data
   for (int i = 0; i < n; i++) {
@@ -165,7 +162,7 @@ std::vector<PathPoint *> PathSmoothing::splineSmoother(int precision, int order,
   gsl_multifit_wlinear(X, w, x_values, c, cov, &chisq, mw);
   gsl_multifit_wlinear(Y, w, y_values, c2, cov2, &chisq2, mw2);
 
-  //Initialize variables for subsequent spline evaluation
+  // Initialize variables for subsequent spline evaluation
   double xi, yi, yerr, yerr2;
   std::vector<double> i_eval, x_eval, y_eval;
   std::vector<PathPoint *> path_eval;
@@ -183,7 +180,7 @@ std::vector<PathPoint *> PathSmoothing::splineSmoother(int precision, int order,
       PathPoint *path_point = new PathPoint(xi, yi);
       path_eval.push_back(path_point);
       if (j == 0 && i == n - 1) {
-        break; // Decimals can't go over last int
+        break;  // Decimals can't go over last int
       }
     }
   }
@@ -204,17 +201,15 @@ std::vector<PathPoint *> PathSmoothing::splineSmoother(int precision, int order,
   gsl_multifit_linear_free(mw);
   gsl_multifit_linear_free(mw2);
 
-  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"),
-  "END fitSpline with %i points", static_cast<int>(path_eval.size()));
+  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "END fitSpline with %i points",
+               static_cast<int>(path_eval.size()));
 
   return path_eval;
 }
 
-std::vector<PathPoint *> PathSmoothing::pathSmoother(int precision,
-    int order, float coeffs_ratio, std::vector<PathPoint *> unord_path) {
-    std::vector<PathPoint *> ord_path = orderPath(&unord_path);
-    std::vector<PathPoint *> path =  splineSmoother(precision, order, coeffs_ratio, ord_path);
-    return path;
+std::vector<PathPoint *> PathSmoothing::pathSmoother(int precision, int order, float coeffs_ratio,
+                                                     std::vector<PathPoint *> unord_path) {
+  std::vector<PathPoint *> ord_path = orderPath(&unord_path);
+  std::vector<PathPoint *> path = splineSmoother(precision, order, coeffs_ratio, ord_path);
+  return path;
 }
-
-

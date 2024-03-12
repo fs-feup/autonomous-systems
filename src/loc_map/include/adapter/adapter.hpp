@@ -2,6 +2,7 @@
 #define SRC_LOC_MAP_INCLUDE_ADAPTER_ADAPTER_HPP_
 
 #include <string>
+
 #include "eufs_msgs/msg/can_state.hpp"
 #include "eufs_msgs/msg/wheel_speeds_stamped.hpp"
 #include "eufs_msgs/srv/set_can_state.hpp"

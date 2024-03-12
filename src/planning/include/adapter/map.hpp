@@ -4,14 +4,12 @@
 #include <map>
 #include <string>
 
-#include "adapter/adsdv.hpp"
 #include "adapter/eufs.hpp"
 #include "adapter/fsds.hpp"
 
 std::map<std::string, std::function<Adapter*(Planning*)>> adapter_map = {
     {"fsds", [](Planning* planning) -> Adapter* { return new FsdsAdapter(planning); }},
-    {"eufs", [](Planning* planning) -> Adapter* { return new EufsAdapter(planning); }},
-    {"adsdv", [](Planning* planning) -> Adapter* { return new AdsdvAdapter(planning); }},
+    {"eufs", [](Planning* planning) -> Adapter* { return new EufsAdapter(planning); }}
 };
 
 #endif

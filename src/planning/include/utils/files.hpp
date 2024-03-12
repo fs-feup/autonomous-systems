@@ -16,7 +16,6 @@ std::ofstream openWriteFile(const std::string &filename);
 
 std::ifstream openReadFile(const std::string &filename);
 
-
 // Track* read_track_file(const std::string& filename);
 
 // void write_path_file(const std::string& filename, std::vector<PathPoint*>

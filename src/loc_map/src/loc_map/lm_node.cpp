@@ -1,9 +1,10 @@
 #include "loc_map/lm_node.hpp"
-#include "utils/car.hpp"
-#include "utils/formulas.hpp"
+
 #include "adapter/eufs.hpp"
 #include "adapter/fsds.hpp"
 #include "adapter/map.hpp"
+#include "utils/car.hpp"
+#include "utils/formulas.hpp"
 
 /*---------------------- Constructor --------------------*/
 
@@ -136,6 +137,7 @@ void LMNode::set_mission(Mission mission) {
 
 /*---------------------- Publications --------------------*/
 
+// cppcheck-suppress unusedFunction
 void LMNode::_update_and_publish() {  // Currently unused, as correction step and
                                       // prediction step are carried out
                                       // separately

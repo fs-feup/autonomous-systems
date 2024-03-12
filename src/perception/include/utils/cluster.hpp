@@ -40,7 +40,7 @@ class Cluster {
    * @brief Set the color for the cluster.
    * @param new_color The new color to be set.
    */
-  void setColor(std::string new_color);
+  void setColor(const std::string& new_color);
 
   /**
    * @brief Set the Point Cloud data for the cluster.
