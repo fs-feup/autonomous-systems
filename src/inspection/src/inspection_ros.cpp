@@ -10,20 +10,24 @@ InspectionMission::InspectionMission() : Node("inspection") {
 
   // get mission
   mission_signal = this->create_subscription<fs_msgs::msg::GoSignal>(
-      "/wheel_states", 10,
+      "/signal/go", 10,
       std::bind(&InspectionMission::mission_decider, this, std::placeholders::_1));
+
+  rpm_subscription = this->create_subscription<fs_msgs::msg::WheelStates>(
+      "/wheel_states", 10,
+      std::bind(&InspectionMission::inspection_general, this, std::placeholders::_1));
 }
 
 void InspectionMission::mission_decider(fs_msgs::msg::GoSignal mission_signal) {
   initial_time = std::chrono::system_clock::now();
-  if (mission_signal.mission == "inspection") {
-    rpm_subscription = this->create_subscription<fs_msgs::msg::WheelStates>(
-        "/wheel_states", 10,
-        std::bind(&InspectionMission::inspection_script, this, std::placeholders::_1));
-  } else if (mission_signal.mission == "inspection_test_EBS") {
-    rpm_subscription = this->create_subscription<fs_msgs::msg::WheelStates>(
-        "/wheel_states", 10,
-        std::bind(&InspectionMission::test_EBS, this, std::placeholders::_1));
+  mission = mission_signal.mission;
+}
+
+void InspectionMission::inspection_general(fs_msgs::msg::WheelStates current_rpm) {
+  if (mission == "inspection") {
+    inspection_script(current_rpm);
+  } else if (mission == "inspection_test_EBS") {
+    test_EBS(current_rpm);
   }
 }
 
@@ -39,8 +43,10 @@ void InspectionMission::inspection_script(fs_msgs::msg::WheelStates current_rpm)
 
     if (calculated_torque > 0) {
       control_command.throttle = calculated_torque;
+      control_command.brake = 0;
     } else {
       control_command.brake = -1.0*calculated_torque;
+      control_command.throttle = 0;
     }
 
     RCLCPP_INFO(this->get_logger(), "Publishing control command. Steering: %f; Torque: %f",
@@ -60,12 +66,13 @@ void InspectionMission::test_EBS(fs_msgs::msg::WheelStates current_rpm) {
   double current_velocity = inspection_object -> rpm_to_speed(average_rpm);
   auto control_command = fs_msgs::msg::ControlCommand();
   control_command.steering = 0;
+
   if (current_velocity < inspection_object -> max_speed) {
     control_command.throttle = 0.1;
     control_command.brake = 0;
   } else {
     control_command.throttle = 0;
-    control_command.brake = -1;
+    control_command.brake = 1;
   }
   control_command_publisher->publish(control_command);
 }

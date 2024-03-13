@@ -28,6 +28,7 @@ class InspectionMission : public rclcpp::Node {
   rclcpp::Subscription<fs_msgs::msg::WheelStates>::SharedPtr rpm_subscription;
   std::chrono::_V2::system_clock::time_point initial_time;
   InspectionFunctions *inspection_object = new InspectionFunctions();
+  std::string mission;
 
  public:
   /**
@@ -36,6 +37,13 @@ class InspectionMission : public rclcpp::Node {
    * @param mission_signal GoSignal
    */
   void mission_decider(fs_msgs::msg::GoSignal mission_signal);
+
+  /**
+   * @brief runs the mission according to the GoSignal
+   * 
+   * @param current_rpm rotations of the wheels per minute
+   */
+  void inspection_general(fs_msgs::msg::WheelStates current_rpm);
 
   /**
    * @brief Function to publish control command while time is less than 26 seconds
@@ -52,7 +60,7 @@ class InspectionMission : public rclcpp::Node {
   void test_EBS(fs_msgs::msg::WheelStates current_rpm);
 
   /**
-   * @brief Contructor for the InspectionMission class
+   * @brief Contruct a new Inspection Mission with constants defined in file
    */
   InspectionMission();
 };
