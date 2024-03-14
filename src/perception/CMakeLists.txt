@@ -28,6 +28,7 @@ set(IMPLEMENTATION_FILES
   src/cone_differentiation/least_squares_differentiation.cpp
   src/clustering/dbscan.cpp
   src/utils/cluster.cpp
+  src/cone_validator/cylinder_validator.cpp
 )
 
 include_directories(${PCL_INCLUDE_DIRS})
