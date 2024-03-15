@@ -9,7 +9,7 @@
 #include "rclcpp/rclcpp.hpp"
 
 /**
- * @brief open file and return
+ * @brief open file and return it
  * 
  * @param filename path to the file from repository
  * @return std::ifstream open file

@@ -3,15 +3,16 @@
 InspectionFunctions::InspectionFunctions() {fromFile("src/inspection/src/config.txt");}
 
 InspectionFunctions::InspectionFunctions(double maximum_angle, double ideal_velocity,
-  double turning_time, double radius_of_wheel, double Gain, double maximum_speed,
-  bool EBS_multiple_times) {
+  double maximum_speed, double turning_time, double radius_of_wheel,
+  double Gain, double timer, bool oscilate) {
     max_angle  = maximum_angle;
     ideal_speed = ideal_velocity;
     turning_period = turning_time;
     wheel_radius = radius_of_wheel;
     gain = Gain;
     max_speed = maximum_speed;
-    EBS_multiple = EBS_multiple_times;
+    finish_time = timer;
+    oscilating = oscilate;
 }
 
 void InspectionFunctions::fromFile(const std::string &path) {
@@ -30,11 +31,13 @@ void InspectionFunctions::fromFile(const std::string &path) {
         gain = stod(y);
     } else if (x == "max_speed") {
         max_speed = stod(y);
-    } else if (x == "EBS_multiple") {
+    } else if (x == "finish_time") {
+        finish_time = stod(y);
+    } else if (x == "oscilating") {
         if (y == "true") {
-          EBS_multiple = true;
+          oscilating = true;
         } else {
-          EBS_multiple = false;
+          oscilating = false;
         }
     } else {
       RCLCPP_ERROR(rclcpp::get_logger("rclcpp"),
@@ -56,4 +59,15 @@ double InspectionFunctions::calculate_torque(double velocity) {
 
 double InspectionFunctions::calculate_steering(double time) {
   return sin((time*2*M_PI/turning_period))*max_angle;
+}
+
+void InspectionFunctions::redefine_ideal_speed(double current_speed) {
+  double velocity_error = abs(current_speed - ideal_speed);
+  if (oscilating && velocity_error < 0.2) {
+    if (ideal_speed == 0) {
+      ideal_speed = max_speed;
+    } else {
+      ideal_speed = 0;
+    }
+  }
 }

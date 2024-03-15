@@ -21,6 +21,9 @@ InspectionMission::InspectionMission() : Node("inspection") {
 void InspectionMission::mission_decider(fs_msgs::msg::GoSignal mission_signal) {
   initial_time = std::chrono::system_clock::now();
   mission = mission_signal.mission;
+  if (mission_signal.mission == "inspection_test_EBS") {
+    inspection_object -> ideal_speed = 0;
+  }
 }
 
 void InspectionMission::inspection_general(fs_msgs::msg::WheelStates current_rpm) {
@@ -32,47 +35,73 @@ void InspectionMission::inspection_general(fs_msgs::msg::WheelStates current_rpm
 }
 
 void InspectionMission::inspection_script(fs_msgs::msg::WheelStates current_rpm) {
+  // initialization
   auto current_time = std::chrono::system_clock::now();
   auto elapsed_time =  (current_time - initial_time).count();
-  if (elapsed_time < 26000000000) {
-    auto control_command = fs_msgs::msg::ControlCommand();
-    float average_rpm = (current_rpm.rl_rpm + current_rpm.rr_rpm)/2.0;
-    double calculated_torque = inspection_object ->
-    calculate_torque(inspection_object -> rpm_to_speed(average_rpm));
-    control_command.steering  = inspection_object -> calculate_steering(elapsed_time/pow(10.0, 9));
+  auto control_command = fs_msgs::msg::ControlCommand();
+  float average_rpm = (current_rpm.rl_rpm + current_rpm.rr_rpm)/2.0;
+  double current_velocity = inspection_object -> rpm_to_speed(average_rpm);
 
-    if (calculated_torque > 0) {
-      control_command.throttle = calculated_torque;
-      control_command.brake = 0;
-    } else {
-      control_command.brake = -1.0*calculated_torque;
-      control_command.throttle = 0;
-    }
+  // calculate steering
+  control_command.steering  = inspection_object -> calculate_steering(elapsed_time/pow(10.0, 9));
 
+  // calculate torque
+  double calculated_torque = inspection_object -> calculate_torque(current_velocity);
+  if (calculated_torque > 0) {
+    control_command.throttle = calculated_torque;
+    control_command.brake = 0;
+  } else {
+    control_command.brake = -1.0*calculated_torque;
+    control_command.throttle = 0;
+  }
+
+  // publish suitable message
+  if (elapsed_time < (inspection_object->finish_time)*pow(10, 9)) {
     RCLCPP_INFO(this->get_logger(), "Publishing control command. Steering: %f; Torque: %f",
     control_command.steering, calculated_torque);
-
     control_command_publisher->publish(control_command);
   } else {
     fs_msgs::msg::FinishedSignal finish;
     finish.placeholder = true;
     finish_publisher->publish(finish);
   }
+
+  // update ideal speed if necessary// calculate steering
+  inspection_object -> redefine_ideal_speed(current_velocity);
 }
 
 void InspectionMission::test_EBS(fs_msgs::msg::WheelStates current_rpm) {
+  auto current_time = std::chrono::system_clock::now();
+  auto elapsed_time =  (current_time - initial_time).count();
   double average_rpm = (current_rpm.fl_rpm + current_rpm.fr_rpm +
   current_rpm.rl_rpm + current_rpm.rr_rpm)/4.0;
   double current_velocity = inspection_object -> rpm_to_speed(average_rpm);
   auto control_command = fs_msgs::msg::ControlCommand();
+
+  // set steering to 0
   control_command.steering = 0;
 
-  if (current_velocity < inspection_object -> max_speed) {
-    control_command.throttle = 0.1;
+  // calculate torque
+  double calculated_torque = inspection_object -> calculate_torque(current_velocity);
+  if (calculated_torque > 0) {
+    control_command.throttle = calculated_torque;
     control_command.brake = 0;
   } else {
     control_command.throttle = 0;
-    control_command.brake = 1;
+    control_command.brake = -1.0*calculated_torque;
   }
-  control_command_publisher->publish(control_command);
+
+  // publish suitable message
+  if (elapsed_time < (inspection_object->finish_time)*pow(10, 9)) {
+    RCLCPP_INFO(this->get_logger(), "Publishing control command. Steering: %f; Torque: %f",
+    control_command.steering, calculated_torque);
+    control_command_publisher->publish(control_command);
+  } else {
+    fs_msgs::msg::FinishedSignal finish;
+    finish.placeholder = true;
+    finish_publisher->publish(finish);
+  }
+
+  // update ideal speed if necessary
+  inspection_object -> redefine_ideal_speed(current_velocity);
 }

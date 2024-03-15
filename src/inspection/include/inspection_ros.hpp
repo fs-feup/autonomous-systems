@@ -32,28 +32,29 @@ class InspectionMission : public rclcpp::Node {
 
  public:
   /**
-   * @brief recieves GoSignal and decides what mission should be used
+   * @brief recieves GoSignal and stores the mission that should be ran
    * 
    * @param mission_signal GoSignal
    */
   void mission_decider(fs_msgs::msg::GoSignal mission_signal);
 
   /**
-   * @brief runs the mission according to the GoSignal
+   * @brief runs the previously determined mission (according to GoSignal)
    * 
    * @param current_rpm rotations of the wheels per minute
    */
   void inspection_general(fs_msgs::msg::WheelStates current_rpm);
 
   /**
-   * @brief Function to publish control command while time is less than 26 seconds
+   * @brief Function to publish control command while time is less than the defined time limit
    * 
    * @param current_rpm rotations of the wheels per minute
    */
   void inspection_script(fs_msgs::msg::WheelStates current_rpm);
 
   /**
-   * @brief Function to publish control command while speed is smaller than targer
+   * @brief publish torque or finished command according to input speed 
+   * and time since initialization
    * 
    * @param current_rpm rotations of the wheels per minute
    */

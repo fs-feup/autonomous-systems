@@ -4,3 +4,5 @@ turning_period 4.0
 wheel_radius 0.254
 gain 0.25
 max_speed 1.0
+finish_time 26.0
+oscilating false
