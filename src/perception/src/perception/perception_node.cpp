@@ -50,7 +50,7 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
   int trueVals = 0;
   pcl::PointCloud<pcl::PointXYZI>::Ptr clusterscloud(new pcl::PointCloud<pcl::PointXYZI>);
   pcl::PointCloud<pcl::PointXYZI>::Ptr cones(new pcl::PointCloud<pcl::PointXYZI>);
-  for (int i = 0; i < clusters.size(); i++) {
+  for (int i = 0; i < (int) clusters.size(); i++) {
     coneDifferentiator->coneDifferentiation(&clusters[i]);
     bool temp = coneValidator->coneValidator(&clusters[i]);
     if (temp) {
@@ -71,14 +71,14 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
 
   pcl::io::savePCDFileASCII("cones.pcd", *cones);
 
-  RCLCPP_INFO(this->get_logger(), "Total Clusters: %d Total Cones: %d", clusters.size(), trueVals);
+  RCLCPP_INFO(this->get_logger(), "Total Clusters: %d Total Cones: %d", (int) clusters.size(), trueVals);
 
   publishCones(&clusters);
 }
 
 void Perception::publishCones(std::vector<Cluster>* cones) {
   auto message = custom_interfaces::msg::ConeArray();
-  for (int i = 0; i < cones->size(); i++) {
+  for (int i = 0; i < (int) cones->size(); i++) {
     auto position = custom_interfaces::msg::Point2d();
     position.x = cones->at(i).getCentroid().x();
     position.y = cones->at(i).getCentroid().y();
