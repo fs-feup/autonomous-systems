@@ -55,12 +55,16 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
     bool temp = coneValidator->coneValidator(&clusters[i]);
     if (temp) {
       trueVals++;
-      cones->push_back(pcl::PointXYZI(clusters[i].getCentroid().x(), clusters[i].getCentroid().y(), clusters[i].getCentroid().z(), 1.0));
-      
-      }
+      cones->push_back(pcl::PointXYZI(clusters[i].getCentroid().x(),
+                                      clusters[i].getCentroid().y(),
+                                      clusters[i].getCentroid().z(), 1.0));
+    }
     std::string color = clusters[i].getColor();
     RCLCPP_DEBUG(this->get_logger(), "Cone %d: %s", i, color.c_str());
-    clusterscloud->push_back(pcl::PointXYZI(clusters[i].getCentroid().x(), clusters[i].getCentroid().y(), clusters[i].getCentroid().z(), 1.0));
+    clusterscloud->push_back(pcl::PointXYZI(clusters[i].getCentroid().x(),
+                                            clusters[i].getCentroid().y(),
+                                            clusters[i].getCentroid().z(),
+                                            1.0));
   }
 
   pcl::io::savePCDFileASCII("clusters.pcd", *clusterscloud);

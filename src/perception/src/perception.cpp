@@ -14,7 +14,8 @@ int main(int argc, char** argv) {
   auto coneDifferentiator = new LeastSquaresDifferentiation();
   auto coneValidator = new CylinderValidator(0.228, 0.325);
 
-  auto node = std::make_shared<Perception>(ground_removal, clustering, coneDifferentiator, coneValidator);
+  auto node = std::make_shared<Perception>(ground_removal, clustering,
+                                           coneDifferentiator, coneValidator);
 
   RCLCPP_INFO(node->get_logger(), "Perception is alive!");
 
