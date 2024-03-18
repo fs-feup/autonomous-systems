@@ -536,6 +536,54 @@ def generate_launch_description():
     ])
 ```
 
+### Parameters
+
+You can define node parameters either in a launch file or via command line, e.g.
+
+```python
+ef generate_launch_description():
+    current_pkg = FindPackageShare("kiss_icp")
+    return LaunchDescription(
+        [
+            # ROS 2 parameters
+            DeclareLaunchArgument("topic", description="sensor_msg/PointCloud2 topic to process"),
+            DeclareLaunchArgument("bagfile", default_value=""),
+            DeclareLaunchArgument("visualize", default_value="true"),
+            DeclareLaunchArgument("odom_frame", default_value="odom"),
+            DeclareLaunchArgument("base_frame", default_value=""),
+            DeclareLaunchArgument("publish_odom_tf", default_value="true"),
+            # KISS-ICP parameters
+            DeclareLaunchArgument("deskew", default_value="false"),
+            DeclareLaunchArgument("max_range", default_value="100.0"),
+            DeclareLaunchArgument("min_range", default_value="5.0"),
+            # This thing is still not suported: https://github.com/ros2/launch/issues/290#issuecomment-1438476902
+            #  DeclareLaunchArgument("voxel_size", default_value=None),
+            Node(
+                package="kiss_icp",
+                executable="odometry_node",
+                name="odometry_node",
+                output="screen",
+                remappings=[("pointcloud_topic", LaunchConfiguration("topic"))],
+                parameters=[
+                    {
+                        "odom_frame": LaunchConfiguration("odom_frame"),
+                        "base_frame": LaunchConfiguration("base_frame"),
+                        "max_range": LaunchConfiguration("max_range"),
+                        "min_range": LaunchConfiguration("min_range"),
+                        "deskew": LaunchConfiguration("deskew"),
+                        #  "voxel_size": LaunchConfiguration("voxel_size"),
+                        "max_points_per_voxel": 20,
+                        "initial_threshold": 2.0,
+                        "min_motion_th": 0.1,
+                        "publish_odom_tf": LaunchConfiguration("publish_odom_tf"),
+                        "visualize": LaunchConfiguration("visualize"),
+                    }
+                ],
+            ),
+```
+
+More on this [here](https://docs.ros.org/en/foxy/Tutorials/Beginner-Client-Libraries/Using-Parameters-In-A-Class-CPP.html).
+
 ## Logging
 
 ROS2's logging system works on 5 levels:
