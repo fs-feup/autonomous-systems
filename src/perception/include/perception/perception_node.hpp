@@ -1,6 +1,7 @@
 #ifndef SRC_PERCEPTION_PERCEPTION_INCLUDE_PERCEPTION_PERCEPTION_NODE_HPP_
 #define SRC_PERCEPTION_PERCEPTION_INCLUDE_PERCEPTION_PERCEPTION_NODE_HPP_
 
+#include <cone_validator/cylinder_validator.hpp>
 #include <string>
 #include <vector>
 
@@ -10,7 +11,6 @@
 #include "ground_removal/ransac.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
-#include <cone_validator/cylinder_validator.hpp>
 
 class Adapter;
 

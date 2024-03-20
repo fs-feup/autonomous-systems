@@ -10,15 +10,15 @@
 
 /**
  * @class ConeValidator
- * 
+ *
  * @brief Abstract class responsible for validating clusters as cones
- * 
+ *
  */
 class ConeValidator {
  public:
   /**
    * @brief Validate a Cluster as a cone
-   * 
+   *
    * @param cone_point_cloud Point Cloud to be Validated
    * @return true if the cluster is considered a cone
    * @return false if the cluster is not considered a cone

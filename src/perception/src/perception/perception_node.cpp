@@ -1,9 +1,9 @@
 #include "perception/perception_node.hpp"
 
+#include <pcl/io/pcd_io.h>
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 #include <pcl_conversions/pcl_conversions.h>
-#include <pcl/io/pcd_io.h>
 
 #include <cstdio>
 #include <string>
@@ -50,35 +50,34 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
   int trueVals = 0;
   pcl::PointCloud<pcl::PointXYZI>::Ptr clusterscloud(new pcl::PointCloud<pcl::PointXYZI>);
   pcl::PointCloud<pcl::PointXYZI>::Ptr cones(new pcl::PointCloud<pcl::PointXYZI>);
-  for (int i = 0; i < (int) clusters.size(); i++) {
+  for (int i = 0; i < static_cast<int>(clusters.size()); i++) {
     coneDifferentiator->coneDifferentiation(&clusters[i]);
     bool temp = coneValidator->coneValidator(&clusters[i]);
     if (temp) {
       trueVals++;
-      cones->push_back(pcl::PointXYZI(clusters[i].getCentroid().x(),
-                                      clusters[i].getCentroid().y(),
+      cones->push_back(pcl::PointXYZI(clusters[i].getCentroid().x(), clusters[i].getCentroid().y(),
                                       clusters[i].getCentroid().z(), 1.0));
     }
     std::string color = clusters[i].getColor();
     RCLCPP_DEBUG(this->get_logger(), "Cone %d: %s", i, color.c_str());
     clusterscloud->push_back(pcl::PointXYZI(clusters[i].getCentroid().x(),
                                             clusters[i].getCentroid().y(),
-                                            clusters[i].getCentroid().z(),
-                                            1.0));
+                                            clusters[i].getCentroid().z(), 1.0));
   }
 
   pcl::io::savePCDFileASCII("clusters.pcd", *clusterscloud);
 
   pcl::io::savePCDFileASCII("cones.pcd", *cones);
 
-  RCLCPP_INFO(this->get_logger(), "Total Clusters: %d Total Cones: %d", (int) clusters.size(), trueVals);
+  RCLCPP_INFO(this->get_logger(), "Total Clusters: %d Total Cones: %d",
+              static_cast<int>(clusters.size()), trueVals);
 
   publishCones(&clusters);
 }
 
 void Perception::publishCones(std::vector<Cluster>* cones) {
   auto message = custom_interfaces::msg::ConeArray();
-  for (int i = 0; i < (int) cones->size(); i++) {
+  for (int i = 0; i < static_cast<int>(cones->size()); i++) {
     auto position = custom_interfaces::msg::Point2d();
     position.x = cones->at(i).getCentroid().x();
     position.y = cones->at(i).getCentroid().y();
