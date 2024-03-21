@@ -52,8 +52,8 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
   pcl::PointCloud<pcl::PointXYZI>::Ptr cones(new pcl::PointCloud<pcl::PointXYZI>);
   for (int i = 0; i < static_cast<int>(clusters.size()); i++) {
     coneDifferentiator->coneDifferentiation(&clusters[i]);
-    bool temp = coneValidator->coneValidator(&clusters[i]);
-    if (temp) {
+    bool isValid = coneValidator->coneValidator(&clusters[i]);
+    if (isValid) {
       trueVals++;
       cones->push_back(pcl::PointXYZI(clusters[i].getCentroid().x(), clusters[i].getCentroid().y(),
                                       clusters[i].getCentroid().z(), 1.0));

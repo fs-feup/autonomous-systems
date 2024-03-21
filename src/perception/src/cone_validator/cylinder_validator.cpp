@@ -8,7 +8,7 @@ bool CylinderValidator::coneValidator(Cluster* cone_point_cloud) const {
   pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud = cone_point_cloud->getPointCloud();
 
   for (const auto& point : *cone_point_cloud->getPointCloud()) {
-    // Calculate the distance between the point and the
+    // Calculate the distance between the point and the cylinder's centroid
     double distanceXY = std::sqrt((point.x - cone_point_cloud->getCentroid().x()) *
                                       (point.x - cone_point_cloud->getCentroid().x()) +
                                   (point.y - cone_point_cloud->getCentroid().y()) *
