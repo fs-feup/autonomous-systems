@@ -1,0 +1,12 @@
+ prefix=/usr
+exec_prefix=/usr
+libdir=/usr/lib
+includedir=/usr/include
+
+Name: kvamemolib0700
+Description: Kvaser Gnu/Linux kvamemolib0700
+Version: 1.4.7
+
+Requires: 
+Libs: -L${libdir} -lkvamemolib0700
+Cflags: -I${includedir}

@@ -3,9 +3,9 @@
 #include "node_/node_long_control.hpp"
 #include "rclcpp/rclcpp.hpp"
 /**
- * @brief Main function for the Longitudinal Control node.
+ * @brief Main function for the Ros Can node.
  *
- * Initializes the ROS node, creates a LongitudinalControl object,
+ * Initializes the ROS node, creates a RosCan object,
  * enters the ROS 2 event loop, and then shuts down the node when done (spin is
  * over).
  *

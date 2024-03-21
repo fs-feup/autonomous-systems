@@ -1,0 +1,1415 @@
+/*
+**            Copyright 2017-2023 by Kvaser AB, Molndal, Sweden
+**                         http://www.kvaser.com
+**
+** This software is dual licensed under the following two licenses:
+** BSD-new and GPLv2. You may use either one. See the included
+** COPYING file for details.
+**
+** License: BSD-new
+** ==============================================================================
+** Redistribution and use in source and binary forms, with or without
+** modification, are permitted provided that the following conditions are met:
+**     * Redistributions of source code must retain the above copyright
+**       notice, this list of conditions and the following disclaimer.
+**     * Redistributions in binary form must reproduce the above copyright
+**       notice, this list of conditions and the following disclaimer in the
+**       documentation and/or other materials provided with the distribution.
+**     * Neither the name of the <organization> nor the
+**       names of its contributors may be used to endorse or promote products
+**       derived from this software without specific prior written permission.
+**
+** THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+** AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+** IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+** ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+** LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+** CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+** SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+** BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER
+** IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+** ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+** POSSIBILITY OF SUCH DAMAGE.
+**
+**
+** License: GPLv2
+** ==============================================================================
+** This program is free software; you can redistribute it and/or modify
+** it under the terms of the GNU General Public License as published by
+** the Free Software Foundation; either version 2 of the License, or
+** (at your option) any later version.
+**
+** This program is distributed in the hope that it will be useful,
+** but WITHOUT ANY WARRANTY; without even the implied warranty of
+** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+** GNU General Public License for more details.
+**
+** You should have received a copy of the GNU General Public License
+** along with this program; if not, write to the Free Software
+** Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
+**
+**
+** IMPORTANT NOTICE:
+** ==============================================================================
+** This source code is made available for free, as an open license, by Kvaser AB,
+** for use with its applications. Kvaser AB does not accept any liability
+** whatsoever for any third party patent or other immaterial property rights
+** violations that may result from any usage of this source code, regardless of
+** the combination of source code and various applications that it can be used
+** in, or with.
+**
+** -----------------------------------------------------------------------------
+*/
+
+================================================================
+Release notes for linuxcan V5.44  
+================================================================
+
+These release notes apply to both CANLIB SDK and the Linux drivers.
+
+Linux device drivers for
+
+  *  KVASER Virtual CAN
+  *  KVASER PCIcan
+  *  KVASER PCIcanx
+  *  KVASER PCIEcan
+  *  KVASER PCIEcan 1xCAN v3 (01433-6)
+  *  KVASER PCIEcan 2xCAN v3 (01432-9)
+  *  KVASER PCIEcan 4xCAN v2 (01414-5)
+  *  KVASER PC104+
+  *  KVASER PCI104
+  *  KVASER PCIcan II **
+  *  KVASER PCIcanx II **
+  *  KVASER USBcan II
+  *  KVASER USBcan II Rugged
+  *  KVASER USBcan Professional
+  *  KVASER USBcan R
+  *  KVASER USBcan Light 2xHS
+  *  KVASER Memorator ***
+  *  KVASER Memorator Professional ****
+  *  KVASER Leaf Professional LIN
+  *  KVASER Leaf Professional
+  *  KVASER Leaf SemiPro
+  *  KVASER Leaf Light
+  *  KVASER Leaf Light v2
+  *  KVASER Leaf v3
+  *  KVASER Mini PCI Express HS
+  *  KVASER Mini PCI Express 2xHS
+  *  KVASER Mini PCI Express HS v2 (01038-3)
+  *  KVASER Mini PCI Express 2xHS v2 (01029-1)
+  *  KVASER Mini PCI Express 1xCAN v3 (01420-6)
+  *  KVASER Mini PCI Express 2xCAN v3 (01417-6)
+  *  KVASER Mini PCIe 1xCAN (01368-1)
+  *  KVASER BlackBird SemiPro *****
+  *  KVASER OEM Mercury
+  *  KVASER OEM Leaf
+  *  KVASER Eagle
+  *  KVASER BlackBird v2 *****
+  *  KVASER BlackBird Pro HS v2 **** (00983-7)
+  *  KVASER Memorator Pro 5xHS
+  *  KVASER USBcan Pro 5xHS
+  *  KVASER USBcan Light 4xHS (00831-1)
+  *  KVASER Leaf Pro HS v2 (00843-4)
+  *  KVASER USBcan Pro 2xHS v2 (00752-9)
+  *  KVASER Memorator 2xHS v2 (00821-2)
+  *  KVASER Memorator Pro 2xHS v2 (00819-9)
+  *  KVASER Hybrid 2xCAN/LIN (00965-3)
+  *  KVASER Hybrid CAN/LIN (01284-4)
+  *  KVASER Hybrid Pro 2xCAN/LIN (01042-0)
+  *  KVASER Hybrid Pro CAN/LIN (01288-2)
+  *  KVASER Memorator Light HS v2 (01058-1)
+  *  KVASER U100 (01173-1)
+  *  KVASER U100-C (01340-7)
+  *  KVASER U100P (01174-8)
+  *  KVASER U100S (01181-6)
+  *  KVASER USBcan Pro 4xHS (01261-5)
+  *  KVASER USBcan Pro 4xCAN Silent (01411-4)
+  *  KVASER USBcan Pro 5xCAN (01524-1)
+  *  KVASER M.2 PCIe 4xCAN (01162-8)
+  *  KVASER Kraken (01244-8)
+
+  **    Recommended firmware > 3.0
+  ***   Only with USBcan II functionality.
+  ****  Only with USBcan Professional functionality.
+  ***** Only USB interface mode.
+
+
+================================================================
+Support
+================================================================
+If you have any problems you are welcome to contact us.
+You will find the contact information on the web at
+http://www.kvaser.com.
+
+
+================================================================
+Version info
+================================================================
+
+   * Tested under x86_64 SMP Ubuntu 16.04 x32/x64 (4.4.0-45-generic).
+   * Tested under x86_64 SMP Ubuntu 18.04 x64 (4.15.0-39-generic).
+   * Tested under x86_64 SMP Ubuntu 20.04 x64 (5.4.0-29-generic).
+   * Tested under x86_64 SMP Ubuntu 20.04 x64 (5.6.0-050600-generic).
+   * Compiled with gcc version 4.4.4, 4.9.2, 5.4.0, 7.3.0, 9.3.0, 11.2.0, 12.2.0 and 13.0.0.
+   * Used glibc version 2.21, 2.23, 2.27, 2.31, 2.34 and 2.36.
+
+
+================================================================
+General information
+================================================================
+System requirements: Linux 2.6.29 or later.
+
+================================================================
+Known problems
+================================================================
+   * Firmware bug in old Leaf firmware will make the driver report
+     the wrong bus parameters when queried. Update the Leaf firmware.
+
+   * Virtual CAN driver will not behave as it perhaps should when
+     it is "off bus".
+
+   * Single channel PCIcanII may report two channels.
+
+   * It is possible to continue "using" a driver while it is
+     trying to shut down. Nothing useful will happen, but the driver
+     can be blocked from unloading indefinitely.
+
+   * While the driver implements auto response functionality for all
+     hardware, the same is not true for auto tx. The latter is only
+     available if there is firmware support in the device.
+     (This is the same as under Windows.)
+
+
+New Features and Fixed Problems in V5.44   (18-FEB-2024)
+===========================================================================
+* SDK (kvadblib)
+  - Fixed parsing of integral signal values of large magnitude.
+  - Added error handling for negative/very large values in unsigned
+    fields.
+
+* SDK (Documentation):
+  - Moved "Support" and "Licence and Copyright" closer to the top of the tree view of the web help.
+
+* Drivers
+  - Support for new devices:
+    - Kvaser PCIe 8xCAN (01512-8)
+    - Kvaser USBcan Pro 5xCAN (01524-1)
+    - Kvaser Mini PCIe 1xCAN (01368-1)
+
+* Add firmware upgrade support via kv_flash_prog_mmap, for the following PCI devices:
+  - M.2 PCIe 4xCAN (01162-8)
+
+
+New Features and Fixed Problems in V5.43   (13-SEP-2023)
+===========================================================================
+* SDK (kvadblib)
+  - Fixed bug where negative signal values would be set to zero
+    on some architectures.
+  - Added a page about using multiple threads to the documentation.
+
+* SDK (kvmlib)
+  - Fixed issue with kvmLogFileDeleteAll when using an SD card reader.
+  - Fixed issue where kvmKmeReadEvent returned memoLogMsgEx with dlc
+    code instead of data length for CAN FD messages.
+    The memoLogMsgEx struct will now always contain the data length in bytes.
+
+* Drivers
+  - Support for new PCIe devices:
+    - M.2 PCIe 4xCAN (01162-8)
+    - Kraken platform (01244-8)
+  - Fixed build problems for kernel v6.4.0.
+
+* Add firmware upgrade support via kv_flash_prog_mmap, for the following PCI devices:
+  - Kvaser PCIEcan 1xCAN v3 (01433-6)
+  - Kvaser PCIEcan 2xCAN v3 (01432-9)
+  - Kvaser PCIEcan 4xCAN v2 (01414-5)
+  - Kvaser Mini PCI Express 1xCAN v3 (01420-6)
+  - Kvaser Mini PCI Express 2xCAN v3 (01417-6)
+
+New Features and Fixed Problems in V5.42.359 (23-MAY-2023)
+===========================================================================
+* Drivers
+  - Full support for new PCI devices:
+    - Kvaser PCIEcan 1xCAN v3 (01433-6)
+    - Kvaser PCIEcan 2xCAN v3 (01432-9)
+    - Kvaser PCIEcan 4xCAN v2 (01414-5)
+    - Kvaser Mini PCI Express 1xCAN v3 (01420-6)
+    - Kvaser Mini PCI Express 2xCAN v3 (01417-6)
+
+
+New Features and Fixed Problems in V5.41   (05-MAY-2023)
+===========================================================================
+* SDK
+  - Fixed build problems for GCC 13.0.
+
+* SDK (kvlclib)
+  - MDF 4.1 signal based file format (KVLC_FILE_FORMAT_MDF_4X_SIGNAL)
+    data groups are now filtered on channel and ID (previously only ID).
+  - MDF 4.1 signal based file format (KVLC_FILE_FORMAT_MDF_4X_SIGNAL)
+    data groups are now filtered on source address in j1939 mode
+    (KVLC_PROPERTY_HLP_J1939).
+  - CSV signal based file format (KVLC_FILE_FORMAT_CSV_SIGNAL) now
+    properly handles multiple databases using the same message ID on
+    different channels.
+  - CSV signal based file format (KVLC_FILE_FORMAT_CSV_SIGNAL) now
+    includes channel ID in the last column of each row. This information
+    was previously discarded.
+
+* SDK (kvadblib)
+  - Fixed issue with unsigned signal min/max vales
+
+* SDK (kvmlib)
+  - Max file count updated to match actual limit for KMF files when
+    requesting disk usage.
+
+* Drivers
+  - Tentative support for new PCI devices:
+    All devices show up with serial number 1.
+    Not possible to upgrade firmware using kv_flash_prog utility.
+    - Kvaser PCIEcan 1xCAN v3 (01433-6)
+    - Kvaser PCIEcan 2xCAN v3 (01432-9)
+    - Kvaser PCIEcan 4xCAN v2 (01414-5)
+    - Kvaser Mini PCI Express 1xCAN v3 (01420-6)
+    - Kvaser Mini PCI Express 2xCAN v3 (01417-6)
+  - Fixed DKMS install problem for dkms v2.8.6 and later.
+  - Fixed build problems for kernel v6.1.0 and v6.2.0.
+  - Fixed build problems for GCC 13.0.
+  - Rework driver initialization, loading and SocketCAN blacklisting.
+    Removed driver start/stop script and USB udev rules.
+    Separated /etc/modules-load.d configuration into a single file for each
+    module:
+      /etc/modules-load.d/kvaser-kvpcican.conf
+      /etc/modules-load.d/kvaser-kvpcicanII.conf
+      /etc/modules-load.d/kvaser-kvpciefd.conf
+      /etc/modules-load.d/kvaser-kvvirtualcan.conf
+    Separated SocketCAN blacklisting into separate files, one for each module:
+      /etc/modprobe.d/blacklist-kvaser_pci.conf
+      /etc/modprobe.d/blacklist-kvaser_pciefd.conf
+      /etc/modprobe.d/blacklist-kvaser_usb.conf
+    The following files are now obsolete and will be removed when installing
+    linuxcan:
+      /etc/modprobe.d/kvaser.conf
+      /etc/modules-load.d/kvaser.conf
+      /etc/udev/rules.d/10-kvaser.rules
+      /usr/sbin/leaf.sh
+      /usr/sbin/mhydra.sh
+      /usr/sbin/pcicanII.sh
+      /usr/sbin/pcican.sh
+      /usr/sbin/pciefd.sh
+      /usr/sbin/usbcanII.sh
+      /usr/sbin/virtualcan.sh
+    Removed module aliases pcican, pcicanII and pciefd. The actual module name
+    got the kv prefix; kvpcican, kvpcicanII and kvpciefd.
+
+
+New Features and Fixed Problems in V5.40   (08-SEP-2022)
+===========================================================================
+* Drivers
+  - Added support for new device, Kvaser Leaf v3
+  - Added support for new device, Kvaser USBcan Pro 4xCAN Silent
+
+* SDK (canlib)
+  - canObjBufAllocate() now properly returns canERR_NOT_IMPLEMENTED for
+    devices where the feature isn't supported.
+
+* SDK (kvlclib)
+  - MDF 4.1 signal based file format (KVLC_FILE_FORMAT_MDF_4X_SIGNAL)
+    was updated with regards to signal units. Specifically, md_unit of
+    CCBLOCK was changed from MDBLOCK to TXBLOCK. It is now also referenced
+    by cc_md_unit of CNBLOCK.
+
+* SDK (kvadblib)
+  - Fixed a crash when failing to parse a database file (with invalid attributes).
+
+
+New Features and Fixed Problems in V5.39   (29-MAY-2022)
+===========================================================================
+* Drivers
+  - Validate path to linuxcan source directory.
+  - Fixed dkms build targets when make -C flag is used.
+  - Added support for local TxAcks.
+  - Fixed build problems for kernel v5.17.0.
+  - Added possibility to set the number of virtual channels using an environment
+    variable KV_VIRT_CHANNELS during make build. Defaults to 2.
+
+* SDK
+  - Added support for DESTDIR in makefiles.
+  - Added support for pkg-config.
+  - Fixed issue with parallel build (make -j) for kvlibsdk.tar.gz.
+  - kvaMemoLibXML build now requires pkg-config.
+
+* SDK (canlib)
+  - Added possibility to enable local TxAcks on non sending handles. See canIoCtl().
+  - Added new bitrate constant canFD_BITRATE_2M_60P.
+
+* SDK (kvadblib)
+  - Added function kvaDbGetCanMsgFlags that returns relevant message attributes as
+    CAN message flags.
+  - Documentation fix for kvaDbGetMsgFlags.
+
+* SDK (kvlclib)
+  - Fixed build problems for Ubuntu 22.04.
+  - Removed dependency on openssl library libssl-dev.
+  - Updated MDF 4.1 format (KVLC_FILE_FORMAT_MDF_4X) so that CAN_DataFrame.IDE channel
+    is set for extended ID:s. Now both ID MSb and IDE are set for extended ID:s.
+
+New Features and Fixed Problems in V5.38   (15-FEB-2022)
+===========================================================================
+* Drivers
+  - Fixed build problems for Ubuntu 21.10.
+  - Fixed build problems for kernel v5.13.0, v5.16.0 and v5.17.0.
+  - Fixed DKMS install problem when previous install attempt failed.
+  - Improved dkms target in Makefile.
+
+* SDK (canlib)
+  - Clarified in doc that the representation of 'time' in canRead() and
+    canReadWait() can be set by canIOCTL_SET_TIMER_SCALE.
+  - Added missing devices for canCHANNELDATA_MFGNAME_ASCII.
+
+* SDK (kvadblib)
+  - Fixed bug where motorola CAN FD signals were handled incorrectly.
+  - Error handling added for invalid bound format on int signals in dbc files.
+
+* SDK (kvlclib)
+  - Fixed bug where using multiple databases with Matlab output format
+    generated illegal variable names.
+  - Bugfix in vector ASCII input format.
+  - Updated experimental KME 6.0 format handler.
+
+* SDK (kvmlib)
+  - Updated experimental KME 6.0 format handler.
+
+
+New Features and Fixed Problems in V5.37   (13-SEP-2021)
+===========================================================================
+* SDK (kvlclib)
+  - Added DIAdem DAT output format.
+  - Added MTS RPC III output format.
+  - Fixed a bug in CVS signal where values were wrong if signals had the
+    same name.
+  - Fixed a bug in CVS signal where values were wrong if signals used bits
+    not available with the received DLC.
+  - Removed creation of debug logfiles while reading KVLC_FILE_FORMAT_MDF_4X
+    logfiles.
+  - KME 2.4 reader now correctly reporting file suffix as '.kme'.
+  - Added experimental KME 6.0 input/output format.
+
+* SDK (kvadblib)
+  - Bugfix: Detect use of invalid object handles which previously could lead to
+    crashes or errors.
+
+* SDK (kvmlib)
+  - Added experimental KME 6.0 format to kvmKme API
+
+* Drivers
+  - Fixed a bug where kernel modules could not be installed using DKMS on
+    systems without PCI interfaces.
+
+New Features and Fixed Problems in V5.36   (25-MAY-2021)
+===========================================================================
+* SDK (kvadblib)
+  - Reverted the deprecation status of kvaDbGetMsgByPGN
+  - Updated kvaDbGetMsgByPGN/kvaDbGetMsgByPGNEx to account for data page (dp), /
+    extended data page (edp) and to work with old j1939 databases.
+
+* SDK (kvlclib)
+  - Improved filtering of j1939 PGN when using KVLC_FILE_FORMAT_CSV_SIGNAL,
+    KVLC_FILE_FORMAT_MDF_SIGNAL and KVLC_FILE_FORMAT_MDF_4X_SIGNAL.
+
+* SDK (kvaMemoLibXML)
+  - Fixed a bug where j1939 triggers failed to trigger.
+
+* SDK  (canlib)
+  - Fixed a bug where CanGetBusParamsTq() failed after call to busOn().
+  - Modified canFD_BITRATE_xxx constant for improved stability.
+  - Added bitrate constant canFD_BITRATE_8M_70P.
+
+* Added support for new devices:
+  - Kvaser Hybrid CAN/LIN (01284-4)
+  - Kvaser Hybrid Pro CAN/LIN (01288-2)
+
+* Added firmware upgrade utility, kv_flash_prog and kv_flash_prog_mmap.
+  This utility is currently only supported for devices using the pciefd driver.
+
+* Drivers
+  - Kernel modules can now be installed using DKMS, which automatically builds
+    and reinstalls the drivers after a kernel update.
+
+
+New Features and Fixed Problems in V5.35   (16-FEB-2021)
+===========================================================================
+* SDK (kvlclib)
+  - Added support for a newer version of the BLF format (4.9.4.0), which
+    contains CAN FD support. The new converter format
+    KVLC_FILE_FORMAT_VECTOR_BLF_FD has both read and write capabilities.
+  - Added property KVLC_PROPERTY_COMPRESSION_LEVEL to formats
+    KVLC_FILE_FORMAT_MDF_4X and KVLC_FILE_FORMAT_MDF_4X_SIGNAL. The
+    property represents zlib compression levels.
+  - A call to kvlcSetProperty() with a property that is not supported by
+    the converter now returns kvlcERR_NOT_IMPLEMENTED.
+  - Added check if any file named filename-partxx.xxx exists when
+    splitting files. If any such files exists in the output folder, no files
+    will be created, and kvlcERR_FILE_EXISTS is returned.
+  - When converting from MDF4 to another format, kvlclib now makes sure
+    the file originated from kvlclib. If it is from another tool,
+    kvlcERR_UNSUPPORTED_VERSION is returned.
+  - Enhanced support of TRDC, allowing data rate prescaler greater than 2.
+  - Fix build problems for GCC 9.3 and 10.2.
+
+* SDK (kvadblib)
+  - Corrected bug where functions to retrieve signal values
+    (kvaDbRetrieveSignalXxx) would not always retreive values even though the
+    signal was available in the provided data.
+  - Increased stability when using kvaDbGetNextMsg() and kvaDbGetNextNode().
+
+* SDK (canlib)
+  - Added functions kvBitrateToBusParamsTq() and kvBitrateToBusParamsFdTq(),
+    that translates bitrate constants to new bus parameters kvBusParamsTq.
+  - Fixed bug (intorduced in v5.33) causing errno to be set to ENOENT, after
+    call to canOpenChannel().
+  - canSetBusParamsTq and canSetBusParamsFdTq now return a canERR_NOT_SUPPORTED
+    (-19) instead of canERR_PARAM (-1) status code if the parameters are not
+    valid for the current device.
+  - Updated the documentation of the file handling API (kvFile).
+  - Source code for the CANlib examples for Linux is now installed.
+  - The info.bustatus.status field of the canNotifyData struct pointer returned
+    through a callback function was previously erroneously set to
+    canSTAT_BUS_OFF (2) when the state actually was "error passive" and
+    canSTAT_ERROR_PASSIVE (1) when the state actually was "bus off".
+  - Added bitrate constant canFD_BITRATE_8M_80P.
+  - Updated the kvDiag API and its documentation.
+  - Build with GDB debug information (-O0 -g) when KV_DEBUG_ON is set to 1.
+  - When canOPEN_NO_INIT_ACCESS is passed to canOpenChannel(), no additional
+    argument flags, canOPEN_xxx, are needed in order to get a valid handle.
+
+* Added MODULE_VERSION to each driver.
+
+* Fixed build problems for kernel v5.9.0.
+
+* Split some large memory allocations into smaller chunks, to reduce possible
+  memory fragmentation.
+
+* Fixed initial chipState in virtualcan driver.
+
+* PCIEcan
+  - Disable bus load packets when module is removed.
+  - Fixed bug where wrong customized channel name was returned, when more than
+    one PCIEcan card was connected.
+
+* Added support for new device:
+  Kvaser USBcan Pro 4xHS (01261-5)
+
+
+New Features and Fixed Problems in V5.34   (09-SEP-2020)
+===========================================================================
+* Fixed false positive warning when building with Secure Boot disabled
+  (introduced in v5.27).
+
+* Updated linuxcan install procedure to record for which linux header version
+  it was installed in order to be able to uninstall even after linux header
+  version upgrade.
+
+* Added option to uninstall all versions of linuxcan if it has been installed
+  several times for different linux header versions. This option is invoked
+  through "sudo make purge".
+
+* Bus parameter checks in CANlib has been reduced in order to support more
+  hardware. CANlib will still issue a canERR_NOT_IMPLEMENTED (-32) status code
+  if the parameters are not valid for the current device.
+
+* SDK (canlib)
+  - New bus parameter API using time quanta, see e.g. canSetBusParamsTq().
+  - kvScriptEnvvarOpen()'s 'envvarName' parameter and kvScriptEnvvarSetData()'s
+    'buf' parameter have been changed to const.
+  - Added a filter on event canNOTIFY_STATUS. The event is now only generated
+    when status is changed.
+  - Source code are no longer installed together with the CANlib examples.
+
+* SDK (kvmlib)
+  - KME24 RTC events retrieved via kvmKmeReadEvent will no longer have
+    cached timeStamp values.
+
+* SDK (kvadblib)
+  - Added functions kvaDbGetMsgByPGNEx and kvaDbGetMsgByIdEx which differ
+    from their predecessors in that KVADB_MESSAGE_EXT is no longer set on
+    the id parameter. For kvaDbGetMsgByIdEx it is instead set on a flags
+    parameter.
+  - Fixed a bug on kvaDbGetMsgById which allowed ext messages to be found
+    when searching for std messages.
+  - kvaDbGetMsgByPGN was deprecated in favour of kvaDbGetMsgByPGNEx.
+  - kvaDbGetMsgByPGNEx (and kvaDbGetMsgByPGN) will not return the message
+    'VECTOR_INDEPENDENT_SIG_MSG'.
+
+
+New Features and Fixed Problems in V5.33   (27-MAY-2020)
+===========================================================================
+* Fixed build problems for kernel v5.6.0.
+
+* struct timeval has been replaced with struct timespec64 because
+  the timeval tv_sec member overflows in year 2038 on 32-bit architectures.
+  See https://www.kernel.org/doc/html/latest/core-api/timekeeping.html
+
+* Fixed build problem for GCC 4.4.
+
+* SDK (canlib)
+  - Function canEnumHardwareEx now implemented.
+  - Added prelimianry kvDiag API intended for use with Kvaser Signal Integrity.
+
+* SDK (kvadblib)
+  - Updated the documentation for functions that pass/get/set message id:s
+    to explicitly state whether the id should/will contain the extended id
+    flag KVADB_MESSAGE_EXT.
+
+* Added support for new device:
+  - KVASER U100S (01181-6)
+
+New Features and Fixed Problems in V5.32   (02-APR-2020)
+===========================================================================
+* SDK (kvlclib)
+  - Fixed writer for KVLC_FILE_FORMAT_MDF_4X_SIGNAL where multiplexed signals
+    where not getting populated with data, also fixed bug where signal headers
+    weren't written correctly for databases containing messages without signals.
+
+
+New Features and Fixed Problems in V5.31   (24-FEB-2020)
+===========================================================================
+* Interchanged calls to canSetBusOutputControl() and canGetBusOutputControl()
+  using CANlib and t is now consistent.
+
+* Reverted a change regarding setting canDRIVER_NORMAL in v5.27 since this
+  globally affected all channels. Calls to canSetBusOutputControl() and
+  canGetBusOutputControl() is now persistent across all channels in the device
+  until power is cycled in latest generation of devices (kcany, kcanf,
+  kcanl). Older devices have not changed their behaviour.
+
+* SDK (canlib)
+  -Reading canCHANNELDATA_HW_STATUS will now return canERR_NOT_IMPLEMENTED
+   instead of canERR_PARAM.
+
+ -Capability SILENT_MODE is now reported for PCIcanx and PCIcanx II devices.
+
+* Added support for new device:
+  - KVASER U100 (01173-1)
+  - KVASER U100P (01174-8)
+
+
+New Features and Fixed Problems in V5.30   (08-OCT-2019)
+===========================================================================
+* Minor changes.
+
+
+New Features and Fixed Problems in V5.29   (13-SEP-2019)
+==========================================================================
+* SDK (canlib)
+  - The message data buffer is untouched when reading a remote request frame
+    as identified by the canMSG_RTR flag.
+  - canGetBusStatistics reports the same result if transmit acknowledge is
+    off (0) or on (1). Transmit acknowledge is set by ioctl canIOCTL_SET_TXACK.
+  - Fixed a bug in kvFileCopyToDevice.
+
+  - Implemented the following tScript functions:
+    kvScriptStatus and kvScriptLoadFileOnDevice.
+    kvScriptEnvvarOpen and kvScriptEnvvarClose.
+    kvScriptEnvvarSetInt and kvScriptEnvvarGetInt.
+    kvScriptEnvvarSetFloat and kvScriptEnvvarGetFloat.
+    kvScriptSendEvent.
+    kvScriptGetText and kvScriptRequestText.
+
+* SDK (kvlclib)
+  - Fixed a bug that, when a frame didn't have any signals in the dbc-file,
+    signal-names from other frames wheren't printed out.
+  - Added API function kvlcEventCountEx, handling the situation where the number
+    of events exceeds the size of an int.
+
+* SDK (kvadblib)
+  - Added API function GetLastParseError. Call GetLastParseError to get more
+    information if kvadblib encounters format issues when loading a database
+    from file.
+  - Fixed a bug where non J1939 frames was faulty determined as J1939 frames.
+  - Improved the behaviour when reading certain .dbc files with syntax errors
+    so as not to cause crashes.
+  - Flag KVADB_MESSAGE_J1939 is now set for J1939 frames in
+    call to kvaDbGetMsgFlags.
+
+* SDK (kvmlib)
+  - Added API functions kvmLogFileGetType.
+  - Added API functions kvmLogFileMountEx and kvmKmeCountEventsEx,
+    handling the situation where the number of events exceeds the size of an int.
+
+* Common
+  - fixed bug where a call to canIOCTL_TX_INTERVAL could cause a crash if
+    TX_INTERVAL is unsupported by the device.
+  - BusStatistics increments between calls to canGetBusStatistics. Previously,
+    it was cleared. The function now has the same behavior as in Windows.
+
+* PCIEcan
+  - Implemented canGetBusStatistics for reading the busload value.
+  - BusStatistics now separates correctly on standard and extended id frames.
+
+
+New Features and Fixed Problems in V5.28   (12-MAY-2019)
+===========================================================================
+* Minor changes.
+
+
+New Features and Fixed Problems in V5.27   (03-MAR-2019)
+===========================================================================
+* The CAN controller driver type is set to canDRIVER_NORMAL when opening
+  a new CAN handle.
+
+* Retrieving canCHANNELDATA_TRANS_TYPE using canGetChannelData() returns
+  canTRANSCEIVER_TYPE_UNKNOWN for Virtual channels.
+
+* Retrieving canCHANNELDATA_CARD_NUMBER using canGetChannelData() returns
+  the same card number for CAN channels located on the same physical device.
+
+* Added support for new device:
+  - Kvaser Memorator Light HS v2 (01058-1)
+
+* Fixed build problems for kernel v5.0.0.
+
+* Possible to force 32-bit DMA addresses for pciefd, by setting the define
+  KV_PCIEFD_DMA_32BIT to '1', like this 'KV_PCIEFD_DMA_32BIT=1 make' This can be
+  useful when connecting PCIEcan via PCI-to-PCIe bridge.
+
+* Added warning when building on host with Secure Boot enabled.
+
+* Updated doc/faq.
+
+
+New Features and Fixed Problems in V5.26   (26-NOV-2018)
+===========================================================================
+* Updated the README and "General information" in this document. Since linuxcan
+  version V5.12 the minimum Linux kernel version required is 2.6.28. For pciefd
+  driver 2.6.29 is required.
+
+* Fixed bug with corrupt serial numbers in PCIcan driver.
+
+* Fixed build problems for GCC 8 and old GCC (4.3 and 4.6).
+
+* SDK (canlib)
+  - Fixed a bug where handles became invalid for a short while when
+    connecting 2 or more usb-devices that used the same driver.
+  - listChannels example reports firmware version on same format as in Windows.
+
+* SDK (kvadblib)
+  - Fixed a bug where kvaDbGetFlags() didn't return the KVADB_DATABASE_J1939-flag.
+  - Added function kvaDbGetMsgByPGN().
+  - Clarified null-terminated strings in documentation.
+
+* SDK (linlib)
+  - Clarified LIN diagnostic frames in documentation.
+  - linWriteWakeup() parameter check updated.
+
+
+New Features and Fixed Problems in V5.25   (16-SEP-2018)
+===========================================================================
+
+* Blacklisting SocketCAN kvaser_pciefd driver when installing pcican, pcican2
+  and pciefd drivers.
+
+* The installation script will create any missing folders in
+  /lib/modules/`uname -r`/kernel/drivers prior to installation.
+
+* Added compiled script file (.txe) information retrieval function
+  kvScriptTxeGetData.
+
+* SDK (canlib)
+  - The clock will now be resetted at buson.
+    To disable this behaviour, call canIoCtl (canIOCTL_SET_BUSON_TIME_AUTO_RESET, 0) before
+    going onbus.
+
+  - Implemented canNOTIFY_BUSONOFF.
+
+* SDK (kvlclib)
+  - Added Vector MDF .log input format.
+  - Added API to access information about reader formats.
+  - Added option KVLC_PROPERTY_FULLY_QUALIFIED_NAMES to enable use of fully qualified
+    signal names when converting log files to output format "selected signals in CSV format".
+  - Added number of data decimals property for csv-format. Default value is 4.
+
+* SDK (kvmlib)
+  - Fixed a bug where kvmLogFileReadEvent() returned kvmERR_FILE_ERROR
+    and not kvmEOF after the last event.
+
+* SDK (kvadblib)
+  - Added GetDatabaseName to kvadblibCLSNET.
+  - Added function to delete attribute definitions, kvaDbDeleteAttributeDefinition.
+
+
+New Features and Fixed Problems in V5.24   (03-JUL-2018)
+===========================================================================
+
+* SDK (canlib)
+  - Rolled back canOPEN_NO_INIT_ACCESS changes.
+
+
+
+New Features and Fixed Problems in V5.23   (13-MAY-2018)
+===========================================================================
+
+* Fixed bug in PCIcan driver, limiting number of channels on card to two.
+
+* Implemented canCHANNELDATA_CHANNEL_FLAGS
+
+* Added support for canGetVersionEx() and canGetChannelData() using
+  canCHANNELDATA_DLL_FILE_VERSION, canCHANNELDATA_DLL_PRODUCT_VERSION,
+  canCHANNELDATA_DRIVER_FILE_VERSION and canCHANNELDATA_DRIVER_PRODUCT_VERSION
+  Setting the define CANLIB_BETA to '1' marks the build as beta.
+
+
+New Features and Fixed Problems in V5.22   (12-FEB-2018)
+===========================================================================
+
+* Added support for new devices:
+    - Kvaser Mini PCI Express 2xHS v2 (01029-1)
+    - Kvaser Mini PCI Express HS v2   (01038-3)
+    - Kvaser Hybrid Pro 2xCAN/LIN     (01042-0)
+    - Kvaser BlackBird Pro HS v2      (00983-7)
+
+* Fixed bug in driver for KVASER Virtual CAN that only allowed a single
+  virtual device.
+
+* Virtual channels are always listed last, as in Windows.
+
+* Fixed bug in USB driver. Filling the Tx buffer for one channel, will prevent
+  all channels with higher channel number (on the same device) from sending.
+
+* Fixed bug in canClose which made it impossible to close canHandle if device
+  has been disconnected.
+
+* Fixed race condition bug in canRead* functions.
+
+* Fixed build problems for kernel v4.15.0.
+
+* Fixed a bug in kvlclib (introduced in v5.21) that placed values in wrong
+  column by omitting a newline character in .csv file for:
+    - CSV Signal, Selected signals in CSV format, and
+    - CSV CCP/XCP, CCP/XCP calibration in CSV forma
+
+
+
+New Features and Fixed Problems in V5.21   (13-SEP-2017)
+===========================================================================
+
+* Added support for Kvaser Hybrid 2xCAN/LIN (00965-3).
+
+* Added Magisync support for mhydra and leaf.
+
+* Updated canlib example code.
+
+* Fixed build problems for kernel v4.11.0, v4.12.0 and v4.13.0.
+
+* canOpenChannel now accepts flags canOPEN_OVERRIDE_EXCLUSIVE,
+  canOPEN_REQUIRE_INIT_ACCESS and canOPEN_NO_INIT_ACCESS.
+
+* Replaced do_div with div_u64 to fix build problems on some ARM targets.
+
+* Fixed build problems for GCC 4.7 and 7.1.
+
+* Fixed bug (introduced in V5.20) in mhydra, causing error when device is using
+  USB full-speed.
+
+* Fixed bug in canBusOn. The tx-queue was cleared every call to canBuson.
+  Now it is only cleared when we physically goes bus on.
+
+* canERR_HARDWARE is now returned if a Kvaser USB device has been disconnected.
+
+* SDK:
+  * Fixed a bug regarding extraction of logfiles with kvmlib.
+  * Fixed date in header of Vector ASCII generated by kvlclib.
+  * Added timezone property for kvlclib (affects headers and calendar timestamps).
+  * Added extended bit to CAN identifiers in MDF4.1 generated by kvlclib.
+  * Added start date in Vector BLF format generated by kvlclib.
+  * Logger configurations can now contain more than one external trigger, i.e.
+    trigger on both rising and falling edge. Will only work with firmware 3.7
+    or better.
+
+
+New Features and Fixed Problems in V5.20   (05-MAY-2017)
+===========================================================================
+
+* Not implemented functions now correctly returns canERR_NOT_IMPLEMENTED
+  (instead of canERR_NOMSG).
+
+* New CANlib SDK libraries released in kvlibsdk.tar.gz:
+  - kvadblib
+  - kvamemolibxml
+  - kvlclib
+  - kvmlib
+
+* Added new APIs (canlib):
+  - kvFileGetCount
+  - kvFileGetName
+  - kvFileDelete
+  - kvFileCopyToDevice
+  - kvFileCopyFromDevice
+  - kvScriptStart
+  - kvScriptStop
+  - kvScriptLoadFile
+  - kvScriptUnload
+
+* Added canCHANNELDATA_HW_STATUS and canCHANNELDATA_FEATURE_EAN for
+  internal use.
+
+* Fixed bug in USB udev rules, causing each rule to trigger twice when a new
+  Kvaser USB device was plugged in/unplugged.
+
+* Fixed build issue on ARM64 targets. (atomic_set_mask)
+
+* Updated doc/faq.
+
+* Corrected timeGetTime in linlib.
+
+
+New Features and Fixed Problems in V5.19   (15-FEB-2017)
+===========================================================================
+
+* The reported frame-id in the callback for canSetNotify is now
+  correct when using extended-id.
+
+* The reported event in the the callback for canSetNotify is now
+  correct.
+
+* Fixed bug in canReadSyncSpecific where extended identifiers was not
+  recognized.
+
+* Removed dependency, so calling 'sudo make install' and 'sudo make load' will
+  not rebuild drivers, canlib, linlib nor example code.
+
+* File access modes for installed files have been reviewed.
+
+* Added new APIs:
+  - kvFlashLeds.
+  - kvReadTimer and kvReadTimer64.
+  - canUnloadLibrary. It uses non-portable initialization of mutex (works on
+    Linux only).
+
+* Fixed bug when reading customized channel names, causing oops.
+
+* Corrected data exchange between user space and kernel space, for ioctl.
+
+* Fixed problem in makefile when building on openSUSE with kernel older than
+  v3.18.0.
+
+* The linlib shared object is now compiled with -lcanlib to declare the
+  dependency toward canlib.
+
+* Change canBusOn and canBusOff behavior, to match Windows. It is required to
+  call canBusOn (and canBusOff) for each handle, even though they share same
+  physical channel. Could potentially be a breaking change.
+  See Kvaser canlib documentation for details.
+
+
+New Features and Fixed Problems in V5.18   (28-SEP-2016)
+===========================================================================
+* Fix for Leaf incompatibility issue with Leaf FW older than version 3.8.
+
+
+New Features and Fixed Problems in V5.17   (15-SEP-2016)
+===========================================================================
+   * Added Single shot functionality.
+
+   * Added dummy canRequestChipStatus for code portability. The function
+     canRequestChipStatus is not needed in Linux, but in order to make code
+     portable between Windows and Linux, a dummy function returning canOK has
+     been added.
+
+   * Added support for reading out customized channel names for mhydra, pciefd
+     and leaf (currently it is only possible to set customized channel names
+     from Windows).
+
+   * Added canReadSpecific, canReadSpecificSkip and canReadSyncSpecific.
+
+   * Added canRequestBusStatistics and canGetBusStatistics.
+
+   * Added canIOCTL_RESET_OVERRUN_COUNT.
+
+   * Added make target 'uninstall' which unloads all Kvaser modules and
+     removes entire Kvaser installation.
+     It is possible to uninstall each individual driver, but it is not
+     recommended. The usb based drivers uses the common udev rules
+     (10-kvaser.rules) file to load and unload modules which remains
+     until one executes 'sudo make uninstall'.
+
+   * Added make target 'load'  which does the same as target 'install' and
+     then loads all PCI modules also after reboot.
+
+   * Leaf and Eagle devices now also defaults to canDRIVER_NORMAL.
+
+   * Improved handling of illegal input parameters.
+
+   * All canlib example code is reviewed and updated.
+
+
+New Features and Fixed Problems in V5.16   (22-MAY-2016)
+===========================================================================
+    * CAN FD support (interface mode) for:
+        - Kvaser Memorator Pro 5xHS  (00778-9)
+        - Kvaser USBcan Pro 5xHS     (00779-6)
+        - Kvaser Leaf Pro HS v2      (00843-4)
+        - Kvaser USBcan Pro 2xHS v2  (00752-9)
+
+    * Replaced Windows types with stdint types.
+
+    * Added support for canGetHandleData.
+
+    * Added canCHANNELDATA_CHANNEL_CAP_MASK to read which capabilities are
+      confirmed dynamically by device.
+
+    * Implemented canIOCTL_TX_INTERVAL, canIOCTL_SET_BRLIMIT and
+      canCHANNELDATA_MAX_BITRATE.
+
+    * Removed obsolete USB hotplug support.
+
+    * Fixed bug, where return value of canIOCTL_GET_RX_BUFFER_LEVEL was affected
+      by transmit buffer length.
+
+
+New Features and Fixed Problems in V5.15   (07-MAR-2016)
+===========================================================================
+   * No changes, this is a companion release to the Windows version.
+
+
+New Features and Fixed Problems in V5.14   (01-MAR-2016)
+===========================================================================
+   * A bug regarding maximum number of channels for a kernel module (MAX_CHANNELS)
+     has been fixed for all drivers.
+
+   * Timestamps are now stored as 64-bit values instead of 32-bit values to
+     match canReadTimer().
+
+
+New Features and Fixed Problems in V5.13   (15-DEC-2015)
+===========================================================================
+   * Updated pciefd driver to work without DMA (option USE_DMA in
+     pciefd_config.h). Note, however, that this is an unupported (and
+     consequently untested) feature that may break in the future.
+
+New Features and Fixed Problems in V5.12   (21-SEP-2015)
+===========================================================================
+   * Sampling points of default CAN bitrates are now 75% instead of 62.5%.
+
+   * Added tentative support (USB CAN communication only) for KVASER USBcan
+     Light 4xHS, Leaf Pro HS v2, KVASER USBcan Pro 2xHS v2, KVASER Memorator
+     2xHS v2, Memorator Pro 2xHS v2.
+
+   * Improved support for CAN-FD for PCIEcan 4xHS.
+
+   * Kvaser device drivers now all use a common driver (kvcommon) that is
+     loaded seprarately.
+
+   * Updated register names and definitions in PCIEcan driver to comply with
+     the names used in the ISO standard for CAN-FD.
+
+   * Kvaser PCIEcan 4xHS requires firmware 2.0.1 or higher.
+
+New Features and Fixed Problems in V5.11   (21-MAY-2015)
+===========================================================================
+   * Blacklisting SocketCAN kvaser_usb driver when installing leaf and usbcanII
+     drivers.
+
+   * Implemented canOPEN_CAN_FD_NONISO flag to open a channel in non-ISO canFD mode.
+     Added canCHANNEL_CAP_CAN_FD_NONISO capability for devices that can be opened
+     in non-ISO canFD mode.
+
+
+New Features and Fixed Problems in V5.10   (Internal release)
+===========================================================================
+   * Support for Kvaser PCIEcan 4xHS.
+
+   * Tentative support for CAN-FD.
+
+
+New Features and Fixed Problems in V5.9   (17-MAR-2015)
+===========================================================================
+   * Minor changes.
+
+
+New Features and Fixed Problems in V5.8   (02-FEB-2015)
+===========================================================================
+   * Support for Kvaser Memorator Pro 5xHS 00778-9 and tentative support
+     for Kvaser USBcan Pro 5xHS 00779-6.
+     Only usb CAN communication supported.
+
+
+New Features and Fixed Problems in V5.7   (28-SEP-2014)
+===========================================================================
+   * Fixed bug when compiling on arm architecture.
+
+   * Tentative support for Kvaser Eagle 00567-9 and Kvaser BlackBird v2 00671-3.
+     Only usb CAN communication supported.
+
+
+New Features and Fixed Problems in V5.6   (25-JUN-2014)
+===========================================================================
+   * Minor changes.
+
+
+New Features and Fixed Problems in V5.5   (18-JUN-2014)
+===========================================================================
+   * Minor changes.
+
+
+New Features and Fixed Problems in V5.4   (07-APR-2014)
+===========================================================================
+   * No changes.
+
+
+New Features and Fixed Problems in V5.3   (20-MAR-2014)
+===========================================================================
+   * Support for Kvaser USBcan Light 2xHS 00714-7
+
+   * Support for Kvaser Mini PCI Express 2xHS 00743-7
+
+   * Corrected retun value upon timeout in canReadSync.
+
+   * Fixed bug when passing NULL pointer arguments to canRead and
+     canReadWait.
+
+
+New Features and Fixed Problems in V5.2   (26-SEP-2013)
+================================================================
+   * Changed types in canIfData.h in order to handle 32/64bit
+     type differences. This implies that both drivers and
+     canlib should be updated together.
+
+   * Replaced usage of create_proc_read_entry to
+     proc_create_data. Since it is deprecated in kernel 3.10,
+     kernels >= 2.6.26 are now required.
+
+
+================================================================
+Updates in version 5.1
+================================================================
+   * Minor updates to documentation.
+
+
+================================================================
+Updates in version 5.0
+================================================================
+   * Fixed bug related to local tx echo
+   * Added support for Leaf Professional LIN
+   * Added LINlib
+   * Fixed build issue on ARM targets. (atomic_set_mask)
+   * Updated linuxcan documentation.
+
+
+================================================================
+Updates in version 4.82
+================================================================
+   * Added missing licence files.
+
+
+================================================================
+Updates in version 4.81
+================================================================
+   * Added missing licence headers
+   * Cleaning files using unifdef
+
+
+================================================================
+Updates in version 4.80
+================================================================
+   * Driver now supports linux kernels > 2.6
+   * Reworked make and install script.
+   * New ioctl command added to read out hardware revision.
+   * pcicanII needs firmware 3.0 or later.
+   * Added support for canReadSync
+   * Resolved bug related to x64 kernels in function vCanTime
+   * Added support for local echo, canIOCTL_SET_LOCAL_TXECHO
+   * Added support for canCHANNELDATA_MFGNAME_ASCII and
+     canCHANNELDATA_DEVDESCR_ASCII using canGetChannelData.
+
+
+================================================================
+Information about version 4.78 ALPHA
+================================================================
+Build improvements for recent Linux distributions.
+Supports additional Kvaser devices.
+Some bug fixes and improvements.
+
+KVASER LAPcan and LAPcan II are excluded from this release.
+System requirements: Linux 2.6 (will not build as is on 2.4).
+
+NOTE! While SMP (and fully preemptible kernel) has seen significant
+      testing, it should still be considered somewhat experimental.
+      The same applies to use under 64 bit Linux.
+      Feedback on use under SMP enabled (or fully preemptible)
+      and 64 bit kernels is welcome.
+      See the FAQ for information on how to disable SMP.
+NOTE! Read 'Known problems in version 4.78' below carefully.
+
+
+================================================================
+Updates in version 4.78 ALPHA
+================================================================
+   NOTE! This version of the driver is an ALPHA release that
+   has not been as extensively tested as would be preferred.
+
+   * Install script for pcican will now remove SocketCAN for Kvaser devices.
+     It will also blacklist SocketCAN/Kvaser to prevent it from auto-loading.
+   * Support for more recent Linux distributions.
+   * Improved support for tiny Linux distributions.
+   * Added support for 579-2 Kvaser USBcan R
+   * PCIcan driver can now be built with modifications to
+     work better when using SCHED_FIFO/RR (experimental).
+   * Experimental big endian support for Leaf.
+   * Improved behaviour at queue flushing and some corner-cases.
+
+
+================================================================
+Information about version 4.77 ALPHA
+================================================================
+Build improvements for recent Linux distributions.
+Some improvements.
+
+KVASER LAPcan and LAPcan II are excluded from this release.
+System requirements: Linux 2.6 (will not build as is on 2.4).
+
+NOTE! While SMP (and fully preemptible kernel) has seen significant
+      testing, it should still be considered somewhat experimental.
+      The same applies to use under 64 bit Linux.
+      Feedback on use under SMP enabled (or fully preemptible)
+      and 64 bit kernels is welcome.
+      See the FAQ for information on how to disable SMP.
+
+
+================================================================
+Updates in version 4.77 ALPHA
+================================================================
+   NOTE! This version of the driver is an ALPHA release that
+   has not been as extensively tested as would be preferred.
+
+   * Better support for more recent Linux distributions.
+   * CANlib extensions:
+     canIoCtl now accepts canIOCTL_SET_TXRQ.
+     kvSetNotifyCallback added.
+   * PCIcanII driver can now be built with modifications to
+     work better when using SCHED_FIFO/RR (experimental).
+
+
+================================================================
+Information about version 4.76 ALPHA
+================================================================
+Some improvements.
+
+KVASER LAPcan and LAPcan II are excluded from this release.
+System requirements: Linux 2.6 (will not build as is on 2.4).
+
+NOTE! While SMP (and fully preemptible kernel) has seen significant
+      testing, it should still be considered somewhat experimental.
+      The same applies to use under 64 bit Linux.
+      Feedback on use under SMP enabled (or fully preemptible)
+      and 64 bit kernels is welcome.
+      See the FAQ for information on how to disable SMP.
+
+
+================================================================
+Updates in version 4.76 ALPHA
+================================================================
+   NOTE! This version of the driver is an ALPHA release that
+   has not been as extensively tested as would be preferred.
+
+   * canObjBuf*() added.
+
+
+================================================================
+Information about version 4.75 ALPHA
+================================================================
+Modified to build on 64 bit Linux distributions.
+Build improvements for recent Linux distributions.
+Supports additional Kvaser devices.
+Significant bug fixes and improvements.
+
+KVASER LAPcan and LAPcan II are excluded from this release.
+System requirements: Linux 2.6 (will not build as is on 2.4).
+
+NOTE! While SMP (and fully preemptible kernel) has seen significant
+      testing, it should still be considered somewhat experimental.
+      The same applies to use under 64 bit Linux.
+      Feedback on use under SMP enabled (or fully preemptible)
+      and 64 bit kernels is welcome.
+      See the FAQ for information on how to disable SMP.
+
+
+================================================================
+Updates in version 4.75 ALPHA
+================================================================
+   NOTE! This version of the driver is an ALPHA release that
+   has not been as extensively tested as would be preferred.
+
+   * Support for more recent Linux distributions.
+   * Support for 64 bit Linux distributions.
+   * Support for additional Kvaser devices.
+   * CANlib extensions:
+     canGetChannelData now accepts the canCHANNELDATA_x, where x
+     is CARD_SERIAL_NO, CARD_UPC_NO, CARD_FIRMWARE_REV, CARD_TYPE
+     or CHANNEL_CAP.
+     canOpenChannel now accepts canOPEN_ACCEPT_VIRTUAL.
+     canFlushReceive/TransmitQueue added.
+     canIoCtl now accepts canIOCTL_GET/SET_TIMER_SCALE.
+   * canClose() now tries to go off bus.
+   * canlib.h unified with the Windows version.
+   * DLC > 8 now supported.
+   * Timestamps now use 10 us resolution.
+   * Improved locking.
+
+
+================================================================
+Information about version 4.72 BETA
+================================================================
+Modified to build on recent Linux distributions.
+Supports additional Kvaser USB devices.
+CANlib now supports the enabling of TX acknowledge reporting.
+CANlib can now do callbacks on TX acknowledge.
+CANlib reports correct version number.
+Locking improvements.
+Some bug fixes.
+
+KVASER LAPcan and LAPcan II are excluded from this release.
+System requirements: Linux 2.4, 2.6 (only 2.6 for USBcanII and Leaf).
+
+NOTE! Only limited testing has been done under SMP so far.
+      Use on an SMP enabled (or fully preemptible) kernel is unsupported.
+      See the FAQ for solutions.
+
+
+================================================================
+Updates in version 4.72 BETA
+================================================================
+   NOTE! This version of the driver is a BETA release that
+   does not support LAPcan or LAPcan II.
+
+   * Support for recent Linux distributions.
+   * Support for additional Kvaser USB devices.
+   * TX acknowledge support in CANlib.
+   * CANlib reports correct version number.
+   * Improved locking.
+
+
+================================================================
+Information about version 4.6 BETA
+================================================================
+Various changes for building on recent Linux distributions.
+All USB devices now use udev for hotplugging when available.
+Virtual CAN driver added.
+Locking improvements.
+Some structural changes and bug fixes.
+
+KVASER LAPcan and LAPcan II are excluded from this release.
+System requirements: Linux 2.4, 2.6 (only 2.6 for USBcanII and Leaf).
+
+NOTE! Not tested under SMP or with fully preemptive kernel.
+
+
+================================================================
+Updates in version 4.6 BETA
+================================================================
+   NOTE! This version of the driver is a BETA release that
+   does not support LAPcan or LAPcan II.
+
+   * Support for recent Linux distributions.
+   * Added Virtual CAN driver.
+   * Improved locking.
+
+
+================================================================
+Information about version 4.5 BETA
+================================================================
+Fixed spinlock problem causing problems with newer kernels.
+
+
+================================================================
+Updates in version 4.5 BETA
+================================================================
+   NOTE! This version of the driver is a BETA release for
+   KVASER Leaf Family, KVASER PC104+ and KVASER PCIcanx II.
+   For other Kvaser cards use version 4.2 of the driver.
+
+
+================================================================
+Information about version 4.4 BETA
+================================================================
+Small changes and solved bugs.
+
+
+================================================================
+Updates in version 4.4 BETA
+================================================================
+   NOTE! This version of the driver is a BETA release for
+   KVASER Leaf Family, KVASER PC104+ and KVASER PCIcanx II.
+   For other Kvaser cards use version 4.2 of the driver.
+
+
+================================================================
+Information about version 4.3 BETA
+================================================================
+Small changes and solved bugs.
+Added support for KVASER Leaf family, KVASER PCIcanx II and
+KVASER PC104+. KVASER LAPcan and LAPcan II are excluded from this
+release.
+KVASER PCIcanx II and KVASER PC104+ uses the KVASER PCIcan II driver.
+KVASER PCIcanx uses KVASER PCIcan driver.
+
+System requirements: Linux 2.4, 2.6 (only 2.6 for USBcan II, Leaf).
+
+NOTE! Not tested on SMP kernels.
+NOTE! The current driver only supports ONE USBcan II or Leaf device.
+
+
+================================================================
+Updates in version 4.3 BETA
+================================================================
+   NOTE! This version of the driver is a BETA release for
+   KVASER Leaf Family, KVASER PC104+ and KVASER PCIcanx II.
+
+   * Added support for KVASER Leaf family.
+   * Added support for KVASER PC104+ and KVASER PCIcanx II.
+
+
+================================================================
+Information about version 4.2
+================================================================
+Small changes and solved bugs.
+No major changes done.
+System requirements: Linux 2.4, 2.6 (only 2.6 for USBcanII).
+
+NOTE! Not tested on SMP kernels.
+NOTE! The current driver only supports ONE USBcanII device.
+
+
+================================================================
+Updates in version 4.2
+================================================================
+   * Added locking for pcicanII queues.
+   * For USBcanII URB_ASYNC_UNLINK is removed from kernel source
+     code since kernel version 2.6.14.
+
+
+================================================================
+Information about version 4.1 BETA
+================================================================
+USBcan II beta driver is now available.
+PCIcan II beta driver is now available.
+System requirements: Linux 2.2, 2.4 or 2.6 (only 2.6 for USBcanII).
+NOTE! The current driver only supports ONE USBcanII device.
+NOTE! Not tested on SMP kernels.
+
+No major changes for LAPcan and PCIcan drivers.
+The driver structure is modified and the code rewritten since
+version 3.0 and 3.1. The functionality is the same as before.
+
+
+================================================================
+Updates in version 4.1 BETA
+================================================================
+   * USBcan II beta driver is now available.
+   * PCIcan II beta driver is now available.
+   * No major changes for LAPcan and PCIcan drivers.
+
+
+================================================================
+Solved problems in 4.01 BETA:
+================================================================
+   * pcmcia_core is not loaded when PCIcan is loaded.

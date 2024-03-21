@@ -1,0 +1,12 @@
+ prefix=/usr
+exec_prefix=/usr
+libdir=/usr/lib
+includedir=/usr/include
+
+Name: kvamemolib
+Description: Kvaser Gnu/Linux kvamemolib
+Version: 1.5.7
+
+Requires: 
+Libs: -L${libdir} -lkvamemolib
+Cflags: -I${includedir}

@@ -1,0 +1,12 @@
+ prefix=/usr
+exec_prefix=/usr
+libdir=/usr/lib
+includedir=/usr/include
+
+Name: kvlclib
+Description: Kvaser Gnu/Linux kvlclib
+Version: 1.7.7
+
+Requires: canlib
+Libs: -L${libdir} -lkvlclib
+Cflags: -I${includedir}
