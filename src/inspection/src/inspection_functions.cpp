@@ -1,73 +1,40 @@
 #include "include/inspection_functions.hpp"
 
-InspectionFunctions::InspectionFunctions() {fromFile("src/inspection/src/config.txt");}
-
-InspectionFunctions::InspectionFunctions(double maximum_angle, double ideal_velocity,
-  double maximum_speed, double turning_time, double radius_of_wheel,
-  double Gain, double timer, bool oscilate) {
-    max_angle  = maximum_angle;
-    ideal_speed = ideal_velocity;
-    turning_period = turning_time;
-    wheel_radius = radius_of_wheel;
-    gain = Gain;
-    max_speed = maximum_speed;
-    finish_time = timer;
-    oscilating = oscilate;
+InspectionFunctions::InspectionFunctions(double max_angle, double turning_period,
+                                         double wheel_radius, double finish_time,
+                                         bool start_and_stop, double gain /* = 0.0 */,
+                                         double ideal_velocity /* = 0.0 */) {
+  this->max_angle = max_angle;
+  this->ideal_velocity = ideal_velocity;
+  this->turning_period = turning_period;
+  this->wheel_radius = wheel_radius;
+  this->gain = gain;
+  this->finish_time = finish_time;
+  this->start_and_stop = start_and_stop;
+  current_goal_velocity = ideal_velocity;
 }
 
-void InspectionFunctions::fromFile(const std::string &path) {
-  std::string x, y;
-  std::ifstream trackFile = openFileRead(path);
-  while (trackFile >> x >> y) {
-    if (x == "max_angle") {
-        max_angle = stod(y);
-    } else if (x == "ideal_speed") {
-        ideal_speed = stod(y);
-    } else if (x == "turning_period") {
-        turning_period = stod(y);
-    } else if (x == "wheel_radius") {
-        wheel_radius = stod(y);
-    } else if (x == "gain") {
-        gain = stod(y);
-    } else if (x == "max_speed") {
-        max_speed = stod(y);
-    } else if (x == "finish_time") {
-        finish_time = stod(y);
-    } else if (x == "oscilating") {
-        if (y == "true") {
-          oscilating = true;
-        } else {
-          oscilating = false;
-        }
-    } else {
-      RCLCPP_ERROR(rclcpp::get_logger("rclcpp"),
-      "Invalid variable %s when defining constants for inspection", x.c_str());
-    }
-  }
-  trackFile.close();
+double InspectionFunctions::rpm_to_velocity(double rpm) {
+  double perimeter = 2 * M_PI * wheel_radius;
+  return rpm * perimeter / 60.0;
 }
 
-double InspectionFunctions::rpm_to_speed(double rpm) {
-  double perimeter = 2*M_PI*wheel_radius;
-  return rpm*perimeter/60.0;
-}
-
-double InspectionFunctions::calculate_torque(double velocity) {
-  double error = ideal_speed - velocity;
-  return gain*error;
+double InspectionFunctions::calculate_throttle(double current_velocity) {
+  double error = current_goal_velocity - current_velocity;
+  return gain * error;
 }
 
 double InspectionFunctions::calculate_steering(double time) {
-  return sin((time*2*M_PI/turning_period))*max_angle;
+  return sin((time * 2 * M_PI / turning_period)) * max_angle;
 }
 
-void InspectionFunctions::redefine_ideal_speed(double current_speed) {
-  double velocity_error = abs(current_speed - ideal_speed);
-  if (oscilating && velocity_error < 0.2) {
-    if (ideal_speed == 0) {
-      ideal_speed = max_speed;
+void InspectionFunctions::redefine_goal_velocity(double current_velocity) {
+  double velocity_error = abs(current_velocity - this->current_goal_velocity);
+  if (start_and_stop && velocity_error < 0.2) {
+    if (this->current_goal_velocity == 0) {
+      this->current_goal_velocity = this->ideal_velocity;
     } else {
-      ideal_speed = 0;
+      this->current_goal_velocity = 0;
     }
   }
 }

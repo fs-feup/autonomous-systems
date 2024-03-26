@@ -16,7 +16,6 @@ find_package(fs_msgs REQUIRED)
 set(IMPLEMENTATION_FILES
   src/inspection_ros.cpp
   src/inspection_functions.cpp
-  file_utils/file.cpp
 )
 
 add_executable(inspection src/inspection.cpp ${IMPLEMENTATION_FILES})

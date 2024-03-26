@@ -1,17 +1,19 @@
+#ifndef INSPECTION_MISSION_HPP
+#define INSPECTION_MISSION_HPP
+
 #include <chrono>
+#include <cmath>
 #include <functional>
 #include <memory>
 #include <string>
-#include <cmath>
 
+#include "fs_msgs/msg/control_command.hpp"
+#include "fs_msgs/msg/finished_signal.hpp"
+#include "fs_msgs/msg/go_signal.hpp"
+#include "fs_msgs/msg/wheel_states.hpp"
+#include "include/inspection_functions.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
-#include "fs_msgs/msg/control_command.hpp"
-#include "fs_msgs/msg/wheel_states.hpp"
-#include "fs_msgs/msg/go_signal.hpp"
-#include "file_utils/file.hpp"
-#include "include/inspection_functions.hpp"
-#include "fs_msgs/msg/finished_signal.hpp"
 
 /**
  * @class InspectionMission
@@ -27,41 +29,28 @@ class InspectionMission : public rclcpp::Node {
   rclcpp::Subscription<fs_msgs::msg::GoSignal>::SharedPtr mission_signal;
   rclcpp::Subscription<fs_msgs::msg::WheelStates>::SharedPtr rpm_subscription;
   std::chrono::_V2::system_clock::time_point initial_time;
-  InspectionFunctions *inspection_object = new InspectionFunctions();
+  InspectionFunctions *inspection_object;
   std::string mission;
 
  public:
   /**
    * @brief recieves GoSignal and stores the mission that should be ran
-   * 
+   *
    * @param mission_signal GoSignal
    */
   void mission_decider(fs_msgs::msg::GoSignal mission_signal);
 
   /**
-   * @brief runs the previously determined mission (according to GoSignal)
-   * 
-   * @param current_rpm rotations of the wheels per minute
-   */
-  void inspection_general(fs_msgs::msg::WheelStates current_rpm);
-
-  /**
    * @brief Function to publish control command while time is less than the defined time limit
-   * 
+   *
    * @param current_rpm rotations of the wheels per minute
    */
   void inspection_script(fs_msgs::msg::WheelStates current_rpm);
-
-  /**
-   * @brief publish torque or finished command according to input speed 
-   * and time since initialization
-   * 
-   * @param current_rpm rotations of the wheels per minute
-   */
-  void test_EBS(fs_msgs::msg::WheelStates current_rpm);
 
   /**
    * @brief Contruct a new Inspection Mission with constants defined in file
    */
   InspectionMission();
 };
+
+#endif  // INSPECTION_MISSION_HPP
