@@ -60,7 +60,11 @@ if(BUILD_TESTING)
                   src/cone_differentiation/least_squares_differentiation.cpp 
                   src/ground_removal/ransac.cpp
                   src/utils/cluster.cpp
-                  src/utils/plane.cpp)
+                  src/utils/plane.cpp
+                  src/cone_validator/cylinder_validator.cpp
+                  src/cone_validator/height_validator.cpp
+                  test/height_validator_test.cpp
+                  test/cylinder_validator_test.cpp)
 
 
 target_link_libraries(perception_test ${PCL_LIBRARIES})

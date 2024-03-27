@@ -15,7 +15,7 @@
 
 Perception::Perception(GroundRemoval* groundRemoval, Clustering* clustering,
                        ConeDifferentiation* coneDifferentiator,
-                       std::vector<ConeValidator*> coneValidators)
+                       const std::vector<ConeValidator*>& coneValidators)
     : Node("perception"),
       groundRemoval(groundRemoval),
       clustering(clustering),
@@ -42,14 +42,13 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
   std::vector<Cluster> filtered_clusters;
 
   for (auto cluster : clusters) {
-    bool isValid = true;
-    for (auto validator : coneValidators) {
-        isValid = isValid && validator->coneValidator(&cluster, groundPlane);
-    }
-    if (isValid) {
-      filtered_clusters.push_back(cluster);
-    }
+      if (std::all_of(coneValidators.begin(), coneValidators.end(), [&](const auto& validator) {
+          return validator->coneValidator(&cluster, groundPlane);
+      })) {
+          filtered_clusters.push_back(cluster);
+      }
   }
+
 
   RCLCPP_DEBUG(this->get_logger(), "---------- Point Cloud Received ----------");
   RCLCPP_DEBUG(this->get_logger(), "Point Cloud Before Ground Removal: %ld points",

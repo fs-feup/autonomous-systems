@@ -57,7 +57,8 @@ class Perception : public rclcpp::Node {
    * @param coneDifferentiator Pointer to ConeDifferentiation object
    */
   Perception(GroundRemoval* groundRemoval, Clustering* clustering,
-             ConeDifferentiation* coneDifferentiator, std::vector<ConeValidator*> coneValidator);
+             ConeDifferentiation* coneDifferentiator,
+             const std::vector<ConeValidator*>& coneValidator);
 
   /**
    * @brief Callback function for the PointCloud2 subscription.
