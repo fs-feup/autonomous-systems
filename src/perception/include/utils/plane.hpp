@@ -34,62 +34,6 @@ class Plane {
     Plane();
 
     /**
-     * @brief Getter method to retrieve the 'a' coefficient of the plane equation.
-     * 
-     * @return The 'a' coefficient of the plane equation.
-     */
-    double getA();
-
-    /**
-     * @brief Getter method to retrieve the 'b' coefficient of the plane equation.
-     * 
-     * @return The 'b' coefficient of the plane equation.
-     */
-    double getB();
-
-    /**
-     * @brief Getter method to retrieve the 'c' coefficient of the plane equation.
-     * 
-     * @return The 'c' coefficient of the plane equation.
-     */
-    double getC();
-
-    /**
-     * @brief Getter method to retrieve the 'd' coefficient of the plane equation.
-     * 
-     * @return The 'd' coefficient of the plane equation.
-     */
-    double getD();
-
-    /**
-     * @brief Setter method to set the 'a' coefficient of the plane equation.
-     * 
-     * @param newA The new value for the 'a' coefficient.
-     */
-    void setA(double newA);
-
-    /**
-     * @brief Setter method to set the 'b' coefficient of the plane equation.
-     * 
-     * @param newB The new value for the 'b' coefficient.
-     */
-    void setB(double newB);
-
-    /**
-     * @brief Setter method to set the 'c' coefficient of the plane equation.
-     * 
-     * @param newC The new value for the 'c' coefficient.
-     */
-    void setC(double newC);
-
-    /**
-     * @brief Setter method to set the 'd' coefficient of the plane equation.
-     * 
-     * @param newD The new value for the 'd' coefficient.
-     */
-    void setD(double newD);
-
-    /**
      * @brief Calculates the distance from a point to the plane.
      * 
      * @param point The point for which the distance to the plane is calculated.
