@@ -8,7 +8,7 @@
  */
 TEST(PidTests, TestAntiWindUp1) {
   float antiWindupConst = 0.7;
-  PID pid(0.4, 0.3, 0.09, 0.5, 0.01, -1, 1,antiWindupConst);
+  PID pid(0.4, 0.3, 0.09, 0.5, 0.01, -1, 1, antiWindupConst);
   pid.proportional = 0.3;
   pid.integrator = 0.7;
   pid.differentiator = 0.2;
@@ -22,7 +22,7 @@ TEST(PidTests, TestAntiWindUp1) {
  */
 TEST(PidTests, TestAntiWindUp2) {
   float antiWindupConst = 0.7;
-  PID pid(0.4, 0.3, 0.09, 0.5, 0.01, -1, 1,antiWindupConst);
+  PID pid(0.4, 0.3, 0.09, 0.5, 0.01, -1, 1, antiWindupConst);
   pid.proportional = -0.3;
   pid.integrator = -0.7;
   pid.differentiator = -0.2;
@@ -36,7 +36,7 @@ TEST(PidTests, TestAntiWindUp2) {
  */
 TEST(PidTests, TestAntiWindUp3) {
   float antiWindupConst = 0.7;
-  PID pid(0.4, 0.3, 0.09, 0.5, 0.01, -1, 1,antiWindupConst);
+  PID pid(0.4, 0.3, 0.09, 0.5, 0.01, -1, 1, antiWindupConst);
   pid.proportional = 0.3;
   pid.integrator = 0.3;
   pid.differentiator = 0.2;
@@ -49,7 +49,7 @@ TEST(PidTests, TestAntiWindUp3) {
  */
 TEST(PidTests, ProportionalTerm) {
   float error = 4;
-  PID pid(0.4, 0.3, 0.09, 0.7, 0.1, -1, 1,0.5);
+  PID pid(0.4, 0.3, 0.09, 0.7, 0.1, -1, 1, 0.5);
   pid.calculateProportionalTerm(error);
   EXPECT_FLOAT_EQ(1.6, pid.proportional);
 }
@@ -161,5 +161,5 @@ TEST(PidTests, Update1) {
   pid.prevError = 1.5;
   pid.prevMeasurement = 3.5;
   pid.update(setpoint, measurement);
-  EXPECT_NEAR(0.924, pid.out,0.001);
+  EXPECT_NEAR(0.924, pid.out, 0.001);
 }
