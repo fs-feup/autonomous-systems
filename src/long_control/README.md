@@ -10,7 +10,7 @@ N/a (at the moment)
 
 From src folder:
 ```sh
-colcon build --packages-select long_control custom_interfaces fs_msgs
+colcon build --packages-select long_control custom_interfaces fs_msgs --symlink-install
 ```
 
 ## Testing

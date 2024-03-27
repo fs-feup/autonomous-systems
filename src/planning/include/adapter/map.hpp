@@ -9,7 +9,6 @@
 
 std::map<std::string, std::function<Adapter*(Planning*)>> adapter_map = {
     {"fsds", [](Planning* planning) -> Adapter* { return new FsdsAdapter(planning); }},
-    {"eufs", [](Planning* planning) -> Adapter* { return new EufsAdapter(planning); }}
-};
+    {"eufs", [](Planning* planning) -> Adapter* { return new EufsAdapter(planning); }}};
 
 #endif
