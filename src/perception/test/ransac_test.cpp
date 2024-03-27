@@ -1,6 +1,7 @@
 #include "ground_removal/ransac.hpp"
 
 #include <gtest/gtest.h>
+#include <utils/plane.hpp>
 
 /**
  * @brief Test class for setting up data and testing RANSAC algorithm.
@@ -40,8 +41,10 @@ class RANSACTest : public ::testing::Test {
 TEST_F(RANSACTest, TestBigEpsilon) {
   auto ground_removal = new RANSAC(10000, 1);
 
+  Plane plane;
+
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  ground_removal->groundRemoval(pcl_cloud, ground_removed_cloud);
+  ground_removal->groundRemoval(pcl_cloud, ground_removed_cloud, plane);
 
   ASSERT_EQ(ground_removed_cloud->points.size(), 0);
 }
@@ -53,9 +56,10 @@ TEST_F(RANSACTest, TestBigEpsilon) {
  */
 TEST_F(RANSACTest, TestCommonScenario) {
   auto ground_removal = new RANSAC(0.05, 100);
+  Plane plane;
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  ground_removal->groundRemoval(pcl_cloud, ground_removed_cloud);
+  ground_removal->groundRemoval(pcl_cloud, ground_removed_cloud, plane);
 
   ASSERT_EQ(ground_removed_cloud->points.size(), 2);
 }
@@ -66,9 +70,10 @@ TEST_F(RANSACTest, TestCommonScenario) {
  */
 TEST_F(RANSACTest, TestCommonScenario2) {
   auto ground_removal = new RANSAC(0.5, 100);
+  Plane plane;
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  ground_removal->groundRemoval(pcl_cloud, ground_removed_cloud);
+  ground_removal->groundRemoval(pcl_cloud, ground_removed_cloud, plane);
 
   ASSERT_EQ(ground_removed_cloud->points.size(), 1);
 }
@@ -79,9 +84,10 @@ TEST_F(RANSACTest, TestCommonScenario2) {
  */
 TEST_F(RANSACTest, TestThresholdZero) {
   auto ground_removal = new RANSAC(0, 10);
+  Plane plane;
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  ground_removal->groundRemoval(pcl_cloud, ground_removed_cloud);
+  ground_removal->groundRemoval(pcl_cloud, ground_removed_cloud, plane);
 
   ASSERT_EQ(ground_removed_cloud->points.size(), 5);
 }
@@ -92,9 +98,10 @@ TEST_F(RANSACTest, TestThresholdZero) {
  */
 TEST_F(RANSACTest, TestZeroRepetitions) {
   auto ground_removal = new RANSAC(100, 0);
+  Plane plane;
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  ground_removal->groundRemoval(pcl_cloud, ground_removed_cloud);
+  ground_removal->groundRemoval(pcl_cloud, ground_removed_cloud, plane);
 
   ASSERT_EQ(ground_removed_cloud->points.size(), 0);
 }
@@ -106,9 +113,10 @@ TEST_F(RANSACTest, TestZeroRepetitions) {
  */
 TEST_F(RANSACTest, TestSmallEpsilon) {
   auto ground_removal = new RANSAC(0.00000000000000001, 10);
+  Plane plane;
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  ground_removal->groundRemoval(pcl_cloud, ground_removed_cloud);
+  ground_removal->groundRemoval(pcl_cloud, ground_removed_cloud, plane);
 
   ASSERT_EQ(ground_removed_cloud->points.size(), 2);
 }
@@ -119,9 +127,10 @@ TEST_F(RANSACTest, TestSmallEpsilon) {
  */
 TEST_F(RANSACTest, TestBigEpsilon2) {
   auto ground_removal = new RANSAC(1000000, 1);
+  Plane plane;
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  ground_removal->groundRemoval(pcl_cloud, ground_removed_cloud);
+  ground_removal->groundRemoval(pcl_cloud, ground_removed_cloud, plane);
 
   ASSERT_EQ(ground_removed_cloud->points.size(), 0);
 }
@@ -133,9 +142,10 @@ TEST_F(RANSACTest, TestBigEpsilon2) {
  */
 TEST_F(RANSACTest, TestCommonScenario3Points) {
   auto ground_removal = new RANSAC(100, 100);
+  Plane plane;
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  ground_removal->groundRemoval(pcl_cloud_3_points, ground_removed_cloud);
+  ground_removal->groundRemoval(pcl_cloud_3_points, ground_removed_cloud, plane);
 
   ASSERT_EQ(ground_removed_cloud->points.size(), 0);
 }
@@ -147,9 +157,10 @@ TEST_F(RANSACTest, TestCommonScenario3Points) {
  */
 TEST_F(RANSACTest, Test3PointsThresholdZero) {
   auto ground_removal = new RANSAC(0, 100);
+  Plane plane;
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  ground_removal->groundRemoval(pcl_cloud_3_points, ground_removed_cloud);
+  ground_removal->groundRemoval(pcl_cloud_3_points, ground_removed_cloud, plane);
 
   ASSERT_EQ(ground_removed_cloud->points.size(), 3);
 }
@@ -160,9 +171,10 @@ TEST_F(RANSACTest, Test3PointsThresholdZero) {
  */
 TEST_F(RANSACTest, TestEmptyPointCloud) {
   auto ground_removal = new RANSAC(100, 100);
+  Plane plane;
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  ground_removal->groundRemoval(pcl_cloud_empty, ground_removed_cloud);
+  ground_removal->groundRemoval(pcl_cloud_empty, ground_removed_cloud, plane);
 
   ASSERT_EQ(ground_removed_cloud->points.size(), 0);
 }
@@ -174,9 +186,10 @@ TEST_F(RANSACTest, TestEmptyPointCloud) {
  */
 TEST_F(RANSACTest, TestEmptyPointCloud2) {
   auto ground_removal = new RANSAC(0, 0);
+  Plane plane;
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  ground_removal->groundRemoval(pcl_cloud_empty, ground_removed_cloud);
+  ground_removal->groundRemoval(pcl_cloud_empty, ground_removed_cloud, plane);
 
   ASSERT_EQ(ground_removed_cloud->points.size(), 0);
 }

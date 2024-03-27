@@ -11,7 +11,7 @@
 RANSAC::RANSAC(double epsilon, int n_tries) : epsilon(epsilon), n_tries(n_tries) {}
 
 void RANSAC::groundRemoval(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
-                           pcl::PointCloud<pcl::PointXYZI>::Ptr ret) const {
+                           pcl::PointCloud<pcl::PointXYZI>::Ptr ret, Plane& plane) const {
   pcl::ModelCoefficients::Ptr coefficients(new pcl::ModelCoefficients);
   pcl::PointIndices::Ptr inliers_indices(new pcl::PointIndices);
 
