@@ -44,7 +44,6 @@ void ExtendedKalmanFilter::push_to_colors(colors::Color color) { _colors.push_ba
 // cppcheck-suppress unusedFunction
 void ExtendedKalmanFilter::init_X_size(int size) { this->X = Eigen::VectorXf::Zero(size); }
 
-
 /*---------------------- Constructors --------------------*/
 
 ExtendedKalmanFilter::ExtendedKalmanFilter(const MotionModel &motion_model,
