@@ -4,7 +4,7 @@ CylinderValidator::CylinderValidator(double width, double height) : width(width)
 
 double CylinderValidator::getRadius() const { return std::sqrt(2 * width * width) / 2; }
 
-bool CylinderValidator::coneValidator(Cluster* cone_point_cloud) const {
+bool CylinderValidator::coneValidator(Cluster* cone_point_cloud, Plane& plane) const {
   pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud = cone_point_cloud->getPointCloud();
 
   for (const auto& point : *cone_point_cloud->getPointCloud()) {

@@ -3,7 +3,6 @@
 
 #include <cone_validator/cylinder_validator.hpp>
 #include <string>
-#include <vector>
 
 #include "clustering/dbscan.hpp"
 #include "cone_differentiation/least_squares_differentiation.hpp"
@@ -11,6 +10,9 @@
 #include "ground_removal/ransac.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
+#include <utils/plane.hpp>
+#include <vector>
+#include "cone_validator/height_validator.hpp"
 
 class Adapter;
 
@@ -29,7 +31,8 @@ class Perception : public rclcpp::Node {
   Clustering* clustering;
   std::string mode = "test";  // Temporary, change as desired. TODO(andre): Make not hardcoded
   ConeDifferentiation* coneDifferentiator;  ///< Pointer to ConeDifferentiation object.
-  ConeValidator* coneValidator;
+  Plane groundPlane;
+  std::vector<ConeValidator*> coneValidators;
 
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr
       _point_cloud_subscription;  ///< PointCloud2 subscription.
@@ -54,7 +57,7 @@ class Perception : public rclcpp::Node {
    * @param coneDifferentiator Pointer to ConeDifferentiation object
    */
   Perception(GroundRemoval* groundRemoval, Clustering* clustering,
-             ConeDifferentiation* coneDifferentiator, ConeValidator* coneValidator);
+             ConeDifferentiation* coneDifferentiator, std::vector<ConeValidator*> coneValidator);
 
   /**
    * @brief Callback function for the PointCloud2 subscription.

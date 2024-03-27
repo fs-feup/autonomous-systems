@@ -29,6 +29,8 @@ set(IMPLEMENTATION_FILES
   src/clustering/dbscan.cpp
   src/utils/cluster.cpp
   src/cone_validator/cylinder_validator.cpp
+  src/utils/plane.cpp
+  src/cone_validator/height_validator.cpp
 )
 
 include_directories(${PCL_INCLUDE_DIRS})
@@ -57,7 +59,8 @@ if(BUILD_TESTING)
                   test/dbscan_test.cpp src/clustering/dbscan.cpp 
                   src/cone_differentiation/least_squares_differentiation.cpp 
                   src/ground_removal/ransac.cpp
-                  src/utils/cluster.cpp)
+                  src/utils/cluster.cpp
+                  src/utils/plane.cpp)
 
 
 target_link_libraries(perception_test ${PCL_LIBRARIES})
