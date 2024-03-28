@@ -2,23 +2,27 @@
 
 #include <canlib.h>
 
-
 #include <chrono>
 #include <functional>
 #include <memory>
 #include <string>
-//#include <time.hpp>
+
+#include "fs_msgs/msg/control_command.hpp"
+// #include <time.hpp>
 
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
 
 RosCan::RosCan() : Node("node_ros_can") {
   foo1 = this->create_publisher<std_msgs::msg::String>("foo1", 10);
-  foo2 = this->create_subscription<std_msgs::msg::String>(
+  // foo2 = this->create_subscription<std_msgs::msg::String>(
+  //     "foo2", 10, std::bind(&RosCan::foo2_callback, this, std::placeholders::_1));
+  foo2 = this->create_subscription<fs_msgs::msg::ControlCommand>(
       "foo2", 10, std::bind(&RosCan::foo2_callback, this, std::placeholders::_1));
   busStatus = this->create_subscription<std_msgs::msg::String>(
       "busStatus", 10, std::bind(&RosCan::busStatus_callback, this, std::placeholders::_1));
-  timer = this->create_wall_timer(std::chrono::milliseconds(500), std::bind(&RosCan::canSniffer, this));  
+  timer =
+      this->create_wall_timer(std::chrono::milliseconds(500), std::bind(&RosCan::canSniffer, this));
   // initialize the CAN library
   canInitializeLibrary();
   // A channel to a CAN circuit is opened. The channel depend on the hardware
@@ -36,20 +40,35 @@ RosCan::RosCan() : Node("node_ros_can") {
   canSniffer();
 }
 
-void RosCan::foo2_callback(std_msgs::msg::String::SharedPtr foo2) {
-  /**
-   * @todo Implement function to publish foo2 to a CAN BUS
-   **/
-  // Convert the message data to the format required by canWrite()
-  // This depends on your specific use case
-  long id = 0x001;  // just and example
-  void* msgData = (void*)foo2->data.c_str();
-  unsigned int dlc = foo2->data.size();
-  unsigned int flag = 0;  // explore different flags
+void RosCan::foo2_callback(fs_msgs::msg::ControlCommand::SharedPtr foo2) {
+  // call void CANLIBAPI canInitializeLibrary(void);
+  //  This function must be called before any other functions is used.  It will
+  //  initialize the driver. You may call \ref canInitializeLibrary() more than once. The actual
+  //  initialization will take place only once. From canlib documentation
+  canInitializeLibrary();  // probably move this to a better place
+  // auto message = fs_msgs::msg::ControlCommand();
 
-  stat = canWrite(hnd, id, msgData, dlc, flag);
+  // Prepare the steering message
+  long steering_id = 0x700;//TODO: check ID
+  void* steering_msgData = (void*)&foo2->steering;
+  unsigned int steering_dlc = 8;
+  unsigned int flag = 0;
+
+  // Write the steering message to the CAN bus
+  stat = canWrite(hnd, steering_id, steering_msgData, steering_dlc, flag);
   if (stat != canOK) {
-    RCLCPP_ERROR(this->get_logger(), "Failed to write to CAN bus");
+    RCLCPP_ERROR(this->get_logger(), "Failed to write steering to CAN bus");
+  }
+
+  // Prepare the throttle message
+  long throttle_id = 0x201;//TODO: check ID
+  void* throttle_msgData = (void*)&foo2->throttle;
+  unsigned int throttle_dlc = 8;
+
+  // Write the throttle message to the CAN bus
+  stat = canWrite(hnd, throttle_id, throttle_msgData, throttle_dlc, flag);
+  if (stat != canOK) {
+    RCLCPP_ERROR(this->get_logger(), "Failed to write throttle to CAN bus");
   }
 }
 
