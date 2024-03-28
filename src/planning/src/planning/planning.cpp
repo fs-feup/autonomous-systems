@@ -5,7 +5,12 @@
 #include <string>
 #include <vector>
 
+#include "adapter/eufs.hpp"
+#include "adapter/fsds.hpp"
+#include "adapter/map.hpp"
 #include "custom_interfaces/msg/cone_array.hpp"
+#include "custom_interfaces/msg/path_point.hpp"
+#include "custom_interfaces/msg/path_point_array.hpp"
 #include "custom_interfaces/msg/point2d.hpp"
 #include "custom_interfaces/msg/point_array.hpp"
 #include "custom_interfaces/msg/pose.hpp"
@@ -22,16 +27,16 @@ Planning::Planning() : Node("planning") {
 
   // Control Publishers
   this->local_pub_ =
-      this->create_publisher<custom_interfaces::msg::PointArray>("planning_local", 10);
+      this->create_publisher<custom_interfaces::msg::PathPointArray>("planning_local", 10);
   this->global_pub_ =
-      this->create_publisher<custom_interfaces::msg::PointArray>("planning_global", 10);
+      this->create_publisher<custom_interfaces::msg::PathPointArray>("planning_global", 10);
 
   // Publishes path from file in Skidpad & Acceleration events
   this->timer_ = this->create_wall_timer(
       std::chrono::milliseconds(100), std::bind(&Planning::publish_predicitive_track_points, this));
 
   // Adapter to communicate with the car
-  this->adapter = new Adapter("eufs", this);
+  this->adapter = adapter_map[mode](this);
 }
 
 void Planning::track_map_callback(const custom_interfaces::msg::ConeArray msg) {
@@ -62,12 +67,13 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray msg) {
  * Publisher point by point
  */
 void Planning::publish_track_points(std::vector<PathPoint *> path) const {
-  auto message = custom_interfaces::msg::PointArray();
+  auto message = custom_interfaces::msg::PathPointArray();
   for (auto const &element : path) {
-    auto point = custom_interfaces::msg::Point2d();
+    auto point = custom_interfaces::msg::PathPoint();
     point.x = element->getX();
     point.y = element->getY();
-    message.points.push_back(point);
+    point.v = element->getV();
+    message.pathpoint_array.push_back(point);
     RCLCPP_DEBUG(this->get_logger(), "[published] (%f, %f)", point.x, point.y);
   }
   local_pub_->publish(message);

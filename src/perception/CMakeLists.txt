@@ -9,6 +9,7 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(custom_interfaces REQUIRED)
+find_package(fs_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
@@ -21,9 +22,13 @@ find_package(pcl_conversions REQUIRED)
 set(IMPLEMENTATION_FILES 
   src/perception/perception_node.cpp
   src/ground_removal/ransac.cpp
+  src/adapter/adapter.cpp
+  src/adapter/fsds.cpp
+  src/adapter/testlidar.cpp
   src/cone_differentiation/least_squares_differentiation.cpp
   src/clustering/dbscan.cpp
   src/utils/cluster.cpp
+  src/cone_validator/cylinder_validator.cpp
 )
 
 include_directories(${PCL_INCLUDE_DIRS})
@@ -43,7 +48,7 @@ target_link_libraries(perception ${PCL_LIBRARIES})
 install(TARGETS perception
   DESTINATION lib/${PROJECT_NAME})
 
-ament_target_dependencies(perception rclcpp custom_interfaces sensor_msgs message_filters)
+ament_target_dependencies(perception rclcpp custom_interfaces sensor_msgs fs_msgs message_filters)
 
 if(BUILD_TESTING)
   find_package(ament_cmake_gtest REQUIRED)
@@ -60,7 +65,7 @@ target_link_libraries(perception_test ${PCL_LIBRARIES})
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>)
 
-    ament_target_dependencies(perception_test rclcpp custom_interfaces ament_cmake_gtest)
+    ament_target_dependencies(perception_test rclcpp custom_interfaces fs_msgs ament_cmake_gtest)
 
 endif()
 

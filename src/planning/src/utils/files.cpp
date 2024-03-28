@@ -26,22 +26,29 @@ std::ofstream openWriteFile(const std::string &filename) {
   std::ofstream file(filePrefix + filename, std::ios::app);
   if (!file.is_open()) {
     RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "ERROR opening file: %s\n", logger_variable.c_str());
-  } else {RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"),
-   "Successfully opened %s \n", logger_variable.c_str());}
+  } else {
+    RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Successfully opened %s \n",
+                 logger_variable.c_str());
+  }
   return file;
 }
 
 std::ifstream openReadFile(const std::string &filename) {
+  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Start openReadFile");
   std::string filePrefix = ament_index_cpp::get_package_share_directory("planning");
   filePrefix = filePrefix.substr(0, filePrefix.find("install"));
   std::string logger_variable = filePrefix + filename;
   std::ifstream file(filePrefix + filename);
   if (!file.is_open()) {
     RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "ERROR opening file: %s\n", logger_variable.c_str());
-  } else {RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"),
-   "Successfully opened %s \n", logger_variable.c_str());}
+  } else {
+    RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Successfully opened %s \n",
+                 logger_variable.c_str());
+  }
+  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "End openReadFile");
   return file;
 }
+
 // Track* read_track_file(const std::string& filename) {
 //   std::string filePrefix = rcpputils::fs::current_path().string();
 //   std::string filePackage = filePrefix + "/planning/planning/files/" +

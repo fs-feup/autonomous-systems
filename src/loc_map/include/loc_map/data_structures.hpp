@@ -67,18 +67,4 @@ struct ConeMap {
       last_update; /**< Timestamp of last update */
 };
 
-/**
- * @brief Enum for the existing missions
- *
- */
-enum Mission {
-  acceleration,
-  skidpad,
-  trackdrive,
-  autocross,
-  static_inspection_A,
-  static_inspection_B,
-  autonomous_demo
-};
-
 #endif  // SRC_LOC_MAP_INCLUDE_LOC_MAP_DATA_STRUCTURES_HPP_

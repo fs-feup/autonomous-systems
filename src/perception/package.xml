@@ -14,12 +14,10 @@
   <exec_depend>custom_interfaces</exec_depend>
   <exec_depend>pcl_conversions</exec_depend>
 
-  <test_depend>ament_lint_auto</test_depend>
-  <test_depend>ament_lint_common</test_depend>
-
   <depend>rclcpp</depend>
   <depend>std_msgs</depend>
   <depend>sensor_msgs</depend>
+  <depend>fs_msgs</depend>
 
   <export>
     <build_type>ament_cmake</build_type>

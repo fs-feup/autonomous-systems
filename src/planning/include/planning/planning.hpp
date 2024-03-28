@@ -1,5 +1,5 @@
-#ifndef SRC_PLANNING_PLANNING_INCLUDE_PLANNING_PLANNING_HPP_
-#define SRC_PLANNING_PLANNING_INCLUDE_PLANNING_PLANNING_HPP_
+#ifndef SRC_PLANNING_INCLUDE_PLANNING_PLANNING_HPP_
+#define SRC_PLANNING_INCLUDE_PLANNING_PLANNING_HPP_
 
 #include <functional>
 #include <map>
@@ -7,22 +7,24 @@
 #include <string>
 #include <vector>
 
-#include "adapter/adapter.hpp"
+// #include "adapter/adapter.hpp"
+
 #include "custom_interfaces/msg/cone_array.hpp"
+#include "custom_interfaces/msg/path_point.hpp"
+#include "custom_interfaces/msg/path_point_array.hpp"
 #include "custom_interfaces/msg/point2d.hpp"
 #include "custom_interfaces/msg/point_array.hpp"
 #include "custom_interfaces/msg/pose.hpp"
 #include "planning/global_path_planner.hpp"
 #include "planning/local_path_planner.hpp"
+#include "sensor_msgs/msg/point_cloud2.hpp"
 #include "utils/files.hpp"
+#include "utils/mission.hpp"
 
 using std::placeholders::_1;
 
-/**
- * @enum Mission
- * @brief Enumeration representing the different missions.
- */
-enum Mission { not_selected, acceleration, skidpad, trackdrive, autocross };
+class Adapter;
+
 /**
  * @class Planning
  * @brief Class responsible for planning and path generation for our car.
@@ -34,7 +36,8 @@ enum Mission { not_selected, acceleration, skidpad, trackdrive, autocross };
 class Planning : public rclcpp::Node {
   Mission mission = not_selected;                                /**< Current planning mission */
   LocalPathPlanner *local_path_planner = new LocalPathPlanner(); /**< Local path planner instance */
-  Adapter *adapter; /**< Adapter instance for external communication */
+  Adapter *adapter;           /**< Adapter instance for external communication */
+  std::string mode = "fsds";  // Temporary, change as desired. TODO(andre): Make not hardcoded
 
   std::map<Mission, std::string> predictive_paths = {
       {Mission::acceleration, "/events/acceleration.txt"},
@@ -45,9 +48,9 @@ class Planning : public rclcpp::Node {
   /**< Subscription to track map */
   rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr track_sub_;
   /**< Local path points publisher */
-  rclcpp::Publisher<custom_interfaces::msg::PointArray>::SharedPtr local_pub_;
+  rclcpp::Publisher<custom_interfaces::msg::PathPointArray>::SharedPtr local_pub_;
   /**< Global path points publisher */
-  rclcpp::Publisher<custom_interfaces::msg::PointArray>::SharedPtr global_pub_;
+  rclcpp::Publisher<custom_interfaces::msg::PathPointArray>::SharedPtr global_pub_;
   /**< Timer for the periodic publishing */
   rclcpp::TimerBase::SharedPtr timer_;
   /**

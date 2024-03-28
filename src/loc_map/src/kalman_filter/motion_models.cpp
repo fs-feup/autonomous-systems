@@ -89,10 +89,28 @@ Eigen::VectorXf ImuVelocityModel::predict_expected_state(const Eigen::VectorXf &
                                                          const MotionUpdate &motion_prediction_data,
                                                          const double time_interval) const {
   Eigen::VectorXf next_state = expected_state;
-  next_state(0) += motion_prediction_data.translational_velocity_x * time_interval;
-  next_state(1) += motion_prediction_data.translational_velocity_y * time_interval;
-  next_state(2) =
-      normalize_angle(next_state(2) + motion_prediction_data.rotational_velocity * time_interval);
+
+  // Calculate the total translational velocity
+  float translational_velocity = sqrt(pow(motion_prediction_data.translational_velocity_x, 2) +
+                                      pow(motion_prediction_data.translational_velocity_y, 2));
+  if (motion_prediction_data.rotational_velocity == 0.0) {  // Rectilinear movement
+    next_state(0) += translational_velocity * cos(expected_state(2)) * time_interval;
+    next_state(1) += translational_velocity * sin(expected_state(2)) * time_interval;
+  } else {  // Curvilinear movement
+    next_state(0) +=
+        -(translational_velocity / motion_prediction_data.rotational_velocity) *
+            sin(expected_state(2)) +
+        (translational_velocity / motion_prediction_data.rotational_velocity) *
+            sin(expected_state(2) + motion_prediction_data.rotational_velocity * time_interval);
+    next_state(1) +=
+        (translational_velocity / motion_prediction_data.rotational_velocity) *
+            cos(expected_state(2)) -
+        (translational_velocity / motion_prediction_data.rotational_velocity) *
+            cos(expected_state(2) + motion_prediction_data.rotational_velocity * time_interval);
+  }
+  next_state(2) = normalize_angle(expected_state(2) +
+                                  motion_prediction_data.rotational_velocity * time_interval);
+
   return next_state;
 }
 

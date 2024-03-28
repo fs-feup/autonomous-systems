@@ -1,12 +1,14 @@
 #ifndef SRC_LOC_MAP_INCLUDE_KALMAN_FILTER_EKF_HPP_
 #define SRC_LOC_MAP_INCLUDE_KALMAN_FILTER_EKF_HPP_
 
-#include <eigen3/Eigen/Dense>
+#include <Eigen/Dense>
+#include <Eigen/Sparse>
 #include <vector>
 
 #include "kalman_filter/motion_models.hpp"
 #include "kalman_filter/observation_models.hpp"
 #include "loc_map/data_structures.hpp"
+#include "utils/mission.hpp"
 
 /**
  * @brief Extended Kalman Filter class
@@ -23,8 +25,9 @@ class ExtendedKalmanFilter {
                                           from the expected position when the landmark is
                                           perceived to be 1 meter away */
 
-  Eigen::VectorXf X;                  /**< Expected state vector (localization + mapping) */
-  Eigen::MatrixXf P;                  /**< State covariance matrix */
+  Eigen::VectorXf X; /**< Expected state vector (localization + mapping) */
+  // Eigen::MatrixXf P;                  /**< State covariance matrix */
+  Eigen::SparseMatrix<float> P;       /**< Sparse State covariance matrix */
   std::vector<colors::Color> _colors; /**< Vector of colors of the landmarks */
 
   std::chrono::time_point<std::chrono::high_resolution_clock>
@@ -128,8 +131,15 @@ class ExtendedKalmanFilter {
    */
   void set_X_y(int y, float value);
 
+  /**
+   * @brief set value of P to a 3x3 with 1.1 in diagonal
+   *
+   */
   void set_P(const int size);
 
+  /**
+   * @brief Initializes state X with size equal to parameter size
+   */
   void init_X_size(const int size);
 
   /**

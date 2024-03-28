@@ -31,10 +31,13 @@ set(TESTFILES
 
 set(IMPLEMENTATION_FILES
   src/adapter/adapter.cpp
+  src/adapter/eufs.cpp
+  src/adapter/fsds.cpp
   src/planning/global_path_planner.cpp
   src/planning/local_path_planner.cpp
   src/planning/track.cpp
   src/planning/planning.cpp
+  src/planning/path_smoothing.cpp
   src/utils/cone.cpp
   src/utils/pathpoint.cpp
   src/utils/files.cpp
@@ -56,9 +59,7 @@ target_include_directories(planning PUBLIC
 target_compile_features(planning PUBLIC c_std_99 cxx_std_17)
 
 if(BUILD_TESTING)
-  find_package(ament_lint_auto REQUIRED)
   find_package(ament_cmake_gtest REQUIRED)
-  # ament_lint_auto_find_test_dependencies()
   ament_add_gtest(planning_test ${TESTFILES} ${IMPLEMENTATION_FILES})
   ament_target_dependencies(planning_test ament_index_cpp rclcpp std_msgs custom_interfaces eufs_msgs fs_msgs)
   target_include_directories(planning_test PUBLIC

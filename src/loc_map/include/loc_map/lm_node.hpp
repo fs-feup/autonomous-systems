@@ -8,6 +8,8 @@
 #include <string>
 #include <typeinfo>
 
+#include "adapter/eufs.hpp"
+#include "adapter/fsds.hpp"
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "custom_interfaces/msg/point2d.hpp"
 #include "custom_interfaces/msg/pose.hpp"
@@ -17,6 +19,8 @@
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/imu.hpp"
 #include "std_msgs/msg/string.hpp"
+
+class Adapter;
 
 /**
  * @brief Class representing the main loc_map node responsible for publishing
@@ -37,7 +41,10 @@ class LMNode : public rclcpp::Node {
   VehicleState *_vehicle_state;
   Mission _mission;
   bool _use_odometry;
+  Adapter *adapter;
+  std::string mode = "fsds";  // Temporary, change as desired. TODO(andre): Make not hardcoded
 
+ public:
   /**
    * @brief Callback that updates everytime information
    * is received from the perception module
@@ -136,8 +143,8 @@ class LMNode : public rclcpp::Node {
    */
   void set_mission(Mission mission);
 
-  friend class Adapter;
-  FRIEND_TEST(ODOMETRY_SUBSCRIBER, CONVERSION_TEST);
+  // friend class Adapter;
+  // FRIEND_TEST(ODOMETRY_SUBSCRIBER, CONVERSION_TEST);
 };
 
 #endif  // SRC_LOC_MAP_INCLUDE_LOC_MAP_LM_SUBSCRIBER_HPP_

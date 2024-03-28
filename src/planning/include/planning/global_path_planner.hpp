@@ -1,5 +1,5 @@
-#ifndef SRC_PLANNING_PLANNING_INCLUDE_PLANNING_GLOBAL_PATH_PLANNER_HPP_
-#define SRC_PLANNING_PLANNING_INCLUDE_PLANNING_GLOBAL_PATH_PLANNER_HPP_
+#ifndef SRC_PLANNING_INCLUDE_PLANNING_GLOBAL_PATH_PLANNER_HPP_
+#define SRC_PLANNING_INCLUDE_PLANNING_GLOBAL_PATH_PLANNER_HPP_
 
 #include <string>
 #include <utility>
@@ -14,7 +14,7 @@
  */
 
 class GlobalPathPlanner {
-  Track *track;                       // track input data
+  Track *track;                        // track input data
   std::vector<PathPoint *> finalPath;  // path calculation result
 
  public:
