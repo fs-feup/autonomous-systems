@@ -54,6 +54,7 @@ class PID {
    * @param T Sampling time
    * @param limMin Minimum output value
    * @param limMax Maximum output value
+   * @param antiWindup Gain of integrator impact when saturated
    */
   PID(float Kp, float Ki, float Kd, float tau, float T, float limMin, float limMax,
       float antiWindup);
