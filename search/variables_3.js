@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['c_0',['c',['../dd/d6b/namespaceoffsettrack.html#a69901488f64f2102f31272f623559e12',1,'offsettrack.c'],['../d7/dc1/namespacespline.html#adcb92c1b2308379ecffcbb7a299c2c2b',1,'spline.c'],['../d9/de5/namespaceacceleration__mapper.html#a260cf49747c22b3e8fab97cd94f57730',1,'acceleration_mapper.c'],['../d2/de4/namespaceskidpad__mapper.html#a0e4a6d957c26c55a3664759e8e01e241',1,'skidpad_mapper.c'],['../dc/d1a/namespaceplot__track.html#a09b7f1440e109d150d176d50da28a8e3',1,'plot_track.c']]],
+  ['c_0',['c',['../dd/d6b/namespaceoffsettrack.html#a69901488f64f2102f31272f623559e12',1,'offsettrack.c'],['../d7/dc1/namespacespline.html#adcb92c1b2308379ecffcbb7a299c2c2b',1,'spline.c'],['../dc/d1a/namespaceplot__track.html#a09b7f1440e109d150d176d50da28a8e3',1,'plot_track.c'],['../d2/de4/namespaceskidpad__mapper.html#a0e4a6d957c26c55a3664759e8e01e241',1,'skidpad_mapper.c'],['../d9/de5/namespaceacceleration__mapper.html#a260cf49747c22b3e8fab97cd94f57730',1,'acceleration_mapper.c']]],
   ['c_5fvalues_1',['c_values',['../dd/d6b/namespaceoffsettrack.html#a5324cb11b8bd1bb4a08fef0f29eda572',1,'offsettrack']]],
   ['center_5fx_2',['center_x',['../d2/de4/namespaceskidpad__mapper.html#a4014abd17d422eefee598927c46e2036',1,'skidpad_mapper']]],
   ['center_5fy_3',['center_y',['../d2/de4/namespaceskidpad__mapper.html#a3d8153265aac4fdf58d3f4e4c4bd0793',1,'skidpad_mapper']]],
@@ -15,5 +15,6 @@ var searchData=
   ['cones_5fpublisher_12',['cones_publisher',['../df/d59/class_exec_time_test.html#a9998f38d40de86ef182e703a6fc5cae4',1,'ExecTimeTest']]],
   ['control_5freceiver_13',['control_receiver',['../d7/d4e/class_integration_test.html#a03bbbba8dc68f9010a9032ea63bb6dc2',1,'IntegrationTest']]],
   ['control_5fsub_14',['control_sub',['../d7/d4e/class_integration_test.html#ac9964bc5629ffba4a6e67ae2d1687e57',1,'IntegrationTest']]],
-  ['count_15',['count',['../dc/d1a/namespaceplot__track.html#aeb1d71342484b0943985adb65e165e3e',1,'plot_track.count'],['../dd/d6b/namespaceoffsettrack.html#afefbbb4f39da3e83816bf5d31d797527',1,'offsettrack.count']]]
+  ['count_15',['count',['../dc/d1a/namespaceplot__track.html#aeb1d71342484b0943985adb65e165e3e',1,'plot_track.count'],['../dd/d6b/namespaceoffsettrack.html#afefbbb4f39da3e83816bf5d31d797527',1,'offsettrack.count']]],
+  ['current_5fgoal_5fvelocity_16',['current_goal_velocity',['../d4/d89/class_inspection_functions.html#ab28a953b2f7bb994a3afb1a6c7f636c7',1,'InspectionFunctions']]]
 ];

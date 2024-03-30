@@ -8,26 +8,26 @@
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="639,96,511,58,513,53,641,91"/>
 <area shape="rect" id="Node000004" href="$d7/db7/class_path_smoothing.html#af9365cf145ba25661e8c287a5dd6814c" title="calls pathSmoother with default values for precision, order and coeffs_ratio that were determined to ..." alt="" coords="108,29,319,55"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="351,45,319,45,319,40,351,40"/>
-<area shape="rect" id="Node000005" href="$d9/d1e/tests_8cpp.html#a6df4e4f75ec78a003fe012ee9a5172f8" title="simple scenario with few points in the path" alt="" coords="5,5,60,31"/>
+<area shape="rect" id="Node000005" href="$dd/df6/planning_2test_2tests_8cpp.html#a6df4e4f75ec78a003fe012ee9a5172f8" title="simple scenario with few points in the path" alt="" coords="5,5,60,31"/>
 <area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="97,29,60,24,60,19,97,24"/>
-<area shape="rect" id="Node000006" href="$d9/d1e/tests_8cpp.html#aae8c79094c63a375eea2464aa2a09e00" title="more complex scenario with cones deviating from path and with significant curvature" alt="" coords="5,55,60,80"/>
+<area shape="rect" id="Node000006" href="$dd/df6/planning_2test_2tests_8cpp.html#aae8c79094c63a375eea2464aa2a09e00" title="more complex scenario with cones deviating from path and with significant curvature" alt="" coords="5,55,60,80"/>
 <area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="102,60,61,66,60,61,102,55"/>
-<area shape="rect" id="Node000008" href="$d9/d1e/tests_8cpp.html#a55704aa7075eaaa1347216362cef2762" title="Test function for Delaunay Triangulations&#39; efficiency. Runs 100 times to get average execution time." alt="" coords="392,103,540,128"/>
+<area shape="rect" id="Node000008" href="$dd/df6/planning_2test_2tests_8cpp.html#a55704aa7075eaaa1347216362cef2762" title="Test function for Delaunay Triangulations&#39; efficiency. Runs 100 times to get average execution time." alt="" coords="392,103,540,128"/>
 <area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="653,188,610,164,563,142,531,131,532,126,565,137,613,159,655,183"/>
-<area shape="rect" id="Node000012" href="$d9/d1e/tests_8cpp.html#afdc65423b0a5a3ca636f3aacfb1dba56" title="simple but realistic scenario with few cones and fwe outliers" alt="" coords="439,152,493,178"/>
+<area shape="rect" id="Node000012" href="$dd/df6/planning_2test_2tests_8cpp.html#afdc65423b0a5a3ca636f3aacfb1dba56" title="simple but realistic scenario with few cones and fwe outliers" alt="" coords="439,152,493,178"/>
 <area shape="poly" id="edge11_Node000007_Node000012" title=" " alt="" coords="597,195,493,173,494,168,598,190"/>
-<area shape="rect" id="Node000013" href="$d9/d1e/tests_8cpp.html#af9952ff008604d30cd729682048e2167" title="scenario: Large piece of track with no outliers" alt="" coords="439,201,493,227"/>
+<area shape="rect" id="Node000013" href="$dd/df6/planning_2test_2tests_8cpp.html#af9952ff008604d30cd729682048e2167" title="scenario: Large piece of track with no outliers" alt="" coords="439,201,493,227"/>
 <area shape="poly" id="edge12_Node000007_Node000013" title=" " alt="" coords="597,217,493,217,493,212,597,212"/>
-<area shape="rect" id="Node000014" href="$d9/d1e/tests_8cpp.html#ad18f9702442704e6ba155492f9317546" title="scenario with large track that barely has outliers (only 2)" alt="" coords="439,251,493,276"/>
+<area shape="rect" id="Node000014" href="$dd/df6/planning_2test_2tests_8cpp.html#ad18f9702442704e6ba155492f9317546" title="scenario with large track that barely has outliers (only 2)" alt="" coords="439,251,493,276"/>
 <area shape="poly" id="edge13_Node000007_Node000014" title=" " alt="" coords="598,238,494,261,493,255,597,233"/>
-<area shape="rect" id="Node000015" href="$d9/d1e/tests_8cpp.html#ac52f5bb92ce5fead956b460602be5875" title="scenario: cones in parallel straight lines that shows that cones exaclty in a circumference are not c..." alt="" coords="439,300,493,326"/>
+<area shape="rect" id="Node000015" href="$dd/df6/planning_2test_2tests_8cpp.html#ac52f5bb92ce5fead956b460602be5875" title="scenario: cones in parallel straight lines that shows that cones exaclty in a circumference are not c..." alt="" coords="439,300,493,326"/>
 <area shape="poly" id="edge14_Node000007_Node000015" title=" " alt="" coords="655,245,613,269,565,291,494,311,492,306,563,286,610,265,653,241"/>
-<area shape="rect" id="Node000016" href="$d9/d1e/tests_8cpp.html#a24abd4bbadec3144e9f2562ff43add80" title="scenario: small track with sharp edge" alt="" coords="439,349,493,375"/>
+<area shape="rect" id="Node000016" href="$dd/df6/planning_2test_2tests_8cpp.html#a24abd4bbadec3144e9f2562ff43add80" title="scenario: small track with sharp edge" alt="" coords="439,349,493,375"/>
 <area shape="poly" id="edge15_Node000007_Node000016" title=" " alt="" coords="675,248,627,296,598,320,566,341,529,355,494,362,493,357,527,349,563,336,595,316,624,292,671,244"/>
-<area shape="rect" id="Node000009" href="$d9/d1e/tests_8cpp.html#aa4387a361b1943b82c6e9ef915917c12" title=" " alt="" coords="186,79,241,104"/>
+<area shape="rect" id="Node000009" href="$dd/df6/planning_2test_2tests_8cpp.html#aa4387a361b1943b82c6e9ef915917c12" title=" " alt="" coords="186,79,241,104"/>
 <area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="376,110,240,97,241,91,376,104"/>
-<area shape="rect" id="Node000010" href="$d9/d1e/tests_8cpp.html#a978f4baa8d39fb740ed92fd44ba50933" title=" " alt="" coords="186,128,241,154"/>
+<area shape="rect" id="Node000010" href="$dd/df6/planning_2test_2tests_8cpp.html#a978f4baa8d39fb740ed92fd44ba50933" title=" " alt="" coords="186,128,241,154"/>
 <area shape="poly" id="edge9_Node000008_Node000010" title=" " alt="" coords="376,127,241,141,240,136,376,122"/>
-<area shape="rect" id="Node000011" href="$d9/d1e/tests_8cpp.html#aaff9fd771beea10b1e522702042da27c" title=" " alt="" coords="186,177,241,203"/>
+<area shape="rect" id="Node000011" href="$dd/df6/planning_2test_2tests_8cpp.html#aaff9fd771beea10b1e522702042da27c" title=" " alt="" coords="186,177,241,203"/>
 <area shape="poly" id="edge10_Node000008_Node000011" title=" " alt="" coords="386,136,368,142,344,155,320,169,279,181,242,189,240,184,278,176,318,164,342,151,366,137,384,131"/>
 </map>

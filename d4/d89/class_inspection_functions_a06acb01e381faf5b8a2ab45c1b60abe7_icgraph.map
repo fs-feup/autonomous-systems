@@ -1,0 +1,9 @@
+<map id="InspectionFunctions::redefine_goal_velocity" name="InspectionFunctions::redefine_goal_velocity">
+<area shape="rect" id="Node000001" title="used when in oscilation mode to redefine the ideal velocity" alt="" coords="366,35,520,75"/>
+<area shape="rect" id="Node000002" href="$de/d3d/class_inspection_mission.html#a2f3483be2be10ac2e7fc50632898a025" title="Function to publish control command while time is less than the defined time limit." alt="" coords="186,5,318,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="350,43,318,38,319,33,351,38"/>
+<area shape="rect" id="Node000004" href="$da/dad/inspection_2test_2tests_8cpp.html#aecfda6c17204e7cf412f53b036b63cd1" title="test control while oscilating the goal velocity." alt="" coords="225,70,279,96"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="351,71,280,82,279,76,350,66"/>
+<area shape="rect" id="Node000003" href="$de/d3d/class_inspection_mission.html#a62ddad48c6252a28b6f2c480f84229d1" title="Contruct a new Inspection Mission with constants defined in file." alt="" coords="5,5,138,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="170,28,138,28,138,23,170,23"/>
+</map>

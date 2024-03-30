@@ -1,0 +1,15 @@
+<map id="InspectionMission::InspectionMission" name="InspectionMission::InspectionMission">
+<area shape="rect" id="Node000001" title="Contruct a new Inspection Mission with constants defined in file." alt="" coords="5,137,138,178"/>
+<area shape="rect" id="Node000002" href="$de/d3d/class_inspection_mission.html#a2f3483be2be10ac2e7fc50632898a025" title="Function to publish control command while time is less than the defined time limit." alt="" coords="186,104,318,145"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="137,143,170,137,171,142,138,148"/>
+<area shape="rect" id="Node000007" href="$de/d3d/class_inspection_mission.html#aa5517d42552554c7204c2130081ee1d5" title="recieves GoSignal and stores the mission that should be ran" alt="" coords="186,169,318,210"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="138,167,171,173,170,178,138,172"/>
+<area shape="rect" id="Node000003" href="$d4/d89/class_inspection_functions.html#a3d1455fd24400344a53f59044ff0b575" title="calculate the steering angle according to time" alt="" coords="374,5,512,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="285,101,365,57,377,50,380,55,367,61,288,106"/>
+<area shape="rect" id="Node000004" href="$d4/d89/class_inspection_functions.html#ac1eedef4bb67c4afe03e074e9e011b81" title="calculate torque output according to velocity" alt="" coords="374,71,512,111"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="318,110,358,103,359,108,319,115"/>
+<area shape="rect" id="Node000005" href="$d4/d89/class_inspection_functions.html#a06acb01e381faf5b8a2ab45c1b60abe7" title="used when in oscilation mode to redefine the ideal velocity" alt="" coords="366,136,520,177"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="319,133,351,138,350,143,318,138"/>
+<area shape="rect" id="Node000006" href="$d4/d89/class_inspection_functions.html#a62a7a5c1d1b3d67e4d0e8d453d6665b9" title="convert rpm [rotations/minute] to velocity [m/s]" alt="" coords="374,201,512,242"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="297,143,319,155,367,186,379,192,376,197,365,191,317,160,294,148"/>
+</map>

@@ -1,7 +1,7 @@
 <map id="PathSmoothing::getPath" name="PathSmoothing::getPath">
 <area shape="rect" id="Node000001" title="Get the Path object." alt="" coords="108,31,269,56"/>
-<area shape="rect" id="Node000002" href="$d9/d1e/tests_8cpp.html#a6df4e4f75ec78a003fe012ee9a5172f8" title="simple scenario with few points in the path" alt="" coords="5,5,60,31"/>
+<area shape="rect" id="Node000002" href="$dd/df6/planning_2test_2tests_8cpp.html#a6df4e4f75ec78a003fe012ee9a5172f8" title="simple scenario with few points in the path" alt="" coords="5,5,60,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,30,60,25,61,20,93,25"/>
-<area shape="rect" id="Node000003" href="$d9/d1e/tests_8cpp.html#aae8c79094c63a375eea2464aa2a09e00" title="more complex scenario with cones deviating from path and with significant curvature" alt="" coords="5,55,60,80"/>
+<area shape="rect" id="Node000003" href="$dd/df6/planning_2test_2tests_8cpp.html#aae8c79094c63a375eea2464aa2a09e00" title="more complex scenario with cones deviating from path and with significant curvature" alt="" coords="5,55,60,80"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="93,61,61,66,60,61,92,56"/>
 </map>

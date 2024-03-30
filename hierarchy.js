@@ -18,11 +18,15 @@ var hierarchy =
       [ "LeastSquaresDifferentiation", "d7/d15/class_least_squares_differentiation.html", null ]
     ] ],
     [ "ConeMap", "dc/d59/struct_cone_map.html", null ],
+    [ "std::exception", null, [
+      [ "InvalidMissionException", "d3/df9/class_invalid_mission_exception.html", null ]
+    ] ],
     [ "ExtendedKalmanFilter", "da/da6/class_extended_kalman_filter.html", null ],
     [ "GlobalPathPlanner", "d2/da4/class_global_path_planner.html", null ],
     [ "GroundRemoval", "dc/d84/class_ground_removal.html", [
       [ "RANSAC", "d6/dc3/class_r_a_n_s_a_c.html", null ]
     ] ],
+    [ "InspectionFunctions", "d4/d89/class_inspection_functions.html", null ],
     [ "LocalPathPlanner", "d3/da1/class_local_path_planner.html", null ],
     [ "MotionModel", "db/d66/class_motion_model.html", [
       [ "ImuVelocityModel", "d2/d58/class_imu_velocity_model.html", null ],
@@ -30,6 +34,7 @@ var hierarchy =
     ] ],
     [ "MotionUpdate", "db/d6d/struct_motion_update.html", null ],
     [ "rclcpp::Node", null, [
+      [ "InspectionMission", "de/d3d/class_inspection_mission.html", null ],
       [ "LMNode", "dd/db3/class_l_m_node.html", null ],
       [ "LongitudinalControl", "d4/de8/class_longitudinal_control.html", null ],
       [ "Perception", "de/d07/class_perception.html", null ],

@@ -1,0 +1,5 @@
+<map id="TEST" name="TEST">
+<area shape="rect" id="Node000001" title="test steering output is sinusoidal" alt="" coords="5,13,60,39"/>
+<area shape="rect" id="Node000002" href="$d4/d89/class_inspection_functions.html#a3d1455fd24400344a53f59044ff0b575" title="calculate the steering angle according to time" alt="" coords="108,5,246,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,23,92,23,92,28,60,28"/>
+</map>

@@ -1,0 +1,10 @@
+<map id="TEST" name="TEST">
+<area shape="rect" id="Node000001" title="test control while oscilating the goal velocity." alt="" coords="5,78,60,104"/>
+<area shape="rect" id="Node000002" href="$d4/d89/class_inspection_functions.html#ac1eedef4bb67c4afe03e074e9e011b81" title="calculate torque output according to velocity" alt="" coords="116,5,254,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="59,77,121,50,123,55,61,82"/>
+<area shape="rect" id="Node000003" href="$d4/d89/class_inspection_functions.html#a06acb01e381faf5b8a2ab45c1b60abe7" title="used when in oscilation mode to redefine the ideal velocity" alt="" coords="108,71,262,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="60,88,92,88,92,94,60,94"/>
+<area shape="rect" id="Node000004" href="$da/dad/inspection_2test_2tests_8cpp.html#a322889033b0102b5c2eb49fe3c081fd8" title="round to n decimal places" alt="" coords="158,160,212,185"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="60,102,147,149,144,154,57,107"/>
+<area shape="poly" id="edge4_Node000004_Node000004" title=" " alt="" coords="159,160,154,151,157,141,167,135,185,133,204,135,213,142,210,147,202,140,185,138,169,140,161,145,159,150,163,158"/>
+</map>
