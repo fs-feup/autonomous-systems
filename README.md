@@ -9,13 +9,12 @@ This repository holds most of the data and all the code on the project for Formu
 ## Starting to Develop
 
 Before starting, check out:
-- [Project Rules](https://docs.google.com/document/d/1-YuD-V7zwE_rMwYZ7jmOQysz29_Zj9U-KQ5oIUk4dAc/edit?usp=sharing) and [AS Rules](https://docs.google.com/document/d/1kmiW4-pkKHlYM9V2sTS_4IJR4ODCaD_m/edit?usp=sharing&ouid=108427086324647392265&rtpof=true&sd=true)
+- [Project Rules](https://www.notion.so/FS-FEUP-HUB-6873ab8de3b44fad990d264023fbce8b?pvs=4) in Notion (specifically check Software Development rules)
 - [Startup Guide](./docs/tutorials/startup_guide.md)
 
 ## Documentation
 - [Documentation Home](./docs)
 - [Startup Guide](./docs/tutorials/startup_guide.md)
-- [Project Rules](./docs/project-rules.md)
 - [Project Specification](./docs/project-specification.md)
 
 ## Contributing
