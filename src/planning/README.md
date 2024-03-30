@@ -81,9 +81,7 @@ The planning module doesn't have many different flows. The main one to notice is
 
 ## Full Documentation
 
-A more precise information about the Planning Module can be found [here](https://www.overleaf.com)
-
-TODO: CHECK THIS
+A more precise information about the Planning Module can be found [here](https://github.com/fs-feup/documentation/blob/main/AS/FSFEUP_02_Planning_Control/main.pdf)
 
 ## Main External Libraries
 

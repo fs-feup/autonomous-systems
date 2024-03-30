@@ -14,7 +14,7 @@ This guide is meant to help the developer setup the environment required to work
 ### Notes
 
 - This guide and all the tutorials are supposed to be incremental. As the knowledge expands, new tutorials should be created and existing ones improved.
-- Before reading this guide, make sure you are on par with the [project rules](https://docs.google.com/document/d/1-YuD-V7zwE_rMwYZ7jmOQysz29_Zj9U-KQ5oIUk4dAc/edit?usp=sharing) and the addition [department rules](https://docs.google.com/document/d/1kmiW4-pkKHlYM9V2sTS_4IJR4ODCaD_m/edit?usp=sharing&ouid=108427086324647392265&rtpof=true&sd=true).
+- Before reading this guide, make sure you are on par with the [Project Rules](https://www.notion.so/FS-FEUP-HUB-6873ab8de3b44fad990d264023fbce8b?pvs=4) in Notion (specifically check Software Development rules).
 
 ## Chapters
 

@@ -11,7 +11,6 @@ This project aims to develop an Artificial Inteligence system for a computer to 
 - [Cpplint 1.6.1](https://github.com/cpplint/cpplint) - C++ only
 - [Cppcheck 1.90](https://cppcheck.sourceforge.io/) - C++ only
 - [Clangformat 10.0.0-4ubuntu1](https://clang.llvm.org/docs/ClangFormat.html) - C++ only
-- [Ruff 0.0.254](https://beta.ruff.rs/docs/configuration/#using-pyprojecttoml), [git](https://github.com/charliermarsh/ruff) - Python only
 
 ### Libraries
 
@@ -27,7 +26,7 @@ This project aims to develop an Artificial Inteligence system for a computer to 
 - [libcgal](https://www.cgal.org/)
 - [libgsl](https://www.gnu.org/software/gsl/)
 
-To get an insight on the all the libraries to be installed, check the [dependencies installation script](../src/dependencies_install.sh).
+To get an insight on the all the libraries to be installed, check the [dependencies installation script](../dependencies_install.sh).
 
 #### RCL - ROS Client Library
 
@@ -67,14 +66,16 @@ Installation guides for all this software can be found in their respective [tuto
 
 The AI computer is divided into 4 main components:
 - Perception - responsible for converting the visual sensor data into detections of landmarks (cones) in the track
-- Localization and Mapping - responsible for generating a map of the track of path planning to use and estimate its position in the map
-- Path Planning - plan a path for the vehicle to follow
-- Control - traduce the designed path into controls to the vehicle
+- EKF SLAM - responsible for generating a map of the track of path planning to use and estimate its position in the map
+- KISS ICP - LiDAR odometry 
+- Planning - plan a path for the vehicle to follow
+- Longitudinal Control - traduce the designed path into throttle controls to the vehicle
+- Lateral Control - traduce the designed path into steering controls
 
 The following components diagram illustrates the structure of the system.
 
-![Components Diagram](./assets/architecure.drawio.svg)
+![Components Diagram](./assets/architecture.svg)
 
 The activity diagram / flow chart below illustrates the behaviour of the system and the flow of information through it.
 
-![Activity Diagram](./assets/system-flow-chart.drawio.svg)
+![Activity Diagram](./assets/behaviour.svg)
