@@ -87,6 +87,6 @@ void InspectionMission::inspection_script(fs_msgs::msg::WheelStates current_rpm)
     finish_publisher->publish(finish);
   }
 
-  // update ideal velocity if necessary// calculate steering
+  // update ideal velocity if necessary
   inspection_object->redefine_goal_velocity(current_velocity);
 }
