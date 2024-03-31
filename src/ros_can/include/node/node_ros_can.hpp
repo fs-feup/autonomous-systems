@@ -39,6 +39,14 @@
 
 class RosCan : public rclcpp::Node {
  private:
+  // Enum to hold the state of the AS
+ enum class State {
+    DRIVING,
+    //rest of the states, TODO: check if structure already exists
+  };
+
+  State currentState;
+
   rclcpp::Publisher<std_msgs::msg::Int32>::SharedPtr asState; 
   rclcpp::Publisher<std_msgs::msg::Int32>::SharedPtr asMission;
   rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr leftWheel;

@@ -14,6 +14,14 @@
 #include "std_msgs/msg/string.hpp"
 
 RosCan::RosCan() : Node("node_ros_can") {
+  controlListener = this->create_subscription<fs_msgs::msg::ControlCommand>(
+      "controls", 10, std::bind(&RosCan::control_callback, this, std::placeholders::_1));
+  emergencyListener = this->create_subscription<std_msgs::msg::String>(
+      "emergency", 10, std::bind(&RosCan::emergency_callback, this, std::placeholders::_1));
+  missionFinishedListener = this->create_subscription<std_msgs::msg::String>(
+      "mission_finished", 10,
+      std::bind(&RosCan::mission_finished_callback, this, std::placeholders::_1));
+  // TODO: initialize state
   asState = this->create_publisher<std_msgs::msg::Int32>("asState", 10);
   asMission = this->create_publisher<std_msgs::msg::Int32>("asMission", 10);
   leftWheel = this->create_publisher<std_msgs::msg::Float32>("leftWheel", 10);
@@ -41,30 +49,53 @@ RosCan::RosCan() : Node("node_ros_can") {
   canSniffer();
 }
 
-void RosCan::foo2_callback(fs_msgs::msg::ControlCommand::SharedPtr foo2) {
-  canInitializeLibrary();  
-  // Prepare the steering message
-  long steering_id = steering_id;//TODO: check ID
-  void* steering_msgData = (void*)&foo2->steering;
-  unsigned int steering_dlc = 8;
-  unsigned int flag = 0;
+void RosCan::control_callback(fs_msgs::msg::ControlCommand::SharedPtr controlCmd) {
+  // if (controlCmd->steering < -1 || controlCmd->steering > 1) {
+  //   RCLCPP_ERROR(this->get_logger(), "Steering value out of range");
+  //   return;
+  // } TODO: check if this is necessary
+  if (currentState == State::DRIVING) {
+    canInitializeLibrary();  // initialize the CAN library again, just in case (could be removed)
+    // Prepare the steering message
+    long steering_id = STEERING_ID;  // TODO: confirm ID
+    void* steering_requestData = (void*)&controlCmd->steering;
+    unsigned int steering_dlc = 8;
+    unsigned int flag = 0;
 
-  // Write the steering message to the CAN bus
-  stat = canWrite(hnd, steering_id, steering_msgData, steering_dlc, flag);
-  if (stat != canOK) {
-    RCLCPP_ERROR(this->get_logger(), "Failed to write steering to CAN bus");
+    // Write the steering message to the CAN bus
+    stat = canWrite(hnd, steering_id, steering_requestData, steering_dlc, flag);
+    if (stat != canOK) {
+      RCLCPP_ERROR(this->get_logger(), "Failed to write steering to CAN bus");
+    }
+
+    // Prepare the throttle message
+    long throttle_id = 0x201;  // TODO: confirm ID
+    void* throttle_requestData = (void*)&foo2->throttle;
+    unsigned int throttle_dlc = 8;
+
+    // Write the throttle message to the CAN bus
+    stat = canWrite(hnd, throttle_id, throttle_requestData, throttle_dlc, flag);
+    if (stat != canOK) {
+      RCLCPP_ERROR(this->get_logger(), "Failed to write throttle to CAN bus");
+    }
   }
+}
 
-  // Prepare the throttle message
-  long throttle_id = 0x201;//TODO: check ID
-  void* throttle_msgData = (void*)&foo2->throttle;
-  unsigned int throttle_dlc = 8;
+/**
+ * @brief Function to handle the emergency message
+ */
+void RosCan::emergency_callback(std_msgs::msg::String::SharedPtr msg) {
+  // Convert the emergency message to CAN format and write it
+  // msg could have emergency information like origin etc.
+  // TODO: check the format of the emergency message to be sent to the CAN bus
+}
 
-  // Write the throttle message to the CAN bus
-  stat = canWrite(hnd, throttle_id, throttle_msgData, throttle_dlc, flag);
-  if (stat != canOK) {
-    RCLCPP_ERROR(this->get_logger(), "Failed to write throttle to CAN bus");
-  }
+/**
+ * @brief Function to handle the mission finished message
+ */
+void RosCan::mission_finished_callback(std_msgs::msg::String::SharedPtr msg) {
+  // Convert the mission finished message to CAN format and write it
+  // TODO: check the format of the mission finished message to be sent to the CAN bus
 }
 
 /**
@@ -100,12 +131,14 @@ void RosCan::canSniffer() {
 }
 
 void RosCan::canInterperter(long id, unsigned char msg[8], unsigned int dlc, unsigned int flag,
-                    unsigned long time) {
+                            unsigned long time) {
   switch (id) {
     case MASTER_STATUS:
       switch (msg[0]) {
         case 0x31:  // Current AS State
           asStatePublisher(msg[1]);
+          currentState = static_cast<State>(
+              msg[1]);  // TODO: check if static casting is the best solution here
           break;
         case 0x32:  // Current AS Mission
           asMissionPublisher(msg[1]);
@@ -191,8 +224,8 @@ void RosCan::imuPublisher(unsigned char msg[8]) {
 }
 
 /**
-* @brief Function to publish the steering angle
-*/
+ * @brief Function to publish the steering angle
+ */
 void RosCan::steeringAnglePublisher(unsigned char angleLSB, unsigned char angleMSB) {
   // Publish the steering angle to a topic
   float angle = (angleMSB << 8) | angleLSB;
