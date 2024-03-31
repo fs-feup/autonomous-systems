@@ -128,15 +128,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac3b8512910618ad313eb2431a88f6662" id="r_ac3b8512910618ad313eb2431a88f6662"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dc3/class_r_a_n_s_a_c.html#ac3b8512910618ad313eb2431a88f6662">RANSAC</a> (double epsilon, int n_tries)</td></tr>
 <tr class="memdesc:ac3b8512910618ad313eb2431a88f6662"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for the <a class="el" href="../../d6/dc3/class_r_a_n_s_a_c.html" title="Ground removal using the RANSAC algorithm.">RANSAC</a> ground removal algorithm.  <br /></td></tr>
 <tr class="separator:ac3b8512910618ad313eb2431a88f6662"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae90496d6f2bbf05a54bd2e13cd3e4b4e" id="r_ae90496d6f2bbf05a54bd2e13cd3e4b4e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dc3/class_r_a_n_s_a_c.html#ae90496d6f2bbf05a54bd2e13cd3e4b4e">groundRemoval</a> (const pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr point_cloud, pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr ret) const override</td></tr>
-<tr class="memdesc:ae90496d6f2bbf05a54bd2e13cd3e4b4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform ground removal using the <a class="el" href="../../d6/dc3/class_r_a_n_s_a_c.html" title="Ground removal using the RANSAC algorithm.">RANSAC</a> algorithm.  <br /></td></tr>
-<tr class="separator:ae90496d6f2bbf05a54bd2e13cd3e4b4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5679db00dced54c0e28adfcde3ef7ac9" id="r_a5679db00dced54c0e28adfcde3ef7ac9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dc3/class_r_a_n_s_a_c.html#a5679db00dced54c0e28adfcde3ef7ac9">groundRemoval</a> (const pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr point_cloud, pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr ret, <a class="el" href="../../d2/d8d/class_plane.html">Plane</a> &amp;plane) const override</td></tr>
+<tr class="memdesc:a5679db00dced54c0e28adfcde3ef7ac9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform ground removal using the <a class="el" href="../../d6/dc3/class_r_a_n_s_a_c.html" title="Ground removal using the RANSAC algorithm.">RANSAC</a> algorithm.  <br /></td></tr>
+<tr class="separator:a5679db00dced54c0e28adfcde3ef7ac9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Ground removal using the <a class="el" href="../../d6/dc3/class_r_a_n_s_a_c.html" title="Ground removal using the RANSAC algorithm.">RANSAC</a> algorithm. </p>
 <p>This class implements the <a class="el" href="../../dc/d84/class_ground_removal.html" title="Abstract class for ground removal from a point cloud.">GroundRemoval</a> interface and performs ground removal on a point cloud using the Random Sample Consensus (<a class="el" href="../../d6/dc3/class_r_a_n_s_a_c.html" title="Ground removal using the RANSAC algorithm.">RANSAC</a>) algorithm. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/dad/ransac_8hpp_source.html#l00014">14</a> of file <a class="el" href="../../d9/dad/ransac_8hpp_source.html">ransac.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/dad/ransac_8hpp_source.html#l00015">15</a> of file <a class="el" href="../../d9/dad/ransac_8hpp_source.html">ransac.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ac3b8512910618ad313eb2431a88f6662" name="ac3b8512910618ad313eb2431a88f6662"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac3b8512910618ad313eb2431a88f6662">&#9670;&#160;</a></span>RANSAC()</h2>
@@ -178,8 +178,8 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ae90496d6f2bbf05a54bd2e13cd3e4b4e" name="ae90496d6f2bbf05a54bd2e13cd3e4b4e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae90496d6f2bbf05a54bd2e13cd3e4b4e">&#9670;&#160;</a></span>groundRemoval()</h2>
+<a id="a5679db00dced54c0e28adfcde3ef7ac9" name="a5679db00dced54c0e28adfcde3ef7ac9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5679db00dced54c0e28adfcde3ef7ac9">&#9670;&#160;</a></span>groundRemoval()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -197,7 +197,13 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr&#160;</td>
-          <td class="paramname"><em>ret</em>&#160;</td>
+          <td class="paramname"><em>ret</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d2/d8d/class_plane.html">Plane</a> &amp;&#160;</td>
+          <td class="paramname"><em>plane</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -222,7 +228,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="../../dc/d84/class_ground_removal.html#aa4013df7d013e238aa1b5bd88033703c">GroundRemoval</a>.</p>
+<p>Implements <a class="el" href="../../dc/d84/class_ground_removal.html#a6cd0bf6e3b5d5a7b201678ce061162e9">GroundRemoval</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="../../db/d67/ransac_8cpp_source.html#l00013">13</a> of file <a class="el" href="../../db/d67/ransac_8cpp_source.html">ransac.cpp</a>.</p>
 

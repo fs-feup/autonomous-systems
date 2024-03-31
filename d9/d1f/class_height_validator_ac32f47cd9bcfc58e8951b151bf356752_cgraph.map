@@ -1,0 +1,7 @@
+<map id="HeightValidator::coneValidator" name="HeightValidator::coneValidator">
+<area shape="rect" id="Node000001" title="Validates a cone based on its height relative to a plane." alt="" coords="5,31,201,56"/>
+<area shape="rect" id="Node000002" href="$d2/d8d/class_plane.html#af82d0bad17904da9738be73bbe3eb3ee" title="Calculates the distance from a point to the plane." alt="" coords="249,5,423,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="201,30,233,27,234,32,202,35"/>
+<area shape="rect" id="Node000003" href="$d2/d23/class_cluster.html#aaa6717bc93a9becc88bb43b9a1b6e168" title="Get the Point Cloud data of the cluster." alt="" coords="261,55,411,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="202,51,246,56,246,61,201,56"/>
+</map>

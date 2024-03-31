@@ -1,0 +1,7 @@
+<map id="CylinderValidator::coneValidator" name="CylinderValidator::coneValidator">
+<area shape="rect" id="Node000001" title="Validates a cluster using cylinder approximation." alt="" coords="123,23,247,64"/>
+<area shape="rect" id="Node000002" href="$dc/da5/cylinder__validator__test_8cpp.html#ac6b9d4a0b0d87a638097ed16b4386464" title="Test case to validate if a point is inside the cylinder." alt="" coords="5,5,75,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="107,33,75,27,75,22,108,27"/>
+<area shape="rect" id="Node000003" href="$dc/da5/cylinder__validator__test_8cpp.html#a2f203a643e8c68f6c812c3ec1874fa52" title="Test case to validate if a point is outside the cylinder." alt="" coords="5,55,75,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="108,59,75,64,75,59,107,54"/>
+</map>

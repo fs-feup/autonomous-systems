@@ -123,9 +123,9 @@ Collaboration diagram for GroundRemoval:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aa4013df7d013e238aa1b5bd88033703c" id="r_aa4013df7d013e238aa1b5bd88033703c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d84/class_ground_removal.html#aa4013df7d013e238aa1b5bd88033703c">groundRemoval</a> (const pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr point_cloud, pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr ret) const =0</td></tr>
-<tr class="memdesc:aa4013df7d013e238aa1b5bd88033703c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform ground removal on the input point cloud.  <br /></td></tr>
-<tr class="separator:aa4013df7d013e238aa1b5bd88033703c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6cd0bf6e3b5d5a7b201678ce061162e9" id="r_a6cd0bf6e3b5d5a7b201678ce061162e9"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d84/class_ground_removal.html#a6cd0bf6e3b5d5a7b201678ce061162e9">groundRemoval</a> (const pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr point_cloud, pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr ret, <a class="el" href="../../d2/d8d/class_plane.html">Plane</a> &amp;plane) const =0</td></tr>
+<tr class="memdesc:a6cd0bf6e3b5d5a7b201678ce061162e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform ground removal on the input point cloud.  <br /></td></tr>
+<tr class="separator:a6cd0bf6e3b5d5a7b201678ce061162e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Abstract class for ground removal from a point cloud. </p>
@@ -133,8 +133,8 @@ Public Member Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="../../d2/d96/ground__removal_8hpp_source.html#l00014">14</a> of file <a class="el" href="../../d2/d96/ground__removal_8hpp_source.html">ground_removal.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="aa4013df7d013e238aa1b5bd88033703c" name="aa4013df7d013e238aa1b5bd88033703c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa4013df7d013e238aa1b5bd88033703c">&#9670;&#160;</a></span>groundRemoval()</h2>
+<a id="a6cd0bf6e3b5d5a7b201678ce061162e9" name="a6cd0bf6e3b5d5a7b201678ce061162e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6cd0bf6e3b5d5a7b201678ce061162e9">&#9670;&#160;</a></span>groundRemoval()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -152,7 +152,13 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr&#160;</td>
-          <td class="paramname"><em>ret</em>&#160;</td>
+          <td class="paramname"><em>ret</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d2/d8d/class_plane.html">Plane</a> &amp;&#160;</td>
+          <td class="paramname"><em>plane</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -177,12 +183,12 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="../../d6/dc3/class_r_a_n_s_a_c.html#ae90496d6f2bbf05a54bd2e13cd3e4b4e">RANSAC</a>.</p>
+<p>Implemented in <a class="el" href="../../d6/dc3/class_r_a_n_s_a_c.html#a5679db00dced54c0e28adfcde3ef7ac9">RANSAC</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../dc/d84/class_ground_removal_aa4013df7d013e238aa1b5bd88033703c_icgraph.png" border="0" usemap="#adc/d84/class_ground_removal_aa4013df7d013e238aa1b5bd88033703c_icgraph" alt=""/></div>
-<map name="adc/d84/class_ground_removal_aa4013df7d013e238aa1b5bd88033703c_icgraph" id="adc/d84/class_ground_removal_aa4013df7d013e238aa1b5bd88033703c_icgraph">
+<div class="center"><img src="../../dc/d84/class_ground_removal_a6cd0bf6e3b5d5a7b201678ce061162e9_icgraph.png" border="0" usemap="#adc/d84/class_ground_removal_a6cd0bf6e3b5d5a7b201678ce061162e9_icgraph" alt=""/></div>
+<map name="adc/d84/class_ground_removal_a6cd0bf6e3b5d5a7b201678ce061162e9_icgraph" id="adc/d84/class_ground_removal_a6cd0bf6e3b5d5a7b201678ce061162e9_icgraph">
 <area shape="rect" title="Perform ground removal on the input point cloud." alt="" coords="254,5,464,31"/>
 <area shape="rect" href="../../de/d07/class_perception.html#afaf42fed2ffa3ed23d5c636bf3fdadd7" title="Callback function for the PointCloud2 subscription." alt="" coords="5,5,206,31"/>
 <area shape="poly" title=" " alt="" coords="238,21,206,21,206,16,238,16"/>

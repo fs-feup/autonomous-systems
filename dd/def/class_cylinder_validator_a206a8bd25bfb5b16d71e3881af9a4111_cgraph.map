@@ -1,0 +1,9 @@
+<map id="CylinderValidator::coneValidator" name="CylinderValidator::coneValidator">
+<area shape="rect" id="Node000001" title="Validates a cluster using cylinder approximation." alt="" coords="5,47,130,88"/>
+<area shape="rect" id="Node000002" href="$d2/d23/class_cluster.html#a10c9083c69c40e95596c95a8870bfc34" title="Get the centroid of the cluster." alt="" coords="185,5,320,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="129,48,186,33,187,38,131,54"/>
+<area shape="rect" id="Node000003" href="$d2/d23/class_cluster.html#aaa6717bc93a9becc88bb43b9a1b6e168" title="Get the Point Cloud data of the cluster." alt="" coords="178,55,327,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="130,65,162,65,162,70,130,70"/>
+<area shape="rect" id="Node000004" href="$dd/def/class_cylinder_validator.html#a0cc9f8c03c5ae430dd00246494112875" title="Gets the radius of the cylinder." alt="" coords="190,105,315,145"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="131,84,176,99,175,104,129,89"/>
+</map>

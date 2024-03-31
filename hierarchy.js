@@ -18,6 +18,10 @@ var hierarchy =
       [ "LeastSquaresDifferentiation", "d7/d15/class_least_squares_differentiation.html", null ]
     ] ],
     [ "ConeMap", "dc/d59/struct_cone_map.html", null ],
+    [ "ConeValidator", "d3/d57/class_cone_validator.html", [
+      [ "CylinderValidator", "dd/def/class_cylinder_validator.html", null ],
+      [ "HeightValidator", "d9/d1f/class_height_validator.html", null ]
+    ] ],
     [ "std::exception", null, [
       [ "InvalidMissionException", "d3/df9/class_invalid_mission_exception.html", null ]
     ] ],
@@ -46,6 +50,7 @@ var hierarchy =
     [ "PathPoint", "d9/d32/class_path_point.html", null ],
     [ "PathSmoothing", "d7/db7/class_path_smoothing.html", null ],
     [ "PID", "d6/d5a/class_p_i_d.html", null ],
+    [ "Plane", "d2/d8d/class_plane.html", null ],
     [ "Pose", "d8/d11/struct_pose.html", null ],
     [ "plots.plots.Position", "d3/d6d/classplots_1_1plots_1_1_position.html", [
       [ "plots.plots.Cone", "db/d27/classplots_1_1plots_1_1_cone.html", null ],
@@ -53,9 +58,11 @@ var hierarchy =
     ] ],
     [ "Position", "d1/d26/struct_position.html", null ],
     [ "testing::Test", null, [
+      [ "CylinderValidatorTest", "da/dcf/class_cylinder_validator_test.html", null ],
       [ "DBSCANTest", "d8/d90/class_d_b_s_c_a_n_test.html", null ],
       [ "ExecTimeTest", "df/d59/class_exec_time_test.html", null ],
       [ "ExecTimeTestEKFTests", "d2/dac/class_exec_time_test_e_k_f_tests.html", null ],
+      [ "HeightValidatorTest", "d9/d7c/class_height_validator_test.html", null ],
       [ "IntegrationTest", "d7/d4e/class_integration_test.html", null ],
       [ "LeastSquaresDifferentiationTest", "de/d1e/class_least_squares_differentiation_test.html", null ],
       [ "RANSACTest", "d8/d5a/class_r_a_n_s_a_c_test.html", null ]
