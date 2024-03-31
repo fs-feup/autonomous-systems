@@ -41,15 +41,9 @@ RosCan::RosCan() : Node("node_ros_can") {
 }
 
 void RosCan::foo2_callback(fs_msgs::msg::ControlCommand::SharedPtr foo2) {
-  // call void CANLIBAPI canInitializeLibrary(void);
-  //  This function must be called before any other functions is used.  It will
-  //  initialize the driver. You may call \ref canInitializeLibrary() more than once. The actual
-  //  initialization will take place only once. From canlib documentation
-  canInitializeLibrary();  // probably move this to a better place
-  // auto message = fs_msgs::msg::ControlCommand();
-
+  canInitializeLibrary();  
   // Prepare the steering message
-  long steering_id = 0x700;//TODO: check ID
+  long steering_id = steering_id;//TODO: check ID
   void* steering_msgData = (void*)&foo2->steering;
   unsigned int steering_dlc = 8;
   unsigned int flag = 0;
