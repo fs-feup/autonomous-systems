@@ -42,7 +42,7 @@ class RosCan : public rclcpp::Node {
   // Enum to hold the state of the AS
  enum class State {
     DRIVING,
-    //rest of the states, TODO: check if structure already exists
+    //rest of the states, TODO: make this compatible with master state
   };
 
   State currentState;
@@ -54,6 +54,9 @@ class RosCan : public rclcpp::Node {
   rclcpp::Publisher<sensor_msgs::msg::Imu>::SharedPtr imu;
   rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr steeringAngle;
   rclcpp::Subscription<std_msgs::msg::String>::SharedPtr busStatus;
+  rclcpp::Subscription<fs_msgs::msg::ControlCommand>::SharedPtr controlListener;
+  rclcpp::Subscription<std_msgs::msg::String>::SharedPtr emergencyListener;
+  rclcpp::Subscription<std_msgs::msg::String>::SharedPtr missionFinishedListener;
   rclcpp::TimerBase::SharedPtr timer;
 
   // Holds a handle to the CAN channel
@@ -108,6 +111,23 @@ class RosCan : public rclcpp::Node {
    * @brief Function to publish the steering angle
    */
   void steeringAnglePublisher(unsigned char angleLSB, unsigned char angleMSB);
+
+  /**
+   * @brief Function to handle the emergency message
+   */
+  void emergency_callback(std_msgs::msg::String::SharedPtr msg);
+
+  /**
+   * @brief Function to handle the mission finished message
+   */
+  void mission_finished_callback(std_msgs::msg::String::SharedPtr msg);
+
+  /**
+   * @brief Function to handle the control command message
+   */
+  void control_callback(fs_msgs::msg::ControlCommand::SharedPtr msg);
+
+  
 
  public:
   /**
