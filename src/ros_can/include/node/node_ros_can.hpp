@@ -1,19 +1,52 @@
+#include <canlib.h>
+
 #include <chrono>
 #include <functional>
 #include <memory>
 #include <string>
 
-#include <canlib.h>
-
 #include "rclcpp/rclcpp.hpp"
+#include "std_msgs/msg/int32.hpp"
+#include "std_msgs/msg/float32.hpp"
 #include "std_msgs/msg/string.hpp"
+#include "custom_interfaces/msg/imu.hpp"
+#include "sensor_msgs/msg/imu.hpp"
+
+/*
+ * ID used for:
+ * Current AS Mission
+ * Current AS State
+ * left wheel rpm
+ */
+#define MASTER_STATUS 0x300
+
+/*
+ * ID used for:
+ * Left wheel rpm
+ */
+#define TEENSY_C1 0x123
+
+/*
+ * ID used for imu values
+ */
+#define MASTER_IMU 0x501
+
+/*
+ * ID used for:
+ * Steering angle
+ */
+#define STEERING_ID 0x700
 
 class RosCan : public rclcpp::Node {
  private:
-  rclcpp::Publisher<std_msgs::msg::String>::SharedPtr foo1;
-  rclcpp::Subscription<std_msgs::msg::String>::SharedPtr foo2;
+  rclcpp::Publisher<std_msgs::msg::Int32>::SharedPtr asState; 
+  rclcpp::Publisher<std_msgs::msg::Int32>::SharedPtr asMission;
+  rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr leftWheel;
+  rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr rightWheel;
+  rclcpp::Publisher<sensor_msgs::msg::Imu>::SharedPtr imu;
+  rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr steeringAngle;
   rclcpp::Subscription<std_msgs::msg::String>::SharedPtr busStatus;
-  rclcpp::TimerBase::SharedPtr timer;  
+  rclcpp::TimerBase::SharedPtr timer;
 
   // Holds a handle to the CAN channel
   canHandle hnd;
@@ -21,24 +54,52 @@ class RosCan : public rclcpp::Node {
   canStatus stat;
 
   /**
-   * @brief Function to publish (topic) foo1 when a specific can message is recieved
-   **/
-  void publish_foo1(std_msgs::msg::String::SharedPtr foo1);
-
-  /**
-   * @brief Function to publish foo2 to a CAN BUS the
-   */
-  void foo2_callback(std_msgs::msg::String::SharedPtr foo2);
-
-  /**
    * @brief Function to turn ON and OFF the CAN BUS
    */
   void busStatus_callback(std_msgs::msg::String busStatus);
 
   /**
-   * @brief Function to wait for can messages and create publish them
+   * @brief Function cyclically reads all CAN msg from buffer
    */
   void canSniffer();
+
+
+  /**
+   * @brief Function to interpret the CAN msg
+   */
+  void canInterperter(long id, unsigned char msg[8], unsigned int dlc, unsigned int flag,
+                      unsigned long time);
+
+  /**
+   * @brief Function to publish the AS state
+   */
+  void asStatePublisher(unsigned char state);
+
+  /**
+   * @brief Function to publish the AS mission
+   */
+  void asMissionPublisher(unsigned char mission);
+
+  /**
+   * @brief Function to publish the left wheel rpm
+   */
+  void leftWheelPublisher(unsigned char rpmLSB, unsigned char rpmMSB);
+
+  /**
+   * @brief Function to publish the right wheel rpm
+   */
+  void rightWheelPublisher(unsigned char rpmLSB, unsigned char rpmMSB);
+
+
+  /**
+   * @brief Function to publish the imu values
+   */
+  void imuPublisher(unsigned char msg[8]);
+
+  /**
+   * @brief Function to publish the steering angle
+   */
+  void steeringAnglePublisher(unsigned char angleLSB, unsigned char angleMSB);
 
  public:
   /**
