@@ -54,7 +54,7 @@ void RosCan::control_callback(fs_msgs::msg::ControlCommand::SharedPtr controlCmd
   //   RCLCPP_ERROR(this->get_logger(), "Steering value out of range");
   //   return;
   // } TODO: check if this is necessary
-  if (currentState == State::DRIVING) {
+  if (currentState == State::AS_Driving) {
     canInitializeLibrary();  // initialize the CAN library again, just in case (could be removed)
     // Prepare the steering message
     long steering_id = STEERING_ID;  // TODO: confirm ID
@@ -85,17 +85,36 @@ void RosCan::control_callback(fs_msgs::msg::ControlCommand::SharedPtr controlCmd
  * @brief Function to handle the emergency message
  */
 void RosCan::emergency_callback(std_msgs::msg::String::SharedPtr msg) {
-  // Convert the emergency message to CAN format and write it
-  // msg could have emergency information like origin etc.
-  // TODO: check the format of the emergency message to be sent to the CAN bus
+  // Prepare the emergency message
+  long id = 0x400;            // Set the CAN ID
+  unsigned char data = 0x43;  // Set the data
+  void* requestData = &data;
+  unsigned int dlc = 1;  // Set the length of the data
+  unsigned int flag = 0;
+
+  // Write the emergency message to the CAN bus
+  stat = canWrite(hnd, id, requestData, dlc, flag);
+  if (stat != canOK) {
+    RCLCPP_ERROR(this->get_logger(), "Failed to write emergency message to CAN bus");
+  }
 }
 
 /**
  * @brief Function to handle the mission finished message
  */
 void RosCan::mission_finished_callback(std_msgs::msg::String::SharedPtr msg) {
-  // Convert the mission finished message to CAN format and write it
-  // TODO: check the format of the mission finished message to be sent to the CAN bus
+  // Prepare the emergency message
+  long id = 0x400;            // Set the CAN ID
+  unsigned char data = 0x42;  // Set the data
+  void* requestData = &data;
+  unsigned int dlc = 1;  // Set the length of the data
+  unsigned int flag = 0;
+
+  // Write the emergency message to the CAN bus
+  stat = canWrite(hnd, id, requestData, dlc, flag);
+  if (stat != canOK) {
+    RCLCPP_ERROR(this->get_logger(), "Failed to write emergency message to CAN bus");
+  }
 }
 
 /**

@@ -41,11 +41,15 @@ class RosCan : public rclcpp::Node {
  private:
   // Enum to hold the state of the AS
  enum class State {
-    DRIVING,
-    //rest of the states, TODO: make this compatible with master state
+    AS_Manual,
+    AS_Off,
+    AS_Ready,
+    AS_Driving,
+    AS_Finished,
+    AS_Emergency
   };
 
-  State currentState;
+  State currentState = State::AS_Off;
 
   rclcpp::Publisher<std_msgs::msg::Int32>::SharedPtr asState; 
   rclcpp::Publisher<std_msgs::msg::Int32>::SharedPtr asMission;
