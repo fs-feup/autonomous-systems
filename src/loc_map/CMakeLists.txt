@@ -1,5 +1,9 @@
 cmake_minimum_required(VERSION 3.8)
 project(loc_map)
+
+# Add optimization flag here
+add_compile_options(-O2)
+
 find_package(Eigen3 REQUIRED)
 include_directories(${EIGEN3_INCLUDE_DIR})
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
