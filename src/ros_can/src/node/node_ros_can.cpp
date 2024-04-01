@@ -17,11 +17,10 @@ RosCan::RosCan() : Node("node_ros_can") {
   controlListener = this->create_subscription<fs_msgs::msg::ControlCommand>(
       "controls", 10, std::bind(&RosCan::control_callback, this, std::placeholders::_1));
   emergencyListener = this->create_subscription<std_msgs::msg::String>(
-      "emergency", 10, std::bind(&RosCan::emergency_callback, this, std::placeholders::_1));
+      "emergency", 10, std::bind(&RosCan::emergency_callback, this, std::placeholders::_1));//maybe change type
   missionFinishedListener = this->create_subscription<std_msgs::msg::String>(
       "mission_finished", 10,
-      std::bind(&RosCan::mission_finished_callback, this, std::placeholders::_1));
-  // TODO: initialize state
+      std::bind(&RosCan::mission_finished_callback, this, std::placeholders::_1));//maybe change type
   asState = this->create_publisher<std_msgs::msg::Int32>("asState", 10);
   asMission = this->create_publisher<std_msgs::msg::Int32>("asMission", 10);
   leftWheel = this->create_publisher<std_msgs::msg::Float32>("leftWheel", 10);
