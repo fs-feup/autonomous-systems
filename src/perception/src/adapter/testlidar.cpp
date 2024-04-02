@@ -6,7 +6,7 @@ TestAdapter::TestAdapter(Perception* perception) : Adapter(perception) { this->i
 
 void TestAdapter::init() {
   this->_point_cloud_subscription = this->node->create_subscription<sensor_msgs::msg::PointCloud2>(
-      "/livox/lidar", 10, [this](const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
+      "/hesai/pandar", 10, [this](const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
         node->pointCloudCallback(msg);
       });
 }
