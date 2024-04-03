@@ -54,7 +54,8 @@ if(BUILD_TESTING)
   find_package(ament_cmake_gtest REQUIRED)
   
   ament_add_gtest(perception_test test/ransac_test.cpp test/least_squares_test.cpp 
-                  test/dbscan_test.cpp src/clustering/dbscan.cpp 
+                  test/dbscan_test.cpp src/clustering/dbscan.cpp
+                  test/performance_test.cpp 
                   src/cone_differentiation/least_squares_differentiation.cpp 
                   src/ground_removal/ransac.cpp
                   src/utils/cluster.cpp)
