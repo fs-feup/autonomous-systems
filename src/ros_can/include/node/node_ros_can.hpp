@@ -5,12 +5,15 @@
 #include <memory>
 #include <string>
 
-#include "rclcpp/rclcpp.hpp"
-#include "std_msgs/msg/int32.hpp"
-#include "std_msgs/msg/float32.hpp"
-#include "std_msgs/msg/string.hpp"
 #include "custom_interfaces/msg/imu.hpp"
+#include "custom_interfaces/msg/operational_status.hpp"
+#include "custom_interfaces/msg/steering_angle.hpp"
+#include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/imu.hpp"
+#include "std_msgs/msg/float32.hpp"
+#include "std_msgs/msg/int32.hpp"
+#include "std_msgs/msg/string.hpp"
+#include "custom_interfaces/msg/wheel_rpm.hpp"
 
 /*
  * ID used for:
@@ -39,12 +42,10 @@
 
 class RosCan : public rclcpp::Node {
  private:
-  rclcpp::Publisher<std_msgs::msg::Int32>::SharedPtr asState; 
-  rclcpp::Publisher<std_msgs::msg::Int32>::SharedPtr asMission;
-  rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr leftWheel;
-  rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr rightWheel;
+  rclcpp::Publisher<custom_interfaces::msg::OperationalStatus>::SharedPtr operationalStatus;
+  rclcpp::Publisher<custom_interfaces::msg::WheelRPM>::SharedPtr wheelRPM;
   rclcpp::Publisher<sensor_msgs::msg::Imu>::SharedPtr imu;
-  rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr steeringAngle;
+  rclcpp::Publisher<custom_interfaces::msg::SteeringAngle>::SharedPtr steeringAngle;
   rclcpp::Subscription<std_msgs::msg::String>::SharedPtr busStatus;
   rclcpp::TimerBase::SharedPtr timer;
 
@@ -52,6 +53,36 @@ class RosCan : public rclcpp::Node {
   canHandle hnd;
   // Status returned by the Canlib calls
   canStatus stat;
+
+  /*
+  wheelRPMsync is 0, we didnt receive any value
+  wheelRPMsync is 1, we received one wheel rpm
+  */ 
+  bool wheelRPMsync=0;
+
+  float leftWheelRPM;
+  float rightWheelRPM;
+
+  /*
+  goSignal:
+  0 - Stop
+  1 - Go
+  */
+  bool goSignal = 0;
+
+  
+  /*Current Mission:
+  0 - Manual
+  1 - Acceleration
+  2 - Skidpad
+  3 - Autocross
+  4 - Trackdrive
+  5 - EBS_Test
+  6 - Inspection*/
+  int asMission;
+
+  
+
 
   /**
    * @brief Function to turn ON and OFF the CAN BUS
@@ -63,7 +94,6 @@ class RosCan : public rclcpp::Node {
    */
   void canSniffer();
 
-
   /**
    * @brief Function to interpret the CAN msg
    */
@@ -71,25 +101,14 @@ class RosCan : public rclcpp::Node {
                       unsigned long time);
 
   /**
-   * @brief Function to publish the AS state
+   * @brief Function to publish the Operational Status
    */
-  void asStatePublisher(unsigned char state);
-
-  /**
-   * @brief Function to publish the AS mission
-   */
-  void asMissionPublisher(unsigned char mission);
+  void opStatusPublisher();
 
   /**
    * @brief Function to publish the left wheel rpm
    */
-  void leftWheelPublisher(unsigned char rpmLSB, unsigned char rpmMSB);
-
-  /**
-   * @brief Function to publish the right wheel rpm
-   */
-  void rightWheelPublisher(unsigned char rpmLSB, unsigned char rpmMSB);
-
+  void WheelRPMPublisher();
 
   /**
    * @brief Function to publish the imu values

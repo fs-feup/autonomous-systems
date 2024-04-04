@@ -6,18 +6,17 @@
 #include <functional>
 #include <memory>
 #include <string>
-// #include <time.hpp>
 
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
 
 RosCan::RosCan() : Node("node_ros_can") {
-  asState = this->create_publisher<std_msgs::msg::Int32>("asState", 10);
-  asMission = this->create_publisher<std_msgs::msg::Int32>("asMission", 10);
-  leftWheel = this->create_publisher<std_msgs::msg::Float32>("leftWheel", 10);
-  rightWheel = this->create_publisher<std_msgs::msg::Float32>("rightWheel", 10);
+  operationalStatus =
+      this->create_publisher<custom_interfaces::msg::OperationalStatus>("operationalStatus", 10);
+  wheelRPM = this->create_publisher<custom_interfaces::msg::WheelRPM>("wheelRPM", 10);
   imu = this->create_publisher<sensor_msgs::msg::Imu>("imu", 10);
-  steeringAngle = this->create_publisher<std_msgs::msg::Float32>("steeringAngle", 10);
+  steeringAngle =
+      this->create_publisher<custom_interfaces::msg::SteeringAngle>("steeringAngle", 10);
   busStatus = this->create_subscription<std_msgs::msg::String>(
       "busStatus", 10, std::bind(&RosCan::busStatus_callback, this, std::placeholders::_1));
   timer =
@@ -71,18 +70,38 @@ void RosCan::canSniffer() {
 }
 
 void RosCan::canInterperter(long id, unsigned char msg[8], unsigned int dlc, unsigned int flag,
-                    unsigned long time) {
+                            unsigned long time) {
   switch (id) {
     case MASTER_STATUS:
       switch (msg[0]) {
         case 0x31:  // Current AS State
-          asStatePublisher(msg[1]);
+        {
+          if (msg[1] == 3)  // If AS State == Driving
+            this->goSignal = 1;
+          else
+            this->goSignal = 0;
+          opStatusPublisher();
           break;
+        } 
         case 0x32:  // Current AS Mission
-          asMissionPublisher(msg[1]);
-        case 0x33:  // Left Wheel RPM
-          leftWheelPublisher(msg[1], msg[2]);
+        {
+          this->asMission = msg[1];
+          opStatusPublisher();
           break;
+        }
+        case 0x33:  // Left Wheel RPM
+        {
+          int32_t leftRPMAux = (msg[4] << 24) | (msg[3] << 16) | (msg[2] << 8) | msg[1];
+
+          // Convert to float and divide by 100 to account for decimal places
+          leftWheelRPM = leftRPMAux / 100.0f;
+          if (wheelRPMsync == 1) {
+            WheelRPMPublisher();
+          } else
+            wheelRPMsync = 1;
+
+          break;
+        }
         default:
           break;
       }
@@ -92,7 +111,16 @@ void RosCan::canInterperter(long id, unsigned char msg[8], unsigned int dlc, uns
       imuPublisher(msg);
       break;
     case TEENSY_C1:
-      if (msg[0] == 0x11) rightWheelPublisher(msg[1], msg[2]);
+      if (msg[0] == 0x11) {
+        int32_t rightRPMAux = (msg[4] << 24) | (msg[3] << 16) | (msg[2] << 8) | msg[1];
+
+        // Convert to float and divide by 100 to account for decimal places
+        rightWheelRPM = rightRPMAux / 100.0f;
+        if (wheelRPMsync == 1) {
+          WheelRPMPublisher();
+        } else
+          wheelRPMsync = 1;
+      }
       break;
     case STEERING_ID:
       steeringAnglePublisher(msg[1], msg[2]);
@@ -104,49 +132,24 @@ void RosCan::canInterperter(long id, unsigned char msg[8], unsigned int dlc, uns
 }
 
 /**
- * @brief Function to publish the AS state
+ * @brief Function to publish the Operational Status
  */
-void RosCan::asStatePublisher(unsigned char state) {
-  // Publish the current AS state to a topic
-  if (state >= 0 && state <= 5) {
-    auto message = std_msgs::msg::Int32();
-    message.data = state;
-    asState->publish(message);
-  }
+void RosCan::opStatusPublisher() {
+  auto message = custom_interfaces::msg::OperationalStatus();
+  message.go_signal = goSignal;
+  message.as_mission = asMission;
+  operationalStatus->publish(message);
 }
 
 /**
- * @brief Function to publish the AS mission
+ * @brief Function to publish wheel rpm
  */
-void RosCan::asMissionPublisher(unsigned char mission) {
-  // Publish the current AS mission to a topic
-  if (mission >= 0 && mission <= 6) {
-    auto message = std_msgs::msg::Int32();
-    message.data = mission;
-    asMission->publish(message);
-  }
-}
-
-/**
- * @brief Function to publish the left wheel rpm
- */
-void RosCan::leftWheelPublisher(unsigned char rpmLSB, unsigned char rpmMSB) {
-  // Publish the left wheel rpm to a topic
-  float rpm = (rpmMSB << 8) | rpmLSB;
-  auto message = std_msgs::msg::Float32();
-  message.data = rpm;
-  leftWheel->publish(message);
-}
-
-/**
- * @brief Function to publish the right wheel rpm
- */
-void RosCan::rightWheelPublisher(unsigned char rpmLSB, unsigned char rpmMSB) {
-  // Publish the right wheel rpm to a topic
-  float rpm = (rpmMSB << 8) | rpmLSB;
-  auto message = std_msgs::msg::Float32();
-  message.data = rpm;
-  rightWheel->publish(message);
+void RosCan::WheelRPMPublisher() {
+  auto message = custom_interfaces::msg::WheelRPM();
+  message.rl_rpm = leftWheelRPM;
+  message.rr_rpm = rightWheelRPM;
+  wheelRPM->publish(message);
+  wheelRPMsync = 0;  // Reset the sync
 }
 
 /**
@@ -162,12 +165,12 @@ void RosCan::imuPublisher(unsigned char msg[8]) {
 }
 
 /**
-* @brief Function to publish the steering angle
-*/
+ * @brief Function to publish the steering angle
+ */
 void RosCan::steeringAnglePublisher(unsigned char angleLSB, unsigned char angleMSB) {
   // Publish the steering angle to a topic
-  float angle = (angleMSB << 8) | angleLSB;
-  auto message = std_msgs::msg::Float32();
-  message.data = angle;
+  int angle = (angleMSB << 8) | angleLSB;
+  auto message = custom_interfaces::msg::SteeringAngle();
+  message.steering_angle = angle;
   steeringAngle->publish(message);
 }
