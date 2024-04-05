@@ -15,11 +15,11 @@
 
 RosCan::RosCan() : Node("node_ros_can") {
   controlListener = this->create_subscription<fs_msgs::msg::ControlCommand>(
-      "controls", 10, std::bind(&RosCan::control_callback, this, std::placeholders::_1));
+      "/as_msgs/controls", 10, std::bind(&RosCan::control_callback, this, std::placeholders::_1));
   emergencyListener = this->create_subscription<std_msgs::msg::String>(
-      "emergency", 10, std::bind(&RosCan::emergency_callback, this, std::placeholders::_1));//maybe change type
+      "/as_msgs/emergency", 10, std::bind(&RosCan::emergency_callback, this, std::placeholders::_1));//maybe change type
   missionFinishedListener = this->create_subscription<std_msgs::msg::String>(
-      "mission_finished", 10,
+      "/as_msgs/mission_finished", 10,
       std::bind(&RosCan::mission_finished_callback, this, std::placeholders::_1));//maybe change type
   asState = this->create_publisher<std_msgs::msg::Int32>("asState", 10);
   asMission = this->create_publisher<std_msgs::msg::Int32>("asMission", 10);
@@ -49,11 +49,19 @@ RosCan::RosCan() : Node("node_ros_can") {
 }
 
 void RosCan::control_callback(fs_msgs::msg::ControlCommand::SharedPtr controlCmd) {
-  // if (controlCmd->steering < -1 || controlCmd->steering > 1) {
-  //   RCLCPP_ERROR(this->get_logger(), "Steering value out of range");
-  //   return;
-  // } TODO: check if this is necessary
+  // Check if the steering value is within the limits
+  if (controlCmd->steering < STEERING_LOWER_LIMIT || controlCmd->steering > STEERING_UPPER_LIMIT) {
+    RCLCPP_ERROR(this->get_logger(), "Steering value out of range");
+    return;
+  }
+  // Check if the throttle value is within the limits
+  if (controlCmd->throttle < THROTTLE_LOWER_LIMIT || controlCmd->throttle > THROTTLE_UPPER_LIMIT) {
+    RCLCPP_ERROR(this->get_logger(), "Throttle value out of range");
+    return;
+  } 
   if (currentState == State::AS_Driving) {
+    RCLCPP_DEBUG(this->get_logger(), "State is Driving: Steering: %f, Throttle: %f", controlCmd->steering,
+                 controlCmd->throttle);
     canInitializeLibrary();  // initialize the CAN library again, just in case (could be removed)
     // Prepare the steering message
     long steering_id = STEERING_ID;  // TODO: confirm ID

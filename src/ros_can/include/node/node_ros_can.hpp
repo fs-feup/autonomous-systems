@@ -37,6 +37,13 @@
  */
 #define STEERING_ID 0x700
 
+//define throttle and steering upper and lower limit values
+#define THROTTLE_UPPER_LIMIT 100
+#define THROTTLE_LOWER_LIMIT 0
+#define STEERING_UPPER_LIMIT 100
+#define STEERING_LOWER_LIMIT 0
+
+
 class RosCan : public rclcpp::Node {
  private:
   // Enum to hold the state of the AS
