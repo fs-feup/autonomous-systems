@@ -93,7 +93,7 @@ void ExtendedKalmanFilter::correction_step(const ConeMap &perception_map) {
 
     Eigen::MatrixXf K = this->get_kalman_gain(H, this->P, Q);
     Eigen::Vector2f z_hat = this->_observation_model.observation_model(
-        this->X, landmark_index);  // expected observation
+        this->X, landmark_index);  // expected observation, previously calculated landmark is used
     Eigen::Vector2f z =
         Eigen::Vector2f(observation_data.position.x,
                         observation_data.position.y);  // position of the landmark  observed
