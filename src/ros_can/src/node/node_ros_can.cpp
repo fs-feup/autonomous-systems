@@ -63,13 +63,13 @@ void RosCan::canSniffer() {
   stat = canRead(hnd, &id, &msg, &dlc, &flag, &time);
   while (stat == canOK) {
     // Convert the CAN message to a ROS message and publish it
-    canInterperter(id, msg, dlc, flag, time);
+    canInterpreter(id, msg, dlc, flag, time);
 
     stat = canRead(hnd, &id, &msg, &dlc, &flag, &time);
   }
 }
 
-void RosCan::canInterperter(long id, unsigned char msg[8], unsigned int dlc, unsigned int flag,
+void RosCan::canInterpreter(long id, unsigned char msg[8], unsigned int dlc, unsigned int flag,
                             unsigned long time) {
   switch (id) {
     case MASTER_STATUS:
@@ -82,7 +82,7 @@ void RosCan::canInterperter(long id, unsigned char msg[8], unsigned int dlc, uns
             this->goSignal = 0;
           opStatusPublisher();
           break;
-        } 
+        }
         case 0x32:  // Current AS Mission
         {
           this->asMission = msg[1];
@@ -91,14 +91,13 @@ void RosCan::canInterperter(long id, unsigned char msg[8], unsigned int dlc, uns
         }
         case 0x33:  // Left Wheel RPM
         {
-          int32_t leftRPMAux = (msg[4] << 24) | (msg[3] << 16) | (msg[2] << 8) | msg[1];
+          rlRPM = updatewheelRPM(msg);
+          rlRPMStatus = 1;
 
-          // Convert to float and divide by 100 to account for decimal places
-          leftWheelRPM = leftRPMAux / 100.0f;
-          if (wheelRPMsync == 1) {
+          if (statusMsgCnt != 4)
+            syncRPM();
+          else if (syncMode == 0)
             WheelRPMPublisher();
-          } else
-            wheelRPMsync = 1;
 
           break;
         }
@@ -111,15 +110,14 @@ void RosCan::canInterperter(long id, unsigned char msg[8], unsigned int dlc, uns
       imuPublisher(msg);
       break;
     case TEENSY_C1:
-      if (msg[0] == 0x11) {
-        int32_t rightRPMAux = (msg[4] << 24) | (msg[3] << 16) | (msg[2] << 8) | msg[1];
+      if (msg[0] == 0x11) {  // Rear Right RPM
+        rrRPM = updatewheelRPM(msg);
+        rrRPMStatus = 1;
 
-        // Convert to float and divide by 100 to account for decimal places
-        rightWheelRPM = rightRPMAux / 100.0f;
-        if (wheelRPMsync == 1) {
+        if (statusMsgCnt != 4)
+          syncRPM();
+        else if (syncMode == 1)
           WheelRPMPublisher();
-        } else
-          wheelRPMsync = 1;
       }
       break;
     case STEERING_ID:
@@ -146,10 +144,11 @@ void RosCan::opStatusPublisher() {
  */
 void RosCan::WheelRPMPublisher() {
   auto message = custom_interfaces::msg::WheelRPM();
-  message.rl_rpm = leftWheelRPM;
-  message.rr_rpm = rightWheelRPM;
+  message.rl_rpm = rlRPM;
+  message.rr_rpm = rrRPM;
   wheelRPM->publish(message);
-  wheelRPMsync = 0;  // Reset the sync
+  rrRPMStatus = 0;
+  rlRPMStatus = 0;
 }
 
 /**
@@ -173,4 +172,43 @@ void RosCan::steeringAnglePublisher(unsigned char angleLSB, unsigned char angleM
   auto message = custom_interfaces::msg::SteeringAngle();
   message.steering_angle = angle;
   steeringAngle->publish(message);
+}
+
+void RosCan::syncRPM() {
+  switch (statusMsgCnt) {
+    case 0: {  // 1st msg
+      curTime = this->now();
+      syncInterval1 = curTime.nanoseconds();
+      statusMsgCnt++;
+      break;
+    }
+    case 1: {  // 2nd msg. Calculate syncInterval1
+      curTime = this->now();
+      syncInterval1 = curTime.nanoseconds() - syncInterval1;
+      syncInterval2 = curTime.nanoseconds();
+      statusMsgCnt++;
+      break;
+    }
+    case 2: {  // 3rd and last msg. Calculate syncInterval2
+      curTime = this->now();
+      syncInterval2 = curTime.nanoseconds() - syncInterval2;
+      statusMsgCnt++;
+      break;
+    }
+    case 3: {  // Calculate syncMode
+      if (syncInterval1 > syncInterval2) {
+        syncMode = 0;
+      } else {
+        syncMode = 1;
+      }
+      break;
+    }
+    default:
+      break;
+  }
+}
+
+float RosCan::updatewheelRPM(unsigned char msg[8]) {
+  int32_t RPMAux = (msg[4] << 24) | (msg[3] << 16) | (msg[2] << 8) | msg[1];
+  return RPMAux / 100.0f;
 }

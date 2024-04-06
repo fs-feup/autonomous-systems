@@ -8,12 +8,12 @@
 #include "custom_interfaces/msg/imu.hpp"
 #include "custom_interfaces/msg/operational_status.hpp"
 #include "custom_interfaces/msg/steering_angle.hpp"
+#include "custom_interfaces/msg/wheel_rpm.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/imu.hpp"
 #include "std_msgs/msg/float32.hpp"
 #include "std_msgs/msg/int32.hpp"
 #include "std_msgs/msg/string.hpp"
-#include "custom_interfaces/msg/wheel_rpm.hpp"
 
 /*
  * ID used for:
@@ -55,13 +55,49 @@ class RosCan : public rclcpp::Node {
   canStatus stat;
 
   /*
-  wheelRPMsync is 0, we didnt receive any value
-  wheelRPMsync is 1, we received one wheel rpm
-  */ 
-  bool wheelRPMsync=0;
+   *Counter to keep track of the number of wheel speed msg received during the syncing process
+   *goes from 0 to 3, 4 when the sync is complete
+   */
+  int statusMsgCnt = 0;
 
-  float leftWheelRPM;
-  float rightWheelRPM;
+  // Current time, to calculate the sync intervals
+  rclcpp::Time curTime;
+
+  /*
+   *Interval between the 1st and 2nd wheel speed msg received during the syncing process
+   */
+  uint64_t syncInterval1 = 0.0f;
+
+  /*
+   *Interval between the 2nd and 3rd wheel speed msg received during the syncing process
+   */
+  uint64_t syncInterval2 = 0.0f;
+
+  /*
+   * if syncMode = 0, group rrRPM with rlRPM
+   * if syncMode = 1, group rlRPM with rrRPM
+   * (only publish when both have been recevied)
+   */
+  bool syncMode = 0;
+
+  /*
+    * rlRPM = left wheel rpm
+    * rrRPM = right wheel rpm
+  */
+  float rlRPM;
+  float rrRPM;
+
+  /*
+    rrRPMStatus = 0 if rrRPM has not been received/updated 
+    rrRPMStatus = 1 if rrRPM has been received(ready to be published)
+  */
+  bool rrRPMStatus = 0;
+
+  /*
+    rlRPMStatus = 0 if rlRPM has not been received/updated 
+    rlRPMStatus = 1 if rlRPM has been received(ready to be published)
+  */
+  bool rlRPMStatus = 0;
 
   /*
   goSignal:
@@ -70,7 +106,6 @@ class RosCan : public rclcpp::Node {
   */
   bool goSignal = 0;
 
-  
   /*Current Mission:
   0 - Manual
   1 - Acceleration
@@ -81,8 +116,17 @@ class RosCan : public rclcpp::Node {
   6 - Inspection*/
   int asMission;
 
-  
+  /**
+   * @brief Function define the syncMode and calculate sync time
+   */
+  void syncRPM();
 
+  /**
+   * @brief Function to update the wheel rpm
+   * @return the wheel rpm
+   * @param msg - the CAN msg
+   */
+  float updatewheelRPM(unsigned char msg[8]);
 
   /**
    * @brief Function to turn ON and OFF the CAN BUS
@@ -97,7 +141,7 @@ class RosCan : public rclcpp::Node {
   /**
    * @brief Function to interpret the CAN msg
    */
-  void canInterperter(long id, unsigned char msg[8], unsigned int dlc, unsigned int flag,
+  void canInterpreter(long id, unsigned char msg[8], unsigned int dlc, unsigned int flag,
                       unsigned long time);
 
   /**
