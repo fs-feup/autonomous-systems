@@ -13,6 +13,7 @@
 #include <utils/plane.hpp>
 #include <vector>
 #include "cone_validator/height_validator.hpp"
+#include <visualization_msgs/msg/marker_array.hpp>
 
 class Adapter;
 
@@ -36,8 +37,8 @@ class Perception : public rclcpp::Node {
 
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr
       _point_cloud_subscription;  ///< PointCloud2 subscription.
-  rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr
-      _cones_publisher;  ///< ConeArray publisher.
+  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr
+      _cones_publisher;  ///< MarkerArray publisher.
 
   /**
    * @brief Publishes information about clusters (cones) using a custom ROS2 message.

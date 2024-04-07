@@ -30,7 +30,7 @@ LMNode::LMNode(ExtendedKalmanFilter *ekf, ConeMap *perception_map, MotionUpdate 
 /*---------------------- Subscriptions --------------------*/
 
 void LMNode::_perception_subscription_callback(const custom_interfaces::msg::ConeArray msg) {
-  auto cone_array = msg.cone_array;
+  auto cone_array = msg.marker_array;
   if (this->_perception_map == nullptr) {
     RCLCPP_WARN(this->get_logger(), "SUB - Perception map is null");
     return;
@@ -44,7 +44,8 @@ void LMNode::_perception_subscription_callback(const custom_interfaces::msg::Con
     position.x = cone.position.x;
     position.y = cone.position.y;
 
-    auto color = colors::color_map.at(cone.color.c_str());
+    //auto color = colors::color_map.at(cone.color.c_str());
+    auto color = "undefined";
 
     RCLCPP_DEBUG(this->get_logger(), "(%f, %f)\t%s", position.x, position.y, cone.color.c_str());
 

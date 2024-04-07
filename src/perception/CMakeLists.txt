@@ -8,6 +8,7 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(visualization_msgs REQUIRED)
 find_package(custom_interfaces REQUIRED)
 find_package(fs_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
@@ -38,6 +39,7 @@ include_directories(${PCL_CONVERSIONS_INCLUDE_DIRS})
 include_directories(${sensor_msgs_INCLUDE_DIRS})
 link_directories(${PCL_LIBRARY_DIRS})
 add_definitions(${PCL_DEFINITIONS})
+include_directories(${visualization_msgs_INCLUDE_DIRS})
 
 add_executable(perception src/perception.cpp ${IMPLEMENTATION_FILES})
 target_include_directories(perception PUBLIC
@@ -45,7 +47,7 @@ target_include_directories(perception PUBLIC
   $<INSTALL_INTERFACE:include> ${pcl_conversions_INCLUDE_DIRS})
 target_compile_features(perception PUBLIC c_std_99 cxx_std_17)
 
-target_link_libraries(perception ${PCL_LIBRARIES})
+target_link_libraries(perception ${PCL_LIBRARIES} ${visualization_msgs_LIBRARIES})
 
 install(TARGETS perception
   DESTINATION lib/${PROJECT_NAME})

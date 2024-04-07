@@ -21,7 +21,7 @@ Perception::Perception(GroundRemoval* groundRemoval, Clustering* clustering,
       clustering(clustering),
       coneDifferentiator(coneDifferentiator),
       coneValidators(coneValidators) {
-  this->_cones_publisher = this->create_publisher<custom_interfaces::msg::ConeArray>("cones", 10);
+  this->_cones_publisher = this->create_publisher<visualization_msgs::msg::MarkerArray>("perception/vis/cone_coordinates", 10);
 
   this->adapter = adapter_map[mode](this);
 }
@@ -49,6 +49,8 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
       }
   }
 
+  filtered_clusters = clusters;
+
 
   RCLCPP_DEBUG(this->get_logger(), "---------- Point Cloud Received ----------");
   RCLCPP_DEBUG(this->get_logger(), "Point Cloud Before Ground Removal: %ld points",
@@ -68,18 +70,46 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
   publishCones(&filtered_clusters);
 }
 
-void Perception::publishCones(std::vector<Cluster>* cones) {
-  auto message = custom_interfaces::msg::ConeArray();
-  for (int i = 0; i < static_cast<int>(cones->size()); i++) {
-    auto position = custom_interfaces::msg::Point2d();
-    position.x = cones->at(i).getCentroid().x();
-    position.y = cones->at(i).getCentroid().y();
 
-    auto cone_message = custom_interfaces::msg::Cone();
-    cone_message.position = position;
-    cone_message.color = cones->at(i).getColor();
-    message.cone_array.push_back(cone_message);
-  }
+void Perception::publishCones(std::vector<Cluster>* clusters) {
+    visualization_msgs::msg::MarkerArray marker_array;
+    int count = 0;
 
-  this->_cones_publisher->publish(message);
+    if (clusters->empty()) {
+      RCLCPP_WARN(this->get_logger(), "No clusters to publish.");
+      return;
+    }
+
+    marker_array.markers = {};
+
+    for (int i = 0; i < clusters->size(); i++) {
+        visualization_msgs::msg::Marker marker;
+        marker.header.frame_id = "";
+        marker.header.stamp = this->get_clock()->now();
+        marker.ns = "Cluster Centroids";
+        marker.id = i;
+        marker.type = visualization_msgs::msg::Marker::CYLINDER;
+        marker.action = visualization_msgs::msg::Marker::ADD;
+        marker.pose.position.x = clusters->at(i).getCentroid().x();
+        marker.pose.position.y = clusters->at(i).getCentroid().y();
+        marker.pose.position.z = clusters->at(i).getCentroid().z();
+        marker.pose.orientation.x = 0.0;
+        marker.pose.orientation.y = 0.0;
+        marker.pose.orientation.z = 0.0;
+        marker.pose.orientation.w = 1.0;
+        marker.scale.x = 0.2;
+        marker.scale.y = 0.4;
+        marker.scale.z = 0.2;
+        marker.color.r = 0.55;
+        marker.color.g = 0.1;
+        marker.color.b = 0.69;
+        marker.color.a = 1.0;
+        marker_array.markers.push_back(marker);
+        count++;
+    }
+
+    this->_cones_publisher->publish(marker_array);
+
+    RCLCPP_INFO(this->get_logger(), "%d cones published", marker_array.markers.size());
 }
+
