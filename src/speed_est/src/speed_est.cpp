@@ -1,26 +1,46 @@
+
+#include <cstdio>
+
+#include "speed_est/se_node.hpp"
 #include "rclcpp/rclcpp.hpp"
-#include "std_msgs/msg/string.hpp"
 
-class Speed_est : public rclcpp::Node
-{
-public:
-    Speed_est() : Node("Speed_est")
-    {
-        publisher_ = this->create_publisher<std_msgs::msg::String>("topic", 10);
-        auto message = std_msgs::msg::String();
-        message.data = "Hello, world!";
-        publisher_->publish(message);
-    }
+/**
+ * @brief Main function
+ *
+ * @param argc
+ * @param argv
+ * @return int
+ */
+int main(int argc, char **argv) {
+  VehicleState *vehicle_state = new VehicleState();
+  vehicle_state->last_update = std::chrono::high_resolution_clock::now();
+  MotionUpdate *motion_update = new MotionUpdate();
+  motion_update->last_update = std::chrono::high_resolution_clock::now();
+  ConeMap *track_map = new ConeMap();       // Map to publish
+  ConeMap *perception_map = new ConeMap();  // Map from perception
 
-private:
-    rclcpp::Publisher<std_msgs::msg::String>::SharedPtr publisher_;
-};
+  Eigen::Matrix2f Q = Eigen::Matrix2f::Zero();
+  Q(0, 0) = 0.3;
+  Q(1, 1) = 0.3;
+  Eigen::MatrixXf R = Eigen::Matrix3f::Zero();
+  R(0, 0) = 0.8;
+  R(1, 1) = 0.8;
+  R(2, 2) = 0.8;
+  MotionModel *motion_model = new NormalVelocityModel(R);
+  ObservationModel observation_model = ObservationModel(Q);
 
-int main(int argc, char **argv)
-{
-    rclcpp::init(argc, argv);
-    auto node = std::make_shared<Speed_est>();
-    rclcpp::spin(node);
-    rclcpp::shutdown();
-    return 0;
+  ExtendedKalmanFilter *ekf = new ExtendedKalmanFilter(*motion_model, observation_model);
+
+  bool use_odometry = true;
+
+  (void)argc;
+  (void)argv;
+  rclcpp::init(argc, argv);
+
+  auto speed_est = std::make_shared<SENode>(ekf, perception_map, motion_update, track_map,
+                                          vehicle_state, use_odometry);
+  rclcpp::spin(speed_est);
+  rclcpp::shutdown();
+
+  return 0;
 }

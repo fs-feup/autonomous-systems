@@ -34,7 +34,7 @@ class ExecTimeTestEKFTests : public ::testing::Test {
     Eigen::MatrixXf P = ekf_test->get_covariance();
 
     // Open file
-    std::ofstream file("../../src/performance/exec_time/speed_est_P.csv", std::ios::app);
+    std::ofstream file("../../src/performance/exec_time/loc_map_P.csv", std::ios::app);
 
     // Write P to file
     for (int i = 0; i < P.rows(); i++) {
@@ -55,7 +55,7 @@ class ExecTimeTestEKFTests : public ::testing::Test {
    * @brief Writes performance data to a CSV file.
    */
   void print_to_file() {
-    std::ofstream file("../../src/performance/exec_time/speed_est.csv",
+    std::ofstream file("../../src/performance/exec_time/loc_map.csv",
                        std::ios::app); /**< Output file for performance data (append) */
 
     // Convert the duration from microseconds to milliseconds
@@ -72,7 +72,7 @@ class ExecTimeTestEKFTests : public ::testing::Test {
       perror("getcwd() error");
     }
     // end print current working directory
-    file << "SPEED_EST, " << workload << ", " << std::fixed << milliseconds << " ms\n";
+    file << "LOC_MAP, " << workload << ", " << std::fixed << milliseconds << " ms\n";
     file.close();
   }
 
