@@ -26,6 +26,8 @@ int main(int argc, char **argv) {
   R(0, 0) = 0.8;
   R(1, 1) = 0.8;
   R(2, 2) = 0.8;
+  R(3, 3) = 0.8;
+  R(4, 4) = 0.8;
   MotionModel *motion_model = new NormalVelocityModel(R);
   ObservationModel observation_model = ObservationModel(Q);
 

@@ -15,8 +15,8 @@ ImuVelocityModel::ImuVelocityModel(const Eigen::MatrixXf &process_noise_covarian
 
 Eigen::MatrixXf MotionModel::get_process_noise_covariance_matrix(
     const unsigned int state_size) const {
-  return Eigen::MatrixXf::Identity(state_size, 3) * this->_process_noise_covariance_matrix *
-         Eigen::MatrixXf::Identity(3, state_size);
+  return Eigen::MatrixXf::Identity(state_size, 5) * this->_process_noise_covariance_matrix *
+         Eigen::MatrixXf::Identity(5, state_size);
 }
 
 /*------------------------Normal Velocity Model-----------------------*/
@@ -46,8 +46,11 @@ Eigen::VectorXf NormalVelocityModel::predict_expected_state(
          motion_prediction_data.rotational_velocity) *
             cos(expected_state(2) + motion_prediction_data.rotational_velocity * time_interval);
   }
+  next_state(3) = motion_prediction_data.translational_velocity * cos(next_state(2));
+  next_state(4) = motion_prediction_data.translational_velocity * sin(next_state(2));
   next_state(2) = normalize_angle(expected_state(2) +
                                   motion_prediction_data.rotational_velocity * time_interval);
+  
   return next_state;
 }
 
@@ -110,6 +113,8 @@ Eigen::VectorXf ImuVelocityModel::predict_expected_state(const Eigen::VectorXf &
   }
   next_state(2) = normalize_angle(expected_state(2) +
                                   motion_prediction_data.rotational_velocity * time_interval);
+  next_state(3) = motion_prediction_data.translational_velocity_x;
+  next_state(4) = motion_prediction_data.translational_velocity_y;
 
   return next_state;
 }

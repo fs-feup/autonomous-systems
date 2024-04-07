@@ -50,8 +50,8 @@ void ExtendedKalmanFilter::init_X_size(int size) { this->X = Eigen::VectorXf::Ze
 
 ExtendedKalmanFilter::ExtendedKalmanFilter(const MotionModel &motion_model,
                                            const ObservationModel &observation_model)
-    : X(Eigen::VectorXf::Zero(3)),
-      P(3, 3),
+    : X(Eigen::VectorXf::Zero(5)),
+      P(5, 5),
       _last_update(std::chrono::high_resolution_clock::now()),
       _motion_model(motion_model),
       _observation_model(observation_model),
@@ -123,11 +123,11 @@ int ExtendedKalmanFilter::discovery(const ObservationData &observation_data) {
   }
   double best_delta = 1000000000.0;
   int best_index = -1;
-  for (int i = 3; i < this->X.size() - 1; i += 2) {
+  for (int i = 5; i < this->X.size() - 1; i += 2) {
     double delta_x = this->X(i) - landmark_absolute(0);
     double delta_y = this->X(i + 1) - landmark_absolute(1);
     double delta = std::sqrt(std::pow(delta_x, 2) + std::pow(delta_y, 2));
-    if (delta < best_delta && this->_colors[(i - 3) / 2] == observation_data.color) {
+    if (delta < best_delta && this->_colors[(i - 5) / 2] == observation_data.color) {
       best_index = i;
       best_delta = delta;
     }
@@ -167,8 +167,8 @@ int ExtendedKalmanFilter::discovery(const ObservationData &observation_data) {
 void ExtendedKalmanFilter::update(VehicleState *vehicle_state, ConeMap *track_map) {
   vehicle_state->pose = Pose(X(0), X(1), X(2));
   track_map->map.clear();
-  for (int i = 3; i < this->X.size() - 1; i += 2) {
+  for (int i = 5; i < this->X.size() - 1; i += 2) {
     track_map->map.insert(
-        std::pair<Position, colors::Color>(Position(X(i), X(i + 1)), this->_colors[(i - 3) / 2]));
+        std::pair<Position, colors::Color>(Position(X(i), X(i + 1)), this->_colors[(i - 5) / 2]));
   }
 }

@@ -3,8 +3,8 @@
 #include <string>
 
 #include "gtest/gtest.h"
-#include "speed_est/se_node.hpp"
 #include "rclcpp/rclcpp.hpp"
+#include "speed_est/se_node.hpp"
 
 class ExecTimeTest : public ::testing::Test {
  protected:
@@ -51,7 +51,7 @@ class ExecTimeTest : public ::testing::Test {
   }
 
   void fill_X(int size) {
-    for (int i = 3; i <= size; i++) {
+    for (int i = 5; i <= size; i++) {
       double randomX = (static_cast<double>(rand() / RAND_MAX)) * 50.0;
       double randomY = (static_cast<double>(rand() / RAND_MAX)) * 50.0;
 
@@ -110,10 +110,13 @@ class ExecTimeTest : public ::testing::Test {
     Q_test = Eigen::Matrix2f::Zero();
     Q_test(0, 0) = 0.3;
     Q_test(1, 1) = 0.3;
-    R_test = Eigen::Matrix3f::Zero();
+    R_test = Eigen::MatrixXf::Zero(5,5);
     R_test(0, 0) = 0.8;
     R_test(1, 1) = 0.8;
     R_test(2, 2) = 0.8;
+    R_test(3, 3) = 0.8;
+    R_test(4, 4) = 0.8;
+
     motion_model_test = new NormalVelocityModel(R_test);
     observation_model_test = ObservationModel(Q_test);
 

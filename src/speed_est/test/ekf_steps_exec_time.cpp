@@ -81,12 +81,11 @@ class ExecTimeTestEKFTests : public ::testing::Test {
    * @param size ~Number of state vector elements to fill.
    */
   void fill_X(int size) {
-    ekf_test->set_X_y(0, -15.0);
+    ekf_test->set_X_y(0, -15.0);//TODO(pedroromao3): repeated initialization fix
     ekf_test->set_X_y(1, 0.0);
     ekf_test->set_X_y(2, 0.0);
-    ekf_test->set_X_y(3, -1.637208342552185);
-    ekf_test->set_X_y(4, 14.400202751159668);
-    ekf_test->push_to_colors(colors::Color::blue);
+    ekf_test->set_X_y(3, 0.0);
+    ekf_test->set_X_y(4, 0.0);
     ekf_test->set_X_y(5, -2.216218948364258);
     ekf_test->set_X_y(6, 11.487205505371094);
     ekf_test->push_to_colors(colors::Color::blue);
@@ -153,10 +152,12 @@ class ExecTimeTestEKFTests : public ::testing::Test {
     Q_test = Eigen::Matrix2f::Zero();
     Q_test(0, 0) = 0.3;
     Q_test(1, 1) = 0.3;
-    R_test = Eigen::Matrix3f::Zero();
+    R_test = Eigen::MatrixXf::Zero(5,5);
     R_test(0, 0) = 0.8;
     R_test(1, 1) = 0.8;
     R_test(2, 2) = 0.8;
+    R_test(3, 3) = 0.8;
+    R_test(4, 4) = 0.8;
     motion_model_test = new NormalVelocityModel(R_test);
     observation_model_test = ObservationModel(Q_test);
     ekf_test = new ExtendedKalmanFilter(*motion_model_test, observation_model_test);
@@ -179,9 +180,8 @@ TEST_F(ExecTimeTestEKFTests, TEST_EKF_PRED_10) {
   ekf_test->set_X_y(0, -15.0);
   ekf_test->set_X_y(1, 0.0);
   ekf_test->set_X_y(2, 0.0);
-  ekf_test->set_X_y(3, -1.637208342552185);
-  ekf_test->set_X_y(4, 14.400202751159668);
-  ekf_test->push_to_colors(colors::Color::blue);
+  ekf_test->set_X_y(3, 0);
+  ekf_test->set_X_y(4, 0);
   ekf_test->set_X_y(5, -2.216218948364258);
   ekf_test->set_X_y(6, 11.487205505371094);
   ekf_test->push_to_colors(colors::Color::blue);
@@ -244,6 +244,8 @@ TEST_F(ExecTimeTestEKFTests, TEST_EKF_PRED_50) {
   ekf_test->set_X_y(0, -15.0);
   ekf_test->set_X_y(1, 0.0);
   ekf_test->set_X_y(2, 0.0);
+  ekf_test->set_X_y(4, 0.0);
+  ekf_test->set_X_y(5, 0.0);
 
   fill_X(102);
 
@@ -334,9 +336,8 @@ TEST_F(ExecTimeTestEKFTests, TEST_EKF_CORR_10) {
   ekf_test->set_X_y(0, -15.0);
   ekf_test->set_X_y(1, 0.0);
   ekf_test->set_X_y(2, 0.0);
-  ekf_test->set_X_y(3, -1.637208342552185);
-  ekf_test->set_X_y(4, 14.400202751159668);
-  ekf_test->push_to_colors(colors::Color::blue);
+  ekf_test->set_X_y(3, 0);
+  ekf_test->set_X_y(4, 0);
   ekf_test->set_X_y(5, -2.216218948364258);
   ekf_test->set_X_y(6, 11.487205505371094);
   ekf_test->push_to_colors(colors::Color::blue);

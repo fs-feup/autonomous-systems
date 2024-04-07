@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.8)
 project(speed_est)
 
 # Add optimization flag here
-add_compile_options(-O2)
+# add_compile_options(-O2)
 
 
 find_package(Eigen3 REQUIRED)

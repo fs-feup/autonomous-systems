@@ -25,10 +25,12 @@ TEST(EKF_SLAM, LINEAR_MOVEMENT_INTEGRITY_TEST) {  // This test is not that great
   Eigen::Matrix2f Q = Eigen::Matrix2f::Zero();
   Q(0, 0) = 0.1;
   Q(1, 1) = 0.1;
-  Eigen::MatrixXf R = Eigen::Matrix3f::Zero();
+  Eigen::MatrixXf R = Eigen::MatrixXf::Zero(5, 5);
   R(0, 0) = 0.1;
   R(1, 1) = 0.1;
   R(2, 2) = 0.1;
+  R(3, 3) = 0.1;
+  R(4, 4) = 0.1;
   MotionModel *motion_model = new ImuVelocityModel(R);
   ObservationModel observation_model = ObservationModel(Q);
 
@@ -104,7 +106,8 @@ TEST(EKF_SLAM, LINEAR_MOVEMENT_INTEGRITY_TEST) {  // This test is not that great
     // EXPECT_EQ(blue_count, 8);
     // EXPECT_EQ(big_orange_count, 2);
     EXPECT_GE(track_map->map.size(), static_cast<unsigned long int>(6));
-    EXPECT_LE(track_map->map.size(), static_cast<unsigned long int>(20));
+    EXPECT_LE(track_map->map.size(),
+              static_cast<unsigned long int>(20));  // TODO(PedroRomao3): Change this value
 
     EXPECT_GE(vehicle_state->pose.position.x, -0.5);
     EXPECT_LE(vehicle_state->pose.position.x, 20);

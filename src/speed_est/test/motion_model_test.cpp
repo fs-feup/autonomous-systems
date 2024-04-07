@@ -5,10 +5,12 @@
 /* ---------------------- Motion Model -------------------------------------*/
 
 TEST(MOTION_MODEL, NOISE_MATRIX_SHAPE_TEST) {
-  Eigen::MatrixXf R = Eigen::Matrix3f::Zero();
+  Eigen::MatrixXf R = Eigen::MatrixXf::Zero(5, 5);
   R(0, 0) = 0.1;
   R(1, 1) = 0.1;
   R(2, 2) = 0.1;
+  R(3, 3) = 0.1;
+  R(4, 4) = 0.1;
 
   MotionModel *motion_model = new NormalVelocityModel(R);
   Eigen::MatrixXf noise_matrix = motion_model->get_process_noise_covariance_matrix(10);
@@ -17,12 +19,14 @@ TEST(MOTION_MODEL, NOISE_MATRIX_SHAPE_TEST) {
   EXPECT_NEAR(noise_matrix(0, 0), 0.1, 0.0001);
   EXPECT_NEAR(noise_matrix(1, 1), 0.1, 0.0001);
   EXPECT_NEAR(noise_matrix(2, 2), 0.1, 0.0001);
+  EXPECT_NEAR(noise_matrix(3, 3), 0.1, 0.0001);
+  EXPECT_NEAR(noise_matrix(4, 4), 0.1, 0.0001);
 }
 
 // /* ---------------------- Normal Velocity Model ---------------------------*/
 
 TEST(NORMAL_VELOCITY_MODEL, STANDING_STILL_TEST) {
-  Eigen::MatrixXf R = Eigen::Matrix3f::Zero();
+  Eigen::MatrixXf R = Eigen::MatrixXf::Zero(5, 5);
   NormalVelocityModel motion_model = NormalVelocityModel(R);
   MotionUpdate prediction_data = {0, 0, 0, 0, 0, std::chrono::high_resolution_clock::now()};
   Eigen::VectorXf new_state =
@@ -33,6 +37,8 @@ TEST(NORMAL_VELOCITY_MODEL, STANDING_STILL_TEST) {
   EXPECT_DOUBLE_EQ(new_state(0), 0.0);
   EXPECT_DOUBLE_EQ(new_state(1), 0.0);
   EXPECT_DOUBLE_EQ(new_state(2), 0.0);
+  EXPECT_DOUBLE_EQ(new_state(3), 0.0);
+  EXPECT_DOUBLE_EQ(new_state(4), 0.0);
   for (int i = 0; i < 10; i++) {
     for (int j = 0; j < 10; j++) {
       EXPECT_DOUBLE_EQ(new_covariance(i, j), 0.0);
@@ -41,7 +47,7 @@ TEST(NORMAL_VELOCITY_MODEL, STANDING_STILL_TEST) {
 }
 
 TEST(NORMAL_VELOCITY_MODEL, LINEAR_FORWARD_MOVEMENT_TEST) {
-  Eigen::MatrixXf R = Eigen::Matrix3f::Zero();
+  Eigen::MatrixXf R = Eigen::MatrixXf::Zero(5, 5);
   NormalVelocityModel motion_model = NormalVelocityModel(R);
   MotionUpdate prediction_data = {1, 0, 0, 0, 0, std::chrono::high_resolution_clock::now()};
   Eigen::VectorXf new_state =
@@ -54,6 +60,8 @@ TEST(NORMAL_VELOCITY_MODEL, LINEAR_FORWARD_MOVEMENT_TEST) {
   EXPECT_DOUBLE_EQ(new_state(0), 1.0);  // x
   EXPECT_DOUBLE_EQ(new_state(1), 0.0);  // y
   EXPECT_DOUBLE_EQ(new_state(2), 0.0);  // theta
+  EXPECT_DOUBLE_EQ(new_state(3), 1.0);  // x velocity
+  EXPECT_DOUBLE_EQ(new_state(4), 0.0);  // y velocity
   for (int i = 0; i < 10; i++) {        // Covariance
     for (int j = 0; j < 10; j++) {
       if (i == 1 || j == 1)  // Only y is affected because of the Jacobian
@@ -65,7 +73,7 @@ TEST(NORMAL_VELOCITY_MODEL, LINEAR_FORWARD_MOVEMENT_TEST) {
 }
 
 TEST(NORMAL_VELOCITY_MODEL, LINEAR_VELOCITY_CURVE_TEST) {
-  Eigen::MatrixXf R = Eigen::Matrix3f::Zero();
+  Eigen::MatrixXf R = Eigen::MatrixXf::Zero(5, 5);
   NormalVelocityModel motion_model = NormalVelocityModel(R);
 
   // Moving in a curve with linear acceleration
@@ -81,6 +89,8 @@ TEST(NORMAL_VELOCITY_MODEL, LINEAR_VELOCITY_CURVE_TEST) {
   EXPECT_NEAR(new_state(0), 0.99, 0.05);  // x
   EXPECT_NEAR(new_state(1), 0.01, 0.05);  // y
   EXPECT_NEAR(new_state(2), M_PI / 180, 0.00001);  // theta
+  EXPECT_NEAR(new_state(3), 0.99, 0.05);           // x velocity
+  EXPECT_NEAR(new_state(4), 0.01, 0.05);           // y velocity
   for (int i = 0; i < 10; i++) {                   // Covariance
     for (int j = 0; j < 10; j++) {
       if (i < 2 || j < 2)  // Only x and y are affected because of the Jacobian
@@ -92,8 +102,8 @@ TEST(NORMAL_VELOCITY_MODEL, LINEAR_VELOCITY_CURVE_TEST) {
 }
 
 TEST(NORMAL_VELOCITY_MODEL, AUTONOMOUS_DEMO_TEST) {
-  Eigen::MatrixXf R = Eigen::Matrix3f::Zero();
-  Eigen::VectorXf temp_state = Eigen::Vector3f::Zero();
+  Eigen::MatrixXf R = Eigen::MatrixXf::Zero(5, 5);
+  Eigen::VectorXf temp_state = Eigen::VectorXf::Zero(10);
   NormalVelocityModel motion_model = NormalVelocityModel(R);
   MotionUpdate prediction_data = {2.5, 0, 0, 0.001, 0, std::chrono::high_resolution_clock::now()};
   for (unsigned int i = 0; i < 4; i++) {
@@ -113,7 +123,7 @@ TEST(NORMAL_VELOCITY_MODEL, AUTONOMOUS_DEMO_TEST) {
 }
 
 TEST(NORMAL_VELOCITY_MODEL, CIRCULAR_MOVEMENT_TEST) {
-  Eigen::MatrixXf R = Eigen::Matrix3f::Zero();
+  Eigen::MatrixXf R = Eigen::MatrixXf::Zero(5, 5);
   NormalVelocityModel motion_model = NormalVelocityModel(R);
   MotionUpdate prediction_data = {0, 0, 0, 0, 0, std::chrono::high_resolution_clock::now()};
   Eigen::VectorXf temp_state;
@@ -152,7 +162,7 @@ TEST(NORMAL_VELOCITY_MODEL, CIRCULAR_MOVEMENT_TEST) {
 /* ----------------------- IMU VELOCITY MODEL -------------------------*/
 
 TEST(IMU_VELOCITY_MODEL, STANDING_STILL_TEST) {
-  Eigen::MatrixXf R = Eigen::Matrix3f::Zero();
+  Eigen::MatrixXf R = Eigen::MatrixXf::Zero(5, 5);
   ImuVelocityModel motion_model = ImuVelocityModel(R);
   MotionUpdate prediction_data = {0, 0, 0, 0, 0, std::chrono::high_resolution_clock::now()};
   Eigen::VectorXf new_state =
@@ -171,7 +181,7 @@ TEST(IMU_VELOCITY_MODEL, STANDING_STILL_TEST) {
 }
 
 TEST(IMU_VELOCITY_MODEL, LINEAR_FORWARD_MOVEMENT_TEST) {
-  Eigen::MatrixXf R = Eigen::Matrix3f::Zero();
+  Eigen::MatrixXf R = Eigen::MatrixXf::Zero(5, 5);
   ImuVelocityModel motion_model = ImuVelocityModel(R);
   MotionUpdate prediction_data = {0, 1, 0, 0, 0, std::chrono::high_resolution_clock::now()};
   Eigen::VectorXf new_state =
@@ -190,7 +200,7 @@ TEST(IMU_VELOCITY_MODEL, LINEAR_FORWARD_MOVEMENT_TEST) {
 }
 
 TEST(IMU_VELOCITY_MODEL, LINEAR_VELOCITY_CURVE_TEST) {
-  Eigen::MatrixXf R = Eigen::Matrix3f::Zero();
+  Eigen::MatrixXf R = Eigen::MatrixXf::Zero(5, 5);
   ImuVelocityModel motion_model = ImuVelocityModel(R);
   MotionUpdate prediction_data = {0,         0.3, 0.7,
                                   M_PI / 16, 0,   std::chrono::high_resolution_clock::now()};
@@ -212,7 +222,7 @@ TEST(IMU_VELOCITY_MODEL, LINEAR_VELOCITY_CURVE_TEST) {
 }
 
 TEST(IMU_VELOCITY_MODEL, COMPLEX_MOVEMENT_TEST) {
-  Eigen::MatrixXf R = Eigen::Matrix3f::Zero();
+  Eigen::MatrixXf R = Eigen::MatrixXf::Zero(5, 5);
   ImuVelocityModel motion_model = ImuVelocityModel(R);
   MotionUpdate prediction_data = {0, 0, 0, 0, 0, std::chrono::high_resolution_clock::now()};
   Eigen::VectorXf temp_state;
