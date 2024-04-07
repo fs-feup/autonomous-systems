@@ -81,20 +81,20 @@ class RosCan : public rclcpp::Node {
   bool syncMode = 0;
 
   /*
-    * rlRPM = left wheel rpm
-    * rrRPM = right wheel rpm
-  */
+   * rlRPM = left wheel rpm
+   * rrRPM = right wheel rpm
+   */
   float rlRPM;
   float rrRPM;
 
   /*
-    rrRPMStatus = 0 if rrRPM has not been received/updated 
+    rrRPMStatus = 0 if rrRPM has not been received/updated
     rrRPMStatus = 1 if rrRPM has been received(ready to be published)
   */
   bool rrRPMStatus = 0;
 
   /*
-    rlRPMStatus = 0 if rlRPM has not been received/updated 
+    rlRPMStatus = 0 if rlRPM has not been received/updated
     rlRPMStatus = 1 if rlRPM has been received(ready to be published)
   */
   bool rlRPMStatus = 0;
