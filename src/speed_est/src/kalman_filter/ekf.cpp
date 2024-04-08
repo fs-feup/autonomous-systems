@@ -133,10 +133,10 @@ int ExtendedKalmanFilter::discovery(const ObservationData &observation_data) {
     }
   }
   if (best_index != -1) {
-    double score =
+    bool score =
         ExtendedKalmanFilter::cone_match(this->X(best_index), this->X(best_index + 1),
                                          landmark_absolute(0), landmark_absolute(1), distance);
-    if (score > 0) {
+    if (score) {
       return best_index;
     }
   }
