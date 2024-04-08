@@ -17,6 +17,9 @@ sudo apt install rospack-tools -y
 rospack find sensor_msgs -y
 sudo apt-get install libpcap-dev -y
 
+#ground truth generation
+sudo pip install pandas
+sudo apt-get install python3-matplotlib
 
 # rslidar_sdk
 if test -f ./ext/rslidar_sdk/dependencies_install.sh; then
