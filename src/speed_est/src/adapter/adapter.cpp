@@ -1,4 +1,5 @@
 #include "adapter/adapter.hpp"
+
 #include "speed_est/se_node.hpp"
 
 Adapter::Adapter(SENode *speed_est) {
@@ -14,4 +15,3 @@ void Adapter::imu_subscription_callback(const sensor_msgs::msg::Imu msg) {
 
   this->node->_imu_subscription_callback(angular_velocity, acceleration_x, acceleration_y);
 }
-

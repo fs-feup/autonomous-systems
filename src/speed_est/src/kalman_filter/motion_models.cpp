@@ -50,7 +50,7 @@ Eigen::VectorXf NormalVelocityModel::predict_expected_state(
   next_state(4) = motion_prediction_data.translational_velocity * sin(next_state(2));
   next_state(2) = normalize_angle(expected_state(2) +
                                   motion_prediction_data.rotational_velocity * time_interval);
-  
+
   return next_state;
 }
 

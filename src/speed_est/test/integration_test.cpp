@@ -110,7 +110,7 @@ class ExecTimeTest : public ::testing::Test {
     Q_test = Eigen::Matrix2f::Zero();
     Q_test(0, 0) = 0.3;
     Q_test(1, 1) = 0.3;
-    R_test = Eigen::MatrixXf::Zero(5,5);
+    R_test = Eigen::MatrixXf::Zero(5, 5);
     R_test(0, 0) = 0.8;
     R_test(1, 1) = 0.8;
     R_test(2, 2) = 0.8;

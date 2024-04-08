@@ -1,8 +1,8 @@
 
 #include <cstdio>
 
-#include "speed_est/se_node.hpp"
 #include "rclcpp/rclcpp.hpp"
+#include "speed_est/se_node.hpp"
 
 /**
  * @brief Main function
@@ -40,7 +40,7 @@ int main(int argc, char **argv) {
   rclcpp::init(argc, argv);
 
   auto speed_est = std::make_shared<SENode>(ekf, perception_map, motion_update, track_map,
-                                          vehicle_state, use_odometry);
+                                            vehicle_state, use_odometry);
   rclcpp::spin(speed_est);
   rclcpp::shutdown();
 

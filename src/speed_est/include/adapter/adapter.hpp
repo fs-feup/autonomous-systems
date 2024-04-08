@@ -2,15 +2,16 @@
 #define SRC_SPEED_EST_INCLUDE_ADAPTER_ADAPTER_HPP_
 
 #include <string>
+
 #include "eufs_msgs/msg/can_state.hpp"
 #include "eufs_msgs/msg/wheel_speeds_stamped.hpp"
 #include "eufs_msgs/srv/set_can_state.hpp"
 #include "fs_msgs/msg/finished_signal.hpp"
 #include "fs_msgs/msg/go_signal.hpp"
 #include "fs_msgs/msg/wheel_states.hpp"
-#include "speed_est/data_structures.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/imu.hpp"
+#include "speed_est/data_structures.hpp"
 
 class SENode;
 

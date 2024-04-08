@@ -3,8 +3,8 @@
 #include <string>
 
 #include "gtest/gtest.h"
-#include "speed_est/se_node.hpp"
 #include "rclcpp/rclcpp.hpp"
+#include "speed_est/se_node.hpp"
 
 /**
  * @class ExecTimeTestEKFTests
@@ -81,7 +81,7 @@ class ExecTimeTestEKFTests : public ::testing::Test {
    * @param size ~Number of state vector elements to fill.
    */
   void fill_X(int size) {
-    ekf_test->set_X_y(0, -15.0);//TODO(pedroromao3): repeated initialization fix
+    ekf_test->set_X_y(0, -15.0);  // TODO(pedroromao3): repeated initialization fix
     ekf_test->set_X_y(1, 0.0);
     ekf_test->set_X_y(2, 0.0);
     ekf_test->set_X_y(3, 0.0);
@@ -152,7 +152,7 @@ class ExecTimeTestEKFTests : public ::testing::Test {
     Q_test = Eigen::Matrix2f::Zero();
     Q_test(0, 0) = 0.3;
     Q_test(1, 1) = 0.3;
-    R_test = Eigen::MatrixXf::Zero(5,5);
+    R_test = Eigen::MatrixXf::Zero(5, 5);
     R_test(0, 0) = 0.8;
     R_test(1, 1) = 0.8;
     R_test(2, 2) = 0.8;
