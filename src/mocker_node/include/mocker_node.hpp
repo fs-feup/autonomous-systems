@@ -10,7 +10,7 @@
 #include "fs_msgs/msg/finished_signal.hpp"
 #include "fs_msgs/msg/go_signal.hpp"
 #include "rclcpp/rclcpp.hpp"
-#include "mocker_node/include/planning_mock.hpp"
+#include "planning_mock.hpp"
 
 class MockerNode : public rclcpp::Node {
  private:
@@ -24,7 +24,7 @@ class MockerNode : public rclcpp::Node {
     /**
      * @brief publish the messages
     */
-    void callback();
+    void callback(fs_msgs::msg::GoSignal mission_signal);
 
     /**
      * @brief Construct a new Mocker Node object

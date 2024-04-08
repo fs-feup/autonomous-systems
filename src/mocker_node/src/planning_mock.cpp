@@ -1,4 +1,4 @@
-#include "mocker_node/include/planning_mock.hpp"
+#include "planning_mock.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include <iostream>
 #include <istream>
