@@ -6,6 +6,7 @@
 #include <fstream>
 #include <pcl/io/pcd_io.h>
 #include <filesystem>
+#include <pcl_conversions/pcl_conversions.h>
 
 
 class PerceptionPerformanceTest : public ::testing::Test {
@@ -26,12 +27,13 @@ class PerceptionPerformanceTest : public ::testing::Test {
                      long long generatedClusters,
                      long long blues,
                      long long yellows,
-                     long long undefineds) {
+                     long long undefineds,
+                     long long conversion_duration) {
         bool fileExists = std::filesystem::exists(output_statistics_path_file);
 
         std::ofstream csv_file(output_statistics_path_file, std::ios::app);
         if (!fileExists) {
-            csv_file << "Initial Number of Points,RANSAC Epsilon,RANSAC Number Iterations,"
+            csv_file << "Initial Number of Points,Conversion Duration,RANSAC Epsilon,RANSAC Number Iterations,"
                         << "Number of Points after RANSAC,RANSAC Duration(ms),"
                         << "DBSCAN Distance Threshold,DBSCAN Neighbours Threshold,"
                         << "Number of Generated Clusters,"
@@ -41,20 +43,22 @@ class PerceptionPerformanceTest : public ::testing::Test {
                         << "Total Duration(ms)\n";
         }
 
+        csv_file << std::fixed << std::setprecision(6);
         csv_file << initial_n_points << ","
+            << std::fixed << std::setprecision(3) << conversion_duration << ","
             << RANSAC_eps << ","
             << RANSAC_Iter << ","
             << ground_removed_size << ","
-            << RANSAC_time << ","
+            << std::fixed << std::setprecision(3) << RANSAC_time << ","
             << DBSCAN_dist_threshold << ","
             << DBSCAN_neighbours_threshold << ","
             << generatedClusters << ","
-            << DBSCAN_time << ","
+            << std::fixed << std::setprecision(3) << DBSCAN_time << ","
             << blues << ","
             << yellows << ","
             << undefineds << ","
-            << ConeDif_time << ","
-            << Total_time << std::endl;
+            << std::fixed << std::setprecision(3) << ConeDif_time << ","
+            << std::fixed << std::setprecision(3) << Total_time << std::endl;
 
         csv_file.close();
     }
@@ -78,12 +82,25 @@ class PerceptionPerformanceTest : public ::testing::Test {
 
 
 TEST_F(PerceptionPerformanceTest, TestPerformance) {
-    for (int it = 0; it <= 106; it++) {
+    for (int it = 0; it <= 7; it++) {
         std::string file_name =  inputFilesPaths + "PointCloud" + std::to_string(it) + ".pcd";
 
         pcl::io::loadPCDFile<pcl::PointXYZI>(file_name, *pcl_cloud);
+        
+        sensor_msgs::msg::PointCloud2 msg;
+
+        pcl::toROSMsg(*pcl_cloud, msg);
+
+        pcl_cloud.reset(new pcl::PointCloud<pcl::PointXYZI>);
 
         auto start_time = std::chrono::high_resolution_clock::now();
+
+        pcl::fromROSMsg(msg, *pcl_cloud);
+
+        auto conversion_time = std::chrono::high_resolution_clock::now();
+
+        auto conversion_duration = std::chrono::duration_cast<std::chrono::milliseconds>
+            (start_time - conversion_time);
 
         pcl::PointCloud<pcl::PointXYZI>::Ptr
             ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
@@ -92,7 +109,7 @@ TEST_F(PerceptionPerformanceTest, TestPerformance) {
 
         auto ransac_time = std::chrono::high_resolution_clock::now();
         auto ransac_duration = std::chrono::duration_cast<std::chrono::milliseconds>
-            (ransac_time - start_time);
+            (ransac_time - conversion_time);
 
         std::vector<Cluster> clusters;
         clustering->clustering(ground_removed_cloud, &clusters);
@@ -118,10 +135,9 @@ TEST_F(PerceptionPerformanceTest, TestPerformance) {
         auto coneDifferentiaion_duration = std::chrono::duration_cast<std::chrono::milliseconds>
             (end_time - dbscan_time);
 
-        auto total_time = std::chrono::duration_cast
-            <std::chrono::milliseconds>(end_time - start_time);
+        auto total_time = std::chrono::duration_cast<std::chrono::duration<double, std::milli>>(end_time - start_time);
         writeToFile(pcl_cloud->size(), ransac_duration.count(), ground_removed_cloud->size(),
                 dbscan_duration.count(), coneDifferentiaion_duration.count(),
-                total_time.count(), clusters.size(), blues, yellows, undefineds);
+                total_time.count(), clusters.size(), blues, yellows, undefineds, conversion_duration.count());
     }
 }

@@ -61,10 +61,10 @@ if(BUILD_TESTING)
                   src/utils/cluster.cpp)
 
 
-target_link_libraries(perception_test ${PCL_LIBRARIES})
+  target_link_libraries(perception_test ${PCL_LIBRARIES})
   target_include_directories(perception_test PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    $<INSTALL_INTERFACE:include>)
+    $<INSTALL_INTERFACE:include> ${pcl_conversions_INCLUDE_DIRS})
 
     ament_target_dependencies(perception_test rclcpp custom_interfaces fs_msgs ament_cmake_gtest)
 
