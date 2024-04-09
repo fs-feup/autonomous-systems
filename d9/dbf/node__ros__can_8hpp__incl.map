@@ -1,0 +1,25 @@
+<map id="src/ros_can/include/node/node_ros_can.hpp" name="src/ros_can/include/node/node_ros_can.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="428,5,590,46"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,102,71,127"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="427,36,266,57,174,74,83,97,78,98,76,93,81,91,173,69,266,52,427,31"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="95,102,155,127"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="427,40,304,62,168,97,164,98,162,93,167,91,303,57,427,35"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="179,102,257,127"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="433,49,269,97,264,98,262,93,268,91,431,44"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="280,102,348,127"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="466,49,356,97,354,92,463,44"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="371,102,425,127"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="485,49,427,94,423,90,482,44"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="449,102,568,127"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="511,47,511,86,506,86,506,47"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="592,102,756,127"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="547,44,639,92,636,96,545,49"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="779,102,953,127"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="591,44,802,95,800,100,590,49"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="977,102,1144,127"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="591,35,763,59,965,91,988,95,987,101,964,97,762,65,590,40"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="1169,94,1326,135"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="591,30,838,52,994,69,1154,91,1153,96,993,74,838,57,590,35"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="1351,102,1528,127"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="590,28,918,49,1127,67,1338,91,1366,96,1365,101,1338,97,1127,72,917,54,590,33"/>
+</map>

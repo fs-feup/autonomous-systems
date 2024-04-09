@@ -54,6 +54,7 @@ var annotated_dup =
     [ "Publisher", "df/d57/class_publisher.html", "df/d57/class_publisher" ],
     [ "RANSAC", "d6/dc3/class_r_a_n_s_a_c.html", "d6/dc3/class_r_a_n_s_a_c" ],
     [ "RANSACTest", "d8/d5a/class_r_a_n_s_a_c_test.html", "d8/d5a/class_r_a_n_s_a_c_test" ],
+    [ "RosCan", "d4/deb/class_ros_can.html", "d4/deb/class_ros_can" ],
     [ "TestAdapter", "df/df3/class_test_adapter.html", "df/df3/class_test_adapter" ],
     [ "Track", "d6/d2c/class_track.html", "d6/d2c/class_track" ],
     [ "VehicleState", "de/dfe/struct_vehicle_state.html", "de/dfe/struct_vehicle_state" ]

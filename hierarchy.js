@@ -43,7 +43,8 @@ var hierarchy =
       [ "LongitudinalControl", "d4/de8/class_longitudinal_control.html", null ],
       [ "Perception", "de/d07/class_perception.html", null ],
       [ "Planning", "d9/db5/class_planning.html", null ],
-      [ "Publisher", "df/d57/class_publisher.html", null ]
+      [ "Publisher", "df/d57/class_publisher.html", null ],
+      [ "RosCan", "d4/deb/class_ros_can.html", null ]
     ] ],
     [ "ObservationData", "d9/d90/struct_observation_data.html", null ],
     [ "ObservationModel", "d7/d64/class_observation_model.html", null ],

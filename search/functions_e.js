@@ -5,7 +5,8 @@ var searchData=
   ['redefine_5fgoal_5fvelocity_2',['redefine_goal_velocity',['../d4/d89/class_inspection_functions.html#a06acb01e381faf5b8a2ab45c1b60abe7',1,'InspectionFunctions']]],
   ['relative_5fto_5fabsolute_5fcoordinates_3',['relative_to_absolute_coordinates',['../d3/d43/namespaceplots_1_1plots.html#a41bb811fdacb510f2652e790b428ff0b',1,'plots::plots']]],
   ['reset_4',['reset',['../d6/d2c/class_track.html#ab4e7e111378109011379f2a7aa984145',1,'Track']]],
-  ['round_5',['round',['../da/dad/inspection_2test_2tests_8cpp.html#a322889033b0102b5c2eb49fe3c081fd8',1,'tests.cpp']]],
-  ['round_5fn_6',['round_n',['../dd/df6/planning_2test_2tests_8cpp.html#afbb0277ee17d082a0d2177393a346904',1,'tests.cpp']]],
-  ['rpm_5fto_5fvelocity_7',['rpm_to_velocity',['../d4/d89/class_inspection_functions.html#a62a7a5c1d1b3d67e4d0e8d453d6665b9',1,'InspectionFunctions']]]
+  ['roscan_5',['RosCan',['../d4/deb/class_ros_can.html#a0e8710efadcf44fcc97059c7b6cbfa91',1,'RosCan']]],
+  ['round_6',['round',['../da/dad/inspection_2test_2tests_8cpp.html#a322889033b0102b5c2eb49fe3c081fd8',1,'tests.cpp']]],
+  ['round_5fn_7',['round_n',['../dd/df6/planning_2test_2tests_8cpp.html#afbb0277ee17d082a0d2177393a346904',1,'tests.cpp']]],
+  ['rpm_5fto_5fvelocity_8',['rpm_to_velocity',['../d4/d89/class_inspection_functions.html#a62a7a5c1d1b3d67e4d0e8d453d6665b9',1,'InspectionFunctions']]]
 ];
