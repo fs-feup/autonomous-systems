@@ -14,8 +14,8 @@ find_package(sensor_msgs REQUIRED)
 find_package(fs_msgs REQUIRED)
 
 add_executable(mocker_node
-  src/mocker_node.cpp 
-  src/planning_mock.cpp
+  src/node/mocker_node.cpp 
+  src/planning/planning_mock.cpp
   src/main.cpp
 )
 
