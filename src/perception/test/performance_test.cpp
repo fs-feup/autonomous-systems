@@ -33,7 +33,8 @@ class PerceptionPerformanceTest : public ::testing::Test {
 
         std::ofstream csv_file(output_statistics_path_file, std::ios::app);
         if (!fileExists) {
-            csv_file << "Initial Number of Points,Conversion Duration,RANSAC Epsilon,RANSAC Number Iterations,"
+            csv_file << "Initial Number of Points,Conversion Duration,"
+                        << "RANSAC Epsilon,RANSAC Number Iterations,"
                         << "Number of Points after RANSAC,RANSAC Duration(ms),"
                         << "DBSCAN Distance Threshold,DBSCAN Neighbours Threshold,"
                         << "Number of Generated Clusters,"
@@ -86,7 +87,7 @@ TEST_F(PerceptionPerformanceTest, TestPerformance) {
         std::string file_name =  inputFilesPaths + "PointCloud" + std::to_string(it) + ".pcd";
 
         pcl::io::loadPCDFile<pcl::PointXYZI>(file_name, *pcl_cloud);
-        
+
         sensor_msgs::msg::PointCloud2 msg;
 
         pcl::toROSMsg(*pcl_cloud, msg);
@@ -105,7 +106,9 @@ TEST_F(PerceptionPerformanceTest, TestPerformance) {
         pcl::PointCloud<pcl::PointXYZI>::Ptr
             ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
 
-        ground_removal->groundRemoval(pcl_cloud, ground_removed_cloud);
+        Plane plane;
+
+        ground_removal->groundRemoval(pcl_cloud, ground_removed_cloud, plane);
 
         auto ransac_time = std::chrono::high_resolution_clock::now();
         auto ransac_duration = std::chrono::duration_cast<std::chrono::milliseconds>
@@ -135,9 +138,11 @@ TEST_F(PerceptionPerformanceTest, TestPerformance) {
         auto coneDifferentiaion_duration = std::chrono::duration_cast<std::chrono::milliseconds>
             (end_time - dbscan_time);
 
-        auto total_time = std::chrono::duration_cast<std::chrono::duration<double, std::milli>>(end_time - start_time);
+        auto total_time = std::chrono::duration_cast<std::chrono::duration<double, std::milli>>
+                (end_time - start_time);
         writeToFile(pcl_cloud->size(), ransac_duration.count(), ground_removed_cloud->size(),
                 dbscan_duration.count(), coneDifferentiaion_duration.count(),
-                total_time.count(), clusters.size(), blues, yellows, undefineds, conversion_duration.count());
+                total_time.count(), clusters.size(), blues, yellows, undefineds,
+                        conversion_duration.count());
     }
 }

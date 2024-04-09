@@ -614,7 +614,7 @@ To use it to convert from ROS1 to ROS2:
 rosbags-convert ros1bag.bag --dst ./ros2bag/
 ```
 
-ROS Bags will be stored in the drive of the team in [this folder](https://drive.google.com/drive/u/2/folders/137Hw0NdZebkGi6DKBwr099P10TXo0yyP), inside the Simulation & Infrastructure subsystem, due to their large file size making them impractical to use with git. Despite this, you can create a 'bags' folder in the root of this repository for your own use, as it will be ignored.
+ROS Bags will be stored in Foxglove.
 
 ## RQT
 
