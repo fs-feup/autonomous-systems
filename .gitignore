@@ -4,7 +4,6 @@
 **/build/*
 **/install/*
 **/log/*
-.devcontainer
 **/doxygen/html/** 
 **/bags/*
 *.bag
