@@ -36,8 +36,6 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
 
   groundRemoval->groundRemoval(pcl_cloud, ground_removed_cloud, groundPlane);
 
-  pcl::io::savePCDFileASCII("ground_removed_cloud.pcd", *ground_removed_cloud);
-
   std::vector<Cluster> clusters;
 
   clustering->clustering(ground_removed_cloud, &clusters);
@@ -59,7 +57,6 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
   RCLCPP_DEBUG(this->get_logger(), "Point Cloud After Ground Removal: %ld points",
                ground_removed_cloud->points.size());
   RCLCPP_DEBUG(this->get_logger(), "Point Cloud after Clustering: %ld clusters", clusters.size());
-
 
   for (int i = 0; i < filtered_clusters.size(); i++) {
     coneDifferentiator->coneDifferentiation(&filtered_clusters[i]);
