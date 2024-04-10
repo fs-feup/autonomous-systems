@@ -15,12 +15,14 @@
 
 Perception::Perception(GroundRemoval* groundRemoval, Clustering* clustering,
                        ConeDifferentiation* coneDifferentiator,
-                       const std::vector<ConeValidator*>& coneValidators)
+                       const std::vector<ConeValidator*>& coneValidators,
+                       ConeEvaluator* coneEvaluator)
     : Node("perception"),
       groundRemoval(groundRemoval),
       clustering(clustering),
       coneDifferentiator(coneDifferentiator),
-      coneValidators(coneValidators) {
+      coneValidators(coneValidators),
+      coneEvaluator(coneEvaluator) {
   this->_cones_publisher = this->create_publisher<custom_interfaces::msg::ConeArray>("cones", 10);
 
   this->adapter = adapter_map[mode](this);
@@ -58,10 +60,14 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
   RCLCPP_DEBUG(this->get_logger(), "Point Cloud after Clustering: %ld clusters", clusters.size());
 
 
-  for (int i = 0; i < filtered_clusters.size(); i++) {
-    coneDifferentiator->coneDifferentiation(&filtered_clusters[i]);
-    std::string color = filtered_clusters[i].getColor();
-    RCLCPP_DEBUG(this->get_logger(), "Cone %d: %s", i, color.c_str());
+  for (int i = 0; i < clusters.size(); i++) {
+    coneDifferentiator->coneDifferentiation(&clusters[i]);
+    std::string color = clusters[i].getColor();
+    clusters[i].setColor(color);
+    double coneConfidence = coneEvaluator->evaluateCluster(clusters[i]);
+    clusters[i].setConfidence(coneConfidence);
+    RCLCPP_DEBUG(this->get_logger(), "Cone %d: %s - Confidence: %f",
+                i, color.c_str(), coneConfidence);
   }
 
 
@@ -78,6 +84,7 @@ void Perception::publishCones(std::vector<Cluster>* cones) {
     auto cone_message = custom_interfaces::msg::Cone();
     cone_message.position = position;
     cone_message.color = cones->at(i).getColor();
+    cone_message.confidence = cones->at(i).getConfidence();
     message.cone_array.push_back(cone_message);
   }
 

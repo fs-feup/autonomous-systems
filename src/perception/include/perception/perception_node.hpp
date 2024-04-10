@@ -13,6 +13,7 @@
 #include <utils/plane.hpp>
 #include <vector>
 #include "cone_validator/height_validator.hpp"
+#include <cone_evaluator/cone_evaluator.hpp>
 
 class Adapter;
 
@@ -33,6 +34,8 @@ class Perception : public rclcpp::Node {
   ConeDifferentiation* coneDifferentiator;  ///< Pointer to ConeDifferentiation object.
   Plane groundPlane;
   std::vector<ConeValidator*> coneValidators;
+  ConeEvaluator* coneEvaluator;
+
 
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr
       _point_cloud_subscription;  ///< PointCloud2 subscription.
@@ -58,7 +61,8 @@ class Perception : public rclcpp::Node {
    */
   Perception(GroundRemoval* groundRemoval, Clustering* clustering,
              ConeDifferentiation* coneDifferentiator,
-             const std::vector<ConeValidator*>& coneValidator);
+             const std::vector<ConeValidator*>& coneValidator,
+             ConeEvaluator* coneEvaluator);
 
   /**
    * @brief Callback function for the PointCloud2 subscription.
