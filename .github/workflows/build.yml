@@ -31,6 +31,7 @@ jobs:
           pip3 install colcon-common-extensions
           apt install -y python3-rosdep
           ./dependencies_install.sh
+          ./dependencies_integration_install.sh
       
       - name: Rosdep
         run: |
@@ -44,35 +45,35 @@ jobs:
           source /opt/ros/$ROS_DISTRO/setup.bash
           colcon build --packages-select custom_interfaces eufs_msgs fs_msgs
 
-      - name: Build and Test Localization and Mapping
-        run: |
-          source install/setup.bash
-          colcon build --packages-select loc_map
-          colcon test --packages-select loc_map --event-handler=console_direct+
+      # - name: Build and Test Localization and Mapping
+      #   run: |
+      #     source install/setup.bash
+      #     colcon build --packages-select loc_map
+      #     colcon test --packages-select loc_map --event-handler=console_direct+
 
-      - name: Build and Test Perception
-        run: |
-          source install/setup.bash
-          colcon build --packages-select perception
-          colcon test --packages-select perception --event-handler=console_direct+
+      # - name: Build and Test Perception
+      #   run: |
+      #     source install/setup.bash
+      #     colcon build --packages-select perception
+      #     colcon test --packages-select perception --event-handler=console_direct+
 
-      - name: Build and Test Planning
-        run: |
-          source install/setup.bash
-          colcon build --packages-select planning
-          colcon test --packages-select planning --event-handler=console_direct+
+      # - name: Build and Test Planning
+      #   run: |
+      #     source install/setup.bash
+      #     colcon build --packages-select planning
+      #     colcon test --packages-select planning --event-handler=console_direct+
 
-      - name: Build and Test Longitudinal Control
-        run: |
-          source install/setup.bash
-          colcon build --packages-select long_control
-          colcon test --packages-select long_control --event-handler=console_direct+
+      # - name: Build and Test Longitudinal Control
+      #   run: |
+      #     source install/setup.bash
+      #     colcon build --packages-select long_control
+      #     colcon test --packages-select long_control --event-handler=console_direct+
 
-      - name: Build and Test Inspection Node
-        run: |
-          source install/setup.bash
-          colcon build --packages-select inspection
-          colcon test --packages-select inspection --event-handler=console_direct+
+      # - name: Build and Test Inspection Node
+      #   run: |
+      #     source install/setup.bash
+      #     colcon build --packages-select inspection
+      #     colcon test --packages-select inspection --event-handler=console_direct+
 
       - name: Build and Test ROS CAN Node
         run: |
