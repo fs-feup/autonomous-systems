@@ -9,86 +9,63 @@ on:
 jobs:
 
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
+
+    container:
+      image: ros:humble-ros-base-jammy
 
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set LOCALE
+      - name: Install dependencies
         run: |
-          locale 
-          sudo apt update && sudo apt install locales
-          sudo locale-gen en_US en_US.UTF-8
-          sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
-          export LANG=en_US.UTF-8
-      # - name: Setup Sources
-      #   run: |
-      #     sudo apt install software-properties-common
-      #     sudo add-apt-repository universe
-      #     sudo apt update && sudo apt install curl
-      #     sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
-      #     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
+          apt-get update && apt-get upgrade -y
+          apt-get install -y python3-pip
+          apt install python-is-python3 -y
+          echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
+          apt install -y python3-pip
+          pip3 install colcon-common-extensions
+          apt install -y python3-rosdep
+          rosdep init
+          rosdep update --include-eol-distros
       
-      # - name: Update
-      #   run: |          
-      #     sudo apt update
+      - name: Build Messages
+        run: |
+          source /opt/ros/$ROS_DISTRO/setup.bash
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs loc_map
 
-      # - name: ROS2 Installation
-      #   run: sudo apt install ros-galactic-desktop
+      - name: Build and Test Localization and Mapping
+        run: |
+          source install/setup.bash
+          colcon build --packages-select loc_map
+          colcon test --packages-select loc_map --event-handler=console_direct+
 
-      # - name: Environment Setup
-      #   run: |
-      #     source /opt/ros/galactic/setup.bash
-      #     echo "source /opt/ros/galactic/setup.bash" >> ~/.bashrc
+      - name: Build and Test Perception
+        run: |
+          source install/setup.bash
+          colcon build --packages-select perception
+          colcon test --packages-select perception --event-handler=console_direct+
 
-      # - name: Colcon Installation
-      #   run: |
-      #     sudo sh -c 'echo "deb [arch=amd64,arm64] http://repo.ros2.org/ubuntu/main `lsb_release -cs` main" > /etc/apt/sources.list.d/ros2-latest.list'
-      #     curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
-      #     sudo apt update
-      #     sudo apt install python3-colcon-common-extensions
-      #     sudo apt install python3-pip
-      #     pip3 install colcon-common-extensions -U
+      - name: Build and Test Planning
+        run: |
+          source install/setup.bash
+          colcon build --packages-select planning
+          colcon test --packages-select planning --event-handler=console_direct+
 
-      # - name: Rosdep Installation
-      #   run: |
-      #     sudo apt install python3-rosdep
-      #     sudo rosdep init
-      #     rosdep update --include-eol-distros
+      - name: Build and Test Longitudinal Control
+        run: |
+          source install/setup.bash
+          colcon build --packages-select long_control
+          colcon test --packages-select long_control --event-handler=console_direct+
 
-      # - name: Dependencies Installation
-      #   run: |
-      #     cd ./src/
-      #     ./install_dependencies.sh
+      - name: Build and Test Inspection Node
+        run: |
+          source install/setup.bash
+          colcon build --packages-select inspection
+          colcon test --packages-select inspection --event-handler=console_direct+
 
-      # - name: Compile and Test Localization and Mapping
-      #   run: |
-      #     source /opt/ros/galactic/setup.bash
-      #     cd ./src/
-      #     colcon build --packages-select custom_interfaces eufs_msgs fs_msgs loc_map
-      #     source install/setup.bash
-      #     colcon test --packages-select loc_map --event-handler=console_direct+
-
-      # - name: Compile and Test Control
-      #   run: |
-      #     source /opt/ros/galactic/setup.bash
-      #     cd ./src/
-      #     colcon build --packages-select custom_interfaces eufs_msgs fs_msgs control
-      #     source install/setup.bash
-      #     colcon test --packages-select control --event-handler=console_direct+
-
-      # - name: Compile and Test Planning
-      #   run: |
-      #     source /opt/ros/galactic/setup.bash
-      #     cd ./src/
-      #     colcon build --packages-select custom_interfaces eufs_msgs fs_msgs planning
-      #     source install/setup.bash
-      #     colcon test --packages-select planning --event-handler=console_direct+
-
-      # - name: Compile and Test Perception
-      #   run: |
-      #     source /opt/ros/galactic/setup.bash
-      #     cd ./src/
-      #     colcon build --packages-select custom_interfaces eufs_msgs fs_msgs perception
-      #     source install/setup.bash
-      #     colcon test --packages-select depth_processing --event-handler=console_direct+
+      - name: Build and Test ROS CAN Node
+        run: |
+          source install/setup.bash
+          colcon build --packages-select ros_can
+          colcon test --packages-select ros_can --event-handler=console_direct+
