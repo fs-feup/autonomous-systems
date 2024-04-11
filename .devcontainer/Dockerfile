@@ -23,7 +23,6 @@ RUN pip3 install cpplint
 RUN pip install rosbags
 RUN apt install clang-format -y
 RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
-RUN curl -O https://www.doxygen.nl/files/doxygen-1.10.0.linux.bin.tar.gz && tar -xvzf doxygen-1.10.0.linux.bin.tar.gz && cd doxygen-1.10.0 && make install && cd .. && rm -rf doxygen-1.10.0 && rm doxygen-1.10.0.linux.bin.tar.gz
 ENV SHELL /bin/bash
 
 # ********************************************************
