@@ -26,8 +26,13 @@ jobs:
           apt install -y python3-pip
           pip3 install colcon-common-extensions
           apt install -y python3-rosdep
+      
+      - name: Rosdep
+        run: |
+          source /opt/ros/$ROS_DISTRO/setup.bash
           rosdep update
-          rosdep install --from-paths src --ignore-src -y 
+          rosdep install --from-paths src --ignore-src -r -y
+        continue-on-error: true
       
       - name: Build Messages
         run: |
