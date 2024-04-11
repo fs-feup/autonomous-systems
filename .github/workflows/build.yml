@@ -30,6 +30,7 @@ jobs:
           apt install -y python3-pip
           pip3 install colcon-common-extensions
           apt install -y python3-rosdep
+          ./dependencies_install.sh
       
       - name: Rosdep
         run: |
@@ -41,7 +42,7 @@ jobs:
       - name: Build Messages
         run: |
           source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs loc_map
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs
 
       - name: Build and Test Localization and Mapping
         run: |
