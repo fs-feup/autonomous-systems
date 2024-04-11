@@ -23,13 +23,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          apt-get update && apt-get upgrade -y
-          apt-get install -y python3-pip
-          apt install python-is-python3 -y
           echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
-          apt install -y python3-pip
-          pip3 install colcon-common-extensions
-          apt install -y python3-rosdep
           ./dependencies_install.sh
           ./dependencies_integration_install.sh
       
