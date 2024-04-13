@@ -1,10 +1,11 @@
 import rclpy
+from rclpy.qos import QoSProfile, QoSHistoryPolicy, QoSDurabilityPolicy, QoSReliabilityPolicy
 from rclpy.node import Node
 from custom_interfaces.msg import PointArray, ConeArray, Pose as PoseMsg
 from visualization_msgs.msg import MarkerArray
 from sensor_msgs.msg import PointCloud2
-
-
+from evaluator.perception_adapter import PerceptionAdapterROSBag, PerceptionAdapterFSDS
+import math
 
 
 class Cone:
@@ -13,6 +14,9 @@ class Cone:
         self.x = x
         self.y = y
         self.color = color
+    
+    def distance_to(self, cone):
+        return math.sqrt((self.x-cone.x)**2 + (self.y - cone.y)**2)
 
 class Evaluator(Node):
 
@@ -30,40 +34,27 @@ class Evaluator(Node):
             10
         )
 
-        self.point_cloud_callback = self.create_subscription(
-            PointCloud2,
-            '/hesai/pandar',
-            self.point_cloud_callback,
-            10
-        )
+        self.adater = PerceptionAdapterFSDS(self, 'hesai/pandar')
 
-        self.ground_truth_callbak = self.create_subscription(
-            MarkerArray,
-            '/perception/lidar/vis/cluster_markers',
-            self.perception_ground_truth_callback,
-            10
-        )
     
     def perception_callback(self, msg: ConeArray):
         self.get_logger().info("Perception Received")
         self.perception_points = []
         for cone in msg.cone_array:
             self.perception_points.append(Cone(cone.position.x, cone.position.y, cone.color))
-    
-    def point_cloud_callback(self, msg: PointCloud2):
-        self.get_logger().info("Point Cloud Received")
-    
-    def perception_ground_truth_callback(self, msg: MarkerArray):
-        self.get_logger().info("Perception Ground Truth Received")
-        self.perception_ground_truth
-        for marker in msg.markers:
-            cone_position = marker.pose.position
-            x = cone_position.x
-            y = cone_position.y
-            self.perception_ground_truth.append(Cone(x, y, None))
-        
 
-
+    def perception_evaluation(self, msg1, msg2, msg3):
+        self.get_logger().info("Creating the metrics...")
+        sum = 0
+        for perception_cone in self.perception_points:
+            closest = self.perception_ground_truth[0]
+            closest_distance = perception_cone.distance_to(closest)
+            for ground_truth_cone in self.perception_ground_truth:
+                if (perception_cone.distance_to(ground_truth_cone) < closest_distance):
+                    closest = ground_truth_cone
+                    closest_distance = perception_cone.distance_to(ground_truth_cone)
+            sum += closest_distance
+        self.get_logger().info(sum)
 
 def main(args=None):
     rclpy.init(args=args)
