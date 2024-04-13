@@ -1,7 +1,8 @@
 #include <pcl/conversions.h>
 #include <pcl/features/normal_3d.h>
-#include <vector>
+
 #include <cstdio>
+#include <vector>
 
 #include "perception/perception_node.hpp"
 

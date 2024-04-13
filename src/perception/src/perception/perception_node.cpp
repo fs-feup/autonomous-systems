@@ -7,11 +7,11 @@
 
 #include <cstdio>
 #include <string>
+#include <vector>
 
 #include "adapter/fsds.hpp"
 #include "adapter/map.hpp"
 #include "adapter/testlidar.hpp"
-#include <vector>
 
 Perception::Perception(GroundRemoval* groundRemoval, Clustering* clustering,
                        ConeDifferentiation* coneDifferentiator,
@@ -42,13 +42,12 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
   std::vector<Cluster> filtered_clusters;
 
   for (auto cluster : clusters) {
-      if (std::all_of(coneValidators.begin(), coneValidators.end(), [&](const auto& validator) {
+    if (std::all_of(coneValidators.begin(), coneValidators.end(), [&](const auto& validator) {
           return validator->coneValidator(&cluster, groundPlane);
-      })) {
-          filtered_clusters.push_back(cluster);
-      }
+        })) {
+      filtered_clusters.push_back(cluster);
+    }
   }
-
 
   RCLCPP_DEBUG(this->get_logger(), "---------- Point Cloud Received ----------");
   RCLCPP_DEBUG(this->get_logger(), "Point Cloud Before Ground Removal: %ld points",
@@ -57,13 +56,11 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
                ground_removed_cloud->points.size());
   RCLCPP_DEBUG(this->get_logger(), "Point Cloud after Clustering: %ld clusters", clusters.size());
 
-
   for (int i = 0; i < filtered_clusters.size(); i++) {
     coneDifferentiator->coneDifferentiation(&filtered_clusters[i]);
     std::string color = filtered_clusters[i].getColor();
     RCLCPP_DEBUG(this->get_logger(), "Cone %d: %s", i, color.c_str());
   }
-
 
   publishCones(&filtered_clusters);
 }
