@@ -1,6 +1,7 @@
 #include "ground_removal/ransac.hpp"
 
 #include <gtest/gtest.h>
+
 #include <utils/plane.hpp>
 
 /**
