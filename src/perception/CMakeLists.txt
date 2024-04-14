@@ -66,7 +66,8 @@ if(BUILD_TESTING)
                   src/cone_validator/height_validator.cpp
                   test/height_validator_test.cpp
                   test/cylinder_validator_test.cpp
-                  src/cone_evaluator/distance_predict.cpp)
+                  src/cone_evaluator/distance_predict.cpp
+                  test/distance_validator_test.cpp)
 
 
 target_link_libraries(perception_test ${PCL_LIBRARIES})
