@@ -40,6 +40,29 @@
  */
 #define STEERING_ID 0x700
 
+/*
+ * ID used from the IMU for:
+ * yaw rate
+ * acceleration in y
+ */
+#define IMU_YAW_RATE_ACC_Y_ID 0x174
+
+
+
+/*
+* ID used from the IMU for: 
+* roll rate
+* acceleration in x
+*/
+#define IMU_ROLL_RATE_ACC_X_ID 0x178
+
+/*
+* ID used from the IMU for:
+* pitch rate
+* acceleration in z
+*/
+#define IMU_PITCH_RATE_ACC_Z_ID 0x17C
+
 class RosCan : public rclcpp::Node {
  private:
   rclcpp::Publisher<custom_interfaces::msg::OperationalStatus>::SharedPtr operationalStatus;
@@ -74,6 +97,13 @@ class RosCan : public rclcpp::Node {
   uint64_t syncInterval2 = 0.0f;
 
   /*
+  * 1 if the first msg received is from C1
+  * 0 if the first msg received is from C2
+  * Used to determine the sync mode
+  */
+  bool firstMsgIsC1 = 0;
+
+  /*
    * if syncMode = 0, group rrRPM with rlRPM
    * if syncMode = 1, group rlRPM with rrRPM
    * (only publish when both have been recevied)
@@ -81,20 +111,20 @@ class RosCan : public rclcpp::Node {
   bool syncMode = 0;
 
   /*
-    * rlRPM = left wheel rpm
-    * rrRPM = right wheel rpm
-  */
+   * rlRPM = left wheel rpm
+   * rrRPM = right wheel rpm
+   */
   float rlRPM;
   float rrRPM;
 
   /*
-    rrRPMStatus = 0 if rrRPM has not been received/updated 
+    rrRPMStatus = 0 if rrRPM has not been received/updated
     rrRPMStatus = 1 if rrRPM has been received(ready to be published)
   */
   bool rrRPMStatus = 0;
 
   /*
-    rlRPMStatus = 0 if rlRPM has not been received/updated 
+    rlRPMStatus = 0 if rlRPM has not been received/updated
     rlRPMStatus = 1 if rlRPM has been received(ready to be published)
   */
   bool rlRPMStatus = 0;
@@ -140,6 +170,11 @@ class RosCan : public rclcpp::Node {
 
   /**
    * @brief Function to interpret the CAN msg
+   * @param id - the CAN msg id
+   * @param msg - the CAN msg
+   * @param dlc - the CAN msg length
+   * @param flag - the CAN msg flag - see kvaser documentation for more info
+   * @param time - the CAN msg time stamp
    */
   void canInterpreter(long id, unsigned char msg[8], unsigned int dlc, unsigned int flag,
                       unsigned long time);
@@ -156,13 +191,22 @@ class RosCan : public rclcpp::Node {
 
   /**
    * @brief Function to publish the imu values
+   * @param msg - the CAN msg
    */
   void imuPublisher(unsigned char msg[8]);
 
   /**
    * @brief Function to publish the steering angle
+   * @param angleLSB - the steering angle least significant byte
+   * @param angleMSB - the steering angle most significant byte
    */
   void steeringAnglePublisher(unsigned char angleLSB, unsigned char angleMSB);
+
+  /**
+   * @brief Function to interpret the master status CAN msg
+   * @param msg - the CAN msg
+   */
+  void canInterpreterMasterStatus(unsigned char msg[8]);
 
  public:
   /**

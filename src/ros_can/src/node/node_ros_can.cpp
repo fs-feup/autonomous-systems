@@ -73,37 +73,7 @@ void RosCan::canInterpreter(long id, unsigned char msg[8], unsigned int dlc, uns
                             unsigned long time) {
   switch (id) {
     case MASTER_STATUS:
-      switch (msg[0]) {
-        case 0x31:  // Current AS State
-        {
-          if (msg[1] == 3)  // If AS State == Driving
-            this->goSignal = 1;
-          else
-            this->goSignal = 0;
-          opStatusPublisher();
-          break;
-        }
-        case 0x32:  // Current AS Mission
-        {
-          this->asMission = msg[1];
-          opStatusPublisher();
-          break;
-        }
-        case 0x33:  // Left Wheel RPM
-        {
-          rlRPM = updatewheelRPM(msg);
-          rlRPMStatus = 1;
-
-          if (statusMsgCnt != 4)
-            syncRPM();
-          else if (syncMode == 0)
-            WheelRPMPublisher();
-
-          break;
-        }
-        default:
-          break;
-      }
+      canInterpreterMasterStatus(msg);
       break;
 
     case MASTER_IMU:
@@ -111,10 +81,15 @@ void RosCan::canInterpreter(long id, unsigned char msg[8], unsigned int dlc, uns
       break;
     case TEENSY_C1:
       if (msg[0] == 0x11) {  // Rear Right RPM
+
         rrRPM = updatewheelRPM(msg);
         rrRPMStatus = 1;
 
-        if (statusMsgCnt != 4)
+        //check if the first message is C1
+        if(statusMsgCnt = 0)
+          firstMsgIsC1 = 1;
+        
+        if (statusMsgCnt != 3)
           syncRPM();
         else if (syncMode == 1)
           WheelRPMPublisher();
@@ -153,6 +128,7 @@ void RosCan::WheelRPMPublisher() {
 
 /**
  * @brief Function to publish the imu values
+ * @param msg - the CAN msg
  */
 void RosCan::imuPublisher(unsigned char msg[8]) {
   // Publish the imu values to a topic
@@ -165,6 +141,8 @@ void RosCan::imuPublisher(unsigned char msg[8]) {
 
 /**
  * @brief Function to publish the steering angle
+ * @param angleLSB - the steering angle least significant byte
+ * @param angleMSB - the steering angle most significant byte
  */
 void RosCan::steeringAnglePublisher(unsigned char angleLSB, unsigned char angleMSB) {
   // Publish the steering angle to a topic
@@ -174,6 +152,10 @@ void RosCan::steeringAnglePublisher(unsigned char angleLSB, unsigned char angleM
   steeringAngle->publish(message);
 }
 
+
+/**
+ * @brief Function define the syncMode and calculate sync time
+ */
 void RosCan::syncRPM() {
   switch (statusMsgCnt) {
     case 0: {  // 1st msg
@@ -193,9 +175,6 @@ void RosCan::syncRPM() {
       curTime = this->now();
       syncInterval2 = curTime.nanoseconds() - syncInterval2;
       statusMsgCnt++;
-      break;
-    }
-    case 3: {  // Calculate syncMode
       if (syncInterval1 > syncInterval2) {
         syncMode = 0;
       } else {
@@ -208,7 +187,47 @@ void RosCan::syncRPM() {
   }
 }
 
+/**
+ * @brief Function to update the wheel rpm
+ * @return the wheel rpm
+ * @param msg - the CAN msg
+ */
 float RosCan::updatewheelRPM(unsigned char msg[8]) {
   int32_t RPMAux = (msg[4] << 24) | (msg[3] << 16) | (msg[2] << 8) | msg[1];
   return RPMAux / 100.0f;
+}
+
+void RosCan::canInterpreterMasterStatus(unsigned char msg[8]){
+  switch (msg[0]) {
+        case 0x31:  // Current AS State
+        {
+          if (msg[1] == 3)  // If AS State == Driving
+            this->goSignal = 1;
+          else
+            this->goSignal = 0;
+          opStatusPublisher();
+          break;
+        }
+        case 0x32:  // Current AS Mission
+        {
+          this->asMission = msg[1];
+          opStatusPublisher();
+          break;
+        }
+        case 0x33:  // Left Wheel RPM
+        {
+          rlRPM = updatewheelRPM(msg);
+          rlRPMStatus = 1;
+
+          if (statusMsgCnt != 3)
+            syncRPM();
+          else if (syncMode == 0)
+            WheelRPMPublisher();
+
+          break;
+        }
+        default:
+          break;
+      }
+
 }
