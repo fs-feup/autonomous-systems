@@ -185,7 +185,7 @@ $(document).ready(function(){initNavTree('d6/db1/inspection__ros_8cpp_source.htm
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>  <span class="comment">// publish suitable message</span></div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>  <span class="keywordflow">if</span> (elapsed_time &lt; (inspection_object-&gt;<a class="code hl_variable" href="../../d4/d89/class_inspection_functions.html#a65bb1d2839e89d346a88e0ac598b077c">finish_time</a>) * pow(10, 9)) {</div>
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    RCLCPP_DEBUG(this-&gt;get_logger(), <span class="stringliteral">&quot;Publishing control command. Steering: %f; Torque: %f&quot;</span>,</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>                control_command.steering, calculated_torque);</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>                 control_command.steering, calculated_torque);</div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    control_command_publisher-&gt;publish(control_command);</div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>  } <span class="keywordflow">else</span> {</div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    fs_msgs::msg::FinishedSignal finish;</div>
