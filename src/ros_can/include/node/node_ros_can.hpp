@@ -5,12 +5,12 @@
 #include <memory>
 #include <string>
 
-#include "rclcpp/rclcpp.hpp"
-#include "std_msgs/msg/int32.hpp"
-#include "std_msgs/msg/float32.hpp"
-#include "std_msgs/msg/string.hpp"
 #include "custom_interfaces/msg/imu.hpp"
+#include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/imu.hpp"
+#include "std_msgs/msg/float32.hpp"
+#include "std_msgs/msg/int32.hpp"
+#include "std_msgs/msg/string.hpp"
 
 /*
  * ID used for:
@@ -37,28 +37,20 @@
  */
 #define STEERING_ID 0x700
 
-//define throttle and steering upper and lower limit values
+// define throttle and steering upper and lower limit values
 #define THROTTLE_UPPER_LIMIT 100
 #define THROTTLE_LOWER_LIMIT 0
 #define STEERING_UPPER_LIMIT 100
 #define STEERING_LOWER_LIMIT 0
 
-
 class RosCan : public rclcpp::Node {
  private:
   // Enum to hold the state of the AS
- enum class State {
-    AS_Manual,
-    AS_Off,
-    AS_Ready,
-    AS_Driving,
-    AS_Finished,
-    AS_Emergency
-  };
+  enum class State { AS_Manual, AS_Off, AS_Ready, AS_Driving, AS_Finished, AS_Emergency };
 
   State currentState = State::AS_Off;
 
-  rclcpp::Publisher<std_msgs::msg::Int32>::SharedPtr asState; 
+  rclcpp::Publisher<std_msgs::msg::Int32>::SharedPtr asState;
   rclcpp::Publisher<std_msgs::msg::Int32>::SharedPtr asMission;
   rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr leftWheel;
   rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr rightWheel;
@@ -84,7 +76,6 @@ class RosCan : public rclcpp::Node {
    * @brief Function cyclically reads all CAN msg from buffer
    */
   void canSniffer();
-
 
   /**
    * @brief Function to interpret the CAN msg
@@ -112,7 +103,6 @@ class RosCan : public rclcpp::Node {
    */
   void rightWheelPublisher(unsigned char rpmLSB, unsigned char rpmMSB);
 
-
   /**
    * @brief Function to publish the imu values
    */
@@ -137,8 +127,6 @@ class RosCan : public rclcpp::Node {
    * @brief Function to handle the control command message
    */
   void control_callback(fs_msgs::msg::ControlCommand::SharedPtr msg);
-
-  
 
  public:
   /**

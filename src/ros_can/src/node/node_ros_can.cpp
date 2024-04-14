@@ -17,10 +17,12 @@ RosCan::RosCan() : Node("node_ros_can") {
   controlListener = this->create_subscription<fs_msgs::msg::ControlCommand>(
       "/as_msgs/controls", 10, std::bind(&RosCan::control_callback, this, std::placeholders::_1));
   emergencyListener = this->create_subscription<std_msgs::msg::String>(
-      "/as_msgs/emergency", 10, std::bind(&RosCan::emergency_callback, this, std::placeholders::_1));//maybe change type
+      "/as_msgs/emergency", 10,
+      std::bind(&RosCan::emergency_callback, this, std::placeholders::_1));  // maybe change type
   missionFinishedListener = this->create_subscription<std_msgs::msg::String>(
       "/as_msgs/mission_finished", 10,
-      std::bind(&RosCan::mission_finished_callback, this, std::placeholders::_1));//maybe change type
+      std::bind(&RosCan::mission_finished_callback, this,
+                std::placeholders::_1));  // maybe change type
   asState = this->create_publisher<std_msgs::msg::Int32>("asState", 10);
   asMission = this->create_publisher<std_msgs::msg::Int32>("asMission", 10);
   leftWheel = this->create_publisher<std_msgs::msg::Float32>("leftWheel", 10);
@@ -58,14 +60,14 @@ void RosCan::control_callback(fs_msgs::msg::ControlCommand::SharedPtr controlCmd
   if (controlCmd->throttle < THROTTLE_LOWER_LIMIT || controlCmd->throttle > THROTTLE_UPPER_LIMIT) {
     RCLCPP_ERROR(this->get_logger(), "Throttle value out of range");
     return;
-  } 
+  }
   if (currentState == State::AS_Driving) {
-    RCLCPP_DEBUG(this->get_logger(), "State is Driving: Steering: %f, Throttle: %f", controlCmd->steering,
-                 controlCmd->throttle);
+    RCLCPP_DEBUG(this->get_logger(), "State is Driving: Steering: %f, Throttle: %f",
+                 controlCmd->steering, controlCmd->throttle);
     canInitializeLibrary();  // initialize the CAN library again, just in case (could be removed)
     // Prepare the steering message
     long steering_id = STEERING_ID;  // TODO: confirm ID
-    void* steering_requestData = (void*)&controlCmd->steering;
+    void* steering_requestData = static_cast<void*> &controlCmd->steering;
     unsigned int steering_dlc = 8;
     unsigned int flag = 0;
 
@@ -77,7 +79,7 @@ void RosCan::control_callback(fs_msgs::msg::ControlCommand::SharedPtr controlCmd
 
     // Prepare the throttle message
     long throttle_id = 0x201;  // TODO: confirm ID
-    void* throttle_requestData = (void*)&foo2->throttle;
+    void* throttle_requestData = static_cast<void*> &foo2->throttle;
     unsigned int throttle_dlc = 8;
 
     // Write the throttle message to the CAN bus
