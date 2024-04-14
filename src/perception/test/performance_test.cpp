@@ -3,6 +3,8 @@
 #include "clustering/dbscan.hpp"
 #include "cone_differentiation/least_squares_differentiation.hpp"
 #include <chrono>
+#include <sstream>
+#include <ctime>
 #include <fstream>
 #include <pcl/io/pcd_io.h>
 #include <filesystem>
@@ -17,6 +19,16 @@ class PerceptionPerformanceTest : public ::testing::Test {
         clustering = new DBSCAN(DBSCAN_neighbours_threshold, DBSCAN_dist_threshold);
         cone_differentiator = new LeastSquaresDifferentiation();
     }
+
+    std::string getCurrentDateTimeAsString() {
+        auto now = std::chrono::system_clock::now();
+        std::time_t now_time = std::chrono::system_clock::to_time_t(now);
+        std::tm* now_tm = std::localtime(&now_time);
+        std::stringstream ss;
+        ss << std::put_time(now_tm, "%Y-%m-%d-%H:%M");
+        return ss.str();
+    }
+
 
     void writeToFile(long long initial_n_points,
                      long long RANSAC_time,
@@ -64,8 +76,8 @@ class PerceptionPerformanceTest : public ::testing::Test {
         csv_file.close();
     }
 
-
-    std::string output_statistics_path_file = "../../src/performance/exec_time/perception02.csv";
+    std::string output_statistics_path_file = "../../performance/exec_time/perception_" +
+                    getCurrentDateTimeAsString() + ".csv";
     std::string inputFilesPaths = "../../src/perception/test/point_clouds/";
 
     GroundRemoval* ground_removal;
