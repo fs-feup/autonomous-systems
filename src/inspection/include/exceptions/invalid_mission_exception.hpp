@@ -9,13 +9,12 @@ class InvalidMissionException : public std::exception {
 
  public:
   explicit InvalidMissionException(const std::string& msg) : message(msg) {
-    this->message = "Invalid mission. Please choose between 'inspection' and 'inspection_test_EBS'; chose '" +
-            msg + "' instead.";
+    this->message =
+        "Invalid mission. Please choose between 'inspection' and 'inspection_test_EBS'; chose '" +
+        msg + "' instead.";
   }
 
-  const char *what() const throw() {
-    return this->message.c_str();
-  }
+  const char* what() const throw() { return this->message.c_str(); }
 };
 
 #endif  // INVALID_MISSION_EXCEPTION_HPP
