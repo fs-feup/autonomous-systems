@@ -8,7 +8,43 @@ on:
 
 jobs:
 
-  build:
+  perception:
+    runs-on: ubuntu-latest
+
+    container:
+      image: ros:humble-ros-base-jammy
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
+          ./dependencies_install.sh
+      
+      - name: Rosdep
+        run: |
+          source /opt/ros/$ROS_DISTRO/setup.bash
+          rosdep update
+          rosdep install --from-paths src --ignore-src -r -y
+        continue-on-error: true
+      
+      - name: Build Messages
+        run: |
+          source /opt/ros/$ROS_DISTRO/setup.bash
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs
+
+      - name: Build and Test Perception
+        run: |
+          source install/setup.bash
+          colcon build --packages-select perception
+          colcon test --packages-select perception --event-handler=console_direct+
+
+  loc_map:
     runs-on: ubuntu-latest
 
     container:
@@ -44,17 +80,36 @@ jobs:
           colcon build --packages-select loc_map
           colcon test --packages-select loc_map --event-handler=console_direct+
 
-      - name: Build and Test Perception
-        run: |
-          source install/setup.bash
-          colcon build --packages-select perception
-          colcon test --packages-select perception --event-handler=console_direct+
+      
+  long_control:
+    runs-on: ubuntu-latest
 
-      - name: Build and Test Planning
+    container:
+      image: ros:humble-ros-base-jammy
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install dependencies
         run: |
-          source install/setup.bash
-          colcon build --packages-select planning
-          colcon test --packages-select planning --event-handler=console_direct+
+          echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
+          ./dependencies_install.sh
+      
+      - name: Rosdep
+        run: |
+          source /opt/ros/$ROS_DISTRO/setup.bash
+          rosdep update
+          rosdep install --from-paths src --ignore-src -r -y
+        continue-on-error: true
+      
+      - name: Build Messages
+        run: |
+          source /opt/ros/$ROS_DISTRO/setup.bash
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs
 
       - name: Build and Test Longitudinal Control
         run: |
@@ -62,8 +117,77 @@ jobs:
           colcon build --packages-select long_control
           colcon test --packages-select long_control --event-handler=console_direct+
 
+
+  planning:
+    runs-on: ubuntu-latest
+
+    container:
+      image: ros:humble-ros-base-jammy
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
+          ./dependencies_install.sh
+      
+      - name: Rosdep
+        run: |
+          source /opt/ros/$ROS_DISTRO/setup.bash
+          rosdep update
+          rosdep install --from-paths src --ignore-src -r -y
+        continue-on-error: true
+      
+      - name: Build Messages
+        run: |
+          source /opt/ros/$ROS_DISTRO/setup.bash
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs
+
+      - name: Build and Test Planning
+        run: |
+          source install/setup.bash
+          colcon build --packages-select planning
+          colcon test --packages-select planning --event-handler=console_direct+
+
+
+  inspection:
+    runs-on: ubuntu-latest
+
+    container:
+      image: ros:humble-ros-base-jammy
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
+          ./dependencies_install.sh
+      
+      - name: Rosdep
+        run: |
+          source /opt/ros/$ROS_DISTRO/setup.bash
+          rosdep update
+          rosdep install --from-paths src --ignore-src -r -y
+        continue-on-error: true
+      
+      - name: Build Messages
+        run: |
+          source /opt/ros/$ROS_DISTRO/setup.bash
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs
+
       - name: Build and Test Inspection Node
         run: |
           source install/setup.bash
           colcon build --packages-select inspection
           colcon test --packages-select inspection --event-handler=console_direct+
+
