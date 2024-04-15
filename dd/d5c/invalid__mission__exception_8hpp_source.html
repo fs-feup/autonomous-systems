@@ -110,23 +110,22 @@ $(document).ready(function(){initNavTree('dd/d5c/invalid__mission__exception_8hp
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>  std::string message;</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="../../d3/df9/class_invalid_mission_exception.html#ac1381c2ed76b0958f1b7cc5a490dd842">   11</a></span>  <span class="keyword">explicit</span> <a class="code hl_function" href="../../d3/df9/class_invalid_mission_exception.html#ac1381c2ed76b0958f1b7cc5a490dd842">InvalidMissionException</a>(std::string msg) : message(msg) {}</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="foldopen" id="foldopen00013" data-start="{" data-end="}">
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="../../d3/df9/class_invalid_mission_exception.html#a86be85c1d7bae64741c191aba89887b3">   13</a></span>  <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code hl_function" href="../../d3/df9/class_invalid_mission_exception.html#a86be85c1d7bae64741c191aba89887b3">what</a>() <span class="keyword">const</span> throw() {</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keywordflow">return</span> (<span class="stringliteral">&quot;Invalid mission. Please choose between &#39;inspection&#39; and &#39;inspection_test_EBS&#39;; chose &quot;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>            <span class="stringliteral">&quot;&#39;&quot;</span> +</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>            message + <span class="stringliteral">&quot;&#39; instead.&quot;</span>)</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        .c_str();</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>  }</div>
+<div class="foldopen" id="foldopen00011" data-start="{" data-end="}">
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="../../d3/df9/class_invalid_mission_exception.html#abc151ad9124b662cc86e87c7ad8995e8">   11</a></span>  <span class="keyword">explicit</span> <a class="code hl_function" href="../../d3/df9/class_invalid_mission_exception.html#abc151ad9124b662cc86e87c7ad8995e8">InvalidMissionException</a>(<span class="keyword">const</span> std::string&amp; msg) : message(msg) {</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    this-&gt;message =</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>        <span class="stringliteral">&quot;Invalid mission. Please choose between &#39;inspection&#39; and &#39;inspection_test_EBS&#39;; chose &#39;&quot;</span> +</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        msg + <span class="stringliteral">&quot;&#39; instead.&quot;</span>;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>  }</div>
 </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>};</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="../../d3/df9/class_invalid_mission_exception.html#a86be85c1d7bae64741c191aba89887b3">   17</a></span>  <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code hl_function" href="../../d3/df9/class_invalid_mission_exception.html#a86be85c1d7bae64741c191aba89887b3">what</a>() <span class="keyword">const</span> throw() { <span class="keywordflow">return</span> this-&gt;message.c_str(); }</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>};</div>
 </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#endif  </span><span class="comment">// INVALID_MISSION_EXCEPTION_HPP</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#endif  </span><span class="comment">// INVALID_MISSION_EXCEPTION_HPP</span></div>
 <div class="ttc" id="aclass_invalid_mission_exception_html"><div class="ttname"><a href="../../d3/df9/class_invalid_mission_exception.html">InvalidMissionException</a></div><div class="ttdef"><b>Definition</b> <a href="../../dd/d5c/invalid__mission__exception_8hpp_source.html#l00007">invalid_mission_exception.hpp:7</a></div></div>
-<div class="ttc" id="aclass_invalid_mission_exception_html_a86be85c1d7bae64741c191aba89887b3"><div class="ttname"><a href="../../d3/df9/class_invalid_mission_exception.html#a86be85c1d7bae64741c191aba89887b3">InvalidMissionException::what</a></div><div class="ttdeci">const char * what() const</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d5c/invalid__mission__exception_8hpp_source.html#l00013">invalid_mission_exception.hpp:13</a></div></div>
-<div class="ttc" id="aclass_invalid_mission_exception_html_ac1381c2ed76b0958f1b7cc5a490dd842"><div class="ttname"><a href="../../d3/df9/class_invalid_mission_exception.html#ac1381c2ed76b0958f1b7cc5a490dd842">InvalidMissionException::InvalidMissionException</a></div><div class="ttdeci">InvalidMissionException(std::string msg)</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d5c/invalid__mission__exception_8hpp_source.html#l00011">invalid_mission_exception.hpp:11</a></div></div>
+<div class="ttc" id="aclass_invalid_mission_exception_html_a86be85c1d7bae64741c191aba89887b3"><div class="ttname"><a href="../../d3/df9/class_invalid_mission_exception.html#a86be85c1d7bae64741c191aba89887b3">InvalidMissionException::what</a></div><div class="ttdeci">const char * what() const</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d5c/invalid__mission__exception_8hpp_source.html#l00017">invalid_mission_exception.hpp:17</a></div></div>
+<div class="ttc" id="aclass_invalid_mission_exception_html_abc151ad9124b662cc86e87c7ad8995e8"><div class="ttname"><a href="../../d3/df9/class_invalid_mission_exception.html#abc151ad9124b662cc86e87c7ad8995e8">InvalidMissionException::InvalidMissionException</a></div><div class="ttdeci">InvalidMissionException(const std::string &amp;msg)</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d5c/invalid__mission__exception_8hpp_source.html#l00011">invalid_mission_exception.hpp:11</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

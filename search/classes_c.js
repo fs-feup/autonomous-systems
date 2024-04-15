@@ -6,8 +6,7 @@ var searchData=
   ['pid_3',['PID',['../d6/d5a/class_p_i_d.html',1,'']]],
   ['plane_4',['Plane',['../d2/d8d/class_plane.html',1,'']]],
   ['planning_5',['Planning',['../d9/db5/class_planning.html',1,'']]],
-  ['plots_6',['Plots',['../d8/dee/classplots_1_1plots_1_1_plots.html',1,'plots::plots']]],
-  ['pose_7',['pose',['../d4/dc9/classplots_1_1plots_1_1_pose.html',1,'plots.plots.Pose'],['../d8/d11/struct_pose.html',1,'Pose']]],
-  ['position_8',['position',['../d3/d6d/classplots_1_1plots_1_1_position.html',1,'plots.plots.Position'],['../d1/d26/struct_position.html',1,'Position']]],
-  ['publisher_9',['Publisher',['../df/d57/class_publisher.html',1,'']]]
+  ['pose_6',['Pose',['../d8/d11/struct_pose.html',1,'']]],
+  ['position_7',['Position',['../d1/d26/struct_position.html',1,'']]],
+  ['publisher_8',['Publisher',['../df/d57/class_publisher.html',1,'']]]
 ];

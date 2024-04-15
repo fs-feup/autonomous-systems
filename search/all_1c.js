@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['zip_5fsafe_0',['zip_safe',['../dd/dc4/namespacesetup.html#a13510753661cb74083a0c664db11dde9',1,'setup']]]
+  ['_7etrack_0',['~Track',['../d6/d2c/class_track.html#a416e75e66accc8eb9e3fafc3e8555216',1,'Track']]]
 ];

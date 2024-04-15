@@ -104,19 +104,12 @@ var NAVTREE =
       [ "Full Documentation", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md57", null ],
       [ "Main External Libraries", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md58", null ]
     ] ],
-    [ "Evaluation Tool (Plots) Module", "df/dc0/md_src_2plots_2_r_e_a_d_m_e.html", [
-      [ "Run the Node", "df/dc0/md_src_2plots_2_r_e_a_d_m_e.html#autotoc_md60", [
-        [ "Compile", "df/dc0/md_src_2plots_2_r_e_a_d_m_e.html#autotoc_md61", null ],
-        [ "Run", "df/dc0/md_src_2plots_2_r_e_a_d_m_e.html#autotoc_md62", null ]
-      ] ],
-      [ "Main External Libraries", "df/dc0/md_src_2plots_2_r_e_a_d_m_e.html#autotoc_md63", null ]
-    ] ],
     [ "Contributing", "d7/d37/md_src_2_r_e_a_d_m_e.html", [
-      [ "Natural Workflow", "d7/d37/md_src_2_r_e_a_d_m_e.html#autotoc_md65", null ],
-      [ "Notes on Nodes, Packages, Compiling, Executing and Dependencies", "d7/d37/md_src_2_r_e_a_d_m_e.html#autotoc_md66", [
-        [ "Compile and Run Extended", "d7/d37/md_src_2_r_e_a_d_m_e.html#autotoc_md67", null ],
-        [ "Compilation Dependencies", "d7/d37/md_src_2_r_e_a_d_m_e.html#autotoc_md68", null ],
-        [ "Testing", "d7/d37/md_src_2_r_e_a_d_m_e.html#autotoc_md69", null ]
+      [ "Natural Workflow", "d7/d37/md_src_2_r_e_a_d_m_e.html#autotoc_md60", null ],
+      [ "Notes on Nodes, Packages, Compiling, Executing and Dependencies", "d7/d37/md_src_2_r_e_a_d_m_e.html#autotoc_md61", [
+        [ "Compile and Run Extended", "d7/d37/md_src_2_r_e_a_d_m_e.html#autotoc_md62", null ],
+        [ "Compilation Dependencies", "d7/d37/md_src_2_r_e_a_d_m_e.html#autotoc_md63", null ],
+        [ "Testing", "d7/d37/md_src_2_r_e_a_d_m_e.html#autotoc_md64", null ]
       ] ]
     ] ],
     [ "Namespaces", "namespaces.html", [
@@ -157,11 +150,10 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"d3/da8/ransac__test_8cpp.html#a58a9606006bb06536d709b53753d50ed",
-"d7/d4e/class_integration_test.html#a61a390ca22163052190ef68da2801949",
-"d9/d1f/class_height_validator.html#ac32f47cd9bcfc58e8951b151bf356752",
-"dc/da5/cylinder__validator__test_8cpp_source.html",
-"dir_4ee027154a34132dae418958e9000843.html"
+"d4/d22/inspection__functions_8hpp.html",
+"d7/db7/class_path_smoothing.html#a353e6d4bfab4b2a3f92cd630d8dd2175",
+"db/d6d/struct_motion_update.html#a9e379a3961481052b24b69a8531eae76",
+"df/d6a/class_d_b_s_c_a_n.html#a94493ac3bb1a2e9df61bed66ad78ced8"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

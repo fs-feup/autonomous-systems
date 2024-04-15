@@ -99,36 +99,38 @@ $(document).ready(function(){initNavTree('d6/d46/offsettrack_8py_source.html','.
   <div class="headertitle"><div class="title">offsettrack.py</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="../../d6/d46/offsettrack_8py.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno"><a class="line" href="../../dd/d6b/namespaceoffsettrack.html">    1</a></span><span class="stringliteral">&quot;&quot;&quot;!</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="stringliteral">Code to add outliers to a track in a file used for testing</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno"><a class="line" href="../../dd/d6b/namespaceoffsettrack.html#a0e752bfa635e5efd10f09fd498844377">    6</a></span>x_values = []</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="../../dd/d6b/namespaceoffsettrack.html#a3e5524acd402b6af74b3fe7fab06fd6f">    7</a></span>y_values = []</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="../../dd/d6b/namespaceoffsettrack.html#a5324cb11b8bd1bb4a08fef0f29eda572">    8</a></span>c_values=[]</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">with</span> open(<span class="stringliteral">&quot;map_250.txt&quot;</span>, <span class="stringliteral">&quot;r&quot;</span>) <span class="keyword">as</span> file:</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="keywordflow">for</span> line <span class="keywordflow">in</span> file:</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="../../dd/d6b/namespaceoffsettrack.html#a542da5b04a1e712f612e5ea00a5a720c">   12</a></span>        line = line.strip()  <span class="comment"># Remove leading/trailing whitespace</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>        <span class="keywordflow">if</span> line:</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="../../dd/d6b/namespaceoffsettrack.html#a69901488f64f2102f31272f623559e12">   14</a></span>            x, y, c= line.split()</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>            x_values.append(float(x))</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>            y_values.append(float(y))</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>            c_values.append(c)</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<a href="../../d6/d46/offsettrack_8py.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno"><a class="line" href="../../dd/d6b/namespaceoffsettrack.html">    1</a></span><span class="comment"># pylint: skip-file</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"># mypy: ignore-errors</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="stringliteral">&quot;&quot;&quot;!</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="stringliteral">Code to add outliers to a track in a file used for testing</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="../../dd/d6b/namespaceoffsettrack.html#a0e752bfa635e5efd10f09fd498844377">    7</a></span>x_values = []</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="../../dd/d6b/namespaceoffsettrack.html#a3e5524acd402b6af74b3fe7fab06fd6f">    8</a></span>y_values = []</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="../../dd/d6b/namespaceoffsettrack.html#a5324cb11b8bd1bb4a08fef0f29eda572">    9</a></span>c_values = []</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">with</span> open(<span class="stringliteral">&quot;map_250.txt&quot;</span>, <span class="stringliteral">&quot;r&quot;</span>) <span class="keyword">as</span> file:</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keywordflow">for</span> line <span class="keywordflow">in</span> file:</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="../../dd/d6b/namespaceoffsettrack.html#a542da5b04a1e712f612e5ea00a5a720c">   13</a></span>        line = line.strip()  <span class="comment"># Remove leading/trailing whitespace</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        <span class="keywordflow">if</span> line:</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="../../dd/d6b/namespaceoffsettrack.html#a69901488f64f2102f31272f623559e12">   15</a></span>            x, y, c = line.split()</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>            x_values.append(float(x))</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>            y_values.append(float(y))</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>            c_values.append(c)</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="../../dd/d6b/namespaceoffsettrack.html#a76be2db180b6b9927e28515536cf00b2">   20</a></span>f = open(<span class="stringliteral">&quot;map_250_out10.txt&quot;</span>, <span class="stringliteral">&#39;w&#39;</span>)</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="../../dd/d6b/namespaceoffsettrack.html#afefbbb4f39da3e83816bf5d31d797527">   21</a></span>count = 0</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keywordflow">for</span> i <span class="keywordflow">in</span> range(len(x_values)):</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keywordflow">if</span> i % 25 == 0:</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        f.write(str(x_values[i] + 3) + <span class="stringliteral">&quot; &quot;</span> +\</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>            str(y_values[i]) + <span class="stringliteral">&quot; &quot;</span> + c_values[i] + <span class="stringliteral">&quot;\n&quot;</span>)</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keywordflow">else</span>:</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        f.write(str(x_values[i]) + <span class="stringliteral">&quot; &quot;</span> + str(y_values[i]) + <span class="stringliteral">&quot; &quot;</span> + c_values[i] + <span class="stringliteral">&quot;\n&quot;</span>)</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>f.close()</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="../../dd/d6b/namespaceoffsettrack.html#a76be2db180b6b9927e28515536cf00b2">   21</a></span>f = open(<span class="stringliteral">&quot;map_250_out10.txt&quot;</span>, <span class="stringliteral">&quot;w&quot;</span>)</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="../../dd/d6b/namespaceoffsettrack.html#afefbbb4f39da3e83816bf5d31d797527">   22</a></span>count = 0</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keywordflow">for</span> i <span class="keywordflow">in</span> range(len(x_values)):</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordflow">if</span> i % 25 == 0:</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        f.write(</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>            str(x_values[i] + 3) + <span class="stringliteral">&quot; &quot;</span> + str(y_values[i]) + <span class="stringliteral">&quot; &quot;</span> + c_values[i] + <span class="stringliteral">&quot;\n&quot;</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        )</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordflow">else</span>:</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        f.write(str(x_values[i]) + <span class="stringliteral">&quot; &quot;</span> + str(y_values[i]) + <span class="stringliteral">&quot; &quot;</span> + c_values[i] + <span class="stringliteral">&quot;\n&quot;</span>)</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>f.close()</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

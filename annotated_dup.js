@@ -1,13 +1,5 @@
 var annotated_dup =
 [
-    [ "plots", "da/dc0/namespaceplots.html", [
-      [ "plots", "d3/d43/namespaceplots_1_1plots.html", [
-        [ "Cone", "db/d27/classplots_1_1plots_1_1_cone.html", "db/d27/classplots_1_1plots_1_1_cone" ],
-        [ "Plots", "d8/dee/classplots_1_1plots_1_1_plots.html", "d8/dee/classplots_1_1plots_1_1_plots" ],
-        [ "Pose", "d4/dc9/classplots_1_1plots_1_1_pose.html", "d4/dc9/classplots_1_1plots_1_1_pose" ],
-        [ "Position", "d3/d6d/classplots_1_1plots_1_1_position.html", "d3/d6d/classplots_1_1plots_1_1_position" ]
-      ] ]
-    ] ],
     [ "Adapter", "d3/d7f/class_adapter.html", "d3/d7f/class_adapter" ],
     [ "Cluster", "d2/d23/class_cluster.html", "d2/d23/class_cluster" ],
     [ "Clustering", "d9/d10/class_clustering.html", "d9/d10/class_clustering" ],

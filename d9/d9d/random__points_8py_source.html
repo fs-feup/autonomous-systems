@@ -99,32 +99,32 @@ $(document).ready(function(){initNavTree('d9/d9d/random__points_8py_source.html'
   <div class="headertitle"><div class="title">random_points.py</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="../../d9/d9d/random__points_8py.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno"><a class="line" href="../../de/da7/namespacerandom__points.html">    1</a></span><span class="stringliteral">&quot;&quot;&quot;!</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="stringliteral">Generates a random path which is written to a file for testing</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">from</span> random <span class="keyword">import</span> random</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">from</span> random <span class="keyword">import</span> seed</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>seed(datetime.now().timestamp())</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="../../de/da7/namespacerandom__points.html#a14a62e2a87bab023adc792ba94a4a259">   10</a></span>f = open(<span class="stringliteral">&quot;map_250_rng.txt&quot;</span>, <span class="stringliteral">&#39;w&#39;</span>)</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keywordflow">for</span> i <span class="keywordflow">in</span> range(266):</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keywordflow">if</span> random() &gt;= 0.5:</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="../../de/da7/namespacerandom__points.html#a047d34e53b4e5d11b5601455c31473fe">   14</a></span>        color = <span class="stringliteral">&quot;blue_cone&quot;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keywordflow">else</span>:</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        color = <span class="stringliteral">&quot;yellow_cone&quot;</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="../../de/da7/namespacerandom__points.html#ad6e2e4a7b9f2c406d66374be3e62afd9">   18</a></span>    x = 100*random()</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="../../de/da7/namespacerandom__points.html#ae888b532a92ecf74d9946d6c956bc13c">   19</a></span>    y = 100*random()</div>
+<a href="../../d9/d9d/random__points_8py.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno"><a class="line" href="../../de/da7/namespacerandom__points.html">    1</a></span><span class="comment"># pylint: skip-file</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"># mypy: ignore-errors</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="stringliteral">&quot;&quot;&quot;!</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="stringliteral">Generates a random path which is written to a file for testing</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">from</span> random <span class="keyword">import</span> random</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">from</span> random <span class="keyword">import</span> seed</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>seed(datetime.now().timestamp())</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="../../de/da7/namespacerandom__points.html#a14a62e2a87bab023adc792ba94a4a259">   13</a></span>f = open(<span class="stringliteral">&quot;map_250_rng.txt&quot;</span>, <span class="stringliteral">&quot;w&quot;</span>)</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keywordflow">for</span> i <span class="keywordflow">in</span> range(266):</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keywordflow">if</span> random() &gt;= 0.5:</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="../../de/da7/namespacerandom__points.html#a047d34e53b4e5d11b5601455c31473fe">   17</a></span>        color = <span class="stringliteral">&quot;blue_cone&quot;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keywordflow">else</span>:</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        color = <span class="stringliteral">&quot;yellow_cone&quot;</span></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    f.write(str(x) + <span class="stringliteral">&quot; &quot;</span> + str(y) + <span class="stringliteral">&quot; &quot;</span> + color + <span class="stringliteral">&quot;\n&quot;</span>)</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>f.close()</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="../../de/da7/namespacerandom__points.html#ad6e2e4a7b9f2c406d66374be3e62afd9">   21</a></span>    x = 100 * random()</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="../../de/da7/namespacerandom__points.html#ae888b532a92ecf74d9946d6c956bc13c">   22</a></span>    y = 100 * random()</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    f.write(str(x) + <span class="stringliteral">&quot; &quot;</span> + str(y) + <span class="stringliteral">&quot; &quot;</span> + color + <span class="stringliteral">&quot;\n&quot;</span>)</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>f.close()</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

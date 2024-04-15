@@ -63,46 +63,30 @@ var namespaces_dup =
       [ "yMidList", "dc/d1a/namespaceplot__track.html#a3fffd0be98293e578dd8565d718e7bbb", null ],
       [ "yTrackList", "dc/d1a/namespaceplot__track.html#a7246ba4a12b317bbdf17f284b716a171", null ]
     ] ],
-    [ "plots", "da/dc0/namespaceplots.html", "da/dc0/namespaceplots" ],
     [ "random_points", "de/da7/namespacerandom__points.html", [
       [ "color", "de/da7/namespacerandom__points.html#a047d34e53b4e5d11b5601455c31473fe", null ],
       [ "f", "de/da7/namespacerandom__points.html#a14a62e2a87bab023adc792ba94a4a259", null ],
       [ "x", "de/da7/namespacerandom__points.html#ad6e2e4a7b9f2c406d66374be3e62afd9", null ],
       [ "y", "de/da7/namespacerandom__points.html#ae888b532a92ecf74d9946d6c956bc13c", null ]
     ] ],
-    [ "setup", "dd/dc4/namespacesetup.html", [
-      [ "data_files", "dd/dc4/namespacesetup.html#ad027a8e9452da003dca32bf7467bd16e", null ],
-      [ "description", "dd/dc4/namespacesetup.html#aedf461ec52a946bda975938ba0b93ec0", null ],
-      [ "entry_points", "dd/dc4/namespacesetup.html#ada7058afc98897f073d3f3b8b9157059", null ],
-      [ "install_requires", "dd/dc4/namespacesetup.html#abead4f26b530856f858f0d44c7cf2588", null ],
-      [ "license", "dd/dc4/namespacesetup.html#a8ed6f50a28bd6a8794f8e1153baa6de9", null ],
-      [ "maintainer", "dd/dc4/namespacesetup.html#aa1a7cf9bbf76004bb72697dc00bbee9d", null ],
-      [ "maintainer_email", "dd/dc4/namespacesetup.html#a92a81adbfdd219564d5246ce8d77f869", null ],
-      [ "name", "dd/dc4/namespacesetup.html#ab3a7a0638d76a01367c5bc3cc699447f", null ],
-      [ "package_name", "dd/dc4/namespacesetup.html#a69903e4f05cebc9e005b22b36f5724eb", null ],
-      [ "packages", "dd/dc4/namespacesetup.html#aff2375a361fd5865c77bd9aa093be747", null ],
-      [ "tests_require", "dd/dc4/namespacesetup.html#a6369bb060267ccf90b93519796e7cc2c", null ],
-      [ "version", "dd/dc4/namespacesetup.html#a2aa722b36a933088812b50ea79b97a5c", null ],
-      [ "zip_safe", "dd/dc4/namespacesetup.html#a13510753661cb74083a0c664db11dde9", null ]
-    ] ],
     [ "skidpad_mapper", "d2/de4/namespaceskidpad__mapper.html", [
       [ "shift", "d2/de4/namespaceskidpad__mapper.html#a525cc4232cf215956ee076464a1c476d", null ],
       [ "c", "d2/de4/namespaceskidpad__mapper.html#a0e4a6d957c26c55a3664759e8e01e241", null ],
-      [ "center_x", "d2/de4/namespaceskidpad__mapper.html#a4014abd17d422eefee598927c46e2036", null ],
-      [ "center_y", "d2/de4/namespaceskidpad__mapper.html#a3d8153265aac4fdf58d3f4e4c4bd0793", null ],
+      [ "CENTER_X", "d2/de4/namespaceskidpad__mapper.html#a6504f15cd465be9b845daa54a590ae85", null ],
+      [ "CENTER_Y", "d2/de4/namespaceskidpad__mapper.html#ac887e857f0bc65475dd4eccf11118675", null ],
       [ "circleDivisions", "d2/de4/namespaceskidpad__mapper.html#ada2d83ac819a1d84507680541307a74a", null ],
       [ "colorList", "d2/de4/namespaceskidpad__mapper.html#a885c7c76372187444e0a30111ebc4aa0", null ],
       [ "coneDivisions", "d2/de4/namespaceskidpad__mapper.html#a073ace4aec7b989fe290c10b71641901", null ],
-      [ "endLine", "d2/de4/namespaceskidpad__mapper.html#a48d8b5413c41d16b69c0f8d685784bdf", null ],
+      [ "END_LINE", "d2/de4/namespaceskidpad__mapper.html#a5d5eb65ff515de4ba9097b0208f5291d", null ],
       [ "f1", "d2/de4/namespaceskidpad__mapper.html#aeff9c61a542390c4d10b542571645b2e", null ],
       [ "f2", "d2/de4/namespaceskidpad__mapper.html#ad79f2bc294d59be991d5dc1acc856d01", null ],
-      [ "innerRadius", "d2/de4/namespaceskidpad__mapper.html#a26abcba7712f1647359fecae63820750", null ],
-      [ "outerRadius", "d2/de4/namespaceskidpad__mapper.html#a5636d1949e1bae60d9a16fdeb0f4cbce", null ],
-      [ "radius", "d2/de4/namespaceskidpad__mapper.html#a67950b84acab97437d4741dcbb07d0b3", null ],
-      [ "roundCases", "d2/de4/namespaceskidpad__mapper.html#a227eda1540a425538a0b32a36ce9a802", null ],
+      [ "INNER_RADIUS", "d2/de4/namespaceskidpad__mapper.html#aecb194d3c8752ee64e3062e725cc4531", null ],
+      [ "OUTER_RADIUS", "d2/de4/namespaceskidpad__mapper.html#a92ec3ff1eaaeae5824a15cc6a62c55e6", null ],
+      [ "RADIUS", "d2/de4/namespaceskidpad__mapper.html#ad6c664e08886d47a27db076238ff9dec", null ],
+      [ "ROUND_CASES", "d2/de4/namespaceskidpad__mapper.html#a102ee1d4b182674059a63e18dafa4a99", null ],
       [ "s", "d2/de4/namespaceskidpad__mapper.html#a2b63d9d357244854f4e74183d810f27a", null ],
-      [ "startLine", "d2/de4/namespaceskidpad__mapper.html#a1e5b8e66cfc8a80efb64c1bbbb54b0fc", null ],
-      [ "straightPoints", "d2/de4/namespaceskidpad__mapper.html#a1eef21edd99ad7e9bbf1a88bda9939fc", null ],
+      [ "START_LINE", "d2/de4/namespaceskidpad__mapper.html#a8a8b3592ea8f5f30082b678dd12e083c", null ],
+      [ "STRAIGHT_POINTS", "d2/de4/namespaceskidpad__mapper.html#a8dc02d7e146e1ddd5af81923ff08be8a", null ],
       [ "x", "d2/de4/namespaceskidpad__mapper.html#a344c921231f3357d2c2b29cd4417585c", null ],
       [ "xCones", "d2/de4/namespaceskidpad__mapper.html#a7f258e80aff4cfe91a6a37f512b0dd0a", null ],
       [ "xPoints", "d2/de4/namespaceskidpad__mapper.html#a2401989b16847ee91d4d202eef664204", null ],
@@ -130,14 +114,5 @@ var namespaces_dup =
       [ "y", "d7/dc1/namespacespline.html#ac5ee0b0f73738888bb99a2882c8c6b49", null ],
       [ "y_values0", "d7/dc1/namespacespline.html#af84cf0bb26c99c18806deef70282b929", null ],
       [ "y_values1", "d7/dc1/namespacespline.html#a1bb02af9cadbf53b53d01fb995d5ef22", null ]
-    ] ],
-    [ "test_copyright", "d0/d36/namespacetest__copyright.html", [
-      [ "test_copyright", "d0/d36/namespacetest__copyright.html#a2f0d547fdc7431d3dd7641ff4e01c102", null ]
-    ] ],
-    [ "test_flake8", "d9/d0d/namespacetest__flake8.html", [
-      [ "test_flake8", "d9/d0d/namespacetest__flake8.html#aa03dada197705fd5e8d710de753ca95c", null ]
-    ] ],
-    [ "test_pep257", "d0/d5e/namespacetest__pep257.html", [
-      [ "test_pep257", "d0/d5e/namespacetest__pep257.html#a25dd726750a66bf2fc6439546bfdfcd9", null ]
     ] ]
 ];

@@ -5,7 +5,7 @@ var searchData=
   ['imuvelocitymodel_2',['imuvelocitymodel',['../d2/d58/class_imu_velocity_model.html',1,'ImuVelocityModel'],['../d2/d58/class_imu_velocity_model.html#a4cd9531719c138ccc0e78ccfddce9da4',1,'ImuVelocityModel::ImuVelocityModel()']]],
   ['init_3',['init',['../d7/d8e/class_fsds_adapter.html#a0cd24b4faf0f5f8ef7bcc5c8c8dbec48',1,'FsdsAdapter::init()'],['../d3/d7f/class_adapter.html#a0bacd6b9efd4c9c6b1709130d879c627',1,'Adapter::init()'],['../df/df3/class_test_adapter.html#a0bfdf0c9bbd9346df8aa7c17c810f746',1,'TestAdapter::init()'],['../d7/d8e/class_fsds_adapter.html#a0cd24b4faf0f5f8ef7bcc5c8c8dbec48',1,'FsdsAdapter::init()'],['../d3/d7f/class_adapter.html#a0bacd6b9efd4c9c6b1709130d879c627',1,'Adapter::init()'],['../d7/d8e/class_fsds_adapter.html#a0cd24b4faf0f5f8ef7bcc5c8c8dbec48',1,'FsdsAdapter::init()'],['../d3/d7f/class_adapter.html#a0bacd6b9efd4c9c6b1709130d879c627',1,'Adapter::init()'],['../d7/d8e/class_fsds_adapter.html#a0cd24b4faf0f5f8ef7bcc5c8c8dbec48',1,'FsdsAdapter::init()'],['../d0/d1d/class_eufs_adapter.html#afb57c4eba2192b5277c27858f443811d',1,'EufsAdapter::init()'],['../d3/d7f/class_adapter.html#a0bacd6b9efd4c9c6b1709130d879c627',1,'Adapter::init()'],['../d0/d1d/class_eufs_adapter.html#afb57c4eba2192b5277c27858f443811d',1,'EufsAdapter::init()']]],
   ['init_5fx_5fsize_4',['init_X_size',['../da/da6/class_extended_kalman_filter.html#a25859fdcc43a450c188586da36726e52',1,'ExtendedKalmanFilter']]],
-  ['innerradius_5',['innerRadius',['../d2/de4/namespaceskidpad__mapper.html#a26abcba7712f1647359fecae63820750',1,'skidpad_mapper']]],
+  ['inner_5fradius_5',['INNER_RADIUS',['../d2/de4/namespaceskidpad__mapper.html#aecb194d3c8752ee64e3062e725cc4531',1,'skidpad_mapper']]],
   ['inspection_20package_6',['Inspection package',['../dc/d23/md_src_2inspection_2_r_e_a_d_m_e.html',1,'']]],
   ['inspection_2ecpp_7',['inspection.cpp',['../d0/da0/inspection_8cpp.html',1,'']]],
   ['inspection_5ffunctions_2ecpp_8',['inspection_functions.cpp',['../d0/dd3/inspection__functions_8cpp.html',1,'']]],
@@ -16,12 +16,11 @@ var searchData=
   ['inspectionfunctions_13',['inspectionfunctions',['../d4/d89/class_inspection_functions.html',1,'InspectionFunctions'],['../d4/d89/class_inspection_functions.html#a8e196655c934f2df4c2196bdea6eacbe',1,'InspectionFunctions::InspectionFunctions(double max_angle, double turning_period, double wheel_radius, double finish_time, bool start_and_stop, double gain=0.0, double ideal_velocity=0.0)'],['../d4/d89/class_inspection_functions.html#aa4fae856a83a428e7e9acee4daeead8f',1,'InspectionFunctions::InspectionFunctions()']]],
   ['inspectionmission_14',['inspectionmission',['../de/d3d/class_inspection_mission.html#a62ddad48c6252a28b6f2c480f84229d1',1,'InspectionMission::InspectionMission()'],['../de/d3d/class_inspection_mission.html',1,'InspectionMission']]],
   ['install_20dependencies_15',['Install Dependencies',['../d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md48',1,'']]],
-  ['install_5frequires_16',['install_requires',['../dd/dc4/namespacesetup.html#abead4f26b530856f858f0d44c7cf2588',1,'setup']]],
-  ['integration_5ftest_2ecpp_17',['integration_test.cpp',['../d9/deb/integration__test_8cpp.html',1,'']]],
-  ['integration_5ftests_2ecpp_18',['integration_tests.cpp',['../d4/dee/integration__tests_8cpp.html',1,'']]],
-  ['integrationtest_19',['IntegrationTest',['../d7/d4e/class_integration_test.html',1,'']]],
-  ['integrator_20',['integrator',['../d6/d5a/class_p_i_d.html#a7f8de415cb08e58dcb7f502942c78d0c',1,'PID']]],
-  ['invalid_5fmission_5fexception_2ehpp_21',['invalid_mission_exception.hpp',['../dd/d5c/invalid__mission__exception_8hpp.html',1,'']]],
-  ['invalidmissionexception_22',['invalidmissionexception',['../d3/df9/class_invalid_mission_exception.html',1,'InvalidMissionException'],['../d3/df9/class_invalid_mission_exception.html#ac1381c2ed76b0958f1b7cc5a490dd842',1,'InvalidMissionException::InvalidMissionException()']]],
-  ['inverse_5fobservation_5fmodel_23',['inverse_observation_model',['../d7/d64/class_observation_model.html#a1e57d72d1b32a2260c9dfc8d25bd802d',1,'ObservationModel']]]
+  ['integration_5ftest_2ecpp_16',['integration_test.cpp',['../d9/deb/integration__test_8cpp.html',1,'']]],
+  ['integration_5ftests_2ecpp_17',['integration_tests.cpp',['../d4/dee/integration__tests_8cpp.html',1,'']]],
+  ['integrationtest_18',['IntegrationTest',['../d7/d4e/class_integration_test.html',1,'']]],
+  ['integrator_19',['integrator',['../d6/d5a/class_p_i_d.html#a7f8de415cb08e58dcb7f502942c78d0c',1,'PID']]],
+  ['invalid_5fmission_5fexception_2ehpp_20',['invalid_mission_exception.hpp',['../dd/d5c/invalid__mission__exception_8hpp.html',1,'']]],
+  ['invalidmissionexception_21',['invalidmissionexception',['../d3/df9/class_invalid_mission_exception.html',1,'InvalidMissionException'],['../d3/df9/class_invalid_mission_exception.html#abc151ad9124b662cc86e87c7ad8995e8',1,'InvalidMissionException::InvalidMissionException()']]],
+  ['inverse_5fobservation_5fmodel_22',['inverse_observation_model',['../d7/d64/class_observation_model.html#a1e57d72d1b32a2260c9dfc8d25bd802d',1,'ObservationModel']]]
 ];

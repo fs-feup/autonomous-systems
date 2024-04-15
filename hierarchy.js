@@ -53,10 +53,6 @@ var hierarchy =
     [ "PID", "d6/d5a/class_p_i_d.html", null ],
     [ "Plane", "d2/d8d/class_plane.html", null ],
     [ "Pose", "d8/d11/struct_pose.html", null ],
-    [ "plots.plots.Position", "d3/d6d/classplots_1_1plots_1_1_position.html", [
-      [ "plots.plots.Cone", "db/d27/classplots_1_1plots_1_1_cone.html", null ],
-      [ "plots.plots.Pose", "d4/dc9/classplots_1_1plots_1_1_pose.html", null ]
-    ] ],
     [ "Position", "d1/d26/struct_position.html", null ],
     [ "testing::Test", null, [
       [ "CylinderValidatorTest", "da/dcf/class_cylinder_validator_test.html", null ],
@@ -69,8 +65,5 @@ var hierarchy =
       [ "RANSACTest", "d8/d5a/class_r_a_n_s_a_c_test.html", null ]
     ] ],
     [ "Track", "d6/d2c/class_track.html", null ],
-    [ "VehicleState", "de/dfe/struct_vehicle_state.html", null ],
-    [ "Node", null, [
-      [ "plots.plots.Plots", "d8/dee/classplots_1_1plots_1_1_plots.html", null ]
-    ] ]
+    [ "VehicleState", "de/dfe/struct_vehicle_state.html", null ]
 ];
