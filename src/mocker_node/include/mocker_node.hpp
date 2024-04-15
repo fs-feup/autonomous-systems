@@ -10,7 +10,7 @@
 #include "fs_msgs/msg/finished_signal.hpp"
 #include "fs_msgs/msg/go_signal.hpp"
 #include "rclcpp/rclcpp.hpp"
-#include "planning_mock.hpp"
+#include "include/planning_mock.hpp"
 
 class MockerNode : public rclcpp::Node {
  private:
@@ -25,14 +25,6 @@ class MockerNode : public rclcpp::Node {
      * @brief publish the messages
     */
     void callback(fs_msgs::msg::GoSignal mission_signal);
-
-    /**
-     * @brief Construct a new Mocker Node object
-     * 
-     * @param gtruth_file_path path to the file where the planning ground truth is
-     * 
-     */
-    explicit MockerNode(std::string gtruth_file_path);
 
     /**
      * @brief Default constructer for a new Mocker Node object

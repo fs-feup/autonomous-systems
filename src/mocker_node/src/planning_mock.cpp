@@ -1,4 +1,4 @@
-#include "planning_mock.hpp"
+#include "include/planning_mock.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include <iostream>
 #include <istream>
@@ -7,13 +7,7 @@
 #include <string>
 
 
-custom_interfaces::msg::PathPointArray gtruth_fromfile(std::string gtruth_file_path) {
-    std::ifstream in(gtruth_file_path);
-    if (!in.is_open()) {
-        RCLCPP_ERROR(rclcpp::get_logger("rclcpp"),
-        "Unable to open file %s \n", gtruth_file_path.c_str());
-    }
-
+custom_interfaces::msg::PathPointArray gtruth_fromfile(std::istream &in) {
     std::string x, y, velocity;
     custom_interfaces::msg::PathPointArray gtruth_mock;
 
@@ -44,4 +38,14 @@ custom_interfaces::msg::PathPointArray gtruth_fromfile(std::string gtruth_file_p
     }
 
     return gtruth_mock;
+}
+
+std::istream& openFileAsStream(const std::string& filename) {
+    static std::ifstream file;
+    file.open(filename);
+    if (!file.is_open()) {
+        RCLCPP_ERROR(rclcpp::get_logger("rclcpp"),
+        "Unable to open file %s \n", filename.c_str());
+    }
+    return file;
 }
