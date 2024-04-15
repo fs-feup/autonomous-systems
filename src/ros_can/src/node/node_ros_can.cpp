@@ -7,6 +7,9 @@
 #include <memory>
 #include <string>
 
+#include "fs_msgs/msg/control_command.hpp"
+// #include <time.hpp>
+
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
 
@@ -17,6 +20,15 @@ RosCan::RosCan() : Node("node_ros_can") {
   imu = this->create_publisher<sensor_msgs::msg::Imu>("imu", 10);
   steeringAngle =
       this->create_publisher<custom_interfaces::msg::SteeringAngle>("steeringAngle", 10);
+  controlListener = this->create_subscription<fs_msgs::msg::ControlCommand>(
+      "/as_msgs/controls", 10, std::bind(&RosCan::control_callback, this, std::placeholders::_1));
+  emergencyListener = this->create_subscription<std_msgs::msg::String>(
+      "/as_msgs/emergency", 10,
+      std::bind(&RosCan::emergency_callback, this, std::placeholders::_1));  // maybe change type
+  missionFinishedListener = this->create_subscription<std_msgs::msg::String>(
+      "/as_msgs/mission_finished", 10,
+      std::bind(&RosCan::mission_finished_callback, this,
+                std::placeholders::_1));  // maybe change type
   busStatus = this->create_subscription<std_msgs::msg::String>(
       "busStatus", 10, std::bind(&RosCan::busStatus_callback, this, std::placeholders::_1));
   timer =
@@ -34,6 +46,83 @@ RosCan::RosCan() : Node("node_ros_can") {
   stat = canSetBusOutputControl(hnd, canDRIVER_NORMAL);
   if (stat != canOK) {
     RCLCPP_ERROR(this->get_logger(), "Failed to setup CAN controller");
+  }
+  canSniffer();
+}
+
+void RosCan::control_callback(fs_msgs::msg::ControlCommand::SharedPtr controlCmd) {
+  // Check if the steering value is within the limits
+  if (controlCmd->steering < STEERING_LOWER_LIMIT || controlCmd->steering > STEERING_UPPER_LIMIT) {
+    RCLCPP_ERROR(this->get_logger(), "Steering value out of range");
+    return;
+  }
+  // Check if the throttle value is within the limits
+  if (controlCmd->throttle < THROTTLE_LOWER_LIMIT || controlCmd->throttle > THROTTLE_UPPER_LIMIT) {
+    RCLCPP_ERROR(this->get_logger(), "Throttle value out of range");
+    return;
+  }
+  if (currentState == State::AS_Driving) {
+    RCLCPP_DEBUG(this->get_logger(), "State is Driving: Steering: %f, Throttle: %f",
+                 controlCmd->steering, controlCmd->throttle);
+    canInitializeLibrary();  // initialize the CAN library again, just in case (could be removed)
+    // Prepare the steering message
+    long steering_id = STEERING_ID;  // TODO: confirm ID
+    void* steering_requestData = static_cast<void*> &controlCmd->steering;
+    unsigned int steering_dlc = 8;
+    unsigned int flag = 0;
+
+    // Write the steering message to the CAN bus
+    stat = canWrite(hnd, steering_id, steering_requestData, steering_dlc, flag);
+    if (stat != canOK) {
+      RCLCPP_ERROR(this->get_logger(), "Failed to write steering to CAN bus");
+    }
+
+    // Prepare the throttle message
+    long throttle_id = 0x201;  // TODO: confirm ID
+    void* throttle_requestData = static_cast<void*> &foo2->throttle;
+    unsigned int throttle_dlc = 8;
+
+    // Write the throttle message to the CAN bus
+    stat = canWrite(hnd, throttle_id, throttle_requestData, throttle_dlc, flag);
+    if (stat != canOK) {
+      RCLCPP_ERROR(this->get_logger(), "Failed to write throttle to CAN bus");
+    }
+  }
+}
+
+/**
+ * @brief Function to handle the emergency message
+ */
+void RosCan::emergency_callback(std_msgs::msg::String::SharedPtr msg) {
+  // Prepare the emergency message
+  long id = 0x400;            // Set the CAN ID
+  unsigned char data = 0x43;  // Set the data
+  void* requestData = &data;
+  unsigned int dlc = 1;  // Set the length of the data
+  unsigned int flag = 0;
+
+  // Write the emergency message to the CAN bus
+  stat = canWrite(hnd, id, requestData, dlc, flag);
+  if (stat != canOK) {
+    RCLCPP_ERROR(this->get_logger(), "Failed to write emergency message to CAN bus");
+  }
+}
+
+/**
+ * @brief Function to handle the mission finished message
+ */
+void RosCan::mission_finished_callback(std_msgs::msg::String::SharedPtr msg) {
+  // Prepare the emergency message
+  long id = 0x400;            // Set the CAN ID
+  unsigned char data = 0x42;  // Set the data
+  void* requestData = &data;
+  unsigned int dlc = 1;  // Set the length of the data
+  unsigned int flag = 0;
+
+  // Write the emergency message to the CAN bus
+  stat = canWrite(hnd, id, requestData, dlc, flag);
+  if (stat != canOK) {
+    RCLCPP_ERROR(this->get_logger(), "Failed to write emergency message to CAN bus");
   }
 }
 

@@ -14,7 +14,7 @@ This guide is meant to help the developer setup the environment required to work
 ### Notes
 
 - This guide and all the tutorials are supposed to be incremental. As the knowledge expands, new tutorials should be created and existing ones improved.
-- Before reading this guide, make sure you are on par with the [project rules](https://docs.google.com/document/d/1-YuD-V7zwE_rMwYZ7jmOQysz29_Zj9U-KQ5oIUk4dAc/edit?usp=sharing) and the addition [department rules](https://docs.google.com/document/d/1kmiW4-pkKHlYM9V2sTS_4IJR4ODCaD_m/edit?usp=sharing&ouid=108427086324647392265&rtpof=true&sd=true).
+- Before reading this guide, make sure you are on par with the [Project Rules](https://www.notion.so/FS-FEUP-HUB-6873ab8de3b44fad990d264023fbce8b?pvs=4) in Notion (specifically check Software Development rules).
 
 ## Chapters
 
@@ -40,9 +40,11 @@ This guide is meant to help the developer setup the environment required to work
 
 - [Using KISS-ICP](https://github.com/fs-feup/kiss-icp/) - check the README
 - [Using Robosense SDK](https://github.com/fs-feup/rslidar_sdk) - check the README
+- [Foxglove](./foxglove_tutorial.md) - using the Foxglove toolbox
+- [Git Advanced](./git_advanced.md)
+- [ROS2 Interfaces](./new_interface_tutorial.md) - tutorial on how to create ros2 interfaces
 
 ### Extra Turorials 
 
-- [ROS2 Interfaces](./new_interface_tutorial.md) - tutorial on how to create ros2 interfaces
 - [Youtube C++ tutorials](https://www.youtube.com/watch?v=18c3MTX0PK0&list=PLlrATfBNZ98dudnM48yfGUldqGD0S4FFb)
 - [ROS2 custom interfaces tutorial documentation (Crystal distro)](https://docs.ros.org/en/crystal/Tutorials/Custom-ROS2-Interfaces.html#create-a-new-package)

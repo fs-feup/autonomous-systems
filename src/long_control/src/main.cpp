@@ -5,7 +5,7 @@
 /**
  * @brief Main function for the Ros Can node.
  *
- * Initializes the ROS node, creates a RosCan object,
+ * Initializes the ROS node, creates a Longitudinal Control object,
  * enters the ROS 2 event loop, and then shuts down the node when done (spin is
  * over).
  *

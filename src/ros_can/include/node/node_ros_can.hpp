@@ -16,7 +16,6 @@
 #include "std_msgs/msg/int32.hpp"
 #include "std_msgs/msg/string.hpp"
 
-
 /*
  * ID used for:
  * Current AS Mission
@@ -71,13 +70,27 @@
  */
 #define QUANTIZATION_GYRO 0.005
 
+#define THROTTLE_UPPER_LIMIT 100
+#define THROTTLE_LOWER_LIMIT 0
+#define STEERING_UPPER_LIMIT 100
+#define STEERING_LOWER_LIMIT 0
+
 class RosCan : public rclcpp::Node {
  private:
+  enum class State { AS_Manual, AS_Off, AS_Ready, AS_Driving, AS_Finished, AS_Emergency };
   rclcpp::Publisher<custom_interfaces::msg::OperationalStatus>::SharedPtr operationalStatus;
   rclcpp::Publisher<custom_interfaces::msg::WheelRPM>::SharedPtr wheelRPM;
   rclcpp::Publisher<sensor_msgs::msg::Imu>::SharedPtr imu;
   rclcpp::Publisher<custom_interfaces::msg::SteeringAngle>::SharedPtr steeringAngle;
+
+  // Enum to hold the state of the AS
+
+  State currentState = State::AS_Off;
+
   rclcpp::Subscription<std_msgs::msg::String>::SharedPtr busStatus;
+  rclcpp::Subscription<fs_msgs::msg::ControlCommand>::SharedPtr controlListener;
+  rclcpp::Subscription<std_msgs::msg::String>::SharedPtr emergencyListener;
+  rclcpp::Subscription<std_msgs::msg::String>::SharedPtr missionFinishedListener;
   rclcpp::TimerBase::SharedPtr timer;
 
   // Holds a handle to the CAN channel
@@ -173,6 +186,21 @@ class RosCan : public rclcpp::Node {
    * @param msg - the CAN msg
    */
   void canInterpreterMasterStatus(unsigned char msg[8]);
+
+  /**
+   * @brief Function to handle the emergency message
+   */
+  void emergency_callback(std_msgs::msg::String::SharedPtr msg);
+
+  /**
+   * @brief Function to handle the mission finished message
+   */
+  void mission_finished_callback(std_msgs::msg::String::SharedPtr msg);
+
+  /**
+   * @brief Function to handle the control command message
+   */
+  void control_callback(fs_msgs::msg::ControlCommand::SharedPtr msg);
 
  public:
   /**
