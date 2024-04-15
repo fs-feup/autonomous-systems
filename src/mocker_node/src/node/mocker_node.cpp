@@ -1,4 +1,4 @@
-#include "include/mocker_node.hpp"
+#include "node/mocker_node.hpp"
 
 MockerNode::MockerNode() : rclcpp::Node("mocker_node") {
   std::string gtruth_file = declare_parameter<std::string>("gtruth_file_path");
@@ -19,6 +19,6 @@ MockerNode::MockerNode() : rclcpp::Node("mocker_node") {
 
 
 void MockerNode::callback(fs_msgs::msg::GoSignal mission_signal) {
-  std::string mission = mission_signal.mission;
+  // std::string mission = mission_signal.mission;
   planning_publisher->publish(gtruth_planning);
 }

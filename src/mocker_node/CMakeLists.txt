@@ -13,13 +13,13 @@ find_package(custom_interfaces REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(fs_msgs REQUIRED)
 
-add_executable(mocker_node
-  src/mocker_node.cpp 
-  src/planning_mock.cpp
-  src/main.cpp
+set(IMPLEMENTATION_FILES
+  src/node/mocker_node.cpp
+  src/planning/planning_mock.cpp
 )
 
-ament_target_dependencies(mocker_node rclcpp custom_interfaces fs_msgs)
+add_executable(mocker_node src/main.cpp ${IMPLEMENTATION_FILES})
+ament_target_dependencies(mocker_node rclcpp std_msgs sensor_msgs custom_interfaces fs_msgs)
 target_include_directories(mocker_node PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
