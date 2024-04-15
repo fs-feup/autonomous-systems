@@ -40,7 +40,7 @@ Below, some diagrams are presented that can illustrate the structure and behavio
 
 ### Behaviour
 
-The control flow below illustrates briefly the flow of execution and information through the node.
+The control flow below illustrates briefly the flow of execution and information through the node, you can also checkout [documentation pdf](../../docs/assets/Loc_map/EKFSlam1.0.pdf) to get a better understanding.
 
 ![Control Flow Diagram](../../docs/assets/Loc_map/locmap-flow-chart.svg)
 
