@@ -22,6 +22,9 @@ RUN apt install python-is-python3 -y
 RUN pip3 install cpplint
 RUN pip install rosbags
 RUN apt install clang-format -y
+RUN pip install black
+RUN pip install mypy
+RUN pip install pylint
 RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
 ENV SHELL /bin/bash
 
