@@ -2,26 +2,21 @@
 
 This tutorial mentions the multiple static analysis tools setup in this project and teaches the developer how to use them.
 
-## Python
-
-### Ruff
-
-Ruff is a simple yet blazingly fast static analyser. It performs typical **linting analysis**, as well as some code infrastructure analysis and also has **built-in formating** functionality.
-
-To install ruff run ```pip install ruff```. There is already a [configuration file](../../src/pyproject.toml) in the src/ folder and a [script](../../src/ruff.sh) to run the command. To run the linter you can either run this script or the command inside it:
-```sh
-ruff check ./ --fix
-```
-
+**NOTES:** 
+- All the tools are already installed in the devcontainer
+- In our system, all tools are configured to be run through a script called [static-tools.sh](../../static-tools.sh)
 
 ## C++
 
 ### CPPCheck
 
-In this project, we will be using CPPCheck as a static analysis tool for the c++ packages, to check for any underlying bugs. We will be using it in the GitHub pipeline, but it is handy that the developer can use it locally. To install it, in the Virtual Machine, just run ```sudo apt install cppcheck``` (to install in windows, check [their website](https://cppcheck.sourceforge.io/))
-To use it, run ```cppcheck --enable=all --error-exitcode=1 src/ -i test/```. This command already has some tunning to ignore some things and not ignore others. To learn more, run ```cppcheck -h```.
+In this project, we will be using CPPCheck as a static analysis tool for the c++ packages, to check for any underlying bugs. We will be using it in the GitHub pipeline, but it is handy that the developer can use it locally. To install it, just run ```sudo apt install cppcheck``` (to install in windows, check [their website](https://cppcheck.sourceforge.io/))
 
-There is already a [script](../../src/cppcheck.sh) in the source folder called **cppcheck.sh** for this effect.
+To use it, run:
+
+```sh
+./static-tools.sh cppcheck
+```
 
 ### CPPLint
 
@@ -29,14 +24,11 @@ CPPLint will be used to check some aditional linting and styling on the C++ pack
 
 CPPLint can be configured through configuration files called 'CPPLINT.cfg'. These files can be present in multiple directories and configurations stack with subdirectories (unless 'set noparent' is used). 
 
-CPPLint does not have the possibility of defining full directories to be ignored in the check. As such, we need to define in the run command what directory should be analyzed. To run CPPLint in the current directory, execute the following command:
+To run CPPLint, execute the following command:
 
 ```sh
-cpplint --recursive ./
+./static-tools.sh cpplint
 ```
-In the src folder there is a [script](../../src/cpplint.sh) that already runs this command called **cpplint.sh**.
-
-**Note:** if cpplint is not found, add ~/.local/bin directory to path: ```export PATH=$PATH:~/.local/bin/```.
 
 ### Clang-format
 
@@ -44,4 +36,44 @@ CLang-format is a formatter i.e. it automatically formats code following a certa
 
 To install Clang-format in a debian-based system, run ```sudo apt install clang-format```.
 
-To run, the command is quite complex, as the program does not have the capability to be ran on entire directories. A [script](../../src/clang-format.sh) as been created in the src folder called **clang-format.sh**. This script can be used to run the formatter on all c++ files in src.
+```sh
+./static-tools.sh clang-format
+```
+
+## Python
+
+### Black
+
+Black is a straightforward formatter widely used for its simplicity. To use it, run:
+
+```sh
+./static-tools.sh black
+```
+
+Black is not very configurable, but it is extremely fast and does the job well enough.
+
+### Pylint
+
+Pylint is one of the most used python static analysis tools, overall due to its configurability and robustness. The enumerous options to edit are chown in a .pylintrc file (among other options). This python linter is extremely complete, providing insights in all sorts of good coding behaviours and all sorts of errors.
+To run it:
+
+```sh
+./static-tools.sh pylint
+```
+
+### Mypy
+
+Mypy is a small addition to the team. It is a simpler linter that focuses on type checking, which is great as python does not have intrinsic type checking, even if typed python is growing due to its better readability and ease of development. It essentially checks if the types defined for the variables were indeed correct or not, ignoring the cases where a type was not given. To run it:
+
+```sh
+./static-tools.sh mypy
+```
+
+## Static tools and scripts
+
+To make the usage of these tools easier, scripts have been configured to make them work out of the box. The main script, **static-tool.sh** is essentially a wrapper around the configured and complex commands for each tool. On top of the configurations presented, the script can also be ran with the following options:
+- **all** - run all tools
+- **format** - run formatting tools (black and clang-format)
+- **check** - run analysing tools (cpplint, cppcheck, pylint and mypy)
+
+Another important note is that these tools are configured to run in an automated github workflow, which analyses the repo's code every push or PR to main.

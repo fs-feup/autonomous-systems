@@ -7,26 +7,27 @@ on:
     branches: [ "main" ]
 
 jobs:
-  cppcheck:
+  static-analysis:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install cppcheck
-        run: sudo apt install cppcheck
+      - name: Install tools
+        run: |
+          sudo apt install cppcheck
+          pip install cpplint
+          pip install pylint
+          pip install mypy
 
       - name: Run cppcheck
         run: ./static-tools.sh cppcheck
 
-  cpplint:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Install cpplint
-        run: pip install cpplint
-
       - name: Run cpplint
         run: ./static-tools.sh cpplint
+
+      - name: Run pylint
+        run: ./static-tools.sh pylint
+
+      - name: Run mypy
+        run: ./static-tools.sh mypy
