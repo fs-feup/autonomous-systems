@@ -5,15 +5,17 @@
 #include <memory>
 #include <string>
 
+#include "rclcpp/rclcpp.hpp"
 #include "custom_interfaces/msg/imu.hpp"
 #include "custom_interfaces/msg/operational_status.hpp"
 #include "custom_interfaces/msg/steering_angle.hpp"
 #include "custom_interfaces/msg/wheel_rpm.hpp"
-#include "rclcpp/rclcpp.hpp"
+#include "custom_interfaces/msg/imu_data.hpp"
 #include "sensor_msgs/msg/imu.hpp"
 #include "std_msgs/msg/float32.hpp"
 #include "std_msgs/msg/int32.hpp"
 #include "std_msgs/msg/string.hpp"
+
 
 /*
  * ID used for:
@@ -30,11 +32,6 @@
 #define TEENSY_C1 0x123
 
 /*
- * ID used for imu values
- */
-#define MASTER_IMU 0x501
-
-/*
  * ID used for:
  * Steering angle
  */
@@ -47,21 +44,32 @@
  */
 #define IMU_YAW_RATE_ACC_Y_ID 0x174
 
-
-
 /*
-* ID used from the IMU for: 
-* roll rate
-* acceleration in x
-*/
+ * ID used from the IMU for:
+ * roll rate
+ * acceleration in x
+ */
 #define IMU_ROLL_RATE_ACC_X_ID 0x178
 
 /*
-* ID used from the IMU for:
-* pitch rate
-* acceleration in z
-*/
+ * ID used from the IMU for:
+ * pitch rate
+ * acceleration in z
+ */
 #define IMU_PITCH_RATE_ACC_Z_ID 0x17C
+
+
+/*
+ * Quantization for the acceleration
+ * g/digit
+ */
+#define QUANTIZATION_ACC 0.0001274
+
+/*
+ * Quantization for the gyro
+ * degree/s/digit
+ */
+#define QUANTIZATION_GYRO 0.005
 
 class RosCan : public rclcpp::Node {
  private:
@@ -76,58 +84,6 @@ class RosCan : public rclcpp::Node {
   canHandle hnd;
   // Status returned by the Canlib calls
   canStatus stat;
-
-  /*
-   *Counter to keep track of the number of wheel speed msg received during the syncing process
-   *goes from 0 to 3, 4 when the sync is complete
-   */
-  int statusMsgCnt = 0;
-
-  // Current time, to calculate the sync intervals
-  rclcpp::Time curTime;
-
-  /*
-   *Interval between the 1st and 2nd wheel speed msg received during the syncing process
-   */
-  uint64_t syncInterval1 = 0.0f;
-
-  /*
-   *Interval between the 2nd and 3rd wheel speed msg received during the syncing process
-   */
-  uint64_t syncInterval2 = 0.0f;
-
-  /*
-  * 1 if the first msg received is from C1
-  * 0 if the first msg received is from C2
-  * Used to determine the sync mode
-  */
-  bool firstMsgIsC1 = 0;
-
-  /*
-   * if syncMode = 0, group rrRPM with rlRPM
-   * if syncMode = 1, group rlRPM with rrRPM
-   * (only publish when both have been recevied)
-   */
-  bool syncMode = 0;
-
-  /*
-   * rlRPM = left wheel rpm
-   * rrRPM = right wheel rpm
-   */
-  float rlRPM;
-  float rrRPM;
-
-  /*
-    rrRPMStatus = 0 if rrRPM has not been received/updated
-    rrRPMStatus = 1 if rrRPM has been received(ready to be published)
-  */
-  bool rrRPMStatus = 0;
-
-  /*
-    rlRPMStatus = 0 if rlRPM has not been received/updated
-    rlRPMStatus = 1 if rlRPM has been received(ready to be published)
-  */
-  bool rlRPMStatus = 0;
 
   /*
   goSignal:
@@ -145,18 +101,6 @@ class RosCan : public rclcpp::Node {
   5 - EBS_Test
   6 - Inspection*/
   int asMission;
-
-  /**
-   * @brief Function define the syncMode and calculate sync time
-   */
-  void syncRPM();
-
-  /**
-   * @brief Function to update the wheel rpm
-   * @return the wheel rpm
-   * @param msg - the CAN msg
-   */
-  float updatewheelRPM(unsigned char msg[8]);
 
   /**
    * @brief Function to turn ON and OFF the CAN BUS
@@ -185,15 +129,22 @@ class RosCan : public rclcpp::Node {
   void opStatusPublisher();
 
   /**
-   * @brief Function to publish the left wheel rpm
-   */
-  void WheelRPMPublisher();
-
-  /**
-   * @brief Function to publish the imu values
+   * @brief Function to publish the Yaw rate and Acceleration in Y
    * @param msg - the CAN msg
    */
-  void imuPublisher(unsigned char msg[8]);
+  void imuYawAccYPublisher(unsigned char msg[8]);
+
+  /**
+   * @brief Function to publish the Roll rate and Acceleration in X
+   * @param msg - the CAN msg
+   */
+  void imuRollAccXPublisher(unsigned char msg[8]);
+
+  /**
+   * @brief Function to publish the Pitch rate and Acceleration in Z
+   * @param msg - the CAN msg
+   */
+  void imuPitchAccZPublisher(unsigned char msg[8]);
 
   /**
    * @brief Function to publish the steering angle
@@ -201,6 +152,21 @@ class RosCan : public rclcpp::Node {
    * @param angleMSB - the steering angle most significant byte
    */
   void steeringAnglePublisher(unsigned char angleLSB, unsigned char angleMSB);
+
+  /**
+   * @brief Function to publish the rear right rpm
+   * @param msg - the CAN msg
+   */
+  void rrRPMPublisher(unsigned char msg[8]);
+
+/**
+   * @brief Function to publish the rear left rpm
+   * @param msg - the CAN msg
+   */
+  void rlRPMPublisher(unsigned char msg[8]);
+
+  
+
 
   /**
    * @brief Function to interpret the master status CAN msg

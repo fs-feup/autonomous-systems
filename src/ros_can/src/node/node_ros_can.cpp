@@ -75,25 +75,18 @@ void RosCan::canInterpreter(long id, unsigned char msg[8], unsigned int dlc, uns
     case MASTER_STATUS:
       canInterpreterMasterStatus(msg);
       break;
-
-    case MASTER_IMU:
-      imuPublisher(msg);
+    case IMU_YAW_RATE_ACC_Y_ID:
+      imuYawAccYPublisher(msg);
+      break;
+    case IMU_ROLL_RATE_ACC_X_ID:
+      imuRollAccXPublisher(msg);
+      break;
+    case IMU_PITCH_RATE_ACC_Z_ID:
+      imuPitchAccZPublisher(msg);
       break;
     case TEENSY_C1:
-      if (msg[0] == 0x11) {  // Rear Right RPM
-
-        rrRPM = updatewheelRPM(msg);
-        rrRPMStatus = 1;
-
-        //check if the first message is C1
-        if(statusMsgCnt = 0)
-          firstMsgIsC1 = 1;
-        
-        if (statusMsgCnt != 3)
-          syncRPM();
-        else if (syncMode == 1)
-          WheelRPMPublisher();
-      }
+      if (msg[0] == 0x11)
+        rrRPMPublisher(msg);
       break;
     case STEERING_ID:
       steeringAnglePublisher(msg[1], msg[2]);
@@ -103,6 +96,34 @@ void RosCan::canInterpreter(long id, unsigned char msg[8], unsigned int dlc, uns
       break;
   }
 }
+
+void RosCan::canInterpreterMasterStatus(unsigned char msg[8]) {
+  switch (msg[0]) {
+    case 0x31:  // Current AS State
+    {
+      if (msg[1] == 3)  // If AS State == Driving
+        this->goSignal = 1;
+      else
+        this->goSignal = 0;
+      opStatusPublisher();
+      break;
+    }
+    case 0x32:  // Current AS Mission
+    {
+      this->asMission = msg[1];
+      opStatusPublisher();
+      break;
+    }
+    case 0x33:  // Left Wheel RPM
+    {
+      rlRPMPublisher(msg);
+      break;
+    }
+    default:
+      break;
+  }
+}
+
 
 /**
  * @brief Function to publish the Operational Status
@@ -114,30 +135,42 @@ void RosCan::opStatusPublisher() {
   operationalStatus->publish(message);
 }
 
+
+
+
 /**
- * @brief Function to publish wheel rpm
+ * @brief Function to publish the Yaw rate and acceleration in y
+ * @param msg - the CAN msg
  */
-void RosCan::WheelRPMPublisher() {
-  auto message = custom_interfaces::msg::WheelRPM();
-  message.rl_rpm = rlRPM;
-  message.rr_rpm = rrRPM;
-  wheelRPM->publish(message);
-  rrRPMStatus = 0;
-  rlRPMStatus = 0;
+void RosCan::imuYawAccYPublisher(unsigned char msg[8]) {
+  float yawRate = ((msg[1] << 8) | msg[0] ) * QUANTIZATION_GYRO;
+  float accY = ((msg[5] << 8) | msg[4] ) * QUANTIZATION_ACC;
+  int msgId = 1;
+  
 }
 
 /**
- * @brief Function to publish the imu values
+ * @brief Function to publish the Roll rate and acceleration in X
  * @param msg - the CAN msg
  */
-void RosCan::imuPublisher(unsigned char msg[8]) {
-  // Publish the imu values to a topic
-  auto message = sensor_msgs::msg::Imu();
-  message.linear_acceleration.x = (msg[2] << 8) | msg[1];
-  message.linear_acceleration.y = (msg[4] << 8) | msg[3];
-  message.angular_velocity.z = (msg[6] << 8) | msg[5];
-  imu->publish(message);
+void RosCan::imuRollAccXPublisher(unsigned char msg[8]) {
+  float rollRate = ((msg[1] << 8) | msg[0] ) * QUANTIZATION_GYRO;
+  float accX = ((msg[5] << 8) | msg[4] ) * QUANTIZATION_ACC;
+  int msgId = 2;
 }
+
+
+/**
+ * @brief Function to publish the Pitch rate and acceleration in Z
+ * @param msg - the CAN msg
+ */
+void RosCan::imuPitchAccZPublisher(unsigned char msg[8]) {
+  float pitchRate = ((msg[1] << 8) | msg[0] ) * QUANTIZATION_GYRO;
+  float accZ = ((msg[5] << 8) | msg[4] ) * QUANTIZATION_ACC;
+  int msgId = 3;
+
+}
+
 
 /**
  * @brief Function to publish the steering angle
@@ -154,40 +187,6 @@ void RosCan::steeringAnglePublisher(unsigned char angleLSB, unsigned char angleM
 
 
 /**
- * @brief Function define the syncMode and calculate sync time
- */
-void RosCan::syncRPM() {
-  switch (statusMsgCnt) {
-    case 0: {  // 1st msg
-      curTime = this->now();
-      syncInterval1 = curTime.nanoseconds();
-      statusMsgCnt++;
-      break;
-    }
-    case 1: {  // 2nd msg. Calculate syncInterval1
-      curTime = this->now();
-      syncInterval1 = curTime.nanoseconds() - syncInterval1;
-      syncInterval2 = curTime.nanoseconds();
-      statusMsgCnt++;
-      break;
-    }
-    case 2: {  // 3rd and last msg. Calculate syncInterval2
-      curTime = this->now();
-      syncInterval2 = curTime.nanoseconds() - syncInterval2;
-      statusMsgCnt++;
-      if (syncInterval1 > syncInterval2) {
-        syncMode = 0;
-      } else {
-        syncMode = 1;
-      }
-      break;
-    }
-    default:
-      break;
-  }
-}
-
-/**
  * @brief Function to update the wheel rpm
  * @return the wheel rpm
  * @param msg - the CAN msg
@@ -197,37 +196,3 @@ float RosCan::updatewheelRPM(unsigned char msg[8]) {
   return RPMAux / 100.0f;
 }
 
-void RosCan::canInterpreterMasterStatus(unsigned char msg[8]){
-  switch (msg[0]) {
-        case 0x31:  // Current AS State
-        {
-          if (msg[1] == 3)  // If AS State == Driving
-            this->goSignal = 1;
-          else
-            this->goSignal = 0;
-          opStatusPublisher();
-          break;
-        }
-        case 0x32:  // Current AS Mission
-        {
-          this->asMission = msg[1];
-          opStatusPublisher();
-          break;
-        }
-        case 0x33:  // Left Wheel RPM
-        {
-          rlRPM = updatewheelRPM(msg);
-          rlRPMStatus = 1;
-
-          if (statusMsgCnt != 3)
-            syncRPM();
-          else if (syncMode == 0)
-            WheelRPMPublisher();
-
-          break;
-        }
-        default:
-          break;
-      }
-
-}

@@ -28,6 +28,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/OperationalStatus.msg"
   "msg/SteeringAngle.msg"
   "msg/WheelRPM.msg"
+  "msg/ImuData.msg"
   DEPENDENCIES builtin_interfaces std_msgs 
 )
 
