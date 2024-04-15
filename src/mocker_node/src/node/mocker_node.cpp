@@ -4,6 +4,7 @@ MockerNode::MockerNode() : rclcpp::Node("mocker_node") {
   std::string gtruth_file = declare_parameter<std::string>("gtruth_file_path");
   gtruth_planning = gtruth_fromfile(openFileAsStream(gtruth_file));
 
+
   // creates publisher for the flag
   finish_publisher = this->create_publisher<fs_msgs::msg::FinishedSignal>("/signal/finished", 10);
 
@@ -16,7 +17,6 @@ MockerNode::MockerNode() : rclcpp::Node("mocker_node") {
       "/signal/go", 10,
       std::bind(&MockerNode::callback, this, std::placeholders::_1));
 }
-
 
 void MockerNode::callback(fs_msgs::msg::GoSignal mission_signal) {
   // std::string mission = mission_signal.mission;
