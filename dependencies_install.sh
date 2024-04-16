@@ -1,5 +1,12 @@
-sudo apt update
+
+# general
+sudo apt-get update && apt-get upgrade -y
+sudo apt-get install -y python3-pip
+sudo apt install python-is-python3 -y
 sudo apt install ros-humble-ackermann-msgs -y
+sudo apt install -y python3-pip
+sudo pip3 install colcon-common-extensions
+sudo apt install -y python3-rosdep
 
 # planning
 sudo apt-get install libcgal-dev -y
