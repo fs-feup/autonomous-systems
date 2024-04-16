@@ -5,6 +5,7 @@ if test -f ./ext/rslidar_sdk/dependencies_install.sh; then
 fi
 
 # kvaser - does not work in docker
+sudo apt-get -y install wget
 sudo apt-get -y install build-essential
 sudo apt-get -y install pkg-config 
 sudo apt install gcc-12
