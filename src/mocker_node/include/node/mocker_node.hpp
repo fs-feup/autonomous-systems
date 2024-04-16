@@ -9,8 +9,8 @@
 
 #include "fs_msgs/msg/finished_signal.hpp"
 #include "fs_msgs/msg/go_signal.hpp"
-#include "rclcpp/rclcpp.hpp"
 #include "planning/planning_mock.hpp"
+#include "rclcpp/rclcpp.hpp"
 
 class MockerNode : public rclcpp::Node {
  private:
@@ -19,18 +19,18 @@ class MockerNode : public rclcpp::Node {
   rclcpp::Subscription<fs_msgs::msg::GoSignal>::SharedPtr mission_signal;
 
  public:
-    custom_interfaces::msg::PathPointArray gtruth_planning; // ground truth for the planning node
+  custom_interfaces::msg::PathPointArray gtruth_planning;  // ground truth for the planning node
 
-    /**
-     * @brief publish the messages
-    */
-    void callback(fs_msgs::msg::GoSignal mission_signal);
+  /**
+   * @brief publish the messages
+   */
+  void callback(fs_msgs::msg::GoSignal mission_signal);
 
-    /**
-     * @brief Default constructer for a new Mocker Node object
-     * 
-     */
-    MockerNode();
+  /**
+   * @brief Default constructer for a new Mocker Node object
+   *
+   */
+  MockerNode();
 };
 
 #endif

@@ -27,6 +27,12 @@ elif [ $1 = "all" ]; then
     cpplint --recursive ./src 
 	echo "Running cppcheck..."
     ./scripts/cppcheck.sh
+	echo "Formatting with black..."
+    black src/
+	echo "Running pylint..."
+    pylint --rcfile=./scripts/.pylintrc src
+	echo "Running mypy..."
+    mypy --config-file ./scripts/mypy.ini src/
 elif [ $1 = "format" ]; then
 	echo "Formatting with clang-format..."
     ./scripts/clang-format.sh
