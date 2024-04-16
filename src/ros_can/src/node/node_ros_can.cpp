@@ -16,10 +16,16 @@
 RosCan::RosCan() : Node("node_ros_can") {
   operationalStatus =
       this->create_publisher<custom_interfaces::msg::OperationalStatus>("operationalStatus", 10);
-  wheelRPM = this->create_publisher<custom_interfaces::msg::WheelRPM>("wheelRPM", 10);
-  imu = this->create_publisher<sensor_msgs::msg::Imu>("imu", 10);
-  steeringAngle =
-      this->create_publisher<custom_interfaces::msg::SteeringAngle>("steeringAngle", 10);
+
+  rlRPMPub = this->create_publisher<custom_interfaces::msg::WheelRPM>("rlRPM", 10);
+  rrRPMPub = this->create_publisher<custom_interfaces::msg::WheelRPM>("rrRPM", 10);
+
+  imuYawAccYPub = this->create_publisher<custom_interfaces::msg::ImuData>("imuYawAccY", 10);
+  imuRollAccXPub = this->create_publisher<custom_interfaces::msg::ImuData>("imuRollAccXPub", 10);
+  imuPitchAccZPub = this->create_publisher<custom_interfaces::msg::ImuData>("imuPitchAccZPub", 10);
+
+  steeringAngleCubeM =
+      this->create_publisher<custom_interfaces::msg::SteeringAngle>("steeringAngleCubeM", 10);
   controlListener = this->create_subscription<fs_msgs::msg::ControlCommand>(
       "/as_msgs/controls", 10, std::bind(&RosCan::control_callback, this, std::placeholders::_1));
   emergencyListener = this->create_subscription<std_msgs::msg::String>(
@@ -67,7 +73,7 @@ void RosCan::control_callback(fs_msgs::msg::ControlCommand::SharedPtr controlCmd
     canInitializeLibrary();  // initialize the CAN library again, just in case (could be removed)
     // Prepare the steering message
     long steering_id = STEERING_ID;  // TODO: confirm ID
-    void* steering_requestData = static_cast<void*> &controlCmd->steering;
+    void* steering_requestData = static_cast<void*> & controlCmd->steering;
     unsigned int steering_dlc = 8;
     unsigned int flag = 0;
 
@@ -79,7 +85,7 @@ void RosCan::control_callback(fs_msgs::msg::ControlCommand::SharedPtr controlCmd
 
     // Prepare the throttle message
     long throttle_id = 0x201;  // TODO: confirm ID
-    void* throttle_requestData = static_cast<void*> &foo2->throttle;
+    void* throttle_requestData = static_cast<void*> & foo2->throttle;
     unsigned int throttle_dlc = 8;
 
     // Write the throttle message to the CAN bus
@@ -174,22 +180,19 @@ void RosCan::canInterpreter(long id, unsigned char msg[8], unsigned int dlc, uns
       imuPitchAccZPublisher(msg);
       break;
     case TEENSY_C1:
-      if (msg[0] == 0x11)
-        rrRPMPublisher(msg);
+      if (msg[0] == TEENSY_C1_RR_RPM_CODE) rrRPMPublisher(msg);
       break;
-    case STEERING_ID:
-      steeringAnglePublisher(msg[1], msg[2]);
+    case STEERING_CUBEM_ID:
+      steeringAngleCubeMPublisher(msg);
       break;
-
-    default:
-      break;
+    case STEERING_BOSCH_ID:
+      steeringAngleBoschPublisher(msg) default : break;
   }
 }
 
 void RosCan::canInterpreterMasterStatus(unsigned char msg[8]) {
   switch (msg[0]) {
-    case 0x31:  // Current AS State
-    {
+    case MASTER_AS_STATE_CODE: {
       if (msg[1] == 3)  // If AS State == Driving
         this->goSignal = 1;
       else
@@ -197,14 +200,12 @@ void RosCan::canInterpreterMasterStatus(unsigned char msg[8]) {
       opStatusPublisher();
       break;
     }
-    case 0x32:  // Current AS Mission
-    {
+    case MASTER_AS_MISSION_CODE: {
       this->asMission = msg[1];
       opStatusPublisher();
       break;
     }
-    case 0x33:  // Left Wheel RPM
-    {
+    case MASTER_RL_RPM_CODE: {
       rlRPMPublisher(msg);
       break;
     }
@@ -212,7 +213,6 @@ void RosCan::canInterpreterMasterStatus(unsigned char msg[8]) {
       break;
   }
 }
-
 
 /**
  * @brief Function to publish the Operational Status
@@ -224,18 +224,17 @@ void RosCan::opStatusPublisher() {
   operationalStatus->publish(message);
 }
 
-
-
-
 /**
  * @brief Function to publish the Yaw rate and acceleration in y
  * @param msg - the CAN msg
  */
 void RosCan::imuYawAccYPublisher(unsigned char msg[8]) {
-  float yawRate = ((msg[1] << 8) | msg[0] ) * QUANTIZATION_GYRO;
-  float accY = ((msg[5] << 8) | msg[4] ) * QUANTIZATION_ACC;
-  int msgId = 1;
-  
+  float yawRate = ((msg[1] << 8) | msg[0]) * QUANTIZATION_GYRO;
+  float accY = ((msg[5] << 8) | msg[4]) * QUANTIZATION_ACC;
+  auto message = custom_interfaces::msg::ImuData();
+  message.gyro = yawRate;
+  message.acc = accY;
+  imuYawAccYPub->publish(message);
 }
 
 /**
@@ -243,45 +242,84 @@ void RosCan::imuYawAccYPublisher(unsigned char msg[8]) {
  * @param msg - the CAN msg
  */
 void RosCan::imuRollAccXPublisher(unsigned char msg[8]) {
-  float rollRate = ((msg[1] << 8) | msg[0] ) * QUANTIZATION_GYRO;
-  float accX = ((msg[5] << 8) | msg[4] ) * QUANTIZATION_ACC;
-  int msgId = 2;
+  float rollRate = ((msg[1] << 8) | msg[0]) * QUANTIZATION_GYRO;
+  float accX = ((msg[5] << 8) | msg[4]) * QUANTIZATION_ACC;
+  auto message = custom_interfaces::msg::ImuData();
+  message.gyro = rollRate;
+  message.acc = accX;
+  imuRollAccXPub->publish(message);
 }
-
 
 /**
  * @brief Function to publish the Pitch rate and acceleration in Z
  * @param msg - the CAN msg
  */
 void RosCan::imuPitchAccZPublisher(unsigned char msg[8]) {
-  float pitchRate = ((msg[1] << 8) | msg[0] ) * QUANTIZATION_GYRO;
-  float accZ = ((msg[5] << 8) | msg[4] ) * QUANTIZATION_ACC;
-  int msgId = 3;
-
+  float pitchRate = ((msg[1] << 8) | msg[0]) * QUANTIZATION_GYRO;
+  float accZ = ((msg[5] << 8) | msg[4]) * QUANTIZATION_ACC;
+  auto message = custom_interfaces::msg::ImuData();
+  message.gyro = pitchRate;
+  message.acc = accZ;
+  imuPitchAccZPub->publish(message);
 }
 
-
 /**
- * @brief Function to publish the steering angle
- * @param angleLSB - the steering angle least significant byte
- * @param angleMSB - the steering angle most significant byte
- */
-void RosCan::steeringAnglePublisher(unsigned char angleLSB, unsigned char angleMSB) {
-  // Publish the steering angle to a topic
-  int angle = (angleMSB << 8) | angleLSB;
-  auto message = custom_interfaces::msg::SteeringAngle();
-  message.steering_angle = angle;
-  steeringAngle->publish(message);
-}
-
-
-/**
- * @brief Function to update the wheel rpm
- * @return the wheel rpm
+ * @brief Function to publish the steering angle form steering actuator (CubeMars)
  * @param msg - the CAN msg
  */
-float RosCan::updatewheelRPM(unsigned char msg[8]) {
-  int32_t RPMAux = (msg[4] << 24) | (msg[3] << 16) | (msg[2] << 8) | msg[1];
-  return RPMAux / 100.0f;
+void RosCan::steeringAngleCubeMPublisher(unsigned char msg[8]) {
+  int angle = (msg[1] << 8) | msg[0];
+  auto message = custom_interfaces::msg::SteeringAngle();
+  message.steering_angle = angle;
+  steeringAngleCubeM->publish(message);
 }
 
+/**
+ * @brief Function to publish the steering angle form Bosch
+ * @param msg - the CAN msg
+ */
+void RosCan::steeringAngleBoschPublisher(unsigned char msg[8]) {
+  // Mask to check the first 3 bits
+  char mask = 0b00000111;
+
+  // Extract the first 3 bits
+  char firstThreeBits = msg[3] & mask;
+
+  if (firstThreeBits == mask) {
+    int angle = (msg[1] << 8) | msg[0];
+    int speed = msg[2];
+    auto message = custom_interfaces::msg::SteeringAngle();
+    message.steering_angle = angle;
+    message.speed = speed;
+    steeringAngleBoschPublisher->publish(message);
+  } else {
+    RCLCPP_ERROR(this->get_logger(), "Invalid message received from Bosch Speed Sensor");
+  }
+
+  int angle = (msg[1] << 8) | msg[0];
+  auto message = custom_interfaces::msg::SteeringAngle();
+  message.steering_angle = angle;
+  steeringAngleCubeM->publish(message);
+}
+
+/**
+ * @brief Function to publish rrRPM
+ * @param msg - the CAN msg
+ */
+void RosCan::rrRPMPublisher(unsigned char msg[8]) {
+  float rrRPM = ((msg[4] << 24) | (msg[3] << 16) | (msg[2] << 8) | msg[1]) / 100.0f;
+  auto message = custom_interfaces::msg::WheelRPM();
+  message.rr_rpm = rrRPM;
+  rrRPMPub->publish(message);
+}
+
+/**
+ * @brief Function to publish rlRPM
+ * @param msg - the CAN msg
+ */
+void RosCan::rlRPMPublisher(unsigned char msg[8]) {
+  float rlRPM = ((msg[4] << 24) | (msg[3] << 16) | (msg[2] << 8) | msg[1]) / 100.0f;
+  auto message = custom_interfaces::msg::WheelRPM();
+  message.rl_rpm = rlRPM;
+  rlRPMPub->publish(message);
+}

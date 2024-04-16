@@ -5,16 +5,13 @@
 #include <memory>
 #include <string>
 
-#include "rclcpp/rclcpp.hpp"
 #include "custom_interfaces/msg/imu.hpp"
+#include "custom_interfaces/msg/imu_data.hpp"
 #include "custom_interfaces/msg/operational_status.hpp"
 #include "custom_interfaces/msg/steering_angle.hpp"
 #include "custom_interfaces/msg/wheel_rpm.hpp"
-#include "custom_interfaces/msg/imu_data.hpp"
+#include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/imu.hpp"
-#include "std_msgs/msg/float32.hpp"
-#include "std_msgs/msg/int32.hpp"
-#include "std_msgs/msg/string.hpp"
 
 /*
  * ID used for:
@@ -25,6 +22,26 @@
 #define MASTER_STATUS 0x300
 
 /*
+ * value of msg[0] for AS State
+ */
+#define MASTER_AS_STATE_CODE 0x31
+
+/*
+ * value of msg[0] for AS Mission
+ */
+#define MASTER_AS_MISSION_CODE 0x32
+
+/*
+ * value of msg[0] for RL RPM Code
+ */
+#define MASTER_RL_RPM_CODE 0x33
+
+/*
+ * value of msg[0] for RR RPM Code
+ */
+#define TEENSY_C1_RR_RPM_CODE 0x11
+
+/*
  * ID used for:
  * Left wheel rpm
  */
@@ -32,9 +49,16 @@
 
 /*
  * ID used for:
- * Steering angle
+ * Steering angle from Steering Actuator
  */
-#define STEERING_ID 0x700
+#define STEERING_CUBEM_ID 0x700
+
+
+/*
+ * ID used for:
+ * Steering angle from Bosch
+ */
+#define STEERING_BOSCH_ID 0x2B0
 
 /*
  * ID used from the IMU for:
@@ -57,7 +81,6 @@
  */
 #define IMU_PITCH_RATE_ACC_Z_ID 0x17C
 
-
 /*
  * Quantization for the acceleration
  * g/digit
@@ -79,12 +102,15 @@ class RosCan : public rclcpp::Node {
  private:
   enum class State { AS_Manual, AS_Off, AS_Ready, AS_Driving, AS_Finished, AS_Emergency };
   rclcpp::Publisher<custom_interfaces::msg::OperationalStatus>::SharedPtr operationalStatus;
-  rclcpp::Publisher<custom_interfaces::msg::WheelRPM>::SharedPtr wheelRPM;
-  rclcpp::Publisher<sensor_msgs::msg::Imu>::SharedPtr imu;
-  rclcpp::Publisher<custom_interfaces::msg::SteeringAngle>::SharedPtr steeringAngle;
+  rclcpp::Publisher<custom_interfaces::msg::WheelRPM>::SharedPtr rlRPMPub;
+  rclcpp::Publisher<custom_interfaces::msg::WheelRPM>::SharedPtr rrRPMPub;
+  rclcpp::Publisher<custom_interfaces::msg::ImuData>::SharedPtr imuYawAccYPub;
+  rclcpp::Publisher<custom_interfaces::msg::ImuData>::SharedPtr imuRollAccXPub;
+  rclcpp::Publisher<custom_interfaces::msg::ImuData>::SharedPtr imuPitchAccZPub;
+  rclcpp::Publisher<custom_interfaces::msg::SteeringAngle>::SharedPtr steeringAngleBosch;
+  rclcpp::Publisher<custom_interfaces::msg::SteeringAngle>::SharedPtr steeringAngleCubeM;
 
   // Enum to hold the state of the AS
-
   State currentState = State::AS_Off;
 
   rclcpp::Subscription<std_msgs::msg::String>::SharedPtr busStatus;
@@ -160,11 +186,17 @@ class RosCan : public rclcpp::Node {
   void imuPitchAccZPublisher(unsigned char msg[8]);
 
   /**
-   * @brief Function to publish the steering angle
-   * @param angleLSB - the steering angle least significant byte
-   * @param angleMSB - the steering angle most significant byte
+   * @brief Function to publish the steering angle form steering actuator (CubeMars) 
+   * @param msg - the CAN msg
    */
-  void steeringAnglePublisher(unsigned char angleLSB, unsigned char angleMSB);
+  void steeringAnglePublisher(unsigned char msg[8]);
+
+  /**
+   * @brief Function to publish the steering angle form Bosch
+   * @param msg - the CAN msg
+   */
+  void steeringAngleBoschPublisher(unsigned char msg[8]);
+
 
   /**
    * @brief Function to publish the rear right rpm
@@ -172,14 +204,11 @@ class RosCan : public rclcpp::Node {
    */
   void rrRPMPublisher(unsigned char msg[8]);
 
-/**
+  /**
    * @brief Function to publish the rear left rpm
    * @param msg - the CAN msg
    */
   void rlRPMPublisher(unsigned char msg[8]);
-
-  
-
 
   /**
    * @brief Function to interpret the master status CAN msg
