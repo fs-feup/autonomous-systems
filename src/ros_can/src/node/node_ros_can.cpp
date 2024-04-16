@@ -35,8 +35,7 @@ RosCan::RosCan() : Node("node_ros_can") {
       "/as_msgs/mission_finished", 10,
       std::bind(&RosCan::mission_finished_callback, this,
                 std::placeholders::_1));  // maybe change type
-  busStatus = this->create_subscription<std_msgs::msg::String>(
-      "busStatus", 10, std::bind(&RosCan::busStatus_callback, this, std::placeholders::_1));
+  //busStatus = this->create_subscription<std_msgs::msg::String>("busStatus", 10, std::bind(&RosCan::busStatus_callback, this, std::placeholders::_1));
   timer =
       this->create_wall_timer(std::chrono::milliseconds(500), std::bind(&RosCan::canSniffer, this));
   // initialize the CAN library
@@ -72,8 +71,8 @@ void RosCan::control_callback(fs_msgs::msg::ControlCommand::SharedPtr controlCmd
                  controlCmd->steering, controlCmd->throttle);
     canInitializeLibrary();  // initialize the CAN library again, just in case (could be removed)
     // Prepare the steering message
-    long steering_id = STEERING_ID;  // TODO: confirm ID
-    void* steering_requestData = static_cast<void*> & controlCmd->steering;
+    long steering_id = STEERING_CUBEM_ID;  // TODO: confirm ID
+    void* steering_requestData = (void*)&controlCmd->steering;
     unsigned int steering_dlc = 8;
     unsigned int flag = 0;
 
@@ -84,8 +83,8 @@ void RosCan::control_callback(fs_msgs::msg::ControlCommand::SharedPtr controlCmd
     }
 
     // Prepare the throttle message
-    long throttle_id = 0x201;  // TODO: confirm ID
-    void* throttle_requestData = static_cast<void*> & foo2->throttle;
+    long throttle_id = BAMO_RECEIVER;  // TODO: confirm ID
+    void* throttle_requestData = (void*)&controlCmd->throttle;
     unsigned int throttle_dlc = 8;
 
     // Write the throttle message to the CAN bus
@@ -135,7 +134,7 @@ void RosCan::mission_finished_callback(std_msgs::msg::String::SharedPtr msg) {
 /**
  * @brief Function to turn ON and OFF the CAN BUS
  */
-void RosCan::busStatus_callback(std_msgs::msg::String busStatus) {
+/*void RosCan::busStatus_callback(std_msgs::msg::String busStatus) {
   if (busStatus.data == "ON") {
     hnd = canOpenChannel(0, canOPEN_CAN_FD);
     stat = canBusOn(hnd);
@@ -143,7 +142,7 @@ void RosCan::busStatus_callback(std_msgs::msg::String busStatus) {
     stat = canBusOff(hnd);
     canClose(hnd);
   }
-}
+}*/
 
 /**
  * @brief Function cyclically reads all CAN msg from buffer
@@ -186,7 +185,9 @@ void RosCan::canInterpreter(long id, unsigned char msg[8], unsigned int dlc, uns
       steeringAngleCubeMPublisher(msg);
       break;
     case STEERING_BOSCH_ID:
-      steeringAngleBoschPublisher(msg) default : break;
+      steeringAngleBoschPublisher(msg);
+    default: 
+      break;
   }
 }
 
@@ -290,8 +291,8 @@ void RosCan::steeringAngleBoschPublisher(unsigned char msg[8]) {
     int speed = msg[2];
     auto message = custom_interfaces::msg::SteeringAngle();
     message.steering_angle = angle;
-    message.speed = speed;
-    steeringAngleBoschPublisher->publish(message);
+    message.steering_speed = speed;
+    steeringAngleBosch->publish(message);
   } else {
     RCLCPP_ERROR(this->get_logger(), "Invalid message received from Bosch Speed Sensor");
   }

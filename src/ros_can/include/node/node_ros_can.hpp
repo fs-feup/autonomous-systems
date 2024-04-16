@@ -12,6 +12,8 @@
 #include "custom_interfaces/msg/wheel_rpm.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/imu.hpp"
+#include "fs_msgs/msg/control_command.hpp"
+#include "std_msgs/msg/string.hpp"
 
 /*
  * ID used for:
@@ -59,6 +61,11 @@
  * Steering angle from Bosch
  */
 #define STEERING_BOSCH_ID 0x2B0
+
+/* ID used for:
+ * Publish cmds to bamocar
+*/
+#define BAMO_RECEIVER 0X201
 
 /*
  * ID used from the IMU for:
@@ -113,7 +120,7 @@ class RosCan : public rclcpp::Node {
   // Enum to hold the state of the AS
   State currentState = State::AS_Off;
 
-  rclcpp::Subscription<std_msgs::msg::String>::SharedPtr busStatus;
+  //rclcpp::Subscription<std_msgs::msg::String::SharedPtr> busStatus;
   rclcpp::Subscription<fs_msgs::msg::ControlCommand>::SharedPtr controlListener;
   rclcpp::Subscription<std_msgs::msg::String>::SharedPtr emergencyListener;
   rclcpp::Subscription<std_msgs::msg::String>::SharedPtr missionFinishedListener;
@@ -144,7 +151,7 @@ class RosCan : public rclcpp::Node {
   /**
    * @brief Function to turn ON and OFF the CAN BUS
    */
-  void busStatus_callback(std_msgs::msg::String busStatus);
+  //void busStatus_callback(std_msgs::msg::String busStatus);
 
   /**
    * @brief Function cyclically reads all CAN msg from buffer
@@ -189,7 +196,7 @@ class RosCan : public rclcpp::Node {
    * @brief Function to publish the steering angle form steering actuator (CubeMars) 
    * @param msg - the CAN msg
    */
-  void steeringAnglePublisher(unsigned char msg[8]);
+  void steeringAngleCubeMPublisher(unsigned char msg[8]);
 
   /**
    * @brief Function to publish the steering angle form Bosch
