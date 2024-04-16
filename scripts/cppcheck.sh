@@ -5,8 +5,5 @@ cppcheck --enable=all \
     -I ./src/perception/include/ \
     -I ./src/planning/include/ \
     -I ./src/long_control/include/ \
-<<<<<<< HEAD
     -I ./src/ros_can/include/ \
-=======
     -I ./src/inspection/include/ \
->>>>>>> main

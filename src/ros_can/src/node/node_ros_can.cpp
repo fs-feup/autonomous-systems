@@ -35,7 +35,8 @@ RosCan::RosCan() : Node("node_ros_can") {
       "/as_msgs/mission_finished", 10,
       std::bind(&RosCan::mission_finished_callback, this,
                 std::placeholders::_1));  // maybe change type
-  //busStatus = this->create_subscription<std_msgs::msg::String>("busStatus", 10, std::bind(&RosCan::busStatus_callback, this, std::placeholders::_1));
+  // busStatus = this->create_subscription<std_msgs::msg::String>("busStatus", 10,
+  // std::bind(&RosCan::busStatus_callback, this, std::placeholders::_1));
   timer =
       this->create_wall_timer(std::chrono::milliseconds(500), std::bind(&RosCan::canSniffer, this));
   // initialize the CAN library
@@ -71,8 +72,8 @@ void RosCan::control_callback(fs_msgs::msg::ControlCommand::SharedPtr controlCmd
                  controlCmd->steering, controlCmd->throttle);
     canInitializeLibrary();  // initialize the CAN library again, just in case (could be removed)
     // Prepare the steering message
-    long steering_id = STEERING_CUBEM_ID;  // TODO: confirm ID
-    void* steering_requestData = (void*)&controlCmd->steering;
+    long steering_id = STEERING_CUBEM_ID;
+    void* steering_requestData = reinterpret_cast<void*> & controlCmd->steering;
     unsigned int steering_dlc = 8;
     unsigned int flag = 0;
 
@@ -84,7 +85,7 @@ void RosCan::control_callback(fs_msgs::msg::ControlCommand::SharedPtr controlCmd
 
     // Prepare the throttle message
     long throttle_id = BAMO_RECEIVER;  // TODO: confirm ID
-    void* throttle_requestData = (void*)&controlCmd->throttle;
+    void* throttle_requestData = reinterpret_cast<void*>&controlCmd->throttle;
     unsigned int throttle_dlc = 8;
 
     // Write the throttle message to the CAN bus
@@ -186,7 +187,7 @@ void RosCan::canInterpreter(long id, unsigned char msg[8], unsigned int dlc, uns
       break;
     case STEERING_BOSCH_ID:
       steeringAngleBoschPublisher(msg);
-    default: 
+    default:
       break;
   }
 }
