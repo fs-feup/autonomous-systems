@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 if [ $# = 0 ]; then
 	echo "Wrong configuration. How to use: static-tools.sh <tool>"
 	echo "Tool Options: 'all', 'act' (format and document), 'check' (analyzers)\n'cppcheck', 'cpplint', 'clang-format'"
