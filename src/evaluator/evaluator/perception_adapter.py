@@ -4,54 +4,39 @@ from fs_msgs.msg import Track, Cone
 from nav_msgs.msg import Odometry
 from rclpy.qos import QoSProfile, QoSHistoryPolicy, QoSDurabilityPolicy, QoSReliabilityPolicy
 import numpy as np
-from message_filters import ApproximateTimeSynchronizer, Subscriber, TimeSynchronizer
+import message_filters
 
 
 class PerceptionAdater:
     def __init__(self, node, point_cloud_topic):
         self.node = node
-        self.node.point_cloud_subscription = self.node.create_subscription(
-            PointCloud2,
-            point_cloud_topic,
-            self.point_cloud_callback,
-            10
-        )
         self.point_cloud_topic = point_cloud_topic
-
-    def point_cloud_callback(self, msg: PointCloud2):
-        self.node.get_logger().info("Point Cloud Received")
+        self.node.point_cloud_subscription = message_filters.Subscriber(
+            self.node,
+            PointCloud2,
+            point_cloud_topic
+        )
 
 class PerceptionAdapterROSBag(PerceptionAdater):
 
     def __init__(self, node, point_cloud_topic, ground_truth_topic):
         super().__init__(node, point_cloud_topic)
 
-        qos_profile = QoSProfile(
-            history=QoSHistoryPolicy.KEEP_LAST,
-            depth=10,
-            durability=QoSDurabilityPolicy.VOLATILE
-        )
-
-        self.node.ground_truth_subscription = self.node.create_subscription(
+        self.node.ground_truth_subscription = message_filters.Subscriber(
+            self.node,
             MarkerArray,
-            ground_truth_topic,
-            self.ground_truth_callback,
-            qos_profile
+            ground_truth_topic
         )
 
-        self.node.sync = ApproximateTimeSynchronizer(
-            [self.node.perception_subscription, self.node.point_cloud_subscription, self.node.ground_truth_subscription], 
-            10, 0.1#, self.node.perception_evaluation
-        )
+        self.ts = message_filters.TimeSynchronizer(
+                            [self.node.point_cloud_subscription, self.node.perception_subscription], 
+                            10)
+        
+        self.ts.registerCallback(self.callback)
 
-    def ground_truth_callback(self, msg: MarkerArray):
-        self.node.get_logger().info("Perception Ground Truth Received")
-        self.node.perception_ground_truth = []
-        for marker in msg.markers:
-            cone_position = marker.pose.position
-            x = cone_position.x
-            y = cone_position.y
-            self.node.perception_ground_truth.append(Cone(x, y, None))
+    def callback(self, point_cloud, perception):
+        self.node.get_logger().info("Synchronizing")
+
 
 
 class PerceptionAdapterFSDS(PerceptionAdater):
@@ -72,16 +57,15 @@ class PerceptionAdapterFSDS(PerceptionAdater):
             10
         )
 
-        self.node.odometry_subscription = self.node.create_subscription(
+        self.node.odometry_subscription = message_filters.Subscriber(
+            self.node,
             Odometry,
             "/fsds/testing_only/odom",
-            self.odometry_callback,
-            10
         )
 
-        self.node.sync = ApproximateTimeSynchronizer(
+        self.node.sync = message_filters.TimeSynchronizer(
             [self.node.perception_subscription, self.node.point_cloud_subscription, self.node.odometry_subscription], 
-            10, 0.1#, self.node.perception_evaluation
+            10
         )
 
     def point_cloud_callback(self, msg: PointCloud2):
@@ -133,6 +117,6 @@ class PerceptionAdapterFSDS(PerceptionAdater):
         r22 = 2 * (q0 * q0 + q3 * q3) - 1
         
         rot_matrix = np.array([[r00, r01, r02],
-                            [r10, r11, r12],
-                            [r20, r21, r22]])
+                               [r10, r11, r12],
+                               [r20, r21, r22]])
         return rot_matrix
