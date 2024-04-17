@@ -17,14 +17,16 @@ RUN apt-get install -y python3-pip
 RUN apt install ros-$ROS_DISTRO-rviz2 -y
 RUN apt install openssh-client -y
 RUN apt install openssh-server -y
+
+# Install some useful tools
 RUN apt update
 RUN apt install python-is-python3 -y
-RUN pip3 install cpplint
 RUN pip install rosbags
 RUN apt install clang-format -y
 RUN pip install black
-RUN pip install mypy
-RUN pip install pylint
+# For Sonarlint
+RUN apt install bear -y
+RUN curl -s https://deb.nodesource.com/setup_16.x | sudo bash && apt install nodejs -y
 RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
 ENV SHELL /bin/bash
 
