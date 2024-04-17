@@ -44,12 +44,8 @@ The second step is common to all approaches: install vscode and clone this repos
 
 For each of the approaches, there are different steps here:
 
-1. **Docker Environment on Ubuntu** - Follow [this tutorial](./environment_setup/ros2_docker_vscode_coding_environment.md)
-2. **Docker Environment on Windows WSL** - Follow [this tutorial](./environment_setup/ros2_docker_vscode_coding_environment.md)
-3. **Docker Environment on Mac** - Follow [this tutorial](./environment_setup/ros2_docker_vscode_coding_environment.md)
-4. **Docker Environment on Windows** - Follow [this tutorial](./environment_setup/ros2_docker_vscode_coding_environment.md)
-5. **Direct installation on Ubuntu** - Follow [this tutorial](./environment_setup/ros2_setup.md)
-6. **Direct installation on Windows WSL** - Follow [this tutorial](./environment_setup/ros2_setup.md)
+1. **Docker Environment** - Follow [this tutorial](./environment_setup/ros2_docker_vscode_coding_environment.md)
+2. **Direct installation** - Follow [this tutorial](./environment_setup/ros2_setup.md)
 
 ## Simulator Setup
 
@@ -70,4 +66,4 @@ The simulator requires Ubuntu to work (or WSL). The tutorial regarding its setup
 
 ### Static Analysis
 
-Some other tools are required for development in the AS department, such as Static Analysis tools. These tools are already installed in the Docker Image provided but their installation process is still reviewed in tutorials further ahead in the guide.
+Some other tools are required for development in the AS department, such as Static Analysis tools.

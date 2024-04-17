@@ -1,6 +1,10 @@
-[![Static Analysis](https://github.com/fs-feup/autonomous-systems/actions/workflows/static-analysis.yml/badge.svg)](https://github.com/fs-feup/autonomous-systems/actions/workflows/static-analysis.yml)
 [![Testing and Building](https://github.com/fs-feup/autonomous-systems/actions/workflows/build.yml/badge.svg)](https://github.com/fs-feup/autonomous-systems/actions/workflows/build.yml)
 [![Doxygen Documentation Page](https://github.com/fs-feup/autonomous-systems/actions/workflows/doxygen.yml/badge.svg)](https://github.com/fs-feup/autonomous-systems/actions/workflows/doxygen.yml)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=fs-feup_autonomous-systems&metric=bugs)](https://sonarcloud.io/summary/new_code?id=fs-feup_autonomous-systems)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=fs-feup_autonomous-systems&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=fs-feup_autonomous-systems)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=fs-feup_autonomous-systems&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=fs-feup_autonomous-systems)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=fs-feup_autonomous-systems&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=fs-feup_autonomous-systems)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=fs-feup_autonomous-systems&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=fs-feup_autonomous-systems)
 
 # FS-FEUP Autonomous Systems
 
@@ -29,7 +33,14 @@ You work with your **shell always in the root directory**. In it, you can find m
 - Program
 - Compile (see guide at the end of this file)
   ```sh
-  colcon build --packages-select [your package and others necessary] --symlink-install
+  colcon build --packages-select [your package and others necessary]
+  ```
+  you can and should use bear to update the compile_commands.json file for Sonarlint to be kept up to date, especially if you have added new files
+  ```sh
+  bear -- colcon build --packages-select [your package and others necessary]
+  ```
+- Source the packages:
+  ```sh
   source install/setup.bash
   ```
 - Run code (`ros-args` are optional) (see guide at the end of this file)
@@ -40,25 +51,6 @@ You work with your **shell always in the root directory**. In it, you can find m
   ```sh
   colcon test --packages-select [your package and others necessary] [--event-handler=console_direct+] #last part for verbose
   ```
-- Run static analysis (runs clang-format, cpplint, cppcheck, ruff):
-  ```sh
-  ./static-tools.sh all
-  ```
-  or just checking part:
-  ```sh
-  ./static-tools.sh check
-  ```
-  or just modifying tools:
-  ```sh
-  ./static-tools.sh act
-  ```
-  or individually like so:
-  ```sh
-  ./static-tools.sh clang-format # C++
-  ./static-tools.sh cppcheck # C++
-  ./static-tools.sh cpplint # C++
-  ./static-tools.sh ruff # Python
-  ```
 - Finally push changes to repository
   ```sh
   git add -A
@@ -66,7 +58,7 @@ You work with your **shell always in the root directory**. In it, you can find m
   git push
   ```
   Note that the commit message should more or less follow the [Conventional Commits norms](https://www.conventionalcommits.org/en/v1.0.0-beta.4/)
-
+- Verify successfull workflows
 
 ### Extra Notes
 
