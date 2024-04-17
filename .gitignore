@@ -9,7 +9,7 @@
 *.bag
 *.db3
 *.pcd
-compile-commands.json
+compile_commands.json
 
 # This makes it so that the cache/humble-ros-base-jammy
 # folders are kept in the repo but not its contents, meaning
