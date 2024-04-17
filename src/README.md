@@ -8,8 +8,6 @@ You work with your **shell always in the root directory**. In it, you can find m
 
 - Run dependencies_install.sh script to make sure everything is installed: ```./dependencies_install.sh```
 - Program
-- Run dependencies_install.sh script to make sure everything is installed: ```./dependencies_install.sh```
-- Program
 - Compile (see guide at the end of this file)
   ```sh
   colcon build --packages-select [your package and others necessary]
