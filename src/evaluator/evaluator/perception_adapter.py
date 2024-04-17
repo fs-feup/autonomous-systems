@@ -63,10 +63,15 @@ class PerceptionAdapterFSDS(PerceptionAdater):
             "/fsds/testing_only/odom",
         )
 
-        self.node.sync = message_filters.TimeSynchronizer(
+        self.ts = message_filters.TimeSynchronizer(
             [self.node.perception_subscription, self.node.point_cloud_subscription, self.node.odometry_subscription], 
             10
         )
+
+        self.ts.registerCallback(self.callback)
+
+    def callback(self, perception, point_cloud, odometry):
+        self.node.get_logger().info("Synchronizing")
 
     def point_cloud_callback(self, msg: PointCloud2):
         self.node.get_logger().info("Point Cloud Received")
