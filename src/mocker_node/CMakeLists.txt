@@ -13,10 +13,9 @@ find_package(custom_interfaces REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(fs_msgs REQUIRED)
 
-add_executable(mocker_node
-  src/node/mocker_node.cpp 
+set(IMPLEMENTATION_FILES
+  src/node/mocker_node.cpp
   src/planning/planning_mock.cpp
-  src/main.cpp
 )
 
 add_executable(mocker_node src/main.cpp ${IMPLEMENTATION_FILES})
