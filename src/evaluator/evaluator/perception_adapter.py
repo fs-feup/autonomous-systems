@@ -72,17 +72,36 @@ class PerceptionAdapterFSDS(PerceptionAdater):
 
     def callback(self, perception, point_cloud, odometry):
         self.node.get_logger().info("Synchronizing")
-        rotation_matrix = PerceptionAdapterFSDS.quaternion_to_rotation_matrix(self.odometry)
-        self.node.perception_ground_truth = []
+        self.node.perception_ground_truth = self.create_ground_truth(odometry)
+        self.node.perception_output = self.create_perception_output(perception)
+
+        self.node.compute_and_publish_perception()
+
+
+    def create_perception_output(self, perception):
+        perception_output = []
+
+        for cone in perception:
+            perception_output.append(np.array([cone.x, cone.y, 0.0]))
+        
+        return perception_output
+
+    def create_ground_truth(self, odometry):
+        rotation_matrix = PerceptionAdapterFSDS.quaternion_to_rotation_matrix(odometry)
+        perception_ground_truth = []
+
         for cone in self.track:
             cone_position = np.array([cone.x, cone.y, 0.0])
             transformed_position = np.dot(rotation_matrix, cone_position) + np.array([
-                self.odometry.x,
-                self.odometry.y,
+                odometry.x,
+                odometry.y,
                 0.0
             ])
-            self.node.perception_ground_truth.append(transformed_position)
+
+            perception_ground_truth.append(transformed_position)
             self.node.get_logger().info(transformed_position)
+        
+        return perception_ground_truth
 
 
 
