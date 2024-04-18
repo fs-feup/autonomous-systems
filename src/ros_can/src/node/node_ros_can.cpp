@@ -73,7 +73,7 @@ void RosCan::control_callback(fs_msgs::msg::ControlCommand::SharedPtr controlCmd
     canInitializeLibrary();  // initialize the CAN library again, just in case (could be removed)
     // Prepare the steering message
     long steering_id = STEERING_CUBEM_ID;
-    void* steering_requestData = reinterpret_cast <void*>(&controlCmd->steering);
+    void* steering_requestData = reinterpret_cast<void*>(&controlCmd->steering);
     unsigned int steering_dlc = 8;
     unsigned int flag = 0;
 
