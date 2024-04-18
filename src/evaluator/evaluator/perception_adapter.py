@@ -52,7 +52,7 @@ class PerceptionAdapterFSDS(PerceptionAdater):
 
         self.node.track_subscription = self.node.create_subscription(
             Track,
-            "/fsds/testing_only/track",
+            "/testing_only/track",
             self.track_callback,
             10
         )
@@ -60,7 +60,7 @@ class PerceptionAdapterFSDS(PerceptionAdater):
         self.node.odometry_subscription = message_filters.Subscriber(
             self.node,
             Odometry,
-            "/fsds/testing_only/odom",
+            "/testing_only/odom",
         )
 
         self.ts = message_filters.TimeSynchronizer(
@@ -72,9 +72,20 @@ class PerceptionAdapterFSDS(PerceptionAdater):
 
     def callback(self, perception, point_cloud, odometry):
         self.node.get_logger().info("Synchronizing")
+        rotation_matrix = PerceptionAdapterFSDS.quaternion_to_rotation_matrix(self.odometry)
+        self.node.perception_ground_truth = []
+        for cone in self.track:
+            cone_position = np.array([cone.x, cone.y, 0.0])
+            transformed_position = np.dot(rotation_matrix, cone_position) + np.array([
+                self.odometry.x,
+                self.odometry.y,
+                0.0
+            ])
+            self.node.perception_ground_truth.append(transformed_position)
+            self.node.get_logger().info(transformed_position)
 
-    def point_cloud_callback(self, msg: PointCloud2):
-        self.node.get_logger().info("Point Cloud Received")
+
+
 
     def track_callback(self, msg: Track):
         self.node.get_logger().info("Track Received")
@@ -89,18 +100,6 @@ class PerceptionAdapterFSDS(PerceptionAdater):
         self.current_odom_position = msg.pose.pose.position
         self.current_odom_orientation = msg.pose.pose.orientation
         self.transform_cones_to_car_frame()
-
-    def transform_cones_to_car_frame(self):
-        rotation_matrix = PerceptionAdapterFSDS.quaternion_to_rotation_matrix(self.current_odom_orientation)
-        self.node.perception_ground_truth = []
-        for cone in self.track:
-            cone_position = np.array([cone.x, cone.y, 0.0])
-            transformed_position = np.dot(rotation_matrix, cone_position) + np.array([
-                self.current_odom_position.x,
-                self.current_odom_position.y,
-                0.0
-            ])
-            self.node.perception_ground_truth.append(transformed_position)
 
     @staticmethod
     def quaternion_to_rotation_matrix(quaternion):

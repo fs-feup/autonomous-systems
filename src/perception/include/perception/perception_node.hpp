@@ -29,7 +29,7 @@ class Perception : public rclcpp::Node {
   GroundRemoval* groundRemoval;  ///< Pointer to the GroundRemoval object.
   Adapter* adapter;              /**< Adapter instance for external communication */
   Clustering* clustering;
-  std::string mode = "test";  // Temporary, change as desired. TODO(andre): Make not hardcoded
+  std::string mode = "fsds";  // Temporary, change as desired. TODO(andre): Make not hardcoded
   ConeDifferentiation* coneDifferentiator;  ///< Pointer to ConeDifferentiation object.
   Plane groundPlane;
   std::vector<ConeValidator*> coneValidators;
