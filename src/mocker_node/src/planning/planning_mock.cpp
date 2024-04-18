@@ -31,8 +31,8 @@ custom_interfaces::msg::PathPointArray gtruth_fromfile(std::istream& in) {
                      "Out of range exception encountered while converting to double: %s \n",
                      e.what());
       }
-    } else {
-      RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "Unexpected format in line: %s \n", line.c_str());
+    } else if (!line.empty()) {
+      RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "Unexpected format in line with content: %s \n", line.c_str());
     }
   }
 

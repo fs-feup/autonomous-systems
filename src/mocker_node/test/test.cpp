@@ -8,7 +8,7 @@
 
 // Test case for valid input
 TEST(GTruthFromFileTest, ValidInput) {
-  std::string mockFileContent("header\n-1.0,0,3.1416\n4.0,5.0,6.0\n7.5,-8.5,9.8\n");
+  std::string mockFileContent("header\n-1.0,0,3.1416\n4.0,5.0,6.0\n7.5,-8.5,9.8");
   std::istringstream mockFileStream(mockFileContent);
 
   custom_interfaces::msg::PathPointArray result = gtruth_fromfile(mockFileStream);
@@ -31,4 +31,24 @@ TEST(GTruthFromFileTest, ValidInput) {
   EXPECT_FLOAT_EQ(result.pathpoint_array[2].x, 7.5);
   EXPECT_FLOAT_EQ(result.pathpoint_array[2].y, -8.5);
   EXPECT_FLOAT_EQ(result.pathpoint_array[2].v, 9.8);
+}
+
+// Test case for empty input
+TEST(GTruthFromFileTest, EmptyInput) {
+  std::string mockFileContent("");
+  std::istringstream mockFileStream(mockFileContent);
+
+  custom_interfaces::msg::PathPointArray result = gtruth_fromfile(mockFileStream);
+
+  ASSERT_EQ(result.pathpoint_array.size(), 0);  // No points should be added
+}
+
+//Test case for invalid input 
+TEST(GTruthFromFileTest, InvalidInput) {
+  std::string mockFileContent("header\n-1.0,0,3.1416\n4.0,5.0,6.0\n7.5,-8.5,9.8\ninvalid");
+  std::istringstream mockFileStream(mockFileContent);
+
+  custom_interfaces::msg::PathPointArray result = gtruth_fromfile(mockFileStream);
+
+  ASSERT_EQ(result.pathpoint_array.size(), 3);  // Three points should be added; the other line should be ignored
 }

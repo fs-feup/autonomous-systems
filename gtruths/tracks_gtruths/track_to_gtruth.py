@@ -21,7 +21,7 @@ def read_csv(filename):
         reader = csv.reader(file)
         next(reader)  # Skip header if present
         for row in reader:
-            x, y, tag = row[:3]  # Assuming tag is in the third column
+            x, y, _ = row[:3]  # Assuming tag is in the third column
             initial_points.append((float(x), float(y)))
     return initial_points
 # Get the current directory
