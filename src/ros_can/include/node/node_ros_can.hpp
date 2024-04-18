@@ -10,9 +10,9 @@
 #include "custom_interfaces/msg/operational_status.hpp"
 #include "custom_interfaces/msg/steering_angle.hpp"
 #include "custom_interfaces/msg/wheel_rpm.hpp"
+#include "fs_msgs/msg/control_command.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/imu.hpp"
-#include "fs_msgs/msg/control_command.hpp"
 #include "std_msgs/msg/string.hpp"
 
 /*
@@ -55,7 +55,6 @@
  */
 #define STEERING_CUBEM_ID 0x700
 
-
 /*
  * ID used for:
  * Steering angle from Bosch
@@ -64,7 +63,7 @@
 
 /* ID used for:
  * Publish cmds to bamocar
-*/
+ */
 #define BAMO_RECEIVER 0X201
 
 /*
@@ -120,7 +119,7 @@ class RosCan : public rclcpp::Node {
   // Enum to hold the state of the AS
   State currentState = State::AS_Off;
 
-  //rclcpp::Subscription<std_msgs::msg::String::SharedPtr> busStatus;
+  // rclcpp::Subscription<std_msgs::msg::String::SharedPtr> busStatus;
   rclcpp::Subscription<fs_msgs::msg::ControlCommand>::SharedPtr controlListener;
   rclcpp::Subscription<std_msgs::msg::String>::SharedPtr emergencyListener;
   rclcpp::Subscription<std_msgs::msg::String>::SharedPtr missionFinishedListener;
@@ -150,9 +149,10 @@ class RosCan : public rclcpp::Node {
 
   /**
    * @brief Function to turn ON and OFF the CAN BUS
+   * @param busStatus - the status of the bus
+   *
+   *void busStatus_callback(std_msgs::msg::String busStatus);
    */
-  //void busStatus_callback(std_msgs::msg::String busStatus);
-
   /**
    * @brief Function cyclically reads all CAN msg from buffer
    */
@@ -193,7 +193,7 @@ class RosCan : public rclcpp::Node {
   void imuPitchAccZPublisher(unsigned char msg[8]);
 
   /**
-   * @brief Function to publish the steering angle form steering actuator (CubeMars) 
+   * @brief Function to publish the steering angle form steering actuator (CubeMars)
    * @param msg - the CAN msg
    */
   void steeringAngleCubeMPublisher(unsigned char msg[8]);
@@ -203,7 +203,6 @@ class RosCan : public rclcpp::Node {
    * @param msg - the CAN msg
    */
   void steeringAngleBoschPublisher(unsigned char msg[8]);
-
 
   /**
    * @brief Function to publish the rear right rpm
