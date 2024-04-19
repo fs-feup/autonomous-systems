@@ -51,19 +51,6 @@ For each of the approaches, there are different steps here:
 
 The simulator requires Ubuntu to work (or WSL). The tutorial regarding its setup is [here](./environment_setup/fsds_setup.md).
 
-## Other tools
-
-### C/C++ VSCode Syntax Analysis Extension
-
-1. Ctrl+Shift+P and write 'C/C++: Edit Configurations (UI)
-2. Scroll down to 'Include Path'
-3. Add this to the text box:
-    ```
-    ${workspaceFolder}/**
-    /opt/ros/humble/include/**
-    /usr/include/**
-    ```
-
 ### Static Analysis
 
 Some other tools are required for development in the AS department, such as Static Analysis tools.
