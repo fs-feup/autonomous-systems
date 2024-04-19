@@ -24,7 +24,10 @@
                 "donjayamanne.python-extension-pack",
                 "eamodio.gitlens",
                 "ms-iot.vscode-ros",
-                "GitHub.vscode-github-actions"
+                "GitHub.vscode-github-actions",
+                "xaver.clang-format",
+                "ms-python.black-formatter",
+                "SonarSource.sonarlint-vscode"
             ]
         }
     },
