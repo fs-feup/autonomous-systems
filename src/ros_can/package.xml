@@ -17,6 +17,9 @@
   <depend>fs_msgs</depend>
   <depend>custom_interfaces</depend>
 
+  <build_depend>message_generation</build_depend>
+  <exec_depend>message_runtime</exec_depend>
+
   <export>
     <build_type>ament_cmake</build_type>
   </export>
