@@ -103,39 +103,48 @@ $(document).ready(function(){initNavTree('db/d50/node__ros__can_8hpp.html','../.
 <code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &quot;custom_interfaces/msg/imu.hpp&quot;</code><br />
+<code>#include &quot;custom_interfaces/msg/imu_data.hpp&quot;</code><br />
+<code>#include &quot;custom_interfaces/msg/operational_status.hpp&quot;</code><br />
+<code>#include &quot;custom_interfaces/msg/steering_angle.hpp&quot;</code><br />
+<code>#include &quot;custom_interfaces/msg/wheel_rpm.hpp&quot;</code><br />
+<code>#include &quot;fs_msgs/msg/control_command.hpp&quot;</code><br />
 <code>#include &quot;rclcpp/rclcpp.hpp&quot;</code><br />
 <code>#include &quot;sensor_msgs/msg/imu.hpp&quot;</code><br />
-<code>#include &quot;std_msgs/msg/float32.hpp&quot;</code><br />
-<code>#include &quot;std_msgs/msg/int32.hpp&quot;</code><br />
 <code>#include &quot;std_msgs/msg/string.hpp&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for node_ros_can.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d9/dbf/node__ros__can_8hpp__incl.png" border="0" usemap="#asrc_2ros__can_2include_2node_2node__ros__can_8hpp" alt=""/></div>
 <map name="asrc_2ros__can_2include_2node_2node__ros__can_8hpp" id="asrc_2ros__can_2include_2node_2node__ros__can_8hpp">
-<area shape="rect" title=" " alt="" coords="446,5,609,46"/>
+<area shape="rect" title=" " alt="" coords="718,5,881,46"/>
 <area shape="rect" title=" " alt="" coords="5,102,71,127"/>
-<area shape="poly" title=" " alt="" coords="446,36,277,56,179,73,83,97,77,98,76,93,81,91,178,68,276,51,445,30"/>
+<area shape="poly" title=" " alt="" coords="718,29,593,32,434,42,258,62,169,77,83,97,77,98,76,93,81,91,168,72,257,57,434,36,593,26,718,24"/>
 <area shape="rect" title=" " alt="" coords="95,102,155,127"/>
-<area shape="poly" title=" " alt="" coords="446,39,314,61,240,77,168,97,164,98,163,93,167,91,239,72,313,56,445,34"/>
+<area shape="poly" title=" " alt="" coords="718,30,607,34,469,45,318,65,168,97,163,98,161,93,167,91,317,60,469,40,607,29,717,25"/>
 <area shape="rect" title=" " alt="" coords="179,102,257,127"/>
-<area shape="poly" title=" " alt="" coords="446,48,269,97,263,99,262,94,268,91,445,43"/>
+<area shape="poly" title=" " alt="" coords="718,34,513,53,390,72,269,97,262,99,260,94,268,91,389,66,512,48,718,29"/>
 <area shape="rect" title=" " alt="" coords="280,102,348,127"/>
-<area shape="poly" title=" " alt="" coords="479,49,360,96,358,98,356,93,358,92,477,44"/>
+<area shape="poly" title=" " alt="" coords="718,36,551,57,455,74,360,97,355,98,353,93,359,91,454,69,551,51,717,31"/>
 <area shape="rect" title=" " alt="" coords="371,102,425,127"/>
-<area shape="poly" title=" " alt="" coords="499,49,430,95,427,90,497,44"/>
+<area shape="poly" title=" " alt="" coords="718,38,585,59,510,76,437,97,435,97,433,92,436,91,509,70,584,54,717,33"/>
 <area shape="rect" title=" " alt="" coords="449,94,606,135"/>
-<area shape="poly" title=" " alt="" coords="530,47,530,78,525,78,525,47"/>
-<area shape="rect" title=" " alt="" coords="630,102,750,127"/>
-<area shape="poly" title=" " alt="" coords="565,44,655,92,653,96,563,49"/>
-<area shape="rect" title=" " alt="" coords="773,102,951,127"/>
-<area shape="poly" title=" " alt="" coords="604,44,801,95,800,100,603,49"/>
-<area shape="rect" title=" " alt="" coords="975,102,1149,127"/>
-<area shape="poly" title=" " alt="" coords="609,36,964,91,987,95,986,101,963,97,609,41"/>
-<area shape="rect" title=" " alt="" coords="1172,102,1336,127"/>
-<area shape="poly" title=" " alt="" coords="609,30,857,53,1009,70,1161,91,1184,95,1184,101,1160,97,1008,76,856,58,609,36"/>
-<area shape="rect" title=" " alt="" coords="1360,102,1527,127"/>
-<area shape="poly" title=" " alt="" coords="609,28,933,48,1140,67,1348,91,1374,96,1373,101,1347,97,1139,72,933,54,609,33"/>
+<area shape="poly" title=" " alt="" coords="738,49,604,91,603,86,736,44"/>
+<area shape="rect" title=" " alt="" coords="630,94,787,135"/>
+<area shape="poly" title=" " alt="" coords="781,48,742,85,738,81,777,45"/>
+<area shape="rect" title=" " alt="" coords="811,94,969,135"/>
+<area shape="poly" title=" " alt="" coords="822,45,860,81,857,85,818,48"/>
+<area shape="rect" title=" " alt="" coords="993,94,1150,135"/>
+<area shape="poly" title=" " alt="" coords="862,44,996,86,994,91,861,49"/>
+<area shape="rect" title=" " alt="" coords="1174,94,1331,135"/>
+<area shape="poly" title=" " alt="" coords="881,39,1159,91,1159,96,880,44"/>
+<area shape="rect" title=" " alt="" coords="1356,94,1499,135"/>
+<area shape="poly" title=" " alt="" coords="881,32,1086,54,1341,91,1340,96,1085,60,881,37"/>
+<area shape="rect" title=" " alt="" coords="1524,102,1643,127"/>
+<area shape="poly" title=" " alt="" coords="881,28,1162,47,1336,65,1512,91,1528,95,1527,100,1511,97,1336,71,1161,52,881,33"/>
+<area shape="rect" title=" " alt="" coords="1667,102,1844,127"/>
+<area shape="poly" title=" " alt="" coords="881,28,1220,48,1437,66,1656,91,1683,96,1682,101,1655,97,1436,72,1219,53,881,33"/>
+<area shape="rect" title=" " alt="" coords="1868,102,2035,127"/>
+<area shape="poly" title=" " alt="" coords="881,26,1058,31,1300,42,1577,62,1857,91,1883,95,1882,101,1856,97,1576,67,1300,48,1058,36,881,31"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -162,12 +171,32 @@ Classes</h2></td></tr>
 Macros</h2></td></tr>
 <tr class="memitem:a0f7bcb0e38ef33c36640e747612cc77e" id="r_a0f7bcb0e38ef33c36640e747612cc77e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d50/node__ros__can_8hpp.html#a0f7bcb0e38ef33c36640e747612cc77e">MASTER_STATUS</a>&#160;&#160;&#160;0x300</td></tr>
 <tr class="separator:a0f7bcb0e38ef33c36640e747612cc77e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a318414be756bc9d223e0a79927524ec8" id="r_a318414be756bc9d223e0a79927524ec8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d50/node__ros__can_8hpp.html#a318414be756bc9d223e0a79927524ec8">MASTER_AS_STATE_CODE</a>&#160;&#160;&#160;0x31</td></tr>
+<tr class="separator:a318414be756bc9d223e0a79927524ec8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acca716147fa6788a1abb5282cde6b610" id="r_acca716147fa6788a1abb5282cde6b610"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d50/node__ros__can_8hpp.html#acca716147fa6788a1abb5282cde6b610">MASTER_AS_MISSION_CODE</a>&#160;&#160;&#160;0x32</td></tr>
+<tr class="separator:acca716147fa6788a1abb5282cde6b610"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0cac86118594925531fd50a5087309bf" id="r_a0cac86118594925531fd50a5087309bf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d50/node__ros__can_8hpp.html#a0cac86118594925531fd50a5087309bf">MASTER_RL_RPM_CODE</a>&#160;&#160;&#160;0x33</td></tr>
+<tr class="separator:a0cac86118594925531fd50a5087309bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac69bd211a48b9545d00506ac001aa2e2" id="r_ac69bd211a48b9545d00506ac001aa2e2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d50/node__ros__can_8hpp.html#ac69bd211a48b9545d00506ac001aa2e2">TEENSY_C1_RR_RPM_CODE</a>&#160;&#160;&#160;0x11</td></tr>
+<tr class="separator:ac69bd211a48b9545d00506ac001aa2e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa39baadc06c3fb1424fa43d762d33b5d" id="r_aa39baadc06c3fb1424fa43d762d33b5d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d50/node__ros__can_8hpp.html#aa39baadc06c3fb1424fa43d762d33b5d">TEENSY_C1</a>&#160;&#160;&#160;0x123</td></tr>
 <tr class="separator:aa39baadc06c3fb1424fa43d762d33b5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82e1e9c5848019fc5c62010bf0868a3b" id="r_a82e1e9c5848019fc5c62010bf0868a3b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d50/node__ros__can_8hpp.html#a82e1e9c5848019fc5c62010bf0868a3b">MASTER_IMU</a>&#160;&#160;&#160;0x501</td></tr>
-<tr class="separator:a82e1e9c5848019fc5c62010bf0868a3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b9017d7ea57f75a5807f0873071f08c" id="r_a3b9017d7ea57f75a5807f0873071f08c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d50/node__ros__can_8hpp.html#a3b9017d7ea57f75a5807f0873071f08c">STEERING_ID</a>&#160;&#160;&#160;0x700</td></tr>
-<tr class="separator:a3b9017d7ea57f75a5807f0873071f08c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e01262a5712874ba67d2455cfa530ab" id="r_a1e01262a5712874ba67d2455cfa530ab"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d50/node__ros__can_8hpp.html#a1e01262a5712874ba67d2455cfa530ab">STEERING_CUBEM_ID</a>&#160;&#160;&#160;0x700</td></tr>
+<tr class="separator:a1e01262a5712874ba67d2455cfa530ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9480391279e15b5f1313515d42b7716a" id="r_a9480391279e15b5f1313515d42b7716a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d50/node__ros__can_8hpp.html#a9480391279e15b5f1313515d42b7716a">STEERING_BOSCH_ID</a>&#160;&#160;&#160;0x2B0</td></tr>
+<tr class="separator:a9480391279e15b5f1313515d42b7716a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afaf19630ca03866dc1bc0f903e58a278" id="r_afaf19630ca03866dc1bc0f903e58a278"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d50/node__ros__can_8hpp.html#afaf19630ca03866dc1bc0f903e58a278">BAMO_RECEIVER</a>&#160;&#160;&#160;0X201</td></tr>
+<tr class="separator:afaf19630ca03866dc1bc0f903e58a278"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1cc37a4f976cf8e6b2282c2e9bc2c1a9" id="r_a1cc37a4f976cf8e6b2282c2e9bc2c1a9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d50/node__ros__can_8hpp.html#a1cc37a4f976cf8e6b2282c2e9bc2c1a9">IMU_YAW_RATE_ACC_Y_ID</a>&#160;&#160;&#160;0x174</td></tr>
+<tr class="separator:a1cc37a4f976cf8e6b2282c2e9bc2c1a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2b867ba29de134e53c1fcef7e9044bd" id="r_ae2b867ba29de134e53c1fcef7e9044bd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d50/node__ros__can_8hpp.html#ae2b867ba29de134e53c1fcef7e9044bd">IMU_ROLL_RATE_ACC_X_ID</a>&#160;&#160;&#160;0x178</td></tr>
+<tr class="separator:ae2b867ba29de134e53c1fcef7e9044bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a960ed7d7d94cc7c4e940141576ab7b84" id="r_a960ed7d7d94cc7c4e940141576ab7b84"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d50/node__ros__can_8hpp.html#a960ed7d7d94cc7c4e940141576ab7b84">IMU_PITCH_RATE_ACC_Z_ID</a>&#160;&#160;&#160;0x17C</td></tr>
+<tr class="separator:a960ed7d7d94cc7c4e940141576ab7b84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa33b4e8a21b1df70dad3bfa1973a5cd7" id="r_aa33b4e8a21b1df70dad3bfa1973a5cd7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d50/node__ros__can_8hpp.html#aa33b4e8a21b1df70dad3bfa1973a5cd7">QUANTIZATION_ACC</a>&#160;&#160;&#160;0.0001274</td></tr>
+<tr class="separator:aa33b4e8a21b1df70dad3bfa1973a5cd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0165f36aab628e17cfc1d066402c06b2" id="r_a0165f36aab628e17cfc1d066402c06b2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d50/node__ros__can_8hpp.html#a0165f36aab628e17cfc1d066402c06b2">QUANTIZATION_GYRO</a>&#160;&#160;&#160;0.005</td></tr>
+<tr class="separator:a0165f36aab628e17cfc1d066402c06b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab6529f6078069c6bccac5f1ae325bc04" id="r_ab6529f6078069c6bccac5f1ae325bc04"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d50/node__ros__can_8hpp.html#ab6529f6078069c6bccac5f1ae325bc04">THROTTLE_UPPER_LIMIT</a>&#160;&#160;&#160;100</td></tr>
 <tr class="separator:ab6529f6078069c6bccac5f1ae325bc04"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a92e6b86babcc237e14b46a02cfed8555" id="r_a92e6b86babcc237e14b46a02cfed8555"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d50/node__ros__can_8hpp.html#a92e6b86babcc237e14b46a02cfed8555">THROTTLE_LOWER_LIMIT</a>&#160;&#160;&#160;0</td></tr>
@@ -178,19 +207,115 @@ Macros</h2></td></tr>
 <tr class="separator:a2c8216dd9b85bd7a8623fc6bb14b3eea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a82e1e9c5848019fc5c62010bf0868a3b" name="a82e1e9c5848019fc5c62010bf0868a3b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a82e1e9c5848019fc5c62010bf0868a3b">&#9670;&#160;</a></span>MASTER_IMU</h2>
+<a id="afaf19630ca03866dc1bc0f903e58a278" name="afaf19630ca03866dc1bc0f903e58a278"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afaf19630ca03866dc1bc0f903e58a278">&#9670;&#160;</a></span>BAMO_RECEIVER</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MASTER_IMU&#160;&#160;&#160;0x501</td>
+          <td class="memname">#define BAMO_RECEIVER&#160;&#160;&#160;0X201</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html#l00032">32</a> of file <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html">node_ros_can.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html#l00067">67</a> of file <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html">node_ros_can.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a960ed7d7d94cc7c4e940141576ab7b84" name="a960ed7d7d94cc7c4e940141576ab7b84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a960ed7d7d94cc7c4e940141576ab7b84">&#9670;&#160;</a></span>IMU_PITCH_RATE_ACC_Z_ID</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IMU_PITCH_RATE_ACC_Z_ID&#160;&#160;&#160;0x17C</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html#l00088">88</a> of file <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html">node_ros_can.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ae2b867ba29de134e53c1fcef7e9044bd" name="ae2b867ba29de134e53c1fcef7e9044bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2b867ba29de134e53c1fcef7e9044bd">&#9670;&#160;</a></span>IMU_ROLL_RATE_ACC_X_ID</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IMU_ROLL_RATE_ACC_X_ID&#160;&#160;&#160;0x178</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html#l00081">81</a> of file <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html">node_ros_can.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a1cc37a4f976cf8e6b2282c2e9bc2c1a9" name="a1cc37a4f976cf8e6b2282c2e9bc2c1a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1cc37a4f976cf8e6b2282c2e9bc2c1a9">&#9670;&#160;</a></span>IMU_YAW_RATE_ACC_Y_ID</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IMU_YAW_RATE_ACC_Y_ID&#160;&#160;&#160;0x174</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html#l00074">74</a> of file <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html">node_ros_can.hpp</a>.</p>
+
+</div>
+</div>
+<a id="acca716147fa6788a1abb5282cde6b610" name="acca716147fa6788a1abb5282cde6b610"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acca716147fa6788a1abb5282cde6b610">&#9670;&#160;</a></span>MASTER_AS_MISSION_CODE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MASTER_AS_MISSION_CODE&#160;&#160;&#160;0x32</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html#l00034">34</a> of file <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html">node_ros_can.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a318414be756bc9d223e0a79927524ec8" name="a318414be756bc9d223e0a79927524ec8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a318414be756bc9d223e0a79927524ec8">&#9670;&#160;</a></span>MASTER_AS_STATE_CODE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MASTER_AS_STATE_CODE&#160;&#160;&#160;0x31</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html#l00029">29</a> of file <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html">node_ros_can.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a0cac86118594925531fd50a5087309bf" name="a0cac86118594925531fd50a5087309bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0cac86118594925531fd50a5087309bf">&#9670;&#160;</a></span>MASTER_RL_RPM_CODE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MASTER_RL_RPM_CODE&#160;&#160;&#160;0x33</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html#l00039">39</a> of file <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html">node_ros_can.hpp</a>.</p>
 
 </div>
 </div>
@@ -206,23 +331,71 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html#l00021">21</a> of file <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html">node_ros_can.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html#l00024">24</a> of file <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html">node_ros_can.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a3b9017d7ea57f75a5807f0873071f08c" name="a3b9017d7ea57f75a5807f0873071f08c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3b9017d7ea57f75a5807f0873071f08c">&#9670;&#160;</a></span>STEERING_ID</h2>
+<a id="aa33b4e8a21b1df70dad3bfa1973a5cd7" name="aa33b4e8a21b1df70dad3bfa1973a5cd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa33b4e8a21b1df70dad3bfa1973a5cd7">&#9670;&#160;</a></span>QUANTIZATION_ACC</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define STEERING_ID&#160;&#160;&#160;0x700</td>
+          <td class="memname">#define QUANTIZATION_ACC&#160;&#160;&#160;0.0001274</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html#l00038">38</a> of file <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html">node_ros_can.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html#l00094">94</a> of file <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html">node_ros_can.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a0165f36aab628e17cfc1d066402c06b2" name="a0165f36aab628e17cfc1d066402c06b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0165f36aab628e17cfc1d066402c06b2">&#9670;&#160;</a></span>QUANTIZATION_GYRO</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define QUANTIZATION_GYRO&#160;&#160;&#160;0.005</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html#l00100">100</a> of file <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html">node_ros_can.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a9480391279e15b5f1313515d42b7716a" name="a9480391279e15b5f1313515d42b7716a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9480391279e15b5f1313515d42b7716a">&#9670;&#160;</a></span>STEERING_BOSCH_ID</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define STEERING_BOSCH_ID&#160;&#160;&#160;0x2B0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html#l00062">62</a> of file <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html">node_ros_can.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a1e01262a5712874ba67d2455cfa530ab" name="a1e01262a5712874ba67d2455cfa530ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e01262a5712874ba67d2455cfa530ab">&#9670;&#160;</a></span>STEERING_CUBEM_ID</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define STEERING_CUBEM_ID&#160;&#160;&#160;0x700</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html#l00056">56</a> of file <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html">node_ros_can.hpp</a>.</p>
 
 </div>
 </div>
@@ -238,7 +411,7 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html#l00044">44</a> of file <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html">node_ros_can.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html#l00105">105</a> of file <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html">node_ros_can.hpp</a>.</p>
 
 </div>
 </div>
@@ -254,7 +427,7 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html#l00043">43</a> of file <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html">node_ros_can.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html#l00104">104</a> of file <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html">node_ros_can.hpp</a>.</p>
 
 </div>
 </div>
@@ -270,7 +443,23 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html#l00027">27</a> of file <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html">node_ros_can.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html#l00050">50</a> of file <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html">node_ros_can.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac69bd211a48b9545d00506ac001aa2e2" name="ac69bd211a48b9545d00506ac001aa2e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac69bd211a48b9545d00506ac001aa2e2">&#9670;&#160;</a></span>TEENSY_C1_RR_RPM_CODE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TEENSY_C1_RR_RPM_CODE&#160;&#160;&#160;0x11</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html#l00044">44</a> of file <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html">node_ros_can.hpp</a>.</p>
 
 </div>
 </div>
@@ -286,7 +475,7 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html#l00042">42</a> of file <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html">node_ros_can.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html#l00103">103</a> of file <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html">node_ros_can.hpp</a>.</p>
 
 </div>
 </div>
@@ -302,7 +491,7 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html#l00041">41</a> of file <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html">node_ros_can.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html#l00102">102</a> of file <a class="el" href="../../db/d50/node__ros__can_8hpp_source.html">node_ros_can.hpp</a>.</p>
 
 </div>
 </div>

@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['steering_5fid_0',['STEERING_ID',['../db/d50/node__ros__can_8hpp.html#a3b9017d7ea57f75a5807f0873071f08c',1,'node_ros_can.hpp']]],
-  ['steering_5flower_5flimit_1',['STEERING_LOWER_LIMIT',['../db/d50/node__ros__can_8hpp.html#a2c8216dd9b85bd7a8623fc6bb14b3eea',1,'node_ros_can.hpp']]],
-  ['steering_5fupper_5flimit_2',['STEERING_UPPER_LIMIT',['../db/d50/node__ros__can_8hpp.html#add84b9fb521487a18018c7d60d0c5660',1,'node_ros_can.hpp']]]
+  ['master_5fas_5fmission_5fcode_0',['MASTER_AS_MISSION_CODE',['../db/d50/node__ros__can_8hpp.html#acca716147fa6788a1abb5282cde6b610',1,'node_ros_can.hpp']]],
+  ['master_5fas_5fstate_5fcode_1',['MASTER_AS_STATE_CODE',['../db/d50/node__ros__can_8hpp.html#a318414be756bc9d223e0a79927524ec8',1,'node_ros_can.hpp']]],
+  ['master_5frl_5frpm_5fcode_2',['MASTER_RL_RPM_CODE',['../db/d50/node__ros__can_8hpp.html#a0cac86118594925531fd50a5087309bf',1,'node_ros_can.hpp']]],
+  ['master_5fstatus_3',['MASTER_STATUS',['../db/d50/node__ros__can_8hpp.html#a0f7bcb0e38ef33c36640e747612cc77e',1,'node_ros_can.hpp']]]
 ];

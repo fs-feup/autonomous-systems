@@ -30,12 +30,13 @@ var searchData=
   ['static_5finspection_5fa_27',['static_inspection_A',['../d6/d14/loc__map_2include_2utils_2mission_8hpp.html#af686af98019fe71e9f18190349618431a63f7e188e6b6fb7536d00e80350792b1',1,'mission.hpp']]],
   ['static_5finspection_5fb_28',['static_inspection_B',['../d6/d14/loc__map_2include_2utils_2mission_8hpp.html#af686af98019fe71e9f18190349618431aaf00f2fa0844611e82dba057fe49c10b',1,'mission.hpp']]],
   ['steering_5fangle_29',['steering_angle',['../db/d6d/struct_motion_update.html#a87e8e0c4bca0060025e89ea9dac9b421',1,'MotionUpdate']]],
-  ['steering_5fid_30',['STEERING_ID',['../db/d50/node__ros__can_8hpp.html#a3b9017d7ea57f75a5807f0873071f08c',1,'node_ros_can.hpp']]],
-  ['steering_5flower_5flimit_31',['STEERING_LOWER_LIMIT',['../db/d50/node__ros__can_8hpp.html#a2c8216dd9b85bd7a8623fc6bb14b3eea',1,'node_ros_can.hpp']]],
-  ['steering_5fupper_5flimit_32',['STEERING_UPPER_LIMIT',['../db/d50/node__ros__can_8hpp.html#add84b9fb521487a18018c7d60d0c5660',1,'node_ros_can.hpp']]],
-  ['straight_5fpoints_33',['STRAIGHT_POINTS',['../d2/de4/namespaceskidpad__mapper.html#a8dc02d7e146e1ddd5af81923ff08be8a',1,'skidpad_mapper']]],
-  ['straightpoints_34',['straightPoints',['../d9/de5/namespaceacceleration__mapper.html#a9b380571f426452caf2fb71bbab761a9',1,'acceleration_mapper']]],
-  ['structure_35',['Structure',['../d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md30',1,'']]],
-  ['student_20autonomous_20systems_36',['Formula Student Autonomous Systems',['../index.html',1,'']]],
-  ['systems_37',['systems',['../index.html',1,'Formula Student Autonomous Systems'],['../index.html#autotoc_md0',1,'FS-FEUP Autonomous Systems']]]
+  ['steering_5fbosch_5fid_30',['STEERING_BOSCH_ID',['../db/d50/node__ros__can_8hpp.html#a9480391279e15b5f1313515d42b7716a',1,'node_ros_can.hpp']]],
+  ['steering_5fcubem_5fid_31',['STEERING_CUBEM_ID',['../db/d50/node__ros__can_8hpp.html#a1e01262a5712874ba67d2455cfa530ab',1,'node_ros_can.hpp']]],
+  ['steering_5flower_5flimit_32',['STEERING_LOWER_LIMIT',['../db/d50/node__ros__can_8hpp.html#a2c8216dd9b85bd7a8623fc6bb14b3eea',1,'node_ros_can.hpp']]],
+  ['steering_5fupper_5flimit_33',['STEERING_UPPER_LIMIT',['../db/d50/node__ros__can_8hpp.html#add84b9fb521487a18018c7d60d0c5660',1,'node_ros_can.hpp']]],
+  ['straight_5fpoints_34',['STRAIGHT_POINTS',['../d2/de4/namespaceskidpad__mapper.html#a8dc02d7e146e1ddd5af81923ff08be8a',1,'skidpad_mapper']]],
+  ['straightpoints_35',['straightPoints',['../d9/de5/namespaceacceleration__mapper.html#a9b380571f426452caf2fb71bbab761a9',1,'acceleration_mapper']]],
+  ['structure_36',['Structure',['../d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md30',1,'']]],
+  ['student_20autonomous_20systems_37',['Formula Student Autonomous Systems',['../index.html',1,'']]],
+  ['systems_38',['systems',['../index.html',1,'Formula Student Autonomous Systems'],['../index.html#autotoc_md0',1,'FS-FEUP Autonomous Systems']]]
 ];
