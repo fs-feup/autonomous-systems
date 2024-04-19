@@ -94,26 +94,26 @@ $(document).ready(function(){initNavTree('d7/de6/md_src_2perception_2_r_e_a_d_m_
   <div class="headertitle"><div class="title">Perception Package</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md38"></a> The <a class="el" href="../../de/d07/class_perception.html" title="Node for perception tasks, such as ground removal and cone detection.">Perception</a> module is responsible for the processing of the perception module and perception sensors' data and its transformation into useful information. In this case, the LiDAR's point cloud is processed to generate the cones' position on the track.</p>
-<h1><a class="anchor" id="autotoc_md39"></a>
+<div class="textblock"><p><a class="anchor" id="autotoc_md35"></a> The <a class="el" href="../../de/d07/class_perception.html" title="Node for perception tasks, such as ground removal and cone detection.">Perception</a> module is responsible for the processing of the perception module and perception sensors' data and its transformation into useful information. In this case, the LiDAR's point cloud is processed to generate the cones' position on the track.</p>
+<h1><a class="anchor" id="autotoc_md36"></a>
 Run the Node</h1>
-<h2><a class="anchor" id="autotoc_md40"></a>
+<h2><a class="anchor" id="autotoc_md37"></a>
 Compiling</h2>
 <p>From src folder: </p><div class="fragment"><div class="line">colcon build --packages-select perception custom_interfaces</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md41"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md38"></a>
 Testing</h1>
 <p>From src folder: </p><div class="fragment"><div class="line">colcon test --packages-select perception # use event-handler=console_direct+ for imediate output</div>
 </div><!-- fragment --><p>To check test results: </p><div class="fragment"><div class="line">colcon test-result --all --verbose</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md42"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md39"></a>
 Running the node</h2>
 <div class="fragment"><div class="line">ros2 run perception perception</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md43"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md40"></a>
 Design</h1>
 <p>Below, some diagrams are presented that can illustrate the structure and behaviour of the program.</p>
-<h2><a class="anchor" id="autotoc_md44"></a>
+<h2><a class="anchor" id="autotoc_md41"></a>
 Class Diagram</h2>
 <p><img src="../../../../docs/assets/Perception/class_diagram.png" alt="Perception Class Diagram" class="inline"/></p>
-<h1><a class="anchor" id="autotoc_md45"></a>
+<h1><a class="anchor" id="autotoc_md42"></a>
 Main External Libraries</h1>
 <ul>
 <li><a href="https://eigen.tuxfamily.org/index.php?title=Main_Page">Eigen</a></li>
