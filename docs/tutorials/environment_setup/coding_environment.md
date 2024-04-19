@@ -55,7 +55,7 @@ git config user.email "useremail"
     **Tip:** Alternatively, you can locate the hidden .ssh folder, open the file in your favorite text editor, and copy it to your clipboard.
 1. In the upper-right corner of any page, click your profile photo, then click Settings.
 
-    ![Screenshot of GitHub's account menu showing options for users to view and edit their profile, content, and settings. The menu item "Settings" is outlined in dark orange.](../assets/coding_environment/ssh-github.png)
+    ![Screenshot of GitHub's account menu showing options for users to view and edit their profile, content, and settings. The menu item "Settings" is outlined in dark orange.](../../assets/coding_environment/ssh-github.png)
 
     Screenshot of GitHub's account menu showing options for users to view and edit their profile, content, and settings. The menu item "Settings" is outlined in dark orange.
     In the "Access" section of the sidebar, click  SSH and GPG keys.
@@ -87,7 +87,7 @@ This project is divided into multiple folders inside **src** folder. Each of the
   - **test:** test files
 - CMakeLists.txt is used as a build system (ROS2 default): it is a tool used to generate makefiles for c++. Everytime you creat e a new .cpp file, it must be added to the list of executable files in this CMakeLists.txt
 
-## Coding Environment
+## IDE
 
 In order to properly contribute to this project, a code editor or IDE is suggested. In this tutorial, some **suggestions** for an environment will be presented.
 
@@ -106,6 +106,8 @@ Visual Studio Code is a general purpose IDE very widely used. VSCode is our choi
     - [C++ extension pack](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools-extension-pack) (highly suggested)
     - [ROS extension](https://marketplace.visualstudio.com/items?itemName=ms-iot.vscode-ros) (suggested)
     - [Remote Development](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack) (mandatory for docker environment)
+
+Some other extensions are important, which are already included in the docker dev environment.
 
 #### VSCode in WSL
 

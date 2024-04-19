@@ -1,3 +1,4 @@
+#! /bin/bash
 # rslidar_sdk
 if test -f ./ext/rslidar_sdk/dependencies_install.sh; then
     sudo chmod u+x ./ext/rslidar_sdk/dependencies_install.sh
