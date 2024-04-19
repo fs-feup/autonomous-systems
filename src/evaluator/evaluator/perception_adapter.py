@@ -2,9 +2,11 @@ from visualization_msgs.msg import MarkerArray
 from sensor_msgs.msg import PointCloud2
 from fs_msgs.msg import Track, Cone
 from nav_msgs.msg import Odometry
-from rclpy.qos import QoSProfile, QoSHistoryPolicy, QoSDurabilityPolicy, QoSReliabilityPolicy
+from rclpy.qos import QoSProfile, QoSHistoryPolicy, QoSDurabilityPolicy, QoSReliabilityPolicy, QoSReliabilityPolicy, QoSLivelinessPolicy
 import numpy as np
 import message_filters
+from builtin_interfaces.msg import Duration
+
 
 
 class PerceptionAdater:
@@ -49,12 +51,24 @@ class PerceptionAdapterFSDS(PerceptionAdater):
 
         self.current_odom_position = None
         self.current_odom_orientation = None
+        
+        """
+        qos_profile = QoSProfile(
+            reliability=QoSReliabilityPolicy.RELIABLE,
+            history=QoSHistoryPolicy.UNKNOWN,
+            durability=QoSDurabilityPolicy.VOLATILE,
+            lifespan=Duration(seconds=Duration.SECOND_INFINITE),
+            deadline=Duration(second=-1),
+            liveliness=QoSLivelinessPolicy.AUTOMATIC,
+            liveliness_lease_duration=Duration(second=Duration.SECOND_INFINITE)
+        )
+        """
 
         self.node.track_subscription = self.node.create_subscription(
-            Track,
+            Cone,
             "/testing_only/track",
             self.track_callback,
-            10
+            QoSHistoryPolicy.KEEP_LAST
         )
 
         self.node.odometry_subscription = message_filters.Subscriber(
@@ -63,9 +77,9 @@ class PerceptionAdapterFSDS(PerceptionAdater):
             "/testing_only/odom",
         )
 
-        self.ts = message_filters.TimeSynchronizer(
+        self.ts = message_filters.ApproximateTimeSynchronizer(
             [self.node.perception_subscription, self.node.point_cloud_subscription, self.node.odometry_subscription], 
-            10
+            10, 0.1
         )
 
         self.ts.registerCallback(self.callback)
@@ -81,20 +95,20 @@ class PerceptionAdapterFSDS(PerceptionAdater):
     def create_perception_output(self, perception):
         perception_output = []
 
-        for cone in perception:
-            perception_output.append(np.array([cone.x, cone.y, 0.0]))
+        for cone in perception.cone_array:
+            perception_output.append(np.array([cone.position.x, cone.position.y, 0.0]))
         
         return perception_output
 
     def create_ground_truth(self, odometry):
-        rotation_matrix = PerceptionAdapterFSDS.quaternion_to_rotation_matrix(odometry)
+        rotation_matrix = PerceptionAdapterFSDS.quaternion_to_rotation_matrix(odometry.pose.pose.orientation)
         perception_ground_truth = []
 
         for cone in self.track:
             cone_position = np.array([cone.x, cone.y, 0.0])
             transformed_position = np.dot(rotation_matrix, cone_position) + np.array([
-                odometry.x,
-                odometry.y,
+                odometry.pose.pose.position.x,
+                odometry.pose.pose.position.y,
                 0.0
             ])
 
@@ -104,10 +118,9 @@ class PerceptionAdapterFSDS(PerceptionAdater):
         return perception_ground_truth
 
 
-
-
-    def track_callback(self, msg: Track):
+    def track_callback(self, msg):
         self.node.get_logger().info("Track Received")
+        self.node.get_logger().info("------------------------------------------------------------------------")
         for cone in msg.track:
             cone_position = cone.location
             x = cone_position.x

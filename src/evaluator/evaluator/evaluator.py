@@ -1,13 +1,14 @@
 import rclpy
 from rclpy.qos import QoSProfile, QoSHistoryPolicy, QoSDurabilityPolicy, QoSReliabilityPolicy
 from rclpy.node import Node
-from custom_interfaces.msg import PointArray, ConeArray, Pose as PoseMsg
+from custom_interfaces.msg import ConeArray
 from visualization_msgs.msg import MarkerArray
-from sensor_msgs.msg import PointCloud2, Float32
+from sensor_msgs.msg import PointCloud2
 from evaluator.perception_adapter import PerceptionAdapterROSBag, PerceptionAdapterFSDS
 import message_filters
 import math
 import numpy as np
+from std_msgs.msg import Float32
 
 class Evaluator(Node):
 
@@ -24,12 +25,10 @@ class Evaluator(Node):
         self.perception_mean_difference = self.create_publisher(Float32, '/perception/metrics/mean_difference', QoSProfile(depth=10))
         self.perception_inter_cones_distance = self.create_publisher(Float32, '/perception/metrics/inter_cones_distance', QoSProfile(depth=10))
 
-        self.adater = PerceptionAdapterFSDS(self, 'lidar/Lidar1')
+        self.adater = PerceptionAdapterFSDS(self, '/lidar/Lidar1')
 
     
     def compute_and_publish_perception(self):
-
-    
 
         mean_difference = Float32()
         mean_difference.data = self.get_average_difference()
@@ -44,9 +43,12 @@ class Evaluator(Node):
         self.get_logger(f"First metric: {mean_difference.data}")
 
     def get_average_difference(self):
+        sum = 0
+        count = 0
         for perception_cone in self.perception_output:
             
-            minDistance = np.linalg.norm(perception_cone - self.perception_ground_truth[0])
+            #minDistance = np.linalg.norm(perception_cone - self.perception_ground_truth[0])
+            minDistance = 0
             for ground_truth_cone in self.perception_ground_truth:
 
                 # Calculates the difference between cones

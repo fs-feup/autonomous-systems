@@ -56,7 +56,7 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
   }
 
 
-  RCLCPP_DEBUG(this->get_logger(), "---------- Point Cloud Received ----------");
+  RCLCPP_INFO(this->get_logger(), "---------- Point Cloud Received ----------");
   RCLCPP_DEBUG(this->get_logger(), "Point Cloud Before Ground Removal: %ld points",
                pcl_cloud->points.size());
   RCLCPP_DEBUG(this->get_logger(), "Point Cloud After Ground Removal: %ld points",
@@ -71,7 +71,7 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
   }
 
 
-  publishCones(&filtered_clusters);
+  publishCones(&clusters);
 }
 
 void Perception::publishCones(std::vector<Cluster>* cones) {
