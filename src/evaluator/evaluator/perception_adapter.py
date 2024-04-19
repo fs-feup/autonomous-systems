@@ -5,6 +5,7 @@ from nav_msgs.msg import Odometry
 from rclpy.qos import QoSProfile, QoSHistoryPolicy, QoSDurabilityPolicy, QoSReliabilityPolicy
 import numpy as np
 import message_filters
+import os
 
 
 class PerceptionAdater:
@@ -45,36 +46,25 @@ class PerceptionAdapterFSDS(PerceptionAdater):
 
         super().__init__(node, point_cloud_topic)
 
-        self.track = []
-
-        self.current_odom_position = None
-        self.current_odom_orientation = None
-
-        self.node.track_subscription = self.node.create_subscription(
-            Track,
-            "/testing_only/track",
-            self.track_callback,
-            10
-        )
-
         self.node.odometry_subscription = message_filters.Subscriber(
             self.node,
             Odometry,
             "/testing_only/odom",
         )
 
-        self.ts = message_filters.TimeSynchronizer(
+        self.ts = message_filters.ApproximateTimeSynchronizer(
             [self.node.perception_subscription, self.node.point_cloud_subscription, self.node.odometry_subscription], 
             10
         )
 
         self.ts.registerCallback(self.callback)
 
+        self.readTrack("src/evaluator/track_droneport.csv")
+
     def callback(self, perception, point_cloud, odometry):
         self.node.get_logger().info("Synchronizing")
         self.node.perception_ground_truth = self.create_ground_truth(odometry)
         self.node.perception_output = self.create_perception_output(perception)
-
         self.node.compute_and_publish_perception()
 
 
@@ -85,6 +75,7 @@ class PerceptionAdapterFSDS(PerceptionAdater):
             perception_output.append(np.array([cone.x, cone.y, 0.0]))
         
         return perception_output
+
 
     def create_ground_truth(self, odometry):
         rotation_matrix = PerceptionAdapterFSDS.quaternion_to_rotation_matrix(odometry)
@@ -103,22 +94,22 @@ class PerceptionAdapterFSDS(PerceptionAdater):
         
         return perception_ground_truth
 
+    def readTrack(self, filename):
+        with open(filename, 'r') as file:
+            for line in file:
+                self.track.append(self.parseTrackCone(line.strip()))
+
+    @staticmethod
+    def parseTrackCone(line):
+        words = line.split(',')
+        color = words[0]
+        x = float(words[1])
+        y = float(words[2])
+        return np.array([x, y, 0])
+        # Do something with color, x, and y
 
 
 
-    def track_callback(self, msg: Track):
-        self.node.get_logger().info("Track Received")
-        for cone in msg.track:
-            cone_position = cone.location
-            x = cone_position.x
-            y = cone_position.y
-            self.track.append(Cone(x, y, None))
-
-    def odometry_callback(self, msg: Odometry):
-        self.get_logger().info("Odometry values Received")
-        self.current_odom_position = msg.pose.pose.position
-        self.current_odom_orientation = msg.pose.pose.orientation
-        self.transform_cones_to_car_frame()
 
     @staticmethod
     def quaternion_to_rotation_matrix(quaternion):

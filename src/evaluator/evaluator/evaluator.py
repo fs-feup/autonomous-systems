@@ -3,7 +3,8 @@ from rclpy.qos import QoSProfile, QoSHistoryPolicy, QoSDurabilityPolicy, QoSReli
 from rclpy.node import Node
 from custom_interfaces.msg import PointArray, ConeArray, Pose as PoseMsg
 from visualization_msgs.msg import MarkerArray
-from sensor_msgs.msg import PointCloud2, Float32
+from sensor_msgs.msg import PointCloud2
+from std_msgs.msg import Float32
 from evaluator.perception_adapter import PerceptionAdapterROSBag, PerceptionAdapterFSDS
 import message_filters
 import math
