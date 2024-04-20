@@ -92,7 +92,7 @@ class FSDSAdapter(Adapter):
                 0.0
             ])
 
-            perception_ground_truth.append(transformed_position)
+            perception_ground_truth.append(f"{transformed_position}")
             self.node.get_logger().info(transformed_position)
         
         return perception_ground_truth
