@@ -1,12 +1,8 @@
 import rclpy
-from rclpy.qos import QoSProfile, QoSHistoryPolicy, QoSDurabilityPolicy, QoSReliabilityPolicy
 from rclpy.node import Node
 from custom_interfaces.msg import ConeArray
-from visualization_msgs.msg import MarkerArray
-from sensor_msgs.msg import PointCloud2
-from evaluator.perception_adapter import PerceptionAdapterROSBag, PerceptionAdapterFSDS
+from evaluator.fsds_adapter import FSDSAdapter
 import message_filters
-import math
 import numpy as np
 from std_msgs.msg import Float32
 
@@ -22,10 +18,10 @@ class Evaluator(Node):
             'cones',
         )
 
-        self.perception_mean_difference = self.create_publisher(Float32, '/perception/metrics/mean_difference', QoSProfile(depth=10))
-        self.perception_inter_cones_distance = self.create_publisher(Float32, '/perception/metrics/inter_cones_distance', QoSProfile(depth=10))
+        self.perception_mean_difference = self.create_publisher(Float32, '/perception/metrics/mean_difference', 10)
+        self.perception_inter_cones_distance = self.create_publisher(Float32, '/perception/metrics/inter_cones_distance', 10)
 
-        self.adater = PerceptionAdapterFSDS(self, '/lidar/Lidar1')
+        self.adater = FSDSAdapter(self, '/lidar/Lidar1')
 
     
     def compute_and_publish_perception(self):
@@ -47,11 +43,9 @@ class Evaluator(Node):
         count = 0
         for perception_cone in self.perception_output:
             
-            #minDistance = np.linalg.norm(perception_cone - self.perception_ground_truth[0])
-            minDistance = 0
-            for ground_truth_cone in self.perception_ground_truth:
+            minDistance = np.linalg.norm(perception_cone - self.perception_ground_truth[0])
 
-                # Calculates the difference between cones
+            for ground_truth_cone in self.perception_ground_truth:
                 distance = np.linalg.norm(perception_cone - ground_truth_cone)
 
                 if distance < minDistance:
@@ -65,19 +59,32 @@ class Evaluator(Node):
         return average
     
     def get_inter_cones_distance(self):
-
         size = len(self.perception_output)
-        sum = 0
-        count = 0
+        visited = set()
+        total_distance = 0
+        num_pairs = 0
 
-        for i in range (size):
-            for j in range(i+1, size):
-                sum += np.linalg.norm(self.perception_output[i] - self.perception_output[j])
-                count += 1
+        for i in range(size):
+            if i not in visited:
+                nearest_distance = float('inf')
+                nearest_index = None
+                for j in range(size):
+                    if j != i and j not in visited:
+                        distance = np.linalg.norm(self.perception_output[i] - self.perception_output[j])
+                        if distance < nearest_distance:
+                            nearest_distance = distance
+                            nearest_index = j
+                if nearest_index is not None:
+                    visited.add(i)
+                    visited.add(nearest_index)
+                    total_distance += nearest_distance
+                    num_pairs += 1
         
-        average = sum / count
-
-        return average
+        if num_pairs == 0:
+            return 0
+        
+        average_distance = total_distance / num_pairs
+        return average_distance
 
 
 

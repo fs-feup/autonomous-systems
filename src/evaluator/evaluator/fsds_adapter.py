@@ -1,47 +1,9 @@
-from visualization_msgs.msg import MarkerArray
-from sensor_msgs.msg import PointCloud2
-from fs_msgs.msg import Track, Cone
-from nav_msgs.msg import Odometry
-from rclpy.qos import QoSProfile, QoSHistoryPolicy, QoSDurabilityPolicy, QoSReliabilityPolicy, QoSReliabilityPolicy, QoSLivelinessPolicy
-import numpy as np
+from evaluator.adapter import Adapter
 import message_filters
-from builtin_interfaces.msg import Duration
-import os
+from nav_msgs.msg import Odometry
+import numpy as np
 
-
-class PerceptionAdater:
-    def __init__(self, node, point_cloud_topic):
-        self.node = node
-        self.point_cloud_topic = point_cloud_topic
-        self.node.point_cloud_subscription = message_filters.Subscriber(
-            self.node,
-            PointCloud2,
-            point_cloud_topic
-        )
-
-class PerceptionAdapterROSBag(PerceptionAdater):
-
-    def __init__(self, node, point_cloud_topic, ground_truth_topic):
-        super().__init__(node, point_cloud_topic)
-
-        self.node.ground_truth_subscription = message_filters.Subscriber(
-            self.node,
-            MarkerArray,
-            ground_truth_topic
-        )
-
-        self.ts = message_filters.TimeSynchronizer(
-                            [self.node.point_cloud_subscription, self.node.perception_subscription], 
-                            10)
-        
-        self.ts.registerCallback(self.callback)
-
-    def callback(self, point_cloud, perception):
-        self.node.get_logger().info("Synchronizing")
-
-
-
-class PerceptionAdapterFSDS(PerceptionAdater):
+class FSDSAdapter(Adapter):
 
     def __init__(self, node, point_cloud_topic):
 
@@ -59,10 +21,11 @@ class PerceptionAdapterFSDS(PerceptionAdater):
 
         self.ts.registerCallback(self.callback)
 
-        self.readTrack("src/evaluator/track_droneport.csv")
+        self.track = []
+
+        self.readTrack("src/evaluator/evaluator/tracks/track_droneport.csv")
 
     def callback(self, perception, point_cloud, odometry):
-        self.node.get_logger().info("Synchronizing")
         self.node.perception_ground_truth = self.create_ground_truth(odometry)
         self.node.perception_output = self.create_perception_output(perception)
         self.node.compute_and_publish_perception()
@@ -78,7 +41,7 @@ class PerceptionAdapterFSDS(PerceptionAdater):
 
 
     def create_ground_truth(self, odometry):
-        rotation_matrix = PerceptionAdapterFSDS.quaternion_to_rotation_matrix(odometry.pose.pose.orientation)
+        rotation_matrix = FSDSAdapter.quaternion_to_rotation_matrix(odometry.pose.pose.orientation)
         perception_ground_truth = []
 
         for cone in self.track:
@@ -103,10 +66,9 @@ class PerceptionAdapterFSDS(PerceptionAdater):
     def parseTrackCone(line):
         words = line.split(',')
         color = words[0]
-        x = float(words[1])
-        y = float(words[2])
+        y = float(words[1])
+        x = float(words[2])
         return np.array([x, y, 0])
-        # Do something with color, x, and y
 
     @staticmethod
     def quaternion_to_rotation_matrix(quaternion):
