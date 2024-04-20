@@ -14,9 +14,7 @@
 
 class MockerNode : public rclcpp::Node {
  private:
-  rclcpp::Publisher<fs_msgs::msg::FinishedSignal>::SharedPtr finish_publisher;
   rclcpp::Publisher<custom_interfaces::msg::PathPointArray>::SharedPtr planning_publisher;
-  rclcpp::Subscription<fs_msgs::msg::GoSignal>::SharedPtr mission_signal;
 
  public:
   custom_interfaces::msg::PathPointArray gtruth_planning;  // ground truth for the planning node
@@ -24,7 +22,7 @@ class MockerNode : public rclcpp::Node {
   /**
    * @brief publish the messages
    */
-  void callback(fs_msgs::msg::GoSignal mission_signal);
+  void callback();
 
   /**
    * @brief Default constructer for a new Mocker Node object
