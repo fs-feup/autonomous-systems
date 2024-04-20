@@ -83,24 +83,26 @@ class Evaluator(Node):
         average = sum / count
         return average
     
-
     @staticmethod
     def get_inter_cones_distance(perception_output):
         """
-        Computes the average distance between pairs of perceived cones.
+        Computes the average distance between pairs of perceived cones using Minimum Spanning Tree Prim's algorithm.
 
         Args:
-            perception_output (list): List of perceived cones.
+            perception_output (list): List of perceived cones, where each cone is represented as a numpy array.
 
         Returns:
             float: Average distance between pairs of perceived cones.
         """
         size = len(perception_output)
+
         visited = set()
+
         total_distance = 0
         num_pairs = 0
 
         adjacency_matrix = np.zeros((size, size))
+
         for i in range(size):
             for j in range(i + 1, size):
                 distance_ij = np.linalg.norm(perception_output[i] - perception_output[j])
@@ -126,7 +128,6 @@ class Evaluator(Node):
                 total_distance += min_distance
                 num_pairs += 1
 
-        # Compute the average distance
         if num_pairs == 0:
             return 0
         else:
