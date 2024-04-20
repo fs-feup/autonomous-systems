@@ -1,5 +1,6 @@
 from sensor_msgs.msg import PointCloud2
 import message_filters
+import datetime
 
 class Adapter:
     """
@@ -23,3 +24,14 @@ class Adapter:
             PointCloud2,
             point_cloud_topic
         )
+
+        self.node.point_cloud_subscription.registerCallback(self.point_cloud_callback)
+
+        
+    def point_cloud_callback(self, msg):
+
+        """
+        Point Cloud Callback to get the initiqal time of perception pipeline
+        """
+        self.node.start_time = datetime.datetime.now()
+

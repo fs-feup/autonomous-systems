@@ -5,6 +5,7 @@ from evaluator.fsds_adapter import FSDSAdapter
 import message_filters
 import numpy as np
 from std_msgs.msg import Float32
+import datetime
 
 class Evaluator(Node):
     """
@@ -22,17 +23,34 @@ class Evaluator(Node):
         self.perception_subscription = message_filters.Subscriber(
             self,
             ConeArray,
-            'cones',
+            'cones'
         )
+
+        self.perception_subscription.registerCallback(self.perception_callback)
 
         # Publishers for perception metrics
         self.perception_mean_difference = self.create_publisher(Float32, '/perception/metrics/mean_difference', 10)
         self.perception_inter_cones_distance = self.create_publisher(Float32, '/perception/metrics/inter_cones_distance', 10)
+        self.execution_time = self.create_publisher(Float32, '/perception/metrics/execution_time', 10)
 
         # FSDS adapter for lidar data
         self.adapter = FSDSAdapter(self, '/lidar/Lidar1')
 
     
+    def perception_callback(self, msg):
+
+        """
+        Computes the perception's execution time
+        """
+
+        self.get_logger().info("Received perception")
+        self.end_time = datetime.datetime.now()
+        time_difference = self.end_time - self.start_time
+        executionTime = Float32()
+        executionTime.data = time_difference
+        self.execution_time.publish(executionTime)
+
+
     def compute_and_publish_perception(self):
         """
         Computes perception metrics and publishes them.
@@ -83,24 +101,26 @@ class Evaluator(Node):
         average = sum / count
         return average
     
-
     @staticmethod
     def get_inter_cones_distance(perception_output):
         """
-        Computes the average distance between pairs of perceived cones.
+        Computes the average distance between pairs of perceived cones using Minimum Spanning Tree Prim's algorithm.
 
         Args:
-            perception_output (list): List of perceived cones.
+            perception_output (list): List of perceived cones, where each cone is represented as a numpy array.
 
         Returns:
             float: Average distance between pairs of perceived cones.
         """
         size = len(perception_output)
+
         visited = set()
+
         total_distance = 0
         num_pairs = 0
 
         adjacency_matrix = np.zeros((size, size))
+
         for i in range(size):
             for j in range(i + 1, size):
                 distance_ij = np.linalg.norm(perception_output[i] - perception_output[j])
@@ -126,7 +146,6 @@ class Evaluator(Node):
                 total_distance += min_distance
                 num_pairs += 1
 
-        # Compute the average distance
         if num_pairs == 0:
             return 0
         else:

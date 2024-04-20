@@ -2,6 +2,7 @@ from evaluator.adapter import Adapter
 import message_filters
 from nav_msgs.msg import Odometry
 import numpy as np
+import datetime
 
 class FSDSAdapter(Adapter):
     """
@@ -48,6 +49,7 @@ class FSDSAdapter(Adapter):
             point_cloud (PointCloud2): Point cloud data.
             odometry (Odometry): Odometry data.
         """
+
         self.node.perception_ground_truth = self.create_ground_truth(odometry)
         self.node.perception_output = self.create_perception_output(perception)
         self.node.compute_and_publish_perception()
@@ -83,7 +85,7 @@ class FSDSAdapter(Adapter):
         perception_ground_truth = []
 
         for cone in self.track:
-            cone_position = np.array([cone.x, cone.y, 0.0])
+            cone_position = np.array([cone[0], cone[1], 0.0])
             transformed_position = np.dot(rotation_matrix, cone_position) + np.array([
                 odometry.pose.pose.position.x,
                 odometry.pose.pose.position.y,
