@@ -6,7 +6,7 @@ from rclpy.qos import QoSProfile, QoSHistoryPolicy, QoSDurabilityPolicy, QoSReli
 import numpy as np
 import message_filters
 from builtin_interfaces.msg import Duration
-
+import os
 
 
 class PerceptionAdater:
@@ -46,31 +46,6 @@ class PerceptionAdapterFSDS(PerceptionAdater):
     def __init__(self, node, point_cloud_topic):
 
         super().__init__(node, point_cloud_topic)
-
-        self.track = []
-
-        self.current_odom_position = None
-        self.current_odom_orientation = None
-        
-        """
-        qos_profile = QoSProfile(
-            reliability=QoSReliabilityPolicy.RELIABLE,
-            history=QoSHistoryPolicy.UNKNOWN,
-            durability=QoSDurabilityPolicy.VOLATILE,
-            lifespan=Duration(seconds=Duration.SECOND_INFINITE),
-            deadline=Duration(second=-1),
-            liveliness=QoSLivelinessPolicy.AUTOMATIC,
-            liveliness_lease_duration=Duration(second=Duration.SECOND_INFINITE)
-        )
-        """
-
-        self.node.track_subscription = self.node.create_subscription(
-            Cone,
-            "/testing_only/track",
-            self.track_callback,
-            QoSHistoryPolicy.KEEP_LAST
-        )
-
         self.node.odometry_subscription = message_filters.Subscriber(
             self.node,
             Odometry,
@@ -84,11 +59,12 @@ class PerceptionAdapterFSDS(PerceptionAdater):
 
         self.ts.registerCallback(self.callback)
 
+        self.readTrack("src/evaluator/track_droneport.csv")
+
     def callback(self, perception, point_cloud, odometry):
         self.node.get_logger().info("Synchronizing")
         self.node.perception_ground_truth = self.create_ground_truth(odometry)
         self.node.perception_output = self.create_perception_output(perception)
-
         self.node.compute_and_publish_perception()
 
 
@@ -99,6 +75,7 @@ class PerceptionAdapterFSDS(PerceptionAdater):
             perception_output.append(np.array([cone.position.x, cone.position.y, 0.0]))
         
         return perception_output
+
 
     def create_ground_truth(self, odometry):
         rotation_matrix = PerceptionAdapterFSDS.quaternion_to_rotation_matrix(odometry.pose.pose.orientation)
@@ -117,21 +94,19 @@ class PerceptionAdapterFSDS(PerceptionAdater):
         
         return perception_ground_truth
 
+    def readTrack(self, filename):
+        with open(filename, 'r') as file:
+            for line in file:
+                self.track.append(self.parseTrackCone(line.strip()))
 
-    def track_callback(self, msg):
-        self.node.get_logger().info("Track Received")
-        self.node.get_logger().info("------------------------------------------------------------------------")
-        for cone in msg.track:
-            cone_position = cone.location
-            x = cone_position.x
-            y = cone_position.y
-            self.track.append(Cone(x, y, None))
-
-    def odometry_callback(self, msg: Odometry):
-        self.get_logger().info("Odometry values Received")
-        self.current_odom_position = msg.pose.pose.position
-        self.current_odom_orientation = msg.pose.pose.orientation
-        self.transform_cones_to_car_frame()
+    @staticmethod
+    def parseTrackCone(line):
+        words = line.split(',')
+        color = words[0]
+        x = float(words[1])
+        y = float(words[2])
+        return np.array([x, y, 0])
+        # Do something with color, x, and y
 
     @staticmethod
     def quaternion_to_rotation_matrix(quaternion):
