@@ -1,5 +1,12 @@
-sudo apt update
+#! /bin/bash
+# general
+sudo apt-get update && apt-get upgrade -y
+sudo apt-get install -y python3-pip
+sudo apt install python-is-python3 -y
 sudo apt install ros-humble-ackermann-msgs -y
+sudo apt install -y python3-pip
+sudo pip3 install colcon-common-extensions
+sudo apt install -y python3-rosdep
 
 # planning
 sudo apt-get install libcgal-dev -y
@@ -16,12 +23,5 @@ sudo apt-get install ros-humble-pcl-ros -y
 sudo apt install rospack-tools -y
 rospack find sensor_msgs -y
 sudo apt-get install libpcap-dev -y
-
-
-# rslidar_sdk
-if test -f ./ext/rslidar_sdk/dependencies_install.sh; then
-    sudo chmod u+x ./ext/rslidar_sdk/dependencies_install.sh
-    ./ext/rslidar_sdk/dependencies_install.sh
-fi
 
 source /opt/ros/humble/setup.bash
