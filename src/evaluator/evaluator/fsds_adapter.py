@@ -4,34 +4,64 @@ from nav_msgs.msg import Odometry
 import numpy as np
 
 class FSDSAdapter(Adapter):
+    """
+    Adapter class for adapting/synchronizing computaions' data with ground truth.
+    """
 
     def __init__(self, node, point_cloud_topic):
-
+        """
+        Initializes the FSDSAdapter.
+        
+        Args:
+            node (Node): ROS2 node instance.
+            point_cloud_topic (str): Topic for point cloud data.
+        """
         super().__init__(node, point_cloud_topic)
+
+        # Subscription to odometry messages
         self.node.odometry_subscription = message_filters.Subscriber(
             self.node,
             Odometry,
             "/testing_only/odom",
         )
 
+        # ApproximateTimeSynchronizer for synchronizing perception, point cloud, and odometry messages
         self.ts = message_filters.ApproximateTimeSynchronizer(
             [self.node.perception_subscription, self.node.point_cloud_subscription, self.node.odometry_subscription], 
             10, 0.1
         )
 
-        self.ts.registerCallback(self.callback)
+        self.ts.registerCallback(self.perception_callback)
 
+        # List to store track data
         self.track = []
 
+        # Read track data from a CSV file
         self.readTrack("src/evaluator/evaluator/tracks/track_droneport.csv")
 
-    def callback(self, perception, point_cloud, odometry):
+    def perception_callback(self, perception, point_cloud, odometry):
+        """
+        Callback function to process synchronized messages and compute perception metrics.
+
+        Args:
+            perception (ConeArray): Cone array perception data.
+            point_cloud (PointCloud2): Point cloud data.
+            odometry (Odometry): Odometry data.
+        """
         self.node.perception_ground_truth = self.create_ground_truth(odometry)
         self.node.perception_output = self.create_perception_output(perception)
         self.node.compute_and_publish_perception()
 
-
     def create_perception_output(self, perception):
+        """
+        Creates perception output from cone array messages.
+
+        Args:
+            perception (ConeArray): Cone array perception data.
+
+        Returns:
+            list: List of perceived cones.
+        """
         perception_output = []
 
         for cone in perception.cone_array:
@@ -39,8 +69,16 @@ class FSDSAdapter(Adapter):
         
         return perception_output
 
-
     def create_ground_truth(self, odometry):
+        """
+        Creates ground truth from odometry data and a predefined track.
+
+        Args:
+            odometry (Odometry): Odometry data.
+
+        Returns:
+            list: List of ground truth cone positions (relative positions to the car).
+        """
         rotation_matrix = FSDSAdapter.quaternion_to_rotation_matrix(odometry.pose.pose.orientation)
         perception_ground_truth = []
 
@@ -58,12 +96,27 @@ class FSDSAdapter(Adapter):
         return perception_ground_truth
 
     def readTrack(self, filename):
+        """
+        Reads track data from a CSV file.
+
+        Args:
+            filename (str): Path to the CSV file containing track data.
+        """
         with open(filename, 'r') as file:
             for line in file:
                 self.track.append(self.parseTrackCone(line.strip()))
 
     @staticmethod
     def parseTrackCone(line):
+        """
+        Parses a line from the track CSV file to extract cone data.
+
+        Args:
+            line (str): A line from the track CSV file.
+
+        Returns:
+            numpy.ndarray: Array containing cone position data.
+        """
         words = line.split(',')
         color = words[0]
         y = float(words[1])
@@ -72,6 +125,15 @@ class FSDSAdapter(Adapter):
 
     @staticmethod
     def quaternion_to_rotation_matrix(quaternion):
+        """
+        Converts quaternion to a rotation matrix.
+
+        Args:
+            quaternion (Quaternion): Quaternion representing rotation.
+
+        Returns:
+            numpy.ndarray: Rotation matrix.
+        """
         q0, q1, q2, q3 = quaternion.x, quaternion.y, quaternion.z, quaternion.w
         
         # First row of the rotation matrix
