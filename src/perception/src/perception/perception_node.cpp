@@ -7,20 +7,22 @@
 
 #include <cstdio>
 #include <string>
+#include <vector>
 
 #include "adapter/fsds.hpp"
 #include "adapter/map.hpp"
 #include "adapter/testlidar.hpp"
-#include <vector>
 
 Perception::Perception(GroundRemoval* groundRemoval, Clustering* clustering,
                        ConeDifferentiation* coneDifferentiator,
-                       const std::vector<ConeValidator*>& coneValidators)
+                       const std::vector<ConeValidator*>& coneValidators,
+                       ConeEvaluator* coneEvaluator)
     : Node("perception"),
       groundRemoval(groundRemoval),
       clustering(clustering),
       coneDifferentiator(coneDifferentiator),
-      coneValidators(coneValidators) {
+      coneValidators(coneValidators),
+      coneEvaluator(coneEvaluator) {
   this->_cones_publisher = this->create_publisher<custom_interfaces::msg::ConeArray>("cones", 10);
 
   this->adapter = adapter_map[mode](this);
@@ -42,13 +44,12 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
   std::vector<Cluster> filtered_clusters;
 
   for (auto cluster : clusters) {
-      if (std::all_of(coneValidators.begin(), coneValidators.end(), [&](const auto& validator) {
+    if (std::all_of(coneValidators.begin(), coneValidators.end(), [&](const auto& validator) {
           return validator->coneValidator(&cluster, groundPlane);
-      })) {
-          filtered_clusters.push_back(cluster);
-      }
+        })) {
+      filtered_clusters.push_back(cluster);
+    }
   }
-
 
   RCLCPP_DEBUG(this->get_logger(), "---------- Point Cloud Received ----------");
   RCLCPP_DEBUG(this->get_logger(), "Point Cloud Before Ground Removal: %ld points",
@@ -57,13 +58,11 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
                ground_removed_cloud->points.size());
   RCLCPP_DEBUG(this->get_logger(), "Point Cloud after Clustering: %ld clusters", clusters.size());
 
-
   for (int i = 0; i < filtered_clusters.size(); i++) {
     coneDifferentiator->coneDifferentiation(&filtered_clusters[i]);
     std::string color = filtered_clusters[i].getColor();
     RCLCPP_DEBUG(this->get_logger(), "Cone %d: %s", i, color.c_str());
   }
-
 
   publishCones(&filtered_clusters);
 }
@@ -78,6 +77,7 @@ void Perception::publishCones(std::vector<Cluster>* cones) {
     auto cone_message = custom_interfaces::msg::Cone();
     cone_message.position = position;
     cone_message.color = cones->at(i).getColor();
+    cone_message.confidence = cones->at(i).getConfidence();
     message.cone_array.push_back(cone_message);
   }
 
