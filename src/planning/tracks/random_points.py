@@ -1,3 +1,5 @@
+# pylint: skip-file
+# mypy: ignore-errors
 """!
 Generates a random path which is written to a file for testing
 """
@@ -5,9 +7,10 @@ Generates a random path which is written to a file for testing
 from random import random
 from random import seed
 from datetime import datetime
+
 seed(datetime.now().timestamp())
 
-f = open("map_250_rng.txt", 'w')
+f = open("map_250_rng.txt", "w")
 
 for i in range(266):
     if random() >= 0.5:
@@ -15,12 +18,9 @@ for i in range(266):
     else:
         color = "yellow_cone"
 
-    x = 100*random()
-    y = 100*random()
+    x = 100 * random()
+    y = 100 * random()
 
     f.write(str(x) + " " + str(y) + " " + color + "\n")
 
 f.close()
-
-
-

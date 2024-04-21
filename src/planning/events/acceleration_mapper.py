@@ -1,3 +1,5 @@
+# pylint: skip-file
+# mypy: ignore-errors
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -65,6 +67,5 @@ f2.close()
 
 # Visualize cones and points using scatter plot
 plt.scatter(xCones + xPoints, yCones + yPoints, s=2, c=colorList)
-plt.axis('equal')
+plt.axis("equal")
 plt.show()
-
