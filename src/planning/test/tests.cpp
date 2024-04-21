@@ -41,6 +41,20 @@ std::vector<std::pair<double, double>> orderVectorOfPairs(
   return result;
 }
 
+
+/**
+  * @brief Get current date and time as a string.
+  * @return Current date and time as a string in "YYYY-MM-DD-HH:MM" format.
+  */
+std::string getCurrentDateTimeAsString() {
+  auto now = std::chrono::system_clock::now();
+  std::time_t now_time = std::chrono::system_clock::to_time_t(now);
+  std::tm* now_tm = std::localtime(&now_time);
+  std::stringstream ss;
+  ss << std::put_time(now_tm, "%Y-%m-%d-%H:%M");
+  return ss.str();
+}
+
 /**
  * @brief rounds float to n decimal places
  *
@@ -69,7 +83,7 @@ std::vector<PathPoint> processTriangulations(std::string filename, std::string t
 
   LocalPathPlanner *pathplanner = new LocalPathPlanner();
   std::vector<PathPoint> path;
-  std::ofstream measuresPath = openWriteFile("src/performance/exec_time/planning.csv");
+  std::ofstream measuresPath = openWriteFile("performance/exec_time/planning/planning_" + getCurrentDateTimeAsString() + ".csv");
   double total_time = 0;
   int no_iters = 100;
 
@@ -83,18 +97,12 @@ std::vector<PathPoint> processTriangulations(std::string filename, std::string t
 
     double elapsed_time_ms = std::chrono::duration<double, std::milli>(t1 - t0).count();
 
-    if (i == 0) {
-      RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Delaunay Triangulations processed in %f ms.\n",
-                   elapsed_time_ms);
-      measuresPath << "planning,  delaunay,  " << testname << ",  " << elapsed_time_ms;
-    }
-
     total_time += elapsed_time_ms;
 
     for (size_t i = 0; i < pathPointers.size(); i++) path.push_back(*pathPointers[i]);
   }
 
-  measuresPath << ",  " << total_time / no_iters << "\n";
+  measuresPath << total_time / no_iters << "\n";
   measuresPath.close();
 
   RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Average Delaunay Triangulations processed in %f ms.",
@@ -109,15 +117,20 @@ std::vector<PathPoint> processTriangulations(std::string filename, std::string t
  *
  * @param filename path to the file that contains the data for testing
  * @param testname name of the test
+ * @param num_outliers Number of outliers
  */
-void outlierCalculations(std::string filename, std::string testname) {
+void outlierCalculations(std::string filename, std::string testname, int num_outliers = 0) {
   Track *track = new Track();
   track->fillTrack(filename);  // fill track with file data
 
   // Remove outliers no_iters times to get average
   int no_iters = 100;
   double total_time = 0;
-  std::ofstream measuresPath = openWriteFile("src/performance/exec_time/planning.csv");
+
+
+
+  std::ofstream measuresPath = openWriteFile("performance/exec_time/planning/planning_" + getCurrentDateTimeAsString() + ".csv", 
+      "Test Name,Number of Left Cones,Number of Right Cones,Number of Outliers,Outlier Removal Execution Time, Delaunay Triangulations Execution Time");
 
   for (int i = 0; i < no_iters; i++) {
     track->reset();
@@ -126,15 +139,10 @@ void outlierCalculations(std::string filename, std::string testname) {
     track->validateCones();
     auto t1 = std::chrono::high_resolution_clock::now();
     double elapsed_time_iter_ms = std::chrono::duration<double, std::milli>(t1 - t0).count();
-    if (i == 0) {
-      RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "First Iteration: Outliers removed in %f ms\n",
-                   (elapsed_time_iter_ms));
-      measuresPath << "planning,  outliers,  " << testname << ",  " << elapsed_time_iter_ms;
-    }
     total_time += elapsed_time_iter_ms;
   }
 
-  measuresPath << ",  " << total_time / no_iters << "\n";
+  measuresPath << testname << "," << track->getLeftConesSize() << "," << track->getRightConesSize() << "," << num_outliers << "," << total_time / no_iters << ",";
   measuresPath.close();
 
   RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Outliers removed in average %f ms.",
@@ -142,7 +150,7 @@ void outlierCalculations(std::string filename, std::string testname) {
 }
 
 std::ostream &operator<<(std::ostream &os, const PathPoint &p) {
-  return os << '(' << p.getX() << ', ' << p.getY() << ')';
+  return os << '(' << p.getX() << ',' << p.getY() << ')';
 }
 
 /**
@@ -660,35 +668,42 @@ TEST(LocalPathPlanner, map_test2) {
 
 TEST(LocalPathPlanner, delauney100) {
   std::string filePath = "src/planning/tracks/map_100.txt";
+  outlierCalculations(filePath, "250points_2outliers", 2);
   std::vector<PathPoint> path = processTriangulations(filePath, "100points");
 }
 
 TEST(LocalPathPlanner, delauney250) {
   std::string filePath = "src/planning/tracks/map_250.txt";
+  outlierCalculations(filePath, "250points_2outliers", 2);
   std::vector<PathPoint> path = processTriangulations(filePath, "250points");
 }
 
 TEST(LocalPathPlanner, delauneyrng) {
   std::string filePath = "src/planning/tracks/map_250_rng.txt";
+  outlierCalculations(filePath, "250points_2outliers", 2);
   std::vector<PathPoint> path = processTriangulations(filePath, "250randompoints");
 }
 
 TEST(LocalPathPlanner, delauneyoutliers0) {
   std::string filePath = "src/planning/tracks/map_250.txt";
-  outlierCalculations(filePath, "250points_2outliers");
+  outlierCalculations(filePath, "250points_2outliers", 2);
+  std::vector<PathPoint> path = processTriangulations(filePath, "250points");
 }
 
 TEST(LocalPathPlanner, delauneyoutliers1) {
   std::string filePath = "src/planning/tracks/map_250_out10.txt";
-  outlierCalculations(filePath, "250points_10outliers");
+  outlierCalculations(filePath, "250points_10outliers", 10);
+  std::vector<PathPoint> path = processTriangulations(filePath, "250points");
 }
 
 TEST(LocalPathPlanner, delauneyoutliers2) {
   std::string filePath = "src/planning/tracks/map_250_out25.txt";
-  outlierCalculations(filePath, "250points_25outliers");
+  outlierCalculations(filePath, "250points_25outliers", 25);
+  std::vector<PathPoint> path = processTriangulations(filePath, "250points");
 }
 
 TEST(LocalPathPlanner, delauneyoutliers3) {
   std::string filePath = "src/planning/tracks/map_250_out50.txt";
-  outlierCalculations(filePath, "250points_50outliers");
+  outlierCalculations(filePath, "250points_50outliers", 50);
+  std::vector<PathPoint> path = processTriangulations(filePath, "250points");
 }
