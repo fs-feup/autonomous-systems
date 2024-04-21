@@ -2,7 +2,7 @@
 
 This guide aims to clarify the necessary steps for creating code that will result in an accepting pull request following the project's norms.
 
-You work with your **shell always in the root directory**. In it, you can find mutiple scripts that will help you on the upcoming tasks. You need to install the tools in [this file](../docs/project-specification.md) to contribute. The tutorials listed before this one on the [Startup Guide](../docs/tutorials/startup_guide.md) should have given you a decent insight on their purposes and how to use them in this project.
+You work with your **shell always in the root directory**. In it, you can find mutiple scripts that will help you on the upcoming tasks. You need to follow the tutorials listed before this one on the [Startup Guide](./startup_guide.md).
 
 ## Natural Workflow 
 
@@ -10,7 +10,14 @@ You work with your **shell always in the root directory**. In it, you can find m
 - Program
 - Compile (see guide at the end of this file)
   ```sh
-  colcon build --packages-select [your package and others necessary] --symlink-install
+  colcon build --packages-select [your package and others necessary]
+  ```
+  you can and should use bear to update the compile_commands.json file for Sonarlint to be kept up to date, especially if you have added new files
+  ```sh
+  bear -- colcon build --packages-select [your package and others necessary]
+  ```
+- Source the packages:
+  ```sh
   source install/setup.bash
   ```
 - Run code (`ros-args` are optional) (see guide at the end of this file)
@@ -21,25 +28,6 @@ You work with your **shell always in the root directory**. In it, you can find m
   ```sh
   colcon test --packages-select [your package and others necessary] [--event-handler=console_direct+] #last part for verbose
   ```
-- Run static analysis (runs clang-format, cpplint, cppcheck, ruff):
-  ```sh
-  ./static-tools.sh all
-  ```
-  or just checking part:
-  ```sh
-  ./static-tools.sh check
-  ```
-  or just modifying tools:
-  ```sh
-  ./static-tools.sh act
-  ```
-  or individually like so:
-  ```sh
-  ./static-tools.sh clang-format # C++
-  ./static-tools.sh cppcheck # C++
-  ./static-tools.sh cpplint # C++
-  ./static-tools.sh ruff # Python
-  ```
 - Finally push changes to repository
   ```sh
   git add -A
@@ -47,6 +35,7 @@ You work with your **shell always in the root directory**. In it, you can find m
   git push
   ```
   Note that the commit message should more or less follow the [Conventional Commits norms](https://www.conventionalcommits.org/en/v1.0.0-beta.4/)
+- Verify successfull workflows
 
 
 ## Notes on Nodes, Packages, Compiling, Executing and Dependencies
@@ -111,3 +100,5 @@ To get a **more verbose output** of the results, use 'event-handler=console_dire
 ```sh
 colcon test --event-handler=console_direct+
 ```
+
+Instead, you can check the logs for the information on the tests (or build folder).
