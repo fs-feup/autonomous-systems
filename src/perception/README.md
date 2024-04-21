@@ -8,7 +8,7 @@ The Perception module is responsible for the processing of the perception module
 
 From src folder:
 ```sh
-colcon build --packages-select perception custom_interfaces
+colcon build --packages-select perception custom_interfaces fs_msgs
 ```
 
 ## Testing
