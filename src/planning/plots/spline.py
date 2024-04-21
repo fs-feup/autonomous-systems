@@ -1,3 +1,5 @@
+# pylint: skip-file
+# mypy: ignore-errors
 import matplotlib.pyplot as plt
 
 x_values0 = []
@@ -59,16 +61,16 @@ with open("../tracks/outlier_test1.txt", "r") as file:
                 ry_values1.append(float(y))
 
 
-plt.plot(ox_values0, oy_values0, 'g-', label="Corrected Track Limits")
-plt.plot(ox_values1, oy_values1, 'g-')
+plt.plot(ox_values0, oy_values0, "g-", label="Corrected Track Limits")
+plt.plot(ox_values1, oy_values1, "g-")
 
-plt.plot(x_values0, y_values0, 'r-', label="Spline Approximation")
-plt.plot(x_values1, y_values1, 'r-')
+plt.plot(x_values0, y_values0, "r-", label="Spline Approximation")
+plt.plot(x_values1, y_values1, "r-")
 
 
-plt.plot(rx_values0, ry_values0, 'bo', label="Uncorrected Blue Cones", markersize = 5)
-plt.plot(rx_values1, ry_values1, 'yo', label="Uncorrected Yellow Cones", markersize = 5)
+plt.plot(rx_values0, ry_values0, "bo", label="Uncorrected Blue Cones", markersize=5)
+plt.plot(rx_values1, ry_values1, "yo", label="Uncorrected Yellow Cones", markersize=5)
 
-plt.plot(axis='equal')
+plt.plot(axis="equal")
 plt.legend()
 plt.show()

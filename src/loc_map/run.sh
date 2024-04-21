@@ -1,1 +1,0 @@
-ros2 run loc_map loc_map --ros-args --log-level warn

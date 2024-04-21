@@ -16,6 +16,7 @@ class Cluster {
   std::string color;                                 ///< Color associated with the cluster.
   Eigen::Vector4f centroid;                          ///< Centroid of the cluster.
   bool centroidIsDefined;  ///< Flag indicating whether the centroid is defined or not.
+  double confidence;
 
  public:
   /**
@@ -53,6 +54,10 @@ class Cluster {
    * @return pcl::PointCloud<pcl::PointXYZI>::Ptr representing the Point Cloud data.
    */
   pcl::PointCloud<pcl::PointXYZI>::Ptr getPointCloud();
+
+  void setConfidence(double newConfidence);
+
+  double getConfidence();
 };
 
 #endif  // CLUSTER_HPP

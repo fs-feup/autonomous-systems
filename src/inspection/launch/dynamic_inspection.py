@@ -1,7 +1,10 @@
+# pylint: skip-file
+# mypy: ignore-errors
 from launch import LaunchDescription
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 from launch.actions import DeclareLaunchArgument
+
 
 def generate_launch_description():
 
@@ -20,7 +23,7 @@ def generate_launch_description():
             description="Gains for longitudinal P controllers of inspection", 
             default_value="0.25"),
         DeclareLaunchArgument("ebs_test_gain", 
-            description="Gains for longitudinal P controllers of inspection", 
+             description="Gains for longitudinal P controllers of inspection", 
             default_value="0.25"),
         DeclareLaunchArgument("finish_time", default_value="26.0"), # seconds
         DeclareLaunchArgument("start_and_stop", 
@@ -33,8 +36,16 @@ def generate_launch_description():
             parameters=[
                 {"turning_period": LaunchConfiguration("turning_period")},
                 {"max_angle": LaunchConfiguration("max_angle")},
-                {"inspection_ideal_velocity": LaunchConfiguration("inspection_ideal_velocity")},
-                {"ebs_test_ideal_velocity": LaunchConfiguration("ebs_test_ideal_velocity")},
+                {
+                    "inspection_ideal_velocity": LaunchConfiguration(
+                        "inspection_ideal_velocity"
+                    )
+                },
+                {
+                    "ebs_test_ideal_velocity": LaunchConfiguration(
+                        "ebs_test_ideal_velocity"
+                    )
+                },
                 {"wheel_radius": LaunchConfiguration("wheel_radius")},
                 {"inspection_gain": LaunchConfiguration("inspection_gain")},
                 {"ebs_test_gain": LaunchConfiguration("ebs_test_gain")},
