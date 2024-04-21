@@ -10,9 +10,15 @@
 #include <filesystem>
 #include <pcl_conversions/pcl_conversions.h>
 
-
+/**
+ * @class PerceptionPerformanceTest
+ * @brief Test fixture for performance testing of perception algorithms.
+ */
 class PerceptionPerformanceTest : public ::testing::Test {
- protected:
+protected:
+    /**
+     * @brief Set up the test fixture.
+     */
     void SetUp() override {
         pcl_cloud.reset(new pcl::PointCloud<pcl::PointXYZI>);
         ground_removal = new RANSAC(RANSAC_eps, RANSAC_Iter);
@@ -20,6 +26,10 @@ class PerceptionPerformanceTest : public ::testing::Test {
         cone_differentiator = new LeastSquaresDifferentiation();
     }
 
+    /**
+     * @brief Get current date and time as a string.
+     * @return Current date and time as a string in "YYYY-MM-DD-HH:MM" format.
+     */
     std::string getCurrentDateTimeAsString() {
         auto now = std::chrono::system_clock::now();
         std::time_t now_time = std::chrono::system_clock::to_time_t(now);
@@ -29,7 +39,20 @@ class PerceptionPerformanceTest : public ::testing::Test {
         return ss.str();
     }
 
-
+    /**
+     * @brief Write performance statistics to a CSV file.
+     * @param initial_n_points Initial number of points in the point cloud.
+     * @param RANSAC_time Duration of RANSAC algorithm in milliseconds.
+     * @param ground_removed_size Number of points after ground removal.
+     * @param DBSCAN_time Duration of DBSCAN algorithm in milliseconds.
+     * @param ConeDif_time Duration of cone differentiation algorithm in milliseconds.
+     * @param Total_time Total duration of the test in milliseconds.
+     * @param generatedClusters Number of clusters generated.
+     * @param blues Number of blue cones detected.
+     * @param yellows Number of yellow cones detected.
+     * @param undefineds Number of cones with undefined color detected.
+     * @param conversion_duration Duration of point cloud conversion in milliseconds.
+     */
     void writeToFile(long long initial_n_points,
                      long long RANSAC_time,
                      long long ground_removed_size,
@@ -76,6 +99,7 @@ class PerceptionPerformanceTest : public ::testing::Test {
         csv_file.close();
     }
 
+protected:
     std::string output_statistics_path_file = "../../performance/exec_time/perception_" +
                     getCurrentDateTimeAsString() + ".csv";
     std::string inputFilesPaths = "../../src/perception/test/point_clouds/";
@@ -92,18 +116,17 @@ class PerceptionPerformanceTest : public ::testing::Test {
     int DBSCAN_neighbours_threshold = 1;
 };
 
-
-
+/**
+ * @brief Test case for performance testing of perception algorithms.
+ */
 TEST_F(PerceptionPerformanceTest, TestPerformance) {
-    for (int it = 0; it <= 7; it++) {
+    for (long unsigned int it = 0; it <= 7; it++) {
         std::string file_name =  inputFilesPaths + "PointCloud" + std::to_string(it) + ".pcd";
 
+        // Point cloud loading and transform into ROS msg
         pcl::io::loadPCDFile<pcl::PointXYZI>(file_name, *pcl_cloud);
-
         sensor_msgs::msg::PointCloud2 msg;
-
         pcl::toROSMsg(*pcl_cloud, msg);
-
         pcl_cloud.reset(new pcl::PointCloud<pcl::PointXYZI>);
 
         auto start_time = std::chrono::high_resolution_clock::now();
