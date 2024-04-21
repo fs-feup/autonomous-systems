@@ -1,9 +1,8 @@
 #include <pcl/conversions.h>
 #include <pcl/features/normal_3d.h>
-#include <vector>
 #include <cstdio>
 #include <cone_evaluator/distance_predict.hpp>
-
+#include <vector>
 #include "perception/perception_node.hpp"
 
 int main(int argc, char** argv) {
