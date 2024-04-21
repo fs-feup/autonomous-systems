@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['master_5fas_5fmission_5fcode_0',['MASTER_AS_MISSION_CODE',['../db/d50/node__ros__can_8hpp.html#acca716147fa6788a1abb5282cde6b610',1,'node_ros_can.hpp']]],
-  ['master_5fas_5fstate_5fcode_1',['MASTER_AS_STATE_CODE',['../db/d50/node__ros__can_8hpp.html#a318414be756bc9d223e0a79927524ec8',1,'node_ros_can.hpp']]],
-  ['master_5frl_5frpm_5fcode_2',['MASTER_RL_RPM_CODE',['../db/d50/node__ros__can_8hpp.html#a0cac86118594925531fd50a5087309bf',1,'node_ros_can.hpp']]],
-  ['master_5fstatus_3',['MASTER_STATUS',['../db/d50/node__ros__can_8hpp.html#a0f7bcb0e38ef33c36640e747612cc77e',1,'node_ros_can.hpp']]]
+  ['imu_5fpitch_5frate_5facc_5fz_5fid_0',['IMU_PITCH_RATE_ACC_Z_ID',['../db/d50/node__ros__can_8hpp.html#a960ed7d7d94cc7c4e940141576ab7b84',1,'node_ros_can.hpp']]],
+  ['imu_5froll_5frate_5facc_5fx_5fid_1',['IMU_ROLL_RATE_ACC_X_ID',['../db/d50/node__ros__can_8hpp.html#ae2b867ba29de134e53c1fcef7e9044bd',1,'node_ros_can.hpp']]],
+  ['imu_5fyaw_5frate_5facc_5fy_5fid_2',['IMU_YAW_RATE_ACC_Y_ID',['../db/d50/node__ros__can_8hpp.html#a1cc37a4f976cf8e6b2282c2e9bc2c1a9',1,'node_ros_can.hpp']]]
 ];

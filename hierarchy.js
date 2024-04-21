@@ -17,6 +17,9 @@ var hierarchy =
     [ "ConeDifferentiation", "d7/d4e/class_cone_differentiation.html", [
       [ "LeastSquaresDifferentiation", "d7/d15/class_least_squares_differentiation.html", null ]
     ] ],
+    [ "ConeEvaluator", "df/d8f/class_cone_evaluator.html", [
+      [ "DistancePredict", "d0/d47/class_distance_predict.html", null ]
+    ] ],
     [ "ConeMap", "dc/d59/struct_cone_map.html", null ],
     [ "ConeValidator", "d3/d57/class_cone_validator.html", [
       [ "CylinderValidator", "dd/def/class_cylinder_validator.html", null ],
@@ -57,6 +60,7 @@ var hierarchy =
     [ "testing::Test", null, [
       [ "CylinderValidatorTest", "da/dcf/class_cylinder_validator_test.html", null ],
       [ "DBSCANTest", "d8/d90/class_d_b_s_c_a_n_test.html", null ],
+      [ "DistanceValidatorTest", "db/df7/class_distance_validator_test.html", null ],
       [ "ExecTimeTest", "df/d59/class_exec_time_test.html", null ],
       [ "ExecTimeTestEKFTests", "d2/dac/class_exec_time_test_e_k_f_tests.html", null ],
       [ "HeightValidatorTest", "d9/d7c/class_height_validator_test.html", null ],
