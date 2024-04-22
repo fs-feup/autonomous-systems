@@ -7,6 +7,8 @@
 #include "loc_map/lm_node.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include <filesystem>
+#include <random>
+#include <time.h>
 
 /**
  * @class ExecTimeTestEKFTests
@@ -62,6 +64,15 @@ class PerformamceTest : public ::testing::Test {
     file << "\n\n";
     // Close file
     file.close();
+  }
+
+  int random_number() {
+    int rand_num;
+    FILE *fp;
+    fp = fopen("/dev/random", "r");
+    fread(&rand_num, sizeof(int), 1, fp);
+    fclose(fp);
+    return rand_num;
   }
 
       /**
@@ -145,8 +156,12 @@ class PerformamceTest : public ::testing::Test {
     ekf_test->set_X_y(22, 6.788164138793945);
     ekf_test->push_to_colors(colors::Color::yellow);
     for (int i = 23; i <= size; i++) {
-      double randomX = (static_cast<double>(rand() / RAND_MAX)) * 50.0;
-      double randomY = (static_cast<double>(rand() / RAND_MAX)) * 50.0;
+
+      time_t t;
+      srand((unsigned) time(&t));
+
+      double randomX = random_number();
+      double randomY = random_number();
 
       // Call set_X_y for X and Y values, sets the value if X at y
       ekf_test->set_X_y(i, randomX);
