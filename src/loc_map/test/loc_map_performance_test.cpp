@@ -128,7 +128,23 @@ class PerformamceTest : public ::testing::Test {
    * @param size Number of state vector elements to fill.
    */
   void fill_X(int size) {
-    for (int i = 3; i <= size; i++) {
+    ekf_test->set_X_y(13, 16.861791610717773);
+    ekf_test->set_X_y(14, 14.40013599395752);
+    ekf_test->push_to_colors(colors::Color::yellow);
+
+    ekf_test->set_X_y(15, 16.28278160095215);
+    ekf_test->set_X_y(16, 11.487138748168945);
+    ekf_test->push_to_colors(colors::Color::yellow);
+    ekf_test->set_X_y(17, 14.6317720413208);
+    ekf_test->set_X_y(18, 9.018143653869629);
+    ekf_test->push_to_colors(colors::Color::yellow);
+    ekf_test->set_X_y(19, 12.162766456604004);
+    ekf_test->set_X_y(20, 7.367153644561768);
+    ekf_test->push_to_colors(colors::Color::yellow);
+    ekf_test->set_X_y(21, 9.249764442443848);
+    ekf_test->set_X_y(22, 6.788164138793945);
+    ekf_test->push_to_colors(colors::Color::yellow);
+    for (int i = 23; i <= size; i++) {
       double randomX = (static_cast<double>(rand() / RAND_MAX)) * 50.0;
       double randomY = (static_cast<double>(rand() / RAND_MAX)) * 50.0;
 
@@ -174,6 +190,35 @@ class PerformamceTest : public ::testing::Test {
     ekf_test = new ExtendedKalmanFilter(*motion_model_test, observation_model_test);
   }
 
+  ConeMap createConeMap(){
+    ConeMap coneMap;
+
+    Position conePosition(14, 14);
+    coneMap.map[conePosition] = colors::blue;
+    conePosition = Position(12.8, 11.4);
+    coneMap.map[conePosition] = colors::blue;
+    conePosition = Position(11.2, 9);
+    coneMap.map[conePosition] = colors::blue;
+    conePosition = Position(8.7, 7.3);
+    coneMap.map[conePosition] = colors::blue;
+    conePosition = Position(5.8, 6.7);
+    coneMap.map[conePosition] = colors::blue;
+    conePosition = Position(31.8, 14.4);
+    coneMap.map[conePosition] = colors::yellow;
+    conePosition = Position(31.2, 11.4);
+    coneMap.map[conePosition] = colors::yellow;
+    conePosition = Position(29.6, 9);
+    coneMap.map[conePosition] = colors::yellow;
+    conePosition = Position(27.1, 7.3);
+    coneMap.map[conePosition] = colors::yellow;
+    conePosition = Position(24.2, 6.7);
+    coneMap.map[conePosition] = colors::yellow;
+
+    coneMap.last_update = std::chrono::high_resolution_clock::now();
+
+    return coneMap;
+  }
+
   void TearDown() override {
     delete ekf_test;
     delete motion_update_test;
@@ -189,12 +234,28 @@ TEST_F(PerformamceTest, TEST_EKF_PRED_10) {
 
   // create conemap with 10 cones
   ConeMap coneMap;
-  for (int i = 0; i < 10; i++) {
-    Position conePosition(i * 2.0, i * 2.0);
 
-    // Add the cone to the map
-    coneMap.map[conePosition] = colors::blue;
-  }
+  Position conePosition(14, 14);
+  coneMap.map[conePosition] = colors::blue;
+  conePosition = Position(12.8, 11.4);
+  coneMap.map[conePosition] = colors::blue;
+  conePosition = Position(11.2, 9);
+  coneMap.map[conePosition] = colors::blue;
+  conePosition = Position(8.7, 7.3);
+  coneMap.map[conePosition] = colors::blue;
+  conePosition = Position(5.8, 6.7);
+  coneMap.map[conePosition] = colors::blue;
+  conePosition = Position(31.8, 14.4);
+  coneMap.map[conePosition] = colors::yellow;
+  conePosition = Position(31.2, 11.4);
+  coneMap.map[conePosition] = colors::yellow;
+  conePosition = Position(29.6, 9);
+  coneMap.map[conePosition] = colors::yellow;
+  conePosition = Position(27.1, 7.3);
+  coneMap.map[conePosition] = colors::yellow;
+  conePosition = Position(24.2, 6.7);
+  coneMap.map[conePosition] = colors::yellow;
+
   coneMap.last_update = std::chrono::high_resolution_clock::now();
 
   prediction_step_input_size = 23;
@@ -266,11 +327,28 @@ TEST_F(PerformamceTest, TEST_EKF_PRED_10) {
 TEST_F(PerformamceTest, TEST_EKF_PRED_50) {
 
   ConeMap coneMap;
-  for (int i = 0; i < 10; i++) {
-    Position conePosition(i * 2.0, i * 2.0);
-    // Add the cone to the map
-    coneMap.map[conePosition] = colors::blue;
-  }
+
+  Position conePosition(14, 14);
+  coneMap.map[conePosition] = colors::blue;
+  conePosition = Position(12.8, 11.4);
+  coneMap.map[conePosition] = colors::blue;
+  conePosition = Position(11.2, 9);
+  coneMap.map[conePosition] = colors::blue;
+  conePosition = Position(8.7, 7.3);
+  coneMap.map[conePosition] = colors::blue;
+  conePosition = Position(5.8, 6.7);
+  coneMap.map[conePosition] = colors::blue;
+  conePosition = Position(31.8, 14.4);
+  coneMap.map[conePosition] = colors::yellow;
+  conePosition = Position(31.2, 11.4);
+  coneMap.map[conePosition] = colors::yellow;
+  conePosition = Position(29.6, 9);
+  coneMap.map[conePosition] = colors::yellow;
+  conePosition = Position(27.1, 7.3);
+  coneMap.map[conePosition] = colors::yellow;
+  conePosition = Position(24.2, 6.7);
+  coneMap.map[conePosition] = colors::yellow;
+
   coneMap.last_update = std::chrono::high_resolution_clock::now();
 
   prediction_step_input_size = 53;
@@ -311,13 +389,7 @@ TEST_F(PerformamceTest, TEST_EKF_PRED_50) {
  */
 TEST_F(PerformamceTest, TEST_EKF_PRED_100) {
 
-  ConeMap coneMap;
-  for (int i = 0; i < 10; i++) {
-    Position conePosition(i * 2.0, i * 2.0);
-    // Add the cone to the map
-    coneMap.map[conePosition] = colors::blue;
-  }
-  coneMap.last_update = std::chrono::high_resolution_clock::now();
+  ConeMap coneMap = createConeMap();
 
   prediction_step_input_size = 103;
   correction_step_input_size = 10;
@@ -355,13 +427,7 @@ TEST_F(PerformamceTest, TEST_EKF_PRED_100) {
 
 TEST_F(PerformamceTest, TEST_EKF_PRED_200) {
 
-  ConeMap coneMap;
-  for (int i = 0; i < 10; i++) {
-    Position conePosition(i * 2.0, i * 2.0);
-    // Add the cone to the map
-    coneMap.map[conePosition] = colors::blue;
-  }
-  coneMap.last_update = std::chrono::high_resolution_clock::now();
+  ConeMap coneMap = createConeMap();
 
   prediction_step_input_size = 203;
   correction_step_input_size = 10;
@@ -374,6 +440,41 @@ TEST_F(PerformamceTest, TEST_EKF_PRED_200) {
   ekf_test->set_X_y(2, 0.0);
 
   fill_X(202);
+  for (int i = 0; i < 10; i++) {
+    start_time = std::chrono::high_resolution_clock::now();
+
+    ekf_test->prediction_step(*motion_update_test);
+    prediction_step_time = std::chrono::high_resolution_clock::now();
+    ekf_test->correction_step(coneMap);
+    end_time = std::chrono::high_resolution_clock::now();
+
+    prediction_step_duration += std::chrono::duration_cast<std::chrono::microseconds>(prediction_step_time - start_time);
+    correction_step_duration += std::chrono::duration_cast<std::chrono::microseconds>(end_time - prediction_step_time);
+  }
+
+  prediction_step_duration = prediction_step_duration / 10;
+  correction_step_duration = correction_step_duration / 10;
+
+  print_to_file();
+
+}
+
+
+TEST_F(PerformamceTest, TEST_EKF_PRED_400) {
+
+  ConeMap coneMap = createConeMap();
+
+  prediction_step_input_size = 403;
+  correction_step_input_size = 10;
+
+
+  ekf_test->init_X_size(403);
+  ekf_test->set_P(403);
+  ekf_test->set_X_y(0, -15.0);
+  ekf_test->set_X_y(1, 0.0);
+  ekf_test->set_X_y(2, 0.0);
+
+  fill_X(402);
   for (int i = 0; i < 10; i++) {
     start_time = std::chrono::high_resolution_clock::now();
 

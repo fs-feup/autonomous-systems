@@ -100,7 +100,7 @@ protected:
     }
 
 protected:
-    std::string output_statistics_path_file = "../../performance/exec_time/perception_" +
+    std::string output_statistics_path_file = "../../performance/exec_time/perception/perception_" +
                     getCurrentDateTimeAsString() + ".csv";
     std::string inputFilesPaths = "../../src/perception/test/point_clouds/";
 
