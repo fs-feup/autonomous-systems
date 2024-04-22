@@ -190,6 +190,23 @@ class PerformamceTest : public ::testing::Test {
     ekf_test = new ExtendedKalmanFilter(*motion_model_test, observation_model_test);
   }
 
+  void runExecution(ConeMap coneMap){
+    for (int i = 0; i < 10; i++) {
+      start_time = std::chrono::high_resolution_clock::now();
+
+      ekf_test->prediction_step(*motion_update_test);
+      prediction_step_time = std::chrono::high_resolution_clock::now();
+      ekf_test->correction_step(coneMap);
+      end_time = std::chrono::high_resolution_clock::now();
+
+      prediction_step_duration += std::chrono::duration_cast<std::chrono::microseconds>(prediction_step_time - start_time);
+      correction_step_duration += std::chrono::duration_cast<std::chrono::microseconds>(end_time - prediction_step_time);
+    }
+
+    prediction_step_duration = prediction_step_duration / 10;
+    correction_step_duration = correction_step_duration / 10;
+  }
+
   ConeMap createConeMap(){
     ConeMap coneMap;
 
@@ -233,28 +250,7 @@ class PerformamceTest : public ::testing::Test {
 TEST_F(PerformamceTest, TEST_EKF_PRED_10) {
 
   // create conemap with 10 cones
-  ConeMap coneMap;
-
-  Position conePosition(14, 14);
-  coneMap.map[conePosition] = colors::blue;
-  conePosition = Position(12.8, 11.4);
-  coneMap.map[conePosition] = colors::blue;
-  conePosition = Position(11.2, 9);
-  coneMap.map[conePosition] = colors::blue;
-  conePosition = Position(8.7, 7.3);
-  coneMap.map[conePosition] = colors::blue;
-  conePosition = Position(5.8, 6.7);
-  coneMap.map[conePosition] = colors::blue;
-  conePosition = Position(31.8, 14.4);
-  coneMap.map[conePosition] = colors::yellow;
-  conePosition = Position(31.2, 11.4);
-  coneMap.map[conePosition] = colors::yellow;
-  conePosition = Position(29.6, 9);
-  coneMap.map[conePosition] = colors::yellow;
-  conePosition = Position(27.1, 7.3);
-  coneMap.map[conePosition] = colors::yellow;
-  conePosition = Position(24.2, 6.7);
-  coneMap.map[conePosition] = colors::yellow;
+  ConeMap coneMap = createConeMap();
 
   coneMap.last_update = std::chrono::high_resolution_clock::now();
 
@@ -266,56 +262,11 @@ TEST_F(PerformamceTest, TEST_EKF_PRED_10) {
   ekf_test->set_X_y(0, -15.0);
   ekf_test->set_X_y(1, 0.0);
   ekf_test->set_X_y(2, 0.0);
-  ekf_test->set_X_y(3, -1.637208342552185);
-  ekf_test->set_X_y(4, 14.400202751159668);
-  ekf_test->push_to_colors(colors::Color::blue);
-  ekf_test->set_X_y(5, -2.216218948364258);
-  ekf_test->set_X_y(6, 11.487205505371094);
-  ekf_test->push_to_colors(colors::Color::blue);
-  ekf_test->set_X_y(7, -3.867227792739868);
-  ekf_test->set_X_y(8, 9.018211364746094);
-  ekf_test->push_to_colors(colors::Color::blue);
 
-  ekf_test->set_X_y(9, -6.336233615875244);
-  ekf_test->set_X_y(10, 7.367220401763916);
-  ekf_test->push_to_colors(colors::Color::blue);
-
-  ekf_test->set_X_y(11, -9.250235557556152);
-  ekf_test->set_X_y(12, 6.788230895996094);
-  ekf_test->push_to_colors(colors::Color::blue);
-
-  ekf_test->set_X_y(13, 16.861791610717773);
-  ekf_test->set_X_y(14, 14.40013599395752);
-  ekf_test->push_to_colors(colors::Color::yellow);
-
-  ekf_test->set_X_y(15, 16.28278160095215);
-  ekf_test->set_X_y(16, 11.487138748168945);
-  ekf_test->push_to_colors(colors::Color::yellow);
-  ekf_test->set_X_y(17, 14.6317720413208);
-  ekf_test->set_X_y(18, 9.018143653869629);
-  ekf_test->push_to_colors(colors::Color::yellow);
-  ekf_test->set_X_y(19, 12.162766456604004);
-  ekf_test->set_X_y(20, 7.367153644561768);
-  ekf_test->push_to_colors(colors::Color::yellow);
-  ekf_test->set_X_y(21, 9.249764442443848);
-  ekf_test->set_X_y(22, 6.788164138793945);
-  ekf_test->push_to_colors(colors::Color::yellow);
+  fill_X(22);
 
   // run the prediction and correction step 10 times and average the duration
-  for (int i = 0; i < 10; i++) {
-    start_time = std::chrono::high_resolution_clock::now();
-
-    ekf_test->prediction_step(*motion_update_test);
-    prediction_step_time = std::chrono::high_resolution_clock::now();
-    ekf_test->correction_step(coneMap);
-    end_time = std::chrono::high_resolution_clock::now();
-
-    prediction_step_duration += std::chrono::duration_cast<std::chrono::microseconds>(prediction_step_time - start_time);
-    correction_step_duration += std::chrono::duration_cast<std::chrono::microseconds>(end_time - prediction_step_time);
-  }
-
-  prediction_step_duration = prediction_step_duration / 10;
-  correction_step_duration = correction_step_duration / 10;
+  runExecution(coneMap);
 
   print_to_file();
 }
@@ -326,30 +277,7 @@ TEST_F(PerformamceTest, TEST_EKF_PRED_10) {
  */
 TEST_F(PerformamceTest, TEST_EKF_PRED_50) {
 
-  ConeMap coneMap;
-
-  Position conePosition(14, 14);
-  coneMap.map[conePosition] = colors::blue;
-  conePosition = Position(12.8, 11.4);
-  coneMap.map[conePosition] = colors::blue;
-  conePosition = Position(11.2, 9);
-  coneMap.map[conePosition] = colors::blue;
-  conePosition = Position(8.7, 7.3);
-  coneMap.map[conePosition] = colors::blue;
-  conePosition = Position(5.8, 6.7);
-  coneMap.map[conePosition] = colors::blue;
-  conePosition = Position(31.8, 14.4);
-  coneMap.map[conePosition] = colors::yellow;
-  conePosition = Position(31.2, 11.4);
-  coneMap.map[conePosition] = colors::yellow;
-  conePosition = Position(29.6, 9);
-  coneMap.map[conePosition] = colors::yellow;
-  conePosition = Position(27.1, 7.3);
-  coneMap.map[conePosition] = colors::yellow;
-  conePosition = Position(24.2, 6.7);
-  coneMap.map[conePosition] = colors::yellow;
-
-  coneMap.last_update = std::chrono::high_resolution_clock::now();
+  ConeMap coneMap = createConeMap();
 
   prediction_step_input_size = 53;
   correction_step_input_size = 10;
@@ -363,20 +291,7 @@ TEST_F(PerformamceTest, TEST_EKF_PRED_50) {
   fill_X(52);
 
   // run the prediction and correction step 10 times and average the duration
-  for (int i = 0; i < 10; i++) {
-    start_time = std::chrono::high_resolution_clock::now();
-
-    ekf_test->prediction_step(*motion_update_test);
-    prediction_step_time = std::chrono::high_resolution_clock::now();
-    ekf_test->correction_step(coneMap);
-    end_time = std::chrono::high_resolution_clock::now();
-
-    prediction_step_duration += std::chrono::duration_cast<std::chrono::microseconds>(prediction_step_time - start_time);
-    correction_step_duration += std::chrono::duration_cast<std::chrono::microseconds>(end_time - prediction_step_time);
-  }
-
-  prediction_step_duration = prediction_step_duration / 10;
-  correction_step_duration = correction_step_duration / 10;
+  runExecution(coneMap);
 
   print_to_file();
 }
@@ -403,20 +318,7 @@ TEST_F(PerformamceTest, TEST_EKF_PRED_100) {
   fill_X(102);
 
   // run the prediction and correction step 10 times and average the duration
-  for (int i = 0; i < 10; i++) {
-    start_time = std::chrono::high_resolution_clock::now();
-
-    ekf_test->prediction_step(*motion_update_test);
-    prediction_step_time = std::chrono::high_resolution_clock::now();
-    ekf_test->correction_step(coneMap);
-    end_time = std::chrono::high_resolution_clock::now();
-
-    prediction_step_duration += std::chrono::duration_cast<std::chrono::microseconds>(prediction_step_time - start_time);
-    correction_step_duration += std::chrono::duration_cast<std::chrono::microseconds>(end_time - prediction_step_time);
-  }
-
-  prediction_step_duration = prediction_step_duration / 10;
-  correction_step_duration = correction_step_duration / 10;
+  runExecution(coneMap);
 
   print_to_file();
 }
@@ -440,20 +342,8 @@ TEST_F(PerformamceTest, TEST_EKF_PRED_200) {
   ekf_test->set_X_y(2, 0.0);
 
   fill_X(202);
-  for (int i = 0; i < 10; i++) {
-    start_time = std::chrono::high_resolution_clock::now();
 
-    ekf_test->prediction_step(*motion_update_test);
-    prediction_step_time = std::chrono::high_resolution_clock::now();
-    ekf_test->correction_step(coneMap);
-    end_time = std::chrono::high_resolution_clock::now();
-
-    prediction_step_duration += std::chrono::duration_cast<std::chrono::microseconds>(prediction_step_time - start_time);
-    correction_step_duration += std::chrono::duration_cast<std::chrono::microseconds>(end_time - prediction_step_time);
-  }
-
-  prediction_step_duration = prediction_step_duration / 10;
-  correction_step_duration = correction_step_duration / 10;
+  runExecution(coneMap);
 
   print_to_file();
 
@@ -467,7 +357,6 @@ TEST_F(PerformamceTest, TEST_EKF_PRED_400) {
   prediction_step_input_size = 403;
   correction_step_input_size = 10;
 
-
   ekf_test->init_X_size(403);
   ekf_test->set_P(403);
   ekf_test->set_X_y(0, -15.0);
@@ -475,20 +364,8 @@ TEST_F(PerformamceTest, TEST_EKF_PRED_400) {
   ekf_test->set_X_y(2, 0.0);
 
   fill_X(402);
-  for (int i = 0; i < 10; i++) {
-    start_time = std::chrono::high_resolution_clock::now();
 
-    ekf_test->prediction_step(*motion_update_test);
-    prediction_step_time = std::chrono::high_resolution_clock::now();
-    ekf_test->correction_step(coneMap);
-    end_time = std::chrono::high_resolution_clock::now();
-
-    prediction_step_duration += std::chrono::duration_cast<std::chrono::microseconds>(prediction_step_time - start_time);
-    correction_step_duration += std::chrono::duration_cast<std::chrono::microseconds>(end_time - prediction_step_time);
-  }
-
-  prediction_step_duration = prediction_step_duration / 10;
-  correction_step_duration = correction_step_duration / 10;
+  runExecution(coneMap);
 
   print_to_file();
 
