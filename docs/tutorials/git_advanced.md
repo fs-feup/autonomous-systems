@@ -54,13 +54,29 @@ Now every time you would add a .db3 file to the repo, it will be managed by Git 
 
 ## Git submodules
 
+### New Submodule
+
 Git submodules allows you to add another remote repository to your repository folder, while keeping it synchronized (not just the folder contents of the repo). This means you can add another project as a subfolder of your project which will still actively update according to the updates made by the authors of that repository. Git Submodules adds a file that indicates the submodules a repository has and how they should be configured, but most happens behind the scenes. 
 
-To add a new submodule, run:
+To add a new submodule (add something not in the repo yet), run:
 
 ```sh
 git submodule add <repo url> <directory to add to>
 ```
+
+### Adding submodules locally
+
+To add a submodule already in the repo but that you do not have locally in the folder, use the following command:
+
+```sh
+git submodule update --init --recursive <path_to_submodule>
+```
+Example:
+```sh
+git submodule update --init --recursive ./ext/rslidar_sdk
+```
+
+### Problems
 
 In the case of this repository, you will often have to update the submodules you are depending on. If a change is made to the submodules you can do the following to reset the structure:
 
@@ -81,3 +97,4 @@ After this, the submodule should be tracking the new repository and be up-to-dat
 
 **Note:** If posterior to this you have made new commits in the submodule repos, you will (stupidly) have to also commit in the main repo (this one).
 
+I
