@@ -46,6 +46,13 @@ class TestEvaluatorMethods(unittest.TestCase):
         with self.assertRaises(ValueError):
             Evaluator.get_average_difference(self.output, [])
 
+    def test_get_mean_squared_error(self):
+        """
+        Test case for the get_mean_squared_error method when the output array is non-empty.
+        """
+        mean_squared_error = Evaluator.get_mean_squared_error(self.output, self.ground_truth)
+        self.assertAlmostEqual(mean_squared_error, 1.03, delta=0.00001)
+
     def test_get_inter_cones_distance(self):
         """
         Test case for the get_inter_cones_distance method when the output array is non-empty.
@@ -59,6 +66,7 @@ class TestEvaluatorMethods(unittest.TestCase):
         """
         inter_cones_distance = Evaluator.get_inter_cones_distance([])
         self.assertEqual(inter_cones_distance, 0)
+    
 
 if __name__ == '__main__':
     unittest.main()

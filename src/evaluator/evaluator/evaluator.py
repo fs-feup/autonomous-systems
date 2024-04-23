@@ -6,14 +6,15 @@ import message_filters
 import numpy as np
 from std_msgs.msg import Float32
 import datetime
+from math import sqrt
 
 class Evaluator(Node):
-    """
+    """!
     A ROS2 node for computing and publishing system's metrics
     """
 
     def __init__(self):
-        """
+        """!
         Initializes the Evaluator node and creates the subscriptions/adapters
         """
         super().__init__('evaluator')
@@ -26,49 +27,61 @@ class Evaluator(Node):
             'cones'
         )
 
-        self.perception_subscription.registerCallback(self.perception_callback)
+        self.perception_subscription.registerCallback(self.perception_callback_time_measurement)
 
         # Publishers for perception metrics
         self.perception_mean_difference = self.create_publisher(Float32, '/perception/metrics/mean_difference', 10)
+        self.perception_mean_squared_difference = self.create_publisher(Float32, '/perception/metrics/mean_squared_difference', 10)
+        self.perception_root_mean_squared_difference = self.create_publisher(Float32, '/perception/metrics/root_mean_squared_difference', 10)
         self.perception_inter_cones_distance = self.create_publisher(Float32, '/perception/metrics/inter_cones_distance', 10)
-        self.execution_time = self.create_publisher(Float32, '/perception/metrics/execution_time', 10)
+        self.perception_execution_time = self.create_publisher(Float32, '/perception/metrics/execution_time', 10)
 
         # FSDS adapter for lidar data
         self.adapter = FSDSAdapter(self, '/lidar/Lidar1')
 
     
-    def perception_callback(self, msg):
+    # Perception Calback for execution time measurement
+    def perception_callback_time_measurement(self, msg : ConeArray):
 
-        """
+        """!
         Computes the perception's execution time
         """
 
         self.get_logger().info("Received perception")
         self.end_time = datetime.datetime.now()
         time_difference = self.end_time - self.start_time
-        executionTime = Float32()
-        executionTime.data = time_difference
-        self.execution_time.publish(executionTime)
+        execution_time = Float32()
+        execution_time.data = time_difference
+        self.perception_execution_time.publish(execution_time)
 
 
     def compute_and_publish_perception(self):
-        """
+        """!
         Computes perception metrics and publishes them.
         """
         mean_difference = Float32()
         mean_difference.data = self.get_average_difference(self.perception_output, self.perception_ground_truth)
 
+        mean_squared_error = Float32()
+        mean_squared_error.data = self.get_mean_squared_error(self.perception_output, self.perception_ground_truth)
+
         inter_cones_distance = Float32()
         inter_cones_distance.data = self.get_inter_cones_distance(self.perception_output)
+
+        root_mean_squared_difference = Float32()
+        root_mean_squared_difference.data = sqrt(self.get_mean_squared_error(self.perception_output)
+)
 
         # Publishes computed perception metrics
         self.perception_mean_difference.publish(mean_difference)
         self.perception_inter_cones_distance.publish(inter_cones_distance)
+        self.perception_mean_squared_difference.publish(mean_squared_error)
+        self.perception_root_mean_squared_difference.publish(root_mean_squared_difference)
 
 
     @staticmethod
-    def get_average_difference(perception_output, perception_ground_truth):
-        """
+    def get_average_difference(perception_output : list, perception_ground_truth : list):
+        """!
         Computes the average difference between perception output and ground truth cones.
         
         Args:
@@ -78,8 +91,8 @@ class Evaluator(Node):
         Returns:
             float: Average difference between perception output and ground truth cones.
         """
-        sum = 0
-        count = 0
+        sum : float = 0
+        count : int = 0
 
         if (len(perception_output) == 0):
             return float('inf')
@@ -88,10 +101,10 @@ class Evaluator(Node):
             raise ValueError("No ground truth cones provided for computing average difference.")
 
         for perception_cone in perception_output:
-            min_distance = np.linalg.norm(perception_cone - perception_ground_truth[0])
+            min_distance : float = np.linalg.norm(perception_cone - perception_ground_truth[0])
 
             for ground_truth_cone in perception_ground_truth:
-                distance = np.linalg.norm(perception_cone - ground_truth_cone)
+                distance : float = np.linalg.norm(perception_cone - ground_truth_cone)
                 if distance < min_distance:
                     min_distance = distance
 
@@ -102,8 +115,39 @@ class Evaluator(Node):
         return average
     
     @staticmethod
-    def get_inter_cones_distance(perception_output):
+    def get_mean_squared_error(perception_output: list, perception_ground_truth: list):
+        """!
+        Computes the mean squared error between perception output and ground truth cones.
+
+        Args:
+            perception_output (list): List of perceived cones.
+            perception_ground_truth (list): List of ground truth cones.
+
+        Returns:
+            float: Mean squared error between perception output and ground truth cones.
         """
+        if not perception_output:
+            raise ValueError("No perception output provided.")
+        if not perception_ground_truth:
+            raise ValueError("No ground truth cones provided.")
+
+        mse_sum = 0
+        for perception_cone in perception_output:
+            min_distance_sq = np.linalg.norm(perception_cone - perception_ground_truth[0])**2
+
+            for ground_truth_cone in perception_ground_truth:
+                distance_sq = np.linalg.norm(perception_cone - ground_truth_cone)**2
+                if distance_sq < min_distance_sq:
+                    min_distance_sq = distance_sq
+
+            mse_sum += min_distance_sq
+
+        mse = mse_sum / len(perception_output)
+        return mse
+    
+    @staticmethod
+    def get_inter_cones_distance(perception_output : list):
+        """!
         Computes the average distance between pairs of perceived cones using Minimum Spanning Tree Prim's algorithm.
 
         Args:
@@ -112,12 +156,12 @@ class Evaluator(Node):
         Returns:
             float: Average distance between pairs of perceived cones.
         """
-        size = len(perception_output)
+        size : int = len(perception_output)
 
         visited = set()
 
-        total_distance = 0
-        num_pairs = 0
+        total_distance : int = 0
+        num_pairs : int = 0
 
         adjacency_matrix = np.zeros((size, size))
 
