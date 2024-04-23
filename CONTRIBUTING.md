@@ -2,7 +2,7 @@
 
 This guide aims to clarify the necessary steps for creating code that will result in an accepting pull request following the project's norms.
 
-You work with your **shell always in the root directory**. In it, you can find mutiple scripts that will help you on the upcoming tasks. You need to follow the tutorials listed before this one on the [Startup Guide](./startup_guide.md).
+You work with your **shell always in the root directory**. In it, you can find mutiple scripts that will help you on the upcoming tasks. You need to follow the tutorials listed before this one on the [Startup Guide](./docs/tutorials/startup_guide.md).
 
 ## Natural Workflow 
 
