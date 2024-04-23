@@ -39,6 +39,9 @@ RosCan::RosCan() : Node("node_ros_can") {
   // std::bind(&RosCan::busStatus_callback, this, std::placeholders::_1));
   timer =
       this->create_wall_timer(std::chrono::microseconds(500), std::bind(&RosCan::canSniffer, this));
+  timerAliveMsg = this->create_wall_timer(std::chrono::milliseconds(100),
+                                          std::bind(&RosCan::alive_msg_callback, this));
+
   // initialize the CAN library
   canInitializeLibrary();
   // A channel to a CAN circuit is opened. The channel depend on the hardware
@@ -327,4 +330,18 @@ void RosCan::rlRPMPublisher(unsigned char msg[8]) {
   auto message = custom_interfaces::msg::WheelRPM();
   message.rl_rpm = rlRPM;
   rlRPMPub->publish(message);
+}
+
+void RosCan::alive_msg_callback() {
+  long id = 0x400;            // Set the CAN ID
+  unsigned char data = 0x41;  // Set the data
+  void* msg = &data;
+  unsigned int dlc = 1;  // Msg length
+  unsigned int flag = 0;
+
+  // Write the emergency message to the CAN bus
+  stat = canWrite(hnd, id, msg, dlc, flag);
+  if (stat != canOK) {
+    RCLCPP_ERROR(this->get_logger(), "Failed to write alive message to CAN bus");
+  }
 }
