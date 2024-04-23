@@ -99,18 +99,11 @@ var NAVTREE =
       [ "Full Documentation", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md54", null ],
       [ "Main External Libraries", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md55", null ]
     ] ],
-    [ "Contributing", "d7/d37/md_src_2_r_e_a_d_m_e.html", [
-      [ "Natural Workflow", "d7/d37/md_src_2_r_e_a_d_m_e.html#autotoc_md57", null ],
-      [ "Notes on Nodes, Packages, Compiling, Executing and Dependencies", "d7/d37/md_src_2_r_e_a_d_m_e.html#autotoc_md58", [
-        [ "Compile and Run Extended", "d7/d37/md_src_2_r_e_a_d_m_e.html#autotoc_md59", null ],
-        [ "Compilation Dependencies", "d7/d37/md_src_2_r_e_a_d_m_e.html#autotoc_md60", null ],
-        [ "Testing", "d7/d37/md_src_2_r_e_a_d_m_e.html#autotoc_md61", null ]
-      ] ]
-    ] ],
+    [ "Src Folder", "d7/d37/md_src_2_r_e_a_d_m_e.html", null ],
     [ "ROS CAN INTERFACE", "d0/d59/md_src_2ros__can_2_r_e_a_d_m_e.html", [
-      [ "Compiling", "d0/d59/md_src_2ros__can_2_r_e_a_d_m_e.html#autotoc_md63", null ],
-      [ "Testing", "d0/d59/md_src_2ros__can_2_r_e_a_d_m_e.html#autotoc_md64", null ],
-      [ "Running", "d0/d59/md_src_2ros__can_2_r_e_a_d_m_e.html#autotoc_md65", null ]
+      [ "Compiling", "d0/d59/md_src_2ros__can_2_r_e_a_d_m_e.html#autotoc_md58", null ],
+      [ "Testing", "d0/d59/md_src_2ros__can_2_r_e_a_d_m_e.html#autotoc_md59", null ],
+      [ "Running", "d0/d59/md_src_2ros__can_2_r_e_a_d_m_e.html#autotoc_md60", null ]
     ] ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
@@ -151,9 +144,9 @@ var NAVTREEINDEX =
 [
 "annotated.html",
 "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md47",
-"d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md22",
-"db/d50/node__ros__can_8hpp.html#aa39baadc06c3fb1424fa43d762d33b5d",
-"df/d57/class_publisher.html#a5538d94fb8d594575be67e6edd7166df"
+"d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md27",
+"db/d50/node__ros__can_8hpp.html#ae2b867ba29de134e53c1fcef7e9044bd",
+"df/d59/class_exec_time_test.html#a1bc1953862f0062339c84f5434756cad"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
