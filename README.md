@@ -24,4 +24,4 @@ Check [this guide](./docs/tutorials/contribute.md) on the steps for making a con
 - [Project Specification](./docs/project-specification.md)
 
 ## Contributing
-
+Check [this guide](./CONTRIBUTING.md)

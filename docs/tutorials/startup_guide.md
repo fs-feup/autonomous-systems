@@ -33,7 +33,7 @@ This guide is meant to help the developer setup the environment required to work
 - [Developing](./developing.md) - learn about development rules and guidelines (compilation from actual rules)
 - [Static Analysis Tools](./static_analysis_tools.md) - tutorial on using the static analysis and formatting tools adopted
 - [Documentation](./documentation.md) - tutorial on how to document code
-- [How to contribute (how to compile, test, run, etc.)](./contribute.md) - what tasks are required before a PR
+- [How to contribute (how to compile, test, run, etc.)](../../CONTRIBUTING.md) - what tasks are required before a PR
 - [Testing](./testing.md) - about creating tests for the code
 
 ### Advanced Tutorials
