@@ -38,7 +38,7 @@ RosCan::RosCan() : Node("node_ros_can") {
   // busStatus = this->create_subscription<std_msgs::msg::String>("busStatus", 10,
   // std::bind(&RosCan::busStatus_callback, this, std::placeholders::_1));
   timer =
-      this->create_wall_timer(std::chrono::milliseconds(500), std::bind(&RosCan::canSniffer, this));
+      this->create_wall_timer(std::chrono::microseconds(500), std::bind(&RosCan::canSniffer, this));
   // initialize the CAN library
   canInitializeLibrary();
   // A channel to a CAN circuit is opened. The channel depend on the hardware
@@ -53,7 +53,10 @@ RosCan::RosCan() : Node("node_ros_can") {
   if (stat != canOK) {
     RCLCPP_ERROR(this->get_logger(), "Failed to setup CAN controller");
   }
-  canSniffer();
+  stat = canBusOn(hnd);
+  if (stat != canOK) {
+    RCLCPP_ERROR(this->get_logger(), "Failed to turn on CAN bus");
+  }
 }
 
 void RosCan::control_callback(fs_msgs::msg::ControlCommand::SharedPtr controlCmd) {
