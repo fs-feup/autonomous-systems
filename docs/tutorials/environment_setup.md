@@ -51,6 +51,29 @@ For each of the approaches, there are different steps here:
 
 The simulator requires Ubuntu to work (or WSL). The tutorial regarding its setup is [here](./environment_setup/fsds_setup.md).
 
-### Static Analysis
+## Submodules
+
+This project depends on submodules to function. Most, if not all of these submodules are other repositories of this organization. 
+- For all environments:
+    ```sh
+    git submodule update --init --recursive ./ext/interfaces
+    ```
+- For each simulator:
+    ```sh
+    git submodule update --init --recursive ./ext/pacsim # Pacsim
+    git submodule update --init --recursive ./ext/amz-fssim # AMZ Racing SIM
+    git submodule update --init --recursive ./ext/eufs-sim # Edinburgh FS SIM 
+    ```
+- For in vehicle testing:
+    ```sh
+    git submodule update --init --recursive ./ext/rslidar_sdk # LiDAR
+    git submodule update --init --recursive ./ext/rslidar_msg # LiDAR
+    git submodule update --init ./ext/as-integration # ROS_CAN, NOT RECURSIVE
+    ```
+
+Check the [git advanced tutorial](./git_advanced.md) for more information.
+
+
+## Static Analysis
 
 Some other tools are required for development in the AS department, such as Static Analysis tools.
