@@ -1,5 +1,0 @@
-uint16 ami_state
-uint16 as_state
----
-bool success   # indicate successful run of triggered service
-string message # informational, e.g. for error messages

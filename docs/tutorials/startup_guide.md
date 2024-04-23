@@ -42,7 +42,7 @@ This guide is meant to help the developer setup the environment required to work
 - [Using Robosense SDK](https://github.com/fs-feup/rslidar_sdk) - check the README
 - [Foxglove](./foxglove_tutorial.md) - using the Foxglove toolbox
 - [Git Advanced](./git_advanced.md)
-- [ROS2 Interfaces](./new_interface_tutorial.md) - tutorial on how to create ros2 interfaces
+- [ROS2 Interfaces](https://github.com/fs-feup/interfaces/blob/main/docs/new_interface_tutorial.md) - tutorial on how to create ros2 interfaces
 
 ### Extra Turorials 
 
