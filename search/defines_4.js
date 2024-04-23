@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['imu_5fpitch_5frate_5facc_5fz_5fid_0',['IMU_PITCH_RATE_ACC_Z_ID',['../db/d50/node__ros__can_8hpp.html#a960ed7d7d94cc7c4e940141576ab7b84',1,'node_ros_can.hpp']]],
-  ['imu_5froll_5frate_5facc_5fx_5fid_1',['IMU_ROLL_RATE_ACC_X_ID',['../db/d50/node__ros__can_8hpp.html#ae2b867ba29de134e53c1fcef7e9044bd',1,'node_ros_can.hpp']]],
-  ['imu_5fyaw_5frate_5facc_5fy_5fid_2',['IMU_YAW_RATE_ACC_Y_ID',['../db/d50/node__ros__can_8hpp.html#a1cc37a4f976cf8e6b2282c2e9bc2c1a9',1,'node_ros_can.hpp']]]
+  ['wheel_5fdiameter_0',['WHEEL_DIAMETER',['../d3/ddf/car_8hpp.html#a5419e057d3cc43cca2f87bff5b09cb47',1,'car.hpp']]],
+  ['wheelbase_1',['WHEELBASE',['../d3/ddf/car_8hpp.html#a6f28e51b0e2c5b06d505dae9c8cb9a62',1,'car.hpp']]]
 ];

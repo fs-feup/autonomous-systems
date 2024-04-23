@@ -100,11 +100,6 @@ var NAVTREE =
       [ "Main External Libraries", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md55", null ]
     ] ],
     [ "Src Folder", "d7/d37/md_src_2_r_e_a_d_m_e.html", null ],
-    [ "ROS CAN INTERFACE", "d0/d59/md_src_2ros__can_2_r_e_a_d_m_e.html", [
-      [ "Compiling", "d0/d59/md_src_2ros__can_2_r_e_a_d_m_e.html#autotoc_md58", null ],
-      [ "Testing", "d0/d59/md_src_2ros__can_2_r_e_a_d_m_e.html#autotoc_md59", null ],
-      [ "Running", "d0/d59/md_src_2ros__can_2_r_e_a_d_m_e.html#autotoc_md60", null ]
-    ] ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
@@ -143,10 +138,10 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md47",
-"d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md27",
-"db/d50/node__ros__can_8hpp.html#ae2b867ba29de134e53c1fcef7e9044bd",
-"df/d59/class_exec_time_test.html#a1bc1953862f0062339c84f5434756cad"
+"d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md51",
+"d7/db7/class_path_smoothing.html#a353e6d4bfab4b2a3f92cd630d8dd2175",
+"db/ddb/planning_2include_2utils_2color_8hpp.html#a76f863e71ce8e67d1ef1850029f93b0a",
+"df/d6a/class_d_b_s_c_a_n.html#a9a9605c898a26dbd557113419f4c8c6e"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
