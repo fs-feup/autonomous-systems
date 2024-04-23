@@ -97,7 +97,7 @@
         "editor.formatOnSave": true
       },
     "[cpp]": {
-        "editor.defaultFormatter": "xaver.clang-format",
+        "editor.defaultFormatter": "ms-vscode.cpptools",
         "editor.formatOnSave": true
     },
     "sonarlint.connectedMode.project": {

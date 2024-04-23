@@ -124,6 +124,7 @@ class RosCan : public rclcpp::Node {
   rclcpp::Subscription<std_msgs::msg::String>::SharedPtr emergencyListener;
   rclcpp::Subscription<std_msgs::msg::String>::SharedPtr missionFinishedListener;
   rclcpp::TimerBase::SharedPtr timer;
+  rclcpp::TimerBase::SharedPtr timerAliveMsg;
 
   // Holds a handle to the CAN channel
   canHandle hnd;
@@ -236,6 +237,8 @@ class RosCan : public rclcpp::Node {
    * @brief Function to handle the control command message
    */
   void control_callback(fs_msgs::msg::ControlCommand::SharedPtr msg);
+
+  void alive_msg_callback();
 
  public:
   /**
