@@ -39,9 +39,9 @@ RosCan::RosCan() : Node("node_ros_can") {
   // std::bind(&RosCan::busStatus_callback, this, std::placeholders::_1));
   timer =
       this->create_wall_timer(std::chrono::microseconds(500), std::bind(&RosCan::canSniffer, this));
-
   timerAliveMsg = this->create_wall_timer(std::chrono::milliseconds(100),
                                           std::bind(&RosCan::alive_msg_callback, this));
+
   // initialize the CAN library
   canInitializeLibrary();
   // A channel to a CAN circuit is opened. The channel depend on the hardware
