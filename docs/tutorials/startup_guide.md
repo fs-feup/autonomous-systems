@@ -40,9 +40,11 @@ This guide is meant to help the developer setup the environment required to work
 
 - [Using KISS-ICP](https://github.com/fs-feup/kiss-icp/) - check the README
 - [Using Robosense SDK](https://github.com/fs-feup/rslidar_sdk) - check the README
+- [Foxglove](./foxglove_tutorial.md) - using the Foxglove toolbox
+- [Git Advanced](./git_advanced.md)
+- [ROS2 Interfaces](./new_interface_tutorial.md) - tutorial on how to create ros2 interfaces
 
 ### Extra Turorials 
 
-- [ROS2 Interfaces](./new_interface_tutorial.md) - tutorial on how to create ros2 interfaces
 - [Youtube C++ tutorials](https://www.youtube.com/watch?v=18c3MTX0PK0&list=PLlrATfBNZ98dudnM48yfGUldqGD0S4FFb)
 - [ROS2 custom interfaces tutorial documentation (Crystal distro)](https://docs.ros.org/en/crystal/Tutorials/Custom-ROS2-Interfaces.html#create-a-new-package)

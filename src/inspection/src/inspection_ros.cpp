@@ -79,7 +79,7 @@ void InspectionMission::inspection_script(fs_msgs::msg::WheelStates current_rpm)
   // publish suitable message
   if (elapsed_time < (inspection_object->finish_time) * pow(10, 9)) {
     RCLCPP_DEBUG(this->get_logger(), "Publishing control command. Steering: %f; Torque: %f",
-                control_command.steering, calculated_torque);
+                 control_command.steering, calculated_torque);
     control_command_publisher->publish(control_command);
   } else {
     fs_msgs::msg::FinishedSignal finish;
