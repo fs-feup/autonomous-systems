@@ -19,12 +19,14 @@ std_msgs::msg::Header header;
 
 Perception::Perception(GroundRemoval* groundRemoval, Clustering* clustering,
                        ConeDifferentiation* coneDifferentiator,
-                       const std::vector<ConeValidator*>& coneValidators)
+                       const std::vector<ConeValidator*>& coneValidators,
+                       ConeEvaluator* coneEvaluator)
     : Node("perception"),
       groundRemoval(groundRemoval),
       clustering(clustering),
       coneDifferentiator(coneDifferentiator),
-      coneValidators(coneValidators) {
+      coneValidators(coneValidators),
+      coneEvaluator(coneEvaluator) {
   this->_cones_publisher = this->create_publisher<custom_interfaces::msg::ConeArray>("cones", 10);
 
   this->adapter = adapter_map[mode](this);
@@ -82,6 +84,7 @@ void Perception::publishCones(std::vector<Cluster>* cones) {
     auto cone_message = custom_interfaces::msg::Cone();
     cone_message.position = position;
     cone_message.color = cones->at(i).getColor();
+    cone_message.confidence = cones->at(i).getConfidence();
     message.cone_array.push_back(cone_message);
   }
 
