@@ -48,6 +48,14 @@ class InspectionMission : public rclcpp::Node {
   void inspection_script(fs_msgs::msg::WheelStates current_rpm);
 
   /**
+   * @brief Publishes the control command
+   *
+   * @param torque torque to be applied
+   * @param steering steering angle to be applied
+   */
+  void publish_controls(double torque, double steering)
+
+  /**
    * @brief Contruct a new Inspection Mission with constants defined in file
    */
   InspectionMission();
