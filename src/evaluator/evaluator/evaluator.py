@@ -91,7 +91,7 @@ class Evaluator(Node):
         Returns:
             float: Average difference between perception output and ground truth cones.
         """
-        sum : float = 0
+        sum_error : float = 0
         count : int = 0
 
         if (len(perception_output) == 0):
@@ -108,10 +108,10 @@ class Evaluator(Node):
                 if distance < min_distance:
                     min_distance = distance
 
-            sum += min_distance
+            sum_error += min_distance
             count += 1
         
-        average = sum / count
+        average = sum_error / count
         return average
     
     @staticmethod
@@ -145,6 +145,28 @@ class Evaluator(Node):
         mse = mse_sum / len(perception_output)
         return mse
     
+
+    @staticmethod
+    def compute_distance(cone1, cone2):
+        """!
+        Compute Euclidean distance between two cones.
+        """
+        return np.linalg.norm(cone1 - cone2)
+    
+    @staticmethod
+    def build_adjacency_matrix(cones):
+        """!
+        Build adjacency matrix based on distances between cones.
+        """
+        size = len(cones)
+        adjacency_matrix = np.zeros((size, size))
+        for i in range(size):
+            for j in range(i + 1, size):
+                distance_ij = Evaluator.compute_distance(cones[i], cones[j])
+                adjacency_matrix[i][j] = distance_ij
+                adjacency_matrix[j][i] = distance_ij
+        return adjacency_matrix
+    
     @staticmethod
     def get_inter_cones_distance(perception_output : list):
         """!
@@ -163,13 +185,7 @@ class Evaluator(Node):
         total_distance : int = 0
         num_pairs : int = 0
 
-        adjacency_matrix = np.zeros((size, size))
-
-        for i in range(size):
-            for j in range(i + 1, size):
-                distance_ij = np.linalg.norm(perception_output[i] - perception_output[j])
-                adjacency_matrix[i][j] = distance_ij
-                adjacency_matrix[j][i] = distance_ij
+        adjacency_matrix : list = Evaluator.build_adjacency_matrix(perception_output)
 
         mst = {0}
         visited.add(0)
