@@ -13,7 +13,7 @@ custom_interfaces::msg::PathPointArray gtruth_fromfile(std::istream& in) {
   custom_interfaces::msg::PathPointArray gtruth_mock;
 
   std::string line;
-  in >> line;  // ignore first line
+  std::getline(in, line);  // ignore first line
   while (std::getline(in, line)) {
     std::stringstream iss(line);
     if (getline(iss, x, ',') && getline(iss, y, ',') && getline(iss, velocity, ',')) {
@@ -32,7 +32,8 @@ custom_interfaces::msg::PathPointArray gtruth_fromfile(std::istream& in) {
                      e.what());
       }
     } else if (!line.empty()) {
-      RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "Unexpected format in line with content: %s \n", line.c_str());
+      RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "Unexpected format in line with content: %s \n",
+                   line.c_str());
     }
   }
 
