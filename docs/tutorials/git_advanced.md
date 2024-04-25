@@ -76,6 +76,12 @@ Example:
 git submodule update --init --recursive ./ext/rslidar_sdk
 ```
 
+**Note:** when a submodule is first added, for some reason, it is always in a state of detached HEAD. To fix this:
+```sh
+cd <path_to_submodule>
+git checkout main # Inside submodule directory
+```
+
 ### Problems
 
 In the case of this repository, you will often have to update the submodules you are depending on. If a change is made to the submodules you can do the following to reset the structure:
