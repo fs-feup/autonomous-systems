@@ -3,6 +3,7 @@ import message_filters
 import datetime
 import rclpy
 
+
 class Adapter:
     """!
     Class for subscribing to a point cloud topic and synchronizing messages with a ROS2 node.
