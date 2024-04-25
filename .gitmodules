@@ -12,4 +12,4 @@
 	url = https://github.com/RoboSense-LiDAR/rslidar_msg.git
 [submodule "ext/pacsim"]
 	path = ext/pacsim
-	url = https://github.com/fs-feup/pacsim
+	url = git@github.com:fs-feup/pacsim.git
