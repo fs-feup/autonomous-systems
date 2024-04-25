@@ -9,6 +9,7 @@
 #include <pcl/io/pcd_io.h>
 #include <filesystem>
 #include <pcl_conversions/pcl_conversions.h>
+#include <iostream>
 
 /**
  * @class PerceptionPerformanceTest
@@ -121,6 +122,8 @@ protected:
  */
 TEST_F(PerceptionPerformanceTest, TestPerformance) {
     for (long unsigned int it = 0; it <= 7; it++) {
+
+        //std::string file_name = std::format("{}PointCloud{}.pcd", inputFilesPaths, std::to_string(it));
         std::string file_name =  inputFilesPaths + "PointCloud" + std::to_string(it) + ".pcd";
 
         // Point cloud loading and transform into ROS msg
@@ -160,9 +163,9 @@ TEST_F(PerceptionPerformanceTest, TestPerformance) {
         unsigned int blues = 0;
         unsigned int yellows = 0;
         unsigned int undefineds = 0;
-        for (int i = 0; i < clusters.size(); i++) {
-            cone_differentiator->coneDifferentiation(&clusters[i]);
-            std::string color = clusters[i].getColor();
+        for (auto cluster : clusters) {
+            cone_differentiator->coneDifferentiation(&cluster);
+            std::string color = cluster.getColor();
             if (color == "blue") blues++;
             else if (color == "yellow") yellows++;
             else

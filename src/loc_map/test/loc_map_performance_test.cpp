@@ -16,7 +16,7 @@
  * steps.
  */
 class PerformamceTest : public ::testing::Test {
- protected:
+ public:
   ExtendedKalmanFilter *ekf_test;   /**< Pointer to the ExtendedKalmanFilter object for testing */
   MotionUpdate *motion_update_test; /**< Pointer to the MotionUpdate object for testing */
   std::chrono::_V2::system_clock::time_point
@@ -69,6 +69,11 @@ class PerformamceTest : public ::testing::Test {
   int random_number() {
     int rand_num;
     FILE *fp;
+
+    if (!fp) {
+      printf("Could not open file!\n");
+      return -1;
+    }
     fp = fopen("/dev/random", "r");
     fread(&rand_num, sizeof(int), 1, fp);
     fclose(fp);
@@ -82,7 +87,7 @@ class PerformamceTest : public ::testing::Test {
     std::string getCurrentDateTimeAsString() {
         auto now = std::chrono::system_clock::now();
         std::time_t now_time = std::chrono::system_clock::to_time_t(now);
-        std::tm* now_tm = std::localtime(&now_time);
+        const std::tm* now_tm = std::localtime(&now_time);
         std::stringstream ss;
         ss << std::put_time(now_tm, "%Y-%m-%d-%H:%M");
         return ss.str();
@@ -118,15 +123,6 @@ class PerformamceTest : public ::testing::Test {
 
         printf("The Test Duration Was: %f ms\n", milliseconds);
         
-        // Print current working directory
-        char cwd[1024];
-        if (getcwd(cwd, sizeof(cwd)) != NULL) {
-        printf("Current working dir: %s\n", cwd);
-        } else {
-        perror("getcwd() error");
-        }
-        // End print current working directory
-        
         // Append performance data
 
         file << prediction_step_input_size << "," << prediction_step_duration_milliseconds << "," << correction_step_input_size << "," << correction_step_duration_milliseconds << "," << milliseconds << std::endl;
@@ -155,10 +151,7 @@ class PerformamceTest : public ::testing::Test {
     ekf_test->set_X_y(21, 9.249764442443848);
     ekf_test->set_X_y(22, 6.788164138793945);
     ekf_test->push_to_colors(colors::Color::yellow);
-    for (int i = 23; i <= size; i++) {
-
-      time_t t;
-      srand((unsigned) time(&t));
+    for (int i = 23; i <= size; i+=2) {
 
       double randomX = random_number();
       double randomY = random_number();
@@ -173,9 +166,6 @@ class PerformamceTest : public ::testing::Test {
       } else {
         ekf_test->push_to_colors(colors::Color::yellow);
       }
-
-      // Increment the index by 2
-      i++;
     }
   }
 
