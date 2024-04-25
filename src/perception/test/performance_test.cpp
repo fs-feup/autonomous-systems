@@ -12,20 +12,25 @@
 #include <iostream>
 #include <string>
 
-struct PerceptionExecutionData{
-    long long initial_n_points;
-    long long RANSAC_time;
-    long long ground_removed_size;
-    long long DBSCAN_time;
-    long long ConeDif_time;
-    long long Total_time;
-    long long generatedClusters;
-    long long blues;
-    long long yellows;
-    long long undefineds;
-    long long conversion_duration;
-    double RANSAC_eps;
+/**
+ * @struct PerceptionExecutionData
+ * @brief Struct to store data related to perception execution.
+ */
+struct PerceptionExecutionData {
+    long long initial_n_points;     ///< Initial number of points.
+    long long RANSAC_time;         ///< Time taken by RANSAC algorithm.
+    long long ground_removed_size; ///< Size of ground removed.
+    long long DBSCAN_time;         ///< Time taken by DBSCAN algorithm.
+    long long ConeDif_time;        ///< Time taken by ConeDif algorithm.
+    long long Total_time;          ///< Total time taken.
+    long long generatedClusters;   ///< Number of clusters generated.
+    long long blues;               ///< Number of points identified as blue.
+    long long yellows;             ///< Number of points identified as yellow.
+    long long undefineds;          ///< Number of points identified as undefined.
+    long long conversion_duration; ///< Duration of conversion.
+    double RANSAC_eps;            ///< RANSAC epsilon value.
 };
+
 
 /**
  * @class PerceptionPerformanceTest

@@ -19,67 +19,30 @@
  */
 class PerformamceTest : public ::testing::Test {
  public:
-  std::unique_ptr<ExtendedKalmanFilter> ekf_test; /**< Unique pointer to ExtendedKalmanFilter object */
+  std::unique_ptr<ExtendedKalmanFilter>
+      ekf_test; /**< Unique pointer to ExtendedKalmanFilter object */
   std::unique_ptr<MotionUpdate> motion_update_test; /**< Unique pointer to MotionUpdate object */
   std::chrono::_V2::system_clock::time_point
       start_time; /**< Start time for performance measurement */
 
-  std::chrono::_V2::system_clock::time_point prediction_step_time;
+  std::chrono::_V2::system_clock::time_point
+      prediction_step_time; /**< Prediction Step Execution Time for performance measurement */
 
-  std::chrono::_V2::system_clock::time_point end_time;
+  std::chrono::_V2::system_clock::time_point end_time; /**< End time for performance measurement */
 
   std::chrono::microseconds prediction_step_duration; /**< Duration of prediction step execution */
   std::chrono::microseconds correction_step_duration; /**< Duration of correction step execution */
   std::chrono::microseconds duration;
-  std::string workload;           /**< Description of the workload */
-  Eigen::Matrix2f Q_test;         /**< Test Eigen Matrix for Q */
-  Eigen::MatrixXf R_test;         /**< Test Eigen Matrix for R */
-  std::unique_ptr<MotionModel> motion_model_test; /**< Pointer to the MotionModel object for testing */
+  std::string workload;   /**< Description of the workload */
+  Eigen::Matrix2f Q_test; /**< Test Eigen Matrix for Q */
+  Eigen::MatrixXf R_test; /**< Test Eigen Matrix for R */
+  std::unique_ptr<MotionModel>
+      motion_model_test; /**< Pointer to the MotionModel object for testing */
   int prediction_step_input_size = 0;
   int correction_step_input_size = 0;
   ObservationModel observation_model_test =
       ObservationModel(Q_test); /**< ObservationModel object for testing */
-  std::string file_name;
-
-  /**
-   * @brief Writes the covariance matrix P to a CSV file.
-   */
-  void print_P() {
-    // Get covariance matrix
-    Eigen::MatrixXf P = ekf_test->get_covariance();
-
-    // Open file
-    std::ofstream file("../../src/performance/exec_time/loc_map_P.csv", std::ios::app);
-
-    // Write P to file
-    for (int i = 0; i < P.rows(); i++) {
-      for (int j = 0; j < P.cols(); j++) {
-        file << P(i, j);
-        if (j != P.cols() - 1) {
-          file << ",";
-        }
-      }
-      file << "\n";
-    }
-    file << "\n\n";
-    // Close file
-    file.close();
-  }
-
-  int random_number() {
-    int rand_num;
-    FILE *fp;
-    fp = fopen("/dev/random", "r");
-
-    if (!fp) {
-      printf("Could not open file!\n");
-      return -1;
-    }
-    
-    fread(&rand_num, sizeof(int), 1, fp);
-    fclose(fp);
-    return rand_num;
-  }
+  std::string file_name;        /**< File Name for Output */
 
   /**
    * @brief Get current date and time as a string.
@@ -139,41 +102,35 @@ class PerformamceTest : public ::testing::Test {
   }
 
   /**
-   * @brief Fills the state vector with random values.
+   * @brief Fills the state vector with values from a file
    * @param size Number of state vector elements to fill.
    */
   void fill_X(int size) {
-    ekf_test->set_X_y(13, 16.861791610717773);
-    ekf_test->set_X_y(14, 14.40013599395752);
-    ekf_test->push_to_colors(colors::Color::yellow);
+    std::ifstream file("../../src/loc_map/test/data/map_test.txt");
 
-    ekf_test->set_X_y(15, 16.28278160095215);
-    ekf_test->set_X_y(16, 11.487138748168945);
-    ekf_test->push_to_colors(colors::Color::yellow);
-    ekf_test->set_X_y(17, 14.6317720413208);
-    ekf_test->set_X_y(18, 9.018143653869629);
-    ekf_test->push_to_colors(colors::Color::yellow);
-    ekf_test->set_X_y(19, 12.162766456604004);
-    ekf_test->set_X_y(20, 7.367153644561768);
-    ekf_test->push_to_colors(colors::Color::yellow);
-    ekf_test->set_X_y(21, 9.249764442443848);
-    ekf_test->set_X_y(22, 6.788164138793945);
-    ekf_test->push_to_colors(colors::Color::yellow);
-    for (int i = 23; i <= size; i += 2) {
-      double randomX = random_number();
-      double randomY = random_number();
-
-      // Call set_X_y for X and Y values, sets the value if X at y
-      ekf_test->set_X_y(i, randomX);
-      ekf_test->set_X_y(i + 1, randomY);
-
-      // Call push_to_colors with the current color
-      if (i % 2 == 0) {
-        ekf_test->push_to_colors(colors::Color::blue);
-      } else {
-        ekf_test->push_to_colors(colors::Color::yellow);
-      }
+    if (!file.is_open()) {
+      return;
     }
+
+    int i = 0;
+    bool is_blue = false;
+    double value1;
+    double value2;
+
+    ekf_test->init_X_size(size * 2 + 3);
+    ekf_test->set_P(size * 2 + 3);
+
+    while ((file >> value1 >> value2) && i < size * 2) {
+      ekf_test->set_X_y(i, value1);
+      i++;
+      ekf_test->set_X_y(i, value2);
+      i++;
+      is_blue ? ekf_test->push_to_colors(colors::Color::blue)
+              : ekf_test->push_to_colors(colors::Color::yellow);
+      is_blue = !is_blue;
+    }
+
+    file.close();
   }
 
   void SetUp() override { /**< Set up test environment */
@@ -204,6 +161,11 @@ class PerformamceTest : public ::testing::Test {
     ekf_test = std::make_unique<ExtendedKalmanFilter>(*motion_model_test, observation_model_test);
   }
 
+  /**
+   * @brief Runes the Execution 10 times and outputs the average execution time
+   *
+   * @param coneMap Perception's output map
+   */
   void runExecution(ConeMap coneMap) {
     for (int i = 0; i < 10; i++) {
       start_time = std::chrono::high_resolution_clock::now();
@@ -223,149 +185,58 @@ class PerformamceTest : public ::testing::Test {
     correction_step_duration = correction_step_duration / 10;
   }
 
-  ConeMap createConeMap() {
+  /**
+   * @brief Read and pares a file containing containing perception's output
+   *
+   * @param n_cones Number of cones to output
+   * @return ConeMap Data Structure representing the cone map coming from perception
+   */
+  ConeMap createConeMap(int n_cones) {
     ConeMap coneMap;
 
-    Position conePosition(14, 14);
-    coneMap.map[conePosition] = colors::blue;
-    conePosition = Position(12.8, 11.4);
-    coneMap.map[conePosition] = colors::blue;
-    conePosition = Position(11.2, 9);
-    coneMap.map[conePosition] = colors::blue;
-    conePosition = Position(8.7, 7.3);
-    coneMap.map[conePosition] = colors::blue;
-    conePosition = Position(5.8, 6.7);
-    coneMap.map[conePosition] = colors::blue;
-    conePosition = Position(31.8, 14.4);
-    coneMap.map[conePosition] = colors::yellow;
-    conePosition = Position(31.2, 11.4);
-    coneMap.map[conePosition] = colors::yellow;
-    conePosition = Position(29.6, 9);
-    coneMap.map[conePosition] = colors::yellow;
-    conePosition = Position(27.1, 7.3);
-    coneMap.map[conePosition] = colors::yellow;
-    conePosition = Position(24.2, 6.7);
-    coneMap.map[conePosition] = colors::yellow;
+    correction_step_input_size = 0;
 
-    coneMap.last_update = std::chrono::high_resolution_clock::now();
+    std::ifstream file("../../src/loc_map/test/data/perception_output.csv");
+    std::string line;
+
+    if (!file.is_open()) {
+      return coneMap;
+    }
+
+    while (std::getline(file, line) && correction_step_input_size < n_cones) {
+      std::istringstream iss(line);
+      std::string color;
+      std::vector<std::string> tokens;
+      std::string token;
+
+      while (std::getline(iss, token, ',')) {
+        tokens.push_back(token);
+      }
+
+      Position conePosition(std::stof(tokens[0]), std::stof(tokens[1]));
+
+      coneMap.map[conePosition] = tokens[2] == "blue" ? colors::blue : colors::yellow;
+      correction_step_input_size++;
+    }
+
+    file.close();
 
     return coneMap;
   }
 };
 
 /**
- * @brief Test case for the Extended Kalman Filter prediction step with a
- * workload of 10.
+ * @brief EKF Performance Test
+ *
  */
-TEST_F(PerformamceTest, TEST_EKF_PRED_10) {
-  // create conemap with 10 cones
-  ConeMap coneMap = createConeMap();
-
-  coneMap.last_update = std::chrono::high_resolution_clock::now();
-
-  prediction_step_input_size = 23;
-  correction_step_input_size = 10;
-
-  ekf_test->init_X_size(23);
-  ekf_test->set_P(23);
-  ekf_test->set_X_y(0, -15.0);
-  ekf_test->set_X_y(1, 0.0);
-  ekf_test->set_X_y(2, 0.0);
-
-  fill_X(22);
-
-  // run the prediction and correction step 10 times and average the duration
-  runExecution(coneMap);
-
-  print_to_file();
-}
-
-/**
- * @brief Test case for the Extended Kalman Filter prediction step with a
- * workload of 50
- */
-TEST_F(PerformamceTest, TEST_EKF_PRED_50) {
-  ConeMap coneMap = createConeMap();
-
-  prediction_step_input_size = 53;
-  correction_step_input_size = 10;
-
-  ekf_test->init_X_size(53);
-  ekf_test->set_P(53);
-  ekf_test->set_X_y(0, -15.0);
-  ekf_test->set_X_y(1, 0.0);
-  ekf_test->set_X_y(2, 0.0);
-
-  fill_X(52);
-
-  // run the prediction and correction step 10 times and average the duration
-  runExecution(coneMap);
-
-  print_to_file();
-}
-
-/**
- * @brief Test case for the Extended Kalman Filter prediction step with a
- * workload of .
- */
-TEST_F(PerformamceTest, TEST_EKF_PRED_100) {
-  ConeMap coneMap = createConeMap();
-
-  prediction_step_input_size = 103;
-  correction_step_input_size = 10;
-
-  ekf_test->init_X_size(103);
-  ekf_test->set_P(103);
-  ekf_test->set_X_y(0, -15.0);
-  ekf_test->set_X_y(1, 0.0);
-  ekf_test->set_X_y(2, 0.0);
-
-  fill_X(102);
-
-  // run the prediction and correction step 10 times and average the duration
-  runExecution(coneMap);
-
-  print_to_file();
-}
-/**
- * @brief Test case for the Extended Kalman Filter prediction step with a
- * workload of 200.
- */
-
-TEST_F(PerformamceTest, TEST_EKF_PRED_200) {
-  ConeMap coneMap = createConeMap();
-
-  prediction_step_input_size = 203;
-  correction_step_input_size = 10;
-
-  ekf_test->init_X_size(203);
-  ekf_test->set_P(203);
-  ekf_test->set_X_y(0, -15.0);
-  ekf_test->set_X_y(1, 0.0);
-  ekf_test->set_X_y(2, 0.0);
-
-  fill_X(202);
-
-  runExecution(coneMap);
-
-  print_to_file();
-}
-
-TEST_F(PerformamceTest, TEST_EKF_PRED_400) {
-  ConeMap coneMap = createConeMap();
-
-  prediction_step_input_size = 403;
-  correction_step_input_size = 10;
-
-  ekf_test->init_X_size(403);
-  ekf_test->set_P(403);
-  ekf_test->set_X_y(0, -15.0);
-  ekf_test->set_X_y(1, 0.0);
-  ekf_test->set_X_y(2, 0.0);
-
-  fill_X(402);
-
-  runExecution(coneMap);
-
-  print_to_file();
+TEST_F(PerformamceTest, TEST_EKF_PERFORMANCE) {
+  for (int i = 0; i <= 10; i++) {
+    ConeMap coneMap = createConeMap(i);
+    for (int i = 10; i <= 200; i += 10) {
+      prediction_step_input_size = i;
+      fill_X(i);
+      runExecution(coneMap);
+      print_to_file();
+    }
+  }
 }
