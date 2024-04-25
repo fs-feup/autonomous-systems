@@ -46,14 +46,16 @@ std::vector<std::pair<double, double>> orderVectorOfPairs(
   * @brief Get current date and time as a string.
   * @return Current date and time as a string in "YYYY-MM-DD-HH:MM" format.
   */
-std::string getCurrentDateTimeAsString() {
-  auto now = std::chrono::system_clock::now();
-  std::time_t now_time = std::chrono::system_clock::to_time_t(now);
-  std::tm* now_tm = std::localtime(&now_time);
-  std::stringstream ss;
-  ss << std::put_time(now_tm, "%Y-%m-%d-%H:%M");
-  return ss.str();
-}
+  std::string getCurrentDateTimeAsString() {
+    auto now = std::chrono::system_clock::now();
+    std::time_t now_time = std::chrono::system_clock::to_time_t(now);
+    std::tm now_tm;
+    localtime_r(&now_time, &now_tm);
+
+    std::stringstream ss;
+    ss << std::put_time(&now_tm, "%Y-%m-%d-%H:%M");
+    return ss.str();
+  }
 
 /**
  * @brief rounds float to n decimal places

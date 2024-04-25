@@ -10,21 +10,37 @@
 #include <filesystem>
 #include <pcl_conversions/pcl_conversions.h>
 #include <iostream>
+#include <string>
+
+struct PerceptionExecutionData{
+    long long initial_n_points;
+    long long RANSAC_time;
+    long long ground_removed_size;
+    long long DBSCAN_time;
+    long long ConeDif_time;
+    long long Total_time;
+    long long generatedClusters;
+    long long blues;
+    long long yellows;
+    long long undefineds;
+    long long conversion_duration;
+    double RANSAC_eps;
+};
 
 /**
  * @class PerceptionPerformanceTest
  * @brief Test fixture for performance testing of perception algorithms.
  */
 class PerceptionPerformanceTest : public ::testing::Test {
-protected:
+public:
     /**
      * @brief Set up the test fixture.
      */
     void SetUp() override {
-        pcl_cloud.reset(new pcl::PointCloud<pcl::PointXYZI>);
-        ground_removal = new RANSAC(RANSAC_eps, RANSAC_Iter);
-        clustering = new DBSCAN(DBSCAN_neighbours_threshold, DBSCAN_dist_threshold);
-        cone_differentiator = new LeastSquaresDifferentiation();
+        pcl_cloud = std::make_unique<pcl::PointCloud<pcl::PointXYZI>>();
+        ground_removal = std::make_unique<RANSAC>(RANSAC_eps, RANSAC_Iter);
+        clustering = std::make_unique<DBSCAN>(DBSCAN_neighbours_threshold, DBSCAN_dist_threshold);
+        cone_differentiator = std::make_unique<LeastSquaresDifferentiation>();
     }
 
     /**
@@ -34,9 +50,11 @@ protected:
     std::string getCurrentDateTimeAsString() {
         auto now = std::chrono::system_clock::now();
         std::time_t now_time = std::chrono::system_clock::to_time_t(now);
-        std::tm* now_tm = std::localtime(&now_time);
+        std::tm now_tm;
+        localtime_r(&now_time, &now_tm);
+
         std::stringstream ss;
-        ss << std::put_time(now_tm, "%Y-%m-%d-%H:%M");
+        ss << std::put_time(&now_tm, "%Y-%m-%d-%H:%M");
         return ss.str();
     }
 
@@ -54,17 +72,7 @@ protected:
      * @param undefineds Number of cones with undefined color detected.
      * @param conversion_duration Duration of point cloud conversion in milliseconds.
      */
-    void writeToFile(long long initial_n_points,
-                     long long RANSAC_time,
-                     long long ground_removed_size,
-                     long long DBSCAN_time,
-                     long long ConeDif_time,
-                     long long Total_time,
-                     long long generatedClusters,
-                     long long blues,
-                     long long yellows,
-                     long long undefineds,
-                     long long conversion_duration) {
+    void writeToFile(const PerceptionExecutionData& executionTime) {
         bool fileExists = std::filesystem::exists(output_statistics_path_file);
 
         std::ofstream csv_file(output_statistics_path_file, std::ios::app);
@@ -81,33 +89,31 @@ protected:
         }
 
         csv_file << std::fixed << std::setprecision(6);
-        csv_file << initial_n_points << ","
-            << std::fixed << std::setprecision(3) << conversion_duration << ","
+        csv_file << executionTime.initial_n_points << ","
+            << std::fixed << std::setprecision(3) << executionTime.conversion_duration << ","
             << RANSAC_eps << ","
             << RANSAC_Iter << ","
-            << ground_removed_size << ","
-            << std::fixed << std::setprecision(3) << RANSAC_time << ","
+            << executionTime.ground_removed_size << ","
+            << std::fixed << std::setprecision(3) << executionTime.RANSAC_time << ","
             << DBSCAN_dist_threshold << ","
-            << DBSCAN_neighbours_threshold << ","
-            << generatedClusters << ","
-            << std::fixed << std::setprecision(3) << DBSCAN_time << ","
-            << blues << ","
-            << yellows << ","
-            << undefineds << ","
-            << std::fixed << std::setprecision(3) << ConeDif_time << ","
-            << std::fixed << std::setprecision(3) << Total_time << std::endl;
+            << executionTime.DBSCAN_time << ","
+            << executionTime.generatedClusters << ","
+            << std::fixed << std::setprecision(3) << executionTime.DBSCAN_time << ","
+            << executionTime.blues << ","
+            << executionTime.yellows << ","
+            << executionTime.undefineds << ","
+            << std::fixed << std::setprecision(3) << executionTime.ConeDif_time << ","
+            << std::fixed << std::setprecision(3) << executionTime.Total_time << std::endl;
 
         csv_file.close();
     }
-
-protected:
     std::string output_statistics_path_file = "../../performance/exec_time/perception/perception_" +
                     getCurrentDateTimeAsString() + ".csv";
     std::string inputFilesPaths = "../../src/perception/test/point_clouds/";
 
-    GroundRemoval* ground_removal;
-    Clustering* clustering;
-    ConeDifferentiation* cone_differentiator;
+    std::unique_ptr<GroundRemoval> ground_removal;
+    std::unique_ptr<Clustering> clustering;
+    std::unique_ptr<ConeDifferentiation> cone_differentiator;
     pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_cloud;
 
     float RANSAC_eps = 0.1;
@@ -122,9 +128,12 @@ protected:
  */
 TEST_F(PerceptionPerformanceTest, TestPerformance) {
     for (long unsigned int it = 0; it <= 7; it++) {
+        
+        std::stringstream ss;
+        ss << inputFilesPaths << "PointCloud" << it << ".pcd";
+        std::string file_name = ss.str();
 
-        //std::string file_name = std::format("{}PointCloud{}.pcd", inputFilesPaths, std::to_string(it));
-        std::string file_name =  inputFilesPaths + "PointCloud" + std::to_string(it) + ".pcd";
+        struct PerceptionExecutionData executionTime;
 
         // Point cloud loading and transform into ROS msg
         pcl::io::loadPCDFile<pcl::PointXYZI>(file_name, *pcl_cloud);
@@ -138,8 +147,8 @@ TEST_F(PerceptionPerformanceTest, TestPerformance) {
 
         auto conversion_time = std::chrono::high_resolution_clock::now();
 
-        auto conversion_duration = std::chrono::duration_cast<std::chrono::milliseconds>
-            (start_time - conversion_time);
+        executionTime.conversion_duration = std::chrono::duration_cast<std::chrono::milliseconds>
+            (start_time - conversion_time).count();
 
         pcl::PointCloud<pcl::PointXYZI>::Ptr
             ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
@@ -149,38 +158,39 @@ TEST_F(PerceptionPerformanceTest, TestPerformance) {
         ground_removal->groundRemoval(pcl_cloud, ground_removed_cloud, plane);
 
         auto ransac_time = std::chrono::high_resolution_clock::now();
-        auto ransac_duration = std::chrono::duration_cast<std::chrono::milliseconds>
-            (ransac_time - conversion_time);
+        executionTime.RANSAC_time = std::chrono::duration_cast<std::chrono::milliseconds>
+            (ransac_time - conversion_time).count();
 
         std::vector<Cluster> clusters;
         clustering->clustering(ground_removed_cloud, &clusters);
 
         auto dbscan_time = std::chrono::high_resolution_clock::now();
-        auto dbscan_duration = std::chrono::duration_cast<std::chrono::milliseconds>
-            (dbscan_time - ransac_time);
+        executionTime.DBSCAN_time = std::chrono::duration_cast<std::chrono::milliseconds>
+            (dbscan_time - ransac_time).count();
 
 
-        unsigned int blues = 0;
-        unsigned int yellows = 0;
-        unsigned int undefineds = 0;
+        executionTime.blues = 0;
+        executionTime.yellows = 0;
+        executionTime.undefineds = 0;
         for (auto cluster : clusters) {
             cone_differentiator->coneDifferentiation(&cluster);
             std::string color = cluster.getColor();
-            if (color == "blue") blues++;
-            else if (color == "yellow") yellows++;
+            if (color == "blue") executionTime.blues++;
+            else if (color == "yellow") executionTime.yellows++;
             else
-                undefineds++;
+                executionTime.undefineds++;
         }
 
         auto end_time = std::chrono::high_resolution_clock::now();
-        auto coneDifferentiaion_duration = std::chrono::duration_cast<std::chrono::milliseconds>
-            (end_time - dbscan_time);
+        executionTime.ConeDif_time = std::chrono::duration_cast<std::chrono::milliseconds>
+            (end_time - dbscan_time).count();
 
-        auto total_time = std::chrono::duration_cast<std::chrono::duration<double, std::milli>>
-                (end_time - start_time);
-        writeToFile(pcl_cloud->size(), ransac_duration.count(), ground_removed_cloud->size(),
-                dbscan_duration.count(), coneDifferentiaion_duration.count(),
-                total_time.count(), clusters.size(), blues, yellows, undefineds,
-                        conversion_duration.count());
+        executionTime.Total_time = std::chrono::duration_cast<std::chrono::duration<double, std::milli>>
+                (end_time - start_time).count();
+
+        executionTime.initial_n_points = pcl_cloud->points.size();
+        executionTime.ground_removed_size = ground_removed_cloud->points.size();
+
+        writeToFile(executionTime);
     }
 }
