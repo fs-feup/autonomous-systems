@@ -12,7 +12,7 @@ def generate_launch_description():
     return LaunchDescription([
         DeclareLaunchArgument("max_angle", 
             description="max angle for the turning of the inspection script", 
-            default_value="1.047197551"), # Pi / 3.0, rad; 60 degrees
+            default_value="0.52359877559"), # Pi / 6.0, rad; 30 degrees
         DeclareLaunchArgument("inspection_ideal_velocity", default_value="1.0"), # m/s
         DeclareLaunchArgument("ebs_test_ideal_velocity", default_value="2.0"), # m/s
         DeclareLaunchArgument("turning_period", 

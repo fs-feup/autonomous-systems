@@ -16,7 +16,7 @@ InspectionFunctions::InspectionFunctions(double max_angle, double turning_period
 
 InspectionFunctions::InspectionFunctions() {
   // default to EBS test values
-  this->max_angle = 1.047197551;
+  this->max_angle = 0.52359877559; // 30 degrees
   this->ideal_velocity = 2.0;
   this->turning_period = 4.0;
   this->wheel_radius = 0.254;

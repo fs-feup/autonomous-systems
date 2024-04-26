@@ -7,7 +7,7 @@ InspectionMission::InspectionMission() : Node("inspection") {
   inspection_object->turning_period = declare_parameter<double>("turning_period", 4.0);
   inspection_object->finish_time = declare_parameter<double>("finish_time", 26.0);
   inspection_object->wheel_radius = declare_parameter<double>("wheel_radius", 0.254);
-  inspection_object->max_angle = declare_parameter<double>("max_angle", 1.047197551);
+  inspection_object->max_angle = declare_parameter<double>("max_angle", 0.52359877559); // 30 degrees in rad
   inspection_object->start_and_stop = declare_parameter<bool>("start_and_stop", false);
   declare_parameter<double>("ebs_test_ideal_velocity", 2.0);
   declare_parameter<double>("ebs_test_gain", 0.25);
