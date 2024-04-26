@@ -74,6 +74,10 @@ The following components diagram illustrates the structure of the system.
 
 ![Components Diagram](./assets/architecture.svg)
 
+The following table shows the interfaces definitions for each environment:
+
+![Interfaces Table](./assets/ros-interfaces-table.svg)
+
 The activity diagram / flow chart below illustrates the behaviour of the system and the flow of information through it.
 
 ![Activity Diagram](./assets/behaviour.svg)
