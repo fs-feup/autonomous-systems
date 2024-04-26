@@ -3,7 +3,7 @@
 #include "exceptions/invalid_mission_exception.hpp"
 
 InspectionMission::InspectionMission() : Node("inspection") {
-  inspection_object = new InspectionFunctions();
+  std::unique_ptr<InspectionFunctions> inspection_object{new InspectionFunctions()};
   inspection_object->turning_period = declare_parameter<double>("turning_period", 4.0);
   inspection_object->finish_time = declare_parameter<double>("finish_time", 26.0);
   inspection_object->wheel_radius = declare_parameter<double>("wheel_radius", 0.254);

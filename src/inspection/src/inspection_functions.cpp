@@ -14,17 +14,10 @@ InspectionFunctions::InspectionFunctions(double max_angle, double turning_period
   current_goal_velocity = ideal_velocity;
 }
 
-InspectionFunctions::InspectionFunctions() {
-  // default to EBS test values
-  this->max_angle = 0.52359877559; // 30 degrees
-  this->ideal_velocity = 2.0;
-  this->turning_period = 4.0;
-  this->wheel_radius = 0.254;
-  this->gain = 0.25;
-  this->finish_time = 26.0;
-  this->start_and_stop = false;
-  current_goal_velocity = ideal_velocity;
-}
+InspectionFunctions::InspectionFunctions() : max_angle(0.52359877559), ideal_velocity(2.0),
+                                             turning_period(4.0), wheel_radius(0.254),
+                                             gain(0.25), finish_time(26.0), current_goal_velocity(2.0),
+                                             start_and_stop(false){}
 
 double InspectionFunctions::rpm_to_velocity(double rpm) {
   double perimeter = 2 * M_PI * wheel_radius;
@@ -41,8 +34,7 @@ double InspectionFunctions::calculate_steering(double time) {
 }
 
 void InspectionFunctions::redefine_goal_velocity(double current_velocity) {
-  double velocity_error = abs(current_velocity - this->current_goal_velocity);
-  if (start_and_stop && velocity_error < 0.2) {
+  if (start_and_stop && abs(current_velocity - this->current_goal_velocity) < 0.2) {
     if (this->current_goal_velocity == 0) {
       this->current_goal_velocity = this->ideal_velocity;
     } else {
