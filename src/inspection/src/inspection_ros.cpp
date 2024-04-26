@@ -2,6 +2,7 @@
 
 #include "exceptions/invalid_mission_exception.hpp"
 
+
 InspectionMission::InspectionMission() : Node("inspection") {
   double turning_period, finish_time, wheel_radius, max_angle;
   bool start_and_stop;
@@ -34,6 +35,9 @@ InspectionMission::InspectionMission() : Node("inspection") {
   rpm_subscription = this->create_subscription<fs_msgs::msg::WheelStates>(
       "/wheel_states", 10,
       std::bind(&InspectionMission::inspection_script, this, std::placeholders::_1));
+  
+  rlRPM_subscription.subscribe(this, "rlRPM");
+  rrRPM_subscription.subscribe(this, "rrRPM");
 
   RCLCPP_INFO(this->get_logger(), "Inspection node has been started.");
 }

@@ -14,6 +14,8 @@
 #include "include/inspection_functions.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
+#include "custom_interfaces/msg/wheel_rpm.hpp"
+#include <message_filters/subscriber.h>
 
 /**
  * @class InspectionMission
@@ -28,6 +30,9 @@ class InspectionMission : public rclcpp::Node {
   rclcpp::Publisher<fs_msgs::msg::ControlCommand>::SharedPtr control_command_publisher;
   rclcpp::Subscription<fs_msgs::msg::GoSignal>::SharedPtr mission_signal;
   rclcpp::Subscription<fs_msgs::msg::WheelStates>::SharedPtr rpm_subscription;
+  message_filters::Subscriber<custom_interfaces::msg::WheelRPM> rlRPM_subscription;
+  message_filters::Subscriber<custom_interfaces::msg::WheelRPM> rrRPM_subscription;
+  message_filters::Synchronizer<MySyncPolicy>
   std::chrono::_V2::system_clock::time_point initial_time;
   InspectionFunctions *inspection_object;
   std::string mission;
