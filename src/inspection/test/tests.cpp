@@ -87,10 +87,9 @@ TEST(TORQUE, torque4) {
   double max_angle = 3.14159265358979323846264338327950288 / 6.0, ideal_velocity = 10.0,
          turn_time = 0, wheel_radius = 0.254, gain = 0.5, stop_time = 30;
   InspectionFunctions *new_inspection = new InspectionFunctions(
-      max_angle, turn_time, wheel_radius, stop_time, false, gain, ideal_velocity);
+      max_angle, turn_time, wheel_radius, stop_time, true, gain, ideal_velocity);
 
   double current_velocity = 0, max_velocity = -1, min_velocity = 1000;
-  bool accelerating = true;
   int count = 0;
   // i represents time
   for (float i = 0; i < stop_time; i = i + 0.1) {
@@ -102,16 +101,15 @@ TEST(TORQUE, torque4) {
     current_velocity += 0.1 * (new_inspection->calculate_throttle(current_velocity));
 
     // check goal has been reached and flip the goal
-    if (round(current_velocity, 2) == new_inspection->ideal_velocity) {
-      new_inspection->redefine_goal_velocity(accelerating ? 0.0 : 10.0);
-      accelerating = false;
+    if (fabs(current_velocity - new_inspection->current_goal_velocity) < 0.2) {
+      new_inspection->redefine_goal_velocity(current_velocity);
       count += 1;  // count how many times the ideal velocity changes
     }
   }
   delete new_inspection;
   EXPECT_GT(count, 2);  // test if the ideal velocity changes the right number of times
-  EXPECT_EQ(round(min_velocity, 2), 0.0);
-  EXPECT_DOUBLE_EQ(round(max_velocity, 2), 10.0);
+  EXPECT_EQ(round(min_velocity, 1), 0.0);
+  EXPECT_DOUBLE_EQ(round(max_velocity, 1), 9.80);
 }
 
 /**

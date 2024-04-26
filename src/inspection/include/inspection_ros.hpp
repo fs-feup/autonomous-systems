@@ -53,7 +53,7 @@ class InspectionMission : public rclcpp::Node {
    * @param torque torque to be applied
    * @param steering steering angle to be applied
    */
-  void publish_controls(double torque, double steering)
+  void publish_controls(double torque, double steering);
 
   /**
    * @brief Contruct a new Inspection Mission with constants defined in file
