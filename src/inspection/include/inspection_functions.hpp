@@ -9,14 +9,15 @@
 
 class InspectionFunctions {
  public:
-  double max_angle;
-  double ideal_velocity;
-  double turning_period;
-  double wheel_radius;
-  double gain;
-  double finish_time;
-  double current_goal_velocity;
-  bool start_and_stop;
+  // default to EBS test values
+  double max_angle = 0.52359877559;
+  double ideal_velocity = 2.0;
+  double turning_period = 4.0;
+  double wheel_radius = 0.254;
+  double gain = 0.25;
+  double finish_time = 26.0;
+  double current_goal_velocity = 2.0;
+  bool start_and_stop = false;
 
   /**
    * @brief calculate the steering angle according to time
