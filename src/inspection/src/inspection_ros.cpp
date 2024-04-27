@@ -30,10 +30,10 @@ InspectionMission::InspectionMission() : Node("inspection") {
 
   // creates publisher that should yield torque/acceleration/...
   control_command_publisher =
-      this->create_publisher<fs_msgs::msg::ControlCommand>("/control_command", 10);
+      this->create_publisher<fs_msgs::msg::ControlCommand>("/as_msgs/controls", 10);
 
   // creates publisher for the flag
-  finish_publisher = this->create_publisher<fs_msgs::msg::FinishedSignal>("/signal/finished", 10);
+  finish_publisher = this->create_publisher<fs_msgs::msg::FinishedSignal>("/as_msgs/mission_finished", 10);
 
   // get mission
   mission_signal = this->create_subscription<fs_msgs::msg::GoSignal>(
