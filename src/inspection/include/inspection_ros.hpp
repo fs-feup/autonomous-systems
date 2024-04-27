@@ -16,6 +16,9 @@
 #include "std_msgs/msg/string.hpp"
 #include "custom_interfaces/msg/wheel_rpm.hpp"
 #include <message_filters/subscriber.h>
+#include "message_filters/synchronizer.h"
+#include "message_filters/time_synchronizer.h"
+#include <message_filters/sync_policies/approximate_time.h>
 
 /**
  * @class InspectionMission
@@ -29,10 +32,14 @@ class InspectionMission : public rclcpp::Node {
   rclcpp::Publisher<fs_msgs::msg::FinishedSignal>::SharedPtr finish_publisher;
   rclcpp::Publisher<fs_msgs::msg::ControlCommand>::SharedPtr control_command_publisher;
   rclcpp::Subscription<fs_msgs::msg::GoSignal>::SharedPtr mission_signal;
-  rclcpp::Subscription<fs_msgs::msg::WheelStates>::SharedPtr rpm_subscription;
+
   message_filters::Subscriber<custom_interfaces::msg::WheelRPM> rlRPM_subscription;
   message_filters::Subscriber<custom_interfaces::msg::WheelRPM> rrRPM_subscription;
-  message_filters::Synchronizer<MySyncPolicy>
+
+  typedef message_filters::sync_policies::ApproximateTime<custom_interfaces::msg::WheelRPM, custom_interfaces::msg::WheelRPM> WSSPolicy;
+
+  std::shared_ptr<message_filters::Synchronizer<WSSPolicy>> sync_;
+
   std::chrono::_V2::system_clock::time_point initial_time;
   InspectionFunctions *inspection_object;
   std::string mission;
@@ -50,12 +57,14 @@ class InspectionMission : public rclcpp::Node {
    *
    * @param current_rpm rotations of the wheels per minute
    */
-  void inspection_script(fs_msgs::msg::WheelStates current_rpm);
+  void inspection_script(custom_interfaces::msg::WheelRPM current_rlRPM, custom_interfaces::msg::WheelRPM current_rrRPM);
 
   /**
    * @brief Contruct a new Inspection Mission with constants defined in file
    */
   InspectionMission();
+
+  void callback(std_msgs::msg::String str1, std_msgs::msg::String str2);
 };
 
 #endif  // INSPECTION_MISSION_HPP

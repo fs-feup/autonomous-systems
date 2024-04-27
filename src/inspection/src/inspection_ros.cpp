@@ -2,6 +2,14 @@
 
 #include "exceptions/invalid_mission_exception.hpp"
 
+#include "message_filters/message_traits.h"
+
+#include "std_msgs/msg/string.hpp"
+
+#include "message_filters/time_synchronizer.h"
+
+#include "message_filters/sync_policies/approximate_time.h"
+
 
 InspectionMission::InspectionMission() : Node("inspection") {
   double turning_period, finish_time, wheel_radius, max_angle;
@@ -31,13 +39,14 @@ InspectionMission::InspectionMission() : Node("inspection") {
   mission_signal = this->create_subscription<fs_msgs::msg::GoSignal>(
       "/signal/go", 10,
       std::bind(&InspectionMission::mission_decider, this, std::placeholders::_1));
-
-  rpm_subscription = this->create_subscription<fs_msgs::msg::WheelStates>(
-      "/wheel_states", 10,
-      std::bind(&InspectionMission::inspection_script, this, std::placeholders::_1));
   
   rlRPM_subscription.subscribe(this, "rlRPM");
   rrRPM_subscription.subscribe(this, "rrRPM");
+
+  // WSS Synchronization
+  const WSSPolicy policy(10);
+  sync_ = std::make_shared<message_filters::Synchronizer<WSSPolicy>>(policy, rlRPM_subscription, rrRPM_subscription);
+  sync_->registerCallback(&InspectionMission::inspection_script, this);
 
   RCLCPP_INFO(this->get_logger(), "Inspection node has been started.");
 }
@@ -57,12 +66,12 @@ void InspectionMission::mission_decider(fs_msgs::msg::GoSignal mission_signal) {
   mission = mission_signal.mission;
 }
 
-void InspectionMission::inspection_script(fs_msgs::msg::WheelStates current_rpm) {
+void InspectionMission::inspection_script(custom_interfaces::msg::WheelRPM current_rlRPM, custom_interfaces::msg::WheelRPM current_rrRPM) {
   // initialization
   auto current_time = std::chrono::system_clock::now();
   auto elapsed_time = (current_time - initial_time).count();
   auto control_command = fs_msgs::msg::ControlCommand();
-  float average_rpm = (current_rpm.rl_rpm + current_rpm.rr_rpm) / 2.0;
+  float average_rpm = (current_rlRPM.rl_rpm + current_rrRPM.rr_rpm) / 2.0;
   double current_velocity = inspection_object->rpm_to_velocity(average_rpm);
 
   // calculate steering
