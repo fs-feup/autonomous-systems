@@ -36,7 +36,7 @@ class InspectionMission : public rclcpp::Node {
   message_filters::Subscriber<custom_interfaces::msg::WheelRPM> rlRPM_subscription;
   message_filters::Subscriber<custom_interfaces::msg::WheelRPM> rrRPM_subscription;
 
-  typedef message_filters::sync_policies::ApproximateTime<custom_interfaces::msg::WheelRPM, custom_interfaces::msg::WheelRPM> WSSPolicy;
+  using WSSPolicy = message_filters::sync_policies::ApproximateTime<custom_interfaces::msg::WheelRPM, custom_interfaces::msg::WheelRPM>;
 
   std::shared_ptr<message_filters::Synchronizer<WSSPolicy>> sync_;
 
