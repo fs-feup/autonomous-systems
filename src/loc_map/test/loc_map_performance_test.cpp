@@ -106,6 +106,8 @@ class PerformamceTest : public ::testing::Test {
    * @param size Number of state vector elements to fill.
    */
   void fill_X(int size) {
+
+    ekf_test = std::make_unique<ExtendedKalmanFilter>(*motion_model_test, observation_model_test);
     std::ifstream file("../../src/loc_map/test/data/map_test.txt");
 
     if (!file.is_open()) {
@@ -120,11 +122,22 @@ class PerformamceTest : public ::testing::Test {
     ekf_test->init_X_size(size * 2 + 3);
     ekf_test->set_P(size * 2 + 3);
 
-    while ((file >> value1 >> value2) && i < size * 2) {
+    while ((file >> value1 >> value2) && i < (size * 2 + 2)) {
       ekf_test->set_X_y(i, value1);
       i++;
       ekf_test->set_X_y(i, value2);
       i++;
+
+      if (i <= 12){
+        ekf_test->push_to_colors(colors::Color::blue);
+        continue;
+      }
+
+      else if (i >= 12 && i <= 22){
+        ekf_test->push_to_colors(colors::Color::yellow);
+        continue;
+      }
+
       is_blue ? ekf_test->push_to_colors(colors::Color::blue)
               : ekf_test->push_to_colors(colors::Color::yellow);
       is_blue = !is_blue;
@@ -167,18 +180,26 @@ class PerformamceTest : public ::testing::Test {
    * @param coneMap Perception's output map
    */
   void runExecution(ConeMap coneMap) {
-    for (int i = 0; i < 10; i++) {
-      start_time = std::chrono::high_resolution_clock::now();
 
-      ekf_test->prediction_step(*motion_update_test);
+    prediction_step_duration = std::chrono::microseconds::zero();
+    correction_step_duration = std::chrono::microseconds::zero();
+
+    for (int i = 0; i < 10; i++) {
+
+      auto ekf_for_predict = *ekf_test;
+      auto ekf_for_correction = *ekf_test;
+
+      start_time = std::chrono::high_resolution_clock::now();
+      ekf_for_predict.prediction_step(*motion_update_test);
       prediction_step_time = std::chrono::high_resolution_clock::now();
-      ekf_test->correction_step(coneMap);
+      ekf_for_correction.correction_step(coneMap);
       end_time = std::chrono::high_resolution_clock::now();
 
       prediction_step_duration +=
           std::chrono::duration_cast<std::chrono::microseconds>(prediction_step_time - start_time);
       correction_step_duration +=
           std::chrono::duration_cast<std::chrono::microseconds>(end_time - prediction_step_time);
+      
     }
 
     prediction_step_duration = prediction_step_duration / 10;
@@ -232,9 +253,9 @@ class PerformamceTest : public ::testing::Test {
 TEST_F(PerformamceTest, TEST_EKF_PERFORMANCE) {
   for (int i = 0; i <= 10; i++) {
     ConeMap coneMap = createConeMap(i);
-    for (int i = 10; i <= 200; i += 10) {
-      prediction_step_input_size = i;
-      fill_X(i);
+    for (int j = 10; j <= 200; j += 10) {
+      prediction_step_input_size = j;
+      fill_X(j);
       runExecution(coneMap);
       print_to_file();
     }
