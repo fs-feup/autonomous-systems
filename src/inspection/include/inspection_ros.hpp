@@ -11,6 +11,7 @@
 #include "fs_msgs/msg/finished_signal.hpp"
 #include "fs_msgs/msg/go_signal.hpp"
 #include "fs_msgs/msg/wheel_states.hpp"
+#include "custom_interfaces/msg/emergency.hpp"
 #include "include/inspection_functions.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
@@ -26,6 +27,7 @@ class InspectionMission : public rclcpp::Node {
  private:
   rclcpp::Publisher<fs_msgs::msg::FinishedSignal>::SharedPtr finish_publisher;
   rclcpp::Publisher<fs_msgs::msg::ControlCommand>::SharedPtr control_command_publisher;
+  rclcpp::Publisher<custom_interfaces::msg::Emergency>::SharedPtr emergency_publisher;
   rclcpp::Subscription<fs_msgs::msg::GoSignal>::SharedPtr mission_signal;
   rclcpp::Subscription<fs_msgs::msg::WheelStates>::SharedPtr rpm_subscription;
   std::chrono::_V2::system_clock::time_point initial_time;

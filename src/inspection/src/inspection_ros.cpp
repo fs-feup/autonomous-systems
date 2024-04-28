@@ -22,6 +22,9 @@ InspectionMission::InspectionMission() : Node("inspection") {
   // creates publisher for the flag
   finish_publisher = this->create_publisher<fs_msgs::msg::FinishedSignal>("/signal/finished", 10);
 
+  // creates publisher for the emergency signal
+  emergency_publisher = this->create_publisher<custom_interfaces::msg::Emergency>("/signal/emergency", 10);
+
   // get mission
   mission_signal = this->create_subscription<fs_msgs::msg::GoSignal>(
       "/signal/go", 10,
@@ -89,7 +92,9 @@ void InspectionMission::inspection_script(fs_msgs::msg::WheelStates current_rpm)
     finish.placeholder = true;
     finish_publisher->publish(finish);
     if (mission == "ebs_test") {
-      // transition to emergency
+      custom_interfaces::msg::Emergency emergency;
+      emergency.activate_ebs = true;
+      emergency_publisher->publish(emergency);
     }
   }
 
