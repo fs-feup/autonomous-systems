@@ -33,6 +33,7 @@ var annotated_dup =
     [ "LMNode", "dd/db3/class_l_m_node.html", "dd/db3/class_l_m_node" ],
     [ "LocalPathPlanner", "d3/da1/class_local_path_planner.html", "d3/da1/class_local_path_planner" ],
     [ "LongitudinalControl", "d4/de8/class_longitudinal_control.html", "d4/de8/class_longitudinal_control" ],
+    [ "MockerNode", "d1/d4c/class_mocker_node.html", "d1/d4c/class_mocker_node" ],
     [ "MotionModel", "db/d66/class_motion_model.html", "db/d66/class_motion_model" ],
     [ "MotionUpdate", "db/d6d/struct_motion_update.html", "db/d6d/struct_motion_update" ],
     [ "NormalVelocityModel", "d7/df9/class_normal_velocity_model.html", "d7/df9/class_normal_velocity_model" ],

@@ -8,11 +8,11 @@ var searchData=
   ['get_5fprocess_5fnoise_5fcovariance_5fmatrix_5',['get_process_noise_covariance_matrix',['../db/d66/class_motion_model.html#a76de9b7caf93cd717bf388aff40ab589',1,'MotionModel']]],
   ['get_5fstate_6',['get_state',['../da/da6/class_extended_kalman_filter.html#a588e12f311b7f5c696d1959940f0c70c',1,'ExtendedKalmanFilter']]],
   ['get_5fstate_5fto_5fobservation_5fmatrix_7',['get_state_to_observation_matrix',['../d7/d64/class_observation_model.html#aa789708c6a934ba1edfc8386b1f38d4f',1,'ObservationModel']]],
-  ['get_5fwheel_5fvelocity_5ffrom_5frpm_8',['get_wheel_velocity_from_rpm',['../da/d5d/formulas_8cpp.html#aa977d636c53692b00cc02c90dab37cff',1,'get_wheel_velocity_from_rpm(const double rpm, const double wheel_diameter):&#160;formulas.cpp'],['../db/d9e/formulas_8hpp.html#aa977d636c53692b00cc02c90dab37cff',1,'get_wheel_velocity_from_rpm(const double rpm, const double wheel_diameter):&#160;formulas.cpp']]],
+  ['get_5fwheel_5fvelocity_5ffrom_5frpm_8',['get_wheel_velocity_from_rpm',['../db/d9e/formulas_8hpp.html#aa977d636c53692b00cc02c90dab37cff',1,'get_wheel_velocity_from_rpm(const double rpm, const double wheel_diameter):&#160;formulas.cpp'],['../da/d5d/formulas_8cpp.html#aa977d636c53692b00cc02c90dab37cff',1,'get_wheel_velocity_from_rpm(const double rpm, const double wheel_diameter):&#160;formulas.cpp']]],
   ['getcentroid_9',['getCentroid',['../d2/d23/class_cluster.html#a10c9083c69c40e95596c95a8870bfc34',1,'Cluster']]],
   ['getcolor_10',['getColor',['../d2/d23/class_cluster.html#a8f05a4df1d8860c60b1cb32b662664a1',1,'Cluster']]],
   ['getconfidence_11',['getConfidence',['../d2/d23/class_cluster.html#a0af7e402728b298a456ad0b54ad280bd',1,'Cluster']]],
-  ['getdistanceto_12',['getdistanceto',['../d9/d32/class_path_point.html#a88f058d98c6ef403f769cf440358fd23',1,'PathPoint::getDistanceTo()'],['../d8/da1/class_cone.html#a1fd598dec938e232ee09e16abe1b6a0d',1,'Cone::getDistanceTo()']]],
+  ['getdistanceto_12',['getdistanceto',['../d8/da1/class_cone.html#a1fd598dec938e232ee09e16abe1b6a0d',1,'Cone::getDistanceTo()'],['../d9/d32/class_path_point.html#a88f058d98c6ef403f769cf440358fd23',1,'PathPoint::getDistanceTo()']]],
   ['getdistancetopoint_13',['getDistanceToPoint',['../d2/d8d/class_plane.html#af82d0bad17904da9738be73bbe3eb3ee',1,'Plane']]],
   ['getid_14',['getId',['../d8/da1/class_cone.html#ad6448719967d79b51a6e9586d28897d8',1,'Cone']]],
   ['getleftconeat_15',['getLeftConeAt',['../d6/d2c/class_track.html#aeb46e6fbc74096c298262b84cd81b77f',1,'Track']]],
@@ -29,8 +29,10 @@ var searchData=
   ['gety_26',['gety',['../d8/da1/class_cone.html#a952987a9de5d20d7930b3e93c04fd278',1,'Cone::getY()'],['../d9/d32/class_path_point.html#a722e36fc4d8964c3efe0fb96315be015',1,'PathPoint::getY()']]],
   ['global_5fpath_5fplanner_2ecpp_27',['global_path_planner.cpp',['../d9/d94/global__path__planner_8cpp.html',1,'']]],
   ['global_5fpath_5fplanner_2ehpp_28',['global_path_planner.hpp',['../d6/d97/global__path__planner_8hpp.html',1,'']]],
-  ['globalpathplanner_29',['globalpathplanner',['../d2/da4/class_global_path_planner.html',1,'GlobalPathPlanner'],['../d2/da4/class_global_path_planner.html#a04a4cbd5b1042ec0d9bd8be8b1dca68e',1,'GlobalPathPlanner::GlobalPathPlanner()']]],
+  ['globalpathplanner_29',['globalpathplanner',['../d2/da4/class_global_path_planner.html#a04a4cbd5b1042ec0d9bd8be8b1dca68e',1,'GlobalPathPlanner::GlobalPathPlanner()'],['../d2/da4/class_global_path_planner.html',1,'GlobalPathPlanner']]],
   ['ground_5fremoval_2ehpp_30',['ground_removal.hpp',['../d2/d96/ground__removal_8hpp.html',1,'']]],
-  ['groundremoval_31',['groundremoval',['../dc/d84/class_ground_removal.html#a6cd0bf6e3b5d5a7b201678ce061162e9',1,'GroundRemoval::groundRemoval()'],['../d6/dc3/class_r_a_n_s_a_c.html#a5679db00dced54c0e28adfcde3ef7ac9',1,'RANSAC::groundRemoval()'],['../dc/d84/class_ground_removal.html',1,'GroundRemoval']]],
-  ['gsl_5fvectorlog_32',['gsl_vectorLog',['../d6/d2c/class_track.html#af8be3556aade761aa0851df8b6371dce',1,'Track']]]
+  ['groundremoval_31',['groundremoval',['../dc/d84/class_ground_removal.html',1,'GroundRemoval'],['../d6/dc3/class_r_a_n_s_a_c.html#a5679db00dced54c0e28adfcde3ef7ac9',1,'RANSAC::groundRemoval()'],['../dc/d84/class_ground_removal.html#a6cd0bf6e3b5d5a7b201678ce061162e9',1,'GroundRemoval::groundRemoval()']]],
+  ['gsl_5fvectorlog_32',['gsl_vectorLog',['../d6/d2c/class_track.html#af8be3556aade761aa0851df8b6371dce',1,'Track']]],
+  ['gtruth_5ffromfile_33',['gtruth_fromfile',['../df/d88/planning__mock_8hpp.html#acc6bb783c0172ebf2f5a6f12ef439df3',1,'gtruth_fromfile(std::istream &amp;in):&#160;planning_mock.cpp'],['../d8/d7c/planning__mock_8cpp.html#acc6bb783c0172ebf2f5a6f12ef439df3',1,'gtruth_fromfile(std::istream &amp;in):&#160;planning_mock.cpp']]],
+  ['gtruth_5fplanning_34',['gtruth_planning',['../d1/d4c/class_mocker_node.html#ae520a39047f1b356b491d610568aca9c',1,'MockerNode']]]
 ];

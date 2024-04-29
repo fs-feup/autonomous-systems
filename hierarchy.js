@@ -44,6 +44,7 @@ var hierarchy =
       [ "InspectionMission", "de/d3d/class_inspection_mission.html", null ],
       [ "LMNode", "dd/db3/class_l_m_node.html", null ],
       [ "LongitudinalControl", "d4/de8/class_longitudinal_control.html", null ],
+      [ "MockerNode", "d1/d4c/class_mocker_node.html", null ],
       [ "Perception", "de/d07/class_perception.html", null ],
       [ "Planning", "d9/db5/class_planning.html", null ],
       [ "Publisher", "df/d57/class_publisher.html", null ]
