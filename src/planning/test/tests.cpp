@@ -3,6 +3,7 @@
 #include <set>
 
 #include "gtest/gtest.h"
+#include "planning/cone_coloring.hpp"
 #include "planning/global_path_planner.hpp"
 #include "planning/local_path_planner.hpp"
 #include "planning/path_smoothing.hpp"
@@ -26,6 +27,45 @@ bool customComparator(const std::pair<double, double> &a, const std::pair<double
     return a.first < b.first;
   }
   return a.second < b.second;
+}
+
+void LogCone1(Cone* c) {
+  std::cout << "X cone: " << c -> getX() << " , Y cone: " << c -> getY() << " Id cone: " << c -> getId() << std::endl;
+}
+
+void LogCone2(Cone* c) {
+  std::cout << "(" << c -> getX() << "," << c -> getY() << "),";
+}
+
+
+/**
+ * @brief Function to validate cone coloring. Compares each cone's id to its supposed Id
+ * (left side id is even, right side id is odd)
+ *
+ * @param cone_coloring ConeColoring object after cone coloring was tried
+ * @param correctly_placed_blue number of blue cones correctly placed
+ * @param correctly_placed_yellow number of yellow cones correctly placed
+ * @param incorrectly_placed_blue number of blue cones incorrectly placed
+ * @param incorrectly_placed_yellow number of yellow cones incorrectly placed
+ */
+void test_cone_coloring(ConeColoring& cone_coloring, int& correctly_placed_blue, int& correctly_placed_yellow,
+ int& incorrectly_placed_blue, int& incorrectly_placed_yellow) {
+  correctly_placed_blue = 0; correctly_placed_yellow = 0;
+  incorrectly_placed_blue = 0; incorrectly_placed_yellow = 0;
+  for (Cone* c: cone_coloring.current_left_cones) {
+    if ((c -> getId())%2) {
+      incorrectly_placed_yellow++;
+    } else {
+      correctly_placed_blue++;
+    }
+  }
+  for (Cone* c: cone_coloring.current_right_cones) {
+    if ((c -> getId())%2) {
+      correctly_placed_yellow++;
+    } else {
+      incorrectly_placed_blue++;
+    }
+  }
 }
 
 /**
@@ -142,7 +182,7 @@ void outlierCalculations(std::string filename, std::string testname) {
 }
 
 std::ostream &operator<<(std::ostream &os, const PathPoint &p) {
-  return os << '(' << p.getX() << ', ' << p.getY() << ')';
+  return os << '(' << p.getX() << ", " << p.getY() << ')';
 }
 
 /**
@@ -692,3 +732,167 @@ TEST(LocalPathPlanner, delauneyoutliers3) {
   std::string filePath = "src/planning/tracks/map_250_out50.txt";
   outlierCalculations(filePath, "250points_50outliers");
 }
+
+TEST(ConeColoring, filtercones) {
+  Track track;
+  track.fillTrack("src/planning/tracks/track1.txt");
+  std::vector<Cone *> test_cones = track.getLeftCones();
+  for (Cone* c: track.getRightCones()) {
+    test_cones.push_back(c);
+  }
+  double gain_angle    = 1.0; 
+  double gain_distance = 1.0;
+  double gain_ncones   = 1.0;
+  double exponent_1    = 1.0;
+  double exponent_2    = 1.0;
+  double cost_max      = 5000.0;
+  ConeColoring cone_coloring = ConeColoring(gain_angle, gain_distance, gain_ncones, exponent_1, exponent_2, cost_max);
+  double initial_x = 30.0;
+  double initial_y = 15.0;
+  double radius = 5.0;
+  test_cones = cone_coloring.filterCones(test_cones, initial_x, initial_y, radius);
+  std::vector<int> expected = {132,134,136,145,147};
+  int count = 0;
+  for (Cone* c: test_cones) {
+    EXPECT_EQ(c->getId(), expected[count]);
+    ASSERT_LE(pow(c->getX()-initial_x,2) + pow(c->getY()-initial_y,2), radius*radius);
+    count ++;
+  }
+}
+
+TEST(ConeColoring, get_first_cones) {
+  Track track;
+  track.fillTrack("src/planning/tracks/track1.txt");
+  std::vector<Cone *> test_cones = track.getLeftCones();
+  for (Cone* c: track.getRightCones()) {
+    test_cones.push_back(c);
+  }
+  double gain_angle    = 1.0; 
+  double gain_distance = 1.0;
+  double gain_ncones   = 1.0;
+  double exponent_1    = 1.0;
+  double exponent_2    = 1.0;
+  double cost_max      = 5000.0;
+  ConeColoring cone_coloring = ConeColoring(gain_angle, gain_distance, gain_ncones, exponent_1, exponent_2, cost_max);
+  test_cones = cone_coloring.filterCones(test_cones, 30.0, 15.0, 5.0);
+  Pose initial_car_pose = Pose(30.0, 15.0, 0);
+  Cone* c1 = cone_coloring.getInitialCone(test_cones, initial_car_pose, true);
+  EXPECT_DOUBLE_EQ(round_n(c1->getX(),3), round_n(27.4081,3));
+  EXPECT_DOUBLE_EQ(round_n(c1->getY(),3), round_n(17.9243,3));
+  EXPECT_EQ(c1->getId(), 147);
+  Cone* c2 = cone_coloring.getInitialCone(test_cones, initial_car_pose, false);
+  EXPECT_DOUBLE_EQ(round_n(c2->getX(),3), round_n(29.8945,3));
+  EXPECT_DOUBLE_EQ(round_n(c2->getY(),3), round_n(13.0521,3));
+  EXPECT_EQ(c2->getId(), 134);
+}
+
+//test the placement of initial cones with the car oriented at 0 rad
+TEST(ConeColoring, place_first_cones1) {
+  Track track;
+  track.fillTrack("src/planning/tracks/track1.txt");
+  std::vector<Cone *> test_cones = track.getLeftCones();
+  for (Cone* c: track.getRightCones()) {
+    test_cones.push_back(c);
+  }
+  double gain_angle    = 1.0; 
+  double gain_distance = 1.0;
+  double gain_ncones   = 1.0;
+  double exponent_1    = 1.0;
+  double exponent_2    = 1.0;
+  double cost_max      = 5000.0;
+  ConeColoring cone_coloring = ConeColoring(gain_angle, gain_distance, gain_ncones, exponent_1, exponent_2, cost_max);
+  Pose initial_car_pose = Pose(30.0, 15.0, 3.1416);
+  cone_coloring.place_initial_cones(test_cones, initial_car_pose);
+  EXPECT_DOUBLE_EQ(round_n(cone_coloring.current_left_cones[0]->getX(),3), round_n(31.8945,3));
+  EXPECT_DOUBLE_EQ(round_n(cone_coloring.current_left_cones[0]->getY(),3), round_n(13.0521,3));
+  EXPECT_EQ(cone_coloring.current_left_cones[0]->getId(), -2);
+  EXPECT_DOUBLE_EQ(round_n(cone_coloring.current_left_cones[1]->getX(),3), round_n(29.8945,3));
+  EXPECT_DOUBLE_EQ(round_n(cone_coloring.current_left_cones[1]->getY(),3), round_n(13.0521,3));
+  EXPECT_EQ(cone_coloring.current_left_cones[1]->getId(), 134);
+  EXPECT_DOUBLE_EQ(round_n(cone_coloring.current_right_cones[0]->getX(),3), round_n(29.4081,3));
+  EXPECT_DOUBLE_EQ(round_n(cone_coloring.current_right_cones[0]->getY(),3), round_n(17.9243,3));
+  EXPECT_EQ(cone_coloring.current_right_cones[0]->getId(), -1);
+  EXPECT_DOUBLE_EQ(round_n(cone_coloring.current_right_cones[1]->getX(),3), round_n(27.4081,3));
+  EXPECT_DOUBLE_EQ(round_n(cone_coloring.current_right_cones[1]->getY(),3), round_n(17.9243,3));
+  EXPECT_EQ(cone_coloring.current_right_cones[1]->getId(), 147);
+}
+
+//test the placement of initial cones with the car oriented at pi rad
+TEST(ConeColoring, place_first_cones2) {
+  Track track;
+  track.fillTrack("src/planning/tracks/track1.txt");
+  std::vector<Cone *> test_cones = track.getLeftCones();
+  for (Cone* c: track.getRightCones()) {
+    test_cones.push_back(c);
+  }
+  double gain_angle    = 1.0; 
+  double gain_distance = 1.0;
+  double gain_ncones   = 1.0;
+  double exponent_1    = 1.0;
+  double exponent_2    = 1.0;
+  double cost_max      = 5000.0;
+  ConeColoring cone_coloring = ConeColoring(gain_angle, gain_distance, gain_ncones, exponent_1, exponent_2, cost_max);
+  Pose initial_car_pose = Pose(30.0, 15.0, 0);
+  cone_coloring.place_initial_cones(test_cones, initial_car_pose);
+  EXPECT_DOUBLE_EQ(round_n(cone_coloring.current_right_cones[0]->getX(),3), round_n(27.8945,3));
+  EXPECT_DOUBLE_EQ(round_n(cone_coloring.current_right_cones[0]->getY(),3), round_n(13.0521,3));
+  EXPECT_EQ(cone_coloring.current_left_cones[0]->getId(), -2);
+  EXPECT_DOUBLE_EQ(round_n(cone_coloring.current_right_cones[1]->getX(),3), round_n(29.8945,3));
+  EXPECT_DOUBLE_EQ(round_n(cone_coloring.current_right_cones[1]->getY(),3), round_n(13.0521,3));
+  EXPECT_EQ(cone_coloring.current_left_cones[1]->getId(), 147);
+  EXPECT_DOUBLE_EQ(round_n(cone_coloring.current_left_cones[0]->getX(),3), round_n(25.4081,3));
+  EXPECT_DOUBLE_EQ(round_n(cone_coloring.current_left_cones[0]->getY(),3), round_n(17.9243,3));
+  EXPECT_EQ(cone_coloring.current_right_cones[0]->getId(), -1);
+  EXPECT_DOUBLE_EQ(round_n(cone_coloring.current_left_cones[1]->getX(),3), round_n(27.4081,3));
+  EXPECT_DOUBLE_EQ(round_n(cone_coloring.current_left_cones[1]->getY(),3), round_n(17.9243,3));
+  EXPECT_EQ(cone_coloring.current_right_cones[1]->getId(), 134);
+}
+
+TEST(ConeColoring, making_unvisited_cones1) {
+  Track track;
+  track.fillTrack("src/planning/tracks/track1.txt");
+  std::vector<Cone *> test_cones = track.getLeftCones();
+  for (Cone* c: track.getRightCones()) {
+    test_cones.push_back(c);
+  }
+  double gain_angle    = 1.0; 
+  double gain_distance = 1.0;
+  double gain_ncones   = 1.0;
+  double exponent_1    = 1.0;
+  double exponent_2    = 1.0;
+  double cost_max      = 5000.0;
+  ConeColoring cone_coloring = ConeColoring(gain_angle, gain_distance, gain_ncones, exponent_1, exponent_2, cost_max);
+  std::vector<std::pair<Cone *, bool> *> cones = cone_coloring.makeUnvisitedCones(test_cones);
+  EXPECT_EQ(cones.size(), test_cones.size());
+  for (int i = 0; i < (int)cones.size(); i++){
+    EXPECT_DOUBLE_EQ(cones[i]->first->getX(), test_cones[i]->getX());
+    EXPECT_DOUBLE_EQ(cones[i]->first->getY(), test_cones[i]->getY());
+    EXPECT_EQ(cones[i]->first->getId(), test_cones[i]->getId());
+  }
+}
+
+
+TEST(ConeColoring, fullconecoloring1) {
+  Track track;
+  track.fillTrack("src/planning/tracks/track1.txt");
+  std::vector<Cone *> test_cones = track.getLeftCones();
+  for (Cone* c: track.getRightCones()) {
+    test_cones.push_back(c);
+  }
+  int c_right, inc_right, c_left, inc_left;
+  double gain_angle    = 1.0; 
+  double gain_distance = 1.0;
+  double gain_ncones   = 10.0;
+  double exponent_1    = 1.0;
+  double exponent_2    = 1.0;
+  double cost_max      = 10.0;
+  ConeColoring cone_coloring = ConeColoring(gain_angle, gain_distance, gain_ncones, exponent_1, exponent_2, cost_max);
+  Pose initial_car_pose = Pose(30.0, 15.0, 3.14);
+  cone_coloring.colorCones(test_cones, initial_car_pose, 5.0);
+  test_cone_coloring(cone_coloring, c_left, c_right,  inc_left, inc_right);
+  EXPECT_EQ(c_left, 128);
+  EXPECT_EQ(c_right, 140);
+  EXPECT_EQ(inc_left, 0);
+  EXPECT_EQ(inc_right, 0);
+}
+

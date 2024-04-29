@@ -2,33 +2,73 @@
 #define SRC_PLANNING_INCLUDE_PLANNING_CONE_COLORING_HPP_
 
 #include "utils/cone.hpp"
-#include "loc_map/data_structures.hpp"
+
+struct Position {
+  double x = 0;
+  double y = 0;
+  Position() {}
+  Position(double x, double y) : x(x), y(y) {}
+};
+struct Pose {
+  Position position;
+  double orientation = 0.0;
+  Pose() {}
+  Pose(Position position, double orientation) : position(position), orientation(orientation) {}
+  Pose(double x, double y, double theta) : position(x, y), orientation(theta) {}
+};
+
 
 class ConeColoring {
  public:
-    /**
-     * @brief Construct a new Cone Coloring object
-     * 
-     */
-  ConeColoring();
+  /**
+   * @brief Construct a new Cone Coloring:: Cone Coloring object
+   * 
+   * @param gain_angle 
+   * @param gain_distance 
+   * @param gain_ncones 
+   * @param exponent_1 
+   * @param exponent_2 
+   * @param cost_max 
+   */
+  ConeColoring(double gain_angle, double gain_distance, double gain_ncones,
+ double exponent_1, double exponent_2, double cost_max);
 
    /**
     * @brief angle gain between the last edge and the possible new edge
     * 
     */
-  double angle_gain = 0.5;
+  double angle_gain;
 
    /**
     * @brief distance gain to use for the distance cost
     * 
     */
-  double distance_gain = 0.5;
+  double distance_gain;
 
   /**
     * @brief gain to use for the cost
     * 
     */
-  double ncones_gain = 0.5;
+  double ncones_gain;
+
+  /**
+    * @brief exponent for the sum of distance and angle
+    * 
+    */
+  double exponent1;
+
+  /**
+    * @brief exponent for the overall sum
+    * 
+    */
+  double exponent2;
+
+  /**
+    * @brief maximum cost to reach a cone
+    * 
+    */
+  double max_cost;
+  
 
    /**
     * @brief cost function used to minimize the cost of the path.
@@ -40,6 +80,16 @@ class ConeColoring {
     * @return double cost of reaching the cone provided as a parameter
     */
   double cost(Cone* possible_next_cone, int n, bool side);
+
+  /**
+    * @brief determine if the specified cone is in the specified side of the track
+    * 
+    * @param c cone to be checked
+    * @param side check if the cone is in the left [true] or right [false] side
+    * @return true if the cone is in the side of the track
+    * @return false if the cone is not in the side of the track
+    */
+  bool cone_is_in_side(Cone *c, bool side);
 
   /**
     * @brief determine the initial cone to start the track side
@@ -85,22 +135,20 @@ class ConeColoring {
    * 
    * @param un_visited_cones array of possible cones to be visited (marked with false if not visited yet)
    * @param distance_threshold maximum distance to reach the next cone
-   * @param cost_threshold maximum allowed cost to reach the next cone
    * @param side place the next cone in the left [true] or right [false] side
    * @return true if the cone has been successfully placed
    * @return false if the cone hasn't been placed
    */
-  bool placeNextCone(std::vector<std::pair<Cone *, bool>> &visited_cones, double distance_threshold, double cost_threshold, int n, bool side);
+  bool placeNextCone(std::vector<std::pair<Cone *, bool> *> &visited_cones, double distance_threshold, int n, bool side);
   
   /**
    * @brief color the cones based on the cost to reach them
    * 
    * @param input_cones cones to be colored
    * @param initial_car_pose initial pose of the car
-   * @param cost_threshold maximum allowed cost to reach the next cone
    * @param distance_threshold maximum allowed distance to reach the next cone
    */
-  void colorCones(std::vector<Cone *> input_cones, Pose initial_car_pose, double cost_threshold, double distance_threshold);
+  void colorCones(std::vector<Cone *> input_cones, Pose initial_car_pose, double distance_threshold);
 
   /**
    * @brief get an estimate to the distance to the left side of the track
@@ -129,16 +177,24 @@ class ConeColoring {
   Cone* getInitialCone(std::vector<Cone *> candidates, Pose initial_car_pose, bool side);
 
   /**
+   * @brief make a vector of cones and a boolean to determine if the cone has been visited
+   * 
+   * @param cones cones to be marked as visited [true] or unvisited [false]
+   * @return std::vector<std::pair<Cone *, bool> *> vector of cones and a boolean to determine if the cone has been visited
+   */ 
+  std::vector<std::pair<Cone *, bool> *> makeUnvisitedCones(std::vector<Cone *> cones);
+
+  /**
    * @brief current cones on the left side
    * 
    */
-  std::vector<Cone *> current_left_cones;
+  std::vector<Cone *> current_left_cones = {};
 
     /**
      * @brief current cones on the right side
      * 
      */
-  std::vector<Cone *> current_right_cones;
+  std::vector<Cone *> current_right_cones = {};
 };
 
 #endif

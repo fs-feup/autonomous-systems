@@ -33,6 +33,7 @@ set(IMPLEMENTATION_FILES
   src/adapter/adapter.cpp
   src/adapter/eufs.cpp
   src/adapter/fsds.cpp
+  src/planning/cone_coloring.cpp
   src/planning/global_path_planner.cpp
   src/planning/local_path_planner.cpp
   src/planning/track.cpp

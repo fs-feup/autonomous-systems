@@ -59,6 +59,20 @@ class Track {
   float getMaxDistance(bool side);
 
   /**
+   * @brief Get the right side cones.
+   *
+   * @return A vector of pointers to the right side cones.
+   */
+  std::vector<Cone *> getRightCones();
+
+  /**
+   * @brief Get the left side cones.
+   *
+   * @return A vector of pointers to the left cones.
+   */
+  std::vector<Cone *> getLeftCones();
+
+  /**
    * @brief Get the right cone at a specified index.
    *
    * @param index The index of the cone to retrieve.
