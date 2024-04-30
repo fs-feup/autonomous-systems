@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(inspection)
+project(mocker_node)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -14,25 +14,19 @@ find_package(sensor_msgs REQUIRED)
 find_package(fs_msgs REQUIRED)
 
 set(IMPLEMENTATION_FILES
-  src/inspection_ros.cpp
-  src/inspection_functions.cpp
+  src/node/mocker_node.cpp
+  src/planning/planning_mock.cpp
 )
 
-add_executable(inspection src/inspection.cpp ${IMPLEMENTATION_FILES})
-ament_target_dependencies(inspection rclcpp std_msgs sensor_msgs custom_interfaces fs_msgs)
-target_include_directories(inspection PUBLIC
+add_executable(mocker_node src/main.cpp ${IMPLEMENTATION_FILES})
+ament_target_dependencies(mocker_node rclcpp std_msgs sensor_msgs custom_interfaces fs_msgs)
+target_include_directories(mocker_node PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
-target_compile_features(inspection PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+target_compile_features(mocker_node PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
 
-install(TARGETS inspection
+install(TARGETS mocker_node
   DESTINATION lib/${PROJECT_NAME})
-
-# Install launch files.
-install(DIRECTORY
-  launch
-  DESTINATION share/${PROJECT_NAME}/
-)
 
 if(BUILD_TESTING)
 find_package(ament_lint_auto REQUIRED)
@@ -46,7 +40,7 @@ find_package(fs_msgs REQUIRED)
 
 set(TESTFILES 
   test/main.cpp
-  test/tests.cpp
+  test/test.cpp
 )
 
 include_directories(test)  # Include the 'test' directory for your test targets

@@ -19,7 +19,7 @@ colcon test --packages-select inspection # use event-handler=console_direct+ for
 ros2 run inspection inspection
 ```
 ## Design
-The package has two classes, one of them being a ROS2 node, and responsible for all the ROS2 communication. The other class has all the functions and vara+iables related to the package's roles.
+The package has two classes, one of them being a ROS2 node, and responsible for all the ROS2 communication. The other class has all the functions and variables related to the package's roles.
 ![Inspection Diagram Part 3](../../docs/assets/Inspection/inspection.drawio.svg)
 ## Main External Libraries
 

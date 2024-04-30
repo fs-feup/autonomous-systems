@@ -33,7 +33,7 @@ This guide is meant to help the developer setup the environment required to work
 - [Developing](./developing.md) - learn about development rules and guidelines (compilation from actual rules)
 - [Static Analysis Tools](./static_analysis_tools.md) - tutorial on using the static analysis and formatting tools adopted
 - [Documentation](./documentation.md) - tutorial on how to document code
-- [How to contribute (how to compile, test, run, etc.)](./contribute.md) - what tasks are required before a PR
+- [How to contribute (how to compile, test, run, etc.)](../../CONTRIBUTING.md) - what tasks are required before a PR
 - [Testing](./testing.md) - about creating tests for the code
 
 ### Advanced Tutorials
@@ -42,7 +42,7 @@ This guide is meant to help the developer setup the environment required to work
 - [Using Robosense SDK](https://github.com/fs-feup/rslidar_sdk) - check the README
 - [Foxglove](./foxglove_tutorial.md) - using the Foxglove toolbox
 - [Git Advanced](./git_advanced.md)
-- [ROS2 Interfaces](./new_interface_tutorial.md) - tutorial on how to create ros2 interfaces
+- [ROS2 Interfaces](https://github.com/fs-feup/interfaces/blob/main/docs/new_interface_tutorial.md) - tutorial on how to create ros2 interfaces
 
 ### Extra Turorials 
 

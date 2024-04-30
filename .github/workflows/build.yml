@@ -20,6 +20,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'true'
 
       - name: Install dependencies
         run: |
@@ -55,6 +57,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'true'
 
       - name: Install dependencies
         run: |
@@ -91,6 +95,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'true'
 
       - name: Install dependencies
         run: |
@@ -127,6 +133,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'true'
 
       - name: Install dependencies
         run: |
@@ -163,6 +171,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'true'
 
       - name: Install dependencies
         run: |
@@ -185,4 +195,42 @@ jobs:
           source install/setup.bash
           colcon build --packages-select inspection
           colcon test --packages-select inspection --event-handler=console_direct+
+
+  mocker_node:
+    runs-on: ubuntu-latest
+
+    container:
+      image: ros:humble-ros-base-jammy
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: 'true'
+
+      - name: Install dependencies
+        run: |
+          echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
+          ./dependencies_install.sh
+      
+      - name: Rosdep
+        run: |
+          source /opt/ros/$ROS_DISTRO/setup.bash
+          rosdep update
+          rosdep install --from-paths src --ignore-src -r -y
+      
+      - name: Build Messages
+        run: |
+          source /opt/ros/$ROS_DISTRO/setup.bash
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs
+
+      - name: Build and Test Longitudinal Control
+        run: |
+          source install/setup.bash
+          colcon build --packages-select mocker_node
+          colcon test --packages-select mocker_node --event-handler=console_direct+
+
 
