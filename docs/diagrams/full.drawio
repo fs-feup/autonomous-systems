@@ -1976,6 +1976,21 @@
             <mxRectangle width="100" height="40" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
+        <mxCell id="Et2ODIee6By0h7vDvQb4-62" value="&lt;b&gt;PacSim&lt;/b&gt;" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;recursiveResize=0;container=1;collapsible=0;width=160;" vertex="1" parent="1">
+          <mxGeometry x="-330" y="62" width="200" height="668" as="geometry" />
+        </mxCell>
+        <mxCell id="Et2ODIee6By0h7vDvQb4-76" value="" style="endArrow=none;dashed=1;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="Et2ODIee6By0h7vDvQb4-59">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-240" y="720" as="sourcePoint" />
+            <mxPoint x="-240.5" y="923.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Et2ODIee6By0h7vDvQb4-163" value="&lt;b&gt;&lt;font color=&quot;#00cc00&quot;&gt;Green&lt;/font&gt;&lt;/b&gt; -&amp;gt; From Environment&lt;div&gt;&lt;font color=&quot;#9999ff&quot;&gt;&lt;b&gt;Purple&lt;/b&gt;&lt;/font&gt; -&amp;gt; Simulated&lt;br&gt;&lt;div&gt;&lt;b&gt;&lt;font color=&quot;#ea6b66&quot;&gt;Red&lt;/font&gt;&lt;/b&gt; -&amp;gt; To Environment&lt;/div&gt;&lt;div&gt;&lt;font color=&quot;#3399ff&quot;&gt;&lt;b&gt;Blue&lt;/b&gt;&lt;/font&gt; -&amp;gt; Internal AS&lt;/div&gt;&lt;/div&gt;" style="shape=note2;boundedLbl=1;whiteSpace=wrap;html=1;size=25;verticalAlign=top;align=left;" vertex="1" parent="1">
+          <mxGeometry x="-2130" y="30" width="162" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="Et2ODIee6By0h7vDvQb4-164" value="LABEL" style="resizeWidth=1;part=1;strokeColor=none;fillColor=none;align=left;spacingLeft=5;fontStyle=1;fontSize=14;" vertex="1" parent="Et2ODIee6By0h7vDvQb4-163">
+          <mxGeometry width="160" height="25" relative="1" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>

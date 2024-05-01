@@ -27,6 +27,7 @@ set(TESTFILES
   test/main.cpp
   test/tests.cpp
   test/integration_tests.cpp
+  test/performance_test.cpp
 )
 
 set(IMPLEMENTATION_FILES
