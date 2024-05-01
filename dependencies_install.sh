@@ -26,6 +26,6 @@ sudo apt-get install libpcap-dev -y
 
 #ground truth generation
 sudo pip install pandas
-sudo apt-get install python3-matplotlib
+sudo apt-get install python3-matplotlib -y
 
 source /opt/ros/humble/setup.bash
