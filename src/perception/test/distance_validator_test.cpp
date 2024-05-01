@@ -1,10 +1,11 @@
 #include <gtest/gtest.h>
+
 #include <cone_evaluator/distance_predict.hpp>
 #include <utils/cluster.hpp>
 
 /**
  * @brief Test fixture for DistanceValidator class.
- * 
+ *
  */
 class DistanceValidatorTest : public ::testing::Test {
  protected:
@@ -18,7 +19,7 @@ class DistanceValidatorTest : public ::testing::Test {
     point_cloud->push_back(pcl::PointXYZI(1.0, 0.0, 0.0, 0.1));
     point_cloud->push_back(pcl::PointXYZI(1.0, 0.0, 0.0, 0.1));
   }
-  pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud; ///< Point Cloud object for testing.
+  pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud;  ///< Point Cloud object for testing.
 };
 
 /**
@@ -61,7 +62,7 @@ TEST_F(DistanceValidatorTest, TestDistance2) {
  * @brief Test case to validate a close cone (25 meter distance) Expected great confidence
  */
 TEST_F(DistanceValidatorTest, TestDistance25) {
-    point_cloud.reset(new pcl::PointCloud<pcl::PointXYZI>);
+  point_cloud.reset(new pcl::PointCloud<pcl::PointXYZI>);
 
   for (int i = 0; i < 4; i++) {
     point_cloud->push_back(pcl::PointXYZI(25.0, 0.0, 0.0, 0.1));
@@ -78,4 +79,3 @@ TEST_F(DistanceValidatorTest, TestDistance25) {
 
   ASSERT_GT(coneConfidence, 0.6);
 }
-
