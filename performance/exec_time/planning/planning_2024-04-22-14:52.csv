@@ -1,8 +1,0 @@
-Test Name,Number of Left Cones,Number of Right Cones,Number of Outliers,Outlier Removal Execution Time, Delaunay Triangulations Execution Time
-250points_2outliers,47,51,2,0.376316,0.119847
-250points_2outliers,127,139,2,4.87737,0.744183
-250points_2outliers,143,123,2,5.205,1.21673
-250points_2outliers,127,139,2,4.90071,0.707993
-250points_10outliers,127,139,10,4.85908,0.69876
-250points_25outliers,127,139,25,4.86387,0.694962
-250points_50outliers,127,139,50,4.89776,0.964086

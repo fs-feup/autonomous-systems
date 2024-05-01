@@ -79,12 +79,11 @@ float round_n(float num, int decimal_places) {
  * Runs 100 times to get average execution time.
  *
  * @param filename path to the file that contains the data for testing
- * @param testname name of the test
  * @return path after Delaunay Triangulations
  */
-std::vector<PathPoint> processTriangulations(std::string filename, std::string testname) {
+std::vector<PathPoint> processTriangulations(std::string filename) {
   Track *track = new Track();
-  track->fillTrack(filename);  // fill track with file data
+  track->fillTrack(filename);
 
   LocalPathPlanner *pathplanner = new LocalPathPlanner();
   std::vector<PathPoint> path;
@@ -121,7 +120,6 @@ std::vector<PathPoint> processTriangulations(std::string filename, std::string t
  * Runs 100 times and calculates average duration.
  *
  * @param filename path to the file that contains the data for testing
- * @param testname name of the test
  * @param num_outliers Number of outliers
  */
 void outlierCalculations(std::string filename, int num_outliers = 0) {
@@ -133,7 +131,7 @@ void outlierCalculations(std::string filename, int num_outliers = 0) {
   double total_time = 0;
 
   std::ofstream measuresPath = openWriteFile("performance/exec_time/planning/planning_" + getCurrentDateTimeAsString() + ".csv", 
-      "Number of Left Cones,Number of Right Cones,Number of Outliers,Execution Time");
+      "Number of Left Cones,Number of Right Cones,Number of Outliers,Outliers Removal Execution Time,Triangulations Execution Time");
 
   for (int i = 0; i < no_iters; i++) {
     track->reset();
@@ -145,7 +143,7 @@ void outlierCalculations(std::string filename, int num_outliers = 0) {
     total_time += elapsed_time_iter_ms;
   }
 
-  measuresPath << track->getLeftConesSize() << "," << track->getRightConesSize() << "," << num_outliers << "," << total_time / no_iters << "\n";
+  measuresPath << track->getLeftConesSize() << "," << track->getRightConesSize() << "," << num_outliers << "," << total_time / no_iters << ",";
   measuresPath.close();
 
   RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Outliers removed in average %f ms.",
@@ -680,7 +678,9 @@ TEST(LocalPathPlanner, map_test2) {
  * Example:
  *   If filename is "map_100_5.txt", size will be set to 100 and n_outliers to 5.
  */
-void extractInfo(const std::string& filename, int& size, int& n_outliers) {
+void extractInfo(const std::string_view& filenameView, int& size, int& n_outliers) {
+
+    std::string filename(filenameView);
     size_t pos1 = filename.find("_");
     size_t pos2 = filename.find("_", pos1 + 1);
     size_t pos3 = filename.find(".", pos2 + 1);
@@ -697,7 +697,8 @@ void extractInfo(const std::string& filename, int& size, int& n_outliers) {
  */
 TEST(LocalPathPlanner, delauney) {
     std::string directory_path = "../../src/planning/test/maps/";
-    int size, n_outliers;
+    int size;
+    int n_outliers;
     for (const auto& entry : fs::directory_iterator(directory_path)) {
         if (fs::is_regular_file(entry.path())) {
             std::string filename = entry.path().filename().string();
@@ -705,6 +706,7 @@ TEST(LocalPathPlanner, delauney) {
                 extractInfo(filename, size, n_outliers);
                 std::string filePath = "src/planning/test/maps/" + filename;
                 outlierCalculations(filePath, n_outliers);
+                std::vector<PathPoint> path = processTriangulations(filePath);
             }
         }
     }
