@@ -7,6 +7,7 @@ import numpy as np
 from std_msgs.msg import Float32
 import datetime
 from math import sqrt
+from scipy.sparse.csgraph import minimum_spanning_tree
 
 class Evaluator(Node):
     """!
@@ -80,30 +81,30 @@ class Evaluator(Node):
 
 
     @staticmethod
-    def get_average_difference(perception_output : list, perception_ground_truth : list):
+    def get_average_difference(output : list, expected : list):
         """!
-        Computes the average difference between perception output and ground truth cones.
+        Computes the average difference between an output output and the expected values.
         
         Args:
-            perception_output (list): List of perceived cones.
-            perception_ground_truth (list): List of ground truth cones.
+            output (list): Empirical Output.
+            expected (list): Expected output.
 
         Returns:
-            float: Average difference between perception output and ground truth cones.
+            float: Average difference between empirical and expected outputs.
         """
         sum_error : float = 0
         count : int = 0
 
-        if (len(perception_output) == 0):
+        if (len(output) == 0):
             return float('inf')
         
-        if (len(perception_ground_truth) == 0):
+        if (len(expected) == 0):
             raise ValueError("No ground truth cones provided for computing average difference.")
 
-        for perception_cone in perception_output:
-            min_distance : float = np.linalg.norm(perception_cone - perception_ground_truth[0])
+        for perception_cone in output:
+            min_distance : float = np.linalg.norm(perception_cone - expected[0])
 
-            for ground_truth_cone in perception_ground_truth:
+            for ground_truth_cone in expected:
                 distance : float = np.linalg.norm(perception_cone - ground_truth_cone)
                 if distance < min_distance:
                     min_distance = distance
@@ -115,34 +116,34 @@ class Evaluator(Node):
         return average
     
     @staticmethod
-    def get_mean_squared_error(perception_output: list, perception_ground_truth: list):
+    def get_mean_squared_error(output: list, expected: list):
         """!
-        Computes the mean squared error between perception output and ground truth cones.
+        Computes the mean squared error between an output output and the expected values.
 
         Args:
-            perception_output (list): List of perceived cones.
-            perception_ground_truth (list): List of ground truth cones.
+            output (list): Empirical Output.
+            expected (list): Expected output.
 
         Returns:
-            float: Mean squared error between perception output and ground truth cones.
+            float: Mean squared error.
         """
-        if not perception_output:
+        if not output:
             raise ValueError("No perception output provided.")
-        if not perception_ground_truth:
+        if not expected:
             raise ValueError("No ground truth cones provided.")
 
         mse_sum = 0
-        for perception_cone in perception_output:
-            min_distance_sq = np.linalg.norm(perception_cone - perception_ground_truth[0])**2
+        for perception_cone in output:
+            min_distance_sq = np.linalg.norm(perception_cone - expected[0])**2
 
-            for ground_truth_cone in perception_ground_truth:
+            for ground_truth_cone in expected:
                 distance_sq = np.linalg.norm(perception_cone - ground_truth_cone)**2
                 if distance_sq < min_distance_sq:
                     min_distance_sq = distance_sq
 
             mse_sum += min_distance_sq
 
-        mse = mse_sum / len(perception_output)
+        mse = mse_sum / len(output)
         return mse
     
 
@@ -178,39 +179,20 @@ class Evaluator(Node):
         Returns:
             float: Average distance between pairs of perceived cones.
         """
-        size : int = len(perception_output)
-
-        visited = set()
-
-        total_distance : int = 0
-        num_pairs : int = 0
 
         adjacency_matrix : list = Evaluator.build_adjacency_matrix(perception_output)
 
-        mst = {0}
-        visited.add(0)
+        mst = minimum_spanning_tree(adjacency_matrix)
+        mst_sum = mst.sum()
 
-        while len(mst) < size:
-            min_edge = None
-            min_distance = float('inf')
-
-            for node in mst:
-                for neighbor in range(size):
-                    if neighbor not in visited and adjacency_matrix[node][neighbor] < min_distance:
-                        min_distance = adjacency_matrix[node][neighbor]
-                        min_edge = (node, neighbor)
-
-            if min_edge is not None:
-                mst.add(min_edge[1])
-                visited.add(min_edge[1])
-                total_distance += min_distance
-                num_pairs += 1
+        num_pairs = np.count_nonzero(mst.toarray().astype(float))
 
         if num_pairs == 0:
             return 0
         else:
-            average_distance = total_distance / num_pairs
+            average_distance = mst_sum / num_pairs
             return average_distance
+
 
 
 def main(args=None):
