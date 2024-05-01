@@ -56,12 +56,6 @@ This project depends on submodules to function. Most, if not all of these submod
     ```sh
     git submodule update --init --recursive ./ext/interfaces
     ```
-- For each simulator:
-    ```sh
-    git submodule update --init --recursive ./ext/pacsim # Pacsim
-    git submodule update --init --recursive ./ext/amz-fssim # AMZ Racing SIM
-    git submodule update --init --recursive ./ext/eufs-sim # Edinburgh FS SIM 
-    ```
 - For in vehicle testing:
     ```sh
     git submodule update --init --recursive ./ext/rslidar_sdk # LiDAR
@@ -82,22 +76,6 @@ The simulator requires Ubuntu to work (or WSL). The tutorial regarding its setup
 #### PacSim
 
 This simulator is very light and can run on anything, inside or outside a docker container. Follow the [tutorial](./environment_setup/pacsim_setup.md), or repher to its [fork repo](https://github.com/fs-feup/pacsim) right away.
-
-### Submodules
-
-This project depends on submodules to function. Most, if not all of these submodules are other repositories of this organization. 
-- For all environments:
-    ```sh
-    git submodule update --init --recursive ./ext/interfaces
-    ```
-- For in vehicle testing:
-    ```sh
-    git submodule update --init --recursive ./ext/rslidar_sdk # LiDAR
-    git submodule update --init --recursive ./ext/rslidar_msg # LiDAR
-    git submodule update --init ./ext/as-integration # ROS_CAN, NOT RECURSIVE
-    ```
-
-Check the [git advanced tutorial](./git_advanced.md) for more information.
 
 
 ### Static Analysis
