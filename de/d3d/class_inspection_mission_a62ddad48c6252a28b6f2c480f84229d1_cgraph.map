@@ -1,17 +1,19 @@
 <map id="InspectionMission::InspectionMission" name="InspectionMission::InspectionMission">
-<area shape="rect" id="Node000001" title="Contruct a new Inspection Mission with constants defined in file." alt="" coords="5,169,138,210"/>
-<area shape="rect" id="Node000002" href="$de/d3d/class_inspection_mission.html#a2f3483be2be10ac2e7fc50632898a025" title="Function to publish control command while time is less than the defined time limit." alt="" coords="186,136,318,177"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="137,175,170,169,171,174,138,180"/>
-<area shape="rect" id="Node000008" href="$de/d3d/class_inspection_mission.html#aa5517d42552554c7204c2130081ee1d5" title="recieves GoSignal and stores the mission that should be ran" alt="" coords="186,201,318,242"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="138,199,171,205,170,210,138,204"/>
-<area shape="rect" id="Node000003" href="$d4/d89/class_inspection_functions.html#a793594cd002fd71ae3501ad057d06128" title="calculate the steering angle according to time" alt="" coords="374,5,512,46"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="271,134,313,96,365,57,374,51,377,56,367,61,316,100,275,138"/>
-<area shape="rect" id="Node000004" href="$d4/d89/class_inspection_functions.html#a1000128622db49d47cc3f483dbcc9190" title="calculate torque output according to velocity" alt="" coords="374,71,512,111"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="313,133,367,114,368,119,314,138"/>
-<area shape="rect" id="Node000005" href="$de/d3d/class_inspection_mission.html#a8188ea49a318da8d5edf87e2d897f513" title="Publishes the control command." alt="" coords="377,136,509,177"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="319,154,361,154,361,159,319,159"/>
-<area shape="rect" id="Node000006" href="$d4/d89/class_inspection_functions.html#a06acb01e381faf5b8a2ab45c1b60abe7" title="used when in oscilation mode to redefine the ideal velocity" alt="" coords="366,201,520,242"/>
-<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="314,175,368,193,367,198,313,180"/>
-<area shape="rect" id="Node000007" href="$d4/d89/class_inspection_functions.html#a6ca9c7bc559802b2fbd3beffe2197331" title="convert rpm [rotations/minute] to velocity [m/s]" alt="" coords="374,267,512,307"/>
-<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="302,175,320,188,335,205,344,221,353,236,368,252,374,256,371,260,364,256,348,239,339,223,331,208,316,192,299,179"/>
+<area shape="rect" id="Node000001" title="Contruct a new Inspection Mission with constants defined in file." alt="" coords="5,203,138,243"/>
+<area shape="rect" id="Node000002" href="$de/d3d/class_inspection_mission.html#a2f3483be2be10ac2e7fc50632898a025" title="Function to publish control command while time is less than the defined time limit." alt="" coords="186,169,318,210"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="137,208,170,202,171,207,138,213"/>
+<area shape="rect" id="Node000009" href="$de/d3d/class_inspection_mission.html#aa5517d42552554c7204c2130081ee1d5" title="recieves GoSignal and stores the mission that should be ran" alt="" coords="186,235,318,275"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="138,232,171,238,170,243,138,237"/>
+<area shape="rect" id="Node000003" href="$d4/d89/class_inspection_functions.html#a793594cd002fd71ae3501ad057d06128" title="calculate the steering angle according to time" alt="" coords="389,5,527,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="264,168,305,113,333,83,364,57,374,51,377,56,368,61,336,87,309,116,268,171"/>
+<area shape="rect" id="Node000004" href="$d4/d89/class_inspection_functions.html#a1000128622db49d47cc3f483dbcc9190" title="calculate torque output according to velocity" alt="" coords="389,71,527,111"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="285,166,365,122,380,115,382,120,367,127,287,171"/>
+<area shape="rect" id="Node000005" href="$de/d3d/class_inspection_mission.html#a8188ea49a318da8d5edf87e2d897f513" title="Publishes the control command." alt="" coords="392,136,524,177"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="318,176,376,167,377,172,319,182"/>
+<area shape="rect" id="Node000006" href="$d4/d89/class_inspection_functions.html#a06acb01e381faf5b8a2ab45c1b60abe7" title="used when in oscilation mode to redefine the ideal velocity" alt="" coords="381,201,535,242"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="319,197,366,205,365,210,318,203"/>
+<area shape="rect" id="Node000007" href="$d4/d89/class_inspection_functions.html#a6ca9c7bc559802b2fbd3beffe2197331" title="convert rpm [rotations/minute] to velocity [m/s]" alt="" coords="389,267,527,307"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="297,208,319,221,343,237,367,251,382,258,379,263,365,256,340,241,317,225,294,213"/>
+<area shape="rect" id="Node000008" href="$d4/d89/class_inspection_functions.html#a487bdcfa6316f5ef39126be29af428b3" title="convert the throttle to a range between &#45;1 and 1" alt="" coords="366,332,550,373"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="304,208,320,221,337,247,344,271,351,294,368,317,373,321,370,325,364,321,346,297,339,273,332,249,316,225,301,213"/>
 </map>

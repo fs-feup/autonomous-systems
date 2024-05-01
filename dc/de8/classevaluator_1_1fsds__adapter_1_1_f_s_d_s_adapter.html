@@ -173,7 +173,7 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the loc_map node and the other nodes in the system accor...">Adapter</a> class for adapting/synchronizing computaions' data with ground truth. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00011">11</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00012">12</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aed8d5f00d8dd2bd25d1a37982d6553ec" name="aed8d5f00d8dd2bd25d1a37982d6553ec"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aed8d5f00d8dd2bd25d1a37982d6553ec">&#9670;&#160;</a></span>__init__()</h2>
@@ -212,7 +212,7 @@ Public Attributes</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="../../d7/dff/classevaluator_1_1adapter_1_1_adapter.html#a47df9e1b32ea5e550c41cdd7b931a838">evaluator.adapter.Adapter</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00016">16</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00017">17</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -265,7 +265,7 @@ Here is the caller graph for this function:</div>
 <p>Args: odometry (Odometry): Odometry data.</p>
 <p>Returns: list: List of ground truth cone positions (relative positions to the car). </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00078">78</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00086">86</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -309,7 +309,7 @@ Here is the caller graph for this function:</div>
 <p>Args: perception (ConeArray): <a class="el" href="../../d8/da1/class_cone.html">Cone</a> array perception data.</p>
 <p>Returns: list: List of perceived cones. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00061">61</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00069">69</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -351,7 +351,7 @@ Here is the caller graph for this function:</div>
 <p>Args: line (str): A line from the track CSV file.</p>
 <p>Returns: numpy.ndarray: Array containing cone position data. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00116">116</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00124">124</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -380,7 +380,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">ConeArray &#160;</td>
+          <td class="paramtype">ConeArray&#160;</td>
           <td class="paramname"><em>perception</em>, </td>
         </tr>
         <tr>
@@ -392,7 +392,8 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Odometry&#160;</td>
+          <td class="paramtype">Odometry
+    &#160;</td>
           <td class="paramname"><em>odometry</em>&#160;</td>
         </tr>
         <tr>
@@ -406,7 +407,7 @@ Here is the caller graph for this function:</div>
 <p>Callback function to process synchronized messages and compute perception metrics. </p>
 <p>Args: perception (ConeArray): <a class="el" href="../../d8/da1/class_cone.html">Cone</a> array perception data. point_cloud (PointCloud2): Point cloud data. odometry (Odometry): Odometry data. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00047">47</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00053">53</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -450,7 +451,7 @@ Here is the call graph for this function:</div>
 <p>Args: quaternion (Quaternion): Quaternion representing rotation.</p>
 <p>Returns: numpy.ndarray: Rotation matrix. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00132">132</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00140">140</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
 
 </div>
 </div>
@@ -483,7 +484,7 @@ Here is the call graph for this function:</div>
 <p>Reads track data from a CSV file. </p>
 <p>Args: filename (str): Path to the CSV file containing track data. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00104">104</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00112">112</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -510,7 +511,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00028">28</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00029">29</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
 
 </div>
 </div>
@@ -526,7 +527,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00039">39</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00045">45</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
 
 </div>
 </div>
@@ -542,7 +543,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00042">42</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00048">48</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
 
 </div>
 </div>
@@ -558,7 +559,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00034">34</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00035">35</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
 
 </div>
 </div>

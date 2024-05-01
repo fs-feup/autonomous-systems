@@ -101,33 +101,34 @@ $(document).ready(function(){initNavTree('d9/dc1/perception_8cpp_source.html','.
 <div class="contents">
 <a href="../../d9/dc1/perception_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;pcl/conversions.h&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &lt;pcl/features/normal_3d.h&gt;</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;cstdio&gt;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="../../d3/d3a/distance__predict_8hpp.html">cone_evaluator/distance_predict.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="../../de/da5/perception__node_8hpp.html">perception/perception_node.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;cstdio&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="foldopen" id="foldopen00008" data-start="{" data-end="}">
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="../../d9/dc1/perception_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">    8</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="../../d9/dc1/perception_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span>** argv) {</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>  rclcpp::init(argc, argv);</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>  <span class="keyword">auto</span> ground_removal = <span class="keyword">new</span> <a class="code hl_class" href="../../d6/dc3/class_r_a_n_s_a_c.html">RANSAC</a>(0.1, 30);</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>  <span class="keyword">auto</span> clustering = <span class="keyword">new</span> <a class="code hl_class" href="../../df/d6a/class_d_b_s_c_a_n.html">DBSCAN</a>(3, 0.1);</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>  <span class="keyword">auto</span> coneDifferentiator = <span class="keyword">new</span> <a class="code hl_class" href="../../d7/d15/class_least_squares_differentiation.html">LeastSquaresDifferentiation</a>();</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>  std::vector&lt;ConeValidator*&gt; coneValidator = {<span class="keyword">new</span> <a class="code hl_class" href="../../dd/def/class_cylinder_validator.html">CylinderValidator</a>(0.228, 0.325),</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>                                               <span class="keyword">new</span> <a class="code hl_class" href="../../d9/d1f/class_height_validator.html">HeightValidator</a>(0.325)};</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>  <span class="keyword">auto</span> distancePredict = <span class="keyword">new</span> <a class="code hl_class" href="../../d0/d47/class_distance_predict.html">DistancePredict</a>(0.33, 0.2);</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="../../de/da5/perception__node_8hpp.html">perception/perception_node.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="foldopen" id="foldopen00010" data-start="{" data-end="}">
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="../../d9/dc1/perception_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">   10</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="../../d9/dc1/perception_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span>** argv) {</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>  rclcpp::init(argc, argv);</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>  <span class="keyword">auto</span> ground_removal = <span class="keyword">new</span> <a class="code hl_class" href="../../d6/dc3/class_r_a_n_s_a_c.html">RANSAC</a>(0.1, 30);</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>  <span class="keyword">auto</span> clustering = <span class="keyword">new</span> <a class="code hl_class" href="../../df/d6a/class_d_b_s_c_a_n.html">DBSCAN</a>(3, 0.1);</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>  <span class="keyword">auto</span> coneDifferentiator = <span class="keyword">new</span> <a class="code hl_class" href="../../d7/d15/class_least_squares_differentiation.html">LeastSquaresDifferentiation</a>();</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>  std::vector&lt;ConeValidator*&gt; coneValidator = {<span class="keyword">new</span> <a class="code hl_class" href="../../dd/def/class_cylinder_validator.html">CylinderValidator</a>(0.228, 0.325),</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>                                               <span class="keyword">new</span> <a class="code hl_class" href="../../d9/d1f/class_height_validator.html">HeightValidator</a>(0.325)};</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>  <span class="keyword">auto</span> node =</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>      std::make_shared&lt;Perception&gt;(ground_removal, clustering, coneDifferentiator,</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>                                   coneValidator, distancePredict);</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>  RCLCPP_INFO(node-&gt;get_logger(), <span class="stringliteral">&quot;Perception is alive!&quot;</span>);</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>  rclcpp::spin(node);</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>  rclcpp::shutdown();</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>}</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>  <span class="keyword">auto</span> distancePredict = <span class="keyword">new</span> <a class="code hl_class" href="../../d0/d47/class_distance_predict.html">DistancePredict</a>(0.33, 0.2);</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>  <span class="keyword">auto</span> node = std::make_shared&lt;Perception&gt;(ground_removal, clustering, coneDifferentiator,</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>                                           coneValidator, distancePredict);</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>  RCLCPP_INFO(node-&gt;get_logger(), <span class="stringliteral">&quot;Perception is alive!&quot;</span>);</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>  rclcpp::spin(node);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  rclcpp::shutdown();</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>  <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>}</div>
 </div>
 <div class="ttc" id="aclass_cylinder_validator_html"><div class="ttname"><a href="../../dd/def/class_cylinder_validator.html">CylinderValidator</a></div><div class="ttdoc">Validates clusters using a cylinder approximation.</div><div class="ttdef"><b>Definition</b> <a href="../../db/dff/cylinder__validator_8hpp_source.html#l00015">cylinder_validator.hpp:15</a></div></div>
 <div class="ttc" id="aclass_d_b_s_c_a_n_html"><div class="ttname"><a href="../../df/d6a/class_d_b_s_c_a_n.html">DBSCAN</a></div><div class="ttdoc">DBSCAN (Density-Based Spatial Clustering of Applications with Noise) clustering algorithm implementat...</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d8d/dbscan_8hpp_source.html#l00014">dbscan.hpp:14</a></div></div>
@@ -136,7 +137,7 @@ $(document).ready(function(){initNavTree('d9/dc1/perception_8cpp_source.html','.
 <div class="ttc" id="aclass_least_squares_differentiation_html"><div class="ttname"><a href="../../d7/d15/class_least_squares_differentiation.html">LeastSquaresDifferentiation</a></div><div class="ttdoc">Class for Cone Differentiation using the Least Squares Method.</div><div class="ttdef"><b>Definition</b> <a href="../../d1/d27/least__squares__differentiation_8hpp_source.html#l00009">least_squares_differentiation.hpp:9</a></div></div>
 <div class="ttc" id="aclass_r_a_n_s_a_c_html"><div class="ttname"><a href="../../d6/dc3/class_r_a_n_s_a_c.html">RANSAC</a></div><div class="ttdoc">Ground removal using the RANSAC algorithm.</div><div class="ttdef"><b>Definition</b> <a href="../../d9/dad/ransac_8hpp_source.html#l00015">ransac.hpp:15</a></div></div>
 <div class="ttc" id="adistance__predict_8hpp_html"><div class="ttname"><a href="../../d3/d3a/distance__predict_8hpp.html">distance_predict.hpp</a></div></div>
-<div class="ttc" id="aperception_8cpp_html_a3c04138a5bfe5d72780bb7e82a18e627"><div class="ttname"><a href="../../d9/dc1/perception_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a></div><div class="ttdeci">int main(int argc, char **argv)</div><div class="ttdef"><b>Definition</b> <a href="../../d9/dc1/perception_8cpp_source.html#l00008">perception.cpp:8</a></div></div>
+<div class="ttc" id="aperception_8cpp_html_a3c04138a5bfe5d72780bb7e82a18e627"><div class="ttname"><a href="../../d9/dc1/perception_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a></div><div class="ttdeci">int main(int argc, char **argv)</div><div class="ttdef"><b>Definition</b> <a href="../../d9/dc1/perception_8cpp_source.html#l00010">perception.cpp:10</a></div></div>
 <div class="ttc" id="aperception__node_8hpp_html"><div class="ttname"><a href="../../de/da5/perception__node_8hpp.html">perception_node.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

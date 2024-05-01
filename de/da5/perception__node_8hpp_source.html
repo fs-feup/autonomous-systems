@@ -102,61 +102,58 @@ $(document).ready(function(){initNavTree('de/da5/perception__node_8hpp_source.ht
 <a href="../../de/da5/perception__node_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef SRC_PERCEPTION_PERCEPTION_INCLUDE_PERCEPTION_PERCEPTION_NODE_HPP_</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define SRC_PERCEPTION_PERCEPTION_INCLUDE_PERCEPTION_PERCEPTION_NODE_HPP_</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="../../db/dff/cylinder__validator_8hpp.html">cone_validator/cylinder_validator.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="../../d7/d82/plane_8hpp.html">utils/plane.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="../../dd/d8d/dbscan_8hpp.html">clustering/dbscan.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="../../d1/d27/least__squares__differentiation_8hpp.html">cone_differentiation/least_squares_differentiation.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="../../d6/d64/height__validator_8hpp.html">cone_validator/height_validator.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;custom_interfaces/msg/cone_array.hpp&quot;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="../../d9/dad/ransac_8hpp.html">ground_removal/ransac.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;rclcpp/rclcpp.hpp&quot;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;sensor_msgs/msg/point_cloud2.hpp&quot;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;<a class="code" href="../../d7/d82/plane_8hpp.html">utils/plane.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;<a class="code" href="../../de/d4e/cone__evaluator_8hpp.html">cone_evaluator/cone_evaluator.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">class </span><a class="code hl_class" href="../../d3/d7f/class_adapter.html">Adapter</a>;</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="foldopen" id="foldopen00029" data-start="{" data-end="};">
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="../../de/d07/class_perception.html">   29</a></span><span class="keyword">class </span><a class="code hl_class" href="../../de/d07/class_perception.html">Perception</a> : <span class="keyword">public</span> rclcpp::Node {</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>  <a class="code hl_class" href="../../dc/d84/class_ground_removal.html">GroundRemoval</a>* groundRemoval;  </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>  <a class="code hl_class" href="../../d3/d7f/class_adapter.html">Adapter</a>* adapter;              </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>  <a class="code hl_class" href="../../d9/d10/class_clustering.html">Clustering</a>* clustering;</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>  std::string mode = <span class="stringliteral">&quot;fsds&quot;</span>;  <span class="comment">// Temporary, change as desired. TODO(andre): Make not hardcoded</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>  <a class="code hl_class" href="../../d7/d4e/class_cone_differentiation.html">ConeDifferentiation</a>* coneDifferentiator;  </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>  <a class="code hl_class" href="../../d2/d8d/class_plane.html">Plane</a> groundPlane;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>  std::vector&lt;ConeValidator*&gt; coneValidators;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>  <a class="code hl_class" href="../../df/d8f/class_cone_evaluator.html">ConeEvaluator</a>* coneEvaluator;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>  rclcpp::Subscription&lt;sensor_msgs::msg::PointCloud2&gt;::SharedPtr</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>      _point_cloud_subscription;  </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>  rclcpp::Publisher&lt;custom_interfaces::msg::ConeArray&gt;::SharedPtr</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>      _cones_publisher;  </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>  <span class="keywordtype">void</span> publishCones(std::vector&lt;Cluster&gt;* cones);</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>  <a class="code hl_class" href="../../de/d07/class_perception.html">Perception</a>(<a class="code hl_class" href="../../dc/d84/class_ground_removal.html">GroundRemoval</a>* groundRemoval, <a class="code hl_class" href="../../d9/d10/class_clustering.html">Clustering</a>* clustering,</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>             <a class="code hl_class" href="../../d7/d4e/class_cone_differentiation.html">ConeDifferentiation</a>* coneDifferentiator,</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>             <span class="keyword">const</span> std::vector&lt;ConeValidator*&gt;&amp; coneValidator,</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>             <a class="code hl_class" href="../../df/d8f/class_cone_evaluator.html">ConeEvaluator</a>* coneEvaluator);</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>  <span class="keywordtype">void</span> <a class="code hl_function" href="../../de/d07/class_perception.html#afaf42fed2ffa3ed23d5c636bf3fdadd7">pointCloudCallback</a>(<span class="keyword">const</span> sensor_msgs::msg::PointCloud2::SharedPtr msg);</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>};</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="../../de/d4e/cone__evaluator_8hpp.html">cone_evaluator/cone_evaluator.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="../../db/dff/cylinder__validator_8hpp.html">cone_validator/cylinder_validator.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="../../d7/d82/plane_8hpp.html">utils/plane.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="../../dd/d8d/dbscan_8hpp.html">clustering/dbscan.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;<a class="code" href="../../d1/d27/least__squares__differentiation_8hpp.html">cone_differentiation/least_squares_differentiation.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="../../d6/d64/height__validator_8hpp.html">cone_validator/height_validator.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;custom_interfaces/msg/cone_array.hpp&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="../../d9/dad/ransac_8hpp.html">ground_removal/ransac.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;rclcpp/rclcpp.hpp&quot;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;sensor_msgs/msg/point_cloud2.hpp&quot;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">class </span><a class="code hl_class" href="../../d3/d7f/class_adapter.html">Adapter</a>;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="foldopen" id="foldopen00028" data-start="{" data-end="};">
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="../../de/d07/class_perception.html">   28</a></span><span class="keyword">class </span><a class="code hl_class" href="../../de/d07/class_perception.html">Perception</a> : <span class="keyword">public</span> rclcpp::Node {</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>  <a class="code hl_class" href="../../dc/d84/class_ground_removal.html">GroundRemoval</a>* groundRemoval;  </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>  <a class="code hl_class" href="../../d3/d7f/class_adapter.html">Adapter</a>* adapter;              </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>  <a class="code hl_class" href="../../d9/d10/class_clustering.html">Clustering</a>* clustering;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>  std::string mode = <span class="stringliteral">&quot;fsds&quot;</span>;  <span class="comment">// Temporary, change as desired. TODO(andre): Make not hardcoded</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>  <a class="code hl_class" href="../../d7/d4e/class_cone_differentiation.html">ConeDifferentiation</a>* coneDifferentiator;  </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>  <a class="code hl_class" href="../../d2/d8d/class_plane.html">Plane</a> groundPlane;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>  std::vector&lt;ConeValidator*&gt; coneValidators;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>  <a class="code hl_class" href="../../df/d8f/class_cone_evaluator.html">ConeEvaluator</a>* coneEvaluator;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>  rclcpp::Subscription&lt;sensor_msgs::msg::PointCloud2&gt;::SharedPtr</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>      _point_cloud_subscription;  </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>  rclcpp::Publisher&lt;custom_interfaces::msg::ConeArray&gt;::SharedPtr</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>      _cones_publisher;  </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  <span class="keywordtype">void</span> publishCones(std::vector&lt;Cluster&gt;* cones);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>  <a class="code hl_class" href="../../de/d07/class_perception.html">Perception</a>(<a class="code hl_class" href="../../dc/d84/class_ground_removal.html">GroundRemoval</a>* groundRemoval, <a class="code hl_class" href="../../d9/d10/class_clustering.html">Clustering</a>* clustering,</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>             <a class="code hl_class" href="../../d7/d4e/class_cone_differentiation.html">ConeDifferentiation</a>* coneDifferentiator,</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>             <span class="keyword">const</span> std::vector&lt;ConeValidator*&gt;&amp; coneValidator, <a class="code hl_class" href="../../df/d8f/class_cone_evaluator.html">ConeEvaluator</a>* coneEvaluator);</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>  <span class="keywordtype">void</span> <a class="code hl_function" href="../../de/d07/class_perception.html#afaf42fed2ffa3ed23d5c636bf3fdadd7">pointCloudCallback</a>(<span class="keyword">const</span> sensor_msgs::msg::PointCloud2::SharedPtr msg);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>};</div>
 </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclass_adapter_html"><div class="ttname"><a href="../../d3/d7f/class_adapter.html">Adapter</a></div><div class="ttdoc">Class that handles the communication between the loc_map node and the other nodes in the system accor...</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d32/loc__map_2include_2adapter_2adapter_8hpp_source.html#l00023">adapter.hpp:23</a></div></div>
 <div class="ttc" id="aclass_clustering_html"><div class="ttname"><a href="../../d9/d10/class_clustering.html">Clustering</a></div><div class="ttdoc">Abstract base class for clustering point clouds.</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1f/clustering_8hpp_source.html#l00016">clustering.hpp:16</a></div></div>
 <div class="ttc" id="aclass_cone_differentiation_html"><div class="ttname"><a href="../../d7/d4e/class_cone_differentiation.html">ConeDifferentiation</a></div><div class="ttdoc">Abstract class for cone differentiation based on cone reflectivity patterns.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/de7/cone__differentiation_8hpp_source.html#l00016">cone_differentiation.hpp:16</a></div></div>
 <div class="ttc" id="aclass_cone_evaluator_html"><div class="ttname"><a href="../../df/d8f/class_cone_evaluator.html">ConeEvaluator</a></div><div class="ttdoc">Abstract class that represents an heurisic that evaluates the cluster as a cone.</div><div class="ttdef"><b>Definition</b> <a href="../../de/d4e/cone__evaluator_8hpp_source.html#l00012">cone_evaluator.hpp:12</a></div></div>
 <div class="ttc" id="aclass_ground_removal_html"><div class="ttname"><a href="../../dc/d84/class_ground_removal.html">GroundRemoval</a></div><div class="ttdoc">Abstract class for ground removal from a point cloud.</div><div class="ttdef"><b>Definition</b> <a href="../../d2/d96/ground__removal_8hpp_source.html#l00014">ground_removal.hpp:14</a></div></div>
-<div class="ttc" id="aclass_perception_html"><div class="ttname"><a href="../../de/d07/class_perception.html">Perception</a></div><div class="ttdoc">Node for perception tasks, such as ground removal and cone detection.</div><div class="ttdef"><b>Definition</b> <a href="../../de/da5/perception__node_8hpp_source.html#l00029">perception_node.hpp:29</a></div></div>
-<div class="ttc" id="aclass_perception_html_afaf42fed2ffa3ed23d5c636bf3fdadd7"><div class="ttname"><a href="../../de/d07/class_perception.html#afaf42fed2ffa3ed23d5c636bf3fdadd7">Perception::pointCloudCallback</a></div><div class="ttdeci">void pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg)</div><div class="ttdoc">Callback function for the PointCloud2 subscription.</div><div class="ttdef"><b>Definition</b> <a href="../../dc/dfb/perception__node_8cpp_source.html#l00035">perception_node.cpp:35</a></div></div>
+<div class="ttc" id="aclass_perception_html"><div class="ttname"><a href="../../de/d07/class_perception.html">Perception</a></div><div class="ttdoc">Node for perception tasks, such as ground removal and cone detection.</div><div class="ttdef"><b>Definition</b> <a href="../../de/da5/perception__node_8hpp_source.html#l00028">perception_node.hpp:28</a></div></div>
+<div class="ttc" id="aclass_perception_html_afaf42fed2ffa3ed23d5c636bf3fdadd7"><div class="ttname"><a href="../../de/d07/class_perception.html#afaf42fed2ffa3ed23d5c636bf3fdadd7">Perception::pointCloudCallback</a></div><div class="ttdeci">void pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg)</div><div class="ttdoc">Callback function for the PointCloud2 subscription.</div><div class="ttdef"><b>Definition</b> <a href="../../dc/dfb/perception__node_8cpp_source.html#l00034">perception_node.cpp:34</a></div></div>
 <div class="ttc" id="aclass_plane_html"><div class="ttname"><a href="../../d2/d8d/class_plane.html">Plane</a></div><div class="ttdoc">The Plane class represents a 3D plane defined by its equation ax + by + cz + d = 0.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d82/plane_8hpp_source.html#l00014">plane.hpp:14</a></div></div>
 <div class="ttc" id="acone__evaluator_8hpp_html"><div class="ttname"><a href="../../de/d4e/cone__evaluator_8hpp.html">cone_evaluator.hpp</a></div></div>
 <div class="ttc" id="acylinder__validator_8hpp_html"><div class="ttname"><a href="../../db/dff/cylinder__validator_8hpp.html">cylinder_validator.hpp</a></div></div>

@@ -1,13 +1,15 @@
 <map id="InspectionMission::inspection_script" name="InspectionMission::inspection_script">
-<area shape="rect" id="Node000001" title="Function to publish control command while time is less than the defined time limit." alt="" coords="5,136,138,177"/>
-<area shape="rect" id="Node000002" href="$d4/d89/class_inspection_functions.html#a793594cd002fd71ae3501ad057d06128" title="calculate the steering angle according to time" alt="" coords="194,5,332,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="91,134,132,96,184,57,194,51,196,56,187,61,136,100,95,138"/>
-<area shape="rect" id="Node000003" href="$d4/d89/class_inspection_functions.html#a1000128622db49d47cc3f483dbcc9190" title="calculate torque output according to velocity" alt="" coords="194,71,332,111"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="132,133,186,114,188,119,134,138"/>
-<area shape="rect" id="Node000004" href="$de/d3d/class_inspection_mission.html#a8188ea49a318da8d5edf87e2d897f513" title="Publishes the control command." alt="" coords="197,136,329,177"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="138,154,181,154,181,159,138,159"/>
-<area shape="rect" id="Node000005" href="$d4/d89/class_inspection_functions.html#a06acb01e381faf5b8a2ab45c1b60abe7" title="used when in oscilation mode to redefine the ideal velocity" alt="" coords="186,201,340,242"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="134,175,188,193,186,198,132,180"/>
-<area shape="rect" id="Node000006" href="$d4/d89/class_inspection_functions.html#a6ca9c7bc559802b2fbd3beffe2197331" title="convert rpm [rotations/minute] to velocity [m/s]" alt="" coords="194,267,332,307"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="95,175,136,213,187,251,196,257,194,261,184,256,132,217,91,179"/>
+<area shape="rect" id="Node000001" title="Function to publish control command while time is less than the defined time limit." alt="" coords="5,169,138,210"/>
+<area shape="rect" id="Node000002" href="$d4/d89/class_inspection_functions.html#a793594cd002fd71ae3501ad057d06128" title="calculate the steering angle according to time" alt="" coords="209,5,347,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="84,168,124,113,152,83,184,57,193,51,196,56,187,61,156,87,128,116,88,171"/>
+<area shape="rect" id="Node000003" href="$d4/d89/class_inspection_functions.html#a1000128622db49d47cc3f483dbcc9190" title="calculate torque output according to velocity" alt="" coords="209,71,347,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="104,166,184,122,200,115,202,120,187,127,107,171"/>
+<area shape="rect" id="Node000004" href="$de/d3d/class_inspection_mission.html#a8188ea49a318da8d5edf87e2d897f513" title="Publishes the control command." alt="" coords="212,136,344,177"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="137,176,196,167,197,172,138,182"/>
+<area shape="rect" id="Node000005" href="$d4/d89/class_inspection_functions.html#a06acb01e381faf5b8a2ab45c1b60abe7" title="used when in oscilation mode to redefine the ideal velocity" alt="" coords="201,201,355,242"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="138,197,185,205,185,210,137,203"/>
+<area shape="rect" id="Node000006" href="$d4/d89/class_inspection_functions.html#a6ca9c7bc559802b2fbd3beffe2197331" title="convert rpm [rotations/minute] to velocity [m/s]" alt="" coords="209,267,347,307"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="107,208,187,251,202,258,200,263,184,256,105,213"/>
+<area shape="rect" id="Node000007" href="$d4/d89/class_inspection_functions.html#a487bdcfa6316f5ef39126be29af428b3" title="convert the throttle to a range between &#45;1 and 1" alt="" coords="186,332,370,373"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="88,209,129,262,156,291,187,317,196,322,193,327,184,321,153,295,125,266,84,212"/>
 </map>
