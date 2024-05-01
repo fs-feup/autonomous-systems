@@ -168,33 +168,34 @@ $(document).ready(function(){initNavTree('dc/dfb/perception__node_8cpp_source.ht
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>               ground_removed_cloud-&gt;points.size());</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>  RCLCPP_DEBUG(this-&gt;get_logger(), <span class="stringliteral">&quot;Point Cloud after Clustering: %ld clusters&quot;</span>, clusters.size());</div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; filtered_clusters.size(); i++) {</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>  <span class="keywordflow">for</span> (<span class="keywordtype">long</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; filtered_clusters.size(); i++) {</div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    coneDifferentiator-&gt;<a class="code hl_function" href="../../d7/d4e/class_cone_differentiation.html#a0a094ce1ef52e4f23fe34764c948ae7f">coneDifferentiation</a>(&amp;filtered_clusters[i]);</div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    std::string color = filtered_clusters[i].getColor();</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    RCLCPP_DEBUG(this-&gt;get_logger(), <span class="stringliteral">&quot;Cone %d: %s&quot;</span>, i, color.c_str());</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>  }</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>  publishCones(&amp;clusters);</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>}</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    filtered_clusters[i].setColor(color);</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    RCLCPP_DEBUG(this-&gt;get_logger(), <span class="stringliteral">&quot;Cone %d: %s&quot;</span>, i, color.c_str());</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>  }</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>  publishCones(&amp;clusters);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>}</div>
 </div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="keywordtype">void</span> Perception::publishCones(std::vector&lt;Cluster&gt;* cones) {</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>  <span class="keyword">auto</span> message = custom_interfaces::msg::ConeArray();</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>  message.header = <a class="code hl_variable" href="../../dc/dfb/perception__node_8cpp.html#aa2ac37d4781259c99da18f6b3cadb7b1">header</a>;</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; static_cast&lt;int&gt;(cones-&gt;size()); i++) {</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="keyword">auto</span> position = custom_interfaces::msg::Point2d();</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    position.x = cones-&gt;at(i).getCentroid().x();</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    position.y = cones-&gt;at(i).getCentroid().y();</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="keyword">auto</span> cone_message = custom_interfaces::msg::Cone();</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    cone_message.position = position;</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    cone_message.color = cones-&gt;at(i).getColor();</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    cone_message.confidence = cones-&gt;at(i).getConfidence();</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    message.cone_array.push_back(cone_message);</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>  }</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>  this-&gt;_cones_publisher-&gt;publish(message);</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>}</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="keywordtype">void</span> Perception::publishCones(std::vector&lt;Cluster&gt;* cones) {</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>  <span class="keyword">auto</span> message = custom_interfaces::msg::ConeArray();</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>  message.header = <a class="code hl_variable" href="../../dc/dfb/perception__node_8cpp.html#aa2ac37d4781259c99da18f6b3cadb7b1">header</a>;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; static_cast&lt;int&gt;(cones-&gt;size()); i++) {</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keyword">auto</span> position = custom_interfaces::msg::Point2d();</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    position.x = cones-&gt;at(i).getCentroid().x();</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    position.y = cones-&gt;at(i).getCentroid().y();</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keyword">auto</span> cone_message = custom_interfaces::msg::Cone();</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    cone_message.position = position;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    cone_message.color = cones-&gt;at(i).getColor();</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    cone_message.confidence = cones-&gt;at(i).getConfidence();</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    message.cone_array.push_back(cone_message);</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>  }</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>  this-&gt;_cones_publisher-&gt;publish(message);</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>}</div>
 <div class="ttc" id="aclass_clustering_html"><div class="ttname"><a href="../../d9/d10/class_clustering.html">Clustering</a></div><div class="ttdoc">Abstract base class for clustering point clouds.</div><div class="ttdef"><b>Definition</b> <a href="../../de/d1f/clustering_8hpp_source.html#l00016">clustering.hpp:16</a></div></div>
 <div class="ttc" id="aclass_clustering_html_a17e55a061852f4a7d6bbb48c3dec5bba"><div class="ttname"><a href="../../d9/d10/class_clustering.html#a17e55a061852f4a7d6bbb48c3dec5bba">Clustering::clustering</a></div><div class="ttdeci">virtual void clustering(const pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr point_cloud, std::vector&lt; Cluster &gt; *clusters) const =0</div><div class="ttdoc">Clusters the input point cloud into groups.</div></div>
 <div class="ttc" id="aclass_cone_differentiation_html"><div class="ttname"><a href="../../d7/d4e/class_cone_differentiation.html">ConeDifferentiation</a></div><div class="ttdoc">Abstract class for cone differentiation based on cone reflectivity patterns.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/de7/cone__differentiation_8hpp_source.html#l00016">cone_differentiation.hpp:16</a></div></div>

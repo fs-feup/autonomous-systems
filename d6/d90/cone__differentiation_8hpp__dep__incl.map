@@ -1,13 +1,15 @@
 <map id="src/perception/include/cone_differentiation/cone_differentiation.hpp" name="src/perception/include/cone_differentiation/cone_differentiation.hpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="513,5,674,61"/>
-<area shape="rect" id="Node000002" href="$d1/d27/least__squares__differentiation_8hpp.html" title=" " alt="" coords="487,109,701,165"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="596,77,596,108,591,108,591,77"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="618,5,780,61"/>
+<area shape="rect" id="Node000002" href="$d1/d27/least__squares__differentiation_8hpp.html" title=" " alt="" coords="592,109,806,165"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="702,77,702,108,696,108,696,77"/>
 <area shape="rect" id="Node000003" href="$de/da5/perception__node_8hpp.html" title=" " alt="" coords="314,213,463,268"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="526,174,445,214,442,210,524,169"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="602,172,464,217,462,212,601,167"/>
 <area shape="rect" id="Node000009" href="$d7/d4b/least__squares__differentiation_8cpp.html" title=" " alt="" coords="487,213,701,268"/>
-<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="596,180,596,212,591,212,591,180"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="662,177,624,214,620,210,658,174"/>
 <area shape="rect" id="Node000010" href="$d5/dfa/least__squares__test_8cpp.html" title=" " alt="" coords="725,220,884,261"/>
-<area shape="poly" id="edge9_Node000002_Node000010" title=" " alt="" coords="665,169,765,217,763,222,662,174"/>
+<area shape="poly" id="edge9_Node000002_Node000010" title=" " alt="" coords="740,174,786,218,783,222,736,178"/>
+<area shape="rect" id="Node000011" href="$da/d89/perception_2test_2performance__test_8cpp.html" title=" " alt="" coords="908,220,1058,261"/>
+<area shape="poly" id="edge10_Node000002_Node000011" title=" " alt="" coords="790,168,929,217,927,222,789,173"/>
 <area shape="rect" id="Node000004" href="$d8/da6/perception_2src_2adapter_2adapter_8cpp.html" title=" " alt="" coords="5,324,145,365"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="300,273,157,319,136,326,134,321,156,314,298,268"/>
 <area shape="rect" id="Node000005" href="$de/d36/perception_2src_2adapter_2fsds_8cpp.html" title=" " alt="" coords="168,324,294,365"/>

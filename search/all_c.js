@@ -22,11 +22,11 @@ var searchData=
   ['mockernode_19',['mockernode',['../d1/d4c/class_mocker_node.html#aa36522a8f5f3a0b61e7517ad951c826e',1,'MockerNode::MockerNode()'],['../d1/d4c/class_mocker_node.html',1,'MockerNode']]],
   ['mockernode_20package_20',['MockerNode package',['../d4/dca/md_src_2mocker__node_2_r_e_a_d_m_e.html',1,'']]],
   ['module_21',['Planning Module',['../d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html',1,'']]],
-  ['motion_5fmodel_5ftest_22',['motion_model_test',['../df/d59/class_exec_time_test.html#a650607f7aae868d577454f3e100b9b6c',1,'ExecTimeTest::motion_model_test'],['../d2/dac/class_exec_time_test_e_k_f_tests.html#aaf87711ef3c407d88e20e72effee4d9f',1,'ExecTimeTestEKFTests::motion_model_test']]],
+  ['motion_5fmodel_5ftest_22',['motion_model_test',['../d4/d81/class_performamce_test.html#a0a589de4368757842af58e52e72d7573',1,'PerformamceTest::motion_model_test'],['../df/d59/class_exec_time_test.html#a650607f7aae868d577454f3e100b9b6c',1,'ExecTimeTest::motion_model_test']]],
   ['motion_5fmodel_5ftest_2ecpp_23',['motion_model_test.cpp',['../d8/dbd/motion__model__test_8cpp.html',1,'']]],
   ['motion_5fmodels_2ecpp_24',['motion_models.cpp',['../d1/d56/motion__models_8cpp.html',1,'']]],
   ['motion_5fmodels_2ehpp_25',['motion_models.hpp',['../df/dc4/motion__models_8hpp.html',1,'']]],
-  ['motion_5fupdate_5ftest_26',['motion_update_test',['../df/d59/class_exec_time_test.html#a1cd4bccc10ff4972055851d9c73208e6',1,'ExecTimeTest::motion_update_test'],['../d2/dac/class_exec_time_test_e_k_f_tests.html#aca2adb37710876ea038c5b8308c245f4',1,'ExecTimeTestEKFTests::motion_update_test']]],
+  ['motion_5fupdate_5ftest_26',['motion_update_test',['../d4/d81/class_performamce_test.html#a39ea7615498c18fa3489dc9935055418',1,'PerformamceTest::motion_update_test'],['../df/d59/class_exec_time_test.html#a1cd4bccc10ff4972055851d9c73208e6',1,'ExecTimeTest::motion_update_test']]],
   ['motionmodel_27',['motionmodel',['../db/d66/class_motion_model.html#a34ba593d7188fb1052dd992ce9741ad1',1,'MotionModel::MotionModel()'],['../db/d66/class_motion_model.html',1,'MotionModel']]],
   ['motionupdate_28',['MotionUpdate',['../db/d6d/struct_motion_update.html',1,'']]]
 ];

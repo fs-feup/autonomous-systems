@@ -1,9 +1,0 @@
-<map id="processTriangulations" name="processTriangulations">
-<area shape="rect" id="Node000001" title="Test function for Delaunay Triangulations&#39; efficiency. Runs 100 times to get average execution time." alt="" coords="108,55,256,80"/>
-<area shape="rect" id="Node000002" href="$dd/df6/planning_2test_2tests_8cpp.html#aa4387a361b1943b82c6e9ef915917c12" title=" " alt="" coords="5,5,60,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="125,52,59,29,61,24,127,47"/>
-<area shape="rect" id="Node000003" href="$dd/df6/planning_2test_2tests_8cpp.html#a978f4baa8d39fb740ed92fd44ba50933" title=" " alt="" coords="5,55,60,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="92,70,60,70,60,65,92,65"/>
-<area shape="rect" id="Node000004" href="$dd/df6/planning_2test_2tests_8cpp.html#aaff9fd771beea10b1e522702042da27c" title=" " alt="" coords="5,104,60,130"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="127,88,61,111,59,106,125,83"/>
-</map>

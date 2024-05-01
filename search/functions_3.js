@@ -18,6 +18,7 @@ var searchData=
   ['correction_5fstep_15',['correction_step',['../da/da6/class_extended_kalman_filter.html#a230559bb9193f7acf494ae9e889fb6f8',1,'ExtendedKalmanFilter']]],
   ['create_5fground_5ftruth_16',['create_ground_truth',['../dc/de8/classevaluator_1_1fsds__adapter_1_1_f_s_d_s_adapter.html#aedf5762703161a32f585c355f66e4ca2',1,'evaluator::fsds_adapter::FSDSAdapter']]],
   ['create_5fperception_5foutput_17',['create_perception_output',['../dc/de8/classevaluator_1_1fsds__adapter_1_1_f_s_d_s_adapter.html#af874151775a2054f0130000a420708bc',1,'evaluator::fsds_adapter::FSDSAdapter']]],
-  ['customcomparator_18',['customComparator',['../dd/df6/planning_2test_2tests_8cpp.html#a1d530eca12828fa8bd4055652000a956',1,'tests.cpp']]],
-  ['cylindervalidator_19',['CylinderValidator',['../dd/def/class_cylinder_validator.html#a482395a7af7ecf85c4ffdecc87c14e2f',1,'CylinderValidator']]]
+  ['createconemap_18',['createConeMap',['../d4/d81/class_performamce_test.html#a6c4c8ab7661f7a5447dc5e8d38f11ae6',1,'PerformamceTest']]],
+  ['customcomparator_19',['customcomparator',['../d3/d72/planning_2test_2performance__test_8cpp.html#a1d530eca12828fa8bd4055652000a956',1,'customComparator(const std::pair&lt; double, double &gt; &amp;a, const std::pair&lt; double, double &gt; &amp;b):&#160;tests.cpp'],['../dd/df6/planning_2test_2tests_8cpp.html#a1d530eca12828fa8bd4055652000a956',1,'customComparator(const std::pair&lt; double, double &gt; &amp;a, const std::pair&lt; double, double &gt; &amp;b):&#160;tests.cpp']]],
+  ['cylindervalidator_20',['CylinderValidator',['../dd/def/class_cylinder_validator.html#a482395a7af7ecf85c4ffdecc87c14e2f',1,'CylinderValidator']]]
 ];

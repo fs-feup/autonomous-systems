@@ -1,7 +1,5 @@
 <map id="ExtendedKalmanFilter::push_to_colors" name="ExtendedKalmanFilter::push_to_colors">
-<area shape="rect" id="Node000001" title="pushes back to colors vector" alt="" coords="216,35,363,75"/>
-<area shape="rect" id="Node000002" href="$d2/dac/class_exec_time_test_e_k_f_tests.html#ad937c46835b1af31635c7c79e4005a4f" title="Fills the state vector with random values." alt="" coords="5,5,168,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="200,45,168,40,168,35,201,39"/>
-<area shape="rect" id="Node000003" href="$df/d59/class_exec_time_test.html#aef9a0519a961859592fbbf1691194662" title=" " alt="" coords="17,70,156,96"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="200,70,157,76,156,71,200,65"/>
+<area shape="rect" id="Node000001" title="pushes back to colors vector" alt="" coords="192,5,339,46"/>
+<area shape="rect" id="Node000002" href="$df/d59/class_exec_time_test.html#aef9a0519a961859592fbbf1691194662" title=" " alt="" coords="5,13,144,39"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="176,28,144,28,144,23,176,23"/>
 </map>

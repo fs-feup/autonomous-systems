@@ -1,5 +1,0 @@
-<map id="ExtendedKalmanFilter::get_covariance" name="ExtendedKalmanFilter::get_covariance">
-<area shape="rect" id="Node000001" title="Get the state covariance matrix." alt="" coords="216,5,363,46"/>
-<area shape="rect" id="Node000002" href="$d2/dac/class_exec_time_test_e_k_f_tests.html#a0f33f6d55239acb605cbb5f151c240a7" title="Writes the covariance matrix P to a CSV file." alt="" coords="5,5,168,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="200,28,168,28,168,23,200,23"/>
-</map>

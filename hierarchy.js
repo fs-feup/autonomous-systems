@@ -31,6 +31,7 @@ var hierarchy =
     [ "std::exception", null, [
       [ "InvalidMissionException", "d3/df9/class_invalid_mission_exception.html", null ]
     ] ],
+    [ "ExecTimeTestEKFTests", "d2/dac/class_exec_time_test_e_k_f_tests.html", null ],
     [ "ExtendedKalmanFilter", "da/da6/class_extended_kalman_filter.html", null ],
     [ "GlobalPathPlanner", "d2/da4/class_global_path_planner.html", null ],
     [ "GroundRemoval", "dc/d84/class_ground_removal.html", [
@@ -56,6 +57,7 @@ var hierarchy =
     [ "ObservationModel", "d7/d64/class_observation_model.html", null ],
     [ "PathPoint", "d9/d32/class_path_point.html", null ],
     [ "PathSmoothing", "d7/db7/class_path_smoothing.html", null ],
+    [ "PerceptionExecutionData", "d2/d36/struct_perception_execution_data.html", null ],
     [ "PID", "d6/d5a/class_p_i_d.html", null ],
     [ "Plane", "d2/d8d/class_plane.html", null ],
     [ "Pose", "d8/d11/struct_pose.html", null ],
@@ -65,10 +67,11 @@ var hierarchy =
       [ "DBSCANTest", "d8/d90/class_d_b_s_c_a_n_test.html", null ],
       [ "DistanceValidatorTest", "db/df7/class_distance_validator_test.html", null ],
       [ "ExecTimeTest", "df/d59/class_exec_time_test.html", null ],
-      [ "ExecTimeTestEKFTests", "d2/dac/class_exec_time_test_e_k_f_tests.html", null ],
       [ "HeightValidatorTest", "d9/d7c/class_height_validator_test.html", null ],
       [ "IntegrationTest", "d7/d4e/class_integration_test.html", null ],
       [ "LeastSquaresDifferentiationTest", "de/d1e/class_least_squares_differentiation_test.html", null ],
+      [ "PerceptionPerformanceTest", "d3/d0d/class_perception_performance_test.html", null ],
+      [ "PerformamceTest", "d4/d81/class_performamce_test.html", null ],
       [ "RANSACTest", "d8/d5a/class_r_a_n_s_a_c_test.html", null ]
     ] ],
     [ "unittest.TestCase", null, [
