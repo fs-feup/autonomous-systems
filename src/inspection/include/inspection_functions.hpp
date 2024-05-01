@@ -27,7 +27,7 @@ class InspectionFunctions {
    * @param time in seconds
    * @return steering angle in radians
    */
-  double calculate_steering(double time);
+  double calculate_steering(double time) const;
 
   /**
    * @brief calculate torque output according to velocity
@@ -35,7 +35,7 @@ class InspectionFunctions {
    * @param velocity
    * @return double
    */
-  double calculate_throttle(double current_velocity);
+  double calculate_throttle(double current_velocity) const;
 
   /**
    * @brief convert rpm [rotations/minute] to velocity [m/s]
@@ -43,7 +43,7 @@ class InspectionFunctions {
    * @param rpm rotations per minute
    * @return velocity [m/s]
    */
-  double rpm_to_velocity(double rpm);
+  double rpm_to_velocity(double rpm) const;
 
   /**
    * @brief used when in oscilation mode to redefine the ideal velocity
@@ -59,7 +59,7 @@ class InspectionFunctions {
    * @param throttle original throttle value
    * @return double throttle value between -1 and 1
    */
-  double throttle_to_adequate_range(double throttle);
+  double throttle_to_adequate_range(double throttle) const;
 
   /**
    * @brief Construct a new Inspection Functions object

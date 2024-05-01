@@ -78,7 +78,7 @@ void InspectionMission::inspection_script(fs_msgs::msg::WheelStates current_rpm)
 
   //if the time is over, the car should be stopped
   if (elapsed_time >= (inspection_object->finish_time) * pow(10, 9))
-  inspection_object->current_goal_velocity = 0;
+    inspection_object->current_goal_velocity = 0;
 
   // calculate torque and convert to control command
   double calculated_torque = inspection_object->calculate_throttle(current_velocity);

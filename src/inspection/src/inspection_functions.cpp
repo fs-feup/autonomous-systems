@@ -16,21 +16,21 @@ InspectionFunctions::InspectionFunctions(double max_angle, double turning_period
 
 InspectionFunctions::InspectionFunctions() = default;
 
-double InspectionFunctions::rpm_to_velocity(double rpm) {
+double InspectionFunctions::rpm_to_velocity(double rpm) const {
   double perimeter = 2 * M_PI * wheel_radius;
   return rpm * perimeter / 60.0;
 }
 
-double InspectionFunctions::calculate_throttle(double current_velocity) {
+double InspectionFunctions::calculate_throttle(double current_velocity) const {
   double error = current_goal_velocity - current_velocity;
   return gain * error;
 }
 
-double InspectionFunctions::calculate_steering(double time) {
+double InspectionFunctions::calculate_steering(double time) const {
   return sin((time * 2 * M_PI / turning_period)) * max_angle;
 }
 
-double InspectionFunctions::throttle_to_adequate_range(double throttle) {
+double InspectionFunctions::throttle_to_adequate_range(double throttle) const {
   if (fabs(throttle) >= VELOCITY_ERROR_FOR_MAX_THROTTLE) {
     return (throttle > 0) ? 1 : -1;
   }
