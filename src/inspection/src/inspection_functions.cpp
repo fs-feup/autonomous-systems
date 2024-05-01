@@ -30,6 +30,13 @@ double InspectionFunctions::calculate_steering(double time) {
   return sin((time * 2 * M_PI / turning_period)) * max_angle;
 }
 
+double InspectionFunctions::throttle_to_adequate_range(double throttle) {
+  if (fabs(throttle) >= VELOCITY_ERROR_FOR_MAX_THROTTLE) {
+    return (throttle > 0) ? 1 : -1;
+  }
+  return throttle/VELOCITY_ERROR_FOR_MAX_THROTTLE;
+}
+
 void InspectionFunctions::redefine_goal_velocity(double current_velocity) {
   if (start_and_stop && abs(current_velocity - this->current_goal_velocity) < 0.2) {
     if (this->current_goal_velocity == 0) {

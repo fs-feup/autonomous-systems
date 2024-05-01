@@ -77,7 +77,8 @@ void InspectionMission::inspection_script(fs_msgs::msg::WheelStates current_rpm)
   inspection_object->calculate_steering(elapsed_time / pow(10.0, 9)) : 0;
 
   //if the time is over, the car should be stopped
-  if (elapsed_time >= (inspection_object->finish_time) * pow(10, 9)) inspection_object->current_goal_velocity = 0;
+  if (elapsed_time >= (inspection_object->finish_time) * pow(10, 9))
+  inspection_object->current_goal_velocity = 0;
 
   // calculate torque and convert to control command
   double calculated_torque = inspection_object->calculate_throttle(current_velocity);
@@ -86,7 +87,8 @@ void InspectionMission::inspection_script(fs_msgs::msg::WheelStates current_rpm)
   if (elapsed_time < (inspection_object->finish_time) * pow(10, 9) || std::abs(current_velocity) > 0.1) {
     RCLCPP_DEBUG(this->get_logger(), "Publishing control command. Steering: %f; Torque: %f",
                  calculated_steering, calculated_torque);
-    publish_controls(calculated_torque, calculated_steering);
+    publish_controls(inspection_object->
+    throttle_to_adequate_range(calculated_torque), calculated_steering);
   } else {
     fs_msgs::msg::FinishedSignal finish;
     finish.placeholder = true;

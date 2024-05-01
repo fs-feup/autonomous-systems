@@ -1,6 +1,8 @@
 #ifndef INSPECTION_FUNCTIONS_HPP
 #define INSPECTION_FUNCTIONS_HPP
 
+#define VELOCITY_ERROR_FOR_MAX_THROTTLE (10.0)
+
 #include <chrono>
 #include <cmath>
 #include <functional>
@@ -50,6 +52,14 @@ class InspectionFunctions {
    *
    */
   void redefine_goal_velocity(double current_velocity);
+
+  /**
+   * @brief convert the throttle to a range between -1 and 1
+   *
+   * @param throttle original throttle value
+   * @return double throttle value between -1 and 1
+   */
+  double throttle_to_adequate_range(double throttle);
 
   /**
    * @brief Construct a new Inspection Functions object
