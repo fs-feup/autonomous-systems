@@ -36,8 +36,9 @@ class ExecTimeTest : public ::testing::Test {
   custom_interfaces::msg::Cone cone_to_send;
   bool done;
   std::string workload;
+  std::string file_name;
   void print_to_file() {
-    std::ofstream file("../../performance/exec_time/loc_map.csv",
+    std::ofstream file("../../performance/exec_time/loc_map/" + file_name,
                        std::ios::app);  // append
 
     // Convert the duration from microseconds to milliseconds
@@ -92,10 +93,13 @@ class ExecTimeTest : public ::testing::Test {
       cone_array_msg->cone_array.push_back(cone_to_send);
     }
   }
+
   /**
    * @brief Initializes the test environment before each test.
    */
   void SetUp() override {  // TODO(PedroRomao3) //SetUpTestSuite
+    file_name = "loc_map_integration_test.csv";
+
     start_time = std::chrono::high_resolution_clock::now();
     end_time = std::chrono::high_resolution_clock::now();
     duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
@@ -161,6 +165,7 @@ class ExecTimeTest : public ::testing::Test {
 
     lm_node_test = std::make_shared<LMNode>(ekf_test, perception_map_test, motion_update_test,
                                             track_map_test, vehicle_state_test, use_odometry_test);
+
   }
   /**
    * @brief Cleans up the test environment after each test.

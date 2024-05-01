@@ -1,0 +1,6 @@
+Number of Cones in the Map, Prediction Step Execution Time, Number of Cones coming from perception, Correction Step Execution Time (ms), Total time (ms)
+23,0.566,10,2.585,3.151
+53,1.054,10,3.743,4.797
+103,3.529,10,18.967,22.496
+203,16.075,10,127.056,143.131
+403,109.698,10,1095.78,1205.47

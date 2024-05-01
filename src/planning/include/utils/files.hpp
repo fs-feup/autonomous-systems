@@ -12,7 +12,7 @@
 
 std::vector<PathPoint *> read_path_file(const std::string &filename);
 
-std::ofstream openWriteFile(const std::string &filename);
+std::ofstream openWriteFile(const std::string &filename, const std::string& header = "");
 
 std::ifstream openReadFile(const std::string &filename);
 

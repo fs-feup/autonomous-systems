@@ -217,6 +217,7 @@ CMakeLists.txt.user
 
 srv/_*.py
 *.pcd
+!perception/test/point_clouds/*.pcd
 *.pyc
 qtcreator-*
 *.user
