@@ -4,4 +4,4 @@ PacSim is a similator first created by Elbflorace, which has released it as an o
 
 ## Set Up
 
-PacSim is truly a very light simulator. As such, all you have to do to have it working is have the repository cloned (**note the pacsim is set up as a submodule of this repository**) and the basic tools required for our system (vscode, docker). Then, just use the docker dev container environment set up or the docker-compose.yml script. Any other information, repher to [its repository](https://github.com/fs-feup/pacsim). 
+PacSim is truly a very light simulator. As such, all you have to do to have it working is have the repository cloned and the basic tools required for our system (vscode, docker). Then, just use the docker dev container environment set up or the docker-compose.yml script. Any other information, repher to [its repository](https://github.com/fs-feup/pacsim). 

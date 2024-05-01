@@ -90,12 +90,6 @@ This project depends on submodules to function. Most, if not all of these submod
     ```sh
     git submodule update --init --recursive ./ext/interfaces
     ```
-- For each simulator:
-    ```sh
-    git submodule update --init --recursive ./ext/pacsim # Pacsim
-    git submodule update --init --recursive ./ext/amz-fssim # AMZ Racing SIM
-    git submodule update --init --recursive ./ext/eufs-sim # Edinburgh FS SIM 
-    ```
 - For in vehicle testing:
     ```sh
     git submodule update --init --recursive ./ext/rslidar_sdk # LiDAR
