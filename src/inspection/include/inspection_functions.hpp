@@ -1,7 +1,7 @@
 #ifndef INSPECTION_FUNCTIONS_HPP
 #define INSPECTION_FUNCTIONS_HPP
 
-#define VELOCITY_ERROR_FOR_MAX_THROTTLE (10.0)
+#define MAX_THROTTLE (2.5)
 
 #include <chrono>
 #include <cmath>

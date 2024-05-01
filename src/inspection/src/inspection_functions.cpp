@@ -31,10 +31,10 @@ double InspectionFunctions::calculate_steering(double time) const {
 }
 
 double InspectionFunctions::throttle_to_adequate_range(double throttle) const {
-  if (fabs(throttle) >= VELOCITY_ERROR_FOR_MAX_THROTTLE) {
+  if (fabs(throttle) >= MAX_THROTTLE) {
     return (throttle > 0) ? 1 : -1;
   }
-  return throttle/VELOCITY_ERROR_FOR_MAX_THROTTLE;
+  return throttle/MAX_THROTTLE;
 }
 
 void InspectionFunctions::redefine_goal_velocity(double current_velocity) {
