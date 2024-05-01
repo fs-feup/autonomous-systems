@@ -1,6 +1,8 @@
 #ifndef INSPECTION_FUNCTIONS_HPP
 #define INSPECTION_FUNCTIONS_HPP
 
+#define MAX_THROTTLE (2.5)
+
 #include <chrono>
 #include <cmath>
 #include <functional>
@@ -9,14 +11,15 @@
 
 class InspectionFunctions {
  public:
-  double max_angle;
-  double ideal_velocity;
-  double turning_period;
-  double wheel_radius;
-  double gain;
-  double finish_time;
-  double current_goal_velocity;
-  bool start_and_stop;
+  // default to EBS test values
+  double max_angle = 0.52359877559;
+  double ideal_velocity = 2.0;
+  double turning_period = 4.0;
+  double wheel_radius = 0.254;
+  double gain = 0.25;
+  double finish_time = 26.0;
+  double current_goal_velocity = 2.0;
+  bool start_and_stop = false;
 
   /**
    * @brief calculate the steering angle according to time
@@ -24,7 +27,7 @@ class InspectionFunctions {
    * @param time in seconds
    * @return steering angle in radians
    */
-  double calculate_steering(double time);
+  double calculate_steering(double time) const;
 
   /**
    * @brief calculate torque output according to velocity
@@ -32,7 +35,7 @@ class InspectionFunctions {
    * @param velocity
    * @return double
    */
-  double calculate_throttle(double current_velocity);
+  double calculate_throttle(double current_velocity) const;
 
   /**
    * @brief convert rpm [rotations/minute] to velocity [m/s]
@@ -40,7 +43,7 @@ class InspectionFunctions {
    * @param rpm rotations per minute
    * @return velocity [m/s]
    */
-  double rpm_to_velocity(double rpm);
+  double rpm_to_velocity(double rpm) const;
 
   /**
    * @brief used when in oscilation mode to redefine the ideal velocity
@@ -49,6 +52,14 @@ class InspectionFunctions {
    *
    */
   void redefine_goal_velocity(double current_velocity);
+
+  /**
+   * @brief convert the throttle to a range between -1 and 1
+   *
+   * @param throttle original throttle value
+   * @return double throttle value between -1 and 1
+   */
+  double throttle_to_adequate_range(double throttle) const;
 
   /**
    * @brief Construct a new Inspection Functions object
