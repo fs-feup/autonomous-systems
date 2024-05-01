@@ -11,6 +11,7 @@
 #include "fs_msgs/msg/finished_signal.hpp"
 #include "fs_msgs/msg/go_signal.hpp"
 #include "fs_msgs/msg/wheel_states.hpp"
+#include "custom_interfaces/msg/emergency.hpp"
 #include "include/inspection_functions.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
@@ -31,6 +32,7 @@ class InspectionMission : public rclcpp::Node {
  private:
   rclcpp::Publisher<fs_msgs::msg::FinishedSignal>::SharedPtr finish_publisher;
   rclcpp::Publisher<fs_msgs::msg::ControlCommand>::SharedPtr control_command_publisher;
+  rclcpp::Publisher<custom_interfaces::msg::Emergency>::SharedPtr emergency_publisher;
   rclcpp::Subscription<fs_msgs::msg::GoSignal>::SharedPtr mission_signal;
 
   message_filters::Subscriber<custom_interfaces::msg::WheelRPM> rlRPM_subscription;
@@ -58,6 +60,14 @@ class InspectionMission : public rclcpp::Node {
    * @param current_rpm rotations of the wheels per minute
    */
   void inspection_script(custom_interfaces::msg::WheelRPM current_rlRPM, custom_interfaces::msg::WheelRPM current_rrRPM);
+
+  /**
+   * @brief Publishes the control command
+   *
+   * @param torque torque to be applied
+   * @param steering steering angle to be applied
+   */
+  void publish_controls(double torque, double steering);
 
   /**
    * @brief Contruct a new Inspection Mission with constants defined in file
