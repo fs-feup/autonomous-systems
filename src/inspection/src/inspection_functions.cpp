@@ -14,7 +14,7 @@ InspectionFunctions::InspectionFunctions(double max_angle, double turning_period
   current_goal_velocity = ideal_velocity;
 }
 
-InspectionFunctions::InspectionFunctions() {}
+InspectionFunctions::InspectionFunctions() = default;
 
 double InspectionFunctions::rpm_to_velocity(double rpm) {
   double perimeter = 2 * M_PI * wheel_radius;
