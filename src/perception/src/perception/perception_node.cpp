@@ -13,6 +13,10 @@
 #include "adapter/map.hpp"
 #include "adapter/testlidar.hpp"
 
+#include "std_msgs/msg/header.hpp"
+
+std_msgs::msg::Header header;
+
 Perception::Perception(GroundRemoval* groundRemoval, Clustering* clustering,
                        ConeDifferentiation* coneDifferentiator,
                        const std::vector<ConeValidator*>& coneValidators,
@@ -30,6 +34,8 @@ Perception::Perception(GroundRemoval* groundRemoval, Clustering* clustering,
 
 void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
   pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_cloud(new pcl::PointCloud<pcl::PointXYZI>);
+
+  header = (*msg).header;
 
   pcl::fromROSMsg(*msg, *pcl_cloud);
 
@@ -64,11 +70,12 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
     RCLCPP_DEBUG(this->get_logger(), "Cone %d: %s", i, color.c_str());
   }
 
-  publishCones(&filtered_clusters);
+  publishCones(&clusters);
 }
 
 void Perception::publishCones(std::vector<Cluster>* cones) {
   auto message = custom_interfaces::msg::ConeArray();
+  message.header = header;
   for (int i = 0; i < static_cast<int>(cones->size()); i++) {
     auto position = custom_interfaces::msg::Point2d();
     position.x = cones->at(i).getCentroid().x();
