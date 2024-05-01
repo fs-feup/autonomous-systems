@@ -26,7 +26,7 @@ RUN apt update && apt upgrade -y \
     && apt install clang-format -y \
     && apt install bear -y \
     && apt install curl -y \
-    && curl -s https://deb.nodesource.com/setup_16.x | sudo bash \
+    && curl -s https://deb.nodesource.com/setup_18.x | sudo bash \
     && apt install nodejs -y \
     && pip install black \
     && pip install rosbags \
