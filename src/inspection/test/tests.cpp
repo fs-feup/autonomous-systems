@@ -25,7 +25,7 @@ double round(double number, int n) {
  *
  */
 TEST(STEERING, steering1) {
-  InspectionFunctions *new_inspection = new InspectionFunctions(
+  const InspectionFunctions *new_inspection = new InspectionFunctions(
       3.14159265358979323846264338327950288 / 6.0, 4.0, 0.254, 26, false, 0.5, 1.0);
   for (float i = 0; i < 26; i = i + 0.1) {
     double steering = new_inspection->calculate_steering(i);
@@ -39,7 +39,7 @@ TEST(STEERING, steering1) {
  *
  */
 TEST(TORQUE, torque1) {
-  InspectionFunctions *new_inspection = new InspectionFunctions(
+  const InspectionFunctions *new_inspection = new InspectionFunctions(
       3.14159265358979323846264338327950288 / 6.0, 4.0, 0.254, 26, false, 0.5, 1.0);
   double initial_velocity = 5;
   // i represents time
@@ -54,7 +54,7 @@ TEST(TORQUE, torque1) {
  *
  */
 TEST(TORQUE, torque2) {
-  InspectionFunctions *new_inspection = new InspectionFunctions(
+  const InspectionFunctions *new_inspection = new InspectionFunctions(
       3.14159265358979323846264338327950288 / 6.0, 4.0, 0.254, 26, false, 0.5, 1.0);
   double initial_velocity = -4;
   // i represents time
@@ -69,7 +69,7 @@ TEST(TORQUE, torque2) {
  *
  */
 TEST(TORQUE, torque3) {
-  InspectionFunctions *new_inspection = new InspectionFunctions(
+  const InspectionFunctions *new_inspection = new InspectionFunctions(
       3.14159265358979323846264338327950288 / 6.0, 4.0, 0.254, 26, false, 0.5, 1.0);
   double initial_velocity = 1.1;
   // i represents time
@@ -117,7 +117,7 @@ TEST(TORQUE, torque4) {
  *
  */
 TEST(CONVERSION, conversion1) {
-  InspectionFunctions *new_inspection = new InspectionFunctions(
+  const InspectionFunctions *new_inspection = new InspectionFunctions(
       3.14159265358979323846264338327950288 / 6.0, 4.0, 0.254, 26, false, 0.5, 1.0);
   double rpm = 15;
   EXPECT_DOUBLE_EQ(0.39898226700590372, new_inspection->rpm_to_velocity(rpm));
