@@ -5,8 +5,8 @@
 #include <memory>
 #include <string>
 
-#include "adapter/fsds.hpp"
-#include "adapter/map.hpp"
+#include "long_control/include/adapter/adapter.hpp"
+#include "src/long_control/include/adapter/map.hpp"
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"

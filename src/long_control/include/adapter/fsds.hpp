@@ -1,7 +1,7 @@
 #ifndef SRC_PLANNING_PLANNING_INCLUDE_ADAPTER_FSDS_HPP_
 #define SRC_PLANNING_PLANNING_INCLUDE_ADAPTER_FSDS_HPP_
 
-#include "adapter/adapter.hpp"
+#include "src/long_control/include/adapter/adapter.hpp"
 
 class LongitudinalControl;
 

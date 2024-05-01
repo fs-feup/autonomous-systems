@@ -4,7 +4,7 @@
 #include <map>
 #include <string>
 
-#include "adapter/fsds.hpp"
+#include "src/long_control/include/adapter/fsds.hpp"
 
 std::map<std::string, std::function<Adapter*(LongitudinalControl*)>> adapter_map = {
     {"fsds",

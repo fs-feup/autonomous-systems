@@ -1,6 +1,6 @@
 #include <memory>
 
-#include "node_/node_long_control.hpp"
+#include "src/long_control/include/node_/node_long_control.hpp"
 #include "rclcpp/rclcpp.hpp"
 /**
  * @brief Main function for the Ros Can node.

@@ -1,6 +1,6 @@
-#include "adapter/fsds.hpp"
+#include "src/long_control/include/adapter/fsds.hpp"
 
-#include "node_/node_long_control.hpp"
+#include "src/long_control/include/node_/node_long_control.hpp"
 
 FsdsAdapter::FsdsAdapter(LongitudinalControl* long_control) : Adapter(long_control) {
   this->init();
