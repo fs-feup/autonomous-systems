@@ -8,8 +8,6 @@ This project aims to develop an Artificial Inteligence system for a computer to 
 
 - [Ubuntu 22.04](https://releases.ubuntu.com/focal/)
 - [ROS2 Humble desktop](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html)
-- [Cpplint 1.6.1](https://github.com/cpplint/cpplint) - C++ only
-- [Cppcheck 1.90](https://cppcheck.sourceforge.io/) - C++ only
 - [Clangformat 10.0.0-4ubuntu1](https://clang.llvm.org/docs/ClangFormat.html) - C++ only
 
 ### Libraries
@@ -75,6 +73,10 @@ The AI computer is divided into 4 main components:
 The following components diagram illustrates the structure of the system.
 
 ![Components Diagram](./assets/architecture.svg)
+
+The following table shows the interfaces definitions for each environment:
+
+![Interfaces Table](./assets/ros-interfaces-table.svg)
 
 The activity diagram / flow chart below illustrates the behaviour of the system and the flow of information through it.
 
