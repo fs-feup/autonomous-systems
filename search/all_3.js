@@ -2,8 +2,8 @@ var searchData=
 [
   ['c_0',['c',['../d9/de5/namespaceacceleration__mapper.html#a260cf49747c22b3e8fab97cd94f57730',1,'acceleration_mapper.c'],['../d2/de4/namespaceskidpad__mapper.html#a0e4a6d957c26c55a3664759e8e01e241',1,'skidpad_mapper.c'],['../dc/d1a/namespaceplot__track.html#a09b7f1440e109d150d176d50da28a8e3',1,'plot_track.c'],['../d7/dc1/namespacespline.html#adcb92c1b2308379ecffcbb7a299c2c2b',1,'spline.c'],['../dd/d6b/namespaceoffsettrack.html#a69901488f64f2102f31272f623559e12',1,'offsettrack.c']]],
   ['c_5fvalues_1',['c_values',['../dd/d6b/namespaceoffsettrack.html#a5324cb11b8bd1bb4a08fef0f29eda572',1,'offsettrack']]],
-  ['calculate_5fsteering_2',['calculate_steering',['../d4/d89/class_inspection_functions.html#a3d1455fd24400344a53f59044ff0b575',1,'InspectionFunctions']]],
-  ['calculate_5fthrottle_3',['calculate_throttle',['../d4/d89/class_inspection_functions.html#ac1eedef4bb67c4afe03e074e9e011b81',1,'InspectionFunctions']]],
+  ['calculate_5fsteering_2',['calculate_steering',['../d4/d89/class_inspection_functions.html#a793594cd002fd71ae3501ad057d06128',1,'InspectionFunctions']]],
+  ['calculate_5fthrottle_3',['calculate_throttle',['../d4/d89/class_inspection_functions.html#a1000128622db49d47cc3f483dbcc9190',1,'InspectionFunctions']]],
   ['calculatederivativeterm_4',['calculateDerivativeTerm',['../d6/d5a/class_p_i_d.html#a97c3f8ac6b1826d306f886bb088a22ff',1,'PID']]],
   ['calculateerror_5',['calculateError',['../d6/d5a/class_p_i_d.html#aa7c1ae59795351d098403900cd043c8a',1,'PID']]],
   ['calculateintegralterm_6',['calculateIntegralTerm',['../d6/d5a/class_p_i_d.html#ac220bbb60e7bdd5bba14df5bd7aa3976',1,'PID']]],

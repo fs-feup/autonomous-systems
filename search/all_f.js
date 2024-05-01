@@ -50,7 +50,7 @@ var searchData=
   ['point_5fcloud_5fcallback_47',['point_cloud_callback',['../d7/dff/classevaluator_1_1adapter_1_1_adapter.html#acf5d38fba4b2a5be8c9394524621ee76',1,'evaluator.adapter.Adapter.point_cloud_callback'],['../d7/dff/classevaluator_1_1adapter_1_1_adapter.html#a7bb57424563b1a1a10fef70a1ac06d9d',1,'evaluator.adapter.Adapter.point_cloud_callback(self, PointCloud2 msg)']]],
   ['pointcloudcallback_48',['pointCloudCallback',['../de/d07/class_perception.html#afaf42fed2ffa3ed23d5c636bf3fdadd7',1,'Perception']]],
   ['pose_49',['pose',['../d8/d11/struct_pose.html#a8a4171c8a6b09e37fb011997da9ea2ad',1,'Pose::Pose()'],['../d8/d11/struct_pose.html#a3ebfc008f45cbdf5447cf07f9c624a78',1,'Pose::Pose(Position position, double orientation)'],['../d8/d11/struct_pose.html#af9a1a731c1fee60373995bab1120043c',1,'Pose::Pose(double x, double y, double theta)'],['../de/dfe/struct_vehicle_state.html#a78345e46dc22525ad8865db0df4b81e5',1,'VehicleState::pose'],['../d8/d11/struct_pose.html',1,'Pose']]],
-  ['position_50',['position',['../d1/d26/struct_position.html#a369a577425f8ba02e8750d04b6a088db',1,'Position::Position()'],['../d1/d26/struct_position.html',1,'Position'],['../d1/d26/struct_position.html#a0035b8b376e447f5f8553dbe779a6693',1,'Position::Position()'],['../d9/d90/struct_observation_data.html#a387f245230a9fd12af54fc8b6b2cb0ec',1,'ObservationData::position'],['../d8/d11/struct_pose.html#aae8ae43d254398d6e006032ae4ef72b1',1,'Pose::position']]],
+  ['position_50',['position',['../d9/d90/struct_observation_data.html#a387f245230a9fd12af54fc8b6b2cb0ec',1,'ObservationData::position'],['../d1/d26/struct_position.html',1,'Position'],['../d1/d26/struct_position.html#a369a577425f8ba02e8750d04b6a088db',1,'Position::Position()'],['../d1/d26/struct_position.html#a0035b8b376e447f5f8553dbe779a6693',1,'Position::Position(double x, double y)'],['../d8/d11/struct_pose.html#aae8ae43d254398d6e006032ae4ef72b1',1,'Pose::position']]],
   ['position_2ecpp_51',['position.cpp',['../d4/d59/position_8cpp.html',1,'']]],
   ['position_2ehpp_52',['position.hpp',['../d5/d91/position_8hpp.html',1,'']]],
   ['predict_5fexpected_5fstate_53',['predict_expected_state',['../db/d66/class_motion_model.html#a24a7f8fab182b07ba116911cdd33893f',1,'MotionModel::predict_expected_state()'],['../d2/d58/class_imu_velocity_model.html#a83c9e2d4b8e321ab0fcfbef5f52b5447',1,'ImuVelocityModel::predict_expected_state()'],['../d7/df9/class_normal_velocity_model.html#a32beb590c4af5f21172b64b34d5f3ea1',1,'NormalVelocityModel::predict_expected_state()']]],
@@ -64,7 +64,8 @@ var searchData=
   ['processtriangulations_61',['processTriangulations',['../dd/df6/planning_2test_2tests_8cpp.html#a55704aa7075eaaa1347216362cef2762',1,'tests.cpp']]],
   ['proportional_62',['proportional',['../d6/d5a/class_p_i_d.html#ab9dcad835103e9ad160c57f329f40e10',1,'PID']]],
   ['publish_5fcmd_63',['publish_cmd',['../d3/d7f/class_adapter.html#ab4b950e6b31750c9a65249c89381c69d',1,'Adapter::publish_cmd()'],['../d7/d8e/class_fsds_adapter.html#a426bd02cc91be3ee4dcab642da217832',1,'FsdsAdapter::publish_cmd()']]],
-  ['publisher_64',['publisher',['../df/d57/class_publisher.html#a5538d94fb8d594575be67e6edd7166df',1,'Publisher::Publisher()'],['../df/d57/class_publisher.html',1,'Publisher']]],
-  ['publisher_2ecpp_65',['publisher.cpp',['../dd/de7/publisher_8cpp.html',1,'']]],
-  ['push_5fto_5fcolors_66',['push_to_colors',['../da/da6/class_extended_kalman_filter.html#a20242ba22cd157af7bcdc1faf3eccf0c',1,'ExtendedKalmanFilter']]]
+  ['publish_5fcontrols_64',['publish_controls',['../de/d3d/class_inspection_mission.html#a8188ea49a318da8d5edf87e2d897f513',1,'InspectionMission']]],
+  ['publisher_65',['publisher',['../df/d57/class_publisher.html',1,'Publisher'],['../df/d57/class_publisher.html#a5538d94fb8d594575be67e6edd7166df',1,'Publisher::Publisher()']]],
+  ['publisher_2ecpp_66',['publisher.cpp',['../dd/de7/publisher_8cpp.html',1,'']]],
+  ['push_5fto_5fcolors_67',['push_to_colors',['../da/da6/class_extended_kalman_filter.html#a20242ba22cd157af7bcdc1faf3eccf0c',1,'ExtendedKalmanFilter']]]
 ];

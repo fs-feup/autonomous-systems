@@ -1,5 +1,0 @@
-<map id="TEST" name="TEST">
-<area shape="rect" id="Node000001" title="test torque output control. Initial velocity greater than target." alt="" coords="5,13,60,39"/>
-<area shape="rect" id="Node000002" href="$d4/d89/class_inspection_functions.html#ac1eedef4bb67c4afe03e074e9e011b81" title="calculate torque output according to velocity" alt="" coords="108,5,246,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,23,92,23,92,28,60,28"/>
-</map>

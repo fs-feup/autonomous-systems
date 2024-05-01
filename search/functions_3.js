@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['calculate_5fsteering_0',['calculate_steering',['../d4/d89/class_inspection_functions.html#a3d1455fd24400344a53f59044ff0b575',1,'InspectionFunctions']]],
-  ['calculate_5fthrottle_1',['calculate_throttle',['../d4/d89/class_inspection_functions.html#ac1eedef4bb67c4afe03e074e9e011b81',1,'InspectionFunctions']]],
+  ['calculate_5fsteering_0',['calculate_steering',['../d4/d89/class_inspection_functions.html#a793594cd002fd71ae3501ad057d06128',1,'InspectionFunctions']]],
+  ['calculate_5fthrottle_1',['calculate_throttle',['../d4/d89/class_inspection_functions.html#a1000128622db49d47cc3f483dbcc9190',1,'InspectionFunctions']]],
   ['calculatederivativeterm_2',['calculateDerivativeTerm',['../d6/d5a/class_p_i_d.html#a97c3f8ac6b1826d306f886bb088a22ff',1,'PID']]],
   ['calculateerror_3',['calculateError',['../d6/d5a/class_p_i_d.html#aa7c1ae59795351d098403900cd043c8a',1,'PID']]],
   ['calculateintegralterm_4',['calculateIntegralTerm',['../d6/d5a/class_p_i_d.html#ac220bbb60e7bdd5bba14df5bd7aa3976',1,'PID']]],
