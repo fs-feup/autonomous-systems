@@ -9,8 +9,11 @@
 #include "planning/track.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "utils/files.hpp"
+#include <regex>
+#include <ros/ros.h>
 
 using testing::Eq;
+namespace fs = std::filesystem;
 
 /**
  * @brief Defines the way in which two pairs of doubles should be
@@ -41,6 +44,22 @@ std::vector<std::pair<double, double>> orderVectorOfPairs(
   return result;
 }
 
+
+/**
+  * @brief Get current date and time as a string.
+  * @return Current date and time as a string in "YYYY-MM-DD-HH:MM" format.
+  */
+  std::string getCurrentDateTimeAsString() {
+    auto now = std::chrono::system_clock::now();
+    std::time_t now_time = std::chrono::system_clock::to_time_t(now);
+    std::tm now_tm;
+    localtime_r(&now_time, &now_tm);
+
+    std::stringstream ss;
+    ss << std::put_time(&now_tm, "%Y-%m-%d-%H:%M");
+    return ss.str();
+  }
+
 /**
  * @brief rounds float to n decimal places
  *
@@ -60,16 +79,15 @@ float round_n(float num, int decimal_places) {
  * Runs 100 times to get average execution time.
  *
  * @param filename path to the file that contains the data for testing
- * @param testname name of the test
  * @return path after Delaunay Triangulations
  */
-std::vector<PathPoint> processTriangulations(std::string filename, std::string testname) {
+std::vector<PathPoint> processTriangulations(std::string filename) {
   Track *track = new Track();
-  track->fillTrack(filename);  // fill track with file data
+  track->fillTrack(filename);
 
   LocalPathPlanner *pathplanner = new LocalPathPlanner();
   std::vector<PathPoint> path;
-  std::ofstream measuresPath = openWriteFile("src/performance/exec_time/planning.csv");
+  std::ofstream measuresPath = openWriteFile("performance/exec_time/planning/planning_" + getCurrentDateTimeAsString() + ".csv");
   double total_time = 0;
   int no_iters = 100;
 
@@ -83,18 +101,12 @@ std::vector<PathPoint> processTriangulations(std::string filename, std::string t
 
     double elapsed_time_ms = std::chrono::duration<double, std::milli>(t1 - t0).count();
 
-    if (i == 0) {
-      RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Delaunay Triangulations processed in %f ms.\n",
-                   elapsed_time_ms);
-      measuresPath << "planning,  delaunay,  " << testname << ",  " << elapsed_time_ms;
-    }
-
     total_time += elapsed_time_ms;
 
     for (size_t i = 0; i < pathPointers.size(); i++) path.push_back(*pathPointers[i]);
   }
 
-  measuresPath << ",  " << total_time / no_iters << "\n";
+  measuresPath << total_time / no_iters << "\n";
   measuresPath.close();
 
   RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Average Delaunay Triangulations processed in %f ms.",
@@ -108,16 +120,18 @@ std::vector<PathPoint> processTriangulations(std::string filename, std::string t
  * Runs 100 times and calculates average duration.
  *
  * @param filename path to the file that contains the data for testing
- * @param testname name of the test
+ * @param num_outliers Number of outliers
  */
-void outlierCalculations(std::string filename, std::string testname) {
+void outlierCalculations(std::string filename, int num_outliers = 0) {
   Track *track = new Track();
   track->fillTrack(filename);  // fill track with file data
 
   // Remove outliers no_iters times to get average
   int no_iters = 100;
   double total_time = 0;
-  std::ofstream measuresPath = openWriteFile("src/performance/exec_time/planning.csv");
+
+  std::ofstream measuresPath = openWriteFile("performance/exec_time/planning/planning_" + getCurrentDateTimeAsString() + ".csv", 
+      "Number of Left Cones,Number of Right Cones,Number of Outliers,Outliers Removal Execution Time,Triangulations Execution Time");
 
   for (int i = 0; i < no_iters; i++) {
     track->reset();
@@ -126,15 +140,10 @@ void outlierCalculations(std::string filename, std::string testname) {
     track->validateCones();
     auto t1 = std::chrono::high_resolution_clock::now();
     double elapsed_time_iter_ms = std::chrono::duration<double, std::milli>(t1 - t0).count();
-    if (i == 0) {
-      RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "First Iteration: Outliers removed in %f ms\n",
-                   (elapsed_time_iter_ms));
-      measuresPath << "planning,  outliers,  " << testname << ",  " << elapsed_time_iter_ms;
-    }
     total_time += elapsed_time_iter_ms;
   }
 
-  measuresPath << ",  " << total_time / no_iters << "\n";
+  measuresPath << track->getLeftConesSize() << "," << track->getRightConesSize() << "," << num_outliers << "," << total_time / no_iters << ",";
   measuresPath.close();
 
   RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Outliers removed in average %f ms.",
@@ -142,7 +151,7 @@ void outlierCalculations(std::string filename, std::string testname) {
 }
 
 std::ostream &operator<<(std::ostream &os, const PathPoint &p) {
-  return os << '(' << p.getX() << ', ' << p.getY() << ')';
+  return os << '(' << p.getX() << ',' << p.getY() << ')';
 }
 
 /**
@@ -655,40 +664,29 @@ TEST(LocalPathPlanner, map_test2) {
   }
 }
 
-// All tests below are performance tests that run the algorithms 100 times
-// to get the average execution time. All scenarios have been described above
+/**
+ * Extracts the size and number of outliers from a filename.
+ * 
+ * @param filename The filename containing size and number of outliers information.
+ * @param size Output parameter to store the extracted size.
+ * @param n_outliers Output parameter to store the extracted number of outliers.
+ * 
+ * The filename should be in the format "map_{size}_{n_outliers}.txt", where:
+ *   - "size" is an integer representing the size.
+ *   - "n_outliers" is an integer representing the number of outliers.
+ * 
+ * Example:
+ *   If filename is "map_100_5.txt", size will be set to 100 and n_outliers to 5.
+ */
+void extractInfo(const std::string_view& filenameView, int& size, int& n_outliers) {
 
-TEST(LocalPathPlanner, delauney100) {
-  std::string filePath = "src/planning/tracks/map_100.txt";
-  std::vector<PathPoint> path = processTriangulations(filePath, "100points");
-}
+    std::string filename(filenameView);
+    size_t pos1 = filename.find("_");
+    size_t pos2 = filename.find("_", pos1 + 1);
+    size_t pos3 = filename.find(".", pos2 + 1);
 
-TEST(LocalPathPlanner, delauney250) {
-  std::string filePath = "src/planning/tracks/map_250.txt";
-  std::vector<PathPoint> path = processTriangulations(filePath, "250points");
-}
-
-TEST(LocalPathPlanner, delauneyrng) {
-  std::string filePath = "src/planning/tracks/map_250_rng.txt";
-  std::vector<PathPoint> path = processTriangulations(filePath, "250randompoints");
-}
-
-TEST(LocalPathPlanner, delauneyoutliers0) {
-  std::string filePath = "src/planning/tracks/map_250.txt";
-  outlierCalculations(filePath, "250points_2outliers");
-}
-
-TEST(LocalPathPlanner, delauneyoutliers1) {
-  std::string filePath = "src/planning/tracks/map_250_out10.txt";
-  outlierCalculations(filePath, "250points_10outliers");
-}
-
-TEST(LocalPathPlanner, delauneyoutliers2) {
-  std::string filePath = "src/planning/tracks/map_250_out25.txt";
-  outlierCalculations(filePath, "250points_25outliers");
-}
-
-TEST(LocalPathPlanner, delauneyoutliers3) {
-  std::string filePath = "src/planning/tracks/map_250_out50.txt";
-  outlierCalculations(filePath, "250points_50outliers");
+    std::string size_str = filename.substr(pos1 + 1, pos2 - pos1 - 1);
+    std::string n_outliers_str = filename.substr(pos2 + 1, pos3 - pos2 - 1);
+    std::istringstream(size_str) >> size;
+    std::istringstream(n_outliers_str) >> n_outliers;
 }

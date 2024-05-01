@@ -5,9 +5,10 @@
 #include <pcl/point_types.h>
 
 #include <utils/cluster.hpp>
-#include <utils/plane.hpp>
 
 #include "sensor_msgs/msg/point_cloud2.hpp"
+
+#include <utils/plane.hpp>
 
 /**
  * @class ConeValidator
