@@ -51,6 +51,9 @@ For each of the approaches, there are different steps here:
 
 The simulator requires Ubuntu to work (or WSL). The tutorial regarding its setup is [here](./environment_setup/fsds_setup.md).
 
+#### EUFS
+
+This simulator is mostly used to simulate the LiDAR because it is quite light, and it requires Ubuntu to work. To set it up, refer to the short [tutorial](./environment_setup/eufs_setup.md) in this repository or the full tutorial in its [repository](https://github.com/fs-feup/eufs-sim) right away.
 ## Submodules
 
 This project depends on submodules to function. Most, if not all of these submodules are other repositories of this organization. 
