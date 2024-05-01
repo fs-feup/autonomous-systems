@@ -41,6 +41,7 @@ var namespaces_dup =
       [ "color_map", "dc/d04/namespacecolors.html#ae4f221148e2c74d11c573cbfc498eb2c", null ],
       [ "color_names", "dc/d04/namespacecolors.html#a91383eee52b002df140e15b47f961326", null ]
     ] ],
+    [ "evaluator", "db/d6f/namespaceevaluator.html", "db/d6f/namespaceevaluator" ],
     [ "offsettrack", "dd/d6b/namespaceoffsettrack.html", [
       [ "c", "dd/d6b/namespaceoffsettrack.html#a69901488f64f2102f31272f623559e12", null ],
       [ "c_values", "dd/d6b/namespaceoffsettrack.html#a5324cb11b8bd1bb4a08fef0f29eda572", null ],
@@ -68,6 +69,21 @@ var namespaces_dup =
       [ "f", "de/da7/namespacerandom__points.html#a14a62e2a87bab023adc792ba94a4a259", null ],
       [ "x", "de/da7/namespacerandom__points.html#ad6e2e4a7b9f2c406d66374be3e62afd9", null ],
       [ "y", "de/da7/namespacerandom__points.html#ae888b532a92ecf74d9946d6c956bc13c", null ]
+    ] ],
+    [ "setup", "dd/dc4/namespacesetup.html", [
+      [ "data_files", "dd/dc4/namespacesetup.html#ad027a8e9452da003dca32bf7467bd16e", null ],
+      [ "description", "dd/dc4/namespacesetup.html#aedf461ec52a946bda975938ba0b93ec0", null ],
+      [ "entry_points", "dd/dc4/namespacesetup.html#ada7058afc98897f073d3f3b8b9157059", null ],
+      [ "install_requires", "dd/dc4/namespacesetup.html#abead4f26b530856f858f0d44c7cf2588", null ],
+      [ "license", "dd/dc4/namespacesetup.html#a8ed6f50a28bd6a8794f8e1153baa6de9", null ],
+      [ "maintainer", "dd/dc4/namespacesetup.html#aa1a7cf9bbf76004bb72697dc00bbee9d", null ],
+      [ "maintainer_email", "dd/dc4/namespacesetup.html#a92a81adbfdd219564d5246ce8d77f869", null ],
+      [ "name", "dd/dc4/namespacesetup.html#ab3a7a0638d76a01367c5bc3cc699447f", null ],
+      [ "package_name", "dd/dc4/namespacesetup.html#a69903e4f05cebc9e005b22b36f5724eb", null ],
+      [ "packages", "dd/dc4/namespacesetup.html#aff2375a361fd5865c77bd9aa093be747", null ],
+      [ "tests_require", "dd/dc4/namespacesetup.html#a6369bb060267ccf90b93519796e7cc2c", null ],
+      [ "version", "dd/dc4/namespacesetup.html#a2aa722b36a933088812b50ea79b97a5c", null ],
+      [ "zip_safe", "dd/dc4/namespacesetup.html#a13510753661cb74083a0c664db11dde9", null ]
     ] ],
     [ "skidpad_mapper", "d2/de4/namespaceskidpad__mapper.html", [
       [ "shift", "d2/de4/namespaceskidpad__mapper.html#a525cc4232cf215956ee076464a1c476d", null ],
@@ -114,5 +130,6 @@ var namespaces_dup =
       [ "y", "d7/dc1/namespacespline.html#ac5ee0b0f73738888bb99a2882c8c6b49", null ],
       [ "y_values0", "d7/dc1/namespacespline.html#af84cf0bb26c99c18806deef70282b929", null ],
       [ "y_values1", "d7/dc1/namespacespline.html#a1bb02af9cadbf53b53d01fb995d5ef22", null ]
-    ] ]
+    ] ],
+    [ "test_perception_metrics", "df/d68/namespacetest__perception__metrics.html", "df/d68/namespacetest__perception__metrics" ]
 ];

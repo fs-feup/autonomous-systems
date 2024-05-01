@@ -1,5 +1,19 @@
 var annotated_dup =
 [
+    [ "evaluator", "db/d6f/namespaceevaluator.html", [
+      [ "adapter", "dc/da0/namespaceevaluator_1_1adapter.html", [
+        [ "Adapter", "d7/dff/classevaluator_1_1adapter_1_1_adapter.html", "d7/dff/classevaluator_1_1adapter_1_1_adapter" ]
+      ] ],
+      [ "evaluator", "d0/d42/namespaceevaluator_1_1evaluator.html", [
+        [ "Evaluator", "dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html", "dc/d59/classevaluator_1_1evaluator_1_1_evaluator" ]
+      ] ],
+      [ "fsds_adapter", "d8/daa/namespaceevaluator_1_1fsds__adapter.html", [
+        [ "FSDSAdapter", "dc/de8/classevaluator_1_1fsds__adapter_1_1_f_s_d_s_adapter.html", "dc/de8/classevaluator_1_1fsds__adapter_1_1_f_s_d_s_adapter" ]
+      ] ]
+    ] ],
+    [ "test_perception_metrics", "df/d68/namespacetest__perception__metrics.html", [
+      [ "TestEvaluatorMethods", "d7/d4e/classtest__perception__metrics_1_1_test_evaluator_methods.html", "d7/d4e/classtest__perception__metrics_1_1_test_evaluator_methods" ]
+    ] ],
     [ "Adapter", "d3/d7f/class_adapter.html", "d3/d7f/class_adapter" ],
     [ "Cluster", "d2/d23/class_cluster.html", "d2/d23/class_cluster" ],
     [ "Clustering", "d9/d10/class_clustering.html", "d9/d10/class_clustering" ],

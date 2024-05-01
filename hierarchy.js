@@ -9,6 +9,9 @@ var hierarchy =
       [ "FsdsAdapter", "d7/d8e/class_fsds_adapter.html", null ],
       [ "TestAdapter", "df/df3/class_test_adapter.html", null ]
     ] ],
+    [ "evaluator.adapter.Adapter", "d7/dff/classevaluator_1_1adapter_1_1_adapter.html", [
+      [ "evaluator.fsds_adapter.FSDSAdapter", "dc/de8/classevaluator_1_1fsds__adapter_1_1_f_s_d_s_adapter.html", null ]
+    ] ],
     [ "Cluster", "d2/d23/class_cluster.html", null ],
     [ "Clustering", "d9/d10/class_clustering.html", [
       [ "DBSCAN", "df/d6a/class_d_b_s_c_a_n.html", null ]
@@ -68,6 +71,12 @@ var hierarchy =
       [ "LeastSquaresDifferentiationTest", "de/d1e/class_least_squares_differentiation_test.html", null ],
       [ "RANSACTest", "d8/d5a/class_r_a_n_s_a_c_test.html", null ]
     ] ],
+    [ "unittest.TestCase", null, [
+      [ "test_perception_metrics.TestEvaluatorMethods", "d7/d4e/classtest__perception__metrics_1_1_test_evaluator_methods.html", null ]
+    ] ],
     [ "Track", "d6/d2c/class_track.html", null ],
-    [ "VehicleState", "de/dfe/struct_vehicle_state.html", null ]
+    [ "VehicleState", "de/dfe/struct_vehicle_state.html", null ],
+    [ "Node", null, [
+      [ "evaluator.evaluator.Evaluator", "dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html", null ]
+    ] ]
 ];

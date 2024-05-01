@@ -1,0 +1,5 @@
+<map id="evaluator.evaluator.Evaluator.get_inter_cones_distance" name="evaluator.evaluator.Evaluator.get_inter_cones_distance">
+<area shape="rect" id="Node000001" title="Computes the average distance between pairs of perceived cones using Minimum Spanning Tree Prim&#39;s alg..." alt="" coords="294,5,502,46"/>
+<area shape="rect" id="Node000002" href="$dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#adab12cd2fd949bcb589786f03ff63aed" title="Computes perception metrics and publishes them." alt="" coords="5,5,246,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="278,28,246,28,246,23,278,23"/>
+</map>
