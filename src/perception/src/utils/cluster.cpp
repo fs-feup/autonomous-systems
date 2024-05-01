@@ -30,10 +30,6 @@ void Cluster::setPointCloud(pcl::PointCloud<pcl::PointXYZI>::Ptr new_point_cloud
 
 pcl::PointCloud<pcl::PointXYZI>::Ptr Cluster::getPointCloud() { return this->point_cloud; }
 
-void Cluster::setConfidence(double newConfidence) {
-  this->confidence = newConfidence;
-}
+void Cluster::setConfidence(double newConfidence) { this->confidence = newConfidence; }
 
-double Cluster::getConfidence() {
-  return this->confidence;
-}
+double Cluster::getConfidence() { return this->confidence; }

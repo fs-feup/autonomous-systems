@@ -7,11 +7,11 @@
 #include <memory>
 #include <string>
 
+#include "custom_interfaces/msg/emergency.hpp"
 #include "fs_msgs/msg/control_command.hpp"
 #include "fs_msgs/msg/finished_signal.hpp"
 #include "fs_msgs/msg/go_signal.hpp"
 #include "fs_msgs/msg/wheel_states.hpp"
-#include "custom_interfaces/msg/emergency.hpp"
 #include "include/inspection_functions.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"

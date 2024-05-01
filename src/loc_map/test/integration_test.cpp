@@ -165,7 +165,6 @@ class ExecTimeTest : public ::testing::Test {
 
     lm_node_test = std::make_shared<LMNode>(ekf_test, perception_map_test, motion_update_test,
                                             track_map_test, vehicle_state_test, use_odometry_test);
-
   }
   /**
    * @brief Cleans up the test environment after each test.

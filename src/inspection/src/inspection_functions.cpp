@@ -34,7 +34,7 @@ double InspectionFunctions::throttle_to_adequate_range(double throttle) const {
   if (fabs(throttle) >= MAX_THROTTLE) {
     return (throttle > 0) ? 1 : -1;
   }
-  return throttle/MAX_THROTTLE;
+  return throttle / MAX_THROTTLE;
 }
 
 void InspectionFunctions::redefine_goal_velocity(double current_velocity) {

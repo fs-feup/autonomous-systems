@@ -3,7 +3,6 @@
 #include <filesystem>
 #include <string>
 #include <vector>
-#include <filesystem>
 
 std::vector<PathPoint *> read_path_file(const std::string &filename) {
   std::string filePrefix = ament_index_cpp::get_package_share_directory("planning");
@@ -20,7 +19,7 @@ std::vector<PathPoint *> read_path_file(const std::string &filename) {
   return path;
 }
 
-std::ofstream openWriteFile(const std::string &filename, const std::string& header) {
+std::ofstream openWriteFile(const std::string &filename, const std::string &header) {
   std::string filePrefix = ament_index_cpp::get_package_share_directory("planning");
   filePrefix = filePrefix.substr(0, filePrefix.find("install"));
   std::string logger_variable = filePrefix + filename;
@@ -36,7 +35,7 @@ std::ofstream openWriteFile(const std::string &filename, const std::string& head
                  logger_variable.c_str());
   }
 
-  if (!fileExists){
+  if (!fileExists) {
     file << header << "\n";
   }
 
