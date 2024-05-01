@@ -12,7 +12,6 @@
 #include "adapter/fsds.hpp"
 #include "adapter/map.hpp"
 #include "adapter/testlidar.hpp"
-
 #include "std_msgs/msg/header.hpp"
 
 std_msgs::msg::Header header;

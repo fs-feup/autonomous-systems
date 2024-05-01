@@ -1,8 +1,10 @@
 #include <pcl/conversions.h>
 #include <pcl/features/normal_3d.h>
-#include <cstdio>
+
 #include <cone_evaluator/distance_predict.hpp>
+#include <cstdio>
 #include <vector>
+
 #include "perception/perception_node.hpp"
 
 int main(int argc, char** argv) {
@@ -16,9 +18,8 @@ int main(int argc, char** argv) {
 
   auto distancePredict = new DistancePredict(0.33, 0.2);
 
-  auto node =
-      std::make_shared<Perception>(ground_removal, clustering, coneDifferentiator,
-                                   coneValidator, distancePredict);
+  auto node = std::make_shared<Perception>(ground_removal, clustering, coneDifferentiator,
+                                           coneValidator, distancePredict);
 
   RCLCPP_INFO(node->get_logger(), "Perception is alive!");
 

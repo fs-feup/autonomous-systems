@@ -31,9 +31,9 @@ This guide is meant to help the developer setup the environment required to work
 - [C++ and Python Basics](./C++_basics.md) - learn about C++ and Python
 - [ROS2 Basics](./ros2_tutorial.md) - learn about ROS
 - [Developing](./developing.md) - learn about development rules and guidelines (compilation from actual rules)
+- [How to contribute (how to compile, test, run, etc.)](../../CONTRIBUTING.md) - what tasks are required before a PR
 - [Static Analysis Tools](./static_analysis_tools.md) - tutorial on using the static analysis and formatting tools adopted
 - [Documentation](./documentation.md) - tutorial on how to document code
-- [How to contribute (how to compile, test, run, etc.)](../../CONTRIBUTING.md) - what tasks are required before a PR
 - [Testing](./testing.md) - about creating tests for the code
 
 ### Advanced Tutorials

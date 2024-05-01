@@ -2,6 +2,7 @@ import unittest
 import numpy as np
 from evaluator.evaluator import Evaluator
 
+
 class TestEvaluatorMethods(unittest.TestCase):
     """
     Test case for the methods of the Evaluator class.
@@ -29,15 +30,19 @@ class TestEvaluatorMethods(unittest.TestCase):
         """
         Test case for the get_average_difference method when both arrays are non-empty.
         """
-        average_difference = Evaluator.get_average_difference(self.output, self.ground_truth)
-        self.assertAlmostEqual(average_difference, 0.7157378651666527, delta=0.00000000001)
+        average_difference = Evaluator.get_average_difference(
+            self.output, self.ground_truth
+        )
+        self.assertAlmostEqual(
+            average_difference, 0.7157378651666527, delta=0.00000000001
+        )
 
     def test_get_average_difference2(self):
         """
         Test case for the get_average_difference method when the output array is empty.
         """
         average_difference = Evaluator.get_average_difference([], self.ground_truth)
-        self.assertEqual(average_difference, float('inf'))
+        self.assertEqual(average_difference, float("inf"))
 
     def test_get_average_difference3(self):
         """
@@ -50,7 +55,9 @@ class TestEvaluatorMethods(unittest.TestCase):
         """
         Test case for the get_mean_squared_error method when the output array is non-empty.
         """
-        mean_squared_error = Evaluator.get_mean_squared_error(self.output, self.ground_truth)
+        mean_squared_error = Evaluator.get_mean_squared_error(
+            self.output, self.ground_truth
+        )
         self.assertAlmostEqual(mean_squared_error, 1.03, delta=0.00001)
 
     def test_get_inter_cones_distance(self):
@@ -59,14 +66,14 @@ class TestEvaluatorMethods(unittest.TestCase):
         """
         inter_cones_distance = Evaluator.get_inter_cones_distance(self.output)
         self.assertAlmostEqual(inter_cones_distance, 1.6071067811865476, delta=0.005)
-    
+
     def test_get_inter_cones_distance2(self):
         """
         Test case for the get_inter_cones_distance method when the output array is empty.
         """
         inter_cones_distance = Evaluator.get_inter_cones_distance([])
         self.assertEqual(inter_cones_distance, 0)
-    
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()
