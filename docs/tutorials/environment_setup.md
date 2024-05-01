@@ -47,22 +47,14 @@ For each of the approaches, there are different steps here:
 1. **Docker Environment** - Follow [this tutorial](./environment_setup/ros2_docker_vscode_coding_environment.md)
 2. **Direct installation** - Follow [this tutorial](./environment_setup/ros2_setup.md)
 
-## Simulator Setup
+## Tools
 
-The simulator requires Ubuntu to work (or WSL). The tutorial regarding its setup is [here](./environment_setup/fsds_setup.md).
-
-## Submodules
+### Submodules
 
 This project depends on submodules to function. Most, if not all of these submodules are other repositories of this organization. 
 - For all environments:
     ```sh
     git submodule update --init --recursive ./ext/interfaces
-    ```
-- For each simulator:
-    ```sh
-    git submodule update --init --recursive ./ext/pacsim # Pacsim
-    git submodule update --init --recursive ./ext/amz-fssim # AMZ Racing SIM
-    git submodule update --init --recursive ./ext/eufs-sim # Edinburgh FS SIM 
     ```
 - For in vehicle testing:
     ```sh
@@ -73,7 +65,20 @@ This project depends on submodules to function. Most, if not all of these submod
 
 Check the [git advanced tutorial](./git_advanced.md) for more information.
 
+### Simulator Setup
 
-## Static Analysis
+We use multiple simulators in our project:
 
-Some other tools are required for development in the AS department, such as Static Analysis tools.
+#### FSDS
+
+The simulator requires Ubuntu to work (or WSL). The tutorial regarding its setup is [here](./environment_setup/fsds_setup.md).
+
+#### PacSim
+
+This simulator is very light and can run on anything, inside or outside a docker container. Follow the [tutorial](./environment_setup/pacsim_setup.md), or repher to its [fork repo](https://github.com/fs-feup/pacsim) right away.
+
+
+### Static Analysis
+
+Some other tools are required for development in the AS department, such as Static Analysis tools. 
+If you are not using the docker dev environment, make sure you configure them for your environment.

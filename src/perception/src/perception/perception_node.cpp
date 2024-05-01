@@ -64,9 +64,10 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
                ground_removed_cloud->points.size());
   RCLCPP_DEBUG(this->get_logger(), "Point Cloud after Clustering: %ld clusters", clusters.size());
 
-  for (int i = 0; i < filtered_clusters.size(); i++) {
+  for (long unsigned int i = 0; i < filtered_clusters.size(); i++) {
     coneDifferentiator->coneDifferentiation(&filtered_clusters[i]);
     std::string color = filtered_clusters[i].getColor();
+    filtered_clusters[i].setColor(color);
     RCLCPP_DEBUG(this->get_logger(), "Cone %d: %s", i, color.c_str());
   }
 
