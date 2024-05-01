@@ -9,22 +9,22 @@
 #include "fs_msgs/msg/go_signal.hpp"
 #include "rclcpp/rclcpp.hpp"
 
-class LongitudinalControl;
+class Control;
 /**
  * @brief Adapter class for coordinating communication between different modes
- * and LongitudinalControl module.
+ * and Control module.
  */
 class Adapter {
  protected:
-  LongitudinalControl *node;
+  Control *node;
 
  public:
   /**
    * @brief Constructor for the Adapter class.
    * @param mode The selected mode.
-   * @param long_control A pointer to the LongitudinalControl module.
+   * @param control A pointer to the Control module.
    */
-  explicit Adapter(LongitudinalControl *long_control);
+  explicit Adapter(Control *control);
 
   virtual void init() = 0;
   virtual void finish() = 0;

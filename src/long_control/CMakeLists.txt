@@ -6,10 +6,10 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 endif()
 
 set(IMPLEMENTATION_FILES 
-  src/node_/node_long_control.cpp
+  src/node_/node_control.cpp
   src/pid/pid.cpp
-  src/adapter/adapter.cpp
-  src/adapter/fsds.cpp
+  src/adapter_control/adapter.cpp
+  src/adapter_control/fsds.cpp
 )
 
 # find dependencies
@@ -23,14 +23,14 @@ find_package(fs_msgs REQUIRED)
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 
-add_executable(node_long_control src/main.cpp ${IMPLEMENTATION_FILES})
-ament_target_dependencies(node_long_control rclcpp std_msgs sensor_msgs custom_interfaces fs_msgs)
-target_include_directories(node_long_control PUBLIC
+add_executable(node_control src/main.cpp ${IMPLEMENTATION_FILES})
+ament_target_dependencies(node_control rclcpp std_msgs sensor_msgs custom_interfaces fs_msgs)
+target_include_directories(node_control PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
-target_compile_features(node_long_control PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+target_compile_features(node_control PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
 
-install(TARGETS node_long_control
+install(TARGETS node_control
   DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)

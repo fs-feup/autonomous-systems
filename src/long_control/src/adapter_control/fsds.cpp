@@ -1,10 +1,8 @@
-#include "src/long_control/include/adapter/fsds.hpp"
+#include "adapter_control/fsds.hpp"
 
-#include "src/long_control/include/node_/node_long_control.hpp"
+#include "node_/node_control.hpp"
 
-FsdsAdapter::FsdsAdapter(LongitudinalControl* long_control) : Adapter(long_control) {
-  this->init();
-}
+FsdsAdapter::FsdsAdapter(Control* control) : Adapter(control) { this->init(); }
 
 void FsdsAdapter::init() {
   this->fsds_state_subscription_ = this->node->create_subscription<fs_msgs::msg::GoSignal>(

@@ -1,9 +1,9 @@
 #ifndef SRC_PLANNING_PLANNING_INCLUDE_ADAPTER_FSDS_HPP_
 #define SRC_PLANNING_PLANNING_INCLUDE_ADAPTER_FSDS_HPP_
 
-#include "src/long_control/include/adapter/adapter.hpp"
+#include "adapter_control/adapter.hpp"
 
-class LongitudinalControl;
+class Control;
 
 class FsdsAdapter : public Adapter {
   rclcpp::Subscription<fs_msgs::msg::GoSignal>::SharedPtr fsds_state_subscription_;
@@ -11,7 +11,7 @@ class FsdsAdapter : public Adapter {
   rclcpp::Publisher<fs_msgs::msg::ControlCommand>::SharedPtr fsds_cmd_publisher_;
 
  public:
-  explicit FsdsAdapter(LongitudinalControl* long_control);
+  explicit FsdsAdapter(Control* control);
 
   void init() override;
   void fsds_mission_state_callback(const fs_msgs::msg::GoSignal msg);

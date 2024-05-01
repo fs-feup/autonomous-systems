@@ -3,7 +3,7 @@
 #include <memory>
 #include <string>
 
-#include "src/long_control/include/adapter/adapter.hpp"
+#include "adapter_control/adapter.hpp"
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
@@ -11,13 +11,13 @@
 class Adapter;
 
 /**
- * @class LongitudinalControl
- * @brief Class responsible for the longitudinal control of the car
+ * @class Control
+ * @brief Class responsible for the control of the car
  *
  * This class inherits from rclcpp::Node, subscribing to current velocity
  * and ideal path topics, and publishing torque (or other output to the actuators).
  */
-class LongitudinalControl : public rclcpp::Node {
+class Control : public rclcpp::Node {
  private:
   rclcpp::Publisher<std_msgs::msg::String>::SharedPtr result;
   rclcpp::Subscription<std_msgs::msg::String>::SharedPtr current_velcoity;
@@ -41,7 +41,7 @@ class LongitudinalControl : public rclcpp::Node {
 
  public:
   /**
-   * @brief Contructor for the LongitudinalControl class
+   * @brief Contructor for the Control class
    */
-  LongitudinalControl();
+  Control();
 };
