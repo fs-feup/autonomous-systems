@@ -101,11 +101,11 @@ class Evaluator(Node):
         if (len(expected) == 0):
             raise ValueError("No ground truth cones provided for computing average difference.")
 
-        for perception_cone in output:
-            min_distance : float = np.linalg.norm(perception_cone - expected[0])
+        for empirical_value in output:
+            min_distance : float = np.linalg.norm(empirical_value - expected[0])
 
-            for ground_truth_cone in expected:
-                distance : float = np.linalg.norm(perception_cone - ground_truth_cone)
+            for expected_value in expected:
+                distance : float = np.linalg.norm(empirical_value - expected_value)
                 if distance < min_distance:
                     min_distance = distance
 
@@ -133,11 +133,11 @@ class Evaluator(Node):
             raise ValueError("No ground truth cones provided.")
 
         mse_sum = 0
-        for perception_cone in output:
-            min_distance_sq = np.linalg.norm(perception_cone - expected[0])**2
+        for output_value in output:
+            min_distance_sq = np.linalg.norm(output_value - expected[0])**2
 
-            for ground_truth_cone in expected:
-                distance_sq = np.linalg.norm(perception_cone - ground_truth_cone)**2
+            for expected_value in expected:
+                distance_sq = np.linalg.norm(output_value - expected_value)**2
                 if distance_sq < min_distance_sq:
                     min_distance_sq = distance_sq
 
