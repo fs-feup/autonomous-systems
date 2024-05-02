@@ -1,4 +1,4 @@
-#include "adapter/adapter.hpp"
+#include "adapter_planning/adapter.hpp"
 
 #include "planning/planning.hpp"
 

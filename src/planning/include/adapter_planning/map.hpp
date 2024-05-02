@@ -4,8 +4,8 @@
 #include <map>
 #include <string>
 
-#include "adapter/eufs.hpp"
-#include "adapter/fsds.hpp"
+#include "adapter_planning/eufs.hpp"
+#include "adapter_planning/fsds.hpp"
 
 std::map<std::string, std::function<Adapter*(Planning*)>> adapter_map = {
     {"fsds", [](Planning* planning) -> Adapter* { return new FsdsAdapter(planning); }},

@@ -1,7 +1,7 @@
 #ifndef SRC_PLANNING_PLANNING_INCLUDE_ADAPTER_EUFS_HPP_
 #define SRC_PLANNING_PLANNING_INCLUDE_ADAPTER_EUFS_HPP_
 
-#include "adapter/adapter.hpp"
+#include "adapter_planning/adapter.hpp"
 
 class EufsAdapter : public Adapter {
   rclcpp::Subscription<eufs_msgs::msg::CanState>::SharedPtr eufs_state_subscription_;
