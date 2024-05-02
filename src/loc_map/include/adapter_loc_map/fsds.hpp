@@ -1,7 +1,7 @@
 #ifndef SRC_LOC_MAP_INCLUDE_ADAPTER_FSDS_HPP_
 #define SRC_LOC_MAP_INCLUDE_ADAPTER_FSDS_HPP_
 
-#include "adapter/adapter.hpp"
+#include "adapter_loc_map/adapter.hpp"
 
 class LMNode;
 

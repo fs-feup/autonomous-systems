@@ -4,8 +4,8 @@
 #include <map>
 #include <string>
 
-#include "adapter/eufs.hpp"
-#include "adapter/fsds.hpp"
+#include "adapter_loc_map/eufs.hpp"
+#include "adapter_loc_map/fsds.hpp"
 
 std::map<std::string, std::function<Adapter*(LMNode*)>> adapter_map = {
     {"fsds", [](LMNode* loc_map) -> Adapter* { return new FsdsAdapter(loc_map); }},

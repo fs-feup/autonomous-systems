@@ -1,4 +1,4 @@
-#include "adapter/adapter.hpp"
+#include "adapter_loc_map/adapter.hpp"
 
 #include "loc_map/lm_node.hpp"
 
