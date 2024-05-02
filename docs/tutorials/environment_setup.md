@@ -77,6 +77,9 @@ The simulator requires Ubuntu to work (or WSL). The tutorial regarding its setup
 
 This simulator is very light and can run on anything, inside or outside a docker container. Follow the [tutorial](./environment_setup/pacsim_setup.md), or repher to its [fork repo](https://github.com/fs-feup/pacsim) right away.
 
+#### EUFS
+
+This simulator is mostly used to simulate the LiDAR because it is quite light, and it requires Ubuntu to work. To set it up, refer to the short [tutorial](./environment_setup/eufs_setup.md) or to the full [tutorial](https://github.com/fs-feup/eufs-sim) in EUFS Simulator's repository.
 
 ### Static Analysis
 
