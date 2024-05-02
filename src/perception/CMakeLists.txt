@@ -32,6 +32,8 @@ set(IMPLEMENTATION_FILES
   src/utils/plane.cpp
   src/cone_validator/height_validator.cpp
   src/cone_evaluator/distance_predict.cpp
+  src/center_calculation/centroid_calculation.cpp
+  src/center_calculation/circunference_center_calculation.cpp
 )
 
 include_directories(${PCL_INCLUDE_DIRS})
@@ -68,7 +70,9 @@ if(BUILD_TESTING)
                   test/height_validator_test.cpp
                   test/cylinder_validator_test.cpp
                   src/cone_evaluator/distance_predict.cpp
-                  test/distance_validator_test.cpp)
+                  test/distance_validator_test.cpp
+                  src/center_calculation/centroid_calculation.cpp
+                  src/center_calculation/circunference_center_calculation.cpp)
 
 
   target_link_libraries(perception_test ${PCL_LIBRARIES})

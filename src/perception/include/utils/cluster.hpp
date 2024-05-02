@@ -3,6 +3,7 @@
 
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
+#include "center_calculation/centroid_calculation.hpp"
 
 #include <pcl/common/impl/centroid.hpp>
 #include <string>
