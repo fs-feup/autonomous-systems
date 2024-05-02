@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include "adapter/adapter.hpp"
+#include "adapter_perception/adapter.hpp"
 
 class TestAdapter : public Adapter {
  public:

@@ -4,8 +4,8 @@
 #include <map>
 #include <string>
 
-#include "adapter/fsds.hpp"
-#include "adapter/testlidar.hpp"
+#include "adapter_perception/fsds.hpp"
+#include "adapter_perception/testlidar.hpp"
 
 std::map<std::string, std::function<Adapter*(Perception*)>> adapter_map = {
     {"fsds", [](Perception* perception) -> Adapter* { return new FsdsAdapter(perception); }},
