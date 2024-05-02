@@ -2,22 +2,15 @@
 #define SRC_PLANNING_INCLUDE_PLANNING_CONE_COLORING_HPP_
 
 #include "utils/cone.hpp"
+#include "utils/pose.hpp"
 
-struct Position {
-  double x = 0;
-  double y = 0;
-  Position() {}
-  Position(double x, double y) : x(x), y(y) {}
-};
-struct Pose {
-  Position position;
-  double orientation = 0.0;
-  Pose() {}
-  Pose(Position position, double orientation) : position(position), orientation(orientation) {}
-  Pose(double x, double y, double theta) : position(x, y), orientation(theta) {}
-};
-
-
+/**
+ * @brief Class responsible for recieving a set of uncolored cones and discovering their color
+ * This is done by performing a search that tries to find each side of the track by iteratively
+ * selecting the cone with the least cost to be added to each side of the track, according to the
+ * cost function defined in the class.
+ *  
+ */
 class ConeColoring {
  public:
   /**
@@ -72,6 +65,10 @@ class ConeColoring {
 
    /**
     * @brief cost function used to minimize the cost of the path.
+    * Based on the idea that, when there are at least two cones on one 
+    * side of the track, the next cone is the one that minimizes a combination
+    * of the angle formed between consecutiv edges and the distance to the next cone.
+    * 
     * Should not be called when current sides of the tracks are empty
     * 
     * @param possible_next_cone possible next cone to be reached
@@ -92,11 +89,10 @@ class ConeColoring {
   bool cone_is_in_side(Cone *c, bool side);
 
   /**
-    * @brief determine the initial cone to start the track side
+    * @brief add the best initial cones to the sides of the track
     * 
     * @param input_cones uncolored cones
-    * @param side cost to reach the cone form the left [true] or right [false] side
-    * @return Cone initial cone to start the path
+    * @param initial_car_pose initial pose of the car
     */
   void place_initial_cones(std::vector<Cone *> input_cones, Pose initial_car_pose);
 
@@ -114,21 +110,11 @@ class ConeColoring {
     * @brief filter cones that are closer than a certain radius
     * 
     * @param input_cones cones to be filtered
-    * @param x x coordinate of the point to filter the cones
-    * @param y y coordinate of the point to filter the cones
+    * @param position position to filter the cones in accordance to
     * @param radius radius to filter the cones
     * @return std::vector<Cone*> filtered cones
     */
-  std::vector<Cone *> filterCones(std::vector<Cone *> input_cones, double x, double y, double radius);
-
-  /**
-    * @brief squared distance between two cones
-    * 
-    * @param c1 first cone
-    * @param c2 second cone
-    * @return double squared distance between the two cones
-    */
-  double squaredDistance(Cone *c1, Cone *c2);
+  std::vector<Cone *> filter_cones_by_distance(std::vector<Cone *> input_cones, Position position, double radius);
 
   /**
    * @brief place the next cone in the path

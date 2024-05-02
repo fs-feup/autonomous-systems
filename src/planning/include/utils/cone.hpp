@@ -10,7 +10,8 @@
  */
 class Cone {
   int id;
-  float x, y;
+  float x;
+  float y;
 
  public:
   Cone(int id, float x, float y);
@@ -30,7 +31,9 @@ class Cone {
   /**
    * Euclidean distance to another position
    */
-  float getDistanceTo(Cone *dest);
+  double getDistanceTo(const Cone *dest) const;
+
+  double squaredDistanceTo(const Cone *dest) const;
 };
 
 #endif  // SRC_PLANNING_PLANNING_INCLUDE_UTILS_CONE_HPP_

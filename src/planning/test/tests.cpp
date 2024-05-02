@@ -747,15 +747,15 @@ TEST(ConeColoring, filtercones) {
   double exponent_2    = 1.0;
   double cost_max      = 5000.0;
   ConeColoring cone_coloring = ConeColoring(gain_angle, gain_distance, gain_ncones, exponent_1, exponent_2, cost_max);
-  double initial_x = 30.0;
-  double initial_y = 15.0;
+  Position initial_position = Position(30,15);
   double radius = 5.0;
-  test_cones = cone_coloring.filterCones(test_cones, initial_x, initial_y, radius);
+  test_cones = cone_coloring.filter_cones_by_distance(test_cones, initial_position, radius);
   std::vector<int> expected = {132,134,136,145,147};
   int count = 0;
   for (Cone* c: test_cones) {
     EXPECT_EQ(c->getId(), expected[count]);
-    ASSERT_LE(pow(c->getX()-initial_x,2) + pow(c->getY()-initial_y,2), radius*radius);
+    Position position2 = Position(c->getX(), c->getY());
+    ASSERT_LE(initial_position.distance_squared_to(position2), radius*radius);
     count ++;
   }
 }
@@ -774,7 +774,8 @@ TEST(ConeColoring, get_first_cones) {
   double exponent_2    = 1.0;
   double cost_max      = 5000.0;
   ConeColoring cone_coloring = ConeColoring(gain_angle, gain_distance, gain_ncones, exponent_1, exponent_2, cost_max);
-  test_cones = cone_coloring.filterCones(test_cones, 30.0, 15.0, 5.0);
+  Position initial_position = Position(30,15);
+  test_cones = cone_coloring.filter_cones_by_distance(test_cones, initial_position, 5.0);
   Pose initial_car_pose = Pose(30.0, 15.0, 0);
   Cone* c1 = cone_coloring.getInitialCone(test_cones, initial_car_pose, true);
   EXPECT_DOUBLE_EQ(round_n(c1->getX(),3), round_n(27.4081,3));
@@ -879,7 +880,10 @@ TEST(ConeColoring, fullconecoloring1) {
   for (Cone* c: track.getRightCones()) {
     test_cones.push_back(c);
   }
-  int c_right, inc_right, c_left, inc_left;
+  int c_right;
+  int inc_right;
+  int c_left;
+  int inc_left;
   double gain_angle    = 1.0; 
   double gain_distance = 1.0;
   double gain_ncones   = 10.0;

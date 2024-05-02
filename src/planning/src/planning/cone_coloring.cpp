@@ -48,18 +48,18 @@ Cone* ConeColoring::getInitialCone(std::vector<Cone *> candidates, Pose initial_
     return initial_cone;
 }
 
-std::vector<Cone *> ConeColoring::filterCones(std::vector<Cone *> input_cones, double x, double y, double radius) {
+std::vector<Cone *> ConeColoring::filter_cones_by_distance(std::vector<Cone *> input_cones, Position position, double radius) {
     std::vector<Cone *> filtered_cones;
     for (Cone *c : input_cones) {
-        double squared_distance = pow(x - c -> getX(), 2) + pow(y - c -> getY(), 2);
+        double squared_distance = pow(position.x - c -> getX(), 2) + pow(position.y - c -> getY(), 2);
         if (squared_distance <= radius*radius) filtered_cones.push_back(c);
     }
     return filtered_cones;
 }
 
 void ConeColoring::place_initial_cones(std::vector<Cone *> input_cones, Pose initial_car_pose) {
-    // filter cones that are closer than 5 meters
-    std::vector<Cone *> candidates = filterCones(input_cones, initial_car_pose.position.x, initial_car_pose.position.y, 5);
+    // filter cones that are farther away than 5 meters
+    std::vector<Cone *> candidates = filter_cones_by_distance(input_cones, initial_car_pose.position, 5);
 
     // get the initial cone for the left side
     Cone *initial_cone_left = getInitialCone(candidates, initial_car_pose, true);
@@ -94,10 +94,6 @@ std::vector<std::pair<Cone *, bool> *> ConeColoring::makeUnvisitedCones(std::vec
     return conePairs;
 }
 
-double ConeColoring::squaredDistance(Cone *c1, Cone *c2) {
-    return pow(c1 -> getX() - c2 -> getX(), 2) + pow(c1 -> getY() - c2 -> getY(), 2);
-}
-
 bool ConeColoring::placeNextCone(std::vector<std::pair<Cone *, bool> *> &visited_cones, double distance_threshold, int n, bool side) {
     
     double minimum_cost = MAXFLOAT;
@@ -113,7 +109,7 @@ bool ConeColoring::placeNextCone(std::vector<std::pair<Cone *, bool> *> &visited
     for (std::pair<Cone *, bool>* p : visited_cones) {
         if (p -> second) continue; // skip visited cones
         double cost = ConeColoring::cost(p -> first, n, side);
-        if (cost < minimum_cost && squaredDistance(last_cone, p ->first) < distance_threshold*distance_threshold && cost < max_cost) {
+        if (cost < minimum_cost && last_cone->squaredDistanceTo(p ->first) < distance_threshold*distance_threshold && cost < max_cost) {
             minimum_cost = cost;
             next_cone = p -> first;
             best_pair = p;
@@ -132,6 +128,3 @@ void ConeColoring::colorCones(std::vector<Cone *> input_cones, Pose initial_car_
     while (placeNextCone(visited_cones, distance_threshold, input_cones.size(), true));
     while (placeNextCone(visited_cones, distance_threshold, input_cones.size(), false));
 }
-
-
-//custo deve ter em conta o numero de cones que se estima que sejam colocados (metade dos de input)
