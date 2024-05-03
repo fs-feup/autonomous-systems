@@ -47,11 +47,13 @@ class InspectionMission : public rclcpp::Node {
   std::shared_ptr<message_filters::Synchronizer<WSSPolicy>> sync_;
 
   rclcpp::TimerBase::SharedPtr mission_end_timer;  // Timer for repetition of end of mission signal
-  std::chrono::_V2::system_clock::time_point initial_time;
-  InspectionFunctions *inspection_object;
+  rclcpp::TimerBase::SharedPtr main_callback_timer;  // Timer for main callback
+  rclcpp::Clock clock;
+  rclcpp::Time initial_time;  // Ellapsed time in seconds
+  InspectionFunctions inspection_object;
 
-  bool go = false;           // Flag to start the mission
-  std::string mission = "";  // Mission to be executed;
+  bool go = false;  // Flag to start the mission
+  Mission mission;  // Mission to be executed;
 
   /**
    * @brief Function for communication of end of mission
@@ -62,7 +64,8 @@ class InspectionMission : public rclcpp::Node {
   /**
    * @brief Function to end communication of end of mission
    */
-  void handle_end_of_mission_response(rclcpp::Client<std_srvs::srv::Trigger>::SharedFuture future);
+  void handle_end_of_mission_response(
+      rclcpp::Client<std_srvs::srv::Trigger>::SharedFuture future) const;
 
  public:
   /**
@@ -77,8 +80,8 @@ class InspectionMission : public rclcpp::Node {
    *
    * @param current_rpm rotations of the wheels per minute
    */
-  void inspection_script(custom_interfaces::msg::WheelRPM current_rlRPM,
-                         custom_interfaces::msg::WheelRPM current_rrRPM);
+  void inspection_script(const custom_interfaces::msg::WheelRPM& current_rlRPM,
+                         const custom_interfaces::msg::WheelRPM& current_rrRPM);
 
   /**
    * @brief Publishes the control command
@@ -86,7 +89,7 @@ class InspectionMission : public rclcpp::Node {
    * @param throttle throttle to be applied
    * @param steering steering angle to be applied
    */
-  void publish_controls(double throttle, double steering);
+  void publish_controls(double throttle, double steering) const;
 
   /**
    * @brief Contruct a new Inspection Mission with constants defined in file

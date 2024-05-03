@@ -10,8 +10,13 @@ enum class Mission {
   TRACKDRIVE = 3,
   EBS_TEST = 4,
   INSPECTION = 5,
-  MANUAL = 6
+  MANUAL = 6,
+  NONE = 7
 };
+
+bool operator==(const Mission& mission, const int& value);
+
+bool operator==(const int& value, const Mission& mission);
 
 const std::map<Mission, std::string> MISSION_STRING_MAP = {{Mission::ACCELERATION, "acceleration"},
                                                            {Mission::SKIDPAD, "skidpad"},
@@ -19,6 +24,7 @@ const std::map<Mission, std::string> MISSION_STRING_MAP = {{Mission::ACCELERATIO
                                                            {Mission::TRACKDRIVE, "trackdrive"},
                                                            {Mission::EBS_TEST, "ebs_test"},
                                                            {Mission::INSPECTION, "inspection"},
-                                                           {Mission::MANUAL, "manual"}};
+                                                           {Mission::MANUAL, "manual"},
+                                                           {Mission::NONE, "none"}};
 
 std::string get_mission_string(int mission);

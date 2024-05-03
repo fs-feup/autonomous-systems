@@ -27,7 +27,7 @@ double round(double number, int n) {
 TEST(STEERING, steering1) {
   auto new_inspection = std::make_unique<InspectionFunctions>(
       3.14159265358979323846264338327950288 / 6.0, 4.0, 0.254, 26, false, 0.5, 1.0);
-  for (float i = 0; i < 26; i = i + 0.1) {
+  for (double i = 0; i < 26; i = i + 0.1) {
     double steering = new_inspection->calculate_steering(i);
     EXPECT_FLOAT_EQ(steering,
                     sin(i * 2 * M_PI / new_inspection->turning_period) * new_inspection->max_angle);
@@ -43,7 +43,7 @@ TEST(TORQUE, torque1) {
       3.14159265358979323846264338327950288 / 6.0, 4.0, 0.254, 26, false, 0.5, 1.0);
   double initial_velocity = 5;
   // i represents time
-  for (float i = 0; i < 26; i = i + 0.1) {
+  for (double i = 0; i < 26; i = i + 0.1) {
     initial_velocity += 0.1 * (new_inspection->calculate_throttle(initial_velocity));
   }
   EXPECT_NEAR(initial_velocity, 1, 0.01);
@@ -58,7 +58,7 @@ TEST(TORQUE, torque2) {
       3.14159265358979323846264338327950288 / 6.0, 4.0, 0.254, 26, false, 0.5, 1.0);
   double initial_velocity = -4;
   // i represents time
-  for (float i = 0; i < 26; i = i + 0.1) {
+  for (double i = 0; i < 26; i = i + 0.1) {
     initial_velocity += 0.1 * (new_inspection->calculate_throttle(initial_velocity));
   }
   EXPECT_NEAR(initial_velocity, 1, 0.01);
@@ -73,7 +73,7 @@ TEST(TORQUE, torque3) {
       3.14159265358979323846264338327950288 / 6.0, 4.0, 0.254, 26, false, 0.5, 1.0);
   double initial_velocity = 1.1;
   // i represents time
-  for (float i = 0; i < 26; i = i + 0.1) {
+  for (double i = 0; i < 26; i = i + 0.1) {
     initial_velocity += 0.1 * (new_inspection->calculate_throttle(initial_velocity));
   }
   EXPECT_NEAR(initial_velocity, 1, 0.01);
@@ -84,15 +84,21 @@ TEST(TORQUE, torque3) {
  *
  */
 TEST(TORQUE, torque4) {
-  double max_angle = 3.14159265358979323846264338327950288 / 6.0, ideal_velocity = 10.0,
-         turn_time = 0, wheel_radius = 0.254, gain = 0.5, stop_time = 30;
+  double max_angle = 3.14159265358979323846264338327950288 / 6.0;
+  double ideal_velocity = 10.0;
+  double turn_time = 0;
+  double wheel_radius = 0.254;
+  double gain = 0.5;
+  double stop_time = 30;
   auto new_inspection = std::make_unique<InspectionFunctions>(
       max_angle, turn_time, wheel_radius, stop_time, true, gain, ideal_velocity);
 
-  double current_velocity = 0, max_velocity = -1, min_velocity = 1000;
+  double current_velocity = 0;
+  double max_velocity = -1;
+  double min_velocity = 1000;
   int count = 0;
   // i represents time
-  for (float i = 0; i < stop_time; i = i + 0.1) {
+  for (double i = 0; i < stop_time; i = i + 0.1) {
     // save the maximum and minimum velocities
     max_velocity = current_velocity > max_velocity ? current_velocity : max_velocity;
     min_velocity = current_velocity < min_velocity ? current_velocity : min_velocity;
@@ -108,7 +114,7 @@ TEST(TORQUE, torque4) {
   }
   EXPECT_GT(count, 2);  // test if the ideal velocity changes the right number of times
   EXPECT_EQ(round(min_velocity, 1), 0.0);
-  EXPECT_DOUBLE_EQ(round(max_velocity, 1), 9.80);
+  EXPECT_DOUBLE_EQ(round(max_velocity, 1), 9.9);
 }
 
 /**
