@@ -106,7 +106,6 @@ class PerformamceTest : public ::testing::Test {
    * @param size Number of state vector elements to fill.
    */
   void fill_X(int size) {
-
     ekf_test = std::make_unique<ExtendedKalmanFilter>(*motion_model_test, observation_model_test);
     std::ifstream file("../../src/loc_map/test/data/map_test.txt");
 
@@ -128,12 +127,12 @@ class PerformamceTest : public ::testing::Test {
       ekf_test->set_X_y(i, value2);
       i++;
 
-      if (i <= 12){
+      if (i <= 12) {
         ekf_test->push_to_colors(colors::Color::blue);
         continue;
       }
 
-      else if (i >= 12 && i <= 22){
+      else if (i >= 12 && i <= 22) {
         ekf_test->push_to_colors(colors::Color::yellow);
         continue;
       }
@@ -180,12 +179,10 @@ class PerformamceTest : public ::testing::Test {
    * @param coneMap Perception's output map
    */
   void runExecution(ConeMap coneMap) {
-
     prediction_step_duration = std::chrono::microseconds::zero();
     correction_step_duration = std::chrono::microseconds::zero();
 
     for (int i = 0; i < 10; i++) {
-
       auto ekf_for_predict = *ekf_test;
       auto ekf_for_correction = *ekf_test;
 
@@ -199,7 +196,6 @@ class PerformamceTest : public ::testing::Test {
           std::chrono::duration_cast<std::chrono::microseconds>(prediction_step_time - start_time);
       correction_step_duration +=
           std::chrono::duration_cast<std::chrono::microseconds>(end_time - prediction_step_time);
-      
     }
 
     prediction_step_duration = prediction_step_duration / 10;
