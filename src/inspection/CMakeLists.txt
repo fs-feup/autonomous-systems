@@ -11,22 +11,20 @@ find_package(rclcpp REQUIRED)
 find_package(std_srvs REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(custom_interfaces REQUIRED)
-find_package(sensor_msgs REQUIRED)
-find_package(fs_msgs REQUIRED)
 find_package(message_filters REQUIRED)
 find_package(common_lib REQUIRED)
 
 # Source files
 set(IMPLEMENTATION_FILES
-  src/inspection_ros.cpp
-  src/inspection_functions.cpp
+  src/inspection_node/inspection_ros.cpp
+  src/functions/inspection_functions.cpp
 )
 
 # Create executable
 add_executable(inspection src/inspection.cpp ${IMPLEMENTATION_FILES})
 
 # Declare dependencies
-ament_target_dependencies(inspection rclcpp common_lib std_msgs std_srvs message_filters sensor_msgs custom_interfaces fs_msgs)
+ament_target_dependencies(inspection rclcpp common_lib std_msgs std_srvs message_filters custom_interfaces)
 
 # Include directories
 target_include_directories(inspection PUBLIC
@@ -61,7 +59,7 @@ if(BUILD_TESTING)
   ament_add_gtest(${PROJECT_NAME}_test ${TESTFILES} ${IMPLEMENTATION_FILES})
 
   # Declare test dependencies
-  ament_target_dependencies(${PROJECT_NAME}_test rclcpp common_lib message_filters std_msgs std_srvs sensor_msgs fs_msgs custom_interfaces)
+  ament_target_dependencies(${PROJECT_NAME}_test rclcpp common_lib message_filters std_msgs std_srvs custom_interfaces)
 
   # Include directories for the test target
   target_include_directories(${PROJECT_NAME}_test PUBLIC

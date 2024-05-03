@@ -18,10 +18,7 @@
 #include "custom_interfaces/msg/control_command.hpp"
 #include "custom_interfaces/msg/operational_status.hpp"
 #include "custom_interfaces/msg/wheel_rpm.hpp"
-#include "fs_msgs/msg/finished_signal.hpp"
-#include "fs_msgs/msg/go_signal.hpp"
-#include "fs_msgs/msg/wheel_states.hpp"
-#include "include/inspection_functions.hpp"
+#include "functions/inspection_functions.hpp"
 
 constexpr double WHEELS_STOPPED_THRESHOLD = 0.01;
 

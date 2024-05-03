@@ -2,7 +2,7 @@
 #include <fstream>
 
 #include "gtest/gtest.h"
-#include "include/inspection_ros.hpp"
+#include "inspection_node/inspection_ros.hpp"
 #include "rclcpp/rclcpp.hpp"
 
 using testing::Eq;

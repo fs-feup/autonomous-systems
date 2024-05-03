@@ -1,4 +1,4 @@
-#include "include/inspection_ros.hpp"
+#include "inspection_node/inspection_ros.hpp"
 
 #include "exceptions/invalid_mission_exception.hpp"
 #include "message_filters/message_traits.h"

@@ -1,4 +1,4 @@
-#include "include/inspection_functions.hpp"
+#include "functions/inspection_functions.hpp"
 
 InspectionFunctions::InspectionFunctions(double max_angle, double turning_period,
                                          double wheel_radius, double finish_time,
