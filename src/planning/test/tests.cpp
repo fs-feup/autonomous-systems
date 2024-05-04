@@ -777,11 +777,11 @@ TEST(ConeColoring, get_first_cones) {
   Position initial_position = Position(30,15);
   test_cones = cone_coloring.filter_cones_by_distance(test_cones, initial_position, 5.0);
   Pose initial_car_pose = Pose(30.0, 15.0, 0);
-  Cone* c1 = cone_coloring.getInitialCone(test_cones, initial_car_pose, true);
+  Cone* c1 = cone_coloring.getInitialCone(test_cones, initial_car_pose, TrackSide::left);
   EXPECT_DOUBLE_EQ(round_n(c1->getX(),3), round_n(27.4081,3));
   EXPECT_DOUBLE_EQ(round_n(c1->getY(),3), round_n(17.9243,3));
   EXPECT_EQ(c1->getId(), 147);
-  Cone* c2 = cone_coloring.getInitialCone(test_cones, initial_car_pose, false);
+  Cone* c2 = cone_coloring.getInitialCone(test_cones, initial_car_pose, TrackSide::right);
   EXPECT_DOUBLE_EQ(round_n(c2->getX(),3), round_n(29.8945,3));
   EXPECT_DOUBLE_EQ(round_n(c2->getY(),3), round_n(13.0521,3));
   EXPECT_EQ(c2->getId(), 134);
@@ -801,8 +801,8 @@ TEST(ConeColoring, place_first_cones1) {
   double exponent_1    = 1.0;
   double exponent_2    = 1.0;
   double cost_max      = 5000.0;
-  ConeColoring cone_coloring = ConeColoring(gain_angle, gain_distance, gain_ncones, exponent_1, exponent_2, cost_max);
-  Pose initial_car_pose = Pose(30.0, 15.0, 3.1416);
+  auto cone_coloring = ConeColoring(gain_angle, gain_distance, gain_ncones, exponent_1, exponent_2, cost_max);
+  auto initial_car_pose = Pose(30.0, 15.0, 3.1416);
   cone_coloring.place_initial_cones(test_cones, initial_car_pose);
   EXPECT_DOUBLE_EQ(round_n(cone_coloring.current_left_cones[0]->getX(),3), round_n(31.8945,3));
   EXPECT_DOUBLE_EQ(round_n(cone_coloring.current_left_cones[0]->getY(),3), round_n(13.0521,3));
