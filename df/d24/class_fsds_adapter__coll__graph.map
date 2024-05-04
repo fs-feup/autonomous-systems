@@ -1,21 +1,21 @@
 <map id="FsdsAdapter" name="FsdsAdapter">
-<area shape="rect" id="Node000001" title=" " alt="" coords="284,887,468,1182"/>
-<area shape="rect" id="Node000002" href="$d3/d7f/class_adapter.html" title="Class that handles the communication between the loc_map node and the other nodes in the system accor..." alt="" coords="284,472,468,838"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="352,853,352,887,347,888,346,853"/>
-<area shape="poly" id="edge10_Node000001_Node000002" title=" " alt="" coords="370,853,370,887,365,888,364,853"/>
-<area shape="poly" id="edge11_Node000001_Node000002" title=" " alt="" coords="388,853,387,888,382,887,382,853"/>
-<area shape="poly" id="edge12_Node000001_Node000002" title=" " alt="" coords="406,853,405,888,400,887,400,853"/>
-<area shape="rect" id="Node000003" href="$dd/db3/class_l_m_node.html" title="Class representing the main loc_map node responsible for publishing the calculated vehicle localizati..." alt="" coords="5,120,197,409"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="199,400,277,509,272,512,195,403"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="300,5,385,71"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="288,69,249,93,211,122,199,134,195,130,208,118,246,89,285,65"/>
-<area shape="rect" id="Node000005" href="$d4/de8/class_longitudinal_control.html" title="Class responsible for the longitudinal control of the car." alt="" coords="222,232,365,297"/>
-<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="335,86,303,233,298,232,330,84"/>
-<area shape="rect" id="Node000006" href="$de/d07/class_perception.html" title="Node for perception tasks, such as ground removal and cone detection." alt="" coords="389,222,531,307"/>
-<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="368,83,441,221,436,223,364,85"/>
-<area shape="rect" id="Node000007" href="$d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car." alt="" coords="556,222,657,307"/>
-<area shape="poly" id="edge9_Node000007_Node000004" title=" " alt="" coords="401,48,474,73,511,92,545,118,564,142,580,169,600,222,595,224,575,171,560,145,541,122,509,97,472,77,399,53"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="303,297,336,455,331,456,297,298"/>
-<area shape="poly" id="edge6_Node000002_Node000006" title=" " alt="" coords="454,308,422,456,416,455,448,307"/>
-<area shape="poly" id="edge8_Node000002_Node000007" title=" " alt="" coords="593,308,572,358,545,411,480,516,475,513,540,408,567,356,588,306"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="201,887,385,1182"/>
+<area shape="rect" id="Node000002" href="$d3/d7f/class_adapter.html" title="Adapter class for coordinating communication between different modes and Control module." alt="" coords="201,472,385,838"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="269,853,270,887,264,888,264,853"/>
+<area shape="poly" id="edge10_Node000001_Node000002" title=" " alt="" coords="287,853,287,887,282,888,282,853"/>
+<area shape="poly" id="edge11_Node000001_Node000002" title=" " alt="" coords="305,853,305,888,299,887,300,853"/>
+<area shape="poly" id="edge12_Node000001_Node000002" title=" " alt="" coords="323,853,322,888,317,887,318,853"/>
+<area shape="rect" id="Node000003" href="$d7/d49/class_control.html" title="Class responsible for the control of the car." alt="" coords="5,232,77,297"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="51,296,66,350,92,408,139,480,192,546,188,549,134,483,87,411,61,352,46,298"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="211,5,296,71"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="197,57,141,82,115,100,91,122,74,148,61,177,47,233,42,232,56,176,69,145,87,118,111,96,139,78,195,53"/>
+<area shape="rect" id="Node000005" href="$dd/db3/class_l_m_node.html" title="Class representing the main loc_map node responsible for publishing the calculated vehicle localizati..." alt="" coords="101,120,293,409"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="244,86,236,121,231,120,239,84"/>
+<area shape="rect" id="Node000006" href="$de/d07/class_perception.html" title="Node for perception tasks, such as ground removal and cone detection." alt="" coords="318,222,461,307"/>
+<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="284,82,308,119,368,221,364,224,303,121,280,85"/>
+<area shape="rect" id="Node000007" href="$d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car." alt="" coords="485,222,587,307"/>
+<area shape="poly" id="edge9_Node000007_Node000004" title=" " alt="" coords="311,45,351,55,394,69,436,90,474,118,494,142,510,168,529,221,524,223,505,171,489,145,470,122,433,95,392,74,349,60,310,50"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="235,409,247,456,242,457,230,410"/>
+<area shape="poly" id="edge6_Node000002_Node000006" title=" " alt="" coords="382,308,345,456,340,455,377,306"/>
+<area shape="poly" id="edge8_Node000002_Node000007" title=" " alt="" coords="523,308,501,358,474,411,437,470,397,527,393,524,433,467,470,408,496,356,518,306"/>
 </map>

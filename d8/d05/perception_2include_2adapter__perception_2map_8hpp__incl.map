@@ -1,0 +1,26 @@
+<map id="src/perception/include/adapter_perception/map.hpp" name="src/perception/include/adapter_perception/map.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="45,5,233,46"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,102,52,127"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="116,49,57,94,54,90,112,44"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="38,279,91,305"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="134,47,116,95,91,188,73,264,68,263,85,186,111,93,129,45"/>
+<area shape="rect" id="Node000004" href="$d1/d9e/perception_2include_2adapter__perception_2fsds_8hpp.html" title=" " alt="" coords="294,94,425,135"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="190,44,296,85,294,90,188,49"/>
+<area shape="rect" id="Node000011" href="$df/d10/testlidar_8hpp.html" title=" " alt="" coords="126,94,257,135"/>
+<area shape="poly" id="edge11_Node000001_Node000011" title=" " alt="" coords="153,45,174,79,169,82,149,48"/>
+<area shape="rect" id="Node000005" href="$d4/ded/perception_2include_2adapter__perception_2adapter_8hpp.html" title=" " alt="" coords="299,183,430,223"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="363,135,365,167,360,167,358,135"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="299,220,206,242,104,274,102,275,100,270,102,269,204,237,298,215"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="115,271,273,312"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="327,226,247,266,245,262,325,221"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="297,271,445,312"/>
+<area shape="poly" id="edge7_Node000005_Node000007" title=" " alt="" coords="369,224,371,256,366,256,363,224"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="469,279,652,305"/>
+<area shape="poly" id="edge8_Node000005_Node000008" title=" " alt="" coords="410,221,520,270,518,275,408,226"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="677,279,796,305"/>
+<area shape="poly" id="edge9_Node000005_Node000009" title=" " alt="" coords="431,216,665,269,678,272,676,277,664,274,430,221"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="820,271,981,312"/>
+<area shape="poly" id="edge10_Node000005_Node000010" title=" " alt="" coords="431,211,597,234,805,268,804,273,596,240,430,216"/>
+<area shape="poly" id="edge12_Node000011_Node000003" title=" " alt="" coords="179,137,84,267,80,264,175,133"/>
+<area shape="poly" id="edge13_Node000011_Node000005" title=" " alt="" coords="232,133,313,173,311,178,229,138"/>
+</map>

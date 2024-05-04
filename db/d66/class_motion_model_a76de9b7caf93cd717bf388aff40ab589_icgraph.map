@@ -1,35 +1,15 @@
 <map id="MotionModel::get_process_noise_covariance_matrix" name="MotionModel::get_process_noise_covariance_matrix">
-<area shape="rect" id="Node000001" title="Get the process noise covariance matrix object." alt="" coords="1005,107,1177,147"/>
-<area shape="rect" id="Node000002" href="$da/da6/class_extended_kalman_filter.html#aa5aeb5c329fffcbcb1a197de8e263427" title="Prediction step:" alt="" coords="810,77,957,118"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="989,115,957,111,958,105,990,110"/>
-<area shape="rect" id="Node000017" href="$d8/dbd/motion__model__test_8cpp.html#acc27b86c37d2d289be41247829ecfaf2" title=" " alt="" coords="856,142,911,168"/>
-<area shape="poly" id="edge16_Node000001_Node000017" title=" " alt="" coords="990,143,911,154,911,149,989,138"/>
-<area shape="rect" id="Node000003" href="$dd/db3/class_l_m_node.html#ab7d786f4a04bdd59ce770cffb2872551" title="executes the prediction step of the EKF" alt="" coords="611,21,745,47"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="800,75,721,50,722,44,802,70"/>
-<area shape="rect" id="Node000005" href="$dd/db3/class_l_m_node.html#a714e7a6776e47cbd6ae4f14ef9513195" title="Function to be called everytime information is received from the wheel encoders." alt="" coords="594,77,762,118"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="794,100,762,100,762,95,794,95"/>
-<area shape="rect" id="Node000016" href="$d3/dc5/slam__test_8cpp.html#aa751639fa208fe991a3ba5969c0daa28" title="Test the EKF SLAM algorithm in a linear movement." alt="" coords="651,142,705,168"/>
-<area shape="poly" id="edge15_Node000002_Node000016" title=" " alt="" coords="796,125,706,150,705,145,794,120"/>
-<area shape="rect" id="Node000004" href="$dd/db3/class_l_m_node.html#a8c430d2c36500207447268a8d02e0f2f" title="Executes:" alt="" coords="395,5,546,46"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="595,33,547,31,547,26,595,28"/>
-<area shape="rect" id="Node000006" href="$d0/d1d/class_eufs_adapter.html#a75248c6f3f4918715cbeb04f3474390e" title=" " alt="" coords="397,70,544,126"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="579,100,544,100,544,95,579,95"/>
-<area shape="rect" id="Node000010" href="$d7/d8e/class_fsds_adapter.html#a0185721ab73bc504fda033fc2e935d5a" title=" " alt="" coords="397,159,544,215"/>
-<area shape="poly" id="edge9_Node000005_Node000010" title=" " alt="" coords="608,127,595,132,531,161,529,156,593,127,606,122"/>
-<area shape="rect" id="Node000007" href="$d0/d1d/class_eufs_adapter.html#afb57c4eba2192b5277c27858f443811d" title=" " alt="" coords="230,81,346,107"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="381,98,346,98,346,92,382,93"/>
-<area shape="rect" id="Node000008" href="$d0/d1d/class_eufs_adapter.html#ab764c5ff5794e7606508d4ca6e5037cf" title=" " alt="" coords="8,32,178,57"/>
-<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="219,79,146,60,147,55,220,74"/>
-<area shape="rect" id="Node000009" href="$d0/d1d/class_eufs_adapter.html#a17a85a1ef1c217ae4bef7b4244e17fdb" title=" " alt="" coords="8,81,178,107"/>
-<area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="215,96,178,96,178,91,215,91"/>
-<area shape="rect" id="Node000011" href="$d7/d8e/class_fsds_adapter.html#a0cd24b4faf0f5f8ef7bcc5c8c8dbec48" title=" " alt="" coords="229,180,347,205"/>
-<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="381,192,347,193,347,188,381,187"/>
-<area shape="rect" id="Node000012" href="$d7/d8e/class_fsds_adapter.html#a216d89a2fa6596111b227de5f584fcd3" title=" " alt="" coords="5,130,181,156"/>
-<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="219,178,146,159,147,154,220,172"/>
-<area shape="rect" id="Node000013" href="$d7/d8e/class_fsds_adapter.html#a0f0ad1e3015b4422aaaaabaff8f3191e" title=" " alt="" coords="5,180,181,205"/>
-<area shape="poly" id="edge12_Node000011_Node000013" title=" " alt="" coords="213,195,181,195,181,190,213,190"/>
-<area shape="rect" id="Node000014" href="$d7/d8e/class_fsds_adapter.html#a4f1ccffb0cc622ea55c9d2400674c738" title=" " alt="" coords="5,229,181,255"/>
-<area shape="poly" id="edge13_Node000011_Node000014" title=" " alt="" coords="220,212,147,231,146,226,219,207"/>
-<area shape="rect" id="Node000015" href="$d7/d8e/class_fsds_adapter.html#a3326ea8b3c0ec0d0bc1e7432de507155" title=" " alt="" coords="5,278,181,304"/>
-<area shape="poly" id="edge14_Node000011_Node000015" title=" " alt="" coords="261,217,225,244,182,269,154,280,152,275,180,265,222,240,258,213"/>
+<area shape="rect" id="Node000001" title="Get the process noise covariance matrix object." alt="" coords="615,92,788,133"/>
+<area shape="rect" id="Node000002" href="$da/da6/class_extended_kalman_filter.html#aa5aeb5c329fffcbcb1a197de8e263427" title="Prediction step:" alt="" coords="420,63,567,103"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="599,101,568,96,568,91,600,95"/>
+<area shape="rect" id="Node000007" href="$d8/dbd/motion__model__test_8cpp.html#acc27b86c37d2d289be41247829ecfaf2" title=" " alt="" coords="467,128,521,153"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="600,129,522,139,521,134,599,123"/>
+<area shape="rect" id="Node000003" href="$dd/db3/class_l_m_node.html#ab7d786f4a04bdd59ce770cffb2872551" title="executes the prediction step of the EKF" alt="" coords="221,13,356,39"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="405,61,336,42,338,37,406,56"/>
+<area shape="rect" id="Node000005" href="$dd/db3/class_l_m_node.html#a714e7a6776e47cbd6ae4f14ef9513195" title="Function to be called everytime information is received from the wheel encoders." alt="" coords="205,63,372,103"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="404,86,372,86,372,80,404,80"/>
+<area shape="rect" id="Node000006" href="$d3/dc5/slam__test_8cpp.html#aa751639fa208fe991a3ba5969c0daa28" title="Test the EKF SLAM algorithm in a linear movement." alt="" coords="261,128,316,153"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="406,110,317,135,315,130,404,105"/>
+<area shape="rect" id="Node000004" href="$dd/db3/class_l_m_node.html#a8c430d2c36500207447268a8d02e0f2f" title="Executes:" alt="" coords="5,5,157,46"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="206,28,157,28,157,23,206,23"/>
 </map>

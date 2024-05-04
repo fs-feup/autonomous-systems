@@ -1,21 +1,21 @@
 <map id="src/perception/include/ground_removal/ransac.hpp" name="src/perception/include/ground_removal/ransac.hpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="583,5,767,46"/>
-<area shape="rect" id="Node000002" href="$de/da5/perception__node_8hpp.html" title=" " alt="" coords="314,94,463,150"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="601,54,464,99,462,94,600,49"/>
-<area shape="rect" id="Node000008" href="$db/d67/ransac_8cpp.html" title=" " alt="" coords="487,102,671,142"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="646,59,601,103,597,99,642,55"/>
-<area shape="rect" id="Node000009" href="$da/d89/perception_2test_2performance__test_8cpp.html" title=" " alt="" coords="696,102,846,142"/>
-<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="708,55,753,99,749,103,704,59"/>
-<area shape="rect" id="Node000010" href="$d3/da8/ransac__test_8cpp.html" title=" " alt="" coords="870,102,1000,142"/>
-<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="744,49,881,98,880,103,743,54"/>
-<area shape="rect" id="Node000003" href="$d8/da6/perception_2src_2adapter_2adapter_8cpp.html" title=" " alt="" coords="5,205,145,246"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="300,154,157,200,136,207,134,202,156,195,298,149"/>
-<area shape="rect" id="Node000004" href="$de/d36/perception_2src_2adapter_2fsds_8cpp.html" title=" " alt="" coords="168,205,294,246"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="335,161,263,207,260,202,332,156"/>
-<area shape="rect" id="Node000005" href="$dc/de7/testlidar_8cpp.html" title=" " alt="" coords="317,205,460,246"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="391,165,391,205,386,205,386,165"/>
-<area shape="rect" id="Node000006" href="$d9/dc1/perception_8cpp.html" title=" " alt="" coords="483,205,608,246"/>
-<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="445,156,517,202,514,207,442,161"/>
-<area shape="rect" id="Node000007" href="$dc/dfb/perception__node_8cpp.html" title=" " alt="" coords="632,198,782,253"/>
-<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="478,149,633,198,631,203,477,154"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="588,5,772,46"/>
+<area shape="rect" id="Node000002" href="$de/da5/perception__node_8hpp.html" title=" " alt="" coords="318,94,468,150"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="606,54,469,99,467,94,604,49"/>
+<area shape="rect" id="Node000008" href="$db/d67/ransac_8cpp.html" title=" " alt="" coords="492,102,676,142"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="651,59,605,103,602,99,647,55"/>
+<area shape="rect" id="Node000009" href="$da/d89/perception_2test_2performance__test_8cpp.html" title=" " alt="" coords="701,102,851,142"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="712,55,758,99,754,103,708,59"/>
+<area shape="rect" id="Node000010" href="$d3/da8/ransac__test_8cpp.html" title=" " alt="" coords="875,102,1004,142"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="749,49,886,98,884,103,747,54"/>
+<area shape="rect" id="Node000003" href="$d2/d6f/perception_2src_2adapter__perception_2adapter_8cpp.html" title=" " alt="" coords="5,198,141,253"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="304,153,154,200,142,204,140,199,152,195,303,148"/>
+<area shape="rect" id="Node000004" href="$d5/daf/perception_2src_2adapter__perception_2fsds_8cpp.html" title=" " alt="" coords="165,198,301,253"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="339,161,277,199,275,195,336,156"/>
+<area shape="rect" id="Node000005" href="$dc/de7/testlidar_8cpp.html" title=" " alt="" coords="325,198,461,253"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="396,165,396,197,390,197,390,165"/>
+<area shape="rect" id="Node000006" href="$d9/dc1/perception_8cpp.html" title=" " alt="" coords="485,205,610,246"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="449,156,519,202,516,207,446,161"/>
+<area shape="rect" id="Node000007" href="$dc/dfb/perception__node_8cpp.html" title=" " alt="" coords="634,198,784,253"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="484,149,635,198,633,203,482,154"/>
 </map>

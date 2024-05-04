@@ -45,9 +45,9 @@ var hierarchy =
     ] ],
     [ "MotionUpdate", "db/d6d/struct_motion_update.html", null ],
     [ "rclcpp::Node", null, [
+      [ "Control", "d7/d49/class_control.html", null ],
       [ "InspectionMission", "de/d3d/class_inspection_mission.html", null ],
       [ "LMNode", "dd/db3/class_l_m_node.html", null ],
-      [ "LongitudinalControl", "d4/de8/class_longitudinal_control.html", null ],
       [ "MockerNode", "d1/d4c/class_mocker_node.html", null ],
       [ "Perception", "de/d07/class_perception.html", null ],
       [ "Planning", "d9/db5/class_planning.html", null ],

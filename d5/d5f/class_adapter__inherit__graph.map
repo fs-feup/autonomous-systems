@@ -1,5 +1,5 @@
 <map id="Adapter" name="Adapter">
-<area shape="rect" id="Node000001" title="Class that handles the communication between the loc_map node and the other nodes in the system accor..." alt="" coords="213,5,397,451"/>
+<area shape="rect" id="Node000001" title="Adapter class for coordinating communication between different modes and Control module." alt="" coords="213,5,397,451"/>
 <area shape="rect" id="Node000002" href="$d0/d1d/class_eufs_adapter.html" title=" " alt="" coords="5,516,189,776"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="209,410,156,517,151,515,204,407"/>
 <area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="209,446,172,518,168,515,204,443"/>

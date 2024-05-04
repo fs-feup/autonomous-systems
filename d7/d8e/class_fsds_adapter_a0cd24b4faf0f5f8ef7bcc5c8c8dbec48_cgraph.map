@@ -1,33 +1,5 @@
 <map id="FsdsAdapter::init" name="FsdsAdapter::init">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,78,124,104"/>
-<area shape="rect" id="Node000002" href="$d3/d7f/class_adapter.html#a40ae0680bfe11fe116802d2a139b93f1" title="Function that parses the message sent from the ros IMU topic and calls the respective node&#39;s function..." alt="" coords="172,5,342,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="104,75,180,49,181,54,106,80"/>
-<area shape="rect" id="Node000004" href="$d7/d8e/class_fsds_adapter.html#a94288d66e5406fb91c23637c64a4a6db" title=" " alt="" coords="184,71,330,111"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="124,88,168,88,168,94,124,94"/>
-<area shape="rect" id="Node000006" href="$d7/d8e/class_fsds_adapter.html#a0185721ab73bc504fda033fc2e935d5a" title=" " alt="" coords="183,135,331,191"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="102,102,169,127,168,132,100,107"/>
-<area shape="rect" id="Node000003" href="$dd/db3/class_l_m_node.html#a02b591125219a30a521ecb48255d6c54" title="Function to be called everytime information is received from the IMU." alt="" coords="390,5,572,46"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="343,23,374,23,374,28,343,28"/>
-<area shape="rect" id="Node000005" href="$dd/db3/class_l_m_node.html#a88d954224798c10f160ef922ca270c85" title="Mission setter." alt="" coords="408,78,555,104"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="330,88,392,88,392,94,330,94"/>
-<area shape="rect" id="Node000007" href="$dd/db3/class_l_m_node.html#a714e7a6776e47cbd6ae4f14ef9513195" title="Function to be called everytime information is received from the wheel encoders." alt="" coords="398,143,565,183"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="331,160,382,160,382,166,331,166"/>
-<area shape="rect" id="Node000008" href="$dd/db3/class_l_m_node.html#abbb3b2569d755a40a5e90c896787ecf1" title="publishes the localization (&#39;vehicle_localization&#39;) to the topic vehicle_location" alt="" coords="620,44,817,69"/>
-<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="525,140,571,114,594,95,619,78,633,72,635,77,622,83,597,99,574,119,528,144"/>
-<area shape="rect" id="Node000009" href="$dd/db3/class_l_m_node.html#a2bf25930993183e7c24702634532adab" title="publishes the map (&#39;track_map&#39;) to the topic track_map" alt="" coords="640,93,797,119"/>
-<area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="565,140,647,120,648,125,566,145"/>
-<area shape="rect" id="Node000010" href="$dd/db3/class_l_m_node.html#a28a0317cd05f770daba784ab06a389c8" title="Converts the odometry data to translational and rotational velocities." alt="" coords="644,143,793,183"/>
-<area shape="poly" id="edge9_Node000007_Node000010" title=" " alt="" coords="565,160,629,160,629,166,565,166"/>
-<area shape="rect" id="Node000012" href="$da/da6/class_extended_kalman_filter.html#aa5aeb5c329fffcbcb1a197de8e263427" title="Prediction step:" alt="" coords="645,208,792,249"/>
-<area shape="poly" id="edge11_Node000007_Node000012" title=" " alt="" coords="558,181,630,201,629,207,557,186"/>
-<area shape="rect" id="Node000016" href="$da/da6/class_extended_kalman_filter.html#ae59429128f079a8a03c53360f7a9bf4f" title="Updates vehicle state and map variables according to the state vector X." alt="" coords="645,273,792,314"/>
-<area shape="poly" id="edge15_Node000007_Node000016" title=" " alt="" coords="509,182,560,220,622,258,636,265,633,269,619,263,557,224,506,186"/>
-<area shape="rect" id="Node000011" href="$da/d5d/formulas_8cpp.html#aa977d636c53692b00cc02c90dab37cff" title="Function to get the translational velocity of a wheel from rpm and wheel diameter." alt="" coords="885,109,1017,150"/>
-<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="793,150,869,139,870,144,794,155"/>
-<area shape="rect" id="Node000013" href="$db/d66/class_motion_model.html#aad4c79b92acd351e94e7b847b61f965b" title="Calculate state covariance matrix from motion estimation." alt="" coords="868,175,1034,215"/>
-<area shape="poly" id="edge12_Node000012_Node000013" title=" " alt="" coords="792,215,852,206,853,212,793,220"/>
-<area shape="rect" id="Node000014" href="$db/d66/class_motion_model.html#a76de9b7caf93cd717bf388aff40ab589" title="Get the process noise covariance matrix object." alt="" coords="865,240,1037,281"/>
-<area shape="poly" id="edge13_Node000012_Node000014" title=" " alt="" coords="793,236,849,244,849,249,792,241"/>
-<area shape="rect" id="Node000015" href="$db/d66/class_motion_model.html#a24a7f8fab182b07ba116911cdd33893f" title="Calculate expected state vector from motion estimation." alt="" coords="881,305,1021,346"/>
-<area shape="poly" id="edge14_Node000012_Node000015" title=" " alt="" coords="788,247,818,259,842,275,866,290,879,296,877,301,863,295,839,279,815,264,786,252"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,13,124,39"/>
+<area shape="rect" id="Node000002" href="$d7/d8e/class_fsds_adapter.html#aefc8d6b2ccac01400870d36197129c83" title=" " alt="" coords="172,5,350,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="124,23,156,23,156,28,124,28"/>
 </map>

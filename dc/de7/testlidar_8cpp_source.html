@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Formula Student Autonomous Systems: src/perception/src/adapter/testlidar.cpp Source File</title>
+<title>Formula Student Autonomous Systems: src/perception/src/adapter_perception/testlidar.cpp Source File</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -99,7 +99,7 @@ $(document).ready(function(){initNavTree('dc/de7/testlidar_8cpp_source.html','..
   <div class="headertitle"><div class="title">testlidar.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="../../dc/de7/testlidar_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="../../df/d10/testlidar_8hpp.html">adapter/testlidar.hpp</a>&quot;</span></div>
+<a href="../../dc/de7/testlidar_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="../../df/d10/testlidar_8hpp.html">adapter_perception/testlidar.hpp</a>&quot;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="../../de/da5/perception__node_8hpp.html">perception/perception_node.hpp</a>&quot;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
@@ -107,9 +107,9 @@ $(document).ready(function(){initNavTree('dc/de7/testlidar_8cpp_source.html','..
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
 <div class="foldopen" id="foldopen00007" data-start="{" data-end="}">
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="../../df/df3/class_test_adapter.html#a0bfdf0c9bbd9346df8aa7c17c810f746">    7</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../df/df3/class_test_adapter.html#a0bfdf0c9bbd9346df8aa7c17c810f746">TestAdapter::init</a>() {</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>  this-&gt;<a class="code hl_variable" href="../../d3/d7f/class_adapter.html#adc778eea3cfdb75a881153fb5c1d2d6c">_point_cloud_subscription</a> = this-&gt;<a class="code hl_variable" href="../../d3/d7f/class_adapter.html#aecda5ceab5ed43d4d3088e98ea41f9ef">node</a>-&gt;create_subscription&lt;sensor_msgs::msg::PointCloud2&gt;(</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>  this-&gt;<a class="code hl_variable" href="../../d3/d7f/class_adapter.html#adc778eea3cfdb75a881153fb5c1d2d6c">_point_cloud_subscription</a> = this-&gt;<a class="code hl_variable" href="../../d3/d7f/class_adapter.html#aa26a29e511d07e95675f9789d1ae4a40">node</a>-&gt;create_subscription&lt;sensor_msgs::msg::PointCloud2&gt;(</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>      <span class="stringliteral">&quot;/hesai/pandar&quot;</span>, 10, [<span class="keyword">this</span>](<span class="keyword">const</span> sensor_msgs::msg::PointCloud2::SharedPtr msg) {</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>        <a class="code hl_variable" href="../../d3/d7f/class_adapter.html#aecda5ceab5ed43d4d3088e98ea41f9ef">node</a>-&gt;pointCloudCallback(msg);</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>        <a class="code hl_variable" href="../../d3/d7f/class_adapter.html#aa26a29e511d07e95675f9789d1ae4a40">node</a>-&gt;pointCloudCallback(msg);</div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>      });</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>}</div>
 </div>
@@ -125,9 +125,9 @@ $(document).ready(function(){initNavTree('dc/de7/testlidar_8cpp_source.html','..
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>  <span class="comment">// Test Class, No implementation for finish</span></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>}</div>
 </div>
-<div class="ttc" id="aclass_adapter_html"><div class="ttname"><a href="../../d3/d7f/class_adapter.html">Adapter</a></div><div class="ttdoc">Class that handles the communication between the loc_map node and the other nodes in the system accor...</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d32/loc__map_2include_2adapter_2adapter_8hpp_source.html#l00023">adapter.hpp:23</a></div></div>
-<div class="ttc" id="aclass_adapter_html_adc778eea3cfdb75a881153fb5c1d2d6c"><div class="ttname"><a href="../../d3/d7f/class_adapter.html#adc778eea3cfdb75a881153fb5c1d2d6c">Adapter::_point_cloud_subscription</a></div><div class="ttdeci">rclcpp::Subscription&lt; sensor_msgs::msg::PointCloud2 &gt;::SharedPtr _point_cloud_subscription</div><div class="ttdoc">&lt; PointCloud2 subscription.</div><div class="ttdef"><b>Definition</b> <a href="../../d2/d3d/perception_2include_2adapter_2adapter_8hpp_source.html#l00021">adapter.hpp:21</a></div></div>
-<div class="ttc" id="aclass_adapter_html_aecda5ceab5ed43d4d3088e98ea41f9ef"><div class="ttname"><a href="../../d3/d7f/class_adapter.html#aecda5ceab5ed43d4d3088e98ea41f9ef">Adapter::node</a></div><div class="ttdeci">LMNode * node</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d32/loc__map_2include_2adapter_2adapter_8hpp_source.html#l00025">adapter.hpp:25</a></div></div>
+<div class="ttc" id="aclass_adapter_html"><div class="ttname"><a href="../../d3/d7f/class_adapter.html">Adapter</a></div><div class="ttdoc">Adapter class for coordinating communication between different modes and Control module.</div><div class="ttdef"><b>Definition</b> <a href="../../d0/d4b/control_2include_2adapter__control_2adapter_8hpp_source.html#l00017">adapter.hpp:17</a></div></div>
+<div class="ttc" id="aclass_adapter_html_aa26a29e511d07e95675f9789d1ae4a40"><div class="ttname"><a href="../../d3/d7f/class_adapter.html#aa26a29e511d07e95675f9789d1ae4a40">Adapter::node</a></div><div class="ttdeci">Control * node</div><div class="ttdef"><b>Definition</b> <a href="../../d0/d4b/control_2include_2adapter__control_2adapter_8hpp_source.html#l00019">adapter.hpp:19</a></div></div>
+<div class="ttc" id="aclass_adapter_html_adc778eea3cfdb75a881153fb5c1d2d6c"><div class="ttname"><a href="../../d3/d7f/class_adapter.html#adc778eea3cfdb75a881153fb5c1d2d6c">Adapter::_point_cloud_subscription</a></div><div class="ttdeci">rclcpp::Subscription&lt; sensor_msgs::msg::PointCloud2 &gt;::SharedPtr _point_cloud_subscription</div><div class="ttdoc">&lt; PointCloud2 subscription.</div><div class="ttdef"><b>Definition</b> <a href="../../d4/ded/perception_2include_2adapter__perception_2adapter_8hpp_source.html#l00021">adapter.hpp:21</a></div></div>
 <div class="ttc" id="aclass_perception_html"><div class="ttname"><a href="../../de/d07/class_perception.html">Perception</a></div><div class="ttdoc">Node for perception tasks, such as ground removal and cone detection.</div><div class="ttdef"><b>Definition</b> <a href="../../de/da5/perception__node_8hpp_source.html#l00028">perception_node.hpp:28</a></div></div>
 <div class="ttc" id="aclass_test_adapter_html_a0bfdf0c9bbd9346df8aa7c17c810f746"><div class="ttname"><a href="../../df/df3/class_test_adapter.html#a0bfdf0c9bbd9346df8aa7c17c810f746">TestAdapter::init</a></div><div class="ttdeci">void init() override</div><div class="ttdef"><b>Definition</b> <a href="../../dc/de7/testlidar_8cpp_source.html#l00007">testlidar.cpp:7</a></div></div>
 <div class="ttc" id="aclass_test_adapter_html_a630a50d8da5bf8b4d8df07cdf3050958"><div class="ttname"><a href="../../df/df3/class_test_adapter.html#a630a50d8da5bf8b4d8df07cdf3050958">TestAdapter::TestAdapter</a></div><div class="ttdeci">TestAdapter(Perception *perception)</div><div class="ttdef"><b>Definition</b> <a href="../../dc/de7/testlidar_8cpp_source.html#l00005">testlidar.cpp:5</a></div></div>
@@ -140,7 +140,7 @@ $(document).ready(function(){initNavTree('dc/de7/testlidar_8cpp_source.html','..
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../dir_346c2aea098094a6f11a0f66feef12e0.html">perception</a></li><li class="navelem"><a class="el" href="../../dir_5ab6182181b68ae86cb6d562488d59e5.html">src</a></li><li class="navelem"><a class="el" href="../../dir_0657d4067749c7717073a04884deaf3e.html">adapter</a></li><li class="navelem"><a class="el" href="../../dc/de7/testlidar_8cpp.html">testlidar.cpp</a></li>
+    <li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../dir_346c2aea098094a6f11a0f66feef12e0.html">perception</a></li><li class="navelem"><a class="el" href="../../dir_5ab6182181b68ae86cb6d562488d59e5.html">src</a></li><li class="navelem"><a class="el" href="../../dir_a357d5f255d2b52179ae727206a56890.html">adapter_perception</a></li><li class="navelem"><a class="el" href="../../dc/de7/testlidar_8cpp.html">testlidar.cpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

@@ -1,5 +1,0 @@
-<map id="Adapter::imu_subscription_callback" name="Adapter::imu_subscription_callback">
-<area shape="rect" id="Node000001" title="Function that parses the message sent from the ros IMU topic and calls the respective node&#39;s function..." alt="" coords="5,5,176,46"/>
-<area shape="rect" id="Node000002" href="$dd/db3/class_l_m_node.html#a02b591125219a30a521ecb48255d6c54" title="Function to be called everytime information is received from the IMU." alt="" coords="224,5,406,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="176,23,208,23,208,28,176,28"/>
-</map>

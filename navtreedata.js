@@ -30,32 +30,32 @@ var NAVTREE =
       [ "Documentation", "index.html#autotoc_md2", null ],
       [ "Contributing", "index.html#autotoc_md3", null ]
     ] ],
+    [ "Longitudinal Controller", "d7/d97/md_src_2control_2_r_e_a_d_m_e.html", [
+      [ "Dependencies", "d7/d97/md_src_2control_2_r_e_a_d_m_e.html#autotoc_md5", null ],
+      [ "Compiling", "d7/d97/md_src_2control_2_r_e_a_d_m_e.html#autotoc_md6", null ],
+      [ "Testing", "d7/d97/md_src_2control_2_r_e_a_d_m_e.html#autotoc_md7", null ],
+      [ "Running", "d7/d97/md_src_2control_2_r_e_a_d_m_e.html#autotoc_md8", null ]
+    ] ],
     [ "Inspection package", "dc/d23/md_src_2inspection_2_r_e_a_d_m_e.html", [
-      [ "Compiling", "dc/d23/md_src_2inspection_2_r_e_a_d_m_e.html#autotoc_md5", null ],
-      [ "Testing", "dc/d23/md_src_2inspection_2_r_e_a_d_m_e.html#autotoc_md6", null ],
-      [ "Running the node", "dc/d23/md_src_2inspection_2_r_e_a_d_m_e.html#autotoc_md7", null ],
-      [ "Design", "dc/d23/md_src_2inspection_2_r_e_a_d_m_e.html#autotoc_md8", null ],
-      [ "Main External Libraries", "dc/d23/md_src_2inspection_2_r_e_a_d_m_e.html#autotoc_md9", null ]
+      [ "Compiling", "dc/d23/md_src_2inspection_2_r_e_a_d_m_e.html#autotoc_md10", null ],
+      [ "Testing", "dc/d23/md_src_2inspection_2_r_e_a_d_m_e.html#autotoc_md11", null ],
+      [ "Running the node", "dc/d23/md_src_2inspection_2_r_e_a_d_m_e.html#autotoc_md12", null ],
+      [ "Design", "dc/d23/md_src_2inspection_2_r_e_a_d_m_e.html#autotoc_md13", null ],
+      [ "Main External Libraries", "dc/d23/md_src_2inspection_2_r_e_a_d_m_e.html#autotoc_md14", null ]
     ] ],
     [ "Localization and Mapping Package", "d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html", [
-      [ "Run the Node", "d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md11", [
-        [ "Compiling", "d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md12", null ]
+      [ "Run the Node", "d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md16", [
+        [ "Compiling", "d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md17", null ]
       ] ],
-      [ "Testing", "d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md13", [
-        [ "Running the node", "d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md14", null ]
+      [ "Testing", "d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md18", [
+        [ "Running the node", "d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md19", null ]
       ] ],
-      [ "Design", "d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md15", [
-        [ "Behaviour", "d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md16", null ],
-        [ "Structure", "d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md17", null ]
+      [ "Design", "d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md20", [
+        [ "Behaviour", "d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md21", null ],
+        [ "Structure", "d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md22", null ]
       ] ],
-      [ "Full Documentation", "d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md18", null ],
-      [ "Main External Libraries", "d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md19", null ]
-    ] ],
-    [ "Longitudinal Controller", "d9/dbb/md_src_2long__control_2_r_e_a_d_m_e.html", [
-      [ "Dependencies", "d9/dbb/md_src_2long__control_2_r_e_a_d_m_e.html#autotoc_md21", null ],
-      [ "Compiling", "d9/dbb/md_src_2long__control_2_r_e_a_d_m_e.html#autotoc_md22", null ],
-      [ "Testing", "d9/dbb/md_src_2long__control_2_r_e_a_d_m_e.html#autotoc_md23", null ],
-      [ "Running", "d9/dbb/md_src_2long__control_2_r_e_a_d_m_e.html#autotoc_md24", null ]
+      [ "Full Documentation", "d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md23", null ],
+      [ "Main External Libraries", "d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md24", null ]
     ] ],
     [ "MockerNode package", "d4/dca/md_src_2mocker__node_2_r_e_a_d_m_e.html", [
       [ "Design", "d4/dca/md_src_2mocker__node_2_r_e_a_d_m_e.html#autotoc_md26", null ],
@@ -130,10 +130,10 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"d3/da8/ransac__test_8cpp.html#a9b345f1164e201047f1fa4cd65c841c7",
-"d7/d28/loc__map_2include_2adapter_2map_8hpp.html",
-"d9/de5/namespaceacceleration__mapper.html#a7197fa1ea8c27b865e1578a06121218b",
-"dc/dfb/perception__node_8cpp.html",
+"d3/da4/planning_2include_2adapter__planning_2adapter_8hpp.html",
+"d7/d37/md_src_2_r_e_a_d_m_e.html",
+"d9/de5/namespaceacceleration__mapper.html#a97a95e38a95c53f9d57e6e63a41cf316",
+"dc/dfb/perception__node_8cpp.html#aa2ac37d4781259c99da18f6b3cadb7b1",
 "dir_5db9a40d55b0c99efaa8ab76de0cd25a.html"
 ];
 

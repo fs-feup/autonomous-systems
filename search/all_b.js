@@ -2,13 +2,13 @@ var searchData=
 [
   ['label_0',['label',['../d7/dc1/namespacespline.html#aa49f95a60d0a0741eef1ef2d511d49fd',1,'spline']]],
   ['large_5forange_1',['large_orange',['../dc/d04/namespacecolors.html#a76f863e71ce8e67d1ef1850029f93b0aaaf2b6f76efaa141241b71cc3eb6b15f6',1,'colors']]],
-  ['last_5fupdate_2',['last_update',['../dc/d59/struct_cone_map.html#a29c52620c79180ec572b11c40f6b0a9c',1,'ConeMap::last_update'],['../db/d6d/struct_motion_update.html#a95cc8037b1614b80421c1f85e6b354b8',1,'MotionUpdate::last_update'],['../de/dfe/struct_vehicle_state.html#ad742abf8c8b29c8a46f3539226d36f5c',1,'VehicleState::last_update']]],
+  ['last_5fupdate_2',['last_update',['../dc/d59/struct_cone_map.html#a29c52620c79180ec572b11c40f6b0a9c',1,'ConeMap::last_update'],['../de/dfe/struct_vehicle_state.html#ad742abf8c8b29c8a46f3539226d36f5c',1,'VehicleState::last_update'],['../db/d6d/struct_motion_update.html#a95cc8037b1614b80421c1f85e6b354b8',1,'MotionUpdate::last_update']]],
   ['least_5fsquares_5fdifferentiation_2ecpp_3',['least_squares_differentiation.cpp',['../d7/d4b/least__squares__differentiation_8cpp.html',1,'']]],
   ['least_5fsquares_5fdifferentiation_2ehpp_4',['least_squares_differentiation.hpp',['../d1/d27/least__squares__differentiation_8hpp.html',1,'']]],
   ['least_5fsquares_5ftest_2ecpp_5',['least_squares_test.cpp',['../d5/dfa/least__squares__test_8cpp.html',1,'']]],
   ['leastsquaresdifferentiation_6',['LeastSquaresDifferentiation',['../d7/d15/class_least_squares_differentiation.html',1,'']]],
   ['leastsquaresdifferentiationtest_7',['LeastSquaresDifferentiationTest',['../de/d1e/class_least_squares_differentiation_test.html',1,'']]],
-  ['libraries_8',['libraries',['../d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md50',1,'Main External Libraries'],['../d7/de6/md_src_2perception_2_r_e_a_d_m_e.html#autotoc_md37',1,'Main External Libraries'],['../d4/dca/md_src_2mocker__node_2_r_e_a_d_m_e.html#autotoc_md29',1,'Main External Libraries'],['../d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md19',1,'Main External Libraries'],['../dc/d23/md_src_2inspection_2_r_e_a_d_m_e.html#autotoc_md9',1,'Main External Libraries']]],
+  ['libraries_8',['libraries',['../d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md50',1,'Main External Libraries'],['../d7/de6/md_src_2perception_2_r_e_a_d_m_e.html#autotoc_md37',1,'Main External Libraries'],['../d4/dca/md_src_2mocker__node_2_r_e_a_d_m_e.html#autotoc_md29',1,'Main External Libraries'],['../d7/d99/md_src_2loc__map_2_r_e_a_d_m_e.html#autotoc_md24',1,'Main External Libraries'],['../dc/d23/md_src_2inspection_2_r_e_a_d_m_e.html#autotoc_md14',1,'Main External Libraries']]],
   ['license_9',['license',['../dd/dc4/namespacesetup.html#a8ed6f50a28bd6a8794f8e1153baa6de9',1,'setup']]],
   ['limmax_10',['limMax',['../d6/d5a/class_p_i_d.html#a4944aec183f7366c0b0a36913e2fe1df',1,'PID']]],
   ['limmin_11',['limMin',['../d6/d5a/class_p_i_d.html#abbe47d7bf3fe1480a12b4c47f033f91d',1,'PID']]],
@@ -28,6 +28,5 @@ var searchData=
   ['locmap_5fsender_25',['locmap_sender',['../d7/d4e/class_integration_test.html#a9af8879bf09a9767daab48d991af0046',1,'IntegrationTest']]],
   ['logcones_26',['logCones',['../d6/d2c/class_track.html#a74da16c54345ef8158d6dacf1045986c',1,'Track']]],
   ['logpathpoints_27',['logPathPoints',['../d7/db7/class_path_smoothing.html#a87de9c2f357b06e04b33311cdf822485',1,'PathSmoothing']]],
-  ['longitudinal_20controller_28',['Longitudinal Controller',['../d9/dbb/md_src_2long__control_2_r_e_a_d_m_e.html',1,'']]],
-  ['longitudinalcontrol_29',['longitudinalcontrol',['../d4/de8/class_longitudinal_control.html#a0e42e93bf2f90317c7895fbab3d2ebe2',1,'LongitudinalControl::LongitudinalControl()'],['../d4/de8/class_longitudinal_control.html',1,'LongitudinalControl']]]
+  ['longitudinal_20controller_28',['Longitudinal Controller',['../d7/d97/md_src_2control_2_r_e_a_d_m_e.html',1,'']]]
 ];
