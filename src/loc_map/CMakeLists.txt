@@ -31,9 +31,9 @@ set(IMPLEMENTATION_FILES
   src/utils/position.cpp
   src/utils/formulas.cpp
   src/utils/color.cpp
-  src/adapter/adapter.cpp
-  src/adapter/eufs.cpp
-  src/adapter/fsds.cpp
+  src/adapter_loc_map/adapter.cpp
+  src/adapter_loc_map/eufs.cpp
+  src/adapter_loc_map/fsds.cpp
 )
 
 
