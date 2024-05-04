@@ -27,7 +27,7 @@ double round(double number, int n) {
 TEST(STEERING, steering1) {
   auto new_inspection = std::make_unique<InspectionFunctions>(
       3.14159265358979323846264338327950288 / 6.0, 4.0, 0.254, 26, false, 0.5, 1.0);
-  for (double i = 0; i < 26; i = i + 0.1) {
+  for (unsigned int i = 0; i < 260; i++) {
     double steering = new_inspection->calculate_steering(i);
     EXPECT_FLOAT_EQ(steering,
                     sin(i * 2 * M_PI / new_inspection->turning_period) * new_inspection->max_angle);
@@ -43,7 +43,7 @@ TEST(TORQUE, torque1) {
       3.14159265358979323846264338327950288 / 6.0, 4.0, 0.254, 26, false, 0.5, 1.0);
   double initial_velocity = 5;
   // i represents time
-  for (double i = 0; i < 26; i = i + 0.1) {
+  for (unsigned int i = 0; i < 260; i++) {
     initial_velocity += 0.1 * (new_inspection->calculate_throttle(initial_velocity));
   }
   EXPECT_NEAR(initial_velocity, 1, 0.01);
@@ -58,7 +58,7 @@ TEST(TORQUE, torque2) {
       3.14159265358979323846264338327950288 / 6.0, 4.0, 0.254, 26, false, 0.5, 1.0);
   double initial_velocity = -4;
   // i represents time
-  for (double i = 0; i < 26; i = i + 0.1) {
+  for (unsigned int i = 0; i < 260; i++) {
     initial_velocity += 0.1 * (new_inspection->calculate_throttle(initial_velocity));
   }
   EXPECT_NEAR(initial_velocity, 1, 0.01);
@@ -73,7 +73,7 @@ TEST(TORQUE, torque3) {
       3.14159265358979323846264338327950288 / 6.0, 4.0, 0.254, 26, false, 0.5, 1.0);
   double initial_velocity = 1.1;
   // i represents time
-  for (double i = 0; i < 26; i = i + 0.1) {
+  for (unsigned int i = 0; i < 260; i++) {
     initial_velocity += 0.1 * (new_inspection->calculate_throttle(initial_velocity));
   }
   EXPECT_NEAR(initial_velocity, 1, 0.01);
@@ -98,7 +98,7 @@ TEST(TORQUE, torque4) {
   double min_velocity = 1000;
   int count = 0;
   // i represents time
-  for (double i = 0; i < stop_time; i = i + 0.1) {
+  for (unsigned int i = 0; i < static_cast<unsigned int>(stop_time) * 10; i++) {
     // save the maximum and minimum velocities
     max_velocity = current_velocity > max_velocity ? current_velocity : max_velocity;
     min_velocity = current_velocity < min_velocity ? current_velocity : min_velocity;

@@ -6,7 +6,7 @@
 #include "message_filters/time_synchronizer.h"
 #include "std_msgs/msg/string.hpp"
 
-InspectionMission::InspectionMission() : Node("inspection"), inspection_object() {
+InspectionMission::InspectionMission() : Node("inspection") {
   inspection_object.turning_period = declare_parameter<double>("turning_period", 4.0);
   inspection_object.finish_time = declare_parameter<double>("finish_time", 26.0);
   inspection_object.wheel_radius = declare_parameter<double>("wheel_radius", 0.254);

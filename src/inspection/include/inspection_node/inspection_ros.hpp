@@ -50,7 +50,7 @@ class InspectionMission : public rclcpp::Node {
   rclcpp::TimerBase::SharedPtr main_callback_timer;  // Timer for main callback
   rclcpp::Clock clock;
   rclcpp::Time initial_time;  // Ellapsed time in seconds
-  InspectionFunctions inspection_object;
+  InspectionFunctions inspection_object = InspectionFunctions();
 
   bool go = false;  // Flag to start the mission
   Mission mission;  // Mission to be executed;
