@@ -34,10 +34,10 @@ jobs:
           rosdep update
           rosdep install --from-paths src --ignore-src -r -y
       
-      - name: Build Messages
+      - name: Build Dependencies
         run: |
           source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib
 
       - name: Build and Test Perception
         run: |
@@ -71,10 +71,10 @@ jobs:
           rosdep update
           rosdep install --from-paths src --ignore-src -r -y
       
-      - name: Build Messages
+      - name: Build Dependencies
         run: |
           source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib
 
       - name: Build and Test Localization and Mapping
         run: |
@@ -109,10 +109,10 @@ jobs:
           rosdep update
           rosdep install --from-paths src --ignore-src -r -y
       
-      - name: Build Messages
+      - name: Build Dependencies
         run: |
           source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib
 
       - name: Build and Test Control
         run: |
@@ -147,10 +147,10 @@ jobs:
           rosdep update
           rosdep install --from-paths src --ignore-src -r -y
       
-      - name: Build Messages
+      - name: Build Dependencies
         run: |
           source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib
 
       - name: Build and Test Planning
         run: |
@@ -185,10 +185,10 @@ jobs:
           rosdep update
           rosdep install --from-paths src --ignore-src -r -y
       
-      - name: Build Messages
+      - name: Build Dependencies
         run: |
           source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib
 
       - name: Build and Test Inspection Node
         run: |
@@ -222,12 +222,12 @@ jobs:
           rosdep update
           rosdep install --from-paths src --ignore-src -r -y
       
-      - name: Build Messages
+      - name: Build Dependencies
         run: |
           source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib
 
-      - name: Build and Test Control
+      - name: Build and Test Mocker Node
         run: |
           source install/setup.bash
           colcon build --packages-select mocker_node
