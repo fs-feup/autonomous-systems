@@ -5,7 +5,7 @@ This package is responsible for running two scripts used for testing the car. On
 ## Compiling
 From src folder:
 ```sh
-colcon build --packages-select inspection fs_msgs
+colcon build --packages-select inspection fs_msgs custom_interfaces
 ```
 
 ## Testing

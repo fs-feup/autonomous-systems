@@ -25,6 +25,7 @@ RUN apt update && apt upgrade -y \
     && apt install python-is-python3 -y \
     && apt install clang-format -y \
     && apt install bear -y \
+    && apt install ros-humble-foxglove-bridge -y \
     && apt install curl -y \
     && curl -s https://deb.nodesource.com/setup_18.x | sudo bash \
     && apt install nodejs -y \

@@ -1,6 +1,6 @@
 #include <cstdio>
 
-#include "include/inspection_ros.hpp"
+#include "inspection_node/inspection_ros.hpp"
 
 int main(int argc, char** argv) {
   rclcpp::init(argc, argv);
