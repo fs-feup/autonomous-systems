@@ -3,7 +3,7 @@
 
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
-#include "center_calculation/centroid_calculation.hpp"
+#include "center_calculation/circunferece_center_calculation.hpp"
 
 #include <pcl/common/impl/centroid.hpp>
 #include <string>
@@ -16,8 +16,11 @@ class Cluster {
   pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud;  ///< Pointer to the Point Cloud data.
   std::string color;                                 ///< Color associated with the cluster.
   Eigen::Vector4f centroid;                          ///< Centroid of the cluster.
+  Eigen::Vector4f center;                          ///< Center of the cone's cluster.
   bool centroidIsDefined;  ///< Flag indicating whether the centroid is defined or not.
-  double confidence;
+  bool centerIsDefined; ///< Flag indicating whether the center is defined or not.
+  double confidence; ///< Confidence on the cluster to be (or not) a cone
+  static constexpr auto center_calculator = CircunferenceCenterCalculation(); ///< Calculates the center of the cone
 
  public:
   /**
@@ -31,6 +34,13 @@ class Cluster {
    * @return Eigen::Vector4f representing the centroid.
    */
   Eigen::Vector4f getCentroid();
+
+  /**
+   * @brief Get the Center of the cone's cluster
+   * 
+   * @return Eigen::Vector4f representing the center
+   */
+  Eigen::Vector4f getCenter(Plane& plane);
 
   /**
    * @brief Get the color associated with the cluster.
@@ -56,8 +66,18 @@ class Cluster {
    */
   pcl::PointCloud<pcl::PointXYZI>::Ptr getPointCloud();
 
+  /**
+   * @brief Set the Confidence of the cluster to be or not to be a cone
+   * 
+   * @param newConfidence The new Confidence of the cluster
+   */
   void setConfidence(double newConfidence);
 
+  /**
+   * @brief Get the Confidence of the cluster to be (or not to be) a cone
+   * 
+   * @return double Cluster's confidence
+   */
   double getConfidence();
 };
 

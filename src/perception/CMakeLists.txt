@@ -72,7 +72,8 @@ if(BUILD_TESTING)
                   src/cone_evaluator/distance_predict.cpp
                   test/distance_validator_test.cpp
                   src/center_calculation/centroid_calculation.cpp
-                  src/center_calculation/circunference_center_calculation.cpp)
+                  src/center_calculation/circunference_center_calculation.cpp
+                  test/circunference_center_calculation_test.cpp)
 
 
   target_link_libraries(perception_test ${PCL_LIBRARIES})

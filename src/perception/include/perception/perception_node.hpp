@@ -32,9 +32,9 @@ class Perception : public rclcpp::Node {
   Clustering* clustering;
   std::string mode = "fsds";  // Temporary, change as desired. TODO(andre): Make not hardcoded
   ConeDifferentiation* coneDifferentiator;  ///< Pointer to ConeDifferentiation object.
-  Plane groundPlane;
-  std::vector<ConeValidator*> coneValidators;
-  ConeEvaluator* coneEvaluator;
+  Plane groundPlane; ///< State variable that represents the ground's plane
+  std::vector<ConeValidator*> coneValidators; ///< The set of heuristics to apply to the clusters to validate them
+  ConeEvaluator* coneEvaluator; ///< Numeric heurisitc to get cluster's confidence
 
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr
       _point_cloud_subscription;  ///< PointCloud2 subscription.
@@ -53,10 +53,14 @@ class Perception : public rclcpp::Node {
   void publishCones(std::vector<Cluster>* cones);
 
  public:
+
   /**
    * @brief Constructor for the Perception node.
    * @param groundRemoval Pointer to the GroundRemoval object.
-   * @param coneDifferentiator Pointer to ConeDifferentiation object
+   * @param clustering Pointer to ConeDifferentiation object
+   * @param coneDifferentiator Pointer to cone Differentiator object
+   * @param coneValidator Pointer to cone Validator object
+   * @param coneEvaluator Pointer to cone Evaluator object
    */
   Perception(GroundRemoval* groundRemoval, Clustering* clustering,
              ConeDifferentiation* coneDifferentiator,
