@@ -48,21 +48,27 @@ void LogCone2(Cone* c) {
  * @param incorrectly_placed_blue number of blue cones incorrectly placed
  * @param incorrectly_placed_yellow number of yellow cones incorrectly placed
  */
-void test_cone_coloring(ConeColoring& cone_coloring, int& correctly_placed_blue, int& correctly_placed_yellow,
+void test_cone_coloring(const ConeColoring& cone_coloring, int& correctly_placed_blue, int& correctly_placed_yellow,
  int& incorrectly_placed_blue, int& incorrectly_placed_yellow) {
   correctly_placed_blue = 0; correctly_placed_yellow = 0;
   incorrectly_placed_blue = 0; incorrectly_placed_yellow = 0;
-  for (Cone* c: cone_coloring.current_left_cones) {
+  for (const Cone* c: cone_coloring.current_left_cones) {
+    //std::cout << "Cone placed in left had ID : " << c -> getId();
     if ((c -> getId())%2) {
+       //std::cout << " incorrectly placed" << std::endl;
       incorrectly_placed_yellow++;
     } else {
+      //std::cout << " correctly placed" << std::endl;
       correctly_placed_blue++;
     }
   }
-  for (Cone* c: cone_coloring.current_right_cones) {
+  for (const Cone* c: cone_coloring.current_right_cones) {
+    //std::cout << "Cone placed in right had ID : " << c -> getId();
     if ((c -> getId())%2) {
+      //std::cout << " correctly placed" << std::endl;
       correctly_placed_yellow++;
     } else {
+      //std::cout << " WARNING incorrectly placed" << std::endl;
       incorrectly_placed_blue++;
     }
   }
@@ -746,15 +752,15 @@ TEST(ConeColoring, filtercones) {
   double exponent_1    = 1.0;
   double exponent_2    = 1.0;
   double cost_max      = 5000.0;
-  ConeColoring cone_coloring = ConeColoring(gain_angle, gain_distance, gain_ncones, exponent_1, exponent_2, cost_max);
-  Position initial_position = Position(30,15);
+  auto cone_coloring = ConeColoring(gain_angle, gain_distance, gain_ncones, exponent_1, exponent_2, cost_max);
+  auto initial_position = Position(30,15);
   double radius = 5.0;
   test_cones = cone_coloring.filter_cones_by_distance(test_cones, initial_position, radius);
   std::vector<int> expected = {132,134,136,145,147};
   int count = 0;
-  for (Cone* c: test_cones) {
+  for (const Cone* c: test_cones) {
     EXPECT_EQ(c->getId(), expected[count]);
-    Position position2 = Position(c->getX(), c->getY());
+    auto position2 = Position(c->getX(), c->getY());
     ASSERT_LE(initial_position.distance_squared_to(position2), radius*radius);
     count ++;
   }
@@ -773,15 +779,15 @@ TEST(ConeColoring, get_first_cones) {
   double exponent_1    = 1.0;
   double exponent_2    = 1.0;
   double cost_max      = 5000.0;
-  ConeColoring cone_coloring = ConeColoring(gain_angle, gain_distance, gain_ncones, exponent_1, exponent_2, cost_max);
-  Position initial_position = Position(30,15);
+  auto cone_coloring = ConeColoring(gain_angle, gain_distance, gain_ncones, exponent_1, exponent_2, cost_max);
+  auto initial_position = Position(30,15);
   test_cones = cone_coloring.filter_cones_by_distance(test_cones, initial_position, 5.0);
-  Pose initial_car_pose = Pose(30.0, 15.0, 0);
-  Cone* c1 = cone_coloring.getInitialCone(test_cones, initial_car_pose, TrackSide::left);
+  auto initial_car_pose = Pose(30.0, 15.0, 0);
+  const Cone* c1 = cone_coloring.get_initial_cone(test_cones, initial_car_pose, TrackSide::left);
   EXPECT_DOUBLE_EQ(round_n(c1->getX(),3), round_n(27.4081,3));
   EXPECT_DOUBLE_EQ(round_n(c1->getY(),3), round_n(17.9243,3));
   EXPECT_EQ(c1->getId(), 147);
-  Cone* c2 = cone_coloring.getInitialCone(test_cones, initial_car_pose, TrackSide::right);
+  const Cone* c2 = cone_coloring.get_initial_cone(test_cones, initial_car_pose, TrackSide::right);
   EXPECT_DOUBLE_EQ(round_n(c2->getX(),3), round_n(29.8945,3));
   EXPECT_DOUBLE_EQ(round_n(c2->getY(),3), round_n(13.0521,3));
   EXPECT_EQ(c2->getId(), 134);
@@ -832,8 +838,8 @@ TEST(ConeColoring, place_first_cones2) {
   double exponent_1    = 1.0;
   double exponent_2    = 1.0;
   double cost_max      = 5000.0;
-  ConeColoring cone_coloring = ConeColoring(gain_angle, gain_distance, gain_ncones, exponent_1, exponent_2, cost_max);
-  Pose initial_car_pose = Pose(30.0, 15.0, 0);
+  auto cone_coloring = ConeColoring(gain_angle, gain_distance, gain_ncones, exponent_1, exponent_2, cost_max);
+  auto initial_car_pose = Pose(30.0, 15.0, 0);
   cone_coloring.place_initial_cones(test_cones, initial_car_pose);
   EXPECT_DOUBLE_EQ(round_n(cone_coloring.current_right_cones[0]->getX(),3), round_n(27.8945,3));
   EXPECT_DOUBLE_EQ(round_n(cone_coloring.current_right_cones[0]->getY(),3), round_n(13.0521,3));
@@ -862,13 +868,13 @@ TEST(ConeColoring, making_unvisited_cones1) {
   double exponent_1    = 1.0;
   double exponent_2    = 1.0;
   double cost_max      = 5000.0;
-  ConeColoring cone_coloring = ConeColoring(gain_angle, gain_distance, gain_ncones, exponent_1, exponent_2, cost_max);
-  std::vector<std::pair<Cone *, bool> *> cones = cone_coloring.makeUnvisitedCones(test_cones);
-  EXPECT_EQ(cones.size(), test_cones.size());
-  for (int i = 0; i < (int)cones.size(); i++){
-    EXPECT_DOUBLE_EQ(cones[i]->first->getX(), test_cones[i]->getX());
-    EXPECT_DOUBLE_EQ(cones[i]->first->getY(), test_cones[i]->getY());
-    EXPECT_EQ(cones[i]->first->getId(), test_cones[i]->getId());
+  auto cone_coloring = ConeColoring(gain_angle, gain_distance, gain_ncones, exponent_1, exponent_2, cost_max);
+  auto cones = cone_coloring.make_unvisited_cones(test_cones);
+  EXPECT_EQ((*cones).size(), test_cones.size());
+  for (int i = 0; i < (int)(*cones).size(); i++){
+    EXPECT_DOUBLE_EQ((*cones)[i].first->getX(), test_cones[i]->getX());
+    EXPECT_DOUBLE_EQ((*cones)[i].first->getY(), test_cones[i]->getY());
+    EXPECT_EQ((*cones)[i].first->getId(), test_cones[i]->getId());
   }
 }
 
@@ -890,9 +896,9 @@ TEST(ConeColoring, fullconecoloring1) {
   double exponent_1    = 1.0;
   double exponent_2    = 1.0;
   double cost_max      = 10.0;
-  ConeColoring cone_coloring = ConeColoring(gain_angle, gain_distance, gain_ncones, exponent_1, exponent_2, cost_max);
-  Pose initial_car_pose = Pose(30.0, 15.0, 3.14);
-  cone_coloring.colorCones(test_cones, initial_car_pose, 5.0);
+  auto cone_coloring = ConeColoring(gain_angle, gain_distance, gain_ncones, exponent_1, exponent_2, cost_max);
+  auto initial_car_pose = Pose(30.0, 15.0, 3.14);
+  cone_coloring.color_cones(test_cones, initial_car_pose, 5.0);
   test_cone_coloring(cone_coloring, c_left, c_right,  inc_left, inc_right);
   EXPECT_EQ(c_left, 128);
   EXPECT_EQ(c_right, 140);

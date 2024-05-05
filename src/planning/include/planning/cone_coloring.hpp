@@ -4,6 +4,10 @@
 #include "utils/cone.hpp"
 #include "utils/pose.hpp"
 #include "utils/righ_left_enum.hpp"
+#include <vector>
+#include <memory>
+#include <algorithm>
+#include <cmath>
 
 /**
  * @brief Class responsible for recieving a set of uncolored cones and discovering their color
@@ -51,6 +55,9 @@ class ConeColoring {
       */
     double max_cost;
 
+    std::shared_ptr<Cone> virtual_left_cone = nullptr;
+
+    std::shared_ptr<Cone> virtual_right_cone = nullptr;
 
      /**
       * @brief cost function used to minimize the cost of the path.
@@ -96,7 +103,7 @@ class ConeColoring {
      * @return true if the cone has been successfully placed
      * @return false if the cone hasn't been placed
      */
-    bool placeNextCone(std::vector<std::pair<Cone *, bool> *> &visited_cones, double distance_threshold, int n, TrackSide side);
+    bool place_next_cone(std::shared_ptr<std::vector<std::pair<Cone *, bool>>> visited_cones, double distance_threshold, int n, TrackSide side);
 
     /**
      * @brief get an estimate to the distance to the left side of the track
@@ -134,7 +141,7 @@ class ConeColoring {
      * @param initial_car_pose initial pose of the car
      * @param distance_threshold maximum allowed distance to reach the next cone
      */
-    void colorCones(const std::vector<Cone *>& input_cones, Pose initial_car_pose, double distance_threshold);
+    void color_cones(const std::vector<Cone *>& input_cones, Pose initial_car_pose, double distance_threshold);
     /**
      * @brief current cones on the left side
      * 
@@ -153,7 +160,7 @@ class ConeColoring {
      * @param side reach the cone form the left or right side
      * @return Cone* initial cone to start the path
      */
-    Cone* getInitialCone(const std::vector<Cone*>& candidates, Pose initial_car_pose, TrackSide side);
+    Cone* get_initial_cone(const std::vector<Cone*>& candidates, Pose initial_car_pose, TrackSide side);
 
     /**
       * @brief filter cones that are closer than a certain radius
@@ -171,7 +178,7 @@ class ConeColoring {
      * @param cones cones to be marked as visited [true] or unvisited [false]
      * @return std::vector<std::pair<Cone *, bool> *> vector of cones and a boolean to determine if the cone has been visited
      */ 
-    std::vector<std::pair<Cone *, bool> *> makeUnvisitedCones(const std::vector<Cone *>& cones) const;
+    std::shared_ptr<std::vector<std::pair<Cone *, bool>>> make_unvisited_cones(const std::vector<Cone *>& cones) const;
 
     /**
       * @brief add the best initial cones to the sides of the track

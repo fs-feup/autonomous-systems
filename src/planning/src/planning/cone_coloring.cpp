@@ -22,10 +22,10 @@ double ConeColoring::angle_and_norm(const Cone* possible_next_cone, TrackSide si
 }
 
 bool ConeColoring::cone_is_in_side(const Cone *c, TrackSide side) const {
-    std::vector<Cone*> current_cones = (bool)side ? current_left_cones : current_right_cones;
-    return std::any_of(current_cones.begin(), current_cones.end(), [c](const Cone* cone) {
-        return cone->getId() == c->getId();
-    });
+    std::vector<Cone *> current_cones = (bool)side ? current_left_cones : current_right_cones;
+    auto it = std::find_if(current_cones.begin(), current_cones.end(), 
+                           [&c](const Cone* cone) { return cone->getId() == c->getId(); });
+    return it != current_cones.end();
 }
 
 double ConeColoring::distance_to_side(Pose initial_car_pose, TrackSide side, double x, double y) const {
@@ -35,7 +35,7 @@ double ConeColoring::distance_to_side(Pose initial_car_pose, TrackSide side, dou
      tan(initial_car_pose.orientation)*( x - ( initial_car_pose.position.x + 2*sin(initial_car_pose.orientation))));
 }
 
-Cone* ConeColoring::getInitialCone(const std::vector<Cone *>& candidates, Pose initial_car_pose, TrackSide side) {
+Cone* ConeColoring::get_initial_cone(const std::vector<Cone *>& candidates, Pose initial_car_pose, TrackSide side) {
     double minimum_cost = MAXFLOAT;
     Cone* initial_cone = nullptr;
     for (Cone* c : candidates) {
@@ -63,14 +63,14 @@ void ConeColoring::place_initial_cones(const std::vector<Cone *>& input_cones, P
     std::vector<Cone*> candidates = filter_cones_by_distance(input_cones, initial_car_pose.position, 5);
 
     // get the initial cone for the left side
-    Cone* initial_cone_left = getInitialCone(candidates, initial_car_pose, TrackSide::left);
+    Cone* initial_cone_left = get_initial_cone(candidates, initial_car_pose, TrackSide::left);
 
     // get the initial cone for the right side 
-    Cone* initial_cone_right = getInitialCone(candidates, initial_car_pose, TrackSide::right);
+    Cone* initial_cone_right = get_initial_cone(candidates, initial_car_pose, TrackSide::right);
 
     // Create virtual cones to be added at the beginning of the vector. They must be dismissed later.
-    auto virtual_left_cone = std::make_shared<Cone>(-2, initial_cone_left->getX() - 2*(float)cos(initial_car_pose.orientation), initial_cone_left -> getY() - 2*(float)sin(initial_car_pose.orientation));
-    auto virtual_right_cone = std::make_shared<Cone>(-1, initial_cone_right->getX() - 2*(float)cos(initial_car_pose.orientation), initial_cone_right->getY() - 2*(float)sin(initial_car_pose.orientation));
+    virtual_left_cone = std::make_shared<Cone>(-2, initial_cone_left->getX() - 2*(float)cos(initial_car_pose.orientation), initial_cone_left -> getY() - 2*(float)sin(initial_car_pose.orientation));
+    virtual_right_cone = std::make_shared<Cone>(-1, initial_cone_right->getX() - 2*(float)cos(initial_car_pose.orientation), initial_cone_right->getY() - 2*(float)sin(initial_car_pose.orientation));
 
     current_left_cones.push_back(virtual_left_cone.get());
     current_right_cones.push_back(virtual_right_cone.get());
@@ -86,16 +86,16 @@ double ConeColoring::cost(const Cone* possible_next_cone, int n, TrackSide side)
     return cost;
 }
 
-std::vector<std::pair<Cone *, bool> *> ConeColoring::makeUnvisitedCones(const std::vector<Cone *>& cones) const {
-    std::vector<std::pair<Cone *, bool> *> conePairs;
+std::shared_ptr<std::vector<std::pair<Cone *, bool>>> ConeColoring::make_unvisited_cones(const std::vector<Cone *>& cones) const {
+    auto cone_pairs = std::make_shared<std::vector<std::pair<Cone *, bool>>>();
     for (Cone *cone : cones) {
-        auto conePair = std::make_shared<std::pair<Cone *, bool>>(cone, cone_is_in_side(cone, TrackSide::left) || cone_is_in_side(cone, TrackSide::right));
-        conePairs.push_back(conePair.get());
+        auto cone_pair = std::make_pair(cone, cone_is_in_side(cone, TrackSide::left) || cone_is_in_side(cone, TrackSide::right));
+        cone_pairs->push_back(cone_pair);
     }
-    return conePairs;
+    return cone_pairs;
 }
 
-bool ConeColoring::placeNextCone(std::vector<std::pair<Cone *, bool> *> &visited_cones, double distance_threshold, int n, TrackSide side) {
+bool ConeColoring::place_next_cone(std::shared_ptr<std::vector<std::pair<Cone *, bool>>> visited_cones, double distance_threshold, int n, TrackSide side) {
     
     double minimum_cost = MAXFLOAT;
     
@@ -103,17 +103,17 @@ bool ConeColoring::placeNextCone(std::vector<std::pair<Cone *, bool> *> &visited
 
     const Cone *last_cone = current_cones.back();
 
-    Cone *next_cone = visited_cones[0]->first;
+    Cone *next_cone = (*visited_cones)[0].first;
 
-    std::pair<Cone *, bool> *best_pair = visited_cones[0];
+    std::pair<Cone *, bool> *best_pair = &(*visited_cones)[0];
 
-    for (std::pair<Cone *, bool>* p : visited_cones) {
-        if (p -> second) continue; // skip visited cones
-        double cost = ConeColoring::cost(p -> first, n, side);
-        if (cost < minimum_cost && last_cone->squaredDistanceTo(p ->first) < distance_threshold*distance_threshold && cost < max_cost) {
+    for (std::pair<Cone *, bool> &p : *visited_cones) {
+        if (p.second) {continue;} // skip visited cones
+        double cost = ConeColoring::cost(p.first, n, side);
+        if (cost < minimum_cost && last_cone->squaredDistanceTo(p.first) < distance_threshold*distance_threshold && cost < max_cost) {
             minimum_cost = cost;
-            next_cone = p -> first;
-            best_pair = p;
+            next_cone = p.first;
+            best_pair = &p;
         }
     }
     if (minimum_cost == MAXFLOAT) return false;
@@ -122,11 +122,11 @@ bool ConeColoring::placeNextCone(std::vector<std::pair<Cone *, bool> *> &visited
     return true;
 }
 
-void ConeColoring::colorCones(const std::vector<Cone *>& input_cones, Pose initial_car_pose, double distance_threshold) {
+void ConeColoring::color_cones(const std::vector<Cone *>& input_cones, Pose initial_car_pose, double distance_threshold) {
     place_initial_cones(input_cones, initial_car_pose);
-    std::vector<std::pair<Cone *, bool> *> visited_cones = makeUnvisitedCones(input_cones);
+    auto visited_cones = make_unvisited_cones(input_cones);
 
-    while (placeNextCone(visited_cones, distance_threshold, (int)input_cones.size(), TrackSide::left));
-    while (placeNextCone(visited_cones, distance_threshold, (int)input_cones.size(), TrackSide::right));
+    while (place_next_cone(visited_cones, distance_threshold, (int)input_cones.size(), TrackSide::left));
+    while (place_next_cone(visited_cones, distance_threshold, (int)input_cones.size(), TrackSide::right));
 }
 
