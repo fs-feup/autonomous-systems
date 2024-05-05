@@ -2,7 +2,7 @@
 
 This directory contains the code for the main AS Pipeline. 
 
-- **long_control** -> longitudinal control
+- **control** -> longitudinal/lateral control
 - **planning** -> path planning
 - **loc_map** -> localisation and mapping
 - **perception** -> perception

@@ -83,7 +83,7 @@ jobs:
           colcon test --packages-select loc_map --event-handler=console_direct+
 
       
-  long_control:
+  control:
     runs-on: ubuntu-latest
 
     container:
@@ -114,11 +114,11 @@ jobs:
           source /opt/ros/$ROS_DISTRO/setup.bash
           colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib
 
-      - name: Build and Test Longitudinal Control
+      - name: Build and Test Control
         run: |
           source install/setup.bash
-          colcon build --packages-select long_control
-          colcon test --packages-select long_control --event-handler=console_direct+
+          colcon build --packages-select control
+          colcon test --packages-select control --event-handler=console_direct+
 
 
   planning:
