@@ -22,18 +22,18 @@ using testing::Eq;
  * @return true if a<b
  * @return false if a>b
  */
-bool customComparator(const std::pair<double, double> &a, const std::pair<double, double> &b) {
+bool custom_comparator(const std::pair<double, double> &a, const std::pair<double, double> &b) {
   if (a.first != b.first) {
     return a.first < b.first;
   }
   return a.second < b.second;
 }
 
-void LogCone1(Cone* c) {
+void log_cone1(const Cone* c) {
   std::cout << "X cone: " << c -> getX() << " , Y cone: " << c -> getY() << " Id cone: " << c -> getId() << std::endl;
 }
 
-void LogCone2(Cone* c) {
+void log_cone2(const Cone* c) {
   std::cout << "(" << c -> getX() << "," << c -> getY() << "),";
 }
 
@@ -55,20 +55,16 @@ void test_cone_coloring(const ConeColoring& cone_coloring, int& correctly_placed
   for (const Cone* c: cone_coloring.current_left_cones) {
     //std::cout << "Cone placed in left had ID : " << c -> getId();
     if ((c -> getId())%2) {
-       //std::cout << " incorrectly placed" << std::endl;
       incorrectly_placed_yellow++;
     } else {
-      //std::cout << " correctly placed" << std::endl;
       correctly_placed_blue++;
     }
   }
   for (const Cone* c: cone_coloring.current_right_cones) {
     //std::cout << "Cone placed in right had ID : " << c -> getId();
     if ((c -> getId())%2) {
-      //std::cout << " correctly placed" << std::endl;
       correctly_placed_yellow++;
     } else {
-      //std::cout << " WARNING incorrectly placed" << std::endl;
       incorrectly_placed_blue++;
     }
   }
@@ -83,7 +79,7 @@ void test_cone_coloring(const ConeColoring& cone_coloring, int& correctly_placed
 std::vector<std::pair<double, double>> orderVectorOfPairs(
     const std::vector<std::pair<double, double>> &vec) {
   std::vector<std::pair<double, double>> result = vec;
-  std::sort(result.begin(), result.end(), customComparator);
+  std::sort(result.begin(), result.end(), custom_comparator);
   return result;
 }
 
@@ -197,9 +193,9 @@ std::ostream &operator<<(std::ostream &os, const PathPoint &p) {
  *
  */
 TEST(LocalPathPlanner, outlier_test2) {
-  std::string filePath = "src/planning/tracks/outlier_test2.txt";
+  std::string file_path = "src/planning/tracks/outlier_test2.txt";
   Track *track = new Track();
-  track->fillTrack(filePath);
+  track->fillTrack(file_path);
   // track -> logCones(true);
   // track -> logCones(false);
   int n1_left = track->getLeftConesSize();
@@ -221,9 +217,9 @@ TEST(LocalPathPlanner, outlier_test2) {
  *
  */
 TEST(LocalPathPlanner, outliers_test1) {
-  std::string filePath = "src/planning/tracks/outlier_test1.txt";
+  std::string file_path = "src/planning/tracks/outlier_test1.txt";
   Track *track = new Track();
-  track->fillTrack(filePath);
+  track->fillTrack(file_path);
   // track -> logCones(true);
   // track -> logCones(false);
   int n1_left = track->getLeftConesSize();
@@ -245,9 +241,9 @@ TEST(LocalPathPlanner, outliers_test1) {
  *
  */
 TEST(LocalPathPlanner, map250_out10) {
-  std::string filePath = "src/planning/tracks/map_250_out10.txt";
+  std::string file_path = "src/planning/tracks/map_250_out10.txt";
   Track *track = new Track();
-  track->fillTrack(filePath);
+  track->fillTrack(file_path);
   // track -> logCones(true);
   // track -> logCones(false);
   int n1_left = track->getLeftConesSize();
@@ -268,9 +264,9 @@ TEST(LocalPathPlanner, map250_out10) {
  *
  */
 TEST(LocalPathPlanner, map250_out25) {
-  std::string filePath = "src/planning/tracks/map_250_out25.txt";
+  std::string file_path = "src/planning/tracks/map_250_out25.txt";
   Track *track = new Track();
-  track->fillTrack(filePath);
+  track->fillTrack(file_path);
   // track -> logCones(true);
   // track -> logCones(false);
   int n1_left = track->getLeftConesSize();
@@ -291,9 +287,9 @@ TEST(LocalPathPlanner, map250_out25) {
  *
  */
 TEST(LocalPathPlanner, map250_out50) {
-  std::string filePath = "src/planning/tracks/map_250_out50.txt";
+  std::string file_path = "src/planning/tracks/map_250_out50.txt";
   Track *track = new Track();
-  track->fillTrack(filePath);
+  track->fillTrack(file_path);
   // track -> logCones(true);
   // track -> logCones(false);
   int n1_left = track->getLeftConesSize();
@@ -314,9 +310,9 @@ TEST(LocalPathPlanner, map250_out50) {
  *
  */
 TEST(LocalPathPlanner, map250) {
-  std::string filePath = "src/planning/tracks/map_250.txt";
+  std::string file_path = "src/planning/tracks/map_250.txt";
   Track *track = new Track();
-  track->fillTrack(filePath);
+  track->fillTrack(file_path);
   // track -> logCones(true);
   // track -> logCones(false);
   int n1_left = track->getLeftConesSize();
@@ -337,9 +333,9 @@ TEST(LocalPathPlanner, map250) {
  *
  */
 TEST(LocalPathPlanner, map_250_rng) {
-  std::string filePath = "src/planning/tracks/map_250_rng.txt";
+  std::string file_path = "src/planning/tracks/map_250_rng.txt";
   Track *track = new Track();
-  track->fillTrack(filePath);
+  track->fillTrack(file_path);
   // track -> logCones(true);
   // track -> logCones(false);
   int n1_left = track->getLeftConesSize();
@@ -360,9 +356,9 @@ TEST(LocalPathPlanner, map_250_rng) {
  *
  */
 TEST(LocalPathPlanner, distance_next_outliers) {
-  std::string filePath = "src/planning/tracks/distance_to_next.txt";
+  std::string file_path = "src/planning/tracks/distance_to_next.txt";
   Track *track = new Track();
-  track->fillTrack(filePath);
+  track->fillTrack(file_path);
   // track -> logCones(true);
   // track -> logCones(false);
   int n1_left = track->getLeftConesSize();
@@ -384,9 +380,9 @@ TEST(LocalPathPlanner, distance_next_outliers) {
  *
  */
 TEST(LocalPathPlanner, path_smooth1) {
-  std::string filePath = "src/planning/tracks/path_smooth1.txt";
+  std::string file_path = "src/planning/tracks/path_smooth1.txt";
   PathSmoothing *new_path = new PathSmoothing();
-  new_path->fillPath(filePath);
+  new_path->fillPath(file_path);
   // new_path -> logPathPoints();
   new_path->defaultSmoother(new_path->getPath());
   EXPECT_EQ(new_path->getPointAmount(), 1101);
@@ -398,9 +394,9 @@ TEST(LocalPathPlanner, path_smooth1) {
  *
  */
 TEST(LocalPathPlanner, path_smooth2) {
-  std::string filePath = "src/planning/tracks/path_smooth2.txt";
+  std::string file_path = "src/planning/tracks/path_smooth2.txt";
   PathSmoothing *new_path = new PathSmoothing();
-  new_path->fillPath(filePath);
+  new_path->fillPath(file_path);
   // new_path -> logPathPoints();
   new_path->defaultSmoother(new_path->getPath());
   EXPECT_EQ(new_path->getPointAmount(), 3801);
@@ -412,9 +408,9 @@ TEST(LocalPathPlanner, path_smooth2) {
  *
  */
 TEST(LocalPathPlanner, delauney10) {
-  std::string filePath = "src/planning/tracks/map_10.txt";
+  std::string file_path = "src/planning/tracks/map_10.txt";
   Track *track = new Track();
-  track->fillTrack(filePath);  // fill track with file data
+  track->fillTrack(file_path);  // fill track with file data
   LocalPathPlanner *pathplanner = new LocalPathPlanner();
   std::vector<PathPoint> path;
   std::vector<PathPoint *> pathPointers = pathplanner->processNewArray(track);
@@ -431,9 +427,9 @@ TEST(LocalPathPlanner, delauney10) {
  *
  */
 TEST(LocalPathPlanner, delauney3_0) {
-  std::string filePath = "src/planning/tracks/map_100.txt";
+  std::string file_path = "src/planning/tracks/map_100.txt";
   Track *track = new Track();
-  track->fillTrack(filePath);  // fill track with file data
+  track->fillTrack(file_path);  // fill track with file data
   LocalPathPlanner *pathplanner = new LocalPathPlanner();
   std::vector<std::pair<double, double>> path;
   std::vector<PathPoint *> pathPointers = pathplanner->processNewArray(track);
@@ -504,9 +500,9 @@ TEST(LocalPathPlanner, delauney3_0) {
  *
  */
 TEST(LocalPathPlanner, delauney_250) {
-  std::string filePath = "src/planning/tracks/map_250.txt";
+  std::string file_path = "src/planning/tracks/map_250.txt";
   Track *track = new Track();
-  track->fillTrack(filePath);  // fill track with file data
+  track->fillTrack(file_path);  // fill track with file data
   LocalPathPlanner *pathplanner = new LocalPathPlanner();
   std::vector<std::pair<double, double>> path;
   std::vector<PathPoint *> pathPointers = pathplanner->processNewArray(track);
@@ -662,9 +658,9 @@ TEST(LocalPathPlanner, delauney_250) {
  *
  */
 TEST(LocalPathPlanner, map_test1_void) {
-  std::string filePath = "src/planning/tracks/map_test1.txt";
+  std::string file_path = "src/planning/tracks/map_test1.txt";
   Track *track = new Track();
-  track->fillTrack(filePath);  // fill track with file data
+  track->fillTrack(file_path);  // fill track with file data
   LocalPathPlanner *pathplanner = new LocalPathPlanner();
   std::vector<PathPoint> path;
   std::vector<PathPoint *> pathPointers = pathplanner->processNewArray(track);
@@ -680,9 +676,9 @@ TEST(LocalPathPlanner, map_test1_void) {
  *
  */
 TEST(LocalPathPlanner, map_test2) {
-  std::string filePath = "src/planning/tracks/map_test2.txt";
+  std::string file_path = "src/planning/tracks/map_test2.txt";
   Track *track = new Track();
-  track->fillTrack(filePath);  // fill track with file data
+  track->fillTrack(file_path);  // fill track with file data
   LocalPathPlanner *pathplanner = new LocalPathPlanner();
   std::vector<std::pair<double, double>> path;
   std::vector<PathPoint *> pathPointers = pathplanner->processNewArray(track);
@@ -705,45 +701,45 @@ TEST(LocalPathPlanner, map_test2) {
 // to get the average execution time. All scenarios have been described above
 
 TEST(LocalPathPlanner, delauney100) {
-  std::string filePath = "src/planning/tracks/map_100.txt";
-  std::vector<PathPoint> path = processTriangulations(filePath, "100points");
+  std::string file_path = "src/planning/tracks/map_100.txt";
+  std::vector<PathPoint> path = processTriangulations(file_path, "100points");
 }
 
 TEST(LocalPathPlanner, delauney250) {
-  std::string filePath = "src/planning/tracks/map_250.txt";
-  std::vector<PathPoint> path = processTriangulations(filePath, "250points");
+  std::string file_path = "src/planning/tracks/map_250.txt";
+  std::vector<PathPoint> path = processTriangulations(file_path, "250points");
 }
 
 TEST(LocalPathPlanner, delauneyrng) {
-  std::string filePath = "src/planning/tracks/map_250_rng.txt";
-  std::vector<PathPoint> path = processTriangulations(filePath, "250randompoints");
+  std::string file_path = "src/planning/tracks/map_250_rng.txt";
+  std::vector<PathPoint> path = processTriangulations(file_path, "250randompoints");
 }
 
 TEST(LocalPathPlanner, delauneyoutliers0) {
-  std::string filePath = "src/planning/tracks/map_250.txt";
-  outlierCalculations(filePath, "250points_2outliers");
+  std::string file_path = "src/planning/tracks/map_250.txt";
+  outlierCalculations(file_path, "250points_2outliers");
 }
 
 TEST(LocalPathPlanner, delauneyoutliers1) {
-  std::string filePath = "src/planning/tracks/map_250_out10.txt";
-  outlierCalculations(filePath, "250points_10outliers");
+  std::string file_path = "src/planning/tracks/map_250_out10.txt";
+  outlierCalculations(file_path, "250points_10outliers");
 }
 
 TEST(LocalPathPlanner, delauneyoutliers2) {
-  std::string filePath = "src/planning/tracks/map_250_out25.txt";
-  outlierCalculations(filePath, "250points_25outliers");
+  std::string file_path = "src/planning/tracks/map_250_out25.txt";
+  outlierCalculations(file_path, "250points_25outliers");
 }
 
 TEST(LocalPathPlanner, delauneyoutliers3) {
-  std::string filePath = "src/planning/tracks/map_250_out50.txt";
-  outlierCalculations(filePath, "250points_50outliers");
+  std::string file_path = "src/planning/tracks/map_250_out50.txt";
+  outlierCalculations(file_path, "250points_50outliers");
 }
 
 TEST(ConeColoring, filtercones) {
   Track track;
   track.fillTrack("src/planning/tracks/track1.txt");
-  std::vector<Cone *> test_cones = track.getLeftCones();
-  for (Cone* c: track.getRightCones()) {
+  std::vector<Cone *> test_cones = track.get_left_cones();
+  for (Cone* c: track.get_right_cones()) {
     test_cones.push_back(c);
   }
   double gain_angle    = 1.0; 
@@ -769,8 +765,8 @@ TEST(ConeColoring, filtercones) {
 TEST(ConeColoring, get_first_cones) {
   Track track;
   track.fillTrack("src/planning/tracks/track1.txt");
-  std::vector<Cone *> test_cones = track.getLeftCones();
-  for (Cone* c: track.getRightCones()) {
+  std::vector<Cone *> test_cones = track.get_left_cones();
+  for (Cone* c: track.get_right_cones()) {
     test_cones.push_back(c);
   }
   double gain_angle    = 1.0; 
@@ -783,11 +779,11 @@ TEST(ConeColoring, get_first_cones) {
   auto initial_position = Position(30,15);
   test_cones = cone_coloring.filter_cones_by_distance(test_cones, initial_position, 5.0);
   auto initial_car_pose = Pose(30.0, 15.0, 0);
-  const Cone* c1 = cone_coloring.get_initial_cone(test_cones, initial_car_pose, TrackSide::left);
+  const Cone* c1 = cone_coloring.get_initial_cone(test_cones, initial_car_pose, TrackSide::LEFT);
   EXPECT_DOUBLE_EQ(round_n(c1->getX(),3), round_n(27.4081,3));
   EXPECT_DOUBLE_EQ(round_n(c1->getY(),3), round_n(17.9243,3));
   EXPECT_EQ(c1->getId(), 147);
-  const Cone* c2 = cone_coloring.get_initial_cone(test_cones, initial_car_pose, TrackSide::right);
+  const Cone* c2 = cone_coloring.get_initial_cone(test_cones, initial_car_pose, TrackSide::RIGHT);
   EXPECT_DOUBLE_EQ(round_n(c2->getX(),3), round_n(29.8945,3));
   EXPECT_DOUBLE_EQ(round_n(c2->getY(),3), round_n(13.0521,3));
   EXPECT_EQ(c2->getId(), 134);
@@ -797,8 +793,8 @@ TEST(ConeColoring, get_first_cones) {
 TEST(ConeColoring, place_first_cones1) {
   Track track;
   track.fillTrack("src/planning/tracks/track1.txt");
-  std::vector<Cone *> test_cones = track.getLeftCones();
-  for (Cone* c: track.getRightCones()) {
+  std::vector<Cone *> test_cones = track.get_left_cones();
+  for (Cone* c: track.get_right_cones()) {
     test_cones.push_back(c);
   }
   double gain_angle    = 1.0; 
@@ -828,8 +824,8 @@ TEST(ConeColoring, place_first_cones1) {
 TEST(ConeColoring, place_first_cones2) {
   Track track;
   track.fillTrack("src/planning/tracks/track1.txt");
-  std::vector<Cone *> test_cones = track.getLeftCones();
-  for (Cone* c: track.getRightCones()) {
+  std::vector<Cone *> test_cones = track.get_left_cones();
+  for (Cone* c: track.get_right_cones()) {
     test_cones.push_back(c);
   }
   double gain_angle    = 1.0; 
@@ -858,8 +854,8 @@ TEST(ConeColoring, place_first_cones2) {
 TEST(ConeColoring, making_unvisited_cones1) {
   Track track;
   track.fillTrack("src/planning/tracks/track1.txt");
-  std::vector<Cone *> test_cones = track.getLeftCones();
-  for (Cone* c: track.getRightCones()) {
+  std::vector<Cone *> test_cones = track.get_left_cones();
+  for (Cone* c: track.get_right_cones()) {
     test_cones.push_back(c);
   }
   double gain_angle    = 1.0; 
@@ -882,8 +878,8 @@ TEST(ConeColoring, making_unvisited_cones1) {
 TEST(ConeColoring, fullconecoloring1) {
   Track track;
   track.fillTrack("src/planning/tracks/track1.txt");
-  std::vector<Cone *> test_cones = track.getLeftCones();
-  for (Cone* c: track.getRightCones()) {
+  std::vector<Cone *> test_cones = track.get_left_cones();
+  for (Cone* c: track.get_right_cones()) {
     test_cones.push_back(c);
   }
   int c_right;

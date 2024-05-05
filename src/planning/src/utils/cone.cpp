@@ -20,6 +20,6 @@ double Cone::getDistanceTo(const Cone *dest) const {
   return sqrt(pow(this->x - dest->getX(), 2) + pow(this->y - dest->getY(), 2));
 }
 
-double Cone::squaredDistanceTo(const Cone *dest) const {
+double Cone::squared_distance_to(const Cone *dest) const {
   return pow(this->x - dest->getX(), 2) + pow(this->y - dest->getY(), 2);
 }

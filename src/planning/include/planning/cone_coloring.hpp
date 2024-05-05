@@ -3,7 +3,9 @@
 
 #include "utils/cone.hpp"
 #include "utils/pose.hpp"
+#include "utils/angle_and_norm.hpp"
 #include "utils/righ_left_enum.hpp"
+#include <rclcpp/logging.hpp>
 #include <vector>
 #include <memory>
 #include <algorithm>
@@ -85,14 +87,15 @@ class ConeColoring {
     bool cone_is_in_side(const Cone *c, TrackSide side) const;
 
     /**
-      * @brief angle between the current last edge and the possible new edge [rad]
+      * @brief calculate angle between the vector made by last two cones
+      * and the vector formed by the last cone and the possible next cone
+      * and calculate the norm of this last vector.
       * 
       * @param possible_next_cone possible next cone to be reached
       * @param side reach the cone form the left or right side
-      * @param norm variable to place the distance between the last and possible next cone in
       * @return double angle between the current cone and the next cone
       */
-    double angle_and_norm(const Cone* possible_next_cone, TrackSide side, double &norm) const ; // [rad]
+    AngleNorm angle_and_norm(const Cone* possible_next_cone, TrackSide side) const ; // [rad]
 
     /**
      * @brief place the next cone in the path
@@ -106,7 +109,8 @@ class ConeColoring {
     bool place_next_cone(std::shared_ptr<std::vector<std::pair<Cone *, bool>>> visited_cones, double distance_threshold, int n, TrackSide side);
 
     /**
-     * @brief get an estimate to the distance to the left side of the track
+     * @brief get an estimate to the distance to the left side of the track when
+     * choosing first cone
      * 
      * @param initial_car_pose 
      * @param side distance to the left or right side

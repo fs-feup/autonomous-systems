@@ -75,9 +75,9 @@ void Track::fillTrack(const std::string &path) {
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "END fillTrack");
 }
 
-std::vector<Cone *> Track::getRightCones() {return rightCones;}
+std::vector<Cone *> Track::get_right_cones() const {return rightCones;}
 
-std::vector<Cone *> Track::getLeftCones() {return leftCones;}
+std::vector<Cone *> Track::get_left_cones() const {return leftCones;}
 
 Cone *Track::getLeftConeAt(int index) { return leftCones[index]; }
 

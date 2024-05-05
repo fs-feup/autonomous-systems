@@ -63,14 +63,14 @@ class Track {
    *
    * @return A vector of pointers to the right side cones.
    */
-  std::vector<Cone *> getRightCones();
+  std::vector<Cone *> get_right_cones() const;
 
   /**
    * @brief Get the left side cones.
    *
    * @return A vector of pointers to the left cones.
    */
-  std::vector<Cone *> getLeftCones();
+  std::vector<Cone *> get_left_cones() const;
 
   /**
    * @brief Get the right cone at a specified index.

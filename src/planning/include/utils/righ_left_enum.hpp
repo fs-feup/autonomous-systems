@@ -8,8 +8,8 @@
  * 
  */
 enum class TrackSide {
-    right = 0,
-    left = 1
+    RIGHT = 0,
+    LEFT = 1
 };
 
 #endif 

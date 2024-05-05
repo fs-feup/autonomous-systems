@@ -33,7 +33,7 @@ class Cone {
    */
   double getDistanceTo(const Cone *dest) const;
 
-  double squaredDistanceTo(const Cone *dest) const;
+  double squared_distance_to(const Cone *dest) const;
 };
 
 #endif  // SRC_PLANNING_PLANNING_INCLUDE_UTILS_CONE_HPP_
