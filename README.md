@@ -16,8 +16,6 @@ Before starting, check out:
 - [Project Rules](https://www.notion.so/FS-FEUP-HUB-6873ab8de3b44fad990d264023fbce8b?pvs=4) in Notion (specifically check Software Development rules)
 - [Startup Guide](./docs/tutorials/startup_guide.md)
 
-Check [this guide](./docs/tutorials/contribute.md) on the steps for making a contribution (Pull Request).
-
 ## Documentation
 - [Documentation Home](./docs)
 - [Startup Guide](./docs/tutorials/startup_guide.md)
