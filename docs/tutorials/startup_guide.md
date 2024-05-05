@@ -9,7 +9,7 @@ In order to properly contribute to this project, a development environment is ne
 
 It is also necessary to learn how to use certain tools and programming languages.
 
-This guide is meant to help the developer setup the environment required to work for this project and get an insight on the technologies used.
+This guide is meant to help the developer setup the environment required to work for this project and get an insight into the technologies used.
 
 ### Notes
 
@@ -43,8 +43,10 @@ This guide is meant to help the developer setup the environment required to work
 - [Foxglove](./foxglove_tutorial.md) - using the Foxglove toolbox
 - [Git Advanced](./git_advanced.md)
 - [ROS2 Interfaces](https://github.com/fs-feup/interfaces/blob/main/docs/new_interface_tutorial.md) - tutorial on how to create ros2 interfaces
+- [Github Actions](./github-actions.md)
+- [Computer Setup](./setup_computer.md)
 
-### Extra Turorials 
+### Extra Tutorials 
 
 - [Youtube C++ tutorials](https://www.youtube.com/watch?v=18c3MTX0PK0&list=PLlrATfBNZ98dudnM48yfGUldqGD0S4FFb)
 - [ROS2 custom interfaces tutorial documentation (Crystal distro)](https://docs.ros.org/en/crystal/Tutorials/Custom-ROS2-Interfaces.html#create-a-new-package)
