@@ -103,9 +103,22 @@ endif()
 ament_package()
 ```
 
-No need to know everything, just the basics and where to tinker to add new files and dependencies. More information can be found in [this video](https://www.youtube.com/watch?v=ffwB60oKr-w&list=PL8i3OhJb4FNV10aIZ8oF0AA46HgA2ed8g).
+No need to know everything, just the basics and where to tinker to add new files and dependencies. 
+
+The basics:
+- inside the ```if(BUILD_TESTING)``` statement, it is only for the unit tests and testing
+- all .cpp files used need to be listed and included in the add_executable
+- you can create macros like *IMPLEMENTATION_FILES* to ease the reading of the file
+- *include_directories* and *targe_include_directories*
+- when a new library or ros package is used in this one, add it in *ament_target_dependencies* and add a *find_package* line for it, on top of editing the package.xml (for ROS2) 
+
+More information can be found in [this video](https://www.youtube.com/watch?v=ffwB60oKr-w&list=PL8i3OhJb4FNV10aIZ8oF0AA46HgA2ed8g).
 
 ## Coding
+
+### Coding Guidelines
+
+Check out the [coding guidelines](https://www.notion.so/Coding-Guidelines-564735a2da2b4e768db134b889f3dff2?pvs=4) in the rules.
 
 ### C++
 
