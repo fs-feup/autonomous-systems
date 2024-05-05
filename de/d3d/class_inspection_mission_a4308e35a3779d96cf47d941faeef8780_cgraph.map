@@ -1,0 +1,5 @@
+<map id="InspectionMission::mission_decider" name="InspectionMission::mission_decider">
+<area shape="rect" id="Node000001" title="recieves GoSignal and stores the mission that should be ran" alt="" coords="5,5,138,46"/>
+<area shape="rect" id="Node000002" href="$d4/dc8/mission__logic_8cpp.html#a20f3de68e000f985a4c2beb92930ac32" title=" " alt="" coords="186,13,316,39"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="138,23,170,23,170,28,138,28"/>
+</map>

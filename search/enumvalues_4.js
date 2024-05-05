@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['orange_0',['orange',['../dc/d04/namespacecolors.html#a76f863e71ce8e67d1ef1850029f93b0aa7a49b03c3fcaa952afa79bf1a99935f1',1,'colors']]]
+  ['large_5forange_0',['large_orange',['../dc/d04/namespacecolors.html#a76f863e71ce8e67d1ef1850029f93b0aaaf2b6f76efaa141241b71cc3eb6b15f6',1,'colors']]]
 ];

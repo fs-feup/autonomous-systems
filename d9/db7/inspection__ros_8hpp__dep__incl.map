@@ -1,9 +1,9 @@
-<map id="src/inspection/include/inspection_ros.hpp" name="src/inspection/include/inspection_ros.hpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="147,5,295,46"/>
-<area shape="rect" id="Node000002" href="$d0/da0/inspection_8cpp.html" title=" " alt="" coords="5,94,130,135"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="174,56,103,96,101,91,172,51"/>
-<area shape="rect" id="Node000003" href="$d6/db1/inspection__ros_8cpp.html" title=" " alt="" coords="154,94,288,135"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="224,62,224,94,218,94,218,62"/>
-<area shape="rect" id="Node000004" href="$da/dad/inspection_2test_2tests_8cpp.html" title=" " alt="" coords="311,94,440,135"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="270,51,342,91,339,96,268,56"/>
+<map id="src/inspection/include/inspection_node/inspection_ros.hpp" name="src/inspection/include/inspection_node/inspection_ros.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="154,5,336,61"/>
+<area shape="rect" id="Node000002" href="$d0/da0/inspection_8cpp.html" title=" " alt="" coords="5,117,130,157"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="185,71,103,118,100,114,183,67"/>
+<area shape="rect" id="Node000003" href="$d6/db1/inspection__ros_8cpp.html" title=" " alt="" coords="154,109,336,165"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="248,77,248,108,242,108,242,77"/>
+<area shape="rect" id="Node000004" href="$da/dad/inspection_2test_2tests_8cpp.html" title=" " alt="" coords="361,117,489,157"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="308,67,391,114,389,118,305,71"/>
 </map>
