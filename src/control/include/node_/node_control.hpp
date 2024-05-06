@@ -4,7 +4,9 @@
 #include <string>
 
 #include "adapter_control/adapter.hpp"
-#include "custom_interfaces/msg/cone_array.hpp"
+#include "custom_interfaces/msg/control_command.h"
+#include "custom_interfaces/msg/path_point_array.h"
+#include "custom_interfaces/msg/pose.h"
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
 
@@ -19,25 +21,29 @@ class Adapter;
  */
 class Control : public rclcpp::Node {
  private:
-  rclcpp::Publisher<std_msgs::msg::String>::SharedPtr result;
-  rclcpp::Subscription<std_msgs::msg::String>::SharedPtr current_velcoity;
-  rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr path_subscription;
-  double velocity;
+  message_filters::Cache<custom_interfaces::msg::PathPointArray> path_cache;
+  message_filters::Subscriber<custom_interfaces::msg::PathPointArray> path_point_array_sub;
+  message_filters::Subscriber<custom_interfaces::msg::Pose> pose_sub;
+
+  // TODO: change to correct message type
+  rclcpp::Publisher<custom_interfaces::msg::ControlCommand>::SharedPtr result;
 
   Adapter *adapter;
   std::string mode = "fsds";  // Temporary, change as desired. TODO(andre): Make not hardcoded
 
   /**
-   * @brief Function to publish the desired output (provisionally torque)
-   * when a new map is recieved
+   * @brief Publishes the steering angle to the car based on the path and pose using timer
+   * synchronizer
    */
-  void publish_torque(custom_interfaces::msg::ConeArray path);
+  void publish_steering_angle_synchronized(
+      const custom_interfaces::msg::PathPointArray::ConstSharedPtr &path_msg,
+      const custom_interfaces::msg::Pose::ConstSharedPtr &pose_msg);
 
   /**
-   * @brief Function to hold the value of the velocity when
-   * new velocity data is recieved
+   * @brief Publishes the steering angle to the car based on the path and pose using cache
+   * 
    */
-  void velocity_estimation_callback(std_msgs::msg::String velocity);
+  void publish_steering_angle_cached(const custom_interfaces::msg::Pose::ConstSharedPtr &pose_msg);
 
  public:
   /**
