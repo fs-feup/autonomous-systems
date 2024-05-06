@@ -33,6 +33,7 @@ set(IMPLEMENTATION_FILES
   src/cone_validator/height_validator.cpp
   src/cone_evaluator/distance_predict.cpp
   src/center_calculation/centroid_calculation.cpp
+  src/icp/icp.cpp
   src/center_calculation/circunference_center_calculation.cpp
 )
 
@@ -73,6 +74,8 @@ if(BUILD_TESTING)
                   test/distance_validator_test.cpp
                   src/center_calculation/centroid_calculation.cpp
                   src/center_calculation/circunference_center_calculation.cpp
+                  src/icp/icp.cpp
+                  test/icp_test.cpp
                   test/circunference_center_calculation_test.cpp)
 
 
