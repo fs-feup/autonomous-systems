@@ -41,6 +41,22 @@ class Plane {
    * @return The distance from the point to the plane.
    */
   double getDistanceToPoint(pcl::PointXYZI point);
+
+  /**
+   * @brief Overloads the += operator to add another plane to this plane.
+   *
+   * @param other The plane to be added.
+   * @return Reference to the modified plane.
+   */
+  Plane& operator+=(const Plane& other);
+
+  /**
+   * @brief Overloads the /= operator to divide a plane by a scalar.
+   *
+   * @param scalar The scalar to divide the plane.
+   * @return Reference to the modified plane.
+   */
+  Plane& operator/=(double scalar);
 };
 
 #endif  // PLANE_HPP

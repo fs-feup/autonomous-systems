@@ -22,6 +22,7 @@ find_package(pcl_conversions REQUIRED)
 set(IMPLEMENTATION_FILES 
   src/perception/perception_node.cpp
   src/ground_removal/ransac.cpp
+  src/ground_removal/grid_ransac.cpp
   src/adapter_perception/adapter.cpp
   src/adapter_perception/fsds.cpp
   src/adapter_perception/testlidar.cpp
@@ -68,7 +69,8 @@ if(BUILD_TESTING)
                   test/height_validator_test.cpp
                   test/cylinder_validator_test.cpp
                   src/cone_evaluator/distance_predict.cpp
-                  test/distance_validator_test.cpp)
+                  test/distance_validator_test.cpp
+                  src/ground_removal/grid_ransac.cpp)
 
 
   target_link_libraries(perception_test ${PCL_LIBRARIES})
