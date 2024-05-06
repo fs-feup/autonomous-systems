@@ -68,7 +68,7 @@ class Plane {
    * @param point The point for which the distance to the plane is calculated.
    * @return The distance from the point to the plane.
    */
-  double getDistanceToPoint(pcl::PointXYZI point) const;
+  double get_distance_to_point(pcl::PointXYZI point) const;
 };
 
 #endif  // PLANE_HPP

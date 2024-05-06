@@ -1,24 +1,24 @@
 #include "icp/icp.hpp"
 
 
-ICP::ICP(std::string targetFile, double maxCorrespondenceDistance, long maxIteration, 
-        double transformationEpsilon, double euclideanFitnessEpsilon){
+ICP::ICP(std::string target_file, double max_correspondence_distance, long max_iteration, 
+        double transformation_epsilon, double euclidean_fitness_epsilon){
     
     pcl::PointCloud<pcl::PointXYZI>::Ptr target_cloud(new pcl::PointCloud<pcl::PointXYZI>);
 
-    if (pcl::io::loadPCDFile<pcl::PointXYZI>(targetFile, *target_cloud) == -1) {
+    if (pcl::io::loadPCDFile<pcl::PointXYZI>(target_file, *target_cloud) == -1) {
         PCL_ERROR("Couldn't read file\n");
     }
 
     icp.setInputTarget(target_cloud);
 
-    icp.setMaxCorrespondenceDistance(maxCorrespondenceDistance);
+    icp.setMaxCorrespondenceDistance(max_correspondence_distance);
 
-    icp.setMaximumIterations(maxIteration);
+    icp.setMaximumIterations(max_iteration);
 
-    icp.setTransformationEpsilon(transformationEpsilon);
+    icp.setTransformationEpsilon(transformation_epsilon);
 
-    icp.setEuclideanFitnessEpsilon(euclideanFitnessEpsilon);
+    icp.setEuclideanFitnessEpsilon(euclidean_fitness_epsilon);
 }
 
 double ICP::executeICP(pcl::PointCloud<pcl::PointXYZI>::Ptr source_cloud, pcl::PointCloud<pcl::PointXYZI>::Ptr final_cloud){

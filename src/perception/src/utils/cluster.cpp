@@ -1,23 +1,22 @@
 #include <utils/cluster.hpp>
 
 Cluster::Cluster(pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud)
-    : point_cloud(point_cloud), color("undefined"), centroidIsDefined(false), 
-    confidence(0), centerIsDefined(false) {}
+    : point_cloud(point_cloud), color("undefined") {}
 
 Eigen::Vector4f Cluster::getCentroid() {
-  if (centroidIsDefined) return this->centroid;
+  if (centroid_is_defined) return this->centroid;
 
   pcl::compute3DCentroid(*point_cloud, centroid);
-  this->centroidIsDefined = true;
+  this->centroid_is_defined = true;
 
   return centroid;
 }
 
-Eigen::Vector4f Cluster::getCenter(Plane& plane) {
-  if (centerIsDefined) return this->center;
+Eigen::Vector4f Cluster::get_center(Plane& plane) {
+  if (center_is_defined) return this->center;
 
   this->center = Cluster::center_calculator.calculateCenter(this->point_cloud, plane);
-  this->centroidIsDefined = true;
+  this->center_is_defined = true;
 
   return this->center;
 }
@@ -34,7 +33,7 @@ void Cluster::setPointCloud(pcl::PointCloud<pcl::PointXYZI>::Ptr new_point_cloud
 
   this->point_cloud = new_point_cloud;
 
-  centroidIsDefined = false;
+  centroid_is_defined = false;
 }
 
 pcl::PointCloud<pcl::PointXYZI>::Ptr Cluster::getPointCloud() { return this->point_cloud; }

@@ -17,9 +17,9 @@ class Cluster {
   std::string color;                                 ///< Color associated with the cluster.
   Eigen::Vector4f centroid;                          ///< Centroid of the cluster.
   Eigen::Vector4f center;                          ///< Center of the cone's cluster.
-  bool centroidIsDefined;  ///< Flag indicating whether the centroid is defined or not.
-  bool centerIsDefined; ///< Flag indicating whether the center is defined or not.
-  double confidence; ///< Confidence on the cluster to be (or not) a cone
+  bool centroid_is_defined = false;  ///< Flag indicating whether the centroid is defined or not.
+  bool center_is_defined = false; ///< Flag indicating whether the center is defined or not.
+  double confidence = 0; ///< Confidence on the cluster to be (or not) a cone
   static constexpr auto center_calculator = CircunferenceCenterCalculation(); ///< Calculates the center of the cone
 
  public:
@@ -40,7 +40,7 @@ class Cluster {
    * 
    * @return Eigen::Vector4f representing the center
    */
-  Eigen::Vector4f getCenter(Plane& plane);
+  Eigen::Vector4f get_center(Plane& plane);
 
   /**
    * @brief Get the color associated with the cluster.

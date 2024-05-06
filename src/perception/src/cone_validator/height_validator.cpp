@@ -13,5 +13,5 @@ bool HeightValidator::coneValidator(Cluster* cone_point_cloud, Plane& plane) con
     }
   }
 
-  return plane.getDistanceToPoint(maxPoint) < height;
+  return plane.get_distance_to_point(maxPoint) < height;
 }

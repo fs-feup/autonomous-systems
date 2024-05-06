@@ -23,7 +23,7 @@ Eigen::Vector4f CircunferenceCenterCalculation::calculateCenter(pcl::PointCloud<
     std::vector<double> distances(3, std::numeric_limits<double>::max());
 
     for (auto& point : point_cloud->points) {
-        double distance = middle_plane.getDistanceToPoint(point);
+        double distance = middle_plane.get_distance_to_point(point);
 
         // Update distances/ closest point
         for (int i = 0; i < 3; ++i) {

@@ -20,7 +20,7 @@ double Plane::get_d() const {
   return d;
 }
 
-double Plane::getDistanceToPoint(pcl::PointXYZI point) const{
+double Plane::get_distance_to_point(pcl::PointXYZI point) const{
   double numerator = std::abs(a * point.x + b * point.y + c * point.z + d);
   double denominator = std::sqrt(a * a + b * b + c * c);
   return numerator / denominator;

@@ -23,8 +23,8 @@ class ICP{
      * @param transformationEpsilon Transformation epsilon for convergence criteria.
      * @param euclideanFitnessEpsilon Euclidean fitness epsilon for convergence criteria.
      */
-    ICP(std::string targetFile, double maxCorrespondenceDistance, long maxIteration, 
-        double transformationEpsilon, double euclideanFitnessEpsilon);
+    ICP(std::string target_file, double max_correspondence_distance, long max_iteration, 
+        double transformation_epsilon, double euclidean_fitness_epsilon);
 
     /**
      * @brief Execute the ICP registration.

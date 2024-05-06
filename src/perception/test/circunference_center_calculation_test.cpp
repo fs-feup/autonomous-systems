@@ -12,31 +12,33 @@
  *
  */
 class CircunferenceCenterCalculationTest : public ::testing::Test {
- protected:
+protected:
+    /**
+     * @brief Set up the test environment before each test case.
+     */
+    void SetUp() override {
+        center_calculator = CircunferenceCenterCalculation();
 
-   /**
-   * @brief Set up the test environment before each test case.
-   *
-   */
-  void SetUp() override { 
-    center_calculator = CircunferenceCenterCalculation(); 
-    pcl_cloud.reset(new pcl::PointCloud<pcl::PointXYZI>);
-    pcl_cloud->points.push_back(pcl::PointXYZI{0.0, 0.0, 1.0, 0.5});
-    pcl_cloud->points.push_back(pcl::PointXYZI{2.0, 2.0, 1.0, 1.0});
-    pcl_cloud->points.push_back(pcl::PointXYZI{4.0, 0.0, 1.0, 1.5});
-    pcl_cloud->points.push_back(pcl::PointXYZI{2.0, -2.0, 1.0, 1.5});
+        pcl_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
+        pcl_cloud->points.push_back(pcl::PointXYZI{0.0, 0.0, 1.0, 0.5});
+        pcl_cloud->points.push_back(pcl::PointXYZI{2.0, 2.0, 1.0, 1.0});
+        pcl_cloud->points.push_back(pcl::PointXYZI{4.0, 0.0, 1.0, 1.5});
+        pcl_cloud->points.push_back(pcl::PointXYZI{2.0, -2.0, 1.0, 1.5});
 
-    pcl_cloud2.reset(new pcl::PointCloud<pcl::PointXYZI>);
-    pcl_cloud2->points.push_back(pcl::PointXYZI{0.0, 0.0, 2.0, 0.5});
-    pcl_cloud2->points.push_back(pcl::PointXYZI{3.0, 3.0, 2.0, 1.0});
-    pcl_cloud2->points.push_back(pcl::PointXYZI{-3.0, 3.0, 2.0, 1.5});
-    pcl_cloud2->points.push_back(pcl::PointXYZI{0.0, 6.0, 2.0, 1.5});
-    plane = Plane(0, 0, 1, 0); // Plane z = 0
-  }
-  pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_cloud; ///< Point Cloud representing the circunference (x - 2)^2 + y^2 = 4
-  pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_cloud2; ///< Point Cloud representing the circunference x^2 + (y-3)^2 = 9
-  CircunferenceCenterCalculation center_calculator; ///< Center Calculator
-  Plane plane; ///< Plane z = 0
+        pcl_cloud2 = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
+        pcl_cloud2->points.push_back(pcl::PointXYZI{0.0, 0.0, 2.0, 0.5});
+        pcl_cloud2->points.push_back(pcl::PointXYZI{3.0, 3.0, 2.0, 1.0});
+        pcl_cloud2->points.push_back(pcl::PointXYZI{-3.0, 3.0, 2.0, 1.5});
+        pcl_cloud2->points.push_back(pcl::PointXYZI{0.0, 6.0, 2.0, 1.5});
+
+        plane = Plane(0, 0, 1, 0); // Plane z = 0
+    }
+
+public:
+    std::shared_ptr<pcl::PointCloud<pcl::PointXYZI>> pcl_cloud; ///< Point Cloud representing the circumference (x - 2)^2 + y^2 = 4
+    std::shared_ptr<pcl::PointCloud<pcl::PointXYZI>> pcl_cloud2; ///< Point Cloud representing the circumference x^2 + (y-3)^2 = 9
+    CircunferenceCenterCalculation center_calculator; ///< Center Calculator
+    Plane plane; ///< Plane z = 0
 };
 
 /**

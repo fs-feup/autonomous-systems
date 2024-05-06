@@ -16,8 +16,7 @@ protected:
      * @brief Set up the test fixture.
      */
     void SetUp() override {
-        source_cloud.reset(new pcl::PointCloud<pcl::PointXYZI>);
-        // Creating a sample source point cloud
+        source_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
         source_cloud->points.push_back(pcl::PointXYZI{3, -3, 0, 0});
         source_cloud->points.push_back(pcl::PointXYZI{2, -4, 0, 0});
         source_cloud->points.push_back(pcl::PointXYZI{4, -4, 0, 0});
@@ -26,7 +25,8 @@ protected:
         source_cloud->points.push_back(pcl::PointXYZI{10, -81.5, 0, 0});
     }
 
-    pcl::PointCloud<pcl::PointXYZI>::Ptr source_cloud; /**< Sample source point cloud */
+public:
+    std::shared_ptr<pcl::PointCloud<pcl::PointXYZI>> source_cloud;
 };
 
 /**
