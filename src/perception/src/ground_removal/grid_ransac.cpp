@@ -17,7 +17,7 @@ GridRANSAC::GridRANSAC(double epsilon, int n_tries, int n_angular_grids, double 
     this->ransac = RANSAC(epsilon, n_tries);
 }
 
-double GridRANSAC::getFarthestPoint(const pcl::PointCloud<pcl::PointXYZI>::Ptr& cloud) {
+double GridRANSAC::get_furthest_point(const pcl::PointCloud<pcl::PointXYZI>::Ptr& cloud) {
     double max_distance = 0.0;
 
     for (const auto& point : *cloud) {
@@ -35,7 +35,7 @@ void GridRANSAC::split_point_cloud(const pcl::PointCloud<pcl::PointXYZI>::Ptr& c
                        std::vector<std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr>>& grids) const {
     grids = {};
 
-    double max_distance = GridRANSAC::getFarthestPoint(cloud);
+    double max_distance = GridRANSAC::get_furthest_point(cloud);
 
     double angle_increment = 360.0 / n_angular_grids;
 
