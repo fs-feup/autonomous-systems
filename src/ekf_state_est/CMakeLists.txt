@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
 project(ekf_state_est)
-find_package(Eigen3 REQUIRED)
-include_directories(${EIGEN3_INCLUDE_DIR})
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
@@ -15,6 +13,7 @@ find_package(sensor_msgs REQUIRED)
 find_package(custom_interfaces REQUIRED)
 find_package(eufs_msgs REQUIRED)
 find_package(fs_msgs REQUIRED)
+find_package(common_lib REQUIRED)
 
 # Enable OpenMP
 find_package(OpenMP)
@@ -28,9 +27,7 @@ set(IMPLEMENTATION_FILES
   src/kalman_filter/ekf.cpp
   src/kalman_filter/motion_models.cpp
   src/kalman_filter/observation_models.cpp
-  src/utils/position.cpp
-  src/utils/formulas.cpp
-  src/utils/color.cpp
+  src/kalman_filter/data_association.cpp
   src/adapter_ekf_state_est/adapter.cpp
   src/adapter_ekf_state_est/eufs.cpp
   src/adapter_ekf_state_est/fsds.cpp
@@ -38,7 +35,7 @@ set(IMPLEMENTATION_FILES
 
 
 add_executable(${PROJECT_NAME} src/main.cpp ${IMPLEMENTATION_FILES})
-ament_target_dependencies(ekf_state_est rclcpp std_msgs sensor_msgs eufs_msgs fs_msgs custom_interfaces Eigen3)
+ament_target_dependencies(ekf_state_est rclcpp std_msgs sensor_msgs eufs_msgs common_lib fs_msgs custom_interfaces Eigen3)
 target_include_directories(${PROJECT_NAME} PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
@@ -69,7 +66,7 @@ if(BUILD_TESTING)
 
   # Unit tests
   ament_add_gtest(${PROJECT_NAME}_test ${TESTFILES} ${IMPLEMENTATION_FILES} TIMEOUT 600)
-  ament_target_dependencies(${PROJECT_NAME}_test rclcpp std_msgs eufs_msgs sensor_msgs fs_msgs custom_interfaces)
+  ament_target_dependencies(${PROJECT_NAME}_test rclcpp std_msgs eufs_msgs sensor_msgs common_lib fs_msgs custom_interfaces)
   target_include_directories(${PROJECT_NAME}_test PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>)

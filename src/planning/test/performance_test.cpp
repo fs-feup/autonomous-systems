@@ -8,12 +8,13 @@
 #include "planning/track.hpp"
 #include "rclcpp/rclcpp.hpp"
 
-bool customComparator(const std::pair<double, double> &a, const std::pair<double, double> &b);
+bool customComparator(const std::pair<double, double> &a,
+                      const std::pair<double, double> &b);
 
 std::vector<std::pair<double, double>> orderVectorOfPairs(
     const std::vector<std::pair<double, double>> &vec);
 
-std::string getCurrentDateTimeAsString();
+std::string get_current_date_time_as_string();
 
 float round_n(float num, int decimal_places);
 
@@ -23,7 +24,8 @@ void outlierCalculations(std::string filename, int num_outliers);
 
 std::ostream &operator<<(std::ostream &os, const PathPoint &p);
 
-void extractInfo(const std::string_view &filenameView, int &size, int &n_outliers);
+void extractInfo(const std::string_view &filenameView, int &size,
+                 int &n_outliers);
 
 using testing::Eq;
 namespace fs = std::filesystem;

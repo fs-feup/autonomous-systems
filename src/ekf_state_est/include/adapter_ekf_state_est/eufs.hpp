@@ -11,12 +11,12 @@ class EufsAdapter : public Adapter {
   rclcpp::Client<eufs_msgs::srv::SetCanState>::SharedPtr eufs_mission_state_client_;
   rclcpp::Client<eufs_msgs::srv::SetCanState>::SharedPtr eufs_ebs_client_;
 
- public:
-  explicit EufsAdapter(SENode* speed_est);
+public:
+  explicit EufsAdapter(std::shared_ptr<SENode> se_node);
 
-  void init() override;
+  void init() final;
   void mission_state_callback(eufs_msgs::msg::CanState msg);
-  void finish() override;
+  void finish() final;
 
-  void wheel_speeds_subscription_callback(const eufs_msgs::msg::WheelSpeedsStamped msg);
+  void wheel_speeds_subscription_callback(const eufs_msgs::msg::WheelSpeedsStamped& msg);
 };

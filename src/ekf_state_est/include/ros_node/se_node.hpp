@@ -9,6 +9,7 @@
 
 #include "adapter_ekf_state_est/eufs.hpp"
 #include "adapter_ekf_state_est/fsds.hpp"
+#include "common_lib/competition_logic/mission_logic.hpp"
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "custom_interfaces/msg/point2d.hpp"
 #include "custom_interfaces/msg/pose.hpp"
@@ -17,7 +18,6 @@
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/imu.hpp"
 #include "std_msgs/msg/string.hpp"
-#include "utils/data_structures.hpp"
 
 class Adapter;
 
@@ -29,28 +29,26 @@ class Adapter;
  *
  */
 class SENode : public rclcpp::Node {
-  rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr _perception_subscription;
-  rclcpp::Publisher<custom_interfaces::msg::Pose>::SharedPtr _localization_publisher;
-  rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr _map_publisher;
-  rclcpp::TimerBase::SharedPtr _timer; /**< timer */
-  ExtendedKalmanFilter *_ekf;          /**< SLAM EKF object */
-  ConeMap *_perception_map;
-  MotionUpdate *_motion_update;
-  ConeMap *_track_map;
-  VehicleState *_vehicle_state;
-  Mission _mission;
-  bool _use_odometry;
-  Adapter *adapter;
-  std::string mode = "fsds";  // Temporary, change as desired. TODO(andre): Make not hardcoded
+  rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr _perception_subscription_;
+  rclcpp::Publisher<custom_interfaces::msg::Pose>::SharedPtr _localization_publisher_;
+  rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr _map_publisher_;
+  rclcpp::TimerBase::SharedPtr _timer_;        /**< timer */
+  std::shared_ptr<ExtendedKalmanFilter> _ekf_; /**< SLAM EKF object */
+  std::shared_ptr<std::vector<common_lib::structures::Cone>> _perception_map_;
+  std::shared_ptr<MotionUpdate> _motion_update_;
+  std::shared_ptr<std::vector<common_lib::structures::Cone>> _track_map_;
+  std::shared_ptr<common_lib::structures::VehicleState> _vehicle_state_;
+  common_lib::competition_logic::Mission _mission_;
+  bool _use_odometry_;
+  std::shared_ptr<Adapter> _adapter_;
 
- public:
   /**
    * @brief Callback that updates everytime information
    * is received from the perception module
    *
    * @param msg Message containing the array of perceived cones
    */
-  void _perception_subscription_callback(const custom_interfaces::msg::ConeArray msg);
+  void _perception_subscription_callback(const custom_interfaces::msg::ConeArray &msg);
 
   /**
    * @brief Function to be called everytime information is received from the
@@ -61,7 +59,7 @@ class SENode : public rclcpp::Node {
    * @param acceleration_y
    */
   void _imu_subscription_callback(double rotational_velocity, double acceleration_x,
-                                  double acceleration_y);
+                                  double acceleration_y, rclcpp::Time timestamp);
 
   /**
    * @brief Function to be called everytime information is received from the
@@ -72,9 +70,11 @@ class SENode : public rclcpp::Node {
    * @param rb_speed wheel speeds in rpm
    * @param rf_speed wheel speeds in rpm
    * @param steering_angle steering angle in radians
+   * @param timestamp timestamp of the message
    */
   void _wheel_speeds_subscription_callback(double lb_speed, double lf_speed, double rb_speed,
-                                           double rf_speed, double steering_angle);
+                                           double rf_speed, double steering_angle,
+                                           rclcpp::Time timestamp);
 
   /**
    * @brief Executes:
@@ -121,27 +121,20 @@ class SENode : public rclcpp::Node {
                                                        [[maybe_unused]] double rf_speed,
                                                        double steering_angle);
 
- public:
+public:
   /**
-   * @brief LMNode constructor declaration
-   *
-   * @param ekf Pointer to the EKF
-   * @param map Pointer to the map
-   * @param motion_update Pointer to the motion update
-   * @param track_map Pointer to the track map
-   * @param vehicle_state Pointer to the vehicle state
-   * @param use_odometry Whether to use odometry or IMU
+   * @brief Constructor of the main node, most things are received by launch parameter
    */
-  SENode(ExtendedKalmanFilter *ekf, ConeMap *perception_map, MotionUpdate *motion_update,
-         ConeMap *track_map, VehicleState *vehicle_state, bool use_odometry);
+  SENode();
 
   /**
    * @brief Mission setter
    *
    * @param mission New mission
    */
-  void set_mission(Mission mission);
+  void set_mission(common_lib::competition_logic::Mission mission);
 
-  // friend class Adapter;
-  // FRIEND_TEST(ODOMETRY_SUBSCRIBER, CONVERSION_TEST);
+  friend class Adapter;
+  friend class EufsAdapter;
+  friend class FsdsAdapter;
 };

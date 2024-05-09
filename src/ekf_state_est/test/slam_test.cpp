@@ -1,5 +1,9 @@
+#include <memory>
 #include <thread>
 
+#include "common_lib/structures/cone.hpp"
+#include "common_lib/structures/position.hpp"
+#include "common_lib/structures/vehicle_state.hpp"
 #include "gtest/gtest.h"
 #include "kalman_filter/ekf.hpp"
 
@@ -12,15 +16,18 @@
  * linear movement with constant velocity
  *
  */
-TEST(EKF_SLAM, LINEAR_MOVEMENT_INTEGRITY_TEST) {  // This test is not that great,
-                                                  // to be improved
-  VehicleState *vehicle_state = new VehicleState();
-  vehicle_state->last_update = std::chrono::high_resolution_clock::now();
-  MotionUpdate *imu_update = new MotionUpdate();
-  imu_update->last_update = std::chrono::high_resolution_clock::now();
-  ConeMap *track_map = new ConeMap();
-  ConeMap initial_map = ConeMap();
-  ConeMap *predicted_map = new ConeMap();
+TEST(EKF_SLAM, LINEAR_MOVEMENT_INTEGRITY_TEST) {  // This test is not that
+                                                  // great, to be improved
+  std::shared_ptr<common_lib::structures::VehicleState> vehicle_state =
+      std::make_shared<common_lib::structures::VehicleState>();
+  std::shared_ptr<MotionUpdate> motion_update = std::make_shared<MotionUpdate>();
+  std::shared_ptr<std::vector<common_lib::structures::Cone>> track_map =
+      std::make_shared<std::vector<common_lib::structures::Cone>>();
+  std::shared_ptr<std::vector<common_lib::structures::Cone>> initial_map =
+      std::make_shared<std::vector<common_lib::structures::Cone>>();
+  std::shared_ptr<std::vector<common_lib::structures::Cone>> predicted_map =
+      std::make_shared<std::vector<common_lib::structures::Cone>>();
+  motion_update->last_update = rclcpp::Clock().now();
 
   Eigen::Matrix2f Q = Eigen::Matrix2f::Zero();
   Q(0, 0) = 0.1;
@@ -31,58 +38,117 @@ TEST(EKF_SLAM, LINEAR_MOVEMENT_INTEGRITY_TEST) {  // This test is not that great
   R(2, 2) = 0.1;
   R(3, 3) = 0.1;
   R(4, 4) = 0.1;
-  MotionModel *motion_model = new ImuVelocityModel(R);
-  ObservationModel observation_model = ObservationModel(Q);
+  std::shared_ptr<MotionModel> motion_model = std::make_shared<ImuVelocityModel>(R);
+  std::shared_ptr<ObservationModel> observation_model = std::make_shared<ObservationModel>(Q);
+  std::shared_ptr<DataAssociationModel> data_association_model =
+      std::make_shared<SimpleMaximumLikelihood>(71.0);
 
   // Initial map
-  initial_map.map[Position(0, -2)] = colors::large_orange;
-  initial_map.map[Position(0, 2)] = colors::large_orange;
-  initial_map.map[Position(2, -2)] = colors::blue;
-  initial_map.map[Position(4, -2)] = colors::blue;
-  initial_map.map[Position(6, -2)] = colors::blue;
-  initial_map.map[Position(7.5, -1.5)] = colors::blue;
-  initial_map.map[Position(8.5, -0.5)] = colors::blue;
-  initial_map.map[Position(9, 0)] = colors::blue;
-  initial_map.map[Position(9, 2)] = colors::blue;
-  initial_map.map[Position(9, 4)] = colors::blue;
-  initial_map.map[Position(2, 2)] = colors::orange;
-  initial_map.map[Position(4, 2)] = colors::orange;
-  initial_map.map[Position(6, 2)] = colors::orange;
-  initial_map.map[Position(6.5, 3)] = colors::orange;
-  initial_map.map[Position(7, 4)] = colors::orange;
-  initial_map.map[Position(7, 6)] = colors::orange;
-  initial_map.map[Position(7, 6)] = colors::orange;
+  initial_map->push_back(
+      common_lib::structures::Cone(common_lib::structures::Position(0, -2),
+                                   common_lib::competition_logic::Color::LARGE_ORANGE, 1.0));
+  initial_map->push_back(
+      common_lib::structures::Cone(common_lib::structures::Position(0, 2),
+                                   common_lib::competition_logic::Color::LARGE_ORANGE, 1.0));
+  initial_map->push_back(common_lib::structures::Cone(
+      common_lib::structures::Position(2, -2), common_lib::competition_logic::Color::BLUE, 1.0));
+  initial_map->push_back(common_lib::structures::Cone(
+      common_lib::structures::Position(4, -2), common_lib::competition_logic::Color::BLUE, 1.0));
+  initial_map->push_back(common_lib::structures::Cone(
+      common_lib::structures::Position(6, -2), common_lib::competition_logic::Color::BLUE, 1.0));
+  initial_map->push_back(common_lib::structures::Cone(common_lib::structures::Position(7.5, -1.5),
+                                                      common_lib::competition_logic::Color::BLUE,
+                                                      1.0));
+  initial_map->push_back(common_lib::structures::Cone(common_lib::structures::Position(8.5, -0.5),
+                                                      common_lib::competition_logic::Color::BLUE,
+                                                      1.0));
+  initial_map->push_back(common_lib::structures::Cone(
+      common_lib::structures::Position(9, 0), common_lib::competition_logic::Color::BLUE, 1.0));
+  initial_map->push_back(common_lib::structures::Cone(
+      common_lib::structures::Position(9, 2), common_lib::competition_logic::Color::BLUE, 1.0));
+  initial_map->push_back(common_lib::structures::Cone(
+      common_lib::structures::Position(9, 4), common_lib::competition_logic::Color::BLUE, 1.0));
+  initial_map->push_back(common_lib::structures::Cone(
+      common_lib::structures::Position(2, 2), common_lib::competition_logic::Color::ORANGE, 1.0));
+  initial_map->push_back(common_lib::structures::Cone(
+      common_lib::structures::Position(4, 2), common_lib::competition_logic::Color::ORANGE, 1.0));
+  initial_map->push_back(common_lib::structures::Cone(
+      common_lib::structures::Position(6, 2), common_lib::competition_logic::Color::ORANGE, 1.0));
+  initial_map->push_back(common_lib::structures::Cone(
+      common_lib::structures::Position(6.5, 3), common_lib::competition_logic::Color::ORANGE, 1.0));
+  initial_map->push_back(common_lib::structures::Cone(
+      common_lib::structures::Position(7, 4), common_lib::competition_logic::Color::ORANGE, 1.0));
+  initial_map->push_back(common_lib::structures::Cone(
+      common_lib::structures::Position(7, 6), common_lib::competition_logic::Color::ORANGE, 1.0));
+  initial_map->push_back(common_lib::structures::Cone(
+      common_lib::structures::Position(7, 6), common_lib::competition_logic::Color::ORANGE, 1.0));
 
-  ExtendedKalmanFilter *ekf = new ExtendedKalmanFilter(*motion_model, observation_model);
+  std::shared_ptr<ExtendedKalmanFilter> ekf = std::make_shared<ExtendedKalmanFilter>(
+      *motion_model, *observation_model, *data_association_model);
 
-  for (unsigned int i = 0; i < 10; i++) {
-    imu_update->translational_velocity_x = 1;
-    imu_update->rotational_velocity = 0;
-    imu_update->last_update = std::chrono::high_resolution_clock::now();
-    int delta_t = std::chrono::duration_cast<std::chrono::milliseconds>(imu_update->last_update -
-                                                                        ekf->get_last_update())
-                      .count();
+  for (int i = -1; i < 10; i++) {
+    motion_update->translational_velocity_x = 1;
+    motion_update->rotational_velocity = 0;
+    motion_update->last_update = rclcpp::Clock().now();
+    int delta_t = static_cast<int>(
+        (motion_update->last_update.seconds() - ekf->get_last_update().seconds()) * 1000);
     double delta_x = static_cast<double>(i * delta_t) / 1000;
-    ekf->prediction_step(*imu_update);
+    ekf->prediction_step(*motion_update);
 
-    predicted_map->map.clear();
-    predicted_map->map[Position(0 - delta_x, -2)] = colors::large_orange;
-    predicted_map->map[Position(0 - delta_x, 2)] = colors::large_orange;
-    predicted_map->map[Position(2 - delta_x, -2)] = colors::blue;
-    predicted_map->map[Position(4 - delta_x, -2)] = colors::blue;
-    predicted_map->map[Position(6 - delta_x, -2)] = colors::blue;
-    predicted_map->map[Position(7.5 - delta_x, -1.5)] = colors::blue;
-    predicted_map->map[Position(8.5 - delta_x, -0.5)] = colors::blue;
-    predicted_map->map[Position(9 - delta_x, 0)] = colors::blue;
-    predicted_map->map[Position(9 - delta_x, 2)] = colors::blue;
-    predicted_map->map[Position(9 - delta_x, 4)] = colors::blue;
-    predicted_map->map[Position(2 - delta_x, 2)] = colors::orange;
-    predicted_map->map[Position(4 - delta_x, 2)] = colors::orange;
-    predicted_map->map[Position(6 - delta_x, 2)] = colors::orange;
-    predicted_map->map[Position(6.5 - delta_x, 3)] = colors::orange;
-    predicted_map->map[Position(7 - delta_x, 4)] = colors::orange;
-    predicted_map->map[Position(7 - delta_x, 6)] = colors::orange;
-    predicted_map->map[Position(7 - delta_x, 6)] = colors::orange;
+    if (i == -1) continue;  // First iteration for setting last update correctly
+
+    predicted_map->clear();
+    predicted_map->push_back(
+        common_lib::structures::Cone(common_lib::structures::Position(0 - delta_x, -2),
+                                     common_lib::competition_logic::Color::LARGE_ORANGE, 1.0));
+    predicted_map->push_back(
+        common_lib::structures::Cone(common_lib::structures::Position(0 - delta_x, 2),
+                                     common_lib::competition_logic::Color::LARGE_ORANGE, 1.0));
+    predicted_map->push_back(
+        common_lib::structures::Cone(common_lib::structures::Position(2 - delta_x, -2),
+                                     common_lib::competition_logic::Color::BLUE, 1.0));
+    predicted_map->push_back(
+        common_lib::structures::Cone(common_lib::structures::Position(4 - delta_x, -2),
+                                     common_lib::competition_logic::Color::BLUE, 1.0));
+    predicted_map->push_back(
+        common_lib::structures::Cone(common_lib::structures::Position(6 - delta_x, -2),
+                                     common_lib::competition_logic::Color::BLUE, 1.0));
+    predicted_map->push_back(
+        common_lib::structures::Cone(common_lib::structures::Position(7.5 - delta_x, -1.5),
+                                     common_lib::competition_logic::Color::BLUE, 1.0));
+    predicted_map->push_back(
+        common_lib::structures::Cone(common_lib::structures::Position(8.5 - delta_x, -0.5),
+                                     common_lib::competition_logic::Color::BLUE, 1.0));
+    predicted_map->push_back(
+        common_lib::structures::Cone(common_lib::structures::Position(9 - delta_x, 0),
+                                     common_lib::competition_logic::Color::BLUE, 1.0));
+    predicted_map->push_back(
+        common_lib::structures::Cone(common_lib::structures::Position(9 - delta_x, 2),
+                                     common_lib::competition_logic::Color::BLUE, 1.0));
+    predicted_map->push_back(
+        common_lib::structures::Cone(common_lib::structures::Position(9 - delta_x, 4),
+                                     common_lib::competition_logic::Color::BLUE, 1.0));
+    predicted_map->push_back(
+        common_lib::structures::Cone(common_lib::structures::Position(2 - delta_x, 2),
+                                     common_lib::competition_logic::Color::ORANGE, 1.0));
+    predicted_map->push_back(
+        common_lib::structures::Cone(common_lib::structures::Position(4 - delta_x, 2),
+                                     common_lib::competition_logic::Color::ORANGE, 1.0));
+    predicted_map->push_back(
+        common_lib::structures::Cone(common_lib::structures::Position(6 - delta_x, 2),
+                                     common_lib::competition_logic::Color::ORANGE, 1.0));
+    predicted_map->push_back(
+        common_lib::structures::Cone(common_lib::structures::Position(6.5 - delta_x, 3),
+                                     common_lib::competition_logic::Color::ORANGE, 1.0));
+    predicted_map->push_back(
+        common_lib::structures::Cone(common_lib::structures::Position(7 - delta_x, 4),
+                                     common_lib::competition_logic::Color::ORANGE, 1.0));
+    predicted_map->push_back(
+        common_lib::structures::Cone(common_lib::structures::Position(7 - delta_x, 6),
+                                     common_lib::competition_logic::Color::ORANGE, 1.0));
+    predicted_map->push_back(
+        common_lib::structures::Cone(common_lib::structures::Position(7 - delta_x, 6),
+                                     common_lib::competition_logic::Color::ORANGE, 1.0));
     ekf->correction_step(*predicted_map);
     ekf->update(vehicle_state, track_map);
 
@@ -90,30 +156,30 @@ TEST(EKF_SLAM, LINEAR_MOVEMENT_INTEGRITY_TEST) {  // This test is not that great
     orange_count = 0;
     blue_count = 0;
     big_orange_count = 0;
-    for (auto &cone : track_map->map) {
-      if (cone.second == colors::orange) {
+    for (auto &cone : *track_map) {
+      if (cone.color == common_lib::competition_logic::Color::ORANGE) {
         orange_count++;
-      } else if (cone.second == colors::blue) {
+      } else if (cone.color == common_lib::competition_logic::Color::BLUE) {
         blue_count++;
-      } else if (cone.second == colors::large_orange) {
+      } else if (cone.color == common_lib::competition_logic::Color::LARGE_ORANGE) {
         big_orange_count++;
       }
-      EXPECT_GE(cone.first.x, -1);
-      EXPECT_NEAR(cone.first.y, 2, 8);
+      EXPECT_GE(cone.position.x, -1);
+      EXPECT_NEAR(cone.position.y, 2, 8);
     }
     // TODO(marhcouto): add more assertions
     // EXPECT_EQ(orange_count, 6);
     // EXPECT_EQ(blue_count, 8);
     // EXPECT_EQ(big_orange_count, 2);
-    EXPECT_GE(track_map->map.size(), static_cast<unsigned long int>(6));
-    EXPECT_LE(track_map->map.size(), static_cast<unsigned long int>(20));
+    EXPECT_GE(track_map->size(), static_cast<unsigned long int>(6));
+    EXPECT_LE(track_map->size(), static_cast<unsigned long int>(20));
 
     EXPECT_GE(vehicle_state->pose.position.x, -0.5);
     EXPECT_LE(vehicle_state->pose.position.x, 20);
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
   }
-  EXPECT_GE(track_map->map.size(), static_cast<unsigned long int>(12));
-  EXPECT_LE(track_map->map.size(), static_cast<unsigned long int>(20));
+  EXPECT_GE(track_map->size(), static_cast<unsigned long int>(12));
+  EXPECT_LE(track_map->size(), static_cast<unsigned long int>(20));
   EXPECT_GE(vehicle_state->pose.position.x, -0.5);
   EXPECT_LE(vehicle_state->pose.position.x, 20);
 }

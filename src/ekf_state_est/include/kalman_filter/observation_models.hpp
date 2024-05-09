@@ -2,7 +2,8 @@
 
 #include <eigen3/Eigen/Dense>
 
-#include "utils/data_structures.hpp"
+#include "common_lib/competition_logic/color.hpp"
+#include "common_lib/structures/position.hpp"
 
 /**
  * @brief Struct containing observation data
@@ -11,11 +12,14 @@
  * @param color
  */
 struct ObservationData {
-  Position position;
-  colors::Color color;
-  ObservationData() : position(0, 0), color(colors::blue) {}
-  ObservationData(Position position, colors::Color color) : position(position), color(color) {}
-  ObservationData(double x, double y, colors::Color color) : position(x, y), color(color) {}
+  common_lib::structures::Position position;
+  common_lib::competition_logic::Color color;
+  ObservationData() : position(0, 0), color(common_lib::competition_logic::Color::BLUE) {}
+  ObservationData(common_lib::structures::Position position,
+                  common_lib::competition_logic::Color color)
+      : position(position), color(color) {}
+  ObservationData(double x, double y, common_lib::competition_logic::Color color)
+      : position(x, y), color(color) {}
 };
 
 /**
@@ -25,7 +29,7 @@ struct ObservationData {
 class ObservationModel {
   Eigen::Matrix2f _observation_noise_covariance_matrix; /**< H or C */
 
- public:
+public:
   /**
    * @brief Construct a new Observation Model object
    *
@@ -78,3 +82,7 @@ class ObservationModel {
    */
   Eigen::MatrixXf get_observation_noise_covariance_matrix() const;
 };
+
+/// Map object to map strings from launch file parameter to constructor
+const std::map<std::string, Eigen::MatrixXf, std::less<>> observation_model_noise_matrixes = {
+    {"default", Eigen::MatrixXf::Identity(2, 2) * 0.3}};

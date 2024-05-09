@@ -1,7 +1,8 @@
 #include "adapter_ekf_state_est/eufs.hpp"
+#include "common_lib/competition_logic/mission_logic.hpp"
 #include "ros_node/se_node.hpp"
 
-FsdsAdapter::FsdsAdapter(SENode* speed_est) : Adapter(speed_est) { this->init(); }
+FsdsAdapter::FsdsAdapter(std::shared_ptr<SENode> se_node) : Adapter(se_node) { this->init(); }
 
 void FsdsAdapter::init() {
   this->fsds_state_subscription_ = this->node->create_subscription<fs_msgs::msg::GoSignal>(
@@ -20,9 +21,8 @@ void FsdsAdapter::init() {
 }
 
 void FsdsAdapter::mission_state_callback(const fs_msgs::msg::GoSignal msg) {
-  auto mission = msg.mission;
   // map fsds mission to system mission
-  this->node->set_mission(fsdsToSystem.at(mission));
+  this->node->set_mission(common_lib::competition_logic::fsds_to_system.at(msg.mission));
 }
 
 void FsdsAdapter::finish() {
@@ -32,8 +32,8 @@ void FsdsAdapter::finish() {
   this->fsds_ebs_publisher_->publish(message);
 }
 
-void FsdsAdapter::wheel_speeds_subscription_callback(const fs_msgs::msg::WheelStates msg) {
-  float steering_angle = (msg.fl_steering_angle + msg.fr_steering_angle) / 2.0;
+void FsdsAdapter::wheel_speeds_subscription_callback(const fs_msgs::msg::WheelStates& msg) {
+  double steering_angle = (msg.fl_steering_angle + msg.fr_steering_angle) / 2.0;
   this->node->_wheel_speeds_subscription_callback(msg.rl_rpm, msg.fl_rpm, msg.rr_rpm, msg.fr_rpm,
-                                                  steering_angle);
+                                                  steering_angle, msg.header.stamp);
 }

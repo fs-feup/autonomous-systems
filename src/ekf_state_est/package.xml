@@ -12,6 +12,7 @@
   <exec_depend>custom_interfaces</exec_depend>
   <exec_depend>eufs_msgs</exec_depend>
   <exec_depend>fs_msgs</exec_depend>
+  <exec_depend>common_lib</exec_depend>
 
   <export>
     <build_type>ament_cmake</build_type>

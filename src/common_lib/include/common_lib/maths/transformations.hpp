@@ -1,5 +1,6 @@
 #pragma once
 
+namespace common_lib::maths {
 /**
  * @brief Function to keep angle between 0 and 2Pi radians
  *
@@ -14,3 +15,4 @@ double normalize_angle(double angle);
  *
  */
 double get_wheel_velocity_from_rpm(const double rpm, const double wheel_diameter);
+}  // namespace common_lib::maths

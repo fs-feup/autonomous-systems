@@ -6,11 +6,13 @@
 #include <fstream> /**< To write file */
 #include <memory>
 #include <random>
+#include <rclcpp/rclcpp.hpp>
 #include <string>
 
+#include "common_lib/structures/cone.hpp"
 #include "gtest/gtest.h"
+#include "kalman_filter/ekf.hpp"
 #include "rclcpp/rclcpp.hpp"
-#include "ros_node/se_node.hpp"
 
 /**
  * @class ExecTimeTestEKFTests
@@ -18,37 +20,37 @@
  * steps.
  */
 class PerformamceTest : public ::testing::Test {
- public:
-  std::unique_ptr<ExtendedKalmanFilter>
-      ekf_test; /**< Unique pointer to ExtendedKalmanFilter object */
-  std::unique_ptr<MotionUpdate> motion_update_test; /**< Unique pointer to MotionUpdate object */
+public:
+  std::shared_ptr<ExtendedKalmanFilter>
+      ekf_test; /**< shared pointer to ExtendedKalmanFilter object */
+  std::shared_ptr<MotionUpdate> motion_update_test; /**< shared pointer to MotionUpdate object */
   std::chrono::_V2::system_clock::time_point
       start_time; /**< Start time for performance measurement */
 
   std::chrono::_V2::system_clock::time_point
-      prediction_step_time; /**< Prediction Step Execution Time for performance measurement */
+      prediction_step_time; /**< Prediction Step Execution Time for performance
+                               measurement */
 
   std::chrono::_V2::system_clock::time_point end_time; /**< End time for performance measurement */
 
   std::chrono::microseconds prediction_step_duration; /**< Duration of prediction step execution */
   std::chrono::microseconds correction_step_duration; /**< Duration of correction step execution */
   std::chrono::microseconds duration;
-  std::string workload;   /**< Description of the workload */
-  Eigen::Matrix2f Q_test; /**< Test Eigen Matrix for Q */
-  Eigen::MatrixXf R_test; /**< Test Eigen Matrix for R */
-  std::unique_ptr<MotionModel>
-      motion_model_test; /**< Pointer to the MotionModel object for testing */
+  std::string workload;                       /**< Description of the workload */
+  Eigen::Matrix2f Q_test;                     /**< Test Eigen Matrix for Q */
+  Eigen::MatrixXf R_test;                     /**< Test Eigen Matrix for R */
+  std::shared_ptr<MotionModel> motion_model_; /**< Pointer to the MotionModel object for testing */
+  std::shared_ptr<DataAssociationModel> data_association_model_;
   int prediction_step_input_size = 0;
   int correction_step_input_size = 0;
-  ObservationModel observation_model_test =
-      ObservationModel(Q_test); /**< ObservationModel object for testing */
-  std::string file_name;        /**< File Name for Output */
+  std::shared_ptr<ObservationModel> observation_model_; /**< ObservationModel object for testing */
+  std::string file_name;                                /**< File Name for Output */
 
   /**
    * @brief Get current date and time as a string.
    * @return Current date and time as a string in "YYYY-MM-DD-HH:MM" format.
    */
-  std::string getCurrentDateTimeAsString() {
+  std::string get_current_date_time_as_string() {
     auto now = std::chrono::system_clock::now();
     std::time_t now_time = std::chrono::system_clock::to_time_t(now);
     std::tm now_tm;
@@ -63,16 +65,18 @@ class PerformamceTest : public ::testing::Test {
    * @brief Writes performance data to a CSV file.
    */
   void print_to_file() {
-    bool fileExists =
+    bool file_exists =
         std::filesystem::exists("../../performance/exec_time/ekf_state_est/" + file_name);
     std::ofstream file("../../performance/exec_time/ekf_state_est/" + file_name,
                        std::ios::app); /**< Output file for performance data (append) */
 
     // Check if the file exists
-    if (!fileExists) {
+    if (!file_exists) {
       // If the file doesn't exist, add header
-      file << "Number of Cones in the Map, Prediction Step Execution Time, Number of Cones coming "
-              "from perception, Correction Step Execution Time (ms), Total time (ms)\n";
+      file << "Number of Cones in the Map, Prediction Step Execution Time, "
+              "Number of Cones coming "
+              "from perception, Correction Step Execution Time (ms), Total "
+              "time (ms)\n";
     }
 
     // Convert the duration from microseconds to milliseconds
@@ -107,7 +111,8 @@ class PerformamceTest : public ::testing::Test {
    * @param size Number of state vector elements to fill.
    */
   void fill_X(int size) {
-    ekf_test = std::make_unique<ExtendedKalmanFilter>(*motion_model_test, observation_model_test);
+    ekf_test = std::make_shared<ExtendedKalmanFilter>(*motion_model_, *observation_model_,
+                                                      *data_association_model_);
     std::ifstream file("../../src/ekf_state_est/test/data/map_test.txt");
 
     if (!file.is_open()) {
@@ -115,7 +120,6 @@ class PerformamceTest : public ::testing::Test {
     }
 
     int i = 0;
-    bool is_blue = false;
     double value1;
     double value2;
 
@@ -127,40 +131,26 @@ class PerformamceTest : public ::testing::Test {
       i++;
       ekf_test->set_X_y(i, value2);
       i++;
-
-      if (i <= 12) {
-        ekf_test->push_to_colors(colors::Color::blue);
-        continue;
-      }
-
-      else if (i >= 12 && i <= 22) {
-        ekf_test->push_to_colors(colors::Color::yellow);
-        continue;
-      }
-
-      is_blue ? ekf_test->push_to_colors(colors::Color::blue)
-              : ekf_test->push_to_colors(colors::Color::yellow);
-      is_blue = !is_blue;
     }
 
     file.close();
   }
 
   void SetUp() override { /**< Set up test environment */
-    file_name = "ekf_state_est_" + getCurrentDateTimeAsString() + ".csv";
+    file_name = "ekf_state_est_" + get_current_date_time_as_string() + ".csv";
     start_time = std::chrono::high_resolution_clock::now();
     duration = std::chrono::duration_cast<std::chrono::microseconds>(start_time - start_time);
     prediction_step_duration =
         std::chrono::duration_cast<std::chrono::microseconds>(start_time - start_time);
     correction_step_duration =
         std::chrono::duration_cast<std::chrono::microseconds>(start_time - start_time);
-    motion_update_test = std::make_unique<MotionUpdate>();
+    motion_update_test = std::make_shared<MotionUpdate>();
     motion_update_test->translational_velocity = 1.58113883;
     motion_update_test->translational_velocity_x = 1.5;
     motion_update_test->translational_velocity_y = 0.5;
     motion_update_test->rotational_velocity = 6.0;
     motion_update_test->steering_angle = 2.0;
-    motion_update_test->last_update = std::chrono::high_resolution_clock::now();
+    motion_update_test->last_update = rclcpp::Clock().now();
 
     Q_test = Eigen::Matrix2f::Zero();
     Q_test(0, 0) = 0.3;
@@ -171,17 +161,19 @@ class PerformamceTest : public ::testing::Test {
     R_test(2, 2) = 0.8;
     R_test(3, 3) = 0.8;
     R_test(4, 4) = 0.8;
-    motion_model_test = std::make_unique<NormalVelocityModel>(R_test);
-    observation_model_test = ObservationModel(Q_test);
-    ekf_test = std::make_unique<ExtendedKalmanFilter>(*motion_model_test, observation_model_test);
+    motion_model_ = std::make_shared<NormalVelocityModel>(R_test);
+    data_association_model_ = std::make_shared<SimpleMaximumLikelihood>(71.0);
+    observation_model_ = std::make_shared<ObservationModel>(Q_test);
+    ekf_test = std::make_shared<ExtendedKalmanFilter>(*motion_model_, *observation_model_,
+                                                      *data_association_model_);
   }
 
   /**
    * @brief Runes the Execution 10 times and outputs the average execution time
    *
-   * @param coneMap Perception's output map
+   * @param cone_map Perception's output map
    */
-  void runExecution(ConeMap coneMap) {
+  void run_execution(const std::vector<common_lib::structures::Cone>& cone_map) {
     prediction_step_duration = std::chrono::microseconds::zero();
     correction_step_duration = std::chrono::microseconds::zero();
 
@@ -192,7 +184,7 @@ class PerformamceTest : public ::testing::Test {
       start_time = std::chrono::high_resolution_clock::now();
       ekf_for_predict.prediction_step(*motion_update_test);
       prediction_step_time = std::chrono::high_resolution_clock::now();
-      ekf_for_correction.correction_step(coneMap);
+      ekf_for_correction.correction_step(cone_map);
       end_time = std::chrono::high_resolution_clock::now();
 
       prediction_step_duration +=
@@ -209,10 +201,11 @@ class PerformamceTest : public ::testing::Test {
    * @brief Read and pares a file containing containing perception's output
    *
    * @param n_cones Number of cones to output
-   * @return ConeMap Data Structure representing the cone map coming from perception
+   * @return std::vector<common_lib::structures::Cone> Data Structure representing the cone map
+   * coming from perception
    */
-  ConeMap createConeMap(int n_cones) {
-    ConeMap coneMap;
+  std::vector<common_lib::structures::Cone> create_cone_map(int n_cones) {
+    std::vector<common_lib::structures::Cone> cone_map;
 
     correction_step_input_size = 0;
 
@@ -220,7 +213,7 @@ class PerformamceTest : public ::testing::Test {
     std::string line;
 
     if (!file.is_open()) {
-      return coneMap;
+      return cone_map;
     }
 
     while (std::getline(file, line) && correction_step_input_size < n_cones) {
@@ -233,15 +226,15 @@ class PerformamceTest : public ::testing::Test {
         tokens.push_back(token);
       }
 
-      Position conePosition(std::stof(tokens[0]), std::stof(tokens[1]));
+      common_lib::structures::Cone cone(std::stof(tokens[0]), std::stof(tokens[1]), tokens[2], 1.0);
 
-      coneMap.map[conePosition] = tokens[2] == "blue" ? colors::blue : colors::yellow;
+      cone_map.push_back(cone);
       correction_step_input_size++;
     }
 
     file.close();
 
-    return coneMap;
+    return cone_map;
   }
 };
 
@@ -253,11 +246,11 @@ TEST_F(PerformamceTest, TEST_EKF_PERFORMANCE) {
   std::vector<int> cones_detected_cases = {1, 2, 5, 10};
   std::vector<int> map_size_cases = {10, 20, 50, 100, 200};
   for (auto i : cones_detected_cases) {
-    ConeMap coneMap = createConeMap(i);
+    std::vector<common_lib::structures::Cone> cone_map = create_cone_map(i);
     for (auto j : map_size_cases) {
       prediction_step_input_size = j;
       fill_X(j);
-      runExecution(coneMap);
+      run_execution(cone_map);
       print_to_file();
     }
   }

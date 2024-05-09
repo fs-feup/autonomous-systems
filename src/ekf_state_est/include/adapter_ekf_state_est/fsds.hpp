@@ -11,12 +11,12 @@ class FsdsAdapter : public Adapter {
   rclcpp::Subscription<sensor_msgs::msg::Imu>::SharedPtr _fs_imu_subscription;
   rclcpp::Subscription<fs_msgs::msg::WheelStates>::SharedPtr _fs_wheel_speeds_subscription;
 
- public:
-  explicit FsdsAdapter(SENode* speed_est);
+public:
+  explicit FsdsAdapter(std::shared_ptr<SENode> se_node);
 
-  void init() override;
+  void init() final;
   void mission_state_callback(const fs_msgs::msg::GoSignal msg);
-  void finish() override;
+  void finish() final;
 
-  void wheel_speeds_subscription_callback(const fs_msgs::msg::WheelStates msg);
+  void wheel_speeds_subscription_callback(const fs_msgs::msg::WheelStates& msg);
 };

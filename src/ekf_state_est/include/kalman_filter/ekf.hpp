@@ -2,12 +2,15 @@
 
 #include <Eigen/Dense>
 #include <Eigen/Sparse>
+#include <rclcpp/rclcpp.hpp>
 #include <vector>
 
+#include "common_lib/competition_logic/mission_logic.hpp"
+#include "common_lib/structures/cone.hpp"
+#include "common_lib/structures/vehicle_state.hpp"
+#include "kalman_filter/data_association.hpp"
 #include "kalman_filter/motion_models.hpp"
 #include "kalman_filter/observation_models.hpp"
-#include "utils/data_structures.hpp"
-#include "utils/mission.hpp"
 
 /**
  * @brief Extended Kalman Filter class
@@ -20,88 +23,48 @@
  *
  */
 class ExtendedKalmanFilter {
-  static double max_landmark_distance; /**< Maximum deviation of the landmark position
-                                          from the expected position when the landmark is
-                                          perceived to be 1 meter away */
+  Eigen::VectorXf x_vector_ =
+      Eigen::VectorXf::Zero(5);         /**< Expected state vector (localization + mapping) */
+  Eigen::SparseMatrix<float> p_matrix_; /**< Sparse State covariance matrix */
+  rclcpp::Time _last_update_ = rclcpp::Clock().now(); /**< Timestamp of last update */
 
-  Eigen::VectorXf X; /**< Expected state vector (localization + mapping) */
-  // Eigen::MatrixXf P;                  /**< State covariance matrix */
-  Eigen::SparseMatrix<float> P;       /**< Sparse State covariance matrix */
-  std::vector<colors::Color> _colors; /**< Vector of colors of the landmarks */
+  const MotionModel &_motion_model_;           /**< Motion Model chosen for prediction step */
+  const ObservationModel &_observation_model_; /**< Observation Model chosen for correction step */
+  const DataAssociationModel &_data_association_model_; /**< Data Association Model*/
 
-  std::chrono::time_point<std::chrono::high_resolution_clock>
-      _last_update; /**< Timestamp of last update */
-
-  const MotionModel &_motion_model;           /**< Motion Model chosen for prediction step */
-  const ObservationModel &_observation_model; /**< Observation Model chosen for correction step */
-
-  MotionUpdate _last_motion_update; /**< Last motion update */
-
-  bool _fixed_map = false; /**< Flag to indicate if the map is fixed */
-
-  /**
-   * @brief Discovery step:
-   * Adds a new landmark to the map
-   * if there are no matches for the observation
-   *
-   * @param observation_data
-   * @return int index of the landmark or, in case of rejection, -1
-   */
-  int discovery(const ObservationData &observation_data);
+  bool _fixed_map = false;         /**< Flag to indicate if the map is fixed */
+  bool _first_prediction_ = true;  /// Flags used to mark first prediction step
 
   /**
    * @brief Calculate the kalman gain
    *
    * @param H jacobian observation model matrix
-   * @param P state covariance matrix
+   * @param p_matrix_ state covariance matrix
    * @param Q measurement noise matrix
    * @return Eigen::MatrixXf kalman gain matrix
    */
-  Eigen::MatrixXf get_kalman_gain(const Eigen::MatrixXf &H, const Eigen::MatrixXf &P,
+  Eigen::MatrixXf get_kalman_gain(const Eigen::MatrixXf &H, const Eigen::MatrixXf &p_matrix_,
                                   const Eigen::MatrixXf &Q);
 
-  /**
-   * @brief Check if the cone matches with the landmark
-   * the score is greater the best the match is
-   *
-   * @param x_from_state x absolute coordinate of the landmark in state
-   * @param y_from_state y absolute coordinate of the landmark in state
-   * @param x_from_perception x coordinate of the landmark from perception
-   * @param y_from_perception y coordinate of the landmark from perception
-   * @param distance_to_vehicle distance of the cone to the vehicle
-   * @return difference between limit and delta (score)
-   */
-  static bool cone_match(const double x_from_state, const double y_from_state,
-                         const double x_from_perception, const double y_from_perception,
-                         const double distance_to_vehicle);
-
- public:
+public:
   /**
    * @brief Extended Kalman Filter constructor declaration
    *
    * @param motion_model motion model chosen for prediction step
    * @param observation_model observation model chosen for correction step
    */
-  ExtendedKalmanFilter(const MotionModel &motion_model, const ObservationModel &observation_model);
-
-  /**
-   * @brief Build the EKF for specific events
-   *
-   * @param motion_model motion model chosen for prediction step
-   * @param observation_model observation model chosen for correction step
-   * @param mission mission chosen
-   */
   ExtendedKalmanFilter(const MotionModel &motion_model, const ObservationModel &observation_model,
-                       const Mission &mission);
+                       const DataAssociationModel &data_association_model);
 
   /**
    * @brief Updates vehicle state and map variables according
-   * to the state vector X
+   * to the state vector x_vector_
    *
    * @param vehicle_state pose
    * @param track_map map
    */
-  void update(VehicleState *vehicle_state, ConeMap *track_map);
+  void update(std::shared_ptr<common_lib::structures::VehicleState> vehicle_state,
+              std::shared_ptr<std::vector<common_lib::structures::Cone>> track_map);
 
   /**
    * @brief Prediction step:
@@ -120,13 +83,13 @@ class ExtendedKalmanFilter {
    *
    * @param perception_map map from perception
    */
-  void correction_step(const ConeMap &perception_map);
+  void correction_step(const std::vector<common_lib::structures::Cone> &perception_map);
 
   /**
-   * @brief set X at y
+   * @brief set x_vector_ at y
    *
-   * @param y index of X
-   * @param value value of X at y
+   * @param y index of x_vector_
+   * @param value value of x_vector_ at y
    */
   void set_X_y(int y, float value);
 
@@ -135,25 +98,18 @@ class ExtendedKalmanFilter {
   void init_X_size(const int size);
 
   /**
-   * @brief pushes back to colors vector
-   *
-   * @param color color to be pushed back
-   */
-  void push_to_colors(colors::Color color);
-
-  /**
    * @brief Get the state vector
    *
    * @return Eigen::VectorXf state vector
    */
-  Eigen::VectorXf get_state() const { return this->X; }
+  Eigen::VectorXf get_state() const { return this->x_vector_; }
 
   /**
    * @brief Get the state covariance matrix
    *
    * @return Eigen::MatrixXf covariance matrix
    */
-  Eigen::MatrixXf get_covariance() const { return this->P; }
+  Eigen::MatrixXf get_covariance() const { return this->p_matrix_; }
 
   /**
    * @brief Get the last update timestamp
@@ -161,7 +117,5 @@ class ExtendedKalmanFilter {
    * @return std::chrono::time_point<std::chrono::high_resolution_clock>
    * timestamp
    */
-  std::chrono::time_point<std::chrono::high_resolution_clock> get_last_update() const {
-    return this->_last_update;
-  }
+  rclcpp::Time get_last_update() const { return this->_last_update_; }
 };

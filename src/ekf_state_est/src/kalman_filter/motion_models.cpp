@@ -1,8 +1,6 @@
 #include "kalman_filter/motion_models.hpp"
 
-#include <iostream>
-
-#include "utils/formulas.hpp"
+#include "common_lib/maths/transformations.hpp"
 
 MotionModel::MotionModel(const Eigen::MatrixXf &process_noise_covariance_matrix)
     : _process_noise_covariance_matrix(process_noise_covariance_matrix) {}
@@ -48,8 +46,8 @@ Eigen::VectorXf NormalVelocityModel::predict_expected_state(
   }
   next_state(3) = motion_prediction_data.translational_velocity * cos(next_state(2));
   next_state(4) = motion_prediction_data.translational_velocity * sin(next_state(2));
-  next_state(2) = normalize_angle(expected_state(2) +
-                                  motion_prediction_data.rotational_velocity * time_interval);
+  next_state(2) = common_lib::maths::normalize_angle(
+      expected_state(2) + motion_prediction_data.rotational_velocity * time_interval);
 
   return next_state;
 }
@@ -111,8 +109,8 @@ Eigen::VectorXf ImuVelocityModel::predict_expected_state(const Eigen::VectorXf &
         (translational_velocity / motion_prediction_data.rotational_velocity) *
             cos(expected_state(2) + motion_prediction_data.rotational_velocity * time_interval);
   }
-  next_state(2) = normalize_angle(expected_state(2) +
-                                  motion_prediction_data.rotational_velocity * time_interval);
+  next_state(2) = common_lib::maths::normalize_angle(
+      expected_state(2) + motion_prediction_data.rotational_velocity * time_interval);
   next_state(3) = motion_prediction_data.translational_velocity_x;
   next_state(4) = motion_prediction_data.translational_velocity_y;
 

@@ -1,8 +1,30 @@
 #pragma once
 
 #include <eigen3/Eigen/Dense>
+#include <functional>
+#include <map>
+#include <memory>
+#include <rclcpp/rclcpp.hpp>
+#include <typeinfo>
 
-#include "utils/data_structures.hpp"
+/**
+ * @brief Struct for data retrieved by the IMU
+ *
+ * @param translational_velocity Translational velocity of the vehicle
+ * @param translational_velocity_x Translational velocity in X axis
+ * @param translational_velocity_y Translational velocity in Y axis
+ * @param rotational_velocity Rotational velocity of the vehicle
+ * @param steering_angle Steering angle of the vehicle
+ * @param last_update Timestamp of last update
+ */
+struct MotionUpdate {
+  double translational_velocity = 0.0;   /**< Meters per sec */
+  double translational_velocity_x = 0.0; /**< Meters per sec */
+  double translational_velocity_y = 0.0; /**< Meters per sec */
+  double rotational_velocity = 0.0;      /**< Degrees per sec */
+  double steering_angle = 0.0;           /**< Degrees */
+  rclcpp::Time last_update;              /**< Timestamp of last update */
+};
 
 /**
  * @brief Abstract Moiton Model class
@@ -12,7 +34,7 @@
 class MotionModel {
   Eigen::MatrixXf _process_noise_covariance_matrix; /**< R */
 
- public:
+public:
   /**
    * @brief Construct a new Motion Model object
    *
@@ -55,6 +77,8 @@ class MotionModel {
    * @return Eigen::MatrixXf
    */
   Eigen::MatrixXf get_process_noise_covariance_matrix(const unsigned int state_size) const;
+
+  virtual ~MotionModel() = default;
 };
 
 /**
@@ -67,7 +91,7 @@ class MotionModel {
 class ImuVelocityModel : public MotionModel {
   Eigen::MatrixXf _process_noise_covariance_matrix;
 
- public:
+public:
   /**
    * @brief Construct a new Motion Model object
    *
@@ -114,7 +138,7 @@ class ImuVelocityModel : public MotionModel {
 class NormalVelocityModel : public MotionModel {
   Eigen::MatrixXf _process_noise_covariance_matrix;
 
- public:
+public:
   /**
    * @brief Construct a new Motion Model object
    *
@@ -152,3 +176,23 @@ class NormalVelocityModel : public MotionModel {
       [[maybe_unused]] const MotionUpdate &motion_prediction_data,
       [[maybe_unused]] const double time_interval) const override;
 };
+
+/// Map object to map strings from launch file parameter to constructor
+const std::map<std::string, std::function<std::shared_ptr<MotionModel>(const Eigen::MatrixXf &)>,
+               std::less<>>
+    motion_model_constructors = {
+        {"normal_velocity_model",
+         [](const Eigen::MatrixXf &process_noise_covariance_matrix)
+             -> std::shared_ptr<MotionModel> {
+           return std::make_shared<NormalVelocityModel>(process_noise_covariance_matrix);
+         }},
+        {"imu_velocity_model",
+         [](const Eigen::MatrixXf &process_noise_covariance_matrix)
+             -> std::shared_ptr<MotionModel> {
+           return std::make_shared<ImuVelocityModel>(process_noise_covariance_matrix);
+         }}};
+
+/// Map object to map strings from launch file parameter to noise matrix
+const std::map<std::string, Eigen::MatrixXf, std::less<>> motion_model_noise_matrixes = {
+    {"normal_velocity_model", Eigen::MatrixXf::Identity(5, 5) * 0.8},
+    {"imu_velocity_model", Eigen::MatrixXf::Identity(5, 5) * 0.8}};

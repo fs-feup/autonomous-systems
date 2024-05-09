@@ -48,18 +48,19 @@ InspectionMission::InspectionMission() : Node("inspection") {
 
 void InspectionMission::mission_decider(
     custom_interfaces::msg::OperationalStatus::SharedPtr mission_signal) {
-  std::string mission_string = get_mission_string(mission_signal->as_mission);
+  std::string mission_string =
+      common_lib::competition_logic::get_mission_string(mission_signal->as_mission);
   RCLCPP_DEBUG(this->get_logger(), "Mission received: %s", mission_string.c_str());
 
   try {
-    if (mission_signal->as_mission == Mission::INSPECTION) {
+    if (mission_signal->as_mission == common_lib::competition_logic::Mission::INSPECTION) {
       inspection_object.ideal_velocity = get_parameter("inspection_ideal_velocity").as_double();
       inspection_object.gain = get_parameter("inspection_gain").as_double();
-      this->mission = Mission::INSPECTION;
-    } else if (mission_signal->as_mission == Mission::EBS_TEST) {
+      this->mission = common_lib::competition_logic::Mission::INSPECTION;
+    } else if (mission_signal->as_mission == common_lib::competition_logic::Mission::EBS_TEST) {
       inspection_object.ideal_velocity = get_parameter("ebs_test_ideal_velocity").as_double();
       inspection_object.gain = get_parameter("ebs_test_gain").as_double();
-      this->mission = Mission::EBS_TEST;
+      this->mission = common_lib::competition_logic::Mission::EBS_TEST;
     } else {
       RCLCPP_WARN(this->get_logger(), "Invalid mission for inspection: %s", mission_string.c_str());
       return;
@@ -77,7 +78,7 @@ void InspectionMission::mission_decider(
 
 void InspectionMission::inspection_script(const custom_interfaces::msg::WheelRPM& current_rl_rpm,
                                           const custom_interfaces::msg::WheelRPM& current_rr_rpm) {
-  if (!go || mission == Mission::NONE) {
+  if (!go || mission == common_lib::competition_logic::Mission::NONE) {
     return;
   }
   RCLCPP_DEBUG(this->get_logger(), "Executing Inspection Script.");
@@ -89,8 +90,9 @@ void InspectionMission::inspection_script(const custom_interfaces::msg::WheelRPM
   double current_velocity = inspection_object.rpm_to_velocity(average_rpm);
 
   // calculate steering
-  double calculated_steering =
-      mission == Mission::INSPECTION ? inspection_object.calculate_steering(elapsed_time) : 0;
+  double calculated_steering = mission == common_lib::competition_logic::Mission::INSPECTION
+                                   ? inspection_object.calculate_steering(elapsed_time)
+                                   : 0;
 
   // if the time is over, the car should be stopped
   if (elapsed_time >= (inspection_object.finish_time)) {
@@ -131,17 +133,18 @@ void InspectionMission::publish_controls(double throttle, double steering) const
 
 void InspectionMission::end_of_mission() {
   RCLCPP_DEBUG(this->get_logger(), "Sending ending signal.");
-  if (this->mission == Mission::INSPECTION) {
+  if (this->mission == common_lib::competition_logic::Mission::INSPECTION) {
     this->finish_client->async_send_request(
         std::make_shared<std_srvs::srv::Trigger::Request>(),
         std::bind(&InspectionMission::handle_end_of_mission_response, this, std::placeholders::_1));
-  } else if (this->mission == Mission::EBS_TEST) {
+  } else if (this->mission == common_lib::competition_logic::Mission::EBS_TEST) {
     this->finish_client->async_send_request(
         std::make_shared<std_srvs::srv::Trigger::Request>(),
         std::bind(&InspectionMission::handle_end_of_mission_response, this, std::placeholders::_1));
   } else {
-    RCLCPP_ERROR(this->get_logger(), "Invalid mission at mission end: %s",
-                 MISSION_STRING_MAP.find(this->mission)->second.c_str());
+    RCLCPP_ERROR(
+        this->get_logger(), "Invalid mission at mission end: %s",
+        common_lib::competition_logic::MISSION_STRING_MAP.find(this->mission)->second.c_str());
   }
 }
 
