@@ -48,13 +48,16 @@ target_link_libraries(ekf_state_est ${Eigen_LIBRARIES})
 install(TARGETS ekf_state_est
   DESTINATION lib/${PROJECT_NAME})
 
+# Install launch files
+install(DIRECTORY launch DESTINATION share/${PROJECT_NAME}/)
+
 # Testing
 if(BUILD_TESTING)
   find_package(ament_cmake_gtest REQUIRED)
 
   set(TESTFILES
     test/main.cpp
-    # test/integration_test.cpp
+    test/data_association_test.cpp
     test/motion_model_test.cpp
     test/observation_model_test.cpp
     test/slam_test.cpp

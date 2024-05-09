@@ -12,17 +12,22 @@ float DataAssociationModel::get_max_landmark_distance() const {
   return this->max_landmark_distance;
 }
 
-SimpleMaximumLikelihood::SimpleMaximumLikelihood(float max_landmark_distance)
-    : DataAssociationModel(max_landmark_distance){};
+SimpleMaximumLikelihood::SimpleMaximumLikelihood(float max_landmark_distance, float curvature,
+                                                 float initial_limit)
+    : DataAssociationModel(max_landmark_distance),
+      curvature(curvature),
+      initial_limit(initial_limit) {
+  if (curvature < 0 || initial_limit < 0 || max_landmark_distance < 1) {
+    throw std::invalid_argument("Invalid parameters for SimpleMaximumLikelihood");
+  }
+};
 
 bool SimpleMaximumLikelihood::valid_match(const float delta,
                                           const float distance_to_vehicle) const {
-  auto limit_function = [](double distance) {
-    double curvature = 8.0;
-    double initial_limit = 0.5;
+  auto limit_function = [](float distance, float curvature, float initial_limit) {
     return pow(M_E, distance / curvature) - (1 - initial_limit);
   };
-  return limit_function(distance_to_vehicle) > delta;
+  return limit_function(distance_to_vehicle, this->curvature, this->initial_limit) > delta;
 }
 
 int SimpleMaximumLikelihood::match_cone(const Eigen::Vector2f& observed_landmark_absolute,

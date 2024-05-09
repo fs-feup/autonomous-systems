@@ -1,5 +1,7 @@
 #pragma once
 
+#include <gtest/gtest_prod.h>
+
 #include <Eigen/Dense>
 #include <functional>
 #include <map>
@@ -13,10 +15,7 @@ class DataAssociationModel {
   /**
    * @brief Check if the observed landmark is a valid match to the expected
    * landmark It depends on external parameters like the distance to the vehicle
-   * @param x_from_state The x coordinate of the expected landmark
-   * @param y_from_state The y coordinate of the expected landmark
-   * @param x_from_perception The x coordinate of the observed landmark
-   * @param y_from_perception The y coordinate of the observed landmark
+   * @param delta The distance between the observed landmark and the expected
    * @param distance_to_vehicle The distance between the vehicle and the
    * observed landmark
    * @return bool True if the observed landmark is a valid match to the expected
@@ -49,16 +48,24 @@ public:
 
 /**
  * @brief Simple (Dumb) Maximum Likelihood Method class,
- * attempts to match the observed landmark to the closest landmark in the map
+ * attempts to match the observed landmark to the closest landmark in the map.
+ * Uses an exponential function to cut off matches whose error is too great for their distance
  */
 class SimpleMaximumLikelihood : public DataAssociationModel {
   bool valid_match(const float delta, const float distance_to_vehicle) const override;
+  float curvature;      /// Exponential function curvature for the limit
+  float initial_limit;  /// Limit for 0 meters
 
 public:
   int match_cone(const Eigen::Vector2f& observed_landmark_absolute,
                  const Eigen::VectorXf& expected_state) const override;
 
-  explicit SimpleMaximumLikelihood(float max_landmark_distance);
+  SimpleMaximumLikelihood(float max_landmark_distance, float curvature = 8.0,
+                          float initial_limit = 0.5);
+
+  FRIEND_TEST(DATA_ASSOCIATION_MODEL, VALID_MATCH_FUNC_PERFECT_MATCH);
+  FRIEND_TEST(DATA_ASSOCIATION_MODEL, VALID_MATCH_FUNC_NEAR_MATCH);
+  FRIEND_TEST(DATA_ASSOCIATION_MODEL, VALID_MATCH_FUNC_FAILED_MATCH);
 };
 
 const std::map<std::string,

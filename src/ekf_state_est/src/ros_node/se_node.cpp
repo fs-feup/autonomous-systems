@@ -13,15 +13,18 @@
 /*---------------------- Constructor --------------------*/
 
 SENode::SENode() : Node("ekf_state_est") {
+  // TODO: noise matrixes by parameter
   this->_use_odometry_ = this->declare_parameter("use_odometry", false);
   std::string adapter_name = this->declare_parameter("adapter", "fsds");
-  std::string motion_model_name = this->declare_parameter("motion_model", "normal_velocity");
+  std::string motion_model_name = this->declare_parameter("motion_model", "normal_velocity_model");
+  float data_association_limit_distance =
+      this->declare_parameter("data_association_limit_distance", 71.0);
   std::shared_ptr<MotionModel> motion_model = motion_model_constructors.at(motion_model_name)(
       motion_model_noise_matrixes.at(motion_model_name));
   std::shared_ptr<ObservationModel> observation_model =
       std::make_shared<ObservationModel>(observation_model_noise_matrixes.at("default"));
   std::shared_ptr<DataAssociationModel> data_association_model =
-      data_association_model_constructors.at("simple_ml")(71.0);
+      data_association_model_constructors.at("simple_ml")(data_association_limit_distance);
   _ekf_ = std::make_shared<ExtendedKalmanFilter>(*motion_model, *observation_model,
                                                  *data_association_model);
 
