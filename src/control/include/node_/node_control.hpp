@@ -9,7 +9,8 @@
 #include "adapter_control/adapter.hpp"
 #include "custom_interfaces/msg/control_command.hpp"
 #include "custom_interfaces/msg/path_point_array.hpp"
-#include "custom_interfaces/msg/pose.hpp"
+#include "custom_interfaces/msg/vehicle_state.hpp"
+#include "custom_interfaces/msg/operational_status.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
 
@@ -24,10 +25,12 @@ class Adapter;
  */
 class Control : public rclcpp::Node {
  private:
-  message_filters::Subscriber<custom_interfaces::msg::Pose> pose_sub;
+  bool go_signal = false;
+  message_filters::Subscriber<custom_interfaces::msg::VehicleState> pose_sub;
   message_filters::Subscriber<custom_interfaces::msg::PathPointArray> path_point_array_sub;
   message_filters::Cache<custom_interfaces::msg::PathPointArray> path_cache;
 
+  rclcpp::Subscription<custom_interfaces::msg::OperationalStatus>::SharedPtr go_sub;
   rclcpp::Publisher<custom_interfaces::msg::ControlCommand>::SharedPtr result;
 
   Adapter *adapter;
@@ -37,7 +40,7 @@ class Control : public rclcpp::Node {
    * @brief Publishes the steering angle to the car based on the path and pose using cache
    *
    */
-  void publish_steering_angle(const custom_interfaces::msg::Pose::ConstSharedPtr &pose_msg);
+  void publish_control(const custom_interfaces::msg::VehicleState::ConstSharedPtr &pose_msg);
 
  public:
   /**

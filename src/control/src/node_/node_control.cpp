@@ -8,7 +8,7 @@
 #include "adapter_control/adapter.hpp"
 #include "adapter_control/map.hpp"
 #include "custom_interfaces/msg/path_point_array.hpp"
-#include "custom_interfaces/msg/pose.hpp"
+#include "custom_interfaces/msg/vehicle_state.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
 
@@ -16,7 +16,9 @@
 // to define which function gets executed at each time
 
 // This function is called when a new pose is received
-void Control::publish_steering_angle(const custom_interfaces::msg::Pose::ConstSharedPtr &pose_msg) {
+void Control::publish_control(
+    const custom_interfaces::msg::VehicleState::ConstSharedPtr &pose_msg) {
+  if (!go_signal) return;
   auto path_point_array = path_cache.getElemBeforeTime(pose_msg->header.stamp);
   auto control_msg = custom_interfaces::msg::ControlCommand();
 
@@ -25,16 +27,19 @@ void Control::publish_steering_angle(const custom_interfaces::msg::Pose::ConstSh
   result->publish(control_msg);
 }
 
-// TODO: Change to correct topics
 Control::Control()
     : Node("control"),
       pose_sub(this, "/state_estimation/vehicle_state"),
       path_point_array_sub(this, "/path_planning/path"),
-      path_cache(path_point_array_sub, 10) {
-  pose_sub.registerCallback(&Control::publish_steering_angle, this);
+      path_cache(path_point_array_sub, 10),
+      go_sub(this->create_subscription<custom_interfaces::msg::OperationalStatus>(
+          "/vehicle/operational_status", 10,
+          [this](const custom_interfaces::msg::OperationalStatus::SharedPtr msg) {
+            go_signal = msg->go_signal;
+          })) {
+  pose_sub.registerCallback(&Control::publish_control, this);
 
   // creates publisher that should yield torque/acceleration/...
-  // TODO: change to correct message type
   result = this->create_publisher<custom_interfaces::msg::ControlCommand>("/as_msgs/controls", 10);
 
   // Adapter to communicate with the car
