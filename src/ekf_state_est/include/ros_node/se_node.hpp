@@ -12,12 +12,10 @@
 #include "common_lib/competition_logic/mission_logic.hpp"
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "custom_interfaces/msg/point2d.hpp"
-#include "custom_interfaces/msg/pose.hpp"
+#include "custom_interfaces/msg/vehicle_state.hpp"
 #include "eufs_msgs/msg/wheel_speeds_stamped.hpp"
 #include "kalman_filter/ekf.hpp"
 #include "rclcpp/rclcpp.hpp"
-#include "sensor_msgs/msg/imu.hpp"
-#include "std_msgs/msg/string.hpp"
 
 class Adapter;
 
@@ -30,7 +28,7 @@ class Adapter;
  */
 class SENode : public rclcpp::Node {
   rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr _perception_subscription_;
-  rclcpp::Publisher<custom_interfaces::msg::Pose>::SharedPtr _localization_publisher_;
+  rclcpp::Publisher<custom_interfaces::msg::VehicleState>::SharedPtr _vehicle_state_publisher_;
   rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr _map_publisher_;
   rclcpp::TimerBase::SharedPtr _timer_;        /**< timer */
   std::shared_ptr<ExtendedKalmanFilter> _ekf_; /**< SLAM EKF object */
@@ -90,7 +88,7 @@ class SENode : public rclcpp::Node {
    * vehicle_location
    *
    */
-  void _publish_localization();
+  void _publish_vehicle_state();
 
   /**
    * @brief publishes the map ('track_map') to the topic track_map

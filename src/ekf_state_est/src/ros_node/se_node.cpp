@@ -34,8 +34,8 @@ SENode::SENode() : Node("ekf_state_est") {
   this->_perception_subscription_ = this->create_subscription<custom_interfaces::msg::ConeArray>(
       "/perception/cones", 10,
       std::bind(&SENode::_perception_subscription_callback, this, std::placeholders::_1));
-  this->_localization_publisher_ =
-      this->create_publisher<custom_interfaces::msg::Pose>("/state_estimation/vehicle_state", 10);
+  this->_vehicle_state_publisher_ = this->create_publisher<custom_interfaces::msg::VehicleState>(
+      "/state_estimation/vehicle_state", 10);
   this->_map_publisher_ =
       this->create_publisher<custom_interfaces::msg::ConeArray>("/state_estimation/map", 10);
 
@@ -70,7 +70,7 @@ void SENode::_perception_subscription_callback(const custom_interfaces::msg::Con
   this->_ekf_->correction_step(*(this->_perception_map_));
   this->_ekf_->update(this->_vehicle_state_, this->_track_map_);
   RCLCPP_DEBUG(this->get_logger(), "EKF - EFK correction Step");
-  this->_publish_localization();
+  this->_publish_vehicle_state();
   this->_publish_map();
 }
 
@@ -141,7 +141,7 @@ void SENode::_wheel_speeds_subscription_callback(double lb_speed, double lf_spee
   this->_ekf_->prediction_step(temp_update);
   this->_ekf_->update(this->_vehicle_state_, this->_track_map_);
   RCLCPP_DEBUG(this->get_logger(), "EKF - EFK prediction Step");
-  this->_publish_localization();
+  this->_publish_vehicle_state();
   this->_publish_map();
 }
 
@@ -155,28 +155,22 @@ void SENode::set_mission(common_lib::competition_logic::Mission mission) {
 
 /*---------------------- Publications --------------------*/
 
-void SENode::_update_and_publish() {  // Currently unused, as correction step
-                                      // and prediction step are carried out
-                                      // separately
-  this->_ekf_step();
-  this->_publish_localization();
-  this->_publish_map();
-}
-
-void SENode::_publish_localization() {
+void SENode::_publish_vehicle_state() {
   if (this->_vehicle_state_ == nullptr) {
     RCLCPP_WARN(this->get_logger(), "PUB - Vehicle state object is null");
     return;
   }
-  auto message = custom_interfaces::msg::Pose();
-  const common_lib::structures::Pose vehicle_localization = (*(this->_vehicle_state_)).pose;
-  message.position.x = vehicle_localization.position.x;
-  message.position.y = vehicle_localization.position.y;
-  message.theta = vehicle_localization.orientation;
+  auto message = custom_interfaces::msg::VehicleState();
+  message.position.x = this->_vehicle_state_->pose.position.x;
+  message.position.y = this->_vehicle_state_->pose.position.y;
+  message.theta = this->_vehicle_state_->pose.orientation;
+  message.linear_velocity = this->_vehicle_state_->linear_velocity;
+  message.angular_velocity = this->_vehicle_state_->angular_velocity;
 
-  RCLCPP_DEBUG(this->get_logger(), "PUB - Pose: (%f, %f, %f)", message.position.x,
-               message.position.y, message.theta);
-  this->_localization_publisher_->publish(message);
+  RCLCPP_DEBUG(this->get_logger(), "PUB - Pose: (%f, %f, %f); Velocities: (%f, %f)",
+               message.position.x, message.position.y, message.theta, message.linear_velocity,
+               message.angular_velocity);
+  this->_vehicle_state_publisher_->publish(message);
 }
 
 void SENode::_publish_map() {
@@ -213,4 +207,12 @@ void SENode::_ekf_step() {
   this->_ekf_->correction_step(*(this->_perception_map_));
   this->_ekf_->update(this->_vehicle_state_, this->_track_map_);
   RCLCPP_DEBUG(this->get_logger(), "EKF - EFK Step");
+}
+
+void SENode::_update_and_publish() {  // Currently unused, as correction step
+                                      // and prediction step are carried out
+                                      // separately
+  this->_ekf_step();
+  this->_publish_vehicle_state();
+  this->_publish_map();
 }

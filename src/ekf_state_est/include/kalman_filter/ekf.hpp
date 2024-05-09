@@ -1,5 +1,7 @@
 #pragma once
 
+#include <gtest/gtest_prod.h>
+
 #include <Eigen/Dense>
 #include <Eigen/Sparse>
 #include <rclcpp/rclcpp.hpp>
@@ -23,9 +25,9 @@
  *
  */
 class ExtendedKalmanFilter {
-  Eigen::VectorXf x_vector_ =
-      Eigen::VectorXf::Zero(5);         /**< Expected state vector (localization + mapping) */
-  Eigen::SparseMatrix<float> p_matrix_; /**< Sparse State covariance matrix */
+  Eigen::VectorXf _x_vector_ =
+      Eigen::VectorXf::Zero(5);          /**< Expected state vector (localization + mapping) */
+  Eigen::SparseMatrix<float> _p_matrix_; /**< Sparse State covariance matrix */
   rclcpp::Time _last_update_ = rclcpp::Clock().now(); /**< Timestamp of last update */
 
   const MotionModel &_motion_model_;           /**< Motion Model chosen for prediction step */
@@ -39,11 +41,11 @@ class ExtendedKalmanFilter {
    * @brief Calculate the kalman gain
    *
    * @param H jacobian observation model matrix
-   * @param p_matrix_ state covariance matrix
+   * @param _p_matrix_ state covariance matrix
    * @param Q measurement noise matrix
    * @return Eigen::MatrixXf kalman gain matrix
    */
-  Eigen::MatrixXf get_kalman_gain(const Eigen::MatrixXf &H, const Eigen::MatrixXf &p_matrix_,
+  Eigen::MatrixXf get_kalman_gain(const Eigen::MatrixXf &H, const Eigen::MatrixXf &_p_matrix_,
                                   const Eigen::MatrixXf &Q);
 
 public:
@@ -58,7 +60,7 @@ public:
 
   /**
    * @brief Updates vehicle state and map variables according
-   * to the state vector x_vector_
+   * to the state vector _x_vector_
    *
    * @param vehicle_state pose
    * @param track_map map
@@ -86,36 +88,26 @@ public:
   void correction_step(const std::vector<common_lib::structures::Cone> &perception_map);
 
   /**
-   * @brief set x_vector_ at y
-   *
-   * @param y index of x_vector_
-   * @param value value of x_vector_ at y
-   */
-  void set_X_y(int y, float value);
-
-  void set_P(const int size);
-
-  void init_X_size(const int size);
-
-  /**
    * @brief Get the state vector
    *
    * @return Eigen::VectorXf state vector
    */
-  Eigen::VectorXf get_state() const { return this->x_vector_; }
+  Eigen::VectorXf get_state() const { return this->_x_vector_; }
 
   /**
    * @brief Get the state covariance matrix
    *
    * @return Eigen::MatrixXf covariance matrix
    */
-  Eigen::MatrixXf get_covariance() const { return this->p_matrix_; }
+  Eigen::MatrixXf get_covariance() const { return this->_p_matrix_; }
 
   /**
    * @brief Get the last update timestamp
    *
-   * @return std::chrono::time_point<std::chrono::high_resolution_clock>
+   * @return rclcpp::Time
    * timestamp
    */
   rclcpp::Time get_last_update() const { return this->_last_update_; }
+
+  friend class PerformanceTest;
 };

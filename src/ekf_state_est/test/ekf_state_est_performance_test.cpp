@@ -19,7 +19,7 @@
  * @brief Test class for performance measurements of Extended Kalman Filter
  * steps.
  */
-class PerformamceTest : public ::testing::Test {
+class PerformanceTest : public ::testing::Test {
 public:
   std::shared_ptr<ExtendedKalmanFilter>
       ekf_test; /**< shared pointer to ExtendedKalmanFilter object */
@@ -35,10 +35,9 @@ public:
 
   std::chrono::microseconds prediction_step_duration; /**< Duration of prediction step execution */
   std::chrono::microseconds correction_step_duration; /**< Duration of correction step execution */
-  std::chrono::microseconds duration;
-  std::string workload;                       /**< Description of the workload */
-  Eigen::Matrix2f Q_test;                     /**< Test Eigen Matrix for Q */
-  Eigen::MatrixXf R_test;                     /**< Test Eigen Matrix for R */
+  std::string workload;                               /**< Description of the workload */
+  Eigen::Matrix2f q_test;                             /**< Test Eigen Matrix for Q */
+  Eigen::MatrixXf r_test;                             /**< Test Eigen Matrix for R */
   std::shared_ptr<MotionModel> motion_model_; /**< Pointer to the MotionModel object for testing */
   std::shared_ptr<DataAssociationModel> data_association_model_;
   int prediction_step_input_size = 0;
@@ -110,7 +109,7 @@ public:
    * @brief Fills the state vector with values from a file
    * @param size Number of state vector elements to fill.
    */
-  void fill_X(int size) {
+  void fill_x(int size) {
     ekf_test = std::make_shared<ExtendedKalmanFilter>(*motion_model_, *observation_model_,
                                                       *data_association_model_);
     std::ifstream file("../../src/ekf_state_est/test/data/map_test.txt");
@@ -123,13 +122,16 @@ public:
     double value1;
     double value2;
 
-    ekf_test->init_X_size(size * 2 + 3);
-    ekf_test->set_P(size * 2 + 3);
+    ekf_test->_x_vector_ = Eigen::VectorXf::Zero(size * 2 + 3);
+    ekf_test->_p_matrix_ = Eigen::SparseMatrix<float>(size * 2 + 3, size * 2 + 3);
+    ekf_test->_p_matrix_.coeffRef(0, 0) = static_cast<float>(1.1);
+    ekf_test->_p_matrix_.coeffRef(1, 1) = static_cast<float>(1.1);
+    ekf_test->_p_matrix_.coeffRef(2, 2) = static_cast<float>(1.1);
 
     while ((file >> value1 >> value2) && i < (size * 2 + 2)) {
-      ekf_test->set_X_y(i, value1);
+      ekf_test->_x_vector_(i) = static_cast<float>(value1);
       i++;
-      ekf_test->set_X_y(i, value2);
+      ekf_test->_x_vector_(i) = static_cast<float>(value2);
       i++;
     }
 
@@ -139,11 +141,8 @@ public:
   void SetUp() override { /**< Set up test environment */
     file_name = "ekf_state_est_" + get_current_date_time_as_string() + ".csv";
     start_time = std::chrono::high_resolution_clock::now();
-    duration = std::chrono::duration_cast<std::chrono::microseconds>(start_time - start_time);
-    prediction_step_duration =
-        std::chrono::duration_cast<std::chrono::microseconds>(start_time - start_time);
-    correction_step_duration =
-        std::chrono::duration_cast<std::chrono::microseconds>(start_time - start_time);
+    prediction_step_duration = std::chrono::microseconds(0);
+    correction_step_duration = std::chrono::microseconds(0);
     motion_update_test = std::make_shared<MotionUpdate>();
     motion_update_test->translational_velocity = 1.58113883;
     motion_update_test->translational_velocity_x = 1.5;
@@ -152,18 +151,18 @@ public:
     motion_update_test->steering_angle = 2.0;
     motion_update_test->last_update = rclcpp::Clock().now();
 
-    Q_test = Eigen::Matrix2f::Zero();
-    Q_test(0, 0) = 0.3;
-    Q_test(1, 1) = 0.3;
-    R_test = Eigen::MatrixXf::Zero(5, 5);
-    R_test(0, 0) = 0.8;
-    R_test(1, 1) = 0.8;
-    R_test(2, 2) = 0.8;
-    R_test(3, 3) = 0.8;
-    R_test(4, 4) = 0.8;
-    motion_model_ = std::make_shared<NormalVelocityModel>(R_test);
+    q_test = Eigen::Matrix2f::Zero();
+    q_test(0, 0) = static_cast<float>(0.3);
+    q_test(1, 1) = static_cast<float>(0.3);
+    r_test = Eigen::MatrixXf::Zero(5, 5);
+    r_test(0, 0) = static_cast<float>(0.8);
+    r_test(1, 1) = static_cast<float>(0.8);
+    r_test(2, 2) = static_cast<float>(0.8);
+    r_test(3, 3) = static_cast<float>(0.8);
+    r_test(4, 4) = static_cast<float>(0.8);
+    motion_model_ = std::make_shared<NormalVelocityModel>(r_test);
     data_association_model_ = std::make_shared<SimpleMaximumLikelihood>(71.0);
-    observation_model_ = std::make_shared<ObservationModel>(Q_test);
+    observation_model_ = std::make_shared<ObservationModel>(q_test);
     ekf_test = std::make_shared<ExtendedKalmanFilter>(*motion_model_, *observation_model_,
                                                       *data_association_model_);
   }
@@ -242,14 +241,14 @@ public:
  * @brief EKF Performance Test
  *
  */
-TEST_F(PerformamceTest, TEST_EKF_PERFORMANCE) {
+TEST_F(PerformanceTest, TEST_EKF_PERFORMANCE) {
   std::vector<int> cones_detected_cases = {1, 2, 5, 10};
   std::vector<int> map_size_cases = {10, 20, 50, 100, 200};
   for (auto i : cones_detected_cases) {
     std::vector<common_lib::structures::Cone> cone_map = create_cone_map(i);
     for (auto j : map_size_cases) {
       prediction_step_input_size = j;
-      fill_X(j);
+      fill_x(j);
       run_execution(cone_map);
       print_to_file();
     }
