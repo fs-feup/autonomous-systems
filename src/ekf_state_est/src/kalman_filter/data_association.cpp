@@ -24,8 +24,8 @@ SimpleMaximumLikelihood::SimpleMaximumLikelihood(float max_landmark_distance, fl
 
 bool SimpleMaximumLikelihood::valid_match(const float delta,
                                           const float distance_to_vehicle) const {
-  auto limit_function = [](float distance, float curvature, float initial_limit) {
-    return pow(M_E, distance / curvature) - (1 - initial_limit);
+  auto limit_function = [](float distance, float curv, float init_limit) {
+    return pow(M_E, distance / curv) - (1 - init_limit);
   };
   return limit_function(distance_to_vehicle, this->curvature, this->initial_limit) > delta;
 }

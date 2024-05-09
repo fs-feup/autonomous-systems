@@ -15,8 +15,7 @@
 ExtendedKalmanFilter::ExtendedKalmanFilter(const MotionModel &motion_model,
                                            const ObservationModel &observation_model,
                                            const DataAssociationModel &data_association_model)
-    : _p_matrix_(5, 5),
-      _motion_model_(motion_model),
+    : _motion_model_(motion_model),
       _observation_model_(observation_model),
       _data_association_model_(data_association_model) {
   _p_matrix_.setZero();
@@ -45,7 +44,7 @@ void ExtendedKalmanFilter::prediction_step(const MotionUpdate &motion_update) {
 
 void ExtendedKalmanFilter::correction_step(
     const std::vector<common_lib::structures::Cone> &perception_map) {
-  for (auto cone : perception_map) {
+  for (const common_lib::structures::Cone &cone : perception_map) {
     ObservationData observation_data =
         ObservationData(cone.position.x, cone.position.y, cone.color);
 
@@ -95,7 +94,7 @@ void ExtendedKalmanFilter::correction_step(
 
 Eigen::MatrixXf ExtendedKalmanFilter::get_kalman_gain(const Eigen::MatrixXf &h_matrix,
                                                       const Eigen::MatrixXf &p_matrix,
-                                                      const Eigen::MatrixXf &q_matrix) {
+                                                      const Eigen::MatrixXf &q_matrix) const {
   Eigen::MatrixXf s_matrix = h_matrix * p_matrix * h_matrix.transpose() + q_matrix;
   Eigen::MatrixXf kalman_gain_matrix = p_matrix * h_matrix.transpose() * s_matrix.inverse();
   return kalman_gain_matrix;

@@ -29,17 +29,18 @@ TEST(EKF_SLAM, LINEAR_MOVEMENT_INTEGRITY_TEST) {  // This test is not that
       std::make_shared<std::vector<common_lib::structures::Cone>>();
   motion_update->last_update = rclcpp::Clock().now();
 
-  Eigen::Matrix2f Q = Eigen::Matrix2f::Zero();
-  Q(0, 0) = 0.1;
-  Q(1, 1) = 0.1;
-  Eigen::MatrixXf R = Eigen::MatrixXf::Zero(5, 5);
-  R(0, 0) = 0.1;
-  R(1, 1) = 0.1;
-  R(2, 2) = 0.1;
-  R(3, 3) = 0.1;
-  R(4, 4) = 0.1;
-  std::shared_ptr<MotionModel> motion_model = std::make_shared<ImuVelocityModel>(R);
-  std::shared_ptr<ObservationModel> observation_model = std::make_shared<ObservationModel>(Q);
+  Eigen::Matrix2f q_matrix = Eigen::Matrix2f::Zero();
+  q_matrix(0, 0) = static_cast<float>(0.1);
+  q_matrix(1, 1) = static_cast<float>(0.1);
+  Eigen::MatrixXf r_matrix = Eigen::MatrixXf::Zero(5, 5);
+  r_matrix(0, 0) = static_cast<float>(0.1);
+  r_matrix(1, 1) = static_cast<float>(0.1);
+  r_matrix(2, 2) = static_cast<float>(0.1);
+  r_matrix(3, 3) = static_cast<float>(0.1);
+  r_matrix(4, 4) = static_cast<float>(0.1);
+  std::shared_ptr<MotionModel> motion_model = std::make_shared<ImuVelocityModel>(r_matrix);
+  std::shared_ptr<ObservationModel> observation_model =
+      std::make_shared<ObservationModel>(q_matrix);
   std::shared_ptr<DataAssociationModel> data_association_model =
       std::make_shared<SimpleMaximumLikelihood>(71.0);
 
@@ -152,11 +153,10 @@ TEST(EKF_SLAM, LINEAR_MOVEMENT_INTEGRITY_TEST) {  // This test is not that
     ekf->correction_step(*predicted_map);
     ekf->update(vehicle_state, track_map);
 
-    int orange_count, blue_count, big_orange_count;
-    orange_count = 0;
-    blue_count = 0;
-    big_orange_count = 0;
-    for (auto &cone : *track_map) {
+    int orange_count = 0;
+    int blue_count = 0;
+    int big_orange_count = 0;
+    for (const common_lib::structures::Cone &cone : *track_map) {
       if (cone.color == common_lib::competition_logic::Color::ORANGE) {
         orange_count++;
       } else if (cone.color == common_lib::competition_logic::Color::BLUE) {

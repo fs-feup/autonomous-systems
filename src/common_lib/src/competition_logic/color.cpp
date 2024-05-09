@@ -1,7 +1,7 @@
 #include "common_lib/competition_logic/color.hpp"
 
 namespace common_lib::competition_logic {
-const std::map<std::string, Color> STRING_TO_COLOR = {
+const std::map<std::string, Color, std::less<>> STRING_TO_COLOR = {
     {"blue_cone", Color::BLUE},     {"yellow_cone", Color::YELLOW},
     {"orange_cone", Color::ORANGE}, {"large_orange_cone", Color::LARGE_ORANGE},
     {"unknown", Color::UNKNOWN},

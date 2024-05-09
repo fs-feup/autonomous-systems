@@ -1,4 +1,5 @@
 #include <eigen3/Eigen/Dense>
+#include <random>
 
 #include "gtest/gtest.h"
 #include "kalman_filter/observation_models.hpp"
@@ -9,16 +10,18 @@
  *
  */
 TEST(BASE_OBSERVATION_MODEL, ALIGNED_RANDOM_TEST) {
-  Eigen::Matrix2f Q = Eigen::Matrix2f::Zero();
-  ObservationModel observation_model(Q);
+  Eigen::Matrix2f q_matrix = Eigen::Matrix2f::Zero();
+  ObservationModel observation_model(q_matrix);
   ObservationData observation_data;
+  std::random_device rd;  // Will be used to obtain a seed for the random number engine
+  std::mt19937 gen(rd());
+  std::uniform_int_distribution dis(-500, 500);
   for (unsigned int i = 0; i < 1000; i++) {
     Eigen::VectorXf expected_state(5);
-    double vehicle_x, vehicle_y, landmark_x, landmark_y;
-    vehicle_x = rand() % 1000 - 500;
-    vehicle_y = rand() % 1000 - 500;
-    landmark_x = rand() % 1000 - 500;
-    landmark_y = rand() % 1000 - 500;
+    float vehicle_x = static_cast<float>(dis(gen));
+    float vehicle_y = static_cast<float>(dis(gen));
+    float landmark_x = static_cast<float>(dis(gen));
+    float landmark_y = static_cast<float>(dis(gen));
     expected_state << vehicle_x, vehicle_y, 0, landmark_x, landmark_y;
 
     observation_data.position.x = landmark_x - vehicle_x;
@@ -38,16 +41,15 @@ TEST(BASE_OBSERVATION_MODEL, ALIGNED_RANDOM_TEST) {
  *
  */
 TEST(BASE_OBSERVATION_MODEL, INDIVIDUAL_CASE_TEST1) {
-  Eigen::Matrix2f Q = Eigen::Matrix2f::Zero();
-  ObservationModel observation_model(Q);
+  Eigen::Matrix2f q_matrix = Eigen::Matrix2f::Zero();
+  ObservationModel observation_model(q_matrix);
   ObservationData observation_data;
   Eigen::VectorXf expected_state(5);
-  double vehicle_x, vehicle_y, landmark_x, landmark_y, orientation;
-  vehicle_x = 5;
-  vehicle_y = -2;
-  orientation = -M_PI / 4;
-  landmark_x = 5;
-  landmark_y = -2 - sqrt(2);
+  float vehicle_x = 5;
+  float vehicle_y = -2;
+  float orientation = static_cast<float>(-M_PI / 4);
+  float landmark_x = 5;
+  float landmark_y = static_cast<float>(-2 - sqrt(2));
   observation_data.position.x = 1;
   observation_data.position.y = -1;
   expected_state << vehicle_x, vehicle_y, orientation, landmark_x, landmark_y;
@@ -65,16 +67,15 @@ TEST(BASE_OBSERVATION_MODEL, INDIVIDUAL_CASE_TEST1) {
  *
  */
 TEST(BASE_OBSERVATION_MODEL, INDIVIDUAL_CASE_TEST2) {
-  Eigen::Matrix2f Q = Eigen::Matrix2f::Zero();
-  ObservationModel observation_model(Q);
+  Eigen::Matrix2f q_matrix = Eigen::Matrix2f::Zero();
+  ObservationModel observation_model(q_matrix);
   ObservationData observation_data;
   Eigen::VectorXf expected_state(5);
-  double vehicle_x, vehicle_y, landmark_x, landmark_y, orientation;
-  vehicle_x = 5;
-  vehicle_y = -2;
-  orientation = 2 * M_PI;
-  landmark_x = 6;
-  landmark_y = -3;
+  float vehicle_x = 5;
+  float vehicle_y = -2;
+  float orientation = static_cast<float>(2 * M_PI);
+  float landmark_x = 6;
+  float landmark_y = -3;
   observation_data.position.x = 1;
   observation_data.position.y = -1;
   expected_state << vehicle_x, vehicle_y, orientation, landmark_x, landmark_y;
@@ -92,16 +93,15 @@ TEST(BASE_OBSERVATION_MODEL, INDIVIDUAL_CASE_TEST2) {
  *
  */
 TEST(BASE_OBSERVATION_MODEL, INDIVIDUAL_CASE_TEST3) {
-  Eigen::Matrix2f Q = Eigen::Matrix2f::Zero();
-  ObservationModel observation_model(Q);
+  Eigen::Matrix2f q_matrix = Eigen::Matrix2f::Zero();
+  ObservationModel observation_model(q_matrix);
   ObservationData observation_data;
   Eigen::VectorXf expected_state(5);
-  double vehicle_x, vehicle_y, landmark_x, landmark_y, orientation;
-  vehicle_x = 5;
-  vehicle_y = -2;
-  orientation = M_PI / 2;
-  landmark_x = 6;
-  landmark_y = -1;
+  float vehicle_x = 5;
+  float vehicle_y = -2;
+  float orientation = static_cast<float>(M_PI / 2);
+  float landmark_x = 6;
+  float landmark_y = -1;
   observation_data.position.x = 1;
   observation_data.position.y = -1;
   expected_state << vehicle_x, vehicle_y, orientation, landmark_x, landmark_y;

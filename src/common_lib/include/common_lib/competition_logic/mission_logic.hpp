@@ -36,10 +36,10 @@ std::string get_mission_string(int mission);
 
 // the message type is not accepted in map - not recognized by std namespace. Cast to identical type
 const std::unordered_map<uint16_t, Mission> eufs_to_system = {
-    {static_cast<uint16_t>(eufs_msgs::msg::CanState::AMI_ACCELERATION), Mission::ACCELERATION},
-    {static_cast<uint16_t>(eufs_msgs::msg::CanState::AMI_SKIDPAD), Mission::SKIDPAD},
-    {static_cast<uint16_t>(eufs_msgs::msg::CanState::AMI_AUTOCROSS), Mission::AUTOCROSS},
-    {static_cast<uint16_t>(eufs_msgs::msg::CanState::AMI_TRACK_DRIVE), Mission::TRACKDRIVE}};
+    {eufs_msgs::msg::CanState::AMI_ACCELERATION, Mission::ACCELERATION},
+    {eufs_msgs::msg::CanState::AMI_SKIDPAD, Mission::SKIDPAD},
+    {eufs_msgs::msg::CanState::AMI_AUTOCROSS, Mission::AUTOCROSS},
+    {eufs_msgs::msg::CanState::AMI_TRACK_DRIVE, Mission::TRACKDRIVE}};
 
 const std::unordered_map<std::string, Mission> fsds_to_system = {
     {"acceleration", Mission::ACCELERATION},

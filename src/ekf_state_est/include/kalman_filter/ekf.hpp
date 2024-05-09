@@ -26,8 +26,9 @@
  */
 class ExtendedKalmanFilter {
   Eigen::VectorXf _x_vector_ =
-      Eigen::VectorXf::Zero(5);          /**< Expected state vector (localization + mapping) */
-  Eigen::SparseMatrix<float> _p_matrix_; /**< Sparse State covariance matrix */
+      Eigen::VectorXf::Zero(5); /**< Expected state vector (localization + mapping) */
+  Eigen::SparseMatrix<float> _p_matrix_ =
+      Eigen::SparseMatrix<float>(5, 5);               /**< Sparse State covariance matrix */
   rclcpp::Time _last_update_ = rclcpp::Clock().now(); /**< Timestamp of last update */
 
   const MotionModel &_motion_model_;           /**< Motion Model chosen for prediction step */
@@ -46,7 +47,7 @@ class ExtendedKalmanFilter {
    * @return Eigen::MatrixXf kalman gain matrix
    */
   Eigen::MatrixXf get_kalman_gain(const Eigen::MatrixXf &H, const Eigen::MatrixXf &_p_matrix_,
-                                  const Eigen::MatrixXf &Q);
+                                  const Eigen::MatrixXf &Q) const;
 
 public:
   /**

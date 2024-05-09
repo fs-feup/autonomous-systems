@@ -4,7 +4,6 @@
 #include "message_filters/message_traits.h"
 #include "message_filters/sync_policies/approximate_time.h"
 #include "message_filters/time_synchronizer.h"
-#include "std_msgs/msg/string.hpp"
 
 InspectionMission::InspectionMission() : Node("inspection") {
   inspection_object.turning_period = declare_parameter<double>("turning_period", 4.0);

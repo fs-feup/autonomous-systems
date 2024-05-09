@@ -46,7 +46,7 @@ class SENode : public rclcpp::Node {
    *
    * @param msg Message containing the array of perceived cones
    */
-  void _perception_subscription_callback(const custom_interfaces::msg::ConeArray &msg);
+  void _perception_subscription_callback(const custom_interfaces::msg::ConeArray& msg);
 
   /**
    * @brief Function to be called everytime information is received from the
@@ -57,7 +57,7 @@ class SENode : public rclcpp::Node {
    * @param acceleration_y
    */
   void _imu_subscription_callback(double rotational_velocity, double acceleration_x,
-                                  double acceleration_y, rclcpp::Time timestamp);
+                                  double acceleration_y, const rclcpp::Time& timestamp);
 
   /**
    * @brief Function to be called everytime information is received from the
@@ -72,7 +72,7 @@ class SENode : public rclcpp::Node {
    */
   void _wheel_speeds_subscription_callback(double lb_speed, double lf_speed, double rb_speed,
                                            double rf_speed, double steering_angle,
-                                           rclcpp::Time timestamp);
+                                           const rclcpp::Time& timestamp);
 
   /**
    * @brief Executes:

@@ -18,7 +18,7 @@ SENode::SENode() : Node("ekf_state_est") {
   std::string adapter_name = this->declare_parameter("adapter", "fsds");
   std::string motion_model_name = this->declare_parameter("motion_model", "normal_velocity_model");
   float data_association_limit_distance =
-      this->declare_parameter("data_association_limit_distance", 71.0);
+      static_cast<float>(this->declare_parameter("data_association_limit_distance", 71.0));
   std::shared_ptr<MotionModel> motion_model = motion_model_constructors.at(motion_model_name)(
       motion_model_noise_matrixes.at(motion_model_name));
   std::shared_ptr<ObservationModel> observation_model =
@@ -79,7 +79,7 @@ void SENode::_perception_subscription_callback(const custom_interfaces::msg::Con
 
 // Currently not utilized
 void SENode::_imu_subscription_callback(double angular_velocity, double acceleration_x,
-                                        double acceleration_y, rclcpp::Time timestamp) {
+                                        double acceleration_y, const rclcpp::Time &timestamp) {
   RCLCPP_WARN(this->get_logger(), "TODO: Implement IMU subscription callback properly");
   // if (this->_use_odometry_) {
   //   return;
@@ -114,7 +114,7 @@ void SENode::_imu_subscription_callback(double angular_velocity, double accelera
 
 void SENode::_wheel_speeds_subscription_callback(double lb_speed, double lf_speed, double rb_speed,
                                                  double rf_speed, double steering_angle,
-                                                 rclcpp::Time timestamp) {
+                                                 const rclcpp::Time &timestamp) {
   if (!this->_use_odometry_) {
     return;
   }
@@ -122,12 +122,12 @@ void SENode::_wheel_speeds_subscription_callback(double lb_speed, double lf_spee
                "SUB - Raw from wheel speeds: lb:%f - rb:%f - lf:%f - rf:%f - "
                "steering: %f",
                lb_speed, rb_speed, lf_speed, rf_speed, steering_angle);
-  std::pair<double, double> velocities =
+  auto [linear_velocity, angular_velocity] =
       common_lib::vehicle_dynamics::odometry_to_velocities_transform(lb_speed, lf_speed, rb_speed,
                                                                      rf_speed, steering_angle);
   MotionUpdate motion_prediction_data;
-  motion_prediction_data.translational_velocity = velocities.first;
-  motion_prediction_data.rotational_velocity = velocities.second;
+  motion_prediction_data.translational_velocity = linear_velocity;
+  motion_prediction_data.rotational_velocity = angular_velocity;
   this->_motion_update_->translational_velocity = motion_prediction_data.translational_velocity;
   this->_motion_update_->rotational_velocity = motion_prediction_data.rotational_velocity;
   this->_motion_update_->steering_angle = steering_angle;
