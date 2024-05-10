@@ -10,7 +10,10 @@ set(IMPLEMENTATION_FILES
   src/pid/pid.cpp
   src/adapter_control/adapter.cpp
   src/adapter_control/fsds.cpp
+  src/pure_pursuit/pp.cpp
 )
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../common_lib/include)
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
@@ -28,6 +31,7 @@ ament_target_dependencies(node_control rclcpp std_msgs sensor_msgs custom_interf
 target_include_directories(node_control PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
+
 target_compile_features(node_control PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
 
 install(TARGETS node_control
@@ -39,6 +43,7 @@ if(BUILD_TESTING)
   set(TESTFILES 
     test/main.cpp
     test/pid_test.cpp
+    test/pp_test.cpp
   )
   include_directories(test)  # Include the 'test' directory for your test targets
   include_directories(${CMAKE_CURRENT_SOURCE_DIR})  # Include the current source directory
