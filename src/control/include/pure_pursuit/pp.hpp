@@ -21,15 +21,16 @@ constexpr double DIST_CG_2_REAR_AXIS = 0.5;
 
 class PurePursuit {
  public:
-  double k_;                   /**< Lookahead gain */
-  double ld_;                  /**< Lookahead distance */
-  double ld_margin_;           /**< Lookahead distance margin, a percentange of ld_ */
-  double wheel_base_;          /**< Wheel base of the vehicle */
-  double dist_cg_2_rear_axis_; /**< Distance from the center of gravity to the rear axis */
-  Pose vehicle_pose_;          /**< Vehicle pose */
-  Point lookahead_point_;      /**< Lookahead point */
-  Point closest_point_;        /**< Closest point on the Path*/
-  int closest_point_id_;       /**< Closest point on the Path*/
+  double k_;                       /**< Lookahead gain */
+  double ld_;                      /**< Lookahead distance */
+  double ld_margin_;               /**< Lookahead distance margin, a percentange of ld_ */
+  double wheel_base_ = WHEEL_BASE; /**< Wheel base of the vehicle */
+  double dist_cg_2_rear_axis_ =
+      DIST_CG_2_REAR_AXIS;    /**< Distance from the center of gravity to the rear axis */
+  Pose vehicle_pose_;         /**< Vehicle pose */
+  Point lookahead_point_;     /**< Lookahead point */
+  Point closest_point_;       /**< Closest point on the Path*/
+  int closest_point_id_ = -1; /**< Closest point on the Path*/
 
   /**
    * @brief Construct a new Pure Pursuit object

@@ -29,7 +29,7 @@ class Pose {
   double velocity_;
 
   // Default constructor
-  Pose() : cg_(Point()), rear_axis_(Point()), heading_(0.0), orientation_(0.0), velocity_(0.0) {}
+  Pose() : heading_(0.0), orientation_(0.0), velocity_(0.0) {}
 
   // Constructor
   Pose(Point cg, Point rear_axis, double heading, double orientation, double velocity)

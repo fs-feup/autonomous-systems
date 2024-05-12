@@ -53,9 +53,6 @@ TEST(PurePursuitTests, Test_calculate_alpha_3) {
   Point lookahead_point = Point(5, 5);
   double dist_cg_2_rear_axis = 2;
 
-  double lookhead_point_2_rear_wheel = vehicle_rear_wheel.euclidean_distance(lookahead_point);
-  double lookhead_point_2_cg = lookahead_point.euclidean_distance(vehicle_cg);
-
   double alpha =
       pp.calculate_alpha(vehicle_rear_wheel, vehicle_cg, lookahead_point, dist_cg_2_rear_axis);
 

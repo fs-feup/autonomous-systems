@@ -6,15 +6,7 @@
  * @param k Lookahead gain
  */
 
-PurePursuit::PurePursuit(double k, double ld_margin)
-    : k_(k),
-      ld_margin_(ld_margin),
-      wheel_base_(WHEEL_BASE),
-      dist_cg_2_rear_axis_(DIST_CG_2_REAR_AXIS),
-      vehicle_pose_(Pose()),
-      lookahead_point_(Point()),
-      closest_point_(Point()),
-      closest_point_id_(-1) {}
+PurePursuit::PurePursuit(double k, double ld_margin) : k_(k), ld_margin_(ld_margin) {}
 
 double PurePursuit::update_steering_angle(
     const custom_interfaces::msg::PathPointArray::ConstSharedPtr &path_msg,
