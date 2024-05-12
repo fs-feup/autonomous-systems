@@ -6,10 +6,5 @@ Adapter::Adapter(std::shared_ptr<SENode> se_node) : node(se_node) {
 }
 
 void Adapter::imu_subscription_callback(const sensor_msgs::msg::Imu& msg) {
-  double angular_velocity = msg.angular_velocity.z;
-  double acceleration_x = msg.linear_acceleration.x;
-  double acceleration_y = msg.linear_acceleration.y;
-
-  this->node->_imu_subscription_callback(angular_velocity, acceleration_x, acceleration_y,
-                                         msg.header.stamp);
+  this->node->_imu_subscription_callback(msg);
 }

@@ -32,7 +32,9 @@ void EufsAdapter::mission_state_callback(eufs_msgs::msg::CanState msg) {
   this->node->set_mission(common_lib::competition_logic::eufs_to_system.at(mission));
 }
 
-void EufsAdapter::finish() { std::cout << "Finish undefined for Eufs\n"; }
+void EufsAdapter::finish() {
+  RCLCPP_WARN(this->node->get_logger(), "TODO: implement mission finished in SE\n");
+}
 
 void EufsAdapter::wheel_speeds_subscription_callback(
     const eufs_msgs::msg::WheelSpeedsStamped& msg) {

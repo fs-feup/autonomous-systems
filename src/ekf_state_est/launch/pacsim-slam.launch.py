@@ -24,7 +24,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "adapter",
                 description="Environment to run node on",
-                default_value="fsds",
+                default_value="pacsim",
             ),
             DeclareLaunchArgument("finish_time", default_value="26.0"),  # seconds
             DeclareLaunchArgument(
@@ -35,7 +35,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "use_simulated_perception",
                 description="Use simulated perception from simulator instead of Perception node",
-                default_value="False",
+                default_value="True",
             ),
             Node(
                 package="ekf_state_est",
@@ -56,6 +56,7 @@ def generate_launch_description():
                         )
                     },
                 ],
+                arguments=["--ros-args", "--log-level", "ekf_state_est:=debug"],
             ),
         ]
     )

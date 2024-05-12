@@ -12,9 +12,9 @@
 
 /*---------------------- Constructors --------------------*/
 
-ExtendedKalmanFilter::ExtendedKalmanFilter(const MotionModel &motion_model,
-                                           const ObservationModel &observation_model,
-                                           const DataAssociationModel &data_association_model)
+ExtendedKalmanFilter::ExtendedKalmanFilter(
+    std::shared_ptr<MotionModel> motion_model, std::shared_ptr<ObservationModel> observation_model,
+    std::shared_ptr<DataAssociationModel> data_association_model)
     : _motion_model_(motion_model),
       _observation_model_(observation_model),
       _data_association_model_(data_association_model) {
@@ -23,18 +23,19 @@ ExtendedKalmanFilter::ExtendedKalmanFilter(const MotionModel &motion_model,
 /*-----------------------Algorithms-----------------------*/
 
 void ExtendedKalmanFilter::prediction_step(const MotionUpdate &motion_update) {
-  double delta = (motion_update.last_update - this->_last_update_).seconds();
+  rclcpp::Time temp_this_last_update = this->_last_update_;
   this->_last_update_ = motion_update.last_update;
   if (this->_first_prediction_) {  // To set the last update correctly
     this->_first_prediction_ = false;
     return;
   }
+  double delta = (this->_last_update_ - temp_this_last_update).seconds();
   Eigen::VectorXf temp_x_vector = this->_x_vector_;
   this->_x_vector_ =
-      this->_motion_model_.predict_expected_state(temp_x_vector, motion_update, delta / 1000000);
-  Eigen::MatrixXf g_matrix = this->_motion_model_.get_motion_to_state_matrix(
-      temp_x_vector, motion_update, delta / 1000000);
-  Eigen::MatrixXf r_matrix = this->_motion_model_.get_process_noise_covariance_matrix(
+      this->_motion_model_->predict_expected_state(temp_x_vector, motion_update, delta);
+  Eigen::MatrixXf g_matrix =
+      this->_motion_model_->get_motion_to_state_matrix(temp_x_vector, motion_update, delta);
+  Eigen::MatrixXf r_matrix = this->_motion_model_->get_process_noise_covariance_matrix(
       static_cast<unsigned int>(this->_x_vector_.size()));  // Process Noise Matrix
   // this->_p_matrix_ = g_matrix * this->_p_matrix_ * g_matrix.transpose() + r_matrix;
   Eigen::MatrixXf p_matrix_dense =
@@ -50,8 +51,8 @@ void ExtendedKalmanFilter::correction_step(
 
     // Data Association
     Eigen::Vector2f landmark_absolute =
-        this->_observation_model_.inverse_observation_model(this->_x_vector_, observation_data);
-    int landmark_index = _data_association_model_.match_cone(landmark_absolute, this->_x_vector_);
+        this->_observation_model_->inverse_observation_model(this->_x_vector_, observation_data);
+    int landmark_index = _data_association_model_->match_cone(landmark_absolute, this->_x_vector_);
     if (landmark_index == -1) {  // Too far away landmark
       continue;
     } else if (landmark_index == -2) {  // Did not match any landmark
@@ -66,16 +67,16 @@ void ExtendedKalmanFilter::correction_step(
     }
 
     // Matrix Calculation
-    Eigen::MatrixXf h_matrix = this->_observation_model_.get_state_to_observation_matrix(
+    Eigen::MatrixXf h_matrix = this->_observation_model_->get_state_to_observation_matrix(
         this->_x_vector_, landmark_index, static_cast<unsigned int>(this->_x_vector_.size()));
     Eigen::MatrixXf q_matrix =
-        this->_observation_model_.get_observation_noise_covariance_matrix();  // Observation Noise
-                                                                              // Matrix
+        this->_observation_model_->get_observation_noise_covariance_matrix();  // Observation Noise
+                                                                               // Matrix
     Eigen::MatrixXf kalman_gain_matrix =
         this->get_kalman_gain(h_matrix, this->_p_matrix_, q_matrix);
 
     // Correction
-    Eigen::Vector2f z_hat = this->_observation_model_.observation_model(
+    Eigen::Vector2f z_hat = this->_observation_model_->observation_model(
         this->_x_vector_, landmark_index);  // expected observation, previously
                                             // calculated landmark is used
     Eigen::Vector2f z =

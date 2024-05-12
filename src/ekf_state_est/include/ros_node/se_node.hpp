@@ -16,6 +16,7 @@
 #include "eufs_msgs/msg/wheel_speeds_stamped.hpp"
 #include "kalman_filter/ekf.hpp"
 #include "rclcpp/rclcpp.hpp"
+#include "visualization_msgs/msg/marker_array.hpp"
 
 class Adapter;
 
@@ -30,6 +31,7 @@ class SENode : public rclcpp::Node {
   rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr _perception_subscription_;
   rclcpp::Publisher<custom_interfaces::msg::VehicleState>::SharedPtr _vehicle_state_publisher_;
   rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr _map_publisher_;
+  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr _visualization_map_publisher_;
   rclcpp::TimerBase::SharedPtr _timer_;        /**< timer */
   std::shared_ptr<ExtendedKalmanFilter> _ekf_; /**< SLAM EKF object */
   std::shared_ptr<std::vector<common_lib::structures::Cone>> _perception_map_;
@@ -38,6 +40,7 @@ class SENode : public rclcpp::Node {
   std::shared_ptr<common_lib::structures::VehicleState> _vehicle_state_;
   common_lib::competition_logic::Mission _mission_;
   bool _use_odometry_;
+  bool _use_simulated_perception_;
   std::shared_ptr<Adapter> _adapter_;
 
   /**
@@ -56,8 +59,7 @@ class SENode : public rclcpp::Node {
    * @param acceleration_x
    * @param acceleration_y
    */
-  void _imu_subscription_callback(double rotational_velocity, double acceleration_x,
-                                  double acceleration_y, const rclcpp::Time& timestamp);
+  void _imu_subscription_callback(const sensor_msgs::msg::Imu& imu_msg);
 
   /**
    * @brief Function to be called everytime information is received from the
@@ -135,4 +137,5 @@ public:
   friend class Adapter;
   friend class EufsAdapter;
   friend class FsdsAdapter;
+  friend class PacsimAdapter;
 };

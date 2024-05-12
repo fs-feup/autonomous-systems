@@ -25,8 +25,8 @@ public:
   rclcpp::Subscription<sensor_msgs::msg::Imu>::SharedPtr _imu_subscription_;
 
   explicit Adapter(std::shared_ptr<SENode> se_node);
-  virtual void init() = 0;
-  virtual void finish() = 0;
+  virtual void init() = 0;    ///< Function that initializes the respective node
+  virtual void finish() = 0;  ///< Function that sends the finish signal to the respective node
 
   /**
    * @brief Function that parses the message sent from the ros IMU topic
