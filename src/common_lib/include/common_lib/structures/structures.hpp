@@ -25,24 +25,27 @@ class Point {
 
 class Pose {
  public:
-  Point position;
-  double heading;
-  double orientation;
-  double velocity;
+  Point cg_;
+  Point rear_axis_;
+  double heading_;
+  double orientation_;
+  double velocity_;
 
   // Default constructor
   Pose() {
-    position = Point();
-    heading = 0.0;
-    orientation = 0.0;
-    velocity = 0.0;
+    cg_ = Point();
+    rear_axis_ = Point();
+    heading_ = 0.0;
+    orientation_ = 0.0;
+    velocity_ = 0.0;
   }
 
   // Constructor
-  Pose(Point position, double heading, double orientation, double velocity) {
-    this->position = position;
-    this->heading = heading;
-    this->orientation = orientation;
-    this->velocity = velocity;
+  Pose(Point cg, Point rear_axis, double heading, double orientation, double velocity) {
+    this->cg_ = cg;
+    this->rear_axis_ = rear_axis;
+    this->heading_ = heading;
+    this->orientation_ = orientation;
+    this->velocity_ = velocity;
   };
 };

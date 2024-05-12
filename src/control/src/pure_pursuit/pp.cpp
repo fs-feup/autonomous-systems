@@ -10,6 +10,8 @@ PurePursuit::PurePursuit(double k, double ld_margin) {
   this->k_ = k;
   this->ld_ = 0.0;
   this->ld_margin_ = ld_margin;
+  this->wheel_base_ = WHEEL_BASE;
+  this->dist_cg_2_rear_axis_ = DIST_CG_2_REAR_AXIS;
   this->vehicle_pose_ = Pose();
   this->lookahead_point_ = Point();
   this->closest_point_ = Point();
@@ -47,7 +49,7 @@ double PurePursuit::update_steering_angle(
 /**
  * @brief update the LookaheadDistance based on a new velocity
  */
-double PurePursuit::update_lookahead_distance() { return this->k_ * this->vehicle_pose_.velocity; }
+double PurePursuit::update_lookahead_distance() { return this->k_ * this->vehicle_pose_.velocity_; }
 
 /**
  * @brief Update vehicle pose
@@ -56,10 +58,15 @@ double PurePursuit::update_lookahead_distance() { return this->k_ * this->vehicl
  */
 void PurePursuit::update_vehicle_pose(
     const custom_interfaces::msg::Pose::ConstSharedPtr &pose_msg) {
-  this->vehicle_pose_.position.x = pose_msg->position.x;
-  this->vehicle_pose_.position.y = pose_msg->position.y;
-  this->vehicle_pose_.velocity = pose_msg->velocity;
-  this->vehicle_pose_.heading = pose_msg->theta;  // CHECK IF THIS IS THE SAME ANGLE
+  // update to Rear Wheel position
+  this->vehicle_pose_.cg_.x = pose_msg->position.x;
+  this->vehicle_pose_.cg_.y = pose_msg->position.y;
+
+  this->vehicle_pose_.velocity_ = pose_msg->velocity;
+  this->vehicle_pose_.heading_ = pose_msg->theta;
+  this->vehicle_pose_.rear_axis_ = cg_2_rear_axis(
+      this->vehicle_pose_.cg_, this->vehicle_pose_.heading_, this->dist_cg_2_rear_axis_);
+
   return;
 }
 
@@ -76,7 +83,7 @@ std::pair<Point, int> PurePursuit::update_closest_point(
   int closest_point_id = -1;
   for (long unsigned int i = 0; i < path_msg->pathpoint_array.size(); i++) {
     aux_point = Point(path_msg->pathpoint_array[i].x, path_msg->pathpoint_array[i].y);
-    double distance = this->vehicle_pose_.position.euclidean_distance(aux_point);
+    double distance = this->vehicle_pose_.rear_axis_.euclidean_distance(aux_point);
     if (distance < min_distance) {
       min_distance = distance;
       closest_point = aux_point;
@@ -117,29 +124,31 @@ std::pair<Point, bool> PurePursuit::update_lookahead_point(
 }
 
 double PurePursuit::pp_steering_control_law() {
-  Point vehicle_rear_wheel =
-      Point(this->vehicle_pose_.position.x - DIST_CG_R_AXIS * cos(this->vehicle_pose_.heading),
-            this->vehicle_pose_.position.y - DIST_CG_R_AXIS * sin(this->vehicle_pose_.heading));
-  double rear_wheel_2_cg = DIST_CG_R_AXIS;
-
-  double alpha = calculate_alpha(vehicle_rear_wheel, this->vehicle_pose_.position,
-                                 this->lookahead_point_, rear_wheel_2_cg);
+  double alpha = calculate_alpha(this->vehicle_pose_.rear_axis_, this->vehicle_pose_.cg_,
+                                 this->lookahead_point_, this->dist_cg_2_rear_axis_);
 
   // update lookahead distance to the actual distance
-  this->ld_ = this->vehicle_pose_.position.euclidean_distance(this->lookahead_point_);
+  this->ld_ = this->vehicle_pose_.rear_axis_.euclidean_distance(this->lookahead_point_);
 
-  return atan(2 * WHEEL_BASE * sin(alpha) / this->ld_);
+  return atan(2 * this->wheel_base_ * sin(alpha) / this->ld_);
 }
 
 double PurePursuit::calculate_alpha(Point vehicle_rear_wheel, Point vehicle_cg,
-                                    Point lookahead_point, double rear_wheel_2_cg) {
+                                    Point lookahead_point, double dist_cg_2_rear_axis) {
   double lookhead_point_2_rear_wheel = vehicle_rear_wheel.euclidean_distance(lookahead_point);
   double lookhead_point_2_cg = lookahead_point.euclidean_distance(vehicle_cg);
 
   // Law of cosines
-  double alpha = acos((pow(lookhead_point_2_rear_wheel, 2) + pow(rear_wheel_2_cg, 2) -
+  double alpha = acos((pow(lookhead_point_2_rear_wheel, 2) + pow(dist_cg_2_rear_axis, 2) -
                        pow(lookhead_point_2_cg, 2)) /
-                      (2 * lookhead_point_2_rear_wheel * rear_wheel_2_cg));
+                      (2 * lookhead_point_2_rear_wheel * dist_cg_2_rear_axis));
 
   return alpha;
+}
+
+Point PurePursuit::cg_2_rear_axis(Point cg, double heading, double dist_cg_2_rear_axis) {
+  Point rear_axis = Point();
+  rear_axis.x = cg.x - dist_cg_2_rear_axis * cos(heading);
+  rear_axis.y = cg.y - dist_cg_2_rear_axis * sin(heading);
+  return rear_axis;
 }

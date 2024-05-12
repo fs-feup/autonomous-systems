@@ -7,7 +7,8 @@
 #define WHEEL_BASE 1.5
 
 /**< Distance from the center of gravity to the rear axis in m */
-#define DIST_CG_R_AXIS 0.5
+#define DIST_CG_2_REAR_AXIS 0.5
+
 /**
  * @brief Pure Pursuit class
  *
@@ -20,13 +21,15 @@
 
 class PurePursuit {
  public:
-  double k_;              /**< Lookahead gain */
-  double ld_;             /**< Lookahead distance */
-  double ld_margin_;      /**< Lookahead distance margin, a percentange of ld_ */
-  Pose vehicle_pose_;     /**< Vehicle pose */
-  Point lookahead_point_; /**< Lookahead point */
-  Point closest_point_;   /**< Closest point on the Path*/
-  int closest_point_id_;  /**< Closest point on the Path*/
+  double k_;                   /**< Lookahead gain */
+  double ld_;                  /**< Lookahead distance */
+  double ld_margin_;           /**< Lookahead distance margin, a percentange of ld_ */
+  double wheel_base_;          /**< Wheel base of the vehicle */
+  double dist_cg_2_rear_axis_; /**< Distance from the center of gravity to the rear axis */
+  Pose vehicle_pose_;          /**< Vehicle pose */
+  Point lookahead_point_;      /**< Lookahead point */
+  Point closest_point_;        /**< Closest point on the Path*/
+  int closest_point_id_;       /**< Closest point on the Path*/
 
   /**
    * @brief Construct a new Pure Pursuit object
@@ -88,10 +91,21 @@ class PurePursuit {
    * @param vehicle_rear_wheel
    * @param vehicle_cg
    * @param lookahead_point
-   * @param rear_wheel_2_cg
+   * @param dist_cg_2_rear_axis
    *
    * @return double
    */
   double calculate_alpha(Point vehicle_rear_wheel, Point vehicle_cg, Point lookahead_point,
                          double rear_wheel_2_c_g);
+
+  /**
+   * @brief Calculate rear axis coordinates
+   *
+   * @param cg
+   * @param heading
+   * @param dist_cg_2_rear_axis
+   *
+   * @return Point
+   */
+  Point cg_2_rear_axis(Point cg, double heading, double dist_cg_2_rear_axis);
 };
