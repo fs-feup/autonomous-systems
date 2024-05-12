@@ -2,24 +2,21 @@
 
 class Point {
  public:
-  double x;
-  double y;
+  double x_;
+  double y_;
 
   // Default constructor
-  Point() {
-    x = 0.0;
-    y = 0.0;
-  }
+  Point() : x_(0.0), y_(0.0) {}
 
   // Constructor
-  Point(double x, double y) : x(x), y(y) {}
+  Point(double x, double y) : x_(x), y_(y) {}
 
-  Point operator+(const Point& p) const { return Point(x + p.x, y + p.y); }
+  Point operator+(const Point& p) const { return Point(x_ + p.x_, y_ + p.y_); }
 
-  Point operator-(const Point& p) const { return Point(x - p.x, y - p.y); }
+  Point operator-(const Point& p) const { return Point(x_ - p.x_, y_ - p.y_); }
 
   double euclidean_distance(const Point& p) const {
-    return std::sqrt(pow(x - p.x, 2) + pow(y - p.y, 2));
+    return std::sqrt(pow(x_ - p.x_, 2) + pow(y_ - p.y_, 2));
   }
 };
 
@@ -32,20 +29,13 @@ class Pose {
   double velocity_;
 
   // Default constructor
-  Pose() {
-    cg_ = Point();
-    rear_axis_ = Point();
-    heading_ = 0.0;
-    orientation_ = 0.0;
-    velocity_ = 0.0;
-  }
+  Pose() : cg_(Point()), rear_axis_(Point()), heading_(0.0), orientation_(0.0), velocity_(0.0) {}
 
   // Constructor
-  Pose(Point cg, Point rear_axis, double heading, double orientation, double velocity) {
-    this->cg_ = cg;
-    this->rear_axis_ = rear_axis;
-    this->heading_ = heading;
-    this->orientation_ = orientation;
-    this->velocity_ = velocity;
-  };
+  Pose(Point cg, Point rear_axis, double heading, double orientation, double velocity)
+      : cg_(cg),
+        rear_axis_(rear_axis),
+        heading_(heading),
+        orientation_(orientation),
+        velocity_(velocity){};
 };

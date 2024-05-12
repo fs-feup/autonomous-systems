@@ -4,10 +4,10 @@
 #include "rclcpp/rclcpp.hpp"
 
 /**< Wheel base of the vehicle in m */
-#define WHEEL_BASE 1.5
+constexpr double WHEEL_BASE = 1.5;
 
 /**< Distance from the center of gravity to the rear axis in m */
-#define DIST_CG_2_REAR_AXIS 0.5
+constexpr double DIST_CG_2_REAR_AXIS = 0.5;
 
 /**
  * @brief Pure Pursuit class

@@ -6,17 +6,15 @@
  * @param k Lookahead gain
  */
 
-PurePursuit::PurePursuit(double k, double ld_margin) {
-  this->k_ = k;
-  this->ld_ = 0.0;
-  this->ld_margin_ = ld_margin;
-  this->wheel_base_ = WHEEL_BASE;
-  this->dist_cg_2_rear_axis_ = DIST_CG_2_REAR_AXIS;
-  this->vehicle_pose_ = Pose();
-  this->lookahead_point_ = Point();
-  this->closest_point_ = Point();
-  this->closest_point_id_ = -1;
-}
+PurePursuit::PurePursuit(double k, double ld_margin)
+    : k_(k),
+      ld_margin_(ld_margin),
+      wheel_base_(WHEEL_BASE),
+      dist_cg_2_rear_axis_(DIST_CG_2_REAR_AXIS),
+      vehicle_pose_(Pose()),
+      lookahead_point_(Point()),
+      closest_point_(Point()),
+      closest_point_id_(-1) {}
 
 double PurePursuit::update_steering_angle(
     const custom_interfaces::msg::PathPointArray::ConstSharedPtr &path_msg,
@@ -59,8 +57,8 @@ double PurePursuit::update_lookahead_distance() { return this->k_ * this->vehicl
 void PurePursuit::update_vehicle_pose(
     const custom_interfaces::msg::Pose::ConstSharedPtr &pose_msg) {
   // update to Rear Wheel position
-  this->vehicle_pose_.cg_.x = pose_msg->position.x;
-  this->vehicle_pose_.cg_.y = pose_msg->position.y;
+  this->vehicle_pose_.cg_.x_ = pose_msg->position.x;
+  this->vehicle_pose_.cg_.y_ = pose_msg->position.y;
 
   this->vehicle_pose_.velocity_ = pose_msg->velocity;
   this->vehicle_pose_.heading_ = pose_msg->theta;
@@ -148,7 +146,7 @@ double PurePursuit::calculate_alpha(Point vehicle_rear_wheel, Point vehicle_cg,
 
 Point PurePursuit::cg_2_rear_axis(Point cg, double heading, double dist_cg_2_rear_axis) {
   Point rear_axis = Point();
-  rear_axis.x = cg.x - dist_cg_2_rear_axis * cos(heading);
-  rear_axis.y = cg.y - dist_cg_2_rear_axis * sin(heading);
+  rear_axis.x_ = cg.x_ - dist_cg_2_rear_axis * cos(heading);
+  rear_axis.y_ = cg.y_ - dist_cg_2_rear_axis * sin(heading);
   return rear_axis;
 }
