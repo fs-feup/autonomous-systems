@@ -1,6 +1,6 @@
 import rclpy
 from rclpy.node import Node
-from custom_interfaces.msg import ConeArray
+from custom_interfaces.msg import ConeArray, PathPointArray
 from evaluator.fsds_adapter import FSDSAdapter
 import message_filters
 import numpy as np
@@ -8,6 +8,7 @@ from std_msgs.msg import Float32
 import datetime
 from math import sqrt
 from scipy.sparse.csgraph import minimum_spanning_tree
+from evaluator.planning import convert_path_to_np
 
 
 class Evaluator(Node):
@@ -26,6 +27,11 @@ class Evaluator(Node):
         self.perception_subscription = message_filters.Subscriber(
             self, ConeArray, "cones"
         )
+
+        self.planning_subscritpion = self.create_subscription(
+            PathPointArray, "planning_local", self.planning_callback, 10)
+        self.planning_gt_subscritpion = self.create_subscription(
+            PathPointArray, "planning_gtruth", self.planning_gt_callback, 10)
 
         self.perception_subscription.registerCallback(
             self.perception_callback_time_measurement
@@ -48,6 +54,20 @@ class Evaluator(Node):
             Float32, "/perception/metrics/execution_time", 10
         )
 
+        self.planning_mean_difference = self.create_publisher(
+            Float32, "/planning/metrics/mean_difference", 10
+        )
+        self.planning_mean_squared_difference = self.create_publisher(
+            Float32, "/planning/metrics/mean_squared_difference", 10
+        )
+        self.planning_root_mean_squared_difference = self.create_publisher(
+            Float32, "/planning/metrics/root_mean_squared_difference", 10
+        )
+        self.planning_execution_time = self.create_publisher(
+            Float32, "/planning/metrics/execution_time", 10
+        )
+
+        self.planning_mock = [] # will store the reception of a planning mock from subscriber
         # FSDS adapter for lidar data
         self.adapter = FSDSAdapter(self, "/lidar/Lidar1")
 
@@ -209,6 +229,51 @@ class Evaluator(Node):
         else:
             average_distance = mst_sum / num_pairs
             return average_distance
+        
+
+    def planning_callback(self, msg: PathPointArray):
+        """!
+        Computes planning metrics and publishes them.
+        """
+
+        self.get_logger().info("Received planning")
+        actual_path = convert_path_to_np(msg.pathpoint_array)
+        expected_path = convert_path_to_np(self.planning_mock)
+
+        if (len(actual_path) == 0 or len(expected_path) == 0):
+            self.get_logger().debug("Path info missing")
+            return
+
+
+        mean_difference = Float32()
+        mean_difference.data = self.get_average_difference(
+            actual_path, expected_path
+        )
+
+        mean_squared_error = Float32()
+        mean_squared_error.data = self.get_mean_squared_error(
+            actual_path, expected_path
+        )
+
+        root_mean_squared_difference = Float32()
+        root_mean_squared_difference.data = sqrt(
+            self.get_mean_squared_error(actual_path, expected_path)
+        )
+
+        # Publishes computed perception metrics
+        self.planning_mean_difference.publish(mean_difference)
+        self.planning_mean_squared_difference.publish(mean_squared_error)
+        self.planning_root_mean_squared_difference.publish(
+            root_mean_squared_difference
+        )
+
+    def planning_gt_callback(self, msg:PathPointArray):
+        """!
+        Stores the path planning ground truth.
+        """
+        self.get_logger().debug("Received GT planning")
+        self.planning_mock = msg.pathpoint_array
+
 
 
 def main(args=None):

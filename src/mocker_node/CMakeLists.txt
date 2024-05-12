@@ -1,6 +1,15 @@
 cmake_minimum_required(VERSION 3.8)
 project(mocker_node)
 
+# Set C++ standard to 17 and required compiler options
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+if(CMAKE_CXX_COMPILER_ID MATCHES "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    add_compile_options(-Wall -Wextra -Wpedantic)
+endif()
+
+
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
@@ -15,7 +24,7 @@ find_package(fs_msgs REQUIRED)
 
 set(IMPLEMENTATION_FILES
   src/node/mocker_node.cpp
-  src/planning/planning_mock.cpp
+  src/utils/mocks.cpp
 )
 
 add_executable(mocker_node src/main.cpp ${IMPLEMENTATION_FILES})
@@ -52,6 +61,7 @@ target_include_directories(${PROJECT_NAME}_test PUBLIC
   $<INSTALL_INTERFACE:include>)
 
 install(TARGETS ${PROJECT_NAME}_test DESTINATION lib/${PROJECT_NAME})
+
 endif()
 
 ament_package()
