@@ -1,5 +1,8 @@
 #include "ros_node/se_node.hpp"
 
+#include <chrono>
+#include <thread>
+
 #include "adapter_ekf_state_est/eufs.hpp"
 #include "adapter_ekf_state_est/fsds.hpp"
 #include "adapter_ekf_state_est/map.hpp"
@@ -83,6 +86,7 @@ void SENode::_perception_subscription_callback(const custom_interfaces::msg::Con
   RCLCPP_DEBUG(this->get_logger(), "EKF - EFK correction Step");
   this->_publish_vehicle_state();
   this->_publish_map();
+  // std::this_thread::sleep_for(std::chrono::milliseconds(5000));
 }
 
 // Currently not utilized
@@ -149,7 +153,6 @@ void SENode::_wheel_speeds_subscription_callback(double rl_speed, double fl_spee
   }
   MotionUpdate temp_update = *(this->_motion_update_);
   this->_ekf_->prediction_step(temp_update);
-  RCLCPP_DEBUG(this->get_logger(), "EKF - EKF prediction Step compelted");
   this->_ekf_->update(this->_vehicle_state_, this->_track_map_);
   RCLCPP_DEBUG(this->get_logger(), "EKF - EFK prediction Step");
   this->_publish_vehicle_state();

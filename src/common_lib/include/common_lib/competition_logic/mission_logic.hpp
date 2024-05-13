@@ -39,7 +39,10 @@ const std::unordered_map<uint16_t, Mission> eufs_to_system = {
     {eufs_msgs::msg::CanState::AMI_ACCELERATION, Mission::ACCELERATION},
     {eufs_msgs::msg::CanState::AMI_SKIDPAD, Mission::SKIDPAD},
     {eufs_msgs::msg::CanState::AMI_AUTOCROSS, Mission::AUTOCROSS},
-    {eufs_msgs::msg::CanState::AMI_TRACK_DRIVE, Mission::TRACKDRIVE}};
+    {eufs_msgs::msg::CanState::AMI_TRACK_DRIVE, Mission::TRACKDRIVE},
+    {eufs_msgs::msg::CanState::AMI_ADS_EBS, Mission::EBS_TEST},
+    {eufs_msgs::msg::CanState::AMI_ADS_INSPECTION, Mission::INSPECTION},
+    {eufs_msgs::msg::CanState::AMI_NOT_SELECTED, Mission::NONE}};
 
 const std::unordered_map<std::string, Mission> fsds_to_system = {
     {"acceleration", Mission::ACCELERATION},
