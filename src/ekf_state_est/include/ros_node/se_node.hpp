@@ -138,4 +138,5 @@ public:
   friend class EufsAdapter;
   friend class FsdsAdapter;
   friend class PacsimAdapter;
+  friend class VehicleAdapter;
 };

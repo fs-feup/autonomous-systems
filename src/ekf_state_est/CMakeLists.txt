@@ -42,6 +42,7 @@ set(IMPLEMENTATION_FILES
   src/adapter_ekf_state_est/eufs.cpp
   src/adapter_ekf_state_est/fsds.cpp
   src/adapter_ekf_state_est/pacsim.cpp
+  src/adapter_ekf_state_est/vehicle.cpp
 )
 
 

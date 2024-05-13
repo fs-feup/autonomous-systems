@@ -10,11 +10,6 @@
 PacsimAdapter::PacsimAdapter(std::shared_ptr<SENode> se_node) : Adapter(se_node) { this->init(); }
 
 void PacsimAdapter::init() {
-  //   this->_pacsim_wheel_speeds_subscription_ =
-  //   this->node->create_subscription<pacsim::msg::Wheels>(
-  //       "/pacsim/wheelspeeds", 10,
-  //       std::bind(&PacsimAdapter::wheel_speeds_subscription_callback, this,
-  //       std::placeholders::_1));
   this->_imu_subscription_ = this->node->create_subscription<sensor_msgs::msg::Imu>(
       "/pacsim/imu/cog_imu", 3,
       std::bind(&Adapter::imu_subscription_callback, this, std::placeholders::_1));
