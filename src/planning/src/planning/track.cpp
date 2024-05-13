@@ -87,6 +87,10 @@ int Track::getRightConesSize() { return rightCones.size(); }
 
 int Track::getLeftConesSize() { return leftCones.size(); }
 
+void Track::add_cone_left(Cone *cone) { leftCones.push_back(cone); }
+
+void Track::add_cone_right(Cone *cone) { rightCones.push_back(cone); }
+
 void Track::addCone(float xValue, float yValue, const std::string &color) {
   if (color == colors::color_names[colors::blue]) {
     // Blue Cones always have an even number id (2*x)

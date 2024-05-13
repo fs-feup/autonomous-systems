@@ -101,6 +101,20 @@ class Track {
   int getLeftConesSize();
 
   /**
+   * @brief Add a cone to the left side of the track.
+   *
+   * @param cone A pointer to the cone to add.
+   */
+  void add_cone_left(Cone *cone);
+
+  /**
+   * @brief Add a cone to the right side of the track.
+   *
+   * @param cone A pointer to the cone to add.
+   */
+  void add_cone_right(Cone *cone);
+
+  /**
    * @brief Fill the track data from a file.
    *
    * @param path The path to the file containing track data.

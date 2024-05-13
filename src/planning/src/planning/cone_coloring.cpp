@@ -35,15 +35,16 @@ double ConeColoring::distance_to_side(Pose initial_car_pose, TrackSide side, dou
      tan(initial_car_pose.orientation)*( x - ( initial_car_pose.position.x + 2*sin(initial_car_pose.orientation))));
 }
 
-Cone* ConeColoring::get_initial_cone(const std::vector<Cone *>& candidates, Pose initial_car_pose, TrackSide side) {
+Cone ConeColoring::get_initial_cone(const std::vector<Cone *>& candidates, Pose initial_car_pose, TrackSide side) const {
     double minimum_cost = MAXFLOAT;
-    Cone* initial_cone = nullptr;
-    for (Cone* c : candidates) {
+    Cone initial_cone(1-(int)side,0,0); // id must be 0 for left side and 1 for right side
+    for (const Cone *c : candidates) {
         double distance_to_car = sqrt(pow(initial_car_pose.position.x - c -> getX(), 2) + pow(initial_car_pose.position.y - c -> getY(), 2));
         double cost = distance_to_car * distance_to_side(initial_car_pose, side, c -> getX(), c -> getY());
         if (cost < minimum_cost) {
             minimum_cost = cost;
-            initial_cone = c;
+            initial_cone.setX(c -> getX());
+            initial_cone.setY(c -> getY());
         }
     }
     return initial_cone;
@@ -66,24 +67,24 @@ void ConeColoring::place_initial_cones(const std::vector<Cone *>& input_cones, P
     std::vector<Cone*> candidates = filter_cones_by_distance(input_cones, initial_car_pose.position, 5);
 
     // get the initial cone for the left side
-    Cone* initial_cone_left = get_initial_cone(candidates, initial_car_pose, TrackSide::LEFT);
+    auto initial_cone_left = std::make_shared<Cone>(get_initial_cone(candidates, initial_car_pose, TrackSide::LEFT));
 
     // get the initial cone for the right side 
-    Cone* initial_cone_right = get_initial_cone(candidates, initial_car_pose, TrackSide::RIGHT);
+    auto initial_cone_right = std::make_shared<Cone>(get_initial_cone(candidates, initial_car_pose, TrackSide::RIGHT));
 
     // Create virtual cones to be added at the beginning of the vector. They must be dismissed later.
-    virtual_left_cone = std::make_shared<Cone>(-2, initial_cone_left->getX() - 2*(float)cos(initial_car_pose.orientation), initial_cone_left -> getY() - 2*(float)sin(initial_car_pose.orientation));
-    virtual_right_cone = std::make_shared<Cone>(-1, initial_cone_right->getX() - 2*(float)cos(initial_car_pose.orientation), initial_cone_right->getY() - 2*(float)sin(initial_car_pose.orientation));
+    virtual_left_cone = std::make_shared<Cone>(-2, initial_cone_left -> getX() - 2*(float)cos(initial_car_pose.orientation), initial_cone_left -> getY() - 2*(float)sin(initial_car_pose.orientation));
+    virtual_right_cone = std::make_shared<Cone>(-1, initial_cone_right -> getX() - 2*(float)cos(initial_car_pose.orientation), initial_cone_right -> getY() - 2*(float)sin(initial_car_pose.orientation));
 
     current_left_cones.push_back(virtual_left_cone.get());
     current_right_cones.push_back(virtual_right_cone.get());
-    current_left_cones.push_back(initial_cone_left);
-    current_right_cones.push_back(initial_cone_right);
+    current_left_cones.push_back(initial_cone_left.get());
+    current_right_cones.push_back(initial_cone_right.get());
 }
 
 double ConeColoring::cost(const Cone* possible_next_cone, int n, TrackSide side) const {
     const std::vector<Cone*>& current_cones = (bool)side ? current_left_cones : current_right_cones;
-    if (current_cones.size() < 2) {RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "Not enough cones to calculate cost when coloring cones");};
+    if (current_cones.size() < 2) {RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "Not enough cones to calculate cost when coloring cones");}
     AngleNorm angle_norm;
     angle_norm = angle_and_norm(possible_next_cone, side);
     double cost = pow(distance_gain*angle_norm.norm, exponent1) + pow(angle_gain*angle_norm.angle, exponent2) + ncones_gain*(double)current_cones.size()/(float)n;
@@ -107,7 +108,7 @@ bool ConeColoring::place_next_cone(std::shared_ptr<std::vector<std::pair<Cone *,
 
     const Cone *last_cone = current_cones.back();
 
-    Cone *next_cone = (*visited_cones)[0].first;
+    const Cone *next_cone = (*visited_cones)[0].first;
 
     std::pair<Cone *, bool> *best_pair = &(*visited_cones)[0];
 
@@ -123,7 +124,8 @@ bool ConeColoring::place_next_cone(std::shared_ptr<std::vector<std::pair<Cone *,
         }
     }
     if (minimum_cost == MAXFLOAT) return false;
-    current_cones.push_back(next_cone);
+    auto selected_cone = std::make_shared<Cone>(2*(int)current_cones.size() - 1 - int(side), next_cone -> getX(), next_cone -> getY());
+    current_cones.push_back(selected_cone.get());
     best_pair -> second = true;
     return true;
 }

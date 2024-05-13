@@ -145,7 +145,7 @@ class ConeColoring {
      * @param initial_car_pose initial pose of the car
      * @param distance_threshold maximum allowed distance to reach the next cone
      */
-    void color_cones(const std::vector<Cone *>& input_cones, Pose initial_car_pose, double distance_threshold);
+    void color_cones(const std::vector<Cone *>& input_cones, Pose initial_car_pose, double distance_threshold) const;
     /**
      * @brief current cones on the left side
      * 
@@ -164,7 +164,7 @@ class ConeColoring {
      * @param side reach the cone form the left or right side
      * @return Cone* initial cone to start the path
      */
-    Cone* get_initial_cone(const std::vector<Cone*>& candidates, Pose initial_car_pose, TrackSide side);
+    Cone get_initial_cone(const std::vector<Cone*>& candidates, Pose initial_car_pose, TrackSide side) const;
 
     /**
       * @brief filter cones that are closer than a certain radius

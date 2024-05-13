@@ -16,20 +16,24 @@
 #include "custom_interfaces/msg/pose.hpp"
 #include "planning/global_path_planner.hpp"
 #include "planning/local_path_planner.hpp"
+#include "planning/cone_coloring.hpp"
+#include "planning/path_smoothing.hpp"
 #include "utils/files.hpp"
 
 using std::placeholders::_1;
 
 Planning::Planning() : Node("planning") {
-  // LocMap Subscriber
+  // LocMap map Subscriber
   this->track_sub_ = this->create_subscription<custom_interfaces::msg::ConeArray>(
       "track_map", 10, std::bind(&Planning::track_map_callback, this, _1));
 
+  // Vehicle Localization Subscriber
+  this->vl_sub_ = this->create_subscription<custom_interfaces::msg::Pose>(
+      "vehicle_localization", 10, std::bind(&Planning::vehicle_localization_callback, this, _1));
+
   // Control Publishers
   this->local_pub_ =
-      this->create_publisher<custom_interfaces::msg::PathPointArray>("planning_local", 10);
-  this->global_pub_ =
-      this->create_publisher<custom_interfaces::msg::PathPointArray>("planning_global", 10);
+      this->create_publisher<custom_interfaces::msg::PathPointArray>("local_planning", 10);
 
   // Publishes path from file in Skidpad & Acceleration events
   this->timer_ = this->create_wall_timer(
@@ -39,28 +43,48 @@ Planning::Planning() : Node("planning") {
   this->adapter = adapter_map[mode](this);
 }
 
-void Planning::track_map_callback(const custom_interfaces::msg::ConeArray msg) {
+void Planning::track_map_callback(const custom_interfaces::msg::ConeArray& msg) {
   if (this->is_predicitve_mission()) {
     return;
   }
 
-  Track *track = new Track();
+  auto track = std::make_shared<Track>();
+  auto cone_coloring = std::make_shared<ConeColoring>();
+  auto path_smoother = std::make_shared<PathSmoothing>();
 
-  auto cone_array = msg.cone_array;
+  const std::vector<Cone *> recieved_cones;
 
-  for (auto &cone : cone_array) {
+  std::vector<Cone *> cone_array;
+  for (const auto& cone : msg.cone_array) {
     RCLCPP_DEBUG(this->get_logger(), "[received] (%f, %f)\t%s", cone.position.x, cone.position.y,
                  cone.color.c_str());
-    track->addCone(cone.position.x, cone.position.y, cone.color);
+    auto new_cone = std::make_shared<Cone>(0, (float)cone.position.x, (float)cone.position.y);
+    cone_array.push_back(new_cone.get());
+  }
+
+  cone_coloring -> color_cones(cone_array, this->pose, 5);
+
+  for (auto& cone : cone_coloring->current_left_cones) {
+    track->add_cone_left(cone);
+  }
+
+  for (auto& cone : cone_coloring->current_right_cones) {
+    track->add_cone_right(cone);
   }
 
   track->validateCones();  // Delete cone outliers
 
-  std::vector<PathPoint *> path = local_path_planner->processNewArray(track);  // Calculate Path
+  std::vector<PathPoint *> path = local_path_planner->processNewArray(track.get());  // Calculate Path
+
+  path_smoother->defaultSmoother(path);
+
   publish_track_points(path);
-  delete (track);
 
   RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
+}
+
+void Planning::vehicle_localization_callback(const custom_interfaces::msg::Pose& msg) {
+  this->pose = Pose(msg.position.x, msg.position.y, msg.theta);
 }
 
 /**
@@ -88,7 +112,7 @@ void Planning::publish_predicitive_track_points() {
   this->publish_track_points(path);
 }
 
-void Planning::set_mission(Mission mission) { this->mission = mission; }
+void Planning::set_mission(Mission new_mission) { this->mission = new_mission; }
 
 bool Planning::is_predicitve_mission() const {
   return this->mission == Mission::skidpad || this->mission == Mission::acceleration;

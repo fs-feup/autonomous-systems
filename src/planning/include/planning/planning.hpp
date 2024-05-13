@@ -58,7 +58,7 @@ class Planning : public rclcpp::Node {
    *
    * @param msg The received Pose message.
    */
-  void vehicle_localization_callback(const custom_interfaces::msg::Pose msg);
+  void vehicle_localization_callback(const custom_interfaces::msg::Pose& msg);
   /**
    * @brief Callback for track map updates(when msg received).
    *
@@ -67,7 +67,7 @@ class Planning : public rclcpp::Node {
    * path by calling method from the local path planner and finnaly publishes
    * the path by calling the publish method
    */
-  void track_map_callback(const custom_interfaces::msg::ConeArray msg);
+  void track_map_callback(const custom_interfaces::msg::ConeArray& msg);
   /**
    * @brief Publishes a list of path points.
    *
@@ -90,6 +90,12 @@ class Planning : public rclcpp::Node {
    * @return True if the mission is predictive, false otherwise.
    */
   bool is_predicitve_mission() const;
+
+  /**
+   * @brief current vehicle pose
+   * 
+   */
+  Pose pose;
 
  public:
   /**
