@@ -9,18 +9,23 @@
 #include <string>
 #include <vector>
 
-#include "adapter/fsds.hpp"
-#include "adapter/map.hpp"
-#include "adapter/testlidar.hpp"
+#include "adapter_perception/fsds.hpp"
+#include "adapter_perception/map.hpp"
+#include "adapter_perception/testlidar.hpp"
+#include "std_msgs/msg/header.hpp"
+
+std_msgs::msg::Header header;
 
 Perception::Perception(GroundRemoval* groundRemoval, Clustering* clustering,
                        ConeDifferentiation* coneDifferentiator,
-                       const std::vector<ConeValidator*>& coneValidators)
+                       const std::vector<ConeValidator*>& coneValidators,
+                       ConeEvaluator* coneEvaluator)
     : Node("perception"),
       groundRemoval(groundRemoval),
       clustering(clustering),
       coneDifferentiator(coneDifferentiator),
-      coneValidators(coneValidators) {
+      coneValidators(coneValidators),
+      coneEvaluator(coneEvaluator) {
   this->_cones_publisher = this->create_publisher<custom_interfaces::msg::ConeArray>("cones", 10);
 
   this->adapter = adapter_map[mode](this);
@@ -28,6 +33,8 @@ Perception::Perception(GroundRemoval* groundRemoval, Clustering* clustering,
 
 void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
   pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_cloud(new pcl::PointCloud<pcl::PointXYZI>);
+
+  header = (*msg).header;
 
   pcl::fromROSMsg(*msg, *pcl_cloud);
 
@@ -56,17 +63,19 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
                ground_removed_cloud->points.size());
   RCLCPP_DEBUG(this->get_logger(), "Point Cloud after Clustering: %ld clusters", clusters.size());
 
-  for (int i = 0; i < filtered_clusters.size(); i++) {
+  for (long unsigned int i = 0; i < filtered_clusters.size(); i++) {
     coneDifferentiator->coneDifferentiation(&filtered_clusters[i]);
     std::string color = filtered_clusters[i].getColor();
+    filtered_clusters[i].setColor(color);
     RCLCPP_DEBUG(this->get_logger(), "Cone %d: %s", i, color.c_str());
   }
 
-  publishCones(&filtered_clusters);
+  publishCones(&clusters);
 }
 
 void Perception::publishCones(std::vector<Cluster>* cones) {
   auto message = custom_interfaces::msg::ConeArray();
+  message.header = header;
   for (int i = 0; i < static_cast<int>(cones->size()); i++) {
     auto position = custom_interfaces::msg::Point2d();
     position.x = cones->at(i).getCentroid().x();
@@ -75,6 +84,7 @@ void Perception::publishCones(std::vector<Cluster>* cones) {
     auto cone_message = custom_interfaces::msg::Cone();
     cone_message.position = position;
     cone_message.color = cones->at(i).getColor();
+    cone_message.confidence = cones->at(i).getConfidence();
     message.cone_array.push_back(cone_message);
   }
 

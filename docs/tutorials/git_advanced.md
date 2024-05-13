@@ -54,13 +54,46 @@ Now every time you would add a .db3 file to the repo, it will be managed by Git 
 
 ## Git submodules
 
+### New Submodule
+
 Git submodules allows you to add another remote repository to your repository folder, while keeping it synchronized (not just the folder contents of the repo). This means you can add another project as a subfolder of your project which will still actively update according to the updates made by the authors of that repository. Git Submodules adds a file that indicates the submodules a repository has and how they should be configured, but most happens behind the scenes. 
 
-To add a new submodule, run:
+To add a new submodule (add something not in the repo yet), run:
 
 ```sh
 git submodule add <repo url> <directory to add to>
 ```
+
+Example:
+
+```sh
+git submodule add git@github.com:fs-feup/pacsim.git ./ext/pacsim
+```
+
+### Adding submodules locally
+
+To add a submodule already in the repo but that you do not have locally in the folder, use the following command:
+
+```sh
+git submodule update --init --recursive <path_to_submodule>
+```
+Example:
+```sh
+git submodule update --init --recursive ./ext/rslidar_sdk
+```
+
+**Note:** when a submodule is first added, for some reason, it is always in a state of detached HEAD. To fix this:
+```sh
+cd <path_to_submodule>
+git checkout main # Inside submodule directory
+```
+
+### Commits in submodules
+
+Everytime a new commit is made in a submodule, you also need to make a commit in this repository to register the change in version of the submodule i.e. include in the repository 
+the update in the commit of the submodule that is currently being used for that branch of the main repo.
+
+### Problems
 
 In the case of this repository, you will often have to update the submodules you are depending on. If a change is made to the submodules you can do the following to reset the structure:
 
@@ -70,7 +103,11 @@ git submodule sync --recursive
 git submodule update --init --recursive
 ```
 
-If changes have been made to the repository which you have a submodule for, just add and commit them as usual. If you want to access the repositories you have as submodule (in case you are their owner), you can just travel to the subfolder they are on and it works just as a normal clone. Finally, if you have changed the remote location or changed a submodule to another repository (for instance, if you forked a repository and you want to use that fork now rather than the original repository), you are advised to follow the update steps mentioned above, as well as these on the sub-folder of the sub-module:
+If changes have been made to the repository which you have a submodule for, just add and commit them as usual. 
+
+If you want to access the repositories you have as submodule (in case you are their owner), you can just travel to the subfolder they are on and it works just as a normal clone. 
+
+Finally, if you have changed the remote location or changed a submodule to another repository (for instance, if you forked a repository and you want to use that fork now rather than the original repository), you are advised to follow the update steps mentioned above, as well as these on the sub-folder of the sub-module:
 
 ```sh
 git pull origin main # or the name of the branch you use
@@ -81,3 +118,4 @@ After this, the submodule should be tracking the new repository and be up-to-dat
 
 **Note:** If posterior to this you have made new commits in the submodule repos, you will (stupidly) have to also commit in the main repo (this one).
 
+I

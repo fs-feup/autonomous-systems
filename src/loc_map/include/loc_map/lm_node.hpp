@@ -8,8 +8,8 @@
 #include <string>
 #include <typeinfo>
 
-#include "adapter/eufs.hpp"
-#include "adapter/fsds.hpp"
+#include "adapter_loc_map/eufs.hpp"
+#include "adapter_loc_map/fsds.hpp"
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "custom_interfaces/msg/point2d.hpp"
 #include "custom_interfaces/msg/pose.hpp"

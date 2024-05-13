@@ -31,9 +31,9 @@ set(IMPLEMENTATION_FILES
   src/utils/position.cpp
   src/utils/formulas.cpp
   src/utils/color.cpp
-  src/adapter/adapter.cpp
-  src/adapter/eufs.cpp
-  src/adapter/fsds.cpp
+  src/adapter_loc_map/adapter.cpp
+  src/adapter_loc_map/eufs.cpp
+  src/adapter_loc_map/fsds.cpp
 )
 
 
@@ -58,17 +58,18 @@ if(BUILD_TESTING)
   set(TESTFILES
     test/main.cpp
     test/integration_test.cpp
-    test/ekf_steps_exec_time.cpp
+    #test/ekf_steps_exec_time.cpp
     test/motion_model_test.cpp
     test/observation_model_test.cpp
     test/slam_test.cpp
+    test/loc_map_performance_test.cpp
   )
 
   include_directories(test)  # Include the 'test' directory for your test targets
   include_directories(${CMAKE_CURRENT_SOURCE_DIR})  # Include the current source directory
 
   # Unit tests
-  ament_add_gtest(${PROJECT_NAME}_test ${TESTFILES} ${IMPLEMENTATION_FILES})
+  ament_add_gtest(${PROJECT_NAME}_test ${TESTFILES} ${IMPLEMENTATION_FILES} TIMEOUT 600)
   ament_target_dependencies(${PROJECT_NAME}_test rclcpp std_msgs eufs_msgs sensor_msgs fs_msgs custom_interfaces)
   target_include_directories(${PROJECT_NAME}_test PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>

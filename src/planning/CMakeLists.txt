@@ -27,12 +27,13 @@ set(TESTFILES
   test/main.cpp
   test/tests.cpp
   test/integration_tests.cpp
+  test/performance_test.cpp
 )
 
 set(IMPLEMENTATION_FILES
-  src/adapter/adapter.cpp
-  src/adapter/eufs.cpp
-  src/adapter/fsds.cpp
+  src/adapter_planning/adapter.cpp
+  src/adapter_planning/eufs.cpp
+  src/adapter_planning/fsds.cpp
   src/planning/cone_coloring.cpp
   src/planning/global_path_planner.cpp
   src/planning/local_path_planner.cpp

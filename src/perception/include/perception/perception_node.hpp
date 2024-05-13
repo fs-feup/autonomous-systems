@@ -1,6 +1,7 @@
 #ifndef SRC_PERCEPTION_PERCEPTION_INCLUDE_PERCEPTION_PERCEPTION_NODE_HPP_
 #define SRC_PERCEPTION_PERCEPTION_INCLUDE_PERCEPTION_PERCEPTION_NODE_HPP_
 
+#include <cone_evaluator/cone_evaluator.hpp>
 #include <cone_validator/cylinder_validator.hpp>
 #include <string>
 #include <utils/plane.hpp>
@@ -29,10 +30,11 @@ class Perception : public rclcpp::Node {
   GroundRemoval* groundRemoval;  ///< Pointer to the GroundRemoval object.
   Adapter* adapter;              /**< Adapter instance for external communication */
   Clustering* clustering;
-  std::string mode = "test";  // Temporary, change as desired. TODO(andre): Make not hardcoded
+  std::string mode = "fsds";  // Temporary, change as desired. TODO(andre): Make not hardcoded
   ConeDifferentiation* coneDifferentiator;  ///< Pointer to ConeDifferentiation object.
   Plane groundPlane;
   std::vector<ConeValidator*> coneValidators;
+  ConeEvaluator* coneEvaluator;
 
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr
       _point_cloud_subscription;  ///< PointCloud2 subscription.
@@ -58,7 +60,7 @@ class Perception : public rclcpp::Node {
    */
   Perception(GroundRemoval* groundRemoval, Clustering* clustering,
              ConeDifferentiation* coneDifferentiator,
-             const std::vector<ConeValidator*>& coneValidator);
+             const std::vector<ConeValidator*>& coneValidator, ConeEvaluator* coneEvaluator);
 
   /**
    * @brief Callback function for the PointCloud2 subscription.

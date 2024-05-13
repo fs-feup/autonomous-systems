@@ -1,4 +1,4 @@
-
+#! /bin/bash
 # general
 sudo apt-get update && apt-get upgrade -y
 sudo apt-get install -y python3-pip
@@ -7,11 +7,11 @@ sudo apt install ros-humble-ackermann-msgs -y
 sudo apt install -y python3-pip
 sudo pip3 install colcon-common-extensions
 sudo apt install -y python3-rosdep
+sudo apt install -y ros-humble-message-filters
 
 # planning
 sudo apt-get install libcgal-dev -y
 sudo apt-get install libgsl-dev -y
-
 
 # perception
 sudo apt install libpcl-dev -y
@@ -23,5 +23,9 @@ sudo apt-get install ros-humble-pcl-ros -y
 sudo apt install rospack-tools -y
 rospack find sensor_msgs -y
 sudo apt-get install libpcap-dev -y
+
+# ground truth generation
+sudo pip install pandas
+sudo apt-get install python3-matplotlib -y
 
 source /opt/ros/humble/setup.bash

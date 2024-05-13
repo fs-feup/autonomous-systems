@@ -20,6 +20,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'true'
 
       - name: Install dependencies
         run: |
@@ -32,10 +34,10 @@ jobs:
           rosdep update
           rosdep install --from-paths src --ignore-src -r -y
       
-      - name: Build Messages
+      - name: Build Dependencies
         run: |
           source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib
 
       - name: Build and Test Perception
         run: |
@@ -55,6 +57,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'true'
 
       - name: Install dependencies
         run: |
@@ -67,10 +71,10 @@ jobs:
           rosdep update
           rosdep install --from-paths src --ignore-src -r -y
       
-      - name: Build Messages
+      - name: Build Dependencies
         run: |
           source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib
 
       - name: Build and Test Localization and Mapping
         run: |
@@ -79,7 +83,7 @@ jobs:
           colcon test --packages-select loc_map --event-handler=console_direct+
 
       
-  long_control:
+  control:
     runs-on: ubuntu-latest
 
     container:
@@ -91,6 +95,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'true'
 
       - name: Install dependencies
         run: |
@@ -103,16 +109,16 @@ jobs:
           rosdep update
           rosdep install --from-paths src --ignore-src -r -y
       
-      - name: Build Messages
+      - name: Build Dependencies
         run: |
           source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib
 
-      - name: Build and Test Longitudinal Control
+      - name: Build and Test Control
         run: |
           source install/setup.bash
-          colcon build --packages-select long_control
-          colcon test --packages-select long_control --event-handler=console_direct+
+          colcon build --packages-select control
+          colcon test --packages-select control --event-handler=console_direct+
 
 
   planning:
@@ -127,6 +133,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'true'
 
       - name: Install dependencies
         run: |
@@ -139,10 +147,10 @@ jobs:
           rosdep update
           rosdep install --from-paths src --ignore-src -r -y
       
-      - name: Build Messages
+      - name: Build Dependencies
         run: |
           source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib
 
       - name: Build and Test Planning
         run: |
@@ -163,6 +171,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'true'
 
       - name: Install dependencies
         run: |
@@ -175,14 +185,52 @@ jobs:
           rosdep update
           rosdep install --from-paths src --ignore-src -r -y
       
-      - name: Build Messages
+      - name: Build Dependencies
         run: |
           source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib
 
       - name: Build and Test Inspection Node
         run: |
           source install/setup.bash
           colcon build --packages-select inspection
           colcon test --packages-select inspection --event-handler=console_direct+
+
+  mocker_node:
+    runs-on: ubuntu-latest
+
+    container:
+      image: ros:humble-ros-base-jammy
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: 'true'
+
+      - name: Install dependencies
+        run: |
+          echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
+          ./dependencies_install.sh
+      
+      - name: Rosdep
+        run: |
+          source /opt/ros/$ROS_DISTRO/setup.bash
+          rosdep update
+          rosdep install --from-paths src --ignore-src -r -y
+      
+      - name: Build Dependencies
+        run: |
+          source /opt/ros/$ROS_DISTRO/setup.bash
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib
+
+      - name: Build and Test Mocker Node
+        run: |
+          source install/setup.bash
+          colcon build --packages-select mocker_node
+          colcon test --packages-select mocker_node --event-handler=console_direct+
+
 

@@ -22,15 +22,16 @@ find_package(pcl_conversions REQUIRED)
 set(IMPLEMENTATION_FILES 
   src/perception/perception_node.cpp
   src/ground_removal/ransac.cpp
-  src/adapter/adapter.cpp
-  src/adapter/fsds.cpp
-  src/adapter/testlidar.cpp
+  src/adapter_perception/adapter.cpp
+  src/adapter_perception/fsds.cpp
+  src/adapter_perception/testlidar.cpp
   src/cone_differentiation/least_squares_differentiation.cpp
   src/clustering/dbscan.cpp
   src/utils/cluster.cpp
   src/cone_validator/cylinder_validator.cpp
   src/utils/plane.cpp
   src/cone_validator/height_validator.cpp
+  src/cone_evaluator/distance_predict.cpp
 )
 
 include_directories(${PCL_INCLUDE_DIRS})
@@ -56,7 +57,8 @@ if(BUILD_TESTING)
   find_package(ament_cmake_gtest REQUIRED)
   
   ament_add_gtest(perception_test test/ransac_test.cpp test/least_squares_test.cpp 
-                  test/dbscan_test.cpp src/clustering/dbscan.cpp 
+                  test/dbscan_test.cpp src/clustering/dbscan.cpp
+                  test/performance_test.cpp 
                   src/cone_differentiation/least_squares_differentiation.cpp 
                   src/ground_removal/ransac.cpp
                   src/utils/cluster.cpp
@@ -64,13 +66,15 @@ if(BUILD_TESTING)
                   src/cone_validator/cylinder_validator.cpp
                   src/cone_validator/height_validator.cpp
                   test/height_validator_test.cpp
-                  test/cylinder_validator_test.cpp)
+                  test/cylinder_validator_test.cpp
+                  src/cone_evaluator/distance_predict.cpp
+                  test/distance_validator_test.cpp)
 
 
-target_link_libraries(perception_test ${PCL_LIBRARIES})
+  target_link_libraries(perception_test ${PCL_LIBRARIES})
   target_include_directories(perception_test PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    $<INSTALL_INTERFACE:include>)
+    $<INSTALL_INTERFACE:include> ${pcl_conversions_INCLUDE_DIRS})
 
     ament_target_dependencies(perception_test rclcpp custom_interfaces fs_msgs ament_cmake_gtest)
 

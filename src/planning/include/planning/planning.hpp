@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
 
-// #include "adapter/adapter.hpp"
+// #include "adapter_planning/adapter.hpp"
 
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "custom_interfaces/msg/path_point.hpp"

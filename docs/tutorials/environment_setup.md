@@ -44,30 +44,44 @@ The second step is common to all approaches: install vscode and clone this repos
 
 For each of the approaches, there are different steps here:
 
-1. **Docker Environment on Ubuntu** - Follow [this tutorial](./environment_setup/ros2_docker_vscode_coding_environment.md)
-2. **Docker Environment on Windows WSL** - Follow [this tutorial](./environment_setup/ros2_docker_vscode_coding_environment.md)
-3. **Docker Environment on Mac** - Follow [this tutorial](./environment_setup/ros2_docker_vscode_coding_environment.md)
-4. **Docker Environment on Windows** - Follow [this tutorial](./environment_setup/ros2_docker_vscode_coding_environment.md)
-5. **Direct installation on Ubuntu** - Follow [this tutorial](./environment_setup/ros2_setup.md)
-6. **Direct installation on Windows WSL** - Follow [this tutorial](./environment_setup/ros2_setup.md)
+1. **Docker Environment** - Follow [this tutorial](./environment_setup/ros2_docker_vscode_coding_environment.md)
+2. **Direct installation** - Follow [this tutorial](./environment_setup/ros2_setup.md)
 
-## Simulator Setup
+## Tools
+
+### Submodules
+
+This project depends on submodules to function. Most, if not all of these submodules are other repositories of this organization. 
+- For all environments:
+    ```sh
+    git submodule update --init --recursive ./ext/interfaces
+    ```
+- For in vehicle testing:
+    ```sh
+    git submodule update --init --recursive ./ext/rslidar_sdk # LiDAR
+    git submodule update --init --recursive ./ext/rslidar_msg # LiDAR
+    git submodule update --init ./ext/as-integration # ROS_CAN, NOT RECURSIVE
+    ```
+
+Later on in the guide, a tutorial on the topic will appear: [link](./git_advanced.md) for the curious ones.
+
+### Simulator Setup
+
+We use multiple simulators in our project:
+
+#### FSDS
 
 The simulator requires Ubuntu to work (or WSL). The tutorial regarding its setup is [here](./environment_setup/fsds_setup.md).
 
-## Other tools
+#### PacSim
 
-### C/C++ VSCode Syntax Analysis Extension
+This simulator is very light and can run on anything, inside or outside a docker container. Follow the [tutorial](./environment_setup/pacsim_setup.md), or repher to its [fork repo](https://github.com/fs-feup/pacsim) right away.
 
-1. Ctrl+Shift+P and write 'C/C++: Edit Configurations (UI)
-2. Scroll down to 'Include Path'
-3. Add this to the text box:
-    ```
-    ${workspaceFolder}/**
-    /opt/ros/humble/include/**
-    /usr/include/**
-    ```
+#### EUFS
+
+This simulator is mostly used to simulate the LiDAR because it is quite light, and it requires Ubuntu to work. To set it up, refer to the short [tutorial](./environment_setup/eufs_setup.md) or to the full [tutorial](https://github.com/fs-feup/eufs-sim) in EUFS Simulator's repository.
 
 ### Static Analysis
 
-Some other tools are required for development in the AS department, such as Static Analysis tools. These tools are already installed in the Docker Image provided but their installation process is still reviewed in tutorials further ahead in the guide.
+Some other tools are required for development in the AS department, such as Static Analysis tools. 
+If you are not using the docker dev environment, make sure you configure them for your environment.
