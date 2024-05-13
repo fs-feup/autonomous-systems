@@ -902,3 +902,40 @@ TEST(ConeColoring, fullconecoloring1) {
   EXPECT_EQ(inc_right, 0);
 }
 
+
+TEST(ConeColoring, fullconecoloring2) {
+  double gain_angle = 8.7;
+  double gain_distance = 15;
+  double gain_ncones = 8.7;
+  double exponent_1 = 0.7;
+  double exponent_2 = 1.7;
+  double cost_max = 40;
+
+  for (int i = 1; i < 21 ; i++) {
+    Track track;
+    std::string file_name = "gtruths/tracks/track" + std::to_string(i) + "/converted_track" + std::to_string(i) + ".txt";
+    track.fillTrack(file_name);
+    std::vector<Cone *> test_cones = track.get_left_cones();
+    for (Cone* c: track.get_right_cones()) {
+      test_cones.push_back(c);
+    }
+    int c_right;
+    int inc_right;
+    int c_left;
+    int inc_left;
+    auto cone_coloring = ConeColoring(gain_angle, gain_distance, gain_ncones, exponent_1, exponent_2, cost_max);
+    auto initial_car_pose = Pose(0.0, 0.0, 0.0);
+    cone_coloring.color_cones(test_cones, initial_car_pose, 5.0);
+    test_cone_coloring(cone_coloring, c_left, c_right,  inc_left, inc_right);
+    
+    // for (const Cone* c : cone_coloring.current_left_cones) {
+    //   std::cout << "(" << c->getX() << "," << c->getY() << "),";
+    // }
+    // std::cout << std::endl;
+    // for (const Cone* c : cone_coloring.current_right_cones) {
+    //   std::cout << "(" << c->getX() << "," << c->getY() << "),";
+    // }
+    // std::cout << std::endl;
+    // std::cout << "Track" << std::to_string(i) << ": c_left : " << c_left << " c_right: " << c_right << " inc_left: " << inc_left << " inc_right: " << inc_right << std::endl;
+  }
+}

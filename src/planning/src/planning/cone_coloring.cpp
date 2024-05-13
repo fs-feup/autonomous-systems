@@ -86,7 +86,7 @@ double ConeColoring::cost(const Cone* possible_next_cone, int n, TrackSide side)
     if (current_cones.size() < 2) {RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "Not enough cones to calculate cost when coloring cones");};
     AngleNorm angle_norm;
     angle_norm = angle_and_norm(possible_next_cone, side);
-    double cost = pow(pow(distance_gain*angle_norm.norm + angle_gain*angle_norm.angle, exponent1) + ncones_gain*(double)current_cones.size()/(float)n, exponent2);
+    double cost = pow(distance_gain*angle_norm.norm, exponent1) + pow(angle_gain*angle_norm.angle, exponent2) + ncones_gain*(double)current_cones.size()/(float)n;
     return cost;
 }
 
@@ -114,7 +114,7 @@ bool ConeColoring::place_next_cone(std::shared_ptr<std::vector<std::pair<Cone *,
     double squared_distance_threshold = distance_threshold*distance_threshold;
 
     for (std::pair<Cone *, bool> &p : *visited_cones) {
-        if (p.second) {continue;} // skip visited cones
+        if (p.second) { continue;} // skip visited cones
         double cost = ConeColoring::cost(p.first, n, side);
         if (cost < minimum_cost && last_cone->squared_distance_to(p.first) < squared_distance_threshold && cost < max_cost) {
             minimum_cost = cost;
@@ -131,7 +131,6 @@ bool ConeColoring::place_next_cone(std::shared_ptr<std::vector<std::pair<Cone *,
 void ConeColoring::color_cones(const std::vector<Cone *>& input_cones, Pose initial_car_pose, double distance_threshold) {
     place_initial_cones(input_cones, initial_car_pose);
     auto visited_cones = make_unvisited_cones(input_cones);
-
     while (place_next_cone(visited_cones, distance_threshold, (int)input_cones.size(), TrackSide::LEFT));
     while (place_next_cone(visited_cones, distance_threshold, (int)input_cones.size(), TrackSide::RIGHT));
 }
