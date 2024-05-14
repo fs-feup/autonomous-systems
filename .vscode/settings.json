@@ -97,13 +97,13 @@
         "editor.formatOnSave": true
       },
     "[cpp]": {
-        "editor.defaultFormatter": "ms-vscode.cpptools",
+        "editor.defaultFormatter": "xaver.clang-format",
         "editor.formatOnSave": true
     },
     "sonarlint.connectedMode.project": {
         "connectionId": "FS FEUP",
         "projectKey": "fs-feup_autonomous-systems"
     },
-    "C_Cpp.default.compilerPath": "/usr/bin/g++",
     "sonarlint.pathToCompileCommands": "${workspaceFolder}/compile_commands.json",
+    "C_Cpp.default.compilerPath": "/usr/bin/g++",
 }

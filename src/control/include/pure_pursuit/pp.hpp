@@ -7,8 +7,8 @@
 constexpr double WHEEL_BASE = 1.5;
 
 /**< Distance from the center of gravity to the rear axis in m */
-constexpr double DIST_CG_2_REAR_AXIS = 0.5;
-
+//constexpr double DIST_CG_2_REAR_AXIS = 0.5;
+constexpr double DIST_CG_2_REAR_AXIS = 0.9822932352409;
 /**
  * @brief Pure Pursuit class
  *
@@ -47,7 +47,7 @@ class PurePursuit {
    * @return std::pair<Point, int> lookahead point and error status (1 = error)
    */
   std::pair<Point, bool> update_lookahead_point(
-      const custom_interfaces::msg::PathPointArray::ConstSharedPtr &path_msg);
+      const custom_interfaces::msg::PathPointArray::ConstSharedPtr &path_msg, Point closest_point,int closest_point_id, double ld, double ld_margin);
 
   /**
    * @brief Find the closest point on the path

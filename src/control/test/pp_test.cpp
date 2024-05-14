@@ -1,5 +1,8 @@
 #include "pure_pursuit/pp.hpp"
-
+#include <fstream>
+#include <sstream>
+#include <string>
+#include <vector>
 #include "gtest/gtest.h"
 
 /**
@@ -114,3 +117,160 @@ TEST(PurePursuitTests, Test_pp_steering_control_law_1) {
   //  ld_: 5.38516
   EXPECT_NEAR(0.381, steering_cmd, 0.001);
 }
+
+/**
+ * @brief Test PurePursuit - update_closest_point()
+ */
+TEST(PurePursuitTests, Test_update_closest_point_1) {
+  std::ifstream trackFile("../../src/control/test/assets/track1.csv");
+  ASSERT_TRUE(trackFile.is_open()) << "Failed to open track file";
+
+  custom_interfaces::msg::PathPointArray path_msg;
+
+  std::string line;
+
+  std::getline(trackFile, line); // Skip the first line
+
+  while (std::getline(trackFile, line)) {
+    std::istringstream iss(line);
+    std::string x, y, v;
+    if (std::getline(iss, x, ',') && std::getline(iss, y, ',') && std::getline(iss, v)) {
+      // Create a PathPoint and add it to the PathPointArray
+      custom_interfaces::msg::PathPoint point;
+      point.x = std::stod(x); //string to double
+      point.y = std::stod(y);
+      point.v = std::stod(v);
+      path_msg.pathpoint_array.push_back(point);
+    }
+  }
+  trackFile.close();
+
+  // Convert path_msg to ConstSharedPtr
+  const custom_interfaces::msg::PathPointArray::ConstSharedPtr path_msg_ptr =
+      std::make_shared<const custom_interfaces::msg::PathPointArray>(path_msg);
+
+
+  double k = 0.5;
+  double ld_margin = 0.1;
+  PurePursuit pp(k, ld_margin);
+  pp.vehicle_pose_.rear_axis_ = Point(47.0, -13.0);
+  Point expected_point = Point(46.5, -12.37); 
+  int expected_id = 76;
+
+  auto result = pp.update_closest_point(path_msg_ptr);
+  
+  EXPECT_EQ(result.first.x_, expected_point.x_);
+  EXPECT_EQ(result.first.y_, expected_point.y_);
+  EXPECT_EQ(result.second, expected_id);
+}
+
+/**
+ * @brief Test PurePursuit - update_lookahead_point()
+ */
+
+TEST(PurePursuitTests, Test_update_lookahead_point_1) {
+  std::ifstream trackFile("../../src/control/test/assets/track1.csv");
+  ASSERT_TRUE(trackFile.is_open()) << "Failed to open track file";
+
+  custom_interfaces::msg::PathPointArray path_msg;
+
+  std::string line;
+
+  std::getline(trackFile, line); // Skip the first line
+
+  while (std::getline(trackFile, line)) {
+    std::istringstream iss(line);
+    std::string x, y, v;
+    if (std::getline(iss, x, ',') && std::getline(iss, y, ',') && std::getline(iss, v)) {
+      custom_interfaces::msg::PathPoint point;
+      point.x = std::stod(x); //string to double
+      point.y = std::stod(y);
+      point.v = std::stod(v);
+      path_msg.pathpoint_array.push_back(point);
+    }
+  }
+  trackFile.close();
+
+  // Convert path_msg to ConstSharedPtr
+  const custom_interfaces::msg::PathPointArray::ConstSharedPtr path_msg_ptr =
+      std::make_shared<const custom_interfaces::msg::PathPointArray>(path_msg);
+   
+
+  double k = 3;
+  double ld = 3;
+  double ld_margin = 0.1;
+  PurePursuit pp(k, ld_margin);
+
+  pp.vehicle_pose_.rear_axis_ = Point(47.0, -13.0);
+  pp.vehicle_pose_.cg_ = Point(47.80, -12.43);
+  Point closest_point = Point(46.5, -12.37);
+  int closest_point_id = 76;
+  Point expected_point = Point(48.75, -10.25);
+
+  auto result = pp.update_lookahead_point(path_msg_ptr, closest_point, closest_point_id, ld, ld_margin);
+  
+  EXPECT_EQ(result.first.x_, expected_point.x_);
+  EXPECT_EQ(result.first.y_, expected_point.y_);
+  EXPECT_FALSE(result.second);
+}
+
+
+/**
+ * @brief Test PurePursuit - update_steering_angle()
+ */
+
+TEST(PurePursuitTests, Test_update_steering_angle_1) {
+  std::ifstream trackFile("../../src/control/test/assets/track1.csv");
+  ASSERT_TRUE(trackFile.is_open()) << "Failed to open track file";
+
+  custom_interfaces::msg::PathPointArray path_msg;
+
+  std::string line;
+
+  std::getline(trackFile, line); // Skip the first line
+
+  while (std::getline(trackFile, line)) {
+    std::istringstream iss(line);
+    std::string x, y, v;
+    if (std::getline(iss, x, ',') && std::getline(iss, y, ',') && std::getline(iss, v)) {
+      custom_interfaces::msg::PathPoint point;
+      point.x = std::stod(x); //string to double
+      point.y = std::stod(y);
+      point.v = std::stod(v);
+      path_msg.pathpoint_array.push_back(point);
+    }
+  }
+  trackFile.close();
+
+  // Convert path_msg to ConstSharedPtr
+  const custom_interfaces::msg::PathPointArray::ConstSharedPtr path_msg_ptr =
+      std::make_shared<const custom_interfaces::msg::PathPointArray>(path_msg);
+  
+  custom_interfaces::msg::Pose pose_msg;
+  pose_msg.position.x = 47.80;
+  pose_msg.position.y = -12.43;
+  pose_msg.theta=0.610865; //35 degrees
+  pose_msg.velocity=1.0;
+
+  const custom_interfaces::msg::Pose::ConstSharedPtr pose_msg_ptr =
+      std::make_shared<const custom_interfaces::msg::Pose>(pose_msg);
+
+      
+  //DIST_CG_2_REAR_AXIS = 0.9822932352409;
+
+  double k = 3;
+  double ld_margin = 0.1;
+  PurePursuit pp(k, ld_margin);
+  double steering_cmd = pp.update_steering_angle(path_msg_ptr,pose_msg_ptr);
+  EXPECT_NEAR(0.33, steering_cmd, 0.01); // 0.01 rad is equal to 0.57 degrees
+  /*
+  alpha = 0.3833 (rad)
+  L = 1 || 0.9822932352409
+  Closest Point (46.5, -12.37)
+  Vehicle CG (47.80,-12.43)
+  Vehicle Rear Axis (47 , -13)
+  Lookahead Point (48.75, -10.25)
+  Lookahead Distance (3 +/- 10%)
+  actual ld = 3.2511690205217
+  */
+  }

@@ -14,21 +14,21 @@ double PurePursuit::update_steering_angle(
   update_vehicle_pose(pose_msg);
 
   this->ld_ = this->update_lookahead_distance();
-
+  
   // update closest point
+  //auto [closest_point_, closest_point_id_] = this->update_closest_point(path_msg);
   auto closest_point_info = this->update_closest_point(path_msg);
   this->closest_point_ = closest_point_info.first;
   this->closest_point_id_ = closest_point_info.second;
-
+  
   // update lookahead point
-  auto lookahead_point_info = this->update_lookahead_point(path_msg);
-  bool error = lookahead_point_info.second;
-  if (error) {
-    // RCLCPP_ERROR(this->get_logger(), "PurePursuit: Failed to update lookahed point");
+  auto lookahead_point_info = this->update_lookahead_point(path_msg, this->closest_point_, this->closest_point_id_, this->ld_, this->ld_margin_);
+  if (lookahead_point_info.second) {
     /*
      * isto pode acontecer por termos o parametro ld_margin demasiado pequeno com base
      * no numero de pontos que existe no path
      */
+    RCLCPP_ERROR(rclcpp::get_logger("control"), "PurePursuit: Failed to update lookahed point");
   }
   this->lookahead_point_ = lookahead_point_info.first;
 
@@ -90,22 +90,30 @@ std::pair<Point, int> PurePursuit::update_closest_point(
  * @return std::pair<Point, int> lookahead point and error status (1 = error)
  */
 std::pair<Point, bool> PurePursuit::update_lookahead_point(
-    const custom_interfaces::msg::PathPointArray::ConstSharedPtr &path_msg) {
+    const custom_interfaces::msg::PathPointArray::ConstSharedPtr &path_msg, Point closest_point, int closest_point_id, double ld, double ld_margin) {
+  
+  //std::cout << "Entramos na update_lookahead_point"<< std::endl;
+  //std::cout << "Closest point -> (" << closest_point.x_ << " , " << closest_point.y_ << ")"<< std::endl;
+  //std::cout << "Closest point id -> " << closest_point_id << std::endl;
+  //std::cout << "Lookahead distance -> " << ld << std::endl;
+  //std::cout << "Lookahead distance margin -> " << ld_margin << std::endl;
+
   Point lookahead_point = Point();
   Point aux_point = Point();
-  for (int i = this->closest_point_id_; i < path_msg->pathpoint_array.size(); i++) {
+  for (int i = closest_point_id; i < path_msg->pathpoint_array.size(); i++) {
     aux_point = Point(path_msg->pathpoint_array[i].x, path_msg->pathpoint_array[i].y);
-    double distance = this->closest_point_.euclidean_distance(aux_point);
-    if (distance <= this->ld_ * (1 - this->ld_margin_) &&
-        distance >= this->ld_ * (1 + this->ld_margin_)) {
+    double distance = closest_point.euclidean_distance(aux_point);
+    if (distance >= ld * (1 - ld_margin) &&
+        distance <= ld * (1 + ld_margin)) {
       lookahead_point = aux_point;
       return std::make_pair(lookahead_point, 0);
     }
   }
-  for (int i = 0; i < this->closest_point_id_; i++) {
+  for (int i = 0; i < closest_point_id; i++) {
     aux_point = Point(path_msg->pathpoint_array[i].x, path_msg->pathpoint_array[i].y);
-    double distance = this->closest_point_.euclidean_distance(aux_point);
-    if (distance > this->ld_) {
+    double distance = closest_point.euclidean_distance(aux_point);
+    if (distance >= ld * (1 - ld_margin) &&
+        distance <= ld * (1 + ld_margin)) {
       lookahead_point = aux_point;
       return std::make_pair(lookahead_point, 0);
     }
@@ -116,7 +124,6 @@ std::pair<Point, bool> PurePursuit::update_lookahead_point(
 double PurePursuit::pp_steering_control_law() {
   double alpha = calculate_alpha(this->vehicle_pose_.rear_axis_, this->vehicle_pose_.cg_,
                                  this->lookahead_point_, this->dist_cg_2_rear_axis_);
-
   // update lookahead distance to the actual distance
   this->ld_ = this->vehicle_pose_.rear_axis_.euclidean_distance(this->lookahead_point_);
 
