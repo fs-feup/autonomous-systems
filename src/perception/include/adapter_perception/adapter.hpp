@@ -13,7 +13,10 @@ class Perception;
 
 /**
  * @brief Adapter class for coordinating communication between different modes
- * and Planning module.
+ * and the Perception module.
+ * 
+ * This class serves as an intermediary for communication between different modes,
+ * such as simulators or lidar itself.
  */
 class Adapter {
  protected:
@@ -21,11 +24,28 @@ class Adapter {
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr _point_cloud_subscription;
 
  public:
+   /**
+   * @brief Constructor for Adapter class.
+   * 
+   * @param perception A pointer to the Perception instance.
+   */
   explicit Adapter(Perception* perception);
-  Perception* node;
 
-  virtual void init() = 0;
-  virtual void finish() = 0;
+  Perception* node; // Pointer to the Perception instance.
+
+    /**
+     * @brief Initializes the Adapter.
+     * 
+     * This method is pure virtual and must be implemented by derived classes.
+     */
+    virtual void init() = 0;
+
+    /**
+     * @brief Finalizes the Adapter.
+     * 
+     * This method is pure virtual and must be implemented by derived classes.
+     */
+    virtual void finish() = 0;
 };
 
 #endif  // SRC_PERCEPTION_INCLUDE_ADAPTER_ADAPTER_HPP_
