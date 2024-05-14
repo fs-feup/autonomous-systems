@@ -12,14 +12,21 @@
  * @enum Mission
  * @brief Enumeration representing the different missions.
  */
-enum Mission { not_selected, acceleration, skidpad, trackdrive, autocross };
+enum class Mission { not_selected, acceleration, skidpad, trackdrive, autocross };
 
 // the message type is not accepted in map - not recognized by std namespace. Cast to identical type
 const std::unordered_map<uint16_t, Mission> eufsToSystem = {
-    {static_cast<uint16_t>(eufs_msgs::msg::CanState::AMI_ACCELERATION), Mission::acceleration},
-    {static_cast<uint16_t>(eufs_msgs::msg::CanState::AMI_SKIDPAD), Mission::skidpad},
-    {static_cast<uint16_t>(eufs_msgs::msg::CanState::AMI_AUTOCROSS), Mission::autocross},
-    {static_cast<uint16_t>(eufs_msgs::msg::CanState::AMI_TRACK_DRIVE), Mission::trackdrive}};
+    {eufs_msgs::msg::CanState::AMI_ACCELERATION, Mission::acceleration},
+    {eufs_msgs::msg::CanState::AMI_SKIDPAD, Mission::skidpad},
+    {eufs_msgs::msg::CanState::AMI_AUTOCROSS, Mission::autocross},
+    {eufs_msgs::msg::CanState::AMI_TRACK_DRIVE, Mission::trackdrive},
+    {eufs_msgs::msg::CanState::AMI_AUTONOMOUS_DEMO, Mission::not_selected},
+    {eufs_msgs::msg::CanState::AMI_ADS_INSPECTION, Mission::not_selected},
+    {eufs_msgs::msg::CanState::AMI_ADS_EBS, Mission::not_selected},
+    {eufs_msgs::msg::CanState::AMI_DDT_INSPECTION_A, Mission::not_selected},
+    {eufs_msgs::msg::CanState::AMI_DDT_INSPECTION_B, Mission::not_selected},
+    {eufs_msgs::msg::CanState::AMI_JOYSTICK, Mission::not_selected},
+    {eufs_msgs::msg::CanState::AMI_MANUAL, Mission::not_selected}};
 
 const std::unordered_map<std::string, Mission> fsdsToSystem = {
     {"acceleration", Mission::acceleration},

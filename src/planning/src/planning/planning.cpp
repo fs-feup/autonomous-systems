@@ -5,9 +5,9 @@
 #include <string>
 #include <vector>
 
-#include "adapter/eufs.hpp"
-#include "adapter/fsds.hpp"
-#include "adapter/map.hpp"
+#include "adapter_planning/eufs.hpp"
+#include "adapter_planning/fsds.hpp"
+#include "adapter_planning/map.hpp"
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "custom_interfaces/msg/path_point.hpp"
 #include "custom_interfaces/msg/path_point_array.hpp"
@@ -91,5 +91,6 @@ void Planning::publish_predicitive_track_points() {
 void Planning::set_mission(Mission mission) { this->mission = mission; }
 
 bool Planning::is_predicitve_mission() const {
-  return this->mission == Mission::skidpad || this->mission == Mission::acceleration;
+  return this->mission == Mission::skidpad || this->mission == Mission::acceleration ||
+         this->mission == Mission::not_selected;
 }
