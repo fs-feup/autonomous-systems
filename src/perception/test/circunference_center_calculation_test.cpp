@@ -47,7 +47,7 @@ public:
  */
 TEST_F(CircunferenceCenterCalculationTest, NormalUseCase) {
   
-  auto center = center_calculator.calculateCenter(pcl_cloud, plane);
+  auto center = center_calculator.calculate_center(pcl_cloud, plane);
 
   ASSERT_EQ(center.x(), 2);
   ASSERT_EQ(center.y(), 0);
@@ -59,7 +59,7 @@ TEST_F(CircunferenceCenterCalculationTest, NormalUseCase) {
  */
 TEST_F(CircunferenceCenterCalculationTest, NormalUseCase2) {
   
-  auto center = center_calculator.calculateCenter(pcl_cloud2, plane);
+  auto center = center_calculator.calculate_center(pcl_cloud2, plane);
 
   ASSERT_EQ(center.x(), 0);
   ASSERT_EQ(center.y(), 3);

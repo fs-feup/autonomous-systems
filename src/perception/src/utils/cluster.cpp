@@ -15,7 +15,7 @@ Eigen::Vector4f Cluster::getCentroid() {
 Eigen::Vector4f Cluster::get_center(Plane& plane) {
   if (center_is_defined) return this->center;
 
-  this->center = Cluster::center_calculator.calculateCenter(this->point_cloud, plane);
+  this->center = Cluster::center_calculator.calculate_center(this->point_cloud, plane);
   this->center_is_defined = true;
 
   return this->center;

@@ -1,5 +1,4 @@
-#ifndef CENTROID_CALCULATOR_HPP
-#define CENTROID_CALCULATOR_HPP
+#pragma once
 
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
@@ -26,7 +25,5 @@ class CentroidCalculator : public CenterCalculator {
   * @param plane Plane representing the ground [Not used in this concrete implementation]
   * @return Eigen::Vector4f representing the estimated center of the cone.
   */
-  Eigen::Vector4f calculateCenter(pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud, const Plane& plane = Plane()) const override;
+  Eigen::Vector4f calculate_center(pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud, const Plane& plane = Plane()) const override;
 };
-
-#endif  // CENTROID_CALCULATOR_HPP

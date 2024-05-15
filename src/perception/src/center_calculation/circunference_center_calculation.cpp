@@ -6,7 +6,7 @@
 #include <center_calculation/circunferece_center_calculation.hpp>
 
 
-Eigen::Vector4f CircunferenceCenterCalculation::calculateCenter(pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud, const Plane& plane) const {
+Eigen::Vector4f CircunferenceCenterCalculation::calculate_center(pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud, const Plane& plane) const {
     Eigen::Vector4f centroid;
 
     // Get the centroid cone of the point_cloud;
@@ -25,7 +25,7 @@ Eigen::Vector4f CircunferenceCenterCalculation::calculateCenter(pcl::PointCloud<
     for (auto& point : point_cloud->points) {
         double distance = middle_plane.get_distance_to_point(point);
 
-        // Update distances/ closest point
+        // Update distances/closest point -> Do the vector shifting and place the right points on the vector
         for (int i = 0; i < 3; ++i) {
             if (distance < distances[i]) {
                 for (int j = 2; j > i; --j) {

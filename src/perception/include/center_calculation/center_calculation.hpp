@@ -1,5 +1,4 @@
-#ifndef CENTER_CALCULATOR_HPP
-#define CENTER_CALCULATOR_HPP
+#pragma once
 
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
@@ -27,8 +26,5 @@ class CenterCalculator {
   * @param plane Plane representing the ground (optional). Default is an empty Plane object.
   * @return Eigen::Vector4f representing the estimated center of the cone.
   */
-  virtual Eigen::Vector4f calculateCenter(pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud, const Plane& plane = Plane()) const = 0;
+  virtual Eigen::Vector4f calculate_center(pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud, const Plane& plane = Plane()) const = 0;
 };
-
-#endif  // CENTER_CALCULATOR_HPP
-

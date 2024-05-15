@@ -1,5 +1,4 @@
-#ifndef CIRCUNFERENCE_CENTER_CALCULATION_HPP
-#define CIRCUNFERENCE_CENTER_CALCULATION_HPP
+#pragma once
 
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
@@ -28,8 +27,6 @@ class CircunferenceCenterCalculation : public CenterCalculator {
   * 
   * @note The plane parameter is mandatory for this method.
   */
-  Eigen::Vector4f calculateCenter(pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud, const Plane& plane) const override;
+  Eigen::Vector4f calculate_center(pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud, const Plane& plane) const override;
 };
-
-#endif  // CIRCUNFERENCE_CENTER_CALCULATION_HPP
 

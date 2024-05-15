@@ -27,14 +27,14 @@ class Adapter;
  */
 class Perception : public rclcpp::Node {
  private:
-  GroundRemoval* groundRemoval;  ///< Pointer to the GroundRemoval object.
+  GroundRemoval* ground_removal;  ///< Pointer to the GroundRemoval object.
   Adapter* adapter;              /**< Adapter instance for external communication */
   Clustering* clustering;
   std::string mode = "fsds";  // Temporary, change as desired. TODO(andre): Make not hardcoded
-  ConeDifferentiation* coneDifferentiator;  ///< Pointer to ConeDifferentiation object.
-  Plane groundPlane; ///< State variable that represents the ground's plane
-  std::vector<ConeValidator*> coneValidators; ///< The set of heuristics to apply to the clusters to validate them
-  ConeEvaluator* coneEvaluator; ///< Numeric heurisitc to get cluster's confidence
+  ConeDifferentiation* cone_differentiator;  ///< Pointer to ConeDifferentiation object.
+  Plane ground_plane; ///< State variable that represents the ground's plane
+  std::vector<ConeValidator*> cone_validators; ///< The set of heuristics to apply to the clusters to validate them
+  ConeEvaluator* cone_evaluator; ///< Numeric heurisitc to get cluster's confidence
 
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr
       _point_cloud_subscription;  ///< PointCloud2 subscription.
@@ -62,9 +62,9 @@ class Perception : public rclcpp::Node {
    * @param coneValidator Pointer to cone Validator object
    * @param coneEvaluator Pointer to cone Evaluator object
    */
-  Perception(GroundRemoval* groundRemoval, Clustering* clustering,
-             ConeDifferentiation* coneDifferentiator,
-             const std::vector<ConeValidator*>& coneValidator, ConeEvaluator* coneEvaluator);
+  Perception(GroundRemoval* ground_removal, Clustering* clustering,
+             ConeDifferentiation* cone_differentiator,
+             const std::vector<ConeValidator*>& cone_validator, ConeEvaluator* cone_evaluator);
 
   /**
    * @brief Callback function for the PointCloud2 subscription.
