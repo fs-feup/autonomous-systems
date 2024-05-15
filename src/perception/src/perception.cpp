@@ -1,3 +1,4 @@
+#include <memory>
 #include <pcl/conversions.h>
 #include <pcl/features/normal_3d.h>
 
@@ -21,22 +22,23 @@ int main(int argc, char** argv) {
   double vertical_resolution = node->declare_parameter("vertical_resolution", 0.22);
   std::string mode = node->declare_parameter("adapter", "test");
 
+  // Create shared pointers for components
+  auto ground_removal = std::make_shared<RANSAC>(ransac_epsilon, ransac_n_neighbours);
+  auto clustering = std::make_shared<DBSCAN>(clustering_n_neighbours, clustering_epsilon);
+  auto cone_differentiator = std::make_shared<LeastSquaresDifferentiation>();
+  std::vector<std::shared_ptr<ConeValidator>> cone_validators = {
+    std::make_shared<CylinderValidator>(0.228, 0.325),
+    std::make_shared<HeightValidator>(0.325)
+  };
+  auto distance_predict = std::make_shared<DistancePredict>(vertical_resolution, horizontal_resolution);
 
-
-  auto ground_removal = new RANSAC(ransac_epsilon, ransac_n_neighbours);
-  auto clustering = new DBSCAN(clustering_n_neighbours, clustering_epsilon);
-  auto coneDifferentiator = new LeastSquaresDifferentiation();
-  std::vector<ConeValidator*> coneValidator = {new CylinderValidator(0.228, 0.325),
-                                               new HeightValidator(0.325)};
-
-  auto distancePredict = new DistancePredict(vertical_resolution, horizontal_resolution);
-
-  node = std::make_shared<Perception>(ground_removal, clustering, coneDifferentiator,
-                                           coneValidator, distancePredict, mode);
+  // Create perception node with shared pointers
+  auto perception_node = std::make_shared<Perception>(ground_removal, clustering, cone_differentiator,
+                                                       cone_validators, distance_predict, mode);
 
   RCLCPP_INFO(node->get_logger(), "Perception is alive!");
 
-  rclcpp::spin(node);
+  rclcpp::spin(perception_node); // Spin the perception node
   rclcpp::shutdown();
   return 0;
 }
