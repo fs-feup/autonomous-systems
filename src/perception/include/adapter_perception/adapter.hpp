@@ -8,6 +8,7 @@
 #include "fs_msgs/msg/go_signal.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
+#include "custom_interfaces/msg/operational_status.hpp"
 
 class Perception;
 

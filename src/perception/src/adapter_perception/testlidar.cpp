@@ -11,7 +11,7 @@ void TestAdapter::init() {
       });
 }
 
-void TestAdapter::mission_state_callback(const std::string& msg) {
+void TestAdapter::mission_state_callback(const custom_interfaces::msg::OperationalStatus& msg) {
   // Test Class, No implementation for mission state
 }
 

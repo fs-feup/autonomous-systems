@@ -32,7 +32,7 @@ public:
    * 
    * @param msg The mission state message.
    */
-  void mission_state_callback(const std::string& msg);
+  void mission_state_callback(const custom_interfaces::msg::OperationalStatus& msg);
 
   /**
    * @brief Finalizes the Test Adapter.
