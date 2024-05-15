@@ -14,7 +14,7 @@
 #include "custom_interfaces/msg/path_point_array.hpp"
 #include "custom_interfaces/msg/point2d.hpp"
 #include "custom_interfaces/msg/point_array.hpp"
-#include "custom_interfaces/msg/pose.hpp"
+#include "custom_interfaces/msg/vehicle_state.hpp"
 #include "planning/global_path_planner.hpp"
 #include "planning/local_path_planner.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
@@ -44,7 +44,7 @@ class Planning : public rclcpp::Node {
       {Mission::skidpad, "/events/skidpad.txt"}}; /**< Predictive paths for different missions */
 
   /**< Subscription to vehicle localization */
-  rclcpp::Subscription<custom_interfaces::msg::Pose>::SharedPtr vl_sub_;
+  rclcpp::Subscription<custom_interfaces::msg::VehicleState>::SharedPtr vl_sub_;
   /**< Subscription to track map */
   rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr track_sub_;
   /**< Local path points publisher */
@@ -58,7 +58,7 @@ class Planning : public rclcpp::Node {
    *
    * @param msg The received Pose message.
    */
-  void vehicle_localization_callback(const custom_interfaces::msg::Pose& msg);
+  void vehicle_localization_callback(const custom_interfaces::msg::VehicleState &msg);
   /**
    * @brief Callback for track map updates(when msg received).
    *
@@ -67,7 +67,7 @@ class Planning : public rclcpp::Node {
    * path by calling method from the local path planner and finnaly publishes
    * the path by calling the publish method
    */
-  void track_map_callback(const custom_interfaces::msg::ConeArray& msg);
+  void track_map_callback(const custom_interfaces::msg::ConeArray &msg);
   /**
    * @brief Publishes a list of path points.
    *
@@ -93,7 +93,7 @@ class Planning : public rclcpp::Node {
 
   /**
    * @brief current vehicle pose
-   * 
+   *
    */
   Pose pose;
 

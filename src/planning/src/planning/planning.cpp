@@ -13,10 +13,10 @@
 #include "custom_interfaces/msg/path_point_array.hpp"
 #include "custom_interfaces/msg/point2d.hpp"
 #include "custom_interfaces/msg/point_array.hpp"
-#include "custom_interfaces/msg/pose.hpp"
+#include "custom_interfaces/msg/vehicle_state.hpp"
+#include "planning/cone_coloring.hpp"
 #include "planning/global_path_planner.hpp"
 #include "planning/local_path_planner.hpp"
-#include "planning/cone_coloring.hpp"
 #include "planning/path_smoothing.hpp"
 #include "utils/files.hpp"
 
@@ -28,7 +28,7 @@ Planning::Planning() : Node("planning") {
       "track_map", 10, std::bind(&Planning::track_map_callback, this, _1));
 
   // Vehicle Localization Subscriber
-  this->vl_sub_ = this->create_subscription<custom_interfaces::msg::Pose>(
+  this->vl_sub_ = this->create_subscription<custom_interfaces::msg::VehicleState>(
       "vehicle_localization", 10, std::bind(&Planning::vehicle_localization_callback, this, _1));
 
   // Control Publishers
@@ -43,7 +43,7 @@ Planning::Planning() : Node("planning") {
   this->adapter = adapter_map[mode](this);
 }
 
-void Planning::track_map_callback(const custom_interfaces::msg::ConeArray& msg) {
+void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &msg) {
   if (this->is_predicitve_mission()) {
     return;
   }
@@ -55,26 +55,27 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray& msg) 
   const std::vector<Cone *> recieved_cones;
 
   std::vector<Cone *> cone_array;
-  for (const auto& cone : msg.cone_array) {
+  for (const auto &cone : msg.cone_array) {
     RCLCPP_DEBUG(this->get_logger(), "[received] (%f, %f)\t%s", cone.position.x, cone.position.y,
                  cone.color.c_str());
     auto new_cone = std::make_shared<Cone>(0, (float)cone.position.x, (float)cone.position.y);
     cone_array.push_back(new_cone.get());
   }
 
-  cone_coloring -> color_cones(cone_array, this->pose, 5);
+  cone_coloring->color_cones(cone_array, this->pose, 5);
 
-  for (auto& cone : cone_coloring->current_left_cones) {
+  for (auto &cone : cone_coloring->current_left_cones) {
     track->add_cone_left(cone);
   }
 
-  for (auto& cone : cone_coloring->current_right_cones) {
+  for (auto &cone : cone_coloring->current_right_cones) {
     track->add_cone_right(cone);
   }
 
-  track->validateCones();  // Delete cone outliers
+  track->validateCones();  // Deal with cone outliers
 
-  std::vector<PathPoint *> path = local_path_planner->processNewArray(track.get());  // Calculate Path
+  std::vector<PathPoint *> path =
+      local_path_planner->processNewArray(track.get());  // Calculate Path
 
   path_smoother->defaultSmoother(path);
 
@@ -83,7 +84,7 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray& msg) 
   RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
 }
 
-void Planning::vehicle_localization_callback(const custom_interfaces::msg::Pose& msg) {
+void Planning::vehicle_localization_callback(const custom_interfaces::msg::VehicleState &msg) {
   this->pose = Pose(msg.position.x, msg.position.y, msg.theta);
 }
 
