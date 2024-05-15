@@ -2,7 +2,7 @@
 
 #include "perception/perception_node.hpp"
 
-TestAdapter::TestAdapter(Perception* perception) : Adapter(perception) { this->init(); }
+TestAdapter::TestAdapter(Perception* perception) : Adapter(perception) {}
 
 void TestAdapter::init() {
   this->_point_cloud_subscription = this->node->create_subscription<sensor_msgs::msg::PointCloud2>(

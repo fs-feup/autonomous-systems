@@ -2,7 +2,7 @@
 
 #include "perception/perception_node.hpp"
 
-FSSimAdapter::FSSimAdapter(Perception* perception) : Adapter(perception) { this->init(); }
+FSSimAdapter::FSSimAdapter(Perception* perception) : Adapter(perception) {}
 
 void FSSimAdapter::init() {
   this->_point_cloud_subscription = this->node->create_subscription<sensor_msgs::msg::PointCloud2>(

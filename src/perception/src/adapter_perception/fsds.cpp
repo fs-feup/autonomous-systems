@@ -2,7 +2,7 @@
 
 #include "perception/perception_node.hpp"
 
-FsdsAdapter::FsdsAdapter(Perception* perception) : Adapter(perception) { this->init(); }
+FsdsAdapter::FsdsAdapter(Perception* perception) : Adapter(perception) {}
 
 void FsdsAdapter::init() {
   this->fsds_state_subscription_ = this->node->create_subscription<fs_msgs::msg::GoSignal>(

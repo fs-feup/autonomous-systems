@@ -29,6 +29,7 @@ Perception::Perception(GroundRemoval* groundRemoval, Clustering* clustering,
   this->_cones_publisher = this->create_publisher<custom_interfaces::msg::ConeArray>("cones", 10);
 
   this->adapter = adapter_map[mode](this);
+  this->adapter->init();
 }
 
 void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg) {

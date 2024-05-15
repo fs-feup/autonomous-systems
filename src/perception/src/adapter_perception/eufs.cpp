@@ -2,7 +2,7 @@
 
 #include "perception/perception_node.hpp"
 
-EufsAdapter::EufsAdapter(Perception* perception) : Adapter(perception) { this->init(); }
+EufsAdapter::EufsAdapter(Perception* perception) : Adapter(perception) {}
 
 void EufsAdapter::init() {
   this->_point_cloud_subscription = this->node->create_subscription<sensor_msgs::msg::PointCloud2>(
