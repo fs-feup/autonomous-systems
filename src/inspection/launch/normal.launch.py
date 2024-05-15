@@ -7,7 +7,6 @@ from launch.actions import DeclareLaunchArgument
 
 
 def generate_launch_description():
-
     return LaunchDescription(
         [
             DeclareLaunchArgument(
@@ -66,7 +65,7 @@ def generate_launch_description():
                     {"finish_time": LaunchConfiguration("finish_time")},
                     {"start_and_stop": LaunchConfiguration("start_and_stop")},
                 ],
-                arguments=['--ros-args', '--log-level', 'inspection:=debug'],
+                arguments=["--ros-args", "--log-level", "inspection:=debug"],
             ),
         ]
     )
