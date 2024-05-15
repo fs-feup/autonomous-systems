@@ -53,6 +53,8 @@ target_link_libraries(perception ${PCL_LIBRARIES})
 install(TARGETS perception
   DESTINATION lib/${PROJECT_NAME})
 
+install(DIRECTORY launch DESTINATION share/${PROJECT_NAME}/)
+
 ament_target_dependencies(perception rclcpp custom_interfaces sensor_msgs fs_msgs message_filters eufs_msgs)
 
 if(BUILD_TESTING)

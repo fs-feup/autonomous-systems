@@ -19,13 +19,13 @@ std_msgs::msg::Header header;
 Perception::Perception(GroundRemoval* groundRemoval, Clustering* clustering,
                        ConeDifferentiation* coneDifferentiator,
                        const std::vector<ConeValidator*>& coneValidators,
-                       ConeEvaluator* coneEvaluator)
+                       ConeEvaluator* coneEvaluator, std::string mode)
     : Node("perception"),
       groundRemoval(groundRemoval),
       clustering(clustering),
       coneDifferentiator(coneDifferentiator),
       coneValidators(coneValidators),
-      coneEvaluator(coneEvaluator) {
+      coneEvaluator(coneEvaluator), mode(mode) {
   this->_cones_publisher = this->create_publisher<custom_interfaces::msg::ConeArray>("cones", 10);
 
   this->adapter = adapter_map[mode](this);

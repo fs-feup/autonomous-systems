@@ -30,7 +30,7 @@ class Perception : public rclcpp::Node {
   GroundRemoval* groundRemoval;  ///< Pointer to the GroundRemoval object.
   Adapter* adapter;              /**< Adapter instance for external communication */
   Clustering* clustering;
-  std::string mode = "fsds";  // Temporary, change as desired. TODO(andre): Make not hardcoded
+  std::string mode;
   ConeDifferentiation* coneDifferentiator;  ///< Pointer to ConeDifferentiation object.
   Plane groundPlane;
   std::vector<ConeValidator*> coneValidators;
@@ -60,7 +60,8 @@ class Perception : public rclcpp::Node {
    */
   Perception(GroundRemoval* groundRemoval, Clustering* clustering,
              ConeDifferentiation* coneDifferentiator,
-             const std::vector<ConeValidator*>& coneValidator, ConeEvaluator* coneEvaluator);
+             const std::vector<ConeValidator*>& coneValidator, ConeEvaluator* coneEvaluator,
+             std::string mode);
 
   /**
    * @brief Callback function for the PointCloud2 subscription.
