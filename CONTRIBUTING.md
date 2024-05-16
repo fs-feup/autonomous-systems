@@ -75,7 +75,7 @@ ros2 run [package_name] [node_name] --ros-args --log-level [node_name]:=[log_lev
 
 | Module | Package name | Node name | Compilation command | Running command | 
 | ------ | ------------ | --------- | ------------------------ | -------|
-| Localization and Mapping | loc_map | loc_map | colcon build --packages-select loc_map custom_interfaces eufs_msgs fs_msgs | ros2 run loc_map loc_map | 
+| Localization and Mapping | ekf_state_est | ekf_state_est | colcon build --packages-select ekf_state_est custom_interfaces eufs_msgs fs_msgs | ros2 run ekf_state_est ekf_state_est | 
 | Path Planning | planning | planning | colcon build --packages-select custom_interfaces planning | ros2 run planning planning |
 | Perception | perception | perception | colcon build --packages-select perception custom_interfaces | ros2 run perception perception |
 | All | - | - | colcon build --symlink-install | -

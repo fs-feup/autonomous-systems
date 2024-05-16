@@ -233,7 +233,7 @@ Commit types:
 
 You can combine two types like so: "docs-fix(...".
 
-The scope is to which part of the repo changes apply ('loc_map', 'perception', 'static_tools', etc.). There is no limit to the options. If it is something general, it may not have scope.
+The scope is to which part of the repo changes apply ('ekf_state_est', 'perception', 'static_tools', etc.). There is no limit to the options. If it is something general, it may not have scope.
 
 ### Pull Requests
 

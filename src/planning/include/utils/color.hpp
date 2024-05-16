@@ -12,15 +12,16 @@ namespace colors {
 enum Color {
   blue = 0,
   yellow,
-  orange,
-  large_orange,
+  ORANGE,
+  LARGE_ORANGE,
 };
-static const char *color_names[] = {"blue_cone", "yellow_cone", "orange_cone", "large_orange_cone"};
+static const char *color_names[] = {"blue_cone", "yellow_cone", "orange_cone",
+                                    "large_orange_cone"};
 static const std::map<std::string, Color> color_map = {
     {"blue_cone", Color::blue},
     {"yellow_cone", Color::yellow},
-    {"orange_cone", Color::orange},
-    {"large_orange_cone", Color::large_orange},
+    {"orange_cone", Color::ORANGE},
+    {"large_orange_cone", Color::LARGE_ORANGE},
 };
 }  // namespace colors
 
