@@ -1,7 +1,7 @@
 <map id="src/control/test" name="src/control/test">
 <area shape="rect" id="node1" href="dir_586f28d0e269bce34d2fc44ee8f3129e.html" title="include" alt="" coords="26,126,89,152"/>
 <area shape="rect" id="node2" href="dir_b7677807eb66f0e087a026569055ef61.html" title="test" alt="" coords="36,52,79,78"/>
-<area shape="poly" id="edge1" href="dir_000076_000032.html" alt="" coords="60,78,60,110,55,110,55,78"/>
-<area shape="rect" id="edge1-headlabel" href="dir_000076_000032.html" title="1" alt="" coords="62,100,69,115"/>
+<area shape="poly" id="edge1" href="dir_000074_000032.html" alt="" coords="60,78,60,110,55,110,55,78"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000074_000032.html" title="1" alt="" coords="62,100,69,115"/>
 <area shape="rect" id="clust1" href="dir_b81b067251166617f9d0a8c0cfc3a4a9.html" title="control" alt="" coords="16,16,99,162"/>
 </map>

@@ -4,7 +4,7 @@ var searchData=
   ['get_5fcolor_5fenum_1',['get_color_enum',['../d9/d2b/namespacecommon__lib_1_1competition__logic.html#a72953c74cbe411c7b5ac5aa72e437b05',1,'common_lib::competition_logic']]],
   ['get_5fcolor_5fstring_2',['get_color_string',['../d9/d2b/namespacecommon__lib_1_1competition__logic.html#a843c25f51bc237705083bc50bafa67af',1,'common_lib::competition_logic::get_color_string(int color)'],['../d9/d2b/namespacecommon__lib_1_1competition__logic.html#a37abda74e8868f424f1b353ca0600022',1,'common_lib::competition_logic::get_color_string(Color color)']]],
   ['get_5fcovariance_3',['get_covariance',['../da/da6/class_extended_kalman_filter.html#a131c93e908354173fd6868235d63fc9c',1,'ExtendedKalmanFilter']]],
-  ['get_5fcurrent_5fdate_5ftime_5fas_5fstring_4',['get_current_date_time_as_string',['../dd/df6/planning_2test_2tests_8cpp.html#a2c3bbc9fd458920b2aa9308286235fd9',1,'get_current_date_time_as_string():&#160;tests.cpp'],['../d3/d72/planning_2test_2performance__test_8cpp.html#a2c3bbc9fd458920b2aa9308286235fd9',1,'get_current_date_time_as_string():&#160;tests.cpp'],['../d3/d0d/class_perception_performance_test.html#aef19848eecd547a0ca1f4240817d90db',1,'PerceptionPerformanceTest::get_current_date_time_as_string()'],['../df/d4f/class_performance_test.html#a581ee935533812eaa6625aa5bef4e79d',1,'PerformanceTest::get_current_date_time_as_string()']]],
+  ['get_5fcurrent_5fdate_5ftime_5fas_5fstring_4',['get_current_date_time_as_string',['../d3/d72/planning_2test_2performance__test_8cpp.html#a2c3bbc9fd458920b2aa9308286235fd9',1,'get_current_date_time_as_string():&#160;tests.cpp'],['../dd/df6/planning_2test_2tests_8cpp.html#a2c3bbc9fd458920b2aa9308286235fd9',1,'get_current_date_time_as_string():&#160;tests.cpp'],['../d3/d0d/class_perception_performance_test.html#aef19848eecd547a0ca1f4240817d90db',1,'PerceptionPerformanceTest::get_current_date_time_as_string()'],['../df/d4f/class_performance_test.html#a581ee935533812eaa6625aa5bef4e79d',1,'PerformanceTest::get_current_date_time_as_string()']]],
   ['get_5finitial_5fcone_5',['get_initial_cone',['../dd/d52/class_cone_coloring.html#ab7606807a4493f219ccaa3fccf259943',1,'ConeColoring']]],
   ['get_5finter_5fcones_5fdistance_6',['get_inter_cones_distance',['../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a1b2b34e006c2d23961d40c2f938fdb5d',1,'evaluator::evaluator::Evaluator']]],
   ['get_5flast_5fupdate_7',['get_last_update',['../da/da6/class_extended_kalman_filter.html#a5a7a39bf3463c3d2dad7c71319a98a8a',1,'ExtendedKalmanFilter']]],
@@ -22,7 +22,7 @@ var searchData=
   ['getcentroid_19',['getCentroid',['../d2/d23/class_cluster.html#a10c9083c69c40e95596c95a8870bfc34',1,'Cluster']]],
   ['getcolor_20',['getColor',['../d2/d23/class_cluster.html#a8f05a4df1d8860c60b1cb32b662664a1',1,'Cluster']]],
   ['getconfidence_21',['getConfidence',['../d2/d23/class_cluster.html#a0af7e402728b298a456ad0b54ad280bd',1,'Cluster']]],
-  ['getdistanceto_22',['getdistanceto',['../d9/d32/class_path_point.html#a88f058d98c6ef403f769cf440358fd23',1,'PathPoint::getDistanceTo()'],['../d8/da1/class_cone.html#a14a49d09bc10d53888d06e183c6d1206',1,'Cone::getDistanceTo()']]],
+  ['getdistanceto_22',['getdistanceto',['../d8/da1/class_cone.html#a14a49d09bc10d53888d06e183c6d1206',1,'Cone::getDistanceTo()'],['../d9/d32/class_path_point.html#a88f058d98c6ef403f769cf440358fd23',1,'PathPoint::getDistanceTo()']]],
   ['getdistancetopoint_23',['getDistanceToPoint',['../d2/d8d/class_plane.html#af82d0bad17904da9738be73bbe3eb3ee',1,'Plane']]],
   ['getid_24',['getId',['../d8/da1/class_cone.html#ad6448719967d79b51a6e9586d28897d8',1,'Cone']]],
   ['getleftconeat_25',['getLeftConeAt',['../d6/d2c/class_track.html#aeb46e6fbc74096c298262b84cd81b77f',1,'Track']]],
@@ -39,6 +39,5 @@ var searchData=
   ['gety_36',['gety',['../d9/d32/class_path_point.html#a722e36fc4d8964c3efe0fb96315be015',1,'PathPoint::getY()'],['../d8/da1/class_cone.html#a952987a9de5d20d7930b3e93c04fd278',1,'Cone::getY()']]],
   ['globalpathplanner_37',['GlobalPathPlanner',['../d2/da4/class_global_path_planner.html#a04a4cbd5b1042ec0d9bd8be8b1dca68e',1,'GlobalPathPlanner']]],
   ['groundremoval_38',['groundremoval',['../d6/dc3/class_r_a_n_s_a_c.html#a5679db00dced54c0e28adfcde3ef7ac9',1,'RANSAC::groundRemoval()'],['../dc/d84/class_ground_removal.html#a6cd0bf6e3b5d5a7b201678ce061162e9',1,'GroundRemoval::groundRemoval()']]],
-  ['gsl_5fvectorlog_39',['gsl_vectorLog',['../d6/d2c/class_track.html#af8be3556aade761aa0851df8b6371dce',1,'Track']]],
-  ['gtruth_5ffromfile_40',['gtruth_fromfile',['../df/d88/planning__mock_8hpp.html#acc6bb783c0172ebf2f5a6f12ef439df3',1,'gtruth_fromfile(std::istream &amp;in):&#160;planning_mock.cpp'],['../d8/d7c/planning__mock_8cpp.html#acc6bb783c0172ebf2f5a6f12ef439df3',1,'gtruth_fromfile(std::istream &amp;in):&#160;planning_mock.cpp']]]
+  ['gsl_5fvectorlog_39',['gsl_vectorLog',['../d6/d2c/class_track.html#af8be3556aade761aa0851df8b6371dce',1,'Track']]]
 ];

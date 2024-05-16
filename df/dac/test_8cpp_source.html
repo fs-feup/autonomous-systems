@@ -104,7 +104,7 @@ $(document).ready(function(){initNavTree('df/dac/test_8cpp_source.html','../../'
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;set&gt;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;gtest/gtest.h&quot;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="../../df/d88/planning__mock_8hpp.html">planning/planning_mock.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="../../d8/d55/mocks_8hpp.html">utils/mocks.hpp</a>&quot;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;rclcpp/rclcpp.hpp&quot;</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">// Test case for valid input</span></div>
@@ -113,7 +113,7 @@ $(document).ready(function(){initNavTree('df/dac/test_8cpp_source.html','../../'
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>  std::string mockFileContent(<span class="stringliteral">&quot;header asdasd\n-1.0,0,3.1416\n4.0,5.0,6.0\n7.5,-8.5,9.8&quot;</span>);</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>  std::istringstream mockFileStream(mockFileContent);</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>  custom_interfaces::msg::PathPointArray result = <a class="code hl_function" href="../../df/d88/planning__mock_8hpp.html#acc6bb783c0172ebf2f5a6f12ef439df3">gtruth_fromfile</a>(mockFileStream);</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>  custom_interfaces::msg::PathPointArray result = <a class="code hl_function" href="../../d8/d55/mocks_8hpp.html#ad7efec0603f4091fdc6e2287143c67ce">planning_gtruth_fromfile</a>(mockFileStream);</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>  <span class="comment">// Uncomment the following lines to see each value in case of bugs</span></div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>  <span class="comment">// std::cout &lt;&lt; result.pathpoint_array[0].x &lt;&lt; &quot; , &quot; &lt;&lt; result.pathpoint_array[0].y</span></div>
@@ -142,7 +142,7 @@ $(document).ready(function(){initNavTree('df/dac/test_8cpp_source.html','../../'
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>  std::string mockFileContent(<span class="stringliteral">&quot;&quot;</span>);</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>  std::istringstream mockFileStream(mockFileContent);</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>  custom_interfaces::msg::PathPointArray result = <a class="code hl_function" href="../../df/d88/planning__mock_8hpp.html#acc6bb783c0172ebf2f5a6f12ef439df3">gtruth_fromfile</a>(mockFileStream);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>  custom_interfaces::msg::PathPointArray result = <a class="code hl_function" href="../../d8/d55/mocks_8hpp.html#ad7efec0603f4091fdc6e2287143c67ce">planning_gtruth_fromfile</a>(mockFileStream);</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>  ASSERT_EQ(result.pathpoint_array.size(), 0);  <span class="comment">// No points should be added</span></div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>}</div>
@@ -154,14 +154,14 @@ $(document).ready(function(){initNavTree('df/dac/test_8cpp_source.html','../../'
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>  std::string mockFileContent(<span class="stringliteral">&quot;header\n-1.0,0,3.1416\n4.0,5.0,6.0\n7.5,-8.5,9.8\ninvalid&quot;</span>);</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>  std::istringstream mockFileStream(mockFileContent);</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>  custom_interfaces::msg::PathPointArray result = <a class="code hl_function" href="../../df/d88/planning__mock_8hpp.html#acc6bb783c0172ebf2f5a6f12ef439df3">gtruth_fromfile</a>(mockFileStream);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>  custom_interfaces::msg::PathPointArray result = <a class="code hl_function" href="../../d8/d55/mocks_8hpp.html#ad7efec0603f4091fdc6e2287143c67ce">planning_gtruth_fromfile</a>(mockFileStream);</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  ASSERT_EQ(result.pathpoint_array.size(),</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>            3);  <span class="comment">// Three points should be added; the other line should be ignored</span></div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>}</div>
 </div>
-<div class="ttc" id="aplanning__mock_8hpp_html"><div class="ttname"><a href="../../df/d88/planning__mock_8hpp.html">planning_mock.hpp</a></div></div>
-<div class="ttc" id="aplanning__mock_8hpp_html_acc6bb783c0172ebf2f5a6f12ef439df3"><div class="ttname"><a href="../../df/d88/planning__mock_8hpp.html#acc6bb783c0172ebf2f5a6f12ef439df3">gtruth_fromfile</a></div><div class="ttdeci">custom_interfaces::msg::PathPointArray gtruth_fromfile(std::istream &amp;in)</div><div class="ttdoc">read ground truth information from stream and place it in an array of PathPoint objects</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d7c/planning__mock_8cpp_source.html#l00011">planning_mock.cpp:11</a></div></div>
+<div class="ttc" id="amocks_8hpp_html"><div class="ttname"><a href="../../d8/d55/mocks_8hpp.html">mocks.hpp</a></div></div>
+<div class="ttc" id="amocks_8hpp_html_ad7efec0603f4091fdc6e2287143c67ce"><div class="ttname"><a href="../../d8/d55/mocks_8hpp.html#ad7efec0603f4091fdc6e2287143c67ce">planning_gtruth_fromfile</a></div><div class="ttdeci">custom_interfaces::msg::PathPointArray planning_gtruth_fromfile(std::istream &amp;in)</div><div class="ttdoc">read planning ground truth information from stream and place it in an array of PathPoint objects</div><div class="ttdef"><b>Definition</b> <a href="../../dc/d48/mocks_8cpp_source.html#l00011">mocks.cpp:11</a></div></div>
 <div class="ttc" id="atest_8cpp_html_abd3421379519f288ad23e7a6da65ca61"><div class="ttname"><a href="../../df/dac/test_8cpp.html#abd3421379519f288ad23e7a6da65ca61">TEST</a></div><div class="ttdeci">TEST(GTruthFromFileTest, ValidInput)</div><div class="ttdef"><b>Definition</b> <a href="../../df/dac/test_8cpp_source.html#l00010">test.cpp:10</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

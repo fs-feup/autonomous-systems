@@ -3,6 +3,8 @@ var classevaluator_1_1evaluator_1_1_evaluator =
     [ "__init__", "dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a829a8cb5c9d969b7ceacd9e59146b7be", null ],
     [ "compute_and_publish_perception", "dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#adab12cd2fd949bcb589786f03ff63aed", null ],
     [ "perception_callback_time_measurement", "dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a70831dca93f611102095496f5c9bbb61", null ],
+    [ "planning_callback", "dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a015e480421eae818babb86de3fcdcd45", null ],
+    [ "planning_gt_callback", "dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a6b6ca506c3a2bbd22e2cc613f803a5c1", null ],
     [ "adapter", "dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a2fa1e1b009fdaf753356c9df194a6a63", null ],
     [ "end_time", "dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a78e9c198a50fbb5da2e72eda7de6a404", null ],
     [ "perception_execution_time", "dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a852e5ef345d69a769fc5bec79dea4008", null ],
@@ -11,5 +13,14 @@ var classevaluator_1_1evaluator_1_1_evaluator =
     [ "perception_mean_squared_difference", "dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#aef064cb20626a40b00579ff0afdc691c", null ],
     [ "perception_output", "dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a24fe74d37f4cca6146ed9ee0b0e8458d", null ],
     [ "perception_root_mean_squared_difference", "dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a9997b79a78be19f887097666075b9656", null ],
-    [ "perception_subscription", "dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a5dc3df5998220a865365643c551d94a0", null ]
+    [ "perception_subscription", "dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a5dc3df5998220a865365643c551d94a0", null ],
+    [ "planning_callback", "dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a8c8d357057a2f4935b54780f8660a228", null ],
+    [ "planning_execution_time", "dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a83fea1cbfa65fb73898c0dc8e22e6f95", null ],
+    [ "planning_gt_callback", "dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#acbb585cf87d5c30e82464ae27109d23c", null ],
+    [ "planning_gt_subscription", "dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a524cc467d0bc0b9effda74d99d0a1ad9", null ],
+    [ "planning_mean_difference", "dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a8ae7bdc27463627edf88b2d1319d0899", null ],
+    [ "planning_mean_squared_difference", "dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a70ae548100beedfcccb9943784bfa8c5", null ],
+    [ "planning_mock", "dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#aeb58e87b77d8f5add019776b8b1a8673", null ],
+    [ "planning_root_mean_squared_difference", "dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#ad0c7b01c555e006cf9c248d4898a21a8", null ],
+    [ "planning_subscription", "dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a1dbad81ec271c7d447c34af8d980ee7d", null ]
 ];
