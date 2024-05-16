@@ -10,6 +10,9 @@ set(IMPLEMENTATION_FILES
   src/pid/pid.cpp
   src/adapter_control/adapter.cpp
   src/adapter_control/fsds.cpp
+  src/adapter_control/pac_sim.cpp
+  src/adapter_control/eufs.cpp
+  src/adapter_control/vehicle.cpp
 )
 
 # find dependencies
@@ -20,12 +23,13 @@ find_package(sensor_msgs REQUIRED)
 find_package(custom_interfaces REQUIRED)
 find_package(fs_msgs REQUIRED)
 find_package(message_filters REQUIRED)
+find_package(pacsim REQUIRED)
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 
 add_executable(node_control src/main.cpp ${IMPLEMENTATION_FILES})
-ament_target_dependencies(node_control rclcpp std_msgs sensor_msgs custom_interfaces fs_msgs message_filters)
+ament_target_dependencies(node_control rclcpp std_msgs sensor_msgs custom_interfaces fs_msgs message_filters pacsim)
 target_include_directories(node_control PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
@@ -45,7 +49,7 @@ if(BUILD_TESTING)
   include_directories(${CMAKE_CURRENT_SOURCE_DIR})  # Include the current source directory
   ament_add_gtest(${PROJECT_NAME}_test ${TESTFILES} ${IMPLEMENTATION_FILES})
 
-  ament_target_dependencies(${PROJECT_NAME}_test rclcpp std_msgs sensor_msgs fs_msgs custom_interfaces message_filters)
+  ament_target_dependencies(${PROJECT_NAME}_test rclcpp std_msgs sensor_msgs fs_msgs custom_interfaces message_filters pacsim)
   target_include_directories(${PROJECT_NAME}_test PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>)

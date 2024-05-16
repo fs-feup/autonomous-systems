@@ -33,7 +33,8 @@ Control::Control()
       path_point_array_sub_(this, "/path_planning/path"),
       path_cache_(path_point_array_sub_, 10) {
   pose_sub_.registerCallback(&Control::publish_control, this);
+  adapter_mode = declare_parameter("mode", "vehicle");
 
   // Adapter to communicate with the car
-  this->adapter_ = adapter_map[mode](this);
+  this->adapter_ = adapter_map[adapter_mode](this);
 }

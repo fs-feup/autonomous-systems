@@ -12,7 +12,6 @@
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
 
-
 class Adapter;
 
 /**
@@ -29,8 +28,7 @@ class Control : public rclcpp::Node {
   message_filters::Cache<custom_interfaces::msg::PathPointArray> path_cache_;
 
   Adapter *adapter_;
-  std::string mode = "car";  // Temporary, change as desired. TODO(andre): Make not hardcoded
-
+  std::string adapter_mode;
 
   /**
    * @brief Publishes the steering angle to the car based on the path and pose using cache
