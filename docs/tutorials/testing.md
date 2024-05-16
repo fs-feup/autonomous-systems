@@ -24,7 +24,7 @@ There are also many tutorials for these tools. You can also check the [ROS docum
 
 Integration tests acess the system's different functions from top to bottom. In our case, integration tests would reflect in something like testing the behaviour of a certain node.
 
-Using the same tools as for the unit tests, we can create integration tests by simply coding other ROS2 nodes inside the tests that are able to communicate with the actual nodes of the system (something like testing nodes). This way can be seen being aplied in [this test file](../../src/loc_map/test/integration_test.cpp). The idea is simply coding a simpler node to test the other nodes and launch it together with the real nodes in a mocked environment.
+Using the same tools as for the unit tests, we can create integration tests by simply coding other ROS2 nodes inside the tests that are able to communicate with the actual nodes of the system (something like testing nodes). This way can be seen being aplied in [this test file](../../src/ekf_state_est/test/integration_test.cpp). The idea is simply coding a simpler node to test the other nodes and launch it together with the real nodes in a mocked environment.
 
 Integration tests should be created for every node and possibly for a few big components.
 
@@ -49,11 +49,11 @@ To run normal tests:
     ```
 - use --packages-select flag to select only one package
     ```sh
-    colcon test --packages-select loc_map
+    colcon test --packages-select ekf_state_est
     ```
 - run only one file in C++ (Gtest)
     ```sh
-    ros2 run loc_map loc_map_test # (for loc_map)
+    ros2 run ekf_state_est ekf_state_est_test # (for ekf_state_est)
     ```
 - run only one test in python ```python <test_file>```
 
