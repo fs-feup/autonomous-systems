@@ -12,8 +12,6 @@
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
 
-#include "pid/pid.hpp"
-#include "pure_pursuit/pure_pursuit.hpp"
 
 class Adapter;
 
