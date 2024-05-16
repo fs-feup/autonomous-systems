@@ -4,7 +4,7 @@
 #include <empty__struct.hpp>
 
 #include "adapter_planning/adapter.hpp"
-#include "custom_interfaces/msg/pose.hpp"
+#include "custom_interfaces/msg/vehicle_state.hpp"
 #include "pacsim/msg/stamped_scalar.hpp"
 #include "sensor_msgs/msg/joint_state.hpp"
 #include "std_srvs/srv/trigger.hpp"
@@ -18,7 +18,7 @@ class PacSimAdapter : public Adapter {
   float provisional_front_steering = 0;
   float provisional_rear_steering = 0;
 
- public:
+public:
   explicit PacSimAdapter(Planning* planning);
 
   void init() override;

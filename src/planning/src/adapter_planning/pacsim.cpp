@@ -16,7 +16,7 @@ void PacSimAdapter::init() {
       std::bind(&PacSimAdapter::rear_steering_callback, this, std::placeholders::_1));
 
   this->pose_sub = this->node->create_subscription<sensor_msgs::msg::JointState>(
-      "/joint_states", 10, std::bind(&PacSimAdapter::publish_pose, this, std::placeholders::_1));
+      "/tf", 10, std::bind(&PacSimAdapter::publish_pose, this, std::placeholders::_1));
 }
 
 void PacSimAdapter::front_steering_callback(pacsim::msg::StampedScalar& msg) {
@@ -28,8 +28,8 @@ void PacSimAdapter::rear_steering_callback(pacsim::msg::StampedScalar& msg) {
 }
 
 void PacSimAdapter::publish_pose(/*tipo de mensagem do pacsim para posição*/) {
-  custom_interfaces::msg::Pose pose;
-  pose.steering_angle = (this->provisional_front_steering + this->provisional_rear_steering) / 2;
+  custom_interfaces::msg::VehicleState pose;
+  pose.theta = (this->provisional_front_steering + this->provisional_rear_steering) / 2;
   pose.position.x = 0;  // provisional
   pose.position.y = 0;  // provisional
   this->node->vehicle_localization_callback(pose);
