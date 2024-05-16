@@ -111,6 +111,7 @@ double ConeColoring::cost(const Cone *possible_next_cone, int n, TrackSide side)
   if (current_cones.size() < 2) {
     RCLCPP_ERROR(rclcpp::get_logger("rclcpp"),
                  "Not enough cones to calculate cost when coloring cones");
+    throw std::runtime_error("Not enough cones to calculate cost in Cone Coloring");
   }
   AngleNorm angle_norm;
   angle_norm = angle_and_norm(possible_next_cone, side);
