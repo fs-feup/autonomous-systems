@@ -58,8 +58,8 @@ jobs: # Jobs are like processes that run in parallel on different machines
       - name: Build and Test Localization and Mapping
         run: |
           source install/setup.bash
-          colcon build --packages-select loc_map
-          colcon test --packages-select loc_map --event-handler=console_direct+
+          colcon build --packages-select ekf_state_est
+          colcon test --packages-select ekf_state_est --event-handler=console_direct+
 
 ```
 

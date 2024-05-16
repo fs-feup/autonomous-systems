@@ -10,7 +10,6 @@
 #include <functional>
 #include <memory>
 #include <rclcpp/rclcpp.hpp>
-#include <std_msgs/msg/string.hpp>
 #include <std_srvs/srv/trigger.hpp>
 #include <string>
 
@@ -30,7 +29,7 @@ constexpr double WHEELS_STOPPED_THRESHOLD = 0.01;
  * and publishing control commands.
  */
 class InspectionMission : public rclcpp::Node {
- private:
+private:
   rclcpp::Client<std_srvs::srv::Trigger>::SharedPtr finish_client;
   rclcpp::Client<std_srvs::srv::Trigger>::SharedPtr emergency_client;
   rclcpp::Publisher<custom_interfaces::msg::ControlCommand>::SharedPtr control_command_publisher;
@@ -52,8 +51,8 @@ class InspectionMission : public rclcpp::Node {
   rclcpp::Time initial_time;  // Ellapsed time in seconds
   InspectionFunctions inspection_object = InspectionFunctions();
 
-  bool go = false;  // Flag to start the mission
-  Mission mission;  // Mission to be executed;
+  bool go = false;                                 // Flag to start the mission
+  common_lib::competition_logic::Mission mission;  // Mission to be executed;
 
   /**
    * @brief Function for communication of end of mission
@@ -67,7 +66,7 @@ class InspectionMission : public rclcpp::Node {
   void handle_end_of_mission_response(
       rclcpp::Client<std_srvs::srv::Trigger>::SharedFuture future) const;
 
- public:
+public:
   /**
    * @brief recieves GoSignal and stores the mission that should be ran
    *
