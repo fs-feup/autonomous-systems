@@ -43,7 +43,8 @@ jobs:
         run: |
           source install/setup.bash
           colcon build --packages-select perception
-          colcon test --packages-select perception
+          colcon test --packages-select perception --event-handler=console_direct+
+          colcon test-result --all --verbose
 
   ekf_state_est:
     runs-on: ubuntu-latest
@@ -81,6 +82,7 @@ jobs:
           source install/setup.bash
           colcon build --packages-select ekf_state_est
           colcon test --packages-select ekf_state_est --event-handler=console_direct+
+          colcon test-result --all --verbose
 
       
   control:
@@ -119,6 +121,7 @@ jobs:
           source install/setup.bash
           colcon build --packages-select control
           colcon test --packages-select control --event-handler=console_direct+
+          colcon test-result --all --verbose
 
 
   planning:
@@ -157,6 +160,7 @@ jobs:
           source install/setup.bash
           colcon build --packages-select planning
           colcon test --packages-select planning --event-handler=console_direct+
+          colcon test-result --all --verbose
 
 
   inspection:
@@ -195,6 +199,7 @@ jobs:
           source install/setup.bash
           colcon build --packages-select inspection
           colcon test --packages-select inspection --event-handler=console_direct+
+          colcon test-result --all --verbose
 
   mocker_node:
     runs-on: ubuntu-latest
@@ -232,5 +237,6 @@ jobs:
           source install/setup.bash
           colcon build --packages-select mocker_node
           colcon test --packages-select mocker_node --event-handler=console_direct+
+          colcon test-result --all --verbose
 
 
