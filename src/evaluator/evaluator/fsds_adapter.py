@@ -2,10 +2,15 @@ from evaluator.adapter import Adapter
 import message_filters
 from nav_msgs.msg import Odometry
 from geometry_msgs.msg import Quaternion
-from sensor_msgs.msg import PointCloud2
 import numpy as np
-import datetime
-from custom_interfaces.msg import ConeArray
+from sensor_msgs.msg import PointCloud2
+from evaluator.formats import format_cone_array_msg
+from custom_interfaces.msg import ConeArray, VehicleState
+from formats import (
+    format_vehicle_state_msg,
+    format_cone_array_msg,
+    format_nav_odometry_msg,
+)
 import rclpy
 
 
@@ -14,7 +19,7 @@ class FSDSAdapter(Adapter):
     Adapter class for adapting/synchronizing computaions' data with ground truth.
     """
 
-    def __init__(self, node: rclpy.node.Node, point_cloud_topic: str):
+    def __init__(self, node: rclpy.node.Node):
         """!
         Initializes the FSDSAdapter.
 
@@ -22,7 +27,7 @@ class FSDSAdapter(Adapter):
             node (Node): ROS2 node instance.
             point_cloud_topic (str): Topic for point cloud data.
         """
-        super().__init__(node, point_cloud_topic)
+        super().__init__(node)
 
         # Subscription to odometry messages
         self.node.odometry_subscription = message_filters.Subscriber(
@@ -32,7 +37,7 @@ class FSDSAdapter(Adapter):
         )
 
         # ApproximateTimeSynchronizer for synchronizing perception, point cloud, and odometry messages
-        self.ts = message_filters.ApproximateTimeSynchronizer(
+        self._perception_sync_ = message_filters.ApproximateTimeSynchronizer(
             [
                 self.node.perception_subscription,
                 self.node.point_cloud_subscription,
@@ -41,14 +46,23 @@ class FSDSAdapter(Adapter):
             10,
             0.1,
         )
+        self._state_estimation_sync_ = message_filters.ApproximateTimeSynchronizer(
+            [
+                self.node.vehicle_state_subscription,
+                self.node.map_subscription,
+                self.node.odometry_subscription,
+            ],
+            10,
+        )
 
-        self.ts.registerCallback(self.perception_callback)
+        self._perception_sync_.registerCallback(self.perception_callback)
+        self._state_estimation_sync_.registerCallback(self.state_estimation_callback)
 
         # List to store track data
         self.track = []
 
         # Read track data from a CSV file
-        self.readTrack("src/evaluator/evaluator/tracks/track_droneport.csv")
+        self.read_track("src/evaluator/evaluator/tracks/track_droneport.csv")
 
     def perception_callback(
         self, perception: ConeArray, point_cloud: PointCloud2, odometry: Odometry
@@ -62,28 +76,40 @@ class FSDSAdapter(Adapter):
             odometry (Odometry): Odometry data.
         """
 
-        self.node.perception_ground_truth: list = self.create_ground_truth(odometry)
-        self.node.perception_output: list = self.create_perception_output(perception)
-        self.node.compute_and_publish_perception()
+        perception_ground_truth: np.ndarray = self.create_perception_ground_truth(
+            odometry
+        )
+        perception_output: np.ndarray = format_cone_array_msg(perception)
+        self.node.compute_and_publish_perception(
+            perception_output, perception_ground_truth
+        )
 
-    def create_perception_output(self, perception: PointCloud2):
+    def state_estimation_callback(
+        self, vehicle_state: VehicleState, map: ConeArray, odometry: Odometry
+    ):
         """!
-        Creates perception output from cone array messages.
+        Callback function to process synchronized messages and compute perception metrics.
 
         Args:
-            perception (ConeArray): Cone array perception data.
-
-        Returns:
-            list: List of perceived cones.
+            vehicle_state (VehicleState): Vehicle state estimation message.
+            map (ConeArray): Cone array message.
+            odometry (Odometry): Odometry message.
         """
-        perception_output = []
+        pose_treated, velociies_treated = format_vehicle_state_msg(vehicle_state)
+        map_treated: np.ndarray = format_cone_array_msg(map)
+        groundtruth_pose_treated: np.ndarray = format_nav_odometry_msg(odometry)
+        groundtruth_map_treated: np.ndarray = np.array(self.track)
+        empty_groundtruth_velocity_treated = np.array([0, 0, 0])
+        self.node.compute_and_publish_state_estimation(
+            pose_treated,
+            groundtruth_pose_treated,
+            velociies_treated,
+            empty_groundtruth_velocity_treated,
+            map_treated,
+            groundtruth_map_treated,
+        )
 
-        for cone in perception.cone_array:
-            perception_output.append(np.array([cone.position.x, cone.position.y, 0.0]))
-
-        return perception_output
-
-    def create_ground_truth(self, odometry: Odometry):
+    def create_perception_ground_truth(self, odometry: Odometry) -> list:
         """!
         Creates ground truth from odometry data and a predefined track.
 
@@ -99,9 +125,9 @@ class FSDSAdapter(Adapter):
         perception_ground_truth = []
 
         for cone in self.track:
-            cone_position = np.array([cone[0], cone[1], 0.0])
+            cone_position = np.array([cone[0], cone[1], 0, 0])
             transformed_position = np.dot(rotation_matrix, cone_position) + np.array(
-                [odometry.pose.pose.position.x, odometry.pose.pose.position.y, 0.0]
+                [odometry.pose.pose.position.x, odometry.pose.pose.position.y, 0, 0]
             )
 
             perception_ground_truth.append(f"{transformed_position}")
@@ -109,7 +135,7 @@ class FSDSAdapter(Adapter):
 
         return perception_ground_truth
 
-    def readTrack(self, filename: str):
+    def read_track(self, filename: str) -> None:
         """!
         Reads track data from a CSV file.
 
@@ -118,10 +144,10 @@ class FSDSAdapter(Adapter):
         """
         with open(filename, "r") as file:
             for line in file:
-                self.track.append(self.parseTrackCone(line.strip()))
+                self.track.append(self.parse_track_cone(line.strip()))
 
     @staticmethod
-    def parseTrackCone(line: str):
+    def parse_track_cone(line: str) -> np.ndarray:
         """!
         Parses a line from the track CSV file to extract cone data.
 
@@ -131,13 +157,21 @@ class FSDSAdapter(Adapter):
         Returns:
             numpy.ndarray: Array containing cone position data.
         """
+        cone_color_dictionary: dict[str, int] = {
+            "blue": 0,
+            "yellow": 1,
+            "orange": 2,
+            "big_orange": 3,
+            "unknown": 4,
+        }
         words = line.split(",")
         y = float(words[1])
         x = float(words[2])
-        return np.array([x, y, 0])
+        color = cone_color_dictionary[words[3]]
+        return np.array([x, y, color, 1])  # 4 for unknown color
 
     @staticmethod
-    def quaternion_to_rotation_matrix(quaternion: Quaternion):
+    def quaternion_to_rotation_matrix(quaternion: Quaternion) -> np.ndarray:
         """!
         Converts quaternion to a rotation matrix.
 

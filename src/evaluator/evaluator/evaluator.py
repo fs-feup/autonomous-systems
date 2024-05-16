@@ -1,13 +1,26 @@
 import rclpy
 from rclpy.node import Node
-from custom_interfaces.msg import ConeArray
-from evaluator.fsds_adapter import FSDSAdapter
+from custom_interfaces.msg import ConeArray, VehicleState
+from evaluator.adapter import Adapter
+from evaluator.metrics import (
+    get_mean_squared_difference,
+    get_average_difference,
+    get_inter_cones_distance,
+)
+import tf2_ros
+import sys
+from tf2_ros.transform_listener import TransformListener
+from evaluator.adapter_maps import (
+    ADAPTER_CONSTRUCTOR_DICTINARY,
+    ADAPTER_POINT_CLOUD_TOPIC_DICTINARY,
+)
 import message_filters
 import numpy as np
-from std_msgs.msg import Float32
+import rclpy.subscription
+from std_msgs.msg import Float32, Float32MultiArray
+from sensor_msgs.msg import PointCloud2
 import datetime
 from math import sqrt
-from scipy.sparse.csgraph import minimum_spanning_tree
 
 
 class Evaluator(Node):
@@ -22,193 +35,214 @@ class Evaluator(Node):
         super().__init__("evaluator")
         self.get_logger().info("Evaluator Node has started")
 
-        # Subscription to cone array messages (from perception)
-        self.perception_subscription = message_filters.Subscriber(
-            self, ConeArray, "cones"
+        # Parameters
+        self._adapter_name_: str = self.declare_parameter("adapter", "pacsim")
+        self.use_simulated_perception_: bool = self.declare_parameter(
+            "use_simulated_perception", False
         )
+        if (self._adapter_name_ == "fsds") and (self.use_simulated_perception_):
+            rclpy.get_logger().error(
+                "Simulated perception is not supported for FSDS adapter"
+            )
+            sys.exit(1)
 
-        self.perception_subscription.registerCallback(
-            self.perception_callback_time_measurement
+        # Subscriptions
+        self.perception_subscription_ = self.create_subscription(
+            ConeArray,
+            "/perception/cones",
+            self.perception_callback_time_measurement,
+        )
+        self.map_subscription_ = self.create_subscription(
+            ConeArray,
+            "/state_estimation/map",
+            self.map_callback_time_measurement,
+        )
+        self.state_subscription_ = self.create_subscription(
+            VehicleState,
+            "/state_estimation/vehicle_state",
+            self.state_estimation_callback,
+        )
+        self.transform_buffer_ = tf2_ros.Buffer(self)
+        self._transforms_listener_ = TransformListener(self.transforms_listener_, self)
+        # Subscription to point cloud messages for time measurement
+        self.point_cloud_subscription_ = self.create_subscription(
+            PointCloud2,
+            ADAPTER_POINT_CLOUD_TOPIC_DICTINARY[self._adapter_name_],
+            self.point_cloud_callback,
         )
 
         # Publishers for perception metrics
-        self.perception_mean_difference = self.create_publisher(
-            Float32, "/perception/metrics/mean_difference", 10
+        self._perception_mean_difference_ = self.create_publisher(
+            Float32, "/evaluator/perception/mean_difference", 10
         )
-        self.perception_mean_squared_difference = self.create_publisher(
-            Float32, "/perception/metrics/mean_squared_difference", 10
+        self._perception_mean_squared_difference_ = self.create_publisher(
+            Float32, "/evaluator/perception/mean_squared_difference", 10
         )
-        self.perception_root_mean_squared_difference = self.create_publisher(
-            Float32, "/perception/metrics/root_mean_squared_difference", 10
+        self._perception_root_mean_squared_difference_ = self.create_publisher(
+            Float32, "/evaluator/perception/root_mean_squared_difference", 10
         )
-        self.perception_inter_cones_distance = self.create_publisher(
-            Float32, "/perception/metrics/inter_cones_distance", 10
+        self._perception_inter_cones_distance_ = self.create_publisher(
+            Float32, "/evaluator/perception/inter_cones_distance", 10
         )
-        self.perception_execution_time = self.create_publisher(
-            Float32, "/perception/metrics/execution_time", 10
+        self._perception_execution_time_ = self.create_publisher(
+            Float32, "/evaluator/perception/execution_time", 10
         )
 
-        # FSDS adapter for lidar data
-        self.adapter = FSDSAdapter(self, "/lidar/Lidar1")
+        # Publishers for state estimation metrics
+        self._map_execution_time_ = self.create_publisher(
+            Float32, "/evaluator/state_estimation/execution_time", 10
+        )
+        self._vehicle_state_difference_ = self.create_publisher(
+            Float32MultiArray,
+            "/evaluator/state_estimation/vehicle_state_difference",
+            10,
+        )
+        self._map_mean_squared_difference_ = self.create_publisher(
+            Float32, "/evaluator/state_estimation/map_mean_squared_difference", 10
+        )
+        self._map_mean_difference_ = self.create_publisher(
+            Float32, "/evaluator/state_estimation/map_mean_difference", 10
+        )
+        self._map_root_mean_squared_difference_ = self.create_publisher(
+            Float32, "/evaluator/state_estimation/map_root_mean_squared_difference", 10
+        )
 
-    # Perception Calback for execution time measurement
-    def perception_callback_time_measurement(self, msg: ConeArray):
+        # Adapter selection
+        self._adapter_: Adapter = ADAPTER_CONSTRUCTOR_DICTINARY[self._adapter_name_](
+            self
+        )
+
+    def point_cloud_callback(self, _: PointCloud2):
+        """!
+        Point Cloud Callback to get the initial time of perception pipeline
+        """
+        self._point_cloud_receive_time_ = datetime.datetime.now()
+
+    def perception_callback_time_measurement(self, _: ConeArray) -> None:
         """!
         Computes the perception's execution time
         """
 
-        self.get_logger().info("Received perception")
-        self.end_time = datetime.datetime.now()
-        time_difference = self.end_time - self.start_time
+        self.get_logger().debug("Received perception")
+        self.perception_receive_time_ = datetime.datetime.now()
+        time_difference = (
+            self.perception_receive_time_ - self._point_cloud_receive_time_
+        )
         execution_time = Float32()
         execution_time.data = time_difference
-        self.perception_execution_time.publish(execution_time)
+        self._perception_execution_time_.publish(execution_time)
 
-    def compute_and_publish_perception(self):
+    def map_callback_time_measurement(self, _: ConeArray) -> None:
+        """!
+        Computes the SLAM's execution time
+        """
+
+        self.get_logger().debug("Received map")
+        self.map_receive_time_ = datetime.datetime.now()
+        time_difference = self.map_receive_time_ - self.perception_receive_time_
+        execution_time = Float32()
+        execution_time.data = time_difference
+        self._map_execution_time_.publish(execution_time)
+
+    def compute_and_publish_state_estimation(
+        self,
+        pose: np.ndarray,
+        groundtruth_pose: np.ndarray,
+        velocities: np.ndarray,
+        groundtruth_velocities: np.ndarray,
+        map: np.ndarray,
+        groundtruth_map: np.ndarray,
+    ) -> None:
         """!
         Computes perception metrics and publishes them.
+
+        Args:
+            pose (np.ndarray): Vehicle state estimation data. [x,y,theta]
+            groundtruth_pose (np.ndarray): Ground truth vehicle state data. [x,y,theta]
+            velocities (np.ndarray): Vehicle state estimation velocities. [v, v, w]
+            groundtruth_velocities (np.ndarray): Ground truth vehicle state velocities. [vx, vy, w]
+            map (np.ndarray): Map data. [[x,y,color,confidence]]
+            groundtruth_map (np.ndarray): Ground truth map data. [[x,y,color,confidence]]
         """
+        vehicle_state_error = Float32MultiArray()
+        vehicle_state_error.layout.dim[0].size = 6
+        vehicle_state_error.layout.dim[0].label = (
+            "vehicle state error: [x, y, theta, v, v, w]"
+        )
+        vehicle_state_error.data[0] = abs(pose[0] - groundtruth_pose[0])
+        vehicle_state_error.data[1] = abs(pose[1] - groundtruth_pose[1])
+        vehicle_state_error.data[2] = abs(pose[2] - groundtruth_pose[2])
+        vehicle_state_error.data[3] = abs(
+            velocities[0]
+            - sqrt(
+                pow(groundtruth_velocities[0], 2) + pow(groundtruth_velocities[1], 2)
+            )
+        )
+        vehicle_state_error.data[4] = abs(
+            velocities[1]
+            - sqrt(
+                pow(groundtruth_velocities[0], 2) + pow(groundtruth_velocities[1], 2)
+            )
+        )
+        vehicle_state_error.data[5] = abs(velocities[2] - groundtruth_velocities[2])
+
+        cone_positions = map[:, :2]
+        groundtruth_cone_positions = groundtruth_map[:, :2]
         mean_difference = Float32()
-        mean_difference.data = self.get_average_difference(
-            self.perception_output, self.perception_ground_truth
+        mean_difference.data = get_average_difference(
+            cone_positions, groundtruth_cone_positions
         )
 
-        mean_squared_error = Float32()
-        mean_squared_error.data = self.get_mean_squared_error(
-            self.perception_output, self.perception_ground_truth
-        )
-
-        inter_cones_distance = Float32()
-        inter_cones_distance.data = self.get_inter_cones_distance(
-            self.perception_output
+        mean_squared_difference = Float32()
+        mean_squared_difference.data = get_mean_squared_difference(
+            cone_positions, groundtruth_cone_positions
         )
 
         root_mean_squared_difference = Float32()
         root_mean_squared_difference.data = sqrt(
-            self.get_mean_squared_error(self.perception_output)
+            get_mean_squared_difference(cone_positions, groundtruth_cone_positions)
         )
+
+        self._vehicle_state_difference_.publish(vehicle_state_error)
+        self._map_mean_difference_.publish(mean_difference)
+        self._map_mean_squared_difference_.publish(mean_squared_difference)
+        self._map_root_mean_squared_difference_.publish(root_mean_squared_difference)
+
+    def compute_and_publish_perception(
+        self, perception_output: np.ndarray, perception_ground_truth: np.ndarray
+    ) -> None:
+        """!
+        Computes perception metrics and publishes them.
+
+        Args:
+            perception_output (np.ndarray): Perceived cones.
+            perception_ground_truth (np.ndarray): Ground truth cones.
+        """
+        cone_positions = perception_output[:, :2]
+        groundtruth_cone_positions = perception_ground_truth[:, :2]
+        mean_difference = Float32()
+        mean_difference.data = get_average_difference(
+            cone_positions, groundtruth_cone_positions
+        )
+
+        mean_squared_error = Float32()
+        mean_squared_error.data = get_mean_squared_difference(
+            cone_positions, groundtruth_cone_positions
+        )
+
+        inter_cones_distance = Float32()
+        inter_cones_distance.data = get_inter_cones_distance(cone_positions)
+
+        root_mean_squared_difference = Float32()
+        root_mean_squared_difference.data = sqrt(mean_squared_error.data)
 
         # Publishes computed perception metrics
-        self.perception_mean_difference.publish(mean_difference)
-        self.perception_inter_cones_distance.publish(inter_cones_distance)
-        self.perception_mean_squared_difference.publish(mean_squared_error)
-        self.perception_root_mean_squared_difference.publish(
+        self._perception_mean_difference_.publish(mean_difference)
+        self._perception_inter_cones_distance_.publish(inter_cones_distance)
+        self._perception_mean_squared_difference_.publish(mean_squared_error)
+        self._perception_root_mean_squared_difference_.publish(
             root_mean_squared_difference
         )
-
-    @staticmethod
-    def get_average_difference(output: list, expected: list):
-        """!
-        Computes the average difference between an output output and the expected values.
-
-        Args:
-            output (list): Empirical Output.
-            expected (list): Expected output.
-
-        Returns:
-            float: Average difference between empirical and expected outputs.
-        """
-        sum_error: float = 0
-        count: int = 0
-
-        if len(output) == 0:
-            return float("inf")
-
-        if len(expected) == 0:
-            raise ValueError(
-                "No ground truth cones provided for computing average difference."
-            )
-
-        for empirical_value in output:
-            min_distance: float = np.linalg.norm(empirical_value - expected[0])
-
-            for expected_value in expected:
-                distance: float = np.linalg.norm(empirical_value - expected_value)
-                if distance < min_distance:
-                    min_distance = distance
-
-            sum_error += min_distance
-            count += 1
-
-        average = sum_error / count
-        return average
-
-    @staticmethod
-    def get_mean_squared_error(output: list, expected: list):
-        """!
-        Computes the mean squared error between an output output and the expected values.
-
-        Args:
-            output (list): Empirical Output.
-            expected (list): Expected output.
-
-        Returns:
-            float: Mean squared error.
-        """
-        if not output:
-            raise ValueError("No perception output provided.")
-        if not expected:
-            raise ValueError("No ground truth cones provided.")
-
-        mse_sum = 0
-        for output_value in output:
-            min_distance_sq = np.linalg.norm(output_value - expected[0]) ** 2
-
-            for expected_value in expected:
-                distance_sq = np.linalg.norm(output_value - expected_value) ** 2
-                if distance_sq < min_distance_sq:
-                    min_distance_sq = distance_sq
-
-            mse_sum += min_distance_sq
-
-        mse = mse_sum / len(output)
-        return mse
-
-    @staticmethod
-    def compute_distance(cone1, cone2):
-        """!
-        Compute Euclidean distance between two cones.
-        """
-        return np.linalg.norm(cone1 - cone2)
-
-    @staticmethod
-    def build_adjacency_matrix(cones):
-        """!
-        Build adjacency matrix based on distances between cones.
-        """
-        size = len(cones)
-        adjacency_matrix = np.zeros((size, size))
-        for i in range(size):
-            for j in range(i + 1, size):
-                distance_ij = Evaluator.compute_distance(cones[i], cones[j])
-                adjacency_matrix[i][j] = distance_ij
-                adjacency_matrix[j][i] = distance_ij
-        return adjacency_matrix
-
-    @staticmethod
-    def get_inter_cones_distance(perception_output: list):
-        """!
-        Computes the average distance between pairs of perceived cones using Minimum Spanning Tree Prim's algorithm.
-
-        Args:
-            perception_output (list): List of perceived cones, where each cone is represented as a numpy array.
-
-        Returns:
-            float: Average distance between pairs of perceived cones.
-        """
-
-        adjacency_matrix: list = Evaluator.build_adjacency_matrix(perception_output)
-
-        mst = minimum_spanning_tree(adjacency_matrix)
-        mst_sum = mst.sum()
-
-        num_pairs = np.count_nonzero(mst.toarray().astype(float))
-
-        if num_pairs == 0:
-            return 0
-        else:
-            average_distance = mst_sum / num_pairs
-            return average_distance
 
 
 def main(args=None):

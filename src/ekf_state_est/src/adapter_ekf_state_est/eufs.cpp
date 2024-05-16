@@ -30,7 +30,7 @@ void EufsAdapter::init() {
   if (this->node->_use_simulated_perception_) {  // TODO: make this topic a editable parameter
     this->_perception_detections_subscription_ =
         this->node->create_subscription<eufs_msgs::msg::ConeArrayWithCovariance>(
-            "/camera_0/cones", 10,
+            "/cones", 10,
             std::bind(&EufsAdapter::perception_detections_subscription_callback, this,
                       std::placeholders::_1));
   }
