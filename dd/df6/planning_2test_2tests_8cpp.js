@@ -1,13 +1,22 @@
 var planning_2test_2tests_8cpp =
 [
-    [ "customComparator", "dd/df6/planning_2test_2tests_8cpp.html#a1d530eca12828fa8bd4055652000a956", null ],
+    [ "custom_comparator", "dd/df6/planning_2test_2tests_8cpp.html#af7c5d0e668771d1a7f6e303ebd4a65d7", null ],
     [ "extractInfo", "dd/df6/planning_2test_2tests_8cpp.html#ab1bec19c757b0c10ea40b1c5480aac77", null ],
     [ "get_current_date_time_as_string", "dd/df6/planning_2test_2tests_8cpp.html#a2c3bbc9fd458920b2aa9308286235fd9", null ],
+    [ "log_cone1", "dd/df6/planning_2test_2tests_8cpp.html#a98406defc350d30566cc83b369aebce0", null ],
+    [ "log_cone2", "dd/df6/planning_2test_2tests_8cpp.html#aaf6e6f8de5580ef3d20f3e05fee5f6aa", null ],
     [ "operator<<", "dd/df6/planning_2test_2tests_8cpp.html#a7efe78775343b91ffb437715c1a722f2", null ],
     [ "orderVectorOfPairs", "dd/df6/planning_2test_2tests_8cpp.html#a8030edc69053406b8812bd586e50468a", null ],
     [ "outlierCalculations", "dd/df6/planning_2test_2tests_8cpp.html#a21272f9ce533deddd6a2e1bde8f8c097", null ],
     [ "processTriangulations", "dd/df6/planning_2test_2tests_8cpp.html#af932d610f7999483e18612a7bf469cb0", null ],
     [ "round_n", "dd/df6/planning_2test_2tests_8cpp.html#afbb0277ee17d082a0d2177393a346904", null ],
+    [ "TEST", "dd/df6/planning_2test_2tests_8cpp.html#a1b3e0277417f2e2a28398811e1aef5dc", null ],
+    [ "TEST", "dd/df6/planning_2test_2tests_8cpp.html#a04f3065d9004b0a2ac2c8f6d00bc34b0", null ],
+    [ "TEST", "dd/df6/planning_2test_2tests_8cpp.html#ae0eb2417c307a7e6015466adfe20b14d", null ],
+    [ "TEST", "dd/df6/planning_2test_2tests_8cpp.html#a09841343505121b96efdf2fc328d0c58", null ],
+    [ "TEST", "dd/df6/planning_2test_2tests_8cpp.html#a0922e03bd3192f4432ba5cfd57af61c6", null ],
+    [ "TEST", "dd/df6/planning_2test_2tests_8cpp.html#a99ca8feb760b10bde94fbf21119a7604", null ],
+    [ "TEST", "dd/df6/planning_2test_2tests_8cpp.html#a398d0f768ac526b5665cff1adfe37df2", null ],
     [ "TEST", "dd/df6/planning_2test_2tests_8cpp.html#afdc65423b0a5a3ca636f3aacfb1dba56", null ],
     [ "TEST", "dd/df6/planning_2test_2tests_8cpp.html#af9952ff008604d30cd729682048e2167", null ],
     [ "TEST", "dd/df6/planning_2test_2tests_8cpp.html#ad18f9702442704e6ba155492f9317546", null ],
@@ -22,5 +31,6 @@ var planning_2test_2tests_8cpp =
     [ "TEST", "dd/df6/planning_2test_2tests_8cpp.html#a0332ef9190c93cd17d4e05d76a15426a", null ],
     [ "TEST", "dd/df6/planning_2test_2tests_8cpp.html#a29badad35310b8e08080122d0707b973", null ],
     [ "TEST", "dd/df6/planning_2test_2tests_8cpp.html#a6df4e4f75ec78a003fe012ee9a5172f8", null ],
-    [ "TEST", "dd/df6/planning_2test_2tests_8cpp.html#aae8c79094c63a375eea2464aa2a09e00", null ]
+    [ "TEST", "dd/df6/planning_2test_2tests_8cpp.html#aae8c79094c63a375eea2464aa2a09e00", null ],
+    [ "test_cone_coloring", "dd/df6/planning_2test_2tests_8cpp.html#af4e1db1f58b3150cd44904c60de51c46", null ]
 ];

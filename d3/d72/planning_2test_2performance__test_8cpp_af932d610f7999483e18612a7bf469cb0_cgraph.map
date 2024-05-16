@@ -24,11 +24,11 @@
 <area shape="poly" id="edge11_Node000007_Node000012" title=" " alt="" coords="296,436,307,492,330,566,347,606,369,643,395,677,428,705,452,720,479,730,535,742,591,744,641,740,642,746,592,749,535,747,477,735,450,725,424,710,392,681,364,646,342,608,325,568,302,493,291,437"/>
 <area shape="rect" id="Node000013" href="$d6/d2c/class_track.html#aeb46e6fbc74096c298262b84cd81b77f" title="Get the left cone at a specified index." alt="" coords="439,156,583,182"/>
 <area shape="poly" id="edge12_Node000007_Node000013" title=" " alt="" coords="306,393,340,349,376,294,388,265,395,239,404,215,424,191,428,188,431,192,428,195,408,218,400,241,393,267,380,297,344,352,310,396"/>
-<area shape="rect" id="Node000014" href="$d6/d2c/class_track.html#a394133c01100ca42facbb28150db9e7d" title="Get the number of left cones." alt="" coords="430,205,593,231"/>
+<area shape="rect" id="Node000014" href="$d6/d2c/class_track.html#a6bd8978cb65635811bdeef26c29c989b" title="Get the number of left cones." alt="" coords="430,205,593,231"/>
 <area shape="poly" id="edge13_Node000007_Node000014" title=" " alt="" coords="304,394,370,305,424,240,431,236,434,240,428,244,374,308,308,397"/>
 <area shape="rect" id="Node000015" href="$d6/d2c/class_track.html#a95fe146ead9aae192047e1f0a2c6c3c8" title="Get the right cone at a specified index." alt="" coords="436,255,587,280"/>
 <area shape="poly" id="edge14_Node000007_Node000015" title=" " alt="" coords="306,393,356,341,389,313,425,289,435,284,437,289,427,294,392,317,359,345,310,397"/>
-<area shape="rect" id="Node000016" href="$d6/d2c/class_track.html#a509060ab3a7c34a9fc435b507e4bd49d" title="Get the number of right cones." alt="" coords="426,304,596,330"/>
+<area shape="rect" id="Node000016" href="$d6/d2c/class_track.html#aaeb6c56205cff7f075ac1aacbbc29a89" title="Get the number of right cones." alt="" coords="426,304,596,330"/>
 <area shape="poly" id="edge15_Node000007_Node000016" title=" " alt="" coords="323,392,370,365,425,338,441,332,443,337,427,343,373,370,325,397"/>
 <area shape="rect" id="Node000017" href="$d8/da1/class_cone.html#a51a49cc249e79d06f6a983250fe809b3" title=" " alt="" coords="658,769,742,795"/>
 <area shape="poly" id="edge16_Node000007_Node000017" title=" " alt="" coords="295,436,303,499,324,586,341,632,363,677,392,717,428,751,452,766,478,777,535,790,592,793,642,789,642,794,592,798,535,795,477,782,449,771,424,755,388,720,359,679,336,634,319,588,298,500,290,436"/>

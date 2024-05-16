@@ -12,12 +12,14 @@ var hierarchy =
     [ "evaluator.adapter.Adapter", "d7/dff/classevaluator_1_1adapter_1_1_adapter.html", [
       [ "evaluator.fsds_adapter.FSDSAdapter", "dc/de8/classevaluator_1_1fsds__adapter_1_1_f_s_d_s_adapter.html", null ]
     ] ],
+    [ "AngleNorm", "df/d47/struct_angle_norm.html", null ],
     [ "Cluster", "d2/d23/class_cluster.html", null ],
     [ "Clustering", "d9/d10/class_clustering.html", [
       [ "DBSCAN", "df/d6a/class_d_b_s_c_a_n.html", null ]
     ] ],
     [ "common_lib::structures::Cone", "d6/dd0/structcommon__lib_1_1structures_1_1_cone.html", null ],
     [ "Cone", "d8/da1/class_cone.html", null ],
+    [ "ConeColoring", "dd/d52/class_cone_coloring.html", null ],
     [ "ConeDifferentiation", "d7/d4e/class_cone_differentiation.html", [
       [ "LeastSquaresDifferentiation", "d7/d15/class_least_squares_differentiation.html", null ]
     ] ],
@@ -65,7 +67,9 @@ var hierarchy =
     [ "PID", "d6/d5a/class_p_i_d.html", null ],
     [ "Plane", "d2/d8d/class_plane.html", null ],
     [ "common_lib::structures::Pose", "d8/d4a/structcommon__lib_1_1structures_1_1_pose.html", null ],
+    [ "Pose", "d8/d11/struct_pose.html", null ],
     [ "common_lib::structures::Position", "dc/d1b/structcommon__lib_1_1structures_1_1_position.html", null ],
+    [ "Position", "d1/d26/struct_position.html", null ],
     [ "testing::Test", null, [
       [ "CylinderValidatorTest", "da/dcf/class_cylinder_validator_test.html", null ],
       [ "DBSCANTest", "d8/d90/class_d_b_s_c_a_n_test.html", null ],

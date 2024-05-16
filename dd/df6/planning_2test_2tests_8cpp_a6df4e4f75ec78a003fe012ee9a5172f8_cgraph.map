@@ -1,33 +1,31 @@
 <map id="TEST" name="TEST">
-<area shape="rect" id="Node000001" title="simple scenario with few points in the path" alt="" coords="5,153,60,179"/>
-<area shape="rect" id="Node000002" href="$d7/db7/class_path_smoothing.html#af9365cf145ba25661e8c287a5dd6814c" title="calls pathSmoother with default values for precision, order and coeffs_ratio that were determined to ..." alt="" coords="108,78,319,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="48,150,74,131,107,113,122,106,124,111,109,117,77,135,51,155"/>
-<area shape="rect" id="Node000010" href="$d7/db7/class_path_smoothing.html#a353e6d4bfab4b2a3f92cd630d8dd2175" title="Fill the track data from a file." alt="" coords="136,128,291,153"/>
-<area shape="poly" id="edge13_Node000001_Node000010" title=" " alt="" coords="60,159,120,151,120,156,60,165"/>
-<area shape="rect" id="Node000013" href="$d7/db7/class_path_smoothing.html#a3df41d3ad694f3794ff4dc5b010cc825" title="Get the Path object." alt="" coords="133,177,294,203"/>
-<area shape="poly" id="edge16_Node000001_Node000013" title=" " alt="" coords="60,167,118,174,117,180,60,172"/>
-<area shape="rect" id="Node000014" href="$d7/db7/class_path_smoothing.html#aa166fa4fdd74344246256ee161adc562" title="Get the number of points in the path." alt="" coords="109,226,318,252"/>
-<area shape="poly" id="edge17_Node000001_Node000014" title=" " alt="" coords="51,177,77,195,109,213,125,219,123,224,107,217,75,200,48,181"/>
-<area shape="rect" id="Node000003" href="$d7/db7/class_path_smoothing.html#aae6d8b2ff86ec4829ddb3fc2b0ba0856" title="Function designed to smooth the path via spline." alt="" coords="367,78,564,104"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="319,88,352,88,352,94,319,94"/>
-<area shape="rect" id="Node000004" href="$d7/db7/class_path_smoothing.html#a17371b9028a6c6daa56717aa143b59fb" title="Orders the path to fit spline." alt="" coords="629,54,802,80"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="564,79,613,74,614,79,565,84"/>
-<area shape="rect" id="Node000009" href="$d7/db7/class_path_smoothing.html#a91c756b1034319b0f4d90f1b897348d6" title="Fits spline to path." alt="" coords="612,104,819,129"/>
-<area shape="poly" id="edge12_Node000003_Node000009" title=" " alt="" coords="565,98,597,102,597,107,564,104"/>
-<area shape="rect" id="Node000005" href="$d9/d32/class_path_point.html#a88f058d98c6ef403f769cf440358fd23" title=" " alt="" coords="867,26,1035,52"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="802,54,851,48,852,54,802,59"/>
-<area shape="rect" id="Node000006" href="$d9/d32/class_path_point.html#a4f84d924fd7ffcbfd9ae67b669251306" title=" " alt="" coords="1083,26,1194,52"/>
-<area shape="poly" id="edge7_Node000004_Node000006" title=" " alt="" coords="744,51,800,29,866,11,913,4,951,3,1035,11,1079,19,1078,24,1035,16,951,8,914,10,867,16,801,34,746,56"/>
-<area shape="rect" id="Node000007" href="$d9/d32/class_path_point.html#a722e36fc4d8964c3efe0fb96315be015" title=" " alt="" coords="1083,84,1194,109"/>
-<area shape="poly" id="edge8_Node000004_Node000007" title=" " alt="" coords="791,78,820,89,835,99,844,109,853,118,868,126,896,133,925,137,985,135,1041,125,1088,112,1089,117,1042,131,985,141,925,142,895,139,866,131,850,123,840,113,831,103,817,93,790,83"/>
-<area shape="rect" id="Node000008" href="$d7/db7/class_path_smoothing.html#ad044a39b4c65ea74975c57685d7cb149" title="Check if the direction of two cones is consistent." alt="" coords="875,76,1027,117"/>
-<area shape="poly" id="edge9_Node000004_Node000008" title=" " alt="" coords="802,75,860,82,859,88,802,80"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="1036,36,1067,36,1067,42,1036,42"/>
-<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="997,50,1036,62,1081,76,1079,81,1034,67,996,55"/>
-<area shape="poly" id="edge10_Node000008_Node000006" title=" " alt="" coords="1019,73,1079,54,1080,60,1020,78"/>
-<area shape="poly" id="edge11_Node000008_Node000007" title=" " alt="" coords="1027,94,1068,94,1068,99,1027,99"/>
-<area shape="rect" id="Node000011" href="$d7/db7/class_path_smoothing.html#a0ea650cb431af618f5c4b0977dfcca4a" title="adds point to path" alt="" coords="369,177,563,203"/>
-<area shape="poly" id="edge14_Node000010_Node000011" title=" " alt="" coords="283,151,382,171,381,176,282,156"/>
-<area shape="rect" id="Node000012" href="$dd/d8b/files_8cpp.html#a440bc5364e11c37c13f14f7a0d1c7208" title=" " alt="" coords="416,128,516,153"/>
-<area shape="poly" id="edge15_Node000010_Node000012" title=" " alt="" coords="292,138,400,138,400,143,292,143"/>
+<area shape="rect" id="Node000001" title="simple scenario with few points in the path" alt="" coords="5,133,60,159"/>
+<area shape="rect" id="Node000002" href="$d7/db7/class_path_smoothing.html#ab7c36b75c79ce5ec6ff7388f2087e316" title="calls pathSmoother with default values for precision, order and coeffs_ratio that were determined to ..." alt="" coords="108,59,319,84"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="48,131,74,111,107,93,122,87,124,92,109,98,77,116,51,135"/>
+<area shape="rect" id="Node000010" href="$d7/db7/class_path_smoothing.html#a353e6d4bfab4b2a3f92cd630d8dd2175" title="Fill the track data from a file." alt="" coords="136,108,291,134"/>
+<area shape="poly" id="edge11_Node000001_Node000010" title=" " alt="" coords="60,140,120,131,120,137,60,145"/>
+<area shape="rect" id="Node000013" href="$d7/db7/class_path_smoothing.html#a3df41d3ad694f3794ff4dc5b010cc825" title="Get the Path object." alt="" coords="133,157,294,183"/>
+<area shape="poly" id="edge14_Node000001_Node000013" title=" " alt="" coords="60,147,118,155,117,160,60,152"/>
+<area shape="rect" id="Node000014" href="$d7/db7/class_path_smoothing.html#aa166fa4fdd74344246256ee161adc562" title="Get the number of points in the path." alt="" coords="109,207,318,232"/>
+<area shape="poly" id="edge15_Node000001_Node000014" title=" " alt="" coords="51,157,77,176,109,193,125,199,123,204,107,198,75,180,48,162"/>
+<area shape="rect" id="Node000003" href="$d7/db7/class_path_smoothing.html#aae6d8b2ff86ec4829ddb3fc2b0ba0856" title="Function designed to smooth the path via spline." alt="" coords="367,59,564,84"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="319,69,352,69,352,74,319,74"/>
+<area shape="rect" id="Node000004" href="$d7/db7/class_path_smoothing.html#a17371b9028a6c6daa56717aa143b59fb" title="Orders the path to fit spline." alt="" coords="629,35,802,60"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="564,59,613,55,614,60,565,65"/>
+<area shape="rect" id="Node000009" href="$d7/db7/class_path_smoothing.html#a5689b2c07e18bf08311aa99c5efbeb73" title="Fits spline to path." alt="" coords="612,84,819,110"/>
+<area shape="poly" id="edge10_Node000003_Node000009" title=" " alt="" coords="565,79,597,82,597,87,564,84"/>
+<area shape="rect" id="Node000005" href="$d9/d32/class_path_point.html#a88f058d98c6ef403f769cf440358fd23" title=" " alt="" coords="867,5,1035,31"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="802,34,851,28,852,33,802,39"/>
+<area shape="rect" id="Node000008" href="$d7/db7/class_path_smoothing.html#ad044a39b4c65ea74975c57685d7cb149" title="Check if the direction of two cones is consistent." alt="" coords="875,55,1027,96"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="802,55,860,62,859,67,802,60"/>
+<area shape="rect" id="Node000006" href="$d9/d32/class_path_point.html#a4f84d924fd7ffcbfd9ae67b669251306" title=" " alt="" coords="1083,8,1194,34"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="1036,17,1067,17,1067,22,1036,22"/>
+<area shape="rect" id="Node000007" href="$d9/d32/class_path_point.html#a722e36fc4d8964c3efe0fb96315be015" title=" " alt="" coords="1083,59,1194,84"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="1000,29,1077,51,1075,56,998,34"/>
+<area shape="poly" id="edge8_Node000008_Node000006" title=" " alt="" coords="1022,52,1076,36,1078,41,1024,57"/>
+<area shape="poly" id="edge9_Node000008_Node000007" title=" " alt="" coords="1027,71,1067,70,1068,76,1028,77"/>
+<area shape="rect" id="Node000011" href="$d7/db7/class_path_smoothing.html#a0ea650cb431af618f5c4b0977dfcca4a" title="adds point to path" alt="" coords="369,157,563,183"/>
+<area shape="poly" id="edge12_Node000010_Node000011" title=" " alt="" coords="283,132,382,151,381,156,282,137"/>
+<area shape="rect" id="Node000012" href="$dd/d8b/files_8cpp.html#a440bc5364e11c37c13f14f7a0d1c7208" title=" " alt="" coords="416,108,516,134"/>
+<area shape="poly" id="edge13_Node000010_Node000012" title=" " alt="" coords="292,118,400,118,400,124,292,124"/>
 </map>

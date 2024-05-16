@@ -1,0 +1,7 @@
+<map id="ConeColoring::get_initial_cone" name="ConeColoring::get_initial_cone">
+<area shape="rect" id="Node000001" title="get the initial cone to start the path from side determined by parameter" alt="" coords="5,31,200,56"/>
+<area shape="rect" id="Node000002" href="$d8/da1/class_cone.html#af72e761554d3e39ba6ac88f9971f5bc7" title=" " alt="" coords="248,5,332,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="200,28,232,23,233,29,200,33"/>
+<area shape="rect" id="Node000003" href="$d8/da1/class_cone.html#a9136643a197ccd7b38f32391b965d808" title=" " alt="" coords="248,55,332,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="200,53,233,58,232,63,200,59"/>
+</map>

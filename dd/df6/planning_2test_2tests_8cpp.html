@@ -102,6 +102,7 @@ $(document).ready(function(){initNavTree('dd/df6/planning_2test_2tests_8cpp.html
 <code>#include &lt;regex&gt;</code><br />
 <code>#include &lt;set&gt;</code><br />
 <code>#include &quot;gtest/gtest.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d3/d6c/cone__coloring_8hpp_source.html">planning/cone_coloring.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d6/d97/global__path__planner_8hpp_source.html">planning/global_path_planner.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d2/d05/local__path__planner_8hpp_source.html">planning/local_path_planner.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d2/d1d/path__smoothing_8hpp_source.html">planning/path_smoothing.hpp</a>&quot;</code><br />
@@ -113,98 +114,119 @@ Include dependency graph for tests.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../df/d94/planning_2test_2tests_8cpp__incl.png" border="0" usemap="#asrc_2planning_2test_2tests_8cpp" alt=""/></div>
 <map name="asrc_2planning_2test_2tests_8cpp" id="asrc_2planning_2test_2tests_8cpp">
-<area shape="rect" title=" " alt="" coords="1223,5,1398,31"/>
-<area shape="rect" title=" " alt="" coords="5,87,77,112"/>
-<area shape="poly" title=" " alt="" coords="1223,23,974,26,646,35,323,52,189,65,88,82,81,83,80,78,87,76,188,60,322,47,646,30,974,21,1223,17"/>
-<area shape="rect" title=" " alt="" coords="100,87,161,112"/>
-<area shape="poly" title=" " alt="" coords="1223,23,991,28,690,38,394,55,272,67,180,82,172,84,171,78,179,76,272,62,394,50,689,32,991,22,1222,18"/>
-<area shape="rect" title=" " alt="" coords="562,434,627,459"/>
-<area shape="poly" title=" " alt="" coords="1223,24,1042,30,818,41,602,58,514,69,447,82,402,90,358,95,279,105,247,115,222,131,207,156,201,194,201,285,205,319,219,343,240,363,270,383,292,394,321,403,395,419,547,438,546,443,394,424,320,408,290,399,268,388,237,367,214,347,200,321,196,286,196,194,202,155,219,127,245,110,278,100,358,90,401,85,446,76,513,63,602,52,818,35,1042,25,1223,19"/>
-<area shape="rect" title=" " alt="" coords="1919,87,1971,112"/>
-<area shape="poly" title=" " alt="" coords="1398,18,1501,22,1627,31,1765,49,1900,76,1907,78,1905,83,1899,82,1764,54,1627,37,1501,27,1398,23"/>
-<area shape="rect" title=" " alt="" coords="1995,87,2034,112"/>
-<area shape="poly" title=" " alt="" coords="1398,20,1541,26,1710,37,1870,53,1935,64,1984,76,1985,77,1984,82,1983,82,1934,69,1869,59,1710,42,1541,31,1398,25"/>
-<area shape="rect" title=" " alt="" coords="2058,87,2152,112"/>
-<area shape="poly" title=" " alt="" coords="1398,17,1525,21,1688,30,1867,48,2047,76,2058,79,2057,84,2046,82,1867,53,1687,36,1525,26,1398,23"/>
-<area shape="rect" href="../../d6/d97/global__path__planner_8hpp.html" title=" " alt="" coords="458,79,597,120"/>
-<area shape="poly" title=" " alt="" coords="1223,31,613,92,612,87,1223,26"/>
-<area shape="rect" href="../../de/d76/track_8hpp.html" title=" " alt="" coords="1098,183,1179,208"/>
-<area shape="poly" title=" " alt="" coords="1300,33,1163,173,1159,169,1297,30"/>
-<area shape="rect" title=" " alt="" coords="1791,353,1910,378"/>
-<area shape="poly" title=" " alt="" coords="1383,29,1771,99,1954,137,2014,153,2042,166,2055,193,2053,221,2039,247,2016,272,1987,295,1955,316,1894,348,1892,343,1953,311,1984,291,2013,268,2035,244,2048,219,2050,195,2038,170,2012,158,1953,142,1770,104,1382,34"/>
-<area shape="rect" href="../../d5/d8c/files_8hpp.html" title=" " alt="" coords="1402,271,1499,297"/>
-<area shape="poly" title=" " alt="" coords="1317,31,1348,113,1374,168,1403,222,1431,258,1426,261,1399,225,1369,170,1344,115,1312,33"/>
-<area shape="rect" href="../../d2/d05/local__path__planner_8hpp.html" title=" " alt="" coords="1478,79,1610,120"/>
-<area shape="poly" title=" " alt="" coords="1347,29,1472,71,1470,76,1345,34"/>
-<area shape="rect" href="../../d2/d1d/path__smoothing_8hpp.html" title=" " alt="" coords="812,87,1001,112"/>
-<area shape="poly" title=" " alt="" coords="1249,34,984,86,983,80,1248,29"/>
-<area shape="rect" title=" " alt="" coords="976,353,1029,378"/>
-<area shape="poly" title=" " alt="" coords="521,121,507,158,496,205,495,229,497,253,504,275,516,295,547,317,594,333,653,345,719,354,853,362,960,362,960,368,853,367,718,359,652,351,593,338,544,321,512,299,499,278,491,254,489,229,491,204,502,156,516,119"/>
-<area shape="rect" title=" " alt="" coords="590,271,641,297"/>
-<area shape="poly" title=" " alt="" coords="539,119,606,256,601,258,535,121"/>
-<area shape="rect" title=" " alt="" coords="1088,434,1146,459"/>
-<area shape="poly" title=" " alt="" coords="515,121,501,143,490,168,481,204,479,233,483,262,497,296,513,327,530,349,552,366,583,383,624,397,680,409,818,426,961,437,1073,441,1073,447,961,442,818,432,679,415,623,403,581,388,549,371,526,353,509,330,492,298,478,263,473,234,476,204,485,167,496,141,510,118"/>
-<area shape="rect" href="../../d4/dd1/pathpoint_8hpp.html" title=" " alt="" coords="1154,353,1291,378"/>
-<area shape="poly" title=" " alt="" coords="526,121,522,158,523,206,534,254,545,276,560,295,577,307,598,317,652,332,717,339,789,342,931,341,1041,342,1139,352,1138,358,1041,348,931,346,789,347,717,345,651,337,596,322,574,312,556,299,540,279,529,256,518,206,517,158,521,120"/>
-<area shape="poly" title=" " alt="" coords="598,109,1082,183,1081,188,597,114"/>
-<area shape="poly" title=" " alt="" coords="1154,378,643,442,642,437,1154,373"/>
-<area shape="poly" title=" " alt="" coords="1208,381,1147,426,1143,422,1205,376"/>
-<area shape="rect" title=" " alt="" coords="1511,434,1568,459"/>
-<area shape="poly" title=" " alt="" coords="1272,376,1497,432,1495,437,1271,381"/>
-<area shape="poly" title=" " alt="" coords="1142,209,1138,252,1130,277,1115,299,1054,320,923,358,643,435,641,430,921,352,1053,314,1111,295,1125,275,1132,251,1136,208"/>
-<area shape="poly" title=" " alt="" coords="1148,207,1165,249,1167,275,1159,299,1044,349,1042,344,1155,295,1162,274,1160,250,1143,209"/>
-<area shape="poly" title=" " alt="" coords="1115,211,1076,226,1015,240,961,248,869,254,775,257,720,263,657,274,656,269,720,258,774,252,868,248,961,243,1014,235,1075,221,1114,206"/>
-<area shape="poly" title=" " alt="" coords="1152,207,1166,225,1178,247,1185,273,1181,298,1166,315,1148,323,1131,331,1118,346,1112,364,1110,382,1113,418,1108,419,1105,382,1107,363,1113,344,1128,327,1146,319,1163,311,1176,296,1180,273,1173,249,1161,228,1148,210"/>
-<area shape="poly" title=" " alt="" coords="1180,201,1354,231,1445,250,1511,269,1534,282,1555,295,1582,303,1606,306,1651,306,1671,307,1692,313,1711,324,1730,344,1739,364,1735,382,1720,398,1698,411,1641,430,1584,442,1583,436,1640,425,1695,406,1717,394,1730,380,1734,365,1725,346,1708,328,1690,317,1671,313,1650,311,1606,311,1580,308,1553,299,1531,286,1509,274,1444,255,1353,236,1179,206"/>
-<area shape="rect" title=" " alt="" coords="665,271,782,297"/>
-<area shape="poly" title=" " alt="" coords="1115,211,1076,226,798,273,797,268,1075,221,1113,206"/>
-<area shape="rect" title=" " alt="" coords="807,271,921,297"/>
-<area shape="poly" title=" " alt="" coords="1113,211,1077,226,929,270,927,265,1075,221,1111,206"/>
-<area shape="rect" title=" " alt="" coords="946,271,1006,297"/>
-<area shape="poly" title=" " alt="" coords="1117,211,1013,266,1011,261,1114,207"/>
-<area shape="rect" title=" " alt="" coords="1029,271,1101,297"/>
-<area shape="poly" title=" " alt="" coords="1130,211,1087,261,1083,258,1126,207"/>
-<area shape="poly" title=" " alt="" coords="1180,201,1375,234,1555,269,1691,307,1803,344,1802,349,1689,312,1554,274,1374,239,1179,206"/>
-<area shape="rect" href="../../d0/db1/planning_2include_2utils_2cone_8hpp.html" title=" " alt="" coords="1277,271,1378,297"/>
-<area shape="poly" title=" " alt="" coords="1166,207,1288,262,1286,267,1164,211"/>
-<area shape="poly" title=" " alt="" coords="1177,206,1388,265,1386,270,1175,212"/>
-<area shape="poly" title=" " alt="" coords="1278,300,1045,356,1044,351,1277,295"/>
-<area shape="poly" title=" " alt="" coords="1277,299,1199,320,1166,333,1144,347,1133,363,1126,382,1120,419,1114,418,1121,380,1128,360,1140,343,1163,328,1197,315,1276,294"/>
-<area shape="poly" title=" " alt="" coords="1336,296,1363,338,1383,362,1405,384,1451,411,1497,430,1495,435,1449,416,1402,388,1379,366,1359,341,1332,299"/>
-<area shape="poly" title=" " alt="" coords="1402,297,1391,300,1045,360,1044,354,1390,294,1401,292"/>
-<area shape="poly" title=" " alt="" coords="1437,300,1381,342,1304,388,1230,417,1162,437,1160,432,1228,412,1301,383,1378,338,1434,295"/>
-<area shape="poly" title=" " alt="" coords="1416,300,1273,349,1271,344,1414,295"/>
-<area shape="poly" title=" " alt="" coords="1412,273,1194,213,1195,208,1413,268"/>
-<area shape="poly" title=" " alt="" coords="1499,292,1776,347,1775,352,1498,298"/>
-<area shape="rect" title=" " alt="" coords="1416,345,1613,386"/>
-<area shape="poly" title=" " alt="" coords="1462,296,1491,331,1487,334,1458,299"/>
-<area shape="rect" title=" " alt="" coords="1636,353,1715,378"/>
-<area shape="poly" title=" " alt="" coords="1488,295,1626,342,1631,344,1629,349,1624,348,1486,300"/>
-<area shape="poly" title=" " alt="" coords="1477,111,1300,135,1087,170,872,216,657,273,656,268,871,211,1086,165,1300,130,1477,106"/>
-<area shape="poly" title=" " alt="" coords="1527,122,1510,144,1495,170,1490,197,1492,210,1498,222,1516,241,1534,252,1553,258,1572,260,1617,261,1671,269,1711,277,1747,280,1812,282,1842,286,1870,296,1898,314,1925,344,1934,366,1932,377,1924,388,1889,399,1816,408,1594,425,1161,446,1161,441,1593,420,1815,403,1888,393,1921,384,1927,375,1928,366,1920,346,1894,318,1868,301,1841,292,1812,288,1747,286,1710,282,1670,274,1617,266,1572,266,1551,263,1532,257,1512,245,1493,225,1487,212,1484,197,1490,169,1505,141,1523,119"/>
-<area shape="poly" title=" " alt="" coords="1503,122,1475,142,1454,169,1446,195,1454,222,1467,237,1482,245,1499,253,1513,270,1517,285,1513,299,1499,310,1479,321,1428,337,1367,350,1306,359,1306,353,1366,345,1426,332,1477,316,1496,306,1508,295,1512,285,1508,273,1495,257,1480,250,1463,241,1449,225,1441,195,1449,166,1471,138,1499,118"/>
-<area shape="poly" title=" " alt="" coords="1611,102,1728,111,1863,125,1980,143,2020,154,2042,166,2058,192,2064,221,2061,251,2051,282,2036,312,2016,341,1993,366,1968,388,1938,403,1895,416,1789,433,1676,443,1584,447,1583,442,1675,438,1788,428,1894,411,1936,398,1965,383,1989,362,2012,337,2032,310,2047,280,2056,250,2058,221,2053,194,2038,170,2018,159,1978,148,1863,130,1728,117,1610,108"/>
-<area shape="poly" title=" " alt="" coords="1478,119,1195,184,1194,179,1477,113"/>
-<area shape="poly" title=" " alt="" coords="1611,100,1695,106,1787,117,1870,136,1901,149,1922,166,1934,188,1938,211,1935,235,1927,260,1902,306,1874,342,1870,339,1897,303,1922,258,1930,234,1933,211,1929,189,1918,169,1898,154,1868,141,1787,122,1694,111,1610,105"/>
-<area shape="rect" title=" " alt="" coords="1508,183,1723,208"/>
-<area shape="poly" title=" " alt="" coords="1561,118,1600,169,1595,172,1556,122"/>
-<area shape="rect" title=" " alt="" coords="1748,168,1908,223"/>
-<area shape="poly" title=" " alt="" coords="1604,118,1734,160,1732,166,1602,123"/>
-<area shape="rect" title=" " alt="" coords="1982,183,2028,208"/>
-<area shape="poly" title=" " alt="" coords="1610,100,1685,106,1774,117,1871,136,1965,165,1978,172,1976,176,1963,170,1869,142,1774,123,1684,111,1610,106"/>
-<area shape="poly" title=" " alt="" coords="812,104,749,108,678,117,601,132,524,155,450,186,382,227,352,252,326,280,302,311,283,346,277,367,278,375,283,384,300,397,326,408,397,425,476,435,546,441,546,446,476,441,396,430,324,413,297,402,279,387,273,377,271,366,279,344,298,308,321,277,349,248,379,223,447,181,522,150,600,127,677,112,749,103,811,99"/>
-<area shape="poly" title=" " alt="" coords="812,114,681,136,624,151,586,170,553,199,529,230,522,246,521,262,525,279,536,295,565,316,610,332,666,344,729,352,858,361,961,362,961,367,858,366,729,358,665,349,609,337,563,321,532,299,520,281,516,263,517,245,524,228,549,195,584,165,623,146,680,131,811,109"/>
-<area shape="poly" title=" " alt="" coords="883,115,784,170,708,220,645,264,642,260,705,215,781,165,881,110"/>
-<area shape="poly" title=" " alt="" coords="811,107,730,114,645,126,573,144,545,156,527,170,504,201,494,231,498,263,516,295,532,311,554,326,614,353,689,376,773,395,942,423,1073,439,1073,444,941,429,772,400,688,381,612,358,552,331,529,315,512,299,493,264,489,231,499,198,523,166,543,151,571,139,644,121,729,109,811,102"/>
-<area shape="poly" title=" " alt="" coords="843,115,740,141,686,159,635,181,595,205,569,233,563,247,563,262,568,278,580,295,607,307,658,317,804,331,1041,342,1139,353,1138,358,1041,348,803,336,658,323,605,312,577,299,563,281,557,263,558,246,564,230,591,201,633,176,684,154,739,136,842,110"/>
-<area shape="poly" title=" " alt="" coords="937,110,1095,174,1093,179,935,115"/>
-<area shape="poly" title=" " alt="" coords="896,115,748,262,744,258,892,111"/>
-<area shape="poly" title=" " alt="" coords="906,113,873,257,867,256,901,112"/>
-<area shape="poly" title=" " alt="" coords="913,112,968,256,963,258,908,114"/>
-<area shape="poly" title=" " alt="" coords="919,111,1047,258,1043,262,915,114"/>
-<area shape="poly" title=" " alt="" coords="999,110,1136,132,1288,165,1371,191,1452,221,1535,244,1618,269,1722,308,1809,343,1807,348,1720,312,1616,274,1534,249,1451,226,1369,197,1287,170,1135,138,998,115"/>
-<area shape="poly" title=" " alt="" coords="1002,107,1097,127,1146,144,1193,165,1212,178,1224,191,1251,221,1300,260,1297,264,1247,225,1220,195,1208,182,1190,170,1144,149,1096,133,1001,113"/>
-<area shape="poly" title=" " alt="" coords="1002,104,1058,111,1119,123,1181,141,1240,165,1259,179,1272,193,1283,207,1301,221,1348,245,1395,263,1393,268,1346,250,1298,226,1280,211,1268,196,1256,183,1237,170,1179,146,1117,128,1057,116,1001,109"/>
+<area shape="rect" title=" " alt="" coords="1303,5,1477,31"/>
+<area shape="rect" title=" " alt="" coords="739,87,811,112"/>
+<area shape="poly" title=" " alt="" coords="1302,24,1203,28,1082,38,952,55,822,82,816,83,814,78,821,76,951,50,1082,33,1203,23,1302,18"/>
+<area shape="rect" title=" " alt="" coords="834,87,895,112"/>
+<area shape="poly" title=" " alt="" coords="1302,27,1122,44,1017,60,914,82,907,84,906,78,913,76,1016,55,1121,39,1302,21"/>
+<area shape="rect" title=" " alt="" coords="2366,434,2432,459"/>
+<area shape="poly" title=" " alt="" coords="1477,18,1821,28,2044,39,2273,56,2487,78,2666,107,2736,125,2789,145,2824,168,2833,180,2836,194,2836,286,2834,319,2824,345,2807,367,2780,388,2754,401,2718,412,2628,429,2530,440,2447,446,2447,440,2529,434,2627,424,2717,407,2752,396,2778,383,2803,363,2820,342,2828,318,2831,285,2831,194,2828,183,2820,172,2787,150,2735,130,2665,113,2487,83,2273,61,2044,45,1821,34,1477,24"/>
+<area shape="rect" title=" " alt="" coords="970,87,1023,112"/>
+<area shape="poly" title=" " alt="" coords="1302,29,1174,47,1103,62,1034,82,1032,82,1030,77,1033,76,1102,57,1173,42,1302,24"/>
+<area shape="rect" title=" " alt="" coords="1565,271,1604,297"/>
+<area shape="poly" title=" " alt="" coords="1413,29,1443,50,1473,77,1508,123,1537,172,1576,255,1572,258,1532,174,1503,126,1469,81,1439,54,1410,34"/>
+<area shape="rect" title=" " alt="" coords="1203,87,1296,112"/>
+<area shape="poly" title=" " alt="" coords="1370,34,1286,81,1283,76,1367,29"/>
+<area shape="rect" href="../../d3/d6c/cone__coloring_8hpp.html" title=" " alt="" coords="313,183,490,208"/>
+<area shape="poly" title=" " alt="" coords="1302,29,1112,49,1022,64,959,81,944,91,934,101,924,112,908,122,851,143,801,154,756,159,712,160,623,159,571,162,510,170,461,181,460,176,509,165,570,157,622,154,712,155,755,154,800,149,849,138,906,117,921,108,930,98,941,87,957,77,1021,58,1111,44,1302,23"/>
+<area shape="rect" href="../../d6/d97/global__path__planner_8hpp.html" title=" " alt="" coords="1320,79,1459,120"/>
+<area shape="poly" title=" " alt="" coords="1392,31,1392,64,1387,64,1387,31"/>
+<area shape="rect" href="../../de/d76/track_8hpp.html" title=" " alt="" coords="1738,183,1820,208"/>
+<area shape="poly" title=" " alt="" coords="1418,29,1739,173,1737,178,1415,34"/>
+<area shape="rect" title=" " alt="" coords="2251,353,2371,378"/>
+<area shape="poly" title=" " alt="" coords="1477,19,1675,25,1925,36,2168,53,2268,64,2343,76,2411,90,2464,103,2513,125,2567,166,2602,197,2628,228,2636,245,2639,262,2635,280,2623,299,2595,309,2535,323,2387,353,2386,348,2534,318,2594,304,2620,295,2630,278,2633,262,2631,246,2624,231,2598,200,2564,170,2511,130,2463,108,2410,95,2343,82,2267,69,2167,58,1925,41,1675,30,1477,24"/>
+<area shape="rect" href="../../d5/d8c/files_8hpp.html" title=" " alt="" coords="2494,271,2590,297"/>
+<area shape="poly" title=" " alt="" coords="1477,18,1616,21,1796,31,1997,48,2198,76,2249,83,2294,86,2373,90,2409,97,2444,110,2480,132,2517,166,2531,186,2540,210,2545,255,2540,256,2535,211,2526,189,2513,169,2477,137,2442,115,2407,102,2372,96,2294,91,2248,88,2197,82,1996,54,1796,36,1616,27,1477,23"/>
+<area shape="rect" href="../../d2/d05/local__path__planner_8hpp.html" title=" " alt="" coords="1046,79,1179,120"/>
+<area shape="poly" title=" " alt="" coords="1348,34,1194,78,1193,72,1346,29"/>
+<area shape="rect" href="../../d2/d1d/path__smoothing_8hpp.html" title=" " alt="" coords="1996,87,2186,112"/>
+<area shape="poly" title=" " alt="" coords="1478,27,1981,83,1980,88,1477,32"/>
+<area shape="rect" title=" " alt="" coords="722,271,796,297"/>
+<area shape="poly" title=" " alt="" coords="451,206,510,221,707,268,706,273,509,226,450,211"/>
+<area shape="rect" title=" " alt="" coords="1301,434,1358,459"/>
+<area shape="poly" title=" " alt="" coords="382,211,358,227,336,248,323,272,322,284,327,296,342,318,357,335,392,357,433,369,485,383,557,398,653,411,886,428,1118,438,1286,442,1286,447,1118,443,885,434,652,416,556,404,484,388,432,374,389,361,354,339,338,322,322,298,317,284,318,271,332,245,355,223,379,207"/>
+<area shape="rect" title=" " alt="" coords="5,271,73,297"/>
+<area shape="poly" title=" " alt="" coords="349,212,88,273,87,268,348,206"/>
+<area shape="rect" title=" " alt="" coords="96,271,222,297"/>
+<area shape="poly" title=" " alt="" coords="368,211,208,268,206,263,367,206"/>
+<area shape="rect" title=" " alt="" coords="1505,434,1562,459"/>
+<area shape="poly" title=" " alt="" coords="472,206,676,243,809,269,867,297,907,328,948,357,973,371,1005,383,1083,397,1220,412,1490,439,1489,444,1219,418,1082,402,1004,388,971,376,945,362,904,332,864,302,807,274,675,248,471,212"/>
+<area shape="rect" href="../../d7/d87/angle__and__norm_8hpp.html" title=" " alt="" coords="347,271,515,297"/>
+<area shape="poly" title=" " alt="" coords="408,208,425,256,420,258,403,210"/>
+<area shape="rect" href="../../d0/db1/planning_2include_2utils_2cone_8hpp.html" title=" " alt="" coords="1439,271,1540,297"/>
+<area shape="poly" title=" " alt="" coords="462,206,554,221,785,242,965,250,1145,255,1377,269,1424,273,1423,278,1376,274,1145,260,964,255,784,247,553,226,461,212"/>
+<area shape="rect" href="../../d7/d7d/planning_2include_2utils_2pose_8hpp.html" title=" " alt="" coords="496,353,598,378"/>
+<area shape="poly" title=" " alt="" coords="385,211,363,228,343,250,332,273,332,284,337,295,366,324,403,342,443,354,482,360,481,365,442,359,401,347,363,328,333,299,327,286,327,272,338,247,360,224,382,207"/>
+<area shape="rect" href="../../dd/d21/righ__left__enum_8hpp.html" title=" " alt="" coords="540,271,698,297"/>
+<area shape="poly" title=" " alt="" coords="433,206,575,263,573,268,431,211"/>
+<area shape="poly" title=" " alt="" coords="1480,299,1354,425,1350,421,1476,296"/>
+<area shape="poly" title=" " alt="" coords="1493,297,1499,337,1510,385,1523,419,1518,421,1504,386,1493,338,1488,298"/>
+<area shape="rect" title=" " alt="" coords="1730,353,1783,378"/>
+<area shape="poly" title=" " alt="" coords="1532,295,1715,349,1714,354,1530,300"/>
+<area shape="poly" title=" " alt="" coords="598,369,1285,438,1285,443,597,374"/>
+<area shape="poly" title=" " alt="" coords="1321,120,1282,140,1265,153,1250,169,1231,202,1223,232,1226,262,1241,296,1265,326,1294,353,1326,375,1361,393,1431,420,1490,435,1489,440,1429,425,1359,398,1323,380,1290,357,1261,330,1237,298,1220,263,1217,231,1226,200,1246,166,1261,149,1279,135,1318,115"/>
+<area shape="poly" title=" " alt="" coords="1378,122,1350,164,1320,216,1301,264,1299,283,1304,295,1331,314,1371,326,1420,333,1474,336,1584,338,1667,342,1715,352,1714,357,1667,348,1583,343,1474,342,1419,338,1370,331,1328,319,1300,299,1294,283,1296,263,1316,213,1346,161,1374,119"/>
+<area shape="rect" title=" " alt="" coords="1313,271,1365,297"/>
+<area shape="poly" title=" " alt="" coords="1398,120,1406,168,1406,197,1399,224,1386,246,1370,263,1366,259,1382,242,1394,222,1400,196,1401,168,1393,121"/>
+<area shape="rect" href="../../d4/dd1/pathpoint_8hpp.html" title=" " alt="" coords="1519,353,1655,378"/>
+<area shape="poly" title=" " alt="" coords="1361,122,1316,157,1272,201,1256,225,1248,249,1248,273,1260,295,1270,302,1290,309,1352,324,1504,350,1503,355,1351,329,1289,314,1268,307,1256,299,1243,274,1242,248,1252,223,1268,198,1312,153,1358,118"/>
+<area shape="poly" title=" " alt="" coords="1460,115,1724,178,1723,183,1459,120"/>
+<area shape="poly" title=" " alt="" coords="1656,375,1718,383,2081,419,2351,439,2351,445,2081,424,1717,388,1655,380"/>
+<area shape="poly" title=" " alt="" coords="1548,381,1374,434,1372,429,1547,376"/>
+<area shape="poly" title=" " alt="" coords="1581,380,1553,422,1548,419,1577,377"/>
+<area shape="poly" title=" " alt="" coords="1784,208,1800,251,1814,275,1833,295,1896,337,1965,371,2038,396,2111,415,2182,428,2247,436,2351,443,2351,448,2247,442,2181,433,2110,420,2036,401,1963,376,1893,342,1829,299,1810,278,1795,253,1779,210"/>
+<area shape="poly" title=" " alt="" coords="1753,211,1619,270,1617,265,1750,207"/>
+<area shape="poly" title=" " alt="" coords="1739,204,1571,229,1486,249,1452,261,1429,273,1395,306,1370,346,1351,385,1339,420,1334,418,1346,383,1365,343,1391,303,1425,269,1450,256,1484,244,1570,224,1738,199"/>
+<area shape="poly" title=" " alt="" coords="1777,210,1764,244,1741,291,1709,342,1669,388,1624,417,1578,436,1576,431,1622,412,1665,384,1705,339,1736,288,1759,242,1772,208"/>
+<area shape="poly" title=" " alt="" coords="1739,212,1545,269,1544,264,1737,206"/>
+<area shape="poly" title=" " alt="" coords="1780,209,1763,337,1757,337,1775,208"/>
+<area shape="poly" title=" " alt="" coords="1738,206,1582,234,1384,274,1380,275,1379,269,1382,269,1581,229,1737,201"/>
+<area shape="rect" title=" " alt="" coords="2200,271,2318,297"/>
+<area shape="poly" title=" " alt="" coords="1820,202,2186,267,2185,272,1819,207"/>
+<area shape="rect" title=" " alt="" coords="1882,271,1996,297"/>
+<area shape="poly" title=" " alt="" coords="1803,207,1905,261,1902,266,1800,211"/>
+<area shape="rect" title=" " alt="" coords="2021,271,2081,297"/>
+<area shape="poly" title=" " alt="" coords="1818,206,2007,266,2005,271,1817,212"/>
+<area shape="rect" title=" " alt="" coords="2105,271,2176,297"/>
+<area shape="poly" title=" " alt="" coords="1821,204,2090,268,2089,273,1820,209"/>
+<area shape="poly" title=" " alt="" coords="1788,207,1820,251,1844,275,1871,295,1900,306,1938,317,2036,334,2237,356,2236,361,2035,340,1937,322,1898,311,1868,299,1840,279,1816,255,1784,210"/>
+<area shape="poly" title=" " alt="" coords="1820,199,2478,274,2478,279,1820,205"/>
+<area shape="poly" title=" " alt="" coords="2518,300,2435,347,2411,369,2400,379,2384,388,2313,408,2216,422,2104,433,1982,440,1748,447,1578,448,1578,443,1748,442,1982,435,2103,428,2216,417,2311,402,2382,383,2397,375,2408,365,2432,343,2516,295"/>
+<area shape="poly" title=" " alt="" coords="2493,293,1799,362,1798,357,2493,288"/>
+<area shape="poly" title=" " alt="" coords="2493,291,2105,317,1718,348,1671,354,1670,348,1717,342,2105,312,2493,286"/>
+<area shape="poly" title=" " alt="" coords="2493,279,1835,205,1835,200,2493,274"/>
+<area shape="poly" title=" " alt="" coords="2507,300,2361,350,2360,345,2505,295"/>
+<area shape="rect" title=" " alt="" coords="2549,345,2745,386"/>
+<area shape="poly" title=" " alt="" coords="2559,295,2610,333,2607,338,2556,300"/>
+<area shape="rect" title=" " alt="" coords="2446,353,2525,378"/>
+<area shape="poly" title=" " alt="" coords="2535,299,2505,341,2501,338,2531,296"/>
+<area shape="poly" title=" " alt="" coords="1046,120,1035,122,947,131,849,130,661,125,588,129,561,135,541,143,530,156,528,172,536,194,556,222,583,247,610,260,638,264,668,263,733,257,770,259,809,269,867,297,908,326,948,356,1005,383,1081,406,1158,422,1286,439,1285,445,1157,428,1079,411,1003,388,946,360,905,331,864,301,807,274,769,264,733,262,668,268,638,270,609,265,580,251,552,225,531,196,523,172,525,153,538,139,559,130,587,124,661,120,849,125,947,125,1035,117,1045,115"/>
+<area shape="poly" title=" " alt="" coords="1115,120,1120,168,1126,196,1136,222,1164,277,1192,317,1228,350,1279,383,1332,408,1389,425,1444,435,1490,440,1489,446,1443,440,1388,430,1331,413,1276,388,1224,354,1188,320,1160,280,1131,224,1121,197,1115,169,1110,120"/>
+<area shape="poly" title=" " alt="" coords="1163,118,1205,138,1246,166,1292,211,1325,256,1321,260,1287,215,1243,170,1202,143,1161,122"/>
+<area shape="poly" title=" " alt="" coords="1121,119,1137,157,1162,205,1196,254,1217,276,1240,295,1286,314,1354,330,1504,353,1503,358,1353,336,1285,319,1238,299,1214,280,1192,258,1157,208,1132,159,1116,121"/>
+<area shape="poly" title=" " alt="" coords="1179,115,1191,117,1341,141,1490,161,1723,186,1722,192,1490,167,1341,147,1191,122,1178,120"/>
+<area shape="poly" title=" " alt="" coords="1132,118,1225,221,1273,270,1303,295,1345,302,1434,311,1699,329,2236,358,2235,363,1699,335,1433,316,1344,308,1301,299,1270,274,1221,224,1128,122"/>
+<area shape="rect" title=" " alt="" coords="566,183,781,208"/>
+<area shape="poly" title=" " alt="" coords="1046,120,1036,122,794,170,742,181,741,176,793,165,1034,117,1045,115"/>
+<area shape="rect" title=" " alt="" coords="806,168,966,223"/>
+<area shape="poly" title=" " alt="" coords="1066,123,966,164,964,159,1064,118"/>
+<area shape="rect" title=" " alt="" coords="991,183,1037,208"/>
+<area shape="poly" title=" " alt="" coords="1094,122,1039,174,1035,170,1090,118"/>
+<area shape="poly" title=" " alt="" coords="2187,105,2396,127,2496,144,2536,154,2567,165,2635,199,2685,233,2706,253,2725,278,2760,344,2767,366,2766,377,2760,387,2738,404,2706,417,2621,434,2528,444,2447,447,2447,442,2527,438,2620,429,2704,412,2735,399,2756,384,2761,375,2762,367,2755,346,2721,281,2702,257,2682,237,2632,204,2565,170,2535,159,2495,149,2396,132,2186,110"/>
+<area shape="poly" title=" " alt="" coords="1996,111,1819,133,1738,150,1682,170,1656,189,1633,212,1600,259,1596,256,1629,209,1652,185,1679,165,1736,145,1818,128,1996,106"/>
+<area shape="poly" title=" " alt="" coords="2153,110,2246,134,2288,149,2315,166,2347,197,2368,229,2374,246,2374,264,2369,281,2357,299,2328,319,2286,331,2235,339,2180,342,2069,343,1985,348,1890,368,1795,388,1558,423,1374,443,1374,438,1557,417,1795,383,1889,363,1984,342,2069,338,2180,336,2235,333,2285,326,2326,314,2353,295,2364,279,2369,263,2369,247,2364,232,2342,200,2312,170,2285,154,2245,139,2151,115"/>
+<area shape="poly" title=" " alt="" coords="2155,110,2426,165,2447,199,2454,232,2447,265,2426,299,2403,309,2353,321,2208,350,1985,388,1756,422,1578,443,1577,438,1755,416,1984,383,2207,344,2352,316,2401,304,2423,295,2442,263,2449,232,2442,201,2423,170,2153,115"/>
+<area shape="poly" title=" " alt="" coords="1996,109,1895,118,1786,130,1686,148,1647,158,1618,170,1601,182,1591,194,1582,209,1568,225,1521,264,1517,260,1564,221,1578,206,1587,191,1598,178,1615,165,1645,153,1685,142,1785,125,1895,112,1996,104"/>
+<area shape="poly" title=" " alt="" coords="2130,110,2207,140,2250,160,2289,183,2322,209,2343,237,2348,252,2348,268,2343,283,2331,299,2262,312,2110,330,1799,362,1798,357,2110,325,2261,307,2328,295,2338,281,2342,267,2342,253,2338,239,2318,213,2286,188,2247,165,2205,145,2128,115"/>
+<area shape="poly" title=" " alt="" coords="1996,106,1904,112,1796,123,1680,142,1566,170,1511,191,1457,216,1371,265,1368,261,1454,212,1509,186,1565,165,1679,137,1795,118,1904,106,1996,100"/>
+<area shape="poly" title=" " alt="" coords="1996,113,1844,135,1775,151,1728,170,1699,199,1664,245,1604,341,1599,338,1660,242,1695,195,1726,165,1774,146,1843,130,1995,107"/>
+<area shape="poly" title=" " alt="" coords="2052,115,1835,180,1833,175,2050,110"/>
+<area shape="poly" title=" " alt="" coords="2104,111,2240,258,2236,262,2100,114"/>
+<area shape="poly" title=" " alt="" coords="2083,114,1961,261,1957,258,2079,111"/>
+<area shape="poly" title=" " alt="" coords="2091,113,2059,257,2054,256,2086,112"/>
+<area shape="poly" title=" " alt="" coords="2097,112,2136,256,2131,257,2092,113"/>
+<area shape="poly" title=" " alt="" coords="2186,105,2371,127,2456,144,2490,154,2516,165,2549,186,2572,208,2589,234,2604,270,2608,285,2604,299,2575,313,2520,328,2386,354,2385,349,2519,323,2573,308,2600,295,2603,285,2599,272,2584,237,2568,211,2546,191,2514,170,2489,159,2455,149,2370,132,2186,111"/>
+<area shape="poly" title=" " alt="" coords="2186,105,2267,114,2351,127,2425,144,2455,154,2477,165,2498,185,2515,209,2536,255,2531,258,2510,211,2494,189,2473,170,2452,159,2424,149,2350,132,2266,119,2186,111"/>
 </map>
 </div>
 </div>
@@ -212,9 +234,16 @@ Include dependency graph for tests.cpp:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a1d530eca12828fa8bd4055652000a956" id="r_a1d530eca12828fa8bd4055652000a956"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df6/planning_2test_2tests_8cpp.html#a1d530eca12828fa8bd4055652000a956">customComparator</a> (const std::pair&lt; double, double &gt; &amp;a, const std::pair&lt; double, double &gt; &amp;b)</td></tr>
-<tr class="memdesc:a1d530eca12828fa8bd4055652000a956"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the way in which two pairs of doubles should be compared when ordering them (lexicographic comparison)  <br /></td></tr>
-<tr class="separator:a1d530eca12828fa8bd4055652000a956"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7c5d0e668771d1a7f6e303ebd4a65d7" id="r_af7c5d0e668771d1a7f6e303ebd4a65d7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df6/planning_2test_2tests_8cpp.html#af7c5d0e668771d1a7f6e303ebd4a65d7">custom_comparator</a> (const std::pair&lt; double, double &gt; &amp;a, const std::pair&lt; double, double &gt; &amp;b)</td></tr>
+<tr class="memdesc:af7c5d0e668771d1a7f6e303ebd4a65d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the way in which two pairs of doubles should be compared when ordering them (lexicographic comparison)  <br /></td></tr>
+<tr class="separator:af7c5d0e668771d1a7f6e303ebd4a65d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98406defc350d30566cc83b369aebce0" id="r_a98406defc350d30566cc83b369aebce0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df6/planning_2test_2tests_8cpp.html#a98406defc350d30566cc83b369aebce0">log_cone1</a> (const <a class="el" href="../../d8/da1/class_cone.html">Cone</a> *c)</td></tr>
+<tr class="separator:a98406defc350d30566cc83b369aebce0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf6e6f8de5580ef3d20f3e05fee5f6aa" id="r_aaf6e6f8de5580ef3d20f3e05fee5f6aa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df6/planning_2test_2tests_8cpp.html#aaf6e6f8de5580ef3d20f3e05fee5f6aa">log_cone2</a> (const <a class="el" href="../../d8/da1/class_cone.html">Cone</a> *c)</td></tr>
+<tr class="separator:aaf6e6f8de5580ef3d20f3e05fee5f6aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4e1db1f58b3150cd44904c60de51c46" id="r_af4e1db1f58b3150cd44904c60de51c46"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df6/planning_2test_2tests_8cpp.html#af4e1db1f58b3150cd44904c60de51c46">test_cone_coloring</a> (const <a class="el" href="../../dd/d52/class_cone_coloring.html">ConeColoring</a> &amp;cone_coloring, int &amp;correctly_placed_blue, int &amp;correctly_placed_yellow, int &amp;incorrectly_placed_blue, int &amp;incorrectly_placed_yellow)</td></tr>
+<tr class="memdesc:af4e1db1f58b3150cd44904c60de51c46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to validate cone coloring. Compares each cone's id to its supposed Id (left side id is even, right side id is odd)  <br /></td></tr>
+<tr class="separator:af4e1db1f58b3150cd44904c60de51c46"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8030edc69053406b8812bd586e50468a" id="r_a8030edc69053406b8812bd586e50468a"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::pair&lt; double, double &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df6/planning_2test_2tests_8cpp.html#a8030edc69053406b8812bd586e50468a">orderVectorOfPairs</a> (const std::vector&lt; std::pair&lt; double, double &gt; &gt; &amp;vec)</td></tr>
 <tr class="memdesc:a8030edc69053406b8812bd586e50468a"><td class="mdescLeft">&#160;</td><td class="mdescRight">orders a vector of pairs to make it easier to compare them  <br /></td></tr>
 <tr class="separator:a8030edc69053406b8812bd586e50468a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -279,16 +308,30 @@ Functions</h2></td></tr>
 <tr class="separator:a24abd4bbadec3144e9f2562ff43add80"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab1bec19c757b0c10ea40b1c5480aac77" id="r_ab1bec19c757b0c10ea40b1c5480aac77"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df6/planning_2test_2tests_8cpp.html#ab1bec19c757b0c10ea40b1c5480aac77">extractInfo</a> (const std::string_view &amp;filenameView, int &amp;size, int &amp;n_outliers)</td></tr>
 <tr class="separator:ab1bec19c757b0c10ea40b1c5480aac77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b3e0277417f2e2a28398811e1aef5dc" id="r_a1b3e0277417f2e2a28398811e1aef5dc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df6/planning_2test_2tests_8cpp.html#a1b3e0277417f2e2a28398811e1aef5dc">TEST</a> (<a class="el" href="../../dd/d52/class_cone_coloring.html">ConeColoring</a>, filtercones)</td></tr>
+<tr class="separator:a1b3e0277417f2e2a28398811e1aef5dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09841343505121b96efdf2fc328d0c58" id="r_a09841343505121b96efdf2fc328d0c58"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df6/planning_2test_2tests_8cpp.html#a09841343505121b96efdf2fc328d0c58">TEST</a> (<a class="el" href="../../dd/d52/class_cone_coloring.html">ConeColoring</a>, get_first_cones)</td></tr>
+<tr class="separator:a09841343505121b96efdf2fc328d0c58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99ca8feb760b10bde94fbf21119a7604" id="r_a99ca8feb760b10bde94fbf21119a7604"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df6/planning_2test_2tests_8cpp.html#a99ca8feb760b10bde94fbf21119a7604">TEST</a> (<a class="el" href="../../dd/d52/class_cone_coloring.html">ConeColoring</a>, place_first_cones1)</td></tr>
+<tr class="separator:a99ca8feb760b10bde94fbf21119a7604"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a398d0f768ac526b5665cff1adfe37df2" id="r_a398d0f768ac526b5665cff1adfe37df2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df6/planning_2test_2tests_8cpp.html#a398d0f768ac526b5665cff1adfe37df2">TEST</a> (<a class="el" href="../../dd/d52/class_cone_coloring.html">ConeColoring</a>, place_first_cones2)</td></tr>
+<tr class="separator:a398d0f768ac526b5665cff1adfe37df2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0922e03bd3192f4432ba5cfd57af61c6" id="r_a0922e03bd3192f4432ba5cfd57af61c6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df6/planning_2test_2tests_8cpp.html#a0922e03bd3192f4432ba5cfd57af61c6">TEST</a> (<a class="el" href="../../dd/d52/class_cone_coloring.html">ConeColoring</a>, making_unvisited_cones1)</td></tr>
+<tr class="separator:a0922e03bd3192f4432ba5cfd57af61c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04f3065d9004b0a2ac2c8f6d00bc34b0" id="r_a04f3065d9004b0a2ac2c8f6d00bc34b0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df6/planning_2test_2tests_8cpp.html#a04f3065d9004b0a2ac2c8f6d00bc34b0">TEST</a> (<a class="el" href="../../dd/d52/class_cone_coloring.html">ConeColoring</a>, fullconecoloring1)</td></tr>
+<tr class="separator:a04f3065d9004b0a2ac2c8f6d00bc34b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0eb2417c307a7e6015466adfe20b14d" id="r_ae0eb2417c307a7e6015466adfe20b14d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/df6/planning_2test_2tests_8cpp.html#ae0eb2417c307a7e6015466adfe20b14d">TEST</a> (<a class="el" href="../../dd/d52/class_cone_coloring.html">ConeColoring</a>, fullconecoloring2)</td></tr>
+<tr class="separator:ae0eb2417c307a7e6015466adfe20b14d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a1d530eca12828fa8bd4055652000a956" name="a1d530eca12828fa8bd4055652000a956"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d530eca12828fa8bd4055652000a956">&#9670;&#160;</a></span>customComparator()</h2>
+<a id="af7c5d0e668771d1a7f6e303ebd4a65d7" name="af7c5d0e668771d1a7f6e303ebd4a65d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af7c5d0e668771d1a7f6e303ebd4a65d7">&#9670;&#160;</a></span>custom_comparator()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool customComparator </td>
+          <td class="memname">bool custom_comparator </td>
           <td>(</td>
           <td class="paramtype">const std::pair&lt; double, double &gt; &amp;&#160;</td>
           <td class="paramname"><em>a</em>, </td>
@@ -319,15 +362,15 @@ Functions</h2></td></tr>
 <dd>
 false if a&gt;b </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00028">28</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00029">29</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../dd/df6/planning_2test_2tests_8cpp_a1d530eca12828fa8bd4055652000a956_icgraph.png" border="0" usemap="#add/df6/planning_2test_2tests_8cpp_a1d530eca12828fa8bd4055652000a956_icgraph" alt=""/></div>
-<map name="add/df6/planning_2test_2tests_8cpp_a1d530eca12828fa8bd4055652000a956_icgraph" id="add/df6/planning_2test_2tests_8cpp_a1d530eca12828fa8bd4055652000a956_icgraph">
-<area shape="rect" title="Defines the way in which two pairs of doubles should be compared when ordering them (lexicographic co..." alt="" coords="288,55,419,80"/>
+<div class="center"><img src="../../dd/df6/planning_2test_2tests_8cpp_af7c5d0e668771d1a7f6e303ebd4a65d7_icgraph.png" border="0" usemap="#add/df6/planning_2test_2tests_8cpp_af7c5d0e668771d1a7f6e303ebd4a65d7_icgraph" alt=""/></div>
+<map name="add/df6/planning_2test_2tests_8cpp_af7c5d0e668771d1a7f6e303ebd4a65d7_icgraph" id="add/df6/planning_2test_2tests_8cpp_af7c5d0e668771d1a7f6e303ebd4a65d7_icgraph">
+<area shape="rect" title="Defines the way in which two pairs of doubles should be compared when ordering them (lexicographic co..." alt="" coords="288,55,424,80"/>
 <area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a8030edc69053406b8812bd586e50468a" title="orders a vector of pairs to make it easier to compare them" alt="" coords="108,55,240,80"/>
-<area shape="poly" title=" " alt="" coords="272,70,240,70,240,65,272,65"/>
+<area shape="poly" title=" " alt="" coords="272,70,241,70,241,65,272,65"/>
 <area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#af9952ff008604d30cd729682048e2167" title="scenario: Large piece of track with no outliers" alt="" coords="5,5,60,31"/>
 <area shape="poly" title=" " alt="" coords="119,51,59,30,61,25,121,46"/>
 <area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#ad18f9702442704e6ba155492f9317546" title="scenario with large track that barely has outliers (only 2)" alt="" coords="5,55,60,80"/>
@@ -385,7 +428,7 @@ Here is the caller graph for this function:</div>
 </ul>
 <p>Example: If filename is "map_100_5.txt", size will be set to 100 and n_outliers to 5. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00882">882</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00745">745</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -417,7 +460,7 @@ Here is the caller graph for this function:</div>
 <p>Get current date and time as a string. </p>
 <dl class="section return"><dt>Returns</dt><dd>Current date and time as a string in "YYYY-MM-DD-HH:MM" format. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00053">53</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00095">95</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -433,6 +476,46 @@ Here is the caller graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="92,56,60,50,60,45,93,50"/>
 </map>
 </div>
+
+</div>
+</div>
+<a id="a98406defc350d30566cc83b369aebce0" name="a98406defc350d30566cc83b369aebce0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98406defc350d30566cc83b369aebce0">&#9670;&#160;</a></span>log_cone1()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void log_cone1 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d8/da1/class_cone.html">Cone</a> *&#160;</td>
+          <td class="paramname"><em>c</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00036">36</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aaf6e6f8de5580ef3d20f3e05fee5f6aa" name="aaf6e6f8de5580ef3d20f3e05fee5f6aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf6e6f8de5580ef3d20f3e05fee5f6aa">&#9670;&#160;</a></span>log_cone2()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void log_cone2 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d8/da1/class_cone.html">Cone</a> *&#160;</td>
+          <td class="paramname"><em>c</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00041">41</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
 
 </div>
 </div>
@@ -462,7 +545,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00165">165</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00201">201</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -503,14 +586,14 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>ordered vector of pairs </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00042">42</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00084">84</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../dd/df6/planning_2test_2tests_8cpp_a8030edc69053406b8812bd586e50468a_cgraph.png" border="0" usemap="#add/df6/planning_2test_2tests_8cpp_a8030edc69053406b8812bd586e50468a_cgraph" alt=""/></div>
 <map name="add/df6/planning_2test_2tests_8cpp_a8030edc69053406b8812bd586e50468a_cgraph" id="add/df6/planning_2test_2tests_8cpp_a8030edc69053406b8812bd586e50468a_cgraph">
 <area shape="rect" title="orders a vector of pairs to make it easier to compare them" alt="" coords="5,5,138,31"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a1d530eca12828fa8bd4055652000a956" title="Defines the way in which two pairs of doubles should be compared when ordering them (lexicographic co..." alt="" coords="186,5,317,31"/>
+<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#af7c5d0e668771d1a7f6e303ebd4a65d7" title="Defines the way in which two pairs of doubles should be compared when ordering them (lexicographic co..." alt="" coords="186,5,322,31"/>
 <area shape="poly" title=" " alt="" coords="138,16,170,16,170,21,138,21"/>
 </map>
 </div>
@@ -566,7 +649,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00131">131</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00169">169</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -577,9 +660,9 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="75,191,114,131,144,96,179,65,197,55,200,60,182,70,147,99,118,134,79,194"/>
 <area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a2c3bbc9fd458920b2aa9308286235fd9" title="Get current date and time as a string." alt="" coords="191,79,341,120"/>
 <area shape="poly" title=" " alt="" coords="86,191,127,161,179,129,190,124,192,129,182,134,130,165,89,195"/>
-<area shape="rect" href="../../d6/d2c/class_track.html#a394133c01100ca42facbb28150db9e7d" title="Get the number of left cones." alt="" coords="184,144,348,170"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#a6bd8978cb65635811bdeef26c29c989b" title="Get the number of left cones." alt="" coords="184,144,348,170"/>
 <area shape="poly" title=" " alt="" coords="123,190,196,171,198,177,124,195"/>
-<area shape="rect" href="../../d6/d2c/class_track.html#a509060ab3a7c34a9fc435b507e4bd49d" title="Get the number of right cones." alt="" coords="181,193,351,219"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#aaeb6c56205cff7f075ac1aacbbc29a89" title="Get the number of right cones." alt="" coords="181,193,351,219"/>
 <area shape="poly" title=" " alt="" coords="133,204,165,204,165,209,133,209"/>
 <area shape="rect" href="../../dd/d8b/files_8cpp.html#a31528f6190bb65cd23060103e913aa53" title=" " alt="" coords="600,244,701,270"/>
 <area shape="poly" title=" " alt="" coords="121,217,181,229,292,241,403,249,585,254,585,260,403,254,291,247,180,234,120,222"/>
@@ -600,7 +683,7 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="540,304,571,304,571,309,540,310"/>
 <area shape="rect" href="../../d6/d2c/class_track.html#af8be3556aade761aa0851df8b6371dce" title="Used for logging content of gsl_vectors." alt="" coords="767,395,909,420"/>
 <area shape="poly" title=" " alt="" coords="705,386,751,392,751,398,704,391"/>
-<area shape="rect" href="../../d8/da1/class_cone.html#a1fd598dec938e232ee09e16abe1b6a0d" title=" " alt="" coords="767,293,909,319"/>
+<area shape="rect" href="../../d8/da1/class_cone.html#a14a49d09bc10d53888d06e183c6d1206" title=" " alt="" coords="767,293,909,319"/>
 <area shape="poly" title=" " alt="" coords="714,304,751,304,751,309,714,309"/>
 <area shape="rect" href="../../d8/da1/class_cone.html#a51a49cc249e79d06f6a983250fe809b3" title=" " alt="" coords="962,244,1046,270"/>
 <area shape="poly" title=" " alt="" coords="692,290,712,280,726,267,734,253,744,240,760,229,785,221,811,216,864,216,914,224,956,236,955,241,913,229,863,221,812,221,787,226,763,234,748,244,739,256,730,270,715,284,695,295"/>
@@ -652,7 +735,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>path after Delaunay Triangulations </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00085">85</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00127">127</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -683,11 +766,11 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="296,436,307,492,330,566,347,606,369,643,395,677,428,705,452,720,479,730,535,742,591,744,641,740,642,746,592,749,535,747,477,735,450,725,424,710,392,681,364,646,342,608,325,568,302,493,291,437"/>
 <area shape="rect" href="../../d6/d2c/class_track.html#aeb46e6fbc74096c298262b84cd81b77f" title="Get the left cone at a specified index." alt="" coords="439,156,583,182"/>
 <area shape="poly" title=" " alt="" coords="306,393,340,349,376,294,388,265,395,239,404,215,424,191,428,188,431,192,428,195,408,218,400,241,393,267,380,297,344,352,310,396"/>
-<area shape="rect" href="../../d6/d2c/class_track.html#a394133c01100ca42facbb28150db9e7d" title="Get the number of left cones." alt="" coords="430,205,593,231"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#a6bd8978cb65635811bdeef26c29c989b" title="Get the number of left cones." alt="" coords="430,205,593,231"/>
 <area shape="poly" title=" " alt="" coords="304,394,370,305,424,240,431,236,434,240,428,244,374,308,308,397"/>
 <area shape="rect" href="../../d6/d2c/class_track.html#a95fe146ead9aae192047e1f0a2c6c3c8" title="Get the right cone at a specified index." alt="" coords="436,255,587,280"/>
 <area shape="poly" title=" " alt="" coords="306,393,356,341,389,313,425,289,435,284,437,289,427,294,392,317,359,345,310,397"/>
-<area shape="rect" href="../../d6/d2c/class_track.html#a509060ab3a7c34a9fc435b507e4bd49d" title="Get the number of right cones." alt="" coords="426,304,596,330"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#aaeb6c56205cff7f075ac1aacbbc29a89" title="Get the number of right cones." alt="" coords="426,304,596,330"/>
 <area shape="poly" title=" " alt="" coords="323,392,370,365,425,338,441,332,443,337,427,343,373,370,325,397"/>
 <area shape="rect" href="../../d8/da1/class_cone.html#a51a49cc249e79d06f6a983250fe809b3" title=" " alt="" coords="658,769,742,795"/>
 <area shape="poly" title=" " alt="" coords="295,436,303,499,324,586,341,632,363,677,392,717,428,751,452,766,478,777,535,790,592,793,642,789,642,794,592,798,535,795,477,782,449,771,424,755,388,720,359,679,336,634,319,588,298,500,290,436"/>
@@ -757,7 +840,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>rounded number </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00071">71</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00113">113</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -774,30 +857,397 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../dd/df6/planning_2test_2tests_8cpp_afbb0277ee17d082a0d2177393a346904_icgraph.png" border="0" usemap="#add/df6/planning_2test_2tests_8cpp_afbb0277ee17d082a0d2177393a346904_icgraph" alt=""/></div>
 <map name="add/df6/planning_2test_2tests_8cpp_afbb0277ee17d082a0d2177393a346904_icgraph" id="add/df6/planning_2test_2tests_8cpp_afbb0277ee17d082a0d2177393a346904_icgraph">
-<area shape="rect" title="rounds float to n decimal places" alt="" coords="108,179,175,204"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a7b7c7d79809f351fb41f6578dbdaf2ca" title="simplest scenario with cones forming a line and one outlier" alt="" coords="5,5,60,31"/>
-<area shape="poly" title=" " alt="" coords="126,166,98,108,58,44,48,33,52,30,62,41,103,105,131,163"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#ac7fcdd764e3bf039a7651702397702ef" title="scenario with large track that barely has outliers (only 2)" alt="" coords="5,55,60,80"/>
-<area shape="poly" title=" " alt="" coords="119,168,58,93,47,83,51,79,62,90,123,164"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#af135d65f2784ab63322d2dc0342433e5" title="scenario with large track but few outliers" alt="" coords="5,104,60,130"/>
-<area shape="poly" title=" " alt="" coords="107,172,51,132,55,128,110,167"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a51e9b02efadad69c633bb346d244c040" title="scenario with large track and moderate number of outliers" alt="" coords="5,153,60,179"/>
-<area shape="poly" title=" " alt="" coords="92,183,59,175,61,170,93,178"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a81c282250a0ddc02a5624391b6d53b9f" title="scenario with large track and abundant outliers" alt="" coords="5,203,60,228"/>
-<area shape="poly" title=" " alt="" coords="93,205,61,212,59,207,92,200"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a31cf5e2275b9c7e8dfd57ad0a102e2de" title="unrealistic scenario with cones randomly positioned in 100 by 100 square" alt="" coords="5,252,60,278"/>
-<area shape="poly" title=" " alt="" coords="110,216,55,254,52,249,107,211"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a0332ef9190c93cd17d4e05d76a15426a" title="simple case in which there are cones only in the left size and no significant outliers" alt="" coords="5,301,60,327"/>
-<area shape="poly" title=" " alt="" coords="123,218,62,292,51,303,47,299,58,288,119,215"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a29badad35310b8e08080122d0707b973" title="simple scenario only with left cones but with 4 significant outliers" alt="" coords="5,351,60,376"/>
-<area shape="poly" title=" " alt="" coords="131,220,103,277,62,341,52,352,48,348,58,338,98,275,126,217"/>
+<area shape="rect" title="rounds float to n decimal places" alt="" coords="108,252,175,278"/>
+<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a09841343505121b96efdf2fc328d0c58" title=" " alt="" coords="5,5,60,31"/>
+<area shape="poly" title=" " alt="" coords="132,238,107,148,85,94,57,44,48,33,52,30,62,41,90,92,112,146,137,236"/>
+<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a99ca8feb760b10bde94fbf21119a7604" title=" " alt="" coords="5,55,60,80"/>
+<area shape="poly" title=" " alt="" coords="129,238,101,170,81,130,58,93,48,83,52,79,62,90,86,128,106,168,134,236"/>
+<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a398d0f768ac526b5665cff1adfe37df2" title=" " alt="" coords="5,104,60,130"/>
+<area shape="poly" title=" " alt="" coords="123,240,95,193,58,143,47,132,51,128,62,139,99,190,128,237"/>
+<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a7b7c7d79809f351fb41f6578dbdaf2ca" title="simplest scenario with cones forming a line and one outlier" alt="" coords="5,153,60,179"/>
+<area shape="poly" title=" " alt="" coords="113,243,46,182,50,178,116,239"/>
+<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#ac7fcdd764e3bf039a7651702397702ef" title="scenario with large track that barely has outliers (only 2)" alt="" coords="5,203,60,228"/>
+<area shape="poly" title=" " alt="" coords="96,247,59,230,61,225,98,243"/>
+<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#af135d65f2784ab63322d2dc0342433e5" title="scenario with large track but few outliers" alt="" coords="5,252,60,278"/>
+<area shape="poly" title=" " alt="" coords="92,268,60,268,60,262,92,262"/>
+<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a51e9b02efadad69c633bb346d244c040" title="scenario with large track and moderate number of outliers" alt="" coords="5,301,60,327"/>
+<area shape="poly" title=" " alt="" coords="98,287,61,304,59,299,96,282"/>
+<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a81c282250a0ddc02a5624391b6d53b9f" title="scenario with large track and abundant outliers" alt="" coords="5,351,60,376"/>
+<area shape="poly" title=" " alt="" coords="116,290,50,352,46,348,113,287"/>
+<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a31cf5e2275b9c7e8dfd57ad0a102e2de" title="unrealistic scenario with cones randomly positioned in 100 by 100 square" alt="" coords="5,400,60,426"/>
+<area shape="poly" title=" " alt="" coords="128,293,99,340,62,391,51,402,47,398,58,387,95,337,123,290"/>
+<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a0332ef9190c93cd17d4e05d76a15426a" title="simple case in which there are cones only in the left size and no significant outliers" alt="" coords="5,449,60,475"/>
+<area shape="poly" title=" " alt="" coords="134,293,106,362,86,402,62,440,52,451,48,447,58,437,81,399,101,360,129,291"/>
+<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a29badad35310b8e08080122d0707b973" title="simple scenario only with left cones but with 4 significant outliers" alt="" coords="5,499,60,524"/>
+<area shape="poly" title=" " alt="" coords="137,293,112,384,90,438,62,489,52,500,48,497,57,486,85,435,107,382,132,292"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a1b3e0277417f2e2a28398811e1aef5dc" name="a1b3e0277417f2e2a28398811e1aef5dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b3e0277417f2e2a28398811e1aef5dc">&#9670;&#160;</a></span>TEST() <span class="overload">[1/22]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dd/d52/class_cone_coloring.html">ConeColoring</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">filtercones&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00756">756</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../dd/df6/planning_2test_2tests_8cpp_a1b3e0277417f2e2a28398811e1aef5dc_cgraph.png" border="0" usemap="#add/df6/planning_2test_2tests_8cpp_a1b3e0277417f2e2a28398811e1aef5dc_cgraph" alt=""/></div>
+<map name="add/df6/planning_2test_2tests_8cpp_a1b3e0277417f2e2a28398811e1aef5dc_cgraph" id="add/df6/planning_2test_2tests_8cpp_a1b3e0277417f2e2a28398811e1aef5dc_cgraph">
+<area shape="rect" title=" " alt="" coords="5,79,60,104"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#af563702e457e6b2da5e127a7981b9453" title="Fill the track data from a file." alt="" coords="131,29,237,55"/>
+<area shape="poly" title=" " alt="" coords="59,80,107,64,125,58,127,63,109,69,61,85"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#a708bf453953552a35eb902e9064fe441" title="Get the left side cones." alt="" coords="111,79,257,104"/>
+<area shape="poly" title=" " alt="" coords="60,89,95,89,95,94,60,94"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#a8b397028d82bd7b6be314ad7410c4cba" title="Get the right side cones." alt="" coords="108,128,260,154"/>
+<area shape="poly" title=" " alt="" coords="61,98,109,114,127,120,125,125,107,119,59,103"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#adc534b0f22848fc22d7001bd7e1789dd" title="Add a cone to the track if the color is appropriate." alt="" coords="308,5,419,31"/>
+<area shape="poly" title=" " alt="" coords="237,33,293,25,293,30,237,38"/>
+<area shape="rect" href="../../dd/d8b/files_8cpp.html#a440bc5364e11c37c13f14f7a0d1c7208" title=" " alt="" coords="314,55,414,80"/>
+<area shape="poly" title=" " alt="" coords="237,47,299,56,298,61,237,52"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a04f3065d9004b0a2ac2c8f6d00bc34b0" name="a04f3065d9004b0a2ac2c8f6d00bc34b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04f3065d9004b0a2ac2c8f6d00bc34b0">&#9670;&#160;</a></span>TEST() <span class="overload">[2/22]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dd/d52/class_cone_coloring.html">ConeColoring</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">fullconecoloring1&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00900">900</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../dd/df6/planning_2test_2tests_8cpp_a04f3065d9004b0a2ac2c8f6d00bc34b0_cgraph.png" border="0" usemap="#add/df6/planning_2test_2tests_8cpp_a04f3065d9004b0a2ac2c8f6d00bc34b0_cgraph" alt=""/></div>
+<map name="add/df6/planning_2test_2tests_8cpp_a04f3065d9004b0a2ac2c8f6d00bc34b0_cgraph" id="add/df6/planning_2test_2tests_8cpp_a04f3065d9004b0a2ac2c8f6d00bc34b0_cgraph">
+<area shape="rect" title=" " alt="" coords="5,104,60,130"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#af563702e457e6b2da5e127a7981b9453" title="Fill the track data from a file." alt="" coords="131,29,237,55"/>
+<area shape="poly" title=" " alt="" coords="48,102,75,82,106,64,118,59,120,63,109,69,78,87,52,106"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#a708bf453953552a35eb902e9064fe441" title="Get the left side cones." alt="" coords="111,79,257,104"/>
+<area shape="poly" title=" " alt="" coords="60,110,95,104,96,109,61,115"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#a8b397028d82bd7b6be314ad7410c4cba" title="Get the right side cones." alt="" coords="108,128,260,154"/>
+<area shape="poly" title=" " alt="" coords="60,118,93,124,92,129,60,124"/>
+<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#af4e1db1f58b3150cd44904c60de51c46" title="Function to validate cone coloring. Compares each cone&#39;s id to its supposed Id (left side id is even,..." alt="" coords="119,177,249,203"/>
+<area shape="poly" title=" " alt="" coords="52,128,109,164,121,169,119,174,106,169,49,132"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#adc534b0f22848fc22d7001bd7e1789dd" title="Add a cone to the track if the color is appropriate." alt="" coords="308,5,419,31"/>
+<area shape="poly" title=" " alt="" coords="237,33,293,25,293,30,237,38"/>
+<area shape="rect" href="../../dd/d8b/files_8cpp.html#a440bc5364e11c37c13f14f7a0d1c7208" title=" " alt="" coords="314,55,414,80"/>
+<area shape="poly" title=" " alt="" coords="237,47,299,56,298,61,237,52"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ae0eb2417c307a7e6015466adfe20b14d" name="ae0eb2417c307a7e6015466adfe20b14d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0eb2417c307a7e6015466adfe20b14d">&#9670;&#160;</a></span>TEST() <span class="overload">[3/22]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dd/d52/class_cone_coloring.html">ConeColoring</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">fullconecoloring2&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00928">928</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../dd/df6/planning_2test_2tests_8cpp_ae0eb2417c307a7e6015466adfe20b14d_cgraph.png" border="0" usemap="#add/df6/planning_2test_2tests_8cpp_ae0eb2417c307a7e6015466adfe20b14d_cgraph" alt=""/></div>
+<map name="add/df6/planning_2test_2tests_8cpp_ae0eb2417c307a7e6015466adfe20b14d_cgraph" id="add/df6/planning_2test_2tests_8cpp_ae0eb2417c307a7e6015466adfe20b14d_cgraph">
+<area shape="rect" title=" " alt="" coords="5,104,60,130"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#af563702e457e6b2da5e127a7981b9453" title="Fill the track data from a file." alt="" coords="131,29,237,55"/>
+<area shape="poly" title=" " alt="" coords="48,102,75,82,106,64,118,59,120,63,109,69,78,87,52,106"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#a708bf453953552a35eb902e9064fe441" title="Get the left side cones." alt="" coords="111,79,257,104"/>
+<area shape="poly" title=" " alt="" coords="60,110,95,104,96,109,61,115"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#a8b397028d82bd7b6be314ad7410c4cba" title="Get the right side cones." alt="" coords="108,128,260,154"/>
+<area shape="poly" title=" " alt="" coords="60,118,93,124,92,129,60,124"/>
+<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#af4e1db1f58b3150cd44904c60de51c46" title="Function to validate cone coloring. Compares each cone&#39;s id to its supposed Id (left side id is even,..." alt="" coords="119,177,249,203"/>
+<area shape="poly" title=" " alt="" coords="52,128,109,164,121,169,119,174,106,169,49,132"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#adc534b0f22848fc22d7001bd7e1789dd" title="Add a cone to the track if the color is appropriate." alt="" coords="308,5,419,31"/>
+<area shape="poly" title=" " alt="" coords="237,33,293,25,293,30,237,38"/>
+<area shape="rect" href="../../dd/d8b/files_8cpp.html#a440bc5364e11c37c13f14f7a0d1c7208" title=" " alt="" coords="314,55,414,80"/>
+<area shape="poly" title=" " alt="" coords="237,47,299,56,298,61,237,52"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a09841343505121b96efdf2fc328d0c58" name="a09841343505121b96efdf2fc328d0c58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09841343505121b96efdf2fc328d0c58">&#9670;&#160;</a></span>TEST() <span class="overload">[4/22]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dd/d52/class_cone_coloring.html">ConeColoring</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">get_first_cones&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00784">784</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../dd/df6/planning_2test_2tests_8cpp_a09841343505121b96efdf2fc328d0c58_cgraph.png" border="0" usemap="#add/df6/planning_2test_2tests_8cpp_a09841343505121b96efdf2fc328d0c58_cgraph" alt=""/></div>
+<map name="add/df6/planning_2test_2tests_8cpp_a09841343505121b96efdf2fc328d0c58_cgraph" id="add/df6/planning_2test_2tests_8cpp_a09841343505121b96efdf2fc328d0c58_cgraph">
+<area shape="rect" title=" " alt="" coords="5,177,60,203"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#af563702e457e6b2da5e127a7981b9453" title="Fill the track data from a file." alt="" coords="131,29,237,55"/>
+<area shape="poly" title=" " alt="" coords="36,176,60,122,80,91,106,64,115,58,118,62,109,68,84,94,64,125,41,178"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#a708bf453953552a35eb902e9064fe441" title="Get the left side cones." alt="" coords="111,79,257,104"/>
+<area shape="poly" title=" " alt="" coords="41,175,68,144,106,113,114,109,117,113,109,118,72,148,45,179"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#a8b397028d82bd7b6be314ad7410c4cba" title="Get the right side cones." alt="" coords="108,128,260,154"/>
+<area shape="poly" title=" " alt="" coords="59,178,107,162,125,156,127,161,109,167,61,184"/>
+<area shape="rect" href="../../d8/da1/class_cone.html#ad6448719967d79b51a6e9586d28897d8" title=" " alt="" coords="141,177,227,203"/>
+<area shape="poly" title=" " alt="" coords="60,188,125,188,125,193,60,193"/>
+<area shape="rect" href="../../d8/da1/class_cone.html#a51a49cc249e79d06f6a983250fe809b3" title=" " alt="" coords="142,227,226,252"/>
+<area shape="poly" title=" " alt="" coords="61,197,109,213,128,219,126,224,107,218,59,202"/>
+<area shape="rect" href="../../d8/da1/class_cone.html#a952987a9de5d20d7930b3e93c04fd278" title=" " alt="" coords="142,276,226,302"/>
+<area shape="poly" title=" " alt="" coords="45,201,72,232,109,263,128,272,126,277,106,267,68,236,41,205"/>
+<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#afbb0277ee17d082a0d2177393a346904" title="rounds float to n decimal places" alt="" coords="150,325,218,351"/>
+<area shape="poly" title=" " alt="" coords="41,202,64,256,84,286,109,312,136,326,134,331,106,316,80,289,60,258,36,205"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#adc534b0f22848fc22d7001bd7e1789dd" title="Add a cone to the track if the color is appropriate." alt="" coords="308,5,419,31"/>
+<area shape="poly" title=" " alt="" coords="237,33,293,25,293,30,237,38"/>
+<area shape="rect" href="../../dd/d8b/files_8cpp.html#a440bc5364e11c37c13f14f7a0d1c7208" title=" " alt="" coords="314,55,414,80"/>
+<area shape="poly" title=" " alt="" coords="237,47,299,56,298,61,237,52"/>
+<area shape="rect" href="../../da/dad/inspection_2test_2tests_8cpp.html#a322889033b0102b5c2eb49fe3c081fd8" title="round to n decimal places" alt="" coords="337,325,390,351"/>
+<area shape="poly" title=" " alt="" coords="218,336,321,336,321,341,218,341"/>
+<area shape="poly" title=" " alt="" coords="334,327,328,317,331,307,343,301,364,299,387,302,398,309,395,314,385,307,364,304,345,306,335,311,333,317,339,324"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a0922e03bd3192f4432ba5cfd57af61c6" name="a0922e03bd3192f4432ba5cfd57af61c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0922e03bd3192f4432ba5cfd57af61c6">&#9670;&#160;</a></span>TEST() <span class="overload">[5/22]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dd/d52/class_cone_coloring.html">ConeColoring</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">making_unvisited_cones1&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00876">876</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../dd/df6/planning_2test_2tests_8cpp_a0922e03bd3192f4432ba5cfd57af61c6_cgraph.png" border="0" usemap="#add/df6/planning_2test_2tests_8cpp_a0922e03bd3192f4432ba5cfd57af61c6_cgraph" alt=""/></div>
+<map name="add/df6/planning_2test_2tests_8cpp_a0922e03bd3192f4432ba5cfd57af61c6_cgraph" id="add/df6/planning_2test_2tests_8cpp_a0922e03bd3192f4432ba5cfd57af61c6_cgraph">
+<area shape="rect" title=" " alt="" coords="5,79,60,104"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#af563702e457e6b2da5e127a7981b9453" title="Fill the track data from a file." alt="" coords="131,29,237,55"/>
+<area shape="poly" title=" " alt="" coords="59,80,107,64,125,58,127,63,109,69,61,85"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#a708bf453953552a35eb902e9064fe441" title="Get the left side cones." alt="" coords="111,79,257,104"/>
+<area shape="poly" title=" " alt="" coords="60,89,95,89,95,94,60,94"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#a8b397028d82bd7b6be314ad7410c4cba" title="Get the right side cones." alt="" coords="108,128,260,154"/>
+<area shape="poly" title=" " alt="" coords="61,98,109,114,127,120,125,125,107,119,59,103"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#adc534b0f22848fc22d7001bd7e1789dd" title="Add a cone to the track if the color is appropriate." alt="" coords="308,5,419,31"/>
+<area shape="poly" title=" " alt="" coords="237,33,293,25,293,30,237,38"/>
+<area shape="rect" href="../../dd/d8b/files_8cpp.html#a440bc5364e11c37c13f14f7a0d1c7208" title=" " alt="" coords="314,55,414,80"/>
+<area shape="poly" title=" " alt="" coords="237,47,299,56,298,61,237,52"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a99ca8feb760b10bde94fbf21119a7604" name="a99ca8feb760b10bde94fbf21119a7604"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99ca8feb760b10bde94fbf21119a7604">&#9670;&#160;</a></span>TEST() <span class="overload">[6/22]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dd/d52/class_cone_coloring.html">ConeColoring</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">place_first_cones1&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00813">813</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../dd/df6/planning_2test_2tests_8cpp_a99ca8feb760b10bde94fbf21119a7604_cgraph.png" border="0" usemap="#add/df6/planning_2test_2tests_8cpp_a99ca8feb760b10bde94fbf21119a7604_cgraph" alt=""/></div>
+<map name="add/df6/planning_2test_2tests_8cpp_a99ca8feb760b10bde94fbf21119a7604_cgraph" id="add/df6/planning_2test_2tests_8cpp_a99ca8feb760b10bde94fbf21119a7604_cgraph">
+<area shape="rect" title=" " alt="" coords="5,104,60,130"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#af563702e457e6b2da5e127a7981b9453" title="Fill the track data from a file." alt="" coords="131,29,237,55"/>
+<area shape="poly" title=" " alt="" coords="48,102,75,82,106,64,118,59,120,63,109,69,78,87,52,106"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#a708bf453953552a35eb902e9064fe441" title="Get the left side cones." alt="" coords="111,79,257,104"/>
+<area shape="poly" title=" " alt="" coords="60,110,95,104,96,109,61,115"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#a8b397028d82bd7b6be314ad7410c4cba" title="Get the right side cones." alt="" coords="108,128,260,154"/>
+<area shape="poly" title=" " alt="" coords="60,118,93,124,92,129,60,124"/>
+<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#afbb0277ee17d082a0d2177393a346904" title="rounds float to n decimal places" alt="" coords="150,177,218,203"/>
+<area shape="poly" title=" " alt="" coords="52,128,109,164,136,175,134,180,106,169,49,132"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#adc534b0f22848fc22d7001bd7e1789dd" title="Add a cone to the track if the color is appropriate." alt="" coords="308,5,419,31"/>
+<area shape="poly" title=" " alt="" coords="237,33,293,25,293,30,237,38"/>
+<area shape="rect" href="../../dd/d8b/files_8cpp.html#a440bc5364e11c37c13f14f7a0d1c7208" title=" " alt="" coords="314,55,414,80"/>
+<area shape="poly" title=" " alt="" coords="237,47,299,56,298,61,237,52"/>
+<area shape="rect" href="../../da/dad/inspection_2test_2tests_8cpp.html#a322889033b0102b5c2eb49fe3c081fd8" title="round to n decimal places" alt="" coords="337,177,390,203"/>
+<area shape="poly" title=" " alt="" coords="218,188,321,188,321,193,218,193"/>
+<area shape="poly" title=" " alt="" coords="334,179,328,169,331,159,343,153,364,151,387,154,398,161,395,166,385,159,364,156,345,158,335,163,333,169,339,176"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a398d0f768ac526b5665cff1adfe37df2" name="a398d0f768ac526b5665cff1adfe37df2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a398d0f768ac526b5665cff1adfe37df2">&#9670;&#160;</a></span>TEST() <span class="overload">[7/22]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dd/d52/class_cone_coloring.html">ConeColoring</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">place_first_cones2&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00845">845</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../dd/df6/planning_2test_2tests_8cpp_a398d0f768ac526b5665cff1adfe37df2_cgraph.png" border="0" usemap="#add/df6/planning_2test_2tests_8cpp_a398d0f768ac526b5665cff1adfe37df2_cgraph" alt=""/></div>
+<map name="add/df6/planning_2test_2tests_8cpp_a398d0f768ac526b5665cff1adfe37df2_cgraph" id="add/df6/planning_2test_2tests_8cpp_a398d0f768ac526b5665cff1adfe37df2_cgraph">
+<area shape="rect" title=" " alt="" coords="5,104,60,130"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#af563702e457e6b2da5e127a7981b9453" title="Fill the track data from a file." alt="" coords="131,29,237,55"/>
+<area shape="poly" title=" " alt="" coords="48,102,75,82,106,64,118,59,120,63,109,69,78,87,52,106"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#a708bf453953552a35eb902e9064fe441" title="Get the left side cones." alt="" coords="111,79,257,104"/>
+<area shape="poly" title=" " alt="" coords="60,110,95,104,96,109,61,115"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#a8b397028d82bd7b6be314ad7410c4cba" title="Get the right side cones." alt="" coords="108,128,260,154"/>
+<area shape="poly" title=" " alt="" coords="60,118,93,124,92,129,60,124"/>
+<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#afbb0277ee17d082a0d2177393a346904" title="rounds float to n decimal places" alt="" coords="150,177,218,203"/>
+<area shape="poly" title=" " alt="" coords="52,128,109,164,136,175,134,180,106,169,49,132"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#adc534b0f22848fc22d7001bd7e1789dd" title="Add a cone to the track if the color is appropriate." alt="" coords="308,5,419,31"/>
+<area shape="poly" title=" " alt="" coords="237,33,293,25,293,30,237,38"/>
+<area shape="rect" href="../../dd/d8b/files_8cpp.html#a440bc5364e11c37c13f14f7a0d1c7208" title=" " alt="" coords="314,55,414,80"/>
+<area shape="poly" title=" " alt="" coords="237,47,299,56,298,61,237,52"/>
+<area shape="rect" href="../../da/dad/inspection_2test_2tests_8cpp.html#a322889033b0102b5c2eb49fe3c081fd8" title="round to n decimal places" alt="" coords="337,177,390,203"/>
+<area shape="poly" title=" " alt="" coords="218,188,321,188,321,193,218,193"/>
+<area shape="poly" title=" " alt="" coords="334,179,328,169,331,159,343,153,364,151,387,154,398,161,395,166,385,159,364,156,345,158,335,163,333,169,339,176"/>
 </map>
 </div>
 
 </div>
 </div>
 <a id="afdc65423b0a5a3ca636f3aacfb1dba56" name="afdc65423b0a5a3ca636f3aacfb1dba56"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afdc65423b0a5a3ca636f3aacfb1dba56">&#9670;&#160;</a></span>TEST() <span class="overload">[1/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#afdc65423b0a5a3ca636f3aacfb1dba56">&#9670;&#160;</a></span>TEST() <span class="overload">[8/22]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -824,7 +1274,7 @@ Here is the caller graph for this function:</div>
 
 <p>simple but realistic scenario with few cones and fwe outliers </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00391">391</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00439">439</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -851,11 +1301,11 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="202,436,213,492,236,566,253,606,275,643,301,677,334,705,358,720,385,730,441,742,497,744,547,740,548,746,498,749,441,747,383,735,356,725,330,710,298,681,270,646,248,608,231,568,208,493,197,437"/>
 <area shape="rect" href="../../d6/d2c/class_track.html#aeb46e6fbc74096c298262b84cd81b77f" title="Get the left cone at a specified index." alt="" coords="345,156,489,182"/>
 <area shape="poly" title=" " alt="" coords="201,394,218,351,245,296,282,239,305,213,330,191,335,187,338,192,334,195,309,217,286,243,249,299,223,353,206,396"/>
-<area shape="rect" href="../../d6/d2c/class_track.html#a394133c01100ca42facbb28150db9e7d" title="Get the number of left cones." alt="" coords="336,205,499,231"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#a6bd8978cb65635811bdeef26c29c989b" title="Get the number of left cones." alt="" coords="336,205,499,231"/>
 <area shape="poly" title=" " alt="" coords="205,394,224,360,252,319,288,276,330,240,337,236,340,240,334,244,292,280,257,322,229,363,210,396"/>
 <area shape="rect" href="../../d6/d2c/class_track.html#a95fe146ead9aae192047e1f0a2c6c3c8" title="Get the right cone at a specified index." alt="" coords="342,255,493,280"/>
 <area shape="poly" title=" " alt="" coords="212,393,262,341,295,313,331,289,341,284,343,289,333,294,298,317,265,345,216,397"/>
-<area shape="rect" href="../../d6/d2c/class_track.html#a509060ab3a7c34a9fc435b507e4bd49d" title="Get the number of right cones." alt="" coords="332,304,502,330"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#aaeb6c56205cff7f075ac1aacbbc29a89" title="Get the number of right cones." alt="" coords="332,304,502,330"/>
 <area shape="poly" title=" " alt="" coords="229,392,276,365,331,338,347,332,349,337,333,343,279,370,231,397"/>
 <area shape="rect" href="../../d8/da1/class_cone.html#a51a49cc249e79d06f6a983250fe809b3" title=" " alt="" coords="564,769,648,795"/>
 <area shape="poly" title=" " alt="" coords="201,436,209,499,230,586,247,632,269,677,298,717,334,751,358,766,384,777,441,790,498,793,548,789,548,794,498,798,441,795,383,782,355,771,330,755,294,720,265,679,242,634,225,588,204,500,196,436"/>
@@ -880,7 +1330,7 @@ Here is the call graph for this function:</div>
 </div>
 </div>
 <a id="af9952ff008604d30cd729682048e2167" name="af9952ff008604d30cd729682048e2167"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af9952ff008604d30cd729682048e2167">&#9670;&#160;</a></span>TEST() <span class="overload">[2/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af9952ff008604d30cd729682048e2167">&#9670;&#160;</a></span>TEST() <span class="overload">[9/22]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -907,7 +1357,7 @@ Here is the call graph for this function:</div>
 
 <p>scenario: Large piece of track with no outliers </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00412">412</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00458">458</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -924,8 +1374,8 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="249,65,346,65,346,70,249,70"/>
 <area shape="rect" href="../../dd/d8b/files_8cpp.html#a440bc5364e11c37c13f14f7a0d1c7208" title=" " alt="" coords="367,5,467,31"/>
 <area shape="poly" title=" " alt="" coords="248,53,352,30,353,35,250,58"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a1d530eca12828fa8bd4055652000a956" title="Defines the way in which two pairs of doubles should be compared when ordering them (lexicographic co..." alt="" coords="352,104,483,130"/>
-<area shape="poly" title=" " alt="" coords="262,114,336,114,336,120,262,120"/>
+<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#af7c5d0e668771d1a7f6e303ebd4a65d7" title="Defines the way in which two pairs of doubles should be compared when ordering them (lexicographic co..." alt="" coords="349,104,485,130"/>
+<area shape="poly" title=" " alt="" coords="262,114,333,114,333,120,262,120"/>
 <area shape="rect" href="../../d6/d2c/class_track.html#a4619df9e7622b8349af59007c602011e" title="Find a cone by its ID." alt="" coords="362,604,472,630"/>
 <area shape="poly" title=" " alt="" coords="216,488,265,539,298,567,333,591,348,598,346,603,331,595,295,571,262,543,212,491"/>
 <area shape="rect" href="../../d9/d32/class_path_point.html#a88f058d98c6ef403f769cf440358fd23" title=" " alt="" coords="333,705,501,731"/>
@@ -938,11 +1388,11 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="199,447,212,398,237,333,255,299,276,266,301,237,330,212,356,197,383,186,441,173,497,169,547,171,547,176,498,174,442,178,385,191,358,202,334,216,305,241,280,270,259,302,242,335,217,399,204,449"/>
 <area shape="rect" href="../../d6/d2c/class_track.html#aeb46e6fbc74096c298262b84cd81b77f" title="Get the left cone at a specified index." alt="" coords="345,357,489,383"/>
 <area shape="poly" title=" " alt="" coords="229,446,276,418,331,392,347,386,349,391,333,397,279,423,231,450"/>
-<area shape="rect" href="../../d6/d2c/class_track.html#a394133c01100ca42facbb28150db9e7d" title="Get the number of left cones." alt="" coords="336,407,499,432"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#a6bd8978cb65635811bdeef26c29c989b" title="Get the number of left cones." alt="" coords="336,407,499,432"/>
 <area shape="poly" title=" " alt="" coords="284,447,342,434,343,439,285,452"/>
 <area shape="rect" href="../../d6/d2c/class_track.html#a95fe146ead9aae192047e1f0a2c6c3c8" title="Get the right cone at a specified index." alt="" coords="342,456,493,482"/>
 <area shape="poly" title=" " alt="" coords="284,466,326,466,326,472,284,472"/>
-<area shape="rect" href="../../d6/d2c/class_track.html#a509060ab3a7c34a9fc435b507e4bd49d" title="Get the number of right cones." alt="" coords="332,505,502,531"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#aaeb6c56205cff7f075ac1aacbbc29a89" title="Get the number of right cones." alt="" coords="332,505,502,531"/>
 <area shape="poly" title=" " alt="" coords="285,486,343,499,342,504,284,491"/>
 <area shape="rect" href="../../d8/da1/class_cone.html#a51a49cc249e79d06f6a983250fe809b3" title=" " alt="" coords="564,243,648,268"/>
 <area shape="poly" title=" " alt="" coords="200,447,214,402,240,344,257,314,278,286,302,261,331,241,358,229,387,221,446,217,504,224,553,235,552,240,503,229,446,223,388,227,360,234,333,246,306,265,282,290,262,317,244,346,219,404,205,449"/>
@@ -967,7 +1417,7 @@ Here is the call graph for this function:</div>
 </div>
 </div>
 <a id="ad18f9702442704e6ba155492f9317546" name="ad18f9702442704e6ba155492f9317546"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad18f9702442704e6ba155492f9317546">&#9670;&#160;</a></span>TEST() <span class="overload">[3/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad18f9702442704e6ba155492f9317546">&#9670;&#160;</a></span>TEST() <span class="overload">[10/22]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -994,7 +1444,7 @@ Here is the call graph for this function:</div>
 
 <p>scenario with large track that barely has outliers (only 2) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00534">534</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00531">531</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1011,8 +1461,8 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="249,65,346,65,346,70,249,70"/>
 <area shape="rect" href="../../dd/d8b/files_8cpp.html#a440bc5364e11c37c13f14f7a0d1c7208" title=" " alt="" coords="367,5,467,31"/>
 <area shape="poly" title=" " alt="" coords="248,53,352,30,353,35,250,58"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a1d530eca12828fa8bd4055652000a956" title="Defines the way in which two pairs of doubles should be compared when ordering them (lexicographic co..." alt="" coords="352,104,483,130"/>
-<area shape="poly" title=" " alt="" coords="262,114,336,114,336,120,262,120"/>
+<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#af7c5d0e668771d1a7f6e303ebd4a65d7" title="Defines the way in which two pairs of doubles should be compared when ordering them (lexicographic co..." alt="" coords="349,104,485,130"/>
+<area shape="poly" title=" " alt="" coords="262,114,333,114,333,120,262,120"/>
 <area shape="rect" href="../../d6/d2c/class_track.html#a4619df9e7622b8349af59007c602011e" title="Find a cone by its ID." alt="" coords="362,604,472,630"/>
 <area shape="poly" title=" " alt="" coords="216,488,265,539,298,567,333,591,348,598,346,603,331,595,295,571,262,543,212,491"/>
 <area shape="rect" href="../../d9/d32/class_path_point.html#a88f058d98c6ef403f769cf440358fd23" title=" " alt="" coords="333,705,501,731"/>
@@ -1025,11 +1475,11 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="199,447,212,398,237,333,255,299,276,266,301,237,330,212,356,197,383,186,441,173,497,169,547,171,547,176,498,174,442,178,385,191,358,202,334,216,305,241,280,270,259,302,242,335,217,399,204,449"/>
 <area shape="rect" href="../../d6/d2c/class_track.html#aeb46e6fbc74096c298262b84cd81b77f" title="Get the left cone at a specified index." alt="" coords="345,357,489,383"/>
 <area shape="poly" title=" " alt="" coords="229,446,276,418,331,392,347,386,349,391,333,397,279,423,231,450"/>
-<area shape="rect" href="../../d6/d2c/class_track.html#a394133c01100ca42facbb28150db9e7d" title="Get the number of left cones." alt="" coords="336,407,499,432"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#a6bd8978cb65635811bdeef26c29c989b" title="Get the number of left cones." alt="" coords="336,407,499,432"/>
 <area shape="poly" title=" " alt="" coords="284,447,342,434,343,439,285,452"/>
 <area shape="rect" href="../../d6/d2c/class_track.html#a95fe146ead9aae192047e1f0a2c6c3c8" title="Get the right cone at a specified index." alt="" coords="342,456,493,482"/>
 <area shape="poly" title=" " alt="" coords="284,466,326,466,326,472,284,472"/>
-<area shape="rect" href="../../d6/d2c/class_track.html#a509060ab3a7c34a9fc435b507e4bd49d" title="Get the number of right cones." alt="" coords="332,505,502,531"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#aaeb6c56205cff7f075ac1aacbbc29a89" title="Get the number of right cones." alt="" coords="332,505,502,531"/>
 <area shape="poly" title=" " alt="" coords="285,486,343,499,342,504,284,491"/>
 <area shape="rect" href="../../d8/da1/class_cone.html#a51a49cc249e79d06f6a983250fe809b3" title=" " alt="" coords="564,243,648,268"/>
 <area shape="poly" title=" " alt="" coords="200,447,214,402,240,344,257,314,278,286,302,261,331,241,358,229,387,221,446,217,504,224,553,235,552,240,503,229,446,223,388,227,360,234,333,246,306,265,282,290,262,317,244,346,219,404,205,449"/>
@@ -1054,7 +1504,7 @@ Here is the call graph for this function:</div>
 </div>
 </div>
 <a id="a7b7c7d79809f351fb41f6578dbdaf2ca" name="a7b7c7d79809f351fb41f6578dbdaf2ca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7b7c7d79809f351fb41f6578dbdaf2ca">&#9670;&#160;</a></span>TEST() <span class="overload">[4/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b7c7d79809f351fb41f6578dbdaf2ca">&#9670;&#160;</a></span>TEST() <span class="overload">[11/22]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1081,7 +1531,7 @@ Here is the call graph for this function:</div>
 
 <p>simplest scenario with cones forming a line and one outlier </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00338">338</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00383">383</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1090,11 +1540,11 @@ Here is the call graph for this function:</div>
 <area shape="rect" title="simplest scenario with cones forming a line and one outlier" alt="" coords="5,165,60,191"/>
 <area shape="rect" href="../../d6/d2c/class_track.html#af563702e457e6b2da5e127a7981b9453" title="Fill the track data from a file." alt="" coords="140,41,246,67"/>
 <area shape="poly" title=" " alt="" coords="38,164,63,121,83,97,106,76,124,66,127,71,109,80,87,100,68,124,42,166"/>
-<area shape="rect" href="../../d6/d2c/class_track.html#a394133c01100ca42facbb28150db9e7d" title="Get the number of left cones." alt="" coords="111,91,275,116"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#a6bd8978cb65635811bdeef26c29c989b" title="Get the number of left cones." alt="" coords="111,91,275,116"/>
 <area shape="poly" title=" " alt="" coords="48,163,75,143,106,125,120,120,122,124,109,130,78,148,51,167"/>
 <area shape="rect" href="../../d6/d2c/class_track.html#a5ee22b76034e4abc8ad0951c0f8e9d43" title="used to calculate max distance between consecutive cones for testing" alt="" coords="689,265,842,291"/>
 <area shape="poly" title=" " alt="" coords="61,179,673,263,673,268,60,184"/>
-<area shape="rect" href="../../d6/d2c/class_track.html#a509060ab3a7c34a9fc435b507e4bd49d" title="Get the number of right cones." alt="" coords="108,241,278,267"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#aaeb6c56205cff7f075ac1aacbbc29a89" title="Get the number of right cones." alt="" coords="108,241,278,267"/>
 <area shape="poly" title=" " alt="" coords="55,189,109,220,139,233,137,238,106,225,53,194"/>
 <area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#afbb0277ee17d082a0d2177393a346904" title="rounds float to n decimal places" alt="" coords="159,291,227,316"/>
 <area shape="poly" title=" " alt="" coords="42,190,68,233,87,257,109,277,145,293,143,298,106,282,83,261,63,237,38,193"/>
@@ -1123,7 +1573,7 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="613,88,640,77,688,56,717,43,719,48,690,61,642,82,615,93"/>
 <area shape="poly" title=" " alt="" coords="615,137,639,126,663,112,688,100,731,90,765,87,800,90,843,100,874,112,902,128,900,133,872,117,841,105,799,95,765,92,732,95,690,105,665,116,642,131,617,142"/>
 <area shape="poly" title=" " alt="" coords="606,164,652,185,689,200,737,207,786,209,874,206,874,211,786,215,737,212,688,205,650,190,604,169"/>
-<area shape="rect" href="../../d8/da1/class_cone.html#a1fd598dec938e232ee09e16abe1b6a0d" title=" " alt="" coords="695,115,836,140"/>
+<area shape="rect" href="../../d8/da1/class_cone.html#a14a49d09bc10d53888d06e183c6d1206" title=" " alt="" coords="695,115,836,140"/>
 <area shape="poly" title=" " alt="" coords="641,142,679,136,679,142,641,147"/>
 <area shape="rect" href="../../d6/d2c/class_track.html#aceda92bc02f39cd9127b31bc04ef7feb" title="Check if the direction of two cones is consistent." alt="" coords="689,164,842,190"/>
 <area shape="poly" title=" " alt="" coords="641,158,674,162,673,168,641,164"/>
@@ -1137,7 +1587,7 @@ Here is the call graph for this function:</div>
 </div>
 </div>
 <a id="ac7fcdd764e3bf039a7651702397702ef" name="ac7fcdd764e3bf039a7651702397702ef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac7fcdd764e3bf039a7651702397702ef">&#9670;&#160;</a></span>TEST() <span class="overload">[5/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7fcdd764e3bf039a7651702397702ef">&#9670;&#160;</a></span>TEST() <span class="overload">[12/22]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1164,7 +1614,7 @@ Here is the call graph for this function:</div>
 
 <p>scenario with large track that barely has outliers (only 2) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00291">291</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00336">336</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1173,11 +1623,11 @@ Here is the call graph for this function:</div>
 <area shape="rect" title="scenario with large track that barely has outliers (only 2)" alt="" coords="5,165,60,191"/>
 <area shape="rect" href="../../d6/d2c/class_track.html#af563702e457e6b2da5e127a7981b9453" title="Fill the track data from a file." alt="" coords="140,41,246,67"/>
 <area shape="poly" title=" " alt="" coords="38,164,63,121,83,97,106,76,124,66,127,71,109,80,87,100,68,124,42,166"/>
-<area shape="rect" href="../../d6/d2c/class_track.html#a394133c01100ca42facbb28150db9e7d" title="Get the number of left cones." alt="" coords="111,91,275,116"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#a6bd8978cb65635811bdeef26c29c989b" title="Get the number of left cones." alt="" coords="111,91,275,116"/>
 <area shape="poly" title=" " alt="" coords="48,163,75,143,106,125,120,120,122,124,109,130,78,148,51,167"/>
 <area shape="rect" href="../../d6/d2c/class_track.html#a5ee22b76034e4abc8ad0951c0f8e9d43" title="used to calculate max distance between consecutive cones for testing" alt="" coords="689,265,842,291"/>
 <area shape="poly" title=" " alt="" coords="61,179,673,263,673,268,60,184"/>
-<area shape="rect" href="../../d6/d2c/class_track.html#a509060ab3a7c34a9fc435b507e4bd49d" title="Get the number of right cones." alt="" coords="108,241,278,267"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#aaeb6c56205cff7f075ac1aacbbc29a89" title="Get the number of right cones." alt="" coords="108,241,278,267"/>
 <area shape="poly" title=" " alt="" coords="55,189,109,220,139,233,137,238,106,225,53,194"/>
 <area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#afbb0277ee17d082a0d2177393a346904" title="rounds float to n decimal places" alt="" coords="159,291,227,316"/>
 <area shape="poly" title=" " alt="" coords="42,190,68,233,87,257,109,277,145,293,143,298,106,282,83,261,63,237,38,193"/>
@@ -1206,7 +1656,7 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="613,88,640,77,688,56,717,43,719,48,690,61,642,82,615,93"/>
 <area shape="poly" title=" " alt="" coords="615,137,639,126,663,112,688,100,731,90,765,87,800,90,843,100,874,112,902,128,900,133,872,117,841,105,799,95,765,92,732,95,690,105,665,116,642,131,617,142"/>
 <area shape="poly" title=" " alt="" coords="606,164,652,185,689,200,737,207,786,209,874,206,874,211,786,215,737,212,688,205,650,190,604,169"/>
-<area shape="rect" href="../../d8/da1/class_cone.html#a1fd598dec938e232ee09e16abe1b6a0d" title=" " alt="" coords="695,115,836,140"/>
+<area shape="rect" href="../../d8/da1/class_cone.html#a14a49d09bc10d53888d06e183c6d1206" title=" " alt="" coords="695,115,836,140"/>
 <area shape="poly" title=" " alt="" coords="641,142,679,136,679,142,641,147"/>
 <area shape="rect" href="../../d6/d2c/class_track.html#aceda92bc02f39cd9127b31bc04ef7feb" title="Check if the direction of two cones is consistent." alt="" coords="689,164,842,190"/>
 <area shape="poly" title=" " alt="" coords="641,158,674,162,673,168,641,164"/>
@@ -1220,7 +1670,7 @@ Here is the call graph for this function:</div>
 </div>
 </div>
 <a id="af135d65f2784ab63322d2dc0342433e5" name="af135d65f2784ab63322d2dc0342433e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af135d65f2784ab63322d2dc0342433e5">&#9670;&#160;</a></span>TEST() <span class="overload">[6/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af135d65f2784ab63322d2dc0342433e5">&#9670;&#160;</a></span>TEST() <span class="overload">[13/22]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1247,7 +1697,7 @@ Here is the call graph for this function:</div>
 
 <p>scenario with large track but few outliers </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00222">222</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00267">267</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1256,11 +1706,11 @@ Here is the call graph for this function:</div>
 <area shape="rect" title="scenario with large track but few outliers" alt="" coords="5,165,60,191"/>
 <area shape="rect" href="../../d6/d2c/class_track.html#af563702e457e6b2da5e127a7981b9453" title="Fill the track data from a file." alt="" coords="140,41,246,67"/>
 <area shape="poly" title=" " alt="" coords="38,164,63,121,83,97,106,76,124,66,127,71,109,80,87,100,68,124,42,166"/>
-<area shape="rect" href="../../d6/d2c/class_track.html#a394133c01100ca42facbb28150db9e7d" title="Get the number of left cones." alt="" coords="111,91,275,116"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#a6bd8978cb65635811bdeef26c29c989b" title="Get the number of left cones." alt="" coords="111,91,275,116"/>
 <area shape="poly" title=" " alt="" coords="48,163,75,143,106,125,120,120,122,124,109,130,78,148,51,167"/>
 <area shape="rect" href="../../d6/d2c/class_track.html#a5ee22b76034e4abc8ad0951c0f8e9d43" title="used to calculate max distance between consecutive cones for testing" alt="" coords="689,265,842,291"/>
 <area shape="poly" title=" " alt="" coords="61,179,673,263,673,268,60,184"/>
-<area shape="rect" href="../../d6/d2c/class_track.html#a509060ab3a7c34a9fc435b507e4bd49d" title="Get the number of right cones." alt="" coords="108,241,278,267"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#aaeb6c56205cff7f075ac1aacbbc29a89" title="Get the number of right cones." alt="" coords="108,241,278,267"/>
 <area shape="poly" title=" " alt="" coords="55,189,109,220,139,233,137,238,106,225,53,194"/>
 <area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#afbb0277ee17d082a0d2177393a346904" title="rounds float to n decimal places" alt="" coords="159,291,227,316"/>
 <area shape="poly" title=" " alt="" coords="42,190,68,233,87,257,109,277,145,293,143,298,106,282,83,261,63,237,38,193"/>
@@ -1289,7 +1739,7 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="613,88,640,77,688,56,717,43,719,48,690,61,642,82,615,93"/>
 <area shape="poly" title=" " alt="" coords="615,137,639,126,663,112,688,100,731,90,765,87,800,90,843,100,874,112,902,128,900,133,872,117,841,105,799,95,765,92,732,95,690,105,665,116,642,131,617,142"/>
 <area shape="poly" title=" " alt="" coords="606,164,652,185,689,200,737,207,786,209,874,206,874,211,786,215,737,212,688,205,650,190,604,169"/>
-<area shape="rect" href="../../d8/da1/class_cone.html#a1fd598dec938e232ee09e16abe1b6a0d" title=" " alt="" coords="695,115,836,140"/>
+<area shape="rect" href="../../d8/da1/class_cone.html#a14a49d09bc10d53888d06e183c6d1206" title=" " alt="" coords="695,115,836,140"/>
 <area shape="poly" title=" " alt="" coords="641,142,679,136,679,142,641,147"/>
 <area shape="rect" href="../../d6/d2c/class_track.html#aceda92bc02f39cd9127b31bc04ef7feb" title="Check if the direction of two cones is consistent." alt="" coords="689,164,842,190"/>
 <area shape="poly" title=" " alt="" coords="641,158,674,162,673,168,641,164"/>
@@ -1303,7 +1753,7 @@ Here is the call graph for this function:</div>
 </div>
 </div>
 <a id="a51e9b02efadad69c633bb346d244c040" name="a51e9b02efadad69c633bb346d244c040"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a51e9b02efadad69c633bb346d244c040">&#9670;&#160;</a></span>TEST() <span class="overload">[7/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a51e9b02efadad69c633bb346d244c040">&#9670;&#160;</a></span>TEST() <span class="overload">[14/22]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1330,7 +1780,7 @@ Here is the call graph for this function:</div>
 
 <p>scenario with large track and moderate number of outliers </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00245">245</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00290">290</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1339,11 +1789,11 @@ Here is the call graph for this function:</div>
 <area shape="rect" title="scenario with large track and moderate number of outliers" alt="" coords="5,165,60,191"/>
 <area shape="rect" href="../../d6/d2c/class_track.html#af563702e457e6b2da5e127a7981b9453" title="Fill the track data from a file." alt="" coords="140,41,246,67"/>
 <area shape="poly" title=" " alt="" coords="38,164,63,121,83,97,106,76,124,66,127,71,109,80,87,100,68,124,42,166"/>
-<area shape="rect" href="../../d6/d2c/class_track.html#a394133c01100ca42facbb28150db9e7d" title="Get the number of left cones." alt="" coords="111,91,275,116"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#a6bd8978cb65635811bdeef26c29c989b" title="Get the number of left cones." alt="" coords="111,91,275,116"/>
 <area shape="poly" title=" " alt="" coords="48,163,75,143,106,125,120,120,122,124,109,130,78,148,51,167"/>
 <area shape="rect" href="../../d6/d2c/class_track.html#a5ee22b76034e4abc8ad0951c0f8e9d43" title="used to calculate max distance between consecutive cones for testing" alt="" coords="689,265,842,291"/>
 <area shape="poly" title=" " alt="" coords="61,179,673,263,673,268,60,184"/>
-<area shape="rect" href="../../d6/d2c/class_track.html#a509060ab3a7c34a9fc435b507e4bd49d" title="Get the number of right cones." alt="" coords="108,241,278,267"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#aaeb6c56205cff7f075ac1aacbbc29a89" title="Get the number of right cones." alt="" coords="108,241,278,267"/>
 <area shape="poly" title=" " alt="" coords="55,189,109,220,139,233,137,238,106,225,53,194"/>
 <area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#afbb0277ee17d082a0d2177393a346904" title="rounds float to n decimal places" alt="" coords="159,291,227,316"/>
 <area shape="poly" title=" " alt="" coords="42,190,68,233,87,257,109,277,145,293,143,298,106,282,83,261,63,237,38,193"/>
@@ -1372,7 +1822,7 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="613,88,640,77,688,56,717,43,719,48,690,61,642,82,615,93"/>
 <area shape="poly" title=" " alt="" coords="615,137,639,126,663,112,688,100,731,90,765,87,800,90,843,100,874,112,902,128,900,133,872,117,841,105,799,95,765,92,732,95,690,105,665,116,642,131,617,142"/>
 <area shape="poly" title=" " alt="" coords="606,164,652,185,689,200,737,207,786,209,874,206,874,211,786,215,737,212,688,205,650,190,604,169"/>
-<area shape="rect" href="../../d8/da1/class_cone.html#a1fd598dec938e232ee09e16abe1b6a0d" title=" " alt="" coords="695,115,836,140"/>
+<area shape="rect" href="../../d8/da1/class_cone.html#a14a49d09bc10d53888d06e183c6d1206" title=" " alt="" coords="695,115,836,140"/>
 <area shape="poly" title=" " alt="" coords="641,142,679,136,679,142,641,147"/>
 <area shape="rect" href="../../d6/d2c/class_track.html#aceda92bc02f39cd9127b31bc04ef7feb" title="Check if the direction of two cones is consistent." alt="" coords="689,164,842,190"/>
 <area shape="poly" title=" " alt="" coords="641,158,674,162,673,168,641,164"/>
@@ -1386,7 +1836,7 @@ Here is the call graph for this function:</div>
 </div>
 </div>
 <a id="a81c282250a0ddc02a5624391b6d53b9f" name="a81c282250a0ddc02a5624391b6d53b9f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a81c282250a0ddc02a5624391b6d53b9f">&#9670;&#160;</a></span>TEST() <span class="overload">[8/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a81c282250a0ddc02a5624391b6d53b9f">&#9670;&#160;</a></span>TEST() <span class="overload">[15/22]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1413,7 +1863,7 @@ Here is the call graph for this function:</div>
 
 <p>scenario with large track and abundant outliers </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00268">268</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00313">313</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1422,11 +1872,11 @@ Here is the call graph for this function:</div>
 <area shape="rect" title="scenario with large track and abundant outliers" alt="" coords="5,165,60,191"/>
 <area shape="rect" href="../../d6/d2c/class_track.html#af563702e457e6b2da5e127a7981b9453" title="Fill the track data from a file." alt="" coords="140,41,246,67"/>
 <area shape="poly" title=" " alt="" coords="38,164,63,121,83,97,106,76,124,66,127,71,109,80,87,100,68,124,42,166"/>
-<area shape="rect" href="../../d6/d2c/class_track.html#a394133c01100ca42facbb28150db9e7d" title="Get the number of left cones." alt="" coords="111,91,275,116"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#a6bd8978cb65635811bdeef26c29c989b" title="Get the number of left cones." alt="" coords="111,91,275,116"/>
 <area shape="poly" title=" " alt="" coords="48,163,75,143,106,125,120,120,122,124,109,130,78,148,51,167"/>
 <area shape="rect" href="../../d6/d2c/class_track.html#a5ee22b76034e4abc8ad0951c0f8e9d43" title="used to calculate max distance between consecutive cones for testing" alt="" coords="689,265,842,291"/>
 <area shape="poly" title=" " alt="" coords="61,179,673,263,673,268,60,184"/>
-<area shape="rect" href="../../d6/d2c/class_track.html#a509060ab3a7c34a9fc435b507e4bd49d" title="Get the number of right cones." alt="" coords="108,241,278,267"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#aaeb6c56205cff7f075ac1aacbbc29a89" title="Get the number of right cones." alt="" coords="108,241,278,267"/>
 <area shape="poly" title=" " alt="" coords="55,189,109,220,139,233,137,238,106,225,53,194"/>
 <area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#afbb0277ee17d082a0d2177393a346904" title="rounds float to n decimal places" alt="" coords="159,291,227,316"/>
 <area shape="poly" title=" " alt="" coords="42,190,68,233,87,257,109,277,145,293,143,298,106,282,83,261,63,237,38,193"/>
@@ -1455,7 +1905,7 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="613,88,640,77,688,56,717,43,719,48,690,61,642,82,615,93"/>
 <area shape="poly" title=" " alt="" coords="615,137,639,126,663,112,688,100,731,90,765,87,800,90,843,100,874,112,902,128,900,133,872,117,841,105,799,95,765,92,732,95,690,105,665,116,642,131,617,142"/>
 <area shape="poly" title=" " alt="" coords="606,164,652,185,689,200,737,207,786,209,874,206,874,211,786,215,737,212,688,205,650,190,604,169"/>
-<area shape="rect" href="../../d8/da1/class_cone.html#a1fd598dec938e232ee09e16abe1b6a0d" title=" " alt="" coords="695,115,836,140"/>
+<area shape="rect" href="../../d8/da1/class_cone.html#a14a49d09bc10d53888d06e183c6d1206" title=" " alt="" coords="695,115,836,140"/>
 <area shape="poly" title=" " alt="" coords="641,142,679,136,679,142,641,147"/>
 <area shape="rect" href="../../d6/d2c/class_track.html#aceda92bc02f39cd9127b31bc04ef7feb" title="Check if the direction of two cones is consistent." alt="" coords="689,164,842,190"/>
 <area shape="poly" title=" " alt="" coords="641,158,674,162,673,168,641,164"/>
@@ -1469,7 +1919,7 @@ Here is the call graph for this function:</div>
 </div>
 </div>
 <a id="a31cf5e2275b9c7e8dfd57ad0a102e2de" name="a31cf5e2275b9c7e8dfd57ad0a102e2de"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a31cf5e2275b9c7e8dfd57ad0a102e2de">&#9670;&#160;</a></span>TEST() <span class="overload">[9/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a31cf5e2275b9c7e8dfd57ad0a102e2de">&#9670;&#160;</a></span>TEST() <span class="overload">[16/22]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1496,7 +1946,7 @@ Here is the call graph for this function:</div>
 
 <p>unrealistic scenario with cones randomly positioned in 100 by 100 square </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00315">315</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00360">360</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1505,11 +1955,11 @@ Here is the call graph for this function:</div>
 <area shape="rect" title="unrealistic scenario with cones randomly positioned in 100 by 100 square" alt="" coords="5,165,60,191"/>
 <area shape="rect" href="../../d6/d2c/class_track.html#af563702e457e6b2da5e127a7981b9453" title="Fill the track data from a file." alt="" coords="140,41,246,67"/>
 <area shape="poly" title=" " alt="" coords="38,164,63,121,83,97,106,76,124,66,127,71,109,80,87,100,68,124,42,166"/>
-<area shape="rect" href="../../d6/d2c/class_track.html#a394133c01100ca42facbb28150db9e7d" title="Get the number of left cones." alt="" coords="111,91,275,116"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#a6bd8978cb65635811bdeef26c29c989b" title="Get the number of left cones." alt="" coords="111,91,275,116"/>
 <area shape="poly" title=" " alt="" coords="48,163,75,143,106,125,120,120,122,124,109,130,78,148,51,167"/>
 <area shape="rect" href="../../d6/d2c/class_track.html#a5ee22b76034e4abc8ad0951c0f8e9d43" title="used to calculate max distance between consecutive cones for testing" alt="" coords="689,265,842,291"/>
 <area shape="poly" title=" " alt="" coords="61,179,673,263,673,268,60,184"/>
-<area shape="rect" href="../../d6/d2c/class_track.html#a509060ab3a7c34a9fc435b507e4bd49d" title="Get the number of right cones." alt="" coords="108,241,278,267"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#aaeb6c56205cff7f075ac1aacbbc29a89" title="Get the number of right cones." alt="" coords="108,241,278,267"/>
 <area shape="poly" title=" " alt="" coords="55,189,109,220,139,233,137,238,106,225,53,194"/>
 <area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#afbb0277ee17d082a0d2177393a346904" title="rounds float to n decimal places" alt="" coords="159,291,227,316"/>
 <area shape="poly" title=" " alt="" coords="42,190,68,233,87,257,109,277,145,293,143,298,106,282,83,261,63,237,38,193"/>
@@ -1538,7 +1988,7 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="613,88,640,77,688,56,717,43,719,48,690,61,642,82,615,93"/>
 <area shape="poly" title=" " alt="" coords="615,137,639,126,663,112,688,100,731,90,765,87,800,90,843,100,874,112,902,128,900,133,872,117,841,105,799,95,765,92,732,95,690,105,665,116,642,131,617,142"/>
 <area shape="poly" title=" " alt="" coords="606,164,652,185,689,200,737,207,786,209,874,206,874,211,786,215,737,212,688,205,650,190,604,169"/>
-<area shape="rect" href="../../d8/da1/class_cone.html#a1fd598dec938e232ee09e16abe1b6a0d" title=" " alt="" coords="695,115,836,140"/>
+<area shape="rect" href="../../d8/da1/class_cone.html#a14a49d09bc10d53888d06e183c6d1206" title=" " alt="" coords="695,115,836,140"/>
 <area shape="poly" title=" " alt="" coords="641,142,679,136,679,142,641,147"/>
 <area shape="rect" href="../../d6/d2c/class_track.html#aceda92bc02f39cd9127b31bc04ef7feb" title="Check if the direction of two cones is consistent." alt="" coords="689,164,842,190"/>
 <area shape="poly" title=" " alt="" coords="641,158,674,162,673,168,641,164"/>
@@ -1552,7 +2002,7 @@ Here is the call graph for this function:</div>
 </div>
 </div>
 <a id="ac52f5bb92ce5fead956b460602be5875" name="ac52f5bb92ce5fead956b460602be5875"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac52f5bb92ce5fead956b460602be5875">&#9670;&#160;</a></span>TEST() <span class="overload">[10/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac52f5bb92ce5fead956b460602be5875">&#9670;&#160;</a></span>TEST() <span class="overload">[17/22]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1579,7 +2029,7 @@ Here is the call graph for this function:</div>
 
 <p>scenario: cones in parallel straight lines that shows that cones exaclty in a circumference are not counted as being inside a circle </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00825">825</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00689">689</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1606,11 +2056,11 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="202,436,213,492,236,566,253,606,275,643,301,677,334,705,358,720,385,730,441,742,497,744,547,740,548,746,498,749,441,747,383,735,356,725,330,710,298,681,270,646,248,608,231,568,208,493,197,437"/>
 <area shape="rect" href="../../d6/d2c/class_track.html#aeb46e6fbc74096c298262b84cd81b77f" title="Get the left cone at a specified index." alt="" coords="345,156,489,182"/>
 <area shape="poly" title=" " alt="" coords="201,394,218,351,245,296,282,239,305,213,330,191,335,187,338,192,334,195,309,217,286,243,249,299,223,353,206,396"/>
-<area shape="rect" href="../../d6/d2c/class_track.html#a394133c01100ca42facbb28150db9e7d" title="Get the number of left cones." alt="" coords="336,205,499,231"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#a6bd8978cb65635811bdeef26c29c989b" title="Get the number of left cones." alt="" coords="336,205,499,231"/>
 <area shape="poly" title=" " alt="" coords="205,394,224,360,252,319,288,276,330,240,337,236,340,240,334,244,292,280,257,322,229,363,210,396"/>
 <area shape="rect" href="../../d6/d2c/class_track.html#a95fe146ead9aae192047e1f0a2c6c3c8" title="Get the right cone at a specified index." alt="" coords="342,255,493,280"/>
 <area shape="poly" title=" " alt="" coords="212,393,262,341,295,313,331,289,341,284,343,289,333,294,298,317,265,345,216,397"/>
-<area shape="rect" href="../../d6/d2c/class_track.html#a509060ab3a7c34a9fc435b507e4bd49d" title="Get the number of right cones." alt="" coords="332,304,502,330"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#aaeb6c56205cff7f075ac1aacbbc29a89" title="Get the number of right cones." alt="" coords="332,304,502,330"/>
 <area shape="poly" title=" " alt="" coords="229,392,276,365,331,338,347,332,349,337,333,343,279,370,231,397"/>
 <area shape="rect" href="../../d8/da1/class_cone.html#a51a49cc249e79d06f6a983250fe809b3" title=" " alt="" coords="564,769,648,795"/>
 <area shape="poly" title=" " alt="" coords="201,436,209,499,230,586,247,632,269,677,298,717,334,751,358,766,384,777,441,790,498,793,548,789,548,794,498,798,441,795,383,782,355,771,330,755,294,720,265,679,242,634,225,588,204,500,196,436"/>
@@ -1635,7 +2085,7 @@ Here is the call graph for this function:</div>
 </div>
 </div>
 <a id="a24abd4bbadec3144e9f2562ff43add80" name="a24abd4bbadec3144e9f2562ff43add80"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a24abd4bbadec3144e9f2562ff43add80">&#9670;&#160;</a></span>TEST() <span class="overload">[11/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a24abd4bbadec3144e9f2562ff43add80">&#9670;&#160;</a></span>TEST() <span class="overload">[18/22]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1662,7 +2112,7 @@ Here is the call graph for this function:</div>
 
 <p>scenario: small track with sharp edge </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00844">844</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00707">707</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1679,8 +2129,8 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="249,65,346,65,346,70,249,70"/>
 <area shape="rect" href="../../dd/d8b/files_8cpp.html#a440bc5364e11c37c13f14f7a0d1c7208" title=" " alt="" coords="367,5,467,31"/>
 <area shape="poly" title=" " alt="" coords="248,53,352,30,353,35,250,58"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a1d530eca12828fa8bd4055652000a956" title="Defines the way in which two pairs of doubles should be compared when ordering them (lexicographic co..." alt="" coords="352,104,483,130"/>
-<area shape="poly" title=" " alt="" coords="262,114,336,114,336,120,262,120"/>
+<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#af7c5d0e668771d1a7f6e303ebd4a65d7" title="Defines the way in which two pairs of doubles should be compared when ordering them (lexicographic co..." alt="" coords="349,104,485,130"/>
+<area shape="poly" title=" " alt="" coords="262,114,333,114,333,120,262,120"/>
 <area shape="rect" href="../../d6/d2c/class_track.html#a4619df9e7622b8349af59007c602011e" title="Find a cone by its ID." alt="" coords="362,604,472,630"/>
 <area shape="poly" title=" " alt="" coords="216,488,265,539,298,567,333,591,348,598,346,603,331,595,295,571,262,543,212,491"/>
 <area shape="rect" href="../../d9/d32/class_path_point.html#a88f058d98c6ef403f769cf440358fd23" title=" " alt="" coords="333,705,501,731"/>
@@ -1693,11 +2143,11 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="199,447,212,398,237,333,255,299,276,266,301,237,330,212,356,197,383,186,441,173,497,169,547,171,547,176,498,174,442,178,385,191,358,202,334,216,305,241,280,270,259,302,242,335,217,399,204,449"/>
 <area shape="rect" href="../../d6/d2c/class_track.html#aeb46e6fbc74096c298262b84cd81b77f" title="Get the left cone at a specified index." alt="" coords="345,357,489,383"/>
 <area shape="poly" title=" " alt="" coords="229,446,276,418,331,392,347,386,349,391,333,397,279,423,231,450"/>
-<area shape="rect" href="../../d6/d2c/class_track.html#a394133c01100ca42facbb28150db9e7d" title="Get the number of left cones." alt="" coords="336,407,499,432"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#a6bd8978cb65635811bdeef26c29c989b" title="Get the number of left cones." alt="" coords="336,407,499,432"/>
 <area shape="poly" title=" " alt="" coords="284,447,342,434,343,439,285,452"/>
 <area shape="rect" href="../../d6/d2c/class_track.html#a95fe146ead9aae192047e1f0a2c6c3c8" title="Get the right cone at a specified index." alt="" coords="342,456,493,482"/>
 <area shape="poly" title=" " alt="" coords="284,466,326,466,326,472,284,472"/>
-<area shape="rect" href="../../d6/d2c/class_track.html#a509060ab3a7c34a9fc435b507e4bd49d" title="Get the number of right cones." alt="" coords="332,505,502,531"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#aaeb6c56205cff7f075ac1aacbbc29a89" title="Get the number of right cones." alt="" coords="332,505,502,531"/>
 <area shape="poly" title=" " alt="" coords="285,486,343,499,342,504,284,491"/>
 <area shape="rect" href="../../d8/da1/class_cone.html#a51a49cc249e79d06f6a983250fe809b3" title=" " alt="" coords="564,243,648,268"/>
 <area shape="poly" title=" " alt="" coords="200,447,214,402,240,344,257,314,278,286,302,261,331,241,358,229,387,221,446,217,504,224,553,235,552,240,503,229,446,223,388,227,360,234,333,246,306,265,282,290,262,317,244,346,219,404,205,449"/>
@@ -1722,7 +2172,7 @@ Here is the call graph for this function:</div>
 </div>
 </div>
 <a id="a0332ef9190c93cd17d4e05d76a15426a" name="a0332ef9190c93cd17d4e05d76a15426a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0332ef9190c93cd17d4e05d76a15426a">&#9670;&#160;</a></span>TEST() <span class="overload">[12/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0332ef9190c93cd17d4e05d76a15426a">&#9670;&#160;</a></span>TEST() <span class="overload">[19/22]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1749,7 +2199,7 @@ Here is the call graph for this function:</div>
 
 <p>simple case in which there are cones only in the left size and no significant outliers </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00174">174</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00210">210</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1758,11 +2208,11 @@ Here is the call graph for this function:</div>
 <area shape="rect" title="simple case in which there are cones only in the left size and no significant outliers" alt="" coords="5,165,60,191"/>
 <area shape="rect" href="../../d6/d2c/class_track.html#af563702e457e6b2da5e127a7981b9453" title="Fill the track data from a file." alt="" coords="140,41,246,67"/>
 <area shape="poly" title=" " alt="" coords="38,164,63,121,83,97,106,76,124,66,127,71,109,80,87,100,68,124,42,166"/>
-<area shape="rect" href="../../d6/d2c/class_track.html#a394133c01100ca42facbb28150db9e7d" title="Get the number of left cones." alt="" coords="111,91,275,116"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#a6bd8978cb65635811bdeef26c29c989b" title="Get the number of left cones." alt="" coords="111,91,275,116"/>
 <area shape="poly" title=" " alt="" coords="48,163,75,143,106,125,120,120,122,124,109,130,78,148,51,167"/>
 <area shape="rect" href="../../d6/d2c/class_track.html#a5ee22b76034e4abc8ad0951c0f8e9d43" title="used to calculate max distance between consecutive cones for testing" alt="" coords="689,265,842,291"/>
 <area shape="poly" title=" " alt="" coords="61,179,673,263,673,268,60,184"/>
-<area shape="rect" href="../../d6/d2c/class_track.html#a509060ab3a7c34a9fc435b507e4bd49d" title="Get the number of right cones." alt="" coords="108,241,278,267"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#aaeb6c56205cff7f075ac1aacbbc29a89" title="Get the number of right cones." alt="" coords="108,241,278,267"/>
 <area shape="poly" title=" " alt="" coords="55,189,109,220,139,233,137,238,106,225,53,194"/>
 <area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#afbb0277ee17d082a0d2177393a346904" title="rounds float to n decimal places" alt="" coords="159,291,227,316"/>
 <area shape="poly" title=" " alt="" coords="42,190,68,233,87,257,109,277,145,293,143,298,106,282,83,261,63,237,38,193"/>
@@ -1791,7 +2241,7 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="613,88,640,77,688,56,717,43,719,48,690,61,642,82,615,93"/>
 <area shape="poly" title=" " alt="" coords="615,137,639,126,663,112,688,100,731,90,765,87,800,90,843,100,874,112,902,128,900,133,872,117,841,105,799,95,765,92,732,95,690,105,665,116,642,131,617,142"/>
 <area shape="poly" title=" " alt="" coords="606,164,652,185,689,200,737,207,786,209,874,206,874,211,786,215,737,212,688,205,650,190,604,169"/>
-<area shape="rect" href="../../d8/da1/class_cone.html#a1fd598dec938e232ee09e16abe1b6a0d" title=" " alt="" coords="695,115,836,140"/>
+<area shape="rect" href="../../d8/da1/class_cone.html#a14a49d09bc10d53888d06e183c6d1206" title=" " alt="" coords="695,115,836,140"/>
 <area shape="poly" title=" " alt="" coords="641,142,679,136,679,142,641,147"/>
 <area shape="rect" href="../../d6/d2c/class_track.html#aceda92bc02f39cd9127b31bc04ef7feb" title="Check if the direction of two cones is consistent." alt="" coords="689,164,842,190"/>
 <area shape="poly" title=" " alt="" coords="641,158,674,162,673,168,641,164"/>
@@ -1805,7 +2255,7 @@ Here is the call graph for this function:</div>
 </div>
 </div>
 <a id="a29badad35310b8e08080122d0707b973" name="a29badad35310b8e08080122d0707b973"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a29badad35310b8e08080122d0707b973">&#9670;&#160;</a></span>TEST() <span class="overload">[13/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a29badad35310b8e08080122d0707b973">&#9670;&#160;</a></span>TEST() <span class="overload">[20/22]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1832,7 +2282,7 @@ Here is the call graph for this function:</div>
 
 <p>simple scenario only with left cones but with 4 significant outliers </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00198">198</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00240">240</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1841,11 +2291,11 @@ Here is the call graph for this function:</div>
 <area shape="rect" title="simple scenario only with left cones but with 4 significant outliers" alt="" coords="5,165,60,191"/>
 <area shape="rect" href="../../d6/d2c/class_track.html#af563702e457e6b2da5e127a7981b9453" title="Fill the track data from a file." alt="" coords="140,41,246,67"/>
 <area shape="poly" title=" " alt="" coords="38,164,63,121,83,97,106,76,124,66,127,71,109,80,87,100,68,124,42,166"/>
-<area shape="rect" href="../../d6/d2c/class_track.html#a394133c01100ca42facbb28150db9e7d" title="Get the number of left cones." alt="" coords="111,91,275,116"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#a6bd8978cb65635811bdeef26c29c989b" title="Get the number of left cones." alt="" coords="111,91,275,116"/>
 <area shape="poly" title=" " alt="" coords="48,163,75,143,106,125,120,120,122,124,109,130,78,148,51,167"/>
 <area shape="rect" href="../../d6/d2c/class_track.html#a5ee22b76034e4abc8ad0951c0f8e9d43" title="used to calculate max distance between consecutive cones for testing" alt="" coords="689,265,842,291"/>
 <area shape="poly" title=" " alt="" coords="61,179,673,263,673,268,60,184"/>
-<area shape="rect" href="../../d6/d2c/class_track.html#a509060ab3a7c34a9fc435b507e4bd49d" title="Get the number of right cones." alt="" coords="108,241,278,267"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#aaeb6c56205cff7f075ac1aacbbc29a89" title="Get the number of right cones." alt="" coords="108,241,278,267"/>
 <area shape="poly" title=" " alt="" coords="55,189,109,220,139,233,137,238,106,225,53,194"/>
 <area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#afbb0277ee17d082a0d2177393a346904" title="rounds float to n decimal places" alt="" coords="159,291,227,316"/>
 <area shape="poly" title=" " alt="" coords="42,190,68,233,87,257,109,277,145,293,143,298,106,282,83,261,63,237,38,193"/>
@@ -1874,7 +2324,7 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="613,88,640,77,688,56,717,43,719,48,690,61,642,82,615,93"/>
 <area shape="poly" title=" " alt="" coords="615,137,639,126,663,112,688,100,731,90,765,87,800,90,843,100,874,112,902,128,900,133,872,117,841,105,799,95,765,92,732,95,690,105,665,116,642,131,617,142"/>
 <area shape="poly" title=" " alt="" coords="606,164,652,185,689,200,737,207,786,209,874,206,874,211,786,215,737,212,688,205,650,190,604,169"/>
-<area shape="rect" href="../../d8/da1/class_cone.html#a1fd598dec938e232ee09e16abe1b6a0d" title=" " alt="" coords="695,115,836,140"/>
+<area shape="rect" href="../../d8/da1/class_cone.html#a14a49d09bc10d53888d06e183c6d1206" title=" " alt="" coords="695,115,836,140"/>
 <area shape="poly" title=" " alt="" coords="641,142,679,136,679,142,641,147"/>
 <area shape="rect" href="../../d6/d2c/class_track.html#aceda92bc02f39cd9127b31bc04ef7feb" title="Check if the direction of two cones is consistent." alt="" coords="689,164,842,190"/>
 <area shape="poly" title=" " alt="" coords="641,158,674,162,673,168,641,164"/>
@@ -1888,7 +2338,7 @@ Here is the call graph for this function:</div>
 </div>
 </div>
 <a id="a6df4e4f75ec78a003fe012ee9a5172f8" name="a6df4e4f75ec78a003fe012ee9a5172f8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6df4e4f75ec78a003fe012ee9a5172f8">&#9670;&#160;</a></span>TEST() <span class="overload">[14/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6df4e4f75ec78a003fe012ee9a5172f8">&#9670;&#160;</a></span>TEST() <span class="overload">[21/22]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1915,50 +2365,48 @@ Here is the call graph for this function:</div>
 
 <p>simple scenario with few points in the path </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00362">362</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00408">408</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../dd/df6/planning_2test_2tests_8cpp_a6df4e4f75ec78a003fe012ee9a5172f8_cgraph.png" border="0" usemap="#add/df6/planning_2test_2tests_8cpp_a6df4e4f75ec78a003fe012ee9a5172f8_cgraph" alt=""/></div>
 <map name="add/df6/planning_2test_2tests_8cpp_a6df4e4f75ec78a003fe012ee9a5172f8_cgraph" id="add/df6/planning_2test_2tests_8cpp_a6df4e4f75ec78a003fe012ee9a5172f8_cgraph">
-<area shape="rect" title="simple scenario with few points in the path" alt="" coords="5,153,60,179"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#af9365cf145ba25661e8c287a5dd6814c" title="calls pathSmoother with default values for precision, order and coeffs_ratio that were determined to ..." alt="" coords="108,78,319,104"/>
-<area shape="poly" title=" " alt="" coords="48,150,74,131,107,113,122,106,124,111,109,117,77,135,51,155"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a353e6d4bfab4b2a3f92cd630d8dd2175" title="Fill the track data from a file." alt="" coords="136,128,291,153"/>
-<area shape="poly" title=" " alt="" coords="60,159,120,151,120,156,60,165"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a3df41d3ad694f3794ff4dc5b010cc825" title="Get the Path object." alt="" coords="133,177,294,203"/>
-<area shape="poly" title=" " alt="" coords="60,167,118,174,117,180,60,172"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#aa166fa4fdd74344246256ee161adc562" title="Get the number of points in the path." alt="" coords="109,226,318,252"/>
-<area shape="poly" title=" " alt="" coords="51,177,77,195,109,213,125,219,123,224,107,217,75,200,48,181"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#aae6d8b2ff86ec4829ddb3fc2b0ba0856" title="Function designed to smooth the path via spline." alt="" coords="367,78,564,104"/>
-<area shape="poly" title=" " alt="" coords="319,88,352,88,352,94,319,94"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a17371b9028a6c6daa56717aa143b59fb" title="Orders the path to fit spline." alt="" coords="629,54,802,80"/>
-<area shape="poly" title=" " alt="" coords="564,79,613,74,614,79,565,84"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a91c756b1034319b0f4d90f1b897348d6" title="Fits spline to path." alt="" coords="612,104,819,129"/>
-<area shape="poly" title=" " alt="" coords="565,98,597,102,597,107,564,104"/>
-<area shape="rect" href="../../d9/d32/class_path_point.html#a88f058d98c6ef403f769cf440358fd23" title=" " alt="" coords="867,26,1035,52"/>
-<area shape="poly" title=" " alt="" coords="802,54,851,48,852,54,802,59"/>
-<area shape="rect" href="../../d9/d32/class_path_point.html#a4f84d924fd7ffcbfd9ae67b669251306" title=" " alt="" coords="1083,26,1194,52"/>
-<area shape="poly" title=" " alt="" coords="744,51,800,29,866,11,913,4,951,3,1035,11,1079,19,1078,24,1035,16,951,8,914,10,867,16,801,34,746,56"/>
-<area shape="rect" href="../../d9/d32/class_path_point.html#a722e36fc4d8964c3efe0fb96315be015" title=" " alt="" coords="1083,84,1194,109"/>
-<area shape="poly" title=" " alt="" coords="791,78,820,89,835,99,844,109,853,118,868,126,896,133,925,137,985,135,1041,125,1088,112,1089,117,1042,131,985,141,925,142,895,139,866,131,850,123,840,113,831,103,817,93,790,83"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#ad044a39b4c65ea74975c57685d7cb149" title="Check if the direction of two cones is consistent." alt="" coords="875,76,1027,117"/>
-<area shape="poly" title=" " alt="" coords="802,75,860,82,859,88,802,80"/>
-<area shape="poly" title=" " alt="" coords="1036,36,1067,36,1067,42,1036,42"/>
-<area shape="poly" title=" " alt="" coords="997,50,1036,62,1081,76,1079,81,1034,67,996,55"/>
-<area shape="poly" title=" " alt="" coords="1019,73,1079,54,1080,60,1020,78"/>
-<area shape="poly" title=" " alt="" coords="1027,94,1068,94,1068,99,1027,99"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a0ea650cb431af618f5c4b0977dfcca4a" title="adds point to path" alt="" coords="369,177,563,203"/>
-<area shape="poly" title=" " alt="" coords="283,151,382,171,381,176,282,156"/>
-<area shape="rect" href="../../dd/d8b/files_8cpp.html#a440bc5364e11c37c13f14f7a0d1c7208" title=" " alt="" coords="416,128,516,153"/>
-<area shape="poly" title=" " alt="" coords="292,138,400,138,400,143,292,143"/>
+<area shape="rect" title="simple scenario with few points in the path" alt="" coords="5,133,60,159"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#ab7c36b75c79ce5ec6ff7388f2087e316" title="calls pathSmoother with default values for precision, order and coeffs_ratio that were determined to ..." alt="" coords="108,59,319,84"/>
+<area shape="poly" title=" " alt="" coords="48,131,74,111,107,93,122,87,124,92,109,98,77,116,51,135"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a353e6d4bfab4b2a3f92cd630d8dd2175" title="Fill the track data from a file." alt="" coords="136,108,291,134"/>
+<area shape="poly" title=" " alt="" coords="60,140,120,131,120,137,60,145"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a3df41d3ad694f3794ff4dc5b010cc825" title="Get the Path object." alt="" coords="133,157,294,183"/>
+<area shape="poly" title=" " alt="" coords="60,147,118,155,117,160,60,152"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#aa166fa4fdd74344246256ee161adc562" title="Get the number of points in the path." alt="" coords="109,207,318,232"/>
+<area shape="poly" title=" " alt="" coords="51,157,77,176,109,193,125,199,123,204,107,198,75,180,48,162"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#aae6d8b2ff86ec4829ddb3fc2b0ba0856" title="Function designed to smooth the path via spline." alt="" coords="367,59,564,84"/>
+<area shape="poly" title=" " alt="" coords="319,69,352,69,352,74,319,74"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a17371b9028a6c6daa56717aa143b59fb" title="Orders the path to fit spline." alt="" coords="629,35,802,60"/>
+<area shape="poly" title=" " alt="" coords="564,59,613,55,614,60,565,65"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a5689b2c07e18bf08311aa99c5efbeb73" title="Fits spline to path." alt="" coords="612,84,819,110"/>
+<area shape="poly" title=" " alt="" coords="565,79,597,82,597,87,564,84"/>
+<area shape="rect" href="../../d9/d32/class_path_point.html#a88f058d98c6ef403f769cf440358fd23" title=" " alt="" coords="867,5,1035,31"/>
+<area shape="poly" title=" " alt="" coords="802,34,851,28,852,33,802,39"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#ad044a39b4c65ea74975c57685d7cb149" title="Check if the direction of two cones is consistent." alt="" coords="875,55,1027,96"/>
+<area shape="poly" title=" " alt="" coords="802,55,860,62,859,67,802,60"/>
+<area shape="rect" href="../../d9/d32/class_path_point.html#a4f84d924fd7ffcbfd9ae67b669251306" title=" " alt="" coords="1083,8,1194,34"/>
+<area shape="poly" title=" " alt="" coords="1036,17,1067,17,1067,22,1036,22"/>
+<area shape="rect" href="../../d9/d32/class_path_point.html#a722e36fc4d8964c3efe0fb96315be015" title=" " alt="" coords="1083,59,1194,84"/>
+<area shape="poly" title=" " alt="" coords="1000,29,1077,51,1075,56,998,34"/>
+<area shape="poly" title=" " alt="" coords="1022,52,1076,36,1078,41,1024,57"/>
+<area shape="poly" title=" " alt="" coords="1027,71,1067,70,1068,76,1028,77"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a0ea650cb431af618f5c4b0977dfcca4a" title="adds point to path" alt="" coords="369,157,563,183"/>
+<area shape="poly" title=" " alt="" coords="283,132,382,151,381,156,282,137"/>
+<area shape="rect" href="../../dd/d8b/files_8cpp.html#a440bc5364e11c37c13f14f7a0d1c7208" title=" " alt="" coords="416,108,516,134"/>
+<area shape="poly" title=" " alt="" coords="292,118,400,118,400,124,292,124"/>
 </map>
 </div>
 
 </div>
 </div>
 <a id="aae8c79094c63a375eea2464aa2a09e00" name="aae8c79094c63a375eea2464aa2a09e00"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aae8c79094c63a375eea2464aa2a09e00">&#9670;&#160;</a></span>TEST() <span class="overload">[15/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aae8c79094c63a375eea2464aa2a09e00">&#9670;&#160;</a></span>TEST() <span class="overload">[22/22]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1985,43 +2433,113 @@ Here is the call graph for this function:</div>
 
 <p>more complex scenario with cones deviating from path and with significant curvature </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00377">377</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00424">424</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../dd/df6/planning_2test_2tests_8cpp_aae8c79094c63a375eea2464aa2a09e00_cgraph.png" border="0" usemap="#add/df6/planning_2test_2tests_8cpp_aae8c79094c63a375eea2464aa2a09e00_cgraph" alt=""/></div>
 <map name="add/df6/planning_2test_2tests_8cpp_aae8c79094c63a375eea2464aa2a09e00_cgraph" id="add/df6/planning_2test_2tests_8cpp_aae8c79094c63a375eea2464aa2a09e00_cgraph">
-<area shape="rect" title="more complex scenario with cones deviating from path and with significant curvature" alt="" coords="5,153,60,179"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#af9365cf145ba25661e8c287a5dd6814c" title="calls pathSmoother with default values for precision, order and coeffs_ratio that were determined to ..." alt="" coords="108,78,319,104"/>
-<area shape="poly" title=" " alt="" coords="48,150,74,131,107,113,122,106,124,111,109,117,77,135,51,155"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a353e6d4bfab4b2a3f92cd630d8dd2175" title="Fill the track data from a file." alt="" coords="136,128,291,153"/>
-<area shape="poly" title=" " alt="" coords="60,159,120,151,120,156,60,165"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a3df41d3ad694f3794ff4dc5b010cc825" title="Get the Path object." alt="" coords="133,177,294,203"/>
-<area shape="poly" title=" " alt="" coords="60,167,118,174,117,180,60,172"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#aa166fa4fdd74344246256ee161adc562" title="Get the number of points in the path." alt="" coords="109,226,318,252"/>
-<area shape="poly" title=" " alt="" coords="51,177,77,195,109,213,125,219,123,224,107,217,75,200,48,181"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#aae6d8b2ff86ec4829ddb3fc2b0ba0856" title="Function designed to smooth the path via spline." alt="" coords="367,78,564,104"/>
-<area shape="poly" title=" " alt="" coords="319,88,352,88,352,94,319,94"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a17371b9028a6c6daa56717aa143b59fb" title="Orders the path to fit spline." alt="" coords="629,54,802,80"/>
-<area shape="poly" title=" " alt="" coords="564,79,613,74,614,79,565,84"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a91c756b1034319b0f4d90f1b897348d6" title="Fits spline to path." alt="" coords="612,104,819,129"/>
-<area shape="poly" title=" " alt="" coords="565,98,597,102,597,107,564,104"/>
-<area shape="rect" href="../../d9/d32/class_path_point.html#a88f058d98c6ef403f769cf440358fd23" title=" " alt="" coords="867,26,1035,52"/>
-<area shape="poly" title=" " alt="" coords="802,54,851,48,852,54,802,59"/>
-<area shape="rect" href="../../d9/d32/class_path_point.html#a4f84d924fd7ffcbfd9ae67b669251306" title=" " alt="" coords="1083,26,1194,52"/>
-<area shape="poly" title=" " alt="" coords="744,51,800,29,866,11,913,4,951,3,1035,11,1079,19,1078,24,1035,16,951,8,914,10,867,16,801,34,746,56"/>
-<area shape="rect" href="../../d9/d32/class_path_point.html#a722e36fc4d8964c3efe0fb96315be015" title=" " alt="" coords="1083,84,1194,109"/>
-<area shape="poly" title=" " alt="" coords="791,78,820,89,835,99,844,109,853,118,868,126,896,133,925,137,985,135,1041,125,1088,112,1089,117,1042,131,985,141,925,142,895,139,866,131,850,123,840,113,831,103,817,93,790,83"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#ad044a39b4c65ea74975c57685d7cb149" title="Check if the direction of two cones is consistent." alt="" coords="875,76,1027,117"/>
-<area shape="poly" title=" " alt="" coords="802,75,860,82,859,88,802,80"/>
-<area shape="poly" title=" " alt="" coords="1036,36,1067,36,1067,42,1036,42"/>
-<area shape="poly" title=" " alt="" coords="997,50,1036,62,1081,76,1079,81,1034,67,996,55"/>
-<area shape="poly" title=" " alt="" coords="1019,73,1079,54,1080,60,1020,78"/>
-<area shape="poly" title=" " alt="" coords="1027,94,1068,94,1068,99,1027,99"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a0ea650cb431af618f5c4b0977dfcca4a" title="adds point to path" alt="" coords="369,177,563,203"/>
-<area shape="poly" title=" " alt="" coords="283,151,382,171,381,176,282,156"/>
-<area shape="rect" href="../../dd/d8b/files_8cpp.html#a440bc5364e11c37c13f14f7a0d1c7208" title=" " alt="" coords="416,128,516,153"/>
-<area shape="poly" title=" " alt="" coords="292,138,400,138,400,143,292,143"/>
+<area shape="rect" title="more complex scenario with cones deviating from path and with significant curvature" alt="" coords="5,133,60,159"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#ab7c36b75c79ce5ec6ff7388f2087e316" title="calls pathSmoother with default values for precision, order and coeffs_ratio that were determined to ..." alt="" coords="108,59,319,84"/>
+<area shape="poly" title=" " alt="" coords="48,131,74,111,107,93,122,87,124,92,109,98,77,116,51,135"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a353e6d4bfab4b2a3f92cd630d8dd2175" title="Fill the track data from a file." alt="" coords="136,108,291,134"/>
+<area shape="poly" title=" " alt="" coords="60,140,120,131,120,137,60,145"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a3df41d3ad694f3794ff4dc5b010cc825" title="Get the Path object." alt="" coords="133,157,294,183"/>
+<area shape="poly" title=" " alt="" coords="60,147,118,155,117,160,60,152"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#aa166fa4fdd74344246256ee161adc562" title="Get the number of points in the path." alt="" coords="109,207,318,232"/>
+<area shape="poly" title=" " alt="" coords="51,157,77,176,109,193,125,199,123,204,107,198,75,180,48,162"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#aae6d8b2ff86ec4829ddb3fc2b0ba0856" title="Function designed to smooth the path via spline." alt="" coords="367,59,564,84"/>
+<area shape="poly" title=" " alt="" coords="319,69,352,69,352,74,319,74"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a17371b9028a6c6daa56717aa143b59fb" title="Orders the path to fit spline." alt="" coords="629,35,802,60"/>
+<area shape="poly" title=" " alt="" coords="564,59,613,55,614,60,565,65"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a5689b2c07e18bf08311aa99c5efbeb73" title="Fits spline to path." alt="" coords="612,84,819,110"/>
+<area shape="poly" title=" " alt="" coords="565,79,597,82,597,87,564,84"/>
+<area shape="rect" href="../../d9/d32/class_path_point.html#a88f058d98c6ef403f769cf440358fd23" title=" " alt="" coords="867,5,1035,31"/>
+<area shape="poly" title=" " alt="" coords="802,34,851,28,852,33,802,39"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#ad044a39b4c65ea74975c57685d7cb149" title="Check if the direction of two cones is consistent." alt="" coords="875,55,1027,96"/>
+<area shape="poly" title=" " alt="" coords="802,55,860,62,859,67,802,60"/>
+<area shape="rect" href="../../d9/d32/class_path_point.html#a4f84d924fd7ffcbfd9ae67b669251306" title=" " alt="" coords="1083,8,1194,34"/>
+<area shape="poly" title=" " alt="" coords="1036,17,1067,17,1067,22,1036,22"/>
+<area shape="rect" href="../../d9/d32/class_path_point.html#a722e36fc4d8964c3efe0fb96315be015" title=" " alt="" coords="1083,59,1194,84"/>
+<area shape="poly" title=" " alt="" coords="1000,29,1077,51,1075,56,998,34"/>
+<area shape="poly" title=" " alt="" coords="1022,52,1076,36,1078,41,1024,57"/>
+<area shape="poly" title=" " alt="" coords="1027,71,1067,70,1068,76,1028,77"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a0ea650cb431af618f5c4b0977dfcca4a" title="adds point to path" alt="" coords="369,157,563,183"/>
+<area shape="poly" title=" " alt="" coords="283,132,382,151,381,156,282,137"/>
+<area shape="rect" href="../../dd/d8b/files_8cpp.html#a440bc5364e11c37c13f14f7a0d1c7208" title=" " alt="" coords="416,108,516,134"/>
+<area shape="poly" title=" " alt="" coords="292,118,400,118,400,124,292,124"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="af4e1db1f58b3150cd44904c60de51c46" name="af4e1db1f58b3150cd44904c60de51c46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4e1db1f58b3150cd44904c60de51c46">&#9670;&#160;</a></span>test_cone_coloring()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void test_cone_coloring </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../dd/d52/class_cone_coloring.html">ConeColoring</a> &amp;&#160;</td>
+          <td class="paramname"><em>cone_coloring</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int &amp;&#160;</td>
+          <td class="paramname"><em>correctly_placed_blue</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int &amp;&#160;</td>
+          <td class="paramname"><em>correctly_placed_yellow</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int &amp;&#160;</td>
+          <td class="paramname"><em>incorrectly_placed_blue</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int &amp;&#160;</td>
+          <td class="paramname"><em>incorrectly_placed_yellow</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function to validate cone coloring. Compares each cone's id to its supposed Id (left side id is even, right side id is odd) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cone_coloring</td><td><a class="el" href="../../dd/d52/class_cone_coloring.html" title="Class responsible for recieving a set of uncolored cones and discovering their color This is done by ...">ConeColoring</a> object after cone coloring was tried </td></tr>
+    <tr><td class="paramname">correctly_placed_blue</td><td>number of blue cones correctly placed </td></tr>
+    <tr><td class="paramname">correctly_placed_yellow</td><td>number of yellow cones correctly placed </td></tr>
+    <tr><td class="paramname">incorrectly_placed_blue</td><td>number of blue cones incorrectly placed </td></tr>
+    <tr><td class="paramname">incorrectly_placed_yellow</td><td>number of yellow cones incorrectly placed </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html#l00053">53</a> of file <a class="el" href="../../dd/df6/planning_2test_2tests_8cpp_source.html">tests.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../dd/df6/planning_2test_2tests_8cpp_af4e1db1f58b3150cd44904c60de51c46_icgraph.png" border="0" usemap="#add/df6/planning_2test_2tests_8cpp_af4e1db1f58b3150cd44904c60de51c46_icgraph" alt=""/></div>
+<map name="add/df6/planning_2test_2tests_8cpp_af4e1db1f58b3150cd44904c60de51c46_icgraph" id="add/df6/planning_2test_2tests_8cpp_af4e1db1f58b3150cd44904c60de51c46_icgraph">
+<area shape="rect" title="Function to validate cone coloring. Compares each cone&#39;s id to its supposed Id (left side id is even,..." alt="" coords="108,31,238,56"/>
+<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a04f3065d9004b0a2ac2c8f6d00bc34b0" title=" " alt="" coords="5,5,60,31"/>
+<area shape="poly" title=" " alt="" coords="92,32,60,26,60,20,93,26"/>
+<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#ae0eb2417c307a7e6015466adfe20b14d" title=" " alt="" coords="5,55,60,80"/>
+<area shape="poly" title=" " alt="" coords="93,60,60,66,60,60,92,55"/>
 </map>
 </div>
 

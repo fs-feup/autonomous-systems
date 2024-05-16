@@ -5,7 +5,8 @@ var searchData=
   ['node_5fcontrol_2ecpp_2',['node_control.cpp',['../d1/da2/node__control_8cpp.html',1,'']]],
   ['node_5fcontrol_2ehpp_3',['node_control.hpp',['../da/d3d/node__control_8hpp.html',1,'']]],
   ['none_4',['NONE',['../d9/d2b/namespacecommon__lib_1_1competition__logic.html#adc523f54f1498f443c97303976f40140ab50339a10e1de285ac99d4c3990b8693',1,'common_lib::competition_logic']]],
-  ['normalize_5fangle_5',['normalize_angle',['../d2/d32/namespacecommon__lib_1_1maths.html#acd35b7873c51d71ad7ee2396007da7a3',1,'common_lib::maths']]],
-  ['normalvelocitymodel_6',['normalvelocitymodel',['../d7/df9/class_normal_velocity_model.html#a053c266f34e38e3e609eaa4affe76bf8',1,'NormalVelocityModel::NormalVelocityModel()'],['../d7/df9/class_normal_velocity_model.html',1,'NormalVelocityModel']]],
-  ['not_5fselected_7',['not_selected',['../d8/d49/mission_8hpp.html#af686af98019fe71e9f18190349618431aac800e3e0af898316f966ae9d004f926',1,'mission.hpp']]]
+  ['norm_5',['norm',['../df/d47/struct_angle_norm.html#a786b407c7c08a9c68269ff3ea2d7623d',1,'AngleNorm']]],
+  ['normalize_5fangle_6',['normalize_angle',['../d2/d32/namespacecommon__lib_1_1maths.html#acd35b7873c51d71ad7ee2396007da7a3',1,'common_lib::maths']]],
+  ['normalvelocitymodel_7',['normalvelocitymodel',['../d7/df9/class_normal_velocity_model.html#a053c266f34e38e3e609eaa4affe76bf8',1,'NormalVelocityModel::NormalVelocityModel()'],['../d7/df9/class_normal_velocity_model.html',1,'NormalVelocityModel']]],
+  ['not_5fselected_8',['not_selected',['../d8/d49/mission_8hpp.html#af686af98019fe71e9f18190349618431aac800e3e0af898316f966ae9d004f926',1,'mission.hpp']]]
 ];

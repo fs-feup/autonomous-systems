@@ -12,11 +12,11 @@
 <area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="137,338,181,321,229,308,286,300,344,298,445,302,445,307,344,303,287,306,230,313,182,326,139,343"/>
 <area shape="rect" id="Node000007" href="$d6/d2c/class_track.html#aeb46e6fbc74096c298262b84cd81b77f" title="Get the left cone at a specified index." alt="" coords="243,475,387,500"/>
 <area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="122,380,171,416,231,453,259,466,257,471,228,458,168,421,119,384"/>
-<area shape="rect" id="Node000008" href="$d6/d2c/class_track.html#a394133c01100ca42facbb28150db9e7d" title="Get the number of left cones." alt="" coords="233,524,397,550"/>
+<area shape="rect" id="Node000008" href="$d6/d2c/class_track.html#a6bd8978cb65635811bdeef26c29c989b" title="Get the number of left cones." alt="" coords="233,524,397,550"/>
 <area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="110,380,158,445,192,480,231,511,239,515,236,520,228,515,188,484,154,448,105,383"/>
 <area shape="rect" id="Node000009" href="$d6/d2c/class_track.html#a95fe146ead9aae192047e1f0a2c6c3c8" title="Get the right cone at a specified index." alt="" coords="239,573,391,599"/>
 <area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="105,380,123,419,150,468,186,518,231,560,237,564,234,568,228,564,182,521,146,470,118,421,100,383"/>
-<area shape="rect" id="Node000010" href="$d6/d2c/class_track.html#a509060ab3a7c34a9fc435b507e4bd49d" title="Get the number of right cones." alt="" coords="230,623,400,648"/>
+<area shape="rect" id="Node000010" href="$d6/d2c/class_track.html#aaeb6c56205cff7f075ac1aacbbc29a89" title="Get the number of right cones." alt="" coords="230,623,400,648"/>
 <area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="103,381,117,428,143,490,181,554,204,584,231,609,236,613,233,617,228,614,200,587,176,557,138,492,112,430,97,382"/>
 <area shape="rect" id="Node000011" href="$d8/da1/class_cone.html#a51a49cc249e79d06f6a983250fe809b3" title=" " alt="" coords="462,360,546,386"/>
 <area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="182,361,446,369,446,374,182,366"/>

@@ -7,7 +7,7 @@ var searchData=
   ['certainty_4',['certainty',['../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html#a1f4c52fe77ba7e33c16b578fd1f0bc1f',1,'common_lib::structures::Cone']]],
   ['circledivisions_5',['circleDivisions',['../d2/de4/namespaceskidpad__mapper.html#ada2d83ac819a1d84507680541307a74a',1,'skidpad_mapper']]],
   ['clustering_6',['clustering',['../d3/d0d/class_perception_performance_test.html#a753ff5bfa03f0d303a3c94b5359de944',1,'PerceptionPerformanceTest']]],
-  ['color_7',['color',['../d9/d90/struct_observation_data.html#ad5269ea761f7111519db7ba65d488d21',1,'ObservationData::color'],['../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html#a310740e32ebb6116bd84579acff65a7d',1,'common_lib::structures::Cone::color'],['../de/da7/namespacerandom__points.html#a047d34e53b4e5d11b5601455c31473fe',1,'random_points.color']]],
+  ['color_7',['color',['../de/da7/namespacerandom__points.html#a047d34e53b4e5d11b5601455c31473fe',1,'random_points.color'],['../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html#a310740e32ebb6116bd84579acff65a7d',1,'common_lib::structures::Cone::color'],['../d9/d90/struct_observation_data.html#ad5269ea761f7111519db7ba65d488d21',1,'ObservationData::color']]],
   ['color_5fstring_5fmap_8',['COLOR_STRING_MAP',['../d9/d2b/namespacecommon__lib_1_1competition__logic.html#ac8f0667c0e0a602c5c4d2a34e9c6e1dc',1,'common_lib::competition_logic']]],
   ['color_5fto_5fstring_9',['COLOR_TO_STRING',['../d9/d2b/namespacecommon__lib_1_1competition__logic.html#a16e702fd4c0fa4c2810fe5f039294170',1,'common_lib::competition_logic']]],
   ['colorlist_10',['colorlist',['../dc/d1a/namespaceplot__track.html#abb40af2cfaf74a657e52243efa784a25',1,'plot_track.colorList'],['../d2/de4/namespaceskidpad__mapper.html#a885c7c76372187444e0a30111ebc4aa0',1,'skidpad_mapper.colorList'],['../d9/de5/namespaceacceleration__mapper.html#ae0d5296fa448c433a17a5665e6a7678b',1,'acceleration_mapper.colorList']]],
@@ -21,5 +21,7 @@ var searchData=
   ['correction_5fstep_5fduration_18',['correction_step_duration',['../df/d4f/class_performance_test.html#abdeaa4ba4a913e6e85d65025f9a4968b',1,'PerformanceTest']]],
   ['correction_5fstep_5finput_5fsize_19',['correction_step_input_size',['../df/d4f/class_performance_test.html#aaa9c09870b43d1c70ae1a156a55f8f6a',1,'PerformanceTest']]],
   ['count_20',['count',['../dd/d6b/namespaceoffsettrack.html#afefbbb4f39da3e83816bf5d31d797527',1,'offsettrack.count'],['../dc/d1a/namespaceplot__track.html#aeb1d71342484b0943985adb65e165e3e',1,'plot_track.count']]],
-  ['current_5fgoal_5fvelocity_21',['current_goal_velocity',['../d4/d89/class_inspection_functions.html#ab28a953b2f7bb994a3afb1a6c7f636c7',1,'InspectionFunctions']]]
+  ['current_5fgoal_5fvelocity_21',['current_goal_velocity',['../d4/d89/class_inspection_functions.html#ab28a953b2f7bb994a3afb1a6c7f636c7',1,'InspectionFunctions']]],
+  ['current_5fleft_5fcones_22',['current_left_cones',['../dd/d52/class_cone_coloring.html#a5c2cca77802d01ce2cdb49f00d1f51e8',1,'ConeColoring']]],
+  ['current_5fright_5fcones_23',['current_right_cones',['../dd/d52/class_cone_coloring.html#ad57837293e6b81b21b63ba5923ad2102',1,'ConeColoring']]]
 ];

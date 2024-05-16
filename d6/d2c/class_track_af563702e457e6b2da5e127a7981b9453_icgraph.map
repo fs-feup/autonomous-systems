@@ -1,37 +1,51 @@
 <map id="Track::fillTrack" name="Track::fillTrack">
-<area shape="rect" id="Node000001" title="Fill the track data from a file." alt="" coords="304,376,409,402"/>
+<area shape="rect" id="Node000001" title="Fill the track data from a file." alt="" coords="304,548,409,574"/>
 <area shape="rect" id="Node000002" href="$dd/df6/planning_2test_2tests_8cpp.html#a21272f9ce533deddd6a2e1bde8f8c097" title="Test function for outlier removal&#39;s efficiency. Runs 100 times and calculates average duration." alt="" coords="118,5,246,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="353,360,349,296,336,211,323,166,306,122,283,81,254,44,240,34,244,29,258,40,288,78,311,120,328,165,341,210,355,295,358,360"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="351,533,342,425,324,279,311,205,295,137,276,82,254,44,241,34,245,30,258,40,281,79,300,136,317,204,330,278,347,425,356,532"/>
 <area shape="rect" id="Node000004" href="$dd/df6/planning_2test_2tests_8cpp.html#af932d610f7999483e18612a7bf469cb0" title="Test function for Delaunay Triangulations&#39; efficiency. Runs 100 times to get average execution time." alt="" coords="108,55,256,80"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="351,361,345,305,329,233,317,195,300,158,280,124,254,93,240,83,243,79,258,90,284,121,305,156,322,193,334,232,350,304,357,360"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="350,533,340,435,321,303,308,237,293,176,275,127,254,93,241,83,244,79,258,90,279,125,298,175,313,236,326,302,345,434,356,532"/>
 <area shape="rect" id="Node000005" href="$df/d57/class_publisher.html#a5538d94fb8d594575be67e6edd7166df" title=" " alt="" coords="114,104,250,130"/>
-<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="349,361,340,314,323,255,295,195,276,167,254,143,239,133,242,128,258,139,280,164,299,192,328,253,345,312,354,360"/>
-<area shape="rect" id="Node000006" href="$dd/df6/planning_2test_2tests_8cpp.html#afdc65423b0a5a3ca636f3aacfb1dba56" title="simple but realistic scenario with few cones and fwe outliers" alt="" coords="155,153,209,179"/>
-<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="346,361,334,323,316,278,289,232,254,192,232,179,209,172,210,167,235,174,258,188,294,229,320,275,339,322,351,360"/>
-<area shape="rect" id="Node000007" href="$dd/df6/planning_2test_2tests_8cpp.html#af9952ff008604d30cd729682048e2167" title="scenario: Large piece of track with no outliers" alt="" coords="155,203,209,228"/>
-<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="342,363,308,302,284,269,254,242,232,229,209,222,210,217,234,225,258,237,288,266,312,299,346,360"/>
-<area shape="rect" id="Node000008" href="$dd/df6/planning_2test_2tests_8cpp.html#ad18f9702442704e6ba155492f9317546" title="scenario with large track that barely has outliers (only 2)" alt="" coords="155,252,209,278"/>
-<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="334,365,299,327,255,291,232,280,209,273,210,268,234,275,257,287,303,323,338,362"/>
-<area shape="rect" id="Node000009" href="$dd/df6/planning_2test_2tests_8cpp.html#a7b7c7d79809f351fb41f6578dbdaf2ca" title="simplest scenario with cones forming a line and one outlier" alt="" coords="155,301,209,327"/>
-<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="317,371,255,341,209,324,210,319,257,336,320,366"/>
-<area shape="rect" id="Node000010" href="$dd/df6/planning_2test_2tests_8cpp.html#ac7fcdd764e3bf039a7651702397702ef" title="scenario with large track that barely has outliers (only 2)" alt="" coords="155,351,209,376"/>
-<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="288,382,209,370,210,365,289,376"/>
-<area shape="rect" id="Node000011" href="$dd/df6/planning_2test_2tests_8cpp.html#af135d65f2784ab63322d2dc0342433e5" title="scenario with large track but few outliers" alt="" coords="155,400,209,426"/>
-<area shape="poly" id="edge11_Node000001_Node000011" title=" " alt="" coords="289,401,210,412,209,407,288,395"/>
-<area shape="rect" id="Node000012" href="$dd/df6/planning_2test_2tests_8cpp.html#a51e9b02efadad69c633bb346d244c040" title="scenario with large track and moderate number of outliers" alt="" coords="155,449,209,475"/>
-<area shape="poly" id="edge12_Node000001_Node000012" title=" " alt="" coords="319,411,257,441,210,457,209,452,255,436,317,407"/>
-<area shape="rect" id="Node000013" href="$dd/df6/planning_2test_2tests_8cpp.html#a81c282250a0ddc02a5624391b6d53b9f" title="scenario with large track and abundant outliers" alt="" coords="155,499,209,524"/>
-<area shape="poly" id="edge13_Node000001_Node000013" title=" " alt="" coords="338,416,303,454,257,490,234,501,210,509,209,503,232,496,255,485,299,450,334,412"/>
-<area shape="rect" id="Node000014" href="$dd/df6/planning_2test_2tests_8cpp.html#a31cf5e2275b9c7e8dfd57ad0a102e2de" title="unrealistic scenario with cones randomly positioned in 100 by 100 square" alt="" coords="155,548,209,574"/>
-<area shape="poly" id="edge14_Node000001_Node000014" title=" " alt="" coords="346,417,312,478,287,511,258,539,234,552,210,559,209,554,232,547,254,535,283,507,308,475,342,415"/>
-<area shape="rect" id="Node000015" href="$dd/df6/planning_2test_2tests_8cpp.html#ac52f5bb92ce5fead956b460602be5875" title="scenario: cones in parallel straight lines that shows that cones exaclty in a circumference are not c..." alt="" coords="155,597,209,623"/>
-<area shape="poly" id="edge15_Node000001_Node000015" title=" " alt="" coords="351,418,339,456,320,501,293,548,258,588,235,602,210,609,209,604,232,597,254,584,289,545,315,499,334,454,346,416"/>
-<area shape="rect" id="Node000016" href="$dd/df6/planning_2test_2tests_8cpp.html#a24abd4bbadec3144e9f2562ff43add80" title="scenario: small track with sharp edge" alt="" coords="155,647,209,672"/>
-<area shape="poly" id="edge16_Node000001_Node000016" title=" " alt="" coords="354,418,345,465,327,524,299,584,280,613,258,638,235,652,210,659,209,654,233,647,254,633,276,609,295,582,322,522,340,464,349,417"/>
-<area shape="rect" id="Node000017" href="$dd/df6/planning_2test_2tests_8cpp.html#a0332ef9190c93cd17d4e05d76a15426a" title="simple case in which there are cones only in the left size and no significant outliers" alt="" coords="155,696,209,722"/>
-<area shape="poly" id="edge17_Node000001_Node000017" title=" " alt="" coords="357,418,350,474,334,546,321,584,305,621,284,656,258,687,235,701,210,709,209,703,233,697,254,683,280,653,300,618,316,582,329,544,345,473,351,417"/>
-<area shape="rect" id="Node000018" href="$dd/df6/planning_2test_2tests_8cpp.html#a29badad35310b8e08080122d0707b973" title="simple scenario only with left cones but with 4 significant outliers" alt="" coords="155,745,209,771"/>
-<area shape="poly" id="edge18_Node000001_Node000018" title=" " alt="" coords="358,417,354,482,341,567,328,612,311,657,287,699,258,736,235,751,210,758,209,753,233,746,254,732,283,696,306,655,323,611,335,566,349,481,353,417"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="350,533,338,444,318,327,290,216,273,172,254,143,241,132,244,128,258,139,277,170,295,214,323,326,343,443,355,532"/>
+<area shape="rect" id="Node000006" href="$dd/df6/planning_2test_2tests_8cpp.html#a1b3e0277417f2e2a28398811e1aef5dc" title=" " alt="" coords="155,153,209,179"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="354,533,351,464,339,373,326,325,309,277,285,232,254,192,233,178,209,171,210,166,235,173,258,188,289,229,313,275,331,323,344,372,357,464,359,533"/>
+<area shape="rect" id="Node000007" href="$dd/df6/planning_2test_2tests_8cpp.html#a04f3065d9004b0a2ac2c8f6d00bc34b0" title=" " alt="" coords="155,203,209,228"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="352,533,347,472,332,394,320,353,303,313,281,275,254,241,233,228,209,221,210,216,235,223,258,238,286,272,308,310,325,351,338,393,352,472,358,532"/>
+<area shape="rect" id="Node000008" href="$dd/df6/planning_2test_2tests_8cpp.html#ae0eb2417c307a7e6015466adfe20b14d" title=" " alt="" coords="155,252,209,278"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="350,533,343,482,326,417,298,349,278,318,254,291,233,277,209,270,210,265,235,272,258,287,282,315,302,347,331,415,348,481,356,533"/>
+<area shape="rect" id="Node000009" href="$dd/df6/planning_2test_2tests_8cpp.html#a09841343505121b96efdf2fc328d0c58" title=" " alt="" coords="155,301,209,327"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="348,533,337,491,319,439,292,386,274,362,254,340,232,327,209,320,210,315,235,322,258,336,279,358,296,383,324,437,342,489,353,532"/>
+<area shape="rect" id="Node000010" href="$dd/df6/planning_2test_2tests_8cpp.html#a0922e03bd3192f4432ba5cfd57af61c6" title=" " alt="" coords="155,351,209,376"/>
+<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="344,534,331,501,312,462,286,423,254,390,232,377,209,370,210,365,234,372,258,385,290,420,316,459,336,499,349,532"/>
+<area shape="rect" id="Node000011" href="$dd/df6/planning_2test_2tests_8cpp.html#a99ca8feb760b10bde94fbf21119a7604" title=" " alt="" coords="155,400,209,426"/>
+<area shape="poly" id="edge11_Node000001_Node000011" title=" " alt="" coords="338,536,304,487,281,461,255,439,232,427,209,420,210,415,234,422,257,435,284,457,308,483,343,533"/>
+<area shape="rect" id="Node000012" href="$dd/df6/planning_2test_2tests_8cpp.html#a398d0f768ac526b5665cff1adfe37df2" title=" " alt="" coords="155,449,209,475"/>
+<area shape="poly" id="edge12_Node000001_Node000012" title=" " alt="" coords="328,540,294,513,255,489,209,471,211,466,257,484,297,509,331,536"/>
+<area shape="rect" id="Node000013" href="$dd/df6/planning_2test_2tests_8cpp.html#afdc65423b0a5a3ca636f3aacfb1dba56" title="simple but realistic scenario with few cones and fwe outliers" alt="" coords="155,499,209,524"/>
+<area shape="poly" id="edge13_Node000001_Node000013" title=" " alt="" coords="293,546,209,522,210,516,294,541"/>
+<area shape="rect" id="Node000014" href="$dd/df6/planning_2test_2tests_8cpp.html#af9952ff008604d30cd729682048e2167" title="scenario: Large piece of track with no outliers" alt="" coords="155,548,209,574"/>
+<area shape="poly" id="edge14_Node000001_Node000014" title=" " alt="" coords="289,564,209,564,209,558,289,558"/>
+<area shape="rect" id="Node000015" href="$dd/df6/planning_2test_2tests_8cpp.html#ad18f9702442704e6ba155492f9317546" title="scenario with large track that barely has outliers (only 2)" alt="" coords="155,597,209,623"/>
+<area shape="poly" id="edge15_Node000001_Node000015" title=" " alt="" coords="294,581,210,605,209,600,293,576"/>
+<area shape="rect" id="Node000016" href="$dd/df6/planning_2test_2tests_8cpp.html#a7b7c7d79809f351fb41f6578dbdaf2ca" title="simplest scenario with cones forming a line and one outlier" alt="" coords="155,647,209,672"/>
+<area shape="poly" id="edge16_Node000001_Node000016" title=" " alt="" coords="331,586,297,613,257,638,211,656,209,651,255,633,294,608,328,582"/>
+<area shape="rect" id="Node000017" href="$dd/df6/planning_2test_2tests_8cpp.html#ac7fcdd764e3bf039a7651702397702ef" title="scenario with large track that barely has outliers (only 2)" alt="" coords="155,696,209,722"/>
+<area shape="poly" id="edge17_Node000001_Node000017" title=" " alt="" coords="343,589,308,638,284,665,257,687,234,699,210,707,209,701,232,694,255,683,281,661,304,635,338,586"/>
+<area shape="rect" id="Node000018" href="$dd/df6/planning_2test_2tests_8cpp.html#af135d65f2784ab63322d2dc0342433e5" title="scenario with large track but few outliers" alt="" coords="155,745,209,771"/>
+<area shape="poly" id="edge18_Node000001_Node000018" title=" " alt="" coords="349,590,336,623,316,662,290,702,258,736,234,750,210,757,209,752,232,745,254,732,286,699,312,660,331,621,344,588"/>
+<area shape="rect" id="Node000019" href="$dd/df6/planning_2test_2tests_8cpp.html#a51e9b02efadad69c633bb346d244c040" title="scenario with large track and moderate number of outliers" alt="" coords="155,795,209,820"/>
+<area shape="poly" id="edge19_Node000001_Node000019" title=" " alt="" coords="353,590,342,633,324,685,296,739,279,764,258,786,235,799,210,807,209,802,232,795,254,781,274,760,292,736,319,683,337,631,348,588"/>
+<area shape="rect" id="Node000020" href="$dd/df6/planning_2test_2tests_8cpp.html#a81c282250a0ddc02a5624391b6d53b9f" title="scenario with large track and abundant outliers" alt="" coords="155,844,209,870"/>
+<area shape="poly" id="edge20_Node000001_Node000020" title=" " alt="" coords="356,589,348,641,331,707,302,775,282,807,258,835,235,849,210,856,209,851,233,844,254,831,278,803,298,772,326,705,343,640,350,588"/>
+<area shape="rect" id="Node000021" href="$dd/df6/planning_2test_2tests_8cpp.html#a31cf5e2275b9c7e8dfd57ad0a102e2de" title="unrealistic scenario with cones randomly positioned in 100 by 100 square" alt="" coords="155,893,209,919"/>
+<area shape="poly" id="edge21_Node000001_Node000021" title=" " alt="" coords="358,590,352,650,338,729,325,770,308,811,286,850,258,884,235,899,210,906,209,901,233,894,254,880,281,847,303,809,320,769,332,727,347,649,352,589"/>
+<area shape="rect" id="Node000022" href="$dd/df6/planning_2test_2tests_8cpp.html#ac52f5bb92ce5fead956b460602be5875" title="scenario: cones in parallel straight lines that shows that cones exaclty in a circumference are not c..." alt="" coords="155,943,209,968"/>
+<area shape="poly" id="edge22_Node000001_Node000022" title=" " alt="" coords="359,589,357,658,344,749,331,799,313,847,289,893,258,933,235,948,210,956,209,950,233,944,254,930,285,890,309,845,326,797,339,748,351,657,354,589"/>
+<area shape="rect" id="Node000023" href="$dd/df6/planning_2test_2tests_8cpp.html#a24abd4bbadec3144e9f2562ff43add80" title="scenario: small track with sharp edge" alt="" coords="155,992,209,1018"/>
+<area shape="poly" id="edge23_Node000001_Node000023" title=" " alt="" coords="355,590,343,678,323,795,295,908,277,952,258,983,235,998,210,1005,209,1000,233,993,254,979,273,950,290,906,318,794,338,678,350,589"/>
+<area shape="rect" id="Node000024" href="$dd/df6/planning_2test_2tests_8cpp.html#a0332ef9190c93cd17d4e05d76a15426a" title="simple case in which there are cones only in the left size and no significant outliers" alt="" coords="155,1041,209,1067"/>
+<area shape="poly" id="edge24_Node000001_Node000024" title=" " alt="" coords="356,589,345,687,326,819,313,886,298,947,279,997,258,1032,235,1047,210,1055,209,1049,233,1043,254,1028,275,995,293,945,308,885,321,818,340,687,350,589"/>
+<area shape="rect" id="Node000025" href="$dd/df6/planning_2test_2tests_8cpp.html#a29badad35310b8e08080122d0707b973" title="simple scenario only with left cones but with 4 significant outliers" alt="" coords="155,1091,209,1116"/>
+<area shape="poly" id="edge25_Node000001_Node000025" title=" " alt="" coords="356,590,347,697,330,844,317,918,300,986,281,1042,258,1081,235,1097,210,1104,209,1099,233,1092,254,1078,276,1040,295,985,311,917,324,843,342,696,351,589"/>
 <area shape="rect" id="Node000003" href="$d3/d72/planning_2test_2performance__test_8cpp.html#a02628d0c19664647a94e9d2bd23d5f5e" title="Execution Time Test." alt="" coords="5,31,60,56"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="104,34,61,42,60,36,103,29"/>
 <area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="92,56,60,50,60,45,93,50"/>

@@ -1,5 +1,6 @@
 var dir_a944fe9b9067a63cf592ce0faeba36eb =
 [
+    [ "cone_coloring.cpp", "d0/de4/cone__coloring_8cpp.html", null ],
     [ "global_path_planner.cpp", "d9/d94/global__path__planner_8cpp.html", null ],
     [ "local_path_planner.cpp", "dd/d02/local__path__planner_8cpp.html", null ],
     [ "path_smoothing.cpp", "d7/d15/path__smoothing_8cpp.html", null ],

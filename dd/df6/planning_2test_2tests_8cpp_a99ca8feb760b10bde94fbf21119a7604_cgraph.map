@@ -1,0 +1,18 @@
+<map id="TEST" name="TEST">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,104,60,130"/>
+<area shape="rect" id="Node000002" href="$d6/d2c/class_track.html#af563702e457e6b2da5e127a7981b9453" title="Fill the track data from a file." alt="" coords="131,29,237,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="48,102,75,82,106,64,118,59,120,63,109,69,78,87,52,106"/>
+<area shape="rect" id="Node000005" href="$d6/d2c/class_track.html#a708bf453953552a35eb902e9064fe441" title="Get the left side cones." alt="" coords="111,79,257,104"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="60,110,95,104,96,109,61,115"/>
+<area shape="rect" id="Node000006" href="$d6/d2c/class_track.html#a8b397028d82bd7b6be314ad7410c4cba" title="Get the right side cones." alt="" coords="108,128,260,154"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="60,118,93,124,92,129,60,124"/>
+<area shape="rect" id="Node000007" href="$dd/df6/planning_2test_2tests_8cpp.html#afbb0277ee17d082a0d2177393a346904" title="rounds float to n decimal places" alt="" coords="150,177,218,203"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="52,128,109,164,136,175,134,180,106,169,49,132"/>
+<area shape="rect" id="Node000003" href="$d6/d2c/class_track.html#adc534b0f22848fc22d7001bd7e1789dd" title="Add a cone to the track if the color is appropriate." alt="" coords="308,5,419,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="237,33,293,25,293,30,237,38"/>
+<area shape="rect" id="Node000004" href="$dd/d8b/files_8cpp.html#a440bc5364e11c37c13f14f7a0d1c7208" title=" " alt="" coords="314,55,414,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="237,47,299,56,298,61,237,52"/>
+<area shape="rect" id="Node000008" href="$da/dad/inspection_2test_2tests_8cpp.html#a322889033b0102b5c2eb49fe3c081fd8" title="round to n decimal places" alt="" coords="337,177,390,203"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="218,188,321,188,321,193,218,193"/>
+<area shape="poly" id="edge8_Node000008_Node000008" title=" " alt="" coords="334,179,328,169,331,159,343,153,364,151,387,154,398,161,395,166,385,159,364,156,345,158,335,163,333,169,339,176"/>
+</map>

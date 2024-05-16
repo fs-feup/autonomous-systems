@@ -9,7 +9,7 @@ var searchData=
   ['pid_6',['PID',['../d6/d5a/class_p_i_d.html',1,'']]],
   ['plane_7',['Plane',['../d2/d8d/class_plane.html',1,'']]],
   ['planning_8',['Planning',['../d9/db5/class_planning.html',1,'']]],
-  ['pose_9',['Pose',['../d8/d4a/structcommon__lib_1_1structures_1_1_pose.html',1,'common_lib::structures']]],
-  ['position_10',['Position',['../dc/d1b/structcommon__lib_1_1structures_1_1_position.html',1,'common_lib::structures']]],
+  ['pose_9',['pose',['../d8/d4a/structcommon__lib_1_1structures_1_1_pose.html',1,'common_lib::structures::Pose'],['../d8/d11/struct_pose.html',1,'Pose']]],
+  ['position_10',['position',['../dc/d1b/structcommon__lib_1_1structures_1_1_position.html',1,'common_lib::structures::Position'],['../d1/d26/struct_position.html',1,'Position']]],
   ['publisher_11',['Publisher',['../df/d57/class_publisher.html',1,'']]]
 ];

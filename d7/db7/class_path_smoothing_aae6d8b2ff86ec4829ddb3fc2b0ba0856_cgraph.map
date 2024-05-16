@@ -1,19 +1,17 @@
 <map id="PathSmoothing::pathSmoother" name="PathSmoothing::pathSmoother">
-<area shape="rect" id="Node000001" title="Function designed to smooth the path via spline." alt="" coords="5,81,203,107"/>
-<area shape="rect" id="Node000002" href="$d7/db7/class_path_smoothing.html#a17371b9028a6c6daa56717aa143b59fb" title="Orders the path to fit spline." alt="" coords="268,56,440,81"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="203,81,252,76,252,81,203,86"/>
-<area shape="rect" id="Node000007" href="$d7/db7/class_path_smoothing.html#a91c756b1034319b0f4d90f1b897348d6" title="Fits spline to path." alt="" coords="251,105,457,131"/>
-<area shape="poly" id="edge10_Node000001_Node000007" title=" " alt="" coords="203,101,235,104,235,109,203,106"/>
-<area shape="rect" id="Node000003" href="$d9/d32/class_path_point.html#a88f058d98c6ef403f769cf440358fd23" title=" " alt="" coords="505,26,673,52"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="440,55,489,49,490,54,441,60"/>
-<area shape="rect" id="Node000004" href="$d9/d32/class_path_point.html#a4f84d924fd7ffcbfd9ae67b669251306" title=" " alt="" coords="721,26,833,52"/>
-<area shape="poly" id="edge5_Node000002_Node000004" title=" " alt="" coords="382,53,437,30,504,11,552,4,589,3,674,11,717,19,716,25,673,16,589,8,552,10,506,16,439,35,384,58"/>
-<area shape="rect" id="Node000005" href="$d9/d32/class_path_point.html#a722e36fc4d8964c3efe0fb96315be015" title=" " alt="" coords="721,84,833,109"/>
-<area shape="poly" id="edge6_Node000002_Node000005" title=" " alt="" coords="430,80,458,90,473,100,482,110,492,119,506,126,534,133,563,137,623,135,679,125,726,112,727,117,680,130,623,140,563,142,533,138,504,131,489,123,479,113,469,104,456,95,428,85"/>
-<area shape="rect" id="Node000006" href="$d7/db7/class_path_smoothing.html#ad044a39b4c65ea74975c57685d7cb149" title="Check if the direction of two cones is consistent." alt="" coords="513,76,665,117"/>
-<area shape="poly" id="edge7_Node000002_Node000006" title=" " alt="" coords="441,76,498,83,497,88,440,81"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="674,37,706,37,706,42,674,42"/>
-<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="636,50,674,62,719,76,718,81,673,67,634,55"/>
-<area shape="poly" id="edge8_Node000006_Node000004" title=" " alt="" coords="657,73,717,55,718,60,659,78"/>
-<area shape="poly" id="edge9_Node000006_Node000005" title=" " alt="" coords="666,94,706,94,706,99,666,99"/>
+<area shape="rect" id="Node000001" title="Function designed to smooth the path via spline." alt="" coords="5,60,203,86"/>
+<area shape="rect" id="Node000002" href="$d7/db7/class_path_smoothing.html#a17371b9028a6c6daa56717aa143b59fb" title="Orders the path to fit spline." alt="" coords="268,35,440,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="203,60,252,55,252,60,203,65"/>
+<area shape="rect" id="Node000007" href="$d7/db7/class_path_smoothing.html#a5689b2c07e18bf08311aa99c5efbeb73" title="Fits spline to path." alt="" coords="251,84,457,110"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="203,80,235,83,235,88,203,85"/>
+<area shape="rect" id="Node000003" href="$d9/d32/class_path_point.html#a88f058d98c6ef403f769cf440358fd23" title=" " alt="" coords="505,5,673,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="440,34,489,28,490,33,441,39"/>
+<area shape="rect" id="Node000006" href="$d7/db7/class_path_smoothing.html#ad044a39b4c65ea74975c57685d7cb149" title="Check if the direction of two cones is consistent." alt="" coords="513,55,665,96"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="441,55,498,62,497,67,440,60"/>
+<area shape="rect" id="Node000004" href="$d9/d32/class_path_point.html#a4f84d924fd7ffcbfd9ae67b669251306" title=" " alt="" coords="721,8,833,34"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="674,17,706,17,706,22,674,22"/>
+<area shape="rect" id="Node000005" href="$d9/d32/class_path_point.html#a722e36fc4d8964c3efe0fb96315be015" title=" " alt="" coords="721,59,833,84"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="638,29,715,51,714,56,636,34"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="661,52,715,36,716,41,662,57"/>
+<area shape="poly" id="edge7_Node000006_Node000005" title=" " alt="" coords="666,71,706,70,706,76,666,77"/>
 </map>

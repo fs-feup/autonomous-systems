@@ -1,0 +1,15 @@
+<map id="ConeColoring::color_cones" name="ConeColoring::color_cones">
+<area shape="rect" id="Node000001" title="color the cones based on the cost to reach them" alt="" coords="5,39,138,79"/>
+<area shape="rect" id="Node000002" href="$dd/d52/class_cone_coloring.html#af78a1e3246e614f0966073d1938f2897" title="make a vector of cones and a boolean to determine if the cone has been visited" alt="" coords="186,5,322,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="138,44,170,38,171,44,139,49"/>
+<area shape="rect" id="Node000003" href="$dd/d52/class_cone_coloring.html#a0d1cff5f96836f91157149c03903fcc4" title="add the best initial cones to the sides of the track" alt="" coords="186,71,322,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="139,68,171,74,170,79,138,73"/>
+<area shape="rect" id="Node000004" href="$dd/d52/class_cone_coloring.html#ab48a807ad4ebbab14fa66abb2c235d7e" title="filter cones that are closer than a certain radius" alt="" coords="398,41,537,82"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="321,79,382,71,382,76,322,84"/>
+<area shape="rect" id="Node000005" href="$dd/d52/class_cone_coloring.html#ab7606807a4493f219ccaa3fccf259943" title="get the initial cone to start the path from side determined by parameter" alt="" coords="370,106,564,132"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="322,97,355,102,354,107,321,103"/>
+<area shape="rect" id="Node000006" href="$d8/da1/class_cone.html#af72e761554d3e39ba6ac88f9971f5bc7" title=" " alt="" coords="612,81,697,107"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="564,103,597,99,597,104,565,108"/>
+<area shape="rect" id="Node000007" href="$d8/da1/class_cone.html#a9136643a197ccd7b38f32391b965d808" title=" " alt="" coords="612,130,697,156"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="565,129,597,133,597,138,564,134"/>
+</map>

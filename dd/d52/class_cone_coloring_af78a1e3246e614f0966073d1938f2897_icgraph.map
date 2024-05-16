@@ -1,0 +1,5 @@
+<map id="ConeColoring::make_unvisited_cones" name="ConeColoring::make_unvisited_cones">
+<area shape="rect" id="Node000001" title="make a vector of cones and a boolean to determine if the cone has been visited" alt="" coords="186,5,322,46"/>
+<area shape="rect" id="Node000002" href="$dd/d52/class_cone_coloring.html#aea4237fcc98dec4eb82034bf8c71e3a0" title="color the cones based on the cost to reach them" alt="" coords="5,5,138,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="170,28,138,28,138,23,170,23"/>
+</map>

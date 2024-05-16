@@ -2,7 +2,7 @@
 <area shape="rect" id="Node000001" title="Orders the path to fit spline." alt="" coords="612,31,785,56"/>
 <area shape="rect" id="Node000002" href="$d7/db7/class_path_smoothing.html#aae6d8b2ff86ec4829ddb3fc2b0ba0856" title="Function designed to smooth the path via spline." alt="" coords="367,31,564,56"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="597,46,565,46,565,41,597,41"/>
-<area shape="rect" id="Node000003" href="$d7/db7/class_path_smoothing.html#af9365cf145ba25661e8c287a5dd6814c" title="calls pathSmoother with default values for precision, order and coeffs_ratio that were determined to ..." alt="" coords="108,31,319,56"/>
+<area shape="rect" id="Node000003" href="$d7/db7/class_path_smoothing.html#ab7c36b75c79ce5ec6ff7388f2087e316" title="calls pathSmoother with default values for precision, order and coeffs_ratio that were determined to ..." alt="" coords="108,31,319,56"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="351,46,319,46,319,41,351,41"/>
 <area shape="rect" id="Node000004" href="$dd/df6/planning_2test_2tests_8cpp.html#a6df4e4f75ec78a003fe012ee9a5172f8" title="simple scenario with few points in the path" alt="" coords="5,5,60,31"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="102,31,60,25,61,19,102,25"/>
