@@ -29,13 +29,6 @@ class EufsAdapter : public Adapter {
   explicit EufsAdapter(Perception* perception);
 
   /**
-   * @brief Initializes the EUFS Adapter.
-   * 
-   * Overrides the virtual method in the base class.
-   */
-  void init() override;
-
-  /**
    * @brief Finalizes the EUFS Adapter.
    * 
    * Overrides the virtual method in the base class.

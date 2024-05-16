@@ -35,13 +35,6 @@ class Adapter {
   Perception* node; // Pointer to the Perception instance.
 
     /**
-     * @brief Initializes the Adapter.
-     * 
-     * This method is pure virtual and must be implemented by derived classes.
-     */
-    virtual void init() = 0;
-
-    /**
      * @brief Finalizes the Adapter.
      * 
      * This method is pure virtual and must be implemented by derived classes.

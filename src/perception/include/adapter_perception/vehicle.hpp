@@ -7,25 +7,18 @@
 class Perception;
 
 /**
- * @brief Adapter class for testing purposes.
+ * @brief Adapter class for Vehicle purposes.
  * 
  * This class extends the Adapter class and is used for testing purposes - Lidar's functionality.
  */
-class TestAdapter : public Adapter {
+class VehicleAdapter : public Adapter {
 public:
   /**
    * @brief Constructor for TestAdapter class.
    * 
    * @param perception A pointer to the Perception instance.
    */
-  explicit TestAdapter(Perception* perception);
-
-  /**
-   * @brief Initializes the Test Adapter.
-   * 
-   * Overrides the virtual method in the base class.
-   */
-  void init() override;
+  explicit VehicleAdapter(Perception* perception);
 
   /**
    * @brief Callback function for handling mission state messages.

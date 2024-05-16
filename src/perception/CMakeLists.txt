@@ -25,7 +25,7 @@ set(IMPLEMENTATION_FILES
   src/ground_removal/ransac.cpp
   src/adapter_perception/adapter.cpp
   src/adapter_perception/fsds.cpp
-  src/adapter_perception/testlidar.cpp
+  src/adapter_perception/vehicle.cpp
   src/adapter_perception/eufs.cpp
   src/cone_differentiation/least_squares_differentiation.cpp
   src/clustering/dbscan.cpp

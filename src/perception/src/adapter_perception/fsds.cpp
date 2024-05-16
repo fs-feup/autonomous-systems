@@ -2,10 +2,9 @@
 
 #include "perception/perception_node.hpp"
 
-FsdsAdapter::FsdsAdapter(Perception* perception) : Adapter(perception) {}
+FsdsAdapter::FsdsAdapter(Perception* perception) : Adapter(perception) {
 
-void FsdsAdapter::init() {
-  this->fsds_state_subscription_ = this->node->create_subscription<fs_msgs::msg::GoSignal>(
+    this->fsds_state_subscription_ = this->node->create_subscription<fs_msgs::msg::GoSignal>(
       "/signal/go", 10,
       std::bind(&FsdsAdapter::mission_state_callback, this, std::placeholders::_1));
   this->_point_cloud_subscription = this->node->create_subscription<sensor_msgs::msg::PointCloud2>(
@@ -15,6 +14,7 @@ void FsdsAdapter::init() {
 
   this->fsds_ebs_publisher_ =
       this->node->create_publisher<fs_msgs::msg::FinishedSignal>("/signal/finished", 10);
+
 }
 
 void FsdsAdapter::mission_state_callback(const fs_msgs::msg::GoSignal msg) {

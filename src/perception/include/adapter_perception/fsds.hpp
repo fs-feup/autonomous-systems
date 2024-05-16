@@ -29,13 +29,6 @@ class FsdsAdapter : public Adapter {
   explicit FsdsAdapter(Perception* perception);
 
   /**
-   * @brief Initializes the FSDS Adapter.
-   * 
-   * Overrides the virtual method in the base class.
-   */
-  void init() override;
-
-  /**
    * @brief Callback function for handling mission state messages from FSDS.
    * 
    * @param msg The message containing FSDS mission state.

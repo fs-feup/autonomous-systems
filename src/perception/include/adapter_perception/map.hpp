@@ -7,7 +7,7 @@
 
 #include "adapter_perception/fsds.hpp"
 #include "adapter_perception/eufs.hpp"
-#include "adapter_perception/testlidar.hpp"
+#include "adapter_perception/vehicle.hpp"
 
 /**
  * @brief Map of adapter names to functions creating instances of corresponding adapters.
@@ -19,7 +19,7 @@
 std::map<std::string, std::function<Adapter*(Perception*)>> adapter_map = {
     // Mapping adapter names to functions creating instances of corresponding adapters.
     {"fsds", [](Perception* perception) -> Adapter* { return new FsdsAdapter(perception); }},
-    {"test", [](Perception* perception) -> Adapter* { return new TestAdapter(perception); }},
+    {"vehicle", [](Perception* perception) -> Adapter* { return new VehicleAdapter(perception); }},
     {"eufs", [](Perception* perception) -> Adapter* { return new EufsAdapter(perception); }},
 };
 

@@ -2,9 +2,7 @@
 
 #include "perception/perception_node.hpp"
 
-EufsAdapter::EufsAdapter(Perception* perception) : Adapter(perception) {}
-
-void EufsAdapter::init() {
+EufsAdapter::EufsAdapter(Perception* perception) : Adapter(perception) {
   this->_point_cloud_subscription = this->node->create_subscription<sensor_msgs::msg::PointCloud2>(
       "/velodyne_points", 10, [this](const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
         node->pointCloudCallback(msg);

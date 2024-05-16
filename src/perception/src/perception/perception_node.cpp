@@ -11,7 +11,7 @@
 
 #include "adapter_perception/fsds.hpp"
 #include "adapter_perception/map.hpp"
-#include "adapter_perception/testlidar.hpp"
+#include "adapter_perception/vehicle.hpp"
 #include "std_msgs/msg/header.hpp"
 
 std_msgs::msg::Header header;
@@ -30,7 +30,6 @@ Perception::Perception(std::shared_ptr<GroundRemoval> groundRemoval, std::shared
   this->_cones_publisher = this->create_publisher<custom_interfaces::msg::ConeArray>("cones", 10);
 
   this->adapter = std::shared_ptr<Adapter>(adapter_map[mode](this));
-  this->adapter->init();
 }
 
 void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg) {

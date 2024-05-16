@@ -43,7 +43,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "adapter",
                 description="Environment to run node on",
-                default_value="test",
+                default_value="vehicle",
             ),
 
             Node(
@@ -59,11 +59,12 @@ def generate_launch_description():
 
                     {"clustering_epsilon": LaunchConfiguration("clustering_epsilon")},
 
-                    {"adapter": LaunchConfiguration("adapter")},
+                   {"horizontal_resolution": LaunchConfiguration("horizontal_resolution")},
 
-                    {"horizontal_resolution", LaunchConfiguration("horizontal_resolution")},
+                   {"vertical_resolution": LaunchConfiguration("vertical_resolution")},
 
-                    {"vertical_resolution", LaunchConfiguration("vertical_resolution")},
+                   {"adapter": LaunchConfiguration("adapter")},
+
                 ],
                 arguments=["--ros-args", "--log-level", "perception:=debug"],
             ),
