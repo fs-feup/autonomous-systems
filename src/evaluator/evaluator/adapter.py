@@ -9,7 +9,7 @@ class Adapter:
     Class for subscribing to a point cloud topic and synchronizing messages with a ROS2 node.
     """
 
-    def __init__(self, node: rclpy.Node):
+    def __init__(self, node: rclpy.node.Node):
         """!
         Initializes the Adapter.
 
@@ -17,4 +17,4 @@ class Adapter:
             node (Node): ROS2 node instance.
             point_cloud_topic (str): Topic for point cloud data.
         """
-        self.node: rclpy.Node = node
+        self.node: rclpy.node.Node = node

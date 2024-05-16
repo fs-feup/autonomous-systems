@@ -6,7 +6,7 @@ import rclpy
 import datetime
 import message_filters
 import numpy as np
-from formats import (
+from evaluator.formats import (
     format_cone_array_msg,
     format_vehicle_state_msg,
     format_eufs_cone_array_with_covariance_msg,
@@ -19,7 +19,7 @@ class EufsAdapter(Adapter):
     Adapter class for subscribing to PacSim topics
     """
 
-    def __init__(self, node: rclpy.Node):
+    def __init__(self, node: rclpy.node.Node):
         """!
         Initializes the PacSim Adapter.
 

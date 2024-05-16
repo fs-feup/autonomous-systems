@@ -14,7 +14,6 @@ from evaluator.adapter_maps import (
     ADAPTER_CONSTRUCTOR_DICTINARY,
     ADAPTER_POINT_CLOUD_TOPIC_DICTINARY,
 )
-import message_filters
 import numpy as np
 import rclpy.subscription
 from std_msgs.msg import Float32, Float32MultiArray

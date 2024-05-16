@@ -4,10 +4,9 @@ import datetime
 import rclpy
 import message_filters
 from custom_interfaces.msg import ConeArray, VehicleState
-from visualization_msgs import MarkerArray
-from tf2_geometry_msgs import TransformStamped
+from visualization_msgs.msg import MarkerArray
 from pacsim import PerceptionDetections
-from geometry_msgs.msg import TwistWithCovarianceStamped
+from geometry_msgs.msg import TwistWithCovarianceStamped, TransformStamped
 from evaluator.formats import (
     format_vehicle_state_msg,
     format_cone_array_msg,
@@ -22,7 +21,7 @@ class PacsimAdapter(Adapter):
     Adapter class for subscribing to PacSim topics
     """
 
-    def __init__(self, node: rclpy.Node):
+    def __init__(self, node: rclpy.node.Node):
         """!
         Initializes the PacSim Adapter.
 

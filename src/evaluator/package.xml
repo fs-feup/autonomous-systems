@@ -12,7 +12,9 @@
   <test_depend>ament_pep257</test_depend>
   <test_depend>python3-pytest</test_depend>
   <exec_depend>rclpy</exec_depend>
-  <exec_depend>pacsim</pacsim>
+  <exec_depend>custom_interfaces</exec_depend>
+  <exec_depend>fs_msgs</exec_depend>
+  <exec_depend>eufs_msgs</exec_depend>
   <exec_depend>std_msgs</exec_depend>
   <exec_depend>tf2_ros</exec_depend>
   <exec_depend>geometry_msgs</exec_depend>
