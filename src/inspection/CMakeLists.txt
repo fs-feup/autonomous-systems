@@ -13,6 +13,8 @@ find_package(std_msgs REQUIRED)
 find_package(custom_interfaces REQUIRED)
 find_package(message_filters REQUIRED)
 find_package(common_lib REQUIRED)
+find_package(eufs_msgs REQUIRED)
+find_package(fs_msgs REQUIRED)
 
 # Source files
 set(IMPLEMENTATION_FILES
@@ -24,7 +26,7 @@ set(IMPLEMENTATION_FILES
 add_executable(inspection src/inspection.cpp ${IMPLEMENTATION_FILES})
 
 # Declare dependencies
-ament_target_dependencies(inspection rclcpp common_lib std_msgs std_srvs message_filters custom_interfaces)
+ament_target_dependencies(inspection rclcpp common_lib eufs_msgs fs_msgs std_msgs std_srvs message_filters custom_interfaces)
 
 # Include directories
 target_include_directories(inspection PUBLIC
@@ -59,7 +61,7 @@ if(BUILD_TESTING)
   ament_add_gtest(${PROJECT_NAME}_test ${TESTFILES} ${IMPLEMENTATION_FILES})
 
   # Declare test dependencies
-  ament_target_dependencies(${PROJECT_NAME}_test rclcpp common_lib message_filters std_msgs std_srvs custom_interfaces)
+  ament_target_dependencies(${PROJECT_NAME}_test rclcpp common_lib eufs_msgs fs_msgs message_filters std_msgs std_srvs custom_interfaces)
 
   # Include directories for the test target
   target_include_directories(${PROJECT_NAME}_test PUBLIC
