@@ -12,7 +12,6 @@ var class_fsds_adapter =
     [ "init", "d7/d8e/class_fsds_adapter.html#ac0154eee3b742b3b90a7205c2de914ab", null ],
     [ "init", "d7/d8e/class_fsds_adapter.html#a0cd24b4faf0f5f8ef7bcc5c8c8dbec48", null ],
     [ "init", "d7/d8e/class_fsds_adapter.html#a0cd24b4faf0f5f8ef7bcc5c8c8dbec48", null ],
-    [ "init", "d7/d8e/class_fsds_adapter.html#a0cd24b4faf0f5f8ef7bcc5c8c8dbec48", null ],
     [ "mission_state_callback", "d7/d8e/class_fsds_adapter.html#a94288d66e5406fb91c23637c64a4a6db", null ],
     [ "mission_state_callback", "d7/d8e/class_fsds_adapter.html#a94288d66e5406fb91c23637c64a4a6db", null ],
     [ "mission_state_callback", "d7/d8e/class_fsds_adapter.html#a94288d66e5406fb91c23637c64a4a6db", null ],

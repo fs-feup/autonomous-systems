@@ -98,37 +98,52 @@ $(document).ready(function(){initNavTree('d8/db1/perception_2include_2adapter__p
 <div class="contents">
 <div class="textblock"><code>#include &lt;map&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
+<code>#include &lt;functional&gt;</code><br />
 <code>#include &quot;<a class="el" href="../../d1/d9e/perception_2include_2adapter__perception_2fsds_8hpp_source.html">adapter_perception/fsds.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../df/d10/testlidar_8hpp_source.html">adapter_perception/testlidar.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d4/dab/perception_2include_2adapter__perception_2eufs_8hpp_source.html">adapter_perception/eufs.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../de/d8a/vehicle_8hpp_source.html">adapter_perception/vehicle.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for map.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d8/d05/perception_2include_2adapter__perception_2map_8hpp__incl.png" border="0" usemap="#asrc_2perception_2include_2adapter__perception_2map_8hpp" alt=""/></div>
 <map name="asrc_2perception_2include_2adapter__perception_2map_8hpp" id="asrc_2perception_2include_2adapter__perception_2map_8hpp">
-<area shape="rect" title=" " alt="" coords="45,5,233,46"/>
-<area shape="rect" title=" " alt="" coords="5,102,52,127"/>
-<area shape="poly" title=" " alt="" coords="116,49,57,94,54,90,112,44"/>
-<area shape="rect" title=" " alt="" coords="38,279,91,305"/>
-<area shape="poly" title=" " alt="" coords="134,47,116,95,91,188,73,264,68,263,85,186,111,93,129,45"/>
-<area shape="rect" href="../../d1/d9e/perception_2include_2adapter__perception_2fsds_8hpp.html" title=" " alt="" coords="294,94,425,135"/>
-<area shape="poly" title=" " alt="" coords="190,44,296,85,294,90,188,49"/>
-<area shape="rect" href="../../df/d10/testlidar_8hpp.html" title=" " alt="" coords="126,94,257,135"/>
-<area shape="poly" title=" " alt="" coords="153,45,174,79,169,82,149,48"/>
-<area shape="rect" href="../../d4/ded/perception_2include_2adapter__perception_2adapter_8hpp.html" title=" " alt="" coords="299,183,430,223"/>
-<area shape="poly" title=" " alt="" coords="363,135,365,167,360,167,358,135"/>
-<area shape="poly" title=" " alt="" coords="299,220,206,242,104,274,102,275,100,270,102,269,204,237,298,215"/>
-<area shape="rect" title=" " alt="" coords="115,271,273,312"/>
-<area shape="poly" title=" " alt="" coords="327,226,247,266,245,262,325,221"/>
-<area shape="rect" title=" " alt="" coords="297,271,445,312"/>
-<area shape="poly" title=" " alt="" coords="369,224,371,256,366,256,363,224"/>
-<area shape="rect" title=" " alt="" coords="469,279,652,305"/>
-<area shape="poly" title=" " alt="" coords="410,221,520,270,518,275,408,226"/>
-<area shape="rect" title=" " alt="" coords="677,279,796,305"/>
-<area shape="poly" title=" " alt="" coords="431,216,665,269,678,272,676,277,664,274,430,221"/>
-<area shape="rect" title=" " alt="" coords="820,271,981,312"/>
-<area shape="poly" title=" " alt="" coords="431,211,597,234,805,268,804,273,596,240,430,216"/>
-<area shape="poly" title=" " alt="" coords="179,137,84,267,80,264,175,133"/>
-<area shape="poly" title=" " alt="" coords="232,133,313,173,311,178,229,138"/>
+<area shape="rect" title=" " alt="" coords="418,5,606,46"/>
+<area shape="rect" title=" " alt="" coords="249,102,295,127"/>
+<area shape="poly" title=" " alt="" coords="449,49,314,96,310,98,308,93,312,92,447,44"/>
+<area shape="rect" title=" " alt="" coords="5,279,59,305"/>
+<area shape="poly" title=" " alt="" coords="458,49,409,70,359,96,333,116,308,137,179,216,71,274,69,269,177,211,305,132,330,112,356,92,407,65,456,44"/>
+<area shape="rect" title=" " alt="" coords="836,102,913,127"/>
+<area shape="poly" title=" " alt="" coords="607,41,712,63,825,91,831,93,830,99,823,97,711,68,606,46"/>
+<area shape="rect" href="../../d1/d9e/perception_2include_2adapter__perception_2fsds_8hpp.html" title=" " alt="" coords="525,94,656,135"/>
+<area shape="poly" title=" " alt="" coords="532,45,565,80,561,84,528,48"/>
+<area shape="rect" href="../../d4/dab/perception_2include_2adapter__perception_2eufs_8hpp.html" title=" " alt="" coords="681,94,812,135"/>
+<area shape="poly" title=" " alt="" coords="566,44,680,86,678,91,564,49"/>
+<area shape="rect" href="../../de/d8a/vehicle_8hpp.html" title=" " alt="" coords="369,94,500,135"/>
+<area shape="poly" title=" " alt="" coords="496,48,464,84,460,80,492,45"/>
+<area shape="rect" href="../../d4/ded/perception_2include_2adapter__perception_2adapter_8hpp.html" title=" " alt="" coords="422,183,554,223"/>
+<area shape="poly" title=" " alt="" coords="569,137,525,174,521,170,566,133"/>
+<area shape="rect" title=" " alt="" coords="774,271,922,312"/>
+<area shape="poly" title=" " alt="" coords="594,135,601,179,610,202,624,221,641,230,673,241,759,266,758,271,672,246,639,235,621,225,606,204,596,180,588,136"/>
+<area shape="rect" title=" " alt="" coords="946,279,1129,305"/>
+<area shape="poly" title=" " alt="" coords="601,134,627,179,645,202,668,221,704,241,736,253,765,259,794,261,857,261,935,269,958,273,957,278,934,274,857,266,794,266,765,264,734,258,701,246,665,226,642,206,622,182,596,136"/>
+<area shape="poly" title=" " alt="" coords="422,222,403,226,309,239,235,244,162,252,71,274,68,275,67,270,70,269,162,246,235,238,309,233,402,221,421,217"/>
+<area shape="rect" title=" " alt="" coords="83,271,240,312"/>
+<area shape="poly" title=" " alt="" coords="423,224,251,269,250,264,421,219"/>
+<area shape="poly" title=" " alt="" coords="555,218,759,266,758,272,553,223"/>
+<area shape="poly" title=" " alt="" coords="555,211,935,269,960,273,959,278,934,274,554,217"/>
+<area shape="rect" title=" " alt="" coords="264,279,384,305"/>
+<area shape="poly" title=" " alt="" coords="452,226,362,274,359,269,450,221"/>
+<area shape="rect" title=" " alt="" coords="408,271,568,312"/>
+<area shape="poly" title=" " alt="" coords="491,224,491,256,485,256,485,224"/>
+<area shape="rect" title=" " alt="" coords="592,271,749,312"/>
+<area shape="poly" title=" " alt="" coords="531,221,617,262,615,267,528,226"/>
+<area shape="poly" title=" " alt="" coords="689,138,562,180,560,175,687,133"/>
+<area shape="rect" title=" " alt="" coords="679,190,878,216"/>
+<area shape="poly" title=" " alt="" coords="756,134,771,175,766,177,751,136"/>
+<area shape="rect" title=" " alt="" coords="903,183,1060,223"/>
+<area shape="poly" title=" " alt="" coords="801,133,915,174,913,179,799,138"/>
+<area shape="poly" title=" " alt="" coords="427,137,398,182,377,206,352,226,313,245,279,255,246,259,215,260,150,259,113,263,71,274,68,275,67,270,70,269,112,258,150,254,215,254,246,254,278,250,311,240,349,221,374,202,394,179,423,134"/>
+<area shape="poly" title=" " alt="" coords="449,134,470,168,466,171,445,137"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -147,6 +162,7 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:a3564fc2ca11654472e4b60fcbb990db6" id="r_a3564fc2ca11654472e4b60fcbb990db6"><td class="memItemLeft" align="right" valign="top">std::map&lt; std::string, std::function&lt; <a class="el" href="../../d3/d7f/class_adapter.html">Adapter</a> *(<a class="el" href="../../de/d07/class_perception.html">Perception</a> *)&gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/db1/perception_2include_2adapter__perception_2map_8hpp.html#a3564fc2ca11654472e4b60fcbb990db6">adapter_map</a></td></tr>
+<tr class="memdesc:a3564fc2ca11654472e4b60fcbb990db6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Map of adapter names to functions creating instances of corresponding adapters.  <br /></td></tr>
 <tr class="separator:a3564fc2ca11654472e4b60fcbb990db6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Variable Documentation</h2>
@@ -162,15 +178,21 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    </div>
 <div class="line">    {<span class="stringliteral">&quot;fsds&quot;</span>, [](<a class="code hl_class" href="../../de/d07/class_perception.html">Perception</a>* perception) -&gt; <a class="code hl_class" href="../../d3/d7f/class_adapter.html">Adapter</a>* { <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="../../d7/d8e/class_fsds_adapter.html">FsdsAdapter</a>(perception); }},</div>
-<div class="line">    {<span class="stringliteral">&quot;test&quot;</span>, [](<a class="code hl_class" href="../../de/d07/class_perception.html">Perception</a>* perception) -&gt; <a class="code hl_class" href="../../d3/d7f/class_adapter.html">Adapter</a>* { <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="../../df/df3/class_test_adapter.html">TestAdapter</a>(perception); }},</div>
+<div class="line">    {<span class="stringliteral">&quot;vehicle&quot;</span>, [](<a class="code hl_class" href="../../de/d07/class_perception.html">Perception</a>* perception) -&gt; <a class="code hl_class" href="../../d3/d7f/class_adapter.html">Adapter</a>* { <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="../../d1/df1/class_vehicle_adapter.html">VehicleAdapter</a>(perception); }},</div>
+<div class="line">    {<span class="stringliteral">&quot;eufs&quot;</span>, [](<a class="code hl_class" href="../../de/d07/class_perception.html">Perception</a>* perception) -&gt; <a class="code hl_class" href="../../d3/d7f/class_adapter.html">Adapter</a>* { <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code hl_class" href="../../d0/d1d/class_eufs_adapter.html">EufsAdapter</a>(perception); }},</div>
 <div class="line">}</div>
 <div class="ttc" id="aclass_adapter_html"><div class="ttname"><a href="../../d3/d7f/class_adapter.html">Adapter</a></div><div class="ttdoc">Adapter class for coordinating communication between different modes and Control module.</div><div class="ttdef"><b>Definition</b> <a href="../../d0/d4b/control_2include_2adapter__control_2adapter_8hpp_source.html#l00017">adapter.hpp:17</a></div></div>
-<div class="ttc" id="aclass_fsds_adapter_html"><div class="ttname"><a href="../../d7/d8e/class_fsds_adapter.html">FsdsAdapter</a></div><div class="ttdef"><b>Definition</b> <a href="../../d6/dfc/control_2include_2adapter__control_2fsds_8hpp_source.html#l00008">fsds.hpp:8</a></div></div>
+<div class="ttc" id="aclass_eufs_adapter_html"><div class="ttname"><a href="../../d0/d1d/class_eufs_adapter.html">EufsAdapter</a></div><div class="ttdoc">Adapter class for interfacing with EUFS (Edinburgh University Formula Student).</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d1b/ekf__state__est_2include_2adapter__ekf__state__est_2eufs_8hpp_source.html#l00007">eufs.hpp:7</a></div></div>
+<div class="ttc" id="aclass_fsds_adapter_html"><div class="ttname"><a href="../../d7/d8e/class_fsds_adapter.html">FsdsAdapter</a></div><div class="ttdoc">Adapter class for interfacing with FSDS (Formula Student Driverless Simulator).</div><div class="ttdef"><b>Definition</b> <a href="../../d6/dfc/control_2include_2adapter__control_2fsds_8hpp_source.html#l00008">fsds.hpp:8</a></div></div>
 <div class="ttc" id="aclass_perception_html"><div class="ttname"><a href="../../de/d07/class_perception.html">Perception</a></div><div class="ttdoc">Node for perception tasks, such as ground removal and cone detection.</div><div class="ttdef"><b>Definition</b> <a href="../../de/da5/perception__node_8hpp_source.html#l00028">perception_node.hpp:28</a></div></div>
-<div class="ttc" id="aclass_test_adapter_html"><div class="ttname"><a href="../../df/df3/class_test_adapter.html">TestAdapter</a></div><div class="ttdef"><b>Definition</b> <a href="../../df/d10/testlidar_8hpp_source.html#l00008">testlidar.hpp:8</a></div></div>
+<div class="ttc" id="aclass_vehicle_adapter_html"><div class="ttname"><a href="../../d1/df1/class_vehicle_adapter.html">VehicleAdapter</a></div><div class="ttdoc">Adapter class for Vehicle purposes.</div><div class="ttdef"><b>Definition</b> <a href="../../de/d8a/vehicle_8hpp_source.html#l00014">vehicle.hpp:14</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="../../d8/db1/perception_2include_2adapter__perception_2map_8hpp_source.html#l00010">10</a> of file <a class="el" href="../../d8/db1/perception_2include_2adapter__perception_2map_8hpp_source.html">map.hpp</a>.</p>
+<p>Map of adapter names to functions creating instances of corresponding adapters. </p>
+<p>This map allows dynamically selecting and creating instances of adapter classes based on their names. Each adapter class has an associated creation function, which is stored in the map. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d8/db1/perception_2include_2adapter__perception_2map_8hpp_source.html#l00019">19</a> of file <a class="el" href="../../d8/db1/perception_2include_2adapter__perception_2map_8hpp_source.html">map.hpp</a>.</p>
 
 </div>
 </div>

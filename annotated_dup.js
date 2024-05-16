@@ -81,6 +81,6 @@ var annotated_dup =
     [ "RANSACTest", "d8/d5a/class_r_a_n_s_a_c_test.html", "d8/d5a/class_r_a_n_s_a_c_test" ],
     [ "SENode", "d4/d43/class_s_e_node.html", "d4/d43/class_s_e_node" ],
     [ "SimpleMaximumLikelihood", "d5/dc2/class_simple_maximum_likelihood.html", "d5/dc2/class_simple_maximum_likelihood" ],
-    [ "TestAdapter", "df/df3/class_test_adapter.html", "df/df3/class_test_adapter" ],
-    [ "Track", "d6/d2c/class_track.html", "d6/d2c/class_track" ]
+    [ "Track", "d6/d2c/class_track.html", "d6/d2c/class_track" ],
+    [ "VehicleAdapter", "d1/df1/class_vehicle_adapter.html", "d1/df1/class_vehicle_adapter" ]
 ];

@@ -3,11 +3,12 @@ var hierarchy =
     [ "Adapter", "d3/d7f/class_adapter.html", [
       [ "EufsAdapter", "d0/d1d/class_eufs_adapter.html", null ],
       [ "EufsAdapter", "d0/d1d/class_eufs_adapter.html", null ],
+      [ "EufsAdapter", "d0/d1d/class_eufs_adapter.html", null ],
       [ "FsdsAdapter", "d7/d8e/class_fsds_adapter.html", null ],
       [ "FsdsAdapter", "d7/d8e/class_fsds_adapter.html", null ],
       [ "FsdsAdapter", "d7/d8e/class_fsds_adapter.html", null ],
       [ "FsdsAdapter", "d7/d8e/class_fsds_adapter.html", null ],
-      [ "TestAdapter", "df/df3/class_test_adapter.html", null ]
+      [ "VehicleAdapter", "d1/df1/class_vehicle_adapter.html", null ]
     ] ],
     [ "evaluator.adapter.Adapter", "d7/dff/classevaluator_1_1adapter_1_1_adapter.html", [
       [ "evaluator.fsds_adapter.FSDSAdapter", "dc/de8/classevaluator_1_1fsds__adapter_1_1_f_s_d_s_adapter.html", null ]

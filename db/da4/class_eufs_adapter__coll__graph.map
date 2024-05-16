@@ -1,16 +1,17 @@
 <map id="EufsAdapter" name="EufsAdapter">
-<area shape="rect" id="Node000001" title=" " alt="" coords="81,603,265,863"/>
-<area shape="rect" id="Node000002" href="$d3/d7f/class_adapter.html" title="Adapter class for coordinating communication between different modes and Control module." alt="" coords="81,268,265,554"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="167,568,167,603,162,603,162,569"/>
-<area shape="poly" id="edge8_Node000001_Node000002" title=" " alt="" coords="185,569,185,603,180,603,180,568"/>
+<area shape="rect" id="Node000001" title="Adapter class for interfacing with EUFS (Edinburgh University Formula Student)." alt="" coords="81,683,265,983"/>
+<area shape="rect" id="Node000002" href="$d3/d7f/class_adapter.html" title="Adapter class for coordinating communication between different modes and Control module." alt="" coords="81,268,265,634"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="158,648,158,683,153,683,153,648"/>
+<area shape="poly" id="edge8_Node000001_Node000002" title=" " alt="" coords="176,648,176,683,171,683,171,648"/>
+<area shape="poly" id="edge9_Node000001_Node000002" title=" " alt="" coords="194,648,194,683,188,683,189,648"/>
 <area shape="rect" id="Node000003" href="$d7/d49/class_control.html" title="Class responsible for the control of the car." alt="" coords="5,130,77,195"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="60,194,92,253,87,255,56,196"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="58,194,85,252,80,254,53,196"/>
 <area shape="rect" id="Node000004" title=" " alt="" coords="131,5,216,71"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="130,83,77,132,73,128,127,79"/>
 <area shape="rect" id="Node000005" href="$de/d07/class_perception.html" title="Node for perception tasks, such as ground removal and cone detection." alt="" coords="102,120,245,205"/>
 <area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="176,85,176,120,171,120,171,85"/>
 <area shape="rect" id="Node000006" href="$d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car." alt="" coords="269,120,371,205"/>
 <area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="224,78,272,118,269,122,221,82"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="176,205,176,252,171,252,171,205"/>
-<area shape="poly" id="edge6_Node000002_Node000006" title=" " alt="" coords="298,206,268,256,264,253,293,204"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="176,205,176,251,171,251,171,205"/>
+<area shape="poly" id="edge6_Node000002_Node000006" title=" " alt="" coords="301,206,275,257,271,254,297,204"/>
 </map>

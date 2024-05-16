@@ -13,7 +13,6 @@ var class_adapter =
     [ "init", "d3/d7f/class_adapter.html#a0bacd6b9efd4c9c6b1709130d879c627", null ],
     [ "init", "d3/d7f/class_adapter.html#a0bacd6b9efd4c9c6b1709130d879c627", null ],
     [ "init", "d3/d7f/class_adapter.html#a0bacd6b9efd4c9c6b1709130d879c627", null ],
-    [ "init", "d3/d7f/class_adapter.html#a0bacd6b9efd4c9c6b1709130d879c627", null ],
     [ "publish_cmd", "d3/d7f/class_adapter.html#ab4b950e6b31750c9a65249c89381c69d", null ],
     [ "set_mission_state", "d3/d7f/class_adapter.html#aa0ae5d2dc606afd0caab1079de5a34cc", null ],
     [ "_imu_subscription_", "d3/d7f/class_adapter.html#a54d44dae043d0daa8a2ca95c8ddd4048", null ],

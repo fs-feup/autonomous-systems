@@ -1,0 +1,5 @@
+<map id="VehicleAdapter" name="VehicleAdapter">
+<area shape="rect" id="Node000001" title="Adapter class for Vehicle purposes." alt="" coords="13,499,181,604"/>
+<area shape="rect" id="Node000002" href="$d3/d7f/class_adapter.html" title="Adapter class for coordinating communication between different modes and Control module." alt="" coords="5,5,189,451"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="100,465,100,499,95,499,95,465"/>
+</map>
