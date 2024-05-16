@@ -69,7 +69,7 @@ class Planning : public rclcpp::Node {
   /**
    * @brief Callback for vehicle localization updates (undefined).
    *
-   * @param msg The received Pose message.
+   * @param msg The received VehicleState message.
    */
   void vehicle_localization_callback(const custom_interfaces::msg::VehicleState &msg);
   /**
@@ -110,7 +110,7 @@ class Planning : public rclcpp::Node {
    */
   Pose pose;
 
- public:
+public:
   /**
    * @brief Constructor for the Planning class.
    *

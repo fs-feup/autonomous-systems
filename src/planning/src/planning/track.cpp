@@ -115,8 +115,8 @@ void Track::addCone(float xValue, float yValue, const std::string &color) {
     // Yellow Cones always have an odd number id (2*x + 1)
     rightCones.push_back(new Cone(this->rightCount * 2 + 1, xValue, yValue));
     rightCount++;
-  } else if (color != colors::color_names[colors::orange] &&
-             color != colors::color_names[colors::large_orange]) {
+  } else if (color != colors::color_names[colors::ORANGE] &&
+             color != colors::color_names[colors::LARGE_ORANGE]) {
     RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "Invalid color: %s\n", color.c_str());
   }
 }
@@ -344,7 +344,8 @@ std::vector<Cone *> Track::fitSpline(bool side, int precision, int order, float 
   std::vector<double> i_eval, x_eval, y_eval;
   std::vector<Cone *> cone_seq_eval;
 
-  // Calculate the desired amount of spline points and add them to "cone_seq_eval"
+  // Calculate the desired amount of spline points and add them to
+  // "cone_seq_eval"
   for (int i = 0; i < n; i++) {
     for (int j = 0; j < precision; j += 1) {  // iterate over decimal numbers
       gsl_bspline_eval(i + static_cast<float>(j) / precision, B, bw);
@@ -420,14 +421,14 @@ void Track::deleteOutliers(bool side, int order, float coeffs_ratio, bool writin
   /*int outlierCount = 0;
   for (int i = 0; i < static_cast<int>(unord_cone_seq.size()); i++) {
     int index = i - outlierCount;  // decrease iterator indeleted indexes
-    double dist = sqrt(pow(cone_seq[index]->getX() - cone_seq_eval[i*precision]->getX(), 2) +
-                       pow(cone_seq[index]->getY() - cone_seq_eval[i*precision]->getY(), 2));
-    if (dist > distance_threshold) {
-      Cone *deleted_cone = *(cone_seq.begin() + index);
-      double x_erased = deleted_cone -> getX();
-      double y_erased = deleted_cone -> getY();
-      RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Outlier removed at x= %f and y= %f on side %i\n",
-  x_erased, y_erased, side); cone_seq.erase(cone_seq.begin() + index); outlierCount++;
+    double dist = sqrt(pow(cone_seq[index]->getX() -
+  cone_seq_eval[i*precision]->getX(), 2) + pow(cone_seq[index]->getY() -
+  cone_seq_eval[i*precision]->getY(), 2)); if (dist > distance_threshold) { Cone
+  *deleted_cone = *(cone_seq.begin() + index); double x_erased = deleted_cone ->
+  getX(); double y_erased = deleted_cone -> getY();
+      RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Outlier removed at x= %f and
+  y= %f on side %i\n", x_erased, y_erased, side);
+  cone_seq.erase(cone_seq.begin() + index); outlierCount++;
     }
   }*/
   // SMOOTH CONES TO AVOID HAVING TOO MUCH SPACE BETWEEN CONES

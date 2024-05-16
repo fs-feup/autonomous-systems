@@ -92,7 +92,7 @@ std::vector<std::pair<double, double>> orderVectorOfPairs(
  * @brief Get current date and time as a string.
  * @return Current date and time as a string in "YYYY-MM-DD-HH:MM" format.
  */
-std::string getCurrentDateTimeAsString() {
+std::string get_current_date_time_as_string() {
   auto now = std::chrono::system_clock::now();
   std::time_t now_time = std::chrono::system_clock::to_time_t(now);
   std::tm now_tm;
@@ -131,7 +131,7 @@ std::vector<PathPoint> processTriangulations(std::string filename) {
   LocalPathPlanner *pathplanner = new LocalPathPlanner();
   std::vector<PathPoint> path;
   std::ofstream measuresPath = openWriteFile("performance/exec_time/planning/planning_" +
-                                             getCurrentDateTimeAsString() + ".csv");
+                                             get_current_date_time_as_string() + ".csv");
   double total_time = 0;
   int no_iters = 100;
 
@@ -175,8 +175,9 @@ void outlierCalculations(std::string filename, int num_outliers = 0) {
   double total_time = 0;
 
   std::ofstream measuresPath = openWriteFile(
-      "performance/exec_time/planning/planning_" + getCurrentDateTimeAsString() + ".csv",
-      "Number of Left Cones,Number of Right Cones,Number of Outliers,Outliers Removal Execution "
+      "performance/exec_time/planning/planning_" + get_current_date_time_as_string() + ".csv",
+      "Number of Left Cones,Number of Right Cones,Number of "
+      "Outliers,Outliers Removal Execution "
       "Time,Triangulations Execution Time");
 
   for (int i = 0; i < no_iters; i++) {
@@ -352,7 +353,8 @@ TEST(LocalPathPlanner, map250) {
 }
 
 /**
- * @brief unrealistic scenario with cones randomly positioned in 100 by 100 square
+ * @brief unrealistic scenario with cones randomly positioned in 100 by 100
+ * square
  *
  */
 TEST(LocalPathPlanner, map_250_rng) {
@@ -415,7 +417,8 @@ TEST(LocalPathPlanner, path_smooth1) {
 }
 
 /**
- * @brief more complex scenario with cones deviating from path and with significant curvature
+ * @brief more complex scenario with cones deviating from path and with
+ * significant curvature
  *
  */
 TEST(LocalPathPlanner, path_smooth2) {
@@ -679,8 +682,8 @@ TEST(LocalPathPlanner, delauney_250) {
 }
 
 /**
- * @brief scenario: cones in parallel straight lines that shows that cones exaclty
- * in a circumference are not counted as being inside a circle
+ * @brief scenario: cones in parallel straight lines that shows that cones
+ * exaclty in a circumference are not counted as being inside a circle
  *
  */
 TEST(LocalPathPlanner, map_test1_void) {
@@ -726,7 +729,8 @@ TEST(LocalPathPlanner, map_test2) {
 /**
  * Extracts the size and number of outliers from a filename.
  *
- * @param filename The filename containing size and number of outliers information.
+ * @param filename The filename containing size and number of outliers
+ * information.
  * @param size Output parameter to store the extracted size.
  * @param n_outliers Output parameter to store the extracted number of outliers.
  *
@@ -735,7 +739,8 @@ TEST(LocalPathPlanner, map_test2) {
  *   - "n_outliers" is an integer representing the number of outliers.
  *
  * Example:
- *   If filename is "map_100_5.txt", size will be set to 100 and n_outliers to 5.
+ *   If filename is "map_100_5.txt", size will be set to 100 and n_outliers
+ * to 5.
  */
 void extractInfo(const std::string_view &filenameView, int &size, int &n_outliers) {
   std::string filename(filenameView);
