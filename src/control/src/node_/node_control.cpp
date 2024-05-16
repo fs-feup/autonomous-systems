@@ -19,29 +19,21 @@
 void Control::publish_control(
     const custom_interfaces::msg::VehicleState::ConstSharedPtr &pose_msg) {
   if (!go_signal) return;
-  auto path_point_array = path_cache.getElemBeforeTime(pose_msg->header.stamp);
+  auto path_point_array = path_cache_.getElemBeforeTime(pose_msg->header.stamp);
   auto control_msg = custom_interfaces::msg::ControlCommand();
 
   // BARROS FILL IN USING pose_msg and path_point_array, then fill in the control_msg
 
-  result->publish(control_msg);
+  adapter_->publish_cmd(control_msg.throttle, control_msg.steering);
 }
 
 Control::Control()
     : Node("control"),
-      pose_sub(this, "/state_estimation/vehicle_state"),
-      path_point_array_sub(this, "/path_planning/path"),
-      path_cache(path_point_array_sub, 10),
-      go_sub(this->create_subscription<custom_interfaces::msg::OperationalStatus>(
-          "/vehicle/operational_status", 10,
-          [this](const custom_interfaces::msg::OperationalStatus::SharedPtr msg) {
-            go_signal = msg->go_signal;
-          })) {
-  pose_sub.registerCallback(&Control::publish_control, this);
-
-  // creates publisher that should yield torque/acceleration/...
-  result = this->create_publisher<custom_interfaces::msg::ControlCommand>("/as_msgs/controls", 10);
+      pose_sub_(this, "/state_estimation/vehicle_state"),
+      path_point_array_sub_(this, "/path_planning/path"),
+      path_cache_(path_point_array_sub_, 10) {
+  pose_sub_.registerCallback(&Control::publish_control, this);
 
   // Adapter to communicate with the car
-  this->adapter = adapter_map[mode](this);
+  this->adapter_ = adapter_map[mode](this);
 }

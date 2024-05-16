@@ -25,14 +25,14 @@ class PID {
   float limMin; /**< Minimum output value */
   float limMax; /**< Maximum output value */
 
-  float proportional;   /**< Integrator value */
-  float integrator;     /**< Integrator value */
-  float differentiator; /**< Differentiator value */
+  float proportional{0.0f};   /**< Integrator value */
+  float integrator{0.0f};     /**< Integrator value */
+  float differentiator{0.0f}; /**< Differentiator value */
 
-  float prevError;       /**< Previous error value, required for integrator */
-  float prevMeasurement; /**< Previous measurement value, required for defferentiator */
+  float prevError{0.0f};       /**< Previous error value, required for integrator */
+  float prevMeasurement{0.0f}; /**< Previous measurement value, required for defferentiator */
 
-  float out; /**< Output value */
+  float out{0.0f}; /**< Output value */
 
   /**
    * @brief Calculate the output value
@@ -66,37 +66,37 @@ class PID {
    * @param measurement
    * @return error (float)
    */
-  float calculateError(float setpoint, float measurement);
+  float calculate_error(float setpoint, float measurement) const;
 
   /**
    * @brief Calculate the proportional term
    *
    * @param error
    */
-  void calculateProportionalTerm(float error);
+  void calculate_proportional_term(float error);
 
   /**
    * @brief Calculate the integral term
    *
    * @param error
    */
-  void calculateIntegralTerm(float error);
+  void calculate_integral_term(float error);
 
   /**
    * @brief Anti-wind-up via dynamic integrator clamping
    */
-  void antiWindUp();
+  void anti_wind_up();
 
   /**
    * @brief Calculate the derivative term (derivative on measurement)
    *
    * @param measurement
    */
-  void calculateDerivativeTerm(float measurement);
+  void calculate_derivative_term(float measurement);
 
   /**
    * @brief Compute the output value and apply limits
    */
-  void computeOutput();
+  void compute_output();
 };
 #endif  // PID_CONTROLLER_HPP_
