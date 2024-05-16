@@ -1,6 +1,7 @@
 #pragma once
 
 #include "common_lib/structures/cone.hpp"
+#include "rclcpp/clock.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "visualization_msgs/msg/marker_array.hpp"
 
@@ -43,6 +44,8 @@ visualization_msgs::msg::MarkerArray marker_array_from_cone_array(
     marker.color.r = 1.0;
     marker.color.g = 0.0;
     marker.color.b = 0.0;
+
+    marker.lifetime = rclcpp::Duration(std::chrono::duration<double>(5));
 
     marker_array.markers.push_back(marker);
   }

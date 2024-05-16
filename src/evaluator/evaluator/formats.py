@@ -155,8 +155,8 @@ def format_eufs_cone_array_with_covariance_msg(
                         cone.point.x,
                         cone.point.y,
                         i,
-                        cone.confidence,
-                    ]
+                        1.0,
+                    ]  # TODO: confidence dependent on the cone's covariance
                 )
             )
 

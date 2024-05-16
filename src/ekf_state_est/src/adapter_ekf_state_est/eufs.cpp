@@ -39,7 +39,8 @@ void EufsAdapter::init() {
 void EufsAdapter::mission_state_callback(eufs_msgs::msg::CanState msg) {
   auto mission = msg.ami_state;
   // map eufs mission to system mission
-  this->node->set_mission(common_lib::competition_logic::eufs_to_system.at(mission));
+  RCLCPP_DEBUG(this->node->get_logger(), "Mission state received: %d", mission);
+  this->node->set_mission(common_lib::competition_logic::get_mission_from_eufs(mission));
 }
 
 void EufsAdapter::finish() {

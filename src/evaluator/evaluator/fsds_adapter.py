@@ -6,7 +6,7 @@ import numpy as np
 from sensor_msgs.msg import PointCloud2
 from evaluator.formats import format_cone_array_msg
 from custom_interfaces.msg import ConeArray, VehicleState
-from formats import (
+from evaluator.formats import (
     format_vehicle_state_msg,
     format_cone_array_msg,
     format_nav_odometry_msg,
@@ -30,7 +30,7 @@ class FSDSAdapter(Adapter):
         super().__init__(node)
 
         # Subscription to odometry messages
-        self.node.odometry_subscription = message_filters.Subscriber(
+        self.node.odometry_subscription_ = message_filters.Subscriber(
             self.node,
             Odometry,
             "/testing_only/odom",
@@ -39,20 +39,21 @@ class FSDSAdapter(Adapter):
         # ApproximateTimeSynchronizer for synchronizing perception, point cloud, and odometry messages
         self._perception_sync_ = message_filters.ApproximateTimeSynchronizer(
             [
-                self.node.perception_subscription,
-                self.node.point_cloud_subscription,
-                self.node.odometry_subscription,
+                self.node.perception_subscription_,
+                self.node.point_cloud_subscription_,
+                self.node.odometry_subscription_,
             ],
             10,
             0.1,
         )
         self._state_estimation_sync_ = message_filters.ApproximateTimeSynchronizer(
             [
-                self.node.vehicle_state_subscription,
-                self.node.map_subscription,
-                self.node.odometry_subscription,
+                self.node.vehicle_state_subscription_,
+                self.node.map_subscription_,
+                self.node.odometry_subscription_,
             ],
             10,
+            0.1,
         )
 
         self._perception_sync_.registerCallback(self.perception_callback)
@@ -167,7 +168,7 @@ class FSDSAdapter(Adapter):
         words = line.split(",")
         y = float(words[1])
         x = float(words[2])
-        color = cone_color_dictionary[words[3]]
+        color = cone_color_dictionary[words[0]]
         return np.array([x, y, color, 1])  # 4 for unknown color
 
     @staticmethod

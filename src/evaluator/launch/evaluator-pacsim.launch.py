@@ -13,12 +13,12 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "use_simulated_perception",
                 description="Whether the system is using simulated perception or not",
-                default_value="False",
+                default_value="True",
             ),
             DeclareLaunchArgument(
                 "adapter",
                 description="Which simulation environment to use",
-                default_value="fsds",
+                default_value="pacsim",
             ),
             Node(
                 package="evaluator",

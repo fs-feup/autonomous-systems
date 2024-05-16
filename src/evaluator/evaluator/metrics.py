@@ -51,9 +51,9 @@ def get_mean_squared_difference(output: list, expected: list):
     Returns:
         float: Mean squared difference.
     """
-    if not output:
+    if output is None:
         raise ValueError("No perception output provided.")
-    if not expected:
+    if expected is None:
         raise ValueError("No ground truth cones provided.")
 
     mse_sum = 0

@@ -16,10 +16,11 @@ from evaluator.adapter_maps import (
 )
 import numpy as np
 import rclpy.subscription
-from std_msgs.msg import Float32, Float32MultiArray
+from std_msgs.msg import Float32, Float32MultiArray, MultiArrayDimension
 from sensor_msgs.msg import PointCloud2
 import datetime
 from math import sqrt
+import message_filters
 
 
 class Evaluator(Node):
@@ -35,9 +36,15 @@ class Evaluator(Node):
         self.get_logger().info("Evaluator Node has started")
 
         # Parameters
-        self._adapter_name_: str = self.declare_parameter("adapter", "pacsim")
-        self.use_simulated_perception_: bool = self.declare_parameter(
-            "use_simulated_perception", False
+        self._adapter_name_: str = (
+            self.declare_parameter("adapter", "pacsim")
+            .get_parameter_value()
+            .string_value
+        )
+        self.use_simulated_perception_: bool = (
+            self.declare_parameter("use_simulated_perception", False)
+            .get_parameter_value()
+            .bool_value
         )
         if (self._adapter_name_ == "fsds") and (self.use_simulated_perception_):
             rclpy.get_logger().error(
@@ -45,29 +52,41 @@ class Evaluator(Node):
             )
             sys.exit(1)
 
+        self.perception_receive_time_: datetime.datetime = datetime.datetime.now()
+        self.map_receive_time_: datetime.datetime = datetime.datetime.now()
+        self._point_cloud_receive_time_: datetime.datetime = datetime.datetime.now()
+
         # Subscriptions
-        self.perception_subscription_ = self.create_subscription(
+        self.perception_timing_subscription_ = self.create_subscription(
             ConeArray,
             "/perception/cones",
             self.perception_callback_time_measurement,
+            10,
         )
-        self.map_subscription_ = self.create_subscription(
-            ConeArray,
-            "/state_estimation/map",
-            self.map_callback_time_measurement,
+        self.perception_subscription_ = message_filters.Subscriber(
+            self, ConeArray, "/perception/cones"
         )
-        self.state_subscription_ = self.create_subscription(
-            VehicleState,
-            "/state_estimation/vehicle_state",
-            self.state_estimation_callback,
+        self.map_timing_subscription_ = self.create_subscription(
+            ConeArray, "/state_estimation/map", self.map_callback_time_measurement, 10
         )
-        self.transform_buffer_ = tf2_ros.Buffer(self)
-        self._transforms_listener_ = TransformListener(self.transforms_listener_, self)
-        # Subscription to point cloud messages for time measurement
-        self.point_cloud_subscription_ = self.create_subscription(
+        self.map_subscription_ = message_filters.Subscriber(
+            self, ConeArray, "/state_estimation/map"
+        )
+        self.vehicle_state_subscription_ = message_filters.Subscriber(
+            self, VehicleState, "/state_estimation/vehicle_state"
+        )
+        self.transform_buffer_ = tf2_ros.Buffer()
+        self._transforms_listener_ = TransformListener(self.transform_buffer_, self)
+        self.point_cloud_timing_subscription_ = self.create_subscription(
             PointCloud2,
             ADAPTER_POINT_CLOUD_TOPIC_DICTINARY[self._adapter_name_],
             self.point_cloud_callback,
+            10,
+        )
+        self.point_cloud_subscription_ = message_filters.Subscriber(
+            self,
+            PointCloud2,
+            ADAPTER_POINT_CLOUD_TOPIC_DICTINARY[self._adapter_name_],
         )
 
         # Publishers for perception metrics
@@ -124,8 +143,11 @@ class Evaluator(Node):
 
         self.get_logger().debug("Received perception")
         self.perception_receive_time_ = datetime.datetime.now()
-        time_difference = (
-            self.perception_receive_time_ - self._point_cloud_receive_time_
+        time_difference = float(
+            (
+                self.perception_receive_time_ - self._point_cloud_receive_time_
+            ).microseconds
+            / 1000
         )
         execution_time = Float32()
         execution_time.data = time_difference
@@ -138,7 +160,9 @@ class Evaluator(Node):
 
         self.get_logger().debug("Received map")
         self.map_receive_time_ = datetime.datetime.now()
-        time_difference = self.map_receive_time_ - self.perception_receive_time_
+        time_difference: datetime.timedelta = float(
+            (self.map_receive_time_ - self.perception_receive_time_).microseconds / 1000
+        )
         execution_time = Float32()
         execution_time.data = time_difference
         self._map_execution_time_.publish(execution_time)
@@ -163,11 +187,15 @@ class Evaluator(Node):
             map (np.ndarray): Map data. [[x,y,color,confidence]]
             groundtruth_map (np.ndarray): Ground truth map data. [[x,y,color,confidence]]
         """
+        if map.size == 0 or groundtruth_map.size == 0:
+            return
         vehicle_state_error = Float32MultiArray()
+        vehicle_state_error.layout.dim = [MultiArrayDimension()]
         vehicle_state_error.layout.dim[0].size = 6
         vehicle_state_error.layout.dim[0].label = (
             "vehicle state error: [x, y, theta, v, v, w]"
         )
+        vehicle_state_error.data = [0.0] * 6
         vehicle_state_error.data[0] = abs(pose[0] - groundtruth_pose[0])
         vehicle_state_error.data[1] = abs(pose[1] - groundtruth_pose[1])
         vehicle_state_error.data[2] = abs(pose[2] - groundtruth_pose[2])
@@ -202,6 +230,19 @@ class Evaluator(Node):
             get_mean_squared_difference(cone_positions, groundtruth_cone_positions)
         )
 
+        self.get_logger().debug(
+            "Computed state estimation metrics:\n \
+                                Vehicle state error: {}\n \
+                                Mean difference: {}\n \
+                                Mean squared difference: {}\n \
+                                Root mean squared difference: {}".format(
+                vehicle_state_error,
+                mean_difference,
+                mean_squared_difference,
+                root_mean_squared_difference,
+            )
+        )
+
         self._vehicle_state_difference_.publish(vehicle_state_error)
         self._map_mean_difference_.publish(mean_difference)
         self._map_mean_squared_difference_.publish(mean_squared_difference)
@@ -234,6 +275,19 @@ class Evaluator(Node):
 
         root_mean_squared_difference = Float32()
         root_mean_squared_difference.data = sqrt(mean_squared_error.data)
+
+        self.get_logger().debug(
+            "Computed perception metrics:\n \
+                                Mean difference: {}\n \
+                                Inter cones distance: {}\n \
+                                Mean squared difference: {}\n \
+                                Root mean squared difference: {}".format(
+                mean_difference,
+                inter_cones_distance,
+                mean_squared_error,
+                root_mean_squared_difference,
+            )
+        )
 
         # Publishes computed perception metrics
         self._perception_mean_difference_.publish(mean_difference)

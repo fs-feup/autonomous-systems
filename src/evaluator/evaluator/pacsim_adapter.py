@@ -5,7 +5,7 @@ import rclpy
 import message_filters
 from custom_interfaces.msg import ConeArray, VehicleState
 from visualization_msgs.msg import MarkerArray
-from pacsim import PerceptionDetections
+from pacsim.msg import PerceptionDetections
 from geometry_msgs.msg import TwistWithCovarianceStamped, TransformStamped
 from evaluator.formats import (
     format_vehicle_state_msg,
@@ -30,6 +30,8 @@ class PacsimAdapter(Adapter):
         """
 
         super().__init__(node)
+        self._groundtruth_velocity_ = None
+        self._groundtruth_map_ = None
         self.node.groundtruth_map_subscription_ = self.node.create_subscription(
             MarkerArray, "/pacsim/map", self.groundtruth_map_callback, 10
         )  # because the map gets published only once at the beginning
@@ -39,17 +41,17 @@ class PacsimAdapter(Adapter):
             self.simulated_perception_callback,
             10,
         )
-        self.node.groundtruth_velocity_subscription_ = message_filters.Subscriber(
-            self.node,
+        self.node.groundtruth_velocity_subscription_ = self.node.create_subscription(
             TwistWithCovarianceStamped,
             "/pacsim/velocity",
+            self.groundtruth_velocity_callback,
+            10,
         )  # Pose is given by transforms
 
         self._time_sync_ = message_filters.ApproximateTimeSynchronizer(
             [
                 self.node.vehicle_state_subscription_,
                 self.node.map_subscription_,
-                self.node.groundtruth_velocity_subscription_,
             ],
             10,
             0.1,
@@ -61,7 +63,6 @@ class PacsimAdapter(Adapter):
         self,
         vehicle_state: VehicleState,
         map: ConeArray,
-        groundtruth_velocity: TwistWithCovarianceStamped,
     ):
         """!
         Callback function to process synchronized messages
@@ -69,16 +70,18 @@ class PacsimAdapter(Adapter):
 
         Args:
             vehicle_state (VehicleState): Vehicle state estimation data.
-            vehicle_state_ground_truth (JointState): Ground truth vehicle state data.
             map (ConeArray): Map data.
-            groundtruth_map (MarkerArray): Ground truth map data.
         """
+        if self._groundtruth_map_ is None or self._groundtruth_velocity_ is None:
+            return
         transform: TransformStamped = self.node.transform_buffer_.lookup_transform(
             "map", "car", rclpy.time.Time()
         )
+        if transform is None:
+            return
         groundtruth_pose_treated: np.ndarray = format_transform_stamped_msg(transform)
         groundtruth_velocities_treated: np.ndarray = (
-            format_twist_with_covariance_stamped_msg(groundtruth_velocity)
+            format_twist_with_covariance_stamped_msg(self._groundtruth_velocity_)
         )  # [vx, vy, w]
         map_treated: np.ndarray = format_cone_array_msg(map)
         groundtruth_map_treated: np.ndarray = format_marker_array_msg(
@@ -87,7 +90,7 @@ class PacsimAdapter(Adapter):
         pose_treated, velocities_treated = format_vehicle_state_msg(
             vehicle_state
         )  # [x, y, yaw], [v, v, w]
-        self.node.state_estimation_evaluation_callback(
+        self.node.compute_and_publish_state_estimation(
             pose_treated,
             groundtruth_pose_treated,
             velocities_treated,
@@ -95,6 +98,17 @@ class PacsimAdapter(Adapter):
             map_treated,
             groundtruth_map_treated,
         )
+
+    def groundtruth_velocity_callback(
+        self, groundtruth_velocity: TwistWithCovarianceStamped
+    ):
+        """!
+        Callback function to process ground truth velocity messages.
+
+        Args:
+            groundtruth_velocity (TwistWithCovarianceStamped): Ground truth velocity data.
+        """
+        self._groundtruth_velocity_: TwistWithCovarianceStamped = groundtruth_velocity
 
     def groundtruth_map_callback(self, groundtruth_map: MarkerArray):
         """!

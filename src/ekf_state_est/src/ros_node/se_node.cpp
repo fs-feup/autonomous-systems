@@ -20,7 +20,7 @@
 
 SENode::SENode() : Node("ekf_state_est") {
   // TODO: noise matrixes by parameter
-  this->_use_odometry_ = this->declare_parameter("use_odometry", false);
+  this->_use_odometry_ = this->declare_parameter("use_odometry", true);
   _use_simulated_perception_ = this->declare_parameter("use_simulated_perception", false);
   std::string adapter_name = this->declare_parameter("adapter", "fsds");
   std::string motion_model_name = this->declare_parameter("motion_model", "normal_velocity_model");
@@ -180,6 +180,7 @@ void SENode::_publish_vehicle_state() {
   message.theta = this->_vehicle_state_->pose.orientation;
   message.linear_velocity = this->_vehicle_state_->linear_velocity;
   message.angular_velocity = this->_vehicle_state_->angular_velocity;
+  message.header.stamp = this->get_clock()->now();
 
   RCLCPP_DEBUG(this->get_logger(), "PUB - Pose: (%f, %f, %f); Velocities: (%f, %f)",
                message.position.x, message.position.y, message.theta, message.linear_velocity,
