@@ -214,14 +214,20 @@ TEST(LocalPathPlanner, outlier_test2) {
   // track -> logCones(false);
   int n1_left = track->getLeftConesSize();
   int n1_right = track->getRightConesSize();
+  EXPECT_EQ(n1_left, 12);
+  EXPECT_EQ(n1_right, 0);
   track->validateCones();
+  n1_left = track->getLeftConesSize();
+  n1_right = track->getRightConesSize();
+  EXPECT_EQ(n1_left, 12);
+  EXPECT_EQ(n1_right, 0);
   EXPECT_FLOAT_EQ(round_n(track->getMaxDistance(true), 3), 2.028);
   EXPECT_FLOAT_EQ(round_n(track->getMaxDistance(false), 3), 0);
   int n2_left = track->getLeftConesSize();
   int n2_right = track->getRightConesSize();
   EXPECT_EQ(n1_left, n2_left);
   EXPECT_EQ(n1_right, 0);
-  EXPECT_EQ(n2_right, 1);
+  EXPECT_EQ(n2_right, 0);
   // track -> logCones(true);
   // track -> logCones(false);
 }
@@ -238,14 +244,17 @@ TEST(LocalPathPlanner, outliers_test1) {
   // track -> logCones(false);
   int n1_left = track->getLeftConesSize();
   int n1_right = track->getRightConesSize();
+  EXPECT_EQ(n1_left, 36);
+  EXPECT_EQ(n1_right, 0);
   track->validateCones();
   EXPECT_FLOAT_EQ(round_n(track->getMaxDistance(true), 3), 1.342);
   EXPECT_FLOAT_EQ(round_n(track->getMaxDistance(false), 3), 0);
   int n2_left = track->getLeftConesSize();
   int n2_right = track->getRightConesSize();
-  EXPECT_EQ(n1_left, n2_left);
+  EXPECT_EQ(n1_left, 36);
+  EXPECT_EQ(n2_left, 36);
   EXPECT_EQ(n1_right, 0);
-  EXPECT_EQ(n2_right, 1);
+  EXPECT_EQ(n2_right, 0);
   // track -> logCones(true);
   // track -> logCones(false);
 }
@@ -383,8 +392,9 @@ TEST(LocalPathPlanner, distance_next_outliers) {
   int n2_left = track->getLeftConesSize();
   int n2_right = track->getRightConesSize();
   EXPECT_EQ(n1_left, 0);
-  EXPECT_EQ(n2_left, 1);
-  EXPECT_EQ(n1_right, n2_right);
+  EXPECT_EQ(n2_left, 0);
+  EXPECT_EQ(n1_right, 15);
+  EXPECT_EQ(n2_right, 15);
   // track -> logCones(true);
   // track -> logCones(false);
 }
@@ -398,8 +408,9 @@ TEST(LocalPathPlanner, path_smooth1) {
   PathSmoothing *new_path = new PathSmoothing();
   new_path->fillPath(file_path);
   // new_path -> logPathPoints();
-  new_path->defaultSmoother(new_path->getPath());
-  EXPECT_EQ(new_path->getPointAmount(), 1101);
+  std::vector<PathPoint *> pathPointers = new_path->getPath();
+  new_path->defaultSmoother(pathPointers);
+  EXPECT_EQ(new_path->getPointAmount(), 111);
   // new_path -> logPathPoints();
 }
 
@@ -412,8 +423,9 @@ TEST(LocalPathPlanner, path_smooth2) {
   PathSmoothing *new_path = new PathSmoothing();
   new_path->fillPath(file_path);
   // new_path -> logPathPoints();
-  new_path->defaultSmoother(new_path->getPath());
-  EXPECT_EQ(new_path->getPointAmount(), 3801);
+  std::vector<PathPoint *> pathPointers = new_path->getPath();
+  new_path->defaultSmoother(pathPointers);
+  EXPECT_EQ(new_path->getPointAmount(), 381);
   // new_path -> logPathPoints();
 }
 
@@ -785,11 +797,11 @@ TEST(ConeColoring, get_first_cones) {
   const Cone c1 = cone_coloring.get_initial_cone(test_cones, initial_car_pose, TrackSide::LEFT);
   EXPECT_DOUBLE_EQ(round_n(c1.getX(), 3), round_n(27.4081, 3));
   EXPECT_DOUBLE_EQ(round_n(c1.getY(), 3), round_n(17.9243, 3));
-  EXPECT_EQ(c1.getId(), 147);
+  EXPECT_EQ(c1.getId(), 0);
   const Cone c2 = cone_coloring.get_initial_cone(test_cones, initial_car_pose, TrackSide::RIGHT);
   EXPECT_DOUBLE_EQ(round_n(c2.getX(), 3), round_n(29.8945, 3));
   EXPECT_DOUBLE_EQ(round_n(c2.getY(), 3), round_n(13.0521, 3));
-  EXPECT_EQ(c2.getId(), 134);
+  EXPECT_EQ(c2.getId(), 1);
 }
 
 // test the placement of initial cones with the car oriented at 0 rad
@@ -815,13 +827,13 @@ TEST(ConeColoring, place_first_cones1) {
   EXPECT_EQ(cone_coloring.current_left_cones[0]->getId(), -2);
   EXPECT_DOUBLE_EQ(round_n(cone_coloring.current_left_cones[1]->getX(), 3), round_n(29.8945, 3));
   EXPECT_DOUBLE_EQ(round_n(cone_coloring.current_left_cones[1]->getY(), 3), round_n(13.0521, 3));
-  EXPECT_EQ(cone_coloring.current_left_cones[1]->getId(), 134);
+  EXPECT_EQ(cone_coloring.current_left_cones[1]->getId(), 0);
   EXPECT_DOUBLE_EQ(round_n(cone_coloring.current_right_cones[0]->getX(), 3), round_n(29.4081, 3));
   EXPECT_DOUBLE_EQ(round_n(cone_coloring.current_right_cones[0]->getY(), 3), round_n(17.9243, 3));
   EXPECT_EQ(cone_coloring.current_right_cones[0]->getId(), -1);
   EXPECT_DOUBLE_EQ(round_n(cone_coloring.current_right_cones[1]->getX(), 3), round_n(27.4081, 3));
   EXPECT_DOUBLE_EQ(round_n(cone_coloring.current_right_cones[1]->getY(), 3), round_n(17.9243, 3));
-  EXPECT_EQ(cone_coloring.current_right_cones[1]->getId(), 147);
+  EXPECT_EQ(cone_coloring.current_right_cones[1]->getId(), 1);
 }
 
 // test the placement of initial cones with the car oriented at pi rad
@@ -847,13 +859,13 @@ TEST(ConeColoring, place_first_cones2) {
   EXPECT_EQ(cone_coloring.current_left_cones[0]->getId(), -2);
   EXPECT_DOUBLE_EQ(round_n(cone_coloring.current_right_cones[1]->getX(), 3), round_n(29.8945, 3));
   EXPECT_DOUBLE_EQ(round_n(cone_coloring.current_right_cones[1]->getY(), 3), round_n(13.0521, 3));
-  EXPECT_EQ(cone_coloring.current_left_cones[1]->getId(), 147);
+  EXPECT_EQ(cone_coloring.current_left_cones[1]->getId(), 0);
   EXPECT_DOUBLE_EQ(round_n(cone_coloring.current_left_cones[0]->getX(), 3), round_n(25.4081, 3));
   EXPECT_DOUBLE_EQ(round_n(cone_coloring.current_left_cones[0]->getY(), 3), round_n(17.9243, 3));
   EXPECT_EQ(cone_coloring.current_right_cones[0]->getId(), -1);
   EXPECT_DOUBLE_EQ(round_n(cone_coloring.current_left_cones[1]->getX(), 3), round_n(27.4081, 3));
   EXPECT_DOUBLE_EQ(round_n(cone_coloring.current_left_cones[1]->getY(), 3), round_n(17.9243, 3));
-  EXPECT_EQ(cone_coloring.current_right_cones[1]->getId(), 134);
+  EXPECT_EQ(cone_coloring.current_right_cones[1]->getId(), 1);
 }
 
 TEST(ConeColoring, making_unvisited_cones1) {
@@ -915,7 +927,6 @@ TEST(ConeColoring, fullconecoloring2) {
   double exponent_1 = 0.7;
   double exponent_2 = 1.7;
   double cost_max = 40;
-
   for (int i = 1; i < 21; i++) {
     Track track;
     std::string file_name = "gtruths/tracks/track" + std::to_string(i) + "/converted_track" +
@@ -934,7 +945,6 @@ TEST(ConeColoring, fullconecoloring2) {
     auto initial_car_pose = Pose(0.0, 0.0, 0.0);
     cone_coloring.color_cones(test_cones, initial_car_pose, 5.0);
     test_cone_coloring(cone_coloring, c_left, c_right, inc_left, inc_right);
-
     // for (const Cone* c : cone_coloring.current_left_cones) {
     //   std::cout << "(" << c->getX() << "," << c->getY() << "),";
     // }

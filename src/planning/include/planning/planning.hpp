@@ -20,6 +20,7 @@
 #include "sensor_msgs/msg/point_cloud2.hpp"
 #include "utils/files.hpp"
 #include "utils/mission.hpp"
+#include "utils/pose.hpp"
 
 using std::placeholders::_1;
 
@@ -36,12 +37,24 @@ class Adapter;
 class Planning : public rclcpp::Node {
   Mission mission = not_selected;                                /**< Current planning mission */
   LocalPathPlanner *local_path_planner = new LocalPathPlanner(); /**< Local path planner instance */
-  Adapter *adapter;           /**< Adapter instance for external communication */
-  std::string mode = "fsds";  // Temporary, change as desired. TODO(andre): Make not hardcoded
+  Adapter *adapter; /**< Adapter instance for external communication */
+  std::string mode;
 
   std::map<Mission, std::string> predictive_paths = {
       {Mission::acceleration, "/events/acceleration.txt"},
       {Mission::skidpad, "/events/skidpad.txt"}}; /**< Predictive paths for different missions */
+  double angle_gain_;
+  double distance_gain_;
+  double ncones_gain_;
+  double angle_exponent_;
+  double distance_exponent_;
+  double cost_max_;
+  int outliers_spline_order_;
+  float outliers_spline_coeffs_ratio_;
+  int outliers_spline_precision_;
+  int smoothing_spline_order_;
+  float smoothing_spline_coeffs_ratio_;
+  int smoothing_spline_precision_;
 
   /**< Subscription to vehicle localization */
   rclcpp::Subscription<custom_interfaces::msg::VehicleState>::SharedPtr vl_sub_;
@@ -76,7 +89,7 @@ class Planning : public rclcpp::Node {
    * created PointArray message.
    */
 
-  void publish_track_points(std::vector<PathPoint *> path) const;
+  void publish_track_points(const std::vector<PathPoint *> &path) const;
   /**
    * @brief Publishes predictive track points.
    * @details Depending on the selected mission, this function publishes

@@ -23,13 +23,28 @@
 using std::placeholders::_1;
 
 Planning::Planning() : Node("planning") {
-  // LocMap map Subscriber
+  angle_gain_ = declare_parameter<double>("angle_gain_", 8.7);
+  distance_gain_ = declare_parameter<double>("distance_gain_", 15.0);
+  ncones_gain_ = declare_parameter<double>("ncones_gain_", 8.7);
+  angle_exponent_ = declare_parameter<double>("angle_exponent_", 0.7);
+  distance_exponent_ = declare_parameter<double>("distance_exponent_", 1.7);
+  cost_max_ = declare_parameter<double>("cost_max_", 40);
+  outliers_spline_order_ = declare_parameter<int>("outliers_spline_order_", 3);
+  outliers_spline_coeffs_ratio_ = declare_parameter<float>("outliers_spline_coeffs_ratio_", 3.0);
+  outliers_spline_precision_ = declare_parameter<int>("outliers_spline_precision_", 1);
+  smoothing_spline_order_ = declare_parameter<int>("smoothing_spline_order_", 3);
+  smoothing_spline_coeffs_ratio_ = declare_parameter<float>("smoothing_spline_coeffs_ratio_", 3.0);
+  smoothing_spline_precision_ = declare_parameter<int>("smoothing_spline_precision_", 10);
+  mode = declare_parameter<std::string>("adapter", "fsds");
+
+  // State Estimation map Subscriber
   this->track_sub_ = this->create_subscription<custom_interfaces::msg::ConeArray>(
-      "track_map", 10, std::bind(&Planning::track_map_callback, this, _1));
+      "/state_estimation/map", 10, std::bind(&Planning::track_map_callback, this, _1));
 
   // Vehicle Localization Subscriber
   this->vl_sub_ = this->create_subscription<custom_interfaces::msg::VehicleState>(
-      "vehicle_localization", 10, std::bind(&Planning::vehicle_localization_callback, this, _1));
+      "/state_estimation/vehicle_state", 10,
+      std::bind(&Planning::vehicle_localization_callback, this, _1));
 
   // Control Publishers
   this->local_pub_ =
@@ -48,9 +63,14 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &msg) 
     return;
   }
 
-  auto track = std::make_shared<Track>();
-  auto cone_coloring = std::make_shared<ConeColoring>();
-  auto path_smoother = std::make_shared<PathSmoothing>();
+  auto track = new Track(this->outliers_spline_order_, this->outliers_spline_coeffs_ratio_,
+                         this->outliers_spline_precision_);
+  auto cone_coloring = std::make_shared<ConeColoring>(this->angle_gain_, this->distance_gain_,
+                                                      this->ncones_gain_, this->angle_exponent_,
+                                                      this->distance_exponent_, this->cost_max_);
+  auto path_smoother = std::make_shared<PathSmoothing>(this->smoothing_spline_order_,
+                                                       this->smoothing_spline_coeffs_ratio_,
+                                                       this->smoothing_spline_precision_);
 
   const std::vector<Cone *> recieved_cones;
 
@@ -58,8 +78,8 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &msg) 
   for (const auto &cone : msg.cone_array) {
     RCLCPP_DEBUG(this->get_logger(), "[received] (%f, %f)\t%s", cone.position.x, cone.position.y,
                  cone.color.c_str());
-    auto new_cone = std::make_shared<Cone>(0, (float)cone.position.x, (float)cone.position.y);
-    cone_array.push_back(new_cone.get());
+    auto new_cone = new Cone(0, (float)cone.position.x, (float)cone.position.y);
+    cone_array.push_back(new_cone);
   }
 
   cone_coloring->color_cones(cone_array, this->pose, 5);
@@ -74,14 +94,11 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &msg) 
 
   track->validateCones();  // Deal with cone outliers
 
-  std::vector<PathPoint *> path =
-      local_path_planner->processNewArray(track.get());  // Calculate Path
+  std::vector<PathPoint *> path = local_path_planner->processNewArray(track);  // Calculate Path
 
   path_smoother->defaultSmoother(path);
 
   publish_track_points(path);
-
-  RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
 }
 
 void Planning::vehicle_localization_callback(const custom_interfaces::msg::VehicleState &msg) {
@@ -91,7 +108,7 @@ void Planning::vehicle_localization_callback(const custom_interfaces::msg::Vehic
 /**
  * Publisher point by point
  */
-void Planning::publish_track_points(std::vector<PathPoint *> path) const {
+void Planning::publish_track_points(const std::vector<PathPoint *> &path) const {
   auto message = custom_interfaces::msg::PathPointArray();
   for (auto const &element : path) {
     auto point = custom_interfaces::msg::PathPoint();
