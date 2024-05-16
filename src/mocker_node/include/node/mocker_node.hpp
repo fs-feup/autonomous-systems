@@ -1,5 +1,4 @@
-#ifndef MOCKER_NODE_INCLUDE_MOCKER_NODE_HPP
-#define MOCKER_NODE_INCLUDE_MOCKER_NODE_HPP
+#pragma once
 
 #include <chrono>
 #include <cmath>
@@ -9,8 +8,8 @@
 
 #include "fs_msgs/msg/finished_signal.hpp"
 #include "fs_msgs/msg/go_signal.hpp"
-#include "utils/mocks.hpp"
 #include "rclcpp/rclcpp.hpp"
+#include "utils/mocks.hpp"
 
 class MockerNode : public rclcpp::Node {
  private:
@@ -35,5 +34,3 @@ class MockerNode : public rclcpp::Node {
    */
   MockerNode();
 };
-
-#endif

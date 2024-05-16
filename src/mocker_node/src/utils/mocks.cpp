@@ -9,7 +9,9 @@
 #include "rclcpp/rclcpp.hpp"
 
 custom_interfaces::msg::PathPointArray planning_gtruth_fromfile(std::istream& in) {
-  std::string x, y, velocity;
+  std::string x;
+  std::string y;
+  std::string velocity;
   custom_interfaces::msg::PathPointArray gtruth_mock;
 
   std::string line;
@@ -41,7 +43,9 @@ custom_interfaces::msg::PathPointArray planning_gtruth_fromfile(std::istream& in
 }
 
 custom_interfaces::msg::ConeArray se_gtruth_fromfile(std::istream& in) {
-  std::string x, y, color;
+  std::string x;
+  std::string y;
+  std::string velocity;
   custom_interfaces::msg::ConeArray gtruth_mock;
 
   std::string line;
@@ -53,7 +57,8 @@ custom_interfaces::msg::ConeArray se_gtruth_fromfile(std::istream& in) {
         custom_interfaces::msg::Cone cone;
         cone.position.x = std::stod(x);
         cone.position.y = std::stod(y);
-        cone.color = color.substr(1) + "_cone"; // 1 is extra space to remove first char being empty
+        cone.color =
+            color.substr(1) + "_cone";  // 1 is extra space to remove first char being empty
         gtruth_mock.cone_array.push_back(cone);
       } catch (const std::invalid_argument& e) {
         RCLCPP_ERROR(rclcpp::get_logger("rclcpp"),
@@ -73,14 +78,12 @@ custom_interfaces::msg::ConeArray se_gtruth_fromfile(std::istream& in) {
   return gtruth_mock;
 }
 
-std::istream& openFileAsStream(const std::string& filename) {
+std::istream& open_file_as_stream(const std::string& filename) {
   static std::ifstream file;
-  if (file.is_open())
-    file.close();
+  if (file.is_open()) file.close();
 
   file.open(filename);
   if (!file.is_open()) {
-    
     RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "Unable to open file %s \n", filename.c_str());
   }
   return file;
