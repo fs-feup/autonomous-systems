@@ -4,9 +4,11 @@
 #include <gsl/gsl_bspline.h>
 #include <gsl/gsl_multifit.h>
 
+#include <cmath>
 #include <cstring>
 #include <fstream>
 #include <iostream>
+#include <set>
 #include <string>
 #include <utility>
 #include <vector>
@@ -20,12 +22,22 @@
 class PathSmoothing {
   std::vector<PathPoint *> path;
 
+  int spline_order_ = 3;
+  float spline_coeffs_ratio_ = 3;
+  int spline_precision_ = 10;
+
  public:
+  /**
+   * @brief Construct a new default Path Smoothing object
+   *
+   */
+  PathSmoothing() = default;
+
   /**
    * @brief Construct a new Path Smoothing object
    *
    */
-  PathSmoothing();
+  PathSmoothing(int spline_order, float spline_coeffs_ratio, int spline_precision);
 
   /**
    * @brief Get the Path object
@@ -88,7 +100,7 @@ class PathSmoothing {
    *
    * @param a_path path to be smoothed
    */
-  void defaultSmoother(const std::vector<PathPoint *> &a_path);
+  void defaultSmoother(std::vector<PathPoint *> &a_path);
 
   /**
    * @brief Fits spline to path
@@ -100,7 +112,7 @@ class PathSmoothing {
    * @return Smoothed path
    */
   std::vector<PathPoint *> splineSmoother(int precision, int order, float coeffs_ratio,
-                                          std::vector<PathPoint *> path);
+                                          std::vector<PathPoint *> input_path);
 
   /**
    * @brief Function designed to smooth the path via spline
