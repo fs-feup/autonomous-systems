@@ -7,14 +7,14 @@
 #include <string>
 #include <vector>
 
-// #include "adapter/adapter.hpp"
+// #include "adapter_planning/adapter.hpp"
 
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "custom_interfaces/msg/path_point.hpp"
 #include "custom_interfaces/msg/path_point_array.hpp"
 #include "custom_interfaces/msg/point2d.hpp"
 #include "custom_interfaces/msg/point_array.hpp"
-#include "custom_interfaces/msg/pose.hpp"
+#include "custom_interfaces/msg/vehicle_state.hpp"
 #include "planning/global_path_planner.hpp"
 #include "planning/local_path_planner.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
@@ -44,7 +44,7 @@ class Planning : public rclcpp::Node {
       {Mission::skidpad, "/events/skidpad.txt"}}; /**< Predictive paths for different missions */
 
   /**< Subscription to vehicle localization */
-  rclcpp::Subscription<custom_interfaces::msg::Pose>::SharedPtr vl_sub_;
+  rclcpp::Subscription<custom_interfaces::msg::VehicleState>::SharedPtr vl_sub_;
   /**< Subscription to track map */
   rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr track_sub_;
   /**< Local path points publisher */
@@ -56,9 +56,9 @@ class Planning : public rclcpp::Node {
   /**
    * @brief Callback for vehicle localization updates (undefined).
    *
-   * @param msg The received Pose message.
+   * @param msg The received VehicleState message.
    */
-  void vehicle_localization_callback(const custom_interfaces::msg::Pose msg);
+  void vehicle_localization_callback(const custom_interfaces::msg::VehicleState msg);
   /**
    * @brief Callback for track map updates(when msg received).
    *
@@ -91,7 +91,7 @@ class Planning : public rclcpp::Node {
    */
   bool is_predicitve_mission() const;
 
- public:
+public:
   /**
    * @brief Constructor for the Planning class.
    *

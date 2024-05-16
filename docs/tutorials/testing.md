@@ -1,8 +1,10 @@
 # Testing Tutorial
 
-In this project, it is very important that all code is thoroughly and constantly tested for its functionality. We will do this through the use of unit, integration and accpetance tests as:
+In this project, it is very important that all code is thoroughly and constantly tested for its functionality. We will do this through the use of unit, integration and acceptance tests as:
 - we are dealing with a critical system that does not tolerate bugs
 - automated tests allow for quick procedures to increase confidence in changes to the code base without requiring reviews
+
+This is a short guide focused on ROS testing. For the full rules, check the [notion rules on software testing](https://www.notion.so/Software-Testing-d891b701d9184a3ebf46824666c6d61b?pvs=4).
 
 ## Links
 
@@ -18,47 +20,11 @@ Unit testing is a software testing method where individual components or units o
 
 There are also many tutorials for these tools. You can also check the [ROS documentation](http://wiki.ros.org/Quality/Tutorials/UnitTesting) on these tools for more information.
 
-### Structure
-
-#### AAA structure
-
-You can use the AAA structure to write unit tests:
-
-1. **Arrange** – configure the test by setting up the tested system and other mechanisms.
-2. **Act** – call an action to perform to test the unit.
-3. **Assert** – check the result of the performed operation to verify it worked as intended.
-
-#### One Scenario per Test
-
-A test must only test a single scenario. Testing each program part with a single scenario at a time helps identify the exact issue when a test fails.
-
-#### Folder structure
-
-For better understandability, tests regarding code in a file should have a 'mirror' test file in the test folder. This way, the test and src folder have the same structure, apart from the test folder not having files that do not contain tests. This structure makes it easier to track down the relevant tests and link them to the code they test.
-
-### How to do Unit Tests
-
-#### Unit Tests Repeatable and Scalable
-
-To ensure an effective testing strategy, prioritize repeatability and scalability in unit tests. Encourage synchronized unit test writing alongside application code development, adopting practices like behavior-driven or test-driven programming. Emphasize combined code and test reviews to refine testing practices, even for bug fixes. Maintain a zero-tolerance policy toward test failures, addressing issues promptly to prevent time wastage and ensure robust, reliable code deployment.
-
-#### Mocking and Stubbing
-
-Employ techniques such as mocking and stubbing to isolate the unit under test from its dependencies. By simulating the behavior of external components or services, developers can focus solely on testing the specific functionality of the unit. This approach enhances the reliability of unit tests and enables developers to identify and address potential issues within the isolated context.
-
-1. **Mock:** In software testing, a mock is a simulated object that mimics the behavior of real objects in controlled ways, enabling the testing of a unit's interactions with its dependencies. Mocks are used to verify how a unit interacts with other units without invoking their actual implementations.
-
-2. **Stub:** A stub is a minimal, simplified version of a module or object with predetermined behavior that is used in place of a fully functional component during testing. Stubs provide canned responses to method calls, allowing developers to isolate the unit under test from its dependencies during the testing process.
-
-### Policy Objective
-
-Every time a code change is made within the software development lifecycle, it is mandatory to execute the relevant unit tests to verify that previous functionalities remain intact and unaffected.
-
 ## Writing Integration Tests
 
 Integration tests acess the system's different functions from top to bottom. In our case, integration tests would reflect in something like testing the behaviour of a certain node.
 
-Using the same tools as for the unit tests, we can create integration tests by simply coding other ROS2 nodes inside the tests that are able to communicate with the actual nodes of the system (something like testing nodes). This way can be seen being aplied in [this test file](../../src/loc_map/test/integration_test.cpp). The idea is simply coding a simpler node to test the other nodes and launch it together with the real nodes in a mocked environment.
+Using the same tools as for the unit tests, we can create integration tests by simply coding other ROS2 nodes inside the tests that are able to communicate with the actual nodes of the system (something like testing nodes). This way can be seen being aplied in [this test file](../../src/ekf_state_est/test/integration_test.cpp). The idea is simply coding a simpler node to test the other nodes and launch it together with the real nodes in a mocked environment.
 
 Integration tests should be created for every node and possibly for a few big components.
 
@@ -83,11 +49,11 @@ To run normal tests:
     ```
 - use --packages-select flag to select only one package
     ```sh
-    colcon test --packages-select loc_map
+    colcon test --packages-select ekf_state_est
     ```
 - run only one file in C++ (Gtest)
     ```sh
-    ros2 run loc_map loc_map_test # (for loc_map)
+    ros2 run ekf_state_est ekf_state_est_test # (for ekf_state_est)
     ```
 - run only one test in python ```python <test_file>```
 

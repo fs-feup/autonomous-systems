@@ -22,9 +22,9 @@ find_package(pcl_conversions REQUIRED)
 set(IMPLEMENTATION_FILES 
   src/perception/perception_node.cpp
   src/ground_removal/ransac.cpp
-  src/adapter/adapter.cpp
-  src/adapter/fsds.cpp
-  src/adapter/testlidar.cpp
+  src/adapter_perception/adapter.cpp
+  src/adapter_perception/fsds.cpp
+  src/adapter_perception/testlidar.cpp
   src/cone_differentiation/least_squares_differentiation.cpp
   src/clustering/dbscan.cpp
   src/utils/cluster.cpp

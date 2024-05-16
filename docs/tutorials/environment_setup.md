@@ -63,7 +63,7 @@ This project depends on submodules to function. Most, if not all of these submod
     git submodule update --init ./ext/as-integration # ROS_CAN, NOT RECURSIVE
     ```
 
-Check the [git advanced tutorial](./git_advanced.md) for more information.
+Later on in the guide, a tutorial on the topic will appear: [link](./git_advanced.md) for the curious ones.
 
 ### Simulator Setup
 

@@ -90,7 +90,11 @@
         "typeindex": "cpp",
         "typeinfo": "cpp",
         "valarray": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "core": "cpp",
+        "numericaldiff": "cpp",
+        "sparse": "cpp",
+        "*.ipp": "cpp"
     },
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter",

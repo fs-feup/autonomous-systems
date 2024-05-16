@@ -34,10 +34,10 @@ jobs:
           rosdep update
           rosdep install --from-paths src --ignore-src -r -y
       
-      - name: Build Messages
+      - name: Build Dependencies
         run: |
           source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib
 
       - name: Build and Test Perception
         run: |
@@ -45,7 +45,7 @@ jobs:
           colcon build --packages-select perception
           colcon test --packages-select perception
 
-  loc_map:
+  ekf_state_est:
     runs-on: ubuntu-latest
 
     container:
@@ -71,19 +71,19 @@ jobs:
           rosdep update
           rosdep install --from-paths src --ignore-src -r -y
       
-      - name: Build Messages
+      - name: Build Dependencies
         run: |
           source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib
 
       - name: Build and Test Localization and Mapping
         run: |
           source install/setup.bash
-          colcon build --packages-select loc_map
-          colcon test --packages-select loc_map --event-handler=console_direct+
+          colcon build --packages-select ekf_state_est
+          colcon test --packages-select ekf_state_est --event-handler=console_direct+
 
       
-  long_control:
+  control:
     runs-on: ubuntu-latest
 
     container:
@@ -109,16 +109,16 @@ jobs:
           rosdep update
           rosdep install --from-paths src --ignore-src -r -y
       
-      - name: Build Messages
+      - name: Build Dependencies
         run: |
           source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib
 
-      - name: Build and Test Longitudinal Control
+      - name: Build and Test Control
         run: |
           source install/setup.bash
-          colcon build --packages-select long_control
-          colcon test --packages-select long_control --event-handler=console_direct+
+          colcon build --packages-select control
+          colcon test --packages-select control --event-handler=console_direct+
 
 
   planning:
@@ -147,10 +147,10 @@ jobs:
           rosdep update
           rosdep install --from-paths src --ignore-src -r -y
       
-      - name: Build Messages
+      - name: Build Dependencies
         run: |
           source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib
 
       - name: Build and Test Planning
         run: |
@@ -185,10 +185,10 @@ jobs:
           rosdep update
           rosdep install --from-paths src --ignore-src -r -y
       
-      - name: Build Messages
+      - name: Build Dependencies
         run: |
           source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib
 
       - name: Build and Test Inspection Node
         run: |
@@ -222,12 +222,12 @@ jobs:
           rosdep update
           rosdep install --from-paths src --ignore-src -r -y
       
-      - name: Build Messages
+      - name: Build Dependencies
         run: |
           source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib
 
-      - name: Build and Test Longitudinal Control
+      - name: Build and Test Mocker Node
         run: |
           source install/setup.bash
           colcon build --packages-select mocker_node
