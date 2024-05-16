@@ -11,24 +11,25 @@
 
 #include "adapter_perception/fsds.hpp"
 #include "adapter_perception/map.hpp"
-#include "adapter_perception/testlidar.hpp"
+#include "adapter_perception/vehicle.hpp"
 #include "std_msgs/msg/header.hpp"
 
 std_msgs::msg::Header header;
 
-Perception::Perception(GroundRemoval* groundRemoval, Clustering* clustering,
-                       ConeDifferentiation* coneDifferentiator,
-                       const std::vector<ConeValidator*>& coneValidators,
-                       ConeEvaluator* coneEvaluator)
+Perception::Perception(std::shared_ptr<GroundRemoval> groundRemoval, std::shared_ptr<Clustering> clustering,
+             std::shared_ptr<ConeDifferentiation> coneDifferentiator,
+             const std::vector<std::shared_ptr<ConeValidator>>& cone_validators, 
+             std::shared_ptr<ConeEvaluator> coneEvaluator, std::string mode)
     : Node("perception"),
       groundRemoval(groundRemoval),
       clustering(clustering),
+      mode(mode),
       coneDifferentiator(coneDifferentiator),
-      coneValidators(coneValidators),
+      cone_validators(cone_validators),
       coneEvaluator(coneEvaluator) {
   this->_cones_publisher = this->create_publisher<custom_interfaces::msg::ConeArray>("cones", 10);
 
-  this->adapter = adapter_map[mode](this);
+  this->adapter = std::shared_ptr<Adapter>(adapter_map[mode](this));
 }
 
 void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
@@ -49,7 +50,7 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
   std::vector<Cluster> filtered_clusters;
 
   for (auto cluster : clusters) {
-    if (std::all_of(coneValidators.begin(), coneValidators.end(), [&](const auto& validator) {
+    if (std::all_of(cone_validators.begin(), cone_validators.end(), [&](const auto& validator) {
           return validator->coneValidator(&cluster, groundPlane);
         })) {
       filtered_clusters.push_back(cluster);
