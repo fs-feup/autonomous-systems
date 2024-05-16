@@ -1,4 +1,4 @@
-from custom_interfaces.msg import ConeArray, VehicleState
+from custom_interfaces.msg import ConeArray, VehicleState, PathPointArray
 from visualization_msgs.msg import MarkerArray
 from geometry_msgs.msg import TransformStamped, TwistWithCovarianceStamped
 from tf_transformations import euler_from_quaternion
@@ -187,3 +187,21 @@ def format_nav_odometry_msg(msg: Odometry) -> np.ndarray:
             )[2],
         ]
     )
+
+
+def format_path_point_array_msg(path_point_array: PathPointArray):
+    """!
+    Converts a PathPointArray message into a numpy array.
+
+    Args:
+        path_point_array (PathPointArray): PathPointArray message.
+
+    Returns:
+        np.ndarray: Numpy array of path points.
+    """
+    path_list = []
+
+    for point in path_point_array:
+        path_list.append(np.array([point.x, point.y, 0.0]))
+
+    return path_list

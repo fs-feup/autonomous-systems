@@ -1,6 +1,6 @@
 import rclpy
 from rclpy.node import Node
-from custom_interfaces.msg import ConeArray, VehicleState
+from custom_interfaces.msg import ConeArray, VehicleState, PathPointArray
 from evaluator.adapter import Adapter
 from evaluator.metrics import (
     get_mean_squared_difference,
@@ -14,13 +14,14 @@ from evaluator.adapter_maps import (
     ADAPTER_CONSTRUCTOR_DICTINARY,
     ADAPTER_POINT_CLOUD_TOPIC_DICTINARY,
 )
+import message_filters
 import numpy as np
 import rclpy.subscription
 from std_msgs.msg import Float32, Float32MultiArray, MultiArrayDimension
 from sensor_msgs.msg import PointCloud2
 import datetime
 from math import sqrt
-import message_filters
+from evaluator.formats import format_path_point_array_msg
 
 
 class Evaluator(Node):
@@ -88,6 +89,12 @@ class Evaluator(Node):
             PointCloud2,
             ADAPTER_POINT_CLOUD_TOPIC_DICTINARY[self._adapter_name_],
         )
+        self.planning_subscription = self.create_subscription(
+            PathPointArray, "planning_local", self.compute_and_publish_planning, 10
+        )
+        self.planning_gt_subscription = self.create_subscription(
+            PathPointArray, "planning_gtruth", self.planning_gt_callback, 10
+        )
 
         # Publishers for perception metrics
         self._perception_mean_difference_ = self.create_publisher(
@@ -124,6 +131,22 @@ class Evaluator(Node):
         self._map_root_mean_squared_difference_ = self.create_publisher(
             Float32, "/evaluator/state_estimation/map_root_mean_squared_difference", 10
         )
+        self._planning_mean_difference_ = self.create_publisher(
+            Float32, "/evaluator/planning/mean_difference", 10
+        )
+        self._planning_mean_squared_difference_ = self.create_publisher(
+            Float32, "/evaluator/planning/mean_squared_difference", 10
+        )
+        self._planning_root_mean_squared_difference_ = self.create_publisher(
+            Float32, "/evaluator/planning/root_mean_squared_difference", 10
+        )
+        self._planning_execution_time_ = self.create_publisher(
+            Float32, "/evaluator/planning/execution_time", 10
+        )
+
+        self.planning_mock = (
+            []
+        )  # will store the reception of a planning mock from subscriber
 
         # Adapter selection
         self._adapter_: Adapter = ADAPTER_CONSTRUCTOR_DICTINARY[self._adapter_name_](
@@ -296,6 +319,69 @@ class Evaluator(Node):
         self._perception_root_mean_squared_difference_.publish(
             root_mean_squared_difference
         )
+
+    def compute_and_publish_planning(self, msg: PathPointArray):
+        """!
+        Computes planning metrics and publishes them.
+
+        Args:
+            msg (PathPointArray): Path points array message.
+        """
+
+        self.get_logger().debug("Received planning")
+        actual_path = format_path_point_array_msg(msg.pathpoint_array)
+        expected_path = format_path_point_array_msg(self.planning_mock)
+
+        if len(actual_path) == 0 or len(expected_path) == 0:
+            self.get_logger().debug("Path info missing")
+            return
+
+        mean_difference = Float32()
+        mean_difference.data = get_average_difference(actual_path, expected_path)
+
+        mean_squared_error = Float32()
+        mean_squared_error.data = get_mean_squared_difference(
+            actual_path, expected_path
+        )
+
+        root_mean_squared_difference = Float32()
+        root_mean_squared_difference.data = sqrt(
+            get_mean_squared_difference(actual_path, expected_path)
+        )
+
+        self._planning_receive_time_ = datetime.datetime.now()
+        time_difference = float(
+            (self._planning_receive_time_ - self.map_receive_time_).microseconds / 1000
+        )
+        execution_time = Float32()
+        execution_time.data = time_difference
+
+        self.get_logger().debug(
+            "Computed planning metrics:\n \
+                                Mean difference: {}\n \
+                                Mean squared difference: {}\n \
+                                Root mean squared difference: {}".format(
+                mean_difference,
+                mean_squared_error,
+                root_mean_squared_difference,
+            )
+        )
+        self._planning_execution_time_.publish(execution_time)
+        self._planning_mean_difference_.publish(mean_difference)
+        self._planning_mean_squared_difference_.publish(mean_squared_error)
+        self._planning_root_mean_squared_difference_.publish(
+            root_mean_squared_difference
+        )
+
+    def planning_gt_callback(self, msg: PathPointArray):
+        """!
+        Stores the path planning ground truth from mocker node.
+
+        Args:
+            msg (PathPointArray): Path points array message.
+        """
+        self.get_logger().debug("Received GT planning")
+        self.planning_mock = msg.pathpoint_array
 
 
 def main(args=None):
