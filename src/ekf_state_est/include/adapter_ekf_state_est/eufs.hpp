@@ -17,10 +17,10 @@ class EufsAdapter : public Adapter {
 public:
   explicit EufsAdapter(std::shared_ptr<SENode> se_node);
 
-  void mission_state_callback(eufs_msgs::msg::CanState msg);
+  void mission_state_callback(const eufs_msgs::msg::CanState& msg) const;
   void finish() final;
 
   void perception_detections_subscription_callback(
-      const eufs_msgs::msg::ConeArrayWithCovariance& msg);
-  void wheel_speeds_subscription_callback(const eufs_msgs::msg::WheelSpeedsStamped& msg);
+      const eufs_msgs::msg::ConeArrayWithCovariance& msg) const;
+  void wheel_speeds_subscription_callback(const eufs_msgs::msg::WheelSpeedsStamped& msg) const;
 };

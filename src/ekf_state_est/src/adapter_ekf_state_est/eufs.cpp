@@ -34,11 +34,14 @@ EufsAdapter::EufsAdapter(std::shared_ptr<SENode> se_node) : Adapter(se_node) {
   }
 }
 
-void EufsAdapter::mission_state_callback(eufs_msgs::msg::CanState msg) {
-  auto mission = msg.ami_state;
-  // map eufs mission to system mission
-  RCLCPP_DEBUG(this->node_->get_logger(), "Mission state received: %d", mission);
-  this->node_->set_mission(common_lib::competition_logic::get_mission_from_eufs(mission));
+void EufsAdapter::mission_state_callback(const eufs_msgs::msg::CanState& msg) const {
+  RCLCPP_DEBUG(this->node_->get_logger(), "Mission state received: %d", msg.ami_state);
+  this->node_->_mission_ = common_lib::competition_logic::get_mission_from_eufs(msg.ami_state);
+  if (msg.as_state == 2) {
+    this->node_->_go_ = true;
+  } else {
+    this->node_->_go_ = false;
+  }
 }
 
 void EufsAdapter::finish() {
@@ -46,7 +49,7 @@ void EufsAdapter::finish() {
 }
 
 void EufsAdapter::perception_detections_subscription_callback(
-    const eufs_msgs::msg::ConeArrayWithCovariance& msg) {
+    const eufs_msgs::msg::ConeArrayWithCovariance& msg) const {
   custom_interfaces::msg::ConeArray cone_array_msg;
   unsigned int largest_size = static_cast<unsigned int>(
       std::max({msg.big_orange_cones.size(), msg.blue_cones.size(), msg.yellow_cones.size(),
@@ -104,7 +107,7 @@ void EufsAdapter::perception_detections_subscription_callback(
 }
 
 void EufsAdapter::wheel_speeds_subscription_callback(
-    const eufs_msgs::msg::WheelSpeedsStamped& msg) {
+    const eufs_msgs::msg::WheelSpeedsStamped& msg) const {
   this->node_->_wheel_speeds_subscription_callback(msg.speeds.lb_speed, msg.speeds.lf_speed,
                                                    msg.speeds.rb_speed, msg.speeds.rf_speed,
                                                    msg.speeds.steering, msg.header.stamp);

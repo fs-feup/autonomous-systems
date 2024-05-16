@@ -4,6 +4,16 @@
 #include "ros_node/se_node.hpp"
 
 VehicleAdapter::VehicleAdapter(std::shared_ptr<SENode> se_node) : Adapter(se_node) {
+  this->_operational_status_subscription_ =
+      this->node_->create_subscription<custom_interfaces::msg::OperationalStatus>(
+          "/vehicle/operational_status", 10,
+          [this](const custom_interfaces::msg::OperationalStatus::SharedPtr msg) {
+            RCLCPP_DEBUG(this->node_->get_logger(),
+                         "Operational status received. Mission: %d - Go: %B", msg->as_mission,
+                         msg->go_signal);
+            this->node_->_go_ = msg->go_signal;
+            this->node_->_mission_ = common_lib::competition_logic::Mission(msg->as_mission);
+          });
   this->_yaw_accy_imu_subscription_.subscribe(this->node_, "/vehicle/imu_yaw_acc_y");
   this->_roll_accx_imu_subscription_.subscribe(this->node_, "/vehicle/imu_roll_acc_x");
   const ImuPolicy imu_policy(10);
@@ -27,7 +37,7 @@ VehicleAdapter::VehicleAdapter(std::shared_ptr<SENode> se_node) : Adapter(se_nod
 void VehicleAdapter::wheel_speeds_subscription_callback(
     const custom_interfaces::msg::WheelRPM& rl_wheel_rpm_msg,
     const custom_interfaces::msg::WheelRPM& rr_wheel_rpm_msg,
-    const custom_interfaces::msg::SteeringAngle& steering_angle_msg) {
+    const custom_interfaces::msg::SteeringAngle& steering_angle_msg) const {
   this->node_->_wheel_speeds_subscription_callback(rl_wheel_rpm_msg.rl_rpm, rr_wheel_rpm_msg.rr_rpm,
                                                    0.0, 0.0, steering_angle_msg.steering_angle,
                                                    steering_angle_msg.header.stamp);
@@ -35,7 +45,7 @@ void VehicleAdapter::wheel_speeds_subscription_callback(
 
 void VehicleAdapter::imu_subscription_callback(
     const custom_interfaces::msg::ImuData& roll_accx_data,
-    const custom_interfaces::msg::ImuData& yaw_accy_data) {
+    const custom_interfaces::msg::ImuData& yaw_accy_data) const {
   auto imu_msg = sensor_msgs::msg::Imu();
   imu_msg.angular_velocity.z = yaw_accy_data.gyro;
   imu_msg.linear_acceleration.x = roll_accx_data.acc;

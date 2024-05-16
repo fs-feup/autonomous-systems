@@ -39,6 +39,7 @@ class SENode : public rclcpp::Node {
   std::shared_ptr<std::vector<common_lib::structures::Cone>> _track_map_;
   std::shared_ptr<common_lib::structures::VehicleState> _vehicle_state_;
   common_lib::competition_logic::Mission _mission_;
+  bool _go_;  /// flag to start the mission
   bool _use_odometry_;
   bool _use_simulated_perception_;
   std::shared_ptr<Adapter> _adapter_;
@@ -126,13 +127,6 @@ public:
    * @brief Constructor of the main node, most things are received by launch parameter
    */
   SENode();
-
-  /**
-   * @brief Mission setter
-   *
-   * @param mission New mission
-   */
-  void set_mission(common_lib::competition_logic::Mission mission);
 
   friend class Adapter;
   friend class EufsAdapter;

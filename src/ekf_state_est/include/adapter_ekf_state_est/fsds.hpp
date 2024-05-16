@@ -14,8 +14,8 @@ class FsdsAdapter : public Adapter {
 public:
   explicit FsdsAdapter(std::shared_ptr<SENode> se_node);
 
-  void mission_state_callback(const fs_msgs::msg::GoSignal& msg);
+  void mission_state_callback(const fs_msgs::msg::GoSignal& msg) const;
   void finish() final;
 
-  void wheel_speeds_subscription_callback(const fs_msgs::msg::WheelStates& msg);
+  void wheel_speeds_subscription_callback(const fs_msgs::msg::WheelStates& msg) const;
 };

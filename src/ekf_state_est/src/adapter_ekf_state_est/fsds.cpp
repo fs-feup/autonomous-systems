@@ -19,9 +19,10 @@ FsdsAdapter::FsdsAdapter(std::shared_ptr<SENode> se_node) : Adapter(se_node) {
       std::bind(&Adapter::imu_subscription_callback, this, std::placeholders::_1));
 }
 
-void FsdsAdapter::mission_state_callback(const fs_msgs::msg::GoSignal& msg) {
-  // map fsds mission to system mission
-  this->node_->set_mission(common_lib::competition_logic::fsds_to_system.at(msg.mission));
+void FsdsAdapter::mission_state_callback(const fs_msgs::msg::GoSignal& msg) const {
+  RCLCPP_DEBUG(this->node_->get_logger(), "Mission state received: %d", msg.mission);
+  this->node_->_mission_ = common_lib::competition_logic::fsds_to_system.at(msg.mission);
+  this->node_->_go_ = true;
 }
 
 void FsdsAdapter::finish() {
@@ -31,7 +32,7 @@ void FsdsAdapter::finish() {
   this->fsds_ebs_publisher_->publish(message);
 }
 
-void FsdsAdapter::wheel_speeds_subscription_callback(const fs_msgs::msg::WheelStates& msg) {
+void FsdsAdapter::wheel_speeds_subscription_callback(const fs_msgs::msg::WheelStates& msg) const {
   double steering_angle = (msg.fl_steering_angle + msg.fr_steering_angle) / 2.0;
   this->node_->_wheel_speeds_subscription_callback(msg.rl_rpm, msg.fl_rpm, msg.rr_rpm, msg.fr_rpm,
                                                    steering_angle, msg.header.stamp);

@@ -7,6 +7,7 @@
 
 #include "adapter_ekf_state_est/adapter.hpp"
 #include "custom_interfaces/msg/imu_data.hpp"
+#include "custom_interfaces/msg/operational_status.hpp"
 #include "custom_interfaces/msg/steering_angle.hpp"
 #include "custom_interfaces/msg/wheel_rpm.hpp"
 #include "std_srvs/srv/empty.hpp"
@@ -21,6 +22,8 @@ class VehicleAdapter : public Adapter {
       _rr_wheel_rpm_subscription_;  ///< Subscriber for rr wheel rpm
   message_filters::Subscriber<custom_interfaces::msg::SteeringAngle>
       _steering_angle_subscription_;  ///< Subscriber for steering angle
+  rclcpp::Subscription<custom_interfaces::msg::OperationalStatus>::SharedPtr
+      _operational_status_subscription_;  ///< Subscriber for operational status
 
   message_filters::Subscriber<custom_interfaces::msg::ImuData> _roll_accx_imu_subscription_;
   message_filters::Subscriber<custom_interfaces::msg::ImuData> _yaw_accy_imu_subscription_;
@@ -47,7 +50,7 @@ class VehicleAdapter : public Adapter {
   void wheel_speeds_subscription_callback(
       const custom_interfaces::msg::WheelRPM& rl_wheel_rpm_msg,
       const custom_interfaces::msg::WheelRPM& rr_wheel_rpm_msg,
-      const custom_interfaces::msg::SteeringAngle& steering_angle_msg);
+      const custom_interfaces::msg::SteeringAngle& steering_angle_msg) const;
 
   /**
    * @brief IMU subscriptio callback, which receives both roll and yaw acceleration data
@@ -57,7 +60,7 @@ class VehicleAdapter : public Adapter {
    * @param yaw_accy_data yaw and acceleration in y axis data
    */
   void imu_subscription_callback(const custom_interfaces::msg::ImuData& roll_accx_data,
-                                 const custom_interfaces::msg::ImuData& yaw_accy_data);
+                                 const custom_interfaces::msg::ImuData& yaw_accy_data) const;
 
 public:
   explicit VehicleAdapter(std::shared_ptr<SENode> se_node);
