@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Formula Student Autonomous Systems: src/loc_map/test/motion_model_test.cpp File Reference</title>
+<title>Formula Student Autonomous Systems: src/ekf_state_est/test/motion_model_test.cpp File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -96,97 +96,125 @@ $(document).ready(function(){initNavTree('d8/dbd/motion__model__test_8cpp.html',
   <div class="headertitle"><div class="title">motion_model_test.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;gtest/gtest.h&quot;</code><br />
+<div class="textblock"><code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;rclcpp/rclcpp.hpp&gt;</code><br />
+<code>#include &quot;<a class="el" href="../../d0/d88/bicycle__model_8hpp_source.html">common_lib/vehicle_dynamics/bicycle_model.hpp</a>&quot;</code><br />
+<code>#include &quot;gtest/gtest.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../df/dc4/motion__models_8hpp_source.html">kalman_filter/motion_models.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d9/d84/lm__node_8hpp_source.html">loc_map/lm_node.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d2/d22/se__node_8hpp_source.html">ros_node/se_node.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for motion_model_test.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../d5/db7/motion__model__test_8cpp__incl.png" border="0" usemap="#asrc_2loc__map_2test_2motion__model__test_8cpp" alt=""/></div>
-<map name="asrc_2loc__map_2test_2motion__model__test_8cpp" id="asrc_2loc__map_2test_2motion__model__test_8cpp">
-<area shape="rect" title=" " alt="" coords="915,5,1077,46"/>
-<area shape="rect" title=" " alt="" coords="805,94,899,120"/>
-<area shape="poly" title=" " alt="" coords="961,49,889,88,886,84,959,44"/>
-<area shape="rect" href="../../df/dc4/motion__models_8hpp.html" title=" " alt="" coords="2303,256,2441,297"/>
-<area shape="poly" title=" " alt="" coords="1077,27,1264,38,1523,61,1668,79,1818,102,1968,131,2114,165,2171,183,2227,204,2322,247,2319,251,2225,209,2169,188,2113,170,1967,136,1817,107,1667,84,1522,67,1264,43,1077,32"/>
-<area shape="rect" href="../../d9/d84/lm__node_8hpp.html" title=" " alt="" coords="922,94,1070,120"/>
-<area shape="poly" title=" " alt="" coords="999,46,999,78,993,78,993,46"/>
-<area shape="rect" title=" " alt="" coords="2224,353,2360,378"/>
-<area shape="poly" title=" " alt="" coords="2356,299,2315,343,2311,340,2352,296"/>
-<area shape="rect" href="../../d7/d59/data__structures_8hpp.html" title=" " alt="" coords="1971,353,2159,378"/>
-<area shape="poly" title=" " alt="" coords="2303,300,2123,350,2122,345,2302,295"/>
-<area shape="rect" title=" " alt="" coords="2215,434,2275,459"/>
-<area shape="poly" title=" " alt="" coords="2094,376,2205,425,2203,430,2092,381"/>
-<area shape="rect" title=" " alt="" coords="1878,434,1924,459"/>
-<area shape="poly" title=" " alt="" coords="2041,381,1940,430,1937,425,2039,376"/>
-<area shape="rect" title=" " alt="" coords="1229,434,1283,459"/>
-<area shape="poly" title=" " alt="" coords="1971,379,1298,444,1298,438,1970,373"/>
-<area shape="rect" title=" " alt="" coords="1948,434,2049,459"/>
-<area shape="poly" title=" " alt="" coords="2057,380,2021,423,2016,420,2053,377"/>
-<area shape="rect" href="../../d5/d91/position_8hpp.html" title=" " alt="" coords="2073,434,2191,459"/>
-<area shape="poly" title=" " alt="" coords="2077,377,2114,420,2110,423,2073,380"/>
-<area shape="poly" title=" " alt="" coords="1070,107,1543,124,1807,141,1916,152,1999,165,2075,176,2137,183,2165,191,2192,204,2217,225,2242,255,2250,272,2249,288,2240,303,2226,315,2187,336,2141,351,2140,345,2185,331,2223,311,2236,299,2244,287,2245,273,2238,258,2213,228,2189,208,2163,196,2136,188,2074,181,1998,170,1916,157,1807,146,1543,129,1070,112"/>
-<area shape="poly" title=" " alt="" coords="922,121,911,122,755,126,495,128,359,133,239,140,146,152,114,160,95,170,68,194,44,219,26,246,14,274,9,301,11,329,22,357,42,384,58,391,94,398,211,410,564,428,948,438,1214,442,1214,447,948,443,564,433,211,416,93,403,57,396,38,388,17,359,6,330,3,301,9,272,22,243,40,216,64,190,92,165,112,155,145,147,238,135,359,127,495,123,755,120,910,117,922,116"/>
-<area shape="rect" title=" " alt="" coords="105,175,231,201"/>
-<area shape="poly" title=" " alt="" coords="922,121,911,122,723,136,576,140,429,147,344,156,243,170,225,174,224,168,242,165,343,151,429,142,576,135,722,131,910,117,922,116"/>
-<area shape="rect" title=" " alt="" coords="255,175,332,201"/>
-<area shape="poly" title=" " alt="" coords="922,121,911,122,751,134,626,136,501,143,429,153,345,170,336,172,335,167,343,165,428,148,501,138,625,130,751,128,910,117,922,116"/>
-<area shape="rect" title=" " alt="" coords="356,175,423,201"/>
-<area shape="poly" title=" " alt="" coords="922,121,911,122,776,133,671,136,567,144,506,154,435,170,429,172,427,167,434,165,505,149,566,139,671,131,776,128,910,117,922,116"/>
-<area shape="rect" title=" " alt="" coords="447,175,513,201"/>
-<area shape="poly" title=" " alt="" coords="922,121,911,122,804,133,720,140,637,149,533,170,524,172,523,167,531,165,637,144,720,134,803,128,910,117,922,116"/>
-<area shape="rect" href="../../de/db6/loc__map_2include_2adapter__loc__map_2eufs_8hpp.html" title=" " alt="" coords="785,175,959,201"/>
-<area shape="poly" title=" " alt="" coords="979,122,905,169,902,164,976,118"/>
-<area shape="rect" title=" " alt="" coords="52,345,204,386"/>
-<area shape="poly" title=" " alt="" coords="922,121,577,170,562,179,552,189,542,199,527,211,445,253,361,289,211,342,209,337,359,284,443,248,524,206,538,195,548,185,559,175,575,165,921,116"/>
-<area shape="rect" title=" " alt="" coords="1294,353,1413,378"/>
-<area shape="poly" title=" " alt="" coords="998,120,1003,162,1011,185,1023,207,1050,234,1080,259,1147,299,1217,327,1279,346,1278,351,1215,332,1145,303,1077,263,1046,238,1019,210,1006,188,998,163,993,120"/>
-<area shape="rect" title=" " alt="" coords="1437,353,1614,378"/>
-<area shape="poly" title=" " alt="" coords="1070,108,1205,114,1360,125,1495,142,1542,153,1567,166,1575,178,1577,189,1569,210,1553,232,1540,257,1531,299,1528,338,1522,337,1525,298,1535,255,1549,229,1564,208,1572,189,1570,180,1563,170,1540,158,1494,147,1360,130,1204,119,1070,113"/>
-<area shape="rect" href="../../d4/dc2/loc__map_2include_2adapter__loc__map_2fsds_8hpp.html" title=" " alt="" coords="588,175,761,201"/>
-<area shape="poly" title=" " alt="" coords="947,123,740,174,738,168,946,118"/>
-<area shape="rect" title=" " alt="" coords="1033,168,1191,208"/>
-<area shape="poly" title=" " alt="" coords="1015,118,1072,157,1069,161,1012,122"/>
-<area shape="rect" title=" " alt="" coords="1215,168,1372,208"/>
-<area shape="poly" title=" " alt="" coords="1042,118,1205,161,1204,166,1041,123"/>
-<area shape="rect" title=" " alt="" coords="1396,168,1553,208"/>
-<area shape="poly" title=" " alt="" coords="1071,116,1381,165,1380,170,1070,121"/>
-<area shape="rect" href="../../d5/d5e/ekf_8hpp.html" title=" " alt="" coords="1846,175,1986,201"/>
-<area shape="poly" title=" " alt="" coords="1070,108,1391,126,1599,143,1808,165,1839,169,1838,175,1808,170,1598,148,1391,132,1070,114"/>
-<area shape="rect" title=" " alt="" coords="1628,175,1796,201"/>
-<area shape="poly" title=" " alt="" coords="1070,111,1310,131,1610,165,1637,169,1636,175,1609,170,1310,136,1070,116"/>
-<area shape="rect" href="../../db/d7c/loc__map_2include_2adapter__loc__map_2adapter_8hpp.html" title=" " alt="" coords="767,264,958,290"/>
-<area shape="poly" title=" " alt="" coords="873,202,868,249,863,248,868,201"/>
-<area shape="poly" title=" " alt="" coords="959,282,1956,353,1955,359,958,288"/>
-<area shape="poly" title=" " alt="" coords="935,288,1121,320,1232,343,1245,360,1253,379,1259,418,1254,418,1248,381,1241,362,1229,347,1120,325,934,293"/>
-<area shape="rect" title=" " alt="" coords="838,353,1037,378"/>
-<area shape="poly" title=" " alt="" coords="875,288,919,339,915,343,871,292"/>
-<area shape="poly" title=" " alt="" coords="767,287,522,309,373,326,220,347,219,342,372,321,522,304,766,282"/>
-<area shape="rect" title=" " alt="" coords="1061,345,1219,386"/>
-<area shape="poly" title=" " alt="" coords="903,288,1063,337,1062,343,901,293"/>
-<area shape="rect" title=" " alt="" coords="228,345,377,386"/>
-<area shape="poly" title=" " alt="" coords="767,292,596,315,392,347,391,342,595,309,766,287"/>
-<area shape="rect" title=" " alt="" coords="400,353,584,378"/>
-<area shape="poly" title=" " alt="" coords="811,293,559,351,558,346,810,288"/>
-<area shape="rect" title=" " alt="" coords="608,353,813,378"/>
-<area shape="poly" title=" " alt="" coords="843,292,746,347,744,342,840,288"/>
-<area shape="poly" title=" " alt="" coords="936,287,978,294,1127,317,1275,342,1292,346,1290,351,1274,348,1126,322,977,300,935,293"/>
-<area shape="poly" title=" " alt="" coords="959,285,1173,308,1426,342,1451,347,1450,352,1425,348,1172,314,958,290"/>
-<area shape="poly" title=" " alt="" coords="702,199,824,255,821,259,700,204"/>
-<area shape="poly" title=" " alt="" coords="1981,199,2288,257,2287,262,1980,204"/>
-<area shape="poly" title=" " alt="" coords="1936,199,1968,223,2002,255,2033,297,2056,338,2051,341,2028,300,1998,258,1965,227,1933,203"/>
-<area shape="rect" title=" " alt="" coords="1549,264,1643,290"/>
-<area shape="poly" title=" " alt="" coords="1865,204,1655,259,1647,261,1645,256,1654,254,1864,199"/>
-<area shape="rect" title=" " alt="" coords="1667,264,1765,290"/>
-<area shape="poly" title=" " alt="" coords="1889,204,1759,260,1757,255,1887,199"/>
-<area shape="rect" title=" " alt="" coords="1789,264,1846,290"/>
-<area shape="poly" title=" " alt="" coords="1904,203,1844,256,1840,252,1900,199"/>
-<area shape="rect" href="../../d9/def/observation__models_8hpp.html" title=" " alt="" coords="2063,256,2228,297"/>
-<area shape="poly" title=" " alt="" coords="1949,199,2080,248,2078,253,1947,204"/>
-<area shape="rect" title=" " alt="" coords="1870,264,1988,290"/>
-<area shape="poly" title=" " alt="" coords="1920,201,1928,248,1922,249,1915,202"/>
-<area shape="poly" title=" " alt="" coords="2180,295,2260,342,2257,347,2177,300"/>
-<area shape="poly" title=" " alt="" coords="2129,299,2088,343,2084,340,2125,296"/>
+<div class="center"><img src="../../d5/db7/motion__model__test_8cpp__incl.png" border="0" usemap="#asrc_2ekf__state__est_2test_2motion__model__test_8cpp" alt=""/></div>
+<map name="asrc_2ekf__state__est_2test_2motion__model__test_8cpp" id="asrc_2ekf__state__est_2test_2motion__model__test_8cpp">
+<area shape="rect" title=" " alt="" coords="1816,5,1975,46"/>
+<area shape="rect" title=" " alt="" coords="1939,368,2006,393"/>
+<area shape="poly" title=" " alt="" coords="1890,47,1875,96,1863,164,1860,201,1861,239,1868,276,1882,311,1903,338,1931,358,1928,362,1899,341,1877,313,1863,277,1856,240,1855,201,1857,163,1870,95,1885,46"/>
+<area shape="rect" title=" " alt="" coords="1705,368,1824,393"/>
+<area shape="poly" title=" " alt="" coords="1887,48,1863,95,1810,240,1775,353,1769,352,1805,238,1858,93,1882,45"/>
+<area shape="rect" href="../../d0/d88/bicycle__model_8hpp.html" title=" " alt="" coords="2564,94,2757,135"/>
+<area shape="poly" title=" " alt="" coords="1976,33,2549,98,2548,103,1975,39"/>
+<area shape="rect" title=" " alt="" coords="1891,102,1985,127"/>
+<area shape="poly" title=" " alt="" coords="1907,45,1928,87,1923,89,1903,48"/>
+<area shape="rect" href="../../df/dc4/motion__models_8hpp.html" title=" " alt="" coords="1892,271,2029,312"/>
+<area shape="poly" title=" " alt="" coords="1945,44,1975,64,1999,93,2007,114,2011,136,2008,181,1997,223,1981,259,1976,257,1992,221,2003,180,2006,136,2002,115,1994,95,1972,68,1942,49"/>
+<area shape="rect" href="../../d2/d22/se__node_8hpp.html" title=" " alt="" coords="1462,102,1614,127"/>
+<area shape="poly" title=" " alt="" coords="1816,49,1604,100,1602,95,1814,44"/>
+<area shape="rect" title=" " alt="" coords="3151,368,3202,393"/>
+<area shape="poly" title=" " alt="" coords="2758,117,2851,129,2902,140,2955,155,3007,175,3057,200,3102,231,3143,270,3156,289,3166,310,3176,351,3171,353,3161,312,3151,291,3139,273,3099,236,3054,205,3005,180,2953,160,2901,145,2850,134,2757,122"/>
+<area shape="poly" title=" " alt="" coords="1966,312,1972,352,1966,353,1961,313"/>
+<area shape="poly" title=" " alt="" coords="1917,315,1807,363,1805,358,1915,310"/>
+<area shape="rect" title=" " alt="" coords="2094,368,2230,393"/>
+<area shape="poly" title=" " alt="" coords="2007,310,2121,359,2119,364,2005,315"/>
+<area shape="rect" title=" " alt="" coords="2605,368,2682,393"/>
+<area shape="poly" title=" " alt="" coords="2030,307,2041,309,2307,343,2589,371,2589,376,2306,348,2040,315,2029,313"/>
+<area shape="rect" title=" " alt="" coords="2172,456,2218,482"/>
+<area shape="poly" title=" " alt="" coords="1982,311,2027,353,2084,398,2160,446,2157,451,2080,403,2024,357,1978,314"/>
+<area shape="rect" title=" " alt="" coords="1849,368,1915,393"/>
+<area shape="poly" title=" " alt="" coords="1945,314,1905,358,1901,354,1941,311"/>
+<area shape="poly" title=" " alt="" coords="1556,125,1671,206,1752,259,1837,310,1933,358,1930,363,1834,314,1749,263,1668,210,1553,130"/>
+<area shape="poly" title=" " alt="" coords="1543,127,1553,161,1572,210,1598,263,1635,310,1672,339,1713,359,1711,364,1669,343,1631,314,1594,265,1567,212,1548,163,1538,128"/>
+<area shape="poly" title=" " alt="" coords="1614,117,1891,133,2256,164,2433,185,2586,209,2701,237,2739,253,2761,270,2768,281,2770,291,2762,313,2750,326,2731,339,2686,363,2683,358,2729,334,2747,322,2757,311,2764,291,2763,282,2757,273,2736,257,2699,242,2585,214,2432,190,2255,169,1891,139,1614,122"/>
+<area shape="poly" title=" " alt="" coords="1549,126,1622,209,1676,262,1735,310,1841,358,1839,363,1733,314,1672,266,1618,213,1545,130"/>
+<area shape="rect" title=" " alt="" coords="2823,368,2949,393"/>
+<area shape="poly" title=" " alt="" coords="1614,118,2145,151,2541,180,2627,192,2695,202,2727,210,2759,223,2792,242,2829,269,2847,288,2861,309,2880,351,2876,354,2857,312,2843,291,2826,273,2789,247,2756,228,2725,215,2694,207,2626,198,2540,185,2145,156,1614,123"/>
+<area shape="rect" title=" " alt="" coords="1319,456,1373,482"/>
+<area shape="poly" title=" " alt="" coords="1462,120,1248,128,967,141,690,160,576,172,489,185,419,203,366,223,246,274,208,285,174,291,115,299,88,305,63,316,39,334,16,361,8,381,10,390,16,399,34,407,74,415,204,428,384,439,593,448,1016,460,1304,464,1304,470,1016,465,593,453,384,445,203,434,73,420,33,412,12,403,5,392,3,381,12,359,36,330,60,311,86,300,114,294,174,286,207,280,244,269,364,218,417,198,488,180,575,166,690,154,967,135,1248,122,1462,115"/>
+<area shape="rect" href="../../d9/d1b/ekf__state__est_2include_2adapter__ekf__state__est_2eufs_8hpp.html" title=" " alt="" coords="644,183,794,223"/>
+<area shape="poly" title=" " alt="" coords="1462,122,1179,143,998,161,810,185,810,180,997,155,1179,137,1462,117"/>
+<area shape="rect" title=" " alt="" coords="26,360,178,401"/>
+<area shape="poly" title=" " alt="" coords="1462,121,1036,143,802,162,706,173,633,185,496,222,363,269,246,316,158,355,155,351,244,311,361,264,495,217,632,180,705,168,802,157,1036,138,1462,116"/>
+<area shape="rect" href="../../d8/dba/ekf__state__est_2include_2adapter__ekf__state__est_2fsds_8hpp.html" title=" " alt="" coords="819,183,969,223"/>
+<area shape="poly" title=" " alt="" coords="1462,125,1251,148,985,185,984,179,1250,142,1462,120"/>
+<area shape="rect" href="../../dc/de2/mission__logic_8hpp.html" title=" " alt="" coords="1401,271,1563,312"/>
+<area shape="poly" title=" " alt="" coords="1541,128,1539,171,1527,224,1509,260,1504,257,1522,222,1533,170,1536,127"/>
+<area shape="rect" title=" " alt="" coords="993,183,1150,223"/>
+<area shape="poly" title=" " alt="" coords="1467,130,1166,185,1165,179,1466,125"/>
+<area shape="rect" title=" " alt="" coords="1174,183,1331,223"/>
+<area shape="poly" title=" " alt="" coords="1498,130,1333,180,1331,175,1497,125"/>
+<area shape="rect" title=" " alt="" coords="1355,183,1513,223"/>
+<area shape="poly" title=" " alt="" coords="1525,130,1471,175,1467,171,1522,126"/>
+<area shape="rect" href="../../d5/d5e/ekf_8hpp.html" title=" " alt="" coords="2201,190,2341,216"/>
+<area shape="poly" title=" " alt="" coords="1614,122,2186,189,2185,194,1614,127"/>
+<area shape="rect" href="../../d9/d5a/ekf__state__est_2include_2adapter__ekf__state__est_2adapter_8hpp.html" title=" " alt="" coords="791,271,941,312"/>
+<area shape="poly" title=" " alt="" coords="754,222,821,261,818,266,751,226"/>
+<area shape="poly" title=" " alt="" coords="942,295,1248,318,1444,336,1642,357,1690,364,1690,369,1642,363,1444,341,1248,323,941,300"/>
+<area shape="poly" title=" " alt="" coords="942,297,1058,316,1122,334,1183,358,1211,377,1236,399,1312,446,1310,451,1232,403,1207,381,1181,362,1120,339,1057,322,941,302"/>
+<area shape="rect" title=" " alt="" coords="1246,368,1446,393"/>
+<area shape="poly" title=" " alt="" coords="942,304,1264,362,1263,367,941,309"/>
+<area shape="poly" title=" " alt="" coords="791,300,531,321,365,339,194,362,193,357,364,334,530,316,790,295"/>
+<area shape="rect" title=" " alt="" coords="202,360,359,401"/>
+<area shape="poly" title=" " alt="" coords="791,304,606,327,375,362,374,357,605,322,790,299"/>
+<area shape="rect" title=" " alt="" coords="384,360,532,401"/>
+<area shape="poly" title=" " alt="" coords="791,311,548,362,546,357,790,306"/>
+<area shape="rect" title=" " alt="" coords="556,368,739,393"/>
+<area shape="poly" title=" " alt="" coords="817,315,693,364,691,359,815,310"/>
+<area shape="rect" title=" " alt="" coords="763,368,969,393"/>
+<area shape="poly" title=" " alt="" coords="869,313,869,352,863,352,863,313"/>
+<area shape="rect" title=" " alt="" coords="993,368,1171,393"/>
+<area shape="poly" title=" " alt="" coords="916,310,1039,359,1037,364,914,315"/>
+<area shape="poly" title=" " alt="" coords="890,225,880,257,874,256,885,223"/>
+<area shape="poly" title=" " alt="" coords="1540,310,1591,331,1643,358,1668,380,1679,389,1694,398,1733,411,1787,422,1918,441,2157,463,2157,468,1918,446,1786,428,1732,416,1692,403,1675,394,1665,384,1640,362,1589,336,1538,315"/>
+<area shape="poly" title=" " alt="" coords="1485,313,1480,356,1472,380,1460,402,1445,419,1426,434,1388,455,1386,451,1423,430,1441,416,1456,399,1467,378,1474,355,1479,312"/>
+<area shape="poly" title=" " alt="" coords="1453,315,1379,361,1376,357,1450,310"/>
+<area shape="rect" title=" " alt="" coords="1520,368,1630,393"/>
+<area shape="poly" title=" " alt="" coords="1505,311,1553,355,1550,359,1501,314"/>
+<area shape="poly" title=" " alt="" coords="2201,207,2131,211,2049,222,1963,242,1921,256,1881,274,1852,291,1825,313,1785,357,1781,353,1822,309,1849,287,1878,269,1919,251,1961,237,2048,217,2130,206,2200,202"/>
+<area shape="poly" title=" " alt="" coords="2228,219,2045,270,2043,265,2227,214"/>
+<area shape="poly" title=" " alt="" coords="2342,205,2452,213,2580,225,2700,244,2748,255,2785,269,2812,287,2836,309,2872,353,2868,356,2832,312,2809,291,2782,274,2747,260,2699,249,2579,230,2451,218,2341,210"/>
+<area shape="poly" title=" " alt="" coords="2201,215,1579,282,1578,277,2200,209"/>
+<area shape="rect" title=" " alt="" coords="2705,368,2800,393"/>
+<area shape="poly" title=" " alt="" coords="2342,201,2451,202,2577,212,2636,220,2689,232,2732,248,2761,270,2772,289,2774,311,2766,353,2761,352,2769,311,2767,291,2757,273,2730,253,2688,237,2635,225,2576,217,2451,208,2342,206"/>
+<area shape="rect" title=" " alt="" coords="2053,279,2151,305"/>
+<area shape="poly" title=" " alt="" coords="2249,219,2141,274,2138,269,2246,214"/>
+<area shape="rect" title=" " alt="" coords="2175,279,2232,305"/>
+<area shape="poly" title=" " alt="" coords="2264,218,2224,268,2220,265,2260,215"/>
+<area shape="rect" href="../../d5/d13/common__lib_2include_2common__lib_2structures_2cone_8hpp.html" title=" " alt="" coords="2447,271,2600,312"/>
+<area shape="poly" title=" " alt="" coords="2308,214,2453,263,2451,268,2306,219"/>
+<area shape="rect" href="../../df/d53/vehicle__state_8hpp.html" title=" " alt="" coords="2975,271,3128,312"/>
+<area shape="poly" title=" " alt="" coords="2342,209,2905,269,2959,275,2959,281,2904,274,2342,214"/>
+<area shape="rect" href="../../da/d49/data__association_8hpp.html" title=" " alt="" coords="2624,271,2748,312"/>
+<area shape="poly" title=" " alt="" coords="2340,214,2610,268,2609,273,2339,219"/>
+<area shape="rect" href="../../d9/def/observation__models_8hpp.html" title=" " alt="" coords="2257,271,2422,312"/>
+<area shape="poly" title=" " alt="" coords="2283,215,2317,258,2313,261,2279,218"/>
+<area shape="rect" href="../../d8/df3/common__lib_2include_2common__lib_2competition__logic_2color_8hpp.html" title=" " alt="" coords="2257,360,2419,401"/>
+<area shape="poly" title=" " alt="" coords="2482,315,2395,356,2392,351,2480,310"/>
+<area shape="rect" href="../../d5/d91/position_8hpp.html" title=" " alt="" coords="2440,449,2593,489"/>
+<area shape="poly" title=" " alt="" coords="2525,312,2521,433,2515,433,2520,312"/>
+<area shape="poly" title=" " alt="" coords="2307,403,2229,450,2227,446,2304,399"/>
+<area shape="poly" title=" " alt="" coords="2257,401,2242,403,1989,432,1741,451,1388,469,1388,464,1741,446,1989,426,2242,398,2256,396"/>
+<area shape="poly" title=" " alt="" coords="3081,310,3148,356,3145,361,3078,315"/>
+<area shape="rect" href="../../de/d59/pose_8hpp.html" title=" " alt="" coords="2973,360,3127,401"/>
+<area shape="poly" title=" " alt="" coords="3054,313,3053,345,3048,344,3048,312"/>
+<area shape="poly" title=" " alt="" coords="2974,401,2961,403,2774,434,2609,458,2609,453,2773,429,2960,398,2973,396"/>
+<area shape="poly" title=" " alt="" coords="2624,312,2613,315,2465,335,2348,342,2231,348,2082,363,2022,372,2021,367,2082,357,2231,342,2348,337,2464,330,2612,309,2623,307"/>
+<area shape="poly" title=" " alt="" coords="2679,314,2658,355,2653,353,2674,311"/>
+<area shape="poly" title=" " alt="" coords="2645,315,2549,358,2432,403,2325,437,2234,461,2233,456,2324,432,2430,398,2547,353,2643,310"/>
+<area shape="poly" title=" " alt="" coords="2732,310,2845,359,2843,364,2730,315"/>
+<area shape="poly" title=" " alt="" coords="2703,311,2736,353,2732,357,2699,314"/>
+<area shape="poly" title=" " alt="" coords="2300,315,2202,363,2199,358,2298,310"/>
+<area shape="poly" title=" " alt="" coords="2342,313,2341,345,2336,344,2336,312"/>
+<area shape="poly" title=" " alt="" coords="2372,310,2433,358,2468,396,2497,434,2493,437,2464,400,2430,362,2369,315"/>
 </map>
 </div>
 </div>
@@ -214,13 +242,10 @@ Functions</h2></td></tr>
 <tr class="separator:a13d66ed5f0bcb51eb59eaeb8da3fe292"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae0937a30b47fc882eb19bb57e6ca6bbf" id="r_ae0937a30b47fc882eb19bb57e6ca6bbf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dbd/motion__model__test_8cpp.html#ae0937a30b47fc882eb19bb57e6ca6bbf">TEST</a> (IMU_VELOCITY_MODEL, COMPLEX_MOVEMENT_TEST)</td></tr>
 <tr class="separator:ae0937a30b47fc882eb19bb57e6ca6bbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e006feda9100c097f7afbbf79420825" id="r_a2e006feda9100c097f7afbbf79420825"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dbd/motion__model__test_8cpp.html#a2e006feda9100c097f7afbbf79420825">TEST</a> (ODOMETRY_SUBSCRIBER, CONVERSION_TEST)</td></tr>
-<tr class="memdesc:a2e006feda9100c097f7afbbf79420825"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tests the conversion from wheel revolutions to velocities using the bycicle model.  <br /></td></tr>
-<tr class="separator:a2e006feda9100c097f7afbbf79420825"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="ae0937a30b47fc882eb19bb57e6ca6bbf" name="ae0937a30b47fc882eb19bb57e6ca6bbf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae0937a30b47fc882eb19bb57e6ca6bbf">&#9670;&#160;</a></span>TEST() <span class="overload">[1/11]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0937a30b47fc882eb19bb57e6ca6bbf">&#9670;&#160;</a></span>TEST() <span class="overload">[1/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -245,7 +270,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dbd/motion__model__test_8cpp_source.html#l00214">214</a> of file <a class="el" href="../../d8/dbd/motion__model__test_8cpp_source.html">motion_model_test.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dbd/motion__model__test_8cpp_source.html#l00222">222</a> of file <a class="el" href="../../d8/dbd/motion__model__test_8cpp_source.html">motion_model_test.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -256,15 +281,15 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="60,51,95,43,96,49,61,56"/>
 <area shape="rect" href="../../d2/d58/class_imu_velocity_model.html#a83c9e2d4b8e321ab0fcfbef5f52b5447" title="Calculate expected state vector from velocity model using IMU data and linear functions Uses translat..." alt="" coords="108,71,277,111"/>
 <area shape="poly" title=" " alt="" coords="61,62,93,68,92,74,60,67"/>
-<area shape="rect" href="../../da/d5d/formulas_8cpp.html#a5dda4c5d809de2f2716a49c5703a6f60" title="Function to keep angle between 0 and 2Pi radians." alt="" coords="325,78,439,104"/>
-<area shape="poly" title=" " alt="" coords="277,88,310,88,310,94,277,94"/>
+<area shape="rect" href="../../d2/d32/namespacecommon__lib_1_1maths.html#acd35b7873c51d71ad7ee2396007da7a3" title="Function to keep angle between 0 and 2Pi radians." alt="" coords="325,71,464,111"/>
+<area shape="poly" title=" " alt="" coords="277,88,309,88,309,94,277,94"/>
 </map>
 </div>
 
 </div>
 </div>
 <a id="a9c31f0345da32c0c5eaa421433ba5ec3" name="a9c31f0345da32c0c5eaa421433ba5ec3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9c31f0345da32c0c5eaa421433ba5ec3">&#9670;&#160;</a></span>TEST() <span class="overload">[2/11]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c31f0345da32c0c5eaa421433ba5ec3">&#9670;&#160;</a></span>TEST() <span class="overload">[2/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -289,7 +314,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dbd/motion__model__test_8cpp_source.html#l00173">173</a> of file <a class="el" href="../../d8/dbd/motion__model__test_8cpp_source.html">motion_model_test.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dbd/motion__model__test_8cpp_source.html#l00182">182</a> of file <a class="el" href="../../d8/dbd/motion__model__test_8cpp_source.html">motion_model_test.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -300,15 +325,15 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="60,51,95,43,96,49,61,56"/>
 <area shape="rect" href="../../d2/d58/class_imu_velocity_model.html#a83c9e2d4b8e321ab0fcfbef5f52b5447" title="Calculate expected state vector from velocity model using IMU data and linear functions Uses translat..." alt="" coords="108,71,277,111"/>
 <area shape="poly" title=" " alt="" coords="61,62,93,68,92,74,60,67"/>
-<area shape="rect" href="../../da/d5d/formulas_8cpp.html#a5dda4c5d809de2f2716a49c5703a6f60" title="Function to keep angle between 0 and 2Pi radians." alt="" coords="325,78,439,104"/>
-<area shape="poly" title=" " alt="" coords="277,88,310,88,310,94,277,94"/>
+<area shape="rect" href="../../d2/d32/namespacecommon__lib_1_1maths.html#acd35b7873c51d71ad7ee2396007da7a3" title="Function to keep angle between 0 and 2Pi radians." alt="" coords="325,71,464,111"/>
+<area shape="poly" title=" " alt="" coords="277,88,309,88,309,94,277,94"/>
 </map>
 </div>
 
 </div>
 </div>
 <a id="a13d66ed5f0bcb51eb59eaeb8da3fe292" name="a13d66ed5f0bcb51eb59eaeb8da3fe292"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a13d66ed5f0bcb51eb59eaeb8da3fe292">&#9670;&#160;</a></span>TEST() <span class="overload">[3/11]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a13d66ed5f0bcb51eb59eaeb8da3fe292">&#9670;&#160;</a></span>TEST() <span class="overload">[3/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -333,7 +358,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dbd/motion__model__test_8cpp_source.html#l00192">192</a> of file <a class="el" href="../../d8/dbd/motion__model__test_8cpp_source.html">motion_model_test.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dbd/motion__model__test_8cpp_source.html#l00201">201</a> of file <a class="el" href="../../d8/dbd/motion__model__test_8cpp_source.html">motion_model_test.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -344,15 +369,15 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="60,51,95,43,96,49,61,56"/>
 <area shape="rect" href="../../d2/d58/class_imu_velocity_model.html#a83c9e2d4b8e321ab0fcfbef5f52b5447" title="Calculate expected state vector from velocity model using IMU data and linear functions Uses translat..." alt="" coords="108,71,277,111"/>
 <area shape="poly" title=" " alt="" coords="61,62,93,68,92,74,60,67"/>
-<area shape="rect" href="../../da/d5d/formulas_8cpp.html#a5dda4c5d809de2f2716a49c5703a6f60" title="Function to keep angle between 0 and 2Pi radians." alt="" coords="325,78,439,104"/>
-<area shape="poly" title=" " alt="" coords="277,88,310,88,310,94,277,94"/>
+<area shape="rect" href="../../d2/d32/namespacecommon__lib_1_1maths.html#acd35b7873c51d71ad7ee2396007da7a3" title="Function to keep angle between 0 and 2Pi radians." alt="" coords="325,71,464,111"/>
+<area shape="poly" title=" " alt="" coords="277,88,309,88,309,94,277,94"/>
 </map>
 </div>
 
 </div>
 </div>
 <a id="a6fbede91fc0c55e0beeee30fb29a34bf" name="a6fbede91fc0c55e0beeee30fb29a34bf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6fbede91fc0c55e0beeee30fb29a34bf">&#9670;&#160;</a></span>TEST() <span class="overload">[4/11]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fbede91fc0c55e0beeee30fb29a34bf">&#9670;&#160;</a></span>TEST() <span class="overload">[4/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -377,7 +402,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dbd/motion__model__test_8cpp_source.html#l00154">154</a> of file <a class="el" href="../../d8/dbd/motion__model__test_8cpp_source.html">motion_model_test.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dbd/motion__model__test_8cpp_source.html#l00163">163</a> of file <a class="el" href="../../d8/dbd/motion__model__test_8cpp_source.html">motion_model_test.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -388,15 +413,15 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="60,51,95,43,96,49,61,56"/>
 <area shape="rect" href="../../d2/d58/class_imu_velocity_model.html#a83c9e2d4b8e321ab0fcfbef5f52b5447" title="Calculate expected state vector from velocity model using IMU data and linear functions Uses translat..." alt="" coords="108,71,277,111"/>
 <area shape="poly" title=" " alt="" coords="61,62,93,68,92,74,60,67"/>
-<area shape="rect" href="../../da/d5d/formulas_8cpp.html#a5dda4c5d809de2f2716a49c5703a6f60" title="Function to keep angle between 0 and 2Pi radians." alt="" coords="325,78,439,104"/>
-<area shape="poly" title=" " alt="" coords="277,88,310,88,310,94,277,94"/>
+<area shape="rect" href="../../d2/d32/namespacecommon__lib_1_1maths.html#acd35b7873c51d71ad7ee2396007da7a3" title="Function to keep angle between 0 and 2Pi radians." alt="" coords="325,71,464,111"/>
+<area shape="poly" title=" " alt="" coords="277,88,309,88,309,94,277,94"/>
 </map>
 </div>
 
 </div>
 </div>
 <a id="acc27b86c37d2d289be41247829ecfaf2" name="acc27b86c37d2d289be41247829ecfaf2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acc27b86c37d2d289be41247829ecfaf2">&#9670;&#160;</a></span>TEST() <span class="overload">[5/11]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#acc27b86c37d2d289be41247829ecfaf2">&#9670;&#160;</a></span>TEST() <span class="overload">[5/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -421,22 +446,12 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dbd/motion__model__test_8cpp_source.html#l00007">7</a> of file <a class="el" href="../../d8/dbd/motion__model__test_8cpp_source.html">motion_model_test.cpp</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../d8/dbd/motion__model__test_8cpp_acc27b86c37d2d289be41247829ecfaf2_cgraph.png" border="0" usemap="#ad8/dbd/motion__model__test_8cpp_acc27b86c37d2d289be41247829ecfaf2_cgraph" alt=""/></div>
-<map name="ad8/dbd/motion__model__test_8cpp_acc27b86c37d2d289be41247829ecfaf2_cgraph" id="ad8/dbd/motion__model__test_8cpp_acc27b86c37d2d289be41247829ecfaf2_cgraph">
-<area shape="rect" title=" " alt="" coords="5,13,60,39"/>
-<area shape="rect" href="../../db/d66/class_motion_model.html#a76de9b7caf93cd717bf388aff40ab589" title="Get the process noise covariance matrix object." alt="" coords="108,5,280,46"/>
-<area shape="poly" title=" " alt="" coords="60,23,92,23,92,28,60,28"/>
-</map>
-</div>
+<p class="definition">Definition at line <a class="el" href="../../d8/dbd/motion__model__test_8cpp_source.html#l00011">11</a> of file <a class="el" href="../../d8/dbd/motion__model__test_8cpp_source.html">motion_model_test.cpp</a>.</p>
 
 </div>
 </div>
 <a id="a89bd5d192ba500ce6cd5d7ff246df691" name="a89bd5d192ba500ce6cd5d7ff246df691"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a89bd5d192ba500ce6cd5d7ff246df691">&#9670;&#160;</a></span>TEST() <span class="overload">[6/11]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a89bd5d192ba500ce6cd5d7ff246df691">&#9670;&#160;</a></span>TEST() <span class="overload">[6/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -461,7 +476,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dbd/motion__model__test_8cpp_source.html#l00094">94</a> of file <a class="el" href="../../d8/dbd/motion__model__test_8cpp_source.html">motion_model_test.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dbd/motion__model__test_8cpp_source.html#l00101">101</a> of file <a class="el" href="../../d8/dbd/motion__model__test_8cpp_source.html">motion_model_test.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -470,7 +485,7 @@ Here is the call graph for this function:</div>
 <area shape="rect" title=" " alt="" coords="5,13,60,39"/>
 <area shape="rect" href="../../d7/df9/class_normal_velocity_model.html#a32beb590c4af5f21172b64b34d5f3ea1" title="Calculate expected state vector from velocity model using normal motion data Uses translation velocit..." alt="" coords="108,5,269,46"/>
 <area shape="poly" title=" " alt="" coords="60,23,92,23,92,28,60,28"/>
-<area shape="rect" href="../../da/d5d/formulas_8cpp.html#a5dda4c5d809de2f2716a49c5703a6f60" title="Function to keep angle between 0 and 2Pi radians." alt="" coords="317,13,431,39"/>
+<area shape="rect" href="../../d2/d32/namespacecommon__lib_1_1maths.html#acd35b7873c51d71ad7ee2396007da7a3" title="Function to keep angle between 0 and 2Pi radians." alt="" coords="317,5,456,46"/>
 <area shape="poly" title=" " alt="" coords="269,23,301,23,301,28,269,28"/>
 </map>
 </div>
@@ -478,7 +493,7 @@ Here is the call graph for this function:</div>
 </div>
 </div>
 <a id="a4b4be8c03914d03c683a1fecbcbdf310" name="a4b4be8c03914d03c683a1fecbcbdf310"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4b4be8c03914d03c683a1fecbcbdf310">&#9670;&#160;</a></span>TEST() <span class="overload">[7/11]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b4be8c03914d03c683a1fecbcbdf310">&#9670;&#160;</a></span>TEST() <span class="overload">[7/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -503,7 +518,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dbd/motion__model__test_8cpp_source.html#l00115">115</a> of file <a class="el" href="../../d8/dbd/motion__model__test_8cpp_source.html">motion_model_test.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dbd/motion__model__test_8cpp_source.html#l00122">122</a> of file <a class="el" href="../../d8/dbd/motion__model__test_8cpp_source.html">motion_model_test.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -514,7 +529,7 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="60,60,100,51,101,56,61,66"/>
 <area shape="rect" href="../../d7/df9/class_normal_velocity_model.html#a32beb590c4af5f21172b64b34d5f3ea1" title="Calculate expected state vector from velocity model using normal motion data Uses translation velocit..." alt="" coords="108,85,269,126"/>
 <area shape="poly" title=" " alt="" coords="61,73,93,80,92,86,60,78"/>
-<area shape="rect" href="../../da/d5d/formulas_8cpp.html#a5dda4c5d809de2f2716a49c5703a6f60" title="Function to keep angle between 0 and 2Pi radians." alt="" coords="317,92,431,118"/>
+<area shape="rect" href="../../d2/d32/namespacecommon__lib_1_1maths.html#acd35b7873c51d71ad7ee2396007da7a3" title="Function to keep angle between 0 and 2Pi radians." alt="" coords="317,85,456,126"/>
 <area shape="poly" title=" " alt="" coords="269,103,301,103,301,108,269,108"/>
 </map>
 </div>
@@ -522,7 +537,7 @@ Here is the call graph for this function:</div>
 </div>
 </div>
 <a id="ac536fb8afc350c3ccd4907c25a507b81" name="ac536fb8afc350c3ccd4907c25a507b81"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac536fb8afc350c3ccd4907c25a507b81">&#9670;&#160;</a></span>TEST() <span class="overload">[8/11]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac536fb8afc350c3ccd4907c25a507b81">&#9670;&#160;</a></span>TEST() <span class="overload">[8/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -547,7 +562,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dbd/motion__model__test_8cpp_source.html#l00043">43</a> of file <a class="el" href="../../d8/dbd/motion__model__test_8cpp_source.html">motion_model_test.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dbd/motion__model__test_8cpp_source.html#l00051">51</a> of file <a class="el" href="../../d8/dbd/motion__model__test_8cpp_source.html">motion_model_test.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -558,7 +573,7 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="60,60,100,51,101,56,61,66"/>
 <area shape="rect" href="../../d7/df9/class_normal_velocity_model.html#a32beb590c4af5f21172b64b34d5f3ea1" title="Calculate expected state vector from velocity model using normal motion data Uses translation velocit..." alt="" coords="108,85,269,126"/>
 <area shape="poly" title=" " alt="" coords="61,73,93,80,92,86,60,78"/>
-<area shape="rect" href="../../da/d5d/formulas_8cpp.html#a5dda4c5d809de2f2716a49c5703a6f60" title="Function to keep angle between 0 and 2Pi radians." alt="" coords="317,92,431,118"/>
+<area shape="rect" href="../../d2/d32/namespacecommon__lib_1_1maths.html#acd35b7873c51d71ad7ee2396007da7a3" title="Function to keep angle between 0 and 2Pi radians." alt="" coords="317,85,456,126"/>
 <area shape="poly" title=" " alt="" coords="269,103,301,103,301,108,269,108"/>
 </map>
 </div>
@@ -566,7 +581,7 @@ Here is the call graph for this function:</div>
 </div>
 </div>
 <a id="a985258fd91e481fac6ee05ad73bab7fd" name="a985258fd91e481fac6ee05ad73bab7fd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a985258fd91e481fac6ee05ad73bab7fd">&#9670;&#160;</a></span>TEST() <span class="overload">[9/11]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a985258fd91e481fac6ee05ad73bab7fd">&#9670;&#160;</a></span>TEST() <span class="overload">[9/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -591,7 +606,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dbd/motion__model__test_8cpp_source.html#l00067">67</a> of file <a class="el" href="../../d8/dbd/motion__model__test_8cpp_source.html">motion_model_test.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dbd/motion__model__test_8cpp_source.html#l00075">75</a> of file <a class="el" href="../../d8/dbd/motion__model__test_8cpp_source.html">motion_model_test.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -602,7 +617,7 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="60,60,100,51,101,56,61,66"/>
 <area shape="rect" href="../../d7/df9/class_normal_velocity_model.html#a32beb590c4af5f21172b64b34d5f3ea1" title="Calculate expected state vector from velocity model using normal motion data Uses translation velocit..." alt="" coords="108,85,269,126"/>
 <area shape="poly" title=" " alt="" coords="61,73,93,80,92,86,60,78"/>
-<area shape="rect" href="../../da/d5d/formulas_8cpp.html#a5dda4c5d809de2f2716a49c5703a6f60" title="Function to keep angle between 0 and 2Pi radians." alt="" coords="317,92,431,118"/>
+<area shape="rect" href="../../d2/d32/namespacecommon__lib_1_1maths.html#acd35b7873c51d71ad7ee2396007da7a3" title="Function to keep angle between 0 and 2Pi radians." alt="" coords="317,85,456,126"/>
 <area shape="poly" title=" " alt="" coords="269,103,301,103,301,108,269,108"/>
 </map>
 </div>
@@ -610,7 +625,7 @@ Here is the call graph for this function:</div>
 </div>
 </div>
 <a id="abaac5c4600343357227b100565bf0831" name="abaac5c4600343357227b100565bf0831"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abaac5c4600343357227b100565bf0831">&#9670;&#160;</a></span>TEST() <span class="overload">[10/11]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abaac5c4600343357227b100565bf0831">&#9670;&#160;</a></span>TEST() <span class="overload">[10/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -635,7 +650,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dbd/motion__model__test_8cpp_source.html#l00024">24</a> of file <a class="el" href="../../d8/dbd/motion__model__test_8cpp_source.html">motion_model_test.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dbd/motion__model__test_8cpp_source.html#l00032">32</a> of file <a class="el" href="../../d8/dbd/motion__model__test_8cpp_source.html">motion_model_test.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -646,52 +661,8 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="60,60,100,51,101,56,61,66"/>
 <area shape="rect" href="../../d7/df9/class_normal_velocity_model.html#a32beb590c4af5f21172b64b34d5f3ea1" title="Calculate expected state vector from velocity model using normal motion data Uses translation velocit..." alt="" coords="108,85,269,126"/>
 <area shape="poly" title=" " alt="" coords="61,73,93,80,92,86,60,78"/>
-<area shape="rect" href="../../da/d5d/formulas_8cpp.html#a5dda4c5d809de2f2716a49c5703a6f60" title="Function to keep angle between 0 and 2Pi radians." alt="" coords="317,92,431,118"/>
+<area shape="rect" href="../../d2/d32/namespacecommon__lib_1_1maths.html#acd35b7873c51d71ad7ee2396007da7a3" title="Function to keep angle between 0 and 2Pi radians." alt="" coords="317,85,456,126"/>
 <area shape="poly" title=" " alt="" coords="269,103,301,103,301,108,269,108"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a2e006feda9100c097f7afbbf79420825" name="a2e006feda9100c097f7afbbf79420825"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2e006feda9100c097f7afbbf79420825">&#9670;&#160;</a></span>TEST() <span class="overload">[11/11]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">TEST </td>
-          <td>(</td>
-          <td class="paramtype">ODOMETRY_SUBSCRIBER&#160;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">CONVERSION_TEST&#160;</td>
-          <td class="paramname">&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Tests the conversion from wheel revolutions to velocities using the bycicle model. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d8/dbd/motion__model__test_8cpp_source.html#l00260">260</a> of file <a class="el" href="../../d8/dbd/motion__model__test_8cpp_source.html">motion_model_test.cpp</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../d8/dbd/motion__model__test_8cpp_a2e006feda9100c097f7afbbf79420825_cgraph.png" border="0" usemap="#ad8/dbd/motion__model__test_8cpp_a2e006feda9100c097f7afbbf79420825_cgraph" alt=""/></div>
-<map name="ad8/dbd/motion__model__test_8cpp_a2e006feda9100c097f7afbbf79420825_cgraph" id="ad8/dbd/motion__model__test_8cpp_a2e006feda9100c097f7afbbf79420825_cgraph">
-<area shape="rect" title="Tests the conversion from wheel revolutions to velocities using the bycicle model." alt="" coords="5,13,60,39"/>
-<area shape="rect" href="../../dd/db3/class_l_m_node.html#a28a0317cd05f770daba784ab06a389c8" title="Converts the odometry data to translational and rotational velocities." alt="" coords="108,5,256,46"/>
-<area shape="poly" title=" " alt="" coords="60,23,92,23,92,28,60,28"/>
-<area shape="rect" href="../../da/d5d/formulas_8cpp.html#aa977d636c53692b00cc02c90dab37cff" title="Function to get the translational velocity of a wheel from rpm and wheel diameter." alt="" coords="304,5,435,46"/>
-<area shape="poly" title=" " alt="" coords="256,23,288,23,288,28,256,28"/>
 </map>
 </div>
 
@@ -702,7 +673,7 @@ Here is the call graph for this function:</div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../dir_26369d20db5a751ace0a0d425b94d5ef.html">loc_map</a></li><li class="navelem"><a class="el" href="../../dir_313470f979903f25c0c6ea4884190d81.html">test</a></li><li class="navelem"><a class="el" href="../../d8/dbd/motion__model__test_8cpp.html">motion_model_test.cpp</a></li>
+    <li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../dir_388d5df3221aab46ce4275c3697a683f.html">ekf_state_est</a></li><li class="navelem"><a class="el" href="../../dir_076943da0a533ed1b221efc210b42bf6.html">test</a></li><li class="navelem"><a class="el" href="../../d8/dbd/motion__model__test_8cpp.html">motion_model_test.cpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

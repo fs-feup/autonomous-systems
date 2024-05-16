@@ -93,6 +93,7 @@ $(document).ready(function(){initNavTree('da/da6/class_extended_kalman_filter.ht
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="../../d8/d40/class_extended_kalman_filter-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">ExtendedKalmanFilter Class Reference</div></div>
 </div><!--header-->
@@ -107,96 +108,47 @@ Collaboration diagram for ExtendedKalmanFilter:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d8/da0/class_extended_kalman_filter__coll__graph.png" border="0" usemap="#a_extended_kalman_filter_coll__map" alt="Collaboration graph"/></div>
 <map name="a_extended_kalman_filter_coll__map" id="a_extended_kalman_filter_coll__map">
-<area shape="rect" title="Extended Kalman Filter class." alt="" coords="5,5,163,291"/>
+<area shape="rect" title="Extended Kalman Filter class." alt="" coords="5,5,163,191"/>
 </map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a9826d74efe83b8c6222f4ad35375e60b" id="r_a9826d74efe83b8c6222f4ad35375e60b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#a9826d74efe83b8c6222f4ad35375e60b">ExtendedKalmanFilter</a> (const <a class="el" href="../../db/d66/class_motion_model.html">MotionModel</a> &amp;motion_model, const <a class="el" href="../../d7/d64/class_observation_model.html">ObservationModel</a> &amp;observation_model)</td></tr>
-<tr class="memdesc:a9826d74efe83b8c6222f4ad35375e60b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extended Kalman Filter constructor declaration.  <br /></td></tr>
-<tr class="separator:a9826d74efe83b8c6222f4ad35375e60b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7206b7325cc9d8266b78cb215704acdd" id="r_a7206b7325cc9d8266b78cb215704acdd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#a7206b7325cc9d8266b78cb215704acdd">ExtendedKalmanFilter</a> (const <a class="el" href="../../db/d66/class_motion_model.html">MotionModel</a> &amp;motion_model, const <a class="el" href="../../d7/d64/class_observation_model.html">ObservationModel</a> &amp;observation_model, const <a class="el" href="../../dc/de2/mission__logic_8hpp.html#af686af98019fe71e9f18190349618431">Mission</a> &amp;mission)</td></tr>
-<tr class="memdesc:a7206b7325cc9d8266b78cb215704acdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build the EKF for specific events.  <br /></td></tr>
-<tr class="separator:a7206b7325cc9d8266b78cb215704acdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae59429128f079a8a03c53360f7a9bf4f" id="r_ae59429128f079a8a03c53360f7a9bf4f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#ae59429128f079a8a03c53360f7a9bf4f">update</a> (<a class="el" href="../../de/dfe/struct_vehicle_state.html">VehicleState</a> *vehicle_state, <a class="el" href="../../dc/d59/struct_cone_map.html">ConeMap</a> *track_map)</td></tr>
-<tr class="memdesc:ae59429128f079a8a03c53360f7a9bf4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates vehicle state and map variables according to the state vector X.  <br /></td></tr>
-<tr class="separator:ae59429128f079a8a03c53360f7a9bf4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ebf7c174cf7df76e263d1a54c8bdb25" id="r_a7ebf7c174cf7df76e263d1a54c8bdb25"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#a7ebf7c174cf7df76e263d1a54c8bdb25">ExtendedKalmanFilter</a> (const <a class="el" href="../../db/d66/class_motion_model.html">MotionModel</a> &amp;motion_model, const <a class="el" href="../../d7/d64/class_observation_model.html">ObservationModel</a> &amp;observation_model, const <a class="el" href="../../d1/d14/class_data_association_model.html">DataAssociationModel</a> &amp;data_association_model)</td></tr>
+<tr class="memdesc:a7ebf7c174cf7df76e263d1a54c8bdb25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extended Kalman Filter constructor declaration.  <br /></td></tr>
+<tr class="separator:a7ebf7c174cf7df76e263d1a54c8bdb25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf5d4c31b01020285ad184c55cfcf928" id="r_acf5d4c31b01020285ad184c55cfcf928"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#acf5d4c31b01020285ad184c55cfcf928">update</a> (std::shared_ptr&lt; <a class="el" href="../../d0/d2a/structcommon__lib_1_1structures_1_1_vehicle_state.html">common_lib::structures::VehicleState</a> &gt; vehicle_state, std::shared_ptr&lt; std::vector&lt; <a class="el" href="../../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html">common_lib::structures::Cone</a> &gt; &gt; track_map)</td></tr>
+<tr class="memdesc:acf5d4c31b01020285ad184c55cfcf928"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates vehicle state and map variables according to the state vector <em>x_vector</em>  <br /></td></tr>
+<tr class="separator:acf5d4c31b01020285ad184c55cfcf928"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa5aeb5c329fffcbcb1a197de8e263427" id="r_aa5aeb5c329fffcbcb1a197de8e263427"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#aa5aeb5c329fffcbcb1a197de8e263427">prediction_step</a> (const <a class="el" href="../../db/d6d/struct_motion_update.html">MotionUpdate</a> &amp;motion_update)</td></tr>
 <tr class="memdesc:aa5aeb5c329fffcbcb1a197de8e263427"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prediction step:  <br /></td></tr>
 <tr class="separator:aa5aeb5c329fffcbcb1a197de8e263427"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a230559bb9193f7acf494ae9e889fb6f8" id="r_a230559bb9193f7acf494ae9e889fb6f8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#a230559bb9193f7acf494ae9e889fb6f8">correction_step</a> (const <a class="el" href="../../dc/d59/struct_cone_map.html">ConeMap</a> &amp;perception_map)</td></tr>
-<tr class="memdesc:a230559bb9193f7acf494ae9e889fb6f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Correction step:  <br /></td></tr>
-<tr class="separator:a230559bb9193f7acf494ae9e889fb6f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada3c7923554c8e0f35bb81ef5bb47f35" id="r_ada3c7923554c8e0f35bb81ef5bb47f35"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#ada3c7923554c8e0f35bb81ef5bb47f35">set_X_y</a> (int y, float value)</td></tr>
-<tr class="memdesc:ada3c7923554c8e0f35bb81ef5bb47f35"><td class="mdescLeft">&#160;</td><td class="mdescRight">set X at y  <br /></td></tr>
-<tr class="separator:ada3c7923554c8e0f35bb81ef5bb47f35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab0de862af1f628d7a85a4a6141a07eb" id="r_aab0de862af1f628d7a85a4a6141a07eb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#aab0de862af1f628d7a85a4a6141a07eb">set_P</a> (const int size)</td></tr>
-<tr class="memdesc:aab0de862af1f628d7a85a4a6141a07eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">set value of P to a 3x3 with 1.1 in diagonal  <br /></td></tr>
-<tr class="separator:aab0de862af1f628d7a85a4a6141a07eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a25859fdcc43a450c188586da36726e52" id="r_a25859fdcc43a450c188586da36726e52"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#a25859fdcc43a450c188586da36726e52">init_X_size</a> (const int size)</td></tr>
-<tr class="memdesc:a25859fdcc43a450c188586da36726e52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes state X with size equal to parameter size.  <br /></td></tr>
-<tr class="separator:a25859fdcc43a450c188586da36726e52"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a20242ba22cd157af7bcdc1faf3eccf0c" id="r_a20242ba22cd157af7bcdc1faf3eccf0c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#a20242ba22cd157af7bcdc1faf3eccf0c">push_to_colors</a> (<a class="el" href="../../dc/d04/namespacecolors.html#a76f863e71ce8e67d1ef1850029f93b0a">colors::Color</a> color)</td></tr>
-<tr class="memdesc:a20242ba22cd157af7bcdc1faf3eccf0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">pushes back to colors vector  <br /></td></tr>
-<tr class="separator:a20242ba22cd157af7bcdc1faf3eccf0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0677b8f535ac4b4c59c161d99b9b028b" id="r_a0677b8f535ac4b4c59c161d99b9b028b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#a0677b8f535ac4b4c59c161d99b9b028b">correction_step</a> (const std::vector&lt; <a class="el" href="../../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html">common_lib::structures::Cone</a> &gt; &amp;perception_map)</td></tr>
+<tr class="memdesc:a0677b8f535ac4b4c59c161d99b9b028b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Correction step:  <br /></td></tr>
+<tr class="separator:a0677b8f535ac4b4c59c161d99b9b028b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a588e12f311b7f5c696d1959940f0c70c" id="r_a588e12f311b7f5c696d1959940f0c70c"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXf&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#a588e12f311b7f5c696d1959940f0c70c">get_state</a> () const</td></tr>
 <tr class="memdesc:a588e12f311b7f5c696d1959940f0c70c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the state vector.  <br /></td></tr>
 <tr class="separator:a588e12f311b7f5c696d1959940f0c70c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a131c93e908354173fd6868235d63fc9c" id="r_a131c93e908354173fd6868235d63fc9c"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXf&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#a131c93e908354173fd6868235d63fc9c">get_covariance</a> () const</td></tr>
 <tr class="memdesc:a131c93e908354173fd6868235d63fc9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the state covariance matrix.  <br /></td></tr>
 <tr class="separator:a131c93e908354173fd6868235d63fc9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac268c50848bb01fcdb6a0156280564a4" id="r_ac268c50848bb01fcdb6a0156280564a4"><td class="memItemLeft" align="right" valign="top">std::chrono::time_point&lt; std::chrono::high_resolution_clock &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#ac268c50848bb01fcdb6a0156280564a4">get_last_update</a> () const</td></tr>
-<tr class="memdesc:ac268c50848bb01fcdb6a0156280564a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the last update timestamp.  <br /></td></tr>
-<tr class="separator:ac268c50848bb01fcdb6a0156280564a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a7a39bf3463c3d2dad7c71319a98a8a" id="r_a5a7a39bf3463c3d2dad7c71319a98a8a"><td class="memItemLeft" align="right" valign="top">rclcpp::Time&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#a5a7a39bf3463c3d2dad7c71319a98a8a">get_last_update</a> () const</td></tr>
+<tr class="memdesc:a5a7a39bf3463c3d2dad7c71319a98a8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the last update timestamp.  <br /></td></tr>
+<tr class="separator:a5a7a39bf3463c3d2dad7c71319a98a8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:ae0e771f9638af561129027caf0500917" id="r_ae0e771f9638af561129027caf0500917"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#ae0e771f9638af561129027caf0500917">PerformanceTest</a></td></tr>
+<tr class="separator:ae0e771f9638af561129027caf0500917"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Extended Kalman Filter class. </p>
 <p>The Extended Kalman Filter (EKF) is a recursive state estimator for nonlinear systems. It is a nonlinear version of the Kalman Filter (KF). This implementation is used to perform state estimation for the localization of the vehicle and the map. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00023">23</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00027">27</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a9826d74efe83b8c6222f4ad35375e60b" name="a9826d74efe83b8c6222f4ad35375e60b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9826d74efe83b8c6222f4ad35375e60b">&#9670;&#160;</a></span>ExtendedKalmanFilter() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">ExtendedKalmanFilter::ExtendedKalmanFilter </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../db/d66/class_motion_model.html">MotionModel</a> &amp;&#160;</td>
-          <td class="paramname"><em>motion_model</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d7/d64/class_observation_model.html">ObservationModel</a> &amp;&#160;</td>
-          <td class="paramname"><em>observation_model</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Extended Kalman Filter constructor declaration. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">motion_model</td><td>motion model chosen for prediction step </td></tr>
-    <tr><td class="paramname">observation_model</td><td>observation model chosen for correction step </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="../../dd/d7a/ekf_8cpp_source.html#l00049">49</a> of file <a class="el" href="../../dd/d7a/ekf_8cpp_source.html">ekf.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a7206b7325cc9d8266b78cb215704acdd" name="a7206b7325cc9d8266b78cb215704acdd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7206b7325cc9d8266b78cb215704acdd">&#9670;&#160;</a></span>ExtendedKalmanFilter() <span class="overload">[2/2]</span></h2>
+<a id="a7ebf7c174cf7df76e263d1a54c8bdb25" name="a7ebf7c174cf7df76e263d1a54c8bdb25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ebf7c174cf7df76e263d1a54c8bdb25">&#9670;&#160;</a></span>ExtendedKalmanFilter()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -216,8 +168,8 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="../../dc/de2/mission__logic_8hpp.html#af686af98019fe71e9f18190349618431">Mission</a> &amp;&#160;</td>
-          <td class="paramname"><em>mission</em>&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../d1/d14/class_data_association_model.html">DataAssociationModel</a> &amp;&#160;</td>
+          <td class="paramname"><em>data_association_model</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -227,21 +179,22 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Build the EKF for specific events. </p>
+<p>Extended Kalman Filter constructor declaration. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">motion_model</td><td>motion model chosen for prediction step </td></tr>
     <tr><td class="paramname">observation_model</td><td>observation model chosen for correction step </td></tr>
-    <tr><td class="paramname">mission</td><td>mission chosen </td></tr>
   </table>
   </dd>
 </dl>
 
+<p class="definition">Definition at line <a class="el" href="../../dd/d7a/ekf_8cpp_source.html#l00015">15</a> of file <a class="el" href="../../dd/d7a/ekf_8cpp_source.html">ekf.cpp</a>.</p>
+
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a230559bb9193f7acf494ae9e889fb6f8" name="a230559bb9193f7acf494ae9e889fb6f8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a230559bb9193f7acf494ae9e889fb6f8">&#9670;&#160;</a></span>correction_step()</h2>
+<a id="a0677b8f535ac4b4c59c161d99b9b028b" name="a0677b8f535ac4b4c59c161d99b9b028b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0677b8f535ac4b4c59c161d99b9b028b">&#9670;&#160;</a></span>correction_step()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -249,7 +202,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void ExtendedKalmanFilter::correction_step </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../dc/d59/struct_cone_map.html">ConeMap</a> &amp;&#160;</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="../../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html">common_lib::structures::Cone</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>perception_map</em></td><td>)</td>
           <td></td>
         </tr>
@@ -269,37 +222,25 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d7a/ekf_8cpp_source.html#l00079">79</a> of file <a class="el" href="../../dd/d7a/ekf_8cpp_source.html">ekf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d7a/ekf_8cpp_source.html#l00045">45</a> of file <a class="el" href="../../dd/d7a/ekf_8cpp_source.html">ekf.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../da/da6/class_extended_kalman_filter_a230559bb9193f7acf494ae9e889fb6f8_cgraph.png" border="0" usemap="#ada/da6/class_extended_kalman_filter_a230559bb9193f7acf494ae9e889fb6f8_cgraph" alt=""/></div>
-<map name="ada/da6/class_extended_kalman_filter_a230559bb9193f7acf494ae9e889fb6f8_cgraph" id="ada/da6/class_extended_kalman_filter_a230559bb9193f7acf494ae9e889fb6f8_cgraph">
-<area shape="rect" title="Correction step:" alt="" coords="5,93,153,134"/>
-<area shape="rect" href="../../d7/d64/class_observation_model.html#a97a9e71e7cee696be91a569eb65b9df9" title="Get the observation noise covariance matrix (C or H)" alt="" coords="201,5,404,61"/>
-<area shape="poly" title=" " alt="" coords="137,90,207,64,209,69,139,95"/>
-<area shape="rect" href="../../d7/d64/class_observation_model.html#aa789708c6a934ba1edfc8386b1f38d4f" title="Get the state to observation matrix of the observation model (H)" alt="" coords="227,85,378,141"/>
-<area shape="poly" title=" " alt="" coords="153,111,211,111,211,116,153,116"/>
-<area shape="rect" href="../../d7/d64/class_observation_model.html#a0f8d3fc26c59869171ad60d08322d1d7" title="Calculate expected observation from the state vector." alt="" coords="203,165,402,206"/>
-<area shape="poly" title=" " alt="" coords="144,132,201,151,222,157,220,162,200,156,142,137"/>
-</map>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../da/da6/class_extended_kalman_filter_a230559bb9193f7acf494ae9e889fb6f8_icgraph.png" border="0" usemap="#ada/da6/class_extended_kalman_filter_a230559bb9193f7acf494ae9e889fb6f8_icgraph" alt=""/></div>
-<map name="ada/da6/class_extended_kalman_filter_a230559bb9193f7acf494ae9e889fb6f8_icgraph" id="ada/da6/class_extended_kalman_filter_a230559bb9193f7acf494ae9e889fb6f8_icgraph">
-<area shape="rect" title="Correction step:" alt="" coords="406,63,553,103"/>
-<area shape="rect" href="../../dd/db3/class_l_m_node.html#ab7d786f4a04bdd59ce770cffb2872551" title="executes the prediction step of the EKF" alt="" coords="214,13,349,39"/>
-<area shape="poly" title=" " alt="" coords="392,60,328,42,329,37,394,55"/>
-<area shape="rect" href="../../dd/db3/class_l_m_node.html#a50dea5d57d22503eca329e8ce5064d47" title="Callback that updates everytime information is received from the perception module." alt="" coords="205,63,358,103"/>
-<area shape="poly" title=" " alt="" coords="390,86,358,86,358,80,390,80"/>
-<area shape="rect" href="../../d3/dc5/slam__test_8cpp.html#aa751639fa208fe991a3ba5969c0daa28" title="Test the EKF SLAM algorithm in a linear movement." alt="" coords="254,128,309,153"/>
-<area shape="poly" title=" " alt="" coords="393,111,309,135,308,130,392,106"/>
-<area shape="rect" href="../../dd/db3/class_l_m_node.html#a8c430d2c36500207447268a8d02e0f2f" title="Executes:" alt="" coords="5,5,157,46"/>
-<area shape="poly" title=" " alt="" coords="198,28,157,28,157,23,198,23"/>
-<area shape="rect" href="../../dd/db3/class_l_m_node.html#aea4573760aba34091b51cc9af85c4ed5" title="LMNode constructor declaration." alt="" coords="17,70,145,96"/>
-<area shape="poly" title=" " alt="" coords="189,86,145,86,145,80,189,80"/>
+<div class="center"><img src="../../da/da6/class_extended_kalman_filter_a0677b8f535ac4b4c59c161d99b9b028b_cgraph.png" border="0" usemap="#ada/da6/class_extended_kalman_filter_a0677b8f535ac4b4c59c161d99b9b028b_cgraph" alt=""/></div>
+<map name="ada/da6/class_extended_kalman_filter_a0677b8f535ac4b4c59c161d99b9b028b_cgraph" id="ada/da6/class_extended_kalman_filter_a0677b8f535ac4b4c59c161d99b9b028b_cgraph">
+<area shape="rect" title="Correction step:" alt="" coords="5,193,153,234"/>
+<area shape="rect" href="../../d2/d32/namespacecommon__lib_1_1maths.html#ad0d064c1af2031dc0a6bd45d4ca0981d" title=" " alt="" coords="215,5,390,46"/>
+<area shape="poly" title=" " alt="" coords="89,191,131,125,162,88,199,56,206,51,208,56,202,60,166,91,135,128,93,194"/>
+<area shape="rect" href="../../d7/d64/class_observation_model.html#a97a9e71e7cee696be91a569eb65b9df9" title="Get the observation noise covariance matrix (C or H)" alt="" coords="201,70,404,126"/>
+<area shape="poly" title=" " alt="" coords="109,190,151,163,199,135,210,130,213,135,202,140,154,168,112,195"/>
+<area shape="rect" href="../../d7/d64/class_observation_model.html#aa789708c6a934ba1edfc8386b1f38d4f" title="Get the state to observation matrix of the observation model (H)" alt="" coords="227,150,378,206"/>
+<area shape="poly" title=" " alt="" coords="153,199,212,190,212,195,154,204"/>
+<area shape="rect" href="../../d7/d64/class_observation_model.html#a1e57d72d1b32a2260c9dfc8d25bd802d" title="Calculate landmark position from observation." alt="" coords="215,229,390,270"/>
+<area shape="poly" title=" " alt="" coords="154,223,200,231,199,236,153,228"/>
+<area shape="rect" href="../../d1/d14/class_data_association_model.html#a9f97ec9ae611784e4e317cc69b15e703" title="Match the observed landmark to a landmark in the map." alt="" coords="227,295,378,335"/>
+<area shape="poly" title=" " alt="" coords="114,232,202,279,219,286,217,291,200,284,112,237"/>
+<area shape="rect" href="../../d7/d64/class_observation_model.html#a0f8d3fc26c59869171ad60d08322d1d7" title="Calculate expected observation from the state vector." alt="" coords="203,360,402,401"/>
+<area shape="poly" title=" " alt="" coords="96,233,139,288,169,319,202,345,212,351,209,355,199,349,165,323,135,292,92,236"/>
 </map>
 </div>
 
@@ -331,12 +272,12 @@ Here is the caller graph for this function:</div>
 <p>Get the state covariance matrix. </p>
 <dl class="section return"><dt>Returns</dt><dd>Eigen::MatrixXf covariance matrix </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00164">164</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00103">103</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ac268c50848bb01fcdb6a0156280564a4" name="ac268c50848bb01fcdb6a0156280564a4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac268c50848bb01fcdb6a0156280564a4">&#9670;&#160;</a></span>get_last_update()</h2>
+<a id="a5a7a39bf3463c3d2dad7c71319a98a8a" name="a5a7a39bf3463c3d2dad7c71319a98a8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a7a39bf3463c3d2dad7c71319a98a8a">&#9670;&#160;</a></span>get_last_update()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -345,7 +286,7 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::chrono::time_point&lt; std::chrono::high_resolution_clock &gt; ExtendedKalmanFilter::get_last_update </td>
+          <td class="memname">rclcpp::Time ExtendedKalmanFilter::get_last_update </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -359,19 +300,9 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Get the last update timestamp. </p>
-<dl class="section return"><dt>Returns</dt><dd>std::chrono::time_point&lt;std::chrono::high_resolution_clock&gt; timestamp </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>rclcpp::Time timestamp </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00172">172</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../da/da6/class_extended_kalman_filter_ac268c50848bb01fcdb6a0156280564a4_icgraph.png" border="0" usemap="#ada/da6/class_extended_kalman_filter_ac268c50848bb01fcdb6a0156280564a4_icgraph" alt=""/></div>
-<map name="ada/da6/class_extended_kalman_filter_ac268c50848bb01fcdb6a0156280564a4_icgraph" id="ada/da6/class_extended_kalman_filter_ac268c50848bb01fcdb6a0156280564a4_icgraph">
-<area shape="rect" title="Get the last update timestamp." alt="" coords="108,5,255,46"/>
-<area shape="rect" href="../../d3/dc5/slam__test_8cpp.html#aa751639fa208fe991a3ba5969c0daa28" title="Test the EKF SLAM algorithm in a linear movement." alt="" coords="5,13,60,39"/>
-<area shape="poly" title=" " alt="" coords="92,28,60,28,60,23,92,23"/>
-</map>
-</div>
+<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00111">111</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
 
 </div>
 </div>
@@ -401,29 +332,7 @@ Here is the caller graph for this function:</div>
 <p>Get the state vector. </p>
 <dl class="section return"><dt>Returns</dt><dd>Eigen::VectorXf state vector </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00157">157</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a25859fdcc43a450c188586da36726e52" name="a25859fdcc43a450c188586da36726e52"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a25859fdcc43a450c188586da36726e52">&#9670;&#160;</a></span>init_X_size()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ExtendedKalmanFilter::init_X_size </td>
-          <td>(</td>
-          <td class="paramtype">const int&#160;</td>
-          <td class="paramname"><em>size</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Initializes state X with size equal to parameter size. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../dd/d7a/ekf_8cpp_source.html#l00045">45</a> of file <a class="el" href="../../dd/d7a/ekf_8cpp_source.html">ekf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00096">96</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
 
 </div>
 </div>
@@ -455,7 +364,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d7a/ekf_8cpp_source.html#l00061">61</a> of file <a class="el" href="../../dd/d7a/ekf_8cpp_source.html">ekf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d7a/ekf_8cpp_source.html#l00025">25</a> of file <a class="el" href="../../dd/d7a/ekf_8cpp_source.html">ekf.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -470,136 +379,11 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="147,109,206,128,205,133,145,114"/>
 </map>
 </div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../da/da6/class_extended_kalman_filter_aa5aeb5c329fffcbcb1a197de8e263427_icgraph.png" border="0" usemap="#ada/da6/class_extended_kalman_filter_aa5aeb5c329fffcbcb1a197de8e263427_icgraph" alt=""/></div>
-<map name="ada/da6/class_extended_kalman_filter_aa5aeb5c329fffcbcb1a197de8e263427_icgraph" id="ada/da6/class_extended_kalman_filter_aa5aeb5c329fffcbcb1a197de8e263427_icgraph">
-<area shape="rect" title="Prediction step:" alt="" coords="420,63,567,103"/>
-<area shape="rect" href="../../dd/db3/class_l_m_node.html#ab7d786f4a04bdd59ce770cffb2872551" title="executes the prediction step of the EKF" alt="" coords="221,13,356,39"/>
-<area shape="poly" title=" " alt="" coords="405,61,336,42,338,37,406,56"/>
-<area shape="rect" href="../../dd/db3/class_l_m_node.html#a714e7a6776e47cbd6ae4f14ef9513195" title="Function to be called everytime information is received from the wheel encoders." alt="" coords="205,63,372,103"/>
-<area shape="poly" title=" " alt="" coords="404,86,372,86,372,80,404,80"/>
-<area shape="rect" href="../../d3/dc5/slam__test_8cpp.html#aa751639fa208fe991a3ba5969c0daa28" title="Test the EKF SLAM algorithm in a linear movement." alt="" coords="261,128,316,153"/>
-<area shape="poly" title=" " alt="" coords="406,110,317,135,315,130,404,105"/>
-<area shape="rect" href="../../dd/db3/class_l_m_node.html#a8c430d2c36500207447268a8d02e0f2f" title="Executes:" alt="" coords="5,5,157,46"/>
-<area shape="poly" title=" " alt="" coords="206,28,157,28,157,23,206,23"/>
-</map>
-</div>
 
 </div>
 </div>
-<a id="a20242ba22cd157af7bcdc1faf3eccf0c" name="a20242ba22cd157af7bcdc1faf3eccf0c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a20242ba22cd157af7bcdc1faf3eccf0c">&#9670;&#160;</a></span>push_to_colors()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ExtendedKalmanFilter::push_to_colors </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../dc/d04/namespacecolors.html#a76f863e71ce8e67d1ef1850029f93b0a">colors::Color</a>&#160;</td>
-          <td class="paramname"><em>color</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>pushes back to colors vector </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">color</td><td>color to be pushed back </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="../../dd/d7a/ekf_8cpp_source.html#l00042">42</a> of file <a class="el" href="../../dd/d7a/ekf_8cpp_source.html">ekf.cpp</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../da/da6/class_extended_kalman_filter_a20242ba22cd157af7bcdc1faf3eccf0c_icgraph.png" border="0" usemap="#ada/da6/class_extended_kalman_filter_a20242ba22cd157af7bcdc1faf3eccf0c_icgraph" alt=""/></div>
-<map name="ada/da6/class_extended_kalman_filter_a20242ba22cd157af7bcdc1faf3eccf0c_icgraph" id="ada/da6/class_extended_kalman_filter_a20242ba22cd157af7bcdc1faf3eccf0c_icgraph">
-<area shape="rect" title="pushes back to colors vector" alt="" coords="192,5,339,46"/>
-<area shape="rect" href="../../df/d59/class_exec_time_test.html#aef9a0519a961859592fbbf1691194662" title=" " alt="" coords="5,13,144,39"/>
-<area shape="poly" title=" " alt="" coords="176,28,144,28,144,23,176,23"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="aab0de862af1f628d7a85a4a6141a07eb" name="aab0de862af1f628d7a85a4a6141a07eb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aab0de862af1f628d7a85a4a6141a07eb">&#9670;&#160;</a></span>set_P()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ExtendedKalmanFilter::set_P </td>
-          <td>(</td>
-          <td class="paramtype">const int&#160;</td>
-          <td class="paramname"><em>size</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>set value of P to a 3x3 with 1.1 in diagonal </p>
-
-<p class="definition">Definition at line <a class="el" href="../../dd/d7a/ekf_8cpp_source.html#l00034">34</a> of file <a class="el" href="../../dd/d7a/ekf_8cpp_source.html">ekf.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ada3c7923554c8e0f35bb81ef5bb47f35" name="ada3c7923554c8e0f35bb81ef5bb47f35"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ada3c7923554c8e0f35bb81ef5bb47f35">&#9670;&#160;</a></span>set_X_y()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ExtendedKalmanFilter::set_X_y </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>y</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>set X at y </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">y</td><td>index of X </td></tr>
-    <tr><td class="paramname">value</td><td>value of X at y </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="../../dd/d7a/ekf_8cpp_source.html#l00031">31</a> of file <a class="el" href="../../dd/d7a/ekf_8cpp_source.html">ekf.cpp</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../da/da6/class_extended_kalman_filter_ada3c7923554c8e0f35bb81ef5bb47f35_icgraph.png" border="0" usemap="#ada/da6/class_extended_kalman_filter_ada3c7923554c8e0f35bb81ef5bb47f35_icgraph" alt=""/></div>
-<map name="ada/da6/class_extended_kalman_filter_ada3c7923554c8e0f35bb81ef5bb47f35_icgraph" id="ada/da6/class_extended_kalman_filter_ada3c7923554c8e0f35bb81ef5bb47f35_icgraph">
-<area shape="rect" title="set X at y" alt="" coords="192,5,339,46"/>
-<area shape="rect" href="../../df/d59/class_exec_time_test.html#aef9a0519a961859592fbbf1691194662" title=" " alt="" coords="5,13,144,39"/>
-<area shape="poly" title=" " alt="" coords="176,28,144,28,144,23,176,23"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="ae59429128f079a8a03c53360f7a9bf4f" name="ae59429128f079a8a03c53360f7a9bf4f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae59429128f079a8a03c53360f7a9bf4f">&#9670;&#160;</a></span>update()</h2>
+<a id="acf5d4c31b01020285ad184c55cfcf928" name="acf5d4c31b01020285ad184c55cfcf928"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf5d4c31b01020285ad184c55cfcf928">&#9670;&#160;</a></span>update()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -607,13 +391,13 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">void ExtendedKalmanFilter::update </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../de/dfe/struct_vehicle_state.html">VehicleState</a> *&#160;</td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="../../d0/d2a/structcommon__lib_1_1structures_1_1_vehicle_state.html">common_lib::structures::VehicleState</a> &gt;&#160;</td>
           <td class="paramname"><em>vehicle_state</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../dc/d59/struct_cone_map.html">ConeMap</a> *&#160;</td>
+          <td class="paramtype">std::shared_ptr&lt; std::vector&lt; <a class="el" href="../../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html">common_lib::structures::Cone</a> &gt; &gt;&#160;</td>
           <td class="paramname"><em>track_map</em>&#160;</td>
         </tr>
         <tr>
@@ -624,7 +408,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Updates vehicle state and map variables according to the state vector X. </p>
+<p>Updates vehicle state and map variables according to the state vector <em>x_vector</em> </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">vehicle_state</td><td>pose </td></tr>
@@ -633,33 +417,38 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d7a/ekf_8cpp_source.html#l00165">165</a> of file <a class="el" href="../../dd/d7a/ekf_8cpp_source.html">ekf.cpp</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../da/da6/class_extended_kalman_filter_ae59429128f079a8a03c53360f7a9bf4f_icgraph.png" border="0" usemap="#ada/da6/class_extended_kalman_filter_ae59429128f079a8a03c53360f7a9bf4f_icgraph" alt=""/></div>
-<map name="ada/da6/class_extended_kalman_filter_ae59429128f079a8a03c53360f7a9bf4f_icgraph" id="ada/da6/class_extended_kalman_filter_ae59429128f079a8a03c53360f7a9bf4f_icgraph">
-<area shape="rect" title="Updates vehicle state and map variables according to the state vector X." alt="" coords="420,96,567,137"/>
-<area shape="rect" href="../../dd/db3/class_l_m_node.html#ab7d786f4a04bdd59ce770cffb2872551" title="executes the prediction step of the EKF" alt="" coords="221,13,356,39"/>
-<area shape="poly" title=" " alt="" coords="444,90,371,53,338,42,340,37,373,49,447,86"/>
-<area shape="rect" href="../../dd/db3/class_l_m_node.html#a50dea5d57d22503eca329e8ce5064d47" title="Callback that updates everytime information is received from the perception module." alt="" coords="212,63,365,103"/>
-<area shape="poly" title=" " alt="" coords="404,105,365,98,366,93,405,99"/>
-<area shape="rect" href="../../dd/db3/class_l_m_node.html#a714e7a6776e47cbd6ae4f14ef9513195" title="Function to be called everytime information is received from the wheel encoders." alt="" coords="205,128,372,169"/>
-<area shape="poly" title=" " alt="" coords="405,133,373,138,372,133,404,128"/>
-<area shape="rect" href="../../d3/dc5/slam__test_8cpp.html#aa751639fa208fe991a3ba5969c0daa28" title="Test the EKF SLAM algorithm in a linear movement." alt="" coords="261,193,316,219"/>
-<area shape="poly" title=" " alt="" coords="446,147,373,183,317,201,315,196,371,178,443,142"/>
-<area shape="rect" href="../../dd/db3/class_l_m_node.html#a8c430d2c36500207447268a8d02e0f2f" title="Executes:" alt="" coords="5,5,157,46"/>
-<area shape="poly" title=" " alt="" coords="206,28,157,28,157,23,206,23"/>
-<area shape="rect" href="../../dd/db3/class_l_m_node.html#aea4573760aba34091b51cc9af85c4ed5" title="LMNode constructor declaration." alt="" coords="17,70,145,96"/>
-<area shape="poly" title=" " alt="" coords="196,86,145,86,145,80,196,80"/>
-</map>
+<p class="definition">Definition at line <a class="el" href="../../dd/d7a/ekf_8cpp_source.html#l00103">103</a> of file <a class="el" href="../../dd/d7a/ekf_8cpp_source.html">ekf.cpp</a>.</p>
+
 </div>
+</div>
+<h2 class="groupheader">Friends And Related Symbol Documentation</h2>
+<a id="ae0e771f9638af561129027caf0500917" name="ae0e771f9638af561129027caf0500917"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0e771f9638af561129027caf0500917">&#9670;&#160;</a></span>PerformanceTest</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="../../df/d4f/class_performance_test.html">PerformanceTest</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00113">113</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>src/loc_map/include/kalman_filter/<a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a></li>
-<li>src/loc_map/src/kalman_filter/<a class="el" href="../../dd/d7a/ekf_8cpp_source.html">ekf.cpp</a></li>
+<li>src/ekf_state_est/include/kalman_filter/<a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a></li>
+<li>src/ekf_state_est/src/kalman_filter/<a class="el" href="../../dd/d7a/ekf_8cpp_source.html">ekf.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

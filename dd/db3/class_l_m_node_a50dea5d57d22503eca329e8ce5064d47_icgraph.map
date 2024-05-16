@@ -1,5 +1,0 @@
-<map id="LMNode::_perception_subscription_callback" name="LMNode::_perception_subscription_callback">
-<area shape="rect" id="Node000001" title="Callback that updates everytime information is received from the perception module." alt="" coords="181,5,334,46"/>
-<area shape="rect" id="Node000002" href="$dd/db3/class_l_m_node.html#aea4573760aba34091b51cc9af85c4ed5" title="LMNode constructor declaration." alt="" coords="5,13,133,39"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="165,28,133,28,133,23,165,23"/>
-</map>

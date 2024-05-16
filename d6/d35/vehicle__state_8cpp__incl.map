@@ -1,0 +1,11 @@
+<map id="src/common_lib/src/structures/vehicle_state.cpp" name="src/common_lib/src/structures/vehicle_state.cpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="26,5,161,61"/>
+<area shape="rect" id="Node000002" href="$df/d53/vehicle__state_8hpp.html" title=" " alt="" coords="17,109,170,150"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="96,62,96,94,91,94,91,62"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,205,57,231"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="82,152,51,194,46,191,77,149"/>
+<area shape="rect" id="Node000004" href="$de/d59/pose_8hpp.html" title=" " alt="" coords="81,198,234,238"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="110,149,136,184,132,187,106,152"/>
+<area shape="rect" id="Node000005" href="$d5/d91/position_8hpp.html" title=" " alt="" coords="81,286,234,327"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="160,239,160,271,155,271,155,239"/>
+</map>

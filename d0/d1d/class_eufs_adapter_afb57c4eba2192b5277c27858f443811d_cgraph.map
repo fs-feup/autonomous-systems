@@ -1,9 +1,0 @@
-<map id="EufsAdapter::init" name="EufsAdapter::init">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,78,121,104"/>
-<area shape="rect" id="Node000002" href="$d3/d7f/class_adapter.html#a40ae0680bfe11fe116802d2a139b93f1" title="Function that parses the message sent from the ros IMU topic and calls the respective node&#39;s function..." alt="" coords="169,5,339,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="102,75,177,49,179,54,104,80"/>
-<area shape="rect" id="Node000003" href="$d0/d1d/class_eufs_adapter.html#a9fec42bb75cef0264ee6f4a3a99000fe" title=" " alt="" coords="182,71,326,111"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="121,88,167,88,167,94,121,94"/>
-<area shape="rect" id="Node000004" href="$d0/d1d/class_eufs_adapter.html#a75248c6f3f4918715cbeb04f3474390e" title=" " alt="" coords="180,135,328,191"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="100,102,167,127,165,132,98,107"/>
-</map>

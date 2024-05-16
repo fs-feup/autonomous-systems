@@ -94,20 +94,20 @@ $(document).ready(function(){initNavTree('dc/d23/md_src_2inspection_2_r_e_a_d_m_
   <div class="headertitle"><div class="title">Inspection package</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md9"></a> This package is responsible for running two scripts used for testing the car. One of them performs the autonomous mission described in the rules: "T14.11.2 The inspection mission is defined by slowly spinning the drivetrain and actuating the steering system with a sine wave while the vehicle is jacked up and all wheels are removed. After 25 s to 30 s the AS must transition to 'AS Finished'". The other script is an implementation of the EBS test described in the rules. The parameters to be used when running this node can be configured by changing the config.txt file.</p>
-<h1><a class="anchor" id="autotoc_md10"></a>
+<div class="textblock"><p><a class="anchor" id="autotoc_md19"></a> This package is responsible for running two scripts used for testing the car. One of them performs the autonomous mission described in the rules: "T14.11.2 The inspection mission is defined by slowly spinning the drivetrain and actuating the steering system with a sine wave while the vehicle is jacked up and all wheels are removed. After 25 s to 30 s the AS must transition to 'AS Finished'". The other script is an implementation of the EBS test described in the rules. The parameters to be used when running this node can be configured by changing the config.txt file.</p>
+<h1><a class="anchor" id="autotoc_md20"></a>
 Compiling</h1>
 <p>From src folder: </p><div class="fragment"><div class="line">colcon build --packages-select inspection fs_msgs custom_interfaces</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md11"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md21"></a>
 Testing</h1>
 <p>From src folder: </p><div class="fragment"><div class="line">colcon test --packages-select inspection # use event-handler=console_direct+ for imediate output</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md12"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md22"></a>
 Running the node</h1>
 <div class="fragment"><div class="line">ros2 run inspection inspection</div>
-</div><!-- fragment --> <h1><a class="anchor" id="autotoc_md13"></a>
+</div><!-- fragment --> <h1><a class="anchor" id="autotoc_md23"></a>
 Design</h1>
 <p>The package has two classes, one of them being a ROS2 node, and responsible for all the ROS2 communication. The other class has all the functions and variables related to the package's roles. <img src="../../../../docs/assets/Inspection/inspection.drawio.svg" alt="Inspection Diagram Part 3" style="pointer-events: none;" class="inline"/> </p>
-<h1><a class="anchor" id="autotoc_md14"></a>
+<h1><a class="anchor" id="autotoc_md24"></a>
 Main External Libraries</h1>
 <ul>
 <li><a href="https://docs.ros.org/en/foxy/index.html">ROS2</a></li>

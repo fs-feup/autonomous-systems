@@ -1,0 +1,7 @@
+<map id="TEST" name="TEST">
+<area shape="rect" id="Node000001" title="Test case for when a landmarks is not in the state yet." alt="" coords="5,13,60,39"/>
+<area shape="rect" id="Node000002" href="$d5/dc2/class_simple_maximum_likelihood.html#abcfa1880931aeddcdb4608c2eca413a6" title="Limit for 0 meters." alt="" coords="108,5,284,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,23,92,23,92,28,60,28"/>
+<area shape="rect" id="Node000003" href="$d1/d14/class_data_association_model.html#ae17040b15f7eb1e6b46061c94b07d2b9" title=" " alt="" coords="332,5,524,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="285,23,317,23,317,28,285,28"/>
+</map>

@@ -107,11 +107,11 @@ Inheritance diagram for MotionModel:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../de/de6/class_motion_model__inherit__graph.png" border="0" usemap="#a_motion_model_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_motion_model_inherit__map" id="a_motion_model_inherit__map">
-<area shape="rect" title="Abstract Moiton Model class designed to be implemented by the different motion models." alt="" coords="81,5,284,160"/>
-<area shape="rect" href="../../d2/d58/class_imu_velocity_model.html" title="Motion estimation that uses the specific values of the x and y axis accelerations,..." alt="" coords="5,208,171,328"/>
-<area shape="poly" title=" " alt="" coords="139,174,121,209,116,207,134,172"/>
-<area shape="rect" href="../../d7/df9/class_normal_velocity_model.html" title="Motion estimation that uses the module of the velocity and the rotational velocity." alt="" coords="195,208,360,328"/>
-<area shape="poly" title=" " alt="" coords="231,172,249,207,245,209,227,174"/>
+<area shape="rect" title="Abstract Moiton Model class designed to be implemented by the different motion models." alt="" coords="81,5,284,180"/>
+<area shape="rect" href="../../d2/d58/class_imu_velocity_model.html" title="Motion estimation that uses the specific values of the x and y axis accelerations,..." alt="" coords="5,228,171,348"/>
+<area shape="poly" title=" " alt="" coords="136,194,119,230,114,227,132,192"/>
+<area shape="rect" href="../../d7/df9/class_normal_velocity_model.html" title="Motion estimation that uses the module of the velocity and the rotational velocity." alt="" coords="195,228,360,348"/>
+<area shape="poly" title=" " alt="" coords="234,192,251,227,246,230,229,194"/>
 </map>
 </div>
 <div class="dynheader">
@@ -119,7 +119,7 @@ Collaboration diagram for MotionModel:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d8/d84/class_motion_model__coll__graph.png" border="0" usemap="#a_motion_model_coll__map" alt="Collaboration graph"/></div>
 <map name="a_motion_model_coll__map" id="a_motion_model_coll__map">
-<area shape="rect" title="Abstract Moiton Model class designed to be implemented by the different motion models." alt="" coords="5,5,208,160"/>
+<area shape="rect" title="Abstract Moiton Model class designed to be implemented by the different motion models." alt="" coords="5,5,208,180"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -137,11 +137,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a76de9b7caf93cd717bf388aff40ab589" id="r_a76de9b7caf93cd717bf388aff40ab589"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXf&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d66/class_motion_model.html#a76de9b7caf93cd717bf388aff40ab589">get_process_noise_covariance_matrix</a> (const unsigned int state_size) const</td></tr>
 <tr class="memdesc:a76de9b7caf93cd717bf388aff40ab589"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the process noise covariance matrix object.  <br /></td></tr>
 <tr class="separator:a76de9b7caf93cd717bf388aff40ab589"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab314640598611a9f7f56769cc020b753" id="r_ab314640598611a9f7f56769cc020b753"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d66/class_motion_model.html#ab314640598611a9f7f56769cc020b753">~MotionModel</a> ()=default</td></tr>
+<tr class="separator:ab314640598611a9f7f56769cc020b753"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Abstract Moiton Model class designed to be implemented by the different motion models. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/dc4/motion__models_8hpp_source.html#l00013">13</a> of file <a class="el" href="../../df/dc4/motion__models_8hpp_source.html">motion_models.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/dc4/motion__models_8hpp_source.html#l00034">34</a> of file <a class="el" href="../../df/dc4/motion__models_8hpp_source.html">motion_models.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a34ba593d7188fb1052dd992ce9741ad1" name="a34ba593d7188fb1052dd992ce9741ad1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a34ba593d7188fb1052dd992ce9741ad1">&#9670;&#160;</a></span>MotionModel()</h2>
@@ -175,7 +177,32 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d56/motion__models_8cpp_source.html#l00007">7</a> of file <a class="el" href="../../d1/d56/motion__models_8cpp_source.html">motion_models.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d56/motion__models_8cpp_source.html#l00005">5</a> of file <a class="el" href="../../d1/d56/motion__models_8cpp_source.html">motion_models.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ab314640598611a9f7f56769cc020b753" name="ab314640598611a9f7f56769cc020b753"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab314640598611a9f7f56769cc020b753">&#9670;&#160;</a></span>~MotionModel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual MotionModel::~MotionModel </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -237,17 +264,9 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../db/d66/class_motion_model_aad4c79b92acd351e94e7b847b61f965b_icgraph.png" border="0" usemap="#adb/d66/class_motion_model_aad4c79b92acd351e94e7b847b61f965b_icgraph" alt=""/></div>
 <map name="adb/d66/class_motion_model_aad4c79b92acd351e94e7b847b61f965b_icgraph" id="adb/d66/class_motion_model_aad4c79b92acd351e94e7b847b61f965b_icgraph">
-<area shape="rect" title="Calculate state covariance matrix from motion estimation." alt="" coords="615,63,781,103"/>
-<area shape="rect" href="../../da/da6/class_extended_kalman_filter.html#aa5aeb5c329fffcbcb1a197de8e263427" title="Prediction step:" alt="" coords="420,63,567,103"/>
-<area shape="poly" title=" " alt="" coords="600,86,568,86,568,80,600,80"/>
-<area shape="rect" href="../../dd/db3/class_l_m_node.html#ab7d786f4a04bdd59ce770cffb2872551" title="executes the prediction step of the EKF" alt="" coords="221,13,356,39"/>
-<area shape="poly" title=" " alt="" coords="405,61,336,42,338,37,406,56"/>
-<area shape="rect" href="../../dd/db3/class_l_m_node.html#a714e7a6776e47cbd6ae4f14ef9513195" title="Function to be called everytime information is received from the wheel encoders." alt="" coords="205,63,372,103"/>
-<area shape="poly" title=" " alt="" coords="404,86,372,86,372,80,404,80"/>
-<area shape="rect" href="../../d3/dc5/slam__test_8cpp.html#aa751639fa208fe991a3ba5969c0daa28" title="Test the EKF SLAM algorithm in a linear movement." alt="" coords="261,128,316,153"/>
-<area shape="poly" title=" " alt="" coords="406,110,317,135,315,130,404,105"/>
-<area shape="rect" href="../../dd/db3/class_l_m_node.html#a8c430d2c36500207447268a8d02e0f2f" title="Executes:" alt="" coords="5,5,157,46"/>
-<area shape="poly" title=" " alt="" coords="206,28,157,28,157,23,206,23"/>
+<area shape="rect" title="Calculate state covariance matrix from motion estimation." alt="" coords="201,5,366,46"/>
+<area shape="rect" href="../../da/da6/class_extended_kalman_filter.html#aa5aeb5c329fffcbcb1a197de8e263427" title="Prediction step:" alt="" coords="5,5,153,46"/>
+<area shape="poly" title=" " alt="" coords="185,28,153,28,153,23,185,23"/>
 </map>
 </div>
 
@@ -278,25 +297,15 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Eigen::MatrixXf </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d56/motion__models_8cpp_source.html#l00016">16</a> of file <a class="el" href="../../d1/d56/motion__models_8cpp_source.html">motion_models.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d56/motion__models_8cpp_source.html#l00014">14</a> of file <a class="el" href="../../d1/d56/motion__models_8cpp_source.html">motion_models.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../db/d66/class_motion_model_a76de9b7caf93cd717bf388aff40ab589_icgraph.png" border="0" usemap="#adb/d66/class_motion_model_a76de9b7caf93cd717bf388aff40ab589_icgraph" alt=""/></div>
 <map name="adb/d66/class_motion_model_a76de9b7caf93cd717bf388aff40ab589_icgraph" id="adb/d66/class_motion_model_a76de9b7caf93cd717bf388aff40ab589_icgraph">
-<area shape="rect" title="Get the process noise covariance matrix object." alt="" coords="615,92,788,133"/>
-<area shape="rect" href="../../da/da6/class_extended_kalman_filter.html#aa5aeb5c329fffcbcb1a197de8e263427" title="Prediction step:" alt="" coords="420,63,567,103"/>
-<area shape="poly" title=" " alt="" coords="599,101,568,96,568,91,600,95"/>
-<area shape="rect" href="../../d8/dbd/motion__model__test_8cpp.html#acc27b86c37d2d289be41247829ecfaf2" title=" " alt="" coords="467,128,521,153"/>
-<area shape="poly" title=" " alt="" coords="600,129,522,139,521,134,599,123"/>
-<area shape="rect" href="../../dd/db3/class_l_m_node.html#ab7d786f4a04bdd59ce770cffb2872551" title="executes the prediction step of the EKF" alt="" coords="221,13,356,39"/>
-<area shape="poly" title=" " alt="" coords="405,61,336,42,338,37,406,56"/>
-<area shape="rect" href="../../dd/db3/class_l_m_node.html#a714e7a6776e47cbd6ae4f14ef9513195" title="Function to be called everytime information is received from the wheel encoders." alt="" coords="205,63,372,103"/>
-<area shape="poly" title=" " alt="" coords="404,86,372,86,372,80,404,80"/>
-<area shape="rect" href="../../d3/dc5/slam__test_8cpp.html#aa751639fa208fe991a3ba5969c0daa28" title="Test the EKF SLAM algorithm in a linear movement." alt="" coords="261,128,316,153"/>
-<area shape="poly" title=" " alt="" coords="406,110,317,135,315,130,404,105"/>
-<area shape="rect" href="../../dd/db3/class_l_m_node.html#a8c430d2c36500207447268a8d02e0f2f" title="Executes:" alt="" coords="5,5,157,46"/>
-<area shape="poly" title=" " alt="" coords="206,28,157,28,157,23,206,23"/>
+<area shape="rect" title="Get the process noise covariance matrix object." alt="" coords="201,5,373,46"/>
+<area shape="rect" href="../../da/da6/class_extended_kalman_filter.html#aa5aeb5c329fffcbcb1a197de8e263427" title="Prediction step:" alt="" coords="5,5,153,46"/>
+<area shape="poly" title=" " alt="" coords="185,28,153,28,153,23,185,23"/>
 </map>
 </div>
 
@@ -359,25 +368,17 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../db/d66/class_motion_model_a24a7f8fab182b07ba116911cdd33893f_icgraph.png" border="0" usemap="#adb/d66/class_motion_model_a24a7f8fab182b07ba116911cdd33893f_icgraph" alt=""/></div>
 <map name="adb/d66/class_motion_model_a24a7f8fab182b07ba116911cdd33893f_icgraph" id="adb/d66/class_motion_model_a24a7f8fab182b07ba116911cdd33893f_icgraph">
-<area shape="rect" title="Calculate expected state vector from motion estimation." alt="" coords="615,63,756,103"/>
-<area shape="rect" href="../../da/da6/class_extended_kalman_filter.html#aa5aeb5c329fffcbcb1a197de8e263427" title="Prediction step:" alt="" coords="420,63,567,103"/>
-<area shape="poly" title=" " alt="" coords="600,86,568,86,568,80,600,80"/>
-<area shape="rect" href="../../dd/db3/class_l_m_node.html#ab7d786f4a04bdd59ce770cffb2872551" title="executes the prediction step of the EKF" alt="" coords="221,13,356,39"/>
-<area shape="poly" title=" " alt="" coords="405,61,336,42,338,37,406,56"/>
-<area shape="rect" href="../../dd/db3/class_l_m_node.html#a714e7a6776e47cbd6ae4f14ef9513195" title="Function to be called everytime information is received from the wheel encoders." alt="" coords="205,63,372,103"/>
-<area shape="poly" title=" " alt="" coords="404,86,372,86,372,80,404,80"/>
-<area shape="rect" href="../../d3/dc5/slam__test_8cpp.html#aa751639fa208fe991a3ba5969c0daa28" title="Test the EKF SLAM algorithm in a linear movement." alt="" coords="261,128,316,153"/>
-<area shape="poly" title=" " alt="" coords="406,110,317,135,315,130,404,105"/>
-<area shape="rect" href="../../dd/db3/class_l_m_node.html#a8c430d2c36500207447268a8d02e0f2f" title="Executes:" alt="" coords="5,5,157,46"/>
-<area shape="poly" title=" " alt="" coords="206,28,157,28,157,23,206,23"/>
+<area shape="rect" title="Calculate expected state vector from motion estimation." alt="" coords="201,5,341,46"/>
+<area shape="rect" href="../../da/da6/class_extended_kalman_filter.html#aa5aeb5c329fffcbcb1a197de8e263427" title="Prediction step:" alt="" coords="5,5,153,46"/>
+<area shape="poly" title=" " alt="" coords="185,28,153,28,153,23,185,23"/>
 </map>
 </div>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>src/loc_map/include/kalman_filter/<a class="el" href="../../df/dc4/motion__models_8hpp_source.html">motion_models.hpp</a></li>
-<li>src/loc_map/src/kalman_filter/<a class="el" href="../../d1/d56/motion__models_8cpp_source.html">motion_models.cpp</a></li>
+<li>src/ekf_state_est/include/kalman_filter/<a class="el" href="../../df/dc4/motion__models_8hpp_source.html">motion_models.hpp</a></li>
+<li>src/ekf_state_est/src/kalman_filter/<a class="el" href="../../d1/d56/motion__models_8cpp_source.html">motion_models.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

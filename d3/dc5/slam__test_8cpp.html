@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Formula Student Autonomous Systems: src/loc_map/test/slam_test.cpp File Reference</title>
+<title>Formula Student Autonomous Systems: src/ekf_state_est/test/slam_test.cpp File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -96,50 +96,88 @@ $(document).ready(function(){initNavTree('d3/dc5/slam__test_8cpp.html','../../')
   <div class="headertitle"><div class="title">slam_test.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;thread&gt;</code><br />
+<div class="textblock"><code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;thread&gt;</code><br />
+<code>#include &quot;<a class="el" href="../../d5/d13/common__lib_2include_2common__lib_2structures_2cone_8hpp_source.html">common_lib/structures/cone.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d5/d91/position_8hpp_source.html">common_lib/structures/position.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../df/d53/vehicle__state_8hpp_source.html">common_lib/structures/vehicle_state.hpp</a>&quot;</code><br />
 <code>#include &quot;gtest/gtest.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d5/d5e/ekf_8hpp_source.html">kalman_filter/ekf.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for slam_test.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../d5/dd3/slam__test_8cpp__incl.png" border="0" usemap="#asrc_2loc__map_2test_2slam__test_8cpp" alt=""/></div>
-<map name="asrc_2loc__map_2test_2slam__test_8cpp" id="asrc_2loc__map_2test_2slam__test_8cpp">
-<area shape="rect" title=" " alt="" coords="193,5,344,46"/>
-<area shape="rect" title=" " alt="" coords="140,94,197,120"/>
-<area shape="poly" title=" " alt="" coords="245,49,197,86,194,82,242,44"/>
-<area shape="rect" title=" " alt="" coords="222,94,315,120"/>
-<area shape="poly" title=" " alt="" coords="271,46,271,78,266,78,266,46"/>
-<area shape="rect" href="../../d5/d5e/ekf_8hpp.html" title=" " alt="" coords="340,94,480,120"/>
-<area shape="poly" title=" " alt="" coords="305,44,376,84,374,88,303,49"/>
-<area shape="rect" title=" " alt="" coords="5,175,100,201"/>
-<area shape="poly" title=" " alt="" coords="340,122,232,143,112,170,103,173,101,168,111,165,231,138,339,117"/>
-<area shape="rect" title=" " alt="" coords="123,175,222,201"/>
-<area shape="poly" title=" " alt="" coords="374,123,224,172,223,167,372,118"/>
-<area shape="rect" title=" " alt="" coords="245,175,303,201"/>
-<area shape="poly" title=" " alt="" coords="391,122,309,169,307,165,388,118"/>
-<area shape="rect" href="../../df/dc4/motion__models_8hpp.html" title=" " alt="" coords="517,168,655,208"/>
-<area shape="poly" title=" " alt="" coords="438,118,529,159,527,163,436,123"/>
-<area shape="rect" href="../../d7/d59/data__structures_8hpp.html" title=" " alt="" coords="502,256,691,282"/>
-<area shape="poly" title=" " alt="" coords="481,112,591,131,639,146,657,155,669,166,676,177,677,187,670,210,654,232,634,249,630,245,650,228,665,207,672,187,670,179,665,169,654,160,637,151,590,136,480,117"/>
-<area shape="rect" href="../../d9/def/observation__models_8hpp.html" title=" " alt="" coords="327,168,493,208"/>
-<area shape="poly" title=" " alt="" coords="413,120,413,152,407,152,407,120"/>
-<area shape="rect" title=" " alt="" coords="729,175,848,201"/>
-<area shape="poly" title=" " alt="" coords="476,118,712,165,726,168,725,174,711,170,475,123"/>
-<area shape="rect" title=" " alt="" coords="342,256,478,282"/>
-<area shape="poly" title=" " alt="" coords="543,211,452,252,450,247,541,207"/>
-<area shape="poly" title=" " alt="" coords="591,208,595,240,590,241,586,209"/>
-<area shape="rect" title=" " alt="" coords="416,330,476,356"/>
-<area shape="poly" title=" " alt="" coords="572,285,486,325,484,321,570,280"/>
-<area shape="rect" title=" " alt="" coords="500,330,546,356"/>
-<area shape="poly" title=" " alt="" coords="586,284,548,321,544,317,583,280"/>
-<area shape="rect" title=" " alt="" coords="570,330,623,356"/>
-<area shape="poly" title=" " alt="" coords="599,282,599,314,594,314,594,282"/>
-<area shape="rect" title=" " alt="" coords="647,330,749,356"/>
-<area shape="poly" title=" " alt="" coords="615,280,670,318,666,323,612,285"/>
-<area shape="rect" href="../../d5/d91/position_8hpp.html" title=" " alt="" coords="772,330,890,356"/>
-<area shape="poly" title=" " alt="" coords="637,280,777,322,776,328,636,285"/>
-<area shape="poly" title=" " alt="" coords="413,209,413,241,407,241,407,209"/>
-<area shape="poly" title=" " alt="" coords="457,206,555,248,553,252,455,211"/>
+<div class="center"><img src="../../d5/dd3/slam__test_8cpp__incl.png" border="0" usemap="#asrc_2ekf__state__est_2test_2slam__test_8cpp" alt=""/></div>
+<map name="asrc_2ekf__state__est_2test_2slam__test_8cpp" id="asrc_2ekf__state__est_2test_2slam__test_8cpp">
+<area shape="rect" title=" " alt="" coords="713,5,862,46"/>
+<area shape="rect" title=" " alt="" coords="990,264,1057,290"/>
+<area shape="poly" title=" " alt="" coords="842,44,883,64,928,91,972,125,1007,166,1017,186,1023,208,1027,248,1022,248,1018,209,1012,188,1003,169,968,129,925,95,881,69,839,49"/>
+<area shape="rect" title=" " alt="" coords="1068,94,1126,120"/>
+<area shape="poly" title=" " alt="" coords="863,43,1054,92,1053,97,861,48"/>
+<area shape="rect" href="../../d5/d13/common__lib_2include_2common__lib_2structures_2cone_8hpp.html" title=" " alt="" coords="279,168,432,208"/>
+<area shape="poly" title=" " alt="" coords="736,49,424,164,422,159,734,44"/>
+<area shape="rect" href="../../d5/d91/position_8hpp.html" title=" " alt="" coords="126,345,279,386"/>
+<area shape="poly" title=" " alt="" coords="713,38,564,58,381,87,209,125,140,147,90,170,51,197,21,227,12,242,8,259,11,277,20,295,38,315,60,331,111,351,109,355,58,335,35,319,16,299,6,278,3,259,7,241,16,223,47,193,88,165,138,142,208,120,380,82,563,52,713,33"/>
+<area shape="rect" href="../../df/d53/vehicle__state_8hpp.html" title=" " alt="" coords="102,168,255,208"/>
+<area shape="poly" title=" " alt="" coords="714,49,268,166,267,161,712,44"/>
+<area shape="rect" title=" " alt="" coords="1150,94,1244,120"/>
+<area shape="poly" title=" " alt="" coords="863,39,1136,91,1135,96,862,44"/>
+<area shape="rect" href="../../d5/d5e/ekf_8hpp.html" title=" " alt="" coords="717,94,858,120"/>
+<area shape="poly" title=" " alt="" coords="790,46,790,78,785,78,785,46"/>
+<area shape="rect" href="../../d8/df3/common__lib_2include_2common__lib_2competition__logic_2color_8hpp.html" title=" " alt="" coords="702,256,865,297"/>
+<area shape="poly" title=" " alt="" coords="433,202,688,253,687,259,432,207"/>
+<area shape="poly" title=" " alt="" coords="344,210,274,299,236,336,233,333,270,295,340,207"/>
+<area shape="rect" title=" " alt="" coords="866,353,912,378"/>
+<area shape="poly" title=" " alt="" coords="809,295,864,341,861,345,806,300"/>
+<area shape="rect" title=" " alt="" coords="1130,353,1184,378"/>
+<area shape="poly" title=" " alt="" coords="866,294,1115,352,1114,357,864,299"/>
+<area shape="rect" title=" " alt="" coords="209,264,260,290"/>
+<area shape="poly" title=" " alt="" coords="193,207,221,250,216,252,189,210"/>
+<area shape="rect" href="../../de/d59/pose_8hpp.html" title=" " alt="" coords="31,256,184,297"/>
+<area shape="poly" title=" " alt="" coords="164,211,135,246,131,243,160,207"/>
+<area shape="poly" title=" " alt="" coords="131,296,171,332,168,336,127,299"/>
+<area shape="poly" title=" " alt="" coords="718,123,452,170,448,171,447,166,451,165,717,118"/>
+<area shape="poly" title=" " alt="" coords="717,117,520,136,271,170,270,164,519,131,717,111"/>
+<area shape="rect" title=" " alt="" coords="334,264,460,290"/>
+<area shape="poly" title=" " alt="" coords="717,117,623,135,572,150,523,170,493,189,464,211,419,254,415,250,461,207,490,184,521,165,570,145,621,130,716,112"/>
+<area shape="rect" title=" " alt="" coords="483,264,577,290"/>
+<area shape="poly" title=" " alt="" coords="717,119,617,139,575,153,548,170,537,187,531,207,529,248,524,248,526,206,532,185,544,166,573,148,616,134,716,114"/>
+<area shape="rect" title=" " alt="" coords="894,175,993,201"/>
+<area shape="poly" title=" " alt="" coords="813,118,908,166,905,170,810,123"/>
+<area shape="rect" title=" " alt="" coords="1383,264,1502,290"/>
+<area shape="poly" title=" " alt="" coords="858,109,1099,127,1221,143,1271,153,1309,165,1343,183,1374,205,1423,250,1420,254,1371,210,1340,188,1307,170,1270,159,1221,148,1099,132,858,114"/>
+<area shape="rect" title=" " alt="" coords="1238,175,1295,201"/>
+<area shape="poly" title=" " alt="" coords="858,108,1028,125,1128,141,1227,165,1231,166,1229,171,1226,170,1127,146,1027,130,858,114"/>
+<area shape="rect" href="../../dc/de2/mission__logic_8hpp.html" title=" " alt="" coords="1526,256,1689,297"/>
+<area shape="poly" title=" " alt="" coords="858,110,1122,132,1259,148,1358,165,1413,182,1468,204,1560,247,1558,252,1466,208,1411,187,1356,170,1258,153,1122,137,858,116"/>
+<area shape="rect" href="../../da/d49/data__association_8hpp.html" title=" " alt="" coords="558,168,681,208"/>
+<area shape="poly" title=" " alt="" coords="763,123,676,163,674,158,761,118"/>
+<area shape="rect" href="../../df/dc4/motion__models_8hpp.html" title=" " alt="" coords="1076,168,1214,208"/>
+<area shape="poly" title=" " alt="" coords="843,118,1061,166,1060,171,842,123"/>
+<area shape="rect" href="../../d9/def/observation__models_8hpp.html" title=" " alt="" coords="705,168,870,208"/>
+<area shape="poly" title=" " alt="" coords="790,120,790,152,785,152,785,120"/>
+<area shape="poly" title=" " alt="" coords="1527,298,1515,300,1343,323,1175,342,927,364,927,359,1174,336,1343,318,1514,294,1526,292"/>
+<area shape="poly" title=" " alt="" coords="1527,297,1515,300,1199,359,1198,354,1514,294,1526,292"/>
+<area shape="rect" title=" " alt="" coords="1642,353,1752,378"/>
+<area shape="poly" title=" " alt="" coords="1630,296,1676,340,1672,344,1626,299"/>
+<area shape="rect" title=" " alt="" coords="1419,353,1618,378"/>
+<area shape="poly" title=" " alt="" coords="1589,299,1543,344,1539,340,1585,296"/>
+<area shape="poly" title=" " alt="" coords="682,203,693,206,774,219,837,226,900,235,979,254,984,255,983,261,978,259,899,240,836,232,773,225,692,211,681,208"/>
+<area shape="poly" title=" " alt="" coords="630,208,654,252,671,275,692,295,731,319,773,336,851,356,849,361,771,341,728,324,689,299,667,278,649,255,625,210"/>
+<area shape="poly" title=" " alt="" coords="570,211,443,260,441,255,568,206"/>
+<area shape="poly" title=" " alt="" coords="601,211,555,255,551,251,597,207"/>
+<area shape="rect" title=" " alt="" coords="889,264,966,290"/>
+<area shape="poly" title=" " alt="" coords="682,203,878,254,884,256,882,261,876,259,681,208"/>
+<area shape="poly" title=" " alt="" coords="1119,211,1055,257,1051,252,1116,207"/>
+<area shape="poly" title=" " alt="" coords="1180,206,1205,225,1227,248,1239,273,1238,286,1231,299,1210,315,1178,329,1095,348,1004,359,928,365,927,360,1003,354,1094,343,1176,323,1207,311,1227,295,1233,285,1234,274,1223,251,1202,229,1176,211"/>
+<area shape="poly" title=" " alt="" coords="1213,206,1387,256,1385,262,1212,212"/>
+<area shape="poly" title=" " alt="" coords="1097,211,973,260,971,255,1095,206"/>
+<area shape="rect" title=" " alt="" coords="1081,264,1217,290"/>
+<area shape="poly" title=" " alt="" coords="1148,209,1150,248,1145,249,1143,209"/>
+<area shape="rect" title=" " alt="" coords="1292,264,1358,290"/>
+<area shape="poly" title=" " alt="" coords="1187,206,1287,254,1285,259,1185,211"/>
+<area shape="poly" title=" " alt="" coords="789,209,788,241,783,241,784,209"/>
+<area shape="poly" title=" " alt="" coords="760,211,685,256,638,280,590,300,514,322,435,339,295,359,294,354,434,334,512,317,588,294,636,275,682,251,757,207"/>
+<area shape="poly" title=" " alt="" coords="871,206,1084,257,1083,262,869,212"/>
 </map>
 </div>
 </div>
@@ -181,35 +219,7 @@ Functions</h2></td></tr>
 <p>Test the EKF SLAM algorithm in a linear movement. </p>
 <p>This test aims to check if the EKF SLAM is not commiting any atrocity in terms of precision or any calculation errors. The test simulates a very simple linear movement with constant velocity </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/dc5/slam__test_8cpp_source.html#l00015">15</a> of file <a class="el" href="../../d3/dc5/slam__test_8cpp_source.html">slam_test.cpp</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../d3/dc5/slam__test_8cpp_aa751639fa208fe991a3ba5969c0daa28_cgraph.png" border="0" usemap="#ad3/dc5/slam__test_8cpp_aa751639fa208fe991a3ba5969c0daa28_cgraph" alt=""/></div>
-<map name="ad3/dc5/slam__test_8cpp_aa751639fa208fe991a3ba5969c0daa28_cgraph" id="ad3/dc5/slam__test_8cpp_aa751639fa208fe991a3ba5969c0daa28_cgraph">
-<area shape="rect" title="Test the EKF SLAM algorithm in a linear movement." alt="" coords="5,254,60,279"/>
-<area shape="rect" href="../../da/da6/class_extended_kalman_filter.html#a230559bb9193f7acf494ae9e889fb6f8" title="Correction step:" alt="" coords="108,112,255,152"/>
-<area shape="poly" title=" " alt="" coords="47,251,145,161,148,165,50,255"/>
-<area shape="rect" href="../../da/da6/class_extended_kalman_filter.html#ac268c50848bb01fcdb6a0156280564a4" title="Get the last update timestamp." alt="" coords="108,213,255,254"/>
-<area shape="poly" title=" " alt="" coords="60,258,92,251,93,256,61,263"/>
-<area shape="rect" href="../../da/da6/class_extended_kalman_filter.html#aa5aeb5c329fffcbcb1a197de8e263427" title="Prediction step:" alt="" coords="108,278,255,319"/>
-<area shape="poly" title=" " alt="" coords="61,270,93,277,92,282,60,275"/>
-<area shape="rect" href="../../da/da6/class_extended_kalman_filter.html#ae59429128f079a8a03c53360f7a9bf4f" title="Updates vehicle state and map variables according to the state vector X." alt="" coords="108,344,255,384"/>
-<area shape="poly" title=" " alt="" coords="48,278,75,303,109,328,118,333,115,338,106,333,72,307,45,281"/>
-<area shape="rect" href="../../d7/d64/class_observation_model.html#a97a9e71e7cee696be91a569eb65b9df9" title="Get the observation noise covariance matrix (C or H)" alt="" coords="303,5,506,61"/>
-<area shape="poly" title=" " alt="" coords="222,109,302,71,315,65,317,70,304,76,225,113"/>
-<area shape="rect" href="../../d7/d64/class_observation_model.html#aa789708c6a934ba1edfc8386b1f38d4f" title="Get the state to observation matrix of the observation model (H)" alt="" coords="330,85,480,141"/>
-<area shape="poly" title=" " alt="" coords="255,123,314,118,314,123,256,128"/>
-<area shape="rect" href="../../d7/d64/class_observation_model.html#a0f8d3fc26c59869171ad60d08322d1d7" title="Calculate expected observation from the state vector." alt="" coords="305,165,504,206"/>
-<area shape="poly" title=" " alt="" coords="256,147,302,158,301,163,255,152"/>
-<area shape="rect" href="../../db/d66/class_motion_model.html#aad4c79b92acd351e94e7b847b61f965b" title="Calculate state covariance matrix from motion estimation." alt="" coords="322,230,487,271"/>
-<area shape="poly" title=" " alt="" coords="255,280,306,269,307,274,256,285"/>
-<area shape="rect" href="../../db/d66/class_motion_model.html#a76de9b7caf93cd717bf388aff40ab589" title="Get the process noise covariance matrix object." alt="" coords="319,296,491,336"/>
-<area shape="poly" title=" " alt="" coords="256,302,303,305,303,311,255,307"/>
-<area shape="rect" href="../../db/d66/class_motion_model.html#a24a7f8fab182b07ba116911cdd33893f" title="Calculate expected state vector from motion estimation." alt="" coords="335,361,475,402"/>
-<area shape="poly" title=" " alt="" coords="233,317,304,345,325,353,323,358,302,350,231,322"/>
-</map>
-</div>
+<p class="definition">Definition at line <a class="el" href="../../d3/dc5/slam__test_8cpp_source.html#l00019">19</a> of file <a class="el" href="../../d3/dc5/slam__test_8cpp_source.html">slam_test.cpp</a>.</p>
 
 </div>
 </div>
@@ -218,7 +228,7 @@ Here is the call graph for this function:</div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../dir_26369d20db5a751ace0a0d425b94d5ef.html">loc_map</a></li><li class="navelem"><a class="el" href="../../dir_313470f979903f25c0c6ea4884190d81.html">test</a></li><li class="navelem"><a class="el" href="../../d3/dc5/slam__test_8cpp.html">slam_test.cpp</a></li>
+    <li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../dir_388d5df3221aab46ce4275c3697a683f.html">ekf_state_est</a></li><li class="navelem"><a class="el" href="../../dir_076943da0a533ed1b221efc210b42bf6.html">test</a></li><li class="navelem"><a class="el" href="../../d3/dc5/slam__test_8cpp.html">slam_test.cpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

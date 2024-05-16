@@ -1,5 +1,0 @@
-<map id="LMNode::odometry_to_velocities_transform" name="LMNode::odometry_to_velocities_transform">
-<area shape="rect" id="Node000001" title="Converts the odometry data to translational and rotational velocities." alt="" coords="5,5,154,46"/>
-<area shape="rect" id="Node000002" href="$da/d5d/formulas_8cpp.html#aa977d636c53692b00cc02c90dab37cff" title="Function to get the translational velocity of a wheel from rpm and wheel diameter." alt="" coords="202,5,333,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="154,23,186,23,186,28,154,28"/>
-</map>

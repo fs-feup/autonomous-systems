@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Formula Student Autonomous Systems: src/loc_map/src/utils/position.cpp File Reference</title>
+<title>Formula Student Autonomous Systems: src/common_lib/src/structures/position.cpp File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -92,66 +92,46 @@ $(document).ready(function(){initNavTree('d4/d59/position_8cpp.html','../../'); 
 
 <div class="header">
   <div class="summary">
+<a href="#namespaces">Namespaces</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">position.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="../../d5/d91/position_8hpp_source.html">utils/position.hpp</a>&quot;</code><br />
+<div class="textblock"><code>#include &lt;cmath&gt;</code><br />
+<code>#include &quot;<a class="el" href="../../d5/d91/position_8hpp_source.html">common_lib/structures/position.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for position.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../d4/dd6/position_8cpp__incl.png" border="0" usemap="#asrc_2loc__map_2src_2utils_2position_8cpp" alt=""/></div>
-<map name="asrc_2loc__map_2src_2utils_2position_8cpp" id="asrc_2loc__map_2src_2utils_2position_8cpp">
-<area shape="rect" title=" " alt="" coords="5,5,148,46"/>
-<area shape="rect" href="../../d5/d91/position_8hpp.html" title=" " alt="" coords="17,94,136,120"/>
-<area shape="poly" title=" " alt="" coords="79,46,79,78,74,78,74,46"/>
+<div class="center"><img src="../../d4/dd6/position_8cpp__incl.png" border="0" usemap="#asrc_2common__lib_2src_2structures_2position_8cpp" alt=""/></div>
+<map name="asrc_2common__lib_2src_2structures_2position_8cpp" id="asrc_2common__lib_2src_2structures_2position_8cpp">
+<area shape="rect" title=" " alt="" coords="20,5,176,46"/>
+<area shape="rect" title=" " alt="" coords="5,102,63,127"/>
+<area shape="poly" title=" " alt="" coords="86,48,54,91,50,88,81,45"/>
+<area shape="rect" href="../../d5/d91/position_8hpp.html" title=" " alt="" coords="87,94,240,135"/>
+<area shape="poly" title=" " alt="" coords="115,45,142,80,137,83,111,48"/>
 </map>
 </div>
 </div>
 <p><a href="../../d4/d59/position_8cpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:dd/d5f/namespacecommon__lib" id="r_dd/d5f/namespacecommon__lib"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d5f/namespacecommon__lib.html">common_lib</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:d9/d8a/namespacecommon__lib_1_1structures" id="r_d9/d8a/namespacecommon__lib_1_1structures"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d8a/namespacecommon__lib_1_1structures.html">common_lib::structures</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aa5a6490912e5f1fbec3ee51572dcf574" id="r_aa5a6490912e5f1fbec3ee51572dcf574"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d59/position_8cpp.html#aa5a6490912e5f1fbec3ee51572dcf574">operator&lt;</a> (const <a class="el" href="../../d1/d26/struct_position.html">Position</a> &amp;lhs, const <a class="el" href="../../d1/d26/struct_position.html">Position</a> &amp;rhs)</td></tr>
-<tr class="separator:aa5a6490912e5f1fbec3ee51572dcf574"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fbece117fc1fd60d9a047e7a6f22ad4" id="r_a7fbece117fc1fd60d9a047e7a6f22ad4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d8a/namespacecommon__lib_1_1structures.html#a7fbece117fc1fd60d9a047e7a6f22ad4">common_lib::structures::operator&lt;</a> (const <a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">Position</a> &amp;lhs, const <a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">Position</a> &amp;rhs)</td></tr>
+<tr class="separator:a7fbece117fc1fd60d9a047e7a6f22ad4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="aa5a6490912e5f1fbec3ee51572dcf574" name="aa5a6490912e5f1fbec3ee51572dcf574"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa5a6490912e5f1fbec3ee51572dcf574">&#9670;&#160;</a></span>operator&lt;()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool operator&lt; </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d1/d26/struct_position.html">Position</a> &amp;&#160;</td>
-          <td class="paramname"><em>lhs</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../d1/d26/struct_position.html">Position</a> &amp;&#160;</td>
-          <td class="paramname"><em>rhs</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../d4/d59/position_8cpp_source.html#l00003">3</a> of file <a class="el" href="../../d4/d59/position_8cpp_source.html">position.cpp</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../dir_26369d20db5a751ace0a0d425b94d5ef.html">loc_map</a></li><li class="navelem"><a class="el" href="../../dir_e9c419635c4d7f29fee2090ace292e4d.html">src</a></li><li class="navelem"><a class="el" href="../../dir_afee708eafb02edac1ba11fdcef982f0.html">utils</a></li><li class="navelem"><a class="el" href="../../d4/d59/position_8cpp.html">position.cpp</a></li>
+    <li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../dir_fbb9b9995ef8067d47a7284d7a4afe92.html">common_lib</a></li><li class="navelem"><a class="el" href="../../dir_63f5c3fd73aeb2e511e31be25d77a61b.html">src</a></li><li class="navelem"><a class="el" href="../../dir_db1f159835dd2e984221dd8bf64e30be.html">structures</a></li><li class="navelem"><a class="el" href="../../d4/d59/position_8cpp.html">position.cpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

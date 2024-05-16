@@ -1,5 +1,5 @@
 <map id="ObservationData" name="ObservationData">
-<area shape="rect" id="Node000001" title="Struct containing observation data." alt="" coords="5,174,133,279"/>
-<area shape="rect" id="Node000002" href="$d1/d26/struct_position.html" title="Struct for position." alt="" coords="30,5,109,111"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="72,110,72,157,67,157,67,110"/>
+<area shape="rect" id="Node000001" title="Struct containing observation data." alt="" coords="15,208,143,314"/>
+<area shape="rect" id="Node000002" href="$dc/d1b/structcommon__lib_1_1structures_1_1_position.html" title=" " alt="" coords="5,5,152,145"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="81,145,81,191,76,191,76,145"/>
 </map>

@@ -1,0 +1,7 @@
+<map id="TEST" name="TEST">
+<area shape="rect" id="Node000001" title="Tests the conversion from wheel revolutions to velocities using the bycicle model." alt="" coords="5,20,60,46"/>
+<area shape="rect" id="Node000002" href="$d4/d1a/namespacecommon__lib_1_1vehicle__dynamics.html#a6f4e302b6228b2dbd52b6d37a9685677" title="Converts the odometry data to translational and rotational velocities." alt="" coords="108,5,271,61"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,31,92,31,92,36,60,36"/>
+<area shape="rect" id="Node000003" href="$d2/d32/namespacecommon__lib_1_1maths.html#a4068519b32978679e461dc19e2b3a5fd" title="Function to get the translational velocity of a wheel from rpm and wheel diameter." alt="" coords="319,13,512,54"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="271,31,303,31,303,36,271,36"/>
+</map>

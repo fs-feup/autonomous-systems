@@ -4,6 +4,6 @@
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,60,100,51,101,56,61,66"/>
 <area shape="rect" id="Node000003" href="$d7/df9/class_normal_velocity_model.html#a32beb590c4af5f21172b64b34d5f3ea1" title="Calculate expected state vector from velocity model using normal motion data Uses translation velocit..." alt="" coords="108,85,269,126"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="61,73,93,80,92,86,60,78"/>
-<area shape="rect" id="Node000004" href="$da/d5d/formulas_8cpp.html#a5dda4c5d809de2f2716a49c5703a6f60" title="Function to keep angle between 0 and 2Pi radians." alt="" coords="317,92,431,118"/>
+<area shape="rect" id="Node000004" href="$d2/d32/namespacecommon__lib_1_1maths.html#acd35b7873c51d71ad7ee2396007da7a3" title="Function to keep angle between 0 and 2Pi radians." alt="" coords="317,85,456,126"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="269,103,301,103,301,108,269,108"/>
 </map>

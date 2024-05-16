@@ -1,7 +1,11 @@
 <map id="src/common_lib/include/common_lib/competition_logic/mission_logic.hpp" name="src/common_lib/include/common_lib/competition_logic/mission_logic.hpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,172,61"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="29,109,76,135"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="80,62,66,96,61,93,75,60"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="99,109,153,135"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="103,60,117,93,112,96,98,62"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="71,5,237,61"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,109,52,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="116,64,60,102,57,98,113,59"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="75,109,129,135"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="140,63,119,97,115,94,135,60"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="152,109,262,135"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="173,60,194,94,189,97,168,63"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="286,109,486,135"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="228,59,340,101,339,106,226,64"/>
 </map>

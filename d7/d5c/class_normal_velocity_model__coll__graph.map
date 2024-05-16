@@ -1,5 +1,5 @@
 <map id="NormalVelocityModel" name="NormalVelocityModel">
-<area shape="rect" id="Node000001" title="Motion estimation that uses the module of the velocity and the rotational velocity." alt="" coords="24,208,189,328"/>
-<area shape="rect" id="Node000002" href="$db/d66/class_motion_model.html" title="Abstract Moiton Model class designed to be implemented by the different motion models." alt="" coords="5,5,208,160"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="109,175,109,208,104,208,104,175"/>
+<area shape="rect" id="Node000001" title="Motion estimation that uses the module of the velocity and the rotational velocity." alt="" coords="24,228,189,348"/>
+<area shape="rect" id="Node000002" href="$db/d66/class_motion_model.html" title="Abstract Moiton Model class designed to be implemented by the different motion models." alt="" coords="5,5,208,180"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="109,195,109,228,104,228,104,195"/>
 </map>

@@ -2,7 +2,7 @@ var planning_2test_2performance__test_8cpp =
 [
     [ "customComparator", "d3/d72/planning_2test_2performance__test_8cpp.html#a1d530eca12828fa8bd4055652000a956", null ],
     [ "extractInfo", "d3/d72/planning_2test_2performance__test_8cpp.html#ab1bec19c757b0c10ea40b1c5480aac77", null ],
-    [ "getCurrentDateTimeAsString", "d3/d72/planning_2test_2performance__test_8cpp.html#a96e24ce01c8541e8a5b4ede9b9d24a0a", null ],
+    [ "get_current_date_time_as_string", "d3/d72/planning_2test_2performance__test_8cpp.html#a2c3bbc9fd458920b2aa9308286235fd9", null ],
     [ "operator<<", "d3/d72/planning_2test_2performance__test_8cpp.html#a7efe78775343b91ffb437715c1a722f2", null ],
     [ "orderVectorOfPairs", "d3/d72/planning_2test_2performance__test_8cpp.html#a8030edc69053406b8812bd586e50468a", null ],
     [ "outlierCalculations", "d3/d72/planning_2test_2performance__test_8cpp.html#a144266158e7f731a55a2da85b422064e", null ],

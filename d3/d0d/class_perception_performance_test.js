@@ -1,6 +1,6 @@
 var class_perception_performance_test =
 [
-    [ "getCurrentDateTimeAsString", "d3/d0d/class_perception_performance_test.html#a86c22e9e98cf7266637fe429cfe69b22", null ],
+    [ "get_current_date_time_as_string", "d3/d0d/class_perception_performance_test.html#aef19848eecd547a0ca1f4240817d90db", null ],
     [ "SetUp", "d3/d0d/class_perception_performance_test.html#af5e5667666b065246b6d9fc2ca66d933", null ],
     [ "writeToFile", "d3/d0d/class_perception_performance_test.html#a8912c95da87f5544243d06e35d5b0f5a", null ],
     [ "clustering", "d3/d0d/class_perception_performance_test.html#a753ff5bfa03f0d303a3c94b5359de944", null ],

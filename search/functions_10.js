@@ -8,5 +8,5 @@ var searchData=
   ['round_5',['round',['../da/dad/inspection_2test_2tests_8cpp.html#a322889033b0102b5c2eb49fe3c081fd8',1,'tests.cpp']]],
   ['round_5fn_6',['round_n',['../d3/d72/planning_2test_2performance__test_8cpp.html#afbb0277ee17d082a0d2177393a346904',1,'round_n(float num, int decimal_places):&#160;tests.cpp'],['../dd/df6/planning_2test_2tests_8cpp.html#afbb0277ee17d082a0d2177393a346904',1,'round_n(float num, int decimal_places):&#160;tests.cpp']]],
   ['rpm_5fto_5fvelocity_7',['rpm_to_velocity',['../d4/d89/class_inspection_functions.html#a6ca9c7bc559802b2fbd3beffe2197331',1,'InspectionFunctions']]],
-  ['runexecution_8',['runExecution',['../d4/d81/class_performamce_test.html#a19b28e280c6966f8acbc607e0fb0a384',1,'PerformamceTest']]]
+  ['run_5fexecution_8',['run_execution',['../df/d4f/class_performance_test.html#af58301202c5b289df26dcfde2ed1234b',1,'PerformanceTest']]]
 ];

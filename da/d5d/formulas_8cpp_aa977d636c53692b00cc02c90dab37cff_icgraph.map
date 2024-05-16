@@ -1,9 +1,0 @@
-<map id="get_wheel_velocity_from_rpm" name="get_wheel_velocity_from_rpm">
-<area shape="rect" id="Node000001" title="Function to get the translational velocity of a wheel from rpm and wheel diameter." alt="" coords="417,35,548,75"/>
-<area shape="rect" id="Node000002" href="$dd/db3/class_l_m_node.html#a28a0317cd05f770daba784ab06a389c8" title="Converts the odometry data to translational and rotational velocities." alt="" coords="221,35,369,75"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="401,58,369,58,369,52,401,52"/>
-<area shape="rect" id="Node000003" href="$dd/db3/class_l_m_node.html#a714e7a6776e47cbd6ae4f14ef9513195" title="Function to be called everytime information is received from the wheel encoders." alt="" coords="5,5,173,46"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="205,45,173,40,174,35,206,40"/>
-<area shape="rect" id="Node000004" href="$d8/dbd/motion__model__test_8cpp.html#a2e006feda9100c097f7afbbf79420825" title="Tests the conversion from wheel revolutions to velocities using the bycicle model." alt="" coords="62,70,116,96"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="205,70,117,82,116,77,205,65"/>
-</map>

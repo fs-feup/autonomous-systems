@@ -1,5 +1,5 @@
 <map id="TestAdapter" name="TestAdapter">
-<area shape="rect" id="Node000001" title=" " alt="" coords="13,499,181,624"/>
-<area shape="rect" id="Node000002" href="$d3/d7f/class_adapter.html" title="Adapter class for coordinating communication between different modes and Control module." alt="" coords="5,5,189,451"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="100,466,100,499,95,499,95,466"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="13,419,181,544"/>
+<area shape="rect" id="Node000002" href="$d3/d7f/class_adapter.html" title="Adapter class for coordinating communication between different modes and Control module." alt="" coords="5,5,189,371"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="100,386,100,419,95,419,95,386"/>
 </map>

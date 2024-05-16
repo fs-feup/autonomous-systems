@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Formula Student Autonomous Systems: src/loc_map/test/observation_model_test.cpp File Reference</title>
+<title>Formula Student Autonomous Systems: src/ekf_state_est/test/observation_model_test.cpp File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -97,33 +97,32 @@ $(document).ready(function(){initNavTree('db/d09/observation__model__test_8cpp.h
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;eigen3/Eigen/Dense&gt;</code><br />
+<code>#include &lt;random&gt;</code><br />
 <code>#include &quot;gtest/gtest.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d9/def/observation__models_8hpp_source.html">kalman_filter/observation_models.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for observation_model_test.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../d4/df4/observation__model__test_8cpp__incl.png" border="0" usemap="#asrc_2loc__map_2test_2observation__model__test_8cpp" alt=""/></div>
-<map name="asrc_2loc__map_2test_2observation__model__test_8cpp" id="asrc_2loc__map_2test_2observation__model__test_8cpp">
-<area shape="rect" title=" " alt="" coords="38,5,227,46"/>
-<area shape="rect" title=" " alt="" coords="5,183,142,208"/>
-<area shape="poly" title=" " alt="" coords="110,48,91,69,76,95,69,132,71,167,66,168,64,132,71,93,86,66,106,45"/>
-<area shape="rect" title=" " alt="" coords="86,102,179,127"/>
-<area shape="poly" title=" " alt="" coords="135,47,135,86,130,86,130,47"/>
-<area shape="rect" href="../../d9/def/observation__models_8hpp.html" title=" " alt="" coords="203,94,368,135"/>
-<area shape="poly" title=" " alt="" coords="168,44,239,84,237,89,166,49"/>
-<area shape="poly" title=" " alt="" coords="233,138,121,179,119,174,232,133"/>
-<area shape="rect" href="../../d7/d59/data__structures_8hpp.html" title=" " alt="" coords="191,183,380,208"/>
-<area shape="poly" title=" " alt="" coords="288,135,288,167,283,167,283,135"/>
-<area shape="rect" title=" " alt="" coords="105,256,165,282"/>
-<area shape="poly" title=" " alt="" coords="261,211,175,252,173,247,259,206"/>
-<area shape="rect" title=" " alt="" coords="189,256,235,282"/>
-<area shape="poly" title=" " alt="" coords="275,210,237,247,233,244,272,207"/>
-<area shape="rect" title=" " alt="" coords="259,256,312,282"/>
-<area shape="poly" title=" " alt="" coords="288,209,288,241,283,241,283,209"/>
-<area shape="rect" title=" " alt="" coords="336,256,438,282"/>
-<area shape="poly" title=" " alt="" coords="304,207,359,245,355,249,301,211"/>
-<area shape="rect" href="../../d5/d91/position_8hpp.html" title=" " alt="" coords="461,256,579,282"/>
-<area shape="poly" title=" " alt="" coords="326,206,466,249,465,254,325,211"/>
+<div class="center"><img src="../../d4/df4/observation__model__test_8cpp__incl.png" border="0" usemap="#asrc_2ekf__state__est_2test_2observation__model__test_8cpp" alt=""/></div>
+<map name="asrc_2ekf__state__est_2test_2observation__model__test_8cpp" id="asrc_2ekf__state__est_2test_2observation__model__test_8cpp">
+<area shape="rect" title=" " alt="" coords="24,5,211,46"/>
+<area shape="rect" title=" " alt="" coords="5,190,142,216"/>
+<area shape="poly" title=" " alt="" coords="75,49,47,69,25,95,21,116,26,138,38,159,52,177,48,180,33,162,21,140,15,116,20,93,43,65,72,44"/>
+<area shape="rect" title=" " alt="" coords="35,102,99,127"/>
+<area shape="poly" title=" " alt="" coords="108,48,84,90,79,87,104,45"/>
+<area shape="rect" title=" " alt="" coords="123,102,216,127"/>
+<area shape="poly" title=" " alt="" coords="132,45,157,87,152,90,127,48"/>
+<area shape="rect" href="../../d9/def/observation__models_8hpp.html" title=" " alt="" coords="240,94,406,135"/>
+<area shape="poly" title=" " alt="" coords="165,44,263,85,261,90,163,49"/>
+<area shape="poly" title=" " alt="" coords="267,138,124,187,122,182,265,133"/>
+<area shape="rect" href="../../d8/df3/common__lib_2include_2common__lib_2competition__logic_2color_8hpp.html" title=" " alt="" coords="203,183,365,223"/>
+<area shape="poly" title=" " alt="" coords="316,136,302,169,297,167,312,134"/>
+<area shape="rect" href="../../d5/d91/position_8hpp.html" title=" " alt="" coords="389,183,542,223"/>
+<area shape="poly" title=" " alt="" coords="357,133,422,172,419,177,354,137"/>
+<area shape="rect" title=" " alt="" coords="224,271,270,297"/>
+<area shape="poly" title=" " alt="" coords="277,225,262,258,257,256,273,223"/>
+<area shape="rect" title=" " alt="" coords="294,271,347,297"/>
+<area shape="poly" title=" " alt="" coords="295,223,311,256,306,258,291,225"/>
 </map>
 </div>
 </div>
@@ -134,13 +133,19 @@ Functions</h2></td></tr>
 <tr class="memitem:ace83b03e85ae2ce2ae7e32c548597d3f" id="r_ace83b03e85ae2ce2ae7e32c548597d3f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d09/observation__model__test_8cpp.html#ace83b03e85ae2ce2ae7e32c548597d3f">TEST</a> (BASE_OBSERVATION_MODEL, ALIGNED_RANDOM_TEST)</td></tr>
 <tr class="memdesc:ace83b03e85ae2ce2ae7e32c548597d3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test the observation model in a scenario where the vehicle is always aligned with the x axis.  <br /></td></tr>
 <tr class="separator:ace83b03e85ae2ce2ae7e32c548597d3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afcf4ad927c46c840a8747b5425c6cc64" id="r_afcf4ad927c46c840a8747b5425c6cc64"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d09/observation__model__test_8cpp.html#afcf4ad927c46c840a8747b5425c6cc64">TEST</a> (BASE_OBSERVATION_MODEL, INDIVIDUAL_CASE_TEST)</td></tr>
-<tr class="memdesc:afcf4ad927c46c840a8747b5425c6cc64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test different cases for known values individually.  <br /></td></tr>
-<tr class="separator:afcf4ad927c46c840a8747b5425c6cc64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a039756d7cb68185518077e1c2dc6c2fc" id="r_a039756d7cb68185518077e1c2dc6c2fc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d09/observation__model__test_8cpp.html#a039756d7cb68185518077e1c2dc6c2fc">TEST</a> (BASE_OBSERVATION_MODEL, INDIVIDUAL_CASE_TEST1)</td></tr>
+<tr class="memdesc:a039756d7cb68185518077e1c2dc6c2fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">45 degrees to the left  <br /></td></tr>
+<tr class="separator:a039756d7cb68185518077e1c2dc6c2fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bdecc4af5092c7e5e1a10331a04399c" id="r_a0bdecc4af5092c7e5e1a10331a04399c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d09/observation__model__test_8cpp.html#a0bdecc4af5092c7e5e1a10331a04399c">TEST</a> (BASE_OBSERVATION_MODEL, INDIVIDUAL_CASE_TEST2)</td></tr>
+<tr class="memdesc:a0bdecc4af5092c7e5e1a10331a04399c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Straight forward 360 degrees.  <br /></td></tr>
+<tr class="separator:a0bdecc4af5092c7e5e1a10331a04399c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ad774be8af4a0c5d879a015aa4c2167" id="r_a3ad774be8af4a0c5d879a015aa4c2167"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d09/observation__model__test_8cpp.html#a3ad774be8af4a0c5d879a015aa4c2167">TEST</a> (BASE_OBSERVATION_MODEL, INDIVIDUAL_CASE_TEST3)</td></tr>
+<tr class="memdesc:a3ad774be8af4a0c5d879a015aa4c2167"><td class="mdescLeft">&#160;</td><td class="mdescRight">90 degrees to the right  <br /></td></tr>
+<tr class="separator:a3ad774be8af4a0c5d879a015aa4c2167"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="ace83b03e85ae2ce2ae7e32c548597d3f" name="ace83b03e85ae2ce2ae7e32c548597d3f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ace83b03e85ae2ce2ae7e32c548597d3f">&#9670;&#160;</a></span>TEST() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ace83b03e85ae2ce2ae7e32c548597d3f">&#9670;&#160;</a></span>TEST() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -167,7 +172,7 @@ Functions</h2></td></tr>
 
 <p>Test the observation model in a scenario where the vehicle is always aligned with the x axis. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d09/observation__model__test_8cpp_source.html#l00011">11</a> of file <a class="el" href="../../db/d09/observation__model__test_8cpp_source.html">observation_model_test.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d09/observation__model__test_8cpp_source.html#l00012">12</a> of file <a class="el" href="../../db/d09/observation__model__test_8cpp_source.html">observation_model_test.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -183,8 +188,8 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a id="afcf4ad927c46c840a8747b5425c6cc64" name="afcf4ad927c46c840a8747b5425c6cc64"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afcf4ad927c46c840a8747b5425c6cc64">&#9670;&#160;</a></span>TEST() <span class="overload">[2/2]</span></h2>
+<a id="a039756d7cb68185518077e1c2dc6c2fc" name="a039756d7cb68185518077e1c2dc6c2fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a039756d7cb68185518077e1c2dc6c2fc">&#9670;&#160;</a></span>TEST() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -198,7 +203,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">INDIVIDUAL_CASE_TEST&#160;</td>
+          <td class="paramtype">INDIVIDUAL_CASE_TEST1&#160;</td>
           <td class="paramname">&#160;</td>
         </tr>
         <tr>
@@ -209,15 +214,103 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Test different cases for known values individually. </p>
+<p>45 degrees to the left </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d09/observation__model__test_8cpp_source.html#l00073">73</a> of file <a class="el" href="../../db/d09/observation__model__test_8cpp_source.html">observation_model_test.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d09/observation__model__test_8cpp_source.html#l00043">43</a> of file <a class="el" href="../../db/d09/observation__model__test_8cpp_source.html">observation_model_test.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../db/d09/observation__model__test_8cpp_afcf4ad927c46c840a8747b5425c6cc64_cgraph.png" border="0" usemap="#adb/d09/observation__model__test_8cpp_afcf4ad927c46c840a8747b5425c6cc64_cgraph" alt=""/></div>
-<map name="adb/d09/observation__model__test_8cpp_afcf4ad927c46c840a8747b5425c6cc64_cgraph" id="adb/d09/observation__model__test_8cpp_afcf4ad927c46c840a8747b5425c6cc64_cgraph">
-<area shape="rect" title="Test different cases for known values individually." alt="" coords="5,46,60,72"/>
+<div class="center"><img src="../../db/d09/observation__model__test_8cpp_a039756d7cb68185518077e1c2dc6c2fc_cgraph.png" border="0" usemap="#adb/d09/observation__model__test_8cpp_a039756d7cb68185518077e1c2dc6c2fc_cgraph" alt=""/></div>
+<map name="adb/d09/observation__model__test_8cpp_a039756d7cb68185518077e1c2dc6c2fc_cgraph" id="adb/d09/observation__model__test_8cpp_a039756d7cb68185518077e1c2dc6c2fc_cgraph">
+<area shape="rect" title="45 degrees to the left" alt="" coords="5,46,60,72"/>
+<area shape="rect" href="../../d7/d64/class_observation_model.html#a1e57d72d1b32a2260c9dfc8d25bd802d" title="Calculate landmark position from observation." alt="" coords="120,5,295,46"/>
+<area shape="poly" title=" " alt="" coords="59,51,104,43,106,48,60,57"/>
+<area shape="rect" href="../../d7/d64/class_observation_model.html#a0f8d3fc26c59869171ad60d08322d1d7" title="Calculate expected observation from the state vector." alt="" coords="108,71,307,111"/>
+<area shape="poly" title=" " alt="" coords="60,61,93,67,92,73,59,66"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a0bdecc4af5092c7e5e1a10331a04399c" name="a0bdecc4af5092c7e5e1a10331a04399c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bdecc4af5092c7e5e1a10331a04399c">&#9670;&#160;</a></span>TEST() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">BASE_OBSERVATION_MODEL&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">INDIVIDUAL_CASE_TEST2&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Straight forward 360 degrees. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../db/d09/observation__model__test_8cpp_source.html#l00069">69</a> of file <a class="el" href="../../db/d09/observation__model__test_8cpp_source.html">observation_model_test.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../db/d09/observation__model__test_8cpp_a0bdecc4af5092c7e5e1a10331a04399c_cgraph.png" border="0" usemap="#adb/d09/observation__model__test_8cpp_a0bdecc4af5092c7e5e1a10331a04399c_cgraph" alt=""/></div>
+<map name="adb/d09/observation__model__test_8cpp_a0bdecc4af5092c7e5e1a10331a04399c_cgraph" id="adb/d09/observation__model__test_8cpp_a0bdecc4af5092c7e5e1a10331a04399c_cgraph">
+<area shape="rect" title="Straight forward 360 degrees." alt="" coords="5,46,60,72"/>
+<area shape="rect" href="../../d7/d64/class_observation_model.html#a1e57d72d1b32a2260c9dfc8d25bd802d" title="Calculate landmark position from observation." alt="" coords="120,5,295,46"/>
+<area shape="poly" title=" " alt="" coords="59,51,104,43,106,48,60,57"/>
+<area shape="rect" href="../../d7/d64/class_observation_model.html#a0f8d3fc26c59869171ad60d08322d1d7" title="Calculate expected observation from the state vector." alt="" coords="108,71,307,111"/>
+<area shape="poly" title=" " alt="" coords="60,61,93,67,92,73,59,66"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a3ad774be8af4a0c5d879a015aa4c2167" name="a3ad774be8af4a0c5d879a015aa4c2167"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ad774be8af4a0c5d879a015aa4c2167">&#9670;&#160;</a></span>TEST() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">BASE_OBSERVATION_MODEL&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">INDIVIDUAL_CASE_TEST3&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>90 degrees to the right </p>
+
+<p class="definition">Definition at line <a class="el" href="../../db/d09/observation__model__test_8cpp_source.html#l00095">95</a> of file <a class="el" href="../../db/d09/observation__model__test_8cpp_source.html">observation_model_test.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../db/d09/observation__model__test_8cpp_a3ad774be8af4a0c5d879a015aa4c2167_cgraph.png" border="0" usemap="#adb/d09/observation__model__test_8cpp_a3ad774be8af4a0c5d879a015aa4c2167_cgraph" alt=""/></div>
+<map name="adb/d09/observation__model__test_8cpp_a3ad774be8af4a0c5d879a015aa4c2167_cgraph" id="adb/d09/observation__model__test_8cpp_a3ad774be8af4a0c5d879a015aa4c2167_cgraph">
+<area shape="rect" title="90 degrees to the right" alt="" coords="5,46,60,72"/>
 <area shape="rect" href="../../d7/d64/class_observation_model.html#a1e57d72d1b32a2260c9dfc8d25bd802d" title="Calculate landmark position from observation." alt="" coords="120,5,295,46"/>
 <area shape="poly" title=" " alt="" coords="59,51,104,43,106,48,60,57"/>
 <area shape="rect" href="../../d7/d64/class_observation_model.html#a0f8d3fc26c59869171ad60d08322d1d7" title="Calculate expected observation from the state vector." alt="" coords="108,71,307,111"/>
@@ -232,7 +325,7 @@ Here is the call graph for this function:</div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../dir_26369d20db5a751ace0a0d425b94d5ef.html">loc_map</a></li><li class="navelem"><a class="el" href="../../dir_313470f979903f25c0c6ea4884190d81.html">test</a></li><li class="navelem"><a class="el" href="../../db/d09/observation__model__test_8cpp.html">observation_model_test.cpp</a></li>
+    <li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../dir_388d5df3221aab46ce4275c3697a683f.html">ekf_state_est</a></li><li class="navelem"><a class="el" href="../../dir_076943da0a533ed1b221efc210b42bf6.html">test</a></li><li class="navelem"><a class="el" href="../../db/d09/observation__model__test_8cpp.html">observation_model_test.cpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

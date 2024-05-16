@@ -19,28 +19,13 @@ var namespaces_dup =
     ] ],
     [ "colors", "dc/d04/namespacecolors.html", [
       [ "Color", "dc/d04/namespacecolors.html#a76f863e71ce8e67d1ef1850029f93b0a", [
-        [ "blue", "dc/d04/namespacecolors.html#a76f863e71ce8e67d1ef1850029f93b0aa41c61b185032f63ff0d78697f8ad4468", null ],
-        [ "yellow", "dc/d04/namespacecolors.html#a76f863e71ce8e67d1ef1850029f93b0aa0ab6f54263839b257877780d739a726e", null ],
-        [ "orange", "dc/d04/namespacecolors.html#a76f863e71ce8e67d1ef1850029f93b0aa7a49b03c3fcaa952afa79bf1a99935f1", null ],
-        [ "large_orange", "dc/d04/namespacecolors.html#a76f863e71ce8e67d1ef1850029f93b0aaaf2b6f76efaa141241b71cc3eb6b15f6", null ],
-        [ "blue", "dc/d04/namespacecolors.html#a76f863e71ce8e67d1ef1850029f93b0aa41c61b185032f63ff0d78697f8ad4468", null ],
-        [ "yellow", "dc/d04/namespacecolors.html#a76f863e71ce8e67d1ef1850029f93b0aa0ab6f54263839b257877780d739a726e", null ],
-        [ "orange", "dc/d04/namespacecolors.html#a76f863e71ce8e67d1ef1850029f93b0aa7a49b03c3fcaa952afa79bf1a99935f1", null ],
-        [ "large_orange", "dc/d04/namespacecolors.html#a76f863e71ce8e67d1ef1850029f93b0aaaf2b6f76efaa141241b71cc3eb6b15f6", null ]
-      ] ],
-      [ "Color", "dc/d04/namespacecolors.html#a76f863e71ce8e67d1ef1850029f93b0a", [
-        [ "blue", "dc/d04/namespacecolors.html#a76f863e71ce8e67d1ef1850029f93b0aa41c61b185032f63ff0d78697f8ad4468", null ],
-        [ "yellow", "dc/d04/namespacecolors.html#a76f863e71ce8e67d1ef1850029f93b0aa0ab6f54263839b257877780d739a726e", null ],
-        [ "orange", "dc/d04/namespacecolors.html#a76f863e71ce8e67d1ef1850029f93b0aa7a49b03c3fcaa952afa79bf1a99935f1", null ],
-        [ "large_orange", "dc/d04/namespacecolors.html#a76f863e71ce8e67d1ef1850029f93b0aaaf2b6f76efaa141241b71cc3eb6b15f6", null ],
-        [ "blue", "dc/d04/namespacecolors.html#a76f863e71ce8e67d1ef1850029f93b0aa41c61b185032f63ff0d78697f8ad4468", null ],
-        [ "yellow", "dc/d04/namespacecolors.html#a76f863e71ce8e67d1ef1850029f93b0aa0ab6f54263839b257877780d739a726e", null ],
-        [ "orange", "dc/d04/namespacecolors.html#a76f863e71ce8e67d1ef1850029f93b0aa7a49b03c3fcaa952afa79bf1a99935f1", null ],
-        [ "large_orange", "dc/d04/namespacecolors.html#a76f863e71ce8e67d1ef1850029f93b0aaaf2b6f76efaa141241b71cc3eb6b15f6", null ]
-      ] ],
-      [ "color_map", "dc/d04/namespacecolors.html#ae4f221148e2c74d11c573cbfc498eb2c", null ],
-      [ "color_names", "dc/d04/namespacecolors.html#a91383eee52b002df140e15b47f961326", null ]
+        [ "blue", "dc/d04/namespacecolors.html#a76f863e71ce8e67d1ef1850029f93b0aa70853d68db63d87ec4ea23c299c42357", null ],
+        [ "yellow", "dc/d04/namespacecolors.html#a76f863e71ce8e67d1ef1850029f93b0aaad4a85d77dd807da987be7cb54649a6d", null ],
+        [ "ORANGE", "dc/d04/namespacecolors.html#a76f863e71ce8e67d1ef1850029f93b0aa3faadcf5ba790b3507788b59ec1d0203", null ],
+        [ "LARGE_ORANGE", "dc/d04/namespacecolors.html#a76f863e71ce8e67d1ef1850029f93b0aa2bc986adbdd29f9e1deac0b5f72c50a2", null ]
+      ] ]
     ] ],
+    [ "common_lib", "dd/d5f/namespacecommon__lib.html", "dd/d5f/namespacecommon__lib" ],
     [ "evaluator", "db/d6f/namespaceevaluator.html", "db/d6f/namespaceevaluator" ],
     [ "offsettrack", "dd/d6b/namespaceoffsettrack.html", [
       [ "c", "dd/d6b/namespaceoffsettrack.html#a69901488f64f2102f31272f623559e12", null ],

@@ -1,7 +1,0 @@
-<map id="get_mission_string" name="get_mission_string">
-<area shape="rect" id="Node000001" title=" " alt="" coords="366,13,496,39"/>
-<area shape="rect" id="Node000002" href="$de/d3d/class_inspection_mission.html#a4308e35a3779d96cf47d941faeef8780" title="recieves GoSignal and stores the mission that should be ran" alt="" coords="186,5,318,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="351,28,318,28,318,23,351,23"/>
-<area shape="rect" id="Node000003" href="$de/d3d/class_inspection_mission.html#a62ddad48c6252a28b6f2c480f84229d1" title="Contruct a new Inspection Mission with constants defined in file." alt="" coords="5,5,138,46"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="170,28,138,28,138,23,170,23"/>
-</map>
