@@ -33,7 +33,10 @@ class PacsimAdapter(Adapter):
         self._groundtruth_velocity_ = None
         self._groundtruth_map_ = None
         self.node.groundtruth_map_subscription_ = self.node.create_subscription(
-            MarkerArray, "/pacsim/map", self.groundtruth_map_callback, 10
+            MarkerArray,
+            "/pacsim/map",
+            self.groundtruth_map_callback,
+            10,
         )  # because the map gets published only once at the beginning
         self.node.simulated_perception_subscription_ = self.node.create_subscription(
             PerceptionDetections,

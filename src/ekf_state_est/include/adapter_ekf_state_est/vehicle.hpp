@@ -62,6 +62,5 @@ class VehicleAdapter : public Adapter {
 public:
   explicit VehicleAdapter(std::shared_ptr<SENode> se_node);
 
-  void init() final;
   void finish() final;
 };

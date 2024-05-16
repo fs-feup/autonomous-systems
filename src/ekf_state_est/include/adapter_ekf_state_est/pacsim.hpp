@@ -49,6 +49,5 @@ class PacsimAdapter : public Adapter {
 public:
   explicit PacsimAdapter(std::shared_ptr<SENode> se_node);
 
-  void init() final;
   void finish() final;
 };
