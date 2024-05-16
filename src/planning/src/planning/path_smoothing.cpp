@@ -1,6 +1,9 @@
 #include "planning/path_smoothing.hpp"
 
-PathSmoothing::PathSmoothing() {}
+PathSmoothing::PathSmoothing(int spline_order, float spline_coeffs_ratio, int spline_precision)
+    : spline_order_(spline_order),
+      spline_coeffs_ratio_(spline_coeffs_ratio),
+      spline_precision_(spline_precision) {}
 
 std::vector<PathPoint *> PathSmoothing::getPath() { return path; }
 
@@ -52,8 +55,8 @@ std::vector<PathPoint *> PathSmoothing::orderPath(std::vector<PathPoint *> *unor
     new_unord_path.push_back(std::make_pair((*unord_path)[i], false));
 
   // Values for first iteration
-  std::vector<PathPoint *> path;
-  PathPoint *path_point1 = new PathPoint(0, 0, 0);
+  std::vector<PathPoint *> ordered_path;
+  auto path_point1 = std::make_shared<PathPoint>(0, 0, 0);
   float vx = 1;
   float vy = 0;
 
@@ -65,7 +68,7 @@ std::vector<PathPoint *> PathSmoothing::orderPath(std::vector<PathPoint *> *unor
       PathPoint *path_point2 = new_unord_path[i].first;
       // Check only if not visited
       if (new_unord_path[i].second == false ||
-          (iter_number == 0 && vector_direction(path_point1, path_point2, vx, vy))) {
+          (iter_number == 0 && vector_direction(path_point1.get(), path_point2, vx, vy))) {
         // first iteration we assure the direction is correct to avoid going
         // backwards
 
@@ -82,26 +85,50 @@ std::vector<PathPoint *> PathSmoothing::orderPath(std::vector<PathPoint *> *unor
     // updated
     vx = new_unord_path[min_index].first->getX() - path_point1->getX();
     vy = new_unord_path[min_index].first->getY() - path_point1->getY();
-    path_point1 = new_unord_path[min_index].first;
+    path_point1 = std::make_shared<PathPoint>(new_unord_path[min_index].first->getX(),
+                                              new_unord_path[min_index].first->getY());
 
-    path.push_back(new_unord_path[min_index].first);  // add path points to ordered sequence
+    ordered_path.push_back(new_unord_path[min_index].first);  // add path points to ordered sequence
   }
-  return path;
+  return ordered_path;
 }
 
 // cppcheck-suppress unusedFunction
-void PathSmoothing::defaultSmoother(const std::vector<PathPoint *> &a_path) {
-  path = pathSmoother(100, 3, 3, a_path);
+void PathSmoothing::defaultSmoother(std::vector<PathPoint *> &a_path) {
+  path = pathSmoother(this->spline_precision_, this->spline_order_, this->spline_coeffs_ratio_,
+                      a_path);
+  a_path = path;
 }
 
 std::vector<PathPoint *> PathSmoothing::splineSmoother(int precision, int order, float coeffs_ratio,
-                                                       std::vector<PathPoint *> path) {
+                                                       std::vector<PathPoint *> input_path) {
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "START splineSmoother with %i path points",
-               static_cast<int>(path.size()));
+               static_cast<int>(input_path.size()));
 
-  const int n = path.size();
+  if (const int provisional_n = (int)input_path.size(),
+      provisional_ncoeffs = provisional_n / coeffs_ratio,
+      provisional_nbreak = provisional_ncoeffs - order + 2;
+      provisional_nbreak < 2 || input_path.size() < 1) {
+    RCLCPP_WARN(rclcpp::get_logger("rclcpp"),
+                "Too few points to calculate spline. Number of path points was %i", provisional_n);
+    return input_path;
+  }
+
+  // Remove duplicates
+  std::unordered_set<PathPoint *> seen;
+  auto iterator = std::remove_if(input_path.begin(), input_path.end(), [&seen](const auto &ptr) {
+    return !seen.insert(ptr).second;  // insert returns a pair, where .second is false if the
+                                      // element already existed
+  });
+  input_path.erase(iterator, input_path.end());
+
+  // Initialize values after removing duplicates
+  const int n = input_path.size();
   const int ncoeffs = n / coeffs_ratio;  // n > = ncoeffs
   const int nbreak = ncoeffs - order + 2;
+
+  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"),
+               "nbreak= %i; n (number of path points) = %i; ncoeffs = %i;\n", nbreak, n, ncoeffs);
 
   // Initialize vars (pointers)
   gsl_bspline_workspace *bw, *cw;
@@ -117,9 +144,11 @@ std::vector<PathPoint *> PathSmoothing::splineSmoother(int precision, int order,
   cw = gsl_bspline_alloc(order, nbreak);
   B = gsl_vector_alloc(ncoeffs);
   C = gsl_vector_alloc(ncoeffs);
+
   i_values = gsl_vector_alloc(n);
   x_values = gsl_vector_alloc(n);
   y_values = gsl_vector_alloc(n);
+
   X = gsl_matrix_alloc(n, ncoeffs);
   Y = gsl_matrix_alloc(n, ncoeffs);
   c = gsl_vector_alloc(ncoeffs);
@@ -133,13 +162,13 @@ std::vector<PathPoint *> PathSmoothing::splineSmoother(int precision, int order,
   // Set spline data
   for (int i = 0; i < n; i++) {
     gsl_vector_set(i_values, i, i);
-    gsl_vector_set(x_values, i, path[i]->getX());
-    gsl_vector_set(y_values, i, path[i]->getY());
-    // closer cones more important(better stability)
-    gsl_vector_set(w, i, 1.0 / pow(path[i]->getDistanceTo(path[(i + 1) % n]), 2));
+    gsl_vector_set(x_values, i, input_path[i]->getX());
+    gsl_vector_set(y_values, i, input_path[i]->getY());
+    // closer points more important(better stability)
+    gsl_vector_set(w, i, 1.0 / pow(input_path[i]->getDistanceTo(input_path[(i + 1) % n]), 2));
   }
 
-  // Set i range within cone set length
+  // Set i range within input path length
   gsl_bspline_knots_uniform(0, n, bw);
   gsl_bspline_knots_uniform(0, n, cw);
 
@@ -165,20 +194,20 @@ std::vector<PathPoint *> PathSmoothing::splineSmoother(int precision, int order,
   // Initialize variables for subsequent spline evaluation
   double xi, yi, yerr, yerr2;
   std::vector<double> i_eval, x_eval, y_eval;
-  std::vector<PathPoint *> path_eval;
+  std::vector<PathPoint *> final_path;
 
-  // Calculate the desired amount of spline points and add them to "path_eval"
+  // Calculate the desired amount of spline points and add them to "final_path"
   for (int i = 0; i < n; i++) {
     for (int j = 0; j < precision; j += 1) {  // iterate over decimal numbers
-      gsl_bspline_eval(i + static_cast<float>(j) / precision, B, bw);
-      gsl_bspline_eval(i + static_cast<float>(j) / precision, C, cw);
+      gsl_bspline_eval((double)i + static_cast<double>(j) / precision, B, bw);
+      gsl_bspline_eval((double)i + static_cast<double>(j) / precision, C, cw);
       gsl_multifit_linear_est(B, c, cov, &xi, &yerr);
       gsl_multifit_linear_est(C, c2, cov2, &yi, &yerr2);
       i_eval.push_back(i);
       x_eval.push_back(xi);
       y_eval.push_back(yi);
-      PathPoint *path_point = new PathPoint(xi, yi);
-      path_eval.push_back(path_point);
+      PathPoint *new_path_point = new PathPoint(xi, yi);
+      final_path.push_back(new_path_point);
       if (j == 0 && i == n - 1) {
         break;  // Decimals can't go over last int
       }
@@ -202,14 +231,21 @@ std::vector<PathPoint *> PathSmoothing::splineSmoother(int precision, int order,
   gsl_multifit_linear_free(mw2);
 
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "END fitSpline with %i points",
-               static_cast<int>(path_eval.size()));
+               static_cast<int>(final_path.size()));
 
-  return path_eval;
+  // To access spline points uncomment these lines
+  // std::cout << "Smoothing spline : " << std::endl;
+  // for (int i = 0; i < static_cast<int>(final_path.size()); i++) {
+  //   std::cout << "(" << final_path[i]->getX() << "," << final_path[i]->getY() << "),";
+  // }
+  // std::cout << std::endl;
+
+  return final_path;
 }
 
 std::vector<PathPoint *> PathSmoothing::pathSmoother(int precision, int order, float coeffs_ratio,
                                                      std::vector<PathPoint *> unord_path) {
   std::vector<PathPoint *> ord_path = orderPath(&unord_path);
-  std::vector<PathPoint *> path = splineSmoother(precision, order, coeffs_ratio, ord_path);
-  return path;
+  std::vector<PathPoint *> smoothed_path = splineSmoother(precision, order, coeffs_ratio, ord_path);
+  return smoothed_path;
 }

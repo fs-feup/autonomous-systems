@@ -8,6 +8,7 @@
 #include <cstring>
 #include <fstream>
 #include <iostream>
+#include <set>
 #include <string>
 #include <utility>
 #include <vector>
@@ -21,12 +22,16 @@
  */
 
 class Track {
-  bool completed;
+  bool completed = false;
   std::vector<Cone *> leftCones;   // left side cone list
   std::vector<Cone *> rightCones;  // right side cone list
 
   int rightCount = 0;
   int leftCount = 0;
+
+  int spline_order_ = 3;
+  float spline_coeffs_ratio_ = 3;
+  int spline_precision_ = 1;
 
  public:
   /**
@@ -36,6 +41,19 @@ class Track {
    * false).
    */
   Track();
+
+  /**
+   * @brief Constructor for the Track class.
+   *
+   * Initializes an instance of the Track class with initial values (completed =
+   * false).
+   *
+   * @param spline_order The degree of the B-spline.
+   * @param spline_coeffs_ratio The ratio of coefficients to cone count for
+   * fitting the spline.
+   * @param spline_precision The ratio of points in the spline to input cones.
+   */
+  Track(int spline_order, float spline_coeffs_ratio, int spline_precision);
   /**
    * @brief Destructor for the Track class.
    *
@@ -59,6 +77,20 @@ class Track {
   float getMaxDistance(bool side);
 
   /**
+   * @brief Get the right side cones.
+   *
+   * @return A vector of pointers to the right side cones.
+   */
+  std::vector<Cone *> get_right_cones() const;
+
+  /**
+   * @brief Get the left side cones.
+   *
+   * @return A vector of pointers to the left cones.
+   */
+  std::vector<Cone *> get_left_cones() const;
+
+  /**
    * @brief Get the right cone at a specified index.
    *
    * @param index The index of the cone to retrieve.
@@ -78,13 +110,27 @@ class Track {
    *
    * @return The number of right cones in the track.
    */
-  int getRightConesSize();
+  int getRightConesSize() const;
   /**
    * @brief Get the number of left cones.
    *
    * @return The number of left cones in the track.
    */
-  int getLeftConesSize();
+  int getLeftConesSize() const;
+
+  /**
+   * @brief Add a cone to the left side of the track.
+   *
+   * @param cone A pointer to the cone to add.
+   */
+  void add_cone_left(Cone *cone);
+
+  /**
+   * @brief Add a cone to the right side of the track.
+   *
+   * @param cone A pointer to the cone to add.
+   */
+  void add_cone_right(Cone *cone);
 
   /**
    * @brief Fill the track data from a file.
