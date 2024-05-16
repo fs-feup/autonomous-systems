@@ -43,7 +43,7 @@ jobs:
         run: |
           source install/setup.bash
           colcon build --packages-select perception
-          colcon test --packages-select perception --event-handler=console_direct+
+          colcon test --packages-select perception
 
   loc_map:
     runs-on: ubuntu-latest
