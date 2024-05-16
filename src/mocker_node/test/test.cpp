@@ -3,7 +3,7 @@
 #include <set>
 
 #include "gtest/gtest.h"
-#include "planning/planning_mock.hpp"
+#include "utils/mocks.hpp"
 #include "rclcpp/rclcpp.hpp"
 
 // Test case for valid input
@@ -11,7 +11,7 @@ TEST(GTruthFromFileTest, ValidInput) {
   std::string mockFileContent("header asdasd\n-1.0,0,3.1416\n4.0,5.0,6.0\n7.5,-8.5,9.8");
   std::istringstream mockFileStream(mockFileContent);
 
-  custom_interfaces::msg::PathPointArray result = gtruth_fromfile(mockFileStream);
+  custom_interfaces::msg::PathPointArray result = planning_gtruth_fromfile(mockFileStream);
 
   // Uncomment the following lines to see each value in case of bugs
   // std::cout << result.pathpoint_array[0].x << " , " << result.pathpoint_array[0].y
@@ -38,7 +38,7 @@ TEST(GTruthFromFileTest, EmptyInput) {
   std::string mockFileContent("");
   std::istringstream mockFileStream(mockFileContent);
 
-  custom_interfaces::msg::PathPointArray result = gtruth_fromfile(mockFileStream);
+  custom_interfaces::msg::PathPointArray result = planning_gtruth_fromfile(mockFileStream);
 
   ASSERT_EQ(result.pathpoint_array.size(), 0);  // No points should be added
 }
@@ -48,7 +48,7 @@ TEST(GTruthFromFileTest, InvalidInput) {
   std::string mockFileContent("header\n-1.0,0,3.1416\n4.0,5.0,6.0\n7.5,-8.5,9.8\ninvalid");
   std::istringstream mockFileStream(mockFileContent);
 
-  custom_interfaces::msg::PathPointArray result = gtruth_fromfile(mockFileStream);
+  custom_interfaces::msg::PathPointArray result = planning_gtruth_fromfile(mockFileStream);
 
   ASSERT_EQ(result.pathpoint_array.size(),
             3);  // Three points should be added; the other line should be ignored
