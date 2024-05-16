@@ -45,7 +45,7 @@ custom_interfaces::msg::PathPointArray planning_gtruth_fromfile(std::istream& in
 custom_interfaces::msg::ConeArray se_gtruth_fromfile(std::istream& in) {
   std::string x;
   std::string y;
-  std::string velocity;
+  std::string color;
   custom_interfaces::msg::ConeArray gtruth_mock;
 
   std::string line;
