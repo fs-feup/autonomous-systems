@@ -28,7 +28,7 @@ class Evaluator(Node):
             self, ConeArray, "cones"
         )
 
-        self.planning_subscritpion = self.create_subscription(
+        self.planning_subscription = self.create_subscription(
             PathPointArray, "planning_local", self.planning_callback, 10)
         self.planning_gt_subscritpion = self.create_subscription(
             PathPointArray, "planning_gtruth", self.planning_gt_callback, 10)
