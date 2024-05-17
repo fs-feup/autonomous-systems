@@ -17,6 +17,7 @@ protected:
      */
     void SetUp() override {
         source_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
+        
         source_cloud->points.push_back(pcl::PointXYZI{3, -3, 0, 0});
         source_cloud->points.push_back(pcl::PointXYZI{2, -4, 0, 0});
         source_cloud->points.push_back(pcl::PointXYZI{4, -4, 0, 0});

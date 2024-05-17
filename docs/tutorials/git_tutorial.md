@@ -215,8 +215,6 @@ git push
 
 ## Our Repository Context
 
-If you are already comfortable with Git, the next step is to follow [this tutorial](./contribute.md), which provides tips on cloning the project, installing its dependencies, compiling the code, and running and testing the code. However, here are some additional pieces of advice:
-
 ### Commit Rules
 
 There are git norms that must be respected. They essentially enforce following the [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) logic. Below is presented the logic simplified:
@@ -235,7 +233,7 @@ Commit types:
 
 You can combine two types like so: "docs-fix(...".
 
-The scope is to which part of the repo changes apply ('loc_map', 'perception', 'static_tools', etc.). There is no limit to the options. If it is something general, it may not have scope.
+The scope is to which part of the repo changes apply ('ekf_state_est', 'perception', 'static_tools', etc.). There is no limit to the options. If it is something general, it may not have scope.
 
 ### Pull Requests
 
