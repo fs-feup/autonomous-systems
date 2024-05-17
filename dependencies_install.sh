@@ -8,6 +8,7 @@ sudo apt install -y python3-pip
 sudo pip3 install colcon-common-extensions
 sudo apt install -y python3-rosdep
 sudo apt install -y ros-humble-message-filters
+sudo apt install -y ros-humble-tf-transformations
 
 # planning
 sudo apt-get install libcgal-dev -y
@@ -27,5 +28,8 @@ sudo apt-get install libpcap-dev -y
 # ground truth generation
 sudo pip install pandas
 sudo apt-get install python3-matplotlib -y
+
+# evaluator
+sudo pip3 install transforms3d
 
 source /opt/ros/humble/setup.bash

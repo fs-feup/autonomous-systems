@@ -110,8 +110,8 @@ public:
    * @param size Number of state vector elements to fill.
    */
   void fill_x(int size) {
-    ekf_test = std::make_shared<ExtendedKalmanFilter>(*motion_model_, *observation_model_,
-                                                      *data_association_model_);
+    ekf_test = std::make_shared<ExtendedKalmanFilter>(motion_model_, observation_model_,
+                                                      data_association_model_);
     std::ifstream file("../../src/ekf_state_est/test/data/map_test.txt");
 
     if (!file.is_open()) {
@@ -163,8 +163,8 @@ public:
     motion_model_ = std::make_shared<NormalVelocityModel>(r_test);
     data_association_model_ = std::make_shared<SimpleMaximumLikelihood>(71.0);
     observation_model_ = std::make_shared<ObservationModel>(q_test);
-    ekf_test = std::make_shared<ExtendedKalmanFilter>(*motion_model_, *observation_model_,
-                                                      *data_association_model_);
+    ekf_test = std::make_shared<ExtendedKalmanFilter>(motion_model_, observation_model_,
+                                                      data_association_model_);
   }
 
   /**

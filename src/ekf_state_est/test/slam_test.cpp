@@ -85,7 +85,7 @@ TEST(EKF_SLAM, LINEAR_MOVEMENT_INTEGRITY_TEST) {  // This test is not that
       common_lib::structures::Position(7, 6), common_lib::competition_logic::Color::ORANGE, 1.0));
 
   std::shared_ptr<ExtendedKalmanFilter> ekf = std::make_shared<ExtendedKalmanFilter>(
-      *motion_model, *observation_model, *data_association_model);
+      motion_model, observation_model, data_association_model);
 
   for (int i = -1; i < 10; i++) {
     motion_update->translational_velocity_x = 1;

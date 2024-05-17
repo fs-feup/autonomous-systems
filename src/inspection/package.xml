@@ -17,6 +17,7 @@
   <depend>eufs_msgs</depend>
   <depend>fs_msgs</depend>
   <depend>common_lib</depend>
+  <depend>visualization_msgs</depend>
 
   <export>
     <build_type>ament_cmake</build_type>
