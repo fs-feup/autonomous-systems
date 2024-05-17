@@ -1,7 +1,5 @@
 <map id="evaluator.fsds_adapter.FSDSAdapter.perception_callback" name="evaluator.fsds_adapter.FSDSAdapter.perception_callback">
-<area shape="rect" id="Node000001" title="Callback function to process synchronized messages and compute perception metrics." alt="" coords="5,39,304,79"/>
-<area shape="rect" id="Node000002" href="$dc/de8/classevaluator_1_1fsds__adapter_1_1_f_s_d_s_adapter.html#aedf5762703161a32f585c355f66e4ca2" title="Creates ground truth from odometry data and a predefined track." alt="" coords="352,5,626,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="304,41,336,38,337,44,304,47"/>
-<area shape="rect" id="Node000003" href="$dc/de8/classevaluator_1_1fsds__adapter_1_1_f_s_d_s_adapter.html#af874151775a2054f0130000a420708bc" title="Creates perception output from cone array messages." alt="" coords="352,71,626,111"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="304,71,337,74,336,79,304,76"/>
+<area shape="rect" id="Node000001" title="Callback function to process synchronized messages and compute perception metrics." alt="" coords="5,5,304,46"/>
+<area shape="rect" id="Node000002" href="$dc/de8/classevaluator_1_1fsds__adapter_1_1_f_s_d_s_adapter.html#ab0b59330ed75cb71c63e28d6666e150e" title="Creates ground truth from odometry data and a predefined track." alt="" coords="352,5,626,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="304,23,336,23,336,28,304,28"/>
 </map>

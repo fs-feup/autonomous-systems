@@ -1,11 +1,9 @@
 <map id="EufsAdapter::EufsAdapter" name="EufsAdapter::EufsAdapter">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,78,175,104"/>
-<area shape="rect" id="Node000002" href="$d0/d1d/class_eufs_adapter.html#a805d6b3fdf0983352a9c764c8f464e65" title=" " alt="" coords="223,78,338,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="175,88,207,88,207,94,175,94"/>
-<area shape="rect" id="Node000003" href="$d3/d7f/class_adapter.html#a3f8e5c482d7fbf9bf4b2834d8fd7a814" title="Function that parses the message sent from the ros IMU topic and calls the respective node&#39;s function..." alt="" coords="386,5,556,46"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="319,75,394,49,396,54,321,80"/>
-<area shape="rect" id="Node000004" href="$d0/d1d/class_eufs_adapter.html#a9fec42bb75cef0264ee6f4a3a99000fe" title=" " alt="" coords="400,71,543,111"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="339,88,384,88,384,94,339,94"/>
-<area shape="rect" id="Node000005" href="$d0/d1d/class_eufs_adapter.html#a325a2c46e1761b2b117bc6f0345902fd" title=" " alt="" coords="398,135,545,191"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="318,102,384,127,382,132,316,107"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,13,175,39"/>
+<area shape="rect" id="Node000002" href="$d0/d1d/class_eufs_adapter.html#afb57c4eba2192b5277c27858f443811d" title=" " alt="" coords="223,13,338,39"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="175,23,207,23,207,28,175,28"/>
+<area shape="rect" id="Node000003" href="$d0/d1d/class_eufs_adapter.html#a7ad951a56a38fd25acd7febf83004f5c" title=" " alt="" coords="386,5,529,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="338,23,371,23,371,28,338,28"/>
+<area shape="rect" id="Node000004" href="$d9/d2b/namespacecommon__lib_1_1competition__logic.html#ab8a32389b3b8c68a9b524af28ecf5100" title=" " alt="" coords="577,5,774,46"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="529,23,562,23,562,28,529,28"/>
 </map>

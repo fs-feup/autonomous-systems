@@ -1,5 +1,10 @@
 var namespacecommon__lib =
 [
+    [ "communication", "d1/dd0/namespacecommon__lib_1_1communication.html", [
+      [ "marker_array_from_cone_array", "d1/dd0/namespacecommon__lib_1_1communication.html#ad67e15445307de5e5f1e53676780fa4b", null ],
+      [ "marker_color_map", "d1/dd0/namespacecommon__lib_1_1communication.html#ab58283d47ed9643ba801c24893d8f4ad", null ],
+      [ "marker_shape_map", "d1/dd0/namespacecommon__lib_1_1communication.html#aa1cdb5d1026cb2d737e07ad24d069a48", null ]
+    ] ],
     [ "competition_logic", "d9/d2b/namespacecommon__lib_1_1competition__logic.html", [
       [ "Color", "d9/d2b/namespacecommon__lib_1_1competition__logic.html#a36deec2ca2854e7543cc4d5caab92feb", [
         [ "BLUE", "d9/d2b/namespacecommon__lib_1_1competition__logic.html#a36deec2ca2854e7543cc4d5caab92feba1b3e1ee9bff86431dea6b181365ba65f", null ],
@@ -21,6 +26,7 @@ var namespacecommon__lib =
       [ "get_color_enum", "d9/d2b/namespacecommon__lib_1_1competition__logic.html#a72953c74cbe411c7b5ac5aa72e437b05", null ],
       [ "get_color_string", "d9/d2b/namespacecommon__lib_1_1competition__logic.html#a37abda74e8868f424f1b353ca0600022", null ],
       [ "get_color_string", "d9/d2b/namespacecommon__lib_1_1competition__logic.html#a843c25f51bc237705083bc50bafa67af", null ],
+      [ "get_mission_from_eufs", "d9/d2b/namespacecommon__lib_1_1competition__logic.html#ab8a32389b3b8c68a9b524af28ecf5100", null ],
       [ "get_mission_string", "d9/d2b/namespacecommon__lib_1_1competition__logic.html#a5f2f421d317c5814f38b4c9037ad2ccc", null ],
       [ "operator==", "d9/d2b/namespacecommon__lib_1_1competition__logic.html#a6f4242e2587640a41fe756cf4a7b979e", null ],
       [ "operator==", "d9/d2b/namespacecommon__lib_1_1competition__logic.html#af51582604e7a07dc5dc6b4e8ac172a2f", null ],
@@ -28,7 +34,7 @@ var namespacecommon__lib =
       [ "operator==", "d9/d2b/namespacecommon__lib_1_1competition__logic.html#ac6ab8d1bfe58efddbc3ed3a349fe2bb9", null ],
       [ "COLOR_STRING_MAP", "d9/d2b/namespacecommon__lib_1_1competition__logic.html#ac8f0667c0e0a602c5c4d2a34e9c6e1dc", null ],
       [ "COLOR_TO_STRING", "d9/d2b/namespacecommon__lib_1_1competition__logic.html#a16e702fd4c0fa4c2810fe5f039294170", null ],
-      [ "eufs_to_system", "d9/d2b/namespacecommon__lib_1_1competition__logic.html#aaf30ea5139a29d5e7b4b4c40f57e26f4", null ],
+      [ "eufs_to_system", "d9/d2b/namespacecommon__lib_1_1competition__logic.html#aa87f4b55e52b33afc8de420f6ae1e7dc", null ],
       [ "fsds_to_system", "d9/d2b/namespacecommon__lib_1_1competition__logic.html#ae6098863ab7e35420a8410d3eb53ea59", null ],
       [ "MISSION_STRING_MAP", "d9/d2b/namespacecommon__lib_1_1competition__logic.html#a76b8f6ec90ec92bf0ffc03722128c6af", null ],
       [ "STRING_COLOR_MAP", "d9/d2b/namespacecommon__lib_1_1competition__logic.html#af39f271694f6e7e236ff4640e7ae6208", null ],

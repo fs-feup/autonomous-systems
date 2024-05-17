@@ -94,18 +94,18 @@ $(document).ready(function(){initNavTree('d4/dca/md_src_2mocker__node_2_r_e_a_d_
   <div class="headertitle"><div class="title">MockerNode package</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md25"></a> This package is used to mock outputs from other packages. It has a central ROS2 node that deals with ROS2 communication and will have 4 additional files that separately mock each of the following subsystems: <a class="el" href="../../de/d07/class_perception.html" title="Node for perception tasks, such as ground removal and cone detection.">Perception</a>, State Estimation, Path <a class="el" href="../../d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car.">Planning</a> and Driverless <a class="el" href="../../d7/d49/class_control.html" title="Class responsible for the control of the car.">Control</a>. The configuration should be done by launching with the launch file available at the launch folder.</p>
-<h1><a class="anchor" id="autotoc_md26"></a>
+<div class="textblock"><p><a class="anchor" id="autotoc_md29"></a> This package is used to mock outputs from other packages. It has a central ROS2 node that deals with ROS2 communication and will have 4 additional files that separately mock each of the following subsystems: <a class="el" href="../../de/d07/class_perception.html" title="Node for perception tasks, such as ground removal and cone detection.">Perception</a>, State Estimation, Path <a class="el" href="../../d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car.">Planning</a> and Driverless <a class="el" href="../../d7/d49/class_control.html" title="Class responsible for the control of the car.">Control</a>. The configuration should be done by launching with the launch file available at the launch folder.</p>
+<h1><a class="anchor" id="autotoc_md30"></a>
 Design</h1>
 <p>The package has one ROS2 node, which communicates via ROS2 with the car or simulator. Each node that will be mocked has a corresponding file that is responsible to mock the node and deliver the mock output to the ROS2 node ready to be published. The following diagram illustrates that.</p>
 <p><img src="../../../../docs/assets/mocker_node/mocker_node.drawio.svg" alt="MockerNode Diagram" style="pointer-events: none;" class="inline"/></p>
-<h1><a class="anchor" id="autotoc_md27"></a>
+<h1><a class="anchor" id="autotoc_md31"></a>
 Compiling</h1>
 <p>From src folder: </p><div class="fragment"><div class="line">colcon build --packages-select mocker_node fs_msgs custom_interfaces</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md28"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md32"></a>
 Running the node</h1>
 <div class="fragment"><div class="line">ros2 run mocker_node mocker_node</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md29"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md33"></a>
 Main External Libraries</h1>
 <ul>
 <li><a href="https://docs.ros.org/en/foxy/index.html">ROS2</a> </li>

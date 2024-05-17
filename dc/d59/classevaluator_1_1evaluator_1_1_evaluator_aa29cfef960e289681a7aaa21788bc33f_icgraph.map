@@ -1,7 +1,0 @@
-<map id="evaluator.evaluator.Evaluator.get_average_difference" name="evaluator.evaluator.Evaluator.get_average_difference">
-<area shape="rect" id="Node000001" title="Computes the average difference between an output output and the expected values." alt="" coords="294,39,502,79"/>
-<area shape="rect" id="Node000002" href="$dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#adab12cd2fd949bcb589786f03ff63aed" title="Computes perception metrics and publishes them." alt="" coords="5,5,246,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="277,47,246,43,247,38,278,42"/>
-<area shape="rect" id="Node000003" href="$dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a015e480421eae818babb86de3fcdcd45" title="Computes planning metrics and publishes them." alt="" coords="6,71,245,111"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="278,76,245,80,245,74,278,70"/>
-</map>

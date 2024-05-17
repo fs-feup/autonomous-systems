@@ -1,15 +1,5 @@
 <map id="ExtendedKalmanFilter::correction_step" name="ExtendedKalmanFilter::correction_step">
-<area shape="rect" id="Node000001" title="Correction step:" alt="" coords="5,193,153,234"/>
-<area shape="rect" id="Node000002" href="$d2/d32/namespacecommon__lib_1_1maths.html#ad0d064c1af2031dc0a6bd45d4ca0981d" title=" " alt="" coords="215,5,390,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="89,191,131,125,162,88,199,56,206,51,208,56,202,60,166,91,135,128,93,194"/>
-<area shape="rect" id="Node000003" href="$d7/d64/class_observation_model.html#a97a9e71e7cee696be91a569eb65b9df9" title="Get the observation noise covariance matrix (C or H)" alt="" coords="201,70,404,126"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="109,190,151,163,199,135,210,130,213,135,202,140,154,168,112,195"/>
-<area shape="rect" id="Node000004" href="$d7/d64/class_observation_model.html#aa789708c6a934ba1edfc8386b1f38d4f" title="Get the state to observation matrix of the observation model (H)" alt="" coords="227,150,378,206"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="153,199,212,190,212,195,154,204"/>
-<area shape="rect" id="Node000005" href="$d7/d64/class_observation_model.html#a1e57d72d1b32a2260c9dfc8d25bd802d" title="Calculate landmark position from observation." alt="" coords="215,229,390,270"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="154,223,200,231,199,236,153,228"/>
-<area shape="rect" id="Node000006" href="$d1/d14/class_data_association_model.html#a9f97ec9ae611784e4e317cc69b15e703" title="Match the observed landmark to a landmark in the map." alt="" coords="227,295,378,335"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="114,232,202,279,219,286,217,291,200,284,112,237"/>
-<area shape="rect" id="Node000007" href="$d7/d64/class_observation_model.html#a0f8d3fc26c59869171ad60d08322d1d7" title="Calculate expected observation from the state vector." alt="" coords="203,360,402,401"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="96,233,139,288,169,319,202,345,212,351,209,355,199,349,165,323,135,292,92,236"/>
+<area shape="rect" id="Node000001" title="Correction step:" alt="" coords="5,5,153,46"/>
+<area shape="rect" id="Node000002" href="$d2/d32/namespacecommon__lib_1_1maths.html#ad0d064c1af2031dc0a6bd45d4ca0981d" title=" " alt="" coords="201,5,375,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="153,23,185,23,185,28,153,28"/>
 </map>

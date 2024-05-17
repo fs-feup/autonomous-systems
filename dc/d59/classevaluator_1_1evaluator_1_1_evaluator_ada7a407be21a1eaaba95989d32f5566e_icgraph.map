@@ -1,5 +1,0 @@
-<map id="evaluator.evaluator.Evaluator.get_mean_squared_error" name="evaluator.evaluator.Evaluator.get_mean_squared_error">
-<area shape="rect" id="Node000001" title="Computes the mean squared error between an output output and the expected values." alt="" coords="292,5,500,46"/>
-<area shape="rect" id="Node000002" href="$dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a015e480421eae818babb86de3fcdcd45" title="Computes planning metrics and publishes them." alt="" coords="5,5,244,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="276,28,244,28,244,23,276,23"/>
-</map>

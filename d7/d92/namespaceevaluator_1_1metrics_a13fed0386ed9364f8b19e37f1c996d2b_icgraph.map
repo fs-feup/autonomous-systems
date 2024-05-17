@@ -1,0 +1,5 @@
+<map id="evaluator.metrics.build_adjacency_matrix" name="evaluator.metrics.build_adjacency_matrix">
+<area shape="rect" id="Node000001" title="Build adjacency matrix based on distances between cones." alt="" coords="205,5,355,46"/>
+<area shape="rect" id="Node000002" href="$d7/d92/namespaceevaluator_1_1metrics.html#a8094c7ef156cde0140392ea009339177" title="Computes the average distance between pairs of perceived cones using Minimum Spanning Tree Prim&#39;s alg..." alt="" coords="5,5,157,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="189,28,157,28,157,23,189,23"/>
+</map>

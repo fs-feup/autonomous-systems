@@ -1,21 +1,21 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
 <area shape="rect" id="Node000000" title=" " alt="" coords="5,203,98,228"/>
 <area shape="rect" id="Node000001" href="$da/dcf/class_cylinder_validator_test.html" title="Test fixture for CylinderValidator class." alt="" coords="177,5,322,31"/>
-<area shape="poly" id="edge23_Node000000_Node000001" title=" " alt="" coords="57,187,69,153,87,113,111,73,144,40,176,24,178,29,147,44,116,77,91,116,74,155,62,189"/>
+<area shape="poly" id="edge26_Node000000_Node000001" title=" " alt="" coords="57,187,69,153,87,113,111,73,144,40,176,24,178,29,147,44,116,77,91,116,74,155,62,189"/>
 <area shape="rect" id="Node000002" href="$d8/d90/class_d_b_s_c_a_n_test.html" title="Test fixture for the DBSCAN class." alt="" coords="198,55,301,80"/>
-<area shape="poly" id="edge24_Node000000_Node000002" title=" " alt="" coords="64,187,95,137,118,111,144,89,170,77,197,70,199,75,172,82,147,94,122,115,100,140,68,190"/>
+<area shape="poly" id="edge27_Node000000_Node000002" title=" " alt="" coords="64,187,95,137,118,111,144,89,170,77,197,70,199,75,172,82,147,94,122,115,100,140,68,190"/>
 <area shape="rect" id="Node000003" href="$db/df7/class_distance_validator_test.html" title="Test fixture for DistanceValidator class." alt="" coords="175,104,324,130"/>
-<area shape="poly" id="edge25_Node000000_Node000003" title=" " alt="" coords="74,190,106,163,144,138,174,127,175,132,147,143,109,167,78,194"/>
+<area shape="poly" id="edge28_Node000000_Node000003" title=" " alt="" coords="74,190,106,163,144,138,174,127,175,132,147,143,109,167,78,194"/>
 <area shape="rect" id="Node000004" href="$d9/d7c/class_height_validator_test.html" title="Test fixture for HeightValidator class." alt="" coords="181,153,318,179"/>
-<area shape="poly" id="edge26_Node000000_Node000004" title=" " alt="" coords="112,196,145,188,188,177,190,182,146,193,113,201"/>
+<area shape="poly" id="edge29_Node000000_Node000004" title=" " alt="" coords="112,196,145,188,188,177,190,182,146,193,113,201"/>
 <area shape="rect" id="Node000005" href="$d7/d4e/class_integration_test.html" title=" " alt="" coords="195,203,304,228"/>
-<area shape="poly" id="edge27_Node000000_Node000005" title=" " alt="" coords="113,213,195,213,195,218,113,218"/>
+<area shape="poly" id="edge30_Node000000_Node000005" title=" " alt="" coords="113,213,195,213,195,218,113,218"/>
 <area shape="rect" id="Node000006" href="$de/d1e/class_least_squares_differentiation_test.html" title="Fixture for testing the LeastSquaresDifferentiation class." alt="" coords="146,252,353,278"/>
-<area shape="poly" id="edge28_Node000000_Node000006" title=" " alt="" coords="113,230,146,238,190,249,188,254,145,243,112,235"/>
+<area shape="poly" id="edge31_Node000000_Node000006" title=" " alt="" coords="113,230,146,238,190,249,188,254,145,243,112,235"/>
 <area shape="rect" id="Node000007" href="$d3/d0d/class_perception_performance_test.html" title="Test fixture for performance testing of perception algorithms." alt="" coords="158,301,341,327"/>
-<area shape="poly" id="edge29_Node000000_Node000007" title=" " alt="" coords="78,237,109,264,147,288,174,298,172,303,144,293,106,268,74,241"/>
+<area shape="poly" id="edge32_Node000000_Node000007" title=" " alt="" coords="78,237,109,264,147,288,174,298,172,303,144,293,106,268,74,241"/>
 <area shape="rect" id="Node000008" href="$df/d4f/class_performance_test.html" title=" " alt="" coords="189,351,310,376"/>
-<area shape="poly" id="edge30_Node000000_Node000008" title=" " alt="" coords="68,241,100,291,122,316,147,337,167,347,189,354,188,359,165,352,144,342,118,320,95,294,64,244"/>
+<area shape="poly" id="edge33_Node000000_Node000008" title=" " alt="" coords="68,241,100,291,122,316,147,337,167,347,189,354,188,359,165,352,144,342,118,320,95,294,64,244"/>
 <area shape="rect" id="Node000009" href="$d8/d5a/class_r_a_n_s_a_c_test.html" title="Test class for setting up data and testing RANSAC algorithm." alt="" coords="198,400,301,426"/>
-<area shape="poly" id="edge31_Node000000_Node000009" title=" " alt="" coords="62,242,74,276,91,315,116,354,147,387,172,400,199,407,197,412,170,405,144,391,111,358,87,318,69,278,57,244"/>
+<area shape="poly" id="edge34_Node000000_Node000009" title=" " alt="" coords="62,242,74,276,91,315,116,354,147,387,172,400,199,407,197,412,170,405,144,391,111,358,87,318,69,278,57,244"/>
 </map>

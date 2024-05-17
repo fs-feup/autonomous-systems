@@ -1,0 +1,18 @@
+<map id="src/common_lib/include/common_lib/communication/marker.hpp" name="src/common_lib/include/common_lib/communication/marker.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="116,5,304,61"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,286,52,312"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="117,56,72,77,53,92,37,111,27,129,20,150,15,194,17,236,24,271,19,272,12,237,9,194,15,149,22,127,33,107,50,88,70,73,115,51"/>
+<area shape="rect" id="Node000003" href="$d5/d13/common__lib_2include_2common__lib_2structures_2cone_8hpp.html" title=" " alt="" coords="48,109,201,150"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="187,63,154,100,150,96,183,60"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="226,109,365,150"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="236,60,270,96,266,100,233,63"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="389,109,543,150"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="285,59,399,101,397,106,283,64"/>
+<area shape="rect" id="Node000004" href="$d8/df3/common__lib_2include_2common__lib_2competition__logic_2color_8hpp.html" title=" " alt="" coords="43,198,206,238"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="127,150,127,182,122,182,122,150"/>
+<area shape="rect" id="Node000006" href="$d5/d91/position_8hpp.html" title=" " alt="" coords="229,198,383,238"/>
+<area shape="poly" id="edge6_Node000003_Node000006" title=" " alt="" coords="167,148,252,188,250,193,165,153"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="102,241,57,278,53,274,99,237"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="98,286,151,312"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="127,239,127,271,122,271,122,239"/>
+</map>

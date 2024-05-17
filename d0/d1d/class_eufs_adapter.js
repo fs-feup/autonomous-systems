@@ -6,10 +6,10 @@ var class_eufs_adapter =
     [ "finish", "d0/d1d/class_eufs_adapter.html#a77aeab912d87eeb951926566a0c5d8b7", null ],
     [ "finish", "d0/d1d/class_eufs_adapter.html#a501d731335e6ff602ec145d9e655d4e3", null ],
     [ "finish", "d0/d1d/class_eufs_adapter.html#a501d731335e6ff602ec145d9e655d4e3", null ],
-    [ "init", "d0/d1d/class_eufs_adapter.html#a805d6b3fdf0983352a9c764c8f464e65", null ],
     [ "init", "d0/d1d/class_eufs_adapter.html#afb57c4eba2192b5277c27858f443811d", null ],
+    [ "mission_state_callback", "d0/d1d/class_eufs_adapter.html#a7ad951a56a38fd25acd7febf83004f5c", null ],
     [ "mission_state_callback", "d0/d1d/class_eufs_adapter.html#a9fec42bb75cef0264ee6f4a3a99000fe", null ],
-    [ "mission_state_callback", "d0/d1d/class_eufs_adapter.html#a9fec42bb75cef0264ee6f4a3a99000fe", null ],
+    [ "perception_detections_subscription_callback", "d0/d1d/class_eufs_adapter.html#ad7b2adb066e44e9d5fee49490d3eda3a", null ],
     [ "set_mission_state", "d0/d1d/class_eufs_adapter.html#a0226246b94ccf9707c6295a19cb18781", null ],
-    [ "wheel_speeds_subscription_callback", "d0/d1d/class_eufs_adapter.html#a325a2c46e1761b2b117bc6f0345902fd", null ]
+    [ "wheel_speeds_subscription_callback", "d0/d1d/class_eufs_adapter.html#a21f75aa612f5b12f626e0ebe6ecc4e5b", null ]
 ];

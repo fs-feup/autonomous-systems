@@ -178,7 +178,7 @@ $(document).ready(function(){initNavTree('d3/dc5/slam__test_8cpp_source.html','.
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>      <a class="code hl_struct" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a>(7, 6), <a class="code hl_enumvalue" href="../../d9/d2b/namespacecommon__lib_1_1competition__logic.html#a36deec2ca2854e7543cc4d5caab92feba5b6490317b6f7270bc3ab5ffd07c1f52">common_lib::competition_logic::Color::ORANGE</a>, 1.0));</div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>  std::shared_ptr&lt;ExtendedKalmanFilter&gt; ekf = std::make_shared&lt;ExtendedKalmanFilter&gt;(</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>      *motion_model, *observation_model, *data_association_model);</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>      motion_model, observation_model, data_association_model);</div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = -1; i &lt; 10; i++) {</div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    motion_update-&gt;translational_velocity_x = 1;</div>

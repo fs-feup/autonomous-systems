@@ -93,8 +93,8 @@ $(document).ready(function(){initNavTree('dc/d59/classevaluator_1_1evaluator_1_1
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="../../d0/d50/classevaluator_1_1evaluator_1_1_evaluator-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">evaluator.evaluator.Evaluator Class Reference</div></div>
 </div><!--header-->
@@ -107,9 +107,9 @@ Inheritance diagram for evaluator.evaluator.Evaluator:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d8/d57/classevaluator_1_1evaluator_1_1_evaluator__inherit__graph.png" border="0" usemap="#aevaluator_8evaluator_8_evaluator_inherit__map" alt="Inheritance graph"/></div>
 <map name="aevaluator_8evaluator_8_evaluator_inherit__map" id="aevaluator_8evaluator_8_evaluator_inherit__map">
-<area shape="rect" title="A ROS2 node for computing and publishing system&#39;s metrics." alt="" coords="5,119,191,637"/>
-<area shape="rect" title=" " alt="" coords="76,5,120,71"/>
-<area shape="poly" title=" " alt="" coords="101,86,101,119,95,119,95,86"/>
+<area shape="rect" title="A ROS2 node for computing and publishing system&#39;s metrics." alt="" coords="5,119,235,891"/>
+<area shape="rect" title=" " alt="" coords="98,5,142,71"/>
+<area shape="poly" title=" " alt="" coords="123,86,123,119,117,119,117,86"/>
 </map>
 </div>
 <div class="dynheader">
@@ -117,9 +117,9 @@ Collaboration diagram for evaluator.evaluator.Evaluator:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d5/df2/classevaluator_1_1evaluator_1_1_evaluator__coll__graph.png" border="0" usemap="#aevaluator_8evaluator_8_evaluator_coll__map" alt="Collaboration graph"/></div>
 <map name="aevaluator_8evaluator_8_evaluator_coll__map" id="aevaluator_8evaluator_8_evaluator_coll__map">
-<area shape="rect" title="A ROS2 node for computing and publishing system&#39;s metrics." alt="" coords="5,119,191,637"/>
-<area shape="rect" title=" " alt="" coords="76,5,120,71"/>
-<area shape="poly" title=" " alt="" coords="101,86,101,119,95,119,95,86"/>
+<area shape="rect" title="A ROS2 node for computing and publishing system&#39;s metrics." alt="" coords="5,119,235,891"/>
+<area shape="rect" title=" " alt="" coords="98,5,142,71"/>
+<area shape="poly" title=" " alt="" coords="123,86,123,119,117,119,117,86"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -128,80 +128,110 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a829a8cb5c9d969b7ceacd9e59146b7be" id="r_a829a8cb5c9d969b7ceacd9e59146b7be"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a829a8cb5c9d969b7ceacd9e59146b7be">__init__</a> (self)</td></tr>
 <tr class="memdesc:a829a8cb5c9d969b7ceacd9e59146b7be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the Evaluator node and creates the subscriptions/adapters.  <br /></td></tr>
 <tr class="separator:a829a8cb5c9d969b7ceacd9e59146b7be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a70831dca93f611102095496f5c9bbb61" id="r_a70831dca93f611102095496f5c9bbb61"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a70831dca93f611102095496f5c9bbb61">perception_callback_time_measurement</a> (self, ConeArray msg)</td></tr>
-<tr class="memdesc:a70831dca93f611102095496f5c9bbb61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the perception's execution time.  <br /></td></tr>
-<tr class="separator:a70831dca93f611102095496f5c9bbb61"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adab12cd2fd949bcb589786f03ff63aed" id="r_adab12cd2fd949bcb589786f03ff63aed"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#adab12cd2fd949bcb589786f03ff63aed">compute_and_publish_perception</a> (self)</td></tr>
-<tr class="memdesc:adab12cd2fd949bcb589786f03ff63aed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes perception metrics and publishes them.  <br /></td></tr>
-<tr class="separator:adab12cd2fd949bcb589786f03ff63aed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a015e480421eae818babb86de3fcdcd45" id="r_a015e480421eae818babb86de3fcdcd45"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a015e480421eae818babb86de3fcdcd45">planning_callback</a> (self, PathPointArray msg)</td></tr>
-<tr class="memdesc:a015e480421eae818babb86de3fcdcd45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes planning metrics and publishes them.  <br /></td></tr>
-<tr class="separator:a015e480421eae818babb86de3fcdcd45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78c92698aaa8ec17dfb3fc1ae3a2fd01" id="r_a78c92698aaa8ec17dfb3fc1ae3a2fd01"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a78c92698aaa8ec17dfb3fc1ae3a2fd01">point_cloud_callback</a> (self, PointCloud2 _)</td></tr>
+<tr class="memdesc:a78c92698aaa8ec17dfb3fc1ae3a2fd01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Point Cloud Callback to get the initial time of perception pipeline.  <br /></td></tr>
+<tr class="separator:a78c92698aaa8ec17dfb3fc1ae3a2fd01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a429894b2e09d7509569d2b4e0b22f743" id="r_a429894b2e09d7509569d2b4e0b22f743"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a429894b2e09d7509569d2b4e0b22f743">perception_callback_time_measurement</a> (self, ConeArray _)</td></tr>
+<tr class="memdesc:a429894b2e09d7509569d2b4e0b22f743"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the perception's execution time.  <br /></td></tr>
+<tr class="separator:a429894b2e09d7509569d2b4e0b22f743"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0154541b37a8dd9e66358f527c419410" id="r_a0154541b37a8dd9e66358f527c419410"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a0154541b37a8dd9e66358f527c419410">map_callback_time_measurement</a> (self, ConeArray _)</td></tr>
+<tr class="memdesc:a0154541b37a8dd9e66358f527c419410"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the SLAM's execution time.  <br /></td></tr>
+<tr class="separator:a0154541b37a8dd9e66358f527c419410"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78dcce5ec13f0912dd132143898b0bb7" id="r_a78dcce5ec13f0912dd132143898b0bb7"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a78dcce5ec13f0912dd132143898b0bb7">compute_and_publish_state_estimation</a> (self, np.ndarray pose, np.ndarray groundtruth_pose, np.ndarray velocities, np.ndarray groundtruth_velocities, np.ndarray map, np.ndarray groundtruth_map)</td></tr>
+<tr class="memdesc:a78dcce5ec13f0912dd132143898b0bb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes perception metrics and publishes them.  <br /></td></tr>
+<tr class="separator:a78dcce5ec13f0912dd132143898b0bb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02589b9f82e85fbc7d571fcb5ed7e73c" id="r_a02589b9f82e85fbc7d571fcb5ed7e73c"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a02589b9f82e85fbc7d571fcb5ed7e73c">compute_and_publish_perception</a> (self, np.ndarray perception_output, np.ndarray perception_ground_truth)</td></tr>
+<tr class="memdesc:a02589b9f82e85fbc7d571fcb5ed7e73c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes perception metrics and publishes them.  <br /></td></tr>
+<tr class="separator:a02589b9f82e85fbc7d571fcb5ed7e73c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59accb550c85260965e66625313e5764" id="r_a59accb550c85260965e66625313e5764"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a59accb550c85260965e66625313e5764">compute_and_publish_planning</a> (self, PathPointArray msg)</td></tr>
+<tr class="memdesc:a59accb550c85260965e66625313e5764"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes planning metrics and publishes them.  <br /></td></tr>
+<tr class="separator:a59accb550c85260965e66625313e5764"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6b6ca506c3a2bbd22e2cc613f803a5c1" id="r_a6b6ca506c3a2bbd22e2cc613f803a5c1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a6b6ca506c3a2bbd22e2cc613f803a5c1">planning_gt_callback</a> (self, PathPointArray msg)</td></tr>
-<tr class="memdesc:a6b6ca506c3a2bbd22e2cc613f803a5c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores the path planning ground truth.  <br /></td></tr>
+<tr class="memdesc:a6b6ca506c3a2bbd22e2cc613f803a5c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores the path planning ground truth from mocker node.  <br /></td></tr>
 <tr class="separator:a6b6ca506c3a2bbd22e2cc613f803a5c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:aa29cfef960e289681a7aaa21788bc33f" id="r_aa29cfef960e289681a7aaa21788bc33f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#aa29cfef960e289681a7aaa21788bc33f">get_average_difference</a> (list output, list expected)</td></tr>
-<tr class="memdesc:aa29cfef960e289681a7aaa21788bc33f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the average difference between an output output and the expected values.  <br /></td></tr>
-<tr class="separator:aa29cfef960e289681a7aaa21788bc33f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada7a407be21a1eaaba95989d32f5566e" id="r_ada7a407be21a1eaaba95989d32f5566e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#ada7a407be21a1eaaba95989d32f5566e">get_mean_squared_error</a> (list output, list expected)</td></tr>
-<tr class="memdesc:ada7a407be21a1eaaba95989d32f5566e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the mean squared error between an output output and the expected values.  <br /></td></tr>
-<tr class="separator:ada7a407be21a1eaaba95989d32f5566e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad971867be6d8758f7ed2d5c5c473c1df" id="r_ad971867be6d8758f7ed2d5c5c473c1df"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#ad971867be6d8758f7ed2d5c5c473c1df">compute_distance</a> (cone1, cone2)</td></tr>
-<tr class="memdesc:ad971867be6d8758f7ed2d5c5c473c1df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute Euclidean distance between two cones.  <br /></td></tr>
-<tr class="separator:ad971867be6d8758f7ed2d5c5c473c1df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ee48b04ec574762075a9defb07076b7" id="r_a9ee48b04ec574762075a9defb07076b7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a9ee48b04ec574762075a9defb07076b7">build_adjacency_matrix</a> (cones)</td></tr>
-<tr class="memdesc:a9ee48b04ec574762075a9defb07076b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build adjacency matrix based on distances between cones.  <br /></td></tr>
-<tr class="separator:a9ee48b04ec574762075a9defb07076b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1b2b34e006c2d23961d40c2f938fdb5d" id="r_a1b2b34e006c2d23961d40c2f938fdb5d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a1b2b34e006c2d23961d40c2f938fdb5d">get_inter_cones_distance</a> (list <a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a24fe74d37f4cca6146ed9ee0b0e8458d">perception_output</a>)</td></tr>
-<tr class="memdesc:a1b2b34e006c2d23961d40c2f938fdb5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the average distance between pairs of perceived cones using Minimum Spanning Tree Prim's algorithm.  <br /></td></tr>
-<tr class="separator:a1b2b34e006c2d23961d40c2f938fdb5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a5dc3df5998220a865365643c551d94a0" id="r_a5dc3df5998220a865365643c551d94a0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a5dc3df5998220a865365643c551d94a0">perception_subscription</a></td></tr>
-<tr class="separator:a5dc3df5998220a865365643c551d94a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12e63f8566bad3bcb569847e090cb893" id="r_a12e63f8566bad3bcb569847e090cb893"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a12e63f8566bad3bcb569847e090cb893">perception_timing_subscription_</a></td></tr>
+<tr class="separator:a12e63f8566bad3bcb569847e090cb893"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e764e5d397976e5332bd02f7006381d" id="r_a6e764e5d397976e5332bd02f7006381d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a6e764e5d397976e5332bd02f7006381d">perception_callback_time_measurement</a></td></tr>
+<tr class="separator:a6e764e5d397976e5332bd02f7006381d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c585355cc5f5c1ffc23aac813eb5de0" id="r_a5c585355cc5f5c1ffc23aac813eb5de0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a5c585355cc5f5c1ffc23aac813eb5de0">perception_subscription_</a></td></tr>
+<tr class="separator:a5c585355cc5f5c1ffc23aac813eb5de0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a758ae25030d3f7266fc0309634fc53cd" id="r_a758ae25030d3f7266fc0309634fc53cd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a758ae25030d3f7266fc0309634fc53cd">map_timing_subscription_</a></td></tr>
+<tr class="separator:a758ae25030d3f7266fc0309634fc53cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6123e47903ab17aefda2207233a2d5d2" id="r_a6123e47903ab17aefda2207233a2d5d2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a6123e47903ab17aefda2207233a2d5d2">map_callback_time_measurement</a></td></tr>
+<tr class="separator:a6123e47903ab17aefda2207233a2d5d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1be91276c9156253a6a7d312ac6d029c" id="r_a1be91276c9156253a6a7d312ac6d029c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a1be91276c9156253a6a7d312ac6d029c">map_subscription_</a></td></tr>
+<tr class="separator:a1be91276c9156253a6a7d312ac6d029c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac287b832430e32ca6c11b7e3b840bb87" id="r_ac287b832430e32ca6c11b7e3b840bb87"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#ac287b832430e32ca6c11b7e3b840bb87">vehicle_state_subscription_</a></td></tr>
+<tr class="separator:ac287b832430e32ca6c11b7e3b840bb87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a514f5de790cd4e8691eb9ea8b65be22d" id="r_a514f5de790cd4e8691eb9ea8b65be22d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a514f5de790cd4e8691eb9ea8b65be22d">transform_buffer_</a></td></tr>
+<tr class="separator:a514f5de790cd4e8691eb9ea8b65be22d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a534227b3d8eae6c4d91ac42a2bc44e28" id="r_a534227b3d8eae6c4d91ac42a2bc44e28"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a534227b3d8eae6c4d91ac42a2bc44e28">point_cloud_timing_subscription_</a></td></tr>
+<tr class="separator:a534227b3d8eae6c4d91ac42a2bc44e28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa57ff3c8b0b5e9032dc707485c999a50" id="r_aa57ff3c8b0b5e9032dc707485c999a50"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#aa57ff3c8b0b5e9032dc707485c999a50">point_cloud_callback</a></td></tr>
+<tr class="separator:aa57ff3c8b0b5e9032dc707485c999a50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54b41d2f3e33d0924835f68dffe92447" id="r_a54b41d2f3e33d0924835f68dffe92447"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a54b41d2f3e33d0924835f68dffe92447">point_cloud_subscription_</a></td></tr>
+<tr class="separator:a54b41d2f3e33d0924835f68dffe92447"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1dbad81ec271c7d447c34af8d980ee7d" id="r_a1dbad81ec271c7d447c34af8d980ee7d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a1dbad81ec271c7d447c34af8d980ee7d">planning_subscription</a></td></tr>
 <tr class="separator:a1dbad81ec271c7d447c34af8d980ee7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c8d357057a2f4935b54780f8660a228" id="r_a8c8d357057a2f4935b54780f8660a228"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a8c8d357057a2f4935b54780f8660a228">planning_callback</a></td></tr>
-<tr class="separator:a8c8d357057a2f4935b54780f8660a228"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10f2988aa94e88c0dc2816770c96016f" id="r_a10f2988aa94e88c0dc2816770c96016f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a10f2988aa94e88c0dc2816770c96016f">compute_and_publish_planning</a></td></tr>
+<tr class="separator:a10f2988aa94e88c0dc2816770c96016f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a524cc467d0bc0b9effda74d99d0a1ad9" id="r_a524cc467d0bc0b9effda74d99d0a1ad9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a524cc467d0bc0b9effda74d99d0a1ad9">planning_gt_subscription</a></td></tr>
 <tr class="separator:a524cc467d0bc0b9effda74d99d0a1ad9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acbb585cf87d5c30e82464ae27109d23c" id="r_acbb585cf87d5c30e82464ae27109d23c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#acbb585cf87d5c30e82464ae27109d23c">planning_gt_callback</a></td></tr>
 <tr class="separator:acbb585cf87d5c30e82464ae27109d23c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d1ebc548b29e038a2ed9721b2e093c3" id="r_a3d1ebc548b29e038a2ed9721b2e093c3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a3d1ebc548b29e038a2ed9721b2e093c3">perception_mean_difference</a></td></tr>
-<tr class="separator:a3d1ebc548b29e038a2ed9721b2e093c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef064cb20626a40b00579ff0afdc691c" id="r_aef064cb20626a40b00579ff0afdc691c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#aef064cb20626a40b00579ff0afdc691c">perception_mean_squared_difference</a></td></tr>
-<tr class="separator:aef064cb20626a40b00579ff0afdc691c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9997b79a78be19f887097666075b9656" id="r_a9997b79a78be19f887097666075b9656"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a9997b79a78be19f887097666075b9656">perception_root_mean_squared_difference</a></td></tr>
-<tr class="separator:a9997b79a78be19f887097666075b9656"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adb115c1419b125ee41f7959a7f7ad05d" id="r_adb115c1419b125ee41f7959a7f7ad05d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#adb115c1419b125ee41f7959a7f7ad05d">perception_inter_cones_distance</a></td></tr>
-<tr class="separator:adb115c1419b125ee41f7959a7f7ad05d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a852e5ef345d69a769fc5bec79dea4008" id="r_a852e5ef345d69a769fc5bec79dea4008"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a852e5ef345d69a769fc5bec79dea4008">perception_execution_time</a></td></tr>
-<tr class="separator:a852e5ef345d69a769fc5bec79dea4008"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8ae7bdc27463627edf88b2d1319d0899" id="r_a8ae7bdc27463627edf88b2d1319d0899"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a8ae7bdc27463627edf88b2d1319d0899">planning_mean_difference</a></td></tr>
-<tr class="separator:a8ae7bdc27463627edf88b2d1319d0899"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a70ae548100beedfcccb9943784bfa8c5" id="r_a70ae548100beedfcccb9943784bfa8c5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a70ae548100beedfcccb9943784bfa8c5">planning_mean_squared_difference</a></td></tr>
-<tr class="separator:a70ae548100beedfcccb9943784bfa8c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0c7b01c555e006cf9c248d4898a21a8" id="r_ad0c7b01c555e006cf9c248d4898a21a8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#ad0c7b01c555e006cf9c248d4898a21a8">planning_root_mean_squared_difference</a></td></tr>
-<tr class="separator:ad0c7b01c555e006cf9c248d4898a21a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a83fea1cbfa65fb73898c0dc8e22e6f95" id="r_a83fea1cbfa65fb73898c0dc8e22e6f95"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a83fea1cbfa65fb73898c0dc8e22e6f95">planning_execution_time</a></td></tr>
-<tr class="separator:a83fea1cbfa65fb73898c0dc8e22e6f95"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeb58e87b77d8f5add019776b8b1a8673" id="r_aeb58e87b77d8f5add019776b8b1a8673"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#aeb58e87b77d8f5add019776b8b1a8673">planning_mock</a></td></tr>
 <tr class="separator:aeb58e87b77d8f5add019776b8b1a8673"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2fa1e1b009fdaf753356c9df194a6a63" id="r_a2fa1e1b009fdaf753356c9df194a6a63"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a2fa1e1b009fdaf753356c9df194a6a63">adapter</a></td></tr>
-<tr class="separator:a2fa1e1b009fdaf753356c9df194a6a63"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a78e9c198a50fbb5da2e72eda7de6a404" id="r_a78e9c198a50fbb5da2e72eda7de6a404"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a78e9c198a50fbb5da2e72eda7de6a404">end_time</a></td></tr>
-<tr class="separator:a78e9c198a50fbb5da2e72eda7de6a404"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a24fe74d37f4cca6146ed9ee0b0e8458d" id="r_a24fe74d37f4cca6146ed9ee0b0e8458d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a24fe74d37f4cca6146ed9ee0b0e8458d">perception_output</a></td></tr>
-<tr class="separator:a24fe74d37f4cca6146ed9ee0b0e8458d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6444e510eea38d9bd238b5434e112c38" id="r_a6444e510eea38d9bd238b5434e112c38"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a6444e510eea38d9bd238b5434e112c38">perception_receive_time_</a></td></tr>
+<tr class="separator:a6444e510eea38d9bd238b5434e112c38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a193f8fd39f95ddf07cb58e195532cf" id="r_a4a193f8fd39f95ddf07cb58e195532cf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a4a193f8fd39f95ddf07cb58e195532cf">map_receive_time_</a></td></tr>
+<tr class="separator:a4a193f8fd39f95ddf07cb58e195532cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:a8307d22d83e43a080392883906d1d276" id="r_a8307d22d83e43a080392883906d1d276"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a8307d22d83e43a080392883906d1d276">_adapter_name_</a></td></tr>
+<tr class="separator:a8307d22d83e43a080392883906d1d276"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a1e3c8142b783375a639758f735cec4" id="r_a3a1e3c8142b783375a639758f735cec4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a3a1e3c8142b783375a639758f735cec4">_transforms_listener_</a></td></tr>
+<tr class="separator:a3a1e3c8142b783375a639758f735cec4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc0e389c6d4586ecff29b374f38c9212" id="r_adc0e389c6d4586ecff29b374f38c9212"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#adc0e389c6d4586ecff29b374f38c9212">_perception_mean_difference_</a></td></tr>
+<tr class="separator:adc0e389c6d4586ecff29b374f38c9212"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76f8f8694aed438c04db7afc13ece3dc" id="r_a76f8f8694aed438c04db7afc13ece3dc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a76f8f8694aed438c04db7afc13ece3dc">_perception_mean_squared_difference_</a></td></tr>
+<tr class="separator:a76f8f8694aed438c04db7afc13ece3dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1687cfbf2d3eef39e4632092feb42ae" id="r_ae1687cfbf2d3eef39e4632092feb42ae"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#ae1687cfbf2d3eef39e4632092feb42ae">_perception_root_mean_squared_difference_</a></td></tr>
+<tr class="separator:ae1687cfbf2d3eef39e4632092feb42ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a648337a319df8ba38793b5a3e5e44b6c" id="r_a648337a319df8ba38793b5a3e5e44b6c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a648337a319df8ba38793b5a3e5e44b6c">_perception_inter_cones_distance_</a></td></tr>
+<tr class="separator:a648337a319df8ba38793b5a3e5e44b6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd534c8f0cc6bfca400724bb61f48c63" id="r_afd534c8f0cc6bfca400724bb61f48c63"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#afd534c8f0cc6bfca400724bb61f48c63">_perception_execution_time_</a></td></tr>
+<tr class="separator:afd534c8f0cc6bfca400724bb61f48c63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad67dc37c81bf7ca3b2f6ab01ee574097" id="r_ad67dc37c81bf7ca3b2f6ab01ee574097"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#ad67dc37c81bf7ca3b2f6ab01ee574097">_map_execution_time_</a></td></tr>
+<tr class="separator:ad67dc37c81bf7ca3b2f6ab01ee574097"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfacc5aed7ba855b84bd80f560a5cbe8" id="r_acfacc5aed7ba855b84bd80f560a5cbe8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#acfacc5aed7ba855b84bd80f560a5cbe8">_vehicle_state_difference_</a></td></tr>
+<tr class="separator:acfacc5aed7ba855b84bd80f560a5cbe8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40ace399d32820ed55c29d76ab94efc2" id="r_a40ace399d32820ed55c29d76ab94efc2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a40ace399d32820ed55c29d76ab94efc2">_map_mean_squared_difference_</a></td></tr>
+<tr class="separator:a40ace399d32820ed55c29d76ab94efc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72f1d81bd06e53cf88059fd3975e64ea" id="r_a72f1d81bd06e53cf88059fd3975e64ea"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a72f1d81bd06e53cf88059fd3975e64ea">_map_mean_difference_</a></td></tr>
+<tr class="separator:a72f1d81bd06e53cf88059fd3975e64ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeedfae32ea54a4b97a1c76d3029fda0b" id="r_aeedfae32ea54a4b97a1c76d3029fda0b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#aeedfae32ea54a4b97a1c76d3029fda0b">_map_root_mean_squared_difference_</a></td></tr>
+<tr class="separator:aeedfae32ea54a4b97a1c76d3029fda0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac124c12ef93b07f964825cc0d86abe1f" id="r_ac124c12ef93b07f964825cc0d86abe1f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#ac124c12ef93b07f964825cc0d86abe1f">_planning_mean_difference_</a></td></tr>
+<tr class="separator:ac124c12ef93b07f964825cc0d86abe1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12fbe311d1daef6b0b9547ae506bc0b3" id="r_a12fbe311d1daef6b0b9547ae506bc0b3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a12fbe311d1daef6b0b9547ae506bc0b3">_planning_mean_squared_difference_</a></td></tr>
+<tr class="separator:a12fbe311d1daef6b0b9547ae506bc0b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5cdf8c690880ae0ad81c7494698444a4" id="r_a5cdf8c690880ae0ad81c7494698444a4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a5cdf8c690880ae0ad81c7494698444a4">_planning_root_mean_squared_difference_</a></td></tr>
+<tr class="separator:a5cdf8c690880ae0ad81c7494698444a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeafcf7b6bca10c66e2ef87225f12dac7" id="r_aeafcf7b6bca10c66e2ef87225f12dac7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#aeafcf7b6bca10c66e2ef87225f12dac7">_planning_execution_time_</a></td></tr>
+<tr class="separator:aeafcf7b6bca10c66e2ef87225f12dac7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14cf71ff75aa05af3a5087d9b47a913e" id="r_a14cf71ff75aa05af3a5087d9b47a913e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a14cf71ff75aa05af3a5087d9b47a913e">_point_cloud_receive_time_</a></td></tr>
+<tr class="separator:a14cf71ff75aa05af3a5087d9b47a913e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ca0f516130bb75564819063efbe89b2" id="r_a8ca0f516130bb75564819063efbe89b2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a8ca0f516130bb75564819063efbe89b2">_planning_receive_time_</a></td></tr>
+<tr class="separator:a8ca0f516130bb75564819063efbe89b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A ROS2 node for computing and publishing system's metrics. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00014">14</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00027">27</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a829a8cb5c9d969b7ceacd9e59146b7be" name="a829a8cb5c9d969b7ceacd9e59146b7be"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a829a8cb5c9d969b7ceacd9e59146b7be">&#9670;&#160;</a></span>__init__()</h2>
@@ -221,7 +251,7 @@ Public Attributes</h2></td></tr>
 
 <p>Initializes the Evaluator node and creates the subscriptions/adapters. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00019">19</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00032">32</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -244,254 +274,14 @@ Here is the caller graph for this function:</div>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a9ee48b04ec574762075a9defb07076b7" name="a9ee48b04ec574762075a9defb07076b7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9ee48b04ec574762075a9defb07076b7">&#9670;&#160;</a></span>build_adjacency_matrix()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">evaluator.evaluator.Evaluator.build_adjacency_matrix </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>cones</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Build adjacency matrix based on distances between cones. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00195">195</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
-
-</div>
-</div>
-<a id="adab12cd2fd949bcb589786f03ff63aed" name="adab12cd2fd949bcb589786f03ff63aed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adab12cd2fd949bcb589786f03ff63aed">&#9670;&#160;</a></span>compute_and_publish_perception()</h2>
+<a id="a02589b9f82e85fbc7d571fcb5ed7e73c" name="a02589b9f82e85fbc7d571fcb5ed7e73c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02589b9f82e85fbc7d571fcb5ed7e73c">&#9670;&#160;</a></span>compute_and_publish_perception()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">evaluator.evaluator.Evaluator.compute_and_publish_perception </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Computes perception metrics and publishes them. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00087">87</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator_adab12cd2fd949bcb589786f03ff63aed_cgraph.png" border="0" usemap="#adc/d59/classevaluator_1_1evaluator_1_1_evaluator_adab12cd2fd949bcb589786f03ff63aed_cgraph" alt=""/></div>
-<map name="adc/d59/classevaluator_1_1evaluator_1_1_evaluator_adab12cd2fd949bcb589786f03ff63aed_cgraph" id="adc/d59/classevaluator_1_1evaluator_1_1_evaluator_adab12cd2fd949bcb589786f03ff63aed_cgraph">
-<area shape="rect" title="Computes perception metrics and publishes them." alt="" coords="5,5,246,46"/>
-<area shape="rect" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#aa29cfef960e289681a7aaa21788bc33f" title="Computes the average difference between an output output and the expected values." alt="" coords="294,5,502,46"/>
-<area shape="poly" title=" " alt="" coords="246,23,278,23,278,28,246,28"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="ad971867be6d8758f7ed2d5c5c473c1df" name="ad971867be6d8758f7ed2d5c5c473c1df"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad971867be6d8758f7ed2d5c5c473c1df">&#9670;&#160;</a></span>compute_distance()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">evaluator.evaluator.Evaluator.compute_distance </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>cone1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>cone2</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Compute Euclidean distance between two cones. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00188">188</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
-
-</div>
-</div>
-<a id="aa29cfef960e289681a7aaa21788bc33f" name="aa29cfef960e289681a7aaa21788bc33f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa29cfef960e289681a7aaa21788bc33f">&#9670;&#160;</a></span>get_average_difference()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">evaluator.evaluator.Evaluator.get_average_difference </td>
-          <td>(</td>
-          <td class="paramtype">list&#160;</td>
-          <td class="paramname"><em>output</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">list&#160;</td>
-          <td class="paramname"><em>expected</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Computes the average difference between an output output and the expected values. </p>
-<p>Args: output (list): Empirical Output. expected (list): Expected output.</p>
-<p>Returns: float: Average difference between empirical and expected outputs. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00120">120</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator_aa29cfef960e289681a7aaa21788bc33f_icgraph.png" border="0" usemap="#adc/d59/classevaluator_1_1evaluator_1_1_evaluator_aa29cfef960e289681a7aaa21788bc33f_icgraph" alt=""/></div>
-<map name="adc/d59/classevaluator_1_1evaluator_1_1_evaluator_aa29cfef960e289681a7aaa21788bc33f_icgraph" id="adc/d59/classevaluator_1_1evaluator_1_1_evaluator_aa29cfef960e289681a7aaa21788bc33f_icgraph">
-<area shape="rect" title="Computes the average difference between an output output and the expected values." alt="" coords="294,39,502,79"/>
-<area shape="rect" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#adab12cd2fd949bcb589786f03ff63aed" title="Computes perception metrics and publishes them." alt="" coords="5,5,246,46"/>
-<area shape="poly" title=" " alt="" coords="277,47,246,43,247,38,278,42"/>
-<area shape="rect" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a015e480421eae818babb86de3fcdcd45" title="Computes planning metrics and publishes them." alt="" coords="6,71,245,111"/>
-<area shape="poly" title=" " alt="" coords="278,76,245,80,245,74,278,70"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a1b2b34e006c2d23961d40c2f938fdb5d" name="a1b2b34e006c2d23961d40c2f938fdb5d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1b2b34e006c2d23961d40c2f938fdb5d">&#9670;&#160;</a></span>get_inter_cones_distance()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">evaluator.evaluator.Evaluator.get_inter_cones_distance </td>
-          <td>(</td>
-          <td class="paramtype">list&#160;</td>
-          <td class="paramname"><em>perception_output</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Computes the average distance between pairs of perceived cones using Minimum Spanning Tree Prim's algorithm. </p>
-<p>Args: perception_output (list): List of perceived cones, where each cone is represented as a numpy array.</p>
-<p>Returns: float: Average distance between pairs of perceived cones. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00209">209</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
-
-</div>
-</div>
-<a id="ada7a407be21a1eaaba95989d32f5566e" name="ada7a407be21a1eaaba95989d32f5566e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ada7a407be21a1eaaba95989d32f5566e">&#9670;&#160;</a></span>get_mean_squared_error()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">evaluator.evaluator.Evaluator.get_mean_squared_error </td>
-          <td>(</td>
-          <td class="paramtype">list&#160;</td>
-          <td class="paramname"><em>output</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">list&#160;</td>
-          <td class="paramname"><em>expected</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Computes the mean squared error between an output output and the expected values. </p>
-<p>Args: output (list): Empirical Output. expected (list): Expected output.</p>
-<p>Returns: float: Mean squared error. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00157">157</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator_ada7a407be21a1eaaba95989d32f5566e_icgraph.png" border="0" usemap="#adc/d59/classevaluator_1_1evaluator_1_1_evaluator_ada7a407be21a1eaaba95989d32f5566e_icgraph" alt=""/></div>
-<map name="adc/d59/classevaluator_1_1evaluator_1_1_evaluator_ada7a407be21a1eaaba95989d32f5566e_icgraph" id="adc/d59/classevaluator_1_1evaluator_1_1_evaluator_ada7a407be21a1eaaba95989d32f5566e_icgraph">
-<area shape="rect" title="Computes the mean squared error between an output output and the expected values." alt="" coords="292,5,500,46"/>
-<area shape="rect" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a015e480421eae818babb86de3fcdcd45" title="Computes planning metrics and publishes them." alt="" coords="5,5,244,46"/>
-<area shape="poly" title=" " alt="" coords="276,28,244,28,244,23,276,23"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a70831dca93f611102095496f5c9bbb61" name="a70831dca93f611102095496f5c9bbb61"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a70831dca93f611102095496f5c9bbb61">&#9670;&#160;</a></span>perception_callback_time_measurement()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">evaluator.evaluator.Evaluator.perception_callback_time_measurement </td>
+          <td class="memname"> None evaluator.evaluator.Evaluator.compute_and_publish_perception </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>self</em>, </td>
@@ -499,8 +289,15 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">ConeArray&#160;</td>
-          <td class="paramname"><em>msg</em>&#160;</td>
+          <td class="paramtype">np.ndarray&#160;</td>
+          <td class="paramname"><em>perception_output</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">np.ndarray
+    &#160;</td>
+          <td class="paramname"><em>perception_ground_truth</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -510,20 +307,21 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Computes the perception's execution time. </p>
+<p>Computes perception metrics and publishes them. </p>
+<p>Args: perception_output (np.ndarray): Perceived cones. perception_ground_truth (np.ndarray): Ground truth cones. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00075">75</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00274">274</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
-<a id="a015e480421eae818babb86de3fcdcd45" name="a015e480421eae818babb86de3fcdcd45"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a015e480421eae818babb86de3fcdcd45">&#9670;&#160;</a></span>planning_callback()</h2>
+<a id="a59accb550c85260965e66625313e5764" name="a59accb550c85260965e66625313e5764"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59accb550c85260965e66625313e5764">&#9670;&#160;</a></span>compute_and_publish_planning()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">evaluator.evaluator.Evaluator.planning_callback </td>
+          <td class="memname">evaluator.evaluator.Evaluator.compute_and_publish_planning </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>self</em>, </td>
@@ -543,20 +341,136 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Computes planning metrics and publishes them. </p>
+<p>Args: msg (PathPointArray): Path points array message. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00234">234</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator_a015e480421eae818babb86de3fcdcd45_cgraph.png" border="0" usemap="#adc/d59/classevaluator_1_1evaluator_1_1_evaluator_a015e480421eae818babb86de3fcdcd45_cgraph" alt=""/></div>
-<map name="adc/d59/classevaluator_1_1evaluator_1_1_evaluator_a015e480421eae818babb86de3fcdcd45_cgraph" id="adc/d59/classevaluator_1_1evaluator_1_1_evaluator_a015e480421eae818babb86de3fcdcd45_cgraph">
-<area shape="rect" title="Computes planning metrics and publishes them." alt="" coords="5,39,244,79"/>
-<area shape="rect" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#aa29cfef960e289681a7aaa21788bc33f" title="Computes the average difference between an output output and the expected values." alt="" coords="292,5,500,46"/>
-<area shape="poly" title=" " alt="" coords="244,42,276,38,277,43,244,47"/>
-<area shape="rect" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#ada7a407be21a1eaaba95989d32f5566e" title="Computes the mean squared error between an output output and the expected values." alt="" coords="292,71,500,111"/>
-<area shape="poly" title=" " alt="" coords="244,70,277,74,276,80,244,76"/>
-</map>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00323">323</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
 </div>
+</div>
+<a id="a78dcce5ec13f0912dd132143898b0bb7" name="a78dcce5ec13f0912dd132143898b0bb7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78dcce5ec13f0912dd132143898b0bb7">&#9670;&#160;</a></span>compute_and_publish_state_estimation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None evaluator.evaluator.Evaluator.compute_and_publish_state_estimation </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">np.ndarray&#160;</td>
+          <td class="paramname"><em>pose</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">np.ndarray&#160;</td>
+          <td class="paramname"><em>groundtruth_pose</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">np.ndarray&#160;</td>
+          <td class="paramname"><em>velocities</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">np.ndarray&#160;</td>
+          <td class="paramname"><em>groundtruth_velocities</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">np.ndarray&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">np.ndarray&#160;</td>
+          <td class="paramname"><em>groundtruth_map</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Computes perception metrics and publishes them. </p>
+<p>Args: pose (np.ndarray): Vehicle state estimation data. [x,y,theta] groundtruth_pose (np.ndarray): Ground truth vehicle state data. [x,y,theta] velocities (np.ndarray): Vehicle state estimation velocities. [v, v, w] groundtruth_velocities (np.ndarray): Ground truth vehicle state velocities. [vx, vy, w] map (np.ndarray): Map data. [[x,y,color,confidence]] groundtruth_map (np.ndarray): Ground truth map data. [[x,y,color,confidence]] </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00193">193</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="a0154541b37a8dd9e66358f527c419410" name="a0154541b37a8dd9e66358f527c419410"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0154541b37a8dd9e66358f527c419410">&#9670;&#160;</a></span>map_callback_time_measurement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None evaluator.evaluator.Evaluator.map_callback_time_measurement </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ConeArray&#160;</td>
+          <td class="paramname"><em>_</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Computes the SLAM's execution time. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00179">179</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="a429894b2e09d7509569d2b4e0b22f743" name="a429894b2e09d7509569d2b4e0b22f743"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a429894b2e09d7509569d2b4e0b22f743">&#9670;&#160;</a></span>perception_callback_time_measurement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None evaluator.evaluator.Evaluator.perception_callback_time_measurement </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ConeArray&#160;</td>
+          <td class="paramname"><em>_</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Computes the perception's execution time. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00162">162</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -586,117 +500,486 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Stores the path planning ground truth. </p>
+<p>Stores the path planning ground truth from mocker node. </p>
+<p>Args: msg (PathPointArray): Path points array message. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00270">270</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00376">376</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="a78c92698aaa8ec17dfb3fc1ae3a2fd01" name="a78c92698aaa8ec17dfb3fc1ae3a2fd01"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78c92698aaa8ec17dfb3fc1ae3a2fd01">&#9670;&#160;</a></span>point_cloud_callback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator.point_cloud_callback </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">PointCloud2&#160;</td>
+          <td class="paramname"><em>_</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Point Cloud Callback to get the initial time of perception pipeline. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00156">156</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a2fa1e1b009fdaf753356c9df194a6a63" name="a2fa1e1b009fdaf753356c9df194a6a63"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2fa1e1b009fdaf753356c9df194a6a63">&#9670;&#160;</a></span>adapter</h2>
+<a id="a8307d22d83e43a080392883906d1d276" name="a8307d22d83e43a080392883906d1d276"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8307d22d83e43a080392883906d1d276">&#9670;&#160;</a></span>_adapter_name_</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">evaluator.evaluator.Evaluator.adapter</td>
+          <td class="memname">evaluator.evaluator.Evaluator._adapter_name_</td>
         </tr>
       </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00072">72</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
-
-</div>
-</div>
-<a id="a78e9c198a50fbb5da2e72eda7de6a404" name="a78e9c198a50fbb5da2e72eda7de6a404"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a78e9c198a50fbb5da2e72eda7de6a404">&#9670;&#160;</a></span>end_time</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">evaluator.evaluator.Evaluator.end_time</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00081">81</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
-
-</div>
-</div>
-<a id="a852e5ef345d69a769fc5bec79dea4008" name="a852e5ef345d69a769fc5bec79dea4008"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a852e5ef345d69a769fc5bec79dea4008">&#9670;&#160;</a></span>perception_execution_time</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">evaluator.evaluator.Evaluator.perception_execution_time</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00053">53</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
-
-</div>
-</div>
-<a id="adb115c1419b125ee41f7959a7f7ad05d" name="adb115c1419b125ee41f7959a7f7ad05d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adb115c1419b125ee41f7959a7f7ad05d">&#9670;&#160;</a></span>perception_inter_cones_distance</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">evaluator.evaluator.Evaluator.perception_inter_cones_distance</td>
-        </tr>
-      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00050">50</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
-<a id="a3d1ebc548b29e038a2ed9721b2e093c3" name="a3d1ebc548b29e038a2ed9721b2e093c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3d1ebc548b29e038a2ed9721b2e093c3">&#9670;&#160;</a></span>perception_mean_difference</h2>
+<a id="ad67dc37c81bf7ca3b2f6ab01ee574097" name="ad67dc37c81bf7ca3b2f6ab01ee574097"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad67dc37c81bf7ca3b2f6ab01ee574097">&#9670;&#160;</a></span>_map_execution_time_</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">evaluator.evaluator.Evaluator.perception_mean_difference</td>
+          <td class="memname">evaluator.evaluator.Evaluator._map_execution_time_</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00041">41</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00117">117</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
-<a id="aef064cb20626a40b00579ff0afdc691c" name="aef064cb20626a40b00579ff0afdc691c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aef064cb20626a40b00579ff0afdc691c">&#9670;&#160;</a></span>perception_mean_squared_difference</h2>
+<a id="a72f1d81bd06e53cf88059fd3975e64ea" name="a72f1d81bd06e53cf88059fd3975e64ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72f1d81bd06e53cf88059fd3975e64ea">&#9670;&#160;</a></span>_map_mean_difference_</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">evaluator.evaluator.Evaluator.perception_mean_squared_difference</td>
+          <td class="memname">evaluator.evaluator.Evaluator._map_mean_difference_</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00044">44</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00128">128</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
-<a id="a24fe74d37f4cca6146ed9ee0b0e8458d" name="a24fe74d37f4cca6146ed9ee0b0e8458d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a24fe74d37f4cca6146ed9ee0b0e8458d">&#9670;&#160;</a></span>perception_output</h2>
+<a id="a40ace399d32820ed55c29d76ab94efc2" name="a40ace399d32820ed55c29d76ab94efc2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40ace399d32820ed55c29d76ab94efc2">&#9670;&#160;</a></span>_map_mean_squared_difference_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._map_mean_squared_difference_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00125">125</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="aeedfae32ea54a4b97a1c76d3029fda0b" name="aeedfae32ea54a4b97a1c76d3029fda0b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeedfae32ea54a4b97a1c76d3029fda0b">&#9670;&#160;</a></span>_map_root_mean_squared_difference_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._map_root_mean_squared_difference_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00131">131</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="afd534c8f0cc6bfca400724bb61f48c63" name="afd534c8f0cc6bfca400724bb61f48c63"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd534c8f0cc6bfca400724bb61f48c63">&#9670;&#160;</a></span>_perception_execution_time_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._perception_execution_time_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00112">112</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="a648337a319df8ba38793b5a3e5e44b6c" name="a648337a319df8ba38793b5a3e5e44b6c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a648337a319df8ba38793b5a3e5e44b6c">&#9670;&#160;</a></span>_perception_inter_cones_distance_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._perception_inter_cones_distance_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00109">109</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="adc0e389c6d4586ecff29b374f38c9212" name="adc0e389c6d4586ecff29b374f38c9212"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc0e389c6d4586ecff29b374f38c9212">&#9670;&#160;</a></span>_perception_mean_difference_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._perception_mean_difference_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00100">100</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="a76f8f8694aed438c04db7afc13ece3dc" name="a76f8f8694aed438c04db7afc13ece3dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76f8f8694aed438c04db7afc13ece3dc">&#9670;&#160;</a></span>_perception_mean_squared_difference_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._perception_mean_squared_difference_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00103">103</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="ae1687cfbf2d3eef39e4632092feb42ae" name="ae1687cfbf2d3eef39e4632092feb42ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1687cfbf2d3eef39e4632092feb42ae">&#9670;&#160;</a></span>_perception_root_mean_squared_difference_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._perception_root_mean_squared_difference_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00106">106</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="aeafcf7b6bca10c66e2ef87225f12dac7" name="aeafcf7b6bca10c66e2ef87225f12dac7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeafcf7b6bca10c66e2ef87225f12dac7">&#9670;&#160;</a></span>_planning_execution_time_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._planning_execution_time_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00143">143</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="ac124c12ef93b07f964825cc0d86abe1f" name="ac124c12ef93b07f964825cc0d86abe1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac124c12ef93b07f964825cc0d86abe1f">&#9670;&#160;</a></span>_planning_mean_difference_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._planning_mean_difference_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00134">134</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="a12fbe311d1daef6b0b9547ae506bc0b3" name="a12fbe311d1daef6b0b9547ae506bc0b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12fbe311d1daef6b0b9547ae506bc0b3">&#9670;&#160;</a></span>_planning_mean_squared_difference_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._planning_mean_squared_difference_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00137">137</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="a8ca0f516130bb75564819063efbe89b2" name="a8ca0f516130bb75564819063efbe89b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ca0f516130bb75564819063efbe89b2">&#9670;&#160;</a></span>_planning_receive_time_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._planning_receive_time_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00352">352</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="a5cdf8c690880ae0ad81c7494698444a4" name="a5cdf8c690880ae0ad81c7494698444a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5cdf8c690880ae0ad81c7494698444a4">&#9670;&#160;</a></span>_planning_root_mean_squared_difference_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._planning_root_mean_squared_difference_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00140">140</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="a14cf71ff75aa05af3a5087d9b47a913e" name="a14cf71ff75aa05af3a5087d9b47a913e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14cf71ff75aa05af3a5087d9b47a913e">&#9670;&#160;</a></span>_point_cloud_receive_time_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._point_cloud_receive_time_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00160">160</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="a3a1e3c8142b783375a639758f735cec4" name="a3a1e3c8142b783375a639758f735cec4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a1e3c8142b783375a639758f735cec4">&#9670;&#160;</a></span>_transforms_listener_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._transforms_listener_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00080">80</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="acfacc5aed7ba855b84bd80f560a5cbe8" name="acfacc5aed7ba855b84bd80f560a5cbe8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acfacc5aed7ba855b84bd80f560a5cbe8">&#9670;&#160;</a></span>_vehicle_state_difference_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._vehicle_state_difference_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00120">120</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="a10f2988aa94e88c0dc2816770c96016f" name="a10f2988aa94e88c0dc2816770c96016f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10f2988aa94e88c0dc2816770c96016f">&#9670;&#160;</a></span>compute_and_publish_planning</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">evaluator.evaluator.Evaluator.perception_output</td>
+          <td class="memname">evaluator.evaluator.Evaluator.compute_and_publish_planning</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -705,67 +988,131 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a id="a9997b79a78be19f887097666075b9656" name="a9997b79a78be19f887097666075b9656"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9997b79a78be19f887097666075b9656">&#9670;&#160;</a></span>perception_root_mean_squared_difference</h2>
+<a id="a6123e47903ab17aefda2207233a2d5d2" name="a6123e47903ab17aefda2207233a2d5d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6123e47903ab17aefda2207233a2d5d2">&#9670;&#160;</a></span>map_callback_time_measurement</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">evaluator.evaluator.Evaluator.perception_root_mean_squared_difference</td>
+          <td class="memname">evaluator.evaluator.Evaluator.map_callback_time_measurement</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00047">47</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00071">71</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
-<a id="a5dc3df5998220a865365643c551d94a0" name="a5dc3df5998220a865365643c551d94a0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5dc3df5998220a865365643c551d94a0">&#9670;&#160;</a></span>perception_subscription</h2>
+<a id="a4a193f8fd39f95ddf07cb58e195532cf" name="a4a193f8fd39f95ddf07cb58e195532cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a193f8fd39f95ddf07cb58e195532cf">&#9670;&#160;</a></span>map_receive_time_</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">evaluator.evaluator.Evaluator.perception_subscription</td>
+          <td class="memname">evaluator.evaluator.Evaluator.map_receive_time_</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00027">27</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00185">185</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
-<a id="a8c8d357057a2f4935b54780f8660a228" name="a8c8d357057a2f4935b54780f8660a228"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8c8d357057a2f4935b54780f8660a228">&#9670;&#160;</a></span>planning_callback</h2>
+<a id="a1be91276c9156253a6a7d312ac6d029c" name="a1be91276c9156253a6a7d312ac6d029c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1be91276c9156253a6a7d312ac6d029c">&#9670;&#160;</a></span>map_subscription_</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">evaluator.evaluator.Evaluator.planning_callback</td>
+          <td class="memname">evaluator.evaluator.Evaluator.map_subscription_</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00032">32</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00073">73</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
-<a id="a83fea1cbfa65fb73898c0dc8e22e6f95" name="a83fea1cbfa65fb73898c0dc8e22e6f95"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a83fea1cbfa65fb73898c0dc8e22e6f95">&#9670;&#160;</a></span>planning_execution_time</h2>
+<a id="a758ae25030d3f7266fc0309634fc53cd" name="a758ae25030d3f7266fc0309634fc53cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a758ae25030d3f7266fc0309634fc53cd">&#9670;&#160;</a></span>map_timing_subscription_</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">evaluator.evaluator.Evaluator.planning_execution_time</td>
+          <td class="memname">evaluator.evaluator.Evaluator.map_timing_subscription_</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00066">66</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00070">70</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="a6e764e5d397976e5332bd02f7006381d" name="a6e764e5d397976e5332bd02f7006381d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e764e5d397976e5332bd02f7006381d">&#9670;&#160;</a></span>perception_callback_time_measurement</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator.perception_callback_time_measurement</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00064">64</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="a6444e510eea38d9bd238b5434e112c38" name="a6444e510eea38d9bd238b5434e112c38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6444e510eea38d9bd238b5434e112c38">&#9670;&#160;</a></span>perception_receive_time_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator.perception_receive_time_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00168">168</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="a5c585355cc5f5c1ffc23aac813eb5de0" name="a5c585355cc5f5c1ffc23aac813eb5de0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c585355cc5f5c1ffc23aac813eb5de0">&#9670;&#160;</a></span>perception_subscription_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator.perception_subscription_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00067">67</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="a12e63f8566bad3bcb569847e090cb893" name="a12e63f8566bad3bcb569847e090cb893"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12e63f8566bad3bcb569847e090cb893">&#9670;&#160;</a></span>perception_timing_subscription_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator.perception_timing_subscription_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00061">61</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -781,7 +1128,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00034">34</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00096">96</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -797,39 +1144,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00033">33</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
-
-</div>
-</div>
-<a id="a8ae7bdc27463627edf88b2d1319d0899" name="a8ae7bdc27463627edf88b2d1319d0899"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8ae7bdc27463627edf88b2d1319d0899">&#9670;&#160;</a></span>planning_mean_difference</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">evaluator.evaluator.Evaluator.planning_mean_difference</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00057">57</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
-
-</div>
-</div>
-<a id="a70ae548100beedfcccb9943784bfa8c5" name="a70ae548100beedfcccb9943784bfa8c5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a70ae548100beedfcccb9943784bfa8c5">&#9670;&#160;</a></span>planning_mean_squared_difference</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">evaluator.evaluator.Evaluator.planning_mean_squared_difference</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00060">60</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00095">95</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -845,23 +1160,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00070">70</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
-
-</div>
-</div>
-<a id="ad0c7b01c555e006cf9c248d4898a21a8" name="ad0c7b01c555e006cf9c248d4898a21a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad0c7b01c555e006cf9c248d4898a21a8">&#9670;&#160;</a></span>planning_root_mean_squared_difference</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">evaluator.evaluator.Evaluator.planning_root_mean_squared_difference</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00063">63</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00147">147</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -877,7 +1176,87 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00031">31</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00092">92</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="aa57ff3c8b0b5e9032dc707485c999a50" name="aa57ff3c8b0b5e9032dc707485c999a50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa57ff3c8b0b5e9032dc707485c999a50">&#9670;&#160;</a></span>point_cloud_callback</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator.point_cloud_callback</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00084">84</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="a54b41d2f3e33d0924835f68dffe92447" name="a54b41d2f3e33d0924835f68dffe92447"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54b41d2f3e33d0924835f68dffe92447">&#9670;&#160;</a></span>point_cloud_subscription_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator.point_cloud_subscription_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00087">87</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="a534227b3d8eae6c4d91ac42a2bc44e28" name="a534227b3d8eae6c4d91ac42a2bc44e28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a534227b3d8eae6c4d91ac42a2bc44e28">&#9670;&#160;</a></span>point_cloud_timing_subscription_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator.point_cloud_timing_subscription_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00081">81</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="a514f5de790cd4e8691eb9ea8b65be22d" name="a514f5de790cd4e8691eb9ea8b65be22d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a514f5de790cd4e8691eb9ea8b65be22d">&#9670;&#160;</a></span>transform_buffer_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator.transform_buffer_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00079">79</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="ac287b832430e32ca6c11b7e3b840bb87" name="ac287b832430e32ca6c11b7e3b840bb87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac287b832430e32ca6c11b7e3b840bb87">&#9670;&#160;</a></span>vehicle_state_subscription_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator.vehicle_state_subscription_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00076">76</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>

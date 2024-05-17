@@ -1,11 +1,9 @@
 <map id="FsdsAdapter::fsds_mission_state_callback" name="FsdsAdapter::fsds_mission_state_callback">
-<area shape="rect" id="Node000001" title=" " alt="" coords="395,47,573,88"/>
-<area shape="rect" id="Node000002" href="$d7/d8e/class_fsds_adapter.html#a0cd24b4faf0f5f8ef7bcc5c8c8dbec48" title=" " alt="" coords="229,55,347,80"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="379,70,347,70,347,65,379,65"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="395,23,573,64"/>
+<area shape="rect" id="Node000002" href="$d7/d8e/class_fsds_adapter.html#a0cd24b4faf0f5f8ef7bcc5c8c8dbec48" title=" " alt="" coords="229,31,347,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="379,46,347,46,347,41,379,41"/>
 <area shape="rect" id="Node000003" href="$d7/d8e/class_fsds_adapter.html#a81faaf40f5673f303c36b4110b2ed015" title=" " alt="" coords="5,5,181,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="219,53,146,34,147,29,220,48"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="213,36,181,32,181,27,214,31"/>
 <area shape="rect" id="Node000004" href="$d7/d8e/class_fsds_adapter.html#a3326ea8b3c0ec0d0bc1e7432de507155" title=" " alt="" coords="5,55,181,80"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="213,70,181,70,181,65,213,65"/>
-<area shape="rect" id="Node000005" href="$d7/d8e/class_fsds_adapter.html#a92ddea4a14bad52447a078fb76bf8231" title=" " alt="" coords="5,104,181,130"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="220,87,147,106,146,101,219,82"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="214,55,181,59,181,54,213,50"/>
 </map>

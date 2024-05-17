@@ -1,0 +1,7 @@
+<map id="evaluator.metrics.get_inter_cones_distance" name="evaluator.metrics.get_inter_cones_distance">
+<area shape="rect" id="Node000001" title="Computes the average distance between pairs of perceived cones using Minimum Spanning Tree Prim&#39;s alg..." alt="" coords="5,5,157,46"/>
+<area shape="rect" id="Node000002" href="$d7/d92/namespaceevaluator_1_1metrics.html#a13fed0386ed9364f8b19e37f1c996d2b" title="Build adjacency matrix based on distances between cones." alt="" coords="205,5,355,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="157,23,189,23,189,28,157,28"/>
+<area shape="rect" id="Node000003" href="$d7/d92/namespaceevaluator_1_1metrics.html#a354a2409d5c6a4450ebca42cd56bceee" title="Compute Euclidean distance between two cones." alt="" coords="403,5,576,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="355,23,387,23,387,28,355,28"/>
+</map>

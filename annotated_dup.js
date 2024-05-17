@@ -16,11 +16,17 @@ var annotated_dup =
       [ "adapter", "dc/da0/namespaceevaluator_1_1adapter.html", [
         [ "Adapter", "d7/dff/classevaluator_1_1adapter_1_1_adapter.html", "d7/dff/classevaluator_1_1adapter_1_1_adapter" ]
       ] ],
+      [ "eufs_adapter", "d9/d12/namespaceevaluator_1_1eufs__adapter.html", [
+        [ "EufsAdapter", "dc/dab/classevaluator_1_1eufs__adapter_1_1_eufs_adapter.html", "dc/dab/classevaluator_1_1eufs__adapter_1_1_eufs_adapter" ]
+      ] ],
       [ "evaluator", "d0/d42/namespaceevaluator_1_1evaluator.html", [
         [ "Evaluator", "dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html", "dc/d59/classevaluator_1_1evaluator_1_1_evaluator" ]
       ] ],
       [ "fsds_adapter", "d8/daa/namespaceevaluator_1_1fsds__adapter.html", [
         [ "FSDSAdapter", "dc/de8/classevaluator_1_1fsds__adapter_1_1_f_s_d_s_adapter.html", "dc/de8/classevaluator_1_1fsds__adapter_1_1_f_s_d_s_adapter" ]
+      ] ],
+      [ "pacsim_adapter", "d5/dc2/namespaceevaluator_1_1pacsim__adapter.html", [
+        [ "PacsimAdapter", "d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter.html", "d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter" ]
       ] ]
     ] ],
     [ "test_perception_metrics", "df/d68/namespacetest__perception__metrics.html", [
@@ -65,6 +71,7 @@ var annotated_dup =
     [ "NormalVelocityModel", "d7/df9/class_normal_velocity_model.html", "d7/df9/class_normal_velocity_model" ],
     [ "ObservationData", "d9/d90/struct_observation_data.html", "d9/d90/struct_observation_data" ],
     [ "ObservationModel", "d7/d64/class_observation_model.html", "d7/d64/class_observation_model" ],
+    [ "PacsimAdapter", "d1/dcb/class_pacsim_adapter.html", "d1/dcb/class_pacsim_adapter" ],
     [ "PathPoint", "d9/d32/class_path_point.html", "d9/d32/class_path_point" ],
     [ "PathSmoothing", "d7/db7/class_path_smoothing.html", "d7/db7/class_path_smoothing" ],
     [ "Perception", "de/d07/class_perception.html", "de/d07/class_perception" ],

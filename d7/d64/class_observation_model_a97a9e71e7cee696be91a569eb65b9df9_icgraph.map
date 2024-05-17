@@ -1,5 +1,0 @@
-<map id="ObservationModel::get_observation_noise_covariance_matrix" name="ObservationModel::get_observation_noise_covariance_matrix">
-<area shape="rect" id="Node000001" title="Get the observation noise covariance matrix (C or H)" alt="" coords="201,5,404,61"/>
-<area shape="rect" id="Node000002" href="$da/da6/class_extended_kalman_filter.html#a0677b8f535ac4b4c59c161d99b9b028b" title="Correction step:" alt="" coords="5,13,153,54"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="185,36,153,36,153,31,185,31"/>
-</map>

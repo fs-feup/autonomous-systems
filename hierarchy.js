@@ -8,10 +8,14 @@ var hierarchy =
       [ "FsdsAdapter", "d7/d8e/class_fsds_adapter.html", null ],
       [ "FsdsAdapter", "d7/d8e/class_fsds_adapter.html", null ],
       [ "FsdsAdapter", "d7/d8e/class_fsds_adapter.html", null ],
+      [ "PacsimAdapter", "d1/dcb/class_pacsim_adapter.html", null ],
+      [ "VehicleAdapter", "d1/df1/class_vehicle_adapter.html", null ],
       [ "VehicleAdapter", "d1/df1/class_vehicle_adapter.html", null ]
     ] ],
     [ "evaluator.adapter.Adapter", "d7/dff/classevaluator_1_1adapter_1_1_adapter.html", [
-      [ "evaluator.fsds_adapter.FSDSAdapter", "dc/de8/classevaluator_1_1fsds__adapter_1_1_f_s_d_s_adapter.html", null ]
+      [ "evaluator.eufs_adapter.EufsAdapter", "dc/dab/classevaluator_1_1eufs__adapter_1_1_eufs_adapter.html", null ],
+      [ "evaluator.fsds_adapter.FSDSAdapter", "dc/de8/classevaluator_1_1fsds__adapter_1_1_f_s_d_s_adapter.html", null ],
+      [ "evaluator.pacsim_adapter.PacsimAdapter", "d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter.html", null ]
     ] ],
     [ "AngleNorm", "df/d47/struct_angle_norm.html", null ],
     [ "Cluster", "d2/d23/class_cluster.html", null ],

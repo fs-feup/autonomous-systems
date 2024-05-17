@@ -1,7 +1,7 @@
 <map id="EufsAdapter" name="EufsAdapter">
-<area shape="rect" id="Node000001" title="Adapter class for interfacing with EUFS (Edinburgh University Formula Student)." alt="" coords="5,499,189,799"/>
-<area shape="rect" id="Node000002" href="$d3/d7f/class_adapter.html" title="Adapter class for coordinating communication between different modes and Control module." alt="" coords="5,5,189,451"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="82,466,83,499,77,499,77,466"/>
-<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="100,466,100,499,95,499,95,466"/>
-<area shape="poly" id="edge3_Node000001_Node000002" title=" " alt="" coords="118,466,117,499,112,499,113,466"/>
+<area shape="rect" id="Node000001" title="Adapter class for interfacing with EUFS (Edinburgh University Formula Student)." alt="" coords="5,479,189,793"/>
+<area shape="rect" id="Node000002" href="$d3/d7f/class_adapter.html" title="Adapter class for coordinating communication between different modes and Control module." alt="" coords="5,5,189,431"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="82,446,83,479,77,479,77,446"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="100,446,100,479,95,479,95,446"/>
+<area shape="poly" id="edge3_Node000001_Node000002" title=" " alt="" coords="118,446,117,479,112,479,113,446"/>
 </map>

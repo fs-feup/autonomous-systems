@@ -10,10 +10,11 @@ var mission__logic_8hpp =
       [ "MANUAL", "dc/de2/mission__logic_8hpp.html#adc523f54f1498f443c97303976f40140aa60a6a471c0681e5a49c4f5d00f6bc5a", null ],
       [ "NONE", "dc/de2/mission__logic_8hpp.html#adc523f54f1498f443c97303976f40140ab50339a10e1de285ac99d4c3990b8693", null ]
     ] ],
+    [ "get_mission_from_eufs", "dc/de2/mission__logic_8hpp.html#ab8a32389b3b8c68a9b524af28ecf5100", null ],
     [ "get_mission_string", "dc/de2/mission__logic_8hpp.html#a5f2f421d317c5814f38b4c9037ad2ccc", null ],
     [ "operator==", "dc/de2/mission__logic_8hpp.html#a9430e79fc9601467e161c04d4df65bb5", null ],
     [ "operator==", "dc/de2/mission__logic_8hpp.html#ac6ab8d1bfe58efddbc3ed3a349fe2bb9", null ],
-    [ "eufs_to_system", "dc/de2/mission__logic_8hpp.html#aaf30ea5139a29d5e7b4b4c40f57e26f4", null ],
+    [ "eufs_to_system", "dc/de2/mission__logic_8hpp.html#aa87f4b55e52b33afc8de420f6ae1e7dc", null ],
     [ "fsds_to_system", "dc/de2/mission__logic_8hpp.html#ae6098863ab7e35420a8410d3eb53ea59", null ],
     [ "MISSION_STRING_MAP", "dc/de2/mission__logic_8hpp.html#a76b8f6ec90ec92bf0ffc03722128c6af", null ]
 ];

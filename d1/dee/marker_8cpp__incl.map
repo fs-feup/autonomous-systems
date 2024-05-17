@@ -1,0 +1,24 @@
+<map id="src/common_lib/src/communication/marker.cpp" name="src/common_lib/src/communication/marker.cpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="293,5,474,46"/>
+<area shape="rect" id="Node000002" href="$d2/da2/marker_8hpp.html" title=" " alt="" coords="118,94,302,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="345,49,264,89,261,84,343,44"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="326,102,441,127"/>
+<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="386,47,386,86,381,86,381,47"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="465,102,584,127"/>
+<area shape="poly" id="edge11_Node000001_Node000011" title=" " alt="" coords="417,44,494,91,491,96,414,49"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,360,52,386"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="119,132,73,152,54,166,37,184,27,203,20,223,14,267,17,309,24,344,18,345,12,310,9,267,14,222,22,201,33,181,50,162,71,147,117,127"/>
+<area shape="rect" id="Node000004" href="$d5/d13/common__lib_2include_2common__lib_2structures_2cone_8hpp.html" title=" " alt="" coords="48,183,201,223"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="192,137,156,174,152,170,189,133"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="226,183,365,223"/>
+<area shape="poly" id="edge8_Node000002_Node000008" title=" " alt="" coords="231,133,267,170,264,174,227,137"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="389,183,543,223"/>
+<area shape="poly" id="edge9_Node000002_Node000009" title=" " alt="" coords="269,133,394,175,392,180,267,138"/>
+<area shape="rect" id="Node000005" href="$d8/df3/common__lib_2include_2common__lib_2competition__logic_2color_8hpp.html" title=" " alt="" coords="43,271,206,312"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="127,224,127,256,122,256,122,224"/>
+<area shape="rect" id="Node000007" href="$d5/d91/position_8hpp.html" title=" " alt="" coords="229,271,383,312"/>
+<area shape="poly" id="edge7_Node000004_Node000007" title=" " alt="" coords="167,221,252,262,250,267,165,226"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="102,314,57,352,53,348,99,310"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="98,360,151,386"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="127,312,127,344,122,344,122,312"/>
+</map>

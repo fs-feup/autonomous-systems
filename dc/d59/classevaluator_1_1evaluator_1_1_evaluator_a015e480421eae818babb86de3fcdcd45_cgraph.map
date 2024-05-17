@@ -1,7 +1,0 @@
-<map id="evaluator.evaluator.Evaluator.planning_callback" name="evaluator.evaluator.Evaluator.planning_callback">
-<area shape="rect" id="Node000001" title="Computes planning metrics and publishes them." alt="" coords="5,39,244,79"/>
-<area shape="rect" id="Node000002" href="$dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#aa29cfef960e289681a7aaa21788bc33f" title="Computes the average difference between an output output and the expected values." alt="" coords="292,5,500,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="244,42,276,38,277,43,244,47"/>
-<area shape="rect" id="Node000003" href="$dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#ada7a407be21a1eaaba95989d32f5566e" title="Computes the mean squared error between an output output and the expected values." alt="" coords="292,71,500,111"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="244,70,277,74,276,80,244,76"/>
-</map>

@@ -9,13 +9,12 @@ var class_fsds_adapter =
     [ "finish", "d7/d8e/class_fsds_adapter.html#aa676564b124e980e23d559c64a2f15d8", null ],
     [ "finish", "d7/d8e/class_fsds_adapter.html#aa676564b124e980e23d559c64a2f15d8", null ],
     [ "fsds_mission_state_callback", "d7/d8e/class_fsds_adapter.html#aefc8d6b2ccac01400870d36197129c83", null ],
-    [ "init", "d7/d8e/class_fsds_adapter.html#ac0154eee3b742b3b90a7205c2de914ab", null ],
     [ "init", "d7/d8e/class_fsds_adapter.html#a0cd24b4faf0f5f8ef7bcc5c8c8dbec48", null ],
     [ "init", "d7/d8e/class_fsds_adapter.html#a0cd24b4faf0f5f8ef7bcc5c8c8dbec48", null ],
-    [ "mission_state_callback", "d7/d8e/class_fsds_adapter.html#a94288d66e5406fb91c23637c64a4a6db", null ],
+    [ "mission_state_callback", "d7/d8e/class_fsds_adapter.html#a9c941338502ebd3ce149d784035512cd", null ],
     [ "mission_state_callback", "d7/d8e/class_fsds_adapter.html#a94288d66e5406fb91c23637c64a4a6db", null ],
     [ "mission_state_callback", "d7/d8e/class_fsds_adapter.html#a94288d66e5406fb91c23637c64a4a6db", null ],
     [ "publish_cmd", "d7/d8e/class_fsds_adapter.html#a426bd02cc91be3ee4dcab642da217832", null ],
     [ "set_mission_state", "d7/d8e/class_fsds_adapter.html#a0be977affe9a594c15dada1eb4a960e1", null ],
-    [ "wheel_speeds_subscription_callback", "d7/d8e/class_fsds_adapter.html#a25b17529c78b88ceb1b5f0d600c9dae0", null ]
+    [ "wheel_speeds_subscription_callback", "d7/d8e/class_fsds_adapter.html#a9291f29ff772d123cadacbddeb3425ab", null ]
 ];

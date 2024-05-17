@@ -1,5 +1,0 @@
-<map id="evaluator.fsds_adapter.FSDSAdapter.parseTrackCone" name="evaluator.fsds_adapter.FSDSAdapter.parseTrackCone">
-<area shape="rect" id="Node000001" title="Parses a line from the track CSV file to extract cone data." alt="" coords="317,5,587,46"/>
-<area shape="rect" id="Node000002" href="$dc/de8/classevaluator_1_1fsds__adapter_1_1_f_s_d_s_adapter.html#aa1a947def390817fc81fda99baa4c0e7" title="Reads track data from a CSV file." alt="" coords="5,5,269,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="301,28,269,28,269,23,301,23"/>
-</map>

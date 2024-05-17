@@ -1,5 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
 <area shape="rect" id="Node000000" href="$d1/d14/class_data_association_model.html" title="Data Association Method class, used to match observations to landmarks in the map." alt="" coords="5,5,157,31"/>
 <area shape="rect" id="Node000001" href="$d5/dc2/class_simple_maximum_likelihood.html" title="Simple (Dumb) Maximum Likelihood Method class, attempts to match the observed landmark to the closest..." alt="" coords="205,5,381,31"/>
-<area shape="poly" id="edge9_Node000000_Node000001" title=" " alt="" coords="173,16,204,16,204,21,173,21"/>
+<area shape="poly" id="edge10_Node000000_Node000001" title=" " alt="" coords="173,16,204,16,204,21,173,21"/>
 </map>

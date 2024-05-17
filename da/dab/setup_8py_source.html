@@ -99,31 +99,37 @@ $(document).ready(function(){initNavTree('da/dab/setup_8py_source.html','../../'
   <div class="headertitle"><div class="title">setup.py</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="../../da/dab/setup_8py.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno"><a class="line" href="../../dd/dc4/namespacesetup.html">    1</a></span><span class="keyword">from</span> setuptools <span class="keyword">import</span> find_packages, setup</div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno"><a class="line" href="../../dd/dc4/namespacesetup.html#a69903e4f05cebc9e005b22b36f5724eb">    3</a></span>package_name = <span class="stringliteral">&quot;evaluator&quot;</span></div>
+<a href="../../da/dab/setup_8py.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno"><a class="line" href="../../dd/dc4/namespacesetup.html">    1</a></span><span class="keyword">import</span> os</div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="keyword">from</span> glob <span class="keyword">import</span> glob</div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">from</span> setuptools <span class="keyword">import</span> find_packages, setup</div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><a class="code hl_namespace" href="../../dd/dc4/namespacesetup.html">setup</a>(</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno"><a class="line" href="../../dd/dc4/namespacesetup.html#ab3a7a0638d76a01367c5bc3cc699447f">    6</a></span>    name=package_name,</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="../../dd/dc4/namespacesetup.html#a2aa722b36a933088812b50ea79b97a5c">    7</a></span>    version=<span class="stringliteral">&quot;0.0.0&quot;</span>,</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="../../dd/dc4/namespacesetup.html#aff2375a361fd5865c77bd9aa093be747">    8</a></span>    packages=find_packages(exclude=[<span class="stringliteral">&quot;test&quot;</span>]),</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="../../dd/dc4/namespacesetup.html#ad027a8e9452da003dca32bf7467bd16e">    9</a></span>    data_files=[</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>        (<span class="stringliteral">&quot;share/ament_index/resource_index/packages&quot;</span>, [<span class="stringliteral">&quot;resource/&quot;</span> + package_name]),</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>        (<span class="stringliteral">&quot;share/&quot;</span> + package_name, [<span class="stringliteral">&quot;package.xml&quot;</span>]),</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    ],</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="../../dd/dc4/namespacesetup.html#abead4f26b530856f858f0d44c7cf2588">   13</a></span>    install_requires=[<span class="stringliteral">&quot;setuptools&quot;</span>],</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="../../dd/dc4/namespacesetup.html#a13510753661cb74083a0c664db11dde9">   14</a></span>    zip_safe=<span class="keyword">True</span>,</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="../../dd/dc4/namespacesetup.html#aa1a7cf9bbf76004bb72697dc00bbee9d">   15</a></span>    maintainer=<span class="stringliteral">&quot;Davide Teixeira&quot;</span>,</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="../../dd/dc4/namespacesetup.html#a92a81adbfdd219564d5246ce8d77f869">   16</a></span>    maintainer_email=<span class="stringliteral">&quot;davidpcu@hotmail.com&quot;</span>,</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="../../dd/dc4/namespacesetup.html#aedf461ec52a946bda975938ba0b93ec0">   17</a></span>    description=<span class="stringliteral">&quot;TODO: Package description&quot;</span>,</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="../../dd/dc4/namespacesetup.html#a8ed6f50a28bd6a8794f8e1153baa6de9">   18</a></span>    license=<span class="stringliteral">&quot;TODO: License declaration&quot;</span>,</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="../../dd/dc4/namespacesetup.html#a6369bb060267ccf90b93519796e7cc2c">   19</a></span>    tests_require=[<span class="stringliteral">&quot;pytest&quot;</span>],</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="../../dd/dc4/namespacesetup.html#ada7058afc98897f073d3f3b8b9157059">   20</a></span>    entry_points={</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <span class="stringliteral">&quot;console_scripts&quot;</span>: [</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>            <span class="stringliteral">&quot;evaluator = evaluator.evaluator:main&quot;</span>,</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        ],</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    },</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>)</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno"><a class="line" href="../../dd/dc4/namespacesetup.html#a69903e4f05cebc9e005b22b36f5724eb">    5</a></span>package_name = <span class="stringliteral">&quot;evaluator&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><a class="code hl_namespace" href="../../dd/dc4/namespacesetup.html">setup</a>(</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="../../dd/dc4/namespacesetup.html#ab3a7a0638d76a01367c5bc3cc699447f">    8</a></span>    name=package_name,</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="../../dd/dc4/namespacesetup.html#a2aa722b36a933088812b50ea79b97a5c">    9</a></span>    version=<span class="stringliteral">&quot;0.0.0&quot;</span>,</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="../../dd/dc4/namespacesetup.html#aff2375a361fd5865c77bd9aa093be747">   10</a></span>    packages=find_packages(exclude=[<span class="stringliteral">&quot;test&quot;</span>]),</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="../../dd/dc4/namespacesetup.html#ad027a8e9452da003dca32bf7467bd16e">   11</a></span>    data_files=[</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>        (<span class="stringliteral">&quot;share/ament_index/resource_index/packages&quot;</span>, [<span class="stringliteral">&quot;resource/&quot;</span> + package_name]),</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>        (<span class="stringliteral">&quot;share/&quot;</span> + package_name, [<span class="stringliteral">&quot;package.xml&quot;</span>]),</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        (</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>            os.path.join(<span class="stringliteral">&quot;share&quot;</span>, package_name, <span class="stringliteral">&quot;launch&quot;</span>),</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>            glob(os.path.join(<span class="stringliteral">&quot;launch&quot;</span>, <span class="stringliteral">&quot;*launch.[pxy][yma]*&quot;</span>)),</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        ),</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    ],</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="../../dd/dc4/namespacesetup.html#abead4f26b530856f858f0d44c7cf2588">   19</a></span>    install_requires=[<span class="stringliteral">&quot;setuptools&quot;</span>],</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="../../dd/dc4/namespacesetup.html#a13510753661cb74083a0c664db11dde9">   20</a></span>    zip_safe=<span class="keyword">True</span>,</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="../../dd/dc4/namespacesetup.html#aa1a7cf9bbf76004bb72697dc00bbee9d">   21</a></span>    maintainer=<span class="stringliteral">&quot;Davide Teixeira&quot;</span>,</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="../../dd/dc4/namespacesetup.html#a92a81adbfdd219564d5246ce8d77f869">   22</a></span>    maintainer_email=<span class="stringliteral">&quot;davidpcu@hotmail.com&quot;</span>,</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="../../dd/dc4/namespacesetup.html#aedf461ec52a946bda975938ba0b93ec0">   23</a></span>    description=<span class="stringliteral">&quot;TODO: Package description&quot;</span>,</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="../../dd/dc4/namespacesetup.html#a8ed6f50a28bd6a8794f8e1153baa6de9">   24</a></span>    license=<span class="stringliteral">&quot;TODO: License declaration&quot;</span>,</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="../../dd/dc4/namespacesetup.html#a6369bb060267ccf90b93519796e7cc2c">   25</a></span>    tests_require=[<span class="stringliteral">&quot;pytest&quot;</span>],</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="../../dd/dc4/namespacesetup.html#ada7058afc98897f073d3f3b8b9157059">   26</a></span>    entry_points={</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="stringliteral">&quot;console_scripts&quot;</span>: [</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>            <span class="stringliteral">&quot;evaluator = evaluator.evaluator:main&quot;</span>,</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        ],</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    },</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>)</div>
 <div class="ttc" id="anamespacesetup_html"><div class="ttname"><a href="../../dd/dc4/namespacesetup.html">setup</a></div><div class="ttdef"><b>Definition</b> <a href="../../da/dab/setup_8py_source.html#l00001">setup.py:1</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

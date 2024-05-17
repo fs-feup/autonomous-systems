@@ -1,6 +1,6 @@
 var class_extended_kalman_filter =
 [
-    [ "ExtendedKalmanFilter", "da/da6/class_extended_kalman_filter.html#a7ebf7c174cf7df76e263d1a54c8bdb25", null ],
+    [ "ExtendedKalmanFilter", "da/da6/class_extended_kalman_filter.html#a917f5ade93de4ec66e865ede2600bf32", null ],
     [ "correction_step", "da/da6/class_extended_kalman_filter.html#a0677b8f535ac4b4c59c161d99b9b028b", null ],
     [ "get_covariance", "da/da6/class_extended_kalman_filter.html#a131c93e908354173fd6868235d63fc9c", null ],
     [ "get_last_update", "da/da6/class_extended_kalman_filter.html#a5a7a39bf3463c3d2dad7c71319a98a8a", null ],
