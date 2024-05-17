@@ -36,7 +36,7 @@ public:
 TEST_F(ICPSuite, Initialization) {
     auto icp = ICP("../../src/perception/test/icp_tests/basic_cloud.pcd", 0.1, 50, 1e-8, 1);
     pcl::PointCloud<pcl::PointXYZI>::Ptr target_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-    ASSERT_NO_THROW(icp.executeICP(target_cloud, target_cloud));
+    ASSERT_NO_THROW(icp.executeICP(source_cloud, target_cloud));
 }
 
 /**
