@@ -18,7 +18,7 @@ MockerNode::MockerNode(const std::string &track_name, const std::string &sim) : 
   gtruth_se = se_gtruth_fromfile(open_file_as_stream(se_gtruth_file));
 
   planning_publisher = this->create_publisher<custom_interfaces::msg::PathPointArray>(
-      "planning_gtruth", rclcpp::QoS(10).durability(RMW_QOS_POLICY_DURABILITY_TRANSIENT_LOCAL));
+      "path_planning/mock_path", rclcpp::QoS(10).durability(RMW_QOS_POLICY_DURABILITY_TRANSIENT_LOCAL));
   se_publisher = this->create_publisher<custom_interfaces::msg::ConeArray>(
       "/state_estimation/map", rclcpp::QoS(10).durability(RMW_QOS_POLICY_DURABILITY_TRANSIENT_LOCAL));
 
