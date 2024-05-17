@@ -5,15 +5,25 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 endif()
 
 # find dependencies
-find_package(ament_cmake REQUIRED)
-find_package(rclcpp REQUIRED)
-find_package(Eigen3 REQUIRED)
-find_package(std_msgs REQUIRED)
-find_package(sensor_msgs REQUIRED)
-find_package(custom_interfaces REQUIRED)
-find_package(eufs_msgs REQUIRED)
-find_package(fs_msgs REQUIRED)
-find_package(common_lib REQUIRED)
+set(PACKAGES
+    ament_cmake
+    rclcpp
+    Eigen3
+    std_msgs
+    sensor_msgs
+    custom_interfaces
+    eufs_msgs
+    std_srvs
+    fs_msgs
+    pacsim
+    geometry_msgs
+    common_lib
+    visualization_msgs
+    message_filters
+)
+foreach(pkg ${PACKAGES})
+  find_package(${pkg} REQUIRED)
+endforeach()
 
 # Enable OpenMP
 find_package(OpenMP)
@@ -31,11 +41,13 @@ set(IMPLEMENTATION_FILES
   src/adapter_ekf_state_est/adapter.cpp
   src/adapter_ekf_state_est/eufs.cpp
   src/adapter_ekf_state_est/fsds.cpp
+  src/adapter_ekf_state_est/pacsim.cpp
+  src/adapter_ekf_state_est/vehicle.cpp
 )
 
 
 add_executable(${PROJECT_NAME} src/main.cpp ${IMPLEMENTATION_FILES})
-ament_target_dependencies(ekf_state_est rclcpp std_msgs sensor_msgs eufs_msgs common_lib fs_msgs custom_interfaces Eigen3)
+ament_target_dependencies(ekf_state_est ${PACKAGES} Eigen3)
 target_include_directories(${PROJECT_NAME} PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
@@ -69,7 +81,7 @@ if(BUILD_TESTING)
 
   # Unit tests
   ament_add_gtest(${PROJECT_NAME}_test ${TESTFILES} ${IMPLEMENTATION_FILES} TIMEOUT 600)
-  ament_target_dependencies(${PROJECT_NAME}_test rclcpp std_msgs eufs_msgs sensor_msgs common_lib fs_msgs custom_interfaces)
+  ament_target_dependencies(${PROJECT_NAME}_test ${PACKAGES})
   target_include_directories(${PROJECT_NAME}_test PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>)
