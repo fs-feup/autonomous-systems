@@ -504,6 +504,9 @@ ros2 run [package_name] [node_name]
 
 Running a node is different from launching because running will only execute one node while launching can execute multiple nodes. Launching can be done with the aid of launch files, which can define particular scenarios with combinations of nodes from multiple packages and their respective arguments.
 
+```sh
+ros2 launch [package_name] [launch_file_name]
+
 Launch file example:
 
 ```python
@@ -541,7 +544,7 @@ def generate_launch_description():
 You can define node parameters either in a launch file or via command line, e.g.
 
 ```python
-ef generate_launch_description():
+def generate_launch_description():
     current_pkg = FindPackageShare("kiss_icp")
     return LaunchDescription(
         [
@@ -580,6 +583,21 @@ ef generate_launch_description():
                     }
                 ],
             ),
+```
+
+It is also necessary to include the following line in the CMakeLists file:
+```sh
+install(DIRECTORY launch DESTINATION share/${PROJECT_NAME}/)
+```
+
+Or this on in setup.py:
+```sh
+    data_files=[
+        ( 
+            os.path.join("share", package_name, "launch"),
+            glob(os.path.join("launch", "*launch.[pxy][yma]*")),
+        ),
+    ],
 ```
 
 More on this [here](https://docs.ros.org/en/foxy/Tutorials/Beginner-Client-Libraries/Using-Parameters-In-A-Class-CPP.html).

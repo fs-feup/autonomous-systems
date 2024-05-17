@@ -14,6 +14,7 @@ find_package(custom_interfaces REQUIRED)
 find_package(message_filters REQUIRED)
 find_package(common_lib REQUIRED)
 find_package(eufs_msgs REQUIRED)
+find_package(visualization_msgs REQUIRED)
 find_package(fs_msgs REQUIRED)
 
 # Source files
