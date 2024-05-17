@@ -3,7 +3,7 @@
 #include "planning/planning.hpp"
 
 FsdsAdapter::FsdsAdapter(Planning* planning) : Adapter(planning) {
-  if (this->node->using_simulated_se) {
+  if (this->node->using_simulated_se_) {
     RCLCPP_WARN(this->node->get_logger(),
                 "FSDS shouldn't be used with simulated State Estimation\n The planning node will "
                 "not determine the middle path\n");
@@ -41,7 +41,9 @@ void FsdsAdapter::pose_callback(const nav_msgs::msg::Odometry& msg) {
   tf2::Quaternion q(msg.pose.pose.orientation.x, msg.pose.pose.orientation.y,
                     msg.pose.pose.orientation.z, msg.pose.pose.orientation.w);
   tf2::Matrix3x3 m(q);
-  double roll, pitch, yaw;
+  double roll;
+  double pitch;
+  double yaw;
   m.getRPY(roll, pitch, yaw);
   pose.theta = yaw;
   pose.position.x = msg.pose.pose.position.x;

@@ -18,14 +18,11 @@
 #include "tf2_ros/transform_listener.h"
 #include "visualization_msgs/msg/marker_array.hpp"
 class PacSimAdapter : public Adapter {
-  rclcpp::Client<std_srvs::srv::Empty>::SharedPtr _finished_client_;
+  rclcpp::Client<std_srvs::srv::Empty>::SharedPtr finished_client_;
   rclcpp::Subscription<visualization_msgs::msg::MarkerArray>::SharedPtr path_sub_;
 
   std::unique_ptr<tf2_ros::Buffer> tf_buffer_;
   std::shared_ptr<tf2_ros::TransformListener> tf_listener_;
-
-  float provisional_front_steering = 0;
-  float provisional_rear_steering = 0;
 
 public:
   explicit PacSimAdapter(Planning* planning);

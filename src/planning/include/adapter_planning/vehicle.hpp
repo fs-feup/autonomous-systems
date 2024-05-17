@@ -6,7 +6,7 @@
 #include "std_msgs/msg/string.hpp"
 
 class VehicleAdapter : public Adapter {
-  rclcpp::Subscription<custom_interfaces::msg::OperationalStatus>::SharedPtr mission_subscription;
+  rclcpp::Subscription<custom_interfaces::msg::OperationalStatus>::SharedPtr mission_subscription_;
 
 public:
   explicit VehicleAdapter(Planning* planning);

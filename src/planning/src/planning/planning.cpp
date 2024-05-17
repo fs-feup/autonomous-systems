@@ -36,7 +36,7 @@ Planning::Planning() : Node("planning") {
   smoothing_spline_coeffs_ratio_ = declare_parameter<float>("smoothing_spline_coeffs_ratio_", 3.0);
   smoothing_spline_precision_ = declare_parameter<int>("smoothing_spline_precision_", 10);
   mode = declare_parameter<std::string>("adapter", "fsds");
-  using_simulated_se = declare_parameter<int>("use_simulated_se", 0);
+  using_simulated_se_ = declare_parameter<int>("use_simulated_se", 0);
 
   // Control Publishers
   this->local_pub_ =
@@ -49,7 +49,7 @@ Planning::Planning() : Node("planning") {
   // Adapter to communicate with the car
   this->adapter = adapter_map[mode](this);
 
-  if (!using_simulated_se || mode == "vehicle") {
+  if (!using_simulated_se_ || mode == "vehicle") {
     // State Estimation map Subscriber
     this->track_sub_ = this->create_subscription<custom_interfaces::msg::ConeArray>(
         "/state_estimation/map", 10, std::bind(&Planning::track_map_callback, this, _1));
@@ -62,7 +62,7 @@ Planning::Planning() : Node("planning") {
 }
 
 void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &msg) {
-  RCLCPP_INFO(this->get_logger(), "Planning received %d cones", msg.cone_array.size());
+  RCLCPP_INFO(this->get_logger(), "Planning received %d cones", (int)msg.cone_array.size());
   if (this->is_predicitve_mission()) {
     return;
   }
@@ -102,7 +102,7 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &msg) 
 
   path_smoother->defaultSmoother(path);
 
-  RCLCPP_INFO(this->get_logger(), "Planning published %d path points", path.size());
+  RCLCPP_INFO(this->get_logger(), "Planning published %d path points", (int)path.size());
   publish_track_points(path);
 }
 
@@ -131,7 +131,7 @@ void Planning::publish_predicitive_track_points() {
   if (!this->is_predicitve_mission()) {
     return;
   }
-  std::vector<PathPoint *> path = read_path_file(this->predictive_paths[this->mission]);
+  std::vector<PathPoint *> path = read_path_file(this->predictive_paths_[this->mission]);
   this->publish_track_points(path);
 }
 

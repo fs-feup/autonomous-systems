@@ -4,7 +4,7 @@
 
 EufsAdapter::EufsAdapter(Planning* planning) : Adapter(planning) {
   RCLCPP_INFO(this->node->get_logger(), "EufsAdapter created");
-  if (this->node->using_simulated_se) {
+  if (this->node->using_simulated_se_) {
     RCLCPP_INFO(this->node->get_logger(), "Eufs using simulated State Estimation\n");
     this->eufs_pose_subscription_ = this->node->create_subscription<eufs_msgs::msg::CarState>(
         "/odometry_integration/car_state", 10,

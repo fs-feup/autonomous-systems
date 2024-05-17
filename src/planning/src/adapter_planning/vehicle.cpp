@@ -3,7 +3,7 @@
 #include "planning/planning.hpp"  // Add this line
 
 VehicleAdapter::VehicleAdapter(Planning* planning) : Adapter(planning) {
-  this->mission_subscription =
+  this->mission_subscription_ =
       this->node->create_subscription<custom_interfaces::msg::OperationalStatus>(
           "/vehicle/operational_status", 10,
           std::bind(&VehicleAdapter::mission_state_callback, this, std::placeholders::_1));

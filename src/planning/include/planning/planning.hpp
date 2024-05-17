@@ -41,7 +41,7 @@ class Planning : public rclcpp::Node {
   Adapter *adapter; /**< Adapter instance for external communication */
   std::string mode;
 
-  std::map<common_lib::competition_logic::Mission, std::string> predictive_paths = {
+  std::map<common_lib::competition_logic::Mission, std::string> predictive_paths_ = {
       {common_lib::competition_logic::Mission::ACCELERATION, "/events/acceleration.txt"},
       {common_lib::competition_logic::Mission::SKIDPAD,
        "/events/skidpad.txt"}}; /**< Predictive paths for different missions */
@@ -136,6 +136,12 @@ public:
    */
   void set_mission(common_lib::competition_logic::Mission mission);
 
+  /**
+   * @brief whether to use simulated state estimation in simulators
+   *
+   */
+  bool using_simulated_se_ = false;
+
   friend class PacSimAdapter;
 
   friend class EufsAdapter;
@@ -143,8 +149,6 @@ public:
   friend class FsdsAdapter;
 
   friend class VehicleAdapter;
-
-  bool using_simulated_se = false;
 };
 
 #endif  // SRC_PLANNING_PLANNING_INCLUDE_PLANNING_PLANNING_HPP_

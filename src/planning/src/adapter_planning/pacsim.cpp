@@ -3,14 +3,14 @@
 #include "planning/planning.hpp"
 
 PacSimAdapter::PacSimAdapter(Planning* planning) : Adapter(planning) {
-  if (this->node->using_simulated_se) {
+  if (this->node->using_simulated_se_) {
     RCLCPP_DEBUG(this->node->get_logger(), "Using simulated SE in pacsim");
     tf_buffer_ = std::make_unique<tf2_ros::Buffer>(this->node->get_clock());
     tf_listener_ = std::make_shared<tf2_ros::TransformListener>(*tf_buffer_);
     auto timer = this->node->create_wall_timer(std::chrono::milliseconds(100),
                                                std::bind(&PacSimAdapter::timer_callback, this));
 
-    this->_finished_client_ =
+    this->finished_client_ =
         this->node->create_client<std_srvs::srv::Empty>("/pacsim/finish_signal");
 
     this->path_sub_ = this->node->create_subscription<visualization_msgs::msg::MarkerArray>(
@@ -29,7 +29,9 @@ void PacSimAdapter::timer_callback() {
     tf2::Quaternion q(t.transform.rotation.x, t.transform.rotation.y, t.transform.rotation.z,
                       t.transform.rotation.w);
     tf2::Matrix3x3 m(q);
-    double roll, pitch, yaw;
+    double roll;
+    double pitch;
+    double yaw;
     m.getRPY(roll, pitch, yaw);
     pose.theta = yaw;
     pose.position.x = t.transform.translation.x;
@@ -45,7 +47,7 @@ void PacSimAdapter::set_mission_state(int mission, int state) {
 }
 
 void PacSimAdapter::finish() {
-  this->_finished_client_->async_send_request(
+  this->finished_client_->async_send_request(
       std::make_shared<std_srvs::srv::Empty::Request>(),
       [this](rclcpp::Client<std_srvs::srv::Empty>::SharedFuture future) {
         RCLCPP_INFO(this->node->get_logger(), "Finished signal sent");
