@@ -1,31 +1,24 @@
-#pragma once
+#include "common_lib/communication/marker.hpp"
 
-#include "common_lib/structures/cone.hpp"
 #include "rclcpp/clock.hpp"
 #include "rclcpp/rclcpp.hpp"
-#include "visualization_msgs/msg/marker_array.hpp"
 
-/**
- * @brief Converts a vector of cones to a marker array
- * TODO: improve this function
- *
- * @param cone_array vector of cones
- * @return visualization_msgs::msg::MarkerArray
- */
+namespace common_lib::communication {
 visualization_msgs::msg::MarkerArray marker_array_from_cone_array(
-    std::vector<common_lib::structures::Cone> cone_array) {
+    std::vector<common_lib::structures::Cone> cone_array, std::string name_space,
+    std::string frame_id, std::string color, std::string shape, float scale, int action) {
   visualization_msgs::msg::MarkerArray marker_array;
+  std::array<float, 4> color_array = marker_color_map.at(color);
 
   for (size_t i = 0; i < cone_array.size(); ++i) {
     visualization_msgs::msg::Marker marker;
 
-    // TODO: dynamic frame_id
-    marker.header.frame_id = "map";
+    marker.header.frame_id = frame_id;
     marker.header.stamp = rclcpp::Clock().now();
-    marker.ns = "cones";
+    marker.ns = name_space;
     marker.id = i;
-    marker.type = visualization_msgs::msg::Marker::CYLINDER;
-    marker.action = visualization_msgs::msg::Marker::MODIFY;
+    marker.type = marker_shape_map.at(shape);
+    marker.action = action;
 
     marker.pose.orientation.x = 0.0;
     marker.pose.orientation.y = 0.0;
@@ -36,14 +29,14 @@ visualization_msgs::msg::MarkerArray marker_array_from_cone_array(
     marker.pose.position.y = cone_array[i].position.y;
     marker.pose.position.z = 0;
 
-    marker.scale.x = 0.1;
-    marker.scale.y = 0.1;
-    marker.scale.z = 0.1;
+    marker.scale.x = scale;
+    marker.scale.y = scale;
+    marker.scale.z = scale;
 
-    marker.color.a = 1.0;
-    marker.color.r = 1.0;
-    marker.color.g = 0.0;
-    marker.color.b = 0.0;
+    marker.color.r = color_array[0];
+    marker.color.g = color_array[1];
+    marker.color.b = color_array[2];
+    marker.color.a = color_array[3];
 
     marker.lifetime = rclcpp::Duration(std::chrono::duration<double>(5));
 
@@ -52,3 +45,4 @@ visualization_msgs::msg::MarkerArray marker_array_from_cone_array(
 
   return marker_array;
 }
+}  // namespace common_lib::communication

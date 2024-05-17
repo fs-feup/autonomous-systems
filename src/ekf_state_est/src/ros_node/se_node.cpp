@@ -3,6 +3,7 @@
 #include "adapter_ekf_state_est/eufs.hpp"
 #include "adapter_ekf_state_est/fsds.hpp"
 #include "adapter_ekf_state_est/map.hpp"
+#include "common_lib/communication/marker.hpp"
 #include "common_lib/maths/transformations.hpp"
 #include "common_lib/structures/cone.hpp"
 #include "common_lib/structures/pose.hpp"
@@ -10,7 +11,6 @@
 #include "common_lib/vehicle_dynamics/bicycle_model.hpp"
 #include "common_lib/vehicle_dynamics/car_parameters.hpp"
 #include "geometry_msgs/msg/pose_with_covariance.hpp"
-#include "ros_node/ros_helpers.hpp"
 #include "visualization_msgs/msg/marker.hpp"
 
 /*---------------------- Constructor --------------------*/
@@ -191,7 +191,8 @@ void SENode::_publish_map() {
   }
   RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
   cone_array_msg.header.stamp = this->get_clock()->now();
-  marker_array_msg = marker_array_from_cone_array(*this->_track_map_);
+  marker_array_msg = common_lib::communication::marker_array_from_cone_array(*this->_track_map_,
+                                                                             "map_cones", "map");
   this->_map_publisher_->publish(cone_array_msg);
   this->_visualization_map_publisher_->publish(marker_array_msg);
 }
