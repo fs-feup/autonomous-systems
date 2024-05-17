@@ -50,7 +50,7 @@ class VehicleAdapter : public Adapter {
   void wheel_speeds_subscription_callback(
       const custom_interfaces::msg::WheelRPM& rl_wheel_rpm_msg,
       const custom_interfaces::msg::WheelRPM& rr_wheel_rpm_msg,
-      const custom_interfaces::msg::SteeringAngle& steering_angle_msg) const;
+      const custom_interfaces::msg::SteeringAngle& steering_angle_msg);
 
   /**
    * @brief IMU subscriptio callback, which receives both roll and yaw acceleration data
@@ -60,7 +60,7 @@ class VehicleAdapter : public Adapter {
    * @param yaw_accy_data yaw and acceleration in y axis data
    */
   void imu_subscription_callback(const custom_interfaces::msg::ImuData& roll_accx_data,
-                                 const custom_interfaces::msg::ImuData& yaw_accy_data) const;
+                                 const custom_interfaces::msg::ImuData& yaw_accy_data);
 
 public:
   explicit VehicleAdapter(std::shared_ptr<SENode> se_node);

@@ -20,7 +20,8 @@ FsdsAdapter::FsdsAdapter(std::shared_ptr<SENode> se_node) : Adapter(se_node) {
 }
 
 void FsdsAdapter::mission_state_callback(const fs_msgs::msg::GoSignal& msg) const {
-  RCLCPP_DEBUG(this->node_->get_logger(), "Mission state received: %d", msg.mission);
+  RCLCPP_DEBUG(this->node_->get_logger(), "Mission state received: %s",
+               std::string(msg.mission).c_str());
   this->node_->_mission_ = common_lib::competition_logic::fsds_to_system.at(msg.mission);
   this->node_->_go_ = true;
 }

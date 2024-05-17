@@ -41,7 +41,7 @@ void PacsimAdapter::wheel_speeds_subscription_callback(
 void PacsimAdapter::finish() {
   this->_finished_client_->async_send_request(
       std::make_shared<std_srvs::srv::Empty::Request>(),
-      [this](rclcpp::Client<std_srvs::srv::Empty>::SharedFuture future) {
+      [this](rclcpp::Client<std_srvs::srv::Empty>::SharedFuture) {
         RCLCPP_INFO(this->node_->get_logger(), "Finished signal sent");
       });
 }
