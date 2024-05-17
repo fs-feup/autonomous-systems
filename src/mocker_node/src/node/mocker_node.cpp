@@ -20,7 +20,7 @@ MockerNode::MockerNode(const std::string &track_name, const std::string &sim) : 
   planning_publisher = this->create_publisher<custom_interfaces::msg::PathPointArray>(
       "path_planning/mock_path", rclcpp::QoS(10).durability(RMW_QOS_POLICY_DURABILITY_TRANSIENT_LOCAL));
   se_publisher = this->create_publisher<custom_interfaces::msg::ConeArray>(
-      "/state_estimation/map", rclcpp::QoS(10).durability(RMW_QOS_POLICY_DURABILITY_TRANSIENT_LOCAL));
+      "/state_estimation/mock_map", rclcpp::QoS(10).durability(RMW_QOS_POLICY_DURABILITY_TRANSIENT_LOCAL));
 
   this->timer_ = this->create_wall_timer(std::chrono::milliseconds(100),
                                          std::bind(&MockerNode::publish_data, this));
