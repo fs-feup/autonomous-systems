@@ -13,6 +13,10 @@
   <exec_depend>eufs_msgs</exec_depend>
   <exec_depend>fs_msgs</exec_depend>
   <exec_depend>common_lib</exec_depend>
+  <exec_depend>message_filters</exec_depend>
+  <exec_depend>pacsim</exec_depend>
+  <exec_depend>std_srvs</exec_depend>
+  <exec_depend>visualization_msgs</exec_depend>
 
   <export>
     <build_type>ament_cmake</build_type>
