@@ -62,6 +62,8 @@ TEST_F(RANSACTest, TestCommonScenario) {
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
   ground_removal->groundRemoval(pcl_cloud, ground_removed_cloud, plane);
 
+  
+
   ASSERT_EQ(ground_removed_cloud->points.size(), 2);
 }
 
