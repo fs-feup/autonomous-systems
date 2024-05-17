@@ -73,7 +73,12 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "adapter",
                 description="Environment to run node on",
-                default_value="fsds",
+                default_value="eufs",
+            ),
+            DeclareLaunchArgument(
+                "use_simulated_se",
+                description="Whether to use simulated state estimation",
+                default_value="1",
             ),
             Node(
                 package="planning",
@@ -117,8 +122,9 @@ def generate_launch_description():
                         )
                     },
                     {"adapter": LaunchConfiguration("adapter")},
+                    {"use_simulated_se": LaunchConfiguration("use_simulated_se")},
                 ],
-                arguments=["--ros-args", "--log-level", "planning:=debug"],
+                arguments=["--ros-args", "--log-level", "planning:=info"],
             ),
         ]
     )

@@ -9,6 +9,7 @@
 
 // #include "adapter_planning/adapter.hpp"
 
+#include "common_lib/competition_logic/mission_logic.hpp"
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "custom_interfaces/msg/path_point.hpp"
 #include "custom_interfaces/msg/path_point_array.hpp"
@@ -19,7 +20,6 @@
 #include "planning/local_path_planner.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
 #include "utils/files.hpp"
-#include "utils/mission.hpp"
 #include "utils/pose.hpp"
 
 using std::placeholders::_1;
@@ -35,14 +35,16 @@ class Adapter;
  * map topics, and publishing planned path points.
  */
 class Planning : public rclcpp::Node {
-  Mission mission = not_selected;                                /**< Current planning mission */
+  common_lib::competition_logic::Mission mission =
+      common_lib::competition_logic::Mission::NONE;              /**< Current planning mission */
   LocalPathPlanner *local_path_planner = new LocalPathPlanner(); /**< Local path planner instance */
   Adapter *adapter; /**< Adapter instance for external communication */
   std::string mode;
 
-  std::map<Mission, std::string> predictive_paths = {
-      {Mission::acceleration, "/events/acceleration.txt"},
-      {Mission::skidpad, "/events/skidpad.txt"}}; /**< Predictive paths for different missions */
+  std::map<common_lib::competition_logic::Mission, std::string> predictive_paths = {
+      {common_lib::competition_logic::Mission::ACCELERATION, "/events/acceleration.txt"},
+      {common_lib::competition_logic::Mission::SKIDPAD,
+       "/events/skidpad.txt"}}; /**< Predictive paths for different missions */
   double angle_gain_;
   double distance_gain_;
   double ncones_gain_;
@@ -132,7 +134,17 @@ public:
    * @details This method configures the Planning node for a specific mission
    * type, possibly affecting its behavior if used.
    */
-  void set_mission(Mission mission);
+  void set_mission(common_lib::competition_logic::Mission mission);
+
+  friend class PacSimAdapter;
+
+  friend class EufsAdapter;
+
+  friend class FsdsAdapter;
+
+  friend class VehicleAdapter;
+
+  bool using_simulated_se = false;
 };
 
 #endif  // SRC_PLANNING_PLANNING_INCLUDE_PLANNING_PLANNING_HPP_

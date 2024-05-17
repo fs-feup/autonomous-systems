@@ -36,15 +36,7 @@ Planning::Planning() : Node("planning") {
   smoothing_spline_coeffs_ratio_ = declare_parameter<float>("smoothing_spline_coeffs_ratio_", 3.0);
   smoothing_spline_precision_ = declare_parameter<int>("smoothing_spline_precision_", 10);
   mode = declare_parameter<std::string>("adapter", "fsds");
-
-  // State Estimation map Subscriber
-  this->track_sub_ = this->create_subscription<custom_interfaces::msg::ConeArray>(
-      "/state_estimation/map", 10, std::bind(&Planning::track_map_callback, this, _1));
-
-  // Vehicle Localization Subscriber
-  this->vl_sub_ = this->create_subscription<custom_interfaces::msg::VehicleState>(
-      "/state_estimation/vehicle_state", 10,
-      std::bind(&Planning::vehicle_localization_callback, this, _1));
+  using_simulated_se = declare_parameter<int>("use_simulated_se", 0);
 
   // Control Publishers
   this->local_pub_ =
@@ -53,12 +45,24 @@ Planning::Planning() : Node("planning") {
   // Publishes path from file in Skidpad & Acceleration events
   this->timer_ = this->create_wall_timer(
       std::chrono::milliseconds(100), std::bind(&Planning::publish_predicitive_track_points, this));
-
+  RCLCPP_INFO(this->get_logger(), "Using %s adapter", mode.c_str());
   // Adapter to communicate with the car
   this->adapter = adapter_map[mode](this);
+
+  if (!using_simulated_se || mode == "vehicle") {
+    // State Estimation map Subscriber
+    this->track_sub_ = this->create_subscription<custom_interfaces::msg::ConeArray>(
+        "/state_estimation/map", 10, std::bind(&Planning::track_map_callback, this, _1));
+
+    // Vehicle Localization Subscriber
+    this->vl_sub_ = this->create_subscription<custom_interfaces::msg::VehicleState>(
+        "/state_estimation/vehicle_state", 10,
+        std::bind(&Planning::vehicle_localization_callback, this, _1));
+  }
 }
 
 void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &msg) {
+  RCLCPP_INFO(this->get_logger(), "Planning received %d cones", msg.cone_array.size());
   if (this->is_predicitve_mission()) {
     return;
   }
@@ -98,6 +102,7 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &msg) 
 
   path_smoother->defaultSmoother(path);
 
+  RCLCPP_INFO(this->get_logger(), "Planning published %d path points", path.size());
   publish_track_points(path);
 }
 
@@ -130,9 +135,11 @@ void Planning::publish_predicitive_track_points() {
   this->publish_track_points(path);
 }
 
-void Planning::set_mission(Mission new_mission) { this->mission = new_mission; }
+void Planning::set_mission(common_lib::competition_logic::Mission new_mission) {
+  this->mission = new_mission;
+}
 
 bool Planning::is_predicitve_mission() const {
-  return this->mission == Mission::skidpad || this->mission == Mission::acceleration ||
-         this->mission == Mission::not_selected;
+  return this->mission == common_lib::competition_logic::Mission::SKIDPAD ||
+         this->mission == common_lib::competition_logic::Mission::ACCELERATION;
 }

@@ -1,19 +1,28 @@
 #ifndef SRC_PLANNING_PLANNING_INCLUDE_ADAPTER_PACSIM_HPP_
 #define SRC_PLANNING_PLANNING_INCLUDE_ADAPTER_PACSIM_HPP_
 
-#include <empty__struct.hpp>
+#include <tf2/LinearMath/Matrix3x3.h>
+#include <tf2/LinearMath/Quaternion.h>
+
+#include <geometry_msgs/msg/twist_with_covariance_stamped.hpp>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
 
 #include "adapter_planning/adapter.hpp"
 #include "custom_interfaces/msg/vehicle_state.hpp"
+#include "geometry_msgs/msg/transform_stamped.hpp"
 #include "pacsim/msg/stamped_scalar.hpp"
 #include "sensor_msgs/msg/joint_state.hpp"
+#include "std_srvs/srv/empty.hpp"
 #include "std_srvs/srv/trigger.hpp"
-
+#include "tf2_ros/buffer.h"
+#include "tf2_ros/transform_listener.h"
+#include "visualization_msgs/msg/marker_array.hpp"
 class PacSimAdapter : public Adapter {
-  rclcpp::Client<std_srvs::srv::Empty>::SharedPtr pacsim_ebs_server;
-  rclcpp::Subscription<pacsim::msg::StampedScalar>::SharedPtr front_steering_sub;
-  rclcpp::Subscription<pacsim::msg::StampedScalar>::SharedPtr rear_steering_sub;
-  rclcpp::Subscription<sensor_msgs::msg::JointState>::SharedPtr pose_sub;
+  rclcpp::Client<std_srvs::srv::Empty>::SharedPtr _finished_client_;
+  rclcpp::Subscription<visualization_msgs::msg::MarkerArray>::SharedPtr path_sub_;
+
+  std::unique_ptr<tf2_ros::Buffer> tf_buffer_;
+  std::shared_ptr<tf2_ros::TransformListener> tf_listener_;
 
   float provisional_front_steering = 0;
   float provisional_rear_steering = 0;
@@ -21,13 +30,11 @@ class PacSimAdapter : public Adapter {
 public:
   explicit PacSimAdapter(Planning* planning);
 
-  void init() override;
   void mission_state_callback();  // ?
   void set_mission_state(int mission, int state) override;
+  void track_callback(const visualization_msgs::msg::MarkerArray& msg);
   void finish() override;
-  void front_steering_callback(pacsim::msg::StampedScalar& msg);
-  void rear_steering_callback(pacsim::msg::StampedScalar& msg);
-  void publish_pose(/*tipo de mensagem do pacsim para posição*/);
+  void timer_callback();
 };
 
 #endif

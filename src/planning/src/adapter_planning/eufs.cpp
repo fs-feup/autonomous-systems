@@ -2,9 +2,18 @@
 
 #include "planning/planning.hpp"
 
-EufsAdapter::EufsAdapter(Planning* planning) : Adapter(planning) { this->init(); }
-
-void EufsAdapter::init() {
+EufsAdapter::EufsAdapter(Planning* planning) : Adapter(planning) {
+  RCLCPP_INFO(this->node->get_logger(), "EufsAdapter created");
+  if (this->node->using_simulated_se) {
+    RCLCPP_INFO(this->node->get_logger(), "Eufs using simulated State Estimation\n");
+    this->eufs_pose_subscription_ = this->node->create_subscription<eufs_msgs::msg::CarState>(
+        "/odometry_integration/car_state", 10,
+        std::bind(&EufsAdapter::pose_callback, this, std::placeholders::_1));
+    this->eufs_map_subscription_ =
+        this->node->create_subscription<eufs_msgs::msg::ConeArrayWithCovariance>(
+            "/ground_truth/track", 10,
+            std::bind(&EufsAdapter::map_callback, this, std::placeholders::_1));
+  }
   this->eufs_state_subscription_ = this->node->create_subscription<eufs_msgs::msg::CanState>(
       "/ros_can/state", 10,
       std::bind(&EufsAdapter::mission_state_callback, this, std::placeholders::_1));
@@ -13,15 +22,13 @@ void EufsAdapter::init() {
       this->node->create_client<eufs_msgs::srv::SetCanState>("/ros_can/set_mission");
 
   this->eufs_ebs_client_ = this->node->create_client<eufs_msgs::srv::SetCanState>("/ros_can/ebs");
-
-  this->eufs_pose_subscription_ = this->node->create_subscription<eufs_msgs::msg::CarState>(
-      "/odometry_integration/car_state", 10, std::bind(&EufsAdapter::pose_callback, this));
 }
 
 void EufsAdapter::mission_state_callback(eufs_msgs::msg::CanState msg) {
   auto mission = msg.ami_state;
   // map eufs mission to system mission
-  this->node->set_mission(eufsToSystem.at(static_cast<uint16_t>(mission)));
+  this->node->set_mission(
+      common_lib::competition_logic::eufs_to_system.at(static_cast<uint16_t>(mission)));
 }
 
 void EufsAdapter::set_mission_state(int mission, int state) {
@@ -37,7 +44,7 @@ void EufsAdapter::set_mission_state(int mission, int state) {
 }
 
 void EufsAdapter::pose_callback(const eufs_msgs::msg::CarState& msg) {
-  custom_interfaces::msg::Pose pose;
+  custom_interfaces::msg::VehicleState pose;
   // only gets the x, y, and theta since those are the only ones necessary for planning
   pose.position.x = msg.pose.pose.position.x;
   pose.position.y = msg.pose.pose.position.y;
@@ -51,3 +58,39 @@ void EufsAdapter::pose_callback(const eufs_msgs::msg::CarState& msg) {
 }
 
 void EufsAdapter::finish() { std::cout << "Finish undefined for Eufs\n"; }
+
+void EufsAdapter::map_callback(const eufs_msgs::msg::ConeArrayWithCovariance& msg) {
+  RCLCPP_INFO(this->node->get_logger(), "Received cones from EUFS");
+  custom_interfaces::msg::ConeArray cones;
+  for (auto cone : msg.blue_cones) {
+    custom_interfaces::msg::Cone c;
+    c.position.x = cone.point.x;
+    c.position.y = cone.point.y;
+    cones.cone_array.push_back(c);
+  }
+  for (auto cone : msg.yellow_cones) {
+    custom_interfaces::msg::Cone c;
+    c.position.x = cone.point.x;
+    c.position.y = cone.point.y;
+    cones.cone_array.push_back(c);
+  }
+  for (auto cone : msg.orange_cones) {
+    custom_interfaces::msg::Cone c;
+    c.position.x = cone.point.x;
+    c.position.y = cone.point.y;
+    cones.cone_array.push_back(c);
+  }
+  for (auto cone : msg.big_orange_cones) {
+    custom_interfaces::msg::Cone c;
+    c.position.x = cone.point.x;
+    c.position.y = cone.point.y;
+    cones.cone_array.push_back(c);
+  }
+  for (auto cone : msg.unknown_color_cones) {
+    custom_interfaces::msg::Cone c;
+    c.position.x = cone.point.x;
+    c.position.y = cone.point.y;
+    cones.cone_array.push_back(c);
+  }
+  this->node->track_map_callback(cones);
+}

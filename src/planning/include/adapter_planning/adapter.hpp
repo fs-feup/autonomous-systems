@@ -17,11 +17,10 @@ class Planning;
  * and Planning module.
  */
 class Adapter {
- public:
+public:
   explicit Adapter(Planning* planning);
   Planning* node;
 
-  virtual void init() = 0;
   virtual void set_mission_state(int mission, int state) = 0;
   virtual void finish() = 0;
 };

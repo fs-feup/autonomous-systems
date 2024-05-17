@@ -2,35 +2,66 @@
 
 #include "planning/planning.hpp"
 
-PacSimAdapter::PacSimAdapter(Planning* planning) : Adapter(planning) { this->init(); }
+PacSimAdapter::PacSimAdapter(Planning* planning) : Adapter(planning) {
+  if (this->node->using_simulated_se) {
+    RCLCPP_DEBUG(this->node->get_logger(), "Using simulated SE in pacsim");
+    tf_buffer_ = std::make_unique<tf2_ros::Buffer>(this->node->get_clock());
+    tf_listener_ = std::make_shared<tf2_ros::TransformListener>(*tf_buffer_);
+    auto timer = this->node->create_wall_timer(std::chrono::milliseconds(100),
+                                               std::bind(&PacSimAdapter::timer_callback, this));
 
-void PacSimAdapter::init() {
-  pacsim_ebs_server = this->node->create_client<std_srvs::srv::Empty>("pacsim/finish_signal");
+    this->_finished_client_ =
+        this->node->create_client<std_srvs::srv::Empty>("/pacsim/finish_signal");
 
-  this->front_steering_sub = this->node->create_subscription<pacsim::msg::StampedScalar>(
-      "/ros_can/state", 10,
-      std::bind(&PacSimAdapter::front_steering_callback, this, std::placeholders::_1));
-
-  this->rear_steering_sub = this->node->create_subscription<pacsim::msg::StampedScalar>(
-      "/ros_can/state", 10,
-      std::bind(&PacSimAdapter::rear_steering_callback, this, std::placeholders::_1));
-
-  this->pose_sub = this->node->create_subscription<sensor_msgs::msg::JointState>(
-      "/tf", 10, std::bind(&PacSimAdapter::publish_pose, this, std::placeholders::_1));
+    this->path_sub_ = this->node->create_subscription<visualization_msgs::msg::MarkerArray>(
+        "/pacsim/map", 10, std::bind(&PacSimAdapter::track_callback, this, std::placeholders::_1));
+  }
+  RCLCPP_DEBUG(this->node->get_logger(), "Reached pacsim adapter");
+  this->node->mission = common_lib::competition_logic::Mission::AUTOCROSS;
 }
 
-void PacSimAdapter::front_steering_callback(pacsim::msg::StampedScalar& msg) {
-  this->provisional_front_steering = msg.value;
+void PacSimAdapter::timer_callback() {
+  if (tf_buffer_->canTransform("map", "car", tf2::TimePointZero)) {
+    custom_interfaces::msg::VehicleState pose;
+    geometry_msgs::msg::TransformStamped t =
+        tf_buffer_->lookupTransform("map", "car", tf2::TimePointZero);
+    pose.header = t.header;
+    tf2::Quaternion q(t.transform.rotation.x, t.transform.rotation.y, t.transform.rotation.z,
+                      t.transform.rotation.w);
+    tf2::Matrix3x3 m(q);
+    double roll, pitch, yaw;
+    m.getRPY(roll, pitch, yaw);
+    pose.theta = yaw;
+    pose.position.x = t.transform.translation.x;
+    pose.position.y = t.transform.translation.y;
+    pose.linear_velocity = 0.0;   // not needed -> default value
+    pose.angular_velocity = 0.0;  // not needed -> default value
+    this->node->vehicle_localization_callback(pose);
+  }
 }
 
-void PacSimAdapter::rear_steering_callback(pacsim::msg::StampedScalar& msg) {
-  this->provisional_rear_steering = msg.value;
+void PacSimAdapter::set_mission_state(int mission, int state) {
+  std::cout << "Set mission undefined for PacSim\n";
 }
 
-void PacSimAdapter::publish_pose(/*tipo de mensagem do pacsim para posição*/) {
-  custom_interfaces::msg::VehicleState pose;
-  pose.theta = (this->provisional_front_steering + this->provisional_rear_steering) / 2;
-  pose.position.x = 0;  // provisional
-  pose.position.y = 0;  // provisional
-  this->node->vehicle_localization_callback(pose);
+void PacSimAdapter::finish() {
+  this->_finished_client_->async_send_request(
+      std::make_shared<std_srvs::srv::Empty::Request>(),
+      [this](rclcpp::Client<std_srvs::srv::Empty>::SharedFuture future) {
+        RCLCPP_INFO(this->node->get_logger(), "Finished signal sent");
+      });
+}
+
+void PacSimAdapter::track_callback(const visualization_msgs::msg::MarkerArray& msg) {
+  RCLCPP_DEBUG(this->node->get_logger(), "Received track map in pacsim adapter");
+  custom_interfaces::msg::ConeArray cones;
+  for (auto c : msg.markers) {
+    custom_interfaces::msg::Cone cone;
+    cone.position.x = c.pose.position.x;
+    cone.position.y = c.pose.position.y;
+    std::cout << "(" << cone.position.x << ", " << cone.position.y << "),";
+    cones.cone_array.push_back(cone);
+  }
+  std::cout << std::endl;
+  this->node->track_map_callback(cones);
 }

@@ -6,7 +6,7 @@
 #include "utils/files.hpp"
 
 class IntegrationTest : public ::testing::Test {
- protected:
+protected:
   // Required Nodes
   std::shared_ptr<rclcpp::Node> locmap_sender;
   std::shared_ptr<rclcpp::Node> control_receiver;
@@ -41,6 +41,7 @@ class IntegrationTest : public ::testing::Test {
     // Init Subscriber
     control_sub = control_receiver->create_subscription<custom_interfaces::msg::PathPointArray>(
         "local_planning", 10, [this](const custom_interfaces::msg::PathPointArray::SharedPtr msg) {
+          std::cout << "Path recieved by control node" << std::endl;
           received_path = *msg;
           rclcpp::shutdown();  // When receives message shuts down
         });
