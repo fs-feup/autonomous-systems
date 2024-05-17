@@ -40,7 +40,7 @@ Planning::Planning() : Node("planning") {
 
   // Control Publishers
   this->local_pub_ =
-      this->create_publisher<custom_interfaces::msg::PathPointArray>("local_planning", 10);
+      this->create_publisher<custom_interfaces::msg::PathPointArray>("/path_planning/path", 10);
 
   // Publishes path from file in Skidpad & Acceleration events
   this->timer_ = this->create_wall_timer(

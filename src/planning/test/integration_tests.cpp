@@ -40,7 +40,8 @@ protected:
 
     // Init Subscriber
     control_sub = control_receiver->create_subscription<custom_interfaces::msg::PathPointArray>(
-        "local_planning", 10, [this](const custom_interfaces::msg::PathPointArray::SharedPtr msg) {
+        "/path_planning/path", 10,
+        [this](const custom_interfaces::msg::PathPointArray::SharedPtr msg) {
           std::cout << "Path recieved by control node" << std::endl;
           received_path = *msg;
           rclcpp::shutdown();  // When receives message shuts down
