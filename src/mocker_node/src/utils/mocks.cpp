@@ -58,7 +58,7 @@ custom_interfaces::msg::ConeArray se_gtruth_fromfile(std::istream& in) {
         cone.position.x = std::stod(x);
         cone.position.y = std::stod(y);
         cone.color =
-            color.substr(1) + "_cone";  // 1 is extra space to remove first char being empty
+            color + "_cone";  // 1 is extra space to remove first char being empty
         gtruth_mock.cone_array.push_back(cone);
       } catch (const std::invalid_argument& e) {
         RCLCPP_ERROR(rclcpp::get_logger("rclcpp"),
