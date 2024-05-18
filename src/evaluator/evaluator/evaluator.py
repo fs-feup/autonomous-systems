@@ -94,10 +94,6 @@ class Evaluator(Node):
         self.planning_gt_subscription = self.create_subscription(
             PathPointArray, "path_planning/mock_path", self.planning_gt_callback, 10)
 
-        self.perception_subscription.registerCallback(
-            self.perception_callback_time_measurement
-        )
-
         # Publishers for perception metrics
         self._perception_mean_difference_ = self.create_publisher(
             Float32, "/evaluator/perception/mean_difference", 10

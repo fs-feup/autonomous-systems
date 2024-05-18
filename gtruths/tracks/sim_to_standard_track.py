@@ -56,17 +56,17 @@ def main():
     sim = args.sim
     track_name = args.track_name
 
-    format = ""
+    file_extension = ""
     if sim == "eufs":
-        format = ".csv"
+        file_extension = ".csv"
     elif sim == "pacsim":
-        format = ".yaml"
+        file_extension = ".yaml"
     
     # Get the current directory
     current_directory = os.getcwd()
     
     # Concatenate current directory with the provided filename
-    filename = os.path.join(current_directory, 'tracks', sim, track_name, f'orig_{track_name}{format}')
+    filename = os.path.join(current_directory, 'tracks', sim, track_name, f'orig_{track_name}{file_extension}')
 
     initial_points = []
     if sim == "eufs":
