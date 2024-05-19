@@ -90,11 +90,9 @@ class Evaluator(Node):
             ADAPTER_POINT_CLOUD_TOPIC_DICTINARY[self._adapter_name_],
         )
         self.planning_subscription = self.create_subscription(
-            PathPointArray, "planning_local", self.compute_and_publish_planning, 10
-        )
+            PathPointArray, "path_planning/path", self.planning_callback, 10)
         self.planning_gt_subscription = self.create_subscription(
-            PathPointArray, "planning_gtruth", self.planning_gt_callback, 10
-        )
+            PathPointArray, "path_planning/mock_path", self.planning_gt_callback, 10)
 
         # Publishers for perception metrics
         self._perception_mean_difference_ = self.create_publisher(

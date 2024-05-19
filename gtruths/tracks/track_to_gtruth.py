@@ -1,19 +1,8 @@
-"""
-To transform a track into a ground truth create a folder inside the 'track_gtruths' folder with the same name as the track (except for the .csv) where
-you should place the .csv file with the track inside that folder. If this folder does not exist you won't be able to save the points to the desired file. Run this python script and click where you wish to add a ground truth point. The points you add
-will be automatically exported to a .csv file named {name}_gtruth.csv with format x, y, ideal_velocity. 
-
-Make sure you ran the 'dependencies_install.sh' file to install matplotlib and pandas.
-
-You should select which track to run this file with by changing the name of the variable immediatly below.
-"""
-
-track_name = "points.csv"
-
 import matplotlib.pyplot as plt
 import pandas as pd
 import os
 import csv
+import argparse
 
 def read_csv(filename):
     initial_points = []
@@ -24,14 +13,6 @@ def read_csv(filename):
             x, y, _ = row[:3]  # Assuming tag is in the third column
             initial_points.append((float(x), float(y)))
     return initial_points
-# Get the current directory
-current_directory = os.getcwd()
-
-# Concatenate current directory with the provided filename
-filename = os.path.join(current_directory, 'tracks_gtruths/' + track_name[:-4]+ '/' + track_name)
-
-initial_points = read_csv(filename)
-
 
 class PointCollector:
     def __init__(self, initial_points):
@@ -87,8 +68,28 @@ class PointCollector:
         df['z'] = 0
         df.to_csv(filename, index=False)
 
+def main():
+    parser = argparse.ArgumentParser(description="Create ground truth points for a track.")
+    parser.add_argument('--sim', type=str, default='fsds', help='Simulator type (fsds, eufs, pacsim)')
+    parser.add_argument('--track_name', type=str, default='track1.csv', help='Name of the track CSV file')
+    
+    args = parser.parse_args()
+    sim = args.sim
+    track_name = args.track_name
 
-pc = PointCollector(initial_points)
-final_file_name =  "tracks_gtruths/" + track_name[:-4]  + "/" + track_name[:-4] + "_gtruth.csv"
-input("The following step will overwrite the file %s \n  To stop this, press Ctrl + C followed by Enter; To continue, press Enter \n" % final_file_name)
-pc.export_to_csv(final_file_name)
+    # Get the current directory
+    current_directory = os.getcwd()
+    
+    # Concatenate current directory with the provided filename
+    filename = os.path.join(current_directory, 'tracks', sim, track_name[:-4], track_name)
+
+    initial_points = read_csv(filename)
+
+    pc = PointCollector(initial_points)
+    final_file_name = os.path.join('tracks', sim, track_name[:-4], f'{track_name[:-4]}_gtruth.csv')
+    
+    input(f"The following step will overwrite the file {final_file_name} \nTo stop this, press Ctrl + C followed by Enter; To continue, press Enter \n")
+    pc.export_to_csv(final_file_name)
+
+if __name__ == "__main__":
+    main()

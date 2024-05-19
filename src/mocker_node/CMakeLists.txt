@@ -62,6 +62,8 @@ target_include_directories(${PROJECT_NAME}_test PUBLIC
 
 install(TARGETS ${PROJECT_NAME}_test DESTINATION lib/${PROJECT_NAME})
 
+install(DIRECTORY launch DESTINATION share/${PROJECT_NAME}/)
+
 endif()
 
 ament_package()
