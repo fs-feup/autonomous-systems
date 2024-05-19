@@ -1,12 +1,12 @@
 <map id="Cone::getDistanceTo" name="Cone::getDistanceTo">
-<area shape="rect" id="Node000001" title=" " alt="" coords="836,203,977,228"/>
+<area shape="rect" id="Node000001" title="Euclidean distance to another position." alt="" coords="836,203,977,228"/>
 <area shape="rect" id="Node000002" href="$d6/d2c/class_track.html#a2926e21af0cc187d3f4f2b1194ee98cd" title="Order the cones before fitting splines." alt="" coords="662,203,788,228"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="820,218,788,218,788,213,820,213"/>
 <area shape="rect" id="Node000003" href="$d6/d2c/class_track.html#a16332dc3e5e2cf486f4cc3b5123e3368" title="Delete outliers from the track." alt="" coords="473,203,614,228"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="646,218,614,218,614,213,646,213"/>
 <area shape="rect" id="Node000004" href="$d6/d2c/class_track.html#afaa537e1bdf2a045564500512e98821f" title="Validate the cones in the track by deleting outliers." alt="" coords="283,203,425,228"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="458,218,425,218,425,213,458,213"/>
-<area shape="rect" id="Node000005" href="$dd/df6/planning_2test_2tests_8cpp.html#a21272f9ce533deddd6a2e1bde8f8c097" title="Test function for outlier removal&#39;s efficiency. Runs 100 times and calculates average duration." alt="" coords="108,5,235,31"/>
+<area shape="rect" id="Node000005" href="$dd/df6/planning_2test_2tests_8cpp.html#a21272f9ce533deddd6a2e1bde8f8c097" title="Test function for outlier removal&#39;s efficiency." alt="" coords="108,5,235,31"/>
 <area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="339,190,298,118,268,79,233,44,216,34,219,29,237,40,272,75,303,115,343,187"/>
 <area shape="rect" id="Node000007" href="$dd/df6/planning_2test_2tests_8cpp.html#a7b7c7d79809f351fb41f6578dbdaf2ca" title="simplest scenario with cones forming a line and one outlier" alt="" coords="144,55,199,80"/>
 <area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="332,192,290,142,263,117,234,94,198,77,200,72,236,89,266,112,294,139,336,188"/>

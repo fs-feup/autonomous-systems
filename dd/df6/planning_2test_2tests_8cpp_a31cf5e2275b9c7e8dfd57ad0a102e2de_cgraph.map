@@ -35,7 +35,7 @@
 <area shape="poly" id="edge15_Node000014_Node000015" title=" " alt="" coords="613,88,640,77,688,56,717,43,719,48,690,61,642,82,615,93"/>
 <area shape="poly" id="edge21_Node000017_Node000007" title=" " alt="" coords="615,137,639,126,663,112,688,100,731,90,765,87,800,90,843,100,874,112,902,128,900,133,872,117,841,105,799,95,765,92,732,95,690,105,665,116,642,131,617,142"/>
 <area shape="poly" id="edge22_Node000017_Node000008" title=" " alt="" coords="606,164,652,185,689,200,737,207,786,209,874,206,874,211,786,215,737,212,688,205,650,190,604,169"/>
-<area shape="rect" id="Node000018" href="$d8/da1/class_cone.html#a14a49d09bc10d53888d06e183c6d1206" title=" " alt="" coords="695,115,836,140"/>
+<area shape="rect" id="Node000018" href="$d8/da1/class_cone.html#a14a49d09bc10d53888d06e183c6d1206" title="Euclidean distance to another position." alt="" coords="695,115,836,140"/>
 <area shape="poly" id="edge18_Node000017_Node000018" title=" " alt="" coords="641,142,679,136,679,142,641,147"/>
 <area shape="rect" id="Node000019" href="$d6/d2c/class_track.html#aceda92bc02f39cd9127b31bc04ef7feb" title="Check if the direction of two cones is consistent." alt="" coords="689,164,842,190"/>
 <area shape="poly" id="edge23_Node000017_Node000019" title=" " alt="" coords="641,158,674,162,673,168,641,164"/>

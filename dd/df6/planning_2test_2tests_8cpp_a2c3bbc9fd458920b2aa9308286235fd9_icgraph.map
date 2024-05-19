@@ -1,8 +1,8 @@
 <map id="get_current_date_time_as_string" name="get_current_date_time_as_string">
 <area shape="rect" id="Node000001" title="Get current date and time as a string." alt="" coords="304,23,454,64"/>
-<area shape="rect" id="Node000002" href="$dd/df6/planning_2test_2tests_8cpp.html#a21272f9ce533deddd6a2e1bde8f8c097" title="Test function for outlier removal&#39;s efficiency. Runs 100 times and calculates average duration." alt="" coords="118,5,246,31"/>
+<area shape="rect" id="Node000002" href="$dd/df6/planning_2test_2tests_8cpp.html#a21272f9ce533deddd6a2e1bde8f8c097" title="Test function for outlier removal&#39;s efficiency." alt="" coords="118,5,246,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="288,35,245,29,246,24,289,29"/>
-<area shape="rect" id="Node000004" href="$dd/df6/planning_2test_2tests_8cpp.html#af932d610f7999483e18612a7bf469cb0" title="Test function for Delaunay Triangulations&#39; efficiency. Runs 100 times to get average execution time." alt="" coords="108,55,256,80"/>
+<area shape="rect" id="Node000004" href="$dd/df6/planning_2test_2tests_8cpp.html#af932d610f7999483e18612a7bf469cb0" title="Test function for Delaunay Triangulations&#39; efficiency." alt="" coords="108,55,256,80"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="289,57,257,61,256,56,288,52"/>
 <area shape="rect" id="Node000003" href="$d3/d72/planning_2test_2performance__test_8cpp.html#a02628d0c19664647a94e9d2bd23d5f5e" title="Execution Time Test." alt="" coords="5,31,60,56"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="104,34,61,42,60,36,103,29"/>

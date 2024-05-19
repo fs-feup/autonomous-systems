@@ -1,0 +1,13 @@
+<map id="SENode::_update_and_publish" name="SENode::_update_and_publish">
+<area shape="rect" id="Node000001" title="Executes:" alt="" coords="5,47,155,88"/>
+<area shape="rect" id="Node000002" href="$d4/d43/class_s_e_node.html#a3d9da2c8d3287d49f3a36cf5c69b421e" title="executes the prediction step of the EKF" alt="" coords="222,5,355,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="154,47,216,32,217,38,156,52"/>
+<area shape="rect" id="Node000003" href="$d4/d43/class_s_e_node.html#a6f3571b56b21f6d5fa7191fae4e21681" title="publishes the map (&#39;track_map&#39;) to the topic track_map" alt="" coords="211,55,366,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="155,65,195,65,195,70,155,70"/>
+<area shape="rect" id="Node000006" href="$d4/d43/class_s_e_node.html#a97f9cce4985902a634cd878f973715e6" title="publishes the localization (&#39;vehicle_localization&#39;) to the topic vehicle_location" alt="" coords="203,105,374,145"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="156,85,198,97,197,102,154,91"/>
+<area shape="rect" id="Node000004" href="$d9/d2b/namespacecommon__lib_1_1competition__logic.html#a843c25f51bc237705083bc50bafa67af" title=" " alt="" coords="443,14,607,55"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="366,54,427,45,428,50,367,59"/>
+<area shape="rect" id="Node000005" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ad67e15445307de5e5f1e53676780fa4b" title="Converts a vector of cones to a marker array." alt="" coords="422,79,627,120"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="367,75,407,81,406,86,366,81"/>
+</map>

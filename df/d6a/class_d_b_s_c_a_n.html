@@ -93,6 +93,7 @@ $(document).ready(function(){initNavTree('df/d6a/class_d_b_s_c_a_n.html','../../
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../df/de3/class_d_b_s_c_a_n-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">DBSCAN Class Reference</div></div>
 </div><!--header-->
@@ -107,9 +108,9 @@ Inheritance diagram for DBSCAN:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d4/d88/class_d_b_s_c_a_n__inherit__graph.png" border="0" usemap="#a_d_b_s_c_a_n_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_d_b_s_c_a_n_inherit__map" id="a_d_b_s_c_a_n_inherit__map">
-<area shape="rect" title="DBSCAN (Density&#45;Based Spatial Clustering of Applications with Noise) clustering algorithm implementat..." alt="" coords="5,119,93,204"/>
-<area shape="rect" href="../../d9/d10/class_clustering.html" title="Abstract base class for clustering point clouds." alt="" coords="5,5,93,71"/>
-<area shape="poly" title=" " alt="" coords="52,85,52,119,47,119,47,85"/>
+<area shape="rect" title="DBSCAN (Density&#45;Based Spatial Clustering of Applications with Noise) clustering algorithm implementat..." alt="" coords="5,119,180,224"/>
+<area shape="rect" href="../../d9/d10/class_clustering.html" title="Abstract base class for clustering point clouds." alt="" coords="49,5,137,71"/>
+<area shape="poly" title=" " alt="" coords="95,85,95,119,90,119,90,85"/>
 </map>
 </div>
 <div class="dynheader">
@@ -117,20 +118,29 @@ Collaboration diagram for DBSCAN:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d4/d08/class_d_b_s_c_a_n__coll__graph.png" border="0" usemap="#a_d_b_s_c_a_n_coll__map" alt="Collaboration graph"/></div>
 <map name="a_d_b_s_c_a_n_coll__map" id="a_d_b_s_c_a_n_coll__map">
-<area shape="rect" title="DBSCAN (Density&#45;Based Spatial Clustering of Applications with Noise) clustering algorithm implementat..." alt="" coords="5,119,93,204"/>
-<area shape="rect" href="../../d9/d10/class_clustering.html" title="Abstract base class for clustering point clouds." alt="" coords="5,5,93,71"/>
-<area shape="poly" title=" " alt="" coords="52,85,52,119,47,119,47,85"/>
+<area shape="rect" title="DBSCAN (Density&#45;Based Spatial Clustering of Applications with Noise) clustering algorithm implementat..." alt="" coords="5,119,180,224"/>
+<area shape="rect" href="../../d9/d10/class_clustering.html" title="Abstract base class for clustering point clouds." alt="" coords="49,5,137,71"/>
+<area shape="poly" title=" " alt="" coords="95,85,95,119,90,119,90,85"/>
 </map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a94493ac3bb1a2e9df61bed66ad78ced8" id="r_a94493ac3bb1a2e9df61bed66ad78ced8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d6a/class_d_b_s_c_a_n.html#a94493ac3bb1a2e9df61bed66ad78ced8">DBSCAN</a> (int min_cluster_size, double neighbours_dist_threshold)</td></tr>
+<tr class="memitem:a94493ac3bb1a2e9df61bed66ad78ced8" id="r_a94493ac3bb1a2e9df61bed66ad78ced8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d6a/class_d_b_s_c_a_n.html#a94493ac3bb1a2e9df61bed66ad78ced8">DBSCAN</a> (int <a class="el" href="../../df/d6a/class_d_b_s_c_a_n.html#a470b4553a0a39f33fbee28aa3a32a77d">min_cluster_size</a>, double <a class="el" href="../../df/d6a/class_d_b_s_c_a_n.html#adf49ab23a7d6483e750d9db747a2bd42">neighbours_dist_threshold</a>)</td></tr>
 <tr class="memdesc:a94493ac3bb1a2e9df61bed66ad78ced8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for the <a class="el" href="../../df/d6a/class_d_b_s_c_a_n.html" title="DBSCAN (Density-Based Spatial Clustering of Applications with Noise) clustering algorithm implementat...">DBSCAN</a> clustering algorithm.  <br /></td></tr>
 <tr class="separator:a94493ac3bb1a2e9df61bed66ad78ced8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a9605c898a26dbd557113419f4c8c6e" id="r_a9a9605c898a26dbd557113419f4c8c6e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d6a/class_d_b_s_c_a_n.html#a9a9605c898a26dbd557113419f4c8c6e">clustering</a> (const pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr point_cloud, std::vector&lt; <a class="el" href="../../d2/d23/class_cluster.html">Cluster</a> &gt; *clusters) const override</td></tr>
 <tr class="memdesc:a9a9605c898a26dbd557113419f4c8c6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clusters the input point cloud into groups using the <a class="el" href="../../df/d6a/class_d_b_s_c_a_n.html" title="DBSCAN (Density-Based Spatial Clustering of Applications with Noise) clustering algorithm implementat...">DBSCAN</a> algorithm.  <br /></td></tr>
 <tr class="separator:a9a9605c898a26dbd557113419f4c8c6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a470b4553a0a39f33fbee28aa3a32a77d" id="r_a470b4553a0a39f33fbee28aa3a32a77d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d6a/class_d_b_s_c_a_n.html#a470b4553a0a39f33fbee28aa3a32a77d">min_cluster_size</a></td></tr>
+<tr class="memdesc:a470b4553a0a39f33fbee28aa3a32a77d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Minimum number of points required to form a cluster.  <br /></td></tr>
+<tr class="separator:a470b4553a0a39f33fbee28aa3a32a77d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf49ab23a7d6483e750d9db747a2bd42" id="r_adf49ab23a7d6483e750d9db747a2bd42"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d6a/class_d_b_s_c_a_n.html#adf49ab23a7d6483e750d9db747a2bd42">neighbours_dist_threshold</a></td></tr>
+<tr class="memdesc:adf49ab23a7d6483e750d9db747a2bd42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum distance between points to be considered as neighbors.  <br /></td></tr>
+<tr class="separator:adf49ab23a7d6483e750d9db747a2bd42"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="../../df/d6a/class_d_b_s_c_a_n.html" title="DBSCAN (Density-Based Spatial Clustering of Applications with Noise) clustering algorithm implementat...">DBSCAN</a> (Density-Based Spatial <a class="el" href="../../d9/d10/class_clustering.html" title="Abstract base class for clustering point clouds.">Clustering</a> of Applications with Noise) clustering algorithm implementation. </p>
@@ -225,6 +235,59 @@ Public Member Functions</h2></td></tr>
 <p>Implements <a class="el" href="../../d9/d10/class_clustering.html#a17e55a061852f4a7d6bbb48c3dec5bba">Clustering</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="../../da/dad/dbscan_8cpp_source.html#l00009">9</a> of file <a class="el" href="../../da/dad/dbscan_8cpp_source.html">dbscan.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a470b4553a0a39f33fbee28aa3a32a77d" name="a470b4553a0a39f33fbee28aa3a32a77d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a470b4553a0a39f33fbee28aa3a32a77d">&#9670;&#160;</a></span>min_cluster_size</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int DBSCAN::min_cluster_size</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Minimum number of points required to form a cluster. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../dd/d8d/dbscan_8hpp_source.html#l00016">16</a> of file <a class="el" href="../../dd/d8d/dbscan_8hpp_source.html">dbscan.hpp</a>.</p>
+
+</div>
+</div>
+<a id="adf49ab23a7d6483e750d9db747a2bd42" name="adf49ab23a7d6483e750d9db747a2bd42"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf49ab23a7d6483e750d9db747a2bd42">&#9670;&#160;</a></span>neighbours_dist_threshold</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double DBSCAN::neighbours_dist_threshold</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Maximum distance between points to be considered as neighbors. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../dd/d8d/dbscan_8hpp_source.html#l00021">21</a> of file <a class="el" href="../../dd/d8d/dbscan_8hpp_source.html">dbscan.hpp</a>.</p>
 
 </div>
 </div>

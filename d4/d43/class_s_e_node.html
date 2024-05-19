@@ -93,13 +93,16 @@ $(document).ready(function(){initNavTree('d4/d43/class_s_e_node.html','../../');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-static-methods">Static Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="../../d0/d1e/class_s_e_node-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">SENode Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Class representing the main speed_est node responsible for publishing the calculated vehicle state with speed and the map. As well as, subscribing and interpreting information, such as the cone's position and colors, from the perception module.  
+<p>Class representing the main speed_est node responsible for publishing the calculated vehicle state with speed and the map.  
  <a href="../../d4/d43/class_s_e_node.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="../../d2/d22/se__node_8hpp_source.html">se_node.hpp</a>&gt;</code></p>
@@ -108,9 +111,9 @@ Inheritance diagram for SENode:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../da/d43/class_s_e_node__inherit__graph.png" border="0" usemap="#a_s_e_node_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_s_e_node_inherit__map" id="a_s_e_node_inherit__map">
-<area shape="rect" title="Class representing the main speed_est node responsible for publishing the calculated vehicle state wi..." alt="" coords="8,119,88,184"/>
-<area shape="rect" title=" " alt="" coords="5,5,91,71"/>
-<area shape="poly" title=" " alt="" coords="51,85,51,119,45,119,45,85"/>
+<area shape="rect" title="Class representing the main speed_est node responsible for publishing the calculated vehicle state wi..." alt="" coords="5,119,197,683"/>
+<area shape="rect" title=" " alt="" coords="59,5,144,71"/>
+<area shape="poly" title=" " alt="" coords="104,86,104,119,99,119,99,86"/>
 </map>
 </div>
 <div class="dynheader">
@@ -118,9 +121,9 @@ Collaboration diagram for SENode:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../dc/dcb/class_s_e_node__coll__graph.png" border="0" usemap="#a_s_e_node_coll__map" alt="Collaboration graph"/></div>
 <map name="a_s_e_node_coll__map" id="a_s_e_node_coll__map">
-<area shape="rect" title="Class representing the main speed_est node responsible for publishing the calculated vehicle state wi..." alt="" coords="8,119,88,184"/>
-<area shape="rect" title=" " alt="" coords="5,5,91,71"/>
-<area shape="poly" title=" " alt="" coords="51,85,51,119,45,119,45,85"/>
+<area shape="rect" title="Class representing the main speed_est node responsible for publishing the calculated vehicle state wi..." alt="" coords="5,119,197,683"/>
+<area shape="rect" title=" " alt="" coords="59,5,144,71"/>
+<area shape="poly" title=" " alt="" coords="104,86,104,119,99,119,99,86"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -129,6 +132,72 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5d61b6c80a21c02b29074e434cc6703b" id="r_a5d61b6c80a21c02b29074e434cc6703b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d43/class_s_e_node.html#a5d61b6c80a21c02b29074e434cc6703b">SENode</a> ()</td></tr>
 <tr class="memdesc:a5d61b6c80a21c02b29074e434cc6703b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor of the main node, most things are received by launch parameter.  <br /></td></tr>
 <tr class="separator:a5d61b6c80a21c02b29074e434cc6703b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:ae87a4d5f2baf38b9fb9a34a81b9149ad" id="r_ae87a4d5f2baf38b9fb9a34a81b9149ad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d43/class_s_e_node.html#ae87a4d5f2baf38b9fb9a34a81b9149ad">_perception_subscription_callback</a> (const custom_interfaces::msg::ConeArray &amp;msg)</td></tr>
+<tr class="memdesc:ae87a4d5f2baf38b9fb9a34a81b9149ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback that updates everytime information is received from the perception module.  <br /></td></tr>
+<tr class="separator:ae87a4d5f2baf38b9fb9a34a81b9149ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e3d03aa2f2cbbf8c2ff425fdc274e2b" id="r_a6e3d03aa2f2cbbf8c2ff425fdc274e2b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d43/class_s_e_node.html#a6e3d03aa2f2cbbf8c2ff425fdc274e2b">_imu_subscription_callback</a> (const sensor_msgs::msg::Imu &amp;imu_msg)</td></tr>
+<tr class="memdesc:a6e3d03aa2f2cbbf8c2ff425fdc274e2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to be called everytime information is received from the IMU.  <br /></td></tr>
+<tr class="separator:a6e3d03aa2f2cbbf8c2ff425fdc274e2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9238d6e6cdebf7becd57514858df115" id="r_aa9238d6e6cdebf7becd57514858df115"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d43/class_s_e_node.html#aa9238d6e6cdebf7becd57514858df115">_wheel_speeds_subscription_callback</a> (double lb_speed, double lf_speed, double rb_speed, double rf_speed, double steering_angle, const rclcpp::Time &amp;timestamp)</td></tr>
+<tr class="memdesc:aa9238d6e6cdebf7becd57514858df115"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to be called everytime information is received from the wheel encoders.  <br /></td></tr>
+<tr class="separator:aa9238d6e6cdebf7becd57514858df115"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a807afbd7576422568395876d5c3e7296" id="r_a807afbd7576422568395876d5c3e7296"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d43/class_s_e_node.html#a807afbd7576422568395876d5c3e7296">_update_and_publish</a> ()</td></tr>
+<tr class="memdesc:a807afbd7576422568395876d5c3e7296"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes:  <br /></td></tr>
+<tr class="separator:a807afbd7576422568395876d5c3e7296"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97f9cce4985902a634cd878f973715e6" id="r_a97f9cce4985902a634cd878f973715e6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d43/class_s_e_node.html#a97f9cce4985902a634cd878f973715e6">_publish_vehicle_state</a> ()</td></tr>
+<tr class="memdesc:a97f9cce4985902a634cd878f973715e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">publishes the localization ('vehicle_localization') to the topic vehicle_location  <br /></td></tr>
+<tr class="separator:a97f9cce4985902a634cd878f973715e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f3571b56b21f6d5fa7191fae4e21681" id="r_a6f3571b56b21f6d5fa7191fae4e21681"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d43/class_s_e_node.html#a6f3571b56b21f6d5fa7191fae4e21681">_publish_map</a> ()</td></tr>
+<tr class="memdesc:a6f3571b56b21f6d5fa7191fae4e21681"><td class="mdescLeft">&#160;</td><td class="mdescRight">publishes the map ('track_map') to the topic track_map  <br /></td></tr>
+<tr class="separator:a6f3571b56b21f6d5fa7191fae4e21681"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d9da2c8d3287d49f3a36cf5c69b421e" id="r_a3d9da2c8d3287d49f3a36cf5c69b421e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d43/class_s_e_node.html#a3d9da2c8d3287d49f3a36cf5c69b421e">_ekf_step</a> ()</td></tr>
+<tr class="memdesc:a3d9da2c8d3287d49f3a36cf5c69b421e"><td class="mdescLeft">&#160;</td><td class="mdescRight">executes the prediction step of the EKF  <br /></td></tr>
+<tr class="separator:a3d9da2c8d3287d49f3a36cf5c69b421e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-methods" name="pri-static-methods"></a>
+Static Private Member Functions</h2></td></tr>
+<tr class="memitem:a67ab0ad9ce3cdeaf588f5b3bffc3c40c" id="r_a67ab0ad9ce3cdeaf588f5b3bffc3c40c"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../db/d6d/struct_motion_update.html">MotionUpdate</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d43/class_s_e_node.html#a67ab0ad9ce3cdeaf588f5b3bffc3c40c">odometry_to_velocities_transform</a> (double lb_speed, double lf_speed, double rb_speed, double rf_speed, double steering_angle)</td></tr>
+<tr class="memdesc:a67ab0ad9ce3cdeaf588f5b3bffc3c40c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts the odometry data to translational and rotational velocities.  <br /></td></tr>
+<tr class="separator:a67ab0ad9ce3cdeaf588f5b3bffc3c40c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a1c65ea26f6043ab5517ecdac18b65412" id="r_a1c65ea26f6043ab5517ecdac18b65412"><td class="memItemLeft" align="right" valign="top">rclcpp::Subscription&lt; custom_interfaces::msg::ConeArray &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d43/class_s_e_node.html#a1c65ea26f6043ab5517ecdac18b65412">_perception_subscription_</a></td></tr>
+<tr class="separator:a1c65ea26f6043ab5517ecdac18b65412"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa21a62ca6c0497adf94d0eabf21b9cc7" id="r_aa21a62ca6c0497adf94d0eabf21b9cc7"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; custom_interfaces::msg::VehicleState &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d43/class_s_e_node.html#aa21a62ca6c0497adf94d0eabf21b9cc7">_vehicle_state_publisher_</a></td></tr>
+<tr class="separator:aa21a62ca6c0497adf94d0eabf21b9cc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6da73bc3099ff0b9334f4f751848c79a" id="r_a6da73bc3099ff0b9334f4f751848c79a"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; custom_interfaces::msg::ConeArray &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d43/class_s_e_node.html#a6da73bc3099ff0b9334f4f751848c79a">_map_publisher_</a></td></tr>
+<tr class="separator:a6da73bc3099ff0b9334f4f751848c79a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31b49644edb25845bf40b8b7773df8f7" id="r_a31b49644edb25845bf40b8b7773df8f7"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; visualization_msgs::msg::MarkerArray &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d43/class_s_e_node.html#a31b49644edb25845bf40b8b7773df8f7">_visualization_map_publisher_</a></td></tr>
+<tr class="separator:a31b49644edb25845bf40b8b7773df8f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a933262364ce981be2803c316ce2e567d" id="r_a933262364ce981be2803c316ce2e567d"><td class="memItemLeft" align="right" valign="top">rclcpp::TimerBase::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d43/class_s_e_node.html#a933262364ce981be2803c316ce2e567d">_timer_</a></td></tr>
+<tr class="memdesc:a933262364ce981be2803c316ce2e567d"><td class="mdescLeft">&#160;</td><td class="mdescRight">timer  <br /></td></tr>
+<tr class="separator:a933262364ce981be2803c316ce2e567d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a293f33b6aacd7c51e7dd6f24af246783" id="r_a293f33b6aacd7c51e7dd6f24af246783"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../da/da6/class_extended_kalman_filter.html">ExtendedKalmanFilter</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d43/class_s_e_node.html#a293f33b6aacd7c51e7dd6f24af246783">_ekf_</a></td></tr>
+<tr class="memdesc:a293f33b6aacd7c51e7dd6f24af246783"><td class="mdescLeft">&#160;</td><td class="mdescRight">SLAM EKF object.  <br /></td></tr>
+<tr class="separator:a293f33b6aacd7c51e7dd6f24af246783"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b9fc465ec1042df41861e934d577800" id="r_a2b9fc465ec1042df41861e934d577800"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; std::vector&lt; <a class="el" href="../../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html">common_lib::structures::Cone</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d43/class_s_e_node.html#a2b9fc465ec1042df41861e934d577800">_perception_map_</a></td></tr>
+<tr class="separator:a2b9fc465ec1042df41861e934d577800"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ee8f3e8c319dd8386e58e05e12d73c3" id="r_a7ee8f3e8c319dd8386e58e05e12d73c3"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../db/d6d/struct_motion_update.html">MotionUpdate</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d43/class_s_e_node.html#a7ee8f3e8c319dd8386e58e05e12d73c3">_motion_update_</a></td></tr>
+<tr class="separator:a7ee8f3e8c319dd8386e58e05e12d73c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a417aecbf7cbac10e90ef4a6866b67b" id="r_a3a417aecbf7cbac10e90ef4a6866b67b"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; std::vector&lt; <a class="el" href="../../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html">common_lib::structures::Cone</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d43/class_s_e_node.html#a3a417aecbf7cbac10e90ef4a6866b67b">_track_map_</a></td></tr>
+<tr class="separator:a3a417aecbf7cbac10e90ef4a6866b67b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac13d7c1fd2cbb2794a219d9c57393acb" id="r_ac13d7c1fd2cbb2794a219d9c57393acb"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d0/d2a/structcommon__lib_1_1structures_1_1_vehicle_state.html">common_lib::structures::VehicleState</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d43/class_s_e_node.html#ac13d7c1fd2cbb2794a219d9c57393acb">_vehicle_state_</a></td></tr>
+<tr class="separator:ac13d7c1fd2cbb2794a219d9c57393acb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32a4d14b23b9cd690504a0a3c46ada93" id="r_a32a4d14b23b9cd690504a0a3c46ada93"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/d2b/namespacecommon__lib_1_1competition__logic.html#adc523f54f1498f443c97303976f40140">common_lib::competition_logic::Mission</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d43/class_s_e_node.html#a32a4d14b23b9cd690504a0a3c46ada93">_mission_</a></td></tr>
+<tr class="separator:a32a4d14b23b9cd690504a0a3c46ada93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:accee6cb15f06b3b40b25ac8cb95df97c" id="r_accee6cb15f06b3b40b25ac8cb95df97c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d43/class_s_e_node.html#accee6cb15f06b3b40b25ac8cb95df97c">_go_</a></td></tr>
+<tr class="separator:accee6cb15f06b3b40b25ac8cb95df97c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afae5265cfdfbbf3540f6276ae8e41b64" id="r_afae5265cfdfbbf3540f6276ae8e41b64"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d43/class_s_e_node.html#afae5265cfdfbbf3540f6276ae8e41b64">_use_odometry_</a></td></tr>
+<tr class="memdesc:afae5265cfdfbbf3540f6276ae8e41b64"><td class="mdescLeft">&#160;</td><td class="mdescRight">flag to start the mission  <br /></td></tr>
+<tr class="separator:afae5265cfdfbbf3540f6276ae8e41b64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f4b86778834a75046d3c70ff03fc730" id="r_a0f4b86778834a75046d3c70ff03fc730"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d43/class_s_e_node.html#a0f4b86778834a75046d3c70ff03fc730">_use_simulated_perception_</a></td></tr>
+<tr class="separator:a0f4b86778834a75046d3c70ff03fc730"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0b142ec017f45737517251bf99ed0fe" id="r_aa0b142ec017f45737517251bf99ed0fe"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d3/d7f/class_adapter.html">Adapter</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d43/class_s_e_node.html#aa0b142ec017f45737517251bf99ed0fe">_adapter_</a></td></tr>
+<tr class="separator:aa0b142ec017f45737517251bf99ed0fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
@@ -144,7 +213,8 @@ Friends</h2></td></tr>
 <tr class="separator:a7533e3444801bb395e08fb6790b29647"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Class representing the main speed_est node responsible for publishing the calculated vehicle state with speed and the map. As well as, subscribing and interpreting information, such as the cone's position and colors, from the perception module. </p>
+<div class="textblock"><p>Class representing the main speed_est node responsible for publishing the calculated vehicle state with speed and the map. </p>
+<p>As well as, subscribing and interpreting information, such as the cone's position and colors, from the perception module. </p>
 
 <p class="definition">Definition at line <a class="el" href="../../d2/d22/se__node_8hpp_source.html#l00030">30</a> of file <a class="el" href="../../d2/d22/se__node_8hpp_source.html">se_node.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -166,6 +236,480 @@ Friends</h2></td></tr>
 <p>Constructor of the main node, most things are received by launch parameter. </p>
 
 <p class="definition">Definition at line <a class="el" href="../../d0/d48/se__node_8cpp_source.html#l00018">18</a> of file <a class="el" href="../../d0/d48/se__node_8cpp_source.html">se_node.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d4/d43/class_s_e_node_a5d61b6c80a21c02b29074e434cc6703b_cgraph.png" border="0" usemap="#ad4/d43/class_s_e_node_a5d61b6c80a21c02b29074e434cc6703b_cgraph" alt=""/></div>
+<map name="ad4/d43/class_s_e_node_a5d61b6c80a21c02b29074e434cc6703b_cgraph" id="ad4/d43/class_s_e_node_a5d61b6c80a21c02b29074e434cc6703b_cgraph">
+<area shape="rect" title="Constructor of the main node, most things are received by launch parameter." alt="" coords="5,76,129,101"/>
+<area shape="rect" href="../../d4/d43/class_s_e_node.html#ae87a4d5f2baf38b9fb9a34a81b9149ad" title="Callback that updates everytime information is received from the perception module." alt="" coords="177,68,330,109"/>
+<area shape="poly" title=" " alt="" coords="129,86,161,86,161,91,129,91"/>
+<area shape="rect" href="../../d4/d43/class_s_e_node.html#a6f3571b56b21f6d5fa7191fae4e21681" title="publishes the map (&#39;track_map&#39;) to the topic track_map" alt="" coords="386,46,541,72"/>
+<area shape="poly" title=" " alt="" coords="330,75,370,69,371,75,331,80"/>
+<area shape="rect" href="../../d4/d43/class_s_e_node.html#a97f9cce4985902a634cd878f973715e6" title="publishes the localization (&#39;vehicle_localization&#39;) to the topic vehicle_location" alt="" coords="378,96,549,137"/>
+<area shape="poly" title=" " alt="" coords="331,96,363,100,362,105,330,101"/>
+<area shape="rect" href="../../d9/d2b/namespacecommon__lib_1_1competition__logic.html#a843c25f51bc237705083bc50bafa67af" title=" " alt="" coords="618,5,782,46"/>
+<area shape="poly" title=" " alt="" coords="541,45,602,37,603,42,542,51"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#ad67e15445307de5e5f1e53676780fa4b" title="Converts a vector of cones to a marker array." alt="" coords="597,71,803,111"/>
+<area shape="poly" title=" " alt="" coords="542,67,582,72,582,78,541,72"/>
+</map>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a3d9da2c8d3287d49f3a36cf5c69b421e" name="a3d9da2c8d3287d49f3a36cf5c69b421e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d9da2c8d3287d49f3a36cf5c69b421e">&#9670;&#160;</a></span>_ekf_step()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SENode::_ekf_step </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>executes the prediction step of the EKF </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d0/d48/se__node_8cpp_source.html#l00203">203</a> of file <a class="el" href="../../d0/d48/se__node_8cpp_source.html">se_node.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d4/d43/class_s_e_node_a3d9da2c8d3287d49f3a36cf5c69b421e_icgraph.png" border="0" usemap="#ad4/d43/class_s_e_node_a3d9da2c8d3287d49f3a36cf5c69b421e_icgraph" alt=""/></div>
+<map name="ad4/d43/class_s_e_node_a3d9da2c8d3287d49f3a36cf5c69b421e_icgraph" id="ad4/d43/class_s_e_node_a3d9da2c8d3287d49f3a36cf5c69b421e_icgraph">
+<area shape="rect" title="executes the prediction step of the EKF" alt="" coords="203,13,335,39"/>
+<area shape="rect" href="../../d4/d43/class_s_e_node.html#a807afbd7576422568395876d5c3e7296" title="Executes:" alt="" coords="5,5,155,46"/>
+<area shape="poly" title=" " alt="" coords="187,28,155,28,155,23,187,23"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a6e3d03aa2f2cbbf8c2ff425fdc274e2b" name="a6e3d03aa2f2cbbf8c2ff425fdc274e2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e3d03aa2f2cbbf8c2ff425fdc274e2b">&#9670;&#160;</a></span>_imu_subscription_callback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SENode::_imu_subscription_callback </td>
+          <td>(</td>
+          <td class="paramtype">const sensor_msgs::msg::Imu &amp;&#160;</td>
+          <td class="paramname"><em>imu_msg</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Function to be called everytime information is received from the IMU. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rotational_velocity</td><td></td></tr>
+    <tr><td class="paramname">acceleration_x</td><td></td></tr>
+    <tr><td class="paramname">acceleration_y</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d0/d48/se__node_8cpp_source.html#l00089">89</a> of file <a class="el" href="../../d0/d48/se__node_8cpp_source.html">se_node.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ae87a4d5f2baf38b9fb9a34a81b9149ad" name="ae87a4d5f2baf38b9fb9a34a81b9149ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae87a4d5f2baf38b9fb9a34a81b9149ad">&#9670;&#160;</a></span>_perception_subscription_callback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SENode::_perception_subscription_callback </td>
+          <td>(</td>
+          <td class="paramtype">const custom_interfaces::msg::ConeArray &amp;&#160;</td>
+          <td class="paramname"><em>msg</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Callback that updates everytime information is received from the perception module. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">msg</td><td>Message containing the array of perceived cones </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d0/d48/se__node_8cpp_source.html#l00058">58</a> of file <a class="el" href="../../d0/d48/se__node_8cpp_source.html">se_node.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d4/d43/class_s_e_node_ae87a4d5f2baf38b9fb9a34a81b9149ad_cgraph.png" border="0" usemap="#ad4/d43/class_s_e_node_ae87a4d5f2baf38b9fb9a34a81b9149ad_cgraph" alt=""/></div>
+<map name="ad4/d43/class_s_e_node_ae87a4d5f2baf38b9fb9a34a81b9149ad_cgraph" id="ad4/d43/class_s_e_node_ae87a4d5f2baf38b9fb9a34a81b9149ad_cgraph">
+<area shape="rect" title="Callback that updates everytime information is received from the perception module." alt="" coords="5,68,159,109"/>
+<area shape="rect" href="../../d4/d43/class_s_e_node.html#a6f3571b56b21f6d5fa7191fae4e21681" title="publishes the map (&#39;track_map&#39;) to the topic track_map" alt="" coords="215,46,370,72"/>
+<area shape="poly" title=" " alt="" coords="159,75,199,69,199,75,159,80"/>
+<area shape="rect" href="../../d4/d43/class_s_e_node.html#a97f9cce4985902a634cd878f973715e6" title="publishes the localization (&#39;vehicle_localization&#39;) to the topic vehicle_location" alt="" coords="207,96,378,137"/>
+<area shape="poly" title=" " alt="" coords="159,96,191,100,191,105,159,101"/>
+<area shape="rect" href="../../d9/d2b/namespacecommon__lib_1_1competition__logic.html#a843c25f51bc237705083bc50bafa67af" title=" " alt="" coords="447,5,611,46"/>
+<area shape="poly" title=" " alt="" coords="370,45,431,37,432,42,371,51"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#ad67e15445307de5e5f1e53676780fa4b" title="Converts a vector of cones to a marker array." alt="" coords="426,71,631,111"/>
+<area shape="poly" title=" " alt="" coords="371,67,411,72,410,78,370,72"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d4/d43/class_s_e_node_ae87a4d5f2baf38b9fb9a34a81b9149ad_icgraph.png" border="0" usemap="#ad4/d43/class_s_e_node_ae87a4d5f2baf38b9fb9a34a81b9149ad_icgraph" alt=""/></div>
+<map name="ad4/d43/class_s_e_node_ae87a4d5f2baf38b9fb9a34a81b9149ad_icgraph" id="ad4/d43/class_s_e_node_ae87a4d5f2baf38b9fb9a34a81b9149ad_icgraph">
+<area shape="rect" title="Callback that updates everytime information is received from the perception module." alt="" coords="177,5,330,46"/>
+<area shape="rect" href="../../d4/d43/class_s_e_node.html#a5d61b6c80a21c02b29074e434cc6703b" title="Constructor of the main node, most things are received by launch parameter." alt="" coords="5,13,129,39"/>
+<area shape="poly" title=" " alt="" coords="161,28,129,28,129,23,161,23"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a6f3571b56b21f6d5fa7191fae4e21681" name="a6f3571b56b21f6d5fa7191fae4e21681"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f3571b56b21f6d5fa7191fae4e21681">&#9670;&#160;</a></span>_publish_map()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SENode::_publish_map </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>publishes the map ('track_map') to the topic track_map </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d0/d48/se__node_8cpp_source.html#l00178">178</a> of file <a class="el" href="../../d0/d48/se__node_8cpp_source.html">se_node.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d4/d43/class_s_e_node_a6f3571b56b21f6d5fa7191fae4e21681_cgraph.png" border="0" usemap="#ad4/d43/class_s_e_node_a6f3571b56b21f6d5fa7191fae4e21681_cgraph" alt=""/></div>
+<map name="ad4/d43/class_s_e_node_a6f3571b56b21f6d5fa7191fae4e21681_cgraph" id="ad4/d43/class_s_e_node_a6f3571b56b21f6d5fa7191fae4e21681_cgraph">
+<area shape="rect" title="publishes the map (&#39;track_map&#39;) to the topic track_map" alt="" coords="5,46,161,72"/>
+<area shape="rect" href="../../d9/d2b/namespacecommon__lib_1_1competition__logic.html#a843c25f51bc237705083bc50bafa67af" title=" " alt="" coords="229,5,394,46"/>
+<area shape="poly" title=" " alt="" coords="160,45,214,37,214,42,161,50"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#ad67e15445307de5e5f1e53676780fa4b" title="Converts a vector of cones to a marker array." alt="" coords="209,71,414,111"/>
+<area shape="poly" title=" " alt="" coords="161,67,193,72,193,77,160,72"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d4/d43/class_s_e_node_a6f3571b56b21f6d5fa7191fae4e21681_icgraph.png" border="0" usemap="#ad4/d43/class_s_e_node_a6f3571b56b21f6d5fa7191fae4e21681_icgraph" alt=""/></div>
+<map name="ad4/d43/class_s_e_node_a6f3571b56b21f6d5fa7191fae4e21681_icgraph" id="ad4/d43/class_s_e_node_a6f3571b56b21f6d5fa7191fae4e21681_icgraph">
+<area shape="rect" title="publishes the map (&#39;track_map&#39;) to the topic track_map" alt="" coords="390,78,545,104"/>
+<area shape="rect" href="../../d4/d43/class_s_e_node.html#ae87a4d5f2baf38b9fb9a34a81b9149ad" title="Callback that updates everytime information is received from the perception module." alt="" coords="183,5,336,46"/>
+<area shape="poly" title=" " alt="" coords="409,76,326,49,327,44,411,70"/>
+<area shape="rect" href="../../d4/d43/class_s_e_node.html#a807afbd7576422568395876d5c3e7296" title="Executes:" alt="" coords="185,71,334,111"/>
+<area shape="poly" title=" " alt="" coords="375,94,335,94,335,88,375,88"/>
+<area shape="rect" href="../../d4/d43/class_s_e_node.html#aa9238d6e6cdebf7becd57514858df115" title="Function to be called everytime information is received from the wheel encoders." alt="" coords="177,136,342,177"/>
+<area shape="poly" title=" " alt="" coords="411,112,327,138,326,133,409,106"/>
+<area shape="rect" href="../../d4/d43/class_s_e_node.html#a5d61b6c80a21c02b29074e434cc6703b" title="Constructor of the main node, most things are received by launch parameter." alt="" coords="5,13,129,39"/>
+<area shape="poly" title=" " alt="" coords="167,28,129,28,129,23,167,23"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a97f9cce4985902a634cd878f973715e6" name="a97f9cce4985902a634cd878f973715e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97f9cce4985902a634cd878f973715e6">&#9670;&#160;</a></span>_publish_vehicle_state()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SENode::_publish_vehicle_state </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>publishes the localization ('vehicle_localization') to the topic vehicle_location </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d0/d48/se__node_8cpp_source.html#l00159">159</a> of file <a class="el" href="../../d0/d48/se__node_8cpp_source.html">se_node.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d4/d43/class_s_e_node_a97f9cce4985902a634cd878f973715e6_icgraph.png" border="0" usemap="#ad4/d43/class_s_e_node_a97f9cce4985902a634cd878f973715e6_icgraph" alt=""/></div>
+<map name="ad4/d43/class_s_e_node_a97f9cce4985902a634cd878f973715e6_icgraph" id="ad4/d43/class_s_e_node_a97f9cce4985902a634cd878f973715e6_icgraph">
+<area shape="rect" title="publishes the localization (&#39;vehicle_localization&#39;) to the topic vehicle_location" alt="" coords="390,71,561,111"/>
+<area shape="rect" href="../../d4/d43/class_s_e_node.html#ae87a4d5f2baf38b9fb9a34a81b9149ad" title="Callback that updates everytime information is received from the perception module." alt="" coords="183,5,336,46"/>
+<area shape="poly" title=" " alt="" coords="391,68,329,49,330,44,393,63"/>
+<area shape="rect" href="../../d4/d43/class_s_e_node.html#a807afbd7576422568395876d5c3e7296" title="Executes:" alt="" coords="185,71,334,111"/>
+<area shape="poly" title=" " alt="" coords="375,94,334,94,334,88,375,88"/>
+<area shape="rect" href="../../d4/d43/class_s_e_node.html#aa9238d6e6cdebf7becd57514858df115" title="Function to be called everytime information is received from the wheel encoders." alt="" coords="177,136,342,177"/>
+<area shape="poly" title=" " alt="" coords="393,119,330,138,329,133,391,114"/>
+<area shape="rect" href="../../d4/d43/class_s_e_node.html#a5d61b6c80a21c02b29074e434cc6703b" title="Constructor of the main node, most things are received by launch parameter." alt="" coords="5,13,129,39"/>
+<area shape="poly" title=" " alt="" coords="167,28,129,28,129,23,167,23"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a807afbd7576422568395876d5c3e7296" name="a807afbd7576422568395876d5c3e7296"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a807afbd7576422568395876d5c3e7296">&#9670;&#160;</a></span>_update_and_publish()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SENode::_update_and_publish </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Executes: </p>
+<ul>
+<li>the prediction, validation and discovery steps of the EKF</li>
+<li>publication of localization</li>
+<li>publication of map </li>
+</ul>
+
+<p class="definition">Definition at line <a class="el" href="../../d0/d48/se__node_8cpp_source.html#l00215">215</a> of file <a class="el" href="../../d0/d48/se__node_8cpp_source.html">se_node.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d4/d43/class_s_e_node_a807afbd7576422568395876d5c3e7296_cgraph.png" border="0" usemap="#ad4/d43/class_s_e_node_a807afbd7576422568395876d5c3e7296_cgraph" alt=""/></div>
+<map name="ad4/d43/class_s_e_node_a807afbd7576422568395876d5c3e7296_cgraph" id="ad4/d43/class_s_e_node_a807afbd7576422568395876d5c3e7296_cgraph">
+<area shape="rect" title="Executes:" alt="" coords="5,47,155,88"/>
+<area shape="rect" href="../../d4/d43/class_s_e_node.html#a3d9da2c8d3287d49f3a36cf5c69b421e" title="executes the prediction step of the EKF" alt="" coords="222,5,355,31"/>
+<area shape="poly" title=" " alt="" coords="154,47,216,32,217,38,156,52"/>
+<area shape="rect" href="../../d4/d43/class_s_e_node.html#a6f3571b56b21f6d5fa7191fae4e21681" title="publishes the map (&#39;track_map&#39;) to the topic track_map" alt="" coords="211,55,366,80"/>
+<area shape="poly" title=" " alt="" coords="155,65,195,65,195,70,155,70"/>
+<area shape="rect" href="../../d4/d43/class_s_e_node.html#a97f9cce4985902a634cd878f973715e6" title="publishes the localization (&#39;vehicle_localization&#39;) to the topic vehicle_location" alt="" coords="203,105,374,145"/>
+<area shape="poly" title=" " alt="" coords="156,85,198,97,197,102,154,91"/>
+<area shape="rect" href="../../d9/d2b/namespacecommon__lib_1_1competition__logic.html#a843c25f51bc237705083bc50bafa67af" title=" " alt="" coords="443,14,607,55"/>
+<area shape="poly" title=" " alt="" coords="366,54,427,45,428,50,367,59"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#ad67e15445307de5e5f1e53676780fa4b" title="Converts a vector of cones to a marker array." alt="" coords="422,79,627,120"/>
+<area shape="poly" title=" " alt="" coords="367,75,407,81,406,86,366,81"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="aa9238d6e6cdebf7becd57514858df115" name="aa9238d6e6cdebf7becd57514858df115"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9238d6e6cdebf7becd57514858df115">&#9670;&#160;</a></span>_wheel_speeds_subscription_callback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SENode::_wheel_speeds_subscription_callback </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>lb_speed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>lf_speed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>rb_speed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>rf_speed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>steering_angle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const rclcpp::Time &amp;&#160;</td>
+          <td class="paramname"><em>timestamp</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Function to be called everytime information is received from the wheel encoders. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lb_speed</td><td>wheel speeds in rpm </td></tr>
+    <tr><td class="paramname">lf_speed</td><td>wheel speeds in rpm </td></tr>
+    <tr><td class="paramname">rb_speed</td><td>wheel speeds in rpm </td></tr>
+    <tr><td class="paramname">rf_speed</td><td>wheel speeds in rpm </td></tr>
+    <tr><td class="paramname">steering_angle</td><td>steering angle in radians </td></tr>
+    <tr><td class="paramname">timestamp</td><td>timestamp of the message </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d0/d48/se__node_8cpp_source.html#l00122">122</a> of file <a class="el" href="../../d0/d48/se__node_8cpp_source.html">se_node.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d4/d43/class_s_e_node_aa9238d6e6cdebf7becd57514858df115_cgraph.png" border="0" usemap="#ad4/d43/class_s_e_node_aa9238d6e6cdebf7becd57514858df115_cgraph" alt=""/></div>
+<map name="ad4/d43/class_s_e_node_aa9238d6e6cdebf7becd57514858df115_cgraph" id="ad4/d43/class_s_e_node_aa9238d6e6cdebf7becd57514858df115_cgraph">
+<area shape="rect" title="Function to be called everytime information is received from the wheel encoders." alt="" coords="5,96,171,137"/>
+<area shape="rect" href="../../d4/d43/class_s_e_node.html#a6f3571b56b21f6d5fa7191fae4e21681" title="publishes the map (&#39;track_map&#39;) to the topic track_map" alt="" coords="227,46,382,72"/>
+<area shape="poly" title=" " alt="" coords="166,93,238,74,239,79,168,98"/>
+<area shape="rect" href="../../d4/d43/class_s_e_node.html#a97f9cce4985902a634cd878f973715e6" title="publishes the localization (&#39;vehicle_localization&#39;) to the topic vehicle_location" alt="" coords="219,96,390,137"/>
+<area shape="poly" title=" " alt="" coords="171,114,203,114,203,119,171,119"/>
+<area shape="rect" href="../../d4/d1a/namespacecommon__lib_1_1vehicle__dynamics.html#a6f4e302b6228b2dbd52b6d37a9685677" title="Converts the odometry data to translational and rotational velocities." alt="" coords="223,161,386,216"/>
+<area shape="poly" title=" " alt="" coords="152,135,209,154,207,159,150,140"/>
+<area shape="rect" href="../../d9/d2b/namespacecommon__lib_1_1competition__logic.html#a843c25f51bc237705083bc50bafa67af" title=" " alt="" coords="459,5,623,46"/>
+<area shape="poly" title=" " alt="" coords="382,45,443,37,444,42,383,51"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#ad67e15445307de5e5f1e53676780fa4b" title="Converts a vector of cones to a marker array." alt="" coords="438,71,643,111"/>
+<area shape="poly" title=" " alt="" coords="383,67,423,72,422,78,382,72"/>
+<area shape="rect" href="../../d2/d32/namespacecommon__lib_1_1maths.html#a4068519b32978679e461dc19e2b3a5fd" title="Function to get the translational velocity of a wheel from rpm and wheel diameter." alt="" coords="444,168,637,209"/>
+<area shape="poly" title=" " alt="" coords="386,186,428,186,428,191,386,191"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a67ab0ad9ce3cdeaf588f5b3bffc3c40c" name="a67ab0ad9ce3cdeaf588f5b3bffc3c40c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67ab0ad9ce3cdeaf588f5b3bffc3c40c">&#9670;&#160;</a></span>odometry_to_velocities_transform()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="../../db/d6d/struct_motion_update.html">MotionUpdate</a> SENode::odometry_to_velocities_transform </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>lb_speed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>lf_speed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>rb_speed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>rf_speed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>steering_angle</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Converts the odometry data to translational and rotational velocities. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lb_speed</td><td>wheel speeds in rpm </td></tr>
+    <tr><td class="paramname">lf_speed</td><td>wheel speeds in rpm </td></tr>
+    <tr><td class="paramname">rb_speed</td><td>wheel speeds in rpm </td></tr>
+    <tr><td class="paramname">rf_speed</td><td>wheel speeds in rpm </td></tr>
+    <tr><td class="paramname">steering_angle</td><td>steering angle in radians </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../db/d6d/struct_motion_update.html" title="Struct for data retrieved by the IMU.">MotionUpdate</a> transformed motion update data </dd></dl>
 
 </div>
 </div>
@@ -287,6 +831,373 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="../../d2/d22/se__node_8hpp_source.html#l00135">135</a> of file <a class="el" href="../../d2/d22/se__node_8hpp_source.html">se_node.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="aa0b142ec017f45737517251bf99ed0fe" name="aa0b142ec017f45737517251bf99ed0fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0b142ec017f45737517251bf99ed0fe">&#9670;&#160;</a></span>_adapter_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../d3/d7f/class_adapter.html">Adapter</a>&gt; SENode::_adapter_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d2/d22/se__node_8hpp_source.html#l00045">45</a> of file <a class="el" href="../../d2/d22/se__node_8hpp_source.html">se_node.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a293f33b6aacd7c51e7dd6f24af246783" name="a293f33b6aacd7c51e7dd6f24af246783"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a293f33b6aacd7c51e7dd6f24af246783">&#9670;&#160;</a></span>_ekf_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../da/da6/class_extended_kalman_filter.html">ExtendedKalmanFilter</a>&gt; SENode::_ekf_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>SLAM EKF object. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d2/d22/se__node_8hpp_source.html#l00036">36</a> of file <a class="el" href="../../d2/d22/se__node_8hpp_source.html">se_node.hpp</a>.</p>
+
+</div>
+</div>
+<a id="accee6cb15f06b3b40b25ac8cb95df97c" name="accee6cb15f06b3b40b25ac8cb95df97c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#accee6cb15f06b3b40b25ac8cb95df97c">&#9670;&#160;</a></span>_go_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SENode::_go_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d2/d22/se__node_8hpp_source.html#l00042">42</a> of file <a class="el" href="../../d2/d22/se__node_8hpp_source.html">se_node.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a6da73bc3099ff0b9334f4f751848c79a" name="a6da73bc3099ff0b9334f4f751848c79a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6da73bc3099ff0b9334f4f751848c79a">&#9670;&#160;</a></span>_map_publisher_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rclcpp::Publisher&lt;custom_interfaces::msg::ConeArray&gt;::SharedPtr SENode::_map_publisher_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d2/d22/se__node_8hpp_source.html#l00033">33</a> of file <a class="el" href="../../d2/d22/se__node_8hpp_source.html">se_node.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a32a4d14b23b9cd690504a0a3c46ada93" name="a32a4d14b23b9cd690504a0a3c46ada93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32a4d14b23b9cd690504a0a3c46ada93">&#9670;&#160;</a></span>_mission_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d9/d2b/namespacecommon__lib_1_1competition__logic.html#adc523f54f1498f443c97303976f40140">common_lib::competition_logic::Mission</a> SENode::_mission_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d2/d22/se__node_8hpp_source.html#l00041">41</a> of file <a class="el" href="../../d2/d22/se__node_8hpp_source.html">se_node.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7ee8f3e8c319dd8386e58e05e12d73c3" name="a7ee8f3e8c319dd8386e58e05e12d73c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ee8f3e8c319dd8386e58e05e12d73c3">&#9670;&#160;</a></span>_motion_update_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../db/d6d/struct_motion_update.html">MotionUpdate</a>&gt; SENode::_motion_update_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d2/d22/se__node_8hpp_source.html#l00038">38</a> of file <a class="el" href="../../d2/d22/se__node_8hpp_source.html">se_node.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a2b9fc465ec1042df41861e934d577800" name="a2b9fc465ec1042df41861e934d577800"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b9fc465ec1042df41861e934d577800">&#9670;&#160;</a></span>_perception_map_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;std::vector&lt;<a class="el" href="../../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html">common_lib::structures::Cone</a>&gt; &gt; SENode::_perception_map_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d2/d22/se__node_8hpp_source.html#l00037">37</a> of file <a class="el" href="../../d2/d22/se__node_8hpp_source.html">se_node.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a1c65ea26f6043ab5517ecdac18b65412" name="a1c65ea26f6043ab5517ecdac18b65412"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c65ea26f6043ab5517ecdac18b65412">&#9670;&#160;</a></span>_perception_subscription_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rclcpp::Subscription&lt;custom_interfaces::msg::ConeArray&gt;::SharedPtr SENode::_perception_subscription_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d2/d22/se__node_8hpp_source.html#l00031">31</a> of file <a class="el" href="../../d2/d22/se__node_8hpp_source.html">se_node.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a933262364ce981be2803c316ce2e567d" name="a933262364ce981be2803c316ce2e567d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a933262364ce981be2803c316ce2e567d">&#9670;&#160;</a></span>_timer_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rclcpp::TimerBase::SharedPtr SENode::_timer_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>timer </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d2/d22/se__node_8hpp_source.html#l00035">35</a> of file <a class="el" href="../../d2/d22/se__node_8hpp_source.html">se_node.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a3a417aecbf7cbac10e90ef4a6866b67b" name="a3a417aecbf7cbac10e90ef4a6866b67b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a417aecbf7cbac10e90ef4a6866b67b">&#9670;&#160;</a></span>_track_map_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;std::vector&lt;<a class="el" href="../../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html">common_lib::structures::Cone</a>&gt; &gt; SENode::_track_map_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d2/d22/se__node_8hpp_source.html#l00039">39</a> of file <a class="el" href="../../d2/d22/se__node_8hpp_source.html">se_node.hpp</a>.</p>
+
+</div>
+</div>
+<a id="afae5265cfdfbbf3540f6276ae8e41b64" name="afae5265cfdfbbf3540f6276ae8e41b64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afae5265cfdfbbf3540f6276ae8e41b64">&#9670;&#160;</a></span>_use_odometry_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SENode::_use_odometry_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>flag to start the mission </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d2/d22/se__node_8hpp_source.html#l00043">43</a> of file <a class="el" href="../../d2/d22/se__node_8hpp_source.html">se_node.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a0f4b86778834a75046d3c70ff03fc730" name="a0f4b86778834a75046d3c70ff03fc730"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f4b86778834a75046d3c70ff03fc730">&#9670;&#160;</a></span>_use_simulated_perception_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SENode::_use_simulated_perception_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d2/d22/se__node_8hpp_source.html#l00044">44</a> of file <a class="el" href="../../d2/d22/se__node_8hpp_source.html">se_node.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac13d7c1fd2cbb2794a219d9c57393acb" name="ac13d7c1fd2cbb2794a219d9c57393acb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac13d7c1fd2cbb2794a219d9c57393acb">&#9670;&#160;</a></span>_vehicle_state_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../d0/d2a/structcommon__lib_1_1structures_1_1_vehicle_state.html">common_lib::structures::VehicleState</a>&gt; SENode::_vehicle_state_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d2/d22/se__node_8hpp_source.html#l00040">40</a> of file <a class="el" href="../../d2/d22/se__node_8hpp_source.html">se_node.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa21a62ca6c0497adf94d0eabf21b9cc7" name="aa21a62ca6c0497adf94d0eabf21b9cc7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa21a62ca6c0497adf94d0eabf21b9cc7">&#9670;&#160;</a></span>_vehicle_state_publisher_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rclcpp::Publisher&lt;custom_interfaces::msg::VehicleState&gt;::SharedPtr SENode::_vehicle_state_publisher_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d2/d22/se__node_8hpp_source.html#l00032">32</a> of file <a class="el" href="../../d2/d22/se__node_8hpp_source.html">se_node.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a31b49644edb25845bf40b8b7773df8f7" name="a31b49644edb25845bf40b8b7773df8f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31b49644edb25845bf40b8b7773df8f7">&#9670;&#160;</a></span>_visualization_map_publisher_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rclcpp::Publisher&lt;visualization_msgs::msg::MarkerArray&gt;::SharedPtr SENode::_visualization_map_publisher_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d2/d22/se__node_8hpp_source.html#l00034">34</a> of file <a class="el" href="../../d2/d22/se__node_8hpp_source.html">se_node.hpp</a>.</p>
 
 </div>
 </div>

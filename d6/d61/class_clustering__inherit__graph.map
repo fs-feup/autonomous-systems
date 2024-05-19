@@ -1,5 +1,5 @@
 <map id="Clustering" name="Clustering">
-<area shape="rect" id="Node000001" title="Abstract base class for clustering point clouds." alt="" coords="5,5,93,71"/>
-<area shape="rect" id="Node000002" href="$df/d6a/class_d_b_s_c_a_n.html" title="DBSCAN (Density&#45;Based Spatial Clustering of Applications with Noise) clustering algorithm implementat..." alt="" coords="5,119,93,204"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="52,85,52,119,47,119,47,85"/>
+<area shape="rect" id="Node000001" title="Abstract base class for clustering point clouds." alt="" coords="49,5,137,71"/>
+<area shape="rect" id="Node000002" href="$df/d6a/class_d_b_s_c_a_n.html" title="DBSCAN (Density&#45;Based Spatial Clustering of Applications with Noise) clustering algorithm implementat..." alt="" coords="5,119,180,224"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="95,85,95,119,90,119,90,85"/>
 </map>

@@ -24,5 +24,13 @@ var class_track =
     [ "reset", "d6/d2c/class_track.html#ab4e7e111378109011379f2a7aa984145", null ],
     [ "setCone", "d6/d2c/class_track.html#a0da16ce65cc4d3f67a79073e0d632f6f", null ],
     [ "validateCones", "d6/d2c/class_track.html#afaa537e1bdf2a045564500512e98821f", null ],
-    [ "vector_direction", "d6/d2c/class_track.html#aceda92bc02f39cd9127b31bc04ef7feb", null ]
+    [ "vector_direction", "d6/d2c/class_track.html#aceda92bc02f39cd9127b31bc04ef7feb", null ],
+    [ "completed", "d6/d2c/class_track.html#a8bbd95ba52bd99458749eff73e6b8a86", null ],
+    [ "leftCones", "d6/d2c/class_track.html#a23a11b3a07f316d2d58fffdae505b42c", null ],
+    [ "leftCount", "d6/d2c/class_track.html#a6a43a3d070e1999450c96e54df6e2a4d", null ],
+    [ "rightCones", "d6/d2c/class_track.html#a1867e00113f4d0ddd43609477e6c9aa9", null ],
+    [ "rightCount", "d6/d2c/class_track.html#a36c3ea34984089a92ea5276a286637ed", null ],
+    [ "spline_coeffs_ratio_", "d6/d2c/class_track.html#a3052eb6df317a087cc224f5a1432ab79", null ],
+    [ "spline_order_", "d6/d2c/class_track.html#a7e848144b5524bfc10987a1c1baeae3c", null ],
+    [ "spline_precision_", "d6/d2c/class_track.html#a4ff17d84ccb91c4ae9436e7655bf6e81", null ]
 ];

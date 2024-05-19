@@ -1,5 +1,7 @@
 <map id="Perception" name="Perception">
-<area shape="rect" id="Node000001" title="Node for perception tasks, such as ground removal and cone detection." alt="" coords="5,119,148,204"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="34,5,119,71"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="79,85,79,119,74,119,74,85"/>
+<area shape="rect" id="Node000001" title="Node for perception tasks, such as ground removal and cone detection." alt="" coords="31,234,204,499"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,55,91,121"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="62,134,87,233,82,235,57,136"/>
+<area shape="rect" id="Node000003" href="$d2/d8d/class_plane.html" title="The Plane class represents a 3D plane defined by its equation ax + by + cz + d = 0." alt="" coords="115,5,261,171"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="170,171,158,218,153,216,165,170"/>
 </map>

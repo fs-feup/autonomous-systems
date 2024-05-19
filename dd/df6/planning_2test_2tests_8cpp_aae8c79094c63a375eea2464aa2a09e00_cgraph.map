@@ -14,7 +14,7 @@
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="564,59,613,55,614,60,565,65"/>
 <area shape="rect" id="Node000009" href="$d7/db7/class_path_smoothing.html#a5689b2c07e18bf08311aa99c5efbeb73" title="Fits spline to path." alt="" coords="612,84,819,110"/>
 <area shape="poly" id="edge10_Node000003_Node000009" title=" " alt="" coords="565,79,597,82,597,87,564,84"/>
-<area shape="rect" id="Node000005" href="$d9/d32/class_path_point.html#a88f058d98c6ef403f769cf440358fd23" title=" " alt="" coords="867,5,1035,31"/>
+<area shape="rect" id="Node000005" href="$d9/d32/class_path_point.html#a88f058d98c6ef403f769cf440358fd23" title="Euclidean distance to another path point." alt="" coords="867,5,1035,31"/>
 <area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="802,34,851,28,852,33,802,39"/>
 <area shape="rect" id="Node000008" href="$d7/db7/class_path_smoothing.html#ad044a39b4c65ea74975c57685d7cb149" title="Check if the direction of two cones is consistent." alt="" coords="875,55,1027,96"/>
 <area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="802,55,860,62,859,67,802,60"/>

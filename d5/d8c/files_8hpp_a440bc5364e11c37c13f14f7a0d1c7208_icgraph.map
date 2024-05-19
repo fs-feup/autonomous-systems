@@ -8,11 +8,11 @@
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="311,53,209,27,210,22,312,48"/>
 <area shape="rect" id="Node000004" href="$dd/df6/planning_2test_2tests_8cpp.html#aae8c79094c63a375eea2464aa2a09e00" title="more complex scenario with cones deviating from path and with significant curvature" alt="" coords="155,55,209,80"/>
 <area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="289,70,209,70,209,65,289,65"/>
-<area shape="rect" id="Node000006" href="$dd/df6/planning_2test_2tests_8cpp.html#a21272f9ce533deddd6a2e1bde8f8c097" title="Test function for outlier removal&#39;s efficiency. Runs 100 times and calculates average duration." alt="" coords="118,104,246,130"/>
+<area shape="rect" id="Node000006" href="$dd/df6/planning_2test_2tests_8cpp.html#a21272f9ce533deddd6a2e1bde8f8c097" title="Test function for outlier removal&#39;s efficiency." alt="" coords="118,104,246,130"/>
 <area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="374,606,359,504,333,365,317,294,298,230,277,178,254,143,241,132,244,128,258,139,282,176,303,229,322,293,339,363,364,503,379,605"/>
-<area shape="rect" id="Node000008" href="$dd/df6/planning_2test_2tests_8cpp.html#af932d610f7999483e18612a7bf469cb0" title="Test function for Delaunay Triangulations&#39; efficiency. Runs 100 times to get average execution time." alt="" coords="108,153,256,179"/>
+<area shape="rect" id="Node000008" href="$dd/df6/planning_2test_2tests_8cpp.html#af932d610f7999483e18612a7bf469cb0" title="Test function for Delaunay Triangulations&#39; efficiency." alt="" coords="108,153,256,179"/>
 <area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="378,606,375,525,369,472,359,414,344,355,322,296,292,241,254,192,240,182,244,177,258,188,297,238,326,294,349,353,364,413,374,471,380,525,384,606"/>
-<area shape="rect" id="Node000009" href="$df/d57/class_publisher.html#a5538d94fb8d594575be67e6edd7166df" title=" " alt="" coords="114,203,250,228"/>
+<area shape="rect" id="Node000009" href="$df/d57/class_publisher.html#a5538d94fb8d594575be67e6edd7166df" title="Constructor." alt="" coords="114,203,250,228"/>
 <area shape="poly" id="edge9_Node000005_Node000009" title=" " alt="" coords="377,606,371,533,353,435,337,383,316,332,289,284,254,241,240,231,243,227,258,238,293,281,321,330,342,381,358,434,376,532,382,605"/>
 <area shape="rect" id="Node000010" href="$dd/df6/planning_2test_2tests_8cpp.html#a1b3e0277417f2e2a28398811e1aef5dc" title=" " alt="" coords="155,252,209,278"/>
 <area shape="poly" id="edge10_Node000005_Node000010" title=" " alt="" coords="376,606,367,542,347,457,331,412,311,368,285,327,254,291,233,277,209,270,210,265,235,272,258,287,290,324,315,366,336,410,352,455,372,541,381,605"/>

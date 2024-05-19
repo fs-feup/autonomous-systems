@@ -93,6 +93,8 @@ $(document).ready(function(){initNavTree('d9/db5/class_planning.html','../../');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../d4/df2/class_planning-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">Planning Class Reference</div></div>
 </div><!--header-->
@@ -107,9 +109,9 @@ Inheritance diagram for Planning:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d5/de3/class_planning__inherit__graph.png" border="0" usemap="#a_planning_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_planning_inherit__map" id="a_planning_inherit__map">
-<area shape="rect" title="Class responsible for planning and path generation for our car." alt="" coords="5,119,107,204"/>
-<area shape="rect" title=" " alt="" coords="13,5,99,71"/>
-<area shape="poly" title=" " alt="" coords="59,85,59,119,53,119,53,85"/>
+<area shape="rect" title="Class responsible for planning and path generation for our car." alt="" coords="5,119,161,533"/>
+<area shape="rect" title=" " alt="" coords="41,5,126,71"/>
+<area shape="poly" title=" " alt="" coords="86,86,86,119,81,119,81,86"/>
 </map>
 </div>
 <div class="dynheader">
@@ -117,9 +119,29 @@ Collaboration diagram for Planning:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d4/dee/class_planning__coll__graph.png" border="0" usemap="#a_planning_coll__map" alt="Collaboration graph"/></div>
 <map name="a_planning_coll__map" id="a_planning_coll__map">
-<area shape="rect" title="Class responsible for planning and path generation for our car." alt="" coords="5,119,107,204"/>
-<area shape="rect" title=" " alt="" coords="13,5,99,71"/>
-<area shape="poly" title=" " alt="" coords="59,85,59,119,53,119,53,85"/>
+<area shape="rect" title="Class responsible for planning and path generation for our car." alt="" coords="165,702,321,1117"/>
+<area shape="rect" href="../../d3/d7f/class_adapter.html" title="Adapter class for coordinating communication between different modes and Control module." alt="" coords="293,1180,477,1545"/>
+<area shape="poly" title=" " alt="" coords="312,1115,320,1140,327,1163,322,1165,315,1141,307,1117"/>
+<area shape="rect" title=" " alt="" coords="484,524,569,589"/>
+<area shape="poly" title=" " alt="" coords="518,605,501,645,488,664,471,680,452,691,434,695,401,692,368,690,352,694,335,704,322,715,319,711,332,700,350,689,368,685,401,687,434,689,450,686,468,676,483,661,496,642,514,602"/>
+<area shape="rect" href="../../d7/d49/class_control.html" title="Class responsible for the control of the car." alt="" coords="381,1608,528,1813"/>
+<area shape="poly" title=" " alt="" coords="531,604,533,702,538,909,533,1117,518,1331,492,1545,487,1584,482,1609,477,1608,481,1584,487,1545,512,1331,528,1117,532,909,528,702,526,604"/>
+<area shape="rect" href="../../de/d07/class_perception.html" title="Node for perception tasks, such as ground removal and cone detection." alt="" coords="345,777,519,1042"/>
+<area shape="poly" title=" " alt="" coords="522,604,507,679,479,778,473,776,501,677,517,603"/>
+<area shape="rect" href="../../d3/da1/class_local_path_planner.html" title="LocalPathPlanner class for generating local paths." alt="" coords="21,504,155,609"/>
+<area shape="poly" title=" " alt="" coords="103,608,126,677,159,751,155,753,121,679,98,610"/>
+<area shape="rect" href="../../d6/d2c/class_track.html" title="Track class." alt="" coords="5,5,147,411"/>
+<area shape="poly" title=" " alt="" coords="86,410,88,487,83,487,80,411"/>
+<area shape="poly" title=" " alt="" coords="291,1220,265,1157,258,1134,263,1133,270,1155,296,1218"/>
+<area shape="poly" title=" " alt="" coords="424,1544,434,1591,428,1592,419,1545"/>
+<area shape="poly" title=" " alt="" coords="393,1609,385,1585,380,1562,385,1561,390,1583,398,1607"/>
+<area shape="poly" title=" " alt="" coords="421,1042,408,1163,403,1163,416,1041"/>
+<area shape="rect" href="../../d2/d8d/class_plane.html" title="The Plane class represents a 3D plane defined by its equation ax + by + cz + d = 0." alt="" coords="314,474,459,639"/>
+<area shape="poly" title=" " alt="" coords="400,639,415,759,410,760,395,639"/>
+<area shape="rect" href="../../d8/d11/struct_pose.html" title=" " alt="" coords="202,504,286,609"/>
+<area shape="poly" title=" " alt="" coords="246,609,246,685,241,685,241,609"/>
+<area shape="rect" href="../../d1/d26/struct_position.html" title=" " alt="" coords="171,135,323,281"/>
+<area shape="poly" title=" " alt="" coords="249,281,247,487,242,487,243,281"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -128,9 +150,86 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a42a788755e4dedf591d0703a87d70bf2" id="r_a42a788755e4dedf591d0703a87d70bf2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/db5/class_planning.html#a42a788755e4dedf591d0703a87d70bf2">Planning</a> ()</td></tr>
 <tr class="memdesc:a42a788755e4dedf591d0703a87d70bf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for the <a class="el" href="../../d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car.">Planning</a> class.  <br /></td></tr>
 <tr class="separator:a42a788755e4dedf591d0703a87d70bf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4b1103d56245c7e28e2a2b708d8b3b12" id="r_a4b1103d56245c7e28e2a2b708d8b3b12"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/db5/class_planning.html#a4b1103d56245c7e28e2a2b708d8b3b12">set_mission</a> (<a class="el" href="../../d8/d49/mission_8hpp.html#af686af98019fe71e9f18190349618431">Mission</a> mission)</td></tr>
+<tr class="memitem:a4b1103d56245c7e28e2a2b708d8b3b12" id="r_a4b1103d56245c7e28e2a2b708d8b3b12"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/db5/class_planning.html#a4b1103d56245c7e28e2a2b708d8b3b12">set_mission</a> (<a class="el" href="../../d8/d49/mission_8hpp.html#af686af98019fe71e9f18190349618431">Mission</a> <a class="el" href="../../d9/db5/class_planning.html#a311560ea42b5b6ce304671c93c4dd17e">mission</a>)</td></tr>
 <tr class="memdesc:a4b1103d56245c7e28e2a2b708d8b3b12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the mission for planning.  <br /></td></tr>
 <tr class="separator:a4b1103d56245c7e28e2a2b708d8b3b12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a53d5a67d438860be75a3d9e0bc0df8c3" id="r_a53d5a67d438860be75a3d9e0bc0df8c3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/db5/class_planning.html#a53d5a67d438860be75a3d9e0bc0df8c3">vehicle_localization_callback</a> (const custom_interfaces::msg::VehicleState &amp;msg)</td></tr>
+<tr class="memdesc:a53d5a67d438860be75a3d9e0bc0df8c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback for vehicle localization updates (undefined).  <br /></td></tr>
+<tr class="separator:a53d5a67d438860be75a3d9e0bc0df8c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab04bd1f3fa9458e5a1360cfabacc56a7" id="r_ab04bd1f3fa9458e5a1360cfabacc56a7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/db5/class_planning.html#ab04bd1f3fa9458e5a1360cfabacc56a7">track_map_callback</a> (const custom_interfaces::msg::ConeArray &amp;msg)</td></tr>
+<tr class="memdesc:ab04bd1f3fa9458e5a1360cfabacc56a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback for track map updates(when msg received).  <br /></td></tr>
+<tr class="separator:ab04bd1f3fa9458e5a1360cfabacc56a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adbb03a9a1d37df03f804c8afbea0d893" id="r_adbb03a9a1d37df03f804c8afbea0d893"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/db5/class_planning.html#adbb03a9a1d37df03f804c8afbea0d893">publish_track_points</a> (const std::vector&lt; <a class="el" href="../../d9/d32/class_path_point.html">PathPoint</a> * &gt; &amp;path) const</td></tr>
+<tr class="memdesc:adbb03a9a1d37df03f804c8afbea0d893"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publishes a list of path points.  <br /></td></tr>
+<tr class="separator:adbb03a9a1d37df03f804c8afbea0d893"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e832957e848e7ab37d5c2379d01729a" id="r_a6e832957e848e7ab37d5c2379d01729a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/db5/class_planning.html#a6e832957e848e7ab37d5c2379d01729a">publish_predicitive_track_points</a> ()</td></tr>
+<tr class="memdesc:a6e832957e848e7ab37d5c2379d01729a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publishes predictive track points.  <br /></td></tr>
+<tr class="separator:a6e832957e848e7ab37d5c2379d01729a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f0cfd02996a6befd1ab5e6991449497" id="r_a5f0cfd02996a6befd1ab5e6991449497"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/db5/class_planning.html#a5f0cfd02996a6befd1ab5e6991449497">is_predicitve_mission</a> () const</td></tr>
+<tr class="memdesc:a5f0cfd02996a6befd1ab5e6991449497"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the current mission is predictive.  <br /></td></tr>
+<tr class="separator:a5f0cfd02996a6befd1ab5e6991449497"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a311560ea42b5b6ce304671c93c4dd17e" id="r_a311560ea42b5b6ce304671c93c4dd17e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d8/d49/mission_8hpp.html#af686af98019fe71e9f18190349618431">Mission</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/db5/class_planning.html#a311560ea42b5b6ce304671c93c4dd17e">mission</a> = <a class="el" href="../../d8/d49/mission_8hpp.html#af686af98019fe71e9f18190349618431aac800e3e0af898316f966ae9d004f926">not_selected</a></td></tr>
+<tr class="memdesc:a311560ea42b5b6ce304671c93c4dd17e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current planning mission.  <br /></td></tr>
+<tr class="separator:a311560ea42b5b6ce304671c93c4dd17e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a195deb6c9ca45bdf10ce4475cfff52ca" id="r_a195deb6c9ca45bdf10ce4475cfff52ca"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/da1/class_local_path_planner.html">LocalPathPlanner</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/db5/class_planning.html#a195deb6c9ca45bdf10ce4475cfff52ca">local_path_planner</a> = new <a class="el" href="../../d3/da1/class_local_path_planner.html">LocalPathPlanner</a>()</td></tr>
+<tr class="memdesc:a195deb6c9ca45bdf10ce4475cfff52ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Local path planner instance.  <br /></td></tr>
+<tr class="separator:a195deb6c9ca45bdf10ce4475cfff52ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41ef5646568661582413f9792a9e0fd4" id="r_a41ef5646568661582413f9792a9e0fd4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d7f/class_adapter.html">Adapter</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/db5/class_planning.html#a41ef5646568661582413f9792a9e0fd4">adapter</a></td></tr>
+<tr class="memdesc:a41ef5646568661582413f9792a9e0fd4"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d3/d7f/class_adapter.html" title="Adapter class for coordinating communication between different modes and Control module.">Adapter</a> instance for external communication.  <br /></td></tr>
+<tr class="separator:a41ef5646568661582413f9792a9e0fd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8ef109f949380eb38fd7ef3faab166b" id="r_aa8ef109f949380eb38fd7ef3faab166b"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/db5/class_planning.html#aa8ef109f949380eb38fd7ef3faab166b">mode</a></td></tr>
+<tr class="separator:aa8ef109f949380eb38fd7ef3faab166b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0ccaf145e0636473d7cd0658b6d3946" id="r_aa0ccaf145e0636473d7cd0658b6d3946"><td class="memItemLeft" align="right" valign="top">std::map&lt; <a class="el" href="../../d8/d49/mission_8hpp.html#af686af98019fe71e9f18190349618431">Mission</a>, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/db5/class_planning.html#aa0ccaf145e0636473d7cd0658b6d3946">predictive_paths</a></td></tr>
+<tr class="memdesc:aa0ccaf145e0636473d7cd0658b6d3946"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predictive paths for different missions.  <br /></td></tr>
+<tr class="separator:aa0ccaf145e0636473d7cd0658b6d3946"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ec99bda2665e57a506fc9533b20d29e" id="r_a1ec99bda2665e57a506fc9533b20d29e"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/db5/class_planning.html#a1ec99bda2665e57a506fc9533b20d29e">angle_gain_</a></td></tr>
+<tr class="separator:a1ec99bda2665e57a506fc9533b20d29e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa71e1520ac0d6035bb78e56eb92339de" id="r_aa71e1520ac0d6035bb78e56eb92339de"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/db5/class_planning.html#aa71e1520ac0d6035bb78e56eb92339de">distance_gain_</a></td></tr>
+<tr class="separator:aa71e1520ac0d6035bb78e56eb92339de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade73554fac57c678ae79a0607e5990da" id="r_ade73554fac57c678ae79a0607e5990da"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/db5/class_planning.html#ade73554fac57c678ae79a0607e5990da">ncones_gain_</a></td></tr>
+<tr class="separator:ade73554fac57c678ae79a0607e5990da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1af1239a0a0caaac9ff1a844f661b29" id="r_ac1af1239a0a0caaac9ff1a844f661b29"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/db5/class_planning.html#ac1af1239a0a0caaac9ff1a844f661b29">angle_exponent_</a></td></tr>
+<tr class="separator:ac1af1239a0a0caaac9ff1a844f661b29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7638c71cbb787097ce0dc83da813c31a" id="r_a7638c71cbb787097ce0dc83da813c31a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/db5/class_planning.html#a7638c71cbb787097ce0dc83da813c31a">distance_exponent_</a></td></tr>
+<tr class="separator:a7638c71cbb787097ce0dc83da813c31a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a960ac7e146f937decfe2ae6d678f8a" id="r_a5a960ac7e146f937decfe2ae6d678f8a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/db5/class_planning.html#a5a960ac7e146f937decfe2ae6d678f8a">cost_max_</a></td></tr>
+<tr class="separator:a5a960ac7e146f937decfe2ae6d678f8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49df329174a7b82d29cf924e439974c9" id="r_a49df329174a7b82d29cf924e439974c9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/db5/class_planning.html#a49df329174a7b82d29cf924e439974c9">outliers_spline_order_</a></td></tr>
+<tr class="separator:a49df329174a7b82d29cf924e439974c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47882a727572ca547cebffd9be25b70b" id="r_a47882a727572ca547cebffd9be25b70b"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/db5/class_planning.html#a47882a727572ca547cebffd9be25b70b">outliers_spline_coeffs_ratio_</a></td></tr>
+<tr class="separator:a47882a727572ca547cebffd9be25b70b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ce20b4f46712e73dac829bc8c747703" id="r_a5ce20b4f46712e73dac829bc8c747703"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/db5/class_planning.html#a5ce20b4f46712e73dac829bc8c747703">outliers_spline_precision_</a></td></tr>
+<tr class="separator:a5ce20b4f46712e73dac829bc8c747703"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a647eb3ede318099757548b361e68247a" id="r_a647eb3ede318099757548b361e68247a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/db5/class_planning.html#a647eb3ede318099757548b361e68247a">smoothing_spline_order_</a></td></tr>
+<tr class="separator:a647eb3ede318099757548b361e68247a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba4f043ce1191f2ddf49a6e983016bb3" id="r_aba4f043ce1191f2ddf49a6e983016bb3"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/db5/class_planning.html#aba4f043ce1191f2ddf49a6e983016bb3">smoothing_spline_coeffs_ratio_</a></td></tr>
+<tr class="separator:aba4f043ce1191f2ddf49a6e983016bb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3638fbe3ae031251364c7c161eaad6a8" id="r_a3638fbe3ae031251364c7c161eaad6a8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/db5/class_planning.html#a3638fbe3ae031251364c7c161eaad6a8">smoothing_spline_precision_</a></td></tr>
+<tr class="memdesc:a3638fbe3ae031251364c7c161eaad6a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscription to vehicle localization.  <br /></td></tr>
+<tr class="separator:a3638fbe3ae031251364c7c161eaad6a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cedf8f0830477fe7496dd6d9af12300" id="r_a3cedf8f0830477fe7496dd6d9af12300"><td class="memItemLeft" align="right" valign="top">rclcpp::Subscription&lt; custom_interfaces::msg::VehicleState &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/db5/class_planning.html#a3cedf8f0830477fe7496dd6d9af12300">vl_sub_</a></td></tr>
+<tr class="memdesc:a3cedf8f0830477fe7496dd6d9af12300"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscription to track map.  <br /></td></tr>
+<tr class="separator:a3cedf8f0830477fe7496dd6d9af12300"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6b572068cd34507cd0ed3f9f6e4335b" id="r_ae6b572068cd34507cd0ed3f9f6e4335b"><td class="memItemLeft" align="right" valign="top">rclcpp::Subscription&lt; custom_interfaces::msg::ConeArray &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/db5/class_planning.html#ae6b572068cd34507cd0ed3f9f6e4335b">track_sub_</a></td></tr>
+<tr class="memdesc:ae6b572068cd34507cd0ed3f9f6e4335b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Local path points publisher.  <br /></td></tr>
+<tr class="separator:ae6b572068cd34507cd0ed3f9f6e4335b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a550c85dde94bd45e9a4d5dd6700f5cdd" id="r_a550c85dde94bd45e9a4d5dd6700f5cdd"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; custom_interfaces::msg::PathPointArray &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/db5/class_planning.html#a550c85dde94bd45e9a4d5dd6700f5cdd">local_pub_</a></td></tr>
+<tr class="memdesc:a550c85dde94bd45e9a4d5dd6700f5cdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global path points publisher.  <br /></td></tr>
+<tr class="separator:a550c85dde94bd45e9a4d5dd6700f5cdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a467a33edc23a5ddee9c105c576690c1c" id="r_a467a33edc23a5ddee9c105c576690c1c"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; custom_interfaces::msg::PathPointArray &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/db5/class_planning.html#a467a33edc23a5ddee9c105c576690c1c">global_pub_</a></td></tr>
+<tr class="memdesc:a467a33edc23a5ddee9c105c576690c1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timer for the periodic publishing.  <br /></td></tr>
+<tr class="separator:a467a33edc23a5ddee9c105c576690c1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66f41c6e420ddaf6ccf952c2937ef115" id="r_a66f41c6e420ddaf6ccf952c2937ef115"><td class="memItemLeft" align="right" valign="top">rclcpp::TimerBase::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/db5/class_planning.html#a66f41c6e420ddaf6ccf952c2937ef115">timer_</a></td></tr>
+<tr class="separator:a66f41c6e420ddaf6ccf952c2937ef115"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac338512721ecb9dfe4cfa244ce7fab3a" id="r_ac338512721ecb9dfe4cfa244ce7fab3a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d8/d11/struct_pose.html">Pose</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/db5/class_planning.html#ac338512721ecb9dfe4cfa244ce7fab3a">pose</a></td></tr>
+<tr class="memdesc:ac338512721ecb9dfe4cfa244ce7fab3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">current vehicle pose  <br /></td></tr>
+<tr class="separator:ac338512721ecb9dfe4cfa244ce7fab3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class responsible for planning and path generation for our car. </p>
@@ -158,10 +257,221 @@ Public Member Functions</h2></td></tr>
 <p>This constructor sets up subscriptions to vehicle localization and mapping topics, and creates publishers for local and (global X) path planning results. It also establishes a timer for periodic tasks related to (local) publishing info to topics. Additionally, it initializes an <a class="el" href="../../d3/d7f/class_adapter.html" title="Adapter class for coordinating communication between different modes and Control module.">Adapter</a> instance for communication with external systems. </p>
 
 <p class="definition">Definition at line <a class="el" href="../../d8/d65/planning_8cpp_source.html#l00025">25</a> of file <a class="el" href="../../d8/d65/planning_8cpp_source.html">planning.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d9/db5/class_planning_a42a788755e4dedf591d0703a87d70bf2_cgraph.png" border="0" usemap="#ad9/db5/class_planning_a42a788755e4dedf591d0703a87d70bf2_cgraph" alt=""/></div>
+<map name="ad9/db5/class_planning_a42a788755e4dedf591d0703a87d70bf2_cgraph" id="ad9/db5/class_planning_a42a788755e4dedf591d0703a87d70bf2_cgraph">
+<area shape="rect" title="Constructor for the Planning class." alt="" coords="5,479,133,504"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a6e832957e848e7ab37d5c2379d01729a" title="Publishes predictive track points." alt="" coords="183,471,368,512"/>
+<area shape="poly" title=" " alt="" coords="133,489,167,489,167,494,133,494"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#ab04bd1f3fa9458e5a1360cfabacc56a7" title="Callback for track map updates(when msg received)." alt="" coords="206,406,345,447"/>
+<area shape="poly" title=" " alt="" coords="111,476,193,449,195,454,113,481"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a53d5a67d438860be75a3d9e0bc0df8c3" title="Callback for vehicle localization updates (undefined)." alt="" coords="181,537,370,577"/>
+<area shape="poly" title=" " alt="" coords="113,502,195,529,193,534,111,507"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a5f0cfd02996a6befd1ab5e6991449497" title="Checks if the current mission is predictive." alt="" coords="431,406,581,447"/>
+<area shape="poly" title=" " alt="" coords="349,468,416,449,418,454,350,473"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#adbb03a9a1d37df03f804c8afbea0d893" title="Publishes a list of path points." alt="" coords="429,471,583,512"/>
+<area shape="poly" title=" " alt="" coords="368,489,413,489,413,494,368,494"/>
+<area shape="rect" href="../../dd/d8b/files_8cpp.html#a3e0a28fc547b70f244a9afff9ba15657" title=" " alt="" coords="456,536,557,562"/>
+<area shape="poly" title=" " alt="" coords="360,510,441,530,440,535,359,515"/>
+<area shape="poly" title=" " alt="" coords="345,424,415,424,415,429,345,429"/>
+<area shape="poly" title=" " alt="" coords="346,443,418,464,416,469,344,448"/>
+<area shape="rect" href="../../d3/da1/class_local_path_planner.html#a47071d4f5dd1c080bf087089023d5382" title="Process an array of cones to generate a local path." alt="" coords="418,341,594,381"/>
+<area shape="poly" title=" " alt="" coords="344,404,416,383,418,389,346,409"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#a4619df9e7622b8349af59007c602011e" title="Find a cone by its ID." alt="" coords="672,5,783,31"/>
+<area shape="poly" title=" " alt="" coords="508,339,521,282,545,205,562,163,584,122,610,83,641,48,657,36,660,40,644,52,614,86,588,124,567,165,550,207,526,284,513,340"/>
+<area shape="rect" href="../../d9/d32/class_path_point.html#a88f058d98c6ef403f769cf440358fd23" title="Euclidean distance to another path point." alt="" coords="643,107,812,132"/>
+<area shape="poly" title=" " alt="" coords="512,339,529,298,556,245,593,190,616,165,641,143,648,138,651,142,644,147,620,169,598,193,561,248,534,300,517,341"/>
+<area shape="rect" href="../../d9/d32/class_path_point.html#a4f84d924fd7ffcbfd9ae67b669251306" title=" " alt="" coords="861,107,972,132"/>
+<area shape="poly" title=" " alt="" coords="508,339,520,286,543,217,561,181,583,147,609,117,641,92,669,79,700,71,731,69,762,70,822,81,872,98,871,103,821,87,762,75,731,74,700,76,671,84,644,96,613,121,587,150,566,184,548,219,525,288,513,341"/>
+<area shape="rect" href="../../d9/d32/class_path_point.html#a722e36fc4d8964c3efe0fb96315be015" title=" " alt="" coords="861,164,972,190"/>
+<area shape="poly" title=" " alt="" coords="542,338,641,285,760,233,863,193,865,198,762,238,643,290,544,342"/>
+<area shape="rect" href="../../d8/da1/class_cone.html#ad6448719967d79b51a6e9586d28897d8" title=" " alt="" coords="873,297,960,323"/>
+<area shape="poly" title=" " alt="" coords="550,338,593,321,642,308,699,300,756,298,857,302,857,307,757,303,699,306,643,313,595,326,552,343"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#aeb46e6fbc74096c298262b84cd81b77f" title="Get the left cone at a specified index." alt="" coords="655,475,800,500"/>
+<area shape="poly" title=" " alt="" coords="575,379,596,392,612,408,621,424,629,439,644,453,665,466,663,470,641,458,625,442,616,426,608,411,593,396,572,384"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#a6bd8978cb65635811bdeef26c29c989b" title="Get the number of left cones." alt="" coords="646,524,809,550"/>
+<area shape="poly" title=" " alt="" coords="580,380,596,392,609,408,616,423,620,454,625,483,632,497,644,511,647,513,644,518,640,515,628,500,620,485,615,455,610,425,604,411,592,396,576,384"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#a95fe146ead9aae192047e1f0a2c6c3c8" title="Get the right cone at a specified index." alt="" coords="652,573,803,599"/>
+<area shape="poly" title=" " alt="" coords="581,380,596,392,612,414,619,436,620,479,622,520,629,540,644,560,646,562,643,566,640,564,624,543,616,521,615,479,614,437,607,417,592,396,578,384"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#aaeb6c56205cff7f075ac1aacbbc29a89" title="Get the number of right cones." alt="" coords="642,623,813,648"/>
+<area shape="poly" title=" " alt="" coords="582,380,596,392,615,421,622,449,623,477,620,504,617,531,618,557,626,583,644,610,646,611,642,615,640,613,621,586,613,558,612,531,614,504,617,477,617,450,610,423,592,396,578,384"/>
+<area shape="rect" href="../../d8/da1/class_cone.html#a51a49cc249e79d06f6a983250fe809b3" title=" " alt="" coords="874,360,959,386"/>
+<area shape="poly" title=" " alt="" coords="595,361,859,369,859,374,595,366"/>
+<area shape="rect" href="../../d8/da1/class_cone.html#a952987a9de5d20d7930b3e93c04fd278" title=" " alt="" coords="874,409,959,435"/>
+<area shape="poly" title=" " alt="" coords="595,371,859,411,858,416,595,377"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#ab4e7e111378109011379f2a7aa984145" title="Reset the track by clearing cone lists." alt="" coords="683,672,772,698"/>
+<area shape="poly" title=" " alt="" coords="582,380,596,392,618,428,626,462,625,496,619,529,615,562,614,594,623,626,644,659,656,668,669,675,667,680,653,673,640,663,618,629,609,595,609,561,614,528,619,496,620,463,613,430,592,396,578,384"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#a0da16ce65cc4d3f67a79073e0d632f6f" title="Change the position of a cone based on the id of the parameter cone or creates a new cone in case the..." alt="" coords="673,323,782,348"/>
+<area shape="poly" title=" " alt="" coords="594,348,658,341,658,346,595,353"/>
+<area shape="rect" href="../../d3/da1/class_local_path_planner.html#a2737cc1a13f56bbb59728c65fed331d2" title="Determine if two positions align in a certain direction." alt="" coords="644,157,811,197"/>
+<area shape="poly" title=" " alt="" coords="520,338,570,278,604,244,641,213,658,202,661,207,644,218,607,248,574,282,525,342"/>
+<area shape="poly" title=" " alt="" coords="812,117,845,117,845,122,812,122"/>
+<area shape="poly" title=" " alt="" coords="774,130,813,142,859,156,857,161,812,147,773,136"/>
+<area shape="poly" title=" " alt="" coords="782,326,857,315,858,321,783,331"/>
+<area shape="poly" title=" " alt="" coords="783,344,860,359,859,364,782,349"/>
+<area shape="poly" title=" " alt="" coords="758,347,862,396,872,400,870,405,860,401,755,351"/>
+<area shape="poly" title=" " alt="" coords="796,153,856,135,858,140,797,159"/>
+<area shape="poly" title=" " alt="" coords="811,174,846,174,846,180,811,180"/>
+</map>
+</div>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a5f0cfd02996a6befd1ab5e6991449497" name="a5f0cfd02996a6befd1ab5e6991449497"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f0cfd02996a6befd1ab5e6991449497">&#9670;&#160;</a></span>is_predicitve_mission()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Planning::is_predicitve_mission </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Checks if the current mission is predictive. </p>
+<dl class="section return"><dt>Returns</dt><dd>True if the mission is predictive, false otherwise. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d8/d65/planning_8cpp_source.html#l00135">135</a> of file <a class="el" href="../../d8/d65/planning_8cpp_source.html">planning.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d9/db5/class_planning_a5f0cfd02996a6befd1ab5e6991449497_icgraph.png" border="0" usemap="#ad9/db5/class_planning_a5f0cfd02996a6befd1ab5e6991449497_icgraph" alt=""/></div>
+<map name="ad9/db5/class_planning_a5f0cfd02996a6befd1ab5e6991449497_icgraph" id="ad9/db5/class_planning_a5f0cfd02996a6befd1ab5e6991449497_icgraph">
+<area shape="rect" title="Checks if the current mission is predictive." alt="" coords="413,39,563,79"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a6e832957e848e7ab37d5c2379d01729a" title="Publishes predictive track points." alt="" coords="181,5,365,46"/>
+<area shape="poly" title=" " alt="" coords="397,48,365,43,366,37,398,42"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#ab04bd1f3fa9458e5a1360cfabacc56a7" title="Callback for track map updates(when msg received)." alt="" coords="204,71,342,111"/>
+<area shape="poly" title=" " alt="" coords="398,75,343,83,342,78,397,70"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a42a788755e4dedf591d0703a87d70bf2" title="Constructor for the Planning class." alt="" coords="5,46,133,72"/>
+<area shape="poly" title=" " alt="" coords="166,46,133,51,133,46,165,41"/>
+<area shape="poly" title=" " alt="" coords="188,80,133,72,134,66,189,75"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a6e832957e848e7ab37d5c2379d01729a" name="a6e832957e848e7ab37d5c2379d01729a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e832957e848e7ab37d5c2379d01729a">&#9670;&#160;</a></span>publish_predicitive_track_points()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Planning::publish_predicitive_track_points </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Publishes predictive track points. </p>
+<p>Depending on the selected mission, this function publishes predicted path points (published the path for the missions we previously know the track for). </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d8/d65/planning_8cpp_source.html#l00124">124</a> of file <a class="el" href="../../d8/d65/planning_8cpp_source.html">planning.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d9/db5/class_planning_a6e832957e848e7ab37d5c2379d01729a_cgraph.png" border="0" usemap="#ad9/db5/class_planning_a6e832957e848e7ab37d5c2379d01729a_cgraph" alt=""/></div>
+<map name="ad9/db5/class_planning_a6e832957e848e7ab37d5c2379d01729a_cgraph" id="ad9/db5/class_planning_a6e832957e848e7ab37d5c2379d01729a_cgraph">
+<area shape="rect" title="Publishes predictive track points." alt="" coords="5,71,190,111"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a5f0cfd02996a6befd1ab5e6991449497" title="Checks if the current mission is predictive." alt="" coords="240,5,390,46"/>
+<area shape="poly" title=" " alt="" coords="167,68,230,48,231,54,168,73"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#adbb03a9a1d37df03f804c8afbea0d893" title="Publishes a list of path points." alt="" coords="238,71,392,111"/>
+<area shape="poly" title=" " alt="" coords="190,88,222,88,222,94,190,94"/>
+<area shape="rect" href="../../dd/d8b/files_8cpp.html#a3e0a28fc547b70f244a9afff9ba15657" title=" " alt="" coords="264,136,366,161"/>
+<area shape="poly" title=" " alt="" coords="178,109,250,129,249,134,176,114"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d9/db5/class_planning_a6e832957e848e7ab37d5c2379d01729a_icgraph.png" border="0" usemap="#ad9/db5/class_planning_a6e832957e848e7ab37d5c2379d01729a_icgraph" alt=""/></div>
+<map name="ad9/db5/class_planning_a6e832957e848e7ab37d5c2379d01729a_icgraph" id="ad9/db5/class_planning_a6e832957e848e7ab37d5c2379d01729a_icgraph">
+<area shape="rect" title="Publishes predictive track points." alt="" coords="181,5,365,46"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a42a788755e4dedf591d0703a87d70bf2" title="Constructor for the Planning class." alt="" coords="5,13,133,39"/>
+<area shape="poly" title=" " alt="" coords="165,28,133,28,133,23,165,23"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="adbb03a9a1d37df03f804c8afbea0d893" name="adbb03a9a1d37df03f804c8afbea0d893"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adbb03a9a1d37df03f804c8afbea0d893">&#9670;&#160;</a></span>publish_track_points()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Planning::publish_track_points </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="../../d9/d32/class_path_point.html">PathPoint</a> * &gt; &amp;&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Publishes a list of path points. </p>
+<p><a class="el" href="../../df/d57/class_publisher.html" title="Planning Publisher Class.">Publisher</a> point by point.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>A vector of <a class="el" href="../../d1/d26/struct_position.html">Position</a> pointers representing the path points.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This function publishes the provided path points as a custom created PointArray message. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d8/d65/planning_8cpp_source.html#l00111">111</a> of file <a class="el" href="../../d8/d65/planning_8cpp_source.html">planning.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d9/db5/class_planning_adbb03a9a1d37df03f804c8afbea0d893_icgraph.png" border="0" usemap="#ad9/db5/class_planning_adbb03a9a1d37df03f804c8afbea0d893_icgraph" alt=""/></div>
+<map name="ad9/db5/class_planning_adbb03a9a1d37df03f804c8afbea0d893_icgraph" id="ad9/db5/class_planning_adbb03a9a1d37df03f804c8afbea0d893_icgraph">
+<area shape="rect" title="Publishes a list of path points." alt="" coords="413,39,567,79"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a6e832957e848e7ab37d5c2379d01729a" title="Publishes predictive track points." alt="" coords="181,5,365,46"/>
+<area shape="poly" title=" " alt="" coords="397,47,365,43,366,37,398,42"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#ab04bd1f3fa9458e5a1360cfabacc56a7" title="Callback for track map updates(when msg received)." alt="" coords="204,71,342,111"/>
+<area shape="poly" title=" " alt="" coords="398,75,343,83,342,78,397,70"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a42a788755e4dedf591d0703a87d70bf2" title="Constructor for the Planning class." alt="" coords="5,46,133,72"/>
+<area shape="poly" title=" " alt="" coords="166,46,133,51,133,46,165,41"/>
+<area shape="poly" title=" " alt="" coords="188,80,133,72,134,66,189,75"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="a4b1103d56245c7e28e2a2b708d8b3b12" name="a4b1103d56245c7e28e2a2b708d8b3b12"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4b1103d56245c7e28e2a2b708d8b3b12">&#9670;&#160;</a></span>set_mission()</h2>
 
@@ -188,6 +498,726 @@ Public Member Functions</h2></td></tr>
 <p>This method configures the <a class="el" href="../../d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car.">Planning</a> node for a specific mission type, possibly affecting its behavior if used. </p>
 
 <p class="definition">Definition at line <a class="el" href="../../d8/d65/planning_8cpp_source.html#l00133">133</a> of file <a class="el" href="../../d8/d65/planning_8cpp_source.html">planning.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ab04bd1f3fa9458e5a1360cfabacc56a7" name="ab04bd1f3fa9458e5a1360cfabacc56a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab04bd1f3fa9458e5a1360cfabacc56a7">&#9670;&#160;</a></span>track_map_callback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Planning::track_map_callback </td>
+          <td>(</td>
+          <td class="paramtype">const custom_interfaces::msg::ConeArray &amp;&#160;</td>
+          <td class="paramname"><em>msg</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Callback for track map updates(when msg received). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">msg</td><td>The received ConeArray message.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>creates track with the received cones(position), then calculates path by calling method from the local path planner and finnaly publishes the path by calling the publish method </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d8/d65/planning_8cpp_source.html#l00061">61</a> of file <a class="el" href="../../d8/d65/planning_8cpp_source.html">planning.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d9/db5/class_planning_ab04bd1f3fa9458e5a1360cfabacc56a7_cgraph.png" border="0" usemap="#ad9/db5/class_planning_ab04bd1f3fa9458e5a1360cfabacc56a7_cgraph" alt=""/></div>
+<map name="ad9/db5/class_planning_ab04bd1f3fa9458e5a1360cfabacc56a7_cgraph" id="ad9/db5/class_planning_ab04bd1f3fa9458e5a1360cfabacc56a7_cgraph">
+<area shape="rect" title="Callback for track map updates(when msg received)." alt="" coords="5,341,144,381"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a5f0cfd02996a6befd1ab5e6991449497" title="Checks if the current mission is predictive." alt="" coords="205,275,355,316"/>
+<area shape="poly" title=" " alt="" coords="140,337,198,319,200,324,141,343"/>
+<area shape="rect" href="../../d3/da1/class_local_path_planner.html#a47071d4f5dd1c080bf087089023d5382" title="Process an array of cones to generate a local path." alt="" coords="192,341,368,381"/>
+<area shape="poly" title=" " alt="" coords="144,358,176,358,176,364,144,364"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#adbb03a9a1d37df03f804c8afbea0d893" title="Publishes a list of path points." alt="" coords="203,406,357,447"/>
+<area shape="poly" title=" " alt="" coords="141,379,200,398,198,403,140,384"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#a4619df9e7622b8349af59007c602011e" title="Find a cone by its ID." alt="" coords="446,5,556,31"/>
+<area shape="poly" title=" " alt="" coords="352,338,366,326,387,291,395,257,394,223,389,189,384,155,383,120,392,85,414,48,430,35,433,39,418,52,397,87,389,121,389,155,395,188,400,223,400,257,392,293,370,329,356,342"/>
+<area shape="rect" href="../../d9/d32/class_path_point.html#a88f058d98c6ef403f769cf440358fd23" title="Euclidean distance to another path point." alt="" coords="417,107,585,132"/>
+<area shape="poly" title=" " alt="" coords="351,338,366,326,381,303,388,281,388,235,389,190,397,166,414,143,418,139,421,143,418,147,402,169,394,191,394,235,394,281,386,305,370,329,355,342"/>
+<area shape="rect" href="../../d9/d32/class_path_point.html#a4f84d924fd7ffcbfd9ae67b669251306" title=" " alt="" coords="634,107,746,132"/>
+<area shape="poly" title=" " alt="" coords="352,338,366,326,384,296,390,266,389,236,384,206,380,176,381,147,391,119,414,92,442,75,472,66,503,63,536,65,598,78,650,97,648,102,596,83,535,70,504,68,473,71,444,80,418,96,395,121,386,148,385,176,390,205,394,236,396,267,389,298,370,329,356,342"/>
+<area shape="rect" href="../../d9/d32/class_path_point.html#a722e36fc4d8964c3efe0fb96315be015" title=" " alt="" coords="634,164,746,190"/>
+<area shape="poly" title=" " alt="" coords="342,338,367,325,390,306,415,285,469,256,526,230,628,193,630,198,528,235,472,261,417,290,394,310,369,330,344,342"/>
+<area shape="rect" href="../../d8/da1/class_cone.html#ad6448719967d79b51a6e9586d28897d8" title=" " alt="" coords="647,297,733,323"/>
+<area shape="poly" title=" " alt="" coords="334,337,415,308,472,300,530,298,631,302,631,307,530,303,473,306,417,313,336,342"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#aeb46e6fbc74096c298262b84cd81b77f" title="Get the left cone at a specified index." alt="" coords="429,475,573,500"/>
+<area shape="poly" title=" " alt="" coords="349,379,370,392,385,408,394,424,403,439,418,453,439,466,436,470,414,458,399,442,390,426,381,411,366,396,346,384"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#a6bd8978cb65635811bdeef26c29c989b" title="Get the number of left cones." alt="" coords="420,524,583,550"/>
+<area shape="poly" title=" " alt="" coords="353,380,370,392,382,408,389,423,394,454,399,483,406,497,418,511,421,513,417,518,414,515,401,500,394,485,389,455,384,425,378,411,366,396,350,384"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#a95fe146ead9aae192047e1f0a2c6c3c8" title="Get the right cone at a specified index." alt="" coords="426,573,577,599"/>
+<area shape="poly" title=" " alt="" coords="355,380,370,392,385,414,393,436,394,479,395,520,403,540,418,560,420,562,416,566,414,564,398,543,390,521,388,479,387,437,380,417,366,396,351,384"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#aaeb6c56205cff7f075ac1aacbbc29a89" title="Get the number of right cones." alt="" coords="416,623,586,648"/>
+<area shape="poly" title=" " alt="" coords="355,380,370,392,388,421,396,449,396,477,393,504,391,531,392,557,400,583,418,610,419,611,416,615,414,613,395,586,386,558,385,531,388,504,391,477,391,450,383,423,366,396,352,384"/>
+<area shape="rect" href="../../d8/da1/class_cone.html#a51a49cc249e79d06f6a983250fe809b3" title=" " alt="" coords="648,360,732,386"/>
+<area shape="poly" title=" " alt="" coords="369,361,632,369,632,374,369,366"/>
+<area shape="rect" href="../../d8/da1/class_cone.html#a952987a9de5d20d7930b3e93c04fd278" title=" " alt="" coords="648,409,732,435"/>
+<area shape="poly" title=" " alt="" coords="369,371,633,411,632,416,368,377"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#ab4e7e111378109011379f2a7aa984145" title="Reset the track by clearing cone lists." alt="" coords="457,672,546,698"/>
+<area shape="poly" title=" " alt="" coords="356,380,370,392,391,428,399,462,398,496,393,529,388,562,388,594,396,626,418,659,429,668,443,675,441,680,426,673,414,663,391,629,383,595,383,561,388,528,393,496,394,463,386,430,366,396,352,384"/>
+<area shape="rect" href="../../d6/d2c/class_track.html#a0da16ce65cc4d3f67a79073e0d632f6f" title="Change the position of a cone based on the id of the parameter cone or creates a new cone in case the..." alt="" coords="447,323,555,348"/>
+<area shape="poly" title=" " alt="" coords="368,348,431,341,432,346,369,353"/>
+<area shape="rect" href="../../d3/da1/class_local_path_planner.html#a2737cc1a13f56bbb59728c65fed331d2" title="Determine if two positions align in a certain direction." alt="" coords="418,157,584,197"/>
+<area shape="poly" title=" " alt="" coords="349,338,366,326,377,312,384,299,390,271,396,243,402,229,414,214,425,204,429,208,418,217,407,231,401,245,395,273,389,300,382,315,370,329,353,342"/>
+<area shape="poly" title=" " alt="" coords="586,117,619,117,619,122,586,122"/>
+<area shape="poly" title=" " alt="" coords="548,130,587,142,632,156,631,161,586,147,547,136"/>
+<area shape="poly" title=" " alt="" coords="555,326,631,315,632,321,556,331"/>
+<area shape="poly" title=" " alt="" coords="556,344,633,359,632,364,555,349"/>
+<area shape="poly" title=" " alt="" coords="531,347,635,396,645,400,643,405,633,401,529,351"/>
+<area shape="poly" title=" " alt="" coords="569,153,630,135,632,140,571,159"/>
+<area shape="poly" title=" " alt="" coords="585,174,619,174,619,180,585,180"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d9/db5/class_planning_ab04bd1f3fa9458e5a1360cfabacc56a7_icgraph.png" border="0" usemap="#ad9/db5/class_planning_ab04bd1f3fa9458e5a1360cfabacc56a7_icgraph" alt=""/></div>
+<map name="ad9/db5/class_planning_ab04bd1f3fa9458e5a1360cfabacc56a7_icgraph" id="ad9/db5/class_planning_ab04bd1f3fa9458e5a1360cfabacc56a7_icgraph">
+<area shape="rect" title="Callback for track map updates(when msg received)." alt="" coords="181,5,319,46"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a42a788755e4dedf591d0703a87d70bf2" title="Constructor for the Planning class." alt="" coords="5,13,133,39"/>
+<area shape="poly" title=" " alt="" coords="165,28,133,28,133,23,165,23"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a53d5a67d438860be75a3d9e0bc0df8c3" name="a53d5a67d438860be75a3d9e0bc0df8c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53d5a67d438860be75a3d9e0bc0df8c3">&#9670;&#160;</a></span>vehicle_localization_callback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Planning::vehicle_localization_callback </td>
+          <td>(</td>
+          <td class="paramtype">const custom_interfaces::msg::VehicleState &amp;&#160;</td>
+          <td class="paramname"><em>msg</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Callback for vehicle localization updates (undefined). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">msg</td><td>The received VehicleState message. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d8/d65/planning_8cpp_source.html#l00104">104</a> of file <a class="el" href="../../d8/d65/planning_8cpp_source.html">planning.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d9/db5/class_planning_a53d5a67d438860be75a3d9e0bc0df8c3_icgraph.png" border="0" usemap="#ad9/db5/class_planning_a53d5a67d438860be75a3d9e0bc0df8c3_icgraph" alt=""/></div>
+<map name="ad9/db5/class_planning_a53d5a67d438860be75a3d9e0bc0df8c3_icgraph" id="ad9/db5/class_planning_a53d5a67d438860be75a3d9e0bc0df8c3_icgraph">
+<area shape="rect" title="Callback for vehicle localization updates (undefined)." alt="" coords="181,5,370,46"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a42a788755e4dedf591d0703a87d70bf2" title="Constructor for the Planning class." alt="" coords="5,13,133,39"/>
+<area shape="poly" title=" " alt="" coords="165,28,133,28,133,23,165,23"/>
+</map>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a41ef5646568661582413f9792a9e0fd4" name="a41ef5646568661582413f9792a9e0fd4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41ef5646568661582413f9792a9e0fd4">&#9670;&#160;</a></span>adapter</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d3/d7f/class_adapter.html">Adapter</a>* Planning::adapter</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><a class="el" href="../../d3/d7f/class_adapter.html" title="Adapter class for coordinating communication between different modes and Control module.">Adapter</a> instance for external communication. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d0/dcc/planning_8hpp_source.html#l00040">40</a> of file <a class="el" href="../../d0/dcc/planning_8hpp_source.html">planning.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac1af1239a0a0caaac9ff1a844f661b29" name="ac1af1239a0a0caaac9ff1a844f661b29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1af1239a0a0caaac9ff1a844f661b29">&#9670;&#160;</a></span>angle_exponent_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Planning::angle_exponent_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d0/dcc/planning_8hpp_source.html#l00049">49</a> of file <a class="el" href="../../d0/dcc/planning_8hpp_source.html">planning.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a1ec99bda2665e57a506fc9533b20d29e" name="a1ec99bda2665e57a506fc9533b20d29e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ec99bda2665e57a506fc9533b20d29e">&#9670;&#160;</a></span>angle_gain_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Planning::angle_gain_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d0/dcc/planning_8hpp_source.html#l00046">46</a> of file <a class="el" href="../../d0/dcc/planning_8hpp_source.html">planning.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5a960ac7e146f937decfe2ae6d678f8a" name="a5a960ac7e146f937decfe2ae6d678f8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a960ac7e146f937decfe2ae6d678f8a">&#9670;&#160;</a></span>cost_max_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Planning::cost_max_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d0/dcc/planning_8hpp_source.html#l00051">51</a> of file <a class="el" href="../../d0/dcc/planning_8hpp_source.html">planning.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7638c71cbb787097ce0dc83da813c31a" name="a7638c71cbb787097ce0dc83da813c31a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7638c71cbb787097ce0dc83da813c31a">&#9670;&#160;</a></span>distance_exponent_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Planning::distance_exponent_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d0/dcc/planning_8hpp_source.html#l00050">50</a> of file <a class="el" href="../../d0/dcc/planning_8hpp_source.html">planning.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa71e1520ac0d6035bb78e56eb92339de" name="aa71e1520ac0d6035bb78e56eb92339de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa71e1520ac0d6035bb78e56eb92339de">&#9670;&#160;</a></span>distance_gain_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Planning::distance_gain_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d0/dcc/planning_8hpp_source.html#l00047">47</a> of file <a class="el" href="../../d0/dcc/planning_8hpp_source.html">planning.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a467a33edc23a5ddee9c105c576690c1c" name="a467a33edc23a5ddee9c105c576690c1c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a467a33edc23a5ddee9c105c576690c1c">&#9670;&#160;</a></span>global_pub_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rclcpp::Publisher&lt;custom_interfaces::msg::PathPointArray&gt;::SharedPtr Planning::global_pub_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Timer for the periodic publishing. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d0/dcc/planning_8hpp_source.html#l00066">66</a> of file <a class="el" href="../../d0/dcc/planning_8hpp_source.html">planning.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a195deb6c9ca45bdf10ce4475cfff52ca" name="a195deb6c9ca45bdf10ce4475cfff52ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a195deb6c9ca45bdf10ce4475cfff52ca">&#9670;&#160;</a></span>local_path_planner</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d3/da1/class_local_path_planner.html">LocalPathPlanner</a>* Planning::local_path_planner = new <a class="el" href="../../d3/da1/class_local_path_planner.html">LocalPathPlanner</a>()</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Local path planner instance. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d0/dcc/planning_8hpp_source.html#l00039">39</a> of file <a class="el" href="../../d0/dcc/planning_8hpp_source.html">planning.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a550c85dde94bd45e9a4d5dd6700f5cdd" name="a550c85dde94bd45e9a4d5dd6700f5cdd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a550c85dde94bd45e9a4d5dd6700f5cdd">&#9670;&#160;</a></span>local_pub_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rclcpp::Publisher&lt;custom_interfaces::msg::PathPointArray&gt;::SharedPtr Planning::local_pub_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Global path points publisher. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d0/dcc/planning_8hpp_source.html#l00064">64</a> of file <a class="el" href="../../d0/dcc/planning_8hpp_source.html">planning.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a311560ea42b5b6ce304671c93c4dd17e" name="a311560ea42b5b6ce304671c93c4dd17e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a311560ea42b5b6ce304671c93c4dd17e">&#9670;&#160;</a></span>mission</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d8/d49/mission_8hpp.html#af686af98019fe71e9f18190349618431">Mission</a> Planning::mission = <a class="el" href="../../d8/d49/mission_8hpp.html#af686af98019fe71e9f18190349618431aac800e3e0af898316f966ae9d004f926">not_selected</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Current planning mission. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d0/dcc/planning_8hpp_source.html#l00038">38</a> of file <a class="el" href="../../d0/dcc/planning_8hpp_source.html">planning.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa8ef109f949380eb38fd7ef3faab166b" name="aa8ef109f949380eb38fd7ef3faab166b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8ef109f949380eb38fd7ef3faab166b">&#9670;&#160;</a></span>mode</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string Planning::mode</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d0/dcc/planning_8hpp_source.html#l00041">41</a> of file <a class="el" href="../../d0/dcc/planning_8hpp_source.html">planning.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ade73554fac57c678ae79a0607e5990da" name="ade73554fac57c678ae79a0607e5990da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade73554fac57c678ae79a0607e5990da">&#9670;&#160;</a></span>ncones_gain_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Planning::ncones_gain_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d0/dcc/planning_8hpp_source.html#l00048">48</a> of file <a class="el" href="../../d0/dcc/planning_8hpp_source.html">planning.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a47882a727572ca547cebffd9be25b70b" name="a47882a727572ca547cebffd9be25b70b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47882a727572ca547cebffd9be25b70b">&#9670;&#160;</a></span>outliers_spline_coeffs_ratio_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Planning::outliers_spline_coeffs_ratio_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d0/dcc/planning_8hpp_source.html#l00053">53</a> of file <a class="el" href="../../d0/dcc/planning_8hpp_source.html">planning.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a49df329174a7b82d29cf924e439974c9" name="a49df329174a7b82d29cf924e439974c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49df329174a7b82d29cf924e439974c9">&#9670;&#160;</a></span>outliers_spline_order_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Planning::outliers_spline_order_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d0/dcc/planning_8hpp_source.html#l00052">52</a> of file <a class="el" href="../../d0/dcc/planning_8hpp_source.html">planning.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5ce20b4f46712e73dac829bc8c747703" name="a5ce20b4f46712e73dac829bc8c747703"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ce20b4f46712e73dac829bc8c747703">&#9670;&#160;</a></span>outliers_spline_precision_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Planning::outliers_spline_precision_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d0/dcc/planning_8hpp_source.html#l00054">54</a> of file <a class="el" href="../../d0/dcc/planning_8hpp_source.html">planning.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac338512721ecb9dfe4cfa244ce7fab3a" name="ac338512721ecb9dfe4cfa244ce7fab3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac338512721ecb9dfe4cfa244ce7fab3a">&#9670;&#160;</a></span>pose</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d8/d11/struct_pose.html">Pose</a> Planning::pose</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>current vehicle pose </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d0/dcc/planning_8hpp_source.html#l00111">111</a> of file <a class="el" href="../../d0/dcc/planning_8hpp_source.html">planning.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa0ccaf145e0636473d7cd0658b6d3946" name="aa0ccaf145e0636473d7cd0658b6d3946"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0ccaf145e0636473d7cd0658b6d3946">&#9670;&#160;</a></span>predictive_paths</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::map&lt;<a class="el" href="../../d8/d49/mission_8hpp.html#af686af98019fe71e9f18190349618431">Mission</a>, std::string&gt; Planning::predictive_paths</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">      {<a class="code hl_enumvalue" href="../../d8/d49/mission_8hpp.html#af686af98019fe71e9f18190349618431a146c0b61ec6916af010baa3da802d5e9">Mission::acceleration</a>, <span class="stringliteral">&quot;/events/acceleration.txt&quot;</span>},</div>
+<div class="line">      {<a class="code hl_enumvalue" href="../../d8/d49/mission_8hpp.html#af686af98019fe71e9f18190349618431a11165e149a0a9f6f98fc14da6baa8666">Mission::skidpad</a>, <span class="stringliteral">&quot;/events/skidpad.txt&quot;</span>}}</div>
+<div class="ttc" id="amission_8hpp_html_af686af98019fe71e9f18190349618431a11165e149a0a9f6f98fc14da6baa8666"><div class="ttname"><a href="../../d8/d49/mission_8hpp.html#af686af98019fe71e9f18190349618431a11165e149a0a9f6f98fc14da6baa8666">skidpad</a></div><div class="ttdeci">@ skidpad</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d49/mission_8hpp_source.html#l00015">mission.hpp:15</a></div></div>
+<div class="ttc" id="amission_8hpp_html_af686af98019fe71e9f18190349618431a146c0b61ec6916af010baa3da802d5e9"><div class="ttname"><a href="../../d8/d49/mission_8hpp.html#af686af98019fe71e9f18190349618431a146c0b61ec6916af010baa3da802d5e9">acceleration</a></div><div class="ttdeci">@ acceleration</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d49/mission_8hpp_source.html#l00015">mission.hpp:15</a></div></div>
+</div><!-- fragment -->
+<p>Predictive paths for different missions. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d0/dcc/planning_8hpp_source.html#l00043">43</a> of file <a class="el" href="../../d0/dcc/planning_8hpp_source.html">planning.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aba4f043ce1191f2ddf49a6e983016bb3" name="aba4f043ce1191f2ddf49a6e983016bb3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba4f043ce1191f2ddf49a6e983016bb3">&#9670;&#160;</a></span>smoothing_spline_coeffs_ratio_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Planning::smoothing_spline_coeffs_ratio_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d0/dcc/planning_8hpp_source.html#l00056">56</a> of file <a class="el" href="../../d0/dcc/planning_8hpp_source.html">planning.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a647eb3ede318099757548b361e68247a" name="a647eb3ede318099757548b361e68247a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a647eb3ede318099757548b361e68247a">&#9670;&#160;</a></span>smoothing_spline_order_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Planning::smoothing_spline_order_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d0/dcc/planning_8hpp_source.html#l00055">55</a> of file <a class="el" href="../../d0/dcc/planning_8hpp_source.html">planning.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a3638fbe3ae031251364c7c161eaad6a8" name="a3638fbe3ae031251364c7c161eaad6a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3638fbe3ae031251364c7c161eaad6a8">&#9670;&#160;</a></span>smoothing_spline_precision_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Planning::smoothing_spline_precision_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Subscription to vehicle localization. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d0/dcc/planning_8hpp_source.html#l00057">57</a> of file <a class="el" href="../../d0/dcc/planning_8hpp_source.html">planning.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a66f41c6e420ddaf6ccf952c2937ef115" name="a66f41c6e420ddaf6ccf952c2937ef115"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66f41c6e420ddaf6ccf952c2937ef115">&#9670;&#160;</a></span>timer_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rclcpp::TimerBase::SharedPtr Planning::timer_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d0/dcc/planning_8hpp_source.html#l00068">68</a> of file <a class="el" href="../../d0/dcc/planning_8hpp_source.html">planning.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ae6b572068cd34507cd0ed3f9f6e4335b" name="ae6b572068cd34507cd0ed3f9f6e4335b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6b572068cd34507cd0ed3f9f6e4335b">&#9670;&#160;</a></span>track_sub_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rclcpp::Subscription&lt;custom_interfaces::msg::ConeArray&gt;::SharedPtr Planning::track_sub_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Local path points publisher. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d0/dcc/planning_8hpp_source.html#l00062">62</a> of file <a class="el" href="../../d0/dcc/planning_8hpp_source.html">planning.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a3cedf8f0830477fe7496dd6d9af12300" name="a3cedf8f0830477fe7496dd6d9af12300"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3cedf8f0830477fe7496dd6d9af12300">&#9670;&#160;</a></span>vl_sub_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rclcpp::Subscription&lt;custom_interfaces::msg::VehicleState&gt;::SharedPtr Planning::vl_sub_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Subscription to track map. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d0/dcc/planning_8hpp_source.html#l00060">60</a> of file <a class="el" href="../../d0/dcc/planning_8hpp_source.html">planning.hpp</a>.</p>
 
 </div>
 </div>

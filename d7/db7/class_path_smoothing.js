@@ -11,5 +11,9 @@ var class_path_smoothing =
     [ "orderPath", "d7/db7/class_path_smoothing.html#a17371b9028a6c6daa56717aa143b59fb", null ],
     [ "pathSmoother", "d7/db7/class_path_smoothing.html#aae6d8b2ff86ec4829ddb3fc2b0ba0856", null ],
     [ "splineSmoother", "d7/db7/class_path_smoothing.html#a5689b2c07e18bf08311aa99c5efbeb73", null ],
-    [ "vector_direction", "d7/db7/class_path_smoothing.html#ad044a39b4c65ea74975c57685d7cb149", null ]
+    [ "vector_direction", "d7/db7/class_path_smoothing.html#ad044a39b4c65ea74975c57685d7cb149", null ],
+    [ "path", "d7/db7/class_path_smoothing.html#a8031d1739d31fc66b45fc711bbdbfd3f", null ],
+    [ "spline_coeffs_ratio_", "d7/db7/class_path_smoothing.html#a14eb3efda5a3427fe192da6021a92388", null ],
+    [ "spline_order_", "d7/db7/class_path_smoothing.html#ae8188c9e1d0f62c618bbbaf1a5df80d8", null ],
+    [ "spline_precision_", "d7/db7/class_path_smoothing.html#acf7bb9c2b6eaa3e98a74270c64940c09", null ]
 ];

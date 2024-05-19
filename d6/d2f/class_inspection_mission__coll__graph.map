@@ -1,5 +1,7 @@
 <map id="InspectionMission" name="InspectionMission">
-<area shape="rect" id="Node000001" title="Class responsible for the Inspection Mission of the car." alt="" coords="5,119,141,244"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="31,5,116,71"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="76,86,76,119,71,119,71,86"/>
+<area shape="rect" id="Node000001" title="Class responsible for the Inspection Mission of the car." alt="" coords="28,408,215,828"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,143,91,208"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="58,222,89,408,84,409,53,223"/>
+<area shape="rect" id="Node000003" href="$d4/d89/class_inspection_functions.html" title=" " alt="" coords="115,5,274,345"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="169,345,162,392,156,391,164,345"/>
 </map>

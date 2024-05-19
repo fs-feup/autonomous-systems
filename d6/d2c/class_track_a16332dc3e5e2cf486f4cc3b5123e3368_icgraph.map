@@ -2,7 +2,7 @@
 <area shape="rect" id="Node000001" title="Delete outliers from the track." alt="" coords="473,203,614,228"/>
 <area shape="rect" id="Node000002" href="$d6/d2c/class_track.html#afaa537e1bdf2a045564500512e98821f" title="Validate the cones in the track by deleting outliers." alt="" coords="283,203,425,228"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="458,218,425,218,425,213,458,213"/>
-<area shape="rect" id="Node000003" href="$dd/df6/planning_2test_2tests_8cpp.html#a21272f9ce533deddd6a2e1bde8f8c097" title="Test function for outlier removal&#39;s efficiency. Runs 100 times and calculates average duration." alt="" coords="108,5,235,31"/>
+<area shape="rect" id="Node000003" href="$dd/df6/planning_2test_2tests_8cpp.html#a21272f9ce533deddd6a2e1bde8f8c097" title="Test function for outlier removal&#39;s efficiency." alt="" coords="108,5,235,31"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="339,190,298,118,268,79,233,44,216,34,219,29,237,40,272,75,303,115,343,187"/>
 <area shape="rect" id="Node000005" href="$dd/df6/planning_2test_2tests_8cpp.html#a7b7c7d79809f351fb41f6578dbdaf2ca" title="simplest scenario with cones forming a line and one outlier" alt="" coords="144,55,199,80"/>
 <area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="332,192,290,142,263,117,234,94,198,77,200,72,236,89,266,112,294,139,336,188"/>

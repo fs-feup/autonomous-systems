@@ -1,0 +1,5 @@
+<map id="InspectionMission::end_of_mission" name="InspectionMission::end_of_mission">
+<area shape="rect" id="Node000001" title="Function for communication of end of mission (or emergency according to the mission)" alt="" coords="5,13,138,54"/>
+<area shape="rect" id="Node000002" href="$de/d3d/class_inspection_mission.html#ad3c83d4cdc73d65eb5ab3da2be83e3ae" title="Function to end communication of end of mission." alt="" coords="186,5,343,61"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="138,31,170,31,170,36,138,36"/>
+</map>

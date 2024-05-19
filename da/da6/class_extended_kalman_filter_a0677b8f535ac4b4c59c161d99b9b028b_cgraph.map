@@ -1,5 +1,7 @@
 <map id="ExtendedKalmanFilter::correction_step" name="ExtendedKalmanFilter::correction_step">
-<area shape="rect" id="Node000001" title="Correction step:" alt="" coords="5,5,153,46"/>
+<area shape="rect" id="Node000001" title="Correction step:" alt="" coords="5,39,153,79"/>
 <area shape="rect" id="Node000002" href="$d2/d32/namespacecommon__lib_1_1maths.html#ad0d064c1af2031dc0a6bd45d4ca0981d" title=" " alt="" coords="201,5,375,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="153,23,185,23,185,28,153,28"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="153,45,185,39,186,45,153,50"/>
+<area shape="rect" id="Node000003" href="$da/da6/class_extended_kalman_filter.html#a3595dd28ba06e12edc4c3db689145845" title="Flags used to mark first prediction step." alt="" coords="214,71,362,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="153,68,199,75,198,80,153,73"/>
 </map>

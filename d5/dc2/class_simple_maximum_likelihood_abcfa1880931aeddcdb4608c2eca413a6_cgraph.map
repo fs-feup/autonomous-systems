@@ -1,5 +1,7 @@
 <map id="SimpleMaximumLikelihood::match_cone" name="SimpleMaximumLikelihood::match_cone">
-<area shape="rect" id="Node000001" title="Limit for 0 meters." alt="" coords="5,5,182,46"/>
+<area shape="rect" id="Node000001" title="Limit for 0 meters." alt="" coords="5,39,182,79"/>
 <area shape="rect" id="Node000002" href="$d1/d14/class_data_association_model.html#ae17040b15f7eb1e6b46061c94b07d2b9" title=" " alt="" coords="230,5,422,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="182,23,214,23,214,28,182,28"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="182,44,214,39,215,44,183,49"/>
+<area shape="rect" id="Node000003" href="$d5/dc2/class_simple_maximum_likelihood.html#ac75961c5a3fb028bbf888c4b2ff7ca94" title="Check if the observed landmark is a valid match to the expected landmark It depends on external param..." alt="" coords="238,71,414,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="183,69,223,74,222,79,182,74"/>
 </map>

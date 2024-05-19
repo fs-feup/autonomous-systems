@@ -1,6 +1,6 @@
 <map id="VehicleAdapter" name="VehicleAdapter">
-<area shape="rect" id="Node000001" title="Adapter class for Vehicle purposes." alt="" coords="13,479,181,624"/>
-<area shape="rect" id="Node000002" href="$d3/d7f/class_adapter.html" title="Adapter class for coordinating communication between different modes and Control module." alt="" coords="5,5,189,431"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,446,92,479,87,479,86,446"/>
-<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="108,446,108,479,102,479,103,446"/>
+<area shape="rect" id="Node000001" title="Adapter class for Vehicle purposes." alt="" coords="5,479,205,853"/>
+<area shape="rect" id="Node000002" href="$d3/d7f/class_adapter.html" title="Adapter class for coordinating communication between different modes and Control module." alt="" coords="13,5,197,431"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="99,445,99,479,94,479,94,445"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="117,445,117,479,112,479,112,445"/>
 </map>

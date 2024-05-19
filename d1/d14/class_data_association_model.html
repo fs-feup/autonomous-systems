@@ -94,6 +94,8 @@ $(document).ready(function(){initNavTree('d1/d14/class_data_association_model.ht
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../d3/d95/class_data_association_model-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">DataAssociationModel Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
 </div><!--header-->
@@ -108,9 +110,9 @@ Inheritance diagram for DataAssociationModel:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../dc/dd8/class_data_association_model__inherit__graph.png" border="0" usemap="#a_data_association_model_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_data_association_model_inherit__map" id="a_data_association_model_inherit__map">
-<area shape="rect" title="Data Association Method class, used to match observations to landmarks in the map." alt="" coords="5,5,201,131"/>
-<area shape="rect" href="../../d5/dc2/class_simple_maximum_likelihood.html" title="Simple (Dumb) Maximum Likelihood Method class, attempts to match the observed landmark to the closest..." alt="" coords="10,179,197,324"/>
-<area shape="poly" title=" " alt="" coords="106,146,106,179,101,179,101,146"/>
+<area shape="rect" title="Data Association Method class, used to match observations to landmarks in the map." alt="" coords="5,5,201,151"/>
+<area shape="rect" href="../../d5/dc2/class_simple_maximum_likelihood.html" title="Simple (Dumb) Maximum Likelihood Method class, attempts to match the observed landmark to the closest..." alt="" coords="10,199,197,384"/>
+<area shape="poly" title=" " alt="" coords="106,166,106,199,101,199,101,166"/>
 </map>
 </div>
 <div class="dynheader">
@@ -118,7 +120,7 @@ Collaboration diagram for DataAssociationModel:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d5/dbf/class_data_association_model__coll__graph.png" border="0" usemap="#a_data_association_model_coll__map" alt="Collaboration graph"/></div>
 <map name="a_data_association_model_coll__map" id="a_data_association_model_coll__map">
-<area shape="rect" title="Data Association Method class, used to match observations to landmarks in the map." alt="" coords="5,5,201,131"/>
+<area shape="rect" title="Data Association Method class, used to match observations to landmarks in the map." alt="" coords="5,5,201,151"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -127,7 +129,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9f97ec9ae611784e4e317cc69b15e703" id="r_a9f97ec9ae611784e4e317cc69b15e703"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d14/class_data_association_model.html#a9f97ec9ae611784e4e317cc69b15e703">match_cone</a> (const Eigen::Vector2f &amp;observed_landmark_absolute, const Eigen::VectorXf &amp;expected_state) const =0</td></tr>
 <tr class="memdesc:a9f97ec9ae611784e4e317cc69b15e703"><td class="mdescLeft">&#160;</td><td class="mdescRight">Match the observed landmark to a landmark in the map.  <br /></td></tr>
 <tr class="separator:a9f97ec9ae611784e4e317cc69b15e703"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a54823418322231403c42e31c3b300896" id="r_a54823418322231403c42e31c3b300896"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d14/class_data_association_model.html#a54823418322231403c42e31c3b300896">DataAssociationModel</a> (float max_landmark_distance)</td></tr>
+<tr class="memitem:a54823418322231403c42e31c3b300896" id="r_a54823418322231403c42e31c3b300896"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d14/class_data_association_model.html#a54823418322231403c42e31c3b300896">DataAssociationModel</a> (float <a class="el" href="../../d1/d14/class_data_association_model.html#a04f5aa02da550dfb7a88bfc4691f4813">max_landmark_distance</a>)</td></tr>
 <tr class="separator:a54823418322231403c42e31c3b300896"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a76a5a370d193f667a122945ea7fc671f" id="r_a76a5a370d193f667a122945ea7fc671f"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d14/class_data_association_model.html#a76a5a370d193f667a122945ea7fc671f">~DataAssociationModel</a> ()=default</td></tr>
 <tr class="separator:a76a5a370d193f667a122945ea7fc671f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -136,6 +138,18 @@ Public Member Functions</h2></td></tr>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:ae17040b15f7eb1e6b46061c94b07d2b9" id="r_ae17040b15f7eb1e6b46061c94b07d2b9"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d14/class_data_association_model.html#ae17040b15f7eb1e6b46061c94b07d2b9">get_max_landmark_distance</a> () const</td></tr>
 <tr class="separator:ae17040b15f7eb1e6b46061c94b07d2b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a259e5983c67cc6a9ac5e5eb87f3a4f4e" id="r_a259e5983c67cc6a9ac5e5eb87f3a4f4e"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d14/class_data_association_model.html#a259e5983c67cc6a9ac5e5eb87f3a4f4e">valid_match</a> (const float delta, const float distance_to_vehicle) const =0</td></tr>
+<tr class="memdesc:a259e5983c67cc6a9ac5e5eb87f3a4f4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the observed landmark is a valid match to the expected landmark It depends on external parameters like the distance to the vehicle.  <br /></td></tr>
+<tr class="separator:a259e5983c67cc6a9ac5e5eb87f3a4f4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a04f5aa02da550dfb7a88bfc4691f4813" id="r_a04f5aa02da550dfb7a88bfc4691f4813"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d14/class_data_association_model.html#a04f5aa02da550dfb7a88bfc4691f4813">max_landmark_distance</a></td></tr>
+<tr class="memdesc:a04f5aa02da550dfb7a88bfc4691f4813"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum deviation of the landmark position from the expected position when the landmark is perceived to be 1 meter away.  <br /></td></tr>
+<tr class="separator:a04f5aa02da550dfb7a88bfc4691f4813"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Data Association Method class, used to match observations to landmarks in the map. </p>
@@ -292,6 +306,81 @@ Here is the caller graph for this function:</div>
 <dl class="section return"><dt>Returns</dt><dd>int The index of the matched landmark in the map, -1 if invalid, -2 if not matched </dd></dl>
 
 <p>Implemented in <a class="el" href="../../d5/dc2/class_simple_maximum_likelihood.html#abcfa1880931aeddcdb4608c2eca413a6">SimpleMaximumLikelihood</a>.</p>
+
+</div>
+</div>
+<a id="a259e5983c67cc6a9ac5e5eb87f3a4f4e" name="a259e5983c67cc6a9ac5e5eb87f3a4f4e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a259e5983c67cc6a9ac5e5eb87f3a4f4e">&#9670;&#160;</a></span>valid_match()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool DataAssociationModel::valid_match </td>
+          <td>(</td>
+          <td class="paramtype">const float&#160;</td>
+          <td class="paramname"><em>delta</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float&#160;</td>
+          <td class="paramname"><em>distance_to_vehicle</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Check if the observed landmark is a valid match to the expected landmark It depends on external parameters like the distance to the vehicle. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">delta</td><td>The distance between the observed landmark and the expected </td></tr>
+    <tr><td class="paramname">distance_to_vehicle</td><td>The distance between the vehicle and the observed landmark </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>bool True if the observed landmark is a valid match to the expected landmark </dd></dl>
+
+<p>Implemented in <a class="el" href="../../d5/dc2/class_simple_maximum_likelihood.html#ac75961c5a3fb028bbf888c4b2ff7ca94">SimpleMaximumLikelihood</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a04f5aa02da550dfb7a88bfc4691f4813" name="a04f5aa02da550dfb7a88bfc4691f4813"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04f5aa02da550dfb7a88bfc4691f4813">&#9670;&#160;</a></span>max_landmark_distance</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float DataAssociationModel::max_landmark_distance</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Maximum deviation of the landmark position from the expected position when the landmark is perceived to be 1 meter away. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../da/d49/data__association_8hpp_source.html#l00026">26</a> of file <a class="el" href="../../da/d49/data__association_8hpp_source.html">data_association.hpp</a>.</p>
 
 </div>
 </div>

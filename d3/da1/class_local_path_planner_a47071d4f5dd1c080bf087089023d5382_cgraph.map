@@ -2,7 +2,7 @@
 <area shape="rect" id="Node000001" title="Process an array of cones to generate a local path." alt="" coords="5,341,182,381"/>
 <area shape="rect" id="Node000002" href="$d6/d2c/class_track.html#a4619df9e7622b8349af59007c602011e" title="Find a cone by its ID." alt="" coords="260,5,370,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="96,339,108,282,132,205,150,163,171,122,197,83,228,48,244,36,248,40,231,52,201,86,176,124,155,165,137,207,113,284,101,340"/>
-<area shape="rect" id="Node000003" href="$d9/d32/class_path_point.html#a88f058d98c6ef403f769cf440358fd23" title=" " alt="" coords="231,107,399,132"/>
+<area shape="rect" id="Node000003" href="$d9/d32/class_path_point.html#a88f058d98c6ef403f769cf440358fd23" title="Euclidean distance to another path point." alt="" coords="231,107,399,132"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="100,339,117,298,144,245,181,190,203,165,228,143,236,138,239,142,231,147,207,169,185,193,148,248,121,300,104,341"/>
 <area shape="rect" id="Node000004" href="$d9/d32/class_path_point.html#a4f84d924fd7ffcbfd9ae67b669251306" title=" " alt="" coords="448,107,559,132"/>
 <area shape="poly" id="edge11_Node000001_Node000004" title=" " alt="" coords="95,339,107,286,131,217,148,181,170,147,197,117,228,92,257,79,287,71,318,69,350,70,410,81,460,98,458,103,408,87,349,75,318,74,288,76,258,84,231,96,200,121,174,150,153,184,136,219,112,288,101,341"/>

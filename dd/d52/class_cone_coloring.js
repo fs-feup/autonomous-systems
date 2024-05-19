@@ -2,11 +2,26 @@ var class_cone_coloring =
 [
     [ "ConeColoring", "dd/d52/class_cone_coloring.html#a9fce70182b8f2676b7f3aa2c77242886", null ],
     [ "ConeColoring", "dd/d52/class_cone_coloring.html#a895fb74cc24bc0e1d9c821aad463409c", null ],
+    [ "angle_and_norm", "dd/d52/class_cone_coloring.html#a98c36a16331be4f2318faaa94ab6de17", null ],
     [ "color_cones", "dd/d52/class_cone_coloring.html#aea4237fcc98dec4eb82034bf8c71e3a0", null ],
+    [ "cone_is_in_side", "dd/d52/class_cone_coloring.html#acb87ad66a91be33029ec11b30e18b8ac", null ],
+    [ "cost", "dd/d52/class_cone_coloring.html#a5caccbf9451b3891327a097508806fd0", null ],
+    [ "distance_to_side", "dd/d52/class_cone_coloring.html#a78736262a20cf6c4a0c4676369ba095a", null ],
     [ "filter_cones_by_distance", "dd/d52/class_cone_coloring.html#ab48a807ad4ebbab14fa66abb2c235d7e", null ],
     [ "get_initial_cone", "dd/d52/class_cone_coloring.html#ab7606807a4493f219ccaa3fccf259943", null ],
     [ "make_unvisited_cones", "dd/d52/class_cone_coloring.html#af78a1e3246e614f0966073d1938f2897", null ],
     [ "place_initial_cones", "dd/d52/class_cone_coloring.html#a0d1cff5f96836f91157149c03903fcc4", null ],
+    [ "place_next_cone", "dd/d52/class_cone_coloring.html#a4ba687002332236542dbbc6e6b49b252", null ],
+    [ "angle_gain", "dd/d52/class_cone_coloring.html#a2144539d635436a80e9f71d3b4731a37", null ],
     [ "current_left_cones", "dd/d52/class_cone_coloring.html#a5c2cca77802d01ce2cdb49f00d1f51e8", null ],
-    [ "current_right_cones", "dd/d52/class_cone_coloring.html#ad57837293e6b81b21b63ba5923ad2102", null ]
+    [ "current_right_cones", "dd/d52/class_cone_coloring.html#ad57837293e6b81b21b63ba5923ad2102", null ],
+    [ "distance_gain", "dd/d52/class_cone_coloring.html#aaa0c9833a50f5e724323ee555d86baa4", null ],
+    [ "exponent1", "dd/d52/class_cone_coloring.html#a6b9ab55e9ed01659e3ad779b654596d7", null ],
+    [ "exponent2", "dd/d52/class_cone_coloring.html#a0783992aa887fba8191dc574fa12965d", null ],
+    [ "initial_cone_left", "dd/d52/class_cone_coloring.html#a18d7b6e11f8cbff579d4d723463f290a", null ],
+    [ "initial_cone_right", "dd/d52/class_cone_coloring.html#ada8dfd5ea376a2aed83ad52eeb5b5b34", null ],
+    [ "max_cost", "dd/d52/class_cone_coloring.html#a7eb43e603ecbbaa8714520e13f756ef4", null ],
+    [ "ncones_gain", "dd/d52/class_cone_coloring.html#a55e3f078623f4b642bed426682a6e212", null ],
+    [ "virtual_left_cone", "dd/d52/class_cone_coloring.html#ab8480545b403be8b4314e24d2c932b4e", null ],
+    [ "virtual_right_cone", "dd/d52/class_cone_coloring.html#a3046ed3b01b024df5c958e628f39b7ce", null ]
 ];

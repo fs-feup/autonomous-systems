@@ -1,10 +1,10 @@
 <map id="Track::fillTrack" name="Track::fillTrack">
 <area shape="rect" id="Node000001" title="Fill the track data from a file." alt="" coords="304,548,409,574"/>
-<area shape="rect" id="Node000002" href="$dd/df6/planning_2test_2tests_8cpp.html#a21272f9ce533deddd6a2e1bde8f8c097" title="Test function for outlier removal&#39;s efficiency. Runs 100 times and calculates average duration." alt="" coords="118,5,246,31"/>
+<area shape="rect" id="Node000002" href="$dd/df6/planning_2test_2tests_8cpp.html#a21272f9ce533deddd6a2e1bde8f8c097" title="Test function for outlier removal&#39;s efficiency." alt="" coords="118,5,246,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="351,533,342,425,324,279,311,205,295,137,276,82,254,44,241,34,245,30,258,40,281,79,300,136,317,204,330,278,347,425,356,532"/>
-<area shape="rect" id="Node000004" href="$dd/df6/planning_2test_2tests_8cpp.html#af932d610f7999483e18612a7bf469cb0" title="Test function for Delaunay Triangulations&#39; efficiency. Runs 100 times to get average execution time." alt="" coords="108,55,256,80"/>
+<area shape="rect" id="Node000004" href="$dd/df6/planning_2test_2tests_8cpp.html#af932d610f7999483e18612a7bf469cb0" title="Test function for Delaunay Triangulations&#39; efficiency." alt="" coords="108,55,256,80"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="350,533,340,435,321,303,308,237,293,176,275,127,254,93,241,83,244,79,258,90,279,125,298,175,313,236,326,302,345,434,356,532"/>
-<area shape="rect" id="Node000005" href="$df/d57/class_publisher.html#a5538d94fb8d594575be67e6edd7166df" title=" " alt="" coords="114,104,250,130"/>
+<area shape="rect" id="Node000005" href="$df/d57/class_publisher.html#a5538d94fb8d594575be67e6edd7166df" title="Constructor." alt="" coords="114,104,250,130"/>
 <area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="350,533,338,444,318,327,290,216,273,172,254,143,241,132,244,128,258,139,277,170,295,214,323,326,343,443,355,532"/>
 <area shape="rect" id="Node000006" href="$dd/df6/planning_2test_2tests_8cpp.html#a1b3e0277417f2e2a28398811e1aef5dc" title=" " alt="" coords="155,153,209,179"/>
 <area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="354,533,351,464,339,373,326,325,309,277,285,232,254,192,233,178,209,171,210,166,235,173,258,188,289,229,313,275,331,323,344,372,357,464,359,533"/>

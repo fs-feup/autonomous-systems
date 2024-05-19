@@ -1,5 +1,5 @@
 <map id="processTriangulations" name="processTriangulations">
-<area shape="rect" id="Node000001" title="Test function for Delaunay Triangulations&#39; efficiency. Runs 100 times to get average execution time." alt="" coords="5,229,154,255"/>
+<area shape="rect" id="Node000001" title="Test function for Delaunay Triangulations&#39; efficiency." alt="" coords="5,229,154,255"/>
 <area shape="rect" id="Node000002" href="$d6/d2c/class_track.html#af563702e457e6b2da5e127a7981b9453" title="Fill the track data from a file." alt="" coords="237,55,343,80"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="95,227,260,88,263,92,99,231"/>
 <area shape="rect" id="Node000005" href="$dd/df6/planning_2test_2tests_8cpp.html#a2c3bbc9fd458920b2aa9308286235fd9" title="Get current date and time as a string." alt="" coords="215,193,365,233"/>
@@ -14,7 +14,7 @@
 <area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="343,65,446,65,446,70,343,70"/>
 <area shape="rect" id="Node000008" href="$d6/d2c/class_track.html#a4619df9e7622b8349af59007c602011e" title="Find a cone by its ID." alt="" coords="456,403,566,428"/>
 <area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="378,413,441,413,441,418,378,418"/>
-<area shape="rect" id="Node000009" href="$d9/d32/class_path_point.html#a88f058d98c6ef403f769cf440358fd23" title=" " alt="" coords="427,517,595,543"/>
+<area shape="rect" id="Node000009" href="$d9/d32/class_path_point.html#a88f058d98c6ef403f769cf440358fd23" title="Euclidean distance to another path point." alt="" coords="427,517,595,543"/>
 <area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="319,434,368,469,427,502,444,509,442,514,425,507,365,473,316,439"/>
 <area shape="rect" id="Node000010" href="$d9/d32/class_path_point.html#a4f84d924fd7ffcbfd9ae67b669251306" title=" " alt="" coords="644,460,756,486"/>
 <area shape="poly" id="edge17_Node000007_Node000010" title=" " alt="" coords="307,393,342,349,376,294,384,272,388,251,390,211,396,175,407,158,424,141,469,116,490,109,511,107,532,109,554,116,598,141,617,162,633,195,662,280,683,371,697,444,692,445,678,373,657,281,628,197,612,165,595,146,552,121,531,115,511,113,491,115,471,121,428,146,411,161,401,177,395,212,394,251,389,273,380,297,346,352,312,396"/>

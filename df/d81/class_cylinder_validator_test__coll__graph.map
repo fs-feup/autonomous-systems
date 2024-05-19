@@ -1,7 +1,7 @@
 <map id="CylinderValidatorTest" name="CylinderValidatorTest">
-<area shape="rect" id="Node000001" title="Test fixture for CylinderValidator class." alt="" coords="49,174,185,239"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,25,89,91"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="71,103,104,173,99,175,66,105"/>
-<area shape="rect" id="Node000003" href="$d2/d8d/class_plane.html" title="The Plane class represents a 3D plane defined by its equation ax + by + cz + d = 0." alt="" coords="113,5,259,111"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="164,111,141,160,136,157,159,109"/>
+<area shape="rect" id="Node000001" title="Test fixture for CylinderValidator class." alt="" coords="49,234,185,299"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,55,89,121"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="68,133,107,233,102,235,63,135"/>
+<area shape="rect" id="Node000003" href="$d2/d8d/class_plane.html" title="The Plane class represents a 3D plane defined by its equation ax + by + cz + d = 0." alt="" coords="113,5,259,171"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="156,171,138,219,133,217,151,170"/>
 </map>

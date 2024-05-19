@@ -1,7 +1,18 @@
 <map id="ConeColoring::get_initial_cone" name="ConeColoring::get_initial_cone">
-<area shape="rect" id="Node000001" title="get the initial cone to start the path from side determined by parameter" alt="" coords="5,31,200,56"/>
-<area shape="rect" id="Node000002" href="$d8/da1/class_cone.html#af72e761554d3e39ba6ac88f9971f5bc7" title=" " alt="" coords="248,5,332,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="200,28,232,23,233,29,200,33"/>
-<area shape="rect" id="Node000003" href="$d8/da1/class_cone.html#a9136643a197ccd7b38f32391b965d808" title=" " alt="" coords="248,55,332,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="200,53,233,58,232,63,200,59"/>
+<area shape="rect" id="Node000001" title="get the initial cone to start the path from side determined by parameter" alt="" coords="5,117,200,143"/>
+<area shape="rect" id="Node000002" href="$dd/d52/class_cone_coloring.html#a5caccbf9451b3891327a097508806fd0" title="cost function used to minimize the cost of the path." alt="" coords="260,31,389,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="132,114,247,66,266,59,268,64,249,71,134,119"/>
+<area shape="rect" id="Node000006" href="$dd/d52/class_cone_coloring.html#a78736262a20cf6c4a0c4676369ba095a" title="get an estimate to the distance to the left side of the track when choosing first cone" alt="" coords="248,81,401,121"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="200,115,232,110,233,116,200,120"/>
+<area shape="rect" id="Node000007" href="$d8/da1/class_cone.html#af72e761554d3e39ba6ac88f9971f5bc7" title=" " alt="" coords="282,145,367,171"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="200,140,267,148,267,154,200,145"/>
+<area shape="rect" id="Node000008" href="$d8/da1/class_cone.html#a9136643a197ccd7b38f32391b965d808" title=" " alt="" coords="282,195,367,220"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="139,141,249,181,268,188,267,193,247,186,138,146"/>
+<area shape="poly" id="edge5_Node000002_Node000002" title=" " alt="" coords="292,32,286,22,290,12,303,6,324,4,348,7,360,14,357,18,346,12,324,9,304,11,293,16,291,21,296,29"/>
+<area shape="rect" id="Node000003" href="$dd/d52/class_cone_coloring.html#a98c36a16331be4f2318faaa94ab6de17" title="calculate angle between the vector made by last two cones and the vector formed by the last cone and ..." alt="" coords="449,23,584,64"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="389,41,434,41,434,46,389,46"/>
+<area shape="rect" id="Node000004" href="$d8/da1/class_cone.html#a51a49cc249e79d06f6a983250fe809b3" title=" " alt="" coords="632,5,717,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="584,30,617,25,618,30,585,35"/>
+<area shape="rect" id="Node000005" href="$d8/da1/class_cone.html#a952987a9de5d20d7930b3e93c04fd278" title=" " alt="" coords="632,55,717,80"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="585,51,618,56,617,61,584,56"/>
 </map>

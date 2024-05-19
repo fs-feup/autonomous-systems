@@ -2,9 +2,9 @@
 <area shape="rect" id="Node000001" title=" " alt="" coords="668,228,768,254"/>
 <area shape="rect" id="Node000002" href="$d6/d2c/class_track.html#a16332dc3e5e2cf486f4cc3b5123e3368" title="Delete outliers from the track." alt="" coords="479,203,620,228"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="652,234,619,229,620,223,653,228"/>
-<area shape="rect" id="Node000004" href="$dd/df6/planning_2test_2tests_8cpp.html#a21272f9ce533deddd6a2e1bde8f8c097" title="Test function for outlier removal&#39;s efficiency. Runs 100 times and calculates average duration." alt="" coords="108,5,235,31"/>
+<area shape="rect" id="Node000004" href="$dd/df6/planning_2test_2tests_8cpp.html#a21272f9ce533deddd6a2e1bde8f8c097" title="Test function for outlier removal&#39;s efficiency." alt="" coords="108,5,235,31"/>
 <area shape="poly" id="edge13_Node000001_Node000004" title=" " alt="" coords="678,222,619,193,504,144,389,99,211,34,213,29,391,94,506,139,621,188,680,218"/>
-<area shape="rect" id="Node000014" href="$dd/df6/planning_2test_2tests_8cpp.html#af932d610f7999483e18612a7bf469cb0" title="Test function for Delaunay Triangulations&#39; efficiency. Runs 100 times to get average execution time." alt="" coords="283,352,431,378"/>
+<area shape="rect" id="Node000014" href="$dd/df6/planning_2test_2tests_8cpp.html#af932d610f7999483e18612a7bf469cb0" title="Test function for Delaunay Triangulations&#39; efficiency." alt="" coords="283,352,431,378"/>
 <area shape="poly" id="edge14_Node000001_Node000014" title=" " alt="" coords="653,251,569,267,480,294,423,323,378,354,375,349,420,319,478,289,568,262,652,246"/>
 <area shape="rect" id="Node000015" href="$d4/dee/integration__tests_8cpp.html#ab54a29800640d74d1c9206fcbc7bd38e" title=" " alt="" coords="515,304,584,330"/>
 <area shape="poly" id="edge16_Node000001_Node000015" title=" " alt="" coords="675,263,581,306,579,301,672,258"/>

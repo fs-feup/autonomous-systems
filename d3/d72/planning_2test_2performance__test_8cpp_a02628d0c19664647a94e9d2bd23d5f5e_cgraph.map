@@ -1,10 +1,10 @@
 <map id="TEST" name="TEST">
 <area shape="rect" id="Node000001" title="Execution Time Test." alt="" coords="5,552,60,578"/>
-<area shape="rect" id="Node000002" href="$dd/df6/planning_2test_2tests_8cpp.html#ab1bec19c757b0c10ea40b1c5480aac77" title=" " alt="" coords="141,503,223,528"/>
+<area shape="rect" id="Node000002" href="$dd/df6/planning_2test_2tests_8cpp.html#ab1bec19c757b0c10ea40b1c5480aac77" title="Extracts the size and number of outliers from a filename." alt="" coords="141,503,223,528"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="59,553,107,537,125,531,127,536,109,542,61,558"/>
-<area shape="rect" id="Node000003" href="$dd/df6/planning_2test_2tests_8cpp.html#a21272f9ce533deddd6a2e1bde8f8c097" title="Test function for outlier removal&#39;s efficiency. Runs 100 times and calculates average duration." alt="" coords="118,685,246,711"/>
+<area shape="rect" id="Node000003" href="$dd/df6/planning_2test_2tests_8cpp.html#a21272f9ce533deddd6a2e1bde8f8c097" title="Test function for outlier removal&#39;s efficiency." alt="" coords="118,685,246,711"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="50,576,157,673,153,677,47,580"/>
-<area shape="rect" id="Node000021" href="$dd/df6/planning_2test_2tests_8cpp.html#af932d610f7999483e18612a7bf469cb0" title="Test function for Delaunay Triangulations&#39; efficiency. Runs 100 times to get average execution time." alt="" coords="108,552,256,578"/>
+<area shape="rect" id="Node000021" href="$dd/df6/planning_2test_2tests_8cpp.html#af932d610f7999483e18612a7bf469cb0" title="Test function for Delaunay Triangulations&#39; efficiency." alt="" coords="108,552,256,578"/>
 <area shape="poly" id="edge25_Node000001_Node000021" title=" " alt="" coords="60,562,92,562,92,568,60,568"/>
 <area shape="rect" id="Node000004" href="$d6/d2c/class_track.html#af563702e457e6b2da5e127a7981b9453" title="Fill the track data from a file." alt="" coords="340,812,445,838"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="199,709,244,749,305,791,333,804,331,809,303,795,241,753,195,713"/>
@@ -33,7 +33,7 @@
 <area shape="poly" id="edge16_Node000013_Node000016" title=" " alt="" coords="682,908,696,898,741,754,798,549,803,550,746,755,701,901,686,912"/>
 <area shape="rect" id="Node000015" href="$d6/d2c/class_track.html#af8be3556aade761aa0851df8b6371dce" title="Used for logging content of gsl_vectors." alt="" coords="926,911,1068,936"/>
 <area shape="poly" id="edge14_Node000014_Node000015" title=" " alt="" coords="864,921,910,921,910,926,864,926"/>
-<area shape="rect" id="Node000017" href="$d8/da1/class_cone.html#a14a49d09bc10d53888d06e183c6d1206" title=" " alt="" coords="927,509,1068,535"/>
+<area shape="rect" id="Node000017" href="$d8/da1/class_cone.html#a14a49d09bc10d53888d06e183c6d1206" title="Euclidean distance to another position." alt="" coords="927,509,1068,535"/>
 <area shape="poly" id="edge17_Node000016_Node000017" title=" " alt="" coords="873,520,911,520,911,525,873,525"/>
 <area shape="rect" id="Node000018" href="$d8/da1/class_cone.html#a51a49cc249e79d06f6a983250fe809b3" title=" " alt="" coords="1121,560,1206,586"/>
 <area shape="poly" id="edge20_Node000016_Node000018" title=" " alt="" coords="864,533,921,545,1019,558,1106,566,1106,572,1018,563,921,550,863,538"/>
@@ -57,7 +57,7 @@
 <area shape="poly" id="edge41_Node000022_Node000019" title=" " alt="" coords="480,355,528,350,701,335,777,335,873,344,931,353,975,365,1074,396,1107,405,1106,410,1073,401,973,370,930,359,873,349,776,340,701,340,529,356,481,361"/>
 <area shape="rect" id="Node000023" href="$d6/d2c/class_track.html#a4619df9e7622b8349af59007c602011e" title="Find a cone by its ID." alt="" coords="558,459,669,484"/>
 <area shape="poly" id="edge30_Node000022_Node000023" title=" " alt="" coords="427,390,474,418,529,445,545,451,543,456,527,450,472,423,424,395"/>
-<area shape="rect" id="Node000024" href="$d9/d32/class_path_point.html#a88f058d98c6ef403f769cf440358fd23" title=" " alt="" coords="529,156,698,182"/>
+<area shape="rect" id="Node000024" href="$d9/d32/class_path_point.html#a88f058d98c6ef403f769cf440358fd23" title="Euclidean distance to another path point." alt="" coords="529,156,698,182"/>
 <area shape="poly" id="edge31_Node000022_Node000024" title=" " alt="" coords="403,349,451,277,486,235,527,199,549,186,551,191,530,203,490,239,455,280,407,352"/>
 <area shape="rect" id="Node000025" href="$d9/d32/class_path_point.html#a4f84d924fd7ffcbfd9ae67b669251306" title=" " alt="" coords="754,49,866,75"/>
 <area shape="poly" id="edge40_Node000022_Node000025" title=" " alt="" coords="392,350,398,285,418,195,436,147,459,102,489,61,527,28,556,13,588,5,621,3,655,5,718,20,770,40,768,45,716,25,654,11,621,8,589,10,558,18,530,32,493,65,463,105,440,150,423,196,404,285,397,351"/>

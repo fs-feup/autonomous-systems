@@ -1,18 +1,30 @@
 <map id="FsdsAdapter" name="FsdsAdapter">
-<area shape="rect" id="Node000001" title="Adapter class for interfacing with FSDS (Formula Student Driverless Simulator)." alt="" coords="81,683,265,978"/>
-<area shape="rect" id="Node000002" href="$d3/d7f/class_adapter.html" title="Adapter class for coordinating communication between different modes and Control module." alt="" coords="81,268,265,634"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="149,649,150,683,144,684,144,649"/>
-<area shape="poly" id="edge8_Node000001_Node000002" title=" " alt="" coords="167,649,167,683,162,684,162,649"/>
-<area shape="poly" id="edge9_Node000001_Node000002" title=" " alt="" coords="185,649,185,684,179,683,180,649"/>
-<area shape="poly" id="edge10_Node000001_Node000002" title=" " alt="" coords="203,649,202,684,197,683,198,649"/>
-<area shape="rect" id="Node000003" href="$d7/d49/class_control.html" title="Class responsible for the control of the car." alt="" coords="5,130,77,195"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="58,194,85,252,80,254,53,196"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="131,5,216,71"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="130,83,77,132,73,128,127,79"/>
-<area shape="rect" id="Node000005" href="$de/d07/class_perception.html" title="Node for perception tasks, such as ground removal and cone detection." alt="" coords="102,120,245,205"/>
-<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="176,85,176,120,171,120,171,85"/>
-<area shape="rect" id="Node000006" href="$d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car." alt="" coords="269,120,371,205"/>
-<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="224,78,272,118,269,122,221,82"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="176,205,176,251,171,251,171,205"/>
-<area shape="poly" id="edge6_Node000002_Node000006" title=" " alt="" coords="301,206,275,257,271,254,297,204"/>
+<area shape="rect" id="Node000001" title="Adapter class for interfacing with FSDS (Formula Student Driverless Simulator)." alt="" coords="289,1150,505,1525"/>
+<area shape="rect" id="Node000002" href="$d3/d7f/class_adapter.html" title="Adapter class for coordinating communication between different modes and Control module." alt="" coords="305,702,489,1067"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="373,1082,373,1150,367,1150,367,1082"/>
+<area shape="poly" id="edge15_Node000001_Node000002" title=" " alt="" coords="390,1082,390,1150,385,1150,385,1082"/>
+<area shape="poly" id="edge16_Node000001_Node000002" title=" " alt="" coords="408,1082,408,1150,403,1150,403,1082"/>
+<area shape="poly" id="edge17_Node000001_Node000002" title=" " alt="" coords="426,1082,426,1150,421,1150,421,1082"/>
+<area shape="rect" id="Node000003" href="$d7/d49/class_control.html" title="Class responsible for the control of the car." alt="" coords="118,1235,265,1440"/>
+<area shape="poly" id="edge4_Node000003_Node000002" title=" " alt="" coords="307,984,269,1036,237,1092,216,1155,203,1219,198,1218,211,1153,232,1090,264,1033,303,981"/>
+<area shape="rect" id="Node000007" href="$d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car." alt="" coords="539,1130,695,1545"/>
+<area shape="poly" id="edge12_Node000007_Node000002" title=" " alt="" coords="449,1066,475,1105,485,1113,495,1116,507,1120,518,1128,531,1142,527,1146,515,1132,504,1125,494,1121,483,1117,471,1108,445,1069"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="229,1234,274,1129,296,1081,301,1083,279,1131,234,1236"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="306,55,391,121"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="312,134,279,180,252,235,214,370,188,511,172,653,165,792,164,924,167,1044,182,1235,176,1235,162,1045,158,924,159,792,167,653,183,510,209,369,248,233,274,178,308,131"/>
+<area shape="rect" id="Node000005" href="$de/d07/class_perception.html" title="Node for perception tasks, such as ground removal and cone detection." alt="" coords="262,304,435,569"/>
+<area shape="poly" id="edge6_Node000005_Node000004" title=" " alt="" coords="351,136,351,304,346,304,346,136"/>
+<area shape="poly" id="edge9_Node000007_Node000004" title=" " alt="" coords="388,130,421,178,450,233,494,357,522,465,539,562,547,654,557,847,565,959,582,1091,588,1130,583,1131,577,1092,560,960,551,847,542,654,533,563,517,466,489,359,445,235,417,181,383,134"/>
+<area shape="poly" id="edge5_Node000002_Node000005" title=" " alt="" coords="365,569,378,685,373,686,360,569"/>
+<area shape="rect" id="Node000006" href="$d2/d8d/class_plane.html" title="The Plane class represents a 3D plane defined by its equation ax + by + cz + d = 0." alt="" coords="5,5,151,171"/>
+<area shape="poly" id="edge7_Node000005_Node000006" title=" " alt="" coords="144,169,253,309,249,312,139,172"/>
+<area shape="poly" id="edge8_Node000002_Node000007" title=" " alt="" coords="544,1131,526,1093,495,1035,500,1032,531,1090,549,1129"/>
+<area shape="rect" id="Node000008" href="$d3/da1/class_local_path_planner.html" title="LocalPathPlanner class for generating local paths." alt="" coords="656,832,791,937"/>
+<area shape="poly" id="edge10_Node000007_Node000008" title=" " alt="" coords="714,938,672,1114,667,1113,709,937"/>
+<area shape="rect" id="Node000009" href="$d6/d2c/class_track.html" title="Track class." alt="" coords="654,234,795,639"/>
+<area shape="poly" id="edge11_Node000008_Node000009" title=" " alt="" coords="727,639,726,815,721,815,721,639"/>
+<area shape="rect" id="Node000010" href="$d8/d11/struct_pose.html" title=" " alt="" coords="835,832,919,937"/>
+<area shape="poly" id="edge13_Node000007_Node000010" title=" " alt="" coords="865,938,837,1019,796,1108,754,1175,707,1237,703,1233,750,1171,792,1105,832,1018,860,936"/>
+<area shape="rect" id="Node000011" href="$d1/d26/struct_position.html" title=" " alt="" coords="819,364,971,509"/>
+<area shape="poly" id="edge14_Node000010_Node000011" title=" " alt="" coords="895,509,882,815,877,815,890,509"/>
 </map>

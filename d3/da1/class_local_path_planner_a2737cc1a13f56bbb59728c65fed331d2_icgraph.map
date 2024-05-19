@@ -1,19 +1,23 @@
 <map id="LocalPathPlanner::vector_direction" name="LocalPathPlanner::vector_direction">
-<area shape="rect" id="Node000001" title="Determine if two positions align in a certain direction." alt="" coords="528,122,695,163"/>
-<area shape="rect" id="Node000002" href="$d3/da1/class_local_path_planner.html#a47071d4f5dd1c080bf087089023d5382" title="Process an array of cones to generate a local path." alt="" coords="304,122,480,163"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="513,145,481,145,481,140,513,140"/>
-<area shape="rect" id="Node000003" href="$dd/df6/planning_2test_2tests_8cpp.html#af932d610f7999483e18612a7bf469cb0" title="Test function for Delaunay Triangulations&#39; efficiency. Runs 100 times to get average execution time." alt="" coords="108,5,256,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="354,114,308,78,255,45,230,34,233,29,257,40,312,74,358,109"/>
-<area shape="rect" id="Node000005" href="$dd/df6/planning_2test_2tests_8cpp.html#afdc65423b0a5a3ca636f3aacfb1dba56" title="simple but realistic scenario with few cones and fwe outliers" alt="" coords="155,55,209,80"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="321,118,255,94,209,78,210,73,257,89,323,113"/>
-<area shape="rect" id="Node000006" href="$dd/df6/planning_2test_2tests_8cpp.html#af9952ff008604d30cd729682048e2167" title="scenario: Large piece of track with no outliers" alt="" coords="155,104,209,130"/>
-<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="288,132,209,123,210,117,288,127"/>
-<area shape="rect" id="Node000007" href="$dd/df6/planning_2test_2tests_8cpp.html#ad18f9702442704e6ba155492f9317546" title="scenario with large track that barely has outliers (only 2)" alt="" coords="155,153,209,179"/>
-<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="288,157,210,166,209,160,288,151"/>
-<area shape="rect" id="Node000008" href="$dd/df6/planning_2test_2tests_8cpp.html#ac52f5bb92ce5fead956b460602be5875" title="scenario: cones in parallel straight lines that shows that cones exaclty in a circumference are not c..." alt="" coords="155,203,209,228"/>
-<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="322,171,257,194,210,210,209,205,255,189,320,166"/>
-<area shape="rect" id="Node000009" href="$dd/df6/planning_2test_2tests_8cpp.html#a24abd4bbadec3144e9f2562ff43add80" title="scenario: small track with sharp edge" alt="" coords="155,252,209,278"/>
-<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="358,175,311,210,257,243,211,261,209,256,255,238,308,205,354,170"/>
-<area shape="rect" id="Node000004" href="$d3/d72/planning_2test_2performance__test_8cpp.html#a02628d0c19664647a94e9d2bd23d5f5e" title="Execution Time Test." alt="" coords="5,5,60,31"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="92,21,60,21,60,16,92,16"/>
+<area shape="rect" id="Node000001" title="Determine if two positions align in a certain direction." alt="" coords="601,146,768,187"/>
+<area shape="rect" id="Node000002" href="$d3/da1/class_local_path_planner.html#a47071d4f5dd1c080bf087089023d5382" title="Process an array of cones to generate a local path." alt="" coords="377,146,553,187"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="586,169,554,169,554,164,586,164"/>
+<area shape="rect" id="Node000003" href="$dd/df6/planning_2test_2tests_8cpp.html#af932d610f7999483e18612a7bf469cb0" title="Test function for Delaunay Triangulations&#39; efficiency." alt="" coords="181,5,329,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="434,136,387,89,358,65,328,44,305,34,308,29,330,40,362,61,391,85,438,132"/>
+<area shape="rect" id="Node000005" href="$dd/df6/planning_2test_2tests_8cpp.html#afdc65423b0a5a3ca636f3aacfb1dba56" title="simple but realistic scenario with few cones and fwe outliers" alt="" coords="228,55,282,80"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="416,140,328,94,282,77,283,72,330,89,419,135"/>
+<area shape="rect" id="Node000006" href="$dd/df6/planning_2test_2tests_8cpp.html#af9952ff008604d30cd729682048e2167" title="scenario: Large piece of track with no outliers" alt="" coords="228,104,282,130"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="361,144,282,126,283,120,362,139"/>
+<area shape="rect" id="Node000007" href="$dd/df6/planning_2test_2tests_8cpp.html#ad18f9702442704e6ba155492f9317546" title="scenario with large track that barely has outliers (only 2)" alt="" coords="228,153,282,179"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="361,169,282,169,282,164,361,164"/>
+<area shape="rect" id="Node000008" href="$dd/df6/planning_2test_2tests_8cpp.html#ac52f5bb92ce5fead956b460602be5875" title="scenario: cones in parallel straight lines that shows that cones exaclty in a circumference are not c..." alt="" coords="228,203,282,228"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="362,193,283,212,282,207,361,188"/>
+<area shape="rect" id="Node000009" href="$dd/df6/planning_2test_2tests_8cpp.html#a24abd4bbadec3144e9f2562ff43add80" title="scenario: small track with sharp edge" alt="" coords="228,252,282,278"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="419,197,330,243,283,260,282,255,328,238,416,192"/>
+<area shape="rect" id="Node000010" href="$d9/db5/class_planning.html#ab04bd1f3fa9458e5a1360cfabacc56a7" title="Callback for track map updates(when msg received)." alt="" coords="186,302,324,343"/>
+<area shape="poly" id="edge9_Node000002_Node000010" title=" " alt="" coords="437,200,389,246,330,292,311,304,308,299,328,288,386,242,433,196"/>
+<area shape="rect" id="Node000004" href="$d3/d72/planning_2test_2performance__test_8cpp.html#a02628d0c19664647a94e9d2bd23d5f5e" title="Execution Time Test." alt="" coords="42,5,96,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="165,21,97,21,97,16,165,16"/>
+<area shape="rect" id="Node000011" href="$d9/db5/class_planning.html#a42a788755e4dedf591d0703a87d70bf2" title="Constructor for the Planning class." alt="" coords="5,309,133,335"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="170,325,133,325,133,320,170,320"/>
 </map>

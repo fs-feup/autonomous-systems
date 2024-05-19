@@ -1,0 +1,5 @@
+<map id="ConeColoring::place_next_cone" name="ConeColoring::place_next_cone">
+<area shape="rect" id="Node000001" title="place the next cone in the path" alt="" coords="186,5,321,46"/>
+<area shape="rect" id="Node000002" href="$dd/d52/class_cone_coloring.html#aea4237fcc98dec4eb82034bf8c71e3a0" title="color the cones based on the cost to reach them" alt="" coords="5,5,138,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="170,28,138,28,138,23,170,23"/>
+</map>

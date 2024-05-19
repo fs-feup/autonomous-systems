@@ -1,0 +1,10 @@
+<map id="ConeColoring::cost" name="ConeColoring::cost">
+<area shape="rect" id="Node000001" title="cost function used to minimize the cost of the path." alt="" coords="5,31,135,56"/>
+<area shape="poly" id="edge4_Node000001_Node000001" title=" " alt="" coords="40,32,34,22,37,12,50,6,70,4,92,7,103,13,101,18,90,12,70,9,51,11,41,16,39,21,44,29"/>
+<area shape="rect" id="Node000002" href="$dd/d52/class_cone_coloring.html#a98c36a16331be4f2318faaa94ab6de17" title="calculate angle between the vector made by last two cones and the vector formed by the last cone and ..." alt="" coords="183,23,318,64"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="135,41,167,41,167,46,135,46"/>
+<area shape="rect" id="Node000003" href="$d8/da1/class_cone.html#a51a49cc249e79d06f6a983250fe809b3" title=" " alt="" coords="366,5,450,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="318,30,350,25,351,30,319,35"/>
+<area shape="rect" id="Node000004" href="$d8/da1/class_cone.html#a952987a9de5d20d7930b3e93c04fd278" title=" " alt="" coords="366,55,450,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="319,51,351,56,350,61,318,56"/>
+</map>

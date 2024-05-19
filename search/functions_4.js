@@ -6,5 +6,6 @@ var searchData=
   ['deleteoutliers_3',['deleteOutliers',['../d6/d2c/class_track.html#a16332dc3e5e2cf486f4cc3b5123e3368',1,'Track']]],
   ['distance_5fsquared_5fto_4',['distance_squared_to',['../d1/d26/struct_position.html#a70b4ea0abb71c5e8940451263ad579c2',1,'Position']]],
   ['distance_5fto_5',['distance_to',['../d1/d26/struct_position.html#ad3eaacb92df1bdbbd5d3700b215f3284',1,'Position']]],
-  ['distancepredict_6',['DistancePredict',['../d0/d47/class_distance_predict.html#a891b03e51801728159376f22be4db624',1,'DistancePredict']]]
+  ['distance_5fto_5fside_6',['distance_to_side',['../dd/d52/class_cone_coloring.html#a78736262a20cf6c4a0c4676369ba095a',1,'ConeColoring']]],
+  ['distancepredict_7',['DistancePredict',['../d0/d47/class_distance_predict.html#a891b03e51801728159376f22be4db624',1,'DistancePredict']]]
 ];

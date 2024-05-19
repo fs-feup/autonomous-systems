@@ -1,5 +1,5 @@
 <map id="Control" name="Control">
-<area shape="rect" id="Node000001" title="Class responsible for the control of the car." alt="" coords="12,119,84,184"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,91,71"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="51,85,51,119,45,119,45,85"/>
+<area shape="rect" id="Node000001" title="Class responsible for the control of the car." alt="" coords="5,119,152,344"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="36,5,121,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="81,86,81,119,76,119,76,86"/>
 </map>

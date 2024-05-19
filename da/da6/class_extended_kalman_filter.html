@@ -93,6 +93,8 @@ $(document).ready(function(){initNavTree('da/da6/class_extended_kalman_filter.ht
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="../../d8/d40/class_extended_kalman_filter-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">ExtendedKalmanFilter Class Reference</div></div>
@@ -108,7 +110,7 @@ Collaboration diagram for ExtendedKalmanFilter:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d8/da0/class_extended_kalman_filter__coll__graph.png" border="0" usemap="#a_extended_kalman_filter_coll__map" alt="Collaboration graph"/></div>
 <map name="a_extended_kalman_filter_coll__map" id="a_extended_kalman_filter_coll__map">
-<area shape="rect" title="Extended Kalman Filter class." alt="" coords="5,5,163,191"/>
+<area shape="rect" title="Extended Kalman Filter class." alt="" coords="5,5,183,351"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -135,6 +137,38 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5a7a39bf3463c3d2dad7c71319a98a8a" id="r_a5a7a39bf3463c3d2dad7c71319a98a8a"><td class="memItemLeft" align="right" valign="top">rclcpp::Time&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#a5a7a39bf3463c3d2dad7c71319a98a8a">get_last_update</a> () const</td></tr>
 <tr class="memdesc:a5a7a39bf3463c3d2dad7c71319a98a8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the last update timestamp.  <br /></td></tr>
 <tr class="separator:a5a7a39bf3463c3d2dad7c71319a98a8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a3595dd28ba06e12edc4c3db689145845" id="r_a3595dd28ba06e12edc4c3db689145845"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXf&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#a3595dd28ba06e12edc4c3db689145845">get_kalman_gain</a> (const Eigen::MatrixXf &amp;H, const Eigen::MatrixXf &amp;<a class="el" href="../../da/da6/class_extended_kalman_filter.html#af7cf364722f683c5f2660fa70405150d">_p_matrix_</a>, const Eigen::MatrixXf &amp;Q) const</td></tr>
+<tr class="memdesc:a3595dd28ba06e12edc4c3db689145845"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flags used to mark first prediction step.  <br /></td></tr>
+<tr class="separator:a3595dd28ba06e12edc4c3db689145845"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a9160897e91106c729d76c878e334fdcc" id="r_a9160897e91106c729d76c878e334fdcc"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXf&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#a9160897e91106c729d76c878e334fdcc">_x_vector_</a></td></tr>
+<tr class="memdesc:a9160897e91106c729d76c878e334fdcc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Expected state vector (localization + mapping)  <br /></td></tr>
+<tr class="separator:a9160897e91106c729d76c878e334fdcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7cf364722f683c5f2660fa70405150d" id="r_af7cf364722f683c5f2660fa70405150d"><td class="memItemLeft" align="right" valign="top">Eigen::SparseMatrix&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#af7cf364722f683c5f2660fa70405150d">_p_matrix_</a></td></tr>
+<tr class="memdesc:af7cf364722f683c5f2660fa70405150d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sparse State covariance matrix.  <br /></td></tr>
+<tr class="separator:af7cf364722f683c5f2660fa70405150d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a257f891a98929e29bc2871ba7eeebc3b" id="r_a257f891a98929e29bc2871ba7eeebc3b"><td class="memItemLeft" align="right" valign="top">rclcpp::Time&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#a257f891a98929e29bc2871ba7eeebc3b">_last_update_</a> = rclcpp::Clock().now()</td></tr>
+<tr class="memdesc:a257f891a98929e29bc2871ba7eeebc3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timestamp of last update.  <br /></td></tr>
+<tr class="separator:a257f891a98929e29bc2871ba7eeebc3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b660f0a70622157b00eaf2152142440" id="r_a9b660f0a70622157b00eaf2152142440"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../db/d66/class_motion_model.html">MotionModel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#a9b660f0a70622157b00eaf2152142440">_motion_model_</a></td></tr>
+<tr class="memdesc:a9b660f0a70622157b00eaf2152142440"><td class="mdescLeft">&#160;</td><td class="mdescRight">Motion Model chosen for prediction step.  <br /></td></tr>
+<tr class="separator:a9b660f0a70622157b00eaf2152142440"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b5352a7a64d8d965e4d0a2e9de166c7" id="r_a0b5352a7a64d8d965e4d0a2e9de166c7"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d7/d64/class_observation_model.html">ObservationModel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#a0b5352a7a64d8d965e4d0a2e9de166c7">_observation_model_</a></td></tr>
+<tr class="memdesc:a0b5352a7a64d8d965e4d0a2e9de166c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Observation Model chosen for correction step.  <br /></td></tr>
+<tr class="separator:a0b5352a7a64d8d965e4d0a2e9de166c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b6b4bb3b62e7bfe95b63c0c79c6e20c" id="r_a7b6b4bb3b62e7bfe95b63c0c79c6e20c"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d1/d14/class_data_association_model.html">DataAssociationModel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#a7b6b4bb3b62e7bfe95b63c0c79c6e20c">_data_association_model_</a></td></tr>
+<tr class="memdesc:a7b6b4bb3b62e7bfe95b63c0c79c6e20c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data Association Model.  <br /></td></tr>
+<tr class="separator:a7b6b4bb3b62e7bfe95b63c0c79c6e20c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8423d2603fa7de209c3bbd96ae5314f" id="r_af8423d2603fa7de209c3bbd96ae5314f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#af8423d2603fa7de209c3bbd96ae5314f">_fixed_map</a> = false</td></tr>
+<tr class="memdesc:af8423d2603fa7de209c3bbd96ae5314f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag to indicate if the map is fixed.  <br /></td></tr>
+<tr class="separator:af8423d2603fa7de209c3bbd96ae5314f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5fce42077c9e49ccba97b9c86c48feb" id="r_ab5fce42077c9e49ccba97b9c86c48feb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#ab5fce42077c9e49ccba97b9c86c48feb">_first_prediction_</a> = true</td></tr>
+<tr class="separator:ab5fce42077c9e49ccba97b9c86c48feb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
@@ -228,9 +262,11 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../da/da6/class_extended_kalman_filter_a0677b8f535ac4b4c59c161d99b9b028b_cgraph.png" border="0" usemap="#ada/da6/class_extended_kalman_filter_a0677b8f535ac4b4c59c161d99b9b028b_cgraph" alt=""/></div>
 <map name="ada/da6/class_extended_kalman_filter_a0677b8f535ac4b4c59c161d99b9b028b_cgraph" id="ada/da6/class_extended_kalman_filter_a0677b8f535ac4b4c59c161d99b9b028b_cgraph">
-<area shape="rect" title="Correction step:" alt="" coords="5,5,153,46"/>
+<area shape="rect" title="Correction step:" alt="" coords="5,39,153,79"/>
 <area shape="rect" href="../../d2/d32/namespacecommon__lib_1_1maths.html#ad0d064c1af2031dc0a6bd45d4ca0981d" title=" " alt="" coords="201,5,375,46"/>
-<area shape="poly" title=" " alt="" coords="153,23,185,23,185,28,153,28"/>
+<area shape="poly" title=" " alt="" coords="153,45,185,39,186,45,153,50"/>
+<area shape="rect" href="../../da/da6/class_extended_kalman_filter.html#a3595dd28ba06e12edc4c3db689145845" title="Flags used to mark first prediction step." alt="" coords="214,71,362,111"/>
+<area shape="poly" title=" " alt="" coords="153,68,199,75,198,80,153,73"/>
 </map>
 </div>
 
@@ -263,6 +299,72 @@ Here is the call graph for this function:</div>
 <dl class="section return"><dt>Returns</dt><dd>Eigen::MatrixXf covariance matrix </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00106">106</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a3595dd28ba06e12edc4c3db689145845" name="a3595dd28ba06e12edc4c3db689145845"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3595dd28ba06e12edc4c3db689145845">&#9670;&#160;</a></span>get_kalman_gain()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::MatrixXf ExtendedKalmanFilter::get_kalman_gain </td>
+          <td>(</td>
+          <td class="paramtype">const Eigen::MatrixXf &amp;&#160;</td>
+          <td class="paramname"><em>H</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::MatrixXf &amp;&#160;</td>
+          <td class="paramname"><em>_p_matrix_</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::MatrixXf &amp;&#160;</td>
+          <td class="paramname"><em>Q</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Flags used to mark first prediction step. </p>
+<p>Calculate the kalman gain</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">H</td><td>jacobian observation model matrix </td></tr>
+    <tr><td class="paramname">_p_matrix_</td><td>state covariance matrix </td></tr>
+    <tr><td class="paramname">Q</td><td>measurement noise matrix </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Eigen::MatrixXf kalman gain matrix </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="../../dd/d7a/ekf_8cpp_source.html#l00096">96</a> of file <a class="el" href="../../dd/d7a/ekf_8cpp_source.html">ekf.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../da/da6/class_extended_kalman_filter_a3595dd28ba06e12edc4c3db689145845_icgraph.png" border="0" usemap="#ada/da6/class_extended_kalman_filter_a3595dd28ba06e12edc4c3db689145845_icgraph" alt=""/></div>
+<map name="ada/da6/class_extended_kalman_filter_a3595dd28ba06e12edc4c3db689145845_icgraph" id="ada/da6/class_extended_kalman_filter_a3595dd28ba06e12edc4c3db689145845_icgraph">
+<area shape="rect" title="Flags used to mark first prediction step." alt="" coords="201,5,348,46"/>
+<area shape="rect" href="../../da/da6/class_extended_kalman_filter.html#a0677b8f535ac4b4c59c161d99b9b028b" title="Correction step:" alt="" coords="5,5,153,46"/>
+<area shape="poly" title=" " alt="" coords="185,28,153,28,153,23,185,23"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -419,6 +521,217 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00116">116</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a7b6b4bb3b62e7bfe95b63c0c79c6e20c" name="a7b6b4bb3b62e7bfe95b63c0c79c6e20c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b6b4bb3b62e7bfe95b63c0c79c6e20c">&#9670;&#160;</a></span>_data_association_model_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../d1/d14/class_data_association_model.html">DataAssociationModel</a>&gt; ExtendedKalmanFilter::_data_association_model_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Data Association Model. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00038">38</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab5fce42077c9e49ccba97b9c86c48feb" name="ab5fce42077c9e49ccba97b9c86c48feb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5fce42077c9e49ccba97b9c86c48feb">&#9670;&#160;</a></span>_first_prediction_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ExtendedKalmanFilter::_first_prediction_ = true</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00041">41</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af8423d2603fa7de209c3bbd96ae5314f" name="af8423d2603fa7de209c3bbd96ae5314f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8423d2603fa7de209c3bbd96ae5314f">&#9670;&#160;</a></span>_fixed_map</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ExtendedKalmanFilter::_fixed_map = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Flag to indicate if the map is fixed. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00040">40</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a257f891a98929e29bc2871ba7eeebc3b" name="a257f891a98929e29bc2871ba7eeebc3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a257f891a98929e29bc2871ba7eeebc3b">&#9670;&#160;</a></span>_last_update_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rclcpp::Time ExtendedKalmanFilter::_last_update_ = rclcpp::Clock().now()</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Timestamp of last update. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00033">33</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a9b660f0a70622157b00eaf2152142440" name="a9b660f0a70622157b00eaf2152142440"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b660f0a70622157b00eaf2152142440">&#9670;&#160;</a></span>_motion_model_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../db/d66/class_motion_model.html">MotionModel</a>&gt; ExtendedKalmanFilter::_motion_model_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Motion Model chosen for prediction step. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00035">35</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a0b5352a7a64d8d965e4d0a2e9de166c7" name="a0b5352a7a64d8d965e4d0a2e9de166c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b5352a7a64d8d965e4d0a2e9de166c7">&#9670;&#160;</a></span>_observation_model_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../d7/d64/class_observation_model.html">ObservationModel</a>&gt; ExtendedKalmanFilter::_observation_model_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Observation Model chosen for correction step. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00037">37</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af7cf364722f683c5f2660fa70405150d" name="af7cf364722f683c5f2660fa70405150d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af7cf364722f683c5f2660fa70405150d">&#9670;&#160;</a></span>_p_matrix_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::SparseMatrix&lt;float&gt; ExtendedKalmanFilter::_p_matrix_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">=</div>
+<div class="line">      Eigen::SparseMatrix&lt;float&gt;(5, 5)</div>
+</div><!-- fragment -->
+<p>Sparse State covariance matrix. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00031">31</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a9160897e91106c729d76c878e334fdcc" name="a9160897e91106c729d76c878e334fdcc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9160897e91106c729d76c878e334fdcc">&#9670;&#160;</a></span>_x_vector_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::VectorXf ExtendedKalmanFilter::_x_vector_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">=</div>
+<div class="line">      Eigen::VectorXf::Zero(5)</div>
+</div><!-- fragment -->
+<p>Expected state vector (localization + mapping) </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00029">29</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
 
 </div>
 </div>

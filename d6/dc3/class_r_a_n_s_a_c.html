@@ -93,6 +93,7 @@ $(document).ready(function(){initNavTree('d6/dc3/class_r_a_n_s_a_c.html','../../
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../db/dfd/class_r_a_n_s_a_c-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">RANSAC Class Reference</div></div>
 </div><!--header-->
@@ -107,7 +108,7 @@ Inheritance diagram for RANSAC:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d0/d1e/class_r_a_n_s_a_c__inherit__graph.png" border="0" usemap="#a_r_a_n_s_a_c_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_r_a_n_s_a_c_inherit__map" id="a_r_a_n_s_a_c_inherit__map">
-<area shape="rect" title="Ground removal using the RANSAC algorithm." alt="" coords="5,119,127,204"/>
+<area shape="rect" title="Ground removal using the RANSAC algorithm." alt="" coords="5,119,127,224"/>
 <area shape="rect" href="../../dc/d84/class_ground_removal.html" title="Abstract class for ground removal from a point cloud." alt="" coords="5,5,127,71"/>
 <area shape="poly" title=" " alt="" coords="69,85,69,119,63,119,63,85"/>
 </map>
@@ -117,7 +118,7 @@ Collaboration diagram for RANSAC:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../df/dda/class_r_a_n_s_a_c__coll__graph.png" border="0" usemap="#a_r_a_n_s_a_c_coll__map" alt="Collaboration graph"/></div>
 <map name="a_r_a_n_s_a_c_coll__map" id="a_r_a_n_s_a_c_coll__map">
-<area shape="rect" title="Ground removal using the RANSAC algorithm." alt="" coords="5,119,127,204"/>
+<area shape="rect" title="Ground removal using the RANSAC algorithm." alt="" coords="5,119,127,224"/>
 <area shape="rect" href="../../dc/d84/class_ground_removal.html" title="Abstract class for ground removal from a point cloud." alt="" coords="5,5,127,71"/>
 <area shape="poly" title=" " alt="" coords="69,85,69,119,63,119,63,85"/>
 </map>
@@ -125,12 +126,21 @@ Collaboration diagram for RANSAC:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac3b8512910618ad313eb2431a88f6662" id="r_ac3b8512910618ad313eb2431a88f6662"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dc3/class_r_a_n_s_a_c.html#ac3b8512910618ad313eb2431a88f6662">RANSAC</a> (double epsilon, int n_tries)</td></tr>
+<tr class="memitem:ac3b8512910618ad313eb2431a88f6662" id="r_ac3b8512910618ad313eb2431a88f6662"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dc3/class_r_a_n_s_a_c.html#ac3b8512910618ad313eb2431a88f6662">RANSAC</a> (double <a class="el" href="../../d6/dc3/class_r_a_n_s_a_c.html#a274e39d2c973e6ce4e763fdc625632ca">epsilon</a>, int <a class="el" href="../../d6/dc3/class_r_a_n_s_a_c.html#a7afab641154e461281258b7c57421941">n_tries</a>)</td></tr>
 <tr class="memdesc:ac3b8512910618ad313eb2431a88f6662"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for the <a class="el" href="../../d6/dc3/class_r_a_n_s_a_c.html" title="Ground removal using the RANSAC algorithm.">RANSAC</a> ground removal algorithm.  <br /></td></tr>
 <tr class="separator:ac3b8512910618ad313eb2431a88f6662"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5679db00dced54c0e28adfcde3ef7ac9" id="r_a5679db00dced54c0e28adfcde3ef7ac9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dc3/class_r_a_n_s_a_c.html#a5679db00dced54c0e28adfcde3ef7ac9">groundRemoval</a> (const pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr point_cloud, pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr ret, <a class="el" href="../../d2/d8d/class_plane.html">Plane</a> &amp;plane) const override</td></tr>
 <tr class="memdesc:a5679db00dced54c0e28adfcde3ef7ac9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform ground removal using the <a class="el" href="../../d6/dc3/class_r_a_n_s_a_c.html" title="Ground removal using the RANSAC algorithm.">RANSAC</a> algorithm.  <br /></td></tr>
 <tr class="separator:a5679db00dced54c0e28adfcde3ef7ac9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a274e39d2c973e6ce4e763fdc625632ca" id="r_a274e39d2c973e6ce4e763fdc625632ca"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dc3/class_r_a_n_s_a_c.html#a274e39d2c973e6ce4e763fdc625632ca">epsilon</a></td></tr>
+<tr class="memdesc:a274e39d2c973e6ce4e763fdc625632ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Epsilon threshold for ground removal.  <br /></td></tr>
+<tr class="separator:a274e39d2c973e6ce4e763fdc625632ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7afab641154e461281258b7c57421941" id="r_a7afab641154e461281258b7c57421941"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dc3/class_r_a_n_s_a_c.html#a7afab641154e461281258b7c57421941">n_tries</a></td></tr>
+<tr class="memdesc:a7afab641154e461281258b7c57421941"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of <a class="el" href="../../d6/dc3/class_r_a_n_s_a_c.html" title="Ground removal using the RANSAC algorithm.">RANSAC</a> iterations.  <br /></td></tr>
+<tr class="separator:a7afab641154e461281258b7c57421941"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Ground removal using the <a class="el" href="../../d6/dc3/class_r_a_n_s_a_c.html" title="Ground removal using the RANSAC algorithm.">RANSAC</a> algorithm. </p>
@@ -231,6 +241,59 @@ Public Member Functions</h2></td></tr>
 <p>Implements <a class="el" href="../../dc/d84/class_ground_removal.html#a6cd0bf6e3b5d5a7b201678ce061162e9">GroundRemoval</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="../../db/d67/ransac_8cpp_source.html#l00013">13</a> of file <a class="el" href="../../db/d67/ransac_8cpp_source.html">ransac.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a274e39d2c973e6ce4e763fdc625632ca" name="a274e39d2c973e6ce4e763fdc625632ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a274e39d2c973e6ce4e763fdc625632ca">&#9670;&#160;</a></span>epsilon</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double RANSAC::epsilon</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Epsilon threshold for ground removal. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d9/dad/ransac_8hpp_source.html#l00017">17</a> of file <a class="el" href="../../d9/dad/ransac_8hpp_source.html">ransac.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7afab641154e461281258b7c57421941" name="a7afab641154e461281258b7c57421941"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7afab641154e461281258b7c57421941">&#9670;&#160;</a></span>n_tries</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int RANSAC::n_tries</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Number of <a class="el" href="../../d6/dc3/class_r_a_n_s_a_c.html" title="Ground removal using the RANSAC algorithm.">RANSAC</a> iterations. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d9/dad/ransac_8hpp_source.html#l00018">18</a> of file <a class="el" href="../../d9/dad/ransac_8hpp_source.html">ransac.hpp</a>.</p>
 
 </div>
 </div>

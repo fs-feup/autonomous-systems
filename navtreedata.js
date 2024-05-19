@@ -27,8 +27,8 @@ var NAVTREE =
   [ "Formula Student Autonomous Systems", "index.html", [
     [ "FS-FEUP Autonomous Systems", "index.html#autotoc_md0", [
       [ "Starting to Develop", "index.html#autotoc_md1", null ],
-      [ "Documentation", "index.html#autotoc_md2", null ],
-      [ "Contributing", "index.html#autotoc_md3", null ]
+      [ "Contributing", "index.html#autotoc_md2", null ],
+      [ "Documentation", "index.html#autotoc_md3", null ]
     ] ],
     [ "Longitudinal Controller", "d7/d97/md_src_2control_2_r_e_a_d_m_e.html", [
       [ "Dependencies", "d7/d97/md_src_2control_2_r_e_a_d_m_e.html#autotoc_md5", null ],
@@ -114,7 +114,8 @@ var NAVTREE =
       [ "Class Members", "functions.html", [
         [ "All", "functions.html", "functions_dup" ],
         [ "Functions", "functions_func.html", "functions_func" ],
-        [ "Variables", "functions_vars.html", null ],
+        [ "Variables", "functions_vars.html", "functions_vars" ],
+        [ "Typedefs", "functions_type.html", null ],
         [ "Related Symbols", "functions_rela.html", null ]
       ] ]
     ] ],
@@ -136,13 +137,14 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter.html#a13bf1ae42a9ffe3b475e160156c513f0",
-"d6/d2c/class_track.html#a416e75e66accc8eb9e3fafc3e8555216",
-"d7/de0/structcommon__lib_1_1sensor__data_1_1_wheel_encoder_data.html#a8708a72dc29d95f59d17bc91d5b5f53c",
-"da/d6c/acceleration__mapper_8py.html#a25b0c8715f104e18ba7fd48de0563d52",
-"dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#ae1687cfbf2d3eef39e4632092feb42ae",
-"de/d76/track_8hpp_source.html",
-"globals_defs.html"
+"d2/de4/namespaceskidpad__mapper.html#a2b63d9d357244854f4e74183d810f27a",
+"d4/dfa/spline_8py.html",
+"d7/d70/wheel__encoders_8cpp_source.html",
+"d9/d2b/namespacecommon__lib_1_1competition__logic.html#a35040fcb9b3c0dd185484dcad9c645c6",
+"db/d88/common__lib_2src_2structures_2cone_8cpp.html",
+"dc/de8/classevaluator_1_1fsds__adapter_1_1_f_s_d_s_adapter.html#a4d43409f6b0d6f4176634483dc4ba1d7",
+"df/d4f/class_performance_test.html#a96b595c81731abc6675d9cdc5fe3555b",
+"namespaces.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

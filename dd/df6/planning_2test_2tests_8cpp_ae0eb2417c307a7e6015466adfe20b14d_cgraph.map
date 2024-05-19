@@ -6,7 +6,7 @@
 <area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="60,110,95,104,96,109,61,115"/>
 <area shape="rect" id="Node000006" href="$d6/d2c/class_track.html#a8b397028d82bd7b6be314ad7410c4cba" title="Get the right side cones." alt="" coords="108,128,260,154"/>
 <area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="60,118,93,124,92,129,60,124"/>
-<area shape="rect" id="Node000007" href="$dd/df6/planning_2test_2tests_8cpp.html#af4e1db1f58b3150cd44904c60de51c46" title="Function to validate cone coloring. Compares each cone&#39;s id to its supposed Id (left side id is even,..." alt="" coords="119,177,249,203"/>
+<area shape="rect" id="Node000007" href="$dd/df6/planning_2test_2tests_8cpp.html#af4e1db1f58b3150cd44904c60de51c46" title="Function to validate cone coloring." alt="" coords="119,177,249,203"/>
 <area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="52,128,109,164,121,169,119,174,106,169,49,132"/>
 <area shape="rect" id="Node000003" href="$d6/d2c/class_track.html#adc534b0f22848fc22d7001bd7e1789dd" title="Add a cone to the track if the color is appropriate." alt="" coords="308,5,419,31"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="237,33,293,25,293,30,237,38"/>

@@ -10,7 +10,7 @@
 <area shape="poly" id="edge21_Node000000_Node000004" title=" " alt="" coords="114,164,168,164,168,169,114,169"/>
 <area shape="rect" id="Node000005" href="$d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car." alt="" coords="174,203,246,228"/>
 <area shape="poly" id="edge22_Node000000_Node000005" title=" " alt="" coords="111,182,175,202,173,207,109,187"/>
-<area shape="rect" id="Node000006" href="$df/d57/class_publisher.html" title=" " alt="" coords="172,252,248,278"/>
+<area shape="rect" id="Node000006" href="$df/d57/class_publisher.html" title="Planning Publisher Class." alt="" coords="172,252,248,278"/>
 <area shape="poly" id="edge23_Node000000_Node000006" title=" " alt="" coords="80,187,111,214,148,239,173,250,171,255,145,243,108,218,76,191"/>
 <area shape="rect" id="Node000007" href="$d4/d43/class_s_e_node.html" title="Class representing the main speed_est node responsible for publishing the calculated vehicle state wi..." alt="" coords="175,301,245,327"/>
 <area shape="poly" id="edge24_Node000000_Node000007" title=" " alt="" coords="70,191,102,240,124,266,148,288,176,303,173,307,145,292,120,269,98,243,65,194"/>

@@ -14,7 +14,7 @@
 <area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="262,114,333,114,333,120,262,120"/>
 <area shape="rect" id="Node000008" href="$d6/d2c/class_track.html#a4619df9e7622b8349af59007c602011e" title="Find a cone by its ID." alt="" coords="362,604,472,630"/>
 <area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="216,488,265,539,298,567,333,591,348,598,346,603,331,595,295,571,262,543,212,491"/>
-<area shape="rect" id="Node000009" href="$d9/d32/class_path_point.html#a88f058d98c6ef403f769cf440358fd23" title=" " alt="" coords="333,705,501,731"/>
+<area shape="rect" id="Node000009" href="$d9/d32/class_path_point.html#a88f058d98c6ef403f769cf440358fd23" title="Euclidean distance to another path point." alt="" coords="333,705,501,731"/>
 <area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="207,488,224,529,251,581,288,636,334,684,353,696,350,701,330,688,284,640,247,584,220,531,202,490"/>
 <area shape="rect" id="Node000010" href="$d9/d32/class_path_point.html#a4f84d924fd7ffcbfd9ae67b669251306" title=" " alt="" coords="550,705,662,731"/>
 <area shape="poly" id="edge17_Node000007_Node000010" title=" " alt="" coords="210,488,229,522,257,563,292,605,333,640,410,663,539,698,538,703,409,669,331,645,288,608,252,566,224,524,205,491"/>

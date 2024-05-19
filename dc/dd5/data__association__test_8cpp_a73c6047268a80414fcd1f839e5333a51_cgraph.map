@@ -1,0 +1,5 @@
+<map id="TEST" name="TEST">
+<area shape="rect" id="Node000001" title="Test case for testing the valid match function &#45; big delta." alt="" coords="5,13,60,39"/>
+<area shape="rect" id="Node000002" href="$d5/dc2/class_simple_maximum_likelihood.html#ac75961c5a3fb028bbf888c4b2ff7ca94" title="Check if the observed landmark is a valid match to the expected landmark It depends on external param..." alt="" coords="108,5,284,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,23,92,23,92,28,60,28"/>
+</map>

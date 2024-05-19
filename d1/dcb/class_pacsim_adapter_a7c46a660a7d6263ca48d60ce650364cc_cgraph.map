@@ -1,5 +1,11 @@
 <map id="PacsimAdapter::PacsimAdapter" name="PacsimAdapter::PacsimAdapter">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,13,211,39"/>
-<area shape="rect" id="Node000002" href="$d3/d7f/class_adapter.html#a3f8e5c482d7fbf9bf4b2834d8fd7a814" title="Function that parses the message sent from the ros IMU topic and calls the respective node&#39;s function..." alt="" coords="259,5,429,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="211,23,243,23,243,28,211,28"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,85,211,111"/>
+<area shape="rect" id="Node000002" href="$d3/d7f/class_adapter.html#a3f8e5c482d7fbf9bf4b2834d8fd7a814" title="Function that parses the message sent from the ros IMU topic and calls the respective node&#39;s function..." alt="" coords="262,5,432,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="152,82,262,48,263,54,154,87"/>
+<area shape="rect" id="Node000003" href="$d1/dcb/class_pacsim_adapter.html#a911ab67545afbbc50e6be888b893ac2e" title="Callback for simulated perception detections from pacsim." alt="" coords="259,70,435,126"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="211,95,243,95,243,100,211,100"/>
+<area shape="rect" id="Node000005" href="$d1/dcb/class_pacsim_adapter.html#aab061eb3b58bd6eae572bd11c63077f8" title="Wheel speed subscription callback, which receives both wheel speeds and steering angle through a sync..." alt="" coords="272,150,422,206"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="150,109,258,145,257,150,148,114"/>
+<area shape="rect" id="Node000004" href="$d9/d2b/namespacecommon__lib_1_1competition__logic.html#a843c25f51bc237705083bc50bafa67af" title=" " alt="" coords="483,77,647,118"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="435,95,467,95,467,100,435,100"/>
 </map>

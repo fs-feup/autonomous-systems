@@ -93,6 +93,7 @@ $(document).ready(function(){initNavTree('d7/df9/class_normal_velocity_model.htm
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../d4/db9/class_normal_velocity_model-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">NormalVelocityModel Class Reference</div></div>
 </div><!--header-->
@@ -107,9 +108,9 @@ Inheritance diagram for NormalVelocityModel:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d7/db5/class_normal_velocity_model__inherit__graph.png" border="0" usemap="#a_normal_velocity_model_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_normal_velocity_model_inherit__map" id="a_normal_velocity_model_inherit__map">
-<area shape="rect" title="Motion estimation that uses the module of the velocity and the rotational velocity." alt="" coords="24,228,189,348"/>
-<area shape="rect" href="../../db/d66/class_motion_model.html" title="Abstract Moiton Model class designed to be implemented by the different motion models." alt="" coords="5,5,208,180"/>
-<area shape="poly" title=" " alt="" coords="109,195,109,228,104,228,104,195"/>
+<area shape="rect" title="Motion estimation that uses the module of the velocity and the rotational velocity." alt="" coords="15,243,199,377"/>
+<area shape="rect" href="../../db/d66/class_motion_model.html" title="Abstract Moiton Model class designed to be implemented by the different motion models." alt="" coords="5,5,208,195"/>
+<area shape="poly" title=" " alt="" coords="109,209,109,243,104,243,104,209"/>
 </map>
 </div>
 <div class="dynheader">
@@ -117,9 +118,9 @@ Collaboration diagram for NormalVelocityModel:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d7/d5c/class_normal_velocity_model__coll__graph.png" border="0" usemap="#a_normal_velocity_model_coll__map" alt="Collaboration graph"/></div>
 <map name="a_normal_velocity_model_coll__map" id="a_normal_velocity_model_coll__map">
-<area shape="rect" title="Motion estimation that uses the module of the velocity and the rotational velocity." alt="" coords="24,228,189,348"/>
-<area shape="rect" href="../../db/d66/class_motion_model.html" title="Abstract Moiton Model class designed to be implemented by the different motion models." alt="" coords="5,5,208,180"/>
-<area shape="poly" title=" " alt="" coords="109,195,109,228,104,228,104,195"/>
+<area shape="rect" title="Motion estimation that uses the module of the velocity and the rotational velocity." alt="" coords="15,243,199,377"/>
+<area shape="rect" href="../../db/d66/class_motion_model.html" title="Abstract Moiton Model class designed to be implemented by the different motion models." alt="" coords="5,5,208,195"/>
+<area shape="poly" title=" " alt="" coords="109,209,109,243,104,243,104,209"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -143,6 +144,11 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a76de9b7caf93cd717bf388aff40ab589 inherit pub_methods_class_motion_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab314640598611a9f7f56769cc020b753 inherit pub_methods_class_motion_model" id="r_ab314640598611a9f7f56769cc020b753"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d66/class_motion_model.html#ab314640598611a9f7f56769cc020b753">~MotionModel</a> ()=default</td></tr>
 <tr class="separator:ab314640598611a9f7f56769cc020b753 inherit pub_methods_class_motion_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:af69c637d3f42434308db0ef4c0e0f875" id="r_af69c637d3f42434308db0ef4c0e0f875"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXf&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df9/class_normal_velocity_model.html#af69c637d3f42434308db0ef4c0e0f875">_process_noise_covariance_matrix</a></td></tr>
+<tr class="separator:af69c637d3f42434308db0ef4c0e0f875"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Motion estimation that uses the module of the velocity and the rotational velocity. </p>
@@ -341,6 +347,31 @@ Here is the caller graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="143,148,56,204,53,200,140,144"/>
 </map>
 </div>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="af69c637d3f42434308db0ef4c0e0f875" name="af69c637d3f42434308db0ef4c0e0f875"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af69c637d3f42434308db0ef4c0e0f875">&#9670;&#160;</a></span>_process_noise_covariance_matrix</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::MatrixXf NormalVelocityModel::_process_noise_covariance_matrix</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../df/dc4/motion__models_8hpp_source.html#l00139">139</a> of file <a class="el" href="../../df/dc4/motion__models_8hpp_source.html">motion_models.hpp</a>.</p>
 
 </div>
 </div>
