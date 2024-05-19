@@ -14,12 +14,13 @@ This repository holds most of the data and all the code on the project for Formu
 
 Before starting, check out:
 - [Project Rules](https://www.notion.so/FS-FEUP-HUB-6873ab8de3b44fad990d264023fbce8b?pvs=4) in Notion (specifically check Software Development rules)
-- [Startup Guide](./docs/tutorials/startup_guide.md)
+- [Environment Setup](./docs/environment_setup.md)
+- [Startup Guide](https://github.com/fs-feup/tutorials/blob/main/tutorials/startup_guide_as.md)
+
+## Contributing
+Check [this guide](./CONTRIBUTING.md).
 
 ## Documentation
 - [Documentation Home](./docs)
-- [Startup Guide](./docs/tutorials/startup_guide.md)
 - [Project Specification](./docs/project-specification.md)
-
-## Contributing
-Check [this guide](./CONTRIBUTING.md)
+- [Doxygen Code Documentation](https://fs-feup.github.io/autonomous-systems/)
