@@ -60,6 +60,11 @@ class PID {
       float antiWindup);
 
   /**
+   * @brief PID default constructor
+   */
+  PID();
+
+  /**
    * @brief Calculate the error signal
    *
    * @param setpoint

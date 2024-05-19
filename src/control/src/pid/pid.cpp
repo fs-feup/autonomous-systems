@@ -113,3 +113,5 @@ void PID::computeOutput() {
     this->out = this->limMin;
   }
 }
+
+PID::PID() {}

@@ -1,3 +1,5 @@
+#ifndef STRUCTURES_HPP_
+#define STRUCTURES_HPP_
 #include <cmath>
 
 class Point {
@@ -39,3 +41,4 @@ class Pose {
         orientation_(orientation),
         velocity_(velocity){};
 };
+#endif  // STRUCTURES_HPP_
