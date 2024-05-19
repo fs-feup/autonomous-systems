@@ -63,7 +63,7 @@ This project depends on submodules to function. Most, if not all of these submod
     git submodule update --init ./ext/as-integration # ROS_CAN, NOT RECURSIVE
     ```
 
-Later on in the guide, a tutorial on the topic will appear: [link](./git_advanced.md) for the curious ones.
+Check the git advanced tutorial in the startup guide later if you want to understand how submodules work.
 
 ### Simulator Setup
 
@@ -81,7 +81,3 @@ This simulator is very light and can run on anything, inside or outside a docker
 
 This simulator is mostly used to simulate the LiDAR because it is quite light, and it requires Ubuntu to work. To set it up, refer to the short [tutorial](./environment_setup/eufs_setup.md) or to the full [tutorial](https://github.com/fs-feup/eufs-sim) in EUFS Simulator's repository.
 
-### Static Analysis
-
-Some other tools are required for development in the AS department, such as Static Analysis tools. 
-If you are not using the docker dev environment, make sure you configure them for your environment.

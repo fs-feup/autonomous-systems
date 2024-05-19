@@ -70,8 +70,8 @@ Remember you will always have to run ```source /opt/ros/humble/setup.bash``` eve
 1. If using Docker desktop and it does not start on start-up, open it.
 2. Open VSCode. If the last project opened in VSCode was this one, it should open inside the container rightaway. If not, proceed with the next steps.
 3. Select the remote connection extension on the left side bar.
-    ![Screenshot](../../assets/ros2_docker_setup/1.png)
+    ![Screenshot](../assets/ros2_docker_setup/1.png)
 4. Click on the ws folder inside the docker container. Make sure you have the remote explorer selected to dev containers.
 5. Check that you are inside the docker container.
-    ![Screenshot](../../assets/ros2_docker_setup/2.png)
+    ![Screenshot](../assets/ros2_docker_setup/2.png)
 6. Program

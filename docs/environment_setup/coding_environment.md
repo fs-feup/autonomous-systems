@@ -43,9 +43,11 @@ git config user.email "useremail"
     eval "$(ssh-agent -s)"
     ```
 1. Add the ssh key to the agent:
+    In Ubuntu:
     ```sh
     ssh-add ~/.ssh/id_ed25519
     ```
+    In Windows:
 1. Copy the SSH public key to your clipboard:
     ```sh
     cat ~/.ssh/id_ed25519.pub
@@ -55,7 +57,7 @@ git config user.email "useremail"
     **Tip:** Alternatively, you can locate the hidden .ssh folder, open the file in your favorite text editor, and copy it to your clipboard.
 1. In the upper-right corner of any page, click your profile photo, then click Settings.
 
-    ![Screenshot of GitHub's account menu showing options for users to view and edit their profile, content, and settings. The menu item "Settings" is outlined in dark orange.](../../assets/coding_environment/ssh-github.png)
+    ![Screenshot of GitHub's account menu showing options for users to view and edit their profile, content, and settings. The menu item "Settings" is outlined in dark orange.](../assets/coding_environment/ssh-github.png)
 
     Screenshot of GitHub's account menu showing options for users to view and edit their profile, content, and settings. The menu item "Settings" is outlined in dark orange.
     In the "Access" section of the sidebar, click  SSH and GPG keys.

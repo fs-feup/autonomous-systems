@@ -2,9 +2,9 @@
 
 This folder contains most of the documentation of the project.
 
-## Tutorials
+## Environment Setup
 
-There are many tutorials in this project in the [tutorials directory](./tutorials). There is also a [Startup Guide](./tutorials/startup_guide.md) suggesting some tutorials and the order in which they should be read/tried.
+Follow the environment setup guide for this repository [here](environment_setup.md).
 
 ## Overleafs
 
@@ -14,5 +14,7 @@ Eventhough the documentation present in this repository in the form of markdown 
 
 - [Project Rules](https://www.notion.so/FS-FEUP-HUB-6873ab8de3b44fad990d264023fbce8b?pvs=4) in Notion (specifically check Software Development rules)
 - [Project Specification](./project-specification.md) - architecture and technologies
-- [ADS-DV api](./ads-dv-api.md) - Imeche vehicle CAN api
-- [Contribute](./tutorials/contribute.md) - consult on how to compile test and run different parts of the project. 
+- [Contribute](../CONTRIBUTING.md) - consult on how to compile test and run different parts of the project.
+- [Diagrams](./diagrams/)
+
+More documentation is in multiple READMEs in the src folder.

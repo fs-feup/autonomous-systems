@@ -1,18 +1,16 @@
-# Project Specifications - OLD
+# Project Specifications
 
 This project aims to develop an Artificial Inteligence system for a computer to be installed in a car, with the objective of making said vehicle autonomous in the driving tasks pruposed in multiple Formula Student competitions.
 
 ## Technologies
 
-### Tools
+### Main Tools
 
 - [Ubuntu 22.04](https://releases.ubuntu.com/focal/)
 - [ROS2 Humble desktop](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html)
-- [Clangformat 10.0.0-4ubuntu1](https://clang.llvm.org/docs/ClangFormat.html) - C++ only
 
-### Libraries
+### Main Libraries
 
-#### In use
 
 - [rclpy](https://docs.ros2.org/foxy/api/rclpy/index.html)
 - [rclcpp](https://docs.ros2.org/latest/api/rclcpp/)
@@ -20,7 +18,6 @@ This project aims to develop an Artificial Inteligence system for a computer to 
 - [unittest](https://docs.python.org/3/library/unittest.html)
 - [Eigen](https://eigen.tuxfamily.org/index.php?title=Main_Page) - [Documentation](https://eigen.tuxfamily.org/dox/group__TutorialSTL.html)
 - [PCL](https://pointclouds.org)
-
 - [libcgal](https://www.cgal.org/)
 - [libgsl](https://www.gnu.org/software/gsl/)
 
