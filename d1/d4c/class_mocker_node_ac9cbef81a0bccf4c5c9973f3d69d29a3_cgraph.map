@@ -1,5 +1,5 @@
 <map id="MockerNode::MockerNode" name="MockerNode::MockerNode">
-<area shape="rect" id="Node000001" title="Default constructer for a new Mocker Node object." alt="" coords="5,80,181,106"/>
+<area shape="rect" id="Node000001" title="Constructor for a new Mocker Node object." alt="" coords="5,80,181,106"/>
 <area shape="rect" id="Node000002" href="$dc/d48/mocks_8cpp.html#ac6dee7a460b6c2a6c8659b8c0ed4bd13" title="recieve path to a file and return it as an input stream" alt="" coords="246,5,386,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="126,77,228,40,248,33,250,38,230,45,128,82"/>
 <area shape="rect" id="Node000003" href="$dc/d48/mocks_8cpp.html#ad7efec0603f4091fdc6e2287143c67ce" title="read planning ground truth information from stream and place it in an array of PathPoint objects" alt="" coords="237,55,395,80"/>

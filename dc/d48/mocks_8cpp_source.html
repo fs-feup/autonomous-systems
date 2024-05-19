@@ -162,7 +162,7 @@ $(document).ready(function(){initNavTree('dc/d48/mocks_8cpp_source.html','../../
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        cone.position.x = std::stod(x);</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        cone.position.y = std::stod(y);</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        cone.color =</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>            color.substr(1) + <span class="stringliteral">&quot;_cone&quot;</span>;  <span class="comment">// 1 is extra space to remove first char being empty</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>            color + <span class="stringliteral">&quot;_cone&quot;</span>;  <span class="comment">// 1 is extra space to remove first char being empty</span></div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        gtruth_mock.cone_array.push_back(cone);</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>      } <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::invalid_argument&amp; e) {</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        RCLCPP_ERROR(rclcpp::get_logger(<span class="stringliteral">&quot;rclcpp&quot;</span>),</div>
