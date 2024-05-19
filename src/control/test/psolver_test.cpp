@@ -8,9 +8,9 @@
 #include "node_/node_control.hpp"
 
 /**
- * @brief Test PurePursuit - update_closest_point()
+ * @brief Test Point Solver - update_closest_point()
  */
-TEST(PurePursuitTests, Test_update_closest_point_1) {
+TEST(PointSolverTests, Test_update_closest_point_1) {
   custom_interfaces::msg::PathPointArray path_msg = create_path_msg("track1");
 
   // Convert path_msg to ConstSharedPtr
@@ -31,10 +31,10 @@ TEST(PurePursuitTests, Test_update_closest_point_1) {
 }
 
 /**
- * @brief Test PurePursuit - update_lookahead_point()
+ * @brief Test Point Solver - update_lookahead_point()
  */
 
-TEST(PurePursuitTests, Test_update_lookahead_point_1) {
+TEST(PointSolverTests, Test_update_lookahead_point_1) {
   custom_interfaces::msg::PathPointArray path_msg = create_path_msg("track1");
 
   // Convert path_msg to ConstSharedPtr

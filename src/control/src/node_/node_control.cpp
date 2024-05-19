@@ -11,23 +11,21 @@ Control::Control() : Node("control") {
   //this->adapter = adapter_map[mode](this);
 }
 
-double Control::orchestrator_callback(
+void Control::orchestrator_callback(
     const custom_interfaces::msg::PathPointArray::ConstSharedPtr &path_msg,
     const custom_interfaces::msg::Pose::ConstSharedPtr &pose_msg) {
+  
   // update vehicle pose
   this->point_solver.update_vehicle_pose(pose_msg);
 
-  double ld = this->update_lookahead_distance(this->k_, this->point_solver.vehicle_pose_.velocity_);
+  // calculate lookahead distance
+  double ld = this->k_* this->point_solver.vehicle_pose_.velocity_;
 
   // find the closest point on the path
   auto [closest_point, closest_point_id] = this->point_solver.update_closest_point(path_msg, this->point_solver.vehicle_pose_.rear_axis_);
 
   // Publish closest point data
-  // UPDATE THIS AND EXTRACK IT TO A FUNCTION
-  custom_interfaces::msg::PathPoint closest_point_msg;
-  closest_point_msg.x = closest_point.x_;
-  closest_point_msg.y = closest_point.y_;
-  this->closest_point_pub->publish(closest_point_msg);
+  publish_closest_point(closest_point);
 
   // update the Lookahead point
   auto [lookahead_point, lookahead_velocity, lookahead_error] =
@@ -55,7 +53,7 @@ double Control::orchestrator_callback(
 
   // publish steering command
   publish_steering(steering_angle);
-  return steering_angle;
+  return;
 }
 
 void Control::publish_lookahead_point(Point lookahead_point, double lookahead_velocity) {
@@ -84,8 +82,4 @@ void Control::publish_steering(double steering) {
   std_msgs::msg::String steering_cmd;
   steering_cmd.data = std::to_string(steering);
   this->result_lat_pub->publish(steering_cmd);
-}
-
-double Control::update_lookahead_distance(double k, double velocity){
-  return k * velocity;
 }

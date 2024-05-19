@@ -47,6 +47,7 @@ if(BUILD_TESTING)
     test/pp_test.cpp
     test/psolver_test.cpp
     test/node_control_test.cpp
+    test/include/utils.cpp
   )
   include_directories(test)  # Include the 'test' directory for your test targets
   include_directories(${CMAKE_CURRENT_SOURCE_DIR})  # Include the current source directory

@@ -2,7 +2,7 @@
 #define NODE_CONTROL_HPP_
 
 #include "adapter_control/adapter.hpp"
-#include "adapter_control/map.hpp"
+//#include "adapter_control/map.hpp"
 //#include "common_lib/structures/structures.hpp"
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "custom_interfaces/msg/path_point.hpp"
@@ -14,7 +14,7 @@
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
 
-class Adapter;
+//class Adapter;
 
 constexpr double K = 1.0;        /**< PP_gain */
 constexpr double LD_MARGIN = 0.1; /**< Lookahead distance margin */
@@ -65,7 +65,7 @@ class Control : public rclcpp::Node {
    * @param path_msg
    * @param pose_msg
    */
-  double orchestrator_callback(
+  void orchestrator_callback(
       const custom_interfaces::msg::PathPointArray::ConstSharedPtr &path_msg,
       const custom_interfaces::msg::Pose::ConstSharedPtr &pose_msg);
 
