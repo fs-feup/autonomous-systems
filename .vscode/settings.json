@@ -101,7 +101,7 @@
         "editor.formatOnSave": true
     },
     "sonarlint.connectedMode.project": {
-        "connectionId": "FS FEUP",
+        "connectionId": "fs-feup",
         "projectKey": "fs-feup_autonomous-systems"
     },
     "sonarlint.pathToCompileCommands": "${workspaceFolder}/compile_commands.json",
