@@ -934,7 +934,7 @@ TEST(ConeColoring, fullconecoloring2) {
   double cost_max = 40;
   for (int i = 1; i < 21; i++) {
     Track track;
-    std::string file_name = "gtruths/tracks/track" + std::to_string(i) + "/converted_track" +
+    std::string file_name = "gtruths/tracks/eufs/track" + std::to_string(i) + "/converted_track" +
                             std::to_string(i) + ".txt";
     track.fillTrack(file_name);
     std::vector<Cone *> test_cones = track.get_left_cones();

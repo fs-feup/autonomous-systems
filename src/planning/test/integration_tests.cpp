@@ -6,7 +6,7 @@
 #include "utils/files.hpp"
 
 class IntegrationTest : public ::testing::Test {
- protected:
+protected:
   // Required Nodes
   std::shared_ptr<rclcpp::Node> locmap_sender;
   std::shared_ptr<rclcpp::Node> control_receiver;
@@ -40,7 +40,9 @@ class IntegrationTest : public ::testing::Test {
 
     // Init Subscriber
     control_sub = control_receiver->create_subscription<custom_interfaces::msg::PathPointArray>(
-        "local_planning", 10, [this](const custom_interfaces::msg::PathPointArray::SharedPtr msg) {
+        "/path_planning/path", 10,
+        [this](const custom_interfaces::msg::PathPointArray::SharedPtr msg) {
+          RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Received path in mock control node");
           received_path = *msg;
           rclcpp::shutdown();  // When receives message shuts down
         });
@@ -52,6 +54,7 @@ class IntegrationTest : public ::testing::Test {
     map_publisher.reset();
     control_sub.reset();
     planning_test.reset();
+    vehicle_state_publisher_.reset();
 
     rclcpp::shutdown();
   }
@@ -205,11 +208,7 @@ TEST_F(IntegrationTest, PUBLISH_PATH1) {
   executor.spin();  // Execute nodes
   auto end_time = std::chrono::high_resolution_clock::now();
   auto duration = std::chrono::duration<double, std::milli>(end_time - start_time);
-
   RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
-  std::ofstream file = openWriteFile("src/performance/exec_time/planning.csv");
-  file << "planning, all, 4 cones, " << duration.count() << "\n";
-  file.close();
   for (const auto &p : received_path.pathpoint_array) {
     EXPECT_EQ(p.y, 0);
     EXPECT_LE(p.x, 35);

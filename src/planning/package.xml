@@ -14,6 +14,13 @@
   <depend>eufs_msgs</depend>
   <depend>fs_msgs</depend>
   <depend>custom_interfaces</depend>
+  <depend>tf2_ros</depend>
+  <depend>tf2_geometry_msgs</depend>
+  <depend>pacsim</depend>
+  <depend>common_lib</depend>
+  <depend>std_srvs</depend>
+  <depend>nav_msgs</depend>
+  <depend>visualization_msgs</depend>
 
   <export>
     <build_type>ament_cmake</build_type>

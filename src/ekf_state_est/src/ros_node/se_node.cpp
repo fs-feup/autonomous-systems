@@ -191,8 +191,8 @@ void SENode::_publish_map() {
   }
   RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
   cone_array_msg.header.stamp = this->get_clock()->now();
-  marker_array_msg = common_lib::communication::marker_array_from_cone_array(*this->_track_map_,
-                                                                             "map_cones", "map");
+  marker_array_msg = common_lib::communication::marker_array_from_structure_array(
+      *this->_track_map_, "map_cones", "map");
   this->_map_publisher_->publish(cone_array_msg);
   this->_visualization_map_publisher_->publish(marker_array_msg);
 }
