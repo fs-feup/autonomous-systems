@@ -8,7 +8,9 @@ var hierarchy =
       [ "FsdsAdapter", "d7/d8e/class_fsds_adapter.html", null ],
       [ "FsdsAdapter", "d7/d8e/class_fsds_adapter.html", null ],
       [ "FsdsAdapter", "d7/d8e/class_fsds_adapter.html", null ],
+      [ "PacSimAdapter", "db/d68/class_pac_sim_adapter.html", null ],
       [ "PacsimAdapter", "d1/dcb/class_pacsim_adapter.html", null ],
+      [ "VehicleAdapter", "d1/df1/class_vehicle_adapter.html", null ],
       [ "VehicleAdapter", "d1/df1/class_vehicle_adapter.html", null ],
       [ "VehicleAdapter", "d1/df1/class_vehicle_adapter.html", null ]
     ] ],
@@ -43,6 +45,9 @@ var hierarchy =
     ] ],
     [ "ExecTimeTestEKFTests", "d2/dac/class_exec_time_test_e_k_f_tests.html", null ],
     [ "ExtendedKalmanFilter", "da/da6/class_extended_kalman_filter.html", null ],
+    [ "std::false_type", null, [
+      [ "common_lib::communication::has_position< T, typename >", "d3/d0c/structcommon__lib_1_1communication_1_1has__position.html", null ]
+    ] ],
     [ "GlobalPathPlanner", "d2/da4/class_global_path_planner.html", null ],
     [ "GroundRemoval", "dc/d84/class_ground_removal.html", [
       [ "RANSAC", "d6/dc3/class_r_a_n_s_a_c.html", null ]
@@ -66,6 +71,7 @@ var hierarchy =
     ] ],
     [ "ObservationData", "d9/d90/struct_observation_data.html", null ],
     [ "ObservationModel", "d7/d64/class_observation_model.html", null ],
+    [ "common_lib::structures::PathPoint", "d9/db0/structcommon__lib_1_1structures_1_1_path_point.html", null ],
     [ "PathPoint", "d9/d32/class_path_point.html", null ],
     [ "PathSmoothing", "d7/db7/class_path_smoothing.html", null ],
     [ "PerceptionExecutionData", "d2/d36/struct_perception_execution_data.html", null ],
@@ -90,6 +96,9 @@ var hierarchy =
       [ "test_perception_metrics.TestEvaluatorMethods", "d7/d4e/classtest__perception__metrics_1_1_test_evaluator_methods.html", null ]
     ] ],
     [ "Track", "d6/d2c/class_track.html", null ],
+    [ "std::true_type", null, [
+      [ "common_lib::communication::has_position< T, std::enable_if_t< std::is_arithmetic_v< decltype(std::declval< T >().position.x)> &&std::is_arithmetic_v< decltype(std::declval< T >().position.y)> > >", "db/d9e/structcommon__lib_1_1communication_1_1has__position_3_01_t_00_01std_1_1enable__if__t_3_01std_1_1e75ec67db346af9d8f02160e644a1dcb.html", null ]
+    ] ],
     [ "common_lib::structures::VehicleState", "d0/d2a/structcommon__lib_1_1structures_1_1_vehicle_state.html", null ],
     [ "common_lib::sensor_data::WheelEncoderData", "d7/de0/structcommon__lib_1_1sensor__data_1_1_wheel_encoder_data.html", null ],
     [ "Node", null, [

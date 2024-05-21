@@ -6,8 +6,8 @@
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="330,75,370,69,371,75,331,80"/>
 <area shape="rect" id="Node000006" href="$d4/d43/class_s_e_node.html#a97f9cce4985902a634cd878f973715e6" title="publishes the localization (&#39;vehicle_localization&#39;) to the topic vehicle_location" alt="" coords="378,96,549,137"/>
 <area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="331,96,363,100,362,105,330,101"/>
-<area shape="rect" id="Node000004" href="$d9/d2b/namespacecommon__lib_1_1competition__logic.html#a843c25f51bc237705083bc50bafa67af" title=" " alt="" coords="618,5,782,46"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="541,45,602,37,603,42,542,51"/>
-<area shape="rect" id="Node000005" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ad67e15445307de5e5f1e53676780fa4b" title="Converts a vector of cones to a marker array." alt="" coords="597,71,803,111"/>
-<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="542,67,582,72,582,78,541,72"/>
+<area shape="rect" id="Node000004" href="$d9/d2b/namespacecommon__lib_1_1competition__logic.html#a843c25f51bc237705083bc50bafa67af" title=" " alt="" coords="629,5,794,46"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="542,46,613,36,614,41,542,51"/>
+<area shape="rect" id="Node000005" href="$d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="597,71,826,111"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="542,66,582,72,582,77,542,72"/>
 </map>

@@ -16,13 +16,14 @@ var searchData=
   ['max_5flandmark_5fdistance_13',['max_landmark_distance',['../d1/d14/class_data_association_model.html#a04f5aa02da550dfb7a88bfc4691f4813',1,'DataAssociationModel']]],
   ['message_14',['message',['../d3/df9/class_invalid_mission_exception.html#ae30310e4c08a8d122ec223f68805e8bd',1,'InvalidMissionException']]],
   ['min_5fcluster_5fsize_15',['min_cluster_size',['../df/d6a/class_d_b_s_c_a_n.html#a470b4553a0a39f33fbee28aa3a32a77d',1,'DBSCAN']]],
-  ['mission_16',['mission',['../de/d3d/class_inspection_mission.html#a4d7a62ee8f37d53201525e439fe22afb',1,'InspectionMission::mission'],['../d9/db5/class_planning.html#a311560ea42b5b6ce304671c93c4dd17e',1,'Planning::mission']]],
+  ['mission_16',['mission',['../de/d3d/class_inspection_mission.html#a4d7a62ee8f37d53201525e439fe22afb',1,'InspectionMission::mission'],['../d9/db5/class_planning.html#a5fe5e85ca8878e7a1a05f6c61e491384',1,'Planning::mission']]],
   ['mission_5fend_5ftimer_17',['mission_end_timer',['../de/d3d/class_inspection_mission.html#a01befd7aaf937a990bd5aadc8e3f61e0',1,'InspectionMission']]],
   ['mission_5fsignal_5fsubscription_18',['mission_signal_subscription',['../de/d3d/class_inspection_mission.html#a63ecc6d7ebc0e6e44fcfd05c30ffe14a',1,'InspectionMission']]],
   ['mission_5fstring_5fmap_19',['MISSION_STRING_MAP',['../d9/d2b/namespacecommon__lib_1_1competition__logic.html#a76b8f6ec90ec92bf0ffc03722128c6af',1,'common_lib::competition_logic']]],
-  ['mode_20',['mode',['../d9/db5/class_planning.html#aa8ef109f949380eb38fd7ef3faab166b',1,'Planning::mode'],['../de/d07/class_perception.html#a80074949b215a153dd7b9430209be6ed',1,'Perception::mode'],['../d7/d49/class_control.html#a3b07dbcb1e368f0eaf75f5d4906c3936',1,'Control::mode']]],
-  ['motion_5fmodel_5f_21',['motion_model_',['../df/d4f/class_performance_test.html#a41843c2254023c3a845364ca49f737a5',1,'PerformanceTest']]],
-  ['motion_5fmodel_5fconstructors_22',['motion_model_constructors',['../df/dc4/motion__models_8hpp.html#a4e10dbc660ae8904edeb9b53ffb84701',1,'motion_models.hpp']]],
-  ['motion_5fmodel_5fnoise_5fmatrixes_23',['motion_model_noise_matrixes',['../df/dc4/motion__models_8hpp.html#a3eca37f5ac2c40dca95d5de56fcfafd8',1,'motion_models.hpp']]],
-  ['motion_5fupdate_5ftest_24',['motion_update_test',['../df/d4f/class_performance_test.html#a41d3d4713b9c7f9e127561894b0b3fd6',1,'PerformanceTest']]]
+  ['mission_5fsubscription_5f_20',['mission_subscription_',['../d1/df1/class_vehicle_adapter.html#a83498734d02faf50ca37a548f6165884',1,'VehicleAdapter']]],
+  ['mode_21',['mode',['../d9/db5/class_planning.html#aa8ef109f949380eb38fd7ef3faab166b',1,'Planning::mode'],['../de/d07/class_perception.html#a80074949b215a153dd7b9430209be6ed',1,'Perception::mode'],['../d7/d49/class_control.html#a3b07dbcb1e368f0eaf75f5d4906c3936',1,'Control::mode']]],
+  ['motion_5fmodel_5f_22',['motion_model_',['../df/d4f/class_performance_test.html#a41843c2254023c3a845364ca49f737a5',1,'PerformanceTest']]],
+  ['motion_5fmodel_5fconstructors_23',['motion_model_constructors',['../df/dc4/motion__models_8hpp.html#a4e10dbc660ae8904edeb9b53ffb84701',1,'motion_models.hpp']]],
+  ['motion_5fmodel_5fnoise_5fmatrixes_24',['motion_model_noise_matrixes',['../df/dc4/motion__models_8hpp.html#a3eca37f5ac2c40dca95d5de56fcfafd8',1,'motion_models.hpp']]],
+  ['motion_5fupdate_5ftest_25',['motion_update_test',['../df/d4f/class_performance_test.html#a41d3d4713b9c7f9e127561894b0b3fd6',1,'PerformanceTest']]]
 ];

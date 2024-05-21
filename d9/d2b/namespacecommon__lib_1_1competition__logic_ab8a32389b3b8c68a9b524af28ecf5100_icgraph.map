@@ -1,11 +1,9 @@
 <map id="common_lib::competition_logic::get_mission_from_eufs" name="common_lib::competition_logic::get_mission_from_eufs">
-<area shape="rect" id="Node000001" title=" " alt="" coords="631,23,828,64"/>
-<area shape="rect" id="Node000002" href="$d0/d1d/class_eufs_adapter.html#a7ad951a56a38fd25acd7febf83004f5c" title=" " alt="" coords="440,23,583,64"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="616,46,584,46,584,41,616,41"/>
-<area shape="rect" id="Node000003" href="$d0/d1d/class_eufs_adapter.html#a01050294fc148f252fa283d2828a4613" title=" " alt="" coords="223,5,392,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="424,35,392,31,393,26,425,30"/>
-<area shape="rect" id="Node000004" href="$d0/d1d/class_eufs_adapter.html#afb57c4eba2192b5277c27858f443811d" title=" " alt="" coords="250,55,365,80"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="425,56,366,63,365,58,424,51"/>
-<area shape="rect" id="Node000005" href="$d0/d1d/class_eufs_adapter.html#a17a85a1ef1c217ae4bef7b4244e17fdb" title=" " alt="" coords="5,55,175,80"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="234,70,175,70,175,65,234,65"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="414,23,610,64"/>
+<area shape="rect" id="Node000002" href="$d0/d1d/class_eufs_adapter.html#a7ad951a56a38fd25acd7febf83004f5c" title=" " alt="" coords="223,23,366,64"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="399,46,366,46,366,41,399,41"/>
+<area shape="rect" id="Node000003" href="$d0/d1d/class_eufs_adapter.html#a17a85a1ef1c217ae4bef7b4244e17fdb" title=" " alt="" coords="5,5,175,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="207,35,175,31,175,26,208,30"/>
+<area shape="rect" id="Node000004" href="$d0/d1d/class_eufs_adapter.html#a01050294fc148f252fa283d2828a4613" title=" " alt="" coords="5,55,175,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="208,56,175,60,175,55,207,51"/>
 </map>

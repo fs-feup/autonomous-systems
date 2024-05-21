@@ -4,9 +4,12 @@ var class_vehicle_adapter =
     [ "WheelSteerPolicy", "d1/df1/class_vehicle_adapter.html#ab5dda75ba22b48e7b2b2f0315f107525", null ],
     [ "VehicleAdapter", "d1/df1/class_vehicle_adapter.html#a895abdaf64b451c11cde895cf8a3464c", null ],
     [ "VehicleAdapter", "d1/df1/class_vehicle_adapter.html#a336673e9b69be57f7c827f248d7dc658", null ],
+    [ "VehicleAdapter", "d1/df1/class_vehicle_adapter.html#aa51d2eac88b23ccad46b03eaac880f49", null ],
     [ "finish", "d1/df1/class_vehicle_adapter.html#af5a6a00282ad3c88150f115127a8a34c", null ],
     [ "finish", "d1/df1/class_vehicle_adapter.html#ad686d31fd37cb1282857c8d7a720d0db", null ],
+    [ "finish", "d1/df1/class_vehicle_adapter.html#ad686d31fd37cb1282857c8d7a720d0db", null ],
     [ "imu_subscription_callback", "d1/df1/class_vehicle_adapter.html#ae04964d74c486580468a81a983c5979c", null ],
+    [ "mission_state_callback", "d1/df1/class_vehicle_adapter.html#a0b85cc4eaff00d391bb1b31e98838f11", null ],
     [ "mission_state_callback", "d1/df1/class_vehicle_adapter.html#a0b85cc4eaff00d391bb1b31e98838f11", null ],
     [ "wheel_speeds_subscription_callback", "d1/df1/class_vehicle_adapter.html#af96b3cf76411fcbfd826a13bd8030649", null ],
     [ "_finished_client_", "d1/df1/class_vehicle_adapter.html#a8b5cd2783b10ea8dbfaf7ed629f54c07", null ],
@@ -17,5 +20,6 @@ var class_vehicle_adapter =
     [ "_rr_wheel_rpm_subscription_", "d1/df1/class_vehicle_adapter.html#a19a948bb5078291f65ba7a29f7490d04", null ],
     [ "_steering_angle_subscription_", "d1/df1/class_vehicle_adapter.html#a4e5f692cc9fc8d9e4e41d73f9c43ef15", null ],
     [ "_sync_", "d1/df1/class_vehicle_adapter.html#a7b97acc77e4ed1bed7e04ff941ff8640", null ],
-    [ "_yaw_accy_imu_subscription_", "d1/df1/class_vehicle_adapter.html#a158f10a0ee94e7bf0d47b2a390d27ce4", null ]
+    [ "_yaw_accy_imu_subscription_", "d1/df1/class_vehicle_adapter.html#a158f10a0ee94e7bf0d47b2a390d27ce4", null ],
+    [ "mission_subscription_", "d1/df1/class_vehicle_adapter.html#a83498734d02faf50ca37a548f6165884", null ]
 ];

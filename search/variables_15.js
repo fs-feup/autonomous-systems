@@ -7,5 +7,6 @@ var searchData=
   ['vertical_5fang_5fres_4',['vertical_ang_res',['../d0/d47/class_distance_predict.html#a3b541b7549f590e59929e7d89e817e4d',1,'DistancePredict']]],
   ['virtual_5fleft_5fcone_5',['virtual_left_cone',['../dd/d52/class_cone_coloring.html#ab8480545b403be8b4314e24d2c932b4e',1,'ConeColoring']]],
   ['virtual_5fright_5fcone_6',['virtual_right_cone',['../dd/d52/class_cone_coloring.html#a3046ed3b01b024df5c958e628f39b7ce',1,'ConeColoring']]],
-  ['vl_5fsub_5f_7',['vl_sub_',['../d9/db5/class_planning.html#a3cedf8f0830477fe7496dd6d9af12300',1,'Planning']]]
+  ['visualization_5fpub_5f_7',['visualization_pub_',['../d9/db5/class_planning.html#a3b50c4db91c25c43435a1a52b6a19459',1,'Planning']]],
+  ['vl_5fsub_5f_8',['vl_sub_',['../d9/db5/class_planning.html#a3cedf8f0830477fe7496dd6d9af12300',1,'Planning']]]
 ];

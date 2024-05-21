@@ -1,17 +1,20 @@
 <map id="Adapter" name="Adapter">
-<area shape="rect" id="Node000001" title="Adapter class for coordinating communication between different modes and Control module." alt="" coords="229,5,413,431"/>
-<area shape="rect" id="Node000002" href="$d0/d1d/class_eufs_adapter.html" title="Adapter class for interfacing with EUFS (Edinburgh University Formula Student)." alt="" coords="5,479,189,917"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="225,394,184,480,179,478,220,391"/>
-<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="225,430,192,502,187,500,221,428"/>
-<area shape="poly" id="edge3_Node000001_Node000002" title=" " alt="" coords="236,445,192,538,187,536,231,443"/>
-<area shape="rect" id="Node000003" href="$d7/d8e/class_fsds_adapter.html" title="Adapter class for interfacing with FSDS (Formula Student Driverless Simulator)." alt="" coords="213,511,429,885"/>
-<area shape="poly" id="edge4_Node000001_Node000003" title=" " alt="" coords="297,446,298,511,292,511,292,446"/>
-<area shape="poly" id="edge5_Node000001_Node000003" title=" " alt="" coords="315,446,315,511,310,511,310,446"/>
-<area shape="poly" id="edge6_Node000001_Node000003" title=" " alt="" coords="333,446,333,511,327,511,328,446"/>
-<area shape="poly" id="edge7_Node000001_Node000003" title=" " alt="" coords="351,446,350,511,345,511,346,446"/>
-<area shape="rect" id="Node000004" href="$d1/dcb/class_pacsim_adapter.html" title=" " alt="" coords="454,566,653,830"/>
-<area shape="poly" id="edge8_Node000001_Node000004" title=" " alt="" coords="422,421,492,565,487,567,417,423"/>
-<area shape="rect" id="Node000005" href="$d1/df1/class_vehicle_adapter.html" title="Adapter class for Vehicle purposes." alt="" coords="677,511,877,885"/>
-<area shape="poly" id="edge9_Node000001_Node000005" title=" " alt="" coords="427,285,483,323,543,369,602,421,655,477,680,509,675,512,651,480,598,425,540,373,480,328,424,289"/>
-<area shape="poly" id="edge10_Node000001_Node000005" title=" " alt="" coords="428,272,489,312,556,360,621,416,679,477,704,509,699,512,675,480,617,420,552,365,486,316,425,277"/>
+<area shape="rect" id="Node000001" title="Adapter class for coordinating communication between different modes and Control module." alt="" coords="229,5,413,391"/>
+<area shape="rect" id="Node000002" href="$d0/d1d/class_eufs_adapter.html" title="Adapter class for interfacing with EUFS (Edinburgh University Formula Student)." alt="" coords="5,439,189,957"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="225,346,180,439,175,437,220,344"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="225,393,204,440,192,467,187,465,199,438,221,391"/>
+<area shape="poly" id="edge3_Node000001_Node000002" title=" " alt="" coords="244,405,228,440,192,523,187,521,223,438,239,403"/>
+<area shape="rect" id="Node000003" href="$d7/d8e/class_fsds_adapter.html" title="Adapter class for interfacing with FSDS (Formula Student Driverless Simulator)." alt="" coords="213,501,429,895"/>
+<area shape="poly" id="edge4_Node000001_Node000003" title=" " alt="" coords="297,406,298,501,292,501,292,406"/>
+<area shape="poly" id="edge5_Node000001_Node000003" title=" " alt="" coords="315,406,315,501,310,501,310,406"/>
+<area shape="poly" id="edge6_Node000001_Node000003" title=" " alt="" coords="333,406,333,501,327,501,328,406"/>
+<area shape="poly" id="edge7_Node000001_Node000003" title=" " alt="" coords="351,406,350,501,345,501,345,406"/>
+<area shape="rect" id="Node000004" href="$db/d68/class_pac_sim_adapter.html" title=" " alt="" coords="454,595,591,801"/>
+<area shape="poly" id="edge8_Node000001_Node000004" title=" " alt="" coords="422,387,444,438,473,517,497,595,492,596,468,519,439,440,417,389"/>
+<area shape="rect" id="Node000005" href="$d1/dcb/class_pacsim_adapter.html" title=" " alt="" coords="615,566,814,830"/>
+<area shape="poly" id="edge9_Node000001_Node000005" title=" " alt="" coords="427,267,520,343,566,388,606,437,645,499,675,565,670,567,640,502,602,440,562,392,516,347,424,271"/>
+<area shape="rect" id="Node000006" href="$d1/df1/class_vehicle_adapter.html" title="Adapter class for Vehicle purposes." alt="" coords="839,471,1039,925"/>
+<area shape="poly" id="edge10_Node000001_Node000006" title=" " alt="" coords="428,229,517,260,617,305,667,332,716,363,763,398,805,437,841,483,837,487,801,440,759,402,713,368,665,337,615,310,515,265,426,234"/>
+<area shape="poly" id="edge11_Node000001_Node000006" title=" " alt="" coords="429,223,523,254,629,299,683,327,735,360,784,396,829,437,856,470,851,473,825,441,781,400,732,364,680,332,627,304,521,259,427,228"/>
+<area shape="poly" id="edge12_Node000001_Node000006" title=" " alt="" coords="429,218,528,249,641,294,698,323,754,356,806,394,853,437,879,470,875,473,849,441,802,398,751,361,696,327,639,299,527,254,427,223"/>
 </map>

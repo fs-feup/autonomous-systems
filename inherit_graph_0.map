@@ -1,11 +1,13 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$d3/d7f/class_adapter.html" title="Adapter class for coordinating communication between different modes and Control module." alt="" coords="5,80,72,106"/>
-<area shape="rect" id="Node000001" href="$d0/d1d/class_eufs_adapter.html" title="Adapter class for interfacing with EUFS (Edinburgh University Formula Student)." alt="" coords="129,5,221,31"/>
-<area shape="poly" id="edge1_Node000000_Node000001" title=" " alt="" coords="70,69,118,40,140,29,142,34,121,45,73,73"/>
-<area shape="rect" id="Node000002" href="$d7/d8e/class_fsds_adapter.html" title="Adapter class for interfacing with FSDS (Formula Student Driverless Simulator)." alt="" coords="127,55,223,80"/>
-<area shape="poly" id="edge2_Node000000_Node000002" title=" " alt="" coords="87,81,126,74,127,79,88,86"/>
-<area shape="rect" id="Node000003" href="$d1/dcb/class_pacsim_adapter.html" title=" " alt="" coords="120,104,230,130"/>
-<area shape="poly" id="edge3_Node000000_Node000003" title=" " alt="" coords="88,99,119,104,119,110,87,104"/>
-<area shape="rect" id="Node000004" href="$d1/df1/class_vehicle_adapter.html" title="Adapter class for Vehicle purposes." alt="" coords="120,153,230,179"/>
-<area shape="poly" id="edge4_Node000000_Node000004" title=" " alt="" coords="74,112,121,140,143,151,141,155,118,145,71,117"/>
+<area shape="rect" id="Node000000" href="$d3/d7f/class_adapter.html" title="Adapter class for coordinating communication between different modes and Control module." alt="" coords="5,104,72,130"/>
+<area shape="rect" id="Node000001" href="$d0/d1d/class_eufs_adapter.html" title="Adapter class for interfacing with EUFS (Edinburgh University Formula Student)." alt="" coords="130,5,222,31"/>
+<area shape="poly" id="edge1_Node000000_Node000001" title=" " alt="" coords="60,91,86,65,118,40,138,29,141,34,121,44,90,69,63,95"/>
+<area shape="rect" id="Node000002" href="$d7/d8e/class_fsds_adapter.html" title="Adapter class for interfacing with FSDS (Formula Student Driverless Simulator)." alt="" coords="128,55,224,80"/>
+<area shape="poly" id="edge2_Node000000_Node000002" title=" " alt="" coords="85,97,137,78,139,83,87,102"/>
+<area shape="rect" id="Node000003" href="$db/d68/class_pac_sim_adapter.html" title=" " alt="" coords="120,104,232,130"/>
+<area shape="poly" id="edge3_Node000000_Node000003" title=" " alt="" coords="87,114,119,114,119,120,87,120"/>
+<area shape="rect" id="Node000004" href="$d1/dcb/class_pacsim_adapter.html" title=" " alt="" coords="121,153,231,179"/>
+<area shape="poly" id="edge4_Node000000_Node000004" title=" " alt="" coords="87,131,139,150,137,155,85,136"/>
+<area shape="rect" id="Node000005" href="$d1/df1/class_vehicle_adapter.html" title="Adapter class for Vehicle purposes." alt="" coords="121,203,231,228"/>
+<area shape="poly" id="edge5_Node000000_Node000005" title=" " alt="" coords="63,139,90,165,121,189,141,200,138,205,118,194,86,169,60,143"/>
 </map>

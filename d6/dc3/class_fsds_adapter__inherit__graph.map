@@ -1,8 +1,8 @@
 <map id="FsdsAdapter" name="FsdsAdapter">
-<area shape="rect" id="Node000001" title="Adapter class for interfacing with FSDS (Formula Student Driverless Simulator)." alt="" coords="5,479,221,853"/>
-<area shape="rect" id="Node000002" href="$d3/d7f/class_adapter.html" title="Adapter class for coordinating communication between different modes and Control module." alt="" coords="21,5,205,431"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="89,445,89,479,84,479,84,445"/>
-<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="107,445,107,479,102,479,102,445"/>
-<area shape="poly" id="edge3_Node000001_Node000002" title=" " alt="" coords="125,445,125,479,120,479,120,445"/>
-<area shape="poly" id="edge4_Node000001_Node000002" title=" " alt="" coords="143,445,143,479,137,479,138,445"/>
+<area shape="rect" id="Node000001" title="Adapter class for interfacing with FSDS (Formula Student Driverless Simulator)." alt="" coords="5,439,221,833"/>
+<area shape="rect" id="Node000002" href="$d3/d7f/class_adapter.html" title="Adapter class for coordinating communication between different modes and Control module." alt="" coords="21,5,205,391"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="89,405,89,439,84,439,84,405"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="107,405,107,439,102,439,102,405"/>
+<area shape="poly" id="edge3_Node000001_Node000002" title=" " alt="" coords="125,405,125,439,120,439,120,405"/>
+<area shape="poly" id="edge4_Node000001_Node000002" title=" " alt="" coords="143,405,143,439,138,439,138,405"/>
 </map>

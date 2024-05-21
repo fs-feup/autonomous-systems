@@ -1,7 +1,7 @@
 var searchData=
 [
   ['id_0',['id',['../d8/da1/class_cone.html#ac6cacaf2e929d3c6bb5a574f13a380e0',1,'Cone']]],
-  ['ideal_5fvelocity_1',['ideal_velocity',['../d4/d89/class_inspection_functions.html#a2797877f48194ee41296eab767e813af',1,'InspectionFunctions']]],
+  ['ideal_5fvelocity_1',['ideal_velocity',['../d9/db0/structcommon__lib_1_1structures_1_1_path_point.html#a61e2be70318b74a15d1aef0de3333eaa',1,'common_lib::structures::PathPoint::ideal_velocity'],['../d4/d89/class_inspection_functions.html#a2797877f48194ee41296eab767e813af',1,'InspectionFunctions::ideal_velocity']]],
   ['initial_5fcone_5fleft_2',['initial_cone_left',['../dd/d52/class_cone_coloring.html#a18d7b6e11f8cbff579d4d723463f290a',1,'ConeColoring']]],
   ['initial_5fcone_5fright_3',['initial_cone_right',['../dd/d52/class_cone_coloring.html#ada8dfd5ea376a2aed83ad52eeb5b5b34',1,'ConeColoring']]],
   ['initial_5flimit_4',['initial_limit',['../d5/dc2/class_simple_maximum_likelihood.html#a938568b774c42bdf8fe568a5b46b1375',1,'SimpleMaximumLikelihood']]],

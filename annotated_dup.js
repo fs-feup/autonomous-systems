@@ -1,12 +1,17 @@
 var annotated_dup =
 [
     [ "common_lib", "dd/d5f/namespacecommon__lib.html", [
+      [ "communication", "d1/dd0/namespacecommon__lib_1_1communication.html", [
+        [ "has_position", "d3/d0c/structcommon__lib_1_1communication_1_1has__position.html", null ],
+        [ "has_position< T, std::enable_if_t< std::is_arithmetic_v< decltype(std::declval< T >().position.x)> &&std::is_arithmetic_v< decltype(std::declval< T >().position.y)> > >", "db/d9e/structcommon__lib_1_1communication_1_1has__position_3_01_t_00_01std_1_1enable__if__t_3_01std_1_1e75ec67db346af9d8f02160e644a1dcb.html", null ]
+      ] ],
       [ "sensor_data", "dc/d34/namespacecommon__lib_1_1sensor__data.html", [
         [ "ImuData", "df/d48/structcommon__lib_1_1sensor__data_1_1_imu_data.html", "df/d48/structcommon__lib_1_1sensor__data_1_1_imu_data" ],
         [ "WheelEncoderData", "d7/de0/structcommon__lib_1_1sensor__data_1_1_wheel_encoder_data.html", "d7/de0/structcommon__lib_1_1sensor__data_1_1_wheel_encoder_data" ]
       ] ],
       [ "structures", "d9/d8a/namespacecommon__lib_1_1structures.html", [
         [ "Cone", "d6/dd0/structcommon__lib_1_1structures_1_1_cone.html", "d6/dd0/structcommon__lib_1_1structures_1_1_cone" ],
+        [ "PathPoint", "d9/db0/structcommon__lib_1_1structures_1_1_path_point.html", "d9/db0/structcommon__lib_1_1structures_1_1_path_point" ],
         [ "Pose", "d8/d4a/structcommon__lib_1_1structures_1_1_pose.html", "d8/d4a/structcommon__lib_1_1structures_1_1_pose" ],
         [ "Position", "dc/d1b/structcommon__lib_1_1structures_1_1_position.html", "dc/d1b/structcommon__lib_1_1structures_1_1_position" ],
         [ "VehicleState", "d0/d2a/structcommon__lib_1_1structures_1_1_vehicle_state.html", "d0/d2a/structcommon__lib_1_1structures_1_1_vehicle_state" ]
@@ -72,6 +77,7 @@ var annotated_dup =
     [ "ObservationData", "d9/d90/struct_observation_data.html", "d9/d90/struct_observation_data" ],
     [ "ObservationModel", "d7/d64/class_observation_model.html", "d7/d64/class_observation_model" ],
     [ "PacsimAdapter", "d1/dcb/class_pacsim_adapter.html", "d1/dcb/class_pacsim_adapter" ],
+    [ "PacSimAdapter", "db/d68/class_pac_sim_adapter.html", "db/d68/class_pac_sim_adapter" ],
     [ "PathPoint", "d9/d32/class_path_point.html", "d9/d32/class_path_point" ],
     [ "PathSmoothing", "d7/db7/class_path_smoothing.html", "d7/db7/class_path_smoothing" ],
     [ "Perception", "de/d07/class_perception.html", "de/d07/class_perception" ],

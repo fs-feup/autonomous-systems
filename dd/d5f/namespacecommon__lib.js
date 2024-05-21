@@ -1,10 +1,6 @@
 var namespacecommon__lib =
 [
-    [ "communication", "d1/dd0/namespacecommon__lib_1_1communication.html", [
-      [ "marker_array_from_cone_array", "d1/dd0/namespacecommon__lib_1_1communication.html#ad67e15445307de5e5f1e53676780fa4b", null ],
-      [ "marker_color_map", "d1/dd0/namespacecommon__lib_1_1communication.html#ab58283d47ed9643ba801c24893d8f4ad", null ],
-      [ "marker_shape_map", "d1/dd0/namespacecommon__lib_1_1communication.html#aa1cdb5d1026cb2d737e07ad24d069a48", null ]
-    ] ],
+    [ "communication", "d1/dd0/namespacecommon__lib_1_1communication.html", "d1/dd0/namespacecommon__lib_1_1communication" ],
     [ "competition_logic", "d9/d2b/namespacecommon__lib_1_1competition__logic.html", [
       [ "Color", "d9/d2b/namespacecommon__lib_1_1competition__logic.html#a36deec2ca2854e7543cc4d5caab92feb", [
         [ "BLUE", "d9/d2b/namespacecommon__lib_1_1competition__logic.html#a36deec2ca2854e7543cc4d5caab92feba1b3e1ee9bff86431dea6b181365ba65f", null ],
