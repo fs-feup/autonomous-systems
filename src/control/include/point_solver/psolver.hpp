@@ -1,5 +1,4 @@
-#ifndef POINT_SOLVER_HPP_
-#define POINT_SOLVER_HPP_
+#pragma once
 
 #include <chrono>
 #include <functional>
@@ -41,7 +40,7 @@ class PointSolver {
    * @return std::pair<Point, int> closest point and index
    */
   std::pair<Point, int> update_closest_point(
-      const custom_interfaces::msg::PathPointArray::ConstSharedPtr &path_msg, Point rear_axis_point);
+      const custom_interfaces::msg::PathPointArray::ConstSharedPtr &path_msg, Point rear_axis_point) const ;
 
   /**
    * @brief Update Lookahead point
@@ -51,7 +50,7 @@ class PointSolver {
    */
   std::tuple<Point, double, bool> update_lookahead_point(
       const custom_interfaces::msg::PathPointArray::ConstSharedPtr &path_msg, Point rear_axis_point,
-      int closest_point_id, double ld, double ld_margin);
+      int closest_point_id, double ld, double ld_margin) const ;
 
   /**
    * @brief Calculate rear axis coordinates
@@ -62,18 +61,17 @@ class PointSolver {
    *
    * @return Point
    */
-  Point cg_2_rear_axis(Point cg, double heading, double dist_cg_2_rear_axis);
+  Point cg_2_rear_axis(Point cg, double heading, double dist_cg_2_rear_axis)const;
 
   /**
    * @brief update the LookaheadDistance based on a new velocity
    */
-  double update_lookahead_distance(double k, double velocity);
+  double update_lookahead_distance(double k, double velocity)const;
 
   /**
    * @brief Update vehicle pose
    *
    * @param pose msg
    */
-  void update_vehicle_pose(const custom_interfaces::msg::Pose::ConstSharedPtr &pose_msg);
+  void update_vehicle_pose(const custom_interfaces::msg::Pose::ConstSharedPtr &pose_msg) ;
 };
-#endif  // POINT_SOLVER_HPP_

@@ -1,5 +1,4 @@
-#ifndef PP_CONTROLLER_HPP_
-#define PP_CONTROLLER_HPP_
+#pragma once
 
 #include "common_lib/structures/structures.hpp"
 #include "rclcpp/rclcpp.hpp"
@@ -74,8 +73,7 @@ class PurePursuit {
    *
    * @return double
    */
-  double cross_product(Point P1, Point P2, Point P3);
+  double cross_product(Point P1, Point P2, Point P3)const;
 
-  double check_limits(double value, double max_value, double min_value);
+  double check_limits(double value, double max_value, double min_value)const;
 };
-#endif  // PP_CONTROLLER_HPP_

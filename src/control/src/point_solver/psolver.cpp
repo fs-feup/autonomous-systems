@@ -3,7 +3,7 @@
 /**
  * @brief PointSolver Constructer
  */
-PointSolver::PointSolver() {}
+PointSolver::PointSolver() = default;
 
 /**
  * @brief Update vehicle pose
@@ -11,7 +11,7 @@ PointSolver::PointSolver() {}
  * @param pose msg
  */
 void PointSolver::update_vehicle_pose(
-    const custom_interfaces::msg::Pose::ConstSharedPtr &pose_msg) {
+    const custom_interfaces::msg::Pose::ConstSharedPtr &pose_msg){
   // update to Rear Wheel position
   this->vehicle_pose_.cg_.x_ = pose_msg->position.x;
   this->vehicle_pose_.cg_.y_ = pose_msg->position.y;
@@ -29,8 +29,8 @@ void PointSolver::update_vehicle_pose(
  *
  * @param path
  */
-std::pair<Point, int> PointSolver::update_closest_point(
-    const custom_interfaces::msg::PathPointArray::ConstSharedPtr &path_msg, Point rear_axis_point) {
+std::pair<Point, int> PointSolver::update_closest_point (
+    const custom_interfaces::msg::PathPointArray::ConstSharedPtr &path_msg, Point rear_axis_point) const {
   double min_distance = 1e9;
   Point closest_point = Point();
   Point aux_point = Point();
@@ -53,12 +53,12 @@ std::pair<Point, int> PointSolver::update_closest_point(
  * @param path
  * @return std::pair<Point, int> lookahead point and error status (1 = error)
  */
-std::tuple<Point, double, bool> PointSolver::update_lookahead_point(
+std::tuple<Point, double, bool> PointSolver::update_lookahead_point  (
     const custom_interfaces::msg::PathPointArray::ConstSharedPtr &path_msg, Point rear_axis_point,
-    int closest_point_id, double ld, double ld_margin) {
+    int closest_point_id, double ld, double ld_margin)const {
   Point lookahead_point = Point();
   Point aux_point = Point();
-  for (int i = closest_point_id; i < path_msg->pathpoint_array.size(); i++) {
+  for (unsigned i = closest_point_id; i < path_msg->pathpoint_array.size(); i++) {
     aux_point = Point(path_msg->pathpoint_array[i].x, path_msg->pathpoint_array[i].y);
     double distance = rear_axis_point.euclidean_distance(aux_point);
     if (std::abs(distance - ld) <= (ld * ld_margin)) {
@@ -80,9 +80,9 @@ std::tuple<Point, double, bool> PointSolver::update_lookahead_point(
 /**
  * @brief update the LookaheadDistance based on a new velocity
  */
-double PointSolver::update_lookahead_distance(double k, double velocity) { return k * velocity; }
+double PointSolver::update_lookahead_distance (double k, double velocity) const { return k * velocity; };
 
-Point PointSolver::cg_2_rear_axis(Point cg, double heading, double dist_cg_2_rear_axis) {
+Point PointSolver::cg_2_rear_axis(Point cg, double heading, double dist_cg_2_rear_axis) const {
   Point rear_axis = Point();
   rear_axis.x_ = cg.x_ - dist_cg_2_rear_axis * cos(heading);
   rear_axis.y_ = cg.y_ - dist_cg_2_rear_axis * sin(heading);

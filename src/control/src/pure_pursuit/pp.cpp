@@ -5,7 +5,7 @@
  *
  */
 
-PurePursuit::PurePursuit() {}
+PurePursuit::PurePursuit() = default;
 
 double PurePursuit::pp_steering_control_law(Point rear_axis, Point cg, Point lookahead_point,
                                             double dist_cg_2_rear_axis, double wheel_base,
@@ -29,20 +29,19 @@ double PurePursuit::calculate_alpha(Point vehicle_rear_wheel, Point vehicle_cg,
                        pow(lookhead_point_2_cg, 2)) /
                       (2 * lookhead_point_2_rear_wheel * dist_cg_2_rear_axis));
 
-  double cross_product = this->cross_product(vehicle_rear_wheel, vehicle_cg, lookahead_point);
 
-  if (cross_product < 0) {
+  if (double cross_product = this->cross_product(vehicle_rear_wheel, vehicle_cg, lookahead_point); cross_product < 0) {
     alpha = -alpha;
   }
 
   return alpha;
 }
 
-double PurePursuit::cross_product(Point P1, Point P2, Point P3) {
-  return (P2.x_ - P1.x_) * (P3.y_ - P1.y_) - (P2.y_ - P1.y_) * (P3.x_ - P1.x_);
+double PurePursuit::cross_product(Point p1, Point p2, Point p3) const {
+  return (p2.x_ - p1.x_) * (p3.y_ - p1.y_) - (p2.y_ - p1.y_) * (p3.x_ - p1.x_);
 }
 
-double PurePursuit::check_limits(double value, double max, double min) {
+double PurePursuit::check_limits(double value, double max, double min) const{
   if (value > max) {
     return max;
   } else if (value < min) {

@@ -23,7 +23,7 @@ TEST(PointSolverTests, Test_update_closest_point_1) {
   Point expected_point = Point(46.5, -12.37); 
   int expected_id = 76;
 
-  auto result = ctrl.point_solver.update_closest_point(path_msg_ptr, rear_axis);
+  auto result = ctrl.point_solver_.update_closest_point(path_msg_ptr, rear_axis);
   
   EXPECT_EQ(result.first.x_, expected_point.x_);
   EXPECT_EQ(result.first.y_, expected_point.y_);
@@ -57,7 +57,7 @@ TEST(PointSolverTests, Test_update_lookahead_point_1) {
   int closest_point_id = 76;
   Point expected_point = Point(48.75, -10.25);
 
-  auto [result_point, result_velocity, result_error] = ctrl.point_solver.update_lookahead_point(path_msg_ptr, rear_axis, closest_point_id, ld, ld_margin);
+  auto [result_point, result_velocity, result_error] = ctrl.point_solver_.update_lookahead_point(path_msg_ptr, rear_axis, closest_point_id, ld, ld_margin);
   
   EXPECT_EQ(result_point.x_, expected_point.x_);
   EXPECT_EQ(result_point.y_, expected_point.y_);

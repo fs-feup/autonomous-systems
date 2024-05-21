@@ -13,8 +13,8 @@
  * @param limMax Maximum output value
  */
 
-PID::PID(float Kp, float Ki, float Kd, float tau, float T, float limMin, float limMax,
-         float antiWindup) {
+PID::PID(double Kp, double Ki, double Kd, double tau, double T, double limMin, double limMax,
+         double antiWindup) {
   this->Kp = Kp;
   this->Ki = Ki;
   this->Kd = Kd;
@@ -36,14 +36,14 @@ PID::PID(float Kp, float Ki, float Kd, float tau, float T, float limMin, float l
  *
  * @param setpoint
  * @param measurement
- * @return float
+ * @return double
  */
 
-float PID::update(float setpoint, float measurement) {
+double PID::update(double setpoint, double measurement) {
   /*
    * Error signal
    */
-  float error = calculateError(setpoint, measurement);
+  double error = calculateError(setpoint, measurement);
 
   /*
    * Proportional term
@@ -82,23 +82,23 @@ float PID::update(float setpoint, float measurement) {
   return this->out;
 }
 
-float PID::calculateError(float setpoint, float measurement) { return setpoint - measurement; }
+double PID::calculateError(double setpoint, double measurement) { return setpoint - measurement; }
 
-void PID::calculateProportionalTerm(float error) { this->proportional = this->Kp * error; }
+void PID::calculateProportionalTerm(double error) { this->proportional = this->Kp * error; }
 
-void PID::calculateIntegralTerm(float error) {
+void PID::calculateIntegralTerm(double error) {
   this->integrator = this->integrator + 0.5f * this->Ki * this->T * (error + this->prevError);
 }
 
 void PID::antiWindUp() {
-  float curOutput = this->proportional + this->integrator + this->differentiator;
+  double curOutput = this->proportional + this->integrator + this->differentiator;
 
   if (curOutput > this->limMax || curOutput < this->limMin) {
     this->integrator = this->integrator * this->antiWindup;
   }
 }
 
-void PID::calculateDerivativeTerm(float measurement) {
+void PID::calculateDerivativeTerm(double measurement) {
   this->differentiator = (-2.0f * this->Kd * (measurement - this->prevMeasurement) +
                           (2.0f * this->tau - this->T) * this->differentiator) /
                          (2.0f * this->tau + this->T);

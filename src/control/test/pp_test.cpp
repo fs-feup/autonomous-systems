@@ -17,7 +17,7 @@ TEST(PurePursuitTests, Test_calculate_alpha_1) {
   Point lookahead_point = Point(1, 4);
   double rear_wheel_2_c_g = 2.655484889;
 
-double alpha= ctrl.lat_controller.calculate_alpha(vehicle_rear_wheel, vehicle_cg, lookahead_point, rear_wheel_2_c_g);
+double alpha= ctrl.lat_controller_.calculate_alpha(vehicle_rear_wheel, vehicle_cg, lookahead_point, rear_wheel_2_c_g);
 
   EXPECT_NEAR(0.804, alpha, 0.001);
 }
@@ -34,7 +34,7 @@ TEST(PurePursuitTests, Test_calculate_alpha_2) {
   double rear_wheel_2_c_g = 2;
 
     
-double alpha= ctrl.lat_controller.calculate_alpha(vehicle_rear_wheel, vehicle_cg, lookahead_point, rear_wheel_2_c_g);
+double alpha= ctrl.lat_controller_.calculate_alpha(vehicle_rear_wheel, vehicle_cg, lookahead_point, rear_wheel_2_c_g);
 
   EXPECT_NEAR(0.463, alpha, 0.001);
 }
@@ -50,7 +50,7 @@ TEST(PurePursuitTests, Test_calculate_alpha_3) {
   Point lookahead_point = Point(5, 5);
   double rear_wheel_2_c_g = 2;
 
-  double alpha= ctrl.lat_controller.calculate_alpha(vehicle_rear_wheel, vehicle_cg, lookahead_point, rear_wheel_2_c_g);
+  double alpha= ctrl.lat_controller_.calculate_alpha(vehicle_rear_wheel, vehicle_cg, lookahead_point, rear_wheel_2_c_g);
 
 
   EXPECT_NEAR(1.570, alpha, 0.001);
@@ -67,7 +67,7 @@ TEST(PurePursuitTests, Test_calculate_alpha_4) {
   Point lookahead_point = Point(3, 0);
   double rear_wheel_2_c_g = 2;
 
-  double alpha= ctrl.lat_controller.calculate_alpha(vehicle_rear_wheel, vehicle_cg, lookahead_point, rear_wheel_2_c_g);
+  double alpha= ctrl.lat_controller_.calculate_alpha(vehicle_rear_wheel, vehicle_cg, lookahead_point, rear_wheel_2_c_g);
 
 
   EXPECT_NEAR(0, alpha, 0.001);
@@ -84,7 +84,7 @@ TEST(PurePursuitTests, Test_calculate_alpha_5) {
   Point lookahead_point = Point(3, 7);
   double rear_wheel_2_c_g = 2;
 
-  double alpha= ctrl.lat_controller.calculate_alpha(vehicle_rear_wheel, vehicle_cg, lookahead_point, rear_wheel_2_c_g);
+  double alpha= ctrl.lat_controller_.calculate_alpha(vehicle_rear_wheel, vehicle_cg, lookahead_point, rear_wheel_2_c_g);
 
 
   EXPECT_NEAR(3.141, alpha, 0.001);
@@ -100,7 +100,7 @@ TEST(PurePursuitTests, Test_pp_steering_control_law_1) {
   Point lookahead_point = Point(1, 4);
   double dist_cg_2_rear_axis = 2.655484889;
 
-  double steering_cmd = ctrl.lat_controller.pp_steering_control_law(rear_axis, cg, lookahead_point, dist_cg_2_rear_axis, ctrl.lat_controller.wheel_base_, ctrl.lat_controller.max_steering_angle_, ctrl.lat_controller.min_steering_angle_);
+  double steering_cmd = ctrl.lat_controller_.pp_steering_control_law(rear_axis, cg, lookahead_point, dist_cg_2_rear_axis, ctrl.lat_controller_.wheel_base_, ctrl.lat_controller_.max_steering_angle_, ctrl.lat_controller_.min_steering_angle_);
 
   //  Alpha: 0.804189
   //  ld_: 5.38516

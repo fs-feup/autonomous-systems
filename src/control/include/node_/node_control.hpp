@@ -1,9 +1,6 @@
-#ifndef NODE_CONTROL_HPP_
-#define NODE_CONTROL_HPP_
+#pragma once
 
 #include "adapter_control/adapter.hpp"
-//#include "adapter_control/map.hpp"
-//#include "common_lib/structures/structures.hpp"
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "custom_interfaces/msg/path_point.hpp"
 #include "custom_interfaces/msg/path_point_array.hpp"
@@ -13,8 +10,6 @@
 #include "pure_pursuit/pp.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
-
-//class Adapter;
 
 constexpr double K = 1.0;        /**< PP_gain */
 constexpr double LD_MARGIN = 0.1; /**< Lookahead distance margin */
@@ -28,21 +23,21 @@ constexpr double LD_MARGIN = 0.1; /**< Lookahead distance margin */
  */
 class Control : public rclcpp::Node {
  public:
-  PointSolver point_solver;   /**< Point Solver */
-  PID long_controller;        /**< Longitudinal Controller */
-  PurePursuit lat_controller; /**< Lateral Controller*/
+  PointSolver point_solver_;   /**< Point Solver */
+  PID long_controller_;        /**< Longitudinal Controller */
+  PurePursuit lat_controller_; /**< Lateral Controller*/
 
   // Need to change this so it is changed in the launch file
   double k_ = K;
   double ld_margin_ = LD_MARGIN;
 
-  rclcpp::Publisher<std_msgs::msg::String>::SharedPtr result_lat_pub;
-  rclcpp::Publisher<std_msgs::msg::String>::SharedPtr result_long_pub;
-  rclcpp::Publisher<custom_interfaces::msg::PathPoint>::SharedPtr lookahead_point_pub;
-  rclcpp::Publisher<custom_interfaces::msg::PathPoint>::SharedPtr closest_point_pub;
-  rclcpp::Subscription<std_msgs::msg::String>::SharedPtr current_velcoity;
-  rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr path_subscription;
-  double velocity;
+  rclcpp::Publisher<std_msgs::msg::String>::SharedPtr result_lat_pub_;
+  rclcpp::Publisher<std_msgs::msg::String>::SharedPtr result_long_pub_;
+  rclcpp::Publisher<custom_interfaces::msg::PathPoint>::SharedPtr lookahead_point_pub_;
+  rclcpp::Publisher<custom_interfaces::msg::PathPoint>::SharedPtr closest_point_pub_;
+  rclcpp::Subscription<std_msgs::msg::String>::SharedPtr current_velcoity_;
+  rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr path_subscription_;
+  double velocity_;
 
   Adapter *adapter;
   std::string mode = "fsds";  // Temporary, change as desired. TODO(andre): Make not hardcoded
@@ -72,31 +67,30 @@ class Control : public rclcpp::Node {
   /*
    * @brief Publish lookahead point
    */
-  void publish_lookahead_point(Point lookahead_point, double lookahead_velocity);
+  void publish_lookahead_point(Point lookahead_point, double lookahead_velocity)const;
 
   /*
    * @brief Publish closest point
    */
-  void publish_closest_point(Point closest_point);
+  void publish_closest_point(Point closest_point)const;
 
   /*
    * @brief Publish Torque command
    */
-  void publish_torque(float torque);
+  void publish_torque(double torque)const;
 
   /*
    * @brief Publish Steering command
    */
-  void publish_steering(double steering);
+  void publish_steering(double steering)const;
 
   /**
    * @brief Update lookahead distance
    */
-  double update_lookahead_distance(double k, double velocity);
+  double update_lookahead_distance(double k, double velocity)const;
 
   /**
    * @brief Contructor for the Control class
    */
   Control();
 };
-#endif//NODE_CONTROL_HPP_
