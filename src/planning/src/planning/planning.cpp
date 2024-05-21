@@ -22,27 +22,28 @@ Planning::Planning() : Node("planning") {
   smoothing_spline_precision_ = declare_parameter<int>("smoothing_spline_precision_", 10);
   mode = declare_parameter<std::string>("adapter", "fsds");
   using_simulated_se_ = declare_parameter<int>("use_simulated_se", 0);
-  publishing_visualization_msg_ = declare_parameter<int>("publishing_visualization_msg", 1);
+  publishing_visualization_msgs_ = declare_parameter<int>("publishing_visualization_msg", 1);
 
   // Control Publisher
   this->local_pub_ =
       this->create_publisher<custom_interfaces::msg::PathPointArray>("/path_planning/path", 10);
 
-  // Publisher for visualization
-  this->visualization_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
-      "/path_planning/smoothed_path", 10);
+  if (publishing_visualization_msgs_) {
+    // Publisher for visualization
+    this->visualization_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
+        "/path_planning/smoothed_path", 10);
 
-  // Publisher for visualization
-  this->blue_cones_pub_ =
-      this->create_publisher<visualization_msgs::msg::MarkerArray>("/path_planning/blue_cones", 10);
+    // Publisher for visualization
+    this->blue_cones_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
+        "/path_planning/blue_cones", 10);
 
-  // Publisher for visualization
-  this->yellow_cones_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
-      "/path_planning/yellow_cones", 10);
+    // Publisher for visualization
+    this->yellow_cones_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
+        "/path_planning/yellow_cones", 10);
 
-  this->triangulations_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
-      "/path_planning/triangulations", 10);
-
+    this->triangulations_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
+        "/path_planning/triangulations", 10);
+  }
   // Publishes path from file in Skidpad & Acceleration events
   this->timer_ = this->create_wall_timer(
       std::chrono::milliseconds(100), std::bind(&Planning::publish_predicitive_track_points, this));
@@ -99,10 +100,10 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &msg) 
   auto path = triangulations_path;
   path_smoother->defaultSmoother(path);
 
-  RCLCPP_INFO(this->get_logger(), "Planning published %d path points", (int)path.size());
+  RCLCPP_DEBUG(this->get_logger(), "Planning published %d path points", (int)path.size());
   publish_track_points(path);
 
-  if (this->publishing_visualization_msg_) {
+  if (this->publishing_visualization_msgs_) {
     publish_visualization_msgs(cone_coloring->current_left_cones,
                                cone_coloring->current_right_cones, triangulations_path, path);
   }
@@ -138,14 +139,14 @@ bool Planning::is_predicitve_mission() const {
          this->mission == common_lib::competition_logic::Mission::ACCELERATION;
 }
 
-void Planning::publish_visualization_msgs(const std::vector<Cone *> &current_left_cones,
-                                          const std::vector<Cone *> &current_right_cones,
+void Planning::publish_visualization_msgs(const std::vector<Cone *> &left_cones,
+                                          const std::vector<Cone *> &right_cones,
                                           const std::vector<PathPoint *> &after_triangulations_path,
                                           const std::vector<PathPoint *> &final_path) {
   this->blue_cones_pub_->publish(
-      marker_array_from_path_point_array(current_left_cones, "blue_cones_colored", "map", "blue"));
-  this->yellow_cones_pub_->publish(marker_array_from_path_point_array(
-      current_right_cones, "yellow_cones_colored", "map", "yellow"));
+      marker_array_from_path_point_array(left_cones, "blue_cones_colored", "map", "blue"));
+  this->yellow_cones_pub_->publish(
+      marker_array_from_path_point_array(right_cones, "yellow_cones_colored", "map", "yellow"));
   this->visualization_pub_->publish(
       marker_array_from_path_point_array(final_path, "smoothed_path_planning", "map"));
   this->triangulations_pub_->publish(marker_array_from_path_point_array(

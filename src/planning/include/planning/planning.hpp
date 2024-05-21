@@ -62,7 +62,7 @@ class Planning : public rclcpp::Node {
   int smoothing_spline_order_;
   float smoothing_spline_coeffs_ratio_;
   int smoothing_spline_precision_;
-  bool publishing_visualization_msg_;
+  bool publishing_visualization_msgs_;
   bool using_simulated_se_ = false;
   /**< Subscription to vehicle localization */
   rclcpp::Subscription<custom_interfaces::msg::VehicleState>::SharedPtr vl_sub_;
@@ -70,13 +70,13 @@ class Planning : public rclcpp::Node {
   rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr track_sub_;
   /**< Local path points publisher */
   rclcpp::Publisher<custom_interfaces::msg::PathPointArray>::SharedPtr local_pub_;
-  /**< Publisher for blue cones */
+  /**< Publisher for the final path*/
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr visualization_pub_;
-  /**< Publisher for blue cones */
+  /**< Publisher for blue cones after cone coloring*/
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr blue_cones_pub_;
-  /**< Publisher for yellow cones */
+  /**< Publisher for yellow cones after cone coloring*/
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr yellow_cones_pub_;
-  /**< Publisher for triangulations */
+  /**< Publisher for path after triangulations */
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr triangulations_pub_;
   /**< Timer for the periodic publishing */
   rclcpp::TimerBase::SharedPtr timer_;
@@ -112,8 +112,16 @@ class Planning : public rclcpp::Node {
    */
   void publish_predicitive_track_points();
 
-  void publish_visualization_msgs(const std::vector<Cone *> &current_left_cones,
-                                  const std::vector<Cone *> &current_right_cones,
+  /**
+   * @brief publish all visualization messages from the planning node
+   *
+   * @param current_left_cones left cones after cone coloring
+   * @param current_right_cones right cones after cone coloring
+   * @param after_triangulations_path path after triangulations
+   * @param final_path final path after smoothing
+   */
+  void publish_visualization_msgs(const std::vector<Cone *> &left_cones,
+                                  const std::vector<Cone *> &right_cones,
                                   const std::vector<PathPoint *> &after_triangulations_path,
                                   const std::vector<PathPoint *> &final_path);
 
