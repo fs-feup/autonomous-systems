@@ -11,7 +11,7 @@ PacSimAdapter::PacSimAdapter(Control *control)
   node->go_signal = true;
 }
 
-void PacSimAdapter::publish_cmd(float acceleration, float steering) {
+void PacSimAdapter::publish_cmd(double acceleration, double steering) {
   auto steering_msg = pacsim::msg::Wheels();
   auto acceleration_msg = pacsim::msg::StampedScalar();
 
@@ -20,8 +20,4 @@ void PacSimAdapter::publish_cmd(float acceleration, float steering) {
 
   this->steering_pub->publish(steering_msg);
   this->acceleration_pub->publish(acceleration_msg);
-}
-
-void PacSimAdapter::finish() {
-  // CODE HERE, IS A SERVICE SO EMPTY FOR NOW
 }

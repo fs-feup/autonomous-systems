@@ -9,7 +9,7 @@ EufsAdapter::EufsAdapter(Control* control)
   node->go_signal = true;
 }
 
-void EufsAdapter::publish_cmd(float acceleration, float steering) {
+void EufsAdapter::publish_cmd(double acceleration, double steering) {
   auto control_msg = ackermann_msgs::msg::AckermannDriveStamped();
 
   // Maybe normalize values if needed??
@@ -21,6 +21,3 @@ void EufsAdapter::publish_cmd(float acceleration, float steering) {
   this->control_pub->publish(control_msg);
 }
 
-void EufsAdapter::finish() {
-  // To fill, eventually, but there's no mission finished topic TO environment
-}

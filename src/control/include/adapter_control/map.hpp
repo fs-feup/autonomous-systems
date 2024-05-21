@@ -8,8 +8,10 @@
 #include "adapter_control/pac_sim.hpp"
 #include "adapter_control/vehicle.hpp"
 
-std::map<std::string, std::function<Adapter*(Control*)>> adapter_map = {
-    {"fsds", [](Control* control) -> Adapter* { return new FsdsAdapter(control); }},
-    {"pacsim", [](Control* control) -> Adapter* { return new PacSimAdapter(control); }},
-    {"eufs", [](Control* control) -> Adapter* { return new EufsAdapter(control); }},
-    {"vehicle", [](Control* control) -> Adapter* { return new VehicleAdapter(control); }}};
+const std::map<std::string, std::function<std::shared_ptr<Adapter>(Control*)>, std::less<>>
+    adapter_map = {
+        {"fsds", [](Control* control) { return std::make_shared<FsdsAdapter>(control); }},
+        {"pacsim", [](Control* control) { return std::make_shared<PacSimAdapter>(control); }},
+        {"eufs", [](Control* control) { return std::make_shared<EufsAdapter>(control); }},
+        {"vehicle", [](Control* control) { return std::make_shared<VehicleAdapter>(control); }}};
+

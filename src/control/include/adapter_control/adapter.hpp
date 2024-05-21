@@ -1,5 +1,4 @@
-#ifndef SRC_LAT_CONTROL_LAT_CONTROL_INCLUDE_ADAPTER_ADAPTER_HPP_
-#define SRC_LAT_CONTROL_LAT_CONTROL_INCLUDE_ADAPTER_ADAPTER_HPP_
+#pragma once
 
 #include <string>
 
@@ -13,7 +12,7 @@ class Control;
  */
 class Adapter {
  protected:
-  Control *node;
+  std::shared_ptr<Control> node;
 
  public:
   /**
@@ -24,8 +23,5 @@ class Adapter {
   explicit Adapter(Control *control);
   virtual ~Adapter() = default;
 
-  virtual void finish() = 0;
-  virtual void publish_cmd(float acceleration, float steering) = 0;
+  virtual void publish_cmd(double acceleration, double steering) = 0;
 };
-
-#endif  // SRC_LAT_CONTROL_LAT_CONTROL_INCLUDE_ADAPTER_ADAPTER_HPP_

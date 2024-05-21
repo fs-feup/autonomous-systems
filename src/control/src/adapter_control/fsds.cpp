@@ -7,8 +7,6 @@ FsdsAdapter::FsdsAdapter(Control* control)
       go_signal_sub_(node->create_subscription<fs_msgs::msg::GoSignal>(
           "/signal/go", 10,
           std::bind(&FsdsAdapter::fsds_mission_state_callback, this, std::placeholders::_1))),
-      finished_signal_pub_(
-          node->create_publisher<fs_msgs::msg::FinishedSignal>("/signal/finished", 10)),
       control_pub_(node->create_publisher<fs_msgs::msg::ControlCommand>("/control_command", 10)) {}
 
 void FsdsAdapter::fsds_mission_state_callback(const fs_msgs::msg::GoSignal msg) {
@@ -17,7 +15,7 @@ void FsdsAdapter::fsds_mission_state_callback(const fs_msgs::msg::GoSignal msg) 
   return;
 }
 
-void FsdsAdapter::publish_cmd(float acceleration, float steering) {
+void FsdsAdapter::publish_cmd(double acceleration, double steering) {
   // Throttle [0, 1] - Steering [-1, 1] - Brake [0, 1]
   auto message = fs_msgs::msg::ControlCommand();
 
@@ -29,9 +27,3 @@ void FsdsAdapter::publish_cmd(float acceleration, float steering) {
   this->control_pub_->publish(message);
 }
 
-void FsdsAdapter::finish() {
-  auto message = fs_msgs::msg::FinishedSignal();
-  message.placeholder = true;  // unnecessary
-
-  this->finished_signal_pub_->publish(message);
-}

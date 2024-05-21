@@ -1,3 +1,5 @@
+#pragma once
+
 #include <message_filters/cache.h>
 #include <message_filters/subscriber.h>
 
@@ -12,8 +14,6 @@
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
 
-class Adapter;
-
 /**
  * @class Control
  * @brief Class responsible for the control of the car
@@ -27,8 +27,8 @@ class Control : public rclcpp::Node {
   message_filters::Subscriber<custom_interfaces::msg::PathPointArray> path_point_array_sub_;
   message_filters::Cache<custom_interfaces::msg::PathPointArray> path_cache_;
 
-  Adapter *adapter_;
-  std::string adapter_mode;
+  std::shared_ptr<Adapter> adapter_;
+  bool mocker_node;
 
   /**
    * @brief Publishes the steering angle to the car based on the path and pose using cache
