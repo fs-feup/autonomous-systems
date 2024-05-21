@@ -45,27 +45,18 @@ protected:
           RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Received path in mock control node");
           received_path = *msg;
           rclcpp::shutdown();  // When receives message shuts down
-          std::cout << "Ended control callback" << std::endl;
         });
   }
 
   void TearDown() override {
-    std::cout << "Called TearDown" << std::endl;
     control_receiver.reset();
-    std::cout << "Control reset" << std::endl;
     locmap_sender.reset();
-    std::cout << "lm reset" << std::endl;
     map_publisher.reset();
-    std::cout << "map reset" << std::endl;
     control_sub.reset();
-    std::cout << "Control sub reset" << std::endl;
     planning_test.reset();
-    std::cout << "planning reset" << std::endl;
     vehicle_state_publisher_.reset();
-    std::cout << "vehicle state reset" << std::endl;
 
     rclcpp::shutdown();
-    std::cout << "Ended TearDown test" << std::endl;
   }
 };
 
@@ -225,5 +216,4 @@ TEST_F(IntegrationTest, PUBLISH_PATH1) {
   }
   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()),
             (long unsigned int)231);
-  std::cout << "Ended integration test" << std::endl;
 }
