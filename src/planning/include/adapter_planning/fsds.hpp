@@ -10,6 +10,7 @@
 
 #include "adapter_planning/adapter.hpp"
 #include "custom_interfaces/msg/vehicle_state.hpp"
+#include "fs_msgs/msg/go_signal.hpp"
 #include "geometry_msgs/msg/transform_stamped.hpp"
 #include "pacsim/msg/stamped_scalar.hpp"
 #include "sensor_msgs/msg/joint_state.hpp"
@@ -23,10 +24,10 @@ class FsdsAdapter : public Adapter {
   rclcpp::Publisher<fs_msgs::msg::FinishedSignal>::SharedPtr fsds_ebs_publisher_;
 
 public:
-  explicit FsdsAdapter(Planning* planning);
+  explicit FsdsAdapter(std::shared_ptr<Planning> planning);
 
   void mission_state_callback(const fs_msgs::msg::GoSignal msg);
-  void set_mission_state(int mission, int state) override;
+  void set_mission_state(int mission, int state);
   void pose_callback(const nav_msgs::msg::Odometry& msg);
   void finish() override;
 };

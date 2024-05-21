@@ -2,7 +2,84 @@
 
 #include "planning/planning.hpp"
 
-EufsAdapter::EufsAdapter(Planning* planning) : Adapter(planning) {
+visualization_msgs::msg::Marker marker_from_cone_w_covariance(
+    int id, const std::array<float, 4>& color_array, const eufs_msgs::msg::ConeWithCovariance& cone,
+    std::string name_space = "recieved_path_from_eufs", std::string frame_id = "map",
+    std::string shape = "cylinder", float scale = 0.5,
+    int action = visualization_msgs::msg::Marker::MODIFY) {
+  visualization_msgs::msg::Marker marker;
+
+  marker.header.frame_id = frame_id;
+  marker.header.stamp = rclcpp::Clock().now();
+  marker.ns = name_space;
+  marker.id = id;
+  marker.type = common_lib::communication::marker_shape_map.at(shape);
+  marker.action = action;
+
+  marker.pose.orientation.x = 0.0;
+  marker.pose.orientation.y = 0.0;
+  marker.pose.orientation.z = 0.0;
+  marker.pose.orientation.w = 1.0;
+
+  marker.pose.position.x = cone.point.x;
+  marker.pose.position.y = cone.point.y;
+  marker.pose.position.z = 0;
+
+  marker.scale.x = scale;
+  marker.scale.y = scale;
+  marker.scale.z = scale;
+
+  marker.color.r = color_array[0];
+  marker.color.g = color_array[1];
+  marker.color.b = color_array[2];
+  marker.color.a = color_array[3];
+
+  marker.lifetime = rclcpp::Duration(std::chrono::duration<double>(5));
+  return marker;
+}
+
+visualization_msgs::msg::MarkerArray marker_array_from_cone_array_w_covariance(
+    const eufs_msgs::msg::ConeArrayWithCovariance& cone_array,
+    std::string name_space = "recieved_path_from_eufs", std::string frame_id = "map",
+    std::string shape = "cylinder", float scale = 0.5,
+    int action = visualization_msgs::msg::Marker::MODIFY) {
+  visualization_msgs::msg::MarkerArray marker_array;
+  int id = 0;
+
+  auto color_map = common_lib::communication::marker_color_map.at("blue");
+  for (auto& c : cone_array.blue_cones) {
+    auto marker =
+        marker_from_cone_w_covariance(id, color_map, c, name_space, frame_id, shape, scale, action);
+    marker_array.markers.push_back(marker);
+    id++;
+  }
+
+  color_map = common_lib::communication::marker_color_map.at("yellow");
+  for (auto& c : cone_array.yellow_cones) {
+    auto marker =
+        marker_from_cone_w_covariance(id, color_map, c, name_space, frame_id, shape, scale, action);
+    marker_array.markers.push_back(marker);
+    id++;
+  }
+
+  color_map = common_lib::communication::marker_color_map.at("orange");
+  for (auto& c : cone_array.orange_cones) {
+    auto marker =
+        marker_from_cone_w_covariance(id, color_map, c, name_space, frame_id, shape, scale, action);
+    marker_array.markers.push_back(marker);
+    id++;
+  }
+  for (auto& c : cone_array.big_orange_cones) {
+    auto marker =
+        marker_from_cone_w_covariance(id, color_map, c, name_space, frame_id, shape, scale, action);
+    marker_array.markers.push_back(marker);
+    id++;
+  }
+
+  return marker_array;
+}
+
+EufsAdapter::EufsAdapter(std::shared_ptr<Planning> planning) : Adapter(planning) {
   RCLCPP_INFO(this->node->get_logger(), "EufsAdapter created");
   if (this->node->using_simulated_se_) {
     RCLCPP_INFO(this->node->get_logger(), "Eufs using simulated State Estimation\n");
@@ -17,6 +94,9 @@ EufsAdapter::EufsAdapter(Planning* planning) : Adapter(planning) {
   this->eufs_state_subscription_ = this->node->create_subscription<eufs_msgs::msg::CanState>(
       "/ros_can/state", 10,
       std::bind(&EufsAdapter::mission_state_callback, this, std::placeholders::_1));
+
+  this->eufs_map_publisher_ = this->node->create_publisher<visualization_msgs::msg::MarkerArray>(
+      "/path_planning/recieved_eufs_map", 10);
 
   this->eufs_mission_state_client_ =
       this->node->create_client<eufs_msgs::srv::SetCanState>("/ros_can/set_mission");
@@ -60,7 +140,9 @@ void EufsAdapter::pose_callback(const eufs_msgs::msg::CarState& msg) {
 void EufsAdapter::finish() { std::cout << "Finish undefined for Eufs\n"; }
 
 void EufsAdapter::map_callback(const eufs_msgs::msg::ConeArrayWithCovariance& msg) {
-  RCLCPP_INFO(this->node->get_logger(), "Received cones from EUFS");
+  RCLCPP_DEBUG(this->node->get_logger(), "Received cones from EUFS");
+  this->eufs_map_publisher_->publish(
+      marker_array_from_cone_array_w_covariance(msg, "recieved_path_from_eufs", "map"));
   custom_interfaces::msg::ConeArray cones;
   for (auto cone : msg.blue_cones) {
     custom_interfaces::msg::Cone c;

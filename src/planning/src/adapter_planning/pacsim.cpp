@@ -1,13 +1,11 @@
 #include "adapter_planning/pacsim.hpp"
 
-#include "planning/planning.hpp"
-
-PacSimAdapter::PacSimAdapter(Planning* planning) : Adapter(planning) {
+PacSimAdapter::PacSimAdapter(std::shared_ptr<Planning> planning) : Adapter(planning) {
   if (this->node->using_simulated_se_) {
     RCLCPP_DEBUG(this->node->get_logger(), "Using simulated SE in pacsim");
     tf_buffer_ = std::make_unique<tf2_ros::Buffer>(this->node->get_clock());
     tf_listener_ = std::make_shared<tf2_ros::TransformListener>(*tf_buffer_);
-    auto timer = this->node->create_wall_timer(std::chrono::milliseconds(100),
+    auto timer = this->node->create_wall_timer(std::chrono::milliseconds(60),
                                                std::bind(&PacSimAdapter::timer_callback, this));
 
     this->finished_client_ =
@@ -61,7 +59,6 @@ void PacSimAdapter::track_callback(const visualization_msgs::msg::MarkerArray& m
     custom_interfaces::msg::Cone cone;
     cone.position.x = c.pose.position.x;
     cone.position.y = c.pose.position.y;
-    std::cout << "(" << cone.position.x << ", " << cone.position.y << "),";
     cones.cone_array.push_back(cone);
   }
   std::cout << std::endl;

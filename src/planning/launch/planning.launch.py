@@ -73,12 +73,17 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "adapter",
                 description="Environment to run node on",
-                default_value="eufs",
+                default_value="pacsim",
             ),
             DeclareLaunchArgument(
                 "use_simulated_se",
                 description="Whether to use simulated state estimation",
                 default_value="1",
+            ),
+            DeclareLaunchArgument(
+                "publishing_visualization_msg",
+                description="Whether to publish path in visualization format",
+                default_value="0",
             ),
             Node(
                 package="planning",

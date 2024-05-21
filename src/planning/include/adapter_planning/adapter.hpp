@@ -8,6 +8,7 @@
 #include "eufs_msgs/srv/set_can_state.hpp"
 #include "fs_msgs/msg/finished_signal.hpp"
 #include "fs_msgs/msg/go_signal.hpp"
+#include "planning/planning.hpp"
 #include "rclcpp/rclcpp.hpp"
 
 class Planning;
@@ -18,10 +19,9 @@ class Planning;
  */
 class Adapter {
 public:
-  explicit Adapter(Planning* planning);
-  Planning* node;
+  explicit Adapter(std::shared_ptr<Planning> planning);
+  std::shared_ptr<Planning> node;
 
-  virtual void set_mission_state(int mission, int state) = 0;
   virtual void finish() = 0;
 };
 

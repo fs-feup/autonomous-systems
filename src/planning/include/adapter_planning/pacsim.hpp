@@ -25,10 +25,9 @@ class PacSimAdapter : public Adapter {
   std::shared_ptr<tf2_ros::TransformListener> tf_listener_;
 
 public:
-  explicit PacSimAdapter(Planning* planning);
+  explicit PacSimAdapter(std::shared_ptr<Planning> planning);
 
-  void mission_state_callback();  // ?
-  void set_mission_state(int mission, int state) override;
+  void set_mission_state(int mission, int state);
   void track_callback(const visualization_msgs::msg::MarkerArray& msg);
   void finish() override;
   void timer_callback();

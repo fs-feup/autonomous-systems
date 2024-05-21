@@ -3,6 +3,7 @@
 #include <map>
 
 #include "common_lib/structures/cone.hpp"
+#include "common_lib/structures/path_point.hpp"
 #include "std_msgs/msg/color_rgba.hpp"
 #include "visualization_msgs/msg/marker_array.hpp"
 
@@ -36,4 +37,22 @@ visualization_msgs::msg::MarkerArray marker_array_from_cone_array(
     std::vector<common_lib::structures::Cone> cone_array, std::string name_space,
     std::string frame_id, std::string color = "red", std::string shape = "cylinder",
     float scale = 0.5, int action = visualization_msgs::msg::Marker::MODIFY);
+
+/**
+ * @brief Converts a vector of path points to a marker array
+ *
+ * @param path_point_array vector of
+ * @param color color of the marker (blue, yellow, orange, red, green)
+ * @param shape shape of the marker (cylinder, cube, sphere)
+ * @param frame_id frame id of the marker, for transforms
+ * @param name_space namespace of the marker, used in conjunction with ID to identify marker
+ * @param scale scale of the marker, default is 0.5
+ * @param action action of the marker, default is ADD/MODIFY
+ * @return visualization_msgs::msg::MarkerArray
+ */
+visualization_msgs::msg::MarkerArray marker_array_from_path_point_array(
+    std::vector<common_lib::structures::PathPoint> path_point_array, std::string name_space,
+    std::string frame_id, std::string color = "red", std::string shape = "cylinder",
+    float scale = 0.5, int action = visualization_msgs::msg::Marker::MODIFY);
+
 }  // namespace common_lib::communication
