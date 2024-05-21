@@ -14,7 +14,7 @@ class EufsAdapter : public Adapter {
   rclcpp::Client<eufs_msgs::srv::SetCanState>::SharedPtr eufs_ebs_client_;
 
 public:
-  explicit EufsAdapter(std::shared_ptr<Planning> planning);
+  explicit EufsAdapter(Planning* planning);
 
   void mission_state_callback(eufs_msgs::msg::CanState msg);
   void set_mission_state(int mission, int state);

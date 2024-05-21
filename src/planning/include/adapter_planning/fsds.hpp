@@ -24,7 +24,7 @@ class FsdsAdapter : public Adapter {
   rclcpp::Publisher<fs_msgs::msg::FinishedSignal>::SharedPtr fsds_ebs_publisher_;
 
 public:
-  explicit FsdsAdapter(std::shared_ptr<Planning> planning);
+  explicit FsdsAdapter(Planning* planning);
 
   void mission_state_callback(const fs_msgs::msg::GoSignal msg);
   void set_mission_state(int mission, int state);

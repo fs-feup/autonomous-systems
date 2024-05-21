@@ -2,7 +2,7 @@
 
 #include "planning/planning.hpp"
 
-FsdsAdapter::FsdsAdapter(std::shared_ptr<Planning> planning) : Adapter(planning) {
+FsdsAdapter::FsdsAdapter(Planning* planning) : Adapter(planning) {
   if (this->node->using_simulated_se_) {
     RCLCPP_WARN(this->node->get_logger(),
                 "FSDS shouldn't be used with simulated State Estimation\n The planning node will "

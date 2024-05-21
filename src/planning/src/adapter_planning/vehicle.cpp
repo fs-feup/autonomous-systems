@@ -2,7 +2,7 @@
 
 #include "planning/planning.hpp"  // Add this line
 
-VehicleAdapter::VehicleAdapter(std::shared_ptr<Planning> planning) : Adapter(planning) {
+VehicleAdapter::VehicleAdapter(Planning* planning) : Adapter(planning) {
   this->mission_subscription_ =
       this->node->create_subscription<custom_interfaces::msg::OperationalStatus>(
           "/vehicle/operational_status", 10,

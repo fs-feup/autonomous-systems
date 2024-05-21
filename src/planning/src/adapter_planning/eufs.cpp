@@ -79,7 +79,7 @@ visualization_msgs::msg::MarkerArray marker_array_from_cone_array_w_covariance(
   return marker_array;
 }
 
-EufsAdapter::EufsAdapter(std::shared_ptr<Planning> planning) : Adapter(planning) {
+EufsAdapter::EufsAdapter(Planning* planning) : Adapter(planning) {
   RCLCPP_INFO(this->node->get_logger(), "EufsAdapter created");
   if (this->node->using_simulated_se_) {
     RCLCPP_INFO(this->node->get_logger(), "Eufs using simulated State Estimation\n");

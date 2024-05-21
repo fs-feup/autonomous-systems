@@ -9,22 +9,10 @@
 #include "adapter_planning/pacsim.hpp"
 #include "adapter_planning/vehicle.hpp"
 
-const std::map<std::string, std::function<std::shared_ptr<Adapter>(std::shared_ptr<Planning>)>,
-               std::less<>>
-    adapter_map = {{"fsds",
-                    [](std::shared_ptr<Planning> planning) -> std::shared_ptr<Adapter> {
-                      return std::make_shared<FsdsAdapter>(planning);
-                    }},
-                   {"eufs",
-                    [](std::shared_ptr<Planning> planning) -> std::shared_ptr<Adapter> {
-                      return std::make_shared<EufsAdapter>(planning);
-                    }},
-                   {"pacsim",
-                    [](std::shared_ptr<Planning> planning) -> std::shared_ptr<Adapter> {
-                      return std::make_shared<PacSimAdapter>(planning);
-                    }},
-                   {"vehicle", [](std::shared_ptr<Planning> planning) -> std::shared_ptr<Adapter> {
-                      return std::make_shared<VehicleAdapter>(planning);
-                    }}};
+const std::map<std::string, std::function<Adapter*(Planning*)>, std::less<>> adapter_map = {
+    {"fsds", [](Planning* planning) -> Adapter* { return new FsdsAdapter(planning); }},
+    {"eufs", [](Planning* planning) -> Adapter* { return new EufsAdapter(planning); }},
+    {"pacsim", [](Planning* planning) -> Adapter* { return new PacSimAdapter(planning); }},
+    {"vehicle", [](Planning* planning) -> Adapter* { return new VehicleAdapter(planning); }}};
 
 #endif

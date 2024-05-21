@@ -9,7 +9,7 @@ class VehicleAdapter : public Adapter {
   rclcpp::Subscription<custom_interfaces::msg::OperationalStatus>::SharedPtr mission_subscription_;
 
 public:
-  explicit VehicleAdapter(std::shared_ptr<Planning> planning);
+  explicit VehicleAdapter(Planning* planning);
 
   void mission_state_callback(const custom_interfaces::msg::OperationalStatus& msg);
   void finish() override;

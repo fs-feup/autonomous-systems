@@ -49,7 +49,7 @@ Planning::Planning() : Node("planning") {
       std::chrono::milliseconds(100), std::bind(&Planning::publish_predicitive_track_points, this));
   RCLCPP_INFO(this->get_logger(), "Using %s adapter", mode.c_str());
   // Adapter to communicate with the car
-  _adapter_ = adapter_map.at(mode)(std::shared_ptr<Planning>(this));
+  _adapter_ = adapter_map.at(mode)((this));
 
   if (!using_simulated_se_ || mode == "vehicle") {
     // State Estimation map Subscriber

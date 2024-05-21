@@ -1,6 +1,6 @@
 #include "adapter_planning/pacsim.hpp"
 
-PacSimAdapter::PacSimAdapter(std::shared_ptr<Planning> planning) : Adapter(planning) {
+PacSimAdapter::PacSimAdapter(Planning* planning) : Adapter(planning) {
   if (this->node->using_simulated_se_) {
     RCLCPP_DEBUG(this->node->get_logger(), "Using simulated SE in pacsim");
     tf_buffer_ = std::make_unique<tf2_ros::Buffer>(this->node->get_clock());

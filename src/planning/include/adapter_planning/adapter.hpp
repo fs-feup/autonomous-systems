@@ -19,8 +19,8 @@ class Planning;
  */
 class Adapter {
 public:
-  explicit Adapter(std::shared_ptr<Planning> planning);
-  std::shared_ptr<Planning> node;
+  explicit Adapter(Planning* planning);
+  Planning* node;
 
   virtual void finish() = 0;
 };

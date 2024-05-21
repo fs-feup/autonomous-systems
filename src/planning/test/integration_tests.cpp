@@ -42,20 +42,30 @@ protected:
     control_sub = control_receiver->create_subscription<custom_interfaces::msg::PathPointArray>(
         "/path_planning/path", 10,
         [this](const custom_interfaces::msg::PathPointArray::SharedPtr msg) {
-          std::cout << "Path recieved by control node" << std::endl;
+          RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Received path in mock control node");
           received_path = *msg;
           rclcpp::shutdown();  // When receives message shuts down
+          std::cout << "Ended control callback" << std::endl;
         });
   }
 
   void TearDown() override {
+    std::cout << "Called TearDown" << std::endl;
     control_receiver.reset();
+    std::cout << "Control reset" << std::endl;
     locmap_sender.reset();
+    std::cout << "lm reset" << std::endl;
     map_publisher.reset();
+    std::cout << "map reset" << std::endl;
     control_sub.reset();
+    std::cout << "Control sub reset" << std::endl;
     planning_test.reset();
+    std::cout << "planning reset" << std::endl;
+    vehicle_state_publisher_.reset();
+    std::cout << "vehicle state reset" << std::endl;
 
     rclcpp::shutdown();
+    std::cout << "Ended TearDown test" << std::endl;
   }
 };
 
@@ -207,11 +217,7 @@ TEST_F(IntegrationTest, PUBLISH_PATH1) {
   executor.spin();  // Execute nodes
   auto end_time = std::chrono::high_resolution_clock::now();
   auto duration = std::chrono::duration<double, std::milli>(end_time - start_time);
-
   RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
-  std::ofstream file = openWriteFile("src/performance/exec_time/planning.csv");
-  file << "planning, all, 4 cones, " << duration.count() << "\n";
-  file.close();
   for (const auto &p : received_path.pathpoint_array) {
     EXPECT_EQ(p.y, 0);
     EXPECT_LE(p.x, 35);
@@ -219,4 +225,5 @@ TEST_F(IntegrationTest, PUBLISH_PATH1) {
   }
   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()),
             (long unsigned int)231);
+  std::cout << "Ended integration test" << std::endl;
 }

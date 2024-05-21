@@ -40,10 +40,9 @@ class Adapter;
  */
 class Planning : public rclcpp::Node {
   common_lib::competition_logic::Mission mission =
-      common_lib::competition_logic::Mission::NONE; /**< Current planning mission */
-  std::shared_ptr<LocalPathPlanner> local_path_planner =
-      std::make_shared<LocalPathPlanner>(); /**< Local path planner instance */
-  std::shared_ptr<Adapter> _adapter_;
+      common_lib::competition_logic::Mission::NONE;              /**< Current planning mission */
+  LocalPathPlanner *local_path_planner = new LocalPathPlanner(); /**< Local path planner instance */
+  Adapter *_adapter_;
   std::string mode;
 
   std::map<common_lib::competition_logic::Mission, std::string> predictive_paths_ = {
