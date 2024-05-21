@@ -1,12 +1,8 @@
-#ifndef SRC_LAT_CONTROL_LAT_CONTROL_INCLUDE_ADAPTER_ADAPTER_HPP_
-#define SRC_LAT_CONTROL_LAT_CONTROL_INCLUDE_ADAPTER_ADAPTER_HPP_
+#pragma once
 
 #include <string>
 
 #include "custom_interfaces/msg/vcu.hpp"
-#include "fs_msgs/msg/control_command.hpp"
-#include "fs_msgs/msg/finished_signal.hpp"
-#include "fs_msgs/msg/go_signal.hpp"
 #include "rclcpp/rclcpp.hpp"
 
 class Control;
@@ -16,7 +12,7 @@ class Control;
  */
 class Adapter {
  protected:
-  Control *node;
+  std::shared_ptr<Control> node;
 
  public:
   /**
@@ -25,10 +21,7 @@ class Adapter {
    * @param control A pointer to the Control module.
    */
   explicit Adapter(Control *control);
+  virtual ~Adapter() = default;
 
-  virtual void init() = 0;
-  virtual void finish() = 0;
-  virtual void publish_cmd(float acceleration, float braking, float steering) = 0;
+  virtual void publish_cmd(double acceleration, double steering) = 0;
 };
-
-#endif  // SRC_LAT_CONTROL_LAT_CONTROL_INCLUDE_ADAPTER_ADAPTER_HPP_

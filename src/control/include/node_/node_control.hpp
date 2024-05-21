@@ -1,10 +1,17 @@
 #pragma once
 
+#include <message_filters/cache.h>
+#include <message_filters/subscriber.h>
+
+#include <chrono>
+#include <functional>
+#include <memory>
+#include <string>
+
 #include "adapter_control/adapter.hpp"
 #include "custom_interfaces/msg/cone_array.hpp"
-#include "custom_interfaces/msg/path_point.hpp"
 #include "custom_interfaces/msg/path_point_array.hpp"
-#include "custom_interfaces/msg/pose.hpp"
+#include "custom_interfaces/msg/vehicle_state.hpp"
 #include "pid/pid.hpp"
 #include "point_solver/psolver.hpp"
 #include "pure_pursuit/pp.hpp"
@@ -23,37 +30,36 @@ constexpr double LD_MARGIN = 0.1; /**< Lookahead distance margin */
  */
 class Control : public rclcpp::Node {
  public:
-  PointSolver point_solver_;   /**< Point Solver */
-  PID long_controller_;        /**< Longitudinal Controller */
-  PurePursuit lat_controller_; /**< Lateral Controller*/
 
   // Need to change this so it is changed in the launch file
   double k_ = K;
   double ld_margin_ = LD_MARGIN;
 
-  rclcpp::Publisher<std_msgs::msg::String>::SharedPtr result_lat_pub_;
-  rclcpp::Publisher<std_msgs::msg::String>::SharedPtr result_long_pub_;
+  Adapter *adapter;
+ private:
+  // Evaluator Publishers
   rclcpp::Publisher<custom_interfaces::msg::PathPoint>::SharedPtr lookahead_point_pub_;
   rclcpp::Publisher<custom_interfaces::msg::PathPoint>::SharedPtr closest_point_pub_;
-  rclcpp::Subscription<std_msgs::msg::String>::SharedPtr current_velcoity_;
-  rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr path_subscription_;
-  double velocity_;
 
-  Adapter *adapter;
-  std::string mode = "fsds";  // Temporary, change as desired. TODO(andre): Make not hardcoded
+  message_filters::Subscriber<custom_interfaces::msg::VehicleState> pose_sub_;
+  message_filters::Subscriber<custom_interfaces::msg::PathPointArray> path_point_array_sub_;
+  message_filters::Cache<custom_interfaces::msg::PathPointArray> path_cache_;
+
+  std::shared_ptr<Adapter> adapter_;
+  bool mocker_node;
+
+  PointSolver point_solver_;   /**< Point Solver */
+  PID long_controller_;        /**< Longitudinal Controller */
+  PurePursuit lat_controller_; /**< Lateral Controller*/
 
   /**
-   * @brief Function to publish the desired output (provisionally torque)
-   * when a new map is recieved
+   * @brief Publishes the steering angle to the car based on the path and pose using cache
+   *
    */
-  void publish_torque(custom_interfaces::msg::ConeArray path);
+  void publish_control(const custom_interfaces::msg::VehicleState::ConstSharedPtr &pose_msg);
 
-  /**
-   * @brief Function to hold the value of the velocity when
-   * new velocity data is recieved
-   */
-  void velocity_estimation_callback(std_msgs::msg::String velocity);
-
+ public:
+  bool go_signal{false};
   /**
    * @brief Orchestrator callback
    *

@@ -2,39 +2,28 @@
 
 #include "node_/node_control.hpp"
 
-FsdsAdapter::FsdsAdapter(Control* control) : Adapter(control) { this->init(); }
-
-void FsdsAdapter::init() {
-  this->fsds_state_subscription_ = this->node->create_subscription<fs_msgs::msg::GoSignal>(
-      "/signal/go", 10,
-      std::bind(&FsdsAdapter::fsds_mission_state_callback, this, std::placeholders::_1));
-  this->fsds_ebs_publisher_ =
-      this->node->create_publisher<fs_msgs::msg::FinishedSignal>("/signal/finished", 10);
-  this->fsds_cmd_publisher_ =
-      this->node->create_publisher<fs_msgs::msg::ControlCommand>("/control_command", 10);
-}
+FsdsAdapter::FsdsAdapter(Control* control)
+    : Adapter(control),
+      go_signal_sub_(node->create_subscription<fs_msgs::msg::GoSignal>(
+          "/signal/go", 10,
+          std::bind(&FsdsAdapter::fsds_mission_state_callback, this, std::placeholders::_1))),
+      control_pub_(node->create_publisher<fs_msgs::msg::ControlCommand>("/control_command", 10)) {}
 
 void FsdsAdapter::fsds_mission_state_callback(const fs_msgs::msg::GoSignal msg) {
-  std::cout << "Set mission undefined for Ads Dv\n";
+  // TODO: I don't see any info relevant in GoSignal msg so I'm assuming it's a trigger
+  // node->go_signal = true;
   return;
 }
 
-void FsdsAdapter::publish_cmd(float acceleration, float braking, float steering) {
+void FsdsAdapter::publish_cmd(double acceleration, double steering) {
   // Throttle [0, 1] - Steering [-1, 1] - Brake [0, 1]
   auto message = fs_msgs::msg::ControlCommand();
 
   // TODO(andre): Convert values to range according to the units sent by AS
 
   message.throttle = acceleration;
-  message.brake = braking;
   message.steering = steering;
 
-  this->fsds_cmd_publisher_->publish(message);
+  this->control_pub_->publish(message);
 }
 
-void FsdsAdapter::finish() {
-  auto message = fs_msgs::msg::FinishedSignal();
-  message.placeholder = true;  // unnecessary
-
-  this->fsds_ebs_publisher_->publish(message);
-}
