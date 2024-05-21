@@ -21,6 +21,17 @@ def generate_launch_description():
             )
         ),
     )
+    planning_launch_description = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            PathJoinSubstitution(
+                [FindPackageShare("planning"), "launch", "planning.launch.py"]
+            )
+        ),
+    )
     return LaunchDescription(
-        [perception_launch_description, se_launch_description],
+        [
+            perception_launch_description,
+            se_launch_description,
+            planning_launch_description,
+        ],
     )
