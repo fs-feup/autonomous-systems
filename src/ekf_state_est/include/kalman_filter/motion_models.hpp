@@ -194,5 +194,5 @@ const std::map<std::string, std::function<std::shared_ptr<MotionModel>(const Eig
 
 /// Map object to map strings from launch file parameter to noise matrix
 const std::map<std::string, Eigen::MatrixXf, std::less<>> motion_model_noise_matrixes = {
-    {"normal_velocity_model", Eigen::MatrixXf::Identity(5, 5) * 0.8},
-    {"imu_velocity_model", Eigen::MatrixXf::Identity(5, 5) * 0.8}};
+    {"normal_velocity_model", Eigen::MatrixXf::Identity(5, 5) * 0.1},
+    {"imu_velocity_model", Eigen::MatrixXf::Identity(5, 5) * 0.1}};

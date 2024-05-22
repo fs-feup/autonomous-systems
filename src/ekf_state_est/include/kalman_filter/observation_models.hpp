@@ -85,4 +85,4 @@ public:
 
 /// Map object to map strings from launch file parameter to constructor
 const std::map<std::string, Eigen::MatrixXf, std::less<>> observation_model_noise_matrixes = {
-    {"default", Eigen::MatrixXf::Identity(2, 2) * 0.3}};
+    {"default", Eigen::MatrixXf::Identity(2, 2) * 0.01}};

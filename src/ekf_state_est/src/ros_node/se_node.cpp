@@ -126,7 +126,7 @@ void SENode::_wheel_speeds_subscription_callback(double rl_speed, double fl_spee
     return;
   }
   RCLCPP_DEBUG(this->get_logger(),
-               "SUB - Raw from wheel speeds: lb:%f - rb:%f - lf:%f - rf:%f - "
+               "\nSUB - Raw from wheel speeds: lb:%f - rb:%f - lf:%f - rf:%f - "
                "steering: %f",
                rl_speed, rr_speed, fl_speed, fr_speed, steering_angle);
   auto [linear_velocity, angular_velocity] =
@@ -150,7 +150,7 @@ void SENode::_wheel_speeds_subscription_callback(double rl_speed, double fl_spee
   MotionUpdate temp_update = *(this->_motion_update_);
   this->_ekf_->prediction_step(temp_update);
   this->_ekf_->update(this->_vehicle_state_, this->_track_map_);
-  RCLCPP_DEBUG(this->get_logger(), "EKF - EFK prediction Step");
+  RCLCPP_DEBUG(this->get_logger(), "PUB - EFK prediction Step");
   this->_publish_vehicle_state();
   this->_publish_map();
 }
