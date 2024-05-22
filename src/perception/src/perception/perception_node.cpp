@@ -66,8 +66,8 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
 
   for (long unsigned int i = 0; i < filtered_clusters.size(); i++) {
     _cone_differentiator_->coneDifferentiation(&filtered_clusters[i]);
-    std::string color = filtered_clusters[i].getColor();
-    filtered_clusters[i].setColor(color);
+    std::string color = filtered_clusters[i].get_color();
+    filtered_clusters[i].set_color(color);
     RCLCPP_DEBUG(this->get_logger(), "Cone %d: %s", i, color.c_str());
   }
 
@@ -79,13 +79,13 @@ void Perception::publishCones(std::vector<Cluster>* cones) {
   message.header = header;
   for (int i = 0; i < static_cast<int>(cones->size()); i++) {
     auto position = custom_interfaces::msg::Point2d();
-    position.x = cones->at(i).getCentroid().x();
-    position.y = cones->at(i).getCentroid().y();
+    position.x = cones->at(i).get_centroid().x();
+    position.y = cones->at(i).get_centroid().y();
 
     auto cone_message = custom_interfaces::msg::Cone();
     cone_message.position = position;
-    cone_message.color = cones->at(i).getColor();
-    cone_message.confidence = cones->at(i).getConfidence();
+    cone_message.color = cones->at(i).get_color();
+    cone_message.confidence = cones->at(i).get_confidence();
     message.cone_array.push_back(cone_message);
   }
 

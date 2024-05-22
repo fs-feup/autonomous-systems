@@ -14,7 +14,7 @@
 class Cluster {
  private:
   pcl::PointCloud<pcl::PointXYZI>::Ptr _point_cloud_;  ///< Pointer to the Point Cloud data.
-  std::string _color_;                                 ///< Color associated with the cluster.
+  std::string _color_ = "undefined";  ///< Color associated with the cluster.
   Eigen::Vector4f _centroid_;                          ///< Centroid of the cluster.
   Eigen::Vector4f _center_;                          ///< Center of the cone's cluster.
   bool _centroid_is_defined_ = false;  ///< Flag indicating whether the centroid is defined or not.
@@ -33,7 +33,7 @@ class Cluster {
    * @brief Get the centroid of the cluster.
    * @return Eigen::Vector4f representing the centroid.
    */
-  Eigen::Vector4f getCentroid();
+  Eigen::Vector4f get_centroid();
 
   /**
    * @brief Get the Center of the cone's cluster
@@ -46,39 +46,39 @@ class Cluster {
    * @brief Get the color associated with the cluster.
    * @return std::string representing the color.
    */
-  std::string getColor();
+  std::string get_color();
 
   /**
    * @brief Set the color for the cluster.
    * @param new_color The new color to be set.
    */
-  void setColor(const std::string& new_color);
+  void set_color(const std::string& new_color);
 
   /**
    * @brief Set the Point Cloud data for the cluster.
    * @param new_point_cloud Pointer to the new Point Cloud data.
    */
-  void setPointCloud(pcl::PointCloud<pcl::PointXYZI>::Ptr new_point_cloud);
+  void set_point_cloud(pcl::PointCloud<pcl::PointXYZI>::Ptr new_point_cloud);
 
   /**
    * @brief Get the Point Cloud data of the cluster.
    * @return pcl::PointCloud<pcl::PointXYZI>::Ptr representing the Point Cloud data.
    */
-  pcl::PointCloud<pcl::PointXYZI>::Ptr getPointCloud();
+  pcl::PointCloud<pcl::PointXYZI>::Ptr get_point_cloud();
 
   /**
    * @brief Set the Confidence of the cluster to be or not to be a cone
    * 
    * @param newConfidence The new Confidence of the cluster
    */
-  void setConfidence(double newConfidence);
+  void set_confidence(double newConfidence);
 
   /**
    * @brief Get the Confidence of the cluster to be (or not to be) a cone
    * 
    * @return double Cluster's confidence
    */
-  double getConfidence();
+  double get_confidence();
 };
 
 #endif  // CLUSTER_HPP
