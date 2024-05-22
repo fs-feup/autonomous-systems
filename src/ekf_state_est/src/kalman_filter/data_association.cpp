@@ -27,7 +27,8 @@ bool SimpleMaximumLikelihood::valid_match(const float delta,
   auto limit_function = [](float distance, float curv, float init_limit) {
     return pow(M_E, distance / curv) - (1 - init_limit);
   };
-  return limit_function(distance_to_vehicle, this->curvature_, this->initial_limit_) > delta;
+  return limit_function(distance_to_vehicle, SimpleMaximumLikelihood::curvature_,
+                        SimpleMaximumLikelihood::initial_limit_) > delta;
 }
 
 int SimpleMaximumLikelihood::match_cone(const Eigen::Vector2f& observed_landmark_absolute,
@@ -53,10 +54,4 @@ int SimpleMaximumLikelihood::match_cone(const Eigen::Vector2f& observed_landmark
   }
 
   return -2;
-}
-
-void SimpleMaximumLikelihood::set_curvature(float curvature) { this->curvature_ = curvature; }
-
-void SimpleMaximumLikelihood::set_initial_limit(float initial_limit) {
-  this->initial_limit_ = initial_limit;
 }

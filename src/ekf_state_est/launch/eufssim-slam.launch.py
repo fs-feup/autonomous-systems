@@ -16,6 +16,16 @@ def generate_launch_description():
                 default_value="10.0",
             ),  # meters
             DeclareLaunchArgument(
+                "sml_initial_limit",
+                description="Initial limit for the limit function used in the simple maximum likelihood data association",
+                default_value="0.1",
+            ),
+            DeclareLaunchArgument(
+                "sml_curvature",
+                description="Curvature for the limit function used in the simple maximum likelihood data association",
+                default_value="15.0",
+            ),
+            DeclareLaunchArgument(
                 "observation_noise",
                 description="Noise value for observations (sigma)",
                 default_value="0.05",
@@ -69,6 +79,8 @@ def generate_launch_description():
                             "wheel_speed_sensor_noise"
                         )
                     },
+                    {"sml_curvature": LaunchConfiguration("sml_curvature")},
+                    {"sml_initial_limit": LaunchConfiguration("sml_initial_limit")},
                 ],
                 arguments=["--ros-args", "--log-level", "ekf_state_est:=info"],
             ),
