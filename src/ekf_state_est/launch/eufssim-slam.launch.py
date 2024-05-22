@@ -18,7 +18,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "observation_noise",
                 description="Noise value for observations (sigma)",
-                default_value="0.01",
+                default_value="0.05",
             ),
             DeclareLaunchArgument(
                 "wheel_speed_sensor_noise",
@@ -70,7 +70,7 @@ def generate_launch_description():
                         )
                     },
                 ],
-                arguments=["--ros-args", "--log-level", "ekf_state_est:=debug"],
+                arguments=["--ros-args", "--log-level", "ekf_state_est:=info"],
             ),
         ]
     )
