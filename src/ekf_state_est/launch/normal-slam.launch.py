@@ -56,6 +56,7 @@ def generate_launch_description():
                         )
                     },
                 ],
+                arguments=["--ros-args", "--log-level", "ekf_state_est:=debug"],
             ),
         ]
     )
