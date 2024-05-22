@@ -7,6 +7,7 @@ ADAPTER_POINT_CLOUD_TOPIC_DICTINARY: dict[str, str] = {
     "fsds": "/lidar/Lidar1",
     "pacsim": "/no/topic",
     "eufs": "/velodyne_points",
+    "vehicle": "/hesai/pandar",
 }
 ADAPTER_CONSTRUCTOR_DICTINARY: dict[str, Adapter] = {
     "fsds": FSDSAdapter,
