@@ -13,13 +13,13 @@
  */
 class Cluster {
  private:
-  pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud;  ///< Pointer to the Point Cloud data.
-  std::string color;                                 ///< Color associated with the cluster.
-  Eigen::Vector4f centroid;                          ///< Centroid of the cluster.
-  Eigen::Vector4f center;                          ///< Center of the cone's cluster.
-  bool centroid_is_defined = false;  ///< Flag indicating whether the centroid is defined or not.
-  bool center_is_defined = false; ///< Flag indicating whether the center is defined or not.
-  double confidence = 0; ///< Confidence on the cluster to be (or not) a cone
+  pcl::PointCloud<pcl::PointXYZI>::Ptr _point_cloud_;  ///< Pointer to the Point Cloud data.
+  std::string _color_;                                 ///< Color associated with the cluster.
+  Eigen::Vector4f _centroid_;                          ///< Centroid of the cluster.
+  Eigen::Vector4f _center_;                          ///< Center of the cone's cluster.
+  bool _centroid_is_defined_ = false;  ///< Flag indicating whether the centroid is defined or not.
+  bool _center_is_defined_ = false; ///< Flag indicating whether the center is defined or not.
+  double _confidence_ = 0; ///< Confidence on the cluster to be (or not) a cone
   static constexpr auto center_calculator = CircunferenceCenterCalculation(); ///< Calculates the center of the cone
 
  public:

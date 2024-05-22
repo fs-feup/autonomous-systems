@@ -6,7 +6,7 @@ ICP::ICP(std::string target_file, double max_correspondence_distance, long max_i
     
     pcl::PointCloud<pcl::PointXYZI>::Ptr target_cloud(new pcl::PointCloud<pcl::PointXYZI>);
 
-    if (pcl::io::loadPCDFile<pcl::PointXYZI>(target_file, *target_cloud) == -1) {
+    if (pcl::io::loadPCDFile<pcl::PointXYZI>(target_file, *target_cloud) < 0) {
         PCL_ERROR("Couldn't read file\n");
     }
 

@@ -18,7 +18,7 @@ protected:
      */
     void SetUp() override {
       
-        center_calculator = CircunferenceCenterCalculation();
+        center_calculator_ = CircunferenceCenterCalculation();
 
         pcl_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
         pcl_cloud->points.push_back(pcl::PointXYZI{0.0, 0.0, 1.0, 0.5});
@@ -32,14 +32,14 @@ protected:
         pcl_cloud2->points.push_back(pcl::PointXYZI{-3.0, 3.0, 2.0, 1.5});
         pcl_cloud2->points.push_back(pcl::PointXYZI{0.0, 6.0, 2.0, 1.5});
 
-        plane = Plane(0, 0, 1, 0); // Plane z = 0
+        plane_ = Plane(0, 0, 1, 0); // Plane z = 0
     }
 
 public:
     std::shared_ptr<pcl::PointCloud<pcl::PointXYZI>> pcl_cloud; ///< Point Cloud representing the circumference (x - 2)^2 + y^2 = 4
     std::shared_ptr<pcl::PointCloud<pcl::PointXYZI>> pcl_cloud2; ///< Point Cloud representing the circumference x^2 + (y-3)^2 = 9
-    CircunferenceCenterCalculation center_calculator; ///< Center Calculator
-    Plane plane; ///< Plane z = 0
+    CircunferenceCenterCalculation center_calculator_; ///< Center Calculator
+    Plane plane_; ///< Plane z = 0
 };
 
 /**
@@ -48,7 +48,7 @@ public:
  */
 TEST_F(CircunferenceCenterCalculationTest, NormalUseCase) {
   
-  auto center = center_calculator.calculate_center(pcl_cloud, plane);
+  auto center = center_calculator_.calculate_center(pcl_cloud, plane_);
 
   ASSERT_EQ(center.x(), 2);
   ASSERT_EQ(center.y(), 0);
@@ -61,7 +61,7 @@ TEST_F(CircunferenceCenterCalculationTest, NormalUseCase) {
  */
 TEST_F(CircunferenceCenterCalculationTest, NormalUseCase2) {
   
-  auto center = center_calculator.calculate_center(pcl_cloud2, plane);
+  auto center = center_calculator_.calculate_center(pcl_cloud2, plane_);
 
   ASSERT_EQ(center.x(), 0);
   ASSERT_EQ(center.y(), 3);

@@ -30,11 +30,11 @@ class Perception : public rclcpp::Node {
   std::shared_ptr<GroundRemoval> _ground_removal_;  ///< Shared pointer to the GroundRemoval object.
   std::shared_ptr<Adapter> _adapter_;              /**< Shared pointer to Adapter instance for external communication */
   std::shared_ptr<Clustering> _clustering_;
-  std::string _mode_;
   std::shared_ptr<ConeDifferentiation> _cone_differentiator_;  ///< Shared pointer to ConeDifferentiation object.
   Plane _ground_plane_;
   std::vector<std::shared_ptr<ConeValidator>> _cone_validators_;
   std::shared_ptr<ConeEvaluator> _cone_evaluator_;
+  std::string _mode_;
 
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr
       _point_cloud_subscription;  ///< PointCloud2 subscription.

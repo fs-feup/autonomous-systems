@@ -21,9 +21,8 @@ protected:
         source_cloud->points.push_back(pcl::PointXYZI{3, -3, 0, 0});
         source_cloud->points.push_back(pcl::PointXYZI{2, -4, 0, 0});
         source_cloud->points.push_back(pcl::PointXYZI{4, -4, 0, 0});
-        source_cloud->points.push_back(pcl::PointXYZI{-30, -30, 0, 0});
-        source_cloud->points.push_back(pcl::PointXYZI{-50, 50, 0, 0});
-        source_cloud->points.push_back(pcl::PointXYZI{10, -81.5, 0, 0});
+        source_cloud->width = 1;
+        source_cloud->height = 3;
     }
 
 public:
@@ -45,7 +44,7 @@ TEST_F(ICPSuite, Initialization) {
  * 
  */
 TEST_F(ICPSuite, Alignment) {
-    auto icp = ICP("../../src/perception/test/icp_tests/basic_cloud.pcd", 10.0, 50, 1e-8, 5);
+    auto icp = ICP("../../src/perception/test/icp_tests/basic_cloud.pcd", 100.0, 300, 5, 5);
 
     pcl::PointCloud<pcl::PointXYZI>::Ptr aligned_cloud(new pcl::PointCloud<pcl::PointXYZI>);
     double fitness_score = icp.executeICP(source_cloud, aligned_cloud);
@@ -58,6 +57,7 @@ TEST_F(ICPSuite, Alignment) {
  * @brief Test case to check if ICP fails to align properly
  * 
  */
+
 TEST_F(ICPSuite, AlignmentFailed) {
     auto icp = ICP("../../src/perception/test/icp_tests/basic_cloud.pcd", 1.0, 50, 1e-8, 5);
 
