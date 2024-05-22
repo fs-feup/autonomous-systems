@@ -23,6 +23,13 @@ Eigen::VectorXf NormalVelocityModel::predict_expected_state(
     const Eigen::VectorXf &expected_state, const MotionUpdate &motion_prediction_data,
     const double time_interval) const {
   Eigen::VectorXf next_state = expected_state;
+  RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "Motion Model - Initial State: %f %f %f %f %f",
+               expected_state(0), expected_state(1), expected_state(2), expected_state(3),
+               expected_state(4));
+  RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"),
+               "Motion Model - Motion Prediction Data: %f %f %f",
+               motion_prediction_data.translational_velocity,
+               motion_prediction_data.rotational_velocity, time_interval);
   if (motion_prediction_data.rotational_velocity == 0.0) {  // Rectilinear movement
     next_state(0) +=
         motion_prediction_data.translational_velocity * cos(expected_state(2)) * time_interval;
@@ -44,6 +51,8 @@ Eigen::VectorXf NormalVelocityModel::predict_expected_state(
          motion_prediction_data.rotational_velocity) *
             cos(expected_state(2) + motion_prediction_data.rotational_velocity * time_interval);
   }
+  RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "Motion Model - Next State: %f %f %f %f %f",
+               next_state(0), next_state(1), next_state(2), next_state(3), next_state(4));
   next_state(3) = motion_prediction_data.translational_velocity * cos(next_state(2));
   next_state(4) = motion_prediction_data.translational_velocity * sin(next_state(2));
   next_state(2) = common_lib::maths::normalize_angle(

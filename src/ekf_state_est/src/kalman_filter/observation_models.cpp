@@ -1,10 +1,17 @@
 #include "kalman_filter/observation_models.hpp"
 
+#include "rclcpp/rclcpp.hpp"
+
 ObservationModel::ObservationModel(const Eigen::Matrix2f &observation_noise_covariance_matrix)
     : _observation_noise_covariance_matrix(observation_noise_covariance_matrix) {}
 
 Eigen::Vector2f ObservationModel::inverse_observation_model(
     const Eigen::VectorXf &expected_state, const ObservationData &observation_data) const {
+  RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"),
+               "Observation Model - Expected State: %f %f %f %f %f", expected_state(0),
+               expected_state(1), expected_state(2), expected_state(3), expected_state(4));
+  RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "Observation Model - Observation Data: %f %f",
+               observation_data.position.x, observation_data.position.y);
   Eigen::Matrix3f transformation_matrix = Eigen::Matrix3f::Identity();
   transformation_matrix(0, 0) = cos(expected_state(2));
   transformation_matrix(0, 1) = -sin(expected_state(2));
@@ -15,6 +22,9 @@ Eigen::Vector2f ObservationModel::inverse_observation_model(
   Eigen::Vector3f observation =
       Eigen::Vector3f(observation_data.position.x, observation_data.position.y, 1);
   Eigen::Vector3f observed_landmark_absolute_position = transformation_matrix * observation;
+  RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"),
+               "Observation Model - Observed Landmark Absolute Position: %f %f",
+               observed_landmark_absolute_position(0), observed_landmark_absolute_position(1));
 
   return Eigen::Vector2f(observed_landmark_absolute_position(0),
                          observed_landmark_absolute_position(1));
