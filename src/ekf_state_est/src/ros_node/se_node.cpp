@@ -65,7 +65,7 @@ void SENode::_perception_subscription_callback(const custom_interfaces::msg::Con
     RCLCPP_WARN(this->get_logger(), "SUB - Perception map is null");
     return;
   }
-  // std::lock_guard lock(this->_mutex_);  // BLOCK IF PREDICTION STEP IS ON GOING
+  std::lock_guard lock(this->_mutex_);  // BLOCK IF PREDICTION STEP IS ON GOING
   RCLCPP_DEBUG(this->get_logger(), "CORRECTION STEP");
   this->_perception_map_->clear();
   RCLCPP_DEBUG(this->get_logger(), "SUB - cones from perception:");
@@ -132,7 +132,7 @@ void SENode::_wheel_speeds_subscription_callback(double rl_speed, double fl_spee
   if (!this->_use_odometry_) {
     return;
   }
-  // std::lock_guard lock(this->_mutex_);  // BLOCK IF PREDICTION STEP IS ON GOING
+  std::lock_guard lock(this->_mutex_);  // BLOCK IF PREDICTION STEP IS ON GOING
   RCLCPP_DEBUG(this->get_logger(), "PREDICTION STEP");
   RCLCPP_DEBUG(this->get_logger(),
                "SUB - Raw from wheel speeds: lb:%f - rb:%f - lf:%f - rf:%f - "

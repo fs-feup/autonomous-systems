@@ -60,7 +60,7 @@ public:
   int match_cone(const Eigen::Vector2f& observed_landmark_absolute,
                  const Eigen::VectorXf& expected_state) const override;
 
-  SimpleMaximumLikelihood(float max_landmark_distance, float curvature = 20.0f,
+  SimpleMaximumLikelihood(float max_landmark_distance, float curvature = 15.0f,
                           float initial_limit = 0.1f);
 
   FRIEND_TEST(DATA_ASSOCIATION_MODEL, VALID_MATCH_FUNC_PERFECT_MATCH);
