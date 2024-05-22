@@ -10,6 +10,7 @@ find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(custom_interfaces REQUIRED)
 find_package(fs_msgs REQUIRED)
+find_package(eufs_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
@@ -24,7 +25,8 @@ set(IMPLEMENTATION_FILES
   src/ground_removal/ransac.cpp
   src/adapter_perception/adapter.cpp
   src/adapter_perception/fsds.cpp
-  src/adapter_perception/testlidar.cpp
+  src/adapter_perception/vehicle.cpp
+  src/adapter_perception/eufs.cpp
   src/cone_differentiation/least_squares_differentiation.cpp
   src/clustering/dbscan.cpp
   src/utils/cluster.cpp
@@ -54,7 +56,9 @@ target_link_libraries(perception ${PCL_LIBRARIES})
 install(TARGETS perception
   DESTINATION lib/${PROJECT_NAME})
 
-ament_target_dependencies(perception rclcpp custom_interfaces sensor_msgs fs_msgs message_filters)
+install(DIRECTORY launch DESTINATION share/${PROJECT_NAME}/)
+
+ament_target_dependencies(perception rclcpp custom_interfaces sensor_msgs fs_msgs message_filters eufs_msgs)
 
 if(BUILD_TESTING)
   find_package(ament_cmake_gtest REQUIRED)

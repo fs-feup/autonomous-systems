@@ -3,18 +3,22 @@
 #include "adapter_ekf_state_est/eufs.hpp"
 #include "adapter_ekf_state_est/fsds.hpp"
 #include "adapter_ekf_state_est/map.hpp"
+#include "common_lib/communication/marker.hpp"
 #include "common_lib/maths/transformations.hpp"
 #include "common_lib/structures/cone.hpp"
 #include "common_lib/structures/pose.hpp"
 #include "common_lib/structures/position.hpp"
 #include "common_lib/vehicle_dynamics/bicycle_model.hpp"
 #include "common_lib/vehicle_dynamics/car_parameters.hpp"
+#include "geometry_msgs/msg/pose_with_covariance.hpp"
+#include "visualization_msgs/msg/marker.hpp"
 
 /*---------------------- Constructor --------------------*/
 
 SENode::SENode() : Node("ekf_state_est") {
   // TODO: noise matrixes by parameter
-  this->_use_odometry_ = this->declare_parameter("use_odometry", false);
+  this->_use_odometry_ = this->declare_parameter("use_odometry", true);
+  _use_simulated_perception_ = this->declare_parameter("use_simulated_perception", false);
   std::string adapter_name = this->declare_parameter("adapter", "fsds");
   std::string motion_model_name = this->declare_parameter("motion_model", "normal_velocity_model");
   float data_association_limit_distance =
@@ -25,8 +29,8 @@ SENode::SENode() : Node("ekf_state_est") {
       std::make_shared<ObservationModel>(observation_model_noise_matrixes.at("default"));
   std::shared_ptr<DataAssociationModel> data_association_model =
       data_association_model_constructors.at("simple_ml")(data_association_limit_distance);
-  _ekf_ = std::make_shared<ExtendedKalmanFilter>(*motion_model, *observation_model,
-                                                 *data_association_model);
+  _ekf_ = std::make_shared<ExtendedKalmanFilter>(motion_model, observation_model,
+                                                 data_association_model);
 
   _perception_map_ = std::make_shared<std::vector<common_lib::structures::Cone>>();
   _motion_update_ = std::make_shared<MotionUpdate>();
@@ -34,14 +38,18 @@ SENode::SENode() : Node("ekf_state_est") {
   _vehicle_state_ = std::make_shared<common_lib::structures::VehicleState>();
   _motion_update_->last_update = this->get_clock()->now();
 
-  this->_perception_subscription_ = this->create_subscription<custom_interfaces::msg::ConeArray>(
-      "/perception/cones", 10,
-      std::bind(&SENode::_perception_subscription_callback, this, std::placeholders::_1));
+  if (!_use_simulated_perception_) {
+    this->_perception_subscription_ = this->create_subscription<custom_interfaces::msg::ConeArray>(
+        "/perception/cones", 10,
+        std::bind(&SENode::_perception_subscription_callback, this, std::placeholders::_1));
+  }
   this->_vehicle_state_publisher_ = this->create_publisher<custom_interfaces::msg::VehicleState>(
       "/state_estimation/vehicle_state", 10);
   this->_map_publisher_ =
       this->create_publisher<custom_interfaces::msg::ConeArray>("/state_estimation/map", 10);
-
+  this->_visualization_map_publisher_ =
+      this->create_publisher<visualization_msgs::msg::MarkerArray>(
+          "/state_estimation/visualization_map", 10);
   _adapter_ = adapter_map.at(adapter_name)(std::shared_ptr<SENode>(this));
 }
 
@@ -78,12 +86,11 @@ void SENode::_perception_subscription_callback(const custom_interfaces::msg::Con
 }
 
 // Currently not utilized
-void SENode::_imu_subscription_callback(double angular_velocity, double acceleration_x,
-                                        double acceleration_y, const rclcpp::Time &timestamp) {
+void SENode::_imu_subscription_callback(const sensor_msgs::msg::Imu &imu_msg) {
+  if (this->_use_odometry_) {
+    return;
+  }
   RCLCPP_WARN(this->get_logger(), "TODO: Implement IMU subscription callback properly");
-  // if (this->_use_odometry_) {
-  //   return;
-  // }
   // if (this->_motion_update_ == nullptr) {
   //   RCLCPP_WARN(this->get_logger(), "ATTR - Motion update object is null");
   //   return;
@@ -112,8 +119,8 @@ void SENode::_imu_subscription_callback(double angular_velocity, double accelera
   //              this->_motion_update_->translational_velocity_y);
 }
 
-void SENode::_wheel_speeds_subscription_callback(double lb_speed, double lf_speed, double rb_speed,
-                                                 double rf_speed, double steering_angle,
+void SENode::_wheel_speeds_subscription_callback(double rl_speed, double fl_speed, double rr_speed,
+                                                 double fr_speed, double steering_angle,
                                                  const rclcpp::Time &timestamp) {
   if (!this->_use_odometry_) {
     return;
@@ -121,10 +128,10 @@ void SENode::_wheel_speeds_subscription_callback(double lb_speed, double lf_spee
   RCLCPP_DEBUG(this->get_logger(),
                "SUB - Raw from wheel speeds: lb:%f - rb:%f - lf:%f - rf:%f - "
                "steering: %f",
-               lb_speed, rb_speed, lf_speed, rf_speed, steering_angle);
+               rl_speed, rr_speed, fl_speed, fr_speed, steering_angle);
   auto [linear_velocity, angular_velocity] =
-      common_lib::vehicle_dynamics::odometry_to_velocities_transform(lb_speed, lf_speed, rb_speed,
-                                                                     rf_speed, steering_angle);
+      common_lib::vehicle_dynamics::odometry_to_velocities_transform(rl_speed, fl_speed, rr_speed,
+                                                                     fr_speed, steering_angle);
   MotionUpdate motion_prediction_data;
   motion_prediction_data.translational_velocity = linear_velocity;
   motion_prediction_data.rotational_velocity = angular_velocity;
@@ -147,15 +154,6 @@ void SENode::_wheel_speeds_subscription_callback(double lb_speed, double lf_spee
   this->_publish_vehicle_state();
   this->_publish_map();
 }
-
-void SENode::set_mission(common_lib::competition_logic::Mission mission) {
-  if (this->_mission_ == mission) {
-    return;
-  }
-  this->_mission_ = mission;
-  return;
-}
-
 /*---------------------- Publications --------------------*/
 
 void SENode::_publish_vehicle_state() {
@@ -169,6 +167,7 @@ void SENode::_publish_vehicle_state() {
   message.theta = this->_vehicle_state_->pose.orientation;
   message.linear_velocity = this->_vehicle_state_->linear_velocity;
   message.angular_velocity = this->_vehicle_state_->angular_velocity;
+  message.header.stamp = this->get_clock()->now();
 
   RCLCPP_DEBUG(this->get_logger(), "PUB - Pose: (%f, %f, %f); Velocities: (%f, %f)",
                message.position.x, message.position.y, message.theta, message.linear_velocity,
@@ -177,24 +176,25 @@ void SENode::_publish_vehicle_state() {
 }
 
 void SENode::_publish_map() {
-  auto message = custom_interfaces::msg::ConeArray();
+  auto cone_array_msg = custom_interfaces::msg::ConeArray();
+  auto marker_array_msg = visualization_msgs::msg::MarkerArray();
   RCLCPP_DEBUG(this->get_logger(), "PUB - cone map:");
   RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
   for (common_lib::structures::Cone const &cone : *this->_track_map_) {
-    auto position = custom_interfaces::msg::Point2d();
-    position.x = cone.position.x;
-    position.y = cone.position.y;
-
     auto cone_message = custom_interfaces::msg::Cone();
-    cone_message.position = position;
+    cone_message.position.x = cone.position.x;
+    cone_message.position.y = cone.position.y;
     cone_message.color = common_lib::competition_logic::get_color_string(cone.color);
-    message.cone_array.push_back(cone_message);
+    cone_array_msg.cone_array.push_back(cone_message);
     RCLCPP_DEBUG(this->get_logger(), "(%f\t%f)\t%s", cone_message.position.x,
                  cone_message.position.y, cone_message.color.c_str());
   }
   RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
-
-  this->_map_publisher_->publish(message);
+  cone_array_msg.header.stamp = this->get_clock()->now();
+  marker_array_msg = common_lib::communication::marker_array_from_structure_array(
+      *this->_track_map_, "map_cones", "map");
+  this->_map_publisher_->publish(cone_array_msg);
+  this->_visualization_map_publisher_->publish(marker_array_msg);
 }
 
 /*---------------------- Others --------------------*/

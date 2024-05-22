@@ -37,7 +37,7 @@ jobs:
       - name: Build Dependencies
         run: |
           source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib pacsim
 
       - name: Build and Test Perception
         run: |
@@ -75,7 +75,7 @@ jobs:
       - name: Build Dependencies
         run: |
           source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib pacsim
 
       - name: Build and Test Localization and Mapping
         run: |
@@ -114,7 +114,7 @@ jobs:
       - name: Build Dependencies
         run: |
           source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib pacsim
 
       - name: Build and Test Control
         run: |
@@ -153,7 +153,7 @@ jobs:
       - name: Build Dependencies
         run: |
           source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib pacsim
 
       - name: Build and Test Planning
         run: |
@@ -192,7 +192,7 @@ jobs:
       - name: Build Dependencies
         run: |
           source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib pacsim
 
       - name: Build and Test Inspection Node
         run: |
@@ -230,7 +230,7 @@ jobs:
       - name: Build Dependencies
         run: |
           source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib pacsim
 
       - name: Build and Test Mocker Node
         run: |

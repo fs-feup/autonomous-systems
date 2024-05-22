@@ -11,6 +11,9 @@
 
   <depend>eufs_msgs</depend>
   <depend>fs_msgs</depend>
+  <depend>visualization_msgs</depend>
+  <depend>std_msgs</depend>
+  <depend>rclcpp</depend>
 
   <export>
     <build_type>ament_cmake</build_type>

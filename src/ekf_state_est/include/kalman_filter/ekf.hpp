@@ -4,6 +4,7 @@
 
 #include <Eigen/Dense>
 #include <Eigen/Sparse>
+#include <memory>
 #include <rclcpp/rclcpp.hpp>
 #include <vector>
 
@@ -31,9 +32,10 @@ class ExtendedKalmanFilter {
       Eigen::SparseMatrix<float>(5, 5);               /**< Sparse State covariance matrix */
   rclcpp::Time _last_update_ = rclcpp::Clock().now(); /**< Timestamp of last update */
 
-  const MotionModel &_motion_model_;           /**< Motion Model chosen for prediction step */
-  const ObservationModel &_observation_model_; /**< Observation Model chosen for correction step */
-  const DataAssociationModel &_data_association_model_; /**< Data Association Model*/
+  std::shared_ptr<MotionModel> _motion_model_; /**< Motion Model chosen for prediction step */
+  std::shared_ptr<ObservationModel>
+      _observation_model_; /**< Observation Model chosen for correction step */
+  std::shared_ptr<DataAssociationModel> _data_association_model_; /**< Data Association Model*/
 
   bool _fixed_map = false;         /**< Flag to indicate if the map is fixed */
   bool _first_prediction_ = true;  /// Flags used to mark first prediction step
@@ -56,8 +58,9 @@ public:
    * @param motion_model motion model chosen for prediction step
    * @param observation_model observation model chosen for correction step
    */
-  ExtendedKalmanFilter(const MotionModel &motion_model, const ObservationModel &observation_model,
-                       const DataAssociationModel &data_association_model);
+  ExtendedKalmanFilter(std::shared_ptr<MotionModel> motion_model,
+                       std::shared_ptr<ObservationModel> observation_model,
+                       std::shared_ptr<DataAssociationModel> data_association_model);
 
   /**
    * @brief Updates vehicle state and map variables according
