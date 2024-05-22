@@ -1,16 +1,16 @@
 var class_perception =
 [
-    [ "Perception", "de/d07/class_perception.html#a5accde934bfe050e635394e8634e9f0f", null ],
+    [ "Perception", "de/d07/class_perception.html#a536c2774afe20dab27a212fb5fe47330", null ],
     [ "pointCloudCallback", "de/d07/class_perception.html#afaf42fed2ffa3ed23d5c636bf3fdadd7", null ],
     [ "publishCones", "de/d07/class_perception.html#a0ed87dbcc41d99a6c40f6363afdebce4", null ],
+    [ "_adapter_", "de/d07/class_perception.html#a912f7cadb5070e84fe49406820ae6a40", null ],
+    [ "_clustering_", "de/d07/class_perception.html#a233be023d8a5f2d1b89f3e129ab6a94f", null ],
+    [ "_cone_differentiator_", "de/d07/class_perception.html#a3e36cd5d27cab7cb874f131e3411bc2f", null ],
+    [ "_cone_evaluator_", "de/d07/class_perception.html#a26df40c54d53312449ebbbc6fc865118", null ],
+    [ "_cone_validators_", "de/d07/class_perception.html#a0461e7018858c4e1627c932cef26223b", null ],
     [ "_cones_publisher", "de/d07/class_perception.html#a2297bfffec57b58d00ee1fb47cd73144", null ],
-    [ "_point_cloud_subscription", "de/d07/class_perception.html#a5754f98499e1aae7724c3a46f56c401f", null ],
-    [ "adapter", "de/d07/class_perception.html#a474363b857d9a384e1943a6e3e713f45", null ],
-    [ "clustering", "de/d07/class_perception.html#a25ea42f1bab1fe84ec10d9e8ce73a602", null ],
-    [ "cone_validators", "de/d07/class_perception.html#acb182c5995be48bd11e898600701c88f", null ],
-    [ "coneDifferentiator", "de/d07/class_perception.html#a5704a26856148220026519506820e891", null ],
-    [ "coneEvaluator", "de/d07/class_perception.html#a61cb91300133dad3e74f9720d0e8a692", null ],
-    [ "groundPlane", "de/d07/class_perception.html#aa2faf4f7b416491dca3a1dde5f31b96e", null ],
-    [ "groundRemoval", "de/d07/class_perception.html#a3c5c876f5eec7ca43bba68ba7ce7973a", null ],
-    [ "mode", "de/d07/class_perception.html#a80074949b215a153dd7b9430209be6ed", null ]
+    [ "_ground_plane_", "de/d07/class_perception.html#a12ef807ed9a71a98e70aec08fd3aee90", null ],
+    [ "_ground_removal_", "de/d07/class_perception.html#a598949be823659d711d71f168f257318", null ],
+    [ "_mode_", "de/d07/class_perception.html#a97e5f402fd8d016bb917ffcd32f39263", null ],
+    [ "_point_cloud_subscription", "de/d07/class_perception.html#a5754f98499e1aae7724c3a46f56c401f", null ]
 ];

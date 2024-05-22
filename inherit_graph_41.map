@@ -1,3 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$d6/d2c/class_track.html" title="Track class." alt="" coords="5,5,60,31"/>
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,43,104,69"/>
+<area shape="rect" id="Node000001" href="$db/d9e/structcommon__lib_1_1communication_1_1has__position_3_01_t_00_01std_1_1enable__if__t_3_01std_1_1e75ec67db346af9d8f02160e644a1dcb.html" title="A specialization of the has_position struct for types T that do have a valid &#39;position&#39; member." alt="" coords="152,5,444,106"/>
+<area shape="poly" id="edge30_Node000000_Node000001" title=" " alt="" coords="119,53,151,53,151,58,119,58"/>
 </map>

@@ -264,7 +264,7 @@ $(document).ready(function(){initNavTree('da/d89/perception_2test_2performance__
 <div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    executionTime.<a class="code hl_variable" href="../../d2/d36/struct_perception_execution_data.html#addec0feb48ccaaff35d2a90650d8d8e4">undefineds</a> = 0;</div>
 <div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> cluster : clusters) {</div>
 <div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>      cone_differentiator-&gt;coneDifferentiation(&amp;cluster);</div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>      std::string color = cluster.getColor();</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>      std::string color = cluster.get_color();</div>
 <div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>      <span class="keywordflow">if</span> (color == <span class="stringliteral">&quot;blue&quot;</span>)</div>
 <div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>        executionTime.<a class="code hl_variable" href="../../d2/d36/struct_perception_execution_data.html#aa64cb591a060c53042799e02e9027e5d">blues</a>++;</div>
 <div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>      <span class="keywordflow">else</span> <span class="keywordflow">if</span> (color == <span class="stringliteral">&quot;yellow&quot;</span>)</div>

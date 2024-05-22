@@ -1,11 +1,11 @@
 <map id="TEST_F" name="TEST_F">
-<area shape="rect" id="Node000001" title="Test case to validate if a point is inside the cylinder." alt="" coords="5,55,75,80"/>
-<area shape="rect" id="Node000002" href="$dd/def/class_cylinder_validator.html#a206a8bd25bfb5b16d71e3881af9a4111" title="Validates a cluster using cylinder approximation." alt="" coords="123,47,247,88"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="75,65,107,65,107,70,75,70"/>
-<area shape="rect" id="Node000003" href="$d2/d23/class_cluster.html#a10c9083c69c40e95596c95a8870bfc34" title="Get the centroid of the cluster." alt="" coords="303,5,437,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="247,48,303,33,305,38,248,54"/>
-<area shape="rect" id="Node000004" href="$d2/d23/class_cluster.html#aaa6717bc93a9becc88bb43b9a1b6e168" title="Get the Point Cloud data of the cluster." alt="" coords="295,55,444,80"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="247,65,279,65,279,70,247,70"/>
-<area shape="rect" id="Node000005" href="$dd/def/class_cylinder_validator.html#a0cc9f8c03c5ae430dd00246494112875" title="Gets the radius of the cylinder." alt="" coords="308,105,432,145"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="248,84,294,99,292,104,247,89"/>
+<area shape="rect" id="Node000001" title="Test case to validate if a point is inside the cylinder." alt="" coords="5,63,75,88"/>
+<area shape="rect" id="Node000002" href="$dd/def/class_cylinder_validator.html#a206a8bd25bfb5b16d71e3881af9a4111" title="Validates a cluster using cylinder approximation." alt="" coords="123,55,247,96"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="75,73,107,73,107,78,75,78"/>
+<area shape="rect" id="Node000003" href="$d2/d23/class_cluster.html#ab0b0056112da3ff27a13304f38f5f4d1" title="Get the centroid of the cluster." alt="" coords="295,5,434,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="247,53,307,34,309,39,248,58"/>
+<area shape="rect" id="Node000004" href="$d2/d23/class_cluster.html#a763032aa726408defaea180f280f55f3" title="Get the Point Cloud data of the cluster." alt="" coords="304,55,425,96"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="248,73,289,73,289,78,248,78"/>
+<area shape="rect" id="Node000005" href="$dd/def/class_cylinder_validator.html#a0cc9f8c03c5ae430dd00246494112875" title="Gets the radius of the cylinder." alt="" coords="303,121,427,161"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="244,94,293,112,292,117,242,99"/>
 </map>

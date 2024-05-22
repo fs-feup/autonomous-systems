@@ -20,6 +20,10 @@ var hierarchy =
       [ "evaluator.pacsim_adapter.PacsimAdapter", "d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter.html", null ]
     ] ],
     [ "AngleNorm", "df/d47/struct_angle_norm.html", null ],
+    [ "CenterCalculator", "df/daa/class_center_calculator.html", [
+      [ "CentroidCalculator", "da/d39/class_centroid_calculator.html", null ],
+      [ "CircunferenceCenterCalculation", "d8/d0d/class_circunference_center_calculation.html", null ]
+    ] ],
     [ "Cluster", "d2/d23/class_cluster.html", null ],
     [ "Clustering", "d9/d10/class_clustering.html", [
       [ "DBSCAN", "df/d6a/class_d_b_s_c_a_n.html", null ]
@@ -52,6 +56,7 @@ var hierarchy =
     [ "GroundRemoval", "dc/d84/class_ground_removal.html", [
       [ "RANSAC", "d6/dc3/class_r_a_n_s_a_c.html", null ]
     ] ],
+    [ "ICP", "dd/d10/class_i_c_p.html", null ],
     [ "common_lib::sensor_data::ImuData", "df/d48/structcommon__lib_1_1sensor__data_1_1_imu_data.html", null ],
     [ "InspectionFunctions", "d4/d89/class_inspection_functions.html", null ],
     [ "LocalPathPlanner", "d3/da1/class_local_path_planner.html", null ],
@@ -82,10 +87,12 @@ var hierarchy =
     [ "common_lib::structures::Position", "dc/d1b/structcommon__lib_1_1structures_1_1_position.html", null ],
     [ "Position", "d1/d26/struct_position.html", null ],
     [ "testing::Test", null, [
+      [ "CircunferenceCenterCalculationTest", "d1/df5/class_circunference_center_calculation_test.html", null ],
       [ "CylinderValidatorTest", "da/dcf/class_cylinder_validator_test.html", null ],
       [ "DBSCANTest", "d8/d90/class_d_b_s_c_a_n_test.html", null ],
       [ "DistanceValidatorTest", "db/df7/class_distance_validator_test.html", null ],
       [ "HeightValidatorTest", "d9/d7c/class_height_validator_test.html", null ],
+      [ "ICPSuite", "de/dab/class_i_c_p_suite.html", null ],
       [ "IntegrationTest", "d7/d4e/class_integration_test.html", null ],
       [ "LeastSquaresDifferentiationTest", "de/d1e/class_least_squares_differentiation_test.html", null ],
       [ "PerceptionPerformanceTest", "d3/d0d/class_perception_performance_test.html", null ],

@@ -1,9 +1,0 @@
-<map id="Cluster::getColor" name="Cluster::getColor">
-<area shape="rect" id="Node000001" title="Get the color associated with the cluster." alt="" coords="123,55,239,80"/>
-<area shape="rect" id="Node000002" href="$d5/dfa/least__squares__test_8cpp.html#a19610686f2b6d67c91c49de4d825b8b6" title="Test case to validate the cone differentiation for a blue cone." alt="" coords="5,5,75,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="127,51,74,33,76,28,128,46"/>
-<area shape="rect" id="Node000003" href="$d5/dfa/least__squares__test_8cpp.html#a3ef79ab5a18c4b61fb65aec48c7505a6" title="Test case to validate the cone differentiation for an undefined cone." alt="" coords="5,55,75,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="107,70,75,70,75,65,107,65"/>
-<area shape="rect" id="Node000004" href="$d5/dfa/least__squares__test_8cpp.html#a7e94e5064b07a818c4129c6075136f4c" title="Test case to validate the cone differentiation for a yellow cone." alt="" coords="5,104,75,130"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="128,89,76,107,74,102,127,84"/>
-</map>

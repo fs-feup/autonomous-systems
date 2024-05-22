@@ -119,19 +119,19 @@ Collaboration diagram for Perception:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d5/d96/class_perception__coll__graph.png" border="0" usemap="#a_perception_coll__map" alt="Collaboration graph"/></div>
 <map name="a_perception_coll__map" id="a_perception_coll__map">
-<area shape="rect" title="Node for perception tasks, such as ground removal and cone detection." alt="" coords="31,234,204,499"/>
-<area shape="rect" title=" " alt="" coords="5,55,91,121"/>
-<area shape="poly" title=" " alt="" coords="62,134,87,233,82,235,57,136"/>
-<area shape="rect" href="../../d2/d8d/class_plane.html" title="The Plane class represents a 3D plane defined by its equation ax + by + cz + d = 0." alt="" coords="115,5,261,171"/>
-<area shape="poly" title=" " alt="" coords="170,171,158,218,153,216,165,170"/>
+<area shape="rect" title="Node for perception tasks, such as ground removal and cone detection." alt="" coords="35,314,208,579"/>
+<area shape="rect" title=" " alt="" coords="5,95,91,161"/>
+<area shape="poly" title=" " alt="" coords="61,174,93,313,88,314,56,175"/>
+<area shape="rect" href="../../d2/d8d/class_plane.html" title="The Plane class represents a 3D plane defined by its equation ax + by + cz + d = 0." alt="" coords="115,5,274,251"/>
+<area shape="poly" title=" " alt="" coords="169,251,158,297,153,296,164,250"/>
 </map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a5accde934bfe050e635394e8634e9f0f" id="r_a5accde934bfe050e635394e8634e9f0f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d07/class_perception.html#a5accde934bfe050e635394e8634e9f0f">Perception</a> (std::shared_ptr&lt; <a class="el" href="../../dc/d84/class_ground_removal.html">GroundRemoval</a> &gt; <a class="el" href="../../de/d07/class_perception.html#a3c5c876f5eec7ca43bba68ba7ce7973a">groundRemoval</a>, std::shared_ptr&lt; <a class="el" href="../../d9/d10/class_clustering.html">Clustering</a> &gt; <a class="el" href="../../de/d07/class_perception.html#a25ea42f1bab1fe84ec10d9e8ce73a602">clustering</a>, std::shared_ptr&lt; <a class="el" href="../../d7/d4e/class_cone_differentiation.html">ConeDifferentiation</a> &gt; <a class="el" href="../../de/d07/class_perception.html#a5704a26856148220026519506820e891">coneDifferentiator</a>, const std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../d3/d57/class_cone_validator.html">ConeValidator</a> &gt; &gt; &amp;<a class="el" href="../../de/d07/class_perception.html#acb182c5995be48bd11e898600701c88f">cone_validators</a>, std::shared_ptr&lt; <a class="el" href="../../df/d8f/class_cone_evaluator.html">ConeEvaluator</a> &gt; <a class="el" href="../../de/d07/class_perception.html#a61cb91300133dad3e74f9720d0e8a692">coneEvaluator</a>, std::string <a class="el" href="../../de/d07/class_perception.html#a80074949b215a153dd7b9430209be6ed">mode</a>)</td></tr>
-<tr class="memdesc:a5accde934bfe050e635394e8634e9f0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for the <a class="el" href="../../de/d07/class_perception.html" title="Node for perception tasks, such as ground removal and cone detection.">Perception</a> node.  <br /></td></tr>
-<tr class="separator:a5accde934bfe050e635394e8634e9f0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a536c2774afe20dab27a212fb5fe47330" id="r_a536c2774afe20dab27a212fb5fe47330"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d07/class_perception.html#a536c2774afe20dab27a212fb5fe47330">Perception</a> (std::shared_ptr&lt; <a class="el" href="../../dc/d84/class_ground_removal.html">GroundRemoval</a> &gt; ground_removal, std::shared_ptr&lt; <a class="el" href="../../d9/d10/class_clustering.html">Clustering</a> &gt; clustering, std::shared_ptr&lt; <a class="el" href="../../d7/d4e/class_cone_differentiation.html">ConeDifferentiation</a> &gt; cone_differentiator, const std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../d3/d57/class_cone_validator.html">ConeValidator</a> &gt; &gt; &amp;cone_validators, std::shared_ptr&lt; <a class="el" href="../../df/d8f/class_cone_evaluator.html">ConeEvaluator</a> &gt; cone_evaluator, std::string mode)</td></tr>
+<tr class="memdesc:a536c2774afe20dab27a212fb5fe47330"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for the <a class="el" href="../../de/d07/class_perception.html" title="Node for perception tasks, such as ground removal and cone detection.">Perception</a> node.  <br /></td></tr>
+<tr class="separator:a536c2774afe20dab27a212fb5fe47330"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afaf42fed2ffa3ed23d5c636bf3fdadd7" id="r_afaf42fed2ffa3ed23d5c636bf3fdadd7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d07/class_perception.html#afaf42fed2ffa3ed23d5c636bf3fdadd7">pointCloudCallback</a> (const sensor_msgs::msg::PointCloud2::SharedPtr msg)</td></tr>
 <tr class="memdesc:afaf42fed2ffa3ed23d5c636bf3fdadd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function for the PointCloud2 subscription.  <br /></td></tr>
 <tr class="separator:afaf42fed2ffa3ed23d5c636bf3fdadd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -144,25 +144,25 @@ Private Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a3c5c876f5eec7ca43bba68ba7ce7973a" id="r_a3c5c876f5eec7ca43bba68ba7ce7973a"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../dc/d84/class_ground_removal.html">GroundRemoval</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d07/class_perception.html#a3c5c876f5eec7ca43bba68ba7ce7973a">groundRemoval</a></td></tr>
-<tr class="memdesc:a3c5c876f5eec7ca43bba68ba7ce7973a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shared pointer to the <a class="el" href="../../dc/d84/class_ground_removal.html" title="Abstract class for ground removal from a point cloud.">GroundRemoval</a> object.  <br /></td></tr>
-<tr class="separator:a3c5c876f5eec7ca43bba68ba7ce7973a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a474363b857d9a384e1943a6e3e713f45" id="r_a474363b857d9a384e1943a6e3e713f45"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d3/d7f/class_adapter.html">Adapter</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d07/class_perception.html#a474363b857d9a384e1943a6e3e713f45">adapter</a></td></tr>
-<tr class="memdesc:a474363b857d9a384e1943a6e3e713f45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shared pointer to <a class="el" href="../../d3/d7f/class_adapter.html" title="Adapter class for coordinating communication between different modes and Control module.">Adapter</a> instance for external communication.  <br /></td></tr>
-<tr class="separator:a474363b857d9a384e1943a6e3e713f45"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a25ea42f1bab1fe84ec10d9e8ce73a602" id="r_a25ea42f1bab1fe84ec10d9e8ce73a602"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d9/d10/class_clustering.html">Clustering</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d07/class_perception.html#a25ea42f1bab1fe84ec10d9e8ce73a602">clustering</a></td></tr>
-<tr class="separator:a25ea42f1bab1fe84ec10d9e8ce73a602"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a80074949b215a153dd7b9430209be6ed" id="r_a80074949b215a153dd7b9430209be6ed"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d07/class_perception.html#a80074949b215a153dd7b9430209be6ed">mode</a></td></tr>
-<tr class="separator:a80074949b215a153dd7b9430209be6ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5704a26856148220026519506820e891" id="r_a5704a26856148220026519506820e891"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d7/d4e/class_cone_differentiation.html">ConeDifferentiation</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d07/class_perception.html#a5704a26856148220026519506820e891">coneDifferentiator</a></td></tr>
-<tr class="memdesc:a5704a26856148220026519506820e891"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shared pointer to <a class="el" href="../../d7/d4e/class_cone_differentiation.html" title="Abstract class for cone differentiation based on cone reflectivity patterns.">ConeDifferentiation</a> object.  <br /></td></tr>
-<tr class="separator:a5704a26856148220026519506820e891"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa2faf4f7b416491dca3a1dde5f31b96e" id="r_aa2faf4f7b416491dca3a1dde5f31b96e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/d8d/class_plane.html">Plane</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d07/class_perception.html#aa2faf4f7b416491dca3a1dde5f31b96e">groundPlane</a></td></tr>
-<tr class="separator:aa2faf4f7b416491dca3a1dde5f31b96e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb182c5995be48bd11e898600701c88f" id="r_acb182c5995be48bd11e898600701c88f"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../d3/d57/class_cone_validator.html">ConeValidator</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d07/class_perception.html#acb182c5995be48bd11e898600701c88f">cone_validators</a></td></tr>
-<tr class="separator:acb182c5995be48bd11e898600701c88f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a61cb91300133dad3e74f9720d0e8a692" id="r_a61cb91300133dad3e74f9720d0e8a692"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../df/d8f/class_cone_evaluator.html">ConeEvaluator</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d07/class_perception.html#a61cb91300133dad3e74f9720d0e8a692">coneEvaluator</a></td></tr>
-<tr class="separator:a61cb91300133dad3e74f9720d0e8a692"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a598949be823659d711d71f168f257318" id="r_a598949be823659d711d71f168f257318"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../dc/d84/class_ground_removal.html">GroundRemoval</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d07/class_perception.html#a598949be823659d711d71f168f257318">_ground_removal_</a></td></tr>
+<tr class="memdesc:a598949be823659d711d71f168f257318"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shared pointer to the <a class="el" href="../../dc/d84/class_ground_removal.html" title="Abstract class for ground removal from a point cloud.">GroundRemoval</a> object.  <br /></td></tr>
+<tr class="separator:a598949be823659d711d71f168f257318"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a912f7cadb5070e84fe49406820ae6a40" id="r_a912f7cadb5070e84fe49406820ae6a40"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d3/d7f/class_adapter.html">Adapter</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d07/class_perception.html#a912f7cadb5070e84fe49406820ae6a40">_adapter_</a></td></tr>
+<tr class="memdesc:a912f7cadb5070e84fe49406820ae6a40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shared pointer to <a class="el" href="../../d3/d7f/class_adapter.html" title="Adapter class for coordinating communication between different modes and Control module.">Adapter</a> instance for external communication.  <br /></td></tr>
+<tr class="separator:a912f7cadb5070e84fe49406820ae6a40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a233be023d8a5f2d1b89f3e129ab6a94f" id="r_a233be023d8a5f2d1b89f3e129ab6a94f"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d9/d10/class_clustering.html">Clustering</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d07/class_perception.html#a233be023d8a5f2d1b89f3e129ab6a94f">_clustering_</a></td></tr>
+<tr class="separator:a233be023d8a5f2d1b89f3e129ab6a94f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e36cd5d27cab7cb874f131e3411bc2f" id="r_a3e36cd5d27cab7cb874f131e3411bc2f"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d7/d4e/class_cone_differentiation.html">ConeDifferentiation</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d07/class_perception.html#a3e36cd5d27cab7cb874f131e3411bc2f">_cone_differentiator_</a></td></tr>
+<tr class="memdesc:a3e36cd5d27cab7cb874f131e3411bc2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shared pointer to <a class="el" href="../../d7/d4e/class_cone_differentiation.html" title="Abstract class for cone differentiation based on cone reflectivity patterns.">ConeDifferentiation</a> object.  <br /></td></tr>
+<tr class="separator:a3e36cd5d27cab7cb874f131e3411bc2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12ef807ed9a71a98e70aec08fd3aee90" id="r_a12ef807ed9a71a98e70aec08fd3aee90"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/d8d/class_plane.html">Plane</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d07/class_perception.html#a12ef807ed9a71a98e70aec08fd3aee90">_ground_plane_</a></td></tr>
+<tr class="separator:a12ef807ed9a71a98e70aec08fd3aee90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0461e7018858c4e1627c932cef26223b" id="r_a0461e7018858c4e1627c932cef26223b"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../d3/d57/class_cone_validator.html">ConeValidator</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d07/class_perception.html#a0461e7018858c4e1627c932cef26223b">_cone_validators_</a></td></tr>
+<tr class="separator:a0461e7018858c4e1627c932cef26223b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26df40c54d53312449ebbbc6fc865118" id="r_a26df40c54d53312449ebbbc6fc865118"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../df/d8f/class_cone_evaluator.html">ConeEvaluator</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d07/class_perception.html#a26df40c54d53312449ebbbc6fc865118">_cone_evaluator_</a></td></tr>
+<tr class="separator:a26df40c54d53312449ebbbc6fc865118"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97e5f402fd8d016bb917ffcd32f39263" id="r_a97e5f402fd8d016bb917ffcd32f39263"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d07/class_perception.html#a97e5f402fd8d016bb917ffcd32f39263">_mode_</a></td></tr>
+<tr class="separator:a97e5f402fd8d016bb917ffcd32f39263"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5754f98499e1aae7724c3a46f56c401f" id="r_a5754f98499e1aae7724c3a46f56c401f"><td class="memItemLeft" align="right" valign="top">rclcpp::Subscription&lt; sensor_msgs::msg::PointCloud2 &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d07/class_perception.html#a5754f98499e1aae7724c3a46f56c401f">_point_cloud_subscription</a></td></tr>
 <tr class="memdesc:a5754f98499e1aae7724c3a46f56c401f"><td class="mdescLeft">&#160;</td><td class="mdescRight">PointCloud2 subscription.  <br /></td></tr>
 <tr class="separator:a5754f98499e1aae7724c3a46f56c401f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -176,8 +176,8 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="../../de/da5/perception__node_8hpp_source.html#l00028">28</a> of file <a class="el" href="../../de/da5/perception__node_8hpp_source.html">perception_node.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a5accde934bfe050e635394e8634e9f0f" name="a5accde934bfe050e635394e8634e9f0f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5accde934bfe050e635394e8634e9f0f">&#9670;&#160;</a></span>Perception()</h2>
+<a id="a536c2774afe20dab27a212fb5fe47330" name="a536c2774afe20dab27a212fb5fe47330"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a536c2774afe20dab27a212fb5fe47330">&#9670;&#160;</a></span>Perception()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -186,7 +186,7 @@ Private Attributes</h2></td></tr>
           <td class="memname">Perception::Perception </td>
           <td>(</td>
           <td class="paramtype">std::shared_ptr&lt; <a class="el" href="../../dc/d84/class_ground_removal.html">GroundRemoval</a> &gt;&#160;</td>
-          <td class="paramname"><em>groundRemoval</em>, </td>
+          <td class="paramname"><em>ground_removal</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -198,7 +198,7 @@ Private Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">std::shared_ptr&lt; <a class="el" href="../../d7/d4e/class_cone_differentiation.html">ConeDifferentiation</a> &gt;&#160;</td>
-          <td class="paramname"><em>coneDifferentiator</em>, </td>
+          <td class="paramname"><em>cone_differentiator</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -210,7 +210,7 @@ Private Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">std::shared_ptr&lt; <a class="el" href="../../df/d8f/class_cone_evaluator.html">ConeEvaluator</a> &gt;&#160;</td>
-          <td class="paramname"><em>coneEvaluator</em>, </td>
+          <td class="paramname"><em>cone_evaluator</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -268,7 +268,7 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/dfb/perception__node_8cpp_source.html#l00037">37</a> of file <a class="el" href="../../dc/dfb/perception__node_8cpp_source.html">perception_node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/dfb/perception__node_8cpp_source.html#l00035">35</a> of file <a class="el" href="../../dc/dfb/perception__node_8cpp_source.html">perception_node.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -315,7 +315,7 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/dfb/perception__node_8cpp_source.html#l00079">79</a> of file <a class="el" href="../../dc/dfb/perception__node_8cpp_source.html">perception_node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/dfb/perception__node_8cpp_source.html#l00077">77</a> of file <a class="el" href="../../dc/dfb/perception__node_8cpp_source.html">perception_node.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -330,6 +330,130 @@ Here is the caller graph for this function:</div>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="a912f7cadb5070e84fe49406820ae6a40" name="a912f7cadb5070e84fe49406820ae6a40"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a912f7cadb5070e84fe49406820ae6a40">&#9670;&#160;</a></span>_adapter_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../d3/d7f/class_adapter.html">Adapter</a>&gt; Perception::_adapter_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Shared pointer to <a class="el" href="../../d3/d7f/class_adapter.html" title="Adapter class for coordinating communication between different modes and Control module.">Adapter</a> instance for external communication. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../de/da5/perception__node_8hpp_source.html#l00031">31</a> of file <a class="el" href="../../de/da5/perception__node_8hpp_source.html">perception_node.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a233be023d8a5f2d1b89f3e129ab6a94f" name="a233be023d8a5f2d1b89f3e129ab6a94f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a233be023d8a5f2d1b89f3e129ab6a94f">&#9670;&#160;</a></span>_clustering_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../d9/d10/class_clustering.html">Clustering</a>&gt; Perception::_clustering_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../de/da5/perception__node_8hpp_source.html#l00032">32</a> of file <a class="el" href="../../de/da5/perception__node_8hpp_source.html">perception_node.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a3e36cd5d27cab7cb874f131e3411bc2f" name="a3e36cd5d27cab7cb874f131e3411bc2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e36cd5d27cab7cb874f131e3411bc2f">&#9670;&#160;</a></span>_cone_differentiator_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../d7/d4e/class_cone_differentiation.html">ConeDifferentiation</a>&gt; Perception::_cone_differentiator_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Shared pointer to <a class="el" href="../../d7/d4e/class_cone_differentiation.html" title="Abstract class for cone differentiation based on cone reflectivity patterns.">ConeDifferentiation</a> object. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../de/da5/perception__node_8hpp_source.html#l00033">33</a> of file <a class="el" href="../../de/da5/perception__node_8hpp_source.html">perception_node.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a26df40c54d53312449ebbbc6fc865118" name="a26df40c54d53312449ebbbc6fc865118"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26df40c54d53312449ebbbc6fc865118">&#9670;&#160;</a></span>_cone_evaluator_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../df/d8f/class_cone_evaluator.html">ConeEvaluator</a>&gt; Perception::_cone_evaluator_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../de/da5/perception__node_8hpp_source.html#l00036">36</a> of file <a class="el" href="../../de/da5/perception__node_8hpp_source.html">perception_node.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a0461e7018858c4e1627c932cef26223b" name="a0461e7018858c4e1627c932cef26223b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0461e7018858c4e1627c932cef26223b">&#9670;&#160;</a></span>_cone_validators_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::shared_ptr&lt;<a class="el" href="../../d3/d57/class_cone_validator.html">ConeValidator</a>&gt; &gt; Perception::_cone_validators_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../de/da5/perception__node_8hpp_source.html#l00035">35</a> of file <a class="el" href="../../de/da5/perception__node_8hpp_source.html">perception_node.hpp</a>.</p>
+
+</div>
+</div>
 <a id="a2297bfffec57b58d00ee1fb47cd73144" name="a2297bfffec57b58d00ee1fb47cd73144"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2297bfffec57b58d00ee1fb47cd73144">&#9670;&#160;</a></span>_cones_publisher</h2>
 
@@ -356,6 +480,80 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a id="a12ef807ed9a71a98e70aec08fd3aee90" name="a12ef807ed9a71a98e70aec08fd3aee90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12ef807ed9a71a98e70aec08fd3aee90">&#9670;&#160;</a></span>_ground_plane_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d2/d8d/class_plane.html">Plane</a> Perception::_ground_plane_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../de/da5/perception__node_8hpp_source.html#l00034">34</a> of file <a class="el" href="../../de/da5/perception__node_8hpp_source.html">perception_node.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a598949be823659d711d71f168f257318" name="a598949be823659d711d71f168f257318"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a598949be823659d711d71f168f257318">&#9670;&#160;</a></span>_ground_removal_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../dc/d84/class_ground_removal.html">GroundRemoval</a>&gt; Perception::_ground_removal_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Shared pointer to the <a class="el" href="../../dc/d84/class_ground_removal.html" title="Abstract class for ground removal from a point cloud.">GroundRemoval</a> object. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../de/da5/perception__node_8hpp_source.html#l00030">30</a> of file <a class="el" href="../../de/da5/perception__node_8hpp_source.html">perception_node.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a97e5f402fd8d016bb917ffcd32f39263" name="a97e5f402fd8d016bb917ffcd32f39263"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97e5f402fd8d016bb917ffcd32f39263">&#9670;&#160;</a></span>_mode_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string Perception::_mode_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../de/da5/perception__node_8hpp_source.html#l00037">37</a> of file <a class="el" href="../../de/da5/perception__node_8hpp_source.html">perception_node.hpp</a>.</p>
+
+</div>
+</div>
 <a id="a5754f98499e1aae7724c3a46f56c401f" name="a5754f98499e1aae7724c3a46f56c401f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5754f98499e1aae7724c3a46f56c401f">&#9670;&#160;</a></span>_point_cloud_subscription</h2>
 
@@ -379,204 +577,6 @@ Here is the caller graph for this function:</div>
 <p>PointCloud2 subscription. </p>
 
 <p class="definition">Definition at line <a class="el" href="../../de/da5/perception__node_8hpp_source.html#l00040">40</a> of file <a class="el" href="../../de/da5/perception__node_8hpp_source.html">perception_node.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a474363b857d9a384e1943a6e3e713f45" name="a474363b857d9a384e1943a6e3e713f45"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a474363b857d9a384e1943a6e3e713f45">&#9670;&#160;</a></span>adapter</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../d3/d7f/class_adapter.html">Adapter</a>&gt; Perception::adapter</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Shared pointer to <a class="el" href="../../d3/d7f/class_adapter.html" title="Adapter class for coordinating communication between different modes and Control module.">Adapter</a> instance for external communication. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../de/da5/perception__node_8hpp_source.html#l00031">31</a> of file <a class="el" href="../../de/da5/perception__node_8hpp_source.html">perception_node.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a25ea42f1bab1fe84ec10d9e8ce73a602" name="a25ea42f1bab1fe84ec10d9e8ce73a602"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a25ea42f1bab1fe84ec10d9e8ce73a602">&#9670;&#160;</a></span>clustering</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../d9/d10/class_clustering.html">Clustering</a>&gt; Perception::clustering</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../de/da5/perception__node_8hpp_source.html#l00032">32</a> of file <a class="el" href="../../de/da5/perception__node_8hpp_source.html">perception_node.hpp</a>.</p>
-
-</div>
-</div>
-<a id="acb182c5995be48bd11e898600701c88f" name="acb182c5995be48bd11e898600701c88f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acb182c5995be48bd11e898600701c88f">&#9670;&#160;</a></span>cone_validators</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt;std::shared_ptr&lt;<a class="el" href="../../d3/d57/class_cone_validator.html">ConeValidator</a>&gt; &gt; Perception::cone_validators</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../de/da5/perception__node_8hpp_source.html#l00036">36</a> of file <a class="el" href="../../de/da5/perception__node_8hpp_source.html">perception_node.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a5704a26856148220026519506820e891" name="a5704a26856148220026519506820e891"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5704a26856148220026519506820e891">&#9670;&#160;</a></span>coneDifferentiator</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../d7/d4e/class_cone_differentiation.html">ConeDifferentiation</a>&gt; Perception::coneDifferentiator</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Shared pointer to <a class="el" href="../../d7/d4e/class_cone_differentiation.html" title="Abstract class for cone differentiation based on cone reflectivity patterns.">ConeDifferentiation</a> object. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../de/da5/perception__node_8hpp_source.html#l00034">34</a> of file <a class="el" href="../../de/da5/perception__node_8hpp_source.html">perception_node.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a61cb91300133dad3e74f9720d0e8a692" name="a61cb91300133dad3e74f9720d0e8a692"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a61cb91300133dad3e74f9720d0e8a692">&#9670;&#160;</a></span>coneEvaluator</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../df/d8f/class_cone_evaluator.html">ConeEvaluator</a>&gt; Perception::coneEvaluator</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../de/da5/perception__node_8hpp_source.html#l00037">37</a> of file <a class="el" href="../../de/da5/perception__node_8hpp_source.html">perception_node.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aa2faf4f7b416491dca3a1dde5f31b96e" name="aa2faf4f7b416491dca3a1dde5f31b96e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa2faf4f7b416491dca3a1dde5f31b96e">&#9670;&#160;</a></span>groundPlane</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d2/d8d/class_plane.html">Plane</a> Perception::groundPlane</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../de/da5/perception__node_8hpp_source.html#l00035">35</a> of file <a class="el" href="../../de/da5/perception__node_8hpp_source.html">perception_node.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a3c5c876f5eec7ca43bba68ba7ce7973a" name="a3c5c876f5eec7ca43bba68ba7ce7973a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3c5c876f5eec7ca43bba68ba7ce7973a">&#9670;&#160;</a></span>groundRemoval</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../dc/d84/class_ground_removal.html">GroundRemoval</a>&gt; Perception::groundRemoval</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Shared pointer to the <a class="el" href="../../dc/d84/class_ground_removal.html" title="Abstract class for ground removal from a point cloud.">GroundRemoval</a> object. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../de/da5/perception__node_8hpp_source.html#l00030">30</a> of file <a class="el" href="../../de/da5/perception__node_8hpp_source.html">perception_node.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a80074949b215a153dd7b9430209be6ed" name="a80074949b215a153dd7b9430209be6ed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a80074949b215a153dd7b9430209be6ed">&#9670;&#160;</a></span>mode</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string Perception::mode</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../de/da5/perception__node_8hpp_source.html#l00033">33</a> of file <a class="el" href="../../de/da5/perception__node_8hpp_source.html">perception_node.hpp</a>.</p>
 
 </div>
 </div>

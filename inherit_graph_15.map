@@ -1,7 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$d3/d57/class_cone_validator.html" title="Abstract class responsible for validating clusters as cones." alt="" coords="5,31,108,56"/>
-<area shape="rect" id="Node000001" href="$dd/def/class_cylinder_validator.html" title="Validates clusters using a cylinder approximation." alt="" coords="156,5,274,31"/>
-<area shape="poly" id="edge9_Node000000_Node000001" title=" " alt="" coords="122,30,155,25,156,30,123,36"/>
-<area shape="rect" id="Node000002" href="$d9/d1f/class_height_validator.html" title="The HeightValidator class is responsible for validating cones based on their height." alt="" coords="160,55,270,80"/>
-<area shape="poly" id="edge10_Node000000_Node000002" title=" " alt="" coords="123,51,160,56,159,62,123,56"/>
+<area shape="rect" id="Node000000" href="$df/d8f/class_cone_evaluator.html" title="Abstract class that represents an heurisic that evaluates the cluster as a cone." alt="" coords="5,5,111,31"/>
+<area shape="rect" id="Node000001" href="$d0/d47/class_distance_predict.html" title="Cone heurisitic evaluation based on distance." alt="" coords="159,5,272,31"/>
+<area shape="poly" id="edge10_Node000000_Node000001" title=" " alt="" coords="126,16,158,16,158,21,126,21"/>
 </map>

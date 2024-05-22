@@ -1,0 +1,5 @@
+<map id="Plane::get_c" name="Plane::get_c">
+<area shape="rect" id="Node000001" title="Getter &#45; Get the c component of the plane." alt="" coords="257,13,349,39"/>
+<area shape="rect" id="Node000002" href="$d8/d0d/class_circunference_center_calculation.html#ac6f4e1903547a8958784b4db940dddab" title="Estimates the center position of a cone using a circumference&#45;based approach." alt="" coords="5,5,209,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="241,28,209,28,209,23,241,23"/>
+</map>

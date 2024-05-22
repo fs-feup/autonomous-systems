@@ -1,0 +1,11 @@
+<map id="Cluster::get_centroid" name="Cluster::get_centroid">
+<area shape="rect" id="Node000001" title="Get the centroid of the cluster." alt="" coords="339,63,478,88"/>
+<area shape="rect" id="Node000002" href="$dd/def/class_cylinder_validator.html#a206a8bd25bfb5b16d71e3881af9a4111" title="Validates a cluster using cylinder approximation." alt="" coords="145,22,269,63"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="323,64,269,55,270,50,324,59"/>
+<area shape="rect" id="Node000005" href="$d0/d47/class_distance_predict.html#a30fefe0b7264263220f3a38b6a873838" title="Perform the cluster evaluation based on distance." alt="" coords="123,87,291,128"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="324,92,292,97,291,91,323,86"/>
+<area shape="rect" id="Node000003" href="$dc/da5/cylinder__validator__test_8cpp.html#ac6b9d4a0b0d87a638097ed16b4386464" title="Test case to validate if a point is inside the cylinder." alt="" coords="5,5,75,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="129,34,74,26,75,20,130,28"/>
+<area shape="rect" id="Node000004" href="$dc/da5/cylinder__validator__test_8cpp.html#a2f203a643e8c68f6c812c3ec1874fa52" title="Test case to validate if a point is outside the cylinder." alt="" coords="5,55,75,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="130,57,75,65,74,60,129,51"/>
+</map>

@@ -1,7 +1,7 @@
 <map id="LeastSquaresDifferentiation::coneDifferentiation" name="LeastSquaresDifferentiation::coneDifferentiation">
-<area shape="rect" id="Node000001" title="Perform cone differentiation on a cone&#39;s point cloud using the Least Squares Method." alt="" coords="5,23,187,64"/>
-<area shape="rect" id="Node000002" href="$d2/d23/class_cluster.html#aaa6717bc93a9becc88bb43b9a1b6e168" title="Get the Point Cloud data of the cluster." alt="" coords="235,5,384,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="187,30,219,26,219,32,188,35"/>
-<area shape="rect" id="Node000003" href="$d2/d23/class_cluster.html#a3355a1a02e5509a92859d324c6f9f5a2" title="Set the color for the cluster." alt="" coords="251,55,368,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="188,51,236,57,235,62,187,56"/>
+<area shape="rect" id="Node000001" title="Perform cone differentiation on a cone&#39;s point cloud using the Least Squares Method." alt="" coords="5,35,187,75"/>
+<area shape="rect" id="Node000002" href="$d2/d23/class_cluster.html#a763032aa726408defaea180f280f55f3" title="Get the Point Cloud data of the cluster." alt="" coords="235,5,356,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="187,39,219,34,220,39,187,44"/>
+<area shape="rect" id="Node000003" href="$d2/d23/class_cluster.html#acf07cb412ab1990cbfcaf372e6a21dce" title="Set the color for the cluster." alt="" coords="235,70,356,96"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="187,65,220,70,219,75,187,70"/>
 </map>

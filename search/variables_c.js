@@ -21,7 +21,7 @@ var searchData=
   ['mission_5fsignal_5fsubscription_18',['mission_signal_subscription',['../de/d3d/class_inspection_mission.html#a63ecc6d7ebc0e6e44fcfd05c30ffe14a',1,'InspectionMission']]],
   ['mission_5fstring_5fmap_19',['MISSION_STRING_MAP',['../d9/d2b/namespacecommon__lib_1_1competition__logic.html#a76b8f6ec90ec92bf0ffc03722128c6af',1,'common_lib::competition_logic']]],
   ['mission_5fsubscription_5f_20',['mission_subscription_',['../d1/df1/class_vehicle_adapter.html#a83498734d02faf50ca37a548f6165884',1,'VehicleAdapter']]],
-  ['mode_21',['mode',['../d9/db5/class_planning.html#aa8ef109f949380eb38fd7ef3faab166b',1,'Planning::mode'],['../de/d07/class_perception.html#a80074949b215a153dd7b9430209be6ed',1,'Perception::mode'],['../d7/d49/class_control.html#a3b07dbcb1e368f0eaf75f5d4906c3936',1,'Control::mode']]],
+  ['mode_21',['mode',['../d9/db5/class_planning.html#aa8ef109f949380eb38fd7ef3faab166b',1,'Planning::mode'],['../d7/d49/class_control.html#a3b07dbcb1e368f0eaf75f5d4906c3936',1,'Control::mode']]],
   ['motion_5fmodel_5f_22',['motion_model_',['../df/d4f/class_performance_test.html#a41843c2254023c3a845364ca49f737a5',1,'PerformanceTest']]],
   ['motion_5fmodel_5fconstructors_23',['motion_model_constructors',['../df/dc4/motion__models_8hpp.html#a4e10dbc660ae8904edeb9b53ffb84701',1,'motion_models.hpp']]],
   ['motion_5fmodel_5fnoise_5fmatrixes_24',['motion_model_noise_matrixes',['../df/dc4/motion__models_8hpp.html#a3eca37f5ac2c40dca95d5de56fcfafd8',1,'motion_models.hpp']]],

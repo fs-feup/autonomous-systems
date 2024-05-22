@@ -1,16 +1,20 @@
 var class_cluster =
 [
     [ "Cluster", "d2/d23/class_cluster.html#ae654220b3efbcb24863d4f7c3d844a39", null ],
-    [ "getCentroid", "d2/d23/class_cluster.html#a10c9083c69c40e95596c95a8870bfc34", null ],
-    [ "getColor", "d2/d23/class_cluster.html#a8f05a4df1d8860c60b1cb32b662664a1", null ],
-    [ "getConfidence", "d2/d23/class_cluster.html#a0af7e402728b298a456ad0b54ad280bd", null ],
-    [ "getPointCloud", "d2/d23/class_cluster.html#aaa6717bc93a9becc88bb43b9a1b6e168", null ],
-    [ "setColor", "d2/d23/class_cluster.html#a3355a1a02e5509a92859d324c6f9f5a2", null ],
-    [ "setConfidence", "d2/d23/class_cluster.html#a372edd4665799f4c08401a8ecdcdc8b0", null ],
-    [ "setPointCloud", "d2/d23/class_cluster.html#a053a67267ab8b64723c43a66d2ddae61", null ],
-    [ "centroid", "d2/d23/class_cluster.html#a9f66619a9e577d2ca383c473b4bed82a", null ],
-    [ "centroidIsDefined", "d2/d23/class_cluster.html#afe829c292c0aa7870b715efef8f4aa16", null ],
-    [ "color", "d2/d23/class_cluster.html#a3aaf08b7721225ffa2d68c4f82c8a7e5", null ],
-    [ "confidence", "d2/d23/class_cluster.html#a12df9d83d6035ec018af720046a2cd45", null ],
-    [ "point_cloud", "d2/d23/class_cluster.html#a33921e5c0a24f269f1d18debefe7fd25", null ]
+    [ "get_center", "d2/d23/class_cluster.html#aa5f714a3def19659f9a70eb961abdfa5", null ],
+    [ "get_centroid", "d2/d23/class_cluster.html#ab0b0056112da3ff27a13304f38f5f4d1", null ],
+    [ "get_color", "d2/d23/class_cluster.html#a9bc9c6da53ae214a1ca2fd9f841f240f", null ],
+    [ "get_confidence", "d2/d23/class_cluster.html#a890486439eb28ec20126fbad4b1ad968", null ],
+    [ "get_point_cloud", "d2/d23/class_cluster.html#a763032aa726408defaea180f280f55f3", null ],
+    [ "set_color", "d2/d23/class_cluster.html#acf07cb412ab1990cbfcaf372e6a21dce", null ],
+    [ "set_confidence", "d2/d23/class_cluster.html#a1f3911dcb4349857b466d5f09627c47d", null ],
+    [ "set_point_cloud", "d2/d23/class_cluster.html#ad5f937f5042439a81018dc1bc5cea6b4", null ],
+    [ "_center_", "d2/d23/class_cluster.html#a85f77c2e116ee52d1af0f44303baf469", null ],
+    [ "_center_is_defined_", "d2/d23/class_cluster.html#a6915d426d1a6de5038c45553e0549630", null ],
+    [ "_centroid_", "d2/d23/class_cluster.html#a9b8225e8760f299428b05ea02738b3c1", null ],
+    [ "_centroid_is_defined_", "d2/d23/class_cluster.html#ae3d5709bf5eccf49795fb1d682b4ec5e", null ],
+    [ "_color_", "d2/d23/class_cluster.html#a3b1b741827ac47d2d9a6aad0a30e3046", null ],
+    [ "_confidence_", "d2/d23/class_cluster.html#a4bf12db66685707f6916e241451854b6", null ],
+    [ "_point_cloud_", "d2/d23/class_cluster.html#aafa7d3c7e595a3d45e883d0dfb359dcf", null ],
+    [ "center_calculator", "d2/d23/class_cluster.html#ae390e51fd252f0dcde317675ebcab417", null ]
 ];
