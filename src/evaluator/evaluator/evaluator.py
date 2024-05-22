@@ -38,7 +38,7 @@ class Evaluator(Node):
 
         # Parameters
         self._adapter_name_: str = (
-            self.declare_parameter("adapter", "pacsim")
+            self.declare_parameter("adapter", "vehicle")
             .get_parameter_value()
             .string_value
         )
@@ -90,7 +90,7 @@ class Evaluator(Node):
             ADAPTER_POINT_CLOUD_TOPIC_DICTINARY[self._adapter_name_],
         )
         self.planning_subscription = self.create_subscription(
-            PathPointArray, "path_planning/path", self.planning_callback, 10)
+            PathPointArray, "path_planning/path", self.compute_and_publish_planning, 10)
         self.planning_gt_subscription = self.create_subscription(
             PathPointArray, "path_planning/mock_path", self.planning_gt_callback, 10)
 
@@ -145,6 +145,9 @@ class Evaluator(Node):
         self.planning_mock = (
             []
         )  # will store the reception of a planning mock from subscriber
+
+        if (self._adapter_name_ == "vehicle"):
+            return
 
         # Adapter selection
         self._adapter_: Adapter = ADAPTER_CONSTRUCTOR_DICTINARY[self._adapter_name_](
@@ -330,6 +333,15 @@ class Evaluator(Node):
         actual_path = format_path_point_array_msg(msg.pathpoint_array)
         expected_path = format_path_point_array_msg(self.planning_mock)
 
+        self._planning_receive_time_ = datetime.datetime.now()
+        time_difference = float(
+            (self._planning_receive_time_ - self.map_receive_time_).microseconds / 1000
+        )
+        execution_time = Float32()
+        execution_time.data = time_difference
+
+        self._planning_execution_time_.publish(execution_time)
+
         if len(actual_path) == 0 or len(expected_path) == 0:
             self.get_logger().debug("Path info missing")
             return
@@ -347,13 +359,6 @@ class Evaluator(Node):
             get_mean_squared_difference(actual_path, expected_path)
         )
 
-        self._planning_receive_time_ = datetime.datetime.now()
-        time_difference = float(
-            (self._planning_receive_time_ - self.map_receive_time_).microseconds / 1000
-        )
-        execution_time = Float32()
-        execution_time.data = time_difference
-
         self.get_logger().debug(
             "Computed planning metrics:\n \
                                 Mean difference: {}\n \
@@ -364,7 +369,7 @@ class Evaluator(Node):
                 root_mean_squared_difference,
             )
         )
-        self._planning_execution_time_.publish(execution_time)
+
         self._planning_mean_difference_.publish(mean_difference)
         self._planning_mean_squared_difference_.publish(mean_squared_error)
         self._planning_root_mean_squared_difference_.publish(
