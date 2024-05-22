@@ -4,11 +4,11 @@
 
 PacSimAdapter::PacSimAdapter(Control *control)
     : Adapter(control),
-      steering_pub(node->create_publisher<pacsim::msg::Wheels>("/pacsim/steering_setpoint", 10)),
-      acceleration_pub(
-          node->create_publisher<pacsim::msg::StampedScalar>("/pacsim/torques_max", 10)) {
+      steering_pub_(node_->create_publisher<pacsim::msg::Wheels>("/pacsim/steering_setpoint", 10)),
+      acceleration_pub_(
+          node_->create_publisher<pacsim::msg::StampedScalar>("/pacsim/torques_max", 10)) {
   // No topic for pacsim, just set the go_signal to true
-  node->go_signal = true;
+  node_->go_signal_ = true;
 }
 
 void PacSimAdapter::publish_cmd(double acceleration, double steering) {
@@ -18,6 +18,6 @@ void PacSimAdapter::publish_cmd(double acceleration, double steering) {
   // TODO: Convert values if necessary then fill the messages
   //  CODE HERE
 
-  this->steering_pub->publish(steering_msg);
-  this->acceleration_pub->publish(acceleration_msg);
+  this->steering_pub_->publish(steering_msg);
+  this->acceleration_pub_->publish(acceleration_msg);
 }

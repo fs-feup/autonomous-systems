@@ -8,7 +8,7 @@
 
 class VehicleAdapter : public Adapter {
  private:
-  rclcpp::Subscription<custom_interfaces::msg::OperationalStatus>::SharedPtr go_sub;
+  rclcpp::Subscription<custom_interfaces::msg::OperationalStatus>::SharedPtr go_sub_;
   rclcpp::Publisher<custom_interfaces::msg::ControlCommand>::SharedPtr control_pub_;
 
  public:

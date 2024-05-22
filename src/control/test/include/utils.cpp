@@ -1,10 +1,10 @@
 #include "test/include/utils.hpp"
 
-custom_interfaces::msg::PathPointArray create_path_msg(std::string track_file) {
+std::vector<custom_interfaces::msg::PathPoint> create_path_msg(std::string track_file) {
   std::string track_file_path = "../../src/control/test/assets/" + track_file + ".csv";
   std::ifstream trackFile(track_file_path);
 
-  custom_interfaces::msg::PathPointArray path_msg;
+  std::vector<custom_interfaces::msg::PathPoint> pathpoint_array;
 
   std::string line;
 
@@ -19,9 +19,9 @@ custom_interfaces::msg::PathPointArray create_path_msg(std::string track_file) {
       point.x = std::stod(x);  // string to double
       point.y = std::stod(y);
       point.v = std::stod(v);
-      path_msg.pathpoint_array.push_back(point);
+      pathpoint_array.push_back(point);
     }
   }
   trackFile.close();
-  return path_msg;
+  return pathpoint_array;
 };

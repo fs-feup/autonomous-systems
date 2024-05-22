@@ -18,7 +18,7 @@
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
 
-constexpr double K = 1.0;        /**< PP_gain */
+constexpr double K = 1.0;         /**< PP_gain */
 constexpr double LD_MARGIN = 0.1; /**< Lookahead distance margin */
 
 /**
@@ -30,27 +30,27 @@ constexpr double LD_MARGIN = 0.1; /**< Lookahead distance margin */
  */
 class Control : public rclcpp::Node {
  public:
-
   // Need to change this so it is changed in the launch file
   double k_ = K;
   double ld_margin_ = LD_MARGIN;
 
-  Adapter *adapter;
+  PointSolver point_solver_;   /**< Point Solver */
+  PID long_controller_;        /**< Longitudinal Controller */
+  PurePursuit lat_controller_; /**< Lateral Controller*/
  private:
+  std::shared_ptr<Adapter> adapter_;
+  
   // Evaluator Publishers
   rclcpp::Publisher<custom_interfaces::msg::PathPoint>::SharedPtr lookahead_point_pub_;
   rclcpp::Publisher<custom_interfaces::msg::PathPoint>::SharedPtr closest_point_pub_;
 
-  message_filters::Subscriber<custom_interfaces::msg::VehicleState> pose_sub_;
+  // General Subscribers
+  message_filters::Subscriber<custom_interfaces::msg::VehicleState> vehicle_state_sub_;
   message_filters::Subscriber<custom_interfaces::msg::PathPointArray> path_point_array_sub_;
   message_filters::Cache<custom_interfaces::msg::PathPointArray> path_cache_;
 
-  std::shared_ptr<Adapter> adapter_;
-  bool mocker_node;
+  bool mocker_node_;
 
-  PointSolver point_solver_;   /**< Point Solver */
-  PID long_controller_;        /**< Longitudinal Controller */
-  PurePursuit lat_controller_; /**< Lateral Controller*/
 
   /**
    * @brief Publishes the steering angle to the car based on the path and pose using cache
@@ -59,41 +59,22 @@ class Control : public rclcpp::Node {
   void publish_control(const custom_interfaces::msg::VehicleState::ConstSharedPtr &pose_msg);
 
  public:
-  bool go_signal{false};
-  /**
-   * @brief Orchestrator callback
-   *
-   * @param path_msg
-   * @param pose_msg
-   */
-  void orchestrator_callback(
-      const custom_interfaces::msg::PathPointArray::ConstSharedPtr &path_msg,
-      const custom_interfaces::msg::Pose::ConstSharedPtr &pose_msg);
+  bool go_signal_{false};
 
   /*
    * @brief Publish lookahead point
    */
-  void publish_lookahead_point(Point lookahead_point, double lookahead_velocity)const;
+  void publish_lookahead_point(Point lookahead_point, double lookahead_velocity) const;
 
   /*
    * @brief Publish closest point
    */
-  void publish_closest_point(Point closest_point)const;
-
-  /*
-   * @brief Publish Torque command
-   */
-  void publish_torque(double torque)const;
-
-  /*
-   * @brief Publish Steering command
-   */
-  void publish_steering(double steering)const;
+  void publish_closest_point(Point closest_point) const;
 
   /**
    * @brief Update lookahead distance
    */
-  double update_lookahead_distance(double k, double velocity)const;
+  double update_lookahead_distance(double k, double velocity) const;
 
   /**
    * @brief Contructor for the Control class

@@ -4,10 +4,10 @@
 
 FsdsAdapter::FsdsAdapter(Control* control)
     : Adapter(control),
-      go_signal_sub_(node->create_subscription<fs_msgs::msg::GoSignal>(
+      go_signal_sub_(node_->create_subscription<fs_msgs::msg::GoSignal>(
           "/signal/go", 10,
           std::bind(&FsdsAdapter::fsds_mission_state_callback, this, std::placeholders::_1))),
-      control_pub_(node->create_publisher<fs_msgs::msg::ControlCommand>("/control_command", 10)) {}
+      control_pub_(node_->create_publisher<fs_msgs::msg::ControlCommand>("/control_command", 10)) {}
 
 void FsdsAdapter::fsds_mission_state_callback(const fs_msgs::msg::GoSignal msg) {
   // TODO: I don't see any info relevant in GoSignal msg so I'm assuming it's a trigger

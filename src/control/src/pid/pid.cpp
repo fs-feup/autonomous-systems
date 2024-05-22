@@ -109,4 +109,4 @@ void PID::compute_output() {
   }
 }
 
-PID::PID() {}
+PID::PID() = default;

@@ -12,7 +12,7 @@ class Control;
  */
 class Adapter {
  protected:
-  std::shared_ptr<Control> node;
+  std::shared_ptr<Control> node_;
 
  public:
   /**
@@ -23,5 +23,5 @@ class Adapter {
   explicit Adapter(Control *control);
   virtual ~Adapter() = default;
 
-  virtual void publish_cmd(double acceleration, double steering) = 0;
+  virtual void publish_cmd(double torque, double steering) = 0;
 };

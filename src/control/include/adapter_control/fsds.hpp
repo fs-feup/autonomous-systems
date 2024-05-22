@@ -15,5 +15,5 @@ class FsdsAdapter : public Adapter {
   explicit FsdsAdapter(Control* control);
 
   void fsds_mission_state_callback(const fs_msgs::msg::GoSignal msg);
-  virtual void publish_cmd(double acceleration = 0, double steering = 0) override;
+  void publish_cmd(double acceleration = 0, double steering = 0) override;
 };

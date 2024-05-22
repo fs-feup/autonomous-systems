@@ -7,7 +7,7 @@
 
 #include "common_lib/structures/structures.hpp"
 #include "custom_interfaces/msg/path_point_array.hpp"
-#include "custom_interfaces/msg/pose.hpp"
+#include "custom_interfaces/msg/vehicle_state.hpp"
 #include "rclcpp/rclcpp.hpp"
 
 /**< Distance from the center of gravity to the rear axis in m */
@@ -40,7 +40,7 @@ class PointSolver {
    * @return std::pair<Point, int> closest point and index
    */
   std::pair<Point, int> update_closest_point(
-      const custom_interfaces::msg::PathPointArray::ConstSharedPtr &path_msg, Point rear_axis_point) const ;
+      const std::vector<custom_interfaces::msg::PathPoint> &pathpoint_array, Point rear_axis_point) const ;
 
   /**
    * @brief Update Lookahead point
@@ -49,7 +49,7 @@ class PointSolver {
    * @return std::pair<Point, double, bool> lookahead point, velocity and error status (1 = error)
    */
   std::tuple<Point, double, bool> update_lookahead_point(
-      const custom_interfaces::msg::PathPointArray::ConstSharedPtr &path_msg, Point rear_axis_point,
+      const std::vector<custom_interfaces::msg::PathPoint> &pathpoint_array, Point rear_axis_point,
       int closest_point_id, double ld, double ld_margin) const ;
 
   /**
@@ -73,5 +73,5 @@ class PointSolver {
    *
    * @param pose msg
    */
-  void update_vehicle_pose(const custom_interfaces::msg::Pose::ConstSharedPtr &pose_msg) ;
+  void update_vehicle_pose(const custom_interfaces::msg::VehicleState::ConstSharedPtr &vehicle_state_msg) ;
 };
