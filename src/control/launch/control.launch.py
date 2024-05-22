@@ -18,6 +18,15 @@ def generate_launch_description():
                 description="Wether or not to use Mocker Node for Plannning (true/false)",
                 default_value="false",
             ),
+            DeclareLaunchArgument(
+                "lookahead_gain",
+                description="Variable K -> Lookahead Gain",
+                default_value="0.5",
+            ),
+            DeclareLaunchArgument(
+                "lookahead_margin",
+                description="Margin of the lookahead distance",
+                default_value="0.1",),
             Node(
                 package="control",
                 executable="node_control",

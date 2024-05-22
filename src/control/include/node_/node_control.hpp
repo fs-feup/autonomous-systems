@@ -31,8 +31,8 @@ constexpr double LD_MARGIN = 0.1; /**< Lookahead distance margin */
 class Control : public rclcpp::Node {
  public:
   // Need to change this so it is changed in the launch file
-  double k_ = K;
-  double ld_margin_ = LD_MARGIN;
+  double k_;
+  double ld_margin_;
 
   PointSolver point_solver_;   /**< Point Solver */
   PID long_controller_;        /**< Longitudinal Controller */
@@ -45,7 +45,6 @@ class Control : public rclcpp::Node {
   rclcpp::Publisher<custom_interfaces::msg::PathPoint>::SharedPtr closest_point_pub_;
 
   // General Subscribers
-  message_filters::Subscriber<custom_interfaces::msg::VehicleState> vehicle_state_sub_;
   message_filters::Subscriber<custom_interfaces::msg::PathPointArray> path_point_array_sub_;
   message_filters::Cache<custom_interfaces::msg::PathPointArray> path_cache_;
 

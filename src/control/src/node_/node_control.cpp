@@ -17,6 +17,8 @@
 
 Control::Control()
     : Node("node_control"),
+      k_(declare_parameter("lookahead_gain", 0.5)),
+      ld_margin_(declare_parameter("lookahead_margin", 0.1)),
       adapter_(adapter_map.at(declare_parameter("adapter", "vehicle"))(this)),
       vehicle_state_sub_(this, "/state_estimation/vehicle_state"),
       path_point_array_sub_(this, declare_parameter("mocker_node", true)
