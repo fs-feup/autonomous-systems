@@ -35,12 +35,32 @@ class Plane {
   Plane();
 
   /**
-   * @brief Calculates the distance from a point to the plane.
-   *
-   * @param point The point for which the distance to the plane is calculated.
-   * @return The distance from the point to the plane.
+   * @brief Getter - Get the a component of the plane
+   * 
+   * @return double a component
    */
-  double getDistanceToPoint(pcl::PointXYZI point);
+  double get_a() const;
+
+  /**
+   * @brief Getter - Get the b component of the plane
+   * 
+   * @return double b component
+   */
+  double get_b() const;
+
+  /**
+   * @brief Getter - Get the c component of the plane
+   * 
+   * @return double c component
+   */
+  double get_c() const;
+
+  /**
+   * @brief Getter - Get the d component of the plane
+   * 
+   * @return double d component
+   */
+  double get_d() const;
 
   /**
    * @brief Overloads the += operator to add another plane to this plane.
@@ -57,6 +77,14 @@ class Plane {
    * @return Reference to the modified plane.
    */
   Plane& operator/=(double scalar);
+
+  /**
+   * @brief Calculates the distance from a point to the plane.
+   *
+   * @param point The point for which the distance to the plane is calculated.
+   * @return The distance from the point to the plane.
+   */
+  double get_distance_to_point(pcl::PointXYZI point) const;
 };
 
 #endif  // PLANE_HPP
