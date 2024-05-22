@@ -3,7 +3,7 @@
 #include "rclcpp/rclcpp.hpp"
 
 ObservationModel::ObservationModel(const Eigen::Matrix2f &observation_noise_covariance_matrix)
-    : _observation_noise_covariance_matrix(observation_noise_covariance_matrix) {}
+    : _observation_noise_covariance_matrix_(observation_noise_covariance_matrix) {}
 
 Eigen::Vector2f ObservationModel::inverse_observation_model(
     const Eigen::VectorXf &expected_state, const ObservationData &observation_data) const {
@@ -152,5 +152,9 @@ Eigen::MatrixXf ObservationModel::get_state_to_observation_matrix(
 }
 
 Eigen::MatrixXf ObservationModel::get_observation_noise_covariance_matrix() const {
-  return this->_observation_noise_covariance_matrix;
+  return this->_observation_noise_covariance_matrix_;
+}
+
+Eigen::Matrix2f ObservationModel::create_observation_noise_covariance_matrix(float noise_value) {
+  return Eigen::Matrix2f::Identity(2, 2) * noise_value;
 }
