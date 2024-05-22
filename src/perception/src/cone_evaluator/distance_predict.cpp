@@ -8,7 +8,7 @@ DistancePredict::DistancePredict(double vertical_ang_res, double horizontal_ang_
     : vertical_ang_res(vertical_ang_res), horizontal_ang_res(horizontal_ang_res) {}
 
 double DistancePredict::evaluateCluster(Cluster& cluster) const {
-  double coneDistance = cluster.getCentroid().norm();
+  double coneDistance = cluster.get_centroid().norm();
 
   if (coneDistance <= 0) return 0;
 
@@ -20,7 +20,7 @@ double DistancePredict::evaluateCluster(Cluster& cluster) const {
   double n_points_prediction = 0.5 * vertical_component * horizontal_component;
 
   double relative_error =
-      abs(cluster.getPointCloud()->points.size() - n_points_prediction) / n_points_prediction;
+      abs(cluster.get_point_cloud()->points.size() - n_points_prediction) / n_points_prediction;
 
   return 1 - relative_error;
 }
