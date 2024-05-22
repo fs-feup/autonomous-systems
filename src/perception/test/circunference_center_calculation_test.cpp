@@ -17,6 +17,7 @@ protected:
      * @brief Set up the test environment before each test case.
      */
     void SetUp() override {
+      
         center_calculator = CircunferenceCenterCalculation();
 
         pcl_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
@@ -51,6 +52,7 @@ TEST_F(CircunferenceCenterCalculationTest, NormalUseCase) {
 
   ASSERT_EQ(center.x(), 2);
   ASSERT_EQ(center.y(), 0);
+
 }
 
 /**

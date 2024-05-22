@@ -21,14 +21,14 @@ Perception::Perception(GroundRemoval* ground_removal, Clustering* clustering,
                        const std::vector<ConeValidator*>& cone_validators,
                        ConeEvaluator* cone_evaluator)
     : Node("perception"),
-      ground_removal(ground_removal),
-      clustering(clustering),
-      cone_differentiator(cone_differentiator),
-      cone_validators(cone_validators),
-      cone_evaluator(cone_evaluator) {
+      _ground_removal_(ground_removal),
+      _clustering_(clustering),
+      _cone_differentiator_(cone_differentiator),
+      _cone_validators_(cone_validators),
+      _cone_evaluator_(cone_evaluator) {
   this->_cones_publisher = this->create_publisher<custom_interfaces::msg::ConeArray>("cones", 10);
 
-  this->adapter = adapter_map[mode](this);
+  this->_adapter_ = adapter_map[_mode_](this);
 }
 
 void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
@@ -40,17 +40,17 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
 
-  ground_removal->groundRemoval(pcl_cloud, ground_removed_cloud, ground_plane);
+  _ground_removal_->groundRemoval(pcl_cloud, ground_removed_cloud, _ground_plane_);
 
   std::vector<Cluster> clusters;
 
-  clustering->clustering(ground_removed_cloud, &clusters);
+  _clustering_->clustering(ground_removed_cloud, &clusters);
 
   std::vector<Cluster> filtered_clusters;
 
   for (auto cluster : clusters) {
-    if (std::all_of(cone_validators.begin(), cone_validators.end(), [&](const auto& validator) {
-          return validator->coneValidator(&cluster, ground_plane);
+    if (std::all_of(_cone_validators_.begin(), _cone_validators_.end(), [&](const auto& validator) {
+          return validator->coneValidator(&cluster, _ground_plane_);
         })) {
       filtered_clusters.push_back(cluster);
     }
@@ -64,7 +64,7 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
   RCLCPP_DEBUG(this->get_logger(), "Point Cloud after Clustering: %ld clusters", clusters.size());
 
   for (long unsigned int i = 0; i < filtered_clusters.size(); i++) {
-    cone_differentiator->coneDifferentiation(&filtered_clusters[i]);
+    _cone_differentiator_->coneDifferentiation(&filtered_clusters[i]);
     std::string color = filtered_clusters[i].getColor();
     filtered_clusters[i].setColor(color);
     RCLCPP_DEBUG(this->get_logger(), "Cone %d: %s", i, color.c_str());

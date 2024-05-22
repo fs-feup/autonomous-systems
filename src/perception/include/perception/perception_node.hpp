@@ -27,14 +27,14 @@ class Adapter;
  */
 class Perception : public rclcpp::Node {
  private:
-  GroundRemoval* ground_removal;  ///< Pointer to the GroundRemoval object.
-  Adapter* adapter;              /**< Adapter instance for external communication */
-  Clustering* clustering;
-  std::string mode = "fsds";  // Temporary, change as desired. TODO(andre): Make not hardcoded
-  ConeDifferentiation* cone_differentiator;  ///< Pointer to ConeDifferentiation object.
-  Plane ground_plane; ///< State variable that represents the ground's plane
-  std::vector<ConeValidator*> cone_validators; ///< The set of heuristics to apply to the clusters to validate them
-  ConeEvaluator* cone_evaluator; ///< Numeric heurisitc to get cluster's confidence
+  GroundRemoval* _ground_removal_;  ///< Pointer to the GroundRemoval object.
+  Adapter* _adapter_;              /**< Adapter instance for external communication */
+  Clustering* _clustering_;
+  std::string _mode_ = "fsds";  // Temporary, change as desired. TODO(andre): Make not hardcoded
+  ConeDifferentiation* _cone_differentiator_;  ///< Pointer to ConeDifferentiation object.
+  Plane _ground_plane_; ///< State variable that represents the ground's plane
+  std::vector<ConeValidator*> _cone_validators_; ///< The set of heuristics to apply to the clusters to validate them
+  ConeEvaluator* _cone_evaluator_; ///< Numeric heurisitc to get cluster's confidence
 
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr
       _point_cloud_subscription;  ///< PointCloud2 subscription.

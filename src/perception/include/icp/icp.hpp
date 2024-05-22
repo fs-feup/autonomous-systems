@@ -12,7 +12,7 @@
  */
 class ICP{
   private:
-    pcl::IterativeClosestPoint<pcl::PointXYZI, pcl::PointXYZI> icp; /**< ICP object */
+    pcl::IterativeClosestPoint<pcl::PointXYZI, pcl::PointXYZI> _icp_; /**< ICP object */
 
   public:
     /**

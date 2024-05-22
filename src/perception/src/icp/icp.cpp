@@ -10,28 +10,28 @@ ICP::ICP(std::string target_file, double max_correspondence_distance, long max_i
         PCL_ERROR("Couldn't read file\n");
     }
 
-    icp.setInputTarget(target_cloud);
+    _icp_.setInputTarget(target_cloud);
 
-    icp.setMaxCorrespondenceDistance(max_correspondence_distance);
+    _icp_.setMaxCorrespondenceDistance(max_correspondence_distance);
 
-    icp.setMaximumIterations(max_iteration);
+    _icp_.setMaximumIterations(max_iteration);
 
-    icp.setTransformationEpsilon(transformation_epsilon);
+    _icp_.setTransformationEpsilon(transformation_epsilon);
 
-    icp.setEuclideanFitnessEpsilon(euclidean_fitness_epsilon);
+    _icp_.setEuclideanFitnessEpsilon(euclidean_fitness_epsilon);
 }
 
 double ICP::executeICP(pcl::PointCloud<pcl::PointXYZI>::Ptr source_cloud, pcl::PointCloud<pcl::PointXYZI>::Ptr final_cloud){
 
-    icp.setInputSource(source_cloud);
+    _icp_.setInputSource(source_cloud);
 
     // Align the clouds
     pcl::PointCloud<pcl::PointXYZI>::Ptr aligned_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-    icp.align(*aligned_cloud);
+    _icp_.align(*aligned_cloud);
 
-    if (icp.hasConverged()) {
+    if (_icp_.hasConverged()) {
         *final_cloud = *aligned_cloud;
-        return icp.getFitnessScore();
+        return _icp_.getFitnessScore();
     } else {
         return -1;
     }
