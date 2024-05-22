@@ -21,6 +21,15 @@ SENode::SENode() : Node("ekf_state_est") {
   _use_simulated_perception_ = this->declare_parameter("use_simulated_perception", false);
   std::string adapter_name = this->declare_parameter("adapter", "fsds");
   std::string motion_model_name = this->declare_parameter("motion_model", "normal_velocity_model");
+  std::string data_assocation_model_name =
+      this->declare_parameter("data_assocation_model", "simple_ml");
+  if (data_assocation_model_name == "simple_ml") {
+    float sml_da_curvature = static_cast<float>(this->declare_parameter("sml_da_curvature", 15.0f));
+    float sml_initial_limit =
+        static_cast<float>(this->declare_parameter("sml_initial_limit", 0.1f));
+    SimpleMaximumLikelihood::curvature_ = sml_da_curvature;
+    SimpleMaximumLikelihood::initial_limit_ = sml_initial_limit;
+  }
   float observation_noise = static_cast<float>(this->declare_parameter("observation_noise", 0.01f));
   float wheel_speed_sensor_noise =
       static_cast<float>(this->declare_parameter("wheel_speed_sensor_noise", 0.1f));
@@ -32,7 +41,8 @@ SENode::SENode() : Node("ekf_state_est") {
   std::shared_ptr<ObservationModel> observation_model = std::make_shared<ObservationModel>(
       ObservationModel::create_observation_noise_covariance_matrix(observation_noise));
   std::shared_ptr<DataAssociationModel> data_association_model =
-      data_association_model_constructors.at("simple_ml")(data_association_limit_distance);
+      data_association_model_constructors.at(data_assocation_model_name)(
+          data_association_limit_distance);
   _ekf_ = std::make_shared<ExtendedKalmanFilter>(motion_model, observation_model,
                                                  data_association_model);
 

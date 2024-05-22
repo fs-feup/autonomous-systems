@@ -12,12 +12,12 @@ float DataAssociationModel::get_max_landmark_distance() const {
   return this->max_landmark_distance_;
 }
 
-SimpleMaximumLikelihood::SimpleMaximumLikelihood(float max_landmark_distance, float curvature,
-                                                 float initial_limit)
-    : DataAssociationModel(max_landmark_distance),
-      curvature_(curvature),
-      initial_limit_(initial_limit) {
-  if (curvature < 0 || initial_limit < 0 || max_landmark_distance < 1) {
+float SimpleMaximumLikelihood::curvature_ = 15.0;
+float SimpleMaximumLikelihood::initial_limit_ = 0.1;
+
+SimpleMaximumLikelihood::SimpleMaximumLikelihood(float max_landmark_distance)
+    : DataAssociationModel(max_landmark_distance) {
+  if (max_landmark_distance < 1) {
     throw std::invalid_argument("Invalid parameters for SimpleMaximumLikelihood");
   }
 };
@@ -53,4 +53,10 @@ int SimpleMaximumLikelihood::match_cone(const Eigen::Vector2f& observed_landmark
   }
 
   return -2;
+}
+
+void SimpleMaximumLikelihood::set_curvature(float curvature) { this->curvature_ = curvature; }
+
+void SimpleMaximumLikelihood::set_initial_limit(float initial_limit) {
+  this->initial_limit_ = initial_limit;
 }
