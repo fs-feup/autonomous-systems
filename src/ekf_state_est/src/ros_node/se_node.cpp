@@ -44,7 +44,7 @@ SENode::SENode() : Node("ekf_state_est") {
 
   if (!_use_simulated_perception_) {
     this->_perception_subscription_ = this->create_subscription<custom_interfaces::msg::ConeArray>(
-        "/perception/cones", 10,
+        "/perception/cones", 1,
         std::bind(&SENode::_perception_subscription_callback, this, std::placeholders::_1));
   }
   this->_vehicle_state_publisher_ = this->create_publisher<custom_interfaces::msg::VehicleState>(
