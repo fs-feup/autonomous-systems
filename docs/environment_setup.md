@@ -55,6 +55,7 @@ This project depends on submodules to function. Most, if not all of these submod
 - For all environments:
     ```sh
     git submodule update --init --recursive ./ext/interfaces
+    git submodule update --init --recursive ./ext/pacsim # For pacsim messages
     ```
 - For in vehicle testing:
     ```sh
