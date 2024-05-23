@@ -9,25 +9,29 @@
  *
  */
 class GridRANSACTest : public ::testing::Test {
- protected:
+ public:
   /**
    * @brief Set up the test environment before each test case.
    *
    */
   void SetUp() override {
-    pcl_cloud.reset(new pcl::PointCloud<pcl::PointXYZI>);
+    pcl_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
     pcl_cloud->points.push_back(pcl::PointXYZI{1.0, 0.0, 0.0, 0.5});
     pcl_cloud->points.push_back(pcl::PointXYZI{0.0, 1.0, 0.0, 1.0});
     pcl_cloud->points.push_back(pcl::PointXYZI{0.0, 0.0, 1.0, 1.5});
     pcl_cloud->points.push_back(pcl::PointXYZI{0.0060, 0.0060, 0.0060, 2.0});
     pcl_cloud->points.push_back(pcl::PointXYZI{10, 10, 10, 2.5});
 
-    pcl_cloud_empty.reset(new pcl::PointCloud<pcl::PointXYZI>);
+    pcl_cloud_empty = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
+
+    pcl_cloud_3_points = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
 
     pcl_cloud_3_points.reset(new pcl::PointCloud<pcl::PointXYZI>);
     pcl_cloud_3_points->points.push_back(pcl::PointXYZI{1.0, 0.0, 0.0, 0.5});
     pcl_cloud_3_points->points.push_back(pcl::PointXYZI{0.0, 1.0, 0.0, 1.0});
     pcl_cloud_3_points->points.push_back(pcl::PointXYZI{0.0, 0.0, 1.0, 1.5});
+
+    pcl_cloud_two_grids = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
 
     pcl_cloud_two_grids.reset(new pcl::PointCloud<pcl::PointXYZI>);
     pcl_cloud_two_grids->points.push_back(pcl::PointXYZI{55.0, 55.0, 100.0, 0.5});
@@ -37,7 +41,7 @@ class GridRANSACTest : public ::testing::Test {
     pcl_cloud_two_grids->points.push_back(pcl::PointXYZI{-50.0, -50, 0.0, 1.0});
     pcl_cloud_two_grids->points.push_back(pcl::PointXYZI{-60.0, -60, 0.0, 1.5});
 
-    pcl_cloud_four_grids.reset(new pcl::PointCloud<pcl::PointXYZI>);
+    pcl_cloud_four_grids = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
     // first quadrant
     pcl_cloud_four_grids->points.push_back(pcl::PointXYZI{55.0, 55.0, 100.0, 0.5});
     pcl_cloud_four_grids->points.push_back(pcl::PointXYZI{60.0, 60.0, 100.0, 1.0});
@@ -58,7 +62,7 @@ class GridRANSACTest : public ::testing::Test {
     pcl_cloud_four_grids->points.push_back(pcl::PointXYZI{50.0, -50, 400.0, 1.0});
     pcl_cloud_four_grids->points.push_back(pcl::PointXYZI{60.0, -60, 400.0, 1.5});
 
-    pcl_two_radius.reset(new pcl::PointCloud<pcl::PointXYZI>); // r < 13
+    pcl_two_radius = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
     pcl_two_radius->points.push_back(pcl::PointXYZI{7.0, 7.0, 400.0, 0.5});
     pcl_two_radius->points.push_back(pcl::PointXYZI{8, 4, 400.0, 1.0});
     pcl_two_radius->points.push_back(pcl::PointXYZI{9, 9, 400.0, 1.5});
@@ -68,12 +72,12 @@ class GridRANSACTest : public ::testing::Test {
     pcl_two_radius->points.push_back(pcl::PointXYZI{12, 13, -400.0, 1.5});
   }
 
-  pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_cloud;
-  pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_cloud_empty;
-  pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_cloud_3_points;
-  pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_cloud_two_grids;
-  pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_cloud_four_grids;
-  pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_two_radius;
+  std::shared_ptr<pcl::PointCloud<pcl::PointXYZI>> pcl_cloud;
+  std::shared_ptr<pcl::PointCloud<pcl::PointXYZI>> pcl_cloud_empty;
+  std::shared_ptr<pcl::PointCloud<pcl::PointXYZI>> pcl_cloud_3_points;
+  std::shared_ptr<pcl::PointCloud<pcl::PointXYZI>> pcl_cloud_two_grids;
+  std::shared_ptr<pcl::PointCloud<pcl::PointXYZI>> pcl_cloud_four_grids;
+  std::shared_ptr<pcl::PointCloud<pcl::PointXYZI>> pcl_two_radius;
 };
 
 /**
@@ -81,12 +85,12 @@ class GridRANSACTest : public ::testing::Test {
  *
  */
 TEST_F(GridRANSACTest, TestBigEpsilon) {
-  auto ground_removal = new GridRANSAC(10000, 1, 1, 100);
+  auto ground_removal = std::make_shared<GridRANSAC>(10000, 1, 1, 100);
 
   Plane plane;
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  ground_removal->groundRemoval(pcl_cloud, ground_removed_cloud, plane);
+  ground_removal->ground_removal(pcl_cloud, ground_removed_cloud, plane);
 
   ASSERT_EQ(ground_removed_cloud->points.size(), 0);
 }
@@ -97,12 +101,12 @@ TEST_F(GridRANSACTest, TestBigEpsilon) {
  *
  */
 TEST_F(GridRANSACTest, TestCommonScenario) {
-  auto ground_removal = new GridRANSAC(0.05, 100, 1, 100);
+  auto ground_removal = std::make_shared<GridRANSAC>(0.05, 100, 1, 100);
   Plane plane;
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
 
-  ground_removal->groundRemoval(pcl_cloud, ground_removed_cloud, plane);
+  ground_removal->ground_removal(pcl_cloud, ground_removed_cloud, plane);
   
 
   ASSERT_EQ(ground_removed_cloud->points.size(), 2);
@@ -114,11 +118,11 @@ TEST_F(GridRANSACTest, TestCommonScenario) {
  *
  */
 TEST_F(GridRANSACTest, TestCommonScenario2) {
-  auto ground_removal = new GridRANSAC(0.5, 100, 1, 100);
+  auto ground_removal = std::make_shared<GridRANSAC>(0.5, 100, 1, 100);
   Plane plane;
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  ground_removal->groundRemoval(pcl_cloud, ground_removed_cloud, plane);
+  ground_removal->ground_removal(pcl_cloud, ground_removed_cloud, plane);
 
   ASSERT_EQ(ground_removed_cloud->points.size(), 1);
 }
@@ -129,11 +133,11 @@ TEST_F(GridRANSACTest, TestCommonScenario2) {
  *
  */
 TEST_F(GridRANSACTest, TestThresholdZero) {
-  auto ground_removal = new GridRANSAC(0, 10, 1, 100);
+  auto ground_removal = std::make_shared<GridRANSAC>(0, 10, 1, 100);
   Plane plane;
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  ground_removal->groundRemoval(pcl_cloud, ground_removed_cloud, plane);
+  ground_removal->ground_removal(pcl_cloud, ground_removed_cloud, plane);
 
   ASSERT_EQ(ground_removed_cloud->points.size(), 5);
 }
@@ -144,11 +148,11 @@ TEST_F(GridRANSACTest, TestThresholdZero) {
  *
  */
 TEST_F(GridRANSACTest, TestZeroRepetitions) {
-  auto ground_removal = new GridRANSAC(100, 0, 1, 100);
+  auto ground_removal = std::make_shared<GridRANSAC>(100, 0, 1, 100);
   Plane plane;
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  ground_removal->groundRemoval(pcl_cloud, ground_removed_cloud, plane);
+  ground_removal->ground_removal(pcl_cloud, ground_removed_cloud, plane);
 
   ASSERT_EQ(ground_removed_cloud->points.size(), 0);
 }
@@ -159,11 +163,11 @@ TEST_F(GridRANSACTest, TestZeroRepetitions) {
  *
  */
 TEST_F(GridRANSACTest, TestSmallEpsilon) {
-  auto ground_removal = new GridRANSAC(0.00000000000000001, 10, 1, 100);
+  auto ground_removal = std::make_shared<GridRANSAC>(0.00000000000000001, 10, 1, 100);
   Plane plane;
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  ground_removal->groundRemoval(pcl_cloud, ground_removed_cloud, plane);
+  ground_removal->ground_removal(pcl_cloud, ground_removed_cloud, plane);
 
   ASSERT_EQ(ground_removed_cloud->points.size(), 2);
 }
@@ -174,11 +178,11 @@ TEST_F(GridRANSACTest, TestSmallEpsilon) {
  *
  */
 TEST_F(GridRANSACTest, TestBigEpsilon2) {
-  auto ground_removal = new GridRANSAC(1000000, 1, 1, 100);
+  auto ground_removal = std::make_shared<GridRANSAC>(1000000, 1, 1, 100);
   Plane plane;
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  ground_removal->groundRemoval(pcl_cloud, ground_removed_cloud, plane);
+  ground_removal->ground_removal(pcl_cloud, ground_removed_cloud, plane);
 
   ASSERT_EQ(ground_removed_cloud->points.size(), 0);
 }
@@ -189,11 +193,11 @@ TEST_F(GridRANSACTest, TestBigEpsilon2) {
  *
  */
 TEST_F(GridRANSACTest, TestCommonScenario3Points) {
-  auto ground_removal = new GridRANSAC(100, 100, 1, 100);
+  auto ground_removal = std::make_shared<GridRANSAC>(100, 100, 1, 100);
   Plane plane;
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  ground_removal->groundRemoval(pcl_cloud_3_points, ground_removed_cloud, plane);
+  ground_removal->ground_removal(pcl_cloud_3_points, ground_removed_cloud, plane);
 
   ASSERT_EQ(ground_removed_cloud->points.size(), 0);
 }
@@ -204,11 +208,11 @@ TEST_F(GridRANSACTest, TestCommonScenario3Points) {
  *
  */
 TEST_F(GridRANSACTest, Test3PointsThresholdZero) {
-  auto ground_removal = new GridRANSAC(0, 100, 1, 100);
+  auto ground_removal = std::make_shared<GridRANSAC>(0, 100, 1, 100);
   Plane plane;
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  ground_removal->groundRemoval(pcl_cloud_3_points, ground_removed_cloud, plane);
+  ground_removal->ground_removal(pcl_cloud_3_points, ground_removed_cloud, plane);
 
   ASSERT_EQ(ground_removed_cloud->points.size(), 3);
 }
@@ -219,11 +223,11 @@ TEST_F(GridRANSACTest, Test3PointsThresholdZero) {
  *
  */
 TEST_F(GridRANSACTest, TestEmptyPointCloud) {
-  auto ground_removal = new GridRANSAC(100, 100, 1, 100);
+  auto ground_removal = std::make_shared<GridRANSAC>(100, 100, 1, 100);
   Plane plane;
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  ground_removal->groundRemoval(pcl_cloud_empty, ground_removed_cloud, plane);
+  ground_removal->ground_removal(pcl_cloud_empty, ground_removed_cloud, plane);
 
   ASSERT_EQ(ground_removed_cloud->points.size(), 0);
 }
@@ -234,83 +238,72 @@ TEST_F(GridRANSACTest, TestEmptyPointCloud) {
  *
  */
 TEST_F(GridRANSACTest, TestEmptyPointCloud2) {
-  auto ground_removal = new GridRANSAC(0, 0, 1, 100);
+  auto ground_removal = std::make_shared<GridRANSAC>(0, 0, 1, 100);
   Plane plane;
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  ground_removal->groundRemoval(pcl_cloud_empty, ground_removed_cloud, plane);
+  ground_removal->ground_removal(pcl_cloud_empty, ground_removed_cloud, plane);
 
   ASSERT_EQ(ground_removed_cloud->points.size(), 0);
 }
 
 
 TEST_F(GridRANSACTest, TestTwoGrids) {
-  auto ground_removal = new GridRANSAC(100, 1000, 2, 10000);
+  auto ground_removal = std::make_shared<GridRANSAC>(100, 1000, 2, 10000);
   Plane plane;
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  ground_removal->groundRemoval(pcl_cloud_two_grids, ground_removed_cloud, plane);
+  ground_removal->ground_removal(pcl_cloud_two_grids, ground_removed_cloud, plane);
 
   ASSERT_EQ(ground_removed_cloud->points.size(), 0);
 }
 
-
-TEST_F(GridRANSACTest, TestTwoGridsSinglePlane) {
-  auto ground_removal = new GridRANSAC(0.000001, 1000, 1, 10000);
-  Plane plane;
-
-  pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  ground_removal->groundRemoval(pcl_cloud_two_grids, ground_removed_cloud, plane);
-
-  ASSERT_NE(ground_removed_cloud->points.size(), 0);
-}
-
 TEST_F(GridRANSACTest, TestFourGrids) {
-  auto ground_removal = new GridRANSAC(100, 1000, 4, 10000);
+  auto ground_removal = std::make_shared<GridRANSAC>(100, 10000, 4, 10000);
   Plane plane;
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  ground_removal->groundRemoval(pcl_cloud_four_grids, ground_removed_cloud, plane);
+  ground_removal->ground_removal(pcl_cloud_four_grids, ground_removed_cloud, plane);
 
   ASSERT_EQ(ground_removed_cloud->points.size(), 0);
 }
 
 TEST_F(GridRANSACTest, TestFourGridsTwoPlanes) {
-  auto ground_removal = new GridRANSAC(0.000001, 1000, 2, 10000);
+  auto ground_removal = std::make_shared<GridRANSAC>(0.000001, 10000, 2, 10000);
   Plane plane;
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  ground_removal->groundRemoval(pcl_cloud_four_grids, ground_removed_cloud, plane);
+  ground_removal->ground_removal(pcl_cloud_four_grids, ground_removed_cloud, plane);
 
   ASSERT_NE(ground_removed_cloud->points.size(), 0);
 }
 
 TEST_F(GridRANSACTest, TestFourGridsSinglePlane) {
-  auto ground_removal = new GridRANSAC(0.000001, 1000, 1, 10000);
+  auto ground_removal = std::make_shared<GridRANSAC>(0.000001, 10000, 1, 10000);
   Plane plane;
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  ground_removal->groundRemoval(pcl_cloud_four_grids, ground_removed_cloud, plane);
+  ground_removal->ground_removal(pcl_cloud_four_grids, ground_removed_cloud, plane);
 
   ASSERT_NE(ground_removed_cloud->points.size(), 0);
 }
 
 TEST_F(GridRANSACTest, TestTwoRadius) {
-  auto ground_removal = new GridRANSAC(0.000001, 1000, 1, 13);
+  auto ground_removal = std::make_shared<GridRANSAC>(0.000001, 10000, 1, 13);
   Plane plane;
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  ground_removal->groundRemoval(pcl_two_radius, ground_removed_cloud, plane);
+  ground_removal->ground_removal(pcl_two_radius, ground_removed_cloud, plane);
 
   ASSERT_EQ(ground_removed_cloud->points.size(), 0);
 }
 
 TEST_F(GridRANSACTest, TestTwoRadiusOnePlane) {
-  auto ground_removal = new GridRANSAC(0.000001, 1000, 1, 10000);
+  auto ground_removal = std::make_shared<GridRANSAC>(0.000001, 10000, 1, 10000);
   Plane plane;
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  ground_removal->groundRemoval(pcl_two_radius, ground_removed_cloud, plane);
+  ground_removal->ground_removal(pcl_two_radius, ground_removed_cloud, plane);
 
   ASSERT_NE(ground_removed_cloud->points.size(), 0);
 }

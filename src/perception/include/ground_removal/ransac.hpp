@@ -42,7 +42,7 @@ class RANSAC : public GroundRemoval {
    * @param point_cloud The input point cloud to be processed.
    * @param[out] ret The resulting point cloud after ground removal.
    */
-  void groundRemoval(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
+  void ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
                      pcl::PointCloud<pcl::PointXYZI>::Ptr ret, Plane& plane) const override;
 };
 

@@ -24,7 +24,7 @@ class GroundRemoval {
    * @param point_cloud The input point cloud to be processed.
    * @param[out] ret The resulting point cloud after ground removal.
    */
-  virtual void groundRemoval(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
+  virtual void ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
                              pcl::PointCloud<pcl::PointXYZI>::Ptr ret, Plane& plane) const = 0;
 };
 

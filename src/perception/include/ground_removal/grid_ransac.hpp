@@ -15,9 +15,9 @@
  */
 class GridRANSAC : public GroundRemoval {
  private:
-  RANSAC ransac; ///< RANSAC object for ground plane fitting.
-  int n_angular_grids; ///< Number of angular grids in the algorithm.
-  double radius_resolution; ///< Resolution of the radius for grid splitting.
+  RANSAC _ransac_; ///< RANSAC object for ground plane fitting.
+  int _n_angular_grids_; ///< Number of angular grids in the algorithm.
+  double _radius_resolution_; ///< Resolution of the radius for grid splitting.
 
  public:
   /**
@@ -42,7 +42,7 @@ class GridRANSAC : public GroundRemoval {
    * @param[out] ret The resulting point cloud after ground removal.
    * @param plane The estimated ground plane model.
    */
-  void groundRemoval(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
+  void ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
                      pcl::PointCloud<pcl::PointXYZI>::Ptr ret, Plane& plane) const override;
 
   /**
