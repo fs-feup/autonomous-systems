@@ -21,7 +21,7 @@ double GridRANSAC::get_furthest_point(const pcl::PointCloud<pcl::PointXYZI>::Ptr
     double max_distance = 0.0;
 
     for (const auto& point : *cloud) {
-        double distance = std::sqrt(point.x * point.x + point.y * point.y + point.z * point.z);
+        double distance = std::sqrt(point.x * point.x + point.y * point.y);
 
         if (distance > max_distance) {
             max_distance = distance;
