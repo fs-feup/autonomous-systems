@@ -8,10 +8,10 @@
 using std::placeholders::_1;
 
 Planning::Planning() : Node("planning") {
-  angle_gain_ = declare_parameter<double>("angle_gain_", 8.7);
-  distance_gain_ = declare_parameter<double>("distance_gain_", 15.0);
+  angle_gain_ = declare_parameter<double>("angle_gain_", 3.7);
+  distance_gain_ = declare_parameter<double>("distance_gain_", 8.0);
   ncones_gain_ = declare_parameter<double>("ncones_gain_", 8.7);
-  angle_exponent_ = declare_parameter<double>("angle_exponent_", 0.7);
+  angle_exponent_ = declare_parameter<double>("angle_exponent_", 1);
   distance_exponent_ = declare_parameter<double>("distance_exponent_", 1.7);
   cost_max_ = declare_parameter<double>("cost_max_", 40);
   outliers_spline_order_ = declare_parameter<int>("outliers_spline_order_", 3);
@@ -23,6 +23,9 @@ Planning::Planning() : Node("planning") {
   mode = declare_parameter<std::string>("adapter", "fsds");
   using_simulated_se_ = declare_parameter<int>("use_simulated_se", 0);
   publishing_visualization_msgs_ = declare_parameter<int>("publishing_visualization_msg", 1);
+
+  RCLCPP_INFO(this->get_logger(), "angle gain: %f; distance_gain : %f", angle_gain_,
+              distance_gain_);
 
   // Control Publisher
   this->local_pub_ =
@@ -43,6 +46,14 @@ Planning::Planning() : Node("planning") {
 
     this->triangulations_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
         "/path_planning/triangulations", 10);
+    // Publisher for visualization
+    this->after_rem_blue_cones_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
+        "/path_planning/after_rem_blue_cones", 10);
+
+    // Publisher for visualization
+    this->after_rem_yellow_cones_pub_ =
+        this->create_publisher<visualization_msgs::msg::MarkerArray>(
+            "/path_planning/after_rem_yellow_cones", 10);
   }
   // Publishes path from file in Skidpad & Acceleration events
   this->timer_ = this->create_wall_timer(
@@ -105,7 +116,8 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &msg) 
 
   if (this->publishing_visualization_msgs_) {
     publish_visualization_msgs(cone_coloring->current_left_cones,
-                               cone_coloring->current_right_cones, triangulations_path, path);
+                               cone_coloring->current_right_cones, triangulations_path, path,
+                               track->get_left_cones(), track->get_right_cones());
   }
 }
 
@@ -142,7 +154,9 @@ bool Planning::is_predicitve_mission() const {
 void Planning::publish_visualization_msgs(const std::vector<Cone *> &left_cones,
                                           const std::vector<Cone *> &right_cones,
                                           const std::vector<PathPoint *> &after_triangulations_path,
-                                          const std::vector<PathPoint *> &final_path) {
+                                          const std::vector<PathPoint *> &final_path,
+                                          const std::vector<Cone *> &after_rem_blue_cones,
+                                          const std::vector<Cone *> &after_rem_yellow_cones) {
   this->blue_cones_pub_->publish(
       marker_array_from_path_point_array(left_cones, "blue_cones_colored", "map", "blue"));
   this->yellow_cones_pub_->publish(
@@ -151,4 +165,8 @@ void Planning::publish_visualization_msgs(const std::vector<Cone *> &left_cones,
       marker_array_from_path_point_array(final_path, "smoothed_path_planning", "map"));
   this->triangulations_pub_->publish(marker_array_from_path_point_array(
       after_triangulations_path, "after_triangulations_path", "map", "orange"));
+  this->after_rem_blue_cones_pub_->publish(marker_array_from_path_point_array(
+      after_rem_blue_cones, "blue_cones_colored", "map", "blue"));
+  this->after_rem_yellow_cones_pub_->publish(marker_array_from_path_point_array(
+      after_rem_yellow_cones, "yellow_cones_colored", "map", "yellow"));
 }

@@ -13,7 +13,10 @@ ConeColoring::ConeColoring(double gain_angle, double gain_distance, double gain_
       ncones_gain(gain_ncones),
       exponent1(exponent_1),
       exponent2(exponent_2),
-      max_cost(cost_max) {}
+      max_cost(cost_max) {
+  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "angle gain: %f; distance_gain : %f", this->angle_gain,
+              this->distance_gain);
+}
 
 AngleNorm ConeColoring::angle_and_norm(const Cone *possible_next_cone, TrackSide side) const {
   const std::vector<Cone *> &current_cones = (bool)side ? current_left_cones : current_right_cones;
@@ -84,6 +87,9 @@ void ConeColoring::place_initial_cones(const std::vector<Cone *> &input_cones,
   std::vector<Cone *> candidates =
       filter_cones_by_distance(input_cones, initial_car_pose.position, 5);
 
+  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Car position is : (%f,%f)",
+               initial_car_pose.position.x, initial_car_pose.position.y);
+
   // get the initial cone for the left side
   this->initial_cone_left =
       std::make_shared<Cone>(get_initial_cone(candidates, initial_car_pose, TrackSide::LEFT));
@@ -91,6 +97,10 @@ void ConeColoring::place_initial_cones(const std::vector<Cone *> &input_cones,
   // get the initial cone for the right side
   this->initial_cone_right =
       std::make_shared<Cone>(get_initial_cone(candidates, initial_car_pose, TrackSide::RIGHT));
+
+  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Initial cones are at (%f, %f) and (%f, %f)",
+               initial_cone_left->getX(), initial_cone_left->getY(), initial_cone_right->getX(),
+               initial_cone_right->getY());
 
   // Create virtual cones to be added at the beginning of the vector. They must be dismissed later.
   virtual_left_cone = std::make_shared<Cone>(

@@ -78,6 +78,10 @@ class Planning : public rclcpp::Node {
   /**< Publisher for path after triangulations */
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr triangulations_pub_;
   /**< Timer for the periodic publishing */
+  /**< Publisher for blue cones after cone coloring*/
+  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr after_rem_blue_cones_pub_;
+  /**< Publisher for yellow cones after cone coloring*/
+  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr after_rem_yellow_cones_pub_;
   rclcpp::TimerBase::SharedPtr timer_;
   /**
    * @brief Callback for vehicle localization updates (undefined).
@@ -122,7 +126,9 @@ class Planning : public rclcpp::Node {
   void publish_visualization_msgs(const std::vector<Cone *> &left_cones,
                                   const std::vector<Cone *> &right_cones,
                                   const std::vector<PathPoint *> &after_triangulations_path,
-                                  const std::vector<PathPoint *> &final_path);
+                                  const std::vector<PathPoint *> &final_path,
+                                  const std::vector<Cone *> &after_rem_blue_cones,
+                                  const std::vector<Cone *> &after_rem_yellow_cones);
 
   /**
    * @brief Checks if the current mission is predictive.

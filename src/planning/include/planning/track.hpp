@@ -33,7 +33,7 @@ class Track {
   float spline_coeffs_ratio_ = 3;
   int spline_precision_ = 1;
 
- public:
+public:
   /**
    * @brief Default constructor for the Track class.
    *
