@@ -75,6 +75,7 @@ if(BUILD_TESTING)
                   src/cone_validator/height_validator.cpp
                   test/height_validator_test.cpp
                   test/cylinder_validator_test.cpp
+                  test/grid_ransac_test.cpp
                   src/cone_evaluator/distance_predict.cpp
                   test/distance_validator_test.cpp
                   src/ground_removal/grid_ransac.cpp
