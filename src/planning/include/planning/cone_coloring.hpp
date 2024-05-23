@@ -20,12 +20,12 @@
  *
  */
 class ConeColoring {
- private:
+private:
   /**
    * @brief angle gain between the last edge and the possible new edge
    *
    */
-  double angle_gain = 8.7;
+  double angle_gain = 3.7;
 
   /**
    * @brief distance gain to use for the distance cost
@@ -132,7 +132,7 @@ class ConeColoring {
    */
   double distance_to_side(Pose initial_car_pose, TrackSide side, double x, double y) const;
 
- public:
+public:
   /**
    * @brief Construct a new default Cone Coloring object
    *

@@ -45,6 +45,7 @@ protected:
           RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Received path in mock control node");
           received_path = *msg;
           rclcpp::shutdown();  // When receives message shuts down
+          std::cout << "Ended control callback" << std::endl;
         });
   }
 

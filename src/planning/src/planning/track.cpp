@@ -411,10 +411,11 @@ void Track::deleteOutliers(bool side, int order, float coeffs_ratio, bool writin
 
   // Order cones by going from each cone to the neearest unvisited one
   // This is necessary since splines are order dependent
-  std::vector<Cone *> cone_seq = orderCones(&unord_cone_seq);
+  // std::vector<Cone *> cone_seq = orderCones(&unord_cone_seq);
 
   // Calculate spline points that fit the sequence of cones
-  std::vector<Cone *> cone_seq_eval = fitSpline(side, precision, order, coeffs_ratio, cone_seq);
+  std::vector<Cone *> cone_seq_eval =
+      fitSpline(side, precision, order, coeffs_ratio, unord_cone_seq);
 
   // ELIMINATE CONES BASED ON DISTANCE TO CORRESPONDING SPLINE POINT
   // CURRENTLY NOT USED

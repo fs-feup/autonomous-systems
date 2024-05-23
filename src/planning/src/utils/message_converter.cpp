@@ -57,6 +57,9 @@ std::vector<Cone *> cone_vector_from_custom_interfaces(
     const custom_interfaces::msg::ConeArray &msg) {
   std::vector<Cone *> cone_array;
   for (const auto &cone : msg.cone_array) {
+    if (cone.position.x == 0 && cone.position.y == 0) {
+      RCLCPP_WARN(rclcpp::get_logger("rclcpp"), "Cone at (0,0)");
+    }
     auto new_cone = new Cone(0, (float)cone.position.x, (float)cone.position.y);
     cone_array.push_back(new_cone);
   }

@@ -56,6 +56,9 @@ void PacSimAdapter::track_callback(const visualization_msgs::msg::MarkerArray& m
   RCLCPP_DEBUG(this->node->get_logger(), "Received track map in pacsim adapter");
   custom_interfaces::msg::ConeArray cones;
   for (auto c : msg.markers) {
+    if (c.type == 4 || (c.pose.position.x == 0 && c.pose.position.y == 0)) {
+      continue;
+    }
     custom_interfaces::msg::Cone cone;
     cone.position.x = c.pose.position.x;
     cone.position.y = c.pose.position.y;
