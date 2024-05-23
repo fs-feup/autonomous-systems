@@ -73,5 +73,5 @@ class PointSolver {
    *
    * @param pose msg
    */
-  void update_vehicle_pose(const custom_interfaces::msg::VehicleState::ConstSharedPtr &vehicle_state_msg) ;
+  void update_vehicle_pose(const custom_interfaces::msg::VehicleState &vehicle_state_msg) ;
 };

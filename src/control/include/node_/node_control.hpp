@@ -30,14 +30,13 @@ constexpr double LD_MARGIN = 0.1; /**< Lookahead distance margin */
  */
 class Control : public rclcpp::Node {
  public:
-  // Need to change this so it is changed in the launch file
   double k_;
   double ld_margin_;
 
   PointSolver point_solver_;   /**< Point Solver */
   PID long_controller_;        /**< Longitudinal Controller */
   PurePursuit lat_controller_; /**< Lateral Controller*/
- private:
+
   std::shared_ptr<Adapter> adapter_;
   
   // Evaluator Publishers
@@ -50,16 +49,16 @@ class Control : public rclcpp::Node {
   rclcpp::Subscription<custom_interfaces::msg::VehicleState>::SharedPtr vehicle_state_sub_;
 
   bool mocker_node_;
+  bool go_signal_{false};
 
 
   /**
    * @brief Publishes the steering angle to the car based on the path and pose using cache
    *
    */
-  void publish_control(const custom_interfaces::msg::VehicleState::ConstSharedPtr &pose_msg);
+  void publish_control(const custom_interfaces::msg::VehicleState &vehicle_state_msg);
 
- public:
-  bool go_signal_{false};
+  private:
 
   /*
    * @brief Publish lookahead point

@@ -11,10 +11,8 @@ class Control;
  * and Control module.
  */
 class Adapter {
- protected:
-  std::shared_ptr<Control> node_;
-
  public:
+  std::shared_ptr<Control> node_;
   /**
    * @brief Constructor for the Adapter class.
    * @param mode The selected mode.

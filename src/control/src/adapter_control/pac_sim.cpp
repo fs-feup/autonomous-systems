@@ -2,13 +2,65 @@
 
 #include "node_/node_control.hpp"
 
-PacSimAdapter::PacSimAdapter(Control *control)
+PacSimAdapter::PacSimAdapter(Control* control)
     : Adapter(control),
       steering_pub_(node_->create_publisher<pacsim::msg::Wheels>("/pacsim/steering_setpoint", 10)),
       acceleration_pub_(
           node_->create_publisher<pacsim::msg::StampedScalar>("/pacsim/torques_max", 10)) {
   // No topic for pacsim, just set the go_signal to true
   node_->go_signal_ = true;
+
+  if (this->node_->declare_parameter<int>("use_simulated_se", 0)) {
+    tf_buffer_ = std::make_unique<tf2_ros::Buffer>(this->node_->get_clock());
+    tf_listener_ = std::make_shared<tf2_ros::TransformListener>(*tf_buffer_);
+
+    // Maybe change time to a lower value if needed: std::chrono::milliseconds(10)
+    auto timer = this->node_->create_wall_timer(std::chrono::milliseconds(60),
+                                                std::bind(&PacSimAdapter::timer_callback, this));
+
+    this->finished_client_ =
+        this->node_->create_client<std_srvs::srv::Empty>("/pacsim/finish_signal");
+
+    car_velocity_sub_ =
+        this->node_->create_subscription<geometry_msgs::msg::TwistWithCovarianceStamped>(
+            "/pacsim/velocity", 10,
+            [this](const geometry_msgs::msg::TwistWithCovarianceStamped& msg) {
+              last_stored_velocity_ = std::sqrt(std::pow(msg.twist.twist.linear.x, 2) +
+                                                std::pow(msg.twist.twist.linear.y, 2) +
+                                                std::pow(msg.twist.twist.linear.z, 2));
+            });
+  }
+}
+
+void PacSimAdapter::timer_callback() {
+  if (tf_buffer_->canTransform("map", "car", tf2::TimePointZero)) {
+    custom_interfaces::msg::VehicleState pose;
+    geometry_msgs::msg::TransformStamped t =
+        tf_buffer_->lookupTransform("map", "car", tf2::TimePointZero);
+    pose.header = t.header;
+    tf2::Quaternion q(t.transform.rotation.x, t.transform.rotation.y, t.transform.rotation.z,
+                      t.transform.rotation.w);
+    tf2::Matrix3x3 m(q);
+    double roll;
+    double pitch;
+    double yaw;
+    m.getRPY(roll, pitch, yaw);
+    pose.theta = yaw;
+    pose.position.x = t.transform.translation.x;
+    pose.position.y = t.transform.translation.y;
+    pose.linear_velocity = this->last_stored_velocity_;
+    pose.angular_velocity = 0.0;  // not needed -> default value
+
+    this->node_->publish_control(pose);
+  }
+}
+
+void PacSimAdapter::finish() {
+  this->finished_client_->async_send_request(
+      std::make_shared<std_srvs::srv::Empty::Request>(),
+      [this](rclcpp::Client<std_srvs::srv::Empty>::SharedFuture future) {
+        RCLCPP_INFO(this->node_->get_logger(), "Finished signal sent");
+      });
 }
 
 void PacSimAdapter::publish_cmd(double acceleration, double steering) {

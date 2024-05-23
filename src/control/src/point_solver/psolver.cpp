@@ -11,13 +11,13 @@ PointSolver::PointSolver() = default;
  * @param pose msg
  */
 void PointSolver::update_vehicle_pose(
-    const custom_interfaces::msg::VehicleState::ConstSharedPtr &vehicle_state_msg) {
+    const custom_interfaces::msg::VehicleState &vehicle_state_msg) {
   // update to Rear Wheel position
-  this->vehicle_pose_.cg_.x_ = vehicle_state_msg->position.x;
-  this->vehicle_pose_.cg_.y_ = vehicle_state_msg->position.y;
+  this->vehicle_pose_.cg_.x_ = vehicle_state_msg.position.x;
+  this->vehicle_pose_.cg_.y_ = vehicle_state_msg.position.y;
 
-  this->vehicle_pose_.velocity_ = vehicle_state_msg->linear_velocity;
-  this->vehicle_pose_.heading_ = vehicle_state_msg->theta;
+  this->vehicle_pose_.velocity_ = vehicle_state_msg.linear_velocity;
+  this->vehicle_pose_.heading_ = vehicle_state_msg.theta;
   this->vehicle_pose_.rear_axis_ = cg_2_rear_axis(
       this->vehicle_pose_.cg_, this->vehicle_pose_.heading_, this->dist_cg_2_rear_axis_);
 

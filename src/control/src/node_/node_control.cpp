@@ -24,8 +24,8 @@ Control::Control()
                                       ? "/planning/mock/ground_truth"
                                       : "/path_planning/path"),
       path_cache_(path_point_array_sub_, 10) {
-
-  if (!declare_parameter<int>("use_simulated_se", 0) || declare_parameter("adapter", "vehicle") == "vehicle") {
+  if (!declare_parameter<int>("use_simulated_se", 0) ||
+      declare_parameter("adapter", "vehicle") == "vehicle") {
     vehicle_state_sub_ = this->create_subscription<custom_interfaces::msg::VehicleState>(
         "/state_estimation/vehicle_state", 10,
         std::bind(&Control::publish_control, this, std::placeholders::_1));
@@ -33,11 +33,10 @@ Control::Control()
 }
 
 // This function is called when a new pose is received
-void Control::publish_control(
-    const custom_interfaces::msg::VehicleState::ConstSharedPtr &vehicle_state_msg) {
+void Control::publish_control(const custom_interfaces::msg::VehicleState &vehicle_state_msg) {
   if (!go_signal_) return;
   auto pathpoint_array =
-      path_cache_.getElemBeforeTime(vehicle_state_msg->header.stamp)->pathpoint_array;
+      path_cache_.getElemBeforeTime(vehicle_state_msg.header.stamp)->pathpoint_array;
 
   // update vehicle pose
   this->point_solver_.update_vehicle_pose(vehicle_state_msg);
