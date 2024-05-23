@@ -47,6 +47,7 @@ class Control : public rclcpp::Node {
   // General Subscribers
   message_filters::Subscriber<custom_interfaces::msg::PathPointArray> path_point_array_sub_;
   message_filters::Cache<custom_interfaces::msg::PathPointArray> path_cache_;
+  rclcpp::Subscription<custom_interfaces::msg::VehicleState>::SharedPtr vehicle_state_sub_;
 
   bool mocker_node_;
 

@@ -26,16 +26,22 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "lookahead_margin",
                 description="Margin of the lookahead distance",
-                default_value="0.1",),
+                default_value="0.1",
+            ),
+            DeclareLaunchArgument(
+                "use_simulated_se",
+                description="Use Simulated State Estimation (true/false)",
+                default_value="false",
+            ),
             Node(
                 package="control",
                 executable="node_control",
                 name="control",
                 parameters=[
                     {"adapter": LaunchConfiguration("adapter")},
-                    {"mocker_node": LaunchConfiguration("mocker_node")}
+                    {"mocker_node": LaunchConfiguration("mocker_node")},
                 ],
-                arguments=['--ros-args', '--log-level', 'control:=debug'],
+                arguments=["--ros-args", "--log-level", "control:=debug"],
             ),
         ]
     )

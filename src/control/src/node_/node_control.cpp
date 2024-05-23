@@ -20,12 +20,16 @@ Control::Control()
       k_(declare_parameter("lookahead_gain", 0.5)),
       ld_margin_(declare_parameter("lookahead_margin", 0.1)),
       adapter_(adapter_map.at(declare_parameter("adapter", "vehicle"))(this)),
-      vehicle_state_sub_(this, "/state_estimation/vehicle_state"),
       path_point_array_sub_(this, declare_parameter("mocker_node", true)
                                       ? "/planning/mock/ground_truth"
                                       : "/path_planning/path"),
       path_cache_(path_point_array_sub_, 10) {
-  vehicle_state_sub_.registerCallback(&Control::publish_control, this);
+
+  if (!declare_parameter<int>("use_simulated_se", 0) || declare_parameter("adapter", "vehicle") == "vehicle") {
+    vehicle_state_sub_ = this->create_subscription<custom_interfaces::msg::VehicleState>(
+        "/state_estimation/vehicle_state", 10,
+        std::bind(&Control::publish_control, this, std::placeholders::_1));
+  }
 }
 
 // This function is called when a new pose is received
