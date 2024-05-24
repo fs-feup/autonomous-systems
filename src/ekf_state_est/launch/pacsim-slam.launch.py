@@ -16,17 +16,35 @@ def generate_launch_description():
                 default_value="20.0",
             ),  # meters
             DeclareLaunchArgument(
+                "sml_initial_limit",
+                description="Initial limit for the limit function used in the simple maximum likelihood data association",
+                default_value="0.1",
+            ),
+            DeclareLaunchArgument(
+                "sml_curvature",
+                description="Curvature for the limit function used in the simple maximum likelihood data association",
+                default_value="15.0",
+            ),
+            DeclareLaunchArgument(
+                "observation_noise",
+                description="Noise value for observations (sigma)",
+                default_value="0.01",
+            ),
+            DeclareLaunchArgument(
+                "wheel_speed_sensor_noise",
+                description="Noise value for wheel speed sensors (sigma)",
+                default_value="0.1",
+            ),
+            DeclareLaunchArgument(
                 "motion_model",
                 description="Motion model to use",
                 default_value="normal_velocity_model",
             ),
-            DeclareLaunchArgument("wheel_radius", default_value="0.254"),
             DeclareLaunchArgument(
                 "adapter",
                 description="Environment to run node on",
                 default_value="pacsim",
             ),
-            DeclareLaunchArgument("finish_time", default_value="26.0"),  # seconds
             DeclareLaunchArgument(
                 "use_odometry",
                 description="Either use odometry or IMU (TODO: remove for complete velocity estimation)",
@@ -55,8 +73,16 @@ def generate_launch_description():
                             "use_simulated_perception"
                         )
                     },
+                    {"observation_noise": LaunchConfiguration("observation_noise")},
+                    {
+                        "wheel_speed_sensor_noise": LaunchConfiguration(
+                            "wheel_speed_sensor_noise"
+                        )
+                    },
+                    {"sml_curvature": LaunchConfiguration("sml_curvature")},
+                    {"sml_initial_limit": LaunchConfiguration("sml_initial_limit")},
                 ],
-                arguments=["--ros-args", "--log-level", "ekf_state_est:=debug"],
+                arguments=["--ros-args", "--log-level", "ekf_state_est:=info"],
             ),
         ]
     )
