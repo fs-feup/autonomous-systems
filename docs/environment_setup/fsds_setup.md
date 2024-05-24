@@ -18,7 +18,7 @@ The Formula Student Driverless Simulator is a simulator originally created for o
 4. Build the ROS2 bridge package:
     ```sh
     cd ros2
-    source /opt/ros/humble/setup.bash
+    source /opt/ros/iron/setup.bash
     colcon build
     ```
 5. Download the simulator's binaries (yes, I know, idotic when you have just downloaded the sources but that is what we got if you don't want to spend a day compiling UnrealEngine). Download them to the same version. Link [here](https://github.com/FS-Driverless/Formula-Student-Driverless-Simulator/releases/tag/v2.2.0). Authorize executing permissions for the script in the root folder like so ```chmod u+x FSDS.sh```.
@@ -42,7 +42,7 @@ On the other shell:
     ```
 2. Source ros and the pacakge:
     ```sh
-    source /opt/ros/humble/setup.bash
+    source /opt/ros/iron/setup.bash
     source ./install/setup.bash
     ```
 3. Launch the package: 
