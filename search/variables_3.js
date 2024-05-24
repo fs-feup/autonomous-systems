@@ -35,5 +35,5 @@ var searchData=
   ['current_5fgoal_5fvelocity_32',['current_goal_velocity',['../d4/d89/class_inspection_functions.html#ab28a953b2f7bb994a3afb1a6c7f636c7',1,'InspectionFunctions']]],
   ['current_5fleft_5fcones_33',['current_left_cones',['../dd/d52/class_cone_coloring.html#a5c2cca77802d01ce2cdb49f00d1f51e8',1,'ConeColoring']]],
   ['current_5fright_5fcones_34',['current_right_cones',['../dd/d52/class_cone_coloring.html#ad57837293e6b81b21b63ba5923ad2102',1,'ConeColoring']]],
-  ['curvature_35',['curvature',['../d5/dc2/class_simple_maximum_likelihood.html#a8f80789a89fb1e880c087f6570dc3511',1,'SimpleMaximumLikelihood']]]
+  ['curvature_5f_35',['curvature_',['../d5/dc2/class_simple_maximum_likelihood.html#a24d68317c3b86bae2309b3d585230515',1,'SimpleMaximumLikelihood']]]
 ];

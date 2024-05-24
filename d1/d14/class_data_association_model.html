@@ -129,7 +129,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9f97ec9ae611784e4e317cc69b15e703" id="r_a9f97ec9ae611784e4e317cc69b15e703"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d14/class_data_association_model.html#a9f97ec9ae611784e4e317cc69b15e703">match_cone</a> (const Eigen::Vector2f &amp;observed_landmark_absolute, const Eigen::VectorXf &amp;expected_state) const =0</td></tr>
 <tr class="memdesc:a9f97ec9ae611784e4e317cc69b15e703"><td class="mdescLeft">&#160;</td><td class="mdescRight">Match the observed landmark to a landmark in the map.  <br /></td></tr>
 <tr class="separator:a9f97ec9ae611784e4e317cc69b15e703"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a54823418322231403c42e31c3b300896" id="r_a54823418322231403c42e31c3b300896"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d14/class_data_association_model.html#a54823418322231403c42e31c3b300896">DataAssociationModel</a> (float <a class="el" href="../../d1/d14/class_data_association_model.html#a04f5aa02da550dfb7a88bfc4691f4813">max_landmark_distance</a>)</td></tr>
+<tr class="memitem:a54823418322231403c42e31c3b300896" id="r_a54823418322231403c42e31c3b300896"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d14/class_data_association_model.html#a54823418322231403c42e31c3b300896">DataAssociationModel</a> (float max_landmark_distance)</td></tr>
 <tr class="separator:a54823418322231403c42e31c3b300896"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a76a5a370d193f667a122945ea7fc671f" id="r_a76a5a370d193f667a122945ea7fc671f"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d14/class_data_association_model.html#a76a5a370d193f667a122945ea7fc671f">~DataAssociationModel</a> ()=default</td></tr>
 <tr class="separator:a76a5a370d193f667a122945ea7fc671f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -147,9 +147,9 @@ Private Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a04f5aa02da550dfb7a88bfc4691f4813" id="r_a04f5aa02da550dfb7a88bfc4691f4813"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d14/class_data_association_model.html#a04f5aa02da550dfb7a88bfc4691f4813">max_landmark_distance</a></td></tr>
-<tr class="memdesc:a04f5aa02da550dfb7a88bfc4691f4813"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum deviation of the landmark position from the expected position when the landmark is perceived to be 1 meter away.  <br /></td></tr>
-<tr class="separator:a04f5aa02da550dfb7a88bfc4691f4813"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:accc4954d500f5050f0186ef6c79688e6" id="r_accc4954d500f5050f0186ef6c79688e6"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d14/class_data_association_model.html#accc4954d500f5050f0186ef6c79688e6">max_landmark_distance_</a></td></tr>
+<tr class="memdesc:accc4954d500f5050f0186ef6c79688e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum deviation of the landmark position from the expected position when the landmark is perceived to be 1 meter away.  <br /></td></tr>
+<tr class="separator:accc4954d500f5050f0186ef6c79688e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Data Association Method class, used to match observations to landmarks in the map. </p>
@@ -358,8 +358,8 @@ Here is the caller graph for this function:</div>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a04f5aa02da550dfb7a88bfc4691f4813" name="a04f5aa02da550dfb7a88bfc4691f4813"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a04f5aa02da550dfb7a88bfc4691f4813">&#9670;&#160;</a></span>max_landmark_distance</h2>
+<a id="accc4954d500f5050f0186ef6c79688e6" name="accc4954d500f5050f0186ef6c79688e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#accc4954d500f5050f0186ef6c79688e6">&#9670;&#160;</a></span>max_landmark_distance_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -368,7 +368,7 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">float DataAssociationModel::max_landmark_distance</td>
+          <td class="memname">float DataAssociationModel::max_landmark_distance_</td>
         </tr>
       </table>
   </td>

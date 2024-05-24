@@ -49,7 +49,7 @@ var searchData=
   ['pid_5ftest_2ecpp_46',['pid_test.cpp',['../d3/d6a/pid__test_8cpp.html',1,'']]],
   ['place_5finitial_5fcones_47',['place_initial_cones',['../dd/d52/class_cone_coloring.html#a0d1cff5f96836f91157149c03903fcc4',1,'ConeColoring']]],
   ['place_5fnext_5fcone_48',['place_next_cone',['../dd/d52/class_cone_coloring.html#a4ba687002332236542dbbc6e6b49b252',1,'ConeColoring']]],
-  ['plane_49',['plane',['../d2/d8d/class_plane.html',1,'Plane'],['../d2/d8d/class_plane.html#a9f7079252b82b810d101b11e1c6cff00',1,'Plane::Plane(double a, double b, double c, double d)'],['../d2/d8d/class_plane.html#acac0d9c003e0ab10d07b146c3566a0c7',1,'Plane::Plane()'],['../da/dcf/class_cylinder_validator_test.html#a8e79cd74d95345cba5d8212f3cda4d62',1,'CylinderValidatorTest::plane'],['../d9/d7c/class_height_validator_test.html#a29beee3abdb7a25c8997601307ed65d9',1,'HeightValidatorTest::plane']]],
+  ['plane_49',['plane',['../d2/d8d/class_plane.html',1,'Plane'],['../da/dcf/class_cylinder_validator_test.html#a8e79cd74d95345cba5d8212f3cda4d62',1,'CylinderValidatorTest::plane'],['../d9/d7c/class_height_validator_test.html#a29beee3abdb7a25c8997601307ed65d9',1,'HeightValidatorTest::plane'],['../d2/d8d/class_plane.html#a9f7079252b82b810d101b11e1c6cff00',1,'Plane::Plane(double a, double b, double c, double d)'],['../d2/d8d/class_plane.html#acac0d9c003e0ab10d07b146c3566a0c7',1,'Plane::Plane()']]],
   ['plane_2ecpp_50',['plane.cpp',['../d0/d78/plane_8cpp.html',1,'']]],
   ['plane_2ehpp_51',['plane.hpp',['../d7/d82/plane_8hpp.html',1,'']]],
   ['plane_5f_52',['plane_',['../d1/df5/class_circunference_center_calculation_test.html#a6ff6c1b24eafe3058b6c3335d5c070a2',1,'CircunferenceCenterCalculationTest']]],

@@ -93,6 +93,7 @@ $(document).ready(function(){initNavTree('d7/d64/class_observation_model.html','
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../d4/d5d/class_observation_model-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">ObservationModel Class Reference</div></div>
@@ -108,7 +109,7 @@ Collaboration diagram for ObservationModel:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d9/d67/class_observation_model__coll__graph.png" border="0" usemap="#a_observation_model_coll__map" alt="Collaboration graph"/></div>
 <map name="a_observation_model_coll__map" id="a_observation_model_coll__map">
-<area shape="rect" title="Observation Model class compiled of functions for observation model." alt="" coords="5,5,175,209"/>
+<area shape="rect" title="Observation Model class compiled of functions for observation model." alt="" coords="5,5,187,244"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -130,11 +131,17 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a97a9e71e7cee696be91a569eb65b9df9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the observation noise covariance matrix (C or H)  <br /></td></tr>
 <tr class="separator:a97a9e71e7cee696be91a569eb65b9df9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a640ab90efc0713ccc2b0a82c6a0380c6" id="r_a640ab90efc0713ccc2b0a82c6a0380c6"><td class="memItemLeft" align="right" valign="top">static Eigen::Matrix2f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d64/class_observation_model.html#a640ab90efc0713ccc2b0a82c6a0380c6">create_observation_noise_covariance_matrix</a> (float noise_value)</td></tr>
+<tr class="memdesc:a640ab90efc0713ccc2b0a82c6a0380c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a Q matrix from a given noise value.  <br /></td></tr>
+<tr class="separator:a640ab90efc0713ccc2b0a82c6a0380c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a18e7cbbf549aadbaaf30baca6d648172" id="r_a18e7cbbf549aadbaaf30baca6d648172"><td class="memItemLeft" align="right" valign="top">Eigen::Matrix2f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d64/class_observation_model.html#a18e7cbbf549aadbaaf30baca6d648172">_observation_noise_covariance_matrix</a></td></tr>
-<tr class="memdesc:a18e7cbbf549aadbaaf30baca6d648172"><td class="mdescLeft">&#160;</td><td class="mdescRight">H or C.  <br /></td></tr>
-<tr class="separator:a18e7cbbf549aadbaaf30baca6d648172"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9c2198bb2057370c3beaaa7348d1f01" id="r_af9c2198bb2057370c3beaaa7348d1f01"><td class="memItemLeft" align="right" valign="top">Eigen::Matrix2f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d64/class_observation_model.html#af9c2198bb2057370c3beaaa7348d1f01">_observation_noise_covariance_matrix_</a></td></tr>
+<tr class="memdesc:af9c2198bb2057370c3beaaa7348d1f01"><td class="mdescLeft">&#160;</td><td class="mdescRight">H or C.  <br /></td></tr>
+<tr class="separator:af9c2198bb2057370c3beaaa7348d1f01"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Observation Model class compiled of functions for observation model. </p>
@@ -173,11 +180,52 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/d38/observation__models_8cpp_source.html#l00003">3</a> of file <a class="el" href="../../da/d38/observation__models_8cpp_source.html">observation_models.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/d38/observation__models_8cpp_source.html#l00005">5</a> of file <a class="el" href="../../da/d38/observation__models_8cpp_source.html">observation_models.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a640ab90efc0713ccc2b0a82c6a0380c6" name="a640ab90efc0713ccc2b0a82c6a0380c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a640ab90efc0713ccc2b0a82c6a0380c6">&#9670;&#160;</a></span>create_observation_noise_covariance_matrix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::Matrix2f ObservationModel::create_observation_noise_covariance_matrix </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>noise_value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Create a Q matrix from a given noise value. </p>
+<dl class="section return"><dt>Returns</dt><dd>Eigen::Matrix2f </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="../../da/d38/observation__models_8cpp_source.html#l00158">158</a> of file <a class="el" href="../../da/d38/observation__models_8cpp_source.html">observation_models.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d7/d64/class_observation_model_a640ab90efc0713ccc2b0a82c6a0380c6_icgraph.png" border="0" usemap="#ad7/d64/class_observation_model_a640ab90efc0713ccc2b0a82c6a0380c6_icgraph" alt=""/></div>
+<map name="ad7/d64/class_observation_model_a640ab90efc0713ccc2b0a82c6a0380c6_icgraph" id="ad7/d64/class_observation_model_a640ab90efc0713ccc2b0a82c6a0380c6_icgraph">
+<area shape="rect" title="Create a Q matrix from a given noise value." alt="" coords="177,5,422,46"/>
+<area shape="rect" href="../../d4/d43/class_s_e_node.html#a5d61b6c80a21c02b29074e434cc6703b" title="Constructor of the main node, most things are received by launch parameter." alt="" coords="5,13,129,39"/>
+<area shape="poly" title=" " alt="" coords="161,28,129,28,129,23,161,23"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="a97a9e71e7cee696be91a569eb65b9df9" name="a97a9e71e7cee696be91a569eb65b9df9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a97a9e71e7cee696be91a569eb65b9df9">&#9670;&#160;</a></span>get_observation_noise_covariance_matrix()</h2>
 
@@ -196,7 +244,7 @@ Private Attributes</h2></td></tr>
 <p>Get the observation noise covariance matrix (C or H) </p>
 <dl class="section return"><dt>Returns</dt><dd>Eigen::MatrixXf </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/d38/observation__models_8cpp_source.html#l00144">144</a> of file <a class="el" href="../../da/d38/observation__models_8cpp_source.html">observation_models.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/d38/observation__models_8cpp_source.html#l00154">154</a> of file <a class="el" href="../../da/d38/observation__models_8cpp_source.html">observation_models.cpp</a>.</p>
 
 </div>
 </div>
@@ -242,7 +290,7 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Eigen::MatrixXf </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/d38/observation__models_8cpp_source.html#l00045">45</a> of file <a class="el" href="../../da/d38/observation__models_8cpp_source.html">observation_models.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/d38/observation__models_8cpp_source.html#l00055">55</a> of file <a class="el" href="../../da/d38/observation__models_8cpp_source.html">observation_models.cpp</a>.</p>
 
 </div>
 </div>
@@ -282,7 +330,7 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Eigen::Vector2f </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/d38/observation__models_8cpp_source.html#l00006">6</a> of file <a class="el" href="../../da/d38/observation__models_8cpp_source.html">observation_models.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/d38/observation__models_8cpp_source.html#l00008">8</a> of file <a class="el" href="../../da/d38/observation__models_8cpp_source.html">observation_models.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -338,7 +386,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Eigen::Vector2f </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/d38/observation__models_8cpp_source.html#l00023">23</a> of file <a class="el" href="../../da/d38/observation__models_8cpp_source.html">observation_models.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/d38/observation__models_8cpp_source.html#l00033">33</a> of file <a class="el" href="../../da/d38/observation__models_8cpp_source.html">observation_models.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -359,8 +407,8 @@ Here is the caller graph for this function:</div>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a18e7cbbf549aadbaaf30baca6d648172" name="a18e7cbbf549aadbaaf30baca6d648172"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a18e7cbbf549aadbaaf30baca6d648172">&#9670;&#160;</a></span>_observation_noise_covariance_matrix</h2>
+<a id="af9c2198bb2057370c3beaaa7348d1f01" name="af9c2198bb2057370c3beaaa7348d1f01"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9c2198bb2057370c3beaaa7348d1f01">&#9670;&#160;</a></span>_observation_noise_covariance_matrix_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -369,7 +417,7 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Eigen::Matrix2f ObservationModel::_observation_noise_covariance_matrix</td>
+          <td class="memname">Eigen::Matrix2f ObservationModel::_observation_noise_covariance_matrix_</td>
         </tr>
       </table>
   </td>

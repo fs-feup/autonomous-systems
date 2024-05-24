@@ -1,5 +1,5 @@
 <map id="SENode::_perception_subscription_callback" name="SENode::_perception_subscription_callback">
-<area shape="rect" id="Node000001" title="Callback that updates everytime information is received from the perception module." alt="" coords="5,68,159,109"/>
+<area shape="rect" id="Node000001" title="Mutex used to lock EKF access." alt="" coords="5,68,159,109"/>
 <area shape="rect" id="Node000002" href="$d4/d43/class_s_e_node.html#a6f3571b56b21f6d5fa7191fae4e21681" title="publishes the map (&#39;track_map&#39;) to the topic track_map" alt="" coords="215,46,370,72"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="159,75,199,69,199,75,159,80"/>
 <area shape="rect" id="Node000005" href="$d4/d43/class_s_e_node.html#a97f9cce4985902a634cd878f973715e6" title="publishes the localization (&#39;vehicle_localization&#39;) to the topic vehicle_location" alt="" coords="207,96,378,137"/>

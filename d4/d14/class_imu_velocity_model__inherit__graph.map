@@ -1,5 +1,5 @@
 <map id="ImuVelocityModel" name="ImuVelocityModel">
-<area shape="rect" id="Node000001" title="Motion estimation that uses the specific values of the x and y axis accelerations,..." alt="" coords="15,243,199,377"/>
-<area shape="rect" id="Node000002" href="$db/d66/class_motion_model.html" title="Abstract Moiton Model class designed to be implemented by the different motion models." alt="" coords="5,5,208,195"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="109,209,109,243,104,243,104,209"/>
+<area shape="rect" id="Node000001" title="Motion estimation that uses the specific values of the x and y axis accelerations,..." alt="" coords="15,277,199,412"/>
+<area shape="rect" id="Node000002" href="$db/d66/class_motion_model.html" title="Abstract Moiton Model class designed to be implemented by the different motion models." alt="" coords="5,5,208,229"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="109,244,109,278,104,278,104,244"/>
 </map>

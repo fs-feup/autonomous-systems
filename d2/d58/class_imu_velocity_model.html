@@ -108,9 +108,9 @@ Inheritance diagram for ImuVelocityModel:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d4/d14/class_imu_velocity_model__inherit__graph.png" border="0" usemap="#a_imu_velocity_model_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_imu_velocity_model_inherit__map" id="a_imu_velocity_model_inherit__map">
-<area shape="rect" title="Motion estimation that uses the specific values of the x and y axis accelerations,..." alt="" coords="15,243,199,377"/>
-<area shape="rect" href="../../db/d66/class_motion_model.html" title="Abstract Moiton Model class designed to be implemented by the different motion models." alt="" coords="5,5,208,195"/>
-<area shape="poly" title=" " alt="" coords="109,209,109,243,104,243,104,209"/>
+<area shape="rect" title="Motion estimation that uses the specific values of the x and y axis accelerations,..." alt="" coords="15,277,199,412"/>
+<area shape="rect" href="../../db/d66/class_motion_model.html" title="Abstract Moiton Model class designed to be implemented by the different motion models." alt="" coords="5,5,208,229"/>
+<area shape="poly" title=" " alt="" coords="109,244,109,278,104,278,104,244"/>
 </map>
 </div>
 <div class="dynheader">
@@ -118,9 +118,9 @@ Collaboration diagram for ImuVelocityModel:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../da/deb/class_imu_velocity_model__coll__graph.png" border="0" usemap="#a_imu_velocity_model_coll__map" alt="Collaboration graph"/></div>
 <map name="a_imu_velocity_model_coll__map" id="a_imu_velocity_model_coll__map">
-<area shape="rect" title="Motion estimation that uses the specific values of the x and y axis accelerations,..." alt="" coords="15,243,199,377"/>
-<area shape="rect" href="../../db/d66/class_motion_model.html" title="Abstract Moiton Model class designed to be implemented by the different motion models." alt="" coords="5,5,208,195"/>
-<area shape="poly" title=" " alt="" coords="109,209,109,243,104,243,104,209"/>
+<area shape="rect" title="Motion estimation that uses the specific values of the x and y axis accelerations,..." alt="" coords="15,277,199,412"/>
+<area shape="rect" href="../../db/d66/class_motion_model.html" title="Abstract Moiton Model class designed to be implemented by the different motion models." alt="" coords="5,5,208,229"/>
+<area shape="poly" title=" " alt="" coords="109,244,109,278,104,278,104,244"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -149,11 +149,17 @@ Public Member Functions</h2></td></tr>
 Private Attributes</h2></td></tr>
 <tr class="memitem:ae2ea5116825028ea758a651ef6cea3af" id="r_ae2ea5116825028ea758a651ef6cea3af"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXf&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d58/class_imu_velocity_model.html#ae2ea5116825028ea758a651ef6cea3af">_process_noise_covariance_matrix</a></td></tr>
 <tr class="separator:ae2ea5116825028ea758a651ef6cea3af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pub_static_methods_class_motion_model"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_class_motion_model')"><img src="../../closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="../../db/d66/class_motion_model.html">MotionModel</a></td></tr>
+<tr class="memitem:a54ca36f8c78bbb93ec99b8207a988363 inherit pub_static_methods_class_motion_model" id="r_a54ca36f8c78bbb93ec99b8207a988363"><td class="memItemLeft" align="right" valign="top">static Eigen::MatrixXf&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d66/class_motion_model.html#a54ca36f8c78bbb93ec99b8207a988363">create_process_noise_covariance_matrix</a> (float process_noise)</td></tr>
+<tr class="separator:a54ca36f8c78bbb93ec99b8207a988363 inherit pub_static_methods_class_motion_model"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Motion estimation that uses the specific values of the x and y axis accelerations, being the angle of the vehicle and its position independent. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/dc4/motion__models_8hpp_source.html#l00091">91</a> of file <a class="el" href="../../df/dc4/motion__models_8hpp_source.html">motion_models.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/dc4/motion__models_8hpp_source.html#l00093">93</a> of file <a class="el" href="../../df/dc4/motion__models_8hpp_source.html">motion_models.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a4cd9531719c138ccc0e78ccfddce9da4" name="a4cd9531719c138ccc0e78ccfddce9da4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4cd9531719c138ccc0e78ccfddce9da4">&#9670;&#160;</a></span>ImuVelocityModel()</h2>
@@ -245,7 +251,7 @@ Private Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="../../db/d66/class_motion_model.html#aad4c79b92acd351e94e7b847b61f965b">MotionModel</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d56/motion__models_8cpp_source.html#l00120">120</a> of file <a class="el" href="../../d1/d56/motion__models_8cpp_source.html">motion_models.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d56/motion__models_8cpp_source.html#l00133">133</a> of file <a class="el" href="../../d1/d56/motion__models_8cpp_source.html">motion_models.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -318,7 +324,7 @@ Here is the caller graph for this function:</div>
 
 <p>Implements <a class="el" href="../../db/d66/class_motion_model.html#a24a7f8fab182b07ba116911cdd33893f">MotionModel</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d56/motion__models_8cpp_source.html#l00089">89</a> of file <a class="el" href="../../d1/d56/motion__models_8cpp_source.html">motion_models.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d56/motion__models_8cpp_source.html#l00102">102</a> of file <a class="el" href="../../d1/d56/motion__models_8cpp_source.html">motion_models.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -369,7 +375,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../df/dc4/motion__models_8hpp_source.html#l00092">92</a> of file <a class="el" href="../../df/dc4/motion__models_8hpp_source.html">motion_models.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/dc4/motion__models_8hpp_source.html#l00094">94</a> of file <a class="el" href="../../df/dc4/motion__models_8hpp_source.html">motion_models.hpp</a>.</p>
 
 </div>
 </div>

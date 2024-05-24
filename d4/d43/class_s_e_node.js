@@ -20,6 +20,7 @@ var class_s_e_node =
     [ "_map_publisher_", "d4/d43/class_s_e_node.html#a6da73bc3099ff0b9334f4f751848c79a", null ],
     [ "_mission_", "d4/d43/class_s_e_node.html#a32a4d14b23b9cd690504a0a3c46ada93", null ],
     [ "_motion_update_", "d4/d43/class_s_e_node.html#a7ee8f3e8c319dd8386e58e05e12d73c3", null ],
+    [ "_mutex_", "d4/d43/class_s_e_node.html#a35e4f70165375eae13a0cca551e7a2b0", null ],
     [ "_perception_map_", "d4/d43/class_s_e_node.html#a2b9fc465ec1042df41861e934d577800", null ],
     [ "_perception_subscription_", "d4/d43/class_s_e_node.html#a1c65ea26f6043ab5517ecdac18b65412", null ],
     [ "_timer_", "d4/d43/class_s_e_node.html#a933262364ce981be2803c316ce2e567d", null ],

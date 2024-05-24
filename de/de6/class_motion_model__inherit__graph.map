@@ -1,7 +1,7 @@
 <map id="MotionModel" name="MotionModel">
-<area shape="rect" id="Node000001" title="Abstract Moiton Model class designed to be implemented by the different motion models." alt="" coords="100,5,303,195"/>
-<area shape="rect" id="Node000002" href="$d2/d58/class_imu_velocity_model.html" title="Motion estimation that uses the specific values of the x and y axis accelerations,..." alt="" coords="5,243,189,377"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="150,209,133,244,128,241,146,206"/>
-<area shape="rect" id="Node000003" href="$d7/df9/class_normal_velocity_model.html" title="Motion estimation that uses the module of the velocity and the rotational velocity." alt="" coords="213,243,397,377"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="257,206,275,241,270,244,252,209"/>
+<area shape="rect" id="Node000001" title="Abstract Moiton Model class designed to be implemented by the different motion models." alt="" coords="100,5,303,229"/>
+<area shape="rect" id="Node000002" href="$d2/d58/class_imu_velocity_model.html" title="Motion estimation that uses the specific values of the x and y axis accelerations,..." alt="" coords="5,277,189,412"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="146,244,130,279,125,277,142,242"/>
+<area shape="rect" id="Node000003" href="$d7/df9/class_normal_velocity_model.html" title="Motion estimation that uses the module of the velocity and the rotational velocity." alt="" coords="213,277,397,412"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="261,242,277,277,273,279,256,244"/>
 </map>

@@ -107,10 +107,10 @@ $(document).ready(function(){initNavTree('d6/dd0/transformations_8cpp_source.htm
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
 <div class="foldopen" id="foldopen00007" data-start="{" data-end="}">
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="../../d2/d32/namespacecommon__lib_1_1maths.html#acd35b7873c51d71ad7ee2396007da7a3">    7</a></span><span class="keywordtype">double</span> <a class="code hl_function" href="../../d2/d32/namespacecommon__lib_1_1maths.html#acd35b7873c51d71ad7ee2396007da7a3">normalize_angle</a>(<span class="keywordtype">double</span> angle) {</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>  <span class="keywordflow">while</span> (angle &lt; 0.0) {</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>  <span class="keywordflow">while</span> (angle &lt; -M_PI) {</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    angle += 2 * M_PI;</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>  }</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>  <span class="keywordflow">while</span> (angle &gt;= 2 * M_PI) {</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>  <span class="keywordflow">while</span> (angle &gt;= M_PI) {</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    angle -= 2 * M_PI;</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>  }</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>  <span class="keywordflow">return</span> angle;</div>

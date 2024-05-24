@@ -183,9 +183,6 @@ Variables</h2></td></tr>
 <tr class="memitem:a4e10dbc660ae8904edeb9b53ffb84701" id="r_a4e10dbc660ae8904edeb9b53ffb84701"><td class="memItemLeft" align="right" valign="top">const std::map&lt; std::string, std::function&lt; std::shared_ptr&lt; <a class="el" href="../../db/d66/class_motion_model.html">MotionModel</a> &gt;(const Eigen::MatrixXf &amp;)&gt;, std::less&lt;&gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dc4/motion__models_8hpp.html#a4e10dbc660ae8904edeb9b53ffb84701">motion_model_constructors</a></td></tr>
 <tr class="memdesc:a4e10dbc660ae8904edeb9b53ffb84701"><td class="mdescLeft">&#160;</td><td class="mdescRight">Map object to map strings from launch file parameter to constructor.  <br /></td></tr>
 <tr class="separator:a4e10dbc660ae8904edeb9b53ffb84701"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3eca37f5ac2c40dca95d5de56fcfafd8" id="r_a3eca37f5ac2c40dca95d5de56fcfafd8"><td class="memItemLeft" align="right" valign="top">const std::map&lt; std::string, Eigen::MatrixXf, std::less&lt;&gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dc4/motion__models_8hpp.html#a3eca37f5ac2c40dca95d5de56fcfafd8">motion_model_noise_matrixes</a></td></tr>
-<tr class="memdesc:a3eca37f5ac2c40dca95d5de56fcfafd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Map object to map strings from launch file parameter to noise matrix.  <br /></td></tr>
-<tr class="separator:a3eca37f5ac2c40dca95d5de56fcfafd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Variable Documentation</h2>
 <a id="a4e10dbc660ae8904edeb9b53ffb84701" name="a4e10dbc660ae8904edeb9b53ffb84701"></a>
@@ -213,28 +210,7 @@ Variables</h2></td></tr>
 </div><!-- fragment -->
 <p>Map object to map strings from launch file parameter to constructor. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/dc4/motion__models_8hpp_source.html#l00183">183</a> of file <a class="el" href="../../df/dc4/motion__models_8hpp_source.html">motion_models.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a3eca37f5ac2c40dca95d5de56fcfafd8" name="a3eca37f5ac2c40dca95d5de56fcfafd8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3eca37f5ac2c40dca95d5de56fcfafd8">&#9670;&#160;</a></span>motion_model_noise_matrixes</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::map&lt;std::string, Eigen::MatrixXf, std::less&lt;&gt; &gt; motion_model_noise_matrixes</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    {<span class="stringliteral">&quot;normal_velocity_model&quot;</span>, Eigen::MatrixXf::Identity(5, 5) * 0.8},</div>
-<div class="line">    {<span class="stringliteral">&quot;imu_velocity_model&quot;</span>, Eigen::MatrixXf::Identity(5, 5) * 0.8}}</div>
-</div><!-- fragment -->
-<p>Map object to map strings from launch file parameter to noise matrix. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../df/dc4/motion__models_8hpp_source.html#l00196">196</a> of file <a class="el" href="../../df/dc4/motion__models_8hpp_source.html">motion_models.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/dc4/motion__models_8hpp_source.html#l00185">185</a> of file <a class="el" href="../../df/dc4/motion__models_8hpp_source.html">motion_models.hpp</a>.</p>
 
 </div>
 </div>
