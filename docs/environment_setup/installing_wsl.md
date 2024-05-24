@@ -6,7 +6,7 @@ The first step is to obtain it from the Windows Store. Make sure to get the 22.0
 ![Ubuntu WSL Windows Store Page](../assets/ros2_setup/wsl-store.jpeg)
 
 After installation. Make sure to complete the first tip: 
-- Search for "Turn Windows feature on or off" in the search bar of Windows and make sure Windows Subsystem for Linux's box is ticked in the control panel window that will open. If it is not, tick it. You will be prompted to reboot the pc.
+- Search for "Turn Windows features on or off" in the search bar of Windows and make sure Windows Subsystem for Linux's box is ticked in the control panel window that will open. If it is not, tick it. You will be prompted to reboot the pc.
 
 ## Setting Up WSL
 
