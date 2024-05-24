@@ -11,24 +11,25 @@
 
 #include "adapter_perception/fsds.hpp"
 #include "adapter_perception/map.hpp"
-#include "adapter_perception/testlidar.hpp"
+#include "adapter_perception/vehicle.hpp"
 #include "std_msgs/msg/header.hpp"
 
 std_msgs::msg::Header header;
 
-Perception::Perception(GroundRemoval* groundRemoval, Clustering* clustering,
-                       ConeDifferentiation* coneDifferentiator,
-                       const std::vector<ConeValidator*>& coneValidators,
-                       ConeEvaluator* coneEvaluator)
+Perception::Perception(std::shared_ptr<GroundRemoval> ground_removal, std::shared_ptr<Clustering> clustering,
+             std::shared_ptr<ConeDifferentiation> cone_differentiator,
+             const std::vector<std::shared_ptr<ConeValidator>>& cone_validators, 
+             std::shared_ptr<ConeEvaluator> cone_evaluator, std::string mode)
     : Node("perception"),
-      groundRemoval(groundRemoval),
-      clustering(clustering),
-      coneDifferentiator(coneDifferentiator),
-      coneValidators(coneValidators),
-      coneEvaluator(coneEvaluator) {
-  this->_cones_publisher = this->create_publisher<custom_interfaces::msg::ConeArray>("cones", 10);
+      _ground_removal_(ground_removal),
+      _clustering_(clustering),
+      _cone_differentiator_(cone_differentiator),
+      _cone_validators_(cone_validators),
+      _cone_evaluator_(cone_evaluator),
+      _mode_(mode) {
+  this->_cones_publisher = this->create_publisher<custom_interfaces::msg::ConeArray>("/perception/cones", 10);
 
-  this->adapter = adapter_map[mode](this);
+  this->_adapter_ = std::shared_ptr<Adapter>(adapter_map[mode](this));
 }
 
 void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
@@ -40,17 +41,17 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
 
-  groundRemoval->groundRemoval(pcl_cloud, ground_removed_cloud, groundPlane);
+  _ground_removal_->groundRemoval(pcl_cloud, ground_removed_cloud, _ground_plane_);
 
   std::vector<Cluster> clusters;
 
-  clustering->clustering(ground_removed_cloud, &clusters);
+  _clustering_->clustering(ground_removed_cloud, &clusters);
 
   std::vector<Cluster> filtered_clusters;
 
   for (auto cluster : clusters) {
-    if (std::all_of(coneValidators.begin(), coneValidators.end(), [&](const auto& validator) {
-          return validator->coneValidator(&cluster, groundPlane);
+    if (std::all_of(_cone_validators_.begin(), _cone_validators_.end(), [&](const auto& validator) {
+          return validator->coneValidator(&cluster, _ground_plane_);
         })) {
       filtered_clusters.push_back(cluster);
     }
@@ -64,9 +65,9 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
   RCLCPP_DEBUG(this->get_logger(), "Point Cloud after Clustering: %ld clusters", clusters.size());
 
   for (long unsigned int i = 0; i < filtered_clusters.size(); i++) {
-    coneDifferentiator->coneDifferentiation(&filtered_clusters[i]);
-    std::string color = filtered_clusters[i].getColor();
-    filtered_clusters[i].setColor(color);
+    _cone_differentiator_->coneDifferentiation(&filtered_clusters[i]);
+    std::string color = filtered_clusters[i].get_color();
+    filtered_clusters[i].set_color(color);
     RCLCPP_DEBUG(this->get_logger(), "Cone %d: %s", i, color.c_str());
   }
 
@@ -78,13 +79,13 @@ void Perception::publishCones(std::vector<Cluster>* cones) {
   message.header = header;
   for (int i = 0; i < static_cast<int>(cones->size()); i++) {
     auto position = custom_interfaces::msg::Point2d();
-    position.x = cones->at(i).getCentroid().x();
-    position.y = cones->at(i).getCentroid().y();
+    position.x = cones->at(i).get_centroid().x();
+    position.y = cones->at(i).get_centroid().y();
 
     auto cone_message = custom_interfaces::msg::Cone();
     cone_message.position = position;
-    cone_message.color = cones->at(i).getColor();
-    cone_message.confidence = cones->at(i).getConfidence();
+    cone_message.color = cones->at(i).get_color();
+    cone_message.confidence = cones->at(i).get_confidence();
     message.cone_array.push_back(cone_message);
   }
 

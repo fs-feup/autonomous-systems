@@ -1,35 +1,43 @@
 #include <utils/cluster.hpp>
 
 Cluster::Cluster(pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud)
-    : point_cloud(point_cloud), color("undefined"), centroidIsDefined(false), confidence(0) {}
+    : _point_cloud_(point_cloud) {}
 
-Eigen::Vector4f Cluster::getCentroid() {
-  if (centroidIsDefined) return this->centroid;
+Eigen::Vector4f Cluster::get_centroid() {
+  if (_centroid_is_defined_) return this->_centroid_;
 
-  Eigen::Vector4f tempCentroid;
-  pcl::compute3DCentroid(*point_cloud, centroid);
-  this->centroidIsDefined = true;
+  pcl::compute3DCentroid(*_point_cloud_, _centroid_);
+  this->_centroid_is_defined_ = true;
 
-  return centroid;
+  return _centroid_;
 }
 
-std::string Cluster::getColor() { return color; }
+Eigen::Vector4f Cluster::get_center(Plane& plane) {
+  if (_center_is_defined_) return this->_center_;
 
-void Cluster::setColor(const std::string& new_color) {
-  if (new_color == "blue" || new_color == "yellow") this->color = new_color;
+  this->_center_ = Cluster::center_calculator.calculate_center(this->_point_cloud_, plane);
+  this->_center_is_defined_ = true;
+
+  return this->_center_;
+}
+
+std::string Cluster::get_color() { return _color_; }
+
+void Cluster::set_color(const std::string& new_color) {
+  if (new_color == "blue" || new_color == "yellow") this->_color_ = new_color;
 }
 
 // cppcheck-suppress unusedFunction
-void Cluster::setPointCloud(pcl::PointCloud<pcl::PointXYZI>::Ptr new_point_cloud) {
-  point_cloud.reset();
+void Cluster::set_point_cloud(pcl::PointCloud<pcl::PointXYZI>::Ptr new_point_cloud) {
+  _point_cloud_.reset();
 
-  this->point_cloud = new_point_cloud;
+  this->_point_cloud_ = new_point_cloud;
 
-  centroidIsDefined = false;
+  _centroid_is_defined_ = false;
 }
 
-pcl::PointCloud<pcl::PointXYZI>::Ptr Cluster::getPointCloud() { return this->point_cloud; }
+pcl::PointCloud<pcl::PointXYZI>::Ptr Cluster::get_point_cloud() { return this->_point_cloud_; }
 
-void Cluster::setConfidence(double newConfidence) { this->confidence = newConfidence; }
+void Cluster::set_confidence(double new_confidence) { this->_confidence_ = new_confidence; }
 
-double Cluster::getConfidence() { return this->confidence; }
+double Cluster::get_confidence() { return this->_confidence_; }

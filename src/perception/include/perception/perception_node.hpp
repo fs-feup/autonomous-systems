@@ -27,14 +27,14 @@ class Adapter;
  */
 class Perception : public rclcpp::Node {
  private:
-  GroundRemoval* groundRemoval;  ///< Pointer to the GroundRemoval object.
-  Adapter* adapter;              /**< Adapter instance for external communication */
-  Clustering* clustering;
-  std::string mode = "fsds";  // Temporary, change as desired. TODO(andre): Make not hardcoded
-  ConeDifferentiation* coneDifferentiator;  ///< Pointer to ConeDifferentiation object.
-  Plane groundPlane;
-  std::vector<ConeValidator*> coneValidators;
-  ConeEvaluator* coneEvaluator;
+  std::shared_ptr<GroundRemoval> _ground_removal_;  ///< Shared pointer to the GroundRemoval object.
+  std::shared_ptr<Adapter> _adapter_;              /**< Shared pointer to Adapter instance for external communication */
+  std::shared_ptr<Clustering> _clustering_;
+  std::shared_ptr<ConeDifferentiation> _cone_differentiator_;  ///< Shared pointer to ConeDifferentiation object.
+  Plane _ground_plane_;
+  std::vector<std::shared_ptr<ConeValidator>> _cone_validators_;
+  std::shared_ptr<ConeEvaluator> _cone_evaluator_;
+  std::string _mode_;
 
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr
       _point_cloud_subscription;  ///< PointCloud2 subscription.
@@ -53,14 +53,20 @@ class Perception : public rclcpp::Node {
   void publishCones(std::vector<Cluster>* cones);
 
  public:
+
   /**
    * @brief Constructor for the Perception node.
-   * @param groundRemoval Pointer to the GroundRemoval object.
-   * @param coneDifferentiator Pointer to ConeDifferentiation object
+   * @param groundRemoval Shared pointer to the GroundRemoval object.
+   * @param clustering Shared pointer to the Clustering object.
+   * @param coneDifferentiator Shared pointer to the ConeDifferentiation object
+   * @param coneValidator Vector of shared pointers to ConeValidator objects.
+   * @param coneEvaluator Shared pointer to the ConeEvaluator object.
+   * @param mode String representing the mode.
    */
-  Perception(GroundRemoval* groundRemoval, Clustering* clustering,
-             ConeDifferentiation* coneDifferentiator,
-             const std::vector<ConeValidator*>& coneValidator, ConeEvaluator* coneEvaluator);
+  Perception(std::shared_ptr<GroundRemoval> ground_removal, std::shared_ptr<Clustering> clustering,
+             std::shared_ptr<ConeDifferentiation> cone_differentiator,
+             const std::vector<std::shared_ptr<ConeValidator>>& cone_validators, 
+             std::shared_ptr<ConeEvaluator> cone_evaluator, std::string mode);
 
   /**
    * @brief Callback function for the PointCloud2 subscription.

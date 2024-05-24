@@ -14,7 +14,10 @@
   <depend>std_msgs</depend>
   <depend>std_srvs</depend>
   <depend>custom_interfaces</depend>
+  <depend>eufs_msgs</depend>
+  <depend>fs_msgs</depend>
   <depend>common_lib</depend>
+  <depend>visualization_msgs</depend>
 
   <export>
     <build_type>ament_cmake</build_type>

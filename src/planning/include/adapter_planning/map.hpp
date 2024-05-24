@@ -6,9 +6,13 @@
 
 #include "adapter_planning/eufs.hpp"
 #include "adapter_planning/fsds.hpp"
+#include "adapter_planning/pacsim.hpp"
+#include "adapter_planning/vehicle.hpp"
 
-std::map<std::string, std::function<Adapter*(Planning*)>> adapter_map = {
+const std::map<std::string, std::function<Adapter*(Planning*)>, std::less<>> adapter_map = {
     {"fsds", [](Planning* planning) -> Adapter* { return new FsdsAdapter(planning); }},
-    {"eufs", [](Planning* planning) -> Adapter* { return new EufsAdapter(planning); }}};
+    {"eufs", [](Planning* planning) -> Adapter* { return new EufsAdapter(planning); }},
+    {"pacsim", [](Planning* planning) -> Adapter* { return new PacSimAdapter(planning); }},
+    {"vehicle", [](Planning* planning) -> Adapter* { return new VehicleAdapter(planning); }}};
 
 #endif

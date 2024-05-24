@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image: ros:humble-ros-base-jammy
+      image: ros:iron-ros-base-jammy
 
     defaults:
       run:
@@ -37,19 +37,20 @@ jobs:
       - name: Build Dependencies
         run: |
           source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib pacsim
 
       - name: Build and Test Perception
         run: |
           source install/setup.bash
           colcon build --packages-select perception
-          colcon test --packages-select perception --event-handler=console_direct+
+          colcon test --packages-select perception
+          colcon test-result --all --verbose
 
-  loc_map:
+  ekf_state_est:
     runs-on: ubuntu-latest
 
     container:
-      image: ros:humble-ros-base-jammy
+      image: ros:iron-ros-base-jammy
 
     defaults:
       run:
@@ -74,20 +75,21 @@ jobs:
       - name: Build Dependencies
         run: |
           source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib pacsim
 
       - name: Build and Test Localization and Mapping
         run: |
           source install/setup.bash
-          colcon build --packages-select loc_map
-          colcon test --packages-select loc_map --event-handler=console_direct+
+          colcon build --packages-select ekf_state_est
+          colcon test --packages-select ekf_state_est
+          colcon test-result --all --verbose
 
       
   control:
     runs-on: ubuntu-latest
 
     container:
-      image: ros:humble-ros-base-jammy
+      image: ros:iron-ros-base-jammy
 
     defaults:
       run:
@@ -112,20 +114,21 @@ jobs:
       - name: Build Dependencies
         run: |
           source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib pacsim
 
       - name: Build and Test Control
         run: |
           source install/setup.bash
           colcon build --packages-select control
-          colcon test --packages-select control --event-handler=console_direct+
+          colcon test --packages-select control
+          colcon test-result --all --verbose
 
 
   planning:
     runs-on: ubuntu-latest
 
     container:
-      image: ros:humble-ros-base-jammy
+      image: ros:iron-ros-base-jammy
 
     defaults:
       run:
@@ -150,20 +153,21 @@ jobs:
       - name: Build Dependencies
         run: |
           source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib pacsim
 
       - name: Build and Test Planning
         run: |
           source install/setup.bash
           colcon build --packages-select planning
-          colcon test --packages-select planning --event-handler=console_direct+
+          colcon test --packages-select planning
+          colcon test-result --all --verbose
 
 
   inspection:
     runs-on: ubuntu-latest
 
     container:
-      image: ros:humble-ros-base-jammy
+      image: ros:iron-ros-base-jammy
 
     defaults:
       run:
@@ -188,19 +192,20 @@ jobs:
       - name: Build Dependencies
         run: |
           source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib pacsim
 
       - name: Build and Test Inspection Node
         run: |
           source install/setup.bash
           colcon build --packages-select inspection
-          colcon test --packages-select inspection --event-handler=console_direct+
+          colcon test --packages-select inspection
+          colcon test-result --all --verbose
 
   mocker_node:
     runs-on: ubuntu-latest
 
     container:
-      image: ros:humble-ros-base-jammy
+      image: ros:iron-ros-base-jammy
 
     defaults:
       run:
@@ -225,12 +230,49 @@ jobs:
       - name: Build Dependencies
         run: |
           source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib pacsim
 
       - name: Build and Test Mocker Node
         run: |
           source install/setup.bash
           colcon build --packages-select mocker_node
-          colcon test --packages-select mocker_node --event-handler=console_direct+
+          colcon test --packages-select mocker_node
+          colcon test-result --all --verbose
 
+  evaluator_node:
+    runs-on: ubuntu-latest
 
+    container:
+      image: ros:iron-ros-base-jammy
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: 'true'
+
+      - name: Install dependencies
+        run: |
+          echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
+          ./dependencies_install.sh
+      
+      - name: Rosdep
+        run: |
+          source /opt/ros/$ROS_DISTRO/setup.bash
+          rosdep update
+          rosdep install --from-paths src --ignore-src -r -y
+      
+      - name: Build Dependencies
+        run: |
+          source /opt/ros/$ROS_DISTRO/setup.bash
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib pacsim
+
+      - name: Build and Test Evaluator Node
+        run: |
+          source install/setup.bash
+          colcon build --packages-select evaluator
+          colcon test --packages-select evaluator
+          colcon test-result --all --verbose

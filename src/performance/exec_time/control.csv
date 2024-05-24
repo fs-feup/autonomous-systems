@@ -1,9 +1,0 @@
-Module,Scope,Scenario,Execution Time (ms)
-Control,All,20points,199.82112346446635
-control,mpc,path_processing-11pts,11.145716509927297
-control,mpc,callback-10ph,144.05827548023808
-control,mpc,callback+node-10ph,157.06267748024402
-control,mpc,optimization_step-10ph,130.25940471023205
-control,pid,path_processing-11pts,29.195712270156946
-control,pid,callback,0.6203590899531264
-control,pid,callback+node,30.473353580127878
