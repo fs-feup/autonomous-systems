@@ -22,9 +22,13 @@ Control::Control()
       using_simulated_se_(declare_parameter("use_simulated_se", false)),
       mocker_node_(declare_parameter("mocker_node", true)),
       adapter_(adapter_map.at(declare_parameter("adapter", "vehicle"))(this)),
+      lookahead_point_pub_(
+          create_publisher<custom_interfaces::msg::PathPoint>("control/lookahead_point", 10)),
+      closest_point_pub_(
+          create_publisher<custom_interfaces::msg::PathPoint>("control/closest_point", 10)),
       path_point_array_sub_(create_subscription<custom_interfaces::msg::PathPointArray>(
-          mocker_node_ ? "/planning_gtruth" : "/path_planning/path",
-          10,
+          mocker_node_ ? "path_planning/mock_path" : "/path_planning/path",
+          rclcpp::QoS(10).durability(RMW_QOS_POLICY_DURABILITY_TRANSIENT_LOCAL),
           [this](const custom_interfaces::msg::PathPointArray& msg) {
             RCLCPP_INFO(rclcpp::get_logger("control"), "Received Path Point Array");
             pathpoint_array_ = msg.pathpoint_array;
@@ -38,14 +42,20 @@ Control::Control()
 
 // This function is called when a new pose is received
 void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicle_state_msg) {
+  RCLCPP_INFO(rclcpp::get_logger("control"), "Received Vehicle State");
   if (!go_signal_) return;
   // update vehicle pose
+  RCLCPP_INFO(rclcpp::get_logger("control"), "Go signal true, updating vehicle pose");
   this->point_solver_.update_vehicle_pose(vehicle_state_msg);
+  RCLCPP_INFO(rclcpp::get_logger("control"), "Vehicle Pose Updated");
 
   // calculate lookahead distance
   double ld = this->k_ * this->point_solver_.vehicle_pose_.velocity_;
 
   // find the closest point on the path
+  // print pathpoint array size
+  RCLCPP_INFO(rclcpp::get_logger("control"), "Pathpoint array size: %d", pathpoint_array_.size());
+  RCLCPP_INFO(rclcpp::get_logger("control"), "Finding closest point");
   auto [closest_point, closest_point_id] = this->point_solver_.update_closest_point(
       pathpoint_array_, this->point_solver_.vehicle_pose_.rear_axis_);
   if (closest_point_id == -1) {
@@ -53,10 +63,13 @@ void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicl
     return;
   }
 
+  RCLCPP_INFO(rclcpp::get_logger("control"), "Closest Point: %f, %f", closest_point.x_,
+              closest_point.y_);
   // Publish closest point data
   publish_closest_point(closest_point);
 
   // update the Lookahead point
+  RCLCPP_INFO(rclcpp::get_logger("control"), "Updating lookahead point");
   auto [lookahead_point, lookahead_velocity, lookahead_error] =
       this->point_solver_.update_lookahead_point(pathpoint_array_, closest_point, closest_point_id,
                                                  ld, this->ld_margin_);
@@ -66,6 +79,8 @@ void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicl
   }
 
   // Publish lookahead point data
+  RCLCPP_INFO(rclcpp::get_logger("control"), "Lookahead Point: %f, %f", lookahead_point.x_,
+              lookahead_point.y_);
   publish_lookahead_point(lookahead_point, lookahead_velocity);
 
   // calculate longitudinal control: PI-D
@@ -94,9 +109,12 @@ void Control::publish_lookahead_point(Point lookahead_point, double lookahead_ve
 }
 
 void Control::publish_closest_point(Point closest_point) const {
+  RCLCPP_INFO(rclcpp::get_logger("control"), "Publishing closest point function called");
   custom_interfaces::msg::PathPoint closest_point_msg;
   closest_point_msg.x = closest_point.x_;
   closest_point_msg.y = closest_point.y_;
   closest_point_msg.v = 0;
+  RCLCPP_INFO(rclcpp::get_logger("control"), "PUBLISHING CLOSEST POINT");
   this->closest_point_pub_->publish(closest_point_msg);
+  RCLCPP_INFO(rclcpp::get_logger("control"), "CLOSEST POINT PUBLISHED");
 }
