@@ -19,13 +19,17 @@ Control::Control()
     : Node("node_control"),
       k_(declare_parameter("lookahead_gain", 0.5)),
       ld_margin_(declare_parameter("lookahead_margin", 0.1)),
+      using_simulated_se_(declare_parameter("use_simulated_se", false)),
+      mocker_node_(declare_parameter("mocker_node", true)),
       adapter_(adapter_map.at(declare_parameter("adapter", "vehicle"))(this)),
-      path_point_array_sub_(this, declare_parameter("mocker_node", true)
-                                      ? "/planning/mock/ground_truth"
-                                      : "/path_planning/path"),
-      path_cache_(path_point_array_sub_, 10) {
-  if (!declare_parameter<int>("use_simulated_se", 0) ||
-      declare_parameter("adapter", "vehicle") == "vehicle") {
+      path_point_array_sub_(create_subscription<custom_interfaces::msg::PathPointArray>(
+          mocker_node_ ? "/planning_gtruth" : "/path_planning/path",
+          10,
+          [this](const custom_interfaces::msg::PathPointArray& msg) {
+            RCLCPP_INFO(rclcpp::get_logger("control"), "Received Path Point Array");
+            pathpoint_array_ = msg.pathpoint_array;
+          })) {
+  if (!using_simulated_se_ || get_parameter("adapter").as_string() == "vehicle") {
     vehicle_state_sub_ = this->create_subscription<custom_interfaces::msg::VehicleState>(
         "/state_estimation/vehicle_state", 10,
         std::bind(&Control::publish_control, this, std::placeholders::_1));
@@ -33,11 +37,8 @@ Control::Control()
 }
 
 // This function is called when a new pose is received
-void Control::publish_control(const custom_interfaces::msg::VehicleState &vehicle_state_msg) {
+void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicle_state_msg) {
   if (!go_signal_) return;
-  auto pathpoint_array =
-      path_cache_.getElemBeforeTime(vehicle_state_msg.header.stamp)->pathpoint_array;
-
   // update vehicle pose
   this->point_solver_.update_vehicle_pose(vehicle_state_msg);
 
@@ -46,7 +47,7 @@ void Control::publish_control(const custom_interfaces::msg::VehicleState &vehicl
 
   // find the closest point on the path
   auto [closest_point, closest_point_id] = this->point_solver_.update_closest_point(
-      pathpoint_array, this->point_solver_.vehicle_pose_.rear_axis_);
+      pathpoint_array_, this->point_solver_.vehicle_pose_.rear_axis_);
   if (closest_point_id == -1) {
     RCLCPP_ERROR(rclcpp::get_logger("control"), "PurePursuit: Failed to update closest point");
     return;
@@ -57,7 +58,7 @@ void Control::publish_control(const custom_interfaces::msg::VehicleState &vehicl
 
   // update the Lookahead point
   auto [lookahead_point, lookahead_velocity, lookahead_error] =
-      this->point_solver_.update_lookahead_point(pathpoint_array, closest_point, closest_point_id,
+      this->point_solver_.update_lookahead_point(pathpoint_array_, closest_point, closest_point_id,
                                                  ld, this->ld_margin_);
   if (lookahead_error) {
     RCLCPP_ERROR(rclcpp::get_logger("control"), "PurePursuit: Failed to update lookahed point");
@@ -77,6 +78,8 @@ void Control::publish_control(const custom_interfaces::msg::VehicleState &vehicl
       lookahead_point, this->point_solver_.dist_cg_2_rear_axis_, this->lat_controller_.wheel_base_,
       this->lat_controller_.max_steering_angle_, this->lat_controller_.min_steering_angle_);
 
+  RCLCPP_INFO(rclcpp::get_logger("control"), "Torque: %f, Steering Angle: %f", torque,
+              steering_angle);
   adapter_->publish_cmd(torque, steering_angle);
   // Adapter to communicate with the car
   //

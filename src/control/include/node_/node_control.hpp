@@ -32,24 +32,25 @@ class Control : public rclcpp::Node {
  public:
   double k_;
   double ld_margin_;
+  bool using_simulated_se_{false};
+  bool go_signal_{false};
+  bool mocker_node_{false};
 
   PointSolver point_solver_;   /**< Point Solver */
   PID long_controller_;        /**< Longitudinal Controller */
   PurePursuit lat_controller_; /**< Lateral Controller*/
 
   std::shared_ptr<Adapter> adapter_;
-  
+
   // Evaluator Publishers
   rclcpp::Publisher<custom_interfaces::msg::PathPoint>::SharedPtr lookahead_point_pub_;
   rclcpp::Publisher<custom_interfaces::msg::PathPoint>::SharedPtr closest_point_pub_;
 
   // General Subscribers
-  message_filters::Subscriber<custom_interfaces::msg::PathPointArray> path_point_array_sub_;
-  message_filters::Cache<custom_interfaces::msg::PathPointArray> path_cache_;
+  rclcpp::Subscription<custom_interfaces::msg::PathPointArray>::SharedPtr path_point_array_sub_;
   rclcpp::Subscription<custom_interfaces::msg::VehicleState>::SharedPtr vehicle_state_sub_;
 
-  bool mocker_node_;
-  bool go_signal_{false};
+  std::vector<custom_interfaces::msg::PathPoint> pathpoint_array_{};
 
 
   /**
@@ -58,8 +59,7 @@ class Control : public rclcpp::Node {
    */
   void publish_control(const custom_interfaces::msg::VehicleState &vehicle_state_msg);
 
-  private:
-
+ private:
   /*
    * @brief Publish lookahead point
    */
@@ -78,5 +78,6 @@ class Control : public rclcpp::Node {
   /**
    * @brief Contructor for the Control class
    */
+ public:
   Control();
 };

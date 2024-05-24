@@ -17,6 +17,7 @@ class PacSimAdapter : public Adapter {
   std::shared_ptr<tf2_ros::TransformListener> tf_listener_;
   rclcpp::Client<std_srvs::srv::Empty>::SharedPtr finished_client_;
   rclcpp::Subscription<geometry_msgs::msg::TwistWithCovarianceStamped>::SharedPtr car_velocity_sub_;
+  rclcpp::TimerBase::SharedPtr timer_;
 
   double last_stored_velocity_{0.0};
 

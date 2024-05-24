@@ -7,7 +7,9 @@ FsdsAdapter::FsdsAdapter(Control* control)
       go_signal_sub_(node_->create_subscription<fs_msgs::msg::GoSignal>(
           "/signal/go", 10,
           std::bind(&FsdsAdapter::fsds_mission_state_callback, this, std::placeholders::_1))),
-      control_pub_(node_->create_publisher<fs_msgs::msg::ControlCommand>("/control_command", 10)) {}
+      control_pub_(node_->create_publisher<fs_msgs::msg::ControlCommand>("/control_command", 10)) {
+  RCLCPP_INFO(this->node_->get_logger(), "FSDS adapter created");
+}
 
 void FsdsAdapter::fsds_mission_state_callback(const fs_msgs::msg::GoSignal msg) {
   // TODO: I don't see any info relevant in GoSignal msg so I'm assuming it's a trigger
@@ -26,4 +28,3 @@ void FsdsAdapter::publish_cmd(double acceleration, double steering) {
 
   this->control_pub_->publish(message);
 }
-

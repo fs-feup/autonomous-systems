@@ -40,6 +40,9 @@ def generate_launch_description():
                 parameters=[
                     {"adapter": LaunchConfiguration("adapter")},
                     {"mocker_node": LaunchConfiguration("mocker_node")},
+                    {"lookahead_gain": LaunchConfiguration("lookahead_gain")},
+                    {"lookahead_margin": LaunchConfiguration("lookahead_margin")},
+                    {"use_simulated_se": LaunchConfiguration("use_simulated_se")},
                 ],
                 arguments=["--ros-args", "--log-level", "control:=debug"],
             ),

@@ -6,7 +6,9 @@ VehicleAdapter::VehicleAdapter(Control *control)
           "/vehicle/operational_status", 10,
           std::bind(&VehicleAdapter::go_signal_callback, this, std::placeholders::_1))),
       control_pub_(node_->create_publisher<custom_interfaces::msg::ControlCommand>(
-          "/car/control_command", 10)) {}
+          "/car/control_command", 10)) {
+  RCLCPP_INFO(this->node_->get_logger(), "Vehicle adapter created");
+}
 
 void VehicleAdapter::publish_cmd(double acceleration, double steering) {
   auto message = custom_interfaces::msg::ControlCommand();

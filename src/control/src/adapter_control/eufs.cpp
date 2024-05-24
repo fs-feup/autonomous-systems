@@ -9,12 +9,14 @@ EufsAdapter::EufsAdapter(Control* control)
   // No topic for eufs, just set the go_signal to true
   node_->go_signal_ = true;
 
-  if (this->node_->declare_parameter<int>("use_simulated_se", 0)) {
+  if (node_->using_simulated_se_) {
     RCLCPP_INFO(this->node_->get_logger(), "Eufs using simulated State Estimation\n");
     vehicle_state_sub_ = this->node_->create_subscription<eufs_msgs::msg::CarState>(
         "/odometry_integration/car_state", 10,
         std::bind(&EufsAdapter::vehicle_state_callback, this, std::placeholders::_1));
   }
+
+  RCLCPP_INFO(this->node_->get_logger(), "EUFS adapter created");
 }
 
 void EufsAdapter::vehicle_state_callback(const eufs_msgs::msg::CarState& msg) {

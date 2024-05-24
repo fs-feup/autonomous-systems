@@ -10,12 +10,13 @@ PacSimAdapter::PacSimAdapter(Control* control)
   // No topic for pacsim, just set the go_signal to true
   node_->go_signal_ = true;
 
-  if (this->node_->declare_parameter<int>("use_simulated_se", 0)) {
+  if (node_->using_simulated_se_) {
     tf_buffer_ = std::make_unique<tf2_ros::Buffer>(this->node_->get_clock());
     tf_listener_ = std::make_shared<tf2_ros::TransformListener>(*tf_buffer_);
 
     // Maybe change time to a lower value if needed: std::chrono::milliseconds(10)
-    auto timer = this->node_->create_wall_timer(std::chrono::milliseconds(60),
+    RCLCPP_INFO(this->node_->get_logger(), "Creating wall timer");
+    timer_ = this->node_->create_wall_timer(std::chrono::milliseconds(1000),
                                                 std::bind(&PacSimAdapter::timer_callback, this));
 
     this->finished_client_ =
@@ -28,12 +29,17 @@ PacSimAdapter::PacSimAdapter(Control* control)
               last_stored_velocity_ = std::sqrt(std::pow(msg.twist.twist.linear.x, 2) +
                                                 std::pow(msg.twist.twist.linear.y, 2) +
                                                 std::pow(msg.twist.twist.linear.z, 2));
+              // RCLCPP_INFO(this->node_->get_logger(), "velocity_callback: storing current velocity");
             });
   }
+
+  RCLCPP_INFO(this->node_->get_logger(), "Pacsim adapter created");
 }
 
 void PacSimAdapter::timer_callback() {
+  RCLCPP_INFO(this->node_->get_logger(), "timer_callback: trying to call canTransform");
   if (tf_buffer_->canTransform("map", "car", tf2::TimePointZero)) {
+    RCLCPP_INFO(this->node_->get_logger(), "timer_callback: canTransform success");
     custom_interfaces::msg::VehicleState pose;
     geometry_msgs::msg::TransformStamped t =
         tf_buffer_->lookupTransform("map", "car", tf2::TimePointZero);
