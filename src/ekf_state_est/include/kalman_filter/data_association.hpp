@@ -23,7 +23,7 @@ class DataAssociationModel {
    */
   virtual bool valid_match(const float delta, const float distance_to_vehicle) const = 0;
 
-  float max_landmark_distance; /**< Maximum deviation of the landmark position
+  float max_landmark_distance_; /**< Maximum deviation of the landmark position
                                 from the expected position when the landmark is
                                 perceived to be 1 meter away */
 protected:
@@ -53,15 +53,14 @@ public:
  */
 class SimpleMaximumLikelihood : public DataAssociationModel {
   bool valid_match(const float delta, const float distance_to_vehicle) const override;
-  float curvature;      /// Exponential function curvature for the limit
-  float initial_limit;  /// Limit for 0 meters
 
 public:
+  static float curvature_;      /// Exponential function curvature for the limit
+  static float initial_limit_;  /// Limit for 0 meters
   int match_cone(const Eigen::Vector2f& observed_landmark_absolute,
                  const Eigen::VectorXf& expected_state) const override;
 
-  SimpleMaximumLikelihood(float max_landmark_distance, float curvature = 8.0,
-                          float initial_limit = 0.5);
+  explicit SimpleMaximumLikelihood(float max_landmark_distance);
 
   FRIEND_TEST(DATA_ASSOCIATION_MODEL, VALID_MATCH_FUNC_PERFECT_MATCH);
   FRIEND_TEST(DATA_ASSOCIATION_MODEL, VALID_MATCH_FUNC_NEAR_MATCH);

@@ -239,4 +239,40 @@ jobs:
           colcon test --packages-select mocker_node
           colcon test-result --all --verbose
 
+  evaluator_node:
+    runs-on: ubuntu-latest
 
+    container:
+      image: ros:humble-ros-base-jammy
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: 'true'
+
+      - name: Install dependencies
+        run: |
+          echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
+          ./dependencies_install.sh
+      
+      - name: Rosdep
+        run: |
+          source /opt/ros/$ROS_DISTRO/setup.bash
+          rosdep update
+          rosdep install --from-paths src --ignore-src -r -y
+      
+      - name: Build Dependencies
+        run: |
+          source /opt/ros/$ROS_DISTRO/setup.bash
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib pacsim
+
+      - name: Build and Test Evaluator Node
+        run: |
+          source install/setup.bash
+          colcon build --packages-select evaluator
+          colcon test --packages-select evaluator
+          colcon test-result --all --verbose

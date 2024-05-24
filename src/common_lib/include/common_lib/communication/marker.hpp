@@ -100,8 +100,6 @@ visualization_msgs::msg::MarkerArray marker_array_from_structure_array(
     marker.color.b = color_array[2];
     marker.color.a = color_array[3];
 
-    marker.lifetime = rclcpp::Duration(std::chrono::duration<double>(5));
-
     marker_array.markers.push_back(marker);
   }
 

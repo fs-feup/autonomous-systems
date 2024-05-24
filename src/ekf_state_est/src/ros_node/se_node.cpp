@@ -21,14 +21,28 @@ SENode::SENode() : Node("ekf_state_est") {
   _use_simulated_perception_ = this->declare_parameter("use_simulated_perception", false);
   std::string adapter_name = this->declare_parameter("adapter", "fsds");
   std::string motion_model_name = this->declare_parameter("motion_model", "normal_velocity_model");
+  std::string data_assocation_model_name =
+      this->declare_parameter("data_assocation_model", "simple_ml");
+  if (data_assocation_model_name == "simple_ml") {
+    float sml_da_curvature = static_cast<float>(this->declare_parameter("sml_da_curvature", 15.0f));
+    float sml_initial_limit =
+        static_cast<float>(this->declare_parameter("sml_initial_limit", 0.1f));
+    SimpleMaximumLikelihood::curvature_ = sml_da_curvature;
+    SimpleMaximumLikelihood::initial_limit_ = sml_initial_limit;
+  }
+  float observation_noise = static_cast<float>(this->declare_parameter("observation_noise", 0.01f));
+  float wheel_speed_sensor_noise =
+      static_cast<float>(this->declare_parameter("wheel_speed_sensor_noise", 0.1f));
   float data_association_limit_distance =
-      static_cast<float>(this->declare_parameter("data_association_limit_distance", 71.0));
+      static_cast<float>(this->declare_parameter("data_association_limit_distance", 71.0f));
+
   std::shared_ptr<MotionModel> motion_model = motion_model_constructors.at(motion_model_name)(
-      motion_model_noise_matrixes.at(motion_model_name));
-  std::shared_ptr<ObservationModel> observation_model =
-      std::make_shared<ObservationModel>(observation_model_noise_matrixes.at("default"));
+      MotionModel::create_process_noise_covariance_matrix(wheel_speed_sensor_noise));
+  std::shared_ptr<ObservationModel> observation_model = std::make_shared<ObservationModel>(
+      ObservationModel::create_observation_noise_covariance_matrix(observation_noise));
   std::shared_ptr<DataAssociationModel> data_association_model =
-      data_association_model_constructors.at("simple_ml")(data_association_limit_distance);
+      data_association_model_constructors.at(data_assocation_model_name)(
+          data_association_limit_distance);
   _ekf_ = std::make_shared<ExtendedKalmanFilter>(motion_model, observation_model,
                                                  data_association_model);
 
@@ -40,7 +54,7 @@ SENode::SENode() : Node("ekf_state_est") {
 
   if (!_use_simulated_perception_) {
     this->_perception_subscription_ = this->create_subscription<custom_interfaces::msg::ConeArray>(
-        "/perception/cones", 10,
+        "/perception/cones", 1,
         std::bind(&SENode::_perception_subscription_callback, this, std::placeholders::_1));
   }
   this->_vehicle_state_publisher_ = this->create_publisher<custom_interfaces::msg::VehicleState>(
@@ -61,6 +75,8 @@ void SENode::_perception_subscription_callback(const custom_interfaces::msg::Con
     RCLCPP_WARN(this->get_logger(), "SUB - Perception map is null");
     return;
   }
+  // std::lock_guard lock(this->_mutex_);  // BLOCK IF PREDICTION STEP IS ON GOING
+  RCLCPP_DEBUG(this->get_logger(), "CORRECTION STEP");
   this->_perception_map_->clear();
   RCLCPP_DEBUG(this->get_logger(), "SUB - cones from perception:");
   RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
@@ -83,6 +99,7 @@ void SENode::_perception_subscription_callback(const custom_interfaces::msg::Con
   RCLCPP_DEBUG(this->get_logger(), "EKF - EFK correction Step");
   this->_publish_vehicle_state();
   this->_publish_map();
+  RCLCPP_DEBUG(this->get_logger(), "CORRECTION STEP END\n\n");
 }
 
 // Currently not utilized
@@ -125,6 +142,8 @@ void SENode::_wheel_speeds_subscription_callback(double rl_speed, double fl_spee
   if (!this->_use_odometry_) {
     return;
   }
+  // std::lock_guard lock(this->_mutex_);  // BLOCK IF PREDICTION STEP IS ON GOING
+  RCLCPP_DEBUG(this->get_logger(), "PREDICTION STEP");
   RCLCPP_DEBUG(this->get_logger(),
                "SUB - Raw from wheel speeds: lb:%f - rb:%f - lf:%f - rf:%f - "
                "steering: %f",
@@ -144,7 +163,7 @@ void SENode::_wheel_speeds_subscription_callback(double rl_speed, double fl_spee
                this->_motion_update_->rotational_velocity);
 
   if (this->_ekf_ == nullptr) {
-    RCLCPP_ERROR(this->get_logger(), "PUB - EKF object is null");
+    RCLCPP_ERROR(this->get_logger(), "ATTR - EKF object is null");
     return;
   }
   MotionUpdate temp_update = *(this->_motion_update_);
@@ -153,6 +172,7 @@ void SENode::_wheel_speeds_subscription_callback(double rl_speed, double fl_spee
   RCLCPP_DEBUG(this->get_logger(), "EKF - EFK prediction Step");
   this->_publish_vehicle_state();
   this->_publish_map();
+  RCLCPP_DEBUG(this->get_logger(), "PREDICTION STEP END\n\n");
 }
 /*---------------------- Publications --------------------*/
 

@@ -18,17 +18,17 @@ EufsAdapter::EufsAdapter(std::shared_ptr<SENode> se_node) : Adapter(se_node) {
   this->_eufs_wheel_speeds_subscription_ =
       this->node_->create_subscription<eufs_msgs::msg::WheelSpeedsStamped>(
           "/ros_can/wheel_speeds",
-          rclcpp::QoS(10).reliability(RMW_QOS_POLICY_RELIABILITY_BEST_EFFORT),
+          rclcpp::QoS(1).reliability(RMW_QOS_POLICY_RELIABILITY_BEST_EFFORT),
           std::bind(&EufsAdapter::wheel_speeds_subscription_callback, this, std::placeholders::_1));
 
   this->_imu_subscription_ = this->node_->create_subscription<sensor_msgs::msg::Imu>(
-      "/imu/data", rclcpp::QoS(10).reliability(RMW_QOS_POLICY_RELIABILITY_BEST_EFFORT),
+      "/imu/data", rclcpp::QoS(1).reliability(RMW_QOS_POLICY_RELIABILITY_BEST_EFFORT),
       std::bind(&Adapter::imu_subscription_callback, this, std::placeholders::_1));
 
   if (this->node_->_use_simulated_perception_) {  // TODO: make this topic a editable parameter
     this->_perception_detections_subscription_ =
         this->node_->create_subscription<eufs_msgs::msg::ConeArrayWithCovariance>(
-            "/cones", 10,
+            "/cones", 1,
             std::bind(&EufsAdapter::perception_detections_subscription_callback, this,
                       std::placeholders::_1));
   }

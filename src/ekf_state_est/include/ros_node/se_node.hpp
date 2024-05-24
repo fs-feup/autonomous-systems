@@ -4,6 +4,7 @@
 
 #include <functional>
 #include <memory>
+#include <mutex>
 #include <string>
 #include <typeinfo>
 
@@ -43,6 +44,7 @@ class SENode : public rclcpp::Node {
   bool _use_odometry_;
   bool _use_simulated_perception_;
   std::shared_ptr<Adapter> _adapter_;
+  std::mutex _mutex_;  /// Mutex used to lock EKF access
 
   /**
    * @brief Callback that updates everytime information
