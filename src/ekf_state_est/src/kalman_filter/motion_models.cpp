@@ -17,12 +17,23 @@ Eigen::MatrixXf MotionModel::get_process_noise_covariance_matrix(
          Eigen::MatrixXf::Identity(5, state_size);
 }
 
+Eigen::MatrixXf MotionModel::create_process_noise_covariance_matrix(float process_noise) {
+  return Eigen::MatrixXf::Identity(5, 5) * process_noise;
+}
+
 /*------------------------Normal Velocity Model-----------------------*/
 
 Eigen::VectorXf NormalVelocityModel::predict_expected_state(
     const Eigen::VectorXf &expected_state, const MotionUpdate &motion_prediction_data,
     const double time_interval) const {
   Eigen::VectorXf next_state = expected_state;
+  RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "Motion Model - Initial State: %f %f %f %f %f",
+               expected_state(0), expected_state(1), expected_state(2), expected_state(3),
+               expected_state(4));
+  RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"),
+               "Motion Model - Motion Prediction Data: %f %f %f",
+               motion_prediction_data.translational_velocity,
+               motion_prediction_data.rotational_velocity, time_interval);
   if (motion_prediction_data.rotational_velocity == 0.0) {  // Rectilinear movement
     next_state(0) +=
         motion_prediction_data.translational_velocity * cos(expected_state(2)) * time_interval;
@@ -48,6 +59,8 @@ Eigen::VectorXf NormalVelocityModel::predict_expected_state(
   next_state(4) = motion_prediction_data.translational_velocity * sin(next_state(2));
   next_state(2) = common_lib::maths::normalize_angle(
       expected_state(2) + motion_prediction_data.rotational_velocity * time_interval);
+  RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "Motion Model - Next State: %f %f %f %f %f",
+               next_state(0), next_state(1), next_state(2), next_state(3), next_state(4));
 
   return next_state;
 }
