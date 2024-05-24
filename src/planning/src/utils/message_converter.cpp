@@ -66,6 +66,19 @@ std::vector<Cone *> cone_vector_from_custom_interfaces(
   return cone_array;
 }
 
+std::vector<common_lib::structures::PathPoint> common_lib_vector_from_custom_interfaces(
+    const std::vector<PathPoint *> &msg) {
+  std::vector<common_lib::structures::PathPoint> path_point_array;
+  for (const auto &point : msg) {
+    common_lib::structures::PathPoint new_point;
+    new_point.position.x = point->getX();
+    new_point.position.y = point->getY();
+    new_point.ideal_velocity = point->getV();
+    path_point_array.push_back(new_point);
+  }
+  return path_point_array;
+}
+
 visualization_msgs::msg::MarkerArray marker_array_from_path_point_array(
     const std::vector<custom_interfaces::msg::PathPoint> &path_point_array, std::string name_space,
     std::string frame_id, std::string color, std::string shape, float scale, int action) {

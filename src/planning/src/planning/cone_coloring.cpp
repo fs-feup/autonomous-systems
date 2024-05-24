@@ -14,8 +14,9 @@ ConeColoring::ConeColoring(double gain_angle, double gain_distance, double gain_
       exponent1(exponent_1),
       exponent2(exponent_2),
       max_cost(cost_max) {
-  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "angle gain: %f; distance_gain : %f", this->angle_gain,
-              this->distance_gain);
+  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"),
+               "Planning: Cone Coloring: angle gain is %f; distance_gain is %f", this->angle_gain,
+               this->distance_gain);
 }
 
 AngleNorm ConeColoring::angle_and_norm(const Cone *possible_next_cone, TrackSide side) const {
@@ -145,11 +146,6 @@ std::shared_ptr<std::vector<std::pair<Cone *, bool>>> ConeColoring::make_unvisit
 bool ConeColoring::place_next_cone(
     std::shared_ptr<std::vector<std::pair<Cone *, bool>>> visited_cones, double distance_threshold,
     int n, TrackSide side) {
-  // std::cout << " Recieved cones are : " << std::endl;
-  // for (auto p : *visited_cones) {
-  //   std::cout << p.second << " (" << p.first->getX() << ',' << p.first->getY() << ")" <<
-  //   std::endl;
-  // }
   double minimum_cost = MAXFLOAT;
 
   std::vector<Cone *> &current_cones = (bool)side ? current_left_cones : current_right_cones;
@@ -190,12 +186,6 @@ void ConeColoring::color_cones(const std::vector<Cone *> &input_cones, Pose init
                                double distance_threshold) {
   place_initial_cones(input_cones, initial_car_pose);
   auto visited_cones = make_unvisited_cones(input_cones);
-
-  // std::cout << "Before placing next cones, unvisited cones are : " << std::endl;
-  // for (auto p : *visited_cones) {
-  //   std::cout << p.second << " (" << p.first->getX() << ',' << p.first->getY() << ")" <<
-  //   std::endl;
-  // }
 
   while (
       place_next_cone(visited_cones, distance_threshold, (int)input_cones.size(), TrackSide::LEFT))

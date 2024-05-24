@@ -22,7 +22,8 @@ const std::map<std::string, std::array<float, 4>, std::less<>> marker_color_map 
 const std::map<std::string, int, std::less<>> marker_shape_map = {
     {"cylinder", visualization_msgs::msg::Marker::CYLINDER},
     {"cube", visualization_msgs::msg::Marker::CUBE},
-    {"sphere", visualization_msgs::msg::Marker::SPHERE}};
+    {"sphere", visualization_msgs::msg::Marker::SPHERE},
+    {"line", visualization_msgs::msg::Marker::LINE_STRIP}};
 
 /**
  * @brief A helper struct to check if a type T has a member named 'position'.
@@ -107,4 +108,69 @@ visualization_msgs::msg::MarkerArray marker_array_from_structure_array(
 
   return marker_array;
 }
+
+/**
+ * @brief Converts a vector of cones to a marker array
+ *
+ * @param cone_array vector of cones
+ * @param color color of the marker (blue, yellow, orange, red, green)
+ * @param shape shape of the marker (cylinder, cube, sphere)
+ * @param frame_id frame id of the marker, for transforms
+ * @param name_space namespace of the marker, used in conjunction with ID to identify marker
+ * @param scale scale of the marker, default is 0.5
+ * @param action action of the marker, default is ADD/MODIFY
+ * @return visualization_msgs::msg::MarkerArray
+ */
+template <typename T>
+visualization_msgs::msg::Marker line_marker_from_structure_array(
+    const std::vector<T>& structure_array, const std::string& name_space,
+    const std::string& frame_id, const int id, const std::string& color = "red",
+    const std::string& shape = "line", float scale = 0.1,
+    int action = visualization_msgs::msg::Marker::MODIFY) {
+  static_assert(
+      has_position<T>::value,
+      "Template argument T must have a data member named 'position' with 'x' and 'y' sub-members");
+
+  std::array<float, 4> color_array = marker_color_map.at(color);
+
+  visualization_msgs::msg::Marker marker;
+
+  marker.header.frame_id = frame_id;
+  marker.header.stamp = rclcpp::Clock().now();
+  marker.ns = name_space;
+  marker.id = id;
+  marker.type = marker_shape_map.at(shape);
+  marker.action = action;
+
+  marker.pose.orientation.x = 0.0;
+  marker.pose.orientation.y = 0.0;
+  marker.pose.orientation.z = 0.0;
+  marker.pose.orientation.w = 1.0;
+
+  marker.pose.position.x = 0;
+  marker.pose.position.y = 0;
+  marker.pose.position.z = 0;
+
+  marker.scale.x = scale;
+  marker.scale.y = scale;
+  marker.scale.z = scale;
+
+  marker.color.r = color_array[0];
+  marker.color.g = color_array[1];
+  marker.color.b = color_array[2];
+  marker.color.a = color_array[3];
+
+  for (size_t i = 0; i < structure_array.size(); ++i) {
+    geometry_msgs::msg::Point point;
+    point.x = structure_array[i].position.x;
+    point.y = structure_array[i].position.y,
+
+    marker.points.push_back(point);
+  }
+
+  marker.lifetime = rclcpp::Duration(std::chrono::duration<double>(5));
+
+  return marker;
+}
+
 }  // namespace common_lib::communication

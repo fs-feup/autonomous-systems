@@ -63,6 +63,9 @@ class Planning : public rclcpp::Node {
   int smoothing_spline_precision_;
   bool publishing_visualization_msgs_;
   bool using_simulated_se_ = false;
+  bool recieved_first_track = false;
+  bool recieved_first_pose = false;
+  std::vector<Cone *> cone_array;
   /**< Subscription to vehicle localization */
   rclcpp::Subscription<custom_interfaces::msg::VehicleState>::SharedPtr vl_sub_;
   /**< Subscription to track map */
@@ -70,7 +73,7 @@ class Planning : public rclcpp::Node {
   /**< Local path points publisher */
   rclcpp::Publisher<custom_interfaces::msg::PathPointArray>::SharedPtr local_pub_;
   /**< Publisher for the final path*/
-  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr visualization_pub_;
+  rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr visualization_pub_;
   /**< Publisher for blue cones after cone coloring*/
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr blue_cones_pub_;
   /**< Publisher for yellow cones after cone coloring*/
@@ -98,6 +101,13 @@ class Planning : public rclcpp::Node {
    * the path by calling the publish method
    */
   void track_map_callback(const custom_interfaces::msg::ConeArray &msg);
+
+  /**
+   * @brief Runs the planning algorithms. Called from the callbacks
+   * @details This function creates a Track instance, a ConeColoring instance, a
+   * PathSmoothing instance, and runs the planning algorithms to generate a path.
+   */
+  void run_planning_algorithms();
   /**
    * @brief Publishes a list of path points.
    *
@@ -126,13 +136,9 @@ class Planning : public rclcpp::Node {
   void publish_visualization_msgs(const std::vector<Cone *> &left_cones,
                                   const std::vector<Cone *> &right_cones,
                                   const std::vector<PathPoint *> &after_triangulations_path,
-<<<<<<< HEAD
-                                  const std::vector<PathPoint *> &final_path);
-=======
                                   const std::vector<PathPoint *> &final_path,
                                   const std::vector<Cone *> &after_rem_blue_cones,
                                   const std::vector<Cone *> &after_rem_yellow_cones);
->>>>>>> plan_adapters
 
   /**
    * @brief Checks if the current mission is predictive.

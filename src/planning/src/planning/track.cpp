@@ -188,7 +188,7 @@ std::string Track::gsl_vectorLog(gsl_vector *gsl, int n) {
   return acc;
 }
 
-std::vector<Cone *> Track::orderCones(std::vector<Cone *> *unord_cone_seq) {
+void Track::orderCones(std::vector<Cone *> &unord_cone_seq) {
   // Order cone_array
   // The algorithm works by iteratively selecting the nearest unvisited
   // cone to the current cone and updating the traversal direction accordingly.
@@ -196,8 +196,8 @@ std::vector<Cone *> Track::orderCones(std::vector<Cone *> *unord_cone_seq) {
   // cones.
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "START orderCones");
   std::vector<std::pair<Cone *, bool>> nn_unord_cone_seq;
-  for (int i = 0; i < static_cast<int>(unord_cone_seq->size()); i++)
-    nn_unord_cone_seq.push_back(std::make_pair((*unord_cone_seq)[i], false));
+  for (int i = 0; i < static_cast<int>(unord_cone_seq.size()); i++)
+    nn_unord_cone_seq.push_back(std::make_pair(unord_cone_seq[i], false));
 
   // Values for first iteration
   std::vector<Cone *> cone_seq;
@@ -205,7 +205,7 @@ std::vector<Cone *> Track::orderCones(std::vector<Cone *> *unord_cone_seq) {
   float vx = 1;
   float vy = 0;
 
-  for (int iter_number = 0; iter_number < static_cast<int>(unord_cone_seq->size()); iter_number++) {
+  for (int iter_number = 0; iter_number < static_cast<int>(unord_cone_seq.size()); iter_number++) {
     float min_dist = MAXFLOAT;
     int min_index = 0;
 
@@ -217,7 +217,7 @@ std::vector<Cone *> Track::orderCones(std::vector<Cone *> *unord_cone_seq) {
         // first iteration we assure the direction is correct to avoid going
         // backwards
 
-        float new_dist = cone1->getDistanceTo(cone2);
+        float new_dist = float(cone1->getDistanceTo(cone2));
         if (new_dist < min_dist) {
           min_dist = new_dist;
           min_index = i;
@@ -234,8 +234,8 @@ std::vector<Cone *> Track::orderCones(std::vector<Cone *> *unord_cone_seq) {
 
     cone_seq.push_back(nn_unord_cone_seq[min_index].first);  // add cone to ordered sequence
   }
+  unord_cone_seq = cone_seq;
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "END orderCones");
-  return cone_seq;
 }
 
 std::vector<Cone *> Track::fitSpline(bool side, int precision, int order, float coeffs_ratio,

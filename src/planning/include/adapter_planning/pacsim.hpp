@@ -20,6 +20,7 @@
 class PacSimAdapter : public Adapter {
   rclcpp::Client<std_srvs::srv::Empty>::SharedPtr finished_client_;
   rclcpp::Subscription<visualization_msgs::msg::MarkerArray>::SharedPtr path_sub_;
+  rclcpp::TimerBase::SharedPtr timer;
 
   std::unique_ptr<tf2_ros::Buffer> tf_buffer_;
   std::shared_ptr<tf2_ros::TransformListener> tf_listener_;

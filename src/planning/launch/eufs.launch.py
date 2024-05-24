@@ -13,12 +13,12 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "angle_gain",
                 description="Gain for the angle in the cone coloring cost function",
-                default_value="8.7",
+                default_value="3.7",
             ),
             DeclareLaunchArgument(
                 "distance_gain",
                 description="Gain for the distance in the cone coloring cost function",
-                default_value="15.0",
+                default_value="8.0",
             ),
             DeclareLaunchArgument(
                 "ncones_gain",
@@ -28,7 +28,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "angle_exponent",
                 description="Exponent on the angle in the cone coloring cost function",
-                default_value="0.7",
+                default_value="1.0",
             ),
             DeclareLaunchArgument(
                 "distance_exponent",
@@ -38,7 +38,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "cost_max",
                 description="Maximum allowed cost to place a cone in the cone coloring cost function",
-                default_value="40",
+                default_value="40.0",
             ),
             DeclareLaunchArgument(
                 "outliers_spline_order",
@@ -68,12 +68,12 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "smoothing_spline_precision",
                 description="Ratio of cones in the spline to initial number of cones when smoothing the path",
-                default_value="100",
+                default_value="10",
             ),
             DeclareLaunchArgument(
                 "adapter",
                 description="Environment to run node on",
-                default_value="pacsim",
+                default_value="eufs",
             ),
             DeclareLaunchArgument(
                 "use_simulated_se",
@@ -83,7 +83,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "publishing_visualization_msg",
                 description="Whether to publish path in visualization format",
-                default_value="0",
+                default_value="1",
             ),
             Node(
                 package="planning",

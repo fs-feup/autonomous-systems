@@ -7,23 +7,24 @@
 
 using std::placeholders::_1;
 
-Planning::Planning() : Node("planning") {
-  angle_gain_ = declare_parameter<double>("angle_gain_", 3.7);
-  distance_gain_ = declare_parameter<double>("distance_gain_", 8.0);
-  ncones_gain_ = declare_parameter<double>("ncones_gain_", 8.7);
-  angle_exponent_ = declare_parameter<double>("angle_exponent_", 1);
-  distance_exponent_ = declare_parameter<double>("distance_exponent_", 1.7);
-  cost_max_ = declare_parameter<double>("cost_max_", 40);
-  outliers_spline_order_ = declare_parameter<int>("outliers_spline_order_", 3);
-  outliers_spline_coeffs_ratio_ = declare_parameter<float>("outliers_spline_coeffs_ratio_", 3.0);
-  outliers_spline_precision_ = declare_parameter<int>("outliers_spline_precision_", 1);
-  smoothing_spline_order_ = declare_parameter<int>("smoothing_spline_order_", 3);
-  smoothing_spline_coeffs_ratio_ = declare_parameter<float>("smoothing_spline_coeffs_ratio_", 3.0);
-  smoothing_spline_precision_ = declare_parameter<int>("smoothing_spline_precision_", 10);
-  mode = declare_parameter<std::string>("adapter", "fsds");
-  using_simulated_se_ = declare_parameter<int>("use_simulated_se", 0);
-  publishing_visualization_msgs_ = declare_parameter<int>("publishing_visualization_msg", 1);
-
+Planning::Planning()
+    : Node("planning"),
+      mode(declare_parameter<std::string>("adapter", "pacsim")),
+      angle_gain_(declare_parameter<double>("angle_gain", 3.7)),
+      distance_gain_(declare_parameter<double>("distance_gain", 8.0)),
+      ncones_gain_(declare_parameter<double>("ncones_gain", 8.7)),
+      angle_exponent_(declare_parameter<double>("angle_exponent", 1)),
+      distance_exponent_(declare_parameter<double>("distance_exponent", 1.7)),
+      cost_max_(declare_parameter<double>("cost_max", 40)),
+      outliers_spline_order_(declare_parameter<int>("outliers_spline_order_", 3)),
+      outliers_spline_coeffs_ratio_(declare_parameter<float>("outliers_spline_coeffs_ratio", 3.0)),
+      outliers_spline_precision_(declare_parameter<int>("outliers_spline_precision", 1)),
+      smoothing_spline_order_(declare_parameter<int>("smoothing_spline_order", 3)),
+      smoothing_spline_coeffs_ratio_(
+          declare_parameter<float>("smoothing_spline_coeffs_ratio", 3.0)),
+      smoothing_spline_precision_(declare_parameter<int>("smoothing_spline_precision", 10)),
+      publishing_visualization_msgs_(declare_parameter<int>("publishing_visualization_msg", 1)),
+      using_simulated_se_(declare_parameter<int>("use_simulated_se", 0)) {
   RCLCPP_DEBUG(this->get_logger(), "angle gain: %f; distance_gain : %f", angle_gain_,
                distance_gain_);
 
@@ -33,8 +34,8 @@ Planning::Planning() : Node("planning") {
 
   if (publishing_visualization_msgs_) {
     // Publisher for visualization
-    this->visualization_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
-        "/path_planning/smoothed_path", 10);
+    this->visualization_pub_ =
+        this->create_publisher<visualization_msgs::msg::Marker>("/path_planning/smoothed_path", 10);
 
     // Publisher for visualization
     this->blue_cones_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
@@ -58,28 +59,35 @@ Planning::Planning() : Node("planning") {
   // Publishes path from file in Skidpad & Acceleration events
   this->timer_ = this->create_wall_timer(
       std::chrono::milliseconds(100), std::bind(&Planning::publish_predicitive_track_points, this));
-  RCLCPP_INFO(this->get_logger(), "Using %s adapter", mode.c_str());
+  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Planning using mode: %s", mode.c_str());
   // Adapter to communicate with the car
   _adapter_ = adapter_map.at(mode)((this));
 
   if (!using_simulated_se_ || mode == "vehicle") {
-    // State Estimation map Subscriber
-    this->track_sub_ = this->create_subscription<custom_interfaces::msg::ConeArray>(
-        "/state_estimation/map", 10, std::bind(&Planning::track_map_callback, this, _1));
-
     // Vehicle Localization Subscriber
     this->vl_sub_ = this->create_subscription<custom_interfaces::msg::VehicleState>(
         "/state_estimation/vehicle_state", 10,
         std::bind(&Planning::vehicle_localization_callback, this, _1));
+    // State Estimation map Subscriber
+    this->track_sub_ = this->create_subscription<custom_interfaces::msg::ConeArray>(
+        "/state_estimation/map", 10, std::bind(&Planning::track_map_callback, this, _1));
   }
 }
 
 void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &msg) {
-  RCLCPP_DEBUG(this->get_logger(), "Planning received %d cones", (int)msg.cone_array.size());
-  if (this->is_predicitve_mission()) {
+  auto number_of_cones_recieved = (int)msg.cone_array.size();
+  RCLCPP_DEBUG(this->get_logger(), "Planning recieved %i cones", number_of_cones_recieved);
+  this->cone_array = cone_vector_from_custom_interfaces(msg);
+  this->recieved_first_track = true;
+  if (this->is_predicitve_mission() || !(this->recieved_first_pose)) {
     return;
+  } else {
+    RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Running all Planning algorithms");
+    run_planning_algorithms();
   }
+}
 
+void Planning::run_planning_algorithms() {
   auto track = new Track(this->outliers_spline_order_, this->outliers_spline_coeffs_ratio_,
                          this->outliers_spline_precision_);
   auto cone_coloring = std::make_shared<ConeColoring>(this->angle_gain_, this->distance_gain_,
@@ -89,16 +97,16 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &msg) 
                                                        this->smoothing_spline_coeffs_ratio_,
                                                        this->smoothing_spline_precision_);
 
-  const std::vector<Cone *> recieved_cones;
+  if (this->cone_array.empty()) {
+    publish_track_points({});
+    return;
+  }
 
-  std::vector<Cone *> cone_array = cone_vector_from_custom_interfaces(msg);
-
-  cone_coloring->color_cones(cone_array, this->pose, 5);
+  cone_coloring->color_cones(this->cone_array, this->pose, 5);
 
   for (auto &cone : cone_coloring->current_left_cones) {
     track->add_cone_left(cone);
   }
-
   for (auto &cone : cone_coloring->current_right_cones) {
     track->add_cone_right(cone);
   }
@@ -111,7 +119,8 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &msg) 
   auto path = triangulations_path;
   path_smoother->defaultSmoother(path);
 
-  RCLCPP_DEBUG(this->get_logger(), "Planning published %d path points", (int)path.size());
+  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Planning published %i path points\n",
+               (int)path.size());
   publish_track_points(path);
 
   if (this->publishing_visualization_msgs_) {
@@ -123,6 +132,12 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &msg) 
 
 void Planning::vehicle_localization_callback(const custom_interfaces::msg::VehicleState &msg) {
   this->pose = Pose(msg.position.x, msg.position.y, msg.theta);
+  if (this->recieved_first_track && !this->recieved_first_pose) {
+    this->recieved_first_pose = true;
+    run_planning_algorithms();
+  } else {
+    this->recieved_first_pose = true;
+  }
 }
 
 /**
@@ -161,8 +176,9 @@ void Planning::publish_visualization_msgs(const std::vector<Cone *> &left_cones,
       marker_array_from_path_point_array(left_cones, "blue_cones_colored", "map", "blue"));
   this->yellow_cones_pub_->publish(
       marker_array_from_path_point_array(right_cones, "yellow_cones_colored", "map", "yellow"));
-  this->visualization_pub_->publish(
-      marker_array_from_path_point_array(final_path, "smoothed_path_planning", "map"));
+  this->visualization_pub_->publish(common_lib::communication::line_marker_from_structure_array(
+      common_lib_vector_from_custom_interfaces(final_path), "smoothed_path_planning", "map", 12,
+      "green"));
   this->triangulations_pub_->publish(marker_array_from_path_point_array(
       after_triangulations_path, "after_triangulations_path", "map", "orange"));
   this->after_rem_blue_cones_pub_->publish(marker_array_from_path_point_array(

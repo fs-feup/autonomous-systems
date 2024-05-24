@@ -11,7 +11,6 @@ std::vector<PathPoint *> read_path_file(const std::string &filename) {
   std::vector<PathPoint *> path;
   float x, y;
   while (path_file >> x >> y) {
-    // std::cout << "x: " << x << " y: " << y << "\n";
     PathPoint *pathpoint = new PathPoint(x, y);
     path.push_back(pathpoint);
   }
