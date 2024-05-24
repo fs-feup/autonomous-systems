@@ -15,7 +15,7 @@ ConeColoring::ConeColoring(double gain_angle, double gain_distance, double gain_
       exponent2(exponent_2),
       max_cost(cost_max) {
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"),
-               "Planning: Cone Coloring: angle gain is %f; distance_gain is %f", this->angle_gain,
+               "Cone Coloring: angle gain is %f; distance_gain is %f", this->angle_gain,
                this->distance_gain);
 }
 

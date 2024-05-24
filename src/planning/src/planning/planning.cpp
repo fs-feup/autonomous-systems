@@ -59,7 +59,7 @@ Planning::Planning()
   // Publishes path from file in Skidpad & Acceleration events
   this->timer_ = this->create_wall_timer(
       std::chrono::milliseconds(100), std::bind(&Planning::publish_predicitive_track_points, this));
-  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Planning using mode: %s", mode.c_str());
+  RCLCPP_INFO(this->get_logger(), "Using mode: %s", mode.c_str());
   // Adapter to communicate with the car
   _adapter_ = adapter_map.at(mode)((this));
 
@@ -82,7 +82,7 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &msg) 
   if (this->is_predicitve_mission() || !(this->recieved_first_pose)) {
     return;
   } else {
-    RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Running all Planning algorithms");
+    RCLCPP_DEBUG(this->get_logger(), "Running all Planning algorithms");
     run_planning_algorithms();
   }
 }
@@ -119,7 +119,7 @@ void Planning::run_planning_algorithms() {
   auto path = triangulations_path;
   path_smoother->defaultSmoother(path);
 
-  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Planning published %i path points\n",
+  RCLCPP_DEBUG(this->get_logger(), "Planning published %i path points\n",
                (int)path.size());
   publish_track_points(path);
 
