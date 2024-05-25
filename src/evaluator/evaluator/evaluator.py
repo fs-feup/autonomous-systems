@@ -104,12 +104,12 @@ class Evaluator(Node):
             PathPointArray, "path_planning/mock_path", self.planning_gt_callback, 10
         )
 
-        self.closest_point_subscription = self.create_subscription(
-            PathPoint, "control/closest_point"
+        self.closest_point_subscription = message_filters.Subscriber(
+            self, PathPoint, "control/closest_point"
         )
 
-        self.lookahead_point_subscription = self.create_subscription(
-            PathPoint, "control/lookahead_point"
+        self.lookahead_point_subscription = message_filters.Subscriber(
+            self, PathPoint, "control/lookahead_point"
         )
 
         self.control_sync = TimeSynchronizer(
