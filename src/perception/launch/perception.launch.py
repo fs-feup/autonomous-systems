@@ -9,22 +9,22 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "ransac_epsilon",
                 description="RANSAC epsilon threshold",
-                default_value="10.0",
+                default_value="0.05",
             ),
             DeclareLaunchArgument(
                 "ransac_n_neighbours",
                 description="RANSAC number of neighbours",
-                default_value="30",
+                default_value="10",
             ),
             DeclareLaunchArgument(
                 "clustering_n_neighbours", 
                 description="Number of neighbours for Clustering algorithm",
-                default_value="3",
+                default_value="1",
             ),
             DeclareLaunchArgument(
                 "clustering_epsilon", 
                 description="Epsilon for Clustering algorithm",
-                default_value="0.1",
+                default_value="2.5",
             ),
             DeclareLaunchArgument(
                 "horizontal_resolution", 

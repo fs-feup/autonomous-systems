@@ -43,9 +43,22 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
 
   _ground_removal_->groundRemoval(pcl_cloud, ground_removed_cloud, _ground_plane_);
 
+  pcl::io::savePCDFileASCII("test_pcd11.pcd", *ground_removed_cloud);
+
   std::vector<Cluster> clusters;
 
   _clustering_->clustering(ground_removed_cloud, &clusters);
+
+  pcl::PointCloud<pcl::PointXYZI>::Ptr clusters_pc(new pcl::PointCloud<pcl::PointXYZI>);
+
+  for (auto cluster : clusters){
+    clusters_pc->points.push_back({cluster.get_centroid()[0], cluster.get_centroid()[1], cluster.get_centroid()[2], cluster.get_centroid()[3]});
+  }
+
+  clusters_pc->width = 1;
+  clusters_pc->height = clusters.size();
+
+  pcl::io::savePCDFileASCII("test_pcd12.pcd", *clusters_pc);
 
   std::vector<Cluster> filtered_clusters;
 
