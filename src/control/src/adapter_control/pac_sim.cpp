@@ -4,9 +4,9 @@
 
 PacSimAdapter::PacSimAdapter(Control* control)
     : Adapter(control),
-      steering_pub_(node_->create_publisher<pacsim::msg::Wheels>("/pacsim/steering_setpoint", 10)),
+      steering_pub_(node_->create_publisher<pacsim::msg::StampedScalar>("/pacsim/steering_setpoint", 10)),
       acceleration_pub_(
-          node_->create_publisher<pacsim::msg::StampedScalar>("/pacsim/torques_max", 10)) {
+          node_->create_publisher<pacsim::msg::Wheels>("/pacsim/torques_max", 10)) {
   // No topic for pacsim, just set the go_signal to true
   node_->go_signal_ = true;
 
@@ -16,8 +16,8 @@ PacSimAdapter::PacSimAdapter(Control* control)
 
     // Maybe change time to a lower value if needed: std::chrono::milliseconds(10)
     RCLCPP_INFO(this->node_->get_logger(), "Creating wall timer");
-    timer_ = this->node_->create_wall_timer(std::chrono::milliseconds(1000),
-                                                std::bind(&PacSimAdapter::timer_callback, this));
+    timer_ = this->node_->create_wall_timer(std::chrono::milliseconds(60),
+                                            std::bind(&PacSimAdapter::timer_callback, this));
 
     this->finished_client_ =
         this->node_->create_client<std_srvs::srv::Empty>("/pacsim/finish_signal");
@@ -29,7 +29,8 @@ PacSimAdapter::PacSimAdapter(Control* control)
               last_stored_velocity_ = std::sqrt(std::pow(msg.twist.twist.linear.x, 2) +
                                                 std::pow(msg.twist.twist.linear.y, 2) +
                                                 std::pow(msg.twist.twist.linear.z, 2));
-              // RCLCPP_INFO(this->node_->get_logger(), "velocity_callback: storing current velocity");
+              // RCLCPP_INFO(this->node_->get_logger(), "velocity_callback: storing current
+              // velocity");
             });
   }
 
@@ -57,6 +58,8 @@ void PacSimAdapter::timer_callback() {
     pose.linear_velocity = this->last_stored_velocity_;
     pose.angular_velocity = 0.0;  // not needed -> default value
 
+    RCLCPP_INFO(node_->get_logger(), "Pose info. Position:%f, %f;  Linear velocity %f, Theta %f",
+                pose.position.x, pose.position.y, pose.linear_velocity, pose.theta);
     this->node_->publish_control(pose);
   }
 }
@@ -70,11 +73,14 @@ void PacSimAdapter::finish() {
 }
 
 void PacSimAdapter::publish_cmd(double acceleration, double steering) {
-  auto steering_msg = pacsim::msg::Wheels();
-  auto acceleration_msg = pacsim::msg::StampedScalar();
+  auto steering_msg = pacsim::msg::StampedScalar();
+  auto acceleration_msg = pacsim::msg::Wheels();
 
   // TODO: Convert values if necessary then fill the messages
   //  CODE HERE
+  acceleration_msg.fl = acceleration_msg.fr = acceleration_msg.rl = acceleration_msg.rr =
+      acceleration;
+  steering_msg.value = steering;
 
   this->steering_pub_->publish(steering_msg);
   this->acceleration_pub_->publish(acceleration_msg);

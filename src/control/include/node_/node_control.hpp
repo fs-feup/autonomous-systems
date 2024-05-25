@@ -37,7 +37,7 @@ class Control : public rclcpp::Node {
   bool mocker_node_{false};
 
   PointSolver point_solver_;   /**< Point Solver */
-  PID long_controller_;        /**< Longitudinal Controller */
+  PID long_controller_{0.4, 0.3, 0.09, 0.5, 0.01, -1, 1, 0.7};
   PurePursuit lat_controller_; /**< Lateral Controller*/
 
   std::shared_ptr<Adapter> adapter_;

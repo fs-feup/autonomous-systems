@@ -10,8 +10,8 @@
 
 class PacSimAdapter : public Adapter {
  private:
-  rclcpp::Publisher<pacsim::msg::Wheels>::SharedPtr steering_pub_;
-  rclcpp::Publisher<pacsim::msg::StampedScalar>::SharedPtr acceleration_pub_;
+  rclcpp::Publisher<pacsim::msg::StampedScalar>::SharedPtr steering_pub_;
+  rclcpp::Publisher<pacsim::msg::Wheels>::SharedPtr acceleration_pub_;
 
   std::unique_ptr<tf2_ros::Buffer> tf_buffer_;
   std::shared_ptr<tf2_ros::TransformListener> tf_listener_;
