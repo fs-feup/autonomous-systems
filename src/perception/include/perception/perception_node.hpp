@@ -12,6 +12,7 @@
 #include "cone_validator/height_validator.hpp"
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "ground_removal/ransac.hpp"
+#include "ground_removal/grid_ransac.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
 

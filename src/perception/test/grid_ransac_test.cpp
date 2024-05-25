@@ -81,7 +81,8 @@ class GridRANSACTest : public ::testing::Test {
 };
 
 /**
- * @brief Test Scenario: All points fit in the model (Epsilon threshold very high) (1 grid - Expected as equal as normal ransac).
+ * @brief Test Scenario: All points fit in the model (Epsilon threshold very high) 
+ * (1 grid - Expected as equal as normal ransac).
  *
  */
 TEST_F(GridRANSACTest, TestBigEpsilon) {
@@ -248,6 +249,11 @@ TEST_F(GridRANSACTest, TestEmptyPointCloud2) {
 }
 
 
+/**
+ * @brief Test Scenario: Point cloud that cleary can be approximate by two planes (split by angle) - 
+ * expect 0 points
+ * 
+ */
 TEST_F(GridRANSACTest, TestTwoGrids) {
   auto ground_removal = std::make_shared<GridRANSAC>(100, 1000, 2, 10000);
   Plane plane;
@@ -258,6 +264,11 @@ TEST_F(GridRANSACTest, TestTwoGrids) {
   ASSERT_EQ(ground_removed_cloud->points.size(), 0);
 }
 
+/**
+ * @brief Test Scenario: Point cloud that cleary can be approximate by four planes (split by angle) - 
+ * expect 0 points
+ * 
+ */
 TEST_F(GridRANSACTest, TestFourGrids) {
   auto ground_removal = std::make_shared<GridRANSAC>(100, 10000, 4, 10000);
   Plane plane;
@@ -268,6 +279,11 @@ TEST_F(GridRANSACTest, TestFourGrids) {
   ASSERT_EQ(ground_removed_cloud->points.size(), 0);
 }
 
+/**
+ * @brief Test Scenario: Point cloud that cleary can be approximate by four planes (split by angle) - 
+ * But Grid Ransac approximates by two - expect a value different from 0
+ * 
+ */
 TEST_F(GridRANSACTest, TestFourGridsTwoPlanes) {
   auto ground_removal = std::make_shared<GridRANSAC>(0.000001, 10000, 2, 10000);
   Plane plane;
@@ -278,6 +294,11 @@ TEST_F(GridRANSACTest, TestFourGridsTwoPlanes) {
   ASSERT_NE(ground_removed_cloud->points.size(), 0);
 }
 
+/**
+ * @brief Test Scenario: Point cloud that cleary can be approximate by four planes (split by angle) - 
+ * But Grid Ransac approximates by one - expect a value different from 0
+ * 
+ */
 TEST_F(GridRANSACTest, TestFourGridsSinglePlane) {
   auto ground_removal = std::make_shared<GridRANSAC>(0.000001, 10000, 1, 10000);
   Plane plane;
@@ -288,6 +309,10 @@ TEST_F(GridRANSACTest, TestFourGridsSinglePlane) {
   ASSERT_NE(ground_removed_cloud->points.size(), 0);
 }
 
+/**
+ * @brief Test Scenario: Point cloud that cleary can be approximate by two planes (split by radius) expect 0
+ * 
+ */
 TEST_F(GridRANSACTest, TestTwoRadius) {
   auto ground_removal = std::make_shared<GridRANSAC>(0.000001, 10000, 1, 13);
   Plane plane;
@@ -298,6 +323,11 @@ TEST_F(GridRANSACTest, TestTwoRadius) {
   ASSERT_EQ(ground_removed_cloud->points.size(), 0);
 }
 
+/**
+ * @brief Test Scenario: Point cloud that cleary can be approximate by two planes (split by radius), 
+ * but RANSAC tries to approximate by one - Expect a value from 0
+ * 
+ */
 TEST_F(GridRANSACTest, TestTwoRadiusOnePlane) {
   auto ground_removal = std::make_shared<GridRANSAC>(0.000001, 10000, 1, 10000);
   Plane plane;
