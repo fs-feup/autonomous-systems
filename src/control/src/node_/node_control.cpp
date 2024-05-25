@@ -102,6 +102,7 @@ void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicl
 
 void Control::publish_lookahead_point(Point lookahead_point, double lookahead_velocity) const {
   custom_interfaces::msg::PathPoint lookahead_point_msg;
+  lookahead_point_msg.header = std_msgs::msg::Header();
   lookahead_point_msg.x = lookahead_point.x_;
   lookahead_point_msg.y = lookahead_point.y_;
   lookahead_point_msg.v = lookahead_velocity;
@@ -110,6 +111,7 @@ void Control::publish_lookahead_point(Point lookahead_point, double lookahead_ve
 
 void Control::publish_closest_point(Point closest_point) const {
   custom_interfaces::msg::PathPoint closest_point_msg;
+  closest_point_msg.header = std_msgs::msg::Header();
   closest_point_msg.x = closest_point.x_;
   closest_point_msg.y = closest_point.y_;
   closest_point_msg.v = 0;

@@ -1,11 +1,18 @@
 import rclpy
 from rclpy.node import Node
-from custom_interfaces.msg import ConeArray, VehicleState, PathPointArray
+from custom_interfaces.msg import (
+    ConeArray,
+    VehicleState,
+    PathPointArray,
+    PathPoint,
+    VehicleState,
+)
 from evaluator.adapter import Adapter
 from evaluator.metrics import (
     get_mean_squared_difference,
     get_average_difference,
     get_inter_cones_distance,
+    compute_distance,
 )
 import tf2_ros
 import sys
@@ -22,6 +29,7 @@ from sensor_msgs.msg import PointCloud2
 import datetime
 from math import sqrt
 from evaluator.formats import format_path_point_array_msg
+from message_filters import TimeSynchronizer
 
 
 class Evaluator(Node):
@@ -96,6 +104,19 @@ class Evaluator(Node):
             PathPointArray, "path_planning/mock_path", self.planning_gt_callback, 10
         )
 
+        self.closest_point_subscription = message_filters.Subscriber(
+            self, PathPoint, "control/closest_point"
+        )
+
+        self.lookahead_point_subscription = message_filters.Subscriber(
+            self, PathPoint, "control/lookahead_point"
+        )
+
+        self.control_sync = message_filters.TimeSynchronizer(
+            [self.vehicle_state_subscription_, self.closest_point_subscription], 1
+        )
+        self.control_sync.registerCallback(self.compute_and_publish_control)
+
         # Publishers for perception metrics
         self._perception_mean_difference_ = self.create_publisher(
             Float32, "/evaluator/perception/mean_difference", 10
@@ -143,6 +164,22 @@ class Evaluator(Node):
         self._planning_execution_time_ = self.create_publisher(
             Float32, "/evaluator/planning/execution_time", 10
         )
+
+        self._control_execution_time_ = self.create_publisher(
+            Float32, "/evaluator/control/execution_time", 10
+        )
+        self._control_difference_ = self.create_publisher(
+            Float32, "/evaluator/control/difference", 10
+        )
+        self._control_difference_mean_ = self.create_publisher(
+            Float32, "/evaluator/control/difference_mean_", 10
+        )
+        self._control_root_mean_squared_difference_ = self.create_publisher(
+            Float32, "/evaluator/control/root_mean_squared_difference_", 10
+        )
+
+        self._vehicle_position_ = []  # will store a vehicle position
+        self._closest_points_ = []  # will store a closest point
 
         self.planning_mock = (
             []
@@ -389,6 +426,65 @@ class Evaluator(Node):
         """
         self.get_logger().debug("Received GT planning")
         self.planning_mock = msg.pathpoint_array
+
+    def compute_and_publish_control(
+        self, vehicle_state: VehicleState, closest_point: PathPoint
+    ):
+        """!
+        Computes control metrics and publishes them.
+        Args:
+            vehicle_state (VehicleState): Vehicle state message.
+            closest_point (PathPoint): Closest point message.
+        """
+
+        self.get_logger().debug("Received control")
+        self._control_receive_time_ = datetime.datetime.now()
+        time_difference = float(
+            (self._control_receive_time_ - self._planning_receive_time_).microseconds
+            / 1000
+        )
+        execution_time = Float32()
+        execution_time.data = time_difference
+
+        self._control_execution_time_.publish(execution_time)
+
+        difference = Float32()
+        difference.data = compute_distance(closest_point, vehicle_state.position)
+
+        self._closest_points_.add(closest_point)
+        self._vehicle_position_.add(vehicle_state.position)
+
+        mean_difference = Float32()
+        mean_difference.data = get_average_difference(
+            self._closest_points_, self._vehicle_position_
+        )
+
+        mean_squared_difference = Float32()
+        mean_squared_difference.data = get_mean_squared_difference(
+            self._closest_points_, self._vehicle_position_
+        )
+
+        root_mean_squared_difference = Float32()
+        root_mean_squared_difference.data = sqrt(mean_squared_difference)
+
+        self.get_logger().debug(
+            "Computed control metrics:\n \
+                                Difference: {}\n \
+                                Mean difference: {}\n \
+                                Mean squared difference: {}\n \
+                                Root mean squared difference: {}".format(
+                difference,
+                mean_difference,
+                mean_squared_difference,
+                root_mean_squared_difference,
+            )
+        )
+
+        self._control_difference_.publish(difference)
+        self._control_difference_mean_.publish(mean_difference)
+        self._control_root_mean_squared_difference_.publish(
+            root_mean_squared_difference
+        )
 
 
 def main(args=None):
