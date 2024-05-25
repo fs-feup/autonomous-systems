@@ -105,7 +105,11 @@ class Evaluator(Node):
         )
 
         self.closest_point_subscription = self.create_subscription(
-            PathPoint, "control/path_point"
+            PathPoint, "control/closest_point"
+        )
+
+        self.lookahead_point_subscription = self.create_subscription(
+            PathPoint, "control/lookahead_point"
         )
 
         self.control_sync = TimeSynchronizer(
