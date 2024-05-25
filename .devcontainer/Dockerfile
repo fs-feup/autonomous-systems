@@ -1,4 +1,4 @@
-FROM ros:iron-ros-base-jammy
+FROM ros:humble-ros-base-jammy
 ARG USERNAME=USERNAME
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
@@ -25,8 +25,8 @@ RUN apt update && apt upgrade -y \
     && apt install python-is-python3 -y \
     && apt install clang-format -y \
     && apt install bear -y \
-    && apt install ros-iron-foxglove-bridge -y \
-    && apt install ros-iron-tf-transformations -y \
+    && apt install ros-humble-foxglove-bridge -y \
+    && apt install ros-humble-tf-transformations -y \
     && apt install curl -y \
     && curl -s https://deb.nodesource.com/setup_18.x | sudo bash \
     && apt install nodejs -y \
