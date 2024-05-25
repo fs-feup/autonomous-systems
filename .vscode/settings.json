@@ -94,7 +94,8 @@
         "core": "cpp",
         "numericaldiff": "cpp",
         "sparse": "cpp",
-        "*.ipp": "cpp"
+        "*.ipp": "cpp",
+        "filesystem": "cpp"
     },
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter",
