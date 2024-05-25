@@ -11,7 +11,7 @@
 *.pcd
 compile_commands.json
 
-# This makes it so that the cache/iron-ros-base-jammy
+# This makes it so that the cache/humble-ros-base-jammy
 # folders are kept in the repo but not its contents, meaning
 # build results aren't shared but there is no need to create
 # the folder structure on a fresh clone.

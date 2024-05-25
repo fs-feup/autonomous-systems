@@ -2,9 +2,9 @@
 
 ROS (Robot Operating System) is a tool that allows engineers to easily program robots, providing a system to integrate programs in the robot as well as very handy tools that would otherwise required implementation. ROS2 is a new version of ROS with a few improvements, but the same core idea. You can check the difference between the two version here.
 
-Both ROS and ROS2 are organized into distributions (releases). These distributions mostly vary in the packages available for usage and their implementations. The distribution that FS FEUP will use in the second year is the ROS2-iron, as it is the most stable one and with the farthest End-Of-Life. 
+Both ROS and ROS2 are organized into distributions (releases). These distributions mostly vary in the packages available for usage and their implementations. The distribution that FS FEUP will use in the second year is the ROS2-humble, as it is the most stable one and with the farthest End-Of-Life. 
 
-This tutorial presents two different manners of setting up ROS2 iron:
+This tutorial presents two different manners of setting up ROS2 humble:
 1. Through Mamba Conda and Robostack - fast to perform and easy to remove but limited
 2. Normal installation of ROS2 in the system.
 
@@ -15,7 +15,7 @@ The first one can be interesting if you want a quick setup and one that function
 There are two alternatives:
 - os packages for some OSs
 - source code installation and compilation (might fix some problems that the first option may have)
-You can find very explicit guides for both methods in [this website](https://docs.ros.org/en/iron/Installation.html).
+You can find very explicit guides for both methods in [this website](https://docs.ros.org/en/humble/Installation.html).
 This chapter describes the guide for installation through packages in Ubuntu.
 
 ### Set LOCALE
@@ -69,7 +69,7 @@ sudo apt upgrade
 **Desktop Install:** ROS, RViz, demos, tutorials.
 
 ```bash
-sudo apt install ros-iron-desktop
+sudo apt install ros-humble-desktop
 ```
 **Dev tools:**
 ```sh
@@ -82,7 +82,7 @@ Run every time you open your shell (**important** this is meant to be run in any
 ```bash
 # Replace ".bash" with your shell if you're not using bash
 # Possible values are: setup.bash, setup.sh, setup.zsh
-source /opt/ros/iron/setup.bash
+source /opt/ros/humble/setup.bash
 ```
 
 Or edit your shell rc file
@@ -90,14 +90,14 @@ Or edit your shell rc file
 ```bash
 # Replace ".bash" with your shell if you're not using bash
 # Possible values are: setup.bash, setup.sh, setup.zsh
-echo "source /opt/ros/iron/setup.bash" >> ~/.bashrc
+echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 ```
 
 ### Testing Environment
 
 Run:
 ```bash
-source /opt/ros/iron/setup.bash
+source /opt/ros/humble/setup.bash
 rviz2
 ```
 If all correct, should open a window with no errors.
@@ -107,14 +107,14 @@ If all correct, should open a window with no errors.
 In one terminal, source the setup file and then run a C++ `talker`:
 
 ```bash
-source /opt/ros/iron/setup.bash
+source /opt/ros/humble/setup.bash
 ros2 run demo_nodes_cpp talker
 ```
 
 In another terminal source the setup file and then run a Python `listener`:
 
 ```bash
-source /opt/ros/iron/setup.bash
+source /opt/ros/humble/setup.bash
 ros2 run demo_nodes_py listener
 ```
 
