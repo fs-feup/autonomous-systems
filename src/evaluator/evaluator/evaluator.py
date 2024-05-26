@@ -103,7 +103,6 @@ class Evaluator(Node):
         self.planning_gt_subscription = self.create_subscription(
             PathPointArray, "path_planning/mock_path", self.planning_gt_callback, 10
         )
-
         self.closest_point_subscription = message_filters.Subscriber(
             self, PathPoint, "control/closest_point"
         )
@@ -111,11 +110,6 @@ class Evaluator(Node):
         self.lookahead_point_subscription = message_filters.Subscriber(
             self, PathPoint, "control/lookahead_point"
         )
-
-        self.control_sync = message_filters.TimeSynchronizer(
-            [self.vehicle_state_subscription_, self.closest_point_subscription], 1
-        )
-        self.control_sync.registerCallback(self.compute_and_publish_control)
 
         # Publishers for perception metrics
         self._perception_mean_difference_ = self.create_publisher(
