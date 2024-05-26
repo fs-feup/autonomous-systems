@@ -33,10 +33,14 @@ custom_interfaces::msg::PathPointArray custom_interfaces_array_from_vector(
 custom_interfaces::msg::ConeArray custom_interfaces_array_from_vector(
     const std::vector<Cone *> &input_path);
 
+custom_interfaces::msg::ConeArray custom_interfaces_array_from_vector(
+    const std::vector<Cone> &input_path);
+
 std::vector<Cone *> cone_vector_from_custom_interfaces(
     const custom_interfaces::msg::ConeArray &msg);
 
-std::vector<common_lib::structures::PathPoint> common_lib_vector_from_custom_interfaces (const std::vector<PathPoint *> &msg);
+std::vector<common_lib::structures::PathPoint> common_lib_vector_from_custom_interfaces(
+    const std::vector<PathPoint *> &msg);
 
 template <typename T>
 visualization_msgs::msg::MarkerArray marker_array_from_path_point_array(

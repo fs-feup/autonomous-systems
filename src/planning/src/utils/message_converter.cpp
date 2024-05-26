@@ -53,6 +53,20 @@ custom_interfaces::msg::ConeArray custom_interfaces_array_from_vector(
   return message;
 }
 
+custom_interfaces::msg::ConeArray custom_interfaces_array_from_vector(
+    const std::vector<Cone> &input_path) {
+  auto message = custom_interfaces::msg::ConeArray();
+  for (auto const &element : input_path) {
+    auto point = custom_interfaces::msg::Cone();
+    std::string color = element.getId() % 2 ? "yellow_cone" : "blue_cone";
+    point.position.x = element.getX();
+    point.position.y = element.getY();
+    point.color = color;
+    message.cone_array.push_back(point);
+  }
+  return message;
+}
+
 std::vector<Cone *> cone_vector_from_custom_interfaces(
     const custom_interfaces::msg::ConeArray &msg) {
   std::vector<Cone *> cone_array;

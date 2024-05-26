@@ -79,18 +79,13 @@ protected:
 };
 
 TEST_F(IntegrationTest, PUBLISH_PATH1) {
-  std::vector<Cone *> cone_array = {
-      new Cone(1, 19, 2),  new Cone(3, 22, 2),   new Cone(5, 25, 2),   new Cone(7, 28, 2),
-      new Cone(9, 31, 2),  new Cone(11, 34, 2),  new Cone(13, 1, 2),   new Cone(15, 4, 2),
-      new Cone(17, 7, 2),  new Cone(19, 10, 2),  new Cone(21, 13, 2),  new Cone(23, 16, 2),
-      new Cone(0, 19, -2), new Cone(2, 22, -2),  new Cone(4, 25, -2),  new Cone(6, 28, -2),
-      new Cone(8, 31, -2), new Cone(10, 34, -2), new Cone(12, 1, -2),  new Cone(14, 4, -2),
-      new Cone(16, 7, -2), new Cone(18, 10, -2), new Cone(20, 13, -2), new Cone(22, 16, -2)};
+  std::vector<Cone> cone_array = {
+      Cone(1, 19, 2),  Cone(3, 22, 2),   Cone(5, 25, 2),   Cone(7, 28, 2),  Cone(9, 31, 2),
+      Cone(11, 34, 2), Cone(13, 1, 2),   Cone(15, 4, 2),   Cone(17, 7, 2),  Cone(19, 10, 2),
+      Cone(21, 13, 2), Cone(23, 16, 2),  Cone(0, 19, -2),  Cone(2, 22, -2), Cone(4, 25, -2),
+      Cone(6, 28, -2), Cone(8, 31, -2),  Cone(10, 34, -2), Cone(12, 1, -2), Cone(14, 4, -2),
+      Cone(16, 7, -2), Cone(18, 10, -2), Cone(20, 13, -2), Cone(22, 16, -2)};
   this->cone_array_msg = custom_interfaces_array_from_vector(cone_array);
-
-  for (Cone *c : cone_array) {
-    delete c;
-  }  // send the cones
 
   custom_interfaces::msg::VehicleState vehicle_state;
   vehicle_state.position.x = 0;
@@ -115,20 +110,20 @@ TEST_F(IntegrationTest, PUBLISH_PATH1) {
 }
 
 TEST_F(IntegrationTest, PUBLISH_PATH2) {
-  std::vector<Cone *> cone_array = {
-      new Cone(1, 1.414, -1.414),   new Cone(3, 3.184, 0.356),    new Cone(5, 4.954, 2.126),
-      new Cone(7, 6.724, 3.896),    new Cone(9, 8.494, 5.666),    new Cone(11, 10.264, 7.436),
-      new Cone(13, 12.034, 9.206),  new Cone(15, 13.804, 10.976), new Cone(17, 15.574, 12.746),
-      new Cone(19, 17.344, 14.516), new Cone(21, 19.114, 16.286), new Cone(23, 20.884, 18.056),
-      new Cone(0, -1.414, 1.414),   new Cone(2, 0.356, 3.184),    new Cone(4, 2.126, 4.954),
-      new Cone(6, 3.896, 6.724),    new Cone(8, 5.666, 8.494),    new Cone(10, 7.436, 10.264),
-      new Cone(12, 9.206, 12.034),  new Cone(14, 10.976, 13.804), new Cone(16, 12.746, 15.574),
-      new Cone(18, 14.516, 17.344), new Cone(20, 16.286, 19.114), new Cone(22, 18.056, 20.884)};
+  std::vector<Cone> cone_array = {
+      Cone(1, (float)1.414, (float)-1.414),   Cone(3, (float)3.184, (float)0.356),
+      Cone(5, (float)4.954, (float)2.126),    Cone(7, (float)6.724, (float)3.896),
+      Cone(9, (float)8.494, (float)5.666),    Cone(11, (float)10.264, (float)7.436),
+      Cone(13, (float)12.034, (float)9.206),  Cone(15, (float)13.804, (float)10.976),
+      Cone(17, (float)15.574, (float)12.746), Cone(19, (float)17.344, (float)14.516),
+      Cone(21, (float)19.114, (float)16.286), Cone(23, (float)20.884, (float)18.056),
+      Cone(0, (float)-1.414, (float)1.414),   Cone(2, (float)0.356, (float)3.184),
+      Cone(4, (float)2.126, (float)4.954),    Cone(6, (float)3.896, (float)6.724),
+      Cone(8, (float)5.666, (float)8.494),    Cone(10, (float)7.436, (float)10.264),
+      Cone(12, (float)9.206, (float)12.034),  Cone(14, (float)10.976, (float)13.804),
+      Cone(16, (float)12.746, (float)15.574), Cone(18, (float)14.516, (float)17.344),
+      Cone(20, (float)16.286, (float)19.114), Cone(22, (float)18.056, (float)20.884)};
   this->cone_array_msg = custom_interfaces_array_from_vector(cone_array);
-
-  for (Cone *c : cone_array) {
-    delete c;
-  }
 
   custom_interfaces::msg::VehicleState vehicle_state;
   vehicle_state.position.x = 0;
@@ -152,20 +147,20 @@ TEST_F(IntegrationTest, PUBLISH_PATH2) {
 TEST_F(IntegrationTest, PUBLISH_PATH3) {
   custom_interfaces::msg::Cone cone_to_send;
 
-  std::vector<Cone *> cone_array = {
-      new Cone(0, -1.414, -1.414),   new Cone(2, -3.184, 0.356),    new Cone(4, -4.954, 2.126),
-      new Cone(6, -6.724, 3.896),    new Cone(8, -8.494, 5.666),    new Cone(10, -10.264, 7.436),
-      new Cone(12, -12.034, 9.206),  new Cone(14, -13.804, 10.976), new Cone(16, -15.574, 12.746),
-      new Cone(18, -17.344, 14.516), new Cone(20, -19.114, 16.286), new Cone(22, -20.884, 18.056),
-      new Cone(1, 1.414, 1.414),     new Cone(3, -0.356, 3.184),    new Cone(5, -2.126, 4.954),
-      new Cone(7, -3.896, 6.724),    new Cone(9, -5.666, 8.494),    new Cone(11, -7.436, 10.264),
-      new Cone(13, -9.206, 12.034),  new Cone(15, -10.976, 13.804), new Cone(17, -12.746, 15.574),
-      new Cone(19, -14.516, 17.344), new Cone(21, -16.286, 19.114), new Cone(23, -18.056, 20.884)};
+  std::vector<Cone> cone_array = {
+      Cone(0, (float)-1.414, (float)-1.414),   Cone(2, (float)-3.184, (float)0.356),
+      Cone(4, (float)-4.954, (float)2.126),    Cone(6, (float)-6.724, (float)3.896),
+      Cone(8, (float)-8.494, (float)5.666),    Cone(10, (float)-10.264, (float)7.436),
+      Cone(12, (float)-12.034, (float)9.206),  Cone(14, (float)-13.804, (float)10.976),
+      Cone(16, (float)-15.574, (float)12.746), Cone(18, (float)-17.344, (float)14.516),
+      Cone(20, (float)-19.114, (float)16.286), Cone(22, (float)-20.884, (float)18.056),
+      Cone(1, (float)1.414, (float)1.414),     Cone(3, (float)-0.356, (float)3.184),
+      Cone(5, (float)-2.126, (float)4.954),    Cone(7, (float)-3.896, (float)6.724),
+      Cone(9, (float)-5.666, (float)8.494),    Cone(11, (float)-7.436, (float)10.264),
+      Cone(13, (float)-9.206, (float)12.034),  Cone(15, (float)-10.976, (float)13.804),
+      Cone(17, (float)-12.746, (float)15.574), Cone(19, (float)-14.516, (float)17.344),
+      Cone(21, (float)-16.286, (float)19.114), Cone(23, (float)-18.056, (float)20.884)};
   this->cone_array_msg = custom_interfaces_array_from_vector(cone_array);
-
-  for (Cone *c : cone_array) {
-    delete c;
-  }
 
   custom_interfaces::msg::VehicleState vehicle_state;
   vehicle_state.position.x = 0;
@@ -187,23 +182,20 @@ TEST_F(IntegrationTest, PUBLISH_PATH3) {
 }
 
 TEST_F(IntegrationTest, PUBLISH_PATH4) {
-  std::vector<Cone *> cone_array = {new Cone(0, -1.414, 1.414),     new Cone(2, -3.184, -0.356),
-                                    new Cone(4, -4.954, -2.126),    new Cone(6, -6.724, -3.896),
-                                    new Cone(8, -8.494, -5.666),    new Cone(10, -10.264, -7.436),
-                                    new Cone(12, -12.034, -9.206),  new Cone(14, -13.804, -10.976),
-                                    new Cone(16, -15.574, -12.746), new Cone(18, -17.344, -14.516),
-                                    new Cone(20, -19.114, -16.286), new Cone(22, -20.884, -18.056),
-                                    new Cone(1, 1.414, -1.414),     new Cone(3, -0.356, -3.184),
-                                    new Cone(5, -2.126, -4.954),    new Cone(7, -3.896, -6.724),
-                                    new Cone(9, -5.666, -8.494),    new Cone(11, -7.436, -10.264),
-                                    new Cone(13, -9.206, -12.034),  new Cone(15, -10.976, -13.804),
-                                    new Cone(17, -12.746, -15.574), new Cone(19, -14.516, -17.344),
-                                    new Cone(21, -16.286, -19.114), new Cone(23, -18.056, -20.884)};
+  std::vector<Cone> cone_array = {
+      Cone(0, (float)-1.414, (float)1.414),     Cone(2, (float)-3.184, (float)-0.356),
+      Cone(4, (float)-4.954, (float)-2.126),    Cone(6, (float)-6.724, (float)-3.896),
+      Cone(8, (float)-8.494, (float)-5.666),    Cone(10, (float)-10.264, (float)-7.436),
+      Cone(12, (float)-12.034, (float)-9.206),  Cone(14, (float)-13.804, (float)-10.976),
+      Cone(16, (float)-15.574, (float)-12.746), Cone(18, (float)-17.344, (float)-14.516),
+      Cone(20, (float)-19.114, (float)-16.286), Cone(22, (float)-20.884, (float)-18.056),
+      Cone(1, (float)1.414, (float)-1.414),     Cone(3, (float)-0.356, (float)-3.184),
+      Cone(5, (float)-2.126, (float)-4.954),    Cone(7, (float)-3.896, (float)-6.724),
+      Cone(9, (float)-5.666, (float)-8.494),    Cone(11, (float)-7.436, (float)-10.264),
+      Cone(13, (float)-9.206, (float)-12.034),  Cone(15, (float)-10.976, (float)-13.804),
+      Cone(17, (float)-12.746, (float)-15.574), Cone(19, (float)-14.516, (float)-17.344),
+      Cone(21, (float)-16.286, (float)-19.114), Cone(23, (float)-18.056, (float)-20.884)};
   this->cone_array_msg = custom_interfaces_array_from_vector(cone_array);
-
-  for (Cone *c : cone_array) {
-    delete c;
-  }
 
   custom_interfaces::msg::VehicleState vehicle_state;
   vehicle_state.position.x = 0;
@@ -225,20 +217,20 @@ TEST_F(IntegrationTest, PUBLISH_PATH4) {
 }
 
 TEST_F(IntegrationTest, PUBLISH_PATH5) {
-  std::vector<Cone *> cone_array = {
-      new Cone(0, 1.414, 1.414),     new Cone(2, 3.184, -0.356),    new Cone(4, 4.954, -2.126),
-      new Cone(6, 6.724, -3.896),    new Cone(8, 8.494, -5.666),    new Cone(10, 10.264, -7.436),
-      new Cone(12, 12.034, -9.206),  new Cone(14, 13.804, -10.976), new Cone(16, 15.574, -12.746),
-      new Cone(18, 17.344, -14.516), new Cone(20, 19.114, -16.286), new Cone(22, 20.884, -18.056),
-      new Cone(1, -1.414, -1.414),   new Cone(3, 0.356, -3.184),    new Cone(5, 2.126, -4.954),
-      new Cone(7, 3.896, -6.724),    new Cone(9, 5.666, -8.494),    new Cone(11, 7.436, -10.264),
-      new Cone(13, 9.206, -12.034),  new Cone(15, 10.976, -13.804), new Cone(17, 12.746, -15.574),
-      new Cone(19, 14.516, -17.344), new Cone(21, 16.286, -19.114), new Cone(23, 18.056, -20.884)};
+  std::vector<Cone> cone_array = {
+      Cone(0, (float)1.414, (float)1.414),     Cone(2, (float)3.184, (float)-0.356),
+      Cone(4, (float)4.954, (float)-2.126),    Cone(6, (float)6.724, (float)-3.896),
+      Cone(8, (float)8.494, (float)-5.666),    Cone(10, (float)10.264, (float)-7.436),
+      Cone(12, (float)12.034, (float)-9.206),  Cone(14, (float)13.804, (float)-10.976),
+      Cone(16, (float)15.574, (float)-12.746), Cone(18, (float)17.344, (float)-14.516),
+      Cone(20, (float)19.114, (float)-16.286), Cone(22, (float)20.884, (float)-18.056),
+      Cone(1, (float)-1.414, (float)-1.414),   Cone(3, (float)0.356, (float)-3.184),
+      Cone(5, (float)2.126, (float)-4.954),    Cone(7, (float)3.896, (float)-6.724),
+      Cone(9, (float)5.666, (float)-8.494),    Cone(11, (float)7.436, (float)-10.264),
+      Cone(13, (float)9.206, (float)-12.034),  Cone(15, (float)10.976, (float)-13.804),
+      Cone(17, (float)12.746, (float)-15.574), Cone(19, (float)14.516, (float)-17.344),
+      Cone(21, (float)16.286, (float)-19.114), Cone(23, (float)18.056, (float)-20.884)};
   this->cone_array_msg = custom_interfaces_array_from_vector(cone_array);
-
-  for (Cone *c : cone_array) {
-    delete c;
-  }
 
   custom_interfaces::msg::VehicleState vehicle_state;
   vehicle_state.position.x = 0;
@@ -260,18 +252,13 @@ TEST_F(IntegrationTest, PUBLISH_PATH5) {
 }
 
 TEST_F(IntegrationTest, PUBLISH_PATH6) {
-  std::vector<Cone *> cone_array = {
-      new Cone(1, 2, 19),   new Cone(3, 2, 22),   new Cone(5, 2, 25),   new Cone(7, 2, 28),
-      new Cone(9, 2, 31),   new Cone(11, 2, 34),  new Cone(13, 2, 1),   new Cone(15, 2, 4),
-      new Cone(17, 2, 7),   new Cone(19, 2, 10),  new Cone(21, 2, 13),  new Cone(23, 2, 16),
-      new Cone(0, -2, 1),   new Cone(2, -2, 4),   new Cone(4, -2, 7),   new Cone(6, -2, 25),
-      new Cone(8, -2, 28),  new Cone(10, -2, 31), new Cone(12, -2, 34), new Cone(14, -2, 10),
-      new Cone(16, -2, 13), new Cone(18, -2, 16), new Cone(20, -2, 19), new Cone(22, -2, 22)};
+  std::vector<Cone> cone_array = {
+      Cone(1, 2, 19),   Cone(3, 2, 22),   Cone(5, 2, 25),   Cone(7, 2, 28),   Cone(9, 2, 31),
+      Cone(11, 2, 34),  Cone(13, 2, 1),   Cone(15, 2, 4),   Cone(17, 2, 7),   Cone(19, 2, 10),
+      Cone(21, 2, 13),  Cone(23, 2, 16),  Cone(0, -2, 1),   Cone(2, -2, 4),   Cone(4, -2, 7),
+      Cone(6, -2, 25),  Cone(8, -2, 28),  Cone(10, -2, 31), Cone(12, -2, 34), Cone(14, -2, 10),
+      Cone(16, -2, 13), Cone(18, -2, 16), Cone(20, -2, 19), Cone(22, -2, 22)};
   this->cone_array_msg = custom_interfaces_array_from_vector(cone_array);
-
-  for (Cone *c : cone_array) {
-    delete c;
-  }
 
   custom_interfaces::msg::VehicleState vehicle_state;
   vehicle_state.position.x = 0;
