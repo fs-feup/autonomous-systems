@@ -28,7 +28,7 @@ int main(int argc, char** argv) {
   auto cone_differentiator = std::make_shared<LeastSquaresDifferentiation>();
   std::vector<std::shared_ptr<ConeValidator>> cone_validators = {
     std::make_shared<CylinderValidator>(0.228, 0.325),
-    std::make_shared<HeightValidator>(0.325)
+    std::make_shared<HeightValidator>(0.4)
   };
   auto distance_predict = std::make_shared<DistancePredict>(vertical_resolution, horizontal_resolution);
 
@@ -36,7 +36,7 @@ int main(int argc, char** argv) {
   auto perception_node = std::make_shared<Perception>(ground_removal, clustering, cone_differentiator,
                                                        cone_validators, distance_predict, mode);
 
-  RCLCPP_INFO(node->get_logger(), "Perception is alive!");
+  RCLCPP_INFO(node->get_logger(), "Perception is alive! 🚀");
 
   rclcpp::spin(perception_node); // Spin the perception node
   rclcpp::shutdown();
