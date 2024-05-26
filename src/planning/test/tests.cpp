@@ -756,7 +756,6 @@ TEST(LocalPathPlanner, map_test2) {
   for (size_t i = 0; i < pathPointers.size(); i++) {
     path.insert({pathPointers[i]->getX(), pathPointers[i]->getY()});
   }
-  // (3.5, 2), (4.5, 3.5),
   std::unordered_set<PathPoint> expected = {
       {1, 0}, {1, 1},     {1, 2}, {1.5, 3},   {1.75, 3.5}, {1.75, 3.5}, {1.75, 3.5},
       {2, 4}, {2.5, 4.5}, {3, 5}, {3.5, 4.5}, {4, 4},      {3.5, 2},    {4.5, 3.5}};
