@@ -29,22 +29,21 @@ constexpr double LD_MARGIN = 0.1; /**< Lookahead distance margin */
  * and ideal path topics, and publishing torque (or other output to the actuators).
  */
 class Control : public rclcpp::Node {
- public:
+public:
   double k_;
   double ld_margin_;
   bool using_simulated_se_{false};
   bool go_signal_{false};
   bool mocker_node_{false};
 
-  PointSolver point_solver_;   /**< Point Solver */
+  PointSolver point_solver_; /**< Point Solver */
   PID long_controller_{0.4, 0.3, 0.09, 0.5, 0.01, -1, 1, 0.7};
   PurePursuit lat_controller_; /**< Lateral Controller*/
 
   std::shared_ptr<Adapter> adapter_;
 
   // Evaluator Publishers
-  rclcpp::Publisher<custom_interfaces::msg::PathPoint>::SharedPtr lookahead_point_pub_;
-  rclcpp::Publisher<custom_interfaces::msg::PathPoint>::SharedPtr closest_point_pub_;
+  rclcpp::Publisher<custom_interfaces::msg::EvaluatorControlData>::SharedPtr evaluator_data_pub_;
 
   // General Subscribers
   rclcpp::Subscription<custom_interfaces::msg::PathPointArray>::SharedPtr path_point_array_sub_;
@@ -52,23 +51,16 @@ class Control : public rclcpp::Node {
 
   std::vector<custom_interfaces::msg::PathPoint> pathpoint_array_{};
 
-
   /**
    * @brief Publishes the steering angle to the car based on the path and pose using cache
    *
    */
   void publish_control(const custom_interfaces::msg::VehicleState &vehicle_state_msg);
 
- private:
-  /*
-   * @brief Publish lookahead point
-   */
-  void publish_lookahead_point(Point lookahead_point, double lookahead_velocity) const;
+private:
 
-  /*
-   * @brief Publish closest point
-   */
-  void publish_closest_point(Point closest_point) const;
+  void publish_evaluator_data(double lookahead_velocity, Point lookahead_point, Point closest_point,
+                              custom_interfaces::msg::VehicleState vehicle_state_msg) const;
 
   /**
    * @brief Update lookahead distance
@@ -78,6 +70,6 @@ class Control : public rclcpp::Node {
   /**
    * @brief Contructor for the Control class
    */
- public:
+public:
   Control();
 };

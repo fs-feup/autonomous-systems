@@ -7,6 +7,7 @@
 
 #include "adapter_control/adapter.hpp"
 #include "adapter_control/map.hpp"
+#include "custom_interfaces/msg/evaluator_control_data.hpp"
 #include "custom_interfaces/msg/path_point_array.hpp"
 #include "custom_interfaces/msg/vehicle_state.hpp"
 #include "rclcpp/rclcpp.hpp"
@@ -22,10 +23,8 @@ Control::Control()
       using_simulated_se_(declare_parameter("use_simulated_se", false)),
       mocker_node_(declare_parameter("mocker_node", true)),
       adapter_(adapter_map.at(declare_parameter("adapter", "vehicle"))(this)),
-      lookahead_point_pub_(
-          create_publisher<custom_interfaces::msg::PathPoint>("control/lookahead_point", 10)),
-      closest_point_pub_(
-          create_publisher<custom_interfaces::msg::PathPoint>("control/closest_point", 10)),
+      evaluator_data_pub_(create_publisher<custom_interfaces::msg::EvaluatorControlData>(
+          "control/evaluator_data", 10)),
       path_point_array_sub_(create_subscription<custom_interfaces::msg::PathPointArray>(
           mocker_node_ ? "path_planning/mock_path" : "/path_planning/path",
           rclcpp::QoS(10).durability(RMW_QOS_POLICY_DURABILITY_TRANSIENT_LOCAL),
@@ -65,8 +64,6 @@ void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicl
 
   RCLCPP_INFO(rclcpp::get_logger("control"), "Closest Point: %f, %f", closest_point.x_,
               closest_point.y_);
-  // Publish closest point data
-  publish_closest_point(closest_point);
 
   // update the Lookahead point
   auto [lookahead_point, lookahead_velocity, lookahead_error] =
@@ -77,10 +74,8 @@ void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicl
     return;
   }
 
-  // Publish lookahead point data
   RCLCPP_INFO(rclcpp::get_logger("control"), "Lookahead Point: %f, %f", lookahead_point.x_,
               lookahead_point.y_);
-  publish_lookahead_point(lookahead_point, lookahead_velocity);
 
   // calculate longitudinal control: PI-D
   double torque = this->long_controller_.update(lookahead_velocity,
@@ -95,27 +90,24 @@ void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicl
 
   RCLCPP_INFO(rclcpp::get_logger("control"), "Torque: %f, Steering Angle: %f", torque,
               steering_angle);
+
+  publish_evaluator_data(lookahead_velocity, lookahead_point, closest_point, vehicle_state_msg);
   adapter_->publish_cmd(torque, steering_angle);
   // Adapter to communicate with the car
   //
 }
 
-void Control::publish_lookahead_point(Point lookahead_point, double lookahead_velocity) const {
-  custom_interfaces::msg::PathPoint lookahead_point_msg;
-  lookahead_point_msg.header = std_msgs::msg::Header();
-  lookahead_point_msg.header.stamp = this->now();
-  lookahead_point_msg.x = lookahead_point.x_;
-  lookahead_point_msg.y = lookahead_point.y_;
-  lookahead_point_msg.v = lookahead_velocity;
-  this->lookahead_point_pub_->publish(lookahead_point_msg);
-}
-
-void Control::publish_closest_point(Point closest_point) const {
-  custom_interfaces::msg::PathPoint closest_point_msg;
-  closest_point_msg.header = std_msgs::msg::Header();
-  closest_point_msg.header.stamp = this->now();
-  closest_point_msg.x = closest_point.x_;
-  closest_point_msg.y = closest_point.y_;
-  closest_point_msg.v = 0;
-  this->closest_point_pub_->publish(closest_point_msg);
+void Control::publish_evaluator_data(double lookahead_velocity, Point lookahead_point,
+                                     Point closest_point,
+                                     custom_interfaces::msg::VehicleState vehicle_state_msg) const {
+  custom_interfaces::msg::EvaluatorControlData evaluator_data;
+  evaluator_data.header = std_msgs::msg::Header();
+  evaluator_data.header.stamp = this->now();
+  evaluator_data.vehicle_state = vehicle_state_msg;
+  evaluator_data.lookahead_point.x = lookahead_point.x_;
+  evaluator_data.lookahead_point.y = lookahead_point.y_;
+  evaluator_data.closest_point.x = closest_point.x_;
+  evaluator_data.closest_point.y = closest_point.y_;
+  evaluator_data.lookahead_velocity = lookahead_velocity;
+  this->evaluator_data_pub_->publish(evaluator_data);
 }

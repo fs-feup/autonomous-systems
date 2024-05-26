@@ -6,6 +6,7 @@ from custom_interfaces.msg import (
     PathPointArray,
     PathPoint,
     VehicleState,
+    EvaluatorControlData,
 )
 from evaluator.adapter import Adapter
 from evaluator.metrics import (
@@ -103,12 +104,11 @@ class Evaluator(Node):
         self.planning_gt_subscription = self.create_subscription(
             PathPointArray, "path_planning/mock_path", self.planning_gt_callback, 10
         )
-        self.closest_point_subscription = message_filters.Subscriber(
-            self, PathPoint, "control/closest_point"
-        )
-
-        self.lookahead_point_subscription = message_filters.Subscriber(
-            self, PathPoint, "control/lookahead_point"
+        self.control_data_sub_ = self.create_subscription(
+            EvaluatorControlData,
+            "control/evaluator_data",
+            self.compute_and_publish_control,
+            10,
         )
 
         # Publishers for perception metrics
