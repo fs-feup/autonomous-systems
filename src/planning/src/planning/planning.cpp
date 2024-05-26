@@ -77,9 +77,9 @@ Planning::Planning()
 void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &msg) {
   auto number_of_cones_recieved = (int)msg.cone_array.size();
   RCLCPP_DEBUG(this->get_logger(), "Planning recieved %i cones", number_of_cones_recieved);
-  this->cone_array = cone_vector_from_custom_interfaces(msg);
-  this->recieved_first_track = true;
-  if (this->is_predicitve_mission() || !(this->recieved_first_pose)) {
+  this->cone_array_ = cone_vector_from_custom_interfaces(msg);
+  this->recieved_first_track_ = true;
+  if (this->is_predicitve_mission() || !(this->recieved_first_pose_)) {
     return;
   } else {
     RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Running all Planning algorithms");
@@ -97,12 +97,12 @@ void Planning::run_planning_algorithms() {
                                                        this->smoothing_spline_coeffs_ratio_,
                                                        this->smoothing_spline_precision_);
 
-  if (this->cone_array.empty()) {
+  if (this->cone_array_.empty()) {
     publish_track_points({});
     return;
   }
 
-  cone_coloring->color_cones(this->cone_array, this->pose, 5);
+  cone_coloring->color_cones(this->cone_array_, this->pose, 5);
 
   for (auto &cone : cone_coloring->current_left_cones) {
     track->add_cone_left(cone);
@@ -132,11 +132,11 @@ void Planning::run_planning_algorithms() {
 
 void Planning::vehicle_localization_callback(const custom_interfaces::msg::VehicleState &msg) {
   this->pose = Pose(msg.position.x, msg.position.y, msg.theta);
-  if (this->recieved_first_track && !this->recieved_first_pose) {
-    this->recieved_first_pose = true;
+  if (this->recieved_first_track_ && !this->recieved_first_pose_) {
+    this->recieved_first_pose_ = true;
     run_planning_algorithms();
   } else {
-    this->recieved_first_pose = true;
+    this->recieved_first_pose_ = true;
   }
 }
 

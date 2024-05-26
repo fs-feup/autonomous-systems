@@ -63,9 +63,9 @@ class Planning : public rclcpp::Node {
   int smoothing_spline_precision_;
   bool publishing_visualization_msgs_;
   bool using_simulated_se_ = false;
-  bool recieved_first_track = false;
-  bool recieved_first_pose = false;
-  std::vector<Cone *> cone_array;
+  bool recieved_first_track_ = false;
+  bool recieved_first_pose_ = false;
+  std::vector<Cone *> cone_array_;
   /**< Subscription to vehicle localization */
   rclcpp::Subscription<custom_interfaces::msg::VehicleState>::SharedPtr vl_sub_;
   /**< Subscription to track map */

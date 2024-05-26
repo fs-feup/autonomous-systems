@@ -5,8 +5,8 @@ PacSimAdapter::PacSimAdapter(Planning* planning) : Adapter(planning) {
     RCLCPP_INFO(this->node->get_logger(), "Planning : Pacsim using simulated State Estimation");
     tf_buffer_ = std::make_unique<tf2_ros::Buffer>(this->node->get_clock());
     tf_listener_ = std::make_shared<tf2_ros::TransformListener>(*tf_buffer_);
-    timer = this->node->create_wall_timer(std::chrono::milliseconds(60),
-                                          std::bind(&PacSimAdapter::timer_callback, this));
+    timer_ = this->node->create_wall_timer(std::chrono::milliseconds(60),
+                                           std::bind(&PacSimAdapter::timer_callback, this));
 
     this->finished_client_ =
         this->node->create_client<std_srvs::srv::Empty>("/pacsim/finish_signal");
@@ -42,14 +42,14 @@ void PacSimAdapter::timer_callback() {
   }
 }
 
-void PacSimAdapter::set_mission_state(int mission, int state) {
+void PacSimAdapter::set_mission_state() {
   RCLCPP_INFO(this->node->get_logger(), "Planning : Set mission undefined for PacSim");
 }
 
 void PacSimAdapter::finish() {
   this->finished_client_->async_send_request(
       std::make_shared<std_srvs::srv::Empty::Request>(),
-      [this](rclcpp::Client<std_srvs::srv::Empty>::SharedFuture future) {
+      [this](rclcpp::Client<std_srvs::srv::Empty>::SharedFuture) {
         RCLCPP_INFO(this->node->get_logger(), "Planning : Finished signal sent");
       });
 }

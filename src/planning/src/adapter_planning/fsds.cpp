@@ -25,7 +25,7 @@ void FsdsAdapter::mission_state_callback(const fs_msgs::msg::GoSignal msg) {
   this->node->set_mission(common_lib::competition_logic::fsds_to_system.at(mission));
 }
 
-void FsdsAdapter::set_mission_state(int mission, int state) {
+void FsdsAdapter::set_mission_state() {
   RCLCPP_INFO(this->node->get_logger(), "Planning : Set mission undefined for FSDS");
 }
 

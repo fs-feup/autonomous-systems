@@ -65,41 +65,7 @@ std::vector<PathPoint *> LocalPathPlanner::processNewArray(Track *cone_array) {
       unordered_path.push_back(std::make_pair(position, false));
     }
   }
-  // Process unordered_path to generate the final path
 
-  //// first iterations placeholders
-  // std::vector<PathPoint *> final_path;
-  // PathPoint *p1 = new PathPoint(0, 0);
-  // float vx = 1;
-  // float vy = 0;
-  //
-  // for (size_t iter_number = 0; iter_number < unordered_path.size(); iter_number++) {
-  //  float min_dist = MAXFLOAT;
-  //  size_t min_index = 0;
-  //
-  //  for (size_t i = 0; i < unordered_path.size(); i++) {
-  //    PathPoint *p2 = unordered_path[i].first;
-  //    // check only if not visited
-  //    if (unordered_path[i].second == false && vector_direction(p1, p2, vx, vy)) {
-  //      // first iteration we assure the direction is correct to avoid going
-  //      // backwards
-  //
-  //      float new_dist = p1->getDistanceTo(p2);
-  //      if (new_dist < min_dist) {
-  //        min_dist = new_dist;
-  //        min_index = i;
-  //      }
-  //    }
-  //  }
-  //  unordered_path[min_index].second = true;  // mark as visited
-  //
-  //  // Update new visited point to be the reference for next iteration
-  //  vx = unordered_path[min_index].first->getX() - p1->getX();
-  //  vy = unordered_path[min_index].first->getY() - p1->getY();
-  //  p1 = unordered_path[min_index].first;
-  //
-  //  final_path.push_back(unordered_path[min_index].first);
-  //}
   this->track.reset();
   return return_result;
 }

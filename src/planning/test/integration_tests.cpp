@@ -58,132 +58,39 @@ protected:
     vehicle_state_publisher_.reset();
     rclcpp::shutdown();
   }
+
+  std::chrono::duration<double, std::milli> run_nodes(
+      const custom_interfaces::msg::ConeArray &track_msg,
+      const custom_interfaces::msg::VehicleState &state_msg) {
+    this->map_publisher->publish(track_msg);  // send the cones
+    this->vehicle_state_publisher_->publish(state_msg);
+
+    // Add nodes to be executed
+    rclcpp::executors::MultiThreadedExecutor executor;
+    executor.add_node(this->locmap_sender);
+    executor.add_node(this->planning_test);
+    executor.add_node(this->control_receiver);
+
+    auto start_time = std::chrono::high_resolution_clock::now();
+    executor.spin();  // Execute nodes
+    auto end_time = std::chrono::high_resolution_clock::now();
+    return std::chrono::duration<double, std::milli>(end_time - start_time);
+  }
 };
 
 TEST_F(IntegrationTest, PUBLISH_PATH1) {
-  custom_interfaces::msg::Cone cone_to_send;
-  // Yellow Cones
-  cone_to_send.position.x = 19;
-  cone_to_send.position.y = 2;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
+  std::vector<Cone *> cone_array = {
+      new Cone(1, 19, 2),  new Cone(3, 22, 2),   new Cone(5, 25, 2),   new Cone(7, 28, 2),
+      new Cone(9, 31, 2),  new Cone(11, 34, 2),  new Cone(13, 1, 2),   new Cone(15, 4, 2),
+      new Cone(17, 7, 2),  new Cone(19, 10, 2),  new Cone(21, 13, 2),  new Cone(23, 16, 2),
+      new Cone(0, 19, -2), new Cone(2, 22, -2),  new Cone(4, 25, -2),  new Cone(6, 28, -2),
+      new Cone(8, 31, -2), new Cone(10, 34, -2), new Cone(12, 1, -2),  new Cone(14, 4, -2),
+      new Cone(16, 7, -2), new Cone(18, 10, -2), new Cone(20, 13, -2), new Cone(22, 16, -2)};
+  this->cone_array_msg = custom_interfaces_array_from_vector(cone_array);
 
-  cone_to_send.position.x = 22;
-  cone_to_send.position.y = 2;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 25;
-  cone_to_send.position.y = 2;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 28;
-  cone_to_send.position.y = 2;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 31;
-  cone_to_send.position.y = 2;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 34;
-  cone_to_send.position.y = 2;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 1;
-  cone_to_send.position.y = 2;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 4;
-  cone_to_send.position.y = 2;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 7;
-  cone_to_send.position.y = 2;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 10;
-  cone_to_send.position.y = 2;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 13;
-  cone_to_send.position.y = 2;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 16;
-  cone_to_send.position.y = 2;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  // Blue Cones
-
-  cone_to_send.position.x = 1;
-  cone_to_send.position.y = -2;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 4;
-  cone_to_send.position.y = -2;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 7;
-  cone_to_send.position.y = -2;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 25;
-  cone_to_send.position.y = -2;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 28;
-  cone_to_send.position.y = -2;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 31;
-  cone_to_send.position.y = -2;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 34;
-  cone_to_send.position.y = -2;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 10;
-  cone_to_send.position.y = -2;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 13;
-  cone_to_send.position.y = -2;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 16;
-  cone_to_send.position.y = -2;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 19;
-  cone_to_send.position.y = -2;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 22;
-  cone_to_send.position.y = -2;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
+  for (Cone *c : cone_array) {
+    delete c;
+  }  // send the cones
 
   custom_interfaces::msg::VehicleState vehicle_state;
   vehicle_state.position.x = 0;
@@ -191,23 +98,12 @@ TEST_F(IntegrationTest, PUBLISH_PATH1) {
   vehicle_state.theta = 0;
   vehicle_state.linear_velocity = 0;
   vehicle_state.angular_velocity = 0;
-  vehicle_state_publisher_->publish(vehicle_state);
 
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Publishing cone array with size: %ld",
                cone_array_msg.cone_array.size());
-  // std::this_thread::sleep_for(std::chrono::seconds(3));
-  map_publisher->publish(cone_array_msg);  // send the cones
 
-  // Add nodes to be executed
-  rclcpp::executors::MultiThreadedExecutor executor;
-  executor.add_node(locmap_sender);
-  executor.add_node(planning_test);
-  executor.add_node(control_receiver);
+  auto duration = run_nodes(cone_array_msg, vehicle_state);
 
-  auto start_time = std::chrono::high_resolution_clock::now();
-  executor.spin();  // Execute nodes
-  auto end_time = std::chrono::high_resolution_clock::now();
-  auto duration = std::chrono::duration<double, std::milli>(end_time - start_time);
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
   for (const auto &p : received_path.pathpoint_array) {
     EXPECT_DOUBLE_EQ(p.y, 0);
@@ -219,129 +115,20 @@ TEST_F(IntegrationTest, PUBLISH_PATH1) {
 }
 
 TEST_F(IntegrationTest, PUBLISH_PATH2) {
-  custom_interfaces::msg::Cone cone_to_send;
-  // Yellow Cones
-  cone_to_send.position.x = 1.414;
-  cone_to_send.position.y = -1.414;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
+  std::vector<Cone *> cone_array = {
+      new Cone(1, 1.414, -1.414),   new Cone(3, 3.184, 0.356),    new Cone(5, 4.954, 2.126),
+      new Cone(7, 6.724, 3.896),    new Cone(9, 8.494, 5.666),    new Cone(11, 10.264, 7.436),
+      new Cone(13, 12.034, 9.206),  new Cone(15, 13.804, 10.976), new Cone(17, 15.574, 12.746),
+      new Cone(19, 17.344, 14.516), new Cone(21, 19.114, 16.286), new Cone(23, 20.884, 18.056),
+      new Cone(0, -1.414, 1.414),   new Cone(2, 0.356, 3.184),    new Cone(4, 2.126, 4.954),
+      new Cone(6, 3.896, 6.724),    new Cone(8, 5.666, 8.494),    new Cone(10, 7.436, 10.264),
+      new Cone(12, 9.206, 12.034),  new Cone(14, 10.976, 13.804), new Cone(16, 12.746, 15.574),
+      new Cone(18, 14.516, 17.344), new Cone(20, 16.286, 19.114), new Cone(22, 18.056, 20.884)};
+  this->cone_array_msg = custom_interfaces_array_from_vector(cone_array);
 
-  cone_to_send.position.x = 3.184;
-  cone_to_send.position.y = 0.356;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 4.954;
-  cone_to_send.position.y = 2.126;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 6.724;
-  cone_to_send.position.y = 3.896;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 8.494;
-  cone_to_send.position.y = 5.666;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 10.264;
-  cone_to_send.position.y = 7.436;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 12.034;
-  cone_to_send.position.y = 9.206;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 13.804;
-  cone_to_send.position.y = 10.976;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 15.574;
-  cone_to_send.position.y = 12.746;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 17.344;
-  cone_to_send.position.y = 14.516;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 19.114;
-  cone_to_send.position.y = 16.286;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 20.884;
-  cone_to_send.position.y = 18.056;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  // Blue Cones
-
-  cone_to_send.position.x = -1.414;
-  cone_to_send.position.y = 1.414;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 0.356;
-  cone_to_send.position.y = 3.184;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 2.126;
-  cone_to_send.position.y = 4.954;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 3.896;
-  cone_to_send.position.y = 6.724;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 5.666;
-  cone_to_send.position.y = 8.494;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 7.436;
-  cone_to_send.position.y = 10.264;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 9.206;
-  cone_to_send.position.y = 12.034;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 10.976;
-  cone_to_send.position.y = 13.804;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 12.746;
-  cone_to_send.position.y = 15.574;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 14.516;
-  cone_to_send.position.y = 17.344;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 16.286;
-  cone_to_send.position.y = 19.114;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 18.056;
-  cone_to_send.position.y = 20.884;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
+  for (Cone *c : cone_array) {
+    delete c;
+  }
 
   custom_interfaces::msg::VehicleState vehicle_state;
   vehicle_state.position.x = 0;
@@ -349,23 +136,11 @@ TEST_F(IntegrationTest, PUBLISH_PATH2) {
   vehicle_state.theta = 0.785398;  // 45 degrees
   vehicle_state.linear_velocity = 0;
   vehicle_state.angular_velocity = 0;
-  vehicle_state_publisher_->publish(vehicle_state);
 
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Publishing cone array with size: %ld",
                cone_array_msg.cone_array.size());
-  // std::this_thread::sleep_for(std::chrono::seconds(3));
-  map_publisher->publish(cone_array_msg);  // send the cones
+  auto duration = run_nodes(cone_array_msg, vehicle_state);
 
-  // Add nodes to be executed
-  rclcpp::executors::MultiThreadedExecutor executor;
-  executor.add_node(locmap_sender);
-  executor.add_node(planning_test);
-  executor.add_node(control_receiver);
-
-  auto start_time = std::chrono::high_resolution_clock::now();
-  executor.spin();  // Execute nodes
-  auto end_time = std::chrono::high_resolution_clock::now();
-  auto duration = std::chrono::duration<double, std::milli>(end_time - start_time);
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
   for (const auto &p : received_path.pathpoint_array) {
     EXPECT_LE(p.y - p.x, 0.1);
@@ -376,128 +151,21 @@ TEST_F(IntegrationTest, PUBLISH_PATH2) {
 
 TEST_F(IntegrationTest, PUBLISH_PATH3) {
   custom_interfaces::msg::Cone cone_to_send;
-  // Blue Cones
-  cone_to_send.position.x = -1.414;
-  cone_to_send.position.y = -1.414;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
 
-  cone_to_send.position.x = -3.184;
-  cone_to_send.position.y = 0.356;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
+  std::vector<Cone *> cone_array = {
+      new Cone(0, -1.414, -1.414),   new Cone(2, -3.184, 0.356),    new Cone(4, -4.954, 2.126),
+      new Cone(6, -6.724, 3.896),    new Cone(8, -8.494, 5.666),    new Cone(10, -10.264, 7.436),
+      new Cone(12, -12.034, 9.206),  new Cone(14, -13.804, 10.976), new Cone(16, -15.574, 12.746),
+      new Cone(18, -17.344, 14.516), new Cone(20, -19.114, 16.286), new Cone(22, -20.884, 18.056),
+      new Cone(1, 1.414, 1.414),     new Cone(3, -0.356, 3.184),    new Cone(5, -2.126, 4.954),
+      new Cone(7, -3.896, 6.724),    new Cone(9, -5.666, 8.494),    new Cone(11, -7.436, 10.264),
+      new Cone(13, -9.206, 12.034),  new Cone(15, -10.976, 13.804), new Cone(17, -12.746, 15.574),
+      new Cone(19, -14.516, 17.344), new Cone(21, -16.286, 19.114), new Cone(23, -18.056, 20.884)};
+  this->cone_array_msg = custom_interfaces_array_from_vector(cone_array);
 
-  cone_to_send.position.x = -4.954;
-  cone_to_send.position.y = 2.126;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -6.724;
-  cone_to_send.position.y = 3.896;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -8.494;
-  cone_to_send.position.y = 5.666;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -10.264;
-  cone_to_send.position.y = 7.436;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -12.034;
-  cone_to_send.position.y = 9.206;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -13.804;
-  cone_to_send.position.y = 10.976;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -15.574;
-  cone_to_send.position.y = 12.746;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -17.344;
-  cone_to_send.position.y = 14.516;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -19.114;
-  cone_to_send.position.y = 16.286;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -20.884;
-  cone_to_send.position.y = 18.056;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  // Yellow Cones
-
-  cone_to_send.position.x = 1.414;
-  cone_to_send.position.y = 1.414;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -0.356;
-  cone_to_send.position.y = 3.184;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -2.126;
-  cone_to_send.position.y = 4.954;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -3.896;
-  cone_to_send.position.y = 6.724;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -5.666;
-  cone_to_send.position.y = 8.494;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -7.436;
-  cone_to_send.position.y = 10.264;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -9.206;
-  cone_to_send.position.y = 12.034;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -10.976;
-  cone_to_send.position.y = 13.804;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -12.746;
-  cone_to_send.position.y = 15.574;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -14.516;
-  cone_to_send.position.y = 17.344;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -16.286;
-  cone_to_send.position.y = 19.114;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -18.056;
-  cone_to_send.position.y = 20.884;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
+  for (Cone *c : cone_array) {
+    delete c;
+  }
 
   custom_interfaces::msg::VehicleState vehicle_state;
   vehicle_state.position.x = 0;
@@ -505,23 +173,11 @@ TEST_F(IntegrationTest, PUBLISH_PATH3) {
   vehicle_state.theta = 2.3561945;  // 135 degrees
   vehicle_state.linear_velocity = 0;
   vehicle_state.angular_velocity = 0;
-  vehicle_state_publisher_->publish(vehicle_state);
 
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Publishing cone array with size: %ld",
                cone_array_msg.cone_array.size());
-  // std::this_thread::sleep_for(std::chrono::seconds(3));
-  map_publisher->publish(cone_array_msg);  // send the cones
+  auto duration = run_nodes(cone_array_msg, vehicle_state);
 
-  // Add nodes to be executed
-  rclcpp::executors::MultiThreadedExecutor executor;
-  executor.add_node(locmap_sender);
-  executor.add_node(planning_test);
-  executor.add_node(control_receiver);
-
-  auto start_time = std::chrono::high_resolution_clock::now();
-  executor.spin();  // Execute nodes
-  auto end_time = std::chrono::high_resolution_clock::now();
-  auto duration = std::chrono::duration<double, std::milli>(end_time - start_time);
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
   for (const auto &p : received_path.pathpoint_array) {
     EXPECT_LE(p.y + p.x, 0.1);
@@ -531,129 +187,23 @@ TEST_F(IntegrationTest, PUBLISH_PATH3) {
 }
 
 TEST_F(IntegrationTest, PUBLISH_PATH4) {
-  custom_interfaces::msg::Cone cone_to_send;
-  // Yellow Cones
-  cone_to_send.position.x = -1.414;
-  cone_to_send.position.y = 1.414;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
+  std::vector<Cone *> cone_array = {new Cone(0, -1.414, 1.414),     new Cone(2, -3.184, -0.356),
+                                    new Cone(4, -4.954, -2.126),    new Cone(6, -6.724, -3.896),
+                                    new Cone(8, -8.494, -5.666),    new Cone(10, -10.264, -7.436),
+                                    new Cone(12, -12.034, -9.206),  new Cone(14, -13.804, -10.976),
+                                    new Cone(16, -15.574, -12.746), new Cone(18, -17.344, -14.516),
+                                    new Cone(20, -19.114, -16.286), new Cone(22, -20.884, -18.056),
+                                    new Cone(1, 1.414, -1.414),     new Cone(3, -0.356, -3.184),
+                                    new Cone(5, -2.126, -4.954),    new Cone(7, -3.896, -6.724),
+                                    new Cone(9, -5.666, -8.494),    new Cone(11, -7.436, -10.264),
+                                    new Cone(13, -9.206, -12.034),  new Cone(15, -10.976, -13.804),
+                                    new Cone(17, -12.746, -15.574), new Cone(19, -14.516, -17.344),
+                                    new Cone(21, -16.286, -19.114), new Cone(23, -18.056, -20.884)};
+  this->cone_array_msg = custom_interfaces_array_from_vector(cone_array);
 
-  cone_to_send.position.x = -3.184;
-  cone_to_send.position.y = -0.356;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -4.954;
-  cone_to_send.position.y = -2.126;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -6.724;
-  cone_to_send.position.y = -3.896;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -8.494;
-  cone_to_send.position.y = -5.666;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -10.264;
-  cone_to_send.position.y = -7.436;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -12.034;
-  cone_to_send.position.y = -9.206;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -13.804;
-  cone_to_send.position.y = -10.976;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -15.574;
-  cone_to_send.position.y = -12.746;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -17.344;
-  cone_to_send.position.y = -14.516;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -19.114;
-  cone_to_send.position.y = -16.286;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -20.884;
-  cone_to_send.position.y = -18.056;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  // Blue Cones
-
-  cone_to_send.position.x = 1.414;
-  cone_to_send.position.y = -1.414;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -0.356;
-  cone_to_send.position.y = -3.184;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -2.126;
-  cone_to_send.position.y = -4.954;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -3.896;
-  cone_to_send.position.y = -6.724;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -5.666;
-  cone_to_send.position.y = -8.494;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -7.436;
-  cone_to_send.position.y = -10.264;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -9.206;
-  cone_to_send.position.y = -12.034;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -10.976;
-  cone_to_send.position.y = -13.804;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -12.746;
-  cone_to_send.position.y = -15.574;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -14.516;
-  cone_to_send.position.y = -17.344;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -16.286;
-  cone_to_send.position.y = -19.114;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -18.056;
-  cone_to_send.position.y = -20.884;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
+  for (Cone *c : cone_array) {
+    delete c;
+  }
 
   custom_interfaces::msg::VehicleState vehicle_state;
   vehicle_state.position.x = 0;
@@ -661,23 +211,11 @@ TEST_F(IntegrationTest, PUBLISH_PATH4) {
   vehicle_state.theta = 3.92699;  // 225 degrees
   vehicle_state.linear_velocity = 0;
   vehicle_state.angular_velocity = 0;
-  vehicle_state_publisher_->publish(vehicle_state);
 
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Publishing cone array with size: %ld",
                cone_array_msg.cone_array.size());
-  // std::this_thread::sleep_for(std::chrono::seconds(3));
-  map_publisher->publish(cone_array_msg);  // send the cones
+  auto duration = run_nodes(cone_array_msg, vehicle_state);
 
-  // Add nodes to be executed
-  rclcpp::executors::MultiThreadedExecutor executor;
-  executor.add_node(locmap_sender);
-  executor.add_node(planning_test);
-  executor.add_node(control_receiver);
-
-  auto start_time = std::chrono::high_resolution_clock::now();
-  executor.spin();  // Execute nodes
-  auto end_time = std::chrono::high_resolution_clock::now();
-  auto duration = std::chrono::duration<double, std::milli>(end_time - start_time);
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
   for (const auto &p : received_path.pathpoint_array) {
     EXPECT_LE(p.y - p.x, 0.1);
@@ -687,129 +225,20 @@ TEST_F(IntegrationTest, PUBLISH_PATH4) {
 }
 
 TEST_F(IntegrationTest, PUBLISH_PATH5) {
-  custom_interfaces::msg::Cone cone_to_send;
-  // Blue Cones
-  cone_to_send.position.x = 1.414;
-  cone_to_send.position.y = 1.414;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
+  std::vector<Cone *> cone_array = {
+      new Cone(0, 1.414, 1.414),     new Cone(2, 3.184, -0.356),    new Cone(4, 4.954, -2.126),
+      new Cone(6, 6.724, -3.896),    new Cone(8, 8.494, -5.666),    new Cone(10, 10.264, -7.436),
+      new Cone(12, 12.034, -9.206),  new Cone(14, 13.804, -10.976), new Cone(16, 15.574, -12.746),
+      new Cone(18, 17.344, -14.516), new Cone(20, 19.114, -16.286), new Cone(22, 20.884, -18.056),
+      new Cone(1, -1.414, -1.414),   new Cone(3, 0.356, -3.184),    new Cone(5, 2.126, -4.954),
+      new Cone(7, 3.896, -6.724),    new Cone(9, 5.666, -8.494),    new Cone(11, 7.436, -10.264),
+      new Cone(13, 9.206, -12.034),  new Cone(15, 10.976, -13.804), new Cone(17, 12.746, -15.574),
+      new Cone(19, 14.516, -17.344), new Cone(21, 16.286, -19.114), new Cone(23, 18.056, -20.884)};
+  this->cone_array_msg = custom_interfaces_array_from_vector(cone_array);
 
-  cone_to_send.position.x = 3.184;
-  cone_to_send.position.y = -0.356;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 4.954;
-  cone_to_send.position.y = -2.126;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 6.724;
-  cone_to_send.position.y = -3.896;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 8.494;
-  cone_to_send.position.y = -5.666;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 10.264;
-  cone_to_send.position.y = -7.436;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 12.034;
-  cone_to_send.position.y = -9.206;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 13.804;
-  cone_to_send.position.y = -10.976;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 15.574;
-  cone_to_send.position.y = -12.746;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 17.344;
-  cone_to_send.position.y = -14.516;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 19.114;
-  cone_to_send.position.y = -16.286;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 20.884;
-  cone_to_send.position.y = -18.056;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  // Yellow Cones
-
-  cone_to_send.position.x = -1.414;
-  cone_to_send.position.y = -1.414;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 0.356;
-  cone_to_send.position.y = -3.184;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 2.126;
-  cone_to_send.position.y = -4.954;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 3.896;
-  cone_to_send.position.y = -6.724;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 5.666;
-  cone_to_send.position.y = -8.494;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 7.436;
-  cone_to_send.position.y = -10.264;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 9.206;
-  cone_to_send.position.y = -12.034;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 10.976;
-  cone_to_send.position.y = -13.804;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 12.746;
-  cone_to_send.position.y = -15.574;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 14.516;
-  cone_to_send.position.y = -17.344;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 16.286;
-  cone_to_send.position.y = -19.114;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 18.056;
-  cone_to_send.position.y = -20.884;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
+  for (Cone *c : cone_array) {
+    delete c;
+  }
 
   custom_interfaces::msg::VehicleState vehicle_state;
   vehicle_state.position.x = 0;
@@ -817,23 +246,11 @@ TEST_F(IntegrationTest, PUBLISH_PATH5) {
   vehicle_state.theta = 5.49779;  // 315 degrees
   vehicle_state.linear_velocity = 0;
   vehicle_state.angular_velocity = 0;
-  vehicle_state_publisher_->publish(vehicle_state);
 
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Publishing cone array with size: %ld",
                cone_array_msg.cone_array.size());
-  // std::this_thread::sleep_for(std::chrono::seconds(3));
-  map_publisher->publish(cone_array_msg);  // send the cones
+  auto duration = run_nodes(cone_array_msg, vehicle_state);
 
-  // Add nodes to be executed
-  rclcpp::executors::MultiThreadedExecutor executor;
-  executor.add_node(locmap_sender);
-  executor.add_node(planning_test);
-  executor.add_node(control_receiver);
-
-  auto start_time = std::chrono::high_resolution_clock::now();
-  executor.spin();  // Execute nodes
-  auto end_time = std::chrono::high_resolution_clock::now();
-  auto duration = std::chrono::duration<double, std::milli>(end_time - start_time);
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
   for (const auto &p : received_path.pathpoint_array) {
     EXPECT_LE(p.y + p.x, 0.1);
@@ -843,129 +260,18 @@ TEST_F(IntegrationTest, PUBLISH_PATH5) {
 }
 
 TEST_F(IntegrationTest, PUBLISH_PATH6) {
-  custom_interfaces::msg::Cone cone_to_send;
-  // Yellow Cones
-  cone_to_send.position.x = 2;
-  cone_to_send.position.y = 19;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
+  std::vector<Cone *> cone_array = {
+      new Cone(1, 2, 19),   new Cone(3, 2, 22),   new Cone(5, 2, 25),   new Cone(7, 2, 28),
+      new Cone(9, 2, 31),   new Cone(11, 2, 34),  new Cone(13, 2, 1),   new Cone(15, 2, 4),
+      new Cone(17, 2, 7),   new Cone(19, 2, 10),  new Cone(21, 2, 13),  new Cone(23, 2, 16),
+      new Cone(0, -2, 1),   new Cone(2, -2, 4),   new Cone(4, -2, 7),   new Cone(6, -2, 25),
+      new Cone(8, -2, 28),  new Cone(10, -2, 31), new Cone(12, -2, 34), new Cone(14, -2, 10),
+      new Cone(16, -2, 13), new Cone(18, -2, 16), new Cone(20, -2, 19), new Cone(22, -2, 22)};
+  this->cone_array_msg = custom_interfaces_array_from_vector(cone_array);
 
-  cone_to_send.position.x = 2;
-  cone_to_send.position.y = 22;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 2;
-  cone_to_send.position.y = 25;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 2;
-  cone_to_send.position.y = 28;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 2;
-  cone_to_send.position.y = 31;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 2;
-  cone_to_send.position.y = 34;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 2;
-  cone_to_send.position.y = 1;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 2;
-  cone_to_send.position.y = 4;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 2;
-  cone_to_send.position.y = 7;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 2;
-  cone_to_send.position.y = 10;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 2;
-  cone_to_send.position.y = 13;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = 2;
-  cone_to_send.position.y = 16;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  // Blue Cones
-
-  cone_to_send.position.x = -2;
-  cone_to_send.position.y = 1;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -2;
-  cone_to_send.position.y = 4;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -2;
-  cone_to_send.position.y = 7;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -2;
-  cone_to_send.position.y = 25;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -2;
-  cone_to_send.position.y = 28;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -2;
-  cone_to_send.position.y = 31;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -2;
-  cone_to_send.position.y = 34;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -2;
-  cone_to_send.position.y = 10;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -2;
-  cone_to_send.position.y = 13;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -2;
-  cone_to_send.position.y = 16;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -2;
-  cone_to_send.position.y = 19;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
-
-  cone_to_send.position.x = -2;
-  cone_to_send.position.y = 22;
-  cone_to_send.color = "blue_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
+  for (Cone *c : cone_array) {
+    delete c;
+  }
 
   custom_interfaces::msg::VehicleState vehicle_state;
   vehicle_state.position.x = 0;
@@ -973,23 +279,11 @@ TEST_F(IntegrationTest, PUBLISH_PATH6) {
   vehicle_state.theta = 1.5708;  // 90 degrees
   vehicle_state.linear_velocity = 0;
   vehicle_state.angular_velocity = 0;
-  vehicle_state_publisher_->publish(vehicle_state);
 
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Publishing cone array with size: %ld",
                cone_array_msg.cone_array.size());
-  // std::this_thread::sleep_for(std::chrono::seconds(3));
-  map_publisher->publish(cone_array_msg);  // send the cones
+  auto duration = run_nodes(cone_array_msg, vehicle_state);
 
-  // Add nodes to be executed
-  rclcpp::executors::MultiThreadedExecutor executor;
-  executor.add_node(locmap_sender);
-  executor.add_node(planning_test);
-  executor.add_node(control_receiver);
-
-  auto start_time = std::chrono::high_resolution_clock::now();
-  executor.spin();  // Execute nodes
-  auto end_time = std::chrono::high_resolution_clock::now();
-  auto duration = std::chrono::duration<double, std::milli>(end_time - start_time);
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
   for (const auto &p : received_path.pathpoint_array) {
     EXPECT_LE(fabs(p.x), 0.1);
@@ -1008,23 +302,12 @@ TEST_F(IntegrationTest, PUBLISH_PATH7) {
   vehicle_state.theta = 1.5708;  // 90 degrees
   vehicle_state.linear_velocity = 0;
   vehicle_state.angular_velocity = 0;
-  vehicle_state_publisher_->publish(vehicle_state);
 
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Publishing cone array with size: %ld",
                cone_array_msg.cone_array.size());
 
-  map_publisher->publish(cone_array_msg);  // send the cones
+  auto duration = run_nodes(this->cone_array_msg, vehicle_state);
 
-  // Add nodes to be executed
-  rclcpp::executors::MultiThreadedExecutor executor;
-  executor.add_node(locmap_sender);
-  executor.add_node(planning_test);
-  executor.add_node(control_receiver);
-
-  auto start_time = std::chrono::high_resolution_clock::now();
-  executor.spin();  // Execute nodes
-  auto end_time = std::chrono::high_resolution_clock::now();
-  auto duration = std::chrono::duration<double, std::milli>(end_time - start_time);
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()), (long unsigned int)0);
 }
@@ -1043,23 +326,11 @@ TEST_F(IntegrationTest, PUBLISH_PATH8) {
   vehicle_state.theta = 1.5708;  // 90 degrees
   vehicle_state.linear_velocity = 0;
   vehicle_state.angular_velocity = 0;
-  vehicle_state_publisher_->publish(vehicle_state);
 
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Publishing cone array with size: %ld",
                cone_array_msg.cone_array.size());
-  // std::this_thread::sleep_for(std::chrono::seconds(3));
-  map_publisher->publish(cone_array_msg);  // send the cones
+  auto duration = run_nodes(cone_array_msg, vehicle_state);
 
-  // Add nodes to be executed
-  rclcpp::executors::MultiThreadedExecutor executor;
-  executor.add_node(locmap_sender);
-  executor.add_node(planning_test);
-  executor.add_node(control_receiver);
-
-  auto start_time = std::chrono::high_resolution_clock::now();
-  executor.spin();  // Execute nodes
-  auto end_time = std::chrono::high_resolution_clock::now();
-  auto duration = std::chrono::duration<double, std::milli>(end_time - start_time);
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()), (long unsigned int)0);
 }
