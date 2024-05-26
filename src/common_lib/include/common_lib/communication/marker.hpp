@@ -101,8 +101,6 @@ visualization_msgs::msg::MarkerArray marker_array_from_structure_array(
     marker.color.b = color_array[2];
     marker.color.a = color_array[3];
 
-    marker.lifetime = rclcpp::Duration(std::chrono::duration<double>(5));
-
     marker_array.markers.push_back(marker);
   }
 
@@ -167,8 +165,6 @@ visualization_msgs::msg::Marker line_marker_from_structure_array(
 
     marker.points.push_back(point);
   }
-
-  marker.lifetime = rclcpp::Duration(std::chrono::duration<double>(5));
 
   return marker;
 }

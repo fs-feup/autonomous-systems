@@ -229,7 +229,7 @@ std::vector<PathPoint *> PathSmoothing::splineSmoother(int precision, int order,
   gsl_multifit_linear_free(mw);
   gsl_multifit_linear_free(mw2);
 
-  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "END splneSmoother with %i points",
+  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "END splineSmoother with %i points",
                static_cast<int>(final_path.size()));
 
   // To access spline points uncomment these lines

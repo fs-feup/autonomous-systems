@@ -19,9 +19,9 @@ PacSimAdapter::PacSimAdapter(Planning* planning) : Adapter(planning) {
 }
 
 void PacSimAdapter::timer_callback() {
-  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Planning pacsim timer callback");
+  RCLCPP_DEBUG(this->node->get_logger(), "Planning pacsim timer callback");
   if (tf_buffer_->canTransform("map", "car", tf2::TimePointZero)) {
-    RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Planning recieved already recieved first pose\n");
+    RCLCPP_DEBUG(this->node->get_logger(), "Planning recieved already recieved first pose\n");
     custom_interfaces::msg::VehicleState pose;
     geometry_msgs::msg::TransformStamped t =
         tf_buffer_->lookupTransform("map", "car", tf2::TimePointZero);

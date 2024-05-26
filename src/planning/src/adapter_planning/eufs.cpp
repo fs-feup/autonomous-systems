@@ -81,7 +81,7 @@ visualization_msgs::msg::MarkerArray marker_array_from_cone_array_w_covariance(
 
 EufsAdapter::EufsAdapter(Planning* planning) : Adapter(planning) {
   if (this->node->using_simulated_se_) {
-    RCLCPP_INFO(this->node->get_logger(), "Planning : EUFS using simulated State Estimation");
+    RCLCPP_INFO(this->node->get_logger(), "EUFS using simulated State Estimation");
     this->eufs_pose_subscription_ = this->node->create_subscription<eufs_msgs::msg::CarState>(
         "/odometry_integration/car_state", 10,
         std::bind(&EufsAdapter::pose_callback, this, std::placeholders::_1));
@@ -138,7 +138,7 @@ void EufsAdapter::pose_callback(const eufs_msgs::msg::CarState& msg) {
 }
 
 void EufsAdapter::finish() {
-  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Finish undefined for Eufs\n");
+  RCLCPP_DEBUG(this->node->get_logger(), "Finish undefined for Eufs\n");
 }
 
 void EufsAdapter::map_callback(const eufs_msgs::msg::ConeArrayWithCovariance& msg) {
