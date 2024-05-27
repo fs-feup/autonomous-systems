@@ -1,0 +1,32 @@
+<map id="Point::euclidean_distance" name="Point::euclidean_distance">
+<area shape="rect" id="Node000001" title=" " alt="" coords="614,244,783,269"/>
+<area shape="rect" id="Node000002" href="$dc/dde/class_pure_pursuit.html#a028647f1a2c9ba1d5fea2f3b7e3448c0" title="Calculate alpha (angle between the vehicle and lookahead point)" alt="" coords="419,161,566,202"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="646,240,550,205,552,200,647,235"/>
+<area shape="rect" id="Node000003" href="$dc/dde/class_pure_pursuit.html#a87ccde6a5181801f14f87d5e759fbc1a" title="Pure Pursuit control law." alt="" coords="209,5,371,46"/>
+<area shape="poly" id="edge10_Node000001_Node000003" title=" " alt="" coords="670,235,623,194,565,152,513,121,470,101,370,60,344,49,346,44,372,55,472,96,515,117,568,147,626,190,674,231"/>
+<area shape="rect" id="Node000011" href="$d9/da5/class_point_solver.html#a35306e00a29e6cacb0a768df7f1e9d30" title="Find the closest point on the path." alt="" coords="426,311,559,351"/>
+<area shape="poly" id="edge11_Node000001_Node000011" title=" " alt="" coords="647,277,552,313,550,308,646,272"/>
+<area shape="rect" id="Node000013" href="$d9/da5/class_point_solver.html#a8603758d68585bba844ffbdaabbb0c26" title="Update Lookahead point." alt="" coords="426,412,559,453"/>
+<area shape="poly" id="edge14_Node000001_Node000013" title=" " alt="" coords="673,281,520,414,516,409,669,277"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="465,151,423,105,369,60,350,49,353,44,373,55,426,101,469,148"/>
+<area shape="rect" id="Node000006" href="$dd/d88/pp__test_8cpp.html#a1ec7089f8e844e5c955b89854b34cdc9" title="Test PurePursuit &#45; calculate_alpha() typical angle &#45; path point left." alt="" coords="263,70,317,96"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="449,155,411,131,370,109,316,92,318,86,372,105,414,126,452,150"/>
+<area shape="rect" id="Node000007" href="$dd/d88/pp__test_8cpp.html#a4e77a0f3d3da35627de29e1edf47ef11" title="Test PurePursuit &#45; calculate_alpha() typical angle &#45; path point right." alt="" coords="263,120,317,145"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="403,163,317,141,318,136,404,158"/>
+<area shape="rect" id="Node000008" href="$dd/d88/pp__test_8cpp.html#a3ab5b31ec6f9af40e97816c2f98a1346" title="Test PurePursuit &#45; calculate_alpha() 90 degrees angle." alt="" coords="263,169,317,195"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="403,184,317,184,317,179,403,179"/>
+<area shape="rect" id="Node000009" href="$dd/d88/pp__test_8cpp.html#a9a240517e306e0820a2a08e4c96009d3" title="Test PurePursuit &#45; calculate_alpha() 0 degrees angle." alt="" coords="263,218,317,244"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="404,206,318,227,317,222,403,201"/>
+<area shape="rect" id="Node000010" href="$dd/d88/pp__test_8cpp.html#ae68834f79cf7d46aa148126f41c81571" title="Test PurePursuit &#45; calculate_alpha() 180 degrees angle." alt="" coords="263,268,317,293"/>
+<area shape="poly" id="edge9_Node000002_Node000010" title=" " alt="" coords="452,213,414,237,372,259,318,277,316,272,370,254,411,232,449,209"/>
+<area shape="rect" id="Node000004" href="$d7/d49/class_control.html#a4953afbe68bf1d7a023972985c8083d6" title="Publishes the steering angle to the car based on the path and pose using cache." alt="" coords="5,318,161,344"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="213,57,211,60,183,91,159,126,123,201,101,270,89,318,84,317,96,269,118,199,154,123,179,88,207,56,209,53"/>
+<area shape="rect" id="Node000005" href="$dd/d88/pp__test_8cpp.html#a2ac7920b349c45c0eb6e7e70be3ed660" title="Test PurePursuit &#45; pp_steering_control_law()" alt="" coords="56,13,110,39"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="193,28,110,28,110,23,193,23"/>
+<area shape="poly" id="edge12_Node000011_Node000004" title=" " alt="" coords="411,334,161,334,161,328,411,328"/>
+<area shape="rect" id="Node000012" href="$d8/d8c/psolver__test_8cpp.html#a8d74cb064ec790a0f3d4db3ab2cd4172" title="Test Point Solver &#45; update_closest_point()" alt="" coords="263,369,317,395"/>
+<area shape="poly" id="edge13_Node000011_Node000012" title=" " alt="" coords="412,354,318,378,317,372,411,349"/>
+<area shape="poly" id="edge15_Node000013_Node000004" title=" " alt="" coords="410,437,312,431,259,423,208,410,176,396,146,379,99,346,102,342,148,375,178,391,210,404,260,418,313,426,411,432"/>
+<area shape="rect" id="Node000014" href="$d8/d8c/psolver__test_8cpp.html#aa527f0a4d89eafe54c175d40ef51193a" title="Test Point Solver &#45; update_lookahead_point()" alt="" coords="263,470,317,496"/>
+<area shape="poly" id="edge16_Node000013_Node000014" title=" " alt="" coords="412,455,318,479,317,474,411,450"/>
+</map>

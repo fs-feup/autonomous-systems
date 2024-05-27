@@ -1,0 +1,9 @@
+<map id="PurePursuit::check_limits" name="PurePursuit::check_limits">
+<area shape="rect" id="Node000001" title=" " alt="" coords="419,23,549,64"/>
+<area shape="rect" id="Node000002" href="$dc/dde/class_pure_pursuit.html#a87ccde6a5181801f14f87d5e759fbc1a" title="Pure Pursuit control law." alt="" coords="209,23,371,64"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="403,46,371,46,371,41,403,41"/>
+<area shape="rect" id="Node000003" href="$d7/d49/class_control.html#a4953afbe68bf1d7a023972985c8083d6" title="Publishes the steering angle to the car based on the path and pose using cache." alt="" coords="5,5,161,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="193,34,161,30,161,25,194,29"/>
+<area shape="rect" id="Node000004" href="$dd/d88/pp__test_8cpp.html#a2ac7920b349c45c0eb6e7e70be3ed660" title="Test PurePursuit &#45; pp_steering_control_law()" alt="" coords="56,55,110,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="194,57,111,67,110,62,193,52"/>
+</map>

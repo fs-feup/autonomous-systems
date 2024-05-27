@@ -123,7 +123,7 @@ var NAVTREE =
       [ "File List", "files.html", "files_dup" ],
       [ "File Members", "globals.html", [
         [ "All", "globals.html", "globals_dup" ],
-        [ "Functions", "globals_func.html", null ],
+        [ "Functions", "globals_func.html", "globals_func" ],
         [ "Variables", "globals_vars.html", null ],
         [ "Typedefs", "globals_type.html", null ],
         [ "Enumerations", "globals_enum.html", null ],
@@ -136,14 +136,15 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"d2/d23/class_cluster.html#a6915d426d1a6de5038c45553e0549630",
-"d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md52",
-"d6/d5b/md_src_2ekf__state__est_2_r_e_a_d_m_e.html#autotoc_md16",
-"d8/d4a/structcommon__lib_1_1structures_1_1_pose.html",
-"d9/de5/namespaceacceleration__mapper.html",
-"dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a12fbe311d1daef6b0b9547ae506bc0b3",
-"dd/d8b/files_8cpp.html#a440bc5364e11c37c13f14f7a0d1c7208",
-"dir_0617ceac5f25b5039ecf4448deaf5712.html"
+"d1/df1/class_vehicle_adapter.html#ae09fd9b4776ada18091ca83952c060c0",
+"d3/da4/planning_2include_2adapter__planning_2adapter_8hpp.html",
+"d6/d4a/planning_2src_2adapter__planning_2adapter_8cpp.html",
+"d7/de0/structcommon__lib_1_1sensor__data_1_1_wheel_encoder_data.html#a2734a132d739e5093c6e0ce0f2789b9a",
+"d9/db0/structcommon__lib_1_1structures_1_1_path_point.html#aea4268f093cebd0b28c2ee12c0855b02",
+"db/ddb/planning_2include_2utils_2color_8hpp.html#a76f863e71ce8e67d1ef1850029f93b0aaad4a85d77dd807da987be7cb54649a6d",
+"dc/de2/mission__logic_8hpp.html#adc523f54f1498f443c97303976f40140a3805508c91ba0e8c66494b9fb9a96c4f",
+"de/da7/namespacerandom__points.html",
+"functions_func_t.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['kd_0',['Kd',['../d6/d5a/class_p_i_d.html#a105396cb94f3ec2f352b3d116529112b',1,'PID']]],
-  ['ki_1',['Ki',['../d6/d5a/class_p_i_d.html#ab48eeec8704e5d517a64b91fbe4fba57',1,'PID']]],
-  ['kp_2',['Kp',['../d6/d5a/class_p_i_d.html#a67f2b50c209d4de6a20c710b33b62f0e',1,'PID']]]
+  ['k_5f_0',['k_',['../d7/d49/class_control.html#a805a396ee016b6a318ad064f06f9b2b3',1,'Control']]],
+  ['kd_1',['Kd',['../d6/d5a/class_p_i_d.html#ae5dabe1953dd6c4aa28e5cb03f71b9e3',1,'PID']]],
+  ['ki_2',['Ki',['../d6/d5a/class_p_i_d.html#a78d1833549e5c05ca4e94d07129ac4e7',1,'PID']]],
+  ['kp_3',['Kp',['../d6/d5a/class_p_i_d.html#a482d124af49dcabfa1d9542066ead626',1,'PID']]]
 ];

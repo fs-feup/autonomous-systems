@@ -1,0 +1,7 @@
+<map id="VehicleAdapter::VehicleAdapter" name="VehicleAdapter::VehicleAdapter">
+<area shape="rect" id="Node000001" title="Constructor for TestAdapter class." alt="" coords="5,5,209,31"/>
+<area shape="rect" id="Node000002" href="$de/d07/class_perception.html#afaf42fed2ffa3ed23d5c636bf3fdadd7" title="Callback function for the PointCloud2 subscription." alt="" coords="257,5,457,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="209,16,241,16,241,21,209,21"/>
+<area shape="rect" id="Node000003" href="$de/d07/class_perception.html#a0ed87dbcc41d99a6c40f6363afdebce4" title="Publishes information about clusters (cones) using a custom ROS2 message." alt="" coords="505,5,672,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="457,16,489,16,489,21,457,21"/>
+</map>

@@ -1,5 +1,6 @@
 var class_eufs_adapter =
 [
+    [ "EufsAdapter", "d0/d1d/class_eufs_adapter.html#a387a74aa3c14553cdde6029f213b30ab", null ],
     [ "EufsAdapter", "d0/d1d/class_eufs_adapter.html#a01050294fc148f252fa283d2828a4613", null ],
     [ "EufsAdapter", "d0/d1d/class_eufs_adapter.html#abb01ee20051497b1f408f5e7168aa8a4", null ],
     [ "EufsAdapter", "d0/d1d/class_eufs_adapter.html#a17a85a1ef1c217ae4bef7b4244e17fdb", null ],
@@ -11,14 +12,18 @@ var class_eufs_adapter =
     [ "mission_state_callback", "d0/d1d/class_eufs_adapter.html#a9fec42bb75cef0264ee6f4a3a99000fe", null ],
     [ "perception_detections_subscription_callback", "d0/d1d/class_eufs_adapter.html#ad7b2adb066e44e9d5fee49490d3eda3a", null ],
     [ "pose_callback", "d0/d1d/class_eufs_adapter.html#ac145b9dae6abd6c7b4e6582c622faf0b", null ],
+    [ "publish_cmd", "d0/d1d/class_eufs_adapter.html#a3b651290afda6ce152e7fc625302e533", null ],
     [ "set_mission_state", "d0/d1d/class_eufs_adapter.html#a3179cfc404f49964f81464b56c6550f8", null ],
+    [ "vehicle_state_callback", "d0/d1d/class_eufs_adapter.html#acf7089ed69eb7488fae4904f66f1e2b8", null ],
     [ "wheel_speeds_subscription_callback", "d0/d1d/class_eufs_adapter.html#a21f75aa612f5b12f626e0ebe6ecc4e5b", null ],
     [ "_eufs_wheel_speeds_subscription_", "d0/d1d/class_eufs_adapter.html#acf0613f223103939524bdea6acf6ef49", null ],
     [ "_perception_detections_subscription_", "d0/d1d/class_eufs_adapter.html#a8dd2963316405259a925a7775276c121", null ],
+    [ "control_pub_", "d0/d1d/class_eufs_adapter.html#a97bb7b79d81ca25a70d9ae91c56c2039", null ],
     [ "eufs_ebs_client_", "d0/d1d/class_eufs_adapter.html#a4228e78d153da0050b8f4869c9911677", null ],
     [ "eufs_map_publisher_", "d0/d1d/class_eufs_adapter.html#a1a28ba2c0a987f7911082310e1309274", null ],
     [ "eufs_map_subscription_", "d0/d1d/class_eufs_adapter.html#aea5996d032c32e051b0ed5ff9451e13c", null ],
     [ "eufs_mission_state_client_", "d0/d1d/class_eufs_adapter.html#a5cd360cf2c2e31a921ab97cb42b083e6", null ],
     [ "eufs_pose_subscription_", "d0/d1d/class_eufs_adapter.html#a91187e708588875c32c54d43e233c052", null ],
-    [ "eufs_state_subscription_", "d0/d1d/class_eufs_adapter.html#aff83aed83227bb2bc53cb2618a881f86", null ]
+    [ "eufs_state_subscription_", "d0/d1d/class_eufs_adapter.html#aff83aed83227bb2bc53cb2618a881f86", null ],
+    [ "vehicle_state_sub_", "d0/d1d/class_eufs_adapter.html#afe51c85dc293e49acdb9d976f75ea357", null ]
 ];

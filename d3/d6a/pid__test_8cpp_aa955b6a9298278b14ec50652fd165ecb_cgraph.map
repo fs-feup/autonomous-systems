@@ -1,17 +1,17 @@
 <map id="TEST" name="TEST">
 <area shape="rect" id="Node000001" title="Test PID class &#45; update Test all the methods." alt="" coords="5,129,60,155"/>
-<area shape="rect" id="Node000002" href="$d6/d5a/class_p_i_d.html#a9d748479c3c4fb64765c0ca886c88e92" title="Calculate the output value." alt="" coords="108,129,196,155"/>
+<area shape="rect" id="Node000002" href="$d6/d5a/class_p_i_d.html#a6b2e0ee3c86f4106bccac154b8baf65e" title="Calculate the output value." alt="" coords="108,129,196,155"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,140,92,140,92,145,60,145"/>
-<area shape="rect" id="Node000003" href="$d6/d5a/class_p_i_d.html#a1c91b40d887b0edfe0bdaa4c260c9406" title="Anti&#45;wind&#45;up via dynamic integrator clamping." alt="" coords="286,5,402,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="159,127,192,84,216,60,243,40,270,28,272,33,245,44,219,64,196,87,164,130"/>
-<area shape="rect" id="Node000004" href="$d6/d5a/class_p_i_d.html#a97c3f8ac6b1826d306f886bb088a22ff" title="Calculate the derivative term (derivative on measurement)" alt="" coords="250,55,439,80"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="172,127,205,107,243,89,261,83,263,88,245,94,207,112,175,131"/>
-<area shape="rect" id="Node000005" href="$d6/d5a/class_p_i_d.html#aa7c1ae59795351d098403900cd043c8a" title="Calculate the error signal." alt="" coords="280,104,408,130"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="196,134,264,125,265,130,197,139"/>
-<area shape="rect" id="Node000006" href="$d6/d5a/class_p_i_d.html#ac220bbb60e7bdd5bba14df5bd7aa3976" title="Calculate the integral term." alt="" coords="257,153,431,179"/>
-<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="197,145,242,151,241,156,196,150"/>
-<area shape="rect" id="Node000007" href="$d6/d5a/class_p_i_d.html#ab1d53386cc6bd977039e9cad0ea2d88e" title="Calculate the proportional term." alt="" coords="244,203,444,228"/>
-<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="175,153,208,172,245,189,264,195,262,201,243,194,205,176,173,158"/>
-<area shape="rect" id="Node000008" href="$d6/d5a/class_p_i_d.html#acb3c398cbb425f0b8260b16400325199" title="Compute the output value and apply limits." alt="" coords="275,252,413,278"/>
-<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="164,154,196,196,219,219,245,239,262,246,259,251,243,243,216,223,192,200,159,157"/>
+<area shape="rect" id="Node000003" href="$d6/d5a/class_p_i_d.html#aa587fab53433af6127bbc5c7fdf50a35" title="Anti&#45;wind&#45;up via dynamic integrator clamping." alt="" coords="286,5,411,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="159,127,192,84,215,60,243,40,270,28,272,33,245,44,219,64,196,87,164,130"/>
+<area shape="rect" id="Node000004" href="$d6/d5a/class_p_i_d.html#a5748127c7eb3f374fd599576a822abcd" title="Calculate the derivative term (derivative on measurement)" alt="" coords="250,55,447,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="172,126,205,107,243,89,262,82,264,87,245,94,207,112,175,131"/>
+<area shape="rect" id="Node000005" href="$d6/d5a/class_p_i_d.html#abbd48a33a97a7dbc49e75050bef0146c" title="Calculate the error signal." alt="" coords="281,104,415,130"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="196,134,265,125,266,130,197,139"/>
+<area shape="rect" id="Node000006" href="$d6/d5a/class_p_i_d.html#a05352c1a64fe0e13588291ccf450bace" title="Calculate the integral term." alt="" coords="257,153,440,179"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="197,145,241,150,241,156,196,150"/>
+<area shape="rect" id="Node000007" href="$d6/d5a/class_p_i_d.html#afeb910407a0ec97035fd19f97cbfae1c" title="Calculate the proportional term." alt="" coords="244,203,452,228"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="175,153,208,172,245,189,264,195,262,200,243,194,205,176,173,158"/>
+<area shape="rect" id="Node000008" href="$d6/d5a/class_p_i_d.html#a5a8397dc4b3e36d1db9ea2f1b8fb91a4" title="Compute the output value and apply limits." alt="" coords="277,252,419,278"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="164,154,196,196,219,219,245,239,264,247,261,252,243,243,216,223,192,200,159,157"/>
 </map>

@@ -1,29 +1,26 @@
 <map id="VehicleAdapter" name="VehicleAdapter">
-<area shape="rect" id="Node000001" title="Adapter class for Vehicle purposes." alt="" coords="311,1247,511,1702"/>
-<area shape="rect" id="Node000002" href="$d3/d7f/class_adapter.html" title="Adapter class for coordinating communication between different modes and Control module." alt="" coords="319,851,503,1177"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="396,1191,396,1247,391,1247,391,1191"/>
-<area shape="poly" id="edge15_Node000001_Node000002" title=" " alt="" coords="414,1191,414,1247,409,1247,409,1191"/>
-<area shape="poly" id="edge16_Node000001_Node000002" title=" " alt="" coords="432,1191,432,1247,427,1247,426,1191"/>
-<area shape="rect" id="Node000003" href="$d7/d49/class_control.html" title="Class responsible for the control of the car." alt="" coords="141,1372,287,1577"/>
-<area shape="poly" id="edge4_Node000003_Node000002" title=" " alt="" coords="321,1107,287,1152,258,1202,244,1239,234,1278,221,1356,216,1355,228,1277,239,1237,254,1200,282,1149,317,1103"/>
-<area shape="rect" id="Node000007" href="$d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car." alt="" coords="547,1240,719,1709"/>
-<area shape="poly" id="edge12_Node000007_Node000002" title=" " alt="" coords="452,1175,477,1214,488,1222,500,1225,512,1229,525,1238,538,1252,534,1256,522,1242,510,1234,498,1231,486,1227,473,1217,447,1178"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="246,1371,297,1239,319,1190,323,1193,302,1241,251,1373"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="326,115,411,181"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="343,194,305,268,287,310,273,354,243,495,221,639,208,784,201,925,198,1059,200,1180,208,1372,203,1372,194,1180,193,1059,195,925,203,784,216,639,237,494,267,353,282,309,300,265,339,192"/>
-<area shape="rect" id="Node000005" href="$de/d07/class_perception.html" title="Node for perception tasks, such as ground removal and cone detection." alt="" coords="282,438,455,704"/>
-<area shape="poly" id="edge6_Node000005_Node000004" title=" " alt="" coords="371,196,371,439,366,439,366,196"/>
-<area shape="poly" id="edge9_Node000007_Node000004" title=" " alt="" coords="397,192,435,266,470,353,502,467,530,585,574,822,603,1046,622,1240,617,1240,598,1047,568,823,525,586,497,469,465,355,430,268,393,195"/>
-<area shape="poly" id="edge5_Node000002_Node000005" title=" " alt="" coords="384,703,397,834,391,834,379,704"/>
-<area shape="rect" id="Node000006" href="$d2/d8d/class_plane.html" title="The Plane class represents a 3D plane defined by its equation ax + by + cz + d = 0." alt="" coords="5,5,164,291"/>
-<area shape="poly" id="edge7_Node000005_Node000006" title=" " alt="" coords="166,265,275,426,270,429,162,268"/>
-<area shape="poly" id="edge8_Node000002_Node000007" title=" " alt="" coords="560,1241,542,1202,510,1147,515,1144,547,1199,565,1239"/>
-<area shape="rect" id="Node000008" href="$d3/da1/class_local_path_planner.html" title="LocalPathPlanner class for generating local paths." alt="" coords="672,961,807,1067"/>
-<area shape="poly" id="edge10_Node000007_Node000008" title=" " alt="" coords="730,1067,693,1224,688,1223,725,1066"/>
-<area shape="rect" id="Node000009" href="$d6/d2c/class_track.html" title="Track class." alt="" coords="670,354,809,788"/>
-<area shape="poly" id="edge11_Node000008_Node000009" title=" " alt="" coords="742,788,742,944,737,944,737,788"/>
-<area shape="rect" id="Node000010" href="$d8/d11/struct_pose.html" title=" " alt="" coords="849,961,933,1067"/>
-<area shape="poly" id="edge13_Node000007_Node000010" title=" " alt="" coords="879,1067,854,1139,819,1217,777,1287,731,1354,727,1351,773,1284,814,1214,849,1137,874,1065"/>
-<area shape="rect" id="Node000011" href="$d1/d26/struct_position.html" title=" " alt="" coords="833,498,985,644"/>
-<area shape="poly" id="edge14_Node000010_Node000011" title=" " alt="" coords="909,644,897,945,891,944,903,643"/>
+<area shape="rect" id="Node000001" title="Adapter class for Vehicle purposes." alt="" coords="5,1240,205,1794"/>
+<area shape="rect" id="Node000002" href="$d3/d7f/class_adapter.html" title="Adapter class for coordinating communication between different modes and Control module." alt="" coords="13,851,197,1177"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="82,1191,81,1240,76,1240,77,1191"/>
+<area shape="poly" id="edge12_Node000001_Node000002" title=" " alt="" coords="99,1191,99,1240,94,1240,94,1191"/>
+<area shape="poly" id="edge13_Node000001_Node000002" title=" " alt="" coords="117,1191,117,1240,112,1240,111,1191"/>
+<area shape="poly" id="edge14_Node000001_Node000002" title=" " alt="" coords="134,1191,135,1240,130,1240,129,1191"/>
+<area shape="rect" id="Node000006" href="$d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car." alt="" coords="263,1282,435,1752"/>
+<area shape="poly" id="edge9_Node000006_Node000002" title=" " alt="" coords="158,1175,183,1214,192,1221,200,1225,209,1230,219,1238,257,1289,252,1292,215,1241,207,1234,198,1230,189,1226,179,1217,154,1178"/>
+<area shape="rect" id="Node000003" href="$de/d07/class_perception.html" title="Node for perception tasks, such as ground removal and cone detection." alt="" coords="43,438,216,704"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="125,703,118,834,112,834,120,703"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="385,115,471,181"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="383,192,309,265,270,309,234,355,186,440,181,437,230,352,265,305,305,261,379,188"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="472,190,528,262,554,306,573,353,608,474,631,580,642,675,643,765,633,855,614,950,587,1056,551,1178,529,1238,501,1296,438,1402,433,1399,496,1294,524,1236,545,1176,581,1054,609,949,628,854,638,765,637,675,626,581,603,476,568,355,549,308,523,265,467,193"/>
+<area shape="rect" id="Node000005" href="$d2/d8d/class_plane.html" title="The Plane class represents a 3D plane defined by its equation ax + by + cz + d = 0." alt="" coords="50,5,209,291"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="132,290,132,421,127,421,127,290"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="284,1284,248,1202,205,1134,210,1131,253,1199,289,1281"/>
+<area shape="rect" id="Node000007" href="$d3/da1/class_local_path_planner.html" title="LocalPathPlanner class for generating local paths." alt="" coords="270,961,405,1067"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="341,1066,346,1266,341,1266,336,1067"/>
+<area shape="rect" id="Node000008" href="$d6/d2c/class_track.html" title="Track class." alt="" coords="244,354,383,788"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="328,788,336,944,331,945,322,788"/>
+<area shape="rect" id="Node000009" href="$de/dec/class_pose.html" title=" " alt="" coords="445,891,536,1137"/>
+<area shape="poly" id="edge10_Node000006_Node000009" title=" " alt="" coords="481,1137,465,1216,443,1291,438,1289,460,1215,476,1136"/>
+<area shape="rect" id="Node000010" href="$d1/d26/struct_position.html" title=" " alt="" coords="407,498,559,644"/>
+<area shape="poly" id="edge11_Node000009_Node000010" title=" " alt="" coords="487,644,491,875,485,875,481,644"/>
 </map>

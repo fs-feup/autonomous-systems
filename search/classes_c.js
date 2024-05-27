@@ -12,6 +12,9 @@ var searchData=
   ['pid_9',['PID',['../d6/d5a/class_p_i_d.html',1,'']]],
   ['plane_10',['Plane',['../d2/d8d/class_plane.html',1,'']]],
   ['planning_11',['Planning',['../d9/db5/class_planning.html',1,'']]],
-  ['pose_12',['pose',['../d8/d4a/structcommon__lib_1_1structures_1_1_pose.html',1,'common_lib::structures::Pose'],['../d8/d11/struct_pose.html',1,'Pose']]],
-  ['position_13',['position',['../dc/d1b/structcommon__lib_1_1structures_1_1_position.html',1,'common_lib::structures::Position'],['../d1/d26/struct_position.html',1,'Position']]]
+  ['point_12',['Point',['../d0/d69/class_point.html',1,'']]],
+  ['pointsolver_13',['PointSolver',['../d9/da5/class_point_solver.html',1,'']]],
+  ['pose_14',['pose',['../d8/d4a/structcommon__lib_1_1structures_1_1_pose.html',1,'common_lib::structures::Pose'],['../de/dec/class_pose.html',1,'Pose']]],
+  ['position_15',['position',['../dc/d1b/structcommon__lib_1_1structures_1_1_position.html',1,'common_lib::structures::Position'],['../d1/d26/struct_position.html',1,'Position']]],
+  ['purepursuit_16',['PurePursuit',['../dc/dde/class_pure_pursuit.html',1,'']]]
 ];

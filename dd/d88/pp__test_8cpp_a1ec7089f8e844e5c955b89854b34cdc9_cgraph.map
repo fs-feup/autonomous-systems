@@ -1,0 +1,9 @@
+<map id="TEST" name="TEST">
+<area shape="rect" id="Node000001" title="Test PurePursuit &#45; calculate_alpha() typical angle &#45; path point left." alt="" coords="5,42,60,68"/>
+<area shape="rect" id="Node000002" href="$dc/dde/class_pure_pursuit.html#a028647f1a2c9ba1d5fea2f3b7e3448c0" title="Calculate alpha (angle between the vehicle and lookahead point)" alt="" coords="108,35,255,75"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,52,92,52,92,58,60,58"/>
+<area shape="rect" id="Node000003" href="$dc/dde/class_pure_pursuit.html#a8072146769a35ea478c1dcabed4f5a83" title="Calculate the cross product of two vectors." alt="" coords="324,5,451,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="255,42,308,34,308,40,256,47"/>
+<area shape="rect" id="Node000004" href="$d0/d69/class_point.html#a0c8948205343f30d626407d0c4450218" title=" " alt="" coords="303,70,471,96"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="256,62,288,67,287,72,255,68"/>
+</map>

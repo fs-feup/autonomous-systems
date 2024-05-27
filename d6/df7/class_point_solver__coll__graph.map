@@ -1,0 +1,7 @@
+<map id="PointSolver" name="PointSolver">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,522,197,687"/>
+<area shape="rect" id="Node000002" href="$de/dec/class_pose.html" title=" " alt="" coords="56,214,147,459"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="104,459,104,505,99,505,99,459"/>
+<area shape="rect" id="Node000003" href="$d1/d26/struct_position.html" title=" " alt="" coords="25,5,177,151"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="104,151,104,196,99,196,99,151"/>
+</map>
