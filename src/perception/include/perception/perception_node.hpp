@@ -1,5 +1,4 @@
-#ifndef SRC_PERCEPTION_PERCEPTION_INCLUDE_PERCEPTION_PERCEPTION_NODE_HPP_
-#define SRC_PERCEPTION_PERCEPTION_INCLUDE_PERCEPTION_PERCEPTION_NODE_HPP_
+#pragma once
 
 #include <cone_evaluator/cone_evaluator.hpp>
 #include <cone_validator/cylinder_validator.hpp>
@@ -76,4 +75,3 @@ class Perception : public rclcpp::Node {
   void pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg);
 };
 
-#endif

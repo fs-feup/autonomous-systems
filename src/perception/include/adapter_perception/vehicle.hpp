@@ -1,6 +1,4 @@
-#ifndef SRC_PLANNING_PLANNING_INCLUDE_ADAPTER_TEST_HPP_
-#define SRC_PLANNING_PLANNING_INCLUDE_ADAPTER_TEST_HPP_
-
+#pragma once
 #include <string>
 #include "adapter_perception/adapter.hpp"
 
@@ -35,4 +33,3 @@ public:
   void finish() override;
 };
 
-#endif  // SRC_PLANNING_PLANNING_INCLUDE_ADAPTER_TEST_HPP_

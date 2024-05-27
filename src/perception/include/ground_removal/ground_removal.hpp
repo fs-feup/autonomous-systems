@@ -1,5 +1,4 @@
-#ifndef GROUND_REMOVAL_H_
-#define GROUND_REMOVAL_H_
+#pragma once
 
 #include <pcl/PCLPointField.h>
 #include <pcl/point_cloud.h>
@@ -27,5 +26,3 @@ class GroundRemoval {
   virtual void ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
                              pcl::PointCloud<pcl::PointXYZI>::Ptr ret, Plane& plane) const = 0;
 };
-
-#endif // GROUND_REMOVAL_H_

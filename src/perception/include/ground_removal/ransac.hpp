@@ -1,5 +1,4 @@
-#ifndef RANSAC_H
-#define RANSAC_H
+#pragma once
 
 #include <pcl/sample_consensus/ransac.h>
 #include <string>
@@ -46,4 +45,3 @@ class RANSAC : public GroundRemoval {
                      pcl::PointCloud<pcl::PointXYZI>::Ptr ret, Plane& plane) const override;
 };
 
-#endif // RANSAC_H
