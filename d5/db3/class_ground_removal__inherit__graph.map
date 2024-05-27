@@ -1,5 +1,7 @@
 <map id="GroundRemoval" name="GroundRemoval">
-<area shape="rect" id="Node000001" title="Abstract class for ground removal from a point cloud." alt="" coords="5,5,127,71"/>
-<area shape="rect" id="Node000002" href="$d6/dc3/class_r_a_n_s_a_c.html" title="Ground removal using the RANSAC algorithm." alt="" coords="5,119,127,224"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="69,85,69,119,63,119,63,85"/>
+<area shape="rect" id="Node000001" title="Abstract class for ground removal from a point cloud." alt="" coords="89,5,213,71"/>
+<area shape="rect" id="Node000002" href="$de/d59/class_grid_r_a_n_s_a_c.html" title="Implementation of ground removal using a grid&#45;based RANSAC algorithm." alt="" coords="5,119,141,284"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="132,85,115,120,110,118,127,83"/>
+<area shape="rect" id="Node000003" href="$d6/dc3/class_r_a_n_s_a_c.html" title="Ground removal using the RANSAC algorithm." alt="" coords="166,139,290,264"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="175,83,201,138,196,140,170,85"/>
 </map>

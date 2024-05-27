@@ -99,26 +99,23 @@ $(document).ready(function(){initNavTree('d8/de7/cone__differentiation_8hpp_sour
   <div class="headertitle"><div class="title">cone_differentiation.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="../../d8/de7/cone__differentiation_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef CONE_DIFFERENTIATION_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define CONE_DIFFERENTIATION_HPP</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;pcl/point_cloud.h&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;pcl/point_types.h&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="../../d2/d49/cluster_8hpp.html">utils/cluster.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;sensor_msgs/msg/point_cloud2.hpp&quot;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="foldopen" id="foldopen00016" data-start="{" data-end="};">
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="../../d7/d4e/class_cone_differentiation.html">   16</a></span><span class="keyword">class </span><a class="code hl_class" href="../../d7/d4e/class_cone_differentiation.html">ConeDifferentiation</a> {</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="../../d7/d4e/class_cone_differentiation.html#a0a094ce1ef52e4f23fe34764c948ae7f">   24</a></span>  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d7/d4e/class_cone_differentiation.html#a0a094ce1ef52e4f23fe34764c948ae7f">coneDifferentiation</a>(<a class="code hl_class" href="../../d2/d23/class_cluster.html">Cluster</a>* cone_point_cloud) <span class="keyword">const</span> = 0;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>};</div>
+<a href="../../d8/de7/cone__differentiation_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;pcl/point_cloud.h&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;pcl/point_types.h&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="../../d2/d49/cluster_8hpp.html">utils/cluster.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;sensor_msgs/msg/point_cloud2.hpp&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="foldopen" id="foldopen00015" data-start="{" data-end="};">
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="../../d7/d4e/class_cone_differentiation.html">   15</a></span><span class="keyword">class </span><a class="code hl_class" href="../../d7/d4e/class_cone_differentiation.html">ConeDifferentiation</a> {</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="../../d7/d4e/class_cone_differentiation.html#a0a094ce1ef52e4f23fe34764c948ae7f">   23</a></span>  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d7/d4e/class_cone_differentiation.html#a0a094ce1ef52e4f23fe34764c948ae7f">coneDifferentiation</a>(<a class="code hl_class" href="../../d2/d23/class_cluster.html">Cluster</a>* cone_point_cloud) <span class="keyword">const</span> = 0;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>};</div>
 </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#endif  </span><span class="comment">// CONE_DIFFERENTIATION_HPP</span></div>
 <div class="ttc" id="aclass_cluster_html"><div class="ttname"><a href="../../d2/d23/class_cluster.html">Cluster</a></div><div class="ttdoc">Represents a cluster of 3D points using PCL (Point Cloud Library).</div><div class="ttdef"><b>Definition</b> <a href="../../d2/d49/cluster_8hpp_source.html#l00014">cluster.hpp:14</a></div></div>
-<div class="ttc" id="aclass_cone_differentiation_html"><div class="ttname"><a href="../../d7/d4e/class_cone_differentiation.html">ConeDifferentiation</a></div><div class="ttdoc">Abstract class for cone differentiation based on cone reflectivity patterns.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/de7/cone__differentiation_8hpp_source.html#l00016">cone_differentiation.hpp:16</a></div></div>
+<div class="ttc" id="aclass_cone_differentiation_html"><div class="ttname"><a href="../../d7/d4e/class_cone_differentiation.html">ConeDifferentiation</a></div><div class="ttdoc">Abstract class for cone differentiation based on cone reflectivity patterns.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/de7/cone__differentiation_8hpp_source.html#l00015">cone_differentiation.hpp:15</a></div></div>
 <div class="ttc" id="aclass_cone_differentiation_html_a0a094ce1ef52e4f23fe34764c948ae7f"><div class="ttname"><a href="../../d7/d4e/class_cone_differentiation.html#a0a094ce1ef52e4f23fe34764c948ae7f">ConeDifferentiation::coneDifferentiation</a></div><div class="ttdeci">virtual void coneDifferentiation(Cluster *cone_point_cloud) const =0</div><div class="ttdoc">Perform cone differentiation on a cone's point cloud.</div></div>
 <div class="ttc" id="acluster_8hpp_html"><div class="ttname"><a href="../../d2/d49/cluster_8hpp.html">cluster.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->

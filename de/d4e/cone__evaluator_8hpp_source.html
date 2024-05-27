@@ -99,21 +99,17 @@ $(document).ready(function(){initNavTree('de/d4e/cone__evaluator_8hpp_source.htm
   <div class="headertitle"><div class="title">cone_evaluator.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="../../de/d4e/cone__evaluator_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef CONE_EVALUATOR_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define CONE_EVALUATOR_HPP</span></div>
+<a href="../../de/d4e/cone__evaluator_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &lt;<a class="code" href="../../d2/d49/cluster_8hpp.html">utils/cluster.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="../../d2/d49/cluster_8hpp.html">utils/cluster.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="foldopen" id="foldopen00012" data-start="{" data-end="};">
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="../../df/d8f/class_cone_evaluator.html">   12</a></span><span class="keyword">class </span><a class="code hl_class" href="../../df/d8f/class_cone_evaluator.html">ConeEvaluator</a> {</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="../../df/d8f/class_cone_evaluator.html#a1851f3d4634f725c6581d58a03cb0c3c">   20</a></span>  <span class="keyword">virtual</span> <span class="keywordtype">double</span> <a class="code hl_function" href="../../df/d8f/class_cone_evaluator.html#a1851f3d4634f725c6581d58a03cb0c3c">evaluateCluster</a>(<a class="code hl_class" href="../../d2/d23/class_cluster.html">Cluster</a>&amp; cluster) <span class="keyword">const</span> = 0;</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>};</div>
+<div class="foldopen" id="foldopen00010" data-start="{" data-end="};">
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="../../df/d8f/class_cone_evaluator.html">   10</a></span><span class="keyword">class </span><a class="code hl_class" href="../../df/d8f/class_cone_evaluator.html">ConeEvaluator</a> {</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="../../df/d8f/class_cone_evaluator.html#a1851f3d4634f725c6581d58a03cb0c3c">   18</a></span>  <span class="keyword">virtual</span> <span class="keywordtype">double</span> <a class="code hl_function" href="../../df/d8f/class_cone_evaluator.html#a1851f3d4634f725c6581d58a03cb0c3c">evaluateCluster</a>(<a class="code hl_class" href="../../d2/d23/class_cluster.html">Cluster</a>&amp; cluster) <span class="keyword">const</span> = 0;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>};</div>
 </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#endif  </span><span class="comment">// CONE_EVALUATOR_HPP</span></div>
 <div class="ttc" id="aclass_cluster_html"><div class="ttname"><a href="../../d2/d23/class_cluster.html">Cluster</a></div><div class="ttdoc">Represents a cluster of 3D points using PCL (Point Cloud Library).</div><div class="ttdef"><b>Definition</b> <a href="../../d2/d49/cluster_8hpp_source.html#l00014">cluster.hpp:14</a></div></div>
-<div class="ttc" id="aclass_cone_evaluator_html"><div class="ttname"><a href="../../df/d8f/class_cone_evaluator.html">ConeEvaluator</a></div><div class="ttdoc">Abstract class that represents an heurisic that evaluates the cluster as a cone.</div><div class="ttdef"><b>Definition</b> <a href="../../de/d4e/cone__evaluator_8hpp_source.html#l00012">cone_evaluator.hpp:12</a></div></div>
+<div class="ttc" id="aclass_cone_evaluator_html"><div class="ttname"><a href="../../df/d8f/class_cone_evaluator.html">ConeEvaluator</a></div><div class="ttdoc">Abstract class that represents an heurisic that evaluates the cluster as a cone.</div><div class="ttdef"><b>Definition</b> <a href="../../de/d4e/cone__evaluator_8hpp_source.html#l00010">cone_evaluator.hpp:10</a></div></div>
 <div class="ttc" id="aclass_cone_evaluator_html_a1851f3d4634f725c6581d58a03cb0c3c"><div class="ttname"><a href="../../df/d8f/class_cone_evaluator.html#a1851f3d4634f725c6581d58a03cb0c3c">ConeEvaluator::evaluateCluster</a></div><div class="ttdeci">virtual double evaluateCluster(Cluster &amp;cluster) const =0</div><div class="ttdoc">Perform the cluster evaluation.</div></div>
 <div class="ttc" id="acluster_8hpp_html"><div class="ttname"><a href="../../d2/d49/cluster_8hpp.html">cluster.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->

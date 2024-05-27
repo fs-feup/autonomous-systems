@@ -66,6 +66,8 @@ var annotated_dup =
     [ "ExtendedKalmanFilter", "da/da6/class_extended_kalman_filter.html", "da/da6/class_extended_kalman_filter" ],
     [ "FsdsAdapter", "d7/d8e/class_fsds_adapter.html", "d7/d8e/class_fsds_adapter" ],
     [ "GlobalPathPlanner", "d2/da4/class_global_path_planner.html", "d2/da4/class_global_path_planner" ],
+    [ "GridRANSAC", "de/d59/class_grid_r_a_n_s_a_c.html", "de/d59/class_grid_r_a_n_s_a_c" ],
+    [ "GridRANSACTest", "d0/d78/class_grid_r_a_n_s_a_c_test.html", "d0/d78/class_grid_r_a_n_s_a_c_test" ],
     [ "GroundRemoval", "dc/d84/class_ground_removal.html", "dc/d84/class_ground_removal" ],
     [ "HeightValidator", "d9/d1f/class_height_validator.html", "d9/d1f/class_height_validator" ],
     [ "HeightValidatorTest", "d9/d7c/class_height_validator_test.html", "d9/d7c/class_height_validator_test" ],

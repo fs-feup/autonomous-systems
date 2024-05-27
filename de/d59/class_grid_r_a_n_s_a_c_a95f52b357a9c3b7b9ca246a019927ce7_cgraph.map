@@ -1,0 +1,5 @@
+<map id="GridRANSAC::split_point_cloud" name="GridRANSAC::split_point_cloud">
+<area shape="rect" id="Node000001" title="Split the input point cloud into grids." alt="" coords="5,5,171,46"/>
+<area shape="rect" id="Node000002" href="$de/d59/class_grid_r_a_n_s_a_c.html#ae261a8780ae54096aaf18f55c909bd82" title="Get the furthest point from the input point cloud." alt="" coords="219,5,394,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="171,23,203,23,203,28,171,28"/>
+</map>

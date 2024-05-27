@@ -54,6 +54,7 @@ var hierarchy =
     ] ],
     [ "GlobalPathPlanner", "d2/da4/class_global_path_planner.html", null ],
     [ "GroundRemoval", "dc/d84/class_ground_removal.html", [
+      [ "GridRANSAC", "de/d59/class_grid_r_a_n_s_a_c.html", null ],
       [ "RANSAC", "d6/dc3/class_r_a_n_s_a_c.html", null ]
     ] ],
     [ "std::hash< PathPoint >", "d1/d0b/structstd_1_1hash_3_01_path_point_01_4.html", null ],
@@ -93,6 +94,7 @@ var hierarchy =
       [ "CylinderValidatorTest", "da/dcf/class_cylinder_validator_test.html", null ],
       [ "DBSCANTest", "d8/d90/class_d_b_s_c_a_n_test.html", null ],
       [ "DistanceValidatorTest", "db/df7/class_distance_validator_test.html", null ],
+      [ "GridRANSACTest", "d0/d78/class_grid_r_a_n_s_a_c_test.html", null ],
       [ "HeightValidatorTest", "d9/d7c/class_height_validator_test.html", null ],
       [ "ICPSuite", "de/dab/class_i_c_p_suite.html", null ],
       [ "IntegrationTest", "d7/d4e/class_integration_test.html", null ],

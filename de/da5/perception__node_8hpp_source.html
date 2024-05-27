@@ -99,20 +99,20 @@ $(document).ready(function(){initNavTree('de/da5/perception__node_8hpp_source.ht
   <div class="headertitle"><div class="title">perception_node.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="../../de/da5/perception__node_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef SRC_PERCEPTION_PERCEPTION_INCLUDE_PERCEPTION_PERCEPTION_NODE_HPP_</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define SRC_PERCEPTION_PERCEPTION_INCLUDE_PERCEPTION_PERCEPTION_NODE_HPP_</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="../../de/d4e/cone__evaluator_8hpp.html">cone_evaluator/cone_evaluator.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="../../db/dff/cylinder__validator_8hpp.html">cone_validator/cylinder_validator.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="../../d7/d82/plane_8hpp.html">utils/plane.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="../../dd/d8d/dbscan_8hpp.html">clustering/dbscan.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;<a class="code" href="../../d1/d27/least__squares__differentiation_8hpp.html">cone_differentiation/least_squares_differentiation.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="../../d6/d64/height__validator_8hpp.html">cone_validator/height_validator.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;custom_interfaces/msg/cone_array.hpp&quot;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="../../d9/dad/ransac_8hpp.html">ground_removal/ransac.hpp</a>&quot;</span></div>
+<a href="../../de/da5/perception__node_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="../../de/d4e/cone__evaluator_8hpp.html">cone_evaluator/cone_evaluator.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="../../db/dff/cylinder__validator_8hpp.html">cone_validator/cylinder_validator.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="../../d7/d82/plane_8hpp.html">utils/plane.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="../../dd/d8d/dbscan_8hpp.html">clustering/dbscan.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="../../d1/d27/least__squares__differentiation_8hpp.html">cone_differentiation/least_squares_differentiation.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;<a class="code" href="../../d6/d64/height__validator_8hpp.html">cone_validator/height_validator.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;custom_interfaces/msg/cone_array.hpp&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;<a class="code" href="../../d9/dad/ransac_8hpp.html">ground_removal/ransac.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="../../d1/db4/grid__ransac_8hpp.html">ground_removal/grid_ransac.hpp</a>&quot;</span></div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;rclcpp/rclcpp.hpp&quot;</span></div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;sensor_msgs/msg/point_cloud2.hpp&quot;</span></div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
@@ -148,7 +148,6 @@ $(document).ready(function(){initNavTree('de/da5/perception__node_8hpp_source.ht
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>};</div>
 </div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclass_adapter_html"><div class="ttname"><a href="../../d3/d7f/class_adapter.html">Adapter</a></div><div class="ttdoc">Adapter class for coordinating communication between different modes and Control module.</div><div class="ttdef"><b>Definition</b> <a href="../../d0/d4b/control_2include_2adapter__control_2adapter_8hpp_source.html#l00017">adapter.hpp:17</a></div></div>
 <div class="ttc" id="aclass_perception_html"><div class="ttname"><a href="../../de/d07/class_perception.html">Perception</a></div><div class="ttdoc">Node for perception tasks, such as ground removal and cone detection.</div><div class="ttdef"><b>Definition</b> <a href="../../de/da5/perception__node_8hpp_source.html#l00028">perception_node.hpp:28</a></div></div>
 <div class="ttc" id="aclass_perception_html_a0461e7018858c4e1627c932cef26223b"><div class="ttname"><a href="../../de/d07/class_perception.html#a0461e7018858c4e1627c932cef26223b">Perception::_cone_validators_</a></div><div class="ttdeci">std::vector&lt; std::shared_ptr&lt; ConeValidator &gt; &gt; _cone_validators_</div><div class="ttdef"><b>Definition</b> <a href="../../de/da5/perception__node_8hpp_source.html#l00035">perception_node.hpp:35</a></div></div>
@@ -167,6 +166,7 @@ $(document).ready(function(){initNavTree('de/da5/perception__node_8hpp_source.ht
 <div class="ttc" id="acone__evaluator_8hpp_html"><div class="ttname"><a href="../../de/d4e/cone__evaluator_8hpp.html">cone_evaluator.hpp</a></div></div>
 <div class="ttc" id="acylinder__validator_8hpp_html"><div class="ttname"><a href="../../db/dff/cylinder__validator_8hpp.html">cylinder_validator.hpp</a></div></div>
 <div class="ttc" id="adbscan_8hpp_html"><div class="ttname"><a href="../../dd/d8d/dbscan_8hpp.html">dbscan.hpp</a></div></div>
+<div class="ttc" id="agrid__ransac_8hpp_html"><div class="ttname"><a href="../../d1/db4/grid__ransac_8hpp.html">grid_ransac.hpp</a></div></div>
 <div class="ttc" id="aheight__validator_8hpp_html"><div class="ttname"><a href="../../d6/d64/height__validator_8hpp.html">height_validator.hpp</a></div></div>
 <div class="ttc" id="aleast__squares__differentiation_8hpp_html"><div class="ttname"><a href="../../d1/d27/least__squares__differentiation_8hpp.html">least_squares_differentiation.hpp</a></div></div>
 <div class="ttc" id="aplane_8hpp_html"><div class="ttname"><a href="../../d7/d82/plane_8hpp.html">plane.hpp</a></div></div>

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['ransac_0',['RANSAC',['../d6/dc3/class_r_a_n_s_a_c.html#ac3b8512910618ad313eb2431a88f6662',1,'RANSAC']]],
+  ['ransac_0',['ransac',['../d6/dc3/class_r_a_n_s_a_c.html#ac3b8512910618ad313eb2431a88f6662',1,'RANSAC::RANSAC(double epsilon, int n_tries)'],['../d6/dc3/class_r_a_n_s_a_c.html#ad246c1fe041773d12f1d28ea59756417',1,'RANSAC::RANSAC()=default']]],
   ['read_5fpath_5ffile_1',['read_path_file',['../d5/d8c/files_8hpp.html#a3e0a28fc547b70f244a9afff9ba15657',1,'read_path_file(const std::string &amp;filename):&#160;files.cpp'],['../dd/d8b/files_8cpp.html#a3e0a28fc547b70f244a9afff9ba15657',1,'read_path_file(const std::string &amp;filename):&#160;files.cpp']]],
   ['read_5ftrack_2',['read_track',['../dc/de8/classevaluator_1_1fsds__adapter_1_1_f_s_d_s_adapter.html#aeeebb0006873c4d5d6d950206bd6791f',1,'evaluator::fsds_adapter::FSDSAdapter']]],
   ['redefine_5fgoal_5fvelocity_3',['redefine_goal_velocity',['../d4/d89/class_inspection_functions.html#a06acb01e381faf5b8a2ab45c1b60abe7',1,'InspectionFunctions']]],

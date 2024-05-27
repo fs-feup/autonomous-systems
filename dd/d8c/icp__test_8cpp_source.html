@@ -143,17 +143,17 @@ $(document).ready(function(){initNavTree('dd/d8c/icp__test_8cpp_source.html','..
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>}</div>
 </div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="foldopen" id="foldopen00061" data-start="{" data-end="}">
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="../../dd/d8c/icp__test_8cpp.html#a4c018671d970a66eb30ffcfff05c954f">   61</a></span><a class="code hl_function" href="../../dd/d8c/icp__test_8cpp.html#a54b87ff00aaefa2d7284aaef2d9f5f65">TEST_F</a>(<a class="code hl_class" href="../../de/dab/class_i_c_p_suite.html">ICPSuite</a>, AlignmentFailed) {</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keyword">auto</span> icp = <a class="code hl_class" href="../../dd/d10/class_i_c_p.html">ICP</a>(<span class="stringliteral">&quot;../../src/perception/test/icp_tests/basic_cloud.pcd&quot;</span>, 1.0, 50, 1e-8, 5);</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    pcl::PointCloud&lt;pcl::PointXYZI&gt;::Ptr aligned_cloud(<span class="keyword">new</span> pcl::PointCloud&lt;pcl::PointXYZI&gt;);</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keywordtype">double</span> fitness_score = icp.executeICP(source_cloud, aligned_cloud);</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    ASSERT_EQ(fitness_score, -1);</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>}</div>
+<div class="foldopen" id="foldopen00060" data-start="{" data-end="}">
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="../../dd/d8c/icp__test_8cpp.html#a4c018671d970a66eb30ffcfff05c954f">   60</a></span><a class="code hl_function" href="../../dd/d8c/icp__test_8cpp.html#a54b87ff00aaefa2d7284aaef2d9f5f65">TEST_F</a>(<a class="code hl_class" href="../../de/dab/class_i_c_p_suite.html">ICPSuite</a>, AlignmentFailed) {</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keyword">auto</span> icp = <a class="code hl_class" href="../../dd/d10/class_i_c_p.html">ICP</a>(<span class="stringliteral">&quot;../../src/perception/test/icp_tests/basic_cloud.pcd&quot;</span>, 1.0, 50, 1e-8, 5);</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    pcl::PointCloud&lt;pcl::PointXYZI&gt;::Ptr aligned_cloud(<span class="keyword">new</span> pcl::PointCloud&lt;pcl::PointXYZI&gt;);</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keywordtype">double</span> fitness_score = icp.executeICP(source_cloud, aligned_cloud);</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    ASSERT_EQ(fitness_score, -1);</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>}</div>
 </div>
-<div class="ttc" id="aclass_i_c_p_html"><div class="ttname"><a href="../../dd/d10/class_i_c_p.html">ICP</a></div><div class="ttdoc">Class for performing Iterative Closest Point (ICP) registration.</div><div class="ttdef"><b>Definition</b> <a href="../../d3/d94/icp_8hpp_source.html#l00013">icp.hpp:13</a></div></div>
+<div class="ttc" id="aclass_i_c_p_html"><div class="ttname"><a href="../../dd/d10/class_i_c_p.html">ICP</a></div><div class="ttdoc">Class for performing Iterative Closest Point (ICP) registration.</div><div class="ttdef"><b>Definition</b> <a href="../../d3/d94/icp_8hpp_source.html#l00012">icp.hpp:12</a></div></div>
 <div class="ttc" id="aclass_i_c_p_suite_html"><div class="ttname"><a href="../../de/dab/class_i_c_p_suite.html">ICPSuite</a></div><div class="ttdoc">Test suite for the ICP class.</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d8c/icp__test_8cpp_source.html#l00013">icp_test.cpp:13</a></div></div>
 <div class="ttc" id="aclass_i_c_p_suite_html_ad5baaea8731eb3a7524dfc88aa23bc0c"><div class="ttname"><a href="../../de/dab/class_i_c_p_suite.html#ad5baaea8731eb3a7524dfc88aa23bc0c">ICPSuite::source_cloud</a></div><div class="ttdeci">std::shared_ptr&lt; pcl::PointCloud&lt; pcl::PointXYZI &gt; &gt; source_cloud</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d8c/icp__test_8cpp_source.html#l00029">icp_test.cpp:29</a></div></div>
 <div class="ttc" id="aclass_i_c_p_suite_html_afe625aed2dd3bd4ee24487a7a0839183"><div class="ttname"><a href="../../de/dab/class_i_c_p_suite.html#afe625aed2dd3bd4ee24487a7a0839183">ICPSuite::SetUp</a></div><div class="ttdeci">void SetUp() override</div><div class="ttdoc">Set up the test fixture.</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d8c/icp__test_8cpp_source.html#l00018">icp_test.cpp:18</a></div></div>

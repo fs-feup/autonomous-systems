@@ -99,21 +99,23 @@ $(document).ready(function(){initNavTree('d2/d96/ground__removal_8hpp_source.htm
   <div class="headertitle"><div class="title">ground_removal.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="../../d2/d96/ground__removal_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;pcl/PCLPointField.h&gt;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &lt;pcl/point_cloud.h&gt;</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;pcl/point_types.h&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;sensor_msgs/msg/point_cloud2.hpp&quot;</span></div>
+<a href="../../d2/d96/ground__removal_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;pcl/PCLPointField.h&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;pcl/point_cloud.h&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;pcl/point_types.h&gt;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="foldopen" id="foldopen00014" data-start="{" data-end="};">
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="../../dc/d84/class_ground_removal.html">   14</a></span><span class="keyword">class </span><a class="code hl_class" href="../../dc/d84/class_ground_removal.html">GroundRemoval</a> {</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="../../dc/d84/class_ground_removal.html#a6cd0bf6e3b5d5a7b201678ce061162e9">   24</a></span>  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../dc/d84/class_ground_removal.html#a6cd0bf6e3b5d5a7b201678ce061162e9">groundRemoval</a>(<span class="keyword">const</span> pcl::PointCloud&lt;pcl::PointXYZI&gt;::Ptr point_cloud,</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>                             pcl::PointCloud&lt;pcl::PointXYZI&gt;::Ptr ret, <a class="code hl_class" href="../../d2/d8d/class_plane.html">Plane</a>&amp; plane) <span class="keyword">const</span> = 0;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>};</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;sensor_msgs/msg/point_cloud2.hpp&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="foldopen" id="foldopen00016" data-start="{" data-end="};">
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="../../dc/d84/class_ground_removal.html">   16</a></span><span class="keyword">class </span><a class="code hl_class" href="../../dc/d84/class_ground_removal.html">GroundRemoval</a> {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="../../dc/d84/class_ground_removal.html#a52e84507a9871cc404c73123d3a0adda">   26</a></span>  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../dc/d84/class_ground_removal.html#a52e84507a9871cc404c73123d3a0adda">ground_removal</a>(<span class="keyword">const</span> pcl::PointCloud&lt;pcl::PointXYZI&gt;::Ptr point_cloud,</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>                             pcl::PointCloud&lt;pcl::PointXYZI&gt;::Ptr ret, <a class="code hl_class" href="../../d2/d8d/class_plane.html">Plane</a>&amp; plane) <span class="keyword">const</span> = 0;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>};</div>
 </div>
-<div class="ttc" id="aclass_ground_removal_html"><div class="ttname"><a href="../../dc/d84/class_ground_removal.html">GroundRemoval</a></div><div class="ttdoc">Abstract class for ground removal from a point cloud.</div><div class="ttdef"><b>Definition</b> <a href="../../d2/d96/ground__removal_8hpp_source.html#l00014">ground_removal.hpp:14</a></div></div>
-<div class="ttc" id="aclass_ground_removal_html_a6cd0bf6e3b5d5a7b201678ce061162e9"><div class="ttname"><a href="../../dc/d84/class_ground_removal.html#a6cd0bf6e3b5d5a7b201678ce061162e9">GroundRemoval::groundRemoval</a></div><div class="ttdeci">virtual void groundRemoval(const pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr point_cloud, pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr ret, Plane &amp;plane) const =0</div><div class="ttdoc">Perform ground removal on the input point cloud.</div></div>
+<div class="ttc" id="aclass_ground_removal_html"><div class="ttname"><a href="../../dc/d84/class_ground_removal.html">GroundRemoval</a></div><div class="ttdoc">Abstract class for ground removal from a point cloud.</div><div class="ttdef"><b>Definition</b> <a href="../../d2/d96/ground__removal_8hpp_source.html#l00016">ground_removal.hpp:16</a></div></div>
+<div class="ttc" id="aclass_ground_removal_html_a52e84507a9871cc404c73123d3a0adda"><div class="ttname"><a href="../../dc/d84/class_ground_removal.html#a52e84507a9871cc404c73123d3a0adda">GroundRemoval::ground_removal</a></div><div class="ttdeci">virtual void ground_removal(const pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr point_cloud, pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr ret, Plane &amp;plane) const =0</div><div class="ttdoc">Perform ground removal on the input point cloud.</div></div>
 <div class="ttc" id="aclass_plane_html"><div class="ttname"><a href="../../d2/d8d/class_plane.html">Plane</a></div><div class="ttdoc">The Plane class represents a 3D plane defined by its equation ax + by + cz + d = 0.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d82/plane_8hpp_source.html#l00014">plane.hpp:14</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
