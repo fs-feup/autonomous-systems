@@ -94,7 +94,8 @@
         "core": "cpp",
         "numericaldiff": "cpp",
         "sparse": "cpp",
-        "*.ipp": "cpp"
+        "*.ipp": "cpp",
+        "filesystem": "cpp"
     },
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter",
@@ -105,7 +106,7 @@
         "editor.formatOnSave": true
     },
     "sonarlint.connectedMode.project": {
-        "connectionId": "FS FEUP",
+        "connectionId": "fs-feup",
         "projectKey": "fs-feup_autonomous-systems"
     },
     "sonarlint.pathToCompileCommands": "${workspaceFolder}/compile_commands.json",

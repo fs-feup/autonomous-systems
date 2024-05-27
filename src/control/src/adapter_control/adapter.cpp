@@ -2,8 +2,6 @@
 
 #include "node_/node_control.hpp"
 
-Adapter::Adapter(Control *control) {
-  this->node = control;
-
-  RCLCPP_INFO(this->node->get_logger(), "Adapter created");
+Adapter::Adapter(Control *control) : node_(control) {
+  RCLCPP_INFO(this->node_->get_logger(), "Adapter created");
 }
