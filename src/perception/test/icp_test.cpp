@@ -57,7 +57,6 @@ TEST_F(ICPSuite, Alignment) {
  * @brief Test case to check if ICP fails to align properly
  * 
  */
-
 TEST_F(ICPSuite, AlignmentFailed) {
     auto icp = ICP("../../src/perception/test/icp_tests/basic_cloud.pcd", 1.0, 50, 1e-8, 5);
 

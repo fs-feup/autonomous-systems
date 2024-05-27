@@ -33,7 +33,7 @@ class Track {
   float spline_coeffs_ratio_ = 3;
   int spline_precision_ = 1;
 
- public:
+public:
   /**
    * @brief Default constructor for the Track class.
    *
@@ -89,6 +89,9 @@ class Track {
    * @return A vector of pointers to the left cones.
    */
   std::vector<Cone *> get_left_cones() const;
+
+  std::vector<Cone *> *get_pointer_to_left_cones() { return &this->leftCones; }
+  std::vector<Cone *> *get_pointer_to_right_cones() { return &this->rightCones; }
 
   /**
    * @brief Get the right cone at a specified index.
@@ -197,9 +200,8 @@ class Track {
    * @brief Order the cones before fitting splines
    *
    * @param unord_cone_seq Unordered array of cones
-   * @return Ordered array of cones
    */
-  std::vector<Cone *> orderCones(std::vector<Cone *> *unord_cone_seq);
+  void orderCones(std::vector<Cone *> &unord_cone_seq);
 
   /**
    * @brief function to fit spline to cone sequence

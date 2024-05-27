@@ -16,6 +16,7 @@ FsdsAdapter::FsdsAdapter(Planning* planning) : Adapter(planning) {
   }
   this->fsds_ebs_publisher_ =
       this->node->create_publisher<fs_msgs::msg::FinishedSignal>("/signal/finished", 10);
+  RCLCPP_DEBUG(this->node->get_logger(), "Planning : FSDS adapter created");
 }
 
 void FsdsAdapter::mission_state_callback(const fs_msgs::msg::GoSignal msg) {
@@ -24,8 +25,8 @@ void FsdsAdapter::mission_state_callback(const fs_msgs::msg::GoSignal msg) {
   this->node->set_mission(common_lib::competition_logic::fsds_to_system.at(mission));
 }
 
-void FsdsAdapter::set_mission_state(int mission, int state) {
-  std::cout << "Set mission undefined for Eufs\n";
+void FsdsAdapter::set_mission_state() {
+  RCLCPP_INFO(this->node->get_logger(), "Planning : Set mission undefined for FSDS");
 }
 
 void FsdsAdapter::finish() {

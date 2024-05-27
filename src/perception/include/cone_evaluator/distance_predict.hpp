@@ -1,5 +1,4 @@
-#ifndef DISTANCE_PREDICT_HPP
-#define DISTANCE_PREDICT_HPP
+#pragma once
 
 #include <cone_evaluator/cone_evaluator.hpp>
 #include <utils/cluster.hpp>
@@ -31,5 +30,3 @@ class DistancePredict : public ConeEvaluator {
    */
   double evaluateCluster(Cluster& cluster) const override;
 };
-
-#endif  // DISTANCE_PREDICT_HPP

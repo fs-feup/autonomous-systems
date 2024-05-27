@@ -1,5 +1,4 @@
-#ifndef ICP_H
-#define ICP_H
+#pragma once
 
 #include <iostream>
 #include <pcl/io/pcd_io.h>
@@ -35,5 +34,3 @@ class ICP{
     double executeICP(pcl::PointCloud<pcl::PointXYZI>::Ptr source, 
                       pcl::PointCloud<pcl::PointXYZI>::Ptr final_cloud);
 };
-
-#endif // ICP_H
