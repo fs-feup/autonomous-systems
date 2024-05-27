@@ -60,9 +60,12 @@ std::vector<PathPoint *> LocalPathPlanner::processNewArray(Track *cone_array) {
       // Calculate the midpoint between the two cones
       float xDist = cone2->getX() - cone1->getX();
       float yDist = cone2->getY() - cone1->getY();
-      PathPoint *position = new PathPoint(cone1->getX() + xDist / 2, cone1->getY() + yDist / 2);
-      return_result.push_back(position);
-      unordered_path.push_back(std::make_pair(position, false));
+      float dist = sqrt(pow(xDist, 2) + pow(yDist, 2));
+      if (dist < DELAUNAY_DIST_THRESHOLD) {
+        PathPoint *position = new PathPoint(cone1->getX() + xDist / 2, cone1->getY() + yDist / 2);
+        return_result.push_back(position);
+        unordered_path.push_back(std::make_pair(position, false));
+      }
     }
   }
 

@@ -13,6 +13,8 @@
 #include "./track.hpp"
 #include "rclcpp/rclcpp.hpp"
 
+#define DELAUNAY_DIST_THRESHOLD 7.0
+
 typedef CGAL::Exact_predicates_inexact_constructions_kernel K;
 typedef CGAL::Delaunay_triangulation_2<K> DT;
 typedef K::Point_2 Point;
