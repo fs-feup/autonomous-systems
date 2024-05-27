@@ -90,9 +90,11 @@ class Evaluator(Node):
             ADAPTER_POINT_CLOUD_TOPIC_DICTINARY[self._adapter_name_],
         )
         self.planning_subscription = self.create_subscription(
-            PathPointArray, "path_planning/path", self.compute_and_publish_planning, 10)
+            PathPointArray, "path_planning/path", self.compute_and_publish_planning, 10
+        )
         self.planning_gt_subscription = self.create_subscription(
-            PathPointArray, "path_planning/mock_path", self.planning_gt_callback, 10)
+            PathPointArray, "path_planning/mock_path", self.planning_gt_callback, 10
+        )
 
         # Publishers for perception metrics
         self._perception_mean_difference_ = self.create_publisher(
@@ -146,7 +148,7 @@ class Evaluator(Node):
             []
         )  # will store the reception of a planning mock from subscriber
 
-        if (self._adapter_name_ == "vehicle"):
+        if self._adapter_name_ == "vehicle":
             return
 
         # Adapter selection
@@ -282,8 +284,8 @@ class Evaluator(Node):
             perception_output (np.ndarray): Perceived cones.
             perception_ground_truth (np.ndarray): Ground truth cones.
         """
-        cone_positions = perception_output[:, :2]
-        groundtruth_cone_positions = perception_ground_truth[:, :2]
+        cone_positions = perception_output
+        groundtruth_cone_positions = perception_ground_truth
         mean_difference = Float32()
         mean_difference.data = get_average_difference(
             cone_positions, groundtruth_cone_positions

@@ -12,14 +12,16 @@
 #include "adapter_perception/fsds.hpp"
 #include "adapter_perception/map.hpp"
 #include "adapter_perception/vehicle.hpp"
+#include "common_lib/communication/marker.hpp"
 #include "std_msgs/msg/header.hpp"
 
 std_msgs::msg::Header header;
 
-Perception::Perception(std::shared_ptr<GroundRemoval> ground_removal, std::shared_ptr<Clustering> clustering,
-             std::shared_ptr<ConeDifferentiation> cone_differentiator,
-             const std::vector<std::shared_ptr<ConeValidator>>& cone_validators, 
-             std::shared_ptr<ConeEvaluator> cone_evaluator, std::string mode)
+Perception::Perception(std::shared_ptr<GroundRemoval> ground_removal,
+                       std::shared_ptr<Clustering> clustering,
+                       std::shared_ptr<ConeDifferentiation> cone_differentiator,
+                       const std::vector<std::shared_ptr<ConeValidator>>& cone_validators,
+                       std::shared_ptr<ConeEvaluator> cone_evaluator, std::string mode)
     : Node("perception"),
       _ground_removal_(ground_removal),
       _clustering_(clustering),
@@ -27,8 +29,11 @@ Perception::Perception(std::shared_ptr<GroundRemoval> ground_removal, std::share
       _cone_validators_(cone_validators),
       _cone_evaluator_(cone_evaluator),
       _mode_(mode) {
-  this->_cones_publisher = this->create_publisher<custom_interfaces::msg::ConeArray>("/perception/cones", 10);
+  this->_cones_publisher =
+      this->create_publisher<custom_interfaces::msg::ConeArray>("/perception/cones", 10);
 
+  this->cone_marker_array =
+      this->create_publisher<visualization_msgs::msg::MarkerArray>("/perception/debug/cones", 10);
   this->_adapter_ = std::shared_ptr<Adapter>(adapter_map[mode](this));
 }
 
@@ -51,8 +56,9 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr clusters_pc(new pcl::PointCloud<pcl::PointXYZI>);
 
-  for (auto cluster : clusters){
-    clusters_pc->points.push_back({cluster.get_centroid()[0], cluster.get_centroid()[1], cluster.get_centroid()[2], cluster.get_centroid()[3]});
+  for (auto cluster : clusters) {
+    clusters_pc->points.push_back({cluster.get_centroid()[0], cluster.get_centroid()[1],
+                                   cluster.get_centroid()[2], cluster.get_centroid()[3]});
   }
 
   clusters_pc->width = 1;
@@ -89,6 +95,7 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
 
 void Perception::publishCones(std::vector<Cluster>* cones) {
   auto message = custom_interfaces::msg::ConeArray();
+  std::vector<custom_interfaces::msg::Cone> temp = {};
   message.header = header;
   for (int i = 0; i < static_cast<int>(cones->size()); i++) {
     auto position = custom_interfaces::msg::Point2d();
@@ -100,7 +107,10 @@ void Perception::publishCones(std::vector<Cluster>* cones) {
     cone_message.color = cones->at(i).get_color();
     cone_message.confidence = cones->at(i).get_confidence();
     message.cone_array.push_back(cone_message);
+    temp.push_back(cone_message);
   }
 
   this->_cones_publisher->publish(message);
+  this->cone_marker_array->publish(common_lib::communication::marker_array_from_structure_array(
+      temp, "perception", "fsds/Lidar2"));
 }

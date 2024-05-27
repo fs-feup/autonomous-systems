@@ -126,13 +126,13 @@ class FSDSAdapter(Adapter):
         perception_ground_truth = []
 
         for cone in self.track:
-            cone_position = np.array([cone[0], cone[1], 0, 0])
+            cone_position = np.array([cone[0], cone[1], 0])
             transformed_position = np.dot(rotation_matrix, cone_position) + np.array(
-                [odometry.pose.pose.position.x, odometry.pose.pose.position.y, 0, 0]
+                [odometry.pose.pose.position.x, odometry.pose.pose.position.y, 0]
             )
 
             perception_ground_truth.append(f"{transformed_position}")
-            self.node.get_logger().info(transformed_position)
+            # self.node.get_logger().info(transformed_position)
 
         return perception_ground_truth
 

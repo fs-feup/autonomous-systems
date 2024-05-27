@@ -18,6 +18,8 @@ find_package(tf2_ros REQUIRED)
 find_package(PCL REQUIRED QUIET)
 find_package(message_filters REQUIRED)
 find_package(pcl_conversions REQUIRED)
+find_package(visualization_msgs REQUIRED)
+find_package(common_lib REQUIRED)
 
 
 set(IMPLEMENTATION_FILES 
@@ -58,7 +60,7 @@ install(TARGETS perception
 
 install(DIRECTORY launch DESTINATION share/${PROJECT_NAME}/)
 
-ament_target_dependencies(perception rclcpp custom_interfaces sensor_msgs fs_msgs message_filters eufs_msgs)
+ament_target_dependencies(perception rclcpp visualization_msgs common_lib custom_interfaces sensor_msgs fs_msgs message_filters eufs_msgs)
 
 if(BUILD_TESTING)
   find_package(ament_cmake_gtest REQUIRED)

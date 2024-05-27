@@ -14,6 +14,7 @@
 #include "ground_removal/ransac.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
+#include "visualization_msgs/msg/marker_array.hpp"
 
 class Adapter;
 
@@ -26,11 +27,13 @@ class Adapter;
  * cone detection results on a custom topic.
  */
 class Perception : public rclcpp::Node {
- private:
+private:
   std::shared_ptr<GroundRemoval> _ground_removal_;  ///< Shared pointer to the GroundRemoval object.
-  std::shared_ptr<Adapter> _adapter_;              /**< Shared pointer to Adapter instance for external communication */
+  std::shared_ptr<Adapter>
+      _adapter_; /**< Shared pointer to Adapter instance for external communication */
   std::shared_ptr<Clustering> _clustering_;
-  std::shared_ptr<ConeDifferentiation> _cone_differentiator_;  ///< Shared pointer to ConeDifferentiation object.
+  std::shared_ptr<ConeDifferentiation>
+      _cone_differentiator_;  ///< Shared pointer to ConeDifferentiation object.
   Plane _ground_plane_;
   std::vector<std::shared_ptr<ConeValidator>> _cone_validators_;
   std::shared_ptr<ConeEvaluator> _cone_evaluator_;
@@ -40,20 +43,21 @@ class Perception : public rclcpp::Node {
       _point_cloud_subscription;  ///< PointCloud2 subscription.
   rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr
       _cones_publisher;  ///< ConeArray publisher.
+  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr cone_marker_array;
 
   /**
    * @brief Publishes information about clusters (cones) using a custom ROS2 message.
    *
    * This function takes a vector of Cluster objects, extracts relevant information such as
-   * centroid and color, and publishes this information using a custom ROS2 message type ConeArray.
+   * centroid and color, and publishes this information using a custom ROS2 message type
+   * ConeArray.
    *
-   * @param cones A reference to a vector of Cluster objects representing the clusters (cones) to be
-   * published.
+   * @param cones A reference to a vector of Cluster objects representing the clusters (cones)
+   * to be published.
    */
   void publishCones(std::vector<Cluster>* cones);
 
- public:
-
+public:
   /**
    * @brief Constructor for the Perception node.
    * @param groundRemoval Shared pointer to the GroundRemoval object.
@@ -65,7 +69,7 @@ class Perception : public rclcpp::Node {
    */
   Perception(std::shared_ptr<GroundRemoval> ground_removal, std::shared_ptr<Clustering> clustering,
              std::shared_ptr<ConeDifferentiation> cone_differentiator,
-             const std::vector<std::shared_ptr<ConeValidator>>& cone_validators, 
+             const std::vector<std::shared_ptr<ConeValidator>>& cone_validators,
              std::shared_ptr<ConeEvaluator> cone_evaluator, std::string mode);
 
   /**

@@ -3,6 +3,7 @@ from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 from launch.actions import DeclareLaunchArgument
 
+
 def generate_launch_description():
     return LaunchDescription(
         [
@@ -17,29 +18,29 @@ def generate_launch_description():
                 default_value="10",
             ),
             DeclareLaunchArgument(
-                "clustering_n_neighbours", 
+                "clustering_n_neighbours",
                 description="Number of neighbours for Clustering algorithm",
                 default_value="1",
             ),
             DeclareLaunchArgument(
-                "clustering_epsilon", 
+                "clustering_epsilon",
                 description="Epsilon for Clustering algorithm",
-                default_value="2.5",
+                default_value="1.0",
             ),
             DeclareLaunchArgument(
-                "horizontal_resolution", 
+                "horizontal_resolution",
                 description="Lidar's horizontal resolution",
                 default_value="0.2",
             ),
             DeclareLaunchArgument(
-                "vertical_resolution", 
+                "vertical_resolution",
                 description="Lidar's vertical resolution",
                 default_value="0.33",
             ),
             DeclareLaunchArgument(
                 "adapter",
                 description="Environment to run node on",
-                default_value="vehicle",
+                default_value="fsds",
             ),
             Node(
                 package="perception",
@@ -48,9 +49,17 @@ def generate_launch_description():
                 parameters=[
                     {"ransac_epsilon": LaunchConfiguration("ransac_epsilon")},
                     {"ransac_n_neighbours": LaunchConfiguration("ransac_n_neighbours")},
-                    {"clustering_n_neighbours": LaunchConfiguration("clustering_n_neighbours")},
+                    {
+                        "clustering_n_neighbours": LaunchConfiguration(
+                            "clustering_n_neighbours"
+                        )
+                    },
                     {"clustering_epsilon": LaunchConfiguration("clustering_epsilon")},
-                    {"horizontal_resolution": LaunchConfiguration("horizontal_resolution")},
+                    {
+                        "horizontal_resolution": LaunchConfiguration(
+                            "horizontal_resolution"
+                        )
+                    },
                     {"vertical_resolution": LaunchConfiguration("vertical_resolution")},
                     {"adapter": LaunchConfiguration("adapter")},
                 ],
@@ -63,9 +72,17 @@ def generate_launch_description():
                 parameters=[
                     {"ransac_epsilon": LaunchConfiguration("ransac_epsilon")},
                     {"ransac_n_neighbours": LaunchConfiguration("ransac_n_neighbours")},
-                    {"clustering_n_neighbours": LaunchConfiguration("clustering_n_neighbours")},
+                    {
+                        "clustering_n_neighbours": LaunchConfiguration(
+                            "clustering_n_neighbours"
+                        )
+                    },
                     {"clustering_epsilon": LaunchConfiguration("clustering_epsilon")},
-                    {"horizontal_resolution": LaunchConfiguration("horizontal_resolution")},
+                    {
+                        "horizontal_resolution": LaunchConfiguration(
+                            "horizontal_resolution"
+                        )
+                    },
                     {"vertical_resolution": LaunchConfiguration("vertical_resolution")},
                     {"adapter": LaunchConfiguration("adapter")},
                 ],
@@ -74,5 +91,6 @@ def generate_launch_description():
         ]
     )
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     generate_launch_description()
