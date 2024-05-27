@@ -12,7 +12,7 @@ TEST(PidTests, TestAntiWindUp1) {
   pid.proportional = 0.3;
   pid.integrator = 0.7;
   pid.differentiator = 0.2;
-  pid.antiWindUp();
+  pid.anti_wind_up();
   EXPECT_FLOAT_EQ(0.7 * antiWindupConst, pid.integrator);
 }
 
@@ -26,7 +26,7 @@ TEST(PidTests, TestAntiWindUp2) {
   pid.proportional = -0.3;
   pid.integrator = -0.7;
   pid.differentiator = -0.2;
-  pid.antiWindUp();
+  pid.anti_wind_up();
   EXPECT_FLOAT_EQ(-0.7 * antiWindupConst, pid.integrator);
 }
 
@@ -40,22 +40,22 @@ TEST(PidTests, TestAntiWindUp3) {
   pid.proportional = 0.3;
   pid.integrator = 0.3;
   pid.differentiator = 0.2;
-  pid.antiWindUp();
+  pid.anti_wind_up();
   EXPECT_FLOAT_EQ(0.3, pid.integrator);
 }
 
 /**
- * @brief Test PID class - calculateProportionalTerm
+ * @brief Test PID class - calculate_proportional_term
  */
 TEST(PidTests, ProportionalTerm) {
   float error = 4;
   PID pid(0.4, 0.3, 0.09, 0.7, 0.1, -1, 1, 0.5);
-  pid.calculateProportionalTerm(error);
+  pid.calculate_proportional_term(error);
   EXPECT_FLOAT_EQ(1.6, pid.proportional);
 }
 
 /**
- * @brief Test PID class - calculateIntegralTerm
+ * @brief Test PID class - calculate_integral_term
  * error positive
  */
 TEST(PidTests, IntegralTerm1) {
@@ -63,12 +63,12 @@ TEST(PidTests, IntegralTerm1) {
   PID pid(0.4, 0.3, 0.09, 0.7, 0.1, -1, 1, 0.5);
   pid.integrator = 0.3;
   pid.prevError = 4;
-  pid.calculateIntegralTerm(error);
+  pid.calculate_integral_term(error);
   EXPECT_FLOAT_EQ(0.405, pid.integrator);
 }
 
 /**
- * @brief Test PID class - calculateIntegralTerm
+ * @brief Test PID class - calculate_integral_term
  * error negative
  */
 TEST(PidTests, IntegralTerm2) {
@@ -76,12 +76,12 @@ TEST(PidTests, IntegralTerm2) {
   PID pid(0.4, 0.3, 0.09, 0.7, 0.1, -1, 1, 0.5);
   pid.integrator = 0.3;
   pid.prevError = -4;
-  pid.calculateIntegralTerm(error);
+  pid.calculate_integral_term(error);
   EXPECT_FLOAT_EQ(0.195, pid.integrator);
 }
 
 /**
- * @brief Test PID class - calculateDerivativeTerm
+ * @brief Test PID class - calculate_derivative_term
  * measurement positive
  */
 TEST(PidTests, DerivativeTerm1) {
@@ -89,12 +89,12 @@ TEST(PidTests, DerivativeTerm1) {
   PID pid(0.4, 0.3, 0.1, 0.7, 0.1, -1, 1, 0.45);
   pid.differentiator = 0.4;
   pid.prevMeasurement = 4;
-  pid.calculateDerivativeTerm(measurement);
+  pid.calculate_derivative_term(measurement);
   EXPECT_FLOAT_EQ(0.48, pid.differentiator);
 }
 
 /**
- * @brief Test PID class - calculateDerivativeTerm
+ * @brief Test PID class - calculate_derivative_term
  * measurement negative
  */
 TEST(PidTests, DerivativeTerm2) {
@@ -102,12 +102,12 @@ TEST(PidTests, DerivativeTerm2) {
   PID pid(0.4, 0.3, 0.1, 0.7, 0.1, -1, 1, 0.45);
   pid.differentiator = 0.4;
   pid.prevMeasurement = -1.2;
-  pid.calculateDerivativeTerm(measurement);
+  pid.calculate_derivative_term(measurement);
   EXPECT_FLOAT_EQ(0.72, pid.differentiator);
 }
 
 /**
- * @brief Test PID class - computeOutput
+ * @brief Test PID class - compute_output
  * output not saturated
  */
 TEST(PidTests, Output1) {
@@ -115,12 +115,12 @@ TEST(PidTests, Output1) {
   pid.proportional = 0.3;
   pid.integrator = 0.1;
   pid.differentiator = 0.4;
-  pid.computeOutput();
+  pid.compute_output();
   EXPECT_FLOAT_EQ(0.8, pid.out);
 }
 
 /**
- * @brief Test PID class - computeOutput
+ * @brief Test PID class - compute_output
  * output saturated LimMax
  */
 TEST(PidTests, Output2) {
@@ -128,12 +128,12 @@ TEST(PidTests, Output2) {
   pid.proportional = 0.3;
   pid.integrator = 0.3;
   pid.differentiator = 0.6;
-  pid.computeOutput();
+  pid.compute_output();
   EXPECT_FLOAT_EQ(1, pid.out);
 }
 
 /**
- * @brief Test PID class - computeOutput
+ * @brief Test PID class - compute_output
  * output saturated LimMin
  */
 TEST(PidTests, Output3) {
@@ -141,7 +141,7 @@ TEST(PidTests, Output3) {
   pid.proportional = -0.3;
   pid.integrator = -0.3;
   pid.differentiator = -0.6;
-  pid.computeOutput();
+  pid.compute_output();
   EXPECT_FLOAT_EQ(-1, pid.out);
 }
 

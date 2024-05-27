@@ -205,3 +205,16 @@ def format_path_point_array_msg(path_point_array: PathPointArray):
         path_list.append(np.array([point.x, point.y, 0.0]))
 
     return path_list
+
+
+def format_point2d_msg(msg):
+    """!
+    Converts a Point2D message into a numpy array.
+
+    Args:
+        msg: Point2D message.
+
+    Returns:
+        np.ndarray: Numpy array of point.
+    """
+    return np.array([msg.x, msg.y])

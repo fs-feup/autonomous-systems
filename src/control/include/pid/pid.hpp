@@ -1,5 +1,4 @@
-#ifndef PID_CONTROLLER_HPP_
-#define PID_CONTROLLER_HPP_
+#pragma once
 
 /**
  * @brief PI-D Controller class
@@ -13,35 +12,35 @@
 
 class PID {
  public:            // pirvate vs public
-  float Kp;         /**< Proporcional gain */
-  float Ki;         /**< Integral gain */
-  float Kd;         /**< Derivative gain */
-  float antiWindup; /**< Gain of integrator impact when saturated */
+  double Kp;         /**< Proporcional gain */
+  double Ki;         /**< Integral gain */
+  double Kd;         /**< Derivative gain */
+  double antiWindup; /**< Gain of integrator impact when saturated */
 
-  float tau; /**< Derivative low pass filter time constant */
+  double tau; /**< Derivative low pass filter time constant */
 
-  float T; /**< Sampling time */
+  double T; /**< Sampling time */
 
-  float limMin; /**< Minimum output value */
-  float limMax; /**< Maximum output value */
+  double limMin; /**< Minimum output value */
+  double limMax; /**< Maximum output value */
 
-  float proportional;   /**< Integrator value */
-  float integrator;     /**< Integrator value */
-  float differentiator; /**< Differentiator value */
+  double proportional{0.0f};   /**< Integrator value */
+  double integrator{0.0f};     /**< Integrator value */
+  double differentiator{0.0f}; /**< Differentiator value */
 
-  float prevError;       /**< Previous error value, required for integrator */
-  float prevMeasurement; /**< Previous measurement value, required for defferentiator */
+  double prevError{0.0f};       /**< Previous error value, required for integrator */
+  double prevMeasurement{0.0f}; /**< Previous measurement value, required for defferentiator */
 
-  float out; /**< Output value */
+  double out{0.0f}; /**< Output value */
 
   /**
    * @brief Calculate the output value
    *
    * @param setpoint
    * @param measurement
-   * @return float
+   * @return double
    */
-  float update(float setpoint, float measurement);
+  double update(double setpoint, double measurement);
 
  public:
   /**
@@ -56,47 +55,51 @@ class PID {
    * @param limMax Maximum output value
    * @param antiWindup Gain of integrator impact when saturated
    */
-  PID(float Kp, float Ki, float Kd, float tau, float T, float limMin, float limMax,
-      float antiWindup);
+  PID(double Kp, double Ki, double Kd, double tau, double T, double limMin, double limMax,
+      double antiWindup);
+
+  /**
+   * @brief PID default constructor
+   */
+  PID();
 
   /**
    * @brief Calculate the error signal
    *
    * @param setpoint
    * @param measurement
-   * @return error (float)
+   * @return error (double)
    */
-  float calculateError(float setpoint, float measurement);
+  double calculate_error(double setpoint, double measurement) const;
 
   /**
    * @brief Calculate the proportional term
    *
    * @param error
    */
-  void calculateProportionalTerm(float error);
+  void calculate_proportional_term(double error);
 
   /**
    * @brief Calculate the integral term
    *
    * @param error
    */
-  void calculateIntegralTerm(float error);
+  void calculate_integral_term(double error);
 
   /**
    * @brief Anti-wind-up via dynamic integrator clamping
    */
-  void antiWindUp();
+  void anti_wind_up();
 
   /**
    * @brief Calculate the derivative term (derivative on measurement)
    *
    * @param measurement
    */
-  void calculateDerivativeTerm(float measurement);
+  void calculate_derivative_term(double measurement);
 
   /**
    * @brief Compute the output value and apply limits
    */
-  void computeOutput();
+  void compute_output();
 };
-#endif  // PID_CONTROLLER_HPP_
