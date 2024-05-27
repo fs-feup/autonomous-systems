@@ -12,14 +12,12 @@
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "custom_interfaces/msg/path_point_array.hpp"
 #include "custom_interfaces/msg/vehicle_state.hpp"
+#include "custom_interfaces/msg/evaluator_control_data.hpp"
 #include "pid/pid.hpp"
 #include "point_solver/psolver.hpp"
 #include "pure_pursuit/pp.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
-
-constexpr double K = 1.0;         /**< PP_gain */
-constexpr double LD_MARGIN = 0.1; /**< Lookahead distance margin */
 
 /**
  * @class Control

@@ -43,15 +43,9 @@ void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicl
   if (!go_signal_) return;
   // update vehicle pose
   this->point_solver_.update_vehicle_pose(vehicle_state_msg);
-  RCLCPP_INFO(rclcpp::get_logger("control"), "Current vehicle velocity: %f",
-              this->point_solver_.vehicle_pose_.velocity_);
-  RCLCPP_INFO(rclcpp::get_logger("control"), "Rear axis coords: %f, %f",
-              this->point_solver_.vehicle_pose_.rear_axis_.x_,
-              this->point_solver_.vehicle_pose_.rear_axis_.y_);
 
   // calculate lookahead distance
-  double ld = this->k_ * std::max(this->point_solver_.vehicle_pose_.velocity_, 10.0);
-  RCLCPP_INFO(rclcpp::get_logger("control"), "Current ld: %f", ld);
+  double ld = this->k_ * std::max(this->point_solver_.vehicle_pose_.velocity_, 2.0);
 
   // find the closest point on the path
   // print pathpoint array size
@@ -62,9 +56,6 @@ void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicl
     return;
   }
 
-  RCLCPP_INFO(rclcpp::get_logger("control"), "Closest Point: %f, %f", closest_point.x_,
-              closest_point.y_);
-
   // update the Lookahead point
   auto [lookahead_point, lookahead_velocity, lookahead_error] =
       this->point_solver_.update_lookahead_point(pathpoint_array_, closest_point, closest_point_id,
@@ -74,13 +65,9 @@ void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicl
     return;
   }
 
-  RCLCPP_INFO(rclcpp::get_logger("control"), "Lookahead Point: %f, %f", lookahead_point.x_,
-              lookahead_point.y_);
-
   // calculate longitudinal control: PI-D
   double torque = this->long_controller_.update(lookahead_velocity,
                                                 this->point_solver_.vehicle_pose_.velocity_);
-  RCLCPP_INFO(rclcpp::get_logger("control"), "Torque from long control update is: %f", torque);
 
   // calculate Lateral Control: Pure Pursuit
   double steering_angle = this->lat_controller_.pp_steering_control_law(
@@ -88,10 +75,23 @@ void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicl
       lookahead_point, this->point_solver_.dist_cg_2_rear_axis_, this->lat_controller_.wheel_base_,
       this->lat_controller_.max_steering_angle_, this->lat_controller_.min_steering_angle_);
 
-  RCLCPP_INFO(rclcpp::get_logger("control"), "Torque: %f, Steering Angle: %f", torque,
-              steering_angle);
+  RCLCPP_DEBUG(rclcpp::get_logger("control"), "Current vehicle velocity: %f",
+               this->point_solver_.vehicle_pose_.velocity_);
+  RCLCPP_DEBUG(rclcpp::get_logger("control"), "Rear axis coords: %f, %f",
+               this->point_solver_.vehicle_pose_.rear_axis_.x_,
+               this->point_solver_.vehicle_pose_.rear_axis_.y_);
+  RCLCPP_DEBUG(rclcpp::get_logger("control"), "Current ld: %f", ld);
+  RCLCPP_DEBUG(rclcpp::get_logger("control"), "Closest Point: %f, %f", closest_point.x_,
+               closest_point.y_);
+  RCLCPP_DEBUG(rclcpp::get_logger("control"), "Lookahead Point: %f, %f", lookahead_point.x_,
+               lookahead_point.y_);
+  RCLCPP_DEBUG(rclcpp::get_logger("control"), "Torque: %f, Steering Angle: %f", torque,
+               steering_angle);
 
-  publish_evaluator_data(lookahead_velocity, lookahead_point, closest_point, vehicle_state_msg);
+  auto pose = vehicle_state_msg;
+  pose.position.x = this->point_solver_.vehicle_pose_.rear_axis_.x_;
+  pose.position.y = this->point_solver_.vehicle_pose_.rear_axis_.y_;
+  publish_evaluator_data(lookahead_velocity, lookahead_point, closest_point, pose);
   adapter_->publish_cmd(torque, steering_angle);
   // Adapter to communicate with the car
   //

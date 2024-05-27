@@ -39,25 +39,21 @@ double PID::update(double setpoint, double measurement) {
    * Error signal
    */
   double error = calculate_error(setpoint, measurement);
-  RCLCPP_INFO(rclcpp::get_logger("control"), "Error: %f", error);
 
   /*
    * Proportional term
    */
   this->calculate_proportional_term(error);
-  RCLCPP_INFO(rclcpp::get_logger("control"), "Proportional: %f", this->proportional);
 
   /*
    * Integral term
    */
   this->calculate_integral_term(error);
-  RCLCPP_INFO(rclcpp::get_logger("control"), "Integral: %f", this->integrator);
 
   /*
    * Derivative term , derivative on measurement
    */
   this->calculate_derivative_term(measurement);
-  RCLCPP_INFO(rclcpp::get_logger("control"), "Derivative: %f", this->differentiator);
 
   /*
    * Anti-wind-up integrator

@@ -15,6 +15,10 @@ from evaluator.metrics import (
     get_inter_cones_distance,
     compute_distance,
 )
+from evaluator.formats import (
+    format_vehicle_state_msg,
+    format_point2d_msg,
+)
 import tf2_ros
 import sys
 from tf2_ros.transform_listener import TransformListener
@@ -65,6 +69,8 @@ class Evaluator(Node):
         self.perception_receive_time_: datetime.datetime = datetime.datetime.now()
         self.map_receive_time_: datetime.datetime = datetime.datetime.now()
         self._point_cloud_receive_time_: datetime.datetime = datetime.datetime.now()
+        self._planning_receive_time_: datetime.datetime = datetime.datetime.now()
+        self._control_receive_time_: datetime.datetime = datetime.datetime.now()
 
         # Subscriptions
         self.perception_timing_subscription_ = self.create_subscription(
@@ -421,9 +427,7 @@ class Evaluator(Node):
         self.get_logger().debug("Received GT planning")
         self.planning_mock = msg.pathpoint_array
 
-    def compute_and_publish_control(
-        self, vehicle_state: VehicleState, closest_point: PathPoint
-    ):
+    def compute_and_publish_control(self, msg: EvaluatorControlData):
         """!
         Computes control metrics and publishes them.
         Args:
@@ -433,6 +437,11 @@ class Evaluator(Node):
 
         self.get_logger().debug("Received control")
         self._control_receive_time_ = datetime.datetime.now()
+
+        pose_treated, velocities_treated = format_vehicle_state_msg(msg.vehicle_state)
+        lookahead_point = format_point2d_msg(msg.lookahead_point)
+        lookahead_velocity = msg.lookahead_velocity
+
         time_difference = float(
             (self._control_receive_time_ - self._planning_receive_time_).microseconds
             / 1000
@@ -442,24 +451,26 @@ class Evaluator(Node):
 
         self._control_execution_time_.publish(execution_time)
 
+        pose_position = pose_treated[:2]
+        closest_point = format_point2d_msg(msg.closest_point)
         difference = Float32()
-        difference.data = compute_distance(closest_point, vehicle_state.position)
+        difference.data = compute_distance(closest_point, pose_position)
 
-        self._closest_points_.add(closest_point)
-        self._vehicle_position_.add(vehicle_state.position)
+        # self._closest_points_.append(closest_point)
+        # self._vehicle_position_.append(pose_position)
 
-        mean_difference = Float32()
-        mean_difference.data = get_average_difference(
-            self._closest_points_, self._vehicle_position_
-        )
+        # mean_difference = Float32()
+        # mean_difference.data = get_average_difference(
+        #     self._closest_points_, self._vehicle_position_
+        # )
 
-        mean_squared_difference = Float32()
-        mean_squared_difference.data = get_mean_squared_difference(
-            self._closest_points_, self._vehicle_position_
-        )
+        # mean_squared_difference = Float32()
+        # mean_squared_difference.data = get_mean_squared_difference(
+        #     self._closest_points_, self._vehicle_position_
+        # )
 
-        root_mean_squared_difference = Float32()
-        root_mean_squared_difference.data = sqrt(mean_squared_difference)
+        # root_mean_squared_difference = Float32()
+        # root_mean_squared_difference.data = sqrt(mean_squared_difference)
 
         self.get_logger().debug(
             "Computed control metrics:\n \
@@ -468,17 +479,17 @@ class Evaluator(Node):
                                 Mean squared difference: {}\n \
                                 Root mean squared difference: {}".format(
                 difference,
-                mean_difference,
-                mean_squared_difference,
-                root_mean_squared_difference,
+                "TODO",
+                "TODO",
+                "TODO",
             )
         )
 
         self._control_difference_.publish(difference)
-        self._control_difference_mean_.publish(mean_difference)
-        self._control_root_mean_squared_difference_.publish(
-            root_mean_squared_difference
-        )
+        # self._control_difference_mean_.publish(mean_difference)
+        # self._control_root_mean_squared_difference_.publish(
+        #     root_mean_squared_difference
+        # )
 
 
 def main(args=None):

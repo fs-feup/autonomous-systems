@@ -16,7 +16,7 @@ PacSimAdapter::PacSimAdapter(Control* control)
 
     // Maybe change time to a lower value if needed: std::chrono::milliseconds(10)
     RCLCPP_INFO(this->node_->get_logger(), "Creating wall timer");
-    timer_ = this->node_->create_wall_timer(std::chrono::milliseconds(60),
+    timer_ = this->node_->create_wall_timer(std::chrono::milliseconds(5),
                                             std::bind(&PacSimAdapter::timer_callback, this));
 
     this->finished_client_ =
