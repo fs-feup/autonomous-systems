@@ -1,8 +1,8 @@
-#include <pcl/sample_consensus/ransac.h>
+#pragma once
 
+#include <pcl/sample_consensus/ransac.h>
 #include <string>
 #include <utils/plane.hpp>
-
 #include "ground_removal/ground_removal.hpp"
 
 /**
@@ -24,6 +24,13 @@ class RANSAC : public GroundRemoval {
    * @param n_tries Number of RANSAC iterations.
    */
   RANSAC(double epsilon, int n_tries);
+  
+  /**
+   * @brief Default constructor.
+   *
+   * This constructor is provided as a default constructor.
+   */
+  RANSAC() = default;
 
   /**
    * @brief Perform ground removal using the RANSAC algorithm.
@@ -34,6 +41,7 @@ class RANSAC : public GroundRemoval {
    * @param point_cloud The input point cloud to be processed.
    * @param[out] ret The resulting point cloud after ground removal.
    */
-  void groundRemoval(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
+  void ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
                      pcl::PointCloud<pcl::PointXYZI>::Ptr ret, Plane& plane) const override;
 };
+

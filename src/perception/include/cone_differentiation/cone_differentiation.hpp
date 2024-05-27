@@ -1,5 +1,4 @@
-#ifndef CONE_DIFFERENTIATION_HPP
-#define CONE_DIFFERENTIATION_HPP
+#pragma once
 
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
@@ -23,5 +22,3 @@ class ConeDifferentiation {
    */
   virtual void coneDifferentiation(Cluster* cone_point_cloud) const = 0;
 };
-
-#endif  // CONE_DIFFERENTIATION_HPP

@@ -1,5 +1,4 @@
-#ifndef CYLINDER_VALIDATOR_HPP
-#define CYLINDER_VALIDATOR_HPP
+#pragma once
 
 #include <cone_validator/cone_validator.hpp>
 #include <utils/cluster.hpp>
@@ -39,4 +38,3 @@ class CylinderValidator : public ConeValidator {
   bool coneValidator(Cluster* cone_point_cloud, Plane& plane) const override;
 };
 
-#endif /* CYLINDER_VALIDATOR_HPP */

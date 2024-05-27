@@ -1,5 +1,4 @@
-#ifndef SRC_PERCEPTION_INCLUDE_ADAPTER_EUFS_HPP_
-#define SRC_PERCEPTION_INCLUDE_ADAPTER_EUFS_HPP_
+#pragma once
 
 #include "adapter_perception/adapter.hpp"
 #include "eufs_msgs/msg/can_state.hpp"
@@ -35,5 +34,3 @@ class EufsAdapter : public Adapter {
    */
   void finish() override;
 };
-
-#endif  // SRC_PERCEPTION_INCLUDE_ADAPTER_EUFS_HPP_

@@ -1,5 +1,4 @@
-#ifndef SRC_PERCEPTION_INCLUDE_ADAPTER_FSDS_HPP_
-#define SRC_PERCEPTION_INCLUDE_ADAPTER_FSDS_HPP_
+#pragma once
 
 #include "adapter_perception/adapter.hpp"
 #include "fs_msgs/msg/go_signal.hpp"
@@ -42,5 +41,3 @@ class FsdsAdapter : public Adapter {
    */
   void finish() override;
 };
-
-#endif  // SRC_PERCEPTION_INCLUDE_ADAPTER_FSDS_HPP_

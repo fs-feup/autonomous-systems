@@ -164,7 +164,7 @@ TEST_F(PerceptionPerformanceTest, TestPerformance) {
 
     Plane plane;
 
-    ground_removal->groundRemoval(pcl_cloud, ground_removed_cloud, plane);
+    ground_removal->ground_removal(pcl_cloud, ground_removed_cloud, plane);
 
     auto ransac_time = std::chrono::high_resolution_clock::now();
     executionTime.RANSAC_time =

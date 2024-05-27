@@ -1,5 +1,4 @@
-#ifndef CONE_VALIDATOR_HPP
-#define CONE_VALIDATOR_HPP
+#pragma once
 
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
@@ -26,5 +25,3 @@ class ConeValidator {
    */
   virtual bool coneValidator(Cluster* cone_point_cloud, Plane& plane) const = 0;
 };
-
-#endif  // CONE_VALIDATOR_HPP

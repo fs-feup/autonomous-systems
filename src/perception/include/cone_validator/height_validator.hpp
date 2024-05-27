@@ -1,5 +1,4 @@
-#ifndef HEIGHT_VALIDATOR_HPP
-#define HEIGHT_VALIDATOR_HPP
+#pragma once
 
 #include <cone_validator/cone_validator.hpp>
 #include <utils/cluster.hpp>
@@ -36,4 +35,3 @@ class HeightValidator : public ConeValidator {
   bool coneValidator(Cluster* cone_point_cloud, Plane& plane) const override;
 };
 
-#endif /* HEIGHT_VALIDATOR_HPP */
