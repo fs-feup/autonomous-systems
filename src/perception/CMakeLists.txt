@@ -23,6 +23,7 @@ find_package(pcl_conversions REQUIRED)
 set(IMPLEMENTATION_FILES 
   src/perception/perception_node.cpp
   src/ground_removal/ransac.cpp
+  src/ground_removal/grid_ransac.cpp
   src/adapter_perception/adapter.cpp
   src/adapter_perception/fsds.cpp
   src/adapter_perception/vehicle.cpp
@@ -74,8 +75,10 @@ if(BUILD_TESTING)
                   src/cone_validator/height_validator.cpp
                   test/height_validator_test.cpp
                   test/cylinder_validator_test.cpp
+                  test/grid_ransac_test.cpp
                   src/cone_evaluator/distance_predict.cpp
                   test/distance_validator_test.cpp
+                  src/ground_removal/grid_ransac.cpp
                   src/center_calculation/centroid_calculation.cpp
                   src/center_calculation/circunference_center_calculation.cpp
                   src/icp/icp.cpp

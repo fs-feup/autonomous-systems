@@ -41,7 +41,7 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
 
-  _ground_removal_->groundRemoval(pcl_cloud, ground_removed_cloud, _ground_plane_);
+  _ground_removal_->ground_removal(pcl_cloud, ground_removed_cloud, _ground_plane_);
 
   std::vector<Cluster> clusters;
 

@@ -1,6 +1,4 @@
-#ifndef SRC_PERCEPTION_INCLUDE_ADAPTER_ADAPTER_HPP_
-#define SRC_PERCEPTION_INCLUDE_ADAPTER_ADAPTER_HPP_
-
+#pragma once
 #include <string>
 
 #include "custom_interfaces/msg/vcu.hpp"
@@ -41,5 +39,3 @@ class Adapter {
      */
     virtual void finish() = 0;
 };
-
-#endif  // SRC_PERCEPTION_INCLUDE_ADAPTER_ADAPTER_HPP_
