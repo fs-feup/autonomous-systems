@@ -85,11 +85,12 @@ EufsAdapter::EufsAdapter(Planning* planning) : Adapter(planning) {
     this->eufs_pose_subscription_ = this->node->create_subscription<eufs_msgs::msg::CarState>(
         "/odometry_integration/car_state", 10,
         std::bind(&EufsAdapter::pose_callback, this, std::placeholders::_1));
-    this->eufs_map_subscription_ =
-        this->node->create_subscription<eufs_msgs::msg::ConeArrayWithCovariance>(
-            "/ground_truth/track", 10,
-            std::bind(&EufsAdapter::map_callback, this, std::placeholders::_1));
   }
+  this->eufs_map_subscription_ =
+      this->node->create_subscription<eufs_msgs::msg::ConeArrayWithCovariance>(
+          "/ground_truth/track", 10,
+          std::bind(&EufsAdapter::map_callback, this, std::placeholders::_1));
+
   this->eufs_state_subscription_ = this->node->create_subscription<eufs_msgs::msg::CanState>(
       "/ros_can/state", 10,
       std::bind(&EufsAdapter::mission_state_callback, this, std::placeholders::_1));
@@ -145,6 +146,9 @@ void EufsAdapter::map_callback(const eufs_msgs::msg::ConeArrayWithCovariance& ms
   RCLCPP_DEBUG(this->node->get_logger(), "Received cones from EUFS");
   this->eufs_map_publisher_->publish(
       marker_array_from_cone_array_w_covariance(msg, "recieved_path_from_eufs", "map"));
+  if (!this->node->using_simulated_se_) {
+    return;
+  }
   custom_interfaces::msg::ConeArray cones;
   for (auto cone : msg.blue_cones) {
     custom_interfaces::msg::Cone c;

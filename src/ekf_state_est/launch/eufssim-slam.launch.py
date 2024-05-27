@@ -13,12 +13,12 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "data_association_limit_distance",
                 description="Maximum distance to admit landmarks",
-                default_value="10.0",
+                default_value="15.0",
             ),  # meters
             DeclareLaunchArgument(
                 "sml_initial_limit",
                 description="Initial limit for the limit function used in the simple maximum likelihood data association",
-                default_value="0.1",
+                default_value="0.5",
             ),
             DeclareLaunchArgument(
                 "sml_curvature",
