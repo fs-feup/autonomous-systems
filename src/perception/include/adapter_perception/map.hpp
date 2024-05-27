@@ -1,5 +1,4 @@
-#ifndef SRC_PERCEPTION_INCLUDE_ADAPTER_MAP_HPP_
-#define SRC_PERCEPTION_INCLUDE_ADAPTER_MAP_HPP_
+#pragma once
 
 #include <map>
 #include <string>
@@ -23,4 +22,3 @@ std::map<std::string, std::function<Adapter*(Perception*)>> adapter_map = {
     {"eufs", [](Perception* perception) -> Adapter* { return new EufsAdapter(perception); }},
 };
 
-#endif  // SRC_PERCEPTION_INCLUDE_ADAPTER_MAP_HPP_

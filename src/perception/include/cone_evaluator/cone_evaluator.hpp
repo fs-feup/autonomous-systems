@@ -1,6 +1,4 @@
-#ifndef CONE_EVALUATOR_HPP
-#define CONE_EVALUATOR_HPP
-
+#pragma once
 #include <utils/cluster.hpp>
 
 /**
@@ -19,5 +17,3 @@ class ConeEvaluator {
    */
   virtual double evaluateCluster(Cluster& cluster) const = 0;
 };
-
-#endif  // CONE_EVALUATOR_HPP

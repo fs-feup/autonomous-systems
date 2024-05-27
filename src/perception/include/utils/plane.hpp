@@ -63,6 +63,22 @@ class Plane {
   double get_d() const;
 
   /**
+   * @brief Overloads the += operator to add another plane to this plane.
+   *
+   * @param other The plane to be added.
+   * @return Reference to the modified plane.
+   */
+  Plane& operator+=(const Plane& other);
+
+  /**
+   * @brief Overloads the /= operator to divide a plane by a scalar.
+   *
+   * @param scalar The scalar to divide the plane.
+   * @return Reference to the modified plane.
+   */
+  Plane& operator/=(double scalar);
+
+  /**
    * @brief Calculates the distance from a point to the plane.
    *
    * @param point The point for which the distance to the plane is calculated.

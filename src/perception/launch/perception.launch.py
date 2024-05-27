@@ -46,6 +46,24 @@ def generate_launch_description():
                 default_value="vehicle",
             ),
 
+            DeclareLaunchArgument(
+                "ground_removal",
+                description="Ground Removal algorithm",
+                default_value="ransac",
+            ),
+
+            DeclareLaunchArgument(
+                "n_angular_grids",
+                description="Number of angular grids",
+                default_value="6",
+            ),
+
+            DeclareLaunchArgument(
+                "radius_resolution",
+                description="radius size of a radius grid (m)",
+                default_value="10.0",
+            ),
+
             Node(
                 package="perception",
                 executable="perception",
@@ -59,11 +77,17 @@ def generate_launch_description():
 
                     {"clustering_epsilon": LaunchConfiguration("clustering_epsilon")},
 
-                   {"horizontal_resolution": LaunchConfiguration("horizontal_resolution")},
+                    {"horizontal_resolution": LaunchConfiguration("horizontal_resolution")},
 
-                   {"vertical_resolution": LaunchConfiguration("vertical_resolution")},
+                    {"vertical_resolution": LaunchConfiguration("vertical_resolution")},
 
-                   {"adapter": LaunchConfiguration("adapter")},
+                    {"adapter": LaunchConfiguration("adapter")},
+
+                    {"ground_removal": LaunchConfiguration("ground_removal")},
+
+                    {"n_angular_grids": LaunchConfiguration("n_angular_grids")},
+
+                    {"radius_resolution": LaunchConfiguration("radius_resolution")}
 
                 ],
                 arguments=["--ros-args", "--log-level", "perception:=debug"],
