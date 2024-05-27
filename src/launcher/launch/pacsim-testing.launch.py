@@ -28,10 +28,18 @@ def generate_launch_description():
             )
         ),
     )
+    control_launch_description = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            PathJoinSubstitution(
+                [FindPackageShare("control"), "launch", "control.launch.py"]
+            )
+        ),
+    )
     return LaunchDescription(
         [
             se_launch_description,
             evaluator_launch_description,
             planning_launch_description,
+            control_launch_description,
         ],
     )

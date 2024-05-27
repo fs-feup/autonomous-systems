@@ -24,7 +24,7 @@ Planning::Planning()
           declare_parameter<float>("smoothing_spline_coeffs_ratio", 3.0)),
       smoothing_spline_precision_(declare_parameter<int>("smoothing_spline_precision", 10)),
       publishing_visualization_msgs_(declare_parameter<int>("publishing_visualization_msg", 1)),
-      using_simulated_se_(declare_parameter<int>("use_simulated_se", 0)) {
+      using_simulated_se_(declare_parameter<bool>("use_simulated_se", false)) {
   RCLCPP_DEBUG(this->get_logger(), "angle gain: %f; distance_gain : %f", angle_gain_,
                distance_gain_);
 
@@ -119,8 +119,7 @@ void Planning::run_planning_algorithms() {
   auto path = triangulations_path;
   path_smoother->defaultSmoother(path);
 
-  RCLCPP_DEBUG(this->get_logger(), "Planning published %i path points\n",
-               (int)path.size());
+  RCLCPP_DEBUG(this->get_logger(), "Planning published %i path points\n", (int)path.size());
   publish_track_points(path);
 
   if (this->publishing_visualization_msgs_) {
