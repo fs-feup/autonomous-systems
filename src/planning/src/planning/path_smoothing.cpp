@@ -105,16 +105,7 @@ std::vector<PathPoint *> PathSmoothing::splineSmoother(int precision, int order,
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "START splineSmoother with %i path points",
                static_cast<int>(input_path.size()));
 
-  if (const int provisional_n = (int)input_path.size(),
-      provisional_ncoeffs = provisional_n / coeffs_ratio,
-      provisional_nbreak = provisional_ncoeffs - order + 2;
-      provisional_nbreak < 2 || input_path.size() < 1) {
-    RCLCPP_WARN(rclcpp::get_logger("rclcpp"),
-                "Too few points to calculate spline. Number of path points was %i", provisional_n);
-    return input_path;
-  }
-
-  // Remove duplicates
+  // Remove duplicates that otherwise would cause the spline to fail
   std::unordered_set<PathPoint *> seen;
   auto iterator = std::remove_if(input_path.begin(), input_path.end(), [&seen](const auto &ptr) {
     return !seen.insert(ptr).second;  // insert returns a pair, where .second is false if the
@@ -127,8 +118,16 @@ std::vector<PathPoint *> PathSmoothing::splineSmoother(int precision, int order,
   const int ncoeffs = n / coeffs_ratio;  // n > = ncoeffs
   const int nbreak = ncoeffs - order + 2;
 
+  if (nbreak < 2 || input_path.size() < 1) {
+    RCLCPP_WARN(rclcpp::get_logger("rclcpp"),
+                "Too few points to calculate spline. Number of different path points was %i", n);
+    return input_path;
+  }
+
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"),
-               "nbreak= %i; n (number of path points) = %i; ncoeffs = %i;\n", nbreak, n, ncoeffs);
+               "Fitting spline in path smoothing : nbreak= %i; n (number of path points) = %i; "
+               "ncoeffs = %i;\n",
+               nbreak, n, ncoeffs);
 
   // Initialize vars (pointers)
   gsl_bspline_workspace *bw, *cw;
@@ -230,7 +229,7 @@ std::vector<PathPoint *> PathSmoothing::splineSmoother(int precision, int order,
   gsl_multifit_linear_free(mw);
   gsl_multifit_linear_free(mw2);
 
-  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "END fitSpline with %i points",
+  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "END splineSmoother with %i points",
                static_cast<int>(final_path.size()));
 
   // To access spline points uncomment these lines
