@@ -118,50 +118,51 @@ $(document).ready(function(){initNavTree('d4/d8f/planning_2src_2adapter__plannin
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>  }</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>  this-&gt;<a class="code hl_variable" href="../../d7/d8e/class_fsds_adapter.html#a6f1d4cb1d6ab76106da235f747cc73fb">fsds_ebs_publisher_</a> =</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>      this-&gt;<a class="code hl_variable" href="../../d3/d7f/class_adapter.html#aa26a29e511d07e95675f9789d1ae4a40">node</a>-&gt;create_publisher&lt;fs_msgs::msg::FinishedSignal&gt;(<span class="stringliteral">&quot;/signal/finished&quot;</span>, 10);</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>}</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>  RCLCPP_DEBUG(this-&gt;<a class="code hl_variable" href="../../d3/d7f/class_adapter.html#aa26a29e511d07e95675f9789d1ae4a40">node</a>-&gt;get_logger(), <span class="stringliteral">&quot;Planning : FSDS adapter created&quot;</span>);</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>}</div>
 </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d7/d8e/class_fsds_adapter.html#a9c941338502ebd3ce149d784035512cd">FsdsAdapter::mission_state_callback</a>(<span class="keyword">const</span> fs_msgs::msg::GoSignal msg) {</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>  <span class="keyword">auto</span> mission = msg.mission;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>  <span class="comment">// map fsds mission to system mission</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>  this-&gt;<a class="code hl_variable" href="../../d3/d7f/class_adapter.html#aa26a29e511d07e95675f9789d1ae4a40">node</a>-&gt;set_mission(<a class="code hl_variable" href="../../d9/d2b/namespacecommon__lib_1_1competition__logic.html#ae6098863ab7e35420a8410d3eb53ea59">common_lib::competition_logic::fsds_to_system</a>.at(mission));</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>}</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="foldopen" id="foldopen00027" data-start="{" data-end="}">
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="../../d7/d8e/class_fsds_adapter.html#a291f09a48f9724ef8930aa6f04f73182">   27</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d7/d8e/class_fsds_adapter.html#a291f09a48f9724ef8930aa6f04f73182">FsdsAdapter::set_mission_state</a>(<span class="keywordtype">int</span> mission, <span class="keywordtype">int</span> state) {</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>  std::cout &lt;&lt; <span class="stringliteral">&quot;Set mission undefined for Eufs\n&quot;</span>;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>}</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d7/d8e/class_fsds_adapter.html#a9c941338502ebd3ce149d784035512cd">FsdsAdapter::mission_state_callback</a>(<span class="keyword">const</span> fs_msgs::msg::GoSignal msg) {</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>  <span class="keyword">auto</span> mission = msg.mission;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>  <span class="comment">// map fsds mission to system mission</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>  this-&gt;<a class="code hl_variable" href="../../d3/d7f/class_adapter.html#aa26a29e511d07e95675f9789d1ae4a40">node</a>-&gt;set_mission(<a class="code hl_variable" href="../../d9/d2b/namespacecommon__lib_1_1competition__logic.html#ae6098863ab7e35420a8410d3eb53ea59">common_lib::competition_logic::fsds_to_system</a>.at(mission));</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>}</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="foldopen" id="foldopen00028" data-start="{" data-end="}">
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="../../d7/d8e/class_fsds_adapter.html#a7c3191b456d3c3675cebe51cc5f508f5">   28</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d7/d8e/class_fsds_adapter.html#a7c3191b456d3c3675cebe51cc5f508f5">FsdsAdapter::set_mission_state</a>() {</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>  RCLCPP_INFO(this-&gt;<a class="code hl_variable" href="../../d3/d7f/class_adapter.html#aa26a29e511d07e95675f9789d1ae4a40">node</a>-&gt;get_logger(), <span class="stringliteral">&quot;Planning : Set mission undefined for FSDS&quot;</span>);</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>}</div>
 </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d7/d8e/class_fsds_adapter.html#aa676564b124e980e23d559c64a2f15d8">FsdsAdapter::finish</a>() {</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>  <span class="keyword">auto</span> message = fs_msgs::msg::FinishedSignal();</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>  message.placeholder = <span class="keyword">true</span>;  <span class="comment">// unnecessary</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>  this-&gt;<a class="code hl_variable" href="../../d7/d8e/class_fsds_adapter.html#a6f1d4cb1d6ab76106da235f747cc73fb">fsds_ebs_publisher_</a>-&gt;publish(message);</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>}</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="foldopen" id="foldopen00038" data-start="{" data-end="}">
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="../../d7/d8e/class_fsds_adapter.html#a14e4d6f21f56e74404eb9387fd5d97c9">   38</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d7/d8e/class_fsds_adapter.html#a14e4d6f21f56e74404eb9387fd5d97c9">FsdsAdapter::pose_callback</a>(<span class="keyword">const</span> nav_msgs::msg::Odometry&amp; msg) {</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>  custom_interfaces::msg::VehicleState pose;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>  pose.header = msg.header;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>  tf2::Quaternion q(msg.pose.pose.orientation.x, msg.pose.pose.orientation.y,</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>                    msg.pose.pose.orientation.z, msg.pose.pose.orientation.w);</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>  tf2::Matrix3x3 m(q);</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>  <span class="keywordtype">double</span> roll;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>  <span class="keywordtype">double</span> pitch;</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>  <span class="keywordtype">double</span> yaw;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>  m.getRPY(roll, pitch, yaw);</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>  pose.theta = yaw;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>  pose.position.x = msg.pose.pose.position.x;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>  pose.position.y = msg.pose.pose.position.y;</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>  this-&gt;<a class="code hl_variable" href="../../d3/d7f/class_adapter.html#aa26a29e511d07e95675f9789d1ae4a40">node</a>-&gt;vehicle_localization_callback(pose);</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>}</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d7/d8e/class_fsds_adapter.html#aa676564b124e980e23d559c64a2f15d8">FsdsAdapter::finish</a>() {</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>  <span class="keyword">auto</span> message = fs_msgs::msg::FinishedSignal();</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>  message.placeholder = <span class="keyword">true</span>;  <span class="comment">// unnecessary</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>  this-&gt;<a class="code hl_variable" href="../../d7/d8e/class_fsds_adapter.html#a6f1d4cb1d6ab76106da235f747cc73fb">fsds_ebs_publisher_</a>-&gt;publish(message);</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>}</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="foldopen" id="foldopen00039" data-start="{" data-end="}">
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="../../d7/d8e/class_fsds_adapter.html#a14e4d6f21f56e74404eb9387fd5d97c9">   39</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d7/d8e/class_fsds_adapter.html#a14e4d6f21f56e74404eb9387fd5d97c9">FsdsAdapter::pose_callback</a>(<span class="keyword">const</span> nav_msgs::msg::Odometry&amp; msg) {</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>  custom_interfaces::msg::VehicleState pose;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>  pose.header = msg.header;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>  tf2::Quaternion q(msg.pose.pose.orientation.x, msg.pose.pose.orientation.y,</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>                    msg.pose.pose.orientation.z, msg.pose.pose.orientation.w);</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>  tf2::Matrix3x3 m(q);</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>  <span class="keywordtype">double</span> roll;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>  <span class="keywordtype">double</span> pitch;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>  <span class="keywordtype">double</span> yaw;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>  m.getRPY(roll, pitch, yaw);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>  pose.theta = yaw;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>  pose.position.x = msg.pose.pose.position.x;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>  pose.position.y = msg.pose.pose.position.y;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>  this-&gt;<a class="code hl_variable" href="../../d3/d7f/class_adapter.html#aa26a29e511d07e95675f9789d1ae4a40">node</a>-&gt;vehicle_localization_callback(pose);</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>}</div>
 </div>
 <div class="ttc" id="aclass_adapter_html"><div class="ttname"><a href="../../d3/d7f/class_adapter.html">Adapter</a></div><div class="ttdoc">Adapter class for coordinating communication between different modes and Control module.</div><div class="ttdef"><b>Definition</b> <a href="../../d0/d4b/control_2include_2adapter__control_2adapter_8hpp_source.html#l00017">adapter.hpp:17</a></div></div>
 <div class="ttc" id="aclass_adapter_html_aa26a29e511d07e95675f9789d1ae4a40"><div class="ttname"><a href="../../d3/d7f/class_adapter.html#aa26a29e511d07e95675f9789d1ae4a40">Adapter::node</a></div><div class="ttdeci">Control * node</div><div class="ttdef"><b>Definition</b> <a href="../../d0/d4b/control_2include_2adapter__control_2adapter_8hpp_source.html#l00019">adapter.hpp:19</a></div></div>
-<div class="ttc" id="aclass_fsds_adapter_html_a14e4d6f21f56e74404eb9387fd5d97c9"><div class="ttname"><a href="../../d7/d8e/class_fsds_adapter.html#a14e4d6f21f56e74404eb9387fd5d97c9">FsdsAdapter::pose_callback</a></div><div class="ttdeci">void pose_callback(const nav_msgs::msg::Odometry &amp;msg)</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d8f/planning_2src_2adapter__planning_2fsds_8cpp_source.html#l00038">fsds.cpp:38</a></div></div>
-<div class="ttc" id="aclass_fsds_adapter_html_a291f09a48f9724ef8930aa6f04f73182"><div class="ttname"><a href="../../d7/d8e/class_fsds_adapter.html#a291f09a48f9724ef8930aa6f04f73182">FsdsAdapter::set_mission_state</a></div><div class="ttdeci">void set_mission_state(int mission, int state)</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d8f/planning_2src_2adapter__planning_2fsds_8cpp_source.html#l00027">fsds.cpp:27</a></div></div>
+<div class="ttc" id="aclass_fsds_adapter_html_a14e4d6f21f56e74404eb9387fd5d97c9"><div class="ttname"><a href="../../d7/d8e/class_fsds_adapter.html#a14e4d6f21f56e74404eb9387fd5d97c9">FsdsAdapter::pose_callback</a></div><div class="ttdeci">void pose_callback(const nav_msgs::msg::Odometry &amp;msg)</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d8f/planning_2src_2adapter__planning_2fsds_8cpp_source.html#l00039">fsds.cpp:39</a></div></div>
 <div class="ttc" id="aclass_fsds_adapter_html_a6f1d4cb1d6ab76106da235f747cc73fb"><div class="ttname"><a href="../../d7/d8e/class_fsds_adapter.html#a6f1d4cb1d6ab76106da235f747cc73fb">FsdsAdapter::fsds_ebs_publisher_</a></div><div class="ttdeci">rclcpp::Publisher&lt; fs_msgs::msg::FinishedSignal &gt;::SharedPtr fsds_ebs_publisher_</div><div class="ttdef"><b>Definition</b> <a href="../../d6/dfc/control_2include_2adapter__control_2fsds_8hpp_source.html#l00010">fsds.hpp:10</a></div></div>
+<div class="ttc" id="aclass_fsds_adapter_html_a7c3191b456d3c3675cebe51cc5f508f5"><div class="ttname"><a href="../../d7/d8e/class_fsds_adapter.html#a7c3191b456d3c3675cebe51cc5f508f5">FsdsAdapter::set_mission_state</a></div><div class="ttdeci">void set_mission_state()</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d8f/planning_2src_2adapter__planning_2fsds_8cpp_source.html#l00028">fsds.cpp:28</a></div></div>
 <div class="ttc" id="aclass_fsds_adapter_html_a81faaf40f5673f303c36b4110b2ed015"><div class="ttname"><a href="../../d7/d8e/class_fsds_adapter.html#a81faaf40f5673f303c36b4110b2ed015">FsdsAdapter::FsdsAdapter</a></div><div class="ttdeci">FsdsAdapter(Control *control)</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d7f/control_2src_2adapter__control_2fsds_8cpp_source.html#l00005">fsds.cpp:5</a></div></div>
 <div class="ttc" id="aclass_fsds_adapter_html_a9c941338502ebd3ce149d784035512cd"><div class="ttname"><a href="../../d7/d8e/class_fsds_adapter.html#a9c941338502ebd3ce149d784035512cd">FsdsAdapter::mission_state_callback</a></div><div class="ttdeci">void mission_state_callback(const fs_msgs::msg::GoSignal &amp;msg) const</div><div class="ttdef"><b>Definition</b> <a href="../../d6/dc1/ekf__state__est_2src_2adapter__ekf__state__est_2fsds_8cpp_source.html#l00022">fsds.cpp:22</a></div></div>
 <div class="ttc" id="aclass_fsds_adapter_html_aa676564b124e980e23d559c64a2f15d8"><div class="ttname"><a href="../../d7/d8e/class_fsds_adapter.html#aa676564b124e980e23d559c64a2f15d8">FsdsAdapter::finish</a></div><div class="ttdeci">void finish() override</div><div class="ttdef"><b>Definition</b> <a href="../../dd/d7f/control_2src_2adapter__control_2fsds_8cpp_source.html#l00035">fsds.cpp:35</a></div></div>

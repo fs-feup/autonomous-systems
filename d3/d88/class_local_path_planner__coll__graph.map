@@ -1,5 +1,5 @@
 <map id="LocalPathPlanner" name="LocalPathPlanner">
-<area shape="rect" id="Node000001" title="LocalPathPlanner class for generating local paths." alt="" coords="9,474,143,579"/>
-<area shape="rect" id="Node000002" href="$d6/d2c/class_track.html" title="Track class." alt="" coords="5,5,147,411"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="79,411,79,457,73,457,73,411"/>
+<area shape="rect" id="Node000001" title="LocalPathPlanner class for generating local paths." alt="" coords="7,503,142,608"/>
+<area shape="rect" id="Node000002" href="$d6/d2c/class_track.html" title="Track class." alt="" coords="5,5,144,440"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="77,440,77,486,72,486,72,440"/>
 </map>

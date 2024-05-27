@@ -56,6 +56,7 @@ var hierarchy =
     [ "GroundRemoval", "dc/d84/class_ground_removal.html", [
       [ "RANSAC", "d6/dc3/class_r_a_n_s_a_c.html", null ]
     ] ],
+    [ "std::hash< PathPoint >", "d1/d0b/structstd_1_1hash_3_01_path_point_01_4.html", null ],
     [ "ICP", "dd/d10/class_i_c_p.html", null ],
     [ "common_lib::sensor_data::ImuData", "df/d48/structcommon__lib_1_1sensor__data_1_1_imu_data.html", null ],
     [ "InspectionFunctions", "d4/d89/class_inspection_functions.html", null ],
@@ -71,13 +72,14 @@ var hierarchy =
       [ "MockerNode", "d1/d4c/class_mocker_node.html", null ],
       [ "Perception", "de/d07/class_perception.html", null ],
       [ "Planning", "d9/db5/class_planning.html", null ],
-      [ "Publisher", "df/d57/class_publisher.html", null ],
       [ "SENode", "d4/d43/class_s_e_node.html", null ]
     ] ],
     [ "ObservationData", "d9/d90/struct_observation_data.html", null ],
     [ "ObservationModel", "d7/d64/class_observation_model.html", null ],
     [ "common_lib::structures::PathPoint", "d9/db0/structcommon__lib_1_1structures_1_1_path_point.html", null ],
     [ "PathPoint", "d9/d32/class_path_point.html", null ],
+    [ "PathPointEqual", "d1/d5e/struct_path_point_equal.html", null ],
+    [ "PathPointHash", "d8/da1/struct_path_point_hash.html", null ],
     [ "PathSmoothing", "d7/db7/class_path_smoothing.html", null ],
     [ "PerceptionExecutionData", "d2/d36/struct_perception_execution_data.html", null ],
     [ "PID", "d6/d5a/class_p_i_d.html", null ],

@@ -1,0 +1,42 @@
+<map id="Planning::vehicle_localization_callback" name="Planning::vehicle_localization_callback">
+<area shape="rect" id="Node000001" title="Callback for vehicle localization updates (undefined)." alt="" coords="5,506,195,547"/>
+<area shape="rect" id="Node000002" href="$d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the planning algorithms." alt="" coords="243,506,393,547"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="195,524,227,524,227,529,195,529"/>
+<area shape="rect" id="Node000003" href="$d3/da1/class_local_path_planner.html#a47071d4f5dd1c080bf087089023d5382" title="Process an array of cones to generate a local path." alt="" coords="471,249,647,289"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="336,504,526,299,530,303,340,507"/>
+<area shape="rect" id="Node000014" href="$d9/db5/class_planning.html#adbb03a9a1d37df03f804c8afbea0d893" title="Publishes a list of path points." alt="" coords="482,506,636,547"/>
+<area shape="poly" id="edge16_Node000002_Node000014" title=" " alt="" coords="393,524,466,524,466,529,393,529"/>
+<area shape="rect" id="Node000016" href="$d9/db5/class_planning.html#a3a9777b1285386d19bbc3045ff416fd9" title="publish all visualization messages from the planning node" alt="" coords="441,611,676,636"/>
+<area shape="poly" id="edge18_Node000002_Node000016" title=" " alt="" coords="371,545,512,602,510,607,369,550"/>
+<area shape="rect" id="Node000004" href="$d6/d2c/class_track.html#a4619df9e7622b8349af59007c602011e" title="Find a cone by its ID." alt="" coords="779,104,890,130"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="581,246,643,197,682,170,723,146,764,131,766,136,725,151,685,174,646,201,584,250"/>
+<area shape="rect" id="Node000005" href="$d8/da1/class_cone.html#ad6448719967d79b51a6e9586d28897d8" title=" " alt="" coords="993,168,1079,194"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="627,245,724,221,860,198,977,184,977,189,860,203,725,226,629,251"/>
+<area shape="rect" id="Node000006" href="$d6/d2c/class_track.html#aeb46e6fbc74096c298262b84cd81b77f" title="Get the left cone at a specified index." alt="" coords="762,357,907,383"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="607,287,725,336,769,350,768,355,723,341,605,292"/>
+<area shape="rect" id="Node000007" href="$d6/d2c/class_track.html#a6bd8978cb65635811bdeef26c29c989b" title="Get the number of left cones." alt="" coords="753,407,916,432"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="582,287,643,341,683,369,725,393,739,399,737,404,723,398,680,374,640,345,579,291"/>
+<area shape="rect" id="Node000008" href="$d6/d2c/class_track.html#a95fe146ead9aae192047e1f0a2c6c3c8" title="Get the right cone at a specified index." alt="" coords="759,456,910,482"/>
+<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="575,288,599,322,634,365,677,407,726,443,745,452,743,456,723,447,673,411,630,368,595,326,571,291"/>
+<area shape="rect" id="Node000009" href="$d6/d2c/class_track.html#aaeb6c56205cff7f075ac1aacbbc29a89" title="Get the number of right cones." alt="" coords="749,5,920,31"/>
+<area shape="poly" id="edge8_Node000003_Node000009" title=" " alt="" coords="566,247,588,203,622,146,667,89,694,62,723,40,734,34,736,38,726,44,697,66,671,92,626,150,593,205,571,249"/>
+<area shape="rect" id="Node000010" href="$d8/da1/class_cone.html#a51a49cc249e79d06f6a983250fe809b3" title=" " alt="" coords="994,243,1078,268"/>
+<area shape="poly" id="edge9_Node000003_Node000010" title=" " alt="" coords="647,250,724,241,834,236,945,241,978,244,978,249,944,246,834,241,725,246,647,256"/>
+<area shape="rect" id="Node000011" href="$d8/da1/class_cone.html#a952987a9de5d20d7930b3e93c04fd278" title=" " alt="" coords="994,292,1078,318"/>
+<area shape="poly" id="edge10_Node000003_Node000011" title=" " alt="" coords="648,282,725,292,861,300,978,302,978,308,861,305,724,297,647,287"/>
+<area shape="rect" id="Node000012" href="$d6/d2c/class_track.html#ab4e7e111378109011379f2a7aa984145" title="Reset the track by clearing cone lists." alt="" coords="790,55,879,80"/>
+<area shape="poly" id="edge11_Node000003_Node000012" title=" " alt="" coords="571,247,595,212,630,169,673,125,723,89,748,78,774,71,776,76,750,83,726,94,677,130,634,172,599,215,575,250"/>
+<area shape="rect" id="Node000013" href="$d6/d2c/class_track.html#a0da16ce65cc4d3f67a79073e0d632f6f" title="Change the position of a cone based on the id of the parameter cone or creates a new cone in case the..." alt="" coords="780,256,889,282"/>
+<area shape="poly" id="edge12_Node000003_Node000013" title=" " alt="" coords="647,266,765,266,765,272,647,272"/>
+<area shape="poly" id="edge13_Node000013_Node000005" title=" " alt="" coords="865,253,989,198,991,203,867,258"/>
+<area shape="poly" id="edge14_Node000013_Node000010" title=" " alt="" coords="889,263,978,257,978,262,889,268"/>
+<area shape="poly" id="edge15_Node000013_Node000011" title=" " alt="" coords="890,276,979,292,978,297,889,281"/>
+<area shape="rect" id="Node000015" href="$d1/d97/message__converter_8cpp.html#a2b1cec0b7a89668870a46596b148a12a" title=" " alt="" coords="753,506,916,547"/>
+<area shape="poly" id="edge17_Node000014_Node000015" title=" " alt="" coords="636,524,738,524,738,529,636,529"/>
+<area shape="rect" id="Node000017" href="$d1/d97/message__converter_8cpp.html#ae1d203fe1c23400c3a416909dab7828e" title=" " alt="" coords="751,571,918,612"/>
+<area shape="poly" id="edge19_Node000016_Node000017" title=" " alt="" coords="675,607,735,600,736,606,675,613"/>
+<area shape="rect" id="Node000018" href="$d1/dd0/namespacecommon__lib_1_1communication.html#aa192956ea9cdda02b245cdca6ce82d4a" title="Converts a vector of cones to a marker array." alt="" coords="724,637,945,677"/>
+<area shape="poly" id="edge20_Node000016_Node000018" title=" " alt="" coords="671,634,709,639,708,644,670,640"/>
+<area shape="rect" id="Node000019" href="$db/d29/message__converter_8hpp.html#a8dd19cda9da7f6401c76ae83744061f7" title=" " alt="" coords="754,702,915,743"/>
+<area shape="poly" id="edge21_Node000016_Node000019" title=" " alt="" coords="592,634,725,686,749,694,747,699,723,691,590,639"/>
+</map>

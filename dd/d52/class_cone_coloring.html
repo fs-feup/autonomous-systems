@@ -167,7 +167,7 @@ Private Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a2144539d635436a80e9f71d3b4731a37" id="r_a2144539d635436a80e9f71d3b4731a37"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#a2144539d635436a80e9f71d3b4731a37">angle_gain</a> = 8.7</td></tr>
+<tr class="memitem:a2144539d635436a80e9f71d3b4731a37" id="r_a2144539d635436a80e9f71d3b4731a37"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#a2144539d635436a80e9f71d3b4731a37">angle_gain</a> = 3.7</td></tr>
 <tr class="memdesc:a2144539d635436a80e9f71d3b4731a37"><td class="mdescLeft">&#160;</td><td class="mdescRight">angle gain between the last edge and the possible new edge  <br /></td></tr>
 <tr class="separator:a2144539d635436a80e9f71d3b4731a37"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaa0c9833a50f5e724323ee555d86baa4" id="r_aaa0c9833a50f5e724323ee555d86baa4"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#aaa0c9833a50f5e724323ee555d86baa4">distance_gain</a> = 15.0</td></tr>
@@ -338,7 +338,7 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>double angle between the current cone and the next cone </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html#l00018">18</a> of file <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html">cone_coloring.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html#l00022">22</a> of file <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html">cone_coloring.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -416,7 +416,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html#l00179">179</a> of file <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html">cone_coloring.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html#l00185">185</a> of file <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html">cone_coloring.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -508,7 +508,7 @@ Here is the call graph for this function:</div>
 <dd>
 false if the cone is not in the side of the track </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html#l00031">31</a> of file <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html">cone_coloring.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html#l00035">35</a> of file <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html">cone_coloring.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -577,7 +577,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>double cost of reaching the cone provided as a parameter </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html#l00109">109</a> of file <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html">cone_coloring.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html#l00120">120</a> of file <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html">cone_coloring.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -673,7 +673,7 @@ Here is the caller graph for this function:</div>
 <dl class="section return"><dt>Returns</dt><dd>double estimate of the distance to the left side track</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>assumming the car is at the initial_car_pose and going straight, the right side of the track can be estimated to be defined by: y - (car_y + 2*cos(θ)) - tan(θ)*(x - (car_x + 2*sen(θ))) = 0 and the right side by : y - (car_y - 2*cos(θ)) - tan(θ)*(x - (car_x - 2*sen(θ))) = 0 This also assumes the track width to be 4 meters since the minimum is 3 and the maximum is 5 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html#l00039">39</a> of file <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html">cone_coloring.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html#l00043">43</a> of file <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html">cone_coloring.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -734,7 +734,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>std::vector&lt;Cone*&gt; filtered cones </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html#l00068">68</a> of file <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html">cone_coloring.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html#l00072">72</a> of file <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html">cone_coloring.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -793,7 +793,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Cone* initial cone to start the path </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html#l00051">51</a> of file <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html">cone_coloring.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html#l00055">55</a> of file <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html">cone_coloring.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -857,7 +857,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>std::vector&lt;std::pair&lt;Cone *, bool&gt; *&gt; vector of cones and a boolean to determine if the cone has been visited </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html#l00124">124</a> of file <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html">cone_coloring.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html#l00135">135</a> of file <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html">cone_coloring.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -916,7 +916,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html#l00081">81</a> of file <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html">cone_coloring.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html#l00085">85</a> of file <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html">cone_coloring.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1016,7 +1016,7 @@ Here is the caller graph for this function:</div>
 <dd>
 false if the cone hasn't been placed </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html#l00135">135</a> of file <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html">cone_coloring.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html#l00146">146</a> of file <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html">cone_coloring.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1064,7 +1064,7 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">double ConeColoring::angle_gain = 8.7</td>
+          <td class="memname">double ConeColoring::angle_gain = 3.7</td>
         </tr>
       </table>
   </td>

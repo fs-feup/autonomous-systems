@@ -15,7 +15,7 @@ var class_fsds_adapter =
     [ "mission_state_callback", "d7/d8e/class_fsds_adapter.html#a94288d66e5406fb91c23637c64a4a6db", null ],
     [ "pose_callback", "d7/d8e/class_fsds_adapter.html#a14e4d6f21f56e74404eb9387fd5d97c9", null ],
     [ "publish_cmd", "d7/d8e/class_fsds_adapter.html#a426bd02cc91be3ee4dcab642da217832", null ],
-    [ "set_mission_state", "d7/d8e/class_fsds_adapter.html#a291f09a48f9724ef8930aa6f04f73182", null ],
+    [ "set_mission_state", "d7/d8e/class_fsds_adapter.html#a7c3191b456d3c3675cebe51cc5f508f5", null ],
     [ "wheel_speeds_subscription_callback", "d7/d8e/class_fsds_adapter.html#a9291f29ff772d123cadacbddeb3425ab", null ],
     [ "_fs_imu_subscription_", "d7/d8e/class_fsds_adapter.html#a5b5f044778c787b56938217607c7a31e", null ],
     [ "_fs_wheel_speeds_subscription_", "d7/d8e/class_fsds_adapter.html#a24b15286041beb3be040af75c2f11234", null ],

@@ -9,8 +9,8 @@
 <area shape="poly" id="edge5_Node000001_Node000003" title=" " alt="" coords="315,406,315,501,310,501,310,406"/>
 <area shape="poly" id="edge6_Node000001_Node000003" title=" " alt="" coords="333,406,333,501,327,501,328,406"/>
 <area shape="poly" id="edge7_Node000001_Node000003" title=" " alt="" coords="351,406,350,501,345,501,345,406"/>
-<area shape="rect" id="Node000004" href="$db/d68/class_pac_sim_adapter.html" title=" " alt="" coords="454,595,591,801"/>
-<area shape="poly" id="edge8_Node000001_Node000004" title=" " alt="" coords="422,387,444,438,473,517,497,595,492,596,468,519,439,440,417,389"/>
+<area shape="rect" id="Node000004" href="$db/d68/class_pac_sim_adapter.html" title=" " alt="" coords="454,585,591,811"/>
+<area shape="poly" id="edge8_Node000001_Node000004" title=" " alt="" coords="422,387,444,438,471,512,494,585,489,586,466,513,439,440,417,389"/>
 <area shape="rect" id="Node000005" href="$d1/dcb/class_pacsim_adapter.html" title=" " alt="" coords="615,566,814,830"/>
 <area shape="poly" id="edge9_Node000001_Node000005" title=" " alt="" coords="427,267,520,343,566,388,606,437,645,499,675,565,670,567,640,502,602,440,562,392,516,347,424,271"/>
 <area shape="rect" id="Node000006" href="$d1/df1/class_vehicle_adapter.html" title="Adapter class for Vehicle purposes." alt="" coords="839,471,1039,925"/>

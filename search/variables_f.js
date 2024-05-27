@@ -38,6 +38,5 @@ var searchData=
   ['preverror_35',['prevError',['../d6/d5a/class_p_i_d.html#a482b5f6204d925cc2ed9079c06a1dbcd',1,'PID']]],
   ['prevmeasurement_36',['prevMeasurement',['../d6/d5a/class_p_i_d.html#a6cd3e3be3e5a1f54e01c7420644276b1',1,'PID']]],
   ['proportional_37',['proportional',['../d6/d5a/class_p_i_d.html#ab9dcad835103e9ad160c57f329f40e10',1,'PID']]],
-  ['publisher_5f_38',['publisher_',['../df/d57/class_publisher.html#ae8469a634364a3f6f01612b3046e4b95',1,'Publisher']]],
-  ['publishing_5fvisualization_5fmsgs_5f_39',['publishing_visualization_msgs_',['../d9/db5/class_planning.html#aa9c8a86c7a73420f2dbe25899fa347f1',1,'Planning']]]
+  ['publishing_5fvisualization_5fmsgs_5f_38',['publishing_visualization_msgs_',['../d9/db5/class_planning.html#aa9c8a86c7a73420f2dbe25899fa347f1',1,'Planning']]]
 ];

@@ -1,5 +1,5 @@
 <map id="IntegrationTest" name="IntegrationTest">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,119,171,344"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,119,171,364"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="46,5,130,71"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="91,86,91,119,85,119,85,86"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="91,85,91,119,85,119,85,85"/>
 </map>

@@ -1,7 +1,0 @@
-<map id="Planning::publish_visualization_msgs" name="Planning::publish_visualization_msgs">
-<area shape="rect" id="Node000001" title="publish all visualization messages from the planning node" alt="" coords="367,13,602,39"/>
-<area shape="rect" id="Node000002" href="$d9/db5/class_planning.html#ab04bd1f3fa9458e5a1360cfabacc56a7" title="Callback for track map updates(when msg received)." alt="" coords="181,5,319,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="351,28,319,28,319,23,351,23"/>
-<area shape="rect" id="Node000003" href="$d9/db5/class_planning.html#a42a788755e4dedf591d0703a87d70bf2" title="Constructor for the Planning class." alt="" coords="5,13,133,39"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="165,28,133,28,133,23,165,23"/>
-</map>

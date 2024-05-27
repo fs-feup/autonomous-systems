@@ -118,5 +118,6 @@ var namespaces_dup =
       [ "y_values0", "d7/dc1/namespacespline.html#af84cf0bb26c99c18806deef70282b929", null ],
       [ "y_values1", "d7/dc1/namespacespline.html#a1bb02af9cadbf53b53d01fb995d5ef22", null ]
     ] ],
+    [ "std", "d8/dcc/namespacestd.html", "d8/dcc/namespacestd" ],
     [ "test_perception_metrics", "df/d68/namespacetest__perception__metrics.html", "df/d68/namespacetest__perception__metrics" ]
 ];

@@ -1,12 +1,29 @@
 <map id="custom_interfaces_array_from_vector" name="custom_interfaces_array_from_vector">
-<area shape="rect" id="Node000001" title=" " alt="" coords="615,39,779,79"/>
-<area shape="rect" id="Node000002" href="$d9/db5/class_planning.html#adbb03a9a1d37df03f804c8afbea0d893" title="Publishes a list of path points." alt="" coords="413,39,567,79"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="600,62,568,62,568,56,600,56"/>
-<area shape="rect" id="Node000003" href="$d9/db5/class_planning.html#a6e832957e848e7ab37d5c2379d01729a" title="Publishes predictive track points." alt="" coords="181,5,365,46"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="397,47,365,43,366,37,398,42"/>
-<area shape="rect" id="Node000005" href="$d9/db5/class_planning.html#ab04bd1f3fa9458e5a1360cfabacc56a7" title="Callback for track map updates(when msg received)." alt="" coords="204,71,342,111"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="398,75,343,83,342,78,397,70"/>
-<area shape="rect" id="Node000004" href="$d9/db5/class_planning.html#a42a788755e4dedf591d0703a87d70bf2" title="Constructor for the Planning class." alt="" coords="5,46,133,72"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="166,46,133,51,133,46,165,41"/>
-<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="188,80,133,72,134,66,189,75"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="853,193,1016,234"/>
+<area shape="rect" id="Node000002" href="$d9/db5/class_planning.html#adbb03a9a1d37df03f804c8afbea0d893" title="Publishes a list of path points." alt="" coords="650,37,805,78"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="904,183,859,137,803,92,784,81,786,76,806,87,863,133,908,180"/>
+<area shape="rect" id="Node000008" href="$d4/dee/integration__tests_8cpp.html#ab54a29800640d74d1c9206fcbc7bd38e" title=" " alt="" coords="693,102,762,128"/>
+<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="888,187,804,141,762,126,764,121,806,137,890,183"/>
+<area shape="rect" id="Node000009" href="$d4/dee/integration__tests_8cpp.html#ac08033d20a3bd6c67ccc1fb1c51deeab" title=" " alt="" coords="693,152,762,177"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="837,193,762,175,763,170,838,188"/>
+<area shape="rect" id="Node000010" href="$d4/dee/integration__tests_8cpp.html#aae4d2484e582ce1d8124bd60df7e6af8" title=" " alt="" coords="693,201,762,227"/>
+<area shape="poly" id="edge11_Node000001_Node000010" title=" " alt="" coords="837,216,763,216,763,211,837,211"/>
+<area shape="rect" id="Node000011" href="$d4/dee/integration__tests_8cpp.html#a66940e2927eb4ca7ffa3d2644dd4d4b1" title=" " alt="" coords="693,250,762,276"/>
+<area shape="poly" id="edge12_Node000001_Node000011" title=" " alt="" coords="838,239,763,257,762,252,837,234"/>
+<area shape="rect" id="Node000012" href="$d4/dee/integration__tests_8cpp.html#a78ae92eae0106ea5f24ad42598ad0f6c" title=" " alt="" coords="693,300,762,325"/>
+<area shape="poly" id="edge13_Node000001_Node000012" title=" " alt="" coords="890,245,806,291,764,306,762,301,804,286,888,240"/>
+<area shape="rect" id="Node000013" href="$d4/dee/integration__tests_8cpp.html#a0aa919d581552b7da3ed65d141e3c04e" title=" " alt="" coords="693,349,762,375"/>
+<area shape="poly" id="edge14_Node000001_Node000013" title=" " alt="" coords="909,248,864,295,836,319,806,340,764,357,762,352,803,335,833,315,860,291,905,244"/>
+<area shape="rect" id="Node000003" href="$d9/db5/class_planning.html#a6e832957e848e7ab37d5c2379d01729a" title="Publishes predictive track points." alt="" coords="418,5,602,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="635,47,603,42,603,37,635,41"/>
+<area shape="rect" id="Node000005" href="$d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the planning algorithms." alt="" coords="435,71,585,111"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="635,74,586,82,585,77,635,69"/>
+<area shape="rect" id="Node000004" href="$d9/db5/class_planning.html#a42a788755e4dedf591d0703a87d70bf2" title="Constructor for the Planning class." alt="" coords="5,70,133,96"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="403,31,295,38,181,54,110,72,109,67,180,48,295,33,402,26"/>
+<area shape="rect" id="Node000006" href="$d9/db5/class_planning.html#ab04bd1f3fa9458e5a1360cfabacc56a7" title="Callback for track map updates(when msg received)." alt="" coords="206,63,345,103"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="419,91,345,88,345,83,420,85"/>
+<area shape="rect" id="Node000007" href="$d9/db5/class_planning.html#a53d5a67d438860be75a3d9e0bc0df8c3" title="Callback for vehicle localization updates (undefined)." alt="" coords="181,128,370,169"/>
+<area shape="poly" id="edge7_Node000005_Node000007" title=" " alt="" coords="421,115,362,130,361,125,420,110"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="190,86,133,86,133,80,190,80"/>
+<area shape="poly" id="edge8_Node000007_Node000004" title=" " alt="" coords="194,125,111,99,113,94,195,120"/>
 </map>

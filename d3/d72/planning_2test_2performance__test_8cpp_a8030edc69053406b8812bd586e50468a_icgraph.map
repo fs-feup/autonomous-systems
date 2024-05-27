@@ -1,9 +1,7 @@
 <map id="orderVectorOfPairs" name="orderVectorOfPairs">
-<area shape="rect" id="Node000001" title="orders a vector of pairs to make it easier to compare them" alt="" coords="108,55,240,80"/>
+<area shape="rect" id="Node000001" title="orders a vector of pairs to make it easier to compare them" alt="" coords="108,31,240,56"/>
 <area shape="rect" id="Node000002" href="$dd/df6/planning_2test_2tests_8cpp.html#af9952ff008604d30cd729682048e2167" title="scenario: Large piece of track with no outliers" alt="" coords="5,5,60,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="119,51,59,30,61,25,121,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,31,60,26,61,20,93,26"/>
 <area shape="rect" id="Node000003" href="$dd/df6/planning_2test_2tests_8cpp.html#ad18f9702442704e6ba155492f9317546" title="scenario with large track that barely has outliers (only 2)" alt="" coords="5,55,60,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="92,70,60,70,60,65,92,65"/>
-<area shape="rect" id="Node000004" href="$dd/df6/planning_2test_2tests_8cpp.html#a24abd4bbadec3144e9f2562ff43add80" title="scenario: small track with sharp edge" alt="" coords="5,104,60,130"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="121,89,61,110,59,105,119,84"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="93,60,60,66,60,60,92,55"/>
 </map>

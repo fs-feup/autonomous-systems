@@ -114,6 +114,10 @@ Functions</h2></td></tr>
 <tr class="memitem:acc06a51ec257283cb5f8afd4b19e7021"><td class="memTemplItemLeft" align="right" valign="top">visualization_msgs::msg::MarkerArray&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021">marker_array_from_structure_array</a> (const std::vector&lt; T &gt; &amp;structure_array, const std::string &amp;name_space, const std::string &amp;frame_id, const std::string &amp;color=&quot;red&quot;, const std::string &amp;shape=&quot;cylinder&quot;, float scale=0.5, int action=visualization_msgs::msg::Marker::MODIFY)</td></tr>
 <tr class="memdesc:acc06a51ec257283cb5f8afd4b19e7021"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a vector of cones to a marker array.  <br /></td></tr>
 <tr class="separator:acc06a51ec257283cb5f8afd4b19e7021"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa192956ea9cdda02b245cdca6ce82d4a" id="r_aa192956ea9cdda02b245cdca6ce82d4a"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:aa192956ea9cdda02b245cdca6ce82d4a"><td class="memTemplItemLeft" align="right" valign="top">visualization_msgs::msg::Marker&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#aa192956ea9cdda02b245cdca6ce82d4a">line_marker_from_structure_array</a> (const std::vector&lt; T &gt; &amp;structure_array, const std::string &amp;name_space, const std::string &amp;frame_id, const int id, const std::string &amp;color=&quot;red&quot;, const std::string &amp;shape=&quot;line&quot;, float scale=0.1, int action=visualization_msgs::msg::Marker::MODIFY)</td></tr>
+<tr class="memdesc:aa192956ea9cdda02b245cdca6ce82d4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a vector of cones to a marker array.  <br /></td></tr>
+<tr class="separator:aa192956ea9cdda02b245cdca6ce82d4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -123,6 +127,108 @@ Variables</h2></td></tr>
 <tr class="separator:aa1cdb5d1026cb2d737e07ad24d069a48"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="aa192956ea9cdda02b245cdca6ce82d4a" name="aa192956ea9cdda02b245cdca6ce82d4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa192956ea9cdda02b245cdca6ce82d4a">&#9670;&#160;</a></span>line_marker_from_structure_array()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">visualization_msgs::msg::Marker common_lib::communication::line_marker_from_structure_array </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>structure_array</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name_space</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>frame_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>color</em> = <code>&quot;red&quot;</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>shape</em> = <code>&quot;line&quot;</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>scale</em> = <code>0.1</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>action</em> = <code>visualization_msgs::msg::Marker::MODIFY</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Converts a vector of cones to a marker array. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cone_array</td><td>vector of cones </td></tr>
+    <tr><td class="paramname">color</td><td>color of the marker (blue, yellow, orange, red, green) </td></tr>
+    <tr><td class="paramname">shape</td><td>shape of the marker (cylinder, cube, sphere) </td></tr>
+    <tr><td class="paramname">frame_id</td><td>frame id of the marker, for transforms </td></tr>
+    <tr><td class="paramname">name_space</td><td>namespace of the marker, used in conjunction with ID to identify marker </td></tr>
+    <tr><td class="paramname">scale</td><td>scale of the marker, default is 0.5 </td></tr>
+    <tr><td class="paramname">action</td><td>action of the marker, default is ADD/MODIFY </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>visualization_msgs::msg::MarkerArray </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d2/da2/marker_8hpp_source.html#l00123">123</a> of file <a class="el" href="../../d2/da2/marker_8hpp_source.html">marker.hpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d1/dd0/namespacecommon__lib_1_1communication_aa192956ea9cdda02b245cdca6ce82d4a_icgraph.png" border="0" usemap="#ad1/dd0/namespacecommon__lib_1_1communication_aa192956ea9cdda02b245cdca6ce82d4a_icgraph" alt=""/></div>
+<map name="ad1/dd0/namespacecommon__lib_1_1communication_aa192956ea9cdda02b245cdca6ce82d4a_icgraph" id="ad1/dd0/namespacecommon__lib_1_1communication_aa192956ea9cdda02b245cdca6ce82d4a_icgraph">
+<area shape="rect" title="Converts a vector of cones to a marker array." alt="" coords="900,39,1120,79"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a3a9777b1285386d19bbc3045ff416fd9" title="publish all visualization messages from the planning node" alt="" coords="616,46,852,72"/>
+<area shape="poly" title=" " alt="" coords="884,62,852,62,852,56,884,56"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the planning algorithms." alt="" coords="418,39,568,79"/>
+<area shape="poly" title=" " alt="" coords="601,62,569,62,569,56,601,56"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#ab04bd1f3fa9458e5a1360cfabacc56a7" title="Callback for track map updates(when msg received)." alt="" coords="206,5,345,46"/>
+<area shape="poly" title=" " alt="" coords="403,48,345,39,345,34,404,43"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a53d5a67d438860be75a3d9e0bc0df8c3" title="Callback for vehicle localization updates (undefined)." alt="" coords="181,71,370,111"/>
+<area shape="poly" title=" " alt="" coords="403,75,371,80,370,74,403,70"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a42a788755e4dedf591d0703a87d70bf2" title="Constructor for the Planning class." alt="" coords="5,46,133,72"/>
+<area shape="poly" title=" " alt="" coords="191,42,133,51,133,46,190,37"/>
+<area shape="poly" title=" " alt="" coords="165,77,133,71,133,66,166,71"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="acc06a51ec257283cb5f8afd4b19e7021" name="acc06a51ec257283cb5f8afd4b19e7021"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acc06a51ec257283cb5f8afd4b19e7021">&#9670;&#160;</a></span>marker_array_from_structure_array()</h2>
 
@@ -196,7 +302,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>visualization_msgs::msg::MarkerArray </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/da2/marker_8hpp_source.html#l00063">63</a> of file <a class="el" href="../../d2/da2/marker_8hpp_source.html">marker.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/da2/marker_8hpp_source.html#l00064">64</a> of file <a class="el" href="../../d2/da2/marker_8hpp_source.html">marker.hpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -255,7 +361,8 @@ Here is the caller graph for this function:</div>
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
 <div class="line">    {<span class="stringliteral">&quot;cylinder&quot;</span>, visualization_msgs::msg::Marker::CYLINDER},</div>
 <div class="line">    {<span class="stringliteral">&quot;cube&quot;</span>, visualization_msgs::msg::Marker::CUBE},</div>
-<div class="line">    {<span class="stringliteral">&quot;sphere&quot;</span>, visualization_msgs::msg::Marker::SPHERE}}</div>
+<div class="line">    {<span class="stringliteral">&quot;sphere&quot;</span>, visualization_msgs::msg::Marker::SPHERE},</div>
+<div class="line">    {<span class="stringliteral">&quot;line&quot;</span>, visualization_msgs::msg::Marker::LINE_STRIP}}</div>
 </div><!-- fragment -->
 <p class="definition">Definition at line <a class="el" href="../../d2/da2/marker_8hpp_source.html#l00022">22</a> of file <a class="el" href="../../d2/da2/marker_8hpp_source.html">marker.hpp</a>.</p>
 

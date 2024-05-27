@@ -1,5 +1,8 @@
 var planning_2test_2tests_8cpp =
 [
+    [ "PathPointHash", "d8/da1/struct_path_point_hash.html", "d8/da1/struct_path_point_hash" ],
+    [ "PathPointEqual", "d1/d5e/struct_path_point_equal.html", "d1/d5e/struct_path_point_equal" ],
+    [ "std::hash< PathPoint >", "d1/d0b/structstd_1_1hash_3_01_path_point_01_4.html", "d1/d0b/structstd_1_1hash_3_01_path_point_01_4" ],
     [ "custom_comparator", "dd/df6/planning_2test_2tests_8cpp.html#af7c5d0e668771d1a7f6e303ebd4a65d7", null ],
     [ "extractInfo", "dd/df6/planning_2test_2tests_8cpp.html#ab1bec19c757b0c10ea40b1c5480aac77", null ],
     [ "get_current_date_time_as_string", "dd/df6/planning_2test_2tests_8cpp.html#a2c3bbc9fd458920b2aa9308286235fd9", null ],

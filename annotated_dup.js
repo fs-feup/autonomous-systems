@@ -34,6 +34,9 @@ var annotated_dup =
         [ "PacsimAdapter", "d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter.html", "d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter" ]
       ] ]
     ] ],
+    [ "std", "d8/dcc/namespacestd.html", [
+      [ "hash< PathPoint >", "d1/d0b/structstd_1_1hash_3_01_path_point_01_4.html", "d1/d0b/structstd_1_1hash_3_01_path_point_01_4" ]
+    ] ],
     [ "test_perception_metrics", "df/d68/namespacetest__perception__metrics.html", [
       [ "TestEvaluatorMethods", "d7/d4e/classtest__perception__metrics_1_1_test_evaluator_methods.html", "d7/d4e/classtest__perception__metrics_1_1_test_evaluator_methods" ]
     ] ],
@@ -85,6 +88,8 @@ var annotated_dup =
     [ "PacsimAdapter", "d1/dcb/class_pacsim_adapter.html", "d1/dcb/class_pacsim_adapter" ],
     [ "PacSimAdapter", "db/d68/class_pac_sim_adapter.html", "db/d68/class_pac_sim_adapter" ],
     [ "PathPoint", "d9/d32/class_path_point.html", "d9/d32/class_path_point" ],
+    [ "PathPointEqual", "d1/d5e/struct_path_point_equal.html", "d1/d5e/struct_path_point_equal" ],
+    [ "PathPointHash", "d8/da1/struct_path_point_hash.html", "d8/da1/struct_path_point_hash" ],
     [ "PathSmoothing", "d7/db7/class_path_smoothing.html", "d7/db7/class_path_smoothing" ],
     [ "Perception", "de/d07/class_perception.html", "de/d07/class_perception" ],
     [ "PerceptionExecutionData", "d2/d36/struct_perception_execution_data.html", "d2/d36/struct_perception_execution_data" ],
@@ -95,7 +100,6 @@ var annotated_dup =
     [ "Planning", "d9/db5/class_planning.html", "d9/db5/class_planning" ],
     [ "Pose", "d8/d11/struct_pose.html", "d8/d11/struct_pose" ],
     [ "Position", "d1/d26/struct_position.html", "d1/d26/struct_position" ],
-    [ "Publisher", "df/d57/class_publisher.html", "df/d57/class_publisher" ],
     [ "RANSAC", "d6/dc3/class_r_a_n_s_a_c.html", "d6/dc3/class_r_a_n_s_a_c" ],
     [ "RANSACTest", "d8/d5a/class_r_a_n_s_a_c_test.html", "d8/d5a/class_r_a_n_s_a_c_test" ],
     [ "SENode", "d4/d43/class_s_e_node.html", "d4/d43/class_s_e_node" ],

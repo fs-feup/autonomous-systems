@@ -1,5 +1,5 @@
 <map id="PacSimAdapter" name="PacSimAdapter">
-<area shape="rect" id="Node000001" title=" " alt="" coords="29,439,166,644"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="29,439,166,664"/>
 <area shape="rect" id="Node000002" href="$d3/d7f/class_adapter.html" title="Adapter class for coordinating communication between different modes and Control module." alt="" coords="5,5,189,391"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="100,406,100,439,95,439,95,406"/>
 </map>
