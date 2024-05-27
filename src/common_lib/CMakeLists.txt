@@ -13,6 +13,7 @@ find_package(fs_msgs REQUIRED)
 find_package(visualization_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(geometry_msgs REQUIRED)
 
 # Enable OpenMP
 find_package(OpenMP)

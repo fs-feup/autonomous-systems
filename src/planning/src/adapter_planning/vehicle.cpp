@@ -7,10 +7,13 @@ VehicleAdapter::VehicleAdapter(Planning* planning) : Adapter(planning) {
       this->node->create_subscription<custom_interfaces::msg::OperationalStatus>(
           "/vehicle/operational_status", 10,
           std::bind(&VehicleAdapter::mission_state_callback, this, std::placeholders::_1));
+  RCLCPP_DEBUG(this->node->get_logger(), "Planning : Vehicle adapter created");
 }
 
 void VehicleAdapter::mission_state_callback(const custom_interfaces::msg::OperationalStatus& msg) {
   this->node->mission = common_lib::competition_logic::Mission(msg.as_mission);
 }
 
-void VehicleAdapter::finish() { std::cout << "VehicleAdapter::finish()" << std::endl; }
+void VehicleAdapter::finish() {
+  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Planning : VehicleAdapter::finish()");
+}

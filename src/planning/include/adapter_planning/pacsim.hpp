@@ -20,6 +20,7 @@
 class PacSimAdapter : public Adapter {
   rclcpp::Client<std_srvs::srv::Empty>::SharedPtr finished_client_;
   rclcpp::Subscription<visualization_msgs::msg::MarkerArray>::SharedPtr path_sub_;
+  rclcpp::TimerBase::SharedPtr timer_;
 
   std::unique_ptr<tf2_ros::Buffer> tf_buffer_;
   std::shared_ptr<tf2_ros::TransformListener> tf_listener_;
@@ -27,7 +28,7 @@ class PacSimAdapter : public Adapter {
 public:
   explicit PacSimAdapter(Planning* planning);
 
-  void set_mission_state(int mission, int state);
+  void set_mission_state();
   void track_callback(const visualization_msgs::msg::MarkerArray& msg);
   void finish() override;
   void timer_callback();
