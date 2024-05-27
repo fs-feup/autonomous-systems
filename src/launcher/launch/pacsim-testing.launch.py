@@ -21,9 +21,17 @@ def generate_launch_description():
             )
         ),
     )
+    planning_launch_description = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            PathJoinSubstitution(
+                [FindPackageShare("planning"), "launch", "pacsim.launch.py"]
+            )
+        ),
+    )
     return LaunchDescription(
         [
             se_launch_description,
             evaluator_launch_description,
+            planning_launch_description,
         ],
     )
