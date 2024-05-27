@@ -134,7 +134,7 @@ class FSDSAdapter(Adapter):
             perception_ground_truth.append(f"{transformed_position}")
             # self.node.get_logger().info(transformed_position)
 
-        return perception_ground_truth
+        return np.array(perception_ground_truth)
 
     def read_track(self, filename: str) -> None:
         """!
