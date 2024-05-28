@@ -205,7 +205,7 @@ std::vector<PathPoint *> PathSmoothing::splineSmoother(int precision, int order,
       i_eval.push_back(i);
       x_eval.push_back(xi);
       y_eval.push_back(yi);
-      PathPoint *new_path_point = new PathPoint(xi, yi);
+      PathPoint *new_path_point = new PathPoint(xi, yi, 2);
       final_path.push_back(new_path_point);
       if (j == 0 && i == n - 1) {
         break;  // Decimals can't go over last int
