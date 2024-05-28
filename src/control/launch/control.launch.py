@@ -11,12 +11,12 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "adapter",
                 description="Vehicle or Simulation mode (pacsim, fsds, eufs)",
-                default_value="pacsim",
+                default_value="eufs",
             ),
             DeclareLaunchArgument(
                 "mocker_node",
                 description="Wether or not to use Mocker Node for Plannning (true/false)",
-                default_value="true",
+                default_value="false",
             ),
             DeclareLaunchArgument(
                 "lookahead_gain",
@@ -31,7 +31,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "use_simulated_se",
                 description="Use Simulated State Estimation, that is, vehicle state from simulator (true/false)",
-                default_value="true",
+                default_value="false",
             ),
             Node(
                 package="control",
