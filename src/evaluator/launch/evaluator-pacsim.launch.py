@@ -32,7 +32,6 @@ def generate_launch_description():
                         )
                     },
                 ],
-                arguments=["--ros-args", "--log-level", "evaluator:=debug"],
             ),
         ]
     )

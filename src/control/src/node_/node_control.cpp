@@ -26,9 +26,9 @@ Control::Control()
       evaluator_data_pub_(create_publisher<custom_interfaces::msg::EvaluatorControlData>(
           "control/evaluator_data", 10)),
       path_point_array_sub_(create_subscription<custom_interfaces::msg::PathPointArray>(
-          mocker_node_ ? "path_planning/mock_path" : "/path_planning/path",
-          rclcpp::QoS(10).durability(RMW_QOS_POLICY_DURABILITY_TRANSIENT_LOCAL),
+          mocker_node_ ? "path_planning/mock_path" : "/path_planning/path", rclcpp::QoS(10),
           [this](const custom_interfaces::msg::PathPointArray& msg) {
+            RCLCPP_DEBUG(this->get_logger(), "Received pathpoint array");
             pathpoint_array_ = msg.pathpoint_array;
           })) {
   if (!using_simulated_se_ || get_parameter("adapter").as_string() == "vehicle") {
