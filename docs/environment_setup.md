@@ -23,7 +23,6 @@ For each of the approaches, there are different steps here:
     1. Install Windows - if you don't have it, don't do it, Windows sucks
     2. Install WSL 2 inside windows - [tutorial](./environment_setup/installing_wsl.md)
     3. Install [Docker](./environment_setup/docker-install.md)
-    4. Install [VcXSrv](https://sourceforge.net/projects/vcxsrv/) - for graphical interfaces ([example of usage](https://www.youtube.com/watch?v=BDilFZ9C9mw)) 
 3. **Docker Environment on Mac** both steps can be seen being executed in [this tutorial](https://www.youtube.com/watch?v=cNDR6Z24KLM)
     1. Install [Docker](./environment_setup/docker-install.md)
     2. Install [XQuartz](https://www.xquartz.org/) - for graphical interfaces
