@@ -10,9 +10,9 @@
 
 #include "adapter_control/adapter.hpp"
 #include "custom_interfaces/msg/cone_array.hpp"
+#include "custom_interfaces/msg/evaluator_control_data.hpp"
 #include "custom_interfaces/msg/path_point_array.hpp"
 #include "custom_interfaces/msg/vehicle_state.hpp"
-#include "custom_interfaces/msg/evaluator_control_data.hpp"
 #include "pid/pid.hpp"
 #include "point_solver/psolver.hpp"
 #include "pure_pursuit/pp.hpp"
@@ -50,24 +50,17 @@ public:
   std::vector<custom_interfaces::msg::PathPoint> pathpoint_array_{};
 
   /**
+   * @brief Contructor for the Control class
+   */
+  Control();
+
+  /**
    * @brief Publishes the steering angle to the car based on the path and pose using cache
    *
    */
   void publish_control(const custom_interfaces::msg::VehicleState &vehicle_state_msg);
 
 private:
-
   void publish_evaluator_data(double lookahead_velocity, Point lookahead_point, Point closest_point,
                               custom_interfaces::msg::VehicleState vehicle_state_msg) const;
-
-  /**
-   * @brief Update lookahead distance
-   */
-  double update_lookahead_distance(double k, double velocity) const;
-
-  /**
-   * @brief Contructor for the Control class
-   */
-public:
-  Control();
 };

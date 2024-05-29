@@ -24,9 +24,9 @@ Control::Control()
       mocker_node_(declare_parameter("mocker_node", true)),
       adapter_(adapter_map.at(declare_parameter("adapter", "vehicle"))(this)),
       evaluator_data_pub_(create_publisher<custom_interfaces::msg::EvaluatorControlData>(
-          "control/evaluator_data", 10)),
+          "/control/evaluator_data", 10)),
       path_point_array_sub_(create_subscription<custom_interfaces::msg::PathPointArray>(
-          mocker_node_ ? "path_planning/mock_path" : "/path_planning/path", rclcpp::QoS(10),
+          mocker_node_ ? "/path_planning/mock_path" : "/path_planning/path", rclcpp::QoS(10),
           [this](const custom_interfaces::msg::PathPointArray& msg) {
             RCLCPP_DEBUG(this->get_logger(), "Received pathpoint array");
             pathpoint_array_ = msg.pathpoint_array;
@@ -88,13 +88,9 @@ void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicl
   RCLCPP_DEBUG(rclcpp::get_logger("control"), "Torque: %f, Steering Angle: %f", torque,
                steering_angle);
 
-  auto pose = vehicle_state_msg;
-  pose.position.x = this->point_solver_.vehicle_pose_.rear_axis_.x_;
-  pose.position.y = this->point_solver_.vehicle_pose_.rear_axis_.y_;
-  publish_evaluator_data(lookahead_velocity, lookahead_point, closest_point, pose);
+  publish_evaluator_data(lookahead_velocity, lookahead_point, closest_point, vehicle_state_msg);
   adapter_->publish_cmd(torque, steering_angle);
   // Adapter to communicate with the car
-  //
 }
 
 void Control::publish_evaluator_data(double lookahead_velocity, Point lookahead_point,
@@ -104,6 +100,8 @@ void Control::publish_evaluator_data(double lookahead_velocity, Point lookahead_
   evaluator_data.header = std_msgs::msg::Header();
   evaluator_data.header.stamp = this->now();
   evaluator_data.vehicle_state = vehicle_state_msg;
+  evaluator_data.vehicle_state.pose.position.x = this->point_solver_.vehicle_pose_.rear_axis_.x_;
+  evaluator_data.vehicle_state.pose.position.y = this->point_solver_.vehicle_pose_.rear_axis_.y_;
   evaluator_data.lookahead_point.x = lookahead_point.x_;
   evaluator_data.lookahead_point.y = lookahead_point.y_;
   evaluator_data.closest_point.x = closest_point.x_;

@@ -19,12 +19,9 @@ TEST(PurePursuitTests, Test_calculate_alpha_1) {
   Point lookahead_point = Point(1, 4);
   double rear_wheel_2_c_g = 2.655484889;
 
-  double alpha = lat_controller_.calculate_alpha(vehicle_rear_wheel, vehicle_cg,
-                                                      lookahead_point, rear_wheel_2_c_g);
-  
-  std::cout << "Alpha: " << alpha << std::endl;
+  double alpha = lat_controller_.calculate_alpha(vehicle_rear_wheel, vehicle_cg, lookahead_point,
+                                                 rear_wheel_2_c_g);
   EXPECT_NEAR(0.804, alpha, 0.001);
-
 }
 
 /**
@@ -38,8 +35,8 @@ TEST(PurePursuitTests, Test_calculate_alpha_2) {
   Point lookahead_point = Point(5, 1);
   double rear_wheel_2_c_g = 2;
 
-  double alpha = lat_controller_.calculate_alpha(vehicle_rear_wheel, vehicle_cg,
-                                                      lookahead_point, rear_wheel_2_c_g);
+  double alpha = lat_controller_.calculate_alpha(vehicle_rear_wheel, vehicle_cg, lookahead_point,
+                                                 rear_wheel_2_c_g);
 
   EXPECT_NEAR(0.463, alpha, 0.001);
 }
@@ -55,8 +52,8 @@ TEST(PurePursuitTests, Test_calculate_alpha_3) {
   Point lookahead_point = Point(5, 5);
   double rear_wheel_2_c_g = 2;
 
-  double alpha = lat_controller_.calculate_alpha(vehicle_rear_wheel, vehicle_cg,
-                                                      lookahead_point, rear_wheel_2_c_g);
+  double alpha = lat_controller_.calculate_alpha(vehicle_rear_wheel, vehicle_cg, lookahead_point,
+                                                 rear_wheel_2_c_g);
 
   EXPECT_NEAR(1.570, alpha, 0.001);
 }
@@ -72,8 +69,8 @@ TEST(PurePursuitTests, Test_calculate_alpha_4) {
   Point lookahead_point = Point(3, 0);
   double rear_wheel_2_c_g = 2;
 
-  double alpha = lat_controller_.calculate_alpha(vehicle_rear_wheel, vehicle_cg,
-                                                      lookahead_point, rear_wheel_2_c_g);
+  double alpha = lat_controller_.calculate_alpha(vehicle_rear_wheel, vehicle_cg, lookahead_point,
+                                                 rear_wheel_2_c_g);
 
   EXPECT_NEAR(0, alpha, 0.001);
 }
@@ -89,8 +86,8 @@ TEST(PurePursuitTests, Test_calculate_alpha_5) {
   Point lookahead_point = Point(3, 7);
   double rear_wheel_2_c_g = 2;
 
-  double alpha = lat_controller_.calculate_alpha(vehicle_rear_wheel, vehicle_cg,
-                                                      lookahead_point, rear_wheel_2_c_g);
+  double alpha = lat_controller_.calculate_alpha(vehicle_rear_wheel, vehicle_cg, lookahead_point,
+                                                 rear_wheel_2_c_g);
 
   EXPECT_NEAR(3.141, alpha, 0.001);
 }
