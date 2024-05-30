@@ -8,7 +8,7 @@ The Perception module is responsible for the processing of the perception module
 
 From src folder:
 ```sh
-colcon build --packages-select perception custom_interfaces fs_msgs
+colcon build --packages-select perception custom_interfaces fs_msgs eufs_msgs common_lib pacsim
 ```
 
 ## Testing
@@ -44,3 +44,4 @@ Below, some diagrams are presented that can illustrate the structure and behavio
 - [PCL](https://pointclouds.org)
 - [ROS2](https://docs.ros.org/en/foxy/index.html)
 - [Gtest](http://google.github.io/googletest/)
+- [OpenMP](https://www.openmp.org)
