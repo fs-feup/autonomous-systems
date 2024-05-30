@@ -69,13 +69,12 @@ The AI computer is divided into 4 main components:
 
 The following components diagram illustrates the structure of the system.
 
-![Components Diagram](./assets/architecture.svg)
+![Components Diagram](./diagrams/full-components.drawio.svg)
 
 The following table shows the interfaces definitions for each environment:
 
-<iframe frameborder="0" style="width:100%;height:1423px;" src="https://viewer.diagrams.net/?tags=%7B%7D&highlight=0000ff&edit=https%3A%2F%2Fapp.diagrams.net%2F%23Hfs-feup%252Fautonomous-systems%252Fmain%252Fdocs%252Fdiagrams%252Ffull.drawio%23%257B%2522pageId%2522%253A%2522EmeoiYouFIyetOutB4Hb%2522%257D&layers=1&nav=1&page-id=EmeoiYouFIyetOutB4Hb&title=full.drawio#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Ffs-feup%2Fautonomous-systems%2Fmain%2Fdocs%2Fdiagrams%2Ffull.drawio"></iframe>
-<!-- ![Interfaces Table](./assets/ros-interfaces-table.svg) -->
+![Interfaces Table](./diagrams/ros-table.drawio.svg)
 
 The activity diagram / flow chart below illustrates the behaviour of the system and the flow of information through it.
 
-![Activity Diagram](./assets/behaviour.svg)
+![Activity Diagram](./diagrams/full-control-flow.drawio.svg)
