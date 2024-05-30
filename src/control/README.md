@@ -4,13 +4,16 @@ Control Node
 
 ## Dependencies
 
-N/a (at the moment)
+* custom_interfaces
+* pacsim
+* fs_msgs
+* eufs_msgs
 
 ## Compiling
 
 From src folder:
 ```sh
-colcon build --packages-select control custom_interfaces fs_msgs --symlink-install
+colcon build --package-up-to control
 ```
 
 ## Testing
