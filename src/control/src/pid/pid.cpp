@@ -68,8 +68,8 @@ double PID::update(double setpoint, double measurement) {
   /*
    * Store error and measurement for the next iteration
    */
-  this->prevError_ = error;
-  this->prevMeasurement_ = measurement;
+  this->prev_error_ = error;
+  this->prev_measurement_ = measurement;
 
   /*
    * return output value
@@ -84,7 +84,7 @@ double PID::calculate_error(double setpoint, double measurement) const {
 void PID::calculate_proportional_term(double error) { this->proportional_ = this->kp_ * error; }
 
 void PID::calculate_integral_term(double error) {
-  this->integrator_ = this->integrator_ + 0.5f * this->ki_ * this->t_ * (error + this->prevError_);
+  this->integrator_ = this->integrator_ + 0.5f * this->ki_ * this->t_ * (error + this->prev_error_);
 }
 
 void PID::anti_wind_up() {
@@ -96,7 +96,7 @@ void PID::anti_wind_up() {
 }
 
 void PID::calculate_derivative_term(double measurement) {
-  this->differentiator_ = (-2.0f * this->kd_ * (measurement - this->prevMeasurement_) +
+  this->differentiator_ = (-2.0f * this->kd_ * (measurement - this->prev_measurement_) +
                            (2.0f * this->tau_ - this->t_) * this->differentiator_) /
                           (2.0f * this->tau_ + this->t_);
 }

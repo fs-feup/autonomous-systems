@@ -62,7 +62,7 @@ TEST(PidTests, IntegralTerm1) {
   float error = 3;
   PID pid(0.4, 0.3, 0.09, 0.7, 0.1, -1, 1, 0.5);
   pid.integrator_ = 0.3;
-  pid.prevError_ = 4;
+  pid.prev_error_ = 4;
   pid.calculate_integral_term(error);
   EXPECT_FLOAT_EQ(0.405, pid.integrator_);
 }
@@ -75,7 +75,7 @@ TEST(PidTests, IntegralTerm2) {
   float error = -3;
   PID pid(0.4, 0.3, 0.09, 0.7, 0.1, -1, 1, 0.5);
   pid.integrator_ = 0.3;
-  pid.prevError_ = -4;
+  pid.prev_error_ = -4;
   pid.calculate_integral_term(error);
   EXPECT_FLOAT_EQ(0.195, pid.integrator_);
 }
@@ -88,7 +88,7 @@ TEST(PidTests, DerivativeTerm1) {
   float measurement = 3;
   PID pid(0.4, 0.3, 0.1, 0.7, 0.1, -1, 1, 0.45);
   pid.differentiator_ = 0.4;
-  pid.prevMeasurement_ = 4;
+  pid.prev_measurement_ = 4;
   pid.calculate_derivative_term(measurement);
   EXPECT_FLOAT_EQ(0.48, pid.differentiator_);
 }
@@ -101,7 +101,7 @@ TEST(PidTests, DerivativeTerm2) {
   float measurement = -4;
   PID pid(0.4, 0.3, 0.1, 0.7, 0.1, -1, 1, 0.45);
   pid.differentiator_ = 0.4;
-  pid.prevMeasurement_ = -1.2;
+  pid.prev_measurement_ = -1.2;
   pid.calculate_derivative_term(measurement);
   EXPECT_FLOAT_EQ(0.72, pid.differentiator_);
 }
@@ -158,8 +158,8 @@ TEST(PidTests, Update1) {
   PID pid(0.4, 0.3, 0.1, 0.7, 0.1, -1, 1, 0.45);
   pid.integrator_ = 0.2;
   pid.differentiator_ = 0.1;
-  pid.prevError_ = 1.5;
-  pid.prevMeasurement_ = 3.5;
+  pid.prev_error_ = 1.5;
+  pid.prev_measurement_ = 3.5;
   pid.update(setpoint, measurement);
   EXPECT_NEAR(0.924, pid.out_, 0.001);
 }

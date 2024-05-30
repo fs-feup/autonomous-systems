@@ -30,8 +30,8 @@ private:
   double integrator_{0.0f};     /**< Integrator value */
   double differentiator_{0.0f}; /**< Differentiator value */
 
-  double prevError_{0.0f};       /**< Previous error value, required for integrator */
-  double prevMeasurement_{0.0f}; /**< Previous measurement value, required for defferentiator */
+  double prev_error_{0.0f};       /**< Previous error value, required for integrator */
+  double prev_measurement_{0.0f}; /**< Previous measurement value, required for defferentiator */
 
   double out_{0.0f}; /**< Output value */
 
