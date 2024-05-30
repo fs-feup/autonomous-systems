@@ -3,7 +3,7 @@
 /**
  * @brief PointSolver Constructer
  */
-PointSolver::PointSolver() = default;
+PointSolver::PointSolver(double k, double ld_margin) : k_(k), ld_margin_(ld_margin) {}
 
 /**
  * @brief Update vehicle pose
@@ -62,15 +62,19 @@ std::pair<Point, int> PointSolver::update_closest_point(
  */
 std::tuple<Point, double, bool> PointSolver::update_lookahead_point(
     const std::vector<custom_interfaces::msg::PathPoint> &pathpoint_array, Point rear_axis_point,
-    int closest_point_id, double ld, double ld_margin) const {
+    int closest_point_id) const {
   Point lookahead_point = Point();
   Point aux_point = Point();
+
   size_t size = pathpoint_array.size();
+  double ld = this->k_ * std::max(this->vehicle_pose_.velocity_, 2.0);
+  RCLCPP_DEBUG(rclcpp::get_logger("control"), "Current ld: %f", ld);
+
   for (size_t i = 0; i < size; i++) {
     size_t index = (closest_point_id + i) % size;
     aux_point = Point(pathpoint_array[index].x, pathpoint_array[index].y);
     double distance = rear_axis_point.euclidean_distance(aux_point);
-    if (std::abs(distance - ld) <= (ld * ld_margin)) {
+    if (std::abs(distance - ld) <= (ld * this->ld_margin_)) {
       lookahead_point = aux_point;
       return std::make_tuple(lookahead_point, pathpoint_array[index].v, 0);
     }

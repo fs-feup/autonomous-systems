@@ -19,6 +19,7 @@
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
 
+
 /**
  * @class Control
  * @brief Class responsible for the control of the car
@@ -28,30 +29,11 @@
  */
 class Control : public rclcpp::Node {
 public:
-  double k_;
-  double ld_margin_;
   bool using_simulated_se_{false};
   bool go_signal_{false};
-  bool mocker_node_{false};
-
-  PointSolver point_solver_; /**< Point Solver */
-  PID long_controller_{0.4, 0.3, 0.09, 0.5, 0.01, -1, 1, 0.7};
-  PurePursuit lat_controller_; /**< Lateral Controller*/
 
   std::shared_ptr<Adapter> adapter_;
 
-  // Evaluator Publishers
-  rclcpp::Publisher<custom_interfaces::msg::EvaluatorControlData>::SharedPtr evaluator_data_pub_;
-
-  // General Subscribers
-  rclcpp::Subscription<custom_interfaces::msg::PathPointArray>::SharedPtr path_point_array_sub_;
-  rclcpp::Subscription<custom_interfaces::msg::VehicleState>::SharedPtr vehicle_state_sub_;
-
-  std::vector<custom_interfaces::msg::PathPoint> pathpoint_array_{};
-
-  /**
-   * @brief Contructor for the Control class
-   */
   Control();
 
   /**
@@ -61,6 +43,21 @@ public:
   void publish_control(const custom_interfaces::msg::VehicleState &vehicle_state_msg);
 
 private:
+  bool mocker_node_{false};
+
+  // Evaluator Publisher
+  rclcpp::Publisher<custom_interfaces::msg::EvaluatorControlData>::SharedPtr evaluator_data_pub_;
+
+  // General Subscribers
+  rclcpp::Subscription<custom_interfaces::msg::VehicleState>::SharedPtr vehicle_state_sub_;
+  rclcpp::Subscription<custom_interfaces::msg::PathPointArray>::SharedPtr path_point_array_sub_;
+
+  std::vector<custom_interfaces::msg::PathPoint> pathpoint_array_{};
+  PointSolver point_solver_; /**< Point Solver */
+  PID long_controller_{0.4, 0.3, 0.09, 0.5, 0.01, -1, 1, 0.7};
+  PurePursuit lat_controller_; /**< Lateral Controller*/
+
   void publish_evaluator_data(double lookahead_velocity, Point lookahead_point, Point closest_point,
                               custom_interfaces::msg::VehicleState vehicle_state_msg) const;
+
 };

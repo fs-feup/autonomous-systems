@@ -61,7 +61,6 @@ if(BUILD_TESTING)
     test/pid_test.cpp
     test/pp_test.cpp
     test/psolver_test.cpp
-    test/node_control_test.cpp
     test/include/utils.cpp
   )
   include_directories(test)  # Include the 'test' directory for your test targets

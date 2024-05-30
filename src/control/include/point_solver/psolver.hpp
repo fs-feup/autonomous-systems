@@ -9,25 +9,22 @@
 #include "common_lib/vehicle_dynamics/car_parameters.hpp"
 #include "custom_interfaces/msg/path_point_array.hpp"
 #include "custom_interfaces/msg/vehicle_state.hpp"
+#include "gtest/gtest.h"
 #include "rclcpp/rclcpp.hpp"
 
 class PointSolver {
-public:
-  // double k_;                       /**< Lookahead gain */
-  // double ld_;                      /**< Lookahead distance */
-  // double ld_margin_;               /**< Lookahead distance margin, a percentange of ld_ */
-  double dist_cg_2_rear_axis_ =
-      DIST_CG_2_REAR_AXIS; /**< Distance from the center of gravity to the rear axis */
-  Pose vehicle_pose_;      /**< Vehicle pose */
-  // Point lookahead_point_;     /**< Lookahead point */
-  // double lookahead_velocity_; /**< Lookahead velocity */
-  // Point closest_point_;       /**< Closest point on the Path*/
-  // int closest_point_id_ = -1; /**< Closest point on the Path*/
+private:
+  double k_;         /**< Lookahead gain */
+  double ld_margin_; /**< Lookahead distance margin, a percentange of ld_ */
+  /**< Distance from the center of gravity to the rear axis */
 
+public:
+  double dist_cg_2_rear_axis_ = DIST_CG_2_REAR_AXIS;
+  Pose vehicle_pose_; /**< Vehicle pose */
   /**
-   * @brief PointSolver Constructer
+   * @brief PointSolver Constructor
    */
-  PointSolver();
+  PointSolver(double k, double ld_margin);
 
   /**
    * @brief Find the closest point on the path
@@ -49,7 +46,7 @@ public:
    */
   std::tuple<Point, double, bool> update_lookahead_point(
       const std::vector<custom_interfaces::msg::PathPoint> &pathpoint_array, Point rear_axis_point,
-      int closest_point_id, double ld, double ld_margin) const;
+      int closest_point_id) const;
 
   /**
    * @brief Calculate rear axis coordinates
@@ -73,4 +70,7 @@ public:
    * @param pose msg
    */
   void update_vehicle_pose(const custom_interfaces::msg::VehicleState &vehicle_state_msg);
+
+  FRIEND_TEST(PointSolverTests, Test_update_closest_point_1);
+  FRIEND_TEST(PointSolverTests, Test_update_lookahead_point_1);
 };

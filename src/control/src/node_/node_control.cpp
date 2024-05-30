@@ -18,11 +18,9 @@
 
 Control::Control()
     : Node("node_control"),
-      k_(declare_parameter("lookahead_gain", 0.5)),
-      ld_margin_(declare_parameter("lookahead_margin", 0.1)),
       using_simulated_se_(declare_parameter("use_simulated_se", false)),
-      mocker_node_(declare_parameter("mocker_node", true)),
       adapter_(adapter_map.at(declare_parameter("adapter", "vehicle"))(this)),
+      mocker_node_(declare_parameter("mocker_node", true)),
       evaluator_data_pub_(create_publisher<custom_interfaces::msg::EvaluatorControlData>(
           "/control/evaluator_data", 10)),
       path_point_array_sub_(create_subscription<custom_interfaces::msg::PathPointArray>(
@@ -30,7 +28,9 @@ Control::Control()
           [this](const custom_interfaces::msg::PathPointArray& msg) {
             RCLCPP_DEBUG(this->get_logger(), "Received pathpoint array");
             pathpoint_array_ = msg.pathpoint_array;
-          })) {
+          })),
+      point_solver_(declare_parameter("lookahead_gain", 0.5),
+                    declare_parameter("lookahead_margin", 0.1)) {
   if (!using_simulated_se_ || get_parameter("adapter").as_string() == "vehicle") {
     vehicle_state_sub_ = this->create_subscription<custom_interfaces::msg::VehicleState>(
         "/state_estimation/vehicle_state", 10,
@@ -44,9 +44,6 @@ void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicl
   // update vehicle pose
   this->point_solver_.update_vehicle_pose(vehicle_state_msg);
 
-  // calculate lookahead distance
-  double ld = this->k_ * std::max(this->point_solver_.vehicle_pose_.velocity_, 2.0);
-
   // find the closest point on the path
   // print pathpoint array size
   auto [closest_point, closest_point_id] = this->point_solver_.update_closest_point(
@@ -58,8 +55,7 @@ void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicl
 
   // update the Lookahead point
   auto [lookahead_point, lookahead_velocity, lookahead_error] =
-      this->point_solver_.update_lookahead_point(pathpoint_array_, closest_point, closest_point_id,
-                                                 ld, this->ld_margin_);
+      this->point_solver_.update_lookahead_point(pathpoint_array_, closest_point, closest_point_id);
   if (lookahead_error) {
     RCLCPP_ERROR(rclcpp::get_logger("control"), "PurePursuit: Failed to update lookahed point");
     return;
@@ -72,15 +68,13 @@ void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicl
   // calculate Lateral Control: Pure Pursuit
   double steering_angle = this->lat_controller_.pp_steering_control_law(
       this->point_solver_.vehicle_pose_.rear_axis_, this->point_solver_.vehicle_pose_.cg_,
-      lookahead_point, this->point_solver_.dist_cg_2_rear_axis_, this->lat_controller_.wheel_base_,
-      this->lat_controller_.max_steering_angle_, this->lat_controller_.min_steering_angle_);
+      lookahead_point, this->point_solver_.dist_cg_2_rear_axis_);
 
   RCLCPP_DEBUG(rclcpp::get_logger("control"), "Current vehicle velocity: %f",
                this->point_solver_.vehicle_pose_.velocity_);
   RCLCPP_DEBUG(rclcpp::get_logger("control"), "Rear axis coords: %f, %f",
                this->point_solver_.vehicle_pose_.rear_axis_.x_,
                this->point_solver_.vehicle_pose_.rear_axis_.y_);
-  RCLCPP_DEBUG(rclcpp::get_logger("control"), "Current ld: %f", ld);
   RCLCPP_DEBUG(rclcpp::get_logger("control"), "Closest Point: %f, %f", closest_point.x_,
                closest_point.y_);
   RCLCPP_DEBUG(rclcpp::get_logger("control"), "Lookahead Point: %f, %f", lookahead_point.x_,
@@ -100,8 +94,8 @@ void Control::publish_evaluator_data(double lookahead_velocity, Point lookahead_
   evaluator_data.header = std_msgs::msg::Header();
   evaluator_data.header.stamp = this->now();
   evaluator_data.vehicle_state = vehicle_state_msg;
-  evaluator_data.vehicle_state.pose.position.x = this->point_solver_.vehicle_pose_.rear_axis_.x_;
-  evaluator_data.vehicle_state.pose.position.y = this->point_solver_.vehicle_pose_.rear_axis_.y_;
+  evaluator_data.vehicle_state.position.x = this->point_solver_.vehicle_pose_.rear_axis_.x_;
+  evaluator_data.vehicle_state.position.y = this->point_solver_.vehicle_pose_.rear_axis_.y_;
   evaluator_data.lookahead_point.x = lookahead_point.x_;
   evaluator_data.lookahead_point.y = lookahead_point.y_;
   evaluator_data.closest_point.x = closest_point.x_;

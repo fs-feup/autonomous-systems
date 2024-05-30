@@ -1,5 +1,7 @@
 #pragma once
 
+#include "gtest/gtest.h"
+
 /**
  * @brief PI-D Controller class
  *
@@ -11,57 +13,27 @@
  */
 
 class PID {
- public:            // pirvate vs public
-  double Kp;         /**< Proporcional gain */
-  double Ki;         /**< Integral gain */
-  double Kd;         /**< Derivative gain */
-  double antiWindup; /**< Gain of integrator impact when saturated */
+private:
+  double kp_;          /**< Proporcional gain */
+  double ki_;          /**< Integral gain */
+  double kd_;          /**< Derivative gain */
+  double anti_windup_; /**< Gain of integrator impact when saturated */
 
-  double tau; /**< Derivative low pass filter time constant */
+  double tau_; /**< Derivative low pass filter time constant */
 
-  double T; /**< Sampling time */
+  double t_; /**< Sampling time */
 
-  double limMin; /**< Minimum output value */
-  double limMax; /**< Maximum output value */
+  double lim_min_; /**< Minimum output value */
+  double lim_max_; /**< Maximum output value */
 
-  double proportional{0.0f};   /**< Integrator value */
-  double integrator{0.0f};     /**< Integrator value */
-  double differentiator{0.0f}; /**< Differentiator value */
+  double proportional_{0.0f};   /**< Integrator value */
+  double integrator_{0.0f};     /**< Integrator value */
+  double differentiator_{0.0f}; /**< Differentiator value */
 
-  double prevError{0.0f};       /**< Previous error value, required for integrator */
-  double prevMeasurement{0.0f}; /**< Previous measurement value, required for defferentiator */
+  double prevError_{0.0f};       /**< Previous error value, required for integrator */
+  double prevMeasurement_{0.0f}; /**< Previous measurement value, required for defferentiator */
 
-  double out{0.0f}; /**< Output value */
-
-  /**
-   * @brief Calculate the output value
-   *
-   * @param setpoint
-   * @param measurement
-   * @return double
-   */
-  double update(double setpoint, double measurement);
-
- public:
-  /**
-   * @brief Construct a new PID object
-   *
-   * @param Kp Proporcional gain
-   * @param Ki Integral gain
-   * @param Kd Derivative gain
-   * @param tau Derivative low pass filter time constant
-   * @param T Sampling time
-   * @param limMin Minimum output value
-   * @param limMax Maximum output value
-   * @param antiWindup Gain of integrator impact when saturated
-   */
-  PID(double Kp, double Ki, double Kd, double tau, double T, double limMin, double limMax,
-      double antiWindup);
-
-  /**
-   * @brief PID default constructor
-   */
-  PID();
+  double out_{0.0f}; /**< Output value */
 
   /**
    * @brief Calculate the error signal
@@ -102,4 +74,47 @@ class PID {
    * @brief Compute the output value and apply limits
    */
   void compute_output();
+
+public:
+  /**
+   * @brief Construct a new PID object
+   *
+   * @param Kp Proporcional gain
+   * @param Ki Integral gain
+   * @param Kd Derivative gain
+   * @param tau Derivative low pass filter time constant
+   * @param T Sampling time
+   * @param limMin Minimum output value
+   * @param limMax Maximum output value
+   * @param antiWindup Gain of integrator impact when saturated
+   */
+  PID(double Kp, double Ki, double Kd, double tau, double T, double limMin, double limMax,
+      double antiWindup);
+
+  /**
+   * @brief PID default constructor
+   */
+  PID();
+
+  /**
+   * @brief Calculate the output value
+   *
+   * @param setpoint
+   * @param measurement
+   * @return double
+   */
+  double update(double setpoint, double measurement);
+
+  FRIEND_TEST(PidTests, TestAntiWindUp1);
+  FRIEND_TEST(PidTests, TestAntiWindUp2);
+  FRIEND_TEST(PidTests, TestAntiWindUp3);
+  FRIEND_TEST(PidTests, ProportionalTerm);
+  FRIEND_TEST(PidTests, IntegralTerm1);
+  FRIEND_TEST(PidTests, IntegralTerm2);
+  FRIEND_TEST(PidTests, DerivativeTerm1);
+  FRIEND_TEST(PidTests, DerivativeTerm2);
+  FRIEND_TEST(PidTests, Output1);
+  FRIEND_TEST(PidTests, Output2);
+  FRIEND_TEST(PidTests, Output3);
+  FRIEND_TEST(PidTests, Update1);
 };

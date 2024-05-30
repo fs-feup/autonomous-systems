@@ -103,8 +103,7 @@ TEST(PurePursuitTests, Test_pp_steering_control_law_1) {
   double dist_cg_2_rear_axis = 2.655484889;
 
   double steering_cmd = lat_controller_.pp_steering_control_law(
-      rear_axis, cg, lookahead_point, dist_cg_2_rear_axis, lat_controller_.wheel_base_,
-      lat_controller_.max_steering_angle_, lat_controller_.min_steering_angle_);
+      rear_axis, cg, lookahead_point, dist_cg_2_rear_axis);
 
   //  Alpha: 0.804189
   //  ld_: 5.38516
