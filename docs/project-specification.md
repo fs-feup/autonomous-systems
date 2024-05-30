@@ -57,7 +57,7 @@ GNU libraries for computational geometry and numerical operations used for Plann
 
 Installation guides for all this software can be found in their respective [tutorials](./tutorials/).
 
-## Architecture
+## Design
 
 The AI computer is divided into 4 main components:
 - Perception - responsible for converting the visual sensor data into detections of landmarks (cones) in the track
@@ -71,10 +71,8 @@ The following components diagram illustrates the structure of the system.
 
 ![Components Diagram](./diagrams/full-components.drawio.svg)
 
-The following table shows the interfaces definitions for each environment:
-
-![Interfaces Table](./diagrams/ros-table.drawio.svg)
-
 The activity diagram / flow chart below illustrates the behaviour of the system and the flow of information through it.
 
 ![Activity Diagram](./diagrams/full-control-flow.drawio.svg)
+
+Check the [ROS communication table](./ros-tables.md) for more information on the topics and communication signals.
