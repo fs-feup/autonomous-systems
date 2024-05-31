@@ -48,6 +48,7 @@ Throttle Command | /pacsim/torques_max | TOPIC_MESSAGE : pacsim/msg/Wheels | Con
 
 Code | Interface | Channel Type | Description | Type of Information
 -----|-----------|--------------|-------------|--------------------
+3-Axis IMU | /imu/data | TOPIC_MESSAGE : sensor_msgs/msg/IMU | Accelerations and angular velocities | Input
 Camera | ? | ? | Images from ZED Stereo Camera | Input
 3D Point Cloud | ? | TOPIC_MESSAGE : sensor_msgs/msg/PointCloud2 | Point cloud from LiDAR | Input
 Camera Info | /custom_camera_info | TOPIC_MESSAGE : sensor_msgs/msg/CameraInfo | Camera Calibration information | Input
