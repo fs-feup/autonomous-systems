@@ -1,11 +1,23 @@
 import rclpy
 from rclpy.node import Node
-from custom_interfaces.msg import ConeArray, VehicleState, PathPointArray
+from custom_interfaces.msg import (
+    ConeArray,
+    VehicleState,
+    PathPointArray,
+    PathPoint,
+    VehicleState,
+    EvaluatorControlData,
+)
 from evaluator.adapter import Adapter
 from evaluator.metrics import (
     get_mean_squared_difference,
     get_average_difference,
     get_inter_cones_distance,
+    compute_distance,
+)
+from evaluator.formats import (
+    format_vehicle_state_msg,
+    format_point2d_msg,
 )
 import tf2_ros
 import sys
@@ -22,6 +34,7 @@ from sensor_msgs.msg import PointCloud2
 import datetime
 from math import sqrt
 from evaluator.formats import format_path_point_array_msg
+from message_filters import TimeSynchronizer
 
 
 class Evaluator(Node):
@@ -56,6 +69,8 @@ class Evaluator(Node):
         self.perception_receive_time_: datetime.datetime = datetime.datetime.now()
         self.map_receive_time_: datetime.datetime = datetime.datetime.now()
         self._point_cloud_receive_time_: datetime.datetime = datetime.datetime.now()
+        self._planning_receive_time_: datetime.datetime = datetime.datetime.now()
+        self._control_receive_time_: datetime.datetime = datetime.datetime.now()
 
         # Subscriptions
         self.perception_timing_subscription_ = self.create_subscription(
@@ -94,6 +109,12 @@ class Evaluator(Node):
         )
         self.planning_gt_subscription = self.create_subscription(
             PathPointArray, "path_planning/mock_path", self.planning_gt_callback, 10
+        )
+        self.control_data_sub_ = self.create_subscription(
+            EvaluatorControlData,
+            "control/evaluator_data",
+            self.compute_and_publish_control,
+            10,
         )
 
         # Publishers for perception metrics
@@ -143,6 +164,22 @@ class Evaluator(Node):
         self._planning_execution_time_ = self.create_publisher(
             Float32, "/evaluator/planning/execution_time", 10
         )
+
+        self._control_execution_time_ = self.create_publisher(
+            Float32, "/evaluator/control/execution_time", 10
+        )
+        self._control_difference_ = self.create_publisher(
+            Float32, "/evaluator/control/difference", 10
+        )
+        self._control_difference_mean_ = self.create_publisher(
+            Float32, "/evaluator/control/difference_mean_", 10
+        )
+        self._control_root_mean_squared_difference_ = self.create_publisher(
+            Float32, "/evaluator/control/root_mean_squared_difference_", 10
+        )
+
+        self._vehicle_position_ = []  # will store a vehicle position
+        self._closest_points_ = []  # will store a closest point
 
         self.planning_mock = (
             []
@@ -389,6 +426,70 @@ class Evaluator(Node):
         """
         self.get_logger().debug("Received GT planning")
         self.planning_mock = msg.pathpoint_array
+
+    def compute_and_publish_control(self, msg: EvaluatorControlData):
+        """!
+        Computes control metrics and publishes them.
+        Args:
+            vehicle_state (VehicleState): Vehicle state message.
+            closest_point (PathPoint): Closest point message.
+        """
+
+        self.get_logger().debug("Received control")
+        self._control_receive_time_ = datetime.datetime.now()
+
+        pose_treated, velocities_treated = format_vehicle_state_msg(msg.vehicle_state)
+        lookahead_point = format_point2d_msg(msg.lookahead_point)
+        lookahead_velocity = msg.lookahead_velocity
+
+        time_difference = float(
+            (self._control_receive_time_ - self._planning_receive_time_).microseconds
+            / 1000
+        )
+        execution_time = Float32()
+        execution_time.data = time_difference
+
+        self._control_execution_time_.publish(execution_time)
+
+        pose_position = pose_treated[:2]
+        closest_point = format_point2d_msg(msg.closest_point)
+        difference = Float32()
+        difference.data = compute_distance(closest_point, pose_position)
+
+        # self._closest_points_.append(closest_point)
+        # self._vehicle_position_.append(pose_position)
+
+        # mean_difference = Float32()
+        # mean_difference.data = get_average_difference(
+        #     self._closest_points_, self._vehicle_position_
+        # )
+
+        # mean_squared_difference = Float32()
+        # mean_squared_difference.data = get_mean_squared_difference(
+        #     self._closest_points_, self._vehicle_position_
+        # )
+
+        # root_mean_squared_difference = Float32()
+        # root_mean_squared_difference.data = sqrt(mean_squared_difference)
+
+        self.get_logger().debug(
+            "Computed control metrics:\n \
+                                Difference: {}\n \
+                                Mean difference: {}\n \
+                                Mean squared difference: {}\n \
+                                Root mean squared difference: {}".format(
+                difference,
+                "TODO",
+                "TODO",
+                "TODO",
+            )
+        )
+
+        self._control_difference_.publish(difference)
+        # self._control_difference_mean_.publish(mean_difference)
+        # self._control_root_mean_squared_difference_.publish(
+        #     root_mean_squared_difference
+        # )
 
 
 def main(args=None):

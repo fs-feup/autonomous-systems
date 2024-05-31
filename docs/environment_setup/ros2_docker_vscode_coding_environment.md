@@ -14,18 +14,11 @@
 
 Follow all the steps in [the tutorial video](https://www.youtube.com/watch?v=cNDR6Z24KLM), especially the part of allowing connections from network clients in the preferences.
 
-#### Extra for Windows
-
-Run Xlaunch from the start menu and perform the initial configuration.
-Make sure to save to the configuration file before you click finish. Save it to one of the following locations: ```%appdata%\Xming %userprofile%\Desktop %userprofile%```
-
-[example of usage](https://www.youtube.com/watch?v=BDilFZ9C9mw)
-
 ### Docker Setup
 
 This step goes over how to set up a docker dev container as a development environment for our project. For more information on docker, there is a [tutorial](https://github.com/fs-feup/tutorials/blob/main/tutorials/docker-tutorial.md) in the startup guide that links some content for education on the topic.
 
-There is a .devcontainer folder with files that define and configure the dev container environment. One defines the base docker image, while the other defines the add-ons to the container and the parameters it should run in, specially the ones related to vscode. If you are using Windows or it is not working as is, you should set a .env file similar to the [example one](../../../.devcontainer/.env.example). If it is still failing (for instance, in WSL it wasn't working), introduce the following line in your .bashrc:```export USERNAME=your_username```. This enables the devcontainer.json file to read your user and pass it inside the docker container. In Linux, this might not be necessary, but in case of error, do so as well.
+There is a .devcontainer folder with files that define and configure the dev container environment. One defines the base docker image, while the other defines the add-ons to the container and the parameters it should run in, specially the ones related to vscode. If you are using Windows or it is not working as is, you should set a .env file similar to the [example one](../../../.devcontainer/.env.example). If it is still failing (for instance, in WSL it wasn't working), introduce the following line in your .bashprofile or .zprofile (or .bashrc or .zshrc):```export USERNAME=your_username```. This enables the devcontainer.json file to read your user and pass it inside the docker container. In Linux, this might not be necessary, but in case of error, do so as well.
 
 The files in .devcontainer are mostly based in the [guide from ROS](https://docs.ros.org/en/humble/How-To-Guides/Setup-ROS-2-with-VSCode-and-Docker-Container.html).
 
@@ -80,3 +73,7 @@ Remember you will always have to run ```source /opt/ros/humble/setup.bash``` eve
 5. Check that you are inside the docker container.
     ![Screenshot](../assets/ros2_docker_setup/2.png)
 6. Program
+
+### Last Notes
+
+- The terminal cannot access ssh in windows, so you must use an external terminal
