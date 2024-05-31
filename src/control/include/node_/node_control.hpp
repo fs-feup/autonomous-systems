@@ -1,3 +1,5 @@
+#pragma once
+
 #include <message_filters/cache.h>
 #include <message_filters/subscriber.h>
 
@@ -7,14 +9,15 @@
 #include <string>
 
 #include "adapter_control/adapter.hpp"
-#include "custom_interfaces/msg/control_command.hpp"
+#include "custom_interfaces/msg/cone_array.hpp"
 #include "custom_interfaces/msg/path_point_array.hpp"
 #include "custom_interfaces/msg/vehicle_state.hpp"
-#include "custom_interfaces/msg/operational_status.hpp"
+#include "custom_interfaces/msg/evaluator_control_data.hpp"
+#include "pid/pid.hpp"
+#include "point_solver/psolver.hpp"
+#include "pure_pursuit/pp.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
-
-class Adapter;
 
 /**
  * @class Control
@@ -24,27 +27,47 @@ class Adapter;
  * and ideal path topics, and publishing torque (or other output to the actuators).
  */
 class Control : public rclcpp::Node {
- private:
-  bool go_signal = false;
-  message_filters::Subscriber<custom_interfaces::msg::VehicleState> pose_sub;
-  message_filters::Subscriber<custom_interfaces::msg::PathPointArray> path_point_array_sub;
-  message_filters::Cache<custom_interfaces::msg::PathPointArray> path_cache;
+public:
+  double k_;
+  double ld_margin_;
+  bool using_simulated_se_{false};
+  bool go_signal_{false};
+  bool mocker_node_{false};
 
-  rclcpp::Subscription<custom_interfaces::msg::OperationalStatus>::SharedPtr go_sub;
-  rclcpp::Publisher<custom_interfaces::msg::ControlCommand>::SharedPtr result;
+  PointSolver point_solver_; /**< Point Solver */
+  PID long_controller_{0.4, 0.3, 0.09, 0.5, 0.01, -1, 1, 0.7};
+  PurePursuit lat_controller_; /**< Lateral Controller*/
 
-  Adapter *adapter;
-  std::string mode = "fsds";  // Temporary, change as desired. TODO(andre): Make not hardcoded
+  std::shared_ptr<Adapter> adapter_;
+
+  // Evaluator Publishers
+  rclcpp::Publisher<custom_interfaces::msg::EvaluatorControlData>::SharedPtr evaluator_data_pub_;
+
+  // General Subscribers
+  rclcpp::Subscription<custom_interfaces::msg::PathPointArray>::SharedPtr path_point_array_sub_;
+  rclcpp::Subscription<custom_interfaces::msg::VehicleState>::SharedPtr vehicle_state_sub_;
+
+  std::vector<custom_interfaces::msg::PathPoint> pathpoint_array_{};
 
   /**
    * @brief Publishes the steering angle to the car based on the path and pose using cache
    *
    */
-  void publish_control(const custom_interfaces::msg::VehicleState::ConstSharedPtr &pose_msg);
+  void publish_control(const custom_interfaces::msg::VehicleState &vehicle_state_msg);
 
- public:
+private:
+
+  void publish_evaluator_data(double lookahead_velocity, Point lookahead_point, Point closest_point,
+                              custom_interfaces::msg::VehicleState vehicle_state_msg) const;
+
+  /**
+   * @brief Update lookahead distance
+   */
+  double update_lookahead_distance(double k, double velocity) const;
+
   /**
    * @brief Contructor for the Control class
    */
+public:
   Control();
 };

@@ -49,6 +49,6 @@
         "source=${localWorkspaceFolder}/cache/humble-ros-base-jammy/install,target=/home/ws/install,type=bind",
         "source=${localWorkspaceFolder}/cache/humble-ros-base-jammy/log,target=/home/ws/log,type=bind"
     ],
-    "postCreateCommand": "sudo apt update && rosdep update && rosdep install --from-paths src --ignore-src -y && sudo chown -R ${localEnv:USERNAME} /home/ws/",
+    "postCreateCommand": "sudo apt update && sudo chown -R ${localEnv:USERNAME} /home/ws/",
 	"initializeCommand": "echo Initialize...."
 }

@@ -2,9 +2,9 @@
 
 ROS (Robot Operating System) is a tool that allows engineers to easily program robots, providing a system to integrate programs in the robot as well as very handy tools that would otherwise required implementation. ROS2 is a new version of ROS with a few improvements, but the same core idea. You can check the difference between the two version here.
 
-Both ROS and ROS2 are organized into distributions (releases). These distributions mostly vary in the packages available for usage and their implementations. The distribution that FS FEUP will use in the second year is the ROS2-Humble, as it is the most stable one and with the farthest End-Of-Life. 
+Both ROS and ROS2 are organized into distributions (releases). These distributions mostly vary in the packages available for usage and their implementations. The distribution that FS FEUP will use in the second year is the ROS2-humble, as it is the most stable one and with the farthest End-Of-Life. 
 
-This tutorial presents two different manners of setting up ROS2 Humble:
+This tutorial presents two different manners of setting up ROS2 humble:
 1. Through Mamba Conda and Robostack - fast to perform and easy to remove but limited
 2. Normal installation of ROS2 in the system.
 

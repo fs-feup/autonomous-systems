@@ -7,7 +7,7 @@ This project aims to develop an Artificial Inteligence system for a computer to 
 ### Main Tools
 
 - [Ubuntu 22.04](https://releases.ubuntu.com/focal/)
-- [ROS2 Humble desktop](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html)
+- [ROS2 humble desktop](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html)
 
 ### Main Libraries
 

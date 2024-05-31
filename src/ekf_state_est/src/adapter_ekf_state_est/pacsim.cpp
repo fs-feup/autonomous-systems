@@ -14,7 +14,7 @@ PacsimAdapter::PacsimAdapter(std::shared_ptr<SENode> se_node) : Adapter(se_node)
 
   this->_pacsim_wheel_speeds_subscription_.subscribe(this->node_, "/pacsim/wheelspeeds");
   this->_steering_angle_subscription_.subscribe(this->node_, "/pacsim/steeringFront");
-  const WheelSteerPolicy policy(10);
+  const WheelSteerPolicy policy(1);
   this->_sync_ = std::make_shared<message_filters::Synchronizer<WheelSteerPolicy>>(
       policy, _pacsim_wheel_speeds_subscription_, _steering_angle_subscription_);
   this->_sync_->registerCallback(&PacsimAdapter::wheel_speeds_subscription_callback, this);
@@ -22,7 +22,7 @@ PacsimAdapter::PacsimAdapter(std::shared_ptr<SENode> se_node) : Adapter(se_node)
   if (this->node_->_use_simulated_perception_) {
     this->_perception_detections_subscription_ =
         this->node_->create_subscription<pacsim::msg::PerceptionDetections>(
-            "/pacsim/perception/livox_front/landmarks", 10,
+            "/pacsim/perception/livox_front/landmarks", 1,
             std::bind(&PacsimAdapter::perception_detections_subscription_callback, this,
                       std::placeholders::_1));
   }

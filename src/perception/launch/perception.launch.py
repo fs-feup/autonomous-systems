@@ -61,9 +61,40 @@ def generate_launch_description():
                         )
                     },
                     {"vertical_resolution": LaunchConfiguration("vertical_resolution")},
+                    
                     {"adapter": LaunchConfiguration("adapter")},
+
+                    {"horizontal_resolution": LaunchConfiguration("horizontal_resolution")},
+
+                    {"vertical_resolution": LaunchConfiguration("vertical_resolution")},
+
+                    {"adapter": LaunchConfiguration("adapter")},
+
+                    {"ground_removal": LaunchConfiguration("ground_removal")},
+
+                    {"n_angular_grids": LaunchConfiguration("n_angular_grids")},
+
+                    {"radius_resolution": LaunchConfiguration("radius_resolution")}
                 ],
                 arguments=["--ros-args", "--log-level", "perception:=debug"],
+            ),
+
+            DeclareLaunchArgument(
+                "ground_removal",
+                description="Ground Removal algorithm",
+                default_value="ransac",
+            ),
+
+            DeclareLaunchArgument(
+                "n_angular_grids",
+                description="Number of angular grids",
+                default_value="6",
+            ),
+
+            DeclareLaunchArgument(
+                "radius_resolution",
+                description="radius size of a radius grid (m)",
+                default_value="10.0",
             ),
             Node(
                 package="perception",
@@ -84,7 +115,21 @@ def generate_launch_description():
                         )
                     },
                     {"vertical_resolution": LaunchConfiguration("vertical_resolution")},
+
                     {"adapter": LaunchConfiguration("adapter")},
+
+                    {"horizontal_resolution": LaunchConfiguration("horizontal_resolution")},
+
+                    {"vertical_resolution": LaunchConfiguration("vertical_resolution")},
+
+                    {"adapter": LaunchConfiguration("adapter")},
+
+                    {"ground_removal": LaunchConfiguration("ground_removal")},
+
+                    {"n_angular_grids": LaunchConfiguration("n_angular_grids")},
+
+                    {"radius_resolution": LaunchConfiguration("radius_resolution")}
+
                 ],
                 arguments=["--ros-args", "--log-level", "perception:=debug"],
             ),

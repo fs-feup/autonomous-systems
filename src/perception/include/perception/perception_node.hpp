@@ -1,5 +1,4 @@
-#ifndef SRC_PERCEPTION_PERCEPTION_INCLUDE_PERCEPTION_PERCEPTION_NODE_HPP_
-#define SRC_PERCEPTION_PERCEPTION_INCLUDE_PERCEPTION_PERCEPTION_NODE_HPP_
+#pragma once
 
 #include <cone_evaluator/cone_evaluator.hpp>
 #include <cone_validator/cylinder_validator.hpp>
@@ -12,6 +11,7 @@
 #include "cone_validator/height_validator.hpp"
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "ground_removal/ransac.hpp"
+#include "ground_removal/grid_ransac.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
 #include "visualization_msgs/msg/marker_array.hpp"
@@ -79,4 +79,3 @@ public:
   void pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg);
 };
 
-#endif

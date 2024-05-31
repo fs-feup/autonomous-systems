@@ -39,18 +39,35 @@ git config user.email "useremail"
     ```
     You can leave the default file. Setup password if you wish.
 2. Start the ssh-agent in the background:
+    In Ubuntu or WSL:
     ```sh
     eval "$(ssh-agent -s)"
     ```
+    In Windows:
+    ```sh
+    Set-Service -StartupType Automatic
+    Start-Service ssh-agent
+    ```
 1. Add the ssh key to the agent:
-    In Ubuntu:
+    In Ubuntu or WSL:
     ```sh
     ssh-add ~/.ssh/id_ed25519
     ```
     In Windows:
+    ```sh
+    ssh-add c:/Users/<user>/.ssh/id_ed25519
+    ```
 1. Copy the SSH public key to your clipboard:
+    In Ubuntu or WSL:
     ```sh
     cat ~/.ssh/id_ed25519.pub
+    # Then select and copy the contents of the id_ed25519.pub file
+    # displayed in the terminal to your clipboard
+    ```
+
+    In Windows:
+    ```sh
+    cat c:/Users/<user>/.ssh/id_ed25519.pub
     # Then select and copy the contents of the id_ed25519.pub file
     # displayed in the terminal to your clipboard
     ```
@@ -69,6 +86,26 @@ git config user.email "useremail"
 1. If prompted, confirm access to your account on GitHub. For more information, see "Sudo mode."
 
 For more details on that, checkout the Github tutorials: [Generating a new SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) and [Adding a new SSH key to your GitHub account](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account). 
+
+#### Imporant Note
+
+If you are or planning on using the Docker Dev Container with Windows and WSL (project inside WSL), then you need to add the following to the .zprofile or .bashprofile files (depending on the shell you use). Create them if they don't exist, they should be located in the /home/user_name folder.
+```sh
+# Auto-start ssh-agent
+
+if [ -z "$SSH_AUTH_SOCK" ]; then
+  # Check for a currently running instance of the agent
+  RUNNING_AGENT="`ps -ax | grep 'ssh-agent -s' | grep -v grep | wc -l | tr -d '[:space:]'`"
+  if [ "$RUNNING_AGENT" = "0" ]; then
+    # Launch a new instance of the agent
+    ssh-agent -s &> ~/.ssh/ssh-agent
+  fi
+  eval `cat ~/.ssh/ssh-agent`
+fi
+ssh-add ~/.ssh/id_ed25519
+```
+
+If you don't do this, you will not be able to pull or push from the remote repository.
 
 ## Cloning the project
 

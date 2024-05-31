@@ -27,7 +27,7 @@ public:
   explicit FsdsAdapter(Planning* planning);
 
   void mission_state_callback(const fs_msgs::msg::GoSignal msg);
-  void set_mission_state(int mission, int state);
+  void set_mission_state();
   void pose_callback(const nav_msgs::msg::Odometry& msg);
   void finish() override;
 };

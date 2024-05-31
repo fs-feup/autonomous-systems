@@ -27,7 +27,7 @@ struct ObservationData {
  * compiled of functions for observation model
  */
 class ObservationModel {
-  Eigen::Matrix2f _observation_noise_covariance_matrix; /**< H or C */
+  Eigen::Matrix2f _observation_noise_covariance_matrix_; /**< H or C */
 
 public:
   /**
@@ -81,8 +81,11 @@ public:
    * @return Eigen::MatrixXf
    */
   Eigen::MatrixXf get_observation_noise_covariance_matrix() const;
-};
 
-/// Map object to map strings from launch file parameter to constructor
-const std::map<std::string, Eigen::MatrixXf, std::less<>> observation_model_noise_matrixes = {
-    {"default", Eigen::MatrixXf::Identity(2, 2) * 0.3}};
+  /**
+   * @brief Create a Q matrix from a given noise value
+   *
+   * @return Eigen::Matrix2f
+   */
+  static Eigen::Matrix2f create_observation_noise_covariance_matrix(float noise_value);
+};

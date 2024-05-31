@@ -20,13 +20,11 @@ def generate_launch_description():
                 description="Motion model to use",
                 default_value="normal_velocity_model",
             ),
-            DeclareLaunchArgument("wheel_radius", default_value="0.254"),
             DeclareLaunchArgument(
                 "adapter",
                 description="Environment to run node on",
                 default_value="vehicle",
             ),
-            DeclareLaunchArgument("finish_time", default_value="26.0"),  # seconds
             DeclareLaunchArgument(
                 "use_odometry",
                 description="Either use odometry or IMU (TODO: remove for complete velocity estimation)",

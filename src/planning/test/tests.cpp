@@ -58,7 +58,6 @@ void test_cone_coloring(const ConeColoring &cone_coloring, int &correctly_placed
   incorrectly_placed_blue = 0;
   incorrectly_placed_yellow = 0;
   for (const Cone *c : cone_coloring.current_left_cones) {
-    // std::cout << "Cone placed in left had ID : " << c -> getId();
     if ((c->getId()) % 2) {
       incorrectly_placed_yellow++;
     } else {
@@ -66,7 +65,6 @@ void test_cone_coloring(const ConeColoring &cone_coloring, int &correctly_placed
     }
   }
   for (const Cone *c : cone_coloring.current_right_cones) {
-    // std::cout << "Cone placed in right had ID : " << c -> getId();
     if ((c->getId()) % 2) {
       correctly_placed_yellow++;
     } else {
@@ -217,6 +215,8 @@ TEST(LocalPathPlanner, outlier_test2) {
   int n1_right = track->getRightConesSize();
   EXPECT_EQ(n1_left, 12);
   EXPECT_EQ(n1_right, 0);
+  track->orderCones(*track->get_pointer_to_left_cones());
+  track->orderCones(*track->get_pointer_to_right_cones());
   track->validateCones();
   n1_left = track->getLeftConesSize();
   n1_right = track->getRightConesSize();
@@ -247,6 +247,8 @@ TEST(LocalPathPlanner, outliers_test1) {
   int n1_right = track->getRightConesSize();
   EXPECT_EQ(n1_left, 36);
   EXPECT_EQ(n1_right, 0);
+  track->orderCones(*track->get_pointer_to_left_cones());
+  track->orderCones(*track->get_pointer_to_right_cones());
   track->validateCones();
   EXPECT_FLOAT_EQ(round_n(track->getMaxDistance(true), 3), 1.342);
   EXPECT_FLOAT_EQ(round_n(track->getMaxDistance(false), 3), 0);
@@ -272,6 +274,8 @@ TEST(LocalPathPlanner, map250_out10) {
   // track -> logCones(false);
   int n1_left = track->getLeftConesSize();
   int n1_right = track->getRightConesSize();
+  track->orderCones(*track->get_pointer_to_left_cones());
+  track->orderCones(*track->get_pointer_to_right_cones());
   track->validateCones();
   EXPECT_FLOAT_EQ(round_n(track->getMaxDistance(true), 3), 3.755);
   EXPECT_FLOAT_EQ(round_n(track->getMaxDistance(false), 3), 3.629);
@@ -295,6 +299,8 @@ TEST(LocalPathPlanner, map250_out25) {
   // track -> logCones(false);
   int n1_left = track->getLeftConesSize();
   int n1_right = track->getRightConesSize();
+  track->orderCones(*track->get_pointer_to_left_cones());
+  track->orderCones(*track->get_pointer_to_right_cones());
   track->validateCones();
   EXPECT_FLOAT_EQ(round_n(track->getMaxDistance(true), 3), 4.188);
   EXPECT_FLOAT_EQ(round_n(track->getMaxDistance(false), 3), 3.834);
@@ -318,6 +324,8 @@ TEST(LocalPathPlanner, map250_out50) {
   // track -> logCones(false);
   int n1_left = track->getLeftConesSize();
   int n1_right = track->getRightConesSize();
+  track->orderCones(*track->get_pointer_to_left_cones());
+  track->orderCones(*track->get_pointer_to_right_cones());
   track->validateCones();
   EXPECT_FLOAT_EQ(round_n(track->getMaxDistance(true), 3), 4.099);
   EXPECT_FLOAT_EQ(round_n(track->getMaxDistance(false), 3), 3.663);
@@ -341,6 +349,8 @@ TEST(LocalPathPlanner, map250) {
   // track -> logCones(false);
   int n1_left = track->getLeftConesSize();
   int n1_right = track->getRightConesSize();
+  track->orderCones(*track->get_pointer_to_left_cones());
+  track->orderCones(*track->get_pointer_to_right_cones());
   track->validateCones();
   EXPECT_FLOAT_EQ(round_n(track->getMaxDistance(true), 3), 3.755);
   EXPECT_FLOAT_EQ(round_n(track->getMaxDistance(false), 3), 3.755);
@@ -365,6 +375,8 @@ TEST(LocalPathPlanner, map_250_rng) {
   // track -> logCones(false);
   int n1_left = track->getLeftConesSize();
   int n1_right = track->getRightConesSize();
+  track->orderCones(*track->get_pointer_to_left_cones());
+  track->orderCones(*track->get_pointer_to_right_cones());
   track->validateCones();
   EXPECT_FLOAT_EQ(round_n(track->getMaxDistance(true), 3), 5.044);
   EXPECT_FLOAT_EQ(round_n(track->getMaxDistance(false), 3), 9.759);
@@ -432,6 +444,35 @@ TEST(LocalPathPlanner, path_smooth2) {
   // new_path -> logPathPoints();
 }
 
+struct PathPointHash {
+  std::size_t operator()(const PathPoint &p) const {
+    // Compute individual hash values for two data members and combine them using XOR
+    std::size_t h1 = std::hash<double>()(p.getX());
+    std::size_t h2 = std::hash<double>()(p.getY());
+
+    return h1 ^ h2;
+  }
+};
+
+struct PathPointEqual {
+  bool operator()(const PathPoint &p1, const PathPoint &p2) const {
+    return p1.getX() == p2.getX() && p1.getY() == p2.getY();
+  }
+};
+
+namespace std {
+template <>
+struct hash<PathPoint> {
+  std::size_t operator()(const PathPoint &p) const {
+    // Compute individual hash values for two data members and combine them using XOR
+    std::size_t h1 = std::hash<double>()(p.getX());
+    std::size_t h2 = std::hash<double>()(p.getY());
+
+    return h1 ^ h2;
+  }
+};
+}  // namespace std
+
 /**
  * @brief simple but realistic scenario with few cones and fwe outliers
  *
@@ -441,12 +482,13 @@ TEST(LocalPathPlanner, delauney10) {
   Track *track = new Track();
   track->fillTrack(file_path);  // fill track with file data
   LocalPathPlanner *pathplanner = new LocalPathPlanner();
-  std::vector<PathPoint> path;
+  std::unordered_set<PathPoint> path;
   std::vector<PathPoint *> pathPointers = pathplanner->processNewArray(track);
-  for (size_t i = 0; i < pathPointers.size(); i++) path.push_back(*pathPointers[i]);
-  std::vector<PathPoint> expected{PathPoint(1.5, 0.0),  PathPoint(1.75, 1.0),  PathPoint(2.25, 1.4),
-                                  PathPoint(2.5, 2.4),  PathPoint(3.0, 2.75),  PathPoint(3.5, 3.15),
-                                  PathPoint(3.75, 3.9), PathPoint(4.25, 4.25), PathPoint(4.5, 5.0)};
+  for (size_t i = 0; i < pathPointers.size(); i++) path.insert(*pathPointers[i]);
+  std::unordered_set<PathPoint> expected{
+      PathPoint(1.5, 0.0),  PathPoint(1.75, 1.0),  PathPoint(2.25, 1.4),
+      PathPoint(2.5, 2.4),  PathPoint(3.0, 2.75),  PathPoint(3.5, 3.15),
+      PathPoint(3.75, 3.9), PathPoint(4.25, 4.25), PathPoint(4.5, 5.0)};
   EXPECT_EQ(path.size(), expected.size());
   EXPECT_EQ(expected, path);
 }
@@ -691,11 +733,11 @@ TEST(LocalPathPlanner, map_test1_void) {
   Track *track = new Track();
   track->fillTrack(file_path);  // fill track with file data
   LocalPathPlanner *pathplanner = new LocalPathPlanner();
-  std::vector<PathPoint> path;
+  std::unordered_set<PathPoint> path;
   std::vector<PathPoint *> pathPointers = pathplanner->processNewArray(track);
-  for (size_t i = 0; i < pathPointers.size(); i++) path.push_back(*pathPointers[i]);
-  std::vector<PathPoint> expected{{1, 0}, {2, 0}, {3, 0}, {4, 0}, {5, 0},
-                                  {6, 0}, {7, 0}, {8, 0}, {1, 0}};
+  for (size_t i = 0; i < pathPointers.size(); i++) path.insert(*pathPointers[i]);
+  std::unordered_set<PathPoint> expected{{1, 0}, {2, 0}, {3, 0}, {4, 0}, {5, 0},
+                                         {6, 0}, {7, 0}, {8, 0}, {0, 0}};
   EXPECT_EQ(path.size(), expected.size());
   EXPECT_EQ(expected, path);
 }
@@ -709,21 +751,16 @@ TEST(LocalPathPlanner, map_test2) {
   Track *track = new Track();
   track->fillTrack(file_path);  // fill track with file data
   LocalPathPlanner *pathplanner = new LocalPathPlanner();
-  std::vector<std::pair<double, double>> path;
+  std::unordered_set<PathPoint> path;
   std::vector<PathPoint *> pathPointers = pathplanner->processNewArray(track);
   for (size_t i = 0; i < pathPointers.size(); i++) {
-    path.push_back({pathPointers[i]->getX(), pathPointers[i]->getY()});
+    path.insert({pathPointers[i]->getX(), pathPointers[i]->getY()});
   }
-  std::vector<std::pair<double, double>> expected = {
-      {1, 0},      {1, 1}, {1, 2},     {1.5, 3}, {1.75, 3.5}, {1.75, 3.5},
-      {1.75, 3.5}, {2, 4}, {2.5, 4.5}, {3, 5},   {3.5, 4.5},  {4, 4}};
-  path = orderVectorOfPairs(path);
-  expected = orderVectorOfPairs(expected);
+  std::unordered_set<PathPoint> expected = {
+      {1, 0}, {1, 1},     {1, 2}, {1.5, 3},   {1.75, 3.5}, {1.75, 3.5}, {1.75, 3.5},
+      {2, 4}, {2.5, 4.5}, {3, 5}, {3.5, 4.5}, {4, 4},      {3.5, 2},    {4.5, 3.5}};
   EXPECT_EQ(path.size(), expected.size());
-  for (int n = 0; n < static_cast<int>(expected.size()); n++) {
-    EXPECT_FLOAT_EQ(path[n].first, expected[n].first);
-    EXPECT_FLOAT_EQ(path[n].second, expected[n].second);
-  }
+  EXPECT_EQ(path, expected);
 }
 
 /**
