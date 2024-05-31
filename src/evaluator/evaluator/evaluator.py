@@ -286,6 +286,7 @@ class Evaluator(Node):
         """
         cone_positions = perception_output
         groundtruth_cone_positions = perception_ground_truth
+
         mean_difference = Float32()
         mean_difference.data = get_average_difference(
             cone_positions, groundtruth_cone_positions
@@ -304,10 +305,10 @@ class Evaluator(Node):
 
         self.get_logger().debug(
             "Computed perception metrics:\n \
-                                Mean difference: {}\n \
-                                Inter cones distance: {}\n \
-                                Mean squared difference: {}\n \
-                                Root mean squared difference: {}".format(
+                               Mean difference: {}\n \
+                               Inter cones distance: {}\n \
+                               Mean squared difference: {}\n \
+                               Root mean squared difference: {}".format(
                 mean_difference,
                 inter_cones_distance,
                 mean_squared_error,

@@ -131,7 +131,7 @@ class FSDSAdapter(Adapter):
                 [odometry.pose.pose.position.x, odometry.pose.pose.position.y, 0]
             )
 
-            perception_ground_truth.append(f"{transformed_position}")
+            perception_ground_truth.append(transformed_position)
             # self.node.get_logger().info(transformed_position)
 
         return np.array(perception_ground_truth)
