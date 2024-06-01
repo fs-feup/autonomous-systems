@@ -14,6 +14,7 @@ Eventhough the documentation present in this repository in the form of markdown 
 
 - [Project Rules](https://www.notion.so/FS-FEUP-HUB-6873ab8de3b44fad990d264023fbce8b?pvs=4) in Notion (specifically check Software Development rules)
 - [Project Specification](./project-specification.md) - architecture and technologies
+- [ROS Communication Table](./ros-tables.md) - table with all the topics and message types used in all environments
 - [Contribute](../CONTRIBUTING.md) - consult on how to compile test and run different parts of the project.
 - [Diagrams](./diagrams/)
 
