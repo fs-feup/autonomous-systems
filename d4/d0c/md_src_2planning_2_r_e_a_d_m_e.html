@@ -94,31 +94,31 @@ $(document).ready(function(){initNavTree('d4/d0c/md_src_2planning_2_r_e_a_d_m_e.
   <div class="headertitle"><div class="title">Planning Module</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md43"></a> The planning module is the third main module in the autonomous system. It comes after the Localization and Mapping processing and precedes the <a class="el" href="../../d7/d49/class_control.html" title="Class responsible for the control of the car.">Control</a> module. It is responsible for processing the cones information(position and color) and to calculate the best path for the car to follow considering the received track. It then sends the desired path to the control in the form of a ordered position sequence.</p>
-<h1><a class="anchor" id="autotoc_md44"></a>
+<div class="textblock"><p><a class="anchor" id="autotoc_md41"></a> The planning module is the third main module in the autonomous system. It comes after the Localization and Mapping processing and precedes the <a class="el" href="../../d7/d49/class_control.html" title="Class responsible for the control of the car.">Control</a> module. It is responsible for processing the cones information(position and color) and to calculate the best path for the car to follow considering the received track. It then sends the desired path to the control in the form of a ordered position sequence.</p>
+<h1><a class="anchor" id="autotoc_md42"></a>
 Run the Node</h1>
-<h2><a class="anchor" id="autotoc_md45"></a>
+<h2><a class="anchor" id="autotoc_md43"></a>
 Install Dependencies</h2>
 <p>You will need CGAL library for the Delaunay Triangulations. GSL library for the splines.</p>
 <div class="fragment"><div class="line">sudo apt-get install libcgal-dev</div>
 <div class="line">sudo apt-get install libgsl-dev</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md46"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md44"></a>
 Compile</h2>
 <div class="fragment"><div class="line">colcon build --packages-select planning custom_interfaces</div>
-</div><!-- fragment --> <h2><a class="anchor" id="autotoc_md47"></a>
+</div><!-- fragment --> <h2><a class="anchor" id="autotoc_md45"></a>
 Source</h2>
 <div class="fragment"><div class="line">source ./install/setup.bash</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md48"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md46"></a>
 Run</h2>
 <div class="fragment"><div class="line">ros2 run planning planning</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md49"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md47"></a>
 Test</h2>
 <p>A) You can either run with colcon test. </p><div class="fragment"><div class="line">colcon test --packages-select planning --event-handler=console_direct+</div>
 </div><!-- fragment --><p> B) Or you can run using the test executable, after compiling. </p><div class="fragment"><div class="line">ros2 run planning planning_test</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md50"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md48"></a>
 Design</h1>
 <p>The architecture of the module may be described according to the following diagrams.</p>
-<h2><a class="anchor" id="autotoc_md51"></a>
+<h2><a class="anchor" id="autotoc_md49"></a>
 Class Diagram</h2>
 <p>This diagram will focus on the main classes and instances inside the planning module, mentioning only the core units and most important functions.</p>
 <p><img src="../../../../docs/assets/Planning/ClassDiagram.png" alt="" class="inline"/> </p>
@@ -130,18 +130,18 @@ Class Diagram</h2>
 <li><b><a class="el" href="../../d8/da1/class_cone.html" title="Cone class.">Cone</a>:</b> Basic unit that will fill the track instance. Contains its coordinates, color and id, which will be useful to identify it.</li>
 <li><b>PlanningAdapter:</b> Implementation of the <a class="el" href="../../d3/d7f/class_adapter.html" title="Adapter class for coordinating communication between different modes and Control module.">Adapter</a> Pattern. It is an abstraction layer that's used to receive and interact with the car or simulator, depending on the current usage. It can be used for example to control the current event or the car state.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md52"></a>
+<h2><a class="anchor" id="autotoc_md50"></a>
 Sequence Diagram</h2>
 <p>The planning module receives the track map(a cone array) from the Localization and Mapping block. The main module receives it and will send it to the <a class="el" href="../../d6/d2c/class_track.html" title="Track class.">Track</a> instance to fill itself and validates the data using splines. After this step it will transmit the track to the Local Path Planner, which will calculate the ideal path and return it, finally to the main module again. The path is then forwarded to the subsequent node <a class="el" href="../../d7/d49/class_control.html" title="Class responsible for the control of the car.">Control</a>.</p>
 <p><img src="../../../../docs/assets/Planning/SequenceDiagram.png" alt="" class="inline"/> </p>
-<h2><a class="anchor" id="autotoc_md53"></a>
+<h2><a class="anchor" id="autotoc_md51"></a>
 Activity Diagram</h2>
 <p>The planning module doesn't have many different flows. The main one to notice is the difference in the action depending on the event. Since for the Skidpad and Acceleration Events, the best path is already calculated, the module will just go find that data and send it. If we are not in the presence of those, the flow will follow just like previously mentioned.</p>
 <p><img src="../../../../docs/assets/Planning/ActivityDiagram.png" alt="" style="width: 50%; height: auto;" class="inline"/> </p>
-<h1><a class="anchor" id="autotoc_md54"></a>
+<h1><a class="anchor" id="autotoc_md52"></a>
 Full Documentation</h1>
 <p>A more precise information about the <a class="el" href="../../d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car.">Planning</a> Module can be found <a href="https://github.com/fs-feup/documentation/blob/main/AS/FSFEUP_02_Planning_Control/main.pdf">here</a></p>
-<h1><a class="anchor" id="autotoc_md55"></a>
+<h1><a class="anchor" id="autotoc_md53"></a>
 Main External Libraries</h1>
 <ol type="1">
 <li><a href="https://docs.ros.org/en/foxy/index.html">ROS</a></li>
