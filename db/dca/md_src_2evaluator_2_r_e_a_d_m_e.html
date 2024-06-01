@@ -94,18 +94,33 @@ $(document).ready(function(){initNavTree('db/dca/md_src_2evaluator_2_r_e_a_d_m_e
   <div class="headertitle"><div class="title">Evaluator Package</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md17"></a> This package contains the evaluator node, used to evaluate the AS main pipeline, with aid of simulation environments and other data.</p>
-<h1><a class="anchor" id="autotoc_md18"></a>
-Compilation instructions</h1>
-<div class="fragment"><div class="line">colcon build --symlink-install --packages-select eufs_msgs fs_msgs custom_interfaces pacsim</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md19"></a>
-Launch files</h1>
-<p>There are multiple launch files, each for each simulation environment.</p>
+<div class="textblock"><p><a class="anchor" id="autotoc_md19"></a> This package contains the evaluator node, used to evaluate the AS main pipeline, with aid of simulation environments and other data.</p>
 <h1><a class="anchor" id="autotoc_md20"></a>
-Running</h1>
-<p>Run a launch file:</p>
-<div class="fragment"><div class="line">ros2 launch evaluator evaluator_eufs.launch.py</div>
-</div><!-- fragment --><p> You can run the node directly but it will use default settings. </p>
+Package info</h1>
+<ul>
+<li><b>Package name:</b> evaluator</li>
+<li><b>Node name:</b> evaluator</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md21"></a>
+Launch files</h2>
+<ul>
+<li><b>evaluator-eufs.launch.py</b> - evaluator with adapters for EUFS SIM</li>
+<li><b>evaluator-pacsim.launch.py</b> - evaluator with adapters for PacSim</li>
+<li><b>evaluator-fsds.launch.py</b> - evaluator with adapters for FSDS</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md22"></a>
+Design</h1>
+<p>The structure of the node is quite simple and depicted by the following class diagram:</p>
+<p><img src="../../../../docs/diagrams/sim-inf/evaluator-class-diagram.drawio.svg" alt="Class Diagram" style="pointer-events: none;" class="inline"/></p>
+<p>The way the system works can be explained with the aid of the following sequence diagram:</p>
+<p><img src="../../../../docs/diagrams/sim-inf/evaluator-sequence-diagram.drawio.svg" alt="Sequence Diagram" style="pointer-events: none;" class="inline"/></p>
+<p>The Evaluator node class only creates Subscribers for the topics intrinsic to the system. The subscriptions and subsequent linkage to callbacks is all made in the adapters, as they depend of the simulator topics. The callbacks in the adapters simply organize and format the inputs to a standard format, so that metrics can be calculated and published by the evaluator node and its functions.</p>
+<p>This is true for all but the control node, which for simplicity reasons sends all the information necessary for evaluation in a separate message, as it does not use simulation data to evaluate itself.</p>
+<p>The concept of the complete evaluation system can be seen in the following diagram:</p>
+<p><img src="../../../../docs/diagrams/sim-inf/evaluation-system.drawio.svg" alt="System Diagram" style="pointer-events: none;" class="inline"/></p>
+<h1><a class="anchor" id="autotoc_md23"></a>
+Results</h1>
+<p>The metrics will be published in <code>/evaluator/*</code> topics. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

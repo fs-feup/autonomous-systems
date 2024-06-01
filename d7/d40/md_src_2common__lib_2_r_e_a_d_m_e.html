@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Formula Student Autonomous Systems: Inspection package</title>
+<title>Formula Student Autonomous Systems: Common Lib</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -65,7 +65,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('dc/d23/md_src_2inspection_2_r_e_a_d_m_e.html','../../'); initResizable(); });
+$(document).ready(function(){initNavTree('d7/d40/md_src_2common__lib_2_r_e_a_d_m_e.html','../../'); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -91,27 +91,21 @@ $(document).ready(function(){initNavTree('dc/d23/md_src_2inspection_2_r_e_a_d_m_
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">Inspection package</div></div>
+  <div class="headertitle"><div class="title">Common Lib</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md24"></a> This package is responsible for running two scripts used for testing the car. One of them performs the autonomous mission described in the rules: "T14.11.2 The inspection mission is defined by slowly spinning the drivetrain and actuating the steering system with a sine wave while the vehicle is jacked up and all wheels are removed. After 25 s to 30 s the AS must transition to 'AS Finished'". The other script is an implementation of the EBS test described in the rules. The parameters to be used when running this node can be configured by changing the config.txt file.</p>
-<h1><a class="anchor" id="autotoc_md25"></a>
-Compiling</h1>
-<p>From src folder: </p><div class="fragment"><div class="line">colcon build --packages-select inspection fs_msgs custom_interfaces pacsim</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md26"></a>
-Testing</h1>
-<p>From src folder: </p><div class="fragment"><div class="line">colcon test --packages-select inspection # use event-handler=console_direct+ for imediate output</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md27"></a>
-Running the node</h1>
-<div class="fragment"><div class="line">ros2 run inspection inspection</div>
-</div><!-- fragment --> <h1><a class="anchor" id="autotoc_md28"></a>
-Design</h1>
-<p>The package has two classes, one of them being a ROS2 node, and responsible for all the ROS2 communication. The other class has all the functions and variables related to the package's roles. <img src="../../../../docs/assets/Inspection/inspection.drawio.svg" alt="Inspection Diagram Part 3" style="pointer-events: none;" class="inline"/> </p>
-<h1><a class="anchor" id="autotoc_md29"></a>
-Main External Libraries</h1>
+<div class="textblock"><p><a class="anchor" id="autotoc_md4"></a> This package serves as a library for definition of functions and structures that can be used by multiple nodes of the system.</p>
+<h1><a class="anchor" id="autotoc_md5"></a>
+Package info</h1>
+<p>Package is called <b><a class="el" href="../../dd/d5f/namespacecommon__lib.html">common_lib</a></b> and has no executable.</p>
+<p>It is composed of multiple namespaces:</p>
 <ul>
-<li><a href="https://docs.ros.org/en/foxy/index.html">ROS2</a></li>
-<li><a href="http://google.github.io/googletest/">Gtest</a> </li>
+<li><b>communication:</b> implementations related to ROS messages</li>
+<li><b>competition_logic:</b> functionality related to competition details, like mission logic or colours</li>
+<li><b>maths:</b> mathematical formulas and structures</li>
+<li><b>sensor_data:</b> structures and functions to represent and process data from sensors</li>
+<li><b>structures:</b> generic structures from internal logic, like <a class="el" href="../../d1/d26/struct_position.html">Position</a>, <a class="el" href="../../de/dec/class_pose.html">Pose</a>, <a class="el" href="../../d8/da1/class_cone.html" title="Cone class.">Cone</a>, <a class="el" href="../../d9/d32/class_path_point.html" title="PathPoint class.">PathPoint</a>...</li>
+<li><b>vehicle_dynamics:</b> formulas related to the bicycle model and other vehicle related logic </li>
 </ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
