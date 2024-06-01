@@ -48,7 +48,7 @@ The architecture of the module may be described according to the following diagr
 This diagram will focus on the main classes and instances inside the planning module, mentioning only the core units and most important functions.
 
 <p align="center">
-  <img src="../../docs/assets/Planning/ClassDiagram.png" />
+  <img src="../../docs/diagrams/planning/ClassPlanning.drawio.png" />
 </p>
 
 * **ROS Node:** Serves as the fundamental structure and operational backbone of the system.
@@ -70,7 +70,7 @@ This diagram will focus on the main classes and instances inside the planning mo
 The planning module receives the track map(a cone array) from the Localization and Mapping block. The main module receives it and will send it to the Cone Coloring to attribute a side to each. The Track instance is then filled with these and deals with outliers by averaging the margins using splines. The next step is transmitting the track to the Local Path Planner, which will calculate the ideal path and return it. Finally, these points are sent to the PathSmoothing, where they are processed by a spline approximation, being then returned back to the main module. The path is then forwarded to the subsequent node Control.
 
 <p aligh="center">
-  <img src="../../docs/assets/Planning/SequenceDiagram.png">
+  <img src="../../docs/diagrams/planning/SequencePlanning.drawio.png">
 </p>
 
 ### Activity Diagram
@@ -78,7 +78,7 @@ The planning module receives the track map(a cone array) from the Localization a
 The planning module doesn't have many different flows. The main one to notice is the difference in the action depending on the event. Since for the Skidpad and Acceleration Events, the best path is already calculated, the module will just go find that data and send it. If we are not in the presence of those, the flow will follow just like previously mentioned.
 
 <p align="center">
-  <img src="../../docs/assets/Planning/ActivityDiagram.png" style="width: 50%; height: auto;">
+  <img src="../../docs/diagrams/planning/ActivityPlanning.drawio.png" style="width: 50%; height: auto;">
 </p>
 
 ## Full Documentation
