@@ -15,7 +15,12 @@ You will need CGAL library for the Delaunay Triangulations. GSL library for the 
 ### Compile
 
 ```SHELL
-	colcon build --packages-select planning custom_interfaces
+	colcon build --packages-select planning
+```
+
+If this is the first time compiling, you may need to run the following command so that some dependencies are also compiled:
+```SHELL
+	colcon build --packages-select planning custom_interfaces eufs_msgs fs_msgs
 ```
 ### Source 
 
@@ -23,11 +28,17 @@ You will need CGAL library for the Delaunay Triangulations. GSL library for the 
 	source ./install/setup.bash
 ```
 
-### Run
+### Run with ROS2
 
+Choose one of the launch files available at the "launch" directory. Each file's name indicates the context in which 
+it should be used. If the name of the file is <file_name> run the following command (replace <file_name> with the 
+actual name of the launch file):
 ```SHELL
-	ros2 run planning planning
+	ros2 run planning <file_name>
 ```
+At each launch file, you can find the arguments which will be passed to the planning node. Those arguments control whether the node publishes 
+visualization messages (which can be used to foxglove), where the node gets its input from, and parameters intrinsic to the algorithms (which were 
+tuned to some extent). At the declaration of each launch argument, you will find the description of the argument and the value which will be used if you launch the node with that launch file. If you want to change the value which will be used, edit the launch file and compile the package again.
 
 ### Test
 A) You can either run with colcon test.
@@ -87,9 +98,6 @@ A more precise information about the Planning Module can be found [here](https:/
 
 ## Main External Libraries
 
-1. [ROS](https://docs.ros.org/en/foxy/index.html)
+1. [ROS2 Humble](https://docs.ros.org/en/humble/index.html)
 2. [CGAL](https://www.cgal.org/)
 3. [GSL](https://www.gnu.org/software/gsl/)
-
-
-
