@@ -1,9 +1,7 @@
 <map id="custom_comparator" name="custom_comparator">
-<area shape="rect" id="Node000001" title="Defines the way in which two pairs of doubles should be compared when ordering them (lexicographic co..." alt="" coords="288,31,424,56"/>
-<area shape="rect" id="Node000002" href="$dd/df6/planning_2test_2tests_8cpp.html#a8030edc69053406b8812bd586e50468a" title="orders a vector of pairs to make it easier to compare them" alt="" coords="108,31,240,56"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="272,46,241,46,241,41,272,41"/>
+<area shape="rect" id="Node000001" title="Defines the way in which two pairs of doubles should be compared when ordering them (lexicographic co..." alt="" coords="288,5,424,31"/>
+<area shape="rect" id="Node000002" href="$dd/df6/planning_2test_2tests_8cpp.html#a8030edc69053406b8812bd586e50468a" title="orders a vector of pairs to make it easier to compare them" alt="" coords="108,5,240,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="272,21,241,21,241,16,272,16"/>
 <area shape="rect" id="Node000003" href="$dd/df6/planning_2test_2tests_8cpp.html#af9952ff008604d30cd729682048e2167" title="scenario: Large piece of track with no outliers" alt="" coords="5,5,60,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="92,31,60,26,61,20,93,26"/>
-<area shape="rect" id="Node000004" href="$dd/df6/planning_2test_2tests_8cpp.html#ad18f9702442704e6ba155492f9317546" title="scenario with large track that barely has outliers (only 2)" alt="" coords="5,55,60,80"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="93,60,60,66,60,60,92,55"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="92,21,60,21,60,16,92,16"/>
 </map>

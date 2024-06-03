@@ -125,7 +125,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aea4237fcc98dec4eb82034bf8c71e3a0" id="r_aea4237fcc98dec4eb82034bf8c71e3a0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#aea4237fcc98dec4eb82034bf8c71e3a0">color_cones</a> (const std::vector&lt; <a class="el" href="../../d8/da1/class_cone.html">Cone</a> * &gt; &amp;input_cones, <a class="el" href="../../de/dec/class_pose.html">Pose</a> initial_car_pose, double distance_threshold)</td></tr>
 <tr class="memdesc:aea4237fcc98dec4eb82034bf8c71e3a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">color the cones based on the cost to reach them  <br /></td></tr>
 <tr class="separator:aea4237fcc98dec4eb82034bf8c71e3a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7606807a4493f219ccaa3fccf259943" id="r_ab7606807a4493f219ccaa3fccf259943"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d8/da1/class_cone.html">Cone</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#ab7606807a4493f219ccaa3fccf259943">get_initial_cone</a> (const std::vector&lt; <a class="el" href="../../d8/da1/class_cone.html">Cone</a> * &gt; &amp;candidates, <a class="el" href="../../de/dec/class_pose.html">Pose</a> initial_car_pose, <a class="el" href="../../dd/d21/righ__left__enum_8hpp.html#ab29ebb3bd0eb1f2813c692fe882c3186">TrackSide</a> side) const</td></tr>
+<tr class="memitem:ab7606807a4493f219ccaa3fccf259943" id="r_ab7606807a4493f219ccaa3fccf259943"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d8/da1/class_cone.html">Cone</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#ab7606807a4493f219ccaa3fccf259943">get_initial_cone</a> (const std::vector&lt; <a class="el" href="../../d8/da1/class_cone.html">Cone</a> * &gt; &amp;candidates, <a class="el" href="../../de/dec/class_pose.html">Pose</a> initial_car_pose, <a class="el" href="../../d7/d88/right__left__enum_8hpp.html#ab29ebb3bd0eb1f2813c692fe882c3186">TrackSide</a> side) const</td></tr>
 <tr class="memdesc:ab7606807a4493f219ccaa3fccf259943"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the initial cone to start the path from side determined by parameter  <br /></td></tr>
 <tr class="separator:ab7606807a4493f219ccaa3fccf259943"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab48a807ad4ebbab14fa66abb2c235d7e" id="r_ab48a807ad4ebbab14fa66abb2c235d7e"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../d8/da1/class_cone.html">Cone</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#ab48a807ad4ebbab14fa66abb2c235d7e">filter_cones_by_distance</a> (const std::vector&lt; <a class="el" href="../../d8/da1/class_cone.html">Cone</a> * &gt; &amp;input_cones, <a class="el" href="../../d1/d26/struct_position.html">Position</a> position, double radius) const</td></tr>
@@ -149,19 +149,19 @@ Public Attributes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
-<tr class="memitem:a5caccbf9451b3891327a097508806fd0" id="r_a5caccbf9451b3891327a097508806fd0"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#a5caccbf9451b3891327a097508806fd0">cost</a> (const <a class="el" href="../../d8/da1/class_cone.html">Cone</a> *possible_next_cone, int n, <a class="el" href="../../dd/d21/righ__left__enum_8hpp.html#ab29ebb3bd0eb1f2813c692fe882c3186">TrackSide</a> side) const</td></tr>
+<tr class="memitem:a5caccbf9451b3891327a097508806fd0" id="r_a5caccbf9451b3891327a097508806fd0"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#a5caccbf9451b3891327a097508806fd0">cost</a> (const <a class="el" href="../../d8/da1/class_cone.html">Cone</a> *possible_next_cone, int n, <a class="el" href="../../d7/d88/right__left__enum_8hpp.html#ab29ebb3bd0eb1f2813c692fe882c3186">TrackSide</a> side) const</td></tr>
 <tr class="memdesc:a5caccbf9451b3891327a097508806fd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">cost function used to minimize the cost of the path.  <br /></td></tr>
 <tr class="separator:a5caccbf9451b3891327a097508806fd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb87ad66a91be33029ec11b30e18b8ac" id="r_acb87ad66a91be33029ec11b30e18b8ac"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#acb87ad66a91be33029ec11b30e18b8ac">cone_is_in_side</a> (const <a class="el" href="../../d8/da1/class_cone.html">Cone</a> *c, <a class="el" href="../../dd/d21/righ__left__enum_8hpp.html#ab29ebb3bd0eb1f2813c692fe882c3186">TrackSide</a> side) const</td></tr>
+<tr class="memitem:acb87ad66a91be33029ec11b30e18b8ac" id="r_acb87ad66a91be33029ec11b30e18b8ac"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#acb87ad66a91be33029ec11b30e18b8ac">cone_is_in_side</a> (const <a class="el" href="../../d8/da1/class_cone.html">Cone</a> *c, <a class="el" href="../../d7/d88/right__left__enum_8hpp.html#ab29ebb3bd0eb1f2813c692fe882c3186">TrackSide</a> side) const</td></tr>
 <tr class="memdesc:acb87ad66a91be33029ec11b30e18b8ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">determine if the specified cone is in the specified side of the track  <br /></td></tr>
 <tr class="separator:acb87ad66a91be33029ec11b30e18b8ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a98c36a16331be4f2318faaa94ab6de17" id="r_a98c36a16331be4f2318faaa94ab6de17"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/d47/struct_angle_norm.html">AngleNorm</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#a98c36a16331be4f2318faaa94ab6de17">angle_and_norm</a> (const <a class="el" href="../../d8/da1/class_cone.html">Cone</a> *possible_next_cone, <a class="el" href="../../dd/d21/righ__left__enum_8hpp.html#ab29ebb3bd0eb1f2813c692fe882c3186">TrackSide</a> side) const</td></tr>
+<tr class="memitem:a98c36a16331be4f2318faaa94ab6de17" id="r_a98c36a16331be4f2318faaa94ab6de17"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/d47/struct_angle_norm.html">AngleNorm</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#a98c36a16331be4f2318faaa94ab6de17">angle_and_norm</a> (const <a class="el" href="../../d8/da1/class_cone.html">Cone</a> *possible_next_cone, <a class="el" href="../../d7/d88/right__left__enum_8hpp.html#ab29ebb3bd0eb1f2813c692fe882c3186">TrackSide</a> side) const</td></tr>
 <tr class="memdesc:a98c36a16331be4f2318faaa94ab6de17"><td class="mdescLeft">&#160;</td><td class="mdescRight">calculate angle between the vector made by last two cones and the vector formed by the last cone and the possible next cone and calculate the norm of this last vector.  <br /></td></tr>
 <tr class="separator:a98c36a16331be4f2318faaa94ab6de17"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ba687002332236542dbbc6e6b49b252" id="r_a4ba687002332236542dbbc6e6b49b252"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#a4ba687002332236542dbbc6e6b49b252">place_next_cone</a> (std::shared_ptr&lt; std::vector&lt; std::pair&lt; <a class="el" href="../../d8/da1/class_cone.html">Cone</a> *, bool &gt; &gt; &gt; visited_cones, double distance_threshold, int n, <a class="el" href="../../dd/d21/righ__left__enum_8hpp.html#ab29ebb3bd0eb1f2813c692fe882c3186">TrackSide</a> side)</td></tr>
+<tr class="memitem:a4ba687002332236542dbbc6e6b49b252" id="r_a4ba687002332236542dbbc6e6b49b252"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#a4ba687002332236542dbbc6e6b49b252">place_next_cone</a> (std::shared_ptr&lt; std::vector&lt; std::pair&lt; <a class="el" href="../../d8/da1/class_cone.html">Cone</a> *, bool &gt; &gt; &gt; visited_cones, double distance_threshold, int n, <a class="el" href="../../d7/d88/right__left__enum_8hpp.html#ab29ebb3bd0eb1f2813c692fe882c3186">TrackSide</a> side)</td></tr>
 <tr class="memdesc:a4ba687002332236542dbbc6e6b49b252"><td class="mdescLeft">&#160;</td><td class="mdescRight">place the next cone in the path  <br /></td></tr>
 <tr class="separator:a4ba687002332236542dbbc6e6b49b252"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a78736262a20cf6c4a0c4676369ba095a" id="r_a78736262a20cf6c4a0c4676369ba095a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#a78736262a20cf6c4a0c4676369ba095a">distance_to_side</a> (<a class="el" href="../../de/dec/class_pose.html">Pose</a> initial_car_pose, <a class="el" href="../../dd/d21/righ__left__enum_8hpp.html#ab29ebb3bd0eb1f2813c692fe882c3186">TrackSide</a> side, double x, double y) const</td></tr>
+<tr class="memitem:a78736262a20cf6c4a0c4676369ba095a" id="r_a78736262a20cf6c4a0c4676369ba095a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#a78736262a20cf6c4a0c4676369ba095a">distance_to_side</a> (<a class="el" href="../../de/dec/class_pose.html">Pose</a> initial_car_pose, <a class="el" href="../../d7/d88/right__left__enum_8hpp.html#ab29ebb3bd0eb1f2813c692fe882c3186">TrackSide</a> side, double x, double y) const</td></tr>
 <tr class="memdesc:a78736262a20cf6c4a0c4676369ba095a"><td class="mdescLeft">&#160;</td><td class="mdescRight">get an estimate to the distance to the left side of the track when choosing first cone  <br /></td></tr>
 <tr class="separator:a78736262a20cf6c4a0c4676369ba095a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -312,7 +312,7 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../dd/d21/righ__left__enum_8hpp.html#ab29ebb3bd0eb1f2813c692fe882c3186">TrackSide</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d7/d88/right__left__enum_8hpp.html#ab29ebb3bd0eb1f2813c692fe882c3186">TrackSide</a>&#160;</td>
           <td class="paramname"><em>side</em>&#160;</td>
         </tr>
         <tr>
@@ -480,7 +480,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../dd/d21/righ__left__enum_8hpp.html#ab29ebb3bd0eb1f2813c692fe882c3186">TrackSide</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d7/d88/right__left__enum_8hpp.html#ab29ebb3bd0eb1f2813c692fe882c3186">TrackSide</a>&#160;</td>
           <td class="paramname"><em>side</em>&#160;</td>
         </tr>
         <tr>
@@ -548,7 +548,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../dd/d21/righ__left__enum_8hpp.html#ab29ebb3bd0eb1f2813c692fe882c3186">TrackSide</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d7/d88/right__left__enum_8hpp.html#ab29ebb3bd0eb1f2813c692fe882c3186">TrackSide</a>&#160;</td>
           <td class="paramname"><em>side</em>&#160;</td>
         </tr>
         <tr>
@@ -632,7 +632,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../dd/d21/righ__left__enum_8hpp.html#ab29ebb3bd0eb1f2813c692fe882c3186">TrackSide</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d7/d88/right__left__enum_8hpp.html#ab29ebb3bd0eb1f2813c692fe882c3186">TrackSide</a>&#160;</td>
           <td class="paramname"><em>side</em>, </td>
         </tr>
         <tr>
@@ -771,7 +771,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../dd/d21/righ__left__enum_8hpp.html#ab29ebb3bd0eb1f2813c692fe882c3186">TrackSide</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d7/d88/right__left__enum_8hpp.html#ab29ebb3bd0eb1f2813c692fe882c3186">TrackSide</a>&#160;</td>
           <td class="paramname"><em>side</em>&#160;</td>
         </tr>
         <tr>
@@ -987,7 +987,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../dd/d21/righ__left__enum_8hpp.html#ab29ebb3bd0eb1f2813c692fe882c3186">TrackSide</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d7/d88/right__left__enum_8hpp.html#ab29ebb3bd0eb1f2813c692fe882c3186">TrackSide</a>&#160;</td>
           <td class="paramname"><em>side</em>&#160;</td>
         </tr>
         <tr>
