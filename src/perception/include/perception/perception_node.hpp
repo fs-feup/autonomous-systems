@@ -15,6 +15,7 @@
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
 #include "visualization_msgs/msg/marker_array.hpp"
+#include "icp/icp.hpp"
 
 class Adapter;
 
@@ -38,6 +39,7 @@ private:
   std::vector<std::shared_ptr<ConeValidator>> _cone_validators_;
   std::shared_ptr<ConeEvaluator> _cone_evaluator_;
   std::string _mode_;
+  std::shared_ptr<ICP> _icp_;
 
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr
       _point_cloud_subscription;  ///< PointCloud2 subscription.
@@ -70,7 +72,7 @@ public:
   Perception(std::shared_ptr<GroundRemoval> ground_removal, std::shared_ptr<Clustering> clustering,
              std::shared_ptr<ConeDifferentiation> cone_differentiator,
              const std::vector<std::shared_ptr<ConeValidator>>& cone_validators,
-             std::shared_ptr<ConeEvaluator> cone_evaluator, std::string mode);
+             std::shared_ptr<ConeEvaluator> cone_evaluator, std::string mode, std::shared_ptr<ICP> icp);
 
   /**
    * @brief Callback function for the PointCloud2 subscription.

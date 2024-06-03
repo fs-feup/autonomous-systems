@@ -43,9 +43,12 @@ int main(int argc, char** argv) {
   auto distance_predict =
       std::make_shared<DistancePredict>(vertical_resolution, horizontal_resolution);
 
+  auto icp =
+      std::make_shared<ICP>("../../src/icp/cones/cone.pcd", 0.1, 50, 1e-8, 1);
+
   // Create perception node with shared pointers
   auto perception_node = std::make_shared<Perception>(
-      ground_removal, clustering, cone_differentiator, cone_validators, distance_predict, mode);
+      ground_removal, clustering, cone_differentiator, cone_validators, distance_predict, mode, icp);
 
   RCLCPP_INFO(node->get_logger(), "Perception is alive! 🚀");
 

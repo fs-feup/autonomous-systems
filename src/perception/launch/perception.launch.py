@@ -40,8 +40,27 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "adapter",
                 description="Environment to run node on",
-                default_value="fsds",
+                default_value="vehicle",
             ),
+
+            DeclareLaunchArgument(
+                "ground_removal",
+                description="Ground Removal algorithm",
+                default_value="ransac",
+            ),
+
+            DeclareLaunchArgument(
+                "n_angular_grids",
+                description="Number of angular grids",
+                default_value="6",
+            ),
+
+            DeclareLaunchArgument(
+                "radius_resolution",
+                description="radius size of a radius grid (m)",
+                default_value="10.0",
+            ),
+
             Node(
                 package="perception",
                 executable="perception",
@@ -79,23 +98,6 @@ def generate_launch_description():
                 arguments=["--ros-args", "--log-level", "perception:=debug"],
             ),
 
-            DeclareLaunchArgument(
-                "ground_removal",
-                description="Ground Removal algorithm",
-                default_value="ransac",
-            ),
-
-            DeclareLaunchArgument(
-                "n_angular_grids",
-                description="Number of angular grids",
-                default_value="6",
-            ),
-
-            DeclareLaunchArgument(
-                "radius_resolution",
-                description="radius size of a radius grid (m)",
-                default_value="10.0",
-            ),
             Node(
                 package="perception",
                 executable="perception",

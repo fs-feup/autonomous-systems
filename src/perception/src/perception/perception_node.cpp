@@ -21,14 +21,16 @@ Perception::Perception(std::shared_ptr<GroundRemoval> ground_removal,
                        std::shared_ptr<Clustering> clustering,
                        std::shared_ptr<ConeDifferentiation> cone_differentiator,
                        const std::vector<std::shared_ptr<ConeValidator>>& cone_validators,
-                       std::shared_ptr<ConeEvaluator> cone_evaluator, std::string mode)
+                       std::shared_ptr<ConeEvaluator> cone_evaluator, std::string mode,
+                       std::shared_ptr<ICP> icp)
     : Node("perception"),
       _ground_removal_(ground_removal),
       _clustering_(clustering),
       _cone_differentiator_(cone_differentiator),
       _cone_validators_(cone_validators),
       _cone_evaluator_(cone_evaluator),
-      _mode_(mode) {
+      _mode_(mode),
+      _icp_(icp) {
   this->_cones_publisher =
       this->create_publisher<custom_interfaces::msg::ConeArray>("/perception/cones", 10);
 
