@@ -10,7 +10,7 @@
 #include "utils/angle_and_norm.hpp"
 #include "utils/cone.hpp"
 #include "utils/pose.hpp"
-#include "utils/righ_left_enum.hpp"
+#include "utils/right_left_enum.hpp"
 
 /**
  * @brief Class responsible for recieving a set of uncolored cones and discovering their color
