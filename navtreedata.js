@@ -88,7 +88,7 @@ var NAVTREE =
         [ "Install Dependencies", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md46", null ],
         [ "Compile", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md47", null ],
         [ "Source", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md48", null ],
-        [ "Run", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md49", null ],
+        [ "Run with ROS2", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md49", null ],
         [ "Test", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md50", null ]
       ] ],
       [ "Design", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md51", [
