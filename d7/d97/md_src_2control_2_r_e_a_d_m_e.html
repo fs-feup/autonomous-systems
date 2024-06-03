@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Formula Student Autonomous Systems: Longitudinal Controller</title>
+<title>Formula Student Autonomous Systems: Control Module</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -91,23 +91,41 @@ $(document).ready(function(){initNavTree('d7/d97/md_src_2control_2_r_e_a_d_m_e.h
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">Longitudinal Controller</div></div>
+  <div class="headertitle"><div class="title">Control Module</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md6"></a> <a class="el" href="../../d7/d49/class_control.html" title="Class responsible for the control of the car.">Control</a> Node</p>
+<div class="textblock"><p><a class="anchor" id="autotoc_md6"></a> The <a class="el" href="../../d7/d49/class_control.html" title="Class responsible for the control of the car.">Control</a> node uses <a class="el" href="../../d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car.">Planning</a> (pathpoints with expected velocity values) and State Estimation (current vehicle pose) data to effectively calculate longitudinal (torque) and lateral values (steering angle) using <a class="el" href="../../d6/d5a/class_p_i_d.html" title="PI-D Controller class.">PID</a> and Pure Pursuit controllers, respectively.</p>
 <h1><a class="anchor" id="autotoc_md7"></a>
 Dependencies</h1>
-<p>N/a (at the moment)</p>
+<ul>
+<li>custom_interfaces</li>
+<li>pacsim</li>
+<li>fs_msgs</li>
+<li>eufs_msgs</li>
+</ul>
 <h1><a class="anchor" id="autotoc_md8"></a>
 Compiling</h1>
-<p>From src folder: </p><div class="fragment"><div class="line">colcon build --packages-select control custom_interfaces fs_msgs --symlink-install</div>
+<p>From src folder: </p><div class="fragment"><div class="line">colcon build --package-up-to control</div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md9"></a>
 Testing</h1>
-<p>From src folder: </p><div class="fragment"><div class="line">colcon test --packages-select control # use event-handler=console_direct+ for imediate output</div>
+<p>From src folder: </p><div class="fragment"><div class="line">colcon test --packages-select control</div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md10"></a>
 Running</h1>
-<div class="fragment"><div class="line">ros2 run control control</div>
-</div><!-- fragment --> </div></div><!-- contents -->
+<p>Run with ros2 launch. You may select custom parameters for testing such as simulated state estimation or the mocker node. Check the <a href="../.././launch/control.launch.py">launch file</a> for more details. Example: </p><div class="fragment"><div class="line">ros2 launch control control.launch.py &#39;adapter:=pacsim&#39; &#39;use_simulated_se:=true&#39; &#39;mocker_node:=true&#39;</div>
+</div><!-- fragment --><p> Using simulated state estimation allows you to independently test control without using the state estimation module, by using information directly from the simulator. The mocker node allows for the same thing but for planning, by using a hand-picked pathpoint array. The lookahead_gain and lookahead_margin are for tuning purposes.</p>
+<h1><a class="anchor" id="autotoc_md11"></a>
+Design</h1>
+<p>The following class diagram illustrates the structure of the <a class="el" href="../../d7/d49/class_control.html" title="Class responsible for the control of the car.">Control</a> package:</p>
+<p><img src="../../../../docs/assets/Control/controlClassDiagram.jpg" alt="Class Diagram" class="inline"/> We have the following classes: <br  />
+</p><ul>
+<li><a class="el" href="../../d7/d49/class_control.html" title="Class responsible for the control of the car.">Control</a>: The node itself and the main class that initializes the other classes and runs the control callback.</li>
+<li>PSolver: The class that receives <a class="el" href="../../d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car.">Planning</a> information and calculates the reference for the controllers.</li>
+<li><a class="el" href="../../d6/d5a/class_p_i_d.html" title="PI-D Controller class.">PID</a>: The class that implements the <a class="el" href="../../d6/d5a/class_p_i_d.html" title="PI-D Controller class.">PID</a> controller, for Longitudinal <a class="el" href="../../d7/d49/class_control.html" title="Class responsible for the control of the car.">Control</a>.</li>
+<li>PP: The class that implements the Pure Pursuit controller, for Lateral <a class="el" href="../../d7/d49/class_control.html" title="Class responsible for the control of the car.">Control</a>.</li>
+<li><a class="el" href="../../d3/d7f/class_adapter.html" title="Adapter class for coordinating communication between different modes and Control module.">Adapter</a>: Provides an interface to correctly subscribe/publish, as well as parse and normalize values as needed by the different simulators we use.</li>
+</ul>
+<p>The actions taken when the node gets spinning are the following: <img src="../../../../docs/assets/Control/ControlSequenceDiagram.drawio.png" alt="Sequence Diagram" class="inline"/> </p>
+</div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
 <!-- start footer part -->

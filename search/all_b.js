@@ -5,7 +5,7 @@ var searchData=
   ['last_5fstored_5fvelocity_5f_2',['last_stored_velocity_',['../db/d68/class_pac_sim_adapter.html#aad6e6e8d5f8a53c7146d87b931fb3965',1,'PacSimAdapter']]],
   ['last_5fupdate_3',['last_update',['../db/d6d/struct_motion_update.html#a436ca42829b0fe4f3d9c6a0c57758116',1,'MotionUpdate']]],
   ['lat_5fcontroller_5f_4',['lat_controller_',['../d7/d49/class_control.html#a7fc732e0c3da916cada6210acfa61e7a',1,'Control']]],
-  ['launch_20files_5',['launch files',['../d6/d5b/md_src_2ekf__state__est_2_r_e_a_d_m_e.html#autotoc_md13',1,'Launch files'],['../db/dca/md_src_2evaluator_2_r_e_a_d_m_e.html#autotoc_md21',1,'Launch files'],['../d7/de6/md_src_2perception_2_r_e_a_d_m_e.html#autotoc_md40',1,'Running with launch files']]],
+  ['launch_20files_5',['launch files',['../d6/d5b/md_src_2ekf__state__est_2_r_e_a_d_m_e.html#autotoc_md14',1,'Launch files'],['../db/dca/md_src_2evaluator_2_r_e_a_d_m_e.html#autotoc_md22',1,'Launch files'],['../d7/de6/md_src_2perception_2_r_e_a_d_m_e.html#autotoc_md41',1,'Running with launch files']]],
   ['ld_5fmargin_5f_6',['ld_margin_',['../d7/d49/class_control.html#a07fce743089c3ae8d88a0517373f398a',1,'Control']]],
   ['least_5fsquares_5fdifferentiation_2ecpp_7',['least_squares_differentiation.cpp',['../d7/d4b/least__squares__differentiation_8cpp.html',1,'']]],
   ['least_5fsquares_5fdifferentiation_2ehpp_8',['least_squares_differentiation.hpp',['../d1/d27/least__squares__differentiation_8hpp.html',1,'']]],
@@ -16,7 +16,7 @@ var searchData=
   ['leftcones_13',['leftCones',['../d6/d2c/class_track.html#a23a11b3a07f316d2d58fffdae505b42c',1,'Track']]],
   ['leftcount_14',['leftCount',['../d6/d2c/class_track.html#a6a43a3d070e1999450c96e54df6e2a4d',1,'Track']]],
   ['lib_15',['Common Lib',['../d7/d40/md_src_2common__lib_2_r_e_a_d_m_e.html',1,'']]],
-  ['libraries_16',['libraries',['../dc/d23/md_src_2inspection_2_r_e_a_d_m_e.html#autotoc_md29',1,'Main External Libraries'],['../d4/dca/md_src_2mocker__node_2_r_e_a_d_m_e.html#autotoc_md34',1,'Main External Libraries'],['../d6/d5b/md_src_2ekf__state__est_2_r_e_a_d_m_e.html#autotoc_md18',1,'Main External Libraries'],['../d7/de6/md_src_2perception_2_r_e_a_d_m_e.html#autotoc_md43',1,'Main External Libraries'],['../d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md56',1,'Main External Libraries']]],
+  ['libraries_16',['libraries',['../dc/d23/md_src_2inspection_2_r_e_a_d_m_e.html#autotoc_md30',1,'Main External Libraries'],['../d4/dca/md_src_2mocker__node_2_r_e_a_d_m_e.html#autotoc_md35',1,'Main External Libraries'],['../d6/d5b/md_src_2ekf__state__est_2_r_e_a_d_m_e.html#autotoc_md19',1,'Main External Libraries'],['../d7/de6/md_src_2perception_2_r_e_a_d_m_e.html#autotoc_md44',1,'Main External Libraries'],['../d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md57',1,'Main External Libraries']]],
   ['license_17',['license',['../dd/dc4/namespacesetup.html#a8ed6f50a28bd6a8794f8e1153baa6de9',1,'setup']]],
   ['limmax_18',['limMax',['../d6/d5a/class_p_i_d.html#a0dbb47d7fc41060dea24715448ea3e3b',1,'PID']]],
   ['limmin_19',['limMin',['../d6/d5a/class_p_i_d.html#a100c84d9cafc5492dd1049c30ded5269',1,'PID']]],
@@ -34,6 +34,5 @@ var searchData=
   ['log_5fcone2_31',['log_cone2',['../dd/df6/planning_2test_2tests_8cpp.html#aaf6e6f8de5580ef3d20f3e05fee5f6aa',1,'tests.cpp']]],
   ['logcones_32',['logCones',['../d6/d2c/class_track.html#a74da16c54345ef8158d6dacf1045986c',1,'Track']]],
   ['logpathpoints_33',['logPathPoints',['../d7/db7/class_path_smoothing.html#a87de9c2f357b06e04b33311cdf822485',1,'PathSmoothing']]],
-  ['long_5fcontroller_5f_34',['long_controller_',['../d7/d49/class_control.html#a46db151e27100785832e4b2fc9ec1872',1,'Control']]],
-  ['longitudinal_20controller_35',['Longitudinal Controller',['../d7/d97/md_src_2control_2_r_e_a_d_m_e.html',1,'']]]
+  ['long_5fcontroller_5f_34',['long_controller_',['../d7/d49/class_control.html#a46db151e27100785832e4b2fc9ec1872',1,'Control']]]
 ];
