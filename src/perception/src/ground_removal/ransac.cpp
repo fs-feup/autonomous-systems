@@ -30,7 +30,13 @@ void RANSAC::ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_clo
   seg.setInputCloud(point_cloud);
   seg.segment(*inliers_indices, *coefficients);
 
-  plane = Plane(coefficients->values[0], coefficients->values[1], coefficients->values[2], coefficients->values[3]);
+  if (coefficients->values.size() <= 0){
+    plane = Plane(0,0,0,0);
+  }
+
+  else{
+    plane = Plane(coefficients->values[0], coefficients->values[1], coefficients->values[2], coefficients->values[3]);
+  }
 
   pcl::ExtractIndices<pcl::PointXYZI> extract;
   extract.setInputCloud(point_cloud);
