@@ -233,8 +233,8 @@ TEST(IMU_VELOCITY_MODEL, COMPLEX_MOVEMENT_TEST) {
   Eigen::MatrixXf new_covariance = Eigen::MatrixXf::Ones(10, 10);
 
   for (int i = 0; i < 1000; i++) {
-    prediction_data.translational_velocity_x = 6;
-    prediction_data.translational_velocity_y = 8;
+    //prediction_data.translational_velocity_x = 6;
+    //prediction_data.translational_velocity_y = 8;
     prediction_data.rotational_velocity = M_PI / 4;
     temp_state = new_state;
     new_state = motion_model.predict_expected_state(new_state, prediction_data, 0.1);

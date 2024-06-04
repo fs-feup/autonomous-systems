@@ -42,7 +42,30 @@ void ExtendedKalmanFilter::prediction_step(const MotionUpdate &motion_update) {
       g_matrix * Eigen::MatrixXf(this->_p_matrix_) * g_matrix.transpose() + r_matrix;
   this->_p_matrix_ = p_matrix_dense.sparseView();
 }
+void ExtendedKalmanFilter::wss_correction_step(const MotionUpdate &motion_correction_data) {
+  // Matrix Calculation
+  Eigen::MatrixXf h_matrix = Eigen::MatrixXf::Zero(2, this->_x_vector_.size());
+  h_matrix(3, 3) = 1;
+  h_matrix(4, 4) = 1;
+  Eigen::MatrixXf r_matrix =
+      this->_motion_model_->get_process_noise_covariance_matrix(this->_x_vector_.size());
+  Eigen::MatrixXf kalman_gain_matrix = this->get_kalman_gain(h_matrix, this->_p_matrix_, r_matrix);
 
+  // Correction
+  Eigen::Vector2f u_hat = h_matrix * this->_x_vector_;
+
+  // Convert translational velocity to Cartesian using the car's orientation
+  float theta = this->_x_vector_[2];  // Assuming the third element is the orientation
+  float Vx_observed = motion_correction_data.translational_velocity * cos(theta);
+  float Vy_observed = motion_correction_data.translational_velocity * sin(theta);
+
+  Eigen::Vector2f u = Eigen::Vector2f(Vx_observed, Vy_observed);  // motion observed
+  this->_x_vector_ = this->_x_vector_ + kalman_gain_matrix * (u - u_hat);
+  this->_p_matrix_ = (Eigen::MatrixXf::Identity(this->_p_matrix_.rows(), this->_p_matrix_.cols()) -
+                      kalman_gain_matrix * h_matrix)
+                         .sparseView() *
+                     this->_p_matrix_;
+}
 void ExtendedKalmanFilter::correction_step(
     const std::vector<common_lib::structures::Cone> &perception_map) {
   for (const common_lib::structures::Cone &cone : perception_map) {

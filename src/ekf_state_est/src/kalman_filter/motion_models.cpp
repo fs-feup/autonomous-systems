@@ -104,40 +104,29 @@ Eigen::VectorXf ImuVelocityModel::predict_expected_state(const Eigen::VectorXf &
                                                          const double time_interval) const {
   Eigen::VectorXf next_state = expected_state;
 
-  // Calculate the total translational velocity
-  float translational_velocity = sqrt(pow(motion_prediction_data.translational_velocity_x, 2) +
-                                      pow(motion_prediction_data.translational_velocity_y, 2));
-  if (motion_prediction_data.rotational_velocity == 0.0) {  // Rectilinear movement
-    next_state(0) += translational_velocity * cos(expected_state(2)) * time_interval;
-    next_state(1) += translational_velocity * sin(expected_state(2)) * time_interval;
-  } else {  // Curvilinear movement
-    next_state(0) +=
-        -(translational_velocity / motion_prediction_data.rotational_velocity) *
-            sin(expected_state(2)) +
-        (translational_velocity / motion_prediction_data.rotational_velocity) *
-            sin(expected_state(2) + motion_prediction_data.rotational_velocity * time_interval);
-    next_state(1) +=
-        (translational_velocity / motion_prediction_data.rotational_velocity) *
-            cos(expected_state(2)) -
-        (translational_velocity / motion_prediction_data.rotational_velocity) *
-            cos(expected_state(2) + motion_prediction_data.rotational_velocity * time_interval);
-  }
+  next_state(0) += expected_state(3) * time_interval +
+                   0.5 * motion_prediction_data.acceleration_x * pow(time_interval, 2);
+  next_state(1) += expected_state(4) * time_interval +
+                   0.5 * motion_prediction_data.acceleration_y * pow(time_interval, 2);
   next_state(2) = common_lib::maths::normalize_angle(
       expected_state(2) + motion_prediction_data.rotational_velocity * time_interval);
-  next_state(3) = motion_prediction_data.translational_velocity_x;
-  next_state(4) = motion_prediction_data.translational_velocity_y;
+  next_state(3) += motion_prediction_data.acceleration_x * time_interval;
+  next_state(4) += motion_prediction_data.acceleration_y * time_interval;
 
   return next_state;
 }
 
 Eigen::MatrixXf ImuVelocityModel::get_motion_to_state_matrix(
-    const Eigen::VectorXf &expected_state,
-    [[maybe_unused]] const MotionUpdate &motion_prediction_data,
-    [[maybe_unused]] const double time_interval)
-    const {  // In this implementation, as the motion model is already
-             // linear, we do not use the derivative of the model
-  Eigen::MatrixXf motion_to_state_matrix =
+    const Eigen::VectorXf &expected_state, const MotionUpdate &motion_prediction_data,
+    const double time_interval) const {
+  Eigen::MatrixXf jacobian =
       Eigen::MatrixXf::Identity(expected_state.size(), expected_state.size());
 
-  return motion_to_state_matrix;
+  jacobian(0, 3) = time_interval;
+  jacobian(1, 4) = time_interval;
+
+  // jacobian(3,3) = 1
+  jacobian(2, 2) = time_interval;
+
+  return jacobian;
 }

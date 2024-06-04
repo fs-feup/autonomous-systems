@@ -145,8 +145,8 @@ public:
     correction_step_duration = std::chrono::microseconds(0);
     motion_update_test = std::make_shared<MotionUpdate>();
     motion_update_test->translational_velocity = 1.58113883;
-    motion_update_test->translational_velocity_x = 1.5;
-    motion_update_test->translational_velocity_y = 0.5;
+    // motion_update_test->translational_velocity_x = 1.5;
+    // motion_update_test->translational_velocity_y = 0.5;
     motion_update_test->rotational_velocity = 6.0;
     motion_update_test->steering_angle = 2.0;
     motion_update_test->last_update = rclcpp::Clock().now();

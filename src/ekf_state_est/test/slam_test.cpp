@@ -88,7 +88,7 @@ TEST(EKF_SLAM, LINEAR_MOVEMENT_INTEGRITY_TEST) {  // This test is not that
       motion_model, observation_model, data_association_model);
 
   for (int i = -1; i < 10; i++) {
-    motion_update->translational_velocity_x = 1;
+    // motion_update->translational_velocity_x = 1;
     motion_update->rotational_velocity = 0;
     motion_update->last_update = rclcpp::Clock().now();
     int delta_t = static_cast<int>(
