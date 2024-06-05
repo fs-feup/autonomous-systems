@@ -36,7 +36,7 @@ TEST(PointSolverTests, Test_update_closest_point_1) {
 TEST(PointSolverTests, Test_update_lookahead_point_1) {
   auto pathpoint_array = create_path_msg("track1");
 
-  PointSolver point_solver_(3, 0.1);
+  PointSolver point_solver_(1.5, 0.1);
   Position rear_axis = Position(47.0, -13.0);
   // Point cg = Point(47.80, -12.43);
   // Point closest_point = Point(46.5, -12.37);
