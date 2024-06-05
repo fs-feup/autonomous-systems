@@ -16,6 +16,8 @@
 // This creates a subclass of Node and uses std::bind()
 // to define which function gets executed at each time
 
+using namespace common_lib::structures;
+
 Control::Control()
     : Node("node_control"),
       using_simulated_se_(declare_parameter("use_simulated_se", false)),
@@ -67,18 +69,18 @@ void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicl
 
   // calculate Lateral Control: Pure Pursuit
   double steering_angle = this->lat_controller_.pp_steering_control_law(
-      this->point_solver_.vehicle_pose_.rear_axis_, this->point_solver_.vehicle_pose_.cg_,
+      this->point_solver_.vehicle_pose_.rear_axis_, this->point_solver_.vehicle_pose_.position,
       lookahead_point, this->point_solver_.dist_cg_2_rear_axis_);
 
   RCLCPP_DEBUG(rclcpp::get_logger("control"), "Current vehicle velocity: %f",
                this->point_solver_.vehicle_pose_.velocity_);
   RCLCPP_DEBUG(rclcpp::get_logger("control"), "Rear axis coords: %f, %f",
-               this->point_solver_.vehicle_pose_.rear_axis_.x_,
-               this->point_solver_.vehicle_pose_.rear_axis_.y_);
-  RCLCPP_DEBUG(rclcpp::get_logger("control"), "Closest Point: %f, %f", closest_point.x_,
-               closest_point.y_);
-  RCLCPP_DEBUG(rclcpp::get_logger("control"), "Lookahead Point: %f, %f", lookahead_point.x_,
-               lookahead_point.y_);
+               this->point_solver_.vehicle_pose_.rear_axis_.x,
+               this->point_solver_.vehicle_pose_.rear_axis_.y);
+  RCLCPP_DEBUG(rclcpp::get_logger("control"), "Closest Point: %f, %f", closest_point.x,
+               closest_point.y);
+  RCLCPP_DEBUG(rclcpp::get_logger("control"), "Lookahead Point: %f, %f", lookahead_point.x,
+               lookahead_point.y);
   RCLCPP_DEBUG(rclcpp::get_logger("control"), "Torque: %f, Steering Angle: %f", torque,
                steering_angle);
 
@@ -87,19 +89,19 @@ void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicl
   // Adapter to communicate with the car
 }
 
-void Control::publish_evaluator_data(double lookahead_velocity, Point lookahead_point,
-                                     Point closest_point,
+void Control::publish_evaluator_data(double lookahead_velocity, Position lookahead_point,
+                                     Position closest_point,
                                      custom_interfaces::msg::VehicleState vehicle_state_msg) const {
   custom_interfaces::msg::EvaluatorControlData evaluator_data;
   evaluator_data.header = std_msgs::msg::Header();
   evaluator_data.header.stamp = this->now();
   evaluator_data.vehicle_state = vehicle_state_msg;
-  evaluator_data.vehicle_state.position.x = this->point_solver_.vehicle_pose_.rear_axis_.x_;
-  evaluator_data.vehicle_state.position.y = this->point_solver_.vehicle_pose_.rear_axis_.y_;
-  evaluator_data.lookahead_point.x = lookahead_point.x_;
-  evaluator_data.lookahead_point.y = lookahead_point.y_;
-  evaluator_data.closest_point.x = closest_point.x_;
-  evaluator_data.closest_point.y = closest_point.y_;
+  evaluator_data.vehicle_state.position.x = this->point_solver_.vehicle_pose_.rear_axis_.x;
+  evaluator_data.vehicle_state.position.y = this->point_solver_.vehicle_pose_.rear_axis_.y;
+  evaluator_data.lookahead_point.x = lookahead_point.x;
+  evaluator_data.lookahead_point.y = lookahead_point.y;
+  evaluator_data.closest_point.x = closest_point.x;
+  evaluator_data.closest_point.y = closest_point.y;
   evaluator_data.lookahead_velocity = lookahead_velocity;
   this->evaluator_data_pub_->publish(evaluator_data);
 }

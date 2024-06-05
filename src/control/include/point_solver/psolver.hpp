@@ -5,7 +5,8 @@
 #include <memory>
 #include <string>
 
-#include "common_lib/structures/structures.hpp"
+#include "common_lib/structures/pose.hpp"
+#include "common_lib/structures/position.hpp"
 #include "common_lib/vehicle_dynamics/car_parameters.hpp"
 #include "custom_interfaces/msg/path_point_array.hpp"
 #include "custom_interfaces/msg/vehicle_state.hpp"
@@ -20,7 +21,7 @@ private:
 
 public:
   double dist_cg_2_rear_axis_ = DIST_CG_2_REAR_AXIS;
-  Pose vehicle_pose_; /**< Vehicle pose */
+  common_lib::structures::VehiclePose vehicle_pose_; /**< Vehicle pose */
   /**
    * @brief PointSolver Constructor
    */
@@ -34,9 +35,9 @@ public:
    *
    * @return std::pair<Point, int> closest point and index
    */
-  std::pair<Point, int> update_closest_point(
+  std::pair<common_lib::structures::Position, int> update_closest_point(
       const std::vector<custom_interfaces::msg::PathPoint> &pathpoint_array,
-      Point rear_axis_point) const;
+      common_lib::structures::Position rear_axis_point) const;
 
   /**
    * @brief Update Lookahead point
@@ -44,9 +45,9 @@ public:
    * @param path
    * @return std::pair<Point, double, bool> lookahead point, velocity and error status (1 = error)
    */
-  std::tuple<Point, double, bool> update_lookahead_point(
-      const std::vector<custom_interfaces::msg::PathPoint> &pathpoint_array, Point rear_axis_point,
-      int closest_point_id) const;
+  std::tuple<common_lib::structures::Position, double, bool> update_lookahead_point(
+      const std::vector<custom_interfaces::msg::PathPoint> &pathpoint_array,
+      common_lib::structures::Position rear_axis_point, int closest_point_id) const;
 
   /**
    * @brief Calculate rear axis coordinates
@@ -57,7 +58,8 @@ public:
    *
    * @return Point
    */
-  Point cg_2_rear_axis(Point cg, double heading, double dist_cg_2_rear_axis) const;
+  common_lib::structures::Position cg_2_rear_axis(common_lib::structures::Position cg,
+                                                  double heading, double dist_cg_2_rear_axis) const;
 
   /**
    * @brief update the LookaheadDistance based on a new velocity

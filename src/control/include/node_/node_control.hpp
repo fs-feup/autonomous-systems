@@ -19,7 +19,6 @@
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
 
-
 /**
  * @class Control
  * @brief Class responsible for the control of the car
@@ -57,7 +56,8 @@ private:
   PID long_controller_{0.4, 0.3, 0.09, 0.5, 0.01, -1, 1, 0.7};
   PurePursuit lat_controller_; /**< Lateral Controller*/
 
-  void publish_evaluator_data(double lookahead_velocity, Point lookahead_point, Point closest_point,
+  void publish_evaluator_data(double lookahead_velocity,
+                              common_lib::structures::Position lookahead_point,
+                              common_lib::structures::Position closest_point,
                               custom_interfaces::msg::VehicleState vehicle_state_msg) const;
-
 };

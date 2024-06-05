@@ -1,6 +1,6 @@
 #pragma once
 
-#include "common_lib/structures/structures.hpp"
+#include "common_lib/structures/position.hpp"
 #include "gtest/gtest.h"
 #include "rclcpp/rclcpp.hpp"
 
@@ -45,7 +45,9 @@ public:
    * @return Steering angle
    */
 
-  double pp_steering_control_law(Point rear_axis, Point cg, Point lookahead_point,
+  double pp_steering_control_law(common_lib::structures::Position rear_axis,
+                                 common_lib::structures::Position cg,
+                                 common_lib::structures::Position lookahead_point,
                                  double dist_cg_2_rear_axis);
 
   /**
@@ -58,19 +60,9 @@ public:
    *
    * @return double
    */
-  double calculate_alpha(Point vehicle_rear_wheel, Point vehicle_cg, Point lookahead_point,
-                         double rear_wheel_2_c_g);
-
-  /**
-   * @brief Calculate the cross product of two vectors
-   *
-   * @param P1 - Origin of the vector
-   * @param P2 - End of the vector
-   * @param P3 - Point to calculate the cross product
-   *
-   * @return double
-   */
-  double cross_product(Point P1, Point P2, Point P3) const;
+  double calculate_alpha(common_lib::structures::Position vehicle_rear_wheel,
+                         common_lib::structures::Position vehicle_cg,
+                         common_lib::structures::Position lookahead_point, double rear_wheel_2_c_g);
 
   FRIEND_TEST(PurePursuitTests, Test_calculate_alpha_1);
   FRIEND_TEST(PurePursuitTests, Test_calculate_alpha_2);
