@@ -6,7 +6,6 @@
 #include <string>
 
 #include "adapter_control/adapter.hpp"
-#include "adapter_control/map.hpp"
 #include "custom_interfaces/msg/evaluator_control_data.hpp"
 #include "custom_interfaces/msg/path_point_array.hpp"
 #include "custom_interfaces/msg/vehicle_state.hpp"
