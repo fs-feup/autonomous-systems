@@ -49,6 +49,7 @@ jobs:
     
       - name: Run build-wrapper
         run: |
+          source /opt/ros/$ROS_DISTRO/setup.bash
           bear -- colcon build
           
       - name: Run sonar-scanner
