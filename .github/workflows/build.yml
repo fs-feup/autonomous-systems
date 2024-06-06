@@ -10,8 +10,11 @@ on:
 jobs:
 
   build: # Sonarcloud analysis
-    name: Build and analyze
+    name: sonarcloud-build
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
     env:
       BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directory # Directory where build-wrapper output will be placed
     steps:
