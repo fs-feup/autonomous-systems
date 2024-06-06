@@ -15,13 +15,15 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image: ros:jazzy-ros-base
+      image: ros:humble-ros-base-jammy
 
     defaults:
       run:
         shell: bash
 
     env:
+      SONAR_SCANNER_VERSION: 5.0.1.3006
+      SONAR_SERVER_URL: "https://sonarcloud.io"
       BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directory # Directory where build-wrapper output will be placed
       
     steps:
@@ -35,8 +37,21 @@ jobs:
           echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
           ./dependencies_install.sh
 
-      - name: Install sonar-scanner and build-wrapper
-        uses: SonarSource/sonarcloud-github-c-cpp@v2
+      - name: Download and set up sonar-scanner
+        env:
+          SONAR_SCANNER_DOWNLOAD_URL: https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
+        run: |
+          curl -sSLo /home/runner/target_ws/sonar-scanner.zip ${{ env.SONAR_SCANNER_DOWNLOAD_URL }} 
+          unzip -o /home/runner/target_ws/sonar-scanner.zip -d /home/runner/target_ws/
+          echo "/home/runner/target_ws/sonar-scanner-${{ env.SONAR_SCANNER_VERSION }}-linux/bin" >> $GITHUB_PATH
+    
+      - name: Download and set up build-wrapper
+        env:
+          BUILD_WRAPPER_DOWNLOAD_URL: ${{ env.SONAR_SERVER_URL }}/static/cpp/build-wrapper-linux-x86.zip
+        run: |
+          curl -sSLo /home/runner/target_ws/build-wrapper-linux-x86.zip ${{ env.BUILD_WRAPPER_DOWNLOAD_URL }}
+          unzip -o /home/runner/target_ws/build-wrapper-linux-x86.zip -d /home/runner/target_ws/
+            echo "/home/runner/target_ws/build-wrapper-linux-x86" >> $GITHUB_PATH
 
       - name: Run build-wrapper
         run: |
