@@ -22,9 +22,10 @@ jobs:
         shell: bash
 
     env:
-      SONAR_SCANNER_VERSION: 5.0.1.3006
+      SONAR_SCANNER_VERSION: 6.0.0.4432
       SONAR_SERVER_URL: "https://sonarcloud.io"
       BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directory # Directory where build-wrapper output will be placed
+      SONAR_SCANNER_DOWNLOAD_URL: https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-6.0.0.4432-linux.zip
       
     steps:
       - uses: actions/checkout@v4
@@ -37,33 +38,24 @@ jobs:
           echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
           ./dependencies_install.sh
           sudo apt install curl -y
+          sudo apt install unzip -y
 
       - name: Download and set up sonar-scanner
-        env:
-          SONAR_SCANNER_DOWNLOAD_URL: https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
         run: |
-          curl -sSLo /home/runner/target_ws/sonar-scanner.zip ${{ env.SONAR_SCANNER_DOWNLOAD_URL }} 
-          unzip -o /home/runner/target_ws/sonar-scanner.zip -d /home/runner/target_ws/
-          echo "/home/runner/target_ws/sonar-scanner-${{ env.SONAR_SCANNER_VERSION }}-linux/bin" >> $GITHUB_PATH
+          curl ${{ env.SONAR_SCANNER_DOWNLOAD_URL }} --output sonar-scanner-cli-${{env.SONAR_SCANNER_VERSION}}-linux.zip
+          unzip ./sonar-scanner-cli-${{env.SONAR_SCANNER_VERSION}}-linux.zip
+          echo "./sonar-scanner-${{env.SONAR_SCANNER_VERSION}}-linux/bin" >> $GITHUB_PATH
     
-      - name: Download and set up build-wrapper
-        env:
-          BUILD_WRAPPER_DOWNLOAD_URL: ${{ env.SONAR_SERVER_URL }}/static/cpp/build-wrapper-linux-x86.zip
-        run: |
-          curl -sSLo /home/runner/target_ws/build-wrapper-linux-x86.zip ${{ env.BUILD_WRAPPER_DOWNLOAD_URL }}
-          unzip -o /home/runner/target_ws/build-wrapper-linux-x86.zip -d /home/runner/target_ws/
-            echo "/home/runner/target_ws/build-wrapper-linux-x86" >> $GITHUB_PATH
-
       - name: Run build-wrapper
         run: |
-          build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} colcon build
+          bear -- colcon build
           
       - name: Run sonar-scanner
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          sonar-scanner --define sonar.cfamily.compile-commands="${{ env.BUILD_WRAPPER_OUT_DIR }}/compile_commands.json"
+          sonar-scanner --define sonar.cfamily.compile-commands="./compile_commands.json"
 
 
   perception:
