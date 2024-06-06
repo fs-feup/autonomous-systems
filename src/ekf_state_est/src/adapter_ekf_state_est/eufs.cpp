@@ -5,51 +5,59 @@
 #include "common_lib/competition_logic/mission_logic.hpp"
 #include "ros_node/se_node.hpp"
 
-EufsAdapter::EufsAdapter(std::shared_ptr<SENode> se_node) : Adapter(se_node) {
-  this->eufs_state_subscription_ = this->node_->create_subscription<eufs_msgs::msg::CanState>(
+EufsAdapter::EufsAdapter(bool use_odometry, bool use_simulated_perception,
+                         std::string motion_model_name, std::string data_assocation_model_name,
+                         float sml_da_curvature, float sml_initial_limit, float observation_noise,
+                         float wheel_speed_sensor_noise, float data_association_limit_distance)
+    : SENode(use_odometry, use_simulated_perception, motion_model_name, data_assocation_model_name,
+             sml_da_curvature, sml_initial_limit, observation_noise, wheel_speed_sensor_noise,
+             data_association_limit_distance) {
+  this->eufs_state_subscription_ = this->create_subscription<eufs_msgs::msg::CanState>(
       "/ros_can/state", 10,
       std::bind(&EufsAdapter::mission_state_callback, this, std::placeholders::_1));
 
   this->eufs_mission_state_client_ =
-      this->node_->create_client<eufs_msgs::srv::SetCanState>("/ros_can/set_mission");
+      this->create_client<eufs_msgs::srv::SetCanState>("/ros_can/set_mission");
 
-  this->eufs_ebs_client_ = this->node_->create_client<eufs_msgs::srv::SetCanState>("/ros_can/ebs");
+  this->eufs_ebs_client_ = this->create_client<eufs_msgs::srv::SetCanState>("/ros_can/ebs");
 
   this->_eufs_wheel_speeds_subscription_ =
-      this->node_->create_subscription<eufs_msgs::msg::WheelSpeedsStamped>(
+      this->create_subscription<eufs_msgs::msg::WheelSpeedsStamped>(
           "/ros_can/wheel_speeds",
           rclcpp::QoS(1).reliability(RMW_QOS_POLICY_RELIABILITY_BEST_EFFORT),
           std::bind(&EufsAdapter::wheel_speeds_subscription_callback, this, std::placeholders::_1));
 
-  this->_imu_subscription_ = this->node_->create_subscription<sensor_msgs::msg::Imu>(
+  this->_imu_subscription_ = this->create_subscription<sensor_msgs::msg::Imu>(
       "/imu/data", rclcpp::QoS(1).reliability(RMW_QOS_POLICY_RELIABILITY_BEST_EFFORT),
-      std::bind(&Adapter::imu_subscription_callback, this, std::placeholders::_1));
+      std::bind(&EufsAdapter::imu_subscription_callback, this, std::placeholders::_1));
 
-  if (this->node_->_use_simulated_perception_) {  // TODO: make this topic a editable parameter
+  if (this->_use_simulated_perception_) {  // TODO: make this topic a editable parameter
     this->_perception_detections_subscription_ =
-        this->node_->create_subscription<eufs_msgs::msg::ConeArrayWithCovariance>(
+        this->create_subscription<eufs_msgs::msg::ConeArrayWithCovariance>(
             "/cones", 1,
             std::bind(&EufsAdapter::perception_detections_subscription_callback, this,
                       std::placeholders::_1));
   }
+
+  RCLCPP_INFO(this->get_logger(), "EufsAdapter initialized");
 }
 
-void EufsAdapter::mission_state_callback(const eufs_msgs::msg::CanState& msg) const {
-  RCLCPP_DEBUG(this->node_->get_logger(), "Mission state received: %d", msg.ami_state);
-  this->node_->_mission_ = common_lib::competition_logic::get_mission_from_eufs(msg.ami_state);
+void EufsAdapter::mission_state_callback(const eufs_msgs::msg::CanState& msg) {
+  RCLCPP_DEBUG(this->get_logger(), "Mission state received: %d", msg.ami_state);
+  this->_mission_ = common_lib::competition_logic::get_mission_from_eufs(msg.ami_state);
   if (msg.as_state == 2) {
-    this->node_->_go_ = true;
+    this->_go_ = true;
   } else {
-    this->node_->_go_ = false;
+    this->_go_ = false;
   }
 }
 
 void EufsAdapter::finish() {
-  RCLCPP_WARN(this->node_->get_logger(), "TODO: implement mission finished in SE\n");
+  RCLCPP_WARN(this->get_logger(), "TODO: implement mission finished in SE\n");
 }
 
 void EufsAdapter::perception_detections_subscription_callback(
-    const eufs_msgs::msg::ConeArrayWithCovariance& msg) const {
+    const eufs_msgs::msg::ConeArrayWithCovariance& msg) {
   custom_interfaces::msg::ConeArray cone_array_msg;
   unsigned int largest_size = static_cast<unsigned int>(
       std::max({msg.big_orange_cones.size(), msg.blue_cones.size(), msg.yellow_cones.size(),
@@ -103,12 +111,12 @@ void EufsAdapter::perception_detections_subscription_callback(
     }
   }
   cone_array_msg.header.stamp = msg.header.stamp;
-  this->node_->_perception_subscription_callback(cone_array_msg);
+  this->_perception_subscription_callback(cone_array_msg);
 }
 
 void EufsAdapter::wheel_speeds_subscription_callback(
-    const eufs_msgs::msg::WheelSpeedsStamped& msg) const {
-  this->node_->_wheel_speeds_subscription_callback(msg.speeds.lb_speed, msg.speeds.lf_speed,
-                                                   msg.speeds.rb_speed, msg.speeds.rf_speed,
-                                                   msg.speeds.steering, msg.header.stamp);
+    const eufs_msgs::msg::WheelSpeedsStamped& msg) {
+  this->_wheel_speeds_subscription_callback(msg.speeds.lb_speed, msg.speeds.lf_speed,
+                                            msg.speeds.rb_speed, msg.speeds.rf_speed,
+                                            msg.speeds.steering, msg.header.stamp);
 }

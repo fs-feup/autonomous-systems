@@ -2,7 +2,6 @@
 
 #include "adapter_ekf_state_est/eufs.hpp"
 #include "adapter_ekf_state_est/fsds.hpp"
-#include "adapter_ekf_state_est/map.hpp"
 #include "common_lib/communication/marker.hpp"
 #include "common_lib/maths/transformations.hpp"
 #include "common_lib/structures/cone.hpp"
@@ -15,27 +14,18 @@
 
 /*---------------------- Constructor --------------------*/
 
-SENode::SENode() : Node("ekf_state_est") {
+SENode::SENode(bool use_odometry, bool use_simulated_perception, std::string motion_model_name,
+               std::string data_assocation_model_name, float sml_da_curvature,
+               float sml_initial_limit, float observation_noise, float wheel_speed_sensor_noise,
+               float data_association_limit_distance)
+    : Node("ekf_state_est") {
   // TODO: noise matrixes by parameter
-  this->_use_odometry_ = this->declare_parameter("use_odometry", true);
-  _use_simulated_perception_ = this->declare_parameter("use_simulated_perception", false);
-  std::string adapter_name = this->declare_parameter("adapter", "fsds");
-  std::string motion_model_name = this->declare_parameter("motion_model", "normal_velocity_model");
-  std::string data_assocation_model_name =
-      this->declare_parameter("data_assocation_model", "simple_ml");
+  this->_use_odometry_ = use_odometry;
+  this->_use_simulated_perception_ = use_simulated_perception;
   if (data_assocation_model_name == "simple_ml") {
-    float sml_da_curvature = static_cast<float>(this->declare_parameter("sml_da_curvature", 15.0f));
-    float sml_initial_limit =
-        static_cast<float>(this->declare_parameter("sml_initial_limit", 0.1f));
     SimpleMaximumLikelihood::curvature_ = sml_da_curvature;
     SimpleMaximumLikelihood::initial_limit_ = sml_initial_limit;
   }
-  float observation_noise = static_cast<float>(this->declare_parameter("observation_noise", 0.01f));
-  float wheel_speed_sensor_noise =
-      static_cast<float>(this->declare_parameter("wheel_speed_sensor_noise", 0.1f));
-  float data_association_limit_distance =
-      static_cast<float>(this->declare_parameter("data_association_limit_distance", 71.0f));
-
   std::shared_ptr<MotionModel> motion_model = motion_model_constructors.at(motion_model_name)(
       MotionModel::create_process_noise_covariance_matrix(wheel_speed_sensor_noise));
   std::shared_ptr<ObservationModel> observation_model = std::make_shared<ObservationModel>(
@@ -64,7 +54,6 @@ SENode::SENode() : Node("ekf_state_est") {
   this->_visualization_map_publisher_ =
       this->create_publisher<visualization_msgs::msg::MarkerArray>(
           "/state_estimation/visualization_map", 10);
-  _adapter_ = adapter_map.at(adapter_name)(std::shared_ptr<SENode>(this));
 }
 
 /*---------------------- Subscriptions --------------------*/
@@ -103,7 +92,7 @@ void SENode::_perception_subscription_callback(const custom_interfaces::msg::Con
 }
 
 // Currently not utilized
-void SENode::_imu_subscription_callback(const sensor_msgs::msg::Imu &imu_msg) {
+void SENode::imu_subscription_callback(const sensor_msgs::msg::Imu &imu_msg) {
   if (this->_use_odometry_) {
     return;
   }
