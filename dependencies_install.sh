@@ -31,5 +31,3 @@ sudo apt-get install python3-matplotlib -y
 
 # evaluator
 sudo pip3 install transforms3d
-
-source /opt/ros/humble/setup.bash
