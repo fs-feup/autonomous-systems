@@ -18,10 +18,11 @@
 
 using namespace common_lib::structures;
 
-Control::Control()
+Control::Control(bool using_simulated_se, bool mocker_node, double lookahead_gain,
+                 double lookahead_margin)
     : Node("control"),
-      using_simulated_se_(declare_parameter("use_simulated_se", false)),
-      mocker_node_(declare_parameter("mocker_node", true)),
+      using_simulated_se_(using_simulated_se),
+      mocker_node_(mocker_node),
       evaluator_data_pub_(create_publisher<custom_interfaces::msg::EvaluatorControlData>(
           "/control/evaluator_data", 10)),
       path_point_array_sub_(create_subscription<custom_interfaces::msg::PathPointArray>(
@@ -30,8 +31,7 @@ Control::Control()
             RCLCPP_DEBUG(this->get_logger(), "Received pathpoint array");
             pathpoint_array_ = msg.pathpoint_array;
           })),
-      point_solver_(declare_parameter("lookahead_gain", 0.5),
-                    declare_parameter("lookahead_margin", 0.1)) {
+      point_solver_(lookahead_gain, lookahead_margin) {
   if (!using_simulated_se_) {
     vehicle_state_sub_ = this->create_subscription<custom_interfaces::msg::VehicleState>(
         "/state_estimation/vehicle_state", 10,

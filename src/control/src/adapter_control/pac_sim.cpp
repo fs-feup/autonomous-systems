@@ -2,11 +2,11 @@
 
 #include "node_/node_control.hpp"
 
-PacSimAdapter::PacSimAdapter()
-    : Control(),
+PacSimAdapter::PacSimAdapter(bool using_simulated_se, bool mocker_node, double lookahead_gain,
+                             double lookahead_margin)
+    : Control(using_simulated_se, mocker_node, lookahead_gain, lookahead_margin),
       steering_pub_(create_publisher<pacsim::msg::StampedScalar>("/pacsim/steering_setpoint", 10)),
-      acceleration_pub_(
-          create_publisher<pacsim::msg::Wheels>("/pacsim/torques_max", 10)) {
+      acceleration_pub_(create_publisher<pacsim::msg::Wheels>("/pacsim/torques_max", 10)) {
   // No topic for pacsim, just set the go_signal to true
   go_signal_ = true;
 
@@ -17,21 +17,18 @@ PacSimAdapter::PacSimAdapter()
     // Maybe change time to a lower value if needed: std::chrono::milliseconds(10)
     RCLCPP_INFO(this->get_logger(), "Creating wall timer");
     timer_ = this->create_wall_timer(std::chrono::milliseconds(5),
-                                            std::bind(&PacSimAdapter::timer_callback, this));
+                                     std::bind(&PacSimAdapter::timer_callback, this));
 
-    this->finished_client_ =
-        this->create_client<std_srvs::srv::Empty>("/pacsim/finish_signal");
+    this->finished_client_ = this->create_client<std_srvs::srv::Empty>("/pacsim/finish_signal");
 
-    car_velocity_sub_ =
-        this->create_subscription<geometry_msgs::msg::TwistWithCovarianceStamped>(
-            "/pacsim/velocity", 10,
-            [this](const geometry_msgs::msg::TwistWithCovarianceStamped& msg) {
-              last_stored_velocity_ = std::sqrt(std::pow(msg.twist.twist.linear.x, 2) +
-                                                std::pow(msg.twist.twist.linear.y, 2) +
-                                                std::pow(msg.twist.twist.linear.z, 2));
-              // RCLCPP_INFO(this->get_logger(), "velocity_callback: storing current
-              // velocity");
-            });
+    car_velocity_sub_ = this->create_subscription<geometry_msgs::msg::TwistWithCovarianceStamped>(
+        "/pacsim/velocity", 10, [this](const geometry_msgs::msg::TwistWithCovarianceStamped& msg) {
+          last_stored_velocity_ = std::sqrt(std::pow(msg.twist.twist.linear.x, 2) +
+                                            std::pow(msg.twist.twist.linear.y, 2) +
+                                            std::pow(msg.twist.twist.linear.z, 2));
+          // RCLCPP_INFO(this->get_logger(), "velocity_callback: storing current
+          // velocity");
+        });
   }
 
   RCLCPP_INFO(this->get_logger(), "Pacsim adapter created");

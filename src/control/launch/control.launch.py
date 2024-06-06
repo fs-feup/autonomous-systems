@@ -39,14 +39,6 @@ def generate_launch_description():
                 name="control_adapter",
                 parameters=[
                     {"adapter": LaunchConfiguration("adapter")},
-                ],
-                arguments=["--ros-args", "--log-level", "adapter:=debug"],
-            ),
-            Node(
-                package="control",
-                executable="node_control",
-                name="control",
-                parameters=[
                     {"mocker_node": LaunchConfiguration("mocker_node")},
                     {"lookahead_gain": LaunchConfiguration("lookahead_gain")},
                     {"lookahead_margin": LaunchConfiguration("lookahead_margin")},

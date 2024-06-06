@@ -1,10 +1,11 @@
 #include "adapter_control/eufs.hpp"
+
 #include "node_/node_control.hpp"
 
-EufsAdapter::EufsAdapter()
-    : Control(),
-      control_pub_(
-          create_publisher<ackermann_msgs::msg::AckermannDriveStamped>("/cmd", 10)) {
+EufsAdapter::EufsAdapter(bool using_simulated_se, bool mocker_node, double lookahead_gain,
+                         double lookahead_margin)
+    : Control(using_simulated_se, mocker_node, lookahead_gain, lookahead_margin),
+      control_pub_(create_publisher<ackermann_msgs::msg::AckermannDriveStamped>("/cmd", 10)) {
   // No topic for eufs, just set the go_signal to true
   go_signal_ = true;
 
@@ -30,8 +31,8 @@ void EufsAdapter::vehicle_state_callback(const eufs_msgs::msg::CarState& msg) {
                                   msg.pose.pose.orientation.y * msg.pose.pose.orientation.y -
                                   msg.pose.pose.orientation.z * msg.pose.pose.orientation.z);
 
-
-  vehicle_state.linear_velocity = std::sqrt(std::pow(msg.twist.twist.linear.x, 2) + std::pow(msg.twist.twist.linear.y, 2));
+  vehicle_state.linear_velocity =
+      std::sqrt(std::pow(msg.twist.twist.linear.x, 2) + std::pow(msg.twist.twist.linear.y, 2));
 
   publish_control(vehicle_state);
 }

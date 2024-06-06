@@ -2,8 +2,9 @@
 
 #include "node_/node_control.hpp"
 
-FsdsAdapter::FsdsAdapter()
-    : Control(),
+FsdsAdapter::FsdsAdapter(bool using_simulated_se, bool mocker_node, double lookahead_gain,
+                         double lookahead_margin)
+    : Control(using_simulated_se, mocker_node, lookahead_gain, lookahead_margin),
       go_signal_sub_(create_subscription<fs_msgs::msg::GoSignal>(
           "/signal/go", 10,
           std::bind(&FsdsAdapter::fsds_mission_state_callback, this, std::placeholders::_1))),

@@ -1,7 +1,8 @@
 #include "adapter_control/vehicle.hpp"
 
-VehicleAdapter::VehicleAdapter()
-    : Control(),
+VehicleAdapter::VehicleAdapter(bool using_simulated_se, bool mocker_node, double lookahead_gain,
+                               double lookahead_margin)
+    : Control(using_simulated_se, mocker_node, lookahead_gain, lookahead_margin),
       go_sub_(create_subscription<custom_interfaces::msg::OperationalStatus>(
           "/vehicle/operational_status", 10,
           std::bind(&VehicleAdapter::go_signal_callback, this, std::placeholders::_1))),

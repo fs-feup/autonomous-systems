@@ -70,7 +70,7 @@ std::tuple<Position, double, bool> PointSolver::update_lookahead_point(
   double closest_distance = std::numeric_limits<double>::max();
   custom_interfaces::msg::PathPoint closest_yet;
 
-  double ld = this->k_ * std::max(this->vehicle_pose_.velocity_, 2.0);
+  double ld = this->k_ * std::max(this->vehicle_pose_.velocity_, 10.0);
   RCLCPP_DEBUG(rclcpp::get_logger("control"), "Current ld: %f", ld);
 
   for (size_t i = 0; i < pathpoint_array.size(); i++) {

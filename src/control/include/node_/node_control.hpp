@@ -27,7 +27,7 @@ public:
   bool using_simulated_se_{false};
   bool go_signal_{false};
 
-  Control();
+  Control(bool using_simulated_se, bool mocker_node, double lookahead_gain, double lookahead_margin);
 
   /**
    * @brief Publishes the steering angle to the car based on the path and pose using cache
