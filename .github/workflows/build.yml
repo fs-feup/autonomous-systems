@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image: ros:humble-ros-base-jammy
+      image: ros:jazzy-ros-base
 
     defaults:
       run:
