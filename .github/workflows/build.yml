@@ -39,6 +39,7 @@ jobs:
           ./dependencies_install.sh
           sudo apt install curl -y
           sudo apt install unzip -y
+          sudo apt install bear -y
 
       - name: Download and set up sonar-scanner
         run: |
