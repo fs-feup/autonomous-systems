@@ -19,9 +19,8 @@
 using namespace common_lib::structures;
 
 Control::Control()
-    : Node("node_control"),
+    : Node("control"),
       using_simulated_se_(declare_parameter("use_simulated_se", false)),
-      adapter_(adapter_map.at(declare_parameter("adapter", "vehicle"))(this)),
       mocker_node_(declare_parameter("mocker_node", true)),
       evaluator_data_pub_(create_publisher<custom_interfaces::msg::EvaluatorControlData>(
           "/control/evaluator_data", 10)),
@@ -33,7 +32,7 @@ Control::Control()
           })),
       point_solver_(declare_parameter("lookahead_gain", 0.5),
                     declare_parameter("lookahead_margin", 0.1)) {
-  if (!using_simulated_se_ || get_parameter("adapter").as_string() == "vehicle") {
+  if (!using_simulated_se_) {
     vehicle_state_sub_ = this->create_subscription<custom_interfaces::msg::VehicleState>(
         "/state_estimation/vehicle_state", 10,
         std::bind(&Control::publish_control, this, std::placeholders::_1));
@@ -86,7 +85,7 @@ void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicl
                steering_angle);
 
   publish_evaluator_data(lookahead_velocity, lookahead_point, closest_point, vehicle_state_msg);
-  adapter_->publish_cmd(torque, steering_angle);
+  publish_cmd(torque, steering_angle);
   // Adapter to communicate with the car
 }
 

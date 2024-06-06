@@ -1,14 +1,15 @@
 #pragma once
 
-#include "adapter_control/adapter.hpp"
 #include "geometry_msgs/msg/twist_with_covariance_stamped.hpp"
 #include "pacsim/msg/stamped_scalar.hpp"
 #include "pacsim/msg/wheels.hpp"
 #include "std_srvs/srv/empty.hpp"
 #include "tf2_ros/buffer.h"
 #include "tf2_ros/transform_listener.h"
+#include "node_/node_control.hpp"
 
-class PacSimAdapter : public Adapter {
+
+class PacSimAdapter : public Control {
  private:
   rclcpp::Publisher<pacsim::msg::StampedScalar>::SharedPtr steering_pub_;
   rclcpp::Publisher<pacsim::msg::Wheels>::SharedPtr acceleration_pub_;
@@ -24,7 +25,7 @@ class PacSimAdapter : public Adapter {
   // TODO: MISSION FINISHED IS A SERVICE NOT A TOPIC,
 
  public:
-  explicit PacSimAdapter(Control* control);
+  explicit PacSimAdapter();
   void timer_callback();
   void finish();
   void publish_cmd(double acceleration = 0, double steering = 0) override;

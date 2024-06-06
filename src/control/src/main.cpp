@@ -1,5 +1,10 @@
 #include <memory>
 
+#include "adapter_control/eufs.hpp"
+#include "adapter_control/fsds.hpp"
+#include "adapter_control/map.hpp"
+#include "adapter_control/pac_sim.hpp"
+#include "adapter_control/vehicle.hpp"
 #include "node_/node_control.hpp"
 #include "rclcpp/rclcpp.hpp"
 /**
@@ -13,7 +18,8 @@
  */
 int main(int argc, char* argv[]) {
   rclcpp::init(argc, argv);
-  rclcpp::spin(std::make_shared<Control>());
+  auto adapter_node = std::make_shared<rclcpp::Node>("control_adapter");
+  rclcpp::spin(adapter_map.at(adapter_node->declare_parameter("adapter", "pacsim"))());
   rclcpp::shutdown();
   return 0;
 }

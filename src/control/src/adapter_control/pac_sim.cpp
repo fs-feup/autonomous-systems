@@ -2,45 +2,45 @@
 
 #include "node_/node_control.hpp"
 
-PacSimAdapter::PacSimAdapter(Control* control)
-    : Adapter(control),
-      steering_pub_(node_->create_publisher<pacsim::msg::StampedScalar>("/pacsim/steering_setpoint", 10)),
+PacSimAdapter::PacSimAdapter()
+    : Control(),
+      steering_pub_(create_publisher<pacsim::msg::StampedScalar>("/pacsim/steering_setpoint", 10)),
       acceleration_pub_(
-          node_->create_publisher<pacsim::msg::Wheels>("/pacsim/torques_max", 10)) {
+          create_publisher<pacsim::msg::Wheels>("/pacsim/torques_max", 10)) {
   // No topic for pacsim, just set the go_signal to true
-  node_->go_signal_ = true;
+  go_signal_ = true;
 
-  if (node_->using_simulated_se_) {
-    tf_buffer_ = std::make_unique<tf2_ros::Buffer>(this->node_->get_clock());
+  if (using_simulated_se_) {
+    tf_buffer_ = std::make_unique<tf2_ros::Buffer>(this->get_clock());
     tf_listener_ = std::make_shared<tf2_ros::TransformListener>(*tf_buffer_);
 
     // Maybe change time to a lower value if needed: std::chrono::milliseconds(10)
-    RCLCPP_INFO(this->node_->get_logger(), "Creating wall timer");
-    timer_ = this->node_->create_wall_timer(std::chrono::milliseconds(5),
+    RCLCPP_INFO(this->get_logger(), "Creating wall timer");
+    timer_ = this->create_wall_timer(std::chrono::milliseconds(5),
                                             std::bind(&PacSimAdapter::timer_callback, this));
 
     this->finished_client_ =
-        this->node_->create_client<std_srvs::srv::Empty>("/pacsim/finish_signal");
+        this->create_client<std_srvs::srv::Empty>("/pacsim/finish_signal");
 
     car_velocity_sub_ =
-        this->node_->create_subscription<geometry_msgs::msg::TwistWithCovarianceStamped>(
+        this->create_subscription<geometry_msgs::msg::TwistWithCovarianceStamped>(
             "/pacsim/velocity", 10,
             [this](const geometry_msgs::msg::TwistWithCovarianceStamped& msg) {
               last_stored_velocity_ = std::sqrt(std::pow(msg.twist.twist.linear.x, 2) +
                                                 std::pow(msg.twist.twist.linear.y, 2) +
                                                 std::pow(msg.twist.twist.linear.z, 2));
-              // RCLCPP_INFO(this->node_->get_logger(), "velocity_callback: storing current
+              // RCLCPP_INFO(this->get_logger(), "velocity_callback: storing current
               // velocity");
             });
   }
 
-  RCLCPP_INFO(this->node_->get_logger(), "Pacsim adapter created");
+  RCLCPP_INFO(this->get_logger(), "Pacsim adapter created");
 }
 
 void PacSimAdapter::timer_callback() {
-  RCLCPP_INFO(this->node_->get_logger(), "timer_callback: trying to call canTransform");
+  RCLCPP_INFO(this->get_logger(), "timer_callback: trying to call canTransform");
   if (tf_buffer_->canTransform("map", "car", tf2::TimePointZero)) {
-    RCLCPP_INFO(this->node_->get_logger(), "timer_callback: canTransform success");
+    RCLCPP_INFO(this->get_logger(), "timer_callback: canTransform success");
     custom_interfaces::msg::VehicleState pose;
     geometry_msgs::msg::TransformStamped t =
         tf_buffer_->lookupTransform("map", "car", tf2::TimePointZero);
@@ -58,9 +58,9 @@ void PacSimAdapter::timer_callback() {
     pose.linear_velocity = this->last_stored_velocity_;
     pose.angular_velocity = 0.0;  // not needed -> default value
 
-    RCLCPP_INFO(node_->get_logger(), "Pose info. Position:%f, %f;  Linear velocity %f, Theta %f",
+    RCLCPP_INFO(get_logger(), "Pose info. Position:%f, %f;  Linear velocity %f, Theta %f",
                 pose.position.x, pose.position.y, pose.linear_velocity, pose.theta);
-    this->node_->publish_control(pose);
+    this->publish_control(pose);
   }
 }
 
@@ -68,7 +68,7 @@ void PacSimAdapter::finish() {
   this->finished_client_->async_send_request(
       std::make_shared<std_srvs::srv::Empty::Request>(),
       [this](rclcpp::Client<std_srvs::srv::Empty>::SharedFuture future) {
-        RCLCPP_INFO(this->node_->get_logger(), "Finished signal sent");
+        RCLCPP_INFO(this->get_logger(), "Finished signal sent");
       });
 }
 
