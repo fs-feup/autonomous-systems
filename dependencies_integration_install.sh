@@ -25,12 +25,8 @@ sudo make install
 # make
 # make check
 # sudo make install
-# cd ..
-# rm -rf linuxcan
-# rm -rf kvlibsdk
-# rm linuxcan.tar.gz
-# rm kvlibsdk.tar.gz
-# rm linuxcan.tar.gz.1
-# rm kvlibsdk.tar.gz.1
+cd ..
+rm -rf linuxcan
+rm -rf kvlibsdk
 rm linuxcan_5_45_724.tar.gz
 rm linuxcan_5_45_724.tar.gz.1
