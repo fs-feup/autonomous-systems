@@ -24,7 +24,7 @@ int main(int argc, char** argv) {
   std::string ground_removal_algorithm = node->declare_parameter("ground_removal", "ransac");
   int n_angular_grids = node->declare_parameter("n_angular_grids", 6);
   double radius_resolution = node->declare_parameter("radius_resolution", 10.0);
-  std::string target_file = node->declare_parameter("target_file", "cone.pcd");
+  std::string target_file = "src/perception/src/icp/cones/" + node->declare_parameter("target_file", "cone.pcd");
   double max_correspondence_distance = node->declare_parameter("max_correspondence_distance", 0.1);
   int max_iteration = node->declare_parameter("max_iteration", 100);
   double transformation_epsilon = node->declare_parameter("transformation_epsilon", 1e-8);

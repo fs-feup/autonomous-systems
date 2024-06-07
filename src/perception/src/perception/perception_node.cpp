@@ -41,35 +41,19 @@ Perception::Perception(std::shared_ptr<GroundRemoval> ground_removal,
 
 void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
   pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-
   header = (*msg).header;
-
   pcl::fromROSMsg(*msg, *pcl_cloud);
 
+  // Groudn Removal
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-
   _ground_removal_->ground_removal(pcl_cloud, ground_removed_cloud, _ground_plane_);
 
-  pcl::io::savePCDFileASCII("test_pcd11.pcd", *ground_removed_cloud);
-
+  // Clustering
   std::vector<Cluster> clusters;
-
   _clustering_->clustering(ground_removed_cloud, &clusters);
 
-  pcl::PointCloud<pcl::PointXYZI>::Ptr clusters_pc(new pcl::PointCloud<pcl::PointXYZI>);
-
-  for (auto cluster : clusters) {
-    clusters_pc->points.push_back({cluster.get_centroid()[0], cluster.get_centroid()[1],
-                                   cluster.get_centroid()[2], cluster.get_centroid()[3]});
-  }
-
-  clusters_pc->width = 1;
-  clusters_pc->height = clusters.size();
-
-  pcl::io::savePCDFileASCII("test_pcd12.pcd", *clusters_pc);
-
+  // Filtering
   std::vector<Cluster> filtered_clusters;
-
   for (auto cluster : clusters) {
     if (std::all_of(_cone_validators_.begin(), _cone_validators_.end(), [&](const auto& validator) {
           return validator->coneValidator(&cluster, _ground_plane_);
@@ -78,16 +62,7 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
     }
   }
 
-  for (auto cluster : clusters){
-    pcl::PointCloud<pcl::PointXYZI>::Ptr cluster_after_icp(new pcl::PointCloud<pcl::PointXYZI>);
-    auto fitness_score = _icp_->executeICP(cluster.get_point_cloud(), cluster_after_icp);
-    if (cluster_after_icp->points.size() > 0)
-        if (fitness_score >= 0){
-          RCLCPP_DEBUG(this->get_logger(), "Fitness Score: %d", fitness_score);
-          pcl::io::savePCDFileASCII("tentative.pcd", *cluster_after_icp);
-        }
-  }
-
+  // Logging
   RCLCPP_DEBUG(this->get_logger(), "---------- Point Cloud Received ----------");
   RCLCPP_DEBUG(this->get_logger(), "Point Cloud Before Ground Removal: %ld points",
                pcl_cloud->points.size());
@@ -95,6 +70,7 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
                ground_removed_cloud->points.size());
   RCLCPP_DEBUG(this->get_logger(), "Point Cloud after Clustering: %ld clusters", clusters.size());
 
+  // Cone differentiation
   for (long unsigned int i = 0; i < filtered_clusters.size(); i++) {
     _cone_differentiator_->coneDifferentiation(&filtered_clusters[i]);
     std::string color = filtered_clusters[i].get_color();
