@@ -11,7 +11,7 @@ sudo apt-get -y install build-essential
 sudo apt-get -y install pkg-config 
 sudo apt install gcc-12
 wget --content-disposition "https://resources.kvaser.com/PreProductionAssets/Product_Resources/linuxcan_5_45_724.tar.gz"
-tar xvzf linuxcan_5_45_724.tar
+tar xvzf linuxcan_5_45_724.tar.gz
 cd linuxcan
 make
 sudo make install 
@@ -32,3 +32,5 @@ sudo make install
 # rm kvlibsdk.tar.gz
 # rm linuxcan.tar.gz.1
 # rm kvlibsdk.tar.gz.1
+rm linuxcan_5_45_724.tar.gz
+rm linuxcan_5_45_724.tar.gz.1
