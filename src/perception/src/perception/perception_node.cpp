@@ -78,6 +78,16 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
     }
   }
 
+  for (auto cluster : clusters){
+    pcl::PointCloud<pcl::PointXYZI>::Ptr cluster_after_icp(new pcl::PointCloud<pcl::PointXYZI>);
+    auto fitness_score = _icp_->executeICP(cluster.get_point_cloud(), cluster_after_icp);
+    if (cluster_after_icp->points.size() > 0)
+        if (fitness_score >= 0){
+          RCLCPP_DEBUG(this->get_logger(), "Fitness Score: %d", fitness_score);
+          pcl::io::savePCDFileASCII("tentative.pcd", *cluster_after_icp);
+        }
+  }
+
   RCLCPP_DEBUG(this->get_logger(), "---------- Point Cloud Received ----------");
   RCLCPP_DEBUG(this->get_logger(), "Point Cloud Before Ground Removal: %ld points",
                pcl_cloud->points.size());
