@@ -96,7 +96,8 @@
         "sparse": "cpp",
         "*.ipp": "cpp",
         "filesystem": "cpp",
-        "*.txx": "cpp"
+        "*.txx": "cpp",
+        "nonlinearoptimization": "cpp"
     },
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter",

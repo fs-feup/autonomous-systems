@@ -2,6 +2,7 @@
 
 #include "gtest/gtest.h"
 #include "planning/planning.hpp"
+#include "adapter_planning/parameters_factory.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "utils/files.hpp"
 
@@ -26,7 +27,10 @@ protected:
     // Init Nodes
     control_receiver = rclcpp::Node::make_shared("control_receiver");  // gets path from planning
     locmap_sender = rclcpp::Node::make_shared("locmap_sender");        // publishes map from loc_map
-    planning_test = std::make_shared<Planning>();                      // processes planning
+
+    PlanningParameters params;
+    std::string adapter_type = load_adapter_parameters(params);
+    std::shared_ptr<Planning> planning = create_planning(adapter_type, params);
 
     cone_array_msg = custom_interfaces::msg::ConeArray();  // init received message
 
