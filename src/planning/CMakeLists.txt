@@ -46,7 +46,9 @@ set(IMPLEMENTATION_FILES
   src/adapter_planning/vehicle.cpp
   src/utils/message_converter.cpp
   src/planning/cone_coloring.cpp
-  src/planning/global_path_planner.cpp
+  src/planning/cone_coloring2.cpp
+  src/planning/smoothing2.cpp
+  src/planning/outliers.cpp
   src/planning/local_path_planner.cpp
   src/planning/track.cpp
   src/planning/planning.cpp

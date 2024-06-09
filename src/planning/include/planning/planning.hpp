@@ -18,7 +18,6 @@
 #include "custom_interfaces/msg/point_array.hpp"
 #include "custom_interfaces/msg/vehicle_state.hpp"
 #include "planning/cone_coloring.hpp"
-#include "planning/global_path_planner.hpp"
 #include "planning/local_path_planner.hpp"
 #include "planning/path_smoothing.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
