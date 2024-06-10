@@ -3,13 +3,7 @@
 #include "common_lib/competition_logic/mission_logic.hpp"
 #include "ros_node/se_node.hpp"
 
-FsdsAdapter::FsdsAdapter(bool use_odometry, bool use_simulated_perception,
-                         std::string motion_model_name, std::string data_assocation_model_name,
-                         float sml_da_curvature, float sml_initial_limit, float observation_noise,
-                         float wheel_speed_sensor_noise, float data_association_limit_distance)
-    : SENode(use_odometry, use_simulated_perception, motion_model_name, data_assocation_model_name,
-             sml_da_curvature, sml_initial_limit, observation_noise, wheel_speed_sensor_noise,
-             data_association_limit_distance) {
+FsdsAdapter::FsdsAdapter(const EKFStateEstParameters& params) : SENode(params) {
   this->fsds_state_subscription_ = this->create_subscription<fs_msgs::msg::GoSignal>(
       "/signal/go", 10,
       std::bind(&FsdsAdapter::mission_state_callback, this, std::placeholders::_1));

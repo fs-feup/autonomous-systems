@@ -45,10 +45,7 @@ class PacsimAdapter : public SENode {
   void perception_detections_subscription_callback(const pacsim::msg::PerceptionDetections& msg);
 
 public:
-  explicit PacsimAdapter(bool use_odometry, bool use_simulated_perception,
-                         std::string motion_model_name, std::string data_assocation_model_name,
-                         float sml_da_curvature, float sml_initial_limit, float observation_noise,
-                         float wheel_speed_sensor_noise, float data_association_limit_distance);
+  explicit PacsimAdapter(const EKFStateEstParameters& params);
 
   void finish() final;
 };

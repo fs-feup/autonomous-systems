@@ -4,11 +4,11 @@
 #include <rclcpp/rclcpp.hpp>
 #include <string>
 
-#include "planning/planning.hpp"
 #include "adapter_planning/eufs.hpp"
 #include "adapter_planning/fsds.hpp"
 #include "adapter_planning/pacsim.hpp"
 #include "adapter_planning/vehicle.hpp"
+#include "planning/planning.hpp"
 
 struct PlanningParameters;
 

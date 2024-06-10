@@ -61,10 +61,7 @@ class VehicleAdapter : public SENode {
                                          const custom_interfaces::msg::ImuData& yaw_accy_data);
 
 public:
-  explicit VehicleAdapter(bool use_odometry, bool use_simulated_perception,
-                          std::string motion_model_name, std::string data_assocation_model_name,
-                          float sml_da_curvature, float sml_initial_limit, float observation_noise,
-                          float wheel_speed_sensor_noise, float data_association_limit_distance);
+  explicit VehicleAdapter(const EKFStateEstParameters& params);
 
   void finish() final;
 };

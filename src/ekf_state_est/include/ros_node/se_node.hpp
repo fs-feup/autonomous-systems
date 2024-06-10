@@ -24,6 +24,18 @@
 #include "sensor_msgs/msg/imu.hpp"
 #include "visualization_msgs/msg/marker_array.hpp"
 
+struct EKFStateEstParameters {
+  bool use_odometry_;
+  bool use_simulated_perception_;
+  std::string motion_model_name_;
+  std::string data_assocation_model_name_;
+  float sml_da_curvature_;
+  float sml_initial_limit_;
+  float observation_noise_;
+  float wheel_speed_sensor_noise_;
+  float data_association_limit_distance_;
+};
+
 /**
  * @brief Class representing the main speed_est node responsible for publishing
  * the calculated vehicle state with speed and the map. As well as, subscribing and
@@ -133,10 +145,7 @@ public:
   /**
    * @brief Constructor of the main node, most things are received by launch parameter
    */
-  SENode(bool use_odometry, bool use_simulated_perception, std::string motion_model_name,
-         std::string data_assocation_model_name, float sml_da_curvature, float sml_initial_limit,
-         float observation_noise, float wheel_speed_sensor_noise,
-         float data_association_limit_distance);
+  explicit SENode(const EKFStateEstParameters& params);
 
   friend class EufsAdapter;
   friend class FsdsAdapter;

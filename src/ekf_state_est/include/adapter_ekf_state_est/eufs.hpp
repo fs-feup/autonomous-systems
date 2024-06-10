@@ -13,10 +13,7 @@ class EufsAdapter : public SENode {
   rclcpp::Client<eufs_msgs::srv::SetCanState>::SharedPtr eufs_ebs_client_;
 
 public:
-  explicit EufsAdapter(bool use_odometry, bool use_simulated_perception,
-                       std::string motion_model_name, std::string data_assocation_model_name,
-                       float sml_da_curvature, float sml_initial_limit, float observation_noise,
-                       float wheel_speed_sensor_noise, float data_association_limit_distance);
+  explicit EufsAdapter(const EKFStateEstParameters& params);
 
   void mission_state_callback(const eufs_msgs::msg::CanState& msg);
   void finish() final;

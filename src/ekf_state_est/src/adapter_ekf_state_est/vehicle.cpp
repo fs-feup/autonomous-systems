@@ -3,15 +3,7 @@
 #include "common_lib/competition_logic/color.hpp"
 #include "ros_node/se_node.hpp"
 
-VehicleAdapter::VehicleAdapter(bool use_odometry, bool use_simulated_perception,
-                               std::string motion_model_name,
-                               std::string data_assocation_model_name, float sml_da_curvature,
-                               float sml_initial_limit, float observation_noise,
-                               float wheel_speed_sensor_noise,
-                               float data_association_limit_distance)
-    : SENode(use_odometry, use_simulated_perception, motion_model_name, data_assocation_model_name,
-             sml_da_curvature, sml_initial_limit, observation_noise, wheel_speed_sensor_noise,
-             data_association_limit_distance) {
+VehicleAdapter::VehicleAdapter(const EKFStateEstParameters& params) : SENode(params) {
   this->_operational_status_subscription_ =
       this->create_subscription<custom_interfaces::msg::OperationalStatus>(
           "/vehicle/operational_status", 10,
@@ -38,6 +30,7 @@ VehicleAdapter::VehicleAdapter(bool use_odometry, bool use_simulated_perception,
   this->_sync_->registerCallback(&VehicleAdapter::wheel_speeds_subscription_callback, this);
 
   this->_finished_client_ = this->create_client<std_srvs::srv::Trigger>("/as_srv/mission_finished");
+    RCLCPP_INFO(this->get_logger(), "EKF VehicleAdapter initialized");
 }
 
 void VehicleAdapter::wheel_speeds_subscription_callback(

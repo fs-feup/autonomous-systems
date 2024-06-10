@@ -5,13 +5,7 @@
 #include "common_lib/competition_logic/mission_logic.hpp"
 #include "ros_node/se_node.hpp"
 
-EufsAdapter::EufsAdapter(bool use_odometry, bool use_simulated_perception,
-                         std::string motion_model_name, std::string data_assocation_model_name,
-                         float sml_da_curvature, float sml_initial_limit, float observation_noise,
-                         float wheel_speed_sensor_noise, float data_association_limit_distance)
-    : SENode(use_odometry, use_simulated_perception, motion_model_name, data_assocation_model_name,
-             sml_da_curvature, sml_initial_limit, observation_noise, wheel_speed_sensor_noise,
-             data_association_limit_distance) {
+EufsAdapter::EufsAdapter(const EKFStateEstParameters& params) : SENode(params) {
   this->eufs_state_subscription_ = this->create_subscription<eufs_msgs::msg::CanState>(
       "/ros_can/state", 10,
       std::bind(&EufsAdapter::mission_state_callback, this, std::placeholders::_1));
@@ -39,7 +33,7 @@ EufsAdapter::EufsAdapter(bool use_odometry, bool use_simulated_perception,
                       std::placeholders::_1));
   }
 
-  RCLCPP_INFO(this->get_logger(), "EufsAdapter initialized");
+  RCLCPP_INFO(this->get_logger(), "EKF EufsAdapter initialized");
 }
 
 void EufsAdapter::mission_state_callback(const eufs_msgs::msg::CanState& msg) {

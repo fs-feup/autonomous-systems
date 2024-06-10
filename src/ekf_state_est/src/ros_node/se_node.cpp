@@ -14,25 +14,22 @@
 
 /*---------------------- Constructor --------------------*/
 
-SENode::SENode(bool use_odometry, bool use_simulated_perception, std::string motion_model_name,
-               std::string data_assocation_model_name, float sml_da_curvature,
-               float sml_initial_limit, float observation_noise, float wheel_speed_sensor_noise,
-               float data_association_limit_distance)
+SENode::SENode(const EKFStateEstParameters& params)
     : Node("ekf_state_est") {
   // TODO: noise matrixes by parameter
-  this->_use_odometry_ = use_odometry;
-  this->_use_simulated_perception_ = use_simulated_perception;
-  if (data_assocation_model_name == "simple_ml") {
-    SimpleMaximumLikelihood::curvature_ = sml_da_curvature;
-    SimpleMaximumLikelihood::initial_limit_ = sml_initial_limit;
+  this->_use_odometry_ = params.use_odometry_;
+  this->_use_simulated_perception_ = params.use_simulated_perception_;
+  if (params.data_assocation_model_name_ == "simple_ml") {
+    SimpleMaximumLikelihood::curvature_ = params.sml_da_curvature_;
+    SimpleMaximumLikelihood::initial_limit_ = params.sml_initial_limit_;
   }
-  std::shared_ptr<MotionModel> motion_model = motion_model_constructors.at(motion_model_name)(
-      MotionModel::create_process_noise_covariance_matrix(wheel_speed_sensor_noise));
+  std::shared_ptr<MotionModel> motion_model = motion_model_constructors.at(params.motion_model_name_)(
+      MotionModel::create_process_noise_covariance_matrix(params.wheel_speed_sensor_noise_));
   std::shared_ptr<ObservationModel> observation_model = std::make_shared<ObservationModel>(
-      ObservationModel::create_observation_noise_covariance_matrix(observation_noise));
+      ObservationModel::create_observation_noise_covariance_matrix(params.observation_noise_));
   std::shared_ptr<DataAssociationModel> data_association_model =
-      data_association_model_constructors.at(data_assocation_model_name)(
-          data_association_limit_distance);
+      data_association_model_constructors.at(params.data_assocation_model_name_)(
+          params.data_association_limit_distance_);
   _ekf_ = std::make_shared<ExtendedKalmanFilter>(motion_model, observation_model,
                                                  data_association_model);
 

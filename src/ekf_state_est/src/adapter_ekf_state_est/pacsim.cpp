@@ -7,14 +7,7 @@
 #include "pacsim/msg/wheels.hpp"
 #include "ros_node/se_node.hpp"
 
-PacsimAdapter::PacsimAdapter(bool use_odometry, bool use_simulated_perception,
-                             std::string motion_model_name, std::string data_assocation_model_name,
-                             float sml_da_curvature, float sml_initial_limit,
-                             float observation_noise, float wheel_speed_sensor_noise,
-                             float data_association_limit_distance)
-    : SENode(use_odometry, use_simulated_perception, motion_model_name, data_assocation_model_name,
-             sml_da_curvature, sml_initial_limit, observation_noise, wheel_speed_sensor_noise,
-             data_association_limit_distance) {
+PacsimAdapter::PacsimAdapter(const EKFStateEstParameters& params) : SENode(params) {
   this->_imu_subscription_ = this->create_subscription<sensor_msgs::msg::Imu>(
       "/pacsim/imu/cog_imu", 3,
       std::bind(&PacsimAdapter::imu_subscription_callback, this, std::placeholders::_1));
@@ -35,6 +28,8 @@ PacsimAdapter::PacsimAdapter(bool use_odometry, bool use_simulated_perception,
   }
 
   this->_finished_client_ = this->create_client<std_srvs::srv::Empty>("/pacsim/finish_signal");
+    RCLCPP_INFO(this->get_logger(), "EKF PacsimAdapter initialized");
+
 }
 
 void PacsimAdapter::wheel_speeds_subscription_callback(
