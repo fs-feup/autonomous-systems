@@ -93,6 +93,7 @@ std::tuple<Position, double, bool> PointSolver::update_lookahead_point(
   }
 
   if (closest_distance == std::numeric_limits<double>::max()) {
+    RCLCPP_WARN(rclcpp::get_logger("control"), "No lookahead point found");
     return std::make_tuple(Position(), 0.0, true);
   }
 

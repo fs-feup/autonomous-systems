@@ -22,5 +22,5 @@ Check [this guide](./CONTRIBUTING.md).
 
 ## Documentation
 - [Documentation Home](./docs)
-- [Project Specification](./docs/project-specification.md)
+- [ROS Communication Table](./docs/ros-tables.md) - table with all the topics and message types used in all environments
 - [Doxygen Code Documentation](https://fs-feup.github.io/autonomous-systems/)
