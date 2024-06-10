@@ -19,6 +19,11 @@ int main(int argc, char* argv[]) {
   std::string adapter_type = load_adapter_parameters(params);
   auto control = create_control(adapter_type, params);
 
+  if (!control) {
+    RCLCPP_ERROR(rclcpp::get_logger("control"), "Failed to create control object");
+    return 1;
+  }
+
   rclcpp::spin(control);
   rclcpp::shutdown();
   return 0;

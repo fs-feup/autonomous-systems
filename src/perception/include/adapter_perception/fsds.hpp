@@ -1,18 +1,16 @@
 #pragma once
 
-#include "adapter_perception/adapter.hpp"
 #include "fs_msgs/msg/go_signal.hpp"
 #include "fs_msgs/msg/finished_signal.hpp"
 
-class Perception;
 
 /**
  * @brief Adapter class for interfacing with FSDS (Formula Student Driverless Simulator).
  * 
- * This class extends the Adapter class and provides functionality specific to
+ * This class extends the Perception class and provides functionality specific to
  * communication with the FSDS simulator.
  */
-class FsdsAdapter : public Adapter {
+class FsdsAdapter : public Perception {
   ///< Subscription for receiving FSDS state.
   rclcpp::Subscription<fs_msgs::msg::GoSignal>::SharedPtr fsds_state_subscription_;
 
@@ -23,9 +21,9 @@ class FsdsAdapter : public Adapter {
   /**
    * @brief Constructor for FsdsAdapter class.
    * 
-   * @param perception A pointer to the Perception instance.
+   * @param params The parameters for perception.
    */
-  explicit FsdsAdapter(Perception* perception);
+  explicit FsdsAdapter(const PerceptionParameters& params);
 
   /**
    * @brief Callback function for handling mission state messages from FSDS.

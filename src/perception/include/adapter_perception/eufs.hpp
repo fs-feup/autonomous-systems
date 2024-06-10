@@ -1,18 +1,15 @@
 #pragma once
 
-#include "adapter_perception/adapter.hpp"
 #include "eufs_msgs/msg/can_state.hpp"
 #include "eufs_msgs/srv/set_can_state.hpp"
-
-class Perception;
 
 /**
  * @brief Adapter class for interfacing with EUFS (Edinburgh University Formula Student).
  * 
- * This class extends the Adapter class and provides functionality specific to
+ * This class extends the Perception class and provides functionality specific to
  * communication with the EUFS simulator.
  */
-class EufsAdapter : public Adapter {
+class EufsAdapter : public Perception {
   ///< Client for setting EUFS mission state.
   rclcpp::Client<eufs_msgs::srv::SetCanState>::SharedPtr eufs_mission_state_client_;
 
@@ -23,9 +20,9 @@ class EufsAdapter : public Adapter {
   /**
    * @brief Constructor for EufsAdapter class.
    * 
-   * @param perception A pointer to the Perception instance.
+   * @param params The parameters for perception.
    */
-  explicit EufsAdapter(Perception* perception);
+  explicit EufsAdapter(const PerceptionParameters& params);
 
   /**
    * @brief Finalizes the EUFS Adapter.

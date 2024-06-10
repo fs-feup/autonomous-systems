@@ -1,12 +1,10 @@
 #include "adapter_perception/vehicle.hpp"
-
 #include "perception/perception_node.hpp"
 
-VehicleAdapter::VehicleAdapter(Perception* perception) : Adapter(perception) {
-
-    this->_point_cloud_subscription = this->node->create_subscription<sensor_msgs::msg::PointCloud2>(
+VehicleAdapter::VehicleAdapter(const PerceptionParameters& params) : Perception(params) {
+  this->_point_cloud_subscription = this->create_subscription<sensor_msgs::msg::PointCloud2>(
       "/hesai/pandar", 10, [this](const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
-        node->pointCloudCallback(msg);
+        this->pointCloudCallback(msg);
       });
 }
 

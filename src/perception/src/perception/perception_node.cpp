@@ -10,26 +10,21 @@
 #include <vector>
 
 #include "adapter_perception/fsds.hpp"
-#include "adapter_perception/map.hpp"
 #include "adapter_perception/vehicle.hpp"
 #include "std_msgs/msg/header.hpp"
 
 std_msgs::msg::Header header;
 
-Perception::Perception(std::shared_ptr<GroundRemoval> ground_removal, std::shared_ptr<Clustering> clustering,
-             std::shared_ptr<ConeDifferentiation> cone_differentiator,
-             const std::vector<std::shared_ptr<ConeValidator>>& cone_validators, 
-             std::shared_ptr<ConeEvaluator> cone_evaluator, std::string mode)
+Perception::Perception(const PerceptionParameters& params)
     : Node("perception"),
-      _ground_removal_(ground_removal),
-      _clustering_(clustering),
-      _cone_differentiator_(cone_differentiator),
-      _cone_validators_(cone_validators),
-      _cone_evaluator_(cone_evaluator),
-      _mode_(mode) {
-  this->_cones_publisher = this->create_publisher<custom_interfaces::msg::ConeArray>("/perception/cones", 10);
+      _ground_removal_(params.ground_removal_),
+      _clustering_(params.clustering_),
+      _cone_differentiator_(params.cone_differentiator_),
+      _cone_validators_(params.cone_validators_),
+      _cone_evaluator_(params.distance_predict_) {
+  this->_cones_publisher =
+      this->create_publisher<custom_interfaces::msg::ConeArray>("/perception/cones", 10);
 
-  this->_adapter_ = std::shared_ptr<Adapter>(adapter_map[mode](this));
 }
 
 void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg) {

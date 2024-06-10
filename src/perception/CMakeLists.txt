@@ -24,7 +24,6 @@ set(IMPLEMENTATION_FILES
   src/perception/perception_node.cpp
   src/ground_removal/ransac.cpp
   src/ground_removal/grid_ransac.cpp
-  src/adapter_perception/adapter.cpp
   src/adapter_perception/fsds.cpp
   src/adapter_perception/vehicle.cpp
   src/adapter_perception/eufs.cpp

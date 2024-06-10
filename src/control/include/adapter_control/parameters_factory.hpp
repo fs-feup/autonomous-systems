@@ -49,7 +49,7 @@ std::shared_ptr<Control> create_control(const std::string_view& adapter_type,
   if (it != adapter_map.end()) {
     return it->second(params);
   } else {
-    RCLCPP_ERROR(rclcpp::get_logger("planning"), "Adapter type not recognized");
+    RCLCPP_ERROR(rclcpp::get_logger("control"), "Adapter type not recognized");
     return nullptr;
   }
 }
