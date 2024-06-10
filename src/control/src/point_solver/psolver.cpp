@@ -1,6 +1,7 @@
 #include "point_solver/psolver.hpp"
 
 using namespace common_lib::structures;
+using namespace common_lib::vehicle_dynamics;
 
 /**
  * @brief PointSolver Constructer
@@ -19,13 +20,13 @@ void PointSolver::update_vehicle_pose(
   this->vehicle_pose_.position.y = vehicle_state_msg.position.y;
 
   this->vehicle_pose_.velocity_ = vehicle_state_msg.linear_velocity;
-  this->vehicle_pose_.heading_ = vehicle_state_msg.theta;
+  this->vehicle_pose_.orientation = vehicle_state_msg.theta;
   RCLCPP_INFO(rclcpp::get_logger("control"),
-              "Calculating rear axis: CG.x %f CG.y %f, Heading %f, Dist cg 2 rear axis %f",
-              this->vehicle_pose_.position.x, vehicle_pose_.position.y, this->vehicle_pose_.heading_,
-              this->dist_cg_2_rear_axis_);
+              "Calculating rear axis: CG.x %f CG.y %f, orientation %f, Dist cg 2 rear axis %f",
+              this->vehicle_pose_.position.x, vehicle_pose_.position.y,
+              this->vehicle_pose_.orientation, this->dist_cg_2_rear_axis_);
   this->vehicle_pose_.rear_axis_ = cg_2_rear_axis(
-      this->vehicle_pose_.position, this->vehicle_pose_.heading_, this->dist_cg_2_rear_axis_);
+      this->vehicle_pose_.position, this->vehicle_pose_.orientation, this->dist_cg_2_rear_axis_);
 
   RCLCPP_INFO(rclcpp::get_logger("control"), "Current rear axis: %f, %f",
               vehicle_pose_.rear_axis_.x, vehicle_pose_.rear_axis_.y);
@@ -96,7 +97,8 @@ std::tuple<Position, double, bool> PointSolver::update_lookahead_point(
   }
 
   double scaled_velocity =
-      closest_yet.v * rear_axis_point.euclidean_distance(Position(closest_yet.x, closest_yet.y)) / ld;
+      closest_yet.v * rear_axis_point.euclidean_distance(Position(closest_yet.x, closest_yet.y)) /
+      ld;
   return std::make_tuple(Position(closest_yet.x, closest_yet.y), scaled_velocity, false);
 }
 
@@ -107,9 +109,3 @@ double PointSolver::update_lookahead_distance(double k, double velocity) const {
   return k * velocity;
 };
 
-Position PointSolver::cg_2_rear_axis(Position cg, double heading, double dist_cg_2_rear_axis) const {
-  Position rear_axis = Position();
-  rear_axis.x = cg.x - dist_cg_2_rear_axis * cos(heading);
-  rear_axis.y = cg.y - dist_cg_2_rear_axis * sin(heading);
-  return rear_axis;
-}

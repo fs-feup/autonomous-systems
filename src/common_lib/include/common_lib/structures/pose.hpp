@@ -21,14 +21,13 @@ struct Pose {
 struct VehiclePose : public Pose {
 public:
   Position rear_axis_;
-  double heading_;
   double velocity_;
 
   // Default constructor
   VehiclePose() = default;
 
   // Constructor
-  VehiclePose(Position cg, Position rear_axis, double heading, double orientation, double velocity)
-      : Pose(cg, orientation), rear_axis_(rear_axis), heading_(heading), velocity_(velocity){};
+  VehiclePose(Position cg, Position rear_axis, double orientation, double velocity)
+      : Pose(cg, orientation), rear_axis_(rear_axis), velocity_(velocity){};
 };
 }  // namespace common_lib::structures
