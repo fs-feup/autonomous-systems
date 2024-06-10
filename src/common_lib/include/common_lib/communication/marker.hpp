@@ -10,6 +10,8 @@
 #include "std_msgs/msg/color_rgba.hpp"
 #include "visualization_msgs/msg/marker.hpp"
 #include "visualization_msgs/msg/marker_array.hpp"
+#include "custom_interfaces/msg/path_point.hpp"
+#include "custom_interfaces/msg/path_point_array.hpp"
 namespace common_lib::communication {
 
 const std::map<std::string, std::array<float, 4>, std::less<>> marker_color_map = {
@@ -168,5 +170,16 @@ visualization_msgs::msg::Marker line_marker_from_structure_array(
 
   return marker;
 }
+
+
+/**
+ * @brief Converts a Path Point Array from Custom Interfaces into a vector of
+ * common_lib path points
+ * @param path_point_array Path Point Array from Custom Interfaces
+ * @return std::vector<common_lib::structures::PathPoint>
+ */ 
+std::vector<common_lib::structures::PathPoint> path_point_array_from_ci_vector(
+    const custom_interfaces::msg::PathPointArray &path_point_array);
+
 
 }  // namespace common_lib::communication
