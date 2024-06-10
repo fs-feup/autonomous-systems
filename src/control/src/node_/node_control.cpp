@@ -5,7 +5,6 @@
 #include <memory>
 #include <string>
 
-#include "adapter_control/adapter.hpp"
 #include "custom_interfaces/msg/evaluator_control_data.hpp"
 #include "custom_interfaces/msg/path_point_array.hpp"
 #include "custom_interfaces/msg/vehicle_state.hpp"
@@ -17,11 +16,10 @@
 
 using namespace common_lib::structures;
 
-Control::Control(bool using_simulated_se, bool mocker_node, double lookahead_gain,
-                 double lookahead_margin)
+Control::Control(const ControlParameters& params)
     : Node("control"),
-      using_simulated_se_(using_simulated_se),
-      mocker_node_(mocker_node),
+      using_simulated_se_(params.using_simulated_se_),
+      mocker_node_(params.mocker_node_),
       evaluator_data_pub_(create_publisher<custom_interfaces::msg::EvaluatorControlData>(
           "/control/evaluator_data", 10)),
       path_point_array_sub_(create_subscription<custom_interfaces::msg::PathPointArray>(
@@ -30,7 +28,7 @@ Control::Control(bool using_simulated_se, bool mocker_node, double lookahead_gai
             RCLCPP_DEBUG(this->get_logger(), "Received pathpoint array");
             pathpoint_array_ = msg.pathpoint_array;
           })),
-      point_solver_(lookahead_gain, lookahead_margin) {
+      point_solver_(params.lookahead_gain_, params.lookahead_margin_) {
   if (!using_simulated_se_) {
     vehicle_state_sub_ = this->create_subscription<custom_interfaces::msg::VehicleState>(
         "/state_estimation/vehicle_state", 10,

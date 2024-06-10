@@ -1,10 +1,9 @@
-#include "adapter_control/pac_sim.hpp"
+#include "adapter_control/pacsim.hpp"
 
 #include "node_/node_control.hpp"
 
-PacSimAdapter::PacSimAdapter(bool using_simulated_se, bool mocker_node, double lookahead_gain,
-                             double lookahead_margin)
-    : Control(using_simulated_se, mocker_node, lookahead_gain, lookahead_margin),
+PacSimAdapter::PacSimAdapter(const ControlParameters& params)
+    : Control(params),
       steering_pub_(create_publisher<pacsim::msg::StampedScalar>("/pacsim/steering_setpoint", 10)),
       acceleration_pub_(create_publisher<pacsim::msg::Wheels>("/pacsim/torques_max", 10)) {
   // No topic for pacsim, just set the go_signal to true

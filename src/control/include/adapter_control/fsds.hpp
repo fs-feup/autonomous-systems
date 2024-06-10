@@ -12,7 +12,7 @@ class FsdsAdapter : public Control {
   rclcpp::Publisher<fs_msgs::msg::ControlCommand>::SharedPtr control_pub_;
 
  public:
-  explicit FsdsAdapter(bool using_simulated_se, bool mocker_node, double lookahead_gain, double lookahead_margin);
+  explicit FsdsAdapter(const ControlParameters &params);
 
   void fsds_mission_state_callback(const fs_msgs::msg::GoSignal msg);
   void publish_cmd(double acceleration = 0, double steering = 0) override;

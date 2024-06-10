@@ -12,7 +12,7 @@ class VehicleAdapter : public Control {
   rclcpp::Publisher<custom_interfaces::msg::ControlCommand>::SharedPtr control_pub_;
 
  public:
-  explicit VehicleAdapter(bool using_simulated_se, bool mocker_node, double lookahead_gain, double lookahead_margin);
+  explicit VehicleAdapter(const ControlParameters &params);
   void publish_cmd(double acceleration, double steering) override;
   void go_signal_callback(const custom_interfaces::msg::OperationalStatus msg);
 };

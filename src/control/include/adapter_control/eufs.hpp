@@ -10,7 +10,7 @@ class EufsAdapter : public Control {
   rclcpp::Subscription<eufs_msgs::msg::CarState>::SharedPtr vehicle_state_sub_;
 
  public:
-  explicit EufsAdapter(bool using_simulated_se, bool mocker_node, double lookahead_gain, double lookahead_margin);
+  explicit EufsAdapter(const ControlParameters &params);
   void vehicle_state_callback(const eufs_msgs::msg::CarState& msg);
   void publish_cmd(double acceleration = 0, double steering = 0) override;
 };

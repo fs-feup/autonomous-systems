@@ -15,6 +15,13 @@
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
 
+struct ControlParameters {
+  bool using_simulated_se_;
+  bool mocker_node_;
+  double lookahead_gain_;
+  double lookahead_margin_;
+};
+
 /**
  * @class Control
  * @brief Class responsible for the control of the car
@@ -27,7 +34,7 @@ public:
   bool using_simulated_se_{false};
   bool go_signal_{false};
 
-  Control(bool using_simulated_se, bool mocker_node, double lookahead_gain, double lookahead_margin);
+  explicit Control(const ControlParameters &params);
 
   /**
    * @brief Publishes the steering angle to the car based on the path and pose using cache

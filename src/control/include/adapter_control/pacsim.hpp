@@ -25,7 +25,7 @@ class PacSimAdapter : public Control {
   // TODO: MISSION FINISHED IS A SERVICE NOT A TOPIC,
 
  public:
-  explicit PacSimAdapter(bool using_simulated_se, bool mocker_node, double lookahead_gain, double lookahead_margin);
+  explicit PacSimAdapter(const ControlParameters &params);
   void timer_callback();
   void finish();
   void publish_cmd(double acceleration = 0, double steering = 0) override;

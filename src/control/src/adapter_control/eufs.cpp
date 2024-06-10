@@ -2,9 +2,8 @@
 
 #include "node_/node_control.hpp"
 
-EufsAdapter::EufsAdapter(bool using_simulated_se, bool mocker_node, double lookahead_gain,
-                         double lookahead_margin)
-    : Control(using_simulated_se, mocker_node, lookahead_gain, lookahead_margin),
+EufsAdapter::EufsAdapter(const ControlParameters& params)
+    : Control(params),
       control_pub_(create_publisher<ackermann_msgs::msg::AckermannDriveStamped>("/cmd", 10)) {
   // No topic for eufs, just set the go_signal to true
   go_signal_ = true;
