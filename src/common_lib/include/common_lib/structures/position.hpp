@@ -10,4 +10,4 @@ struct Position {
   double euclidean_distance(const Position &other) const;
 };
 bool operator<(const Position &lhs, const Position &rhs);
-};  // namespace common_lib::structures
+}  // namespace common_lib::structures
