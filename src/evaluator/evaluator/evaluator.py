@@ -172,14 +172,20 @@ class Evaluator(Node):
             Float32, "/evaluator/control/difference", 10
         )
         self._control_difference_mean_ = self.create_publisher(
-            Float32, "/evaluator/control/difference_mean_", 10
-        )
-        self._control_root_mean_squared_difference_ = self.create_publisher(
-            Float32, "/evaluator/control/root_mean_squared_difference_", 10
+            Float32, "/evaluator/control/difference_mean", 10
         )
 
-        self._vehicle_position_ = []  # will store a vehicle position
-        self._closest_points_ = []  # will store a closest point
+        self._control_mean_squared_difference_ = self.create_publisher(
+            Float32, "/evaluator/control/mean_squared_difference"
+        )
+
+        self._control_root_mean_squared_difference_ = self.create_publisher(
+            Float32, "/evaluator/control/root_mean_squared_difference", 10
+        )
+
+        self._control_sum_error = 0
+        self._control_squared_sum_error = 0
+        self._control_count = 0
 
         self.planning_mock = (
             []
@@ -456,21 +462,19 @@ class Evaluator(Node):
         difference = Float32()
         difference.data = compute_distance(closest_point, pose_position)
 
-        # self._closest_points_.append(closest_point)
-        # self._vehicle_position_.append(pose_position)
 
-        # mean_difference = Float32()
-        # mean_difference.data = get_average_difference(
-        #     self._closest_points_, self._vehicle_position_
-        # )
+        self._control_sum_error += compute_distance(closest_point, pose_position)
+        self._control_squared_sum_error += compute_distance(closest_point, pose_position) ** 2
+        self._control_count += 1
 
-        # mean_squared_difference = Float32()
-        # mean_squared_difference.data = get_mean_squared_difference(
-        #     self._closest_points_, self._vehicle_position_
-        # )
+        mean_difference = Float32()
+        mean_difference.data = self._control_sum_error / self._control_count
 
-        # root_mean_squared_difference = Float32()
-        # root_mean_squared_difference.data = sqrt(mean_squared_difference)
+        mean_squared_difference = Float32()
+        mean_squared_difference.data = self._control_squared_sum_error / self._control_count
+
+        root_mean_squared_difference = Float32()
+        root_mean_squared_difference.data = sqrt(self._control_squared_sum_error / self._control_count)
 
         self.get_logger().debug(
             "Computed control metrics:\n \
@@ -479,17 +483,17 @@ class Evaluator(Node):
                                 Mean squared difference: {}\n \
                                 Root mean squared difference: {}".format(
                 difference,
-                "TODO",
-                "TODO",
-                "TODO",
+                mean_difference,
+                mean_squared_difference,
+                root_mean_squared_difference,
             )
         )
 
+        # Publish control metrics
         self._control_difference_.publish(difference)
-        # self._control_difference_mean_.publish(mean_difference)
-        # self._control_root_mean_squared_difference_.publish(
-        #     root_mean_squared_difference
-        # )
+        self._control_difference_mean_.publish(mean_difference)
+        self._control_mean_squared_difference_.publish(mean_squared_difference)
+        self._control_root_mean_squared_difference_.publish(root_mean_squared_difference)
 
 
 def main(args=None):
