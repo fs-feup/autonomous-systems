@@ -26,7 +26,6 @@ class PacSimAdapter : public Adapter {
  public:
   explicit PacSimAdapter(Control* control);
   void timer_callback();
-  void car_velocity_callback(const geometry_msgs::msg::TwistWithCovarianceStamped& msg);
   void finish();
   void publish_cmd(double acceleration = 0, double steering = 0) override;
 };
