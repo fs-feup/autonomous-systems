@@ -2,7 +2,6 @@ var class_pac_sim_adapter =
 [
     [ "PacSimAdapter", "db/d68/class_pac_sim_adapter.html#a493deb07a9830a5c67f2c0e0eb73d5e7", null ],
     [ "PacSimAdapter", "db/d68/class_pac_sim_adapter.html#a729f239a933770fbdb98aaf04f2084ae", null ],
-    [ "car_velocity_callback", "db/d68/class_pac_sim_adapter.html#a5d8e4cee5bb2ebf21a03c7904babd9ca", null ],
     [ "finish", "db/d68/class_pac_sim_adapter.html#ade4eaaf7e4cfc7775d889a8689049358", null ],
     [ "finish", "db/d68/class_pac_sim_adapter.html#a00e1d2add8f42fd3bbfbbd9e6287ccea", null ],
     [ "publish_cmd", "db/d68/class_pac_sim_adapter.html#a2dc4a13d84b41c8741be044542fa8275", null ],

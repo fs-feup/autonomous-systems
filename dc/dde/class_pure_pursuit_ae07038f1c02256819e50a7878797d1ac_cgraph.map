@@ -1,0 +1,7 @@
+<map id="PurePursuit::calculate_alpha" name="PurePursuit::calculate_alpha">
+<area shape="rect" id="Node000001" title="Calculate alpha (angle between the vehicle and lookahead point)" alt="" coords="5,41,153,82"/>
+<area shape="rect" id="Node000002" href="$d9/d8a/namespacecommon__lib_1_1structures.html#a985cd88a640d3c7ccc3f8d5094272843" title="Calculate the cross product of two vectors." alt="" coords="201,5,356,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="153,46,184,40,185,45,153,51"/>
+<area shape="rect" id="Node000003" href="$dc/d1b/structcommon__lib_1_1structures_1_1_position.html#a9d5f2cdfcef053cae4a6a7a3888ce2d6" title=" " alt="" coords="201,70,356,126"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="153,72,185,78,184,83,153,78"/>
+</map>

@@ -88,10 +88,11 @@ var hierarchy =
     [ "PerceptionExecutionData", "d2/d36/struct_perception_execution_data.html", null ],
     [ "PID", "d6/d5a/class_p_i_d.html", null ],
     [ "Plane", "d2/d8d/class_plane.html", null ],
-    [ "Point", "d0/d69/class_point.html", null ],
     [ "PointSolver", "d9/da5/class_point_solver.html", null ],
-    [ "common_lib::structures::Pose", "d8/d4a/structcommon__lib_1_1structures_1_1_pose.html", null ],
-    [ "Pose", "de/dec/class_pose.html", null ],
+    [ "common_lib::structures::Pose", "d8/d4a/structcommon__lib_1_1structures_1_1_pose.html", [
+      [ "common_lib::structures::VehiclePose", "de/d41/structcommon__lib_1_1structures_1_1_vehicle_pose.html", null ]
+    ] ],
+    [ "Pose", "d8/d11/struct_pose.html", null ],
     [ "common_lib::structures::Position", "dc/d1b/structcommon__lib_1_1structures_1_1_position.html", null ],
     [ "Position", "d1/d26/struct_position.html", null ],
     [ "PurePursuit", "dc/dde/class_pure_pursuit.html", null ],

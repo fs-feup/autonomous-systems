@@ -102,8 +102,70 @@ Functions</h2></td></tr>
 <tr class="memitem:a6f4e302b6228b2dbd52b6d37a9685677" id="r_a6f4e302b6228b2dbd52b6d37a9685677"><td class="memItemLeft" align="right" valign="top">std::pair&lt; double, double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d1a/namespacecommon__lib_1_1vehicle__dynamics.html#a6f4e302b6228b2dbd52b6d37a9685677">odometry_to_velocities_transform</a> (double rl_rpm, double fl_rpm, double rr_rpm, double fr_rpm, double steering_angle)</td></tr>
 <tr class="memdesc:a6f4e302b6228b2dbd52b6d37a9685677"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts the odometry data to translational and rotational velocities.  <br /></td></tr>
 <tr class="separator:a6f4e302b6228b2dbd52b6d37a9685677"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aecf44e20f904287db0e4c2b8f4b426a4" id="r_aecf44e20f904287db0e4c2b8f4b426a4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d1a/namespacecommon__lib_1_1vehicle__dynamics.html#aecf44e20f904287db0e4c2b8f4b426a4">cg_2_rear_axis</a> (<a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a> cg, double orientation, double dist_cg_2_rear_axis)</td></tr>
+<tr class="memdesc:aecf44e20f904287db0e4c2b8f4b426a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate rear axis coordinates.  <br /></td></tr>
+<tr class="separator:aecf44e20f904287db0e4c2b8f4b426a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="aecf44e20f904287db0e4c2b8f4b426a4" name="aecf44e20f904287db0e4c2b8f4b426a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aecf44e20f904287db0e4c2b8f4b426a4">&#9670;&#160;</a></span>cg_2_rear_axis()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a> common_lib::vehicle_dynamics::cg_2_rear_axis </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a>&#160;</td>
+          <td class="paramname"><em>cg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>orientation</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>dist_cg_2_rear_axis</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculate rear axis coordinates. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cg</td><td></td></tr>
+    <tr><td class="paramname">orientation</td><td></td></tr>
+    <tr><td class="paramname">dist_cg_2_rear_axis</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Point </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d7/de6/bicycle__model_8cpp_source.html#l00038">38</a> of file <a class="el" href="../../d7/de6/bicycle__model_8cpp_source.html">bicycle_model.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d4/d1a/namespacecommon__lib_1_1vehicle__dynamics_aecf44e20f904287db0e4c2b8f4b426a4_icgraph.png" border="0" usemap="#ad4/d1a/namespacecommon__lib_1_1vehicle__dynamics_aecf44e20f904287db0e4c2b8f4b426a4_icgraph" alt=""/></div>
+<map name="ad4/d1a/namespacecommon__lib_1_1vehicle__dynamics_aecf44e20f904287db0e4c2b8f4b426a4_icgraph" id="ad4/d1a/namespacecommon__lib_1_1vehicle__dynamics_aecf44e20f904287db0e4c2b8f4b426a4_icgraph">
+<area shape="rect" title="Calculate rear axis coordinates." alt="" coords="390,5,566,46"/>
+<area shape="rect" href="../../d9/da5/class_point_solver.html#a2547e5834c5e2238a69e7b6a96dc1d7a" title="Update vehicle pose." alt="" coords="209,5,342,46"/>
+<area shape="poly" title=" " alt="" coords="374,28,343,28,343,23,374,23"/>
+<area shape="rect" href="../../d7/d49/class_control.html#a4953afbe68bf1d7a023972985c8083d6" title="Publishes the steering angle to the car based on the path and pose using cache." alt="" coords="5,13,161,39"/>
+<area shape="poly" title=" " alt="" coords="193,28,161,28,161,23,193,23"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="a6f4e302b6228b2dbd52b6d37a9685677" name="a6f4e302b6228b2dbd52b6d37a9685677"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6f4e302b6228b2dbd52b6d37a9685677">&#9670;&#160;</a></span>odometry_to_velocities_transform()</h2>
 

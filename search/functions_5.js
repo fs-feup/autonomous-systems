@@ -1,7 +1,7 @@
 var searchData=
 [
   ['end_5fof_5fmission_0',['end_of_mission',['../de/d3d/class_inspection_mission.html#a9a5bfb51641629d7106bb304663d3a22',1,'InspectionMission']]],
-  ['euclidean_5fdistance_1',['euclidean_distance',['../dc/d1b/structcommon__lib_1_1structures_1_1_position.html#a9d5f2cdfcef053cae4a6a7a3888ce2d6',1,'common_lib::structures::Position::euclidean_distance()'],['../d0/d69/class_point.html#a0c8948205343f30d626407d0c4450218',1,'Point::euclidean_distance()']]],
+  ['euclidean_5fdistance_1',['euclidean_distance',['../dc/d1b/structcommon__lib_1_1structures_1_1_position.html#a9d5f2cdfcef053cae4a6a7a3888ce2d6',1,'common_lib::structures::Position::euclidean_distance()'],['../d9/d8a/namespacecommon__lib_1_1structures.html#ac49febff7283947e80fc0b8a888576ec',1,'common_lib::structures::euclidean_distance()']]],
   ['eufsadapter_2',['eufsadapter',['../d0/d1d/class_eufs_adapter.html#a387a74aa3c14553cdde6029f213b30ab',1,'EufsAdapter::EufsAdapter(Control *control)'],['../d0/d1d/class_eufs_adapter.html#a01050294fc148f252fa283d2828a4613',1,'EufsAdapter::EufsAdapter(std::shared_ptr&lt; SENode &gt; se_node)'],['../d0/d1d/class_eufs_adapter.html#abb01ee20051497b1f408f5e7168aa8a4',1,'EufsAdapter::EufsAdapter(Perception *perception)'],['../d0/d1d/class_eufs_adapter.html#a17a85a1ef1c217ae4bef7b4244e17fdb',1,'EufsAdapter::EufsAdapter(Planning *planning)']]],
   ['evaluatecluster_3',['evaluatecluster',['../df/d8f/class_cone_evaluator.html#a1851f3d4634f725c6581d58a03cb0c3c',1,'ConeEvaluator::evaluateCluster()'],['../d0/d47/class_distance_predict.html#a30fefe0b7264263220f3a38b6a873838',1,'DistancePredict::evaluateCluster()']]],
   ['executeicp_4',['executeICP',['../dd/d10/class_i_c_p.html#ac7aa77bae1ac288c7447654ff910a669',1,'ICP']]],

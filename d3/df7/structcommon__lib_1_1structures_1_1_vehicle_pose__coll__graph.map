@@ -1,0 +1,8 @@
+<map id="common_lib::structures::VehiclePose" name="common_lib::structures::VehiclePose">
+<area shape="rect" id="Node000001" title=" " alt="" coords="33,378,180,478"/>
+<area shape="rect" id="Node000002" href="$d8/d4a/structcommon__lib_1_1structures_1_1_pose.html" title="Struct for pose representation." alt="" coords="152,208,299,328"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="174,342,146,379,141,376,170,338"/>
+<area shape="rect" id="Node000003" href="$dc/d1b/structcommon__lib_1_1structures_1_1_position.html" title=" " alt="" coords="5,5,152,145"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="71,145,66,233,67,281,73,328,81,361,76,362,67,329,62,281,60,233,66,145"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="133,143,172,194,168,197,129,146"/>
+</map>

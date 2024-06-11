@@ -1,0 +1,19 @@
+<map id="PurePursuit::calculate_alpha" name="PurePursuit::calculate_alpha">
+<area shape="rect" id="Node000001" title="Calculate alpha (angle between the vehicle and lookahead point)" alt="" coords="419,154,566,195"/>
+<area shape="rect" id="Node000002" href="$dc/dde/class_pure_pursuit.html#ab921e5033e736078b4adb269525f6dde" title="Pure Pursuit control law." alt="" coords="209,22,371,63"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="458,145,417,110,370,76,348,65,351,61,372,72,420,106,461,141"/>
+<area shape="rect" id="Node000005" href="$dd/d88/pp__test_8cpp.html#a1ec7089f8e844e5c955b89854b34cdc9" title="Test PurePursuit &#45; calculate_alpha() typical angle &#45; path point left." alt="" coords="263,87,317,112"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="430,150,370,126,317,109,318,104,372,121,432,145"/>
+<area shape="rect" id="Node000006" href="$dd/d88/pp__test_8cpp.html#a4e77a0f3d3da35627de29e1edf47ef11" title="Test PurePursuit &#45; calculate_alpha() typical angle &#45; path point right." alt="" coords="263,136,317,162"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="403,166,317,155,318,149,404,160"/>
+<area shape="rect" id="Node000007" href="$dd/d88/pp__test_8cpp.html#a3ab5b31ec6f9af40e97816c2f98a1346" title="Test PurePursuit &#45; calculate_alpha() 90 degrees angle." alt="" coords="263,185,317,211"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="404,187,318,198,317,192,403,182"/>
+<area shape="rect" id="Node000008" href="$dd/d88/pp__test_8cpp.html#a9a240517e306e0820a2a08e4c96009d3" title="Test PurePursuit &#45; calculate_alpha() 0 degrees angle." alt="" coords="263,235,317,260"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="431,203,372,226,318,243,317,238,370,221,429,198"/>
+<area shape="rect" id="Node000009" href="$dd/d88/pp__test_8cpp.html#ae68834f79cf7d46aa148126f41c81571" title="Test PurePursuit &#45; calculate_alpha() 180 degrees angle." alt="" coords="263,284,317,310"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="462,208,421,243,372,275,345,287,318,294,317,289,343,282,370,270,418,239,458,204"/>
+<area shape="rect" id="Node000003" href="$d7/d49/class_control.html#a4953afbe68bf1d7a023972985c8083d6" title="Publishes the steering angle to the car based on the path and pose using cache." alt="" coords="5,5,161,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="193,34,161,30,161,25,194,28"/>
+<area shape="rect" id="Node000004" href="$dd/d88/pp__test_8cpp.html#a2ac7920b349c45c0eb6e7e70be3ed660" title="Test PurePursuit &#45; pp_steering_control_law()" alt="" coords="56,55,110,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="194,57,111,67,110,62,193,51"/>
+</map>

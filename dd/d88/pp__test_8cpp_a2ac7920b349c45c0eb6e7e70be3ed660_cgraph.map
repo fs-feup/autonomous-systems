@@ -1,14 +1,12 @@
 <map id="TEST" name="TEST">
-<area shape="rect" id="Node000001" title="Test PurePursuit &#45; pp_steering_control_law()" alt="" coords="5,70,60,96"/>
-<area shape="rect" id="Node000002" href="$dc/dde/class_pure_pursuit.html#a87ccde6a5181801f14f87d5e759fbc1a" title="Pure Pursuit control law." alt="" coords="108,63,270,103"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,80,92,80,92,86,60,86"/>
-<area shape="rect" id="Node000003" href="$dc/dde/class_pure_pursuit.html#a028647f1a2c9ba1d5fea2f3b7e3448c0" title="Calculate alpha (angle between the vehicle and lookahead point)" alt="" coords="318,5,465,46"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="262,60,302,48,304,53,264,65"/>
-<area shape="rect" id="Node000005" href="$d0/d69/class_point.html#a0c8948205343f30d626407d0c4450218" title=" " alt="" coords="513,70,682,96"/>
-<area shape="poly" id="edge6_Node000002_Node000005" title=" " alt="" coords="270,80,498,80,498,86,270,86"/>
-<area shape="rect" id="Node000006" href="$dc/dde/class_pure_pursuit.html#ae2dacfa6e11913a7ef55effdfedf1d21" title=" " alt="" coords="327,120,457,161"/>
-<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="264,101,312,115,311,120,262,106"/>
-<area shape="rect" id="Node000004" href="$dc/dde/class_pure_pursuit.html#a8072146769a35ea478c1dcabed4f5a83" title="Calculate the cross product of two vectors." alt="" coords="534,5,661,46"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="466,23,518,23,518,28,466,28"/>
-<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="466,44,535,63,533,68,465,49"/>
+<area shape="rect" id="Node000001" title="Test PurePursuit &#45; pp_steering_control_law()" alt="" coords="5,57,60,83"/>
+<area shape="rect" id="Node000002" href="$dc/dde/class_pure_pursuit.html#ab921e5033e736078b4adb269525f6dde" title="Pure Pursuit control law." alt="" coords="108,49,270,90"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,67,92,67,92,72,60,72"/>
+<area shape="rect" id="Node000003" href="$dc/dde/class_pure_pursuit.html#ae07038f1c02256819e50a7878797d1ac" title="Calculate alpha (angle between the vehicle and lookahead point)" alt="" coords="318,20,465,61"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="270,55,302,51,303,56,271,61"/>
+<area shape="rect" id="Node000005" href="$dc/d1b/structcommon__lib_1_1structures_1_1_position.html#a9d5f2cdfcef053cae4a6a7a3888ce2d6" title=" " alt="" coords="513,70,669,126"/>
+<area shape="poly" id="edge5_Node000002_Node000005" title=" " alt="" coords="271,73,498,89,498,94,270,78"/>
+<area shape="rect" id="Node000004" href="$d9/d8a/namespacecommon__lib_1_1structures.html#a985cd88a640d3c7ccc3f8d5094272843" title="Calculate the cross product of two vectors." alt="" coords="513,5,669,46"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="465,32,497,30,498,35,466,38"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="465,59,499,68,497,74,464,64"/>
 </map>

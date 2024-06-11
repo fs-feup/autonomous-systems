@@ -1,8 +1,8 @@
 var searchData=
 [
   ['k_0',['K',['../d2/d05/local__path__planner_8hpp.html#a891e241aa245ae63618f03737efba309',1,'local_path_planner.hpp']]],
-  ['k_5f_1',['k_',['../d7/d49/class_control.html#a805a396ee016b6a318ad064f06f9b2b3',1,'Control']]],
-  ['kd_2',['Kd',['../d6/d5a/class_p_i_d.html#ae5dabe1953dd6c4aa28e5cb03f71b9e3',1,'PID']]],
-  ['ki_3',['Ki',['../d6/d5a/class_p_i_d.html#a78d1833549e5c05ca4e94d07129ac4e7',1,'PID']]],
-  ['kp_4',['Kp',['../d6/d5a/class_p_i_d.html#a482d124af49dcabfa1d9542066ead626',1,'PID']]]
+  ['k_5f_1',['k_',['../d9/da5/class_point_solver.html#a8c1f911c86d00e8cde4d665447366d99',1,'PointSolver']]],
+  ['kd_5f_2',['kd_',['../d6/d5a/class_p_i_d.html#a0f478b17184eb58251fd1e11298ed3d1',1,'PID']]],
+  ['ki_5f_3',['ki_',['../d6/d5a/class_p_i_d.html#a3b53daa42c039a745773ccc60355feca',1,'PID']]],
+  ['kp_5f_4',['kp_',['../d6/d5a/class_p_i_d.html#a5e144cee82e154b288b1e686496e7265',1,'PID']]]
 ];

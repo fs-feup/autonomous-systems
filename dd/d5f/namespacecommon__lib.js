@@ -44,6 +44,7 @@ var namespacecommon__lib =
     [ "sensor_data", "dc/d34/namespacecommon__lib_1_1sensor__data.html", "dc/d34/namespacecommon__lib_1_1sensor__data" ],
     [ "structures", "d9/d8a/namespacecommon__lib_1_1structures.html", "d9/d8a/namespacecommon__lib_1_1structures" ],
     [ "vehicle_dynamics", "d4/d1a/namespacecommon__lib_1_1vehicle__dynamics.html", [
+      [ "cg_2_rear_axis", "d4/d1a/namespacecommon__lib_1_1vehicle__dynamics.html#aecf44e20f904287db0e4c2b8f4b426a4", null ],
       [ "odometry_to_velocities_transform", "d4/d1a/namespacecommon__lib_1_1vehicle__dynamics.html#a6f4e302b6228b2dbd52b6d37a9685677", null ]
     ] ]
 ];

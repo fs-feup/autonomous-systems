@@ -14,6 +14,7 @@ var annotated_dup =
         [ "PathPoint", "d9/db0/structcommon__lib_1_1structures_1_1_path_point.html", "d9/db0/structcommon__lib_1_1structures_1_1_path_point" ],
         [ "Pose", "d8/d4a/structcommon__lib_1_1structures_1_1_pose.html", "d8/d4a/structcommon__lib_1_1structures_1_1_pose" ],
         [ "Position", "dc/d1b/structcommon__lib_1_1structures_1_1_position.html", "dc/d1b/structcommon__lib_1_1structures_1_1_position" ],
+        [ "VehiclePose", "de/d41/structcommon__lib_1_1structures_1_1_vehicle_pose.html", "de/d41/structcommon__lib_1_1structures_1_1_vehicle_pose" ],
         [ "VehicleState", "d0/d2a/structcommon__lib_1_1structures_1_1_vehicle_state.html", "d0/d2a/structcommon__lib_1_1structures_1_1_vehicle_state" ]
       ] ]
     ] ],
@@ -87,8 +88,8 @@ var annotated_dup =
     [ "NormalVelocityModel", "d7/df9/class_normal_velocity_model.html", "d7/df9/class_normal_velocity_model" ],
     [ "ObservationData", "d9/d90/struct_observation_data.html", "d9/d90/struct_observation_data" ],
     [ "ObservationModel", "d7/d64/class_observation_model.html", "d7/d64/class_observation_model" ],
-    [ "PacsimAdapter", "d1/dcb/class_pacsim_adapter.html", "d1/dcb/class_pacsim_adapter" ],
     [ "PacSimAdapter", "db/d68/class_pac_sim_adapter.html", "db/d68/class_pac_sim_adapter" ],
+    [ "PacsimAdapter", "d1/dcb/class_pacsim_adapter.html", "d1/dcb/class_pacsim_adapter" ],
     [ "PathPoint", "d9/d32/class_path_point.html", "d9/d32/class_path_point" ],
     [ "PathPointEqual", "d1/d5e/struct_path_point_equal.html", "d1/d5e/struct_path_point_equal" ],
     [ "PathPointHash", "d8/da1/struct_path_point_hash.html", "d8/da1/struct_path_point_hash" ],
@@ -100,9 +101,8 @@ var annotated_dup =
     [ "PID", "d6/d5a/class_p_i_d.html", "d6/d5a/class_p_i_d" ],
     [ "Plane", "d2/d8d/class_plane.html", "d2/d8d/class_plane" ],
     [ "Planning", "d9/db5/class_planning.html", "d9/db5/class_planning" ],
-    [ "Point", "d0/d69/class_point.html", "d0/d69/class_point" ],
     [ "PointSolver", "d9/da5/class_point_solver.html", "d9/da5/class_point_solver" ],
-    [ "Pose", "de/dec/class_pose.html", "de/dec/class_pose" ],
+    [ "Pose", "d8/d11/struct_pose.html", "d8/d11/struct_pose" ],
     [ "Position", "d1/d26/struct_position.html", "d1/d26/struct_position" ],
     [ "PurePursuit", "dc/dde/class_pure_pursuit.html", "dc/dde/class_pure_pursuit" ],
     [ "RANSAC", "d6/dc3/class_r_a_n_s_a_c.html", "d6/dc3/class_r_a_n_s_a_c" ],

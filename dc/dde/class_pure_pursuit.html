@@ -108,7 +108,7 @@ Collaboration diagram for PurePursuit:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../df/da8/class_pure_pursuit__coll__graph.png" border="0" usemap="#a_pure_pursuit_coll__map" alt="Collaboration graph"/></div>
 <map name="a_pure_pursuit_coll__map" id="a_pure_pursuit_coll__map">
-<area shape="rect" title="Pure Pursuit class." alt="" coords="5,5,151,205"/>
+<area shape="rect" title="Pure Pursuit class." alt="" coords="5,5,151,285"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -117,27 +117,34 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0033cad8d2f591460f05ba72695d8574" id="r_a0033cad8d2f591460f05ba72695d8574"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dde/class_pure_pursuit.html#a0033cad8d2f591460f05ba72695d8574">PurePursuit</a> ()</td></tr>
 <tr class="memdesc:a0033cad8d2f591460f05ba72695d8574"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Pure Pursuit object.  <br /></td></tr>
 <tr class="separator:a0033cad8d2f591460f05ba72695d8574"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a87ccde6a5181801f14f87d5e759fbc1a" id="r_a87ccde6a5181801f14f87d5e759fbc1a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dde/class_pure_pursuit.html#a87ccde6a5181801f14f87d5e759fbc1a">pp_steering_control_law</a> (<a class="el" href="../../d0/d69/class_point.html">Point</a> rear_axis, <a class="el" href="../../d0/d69/class_point.html">Point</a> cg, <a class="el" href="../../d0/d69/class_point.html">Point</a> lookahead_point, double dist_cg_2_rear_axis, double wheel_base, double max_steering_angle, double min_steering_angle)</td></tr>
-<tr class="memdesc:a87ccde6a5181801f14f87d5e759fbc1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pure Pursuit control law.  <br /></td></tr>
-<tr class="separator:a87ccde6a5181801f14f87d5e759fbc1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a028647f1a2c9ba1d5fea2f3b7e3448c0" id="r_a028647f1a2c9ba1d5fea2f3b7e3448c0"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dde/class_pure_pursuit.html#a028647f1a2c9ba1d5fea2f3b7e3448c0">calculate_alpha</a> (<a class="el" href="../../d0/d69/class_point.html">Point</a> vehicle_rear_wheel, <a class="el" href="../../d0/d69/class_point.html">Point</a> vehicle_cg, <a class="el" href="../../d0/d69/class_point.html">Point</a> lookahead_point, double rear_wheel_2_c_g)</td></tr>
-<tr class="memdesc:a028647f1a2c9ba1d5fea2f3b7e3448c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate alpha (angle between the vehicle and lookahead point)  <br /></td></tr>
-<tr class="separator:a028647f1a2c9ba1d5fea2f3b7e3448c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8072146769a35ea478c1dcabed4f5a83" id="r_a8072146769a35ea478c1dcabed4f5a83"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dde/class_pure_pursuit.html#a8072146769a35ea478c1dcabed4f5a83">cross_product</a> (<a class="el" href="../../d0/d69/class_point.html">Point</a> P1, <a class="el" href="../../d0/d69/class_point.html">Point</a> P2, <a class="el" href="../../d0/d69/class_point.html">Point</a> P3) const</td></tr>
-<tr class="memdesc:a8072146769a35ea478c1dcabed4f5a83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the cross product of two vectors.  <br /></td></tr>
-<tr class="separator:a8072146769a35ea478c1dcabed4f5a83"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae2dacfa6e11913a7ef55effdfedf1d21" id="r_ae2dacfa6e11913a7ef55effdfedf1d21"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dde/class_pure_pursuit.html#ae2dacfa6e11913a7ef55effdfedf1d21">check_limits</a> (double value, double max_value, double min_value) const</td></tr>
-<tr class="separator:ae2dacfa6e11913a7ef55effdfedf1d21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab921e5033e736078b4adb269525f6dde" id="r_ab921e5033e736078b4adb269525f6dde"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dde/class_pure_pursuit.html#ab921e5033e736078b4adb269525f6dde">pp_steering_control_law</a> (<a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a> rear_axis, <a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a> cg, <a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a> lookahead_point, double dist_cg_2_rear_axis)</td></tr>
+<tr class="memdesc:ab921e5033e736078b4adb269525f6dde"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pure Pursuit control law.  <br /></td></tr>
+<tr class="separator:ab921e5033e736078b4adb269525f6dde"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae07038f1c02256819e50a7878797d1ac" id="r_ae07038f1c02256819e50a7878797d1ac"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dde/class_pure_pursuit.html#ae07038f1c02256819e50a7878797d1ac">calculate_alpha</a> (<a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a> vehicle_rear_wheel, <a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a> vehicle_cg, <a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a> lookahead_point, double rear_wheel_2_c_g)</td></tr>
+<tr class="memdesc:ae07038f1c02256819e50a7878797d1ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate alpha (angle between the vehicle and lookahead point)  <br /></td></tr>
+<tr class="separator:ae07038f1c02256819e50a7878797d1ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad68f728632052039d6ac390bbb945ac1" id="r_ad68f728632052039d6ac390bbb945ac1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dde/class_pure_pursuit.html#ad68f728632052039d6ac390bbb945ac1">FRIEND_TEST</a> (PurePursuitTests, Test_calculate_alpha_1)</td></tr>
+<tr class="separator:ad68f728632052039d6ac390bbb945ac1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22f58c7db62a06ef62f8492e5c3ceed6" id="r_a22f58c7db62a06ef62f8492e5c3ceed6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dde/class_pure_pursuit.html#a22f58c7db62a06ef62f8492e5c3ceed6">FRIEND_TEST</a> (PurePursuitTests, Test_calculate_alpha_2)</td></tr>
+<tr class="separator:a22f58c7db62a06ef62f8492e5c3ceed6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a604e8af2df944c67600b29ce99f1e78d" id="r_a604e8af2df944c67600b29ce99f1e78d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dde/class_pure_pursuit.html#a604e8af2df944c67600b29ce99f1e78d">FRIEND_TEST</a> (PurePursuitTests, Test_calculate_alpha_3)</td></tr>
+<tr class="separator:a604e8af2df944c67600b29ce99f1e78d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a893f14c50fdcd4df88df26892c922159" id="r_a893f14c50fdcd4df88df26892c922159"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dde/class_pure_pursuit.html#a893f14c50fdcd4df88df26892c922159">FRIEND_TEST</a> (PurePursuitTests, Test_calculate_alpha_4)</td></tr>
+<tr class="separator:a893f14c50fdcd4df88df26892c922159"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd154e1d96be1da2086f8ef7be773061" id="r_abd154e1d96be1da2086f8ef7be773061"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dde/class_pure_pursuit.html#abd154e1d96be1da2086f8ef7be773061">FRIEND_TEST</a> (PurePursuitTests, Test_calculate_alpha_5)</td></tr>
+<tr class="separator:abd154e1d96be1da2086f8ef7be773061"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a510ee74ed02b03b2d7e8aa2b65ce6041" id="r_a510ee74ed02b03b2d7e8aa2b65ce6041"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dde/class_pure_pursuit.html#a510ee74ed02b03b2d7e8aa2b65ce6041">FRIEND_TEST</a> (PurePursuitTests, Test_pp_steering_control_law_1)</td></tr>
+<tr class="separator:a510ee74ed02b03b2d7e8aa2b65ce6041"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a3c9883db0681203f0a821f4b0e1668d7" id="r_a3c9883db0681203f0a821f4b0e1668d7"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dde/class_pure_pursuit.html#a3c9883db0681203f0a821f4b0e1668d7">max_steering_angle_</a> = <a class="el" href="../../d2/db6/pp_8hpp.html#a871a7ae10a8ea978ba26c55e60f11da4">MAX_STEERING_ANGLE</a></td></tr>
+<tr class="memitem:a3c9883db0681203f0a821f4b0e1668d7" id="r_a3c9883db0681203f0a821f4b0e1668d7"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dde/class_pure_pursuit.html#a3c9883db0681203f0a821f4b0e1668d7">max_steering_angle_</a> {<a class="el" href="../../d2/db6/pp_8hpp.html#a871a7ae10a8ea978ba26c55e60f11da4">MAX_STEERING_ANGLE</a>}</td></tr>
 <tr class="memdesc:a3c9883db0681203f0a821f4b0e1668d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum steering angle.  <br /></td></tr>
 <tr class="separator:a3c9883db0681203f0a821f4b0e1668d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5798e12338f28ae77667a11163392f14" id="r_a5798e12338f28ae77667a11163392f14"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dde/class_pure_pursuit.html#a5798e12338f28ae77667a11163392f14">min_steering_angle_</a> = <a class="el" href="../../d2/db6/pp_8hpp.html#abc08b549d3af618a25c6f7feb20e470f">MIN_STEERING_ANGLE</a></td></tr>
+<tr class="memitem:a5798e12338f28ae77667a11163392f14" id="r_a5798e12338f28ae77667a11163392f14"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dde/class_pure_pursuit.html#a5798e12338f28ae77667a11163392f14">min_steering_angle_</a> {<a class="el" href="../../d2/db6/pp_8hpp.html#abc08b549d3af618a25c6f7feb20e470f">MIN_STEERING_ANGLE</a>}</td></tr>
 <tr class="memdesc:a5798e12338f28ae77667a11163392f14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Minimum steering angle.  <br /></td></tr>
 <tr class="separator:a5798e12338f28ae77667a11163392f14"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a38b664f4020d7176b903ba231ec0a237" id="r_a38b664f4020d7176b903ba231ec0a237"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dde/class_pure_pursuit.html#a38b664f4020d7176b903ba231ec0a237">wheel_base_</a> = <a class="el" href="../../d2/db6/pp_8hpp.html#a72c6821ab1d592bdd6fe0e498d1a9c23">WHEEL_BASE</a></td></tr>
+<tr class="memitem:a38b664f4020d7176b903ba231ec0a237" id="r_a38b664f4020d7176b903ba231ec0a237"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dde/class_pure_pursuit.html#a38b664f4020d7176b903ba231ec0a237">wheel_base_</a> {<a class="el" href="../../d2/db6/pp_8hpp.html#a72c6821ab1d592bdd6fe0e498d1a9c23">WHEEL_BASE</a>}</td></tr>
 <tr class="memdesc:a38b664f4020d7176b903ba231ec0a237"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wheel base of the vehicle.  <br /></td></tr>
 <tr class="separator:a38b664f4020d7176b903ba231ec0a237"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -148,7 +155,7 @@ Public Attributes</h2></td></tr>
 <li>Calculate the steering angle (Pure Pursuit Controll Law) </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/db6/pp_8hpp_source.html#l00025">25</a> of file <a class="el" href="../../d2/db6/pp_8hpp_source.html">pp.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/db6/pp_8hpp_source.html#l00026">26</a> of file <a class="el" href="../../d2/db6/pp_8hpp_source.html">pp.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a0033cad8d2f591460f05ba72695d8574" name="a0033cad8d2f591460f05ba72695d8574"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0033cad8d2f591460f05ba72695d8574">&#9670;&#160;</a></span>PurePursuit()</h2>
@@ -179,8 +186,8 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a028647f1a2c9ba1d5fea2f3b7e3448c0" name="a028647f1a2c9ba1d5fea2f3b7e3448c0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a028647f1a2c9ba1d5fea2f3b7e3448c0">&#9670;&#160;</a></span>calculate_alpha()</h2>
+<a id="ae07038f1c02256819e50a7878797d1ac" name="ae07038f1c02256819e50a7878797d1ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae07038f1c02256819e50a7878797d1ac">&#9670;&#160;</a></span>calculate_alpha()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -188,19 +195,19 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">double PurePursuit::calculate_alpha </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d0/d69/class_point.html">Point</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a>&#160;</td>
           <td class="paramname"><em>vehicle_rear_wheel</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d0/d69/class_point.html">Point</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a>&#160;</td>
           <td class="paramname"><em>vehicle_cg</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d0/d69/class_point.html">Point</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a>&#160;</td>
           <td class="paramname"><em>lookahead_point</em>, </td>
         </tr>
         <tr>
@@ -229,26 +236,26 @@ Public Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>double </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/de5/pp_8cpp_source.html#l00022">22</a> of file <a class="el" href="../../d2/de5/pp_8cpp_source.html">pp.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/de5/pp_8cpp_source.html#l00024">24</a> of file <a class="el" href="../../d2/de5/pp_8cpp_source.html">pp.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../dc/dde/class_pure_pursuit_a028647f1a2c9ba1d5fea2f3b7e3448c0_cgraph.png" border="0" usemap="#adc/dde/class_pure_pursuit_a028647f1a2c9ba1d5fea2f3b7e3448c0_cgraph" alt=""/></div>
-<map name="adc/dde/class_pure_pursuit_a028647f1a2c9ba1d5fea2f3b7e3448c0_cgraph" id="adc/dde/class_pure_pursuit_a028647f1a2c9ba1d5fea2f3b7e3448c0_cgraph">
-<area shape="rect" title="Calculate alpha (angle between the vehicle and lookahead point)" alt="" coords="5,35,153,75"/>
-<area shape="rect" href="../../dc/dde/class_pure_pursuit.html#a8072146769a35ea478c1dcabed4f5a83" title="Calculate the cross product of two vectors." alt="" coords="221,5,349,46"/>
-<area shape="poly" title=" " alt="" coords="153,42,205,34,206,40,153,47"/>
-<area shape="rect" href="../../d0/d69/class_point.html#a0c8948205343f30d626407d0c4450218" title=" " alt="" coords="201,70,369,96"/>
-<area shape="poly" title=" " alt="" coords="153,62,185,67,185,72,153,68"/>
+<div class="center"><img src="../../dc/dde/class_pure_pursuit_ae07038f1c02256819e50a7878797d1ac_cgraph.png" border="0" usemap="#adc/dde/class_pure_pursuit_ae07038f1c02256819e50a7878797d1ac_cgraph" alt=""/></div>
+<map name="adc/dde/class_pure_pursuit_ae07038f1c02256819e50a7878797d1ac_cgraph" id="adc/dde/class_pure_pursuit_ae07038f1c02256819e50a7878797d1ac_cgraph">
+<area shape="rect" title="Calculate alpha (angle between the vehicle and lookahead point)" alt="" coords="5,41,153,82"/>
+<area shape="rect" href="../../d9/d8a/namespacecommon__lib_1_1structures.html#a985cd88a640d3c7ccc3f8d5094272843" title="Calculate the cross product of two vectors." alt="" coords="201,5,356,46"/>
+<area shape="poly" title=" " alt="" coords="153,46,184,40,185,45,153,51"/>
+<area shape="rect" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html#a9d5f2cdfcef053cae4a6a7a3888ce2d6" title=" " alt="" coords="201,70,356,126"/>
+<area shape="poly" title=" " alt="" coords="153,72,185,78,184,83,153,78"/>
 </map>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../dc/dde/class_pure_pursuit_a028647f1a2c9ba1d5fea2f3b7e3448c0_icgraph.png" border="0" usemap="#adc/dde/class_pure_pursuit_a028647f1a2c9ba1d5fea2f3b7e3448c0_icgraph" alt=""/></div>
-<map name="adc/dde/class_pure_pursuit_a028647f1a2c9ba1d5fea2f3b7e3448c0_icgraph" id="adc/dde/class_pure_pursuit_a028647f1a2c9ba1d5fea2f3b7e3448c0_icgraph">
+<div class="center"><img src="../../dc/dde/class_pure_pursuit_ae07038f1c02256819e50a7878797d1ac_icgraph.png" border="0" usemap="#adc/dde/class_pure_pursuit_ae07038f1c02256819e50a7878797d1ac_icgraph" alt=""/></div>
+<map name="adc/dde/class_pure_pursuit_ae07038f1c02256819e50a7878797d1ac_icgraph" id="adc/dde/class_pure_pursuit_ae07038f1c02256819e50a7878797d1ac_icgraph">
 <area shape="rect" title="Calculate alpha (angle between the vehicle and lookahead point)" alt="" coords="419,154,566,195"/>
-<area shape="rect" href="../../dc/dde/class_pure_pursuit.html#a87ccde6a5181801f14f87d5e759fbc1a" title="Pure Pursuit control law." alt="" coords="209,22,371,63"/>
+<area shape="rect" href="../../dc/dde/class_pure_pursuit.html#ab921e5033e736078b4adb269525f6dde" title="Pure Pursuit control law." alt="" coords="209,22,371,63"/>
 <area shape="poly" title=" " alt="" coords="458,145,417,110,370,76,348,65,351,61,372,72,420,106,461,141"/>
 <area shape="rect" href="../../dd/d88/pp__test_8cpp.html#a1ec7089f8e844e5c955b89854b34cdc9" title="Test PurePursuit &#45; calculate_alpha() typical angle &#45; path point left." alt="" coords="263,87,317,112"/>
 <area shape="poly" title=" " alt="" coords="430,150,370,126,317,109,318,104,372,121,432,145"/>
@@ -269,131 +276,176 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="ae2dacfa6e11913a7ef55effdfedf1d21" name="ae2dacfa6e11913a7ef55effdfedf1d21"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae2dacfa6e11913a7ef55effdfedf1d21">&#9670;&#160;</a></span>check_limits()</h2>
+<a id="ad68f728632052039d6ac390bbb945ac1" name="ad68f728632052039d6ac390bbb945ac1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad68f728632052039d6ac390bbb945ac1">&#9670;&#160;</a></span>FRIEND_TEST() <span class="overload">[1/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double PurePursuit::check_limits </td>
+          <td class="memname">PurePursuit::FRIEND_TEST </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>value</em>, </td>
+          <td class="paramtype">PurePursuitTests&#160;</td>
+          <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>max_value</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>min_value</em>&#160;</td>
+          <td class="paramtype">Test_calculate_alpha_1&#160;</td>
+          <td class="paramname">&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td> const</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/de5/pp_8cpp_source.html#l00044">44</a> of file <a class="el" href="../../d2/de5/pp_8cpp_source.html">pp.cpp</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../dc/dde/class_pure_pursuit_ae2dacfa6e11913a7ef55effdfedf1d21_icgraph.png" border="0" usemap="#adc/dde/class_pure_pursuit_ae2dacfa6e11913a7ef55effdfedf1d21_icgraph" alt=""/></div>
-<map name="adc/dde/class_pure_pursuit_ae2dacfa6e11913a7ef55effdfedf1d21_icgraph" id="adc/dde/class_pure_pursuit_ae2dacfa6e11913a7ef55effdfedf1d21_icgraph">
-<area shape="rect" title=" " alt="" coords="419,23,549,64"/>
-<area shape="rect" href="../../dc/dde/class_pure_pursuit.html#a87ccde6a5181801f14f87d5e759fbc1a" title="Pure Pursuit control law." alt="" coords="209,23,371,64"/>
-<area shape="poly" title=" " alt="" coords="403,46,371,46,371,41,403,41"/>
-<area shape="rect" href="../../d7/d49/class_control.html#a4953afbe68bf1d7a023972985c8083d6" title="Publishes the steering angle to the car based on the path and pose using cache." alt="" coords="5,5,161,31"/>
-<area shape="poly" title=" " alt="" coords="193,34,161,30,161,25,194,29"/>
-<area shape="rect" href="../../dd/d88/pp__test_8cpp.html#a2ac7920b349c45c0eb6e7e70be3ed660" title="Test PurePursuit &#45; pp_steering_control_law()" alt="" coords="56,55,110,80"/>
-<area shape="poly" title=" " alt="" coords="194,57,111,67,110,62,193,52"/>
-</map>
-</div>
-
 </div>
 </div>
-<a id="a8072146769a35ea478c1dcabed4f5a83" name="a8072146769a35ea478c1dcabed4f5a83"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8072146769a35ea478c1dcabed4f5a83">&#9670;&#160;</a></span>cross_product()</h2>
+<a id="a22f58c7db62a06ef62f8492e5c3ceed6" name="a22f58c7db62a06ef62f8492e5c3ceed6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22f58c7db62a06ef62f8492e5c3ceed6">&#9670;&#160;</a></span>FRIEND_TEST() <span class="overload">[2/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double PurePursuit::cross_product </td>
+          <td class="memname">PurePursuit::FRIEND_TEST </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d0/d69/class_point.html">Point</a>&#160;</td>
-          <td class="paramname"><em>P1</em>, </td>
+          <td class="paramtype">PurePursuitTests&#160;</td>
+          <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d0/d69/class_point.html">Point</a>&#160;</td>
-          <td class="paramname"><em>P2</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../d0/d69/class_point.html">Point</a>&#160;</td>
-          <td class="paramname"><em>P3</em>&#160;</td>
+          <td class="paramtype">Test_calculate_alpha_2&#160;</td>
+          <td class="paramname">&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td> const</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Calculate the cross product of two vectors. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">P1</td><td>- Origin of the vector </td></tr>
-    <tr><td class="paramname">P2</td><td>- End of the vector </td></tr>
-    <tr><td class="paramname">P3</td><td>- <a class="el" href="../../d0/d69/class_point.html">Point</a> to calculate the cross product</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>double </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="../../d2/de5/pp_8cpp_source.html#l00040">40</a> of file <a class="el" href="../../d2/de5/pp_8cpp_source.html">pp.cpp</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../dc/dde/class_pure_pursuit_a8072146769a35ea478c1dcabed4f5a83_icgraph.png" border="0" usemap="#adc/dde/class_pure_pursuit_a8072146769a35ea478c1dcabed4f5a83_icgraph" alt=""/></div>
-<map name="adc/dde/class_pure_pursuit_a8072146769a35ea478c1dcabed4f5a83_icgraph" id="adc/dde/class_pure_pursuit_a8072146769a35ea478c1dcabed4f5a83_icgraph">
-<area shape="rect" title="Calculate the cross product of two vectors." alt="" coords="614,154,742,195"/>
-<area shape="rect" href="../../dc/dde/class_pure_pursuit.html#a028647f1a2c9ba1d5fea2f3b7e3448c0" title="Calculate alpha (angle between the vehicle and lookahead point)" alt="" coords="419,154,566,195"/>
-<area shape="poly" title=" " alt="" coords="598,177,566,177,566,172,598,172"/>
-<area shape="rect" href="../../dc/dde/class_pure_pursuit.html#a87ccde6a5181801f14f87d5e759fbc1a" title="Pure Pursuit control law." alt="" coords="209,22,371,63"/>
-<area shape="poly" title=" " alt="" coords="458,145,417,110,370,76,348,65,351,61,372,72,420,106,461,141"/>
-<area shape="rect" href="../../dd/d88/pp__test_8cpp.html#a1ec7089f8e844e5c955b89854b34cdc9" title="Test PurePursuit &#45; calculate_alpha() typical angle &#45; path point left." alt="" coords="263,87,317,112"/>
-<area shape="poly" title=" " alt="" coords="430,150,370,126,317,109,318,104,372,121,432,145"/>
-<area shape="rect" href="../../dd/d88/pp__test_8cpp.html#a4e77a0f3d3da35627de29e1edf47ef11" title="Test PurePursuit &#45; calculate_alpha() typical angle &#45; path point right." alt="" coords="263,136,317,162"/>
-<area shape="poly" title=" " alt="" coords="403,166,317,155,318,149,404,160"/>
-<area shape="rect" href="../../dd/d88/pp__test_8cpp.html#a3ab5b31ec6f9af40e97816c2f98a1346" title="Test PurePursuit &#45; calculate_alpha() 90 degrees angle." alt="" coords="263,185,317,211"/>
-<area shape="poly" title=" " alt="" coords="404,187,318,198,317,192,403,182"/>
-<area shape="rect" href="../../dd/d88/pp__test_8cpp.html#a9a240517e306e0820a2a08e4c96009d3" title="Test PurePursuit &#45; calculate_alpha() 0 degrees angle." alt="" coords="263,235,317,260"/>
-<area shape="poly" title=" " alt="" coords="431,203,372,226,318,243,317,238,370,221,429,198"/>
-<area shape="rect" href="../../dd/d88/pp__test_8cpp.html#ae68834f79cf7d46aa148126f41c81571" title="Test PurePursuit &#45; calculate_alpha() 180 degrees angle." alt="" coords="263,284,317,310"/>
-<area shape="poly" title=" " alt="" coords="462,208,421,243,372,275,345,287,318,294,317,289,343,282,370,270,418,239,458,204"/>
-<area shape="rect" href="../../d7/d49/class_control.html#a4953afbe68bf1d7a023972985c8083d6" title="Publishes the steering angle to the car based on the path and pose using cache." alt="" coords="5,5,161,31"/>
-<area shape="poly" title=" " alt="" coords="193,34,161,30,161,25,194,28"/>
-<area shape="rect" href="../../dd/d88/pp__test_8cpp.html#a2ac7920b349c45c0eb6e7e70be3ed660" title="Test PurePursuit &#45; pp_steering_control_law()" alt="" coords="56,55,110,80"/>
-<area shape="poly" title=" " alt="" coords="194,57,111,67,110,62,193,51"/>
-</map>
 </div>
+</div>
+<a id="a604e8af2df944c67600b29ce99f1e78d" name="a604e8af2df944c67600b29ce99f1e78d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a604e8af2df944c67600b29ce99f1e78d">&#9670;&#160;</a></span>FRIEND_TEST() <span class="overload">[3/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">PurePursuit::FRIEND_TEST </td>
+          <td>(</td>
+          <td class="paramtype">PurePursuitTests&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Test_calculate_alpha_3&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
-<a id="a87ccde6a5181801f14f87d5e759fbc1a" name="a87ccde6a5181801f14f87d5e759fbc1a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a87ccde6a5181801f14f87d5e759fbc1a">&#9670;&#160;</a></span>pp_steering_control_law()</h2>
+<a id="a893f14c50fdcd4df88df26892c922159" name="a893f14c50fdcd4df88df26892c922159"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a893f14c50fdcd4df88df26892c922159">&#9670;&#160;</a></span>FRIEND_TEST() <span class="overload">[4/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">PurePursuit::FRIEND_TEST </td>
+          <td>(</td>
+          <td class="paramtype">PurePursuitTests&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Test_calculate_alpha_4&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abd154e1d96be1da2086f8ef7be773061" name="abd154e1d96be1da2086f8ef7be773061"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd154e1d96be1da2086f8ef7be773061">&#9670;&#160;</a></span>FRIEND_TEST() <span class="overload">[5/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">PurePursuit::FRIEND_TEST </td>
+          <td>(</td>
+          <td class="paramtype">PurePursuitTests&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Test_calculate_alpha_5&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a510ee74ed02b03b2d7e8aa2b65ce6041" name="a510ee74ed02b03b2d7e8aa2b65ce6041"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a510ee74ed02b03b2d7e8aa2b65ce6041">&#9670;&#160;</a></span>FRIEND_TEST() <span class="overload">[6/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">PurePursuit::FRIEND_TEST </td>
+          <td>(</td>
+          <td class="paramtype">PurePursuitTests&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Test_pp_steering_control_law_1&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab921e5033e736078b4adb269525f6dde" name="ab921e5033e736078b4adb269525f6dde"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab921e5033e736078b4adb269525f6dde">&#9670;&#160;</a></span>pp_steering_control_law()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -401,44 +453,26 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">double PurePursuit::pp_steering_control_law </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d0/d69/class_point.html">Point</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a>&#160;</td>
           <td class="paramname"><em>rear_axis</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d0/d69/class_point.html">Point</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a>&#160;</td>
           <td class="paramname"><em>cg</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d0/d69/class_point.html">Point</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a>&#160;</td>
           <td class="paramname"><em>lookahead_point</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>dist_cg_2_rear_axis</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>wheel_base</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>max_steering_angle</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>min_steering_angle</em>&#160;</td>
+          <td class="paramname"><em>dist_cg_2_rear_axis</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -455,37 +489,32 @@ Here is the caller graph for this function:</div>
     <tr><td class="paramname">cg</td><td></td></tr>
     <tr><td class="paramname">lookahead_point</td><td></td></tr>
     <tr><td class="paramname">dist_cg_2_rear_axis</td><td></td></tr>
-    <tr><td class="paramname">wheel_base</td><td></td></tr>
-    <tr><td class="paramname">max_steering_angle</td><td></td></tr>
-    <tr><td class="paramname">min_steering_angle</td><td></td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Steering angle </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/de5/pp_8cpp_source.html#l00010">10</a> of file <a class="el" href="../../d2/de5/pp_8cpp_source.html">pp.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/de5/pp_8cpp_source.html#l00014">14</a> of file <a class="el" href="../../d2/de5/pp_8cpp_source.html">pp.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../dc/dde/class_pure_pursuit_a87ccde6a5181801f14f87d5e759fbc1a_cgraph.png" border="0" usemap="#adc/dde/class_pure_pursuit_a87ccde6a5181801f14f87d5e759fbc1a_cgraph" alt=""/></div>
-<map name="adc/dde/class_pure_pursuit_a87ccde6a5181801f14f87d5e759fbc1a_cgraph" id="adc/dde/class_pure_pursuit_a87ccde6a5181801f14f87d5e759fbc1a_cgraph">
-<area shape="rect" title="Pure Pursuit control law." alt="" coords="5,63,168,103"/>
-<area shape="rect" href="../../dc/dde/class_pure_pursuit.html#a028647f1a2c9ba1d5fea2f3b7e3448c0" title="Calculate alpha (angle between the vehicle and lookahead point)" alt="" coords="216,5,363,46"/>
-<area shape="poly" title=" " alt="" coords="160,60,200,48,202,53,161,65"/>
-<area shape="rect" href="../../d0/d69/class_point.html#a0c8948205343f30d626407d0c4450218" title=" " alt="" coords="411,70,579,96"/>
-<area shape="poly" title=" " alt="" coords="168,80,396,80,396,86,168,86"/>
-<area shape="rect" href="../../dc/dde/class_pure_pursuit.html#ae2dacfa6e11913a7ef55effdfedf1d21" title=" " alt="" coords="224,120,355,161"/>
-<area shape="poly" title=" " alt="" coords="161,101,210,115,208,120,160,106"/>
-<area shape="rect" href="../../dc/dde/class_pure_pursuit.html#a8072146769a35ea478c1dcabed4f5a83" title="Calculate the cross product of two vectors." alt="" coords="432,5,559,46"/>
-<area shape="poly" title=" " alt="" coords="363,23,416,23,416,28,363,28"/>
-<area shape="poly" title=" " alt="" coords="364,44,433,63,431,68,363,49"/>
+<div class="center"><img src="../../dc/dde/class_pure_pursuit_ab921e5033e736078b4adb269525f6dde_cgraph.png" border="0" usemap="#adc/dde/class_pure_pursuit_ab921e5033e736078b4adb269525f6dde_cgraph" alt=""/></div>
+<map name="adc/dde/class_pure_pursuit_ab921e5033e736078b4adb269525f6dde_cgraph" id="adc/dde/class_pure_pursuit_ab921e5033e736078b4adb269525f6dde_cgraph">
+<area shape="rect" title="Pure Pursuit control law." alt="" coords="5,49,168,90"/>
+<area shape="rect" href="../../dc/dde/class_pure_pursuit.html#ae07038f1c02256819e50a7878797d1ac" title="Calculate alpha (angle between the vehicle and lookahead point)" alt="" coords="216,20,363,61"/>
+<area shape="poly" title=" " alt="" coords="168,55,200,51,201,56,168,61"/>
+<area shape="rect" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html#a9d5f2cdfcef053cae4a6a7a3888ce2d6" title=" " alt="" coords="411,70,566,126"/>
+<area shape="poly" title=" " alt="" coords="168,73,396,89,395,94,168,78"/>
+<area shape="rect" href="../../d9/d8a/namespacecommon__lib_1_1structures.html#a985cd88a640d3c7ccc3f8d5094272843" title="Calculate the cross product of two vectors." alt="" coords="411,5,566,46"/>
+<area shape="poly" title=" " alt="" coords="363,32,395,30,395,35,364,38"/>
+<area shape="poly" title=" " alt="" coords="363,59,397,68,395,74,361,64"/>
 </map>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../dc/dde/class_pure_pursuit_a87ccde6a5181801f14f87d5e759fbc1a_icgraph.png" border="0" usemap="#adc/dde/class_pure_pursuit_a87ccde6a5181801f14f87d5e759fbc1a_icgraph" alt=""/></div>
-<map name="adc/dde/class_pure_pursuit_a87ccde6a5181801f14f87d5e759fbc1a_icgraph" id="adc/dde/class_pure_pursuit_a87ccde6a5181801f14f87d5e759fbc1a_icgraph">
+<div class="center"><img src="../../dc/dde/class_pure_pursuit_ab921e5033e736078b4adb269525f6dde_icgraph.png" border="0" usemap="#adc/dde/class_pure_pursuit_ab921e5033e736078b4adb269525f6dde_icgraph" alt=""/></div>
+<map name="adc/dde/class_pure_pursuit_ab921e5033e736078b4adb269525f6dde_icgraph" id="adc/dde/class_pure_pursuit_ab921e5033e736078b4adb269525f6dde_icgraph">
 <area shape="rect" title="Pure Pursuit control law." alt="" coords="209,23,371,64"/>
 <area shape="rect" href="../../d7/d49/class_control.html#a4953afbe68bf1d7a023972985c8083d6" title="Publishes the steering angle to the car based on the path and pose using cache." alt="" coords="5,5,161,31"/>
 <area shape="poly" title=" " alt="" coords="193,34,161,30,161,25,194,29"/>
@@ -504,14 +533,14 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double PurePursuit::max_steering_angle_ = <a class="el" href="../../d2/db6/pp_8hpp.html#a871a7ae10a8ea978ba26c55e60f11da4">MAX_STEERING_ANGLE</a></td>
+          <td class="memname">double PurePursuit::max_steering_angle_ {<a class="el" href="../../d2/db6/pp_8hpp.html#a871a7ae10a8ea978ba26c55e60f11da4">MAX_STEERING_ANGLE</a>}</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Maximum steering angle. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/db6/pp_8hpp_source.html#l00027">27</a> of file <a class="el" href="../../d2/db6/pp_8hpp_source.html">pp.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/db6/pp_8hpp_source.html#l00028">28</a> of file <a class="el" href="../../d2/db6/pp_8hpp_source.html">pp.hpp</a>.</p>
 
 </div>
 </div>
@@ -522,14 +551,14 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double PurePursuit::min_steering_angle_ = <a class="el" href="../../d2/db6/pp_8hpp.html#abc08b549d3af618a25c6f7feb20e470f">MIN_STEERING_ANGLE</a></td>
+          <td class="memname">double PurePursuit::min_steering_angle_ {<a class="el" href="../../d2/db6/pp_8hpp.html#abc08b549d3af618a25c6f7feb20e470f">MIN_STEERING_ANGLE</a>}</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Minimum steering angle. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/db6/pp_8hpp_source.html#l00028">28</a> of file <a class="el" href="../../d2/db6/pp_8hpp_source.html">pp.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/db6/pp_8hpp_source.html#l00029">29</a> of file <a class="el" href="../../d2/db6/pp_8hpp_source.html">pp.hpp</a>.</p>
 
 </div>
 </div>
@@ -540,14 +569,14 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double PurePursuit::wheel_base_ = <a class="el" href="../../d2/db6/pp_8hpp.html#a72c6821ab1d592bdd6fe0e498d1a9c23">WHEEL_BASE</a></td>
+          <td class="memname">double PurePursuit::wheel_base_ {<a class="el" href="../../d2/db6/pp_8hpp.html#a72c6821ab1d592bdd6fe0e498d1a9c23">WHEEL_BASE</a>}</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Wheel base of the vehicle. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/db6/pp_8hpp_source.html#l00029">29</a> of file <a class="el" href="../../d2/db6/pp_8hpp_source.html">pp.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/db6/pp_8hpp_source.html#l00030">30</a> of file <a class="el" href="../../d2/db6/pp_8hpp_source.html">pp.hpp</a>.</p>
 
 </div>
 </div>

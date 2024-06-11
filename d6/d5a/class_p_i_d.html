@@ -93,7 +93,8 @@ $(document).ready(function(){initNavTree('d6/d5a/class_p_i_d.html','../../'); in
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../d3/da2/class_p_i_d-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">PID Class Reference</div></div>
 </div><!--header-->
@@ -108,90 +109,117 @@ Collaboration diagram for PID:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d1/d7b/class_p_i_d__coll__graph.png" border="0" usemap="#a_p_i_d_coll__map" alt="Collaboration graph"/></div>
 <map name="a_p_i_d_coll__map" id="a_p_i_d_coll__map">
-<area shape="rect" title="PI&#45;D Controller class." alt="" coords="5,5,155,535"/>
+<area shape="rect" title="PI&#45;D Controller class." alt="" coords="5,5,155,775"/>
 </map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a6b2e0ee3c86f4106bccac154b8baf65e" id="r_a6b2e0ee3c86f4106bccac154b8baf65e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a6b2e0ee3c86f4106bccac154b8baf65e">update</a> (<a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a> <a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">setpoint</a>, <a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a> <a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">measurement</a>)</td></tr>
-<tr class="memdesc:a6b2e0ee3c86f4106bccac154b8baf65e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the output value.  <br /></td></tr>
-<tr class="separator:a6b2e0ee3c86f4106bccac154b8baf65e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f59adc1eb8b09ba7c39586208da8169" id="r_a5f59adc1eb8b09ba7c39586208da8169"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a5f59adc1eb8b09ba7c39586208da8169">PID</a> (<a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a> <a class="el" href="../../d6/d5a/class_p_i_d.html#a482d124af49dcabfa1d9542066ead626">Kp</a>, <a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a> <a class="el" href="../../d6/d5a/class_p_i_d.html#a78d1833549e5c05ca4e94d07129ac4e7">Ki</a>, <a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a> <a class="el" href="../../d6/d5a/class_p_i_d.html#ae5dabe1953dd6c4aa28e5cb03f71b9e3">Kd</a>, <a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a> <a class="el" href="../../d6/d5a/class_p_i_d.html#af1a0fe8b9623f011fcbb840648b89cf5">tau</a>, <a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a> <a class="el" href="../../d6/d5a/class_p_i_d.html#acf6dff362a7dd74e543ec9c9ec60a3ab">T</a>, <a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a> <a class="el" href="../../d6/d5a/class_p_i_d.html#a100c84d9cafc5492dd1049c30ded5269">limMin</a>, <a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a> <a class="el" href="../../d6/d5a/class_p_i_d.html#a0dbb47d7fc41060dea24715448ea3e3b">limMax</a>, <a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a> <a class="el" href="../../d6/d5a/class_p_i_d.html#ae9b3946475d94af9bce7e9b7a14e3320">antiWindup</a>)</td></tr>
+<tr class="memitem:a5f59adc1eb8b09ba7c39586208da8169" id="r_a5f59adc1eb8b09ba7c39586208da8169"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a5f59adc1eb8b09ba7c39586208da8169">PID</a> (<a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a> <a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">Kp</a>, <a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a> <a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">Ki</a>, <a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a> <a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">Kd</a>, <a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a> <a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">tau</a>, <a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a> <a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">T</a>, <a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a> <a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">limMin</a>, <a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a> <a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">limMax</a>, <a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a> <a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">antiWindup</a>)</td></tr>
 <tr class="memdesc:a5f59adc1eb8b09ba7c39586208da8169"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="../../d6/d5a/class_p_i_d.html" title="PI-D Controller class.">PID</a> object.  <br /></td></tr>
 <tr class="separator:a5f59adc1eb8b09ba7c39586208da8169"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0311b6f7de348499ce24e53ba353514a" id="r_a0311b6f7de348499ce24e53ba353514a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a0311b6f7de348499ce24e53ba353514a">PID</a> ()</td></tr>
 <tr class="memdesc:a0311b6f7de348499ce24e53ba353514a"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d6/d5a/class_p_i_d.html" title="PI-D Controller class.">PID</a> default constructor.  <br /></td></tr>
 <tr class="separator:a0311b6f7de348499ce24e53ba353514a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abbd48a33a97a7dbc49e75050bef0146c" id="r_abbd48a33a97a7dbc49e75050bef0146c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#abbd48a33a97a7dbc49e75050bef0146c">calculate_error</a> (<a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a> <a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">setpoint</a>, <a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a> <a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">measurement</a>) <a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">const</a></td></tr>
+<tr class="memitem:a6b2e0ee3c86f4106bccac154b8baf65e" id="r_a6b2e0ee3c86f4106bccac154b8baf65e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a6b2e0ee3c86f4106bccac154b8baf65e">update</a> (<a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a> <a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">setpoint</a>, <a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a> <a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">measurement</a>)</td></tr>
+<tr class="memdesc:a6b2e0ee3c86f4106bccac154b8baf65e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the output value.  <br /></td></tr>
+<tr class="separator:a6b2e0ee3c86f4106bccac154b8baf65e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab17003f79f5c9ead4e282b9f01d92ef5" id="r_ab17003f79f5c9ead4e282b9f01d92ef5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#ab17003f79f5c9ead4e282b9f01d92ef5">FRIEND_TEST</a> (<a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">PidTests</a>, <a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">TestAntiWindUp1</a>)</td></tr>
+<tr class="separator:ab17003f79f5c9ead4e282b9f01d92ef5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2df584c41a7cf2c47761aaeb75c1d147" id="r_a2df584c41a7cf2c47761aaeb75c1d147"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a2df584c41a7cf2c47761aaeb75c1d147">FRIEND_TEST</a> (<a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">PidTests</a>, <a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">TestAntiWindUp2</a>)</td></tr>
+<tr class="separator:a2df584c41a7cf2c47761aaeb75c1d147"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bf43c26318e48dd81c6eb98f8cf205a" id="r_a0bf43c26318e48dd81c6eb98f8cf205a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a0bf43c26318e48dd81c6eb98f8cf205a">FRIEND_TEST</a> (<a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">PidTests</a>, <a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">TestAntiWindUp3</a>)</td></tr>
+<tr class="separator:a0bf43c26318e48dd81c6eb98f8cf205a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad50f0243cfab5c0f516326cf03184b27" id="r_ad50f0243cfab5c0f516326cf03184b27"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#ad50f0243cfab5c0f516326cf03184b27">FRIEND_TEST</a> (<a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">PidTests</a>, <a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">ProportionalTerm</a>)</td></tr>
+<tr class="separator:ad50f0243cfab5c0f516326cf03184b27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37d911cf1d6d758875980266213aa594" id="r_a37d911cf1d6d758875980266213aa594"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a37d911cf1d6d758875980266213aa594">FRIEND_TEST</a> (<a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">PidTests</a>, <a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">IntegralTerm1</a>)</td></tr>
+<tr class="separator:a37d911cf1d6d758875980266213aa594"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8899147087953160a3f25cc32589e8b4" id="r_a8899147087953160a3f25cc32589e8b4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8899147087953160a3f25cc32589e8b4">FRIEND_TEST</a> (<a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">PidTests</a>, <a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">IntegralTerm2</a>)</td></tr>
+<tr class="separator:a8899147087953160a3f25cc32589e8b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28415465dc91d9ef563719eb5ad2d7db" id="r_a28415465dc91d9ef563719eb5ad2d7db"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a28415465dc91d9ef563719eb5ad2d7db">FRIEND_TEST</a> (<a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">PidTests</a>, <a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">DerivativeTerm1</a>)</td></tr>
+<tr class="separator:a28415465dc91d9ef563719eb5ad2d7db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83cc1223d70cd19ac1c9927313551aef" id="r_a83cc1223d70cd19ac1c9927313551aef"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a83cc1223d70cd19ac1c9927313551aef">FRIEND_TEST</a> (<a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">PidTests</a>, <a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">DerivativeTerm2</a>)</td></tr>
+<tr class="separator:a83cc1223d70cd19ac1c9927313551aef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4adc1f8e9f533c8f3a8e6641ac7d302c" id="r_a4adc1f8e9f533c8f3a8e6641ac7d302c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a4adc1f8e9f533c8f3a8e6641ac7d302c">FRIEND_TEST</a> (<a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">PidTests</a>, <a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">Output1</a>)</td></tr>
+<tr class="separator:a4adc1f8e9f533c8f3a8e6641ac7d302c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30aad838b9de1fd266e4f579cd3da20c" id="r_a30aad838b9de1fd266e4f579cd3da20c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a30aad838b9de1fd266e4f579cd3da20c">FRIEND_TEST</a> (<a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">PidTests</a>, <a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">Output2</a>)</td></tr>
+<tr class="separator:a30aad838b9de1fd266e4f579cd3da20c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a731e6701255982813a5a03c9ba6e3048" id="r_a731e6701255982813a5a03c9ba6e3048"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a731e6701255982813a5a03c9ba6e3048">FRIEND_TEST</a> (<a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">PidTests</a>, <a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">Output3</a>)</td></tr>
+<tr class="separator:a731e6701255982813a5a03c9ba6e3048"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26d1278986bd707041ed6ef36ca8f4a8" id="r_a26d1278986bd707041ed6ef36ca8f4a8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a26d1278986bd707041ed6ef36ca8f4a8">FRIEND_TEST</a> (<a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">PidTests</a>, <a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">Update1</a>)</td></tr>
+<tr class="separator:a26d1278986bd707041ed6ef36ca8f4a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:abbd48a33a97a7dbc49e75050bef0146c" id="r_abbd48a33a97a7dbc49e75050bef0146c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#abbd48a33a97a7dbc49e75050bef0146c">calculate_error</a> (<a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a> <a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">setpoint</a>, <a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a> <a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">measurement</a>) <a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">const</a></td></tr>
 <tr class="memdesc:abbd48a33a97a7dbc49e75050bef0146c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the error signal.  <br /></td></tr>
 <tr class="separator:abbd48a33a97a7dbc49e75050bef0146c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afeb910407a0ec97035fd19f97cbfae1c" id="r_afeb910407a0ec97035fd19f97cbfae1c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#afeb910407a0ec97035fd19f97cbfae1c">calculate_proportional_term</a> (<a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a> <a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">error</a>)</td></tr>
+<tr class="memitem:afeb910407a0ec97035fd19f97cbfae1c" id="r_afeb910407a0ec97035fd19f97cbfae1c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#afeb910407a0ec97035fd19f97cbfae1c">calculate_proportional_term</a> (<a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a> <a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">error</a>)</td></tr>
 <tr class="memdesc:afeb910407a0ec97035fd19f97cbfae1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the proportional term.  <br /></td></tr>
 <tr class="separator:afeb910407a0ec97035fd19f97cbfae1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a05352c1a64fe0e13588291ccf450bace" id="r_a05352c1a64fe0e13588291ccf450bace"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a05352c1a64fe0e13588291ccf450bace">calculate_integral_term</a> (<a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a> <a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">error</a>)</td></tr>
+<tr class="memitem:a05352c1a64fe0e13588291ccf450bace" id="r_a05352c1a64fe0e13588291ccf450bace"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a05352c1a64fe0e13588291ccf450bace">calculate_integral_term</a> (<a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a> <a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">error</a>)</td></tr>
 <tr class="memdesc:a05352c1a64fe0e13588291ccf450bace"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the integral term.  <br /></td></tr>
 <tr class="separator:a05352c1a64fe0e13588291ccf450bace"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa587fab53433af6127bbc5c7fdf50a35" id="r_aa587fab53433af6127bbc5c7fdf50a35"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#aa587fab53433af6127bbc5c7fdf50a35">anti_wind_up</a> ()</td></tr>
+<tr class="memitem:aa587fab53433af6127bbc5c7fdf50a35" id="r_aa587fab53433af6127bbc5c7fdf50a35"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#aa587fab53433af6127bbc5c7fdf50a35">anti_wind_up</a> ()</td></tr>
 <tr class="memdesc:aa587fab53433af6127bbc5c7fdf50a35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Anti-wind-up via dynamic integrator clamping.  <br /></td></tr>
 <tr class="separator:aa587fab53433af6127bbc5c7fdf50a35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5748127c7eb3f374fd599576a822abcd" id="r_a5748127c7eb3f374fd599576a822abcd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a5748127c7eb3f374fd599576a822abcd">calculate_derivative_term</a> (<a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a> <a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">measurement</a>)</td></tr>
+<tr class="memitem:a5748127c7eb3f374fd599576a822abcd" id="r_a5748127c7eb3f374fd599576a822abcd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a5748127c7eb3f374fd599576a822abcd">calculate_derivative_term</a> (<a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a> <a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">measurement</a>)</td></tr>
 <tr class="memdesc:a5748127c7eb3f374fd599576a822abcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the derivative term (derivative on measurement)  <br /></td></tr>
 <tr class="separator:a5748127c7eb3f374fd599576a822abcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5a8397dc4b3e36d1db9ea2f1b8fb91a4" id="r_a5a8397dc4b3e36d1db9ea2f1b8fb91a4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a5a8397dc4b3e36d1db9ea2f1b8fb91a4">compute_output</a> ()</td></tr>
+<tr class="memitem:a5a8397dc4b3e36d1db9ea2f1b8fb91a4" id="r_a5a8397dc4b3e36d1db9ea2f1b8fb91a4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a5a8397dc4b3e36d1db9ea2f1b8fb91a4">compute_output</a> ()</td></tr>
 <tr class="memdesc:a5a8397dc4b3e36d1db9ea2f1b8fb91a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the output value and apply limits.  <br /></td></tr>
 <tr class="separator:a5a8397dc4b3e36d1db9ea2f1b8fb91a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a482d124af49dcabfa1d9542066ead626" id="r_a482d124af49dcabfa1d9542066ead626"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a482d124af49dcabfa1d9542066ead626">Kp</a></td></tr>
-<tr class="memdesc:a482d124af49dcabfa1d9542066ead626"><td class="mdescLeft">&#160;</td><td class="mdescRight">Proporcional gain.  <br /></td></tr>
-<tr class="separator:a482d124af49dcabfa1d9542066ead626"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a78d1833549e5c05ca4e94d07129ac4e7" id="r_a78d1833549e5c05ca4e94d07129ac4e7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a78d1833549e5c05ca4e94d07129ac4e7">Ki</a></td></tr>
-<tr class="memdesc:a78d1833549e5c05ca4e94d07129ac4e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Integral gain.  <br /></td></tr>
-<tr class="separator:a78d1833549e5c05ca4e94d07129ac4e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae5dabe1953dd6c4aa28e5cb03f71b9e3" id="r_ae5dabe1953dd6c4aa28e5cb03f71b9e3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#ae5dabe1953dd6c4aa28e5cb03f71b9e3">Kd</a></td></tr>
-<tr class="memdesc:ae5dabe1953dd6c4aa28e5cb03f71b9e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Derivative gain.  <br /></td></tr>
-<tr class="separator:ae5dabe1953dd6c4aa28e5cb03f71b9e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae9b3946475d94af9bce7e9b7a14e3320" id="r_ae9b3946475d94af9bce7e9b7a14e3320"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#ae9b3946475d94af9bce7e9b7a14e3320">antiWindup</a></td></tr>
-<tr class="memdesc:ae9b3946475d94af9bce7e9b7a14e3320"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gain of integrator impact when saturated.  <br /></td></tr>
-<tr class="separator:ae9b3946475d94af9bce7e9b7a14e3320"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af1a0fe8b9623f011fcbb840648b89cf5" id="r_af1a0fe8b9623f011fcbb840648b89cf5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#af1a0fe8b9623f011fcbb840648b89cf5">tau</a></td></tr>
-<tr class="memdesc:af1a0fe8b9623f011fcbb840648b89cf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Derivative low pass filter time constant.  <br /></td></tr>
-<tr class="separator:af1a0fe8b9623f011fcbb840648b89cf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf6dff362a7dd74e543ec9c9ec60a3ab" id="r_acf6dff362a7dd74e543ec9c9ec60a3ab"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#acf6dff362a7dd74e543ec9c9ec60a3ab">T</a></td></tr>
-<tr class="memdesc:acf6dff362a7dd74e543ec9c9ec60a3ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sampling time.  <br /></td></tr>
-<tr class="separator:acf6dff362a7dd74e543ec9c9ec60a3ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a100c84d9cafc5492dd1049c30ded5269" id="r_a100c84d9cafc5492dd1049c30ded5269"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a100c84d9cafc5492dd1049c30ded5269">limMin</a></td></tr>
-<tr class="memdesc:a100c84d9cafc5492dd1049c30ded5269"><td class="mdescLeft">&#160;</td><td class="mdescRight">Minimum output value.  <br /></td></tr>
-<tr class="separator:a100c84d9cafc5492dd1049c30ded5269"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0dbb47d7fc41060dea24715448ea3e3b" id="r_a0dbb47d7fc41060dea24715448ea3e3b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a0dbb47d7fc41060dea24715448ea3e3b">limMax</a></td></tr>
-<tr class="memdesc:a0dbb47d7fc41060dea24715448ea3e3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum output value.  <br /></td></tr>
-<tr class="separator:a0dbb47d7fc41060dea24715448ea3e3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a070200d603a77acc4ad001cf86bd8018" id="r_a070200d603a77acc4ad001cf86bd8018"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a070200d603a77acc4ad001cf86bd8018">proportional</a> {0.0f}</td></tr>
-<tr class="memdesc:a070200d603a77acc4ad001cf86bd8018"><td class="mdescLeft">&#160;</td><td class="mdescRight">Integrator value.  <br /></td></tr>
-<tr class="separator:a070200d603a77acc4ad001cf86bd8018"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5a5677ee0a1db3dc2faa3078c8531a68" id="r_a5a5677ee0a1db3dc2faa3078c8531a68"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a5a5677ee0a1db3dc2faa3078c8531a68">integrator</a> {0.0f}</td></tr>
-<tr class="memdesc:a5a5677ee0a1db3dc2faa3078c8531a68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Integrator value.  <br /></td></tr>
-<tr class="separator:a5a5677ee0a1db3dc2faa3078c8531a68"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b004eb700471339d999fdaf446801f2" id="r_a3b004eb700471339d999fdaf446801f2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a3b004eb700471339d999fdaf446801f2">differentiator</a> {0.0f}</td></tr>
-<tr class="memdesc:a3b004eb700471339d999fdaf446801f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Differentiator value.  <br /></td></tr>
-<tr class="separator:a3b004eb700471339d999fdaf446801f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a124047ca819e26199964de9c2c8f2dc0" id="r_a124047ca819e26199964de9c2c8f2dc0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a124047ca819e26199964de9c2c8f2dc0">prevError</a> {0.0f}</td></tr>
-<tr class="memdesc:a124047ca819e26199964de9c2c8f2dc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Previous error value, required for integrator.  <br /></td></tr>
-<tr class="separator:a124047ca819e26199964de9c2c8f2dc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3fa540079237ee93cf2f4c022027613c" id="r_a3fa540079237ee93cf2f4c022027613c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a3fa540079237ee93cf2f4c022027613c">prevMeasurement</a> {0.0f}</td></tr>
-<tr class="memdesc:a3fa540079237ee93cf2f4c022027613c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Previous measurement value, required for defferentiator.  <br /></td></tr>
-<tr class="separator:a3fa540079237ee93cf2f4c022027613c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d41b1b2d0f545525b439be7c3aed846" id="r_a8d41b1b2d0f545525b439be7c3aed846"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">out</a> {0.0f}</td></tr>
-<tr class="memdesc:a8d41b1b2d0f545525b439be7c3aed846"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output value.  <br /></td></tr>
-<tr class="separator:a8d41b1b2d0f545525b439be7c3aed846"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a5e144cee82e154b288b1e686496e7265" id="r_a5e144cee82e154b288b1e686496e7265"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a5e144cee82e154b288b1e686496e7265">kp_</a></td></tr>
+<tr class="memdesc:a5e144cee82e154b288b1e686496e7265"><td class="mdescLeft">&#160;</td><td class="mdescRight">Proporcional gain.  <br /></td></tr>
+<tr class="separator:a5e144cee82e154b288b1e686496e7265"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b53daa42c039a745773ccc60355feca" id="r_a3b53daa42c039a745773ccc60355feca"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a3b53daa42c039a745773ccc60355feca">ki_</a></td></tr>
+<tr class="memdesc:a3b53daa42c039a745773ccc60355feca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Integral gain.  <br /></td></tr>
+<tr class="separator:a3b53daa42c039a745773ccc60355feca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f478b17184eb58251fd1e11298ed3d1" id="r_a0f478b17184eb58251fd1e11298ed3d1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a0f478b17184eb58251fd1e11298ed3d1">kd_</a></td></tr>
+<tr class="memdesc:a0f478b17184eb58251fd1e11298ed3d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Derivative gain.  <br /></td></tr>
+<tr class="separator:a0f478b17184eb58251fd1e11298ed3d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5af2e0873be2f52d2e6874b6238abd98" id="r_a5af2e0873be2f52d2e6874b6238abd98"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a5af2e0873be2f52d2e6874b6238abd98">anti_windup_</a></td></tr>
+<tr class="memdesc:a5af2e0873be2f52d2e6874b6238abd98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gain of integrator impact when saturated.  <br /></td></tr>
+<tr class="separator:a5af2e0873be2f52d2e6874b6238abd98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a887b6b1f5e4772c47dd573212ca3f5b7" id="r_a887b6b1f5e4772c47dd573212ca3f5b7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a887b6b1f5e4772c47dd573212ca3f5b7">tau_</a></td></tr>
+<tr class="memdesc:a887b6b1f5e4772c47dd573212ca3f5b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Derivative low pass filter time constant.  <br /></td></tr>
+<tr class="separator:a887b6b1f5e4772c47dd573212ca3f5b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a025186005a365f7833fa9766357fe007" id="r_a025186005a365f7833fa9766357fe007"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a025186005a365f7833fa9766357fe007">t_</a></td></tr>
+<tr class="memdesc:a025186005a365f7833fa9766357fe007"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sampling time.  <br /></td></tr>
+<tr class="separator:a025186005a365f7833fa9766357fe007"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ddee496be268cd00ad59b13027faf73" id="r_a1ddee496be268cd00ad59b13027faf73"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a1ddee496be268cd00ad59b13027faf73">lim_min_</a></td></tr>
+<tr class="memdesc:a1ddee496be268cd00ad59b13027faf73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Minimum output value.  <br /></td></tr>
+<tr class="separator:a1ddee496be268cd00ad59b13027faf73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a65a46fd1b61d9da3d4cd853fc550ff" id="r_a4a65a46fd1b61d9da3d4cd853fc550ff"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a4a65a46fd1b61d9da3d4cd853fc550ff">lim_max_</a></td></tr>
+<tr class="memdesc:a4a65a46fd1b61d9da3d4cd853fc550ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum output value.  <br /></td></tr>
+<tr class="separator:a4a65a46fd1b61d9da3d4cd853fc550ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c9a04bc4176e30034eba56d950d3989" id="r_a5c9a04bc4176e30034eba56d950d3989"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a5c9a04bc4176e30034eba56d950d3989">proportional_</a> {0.0f}</td></tr>
+<tr class="memdesc:a5c9a04bc4176e30034eba56d950d3989"><td class="mdescLeft">&#160;</td><td class="mdescRight">Integrator value.  <br /></td></tr>
+<tr class="separator:a5c9a04bc4176e30034eba56d950d3989"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a970111f11d61b3ced99bfec483445b1c" id="r_a970111f11d61b3ced99bfec483445b1c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a970111f11d61b3ced99bfec483445b1c">integrator_</a> {0.0f}</td></tr>
+<tr class="memdesc:a970111f11d61b3ced99bfec483445b1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Integrator value.  <br /></td></tr>
+<tr class="separator:a970111f11d61b3ced99bfec483445b1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b80b0c5f3b2bea7a66f1d881d7d97ab" id="r_a5b80b0c5f3b2bea7a66f1d881d7d97ab"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a5b80b0c5f3b2bea7a66f1d881d7d97ab">differentiator_</a> {0.0f}</td></tr>
+<tr class="memdesc:a5b80b0c5f3b2bea7a66f1d881d7d97ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Differentiator value.  <br /></td></tr>
+<tr class="separator:a5b80b0c5f3b2bea7a66f1d881d7d97ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af85f79ab31c0982bfd004b0a543d9461" id="r_af85f79ab31c0982bfd004b0a543d9461"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#af85f79ab31c0982bfd004b0a543d9461">prev_error_</a> {0.0f}</td></tr>
+<tr class="memdesc:af85f79ab31c0982bfd004b0a543d9461"><td class="mdescLeft">&#160;</td><td class="mdescRight">Previous error value, required for integrator.  <br /></td></tr>
+<tr class="separator:af85f79ab31c0982bfd004b0a543d9461"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa960c9dd715e9be8fa818197719ee276" id="r_aa960c9dd715e9be8fa818197719ee276"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#aa960c9dd715e9be8fa818197719ee276">prev_measurement_</a> {0.0f}</td></tr>
+<tr class="memdesc:aa960c9dd715e9be8fa818197719ee276"><td class="mdescLeft">&#160;</td><td class="mdescRight">Previous measurement value, required for defferentiator.  <br /></td></tr>
+<tr class="separator:aa960c9dd715e9be8fa818197719ee276"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8eb686b3c4053c020d2bbfa218d198be" id="r_a8eb686b3c4053c020d2bbfa218d198be"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">out_</a> {0.0f}</td></tr>
+<tr class="memdesc:a8eb686b3c4053c020d2bbfa218d198be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output value.  <br /></td></tr>
+<tr class="separator:a8eb686b3c4053c020d2bbfa218d198be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>PI-D Controller class. </p>
 <p>This class implements a PI-D controller. Its a PI-D because the P and I terms operates on the Error signal and the D works with the feedback signal (measurement). </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00013">13</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00015">15</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a5f59adc1eb8b09ba7c39586208da8169" name="a5f59adc1eb8b09ba7c39586208da8169"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5f59adc1eb8b09ba7c39586208da8169">&#9670;&#160;</a></span>PID() <span class="overload">[1/2]</span></h2>
@@ -202,49 +230,49 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">PID::PID </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a>&#160;</td>
           <td class="paramname"><em>Kp</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a>&#160;</td>
           <td class="paramname"><em>Ki</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a>&#160;</td>
           <td class="paramname"><em>Kd</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a>&#160;</td>
           <td class="paramname"><em>tau</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a>&#160;</td>
           <td class="paramname"><em>T</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a>&#160;</td>
           <td class="paramname"><em>limMin</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a>&#160;</td>
           <td class="paramname"><em>limMax</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a>&#160;</td>
           <td class="paramname"><em>antiWindup</em>&#160;</td>
         </tr>
         <tr>
@@ -315,19 +343,27 @@ Public Attributes</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">void</a> PID::anti_wind_up </td>
+          <td class="memname"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">void</a> PID::anti_wind_up </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Anti-wind-up via dynamic integrator clamping. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00091">91</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00090">90</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -356,15 +392,23 @@ Here is the caller graph for this function:</div>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">void</a> PID::calculate_derivative_term </td>
+          <td class="memname"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">void</a> PID::calculate_derivative_term </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a>&#160;</td>
           <td class="paramname"><em>measurement</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Calculate the derivative term (derivative on measurement) </p>
@@ -375,7 +419,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00099">99</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00098">98</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -402,17 +446,20 @@ Here is the caller graph for this function:</div>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a> PID::calculate_error </td>
+          <td class="memname"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a> PID::calculate_error </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a>&#160;</td>
           <td class="paramname"><em>setpoint</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a>&#160;</td>
           <td class="paramname"><em>measurement</em>&#160;</td>
         </tr>
         <tr>
@@ -421,6 +468,11 @@ Here is the caller graph for this function:</div>
           <td></td><td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Calculate the error signal. </p>
@@ -433,7 +485,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>error (double) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00081">81</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00080">80</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -456,15 +508,23 @@ Here is the caller graph for this function:</div>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">void</a> PID::calculate_integral_term </td>
+          <td class="memname"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">void</a> PID::calculate_integral_term </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a>&#160;</td>
           <td class="paramname"><em>error</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Calculate the integral term. </p>
@@ -475,7 +535,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00087">87</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00086">86</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -502,15 +562,23 @@ Here is the caller graph for this function:</div>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">void</a> PID::calculate_proportional_term </td>
+          <td class="memname"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">void</a> PID::calculate_proportional_term </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a>&#160;</td>
           <td class="paramname"><em>error</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Calculate the proportional term. </p>
@@ -521,7 +589,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00085">85</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00084">84</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -546,19 +614,27 @@ Here is the caller graph for this function:</div>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">void</a> PID::compute_output </td>
+          <td class="memname"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">void</a> PID::compute_output </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Compute the output value and apply limits. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00105">105</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00104">104</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -582,6 +658,342 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a id="a28415465dc91d9ef563719eb5ad2d7db" name="a28415465dc91d9ef563719eb5ad2d7db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28415465dc91d9ef563719eb5ad2d7db">&#9670;&#160;</a></span>FRIEND_TEST() <span class="overload">[1/12]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">PID::FRIEND_TEST </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">PidTests</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">DerivativeTerm1</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a83cc1223d70cd19ac1c9927313551aef" name="a83cc1223d70cd19ac1c9927313551aef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83cc1223d70cd19ac1c9927313551aef">&#9670;&#160;</a></span>FRIEND_TEST() <span class="overload">[2/12]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">PID::FRIEND_TEST </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">PidTests</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">DerivativeTerm2</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a37d911cf1d6d758875980266213aa594" name="a37d911cf1d6d758875980266213aa594"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37d911cf1d6d758875980266213aa594">&#9670;&#160;</a></span>FRIEND_TEST() <span class="overload">[3/12]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">PID::FRIEND_TEST </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">PidTests</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">IntegralTerm1</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8899147087953160a3f25cc32589e8b4" name="a8899147087953160a3f25cc32589e8b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8899147087953160a3f25cc32589e8b4">&#9670;&#160;</a></span>FRIEND_TEST() <span class="overload">[4/12]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">PID::FRIEND_TEST </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">PidTests</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">IntegralTerm2</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4adc1f8e9f533c8f3a8e6641ac7d302c" name="a4adc1f8e9f533c8f3a8e6641ac7d302c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4adc1f8e9f533c8f3a8e6641ac7d302c">&#9670;&#160;</a></span>FRIEND_TEST() <span class="overload">[5/12]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">PID::FRIEND_TEST </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">PidTests</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">Output1</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a30aad838b9de1fd266e4f579cd3da20c" name="a30aad838b9de1fd266e4f579cd3da20c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30aad838b9de1fd266e4f579cd3da20c">&#9670;&#160;</a></span>FRIEND_TEST() <span class="overload">[6/12]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">PID::FRIEND_TEST </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">PidTests</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">Output2</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a731e6701255982813a5a03c9ba6e3048" name="a731e6701255982813a5a03c9ba6e3048"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a731e6701255982813a5a03c9ba6e3048">&#9670;&#160;</a></span>FRIEND_TEST() <span class="overload">[7/12]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">PID::FRIEND_TEST </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">PidTests</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">Output3</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad50f0243cfab5c0f516326cf03184b27" name="ad50f0243cfab5c0f516326cf03184b27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad50f0243cfab5c0f516326cf03184b27">&#9670;&#160;</a></span>FRIEND_TEST() <span class="overload">[8/12]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">PID::FRIEND_TEST </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">PidTests</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">ProportionalTerm</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab17003f79f5c9ead4e282b9f01d92ef5" name="ab17003f79f5c9ead4e282b9f01d92ef5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab17003f79f5c9ead4e282b9f01d92ef5">&#9670;&#160;</a></span>FRIEND_TEST() <span class="overload">[9/12]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">PID::FRIEND_TEST </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">PidTests</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">TestAntiWindUp1</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2df584c41a7cf2c47761aaeb75c1d147" name="a2df584c41a7cf2c47761aaeb75c1d147"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2df584c41a7cf2c47761aaeb75c1d147">&#9670;&#160;</a></span>FRIEND_TEST() <span class="overload">[10/12]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">PID::FRIEND_TEST </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">PidTests</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">TestAntiWindUp2</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0bf43c26318e48dd81c6eb98f8cf205a" name="a0bf43c26318e48dd81c6eb98f8cf205a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bf43c26318e48dd81c6eb98f8cf205a">&#9670;&#160;</a></span>FRIEND_TEST() <span class="overload">[11/12]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">PID::FRIEND_TEST </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">PidTests</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">TestAntiWindUp3</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a26d1278986bd707041ed6ef36ca8f4a8" name="a26d1278986bd707041ed6ef36ca8f4a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26d1278986bd707041ed6ef36ca8f4a8">&#9670;&#160;</a></span>FRIEND_TEST() <span class="overload">[12/12]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">PID::FRIEND_TEST </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">PidTests</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">Update1</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a6b2e0ee3c86f4106bccac154b8baf65e" name="a6b2e0ee3c86f4106bccac154b8baf65e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6b2e0ee3c86f4106bccac154b8baf65e">&#9670;&#160;</a></span>update()</h2>
 
@@ -589,15 +1001,15 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a> PID::update </td>
+          <td class="memname"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a> PID::update </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a>&#160;</td>
           <td class="paramname"><em>setpoint</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a>&#160;</td>
           <td class="paramname"><em>measurement</em>&#160;</td>
         </tr>
         <tr>
@@ -655,255 +1067,367 @@ Here is the caller graph for this function:</div>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="ae9b3946475d94af9bce7e9b7a14e3320" name="ae9b3946475d94af9bce7e9b7a14e3320"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae9b3946475d94af9bce7e9b7a14e3320">&#9670;&#160;</a></span>antiWindup</h2>
+<a id="a5af2e0873be2f52d2e6874b6238abd98" name="a5af2e0873be2f52d2e6874b6238abd98"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5af2e0873be2f52d2e6874b6238abd98">&#9670;&#160;</a></span>anti_windup_</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a> PID::antiWindup</td>
+          <td class="memname"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a> PID::anti_windup_</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Gain of integrator impact when saturated. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00018">18</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00020">20</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a3b004eb700471339d999fdaf446801f2" name="a3b004eb700471339d999fdaf446801f2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3b004eb700471339d999fdaf446801f2">&#9670;&#160;</a></span>differentiator</h2>
+<a id="a5b80b0c5f3b2bea7a66f1d881d7d97ab" name="a5b80b0c5f3b2bea7a66f1d881d7d97ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b80b0c5f3b2bea7a66f1d881d7d97ab">&#9670;&#160;</a></span>differentiator_</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a> PID::differentiator {0.0f}</td>
+          <td class="memname"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a> PID::differentiator_ {0.0f}</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Differentiator value. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00029">29</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a5a5677ee0a1db3dc2faa3078c8531a68" name="a5a5677ee0a1db3dc2faa3078c8531a68"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5a5677ee0a1db3dc2faa3078c8531a68">&#9670;&#160;</a></span>integrator</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a> PID::integrator {0.0f}</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Integrator value. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00028">28</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ae5dabe1953dd6c4aa28e5cb03f71b9e3" name="ae5dabe1953dd6c4aa28e5cb03f71b9e3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae5dabe1953dd6c4aa28e5cb03f71b9e3">&#9670;&#160;</a></span>Kd</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a> PID::Kd</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Derivative gain. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00017">17</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a78d1833549e5c05ca4e94d07129ac4e7" name="a78d1833549e5c05ca4e94d07129ac4e7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a78d1833549e5c05ca4e94d07129ac4e7">&#9670;&#160;</a></span>Ki</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a> PID::Ki</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Integral gain. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00016">16</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a482d124af49dcabfa1d9542066ead626" name="a482d124af49dcabfa1d9542066ead626"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a482d124af49dcabfa1d9542066ead626">&#9670;&#160;</a></span>Kp</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a> PID::Kp</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Proporcional gain. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00015">15</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a0dbb47d7fc41060dea24715448ea3e3b" name="a0dbb47d7fc41060dea24715448ea3e3b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0dbb47d7fc41060dea24715448ea3e3b">&#9670;&#160;</a></span>limMax</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a> PID::limMax</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Maximum output value. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00025">25</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a100c84d9cafc5492dd1049c30ded5269" name="a100c84d9cafc5492dd1049c30ded5269"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a100c84d9cafc5492dd1049c30ded5269">&#9670;&#160;</a></span>limMin</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a> PID::limMin</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Minimum output value. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00024">24</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a8d41b1b2d0f545525b439be7c3aed846" name="a8d41b1b2d0f545525b439be7c3aed846"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d41b1b2d0f545525b439be7c3aed846">&#9670;&#160;</a></span>out</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double PID::out {0.0f}</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Output value. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00034">34</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a124047ca819e26199964de9c2c8f2dc0" name="a124047ca819e26199964de9c2c8f2dc0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a124047ca819e26199964de9c2c8f2dc0">&#9670;&#160;</a></span>prevError</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a> PID::prevError {0.0f}</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Previous error value, required for integrator. </p>
 
 <p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00031">31</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a3fa540079237ee93cf2f4c022027613c" name="a3fa540079237ee93cf2f4c022027613c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3fa540079237ee93cf2f4c022027613c">&#9670;&#160;</a></span>prevMeasurement</h2>
+<a id="a970111f11d61b3ced99bfec483445b1c" name="a970111f11d61b3ced99bfec483445b1c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a970111f11d61b3ced99bfec483445b1c">&#9670;&#160;</a></span>integrator_</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a> PID::prevMeasurement {0.0f}</td>
+          <td class="memname"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a> PID::integrator_ {0.0f}</td>
         </tr>
       </table>
-</div><div class="memdoc">
-
-<p>Previous measurement value, required for defferentiator. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00032">32</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a070200d603a77acc4ad001cf86bd8018" name="a070200d603a77acc4ad001cf86bd8018"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a070200d603a77acc4ad001cf86bd8018">&#9670;&#160;</a></span>proportional</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a> PID::proportional {0.0f}</td>
-        </tr>
-      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Integrator value. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00030">30</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a0f478b17184eb58251fd1e11298ed3d1" name="a0f478b17184eb58251fd1e11298ed3d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f478b17184eb58251fd1e11298ed3d1">&#9670;&#160;</a></span>kd_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a> PID::kd_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Derivative gain. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00019">19</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a3b53daa42c039a745773ccc60355feca" name="a3b53daa42c039a745773ccc60355feca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b53daa42c039a745773ccc60355feca">&#9670;&#160;</a></span>ki_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a> PID::ki_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Integral gain. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00018">18</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5e144cee82e154b288b1e686496e7265" name="a5e144cee82e154b288b1e686496e7265"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e144cee82e154b288b1e686496e7265">&#9670;&#160;</a></span>kp_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a> PID::kp_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Proporcional gain. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00017">17</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a4a65a46fd1b61d9da3d4cd853fc550ff" name="a4a65a46fd1b61d9da3d4cd853fc550ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a65a46fd1b61d9da3d4cd853fc550ff">&#9670;&#160;</a></span>lim_max_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a> PID::lim_max_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Maximum output value. </p>
 
 <p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00027">27</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
 
 </div>
 </div>
-<a id="acf6dff362a7dd74e543ec9c9ec60a3ab" name="acf6dff362a7dd74e543ec9c9ec60a3ab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acf6dff362a7dd74e543ec9c9ec60a3ab">&#9670;&#160;</a></span>T</h2>
+<a id="a1ddee496be268cd00ad59b13027faf73" name="a1ddee496be268cd00ad59b13027faf73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ddee496be268cd00ad59b13027faf73">&#9670;&#160;</a></span>lim_min_</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a> PID::T</td>
+          <td class="memname"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a> PID::lim_min_</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Minimum output value. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00026">26</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a8eb686b3c4053c020d2bbfa218d198be" name="a8eb686b3c4053c020d2bbfa218d198be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8eb686b3c4053c020d2bbfa218d198be">&#9670;&#160;</a></span>out_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double PID::out_ {0.0f}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Output value. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00036">36</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af85f79ab31c0982bfd004b0a543d9461" name="af85f79ab31c0982bfd004b0a543d9461"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af85f79ab31c0982bfd004b0a543d9461">&#9670;&#160;</a></span>prev_error_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a> PID::prev_error_ {0.0f}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Previous error value, required for integrator. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00033">33</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa960c9dd715e9be8fa818197719ee276" name="aa960c9dd715e9be8fa818197719ee276"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa960c9dd715e9be8fa818197719ee276">&#9670;&#160;</a></span>prev_measurement_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a> PID::prev_measurement_ {0.0f}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Previous measurement value, required for defferentiator. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00034">34</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5c9a04bc4176e30034eba56d950d3989" name="a5c9a04bc4176e30034eba56d950d3989"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c9a04bc4176e30034eba56d950d3989">&#9670;&#160;</a></span>proportional_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a> PID::proportional_ {0.0f}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Integrator value. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00029">29</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a025186005a365f7833fa9766357fe007" name="a025186005a365f7833fa9766357fe007"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a025186005a365f7833fa9766357fe007">&#9670;&#160;</a></span>t_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a> PID::t_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Sampling time. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00022">22</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00024">24</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
 
 </div>
 </div>
-<a id="af1a0fe8b9623f011fcbb840648b89cf5" name="af1a0fe8b9623f011fcbb840648b89cf5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af1a0fe8b9623f011fcbb840648b89cf5">&#9670;&#160;</a></span>tau</h2>
+<a id="a887b6b1f5e4772c47dd573212ca3f5b7" name="a887b6b1f5e4772c47dd573212ca3f5b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a887b6b1f5e4772c47dd573212ca3f5b7">&#9670;&#160;</a></span>tau_</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8d41b1b2d0f545525b439be7c3aed846">double</a> PID::tau</td>
+          <td class="memname"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a> PID::tau_</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Derivative low pass filter time constant. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00020">20</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/db9/pid_8hpp_source.html#l00022">22</a> of file <a class="el" href="../../d4/db9/pid_8hpp_source.html">pid.hpp</a>.</p>
 
 </div>
 </div>

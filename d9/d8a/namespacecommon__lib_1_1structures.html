@@ -109,15 +109,125 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">Position</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d41/structcommon__lib_1_1structures_1_1_vehicle_pose.html">VehiclePose</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d2a/structcommon__lib_1_1structures_1_1_vehicle_state.html">VehicleState</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a985cd88a640d3c7ccc3f8d5094272843" id="r_a985cd88a640d3c7ccc3f8d5094272843"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d8a/namespacecommon__lib_1_1structures.html#a985cd88a640d3c7ccc3f8d5094272843">cross_product</a> (const <a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">Position</a> &amp;p1, const <a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">Position</a> &amp;p2, const <a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">Position</a> &amp;p3)</td></tr>
+<tr class="memdesc:a985cd88a640d3c7ccc3f8d5094272843"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the cross product of two vectors.  <br /></td></tr>
+<tr class="separator:a985cd88a640d3c7ccc3f8d5094272843"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac49febff7283947e80fc0b8a888576ec" id="r_ac49febff7283947e80fc0b8a888576ec"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d8a/namespacecommon__lib_1_1structures.html#ac49febff7283947e80fc0b8a888576ec">euclidean_distance</a> (const <a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">Position</a> &amp;p1, const <a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">Position</a> &amp;p2)</td></tr>
+<tr class="separator:ac49febff7283947e80fc0b8a888576ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7fbece117fc1fd60d9a047e7a6f22ad4" id="r_a7fbece117fc1fd60d9a047e7a6f22ad4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d8a/namespacecommon__lib_1_1structures.html#a7fbece117fc1fd60d9a047e7a6f22ad4">operator&lt;</a> (const <a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">Position</a> &amp;lhs, const <a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">Position</a> &amp;rhs)</td></tr>
 <tr class="separator:a7fbece117fc1fd60d9a047e7a6f22ad4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a985cd88a640d3c7ccc3f8d5094272843" name="a985cd88a640d3c7ccc3f8d5094272843"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a985cd88a640d3c7ccc3f8d5094272843">&#9670;&#160;</a></span>cross_product()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double common_lib::structures::cross_product </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">Position</a> &amp;&#160;</td>
+          <td class="paramname"><em>p1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">Position</a> &amp;&#160;</td>
+          <td class="paramname"><em>p2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">Position</a> &amp;&#160;</td>
+          <td class="paramname"><em>p3</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculate the cross product of two vectors. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">P1</td><td>- Origin of the vector </td></tr>
+    <tr><td class="paramname">P2</td><td>- End of the vector </td></tr>
+    <tr><td class="paramname">P3</td><td>- Point to calculate the cross product</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>double </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d4/d59/position_8cpp_source.html#l00015">15</a> of file <a class="el" href="../../d4/d59/position_8cpp_source.html">position.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d9/d8a/namespacecommon__lib_1_1structures_a985cd88a640d3c7ccc3f8d5094272843_icgraph.png" border="0" usemap="#ad9/d8a/namespacecommon__lib_1_1structures_a985cd88a640d3c7ccc3f8d5094272843_icgraph" alt=""/></div>
+<map name="ad9/d8a/namespacecommon__lib_1_1structures_a985cd88a640d3c7ccc3f8d5094272843_icgraph" id="ad9/d8a/namespacecommon__lib_1_1structures_a985cd88a640d3c7ccc3f8d5094272843_icgraph">
+<area shape="rect" title="Calculate the cross product of two vectors." alt="" coords="614,154,770,195"/>
+<area shape="rect" href="../../dc/dde/class_pure_pursuit.html#ae07038f1c02256819e50a7878797d1ac" title="Calculate alpha (angle between the vehicle and lookahead point)" alt="" coords="419,154,566,195"/>
+<area shape="poly" title=" " alt="" coords="599,177,567,177,567,172,599,172"/>
+<area shape="rect" href="../../dc/dde/class_pure_pursuit.html#ab921e5033e736078b4adb269525f6dde" title="Pure Pursuit control law." alt="" coords="209,22,371,63"/>
+<area shape="poly" title=" " alt="" coords="458,145,417,110,370,76,348,65,351,61,372,72,420,106,461,141"/>
+<area shape="rect" href="../../dd/d88/pp__test_8cpp.html#a1ec7089f8e844e5c955b89854b34cdc9" title="Test PurePursuit &#45; calculate_alpha() typical angle &#45; path point left." alt="" coords="263,87,317,112"/>
+<area shape="poly" title=" " alt="" coords="430,150,370,126,317,109,318,104,372,121,432,145"/>
+<area shape="rect" href="../../dd/d88/pp__test_8cpp.html#a4e77a0f3d3da35627de29e1edf47ef11" title="Test PurePursuit &#45; calculate_alpha() typical angle &#45; path point right." alt="" coords="263,136,317,162"/>
+<area shape="poly" title=" " alt="" coords="403,166,317,155,318,149,404,160"/>
+<area shape="rect" href="../../dd/d88/pp__test_8cpp.html#a3ab5b31ec6f9af40e97816c2f98a1346" title="Test PurePursuit &#45; calculate_alpha() 90 degrees angle." alt="" coords="263,185,317,211"/>
+<area shape="poly" title=" " alt="" coords="404,187,318,198,317,192,403,182"/>
+<area shape="rect" href="../../dd/d88/pp__test_8cpp.html#a9a240517e306e0820a2a08e4c96009d3" title="Test PurePursuit &#45; calculate_alpha() 0 degrees angle." alt="" coords="263,235,317,260"/>
+<area shape="poly" title=" " alt="" coords="431,203,372,226,318,243,317,238,370,221,429,198"/>
+<area shape="rect" href="../../dd/d88/pp__test_8cpp.html#ae68834f79cf7d46aa148126f41c81571" title="Test PurePursuit &#45; calculate_alpha() 180 degrees angle." alt="" coords="263,284,317,310"/>
+<area shape="poly" title=" " alt="" coords="462,208,421,243,372,275,345,287,318,294,317,289,343,282,370,270,418,239,458,204"/>
+<area shape="rect" href="../../d7/d49/class_control.html#a4953afbe68bf1d7a023972985c8083d6" title="Publishes the steering angle to the car based on the path and pose using cache." alt="" coords="5,5,161,31"/>
+<area shape="poly" title=" " alt="" coords="193,34,161,30,161,25,194,28"/>
+<area shape="rect" href="../../dd/d88/pp__test_8cpp.html#a2ac7920b349c45c0eb6e7e70be3ed660" title="Test PurePursuit &#45; pp_steering_control_law()" alt="" coords="56,55,110,80"/>
+<area shape="poly" title=" " alt="" coords="194,57,111,67,110,62,193,51"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ac49febff7283947e80fc0b8a888576ec" name="ac49febff7283947e80fc0b8a888576ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac49febff7283947e80fc0b8a888576ec">&#9670;&#160;</a></span>euclidean_distance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double common_lib::structures::euclidean_distance </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">Position</a> &amp;&#160;</td>
+          <td class="paramname"><em>p1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">Position</a> &amp;&#160;</td>
+          <td class="paramname"><em>p2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d4/d59/position_8cpp_source.html#l00019">19</a> of file <a class="el" href="../../d4/d59/position_8cpp_source.html">position.cpp</a>.</p>
+
+</div>
+</div>
 <a id="a7fbece117fc1fd60d9a047e7a6f22ad4" name="a7fbece117fc1fd60d9a047e7a6f22ad4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7fbece117fc1fd60d9a047e7a6f22ad4">&#9670;&#160;</a></span>operator&lt;()</h2>
 
