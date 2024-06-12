@@ -3,14 +3,12 @@
 #include <string>
 #include <vector>
 
-#include "adapter_perception/eufs.hpp"
-#include "adapter_perception/fsds.hpp"
-#include "adapter_perception/vehicle.hpp"
 #include "perception/perception_node.hpp"
 
 struct PerceptionParameters;
 
-std::string load_adapter_parameters(PerceptionParameters& params) {
+PerceptionParameters load_adapter_parameters() {
+  PerceptionParameters params;
   auto adapter_node = std::make_shared<rclcpp::Node>("perception_adapter");
 
   double ransac_epsilon = adapter_node->declare_parameter("ransac_epsilon", 0.1);
@@ -20,6 +18,7 @@ std::string load_adapter_parameters(PerceptionParameters& params) {
   double horizontal_resolution = adapter_node->declare_parameter("horizontal_resolution", 0.33);
   double vertical_resolution = adapter_node->declare_parameter("vertical_resolution", 0.22);
   std::string ground_removal_algoritm = adapter_node->declare_parameter("ground_removal", "ransac");
+  params.adapter_ = adapter_node->declare_parameter("adapter", "vehicle");
 
   // Create shared pointers for components
   if (ground_removal_algoritm == "ransac") {
@@ -38,33 +37,5 @@ std::string load_adapter_parameters(PerceptionParameters& params) {
   params.distance_predict_ =
       std::make_shared<DistancePredict>(vertical_resolution, horizontal_resolution);
 
-  return adapter_node->declare_parameter("adapter", "vehicle");
-}
-
-std::shared_ptr<Perception> create_perception(const std::string_view& adapter_type,
-                                              const PerceptionParameters& params) {
-  static const std::unordered_map<
-      std::string_view, std::function<std::shared_ptr<Perception>(const PerceptionParameters&)>>
-      adapter_map = {
-          {"vehicle",
-           [](const PerceptionParameters& parameters) {
-             return std::make_shared<VehicleAdapter>(parameters);
-           }},
-          {"eufs",
-           [](const PerceptionParameters& parameters) {
-             return std::make_shared<EufsAdapter>(parameters);
-           }},
-          {"fsds",
-           [](const PerceptionParameters& parameters) {
-             return std::make_shared<FsdsAdapter>(parameters);
-           }},
-      };
-
-  auto it = adapter_map.find(adapter_type);
-  if (it != adapter_map.end()) {
-    return it->second(params);
-  } else {
-    RCLCPP_ERROR(rclcpp::get_logger("perception"), "Adapter type not recognized");
-    return nullptr;
-  }
+  return params;
 }

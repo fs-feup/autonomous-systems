@@ -22,6 +22,7 @@ struct PerceptionParameters {
   std::shared_ptr<LeastSquaresDifferentiation> cone_differentiator_;
   std::vector<std::shared_ptr<ConeValidator>> cone_validators_;
   std::shared_ptr<DistancePredict> distance_predict_;
+  std::string adapter_;
 };
 
 /**
@@ -60,8 +61,6 @@ private:
   void publishCones(std::vector<Cluster>* cones);
 
 public:
-  ///< PointCloud2 subscription.
-  rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr _point_cloud_subscription;
 
   /**
    * @brief Constructor for the Perception node.
@@ -75,5 +74,4 @@ public:
    */
   void pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg);
 
-  virtual void finish() = 0;
 };
