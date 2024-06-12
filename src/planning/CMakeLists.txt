@@ -45,6 +45,7 @@ set(IMPLEMENTATION_FILES
   src/adapter_planning/pacsim.cpp
   src/adapter_planning/vehicle.cpp
   src/utils/message_converter.cpp
+  src/planning/path_calculation2.cpp
   src/planning/cone_coloring.cpp
   src/planning/cone_coloring2.cpp
   src/planning/smoothing2.cpp
@@ -54,6 +55,7 @@ set(IMPLEMENTATION_FILES
   src/planning/planning.cpp
   src/planning/path_smoothing.cpp
   src/utils/cone.cpp
+  src/utils/cone2.cpp
   src/utils/pathpoint.cpp
   src/utils/files.cpp
 )
