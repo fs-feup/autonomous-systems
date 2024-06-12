@@ -43,6 +43,7 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
 
   header = (*msg).header;
 
+  // TODO: vscode is complaining here for some reason about template not matching argument list
   pcl::fromROSMsg(*msg, *pcl_cloud);
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
