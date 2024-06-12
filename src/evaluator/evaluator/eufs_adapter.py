@@ -1,5 +1,5 @@
 from evaluator.adapter import Adapter
-from eufs_msgs.msg import ConeArrayWithCovariance
+from eufs_msgs.msg import ConeArrayWithCovariance, CarState
 from nav_msgs.msg import Odometry
 from custom_interfaces.msg import ConeArray, VehicleState
 import rclpy
@@ -49,6 +49,13 @@ class EufsAdapter(Adapter):
             10,
         )
 
+        self.node.simulated_planning_subscription = self.node.create_subscription(
+            CarState,
+            "/odometry_integration/car_state",
+            self.simulated_planning_callback,
+            10,
+        )
+
         self._time_sync_ = message_filters.ApproximateTimeSynchronizer(
             [
                 self.node.vehicle_state_subscription_,
@@ -59,6 +66,20 @@ class EufsAdapter(Adapter):
         )
 
         self._time_sync_.registerCallback(self.state_estimation_callback)
+    
+    def simulated_planning_callback(
+        self,
+        msg: CarState
+    ):
+        """!
+        Callback function to mark the initial timestamp of the planning execution
+
+        Args:
+            msg (CarState): Car state coming from EUFS simulator
+        """
+        if self.node.use_simulated_planning_:
+            self.node._planning_receive_time_ = datetime.datetime.now()
+        
 
     def state_estimation_callback(
         self,
@@ -111,6 +132,8 @@ class EufsAdapter(Adapter):
         """
         self.node.get_logger().debug("Received groundtruth pose")
         self.groundtruth_pose_ = pose
+        if self.node.use_simulated_se_:
+            self.node.map_receive_time_ = datetime.datetime.now()
 
     def simulated_perception_callback(self, perception: ConeArrayWithCovariance):
         """!

@@ -3,6 +3,7 @@ import message_filters
 from nav_msgs.msg import Odometry
 from geometry_msgs.msg import Quaternion
 import numpy as np
+import datetime
 from sensor_msgs.msg import PointCloud2
 from evaluator.formats import format_cone_array_msg
 from custom_interfaces.msg import ConeArray, VehicleState
@@ -34,6 +35,13 @@ class FSDSAdapter(Adapter):
             self.node,
             Odometry,
             "/testing_only/odom",
+        )
+
+        self.node.odometry_ground_truth_subscription = self.node.create_subscription(
+            Odometry,
+            "/testing_only/odom",
+            self.odometry_callback,
+            10,
         )
 
         # ApproximateTimeSynchronizer for synchronizing perception, point cloud, and odometry messages
@@ -84,6 +92,19 @@ class FSDSAdapter(Adapter):
         self.node.compute_and_publish_perception(
             perception_output, perception_ground_truth
         )
+    
+    def odometry_callback(
+        self, odometry: Odometry
+    ):
+        """!
+        Callback function to mark the planning's initial timestamp
+
+        Args:
+            odometry (Odometry): Behicle's odometry information.
+        """
+        
+        if self.node.use_simulated_se_:
+            self.node.map_receive_time_ = datetime.datetime.now()
 
     def state_estimation_callback(
         self, vehicle_state: VehicleState, map: ConeArray, odometry: Odometry
@@ -182,7 +203,7 @@ class FSDSAdapter(Adapter):
         Returns:
             numpy.ndarray: Rotation matrix.
         """
-        q0, q1, q2, q3 = quaternion.x, quaternion.y, quaternion.z, quaternion.w
+        q0, q1, q2, q3 = quaternion.w, quaternion.x, quaternion.y, quaternion.z
 
         # First row of the rotation matrix
         r00 = 2 * (q0 * q0 + q1 * q1) - 1

@@ -60,15 +60,30 @@ class Evaluator(Node):
             .get_parameter_value()
             .bool_value
         )
+        self.use_simulated_se_: bool = (
+            self.declare_parameter("use_simulated_se", False)
+            .get_parameter_value()
+            .bool_value
+        )
+        self.use_simulated_planning_: bool = (
+            self.declare_parameter("use_simulated_planning", False)
+            .get_parameter_value()
+            .bool_value
+        )
         if (self._adapter_name_ == "fsds") and (self.use_simulated_perception_):
             rclpy.get_logger().error(
                 "Simulated perception is not supported for FSDS adapter"
             )
             sys.exit(1)
+        if (self.use_simulated_planning_ and (self._adapter_name_ == "fsds" or self._adapter_name_ == "pacsim")):
+            rclpy.get_logger().error(
+                "Simulated planning is not supported for FSDS and PacSIM adapter"
+            )
+            sys.exit(1)
 
+        self._point_cloud_receive_time_: datetime.datetime = datetime.datetime.now()
         self.perception_receive_time_: datetime.datetime = datetime.datetime.now()
         self.map_receive_time_: datetime.datetime = datetime.datetime.now()
-        self._point_cloud_receive_time_: datetime.datetime = datetime.datetime.now()
         self._planning_receive_time_: datetime.datetime = datetime.datetime.now()
         self._control_receive_time_: datetime.datetime = datetime.datetime.now()
 
@@ -176,7 +191,7 @@ class Evaluator(Node):
         )
 
         self._control_mean_squared_difference_ = self.create_publisher(
-            Float32, "/evaluator/control/mean_squared_difference"
+            Float32, "/evaluator/control/mean_squared_difference", 10
         )
 
         self._control_root_mean_squared_difference_ = self.create_publisher(
