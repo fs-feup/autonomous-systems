@@ -323,7 +323,7 @@ class Evaluator(Node):
             perception_output (np.ndarray): Perceived cones.
             perception_ground_truth (np.ndarray): Ground truth cones.
         """
-        cone_positions = perception_output[:2].append(0)
+        cone_positions = np.append(perception_output[:2], 0)
         groundtruth_cone_positions = perception_ground_truth
 
         mean_difference = Float32()

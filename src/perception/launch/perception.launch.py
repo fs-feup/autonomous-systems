@@ -3,6 +3,7 @@ from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 from launch.actions import DeclareLaunchArgument
 
+
 def generate_launch_description():
     return LaunchDescription(
         [
@@ -39,7 +40,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "adapter",
                 description="Environment to run node on",
-                default_value="vehicle",
+                default_value="fsds",
             ),
             DeclareLaunchArgument(
                 "ground_removal",
@@ -88,19 +89,39 @@ def generate_launch_description():
                 parameters=[
                     {"ransac_epsilon": LaunchConfiguration("ransac_epsilon")},
                     {"ransac_n_neighbours": LaunchConfiguration("ransac_n_neighbours")},
-                    {"clustering_n_neighbours": LaunchConfiguration("clustering_n_neighbours")},
+                    {
+                        "clustering_n_neighbours": LaunchConfiguration(
+                            "clustering_n_neighbours"
+                        )
+                    },
                     {"clustering_epsilon": LaunchConfiguration("clustering_epsilon")},
-                    {"horizontal_resolution": LaunchConfiguration("horizontal_resolution")},
+                    {
+                        "horizontal_resolution": LaunchConfiguration(
+                            "horizontal_resolution"
+                        )
+                    },
                     {"vertical_resolution": LaunchConfiguration("vertical_resolution")},
                     {"adapter": LaunchConfiguration("adapter")},
                     {"ground_removal": LaunchConfiguration("ground_removal")},
                     {"n_angular_grids": LaunchConfiguration("n_angular_grids")},
                     {"radius_resolution": LaunchConfiguration("radius_resolution")},
                     {"target_file": LaunchConfiguration("target_file")},
-                    {"max_correspondence_distance": LaunchConfiguration("max_correspondence_distance")},
+                    {
+                        "max_correspondence_distance": LaunchConfiguration(
+                            "max_correspondence_distance"
+                        )
+                    },
                     {"max_iteration": LaunchConfiguration("max_iteration")},
-                    {"transformation_epsilon": LaunchConfiguration("transformation_epsilon")},
-                    {"euclidean_fitness_epsilon": LaunchConfiguration("euclidean_fitness_epsilon")},
+                    {
+                        "transformation_epsilon": LaunchConfiguration(
+                            "transformation_epsilon"
+                        )
+                    },
+                    {
+                        "euclidean_fitness_epsilon": LaunchConfiguration(
+                            "euclidean_fitness_epsilon"
+                        )
+                    },
                 ],
                 arguments=["--ros-args", "--log-level", "perception:=debug"],
             ),
@@ -112,6 +133,7 @@ def generate_launch_description():
             ),
         ]
     )
+
 
 if __name__ == "__main__":
     generate_launch_description()

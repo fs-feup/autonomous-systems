@@ -12,6 +12,7 @@ from evaluator.formats import (
     format_nav_odometry_msg,
 )
 import rclpy
+from tf_transformations import quaternion_matrix
 
 
 class FSDSAdapter(Adapter):
@@ -125,14 +126,15 @@ class FSDSAdapter(Adapter):
         )
         perception_ground_truth = []
 
+        self.node.get_logger().info(f"------One iteration------")
         for cone in self.track:
             cone_position = np.array([cone[0], cone[1], 0])
             transformed_position = np.dot(rotation_matrix, cone_position) + np.array(
                 [odometry.pose.pose.position.x, odometry.pose.pose.position.y, 0]
             )
 
-            perception_ground_truth.append(transformed_position)
-            # self.node.get_logger().info(transformed_position)
+            perception_ground_truth.append(np.append(transformed_position[:2], 0))
+            self.node.get_logger().info(f"{cone_position}")
 
         return np.array(perception_ground_truth)
 
@@ -182,22 +184,22 @@ class FSDSAdapter(Adapter):
         Returns:
             numpy.ndarray: Rotation matrix.
         """
-        q0, q1, q2, q3 = quaternion.x, quaternion.y, quaternion.z, quaternion.w
+        w, x, y, z = quaternion.w, quaternion.x, quaternion.y, quaternion.z
 
         # First row of the rotation matrix
-        r00 = 2 * (q0 * q0 + q1 * q1) - 1
-        r01 = 2 * (q1 * q2 - q0 * q3)
-        r02 = 2 * (q1 * q3 + q0 * q2)
+        r00 = 1 - 2 * (y**2 + z**2)
+        r01 = 2 * (x * y - z * w)
+        r02 = 2 * (x * z + y * w)
 
         # Second row of the rotation matrix
-        r10 = 2 * (q1 * q2 + q0 * q3)
-        r11 = 2 * (q0 * q0 + q2 * q2) - 1
-        r12 = 2 * (q2 * q3 - q0 * q1)
+        r10 = 2 * (x * y + z * w)
+        r11 = 1 - 2 * (x**2 + z**2)
+        r12 = 2 * (y * z - x * w)
 
         # Third row of the rotation matrix
-        r20 = 2 * (q1 * q3 - q0 * q2)
-        r21 = 2 * (q2 * q3 + q0 * q1)
-        r22 = 2 * (q0 * q0 + q3 * q3) - 1
+        r20 = 2 * (x * z - z * w)
+        r21 = 2 * (y * z + x * w)
+        r22 = 1 - 2 * (x**2 + y**2)
 
         rot_matrix = np.array([[r00, r01, r02], [r10, r11, r12], [r20, r21, r22]])
         return rot_matrix

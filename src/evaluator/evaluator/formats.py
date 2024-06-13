@@ -11,7 +11,7 @@ cone_color_dictionary: dict[str, int] = {
     "yellow_cone": 1,
     "orange_cone": 2,
     "large_orange_cone": 3,
-    "unknown": 4,
+    "undefined": 4,
 }
 
 
@@ -56,7 +56,7 @@ def format_cone_array_msg(msg: ConeArray) -> np.ndarray[np.ndarray]:
                     cone.position.x,
                     cone.position.y,
                     cone_color_dictionary[cone.color],
-                    cone.confidence
+                    cone.confidence,
                 ]
             )
         )
