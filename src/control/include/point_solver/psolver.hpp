@@ -8,6 +8,7 @@
 #include "common_lib/structures/pose.hpp"
 #include "common_lib/structures/position.hpp"
 #include "common_lib/vehicle_dynamics/car_parameters.hpp"
+#include "common_lib/vehicle_dynamics/bicycle_model.hpp"
 #include "custom_interfaces/msg/path_point_array.hpp"
 #include "custom_interfaces/msg/vehicle_state.hpp"
 #include "gtest/gtest.h"
@@ -48,18 +49,6 @@ public:
   std::tuple<common_lib::structures::Position, double, bool> update_lookahead_point(
       const std::vector<custom_interfaces::msg::PathPoint> &pathpoint_array,
       common_lib::structures::Position rear_axis_point, int closest_point_id) const;
-
-  /**
-   * @brief Calculate rear axis coordinates
-   *
-   * @param cg
-   * @param heading
-   * @param dist_cg_2_rear_axis
-   *
-   * @return Point
-   */
-  common_lib::structures::Position cg_2_rear_axis(common_lib::structures::Position cg,
-                                                  double heading, double dist_cg_2_rear_axis) const;
 
   /**
    * @brief update the LookaheadDistance based on a new velocity

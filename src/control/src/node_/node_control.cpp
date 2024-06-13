@@ -16,6 +16,8 @@
 
 using namespace common_lib::structures;
 
+using namespace common_lib::structures;
+
 Control::Control(const ControlParameters& params)
     : Node("control"),
       using_simulated_se_(params.using_simulated_se_),

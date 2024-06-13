@@ -21,12 +21,12 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "lookahead_gain",
                 description="Variable K -> Lookahead Gain",
-                default_value="0.5",
+                default_value="1.5",
             ),
             DeclareLaunchArgument(
                 "lookahead_margin",
                 description="Margin of the lookahead distance",
-                default_value="0.1",
+                default_value="0.5",
             ),
             DeclareLaunchArgument(
                 "use_simulated_se",
