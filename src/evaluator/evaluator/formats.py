@@ -55,10 +55,8 @@ def format_cone_array_msg(msg: ConeArray) -> np.ndarray[np.ndarray]:
                 [
                     cone.position.x,
                     cone.position.y,
-                    #"undefined",
-                    # cone_color_dictionary[cone.color],
-                    0
-                    #cone.confidence,
+                    cone_color_dictionary[cone.color],
+                    cone.confidence
                 ]
             )
         )
