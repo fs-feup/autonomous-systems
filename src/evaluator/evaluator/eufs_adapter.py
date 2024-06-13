@@ -52,7 +52,7 @@ class EufsAdapter(Adapter):
         self.node.simulated_planning_subscription = self.node.create_subscription(
             CarState,
             "/odometry_integration/car_state",
-            self.simulated_planning_callback,
+            self.set_control_init,
             10,
         )
 
@@ -67,7 +67,7 @@ class EufsAdapter(Adapter):
 
         self._time_sync_.registerCallback(self.state_estimation_callback)
     
-    def simulated_planning_callback(
+    def set_control_init(
         self,
         msg: CarState
     ):

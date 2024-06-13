@@ -200,6 +200,8 @@ class Evaluator(Node):
 
         self._control_sum_error = 0
         self._control_squared_sum_error = 0
+        self._control_velocity_sum_error = 0
+        self._control_velocity_squared_sum_error = 0
         self._control_count = 0
 
         self.planning_mock = (
@@ -461,7 +463,7 @@ class Evaluator(Node):
 
         pose_treated, velocities_treated = format_vehicle_state_msg(msg.vehicle_state)
         lookahead_point = format_point2d_msg(msg.lookahead_point)
-        lookahead_velocity = msg.lookahead_velocity
+        lookahead_velocity = msg.lookahead_velocity # it is a float
 
         time_difference = float(
             (self._control_receive_time_ - self._planning_receive_time_).microseconds
@@ -480,6 +482,8 @@ class Evaluator(Node):
 
         self._control_sum_error += compute_distance(closest_point, pose_position)
         self._control_squared_sum_error += compute_distance(closest_point, pose_position) ** 2
+        self._control_velocity_sum_error
+        self._control_velocity_squared_sum_error
         self._control_count += 1
 
         mean_difference = Float32()
