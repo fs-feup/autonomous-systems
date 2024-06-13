@@ -72,7 +72,7 @@ class EufsAdapter(Adapter):
         msg: CarState
     ):
         """!
-        Callback function to mark the initial timestamp of the planning execution
+        Callback function to mark the initial timestamp of the control execution
 
         Args:
             msg (CarState): Car state coming from EUFS simulator
