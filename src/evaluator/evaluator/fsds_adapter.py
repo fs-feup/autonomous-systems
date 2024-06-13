@@ -12,7 +12,6 @@ from evaluator.formats import (
     format_nav_odometry_msg,
 )
 import rclpy
-from tf_transformations import quaternion_matrix
 
 
 class FSDSAdapter(Adapter):
@@ -126,7 +125,6 @@ class FSDSAdapter(Adapter):
         )
         perception_ground_truth = []
 
-        self.node.get_logger().info(f"------One iteration------")
         for cone in self.track:
             cone_position = np.array([cone[0], cone[1], 0])
             transformed_position = np.dot(rotation_matrix, cone_position) + np.array(
@@ -134,7 +132,6 @@ class FSDSAdapter(Adapter):
             )
 
             perception_ground_truth.append(np.append(transformed_position[:2], 0))
-            self.node.get_logger().info(f"{cone_position}")
 
         return np.array(perception_ground_truth)
 
