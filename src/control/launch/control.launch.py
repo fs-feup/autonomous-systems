@@ -9,14 +9,14 @@ def generate_launch_description():
     return LaunchDescription(
         [
             DeclareLaunchArgument(
-                "adapter",
-                description="Vehicle or Simulation mode (pacsim, fsds, eufs)",
-                default_value="eufs",
-            ),
-            DeclareLaunchArgument(
                 "mocker_node",
                 description="Wether or not to use Mocker Node for Plannning (true/false)",
                 default_value="false",
+            ),
+            DeclareLaunchArgument(
+                "adapter",
+                description="Vehicle or Simulation mode (pacsim, fsds, eufs)",
+                default_value="control_pacsim",
             ),
             DeclareLaunchArgument(
                 "lookahead_gain",
@@ -36,7 +36,7 @@ def generate_launch_description():
             Node(
                 package="control",
                 executable="node_control",
-                name="control",
+                name="control_adapter",
                 parameters=[
                     {"adapter": LaunchConfiguration("adapter")},
                     {"mocker_node": LaunchConfiguration("mocker_node")},
@@ -46,5 +46,6 @@ def generate_launch_description():
                 ],
                 arguments=["--ros-args", "--log-level", "control:=debug"],
             ),
+            
         ]
     )
