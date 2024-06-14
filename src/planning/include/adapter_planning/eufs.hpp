@@ -1,11 +1,12 @@
-#ifndef SRC_PLANNING_PLANNING_INCLUDE_ADAPTER_EUFS_HPP_
-#define SRC_PLANNING_PLANNING_INCLUDE_ADAPTER_EUFS_HPP_
+#pragma once
 
-#include "adapter_planning/adapter.hpp"
+#include "eufs_msgs/msg/can_state.hpp"
 #include "eufs_msgs/msg/car_state.hpp"
 #include "eufs_msgs/msg/cone_array_with_covariance.hpp"
+#include "eufs_msgs/srv/set_can_state.hpp"
+#include "planning/planning.hpp"
 
-class EufsAdapter : public Adapter {
+class EufsAdapter : public Planning {
   rclcpp::Subscription<eufs_msgs::msg::CanState>::SharedPtr eufs_state_subscription_;
   rclcpp::Subscription<eufs_msgs::msg::CarState>::SharedPtr eufs_pose_subscription_;
   rclcpp::Subscription<eufs_msgs::msg::ConeArrayWithCovariance>::SharedPtr eufs_map_subscription_;
@@ -14,7 +15,7 @@ class EufsAdapter : public Adapter {
   rclcpp::Client<eufs_msgs::srv::SetCanState>::SharedPtr eufs_ebs_client_;
 
 public:
-  explicit EufsAdapter(Planning* planning);
+  explicit EufsAdapter(const PlanningParameters& params);
 
   void mission_state_callback(eufs_msgs::msg::CanState msg);
   void set_mission_state(int mission, int state);
@@ -22,5 +23,3 @@ public:
   void map_callback(const eufs_msgs::msg::ConeArrayWithCovariance& msg);
   void finish() override;
 };
-
-#endif

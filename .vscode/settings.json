@@ -96,6 +96,7 @@
         "sparse": "cpp",
         "*.ipp": "cpp",
         "filesystem": "cpp",
+        "nonlinearoptimization": "cpp",
         "*.txx": "cpp"
     },
     "[python]": {
