@@ -41,6 +41,9 @@ class Perception : public rclcpp::Node {
   rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr
       _cones_publisher;  ///< ConeArray publisher.
 
+  rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr
+      _pc_publisher;
+
   /**
    * @brief Publishes information about clusters (cones) using a custom ROS2 message.
    *

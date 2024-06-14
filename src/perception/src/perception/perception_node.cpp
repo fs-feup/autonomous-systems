@@ -29,6 +29,8 @@ Perception::Perception(std::shared_ptr<GroundRemoval> ground_removal, std::share
       _mode_(mode) {
   this->_cones_publisher = this->create_publisher<custom_interfaces::msg::ConeArray>("/perception/cones", 10);
 
+  this->_pc_publisher = this->create_publisher<sensor_msgs::msg::PointCloud2>("/mockingjay", 10);
+
   this->_adapter_ = std::shared_ptr<Adapter>(adapter_map[mode](this));
 }
 
@@ -48,7 +50,7 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
   _clustering_->clustering(ground_removed_cloud, &clusters);
 
   std::vector<Cluster> filtered_clusters;
-
+  int i = 0;
   for (auto cluster : clusters) {
     if (std::all_of(_cone_validators_.begin(), _cone_validators_.end(), [&](const auto& validator) {
           return validator->coneValidator(&cluster, _ground_plane_);
@@ -69,9 +71,23 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
     std::string color = filtered_clusters[i].get_color();
     filtered_clusters[i].set_color(color);
     RCLCPP_DEBUG(this->get_logger(), "Cone %d: %s", i, color.c_str());
+    if (i == 0)
+      pcl::io::savePCDFileASCII("../../cluster.pcd", *filtered_clusters[i].get_point_cloud());
   }
 
   publishCones(&clusters);
+
+  pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_cloud2(new pcl::PointCloud<pcl::PointXYZI>);
+  if (pcl::io::loadPCDFile<pcl::PointXYZI>("filtered_output_modified.pcd", *pcl_cloud2) == -1) {
+    RCLCPP_ERROR(this->get_logger(), "Failed to load PCD file");
+  }
+
+  RCLCPP_INFO(this->get_logger(), "Size: %d", pcl_cloud2->size());
+
+  sensor_msgs::msg::PointCloud2::SharedPtr ros_cloud(new sensor_msgs::msg::PointCloud2);
+  pcl::toROSMsg(*pcl_cloud2, *ros_cloud);
+
+  this->_pc_publisher->publish(*ros_cloud);
 }
 
 void Perception::publishCones(std::vector<Cluster>* cones) {

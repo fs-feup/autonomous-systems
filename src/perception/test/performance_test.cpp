@@ -212,3 +212,37 @@ TEST_F(PerceptionPerformanceTest, TestPerformance) {
     writeToFile(executionTime);
   }
 }
+
+TEST_F(PerceptionPerformanceTest, NothingSpecial){
+   std::stringstream ss;
+    ss << inputFilesPaths << "filtered_output" << ".pcd";
+    std::string file_name = ss.str();
+    pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_cloud(new pcl::PointCloud<pcl::PointXYZI>);
+    if (pcl::io::loadPCDFile<pcl::PointXYZI>(file_name, *pcl_cloud) == -1) {
+        PCL_ERROR("Couldn't read file \n");
+        return;
+    }
+
+    // Iterate through each point and adjust the intensity
+    for (auto& point : pcl_cloud->points) {
+        if (point.z < -0.9) {
+            point.intensity = 0;
+        } else {
+            double distance = sqrt(point.x * point.x + point.y *point.y);
+            if (6 <= distance && distance <= 7)
+              point.intensity = 33;
+
+            if (7.5 <= distance && distance <= 8.5)
+              point.intensity = 67;
+            
+            if (9 <= distance && distance <= 10)
+              point.intensity = 100;
+
+        }
+    }
+
+    std::stringstream ss_out;
+    ss_out << inputFilesPaths << "filtered_output_modified" << ".pcd";
+    std::string file_name_out = ss_out.str();
+    pcl::io::savePCDFileASCII(file_name_out, *pcl_cloud);
+}
