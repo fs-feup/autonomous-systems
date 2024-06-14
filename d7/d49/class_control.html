@@ -97,7 +97,7 @@ $(document).ready(function(){initNavTree('d7/d49/class_control.html','../../'); 
 <a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../d6/d79/class_control-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">Control Class Reference</div></div>
+  <div class="headertitle"><div class="title">Control Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
 </div><!--header-->
 <div class="contents">
 
@@ -110,9 +110,17 @@ Inheritance diagram for Control:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d9/d57/class_control__inherit__graph.png" border="0" usemap="#a_control_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_control_inherit__map" id="a_control_inherit__map">
-<area shape="rect" title="Class responsible for the control of the car." alt="" coords="5,119,169,424"/>
-<area shape="rect" title=" " alt="" coords="45,5,130,71"/>
-<area shape="poly" title=" " alt="" coords="90,86,90,119,85,119,85,86"/>
+<area shape="rect" title="Class responsible for the control of the car." alt="" coords="342,119,506,424"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html" title=" " alt="" coords="5,472,189,1051"/>
+<area shape="poly" title=" " alt="" coords="332,341,264,401,232,436,204,474,192,492,187,490,199,470,228,433,260,398,329,337"/>
+<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html" title=" " alt="" coords="213,544,429,979"/>
+<area shape="poly" title=" " alt="" coords="392,439,369,545,364,544,386,438"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html" title=" " alt="" coords="454,569,599,954"/>
+<area shape="poly" title=" " alt="" coords="461,438,489,568,484,570,456,439"/>
+<area shape="rect" href="../../d1/df1/class_vehicle_adapter.html" title=" " alt="" coords="624,507,824,1016"/>
+<area shape="poly" title=" " alt="" coords="518,354,569,409,614,471,634,505,630,508,610,473,565,413,514,358"/>
+<area shape="rect" title=" " alt="" coords="381,5,467,71"/>
+<area shape="poly" title=" " alt="" coords="427,86,427,119,421,119,421,86"/>
 </map>
 </div>
 <div class="dynheader">
@@ -141,8 +149,8 @@ Collaboration diagram for Control:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aa730aeda4517f40bc48ba1e46ebded77" id="r_aa730aeda4517f40bc48ba1e46ebded77"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d49/class_control.html#aa730aeda4517f40bc48ba1e46ebded77">Control</a> ()</td></tr>
-<tr class="separator:aa730aeda4517f40bc48ba1e46ebded77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e25ac7cb5a0e306e072388e62f5c84d" id="r_a6e25ac7cb5a0e306e072388e62f5c84d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d49/class_control.html#a6e25ac7cb5a0e306e072388e62f5c84d">Control</a> (const <a class="el" href="../../d4/de1/struct_control_parameters.html">ControlParameters</a> &amp;params)</td></tr>
+<tr class="separator:a6e25ac7cb5a0e306e072388e62f5c84d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4953afbe68bf1d7a023972985c8083d6" id="r_a4953afbe68bf1d7a023972985c8083d6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d49/class_control.html#a4953afbe68bf1d7a023972985c8083d6">publish_control</a> (const custom_interfaces::msg::VehicleState &amp;vehicle_state_msg)</td></tr>
 <tr class="memdesc:a4953afbe68bf1d7a023972985c8083d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publishes the steering angle to the car based on the path and pose using cache.  <br /></td></tr>
 <tr class="separator:a4953afbe68bf1d7a023972985c8083d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -153,13 +161,13 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a24e436accce661da6fc26e937c2e9fe4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8a7d5c79dcea2577ef224feeddcdac99" id="r_a8a7d5c79dcea2577ef224feeddcdac99"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d49/class_control.html#a8a7d5c79dcea2577ef224feeddcdac99">go_signal_</a> {false}</td></tr>
 <tr class="separator:a8a7d5c79dcea2577ef224feeddcdac99"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a201fd149fe8953583c3adaa2878782b6" id="r_a201fd149fe8953583c3adaa2878782b6"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d3/d7f/class_adapter.html">Adapter</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d49/class_control.html#a201fd149fe8953583c3adaa2878782b6">adapter_</a></td></tr>
-<tr class="separator:a201fd149fe8953583c3adaa2878782b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:a0a00af51d42f0a4160f6bd326588f2c4" id="r_a0a00af51d42f0a4160f6bd326588f2c4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d49/class_control.html#a0a00af51d42f0a4160f6bd326588f2c4">publish_evaluator_data</a> (double lookahead_velocity, <a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a> lookahead_point, <a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a> closest_point, custom_interfaces::msg::VehicleState vehicle_state_msg) const</td></tr>
 <tr class="separator:a0a00af51d42f0a4160f6bd326588f2c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23d410d03e7229c173efb6c39e8d271e" id="r_a23d410d03e7229c173efb6c39e8d271e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d49/class_control.html#a23d410d03e7229c173efb6c39e8d271e">publish_cmd</a> (double acceleration, double steering)=0</td></tr>
+<tr class="separator:a23d410d03e7229c173efb6c39e8d271e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -186,21 +194,30 @@ Private Attributes</h2></td></tr>
 <div class="textblock"><p>Class responsible for the control of the car. </p>
 <p>This class inherits from rclcpp::Node, subscribing to current velocity and ideal path topics, and publishing torque (or other output to the actuators). </p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/d3d/node__control_8hpp_source.html#l00029">29</a> of file <a class="el" href="../../da/d3d/node__control_8hpp_source.html">node_control.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/d3d/node__control_8hpp_source.html#l00032">32</a> of file <a class="el" href="../../da/d3d/node__control_8hpp_source.html">node_control.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aa730aeda4517f40bc48ba1e46ebded77" name="aa730aeda4517f40bc48ba1e46ebded77"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa730aeda4517f40bc48ba1e46ebded77">&#9670;&#160;</a></span>Control()</h2>
+<a id="a6e25ac7cb5a0e306e072388e62f5c84d" name="a6e25ac7cb5a0e306e072388e62f5c84d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e25ac7cb5a0e306e072388e62f5c84d">&#9670;&#160;</a></span>Control()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">Control::Control </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="../../d4/de1/struct_control_parameters.html">ControlParameters</a> &amp;&#160;</td>
+          <td class="paramname"><em>params</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="../../d1/da2/node__control_8cpp_source.html#l00021">21</a> of file <a class="el" href="../../d1/da2/node__control_8cpp_source.html">node_control.cpp</a>.</p>
@@ -208,6 +225,64 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a23d410d03e7229c173efb6c39e8d271e" name="a23d410d03e7229c173efb6c39e8d271e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23d410d03e7229c173efb6c39e8d271e">&#9670;&#160;</a></span>publish_cmd()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void Control::publish_cmd </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>acceleration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>steering</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="../../d1/df1/class_vehicle_adapter.html#a38b71330a7c466688649fd0801ff8794">VehicleAdapter</a>, <a class="el" href="../../d0/d1d/class_eufs_adapter.html#a3b651290afda6ce152e7fc625302e533">EufsAdapter</a>, <a class="el" href="../../d7/d8e/class_fsds_adapter.html#a68abeaa6699f31b636edfda4bdf07b73">FsdsAdapter</a>, and <a class="el" href="../../db/d68/class_pac_sim_adapter.html#a2dc4a13d84b41c8741be044542fa8275">PacSimAdapter</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d7/d49/class_control_a23d410d03e7229c173efb6c39e8d271e_icgraph.png" border="0" usemap="#ad7/d49/class_control_a23d410d03e7229c173efb6c39e8d271e_icgraph" alt=""/></div>
+<map name="ad7/d49/class_control_a23d410d03e7229c173efb6c39e8d271e_icgraph" id="ad7/d49/class_control_a23d410d03e7229c173efb6c39e8d271e_icgraph">
+<area shape="rect" title=" " alt="" coords="661,80,803,106"/>
+<area shape="rect" href="../../d7/d49/class_control.html#a4953afbe68bf1d7a023972985c8083d6" title="Publishes the steering angle to the car based on the path and pose using cache." alt="" coords="458,80,613,106"/>
+<area shape="poly" title=" " alt="" coords="646,96,613,96,613,90,646,90"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a0ebee635d839642ad33762f5402ad973" title=" " alt="" coords="263,39,410,80"/>
+<area shape="poly" title=" " alt="" coords="442,80,410,74,411,69,443,75"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#acf7089ed69eb7488fae4904f66f1e2b8" title=" " alt="" coords="267,105,406,145"/>
+<area shape="poly" title=" " alt="" coords="443,110,406,116,406,111,442,105"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4be2946eb7e577326de44b7c3b8a4868" title=" " alt="" coords="5,5,215,31"/>
+<area shape="poly" title=" " alt="" coords="247,46,184,34,185,29,248,41"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70" title=" " alt="" coords="5,55,215,80"/>
+<area shape="poly" title=" " alt="" coords="247,65,215,66,215,61,247,60"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#af96e527b6595820c565d6beeafe3da5f" title=" " alt="" coords="25,112,195,138"/>
+<area shape="poly" title=" " alt="" coords="251,128,195,128,195,122,251,122"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="a4953afbe68bf1d7a023972985c8083d6" name="a4953afbe68bf1d7a023972985c8083d6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4953afbe68bf1d7a023972985c8083d6">&#9670;&#160;</a></span>publish_control()</h2>
 
@@ -226,25 +301,27 @@ Private Attributes</h2></td></tr>
 
 <p>Publishes the steering angle to the car based on the path and pose using cache. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/da2/node__control_8cpp_source.html#l00044">44</a> of file <a class="el" href="../../d1/da2/node__control_8cpp_source.html">node_control.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/da2/node__control_8cpp_source.html#l00042">42</a> of file <a class="el" href="../../d1/da2/node__control_8cpp_source.html">node_control.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d7/d49/class_control_a4953afbe68bf1d7a023972985c8083d6_cgraph.png" border="0" usemap="#ad7/d49/class_control_a4953afbe68bf1d7a023972985c8083d6_cgraph" alt=""/></div>
 <map name="ad7/d49/class_control_a4953afbe68bf1d7a023972985c8083d6_cgraph" id="ad7/d49/class_control_a4953afbe68bf1d7a023972985c8083d6_cgraph">
-<area shape="rect" title="Publishes the steering angle to the car based on the path and pose using cache." alt="" coords="5,326,161,352"/>
+<area shape="rect" title="Publishes the steering angle to the car based on the path and pose using cache." alt="" coords="5,294,161,320"/>
 <area shape="rect" href="../../dc/dde/class_pure_pursuit.html#ab921e5033e736078b4adb269525f6dde" title="Pure Pursuit control law." alt="" coords="228,63,391,103"/>
-<area shape="poly" title=" " alt="" coords="94,324,278,113,282,117,98,327"/>
+<area shape="poly" title=" " alt="" coords="96,292,275,112,279,116,100,296"/>
+<area shape="rect" href="../../d7/d49/class_control.html#a23d410d03e7229c173efb6c39e8d271e" title=" " alt="" coords="239,196,380,221"/>
+<area shape="poly" title=" " alt="" coords="101,292,148,261,208,230,225,224,227,229,210,235,151,265,104,296"/>
 <area shape="rect" href="../../d7/d49/class_control.html#a0a00af51d42f0a4160f6bd326588f2c4" title=" " alt="" coords="209,245,410,271"/>
-<area shape="poly" title=" " alt="" coords="108,323,154,301,208,279,229,273,230,278,210,284,156,306,111,328"/>
+<area shape="poly" title=" " alt="" coords="145,291,232,272,233,277,146,296"/>
 <area shape="rect" href="../../d6/d5a/class_p_i_d.html#a6b2e0ee3c86f4106bccac154b8baf65e" title="Calculate the output value." alt="" coords="265,294,354,320"/>
-<area shape="poly" title=" " alt="" coords="161,325,249,313,250,318,162,331"/>
+<area shape="poly" title=" " alt="" coords="161,304,250,304,250,310,161,310"/>
 <area shape="rect" href="../../d9/da5/class_point_solver.html#aea7e92309c892b1141b5df4212019cef" title="Find the closest point on the path." alt="" coords="243,347,376,387"/>
-<area shape="poly" title=" " alt="" coords="162,346,227,354,227,359,161,351"/>
+<area shape="poly" title=" " alt="" coords="135,318,228,343,227,348,134,323"/>
 <area shape="rect" href="../../d9/da5/class_point_solver.html#aef1e4c10fa380623f5147f77adf6e5b0" title="Update Lookahead point." alt="" coords="243,417,376,458"/>
-<area shape="poly" title=" " alt="" coords="112,350,210,397,239,409,237,414,208,401,110,355"/>
+<area shape="poly" title=" " alt="" coords="101,318,148,356,210,397,234,409,232,413,207,401,145,360,98,322"/>
 <area shape="rect" href="../../d9/da5/class_point_solver.html#a2547e5834c5e2238a69e7b6a96dc1d7a" title="Update vehicle pose." alt="" coords="243,492,376,533"/>
-<area shape="poly" title=" " alt="" coords="96,350,142,406,174,438,210,467,236,483,234,487,207,472,171,442,138,409,92,354"/>
+<area shape="poly" title=" " alt="" coords="94,319,137,388,171,430,210,468,234,483,231,487,207,472,167,434,133,391,89,322"/>
 <area shape="rect" href="../../dc/dde/class_pure_pursuit.html#ae07038f1c02256819e50a7878797d1ac" title="Calculate alpha (angle between the vehicle and lookahead point)" alt="" coords="489,5,636,46"/>
 <area shape="poly" title=" " alt="" coords="390,62,473,43,474,48,391,67"/>
 <area shape="rect" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html#a9d5f2cdfcef053cae4a6a7a3888ce2d6" title=" " alt="" coords="714,237,870,292"/>
@@ -268,6 +345,24 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="377,451,441,460,515,463,592,455,630,445,665,430,700,405,730,373,753,338,771,305,776,307,758,341,734,376,704,409,668,435,631,450,593,460,515,468,440,465,376,456"/>
 <area shape="rect" href="../../d4/d1a/namespacecommon__lib_1_1vehicle__dynamics.html#aecf44e20f904287db0e4c2b8f4b426a4" title="Calculate rear axis coordinates." alt="" coords="474,519,650,559"/>
 <area shape="poly" title=" " alt="" coords="377,517,459,525,458,531,376,522"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d7/d49/class_control_a4953afbe68bf1d7a023972985c8083d6_icgraph.png" border="0" usemap="#ad7/d49/class_control_a4953afbe68bf1d7a023972985c8083d6_icgraph" alt=""/></div>
+<map name="ad7/d49/class_control_a4953afbe68bf1d7a023972985c8083d6_icgraph" id="ad7/d49/class_control_a4953afbe68bf1d7a023972985c8083d6_icgraph">
+<area shape="rect" title="Publishes the steering angle to the car based on the path and pose using cache." alt="" coords="458,80,613,106"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a0ebee635d839642ad33762f5402ad973" title=" " alt="" coords="263,39,410,80"/>
+<area shape="poly" title=" " alt="" coords="442,80,410,74,411,69,443,75"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#acf7089ed69eb7488fae4904f66f1e2b8" title=" " alt="" coords="267,105,406,145"/>
+<area shape="poly" title=" " alt="" coords="443,110,406,116,406,111,442,105"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4be2946eb7e577326de44b7c3b8a4868" title=" " alt="" coords="5,5,215,31"/>
+<area shape="poly" title=" " alt="" coords="247,46,184,34,185,29,248,41"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70" title=" " alt="" coords="5,55,215,80"/>
+<area shape="poly" title=" " alt="" coords="247,65,215,66,215,61,247,60"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#af96e527b6595820c565d6beeafe3da5f" title=" " alt="" coords="25,112,195,138"/>
+<area shape="poly" title=" " alt="" coords="251,128,195,128,195,122,251,122"/>
 </map>
 </div>
 
@@ -319,37 +414,31 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/da2/node__control_8cpp_source.html#l00093">93</a> of file <a class="el" href="../../d1/da2/node__control_8cpp_source.html">node_control.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/da2/node__control_8cpp_source.html#l00091">91</a> of file <a class="el" href="../../d1/da2/node__control_8cpp_source.html">node_control.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d7/d49/class_control_a0a00af51d42f0a4160f6bd326588f2c4_icgraph.png" border="0" usemap="#ad7/d49/class_control_a0a00af51d42f0a4160f6bd326588f2c4_icgraph" alt=""/></div>
 <map name="ad7/d49/class_control_a0a00af51d42f0a4160f6bd326588f2c4_icgraph" id="ad7/d49/class_control_a0a00af51d42f0a4160f6bd326588f2c4_icgraph">
-<area shape="rect" title=" " alt="" coords="209,5,410,31"/>
-<area shape="rect" href="../../d7/d49/class_control.html#a4953afbe68bf1d7a023972985c8083d6" title="Publishes the steering angle to the car based on the path and pose using cache." alt="" coords="5,5,161,31"/>
-<area shape="poly" title=" " alt="" coords="193,21,161,21,161,16,193,16"/>
+<area shape="rect" title=" " alt="" coords="661,80,863,106"/>
+<area shape="rect" href="../../d7/d49/class_control.html#a4953afbe68bf1d7a023972985c8083d6" title="Publishes the steering angle to the car based on the path and pose using cache." alt="" coords="458,80,613,106"/>
+<area shape="poly" title=" " alt="" coords="646,96,614,96,614,90,646,90"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a0ebee635d839642ad33762f5402ad973" title=" " alt="" coords="263,39,410,80"/>
+<area shape="poly" title=" " alt="" coords="442,80,410,74,411,69,443,75"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#acf7089ed69eb7488fae4904f66f1e2b8" title=" " alt="" coords="267,105,406,145"/>
+<area shape="poly" title=" " alt="" coords="443,110,406,116,406,111,442,105"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4be2946eb7e577326de44b7c3b8a4868" title=" " alt="" coords="5,5,215,31"/>
+<area shape="poly" title=" " alt="" coords="247,46,184,34,185,29,248,41"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70" title=" " alt="" coords="5,55,215,80"/>
+<area shape="poly" title=" " alt="" coords="247,65,215,66,215,61,247,60"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#af96e527b6595820c565d6beeafe3da5f" title=" " alt="" coords="25,112,195,138"/>
+<area shape="poly" title=" " alt="" coords="251,128,195,128,195,122,251,122"/>
 </map>
 </div>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a201fd149fe8953583c3adaa2878782b6" name="a201fd149fe8953583c3adaa2878782b6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a201fd149fe8953583c3adaa2878782b6">&#9670;&#160;</a></span>adapter_</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../d3/d7f/class_adapter.html">Adapter</a>&gt; Control::adapter_</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../da/d3d/node__control_8hpp_source.html#l00034">34</a> of file <a class="el" href="../../da/d3d/node__control_8hpp_source.html">node_control.hpp</a>.</p>
-
-</div>
-</div>
 <a id="add3ae8a316aa9ba08a189a7120ae0edb" name="add3ae8a316aa9ba08a189a7120ae0edb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#add3ae8a316aa9ba08a189a7120ae0edb">&#9670;&#160;</a></span>evaluator_data_pub_</h2>
 
@@ -370,7 +459,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../da/d3d/node__control_8hpp_source.html#l00048">48</a> of file <a class="el" href="../../da/d3d/node__control_8hpp_source.html">node_control.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/d3d/node__control_8hpp_source.html#l00050">50</a> of file <a class="el" href="../../da/d3d/node__control_8hpp_source.html">node_control.hpp</a>.</p>
 
 </div>
 </div>
@@ -386,7 +475,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../da/d3d/node__control_8hpp_source.html#l00032">32</a> of file <a class="el" href="../../da/d3d/node__control_8hpp_source.html">node_control.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/d3d/node__control_8hpp_source.html#l00035">35</a> of file <a class="el" href="../../da/d3d/node__control_8hpp_source.html">node_control.hpp</a>.</p>
 
 </div>
 </div>
@@ -412,7 +501,7 @@ Here is the caller graph for this function:</div>
 
 <p>Lateral Controller. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/d3d/node__control_8hpp_source.html#l00057">57</a> of file <a class="el" href="../../da/d3d/node__control_8hpp_source.html">node_control.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/d3d/node__control_8hpp_source.html#l00059">59</a> of file <a class="el" href="../../da/d3d/node__control_8hpp_source.html">node_control.hpp</a>.</p>
 
 </div>
 </div>
@@ -436,7 +525,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../da/d3d/node__control_8hpp_source.html#l00056">56</a> of file <a class="el" href="../../da/d3d/node__control_8hpp_source.html">node_control.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/d3d/node__control_8hpp_source.html#l00058">58</a> of file <a class="el" href="../../da/d3d/node__control_8hpp_source.html">node_control.hpp</a>.</p>
 
 </div>
 </div>
@@ -460,7 +549,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../da/d3d/node__control_8hpp_source.html#l00045">45</a> of file <a class="el" href="../../da/d3d/node__control_8hpp_source.html">node_control.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/d3d/node__control_8hpp_source.html#l00046">46</a> of file <a class="el" href="../../da/d3d/node__control_8hpp_source.html">node_control.hpp</a>.</p>
 
 </div>
 </div>
@@ -484,7 +573,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../da/d3d/node__control_8hpp_source.html#l00052">52</a> of file <a class="el" href="../../da/d3d/node__control_8hpp_source.html">node_control.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/d3d/node__control_8hpp_source.html#l00054">54</a> of file <a class="el" href="../../da/d3d/node__control_8hpp_source.html">node_control.hpp</a>.</p>
 
 </div>
 </div>
@@ -508,7 +597,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../da/d3d/node__control_8hpp_source.html#l00054">54</a> of file <a class="el" href="../../da/d3d/node__control_8hpp_source.html">node_control.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/d3d/node__control_8hpp_source.html#l00056">56</a> of file <a class="el" href="../../da/d3d/node__control_8hpp_source.html">node_control.hpp</a>.</p>
 
 </div>
 </div>
@@ -534,7 +623,7 @@ Here is the caller graph for this function:</div>
 
 <p>Point Solver. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/d3d/node__control_8hpp_source.html#l00055">55</a> of file <a class="el" href="../../da/d3d/node__control_8hpp_source.html">node_control.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/d3d/node__control_8hpp_source.html#l00057">57</a> of file <a class="el" href="../../da/d3d/node__control_8hpp_source.html">node_control.hpp</a>.</p>
 
 </div>
 </div>
@@ -550,7 +639,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../da/d3d/node__control_8hpp_source.html#l00031">31</a> of file <a class="el" href="../../da/d3d/node__control_8hpp_source.html">node_control.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/d3d/node__control_8hpp_source.html#l00034">34</a> of file <a class="el" href="../../da/d3d/node__control_8hpp_source.html">node_control.hpp</a>.</p>
 
 </div>
 </div>
@@ -574,7 +663,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../da/d3d/node__control_8hpp_source.html#l00051">51</a> of file <a class="el" href="../../da/d3d/node__control_8hpp_source.html">node_control.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/d3d/node__control_8hpp_source.html#l00053">53</a> of file <a class="el" href="../../da/d3d/node__control_8hpp_source.html">node_control.hpp</a>.</p>
 
 </div>
 </div>

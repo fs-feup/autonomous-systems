@@ -1,8 +1,13 @@
 <map id="FsdsAdapter" name="FsdsAdapter">
-<area shape="rect" id="Node000001" title="Adapter class for interfacing with FSDS (Formula Student Driverless Simulator)." alt="" coords="5,419,221,913"/>
-<area shape="rect" id="Node000002" href="$d3/d7f/class_adapter.html" title="Adapter class for coordinating communication between different modes and Control module." alt="" coords="21,5,205,371"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="89,385,89,419,84,419,84,385"/>
-<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="107,385,107,419,102,419,102,385"/>
-<area shape="poly" id="edge3_Node000001_Node000002" title=" " alt="" coords="125,385,125,419,120,419,120,385"/>
-<area shape="poly" id="edge4_Node000001_Node000002" title=" " alt="" coords="143,385,143,419,138,419,137,385"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="181,671,397,1105"/>
+<area shape="rect" id="Node000002" href="$d7/d49/class_control.html" title="Class responsible for the control of the car." alt="" coords="5,218,169,523"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="150,536,183,622,202,670,197,672,178,624,145,538"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="246,5,331,71"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="235,73,207,95,183,120,153,168,130,219,125,217,148,165,179,117,203,91,232,69"/>
+<area shape="rect" id="Node000004" href="$d4/d43/class_s_e_node.html" title="Class representing the main speed_est node responsible for publishing the calculated vehicle state wi..." alt="" coords="193,119,384,623"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="291,85,291,119,286,119,286,85"/>
+<area shape="rect" id="Node000005" href="$d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car." alt="" coords="408,126,580,615"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="346,69,374,91,399,117,410,133,406,136,395,120,370,95,342,73"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="291,638,291,671,286,671,286,638"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="405,609,399,624,380,672,375,670,394,622,400,607"/>
 </map>

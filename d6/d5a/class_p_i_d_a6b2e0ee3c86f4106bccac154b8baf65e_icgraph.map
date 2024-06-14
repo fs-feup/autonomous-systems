@@ -1,7 +1,17 @@
 <map id="PID::update" name="PID::update">
-<area shape="rect" id="Node000001" title="Calculate the output value." alt="" coords="209,31,297,56"/>
-<area shape="rect" id="Node000002" href="$d7/d49/class_control.html#a4953afbe68bf1d7a023972985c8083d6" title="Publishes the steering angle to the car based on the path and pose using cache." alt="" coords="5,5,161,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="193,37,161,32,162,27,193,32"/>
-<area shape="rect" id="Node000003" href="$d3/d6a/pid__test_8cpp.html#aa955b6a9298278b14ec50652fd165ecb" title="Test PID class &#45; update Test all the methods." alt="" coords="56,55,110,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="193,55,111,66,110,61,193,49"/>
+<area shape="rect" id="Node000001" title="Calculate the output value." alt="" coords="661,105,750,131"/>
+<area shape="rect" id="Node000002" href="$d7/d49/class_control.html#a4953afbe68bf1d7a023972985c8083d6" title="Publishes the steering angle to the car based on the path and pose using cache." alt="" coords="458,80,613,106"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="645,112,614,107,614,102,646,107"/>
+<area shape="rect" id="Node000008" href="$d3/d6a/pid__test_8cpp.html#aa955b6a9298278b14ec50652fd165ecb" title="Test PID class &#45; update Test all the methods." alt="" coords="509,129,563,155"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="646,129,563,141,563,136,645,124"/>
+<area shape="rect" id="Node000003" href="$db/d68/class_pac_sim_adapter.html#a0ebee635d839642ad33762f5402ad973" title=" " alt="" coords="263,39,410,80"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="442,80,410,74,411,69,443,75"/>
+<area shape="rect" id="Node000006" href="$d0/d1d/class_eufs_adapter.html#acf7089ed69eb7488fae4904f66f1e2b8" title=" " alt="" coords="267,105,406,145"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="443,110,406,116,406,111,442,105"/>
+<area shape="rect" id="Node000004" href="$db/d68/class_pac_sim_adapter.html#a4be2946eb7e577326de44b7c3b8a4868" title=" " alt="" coords="5,5,215,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="247,46,184,34,185,29,248,41"/>
+<area shape="rect" id="Node000005" href="$db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70" title=" " alt="" coords="5,55,215,80"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="247,65,215,66,215,61,247,60"/>
+<area shape="rect" id="Node000007" href="$d0/d1d/class_eufs_adapter.html#af96e527b6595820c565d6beeafe3da5f" title=" " alt="" coords="25,112,195,138"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="251,128,195,128,195,122,251,122"/>
 </map>

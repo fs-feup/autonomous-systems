@@ -1,11 +1,5 @@
 <map id="Perception::publishCones" name="Perception::publishCones">
-<area shape="rect" id="Node000001" title="Publishes information about clusters (cones) using a custom ROS2 message." alt="" coords="505,55,672,80"/>
-<area shape="rect" id="Node000002" href="$de/d07/class_perception.html#afaf42fed2ffa3ed23d5c636bf3fdadd7" title="Callback function for the PointCloud2 subscription." alt="" coords="257,55,457,80"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="489,70,458,70,458,65,489,65"/>
-<area shape="rect" id="Node000003" href="$d0/d1d/class_eufs_adapter.html#abb01ee20051497b1f408f5e7168aa8a4" title="Constructor for EufsAdapter class." alt="" coords="22,5,192,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="273,54,175,34,176,29,274,48"/>
-<area shape="rect" id="Node000004" href="$d7/d8e/class_fsds_adapter.html#a4f1ccffb0cc622ea55c9d2400674c738" title="Constructor for FsdsAdapter class." alt="" coords="19,55,195,80"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="241,70,195,70,195,65,241,65"/>
-<area shape="rect" id="Node000005" href="$d1/df1/class_vehicle_adapter.html#a336673e9b69be57f7c827f248d7dc658" title="Constructor for TestAdapter class." alt="" coords="5,104,209,130"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="274,87,176,106,175,101,273,81"/>
+<area shape="rect" id="Node000001" title="Publishes information about clusters (cones) using a custom ROS2 message." alt="" coords="254,5,421,31"/>
+<area shape="rect" id="Node000002" href="$de/d07/class_perception.html#afaf42fed2ffa3ed23d5c636bf3fdadd7" title="Callback function for the PointCloud2 subscription." alt="" coords="5,5,206,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="238,21,206,21,206,16,238,16"/>
 </map>

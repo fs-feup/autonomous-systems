@@ -1,9 +1,9 @@
 var class_control =
 [
-    [ "Control", "d7/d49/class_control.html#aa730aeda4517f40bc48ba1e46ebded77", null ],
+    [ "Control", "d7/d49/class_control.html#a6e25ac7cb5a0e306e072388e62f5c84d", null ],
+    [ "publish_cmd", "d7/d49/class_control.html#a23d410d03e7229c173efb6c39e8d271e", null ],
     [ "publish_control", "d7/d49/class_control.html#a4953afbe68bf1d7a023972985c8083d6", null ],
     [ "publish_evaluator_data", "d7/d49/class_control.html#a0a00af51d42f0a4160f6bd326588f2c4", null ],
-    [ "adapter_", "d7/d49/class_control.html#a201fd149fe8953583c3adaa2878782b6", null ],
     [ "evaluator_data_pub_", "d7/d49/class_control.html#add3ae8a316aa9ba08a189a7120ae0edb", null ],
     [ "go_signal_", "d7/d49/class_control.html#a8a7d5c79dcea2577ef224feeddcdac99", null ],
     [ "lat_controller_", "d7/d49/class_control.html#a7fc732e0c3da916cada6210acfa61e7a", null ],

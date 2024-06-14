@@ -1,9 +1,0 @@
-<map id="src/control/include/adapter_control/adapter.hpp" name="src/control/include/adapter_control/adapter.hpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="69,5,254,46"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,102,59,127"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="133,49,64,95,61,90,131,44"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="83,94,240,135"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="164,47,164,78,159,78,159,47"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="264,102,384,127"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="199,44,289,92,287,96,197,49"/>
-</map>

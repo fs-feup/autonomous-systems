@@ -1,6 +1,5 @@
 var dir_afda8ecf9b6e07e6d6de6966570c3753 =
 [
-    [ "adapter_perception", "dir_3d2f956ade4297c648789e0715e3877e.html", "dir_3d2f956ade4297c648789e0715e3877e" ],
     [ "center_calculation", "dir_754a1eef005d532c8fdf45f030fed7d8.html", "dir_754a1eef005d532c8fdf45f030fed7d8" ],
     [ "clustering", "dir_3e8e1d68aa1f2e54773e4ab06793463f.html", "dir_3e8e1d68aa1f2e54773e4ab06793463f" ],
     [ "cone_differentiation", "dir_26da03fa71fe530075369c7d94f7fcf1.html", "dir_26da03fa71fe530075369c7d94f7fcf1" ],

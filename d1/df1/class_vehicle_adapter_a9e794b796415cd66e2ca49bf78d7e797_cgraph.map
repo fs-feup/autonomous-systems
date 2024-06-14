@@ -1,0 +1,5 @@
+<map id="VehicleAdapter::vehicle_imu_subscription_callback" name="VehicleAdapter::vehicle_imu_subscription_callback">
+<area shape="rect" id="Node000001" title="IMU subscriptio callback, which receives both roll and yaw acceleration data separately and synchroni..." alt="" coords="5,5,187,46"/>
+<area shape="rect" id="Node000002" href="$d4/d43/class_s_e_node.html#a5801ed4b321dd4f2ff0022caf7ae9bbb" title="Function to be called everytime information is received from the IMU." alt="" coords="235,5,408,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="187,23,219,23,219,28,187,28"/>
+</map>

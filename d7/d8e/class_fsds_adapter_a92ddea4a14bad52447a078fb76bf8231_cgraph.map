@@ -1,9 +1,0 @@
-<map id="FsdsAdapter::FsdsAdapter" name="FsdsAdapter::FsdsAdapter">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,78,181,104"/>
-<area shape="rect" id="Node000002" href="$d3/d7f/class_adapter.html#a3f8e5c482d7fbf9bf4b2834d8fd7a814" title="Function that parses the message sent from the ros IMU topic and calls the respective node&#39;s function..." alt="" coords="229,5,399,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="138,75,227,48,229,54,140,80"/>
-<area shape="rect" id="Node000003" href="$d7/d8e/class_fsds_adapter.html#a9c941338502ebd3ce149d784035512cd" title=" " alt="" coords="241,71,387,111"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="181,88,225,88,225,94,181,94"/>
-<area shape="rect" id="Node000004" href="$d7/d8e/class_fsds_adapter.html#a9291f29ff772d123cadacbddeb3425ab" title=" " alt="" coords="240,135,388,191"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="136,102,226,132,225,137,134,107"/>
-</map>

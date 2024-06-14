@@ -1,5 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$d7/d4e/class_cone_differentiation.html" title="Abstract class for cone differentiation based on cone reflectivity patterns." alt="" coords="5,5,136,31"/>
-<area shape="rect" id="Node000001" href="$d7/d15/class_least_squares_differentiation.html" title="Class for Cone Differentiation using the Least Squares Method." alt="" coords="184,5,365,31"/>
-<area shape="poly" id="edge10_Node000000_Node000001" title=" " alt="" coords="151,16,183,16,183,21,151,21"/>
+<area shape="rect" id="Node000000" href="$df/d8f/class_cone_evaluator.html" title="Abstract class that represents an heurisic that evaluates the cluster as a cone." alt="" coords="5,5,111,31"/>
+<area shape="rect" id="Node000001" href="$d0/d47/class_distance_predict.html" title="Cone heurisitic evaluation based on distance." alt="" coords="159,5,272,31"/>
+<area shape="poly" id="edge6_Node000000_Node000001" title=" " alt="" coords="126,16,158,16,158,21,126,21"/>
 </map>

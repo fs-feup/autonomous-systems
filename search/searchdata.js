@@ -9,7 +9,7 @@ var indexSectionsWithContent =
   6: "dikpw",
   7: "cmt",
   8: "abeilmnorstuy",
-  9: "aefpv",
+  9: "efpv",
   10: "cdem",
   11: "acefilmps"
 };

@@ -1,5 +1,14 @@
 <map id="PacsimAdapter::perception_detections_subscription_callback" name="PacsimAdapter::perception_detections_subscription_callback">
-<area shape="rect" id="Node000001" title="Callback for simulated perception detections from pacsim." alt="" coords="5,5,182,61"/>
-<area shape="rect" id="Node000002" href="$d9/d2b/namespacecommon__lib_1_1competition__logic.html#a843c25f51bc237705083bc50bafa67af" title=" " alt="" coords="230,13,394,54"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="182,31,214,31,214,36,182,36"/>
+<area shape="rect" id="Node000001" title="Callback for simulated perception detections from pacsim." alt="" coords="5,85,182,140"/>
+<area shape="rect" id="Node000002" href="$d4/d43/class_s_e_node.html#ae87a4d5f2baf38b9fb9a34a81b9149ad" title="Mutex used to lock EKF access." alt="" coords="230,63,383,103"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="182,98,214,93,215,98,183,103"/>
+<area shape="rect" id="Node000004" href="$d9/d2b/namespacecommon__lib_1_1competition__logic.html#a843c25f51bc237705083bc50bafa67af" title=" " alt="" coords="682,95,847,135"/>
+<area shape="poly" id="edge6_Node000001_Node000004" title=" " alt="" coords="182,112,230,112,667,113,667,118,230,118,182,117"/>
+<area shape="rect" id="Node000003" href="$d4/d43/class_s_e_node.html#a6f3571b56b21f6d5fa7191fae4e21681" title="publishes the map (&#39;track_map&#39;) to the topic track_map" alt="" coords="439,13,594,39"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="383,60,451,41,453,46,384,65"/>
+<area shape="rect" id="Node000006" href="$d4/d43/class_s_e_node.html#a97f9cce4985902a634cd878f973715e6" title="publishes the localization (&#39;vehicle_localization&#39;) to the topic vehicle_location" alt="" coords="431,63,602,103"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="383,80,415,80,415,86,383,86"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="566,37,603,48,701,86,699,91,601,54,565,42"/>
+<area shape="rect" id="Node000005" href="$d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="650,5,879,46"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="595,23,634,23,634,28,595,28"/>
 </map>

@@ -99,19 +99,40 @@ $(document).ready(function(){initNavTree('d8/df4/planning_2src_2main_8cpp_source
   <div class="headertitle"><div class="title">main.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="../../d8/df4/planning_2src_2main_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="../../d0/dcc/planning_8hpp.html">planning/planning.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="foldopen" id="foldopen00013" data-start="{" data-end="}">
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="../../d8/df4/planning_2src_2main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97">   13</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="../../d8/df4/planning_2src_2main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97">main</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> *argv[]) {</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>  rclcpp::init(argc, argv);</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>  <span class="keyword">auto</span> planning = std::make_shared&lt;Planning&gt;();</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>  rclcpp::spin(planning);</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>  rclcpp::shutdown();</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>  <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>}</div>
+<a href="../../d8/df4/planning_2src_2main_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="../../d0/d72/planning_2include_2adapter__planning_2eufs_8hpp.html">adapter_planning/eufs.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;<a class="code" href="../../de/d4a/planning_2include_2adapter__planning_2fsds_8hpp.html">adapter_planning/fsds.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="../../d8/d4a/planning_2include_2adapter__planning_2pacsim_8hpp.html">adapter_planning/pacsim.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="../../dc/d8f/planning_2include_2adapter__planning_2vehicle_8hpp.html">adapter_planning/vehicle.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="../../d0/dcc/planning_8hpp.html">planning/planning.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="../../df/d43/planning_2include_2adapter__planning_2parameters__factory_8hpp.html">adapter_planning/parameters_factory.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="foldopen" id="foldopen00018" data-start="{" data-end="}">
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="../../d8/df4/planning_2src_2main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97">   18</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="../../d8/df4/planning_2src_2main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97">main</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span>* argv[]) {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>  rclcpp::init(argc, argv);</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>  <a class="code hl_struct" href="../../d2/deb/struct_planning_parameters.html">PlanningParameters</a> params;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>  std::string adapter_type = <a class="code hl_function" href="../../d7/d69/perception_2include_2perception_2parameters__factory_8hpp.html#a77e91e2c05753c6d34d8316e7433294c">load_adapter_parameters</a>(params);</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>  std::shared_ptr&lt;Planning&gt; planning = <a class="code hl_function" href="../../df/d43/planning_2include_2adapter__planning_2parameters__factory_8hpp.html#a06d6af32d692c287b21b2d51b830d54f">create_planning</a>(adapter_type, params);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>  <span class="keywordflow">if</span> (!planning) {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    RCLCPP_ERROR(rclcpp::get_logger(<span class="stringliteral">&quot;planning&quot;</span>), <span class="stringliteral">&quot;Failed to create planning object&quot;</span>);</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keywordflow">return</span> 1;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  }</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>  rclcpp::spin(planning);</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>  rclcpp::shutdown();</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>  <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>}</div>
 </div>
-<div class="ttc" id="aplanning_2src_2main_8cpp_html_a0ddf1224851353fc92bfbff6f499fa97"><div class="ttname"><a href="../../d8/df4/planning_2src_2main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97">main</a></div><div class="ttdeci">int main(int argc, char *argv[])</div><div class="ttdoc">Main function for the planning node.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/df4/planning_2src_2main_8cpp_source.html#l00013">main.cpp:13</a></div></div>
+<div class="ttc" id="aperception_2include_2perception_2parameters__factory_8hpp_html_a77e91e2c05753c6d34d8316e7433294c"><div class="ttname"><a href="../../d7/d69/perception_2include_2perception_2parameters__factory_8hpp.html#a77e91e2c05753c6d34d8316e7433294c">load_adapter_parameters</a></div><div class="ttdeci">PerceptionParameters load_adapter_parameters()</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d69/perception_2include_2perception_2parameters__factory_8hpp_source.html#l00010">parameters_factory.hpp:10</a></div></div>
+<div class="ttc" id="aplanning_2include_2adapter__planning_2eufs_8hpp_html"><div class="ttname"><a href="../../d0/d72/planning_2include_2adapter__planning_2eufs_8hpp.html">eufs.hpp</a></div></div>
+<div class="ttc" id="aplanning_2include_2adapter__planning_2fsds_8hpp_html"><div class="ttname"><a href="../../de/d4a/planning_2include_2adapter__planning_2fsds_8hpp.html">fsds.hpp</a></div></div>
+<div class="ttc" id="aplanning_2include_2adapter__planning_2pacsim_8hpp_html"><div class="ttname"><a href="../../d8/d4a/planning_2include_2adapter__planning_2pacsim_8hpp.html">pacsim.hpp</a></div></div>
+<div class="ttc" id="aplanning_2include_2adapter__planning_2parameters__factory_8hpp_html"><div class="ttname"><a href="../../df/d43/planning_2include_2adapter__planning_2parameters__factory_8hpp.html">parameters_factory.hpp</a></div></div>
+<div class="ttc" id="aplanning_2include_2adapter__planning_2parameters__factory_8hpp_html_a06d6af32d692c287b21b2d51b830d54f"><div class="ttname"><a href="../../df/d43/planning_2include_2adapter__planning_2parameters__factory_8hpp.html#a06d6af32d692c287b21b2d51b830d54f">create_planning</a></div><div class="ttdeci">std::shared_ptr&lt; Planning &gt; create_planning(const std::string_view &amp;adapter_type, const PlanningParameters &amp;params)</div><div class="ttdef"><b>Definition</b> <a href="../../df/d43/planning_2include_2adapter__planning_2parameters__factory_8hpp_source.html#l00042">parameters_factory.hpp:42</a></div></div>
+<div class="ttc" id="aplanning_2include_2adapter__planning_2vehicle_8hpp_html"><div class="ttname"><a href="../../dc/d8f/planning_2include_2adapter__planning_2vehicle_8hpp.html">vehicle.hpp</a></div></div>
+<div class="ttc" id="aplanning_2src_2main_8cpp_html_a0ddf1224851353fc92bfbff6f499fa97"><div class="ttname"><a href="../../d8/df4/planning_2src_2main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97">main</a></div><div class="ttdeci">int main(int argc, char *argv[])</div><div class="ttdoc">Main function for the planning node.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/df4/planning_2src_2main_8cpp_source.html#l00018">main.cpp:18</a></div></div>
 <div class="ttc" id="aplanning_8hpp_html"><div class="ttname"><a href="../../d0/dcc/planning_8hpp.html">planning.hpp</a></div></div>
+<div class="ttc" id="astruct_planning_parameters_html"><div class="ttname"><a href="../../d2/deb/struct_planning_parameters.html">PlanningParameters</a></div><div class="ttdef"><b>Definition</b> <a href="../../d0/dcc/planning_8hpp_source.html#l00030">planning.hpp:30</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

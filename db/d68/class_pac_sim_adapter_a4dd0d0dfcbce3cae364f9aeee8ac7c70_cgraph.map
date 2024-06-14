@@ -1,0 +1,91 @@
+<map id="PacSimAdapter::PacSimAdapter" name="PacSimAdapter::PacSimAdapter">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,441,215,467"/>
+<area shape="rect" id="Node000002" href="$db/d68/class_pac_sim_adapter.html#a0ebee635d839642ad33762f5402ad973" title=" " alt="" coords="263,323,410,363"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="137,438,278,368,280,373,139,443"/>
+<area shape="rect" id="Node000021" href="$db/d68/class_pac_sim_adapter.html#a369c9138f1446127e8f28e5b54242577" title=" " alt="" coords="263,465,410,506"/>
+<area shape="poly" id="edge23_Node000001_Node000021" title=" " alt="" coords="206,465,248,470,247,476,205,470"/>
+<area shape="rect" id="Node000003" href="$d7/d49/class_control.html#a4953afbe68bf1d7a023972985c8083d6" title="Publishes the steering angle to the car based on the path and pose using cache." alt="" coords="458,294,613,320"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="410,327,445,321,446,326,411,332"/>
+<area shape="rect" id="Node000004" href="$dc/dde/class_pure_pursuit.html#ab921e5033e736078b4adb269525f6dde" title="Pure Pursuit control law." alt="" coords="681,156,843,197"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="558,291,660,231,710,202,713,207,663,236,561,296"/>
+<area shape="rect" id="Node000008" href="$d7/d49/class_control.html#a23d410d03e7229c173efb6c39e8d271e" title=" " alt="" coords="691,385,833,411"/>
+<area shape="poly" id="edge8_Node000003_Node000008" title=" " alt="" coords="559,318,605,345,662,371,681,378,680,383,660,376,603,349,556,323"/>
+<area shape="rect" id="Node000009" href="$d7/d49/class_control.html#a0a00af51d42f0a4160f6bd326588f2c4" title=" " alt="" coords="661,434,863,460"/>
+<area shape="poly" id="edge9_Node000003_Node000009" title=" " alt="" coords="549,319,595,369,627,397,663,421,674,426,671,431,660,425,624,401,591,373,545,322"/>
+<area shape="rect" id="Node000010" href="$d6/d5a/class_p_i_d.html#a6b2e0ee3c86f4106bccac154b8baf65e" title="Calculate the output value." alt="" coords="718,336,806,361"/>
+<area shape="poly" id="edge10_Node000003_Node000010" title=" " alt="" coords="610,318,703,335,702,340,609,323"/>
+<area shape="rect" id="Node000017" href="$d9/da5/class_point_solver.html#aea7e92309c892b1141b5df4212019cef" title="Find the closest point on the path." alt="" coords="695,77,829,118"/>
+<area shape="poly" id="edge17_Node000003_Node000017" title=" " alt="" coords="542,292,586,223,620,181,660,142,689,123,692,128,663,146,624,184,590,226,546,295"/>
+<area shape="rect" id="Node000018" href="$d9/da5/class_point_solver.html#aef1e4c10fa380623f5147f77adf6e5b0" title="Update Lookahead point." alt="" coords="695,5,829,46"/>
+<area shape="poly" id="edge19_Node000003_Node000018" title=" " alt="" coords="538,293,551,250,575,189,610,123,633,91,660,64,680,49,683,53,663,68,637,95,615,126,579,191,556,252,543,295"/>
+<area shape="rect" id="Node000019" href="$d9/da5/class_point_solver.html#a2547e5834c5e2238a69e7b6a96dc1d7a" title="Update vehicle pose." alt="" coords="695,245,829,286"/>
+<area shape="poly" id="edge21_Node000003_Node000019" title=" " alt="" coords="609,291,680,278,681,283,610,296"/>
+<area shape="rect" id="Node000005" href="$dc/dde/class_pure_pursuit.html#ae07038f1c02256819e50a7878797d1ac" title="Calculate alpha (angle between the vehicle and lookahead point)" alt="" coords="955,156,1102,197"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="844,174,939,174,939,179,844,179"/>
+<area shape="rect" id="Node000007" href="$dc/d1b/structcommon__lib_1_1structures_1_1_position.html#a9d5f2cdfcef053cae4a6a7a3888ce2d6" title=" " alt="" coords="1227,58,1382,114"/>
+<area shape="poly" id="edge7_Node000004_Node000007" title=" " alt="" coords="843,155,910,142,1069,115,1211,95,1211,100,1070,121,911,147,844,160"/>
+<area shape="rect" id="Node000006" href="$d9/d8a/namespacecommon__lib_1_1structures.html#a985cd88a640d3c7ccc3f8d5094272843" title="Calculate the cross product of two vectors." alt="" coords="1227,156,1382,197"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="1103,174,1211,174,1211,179,1103,179"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="1092,153,1211,113,1213,118,1094,158"/>
+<area shape="rect" id="Node000011" href="$d6/d5a/class_p_i_d.html#aa587fab53433af6127bbc5c7fdf50a35" title="Anti&#45;wind&#45;up via dynamic integrator clamping." alt="" coords="966,286,1091,312"/>
+<area shape="poly" id="edge11_Node000010_Node000011" title=" " alt="" coords="806,338,950,311,951,316,807,343"/>
+<area shape="rect" id="Node000012" href="$d6/d5a/class_p_i_d.html#a5748127c7eb3f374fd599576a822abcd" title="Calculate the derivative term (derivative on measurement)" alt="" coords="930,336,1127,361"/>
+<area shape="poly" id="edge12_Node000010_Node000012" title=" " alt="" coords="806,346,914,346,914,351,806,351"/>
+<area shape="rect" id="Node000013" href="$d6/d5a/class_p_i_d.html#abbd48a33a97a7dbc49e75050bef0146c" title="Calculate the error signal." alt="" coords="961,385,1096,411"/>
+<area shape="poly" id="edge13_Node000010_Node000013" title=" " alt="" coords="807,354,947,380,946,385,806,359"/>
+<area shape="rect" id="Node000014" href="$d6/d5a/class_p_i_d.html#a05352c1a64fe0e13588291ccf450bace" title="Calculate the integral term." alt="" coords="937,434,1120,460"/>
+<area shape="poly" id="edge14_Node000010_Node000014" title=" " alt="" coords="807,351,836,358,864,370,880,383,889,396,897,409,912,421,923,426,921,431,909,425,894,413,884,399,876,386,861,375,834,363,806,356"/>
+<area shape="rect" id="Node000015" href="$d6/d5a/class_p_i_d.html#afeb910407a0ec97035fd19f97cbfae1c" title="Calculate the proportional term." alt="" coords="924,484,1133,509"/>
+<area shape="poly" id="edge15_Node000010_Node000015" title=" " alt="" coords="807,348,837,355,864,370,876,383,883,396,889,422,895,447,901,459,912,470,917,474,914,478,909,474,897,462,890,449,884,423,878,398,872,386,861,374,835,360,806,353"/>
+<area shape="rect" id="Node000016" href="$d6/d5a/class_p_i_d.html#a5a8397dc4b3e36d1db9ea2f1b8fb91a4" title="Compute the output value and apply limits." alt="" coords="957,533,1100,559"/>
+<area shape="poly" id="edge16_Node000010_Node000016" title=" " alt="" coords="807,347,837,354,864,370,880,389,887,409,889,447,891,485,898,502,912,520,927,530,943,537,941,542,924,534,909,524,894,505,886,486,884,447,882,410,875,392,861,374,835,359,806,352"/>
+<area shape="poly" id="edge18_Node000017_Node000007" title=" " alt="" coords="829,94,1211,85,1211,90,829,99"/>
+<area shape="poly" id="edge20_Node000018_Node000007" title=" " alt="" coords="829,30,1211,73,1211,78,829,36"/>
+<area shape="rect" id="Node000020" href="$d4/d1a/namespacecommon__lib_1_1vehicle__dynamics.html#aecf44e20f904287db0e4c2b8f4b426a4" title="Calculate rear axis coordinates." alt="" coords="940,221,1117,262"/>
+<area shape="poly" id="edge22_Node000019_Node000020" title=" " alt="" coords="829,257,924,248,925,254,829,262"/>
+<area shape="rect" id="Node000022" href="$d9/db5/class_planning.html#ab04bd1f3fa9458e5a1360cfabacc56a7" title="Callback for track map updates(when msg received)." alt="" coords="467,544,605,585"/>
+<area shape="poly" id="edge24_Node000021_Node000022" title=" " alt="" coords="391,504,469,535,467,540,389,509"/>
+<area shape="rect" id="Node000023" href="$d1/d97/message__converter_8cpp.html#a99bd9d52ca40b436bb1b9f1e90008ac0" title=" " alt="" coords="674,511,850,551"/>
+<area shape="poly" id="edge25_Node000022_Node000023" title=" " alt="" coords="605,552,658,544,659,549,606,557"/>
+<area shape="rect" id="Node000024" href="$d9/db5/class_planning.html#a5f0cfd02996a6befd1ab5e6991449497" title="Checks if the current mission is predictive." alt="" coords="687,576,837,617"/>
+<area shape="poly" id="edge26_Node000022_Node000024" title=" " alt="" coords="606,571,672,581,671,586,605,577"/>
+<area shape="rect" id="Node000025" href="$d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the planning algorithms." alt="" coords="687,693,837,734"/>
+<area shape="poly" id="edge27_Node000022_Node000025" title=" " alt="" coords="570,583,719,682,716,687,567,587"/>
+<area shape="rect" id="Node000026" href="$d3/da1/class_local_path_planner.html#a47071d4f5dd1c080bf087089023d5382" title="Process an array of cones to generate a local path." alt="" coords="940,583,1117,623"/>
+<area shape="poly" id="edge28_Node000025_Node000026" title=" " alt="" coords="812,690,962,627,964,632,814,695"/>
+<area shape="rect" id="Node000037" href="$d9/db5/class_planning.html#adbb03a9a1d37df03f804c8afbea0d893" title="Publishes a list of path points." alt="" coords="951,745,1106,786"/>
+<area shape="poly" id="edge42_Node000025_Node000037" title=" " alt="" coords="838,726,936,745,935,750,837,731"/>
+<area shape="rect" id="Node000039" href="$d9/db5/class_planning.html#a3a9777b1285386d19bbc3045ff416fd9" title="publish all visualization messages from the planning node" alt="" coords="911,922,1146,948"/>
+<area shape="poly" id="edge44_Node000025_Node000039" title=" " alt="" coords="790,732,1002,910,998,914,786,737"/>
+<area shape="rect" id="Node000027" href="$d6/d2c/class_track.html#a4619df9e7622b8349af59007c602011e" title="Find a cone by its ID." alt="" coords="1249,514,1359,540"/>
+<area shape="poly" id="edge29_Node000026_Node000027" title=" " alt="" coords="1105,579,1145,568,1240,542,1241,547,1147,574,1107,585"/>
+<area shape="rect" id="Node000028" href="$d8/da1/class_cone.html#ad6448719967d79b51a6e9586d28897d8" title=" " alt="" coords="1462,590,1549,616"/>
+<area shape="poly" id="edge30_Node000026_Node000028" title=" " alt="" coords="1117,600,1447,600,1447,606,1117,606"/>
+<area shape="rect" id="Node000029" href="$d6/d2c/class_track.html#aeb46e6fbc74096c298262b84cd81b77f" title="Get the left cone at a specified index." alt="" coords="1232,768,1376,793"/>
+<area shape="poly" id="edge31_Node000026_Node000029" title=" " alt="" coords="1049,622,1110,683,1151,717,1195,746,1227,760,1225,765,1193,751,1148,721,1106,687,1045,625"/>
+<area shape="rect" id="Node000030" href="$d6/d2c/class_track.html#a6bd8978cb65635811bdeef26c29c989b" title="Get the number of left cones." alt="" coords="1223,317,1386,343"/>
+<area shape="poly" id="edge32_Node000026_Node000030" title=" " alt="" coords="1115,588,1144,569,1162,543,1170,516,1170,489,1167,462,1163,434,1164,407,1172,379,1192,352,1207,341,1210,345,1196,356,1177,381,1169,407,1169,434,1172,461,1175,489,1175,517,1167,545,1148,573,1118,593"/>
+<area shape="rect" id="Node000031" href="$d6/d2c/class_track.html#a95fe146ead9aae192047e1f0a2c6c3c8" title="Get the right cone at a specified index." alt="" coords="1229,366,1380,392"/>
+<area shape="poly" id="edge33_Node000026_Node000031" title=" " alt="" coords="1116,588,1144,569,1159,549,1166,529,1167,486,1168,444,1176,422,1192,401,1212,388,1215,392,1196,405,1180,425,1173,445,1172,487,1171,530,1164,552,1148,573,1119,592"/>
+<area shape="rect" id="Node000032" href="$d6/d2c/class_track.html#aaeb6c56205cff7f075ac1aacbbc29a89" title="Get the number of right cones." alt="" coords="1219,416,1389,441"/>
+<area shape="poly" id="edge34_Node000026_Node000032" title=" " alt="" coords="1115,586,1144,569,1156,555,1163,541,1167,511,1172,480,1179,465,1192,450,1203,442,1206,447,1196,454,1183,468,1177,482,1172,512,1168,542,1161,558,1148,573,1118,591"/>
+<area shape="rect" id="Node000033" href="$d8/da1/class_cone.html#a51a49cc249e79d06f6a983250fe809b3" title=" " alt="" coords="1463,653,1548,679"/>
+<area shape="poly" id="edge35_Node000026_Node000033" title=" " alt="" coords="1086,621,1138,638,1194,651,1262,660,1330,664,1448,665,1448,671,1330,670,1262,665,1194,656,1137,643,1084,626"/>
+<area shape="rect" id="Node000034" href="$d8/da1/class_cone.html#a952987a9de5d20d7930b3e93c04fd278" title=" " alt="" coords="1463,702,1548,728"/>
+<area shape="poly" id="edge36_Node000026_Node000034" title=" " alt="" coords="1069,621,1128,648,1195,672,1262,688,1330,699,1448,710,1447,715,1329,704,1261,693,1193,678,1126,653,1067,626"/>
+<area shape="rect" id="Node000035" href="$d6/d2c/class_track.html#ab4e7e111378109011379f2a7aa984145" title="Reset the track by clearing cone lists." alt="" coords="1260,465,1349,491"/>
+<area shape="poly" id="edge37_Node000026_Node000035" title=" " alt="" coords="1115,584,1144,569,1160,552,1167,535,1175,517,1192,500,1217,487,1244,480,1245,485,1219,492,1196,504,1180,520,1172,537,1164,555,1148,573,1118,589"/>
+<area shape="rect" id="Node000036" href="$d6/d2c/class_track.html#a0da16ce65cc4d3f67a79073e0d632f6f" title="Change the position of a cone based on the id of the parameter cone or creates a new cone in case the..." alt="" coords="1250,616,1358,641"/>
+<area shape="poly" id="edge38_Node000026_Node000036" title=" " alt="" coords="1117,608,1234,619,1234,625,1117,614"/>
+<area shape="poly" id="edge39_Node000036_Node000028" title=" " alt="" coords="1358,619,1447,608,1447,613,1359,624"/>
+<area shape="poly" id="edge40_Node000036_Node000033" title=" " alt="" coords="1359,636,1448,652,1447,658,1358,641"/>
+<area shape="poly" id="edge41_Node000036_Node000034" title=" " alt="" coords="1337,639,1461,693,1459,698,1335,644"/>
+<area shape="rect" id="Node000038" href="$d1/d97/message__converter_8cpp.html#a2b1cec0b7a89668870a46596b148a12a" title=" " alt="" coords="1223,817,1386,858"/>
+<area shape="poly" id="edge43_Node000037_Node000038" title=" " alt="" coords="1107,783,1210,810,1208,815,1105,788"/>
+<area shape="rect" id="Node000040" href="$d1/d97/message__converter_8cpp.html#ae1d203fe1c23400c3a416909dab7828e" title=" " alt="" coords="1221,948,1388,989"/>
+<area shape="poly" id="edge45_Node000039_Node000040" title=" " alt="" coords="1140,946,1205,954,1204,959,1140,951"/>
+<area shape="rect" id="Node000041" href="$d1/dd0/namespacecommon__lib_1_1communication.html#aa192956ea9cdda02b245cdca6ce82d4a" title="Converts a vector of cones to a marker array." alt="" coords="1194,1013,1414,1054"/>
+<area shape="poly" id="edge46_Node000039_Node000041" title=" " alt="" coords="1062,946,1195,998,1218,1006,1217,1011,1193,1003,1060,951"/>
+<area shape="rect" id="Node000042" href="$db/d29/message__converter_8hpp.html#a8dd19cda9da7f6401c76ae83744061f7" title=" " alt="" coords="1224,883,1385,923"/>
+<area shape="poly" id="edge47_Node000039_Node000042" title=" " alt="" coords="1144,919,1208,911,1209,917,1145,924"/>
+</map>

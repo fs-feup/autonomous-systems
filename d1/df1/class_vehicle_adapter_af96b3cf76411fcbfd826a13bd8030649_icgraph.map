@@ -1,5 +1,5 @@
 <map id="VehicleAdapter::wheel_speeds_subscription_callback" name="VehicleAdapter::wheel_speeds_subscription_callback">
 <area shape="rect" id="Node000001" title="Wheel speed subscription callback, which receives both wheel speeds and steering angle through a sync..." alt="" coords="257,5,406,61"/>
-<area shape="rect" id="Node000002" href="$d1/df1/class_vehicle_adapter.html#a895abdaf64b451c11cde895cf8a3464c" title=" " alt="" coords="5,20,209,46"/>
+<area shape="rect" id="Node000002" href="$d1/df1/class_vehicle_adapter.html#ab09c1998114e5331ba3c4ed05aaef010" title=" " alt="" coords="5,20,209,46"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="241,36,209,36,209,31,241,31"/>
 </map>

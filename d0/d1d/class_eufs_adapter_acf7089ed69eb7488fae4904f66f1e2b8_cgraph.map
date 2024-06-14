@@ -1,0 +1,42 @@
+<map id="EufsAdapter::vehicle_state_callback" name="EufsAdapter::vehicle_state_callback">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,287,145,327"/>
+<area shape="rect" id="Node000002" href="$d7/d49/class_control.html#a4953afbe68bf1d7a023972985c8083d6" title="Publishes the steering angle to the car based on the path and pose using cache." alt="" coords="193,294,348,320"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="145,304,177,304,177,310,145,310"/>
+<area shape="rect" id="Node000003" href="$dc/dde/class_pure_pursuit.html#ab921e5033e736078b4adb269525f6dde" title="Pure Pursuit control law." alt="" coords="416,63,578,103"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="283,292,462,112,466,116,287,296"/>
+<area shape="rect" id="Node000007" href="$d7/d49/class_control.html#a23d410d03e7229c173efb6c39e8d271e" title=" " alt="" coords="426,196,567,221"/>
+<area shape="poly" id="edge7_Node000002_Node000007" title=" " alt="" coords="288,292,335,261,395,230,412,224,414,229,397,235,338,265,291,296"/>
+<area shape="rect" id="Node000008" href="$d7/d49/class_control.html#a0a00af51d42f0a4160f6bd326588f2c4" title=" " alt="" coords="396,245,597,271"/>
+<area shape="poly" id="edge8_Node000002_Node000008" title=" " alt="" coords="332,291,419,272,420,277,333,296"/>
+<area shape="rect" id="Node000009" href="$d6/d5a/class_p_i_d.html#a6b2e0ee3c86f4106bccac154b8baf65e" title="Calculate the output value." alt="" coords="453,294,541,320"/>
+<area shape="poly" id="edge9_Node000002_Node000009" title=" " alt="" coords="349,304,437,304,437,310,349,310"/>
+<area shape="rect" id="Node000016" href="$d9/da5/class_point_solver.html#aea7e92309c892b1141b5df4212019cef" title="Find the closest point on the path." alt="" coords="430,347,563,387"/>
+<area shape="poly" id="edge16_Node000002_Node000016" title=" " alt="" coords="323,318,416,343,414,348,321,323"/>
+<area shape="rect" id="Node000017" href="$d9/da5/class_point_solver.html#aef1e4c10fa380623f5147f77adf6e5b0" title="Update Lookahead point." alt="" coords="430,417,563,458"/>
+<area shape="poly" id="edge18_Node000002_Node000017" title=" " alt="" coords="289,318,336,356,397,397,421,409,419,413,395,401,332,360,285,322"/>
+<area shape="rect" id="Node000018" href="$d9/da5/class_point_solver.html#a2547e5834c5e2238a69e7b6a96dc1d7a" title="Update vehicle pose." alt="" coords="430,492,563,533"/>
+<area shape="poly" id="edge20_Node000002_Node000018" title=" " alt="" coords="281,319,325,388,358,430,398,468,421,483,418,487,394,472,354,434,320,391,276,322"/>
+<area shape="rect" id="Node000004" href="$dc/dde/class_pure_pursuit.html#ae07038f1c02256819e50a7878797d1ac" title="Calculate alpha (angle between the vehicle and lookahead point)" alt="" coords="676,5,823,46"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="578,62,660,43,661,48,579,67"/>
+<area shape="rect" id="Node000006" href="$dc/d1b/structcommon__lib_1_1structures_1_1_position.html#a9d5f2cdfcef053cae4a6a7a3888ce2d6" title=" " alt="" coords="902,237,1057,292"/>
+<area shape="poly" id="edge6_Node000003_Node000006" title=" " alt="" coords="578,68,641,65,712,67,786,80,821,91,855,106,889,129,918,159,941,191,960,221,955,224,937,194,914,163,885,134,852,111,819,96,784,85,712,73,641,70,578,74"/>
+<area shape="rect" id="Node000005" href="$d9/d8a/namespacecommon__lib_1_1structures.html#a985cd88a640d3c7ccc3f8d5094272843" title="Calculate the cross product of two vectors." alt="" coords="902,5,1057,46"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="823,23,886,23,886,28,823,28"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="825,44,855,62,892,99,922,141,946,184,964,221,959,224,942,186,918,144,888,102,852,66,822,48"/>
+<area shape="rect" id="Node000010" href="$d6/d5a/class_p_i_d.html#aa587fab53433af6127bbc5c7fdf50a35" title="Anti&#45;wind&#45;up via dynamic integrator clamping." alt="" coords="687,121,812,147"/>
+<area shape="poly" id="edge10_Node000009_Node000010" title=" " alt="" coords="541,303,570,296,596,281,608,266,615,252,619,220,623,188,630,171,644,156,671,140,673,145,647,160,634,174,628,189,624,221,620,253,613,269,599,285,572,301,542,308"/>
+<area shape="rect" id="Node000011" href="$d6/d5a/class_p_i_d.html#a5748127c7eb3f374fd599576a822abcd" title="Calculate the derivative term (derivative on measurement)" alt="" coords="651,170,848,196"/>
+<area shape="poly" id="edge11_Node000009_Node000011" title=" " alt="" coords="540,301,569,294,596,281,612,263,619,244,626,224,644,205,650,201,653,205,647,209,631,227,624,246,616,266,599,285,571,299,542,306"/>
+<area shape="rect" id="Node000012" href="$d6/d5a/class_p_i_d.html#abbd48a33a97a7dbc49e75050bef0146c" title="Calculate the error signal." alt="" coords="682,220,817,245"/>
+<area shape="poly" id="edge12_Node000009_Node000012" title=" " alt="" coords="541,297,596,281,620,267,644,254,667,246,668,251,646,259,623,272,598,285,542,302"/>
+<area shape="rect" id="Node000013" href="$d6/d5a/class_p_i_d.html#a05352c1a64fe0e13588291ccf450bace" title="Calculate the integral term." alt="" coords="658,269,841,295"/>
+<area shape="poly" id="edge13_Node000009_Node000013" title=" " alt="" coords="541,300,642,290,643,295,541,305"/>
+<area shape="rect" id="Node000014" href="$d6/d5a/class_p_i_d.html#afeb910407a0ec97035fd19f97cbfae1c" title="Calculate the proportional term." alt="" coords="645,318,854,344"/>
+<area shape="poly" id="edge14_Node000009_Node000014" title=" " alt="" coords="541,308,630,317,630,322,541,314"/>
+<area shape="rect" id="Node000015" href="$d6/d5a/class_p_i_d.html#a5a8397dc4b3e36d1db9ea2f1b8fb91a4" title="Compute the output value and apply limits." alt="" coords="678,368,821,393"/>
+<area shape="poly" id="edge15_Node000009_Node000015" title=" " alt="" coords="542,315,598,333,646,354,668,361,667,366,644,359,596,337,541,320"/>
+<area shape="poly" id="edge17_Node000016_Node000006" title=" " alt="" coords="548,385,612,406,690,421,731,424,773,423,814,417,853,403,884,384,912,359,953,304,958,307,916,362,887,388,855,408,815,422,773,429,731,430,689,426,611,411,547,390"/>
+<area shape="poly" id="edge19_Node000017_Node000006" title=" " alt="" coords="564,451,628,460,702,463,780,455,817,445,852,430,888,405,917,373,941,338,958,305,963,307,945,341,921,376,891,409,855,435,819,450,781,460,702,468,627,465,563,456"/>
+<area shape="rect" id="Node000019" href="$d4/d1a/namespacecommon__lib_1_1vehicle__dynamics.html#aecf44e20f904287db0e4c2b8f4b426a4" title="Calculate rear axis coordinates." alt="" coords="661,519,838,559"/>
+<area shape="poly" id="edge21_Node000018_Node000019" title=" " alt="" coords="564,517,646,525,645,531,563,522"/>
+</map>

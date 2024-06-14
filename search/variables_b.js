@@ -16,5 +16,7 @@ var searchData=
   ['local_5fpath_5fplanner_13',['local_path_planner',['../d9/db5/class_planning.html#a195deb6c9ca45bdf10ce4475cfff52ca',1,'Planning']]],
   ['local_5fpub_5f_14',['local_pub_',['../d9/db5/class_planning.html#a550c85dde94bd45e9a4d5dd6700f5cdd',1,'Planning']]],
   ['locmap_5fsender_15',['locmap_sender',['../d7/d4e/class_integration_test.html#a9af8879bf09a9767daab48d991af0046',1,'IntegrationTest']]],
-  ['long_5fcontroller_5f_16',['long_controller_',['../d7/d49/class_control.html#a46db151e27100785832e4b2fc9ec1872',1,'Control']]]
+  ['long_5fcontroller_5f_16',['long_controller_',['../d7/d49/class_control.html#a46db151e27100785832e4b2fc9ec1872',1,'Control']]],
+  ['lookahead_5fgain_5f_17',['lookahead_gain_',['../d4/de1/struct_control_parameters.html#a180a5d003f919098d113d2ed021b37da',1,'ControlParameters']]],
+  ['lookahead_5fmargin_5f_18',['lookahead_margin_',['../d4/de1/struct_control_parameters.html#a69bb380ddd6aa24d42bb220d60557be4',1,'ControlParameters']]]
 ];

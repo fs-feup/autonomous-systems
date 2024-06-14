@@ -1,9 +1,0 @@
-<map id="FsdsAdapter::FsdsAdapter" name="FsdsAdapter::FsdsAdapter">
-<area shape="rect" id="Node000001" title="Constructor for FsdsAdapter class." alt="" coords="5,42,181,68"/>
-<area shape="rect" id="Node000002" href="$d7/d8e/class_fsds_adapter.html#a9c941338502ebd3ce149d784035512cd" title=" " alt="" coords="256,5,402,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="181,41,240,34,240,39,181,47"/>
-<area shape="rect" id="Node000003" href="$de/d07/class_perception.html#afaf42fed2ffa3ed23d5c636bf3fdadd7" title="Callback function for the PointCloud2 subscription." alt="" coords="229,70,429,96"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="181,63,213,67,213,72,181,68"/>
-<area shape="rect" id="Node000004" href="$de/d07/class_perception.html#a0ed87dbcc41d99a6c40f6363afdebce4" title="Publishes information about clusters (cones) using a custom ROS2 message." alt="" coords="477,70,644,96"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="429,80,461,80,461,86,429,86"/>
-</map>

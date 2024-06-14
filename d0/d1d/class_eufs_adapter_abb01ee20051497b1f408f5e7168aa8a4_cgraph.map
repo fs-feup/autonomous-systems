@@ -1,7 +1,0 @@
-<map id="EufsAdapter::EufsAdapter" name="EufsAdapter::EufsAdapter">
-<area shape="rect" id="Node000001" title="Constructor for EufsAdapter class." alt="" coords="5,5,175,31"/>
-<area shape="rect" id="Node000002" href="$de/d07/class_perception.html#afaf42fed2ffa3ed23d5c636bf3fdadd7" title="Callback function for the PointCloud2 subscription." alt="" coords="223,5,423,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="175,16,207,16,207,21,175,21"/>
-<area shape="rect" id="Node000003" href="$de/d07/class_perception.html#a0ed87dbcc41d99a6c40f6363afdebce4" title="Publishes information about clusters (cones) using a custom ROS2 message." alt="" coords="471,5,638,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="423,16,455,16,455,21,423,21"/>
-</map>

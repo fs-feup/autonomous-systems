@@ -12,6 +12,7 @@ var searchData=
   ['coneevaluator_9',['ConeEvaluator',['../df/d8f/class_cone_evaluator.html',1,'']]],
   ['conevalidator_10',['ConeValidator',['../d3/d57/class_cone_validator.html',1,'']]],
   ['control_11',['Control',['../d7/d49/class_control.html',1,'']]],
-  ['cylindervalidator_12',['CylinderValidator',['../dd/def/class_cylinder_validator.html',1,'']]],
-  ['cylindervalidatortest_13',['CylinderValidatorTest',['../da/dcf/class_cylinder_validator_test.html',1,'']]]
+  ['controlparameters_12',['ControlParameters',['../d4/de1/struct_control_parameters.html',1,'']]],
+  ['cylindervalidator_13',['CylinderValidator',['../dd/def/class_cylinder_validator.html',1,'']]],
+  ['cylindervalidatortest_14',['CylinderValidatorTest',['../da/dcf/class_cylinder_validator_test.html',1,'']]]
 ];

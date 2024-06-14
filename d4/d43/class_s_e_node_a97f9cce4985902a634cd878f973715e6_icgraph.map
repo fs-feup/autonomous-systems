@@ -1,11 +1,33 @@
 <map id="SENode::_publish_vehicle_state" name="SENode::_publish_vehicle_state">
-<area shape="rect" id="Node000001" title="publishes the localization (&#39;vehicle_localization&#39;) to the topic vehicle_location" alt="" coords="390,71,561,111"/>
-<area shape="rect" id="Node000002" href="$d4/d43/class_s_e_node.html#ae87a4d5f2baf38b9fb9a34a81b9149ad" title="Mutex used to lock EKF access." alt="" coords="183,5,336,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="391,68,329,49,330,44,393,63"/>
-<area shape="rect" id="Node000004" href="$d4/d43/class_s_e_node.html#a807afbd7576422568395876d5c3e7296" title="Executes:" alt="" coords="185,71,334,111"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="375,94,334,94,334,88,375,88"/>
-<area shape="rect" id="Node000005" href="$d4/d43/class_s_e_node.html#aa9238d6e6cdebf7becd57514858df115" title="Function to be called everytime information is received from the wheel encoders." alt="" coords="177,136,342,177"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="393,119,330,138,329,133,391,114"/>
-<area shape="rect" id="Node000003" href="$d4/d43/class_s_e_node.html#a5d61b6c80a21c02b29074e434cc6703b" title="Constructor of the main node, most things are received by launch parameter." alt="" coords="5,13,129,39"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="167,28,129,28,129,23,167,23"/>
+<area shape="rect" id="Node000001" title="publishes the localization (&#39;vehicle_localization&#39;) to the topic vehicle_location" alt="" coords="696,373,868,414"/>
+<area shape="rect" id="Node000002" href="$d4/d43/class_s_e_node.html#ae87a4d5f2baf38b9fb9a34a81b9149ad" title="Mutex used to lock EKF access." alt="" coords="489,373,642,414"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="681,396,643,396,643,391,681,391"/>
+<area shape="rect" id="Node000008" href="$d4/d43/class_s_e_node.html#a807afbd7576422568395876d5c3e7296" title="Executes:" alt="" coords="491,438,640,479"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="699,421,636,440,635,435,698,416"/>
+<area shape="rect" id="Node000009" href="$d4/d43/class_s_e_node.html#aa9238d6e6cdebf7becd57514858df115" title="Function to be called everytime information is received from the wheel encoders." alt="" coords="483,173,648,214"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="746,364,587,216,591,212,749,360"/>
+<area shape="rect" id="Node000003" href="$d0/d1d/class_eufs_adapter.html#a07396c47f0f5158a20bf2ea220069ee4" title=" " alt="" coords="264,325,430,381"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="473,379,430,371,430,366,474,374"/>
+<area shape="rect" id="Node000005" href="$d1/dcb/class_pacsim_adapter.html#a911ab67545afbbc50e6be888b893ac2e" title="Callback for simulated perception detections from pacsim." alt="" coords="259,405,435,461"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="474,413,436,420,435,414,474,407"/>
+<area shape="rect" id="Node000007" href="$d4/d43/class_s_e_node.html#a233082ccbddcbffc227080542c76d054" title="Constructor of the main node, most things are received by launch parameter." alt="" coords="285,486,409,511"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="494,423,485,429,471,440,461,452,452,464,436,475,410,487,408,483,434,471,448,460,457,449,467,437,481,424,491,419"/>
+<area shape="rect" id="Node000004" href="$d0/d1d/class_eufs_adapter.html#ab365c1d1d2342a41171a593d3341e66a" title=" " alt="" coords="23,268,193,294"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="248,326,153,297,154,292,250,321"/>
+<area shape="rect" id="Node000006" href="$d1/dcb/class_pacsim_adapter.html#a651658e032269c4ddccbd36377f0cc0e" title=" " alt="" coords="5,332,211,358"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="255,402,144,361,146,356,256,397"/>
+<area shape="rect" id="Node000010" href="$d1/df1/class_vehicle_adapter.html#af96b3cf76411fcbfd826a13bd8030649" title="Wheel speed subscription callback, which receives both wheel speeds and steering angle through a sync..." alt="" coords="272,5,422,61"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="534,163,488,119,433,75,414,64,417,59,437,71,492,115,537,159"/>
+<area shape="rect" id="Node000012" href="$d0/d1d/class_eufs_adapter.html#a325a2c46e1761b2b117bc6f0345902fd" title=" " alt="" coords="273,165,421,221"/>
+<area shape="poly" id="edge11_Node000009_Node000012" title=" " alt="" coords="468,196,421,196,421,191,468,191"/>
+<area shape="rect" id="Node000013" href="$d7/d8e/class_fsds_adapter.html#a25b17529c78b88ceb1b5f0d600c9dae0" title=" " alt="" coords="273,85,421,141"/>
+<area shape="poly" id="edge13_Node000009_Node000013" title=" " alt="" coords="493,170,420,143,422,138,495,165"/>
+<area shape="rect" id="Node000015" href="$d1/dcb/class_pacsim_adapter.html#aab061eb3b58bd6eae572bd11c63077f8" title="Wheel speed subscription callback, which receives both wheel speeds and steering angle through a sync..." alt="" coords="272,245,422,301"/>
+<area shape="poly" id="edge15_Node000009_Node000015" title=" " alt="" coords="495,222,423,248,422,243,493,217"/>
+<area shape="rect" id="Node000011" href="$d1/df1/class_vehicle_adapter.html#ab09c1998114e5331ba3c4ed05aaef010" title=" " alt="" coords="6,20,210,46"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="257,36,210,36,210,31,257,31"/>
+<area shape="poly" id="edge12_Node000012_Node000004" title=" " alt="" coords="259,228,146,270,144,265,258,223"/>
+<area shape="rect" id="Node000014" href="$d7/d8e/class_fsds_adapter.html#a5e998caf44eeeb0f85c2150feffc84ad" title=" " alt="" coords="20,100,196,126"/>
+<area shape="poly" id="edge14_Node000013_Node000014" title=" " alt="" coords="258,116,196,116,196,111,258,111"/>
+<area shape="poly" id="edge16_Node000015_Node000006" title=" " alt="" coords="258,303,154,334,153,329,256,298"/>
 </map>

@@ -1,21 +1,16 @@
 <map id="src/perception/include/ground_removal/grid_ransac.hpp" name="src/perception/include/ground_removal/grid_ransac.hpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="536,5,749,46"/>
-<area shape="rect" id="Node000002" href="$de/da5/perception__node_8hpp.html" title=" " alt="" coords="398,94,548,150"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="595,56,523,96,521,91,592,52"/>
-<area shape="rect" id="Node000009" href="$d5/d70/grid__ransac_8cpp.html" title=" " alt="" coords="571,94,714,150"/>
-<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="645,61,645,93,640,93,640,61"/>
-<area shape="rect" id="Node000010" href="$d1/d37/grid__ransac__test_8cpp.html" title=" " alt="" coords="738,102,883,142"/>
-<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="692,52,776,99,774,103,689,56"/>
-<area shape="rect" id="Node000003" href="$d2/d6f/perception_2src_2adapter__perception_2adapter_8cpp.html" title=" " alt="" coords="5,198,141,253"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="384,144,274,169,154,200,142,204,140,199,152,195,272,164,383,139"/>
-<area shape="rect" id="Node000004" href="$dd/da9/perception_2src_2adapter__perception_2eufs_8cpp.html" title=" " alt="" coords="165,198,301,253"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="396,159,299,199,296,195,394,154"/>
-<area shape="rect" id="Node000005" href="$d5/daf/perception_2src_2adapter__perception_2fsds_8cpp.html" title=" " alt="" coords="325,198,461,253"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="444,164,417,199,412,195,440,160"/>
-<area shape="rect" id="Node000006" href="$d9/dad/perception_2src_2adapter__perception_2vehicle_8cpp.html" title=" " alt="" coords="485,198,621,253"/>
-<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="506,160,534,195,529,199,502,164"/>
-<area shape="rect" id="Node000007" href="$d9/dc1/perception_8cpp.html" title=" " alt="" coords="645,205,770,246"/>
-<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="551,154,663,202,661,207,549,159"/>
-<area shape="rect" id="Node000008" href="$dc/dfb/perception__node_8cpp.html" title=" " alt="" coords="794,198,944,253"/>
-<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="563,148,674,171,783,195,795,198,793,203,782,200,673,177,562,153"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="260,5,473,46"/>
+<area shape="rect" id="Node000002" href="$de/da5/perception__node_8hpp.html" title=" " alt="" coords="123,94,272,150"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="319,56,247,96,245,91,316,52"/>
+<area shape="rect" id="Node000006" href="$d5/d70/grid__ransac_8cpp.html" title=" " alt="" coords="295,94,438,150"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="369,61,369,93,364,93,364,61"/>
+<area shape="rect" id="Node000007" href="$d1/d37/grid__ransac__test_8cpp.html" title=" " alt="" coords="462,102,607,142"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="416,52,501,99,498,103,414,56"/>
+<area shape="rect" id="Node000003" href="$d7/d69/perception_2include_2perception_2parameters__factory_8hpp.html" title=" " alt="" coords="5,198,160,253"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="157,162,115,199,112,195,153,158"/>
+<area shape="rect" id="Node000004" href="$d9/dc1/perception_8cpp.html" title=" " alt="" coords="77,301,203,342"/>
+<area shape="poly" id="edge4_Node000002_Node000004" title=" " alt="" coords="194,166,186,209,174,254,153,302,148,300,169,252,181,208,189,165"/>
+<area shape="rect" id="Node000005" href="$dc/dfb/perception__node_8cpp.html" title=" " alt="" coords="235,198,384,253"/>
+<area shape="poly" id="edge5_Node000002_Node000005" title=" " alt="" coords="240,158,281,195,277,199,236,162"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="109,265,130,300,126,302,105,268"/>
 </map>

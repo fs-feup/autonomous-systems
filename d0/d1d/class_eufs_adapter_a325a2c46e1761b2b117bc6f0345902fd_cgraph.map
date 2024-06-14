@@ -1,0 +1,17 @@
+<map id="EufsAdapter::wheel_speeds_subscription_callback" name="EufsAdapter::wheel_speeds_subscription_callback">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,89,153,144"/>
+<area shape="rect" id="Node000002" href="$d4/d43/class_s_e_node.html#aa9238d6e6cdebf7becd57514858df115" title="Function to be called everytime information is received from the wheel encoders." alt="" coords="201,96,366,137"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="153,114,185,114,185,119,153,119"/>
+<area shape="rect" id="Node000003" href="$d4/d43/class_s_e_node.html#a6f3571b56b21f6d5fa7191fae4e21681" title="publishes the map (&#39;track_map&#39;) to the topic track_map" alt="" coords="422,46,577,72"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="362,93,433,74,435,79,363,98"/>
+<area shape="rect" id="Node000006" href="$d4/d43/class_s_e_node.html#a97f9cce4985902a634cd878f973715e6" title="publishes the localization (&#39;vehicle_localization&#39;) to the topic vehicle_location" alt="" coords="414,96,585,137"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="367,114,398,114,398,119,367,119"/>
+<area shape="rect" id="Node000007" href="$d4/d1a/namespacecommon__lib_1_1vehicle__dynamics.html#a6f4e302b6228b2dbd52b6d37a9685677" title="Converts the odometry data to translational and rotational velocities." alt="" coords="418,161,581,216"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="347,135,404,154,402,159,346,140"/>
+<area shape="rect" id="Node000004" href="$d9/d2b/namespacecommon__lib_1_1competition__logic.html#a843c25f51bc237705083bc50bafa67af" title=" " alt="" coords="665,5,830,46"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="578,46,649,36,650,41,578,51"/>
+<area shape="rect" id="Node000005" href="$d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="633,71,862,111"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="578,66,618,72,618,77,578,72"/>
+<area shape="rect" id="Node000008" href="$d2/d32/namespacecommon__lib_1_1maths.html#a4068519b32978679e461dc19e2b3a5fd" title="Function to get the translational velocity of a wheel from rpm and wheel diameter." alt="" coords="651,168,844,209"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="582,186,635,186,635,191,582,191"/>
+</map>

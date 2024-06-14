@@ -1,5 +1,13 @@
 <map id="SENode::_perception_subscription_callback" name="SENode::_perception_subscription_callback">
-<area shape="rect" id="Node000001" title="Mutex used to lock EKF access." alt="" coords="177,5,330,46"/>
-<area shape="rect" id="Node000002" href="$d4/d43/class_s_e_node.html#a5d61b6c80a21c02b29074e434cc6703b" title="Constructor of the main node, most things are received by launch parameter." alt="" coords="5,13,129,39"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="161,28,129,28,129,23,161,23"/>
+<area shape="rect" id="Node000001" title="Mutex used to lock EKF access." alt="" coords="483,93,636,134"/>
+<area shape="rect" id="Node000002" href="$d0/d1d/class_eufs_adapter.html#a07396c47f0f5158a20bf2ea220069ee4" title=" " alt="" coords="264,5,430,61"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="489,90,422,64,424,59,491,85"/>
+<area shape="rect" id="Node000004" href="$d1/dcb/class_pacsim_adapter.html#a911ab67545afbbc50e6be888b893ac2e" title="Callback for simulated perception detections from pacsim." alt="" coords="259,85,435,141"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="467,116,435,116,435,111,467,111"/>
+<area shape="rect" id="Node000006" href="$d4/d43/class_s_e_node.html#a233082ccbddcbffc227080542c76d054" title="Constructor of the main node, most things are received by launch parameter." alt="" coords="285,166,409,191"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="482,141,436,156,396,168,394,163,434,151,480,136"/>
+<area shape="rect" id="Node000003" href="$d0/d1d/class_eufs_adapter.html#ab365c1d1d2342a41171a593d3341e66a" title=" " alt="" coords="23,20,193,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="248,36,193,36,193,31,248,31"/>
+<area shape="rect" id="Node000005" href="$d1/dcb/class_pacsim_adapter.html#a651658e032269c4ddccbd36377f0cc0e" title=" " alt="" coords="5,100,211,126"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="243,116,211,116,211,111,243,111"/>
 </map>

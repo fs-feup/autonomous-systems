@@ -1,0 +1,14 @@
+<map id="EufsAdapter::perception_detections_subscription_callback" name="EufsAdapter::perception_detections_subscription_callback">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,85,171,140"/>
+<area shape="rect" id="Node000002" href="$d4/d43/class_s_e_node.html#ae87a4d5f2baf38b9fb9a34a81b9149ad" title="Mutex used to lock EKF access." alt="" coords="219,63,372,103"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="170,98,203,93,203,99,171,103"/>
+<area shape="rect" id="Node000004" href="$d9/d2b/namespacecommon__lib_1_1competition__logic.html#a843c25f51bc237705083bc50bafa67af" title=" " alt="" coords="671,95,836,135"/>
+<area shape="poly" id="edge6_Node000001_Node000004" title=" " alt="" coords="171,112,219,112,656,113,656,118,219,118,171,117"/>
+<area shape="rect" id="Node000003" href="$d4/d43/class_s_e_node.html#a6f3571b56b21f6d5fa7191fae4e21681" title="publishes the map (&#39;track_map&#39;) to the topic track_map" alt="" coords="428,13,583,39"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="372,60,440,41,442,46,373,65"/>
+<area shape="rect" id="Node000006" href="$d4/d43/class_s_e_node.html#a97f9cce4985902a634cd878f973715e6" title="publishes the localization (&#39;vehicle_localization&#39;) to the topic vehicle_location" alt="" coords="420,63,591,103"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="372,80,404,80,404,86,372,86"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="555,37,592,48,690,86,688,91,590,54,554,42"/>
+<area shape="rect" id="Node000005" href="$d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="639,5,868,46"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="584,23,623,23,623,28,584,28"/>
+</map>
