@@ -1,14 +1,10 @@
 #pragma once
 
-#include <message_filters/cache.h>
-#include <message_filters/subscriber.h>
-
 #include <chrono>
 #include <functional>
 #include <memory>
 #include <string>
 
-#include "adapter_control/adapter.hpp"
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "custom_interfaces/msg/evaluator_control_data.hpp"
 #include "custom_interfaces/msg/path_point_array.hpp"
@@ -18,6 +14,13 @@
 #include "pure_pursuit/pp.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
+
+struct ControlParameters {
+  bool using_simulated_se_;
+  bool mocker_node_;
+  double lookahead_gain_;
+  double lookahead_margin_;
+};
 
 /**
  * @class Control
@@ -31,9 +34,7 @@ public:
   bool using_simulated_se_{false};
   bool go_signal_{false};
 
-  std::shared_ptr<Adapter> adapter_;
-
-  Control();
+  explicit Control(const ControlParameters &params);
 
   /**
    * @brief Publishes the steering angle to the car based on the path and pose using cache
@@ -43,6 +44,7 @@ public:
 
 private:
   bool mocker_node_{false};
+  // std::string adapter_;
 
   // Evaluator Publisher
   rclcpp::Publisher<custom_interfaces::msg::EvaluatorControlData>::SharedPtr evaluator_data_pub_;
@@ -60,4 +62,6 @@ private:
                               common_lib::structures::Position lookahead_point,
                               common_lib::structures::Position closest_point,
                               custom_interfaces::msg::VehicleState vehicle_state_msg) const;
+
+  virtual void publish_cmd(double acceleration, double steering) = 0;
 };

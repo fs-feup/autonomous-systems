@@ -8,9 +8,8 @@ endif()
 set(IMPLEMENTATION_FILES 
   src/node_/node_control.cpp
   src/pid/pid.cpp
-  src/adapter_control/adapter.cpp
   src/adapter_control/fsds.cpp
-  src/adapter_control/pac_sim.cpp
+  src/adapter_control/pacsim.cpp
   src/adapter_control/eufs.cpp
   src/adapter_control/vehicle.cpp
   src/pure_pursuit/pp.cpp
