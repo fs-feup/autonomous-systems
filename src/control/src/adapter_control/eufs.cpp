@@ -2,21 +2,20 @@
 
 #include "node_/node_control.hpp"
 
-EufsAdapter::EufsAdapter(Control* control)
-    : Adapter(control),
-      control_pub_(
-          node_->create_publisher<ackermann_msgs::msg::AckermannDriveStamped>("/cmd", 10)) {
+EufsAdapter::EufsAdapter(const ControlParameters& params)
+    : Control(params),
+      control_pub_(create_publisher<ackermann_msgs::msg::AckermannDriveStamped>("/cmd", 10)) {
   // No topic for eufs, just set the go_signal to true
-  node_->go_signal_ = true;
+  go_signal_ = true;
 
-  if (node_->using_simulated_se_) {
-    RCLCPP_INFO(this->node_->get_logger(), "Eufs using simulated State Estimation\n");
-    vehicle_state_sub_ = this->node_->create_subscription<eufs_msgs::msg::CarState>(
+  if (using_simulated_se_) {
+    RCLCPP_INFO(this->get_logger(), "Eufs using simulated State Estimation\n");
+    vehicle_state_sub_ = this->create_subscription<eufs_msgs::msg::CarState>(
         "/odometry_integration/car_state", 10,
         std::bind(&EufsAdapter::vehicle_state_callback, this, std::placeholders::_1));
   }
 
-  RCLCPP_INFO(this->node_->get_logger(), "EUFS adapter created");
+  RCLCPP_INFO(this->get_logger(), "EUFS adapter created");
 }
 
 void EufsAdapter::vehicle_state_callback(const eufs_msgs::msg::CarState& msg) {
@@ -31,10 +30,10 @@ void EufsAdapter::vehicle_state_callback(const eufs_msgs::msg::CarState& msg) {
                                   msg.pose.pose.orientation.y * msg.pose.pose.orientation.y -
                                   msg.pose.pose.orientation.z * msg.pose.pose.orientation.z);
 
+  vehicle_state.linear_velocity =
+      std::sqrt(std::pow(msg.twist.twist.linear.x, 2) + std::pow(msg.twist.twist.linear.y, 2));
 
-  vehicle_state.linear_velocity = std::sqrt(std::pow(msg.twist.twist.linear.x, 2) + std::pow(msg.twist.twist.linear.y, 2));
-
-  node_->publish_control(vehicle_state);
+  publish_control(vehicle_state);
 }
 
 void EufsAdapter::publish_cmd(double torque, double steering) {

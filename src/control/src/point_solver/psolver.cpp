@@ -115,4 +115,3 @@ std::tuple<Position, double, bool> PointSolver::update_lookahead_point(
 double PointSolver::update_lookahead_distance(double k, double velocity) const {
   return k * velocity;
 };
-

@@ -5,8 +5,6 @@
 #include <memory>
 #include <string>
 
-#include "adapter_control/adapter.hpp"
-#include "adapter_control/map.hpp"
 #include "custom_interfaces/msg/evaluator_control_data.hpp"
 #include "custom_interfaces/msg/path_point_array.hpp"
 #include "custom_interfaces/msg/vehicle_state.hpp"
@@ -18,11 +16,12 @@
 
 using namespace common_lib::structures;
 
-Control::Control()
-    : Node("node_control"),
-      using_simulated_se_(declare_parameter("use_simulated_se", false)),
-      adapter_(adapter_map.at(declare_parameter("adapter", "vehicle"))(this)),
-      mocker_node_(declare_parameter("mocker_node", true)),
+using namespace common_lib::structures;
+
+Control::Control(const ControlParameters& params)
+    : Node("control"),
+      using_simulated_se_(params.using_simulated_se_),
+      mocker_node_(params.mocker_node_),
       evaluator_data_pub_(create_publisher<custom_interfaces::msg::EvaluatorControlData>(
           "/control/evaluator_data", 10)),
       path_point_array_sub_(create_subscription<custom_interfaces::msg::PathPointArray>(
@@ -31,9 +30,8 @@ Control::Control()
             RCLCPP_DEBUG(this->get_logger(), "Received pathpoint array");
             pathpoint_array_ = msg.pathpoint_array;
           })),
-      point_solver_(declare_parameter("lookahead_gain", 0.5),
-                    declare_parameter("lookahead_margin", 0.1)) {
-  if (!using_simulated_se_ || get_parameter("adapter").as_string() == "vehicle") {
+      point_solver_(params.lookahead_gain_, params.lookahead_margin_) {
+  if (!using_simulated_se_) {
     vehicle_state_sub_ = this->create_subscription<custom_interfaces::msg::VehicleState>(
         "/state_estimation/vehicle_state", 10,
         std::bind(&Control::publish_control, this, std::placeholders::_1));
@@ -86,7 +84,7 @@ void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicl
                steering_angle);
 
   publish_evaluator_data(lookahead_velocity, lookahead_point, closest_point, vehicle_state_msg);
-  adapter_->publish_cmd(torque, steering_angle);
+  publish_cmd(torque, steering_angle);
   // Adapter to communicate with the car
 }
 

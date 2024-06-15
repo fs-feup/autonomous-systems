@@ -5,17 +5,15 @@
 #include <message_filters/synchronizer.h>
 #include <message_filters/time_synchronizer.h>
 
-#include "adapter_ekf_state_est/adapter.hpp"
 #include "custom_interfaces/msg/imu_data.hpp"
 #include "custom_interfaces/msg/operational_status.hpp"
 #include "custom_interfaces/msg/steering_angle.hpp"
 #include "custom_interfaces/msg/wheel_rpm.hpp"
+#include "ros_node/se_node.hpp"
 #include "std_srvs/srv/empty.hpp"
 #include "std_srvs/srv/trigger.hpp"
 
-class SENode;
-
-class VehicleAdapter : public Adapter {
+class VehicleAdapter : public SENode {
   message_filters::Subscriber<custom_interfaces::msg::WheelRPM>
       _rl_wheel_rpm_subscription_;  ///< Subscriber for rl wheel rpm
   message_filters::Subscriber<custom_interfaces::msg::WheelRPM>
@@ -59,11 +57,11 @@ class VehicleAdapter : public Adapter {
    * @param roll_accx_data roll and acceleration in x axis data
    * @param yaw_accy_data yaw and acceleration in y axis data
    */
-  void imu_subscription_callback(const custom_interfaces::msg::ImuData& roll_accx_data,
-                                 const custom_interfaces::msg::ImuData& yaw_accy_data);
+  void vehicle_imu_subscription_callback(const custom_interfaces::msg::ImuData& roll_accx_data,
+                                         const custom_interfaces::msg::ImuData& yaw_accy_data);
 
 public:
-  explicit VehicleAdapter(std::shared_ptr<SENode> se_node);
+  explicit VehicleAdapter(const EKFStateEstParameters& params);
 
   void finish() final;
 };
