@@ -9,6 +9,7 @@ struct PerceptionParameters;
 
 PerceptionParameters load_adapter_parameters() {
   PerceptionParameters params;
+
   auto adapter_node = std::make_shared<rclcpp::Node>("perception_adapter");
 
   double ransac_epsilon = adapter_node->declare_parameter("ransac_epsilon", 0.1);
@@ -18,6 +19,11 @@ PerceptionParameters load_adapter_parameters() {
   double horizontal_resolution = adapter_node->declare_parameter("horizontal_resolution", 0.33);
   double vertical_resolution = adapter_node->declare_parameter("vertical_resolution", 0.22);
   std::string ground_removal_algoritm = adapter_node->declare_parameter("ground_removal", "ransac");
+  std::string target_file = adapter_node->declare_parameter("target_file", "cone.pcd");
+  double max_correspondence_distance = adapter_node->declare_parameter("max_correspondence_distance", 0.1);
+  int max_iteration = adapter_node->declare_parameter("max_iteration", 100);
+  double transformation_epsilon = adapter_node->declare_parameter("transformation_epsilon", 1e-8);
+  double euclidean_fitness_epsilon = adapter_node->declare_parameter("euclidean_fitness_epsilon", 1e-6);
   params.adapter_ = adapter_node->declare_parameter("adapter", "vehicle");
 
   // Create shared pointers for components
@@ -36,6 +42,9 @@ PerceptionParameters load_adapter_parameters() {
                              std::make_shared<HeightValidator>(0.325)};
   params.distance_predict_ =
       std::make_shared<DistancePredict>(vertical_resolution, horizontal_resolution);
+    
+  params.icp_ = std::make_shared<ICP>(target_file, max_correspondence_distance, max_iteration, 
+        transformation_epsilon, euclidean_fitness_epsilon);
 
   return params;
 }

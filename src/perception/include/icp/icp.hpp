@@ -16,11 +16,11 @@ class ICP{
   public:
     /**
      * @brief Constructor for the ICP class.
-     * @param targetFile Path to the target point cloud file.
-     * @param maxCorrespondenceDistance Maximum correspondence distance for ICP.
-     * @param maxIteration Maximum number of iterations for ICP.
-     * @param transformationEpsilon Transformation epsilon for convergence criteria.
-     * @param euclideanFitnessEpsilon Euclidean fitness epsilon for convergence criteria.
+     * @param target_file Path to the target point cloud file.
+     * @param max_correspondence_distance Maximum correspondence distance for ICP.
+     * @param max_iteration Maximum number of iterations for ICP.
+     * @param transformation_epsilon Transformation epsilon for convergence criteria.
+     * @param euclidean_fitness_epsilon Euclidean fitness epsilon for convergence criteria.
      */
     ICP(std::string target_file, double max_correspondence_distance, long max_iteration, 
         double transformation_epsilon, double euclidean_fitness_epsilon);
