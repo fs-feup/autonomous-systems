@@ -106,9 +106,9 @@ Inheritance diagram for MockerNode:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../db/d60/class_mocker_node__inherit__graph.png" border="0" usemap="#a_mocker_node_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_mocker_node_inherit__map" id="a_mocker_node_inherit__map">
-<area shape="rect" title=" " alt="" coords="5,119,136,284"/>
-<area shape="rect" title=" " alt="" coords="28,5,113,71"/>
-<area shape="poly" title=" " alt="" coords="73,85,73,119,68,119,68,85"/>
+<area shape="rect" title=" " alt="" coords="5,119,155,319"/>
+<area shape="rect" title=" " alt="" coords="37,5,123,71"/>
+<area shape="poly" title=" " alt="" coords="83,86,83,119,77,119,77,86"/>
 </map>
 </div>
 <div class="dynheader">
@@ -116,13 +116,13 @@ Collaboration diagram for MockerNode:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d6/d6d/class_mocker_node__coll__graph.png" border="0" usemap="#a_mocker_node_coll__map" alt="Collaboration graph"/></div>
 <map name="a_mocker_node_coll__map" id="a_mocker_node_coll__map">
-<area shape="rect" title=" " alt="" coords="100,134,231,259"/>
+<area shape="rect" title=" " alt="" coords="91,134,240,294"/>
 <area shape="rect" title=" " alt="" coords="5,5,91,71"/>
-<area shape="poly" title=" " alt="" coords="83,81,121,132,117,135,78,84"/>
+<area shape="poly" title=" " alt="" coords="80,81,114,132,110,135,75,84"/>
 <area shape="rect" title=" " alt="" coords="115,5,215,71"/>
-<area shape="poly" title=" " alt="" coords="168,70,168,117,163,117,163,70"/>
+<area shape="poly" title=" " alt="" coords="168,71,168,116,163,116,163,71"/>
 <area shape="rect" title=" " alt="" coords="258,5,331,71"/>
-<area shape="poly" title=" " alt="" coords="288,72,268,111,245,137,241,134,263,108,283,69"/>
+<area shape="poly" title=" " alt="" coords="287,72,268,111,253,131,248,128,263,108,282,69"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -147,14 +147,16 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:addcad19db00df44d768946d969fd753d" id="r_addcad19db00df44d768946d969fd753d"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; custom_interfaces::msg::PathPointArray &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d4c/class_mocker_node.html#addcad19db00df44d768946d969fd753d">planning_publisher</a></td></tr>
 <tr class="separator:addcad19db00df44d768946d969fd753d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a12258bc09c424516b714f58c3c83b1d3" id="r_a12258bc09c424516b714f58c3c83b1d3"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; custom_interfaces::msg::ConeArray &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d4c/class_mocker_node.html#a12258bc09c424516b714f58c3c83b1d3">se_publisher</a></td></tr>
-<tr class="memdesc:a12258bc09c424516b714f58c3c83b1d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timer for the periodic publishing.  <br /></td></tr>
 <tr class="separator:a12258bc09c424516b714f58c3c83b1d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8ade22765f6b300d01d2afc0e5d2995" id="r_ae8ade22765f6b300d01d2afc0e5d2995"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; visualization_msgs::msg::Marker &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d4c/class_mocker_node.html#ae8ade22765f6b300d01d2afc0e5d2995">planning_visualization_publisher</a></td></tr>
+<tr class="memdesc:ae8ade22765f6b300d01d2afc0e5d2995"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timer for the periodic publishing.  <br /></td></tr>
+<tr class="separator:ae8ade22765f6b300d01d2afc0e5d2995"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7ac2eb73f9ec56fc95cb858e1bf237e6" id="r_a7ac2eb73f9ec56fc95cb858e1bf237e6"><td class="memItemLeft" align="right" valign="top">rclcpp::TimerBase::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d4c/class_mocker_node.html#a7ac2eb73f9ec56fc95cb858e1bf237e6">timer_</a></td></tr>
 <tr class="separator:a7ac2eb73f9ec56fc95cb858e1bf237e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="../../d7/d79/mocker__node_8hpp_source.html#l00014">14</a> of file <a class="el" href="../../d7/d79/mocker__node_8hpp_source.html">mocker_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d79/mocker__node_8hpp_source.html#l00017">17</a> of file <a class="el" href="../../d7/d79/mocker__node_8hpp_source.html">mocker_node.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ac9cbef81a0bccf4c5c9973f3d69d29a3" name="ac9cbef81a0bccf4c5c9973f3d69d29a3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac9cbef81a0bccf4c5c9973f3d69d29a3">&#9670;&#160;</a></span>MockerNode()</h2>
@@ -206,6 +208,10 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="181,100,213,103,213,108,180,105"/>
 <area shape="rect" href="../../dc/d48/mocks_8cpp.html#a7f90113acec66f66b0cb4a5b2e97961e" title="read state estimation ground truth information from stream and place it in an array of Cone objects" alt="" coords="254,153,378,179"/>
 <area shape="poly" title=" " alt="" coords="129,104,230,140,250,146,249,151,228,145,127,109"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#aa192956ea9cdda02b245cdca6ce82d4a" title="Converts a vector of cones to a marker array." alt="" coords="451,61,671,101"/>
+<area shape="poly" title=" " alt="" coords="403,101,435,97,436,102,404,107"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#a72d8d8f96d0fecb170617070d8a1a0a9" title="Converts a Path Point Array from Custom Interfaces into a vector of common_lib path points." alt="" coords="469,125,654,181"/>
+<area shape="poly" title=" " alt="" coords="404,127,453,134,453,140,403,132"/>
 </map>
 </div>
 
@@ -229,7 +235,19 @@ Here is the call graph for this function:</div>
 
 <p>publish the messages </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d1b/mocker__node_8cpp_source.html#l00033">33</a> of file <a class="el" href="../../dc/d1b/mocker__node_8cpp_source.html">mocker_node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d1b/mocker__node_8cpp_source.html#l00036">36</a> of file <a class="el" href="../../dc/d1b/mocker__node_8cpp_source.html">mocker_node.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d1/d4c/class_mocker_node_a3554ae6ede0351fe34fb199e4bf627cc_cgraph.png" border="0" usemap="#ad1/d4c/class_mocker_node_a3554ae6ede0351fe34fb199e4bf627cc_cgraph" alt=""/></div>
+<map name="ad1/d4c/class_mocker_node_a3554ae6ede0351fe34fb199e4bf627cc_cgraph" id="ad1/d4c/class_mocker_node_a3554ae6ede0351fe34fb199e4bf627cc_cgraph">
+<area shape="rect" title="publish the messages" alt="" coords="5,49,180,75"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#aa192956ea9cdda02b245cdca6ce82d4a" title="Converts a vector of cones to a marker array." alt="" coords="228,5,448,46"/>
+<area shape="poly" title=" " alt="" coords="180,46,212,41,213,47,180,52"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#a72d8d8f96d0fecb170617070d8a1a0a9" title="Converts a Path Point Array from Custom Interfaces into a vector of common_lib path points." alt="" coords="245,70,431,126"/>
+<area shape="poly" title=" " alt="" coords="180,72,230,79,229,84,180,77"/>
+</map>
+</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -256,7 +274,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d79/mocker__node_8hpp_source.html#l00023">23</a> of file <a class="el" href="../../d7/d79/mocker__node_8hpp_source.html">mocker_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d79/mocker__node_8hpp_source.html#l00027">27</a> of file <a class="el" href="../../d7/d79/mocker__node_8hpp_source.html">mocker_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -272,7 +290,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d79/mocker__node_8hpp_source.html#l00024">24</a> of file <a class="el" href="../../d7/d79/mocker__node_8hpp_source.html">mocker_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d79/mocker__node_8hpp_source.html#l00028">28</a> of file <a class="el" href="../../d7/d79/mocker__node_8hpp_source.html">mocker_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -296,7 +314,33 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d79/mocker__node_8hpp_source.html#l00016">16</a> of file <a class="el" href="../../d7/d79/mocker__node_8hpp_source.html">mocker_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d79/mocker__node_8hpp_source.html#l00019">19</a> of file <a class="el" href="../../d7/d79/mocker__node_8hpp_source.html">mocker_node.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ae8ade22765f6b300d01d2afc0e5d2995" name="ae8ade22765f6b300d01d2afc0e5d2995"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8ade22765f6b300d01d2afc0e5d2995">&#9670;&#160;</a></span>planning_visualization_publisher</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rclcpp::Publisher&lt;visualization_msgs::msg::Marker&gt;::SharedPtr MockerNode::planning_visualization_publisher</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Timer for the periodic publishing. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d7/d79/mocker__node_8hpp_source.html#l00021">21</a> of file <a class="el" href="../../d7/d79/mocker__node_8hpp_source.html">mocker_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -320,9 +364,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Timer for the periodic publishing. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d7/d79/mocker__node_8hpp_source.html#l00017">17</a> of file <a class="el" href="../../d7/d79/mocker__node_8hpp_source.html">mocker_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d79/mocker__node_8hpp_source.html#l00020">20</a> of file <a class="el" href="../../d7/d79/mocker__node_8hpp_source.html">mocker_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -346,7 +388,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d79/mocker__node_8hpp_source.html#l00020">20</a> of file <a class="el" href="../../d7/d79/mocker__node_8hpp_source.html">mocker_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d79/mocker__node_8hpp_source.html#l00024">24</a> of file <a class="el" href="../../d7/d79/mocker__node_8hpp_source.html">mocker_node.hpp</a>.</p>
 
 </div>
 </div>

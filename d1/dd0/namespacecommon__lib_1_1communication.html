@@ -118,6 +118,9 @@ Functions</h2></td></tr>
 <tr class="memitem:aa192956ea9cdda02b245cdca6ce82d4a"><td class="memTemplItemLeft" align="right" valign="top">visualization_msgs::msg::Marker&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#aa192956ea9cdda02b245cdca6ce82d4a">line_marker_from_structure_array</a> (const std::vector&lt; T &gt; &amp;structure_array, const std::string &amp;name_space, const std::string &amp;frame_id, const int id, const std::string &amp;color=&quot;red&quot;, const std::string &amp;shape=&quot;line&quot;, float scale=0.1, int action=visualization_msgs::msg::Marker::MODIFY)</td></tr>
 <tr class="memdesc:aa192956ea9cdda02b245cdca6ce82d4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a vector of cones to a marker array.  <br /></td></tr>
 <tr class="separator:aa192956ea9cdda02b245cdca6ce82d4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72d8d8f96d0fecb170617070d8a1a0a9" id="r_a72d8d8f96d0fecb170617070d8a1a0a9"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../d9/db0/structcommon__lib_1_1structures_1_1_path_point.html">common_lib::structures::PathPoint</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#a72d8d8f96d0fecb170617070d8a1a0a9">path_point_array_from_ci_vector</a> (const custom_interfaces::msg::PathPointArray &amp;path_point_array)</td></tr>
+<tr class="memdesc:a72d8d8f96d0fecb170617070d8a1a0a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a Path Point Array from Custom Interfaces into a vector of <a class="el" href="../../dd/d5f/namespacecommon__lib.html">common_lib</a> path points.  <br /></td></tr>
+<tr class="separator:a72d8d8f96d0fecb170617070d8a1a0a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -206,21 +209,25 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>visualization_msgs::msg::MarkerArray </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/da2/marker_8hpp_source.html#l00123">123</a> of file <a class="el" href="../../d2/da2/marker_8hpp_source.html">marker.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/da2/marker_8hpp_source.html#l00124">124</a> of file <a class="el" href="../../d2/da2/marker_8hpp_source.html">marker.hpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d1/dd0/namespacecommon__lib_1_1communication_aa192956ea9cdda02b245cdca6ce82d4a_icgraph.png" border="0" usemap="#ad1/dd0/namespacecommon__lib_1_1communication_aa192956ea9cdda02b245cdca6ce82d4a_icgraph" alt=""/></div>
 <map name="ad1/dd0/namespacecommon__lib_1_1communication_aa192956ea9cdda02b245cdca6ce82d4a_icgraph" id="ad1/dd0/namespacecommon__lib_1_1communication_aa192956ea9cdda02b245cdca6ce82d4a_icgraph">
-<area shape="rect" title="Converts a vector of cones to a marker array." alt="" coords="1214,113,1434,154"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#a3a9777b1285386d19bbc3045ff416fd9" title="publish all visualization messages from the planning node" alt="" coords="931,121,1166,147"/>
-<area shape="poly" title=" " alt="" coords="1199,136,1166,136,1166,131,1199,131"/>
-<area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the planning algorithms." alt="" coords="732,113,883,154"/>
-<area shape="poly" title=" " alt="" coords="915,136,883,136,883,131,915,131"/>
+<area shape="rect" title="Converts a vector of cones to a marker array." alt="" coords="1239,85,1459,126"/>
+<area shape="rect" href="../../d1/d4c/class_mocker_node.html#a3554ae6ede0351fe34fb199e4bf627cc" title="publish the messages" alt="" coords="986,66,1161,92"/>
+<area shape="poly" title=" " alt="" coords="1223,96,1161,90,1161,85,1224,91"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a3a9777b1285386d19bbc3045ff416fd9" title="publish all visualization messages from the planning node" alt="" coords="956,117,1191,143"/>
+<area shape="poly" title=" " alt="" coords="1224,119,1191,122,1191,117,1223,114"/>
+<area shape="rect" href="../../d1/d4c/class_mocker_node.html#ac9cbef81a0bccf4c5c9973f3d69d29a3" title="Constructor for a new Mocker Node object." alt="" coords="732,64,908,89"/>
+<area shape="poly" title=" " alt="" coords="971,81,908,80,908,75,971,75"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the planning algorithms." alt="" coords="745,113,895,154"/>
+<area shape="poly" title=" " alt="" coords="940,134,896,135,896,130,940,129"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#ab04bd1f3fa9458e5a1360cfabacc56a7" title="Callback for track map updates(when msg received)." alt="" coords="521,72,659,113"/>
-<area shape="poly" title=" " alt="" coords="717,119,659,108,660,103,718,114"/>
+<area shape="poly" title=" " alt="" coords="729,120,659,107,660,102,730,115"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a53d5a67d438860be75a3d9e0bc0df8c3" title="Callback for vehicle localization updates (undefined)." alt="" coords="495,145,684,186"/>
-<area shape="poly" title=" " alt="" coords="718,150,685,154,685,149,717,144"/>
+<area shape="poly" title=" " alt="" coords="730,149,685,155,685,150,729,144"/>
 <area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a60c7f8fa7896a4d10f19d23d6b9d81fa" title=" " alt="" coords="266,70,444,96"/>
 <area shape="poly" title=" " alt="" coords="505,92,444,89,444,84,505,86"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a115541ef5b9431540a991a03832d520d" title="Constructor for the Planning class." alt="" coords="291,120,419,145"/>
@@ -317,7 +324,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>visualization_msgs::msg::MarkerArray </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/da2/marker_8hpp_source.html#l00064">64</a> of file <a class="el" href="../../d2/da2/marker_8hpp_source.html">marker.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/da2/marker_8hpp_source.html#l00065">65</a> of file <a class="el" href="../../d2/da2/marker_8hpp_source.html">marker.hpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -365,6 +372,47 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a id="a72d8d8f96d0fecb170617070d8a1a0a9" name="a72d8d8f96d0fecb170617070d8a1a0a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72d8d8f96d0fecb170617070d8a1a0a9">&#9670;&#160;</a></span>path_point_array_from_ci_vector()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="../../d9/db0/structcommon__lib_1_1structures_1_1_path_point.html">common_lib::structures::PathPoint</a> &gt; common_lib::communication::path_point_array_from_ci_vector </td>
+          <td>(</td>
+          <td class="paramtype">const custom_interfaces::msg::PathPointArray &amp;&#160;</td>
+          <td class="paramname"><em>path_point_array</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Converts a Path Point Array from Custom Interfaces into a vector of <a class="el" href="../../dd/d5f/namespacecommon__lib.html">common_lib</a> path points. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path_point_array</td><td>Path Point Array from Custom Interfaces </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>std::vector&lt;common_lib::structures::PathPoint&gt; </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="../../dd/d8f/common__lib_2src_2communication_2planning_8cpp_source.html#l00005">5</a> of file <a class="el" href="../../dd/d8f/common__lib_2src_2communication_2planning_8cpp_source.html">planning.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d1/dd0/namespacecommon__lib_1_1communication_a72d8d8f96d0fecb170617070d8a1a0a9_icgraph.png" border="0" usemap="#ad1/dd0/namespacecommon__lib_1_1communication_a72d8d8f96d0fecb170617070d8a1a0a9_icgraph" alt=""/></div>
+<map name="ad1/dd0/namespacecommon__lib_1_1communication_a72d8d8f96d0fecb170617070d8a1a0a9_icgraph" id="ad1/dd0/namespacecommon__lib_1_1communication_a72d8d8f96d0fecb170617070d8a1a0a9_icgraph">
+<area shape="rect" title="Converts a Path Point Array from Custom Interfaces into a vector of common_lib path points." alt="" coords="451,5,636,61"/>
+<area shape="rect" href="../../d1/d4c/class_mocker_node.html#a3554ae6ede0351fe34fb199e4bf627cc" title="publish the messages" alt="" coords="229,20,403,46"/>
+<area shape="poly" title=" " alt="" coords="436,36,404,36,404,31,436,31"/>
+<area shape="rect" href="../../d1/d4c/class_mocker_node.html#ac9cbef81a0bccf4c5c9973f3d69d29a3" title="Constructor for a new Mocker Node object." alt="" coords="5,20,181,46"/>
+<area shape="poly" title=" " alt="" coords="213,36,181,36,181,31,213,31"/>
+</map>
+</div>
+
+</div>
+</div>
 <h2 class="groupheader">Variable Documentation</h2>
 <a id="ab58283d47ed9643ba801c24893d8f4ad" name="ab58283d47ed9643ba801c24893d8f4ad"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab58283d47ed9643ba801c24893d8f4ad">&#9670;&#160;</a></span>marker_color_map</h2>
@@ -384,7 +432,7 @@ Here is the caller graph for this function:</div>
 <div class="line">    {<span class="stringliteral">&quot;red&quot;</span>, {1.0, 0.0, 0.0, 1.0}},</div>
 <div class="line">    {<span class="stringliteral">&quot;green&quot;</span>, {0.0, 1.0, 0.0, 1.0}}}</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="../../d2/da2/marker_8hpp_source.html#l00015">15</a> of file <a class="el" href="../../d2/da2/marker_8hpp_source.html">marker.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/da2/marker_8hpp_source.html#l00016">16</a> of file <a class="el" href="../../d2/da2/marker_8hpp_source.html">marker.hpp</a>.</p>
 
 </div>
 </div>
@@ -405,7 +453,7 @@ Here is the caller graph for this function:</div>
 <div class="line">    {<span class="stringliteral">&quot;sphere&quot;</span>, visualization_msgs::msg::Marker::SPHERE},</div>
 <div class="line">    {<span class="stringliteral">&quot;line&quot;</span>, visualization_msgs::msg::Marker::LINE_STRIP}}</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="../../d2/da2/marker_8hpp_source.html#l00022">22</a> of file <a class="el" href="../../d2/da2/marker_8hpp_source.html">marker.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/da2/marker_8hpp_source.html#l00023">23</a> of file <a class="el" href="../../d2/da2/marker_8hpp_source.html">marker.hpp</a>.</p>
 
 </div>
 </div>

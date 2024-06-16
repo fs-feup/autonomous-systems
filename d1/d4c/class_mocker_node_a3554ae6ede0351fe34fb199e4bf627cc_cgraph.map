@@ -1,0 +1,7 @@
+<map id="MockerNode::publish_data" name="MockerNode::publish_data">
+<area shape="rect" id="Node000001" title="publish the messages" alt="" coords="5,49,180,75"/>
+<area shape="rect" id="Node000002" href="$d1/dd0/namespacecommon__lib_1_1communication.html#aa192956ea9cdda02b245cdca6ce82d4a" title="Converts a vector of cones to a marker array." alt="" coords="228,5,448,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="180,46,212,41,213,47,180,52"/>
+<area shape="rect" id="Node000003" href="$d1/dd0/namespacecommon__lib_1_1communication.html#a72d8d8f96d0fecb170617070d8a1a0a9" title="Converts a Path Point Array from Custom Interfaces into a vector of common_lib path points." alt="" coords="245,70,431,126"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="180,72,230,79,229,84,180,77"/>
+</map>
