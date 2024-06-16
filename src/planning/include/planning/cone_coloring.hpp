@@ -8,7 +8,6 @@
 
 #include "common_lib/competition_logic/color.hpp"
 #include "common_lib/maths/angle_and_norms.hpp"
-#include "common_lib/structures/angle_and_norms.hpp"
 #include "common_lib/structures/cone.hpp"
 #include "common_lib/structures/pose.hpp"
 #include "common_lib/structures/track_side.hpp"
@@ -21,7 +20,7 @@ using Position = common_lib::structures::Position;
 using TwoDVector = common_lib::structures::Position;
 using TrackSide = common_lib::structures::TrackSide;
 using Color = common_lib::competition_logic::Color;
-using AngleAndNorms = common_lib::structures::AngleAndNorms;
+using AngleAndNorms = common_lib::maths::AngleAndNorms;
 using ConeAproxEqual = common_lib::structures::ConeAproxEqual;
 
 class ConeColoring {

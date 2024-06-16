@@ -1,5 +1,4 @@
-#ifndef SRC_PLANNING_INCLUDE_PLANNING_PLANNING_HPP_
-#define SRC_PLANNING_INCLUDE_PLANNING_PLANNING_HPP_
+#pragma once
 
 #include <functional>
 #include <map>
@@ -30,7 +29,7 @@
 #include "sensor_msgs/msg/point_cloud2.hpp"
 #include "utils/files.hpp"
 #include "utils/message_converter.hpp"
-// #include "utils/pose.hpp"
+#include "config/planning_config.hpp"
 
 #include "common_lib/structures/path_point.hpp"
 #include "common_lib/structures/pose.hpp"
@@ -39,8 +38,6 @@ using PathPoint = common_lib::structures::PathPoint;
 using Pose = common_lib::structures::Pose;
 
 using std::placeholders::_1;
-
-class Adapter;
 
 /**
  * @class Planning
@@ -53,33 +50,19 @@ class Adapter;
 class Planning : public rclcpp::Node {
   common_lib::competition_logic::Mission mission =
       common_lib::competition_logic::Mission::NONE;              /**< Current planning mission */
-  //LocalPathPlanner *local_path_planner = new LocalPathPlanner(); /**< Local path planner instance */
+
+  PlanningConfig planning_config_;
+  
   ConeColoring cone_coloring;
   Outliers outliers;
   PathCalculation path_calculation;
   PathSmoothing path_smoothing;
 
-  Adapter *_adapter_;
-  std::string mode;
-
   std::map<common_lib::competition_logic::Mission, std::string> predictive_paths_ = {
       {common_lib::competition_logic::Mission::ACCELERATION, "/events/acceleration.txt"},
       {common_lib::competition_logic::Mission::SKIDPAD,
        "/events/skidpad.txt"}}; /**< Predictive paths for different missions */
-  double angle_gain_;
-  double distance_gain_;
-  double ncones_gain_;
-  double angle_exponent_;
-  double distance_exponent_;
-  double cost_max_;
-  int outliers_spline_order_;
-  float outliers_spline_coeffs_ratio_;
-  int outliers_spline_precision_;
-  int smoothing_spline_order_;
-  float smoothing_spline_coeffs_ratio_;
-  int smoothing_spline_precision_;
-  bool publishing_visualization_msgs_;
-  bool using_simulated_se_ = false;
+
   bool recieved_first_track_ = false;
   bool recieved_first_pose_ = false;
   std::vector<Cone> cone_array_;
@@ -164,6 +147,8 @@ class Planning : public rclcpp::Node {
    */
   bool is_predicitve_mission() const;
 
+  virtual void finish() = 0;
+
   /**
    * @brief current vehicle pose
    *
@@ -183,7 +168,7 @@ public:
    * publishing info to topics. Additionally, it initializes an Adapter instance
    * for communication with external systems.
    */
-  Planning();
+  explicit Planning(const PlanningParameters &params);
   /**
    * @brief Set the mission for planning.
    *
@@ -202,5 +187,3 @@ public:
 
   friend class VehicleAdapter;
 };
-
-#endif  // SRC_PLANNING_PLANNING_INCLUDE_PLANNING_PLANNING_HPP_

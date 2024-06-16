@@ -2,31 +2,31 @@
 
 #include "planning/planning.hpp"
 
-FsdsAdapter::FsdsAdapter(Planning* planning) : Adapter(planning) {
-  if (this->node->using_simulated_se_) {
-    RCLCPP_WARN(this->node->get_logger(),
+FsdsAdapter::FsdsAdapter(const PlanningParameters& params) : Planning(params) {
+  if (this->planning_config_.simulation.using_simulated_se) {
+    RCLCPP_WARN(this->get_logger(),
                 "FSDS shouldn't be used with simulated State Estimation\n The planning node will "
                 "not determine the middle path\n");
-    this->fsds_state_subscription_ = this->node->create_subscription<fs_msgs::msg::GoSignal>(
+    this->fsds_state_subscription_ = this->create_subscription<fs_msgs::msg::GoSignal>(
         "/signal/go", 10,
         std::bind(&FsdsAdapter::mission_state_callback, this, std::placeholders::_1));
-    this->fsds_position_subscription_ = this->node->create_subscription<nav_msgs::msg::Odometry>(
+    this->fsds_position_subscription_ = this->create_subscription<nav_msgs::msg::Odometry>(
         "/testing_only/odom", 10,
         std::bind(&FsdsAdapter::pose_callback, this, std::placeholders::_1));
   }
   this->fsds_ebs_publisher_ =
-      this->node->create_publisher<fs_msgs::msg::FinishedSignal>("/signal/finished", 10);
-  RCLCPP_DEBUG(this->node->get_logger(), "Planning : FSDS adapter created");
+      this->create_publisher<fs_msgs::msg::FinishedSignal>("/signal/finished", 10);
+  RCLCPP_DEBUG(this->get_logger(), "Planning : FSDS adapter created");
 }
 
 void FsdsAdapter::mission_state_callback(const fs_msgs::msg::GoSignal msg) {
   auto mission = msg.mission;
   // map fsds mission to system mission
-  this->node->set_mission(common_lib::competition_logic::fsds_to_system.at(mission));
+  this->set_mission(common_lib::competition_logic::fsds_to_system.at(mission));
 }
 
 void FsdsAdapter::set_mission_state() {
-  RCLCPP_INFO(this->node->get_logger(), "Planning : Set mission undefined for FSDS");
+  RCLCPP_INFO(this->get_logger(), "Planning : Set mission undefined for FSDS");
 }
 
 void FsdsAdapter::finish() {
@@ -49,5 +49,5 @@ void FsdsAdapter::pose_callback(const nav_msgs::msg::Odometry& msg) {
   pose.theta = yaw;
   pose.position.x = msg.pose.pose.position.x;
   pose.position.y = msg.pose.pose.position.y;
-  this->node->vehicle_localization_callback(pose);
+  this->vehicle_localization_callback(pose);
 }

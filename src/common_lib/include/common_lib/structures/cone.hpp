@@ -11,6 +11,7 @@ struct Cone {
   Position position;
   common_lib::competition_logic::Color color;
   double certainty = 1.0;
+  static constexpr double equality_tolerance = 0.1;
   Cone() = default;
   Cone(Position position, common_lib::competition_logic::Color cone_color, double certainty);
   Cone(double x, double y, const std::string& color = "unknown", double certainty = 1.0);
@@ -25,7 +26,7 @@ bool operator==(const Cone& c1, const Cone& c2);
  */
 struct ConeAproxEqual {
   bool operator()(const Cone& lhs, const Cone& rhs) const {
-    return lhs.position.euclidean_distance(rhs.position) < 0.1;
+    return lhs.position.euclidean_distance(rhs.position) < Cone::equality_tolerance;
   }
 };
 }  // namespace common_lib::structures

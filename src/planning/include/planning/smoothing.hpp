@@ -19,7 +19,7 @@ private:
    * @brief configuration of the smoothing algorithm
    *
    */
-  SmoothingConfig config_;
+  PathSmoothingConfig config_;
   /**
    * @brief function to order the path points to be used in the spline fitting
    *
@@ -38,7 +38,7 @@ public:
    * @brief Construct a new Path Smoothing object with a given configuration
    *
    */
-  explicit PathSmoothing(SmoothingConfig config) : config_(config) {}
+  explicit PathSmoothing(PathSmoothingConfig config) : config_(config) {}
   /**
    * @brief function to smooth a path
    *

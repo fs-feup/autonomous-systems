@@ -10,7 +10,7 @@ using Cone = common_lib::structures::Cone;
 using Color = common_lib::competition_logic::Color;
 
 /**
- * @brief Class to remove outliers
+ * @brief Class to deal with outliers
  *
  */
 class Outliers {

@@ -1,32 +1,15 @@
 #include "planning/planning.hpp"
 
-#include "adapter_planning/map.hpp"
 #include "adapter_planning/pacsim.hpp"
 #include "adapter_planning/vehicle.hpp"
 #include "utils/message_converter.hpp"
 
 using std::placeholders::_1;
 
-Planning::Planning()
-    : Node("planning"),
-      mode(declare_parameter<std::string>("adapter", "pacsim")),
-      angle_gain_(declare_parameter<double>("angle_gain", 3.7)),
-      distance_gain_(declare_parameter<double>("distance_gain", 8.0)),
-      ncones_gain_(declare_parameter<double>("ncones_gain", 8.7)),
-      angle_exponent_(declare_parameter<double>("angle_exponent", 1)),
-      distance_exponent_(declare_parameter<double>("distance_exponent", 1.7)),
-      cost_max_(declare_parameter<double>("cost_max", 40)),
-      outliers_spline_order_(declare_parameter<int>("outliers_spline_order_", 3)),
-      outliers_spline_coeffs_ratio_(declare_parameter<float>("outliers_spline_coeffs_ratio", 3.0)),
-      outliers_spline_precision_(declare_parameter<int>("outliers_spline_precision", 1)),
-      smoothing_spline_order_(declare_parameter<int>("smoothing_spline_order", 3)),
-      smoothing_spline_coeffs_ratio_(
-          declare_parameter<float>("smoothing_spline_coeffs_ratio", 3.0)),
-      smoothing_spline_precision_(declare_parameter<int>("smoothing_spline_precision", 10)),
-      publishing_visualization_msgs_(declare_parameter<int>("publishing_visualization_msg", 1)),
-      using_simulated_se_(declare_parameter<bool>("use_simulated_se", false)) {
-  RCLCPP_DEBUG(this->get_logger(), "angle gain: %f; distance_gain : %f", angle_gain_,
-               distance_gain_);
+Planning::Planning(const PlanningParameters& params)
+    : Node("planning") {
+  
+  planning_config_ = PlanningConfig(params);
 
   cone_coloring = ConeColoring();
   outliers = Outliers();
@@ -37,7 +20,7 @@ Planning::Planning()
   this->local_pub_ =
       this->create_publisher<custom_interfaces::msg::PathPointArray>("/path_planning/path", 10);
 
-  if (publishing_visualization_msgs_) {
+  if (planning_config_.simulation.publishing_visualization_msgs) {
     // Publisher for visualization
     this->visualization_pub_ =
         this->create_publisher<visualization_msgs::msg::Marker>("/path_planning/smoothed_path", 10);
@@ -64,11 +47,8 @@ Planning::Planning()
   // Publishes path from file in Skidpad & Acceleration events
   this->timer_ = this->create_wall_timer(
       std::chrono::milliseconds(100), std::bind(&Planning::publish_predicitive_track_points, this));
-  RCLCPP_INFO(this->get_logger(), "Using mode: %s", mode.c_str());
-  // Adapter to communicate with the car
-  _adapter_ = adapter_map.at(mode)((this));
 
-  if (!using_simulated_se_ || mode == "vehicle") {
+  if (!planning_config_.simulation.using_simulated_se) {
     // Vehicle Localization Subscriber
     this->vl_sub_ = this->create_subscription<custom_interfaces::msg::VehicleState>(
         "/state_estimation/vehicle_state", 10,
@@ -113,7 +93,7 @@ void Planning::run_planning_algorithms() {
   RCLCPP_DEBUG(this->get_logger(), "Planning published %i path points\n", (int)final_path.size());
   publish_track_points(final_path);
 
-  if (this->publishing_visualization_msgs_) {
+  if (planning_config_.simulation.publishing_visualization_msgs) {
     publish_visualization_msgs(colored_cones.first, colored_cones.second,
       refined_colored_cones.first, refined_colored_cones.second,
       triangulations_path, final_path);

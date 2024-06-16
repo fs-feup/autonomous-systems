@@ -5,7 +5,7 @@
  * @brief struct for the configuration of the smoothing algorithm
  *
  */
-struct SmoothingConfig {
+struct PathSmoothingConfig {
   /**
    * @brief ratio of output to input cones
    *
@@ -21,8 +21,8 @@ struct SmoothingConfig {
    *
    */
   float coeffs_ratio = 3.0;
-  SmoothingConfig() = default;
-  SmoothingConfig(int precision, int order, float coeffs_ratio)
+  PathSmoothingConfig() = default;
+  PathSmoothingConfig(int precision, int order, float coeffs_ratio)
       : precision(precision), order(order), coeffs_ratio(coeffs_ratio) {}
 };
 

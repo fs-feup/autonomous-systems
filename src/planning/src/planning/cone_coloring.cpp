@@ -14,7 +14,7 @@ void ConeColoring::remove_duplicates(std::vector<Cone>& cones) {
 
 Position ConeColoring::expected_initial_cone_position(const Pose& car_pose,
                                                       const TrackSide& track_side) {
-  double distance_to_car = 2.0;
+  constexpr double distance_to_car = 2.0;
   if (track_side == TrackSide::LEFT) {
     return Position{car_pose.position.x - distance_to_car * sin(car_pose.orientation),
                     car_pose.position.y + distance_to_car * cos(car_pose.orientation)};
@@ -45,7 +45,7 @@ Cone ConeColoring::find_initial_cone(
 }
 
 Cone ConeColoring::virtual_cone_from_initial_cone(const Cone& initial_cone, const Pose& car_pose) {
-  double distance_to_virtual_cone = 2.0;
+  constexpr double distance_to_virtual_cone = 2.0;
   return Cone{
       Position{initial_cone.position.x - distance_to_virtual_cone * cos(car_pose.orientation),
                initial_cone.position.y - distance_to_virtual_cone * sin(car_pose.orientation)},

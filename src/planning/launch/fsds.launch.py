@@ -56,6 +56,11 @@ def generate_launch_description():
                 default_value="1",
             ),
             DeclareLaunchArgument(
+                "path_calculation_dist_threshold",
+                description="Max distance limit for a Delaunay Triangulation to be valid",
+                default_value="7.0",
+            ),
+            DeclareLaunchArgument(
                 "smoothing_spline_order",
                 description="Order of the spline to remove smooth the path",
                 default_value="3",

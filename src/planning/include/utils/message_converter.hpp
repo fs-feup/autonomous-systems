@@ -65,8 +65,16 @@ visualization_msgs::msg::MarkerArray marker_array_from_path_point_array(
     marker.color.b = color_array[2];
     marker.color.a = color_array[3];
 
-    marker.lifetime = rclcpp::Duration(std::chrono::duration<double>(5));
-
+    if (shape == "cone") {
+      marker.pose.orientation.x = 0.7071;  // Approximately sqrt(2)/2
+      marker.pose.orientation.y = 0.0;
+      marker.pose.orientation.z = 0.0;
+      marker.pose.orientation.w = -0.7071;  // Approximately sqrt(2)/2
+      marker.scale.x = scale * 0.03;
+      marker.scale.y = scale * 0.03;
+      marker.scale.z = scale * 0.03;
+      marker.mesh_resource = "https://paginas.fe.up.pt/~up202109860/FormulaStudent/FSGConev2.obj";
+    }
     marker_array.markers.push_back(marker);
   }
   return marker_array;
