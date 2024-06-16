@@ -24,4 +24,4 @@ double cross_product(const Position &p1, const Position &p2, const Position &p3)
 double euclidean_distance(const Position &p1, const Position &p2);
 
 bool operator<(const Position &lhs, const Position &rhs);
-};  // namespace common_lib::structures
+}  // namespace common_lib::structures
