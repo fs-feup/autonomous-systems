@@ -10,6 +10,7 @@
 #include "std_msgs/msg/color_rgba.hpp"
 #include "visualization_msgs/msg/marker.hpp"
 #include "visualization_msgs/msg/marker_array.hpp"
+
 namespace common_lib::communication {
 
 const std::map<std::string, std::array<float, 4>, std::less<>> marker_color_map = {
@@ -168,5 +169,6 @@ visualization_msgs::msg::Marker line_marker_from_structure_array(
 
   return marker;
 }
+
 
 }  // namespace common_lib::communication
