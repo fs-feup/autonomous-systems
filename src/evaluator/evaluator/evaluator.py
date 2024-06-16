@@ -204,6 +204,58 @@ class Evaluator(Node):
         self._control_velocity_squared_sum_error = 0
         self._control_count = 0
 
+        self._perception_sum_error = 0
+        self._perception_squared_sum_error = 0
+        self._perception_root_squared_sum_error = 0
+        self._perception_count = 0
+
+        self._perception_mean_mean_error = self.create_publisher(
+            Float32, "/evaluator/perception/mean_mean_error", 10
+        )
+
+        self._perception_mean_mean_squared_error = self.create_publisher(
+            Float32, "/evaluator/perception/mean_mean_squared_error", 10
+        )
+
+        self._perception_mean_mean_root_squared_error = self.create_publisher(
+            Float32, "/evaluator/perception/mean_mean_root_squared_error", 10
+        )
+
+        self._se_sum_error = 0
+        self._se_squared_sum_error = 0
+        self._se_mean_root_squared_sum_error = 0
+        self._se_count = 0
+
+        self._state_estimation_mean_mean_error = self.create_publisher(
+            Float32, "/evaluator/state_estimation/mean_mean_error", 10
+        )
+
+        self._state_estimation_mean_mean_squared_error = self.create_publisher(
+            Float32, "/evaluator/state_estimation/mean_mean_squared_error", 10
+        )
+
+        self._state_estimation_mean_mean_root_squared_error = self.create_publisher(
+            Float32, "/evaluator/state_estimation/mean_mean_root_squared_error", 10
+        )
+
+        self._planning_sum_error = 0
+        self._planning_squared_sum_error = 0
+        self._planning_mean_root_squared_sum_error = 0
+        self._planning_count = 0
+        
+        self._planning_mean_mean_error = self.create_publisher(
+            Float32, "/evaluator/planning/mean_mean_error", 10
+        )
+
+        self._planning_mean_mean_squared_error = self.create_publisher(
+            Float32, "/evaluator/planning/mean_mean_squared_error", 10
+        )
+
+        self._planning_mean_mean_root_squared_error = self.create_publisher(
+            Float32, "/evaluator/planning/mean_mean_root_squared_error", 10
+        )
+
+
         self.planning_mock = (
             []
         )  # will store the reception of a planning mock from subscriber
@@ -336,6 +388,27 @@ class Evaluator(Node):
         self._map_mean_squared_difference_.publish(mean_squared_difference)
         self._map_root_mean_squared_difference_.publish(root_mean_squared_difference)
 
+
+        self._se_sum_error += get_average_difference(
+            cone_positions, groundtruth_cone_positions)
+        self._se_squared_sum_error += get_mean_squared_difference(
+            cone_positions, groundtruth_cone_positions)
+        self._se_mean_root_squared_sum_error += get_mean_squared_difference(
+            cone_positions, groundtruth_cone_positions) ** (1/2)
+        self._se_count += 1
+
+        mean_mean_error = Float32()
+        mean_mean_error.data = self._se_sum_error / self._se_count
+        self._state_estimation_mean_mean_error.publish(mean_mean_error)
+
+        mean_mean_squared_error = Float32()
+        mean_mean_squared_error.data = self._se_squared_sum_error / self._se_count
+        self._state_estimation_mean_mean_squared_error.publish(mean_mean_squared_error)
+
+        mean_mean_root_squared_error = Float32()
+        mean_mean_root_squared_error.data = self._se_mean_root_squared_sum_error / self._se_count
+        self._state_estimation_mean_mean_root_squared_error.publish(mean_mean_root_squared_error)
+
     def compute_and_publish_perception(
         self, perception_output: np.ndarray, perception_ground_truth: np.ndarray
     ) -> None:
@@ -363,6 +436,26 @@ class Evaluator(Node):
 
         root_mean_squared_difference = Float32()
         root_mean_squared_difference.data = sqrt(mean_squared_error.data)
+
+        self._perception_sum_error += get_average_difference(
+            cone_positions, groundtruth_cone_positions)
+        self._perception_squared_sum_error += get_mean_squared_difference(
+            cone_positions, groundtruth_cone_positions)
+        self._perception_root_squared_sum_error += get_mean_squared_difference(
+            cone_positions, groundtruth_cone_positions) ** (1/2)
+        self._perception_count += 1
+
+        mean_mean_error = Float32()
+        mean_mean_error.data = self._perception_sum_error / self._perception_count
+        self._perception_mean_mean_error.publish(mean_mean_error)
+
+        mean_mean_squared_error = Float32()
+        mean_mean_squared_error.data = self._perception_squared_sum_error / self._perception_count
+        self._perception_mean_mean_squared_error.publish(mean_mean_squared_error)
+
+        mean_mean_root_squared_error = Float32()
+        mean_mean_root_squared_error.data = self._perception_root_squared_sum_error / self._perception_count
+        self._perception_mean_mean_root_squared_error.publish(mean_mean_root_squared_error)
 
         self.get_logger().debug(
             "Computed perception metrics:\n \
@@ -439,6 +532,26 @@ class Evaluator(Node):
         self._planning_root_mean_squared_difference_.publish(
             root_mean_squared_difference
         )
+
+        self._planning_sum_error += get_average_difference(
+            actual_path, expected_path)
+        self._planning_squared_sum_error += get_mean_squared_difference(
+            actual_path, expected_path)
+        self._planning_mean_root_squared_sum_error += get_mean_squared_difference(
+            actual_path, expected_path) ** (1/2)
+        self._planning_count += 1
+
+        mean_mean_error = Float32()
+        mean_mean_error.data = self._planning_sum_error / self._planning_count
+        self._planning_mean_mean_error.publish(mean_mean_error)
+
+        mean_mean_squared_error = Float32()
+        mean_mean_squared_error.data = self._planning_squared_sum_error / self._planning_count
+        self._planning_mean_mean_squared_error.publish(mean_mean_squared_error)
+
+        mean_mean_root_squared_error = Float32()
+        mean_mean_root_squared_error.data = self._planning_mean_root_squared_sum_error / self._planning_count
+        self._planning_mean_mean_root_squared_error.publish(mean_mean_root_squared_error)
 
     def planning_gt_callback(self, msg: PathPointArray):
         """!
