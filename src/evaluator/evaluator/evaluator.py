@@ -184,18 +184,34 @@ class Evaluator(Node):
             Float32, "/evaluator/control/execution_time", 10
         )
         self._control_difference_ = self.create_publisher(
-            Float32, "/evaluator/control/difference", 10
+            Float32, "/evaluator/control/pose/difference", 10
         )
         self._control_difference_mean_ = self.create_publisher(
-            Float32, "/evaluator/control/difference_mean", 10
+            Float32, "/evaluator/control/pose/difference_mean", 10
         )
 
         self._control_mean_squared_difference_ = self.create_publisher(
-            Float32, "/evaluator/control/mean_squared_difference", 10
+            Float32, "/evaluator/control/pose/mean_squared_difference", 10
         )
 
         self._control_root_mean_squared_difference_ = self.create_publisher(
-            Float32, "/evaluator/control/root_mean_squared_difference", 10
+            Float32, "/evaluator/control/pose/root_mean_squared_difference", 10
+        )
+
+        self._control_velocity_difference_ = self.create_publisher(
+            Float32, "/evaluator/control/velocity/difference", 10
+        )
+
+        self._control_velocity_difference_mean_ = self.create_publisher(
+            Float32, "/evaluator/control/velocity/difference_mean", 10
+        )
+
+        self._control_velocity_mean_squared_difference_ = self.create_publisher(
+            Float32, "/evaluator/control/velocity/mean_squared_difference", 10
+        )
+
+        self._control_velocity_root_mean_squared_difference_ = self.create_publisher(
+            Float32, "/evaluator/control/velocity/root_mean_squared_difference", 10
         )
 
         self._control_sum_error = 0
@@ -576,7 +592,7 @@ class Evaluator(Node):
 
         pose_treated, velocities_treated = format_vehicle_state_msg(msg.vehicle_state)
         lookahead_point = format_point2d_msg(msg.lookahead_point)
-        lookahead_velocity = msg.lookahead_velocity # it is a float
+        lookahead_velocity = msg.lookahead_velocity
 
         time_difference = float(
             (self._control_receive_time_ - self._planning_receive_time_).microseconds
@@ -589,15 +605,28 @@ class Evaluator(Node):
 
         pose_position = pose_treated[:2]
         closest_point = format_point2d_msg(msg.closest_point)
+
         difference = Float32()
         difference.data = compute_distance(closest_point, pose_position)
 
 
         self._control_sum_error += compute_distance(closest_point, pose_position)
         self._control_squared_sum_error += compute_distance(closest_point, pose_position) ** 2
-        self._control_velocity_sum_error
-        self._control_velocity_squared_sum_error
+        self._control_velocity_sum_error += abs(velocities_treated - lookahead_velocity)
+        self._control_velocity_squared_sum_error += abs(velocities_treated - lookahead_velocity) ** 2
         self._control_count += 1
+
+        velocity_difference = Float32()
+        velocity_difference.data = abs(velocities_treated - lookahead_velocity)
+
+        velocity_mean_difference = Float32()
+        velocity_mean_difference.data = self._control_velocity_sum_error / self._control_count
+
+        velocity_mean_squared_difference = Float32()
+        velocity_mean_squared_difference.data = self._control_velocity_squared_sum_error / self._control_count
+
+        velocity_root_mean_squared = Float32()
+        velocity_root_mean_squared.data = sqrt(self._control_velocity_squared_sum_error / self._control_count)
 
         mean_difference = Float32()
         mean_difference.data = self._control_sum_error / self._control_count
@@ -626,6 +655,11 @@ class Evaluator(Node):
         self._control_difference_mean_.publish(mean_difference)
         self._control_mean_squared_difference_.publish(mean_squared_difference)
         self._control_root_mean_squared_difference_.publish(root_mean_squared_difference)
+
+        self._control_velocity_difference_.publish(velocity_difference)
+        self._control_velocity_difference_mean_.publish(velocity_mean_difference)
+        self._control_mean_squared_difference_.publish(velocity_mean_squared_difference)
+        self._control_velocity_mean_squared_difference_.publish(velocity_root_mean_squared)
 
 
 def main(args=None):
