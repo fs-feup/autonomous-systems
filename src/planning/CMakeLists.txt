@@ -43,7 +43,6 @@ set(IMPLEMENTATION_FILES
   src/adapter_planning/fsds.cpp
   src/adapter_planning/pacsim.cpp
   src/adapter_planning/vehicle.cpp
-  src/utils/message_converter.cpp
   src/planning/path_calculation.cpp
   src/planning/cone_coloring.cpp
   src/planning/smoothing.cpp

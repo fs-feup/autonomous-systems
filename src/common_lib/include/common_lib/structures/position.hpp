@@ -27,7 +27,7 @@ double euclidean_distance(const Position &p1, const Position &p2);
 bool operator<(const Position &lhs, const Position &rhs);
 bool operator==(const Position &p1, const Position &p2);
 
-};  // namespace common_lib::structures
+}  // namespace common_lib::structures
 
 /**
  * @brief Hash function for positions

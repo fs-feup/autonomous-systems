@@ -14,7 +14,7 @@ std::vector<PathPoint> PathCalculation::process_delaunay_triangulations(std::pai
   cones.insert(cones.end(), refined_cones.first.begin(), refined_cones.first.end());
   cones.insert(cones.end(), refined_cones.second.begin(), refined_cones.second.end());
 
-  std::vector<PathPoint> unordered_path;
+  std::vector<PathPoint> unordered_path(refined_cones.first.size() + refined_cones.second.size());
 
   // Create a Delaunay triangulation
   DT dt;

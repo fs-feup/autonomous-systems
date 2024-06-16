@@ -120,8 +120,8 @@ std::pair<std::vector<Cone>, std::vector<Cone>> ConeColoring::color_cones(std::v
     RCLCPP_WARN(rclcpp::get_logger("Planning : ConeColoring"), "No cones recieved to be colored");
     return {};
   }
-  std::vector<Cone> colored_blue_cones;
-  std::vector<Cone> colored_yellow_cones;
+  std::vector<Cone> colored_blue_cones(cones.size() / 2);
+  std::vector<Cone> colored_yellow_cones(cones.size() / 2);
   int n_colored_cones = 0;
   const auto n_input_cones = static_cast<int>(cones.size());
   std::unordered_set<Cone, std::hash<Cone>, ConeAproxEqual> uncolored_cones(cones.begin(),

@@ -7,6 +7,7 @@
 #include <vector>
 
 #include "common_lib/communication/marker.hpp"
+#include "common_lib/communication/interfaces.hpp"
 #include "common_lib/competition_logic/mission_logic.hpp"
 #include "common_lib/structures/cone.hpp"
 #include "common_lib/structures/path_point.hpp"
@@ -16,23 +17,13 @@
 #include "custom_interfaces/msg/point2d.hpp"
 #include "custom_interfaces/msg/point_array.hpp"
 #include "custom_interfaces/msg/vehicle_state.hpp"
-
-// #include "planning/cone_coloring.hpp"
-// #include "planning/local_path_planner.hpp"
-// #include "planning/path_smoothing.hpp"
-
 #include "planning/cone_coloring.hpp"
 #include "planning/outliers.hpp"
 #include "planning/path_calculation.hpp"
 #include "planning/smoothing.hpp"
-
 #include "sensor_msgs/msg/point_cloud2.hpp"
 #include "utils/files.hpp"
-#include "utils/message_converter.hpp"
 #include "config/planning_config.hpp"
-
-#include "common_lib/structures/path_point.hpp"
-#include "common_lib/structures/pose.hpp"
 
 using PathPoint = common_lib::structures::PathPoint;
 using Pose = common_lib::structures::Pose;
@@ -63,8 +54,8 @@ class Planning : public rclcpp::Node {
       {common_lib::competition_logic::Mission::SKIDPAD,
        "/events/skidpad.txt"}}; /**< Predictive paths for different missions */
 
-  bool recieved_first_track_ = false;
-  bool recieved_first_pose_ = false;
+  bool received_first_track_ = false;
+  bool received_first_pose_ = false;
   std::vector<Cone> cone_array_;
   /**< Subscription to vehicle localization */
   rclcpp::Subscription<custom_interfaces::msg::VehicleState>::SharedPtr vl_sub_;
