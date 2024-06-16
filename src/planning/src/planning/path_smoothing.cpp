@@ -119,8 +119,8 @@ std::vector<PathPoint *> PathSmoothing::splineSmoother(int precision, int order,
   const int nbreak = ncoeffs - order + 2;
 
   if (nbreak < 2 || input_path.size() < 1) {
-    RCLCPP_WARN(rclcpp::get_logger("rclcpp"),
-                "Too few points to calculate spline. Number of different path points was %i", n);
+    // RCLCPP_WARN(rclcpp::get_logger("rclcpp"),
+    //             "Too few points to calculate spline. Number of different path points was %i", n);
     return input_path;
   }
 

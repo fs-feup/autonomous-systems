@@ -32,7 +32,7 @@ SENode::SENode() : Node("ekf_state_est") {
   }
   float observation_noise = static_cast<float>(this->declare_parameter("observation_noise", 0.01f));
   float wheel_speed_sensor_noise =
-      static_cast<float>(this->declare_parameter("wheel_speed_sensor_noise", 0.1f));
+      static_cast<float>(this->declare_parameter("wheel_speed_sensor_noise", 0.2f));
   float data_association_limit_distance =
       static_cast<float>(this->declare_parameter("data_association_limit_distance", 71.0f));
 
@@ -45,7 +45,6 @@ SENode::SENode() : Node("ekf_state_est") {
           data_association_limit_distance);
   _ekf_ = std::make_shared<ExtendedKalmanFilter>(motion_model, observation_model,
                                                  data_association_model);
-
   _perception_map_ = std::make_shared<std::vector<common_lib::structures::Cone>>();
   _motion_update_ = std::make_shared<MotionUpdate>();
   _track_map_ = std::make_shared<std::vector<common_lib::structures::Cone>>();
@@ -99,6 +98,7 @@ void SENode::_perception_subscription_callback(const custom_interfaces::msg::Con
   RCLCPP_DEBUG(this->get_logger(), "EKF - EFK correction Step");
   this->_publish_vehicle_state();
   this->_publish_map();
+  // sleep(100000000);
   RCLCPP_DEBUG(this->get_logger(), "CORRECTION STEP END\n\n");
 }
 
@@ -106,27 +106,35 @@ void SENode::_imu_subscription_callback(const sensor_msgs::msg::Imu &imu_msg) {
   if (this->_use_odometry_) {
     return;
   }
-
   double ax = imu_msg.linear_acceleration.x;
-  double ay = imu_msg.linear_acceleration.y;
+  // double ay = imu_msg.linear_acceleration.y;
 
   double v_rot = imu_msg.angular_velocity.z;
 
   double angle = this->_ekf_->get_state()(2);
 
-  double ax_map = ax * cos(angle) - ay * sin(angle);
-  double ay_map = ax * sin(angle) + ay * cos(angle);
+  double ax_map = ax * cos(angle) /* - ay * sin(angle)*/;
+  double ay_map = ax * sin(angle) /* + ay * cos(angle) */;
+
+  // print the acceleration in both frames
+
+  RCLCPP_DEBUG(this->get_logger(), "SUB - Raw from IMU: ax:%f  - v_rot:%f", ax, v_rot);
+  RCLCPP_DEBUG(this->get_logger(), "SUB - translated from IMU: ax:%f - ay:%f - v_rot:%f", ax_map,
+               ay_map, v_rot);
 
   MotionUpdate motion_prediction_data;
   motion_prediction_data.acceleration_x = ax_map;
   motion_prediction_data.acceleration_y = ay_map;
   motion_prediction_data.rotational_velocity = v_rot;
-
+  this->_motion_update_->acceleration_x = motion_prediction_data.acceleration_x;
+  this->_motion_update_->acceleration_y = motion_prediction_data.acceleration_y;
+  this->_motion_update_->rotational_velocity = motion_prediction_data.rotational_velocity;
+  this->_motion_update_->last_update = imu_msg.header.stamp;
   if (this->_ekf_ == nullptr) {
     RCLCPP_ERROR(this->get_logger(), "ATTR - EKF object is null");
     return;
   }
-  MotionUpdate temp_update = motion_prediction_data;
+  MotionUpdate temp_update = *(this->_motion_update_);
   this->_ekf_->prediction_step(temp_update);
   this->_ekf_->update(this->_vehicle_state_, this->_track_map_);
 
@@ -139,12 +147,8 @@ void SENode::_imu_subscription_callback(const sensor_msgs::msg::Imu &imu_msg) {
 void SENode::_wheel_speeds_subscription_callback(double rl_speed, double fl_speed, double rr_speed,
                                                  double fr_speed, double steering_angle,
                                                  const rclcpp::Time &timestamp) {
-  if (!this->_use_odometry_) {
-    this->_ekf_->wss_correction_step(*this->_motion_update_);
-    return;
-  }
   // std::lock_guard lock(this->_mutex_);  // BLOCK IF PREDICTION STEP IS ON GOING
-  RCLCPP_DEBUG(this->get_logger(), "PREDICTION STEP");
+  // RCLCPP_DEBUG(this->get_logger(), "PREDICTION STEP");
   RCLCPP_DEBUG(this->get_logger(),
                "SUB - Raw from wheel speeds: lb:%f - rb:%f - lf:%f - rf:%f - "
                "steering: %f",
@@ -168,12 +172,14 @@ void SENode::_wheel_speeds_subscription_callback(double rl_speed, double fl_spee
     return;
   }
   MotionUpdate temp_update = *(this->_motion_update_);
+  if (!this->_use_odometry_) {
+    this->_ekf_->wss_correction_step(temp_update);
+    return;
+  }
   this->_ekf_->prediction_step(temp_update);
   this->_ekf_->update(this->_vehicle_state_, this->_track_map_);
-  RCLCPP_DEBUG(this->get_logger(), "EKF - EFK prediction Step");
   this->_publish_vehicle_state();
   this->_publish_map();
-  RCLCPP_DEBUG(this->get_logger(), "PREDICTION STEP END\n\n");
 }
 /*---------------------- Publications --------------------*/
 
@@ -186,8 +192,10 @@ void SENode::_publish_vehicle_state() {
   message.position.x = this->_vehicle_state_->pose.position.x;
   message.position.y = this->_vehicle_state_->pose.position.y;
   message.theta = this->_vehicle_state_->pose.orientation;
-  message.linear_velocity = this->_vehicle_state_->linear_velocity;
-  message.angular_velocity = this->_vehicle_state_->angular_velocity;
+  float velocity_x = this->_vehicle_state_->velocity_x;
+  float velocity_y = this->_vehicle_state_->velocity_y;
+  message.linear_velocity = std::sqrt(velocity_x * velocity_x + velocity_y * velocity_y);
+  message.angular_velocity = this->_vehicle_state_->rotational_velocity;
   message.header.stamp = this->get_clock()->now();
 
   RCLCPP_DEBUG(this->get_logger(), "PUB - Pose: (%f, %f, %f); Velocities: (%f, %f)",
@@ -207,8 +215,8 @@ void SENode::_publish_map() {
     cone_message.position.y = cone.position.y;
     cone_message.color = common_lib::competition_logic::get_color_string(cone.color);
     cone_array_msg.cone_array.push_back(cone_message);
-    RCLCPP_DEBUG(this->get_logger(), "(%f\t%f)\t%s", cone_message.position.x,
-                 cone_message.position.y, cone_message.color.c_str());
+    // RCLCPP_DEBUG(this->get_logger(), "(%f\t%f)\t%s", cone_message.position.x,
+    //              cone_message.position.y, cone_message.color.c_str());
   }
   RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
   cone_array_msg.header.stamp = this->get_clock()->now();

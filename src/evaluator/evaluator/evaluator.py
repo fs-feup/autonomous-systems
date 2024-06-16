@@ -240,7 +240,7 @@ class Evaluator(Node):
         groundtruth_map: np.ndarray,
     ) -> None:
         """!
-        Computes perception metrics and publishes them.
+        Computes state_estimation metrics and publishes them.
 
         Args:
             pose (np.ndarray): Vehicle state estimation data. [x,y,theta]

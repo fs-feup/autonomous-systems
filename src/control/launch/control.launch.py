@@ -44,7 +44,7 @@ def generate_launch_description():
                     {"lookahead_margin": LaunchConfiguration("lookahead_margin")},
                     {"use_simulated_se": LaunchConfiguration("use_simulated_se")},
                 ],
-                arguments=["--ros-args", "--log-level", "control:=debug"],
+                arguments=["--ros-args", "--log-level", "control:=info"],
             ),
         ]
     )

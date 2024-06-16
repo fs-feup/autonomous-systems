@@ -29,6 +29,7 @@ set(IMPLEMENTATION_FILES
   src/structures/position.cpp
   src/structures/pose.cpp
   src/structures/cone.cpp
+  src/structures/landmark.cpp
   src/structures/vehicle_state.cpp
   src/sensor_data/wheel_encoders.cpp
   src/sensor_data/imu.cpp

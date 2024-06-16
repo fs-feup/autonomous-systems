@@ -10,6 +10,7 @@
 
 #include "common_lib/competition_logic/mission_logic.hpp"
 #include "common_lib/structures/cone.hpp"
+#include "common_lib/structures/landmark.hpp"
 #include "common_lib/structures/vehicle_state.hpp"
 #include "kalman_filter/data_association.hpp"
 #include "kalman_filter/motion_models.hpp"
@@ -27,15 +28,17 @@
  */
 class ExtendedKalmanFilter {
   Eigen::VectorXf _x_vector_ =
-      Eigen::VectorXf::Zero(5); /**< Expected state vector (localization + mapping) */
+      Eigen::VectorXf::Zero(6); /**< Expected state vector (localization + mapping) */
   Eigen::SparseMatrix<float> _p_matrix_ =
-      Eigen::SparseMatrix<float>(5, 5);               /**< Sparse State covariance matrix */
+      Eigen::SparseMatrix<float>(6, 6);               /**< Sparse State covariance matrix */
   rclcpp::Time _last_update_ = rclcpp::Clock().now(); /**< Timestamp of last update */
 
   std::shared_ptr<MotionModel> _motion_model_; /**< Motion Model chosen for prediction step */
   std::shared_ptr<ObservationModel>
       _observation_model_; /**< Observation Model chosen for correction step */
   std::shared_ptr<DataAssociationModel> _data_association_model_; /**< Data Association Model*/
+  std::vector<common_lib::structures::Landmark>
+      _landmarksDatabase_; /**< Vector of landmarks used for mapping */
 
   bool _fixed_map = false;         /**< Flag to indicate if the map is fixed */
   bool _first_prediction_ = true;  /// Flags used to mark first prediction step

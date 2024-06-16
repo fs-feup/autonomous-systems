@@ -41,7 +41,7 @@ int SimpleMaximumLikelihood::match_cone(const Eigen::Vector2f& observed_landmark
 
   float min_delta = std::numeric_limits<float>::max();
   int closest_landmark_index = -1;
-  for (int i = 5; i < expected_state.size(); i += 2) {
+  for (int i = 6; i < expected_state.size(); i += 2) {
     float delta = (observed_landmark_absolute - expected_state.segment<2>(i)).norm();
     if (delta < min_delta) {
       min_delta = delta;

@@ -25,8 +25,8 @@ Planning::Planning()
       smoothing_spline_precision_(declare_parameter<int>("smoothing_spline_precision", 10)),
       publishing_visualization_msgs_(declare_parameter<int>("publishing_visualization_msg", 1)),
       using_simulated_se_(declare_parameter<bool>("use_simulated_se", false)) {
-  RCLCPP_DEBUG(this->get_logger(), "angle gain: %f; distance_gain : %f", angle_gain_,
-               distance_gain_);
+  // RCLCPP_DEBUG(this->get_logger(), "angle gain: %f; distance_gain : %f", angle_gain_,
+  //              distance_gain_);
 
   // Control Publisher
   this->local_pub_ =
@@ -76,13 +76,13 @@ Planning::Planning()
 
 void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &msg) {
   auto number_of_cones_recieved = (int)msg.cone_array.size();
-  RCLCPP_DEBUG(this->get_logger(), "Planning recieved %i cones", number_of_cones_recieved);
+  // RCLCPP_DEBUG(this->get_logger(), "Planning recieved %i cones", number_of_cones_recieved);
   this->cone_array_ = cone_vector_from_custom_interfaces(msg);
   this->recieved_first_track_ = true;
   if (this->is_predicitve_mission() || !(this->recieved_first_pose_)) {
     return;
   } else {
-    RCLCPP_DEBUG(this->get_logger(), "Running all Planning algorithms");
+    // RCLCPP_DEBUG(this->get_logger(), "Running all Planning algorithms");
     run_planning_algorithms();
   }
 }
@@ -119,7 +119,7 @@ void Planning::run_planning_algorithms() {
   auto path = triangulations_path;
   path_smoother->defaultSmoother(path);
 
-  RCLCPP_DEBUG(this->get_logger(), "Planning published %i path points\n", (int)path.size());
+  // RCLCPP_DEBUG(this->get_logger(), "Planning published %i path points\n", (int)path.size());
   publish_track_points(path);
 
   if (this->publishing_visualization_msgs_) {

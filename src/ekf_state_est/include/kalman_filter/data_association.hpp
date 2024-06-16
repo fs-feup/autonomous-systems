@@ -67,10 +67,30 @@ public:
   FRIEND_TEST(DATA_ASSOCIATION_MODEL, VALID_MATCH_FUNC_FAILED_MATCH);
 };
 
+class NearestNeighbourDummy : public DataAssociationModel {
+  bool valid_match(const float delta, const float distance_to_vehicle) const override;
+
+public:
+  static float curvature_;      /// Exponential function curvature for the limit
+  static float initial_limit_;  /// Limit for 0 meters
+  int match_cone(const Eigen::Vector2f& observed_landmark_absolute,
+                 const Eigen::VectorXf& expected_state) const override;
+
+  explicit NearestNeighbourDummy(float max_landmark_distance);
+
+  FRIEND_TEST(DATA_ASSOCIATION_MODEL, VALID_MATCH_FUNC_PERFECT_MATCH);
+  FRIEND_TEST(DATA_ASSOCIATION_MODEL, VALID_MATCH_FUNC_NEAR_MATCH);
+  FRIEND_TEST(DATA_ASSOCIATION_MODEL, VALID_MATCH_FUNC_FAILED_MATCH);
+};
+
 const std::map<std::string,
                std::function<std::shared_ptr<DataAssociationModel>(float max_landmark_distance)>,
                std::less<>>
     data_association_model_constructors = {
-        {"simple_ml", [](float max_landmark_distance) -> std::shared_ptr<DataAssociationModel> {
+        {"simple_ml",
+         [](float max_landmark_distance) -> std::shared_ptr<DataAssociationModel> {
            return std::make_shared<SimpleMaximumLikelihood>(max_landmark_distance);
+         }},
+        {"nn", [](float max_landmark_distance) -> std::shared_ptr<DataAssociationModel> {
+           return std::make_shared<NearestNeighbourDummy>(max_landmark_distance);
          }}};
