@@ -8,7 +8,6 @@
 
 #include "common_lib/competition_logic/color.hpp"
 #include "common_lib/maths/angle_and_norms.hpp"
-#include "common_lib/structures/angle_and_norms.hpp"
 #include "common_lib/structures/cone.hpp"
 #include "common_lib/structures/pose.hpp"
 #include "common_lib/structures/track_side.hpp"
