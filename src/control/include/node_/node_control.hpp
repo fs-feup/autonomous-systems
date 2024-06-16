@@ -1,23 +1,26 @@
 #pragma once
 
-#include <message_filters/cache.h>
-#include <message_filters/subscriber.h>
-
 #include <chrono>
 #include <functional>
 #include <memory>
 #include <string>
 
-#include "adapter_control/adapter.hpp"
 #include "custom_interfaces/msg/cone_array.hpp"
+#include "custom_interfaces/msg/evaluator_control_data.hpp"
 #include "custom_interfaces/msg/path_point_array.hpp"
 #include "custom_interfaces/msg/vehicle_state.hpp"
-#include "custom_interfaces/msg/evaluator_control_data.hpp"
 #include "pid/pid.hpp"
 #include "point_solver/psolver.hpp"
 #include "pure_pursuit/pp.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
+
+struct ControlParameters {
+  bool using_simulated_se_;
+  bool mocker_node_;
+  double lookahead_gain_;
+  double lookahead_margin_;
+};
 
 /**
  * @class Control
@@ -28,26 +31,10 @@
  */
 class Control : public rclcpp::Node {
 public:
-  double k_;
-  double ld_margin_;
   bool using_simulated_se_{false};
   bool go_signal_{false};
-  bool mocker_node_{false};
 
-  PointSolver point_solver_; /**< Point Solver */
-  PID long_controller_{0.4, 0.3, 0.09, 0.5, 0.01, -1, 1, 0.7};
-  PurePursuit lat_controller_; /**< Lateral Controller*/
-
-  std::shared_ptr<Adapter> adapter_;
-
-  // Evaluator Publishers
-  rclcpp::Publisher<custom_interfaces::msg::EvaluatorControlData>::SharedPtr evaluator_data_pub_;
-
-  // General Subscribers
-  rclcpp::Subscription<custom_interfaces::msg::PathPointArray>::SharedPtr path_point_array_sub_;
-  rclcpp::Subscription<custom_interfaces::msg::VehicleState>::SharedPtr vehicle_state_sub_;
-
-  std::vector<custom_interfaces::msg::PathPoint> pathpoint_array_{};
+  explicit Control(const ControlParameters &params);
 
   /**
    * @brief Publishes the steering angle to the car based on the path and pose using cache
@@ -56,18 +43,25 @@ public:
   void publish_control(const custom_interfaces::msg::VehicleState &vehicle_state_msg);
 
 private:
+  bool mocker_node_{false};
+  // std::string adapter_;
 
-  void publish_evaluator_data(double lookahead_velocity, Point lookahead_point, Point closest_point,
+  // Evaluator Publisher
+  rclcpp::Publisher<custom_interfaces::msg::EvaluatorControlData>::SharedPtr evaluator_data_pub_;
+
+  // General Subscribers
+  rclcpp::Subscription<custom_interfaces::msg::VehicleState>::SharedPtr vehicle_state_sub_;
+  rclcpp::Subscription<custom_interfaces::msg::PathPointArray>::SharedPtr path_point_array_sub_;
+
+  std::vector<custom_interfaces::msg::PathPoint> pathpoint_array_{};
+  PointSolver point_solver_; /**< Point Solver */
+  PID long_controller_{0.4, 0.3, 0.09, 0.5, 0.01, -1, 1, 0.7};
+  PurePursuit lat_controller_; /**< Lateral Controller*/
+
+  void publish_evaluator_data(double lookahead_velocity,
+                              common_lib::structures::Position lookahead_point,
+                              common_lib::structures::Position closest_point,
                               custom_interfaces::msg::VehicleState vehicle_state_msg) const;
 
-  /**
-   * @brief Update lookahead distance
-   */
-  double update_lookahead_distance(double k, double velocity) const;
-
-  /**
-   * @brief Contructor for the Control class
-   */
-public:
-  Control();
+  virtual void publish_cmd(double acceleration, double steering) = 0;
 };
