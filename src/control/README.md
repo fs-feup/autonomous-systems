@@ -13,7 +13,7 @@ The Control node uses Planning (pathpoints with expected velocity values) and St
 
 From src folder:
 ```sh
-colcon build --package-up-to control
+colcon build --packages-up-to control
 ```
 
 ## Testing
