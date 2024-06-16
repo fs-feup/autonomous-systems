@@ -7,14 +7,12 @@
 
 #include <std_srvs/srv/empty.hpp>
 
-#include "adapter_ekf_state_est/adapter.hpp"
 #include "pacsim/msg/perception_detections.hpp"
 #include "pacsim/msg/stamped_scalar.hpp"
 #include "pacsim/msg/wheels.hpp"
+#include "ros_node/se_node.hpp"
 
-class SENode;
-
-class PacsimAdapter : public Adapter {
+class PacsimAdapter : public SENode {
   message_filters::Subscriber<pacsim::msg::Wheels>
       _pacsim_wheel_speeds_subscription_;  ///< Subscriber for wheel speeds
   message_filters::Subscriber<pacsim::msg::StampedScalar>
@@ -47,7 +45,7 @@ class PacsimAdapter : public Adapter {
   void perception_detections_subscription_callback(const pacsim::msg::PerceptionDetections& msg);
 
 public:
-  explicit PacsimAdapter(std::shared_ptr<SENode> se_node);
+  explicit PacsimAdapter(const EKFStateEstParameters& params);
 
   void finish() final;
 };

@@ -1,11 +1,9 @@
 #pragma once
 
-#include "adapter_ekf_state_est/adapter.hpp"
 #include "eufs_msgs/msg/cone_array_with_covariance.hpp"
+#include "ros_node/se_node.hpp"
 
-class SENode;
-
-class EufsAdapter : public Adapter {
+class EufsAdapter : public SENode {
   rclcpp::Subscription<eufs_msgs::msg::ConeArrayWithCovariance>::SharedPtr
       _perception_detections_subscription_;  ///< Subscriber for simulated perception detections
   rclcpp::Subscription<eufs_msgs::msg::WheelSpeedsStamped>::SharedPtr
@@ -15,12 +13,12 @@ class EufsAdapter : public Adapter {
   rclcpp::Client<eufs_msgs::srv::SetCanState>::SharedPtr eufs_ebs_client_;
 
 public:
-  explicit EufsAdapter(std::shared_ptr<SENode> se_node);
+  explicit EufsAdapter(const EKFStateEstParameters& params);
 
-  void mission_state_callback(const eufs_msgs::msg::CanState& msg) const;
+  void mission_state_callback(const eufs_msgs::msg::CanState& msg);
   void finish() final;
 
   void perception_detections_subscription_callback(
-      const eufs_msgs::msg::ConeArrayWithCovariance& msg) const;
-  void wheel_speeds_subscription_callback(const eufs_msgs::msg::WheelSpeedsStamped& msg) const;
+      const eufs_msgs::msg::ConeArrayWithCovariance& msg);
+  void wheel_speeds_subscription_callback(const eufs_msgs::msg::WheelSpeedsStamped& msg);
 };

@@ -1,30 +1,27 @@
 #include "planning/planning.hpp"
 
-#include "adapter_planning/map.hpp"
 #include "adapter_planning/pacsim.hpp"
 #include "adapter_planning/vehicle.hpp"
 #include "utils/message_converter.hpp"
 
 using std::placeholders::_1;
 
-Planning::Planning()
+Planning::Planning(const PlanningParameters& params)
     : Node("planning"),
-      mode(declare_parameter<std::string>("adapter", "pacsim")),
-      angle_gain_(declare_parameter<double>("angle_gain", 3.7)),
-      distance_gain_(declare_parameter<double>("distance_gain", 8.0)),
-      ncones_gain_(declare_parameter<double>("ncones_gain", 8.7)),
-      angle_exponent_(declare_parameter<double>("angle_exponent", 1)),
-      distance_exponent_(declare_parameter<double>("distance_exponent", 1.7)),
-      cost_max_(declare_parameter<double>("cost_max", 40)),
-      outliers_spline_order_(declare_parameter<int>("outliers_spline_order_", 3)),
-      outliers_spline_coeffs_ratio_(declare_parameter<float>("outliers_spline_coeffs_ratio", 3.0)),
-      outliers_spline_precision_(declare_parameter<int>("outliers_spline_precision", 1)),
-      smoothing_spline_order_(declare_parameter<int>("smoothing_spline_order", 3)),
-      smoothing_spline_coeffs_ratio_(
-          declare_parameter<float>("smoothing_spline_coeffs_ratio", 3.0)),
-      smoothing_spline_precision_(declare_parameter<int>("smoothing_spline_precision", 10)),
-      publishing_visualization_msgs_(declare_parameter<int>("publishing_visualization_msg", 1)),
-      using_simulated_se_(declare_parameter<bool>("use_simulated_se", false)) {
+      angle_gain_(params.angle_gain_),
+      distance_gain_(params.distance_gain_),
+      ncones_gain_(params.ncones_gain_),
+      angle_exponent_(params.angle_exponent_),
+      distance_exponent_(params.distance_exponent_),
+      cost_max_(params.cost_max_),
+      outliers_spline_order_(params.outliers_spline_order_),
+      outliers_spline_coeffs_ratio_(params.outliers_spline_coeffs_ratio_),
+      outliers_spline_precision_(params.outliers_spline_precision_),
+      smoothing_spline_order_(params.smoothing_spline_order_),
+      smoothing_spline_coeffs_ratio_(params.smoothing_spline_coeffs_ratio_),
+      smoothing_spline_precision_(params.smoothing_spline_precision_),
+      publishing_visualization_msgs_(params.publishing_visualization_msgs_),
+      using_simulated_se_(params.using_simulated_se_) {
   RCLCPP_DEBUG(this->get_logger(), "angle gain: %f; distance_gain : %f", angle_gain_,
                distance_gain_);
 
@@ -59,11 +56,8 @@ Planning::Planning()
   // Publishes path from file in Skidpad & Acceleration events
   this->timer_ = this->create_wall_timer(
       std::chrono::milliseconds(100), std::bind(&Planning::publish_predicitive_track_points, this));
-  RCLCPP_INFO(this->get_logger(), "Using mode: %s", mode.c_str());
-  // Adapter to communicate with the car
-  _adapter_ = adapter_map.at(mode)((this));
 
-  if (!using_simulated_se_ || mode == "vehicle") {
+  if (!using_simulated_se_) {
     // Vehicle Localization Subscriber
     this->vl_sub_ = this->create_subscription<custom_interfaces::msg::VehicleState>(
         "/state_estimation/vehicle_state", 10,
