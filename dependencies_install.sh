@@ -31,3 +31,6 @@ sudo apt-get install python3-matplotlib -y
 
 # evaluator
 sudo pip3 install transforms3d
+
+# needed to not broke evaluator
+sudo pip install numpy==1.26.4
