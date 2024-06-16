@@ -1,7 +1,16 @@
 <map id="src/perception/include/icp/icp.hpp" name="src/perception/include/icp/icp.hpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="70,5,218,46"/>
-<area shape="rect" id="Node000002" href="$d8/d7c/icp_8cpp.html" title=" " alt="" coords="5,94,131,135"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="119,60,87,95,83,92,115,56"/>
-<area shape="rect" id="Node000003" href="$dd/d8c/icp__test_8cpp.html" title="Unit tests for the ICP class." alt="" coords="155,94,285,135"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="173,56,205,92,201,95,169,60"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="284,5,433,46"/>
+<area shape="rect" id="Node000002" href="$de/da5/perception__node_8hpp.html" title=" " alt="" coords="123,94,272,150"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="313,56,245,96,242,91,311,52"/>
+<area shape="rect" id="Node000006" href="$d8/d7c/icp_8cpp.html" title=" " alt="" coords="296,102,421,142"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="361,62,361,101,356,101,356,62"/>
+<area shape="rect" id="Node000007" href="$dd/d8c/icp__test_8cpp.html" title="Unit tests for the ICP class." alt="" coords="446,102,575,142"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="405,52,480,99,477,103,402,57"/>
+<area shape="rect" id="Node000003" href="$d7/d69/perception_2include_2perception_2parameters__factory_8hpp.html" title=" " alt="" coords="5,198,160,253"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="157,162,115,199,112,195,153,158"/>
+<area shape="rect" id="Node000004" href="$d9/dc1/perception_8cpp.html" title=" " alt="" coords="77,301,203,342"/>
+<area shape="poly" id="edge4_Node000002_Node000004" title=" " alt="" coords="194,166,186,209,174,254,153,302,148,300,169,252,181,208,189,165"/>
+<area shape="rect" id="Node000005" href="$dc/dfb/perception__node_8cpp.html" title=" " alt="" coords="235,198,384,253"/>
+<area shape="poly" id="edge5_Node000002_Node000005" title=" " alt="" coords="240,158,281,195,277,199,236,162"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="109,265,130,300,126,302,105,268"/>
 </map>

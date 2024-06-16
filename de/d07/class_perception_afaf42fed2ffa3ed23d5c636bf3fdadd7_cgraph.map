@@ -1,5 +1,7 @@
 <map id="Perception::pointCloudCallback" name="Perception::pointCloudCallback">
-<area shape="rect" id="Node000001" title="Callback function for the PointCloud2 subscription." alt="" coords="5,5,206,31"/>
-<area shape="rect" id="Node000002" href="$de/d07/class_perception.html#a0ed87dbcc41d99a6c40f6363afdebce4" title="Publishes information about clusters (cones) using a custom ROS2 message." alt="" coords="254,5,421,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="206,16,238,16,238,21,206,21"/>
+<area shape="rect" id="Node000001" title="Callback function for the PointCloud2 subscription." alt="" coords="5,13,206,39"/>
+<area shape="rect" id="Node000002" href="$de/d07/class_perception.html#a0ed87dbcc41d99a6c40f6363afdebce4" title="Publishes information about clusters (cones) using a custom ROS2 message." alt="" coords="254,13,421,39"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="206,23,238,23,238,28,206,28"/>
+<area shape="rect" id="Node000003" href="$d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="469,5,697,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="421,23,453,23,453,28,421,28"/>
 </map>

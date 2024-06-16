@@ -150,8 +150,8 @@ var NAVTREEINDEX =
 "d9/db0/structcommon__lib_1_1structures_1_1_path_point.html#a82b14f11b7af6f7373728a75355fe31c",
 "db/ddb/planning_2include_2utils_2color_8hpp.html#a76f863e71ce8e67d1ef1850029f93b0aa3faadcf5ba790b3507788b59ec1d0203",
 "dc/de2/mission__logic_8hpp.html#adc523f54f1498f443c97303976f40140a3805508c91ba0e8c66494b9fb9a96c4f",
-"de/d90/control_2include_2adapter__control_2pacsim_8hpp_source.html",
-"functions_func_s.html"
+"de/d7c/control_2src_2adapter__control_2vehicle_8cpp_source.html",
+"functions_func_p.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
