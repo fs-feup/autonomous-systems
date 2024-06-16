@@ -13,7 +13,7 @@ struct Cone {
   double certainty = 1.0;
   Cone() = default;
   Cone(Position position, common_lib::competition_logic::Color cone_color, double certainty);
-  Cone(double x, double y, const std::string& color, double certainty);
+  Cone(double x, double y, const std::string& color = "unknown", double certainty = 1.0);
 };
 
 bool operator==(const Cone& c1, const Cone& c2);

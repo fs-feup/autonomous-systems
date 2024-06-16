@@ -1,4 +1,4 @@
-#include "planning/smoothing2.hpp"
+#include "planning/smoothing.hpp"
 
 void PathSmoothing::order_path(std::vector<PathPoint>& unord_path, const Pose& car_pose) {
   std::unordered_set<PathPoint> unord_set(unord_path.begin(), unord_path.end());

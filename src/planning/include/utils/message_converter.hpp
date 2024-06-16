@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "common_lib/communication/marker.hpp"
+#include "common_lib/structures/cone.hpp"
 #include "common_lib/structures/path_point.hpp"
 #include "custom_interfaces/msg/cone.hpp"
 #include "custom_interfaces/msg/cone_array.hpp"
@@ -12,8 +13,6 @@
 #include "custom_interfaces/msg/path_point_array.hpp"
 #include "custom_interfaces/msg/point2d.hpp"
 #include "rclcpp/rclcpp.hpp"
-#include "utils/cone.hpp"
-#include "utils/pathpoint.hpp"
 
 /**
  * @brief Convert from custom interfaces PathPointArray to vector of common_lib PathPoints
@@ -24,27 +23,15 @@
 std::vector<common_lib::structures::PathPoint> path_point_array_from_ci_vector(
     const custom_interfaces::msg::PathPointArray &path_point_array);
 
-std::vector<common_lib::structures::PathPoint> path_point_array_from_path_point_vector(
-    const std::vector<PathPoint *> &path_point_array);
-
 custom_interfaces::msg::PathPointArray custom_interfaces_array_from_vector(
-    const std::vector<PathPoint *> &input_path);
+    const std::vector<common_lib::structures::PathPoint> &input_path);
 
-custom_interfaces::msg::ConeArray custom_interfaces_array_from_vector(
-    const std::vector<Cone *> &input_path);
-
-custom_interfaces::msg::ConeArray custom_interfaces_array_from_vector(
-    const std::vector<Cone> &input_path);
-
-std::vector<Cone *> cone_vector_from_custom_interfaces(
+std::vector<common_lib::structures::Cone> cone_vector_from_custom_interfaces(
     const custom_interfaces::msg::ConeArray &msg);
-
-std::vector<common_lib::structures::PathPoint> common_lib_vector_from_custom_interfaces(
-    const std::vector<PathPoint *> &msg);
 
 template <typename T>
 visualization_msgs::msg::MarkerArray marker_array_from_path_point_array(
-    const std::vector<T *> &path_point_array, std::string name_space, std::string frame_id,
+    const std::vector<T> &path_point_array, std::string name_space, std::string frame_id,
     std::string color = "red", std::string shape = "cylinder", float scale = 0.5,
     int action = visualization_msgs::msg::Marker::MODIFY) {
   visualization_msgs::msg::MarkerArray marker_array;
@@ -65,8 +52,8 @@ visualization_msgs::msg::MarkerArray marker_array_from_path_point_array(
     marker.pose.orientation.z = 0.0;
     marker.pose.orientation.w = 1.0;
 
-    marker.pose.position.x = path_point_array[i]->getX();
-    marker.pose.position.y = path_point_array[i]->getY();
+    marker.pose.position.x = path_point_array[i].position.x;
+    marker.pose.position.y = path_point_array[i].position.y;
     marker.pose.position.z = 0;
 
     marker.scale.x = scale;

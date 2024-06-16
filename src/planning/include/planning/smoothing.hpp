@@ -3,7 +3,7 @@
 
 #include "common_lib/structures/path_point.hpp"
 #include "common_lib/structures/pose.hpp"
-#include "utils/smoothing_config.hpp"
+#include "config/smoothing_config.hpp"
 #include "utils/splines.hpp"
 
 using PathPoint = common_lib::structures::PathPoint;

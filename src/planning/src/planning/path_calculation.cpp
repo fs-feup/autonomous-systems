@@ -1,5 +1,5 @@
-#include "planning/path_calculation2.hpp"
-#include "utils/cone2.hpp"
+#include "planning/path_calculation.hpp"
+#include "utils/cone.hpp"
 
 #include <algorithm>
 #include <cmath>
@@ -8,9 +8,12 @@
 #include <utility>
 #include <vector>
 
-PathCalculation::PathCalculation(double dist_threshold) : dist_threshold(dist_threshold) {}
+std::vector<PathPoint> PathCalculation::process_delaunay_triangulations(std::pair<std::vector<Cone>, std::vector<Cone>> refined_cones) {
+  // merge left and right cones for next step
+  std::vector<Cone> cones;
+  cones.insert(cones.end(), refined_cones.first.begin(), refined_cones.first.end());
+  cones.insert(cones.end(), refined_cones.second.begin(), refined_cones.second.end());
 
-std::vector<PathPoint> PathCalculation::processDelaunayTriangulations(std::vector<Cone> cones) {
   std::vector<PathPoint> unordered_path;
 
   // Create a Delaunay triangulation
@@ -44,7 +47,7 @@ std::vector<PathPoint> PathCalculation::processDelaunayTriangulations(std::vecto
       double xDist = cone2.position.x - cone1.position.x;
       double yDist = cone2.position.y - cone1.position.y;
       double dist = sqrt(pow(xDist, 2) + pow(yDist, 2));
-      if (dist < dist_threshold) {
+      if (dist < config_.dist_threshold) {
         PathPoint pt = PathPoint(cone1.position.x + xDist / 2, cone1.position.y + yDist / 2);
         unordered_path.push_back(pt);
       }

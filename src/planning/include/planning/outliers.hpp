@@ -3,7 +3,7 @@
 
 #include "common_lib/competition_logic/color.hpp"
 #include "common_lib/structures/cone.hpp"
-#include "utils/outliers_config.hpp"
+#include "config/outliers_config.hpp"
 #include "utils/splines.hpp"
 
 using Cone = common_lib::structures::Cone;
@@ -36,8 +36,9 @@ public:
    * @brief function to remove outliers from a set of cones
    *
    * @param cones input pair of vectors of ordered cones
-   * @return std::pair<std::vector<Cone>, std::vector<Cone>> pair of vectors of ordered cones in the
-   * same order as recieved, but with outliers removed
+   * @return std::pair<std::vector<Cone>, std::vector<Cone>> pair of vectors of ordered cones in
+   * the same order as recieved, but all cones are shifted to the general spline approximation,
+   * dealing with outliers
    */
   std::pair<std::vector<Cone>, std::vector<Cone>> approximate_cones_with_spline(
       std::pair<std::vector<Cone>, std::vector<Cone>>& cones) const;

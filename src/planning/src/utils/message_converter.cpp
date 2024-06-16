@@ -13,84 +13,30 @@ std::vector<common_lib::structures::PathPoint> path_point_array_from_ci_vector(
   return output;
 }
 
-std::vector<common_lib::structures::PathPoint> path_point_array_from_path_point_vector(
-    const std::vector<PathPoint *> &path_point_array) {
-  std::vector<common_lib::structures::PathPoint> output;
-  for (auto &p : path_point_array) {
-    common_lib::structures::PathPoint point;
-    point.position.x = p->getX();
-    point.position.y = p->getY();
-    point.ideal_velocity = p->getV();
-    output.push_back(point);
-  }
-  return output;
-}
-
 custom_interfaces::msg::PathPointArray custom_interfaces_array_from_vector(
-    const std::vector<PathPoint *> &input_path) {
+    const std::vector<common_lib::structures::PathPoint> &input_path) {
   auto message = custom_interfaces::msg::PathPointArray();
   for (auto const &element : input_path) {
     auto point = custom_interfaces::msg::PathPoint();
-    point.x = element->getX();
-    point.y = element->getY();
-    point.v = element->getV();
+    point.x = element.position.x;
+    point.y = element.position.y;
+    point.v = element.ideal_velocity;
     message.pathpoint_array.push_back(point);
   }
   return message;
 }
 
-custom_interfaces::msg::ConeArray custom_interfaces_array_from_vector(
-    const std::vector<Cone *> &input_path) {
-  auto message = custom_interfaces::msg::ConeArray();
-  for (auto const &element : input_path) {
-    auto point = custom_interfaces::msg::Cone();
-    std::string color = element->getId() % 2 ? "yellow_cone" : "blue_cone";
-    point.position.x = element->getX();
-    point.position.y = element->getY();
-    point.color = color;
-    message.cone_array.push_back(point);
-  }
-  return message;
-}
-
-custom_interfaces::msg::ConeArray custom_interfaces_array_from_vector(
-    const std::vector<Cone> &input_path) {
-  auto message = custom_interfaces::msg::ConeArray();
-  for (auto const &element : input_path) {
-    auto point = custom_interfaces::msg::Cone();
-    std::string color = element.getId() % 2 ? "yellow_cone" : "blue_cone";
-    point.position.x = element.getX();
-    point.position.y = element.getY();
-    point.color = color;
-    message.cone_array.push_back(point);
-  }
-  return message;
-}
-
-std::vector<Cone *> cone_vector_from_custom_interfaces(
+std::vector<common_lib::structures::Cone> cone_vector_from_custom_interfaces(
     const custom_interfaces::msg::ConeArray &msg) {
-  std::vector<Cone *> cone_array;
+  std::vector<common_lib::structures::Cone> cone_array;
   for (const auto &cone : msg.cone_array) {
     if (cone.position.x == 0 && cone.position.y == 0) {
       RCLCPP_WARN(rclcpp::get_logger("rclcpp"), "Cone at (0,0)");
     }
-    auto new_cone = new Cone(0, (float)cone.position.x, (float)cone.position.y);
+    common_lib::structures::Cone new_cone = common_lib::structures::Cone((float)cone.position.x, (float)cone.position.y);
     cone_array.push_back(new_cone);
   }
   return cone_array;
-}
-
-std::vector<common_lib::structures::PathPoint> common_lib_vector_from_custom_interfaces(
-    const std::vector<PathPoint *> &msg) {
-  std::vector<common_lib::structures::PathPoint> path_point_array;
-  for (const auto &point : msg) {
-    common_lib::structures::PathPoint new_point;
-    new_point.position.x = point->getX();
-    new_point.position.y = point->getY();
-    new_point.ideal_velocity = point->getV();
-    path_point_array.push_back(new_point);
-  }
-  return path_point_array;
 }
 
 visualization_msgs::msg::MarkerArray marker_array_from_path_point_array(

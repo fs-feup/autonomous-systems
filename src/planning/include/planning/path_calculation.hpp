@@ -1,5 +1,5 @@
-#ifndef SRC_PLANNING_INCLUDE_PLANNING_LOCAL_PATH_PLANNER_HPP_
-#define SRC_PLANNING_INCLUDE_PLANNING_LOCAL_PATH_PLANNER_HPP_
+#ifndef SRC_PLANNING_INCLUDE_PLANNING_PATH_CALCULATION_HPP_
+#define SRC_PLANNING_INCLUDE_PLANNING_PATH_CALCULATION_HPP_
 
 #include <CGAL/Delaunay_triangulation_2.h>
 #include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
@@ -9,15 +9,17 @@
 #include <utility>
 #include <vector>
 
-#include "../utils/pathpoint.hpp"
-#include "./track.hpp"
+#include "common_lib/structures/cone.hpp"
+#include "common_lib/structures/path_point.hpp"
+#include "config/path_calculation_config.hpp"
 #include "rclcpp/rclcpp.hpp"
-
-#define DELAUNAY_DIST_THRESHOLD 7.0
 
 typedef CGAL::Exact_predicates_inexact_constructions_kernel K;
 typedef CGAL::Delaunay_triangulation_2<K> DT;
 typedef K::Point_2 Point;
+
+using Cone = common_lib::structures::Cone;
+using PathPoint = common_lib::structures::PathPoint;
 
 /**
  * @brief LocalPathPlanner class for generating local paths.
@@ -25,30 +27,27 @@ typedef K::Point_2 Point;
  * The LocalPathPlanner class contains methods for calculating the best local
  * path and stores input data and results related to path planning.
  */
-class LocalPathPlanner {
-  Track track;  // track input data
+class PathCalculation {
+  /**
+   * @brief configuration of the outliers removal algorithm
+   *
+   */
+  PathCalculationConfig config_;
 
  public:
-  /**
-   * @brief Constructor for LocalPathPlanner.
-   *
-   * @param track Pointer to the path planner track input data.
-   */
-  LocalPathPlanner();
 
   /**
-   * @brief Determine if two positions align in a certain direction.
+   * @brief Construct a new default PathCalculation object
    *
-   * This function checks whether the direction vector formed by two positions
-   * aligns with a specified direction (prev_vx, prev_vy).
-   *
-   * @param p1 Pointer to the first position.
-   * @param p2 Pointer to the second position.
-   * @param prev_vx Previous direction vector's x-component.
-   * @param prev_vy Previous direction vector's y-component.
-   * @return True if the direction aligns; false otherwise.
    */
-  bool vector_direction(PathPoint *p1, PathPoint *p2, float prev_vx, float prev_vy);
+  PathCalculation() = default;
+
+  /**
+   * @brief Constructor for PathCalculation with a given configuration.
+   *
+   * @param config Config object with PathCalculation configs.
+   */
+  explicit PathCalculation(const PathCalculationConfig& config): config_(config) {}
 
   /**
    * @brief Process an array of cones to generate a local path.
@@ -62,7 +61,7 @@ class LocalPathPlanner {
    * @details The function utilizes Delaunay triangulation (CGAL) and
    * direction-based selection of positions to create a meaningful local path.
    */
-  std::vector<PathPoint *> processNewArray(Track *cone_array);
+  std::vector<PathPoint> process_delaunay_triangulations(std::pair<std::vector<Cone>, std::vector<Cone>> refined_cones);
 };
 
-#endif  // SRC_PLANNING_PLANNING_INCLUDE_PLANNING_LOCAL_PATH_PLANNER_HPP_
+#endif  // SRC_PLANNING_PLANNING_INCLUDE_PLANNING_PATH_CALCULATION_HPP_

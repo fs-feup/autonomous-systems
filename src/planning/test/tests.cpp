@@ -12,15 +12,12 @@
 #include "common_lib/structures/cone.hpp"
 #include "common_lib/structures/path_point.hpp"
 #include "gtest/gtest.h"
-#include "planning/cone_coloring2.hpp"
+#include "planning/cone_coloring.hpp"
 #include "planning/outliers.hpp"
-#include "planning/smoothing2.hpp"
-// #include "planning/local_path_planner.hpp"
-// #include "planning/path_smoothing.hpp"
-// #include "planning/track.hpp"
+#include "planning/smoothing.hpp"
 #include "rclcpp/rclcpp.hpp"
-#include "utils/cone_coloring_config.hpp"
-// #include "utils/files.hpp"
+
+#include "utils/files.hpp"
 #include "utils/splines.hpp"
 
 using testing::Eq;
