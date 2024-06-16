@@ -39,7 +39,6 @@ set(TESTFILES
 )
 
 set(IMPLEMENTATION_FILES
-  src/adapter_planning/adapter.cpp
   src/adapter_planning/eufs.cpp
   src/adapter_planning/fsds.cpp
   src/adapter_planning/pacsim.cpp

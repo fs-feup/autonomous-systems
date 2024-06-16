@@ -35,4 +35,12 @@ std::pair<double, double> odometry_to_velocities_transform(double rl_rpm,
   return velocities;
 }
 
+common_lib::structures::Position cg_2_rear_axis(common_lib::structures::Position cg,
+                                                double orientation, double dist_cg_2_rear_axis) {
+  common_lib::structures::Position rear_axis;
+  rear_axis.x = cg.x - dist_cg_2_rear_axis * cos(orientation);
+  rear_axis.y = cg.y - dist_cg_2_rear_axis * sin(orientation);
+  return rear_axis;
+}
+
 }  // namespace common_lib::vehicle_dynamics

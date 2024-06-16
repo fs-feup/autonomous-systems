@@ -40,7 +40,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "adapter",
                 description="Environment to run node on",
-                default_value="fsds",
+                default_value="vehicle",
             ),
             DeclareLaunchArgument(
                 "ground_removal",
@@ -85,7 +85,7 @@ def generate_launch_description():
             Node(
                 package="perception",
                 executable="perception",
-                name="perception_node",
+                name="perception_adapter",
                 parameters=[
                     {"ransac_epsilon": LaunchConfiguration("ransac_epsilon")},
                     {"ransac_n_neighbours": LaunchConfiguration("ransac_n_neighbours")},

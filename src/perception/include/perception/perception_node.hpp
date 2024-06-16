@@ -8,16 +8,25 @@
 
 #include "clustering/dbscan.hpp"
 #include "cone_differentiation/least_squares_differentiation.hpp"
+#include "cone_evaluator/distance_predict.hpp"
 #include "cone_validator/height_validator.hpp"
 #include "custom_interfaces/msg/cone_array.hpp"
-#include "ground_removal/ransac.hpp"
 #include "ground_removal/grid_ransac.hpp"
+#include "ground_removal/ransac.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
 #include "visualization_msgs/msg/marker_array.hpp"
 #include "icp/icp.hpp"
 
-class Adapter;
+struct PerceptionParameters {
+  std::shared_ptr<GroundRemoval> ground_removal_;
+  std::shared_ptr<DBSCAN> clustering_;
+  std::shared_ptr<LeastSquaresDifferentiation> cone_differentiator_;
+  std::vector<std::shared_ptr<ConeValidator>> cone_validators_;
+  std::shared_ptr<DistancePredict> distance_predict_;
+  std::shared_ptr<ICP> icp_;
+  std::string adapter_;
+};
 
 /**
  * @class Perception
@@ -30,8 +39,6 @@ class Adapter;
 class Perception : public rclcpp::Node {
 private:
   std::shared_ptr<GroundRemoval> _ground_removal_;  ///< Shared pointer to the GroundRemoval object.
-  std::shared_ptr<Adapter>
-      _adapter_; /**< Shared pointer to Adapter instance for external communication */
   std::shared_ptr<Clustering> _clustering_;
   std::shared_ptr<ConeDifferentiation>
       _cone_differentiator_;  ///< Shared pointer to ConeDifferentiation object.
@@ -62,22 +69,14 @@ private:
 public:
   /**
    * @brief Constructor for the Perception node.
-   * @param groundRemoval Shared pointer to the GroundRemoval object.
-   * @param clustering Shared pointer to the Clustering object.
-   * @param coneDifferentiator Shared pointer to the ConeDifferentiation object
-   * @param coneValidator Vector of shared pointers to ConeValidator objects.
-   * @param coneEvaluator Shared pointer to the ConeEvaluator object.
-   * @param mode String representing the mode.
+   * @param params The parameters for perception.
    */
-  Perception(std::shared_ptr<GroundRemoval> ground_removal, std::shared_ptr<Clustering> clustering,
-             std::shared_ptr<ConeDifferentiation> cone_differentiator,
-             const std::vector<std::shared_ptr<ConeValidator>>& cone_validators,
-             std::shared_ptr<ConeEvaluator> cone_evaluator, std::string mode, std::shared_ptr<ICP> icp);
+  explicit Perception(const PerceptionParameters& params);
 
   /**
    * @brief Callback function for the PointCloud2 subscription.
    * @param msg The received PointCloud2 message.
    */
   void pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg);
-};
 
+};
