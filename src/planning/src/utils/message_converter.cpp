@@ -93,6 +93,23 @@ std::vector<common_lib::structures::PathPoint> common_lib_vector_from_custom_int
   return path_point_array;
 }
 
+std::vector<common_lib::structures::Cone> common_lib_vector_from_custom_interfaces(
+    const std::vector<Cone *> &msg) {
+  std::vector<common_lib::structures::Cone> path_point_array;
+  for (const auto &point : msg) {
+    common_lib::structures::Cone new_point;
+    new_point.position.x = point->getX();
+    new_point.position.y = point->getY();
+    if (point->getId() % 2) {
+      new_point.color = common_lib::competition_logic::Color::BLUE;
+    } else {
+      new_point.color = common_lib::competition_logic::Color::YELLOW;
+    }
+    path_point_array.push_back(new_point);
+  }
+  return path_point_array;
+}
+
 visualization_msgs::msg::MarkerArray marker_array_from_path_point_array(
     const std::vector<custom_interfaces::msg::PathPoint> &path_point_array, std::string name_space,
     std::string frame_id, std::string color, std::string shape, float scale, int action) {
@@ -132,4 +149,49 @@ visualization_msgs::msg::MarkerArray marker_array_from_path_point_array(
     marker_array.markers.push_back(marker);
   }
   return marker_array;
+}
+
+visualization_msgs::msg::Marker line_marker_from_two_cones(const Cone *c1, const Cone *c2,
+                                                           const std::string &name_space,
+                                                           const std::string &frame_id,
+                                                           const int id, const std::string &color,
+                                                           float scale, int action) {
+  std::array<float, 4> color_array = common_lib::communication::marker_color_map.at(color);
+
+  visualization_msgs::msg::Marker marker;
+
+  marker.header.frame_id = frame_id;
+  marker.header.stamp = rclcpp::Clock().now();
+  marker.ns = name_space;
+  marker.id = id;
+  marker.type = visualization_msgs::msg::Marker::LINE_STRIP;
+  marker.action = action;
+
+  marker.pose.orientation.x = 0.0;
+  marker.pose.orientation.y = 0.0;
+  marker.pose.orientation.z = 0.0;
+  marker.pose.orientation.w = 1.0;
+
+  marker.pose.position.x = 0;
+  marker.pose.position.y = 0;
+  marker.pose.position.z = 0;
+
+  marker.scale.x = scale;
+  marker.scale.y = scale;
+  marker.scale.z = scale;
+
+  marker.color.r = color_array[0];
+  marker.color.g = color_array[1];
+  marker.color.b = color_array[2];
+  marker.color.a = color_array[3];
+
+  geometry_msgs::msg::Point point;
+  point.x = c1->getX();
+  point.y = c1->getY();
+  marker.points.push_back(point);
+  point.x = c2->getX();
+  point.y = c2->getY();
+  marker.points.push_back(point);
+
+  return marker;
 }

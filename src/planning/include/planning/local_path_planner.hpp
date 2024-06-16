@@ -28,7 +28,7 @@ typedef K::Point_2 Point;
 class LocalPathPlanner {
   Track track;  // track input data
 
- public:
+public:
   /**
    * @brief Constructor for LocalPathPlanner.
    *

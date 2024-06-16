@@ -42,6 +42,9 @@ std::vector<Cone *> cone_vector_from_custom_interfaces(
 std::vector<common_lib::structures::PathPoint> common_lib_vector_from_custom_interfaces(
     const std::vector<PathPoint *> &msg);
 
+std::vector<common_lib::structures::Cone> common_lib_vector_from_custom_interfaces(
+    const std::vector<Cone *> &msg);
+
 template <typename T>
 visualization_msgs::msg::MarkerArray marker_array_from_path_point_array(
     const std::vector<T *> &path_point_array, std::string name_space, std::string frame_id,
@@ -78,8 +81,16 @@ visualization_msgs::msg::MarkerArray marker_array_from_path_point_array(
     marker.color.b = color_array[2];
     marker.color.a = color_array[3];
 
-    marker.lifetime = rclcpp::Duration(std::chrono::duration<double>(5));
-
+    if (shape == "cone") {
+      marker.pose.orientation.x = 0.7071;  // Approximately sqrt(2)/2
+      marker.pose.orientation.y = 0.0;
+      marker.pose.orientation.z = 0.0;
+      marker.pose.orientation.w = -0.7071;  // Approximately sqrt(2)/2
+      marker.scale.x = scale * 0.03;
+      marker.scale.y = scale * 0.03;
+      marker.scale.z = scale * 0.03;
+      marker.mesh_resource = "https://paginas.fe.up.pt/~up202109860/FormulaStudent/FSGConev2.obj";
+    }
     marker_array.markers.push_back(marker);
   }
   return marker_array;
@@ -89,5 +100,10 @@ visualization_msgs::msg::MarkerArray marker_array_from_path_point_array(
     const std::vector<custom_interfaces::msg::PathPoint> &path_point_array, std::string name_space,
     std::string frame_id, std::string color = "red", std::string shape = "cylinder",
     float scale = 0.5, int action = visualization_msgs::msg::Marker::MODIFY);
+
+visualization_msgs::msg::Marker line_marker_from_two_cones(
+    const Cone *c1, const Cone *c2, const std::string &name_space, const std::string &frame_id,
+    const int id, const std::string &color = "red", float scale = 0.1,
+    int action = visualization_msgs::msg::Marker::MODIFY);
 
 #endif  // SRC_PLANNING_INCLUDE_COMMUNICATION_MESSAGE_CONVERTER_HPP

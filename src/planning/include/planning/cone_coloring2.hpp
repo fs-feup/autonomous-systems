@@ -21,7 +21,7 @@ using Position = common_lib::structures::Position;
 using TwoDVector = common_lib::structures::Position;
 using TrackSide = common_lib::structures::TrackSide;
 using Color = common_lib::competition_logic::Color;
-using AngleAndNorms = common_lib::structures::AngleAndNorms;
+using AngleAndNorms = common_lib::maths::AngleAndNorms;
 using ConeAproxEqual = common_lib::structures::ConeAproxEqual;
 
 class ConeColoring {

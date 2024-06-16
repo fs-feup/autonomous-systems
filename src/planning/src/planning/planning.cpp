@@ -172,9 +172,9 @@ void Planning::publish_visualization_msgs(const std::vector<Cone *> &left_cones,
                                           const std::vector<Cone *> &after_rem_blue_cones,
                                           const std::vector<Cone *> &after_rem_yellow_cones) {
   this->blue_cones_pub_->publish(
-      marker_array_from_path_point_array(left_cones, "blue_cones_colored", "map", "blue"));
-  this->yellow_cones_pub_->publish(
-      marker_array_from_path_point_array(right_cones, "yellow_cones_colored", "map", "yellow"));
+      marker_array_from_path_point_array(left_cones, "blue_cones_colored", "map", "blue", "cone"));
+  this->yellow_cones_pub_->publish(marker_array_from_path_point_array(
+      right_cones, "yellow_cones_colored", "map", "yellow", "cone"));
   this->visualization_pub_->publish(common_lib::communication::line_marker_from_structure_array(
       common_lib_vector_from_custom_interfaces(final_path), "smoothed_path_planning", "map", 12,
       "green"));
