@@ -30,7 +30,11 @@ Control::Control(const ControlParameters& params)
             RCLCPP_DEBUG(this->get_logger(), "Received pathpoint array");
             pathpoint_array_ = msg.pathpoint_array;
           })),
-      point_solver_(params.lookahead_gain_, params.lookahead_margin_) {
+      closest_point_pub_(create_publisher<visualization_msgs::msg::Marker>(
+          "/control/visualization/closest_point", 10)),
+      lookahead_point_pub_(create_publisher<visualization_msgs::msg::Marker>(
+          "control/visualization/lookahead_point", 10)),
+      point_solver_(params.lookahead_gain_) {
   if (!using_simulated_se_) {
     vehicle_state_sub_ = this->create_subscription<custom_interfaces::msg::VehicleState>(
         "/state_estimation/vehicle_state", 10,
@@ -47,7 +51,7 @@ void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicl
   // find the closest point on the path
   // print pathpoint array size
   auto [closest_point, closest_point_id] = this->point_solver_.update_closest_point(
-      pathpoint_array_, this->point_solver_.vehicle_pose_.rear_axis_);
+      pathpoint_array_);
   if (closest_point_id == -1) {
     RCLCPP_ERROR(rclcpp::get_logger("control"), "PurePursuit: Failed to update closest point");
     return;
@@ -55,7 +59,7 @@ void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicl
 
   // update the Lookahead point
   auto [lookahead_point, lookahead_velocity, lookahead_error] =
-      this->point_solver_.update_lookahead_point(pathpoint_array_, closest_point, closest_point_id);
+      this->point_solver_.update_lookahead_point(pathpoint_array_, closest_point_id);
   if (lookahead_error) {
     RCLCPP_ERROR(rclcpp::get_logger("control"), "PurePursuit: Failed to update lookahed point");
     return;
@@ -84,6 +88,7 @@ void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicl
                steering_angle);
 
   publish_evaluator_data(lookahead_velocity, lookahead_point, closest_point, vehicle_state_msg);
+  publish_visualization_data(lookahead_point, closest_point);
   publish_cmd(torque, steering_angle);
   // Adapter to communicate with the car
 }
@@ -103,4 +108,40 @@ void Control::publish_evaluator_data(double lookahead_velocity, Position lookahe
   evaluator_data.closest_point.y = closest_point.y;
   evaluator_data.lookahead_velocity = lookahead_velocity;
   this->evaluator_data_pub_->publish(evaluator_data);
+}
+
+void Control::publish_visualization_data(const Position& lookahead_point,
+                                         const Position& closest_point) const {
+  // Visualization
+  // Publish the lookahead point and the closest point
+  // to visualize the control
+  auto marker = visualization_msgs::msg::Marker();
+  marker.header.frame_id = "map";
+  marker.header.stamp = this->now();
+  marker.ns = "control";
+  marker.id = 0;
+  marker.type = visualization_msgs::msg::Marker::SPHERE;
+  marker.action = visualization_msgs::msg::Marker::ADD;
+  marker.pose.position.x = lookahead_point.x;
+  marker.pose.position.y = lookahead_point.y;
+  marker.pose.position.z = 0.1;
+  marker.pose.orientation.x = 0.0;
+  marker.pose.orientation.y = 0.0;
+  marker.pose.orientation.z = 0.0;
+  marker.pose.orientation.w = 1.0;
+  marker.scale.x = 0.2;
+  marker.scale.y = 0.2;
+  marker.scale.z = 0.2;
+  marker.color.a = 1.0;  // Don't forget to set the alpha!
+  marker.color.r = 0.0;
+  marker.color.g = 1.0;
+  marker.color.b = 0.0;
+  this->closest_point_pub_->publish(marker);
+
+  marker.id = 1;
+  marker.pose.position.x = closest_point.x;
+  marker.pose.position.y = closest_point.y;
+  marker.color.r = 1.0;
+  marker.color.g = 0.0;
+  this->lookahead_point_pub_->publish(marker);
 }
