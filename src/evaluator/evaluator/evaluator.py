@@ -242,6 +242,15 @@ class Evaluator(Node):
         self._se_mean_root_squared_sum_error = 0
         self._se_count = 0
 
+        self._sum_vehicle_state_error = Float32MultiArray()
+        self._sum_squared_vehicle_state_error = Float32MultiArray()
+        self._sum_vehicle_state_error.layout.dim = [MultiArrayDimension()]
+        self._sum_squared_vehicle_state_error.layout.dim = [MultiArrayDimension()]
+        self._sum_vehicle_state_error.layout.dim[0].size = 6
+        self._sum_squared_vehicle_state_error.layout.dim[0].size = 6
+        self._sum_vehicle_state_error.data = [0.0] * 6
+        self._sum_squared_vehicle_state_error.data = [0.0] * 6
+
         self._state_estimation_mean_mean_error = self.create_publisher(
             Float32, "/evaluator/state_estimation/mean_mean_error", 10
         )
@@ -252,6 +261,18 @@ class Evaluator(Node):
 
         self._state_estimation_mean_mean_root_squared_error = self.create_publisher(
             Float32, "/evaluator/state_estimation/mean_mean_root_squared_error", 10
+        )
+
+        self._state_estimation_mean_mean_state_error = self.create_publisher(
+            Float32MultiArray, "/evaluator/state_estimation/mean_mean_pose_and_vel_error", 10
+        )
+
+        self._state_estimation_mean_mean_state_squared_error = self.create_publisher(
+            Float32MultiArray, "/evaluator/state_estimation/mean_mean_pose_and_vel_squared_error", 10
+        )
+
+        self._state_estimation_mean_mean_state_root_squared_error = self.create_publisher(
+            Float32MultiArray, "/evaluator/state_estimation/mean_mean_root_pose_and_vel_squared_error", 10
         )
 
         self._planning_sum_error = 0
@@ -412,6 +433,35 @@ class Evaluator(Node):
         self._se_mean_root_squared_sum_error += get_mean_squared_difference(
             cone_positions, groundtruth_cone_positions) ** (1/2)
         self._se_count += 1
+
+        mean_vehicle_state_error = Float32MultiArray()
+        mean_squared_vehicle_state_error = Float32MultiArray()
+        mean_root_squared_vehicle_state_error = Float32MultiArray()
+
+        mean_vehicle_state_error.layout.dim = [MultiArrayDimension()]
+        mean_squared_vehicle_state_error.layout.dim = [MultiArrayDimension()]
+        mean_root_squared_vehicle_state_error.layout.dim = [MultiArrayDimension()]
+
+        mean_vehicle_state_error.layout.dim[0].size = 6
+        mean_squared_vehicle_state_error.layout.dim[0].size = 6
+        mean_root_squared_vehicle_state_error.layout.dim[0].size = 6
+
+        mean_vehicle_state_error.data = [0.0] * 6
+        mean_squared_vehicle_state_error = [0.0] * 6
+        mean_root_squared_vehicle_state_error = [0.0] * 6
+
+        # Update pose and velocity errors
+        for i in range(6):
+            self._sum_vehicle_state_error.data[i] += vehicle_state_error.data[i]
+            self._sum_squared_vehicle_state_error += vehicle_state_error.data[i] ** 2
+            mean_vehicle_state_error.data[i] = self._sum_vehicle_state_error.data[i] / self._se_count
+            mean_squared_vehicle_state_error.data[i] = self._sum_squared_vehicle_state_error / self._se_count
+            mean_root_squared_vehicle_state_error.data[i] = sqrt(self._sum_squared_vehicle_state_error) / self._se_count
+        
+        # publish pose and velocity errors
+        self._state_estimation_mean_mean_state_error.publish(vehicle_state_error)
+        self._state_estimation_mean_mean_state_squared_error.publish(mean_squared_vehicle_state_error)
+        self._state_estimation_mean_mean_state_root_squared_error.publish(mean_root_squared_vehicle_state_error)
 
         mean_mean_error = Float32()
         mean_mean_error.data = self._se_sum_error / self._se_count
