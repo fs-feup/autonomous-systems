@@ -237,9 +237,9 @@ class Evaluator(Node):
             Float32, "/evaluator/perception/mean_mean_root_squared_error", 10
         )
 
-        self._se_sum_error = 0
-        self._se_squared_sum_error = 0
-        self._se_mean_root_squared_sum_error = 0
+        self._se_map_sum_error = 0
+        self._se_map_squared_sum_error = 0
+        self._se_map_mean_root_squared_sum_error = 0
         self._se_count = 0
 
         self._sum_vehicle_state_error = Float32MultiArray()
@@ -352,7 +352,7 @@ class Evaluator(Node):
         groundtruth_map: np.ndarray,
     ) -> None:
         """!
-        Computes perception metrics and publishes them.
+        Computes state estimation metrics and publishes them.
 
         Args:
             pose (np.ndarray): Vehicle state estimation data. [x,y,theta]
@@ -374,8 +374,6 @@ class Evaluator(Node):
         vehicle_state_error.data[0] = abs(pose[0] - groundtruth_pose[0])
         vehicle_state_error.data[1] = abs(pose[1] - groundtruth_pose[1])
         vehicle_state_error.data[2] = abs(pose[2] - groundtruth_pose[2]) % (2 * np.pi)
-        print(abs(pose[2] - groundtruth_pose[2]))
-        print(vehicle_state_error.data[2])
         vehicle_state_error.data[3] = abs(
             velocities[0]
             - sqrt(
@@ -426,11 +424,11 @@ class Evaluator(Node):
         self._map_root_mean_squared_difference_.publish(root_mean_squared_difference)
 
 
-        self._se_sum_error += get_average_difference(
+        self._se_map_sum_error += get_average_difference(
             cone_positions, groundtruth_cone_positions)
-        self._se_squared_sum_error += get_mean_squared_difference(
+        self._se_map_squared_sum_error += get_mean_squared_difference(
             cone_positions, groundtruth_cone_positions)
-        self._se_mean_root_squared_sum_error += get_mean_squared_difference(
+        self._se_map_mean_root_squared_sum_error += get_mean_squared_difference(
             cone_positions, groundtruth_cone_positions) ** (1/2)
         self._se_count += 1
 
