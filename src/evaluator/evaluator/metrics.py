@@ -29,6 +29,7 @@ def get_average_difference(output: np.array, expected: np.array):
         min_difference: float = sys.float_info.max
 
         for expected_value in expected:
+
             difference: float = np.linalg.norm(empirical_value - expected_value)
             if difference < min_difference:
                 min_difference = difference

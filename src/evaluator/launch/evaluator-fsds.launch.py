@@ -16,6 +16,17 @@ def generate_launch_description():
                 default_value="False",
             ),
             DeclareLaunchArgument(
+                "use_simulated_se",
+                description="Whether the system is using simulated State Estimation or not",
+                default_value="False",
+            ),
+
+            DeclareLaunchArgument(
+                "use_simulated_planning",
+                description="Whether the system is using simulated Planning or not",
+                default_value="False",
+            ),
+            DeclareLaunchArgument(
                 "adapter",
                 description="Which simulation environment to use",
                 default_value="fsds",
@@ -31,6 +42,8 @@ def generate_launch_description():
                             "use_simulated_perception"
                         )
                     },
+                    {"use_simulated_se" : LaunchConfiguration("use_simulated_se")},
+                    {"use_simulated_planning" : LaunchConfiguration("use_simulated_planning")}
                 ],
             ),
         ]
