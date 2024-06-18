@@ -2,7 +2,7 @@
 
 #include "rclcpp/rclcpp.hpp"
 
-ObservationModel::ObservationModel(const Eigen::Matrix2f &observation_noise_covariance_matrix)
+ObservationModel::ObservationModel(const Eigen::MatrixXf &observation_noise_covariance_matrix)
     : _observation_noise_covariance_matrix_(observation_noise_covariance_matrix) {}
 
 Eigen::Vector2f ObservationModel::inverse_observation_model(
@@ -82,27 +82,29 @@ Eigen::MatrixXf ObservationModel::get_state_to_observation_matrix(
   // orientation of the robot, m is the x coordinate of the landmark, n is the y coordinate of the
   // landmark
   low_jacobian(0, 0) = -cos(-expected_state(2));
-  low_jacobian(1, 0) = -sin(-expected_state(2));
   low_jacobian(0, 1) = sin(-expected_state(2));
-  low_jacobian(1, 1) = -cos(-expected_state(2));
   low_jacobian(0, 2) = -expected_state(landmark_index) * sin(expected_state(2)) +
                        expected_state(landmark_index + 1) * cos(-expected_state(2)) +
                        expected_state(0) * sin(expected_state(2)) -
                        expected_state(1) * cos(-expected_state(2));
+  low_jacobian(0, 3) = 0;
+  low_jacobian(0, 4) = 0;
+  low_jacobian(0, 5) = 0;
+  low_jacobian(0, 6) = cos(-expected_state(2));
+  low_jacobian(0, 7) = -sin(-expected_state(2));
+
+  low_jacobian(1, 0) = -sin(-expected_state(2));
+  low_jacobian(1, 1) = -cos(-expected_state(2));
   low_jacobian(1, 2) = -expected_state(landmark_index) * cos(-expected_state(2)) -
                        expected_state(landmark_index + 1) * sin(expected_state(2)) +
                        expected_state(0) * cos(-expected_state(2)) +
                        expected_state(1) * sin(expected_state(2));
-  low_jacobian(0, 3) = 0;
   low_jacobian(1, 3) = 0;
-  low_jacobian(0, 4) = 0;
   low_jacobian(1, 4) = 0;
-  low_jacobian(0, 5) = 0;
   low_jacobian(1, 5) = 0;
-  low_jacobian(0, 6) = cos(-expected_state(2));
   low_jacobian(1, 6) = sin(-expected_state(2));
-  low_jacobian(0, 7) = -sin(-expected_state(2));
   low_jacobian(1, 7) = cos(-expected_state(2));
+
   Eigen::MatrixXf validation_jacobian = low_jacobian * reformating_matrix;
 
   return validation_jacobian;
@@ -112,6 +114,6 @@ Eigen::MatrixXf ObservationModel::get_observation_noise_covariance_matrix() cons
   return this->_observation_noise_covariance_matrix_;
 }
 
-Eigen::Matrix2f ObservationModel::create_observation_noise_covariance_matrix(float noise_value) {
-  return Eigen::Matrix2f::Identity(2, 2) * noise_value;
+Eigen::MatrixXf ObservationModel::create_observation_noise_covariance_matrix(float noise_value) {
+  return Eigen::MatrixXf::Identity(2, 2) * noise_value;
 }

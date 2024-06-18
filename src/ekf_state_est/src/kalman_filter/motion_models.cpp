@@ -34,30 +34,26 @@ Eigen::VectorXf NormalVelocityModel::predict_expected_state(
                "Motion Model - Motion Prediction Data: %f %f %f",
                motion_prediction_data.translational_velocity,
                motion_prediction_data.rotational_velocity, time_interval);
-  if (motion_prediction_data.rotational_velocity == 0.0) {  // Rectilinear movement
+  if (motion_prediction_data.rotational_velocity < 0.01) {  // Rectilinear movement
+    next_state(5) = motion_prediction_data.rotational_velocity;
     next_state(0) +=
         motion_prediction_data.translational_velocity * cos(expected_state(2)) * time_interval;
     next_state(1) +=
         motion_prediction_data.translational_velocity * sin(expected_state(2)) * time_interval;
-  } else {  // Curvilinear movement
+  } else {
+    next_state(5) = motion_prediction_data.rotational_velocity;  // Curvilinear movement
     next_state(0) +=
-        -(motion_prediction_data.translational_velocity /
-          motion_prediction_data.rotational_velocity) *
-            sin(expected_state(2)) +
-        (motion_prediction_data.translational_velocity /
-         motion_prediction_data.rotational_velocity) *
-            sin(expected_state(2) + motion_prediction_data.rotational_velocity * time_interval);
+        -(motion_prediction_data.translational_velocity / next_state(5)) * sin(expected_state(2)) +
+        (motion_prediction_data.translational_velocity / next_state(5)) *
+            sin(expected_state(2) + next_state(5) * time_interval);
     next_state(1) +=
-        (motion_prediction_data.translational_velocity /
-         motion_prediction_data.rotational_velocity) *
-            cos(expected_state(2)) -
-        (motion_prediction_data.translational_velocity /
-         motion_prediction_data.rotational_velocity) *
-            cos(expected_state(2) + motion_prediction_data.rotational_velocity * time_interval);
+        (motion_prediction_data.translational_velocity / next_state(5)) * cos(expected_state(2)) -
+        (motion_prediction_data.translational_velocity / next_state(5)) *
+            cos(expected_state(2) + next_state(5) * time_interval);
   }
   next_state(3) = motion_prediction_data.translational_velocity * cos(next_state(2));
   next_state(4) = motion_prediction_data.translational_velocity * sin(next_state(2));
-  next_state(5) = motion_prediction_data.rotational_velocity;
+
   next_state(2) = common_lib::maths::normalize_angle(
       expected_state(2) + motion_prediction_data.rotational_velocity * time_interval);
   RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "Motion Model - Next State: %f %f %f %f %f",
@@ -74,25 +70,43 @@ Eigen::MatrixXf NormalVelocityModel::get_motion_to_state_matrix(
       Eigen::MatrixXf::Identity(expected_state.size(), expected_state.size());
 
   if (std::abs(motion_prediction_data.rotational_velocity) < 0.01) {  // Rectilinear movement
-    jacobian(0, 2) +=
+    jacobian(0, 2) =
         -motion_prediction_data.translational_velocity * sin(expected_state(2)) * time_interval;
-    jacobian(1, 2) +=
+    jacobian(1, 2) =
         motion_prediction_data.translational_velocity * cos(expected_state(2)) * time_interval;
   } else {  // Curvilinear movement
-    jacobian(0, 2) +=
+    jacobian(0, 2) =
         -(motion_prediction_data.translational_velocity /
           motion_prediction_data.rotational_velocity) *
             cos(expected_state(2)) +
         (motion_prediction_data.translational_velocity /
          motion_prediction_data.rotational_velocity) *
             cos(expected_state(2) + motion_prediction_data.rotational_velocity * time_interval);
-    jacobian(1, 2) +=
+    jacobian(0, 5) =
+        ((motion_prediction_data.translational_velocity *
+          motion_prediction_data.rotational_velocity *
+          cos(expected_state(2) + motion_prediction_data.rotational_velocity * time_interval)) +
+         (motion_prediction_data.translational_velocity * sin(expected_state(2))) +
+         motion_prediction_data.translational_velocity *
+             sin(expected_state(2) + motion_prediction_data.rotational_velocity * time_interval)) /
+        pow(motion_prediction_data.rotational_velocity, 2);
+    jacobian(1, 2) =
         -(motion_prediction_data.translational_velocity /
           motion_prediction_data.rotational_velocity) *
             sin(expected_state(2)) +
         (motion_prediction_data.translational_velocity /
          motion_prediction_data.rotational_velocity) *
             sin(expected_state(2) + motion_prediction_data.rotational_velocity * time_interval);
+    jacobian(1, 5) =
+        -((motion_prediction_data.translational_velocity *
+           motion_prediction_data.rotational_velocity *
+           sin(expected_state(2) + motion_prediction_data.rotational_velocity * time_interval)) -
+          (motion_prediction_data.translational_velocity * cos(expected_state(2))) +
+          motion_prediction_data.translational_velocity *
+              cos(expected_state(2) + motion_prediction_data.rotational_velocity * time_interval)) /
+        pow(motion_prediction_data.rotational_velocity, 2);
+    jacobian(3, 2) = -motion_prediction_data.translational_velocity * sin(expected_state(2));
+    jacobian(4, 2) = motion_prediction_data.translational_velocity * cos(expected_state(2));
   }
 
   return jacobian;

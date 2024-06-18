@@ -1,5 +1,7 @@
 #include "ros_node/se_node.hpp"
 
+#include <fstream>
+
 #include "adapter_ekf_state_est/eufs.hpp"
 #include "adapter_ekf_state_est/fsds.hpp"
 #include "adapter_ekf_state_est/map.hpp"
@@ -12,7 +14,6 @@
 #include "common_lib/vehicle_dynamics/car_parameters.hpp"
 #include "geometry_msgs/msg/pose_with_covariance.hpp"
 #include "visualization_msgs/msg/marker.hpp"
-
 /*---------------------- Constructor --------------------*/
 
 SENode::SENode() : Node("ekf_state_est") {
@@ -30,21 +31,26 @@ SENode::SENode() : Node("ekf_state_est") {
     SimpleMaximumLikelihood::curvature_ = sml_da_curvature;
     SimpleMaximumLikelihood::initial_limit_ = sml_initial_limit;
   }
-  float observation_noise = static_cast<float>(this->declare_parameter("observation_noise", 0.01f));
+  float observation_noise = static_cast<float>(this->declare_parameter("observation_noise", 0.05f));
   float wheel_speed_sensor_noise =
       static_cast<float>(this->declare_parameter("wheel_speed_sensor_noise", 0.2f));
   float data_association_limit_distance =
       static_cast<float>(this->declare_parameter("data_association_limit_distance", 71.0f));
-
-  std::shared_ptr<MotionModel> motion_model = motion_model_constructors.at(motion_model_name)(
+  // print msg to file
+  std::ofstream file("matrices.txt", std::ios::app);
+  file << "HEY observation_noise" << observation_noise << "\n";
+  std::shared_ptr<MotionModel> motion_model_wss = motion_model_constructors.at(motion_model_name)(
       MotionModel::create_process_noise_covariance_matrix(wheel_speed_sensor_noise));
+  std::shared_ptr<MotionModel> motion_model_imu = motion_model_constructors.at(motion_model_name)(
+      MotionModel::create_process_noise_covariance_matrix(0.08f));
   std::shared_ptr<ObservationModel> observation_model = std::make_shared<ObservationModel>(
       ObservationModel::create_observation_noise_covariance_matrix(observation_noise));
   std::shared_ptr<DataAssociationModel> data_association_model =
       data_association_model_constructors.at(data_assocation_model_name)(
           data_association_limit_distance);
-  _ekf_ = std::make_shared<ExtendedKalmanFilter>(motion_model, observation_model,
-                                                 data_association_model);
+  _ekf_ = std::make_shared<ExtendedKalmanFilter>(observation_model, data_association_model);
+  _ekf_->add_motion_model("wheel_speed_sensor", motion_model_wss);
+  _ekf_->add_motion_model("imu", motion_model_imu);
   _perception_map_ = std::make_shared<std::vector<common_lib::structures::Cone>>();
   _motion_update_ = std::make_shared<MotionUpdate>();
   _track_map_ = std::make_shared<std::vector<common_lib::structures::Cone>>();
@@ -135,13 +141,11 @@ void SENode::_imu_subscription_callback(const sensor_msgs::msg::Imu &imu_msg) {
     return;
   }
   MotionUpdate temp_update = *(this->_motion_update_);
-  this->_ekf_->prediction_step(temp_update);
+  this->_ekf_->prediction_step(temp_update, "imu");
   this->_ekf_->update(this->_vehicle_state_, this->_track_map_);
 
-  RCLCPP_DEBUG(this->get_logger(), "EKF - EFK prediction Step");
   this->_publish_vehicle_state();
   this->_publish_map();
-  RCLCPP_DEBUG(this->get_logger(), "PREDICTION STEP END\n\n");
 }
 
 void SENode::_wheel_speeds_subscription_callback(double rl_speed, double fl_speed, double rr_speed,
@@ -172,11 +176,8 @@ void SENode::_wheel_speeds_subscription_callback(double rl_speed, double fl_spee
     return;
   }
   MotionUpdate temp_update = *(this->_motion_update_);
-  if (!this->_use_odometry_) {
-    this->_ekf_->wss_correction_step(temp_update);
-    return;
-  }
-  this->_ekf_->prediction_step(temp_update);
+
+  this->_ekf_->prediction_step(temp_update, "wheel_speed_sensor");
   this->_ekf_->update(this->_vehicle_state_, this->_track_map_);
   this->_publish_vehicle_state();
   this->_publish_map();
@@ -235,7 +236,7 @@ void SENode::_ekf_step() {
     return;
   }
   MotionUpdate temp_update = *(this->_motion_update_);
-  this->_ekf_->prediction_step(temp_update);
+  this->_ekf_->prediction_step(temp_update, "wheel_speed_sensor");
   this->_ekf_->correction_step(*(this->_perception_map_));
   this->_ekf_->update(this->_vehicle_state_, this->_track_map_);
   RCLCPP_DEBUG(this->get_logger(), "EKF - EFK Step");
