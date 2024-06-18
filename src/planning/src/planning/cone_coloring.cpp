@@ -3,6 +3,7 @@
 void ConeColoring::remove_duplicates(std::vector<Cone>& cones) {
   std::unordered_set<Cone, std::hash<Cone>, ConeAproxEqual> unique_cones;
   std::vector<Cone> result;
+  result.reserve(cones.size());
   for (const auto& cone : cones) {
     if (unique_cones.insert(cone).second) {
       result.push_back(cone);
@@ -120,8 +121,10 @@ std::pair<std::vector<Cone>, std::vector<Cone>> ConeColoring::color_cones(std::v
     RCLCPP_WARN(rclcpp::get_logger("Planning : ConeColoring"), "No cones recieved to be colored");
     return {};
   }
-  std::vector<Cone> colored_blue_cones(cones.size() / 2);
-  std::vector<Cone> colored_yellow_cones(cones.size() / 2);
+  std::vector<Cone> colored_blue_cones;
+  std::vector<Cone> colored_yellow_cones;
+  colored_blue_cones.reserve(cones.size() / 2);
+  colored_yellow_cones.reserve(cones.size() / 2);
   int n_colored_cones = 0;
   const auto n_input_cones = static_cast<int>(cones.size());
   std::unordered_set<Cone, std::hash<Cone>, ConeAproxEqual> uncolored_cones(cones.begin(),

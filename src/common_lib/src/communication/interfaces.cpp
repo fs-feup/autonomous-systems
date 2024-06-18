@@ -15,6 +15,18 @@ std::vector<common_lib::structures::PathPoint> path_point_array_from_ci_vector(
   return output;
 }
 
+custom_interfaces::msg::ConeArray custom_interfaces_array_from_vector(
+    const std::vector<common_lib::structures::Cone> &input_cones) {
+  auto message = custom_interfaces::msg::ConeArray();
+  for (auto const &element : input_cones) {
+    auto cone = custom_interfaces::msg::Cone();
+    cone.position.x = element.position.x;
+    cone.position.y = element.position.y;
+    message.cone_array.push_back(cone);
+  }
+  return message;
+}
+
 custom_interfaces::msg::PathPointArray custom_interfaces_array_from_vector(
     const std::vector<common_lib::structures::PathPoint> &input_path) {
   auto message = custom_interfaces::msg::PathPointArray();

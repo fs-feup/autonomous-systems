@@ -116,10 +116,9 @@ std::vector<T> fit_spline(int precision, int order, float coeffs_ratio, std::vec
                                       // element already existed
   });
 
-  // Finally, erase the duplicates
+  // Finally, erase their allocated space
   cone_seq.erase(iterator, cone_seq.end());
 
-  // START ELIMINATING OUTLIERS BASED ON DISTANCE TO SPLINE
   const int n = cone_seq.size();
   const int ncoeffs = n / coeffs_ratio;  // n > = ncoeffs
   const int nbreak = ncoeffs - order + 2;

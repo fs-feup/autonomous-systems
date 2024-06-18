@@ -11,10 +11,12 @@
 std::vector<PathPoint> PathCalculation::process_delaunay_triangulations(std::pair<std::vector<Cone>, std::vector<Cone>> refined_cones) {
   // merge left and right cones for next step
   std::vector<Cone> cones;
+  cones.reserve(refined_cones.first.size() + refined_cones.second.size());
   cones.insert(cones.end(), refined_cones.first.begin(), refined_cones.first.end());
   cones.insert(cones.end(), refined_cones.second.begin(), refined_cones.second.end());
 
-  std::vector<PathPoint> unordered_path(refined_cones.first.size() + refined_cones.second.size());
+  std::vector<PathPoint> unordered_path;
+  unordered_path.reserve(cones.size());
 
   // Create a Delaunay triangulation
   DT dt;
@@ -53,8 +55,6 @@ std::vector<PathPoint> PathCalculation::process_delaunay_triangulations(std::pai
       }
     }
   }
-
-  std::cout << unordered_path.size();
 
   return unordered_path;
 }

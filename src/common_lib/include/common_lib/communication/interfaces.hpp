@@ -20,6 +20,9 @@ namespace common_lib::communication {
 std::vector<common_lib::structures::PathPoint> path_point_array_from_ci_vector(
     const custom_interfaces::msg::PathPointArray &path_point_array);
 
+custom_interfaces::msg::ConeArray custom_interfaces_array_from_vector(
+    const std::vector<common_lib::structures::Cone> &input_cones);
+
 custom_interfaces::msg::PathPointArray custom_interfaces_array_from_vector(
     const std::vector<common_lib::structures::PathPoint> &input_path);
 
