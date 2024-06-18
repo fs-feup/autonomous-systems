@@ -138,7 +138,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a0154541b37a8dd9e66358f527c419410"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the SLAM's execution time.  <br /></td></tr>
 <tr class="separator:a0154541b37a8dd9e66358f527c419410"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a78dcce5ec13f0912dd132143898b0bb7" id="r_a78dcce5ec13f0912dd132143898b0bb7"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a78dcce5ec13f0912dd132143898b0bb7">compute_and_publish_state_estimation</a> (self, np.ndarray pose, np.ndarray groundtruth_pose, np.ndarray velocities, np.ndarray groundtruth_velocities, np.ndarray map, np.ndarray groundtruth_map)</td></tr>
-<tr class="memdesc:a78dcce5ec13f0912dd132143898b0bb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes perception metrics and publishes them.  <br /></td></tr>
+<tr class="memdesc:a78dcce5ec13f0912dd132143898b0bb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes state estimation metrics and publishes them.  <br /></td></tr>
 <tr class="separator:a78dcce5ec13f0912dd132143898b0bb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a02589b9f82e85fbc7d571fcb5ed7e73c" id="r_a02589b9f82e85fbc7d571fcb5ed7e73c"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a02589b9f82e85fbc7d571fcb5ed7e73c">compute_and_publish_perception</a> (self, np.ndarray perception_output, np.ndarray perception_ground_truth)</td></tr>
 <tr class="memdesc:a02589b9f82e85fbc7d571fcb5ed7e73c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes perception metrics and publishes them.  <br /></td></tr>
@@ -236,12 +236,80 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:a92e670f9551e4eacc7dc47238cf20c48"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a28949bc0bbbc403411169b09ea3e5a43" id="r_a28949bc0bbbc403411169b09ea3e5a43"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a28949bc0bbbc403411169b09ea3e5a43">_control_difference_mean_</a></td></tr>
 <tr class="separator:a28949bc0bbbc403411169b09ea3e5a43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b627459fddbed7ffea17f338692b13b" id="r_a2b627459fddbed7ffea17f338692b13b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a2b627459fddbed7ffea17f338692b13b">_control_mean_squared_difference_</a></td></tr>
+<tr class="separator:a2b627459fddbed7ffea17f338692b13b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7d1c829e181ecef0c99cf152f9c8fb05" id="r_a7d1c829e181ecef0c99cf152f9c8fb05"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a7d1c829e181ecef0c99cf152f9c8fb05">_control_root_mean_squared_difference_</a></td></tr>
 <tr class="separator:a7d1c829e181ecef0c99cf152f9c8fb05"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad76c5767e0b4e9c15cbfe911c2a0fd16" id="r_ad76c5767e0b4e9c15cbfe911c2a0fd16"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#ad76c5767e0b4e9c15cbfe911c2a0fd16">_vehicle_position_</a></td></tr>
-<tr class="separator:ad76c5767e0b4e9c15cbfe911c2a0fd16"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:add045b240e3d70f76bf5486ad9aaac0b" id="r_add045b240e3d70f76bf5486ad9aaac0b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#add045b240e3d70f76bf5486ad9aaac0b">_closest_points_</a></td></tr>
-<tr class="separator:add045b240e3d70f76bf5486ad9aaac0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad86f01b7102950db53b7e14554dcda6" id="r_aad86f01b7102950db53b7e14554dcda6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#aad86f01b7102950db53b7e14554dcda6">_control_velocity_difference_</a></td></tr>
+<tr class="separator:aad86f01b7102950db53b7e14554dcda6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad48269e31ecfc25c304025b74fc8e9b" id="r_aad48269e31ecfc25c304025b74fc8e9b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#aad48269e31ecfc25c304025b74fc8e9b">_control_velocity_difference_mean_</a></td></tr>
+<tr class="separator:aad48269e31ecfc25c304025b74fc8e9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c777994159cd1d3a225fe14a77a4790" id="r_a1c777994159cd1d3a225fe14a77a4790"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a1c777994159cd1d3a225fe14a77a4790">_control_velocity_mean_squared_difference_</a></td></tr>
+<tr class="separator:a1c777994159cd1d3a225fe14a77a4790"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af54214b22d2a6a49514940836dc4422f" id="r_af54214b22d2a6a49514940836dc4422f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#af54214b22d2a6a49514940836dc4422f">_control_velocity_root_mean_squared_difference_</a></td></tr>
+<tr class="separator:af54214b22d2a6a49514940836dc4422f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa31e72d8a6f3d43df14a9ea9dd8e9f57" id="r_aa31e72d8a6f3d43df14a9ea9dd8e9f57"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#aa31e72d8a6f3d43df14a9ea9dd8e9f57">_control_sum_error</a></td></tr>
+<tr class="separator:aa31e72d8a6f3d43df14a9ea9dd8e9f57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32128f0e0c265f9b94b1dd1754fbb49f" id="r_a32128f0e0c265f9b94b1dd1754fbb49f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a32128f0e0c265f9b94b1dd1754fbb49f">_control_squared_sum_error</a></td></tr>
+<tr class="separator:a32128f0e0c265f9b94b1dd1754fbb49f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d5e7a24899c57ad74773bd9bff71c94" id="r_a1d5e7a24899c57ad74773bd9bff71c94"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a1d5e7a24899c57ad74773bd9bff71c94">_control_velocity_sum_error</a></td></tr>
+<tr class="separator:a1d5e7a24899c57ad74773bd9bff71c94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af50709a61c54f6e77b555725a055035c" id="r_af50709a61c54f6e77b555725a055035c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#af50709a61c54f6e77b555725a055035c">_control_velocity_squared_sum_error</a></td></tr>
+<tr class="separator:af50709a61c54f6e77b555725a055035c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05c3ed05c536f14b3280dc2d7fa92330" id="r_a05c3ed05c536f14b3280dc2d7fa92330"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a05c3ed05c536f14b3280dc2d7fa92330">_control_count</a></td></tr>
+<tr class="separator:a05c3ed05c536f14b3280dc2d7fa92330"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bca649103bc68d7252f0cb64b55925f" id="r_a0bca649103bc68d7252f0cb64b55925f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a0bca649103bc68d7252f0cb64b55925f">_perception_sum_error</a></td></tr>
+<tr class="separator:a0bca649103bc68d7252f0cb64b55925f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6cd92f94ca32fad79b620c5f3bffcd1e" id="r_a6cd92f94ca32fad79b620c5f3bffcd1e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a6cd92f94ca32fad79b620c5f3bffcd1e">_perception_squared_sum_error</a></td></tr>
+<tr class="separator:a6cd92f94ca32fad79b620c5f3bffcd1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a342f90f0fc3607cf762ed5ec6d228767" id="r_a342f90f0fc3607cf762ed5ec6d228767"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a342f90f0fc3607cf762ed5ec6d228767">_perception_root_squared_sum_error</a></td></tr>
+<tr class="separator:a342f90f0fc3607cf762ed5ec6d228767"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89386fe9959e5ec66fa470de69d0421e" id="r_a89386fe9959e5ec66fa470de69d0421e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a89386fe9959e5ec66fa470de69d0421e">_perception_count</a></td></tr>
+<tr class="separator:a89386fe9959e5ec66fa470de69d0421e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0d3200e24efc9a74752b74eca697e59" id="r_af0d3200e24efc9a74752b74eca697e59"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#af0d3200e24efc9a74752b74eca697e59">_perception_mean_mean_error</a></td></tr>
+<tr class="separator:af0d3200e24efc9a74752b74eca697e59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2242078a7f1f11fa44cea8ca7e07e146" id="r_a2242078a7f1f11fa44cea8ca7e07e146"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a2242078a7f1f11fa44cea8ca7e07e146">_perception_mean_mean_squared_error</a></td></tr>
+<tr class="separator:a2242078a7f1f11fa44cea8ca7e07e146"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe6f64c808fbf9c28d26bcaa18bba729" id="r_abe6f64c808fbf9c28d26bcaa18bba729"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#abe6f64c808fbf9c28d26bcaa18bba729">_perception_mean_mean_root_squared_error</a></td></tr>
+<tr class="separator:abe6f64c808fbf9c28d26bcaa18bba729"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28d9a606f291b44d832ed3ae59091149" id="r_a28d9a606f291b44d832ed3ae59091149"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a28d9a606f291b44d832ed3ae59091149">_se_map_sum_error</a></td></tr>
+<tr class="separator:a28d9a606f291b44d832ed3ae59091149"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42fba3fc8cd7475806cffe4ef1cd5ca3" id="r_a42fba3fc8cd7475806cffe4ef1cd5ca3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a42fba3fc8cd7475806cffe4ef1cd5ca3">_se_map_squared_sum_error</a></td></tr>
+<tr class="separator:a42fba3fc8cd7475806cffe4ef1cd5ca3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a308c5767ddcb22253d60d5a15501fbca" id="r_a308c5767ddcb22253d60d5a15501fbca"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a308c5767ddcb22253d60d5a15501fbca">_se_map_mean_root_squared_sum_error</a></td></tr>
+<tr class="separator:a308c5767ddcb22253d60d5a15501fbca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58dde7e98210d9494e9b06335b374093" id="r_a58dde7e98210d9494e9b06335b374093"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a58dde7e98210d9494e9b06335b374093">_se_count</a></td></tr>
+<tr class="separator:a58dde7e98210d9494e9b06335b374093"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8dbb18c955894e9d486f37924e62d2e" id="r_ad8dbb18c955894e9d486f37924e62d2e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#ad8dbb18c955894e9d486f37924e62d2e">_sum_vehicle_state_error</a></td></tr>
+<tr class="separator:ad8dbb18c955894e9d486f37924e62d2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9db066110b8ec1d9848989f9c143c178" id="r_a9db066110b8ec1d9848989f9c143c178"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a9db066110b8ec1d9848989f9c143c178">_sum_squared_vehicle_state_error</a></td></tr>
+<tr class="separator:a9db066110b8ec1d9848989f9c143c178"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9aca2eedd9bd7f432353d27eab71505" id="r_ac9aca2eedd9bd7f432353d27eab71505"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#ac9aca2eedd9bd7f432353d27eab71505">_state_estimation_mean_mean_error</a></td></tr>
+<tr class="separator:ac9aca2eedd9bd7f432353d27eab71505"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6cc0be1387769b886f0a10db1987daa0" id="r_a6cc0be1387769b886f0a10db1987daa0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a6cc0be1387769b886f0a10db1987daa0">_state_estimation_mean_mean_squared_error</a></td></tr>
+<tr class="separator:a6cc0be1387769b886f0a10db1987daa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9186896876298a29d45c5ea7a302018" id="r_ad9186896876298a29d45c5ea7a302018"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#ad9186896876298a29d45c5ea7a302018">_state_estimation_mean_mean_root_squared_error</a></td></tr>
+<tr class="separator:ad9186896876298a29d45c5ea7a302018"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64b2d59eaa2a552414ab04d145a97244" id="r_a64b2d59eaa2a552414ab04d145a97244"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a64b2d59eaa2a552414ab04d145a97244">_state_estimation_mean_mean_state_error</a></td></tr>
+<tr class="separator:a64b2d59eaa2a552414ab04d145a97244"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a703783b3c8c229245e4179807ae6f25d" id="r_a703783b3c8c229245e4179807ae6f25d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a703783b3c8c229245e4179807ae6f25d">_state_estimation_mean_mean_state_squared_error</a></td></tr>
+<tr class="separator:a703783b3c8c229245e4179807ae6f25d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3a9102d0e3e7d072f3e5662b49bef5d" id="r_ac3a9102d0e3e7d072f3e5662b49bef5d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#ac3a9102d0e3e7d072f3e5662b49bef5d">_state_estimation_mean_mean_state_root_squared_error</a></td></tr>
+<tr class="separator:ac3a9102d0e3e7d072f3e5662b49bef5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1af3ea43f95dcc01ab76214956e2b80a" id="r_a1af3ea43f95dcc01ab76214956e2b80a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a1af3ea43f95dcc01ab76214956e2b80a">_planning_sum_error</a></td></tr>
+<tr class="separator:a1af3ea43f95dcc01ab76214956e2b80a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36633cbefb2723041725fed0e63c17d2" id="r_a36633cbefb2723041725fed0e63c17d2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a36633cbefb2723041725fed0e63c17d2">_planning_squared_sum_error</a></td></tr>
+<tr class="separator:a36633cbefb2723041725fed0e63c17d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f48c4d9a562f7f94c2b76b64a4db81d" id="r_a6f48c4d9a562f7f94c2b76b64a4db81d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a6f48c4d9a562f7f94c2b76b64a4db81d">_planning_mean_root_squared_sum_error</a></td></tr>
+<tr class="separator:a6f48c4d9a562f7f94c2b76b64a4db81d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27c94b334f14b6fd2a8320bdd64f17b2" id="r_a27c94b334f14b6fd2a8320bdd64f17b2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a27c94b334f14b6fd2a8320bdd64f17b2">_planning_count</a></td></tr>
+<tr class="separator:a27c94b334f14b6fd2a8320bdd64f17b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae51dd67ac67270f3bb25473e650cf66e" id="r_ae51dd67ac67270f3bb25473e650cf66e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#ae51dd67ac67270f3bb25473e650cf66e">_planning_mean_mean_error</a></td></tr>
+<tr class="separator:ae51dd67ac67270f3bb25473e650cf66e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c28f36a69542652e6ab9965f0ebdc21" id="r_a3c28f36a69542652e6ab9965f0ebdc21"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a3c28f36a69542652e6ab9965f0ebdc21">_planning_mean_mean_squared_error</a></td></tr>
+<tr class="separator:a3c28f36a69542652e6ab9965f0ebdc21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abaa270d8be4f8a2f955fff97d5a7ff46" id="r_abaa270d8be4f8a2f955fff97d5a7ff46"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#abaa270d8be4f8a2f955fff97d5a7ff46">_planning_mean_mean_root_squared_error</a></td></tr>
+<tr class="separator:abaa270d8be4f8a2f955fff97d5a7ff46"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a14cf71ff75aa05af3a5087d9b47a913e" id="r_a14cf71ff75aa05af3a5087d9b47a913e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a14cf71ff75aa05af3a5087d9b47a913e">_point_cloud_receive_time_</a></td></tr>
 <tr class="separator:a14cf71ff75aa05af3a5087d9b47a913e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8ca0f516130bb75564819063efbe89b2" id="r_a8ca0f516130bb75564819063efbe89b2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a8ca0f516130bb75564819063efbe89b2">_planning_receive_time_</a></td></tr>
@@ -324,7 +392,7 @@ Here is the caller graph for this function:</div>
 <p>Computes control metrics and publishes them. </p>
 <p>Args: vehicle_state (VehicleState): Vehicle state message. closest_point (<a class="el" href="../../d9/d32/class_path_point.html" title="PathPoint class.">PathPoint</a>): Closest point message. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00431">431</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00631">631</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -364,7 +432,7 @@ Here is the caller graph for this function:</div>
 <p>Computes perception metrics and publishes them. </p>
 <p>Args: perception_output (np.ndarray): Perceived cones. perception_ground_truth (np.ndarray): Ground truth cones. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00316">316</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00476">476</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -397,7 +465,7 @@ Here is the caller graph for this function:</div>
 <p>Computes planning metrics and publishes them. </p>
 <p>Args: msg (PathPointArray): Path points array message. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00366">366</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00546">546</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -457,10 +525,10 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Computes perception metrics and publishes them. </p>
+<p>Computes state estimation metrics and publishes them. </p>
 <p>Args: pose (np.ndarray): Vehicle state estimation data. [x,y,theta] groundtruth_pose (np.ndarray): Ground truth vehicle state data. [x,y,theta] velocities (np.ndarray): Vehicle state estimation velocities. [v, v, w] groundtruth_velocities (np.ndarray): Ground truth vehicle state velocities. [vx, vy, w] map (np.ndarray): Map data. [[x,y,color,confidence]] groundtruth_map (np.ndarray): Ground truth map data. [[x,y,color,confidence]] </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00233">233</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00345">345</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -492,7 +560,7 @@ Here is the caller graph for this function:</div>
 
 <p>Computes the SLAM's execution time. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00219">219</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00331">331</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -524,7 +592,7 @@ Here is the caller graph for this function:</div>
 
 <p>Computes the perception's execution time. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00202">202</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00314">314</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -557,7 +625,7 @@ Here is the caller graph for this function:</div>
 <p>Stores the path planning ground truth from mocker node. </p>
 <p>Args: msg (PathPointArray): Path points array message. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00421">421</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00621">621</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -589,7 +657,7 @@ Here is the caller graph for this function:</div>
 
 <p>Point Cloud Callback to get the initial time of perception pipeline. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00196">196</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00308">308</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -614,12 +682,12 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00063">63</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00073">73</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
-<a id="add045b240e3d70f76bf5486ad9aaac0b" name="add045b240e3d70f76bf5486ad9aaac0b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#add045b240e3d70f76bf5486ad9aaac0b">&#9670;&#160;</a></span>_closest_points_</h2>
+<a id="a05c3ed05c536f14b3280dc2d7fa92330" name="a05c3ed05c536f14b3280dc2d7fa92330"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05c3ed05c536f14b3280dc2d7fa92330">&#9670;&#160;</a></span>_control_count</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -628,7 +696,7 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">evaluator.evaluator.Evaluator._closest_points_</td>
+          <td class="memname">evaluator.evaluator.Evaluator._control_count</td>
         </tr>
       </table>
   </td>
@@ -638,7 +706,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00182">182</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00221">221</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -662,7 +730,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00171">171</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00186">186</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -686,7 +754,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00174">174</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00189">189</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -710,7 +778,31 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00168">168</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00183">183</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="a2b627459fddbed7ffea17f338692b13b" name="a2b627459fddbed7ffea17f338692b13b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b627459fddbed7ffea17f338692b13b">&#9670;&#160;</a></span>_control_mean_squared_difference_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._control_mean_squared_difference_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00193">193</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -734,7 +826,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00440">440</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00640">640</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -758,7 +850,199 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00177">177</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00197">197</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="a32128f0e0c265f9b94b1dd1754fbb49f" name="a32128f0e0c265f9b94b1dd1754fbb49f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32128f0e0c265f9b94b1dd1754fbb49f">&#9670;&#160;</a></span>_control_squared_sum_error</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._control_squared_sum_error</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00218">218</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="aa31e72d8a6f3d43df14a9ea9dd8e9f57" name="aa31e72d8a6f3d43df14a9ea9dd8e9f57"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa31e72d8a6f3d43df14a9ea9dd8e9f57">&#9670;&#160;</a></span>_control_sum_error</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._control_sum_error</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00217">217</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="aad86f01b7102950db53b7e14554dcda6" name="aad86f01b7102950db53b7e14554dcda6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad86f01b7102950db53b7e14554dcda6">&#9670;&#160;</a></span>_control_velocity_difference_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._control_velocity_difference_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00201">201</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="aad48269e31ecfc25c304025b74fc8e9b" name="aad48269e31ecfc25c304025b74fc8e9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad48269e31ecfc25c304025b74fc8e9b">&#9670;&#160;</a></span>_control_velocity_difference_mean_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._control_velocity_difference_mean_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00205">205</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="a1c777994159cd1d3a225fe14a77a4790" name="a1c777994159cd1d3a225fe14a77a4790"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c777994159cd1d3a225fe14a77a4790">&#9670;&#160;</a></span>_control_velocity_mean_squared_difference_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._control_velocity_mean_squared_difference_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00209">209</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="af54214b22d2a6a49514940836dc4422f" name="af54214b22d2a6a49514940836dc4422f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af54214b22d2a6a49514940836dc4422f">&#9670;&#160;</a></span>_control_velocity_root_mean_squared_difference_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._control_velocity_root_mean_squared_difference_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00213">213</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="af50709a61c54f6e77b555725a055035c" name="af50709a61c54f6e77b555725a055035c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af50709a61c54f6e77b555725a055035c">&#9670;&#160;</a></span>_control_velocity_squared_sum_error</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._control_velocity_squared_sum_error</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00220">220</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="a1d5e7a24899c57ad74773bd9bff71c94" name="a1d5e7a24899c57ad74773bd9bff71c94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d5e7a24899c57ad74773bd9bff71c94">&#9670;&#160;</a></span>_control_velocity_sum_error</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._control_velocity_sum_error</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00219">219</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -782,7 +1066,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00138">138</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00153">153</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -806,7 +1090,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00149">149</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00164">164</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -830,7 +1114,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00146">146</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00161">161</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -854,7 +1138,31 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00152">152</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00167">167</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="a89386fe9959e5ec66fa470de69d0421e" name="a89386fe9959e5ec66fa470de69d0421e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89386fe9959e5ec66fa470de69d0421e">&#9670;&#160;</a></span>_perception_count</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._perception_count</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00226">226</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -878,7 +1186,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00133">133</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00148">148</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -902,7 +1210,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00130">130</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00145">145</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -926,7 +1234,79 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00121">121</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00136">136</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="af0d3200e24efc9a74752b74eca697e59" name="af0d3200e24efc9a74752b74eca697e59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0d3200e24efc9a74752b74eca697e59">&#9670;&#160;</a></span>_perception_mean_mean_error</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._perception_mean_mean_error</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00228">228</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="abe6f64c808fbf9c28d26bcaa18bba729" name="abe6f64c808fbf9c28d26bcaa18bba729"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe6f64c808fbf9c28d26bcaa18bba729">&#9670;&#160;</a></span>_perception_mean_mean_root_squared_error</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._perception_mean_mean_root_squared_error</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00236">236</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="a2242078a7f1f11fa44cea8ca7e07e146" name="a2242078a7f1f11fa44cea8ca7e07e146"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2242078a7f1f11fa44cea8ca7e07e146">&#9670;&#160;</a></span>_perception_mean_mean_squared_error</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._perception_mean_mean_squared_error</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00232">232</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -950,7 +1330,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00124">124</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00139">139</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -974,7 +1354,103 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00127">127</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00142">142</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="a342f90f0fc3607cf762ed5ec6d228767" name="a342f90f0fc3607cf762ed5ec6d228767"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a342f90f0fc3607cf762ed5ec6d228767">&#9670;&#160;</a></span>_perception_root_squared_sum_error</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._perception_root_squared_sum_error</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00225">225</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="a6cd92f94ca32fad79b620c5f3bffcd1e" name="a6cd92f94ca32fad79b620c5f3bffcd1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6cd92f94ca32fad79b620c5f3bffcd1e">&#9670;&#160;</a></span>_perception_squared_sum_error</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._perception_squared_sum_error</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00224">224</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="a0bca649103bc68d7252f0cb64b55925f" name="a0bca649103bc68d7252f0cb64b55925f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bca649103bc68d7252f0cb64b55925f">&#9670;&#160;</a></span>_perception_sum_error</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._perception_sum_error</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00223">223</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="a27c94b334f14b6fd2a8320bdd64f17b2" name="a27c94b334f14b6fd2a8320bdd64f17b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27c94b334f14b6fd2a8320bdd64f17b2">&#9670;&#160;</a></span>_planning_count</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._planning_count</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00281">281</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -998,7 +1474,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00164">164</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00179">179</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -1022,7 +1498,103 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00155">155</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00170">170</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="ae51dd67ac67270f3bb25473e650cf66e" name="ae51dd67ac67270f3bb25473e650cf66e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae51dd67ac67270f3bb25473e650cf66e">&#9670;&#160;</a></span>_planning_mean_mean_error</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._planning_mean_mean_error</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00283">283</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="abaa270d8be4f8a2f955fff97d5a7ff46" name="abaa270d8be4f8a2f955fff97d5a7ff46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abaa270d8be4f8a2f955fff97d5a7ff46">&#9670;&#160;</a></span>_planning_mean_mean_root_squared_error</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._planning_mean_mean_root_squared_error</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00291">291</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="a3c28f36a69542652e6ab9965f0ebdc21" name="a3c28f36a69542652e6ab9965f0ebdc21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c28f36a69542652e6ab9965f0ebdc21">&#9670;&#160;</a></span>_planning_mean_mean_squared_error</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._planning_mean_mean_squared_error</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00287">287</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="a6f48c4d9a562f7f94c2b76b64a4db81d" name="a6f48c4d9a562f7f94c2b76b64a4db81d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f48c4d9a562f7f94c2b76b64a4db81d">&#9670;&#160;</a></span>_planning_mean_root_squared_sum_error</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._planning_mean_root_squared_sum_error</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00280">280</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -1046,7 +1618,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00158">158</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00173">173</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -1070,7 +1642,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00378">378</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00558">558</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -1094,7 +1666,55 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00161">161</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00176">176</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="a36633cbefb2723041725fed0e63c17d2" name="a36633cbefb2723041725fed0e63c17d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36633cbefb2723041725fed0e63c17d2">&#9670;&#160;</a></span>_planning_squared_sum_error</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._planning_squared_sum_error</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00279">279</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="a1af3ea43f95dcc01ab76214956e2b80a" name="a1af3ea43f95dcc01ab76214956e2b80a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1af3ea43f95dcc01ab76214956e2b80a">&#9670;&#160;</a></span>_planning_sum_error</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._planning_sum_error</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00278">278</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -1118,7 +1738,295 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00200">200</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00312">312</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="a58dde7e98210d9494e9b06335b374093" name="a58dde7e98210d9494e9b06335b374093"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58dde7e98210d9494e9b06335b374093">&#9670;&#160;</a></span>_se_count</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._se_count</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00243">243</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="a308c5767ddcb22253d60d5a15501fbca" name="a308c5767ddcb22253d60d5a15501fbca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a308c5767ddcb22253d60d5a15501fbca">&#9670;&#160;</a></span>_se_map_mean_root_squared_sum_error</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._se_map_mean_root_squared_sum_error</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00242">242</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="a42fba3fc8cd7475806cffe4ef1cd5ca3" name="a42fba3fc8cd7475806cffe4ef1cd5ca3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42fba3fc8cd7475806cffe4ef1cd5ca3">&#9670;&#160;</a></span>_se_map_squared_sum_error</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._se_map_squared_sum_error</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00241">241</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="a28d9a606f291b44d832ed3ae59091149" name="a28d9a606f291b44d832ed3ae59091149"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28d9a606f291b44d832ed3ae59091149">&#9670;&#160;</a></span>_se_map_sum_error</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._se_map_sum_error</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00240">240</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="ac9aca2eedd9bd7f432353d27eab71505" name="ac9aca2eedd9bd7f432353d27eab71505"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9aca2eedd9bd7f432353d27eab71505">&#9670;&#160;</a></span>_state_estimation_mean_mean_error</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._state_estimation_mean_mean_error</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00254">254</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="ad9186896876298a29d45c5ea7a302018" name="ad9186896876298a29d45c5ea7a302018"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9186896876298a29d45c5ea7a302018">&#9670;&#160;</a></span>_state_estimation_mean_mean_root_squared_error</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._state_estimation_mean_mean_root_squared_error</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00262">262</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="a6cc0be1387769b886f0a10db1987daa0" name="a6cc0be1387769b886f0a10db1987daa0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6cc0be1387769b886f0a10db1987daa0">&#9670;&#160;</a></span>_state_estimation_mean_mean_squared_error</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._state_estimation_mean_mean_squared_error</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00258">258</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="a64b2d59eaa2a552414ab04d145a97244" name="a64b2d59eaa2a552414ab04d145a97244"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64b2d59eaa2a552414ab04d145a97244">&#9670;&#160;</a></span>_state_estimation_mean_mean_state_error</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._state_estimation_mean_mean_state_error</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00266">266</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="ac3a9102d0e3e7d072f3e5662b49bef5d" name="ac3a9102d0e3e7d072f3e5662b49bef5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3a9102d0e3e7d072f3e5662b49bef5d">&#9670;&#160;</a></span>_state_estimation_mean_mean_state_root_squared_error</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._state_estimation_mean_mean_state_root_squared_error</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00274">274</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="a703783b3c8c229245e4179807ae6f25d" name="a703783b3c8c229245e4179807ae6f25d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a703783b3c8c229245e4179807ae6f25d">&#9670;&#160;</a></span>_state_estimation_mean_mean_state_squared_error</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._state_estimation_mean_mean_state_squared_error</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00270">270</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="a9db066110b8ec1d9848989f9c143c178" name="a9db066110b8ec1d9848989f9c143c178"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9db066110b8ec1d9848989f9c143c178">&#9670;&#160;</a></span>_sum_squared_vehicle_state_error</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._sum_squared_vehicle_state_error</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00246">246</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+
+</div>
+</div>
+<a id="ad8dbb18c955894e9d486f37924e62d2e" name="ad8dbb18c955894e9d486f37924e62d2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8dbb18c955894e9d486f37924e62d2e">&#9670;&#160;</a></span>_sum_vehicle_state_error</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.evaluator.Evaluator._sum_vehicle_state_error</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00245">245</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -1142,31 +2050,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00095">95</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
-
-</div>
-</div>
-<a id="ad76c5767e0b4e9c15cbfe911c2a0fd16" name="ad76c5767e0b4e9c15cbfe911c2a0fd16"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad76c5767e0b4e9c15cbfe911c2a0fd16">&#9670;&#160;</a></span>_vehicle_position_</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">evaluator.evaluator.Evaluator._vehicle_position_</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00181">181</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00110">110</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -1190,7 +2074,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00141">141</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00156">156</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -1206,7 +2090,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00116">116</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00131">131</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -1222,7 +2106,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00108">108</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00123">123</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -1238,7 +2122,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00113">113</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00128">128</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -1254,7 +2138,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00086">86</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00101">101</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -1270,7 +2154,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00225">225</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00337">337</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -1286,7 +2170,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00088">88</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00103">103</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -1302,7 +2186,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00085">85</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00100">100</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -1318,7 +2202,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00079">79</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00094">94</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -1334,7 +2218,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00208">208</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00320">320</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -1350,7 +2234,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00082">82</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00097">97</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -1366,7 +2250,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00076">76</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00091">91</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -1382,7 +2266,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00111">111</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00126">126</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -1398,7 +2282,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00110">110</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00125">125</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -1414,7 +2298,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00184">184</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00296">296</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -1430,7 +2314,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00107">107</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00122">122</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -1446,7 +2330,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00099">99</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00114">114</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -1462,7 +2346,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00102">102</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00117">117</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -1478,7 +2362,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00096">96</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00111">111</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -1494,7 +2378,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00094">94</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00109">109</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>
@@ -1510,7 +2394,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00091">91</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00106">106</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
 </div>
 </div>

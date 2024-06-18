@@ -107,7 +107,7 @@ Inheritance diagram for evaluator.eufs_adapter.EufsAdapter:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../dd/dc4/classevaluator_1_1eufs__adapter_1_1_eufs_adapter__inherit__graph.png" border="0" usemap="#aevaluator_8eufs__adapter_8_eufs_adapter_inherit__map" alt="Inheritance graph"/></div>
 <map name="aevaluator_8eufs__adapter_8_eufs_adapter_inherit__map" id="aevaluator_8eufs__adapter_8_eufs_adapter_inherit__map">
-<area shape="rect" title="Adapter class for subscribing to PacSim topics." alt="" coords="5,119,192,428"/>
+<area shape="rect" title="Adapter class for subscribing to PacSim topics." alt="" coords="5,119,192,468"/>
 <area shape="rect" href="../../d7/dff/classevaluator_1_1adapter_1_1_adapter.html" title="Class for subscribing to a point cloud topic and synchronizing messages with a ROS2 node." alt="" coords="19,5,179,71"/>
 <area shape="poly" title=" " alt="" coords="101,85,101,119,96,119,96,85"/>
 </map>
@@ -117,7 +117,7 @@ Collaboration diagram for evaluator.eufs_adapter.EufsAdapter:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d2/d81/classevaluator_1_1eufs__adapter_1_1_eufs_adapter__coll__graph.png" border="0" usemap="#aevaluator_8eufs__adapter_8_eufs_adapter_coll__map" alt="Collaboration graph"/></div>
 <map name="aevaluator_8eufs__adapter_8_eufs_adapter_coll__map" id="aevaluator_8eufs__adapter_8_eufs_adapter_coll__map">
-<area shape="rect" title="Adapter class for subscribing to PacSim topics." alt="" coords="5,119,192,428"/>
+<area shape="rect" title="Adapter class for subscribing to PacSim topics." alt="" coords="5,119,192,468"/>
 <area shape="rect" href="../../d7/dff/classevaluator_1_1adapter_1_1_adapter.html" title="Class for subscribing to a point cloud topic and synchronizing messages with a ROS2 node." alt="" coords="19,5,179,71"/>
 <area shape="poly" title=" " alt="" coords="101,85,101,119,96,119,96,85"/>
 </map>
@@ -128,6 +128,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:abcd746b915a84e68e99aa094cd505e96" id="r_abcd746b915a84e68e99aa094cd505e96"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dab/classevaluator_1_1eufs__adapter_1_1_eufs_adapter.html#abcd746b915a84e68e99aa094cd505e96">__init__</a> (self, rclpy.node.Node node)</td></tr>
 <tr class="memdesc:abcd746b915a84e68e99aa094cd505e96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the PacSim Adapter.  <br /></td></tr>
 <tr class="separator:abcd746b915a84e68e99aa094cd505e96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3d923ccea1453fc8613fe935129ed79" id="r_ac3d923ccea1453fc8613fe935129ed79"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dab/classevaluator_1_1eufs__adapter_1_1_eufs_adapter.html#ac3d923ccea1453fc8613fe935129ed79">set_control_init</a> (self, CarState msg)</td></tr>
+<tr class="memdesc:ac3d923ccea1453fc8613fe935129ed79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function to mark the initial timestamp of the control execution.  <br /></td></tr>
+<tr class="separator:ac3d923ccea1453fc8613fe935129ed79"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3eb208c9ad6586b1fc9290f9c9a9138c" id="r_a3eb208c9ad6586b1fc9290f9c9a9138c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dab/classevaluator_1_1eufs__adapter_1_1_eufs_adapter.html#a3eb208c9ad6586b1fc9290f9c9a9138c">state_estimation_callback</a> (self, VehicleState vehicle_state, ConeArray map)</td></tr>
 <tr class="memdesc:a3eb208c9ad6586b1fc9290f9c9a9138c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function to process synchronized messages and compute perception metrics.  <br /></td></tr>
 <tr class="separator:a3eb208c9ad6586b1fc9290f9c9a9138c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -153,6 +156,8 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a1180a5593b31483075984b9b6b7c933e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab64d0f2fa210a8a2cb9bdfb6f3835e8f" id="r_ab64d0f2fa210a8a2cb9bdfb6f3835e8f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dab/classevaluator_1_1eufs__adapter_1_1_eufs_adapter.html#ab64d0f2fa210a8a2cb9bdfb6f3835e8f">simulated_perception_callback</a></td></tr>
 <tr class="separator:ab64d0f2fa210a8a2cb9bdfb6f3835e8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0fac6d3cec017f233239234319353464" id="r_a0fac6d3cec017f233239234319353464"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dab/classevaluator_1_1eufs__adapter_1_1_eufs_adapter.html#a0fac6d3cec017f233239234319353464">set_control_init</a></td></tr>
+<tr class="separator:a0fac6d3cec017f233239234319353464"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae7b126f3256df4edf3a20ab75469b980" id="r_ae7b126f3256df4edf3a20ab75469b980"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dab/classevaluator_1_1eufs__adapter_1_1_eufs_adapter.html#ae7b126f3256df4edf3a20ab75469b980">state_estimation_callback</a></td></tr>
 <tr class="separator:ae7b126f3256df4edf3a20ab75469b980"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -249,7 +254,7 @@ Here is the caller graph for this function:</div>
 <p>Callback function to process groundtruth map messages. </p>
 <p>Args: track (ConeArrayWithCovariance): Groundtruth track data. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/dd9/eufs__adapter_8py_source.html#l00095">95</a> of file <a class="el" href="../../d4/dd9/eufs__adapter_8py_source.html">eufs_adapter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/dd9/eufs__adapter_8py_source.html#l00116">116</a> of file <a class="el" href="../../d4/dd9/eufs__adapter_8py_source.html">eufs_adapter.py</a>.</p>
 
 </div>
 </div>
@@ -282,7 +287,41 @@ Here is the caller graph for this function:</div>
 <p>Callback function to process groundtruth pose messages. </p>
 <p>Args: pose (Odometry): Groundtruth pose data. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/dd9/eufs__adapter_8py_source.html#l00105">105</a> of file <a class="el" href="../../d4/dd9/eufs__adapter_8py_source.html">eufs_adapter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/dd9/eufs__adapter_8py_source.html#l00126">126</a> of file <a class="el" href="../../d4/dd9/eufs__adapter_8py_source.html">eufs_adapter.py</a>.</p>
+
+</div>
+</div>
+<a id="ac3d923ccea1453fc8613fe935129ed79" name="ac3d923ccea1453fc8613fe935129ed79"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3d923ccea1453fc8613fe935129ed79">&#9670;&#160;</a></span>set_control_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.eufs_adapter.EufsAdapter.set_control_init </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CarState
+    &#160;</td>
+          <td class="paramname"><em>msg</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Callback function to mark the initial timestamp of the control execution. </p>
+<p>Args: msg (CarState): Car state coming from EUFS simulator </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d4/dd9/eufs__adapter_8py_source.html#l00070">70</a> of file <a class="el" href="../../d4/dd9/eufs__adapter_8py_source.html">eufs_adapter.py</a>.</p>
 
 </div>
 </div>
@@ -315,7 +354,7 @@ Here is the caller graph for this function:</div>
 <p>Callback function to process simulated perception messages. </p>
 <p>Args: perception (PerceptionDetections): Simulated perception data. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/dd9/eufs__adapter_8py_source.html#l00115">115</a> of file <a class="el" href="../../d4/dd9/eufs__adapter_8py_source.html">eufs_adapter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/dd9/eufs__adapter_8py_source.html#l00138">138</a> of file <a class="el" href="../../d4/dd9/eufs__adapter_8py_source.html">eufs_adapter.py</a>.</p>
 
 </div>
 </div>
@@ -354,7 +393,7 @@ Here is the caller graph for this function:</div>
 <p>Callback function to process synchronized messages and compute perception metrics. </p>
 <p>Args: vehicle_state (VehicleState): Vehicle state estimation message. map (ConeArray): <a class="el" href="../../d8/da1/class_cone.html" title="Cone class.">Cone</a> array message. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/dd9/eufs__adapter_8py_source.html#l00063">63</a> of file <a class="el" href="../../d4/dd9/eufs__adapter_8py_source.html">eufs_adapter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/dd9/eufs__adapter_8py_source.html#l00084">84</a> of file <a class="el" href="../../d4/dd9/eufs__adapter_8py_source.html">eufs_adapter.py</a>.</p>
 
 </div>
 </div>
@@ -379,7 +418,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/dd9/eufs__adapter_8py_source.html#l00052">52</a> of file <a class="el" href="../../d4/dd9/eufs__adapter_8py_source.html">eufs_adapter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/dd9/eufs__adapter_8py_source.html#l00059">59</a> of file <a class="el" href="../../d4/dd9/eufs__adapter_8py_source.html">eufs_adapter.py</a>.</p>
 
 </div>
 </div>
@@ -447,6 +486,22 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a id="a0fac6d3cec017f233239234319353464" name="a0fac6d3cec017f233239234319353464"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0fac6d3cec017f233239234319353464">&#9670;&#160;</a></span>set_control_init</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.eufs_adapter.EufsAdapter.set_control_init</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d4/dd9/eufs__adapter_8py_source.html#l00055">55</a> of file <a class="el" href="../../d4/dd9/eufs__adapter_8py_source.html">eufs_adapter.py</a>.</p>
+
+</div>
+</div>
 <a id="ab64d0f2fa210a8a2cb9bdfb6f3835e8f" name="ab64d0f2fa210a8a2cb9bdfb6f3835e8f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab64d0f2fa210a8a2cb9bdfb6f3835e8f">&#9670;&#160;</a></span>simulated_perception_callback</h2>
 
@@ -475,7 +530,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d4/dd9/eufs__adapter_8py_source.html#l00061">61</a> of file <a class="el" href="../../d4/dd9/eufs__adapter_8py_source.html">eufs_adapter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/dd9/eufs__adapter_8py_source.html#l00068">68</a> of file <a class="el" href="../../d4/dd9/eufs__adapter_8py_source.html">eufs_adapter.py</a>.</p>
 
 </div>
 </div>

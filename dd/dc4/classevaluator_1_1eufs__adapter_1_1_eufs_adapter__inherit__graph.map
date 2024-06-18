@@ -1,5 +1,5 @@
 <map id="evaluator.eufs_adapter.EufsAdapter" name="evaluator.eufs_adapter.EufsAdapter">
-<area shape="rect" id="Node000001" title="Adapter class for subscribing to PacSim topics." alt="" coords="5,119,192,428"/>
+<area shape="rect" id="Node000001" title="Adapter class for subscribing to PacSim topics." alt="" coords="5,119,192,468"/>
 <area shape="rect" id="Node000002" href="$d7/dff/classevaluator_1_1adapter_1_1_adapter.html" title="Class for subscribing to a point cloud topic and synchronizing messages with a ROS2 node." alt="" coords="19,5,179,71"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,85,101,119,96,119,96,85"/>
 </map>

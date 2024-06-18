@@ -108,7 +108,7 @@ Inheritance diagram for evaluator.fsds_adapter.FSDSAdapter:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../dc/d6c/classevaluator_1_1fsds__adapter_1_1_f_s_d_s_adapter__inherit__graph.png" border="0" usemap="#aevaluator_8fsds__adapter_8_f_s_d_s_adapter_inherit__map" alt="Inheritance graph"/></div>
 <map name="aevaluator_8fsds__adapter_8_f_s_d_s_adapter_inherit__map" id="aevaluator_8fsds__adapter_8_f_s_d_s_adapter_inherit__map">
-<area shape="rect" title="Adapter class for adapting/synchronizing computations&#39; data with ground truth." alt="" coords="5,119,232,433"/>
+<area shape="rect" title="Adapter class for adapting/synchronizing computations&#39; data with ground truth." alt="" coords="5,119,232,473"/>
 <area shape="rect" href="../../d7/dff/classevaluator_1_1adapter_1_1_adapter.html" title="Class for subscribing to a point cloud topic and synchronizing messages with a ROS2 node." alt="" coords="39,5,199,71"/>
 <area shape="poly" title=" " alt="" coords="121,86,121,119,116,119,116,86"/>
 </map>
@@ -118,7 +118,7 @@ Collaboration diagram for evaluator.fsds_adapter.FSDSAdapter:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d6/d89/classevaluator_1_1fsds__adapter_1_1_f_s_d_s_adapter__coll__graph.png" border="0" usemap="#aevaluator_8fsds__adapter_8_f_s_d_s_adapter_coll__map" alt="Collaboration graph"/></div>
 <map name="aevaluator_8fsds__adapter_8_f_s_d_s_adapter_coll__map" id="aevaluator_8fsds__adapter_8_f_s_d_s_adapter_coll__map">
-<area shape="rect" title="Adapter class for adapting/synchronizing computations&#39; data with ground truth." alt="" coords="5,119,232,433"/>
+<area shape="rect" title="Adapter class for adapting/synchronizing computations&#39; data with ground truth." alt="" coords="5,119,232,473"/>
 <area shape="rect" href="../../d7/dff/classevaluator_1_1adapter_1_1_adapter.html" title="Class for subscribing to a point cloud topic and synchronizing messages with a ROS2 node." alt="" coords="39,5,199,71"/>
 <area shape="poly" title=" " alt="" coords="121,86,121,119,116,119,116,86"/>
 </map>
@@ -132,6 +132,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4b9d670f953e57ce17c1fd02512155d4" id="r_a4b9d670f953e57ce17c1fd02512155d4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/de8/classevaluator_1_1fsds__adapter_1_1_f_s_d_s_adapter.html#a4b9d670f953e57ce17c1fd02512155d4">perception_callback</a> (self, ConeArray perception, PointCloud2 point_cloud, Odometry odometry)</td></tr>
 <tr class="memdesc:a4b9d670f953e57ce17c1fd02512155d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function to process synchronized messages and compute perception metrics.  <br /></td></tr>
 <tr class="separator:a4b9d670f953e57ce17c1fd02512155d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af68c9159c37922fc97c2cea029c68881" id="r_af68c9159c37922fc97c2cea029c68881"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/de8/classevaluator_1_1fsds__adapter_1_1_f_s_d_s_adapter.html#af68c9159c37922fc97c2cea029c68881">odometry_callback</a> (self, Odometry odometry)</td></tr>
+<tr class="memdesc:af68c9159c37922fc97c2cea029c68881"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function to mark the planning's initial timestamp.  <br /></td></tr>
+<tr class="separator:af68c9159c37922fc97c2cea029c68881"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d43409f6b0d6f4176634483dc4ba1d7" id="r_a4d43409f6b0d6f4176634483dc4ba1d7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/de8/classevaluator_1_1fsds__adapter_1_1_f_s_d_s_adapter.html#a4d43409f6b0d6f4176634483dc4ba1d7">state_estimation_callback</a> (self, VehicleState vehicle_state, ConeArray map, Odometry odometry)</td></tr>
 <tr class="memdesc:a4d43409f6b0d6f4176634483dc4ba1d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function to process synchronized messages and compute perception metrics.  <br /></td></tr>
 <tr class="separator:a4d43409f6b0d6f4176634483dc4ba1d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -155,6 +158,8 @@ Static Public Member Functions</h2></td></tr>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a9d1b19712f88e00ff5c95a4b007b34e4" id="r_a9d1b19712f88e00ff5c95a4b007b34e4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/de8/classevaluator_1_1fsds__adapter_1_1_f_s_d_s_adapter.html#a9d1b19712f88e00ff5c95a4b007b34e4">node</a></td></tr>
 <tr class="separator:a9d1b19712f88e00ff5c95a4b007b34e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e9caef075838430f062b33c1b409573" id="r_a4e9caef075838430f062b33c1b409573"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/de8/classevaluator_1_1fsds__adapter_1_1_f_s_d_s_adapter.html#a4e9caef075838430f062b33c1b409573">odometry_callback</a></td></tr>
+<tr class="separator:a4e9caef075838430f062b33c1b409573"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3466a3760147f6ca149538303f5262e0" id="r_a3466a3760147f6ca149538303f5262e0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/de8/classevaluator_1_1fsds__adapter_1_1_f_s_d_s_adapter.html#a3466a3760147f6ca149538303f5262e0">perception_callback</a></td></tr>
 <tr class="separator:a3466a3760147f6ca149538303f5262e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6025fece283aba4f271afae14b9693f0" id="r_a6025fece283aba4f271afae14b9693f0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/de8/classevaluator_1_1fsds__adapter_1_1_f_s_d_s_adapter.html#a6025fece283aba4f271afae14b9693f0">state_estimation_callback</a></td></tr>
@@ -172,7 +177,7 @@ Protected Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Adapter class for adapting/synchronizing computations' data with ground truth. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00017">17</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00018">18</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a1920c0d177a2ff7117546c9fe02e309b" name="a1920c0d177a2ff7117546c9fe02e309b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1920c0d177a2ff7117546c9fe02e309b">&#9670;&#160;</a></span>__init__()</h2>
@@ -205,7 +210,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="../../d7/dff/classevaluator_1_1adapter_1_1_adapter.html#aac75a6f48e287ce1562d7ea624b89244">evaluator.adapter.Adapter</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00022">22</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00023">23</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -258,7 +263,7 @@ Here is the caller graph for this function:</div>
 <p>Args: odometry (Odometry): Odometry data.</p>
 <p>Returns: list: List of ground truth cone positions (relative positions to the car). </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00113">113</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00134">134</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -269,6 +274,40 @@ Here is the caller graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="336,28,304,28,304,23,336,23"/>
 </map>
 </div>
+
+</div>
+</div>
+<a id="af68c9159c37922fc97c2cea029c68881" name="af68c9159c37922fc97c2cea029c68881"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af68c9159c37922fc97c2cea029c68881">&#9670;&#160;</a></span>odometry_callback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.fsds_adapter.FSDSAdapter.odometry_callback </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Odometry
+    &#160;</td>
+          <td class="paramname"><em>odometry</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Callback function to mark the planning's initial timestamp. </p>
+<p>Args: odometry (Odometry): Behicle's odometry information. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00096">96</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
 
 </div>
 </div>
@@ -300,7 +339,7 @@ Here is the caller graph for this function:</div>
 <p>Args: line (str): A line from the track CSV file.</p>
 <p>Returns: numpy.ndarray: Array containing cone position data. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00150">150</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00171">171</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -356,7 +395,7 @@ Here is the caller graph for this function:</div>
 <p>Callback function to process synchronized messages and compute perception metrics. </p>
 <p>Args: perception (ConeArray): <a class="el" href="../../d8/da1/class_cone.html" title="Cone class.">Cone</a> array perception data. point_cloud (PointCloud2): Point cloud data. odometry (Odometry): Odometry data. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00068">68</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00076">76</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -398,7 +437,7 @@ Here is the call graph for this function:</div>
 <p>Args: quaternion (Quaternion): Quaternion representing rotation.</p>
 <p>Returns: numpy.ndarray: Rotation matrix. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00174">174</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00195">195</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
 
 </div>
 </div>
@@ -431,7 +470,7 @@ Here is the call graph for this function:</div>
 <p>Reads track data from a CSV file. </p>
 <p>Args: filename (str): Path to the CSV file containing track data. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00138">138</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00159">159</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -487,7 +526,7 @@ Here is the call graph for this function:</div>
 <p>Callback function to process synchronized messages and compute perception metrics. </p>
 <p>Args: vehicle_state (VehicleState): Vehicle state estimation message. map (ConeArray): <a class="el" href="../../d8/da1/class_cone.html" title="Cone class.">Cone</a> array message. odometry (Odometry): Odometry message. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00088">88</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00109">109</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
 
 </div>
 </div>
@@ -512,7 +551,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00040">40</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00048">48</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
 
 </div>
 </div>
@@ -536,7 +575,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00049">49</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00057">57</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
 
 </div>
 </div>
@@ -552,7 +591,23 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00034">34</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00035">35</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
+
+</div>
+</div>
+<a id="a4e9caef075838430f062b33c1b409573" name="a4e9caef075838430f062b33c1b409573"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e9caef075838430f062b33c1b409573">&#9670;&#160;</a></span>odometry_callback</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.fsds_adapter.FSDSAdapter.odometry_callback</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00043">43</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
 
 </div>
 </div>
@@ -568,7 +623,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00059">59</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00067">67</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
 
 </div>
 </div>
@@ -584,7 +639,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00060">60</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00068">68</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
 
 </div>
 </div>
@@ -600,7 +655,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00063">63</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html#l00071">71</a> of file <a class="el" href="../../d9/d65/fsds__adapter_8py_source.html">fsds_adapter.py</a>.</p>
 
 </div>
 </div>
