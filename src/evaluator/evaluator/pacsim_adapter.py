@@ -28,7 +28,6 @@ class PacsimAdapter(Adapter):
         Args:
             node (Node): ROS2 node instance.
         """
-
         super().__init__(node)
         self._groundtruth_velocity_ = None
         self._groundtruth_map_ = None
@@ -116,11 +115,14 @@ class PacsimAdapter(Adapter):
     def groundtruth_map_callback(self, groundtruth_map: MarkerArray):
         """!
         Callback function to process ground truth map messages.
+        It also marks the planning's initial timestamp
 
         Args:
             groundtruth_map (MarkerArray): Ground truth map data.
         """
         self._groundtruth_map_: MarkerArray = groundtruth_map
+        if self.node.use_simulated_se_:
+            self.node.map_receive_time_ = datetime.datetime.now()
 
     def simulated_perception_callback(self, perception: PerceptionDetections):
         """!
