@@ -66,7 +66,7 @@ std::tuple<Position, double, bool> PointSolver::update_lookahead_point(
     const std::vector<custom_interfaces::msg::PathPoint> &pathpoint_array,
     int closest_point_id) const {
   Position rear_axis_point = this->vehicle_pose_.rear_axis_;
-  double ld = std::max(this->k_ * this->vehicle_pose_.velocity_, 2.5);
+  double ld = this->k_ * std::max(this->vehicle_pose_.velocity_, 2.0);
   RCLCPP_DEBUG(rclcpp::get_logger("control"), "Current ld: %f", ld);
 
   for (size_t i = 0; i < pathpoint_array.size(); i++) {
@@ -81,6 +81,8 @@ std::tuple<Position, double, bool> PointSolver::update_lookahead_point(
     }
 
     if (point_a.x == point_b.x) {
+      RCLCPP_WARN(rclcpp::get_logger("control"),
+                  "Vertical slope x of point a is equal to x of b: %f", point_a.x);
       continue;
     }
 
