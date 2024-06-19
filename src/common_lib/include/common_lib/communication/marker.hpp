@@ -181,9 +181,5 @@ visualization_msgs::msg::Marker line_marker_from_structure_array(
   return marker;
 }
 
-visualization_msgs::msg::Marker arrow_marker_from_two_markers(
-    const visualization_msgs::msg::Marker& m1, const visualization_msgs::msg::Marker& m2,
-    std::string name_space, std::string frame_id, int id, std::string color = "red",
-    float scale = 0.5, int action = visualization_msgs::msg::Marker::MODIFY);
 
 }  // namespace common_lib::communication

@@ -60,15 +60,30 @@ class Evaluator(Node):
             .get_parameter_value()
             .bool_value
         )
+        self.use_simulated_se_: bool = (
+            self.declare_parameter("use_simulated_se", False)
+            .get_parameter_value()
+            .bool_value
+        )
+        self.use_simulated_planning_: bool = (
+            self.declare_parameter("use_simulated_planning", False)
+            .get_parameter_value()
+            .bool_value
+        )
         if (self._adapter_name_ == "fsds") and (self.use_simulated_perception_):
             rclpy.get_logger().error(
                 "Simulated perception is not supported for FSDS adapter"
             )
             sys.exit(1)
+        if (self.use_simulated_planning_ and (self._adapter_name_ == "fsds" or self._adapter_name_ == "pacsim")):
+            rclpy.get_logger().error(
+                "Simulated planning is not supported for FSDS and PacSIM adapter"
+            )
+            sys.exit(1)
 
+        self._point_cloud_receive_time_: datetime.datetime = datetime.datetime.now()
         self.perception_receive_time_: datetime.datetime = datetime.datetime.now()
         self.map_receive_time_: datetime.datetime = datetime.datetime.now()
-        self._point_cloud_receive_time_: datetime.datetime = datetime.datetime.now()
         self._planning_receive_time_: datetime.datetime = datetime.datetime.now()
         self._control_receive_time_: datetime.datetime = datetime.datetime.now()
 
@@ -169,17 +184,114 @@ class Evaluator(Node):
             Float32, "/evaluator/control/execution_time", 10
         )
         self._control_difference_ = self.create_publisher(
-            Float32, "/evaluator/control/difference", 10
+            Float32, "/evaluator/control/pose/difference", 10
         )
         self._control_difference_mean_ = self.create_publisher(
-            Float32, "/evaluator/control/difference_mean_", 10
-        )
-        self._control_root_mean_squared_difference_ = self.create_publisher(
-            Float32, "/evaluator/control/root_mean_squared_difference_", 10
+            Float32, "/evaluator/control/pose/difference_mean", 10
         )
 
-        self._vehicle_position_ = []  # will store a vehicle position
-        self._closest_points_ = []  # will store a closest point
+        self._control_mean_squared_difference_ = self.create_publisher(
+            Float32, "/evaluator/control/pose/mean_squared_difference", 10
+        )
+
+        self._control_root_mean_squared_difference_ = self.create_publisher(
+            Float32, "/evaluator/control/pose/root_mean_squared_difference", 10
+        )
+
+        self._control_velocity_difference_ = self.create_publisher(
+            Float32, "/evaluator/control/velocity/difference", 10
+        )
+
+        self._control_velocity_difference_mean_ = self.create_publisher(
+            Float32, "/evaluator/control/velocity/difference_mean", 10
+        )
+
+        self._control_velocity_mean_squared_difference_ = self.create_publisher(
+            Float32, "/evaluator/control/velocity/mean_squared_difference", 10
+        )
+
+        self._control_velocity_root_mean_squared_difference_ = self.create_publisher(
+            Float32, "/evaluator/control/velocity/root_mean_squared_difference", 10
+        )
+
+        self._control_sum_error = 0
+        self._control_squared_sum_error = 0
+        self._control_velocity_sum_error = 0
+        self._control_velocity_squared_sum_error = 0
+        self._control_count = 0
+
+        self._perception_sum_error = 0
+        self._perception_squared_sum_error = 0
+        self._perception_root_squared_sum_error = 0
+        self._perception_count = 0
+
+        self._perception_mean_mean_error = self.create_publisher(
+            Float32, "/evaluator/perception/mean_mean_error", 10
+        )
+
+        self._perception_mean_mean_squared_error = self.create_publisher(
+            Float32, "/evaluator/perception/mean_mean_squared_error", 10
+        )
+
+        self._perception_mean_mean_root_squared_error = self.create_publisher(
+            Float32, "/evaluator/perception/mean_mean_root_squared_error", 10
+        )
+
+        self._se_map_sum_error = 0
+        self._se_map_squared_sum_error = 0
+        self._se_map_mean_root_squared_sum_error = 0
+        self._se_count = 0
+
+        self._sum_vehicle_state_error = Float32MultiArray()
+        self._sum_squared_vehicle_state_error = Float32MultiArray()
+        self._sum_vehicle_state_error.layout.dim = [MultiArrayDimension()]
+        self._sum_squared_vehicle_state_error.layout.dim = [MultiArrayDimension()]
+        self._sum_vehicle_state_error.layout.dim[0].size = 6
+        self._sum_squared_vehicle_state_error.layout.dim[0].size = 6
+        self._sum_vehicle_state_error.data = [0.0] * 6
+        self._sum_squared_vehicle_state_error.data = [0.0] * 6
+
+        self._state_estimation_mean_mean_error = self.create_publisher(
+            Float32, "/evaluator/state_estimation/mean_mean_error", 10
+        )
+
+        self._state_estimation_mean_mean_squared_error = self.create_publisher(
+            Float32, "/evaluator/state_estimation/mean_mean_squared_error", 10
+        )
+
+        self._state_estimation_mean_mean_root_squared_error = self.create_publisher(
+            Float32, "/evaluator/state_estimation/mean_mean_root_squared_error", 10
+        )
+
+        self._state_estimation_mean_mean_state_error = self.create_publisher(
+            Float32MultiArray, "/evaluator/state_estimation/mean_mean_pose_and_vel_error", 10
+        )
+
+        self._state_estimation_mean_mean_state_squared_error = self.create_publisher(
+            Float32MultiArray, "/evaluator/state_estimation/mean_mean_pose_and_vel_squared_error", 10
+        )
+
+        self._state_estimation_mean_mean_state_root_squared_error = self.create_publisher(
+            Float32MultiArray, "/evaluator/state_estimation/mean_mean_root_pose_and_vel_squared_error", 10
+        )
+
+        self._planning_sum_error = 0
+        self._planning_squared_sum_error = 0
+        self._planning_mean_root_squared_sum_error = 0
+        self._planning_count = 0
+        
+        self._planning_mean_mean_error = self.create_publisher(
+            Float32, "/evaluator/planning/mean_mean_error", 10
+        )
+
+        self._planning_mean_mean_squared_error = self.create_publisher(
+            Float32, "/evaluator/planning/mean_mean_squared_error", 10
+        )
+
+        self._planning_mean_mean_root_squared_error = self.create_publisher(
+            Float32, "/evaluator/planning/mean_mean_root_squared_error", 10
+        )
+
 
         self.planning_mock = (
             []
@@ -240,7 +352,7 @@ class Evaluator(Node):
         groundtruth_map: np.ndarray,
     ) -> None:
         """!
-        Computes perception metrics and publishes them.
+        Computes state estimation metrics and publishes them.
 
         Args:
             pose (np.ndarray): Vehicle state estimation data. [x,y,theta]
@@ -262,8 +374,6 @@ class Evaluator(Node):
         vehicle_state_error.data[0] = abs(pose[0] - groundtruth_pose[0])
         vehicle_state_error.data[1] = abs(pose[1] - groundtruth_pose[1])
         vehicle_state_error.data[2] = abs(pose[2] - groundtruth_pose[2]) % (2 * np.pi)
-        print(abs(pose[2] - groundtruth_pose[2]))
-        print(vehicle_state_error.data[2])
         vehicle_state_error.data[3] = abs(
             velocities[0]
             - sqrt(
@@ -313,6 +423,56 @@ class Evaluator(Node):
         self._map_mean_squared_difference_.publish(mean_squared_difference)
         self._map_root_mean_squared_difference_.publish(root_mean_squared_difference)
 
+
+        self._se_map_sum_error += get_average_difference(
+            cone_positions, groundtruth_cone_positions)
+        self._se_map_squared_sum_error += get_mean_squared_difference(
+            cone_positions, groundtruth_cone_positions)
+        self._se_map_mean_root_squared_sum_error += get_mean_squared_difference(
+            cone_positions, groundtruth_cone_positions) ** (1/2)
+        self._se_count += 1
+
+        mean_vehicle_state_error = Float32MultiArray()
+        mean_squared_vehicle_state_error = Float32MultiArray()
+        mean_root_squared_vehicle_state_error = Float32MultiArray()
+
+        mean_vehicle_state_error.layout.dim = [MultiArrayDimension()]
+        mean_squared_vehicle_state_error.layout.dim = [MultiArrayDimension()]
+        mean_root_squared_vehicle_state_error.layout.dim = [MultiArrayDimension()]
+
+        mean_vehicle_state_error.layout.dim[0].size = 6
+        mean_squared_vehicle_state_error.layout.dim[0].size = 6
+        mean_root_squared_vehicle_state_error.layout.dim[0].size = 6
+
+        mean_vehicle_state_error.data = [0.0] * 6
+        mean_squared_vehicle_state_error = [0.0] * 6
+        mean_root_squared_vehicle_state_error = [0.0] * 6
+
+        # Update pose and velocity errors
+        for i in range(6):
+            self._sum_vehicle_state_error.data[i] += vehicle_state_error.data[i]
+            self._sum_squared_vehicle_state_error += vehicle_state_error.data[i] ** 2
+            mean_vehicle_state_error.data[i] = self._sum_vehicle_state_error.data[i] / self._se_count
+            mean_squared_vehicle_state_error.data[i] = self._sum_squared_vehicle_state_error / self._se_count
+            mean_root_squared_vehicle_state_error.data[i] = sqrt(self._sum_squared_vehicle_state_error) / self._se_count
+        
+        # publish pose and velocity errors
+        self._state_estimation_mean_mean_state_error.publish(vehicle_state_error)
+        self._state_estimation_mean_mean_state_squared_error.publish(mean_squared_vehicle_state_error)
+        self._state_estimation_mean_mean_state_root_squared_error.publish(mean_root_squared_vehicle_state_error)
+
+        mean_mean_error = Float32()
+        mean_mean_error.data = self._se_sum_error / self._se_count
+        self._state_estimation_mean_mean_error.publish(mean_mean_error)
+
+        mean_mean_squared_error = Float32()
+        mean_mean_squared_error.data = self._se_squared_sum_error / self._se_count
+        self._state_estimation_mean_mean_squared_error.publish(mean_mean_squared_error)
+
+        mean_mean_root_squared_error = Float32()
+        mean_mean_root_squared_error.data = self._se_mean_root_squared_sum_error / self._se_count
+        self._state_estimation_mean_mean_root_squared_error.publish(mean_mean_root_squared_error)
+
     def compute_and_publish_perception(
         self, perception_output: np.ndarray, perception_ground_truth: np.ndarray
     ) -> None:
@@ -323,8 +483,9 @@ class Evaluator(Node):
             perception_output (np.ndarray): Perceived cones.
             perception_ground_truth (np.ndarray): Ground truth cones.
         """
-        cone_positions = perception_output[:, :2]
-        groundtruth_cone_positions = perception_ground_truth[:, :2]
+        cone_positions = np.append(perception_output[:2], 0)
+        groundtruth_cone_positions = perception_ground_truth
+
         mean_difference = Float32()
         mean_difference.data = get_average_difference(
             cone_positions, groundtruth_cone_positions
@@ -341,12 +502,32 @@ class Evaluator(Node):
         root_mean_squared_difference = Float32()
         root_mean_squared_difference.data = sqrt(mean_squared_error.data)
 
+        self._perception_sum_error += get_average_difference(
+            cone_positions, groundtruth_cone_positions)
+        self._perception_squared_sum_error += get_mean_squared_difference(
+            cone_positions, groundtruth_cone_positions)
+        self._perception_root_squared_sum_error += get_mean_squared_difference(
+            cone_positions, groundtruth_cone_positions) ** (1/2)
+        self._perception_count += 1
+
+        mean_mean_error = Float32()
+        mean_mean_error.data = self._perception_sum_error / self._perception_count
+        self._perception_mean_mean_error.publish(mean_mean_error)
+
+        mean_mean_squared_error = Float32()
+        mean_mean_squared_error.data = self._perception_squared_sum_error / self._perception_count
+        self._perception_mean_mean_squared_error.publish(mean_mean_squared_error)
+
+        mean_mean_root_squared_error = Float32()
+        mean_mean_root_squared_error.data = self._perception_root_squared_sum_error / self._perception_count
+        self._perception_mean_mean_root_squared_error.publish(mean_mean_root_squared_error)
+
         self.get_logger().debug(
             "Computed perception metrics:\n \
-                                Mean difference: {}\n \
-                                Inter cones distance: {}\n \
-                                Mean squared difference: {}\n \
-                                Root mean squared difference: {}".format(
+                               Mean difference: {}\n \
+                               Inter cones distance: {}\n \
+                               Mean squared difference: {}\n \
+                               Root mean squared difference: {}".format(
                 mean_difference,
                 inter_cones_distance,
                 mean_squared_error,
@@ -417,6 +598,26 @@ class Evaluator(Node):
             root_mean_squared_difference
         )
 
+        self._planning_sum_error += get_average_difference(
+            actual_path, expected_path)
+        self._planning_squared_sum_error += get_mean_squared_difference(
+            actual_path, expected_path)
+        self._planning_mean_root_squared_sum_error += get_mean_squared_difference(
+            actual_path, expected_path) ** (1/2)
+        self._planning_count += 1
+
+        mean_mean_error = Float32()
+        mean_mean_error.data = self._planning_sum_error / self._planning_count
+        self._planning_mean_mean_error.publish(mean_mean_error)
+
+        mean_mean_squared_error = Float32()
+        mean_mean_squared_error.data = self._planning_squared_sum_error / self._planning_count
+        self._planning_mean_mean_squared_error.publish(mean_mean_squared_error)
+
+        mean_mean_root_squared_error = Float32()
+        mean_mean_root_squared_error.data = self._planning_mean_root_squared_sum_error / self._planning_count
+        self._planning_mean_mean_root_squared_error.publish(mean_mean_root_squared_error)
+
     def planning_gt_callback(self, msg: PathPointArray):
         """!
         Stores the path planning ground truth from mocker node.
@@ -453,24 +654,37 @@ class Evaluator(Node):
 
         pose_position = pose_treated[:2]
         closest_point = format_point2d_msg(msg.closest_point)
+
         difference = Float32()
         difference.data = compute_distance(closest_point, pose_position)
 
-        # self._closest_points_.append(closest_point)
-        # self._vehicle_position_.append(pose_position)
 
-        # mean_difference = Float32()
-        # mean_difference.data = get_average_difference(
-        #     self._closest_points_, self._vehicle_position_
-        # )
+        self._control_sum_error += compute_distance(closest_point, pose_position)
+        self._control_squared_sum_error += compute_distance(closest_point, pose_position) ** 2
+        self._control_velocity_sum_error += abs(velocities_treated - lookahead_velocity)
+        self._control_velocity_squared_sum_error += abs(velocities_treated - lookahead_velocity) ** 2
+        self._control_count += 1
 
-        # mean_squared_difference = Float32()
-        # mean_squared_difference.data = get_mean_squared_difference(
-        #     self._closest_points_, self._vehicle_position_
-        # )
+        velocity_difference = Float32()
+        velocity_difference.data = abs(velocities_treated - lookahead_velocity)
 
-        # root_mean_squared_difference = Float32()
-        # root_mean_squared_difference.data = sqrt(mean_squared_difference)
+        velocity_mean_difference = Float32()
+        velocity_mean_difference.data = self._control_velocity_sum_error / self._control_count
+
+        velocity_mean_squared_difference = Float32()
+        velocity_mean_squared_difference.data = self._control_velocity_squared_sum_error / self._control_count
+
+        velocity_root_mean_squared = Float32()
+        velocity_root_mean_squared.data = sqrt(self._control_velocity_squared_sum_error / self._control_count)
+
+        mean_difference = Float32()
+        mean_difference.data = self._control_sum_error / self._control_count
+
+        mean_squared_difference = Float32()
+        mean_squared_difference.data = self._control_squared_sum_error / self._control_count
+
+        root_mean_squared_difference = Float32()
+        root_mean_squared_difference.data = sqrt(self._control_squared_sum_error / self._control_count)
 
         self.get_logger().debug(
             "Computed control metrics:\n \
@@ -479,17 +693,22 @@ class Evaluator(Node):
                                 Mean squared difference: {}\n \
                                 Root mean squared difference: {}".format(
                 difference,
-                "TODO",
-                "TODO",
-                "TODO",
+                mean_difference,
+                mean_squared_difference,
+                root_mean_squared_difference,
             )
         )
 
+        # Publish control metrics
         self._control_difference_.publish(difference)
-        # self._control_difference_mean_.publish(mean_difference)
-        # self._control_root_mean_squared_difference_.publish(
-        #     root_mean_squared_difference
-        # )
+        self._control_difference_mean_.publish(mean_difference)
+        self._control_mean_squared_difference_.publish(mean_squared_difference)
+        self._control_root_mean_squared_difference_.publish(root_mean_squared_difference)
+
+        self._control_velocity_difference_.publish(velocity_difference)
+        self._control_velocity_difference_mean_.publish(velocity_mean_difference)
+        self._control_mean_squared_difference_.publish(velocity_mean_squared_difference)
+        self._control_velocity_mean_squared_difference_.publish(velocity_root_mean_squared)
 
 
 def main(args=None):
