@@ -15,6 +15,8 @@
 #include "ground_removal/ransac.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
+#include "visualization_msgs/msg/marker_array.hpp"
+#include "icp/icp.hpp"
 
 struct PerceptionParameters {
   std::shared_ptr<GroundRemoval> ground_removal_;
@@ -22,6 +24,7 @@ struct PerceptionParameters {
   std::shared_ptr<LeastSquaresDifferentiation> cone_differentiator_;
   std::vector<std::shared_ptr<ConeValidator>> cone_validators_;
   std::shared_ptr<DistancePredict> distance_predict_;
+  std::shared_ptr<ICP> icp_;
   std::string adapter_;
 };
 
@@ -43,25 +46,27 @@ private:
   std::vector<std::shared_ptr<ConeValidator>> _cone_validators_;
   std::shared_ptr<ConeEvaluator> _cone_evaluator_;
   std::string _mode_;
+  std::shared_ptr<ICP> _icp_;
 
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr
       _point_cloud_subscription;  ///< PointCloud2 subscription.
   rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr
       _cones_publisher;  ///< ConeArray publisher.
+  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr cone_marker_array;
 
   /**
    * @brief Publishes information about clusters (cones) using a custom ROS2 message.
    *
    * This function takes a vector of Cluster objects, extracts relevant information such as
-   * centroid and color, and publishes this information using a custom ROS2 message type ConeArray.
+   * centroid and color, and publishes this information using a custom ROS2 message type
+   * ConeArray.
    *
-   * @param cones A reference to a vector of Cluster objects representing the clusters (cones) to be
-   * published.
+   * @param cones A reference to a vector of Cluster objects representing the clusters (cones)
+   * to be published.
    */
   void publishCones(std::vector<Cluster>* cones);
 
 public:
-
   /**
    * @brief Constructor for the Perception node.
    * @param params The parameters for perception.
