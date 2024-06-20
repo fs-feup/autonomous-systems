@@ -1,0 +1,5 @@
+<map id="pacsim_keys.main.get_key" name="pacsim_keys.main.get_key">
+<area shape="rect" id="Node000001" title="Get a single key from the user." alt="" coords="213,5,389,31"/>
+<area shape="rect" id="Node000002" href="$de/df5/namespacepacsim__keys_1_1main.html#ab35215eb1148317e2dd42c1a6006dbb7" title="Main function to control the pacsim robot using the keyboard." alt="" coords="5,5,165,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="197,21,165,21,165,16,197,16"/>
+</map>

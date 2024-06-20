@@ -40,6 +40,7 @@ var namespaces_dup =
       [ "y", "dd/d6b/namespaceoffsettrack.html#a46b3906444c8b6a09043b680a5c2dd4b", null ],
       [ "y_values", "dd/d6b/namespaceoffsettrack.html#a3e5524acd402b6af74b3fe7fab06fd6f", null ]
     ] ],
+    [ "pacsim_keys", "d6/d8f/namespacepacsim__keys.html", "d6/d8f/namespacepacsim__keys" ],
     [ "plot_track", "dc/d1a/namespaceplot__track.html", [
       [ "c", "dc/d1a/namespaceplot__track.html#a09b7f1440e109d150d176d50da28a8e3", null ],
       [ "colorList", "dc/d1a/namespaceplot__track.html#abb40af2cfaf74a657e52243efa784a25", null ],
@@ -66,7 +67,7 @@ var namespaces_dup =
       [ "maintainer", "dd/dc4/namespacesetup.html#aa1a7cf9bbf76004bb72697dc00bbee9d", null ],
       [ "maintainer_email", "dd/dc4/namespacesetup.html#a92a81adbfdd219564d5246ce8d77f869", null ],
       [ "name", "dd/dc4/namespacesetup.html#ab3a7a0638d76a01367c5bc3cc699447f", null ],
-      [ "package_name", "dd/dc4/namespacesetup.html#a69903e4f05cebc9e005b22b36f5724eb", null ],
+      [ "package_name", "dd/dc4/namespacesetup.html#ae1914c6379853aac13554579d9b6b4ec", null ],
       [ "packages", "dd/dc4/namespacesetup.html#aff2375a361fd5865c77bd9aa093be747", null ],
       [ "tests_require", "dd/dc4/namespacesetup.html#a6369bb060267ccf90b93519796e7cc2c", null ],
       [ "version", "dd/dc4/namespacesetup.html#a2aa722b36a933088812b50ea79b97a5c", null ],

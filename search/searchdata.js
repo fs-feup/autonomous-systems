@@ -11,7 +11,7 @@ var indexSectionsWithContent =
   8: "abeilmnorstuy",
   9: "efpv",
   10: "cdem",
-  11: "acefilmps"
+  11: "acefiklmps"
 };
 
 var indexSectionNames =
