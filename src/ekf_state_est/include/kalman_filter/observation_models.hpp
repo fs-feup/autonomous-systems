@@ -62,6 +62,12 @@ public:
   Eigen::Vector2f inverse_observation_model(const Eigen::VectorXf &expected_state,
                                             const ObservationData &observation_data) const;
 
+  Eigen::MatrixXf get_gv(const Eigen::VectorXf &expected_state,
+                         const ObservationData &observation_data) const;
+
+  Eigen::MatrixXf get_gz(const Eigen::VectorXf &expected_state,
+                         const ObservationData &observation_data) const;
+
   /**
    * @brief Get the state to observation matrix
    * of the observation model (H)

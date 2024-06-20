@@ -13,7 +13,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "data_association_limit_distance",
                 description="Maximum distance to admit landmarks",
-                default_value="15.0",
+                default_value="10.0",
             ),  # meters
             DeclareLaunchArgument(
                 "sml_initial_limit",
@@ -33,7 +33,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "wheel_speed_sensor_noise",
                 description="Noise value for wheel speed sensors (sigma)",
-                default_value="0.2",
+                default_value="0.003",
             ),
             DeclareLaunchArgument(
                 "motion_model",

@@ -29,8 +29,7 @@
 class ExtendedKalmanFilter {
   Eigen::VectorXf _x_vector_ =
       Eigen::VectorXf::Zero(6); /**< Expected state vector (localization + mapping) */
-  Eigen::SparseMatrix<float> _p_matrix_ =
-      Eigen::SparseMatrix<float>(6, 6);               /**< Sparse State covariance matrix */
+  Eigen::MatrixXf _p_matrix_ = Eigen::MatrixXf::Identity(6, 6);
   rclcpp::Time _last_update_ = rclcpp::Clock().now(); /**< Timestamp of last update */
 
   std::map<std::string, std::shared_ptr<MotionModel>> _motion_models_;  // Map of motion models

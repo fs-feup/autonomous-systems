@@ -3,7 +3,6 @@
 #include "kalman_filter/ekf.hpp"
 
 #include <Eigen/Dense>
-#include <Eigen/Sparse>
 #include <fstream>
 #include <iostream>
 #include <rclcpp/rclcpp.hpp>
@@ -16,11 +15,8 @@ ExtendedKalmanFilter::ExtendedKalmanFilter(
     std::shared_ptr<ObservationModel> observation_model,
     std::shared_ptr<DataAssociationModel> data_association_model)
     : _observation_model_(observation_model), _data_association_model_(data_association_model) {
-  Eigen::MatrixXf dense_matrix = Eigen::MatrixXf::Identity(6, 6) * 100.0f;
-  _p_matrix_ = dense_matrix.sparseView();
-  _x_vector_ = Eigen::VectorXf::Constant(6, 0.05);
-  std::ofstream file("matrices.txt", std::ios::app);
-  // file << "\n";
+  //_p_matrix_ = Eigen::MatrixXf::Identity(6, 6) * 100.0f;
+  _x_vector_ = Eigen::VectorXf::Constant(6, 0.001);
 }
 /*-----------------------Algorithms-----------------------*/
 
@@ -33,26 +29,17 @@ void ExtendedKalmanFilter::prediction_step(const MotionUpdate &motion_update,
     this->_first_prediction_ = false;
     return;
   }
-  // print the time values and the difference
-  RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "TIMES: %f / %f / %f",
-               this->_last_update_.seconds(), temp_this_last_update.seconds(),
-               (this->_last_update_ - temp_this_last_update).seconds());
 
   double delta = (this->_last_update_ - temp_this_last_update).seconds();
   Eigen::VectorXf temp_x_vector = this->_x_vector_;
-  std::ofstream file("matrices.txt", std::ios::app);
-  // file << "PREDICTION STEP\n\n";
-  // file << "Previous State\n" << this->_x_vector_ << "\n";
   this->_x_vector_ = motion_model->predict_expected_state(temp_x_vector, motion_update, delta);
-  // file << "Predicted State\n" << this->_x_vector_ << "\n";
+
   Eigen::MatrixXf g_matrix =
       motion_model->get_motion_to_state_matrix(temp_x_vector, motion_update, delta);
   Eigen::MatrixXf r_matrix = motion_model->get_process_noise_covariance_matrix(
       static_cast<unsigned int>(this->_x_vector_.size()));  // Process Noise Matrix
   // this->_p_matrix_ = g_matrix * this->_p_matrix_ * g_matrix.transpose() + r_matrix;
-  Eigen::MatrixXf p_matrix_dense =
-      g_matrix * Eigen::MatrixXf(this->_p_matrix_) * g_matrix.transpose() + r_matrix;
-  this->_p_matrix_ = p_matrix_dense.sparseView();
+  this->_p_matrix_ = g_matrix * Eigen::MatrixXf(this->_p_matrix_) * g_matrix.transpose() + r_matrix;
 }
 // void ExtendedKalmanFilter::wss_correction_step(const MotionUpdate &motion_correction_data) {
 //   rclcpp::Time temp_this_last_update = this->_last_update_;
@@ -68,15 +55,11 @@ void ExtendedKalmanFilter::prediction_step(const MotionUpdate &motion_update,
 
 //   double delta = (this->_last_update_ - temp_this_last_update).seconds();
 //   Eigen::VectorXf temp_x_vector = this->_x_vector_;
-//   std::ofstream file("matrices.txt", std::ios::app);
-//   // file << "WSS PREDICTION STEP\n\n";
-//   // file << "WSS Previous State\n" << this->_x_vector_ << "\n";
 //   NormalVelocityModel motion_model =
 //       NormalVelocityModel(this->_motion_model_->get_process_noise_covariance_matrix(
 //           static_cast<unsigned int>(this->_x_vector_.size())));
 //   this->_x_vector_ =
 //       motion_model.predict_expected_state(temp_x_vector, motion_correction_data, delta);
-//   // file << "Predicted State\n" << this->_x_vector_ << "\n";
 //   Eigen::MatrixXf g_matrix = this->_motion_model_->get_motion_to_state_matrix(
 //       temp_x_vector, motion_correction_data, delta);
 //   Eigen::MatrixXf r_matrix = this->_motion_model_->get_process_noise_covariance_matrix(
@@ -127,14 +110,9 @@ void ExtendedKalmanFilter::prediction_step(const MotionUpdate &motion_update,
 // RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "VX VY %f %f", Vx_observed, Vy_observed);
 
 // Eigen::Vector2f u(Vx_observed, Vy_observed);
-// std::ofstream file("matrices.txt", std::ios::app);
-// file << "WSS CORRECTION STEP\n\n";
-// file << "_x_vector_ before correction WSS:\n" << this->_x_vector_ << "\n";
 // RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "U - UHAT %f %f", (u - u_hat)(0),
 //              (u - u_hat)(1));
 // this->_x_vector_ = this->_x_vector_ + kalman_gain_matrix * (u - u_hat);
-
-// file << "_x_vector_ after correction WSS:\n" << this->_x_vector_ << "\n";
 
 // RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "WSS STATE AFTER CORRECT %f %f %f %f %f",
 //              this->_x_vector_(0), this->_x_vector_(1), this->_x_vector_(2),
@@ -150,26 +128,17 @@ void ExtendedKalmanFilter::prediction_step(const MotionUpdate &motion_update,
 //                        .sparseView() *
 //                    this->_p_matrix_;
 
-// file << "P WSS posterior Matrix:\n" << this->_p_matrix_ << "\n";
-// file.close();
-
-// std::ofstream file("matrices.txt", std::ios::app);
-// //file << "CORRECTION STEP\n\n";
 // std::vector<ObservationData> valid_observations;
 // std::vector<int> landmark_indices;
 // for (const common_lib::structures::Cone &cone : perception_map) {
 //   ObservationData observation_data =
 //       ObservationData(cone.position.x, cone.position.y, cone.color);
 
-//   file << "Observation Data\n"
-//        << observation_data.position.x << "//" << observation_data.position.y << "\n";
-
 //   // Data Association
 //   Eigen::Vector2f landmark_absolute =
 //       this->_observation_model_->inverse_observation_model(this->_x_vector_, observation_data);
 //   int landmark_index = _data_association_model_->match_cone(landmark_absolute,
 //   this->_x_vector_); if (landmark_index >= 0) {
-//     file << "MATCH\n\n";
 //     valid_observations.push_back(observation_data);
 //     landmark_indices.push_back(landmark_index);
 //   } else if (landmark_index == -1) {  // Too far away landmark
@@ -220,7 +189,6 @@ void ExtendedKalmanFilter::prediction_step(const MotionUpdate &motion_update,
 //   K_sum.block(0, 2 * i, _x_vector_.size(), 2) = K_i;
 // }
 
-// file << "Previous State\n" << this->_x_vector_ << "\n";
 // this->_x_vector_ += K_sum * (Z - z_hat);
 
 // this->_p_matrix_ =
@@ -228,89 +196,177 @@ void ExtendedKalmanFilter::prediction_step(const MotionUpdate &motion_update,
 //     _p_matrix_)
 //         .sparseView();
 
-// file << "CORRECTED  STATE\n" << _x_vector_ << "\n";
-// file << "P posterior Matrix:\n" << this->_p_matrix_.toDense() << "\n";
-// file.close();
+// void ExtendedKalmanFilter::correction_step(
+//     const std::vector<common_lib::structures::Cone> &perception_map) {
+//   for (const common_lib::structures::Cone &cone : perception_map) {
+//     ObservationData observation_data =
+//         ObservationData(cone.position.x, cone.position.y, cone.color);
+
+//     // Data Association
+//     Eigen::Vector2f landmark_absolute =
+//         this->_observation_model_->inverse_observation_model(this->_x_vector_, observation_data);
+//     int landmark_index = _data_association_model_->match_cone(landmark_absolute,
+//     this->_x_vector_); Eigen::MatrixXf q_matrix =
+//     this->_observation_model_->get_observation_noise_covariance_matrix();
+//     // init z_hat to 0,0
+//     Eigen::Vector2f z_hat = Eigen::Vector2f::Zero();
+//     Eigen::MatrixXf h_matrix = Eigen::MatrixXf::Zero(2, this->_x_vector_.size());
+//     if (landmark_index >= 0) {
+//       z_hat = this->_observation_model_->observation_model(this->_x_vector_,
+//                                                            landmark_index);  // to car frame
+//       h_matrix = this->_observation_model_->get_state_to_observation_matrix(
+//           this->_x_vector_, landmark_index, static_cast<unsigned int>(this->_x_vector_.size()));
+//     }
+//     // this->_observation_model_->observation_model(this->_x_vector_, landmark_index);
+//     // create a vecotr2f with the observed position
+//     Eigen::Vector2f z = Eigen::Vector2f(observation_data.position.x,
+//     observation_data.position.y); bool valid = _data_association_model_->validate(z_hat, z,
+//     this->_p_matrix_, landmark_index,
+//                                                     q_matrix, h_matrix);
+//     // output valid
+//     if (landmark_index == -1) {  // Too far away or too unseen landmark
+//       continue;
+//     } else if (!valid) {  // Did not match any landmark
+//       this->_x_vector_.conservativeResizeLike(Eigen::VectorXf::Zero(this->_x_vector_.size() +
+//       2)); this->_x_vector_(this->_x_vector_.size() - 2) = landmark_absolute(0);
+//       this->_x_vector_(this->_x_vector_.size() - 1) = landmark_absolute(1);
+//       Eigen::MatrixXf new_p_matrix =
+//           Eigen::MatrixXf::Zero(this->_p_matrix_.rows() + 2, this->_p_matrix_.cols() + 2);
+//       new_p_matrix.block(0, 0, this->_p_matrix_.rows(), this->_p_matrix_.cols()) =
+//       this->_p_matrix_; this->_p_matrix_ = new_p_matrix; landmark_index =
+//       static_cast<int>(this->_x_vector_.size() - 2); z_hat =
+//       this->_observation_model_->observation_model(this->_x_vector_, landmark_index); h_matrix =
+//       this->_observation_model_->get_state_to_observation_matrix(
+//           this->_x_vector_, landmark_index, static_cast<unsigned int>(this->_x_vector_.size()));
+//     }
+
+//     // Matrix Calculation
+//     Eigen::MatrixXf kalman_gain_matrix =
+//         this->get_kalman_gain(h_matrix, this->_p_matrix_, q_matrix);
+
+//     this->_x_vector_ = this->_x_vector_ + kalman_gain_matrix * (z - z_hat);
+//     this->_p_matrix_ =
+//         (Eigen::MatrixXf::Identity(this->_p_matrix_.rows(), this->_p_matrix_.cols()) -
+//          kalman_gain_matrix * h_matrix) *
+//         this->_p_matrix_;
+//   }
+// }
 
 void ExtendedKalmanFilter::correction_step(
     const std::vector<common_lib::structures::Cone> &perception_map) {
-  std::ofstream file("matrices.txt", std::ios::app);
-  // file << "CORRECTION STEP\n\n";
-  // file << "Previous State\n" << this->_x_vector_ << "\n";
-  file.flush();
+  // print dbg msg with state vars
+  RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "STATE B4 CORRECT %f %f %f %f %f %f",
+               this->_x_vector_(0), this->_x_vector_(1), this->_x_vector_(2), this->_x_vector_(3),
+               this->_x_vector_(4), this->_x_vector_(5));
+  // loop through all the cones in the perception map
+  // init vector for matched ids and cone positions
+  std::vector<int> matched_ids;
+  std::vector<Eigen::Vector2f> matched_cone_positions;
+  // init vector for new features with new cone positions
+  std::vector<Eigen::Vector2f> new_features;
   for (const common_lib::structures::Cone &cone : perception_map) {
-    ObservationData observation_data =
-        ObservationData(cone.position.x, cone.position.y, cone.color);
+    Eigen::Vector2f landmark_absolute = this->_observation_model_->inverse_observation_model(
+        this->_x_vector_, ObservationData(cone.position.x, cone.position.y,
+                                          common_lib::competition_logic::Color::BLUE));
 
-    // file << "Observation Data\n"
-    //   << observation_data.position.x << "//" << observation_data.position.y << "\n";
-    file.flush();
-    // Data Association
-    Eigen::Vector2f landmark_absolute =
-        this->_observation_model_->inverse_observation_model(this->_x_vector_, observation_data);
-    // file << "Landmark Absolute\n" << landmark_absolute << "\n";
-    file.flush();
-    int landmark_index = _data_association_model_->match_cone(landmark_absolute, this->_x_vector_);
-    // file << "Closest Landmark Index: " << landmark_index << "\n";
-    file.flush();
-    Eigen::MatrixXf q_matrix = this->_observation_model_->get_observation_noise_covariance_matrix();
-    // init z_hat to 0,0
-    Eigen::Vector2f z_hat = Eigen::Vector2f::Zero();
-    Eigen::MatrixXf h_matrix = Eigen::MatrixXf::Zero(2, this->_x_vector_.size());
-    if (landmark_index >= 0) {
-      z_hat = this->_observation_model_->observation_model(this->_x_vector_,
-                                                           landmark_index);  // to car frame
-      h_matrix = this->_observation_model_->get_state_to_observation_matrix(
-          this->_x_vector_, landmark_index, static_cast<unsigned int>(this->_x_vector_.size()));
-      // file << "H Matrix:" << h_matrix << "\n";
-      file.flush();
-      // file << "Q Matrix:" << q_matrix << "\n";
-      // file << "Z_HAT: " << z_hat << "\n";
-      file.flush();
-    }
-    // this->_observation_model_->observation_model(this->_x_vector_, landmark_index);
-    // create a vecotr2f with the observed position
-    Eigen::Vector2f z = Eigen::Vector2f(observation_data.position.x, observation_data.position.y);
-    // file << "PRE-H\n";
-    file.flush();
-    // file << "PREVALID\n";
-    file.flush();
-    bool valid = _data_association_model_->validate(z_hat, z, this->_p_matrix_, landmark_index,
-                                                    q_matrix, h_matrix);
-    // output valid
-    // file << "VALID: " << valid << "\n";
-    if (landmark_index == -1) {  // Too far away or too unseen landmark
+    float distance_to_vehicle = (landmark_absolute - this->_x_vector_.segment<2>(0)).norm();
+    RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "CONE %f %f", cone.position.x,
+                 cone.position.y);
+    RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "DISTANCE TO VEHICLE %f",
+                 distance_to_vehicle);
+    if (distance_to_vehicle > 15) {
       continue;
-    } else if (!valid) {  // Did not match any landmark
-      // file << "NEW LANDMARK\n\n";
-      file.flush();
-      this->_x_vector_.conservativeResizeLike(Eigen::VectorXf::Zero(this->_x_vector_.size() + 2));
-      this->_x_vector_(this->_x_vector_.size() - 2) = landmark_absolute(0);
-      this->_x_vector_(this->_x_vector_.size() - 1) = landmark_absolute(1);
-      Eigen::SparseMatrix<float> new_p_matrix(this->_p_matrix_.rows() + 2,
-                                              this->_p_matrix_.cols() + 2);
-      common_lib::maths::copy_eigen_sparse_matrix(this->_p_matrix_, new_p_matrix);
-      this->_p_matrix_.swap(new_p_matrix);
-      landmark_index = static_cast<int>(this->_x_vector_.size() - 2);
-      z_hat = this->_observation_model_->observation_model(this->_x_vector_, landmark_index);
-      h_matrix = this->_observation_model_->get_state_to_observation_matrix(
-          this->_x_vector_, landmark_index, static_cast<unsigned int>(this->_x_vector_.size()));
     }
+    int j_best = 0;
+    float n_best = std::numeric_limits<int>::max();
+    float outer = std::numeric_limits<int>::max();
+    for (int j = 6; j < this->_x_vector_.size(); j += 2) {
+      // get expect observation from the state vector with the observation model
+      Eigen::Vector2f z_hat = this->_observation_model_->observation_model(this->_x_vector_, j);
+      // print dbg msg z_hat and cone in the samle line
+      // RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "Z_HAT X|%f| Y|%f| CONE X|%f| Y|%f|",
+      //              z_hat(0), z_hat(1), cone.position.x, cone.position.y);
+      // get the state to observation matrix
+      Eigen::MatrixXf h_matrix = this->_observation_model_->get_state_to_observation_matrix(
+          this->_x_vector_, j, static_cast<unsigned int>(this->_x_vector_.size()));
+      // get the observation noise covariance matrix
+      Eigen::MatrixXf q_matrix =
+          this->_observation_model_->get_observation_noise_covariance_matrix();
+      // calculate innovation cone position - z_hat(predicted cone position)
+      Eigen::Vector2f innovation = Eigen::Vector2f(cone.position.x, cone.position.y) - z_hat;
+      // dbg
+      // RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "INNOVATION X|%f| Y|%f|",
+      // innovation(0),
+      //              innovation(1));
+      // calculate the S matrix
+      Eigen::MatrixXf s_matrix = h_matrix * this->_p_matrix_ * h_matrix.transpose() + q_matrix;
+      // calculate nis, that means normalized innovation squared
+      float nis = innovation.transpose() * s_matrix.inverse() * innovation;
+      // dbg
+      // RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "NIS %f", nis);
+      // calculate nd, that means normalized determinant
+      float nd = nis + log(s_matrix.determinant());
+      // dbg
+      // RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "ND %f\n", nd);
+      RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "CURRENT CONE: %f %f", cone.position.x,
+                   cone.position.y);
+      RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "WITH Z_HAT: %f %f", z_hat(0), z_hat(1));
+      RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "IN THE MAP REF: %f %f",
+                   this->_x_vector_(j), this->_x_vector_(j + 1));
+      RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "INNOVATION %f %f", innovation(0),
+                   innovation(1));
+      RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "NIS %f", nis);
+      RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "ND %f", nd);
+      if (nis < 5.991 /* gate1 */ && nd < n_best) {
+        // dbg with what matched
+        RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "MATCHED CONE: %f %f", cone.position.x,
+                     cone.position.y);
+        RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "WITH Z_HAT: %f %f", z_hat(0), z_hat(1));
+        RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "IN THE MAP REF: %f %f",
+                     this->_x_vector_(j), this->_x_vector_(j + 1));
+        RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "INNOVATION %f %f", innovation(0),
+                     innovation(1));
+        RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "NIS %f", nis);
+        RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "ND %f", nd);
+        n_best = nd;
+        j_best = j;
+      } else if (nis < outer) {
+        outer = nis;  // outer is the closest unmatched distance
+      }
+    }
+    if (j_best != 0) {
+      // dbg msg with the match cone position and the best match position
+      RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "ADDING TO CORRECT MATCHED CONE %f %f",
+                   this->_x_vector_(j_best), this->_x_vector_(j_best + 1));
+      matched_ids.push_back(j_best);
+      matched_cone_positions.push_back(Eigen::Vector2f(cone.position.x, cone.position.y));
+    } else if (outer > 10 /* gate2 */) {
+      new_features.push_back(Eigen::Vector2f(cone.position.x, cone.position.y));
+    }
+  }
+  // loop through the matched ids and cone positions and make the corrections
+  for (int i = 0; i < matched_ids.size(); i++) {
+    Eigen::Vector2f z_hat =
+        this->_observation_model_->observation_model(this->_x_vector_, matched_ids[i]);
+    RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "CORRECTING WITH Z_HAT: %f %f", z_hat(0),
+                 z_hat(1));
+    Eigen::MatrixXf h_matrix = this->_observation_model_->get_state_to_observation_matrix(
+        this->_x_vector_, matched_ids[i], static_cast<unsigned int>(this->_x_vector_.size()));
+    Eigen::MatrixXf q_matrix = this->_observation_model_->get_observation_noise_covariance_matrix();
+    Eigen::Vector2f z = matched_cone_positions[i];
+    RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "MATCHED Z: %f %f", z(0), z(1));
+    RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "THE DIFF: %f %f", (z - z_hat)(0),
+                 (z - z_hat)(1));
 
-    // Matrix Calculation
-    // file << "H Matrix:" << "\n";
-    file.flush();
-
-    // file << "Q Matrix:" << "\n";
-    file.flush();
-    // Observation Noise
-    // Matrix
-    // file << "K Matrix:" << "\n";
-    file.flush();
     Eigen::MatrixXf kalman_gain_matrix =
         this->get_kalman_gain(h_matrix, this->_p_matrix_, q_matrix);
-
+    RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "BEFORE CORRECTION %f %f %f %f %f %f",
+                 this->_x_vector_(0), this->_x_vector_(1), this->_x_vector_(2), this->_x_vector_(3),
+                 this->_x_vector_(4), this->_x_vector_(5));
     this->_x_vector_ = this->_x_vector_ + kalman_gain_matrix * (z - z_hat);
+    RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "AFTER CORRECTION %f %f %f %f %f %f",
+                 this->_x_vector_(0), this->_x_vector_(1), this->_x_vector_(2), this->_x_vector_(3),
+                 this->_x_vector_(4), this->_x_vector_(5));
     this->_p_matrix_ =
         (Eigen::MatrixXf::Identity(this->_p_matrix_.rows(), this->_p_matrix_.cols()) -
          kalman_gain_matrix * h_matrix)
@@ -318,30 +374,74 @@ void ExtendedKalmanFilter::correction_step(
         this->_p_matrix_;
   }
 
-  // file << "CORRECTED  STATE\n" << _x_vector_.head(6) << "\n";
-  //  file << "P posterior Matrix:\n" << this->_p_matrix_.toDense() << "\n";
-  file.close();
-}
+  // loop through the new features and add them to the state vector
+  for (int i = 0; i < new_features.size(); i++) {
+    RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "Adding to state vector %f %f",
+                 new_features[i](0), new_features[i](1));
+    int length = this->_x_vector_.size();
+    this->_x_vector_.conservativeResizeLike(Eigen::VectorXf::Zero(this->_x_vector_.size() + 2));
+    // call inverse observational model ot change the cone position to the car frame
+    Eigen::Vector2f landmark_absolute = this->_observation_model_->inverse_observation_model(
+        this->_x_vector_, ObservationData(new_features[i](0), new_features[i](1),
+                                          common_lib::competition_logic::Color::BLUE));
+    this->_x_vector_(this->_x_vector_.size() - 2) = landmark_absolute(0);
+    this->_x_vector_(this->_x_vector_.size() - 1) = landmark_absolute(1);
 
+    Eigen::MatrixXf new_p_matrix =
+        Eigen::MatrixXf::Zero(this->_p_matrix_.rows() + 2, this->_p_matrix_.cols() + 2);
+    new_p_matrix.block(0, 0, this->_p_matrix_.rows(), this->_p_matrix_.cols()) = this->_p_matrix_;
+    this->_p_matrix_ = new_p_matrix;
+
+    // Get Jacobians
+    Eigen::MatrixXf Gv = _observation_model_->get_gv(
+        _x_vector_, ObservationData(new_features[i](0), new_features[i](1),
+                                    common_lib::competition_logic::Color::BLUE));
+
+    Eigen::MatrixXf Gz = _observation_model_->get_gz(
+        _x_vector_, ObservationData(new_features[i](0), new_features[i](1),
+                                    common_lib::competition_logic::Color::BLUE));
+
+    // Get R (measurement noise covariance)
+    Eigen::Matrix2f R = _observation_model_->get_observation_noise_covariance_matrix();
+
+    Eigen::MatrixXf GvT = Gv.transpose();
+    Eigen::MatrixXf GzT = Gz.transpose();
+
+    Eigen::MatrixXf P_submatrix = this->_p_matrix_.block(0, 0, 3, 3);
+
+    Eigen::MatrixXf new_submatrix = Gv * P_submatrix * GvT + Gz * R * GzT;
+
+    this->_p_matrix_.block(length, length, 2, 2) = new_submatrix;
+
+    P_submatrix = this->_p_matrix_.block(0, 0, 3, 3);
+    new_submatrix = Gv * P_submatrix;
+    this->_p_matrix_.block(length, 0, 2, 3) = new_submatrix;
+
+    P_submatrix = this->_p_matrix_.block(length, 0, 2, 3);
+    new_submatrix = P_submatrix.transpose();
+    this->_p_matrix_.block(0, length, 3, 2) = new_submatrix;
+
+    if (length > 6) {
+      this->_p_matrix_.block(length, 6, 2, length - 6) =
+          Gv * this->_p_matrix_.block(0, 6, 3, length - 6);
+      this->_p_matrix_.block(6, length, length - 6, 2) =
+          (this->_p_matrix_.block(length, 6, 2, length - 6)).transpose();
+    }
+  }
+  RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "STATE AFTER CORRECT %f %f %f %f %f %f",
+               this->_x_vector_(0), this->_x_vector_(1), this->_x_vector_(2), this->_x_vector_(3),
+               this->_x_vector_(4), this->_x_vector_(5));
+}
 Eigen::MatrixXf ExtendedKalmanFilter::get_kalman_gain(const Eigen::MatrixXf &h_matrix,
                                                       const Eigen::MatrixXf &p_matrix,
                                                       const Eigen::MatrixXf &q_matrix) const {
-  std::ofstream file("matrices.txt", std::ios::app);
-  // file << "H Matrix:\n" << h_matrix << "\n";
-  // file << "P Matrix:\n" << p_matrix << "\n";
-  // file << "Q Matrix:\n" << q_matrix << "\n";
-  file.flush();
   Eigen::MatrixXf s_matrix = h_matrix * p_matrix * h_matrix.transpose() + q_matrix;
-  // //file << "S Matrix:\n" << s_matrix << "\n";
 
   if ((s_matrix.array() == 0).all()) {
-    // //file << "S Matrix is a zero matrix. Returning zero Kalman Gain Matrix.\n";
     return Eigen::MatrixXf::Zero(p_matrix.rows(), h_matrix.rows());
   }
   Eigen::MatrixXf kalman_gain_matrix = p_matrix * h_matrix.transpose() * s_matrix.inverse();
-  // //file << "Kalman Gain Matrix:\n" << kalman_gain_matrix << "\n";
 
-  // file.close();
   return kalman_gain_matrix;
 }
 

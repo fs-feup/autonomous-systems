@@ -27,13 +27,14 @@ Eigen::VectorXf NormalVelocityModel::predict_expected_state(
     const Eigen::VectorXf &expected_state, const MotionUpdate &motion_prediction_data,
     const double time_interval) const {
   Eigen::VectorXf next_state = expected_state;
-  RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "Motion Model - Initial State: %f %f %f %f %f",
-               expected_state(0), expected_state(1), expected_state(2), expected_state(3),
-               expected_state(4));
-  RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"),
-               "Motion Model - Motion Prediction Data: %f %f %f",
-               motion_prediction_data.translational_velocity,
-               motion_prediction_data.rotational_velocity, time_interval);
+  // RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "Motion Model - Initial State: %f %f %f %f
+  // %f",
+  //              expected_state(0), expected_state(1), expected_state(2), expected_state(3),
+  //              expected_state(4));
+  // RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"),
+  //              "Motion Model - Motion Prediction Data: %f %f TIME:%f",
+  //              motion_prediction_data.translational_velocity,
+  //              motion_prediction_data.rotational_velocity, time_interval);
   if (motion_prediction_data.rotational_velocity < 0.01) {  // Rectilinear movement
     next_state(5) = motion_prediction_data.rotational_velocity;
     next_state(0) +=
@@ -56,8 +57,8 @@ Eigen::VectorXf NormalVelocityModel::predict_expected_state(
 
   next_state(2) = common_lib::maths::normalize_angle(
       expected_state(2) + motion_prediction_data.rotational_velocity * time_interval);
-  RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "Motion Model - Next State: %f %f %f %f %f",
-               next_state(0), next_state(1), next_state(2), next_state(3), next_state(4));
+  // RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "Motion Model - Next State: %f %f %f %f %f",
+  //              next_state(0), next_state(1), next_state(2), next_state(3), next_state(4));
 
   return next_state;
 }
@@ -119,12 +120,12 @@ Eigen::VectorXf ImuVelocityModel::predict_expected_state(const Eigen::VectorXf &
                                                          const double time_interval) const {
   Eigen::VectorXf next_state = expected_state;
   // print expected state first 5 variables
-  RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"),
-               "Motion Model - Initial State: X: %f Y: %f THETA: %f VX: %f VY: %f WITH TIME "
-               "INTERVAL: %f AND ACCELERATION X and Y: %f / %f",
-               expected_state(0), expected_state(1), expected_state(2), expected_state(3),
-               expected_state(4), time_interval, motion_prediction_data.acceleration_x,
-               motion_prediction_data.acceleration_y);
+  // RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"),
+  //              "Motion Model - Initial State: X: %f Y: %f THETA: %f VX: %f VY: %f WITH TIME "
+  //              "INTERVAL: %f AND ACCELERATION X and Y: %f / %f",
+  //              expected_state(0), expected_state(1), expected_state(2), expected_state(3),
+  //              expected_state(4), time_interval, motion_prediction_data.acceleration_x,
+  //              motion_prediction_data.acceleration_y);
 
   next_state(0) += expected_state(3) * time_interval +
                    0.5 * motion_prediction_data.acceleration_x * pow(time_interval, 2);
@@ -136,10 +137,10 @@ Eigen::VectorXf ImuVelocityModel::predict_expected_state(const Eigen::VectorXf &
   next_state(3) += motion_prediction_data.acceleration_x * time_interval;
   next_state(4) += motion_prediction_data.acceleration_y * time_interval;
 
-  RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"),
-               "Motion Model - NEXT State: X: %f Y: %f THETA: %f VX: %f VY: %f YR:%f",
-               next_state(0), next_state(1), next_state(2), next_state(3), next_state(4),
-               next_state(5));
+  // RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"),
+  //              "Motion Model - NEXT State: X: %f Y: %f THETA: %f VX: %f VY: %f YR:%f",
+  //              next_state(0), next_state(1), next_state(2), next_state(3), next_state(4),
+  //              next_state(5));
   return next_state;
 }
 

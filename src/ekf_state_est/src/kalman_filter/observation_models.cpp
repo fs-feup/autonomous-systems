@@ -31,6 +31,43 @@ Eigen::Vector2f ObservationModel::inverse_observation_model(
                          observed_landmark_absolute_position(1));
 }
 
+Eigen::MatrixXf ObservationModel::get_gv(const Eigen::VectorXf &expected_state,
+                                         const ObservationData &observation_data) const {
+  // inverse_observation model
+  // fx = m * cos(theta) - sin(theta) * n + x
+  // fy = m * sin(theta) + cos(theta) * n + y
+  // Eigen::MatrixXf gv(2, 6);  // Initialize a 2x6 matrix
+
+  // gv << 1, 0,
+  //     -observation_data.position.x * sin(expected_state(2)) -
+  //         observation_data.position.y * cos(expected_state(2)),
+  //     0, 0, 0, 0, 1,
+  //     observation_data.position.x * cos(expected_state(2)) -
+  //         observation_data.position.y * sin(expected_state(2)),
+  //     0, 0, 0;
+
+  Eigen::MatrixXf gv(2, 3);  // Initialize a 2x3 matrix
+
+  gv << 1, 0,
+      -observation_data.position.x * sin(expected_state(2)) -
+          observation_data.position.y * cos(expected_state(2)),
+      0, 1,
+      observation_data.position.x * cos(expected_state(2)) -
+          observation_data.position.y * sin(expected_state(2));
+
+  return gv;
+}
+
+Eigen::MatrixXf ObservationModel::get_gz(const Eigen::VectorXf &expected_state,
+                                         const ObservationData &observation_data) const {
+  Eigen::MatrixXf gz(2, 2);  // Initialize a 2x2 matrix
+
+  gz << cos(expected_state(2)), -sin(expected_state(2)), sin(expected_state(2)),
+      cos(expected_state(2));
+
+  return gz;
+}
+
 Eigen::Vector2f ObservationModel::observation_model(const Eigen::VectorXf &expected_state,
                                                     const unsigned int landmark_index) const {
   Eigen::Matrix3f transformation_matrix = Eigen::Matrix3f::Identity();
@@ -48,7 +85,8 @@ Eigen::Vector2f ObservationModel::observation_model(const Eigen::VectorXf &expec
       -expected_state(0) * sin(-expected_state(2)) - expected_state(1) * cos(-expected_state(2));
   Eigen::Vector3f observation =
       transformation_matrix *
-      Eigen::Vector3f(expected_state(landmark_index), expected_state(landmark_index + 1), 1);
+      Eigen::Vector3f(static_cast<float>(expected_state(landmark_index)),
+                      static_cast<float>(expected_state(landmark_index + 1)), 1);
 
   return Eigen::Vector2f(observation(0), observation(1));
 }

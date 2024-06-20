@@ -135,6 +135,7 @@ class Evaluator(Node):
         )
 
         # Publishers for state estimation metrics
+        self._pose_x_publisher_ = self.create_publisher(Float32, "/state_estimation/pose_x", 10)
         self._map_execution_time_ = self.create_publisher(
             Float32, "/evaluator/state_estimation/execution_time", 10
         )
@@ -312,7 +313,10 @@ class Evaluator(Node):
         self._map_mean_difference_.publish(mean_difference)
         self._map_mean_squared_difference_.publish(mean_squared_difference)
         self._map_root_mean_squared_difference_.publish(root_mean_squared_difference)
-
+        pose_x = Float32()
+        pose_x.data = pose[0]
+        self._pose_x_publisher_.publish(pose_x)
+        
     def compute_and_publish_perception(
         self, perception_output: np.ndarray, perception_ground_truth: np.ndarray
     ) -> None:
