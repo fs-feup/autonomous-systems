@@ -36,6 +36,9 @@ from math import sqrt
 from evaluator.formats import format_path_point_array_msg
 from message_filters import TimeSynchronizer
 
+import csv
+import signal
+
 
 class Evaluator(Node):
     """!
@@ -215,7 +218,13 @@ class Evaluator(Node):
         self._control_velocity_root_mean_squared_difference_ = self.create_publisher(
             Float32, "/evaluator/control/velocity/root_mean_squared_difference", 10
         )
-
+        
+        
+        self.perception_metrics = []
+        self.se_metrics = []
+        self.planning_metrics = []
+        self.control_metrics = []
+        
         self._control_sum_error = 0
         self._control_squared_sum_error = 0
         self._control_velocity_sum_error = 0
@@ -313,7 +322,30 @@ class Evaluator(Node):
         self._adapter_: Adapter = ADAPTER_CONSTRUCTOR_DICTINARY[self._adapter_name_](
             self
         )
-
+        
+        signal.signal(signal.SIGINT, self.signal_handler)
+    
+    def signal_handler(self, sig, frame):
+        finish_time = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        metrics_dict = {
+            "perception": self.perception_metrics,
+            "se": self.se_metrics,
+            "planning": self.planning_metrics,
+            "control": self.control_metrics
+        }
+        for filename, metrics in metrics_dict.items():
+            if metrics:
+                datetime_filename = f"{filename}_{finish_time}.csv"
+                self.metrics_to_csv(metrics, "src/evaluator/evaluator_results/" + datetime_filename)
+        sys.exit(0)
+        
+    def metrics_to_csv(self, metrics, filename):
+        with open(filename, 'w', newline='') as csvfile:
+            fieldnames = metrics[0].keys()
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            writer.writeheader()
+            writer.writerows(metrics)     
+           
     def point_cloud_callback(self, _: PointCloud2):
         """!
         Point Cloud Callback to get the initial time of perception pipeline
@@ -473,7 +505,7 @@ class Evaluator(Node):
             )
 
         # publish pose and velocity errors
-        self._state_estimation_mean_mean_state_error.publish(vehicle_state_error)
+        self._state_estimation_mean_mean_state_error.publish(mean_vehicle_state_error)
         self._state_estimation_mean_mean_state_squared_error.publish(
             mean_squared_vehicle_state_error
         )
@@ -496,6 +528,24 @@ class Evaluator(Node):
         self._state_estimation_mean_mean_root_squared_error.publish(
             mean_mean_root_squared_error
         )
+        metrics = {
+            "vehicle_state_error_x": vehicle_state_error.data[0],
+            "vehicle_state_error_y": vehicle_state_error.data[1],
+            "vehicle_state_error_theta": vehicle_state_error.data[2],
+            "vehicle_state_error_v1": vehicle_state_error.data[3],
+            "vehicle_state_error_v2": vehicle_state_error.data[4],
+            "vehicle_state_error_w": vehicle_state_error.data[5],
+            "mean_difference": mean_difference.data,
+            "mean_squared_difference": mean_squared_difference.data,
+            "root_mean_squared_difference": root_mean_squared_difference.data,
+            "mean_vehicle_state_error": mean_vehicle_state_error,
+            "mean_squared_vehicle_state_error": mean_squared_vehicle_state_error,
+            "mean_root_squared_vehicle_state_error": mean_root_squared_vehicle_state_error,
+            "mean_mean_error": mean_mean_error.data,
+            "mean_mean_squared_error": mean_mean_squared_error.data,
+            "mean_mean_root_squared_error": mean_mean_root_squared_error.data
+        }
+        self.se_metrics.append(metrics)
 
     def compute_and_publish_perception(
         self, perception_output: np.ndarray, perception_ground_truth: np.ndarray
@@ -575,6 +625,16 @@ class Evaluator(Node):
         self._perception_root_mean_squared_difference_.publish(
             root_mean_squared_difference
         )
+        metrics = {
+            "mean_difference": mean_difference,
+            "inter_cones_distance": inter_cones_distance,
+            "mean_squared_difference": mean_squared_error,
+            "root_mean_squared_difference": root_mean_squared_difference,
+            "mean_mean_error": mean_mean_error,
+            "mean_mean_squared_error": mean_mean_squared_error,
+            "mean_mean_root_squared_error": mean_mean_root_squared_error
+        }
+        self.perception_metrics.append(metrics)
 
     def compute_and_publish_planning(self, msg: PathPointArray):
         """!
@@ -604,8 +664,8 @@ class Evaluator(Node):
         mean_difference = Float32()
         mean_difference.data = get_average_difference(actual_path, expected_path)
 
-        mean_squared_error = Float32()
-        mean_squared_error.data = get_mean_squared_difference(
+        mean_squared_difference = Float32()
+        mean_squared_difference.data = get_mean_squared_difference(
             actual_path, expected_path
         )
 
@@ -620,13 +680,13 @@ class Evaluator(Node):
                                 Mean squared difference: {}\n \
                                 Root mean squared difference: {}".format(
                 mean_difference,
-                mean_squared_error,
+                mean_squared_difference,
                 root_mean_squared_difference,
             )
         )
 
         self._planning_mean_difference_.publish(mean_difference)
-        self._planning_mean_squared_difference_.publish(mean_squared_error)
+        self._planning_mean_squared_difference_.publish(mean_squared_difference)
         self._planning_root_mean_squared_difference_.publish(
             root_mean_squared_difference
         )
@@ -657,6 +717,16 @@ class Evaluator(Node):
         self._planning_mean_mean_root_squared_error.publish(
             mean_mean_root_squared_error
         )
+        metrics = {
+            "mean_difference": mean_difference,
+            "mean_squared_difference": mean_squared_difference,
+            "root_mean_squared_difference": root_mean_squared_difference,
+            "mean_mean_error": mean_mean_error,
+            "mean_mean_squared_error": mean_mean_squared_error,
+            "mean_mean_root_squared_error": mean_mean_root_squared_error
+        }
+        self.planning_metrics.append(metrics)
+            
 
     def planning_gt_callback(self, msg: PathPointArray):
         """!
@@ -768,7 +838,17 @@ class Evaluator(Node):
         self._control_velocity_mean_squared_difference_.publish(
             velocity_root_mean_squared
         )
-
+        metrics = {
+            "difference": difference,
+            "mean_difference": mean_difference,
+            "mean_squared_difference": mean_squared_difference,
+            "root_mean_squared_difference": root_mean_squared_difference,
+            "velocity_difference": velocity_difference,
+            "velocity_mean_difference": velocity_mean_difference,
+            "velocity_mean_squared_difference": velocity_mean_squared_difference,
+            "velocity_root_mean_squared_difference": velocity_root_mean_squared
+        }
+        self.control_metrics.append(metrics)    
 
 def main(args=None):
     rclpy.init(args=args)
