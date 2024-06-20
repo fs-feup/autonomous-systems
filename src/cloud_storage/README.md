@@ -7,6 +7,11 @@ This folder contains scripts for interacting with Google Cloud Storage buckets, 
 
 ## Usage
 
+First run the following command
+```sh
+pip install google-cloud-storage
+```
+
 To run the `send_bucket.py` script, use the following command:
 
 ```sh
