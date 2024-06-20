@@ -11,7 +11,6 @@
 
 int main(int argc, char** argv) {
   rclcpp::init(argc, argv);
-
   auto params = load_adapter_parameters();
   auto perception = std::make_shared<Perception>(params);
   rclcpp::spin(perception);  // Spin the perception node
