@@ -325,7 +325,7 @@ class Evaluator(Node):
         signal.signal(signal.SIGINT, self.signal_handler)
 
     def signal_handler(self, sig, frame):
-        finish_time = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        finish_time = datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
         metrics_dict = {
             "perception": self.perception_metrics,
             "se": self.se_metrics,
@@ -336,7 +336,7 @@ class Evaluator(Node):
             if metrics:
                 datetime_filename = f"{filename}_{finish_time}.csv"
                 self.metrics_to_csv(
-                    metrics, "src/evaluator/evaluator_results/" + datetime_filename
+                    metrics, "performance/evaluator_metrics/" + datetime_filename
                 )
         sys.exit(0)
 
@@ -546,9 +546,24 @@ class Evaluator(Node):
             "mean_difference": mean_difference.data,
             "mean_squared_difference": mean_squared_difference.data,
             "root_mean_squared_difference": root_mean_squared_difference.data,
-            "mean_vehicle_state_error": mean_vehicle_state_error,
-            "mean_squared_vehicle_state_error": mean_squared_vehicle_state_error,
-            "mean_root_squared_vehicle_state_error": mean_root_squared_vehicle_state_error,
+            "mean_vehicle_state_error_x": mean_vehicle_state_error.data[0],
+            "mean_vehicle_state_error_y": mean_vehicle_state_error.data[1],
+            "mean_vehicle_state_error_theta": mean_vehicle_state_error.data[2],
+            "mean_vehicle_state_error_v1": mean_vehicle_state_error.data[3],
+            "mean_vehicle_state_error_v2": mean_vehicle_state_error.data[4],
+            "mean_vehicle_state_error_w": mean_vehicle_state_error.data[5],
+            "mean_squared_vehicle_state_error_x": mean_squared_vehicle_state_error.data[0],
+            "mean_squared_vehicle_state_error_y": mean_squared_vehicle_state_error.data[1],
+            "mean_squared_vehicle_state_error_theta": mean_squared_vehicle_state_error.data[2],
+            "mean_squared_vehicle_state_error_v1": mean_squared_vehicle_state_error.data[3],
+            "mean_squared_vehicle_state_error_v2": mean_squared_vehicle_state_error.data[4],
+            "mean_squared_vehicle_state_error_w": mean_squared_vehicle_state_error.data[5],            
+            "mean_root_squared_vehicle_state_error_x": mean_root_squared_vehicle_state_error.data[0],
+            "mean_root_squared_vehicle_state_error_y": mean_root_squared_vehicle_state_error.data[1],
+            "mean_root_squared_vehicle_state_error_theta": mean_root_squared_vehicle_state_error.data[2],
+            "mean_root_squared_vehicle_state_error_v1": mean_root_squared_vehicle_state_error.data[3],
+            "mean_root_squared_vehicle_state_error_v2": mean_root_squared_vehicle_state_error.data[4],
+            "mean_root_squared_vehicle_state_error_w": mean_root_squared_vehicle_state_error.data[5],
             "mean_mean_error": mean_mean_error.data,
             "mean_mean_squared_error": mean_mean_squared_error.data,
             "mean_mean_root_squared_error": mean_mean_root_squared_error.data,
@@ -634,13 +649,13 @@ class Evaluator(Node):
 
         # For exporting metrics to csv
         metrics = {
-            "mean_difference": mean_difference,
-            "inter_cones_distance": inter_cones_distance,
-            "mean_squared_difference": mean_squared_error,
-            "root_mean_squared_difference": root_mean_squared_difference,
-            "mean_mean_error": mean_mean_error,
-            "mean_mean_squared_error": mean_mean_squared_error,
-            "mean_mean_root_squared_error": mean_mean_root_squared_error,
+            "mean_difference": mean_difference.data,
+            "inter_cones_distance": inter_cones_distance.data,
+            "mean_squared_difference": mean_squared_error.data,
+            "root_mean_squared_difference": root_mean_squared_difference.data,
+            "mean_mean_error": mean_mean_error.data,
+            "mean_mean_squared_error": mean_mean_squared_error.data,
+            "mean_mean_root_squared_error": mean_mean_root_squared_error.data,
         }
         self.perception_metrics.append(metrics)
 
@@ -729,12 +744,12 @@ class Evaluator(Node):
 
         # For exporting metrics to csv
         metrics = {
-            "mean_difference": mean_difference,
-            "mean_squared_difference": mean_squared_difference,
-            "root_mean_squared_difference": root_mean_squared_difference,
-            "mean_mean_error": mean_mean_error,
-            "mean_mean_squared_error": mean_mean_squared_error,
-            "mean_mean_root_squared_error": mean_mean_root_squared_error,
+            "mean_difference": mean_difference.data,
+            "mean_squared_difference": mean_squared_difference.data,
+            "root_mean_squared_difference": root_mean_squared_difference.data,
+            "mean_mean_error": mean_mean_error.data,
+            "mean_mean_squared_error": mean_mean_squared_error.data,
+            "mean_mean_root_squared_error": mean_mean_root_squared_error.data,
         }
         self.planning_metrics.append(metrics)
 
@@ -771,7 +786,7 @@ class Evaluator(Node):
 
         self._control_execution_time_.publish(
             execution_time
-        )  # Pyblishes execution time
+        )  # Publishes execution time
 
         # Compute instantaneous control metrics
         pose_treated, velocities_treated = format_vehicle_state_msg(msg.vehicle_state)
@@ -855,14 +870,14 @@ class Evaluator(Node):
 
         # For exporting metrics to csv
         metrics = {
-            "difference": pose_difference,
-            "mean_difference": mean_difference,
-            "mean_squared_difference": mean_squared_difference,
-            "root_mean_squared_difference": root_mean_squared_difference,
-            "velocity_difference": velocity_difference,
-            "velocity_mean_difference": velocity_mean_difference,
-            "velocity_mean_squared_difference": velocity_mean_squared_difference,
-            "velocity_root_mean_squared_difference": velocity_root_mean_squared,
+            "difference": pose_difference.data,
+            "mean_difference": mean_difference.data,
+            "mean_squared_difference": mean_squared_difference.data,
+            "root_mean_squared_difference": root_mean_squared_difference.data,
+            "velocity_difference": velocity_difference.data,
+            "velocity_mean_difference": velocity_mean_difference.data,
+            "velocity_mean_squared_difference": velocity_mean_squared_difference.data,
+            "velocity_root_mean_squared_difference": velocity_root_mean_squared.data,
         }
         self.control_metrics.append(metrics)
 
