@@ -18,11 +18,20 @@ std::vector<PathPoint> PathCalculation::process_delaunay_triangulations(std::pai
   std::vector<PathPoint> unordered_path;
   unordered_path.reserve(cones.size());
 
+
+  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Cone sizes: (%d, %d) - (%d)", refined_cones.first.size(), refined_cones.second.size(), cones.size());
+
+  for (int i = 0; i < cones.size(); i++){
+      RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "CONE: (%f, %f) - (%d)", cones[i].position.x, cones[i].position.y, cones[i].color);
+    }
+
   // Create a Delaunay triangulation
   DT dt;
   // Insert cones coordinates into the Delaunay triangulation
   for (size_t i = 0; i < cones.size(); i++)
     dt.insert(Point(cones[i].position.x, cones[i].position.y));
+
+
 
   // Process valid triangulations and add positions to unordered_path
   for (DT::Finite_edges_iterator it = dt.finite_edges_begin(); it != dt.finite_edges_end(); ++it) {
@@ -41,6 +50,8 @@ std::vector<PathPoint> PathCalculation::process_delaunay_triangulations(std::pai
      continue;
     }
 
+    
+
     Cone cone1 = cones[id_cone1];
     Cone cone2 = cones[id_cone2];
     // If cones are from different sides
@@ -49,10 +60,16 @@ std::vector<PathPoint> PathCalculation::process_delaunay_triangulations(std::pai
       double xDist = cone2.position.x - cone1.position.x;
       double yDist = cone2.position.y - cone1.position.y;
       double dist = sqrt(pow(xDist, 2) + pow(yDist, 2));
+      RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "CONES: (%f, %f) | (%f, %f)", cone1.position.x, cone1.position.y, cone2.position.x, cone2.position.y);
+      RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "PATHPOINT: %f, %f", cone1.position.x + xDist / 2, cone1.position.y + yDist / 2);
+      RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "PATHDISTS: %f, %f, dist: %f / %f", xDist, yDist, dist, config_.dist_threshold);
       if (dist < config_.dist_threshold) {
         PathPoint pt = PathPoint(cone1.position.x + xDist / 2, cone1.position.y + yDist / 2);
         unordered_path.push_back(pt);
       }
+      RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "pathpoint array with size: %ld",
+               unordered_path.size());
+
     }
   }
 

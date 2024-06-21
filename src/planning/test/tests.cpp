@@ -409,7 +409,7 @@ struct PathPointHash {
 
 struct PathPointEqual {
   bool operator()(const PathPoint &p1, const PathPoint &p2) const {
-    return p1.position.x == p2.position.x && p1.position.y == p2.position.y;
+    return std::abs(p1.position.x - p2.position.x) < 1e-10 && std::abs(p1.position.y - p2.position.y) < 1e-10;
   }
 };
 

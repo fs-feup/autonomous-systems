@@ -98,6 +98,7 @@ bool ConeColoring::try_to_color_next_cone(
     double cost =
         calculate_cost(cone, last_cone, last_vector,
                        static_cast<double>(n_colored_cones) / static_cast<double>(n_input_cones));
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "COLOR cost: Cost(%f), Config Cost(%f), Min Cost(%f)", cost, this->config_.max_cost, min_cost);
     if (cost < min_cost && cone.position.euclidean_distance(last_cone.position) < 5 &&
         cost < this->config_.max_cost) {
       min_cost = cost;
@@ -139,5 +140,6 @@ std::pair<std::vector<Cone>, std::vector<Cone>> ConeColoring::color_cones(std::v
   while (try_to_color_next_cone(uncolored_cones, colored_yellow_cones, n_colored_cones,
                                 n_input_cones)) {
   }
+ RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "COLOR sizes: B(%d), Y(%d) - U(%d)", colored_blue_cones.size(), colored_yellow_cones.size(), uncolored_cones.size());
   return {colored_blue_cones, colored_yellow_cones};
 }
