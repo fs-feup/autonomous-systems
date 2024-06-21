@@ -61,10 +61,12 @@ void ConeColoring::place_initial_cones(
   uncolored_cones.erase(initial_cone_left);
   colored_blue_cones.push_back(initial_cone_left);
   n_colored_cones++;
+
   Cone initial_cone_right = find_initial_cone(uncolored_cones, car_pose, TrackSide::RIGHT);
   uncolored_cones.erase(initial_cone_right);
   colored_yellow_cones.push_back(initial_cone_right);
   n_colored_cones++;
+
   Cone virtual_cone_left = virtual_cone_from_initial_cone(initial_cone_left, car_pose);
   Cone virtual_cone_right = virtual_cone_from_initial_cone(initial_cone_right, car_pose);
   colored_blue_cones.insert(colored_blue_cones.begin(), virtual_cone_left);
@@ -98,7 +100,6 @@ bool ConeColoring::try_to_color_next_cone(
     double cost =
         calculate_cost(cone, last_cone, last_vector,
                        static_cast<double>(n_colored_cones) / static_cast<double>(n_input_cones));
-    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "COLOR cost: Cost(%f), Config Cost(%f), Min Cost(%f)", cost, this->config_.max_cost, min_cost);
     if (cost < min_cost && cone.position.euclidean_distance(last_cone.position) < 5 &&
         cost < this->config_.max_cost) {
       min_cost = cost;
@@ -118,8 +119,8 @@ bool ConeColoring::try_to_color_next_cone(
 std::pair<std::vector<Cone>, std::vector<Cone>> ConeColoring::color_cones(std::vector<Cone> cones,
                                                                           const Pose& car_pose) {
   remove_duplicates(cones);
-  if (cones.empty()) {
-    RCLCPP_WARN(rclcpp::get_logger("Planning : ConeColoring"), "No cones recieved to be colored");
+  if (cones.size() < 2) {
+    RCLCPP_WARN(rclcpp::get_logger("Planning : ConeColoring"), "Not enough cones recieved to be colored: %ld", cones.size());
     return {};
   }
   std::vector<Cone> colored_blue_cones;
@@ -140,6 +141,5 @@ std::pair<std::vector<Cone>, std::vector<Cone>> ConeColoring::color_cones(std::v
   while (try_to_color_next_cone(uncolored_cones, colored_yellow_cones, n_colored_cones,
                                 n_input_cones)) {
   }
- RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "COLOR sizes: B(%d), Y(%d) - U(%d)", colored_blue_cones.size(), colored_yellow_cones.size(), uncolored_cones.size());
   return {colored_blue_cones, colored_yellow_cones};
 }

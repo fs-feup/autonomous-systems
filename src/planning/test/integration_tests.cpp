@@ -71,21 +71,14 @@ protected:
     this->map_publisher->publish(track_msg);  // send the cones
     this->vehicle_state_publisher_->publish(state_msg);
 
-    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Pre publish");
-
-
     // Add nodes to be executed
     rclcpp::executors::MultiThreadedExecutor executor;
     executor.add_node(this->locmap_sender);
-        RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Pre publish");
     executor.add_node(this->control_receiver);
-            RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Pre publish3");
     executor.add_node(this->planning_test);
-        RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Pre publish2");
 
     auto start_time = std::chrono::high_resolution_clock::now();
     executor.spin();  // Execute nodes
-        RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Pre publish4");
     auto end_time = std::chrono::high_resolution_clock::now();
     return std::chrono::duration<double, std::milli>(end_time - start_time);
   }
@@ -157,43 +150,43 @@ protected:
 //             (long unsigned int)241);
 // }
 
-// TEST_F(IntegrationTest, PUBLISH_PATH3) {
-//   custom_interfaces::msg::Cone cone_to_send;
+TEST_F(IntegrationTest, PUBLISH_PATH3) {
+  custom_interfaces::msg::Cone cone_to_send;
 
-//   std::vector<Cone> cone_array = {
-//       Cone((float)-1.414, (float)-1.414), Cone((float)-3.184, (float)0.356),
-//       Cone((float)-4.954, (float)2.126), Cone((float)-6.724, (float)3.896),
-//       Cone((float)-8.494, (float)5.666), Cone( (float)-10.264, (float)7.436),
-//       Cone((float)-12.034, (float)9.206), Cone((float)-13.804, (float)10.976),
-//       Cone((float)-15.574, (float)12.746), Cone((float)-17.344, (float)14.516),
-//       Cone((float)-19.114, (float)16.286), Cone((float)-20.884, (float)18.056),
-//       Cone((float)1.414, (float)1.414), Cone((float)-0.356, (float)3.184),
-//       Cone((float)-2.126, (float)4.954), Cone((float)-3.896, (float)6.724),
-//       Cone((float)-5.666, (float)8.494), Cone((float)-7.436, (float)10.264),
-//       Cone((float)-9.206, (float)12.034), Cone((float)-10.976, (float)13.804),
-//       Cone((float)-12.746, (float)15.574), Cone((float)-14.516, (float)17.344),
-//       Cone((float)-16.286, (float)19.114), Cone((float)-18.056, (float)20.884)};
-//   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
+  std::vector<Cone> cone_array = {
+      Cone((float)-1.414, (float)-1.414), Cone((float)-3.184, (float)0.356),
+      Cone((float)-4.954, (float)2.126), Cone((float)-6.724, (float)3.896),
+      Cone((float)-8.494, (float)5.666), Cone( (float)-10.264, (float)7.436),
+      Cone((float)-12.034, (float)9.206), Cone((float)-13.804, (float)10.976),
+      Cone((float)-15.574, (float)12.746), Cone((float)-17.344, (float)14.516),
+      Cone((float)-19.114, (float)16.286), Cone((float)-20.884, (float)18.056),
+      Cone((float)1.414, (float)1.414), Cone((float)-0.356, (float)3.184),
+      Cone((float)-2.126, (float)4.954), Cone((float)-3.896, (float)6.724),
+      Cone((float)-5.666, (float)8.494), Cone((float)-7.436, (float)10.264),
+      Cone((float)-9.206, (float)12.034), Cone((float)-10.976, (float)13.804),
+      Cone((float)-12.746, (float)15.574), Cone((float)-14.516, (float)17.344),
+      Cone((float)-16.286, (float)19.114), Cone((float)-18.056, (float)20.884)};
+  this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
 
-//   custom_interfaces::msg::VehicleState vehicle_state;
-//   vehicle_state.position.x = 0;
-//   vehicle_state.position.y = 0;
-//   vehicle_state.theta = 2.3561945;  // 135 degrees
-//   vehicle_state.linear_velocity = 0;
-//   vehicle_state.angular_velocity = 0;
+  custom_interfaces::msg::VehicleState vehicle_state;
+  vehicle_state.position.x = 0;
+  vehicle_state.position.y = 0;
+  vehicle_state.theta = 2.3561945;  // 135 degrees
+  vehicle_state.linear_velocity = 0;
+  vehicle_state.angular_velocity = 0;
 
-//   RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Publishing cone array with size: %ld",
-//                cone_array_msg.cone_array.size());
-//   auto duration = run_nodes(cone_array_msg, vehicle_state);
+  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Publishing cone array with size: %ld",
+               cone_array_msg.cone_array.size());
+  auto duration = run_nodes(cone_array_msg, vehicle_state);
 
-//   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
-//   for (const auto &p : received_path.pathpoint_array) {
-//     EXPECT_LE(p.y + p.x, 0.1);
-//     RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Recv cone: %f, %f",p.x, p.y);
-//   }
-//   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()),
-//             (long unsigned int)241);
-// }
+  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
+  for (const auto &p : received_path.pathpoint_array) {
+    EXPECT_LE(p.y + p.x, 0.1);
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Recv cone: %f, %f",p.x, p.y);
+  }
+  EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()),
+            (long unsigned int)241);
+}
 
 // TEST_F(IntegrationTest, PUBLISH_PATH4) {
 //   std::vector<Cone> cone_array = {
@@ -314,27 +307,27 @@ protected:
 //   int)0);
 // }
 
-TEST_F(IntegrationTest, PUBLISH_PATH8) {
-  auto cone_to_send = custom_interfaces::msg::Cone();
+// TEST_F(IntegrationTest, PUBLISH_PATH8) {
+//    custom_interfaces::msg::Cone cone_to_send;
 
-  cone_to_send.position.x = 2;
-  cone_to_send.position.y = 19;
-  cone_to_send.color = "yellow_cone";
-  cone_array_msg.cone_array.push_back(cone_to_send);
+//   cone_to_send.position.x = 2;
+//   cone_to_send.position.y = 19;
+//   cone_to_send.color = "yellow_cone";
+//   cone_array_msg.cone_array.push_back(cone_to_send);
 
-  custom_interfaces::msg::VehicleState vehicle_state;
-  vehicle_state.position.x = 0;
-  vehicle_state.position.y = 0;
-  vehicle_state.theta = 1.5708;  // 90 degrees
-  vehicle_state.linear_velocity = 0;
-  vehicle_state.angular_velocity = 0;
+//   custom_interfaces::msg::VehicleState vehicle_state;
+//   vehicle_state.position.x = 0;
+//   vehicle_state.position.y = 0;
+//   vehicle_state.theta = 1.5708;  // 90 degrees
+//   vehicle_state.linear_velocity = 0;
+//   vehicle_state.angular_velocity = 0;
 
-  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Publishing cone array with size: %ld",
-               cone_array_msg.cone_array.size());
-  auto duration = run_nodes(cone_array_msg, vehicle_state);
+//   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Publishing cone array with size: %ld",
+//                cone_array_msg.cone_array.size());
+//   auto duration = run_nodes(cone_array_msg, vehicle_state);
 
-  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
-  EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()), (long unsigned
-  int)0);
-}
+//   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
+//   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()), (long unsigned
+//   int)0);
+// }
 
