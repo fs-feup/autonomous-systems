@@ -94,6 +94,27 @@ struct position_x_y_are_double<
                         std::is_same_v<decltype(std::declval<T>().position.y), double>>>
     : std::true_type {};
 
+/**
+ * @brief This function takes a sequence of points (T), fits a spline to them using B-spline basis functions,
+ * and returns the sequence of points that represent the fitted spline.
+ *
+ * @tparam T Type of the elements in the input and output sequences. 
+ *           T must satisfy several requirements:
+ *           - Default constructible
+ *           - Hashable
+ *           - Equality comparable
+ *           - Has a `position` member
+ *           - `position` has `x` and `y` members of type `double`
+ *           - `position` has a `euclidean_distance` method
+ *
+ * @param precision Number of interpolated points between each pair of original points.
+ * @param order Order of the B-spline.
+ * @param coeffs_ratio Ratio to determine the number of coefficients for the spline.
+ * @param cone_seq Sequence of points to fit the spline to. This sequence will have duplicates removed.
+ * @return std::vector<T> Sequence of points representing the fitted spline.
+ *
+ * @note This function requires the GNU Scientific Library (GSL) for spline fitting.
+ */
 template <typename T>
 std::vector<T> fit_spline(int precision, int order, float coeffs_ratio, std::vector<T> cone_seq) {
   static_assert(has_default_constructor<T>::value, "T must be default constructible");

@@ -1,6 +1,7 @@
 #ifndef SRC_PLANNING_INCLUDE_PLANNING_SMOOTHING2_HPP_
 #define SRC_PLANNING_INCLUDE_PLANNING_SMOOTHING2_HPP_
 
+#include <cmath>
 #include "common_lib/structures/path_point.hpp"
 #include "common_lib/structures/pose.hpp"
 #include "config/smoothing_config.hpp"

@@ -10,6 +10,13 @@ void PathSmoothing::order_path(std::vector<PathPoint>& unord_path, const Pose& c
     PathPoint closest_point;
 
     for (const auto& point : unord_set) {
+      if (index == 0){
+        float path_angle = atan2(point.position.y - current_point.position.y, point.position.x - current_point.position.x);
+        // Check if next point is in the same direction range or side as the vehicle orientation
+         if (abs(fmod(path_angle - car_pose.orientation, 2 * M_PI) - M_PI) > M_PI / 2)
+            continue;
+      }
+
       double distance = current_point.position.euclidean_distance(point.position);
       if (distance < min_distance) {
         min_distance = distance;
