@@ -24,7 +24,6 @@ endif()
 
 set(ASSERTIONS_FILES
   src/validator/validator.cpp
-  src/validator/se_validator.cpp
   src/validator/assertions/inter_cones_distance.cpp
   src/validator/assertions/perception/perception_output_matching.cpp
   src/validator/assertions/planning/ordered_planning_assert.cpp
