@@ -22,6 +22,20 @@ if(OpenMP_CXX_FOUND)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
 endif()
 
+set(ASSERTIONS_FILES
+  src/validator/validator.cpp
+  src/validator/se_validator.cpp
+  src/validator/assertions/inter_cones_distance.cpp
+  src/validator/assertions/perception/perception_output_matching.cpp
+  src/validator/assertions/planning/ordered_planning_assert.cpp
+  src/validator/assertions/planning/reasonable_acceleration.cpp
+  src/validator/assertions/planning/reasonable_curvature.cpp
+  src/validator/assertions/planning/successive_paths_errors.cpp
+  src/validator/assertions/planning/velocity_planning_non_negative.cpp
+  src/validator/assertions/state_estimation/normal_map_size.cpp
+  src/validator/assertions/state_estimation/normal_map_size.cpp
+)
+
 set(IMPLEMENTATION_FILES
   src/competition_logic/mission_logic.cpp
   src/competition_logic/color.cpp
@@ -37,7 +51,7 @@ set(IMPLEMENTATION_FILES
   src/vehicle_dynamics/bicycle_model.cpp
 )
 
-add_library(${PROJECT_NAME} SHARED ${IMPLEMENTATION_FILES})
+add_library(${PROJECT_NAME} SHARED ${IMPLEMENTATION_FILES} ${ASSERTIONS_FILES})
 ament_target_dependencies(${PROJECT_NAME} eufs_msgs std_msgs rclcpp visualization_msgs fs_msgs Eigen3 custom_interfaces)
 link_directories(${Eigen_INCLUDE_DIRS})
 target_link_libraries(common_lib ${Eigen_LIBRARIES})
@@ -76,7 +90,7 @@ if(BUILD_TESTING)
   include_directories(${CMAKE_CURRENT_SOURCE_DIR})  # Include the current source directory
 
   # Unit tests
-  ament_add_gtest(${PROJECT_NAME}_test ${TESTFILES} ${IMPLEMENTATION_FILES} TIMEOUT 600)
+  ament_add_gtest(${PROJECT_NAME}_test ${TESTFILES} ${IMPLEMENTATION_FILES} ${ASSERTIONS_FILES} TIMEOUT 600)
   ament_target_dependencies(${PROJECT_NAME}_test eufs_msgs rclcpp fs_msgs std_msgs visualization_msgs Eigen3 custom_interfaces)
   target_include_directories(${PROJECT_NAME}_test PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
