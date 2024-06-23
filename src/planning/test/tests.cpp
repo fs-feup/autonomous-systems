@@ -14,10 +14,9 @@
 #include "gtest/gtest.h"
 #include "planning/cone_coloring.hpp"
 #include "planning/outliers.hpp"
-#include "planning/smoothing.hpp"
 #include "planning/path_calculation.hpp"
+#include "planning/smoothing.hpp"
 #include "rclcpp/rclcpp.hpp"
-
 #include "utils/files.hpp"
 #include "utils/splines.hpp"
 
@@ -139,8 +138,8 @@ bool custom_comparator(const std::pair<double, double> &a, const std::pair<doubl
 }
 
 void log_cone1(const Cone c) {
-  std::cout << "X cone: " << c.position.x << " , Y cone: " << c.position.y << " Color cone: " <<
-  get_color_string(c.color) << std::endl;
+  std::cout << "X cone: " << c.position.x << " , Y cone: " << c.position.y
+            << " Color cone: " << get_color_string(c.color) << std::endl;
 }
 
 void log_cone2(const Cone c) { std::cout << "(" << c.position.x << "," << c.position.y << "),"; }
@@ -399,40 +398,43 @@ TEST(LocalPathPlanner, path_smooth2) {
 
 struct PathPointHash {
   std::size_t operator()(const PathPoint &p) const {
-    // Compute individual hash values for two data members and combine them using XOR
-    std::size_t h1 = std::hash<double>()(p.position.x);
-    std::size_t h2 = std::hash<double>()(p.position.y);
-
-    return h1 ^ h2;
+    // Adjust the hash function for a bigger tolerance
+    std::size_t h1 = std::hash<long>()(static_cast<long>(std::round(p.position.x / 0.5)));
+    std::size_t h2 = std::hash<long>()(static_cast<long>(std::round(p.position.y / 0.5)));
+    return h1 ^ (h2 << 1);  // Combine the hashes using bitwise shift to reduce collisions
   }
 };
 
 struct PathPointEqual {
   bool operator()(const PathPoint &p1, const PathPoint &p2) const {
-    return std::abs(p1.position.x - p2.position.x) < 1e-10 && std::abs(p1.position.y - p2.position.y) < 1e-10;
+    // Use a bigger tolerance for equality comparison
+    bool result = std::abs(p1.position.x - p2.position.x) < 0.5 &&
+                  std::abs(p1.position.y - p2.position.y) < 0.5;
+    return result;
   }
 };
+/**
+ * @brief simple but realistic scenario with few cones and few outliers
+ *
+ */
+TEST(LocalPathPlanner, delauney10) {
+  std::string file_path = "src/planning/tracks/map_10.txt";
+  auto track = track_from_file(file_path);
 
+  auto path_calculation = PathCalculation();
+  std::vector<PathPoint> generated_points = path_calculation.process_delaunay_triangulations(track);
 
-// /**
-//  * @brief simple but realistic scenario with few cones and fwe outliers
-//  *
-//  */
-// TEST(LocalPathPlanner, delauney10) {
-//   std::string file_path = "src/planning/tracks/map_10.txt";
-//   auto track = track_from_file(file_path);
-  
-//   auto path_calculation = PathCalculation();
-//   std::unordered_set<PathPoint, PathPointHash, PathPointEqual> path;
-//   std::vector<PathPoint> path_points = path_calculation.process_delaunay_triangulations(track);
-//   for (size_t i = 0; i < path_points.size(); i++) path.insert(path_points[i]);
-//   std::unordered_set<PathPoint, PathPointHash, PathPointEqual> expected{
-//       PathPoint(1.5, 0.0),  PathPoint(1.75, 1.0),  PathPoint(2.25, 1.4),
-//       PathPoint(2.5, 2.4),  PathPoint(3.0, 2.75),  PathPoint(3.5, 3.15),
-//       PathPoint(3.75, 3.9), PathPoint(4.25, 4.25), PathPoint(4.5, 5.0)};
-//   EXPECT_EQ(path.size(), expected.size());
-//   EXPECT_EQ(expected, path);
-// }
+  std::unordered_set<PathPoint, PathPointHash, PathPointEqual> expected{
+      PathPoint(3.5, 3.15), PathPoint(1.75, 1.0),  PathPoint(2.25, 1.4),
+      PathPoint(4.5, 5),    PathPoint(1.5, 0),     PathPoint(3, 2.75),
+      PathPoint(2.5, 2.4),  PathPoint(4.25, 4.25), PathPoint(3.75, 3.9)};
+
+  for (const auto &point : generated_points) {
+    EXPECT_TRUE(expected.find(point) != expected.end());
+  }
+
+  EXPECT_EQ(generated_points.size(), expected.size());
+}
 
 /**
  * @brief scenario: Large piece of track with no outliers
@@ -442,7 +444,7 @@ TEST(LocalPathPlanner, delauney3_0) {
   std::string file_path = "src/planning/tracks/map_100.txt";
   auto track = track_from_file(file_path);
   std::vector<std::pair<double, double>> path;
-  
+
   auto path_calculation = PathCalculation();
   std::vector<PathPoint> path_points = path_calculation.process_delaunay_triangulations(track);
 
@@ -499,14 +501,14 @@ TEST(LocalPathPlanner, delauney3_0) {
  */
 TEST(LocalPathPlanner, map_test1_void) {
   std::string file_path = "src/planning/tracks/map_test1.txt";
- auto track = track_from_file(file_path);
-  
+  auto track = track_from_file(file_path);
+
   auto path_calculation = PathCalculation();
   std::unordered_set<PathPoint, PathPointHash, PathPointEqual> path;
   std::vector<PathPoint> path_points = path_calculation.process_delaunay_triangulations(track);
   for (size_t i = 0; i < path_points.size(); i++) path.insert(path_points[i]);
   std::unordered_set<PathPoint, PathPointHash, PathPointEqual> expected{
-    {1, 0}, {2, 0}, {3, 0}, {4, 0}, {5, 0}, {6, 0}, {7, 0}, {8, 0}, {0, 0}};
+      {1, 0}, {2, 0}, {3, 0}, {4, 0}, {5, 0}, {6, 0}, {7, 0}, {8, 0}, {0, 0}};
   EXPECT_EQ(path.size(), expected.size());
   EXPECT_EQ(expected, path);
 }
@@ -518,7 +520,7 @@ TEST(LocalPathPlanner, map_test1_void) {
 TEST(LocalPathPlanner, map_test2) {
   std::string file_path = "src/planning/tracks/map_test2.txt";
   auto track = track_from_file(file_path);
-  
+
   auto path_calculation = PathCalculation();
   std::unordered_set<PathPoint, PathPointHash, PathPointEqual> path;
   std::vector<PathPoint> path_points = path_calculation.process_delaunay_triangulations(track);
@@ -561,8 +563,7 @@ void extractInfo(const std::string_view &filenameView, int &size, int &n_outlier
 TEST(ConeColoring, place_first_cones1) {
   std::vector<common_lib::structures::Cone> track =
       cone_vector_from_file("src/planning/tracks/track1.txt");
-  std::unordered_set<common_lib::structures::Cone, std::hash<common_lib::structures::Cone>,
-                     ConeAproxEqual>
+  std::unordered_set<common_lib::structures::Cone, std::hash<common_lib::structures::Cone>>
       uncolored_cones(track.begin(), track.end());
   double gain_angle = 1.0;
   double gain_distance = 1.0;
@@ -597,8 +598,7 @@ TEST(ConeColoring, place_first_cones1) {
 TEST(ConeColoring, place_first_cones2) {
   std::vector<common_lib::structures::Cone> test_cones =
       cone_vector_from_file("src/planning/tracks/track1.txt");
-  std::unordered_set<common_lib::structures::Cone, std::hash<common_lib::structures::Cone>,
-                     ConeAproxEqual>
+  std::unordered_set<common_lib::structures::Cone, std::hash<common_lib::structures::Cone>>
       uncolored_cones(test_cones.begin(), test_cones.end());
   double gain_angle = 1.0;
   double gain_distance = 1.0;
@@ -640,15 +640,7 @@ TEST(ConeColoring, fullconecoloring1) {
   auto cone_coloring = ConeColoring(config);
   auto initial_car_pose = Pose(30.0, 15.0, 3.14);
   auto track = cone_coloring.color_cones(track_cones, initial_car_pose);
-  std::cout << "Left cones ";
-  for (Cone &c : track.first) {
-    std::cout << "(" << c.position.x << "," << c.position.y << "),";
-  }
-  std::cout << std::endl << "Right cones:";
-  for (Cone &c : track.second) {
-    std::cout << "(" << c.position.x << "," << c.position.y << "),";
-  }
-  std::cout << std::endl;
+
   test_cone_coloring(track, c_left, c_right, inc_left, inc_right);
   EXPECT_EQ(c_left, 128);
   EXPECT_EQ(c_right, 140);

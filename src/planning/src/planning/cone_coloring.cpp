@@ -1,7 +1,7 @@
 #include "planning/cone_coloring.hpp"
 
 void ConeColoring::remove_duplicates(std::vector<Cone>& cones) {
-  std::unordered_set<Cone, std::hash<Cone>, ConeAproxEqual> unique_cones;
+  std::unordered_set<Cone, std::hash<Cone>> unique_cones;
   std::vector<Cone> result;
   result.reserve(cones.size());
   for (const auto& cone : cones) {
@@ -28,9 +28,8 @@ Position ConeColoring::expected_initial_cone_position(const Pose& car_pose,
   }
 }
 
-Cone ConeColoring::find_initial_cone(
-    const std::unordered_set<Cone, std::hash<Cone>, ConeAproxEqual>& cones, const Pose& car_pose,
-    const TrackSide track_side) {
+Cone ConeColoring::find_initial_cone(const std::unordered_set<Cone, std::hash<Cone>>& cones,
+                                     const Pose& car_pose, const TrackSide track_side) {
   Position expected_cone_position = expected_initial_cone_position(car_pose, track_side);
   Cone initial_cone = *std::min_element(
       cones.begin(), cones.end(), [&expected_cone_position](const Cone& cone1, const Cone& cone2) {
@@ -53,10 +52,10 @@ Cone ConeColoring::virtual_cone_from_initial_cone(const Cone& initial_cone, cons
       initial_cone.color, 1.0};
 }
 
-void ConeColoring::place_initial_cones(
-    std::unordered_set<Cone, std::hash<Cone>, ConeAproxEqual>& uncolored_cones,
-    std::vector<Cone>& colored_blue_cones, std::vector<Cone>& colored_yellow_cones,
-    const Pose& car_pose, int& n_colored_cones) {
+void ConeColoring::place_initial_cones(std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones,
+                                       std::vector<Cone>& colored_blue_cones,
+                                       std::vector<Cone>& colored_yellow_cones,
+                                       const Pose& car_pose, int& n_colored_cones) {
   Cone initial_cone_left = find_initial_cone(uncolored_cones, car_pose, TrackSide::LEFT);
   uncolored_cones.erase(initial_cone_left);
   colored_blue_cones.push_back(initial_cone_left);
@@ -88,8 +87,8 @@ double ConeColoring::calculate_cost(const Cone& next_cone, const Cone& last_cone
 }
 
 bool ConeColoring::try_to_color_next_cone(
-    std::unordered_set<Cone, std::hash<Cone>, ConeAproxEqual>& uncolored_cones,
-    std::vector<Cone>& colored_cones, int& n_colored_cones, const int n_input_cones) {
+    std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones, std::vector<Cone>& colored_cones,
+    int& n_colored_cones, const int n_input_cones) {
   double min_cost = std::numeric_limits<double>::max();
   Cone cheapest_cone;
   const Cone last_cone = colored_cones.back();
@@ -120,7 +119,8 @@ std::pair<std::vector<Cone>, std::vector<Cone>> ConeColoring::color_cones(std::v
                                                                           const Pose& car_pose) {
   remove_duplicates(cones);
   if (cones.size() < 2) {
-    RCLCPP_WARN(rclcpp::get_logger("Planning : ConeColoring"), "Not enough cones recieved to be colored: %ld", cones.size());
+    RCLCPP_WARN(rclcpp::get_logger("Planning : ConeColoring"),
+                "Not enough cones recieved to be colored: %ld", cones.size());
     return {};
   }
   std::vector<Cone> colored_blue_cones;
@@ -129,8 +129,7 @@ std::pair<std::vector<Cone>, std::vector<Cone>> ConeColoring::color_cones(std::v
   colored_yellow_cones.reserve(cones.size() / 2);
   int n_colored_cones = 0;
   const auto n_input_cones = static_cast<int>(cones.size());
-  std::unordered_set<Cone, std::hash<Cone>, ConeAproxEqual> uncolored_cones(cones.begin(),
-                                                                            cones.end());
+  std::unordered_set<Cone, std::hash<Cone>> uncolored_cones(cones.begin(), cones.end());
   place_initial_cones(uncolored_cones, colored_blue_cones, colored_yellow_cones, car_pose,
                       n_colored_cones);
   // Color blue cones

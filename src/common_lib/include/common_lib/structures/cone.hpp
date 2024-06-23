@@ -1,5 +1,7 @@
 #pragma once
+#include <cmath>
 #include <functional>
+#include <iostream>
 #include <string>
 
 #include "common_lib/competition_logic/color.hpp"
@@ -18,17 +20,6 @@ struct Cone {
 };
 
 bool operator==(const Cone& c1, const Cone& c2);
-
-/**
- * @brief approximate equality for cones based solely on position. Used for removing duplicates
- * taking into account floating point errors
- *
- */
-struct ConeAproxEqual {
-  bool operator()(const Cone& lhs, const Cone& rhs) const {
-    return lhs.position.euclidean_distance(rhs.position) < Cone::equality_tolerance;
-  }
-};
 }  // namespace common_lib::structures
 
 /**
@@ -39,10 +30,13 @@ namespace std {
 template <>
 struct hash<common_lib::structures::Cone> {
   std::size_t operator()(const common_lib::structures::Cone& cone) const noexcept {
-    std::size_t posHash = std::hash<common_lib::structures::Position>{}(cone.position);
-    std::size_t colorHash = std::hash<int>()(static_cast<int>(cone.color));
-    std::size_t certaintyHash = std::hash<double>()(cone.certainty);
-    return posHash ^ (colorHash << 1) ^ (certaintyHash << 2);
+    // Quantize position to improve compatibility with equality_tolerance
+    auto quantize = [](double value, double tolerance) { return std::round(value / tolerance); };
+    std::size_t xHash = std::hash<int>()(
+        quantize(cone.position.x, common_lib::structures::Cone::equality_tolerance));
+    std::size_t yHash = std::hash<int>()(
+        quantize(cone.position.y, common_lib::structures::Cone::equality_tolerance));
+    return xHash ^ (yHash << 1);
   }
 };
 }  // namespace std

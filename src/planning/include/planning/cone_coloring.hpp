@@ -11,8 +11,8 @@
 #include "common_lib/structures/cone.hpp"
 #include "common_lib/structures/pose.hpp"
 #include "common_lib/structures/track_side.hpp"
-#include "rclcpp/rclcpp.hpp"
 #include "config/cone_coloring_config.hpp"
+#include "rclcpp/rclcpp.hpp"
 
 using Cone = common_lib::structures::Cone;
 using Pose = common_lib::structures::Pose;
@@ -21,7 +21,6 @@ using TwoDVector = common_lib::structures::Position;
 using TrackSide = common_lib::structures::TrackSide;
 using Color = common_lib::competition_logic::Color;
 using AngleAndNorms = common_lib::maths::AngleAndNorms;
-using ConeAproxEqual = common_lib::structures::ConeAproxEqual;
 
 class ConeColoring {
 private:
@@ -54,7 +53,7 @@ private:
    * @param track_side side of the track of the expected position to be calculated
    * @return Cone initial cone
    */
-  Cone find_initial_cone(const std::unordered_set<Cone, std::hash<Cone>, ConeAproxEqual>& cones,
+  Cone find_initial_cone(const std::unordered_set<Cone, std::hash<Cone>>& cones,
                          const Pose& car_pose, const TrackSide track_side);
 
   /**
@@ -75,10 +74,10 @@ private:
    * @param car_pose car pose in the map relative to the origin
    * @param n_colored_cones number of colored cones which will be updated
    */
-  void place_initial_cones(
-      std::unordered_set<Cone, std::hash<Cone>, ConeAproxEqual>& uncolored_cones,
-      std::vector<Cone>& colored_blue_cones, std::vector<Cone>& colored_yellow_cones,
-      const Pose& car_pose, int& n_colored_cones);
+  void place_initial_cones(std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones,
+                           std::vector<Cone>& colored_blue_cones,
+                           std::vector<Cone>& colored_yellow_cones, const Pose& car_pose,
+                           int& n_colored_cones);
 
   /**
    * @brief calculate the cost of coloring a cone
@@ -105,9 +104,9 @@ private:
    * @return true if the cone has been successfully colored
    * @return false if all cones had a cost higher than the maximum established or were too far away
    */
-  bool try_to_color_next_cone(
-      std::unordered_set<Cone, std::hash<Cone>, ConeAproxEqual>& uncolored_cones,
-      std::vector<Cone>& colored_cones, int& n_colored_cones, const int n_input_cones);
+  bool try_to_color_next_cone(std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones,
+                              std::vector<Cone>& colored_cones, int& n_colored_cones,
+                              const int n_input_cones);
 
 public:
   /**
