@@ -7,6 +7,11 @@
 
 namespace common_lib::validator::assertions {
 
+/**
+ * @brief Assertion to validate matching perception outputs.
+ * 
+ * This class checks if two `ConeArray` messages match within a defined error margin.
+ */
 class PerceptionOutputMatching : public Assertion<custom_interfaces::msg::ConeArray> {
 public:
     bool validate(const custom_interfaces::msg::ConeArray& msg1, const custom_interfaces::msg::ConeArray& msg2) const override;

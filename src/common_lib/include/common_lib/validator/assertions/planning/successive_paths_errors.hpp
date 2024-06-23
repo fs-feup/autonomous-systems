@@ -7,6 +7,12 @@
 
 namespace common_lib::validator::assertions {
 
+/**
+ * @brief Assertion to validate errors between successive paths.
+ * 
+ * This class checks if the error between corresponding points in two `PathPointArray`
+ * messages is within a defined maximum threshold.
+ */
 class SuccessivePathsErrors : public Assertion<custom_interfaces::msg::PathPointArray> {
 public:
     bool validate(const custom_interfaces::msg::PathPointArray& msg1, const custom_interfaces::msg::PathPointArray& msg2) const override;
