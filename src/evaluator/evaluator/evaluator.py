@@ -294,9 +294,11 @@ class Evaluator(Node):
         self._control_difference_mean_ = self.create_publisher(
             Float32, "/evaluator/control/pose/difference_mean", 10
         )
+
         self._control_mean_squared_difference_ = self.create_publisher(
             Float32, "/evaluator/control/pose/mean_squared_difference", 10
         )
+
         self._control_root_mean_squared_difference_ = self.create_publisher(
             Float32, "/evaluator/control/pose/root_mean_squared_difference", 10
         )
