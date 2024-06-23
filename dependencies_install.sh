@@ -31,3 +31,9 @@ sudo apt-get install python3-matplotlib -y
 
 # evaluator
 sudo pip3 install transforms3d
+
+#cloud storage
+sudo pip install google-cloud-storage
+
+#local dashboard
+sudo pip install dash

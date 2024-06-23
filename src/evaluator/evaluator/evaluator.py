@@ -325,6 +325,14 @@ class Evaluator(Node):
         signal.signal(signal.SIGINT, self.signal_handler)
 
     def signal_handler(self, sig, frame):
+        """!
+        Writes metrics to csv and exits when Ctrl+C is pressed.
+
+        Args:
+            sig (int): Signal number.
+            frame (frame): Current stack frame.
+        """
+
         finish_time = datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
         metrics_dict = {
             "perception": self.perception_metrics,
@@ -341,6 +349,21 @@ class Evaluator(Node):
         sys.exit(0)
 
     def metrics_to_csv(self, metrics, filename):
+        """!
+        Converts metrics to csv and writes them to a file.
+
+        Args:
+            metrics (list): List of metrics dictionaries.
+            filename (str): Name of the file to write the metrics to.
+        """
+
+        # Add 'time' key to each metric
+        start_time = metrics[0]["timestamp"]
+        for metric in metrics:
+            elapsed_time = (metric["timestamp"] - start_time).total_seconds()
+            metric["time"] = elapsed_time  # Add/Update 'time' key with elapsed time
+
+        # Write metrics to csv
         with open(filename, "w", newline="") as csvfile:
             fieldnames = metrics[0].keys()
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
@@ -537,6 +560,7 @@ class Evaluator(Node):
 
         # For exporting metrics to csv
         metrics = {
+            "timestamp": datetime.datetime.now(),
             "vehicle_state_error_x": vehicle_state_error.data[0],
             "vehicle_state_error_y": vehicle_state_error.data[1],
             "vehicle_state_error_theta": vehicle_state_error.data[2],
@@ -552,18 +576,42 @@ class Evaluator(Node):
             "mean_vehicle_state_error_v1": mean_vehicle_state_error.data[3],
             "mean_vehicle_state_error_v2": mean_vehicle_state_error.data[4],
             "mean_vehicle_state_error_w": mean_vehicle_state_error.data[5],
-            "mean_squared_vehicle_state_error_x": mean_squared_vehicle_state_error.data[0],
-            "mean_squared_vehicle_state_error_y": mean_squared_vehicle_state_error.data[1],
-            "mean_squared_vehicle_state_error_theta": mean_squared_vehicle_state_error.data[2],
-            "mean_squared_vehicle_state_error_v1": mean_squared_vehicle_state_error.data[3],
-            "mean_squared_vehicle_state_error_v2": mean_squared_vehicle_state_error.data[4],
-            "mean_squared_vehicle_state_error_w": mean_squared_vehicle_state_error.data[5],            
-            "mean_root_squared_vehicle_state_error_x": mean_root_squared_vehicle_state_error.data[0],
-            "mean_root_squared_vehicle_state_error_y": mean_root_squared_vehicle_state_error.data[1],
-            "mean_root_squared_vehicle_state_error_theta": mean_root_squared_vehicle_state_error.data[2],
-            "mean_root_squared_vehicle_state_error_v1": mean_root_squared_vehicle_state_error.data[3],
-            "mean_root_squared_vehicle_state_error_v2": mean_root_squared_vehicle_state_error.data[4],
-            "mean_root_squared_vehicle_state_error_w": mean_root_squared_vehicle_state_error.data[5],
+            "mean_squared_vehicle_state_error_x": mean_squared_vehicle_state_error.data[
+                0
+            ],
+            "mean_squared_vehicle_state_error_y": mean_squared_vehicle_state_error.data[
+                1
+            ],
+            "mean_squared_vehicle_state_error_theta": mean_squared_vehicle_state_error.data[
+                2
+            ],
+            "mean_squared_vehicle_state_error_v1": mean_squared_vehicle_state_error.data[
+                3
+            ],
+            "mean_squared_vehicle_state_error_v2": mean_squared_vehicle_state_error.data[
+                4
+            ],
+            "mean_squared_vehicle_state_error_w": mean_squared_vehicle_state_error.data[
+                5
+            ],
+            "mean_root_squared_vehicle_state_error_x": mean_root_squared_vehicle_state_error.data[
+                0
+            ],
+            "mean_root_squared_vehicle_state_error_y": mean_root_squared_vehicle_state_error.data[
+                1
+            ],
+            "mean_root_squared_vehicle_state_error_theta": mean_root_squared_vehicle_state_error.data[
+                2
+            ],
+            "mean_root_squared_vehicle_state_error_v1": mean_root_squared_vehicle_state_error.data[
+                3
+            ],
+            "mean_root_squared_vehicle_state_error_v2": mean_root_squared_vehicle_state_error.data[
+                4
+            ],
+            "mean_root_squared_vehicle_state_error_w": mean_root_squared_vehicle_state_error.data[
+                5
+            ],
             "mean_mean_error": mean_mean_error.data,
             "mean_mean_squared_error": mean_mean_squared_error.data,
             "mean_mean_root_squared_error": mean_mean_root_squared_error.data,
@@ -649,6 +697,7 @@ class Evaluator(Node):
 
         # For exporting metrics to csv
         metrics = {
+            "timestamp": datetime.datetime.now(),
             "mean_difference": mean_difference.data,
             "inter_cones_distance": inter_cones_distance.data,
             "mean_squared_difference": mean_squared_error.data,
@@ -744,6 +793,7 @@ class Evaluator(Node):
 
         # For exporting metrics to csv
         metrics = {
+            "timestamp": datetime.datetime.now(),
             "mean_difference": mean_difference.data,
             "mean_squared_difference": mean_squared_difference.data,
             "root_mean_squared_difference": root_mean_squared_difference.data,
@@ -752,6 +802,8 @@ class Evaluator(Node):
             "mean_mean_root_squared_error": mean_mean_root_squared_error.data,
         }
         self.planning_metrics.append(metrics)
+
+        self.get_logger().info(self.planning_metrics)
 
     def planning_gt_callback(self, msg: PathPointArray):
         """!
@@ -814,17 +866,17 @@ class Evaluator(Node):
 
         velocity_mean_difference = Float32()
         velocity_mean_difference.data = float(
-            self._control_velocity_sum_error[0] / self._control_count
+            self._control_velocity_sum_error / self._control_count
         )
 
         velocity_mean_squared_difference = Float32()
         velocity_mean_squared_difference.data = float(
-            self._control_velocity_squared_sum_error[0] / self._control_count
+            self._control_velocity_squared_sum_error / self._control_count
         )
 
         velocity_root_mean_squared = Float32()
         velocity_root_mean_squared.data = sqrt(
-            self._control_velocity_squared_sum_error[0] / self._control_count
+            self._control_velocity_squared_sum_error / self._control_count
         )
 
         mean_difference = Float32()
@@ -870,6 +922,7 @@ class Evaluator(Node):
 
         # For exporting metrics to csv
         metrics = {
+            "timestamp": datetime.datetime.now(),
             "difference": pose_difference.data,
             "mean_difference": mean_difference.data,
             "mean_squared_difference": mean_squared_difference.data,

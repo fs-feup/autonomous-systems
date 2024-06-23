@@ -2,20 +2,15 @@
 
 This folder contains scripts for interacting with Google Cloud Storage buckets, specifically for uploading CSV files. The main scripts are:
 
-- `bucket_operations.py`: Contains functions to upload and download files to/from a Google Cloud Storage bucket.
+- `bucket_operations.py`: Contains functions to upload, list and download files to/from a Google Cloud Storage bucket.
 - `send_bucket.py`: Uploads CSV files from unit tests and evaluations to the bucket.
 
 ## Usage
 
-First run the following command
-```sh
-pip install google-cloud-storage
-```
-
-To run the `send_bucket.py` script, use the following command:
+To run the `send_bucket.py` script, from the workspace use the following command:
 
 ```sh
-python3 send_bucket.py <csv_file_option> <file1 file2 file3 | all>
+python3 src/cloud_storage/send_bucket.py <csv_file_option> <file1 file2 file3 | all>
 ```
 
  - **<csv_file_option>**: Specifies the source folder from which to read the CSV files.
@@ -30,14 +25,20 @@ python3 send_bucket.py <csv_file_option> <file1 file2 file3 | all>
 
 ### Examples
 
+Run the following commands from the workspace directory (/home/ws):
+
 1. Upload all files from the evaluator folder:
 
 ```sh
-python3 send_bucket.py evaluator all
+python3 src/cloud_storage/send_bucket.py evaluator all
 ```
 
 2. Upload specific files from the state estimation folder:
 
 ```sh
-python3 send_bucket.py state_est file1.csv file2.csv
+python3 src/cloud_storage/send_bucket.py state_est file1.csv file2.csv
 ```
+
+### Extra
+
+Make sure you have your google cloud authentication file (.json) in this directory.
