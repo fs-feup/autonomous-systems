@@ -80,81 +80,71 @@ std::tuple<Position, double, bool> PointSolver::update_lookahead_point(
       continue;
     }
 
-    if (point_a.x == point_b.x) {
-      RCLCPP_WARN(rclcpp::get_logger("control"),
-                  "Vertical slope x of point a is equal to x of b: %f", point_a.x);
-      continue;
-    }
-
-    // y = mx + c
-    double m = (point_b.y - point_a.y) / (point_b.x - point_a.x);
-    double c = point_a.y - m * point_a.x;
-
-    // (x - x0)^2 + (y - y0)^2 = r^2
-    // with x0 = rear_axis_point.x, y0 = rear_axis_point.y, r = ld
-
-    // with this information we can find the intersection point between the circle and the line and
-    // obtain the lookahead point Expanded form of the circle equation with y substituted by mx + c
-    // gives a quadratic equation:
-    double A = 1 + m * m;
-    double B = 2 * (m * c - rear_axis_point.x - m * rear_axis_point.y);
-    double C = rear_axis_point.x * rear_axis_point.x + c * c +
-               rear_axis_point.y * rear_axis_point.y - 2 * c * rear_axis_point.y - ld * ld;
-
-    double delta = B * B - 4 * A * C;
-
-    if (delta < 0) {
-      continue;
-    }
-
-    double x1 = (-B + std::sqrt(delta)) / (2 * A);
-    double x2 = (-B - std::sqrt(delta)) / (2 * A);
-
-    double y1 = m * x1 + c;
-    double y2 = m * x2 + c;
-
     double x;
     double y;
 
-    // i want to select the solution (x,y) which is within bounds of point_a and point_b
-    if (x1 >= std::min(point_a.x, point_b.x) && x1 <= std::max(point_a.x, point_b.x) &&
-        y1 >= std::min(point_a.y, point_b.y) && y1 <= std::max(point_a.y, point_b.y)) {
-      x = x1;
-      y = y1;
+    // Slope of the line is infinite, don't need line equation
+    if (point_a.x == point_b.x) {
+      RCLCPP_DEBUG(rclcpp::get_logger("control"), "Vertical line!!");
+      x = point_a.x;
+      double delta = ld * ld - std::pow(x - rear_axis_point.x, 2);
+      if (delta < 0) {
+        continue;
+      }
+      double y1 = rear_axis_point.y + std::sqrt(delta);
+      double y2 = rear_axis_point.y - std::sqrt(delta);
+
+      if (y1 >= std::min(point_a.y, point_b.y) && y1 <= std::max(point_a.y, point_b.y)) {
+        y = y1;
+      } else {
+        y = y2;
+      }
+
     } else {
-      x = x2;
-      y = y2;
+      // y = mx + c
+      double m = (point_b.y - point_a.y) / (point_b.x - point_a.x);
+      double c = point_a.y - m * point_a.x;
+
+      // (x - x0)^2 + (y - y0)^2 = r^2
+      // with x0 = rear_axis_point.x, y0 = rear_axis_point.y, r = ld
+
+      // with this information we can find the intersection point between the circle and the line
+      // and obtain the lookahead point.
+      // Expanded form of the circle equation with y substituted by mx + c gives a quadratic
+      // equation:
+      double A = 1 + m * m;
+      double B = 2 * (m * c - rear_axis_point.x - m * rear_axis_point.y);
+      double C = rear_axis_point.x * rear_axis_point.x + c * c +
+                 rear_axis_point.y * rear_axis_point.y - 2 * c * rear_axis_point.y - ld * ld;
+
+      double delta = B * B - 4 * A * C;
+
+      if (delta < 0) {
+        continue;
+      }
+
+      double x1 = (-B + std::sqrt(delta)) / (2 * A);
+      double x2 = (-B - std::sqrt(delta)) / (2 * A);
+
+      double y1 = m * x1 + c;
+      double y2 = m * x2 + c;
+
+      // i want to select the solution (x,y) which is within bounds of point_a and point_b
+      if (x1 >= std::min(point_a.x, point_b.x) && x1 <= std::max(point_a.x, point_b.x) &&
+          y1 >= std::min(point_a.y, point_b.y) && y1 <= std::max(point_a.y, point_b.y)) {
+        x = x1;
+        y = y1;
+      } else {
+        x = x2;
+        y = y2;
+      }
     }
 
-    RCLCPP_INFO(rclcpp::get_logger("control"), "Point A: x: %f, y: %f", point_a.x, point_a.y);
-    RCLCPP_INFO(rclcpp::get_logger("control"), "Point B: x: %f, y: %f", point_b.x, point_b.y);
-    RCLCPP_INFO(rclcpp::get_logger("control"), "Lookahead point: x: %f, y: %f", x, y);
-
     return std::make_tuple(Position(x, y),
-                           (pathpoint_array[index_a].v + pathpoint_array[index_a].v) / 2.0, false);
-
-    // if the distance is less than the lookahead distance (we don't want a lookahead further than
-    // ld if it's not withing ld margin), check if it is the closest point found yet
-    // if (distance > 1 && std::abs(ld - distance) < closest_distance) {
-    //   RCLCPP_INFO(rclcpp::get_logger("control"), "New closest point found that doesnt fint
-    //   margin: %f", distance); closest_distance = std::abs(ld - distance); closest_yet =
-    //   pathpoint_array[index];
-    // }
+                           (pathpoint_array[index_a].v + pathpoint_array[index_b].v) / 2.0, false);
   }
+  RCLCPP_WARN(rclcpp::get_logger("control"), "No lookahead point found");
   return std::make_tuple(Position(), 0.0, true);
-  // RCLCPP_INFO(rclcpp::get_logger("control"), "Rear axis point: x: %f, y: %f", rear_axis_point.x,
-  // rear_axis_point.y);
-
-  // if (closest_distance == std::numeric_limits<double>::max()) {
-  //   RCLCPP_WARN(rclcpp::get_logger("control"), "No lookahead point found");
-  //   return std::make_tuple(Position(), 0.0, true);
-  // }
-
-  // // RCLCPP_INFO(rclcpp::get_logger("control"), "Closest yet point: x: %f, y: %f, v: %f",
-  // closest_yet.x, closest_yet.y, closest_yet.v); double scaled_velocity =
-  //     closest_yet.v * rear_axis_point.euclidean_distance(Position(closest_yet.x, closest_yet.y))
-  //     / ld;
-  // return std::make_tuple(Position(closest_yet.x, closest_yet.y), scaled_velocity, false);
 }
 
 /**
