@@ -1,11 +1,7 @@
-#include <fstream>
-
 #include "adapter_planning/parameters_factory.hpp"
 #include "common_lib/communication/interfaces.hpp"
-#include "gtest/gtest.h"
-#include "planning/planning.hpp"
-#include "rclcpp/rclcpp.hpp"
-#include "utils/files.hpp"
+
+#include "test_utils/utils.hpp"
 
 class IntegrationTest : public ::testing::Test {
 protected:
