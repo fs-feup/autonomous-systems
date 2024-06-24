@@ -1,49 +1,127 @@
-// #include <chrono>
-// #include <fstream>
-// #include <set>
+#include "gtest/gtest.h"
+#include "rclcpp/rclcpp.hpp"
+#include "test_utils/utils.hpp"
 
-// #include "gtest/gtest.h"
-// #include "planning/global_path_planner.hpp"
-// #include "planning/path_smoothing.hpp"
-// #include "planning/track.hpp"
-// #include "rclcpp/rclcpp.hpp"
+/**
+ * @brief Iterates the Outliers algorithm repeatedly and measures the average time
+ */
+void iterate_outliers(std::string filename, int num_outliers = 0) {
+    auto track = track_from_file(filename);
+    auto outliers = Outliers();
 
-// bool customComparator(const std::pair<double, double> &a, const std::pair<double, double> &b);
+  // Remove outliers no_iters times to get average
+  int no_iters = 100;
+  double total_time = 0;
 
-// std::vector<std::pair<double, double>> orderVectorOfPairs(
-//     const std::vector<std::pair<double, double>> &vec);
+  std::ofstream measuresPath = openWriteFile(
+      "performance/exec_time/planning/planning_" + get_current_date_time_as_string() + ".csv",
+      "Number of Left Cones,Number of Right Cones,Number of "
+      "Outliers,Outliers Removal Execution "
+      "Time,Triangulations Execution Time,Smoothing Execution Time");
 
-// std::string get_current_date_time_as_string();
+  for (int i = 0; i < no_iters; i++) {
+    track = track_from_file(filename);
+    auto t0 = std::chrono::high_resolution_clock::now();
+    track = outliers.approximate_cones_with_spline(track);
+    auto t1 = std::chrono::high_resolution_clock::now();
+    double elapsed_time_iter_ms = std::chrono::duration<double, std::milli>(t1 - t0).count();
+    total_time += elapsed_time_iter_ms;
+  }
 
-// float round_n(float num, int decimal_places);
+  measuresPath << track.first.size() << "," << track.second.size() << ","
+               << num_outliers << "," << total_time / no_iters << ",";
+  measuresPath.close();
 
-// std::vector<PathPoint> processTriangulations(std::string filename);
+  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Outliers removed in average %f ms.",
+              (total_time / no_iters));
+}
 
-// void outlierCalculations(std::string filename, int num_outliers);
+/**
+ * @brief Iterates the Path Calculation algorithm repeatedly and measures the average time
+ */
+std::vector<PathPoint> iterate_triangulations(std::string filename) {
+  auto track = track_from_file(filename);
+  auto path_calculation = PathCalculation();
 
-// std::ostream &operator<<(std::ostream &os, const PathPoint &p);
+  std::vector<PathPoint> path;
+  std::ofstream measuresPath = openWriteFile("performance/exec_time/planning/planning_" +
+                                             get_current_date_time_as_string() + ".csv");
+  double total_time = 0;
+  int no_iters = 100;
 
-// void extractInfo(const std::string_view &filenameView, int &size, int &n_outliers);
+  // No_iters repetitions to get average
+  for (int i = 0; i < no_iters; i++) {
+    auto t0 = std::chrono::high_resolution_clock::now();
 
-// using testing::Eq;
-// namespace fs = std::filesystem;
+    path = path_calculation.process_delaunay_triangulations(track);
 
-// /**
-//  * @brief Execution Time Test
-//  */
-// TEST(LocalPathPlanner, delauney) {
-//   std::string directory_path = "../../src/planning/test/maps/";
-//   int size;
-//   int n_outliers;
-//   for (const auto &entry : fs::directory_iterator(directory_path)) {
-//     if (fs::is_regular_file(entry.path())) {
-//       std::string filename = entry.path().filename().string();
-//       if (filename.find("map_") != std::string::npos) {
-//         extractInfo(filename, size, n_outliers);
-//         std::string filePath = "src/planning/test/maps/" + filename;
-//         outlierCalculations(filePath, n_outliers);
-//         std::vector<PathPoint> path = processTriangulations(filePath);
-//       }
-//     }
-//   }
-// }
+    auto t1 = std::chrono::high_resolution_clock::now();
+
+    double elapsed_time_ms = std::chrono::duration<double, std::milli>(t1 - t0).count();
+
+    total_time += elapsed_time_ms;
+  }
+
+  measuresPath << total_time / no_iters << ",";
+  measuresPath.close();
+
+  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Average Delaunay Triangulations processed in %f ms.",
+              (total_time / no_iters));
+
+  return path;
+}
+
+/**
+ * @brief Iterates the Smoothing algorithm repeatedly and measures the average time
+ */
+void iterate_smoothing(std::vector<PathPoint> &path) {
+  auto path_smoothing = PathSmoothing();
+
+  std::ofstream measuresPath = openWriteFile("performance/exec_time/planning/planning_" +
+                                             get_current_date_time_as_string() + ".csv");
+  double total_time = 0;
+  int no_iters = 100;
+
+  // No_iters repetitions to get average
+  for (int i = 0; i < no_iters; i++) {
+    float orientation = atan2(path[1].position.y - path[0].position.y, path[1].position.x - path[0].position.x);
+
+    auto t0 = std::chrono::high_resolution_clock::now();
+
+    std::vector<PathPoint> smoothed_path = path_smoothing.smooth_path(path, Pose(path[0].position, orientation));
+
+    auto t1 = std::chrono::high_resolution_clock::now();
+
+    double elapsed_time_ms = std::chrono::duration<double, std::milli>(t1 - t0).count();
+
+    total_time += elapsed_time_ms;
+  }
+
+  measuresPath << total_time / no_iters << "\n";
+  measuresPath.close();
+
+  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Average Smoothing processed in %f ms.",
+              (total_time / no_iters));
+
+}
+
+/**
+ * @brief Execution Time Test
+ */
+TEST(Planning, planning_exec_time) {
+  std::string directory_path = "src/planning/test/maps/";
+  int size;
+  int n_outliers;
+  for (const auto &entry : fs::directory_iterator(directory_path)) {
+    if (fs::is_regular_file(entry.path())) {
+      std::string filename = entry.path().filename().string();
+      if (filename.find("map_") != std::string::npos) {
+        extractInfo(filename, size, n_outliers);
+        std::string filePath = "src/planning/test/maps/" + filename;
+        iterate_outliers(filePath, n_outliers);
+        std::vector<PathPoint> path = iterate_triangulations(filePath);
+        iterate_smoothing(path);
+      }
+    }
+  }
+}
