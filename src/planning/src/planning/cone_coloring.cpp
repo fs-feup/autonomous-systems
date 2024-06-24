@@ -140,5 +140,17 @@ std::pair<std::vector<Cone>, std::vector<Cone>> ConeColoring::color_cones(std::v
   while (try_to_color_next_cone(uncolored_cones, colored_yellow_cones, n_colored_cones,
                                 n_input_cones)) {
   }
+  colored_blue_cones.erase(colored_blue_cones.begin());
+  colored_yellow_cones.erase(colored_yellow_cones.begin());
+  std::cout << "Colored blue cones: ";
+  for (auto& cone : colored_blue_cones) {
+    std::cout << "(" << cone.position.x << ", " << cone.position.y << "), ";
+  }
+  std::cout << std::endl;
+  std::cout << "Colored yellow cones: ";
+  for (auto& cone : colored_yellow_cones) {
+    std::cout << "(" << cone.position.x << ", " << cone.position.y << "), ";
+  }
+  std::cout << std::endl;
   return {colored_blue_cones, colored_yellow_cones};
 }
