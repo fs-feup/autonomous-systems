@@ -1,0 +1,9 @@
+<map id="dashboard.download_and_combine_csvs" name="dashboard.download_and_combine_csvs">
+<area shape="rect" id="Node000001" title="Download and combine the selected CSV files." alt="" coords="457,29,597,70"/>
+<area shape="rect" id="Node000002" href="$df/d91/namespacedashboard.html#ae5584737f7f9282cc80dfe0b2e404e54" title=" " alt="" coords="5,29,172,70"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="441,49,409,48,220,48,172,49,172,44,220,43,409,43,441,44"/>
+<area shape="rect" id="Node000003" href="$df/d91/namespacedashboard.html#a7cb22ba1afebc0427e3f2ee052338bbf" title=" " alt="" coords="220,57,409,98"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="442,64,410,68,409,63,441,58"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="125,16,112,10,88,8,67,10,54,15,49,21,51,28,46,29,44,19,51,10,66,5,89,3,113,5,127,11"/>
+<area shape="poly" id="edge4_Node000003_Node000002" title=" " alt="" coords="204,67,172,63,172,57,204,61"/>
+</map>

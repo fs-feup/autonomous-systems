@@ -17,6 +17,12 @@ var namespaces_dup =
       [ "yCones", "d9/de5/namespaceacceleration__mapper.html#a3658ecf66c22a25a41b4d9b2fce12fce", null ],
       [ "yPoints", "d9/de5/namespaceacceleration__mapper.html#a25b0c8715f104e18ba7fd48de0563d52", null ]
     ] ],
+    [ "bucket_operations", "d8/dc7/namespacebucket__operations.html", [
+      [ "download_csv_from_bucket_to_folder", "d8/dc7/namespacebucket__operations.html#aae87ecaefca1236879594bcb25a03eb1", null ],
+      [ "list_blobs", "d8/dc7/namespacebucket__operations.html#a2dd0951b6a307d887de9772b4696f27c", null ],
+      [ "setup_gcs_client", "d8/dc7/namespacebucket__operations.html#aa94a609f0d95546119319696d87c5ccf", null ],
+      [ "upload_csv_to_bucket", "d8/dc7/namespacebucket__operations.html#aa899ad61fdb53bd44dd8c1bf7e94cc28", null ]
+    ] ],
     [ "colors", "dc/d04/namespacecolors.html", [
       [ "Color", "dc/d04/namespacecolors.html#a76f863e71ce8e67d1ef1850029f93b0a", [
         [ "blue", "dc/d04/namespacecolors.html#a76f863e71ce8e67d1ef1850029f93b0aa70853d68db63d87ec4ea23c299c42357", null ],
@@ -28,6 +34,19 @@ var namespaces_dup =
       [ "color_names", "dc/d04/namespacecolors.html#a5fcb35fd759df9bfec1d17fecfcfe6c7", null ]
     ] ],
     [ "common_lib", "dd/d5f/namespacecommon__lib.html", "dd/d5f/namespacecommon__lib" ],
+    [ "dashboard", "df/d91/namespacedashboard.html", [
+      [ "cleanup_temp_folder", "df/d91/namespacedashboard.html#a1e6e5d5c2c545f230e2a03ff914b2720", null ],
+      [ "create_update_graph_callback", "df/d91/namespacedashboard.html#ae5584737f7f9282cc80dfe0b2e404e54", null ],
+      [ "create_update_metric_dropdowns_callback", "df/d91/namespacedashboard.html#a7cb22ba1afebc0427e3f2ee052338bbf", null ],
+      [ "download_and_combine_csvs", "df/d91/namespacedashboard.html#a90f635ccbe7e0720c3342eaeaaea8968", null ],
+      [ "get_dashboard_layout", "df/d91/namespacedashboard.html#aa7603ebdfaa0146f67b1b20fe729cc2b", null ],
+      [ "update_dashboard", "df/d91/namespacedashboard.html#a554b47ce91f518b9f9a511dd5c04dab8", null ],
+      [ "app", "df/d91/namespacedashboard.html#a0dc4d8c06bb063b02c536005f36adc7c", null ],
+      [ "available_dashboards", "df/d91/namespacedashboard.html#a362e831daf55963e9cbeb65a1f76d7d6", null ],
+      [ "csv_files", "df/d91/namespacedashboard.html#a1a4e9557de70313494afd311e0bea781", null ],
+      [ "debug", "df/d91/namespacedashboard.html#a12b0373c1038d60f2e6f9fc52558211a", null ],
+      [ "layout", "df/d91/namespacedashboard.html#a651edf1f918ca2f360e565e52f64ff33", null ]
+    ] ],
     [ "evaluator", "db/d6f/namespaceevaluator.html", "db/d6f/namespaceevaluator" ],
     [ "offsettrack", "dd/d6b/namespaceoffsettrack.html", [
       [ "c", "dd/d6b/namespaceoffsettrack.html#a69901488f64f2102f31272f623559e12", null ],
@@ -57,6 +76,11 @@ var namespaces_dup =
       [ "f", "de/da7/namespacerandom__points.html#a14a62e2a87bab023adc792ba94a4a259", null ],
       [ "x", "de/da7/namespacerandom__points.html#ad6e2e4a7b9f2c406d66374be3e62afd9", null ],
       [ "y", "de/da7/namespacerandom__points.html#ae888b532a92ecf74d9946d6c956bc13c", null ]
+    ] ],
+    [ "send_bucket", "de/dd5/namespacesend__bucket.html", [
+      [ "list_files", "de/dd5/namespacesend__bucket.html#a3f7f7c05a2fda444d135c47e0890404f", null ],
+      [ "main", "de/dd5/namespacesend__bucket.html#ac4bf96beb1f8b005f0612588c53302a2", null ],
+      [ "FOLDERS", "de/dd5/namespacesend__bucket.html#a27448a791e45ef57524f7a388ede3b18", null ]
     ] ],
     [ "setup", "dd/dc4/namespacesetup.html", [
       [ "data_files", "dd/dc4/namespacesetup.html#ad027a8e9452da003dca32bf7467bd16e", null ],

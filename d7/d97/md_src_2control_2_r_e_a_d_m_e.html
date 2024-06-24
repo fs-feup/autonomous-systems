@@ -94,8 +94,8 @@ $(document).ready(function(){initNavTree('d7/d97/md_src_2control_2_r_e_a_d_m_e.h
   <div class="headertitle"><div class="title">Control Module</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md6"></a> The <a class="el" href="../../d7/d49/class_control.html" title="Class responsible for the control of the car.">Control</a> node uses <a class="el" href="../../d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car.">Planning</a> (pathpoints with expected velocity values) and State Estimation (current vehicle pose) data to effectively calculate longitudinal (torque) and lateral values (steering angle) using <a class="el" href="../../d6/d5a/class_p_i_d.html" title="PI-D Controller class.">PID</a> and Pure Pursuit controllers, respectively.</p>
-<h1><a class="anchor" id="autotoc_md7"></a>
+<div class="textblock"><p><a class="anchor" id="autotoc_md11"></a> The <a class="el" href="../../d7/d49/class_control.html" title="Class responsible for the control of the car.">Control</a> node uses <a class="el" href="../../d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car.">Planning</a> (pathpoints with expected velocity values) and State Estimation (current vehicle pose) data to effectively calculate longitudinal (torque) and lateral values (steering angle) using <a class="el" href="../../d6/d5a/class_p_i_d.html" title="PI-D Controller class.">PID</a> and Pure Pursuit controllers, respectively.</p>
+<h1><a class="anchor" id="autotoc_md12"></a>
 Dependencies</h1>
 <ul>
 <li>custom_interfaces</li>
@@ -103,17 +103,17 @@ Dependencies</h1>
 <li>fs_msgs</li>
 <li>eufs_msgs</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md8"></a>
+<h1><a class="anchor" id="autotoc_md13"></a>
 Compiling</h1>
 <p>From src folder: </p><div class="fragment"><div class="line">colcon build --packages-up-to control</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md9"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md14"></a>
 Testing</h1>
 <p>From src folder: </p><div class="fragment"><div class="line">colcon test --packages-select control</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md10"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md15"></a>
 Running</h1>
 <p>Run with ros2 launch. You may select custom parameters for testing such as simulated state estimation or the mocker node. Check the <a href="../.././launch/control.launch.py">launch file</a> for more details. Example: </p><div class="fragment"><div class="line">ros2 launch control control.launch.py &#39;adapter:=pacsim&#39; &#39;use_simulated_se:=true&#39; &#39;mocker_node:=true&#39;</div>
 </div><!-- fragment --><p> Using simulated state estimation allows you to independently test control without using the state estimation module, by using information directly from the simulator. The mocker node allows for the same thing but for planning, by using a hand-picked pathpoint array. The lookahead_gain and lookahead_margin are for tuning purposes.</p>
-<h1><a class="anchor" id="autotoc_md11"></a>
+<h1><a class="anchor" id="autotoc_md16"></a>
 Design</h1>
 <p>The following class diagram illustrates the structure of the <a class="el" href="../../d7/d49/class_control.html" title="Class responsible for the control of the car.">Control</a> package:</p>
 <p><img src="../../../../docs/assets/Control/controlClassDiagram.jpg" alt="Class Diagram" class="inline"/> We have the following classes: <br  />

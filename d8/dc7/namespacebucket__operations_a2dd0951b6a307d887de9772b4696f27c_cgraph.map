@@ -1,0 +1,5 @@
+<map id="bucket_operations.list_blobs" name="bucket_operations.list_blobs">
+<area shape="rect" id="Node000001" title="List all files in a Google Cloud Storage bucket." alt="" coords="5,5,153,46"/>
+<area shape="rect" id="Node000002" href="$d8/dc7/namespacebucket__operations.html#aa94a609f0d95546119319696d87c5ccf" title="Set up the Google Cloud Storage client." alt="" coords="201,5,363,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="153,23,185,23,185,28,153,28"/>
+</map>

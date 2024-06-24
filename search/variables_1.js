@@ -12,11 +12,13 @@ var searchData=
   ['after_5frem_5fblue_5fcones_5fpub_5f_9',['after_rem_blue_cones_pub_',['../d9/db5/class_planning.html#a5e9b886872e252d6193a77dd6433243a',1,'Planning']]],
   ['after_5frem_5fyellow_5fcones_5fpub_5f_10',['after_rem_yellow_cones_pub_',['../d9/db5/class_planning.html#a344b2e0ab338449bc0ddbeb48c60e3b6',1,'Planning']]],
   ['angle_11',['angle',['../df/d47/struct_angle_norm.html#af211c1b650d598758bc9fc7e2acbdbe5',1,'AngleNorm']]],
-  ['angle_5fexponent_5f_12',['angle_exponent_',['../d2/deb/struct_planning_parameters.html#a29eefe0c74217a778c51e099e137cc5d',1,'PlanningParameters::angle_exponent_'],['../d9/db5/class_planning.html#ac1af1239a0a0caaac9ff1a844f661b29',1,'Planning::angle_exponent_']]],
+  ['angle_5fexponent_5f_12',['angle_exponent_',['../d9/db5/class_planning.html#ac1af1239a0a0caaac9ff1a844f661b29',1,'Planning::angle_exponent_'],['../d2/deb/struct_planning_parameters.html#a29eefe0c74217a778c51e099e137cc5d',1,'PlanningParameters::angle_exponent_']]],
   ['angle_5fgain_13',['angle_gain',['../dd/d52/class_cone_coloring.html#a2144539d635436a80e9f71d3b4731a37',1,'ConeColoring']]],
   ['angle_5fgain_5f_14',['angle_gain_',['../d2/deb/struct_planning_parameters.html#ae2e44dea0fc9041d98cea1209ea19327',1,'PlanningParameters::angle_gain_'],['../d9/db5/class_planning.html#a1ec99bda2665e57a506fc9533b20d29e',1,'Planning::angle_gain_']]],
   ['angular_5fvelocity_15',['angular_velocity',['../d0/d2a/structcommon__lib_1_1structures_1_1_vehicle_state.html#a3d5a0d897092a147360d98b99471b9a0',1,'common_lib::structures::VehicleState']]],
   ['anti_5fwindup_5f_16',['anti_windup_',['../d6/d5a/class_p_i_d.html#a5af2e0873be2f52d2e6874b6238abd98',1,'PID']]],
-  ['axis_17',['axis',['../d7/dc1/namespacespline.html#ab8ba046c9c8639715623a604b0d35fcc',1,'spline']]],
-  ['axis_5flength_18',['AXIS_LENGTH',['../d2/da6/car__parameters_8hpp.html#a7aa40be05ed9dd8853abd1f635ccd5f9',1,'car_parameters.hpp']]]
+  ['app_17',['app',['../df/d91/namespacedashboard.html#a0dc4d8c06bb063b02c536005f36adc7c',1,'dashboard']]],
+  ['available_5fdashboards_18',['available_dashboards',['../df/d91/namespacedashboard.html#a362e831daf55963e9cbeb65a1f76d7d6',1,'dashboard']]],
+  ['axis_19',['axis',['../d7/dc1/namespacespline.html#ab8ba046c9c8639715623a604b0d35fcc',1,'spline']]],
+  ['axis_5flength_20',['AXIS_LENGTH',['../d2/da6/car__parameters_8hpp.html#a7aa40be05ed9dd8853abd1f635ccd5f9',1,'car_parameters.hpp']]]
 ];

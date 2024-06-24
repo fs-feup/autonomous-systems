@@ -8,7 +8,7 @@ var searchData=
   ['acceleration_5fpublisher_5',['acceleration_publisher',['../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#a177c577b7b16bf22c8aabe68ca6f694b',1,'pacsim_keys::main::PublishThread']]],
   ['acceleration_5fx_6',['acceleration_x',['../df/d48/structcommon__lib_1_1sensor__data_1_1_imu_data.html#a2f47db4d31201635c6837688e25dfc9b',1,'common_lib::sensor_data::ImuData']]],
   ['acceleration_5fy_7',['acceleration_y',['../df/d48/structcommon__lib_1_1sensor__data_1_1_imu_data.html#a2ec0f612d6b75de01e8db4308a1fb8ef',1,'common_lib::sensor_data::ImuData']]],
-  ['activity_20diagram_8',['Activity Diagram',['../d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md60',1,'']]],
+  ['activity_20diagram_8',['Activity Diagram',['../d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md67',1,'']]],
   ['adapter_9',['Adapter',['../d7/dff/classevaluator_1_1adapter_1_1_adapter.html',1,'evaluator::adapter']]],
   ['adapter_2epy_10',['adapter.py',['../da/da4/adapter_8py.html',1,'']]],
   ['adapter_5f_11',['adapter_',['../de/dda/struct_perception_parameters.html#a32d1d71f797e2b2af64f725d0f7a54be',1,'PerceptionParameters']]],
@@ -31,8 +31,10 @@ var searchData=
   ['angular_5fvelocity_28',['angular_velocity',['../d0/d2a/structcommon__lib_1_1structures_1_1_vehicle_state.html#a3d5a0d897092a147360d98b99471b9a0',1,'common_lib::structures::VehicleState']]],
   ['anti_5fwind_5fup_29',['anti_wind_up',['../d6/d5a/class_p_i_d.html#aa587fab53433af6127bbc5c7fdf50a35',1,'PID']]],
   ['anti_5fwindup_5f_30',['anti_windup_',['../d6/d5a/class_p_i_d.html#a5af2e0873be2f52d2e6874b6238abd98',1,'PID']]],
-  ['autocross_31',['AUTOCROSS',['../d9/d2b/namespacecommon__lib_1_1competition__logic.html#adc523f54f1498f443c97303976f40140a748105e3604329b8be29b48c8de915f7',1,'common_lib::competition_logic']]],
-  ['autonomous_20systems_32',['autonomous systems',['../index.html',1,'Formula Student Autonomous Systems'],['../index.html#autotoc_md0',1,'FS-FEUP Autonomous Systems']]],
-  ['axis_33',['axis',['../d7/dc1/namespacespline.html#ab8ba046c9c8639715623a604b0d35fcc',1,'spline']]],
-  ['axis_5flength_34',['AXIS_LENGTH',['../d2/da6/car__parameters_8hpp.html#a7aa40be05ed9dd8853abd1f635ccd5f9',1,'car_parameters.hpp']]]
+  ['app_31',['app',['../df/d91/namespacedashboard.html#a0dc4d8c06bb063b02c536005f36adc7c',1,'dashboard']]],
+  ['autocross_32',['AUTOCROSS',['../d9/d2b/namespacecommon__lib_1_1competition__logic.html#adc523f54f1498f443c97303976f40140a748105e3604329b8be29b48c8de915f7',1,'common_lib::competition_logic']]],
+  ['autonomous_20systems_33',['autonomous systems',['../index.html',1,'Formula Student Autonomous Systems'],['../index.html#autotoc_md0',1,'FS-FEUP Autonomous Systems']]],
+  ['available_5fdashboards_34',['available_dashboards',['../df/d91/namespacedashboard.html#a362e831daf55963e9cbeb65a1f76d7d6',1,'dashboard']]],
+  ['axis_35',['axis',['../d7/dc1/namespacespline.html#ab8ba046c9c8639715623a604b0d35fcc',1,'spline']]],
+  ['axis_5flength_36',['AXIS_LENGTH',['../d2/da6/car__parameters_8hpp.html#a7aa40be05ed9dd8853abd1f635ccd5f9',1,'car_parameters.hpp']]]
 ];
