@@ -33,7 +33,7 @@ def format_vehicle_state_msg(msg: VehicleState) -> tuple[np.ndarray, np.ndarray]
                 msg.theta,
             ]
         ),
-        np.array([msg.linear_velocity, msg.linear_velocity, msg.angular_velocity]),
+        np.array([msg.linear_velocity, msg.angular_velocity]),
     )
 
 

@@ -267,17 +267,13 @@ class Evaluator(Node):
         print(vehicle_state_error.data[2])
         vehicle_state_error.data[3] = abs(
             velocities[0]
-            - sqrt(
-                pow(groundtruth_velocities[0], 2) + pow(groundtruth_velocities[1], 2)
-            )
+            - groundtruth_velocities[0]
         )
         vehicle_state_error.data[4] = abs(
             velocities[1]
-            - sqrt(
-                pow(groundtruth_velocities[0], 2) + pow(groundtruth_velocities[1], 2)
-            )
+            - groundtruth_velocities[1]
         )
-        vehicle_state_error.data[5] = abs(velocities[2] - groundtruth_velocities[2])
+        vehicle_state_error.data[5] = abs(velocities[1] - groundtruth_velocities[1])
 
         cone_positions = map[:, :2]
         groundtruth_cone_positions = groundtruth_map[:, :2]

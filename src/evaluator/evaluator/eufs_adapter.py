@@ -82,7 +82,7 @@ class EufsAdapter(Adapter):
         groundtruth_map_treated: np.ndarray = (
             format_eufs_cone_array_with_covariance_msg(self.groundtruth_map_)
         )
-        empty_groundtruth_velocity_treated = np.array([0, 0, 0])
+        empty_groundtruth_velocity_treated = np.array([2, 2])
         self.node.compute_and_publish_state_estimation(
             pose_treated,
             groundtruth_pose_treated,
