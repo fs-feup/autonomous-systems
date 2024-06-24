@@ -7,7 +7,5 @@ var searchData=
   ['distance_5fsquared_5fto_4',['distance_squared_to',['../d1/d26/struct_position.html#a70b4ea0abb71c5e8940451263ad579c2',1,'Position']]],
   ['distance_5fto_5',['distance_to',['../d1/d26/struct_position.html#ad3eaacb92df1bdbbd5d3700b215f3284',1,'Position']]],
   ['distance_5fto_5fside_6',['distance_to_side',['../dd/d52/class_cone_coloring.html#a78736262a20cf6c4a0c4676369ba095a',1,'ConeColoring']]],
-  ['distancepredict_7',['DistancePredict',['../d0/d47/class_distance_predict.html#a891b03e51801728159376f22be4db624',1,'DistancePredict']]],
-  ['download_5fand_5fcombine_5fcsvs_8',['download_and_combine_csvs',['../df/d91/namespacedashboard.html#a90f635ccbe7e0720c3342eaeaaea8968',1,'dashboard']]],
-  ['download_5fcsv_5ffrom_5fbucket_5fto_5ffolder_9',['download_csv_from_bucket_to_folder',['../d8/dc7/namespacebucket__operations.html#aae87ecaefca1236879594bcb25a03eb1',1,'bucket_operations']]]
+  ['distancepredict_7',['DistancePredict',['../d0/d47/class_distance_predict.html#a891b03e51801728159376f22be4db624',1,'DistancePredict']]]
 ];

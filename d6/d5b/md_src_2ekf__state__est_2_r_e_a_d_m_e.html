@@ -94,24 +94,24 @@ $(document).ready(function(){initNavTree('d6/d5b/md_src_2ekf__state__est_2_r_e_a
   <div class="headertitle"><div class="title">EKF State Estimation Package</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md19"></a> The State Estimation module is responsible for the processing of the perception module and localisation sensors' data and its transformation into useful information. In this case, the data is combined to generate the best estimates possible on the pose and speed of the vehicle and the location of the cones that delimit the track.</p>
-<h1><a class="anchor" id="autotoc_md20"></a>
+<div class="textblock"><p><a class="anchor" id="autotoc_md12"></a> The State Estimation module is responsible for the processing of the perception module and localisation sensors' data and its transformation into useful information. In this case, the data is combined to generate the best estimates possible on the pose and speed of the vehicle and the location of the cones that delimit the track.</p>
+<h1><a class="anchor" id="autotoc_md13"></a>
 Package Info</h1>
 <ul>
 <li><b>Node name:</b> ekf_state_est</li>
 <li><b>Package name:</b> ekf_state_est</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md21"></a>
+<h2><a class="anchor" id="autotoc_md14"></a>
 Launch files</h2>
 <ul>
 <li><b>eufssim-slam.launch.py</b> - EUFS SIM simulator adapter and SLAM with EKF</li>
 <li><b>pacsim-slam.launch.py</b> - PacSim simulator adapter and SLAM with EKF</li>
 <li><b>normal-slam.launch.py</b> - in vehicle SLAM with EKF</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md22"></a>
+<h1><a class="anchor" id="autotoc_md15"></a>
 Design</h1>
 <p>Below, some diagrams are presented that can illustrate the structure and behaviour of the program.</p>
-<h2><a class="anchor" id="autotoc_md23"></a>
+<h2><a class="anchor" id="autotoc_md16"></a>
 Behaviour</h2>
 <p>The control flow below illustrates briefly the flow of execution and information through the node, you can also checkout <a href="../../../../docs/assets/Loc_map/EKFSlam1.0.pdf">documentation pdf</a> to get a better understanding.</p>
 <p><img src="../../../../docs/diagrams/state_estimation/control-flow.drawio.svg" alt="Control Flow Diagram" style="pointer-events: none;" class="inline"/></p>
@@ -138,15 +138,15 @@ Behaviour</h2>
 </li>
 <li>The EKF updates the estimates and the node publishes them.</li>
 </ol>
-<h2><a class="anchor" id="autotoc_md24"></a>
+<h2><a class="anchor" id="autotoc_md17"></a>
 Structure</h2>
 <p>The node is composed by multiple classes. The diagram below illustrates roughly how they sit in the code structure. The main two are the LMNode, which is the class of the node, and the Extended Kalman Filter, which corresponds to the code of the implementation of the EKF SLAM.</p>
 <p><img src="../../../../docs/diagrams/state_estimation/class.drawio.svg" alt="Class Diagram" style="pointer-events: none;" class="inline"/></p>
 <p>Take a look at the <a href="https://fs-feup.github.io/autonomous-systems/dir_388d5df3221aab46ce4275c3697a683f.html">Doxygen generated documentation</a>.</p>
-<h1><a class="anchor" id="autotoc_md25"></a>
+<h1><a class="anchor" id="autotoc_md18"></a>
 Full Documentation</h1>
 <p>More precise documentation can be found <a href="https://github.com/fs-feup/documentation/blob/main/AS/FSFEUP_02_State_Estimation/main.pdf">here</a>.</p>
-<h1><a class="anchor" id="autotoc_md26"></a>
+<h1><a class="anchor" id="autotoc_md19"></a>
 Main External Libraries</h1>
 <ul>
 <li><a href="https://eigen.tuxfamily.org/index.php?title=Main_Page">Eigen</a></li>

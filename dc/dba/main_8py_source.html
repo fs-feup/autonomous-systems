@@ -187,110 +187,111 @@ $(document).ready(function(){initNavTree('dc/dba/main_8py_source.html','../../')
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="stringliteral">        @brief Run the thread to publish control commands</span></div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        <span class="keywordflow">while</span> <span class="keywordflow">not</span> self.<a class="code hl_variable" href="../../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#a2824cda64de07ed786c4900098082771">done</a>:</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>            <span class="comment"># Lock the condition</span></div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>            self.<a class="code hl_variable" href="../../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#a784a801f88e1f3d477ce30befff833ad">condition</a>.acquire()</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>            <span class="comment"># Don&#39;t spam commands to the sim</span></div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>            <span class="keywordflow">if</span> <span class="keywordflow">not</span> self.<a class="code hl_variable" href="../../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#a62aad558fc53c1d0d29b77ad46c3471e">new_command</a>:</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>                <span class="keywordflow">continue</span></div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>            lateral_command_msg.value = self.<a class="code hl_variable" href="../../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#ab08fa5ee1c6f4555b9c1ae22c50c779f">steering_angle</a></div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>            longitudinal_command_msg.fl = self.<a class="code hl_variable" href="../../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#aa598378905a15214ad8673a61166645f">acceleration</a></div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>            longitudinal_command_msg.fr = self.<a class="code hl_variable" href="../../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#aa598378905a15214ad8673a61166645f">acceleration</a></div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>            longitudinal_command_msg.rl = self.<a class="code hl_variable" href="../../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#aa598378905a15214ad8673a61166645f">acceleration</a></div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>            longitudinal_command_msg.rr = self.<a class="code hl_variable" href="../../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#aa598378905a15214ad8673a61166645f">acceleration</a></div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>            <span class="comment"># Release the condition and publish</span></div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>            self.<a class="code hl_variable" href="../../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#a784a801f88e1f3d477ce30befff833ad">condition</a>.release()</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            self.<a class="code hl_variable" href="../../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#a177c577b7b16bf22c8aabe68ca6f694b">acceleration_publisher</a>.publish(longitudinal_command_msg)</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>            self.<a class="code hl_variable" href="../../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#a28ed8df1438b28d59b5eeff0ee62deb6">steering_publisher</a>.publish(lateral_command_msg)</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>            self.<a class="code hl_variable" href="../../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#a62aad558fc53c1d0d29b77ad46c3471e">new_command</a> = <span class="keyword">False</span></div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        <span class="comment"># Publish stop message when thread exits</span></div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        lateral_command_msg.value = 0.0</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        longitudinal_command_msg.fl = 0.0</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        longitudinal_command_msg.fr = 0.0</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        longitudinal_command_msg.rl = 0.0</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        longitudinal_command_msg.rr = 0.0</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        self.<a class="code hl_variable" href="../../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#a177c577b7b16bf22c8aabe68ca6f694b">acceleration_publisher</a>.publish(longitudinal_command_msg)</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        self.<a class="code hl_variable" href="../../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#a28ed8df1438b28d59b5eeff0ee62deb6">steering_publisher</a>.publish(lateral_command_msg)</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>            <span class="comment"># Don&#39;t spam commands to the sim</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>            <span class="keywordflow">if</span> <span class="keywordflow">not</span> self.<a class="code hl_variable" href="../../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#a62aad558fc53c1d0d29b77ad46c3471e">new_command</a>:</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>                <span class="keywordflow">continue</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>            <span class="comment"># Lock the condition</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>            self.<a class="code hl_variable" href="../../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#a784a801f88e1f3d477ce30befff833ad">condition</a>.acquire()</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>            lateral_command_msg.value = self.<a class="code hl_variable" href="../../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#ab08fa5ee1c6f4555b9c1ae22c50c779f">steering_angle</a></div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>            longitudinal_command_msg.fl = self.<a class="code hl_variable" href="../../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#aa598378905a15214ad8673a61166645f">acceleration</a></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>            longitudinal_command_msg.fr = self.<a class="code hl_variable" href="../../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#aa598378905a15214ad8673a61166645f">acceleration</a></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>            longitudinal_command_msg.rl = self.<a class="code hl_variable" href="../../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#aa598378905a15214ad8673a61166645f">acceleration</a></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>            longitudinal_command_msg.rr = self.<a class="code hl_variable" href="../../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#aa598378905a15214ad8673a61166645f">acceleration</a></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>            <span class="comment"># Release the condition and publish</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            self.<a class="code hl_variable" href="../../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#a784a801f88e1f3d477ce30befff833ad">condition</a>.release()</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>            self.<a class="code hl_variable" href="../../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#a177c577b7b16bf22c8aabe68ca6f694b">acceleration_publisher</a>.publish(longitudinal_command_msg)</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>            self.<a class="code hl_variable" href="../../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#a28ed8df1438b28d59b5eeff0ee62deb6">steering_publisher</a>.publish(lateral_command_msg)</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>            self.<a class="code hl_variable" href="../../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#a62aad558fc53c1d0d29b77ad46c3471e">new_command</a> = <span class="keyword">False</span></div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        <span class="comment"># Publish stop message when thread exits</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        lateral_command_msg.value = 0.0</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        longitudinal_command_msg.fl = 0.0</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        longitudinal_command_msg.fr = 0.0</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        longitudinal_command_msg.rl = 0.0</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        longitudinal_command_msg.rr = 0.0</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        self.<a class="code hl_variable" href="../../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#a177c577b7b16bf22c8aabe68ca6f694b">acceleration_publisher</a>.publish(longitudinal_command_msg)</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        self.<a class="code hl_variable" href="../../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#a28ed8df1438b28d59b5eeff0ee62deb6">steering_publisher</a>.publish(lateral_command_msg)</div>
 <div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
 </div>
 </div>
-<div class="foldopen" id="foldopen00111" data-start="" data-end="">
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno"><a class="line" href="../../de/df5/namespacepacsim__keys_1_1main.html#a5f37ce81b16717fe7ab2c3845e27a368">  111</a></span><span class="keyword">def </span><a class="code hl_function" href="../../de/df5/namespacepacsim__keys_1_1main.html#a5f37ce81b16717fe7ab2c3845e27a368">get_key</a>(settings, timeout):</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <span class="stringliteral">&quot;&quot;&quot;!</span></div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="stringliteral">    @brief Get a single key from the user.</span></div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    tty.setraw(sys.stdin.fileno())</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    rlist, _, _ = select([sys.stdin], [], [], timeout)</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    key = sys.stdin.read(1) <span class="keywordflow">if</span> rlist <span class="keywordflow">else</span> <span class="stringliteral">&quot;&quot;</span></div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings)</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    <span class="keywordflow">return</span> key</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
+<div class="foldopen" id="foldopen00112" data-start="" data-end="">
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno"><a class="line" href="../../de/df5/namespacepacsim__keys_1_1main.html#a5f37ce81b16717fe7ab2c3845e27a368">  112</a></span><span class="keyword">def </span><a class="code hl_function" href="../../de/df5/namespacepacsim__keys_1_1main.html#a5f37ce81b16717fe7ab2c3845e27a368">get_key</a>(settings, timeout):</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="stringliteral">&quot;&quot;&quot;!</span></div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="stringliteral">    @brief Get a single key from the user.</span></div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    tty.setraw(sys.stdin.fileno())</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    rlist, _, _ = select([sys.stdin], [], [], timeout)</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    key = sys.stdin.read(1) <span class="keywordflow">if</span> rlist <span class="keywordflow">else</span> <span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings)</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <span class="keywordflow">return</span> key</div>
 <div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
 </div>
-<div class="foldopen" id="foldopen00122" data-start="" data-end="">
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno"><a class="line" href="../../de/df5/namespacepacsim__keys_1_1main.html#ab35215eb1148317e2dd42c1a6006dbb7">  122</a></span><span class="keyword">def </span><a class="code hl_function" href="../../de/df5/namespacepacsim__keys_1_1main.html#ab35215eb1148317e2dd42c1a6006dbb7">main</a>():</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    <span class="stringliteral">&quot;&quot;&quot;!</span></div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><span class="stringliteral">    @brief Main function to control the pacsim robot using the keyboard</span></div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="stringliteral"></span> </div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span><span class="stringliteral">    @details This function reads the keyboard inputs and updates</span></div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span><span class="stringliteral">    the control commands accordingly, for the other thread to publish them.</span></div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    rclpy.init()</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    settings = termios.tcgetattr(sys.stdin)</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    key_timeout = 0.5</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    pub_thread = <a class="code hl_class" href="../../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html">PublishThread</a>(10000)</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    acceleration: float = 0.0</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    steering: float = 0.0</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    clicked: bool = <span class="keyword">False</span></div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    published: bool = <span class="keyword">False</span></div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    acceleration = 0.0</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    steering = 0.0</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span> </div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    <span class="keywordflow">try</span>:</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        pub_thread.update(acceleration, steering)</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        <span class="keywordflow">while</span> 1:</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>            key: str = str(<a class="code hl_function" href="../../de/df5/namespacepacsim__keys_1_1main.html#a5f37ce81b16717fe7ab2c3845e27a368">get_key</a>(settings, key_timeout))</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>            <span class="keywordflow">if</span> key == <span class="stringliteral">&quot;w&quot;</span>:</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>                pub_thread.new_command = <span class="keyword">True</span></div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>                clicked = <span class="keyword">True</span></div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>                acceleration = 0.6 <span class="keywordflow">if</span> acceleration &lt; 0.6 <span class="keywordflow">else</span> acceleration + 0.1</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>                acceleration = min(acceleration, 1.0)</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>            <span class="keywordflow">elif</span> key == <span class="stringliteral">&quot;s&quot;</span>:</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>                pub_thread.new_command = <span class="keyword">True</span></div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>                clicked = <span class="keyword">True</span></div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>                acceleration -= 0.1</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>                acceleration = max(acceleration, -1.0)</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>            <span class="keywordflow">if</span> key == <span class="stringliteral">&quot;a&quot;</span>:</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>                pub_thread.new_command = <span class="keyword">True</span></div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>                clicked = <span class="keyword">True</span></div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>                steering += math.pi / 16</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>                steering = min(steering, math.pi / 8)</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>            <span class="keywordflow">elif</span> key == <span class="stringliteral">&quot;d&quot;</span>:</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>                pub_thread.new_command = <span class="keyword">True</span></div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>                clicked = <span class="keyword">True</span></div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>                steering += -math.pi / 16</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>                steering = max(steering, -math.pi / 8)</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>            <span class="keywordflow">if</span> key == <span class="stringliteral">&quot;q&quot;</span>:</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>                <span class="keywordflow">break</span></div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>            <span class="keywordflow">if</span> key == <span class="stringliteral">&quot;\x03&quot;</span>:</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>                <span class="keywordflow">break</span></div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>            <span class="keywordflow">if</span> clicked <span class="keywordflow">or</span> published:</div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>                pub_thread.update(acceleration, steering)</div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>            published = clicked</div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>            clicked = <span class="keyword">False</span></div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span> </div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    <span class="keywordflow">except</span> Exception <span class="keyword">as</span> e:</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>        print(e)</div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span> </div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    <span class="keywordflow">finally</span>:</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>        termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings)</div>
+<div class="foldopen" id="foldopen00123" data-start="" data-end="">
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno"><a class="line" href="../../de/df5/namespacepacsim__keys_1_1main.html#ab35215eb1148317e2dd42c1a6006dbb7">  123</a></span><span class="keyword">def </span><a class="code hl_function" href="../../de/df5/namespacepacsim__keys_1_1main.html#ab35215eb1148317e2dd42c1a6006dbb7">main</a>():</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <span class="stringliteral">&quot;&quot;&quot;!</span></div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="stringliteral">    @brief Main function to control the pacsim robot using the keyboard</span></div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span><span class="stringliteral">    @details This function reads the keyboard inputs and updates</span></div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span><span class="stringliteral">    the control commands accordingly, for the other thread to publish them.</span></div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    rclpy.init()</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    settings = termios.tcgetattr(sys.stdin)</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    key_timeout = 0.5</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    pub_thread = <a class="code hl_class" href="../../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html">PublishThread</a>(10000)</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    acceleration: float = 0.0</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    steering: float = 0.0</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    clicked: bool = <span class="keyword">False</span></div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    published: bool = <span class="keyword">False</span></div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    acceleration = 0.0</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    steering = 0.0</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    <span class="keywordflow">try</span>:</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        pub_thread.update(acceleration, steering)</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        <span class="keywordflow">while</span> 1:</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>            key: str = str(<a class="code hl_function" href="../../de/df5/namespacepacsim__keys_1_1main.html#a5f37ce81b16717fe7ab2c3845e27a368">get_key</a>(settings, key_timeout))</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>            <span class="keywordflow">if</span> key == <span class="stringliteral">&quot;w&quot;</span>:</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>                pub_thread.new_command = <span class="keyword">True</span></div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>                clicked = <span class="keyword">True</span></div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>                acceleration = 0.6 <span class="keywordflow">if</span> acceleration &lt; 0.6 <span class="keywordflow">else</span> acceleration + 0.1</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>                acceleration = min(acceleration, 1.0)</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>            <span class="keywordflow">elif</span> key == <span class="stringliteral">&quot;s&quot;</span>:</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>                pub_thread.new_command = <span class="keyword">True</span></div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>                clicked = <span class="keyword">True</span></div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>                acceleration -= 0.1</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>                acceleration = max(acceleration, -1.0)</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>            <span class="keywordflow">if</span> key == <span class="stringliteral">&quot;a&quot;</span>:</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>                pub_thread.new_command = <span class="keyword">True</span></div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>                clicked = <span class="keyword">True</span></div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>                steering += math.pi / 16</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>                steering = min(steering, math.pi / 8)</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>            <span class="keywordflow">elif</span> key == <span class="stringliteral">&quot;d&quot;</span>:</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>                pub_thread.new_command = <span class="keyword">True</span></div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>                clicked = <span class="keyword">True</span></div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>                steering += -math.pi / 16</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>                steering = max(steering, -math.pi / 8)</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>            <span class="keywordflow">if</span> key == <span class="stringliteral">&quot;q&quot;</span>:</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>                <span class="keywordflow">break</span></div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>            <span class="keywordflow">if</span> key == <span class="stringliteral">&quot;\x03&quot;</span>:</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>                <span class="keywordflow">break</span></div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>            <span class="keywordflow">if</span> clicked <span class="keywordflow">or</span> published:</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>                pub_thread.update(acceleration, steering)</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>            published = clicked</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>            clicked = <span class="keyword">False</span></div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span> </div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    <span class="keywordflow">except</span> Exception <span class="keyword">as</span> e:</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>        print(e)</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span> </div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    <span class="keywordflow">finally</span>:</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>        termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings)</div>
 </div>
 <div class="ttc" id="aclasspacsim__keys_1_1main_1_1_publish_thread_html"><div class="ttname"><a href="../../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html">pacsim_keys.main.PublishThread</a></div><div class="ttdoc">Thread to publish control commands to the robot.</div><div class="ttdef"><b>Definition</b> <a href="../../dc/dba/main_8py_source.html#l00026">main.py:26</a></div></div>
 <div class="ttc" id="aclasspacsim__keys_1_1main_1_1_publish_thread_html_a177c577b7b16bf22c8aabe68ca6f694b"><div class="ttname"><a href="../../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#a177c577b7b16bf22c8aabe68ca6f694b">pacsim_keys.main.PublishThread.acceleration_publisher</a></div><div class="ttdeci">acceleration_publisher</div><div class="ttdef"><b>Definition</b> <a href="../../dc/dba/main_8py_source.html#l00042">main.py:42</a></div></div>
@@ -305,8 +306,8 @@ $(document).ready(function(){initNavTree('dc/dba/main_8py_source.html','../../')
 <div class="ttc" id="aclasspacsim__keys_1_1main_1_1_publish_thread_html_abc9743c5e60d6794e50b918cf5c12f15"><div class="ttname"><a href="../../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#abc9743c5e60d6794e50b918cf5c12f15">pacsim_keys.main.PublishThread.stop</a></div><div class="ttdeci">stop(self)</div><div class="ttdoc">Stop the thread.</div><div class="ttdef"><b>Definition</b> <a href="../../dc/dba/main_8py_source.html#l00068">main.py:68</a></div></div>
 <div class="ttc" id="aclasspacsim__keys_1_1main_1_1_publish_thread_html_ae599e3ea3a0c8a3667cadaf57db93683"><div class="ttname"><a href="../../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#ae599e3ea3a0c8a3667cadaf57db93683">pacsim_keys.main.PublishThread.run</a></div><div class="ttdeci">run(self)</div><div class="ttdoc">Run the thread to publish control commands.</div><div class="ttdef"><b>Definition</b> <a href="../../dc/dba/main_8py_source.html#l00076">main.py:76</a></div></div>
 <div class="ttc" id="aclasspacsim__keys_1_1main_1_1_publish_thread_html_aeeddccc6a4e5a58d465b39443f554d88"><div class="ttname"><a href="../../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#aeeddccc6a4e5a58d465b39443f554d88">pacsim_keys.main.PublishThread.node</a></div><div class="ttdeci">node</div><div class="ttdef"><b>Definition</b> <a href="../../dc/dba/main_8py_source.html#l00038">main.py:38</a></div></div>
-<div class="ttc" id="anamespacepacsim__keys_1_1main_html_a5f37ce81b16717fe7ab2c3845e27a368"><div class="ttname"><a href="../../de/df5/namespacepacsim__keys_1_1main.html#a5f37ce81b16717fe7ab2c3845e27a368">pacsim_keys.main.get_key</a></div><div class="ttdeci">get_key(settings, timeout)</div><div class="ttdoc">Get a single key from the user.</div><div class="ttdef"><b>Definition</b> <a href="../../dc/dba/main_8py_source.html#l00111">main.py:111</a></div></div>
-<div class="ttc" id="anamespacepacsim__keys_1_1main_html_ab35215eb1148317e2dd42c1a6006dbb7"><div class="ttname"><a href="../../de/df5/namespacepacsim__keys_1_1main.html#ab35215eb1148317e2dd42c1a6006dbb7">pacsim_keys.main.main</a></div><div class="ttdeci">main()</div><div class="ttdoc">Main function to control the pacsim robot using the keyboard.</div><div class="ttdef"><b>Definition</b> <a href="../../dc/dba/main_8py_source.html#l00122">main.py:122</a></div></div>
+<div class="ttc" id="anamespacepacsim__keys_1_1main_html_a5f37ce81b16717fe7ab2c3845e27a368"><div class="ttname"><a href="../../de/df5/namespacepacsim__keys_1_1main.html#a5f37ce81b16717fe7ab2c3845e27a368">pacsim_keys.main.get_key</a></div><div class="ttdeci">get_key(settings, timeout)</div><div class="ttdoc">Get a single key from the user.</div><div class="ttdef"><b>Definition</b> <a href="../../dc/dba/main_8py_source.html#l00112">main.py:112</a></div></div>
+<div class="ttc" id="anamespacepacsim__keys_1_1main_html_ab35215eb1148317e2dd42c1a6006dbb7"><div class="ttname"><a href="../../de/df5/namespacepacsim__keys_1_1main.html#ab35215eb1148317e2dd42c1a6006dbb7">pacsim_keys.main.main</a></div><div class="ttdeci">main()</div><div class="ttdoc">Main function to control the pacsim robot using the keyboard.</div><div class="ttdef"><b>Definition</b> <a href="../../dc/dba/main_8py_source.html#l00123">main.py:123</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
