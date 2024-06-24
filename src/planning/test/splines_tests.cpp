@@ -1,6 +1,9 @@
 #include "test_utils/utils.hpp"
 
-// Test the spline template function
+/**
+ * @brief Test the spline template function for a path point vector
+ *
+ */
 TEST(Splines, spline1) {
   using PathPoint = common_lib::structures::PathPoint;
   std::vector<PathPoint> cones;
@@ -16,6 +19,11 @@ TEST(Splines, spline1) {
     EXPECT_LE(fabs(vector2[i].position.y - i), 0.1);
   }
 }
+
+/**
+ * @brief Test the spline template function for a cone vector
+ *
+ */
 TEST(Splines, spline2) {
   using Cone = common_lib::structures::Cone;
   std::vector<Cone> cones;

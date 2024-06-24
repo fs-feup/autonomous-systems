@@ -4,7 +4,7 @@
  * @brief simple but realistic scenario with few cones and few outliers
  *
  */
-TEST(PathCalculation, delauney10) {
+TEST(PathCalculation, delauney_small) {
   std::string file_path = "src/planning/tracks/map_10.txt";
   auto track = track_from_file(file_path);
 
@@ -27,7 +27,7 @@ TEST(PathCalculation, delauney10) {
  * @brief scenario: Large piece of track with no outliers
  *
  */
-TEST(PathCalculation, delauney3_0) {
+TEST(PathCalculation, delauney_large) {
   std::string file_path = "src/planning/tracks/map_100.txt";
   auto track = track_from_file(file_path);
   std::vector<std::pair<double, double>> path;
@@ -86,7 +86,7 @@ TEST(PathCalculation, delauney3_0) {
  * exaclty in a circumference are not counted as being inside a circle
  *
  */
-TEST(PathCalculation, map_test1_void) {
+TEST(PathCalculation, cones_in_circumference_border) {
   std::string file_path = "src/planning/tracks/map_test1.txt";
   auto track = track_from_file(file_path);
 
@@ -104,7 +104,7 @@ TEST(PathCalculation, map_test1_void) {
  * @brief scenario: small track with sharp edge
  *
  */
-TEST(PathCalculation, map_test2) {
+TEST(PathCalculation, small_track_sharp_edge) {
   std::string file_path = "src/planning/tracks/map_test2.txt";
   auto track = track_from_file(file_path);
 

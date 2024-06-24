@@ -35,7 +35,10 @@ void test_cone_coloring(
   }
 }
 
-// test the placement of initial cones with the car oriented at 0 rad
+/**
+ * @brief test the placement of initial cones with the car oriented at 0 rad
+ *
+ */
 TEST(ConeColoring, place_first_cones1) {
   std::vector<common_lib::structures::Cone> track =
       cone_vector_from_file("src/planning/tracks/track1.txt");
@@ -70,7 +73,10 @@ TEST(ConeColoring, place_first_cones1) {
   EXPECT_EQ(yellow_cones[1].color, common_lib::competition_logic::Color::YELLOW);
 }
 
-// test the placement of initial cones with the car oriented at pi rad
+/**
+ * @brief test the placement of initial cones with the car oriented at pi rad
+ *
+ */
 TEST(ConeColoring, place_first_cones2) {
   std::vector<common_lib::structures::Cone> test_cones =
       cone_vector_from_file("src/planning/tracks/track1.txt");

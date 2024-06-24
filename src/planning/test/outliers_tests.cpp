@@ -1,11 +1,32 @@
 #include "test_utils/utils.hpp"
 
 /**
+ * @brief simple scenario only with left cones but with 4 significant outliers
+ *
+ */
+TEST(Outliers, outliers_simple) {
+  std::string file_path = "src/planning/tracks/outlier_test1.txt";
+  Outliers outliers;
+  auto track = track_from_file(file_path);
+  int n1_left = track.first.size();
+  int n1_right = track.second.size();
+  track = outliers.approximate_cones_with_spline(track);
+  EXPECT_FLOAT_EQ(round_n(consecutive_max_distance(track.first), 3), 31.1480);
+  EXPECT_FLOAT_EQ(round_n(consecutive_max_distance(track.second), 3), 0);
+  int n2_left = track.first.size();
+  int n2_right = track.second.size();
+  EXPECT_EQ(n1_left, 36);
+  EXPECT_EQ(n2_left, 36);
+  EXPECT_EQ(n1_right, 0);
+  EXPECT_EQ(n2_right, 0);
+}
+
+/**
  * @brief simple case in which there are cones only in the left size
  * and no significant outliers
  *
  */
-TEST(Outliers, outlier_test2) {
+TEST(Outliers, outlier_left_only) {
   std::string file_path = "src/planning/tracks/outlier_test2.txt";
   Outliers outliers;
   auto track = track_from_file(file_path);
@@ -23,27 +44,6 @@ TEST(Outliers, outlier_test2) {
   int n2_left = track.first.size();
   int n2_right = track.second.size();
   EXPECT_EQ(n1_left, n2_left);
-  EXPECT_EQ(n1_right, 0);
-  EXPECT_EQ(n2_right, 0);
-}
-
-/**
- * @brief simple scenario only with left cones but with 4 significant outliers
- *
- */
-TEST(Outliers, outliers_test1) {
-  std::string file_path = "src/planning/tracks/outlier_test1.txt";
-  Outliers outliers;
-  auto track = track_from_file(file_path);
-  int n1_left = track.first.size();
-  int n1_right = track.second.size();
-  track = outliers.approximate_cones_with_spline(track);
-  EXPECT_FLOAT_EQ(round_n(consecutive_max_distance(track.first), 3), 31.1480);
-  EXPECT_FLOAT_EQ(round_n(consecutive_max_distance(track.second), 3), 0);
-  int n2_left = track.first.size();
-  int n2_right = track.second.size();
-  EXPECT_EQ(n1_left, 36);
-  EXPECT_EQ(n2_left, 36);
   EXPECT_EQ(n1_right, 0);
   EXPECT_EQ(n2_right, 0);
 }

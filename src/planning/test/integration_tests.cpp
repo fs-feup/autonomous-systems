@@ -279,8 +279,11 @@ TEST_F(IntegrationTest, PUBLISH_PATH6) {
             (long unsigned int)221);
 }
 
-// empty track
-TEST_F(IntegrationTest, PUBLISH_PATH7) {
+/**
+ * @brief Tests the full pipeline when 0 cones are sent
+ *
+ */
+TEST_F(IntegrationTest, no_cones) {
   custom_interfaces::msg::VehicleState vehicle_state;
   vehicle_state.position.x = 0;
   vehicle_state.position.y = 0;
@@ -297,7 +300,11 @@ TEST_F(IntegrationTest, PUBLISH_PATH7) {
   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()), (long unsigned int)0);
 }
 
-TEST_F(IntegrationTest, PUBLISH_PATH8) {
+/**
+ * @brief Tests the full pipeline when only a single cone is sent
+ *
+ */
+TEST_F(IntegrationTest, one_cone) {
   custom_interfaces::msg::Cone cone_to_send;
 
   cone_to_send.position.x = 2;

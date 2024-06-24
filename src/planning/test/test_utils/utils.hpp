@@ -23,18 +23,38 @@
 #include "utils/files.hpp"
 #include "utils/splines.hpp"
 
-
-
 using testing::Eq;
 namespace fs = std::filesystem;
 
+
+/**
+ * Opens a file for reading
+ * 
+ * @param filename The filename to be open
+ * @return returns the input ifstream buffer
+ */
 std::ifstream open_read_file(const std::string &filename);
 
+/**
+ * Retrieves a cone vector from a file
+ * 
+ * @param filename The filename to be open
+ */
 std::vector<common_lib::structures::Cone> cone_vector_from_file(const std::string &path);
 
+/**
+ * Retrieves a track (a pair of colored cone vectors from each side) from a file
+ * 
+ * @param filename The filename to be open
+ */
 std::pair<std::vector<common_lib::structures::Cone>, std::vector<common_lib::structures::Cone>>
 track_from_file(const std::string &path);
 
+/**
+ * Retrieves a path point vector from a file
+ * 
+ * @param filename The filename to be open
+ */
 std::vector<common_lib::structures::PathPoint> path_from_file(const std::string &path);
 
 /**
@@ -55,6 +75,11 @@ std::vector<common_lib::structures::PathPoint> path_from_file(const std::string 
  */
 void extractInfo(const std::string_view &filenameView, int &size, int &n_outliers);
 
+/**
+ * Retrieves the max consecutive distance between adjacent cones in a vector
+ * 
+ * @param filename The filename to be open
+ */
 float consecutive_max_distance(const std::vector<common_lib::structures::Cone> &cones);
 
 /**
