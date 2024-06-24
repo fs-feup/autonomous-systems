@@ -31,7 +31,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "adapter",
                 description="Which simulation environment to use",
-                default_value="eufs",
+                default_value="robosense",
             ),
             Node(
                 package="evaluator",
