@@ -1,0 +1,9 @@
+<map id="bucket_operations.setup_gcs_client" name="bucket_operations.setup_gcs_client">
+<area shape="rect" id="Node000001" title="Set up the Google Cloud Storage client." alt="" coords="239,71,401,111"/>
+<area shape="rect" id="Node000002" href="$d8/dc7/namespacebucket__operations.html#aae87ecaefca1236879594bcb25a03eb1" title="Download a CSV file from a Google Cloud Storage bucket to a specified folder." alt="" coords="5,5,191,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="233,68,169,49,171,44,235,63"/>
+<area shape="rect" id="Node000003" href="$d8/dc7/namespacebucket__operations.html#a2dd0951b6a307d887de9772b4696f27c" title="List all files in a Google Cloud Storage bucket." alt="" coords="24,71,172,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="223,94,172,94,172,88,223,88"/>
+<area shape="rect" id="Node000004" href="$d8/dc7/namespacebucket__operations.html#aa899ad61fdb53bd44dd8c1bf7e94cc28" title="Upload a CSV file to a Google Cloud Storage bucket." alt="" coords="14,136,182,177"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="235,119,171,138,169,133,233,114"/>
+</map>
