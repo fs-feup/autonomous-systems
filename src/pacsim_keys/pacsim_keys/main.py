@@ -78,12 +78,13 @@ class PublishThread(threading.Thread):
         @brief Run the thread to publish control commands
         """
         while not self.done:
-            # Lock the condition
-            self.condition.acquire()
 
             # Don't spam commands to the sim
             if not self.new_command:
                 continue
+
+            # Lock the condition
+            self.condition.acquire()
 
             lateral_command_msg.value = self.steering_angle
             longitudinal_command_msg.fl = self.acceleration
