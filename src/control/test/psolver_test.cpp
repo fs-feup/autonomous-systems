@@ -33,23 +33,19 @@ TEST(PointSolverTests, Test_update_closest_point_1) {
  * @brief Test Point Solver - update_lookahead_point()
  */
 
-  // TODO: this test fails bcs these parameters are defined through launch file, default values are
-  // different, should find a way to pass these values, will do when tuning the controller
 
-// TEST(PointSolverTests, Test_update_lookahead_point_1) {
-//   auto pathpoint_array = create_path_msg("track1");
+TEST(PointSolverTests, Test_update_lookahead_point_1) {
+  auto pathpoint_array = create_path_msg("track1");
 
-//   PointSolver point_solver_(1.5, 0.1);
-//   Position rear_axis = Position(47.0, -13.0);
-//   // Point cg = Point(47.80, -12.43);
-//   // Point closest_point = Point(46.5, -12.37);
-//   int closest_point_id = 76;
-//   Position expected_point = Position(48.75, -10.25);
+  PointSolver point_solver_(1.5);
+  point_solver_.vehicle_pose_.rear_axis_ = Position(47.0, -13.0);
+  int closest_point_id = 76;
+  Position expected_point = Position(48.58, -10.44);
 
-//   auto [result_point, result_velocity, result_error] =
-//       point_solver_.update_lookahead_point(pathpoint_array, rear_axis, closest_point_id);
+  auto [result_point, result_velocity, result_error] =
+      point_solver_.update_lookahead_point(pathpoint_array, closest_point_id);
 
-//   EXPECT_EQ(result_point.x, expected_point.x);
-//   EXPECT_EQ(result_point.y, expected_point.y);
-//   EXPECT_FALSE(result_error);
-// }
+  EXPECT_NEAR(result_point.x, expected_point.x, 0.01);
+  EXPECT_NEAR(result_point.y, expected_point.y, 0.01);
+  EXPECT_FALSE(result_error);
+}
