@@ -16,6 +16,7 @@
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
 #include "visualization_msgs/msg/marker_array.hpp"
+#include "geometry_msgs/msg/pose_stamped.hpp"
 #include "icp/icp.hpp"
 
 struct PerceptionParameters {
@@ -53,6 +54,8 @@ private:
   rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr
       _cones_publisher;  ///< ConeArray publisher.
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr cone_marker_array;
+
+  rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr ground_removed_pc;
 
   /**
    * @brief Publishes information about clusters (cones) using a custom ROS2 message.
