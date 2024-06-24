@@ -33,20 +33,7 @@ Eigen::Vector2f ObservationModel::inverse_observation_model(
 
 Eigen::MatrixXf ObservationModel::get_gv(const Eigen::VectorXf &expected_state,
                                          const ObservationData &observation_data) const {
-  // inverse_observation model
-  // fx = m * cos(theta) - sin(theta) * n + x
-  // fy = m * sin(theta) + cos(theta) * n + y
-  // Eigen::MatrixXf gv(2, 6);  // Initialize a 2x6 matrix
-
-  // gv << 1, 0,
-  //     -observation_data.position.x * sin(expected_state(2)) -
-  //         observation_data.position.y * cos(expected_state(2)),
-  //     0, 0, 0, 0, 1,
-  //     observation_data.position.x * cos(expected_state(2)) -
-  //         observation_data.position.y * sin(expected_state(2)),
-  //     0, 0, 0;
-
-  Eigen::MatrixXf gv(2, 3);  // Initialize a 2x3 matrix
+    Eigen::MatrixXf gv(2, 3);  // Initialize a 2x3 matrix
 
   gv << 1, 0,
       -observation_data.position.x * sin(expected_state(2)) -

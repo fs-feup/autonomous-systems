@@ -83,25 +83,3 @@ int SimpleMaximumLikelihood::match_cone(const Eigen::Vector2f& observed_landmark
 
   return closest_landmark_index;
 }
-
-// bool DataAssociationModel::validate(const Eigen::Vector2f& predicted_measurement,
-//                                     const Eigen::VectorXf& expected_state,
-//                                     const Eigen::MatrixXf& covariance, int landmark_index,
-//                                     const Eigen::Matrix2f& R) const {
-//   return false;
-// }
-
-// bool SimpleMaximumLikelihood::valid_match(const float delta,
-//                                           const float distance_to_vehicle) const {
-//   auto limit_function = [](float distance, float curv, float init_limit) {
-//     return pow(M_E, distance / curv) - (1 - init_limit);
-//   };
-//   return limit_function(distance_to_vehicle, SimpleMaximumLikelihood::curvature_,
-//                         SimpleMaximumLikelihood::initial_limit_) > delta;
-// }
-
-// if (SimpleMaximumLikelihood::valid_match(min_delta, distance_to_vehicle)) {
-//   return closest_landmark_index;
-// }
-
-// return -2;
