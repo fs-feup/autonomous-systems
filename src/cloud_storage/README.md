@@ -20,7 +20,7 @@ python3 src/cloud_storage/send_bucket.py <csv_file_option> <file1 file2 file3 | 
 ### Options for **<csv_file_option>**
  - **state_est**: Reads time_exec measurements from unit tests of state estimation.
  - **perception**: Reads time_exec measurements from unit tests of perception.
- - **planning**: Reads time_exec measurements from unit tests of control.
+ - **planning**: Reads time_exec measurements from unit tests of planning.
  - **evaluator**: Reads measurements of each subsystem from the evaluator.
 
 ### Examples

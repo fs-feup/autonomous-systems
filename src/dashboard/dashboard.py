@@ -15,6 +15,7 @@ from bucket_operations import list_blobs, download_csv_from_bucket_to_folder
 
 # Initialize the Dash app
 app = dash.Dash(__name__)
+app.config.suppress_callback_exceptions = True
 
 # List of available CSV files in the bucket
 csv_files = list_blobs("as_evaluation")
