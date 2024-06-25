@@ -12,10 +12,10 @@ PerceptionParameters load_adapter_parameters() {
 
   auto adapter_node = std::make_shared<rclcpp::Node>("perception_adapter");
 
-  double ransac_epsilon = adapter_node->declare_parameter("ransac_epsilon", 0.07);
-  int ransac_n_neighbours = adapter_node->declare_parameter("ransac_n_neighbours", 50);
-  int clustering_n_neighbours = adapter_node->declare_parameter("clustering_n_neighbours", 3);
-  double clustering_epsilon = adapter_node->declare_parameter("clustering_epsilon", 0.05);
+  double ransac_epsilon = adapter_node->declare_parameter("ransac_epsilon", 0.05);
+  int ransac_n_neighbours = adapter_node->declare_parameter("ransac_n_neighbours", 20);
+  int clustering_n_neighbours = adapter_node->declare_parameter("clustering_n_neighbours", 10);
+  double clustering_epsilon = adapter_node->declare_parameter("clustering_epsilon", 0.1);
   double horizontal_resolution = adapter_node->declare_parameter("horizontal_resolution", 0.33);
   double vertical_resolution = adapter_node->declare_parameter("vertical_resolution", 0.22);
   std::string ground_removal_algoritm = adapter_node->declare_parameter("ground_removal", "grid_ransac");
@@ -30,9 +30,9 @@ PerceptionParameters load_adapter_parameters() {
   if (ground_removal_algoritm == "ransac") {
     params.ground_removal_ = std::make_shared<RANSAC>(ransac_epsilon, ransac_n_neighbours);
   } else if (ground_removal_algoritm == "grid_ransac") {
-    int n_angular_grids = adapter_node->declare_parameter("n_angular_grids", 6);
+    int n_angular_grids = adapter_node->declare_parameter("n_angular_grids", 7);
 
-    double radius_resolution = adapter_node->declare_parameter("radius_resolution", 4.5);
+    double radius_resolution = adapter_node->declare_parameter("radius_resolution", 7.5);
     params.ground_removal_ = std::make_shared<GridRANSAC>(ransac_epsilon, ransac_n_neighbours,
                                                           n_angular_grids, radius_resolution);
   }

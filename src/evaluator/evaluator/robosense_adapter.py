@@ -1,17 +1,12 @@
 from evaluator.adapter import Adapter
 import message_filters
-from nav_msgs.msg import Odometry
-from geometry_msgs.msg import Quaternion
 import numpy as np
-import datetime
 from sensor_msgs.msg import PointCloud2
 from evaluator.formats import format_cone_array_msg
-from custom_interfaces.msg import ConeArray, VehicleState
+from custom_interfaces.msg import ConeArray
 from visualization_msgs.msg import MarkerArray
 from evaluator.formats import (
-    format_vehicle_state_msg,
     format_cone_array_msg,
-    format_nav_odometry_msg,
     format_marker_array_msg
 )
 import rclpy
@@ -41,13 +36,11 @@ class RobosenseAdapter(Adapter):
         )
 
         self.node.g_truth_subscription_.registerCallback(self.g_truth)
-
         self._perception_sync_.registerCallback(self.perception_callback)
 
     def perception_callback(
         self, perception: ConeArray, point_cloud: PointCloud2
     ):
-        self.node.get_logger().info("Syncing...")
         if self._g_truth.size != 0:
             perception_output: np.ndarray = format_cone_array_msg(perception)
             self.node.compute_and_publish_perception(

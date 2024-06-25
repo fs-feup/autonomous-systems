@@ -30,7 +30,7 @@ Perception::Perception(const PerceptionParameters& params)
       this->_ground_removed_publisher = this->create_publisher<sensor_msgs::msg::PointCloud2>("/perception/ground_removed_cloud", 10);
 
   std::unordered_map<std::string, std::string> adapter_topic_map = {
-      {"vehicle", "/rslidar_points/pre_processed"}, {"eufs", "/velodyne_points"}, {"fsds", "/lidar/Lidar1"}};
+      {"vehicle", "/hesai/pandar"}, {"eufs", "/velodyne_points"}, {"fsds", "/lidar/Lidar1"}};
 
   this->_point_cloud_subscription = this->create_subscription<sensor_msgs::msg::PointCloud2>(
       adapter_topic_map[params.adapter_], 10,
@@ -71,8 +71,9 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
     //if (std::all_of(_cone_validators_.begin(), _cone_validators_.end(), [&](const auto& validator) {
     //      return validator->coneValidator(&cluster, _ground_plane_);
     //    })) {
-    if (_cone_validators_[0]->coneValidator(&cluster, _ground_plane_));
+    if (_cone_validators_[0]->coneValidator(&cluster, _ground_plane_)){
       filtered_clusters.push_back(cluster);
+    }
     //}
   }
 
@@ -82,7 +83,7 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
                pcl_cloud->points.size());
   RCLCPP_DEBUG(this->get_logger(), "Point Cloud After Ground Removal: %ld points",
                ground_removed_cloud->points.size());
-  RCLCPP_DEBUG(this->get_logger(), "Point Cloud after Clustering: %ld clusters", clusters.size());
+  RCLCPP_DEBUG(this->get_logger(), "Point Cloud after Clustering: %ld clusters", filtered_clusters.size());
 
   // Cone differentiation
   for (long unsigned int i = 0; i < filtered_clusters.size(); i++) {
@@ -114,5 +115,5 @@ void Perception::publishCones(std::vector<Cluster>* cones) {
 
   this->_cones_publisher->publish(message);
   this->cone_marker_array->publish(common_lib::communication::marker_array_from_structure_array(
-      temp, "perception", "rslidar", "yellow"));
+      temp, "perception", "pandar40p", "yellow"));
 }
