@@ -24,7 +24,7 @@ PerceptionParameters load_adapter_parameters() {
   int max_iteration = adapter_node->declare_parameter("max_iteration", 100);
   double transformation_epsilon = adapter_node->declare_parameter("transformation_epsilon", 1e-8);
   double euclidean_fitness_epsilon = adapter_node->declare_parameter("euclidean_fitness_epsilon", 1e-6);
-  params.adapter_ = adapter_node->declare_parameter("adapter", "vehicle");
+  params.adapter_ = adapter_node->declare_parameter("adapter", "fsds");
 
   // Create shared pointers for components
   if (ground_removal_algoritm == "ransac") {

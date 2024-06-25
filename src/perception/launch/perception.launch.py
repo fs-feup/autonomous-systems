@@ -15,7 +15,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "ransac_n_neighbours",
                 description="RANSAC number of neighbours",
-                default_value="10",
+                default_value="15",
             ),
             DeclareLaunchArgument(
                 "clustering_n_neighbours",
@@ -40,7 +40,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "adapter",
                 description="Environment to run node on",
-                default_value="vehicle",
+                default_value="fsds",
             ),
             DeclareLaunchArgument(
                 "ground_removal",
@@ -85,7 +85,7 @@ def generate_launch_description():
             Node(
                 package="perception",
                 executable="perception",
-                name="perception_adapter",
+                name="perception",
                 parameters=[
                     {"ransac_epsilon": LaunchConfiguration("ransac_epsilon")},
                     {"ransac_n_neighbours": LaunchConfiguration("ransac_n_neighbours")},
