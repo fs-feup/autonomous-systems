@@ -27,14 +27,18 @@ Perception::Perception(const PerceptionParameters& params)
   this->_cones_publisher =
       this->create_publisher<custom_interfaces::msg::ConeArray>("/perception/cones", 10);
 
+      this->_ground_removed_publisher = this->create_publisher<sensor_msgs::msg::PointCloud2>("/perception/ground_removed_cloud", 10);
+
   std::unordered_map<std::string, std::string> adapter_topic_map = {
-      {"vehicle", "/hesai/pandar"}, {"eufs", "/velodyne_points"}, {"fsds", "/lidar/Lidar1"}};
+      {"vehicle", "/rslidar_points/pre_processed"}, {"eufs", "/velodyne_points"}, {"fsds", "/lidar/Lidar1"}};
 
   this->_point_cloud_subscription = this->create_subscription<sensor_msgs::msg::PointCloud2>(
       adapter_topic_map[params.adapter_], 10,
       [this](const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
         this->pointCloudCallback(msg);
       });
+  
+  this->cone_marker_array = this->create_publisher<visualization_msgs::msg::MarkerArray>("/perception/visualization/cones", 10);
 
   RCLCPP_INFO(this->get_logger(), "Perception Node created with adapter: %s",
               params.adapter_.c_str());
@@ -51,6 +55,12 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
   _ground_removal_->ground_removal(pcl_cloud, ground_removed_cloud, _ground_plane_);
 
+  sensor_msgs::msg::PointCloud2 ground_remved_msg;
+
+  pcl::toROSMsg(*ground_removed_cloud, ground_remved_msg);
+  
+  this->_ground_removed_publisher->publish(ground_remved_msg);
+
   // Clustering
   std::vector<Cluster> clusters;
   _clustering_->clustering(ground_removed_cloud, &clusters);
@@ -58,11 +68,12 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
   // Filtering
   std::vector<Cluster> filtered_clusters;
   for (auto cluster : clusters) {
-    if (std::all_of(_cone_validators_.begin(), _cone_validators_.end(), [&](const auto& validator) {
-          return validator->coneValidator(&cluster, _ground_plane_);
-        })) {
+    //if (std::all_of(_cone_validators_.begin(), _cone_validators_.end(), [&](const auto& validator) {
+    //      return validator->coneValidator(&cluster, _ground_plane_);
+    //    })) {
+    if (_cone_validators_[0]->coneValidator(&cluster, _ground_plane_));
       filtered_clusters.push_back(cluster);
-    }
+    //}
   }
 
   // Logging
@@ -81,7 +92,7 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
     RCLCPP_DEBUG(this->get_logger(), "Cone %d: %s", i, color.c_str());
   }
 
-  publishCones(&clusters);
+  publishCones(&filtered_clusters);
 }
 
 void Perception::publishCones(std::vector<Cluster>* cones) {
@@ -103,5 +114,5 @@ void Perception::publishCones(std::vector<Cluster>* cones) {
 
   this->_cones_publisher->publish(message);
   this->cone_marker_array->publish(common_lib::communication::marker_array_from_structure_array(
-      temp, "perception", "fsds/Lidar2"));
+      temp, "perception", "rslidar", "yellow"));
 }

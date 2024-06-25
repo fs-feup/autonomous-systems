@@ -25,45 +25,37 @@ class RobosenseAdapter(Adapter):
 
         self.node.g_truth_subscription_ = message_filters.Subscriber(
             self.node,
-            ConeArray,
-            "/perception/ground_truth",
+            MarkerArray,
+            "/perception/visualization/ground_truth/cones",
         )
+
+        self._g_truth = np.array([])
 
         self._perception_sync_ = message_filters.ApproximateTimeSynchronizer(
             [
                 self.node.perception_subscription_,
                 self.node.point_cloud_subscription_,
-                self.node.g_truth_subscription_,
             ],
             10,
             0.1
         )
 
-        self.node.g_truth_subscription_.registerCallback(self.tentative)
-
-        self.node.point_cloud_subscription_.registerCallback(self.pc)
-
-        self.node.perception_subscription_.registerCallback(self.perception)
+        self.node.g_truth_subscription_.registerCallback(self.g_truth)
 
         self._perception_sync_.registerCallback(self.perception_callback)
 
     def perception_callback(
-        self, perception: ConeArray, point_cloud: PointCloud2, g_truth: ConeArray
+        self, perception: ConeArray, point_cloud: PointCloud2
     ):
         self.node.get_logger().info("Syncing...")
-        perception_ground_truth : np.ndarray = format_cone_array_msg(g_truth)
-        perception_output: np.ndarray = format_cone_array_msg(perception)
-        self.node.compute_and_publish_perception(
-            perception_output, perception_ground_truth
-        )
+        if self._g_truth.size != 0:
+            perception_output: np.ndarray = format_cone_array_msg(perception)
+            self.node.compute_and_publish_perception(
+                perception_output, self._g_truth
+            )
 
-    def tentative(self, perception):
-        self.node.get_logger().info("Received Ground Truth!")
-
-    def pc(self, pc):
-        self.node.get_logger().info("Received PC!")
-
-    def perception(self, per):
-        self.node.get_logger().info("Received perception")
+    def g_truth(self, g_truth : MarkerArray):
+        if self._g_truth.size == 0:
+            self._g_truth = format_marker_array_msg(g_truth)
     
     

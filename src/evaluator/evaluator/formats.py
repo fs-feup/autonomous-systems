@@ -7,8 +7,8 @@ from nav_msgs.msg import Odometry
 import numpy as np
 
 cone_color_dictionary: dict[str, int] = {
-    "blue_cone": 0,
-    "yellow_cone": 1,
+    "blue": 0,
+    "yellow": 1,
     "orange_cone": 2,
     "large_orange_cone": 3,
     "undefined": 4,
