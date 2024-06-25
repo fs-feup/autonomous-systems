@@ -52,10 +52,10 @@ private:
       _point_cloud_subscription;  ///< PointCloud2 subscription.
   rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr
       _cones_publisher;  ///< ConeArray publisher.
-  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr cone_marker_array;
+  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr _cone_marker_array_;
 
   rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr
-      _ground_removed_publisher;
+      _ground_removed_publisher_;
 
   /**
    * @brief Publishes information about clusters (cones) using a custom ROS2 message.

@@ -56,7 +56,7 @@ void GridRANSAC::split_point_cloud(const pcl::PointCloud<pcl::PointXYZI>::Ptr& c
         }
 
         int row = static_cast<int>(radius / _radius_resolution_);
-        int column = static_cast<int>(angle / angle_increment);
+        int column = static_cast<int>(angle / angle_increment) % _n_angular_grids_;
 
         if (row < grids.size()) {
             grids[row][column]->points.push_back(point);

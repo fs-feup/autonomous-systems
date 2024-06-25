@@ -31,7 +31,6 @@ PerceptionParameters load_adapter_parameters() {
     params.ground_removal_ = std::make_shared<RANSAC>(ransac_epsilon, ransac_n_neighbours);
   } else if (ground_removal_algoritm == "grid_ransac") {
     int n_angular_grids = adapter_node->declare_parameter("n_angular_grids", 7);
-
     double radius_resolution = adapter_node->declare_parameter("radius_resolution", 7.5);
     params.ground_removal_ = std::make_shared<GridRANSAC>(ransac_epsilon, ransac_n_neighbours,
                                                           n_angular_grids, radius_resolution);
