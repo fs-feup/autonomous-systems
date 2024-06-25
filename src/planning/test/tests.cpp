@@ -379,7 +379,7 @@ TEST(LocalPathPlanner, path_smooth1) {
   std::vector<common_lib::structures::PathPoint> input_path = path_from_file(file_path);
   std::vector<common_lib::structures::PathPoint> smoothed_path =
       path_smoothing.smooth_path(input_path, car_pose);
-  EXPECT_EQ((int)smoothed_path.size(), 111);
+  EXPECT_EQ((int)smoothed_path.size(), 120);
 }
 /**
  * @brief more complex scenario with cones deviating from path and with
@@ -393,7 +393,7 @@ TEST(LocalPathPlanner, path_smooth2) {
   std::vector<common_lib::structures::PathPoint> input_path = path_from_file(file_path);
   std::vector<common_lib::structures::PathPoint> smoothed_path =
       path_smoothing.smooth_path(input_path, car_pose);
-  EXPECT_EQ((int)smoothed_path.size(), 381);
+  EXPECT_EQ((int)smoothed_path.size(), 390);
 }
 
 struct PathPointHash {

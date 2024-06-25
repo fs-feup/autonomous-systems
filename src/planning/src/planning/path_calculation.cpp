@@ -1,5 +1,4 @@
 #include "planning/path_calculation.hpp"
-#include "utils/cone.hpp"
 
 #include <algorithm>
 #include <cmath>
@@ -8,7 +7,10 @@
 #include <utility>
 #include <vector>
 
-std::vector<PathPoint> PathCalculation::process_delaunay_triangulations(std::pair<std::vector<Cone>, std::vector<Cone>> refined_cones) {
+#include "utils/cone.hpp"
+
+std::vector<PathPoint> PathCalculation::process_delaunay_triangulations(
+    std::pair<std::vector<Cone>, std::vector<Cone>> refined_cones) {
   // merge left and right cones for next step
   std::vector<Cone> cones;
   cones.reserve(refined_cones.first.size() + refined_cones.second.size());
@@ -36,9 +38,9 @@ std::vector<PathPoint> PathCalculation::process_delaunay_triangulations(std::pai
     int id_cone1 = find_cone(cones, x1, y1);
     int id_cone2 = find_cone(cones, x2, y2);
     // Check both cones have been found
-    if (id_cone1 == -1 || id_cone2 == -1){
-     RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Cone not found in triangulations");
-     continue;
+    if (id_cone1 == -1 || id_cone2 == -1) {
+      RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Cone not found in triangulations");
+      continue;
     }
 
     Cone cone1 = cones[id_cone1];
@@ -59,4 +61,3 @@ std::vector<PathPoint> PathCalculation::process_delaunay_triangulations(std::pai
 
   return unordered_path;
 }
-

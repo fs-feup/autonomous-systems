@@ -5,16 +5,21 @@ void PathSmoothing::order_path(std::vector<PathPoint>& unord_path, const Pose& c
 
   PathPoint current_point = PathPoint(car_pose.position, 1);
   int index = 0;
+
   while (!unord_set.empty()) {
     double min_distance = std::numeric_limits<double>::max();
     PathPoint closest_point;
 
     for (const auto& point : unord_set) {
-      if (index == 0){
-        float path_angle = atan2(point.position.y - current_point.position.y, point.position.x - current_point.position.x);
+      if (index == 1) {
+        double path_angle = atan2(point.position.y - current_point.position.y,
+                                  point.position.x - current_point.position.x);
+
         // Check if next point is in the same direction range or side as the vehicle orientation
-         if (abs(fmod(path_angle - car_pose.orientation, 2 * M_PI) - M_PI) > M_PI / 2)
-            continue;
+        double angle_diff = fmod(path_angle - car_pose.orientation + 2 * M_PI, 2 * M_PI);
+        if (abs(angle_diff) > M_PI / 2 && abs(angle_diff) < 3 * M_PI / 2) {
+          continue;
+        }
       }
 
       double distance = current_point.position.euclidean_distance(point.position);
@@ -24,9 +29,16 @@ void PathSmoothing::order_path(std::vector<PathPoint>& unord_path, const Pose& c
       }
     }
 
-    current_point = closest_point;
-    unord_set.erase(current_point);
-    unord_path[index++] = current_point;
+    if (min_distance < std::numeric_limits<double>::max() &&
+        index < static_cast<int>(unord_path.size())) {
+      current_point = closest_point;
+      unord_set.erase(current_point);
+      unord_path[index++] = current_point;
+    } else {
+      RCLCPP_ERROR(rclcpp::get_logger("planning"),
+                   "Index out of bounds while ordering path OR no valid point found");
+      break;
+    }
   }
 }
 

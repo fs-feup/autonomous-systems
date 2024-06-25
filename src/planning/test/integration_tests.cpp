@@ -105,11 +105,11 @@ TEST_F(IntegrationTest, PUBLISH_PATH1) {
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
   for (const auto &p : received_path.pathpoint_array) {
     EXPECT_NEAR(p.y, 0, 1e-10);
-    EXPECT_LE(p.x, 35);
+    EXPECT_LE(p.x, 35.5);
     EXPECT_GE(p.x, -2);
   }
   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()),
-            (long unsigned int)221);
+            (long unsigned int)230);
 }
 
 TEST_F(IntegrationTest, PUBLISH_PATH2) {
@@ -144,7 +144,7 @@ TEST_F(IntegrationTest, PUBLISH_PATH2) {
     EXPECT_LE(p.y - p.x, 0.1);
   }
   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()),
-            (long unsigned int)221);
+            (long unsigned int)230);
 }
 
 TEST_F(IntegrationTest, PUBLISH_PATH3) {
@@ -181,7 +181,7 @@ TEST_F(IntegrationTest, PUBLISH_PATH3) {
     EXPECT_LE(p.y + p.x, 0.1);
   }
   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()),
-            (long unsigned int)221);
+            (long unsigned int)230);
 }
 
 TEST_F(IntegrationTest, PUBLISH_PATH4) {
@@ -216,7 +216,7 @@ TEST_F(IntegrationTest, PUBLISH_PATH4) {
     EXPECT_LE(p.y - p.x, 0.1);
   }
   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()),
-            (long unsigned int)221);
+            (long unsigned int)230);
 }
 
 TEST_F(IntegrationTest, PUBLISH_PATH5) {
@@ -251,7 +251,7 @@ TEST_F(IntegrationTest, PUBLISH_PATH5) {
     EXPECT_LE(p.y + p.x, 0.1);
   }
   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()),
-            (long unsigned int)221);
+            (long unsigned int)230);
 }
 
 TEST_F(IntegrationTest, PUBLISH_PATH6) {
@@ -276,11 +276,11 @@ TEST_F(IntegrationTest, PUBLISH_PATH6) {
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
   for (const auto &p : received_path.pathpoint_array) {
     EXPECT_LE(fabs(p.x), 0.1);
-    EXPECT_LE(p.y, 35);
+    EXPECT_LE(p.y, 35.5);
     EXPECT_GE(p.y, -1);
   }
   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()),
-            (long unsigned int)221);
+            (long unsigned int)230);
 }
 
 // empty track

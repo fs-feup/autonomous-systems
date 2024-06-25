@@ -124,6 +124,7 @@ void EufsAdapter::set_mission_state(int mission, int state) {
 }
 
 void EufsAdapter::pose_callback(const eufs_msgs::msg::CarState& msg) {
+  RCLCPP_DEBUG(this->get_logger(), "Received pose from EUFS");
   custom_interfaces::msg::VehicleState pose;
   // only gets the x, y, and theta since those are the only ones necessary for planning
   pose.position.x = msg.pose.pose.position.x;

@@ -6,11 +6,11 @@
  *
  */
 struct SimulationConfig {
-    bool publishing_visualization_msgs = false;
-    bool using_simulated_se = false;
-    SimulationConfig() = default;
-    SimulationConfig(bool publishing_visualization_msg, bool using_simulated_se): 
-        publishing_visualization_msgs(publishing_visualization_msg),
+  bool publishing_visualization_msgs = false;
+  bool using_simulated_se = false;
+  SimulationConfig() = default;
+  SimulationConfig(bool publishing_visualization_msg, bool using_simulated_se)
+      : publishing_visualization_msgs(publishing_visualization_msg),
         using_simulated_se(using_simulated_se) {}
 };
 
