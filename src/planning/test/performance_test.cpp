@@ -6,8 +6,8 @@
  * @brief Iterates the Outliers algorithm repeatedly and measures the average time
  */
 void iterate_outliers(std::string filename, int num_outliers = 0) {
-    auto track = track_from_file(filename);
-    auto outliers = Outliers();
+  auto track = track_from_file(filename);
+  auto outliers = Outliers();
 
   // Remove outliers no_iters times to get average
   int no_iters = 100;
@@ -28,8 +28,8 @@ void iterate_outliers(std::string filename, int num_outliers = 0) {
     total_time += elapsed_time_iter_ms;
   }
 
-  measuresPath << track.first.size() << "," << track.second.size() << ","
-               << num_outliers << "," << total_time / no_iters << ",";
+  measuresPath << track.first.size() << "," << track.second.size() << "," << num_outliers << ","
+               << total_time / no_iters << ",";
   measuresPath.close();
 
   RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Outliers removed in average %f ms.",
@@ -84,11 +84,13 @@ void iterate_smoothing(std::vector<PathPoint> &path) {
 
   // No_iters repetitions to get average
   for (int i = 0; i < no_iters; i++) {
-    float orientation = atan2(path[1].position.y - path[0].position.y, path[1].position.x - path[0].position.x);
+    float orientation =
+        atan2(path[1].position.y - path[0].position.y, path[1].position.x - path[0].position.x);
 
     auto t0 = std::chrono::high_resolution_clock::now();
 
-    std::vector<PathPoint> smoothed_path = path_smoothing.smooth_path(path, Pose(path[0].position, orientation));
+    std::vector<PathPoint> smoothed_path =
+        path_smoothing.smooth_path(path, Pose(path[0].position, orientation));
 
     auto t1 = std::chrono::high_resolution_clock::now();
 
@@ -102,14 +104,13 @@ void iterate_smoothing(std::vector<PathPoint> &path) {
 
   RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Average Smoothing processed in %f ms.",
               (total_time / no_iters));
-
 }
 
 /**
  * @brief Execution Time Test
  */
 TEST(Planning, planning_exec_time) {
-  std::string directory_path = "src/planning/test/maps/";
+  std::string directory_path = "../../src/planning/test/maps/";
   int size;
   int n_outliers;
   for (const auto &entry : fs::directory_iterator(directory_path)) {
