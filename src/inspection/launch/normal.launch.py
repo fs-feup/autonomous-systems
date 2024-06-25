@@ -12,8 +12,8 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "max_angle",
                 description="max angle for the turning of the inspection script",
-                default_value="0.52359877559",
-            ),  # Pi / 6.0, rad; 30 degrees
+                default_value="0.392699",
+            ),  # Pi / 6.0, rad; 22.5 degrees in rad
             DeclareLaunchArgument(
                 "inspection_ideal_velocity", default_value="1.0"
             ),  # m/s

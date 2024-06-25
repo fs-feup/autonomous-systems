@@ -10,7 +10,7 @@ InspectionMission::InspectionMission() : Node("inspection") {
   inspection_object.finish_time = declare_parameter<double>("finish_time", 26.0);
   inspection_object.wheel_radius = declare_parameter<double>("wheel_radius", 0.254);
   inspection_object.max_angle =
-      declare_parameter<double>("max_angle", 0.52359877559);  // 30 degrees in rad
+      declare_parameter<double>("max_angle", MAX_ANGLE);  // 22.5 degrees in rad
   inspection_object.start_and_stop = declare_parameter<bool>("start_and_stop", false);
   declare_parameter<double>("ebs_test_ideal_velocity", 2.0);
   declare_parameter<double>("ebs_test_gain", 0.25);
@@ -49,7 +49,7 @@ void InspectionMission::mission_decider(
     custom_interfaces::msg::OperationalStatus::SharedPtr mission_signal) {
   std::string mission_string =
       common_lib::competition_logic::get_mission_string(mission_signal->as_mission);
-  RCLCPP_DEBUG(this->get_logger(), "Mission received: %s", mission_string.c_str());
+  // RCLCPP_DEBUG(this->get_logger(), "Mission received: %s", mission_string.c_str());
 
   try {
     if (mission_signal->as_mission == common_lib::competition_logic::Mission::INSPECTION) {
@@ -80,7 +80,7 @@ void InspectionMission::inspection_script(const custom_interfaces::msg::WheelRPM
   if (!go || mission == common_lib::competition_logic::Mission::NONE) {
     return;
   }
-  RCLCPP_DEBUG(this->get_logger(), "Executing Inspection Script.");
+  // RCLCPP_DEBUG(this->get_logger(), "Executing Inspection Script.");
 
   // initialization
   auto current_time = this->clock.now();
@@ -131,7 +131,7 @@ void InspectionMission::publish_controls(double throttle, double steering) const
 // --------------------- END OF MISSION LOGIC -------------------------
 
 void InspectionMission::end_of_mission() {
-  RCLCPP_DEBUG(this->get_logger(), "Sending ending signal.");
+  RCLCPP_INFO(this->get_logger(), "Sending ending signal...");
   if (this->mission == common_lib::competition_logic::Mission::INSPECTION) {
     this->finish_client->async_send_request(
         std::make_shared<std_srvs::srv::Trigger::Request>(),
@@ -152,8 +152,8 @@ void InspectionMission::handle_end_of_mission_response(
   auto result = future.get();
   if (result->success) {
     this->mission_end_timer->cancel();
-    RCLCPP_INFO(this->get_logger(), "Mission has been finished.");
+    RCLCPP_INFO(this->get_logger(), "Mission has been finished!");
   } else {
-    RCLCPP_ERROR(this->get_logger(), "Mission could not be finished.");
+    RCLCPP_ERROR(this->get_logger(), "Mission could not be finished!");
   }
 }

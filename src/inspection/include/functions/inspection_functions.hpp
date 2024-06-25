@@ -2,6 +2,7 @@
 #define INSPECTION_FUNCTIONS_HPP
 
 #define MAX_THROTTLE (2.5)
+#define MAX_ANGLE 0.392699 // 22.5 degrees in rad
 
 #include <chrono>
 #include <cmath>
@@ -12,7 +13,7 @@
 class InspectionFunctions {
  public:
   // default to EBS test values
-  double max_angle = 0.52359877559;
+  double max_angle = MAX_ANGLE;
   double ideal_velocity = 2.0;
   double turning_period = 4.0;
   double wheel_radius = 0.254;
