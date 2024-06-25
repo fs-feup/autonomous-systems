@@ -42,7 +42,8 @@ public:
    * @brief Update Lookahead point
    *
    * @param path
-   * @return std::pair<Point, double, bool> lookahead point, velocity and error status (1 = error)
+   * @return std::tuple<common_lib::structures::Position, double, bool> lookahead point, velocity
+   * and error status (1 = error)
    */
   std::tuple<common_lib::structures::Position, double, bool> update_lookahead_point(
       const std::vector<custom_interfaces::msg::PathPoint> &pathpoint_array,

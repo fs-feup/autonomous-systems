@@ -56,12 +56,6 @@ std::pair<Position, int> PointSolver::update_closest_point(
   return std::make_pair(closest_point, closest_point_id);
 }
 
-/**
- * @brief Update Lookahead point
- *
- * @param path
- * @return std::pair<Position, int> lookahead point and error status (1 = error)
- */
 std::tuple<Position, double, bool> PointSolver::update_lookahead_point(
     const std::vector<custom_interfaces::msg::PathPoint> &pathpoint_array,
     int closest_point_id) const {
@@ -80,14 +74,14 @@ std::tuple<Position, double, bool> PointSolver::update_lookahead_point(
       continue;
     }
 
-    double x;
-    double y;
+    double result_x;
+    double result_y;
 
     // Slope of the line is infinite, don't need line equation
     if (point_a.x == point_b.x) {
       RCLCPP_DEBUG(rclcpp::get_logger("control"), "Vertical line!!");
-      x = point_a.x;
-      double delta = ld * ld - std::pow(x - rear_axis_point.x, 2);
+      result_x = point_a.x;
+      double delta = ld * ld - std::pow(result_x - rear_axis_point.x, 2);
       if (delta < 0) {
         continue;
       }
@@ -95,9 +89,9 @@ std::tuple<Position, double, bool> PointSolver::update_lookahead_point(
       double y2 = rear_axis_point.y - std::sqrt(delta);
 
       if (y1 >= std::min(point_a.y, point_b.y) && y1 <= std::max(point_a.y, point_b.y)) {
-        y = y1;
+        result_y = y1;
       } else {
-        y = y2;
+        result_y = y2;
       }
 
     } else {
@@ -129,18 +123,18 @@ std::tuple<Position, double, bool> PointSolver::update_lookahead_point(
       double y1 = m * x1 + c;
       double y2 = m * x2 + c;
 
-      // i want to select the solution (x,y) which is within bounds of point_a and point_b
+      // solution (x,y) which is within bounds of point_a and point_b
       if (x1 >= std::min(point_a.x, point_b.x) && x1 <= std::max(point_a.x, point_b.x) &&
           y1 >= std::min(point_a.y, point_b.y) && y1 <= std::max(point_a.y, point_b.y)) {
-        x = x1;
-        y = y1;
+        result_x = x1;
+        result_y = y1;
       } else {
-        x = x2;
-        y = y2;
+        result_x = x2;
+        result_y = y2;
       }
     }
 
-    return std::make_tuple(Position(x, y),
+    return std::make_tuple(Position(result_x, result_y),
                            (pathpoint_array[index_a].v + pathpoint_array[index_b].v) / 2.0, false);
   }
   RCLCPP_WARN(rclcpp::get_logger("control"), "No lookahead point found");
