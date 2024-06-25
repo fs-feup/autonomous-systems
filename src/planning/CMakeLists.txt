@@ -33,8 +33,14 @@ find_package(GSL REQUIRED)
 
 set(TESTFILES
   test/main.cpp
-  test/tests.cpp
   test/integration_tests.cpp
+  test/performance_test.cpp
+  test/cone_coloring_tests.cpp
+  test/outliers_tests.cpp
+  test/path_calculation_tests.cpp
+  test/smoothing_tests.cpp
+  test/splines_tests.cpp
+  test/test_utils/utils.cpp
 )
 
 set(IMPLEMENTATION_FILES
