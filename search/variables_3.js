@@ -42,9 +42,10 @@ var searchData=
   ['correction_5fstep_5finput_5fsize_39',['correction_step_input_size',['../df/d4f/class_performance_test.html#aaa9c09870b43d1c70ae1a156a55f8f6a',1,'PerformanceTest']]],
   ['cost_5fmax_5f_40',['cost_max_',['../d9/db5/class_planning.html#a5a960ac7e146f937decfe2ae6d678f8a',1,'Planning::cost_max_'],['../d2/deb/struct_planning_parameters.html#ad66d33a19e5db22c61c77cc0f703ff05',1,'PlanningParameters::cost_max_']]],
   ['count_41',['count',['../dc/d1a/namespaceplot__track.html#aeb1d71342484b0943985adb65e165e3e',1,'plot_track.count'],['../dd/d6b/namespaceoffsettrack.html#afefbbb4f39da3e83816bf5d31d797527',1,'offsettrack.count']]],
-  ['csv_5ffiles_42',['csv_files',['../df/d91/namespacedashboard.html#a1a4e9557de70313494afd311e0bea781',1,'dashboard']]],
-  ['current_5fgoal_5fvelocity_43',['current_goal_velocity',['../d4/d89/class_inspection_functions.html#ab28a953b2f7bb994a3afb1a6c7f636c7',1,'InspectionFunctions']]],
-  ['current_5fleft_5fcones_44',['current_left_cones',['../dd/d52/class_cone_coloring.html#a5c2cca77802d01ce2cdb49f00d1f51e8',1,'ConeColoring']]],
-  ['current_5fright_5fcones_45',['current_right_cones',['../dd/d52/class_cone_coloring.html#ad57837293e6b81b21b63ba5923ad2102',1,'ConeColoring']]],
-  ['curvature_5f_46',['curvature_',['../d5/dc2/class_simple_maximum_likelihood.html#a24d68317c3b86bae2309b3d585230515',1,'SimpleMaximumLikelihood']]]
+  ['cpu_5fpublisher_42',['cpu_publisher',['../db/d78/classpower__log_1_1power__log__node_1_1_power_node.html#a89396f78a3463b35796f7d73a90d1c72',1,'power_log::power_log_node::PowerNode']]],
+  ['csv_5ffiles_43',['csv_files',['../df/d91/namespacedashboard.html#a1a4e9557de70313494afd311e0bea781',1,'dashboard']]],
+  ['current_5fgoal_5fvelocity_44',['current_goal_velocity',['../d4/d89/class_inspection_functions.html#ab28a953b2f7bb994a3afb1a6c7f636c7',1,'InspectionFunctions']]],
+  ['current_5fleft_5fcones_45',['current_left_cones',['../dd/d52/class_cone_coloring.html#a5c2cca77802d01ce2cdb49f00d1f51e8',1,'ConeColoring']]],
+  ['current_5fright_5fcones_46',['current_right_cones',['../dd/d52/class_cone_coloring.html#ad57837293e6b81b21b63ba5923ad2102',1,'ConeColoring']]],
+  ['curvature_5f_47',['curvature_',['../d5/dc2/class_simple_maximum_likelihood.html#a24d68317c3b86bae2309b3d585230515',1,'SimpleMaximumLikelihood']]]
 ];

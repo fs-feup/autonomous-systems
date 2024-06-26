@@ -4,16 +4,16 @@ var searchData=
   ['se_5fmetrics_1',['se_metrics',['../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a4b5d4cffe2c49471827cfe776bdb6f4f',1,'evaluator::evaluator::Evaluator']]],
   ['se_5fpublisher_2',['se_publisher',['../d1/d4c/class_mocker_node.html#a12258bc09c424516b714f58c3c83b1d3',1,'MockerNode']]],
   ['set_5fcontrol_5finit_3',['set_control_init',['../dc/dab/classevaluator_1_1eufs__adapter_1_1_eufs_adapter.html#a0fac6d3cec017f233239234319353464',1,'evaluator::eufs_adapter::EufsAdapter']]],
-  ['signal_5fhandler_4',['signal_handler',['../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a6d9abe6081566e6df233eec44b45d859',1,'evaluator::evaluator::Evaluator']]],
+  ['signal_5fhandler_4',['signal_handler',['../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a6d9abe6081566e6df233eec44b45d859',1,'evaluator.evaluator.Evaluator.signal_handler'],['../db/d78/classpower__log_1_1power__log__node_1_1_power_node.html#a00fecc31d6c0e12054e2e2c3d551f673',1,'power_log.power_log_node.PowerNode.signal_handler']]],
   ['simulated_5fperception_5fcallback_5',['simulated_perception_callback',['../d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter.html#abb4bbabb912bca94908cb551bcf25a92',1,'evaluator.pacsim_adapter.PacsimAdapter.simulated_perception_callback'],['../dc/dab/classevaluator_1_1eufs__adapter_1_1_eufs_adapter.html#ab64d0f2fa210a8a2cb9bdfb6f3835e8f',1,'evaluator.eufs_adapter.EufsAdapter.simulated_perception_callback']]],
   ['sml_5fda_5fcurvature_5f_6',['sml_da_curvature_',['../d8/d1b/struct_e_k_f_state_est_parameters.html#a47ef2943ca9b4cbb7c95c2be0fc61827',1,'EKFStateEstParameters']]],
   ['sml_5finitial_5flimit_5f_7',['sml_initial_limit_',['../d8/d1b/struct_e_k_f_state_est_parameters.html#ae04a615c125179a5864f78b49b2b8e8a',1,'EKFStateEstParameters']]],
   ['smoothing_5fspline_5fcoeffs_5fratio_5f_8',['smoothing_spline_coeffs_ratio_',['../d2/deb/struct_planning_parameters.html#a7b805d2fc7f0c719e605b163f8fc82cb',1,'PlanningParameters::smoothing_spline_coeffs_ratio_'],['../d9/db5/class_planning.html#aba4f043ce1191f2ddf49a6e983016bb3',1,'Planning::smoothing_spline_coeffs_ratio_']]],
   ['smoothing_5fspline_5forder_5f_9',['smoothing_spline_order_',['../d2/deb/struct_planning_parameters.html#a8d676b1a478bc92eaefc08061d987848',1,'PlanningParameters::smoothing_spline_order_'],['../d9/db5/class_planning.html#a647eb3ede318099757548b361e68247a',1,'Planning::smoothing_spline_order_']]],
-  ['smoothing_5fspline_5fprecision_5f_10',['smoothing_spline_precision_',['../d2/deb/struct_planning_parameters.html#aa3dc1d308628d494337ff00701830501',1,'PlanningParameters::smoothing_spline_precision_'],['../d9/db5/class_planning.html#a3638fbe3ae031251364c7c161eaad6a8',1,'Planning::smoothing_spline_precision_']]],
+  ['smoothing_5fspline_5fprecision_5f_10',['smoothing_spline_precision_',['../d9/db5/class_planning.html#a3638fbe3ae031251364c7c161eaad6a8',1,'Planning::smoothing_spline_precision_'],['../d2/deb/struct_planning_parameters.html#aa3dc1d308628d494337ff00701830501',1,'PlanningParameters::smoothing_spline_precision_']]],
   ['source_5fcloud_11',['source_cloud',['../de/dab/class_i_c_p_suite.html#ad5baaea8731eb3a7524dfc88aa23bc0c',1,'ICPSuite']]],
   ['spline_5fcoeffs_5fratio_5f_12',['spline_coeffs_ratio_',['../d6/d2c/class_track.html#a3052eb6df317a087cc224f5a1432ab79',1,'Track::spline_coeffs_ratio_'],['../d7/db7/class_path_smoothing.html#a14eb3efda5a3427fe192da6021a92388',1,'PathSmoothing::spline_coeffs_ratio_']]],
-  ['spline_5forder_5f_13',['spline_order_',['../d6/d2c/class_track.html#a7e848144b5524bfc10987a1c1baeae3c',1,'Track::spline_order_'],['../d7/db7/class_path_smoothing.html#ae8188c9e1d0f62c618bbbaf1a5df80d8',1,'PathSmoothing::spline_order_']]],
+  ['spline_5forder_5f_13',['spline_order_',['../d7/db7/class_path_smoothing.html#ae8188c9e1d0f62c618bbbaf1a5df80d8',1,'PathSmoothing::spline_order_'],['../d6/d2c/class_track.html#a7e848144b5524bfc10987a1c1baeae3c',1,'Track::spline_order_']]],
   ['spline_5fprecision_5f_14',['spline_precision_',['../d6/d2c/class_track.html#a4ff17d84ccb91c4ae9436e7655bf6e81',1,'Track::spline_precision_'],['../d7/db7/class_path_smoothing.html#acf7bb9c2b6eaa3e98a74270c64940c09',1,'PathSmoothing::spline_precision_']]],
   ['start_5fand_5fstop_15',['start_and_stop',['../d4/d89/class_inspection_functions.html#ad7591825785159a9f79107cb710593fb',1,'InspectionFunctions']]],
   ['start_5fline_16',['START_LINE',['../d2/de4/namespaceskidpad__mapper.html#a8a8b3592ea8f5f30082b678dd12e083c',1,'skidpad_mapper']]],
@@ -27,5 +27,6 @@ var searchData=
   ['straightpoints_24',['straightPoints',['../d9/de5/namespaceacceleration__mapper.html#a9b380571f426452caf2fb71bbab761a9',1,'acceleration_mapper']]],
   ['string_5fcolor_5fmap_25',['STRING_COLOR_MAP',['../d9/d2b/namespacecommon__lib_1_1competition__logic.html#af39f271694f6e7e236ff4640e7ae6208',1,'common_lib::competition_logic']]],
   ['string_5fto_5fcolor_26',['STRING_TO_COLOR',['../d9/d2b/namespacecommon__lib_1_1competition__logic.html#a35040fcb9b3c0dd185484dcad9c645c6',1,'common_lib::competition_logic']]],
-  ['sync_5f_27',['sync_',['../de/d3d/class_inspection_mission.html#a2f4774a5dc9885a09fd3c3fddf6668d3',1,'InspectionMission']]]
+  ['suppress_5fcallback_5fexceptions_27',['suppress_callback_exceptions',['../df/d91/namespacedashboard.html#abbd08efe3761a9696345c9c5907053c3',1,'dashboard']]],
+  ['sync_5f_28',['sync_',['../de/d3d/class_inspection_mission.html#a2f4774a5dc9885a09fd3c3fddf6668d3',1,'InspectionMission']]]
 ];

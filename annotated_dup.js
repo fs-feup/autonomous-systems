@@ -40,6 +40,11 @@ var annotated_dup =
         [ "PublishThread", "db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html", "db/d1d/classpacsim__keys_1_1main_1_1_publish_thread" ]
       ] ]
     ] ],
+    [ "power_log", "d0/daf/namespacepower__log.html", [
+      [ "power_log_node", "d7/d93/namespacepower__log_1_1power__log__node.html", [
+        [ "PowerNode", "db/d78/classpower__log_1_1power__log__node_1_1_power_node.html", "db/d78/classpower__log_1_1power__log__node_1_1_power_node" ]
+      ] ]
+    ] ],
     [ "std", "d8/dcc/namespacestd.html", [
       [ "hash< PathPoint >", "d1/d0b/structstd_1_1hash_3_01_path_point_01_4.html", "d1/d0b/structstd_1_1hash_3_01_path_point_01_4" ]
     ] ],
@@ -94,8 +99,8 @@ var annotated_dup =
     [ "NormalVelocityModel", "d7/df9/class_normal_velocity_model.html", "d7/df9/class_normal_velocity_model" ],
     [ "ObservationData", "d9/d90/struct_observation_data.html", "d9/d90/struct_observation_data" ],
     [ "ObservationModel", "d7/d64/class_observation_model.html", "d7/d64/class_observation_model" ],
-    [ "PacsimAdapter", "d1/dcb/class_pacsim_adapter.html", "d1/dcb/class_pacsim_adapter" ],
     [ "PacSimAdapter", "db/d68/class_pac_sim_adapter.html", "db/d68/class_pac_sim_adapter" ],
+    [ "PacsimAdapter", "d1/dcb/class_pacsim_adapter.html", "d1/dcb/class_pacsim_adapter" ],
     [ "PathPoint", "d9/d32/class_path_point.html", "d9/d32/class_path_point" ],
     [ "PathPointEqual", "d1/d5e/struct_path_point_equal.html", "d1/d5e/struct_path_point_equal" ],
     [ "PathPointHash", "d8/da1/struct_path_point_hash.html", "d8/da1/struct_path_point_hash" ],

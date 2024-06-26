@@ -125,6 +125,7 @@ var hierarchy =
     [ "common_lib::structures::VehicleState", "d0/d2a/structcommon__lib_1_1structures_1_1_vehicle_state.html", null ],
     [ "common_lib::sensor_data::WheelEncoderData", "d7/de0/structcommon__lib_1_1sensor__data_1_1_wheel_encoder_data.html", null ],
     [ "Node", null, [
-      [ "evaluator.evaluator.Evaluator", "dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html", null ]
+      [ "evaluator.evaluator.Evaluator", "dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html", null ],
+      [ "power_log.power_log_node.PowerNode", "db/d78/classpower__log_1_1power__log__node_1_1_power_node.html", null ]
     ] ]
 ];

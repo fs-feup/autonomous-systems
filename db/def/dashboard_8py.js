@@ -10,5 +10,6 @@ var dashboard_8py =
     [ "available_dashboards", "db/def/dashboard_8py.html#a362e831daf55963e9cbeb65a1f76d7d6", null ],
     [ "csv_files", "db/def/dashboard_8py.html#a1a4e9557de70313494afd311e0bea781", null ],
     [ "debug", "db/def/dashboard_8py.html#a12b0373c1038d60f2e6f9fc52558211a", null ],
-    [ "layout", "db/def/dashboard_8py.html#a651edf1f918ca2f360e565e52f64ff33", null ]
+    [ "layout", "db/def/dashboard_8py.html#a651edf1f918ca2f360e565e52f64ff33", null ],
+    [ "suppress_callback_exceptions", "db/def/dashboard_8py.html#abbd08efe3761a9696345c9c5907053c3", null ]
 ];

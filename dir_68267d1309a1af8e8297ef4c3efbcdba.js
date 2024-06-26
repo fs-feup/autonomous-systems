@@ -10,5 +10,6 @@ var dir_68267d1309a1af8e8297ef4c3efbcdba =
     [ "mocker_node", "dir_1f48dae0830b8244bdc2741424f08088.html", "dir_1f48dae0830b8244bdc2741424f08088" ],
     [ "pacsim_keys", "dir_16bb1fe7d224f89d9974caebc99812f5.html", "dir_16bb1fe7d224f89d9974caebc99812f5" ],
     [ "perception", "dir_346c2aea098094a6f11a0f66feef12e0.html", "dir_346c2aea098094a6f11a0f66feef12e0" ],
-    [ "planning", "dir_46b0e589fccff8619305fc89ea463298.html", "dir_46b0e589fccff8619305fc89ea463298" ]
+    [ "planning", "dir_46b0e589fccff8619305fc89ea463298.html", "dir_46b0e589fccff8619305fc89ea463298" ],
+    [ "power_log", "dir_485e45112466ebcdbb9ec143093bf41d.html", "dir_485e45112466ebcdbb9ec143093bf41d" ]
 ];

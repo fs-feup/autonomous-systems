@@ -45,7 +45,8 @@ var namespaces_dup =
       [ "available_dashboards", "df/d91/namespacedashboard.html#a362e831daf55963e9cbeb65a1f76d7d6", null ],
       [ "csv_files", "df/d91/namespacedashboard.html#a1a4e9557de70313494afd311e0bea781", null ],
       [ "debug", "df/d91/namespacedashboard.html#a12b0373c1038d60f2e6f9fc52558211a", null ],
-      [ "layout", "df/d91/namespacedashboard.html#a651edf1f918ca2f360e565e52f64ff33", null ]
+      [ "layout", "df/d91/namespacedashboard.html#a651edf1f918ca2f360e565e52f64ff33", null ],
+      [ "suppress_callback_exceptions", "df/d91/namespacedashboard.html#abbd08efe3761a9696345c9c5907053c3", null ]
     ] ],
     [ "evaluator", "db/d6f/namespaceevaluator.html", "db/d6f/namespaceevaluator" ],
     [ "offsettrack", "dd/d6b/namespaceoffsettrack.html", [
@@ -71,6 +72,7 @@ var namespaces_dup =
       [ "yMidList", "dc/d1a/namespaceplot__track.html#a3fffd0be98293e578dd8565d718e7bbb", null ],
       [ "yTrackList", "dc/d1a/namespaceplot__track.html#a7246ba4a12b317bbdf17f284b716a171", null ]
     ] ],
+    [ "power_log", "d0/daf/namespacepower__log.html", "d0/daf/namespacepower__log" ],
     [ "random_points", "de/da7/namespacerandom__points.html", [
       [ "color", "de/da7/namespacerandom__points.html#a047d34e53b4e5d11b5601455c31473fe", null ],
       [ "f", "de/da7/namespacerandom__points.html#a14a62e2a87bab023adc792ba94a4a259", null ],
@@ -144,5 +146,14 @@ var namespaces_dup =
       [ "y_values1", "d7/dc1/namespacespline.html#a1bb02af9cadbf53b53d01fb995d5ef22", null ]
     ] ],
     [ "std", "d8/dcc/namespacestd.html", "d8/dcc/namespacestd" ],
+    [ "test_copyright", "d0/d36/namespacetest__copyright.html", [
+      [ "test_copyright", "d0/d36/namespacetest__copyright.html#a2f0d547fdc7431d3dd7641ff4e01c102", null ]
+    ] ],
+    [ "test_flake8", "d9/d0d/namespacetest__flake8.html", [
+      [ "test_flake8", "d9/d0d/namespacetest__flake8.html#aa03dada197705fd5e8d710de753ca95c", null ]
+    ] ],
+    [ "test_pep257", "d0/d5e/namespacetest__pep257.html", [
+      [ "test_pep257", "d0/d5e/namespacetest__pep257.html#a25dd726750a66bf2fc6439546bfdfcd9", null ]
+    ] ],
     [ "test_perception_metrics", "df/d68/namespacetest__perception__metrics.html", "df/d68/namespacetest__perception__metrics" ]
 ];

@@ -1,0 +1,5 @@
+<map id="power_log.power_log_node.PowerNode" name="power_log.power_log_node.PowerNode">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,119,157,379"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="59,5,103,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="84,86,84,119,79,119,79,86"/>
+</map>

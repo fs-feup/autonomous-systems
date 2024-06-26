@@ -115,6 +115,9 @@ var NAVTREE =
       [ "Full Documentation", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md68", null ],
       [ "Main External Libraries", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md69", null ]
     ] ],
+    [ "Power Log", "d4/d59/md_src_2power__log_2_r_e_a_d_m_e.html", [
+      [ "Package info", "d4/d59/md_src_2power__log_2_r_e_a_d_m_e.html#autotoc_md71", null ]
+    ] ],
     [ "Src Folder", "d7/d37/md_src_2_r_e_a_d_m_e.html", null ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
@@ -155,16 +158,16 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"d2/d23/class_cluster.html#a3b1b741827ac47d2d9a6aad0a30e3046",
-"d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md63",
-"d6/d5a/class_p_i_d.html#a5e144cee82e154b288b1e686496e7265",
-"d7/dc1/namespacespline.html#ac5ee0b0f73738888bb99a2882c8c6b49",
-"d9/da5/class_point_solver.html#a19035ea0333217b136d55621b91c19f5",
-"db/d68/class_pac_sim_adapter.html#a33dbf38ef732efd8b85995220b08bf5c",
-"dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#aa4462f0e563c9284139ddc2bdae8d9e8",
-"dd/d7f/control_2src_2adapter__control_2fsds_8cpp.html",
-"df/d4f/class_performance_test.html#ad43de34c4cedc065c7cc1ac03f80d341",
-"globals_c.html"
+"d2/d05/local__path__planner_8hpp.html#a6b25ce4c2e40cf9088e9b602d44e4b35",
+"d3/dc5/slam__test_8cpp_source.html",
+"d6/d5a/class_p_i_d.html#a0bf43c26318e48dd81c6eb98f8cf205a",
+"d7/db7/class_path_smoothing.html#aae6d8b2ff86ec4829ddb3fc2b0ba0856",
+"d9/d7c/class_height_validator_test.html",
+"db/d29/message__converter_8hpp.html#ae1d203fe1c23400c3a416909dab7828e",
+"dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a5cdf8c690880ae0ad81c7494698444a4",
+"dd/d02/local__path__planner_8cpp_source.html",
+"de/dda/struct_perception_parameters.html#a48040a3a5d03dde330b8205d2fbd2d38",
+"functions_func_r.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

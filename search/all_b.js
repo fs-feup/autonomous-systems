@@ -36,12 +36,13 @@ var searchData=
   ['local_5fpub_5f_33',['local_pub_',['../d9/db5/class_planning.html#a550c85dde94bd45e9a4d5dd6700f5cdd',1,'Planning']]],
   ['localpathplanner_34',['localpathplanner',['../d3/da1/class_local_path_planner.html#a12f6c5e61ef29f78904ccaedb3b4b80f',1,'LocalPathPlanner::LocalPathPlanner()'],['../d3/da1/class_local_path_planner.html',1,'LocalPathPlanner']]],
   ['locmap_5fsender_35',['locmap_sender',['../d7/d4e/class_integration_test.html#a9af8879bf09a9767daab48d991af0046',1,'IntegrationTest']]],
-  ['log_5fcone1_36',['log_cone1',['../dd/df6/planning_2test_2tests_8cpp.html#a98406defc350d30566cc83b369aebce0',1,'tests.cpp']]],
-  ['log_5fcone2_37',['log_cone2',['../dd/df6/planning_2test_2tests_8cpp.html#aaf6e6f8de5580ef3d20f3e05fee5f6aa',1,'tests.cpp']]],
-  ['logcones_38',['logCones',['../d6/d2c/class_track.html#a74da16c54345ef8158d6dacf1045986c',1,'Track']]],
-  ['logpathpoints_39',['logPathPoints',['../d7/db7/class_path_smoothing.html#a87de9c2f357b06e04b33311cdf822485',1,'PathSmoothing']]],
-  ['long_5fcontroller_5f_40',['long_controller_',['../d7/d49/class_control.html#a46db151e27100785832e4b2fc9ec1872',1,'Control']]],
-  ['longitudinal_5fcommand_5fmsg_41',['longitudinal_command_msg',['../de/df5/namespacepacsim__keys_1_1main.html#a05047bf483d5f0eaeee34f2e9958c2e7',1,'pacsim_keys::main']]],
-  ['lookahead_5fgain_5f_42',['lookahead_gain_',['../d4/de1/struct_control_parameters.html#a180a5d003f919098d113d2ed021b37da',1,'ControlParameters']]],
-  ['lookahead_5fmargin_5f_43',['lookahead_margin_',['../d4/de1/struct_control_parameters.html#a69bb380ddd6aa24d42bb220d60557be4',1,'ControlParameters']]]
+  ['log_36',['Power Log',['../d4/d59/md_src_2power__log_2_r_e_a_d_m_e.html',1,'']]],
+  ['log_5fcone1_37',['log_cone1',['../dd/df6/planning_2test_2tests_8cpp.html#a98406defc350d30566cc83b369aebce0',1,'tests.cpp']]],
+  ['log_5fcone2_38',['log_cone2',['../dd/df6/planning_2test_2tests_8cpp.html#aaf6e6f8de5580ef3d20f3e05fee5f6aa',1,'tests.cpp']]],
+  ['logcones_39',['logCones',['../d6/d2c/class_track.html#a74da16c54345ef8158d6dacf1045986c',1,'Track']]],
+  ['logpathpoints_40',['logPathPoints',['../d7/db7/class_path_smoothing.html#a87de9c2f357b06e04b33311cdf822485',1,'PathSmoothing']]],
+  ['long_5fcontroller_5f_41',['long_controller_',['../d7/d49/class_control.html#a46db151e27100785832e4b2fc9ec1872',1,'Control']]],
+  ['longitudinal_5fcommand_5fmsg_42',['longitudinal_command_msg',['../de/df5/namespacepacsim__keys_1_1main.html#a05047bf483d5f0eaeee34f2e9958c2e7',1,'pacsim_keys::main']]],
+  ['lookahead_5fgain_5f_43',['lookahead_gain_',['../d4/de1/struct_control_parameters.html#a180a5d003f919098d113d2ed021b37da',1,'ControlParameters']]],
+  ['lookahead_5fmargin_5f_44',['lookahead_margin_',['../d4/de1/struct_control_parameters.html#a69bb380ddd6aa24d42bb220d60557be4',1,'ControlParameters']]]
 ];

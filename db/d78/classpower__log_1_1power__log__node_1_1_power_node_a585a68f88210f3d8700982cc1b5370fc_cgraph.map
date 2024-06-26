@@ -1,0 +1,5 @@
+<map id="power_log.power_log_node.PowerNode.timer_callback" name="power_log.power_log_node.PowerNode.timer_callback">
+<area shape="rect" id="Node000001" title="Callback function that publishes CPU core usage, memory usage and CPU temperature." alt="" coords="5,5,165,61"/>
+<area shape="rect" id="Node000002" href="$db/d78/classpower__log_1_1power__log__node_1_1_power_node.html#a3f521afcaef1d816516b01ebb698163c" title="Returns a dictionary with the CPU core usage, memory usage and CPU temperature." alt="" coords="213,13,393,54"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="165,31,197,31,197,36,165,36"/>
+</map>
