@@ -33,6 +33,9 @@ var annotated_dup =
       ] ],
       [ "pacsim_adapter", "d5/dc2/namespaceevaluator_1_1pacsim__adapter.html", [
         [ "PacsimAdapter", "d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter.html", "d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter" ]
+      ] ],
+      [ "vehicle_adapter", "d9/da0/namespaceevaluator_1_1vehicle__adapter.html", [
+        [ "VehicleAdapter", "dc/d76/classevaluator_1_1vehicle__adapter_1_1_vehicle_adapter.html", "dc/d76/classevaluator_1_1vehicle__adapter_1_1_vehicle_adapter" ]
       ] ]
     ] ],
     [ "pacsim_keys", "d6/d8f/namespacepacsim__keys.html", [

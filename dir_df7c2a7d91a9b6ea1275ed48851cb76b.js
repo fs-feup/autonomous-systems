@@ -8,5 +8,6 @@ var dir_df7c2a7d91a9b6ea1275ed48851cb76b =
     [ "formats.py", "d7/d97/formats_8py.html", "d7/d97/formats_8py" ],
     [ "fsds_adapter.py", "d9/d65/fsds__adapter_8py.html", "d9/d65/fsds__adapter_8py" ],
     [ "metrics.py", "df/d68/metrics_8py.html", "df/d68/metrics_8py" ],
-    [ "pacsim_adapter.py", "da/de1/pacsim__adapter_8py.html", "da/de1/pacsim__adapter_8py" ]
+    [ "pacsim_adapter.py", "da/de1/pacsim__adapter_8py.html", "da/de1/pacsim__adapter_8py" ],
+    [ "vehicle_adapter.py", "de/d47/vehicle__adapter_8py.html", "de/d47/vehicle__adapter_8py" ]
 ];

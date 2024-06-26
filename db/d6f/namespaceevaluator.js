@@ -27,5 +27,6 @@ var namespaceevaluator =
       [ "get_inter_cones_distance", "d7/d92/namespaceevaluator_1_1metrics.html#a8094c7ef156cde0140392ea009339177", null ],
       [ "get_mean_squared_difference", "d7/d92/namespaceevaluator_1_1metrics.html#a73bf2aa18b655601736117f1612d90df", null ]
     ] ],
-    [ "pacsim_adapter", "d5/dc2/namespaceevaluator_1_1pacsim__adapter.html", "d5/dc2/namespaceevaluator_1_1pacsim__adapter" ]
+    [ "pacsim_adapter", "d5/dc2/namespaceevaluator_1_1pacsim__adapter.html", "d5/dc2/namespaceevaluator_1_1pacsim__adapter" ],
+    [ "vehicle_adapter", "d9/da0/namespaceevaluator_1_1vehicle__adapter.html", "d9/da0/namespaceevaluator_1_1vehicle__adapter" ]
 ];

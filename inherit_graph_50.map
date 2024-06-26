@@ -1,27 +1,27 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
 <area shape="rect" id="Node000000" title=" " alt="" coords="5,277,98,303"/>
 <area shape="rect" id="Node000001" href="$d1/df5/class_circunference_center_calculation_test.html" title="Test class for setting up data and testing CircinferenceCenterCalculation algorithm." alt="" coords="146,5,375,31"/>
-<area shape="poly" id="edge40_Node000000_Node000001" title=" " alt="" coords="52,261,59,213,75,153,102,92,121,64,144,40,160,29,163,34,147,44,125,68,106,95,80,155,64,214,57,262"/>
+<area shape="poly" id="edge41_Node000000_Node000001" title=" " alt="" coords="52,261,59,213,75,153,102,92,121,64,144,40,160,29,163,34,147,44,125,68,106,95,80,155,64,214,57,262"/>
 <area shape="rect" id="Node000002" href="$da/dcf/class_cylinder_validator_test.html" title="Test fixture for CylinderValidator class." alt="" coords="188,55,333,80"/>
-<area shape="poly" id="edge41_Node000000_Node000002" title=" " alt="" coords="55,262,65,223,82,176,108,129,125,108,144,89,165,77,187,70,189,75,167,82,147,94,128,111,112,132,87,178,70,224,60,263"/>
+<area shape="poly" id="edge42_Node000000_Node000002" title=" " alt="" coords="55,262,65,223,82,176,108,129,125,108,144,89,165,77,187,70,189,75,167,82,147,94,128,111,112,132,87,178,70,224,60,263"/>
 <area shape="rect" id="Node000003" href="$d8/d90/class_d_b_s_c_a_n_test.html" title="Test fixture for the DBSCAN class." alt="" coords="209,104,312,130"/>
-<area shape="poly" id="edge42_Node000000_Node000003" title=" " alt="" coords="60,261,90,199,114,166,144,139,175,124,208,116,209,121,177,129,147,143,118,170,95,202,65,264"/>
+<area shape="poly" id="edge43_Node000000_Node000003" title=" " alt="" coords="60,261,90,199,114,166,144,139,175,124,208,116,209,121,177,129,147,143,118,170,95,202,65,264"/>
 <area shape="rect" id="Node000004" href="$db/df7/class_distance_validator_test.html" title="Test fixture for DistanceValidator class." alt="" coords="186,153,335,179"/>
-<area shape="poly" id="edge43_Node000000_Node000004" title=" " alt="" coords="68,263,100,224,121,204,144,188,184,172,186,177,147,193,124,208,104,227,72,266"/>
+<area shape="poly" id="edge44_Node000000_Node000004" title=" " alt="" coords="68,263,100,224,121,204,144,188,184,172,186,177,147,193,124,208,104,227,72,266"/>
 <area shape="rect" id="Node000005" href="$d0/d78/class_grid_r_a_n_s_a_c_test.html" title="Test class for setting up data and testing Grid RANSAC algorithm." alt="" coords="197,203,324,228"/>
-<area shape="poly" id="edge44_Node000000_Node000005" title=" " alt="" coords="85,267,145,237,196,223,198,228,147,242,87,271"/>
+<area shape="poly" id="edge45_Node000000_Node000005" title=" " alt="" coords="85,267,145,237,196,223,198,228,147,242,87,271"/>
 <area shape="rect" id="Node000006" href="$d9/d7c/class_height_validator_test.html" title="Test fixture for HeightValidator class." alt="" coords="192,252,329,278"/>
-<area shape="poly" id="edge45_Node000000_Node000006" title=" " alt="" coords="113,280,191,270,192,276,114,285"/>
+<area shape="poly" id="edge46_Node000000_Node000006" title=" " alt="" coords="113,280,191,270,192,276,114,285"/>
 <area shape="rect" id="Node000007" href="$de/dab/class_i_c_p_suite.html" title="Test suite for the ICP class." alt="" coords="224,301,297,327"/>
-<area shape="poly" id="edge46_Node000000_Node000007" title=" " alt="" coords="113,295,224,307,223,313,113,300"/>
+<area shape="poly" id="edge47_Node000000_Node000007" title=" " alt="" coords="113,295,224,307,223,313,113,300"/>
 <area shape="rect" id="Node000008" href="$d7/d4e/class_integration_test.html" title=" " alt="" coords="206,351,315,376"/>
-<area shape="poly" id="edge47_Node000000_Node000008" title=" " alt="" coords="88,309,147,337,206,353,205,358,145,342,85,313"/>
+<area shape="poly" id="edge48_Node000000_Node000008" title=" " alt="" coords="88,309,147,337,206,353,205,358,145,342,85,313"/>
 <area shape="rect" id="Node000009" href="$de/d1e/class_least_squares_differentiation_test.html" title="Fixture for testing the LeastSquaresDifferentiation class." alt="" coords="157,400,364,426"/>
-<area shape="poly" id="edge48_Node000000_Node000009" title=" " alt="" coords="72,314,104,352,124,371,147,387,171,397,169,402,144,391,121,375,100,356,68,317"/>
+<area shape="poly" id="edge49_Node000000_Node000009" title=" " alt="" coords="72,314,104,352,124,371,147,387,171,397,169,402,144,391,121,375,100,356,68,317"/>
 <area shape="rect" id="Node000010" href="$d3/d0d/class_perception_performance_test.html" title="Test fixture for performance testing of perception algorithms." alt="" coords="169,449,352,475"/>
-<area shape="poly" id="edge49_Node000000_Node000010" title=" " alt="" coords="65,316,95,378,118,410,147,436,170,448,167,452,144,440,114,413,91,381,60,319"/>
+<area shape="poly" id="edge50_Node000000_Node000010" title=" " alt="" coords="65,316,95,378,118,410,147,436,170,448,167,452,144,440,114,413,91,381,60,319"/>
 <area shape="rect" id="Node000011" href="$df/d4f/class_performance_test.html" title=" " alt="" coords="200,499,321,524"/>
-<area shape="poly" id="edge50_Node000000_Node000011" title=" " alt="" coords="60,318,70,356,87,402,112,447,129,468,147,485,172,499,200,507,199,512,170,504,144,490,125,471,108,450,82,404,65,358,55,319"/>
+<area shape="poly" id="edge51_Node000000_Node000011" title=" " alt="" coords="60,318,70,356,87,402,112,447,129,468,147,485,172,499,200,507,199,512,170,504,144,490,125,471,108,450,82,404,65,358,55,319"/>
 <area shape="rect" id="Node000012" href="$d8/d5a/class_r_a_n_s_a_c_test.html" title="Test class for setting up data and testing RANSAC algorithm." alt="" coords="209,548,312,574"/>
-<area shape="poly" id="edge51_Node000000_Node000012" title=" " alt="" coords="58,318,65,366,80,425,107,485,125,512,147,535,176,551,209,558,208,563,175,556,144,539,121,515,102,487,75,427,59,367,52,319"/>
+<area shape="poly" id="edge52_Node000000_Node000012" title=" " alt="" coords="58,318,65,366,80,425,107,485,125,512,147,535,176,551,209,558,208,563,175,556,144,539,121,515,102,487,75,427,59,367,52,319"/>
 </map>

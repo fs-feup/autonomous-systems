@@ -109,9 +109,9 @@ Inheritance diagram for Perception:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../db/d9d/class_perception__inherit__graph.png" border="0" usemap="#a_perception_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_perception_inherit__map" id="a_perception_inherit__map">
-<area shape="rect" title="Node for perception tasks, such as ground removal and cone detection." alt="" coords="5,119,179,424"/>
-<area shape="rect" title=" " alt="" coords="49,5,135,71"/>
-<area shape="poly" title=" " alt="" coords="95,86,95,119,89,119,89,86"/>
+<area shape="rect" title="Node for perception tasks, such as ground removal and cone detection." alt="" coords="5,119,197,464"/>
+<area shape="rect" title=" " alt="" coords="59,5,144,71"/>
+<area shape="poly" title=" " alt="" coords="104,86,104,119,99,119,99,86"/>
 </map>
 </div>
 <div class="dynheader">
@@ -119,11 +119,11 @@ Collaboration diagram for Perception:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d5/d96/class_perception__coll__graph.png" border="0" usemap="#a_perception_coll__map" alt="Collaboration graph"/></div>
 <map name="a_perception_coll__map" id="a_perception_coll__map">
-<area shape="rect" title="Node for perception tasks, such as ground removal and cone detection." alt="" coords="35,354,208,639"/>
+<area shape="rect" title="Node for perception tasks, such as ground removal and cone detection." alt="" coords="25,354,217,679"/>
 <area shape="rect" title=" " alt="" coords="5,115,91,181"/>
-<area shape="poly" title=" " alt="" coords="60,195,94,353,89,355,55,196"/>
+<area shape="poly" title=" " alt="" coords="60,195,92,353,86,354,55,196"/>
 <area shape="rect" href="../../d2/d8d/class_plane.html" title="The Plane class represents a 3D plane defined by its equation ax + by + cz + d = 0." alt="" coords="115,5,274,291"/>
-<area shape="poly" title=" " alt="" coords="167,291,157,338,152,336,162,290"/>
+<area shape="poly" title=" " alt="" coords="169,291,160,338,154,337,164,290"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -135,6 +135,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:afaf42fed2ffa3ed23d5c636bf3fdadd7" id="r_afaf42fed2ffa3ed23d5c636bf3fdadd7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d07/class_perception.html#afaf42fed2ffa3ed23d5c636bf3fdadd7">pointCloudCallback</a> (const sensor_msgs::msg::PointCloud2::SharedPtr msg)</td></tr>
 <tr class="memdesc:afaf42fed2ffa3ed23d5c636bf3fdadd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function for the PointCloud2 subscription.  <br /></td></tr>
 <tr class="separator:afaf42fed2ffa3ed23d5c636bf3fdadd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a816ac49439a31dd18eedf002487267c4" id="r_a816ac49439a31dd18eedf002487267c4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d07/class_perception.html#a816ac49439a31dd18eedf002487267c4">fov_trimming</a> (pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr cloud, double max_distance, double min_angle, double max_angle)</td></tr>
+<tr class="separator:a816ac49439a31dd18eedf002487267c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -168,8 +170,10 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a2297bfffec57b58d00ee1fb47cd73144" id="r_a2297bfffec57b58d00ee1fb47cd73144"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; custom_interfaces::msg::ConeArray &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d07/class_perception.html#a2297bfffec57b58d00ee1fb47cd73144">_cones_publisher</a></td></tr>
 <tr class="memdesc:a2297bfffec57b58d00ee1fb47cd73144"><td class="mdescLeft">&#160;</td><td class="mdescRight">ConeArray publisher.  <br /></td></tr>
 <tr class="separator:a2297bfffec57b58d00ee1fb47cd73144"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a534154cead906e640e0b9371e5956c9a" id="r_a534154cead906e640e0b9371e5956c9a"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; visualization_msgs::msg::MarkerArray &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d07/class_perception.html#a534154cead906e640e0b9371e5956c9a">cone_marker_array</a></td></tr>
-<tr class="separator:a534154cead906e640e0b9371e5956c9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58c36eb59843d0c63d22fa9f133fc1ff" id="r_a58c36eb59843d0c63d22fa9f133fc1ff"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; visualization_msgs::msg::MarkerArray &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d07/class_perception.html#a58c36eb59843d0c63d22fa9f133fc1ff">_cone_marker_array_</a></td></tr>
+<tr class="separator:a58c36eb59843d0c63d22fa9f133fc1ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94498724d0ffb4a5a6af9d5fa10a0695" id="r_a94498724d0ffb4a5a6af9d5fa10a0695"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; sensor_msgs::msg::PointCloud2 &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d07/class_perception.html#a94498724d0ffb4a5a6af9d5fa10a0695">_ground_removed_publisher_</a></td></tr>
+<tr class="separator:a94498724d0ffb4a5a6af9d5fa10a0695"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Node for perception tasks, such as ground removal and cone detection. </p>
@@ -214,6 +218,58 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a816ac49439a31dd18eedf002487267c4" name="a816ac49439a31dd18eedf002487267c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a816ac49439a31dd18eedf002487267c4">&#9670;&#160;</a></span>fov_trimming()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Perception::fov_trimming </td>
+          <td>(</td>
+          <td class="paramtype">pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr&#160;</td>
+          <td class="paramname"><em>cloud</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>max_distance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>min_angle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>max_angle</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/dfb/perception__node_8cpp_source.html#l00117">117</a> of file <a class="el" href="../../dc/dfb/perception__node_8cpp_source.html">perception_node.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../de/d07/class_perception_a816ac49439a31dd18eedf002487267c4_icgraph.png" border="0" usemap="#ade/d07/class_perception_a816ac49439a31dd18eedf002487267c4_icgraph" alt=""/></div>
+<map name="ade/d07/class_perception_a816ac49439a31dd18eedf002487267c4_icgraph" id="ade/d07/class_perception_a816ac49439a31dd18eedf002487267c4_icgraph">
+<area shape="rect" title=" " alt="" coords="254,5,418,31"/>
+<area shape="rect" href="../../de/d07/class_perception.html#afaf42fed2ffa3ed23d5c636bf3fdadd7" title="Callback function for the PointCloud2 subscription." alt="" coords="5,5,206,31"/>
+<area shape="poly" title=" " alt="" coords="238,21,206,21,206,16,238,16"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="afaf42fed2ffa3ed23d5c636bf3fdadd7" name="afaf42fed2ffa3ed23d5c636bf3fdadd7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afaf42fed2ffa3ed23d5c636bf3fdadd7">&#9670;&#160;</a></span>pointCloudCallback()</h2>
 
@@ -238,17 +294,19 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/dfb/perception__node_8cpp_source.html#l00043">43</a> of file <a class="el" href="../../dc/dfb/perception__node_8cpp_source.html">perception_node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/dfb/perception__node_8cpp_source.html#l00050">50</a> of file <a class="el" href="../../dc/dfb/perception__node_8cpp_source.html">perception_node.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../de/d07/class_perception_afaf42fed2ffa3ed23d5c636bf3fdadd7_cgraph.png" border="0" usemap="#ade/d07/class_perception_afaf42fed2ffa3ed23d5c636bf3fdadd7_cgraph" alt=""/></div>
 <map name="ade/d07/class_perception_afaf42fed2ffa3ed23d5c636bf3fdadd7_cgraph" id="ade/d07/class_perception_afaf42fed2ffa3ed23d5c636bf3fdadd7_cgraph">
-<area shape="rect" title="Callback function for the PointCloud2 subscription." alt="" coords="5,13,206,39"/>
-<area shape="rect" href="../../de/d07/class_perception.html#a0ed87dbcc41d99a6c40f6363afdebce4" title="Publishes information about clusters (cones) using a custom ROS2 message." alt="" coords="254,13,421,39"/>
-<area shape="poly" title=" " alt="" coords="206,23,238,23,238,28,206,28"/>
-<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="469,5,697,46"/>
-<area shape="poly" title=" " alt="" coords="421,23,453,23,453,28,421,28"/>
+<area shape="rect" title="Callback function for the PointCloud2 subscription." alt="" coords="5,31,206,56"/>
+<area shape="rect" href="../../de/d07/class_perception.html#a816ac49439a31dd18eedf002487267c4" title=" " alt="" coords="255,5,420,31"/>
+<area shape="poly" title=" " alt="" coords="206,30,239,26,240,31,206,35"/>
+<area shape="rect" href="../../de/d07/class_perception.html#a0ed87dbcc41d99a6c40f6363afdebce4" title="Publishes information about clusters (cones) using a custom ROS2 message." alt="" coords="254,55,421,80"/>
+<area shape="poly" title=" " alt="" coords="206,51,239,55,238,60,206,57"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="469,47,697,88"/>
+<area shape="poly" title=" " alt="" coords="421,65,453,65,453,70,421,70"/>
 </map>
 </div>
 
@@ -287,7 +345,7 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/dfb/perception__node_8cpp_source.html#l00087">87</a> of file <a class="el" href="../../dc/dfb/perception__node_8cpp_source.html">perception_node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/dfb/perception__node_8cpp_source.html#l00093">93</a> of file <a class="el" href="../../dc/dfb/perception__node_8cpp_source.html">perception_node.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -383,6 +441,30 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="../../de/da5/perception__node_8hpp_source.html#l00047">47</a> of file <a class="el" href="../../de/da5/perception__node_8hpp_source.html">perception_node.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a58c36eb59843d0c63d22fa9f133fc1ff" name="a58c36eb59843d0c63d22fa9f133fc1ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58c36eb59843d0c63d22fa9f133fc1ff">&#9670;&#160;</a></span>_cone_marker_array_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rclcpp::Publisher&lt;visualization_msgs::msg::MarkerArray&gt;::SharedPtr Perception::_cone_marker_array_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../de/da5/perception__node_8hpp_source.html#l00055">55</a> of file <a class="el" href="../../de/da5/perception__node_8hpp_source.html">perception_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -486,6 +568,30 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a id="a94498724d0ffb4a5a6af9d5fa10a0695" name="a94498724d0ffb4a5a6af9d5fa10a0695"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94498724d0ffb4a5a6af9d5fa10a0695">&#9670;&#160;</a></span>_ground_removed_publisher_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rclcpp::Publisher&lt;sensor_msgs::msg::PointCloud2&gt;::SharedPtr Perception::_ground_removed_publisher_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../de/da5/perception__node_8hpp_source.html#l00058">58</a> of file <a class="el" href="../../de/da5/perception__node_8hpp_source.html">perception_node.hpp</a>.</p>
+
+</div>
+</div>
 <a id="a3d972eb66409703aff7389e38a33d381" name="a3d972eb66409703aff7389e38a33d381"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3d972eb66409703aff7389e38a33d381">&#9670;&#160;</a></span>_icp_</h2>
 
@@ -557,30 +663,6 @@ Here is the caller graph for this function:</div>
 <p>PointCloud2 subscription. </p>
 
 <p class="definition">Definition at line <a class="el" href="../../de/da5/perception__node_8hpp_source.html#l00052">52</a> of file <a class="el" href="../../de/da5/perception__node_8hpp_source.html">perception_node.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a534154cead906e640e0b9371e5956c9a" name="a534154cead906e640e0b9371e5956c9a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a534154cead906e640e0b9371e5956c9a">&#9670;&#160;</a></span>cone_marker_array</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">rclcpp::Publisher&lt;visualization_msgs::msg::MarkerArray&gt;::SharedPtr Perception::cone_marker_array</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../de/da5/perception__node_8hpp_source.html#l00055">55</a> of file <a class="el" href="../../de/da5/perception__node_8hpp_source.html">perception_node.hpp</a>.</p>
 
 </div>
 </div>
