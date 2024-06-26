@@ -82,17 +82,6 @@ void extract_info(const std::string_view &filename_view, int &size, int &n_outli
 float consecutive_max_distance(const std::vector<common_lib::structures::Cone> &cones);
 
 /**
- * @brief Defines the way in which two pairs of doubles should be
- * compared when ordering them (lexicographic comparison)
- *
- * @param a One of the pairs of doubles to be compared
- * @param b One of the pairs of doubles to be compared
- * @return true if a<b
- * @return false if a>b
- */
-bool custom_comparator(const std::pair<double, double> &a, const std::pair<double, double> &b);
-
-/**
  * @brief orders a vector of pairs to make it easier to compare them
  *
  * @param vec vector of pairs to be ordered
@@ -100,6 +89,7 @@ bool custom_comparator(const std::pair<double, double> &a, const std::pair<doubl
  */
 std::vector<std::pair<double, double>> order_vector_of_pairs(
     const std::vector<std::pair<double, double>> &vec);
+
 /**
  * @brief Get current date and time as a string.
  * @return Current date and time as a string in "YYYY-MM-DD-HH:MM" format.
@@ -114,8 +104,6 @@ std::string get_current_date_time_as_string();
  * @return rounded number
  */
 float round_n(float num, int decimal_places);
-
-std::ostream &operator<<(std::ostream &os, const common_lib::structures::PathPoint &p);
 
 struct PathPointHash {
   std::size_t operator()(const common_lib::structures::PathPoint &p) const {

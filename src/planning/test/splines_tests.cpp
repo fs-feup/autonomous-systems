@@ -5,7 +5,6 @@
  *
  */
 TEST(Splines, spline1) {
-  using PathPoint = common_lib::structures::PathPoint;
   std::vector<PathPoint> cones;
   for (int i = 0; i < 10; i++) {
     PathPoint c;
@@ -25,7 +24,6 @@ TEST(Splines, spline1) {
  *
  */
 TEST(Splines, spline2) {
-  using Cone = common_lib::structures::Cone;
   std::vector<Cone> cones;
   for (int i = 0; i < 10; i++) {
     Cone c;

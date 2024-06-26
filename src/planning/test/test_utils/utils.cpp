@@ -139,7 +139,3 @@ float round_n(float num, int decimal_places) {
   num = static_cast<float>(static_cast<double>(intermediate) / pow(10, decimal_places));
   return num;
 }
-
-std::ostream &operator<<(std::ostream &os, const common_lib::structures::PathPoint &p) {
-  return os << '(' << p.position.x << ", " << p.position.y << ')';
-}
