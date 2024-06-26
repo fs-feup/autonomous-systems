@@ -151,9 +151,6 @@ class Evaluator(Node):
         self._perception_false_positives_ = self.create_publisher(
             Int32, "/evaluator/perception/false_positives", 10
         )
-        self._perception_difference_with_map_ = self.create_publisher(
-            Int32, "/evaluator/perception/difference_with_map", 10
-        )
         self._perception_execution_time_ = self.create_publisher(
             Float32, "/evaluator/perception/execution_time", 10
         )
@@ -175,6 +172,14 @@ class Evaluator(Node):
         )
         self._map_root_mean_squared_difference_ = self.create_publisher(
             Float32, "/evaluator/state_estimation/map_root_mean_squared_difference", 10
+        )
+
+        self._se_false_positives_ = self.create_publisher(
+            Int32, "/evaluator/state_estimation/false_positives", 10
+        )
+
+        self._se_difference_with_map_ = self.create_publisher(
+            Int32, "/evaluator/state_estimation/difference_with_map", 10
         )
 
         # Publisher for path planning metrics
@@ -567,6 +572,15 @@ class Evaluator(Node):
         self._map_mean_mean_error.publish(mean_mean_error)
         self._map_mean_mean_squared_error.publish(mean_mean_squared_error)
 
+
+        false_positives = Int32()
+        false_positives.data = get_false_positives(map, groundtruth_map, 0.1)
+        self._se_false_positives_.publish(false_positives)
+
+        difference_with_map = Int32()
+        difference_with_map.data = map.size - groundtruth_map.size
+        self._se_difference_with_map_.publish(difference_with_map)
+
         # For exporting metrics to csv
         metrics = {
             "timestamp": datetime.datetime.now(),
@@ -624,6 +638,8 @@ class Evaluator(Node):
             "mean_mean_error": mean_mean_error.data,
             "mean_mean_squared_error": mean_mean_squared_error.data,
             "mean_mean_root_squared_error": mean_mean_root_squared_error.data,
+            "false_positives": false_positives.data,
+            "difference_with_map": difference_with_map.data
         }
         self.se_metrics.append(metrics)
 
@@ -705,12 +721,8 @@ class Evaluator(Node):
         )
 
         false_positives = Int32()
-        false_positives.data = get_false_positives(perception_output, perception_ground_truth, 0.3)
+        false_positives.data = get_false_positives(perception_output, perception_ground_truth, 0.1)
         self._perception_false_positives_.publish(false_positives)
-
-        map_difference = Int32()
-        map_difference.data = abs(perception_output.size - perception_ground_truth)
-        self._perception_difference_with_map_.publish(map_difference)
 
         # For exporting metrics to csv
         metrics = {
@@ -722,6 +734,7 @@ class Evaluator(Node):
             "mean_mean_error": mean_mean_error.data,
             "mean_mean_squared_error": mean_mean_squared_error.data,
             "mean_mean_root_squared_error": mean_mean_root_squared_error.data,
+            "false_positives": false_positives.data
         }
         self.perception_metrics.append(metrics)
 

@@ -2,7 +2,7 @@ from custom_interfaces.msg import ConeArray, VehicleState, PathPointArray
 from visualization_msgs.msg import MarkerArray
 from geometry_msgs.msg import TransformStamped, TwistWithCovarianceStamped
 from tf_transformations import euler_from_quaternion
-from eufs_msgs.msg import ConeArrayWithCovariance
+from eufs_msgs.msg import ConeArrayWithCovariance, CarState
 from nav_msgs.msg import Odometry
 import numpy as np
 
@@ -125,6 +125,13 @@ def format_twist_with_covariance_stamped_msg(
     """
     return np.array(
         [msg.twist.twist.linear.x, msg.twist.twist.linear.y, msg.twist.twist.angular.z]
+    )
+
+def format_car_state_msg(
+    msg: CarState,
+) -> np.ndarray:
+    return np.array(
+        [msg.twist.twist.linear.x, msg.twist.twist.linear.y, 0]
     )
 
 

@@ -11,17 +11,18 @@ from evaluator.formats import (
     format_vehicle_state_msg,
     format_eufs_cone_array_with_covariance_msg,
     format_nav_odometry_msg,
+    format_car_state_msg
 )
 
 
 class EufsAdapter(Adapter):
     """!
-    Adapter class for subscribing to PacSim topics
+    Adapter class for subscribing to EUFS topics
     """
 
     def __init__(self, node: rclpy.node.Node):
         """!
-        Initializes the PacSim Adapter.
+        Initializes the EUFS Adapter.
 
         Args:
             node (Node): ROS2 node instance.
@@ -42,6 +43,13 @@ class EufsAdapter(Adapter):
             self.groundtruth_pose_callback,
             10,
         )
+
+        self.node.groundtruth_velocity_ = message_filters.Subscriber(
+            self.node,
+            CarState,
+            "/ground_truth/state"
+        )
+
         self.node.simulated_perception_subscription_ = self.node.create_subscription(
             ConeArrayWithCovariance,
             "/cones",
@@ -60,6 +68,7 @@ class EufsAdapter(Adapter):
             [
                 self.node.vehicle_state_subscription_,
                 self.node.map_subscription_,
+                self.node.groundtruth_velocity_
             ],
             10,
             0.5,
@@ -84,6 +93,7 @@ class EufsAdapter(Adapter):
     def state_estimation_callback(
         self,
         vehicle_state: VehicleState,
+        velocity_state : CarState, 
         map: ConeArray,
     ):
         """!
@@ -103,12 +113,12 @@ class EufsAdapter(Adapter):
         groundtruth_map_treated: np.ndarray = (
             format_eufs_cone_array_with_covariance_msg(self.groundtruth_map_)
         )
-        empty_groundtruth_velocity_treated = np.array([0, 0, 0])
+        groundtruth_velocity_ = format_car_state_msg(velocity_state)
         self.node.compute_and_publish_state_estimation(
             pose_treated,
             groundtruth_pose_treated,
             velociies_treated,
-            empty_groundtruth_velocity_treated,
+            groundtruth_velocity_,
             map_treated,
             groundtruth_map_treated,
         )
