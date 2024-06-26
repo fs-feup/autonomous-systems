@@ -27,6 +27,9 @@ Perception::Perception(const PerceptionParameters& params)
   this->_cones_publisher =
       this->create_publisher<custom_interfaces::msg::ConeArray>("/perception/cones", 10);
 
+  this->_ground_removed_publisher_ = 
+      this->create_publisher<sensor_msgs::msg::PointCloud2>("/perception/debug/ground_removed_cloud", 10);
+
   std::unordered_map<std::string, std::string> adapter_topic_map = {
       {"vehicle", "/hesai/pandar"}, {"eufs", "/velodyne_points"}, {"fsds", "/lidar/Lidar1"}};
 
@@ -47,9 +50,16 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
   // TODO: vscode is complaining here for some reason about template not matching argument list
   pcl::fromROSMsg(*msg, *pcl_cloud);
 
+  fov_trimming(pcl_cloud, 15.0, -35.0, 35.0);
+
   // Ground Removal
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
   _ground_removal_->ground_removal(pcl_cloud, ground_removed_cloud, _ground_plane_);
+
+  // Debugging utils -> Useful to check the ground removed point cloud
+  sensor_msgs::msg::PointCloud2 ground_remved_msg;
+  pcl::toROSMsg(*ground_removed_cloud, ground_remved_msg);
+  this->_ground_removed_publisher_->publish(ground_remved_msg);
 
   // Clustering
   std::vector<Cluster> clusters;
@@ -102,6 +112,27 @@ void Perception::publishCones(std::vector<Cluster>* cones) {
   }
 
   this->_cones_publisher->publish(message);
-  this->cone_marker_array->publish(common_lib::communication::marker_array_from_structure_array(
-      temp, "perception", "fsds/Lidar2"));
+  //this->cone_marker_array->publish(common_lib::communication::marker_array_from_structure_array(
+  //    temp, "perception", "fsds/Lidar2"));
+}
+
+
+void Perception::fov_trimming(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, double max_distance, double min_angle, double max_angle) {
+  pcl::PointCloud<pcl::PointXYZI>::Ptr trimmed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
+
+  for (const auto& point : cloud->points) {
+    // Calculate distance from the origin (assuming the sensor is at the origin)
+    double distance = std::sqrt(point.x * point.x + point.y * point.y);
+
+    // Calculate the angle in the XY plane
+    double angle = std::atan2(point.y, point.x) * 180 / M_PI; // get angle and convert in to degrees
+
+    // Check if the point is within the specified distance and angle range
+    if (distance <= max_distance && angle >= min_angle && angle <= max_angle) {
+      trimmed_cloud->points.push_back(point);
+    }
+  }
+
+  // Replace the input cloud with the trimmed cloud
+  *cloud = *trimmed_cloud;
 }
