@@ -2,10 +2,10 @@
 
 std::ifstream open_read_file(const std::string &filename) {
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Start openReadFile");
-  std::string filePrefix = ament_index_cpp::get_package_share_directory("planning");
-  filePrefix = filePrefix.substr(0, filePrefix.find("install"));
-  std::string logger_variable = filePrefix + filename;
-  std::ifstream file(filePrefix + filename);
+  std::string file_prefix = ament_index_cpp::get_package_share_directory("planning");
+  file_prefix = file_prefix.substr(0, file_prefix.find("install"));
+  std::string logger_variable = file_prefix + filename;
+  std::ifstream file(file_prefix + filename);
   if (!file.is_open()) {
     RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "ERROR opening file: %s\n", logger_variable.c_str());
   } else {
@@ -17,12 +17,14 @@ std::ifstream open_read_file(const std::string &filename) {
 }
 
 std::vector<common_lib::structures::Cone> cone_vector_from_file(const std::string &path) {
-  std::string x, y, color;
-  std::ifstream trackFile = open_read_file(path);
+  std::string x;
+  std::string y;
+  std::string color;
+  std::ifstream track_file = open_read_file(path);
   std::vector<common_lib::structures::Cone> output;
-  while (trackFile >> x >> y >> color) {
-    float xValue = stof(x);
-    float yValue = stof(y);
+  while (track_file >> x >> y >> color) {
+    float x_value = stof(x);
+    float y_value = stof(y);
     common_lib::competition_logic::Color cone_color;
     if (color == "blue_cone") {
       cone_color = common_lib::competition_logic::Color::BLUE;
@@ -36,27 +38,29 @@ std::vector<common_lib::structures::Cone> cone_vector_from_file(const std::strin
       cone_color = common_lib::competition_logic::Color::UNKNOWN;
     }
     common_lib::structures::Cone cone;
-    cone.position.x = static_cast<double>(xValue);
-    cone.position.y = static_cast<double>(yValue);
+    cone.position.x = static_cast<double>(x_value);
+    cone.position.y = static_cast<double>(y_value);
     cone.color = cone_color;
     output.push_back(cone);
   }
-  trackFile.close();
+  track_file.close();
   return output;
 }
 
 std::pair<std::vector<common_lib::structures::Cone>, std::vector<common_lib::structures::Cone>>
 track_from_file(const std::string &path) {
-  std::string x, y, color;
-  std::ifstream trackFile = open_read_file(path);
+  std::string x;
+  std::string y;
+  std::string color;
+  std::ifstream track_file = open_read_file(path);
   std::vector<common_lib::structures::Cone> left_output;
   std::vector<common_lib::structures::Cone> right_output;
-  while (trackFile >> x >> y >> color) {
-    float xValue = stof(x);
-    float yValue = stof(y);
+  while (track_file >> x >> y >> color) {
+    float x_value = stof(x);
+    float y_value = stof(y);
     common_lib::structures::Cone cone;
-    cone.position.x = static_cast<double>(xValue);
-    cone.position.y = static_cast<double>(yValue);
+    cone.position.x = static_cast<double>(x_value);
+    cone.position.y = static_cast<double>(y_value);
     if (color == "blue_cone") {
       cone.color = common_lib::competition_logic::Color::BLUE;
       left_output.push_back(cone);
@@ -65,12 +69,14 @@ track_from_file(const std::string &path) {
       right_output.push_back(cone);
     }
   }
-  trackFile.close();
+  track_file.close();
   return std::make_pair(left_output, right_output);
 }
 
 std::vector<common_lib::structures::PathPoint> path_from_file(const std::string &path) {
-  std::string x, y, v;
+  std::string x;
+  std::string y;
+  std::string v;
   std::ifstream path_file = open_read_file(path);
   std::vector<common_lib::structures::PathPoint> output;
   while (path_file >> x >> y >> v) {
@@ -87,8 +93,8 @@ std::vector<common_lib::structures::PathPoint> path_from_file(const std::string 
   return output;
 }
 
-void extractInfo(const std::string_view &filenameView, int &size, int &n_outliers) {
-  std::string filename(filenameView);
+void extract_info(const std::string_view &filename_view, int &size, int &n_outliers) {
+  std::string filename(filename_view);
   size_t pos1 = filename.find("_");
   size_t pos2 = filename.find("_", pos1 + 1);
   size_t pos3 = filename.find(".", pos2 + 1);
@@ -99,27 +105,20 @@ void extractInfo(const std::string_view &filenameView, int &size, int &n_outlier
 }
 
 float consecutive_max_distance(const std::vector<common_lib::structures::Cone> &cones) {
-  float maxDistance = 0.0;
+  float max_distance = 0.0;
   for (size_t i = 1; i < cones.size(); i++) {
-    float distance = cones[i].position.euclidean_distance(cones[i - 1].position);
-    if (distance > maxDistance) {
-      maxDistance = distance;
+    auto distance = static_cast<float>(cones[i].position.euclidean_distance(cones[i - 1].position));
+    if (distance > max_distance) {
+      max_distance = distance;
     }
   }
-  return maxDistance;
+  return max_distance;
 }
 
-bool custom_comparator(const std::pair<double, double> &a, const std::pair<double, double> &b) {
-  if (a.first != b.first) {
-    return a.first < b.first;
-  }
-  return a.second < b.second;
-}
-
-std::vector<std::pair<double, double>> orderVectorOfPairs(
+std::vector<std::pair<double, double>> order_vector_of_pairs(
     const std::vector<std::pair<double, double>> &vec) {
   std::vector<std::pair<double, double>> result = vec;
-  std::sort(result.begin(), result.end(), custom_comparator);
+  std::sort(result.begin(), result.end());
   return result;
 }
 
@@ -135,9 +134,9 @@ std::string get_current_date_time_as_string() {
 }
 
 float round_n(float num, int decimal_places) {
-  num *= pow(10, decimal_places);
-  int intermediate = round(num);
-  num = intermediate / pow(10, decimal_places);
+  num *= static_cast<float>(pow(10, decimal_places));
+  auto intermediate = static_cast<int>(round(num));
+  num = static_cast<float>(static_cast<double>(intermediate) / pow(10, decimal_places));
   return num;
 }
 

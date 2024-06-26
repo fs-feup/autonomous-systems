@@ -10,20 +10,20 @@ struct PathSmoothingConfig {
    * @brief ratio of output to input cones
    *
    */
-  int precision = 10;
+  int precision_ = 10;
   /**
    * @brief order of the spline
    *
    */
-  int order = 3;
+  int order_ = 3;
   /**
    * @brief ratio of coefficients to input points
    *
    */
-  float coeffs_ratio = 3.0;
+  float coeffs_ratio_ = 3.0;
   PathSmoothingConfig() = default;
   PathSmoothingConfig(int precision, int order, float coeffs_ratio)
-      : precision(precision), order(order), coeffs_ratio(coeffs_ratio) {}
+      : precision_(precision), order_(order), coeffs_ratio_(coeffs_ratio) {}
 };
 
 #endif  // SRC_PLANNING_INCLUDE_CONFIG_SMOOTHING_CONFIG_HPP_

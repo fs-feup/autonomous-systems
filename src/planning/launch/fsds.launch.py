@@ -13,7 +13,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "angle_gain",
                 description="Gain for the angle in the cone coloring cost function",
-                default_value="3.7",
+                default_value="11.0",
             ),
             DeclareLaunchArgument(
                 "distance_gain",
@@ -28,12 +28,12 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "angle_exponent",
                 description="Exponent on the angle in the cone coloring cost function",
-                default_value="1.0",
+                default_value="5.3",
             ),
             DeclareLaunchArgument(
                 "distance_exponent",
                 description="Exponent on the distance in the cone coloring cost function",
-                default_value="1.7",
+                default_value="0.698",
             ),
             DeclareLaunchArgument(
                 "cost_max",
@@ -83,17 +83,17 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "use_simulated_se",
                 description="Whether to use simulated state estimation",
-                default_value="0",
+                default_value="false",
             ),
             DeclareLaunchArgument(
                 "publishing_visualization_msg",
                 description="Whether to publish path in visualization format",
-                default_value="1",
+                default_value="true",
             ),
             Node(
                 package="planning",
                 executable="planning",
-                name="planning",
+                name="planning_adapter",
                 parameters=[
                     {"angle_gain": LaunchConfiguration("angle_gain")},
                     {"distance_gain": LaunchConfiguration("distance_gain")},
@@ -117,6 +117,11 @@ def generate_launch_description():
                         )
                     },
                     {
+                        "path_calculation_dist_threshold": LaunchConfiguration(
+                            "path_calculation_dist_threshold"
+                        )
+                    },
+                    {
                         "smoothing_spline_order": LaunchConfiguration(
                             "smoothing_spline_order"
                         )
@@ -133,6 +138,11 @@ def generate_launch_description():
                     },
                     {"adapter": LaunchConfiguration("adapter")},
                     {"use_simulated_se": LaunchConfiguration("use_simulated_se")},
+                    {
+                        "publishing_visualization_msg": LaunchConfiguration(
+                            "publishing_visualization_msg"
+                        )
+                    },
                 ],
                 arguments=["--ros-args", "--log-level", "planning:=info"],
             ),

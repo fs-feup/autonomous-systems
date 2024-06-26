@@ -1,5 +1,4 @@
 #include "planning/path_calculation.hpp"
-#include "utils/cone.hpp"
 
 #include <algorithm>
 #include <cmath>
@@ -8,7 +7,10 @@
 #include <utility>
 #include <vector>
 
-std::vector<PathPoint> PathCalculation::process_delaunay_triangulations(std::pair<std::vector<Cone>, std::vector<Cone>> refined_cones) {
+#include "utils/cone.hpp"
+
+std::vector<PathPoint> PathCalculation::process_delaunay_triangulations(
+    std::pair<std::vector<Cone>, std::vector<Cone>> refined_cones) const {
   // merge left and right cones for next step
   std::vector<Cone> cones;
   cones.reserve(refined_cones.first.size() + refined_cones.second.size());
@@ -21,8 +23,9 @@ std::vector<PathPoint> PathCalculation::process_delaunay_triangulations(std::pai
   // Create a Delaunay triangulation
   DT dt;
   // Insert cones coordinates into the Delaunay triangulation
-  for (size_t i = 0; i < cones.size(); i++)
-    dt.insert(Point(cones[i].position.x, cones[i].position.y));
+  for (const Cone& cone : cones) {
+    dt.insert(Point(cone.position.x, cone.position.y));
+  }
 
   // Process valid triangulations and add positions to unordered_path
   for (DT::Finite_edges_iterator it = dt.finite_edges_begin(); it != dt.finite_edges_end(); ++it) {
@@ -36,22 +39,22 @@ std::vector<PathPoint> PathCalculation::process_delaunay_triangulations(std::pai
     int id_cone1 = find_cone(cones, x1, y1);
     int id_cone2 = find_cone(cones, x2, y2);
     // Check both cones have been found
-    if (id_cone1 == -1 || id_cone2 == -1){
-     RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Cone not found in triangulations");
-     continue;
+    if (id_cone1 == -1 || id_cone2 == -1) {
+      RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Cone not found in triangulations");
+      continue;
     }
 
     Cone cone1 = cones[id_cone1];
     Cone cone2 = cones[id_cone2];
     // If cones are from different sides
-    if ((cone1.color != cone2.color)) {
+    if (cone1.color != cone2.color) {
       // Calculate the midpoint between the two cones
-      double xDist = cone2.position.x - cone1.position.x;
-      double yDist = cone2.position.y - cone1.position.y;
-      double dist = sqrt(pow(xDist, 2) + pow(yDist, 2));
+      double x_dist = cone2.position.x - cone1.position.x;
+      double y_dist = cone2.position.y - cone1.position.y;
+      double dist = sqrt(pow(x_dist, 2) + pow(y_dist, 2));
 
-      if (dist < config_.dist_threshold) {
-        PathPoint pt = PathPoint(cone1.position.x + xDist / 2, cone1.position.y + yDist / 2);
+      if (dist < config_.dist_threshold_) {
+        PathPoint pt = PathPoint(cone1.position.x + x_dist / 2, cone1.position.y + y_dist / 2);
         unordered_path.push_back(pt);
       }
     }
@@ -59,4 +62,3 @@ std::vector<PathPoint> PathCalculation::process_delaunay_triangulations(std::pai
 
   return unordered_path;
 }
-

@@ -16,7 +16,7 @@ TEST(PathCalculation, delauney_small) {
       PathPoint(4.5, 5),    PathPoint(1.5, 0),     PathPoint(3, 2.75),
       PathPoint(2.5, 2.4),  PathPoint(4.25, 4.25), PathPoint(3.75, 3.9)};
 
-  for (const auto &point : generated_points) {
+  for (const auto& point : generated_points) {
     EXPECT_TRUE(expected.find(point) != expected.end());
   }
 
@@ -35,8 +35,8 @@ TEST(PathCalculation, delauney_large) {
   auto path_calculation = PathCalculation();
   std::vector<PathPoint> path_points = path_calculation.process_delaunay_triangulations(track);
 
-  for (size_t i = 0; i < path_points.size(); i++) {
-    path.push_back({path_points[i].position.x, path_points[i].position.y});
+  for (const PathPoint& path_point : path_points) {
+    path.push_back({path_point.position.x, path_point.position.y});
   }
 
   std::vector<std::pair<double, double>> expected{
@@ -66,8 +66,8 @@ TEST(PathCalculation, delauney_large) {
       {50.10491001300154, -26.05721953652515},   {50.662655680863125, -17.299249125396475},
       {51.06575864950613, -24.477844297198516},  {51.31161508859779, -19.01713029173498},
       {51.780739560158665, -22.715865481146395}, {51.828563433823994, -20.73905250270295}};
-  path = orderVectorOfPairs(path);
-  expected = orderVectorOfPairs(expected);
+  path = order_vector_of_pairs(path);
+  expected = order_vector_of_pairs(expected);
 
   EXPECT_EQ(path.size(), expected.size());
   if (path.size() == expected.size()) {
@@ -93,7 +93,7 @@ TEST(PathCalculation, cones_in_circumference_border) {
   auto path_calculation = PathCalculation();
   std::unordered_set<PathPoint, PathPointHash, PathPointEqual> path;
   std::vector<PathPoint> path_points = path_calculation.process_delaunay_triangulations(track);
-  for (size_t i = 0; i < path_points.size(); i++) path.insert(path_points[i]);
+  for (const PathPoint& path_point : path_points) path.insert(path_point);
   std::unordered_set<PathPoint, PathPointHash, PathPointEqual> expected{
       {1, 0}, {2, 0}, {3, 0}, {4, 0}, {5, 0}, {6, 0}, {7, 0}, {8, 0}, {0, 0}};
   EXPECT_EQ(path.size(), expected.size());
@@ -111,7 +111,7 @@ TEST(PathCalculation, small_track_sharp_edge) {
   auto path_calculation = PathCalculation();
   std::unordered_set<PathPoint, PathPointHash, PathPointEqual> path;
   std::vector<PathPoint> path_points = path_calculation.process_delaunay_triangulations(track);
-  for (size_t i = 0; i < path_points.size(); i++) path.insert(path_points[i]);
+  for (const PathPoint& path_point : path_points) path.insert(path_point);
   std::unordered_set<PathPoint, PathPointHash, PathPointEqual> expected = {
       {1, 0}, {1, 1},     {1, 2}, {1.5, 3},   {1.75, 3.5}, {1.75, 3.5}, {1.75, 3.5},
       {2, 4}, {2.5, 4.5}, {3, 5}, {3.5, 4.5}, {4, 4},      {3.5, 2},    {4.5, 3.5}};

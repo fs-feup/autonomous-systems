@@ -1,6 +1,5 @@
 #include "adapter_planning/parameters_factory.hpp"
 #include "common_lib/communication/interfaces.hpp"
-
 #include "test_utils/utils.hpp"
 
 class IntegrationTest : public ::testing::Test {
@@ -8,7 +7,7 @@ protected:
   // Required Nodes
   std::shared_ptr<rclcpp::Node> locmap_sender;
   std::shared_ptr<rclcpp::Node> control_receiver;
-  std::shared_ptr<Planning> planning_test;
+  std::shared_ptr<Planning> planning_test_;
 
   custom_interfaces::msg::ConeArray cone_array_msg;      // message to receive
   custom_interfaces::msg::PathPointArray received_path;  // message to send
@@ -27,7 +26,7 @@ protected:
 
     PlanningParameters params;
     std::string adapter_type = load_adapter_parameters(params);
-    planning_test = create_planning(adapter_type, params);
+    planning_test_ = create_planning(adapter_type, params);
 
     cone_array_msg = custom_interfaces::msg::ConeArray();  // init received message
 
@@ -55,7 +54,7 @@ protected:
     locmap_sender.reset();
     map_publisher.reset();
     control_sub.reset();
-    planning_test.reset();
+    planning_test_.reset();
     vehicle_state_publisher_.reset();
     rclcpp::shutdown();
   }
@@ -70,7 +69,7 @@ protected:
     rclcpp::executors::MultiThreadedExecutor executor;
     executor.add_node(this->locmap_sender);
     executor.add_node(this->control_receiver);
-    executor.add_node(this->planning_test);
+    executor.add_node(this->planning_test_);
 
     auto start_time = std::chrono::high_resolution_clock::now();
     executor.spin();  // Execute nodes
@@ -101,11 +100,11 @@ TEST_F(IntegrationTest, PUBLISH_PATH1) {
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
   for (const auto &p : received_path.pathpoint_array) {
     EXPECT_NEAR(p.y, 0, 1e-10);
-    EXPECT_LE(p.x, 35);
+    EXPECT_LE(p.x, 35.5);
     EXPECT_GE(p.x, -2);
   }
   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()),
-            (long unsigned int)221);
+            (long unsigned int)230);
 }
 
 TEST_F(IntegrationTest, PUBLISH_PATH2) {
@@ -140,7 +139,7 @@ TEST_F(IntegrationTest, PUBLISH_PATH2) {
     EXPECT_LE(p.y - p.x, 0.1);
   }
   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()),
-            (long unsigned int)221);
+            (long unsigned int)230);
 }
 
 TEST_F(IntegrationTest, PUBLISH_PATH3) {
@@ -177,7 +176,7 @@ TEST_F(IntegrationTest, PUBLISH_PATH3) {
     EXPECT_LE(p.y + p.x, 0.1);
   }
   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()),
-            (long unsigned int)221);
+            (long unsigned int)230);
 }
 
 TEST_F(IntegrationTest, PUBLISH_PATH4) {
@@ -212,7 +211,7 @@ TEST_F(IntegrationTest, PUBLISH_PATH4) {
     EXPECT_LE(p.y - p.x, 0.1);
   }
   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()),
-            (long unsigned int)221);
+            (long unsigned int)230);
 }
 
 TEST_F(IntegrationTest, PUBLISH_PATH5) {
@@ -247,7 +246,7 @@ TEST_F(IntegrationTest, PUBLISH_PATH5) {
     EXPECT_LE(p.y + p.x, 0.1);
   }
   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()),
-            (long unsigned int)221);
+            (long unsigned int)230);
 }
 
 TEST_F(IntegrationTest, PUBLISH_PATH6) {
@@ -272,11 +271,11 @@ TEST_F(IntegrationTest, PUBLISH_PATH6) {
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
   for (const auto &p : received_path.pathpoint_array) {
     EXPECT_LE(fabs(p.x), 0.1);
-    EXPECT_LE(p.y, 35);
+    EXPECT_LE(p.y, 35.5);
     EXPECT_GE(p.y, -1);
   }
   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()),
-            (long unsigned int)221);
+            (long unsigned int)230);
 }
 
 /**

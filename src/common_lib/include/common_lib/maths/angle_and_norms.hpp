@@ -14,12 +14,12 @@ using TwoDVector = common_lib::structures::Position;
  *
  */
 struct AngleAndNorms {
-  double angle;
-  double norm1;
-  double norm2;
+  double angle_;
+  double norm1_;
+  double norm2_;
   AngleAndNorms() = default;
   AngleAndNorms(double angle, double norm1, double norm2)
-      : angle(angle), norm1(norm1), norm2(norm2){};
+      : angle_(angle), norm1_(norm1), norm2_(norm2){};
   AngleAndNorms(const TwoDVector& v1, const TwoDVector& v2);
 };
 

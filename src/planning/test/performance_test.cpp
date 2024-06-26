@@ -38,15 +38,15 @@ void iterate_coloring(std::string filename) {
 /**
  * @brief Iterates the Outliers algorithm repeatedly and measures the average time
  */
-void iterate_outliers(std::string filename, int num_outliers = 0) {
-    auto track = track_from_file(filename);
-    auto outliers = Outliers();
+void iterate_outliers(const std::string &filename, int num_outliers = 0) {
+  auto track = track_from_file(filename);
+  auto outliers = Outliers();
 
   // Remove outliers no_iters times to get average
   int no_iters = 100;
   double total_time = 0;
 
-  std::ofstream measuresPath = openWriteFile(
+  std::ofstream measures_path = openWriteFile(
       "performance/exec_time/planning/planning_" + get_current_date_time_as_string() + ".csv",
       "Number of Left Cones,Number of Right Cones,Number of "
       "Outliers,Outliers Removal Execution "
@@ -61,9 +61,9 @@ void iterate_outliers(std::string filename, int num_outliers = 0) {
     total_time += elapsed_time_iter_ms;
   }
 
-  measuresPath << track.first.size() << "," << track.second.size() << ","
-               << num_outliers << "," << total_time / no_iters << ",";
-  measuresPath.close();
+  measures_path << track.first.size() << "," << track.second.size() << "," << num_outliers << ","
+                << total_time / no_iters << ",";
+  measures_path.close();
 
   RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Outliers removed in average %f ms.",
               (total_time / no_iters));
@@ -72,13 +72,13 @@ void iterate_outliers(std::string filename, int num_outliers = 0) {
 /**
  * @brief Iterates the Path Calculation algorithm repeatedly and measures the average time
  */
-std::vector<PathPoint> iterate_triangulations(std::string filename) {
+std::vector<PathPoint> iterate_triangulations(const std::string &filename) {
   auto track = track_from_file(filename);
   auto path_calculation = PathCalculation();
 
   std::vector<PathPoint> path;
-  std::ofstream measuresPath = openWriteFile("performance/exec_time/planning/planning_" +
-                                             get_current_date_time_as_string() + ".csv");
+  std::ofstream measures_path = openWriteFile("performance/exec_time/planning/planning_" +
+                                              get_current_date_time_as_string() + ".csv");
   double total_time = 0;
   int no_iters = 100;
 
@@ -95,8 +95,8 @@ std::vector<PathPoint> iterate_triangulations(std::string filename) {
     total_time += elapsed_time_ms;
   }
 
-  measuresPath << total_time / no_iters << ",";
-  measuresPath.close();
+  measures_path << total_time / no_iters << ",";
+  measures_path.close();
 
   RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Average Delaunay Triangulations processed in %f ms.",
               (total_time / no_iters));
@@ -110,18 +110,20 @@ std::vector<PathPoint> iterate_triangulations(std::string filename) {
 void iterate_smoothing(std::vector<PathPoint> &path) {
   auto path_smoothing = PathSmoothing();
 
-  std::ofstream measuresPath = openWriteFile("performance/exec_time/planning/planning_" +
-                                             get_current_date_time_as_string() + ".csv");
+  std::ofstream measures_path = openWriteFile("performance/exec_time/planning/planning_" +
+                                              get_current_date_time_as_string() + ".csv");
   double total_time = 0;
   int no_iters = 100;
 
   // No_iters repetitions to get average
   for (int i = 0; i < no_iters; i++) {
-    float orientation = atan2(path[1].position.y - path[0].position.y, path[1].position.x - path[0].position.x);
+    float orientation = static_cast<float>(
+        atan2(path[1].position.y - path[0].position.y, path[1].position.x - path[0].position.x));
 
     auto t0 = std::chrono::high_resolution_clock::now();
 
-    std::vector<PathPoint> smoothed_path = path_smoothing.smooth_path(path, Pose(path[0].position, orientation));
+    std::vector<PathPoint> smoothed_path =
+        path_smoothing.smooth_path(path, Pose(path[0].position, orientation));
 
     auto t1 = std::chrono::high_resolution_clock::now();
 
@@ -130,26 +132,25 @@ void iterate_smoothing(std::vector<PathPoint> &path) {
     total_time += elapsed_time_ms;
   }
 
-  measuresPath << total_time / no_iters << "\n";
-  measuresPath.close();
+  measures_path << total_time / no_iters << "\n";
+  measures_path.close();
 
   RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Average Smoothing processed in %f ms.",
               (total_time / no_iters));
-
 }
 
 /**
  * @brief Execution Time Test
  */
 TEST(Planning, planning_exec_time) {
-  std::string directory_path = "src/planning/test/maps/";
+  std::string directory_path = "../../src/planning/test/maps/";
   int size;
   int n_outliers;
   for (const auto &entry : fs::directory_iterator(directory_path)) {
     if (fs::is_regular_file(entry.path())) {
       std::string filename = entry.path().filename().string();
       if (filename.find("map_") != std::string::npos) {
-        extractInfo(filename, size, n_outliers);
+        extract_info(filename, size, n_outliers);
         std::string filePath = "src/planning/test/maps/" + filename;
         iterate_outliers(filePath, n_outliers);
         iterate_coloring(filePath);

@@ -41,7 +41,7 @@ public:
    * dealing with outliers
    */
   std::pair<std::vector<Cone>, std::vector<Cone>> approximate_cones_with_spline(
-      std::pair<std::vector<Cone>, std::vector<Cone>>& cones) const;
+      const std::pair<std::vector<Cone>, std::vector<Cone>>& cones) const;
 };
 
 #endif  // SRC_PLANNING_INCLUDE_PLANNING_OUTLIERS_HPP_

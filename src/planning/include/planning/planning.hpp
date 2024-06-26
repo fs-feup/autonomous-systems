@@ -6,11 +6,12 @@
 #include <string>
 #include <vector>
 
-#include "common_lib/communication/marker.hpp"
 #include "common_lib/communication/interfaces.hpp"
+#include "common_lib/communication/marker.hpp"
 #include "common_lib/competition_logic/mission_logic.hpp"
 #include "common_lib/structures/cone.hpp"
 #include "common_lib/structures/path_point.hpp"
+#include "config/planning_config.hpp"
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "custom_interfaces/msg/path_point.hpp"
 #include "custom_interfaces/msg/path_point_array.hpp"
@@ -23,7 +24,6 @@
 #include "planning/smoothing.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
 #include "utils/files.hpp"
-#include "config/planning_config.hpp"
 
 using PathPoint = common_lib::structures::PathPoint;
 using Pose = common_lib::structures::Pose;
@@ -40,14 +40,14 @@ using std::placeholders::_1;
  */
 class Planning : public rclcpp::Node {
   common_lib::competition_logic::Mission mission =
-      common_lib::competition_logic::Mission::NONE;              /**< Current planning mission */
+      common_lib::competition_logic::Mission::NONE; /**< Current planning mission */
 
   PlanningConfig planning_config_;
-  
-  ConeColoring cone_coloring;
-  Outliers outliers;
-  PathCalculation path_calculation;
-  PathSmoothing path_smoothing;
+
+  ConeColoring cone_coloring_;
+  Outliers outliers_;
+  PathCalculation path_calculation_;
+  PathSmoothing path_smoothing_;
 
   std::map<common_lib::competition_logic::Mission, std::string> predictive_paths_ = {
       {common_lib::competition_logic::Mission::ACCELERATION, "/events/acceleration.txt"},
@@ -129,7 +129,7 @@ class Planning : public rclcpp::Node {
                                   const std::vector<Cone> &after_refining_blue_cones,
                                   const std::vector<Cone> &after_refining_yellow_cones,
                                   const std::vector<PathPoint> &after_triangulations_path,
-                                  const std::vector<PathPoint> &final_path);
+                                  const std::vector<PathPoint> &final_path) const;
 
   /**
    * @brief Checks if the current mission is predictive.
