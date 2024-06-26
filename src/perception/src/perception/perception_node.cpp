@@ -54,6 +54,8 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
   header = (*msg).header;
   pcl::fromROSMsg(*msg, *pcl_cloud);
 
+  fov_trimming(pcl_cloud, 15.0, -35.0, 35.0);
+
   // Ground Removal
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
   _ground_removal_->ground_removal(pcl_cloud, ground_removed_cloud, _ground_plane_);
@@ -106,6 +108,28 @@ void Perception::publishCones(std::vector<Cluster>* cones) {
   }
 
   this->_cones_publisher->publish(message);
+
   this->_cone_marker_array_->publish(common_lib::communication::marker_array_from_structure_array(
       message_array, "perception", "rslidar", "yellow"));
+}
+
+
+void Perception::fov_trimming(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, double max_distance, double min_angle, double max_angle) {
+  pcl::PointCloud<pcl::PointXYZI>::Ptr trimmed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
+
+  for (const auto& point : cloud->points) {
+    // Calculate distance from the origin (assuming the sensor is at the origin)
+    double distance = std::sqrt(point.x * point.x + point.y * point.y);
+
+    // Calculate the angle in the XY plane
+    double angle = std::atan2(point.y, point.x) * 180 / M_PI; // get angle and convert in to degrees
+
+    // Check if the point is within the specified distance and angle range
+    if (distance <= max_distance && angle >= min_angle && angle <= max_angle) {
+      trimmed_cloud->points.push_back(point);
+    }
+  }
+
+  // Replace the input cloud with the trimmed cloud
+  *cloud = *trimmed_cloud;
 }

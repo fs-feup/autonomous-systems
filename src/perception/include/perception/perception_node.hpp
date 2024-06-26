@@ -57,6 +57,7 @@ private:
   rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr
       _ground_removed_publisher_;
 
+
   /**
    * @brief Publishes information about clusters (cones) using a custom ROS2 message.
    *
@@ -81,5 +82,7 @@ public:
    * @param msg The received PointCloud2 message.
    */
   void pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg);
+
+  void fov_trimming(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, double max_distance, double min_angle, double max_angle);
 
 };
