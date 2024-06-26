@@ -10,11 +10,10 @@
  * @param incorrectly_placed_blue number of blue cones incorrectly placed
  * @param incorrectly_placed_yellow number of yellow cones incorrectly placed
  */
-void test_cone_coloring(
-    std::pair<std::vector<common_lib::structures::Cone>, std::vector<common_lib::structures::Cone>>
-        track,
-    int &correctly_placed_blue, int &correctly_placed_yellow, int &incorrectly_placed_blue,
-    int &incorrectly_placed_yellow) {
+void test_cone_coloring(const std::pair<std::vector<common_lib::structures::Cone>,
+                                        std::vector<common_lib::structures::Cone>> &track,
+                        int &correctly_placed_blue, int &correctly_placed_yellow,
+                        int &incorrectly_placed_blue, int &incorrectly_placed_yellow) {
   correctly_placed_blue = 0;
   correctly_placed_yellow = 0;
   incorrectly_placed_blue = 0;
@@ -136,7 +135,7 @@ TEST(ConeColoring, fullconecoloring2) {
   for (double ae = 30; ae < 30; ae += 1) {
     std::cout << "-------------------------------" << std::endl
               << "New distance exponent : " << ae << std::endl;
-    cone_coloring.config_.max_cost = ae;
+    cone_coloring.config_.max_cost_ = ae;
     int average_c_right = 0;
     int average_inc_right = 0;
     int average_c_left = 0;

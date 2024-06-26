@@ -6,10 +6,10 @@
  *
  */
 struct PathCalculationConfig {
-  double dist_threshold = 7.0;
+  double dist_threshold_ = 7.0;
 
   PathCalculationConfig() = default;
-  explicit PathCalculationConfig(float dist_threshold) : dist_threshold(dist_threshold) {}
+  explicit PathCalculationConfig(float dist_threshold) : dist_threshold_(dist_threshold) {}
 };
 
 #endif  // SRC_PLANNING_INCLUDE_CONFIG_PATH_CALCULATION_CONFIG_HPP_

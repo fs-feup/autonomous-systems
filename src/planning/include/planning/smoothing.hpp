@@ -2,6 +2,7 @@
 #define SRC_PLANNING_INCLUDE_PLANNING_SMOOTHING2_HPP_
 
 #include <cmath>
+
 #include "common_lib/structures/path_point.hpp"
 #include "common_lib/structures/pose.hpp"
 #include "config/smoothing_config.hpp"
@@ -27,7 +28,7 @@ private:
    * @param unord_path unoredred path points
    * @param car_pose pose of the car to start ordering according to the closest point
    */
-  void order_path(std::vector<PathPoint>& unord_path, const Pose& car_pose);
+  void order_path(std::vector<PathPoint>& unord_path, const Pose& car_pose) const;
 
 public:
   /**

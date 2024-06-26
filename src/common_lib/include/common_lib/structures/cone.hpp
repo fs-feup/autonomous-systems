@@ -17,9 +17,12 @@ struct Cone {
   Cone() = default;
   Cone(Position position, common_lib::competition_logic::Color cone_color, double certainty);
   Cone(double x, double y, const std::string& color = "unknown", double certainty = 1.0);
+  friend bool operator==(const Cone& c1, const Cone& c2) {
+    return c1.position.euclidean_distance(c2.position) <
+           common_lib::structures::Cone::equality_tolerance;
+  }
 };
 
-bool operator==(const Cone& c1, const Cone& c2);
 }  // namespace common_lib::structures
 
 /**
@@ -32,11 +35,11 @@ struct hash<common_lib::structures::Cone> {
   std::size_t operator()(const common_lib::structures::Cone& cone) const noexcept {
     // Quantize position to improve compatibility with equality_tolerance
     auto quantize = [](double value, double tolerance) { return std::round(value / tolerance); };
-    std::size_t xHash = std::hash<int>()(
+    std::size_t x_hash = std::hash<double>()(
         quantize(cone.position.x, common_lib::structures::Cone::equality_tolerance));
-    std::size_t yHash = std::hash<int>()(
+    std::size_t y_hash = std::hash<double>()(
         quantize(cone.position.y, common_lib::structures::Cone::equality_tolerance));
-    return xHash ^ (yHash << 1);
+    return x_hash ^ (y_hash << 1);
   }
 };
 }  // namespace std

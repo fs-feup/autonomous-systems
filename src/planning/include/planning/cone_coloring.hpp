@@ -35,7 +35,7 @@ private:
    *
    * @param cones vector of cones
    */
-  void remove_duplicates(std::vector<Cone>& cones);
+  void remove_duplicates(std::vector<Cone>& cones) const;
 
   /**
    * @brief calculate the expected position of the initial cones
@@ -43,7 +43,7 @@ private:
    * @param car_pose car pose in the map relative to the origin
    * @param track_side side of the track of the expected position to be calculated
    */
-  Position expected_initial_cone_position(const Pose& car_pose, const TrackSide& track_side);
+  Position expected_initial_cone_position(const Pose& car_pose, const TrackSide& track_side) const;
 
   /**
    * @brief function to find the initial cone according to the distance to the expected position
@@ -63,7 +63,7 @@ private:
    * @param car_pose pose of the car
    * @return virtual cone
    */
-  Cone virtual_cone_from_initial_cone(const Cone& initial_cone, const Pose& car_pose);
+  Cone virtual_cone_from_initial_cone(const Cone& initial_cone, const Pose& car_pose) const;
 
   /**
    * @brief function to place the initial cones, including the virtual ones
@@ -90,7 +90,7 @@ private:
    */
   double calculate_cost(const Cone& next_cone, const Cone& last_cone,
                         const TwoDVector& previous_to_last_vector,
-                        const double& colored_to_input_cones_ratio);
+                        const double& colored_to_input_cones_ratio) const;
 
   /**
    * @brief select the next cone (which minimizes the cost) to be colored if its cost is less than
@@ -118,7 +118,7 @@ public:
    * @brief Construct a new ConeColoring object with a given configuration
    *
    */
-  explicit ConeColoring(ConeColoringConfig config) : config_(config){};
+  explicit ConeColoring(ConeColoringConfig& config) : config_(config){};
   /**
    * @brief color all cones
    *

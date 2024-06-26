@@ -14,9 +14,9 @@
 #include "config/path_calculation_config.hpp"
 #include "rclcpp/rclcpp.hpp"
 
-typedef CGAL::Exact_predicates_inexact_constructions_kernel K;
-typedef CGAL::Delaunay_triangulation_2<K> DT;
-typedef K::Point_2 Point;
+using K = CGAL::Exact_predicates_inexact_constructions_kernel;
+using DT = CGAL::Delaunay_triangulation_2<K>;
+using Point = K::Point_2;
 
 using Cone = common_lib::structures::Cone;
 using PathPoint = common_lib::structures::PathPoint;
@@ -34,8 +34,7 @@ class PathCalculation {
    */
   PathCalculationConfig config_;
 
- public:
-
+public:
   /**
    * @brief Construct a new default PathCalculation object
    *
@@ -47,7 +46,7 @@ class PathCalculation {
    *
    * @param config Config object with PathCalculation configs.
    */
-  explicit PathCalculation(const PathCalculationConfig& config): config_(config) {}
+  explicit PathCalculation(const PathCalculationConfig& config) : config_(config) {}
 
   /**
    * @brief Process an array of cones to generate a local path.
@@ -61,7 +60,8 @@ class PathCalculation {
    * @details The function utilizes Delaunay triangulation (CGAL) and
    * direction-based selection of positions to create a meaningful local path.
    */
-  std::vector<PathPoint> process_delaunay_triangulations(std::pair<std::vector<Cone>, std::vector<Cone>> refined_cones);
+  std::vector<PathPoint> process_delaunay_triangulations(
+      std::pair<std::vector<Cone>, std::vector<Cone>> refined_cones) const;
 };
 
 #endif  // SRC_PLANNING_PLANNING_INCLUDE_PLANNING_PATH_CALCULATION_HPP_

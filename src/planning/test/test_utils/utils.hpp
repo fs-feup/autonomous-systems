@@ -17,8 +17,8 @@
 #include "planning/cone_coloring.hpp"
 #include "planning/outliers.hpp"
 #include "planning/path_calculation.hpp"
-#include "planning/smoothing.hpp"
 #include "planning/planning.hpp"
+#include "planning/smoothing.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "utils/files.hpp"
 #include "utils/splines.hpp"
@@ -26,10 +26,9 @@
 using testing::Eq;
 namespace fs = std::filesystem;
 
-
 /**
  * Opens a file for reading
- * 
+ *
  * @param filename The filename to be open
  * @return returns the input ifstream buffer
  */
@@ -37,14 +36,14 @@ std::ifstream open_read_file(const std::string &filename);
 
 /**
  * Retrieves a cone vector from a file
- * 
+ *
  * @param filename The filename to be open
  */
 std::vector<common_lib::structures::Cone> cone_vector_from_file(const std::string &path);
 
 /**
  * Retrieves a track (a pair of colored cone vectors from each side) from a file
- * 
+ *
  * @param filename The filename to be open
  */
 std::pair<std::vector<common_lib::structures::Cone>, std::vector<common_lib::structures::Cone>>
@@ -52,7 +51,7 @@ track_from_file(const std::string &path);
 
 /**
  * Retrieves a path point vector from a file
- * 
+ *
  * @param filename The filename to be open
  */
 std::vector<common_lib::structures::PathPoint> path_from_file(const std::string &path);
@@ -73,11 +72,11 @@ std::vector<common_lib::structures::PathPoint> path_from_file(const std::string 
  *   If filename is "map_100_5.txt", size will be set to 100 and n_outliers
  * to 5.
  */
-void extractInfo(const std::string_view &filenameView, int &size, int &n_outliers);
+void extract_info(const std::string_view &filename_view, int &size, int &n_outliers);
 
 /**
  * Retrieves the max consecutive distance between adjacent cones in a vector
- * 
+ *
  * @param filename The filename to be open
  */
 float consecutive_max_distance(const std::vector<common_lib::structures::Cone> &cones);
@@ -99,7 +98,8 @@ bool custom_comparator(const std::pair<double, double> &a, const std::pair<doubl
  * @param vec vector of pairs to be ordered
  * @return ordered vector of pairs
  */
-std::vector<std::pair<double, double>> orderVectorOfPairs(const std::vector<std::pair<double, double>> &vec);
+std::vector<std::pair<double, double>> order_vector_of_pairs(
+    const std::vector<std::pair<double, double>> &vec);
 /**
  * @brief Get current date and time as a string.
  * @return Current date and time as a string in "YYYY-MM-DD-HH:MM" format.
@@ -127,7 +127,8 @@ struct PathPointHash {
 };
 
 struct PathPointEqual {
-  bool operator()(const common_lib::structures::PathPoint &p1, const common_lib::structures::PathPoint &p2) const {
+  bool operator()(const common_lib::structures::PathPoint &p1,
+                  const common_lib::structures::PathPoint &p2) const {
     // Use a bigger tolerance for equality comparison
     bool result = std::abs(p1.position.x - p2.position.x) < 0.5 &&
                   std::abs(p1.position.y - p2.position.y) < 0.5;

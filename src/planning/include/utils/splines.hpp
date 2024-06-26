@@ -33,63 +33,63 @@
 
 // Check for default constructor
 template <typename T, typename = void>
-struct has_default_constructor : std::false_type {};
+struct HasDefaultConstructor : std::false_type {};
 
 template <typename T>
-struct has_default_constructor<T, std::void_t<decltype(T())>> : std::true_type {};
+struct HasDefaultConstructor<T, std::void_t<decltype(T())>> : std::true_type {};
 
 // Check for hash function
 template <typename T, typename = void>
-struct is_hashable : std::false_type {};
+struct IsHashable : std::false_type {};
 
 template <typename T>
-struct is_hashable<T, std::void_t<decltype(std::hash<T>{}(std::declval<T>()))>> : std::true_type {};
+struct IsHashable<T, std::void_t<decltype(std::hash<T>{}(std::declval<T>()))>> : std::true_type {};
 
 // Check for operator==
 template <typename T, typename = void>
-struct has_equal_operator : std::false_type {};
+struct HasEqualityOperator : std::false_type {};
 
 template <typename T>
-struct has_equal_operator<T, std::void_t<decltype(std::declval<T>() == std::declval<T>())>>
+struct HasEqualityOperator<T, std::void_t<decltype(std::declval<T>() == std::declval<T>())>>
     : std::true_type {};
 
 // Check for position member
 template <typename T, typename = void>
-struct has_position : std::false_type {};
+struct HasPosition : std::false_type {};
 
 template <typename T>
-struct has_position<T, std::void_t<decltype(std::declval<T>().position)>> : std::true_type {};
+struct HasPosition<T, std::void_t<decltype(std::declval<T>().position)>> : std::true_type {};
 
 // Check for position.x and position.y members
 template <typename T, typename = void>
-struct has_position_x_y : std::false_type {};
+struct HasPosition_X_Y : std::false_type {};
 
 template <typename T>
-struct has_position_x_y<
+struct HasPosition_X_Y<
     T, std::void_t<decltype(std::declval<T>().position.x), decltype(std::declval<T>().position.y)>>
     : std::true_type {};
 
 // Check for copy constructor
 template <typename T, typename = void>
-struct is_copy_constructible : std::false_type {};
+struct IsCopyConstructor : std::false_type {};
 
 template <typename T>
-struct is_copy_constructible<T, std::void_t<decltype(T(std::declval<T>()))>> : std::true_type {};
+struct IsCopyConstructor<T, std::void_t<decltype(T(std::declval<T>()))>> : std::true_type {};
 
 // Check for euclidean_distance method
 template <typename T, typename = void>
-struct has_euclidean_distance : std::false_type {};
+struct HasEuclideanDistance : std::false_type {};
 
 template <typename T>
-struct has_euclidean_distance<T, std::void_t<decltype(std::declval<T>().position.euclidean_distance(
-                                     std::declval<T>().position))>> : std::true_type {};
+struct HasEuclideanDistance<T, std::void_t<decltype(std::declval<T>().position.euclidean_distance(
+                                   std::declval<T>().position))>> : std::true_type {};
 
 // Check for position.x and position.y being double
 template <typename T, typename = void>
-struct position_x_y_are_double : std::false_type {};
+struct Position_X_Y_AreDouble : std::false_type {};
 
 template <typename T>
-struct position_x_y_are_double<
+struct Position_X_Y_AreDouble<
     T, std::enable_if_t<std::is_same_v<decltype(std::declval<T>().position.x), double> &&
                         std::is_same_v<decltype(std::declval<T>().position.y), double>>>
     : std::true_type {};
@@ -118,15 +118,14 @@ struct position_x_y_are_double<
  */
 template <typename T>
 std::vector<T> fit_spline(int precision, int order, float coeffs_ratio, std::vector<T> cone_seq) {
-  static_assert(has_default_constructor<T>::value, "T must be default constructible");
-  static_assert(is_hashable<T>::value, "T must be hashable");
-  static_assert(has_equal_operator<T>::value, "T must have operator==");
-  static_assert(has_position<T>::value, "T must have a position member");
-  static_assert(has_position_x_y<T>::value, "T.position must have x and y members");
-  static_assert(is_copy_constructible<T>::value, "T must be copyable");
-  static_assert(has_euclidean_distance<T>::value,
-                "T.position must have a euclidean_distance method");
-  static_assert(position_x_y_are_double<T>::value, "T.position.x and T.position.y must be double");
+  static_assert(HasDefaultConstructor<T>::value, "T must be default constructible");
+  static_assert(IsHashable<T>::value, "T must be hashable");
+  static_assert(HasEqualityOperator<T>::value, "T must have operator==");
+  static_assert(HasPosition<T>::value, "T must have a position member");
+  static_assert(HasPosition_X_Y<T>::value, "T.position must have x and y members");
+  static_assert(IsCopyConstructor<T>::value, "T must be copyable");
+  static_assert(HasEuclideanDistance<T>::value, "T.position must have a euclidean_distance method");
+  static_assert(Position_X_Y_AreDouble<T>::value, "T.position.x and T.position.y must be double");
 
   std::unordered_set<T> seen;
 
@@ -150,34 +149,28 @@ std::vector<T> fit_spline(int precision, int order, float coeffs_ratio, std::vec
                 static_cast<int>(n));
     return cone_seq;
   }
-  // Initialize vars (pointers)
-  gsl_bspline_workspace *bw, *cw;
-  gsl_vector *B, *C;
-  gsl_vector *c, *c2, *w;
-  gsl_vector *x_values, *y_values, *i_values;
-  gsl_matrix *X, *Y, *cov, *cov2;
-  gsl_multifit_linear_workspace *mw, *mw2;
-  double chisq, chisq2;
-
-  // allocate memory for the actual objects the pointers will point to
-  bw = gsl_bspline_alloc(static_cast<size_t>(order), static_cast<size_t>(nbreak));
-  cw = gsl_bspline_alloc(static_cast<size_t>(order), static_cast<size_t>(nbreak));
-  B = gsl_vector_alloc(ncoeffs);
-  C = gsl_vector_alloc(ncoeffs);
-
-  i_values = gsl_vector_alloc(n);
-  x_values = gsl_vector_alloc(n);
-  y_values = gsl_vector_alloc(n);
-
-  X = gsl_matrix_alloc(n, ncoeffs);
-  Y = gsl_matrix_alloc(n, ncoeffs);
-  c = gsl_vector_alloc(ncoeffs);
-  c2 = gsl_vector_alloc(ncoeffs);
-  w = gsl_vector_alloc(n);
-  cov = gsl_matrix_alloc(ncoeffs, ncoeffs);
-  cov2 = gsl_matrix_alloc(ncoeffs, ncoeffs);
-  mw = gsl_multifit_linear_alloc(n, ncoeffs);
-  mw2 = gsl_multifit_linear_alloc(n, ncoeffs);
+  // Initialize vars (pointers) and allocate memory for the actual objects the pointers will point
+  // to
+  gsl_bspline_workspace *bw =
+      gsl_bspline_alloc(static_cast<size_t>(order), static_cast<size_t>(nbreak));
+  gsl_bspline_workspace *cw =
+      gsl_bspline_alloc(static_cast<size_t>(order), static_cast<size_t>(nbreak));
+  gsl_vector *B = gsl_vector_alloc(ncoeffs);
+  gsl_vector *C = gsl_vector_alloc(ncoeffs);
+  gsl_vector *c = gsl_vector_alloc(ncoeffs);
+  gsl_vector *c2 = gsl_vector_alloc(ncoeffs);
+  gsl_vector *w = gsl_vector_alloc(n);
+  gsl_vector *x_values = gsl_vector_alloc(n);
+  gsl_vector *y_values = gsl_vector_alloc(n);
+  gsl_vector *i_values = gsl_vector_alloc(n);
+  gsl_matrix *X = gsl_matrix_alloc(n, ncoeffs);
+  gsl_matrix *Y = gsl_matrix_alloc(n, ncoeffs);
+  gsl_matrix *cov = gsl_matrix_alloc(ncoeffs, ncoeffs);
+  gsl_matrix *cov2 = gsl_matrix_alloc(ncoeffs, ncoeffs);
+  gsl_multifit_linear_workspace *mw = gsl_multifit_linear_alloc(n, ncoeffs);
+  gsl_multifit_linear_workspace *mw2 = gsl_multifit_linear_alloc(n, ncoeffs);
+  double chisq;
+  double chisq2;
 
   // Set spline data
   for (size_t i = 0; i < n; i++) {
@@ -191,8 +184,8 @@ std::vector<T> fit_spline(int precision, int order, float coeffs_ratio, std::vec
   }
 
   // Set i range within cone set length
-  gsl_bspline_knots_uniform(0, n, bw);
-  gsl_bspline_knots_uniform(0, n, cw);
+  gsl_bspline_knots_uniform(0, static_cast<double>(n), bw);
+  gsl_bspline_knots_uniform(0, static_cast<double>(n), cw);
 
   /* construct the fit matrix X */
   for (int i = 0; i < static_cast<int>(n); i++) {
@@ -240,9 +233,6 @@ std::vector<T> fit_spline(int precision, int order, float coeffs_ratio, std::vec
       new_element.position.x = xi;
       new_element.position.y = yi;
       cone_seq_eval.push_back(new_element);
-      // if (j == 0 && i == static_cast<int>(n) - 1) {
-      //   break;  // Decimals can't go over last int
-      // }
     }
   }
 
@@ -266,13 +256,6 @@ std::vector<T> fit_spline(int precision, int order, float coeffs_ratio, std::vec
 
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "END fitSpline with %i points",
                static_cast<int>(cone_seq_eval.size()));
-
-  // To access spline points uncomment these lines
-  // std::cout << "track spline : " << std::endl;
-  // for (int i = 0; i < static_cast<int>(cone_seq_eval.size()); i++) {
-  //   std::cout << "(" << cone_seq_eval[i]->getX() << "," << cone_seq_eval[i]->getY() << "),";
-  // }
-  // std::cout << std::endl;
 
   return cone_seq_eval;
 }

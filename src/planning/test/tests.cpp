@@ -121,22 +121,6 @@ float consecutive_max_distance(const std::vector<common_lib::structures::Cone> &
   return maxDistance;
 }
 
-/**
- * @brief Defines the way in which two pairs of doubles should be
- * compared when ordering them (lexicographic comparison)
- *
- * @param a One of the pairs of doubles to be compared
- * @param b One of the pairs of doubles to be compared
- * @return true if a<b
- * @return false if a>b
- */
-bool custom_comparator(const std::pair<double, double> &a, const std::pair<double, double> &b) {
-  if (a.first != b.first) {
-    return a.first < b.first;
-  }
-  return a.second < b.second;
-}
-
 void log_cone1(const Cone c) {
   std::cout << "X cone: " << c.position.x << " , Y cone: " << c.position.y
             << " Color cone: " << get_color_string(c.color) << std::endl;
@@ -185,10 +169,10 @@ void test_cone_coloring(
  * @param vec vector of pairs to be ordered
  * @return ordered vector of pairs
  */
-std::vector<std::pair<double, double>> orderVectorOfPairs(
+std::vector<std::pair<double, double>> order_vector_of_pairs(
     const std::vector<std::pair<double, double>> &vec) {
   std::vector<std::pair<double, double>> result = vec;
-  std::sort(result.begin(), result.end(), custom_comparator);
+  std::sort(result.begin(), result.end());
   return result;
 }
 
@@ -479,8 +463,8 @@ TEST(LocalPathPlanner, delauney3_0) {
       {50.10491001300154, -26.05721953652515},   {50.662655680863125, -17.299249125396475},
       {51.06575864950613, -24.477844297198516},  {51.31161508859779, -19.01713029173498},
       {51.780739560158665, -22.715865481146395}, {51.828563433823994, -20.73905250270295}};
-  path = orderVectorOfPairs(path);
-  expected = orderVectorOfPairs(expected);
+  path = order_vector_of_pairs(path);
+  expected = order_vector_of_pairs(expected);
 
   EXPECT_EQ(path.size(), expected.size());
   if (path.size() == expected.size()) {
@@ -548,8 +532,8 @@ TEST(LocalPathPlanner, map_test2) {
  *   If filename is "map_100_5.txt", size will be set to 100 and n_outliers
  * to 5.
  */
-void extractInfo(const std::string_view &filenameView, int &size, int &n_outliers) {
-  std::string filename(filenameView);
+void extract_info(const std::string_view &filename_view, int &size, int &n_outliers) {
+  std::string filename(filename_view);
   size_t pos1 = filename.find("_");
   size_t pos2 = filename.find("_", pos1 + 1);
   size_t pos3 = filename.find(".", pos2 + 1);
@@ -651,7 +635,7 @@ TEST(ConeColoring, fullconecoloring1) {
 TEST(ConeColoring, fullconecoloring2) {
   ConeColoringConfig config;
   ConeColoring cone_coloring(config);
-  for (double ae = 30; ae < 30; ae += 1) {
+  for (int ae = 30; ae < 30; ae += 1) {
     std::cout << "-------------------------------" << std::endl
               << "New distance exponent : " << ae << std::endl;
     cone_coloring.config_.max_cost = ae;

@@ -6,16 +6,16 @@
 using std::placeholders::_1;
 
 Planning::Planning(const PlanningParameters &params) : Node("planning"), planning_config_(params) {
-  cone_coloring_ = ConeColoring(planning_config_.cone_coloring);
-  outliers_ = Outliers(planning_config_.outliers);
-  path_calculation_ = PathCalculation(planning_config_.path_calculation);
-  path_smoothing_ = PathSmoothing(planning_config_.smoothing);
+  cone_coloring_ = ConeColoring(planning_config_.cone_coloring_);
+  outliers_ = Outliers(planning_config_.outliers_);
+  path_calculation_ = PathCalculation(planning_config_.path_calculation_);
+  path_smoothing_ = PathSmoothing(planning_config_.smoothing_);
 
   // Control Publisher
   this->local_pub_ =
       this->create_publisher<custom_interfaces::msg::PathPointArray>("/path_planning/path", 10);
 
-  if (planning_config_.simulation.publishing_visualization_msgs) {
+  if (planning_config_.simulation_.publishing_visualization_msgs_) {
     // Publisher for visualization
     this->visualization_pub_ =
         this->create_publisher<visualization_msgs::msg::Marker>("/path_planning/smoothed_path", 10);
@@ -43,7 +43,7 @@ Planning::Planning(const PlanningParameters &params) : Node("planning"), plannin
   this->timer_ = this->create_wall_timer(
       std::chrono::milliseconds(100), std::bind(&Planning::publish_predicitive_track_points, this));
 
-  if (!planning_config_.simulation.using_simulated_se) {
+  if (!planning_config_.simulation_.using_simulated_se_) {
     // Vehicle Localization Subscriber
     this->vl_sub_ = this->create_subscription<custom_interfaces::msg::VehicleState>(
         "/state_estimation/vehicle_state", 10,
@@ -93,7 +93,7 @@ void Planning::run_planning_algorithms() {
                static_cast<int>(final_path.size()));
   publish_track_points(final_path);
 
-  if (planning_config_.simulation.publishing_visualization_msgs) {
+  if (planning_config_.simulation_.publishing_visualization_msgs_) {
     publish_visualization_msgs(colored_cones.first, colored_cones.second,
                                refined_colored_cones.first, refined_colored_cones.second,
                                triangulations_path, final_path);
@@ -141,7 +141,7 @@ void Planning::publish_visualization_msgs(const std::vector<Cone> &left_cones,
                                           const std::vector<Cone> &after_refining_blue_cones,
                                           const std::vector<Cone> &after_refining_yellow_cones,
                                           const std::vector<PathPoint> &after_triangulations_path,
-                                          const std::vector<PathPoint> &final_path) {
+                                          const std::vector<PathPoint> &final_path) const {
   this->blue_cones_pub_->publish(common_lib::communication::marker_array_from_structure_array(
       left_cones, "blue_cones_colored", "map", "blue"));
   this->yellow_cones_pub_->publish(common_lib::communication::marker_array_from_structure_array(

@@ -1,6 +1,6 @@
 #include "planning/cone_coloring.hpp"
 
-void ConeColoring::remove_duplicates(std::vector<Cone>& cones) {
+void ConeColoring::remove_duplicates(std::vector<Cone>& cones) const {
   std::unordered_set<Cone, std::hash<Cone>> unique_cones;
   std::vector<Cone> result;
   result.reserve(cones.size());
@@ -14,7 +14,7 @@ void ConeColoring::remove_duplicates(std::vector<Cone>& cones) {
 }
 
 Position ConeColoring::expected_initial_cone_position(const Pose& car_pose,
-                                                      const TrackSide& track_side) {
+                                                      const TrackSide& track_side) const {
   constexpr double distance_to_car = 2.0;
   if (track_side == TrackSide::LEFT) {
     return Position{car_pose.position.x - distance_to_car * sin(car_pose.orientation),
@@ -44,7 +44,8 @@ Cone ConeColoring::find_initial_cone(const std::unordered_set<Cone, std::hash<Co
   return initial_cone;
 }
 
-Cone ConeColoring::virtual_cone_from_initial_cone(const Cone& initial_cone, const Pose& car_pose) {
+Cone ConeColoring::virtual_cone_from_initial_cone(const Cone& initial_cone,
+                                                  const Pose& car_pose) const {
   constexpr double distance_to_virtual_cone = 2.0;
   return Cone{
       Position{initial_cone.position.x - distance_to_virtual_cone * cos(car_pose.orientation),
@@ -74,15 +75,15 @@ void ConeColoring::place_initial_cones(std::unordered_set<Cone, std::hash<Cone>>
 
 double ConeColoring::calculate_cost(const Cone& next_cone, const Cone& last_cone,
                                     const TwoDVector& previous_to_last_vector,
-                                    const double& colored_to_input_cones_ratio) {
+                                    const double& colored_to_input_cones_ratio) const {
   AngleAndNorms angle_and_norms = common_lib::maths::angle_and_norms(
       previous_to_last_vector, Position{next_cone.position.x - last_cone.position.x,
                                         next_cone.position.y - last_cone.position.y});
-  double distance = angle_and_norms.norm2;
-  double angle = angle_and_norms.angle;
-  double cost = this->config_.distance_weight * pow(distance, this->config_.distance_exponent) +
-                this->config_.angle_weight * pow(angle, this->config_.angle_exponent) +
-                this->config_.ncones_weight * colored_to_input_cones_ratio;
+  double distance = angle_and_norms.norm2_;
+  double angle = angle_and_norms.angle_;
+  double cost = this->config_.distance_weight_ * pow(distance, this->config_.distance_exponent_) +
+                this->config_.angle_weight_ * pow(angle, this->config_.angle_exponent_) +
+                this->config_.ncones_weight_ * colored_to_input_cones_ratio;
   return cost;
 }
 
@@ -100,7 +101,7 @@ bool ConeColoring::try_to_color_next_cone(
         calculate_cost(cone, last_cone, last_vector,
                        static_cast<double>(n_colored_cones) / static_cast<double>(n_input_cones));
     if (cost < min_cost && cone.position.euclidean_distance(last_cone.position) < 5 &&
-        cost < this->config_.max_cost) {
+        cost < this->config_.max_cost_) {
       min_cost = cost;
       cheapest_cone = cone;
     }
@@ -135,10 +136,14 @@ std::pair<std::vector<Cone>, std::vector<Cone>> ConeColoring::color_cones(std::v
   // Color blue cones
   while (
       try_to_color_next_cone(uncolored_cones, colored_blue_cones, n_colored_cones, n_input_cones)) {
+    // keep coloring yellow cones while the function "try_to_color_next_cone" returns true (i.e. a
+    // suitble cone is found)
   }
   // Color yellow cones
   while (try_to_color_next_cone(uncolored_cones, colored_yellow_cones, n_colored_cones,
                                 n_input_cones)) {
+    // keep coloring yellow cones while the function "try_to_color_next_cone" returns true (i.e. a
+    // suitble cone is found)
   }
   colored_blue_cones.erase(colored_blue_cones.begin());
   colored_yellow_cones.erase(colored_yellow_cones.begin());
