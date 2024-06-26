@@ -1,7 +1,7 @@
 #include "planning/outliers.hpp"
 
 std::pair<std::vector<Cone>, std::vector<Cone>> Outliers::approximate_cones_with_spline(
-    std::pair<std::vector<Cone>, std::vector<Cone>>& cones) const {
+    const std::pair<std::vector<Cone>, std::vector<Cone>>& cones) const {
   std::vector<Cone> approximated_left_cones(fit_spline(
       this->config_.precision_, this->config_.order_, this->config_.coeffs_ratio_, cones.first));
   std::vector<Cone> approximated_right_cones(fit_spline(

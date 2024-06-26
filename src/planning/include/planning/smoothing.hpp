@@ -49,7 +49,8 @@ public:
    * @return std::vector<PathPoint> smoothed path points ordered from the closest to the car to
    * farthest
    */
-  std::vector<PathPoint> smooth_path(std::vector<PathPoint>& unordered_path, const Pose& car_pose);
+  std::vector<PathPoint> smooth_path(std::vector<PathPoint>& unordered_path,
+                                     const Pose& car_pose) const;
 };
 
 #endif  // SRC_PLANNING_INCLUDE_PLANNING_SMOOTHING2_HPP_

@@ -29,7 +29,7 @@ Position ConeColoring::expected_initial_cone_position(const Pose& car_pose,
 }
 
 Cone ConeColoring::find_initial_cone(const std::unordered_set<Cone, std::hash<Cone>>& cones,
-                                     const Pose& car_pose, const TrackSide track_side) {
+                                     const Pose& car_pose, const TrackSide track_side) const {
   Position expected_cone_position = expected_initial_cone_position(car_pose, track_side);
   Cone initial_cone = *std::min_element(
       cones.begin(), cones.end(), [&expected_cone_position](const Cone& cone1, const Cone& cone2) {
@@ -56,7 +56,7 @@ Cone ConeColoring::virtual_cone_from_initial_cone(const Cone& initial_cone,
 void ConeColoring::place_initial_cones(std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones,
                                        std::vector<Cone>& colored_blue_cones,
                                        std::vector<Cone>& colored_yellow_cones,
-                                       const Pose& car_pose, int& n_colored_cones) {
+                                       const Pose& car_pose, int& n_colored_cones) const {
   Cone initial_cone_left = find_initial_cone(uncolored_cones, car_pose, TrackSide::LEFT);
   uncolored_cones.erase(initial_cone_left);
   colored_blue_cones.push_back(initial_cone_left);
@@ -89,7 +89,7 @@ double ConeColoring::calculate_cost(const Cone& next_cone, const Cone& last_cone
 
 bool ConeColoring::try_to_color_next_cone(
     std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones, std::vector<Cone>& colored_cones,
-    int& n_colored_cones, const int n_input_cones) {
+    int& n_colored_cones, const int n_input_cones) const {
   double min_cost = std::numeric_limits<double>::max();
   Cone cheapest_cone;
   const Cone last_cone = colored_cones.back();

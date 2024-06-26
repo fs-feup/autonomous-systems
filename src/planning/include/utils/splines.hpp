@@ -62,10 +62,10 @@ struct HasPosition<T, std::void_t<decltype(std::declval<T>().position)>> : std::
 
 // Check for position.x and position.y members
 template <typename T, typename = void>
-struct HasPosition_X_Y : std::false_type {};
+struct HasPositionXY : std::false_type {};
 
 template <typename T>
-struct HasPosition_X_Y<
+struct HasPositionXY<
     T, std::void_t<decltype(std::declval<T>().position.x), decltype(std::declval<T>().position.y)>>
     : std::true_type {};
 
@@ -86,10 +86,10 @@ struct HasEuclideanDistance<T, std::void_t<decltype(std::declval<T>().position.e
 
 // Check for position.x and position.y being double
 template <typename T, typename = void>
-struct Position_X_Y_AreDouble : std::false_type {};
+struct PositionXYAreDouble : std::false_type {};
 
 template <typename T>
-struct Position_X_Y_AreDouble<
+struct PositionXYAreDouble<
     T, std::enable_if_t<std::is_same_v<decltype(std::declval<T>().position.x), double> &&
                         std::is_same_v<decltype(std::declval<T>().position.y), double>>>
     : std::true_type {};
@@ -122,10 +122,10 @@ std::vector<T> fit_spline(int precision, int order, float coeffs_ratio, std::vec
   static_assert(IsHashable<T>::value, "T must be hashable");
   static_assert(HasEqualityOperator<T>::value, "T must have operator==");
   static_assert(HasPosition<T>::value, "T must have a position member");
-  static_assert(HasPosition_X_Y<T>::value, "T.position must have x and y members");
+  static_assert(HasPositionXY<T>::value, "T.position must have x and y members");
   static_assert(IsCopyConstructor<T>::value, "T must be copyable");
   static_assert(HasEuclideanDistance<T>::value, "T.position must have a euclidean_distance method");
-  static_assert(Position_X_Y_AreDouble<T>::value, "T.position.x and T.position.y must be double");
+  static_assert(PositionXYAreDouble<T>::value, "T.position.x and T.position.y must be double");
 
   std::unordered_set<T> seen;
 

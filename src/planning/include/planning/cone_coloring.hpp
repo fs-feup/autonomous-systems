@@ -54,7 +54,7 @@ private:
    * @return Cone initial cone
    */
   Cone find_initial_cone(const std::unordered_set<Cone, std::hash<Cone>>& cones,
-                         const Pose& car_pose, const TrackSide track_side);
+                         const Pose& car_pose, const TrackSide track_side) const;
 
   /**
    * @brief calculate the position of a virtual cone relative to a real one
@@ -77,7 +77,7 @@ private:
   void place_initial_cones(std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones,
                            std::vector<Cone>& colored_blue_cones,
                            std::vector<Cone>& colored_yellow_cones, const Pose& car_pose,
-                           int& n_colored_cones);
+                           int& n_colored_cones) const;
 
   /**
    * @brief calculate the cost of coloring a cone
@@ -106,7 +106,7 @@ private:
    */
   bool try_to_color_next_cone(std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones,
                               std::vector<Cone>& colored_cones, int& n_colored_cones,
-                              const int n_input_cones);
+                              const int n_input_cones) const;
 
 public:
   /**
@@ -118,7 +118,7 @@ public:
    * @brief Construct a new ConeColoring object with a given configuration
    *
    */
-  explicit ConeColoring(ConeColoringConfig& config) : config_(config){};
+  explicit ConeColoring(const ConeColoringConfig& config) : config_(config){};
   /**
    * @brief color all cones
    *

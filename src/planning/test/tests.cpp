@@ -637,8 +637,8 @@ TEST(ConeColoring, fullconecoloring2) {
   ConeColoring cone_coloring(config);
   for (int ae = 30; ae < 30; ae += 1) {
     std::cout << "-------------------------------" << std::endl
-              << "New distance exponent : " << ae << std::endl;
-    cone_coloring.config_.max_cost = ae;
+              << "New max cost : " << ae << std::endl;
+    cone_coloring.config_.max_cost_ = static_cast<double>(ae);
     int average_c_right = 0;
     int average_inc_right = 0;
     int average_c_left = 0;
