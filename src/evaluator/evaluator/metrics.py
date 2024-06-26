@@ -40,6 +40,45 @@ def get_average_difference(output: np.array, expected: np.array):
     average = sum_error / count
     return average
 
+def get_false_positives(output: np.array, expected: np.array, threshold: float):
+    """!
+    Computes the number of false positives in the output compared to the expected values.
+
+    Args:
+        output (np.array): Empirical Output.
+        expected (np.array): Expected output.
+        threshold (float): Distance threshold to consider values as matching.
+
+    Returns:
+        int: Number of false positives.
+    """
+    if len(output) == 0:
+        return 0
+
+    if len(expected) == 0:
+        raise ValueError("No ground truth cones provided for computing false positives.")
+
+    # Create a boolean array to mark the expected values that have been matched
+    matched_expected = np.zeros(len(expected), dtype=bool)
+    false_positives = 0
+
+    for empirical_value in output:
+        min_difference = sys.float_info.max
+        min_index = -1
+
+        for i, expected_value in enumerate(expected):
+            difference = np.linalg.norm(empirical_value - expected_value)
+            if difference < min_difference:
+                min_difference = difference
+                min_index = i
+
+        if min_difference < threshold and not matched_expected[min_index]:
+            matched_expected[min_index] = True
+        else:
+            false_positives += 1
+
+    return false_positives
+
 
 def get_mean_squared_difference(output: list, expected: list):
     """!

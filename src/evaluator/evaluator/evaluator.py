@@ -14,6 +14,7 @@ from evaluator.metrics import (
     get_average_difference,
     get_inter_cones_distance,
     compute_distance,
+    get_false_positives
 )
 from evaluator.formats import (
     format_vehicle_state_msg,
@@ -29,7 +30,7 @@ from evaluator.adapter_maps import (
 import message_filters
 import numpy as np
 import rclpy.subscription
-from std_msgs.msg import Float32, Float32MultiArray, MultiArrayDimension
+from std_msgs.msg import Float32, Float32MultiArray, MultiArrayDimension, Int32
 from sensor_msgs.msg import PointCloud2
 import datetime
 from math import sqrt
@@ -146,6 +147,12 @@ class Evaluator(Node):
         )
         self._perception_inter_cones_distance_ = self.create_publisher(
             Float32, "/evaluator/perception/inter_cones_distance", 10
+        )
+        self._perception_false_positives_ = self.create_publisher(
+            Int32, "/evaluator/perception/false_positives", 10
+        )
+        self._perception_difference_with_map_ = self.create_publisher(
+            Int32, "/evaluator/perception/difference_with_map", 10
         )
         self._perception_execution_time_ = self.create_publisher(
             Float32, "/evaluator/perception/execution_time", 10
@@ -696,6 +703,14 @@ class Evaluator(Node):
         self._perception_mean_mean_root_squared_error.publish(
             mean_mean_root_squared_error
         )
+
+        false_positives = Int32()
+        false_positives.data = get_false_positives(perception_output, perception_ground_truth, 0.3)
+        self._perception_false_positives_.publish(false_positives)
+
+        map_difference = Int32()
+        map_difference.data = abs(perception_output.size - perception_ground_truth)
+        self._perception_difference_with_map_.publish(map_difference)
 
         # For exporting metrics to csv
         metrics = {
