@@ -7,8 +7,8 @@
  * @param cone_coloring ConeColoring object after cone coloring was tried
  * @param correctly_placed_blue number of blue cones correctly placed
  * @param correctly_placed_yellow number of yellow cones correctly placed
- * @param incorrectly_placed_blue number of blue cones incorrectly placed
- * @param incorrectly_placed_yellow number of yellow cones incorrectly placed
+ * @param incorrectly_placed_blue number of blue cones incorrectly marked as yellow
+ * @param incorrectly_placed_yellow number of yellow cones incorrectly marked as blue
  */
 void test_cone_coloring(const std::pair<std::vector<common_lib::structures::Cone>,
                                         std::vector<common_lib::structures::Cone>> &track,
@@ -35,7 +35,8 @@ void test_cone_coloring(const std::pair<std::vector<common_lib::structures::Cone
 }
 
 /**
- * @brief test the placement of initial cones with the car oriented at 0 rad
+ * @brief test the placement of initial cones with the car oriented at 0 rad. The cones' colours
+ * should be wrong because the track is meant to be driven in the opposite way.
  *
  */
 TEST(ConeColoring, place_first_cones1) {
@@ -60,16 +61,16 @@ TEST(ConeColoring, place_first_cones1) {
                                     colored_cones);
   EXPECT_DOUBLE_EQ(round_n(blue_cones[0].position.x, 3), round_n(28.98699951, 3));
   EXPECT_DOUBLE_EQ(round_n(blue_cones[0].position.y, 3), round_n(18.340000, 3));
-  EXPECT_EQ(blue_cones[1].color, common_lib::competition_logic::Color::BLUE);
+  EXPECT_EQ(blue_cones[1].color, common_lib::competition_logic::Color::YELLOW);
   EXPECT_DOUBLE_EQ(round_n(yellow_cones[0].position.x, 3), round_n(27.8945, 3));
   EXPECT_DOUBLE_EQ(round_n(yellow_cones[0].position.y, 3), round_n(13.0521, 3));
-  EXPECT_EQ(yellow_cones[1].color, common_lib::competition_logic::Color::YELLOW);
+  EXPECT_EQ(yellow_cones[1].color, common_lib::competition_logic::Color::BLUE);
   EXPECT_DOUBLE_EQ(round_n(blue_cones[1].position.x, 3), round_n(30.98699951, 3));
   EXPECT_DOUBLE_EQ(round_n(blue_cones[1].position.y, 3), round_n(18.340000, 3));
-  EXPECT_EQ(blue_cones[1].color, common_lib::competition_logic::Color::BLUE);
+  EXPECT_EQ(blue_cones[1].color, common_lib::competition_logic::Color::YELLOW);
   EXPECT_DOUBLE_EQ(round_n(yellow_cones[1].position.x, 3), round_n(29.8945, 3));
   EXPECT_DOUBLE_EQ(round_n(yellow_cones[1].position.y, 3), round_n(13.0521, 3));
-  EXPECT_EQ(yellow_cones[1].color, common_lib::competition_logic::Color::YELLOW);
+  EXPECT_EQ(yellow_cones[1].color, common_lib::competition_logic::Color::BLUE);
 }
 
 /**
@@ -133,38 +134,45 @@ TEST(ConeColoring, fullconecoloring1) {
   EXPECT_EQ(inc_right, 0);
 }
 
+/**
+ * @brief test the full cone coloring algorithm in 20 tracks. Export the results to a .csv file.
+ *
+ */
 TEST(ConeColoring, fullconecoloring2) {
   ConeColoringConfig config;
   ConeColoring cone_coloring(config);
-  for (int ae = 30; ae < 30; ae += 1) {
-    std::cout << "-------------------------------" << std::endl
-              << "New max cost: " << ae << std::endl;
-    cone_coloring.config_.max_cost_ = static_cast<double>(ae);
-    int average_c_right = 0;
-    int average_inc_right = 0;
-    int average_c_left = 0;
-    int average_inc_left = 0;
-    for (int i = 1; i < 21; i++) {
-      std::string file_name = "gtruths/tracks/eufs/track" + std::to_string(i) + "/converted_track" +
-                              std::to_string(i) + ".txt";
-      auto track = cone_vector_from_file(file_name);
-      int c_right;
-      int inc_right;
-      int c_left;
-      int inc_left;
-      auto initial_car_pose = Pose(0.0, 0.0, 0.0);
-      auto result = cone_coloring.color_cones(track, initial_car_pose);
-      test_cone_coloring(result, c_left, c_right, inc_left, inc_right);
-      average_c_left += c_left;
-      average_c_right += c_right;
-      average_inc_right += inc_right;
-      average_inc_left += inc_left;
-      // std::cout << "RESULT \t" << i << "\t\t" << c_left << "\t\t" << c_right << "\t\t" <<
-      // inc_left
-      //           << "\t\t" << inc_right << std::endl;
-    }
-    std::cout << "AVERAGE: \t\t" << average_c_left / 20.0 << "\t\t" << average_c_right / 20.0
-              << "\t\t" << average_inc_left / 20.0 << "\t\t" << average_inc_right / 20.0
-              << std::endl;
+  int sum_correct_right = 0;    // total actual yellow cones marked as yellow by the algorithm
+  int sum_incorrect_right = 0;  // total yellow cones incorrectly marked as blue by the algorithm
+  int sum_correct_left = 0;     // total actual blue cones marked as blue by the algorithm
+  int sum_incorrect_left = 0;   // total blue cones incorrectly marked as yellow by the algorithm
+  std::ofstream
+      csv_output_file =  // .csv file to store the results of running the algorithm in 20 tracks
+      openWriteFile("performance/other_metrics/planning/cone_coloring_results_" +
+                        get_current_date_time_as_string() + ".csv",
+                    "Track name, Correctly coloured blue cones, Correctly coloured yellow cones, "
+                    "Incorrectly coloured blue cones, Incorrectly coloured yellow cones");
+  for (int i = 1; i < 21; i++) {
+    std::string file_name = "gtruths/tracks/eufs/track" + std::to_string(i) + "/converted_track" +
+                            std::to_string(i) + ".txt";
+    auto track = cone_vector_from_file(file_name);
+    int c_right;
+    int inc_right;
+    int c_left;
+    int inc_left;
+    auto initial_car_pose = Pose(0.0, 0.0, 0.0);
+    auto result = cone_coloring.color_cones(track, initial_car_pose);
+    test_cone_coloring(result, c_left, c_right, inc_left, inc_right);
+    sum_correct_left += c_left;
+    sum_correct_right += c_right;
+    sum_incorrect_right += inc_right;
+    sum_incorrect_left += inc_left;
+    csv_output_file << "eufs/track" << i << "," << c_left << "," << c_right << "," << inc_left
+                    << "," << inc_right << std::endl;
   }
+  double average_correct_blue = static_cast<double>(sum_correct_left) / 20.0;
+  double average_correct_yellow = static_cast<double>(sum_correct_right) / 20.0;
+  double average_incorrect_blue = static_cast<double>(sum_incorrect_left) / 20.0;
+  double average_incorrect_yellow = static_cast<double>(sum_incorrect_right) / 20.0;
+  csv_output_file << "Average," << average_correct_blue << "," << average_correct_yellow << ","
+                  << average_incorrect_blue << "," << average_incorrect_yellow << std::endl;
 }

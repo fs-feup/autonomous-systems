@@ -36,11 +36,6 @@ Cone ConeColoring::find_initial_cone(const std::unordered_set<Cone, std::hash<Co
         return cone1.position.euclidean_distance(expected_cone_position) <
                cone2.position.euclidean_distance(expected_cone_position);
       });
-  if (track_side == TrackSide::LEFT) {
-    initial_cone.color = Color::BLUE;
-  } else if (track_side == TrackSide::RIGHT) {
-    initial_cone.color = Color::YELLOW;
-  }
   return initial_cone;
 }
 
