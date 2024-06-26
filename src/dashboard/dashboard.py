@@ -29,6 +29,7 @@ available_dashboards = [
     "Perception",
     "State_estimation",
     "Planning",
+    "Power_log",
 ]
 
 # Define the main layout of the app
@@ -60,6 +61,7 @@ def get_dashboard_layout(dashboard):
         "Perception": "perception",
         "State_estimation": "state_est",
         "Planning": "planning",
+        "Power_log": "power_log",
     }
 
     condition = dashboard_conditions.get(dashboard, "")
