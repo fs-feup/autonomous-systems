@@ -110,6 +110,10 @@ TEST(ConeColoring, place_first_cones2) {
   EXPECT_EQ(blue_cones[1].color, common_lib::competition_logic::Color::BLUE);
 }
 
+/**
+ * @brief test the full cone coloring algorithm in a large track
+ *
+ */
 TEST(ConeColoring, fullconecoloring1) {
   std::vector<common_lib::structures::Cone> track_cones =
       cone_vector_from_file("src/planning/tracks/track1.txt");

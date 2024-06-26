@@ -76,9 +76,6 @@ TEST(PathCalculation, delauney_large) {
       EXPECT_LE(fabs(path[i].second - expected[i].second), 0.1);
     }
   }
-  // For some reason,  the current implementation has different
-  // outputs when ran different times. All results are coherent with
-  // Delaunay Triangulations but vary minimally. This should be reviewed later
 }
 
 /**

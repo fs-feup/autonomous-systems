@@ -78,6 +78,12 @@ protected:
   }
 };
 
+/**
+ * @brief Tests the full pipeline with a simple track of 24 cones
+ * placed in two straight lines parallel to the x-axis. The result
+ * should be a path of points contained in the x-axis.
+ *
+ */
 TEST_F(IntegrationTest, PUBLISH_PATH1) {
   std::vector<Cone> cone_array = {
       Cone(19, 2),  Cone(22, 2),  Cone(25, 2),  Cone(28, 2),  Cone(31, 2),  Cone(34, 2),
@@ -107,6 +113,10 @@ TEST_F(IntegrationTest, PUBLISH_PATH1) {
             (long unsigned int)230);
 }
 
+/**
+ * @brief test the full pipeline with a straight track of 24 cones oriented at
+ * 45 degrees with the x-axis.
+ */
 TEST_F(IntegrationTest, PUBLISH_PATH2) {
   std::vector<Cone> cone_array = {
       Cone((float)1.414, (float)-1.414),  Cone((float)3.184, (float)0.356),
@@ -142,6 +152,10 @@ TEST_F(IntegrationTest, PUBLISH_PATH2) {
             (long unsigned int)230);
 }
 
+/**
+ * @brief test the full pipeline with a straight track of 24 cones oriented at
+ * 135 degrees with the x-axis.
+ */
 TEST_F(IntegrationTest, PUBLISH_PATH3) {
   custom_interfaces::msg::Cone cone_to_send;
 
@@ -179,6 +193,10 @@ TEST_F(IntegrationTest, PUBLISH_PATH3) {
             (long unsigned int)230);
 }
 
+/**
+ * @brief test the full pipeline with a straight track of 24 cones oriented at
+ * 225 degrees with the x-axis.
+ */
 TEST_F(IntegrationTest, PUBLISH_PATH4) {
   std::vector<Cone> cone_array = {
       Cone((float)-1.414, (float)1.414),    Cone((float)-3.184, (float)-0.356),
@@ -214,6 +232,10 @@ TEST_F(IntegrationTest, PUBLISH_PATH4) {
             (long unsigned int)230);
 }
 
+/**
+ * @brief test the full pipeline with a straight track of 24 cones oriented at
+ * 315 degrees with the x-axis.
+ */
 TEST_F(IntegrationTest, PUBLISH_PATH5) {
   std::vector<Cone> cone_array = {
       Cone((float)1.414, (float)1.414),    Cone((float)3.184, (float)-0.356),
@@ -249,6 +271,10 @@ TEST_F(IntegrationTest, PUBLISH_PATH5) {
             (long unsigned int)230);
 }
 
+/**
+ * @brief test the full pipeline with a straight track of 24 cones oriented at
+ * 90 degrees with the x-axis (parallel to the y-axis).
+ */
 TEST_F(IntegrationTest, PUBLISH_PATH6) {
   std::vector<Cone> cone_array = {
       Cone(2, 19),  Cone(2, 22),  Cone(2, 25),  Cone(2, 28),  Cone(2, 31),  Cone(2, 34),
