@@ -27,29 +27,43 @@ Perception::Perception(const PerceptionParameters& params)
   this->_cones_publisher =
       this->create_publisher<custom_interfaces::msg::ConeArray>("/perception/cones", 10);
 
+  this->_ground_removed_publisher_ = 
+      this->create_publisher<sensor_msgs::msg::PointCloud2>("/perception/ground_removed_cloud", 10);
+
   std::unordered_map<std::string, std::string> adapter_topic_map = {
-      {"vehicle", "/hesai/pandar"}, {"eufs", "/velodyne_points"}, {"fsds", "/lidar/Lidar1"}};
+      {"vehicle", "/rslidar_points"}, {"eufs", "/velodyne_points"}, {"fsds", "/lidar/Lidar1"}, 
+          {"vehicle_preprocessed", "/rslidar_points/pre_processed"}, {"fst", "/hesai/pandar"}};
 
   this->_point_cloud_subscription = this->create_subscription<sensor_msgs::msg::PointCloud2>(
       adapter_topic_map[params.adapter_], 10,
       [this](const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
         this->pointCloudCallback(msg);
       });
+  
+  this->_cone_marker_array_ = this->create_publisher<visualization_msgs::msg::MarkerArray>
+          ("/perception/visualization/cones", 10);
 
   RCLCPP_INFO(this->get_logger(), "Perception Node created with adapter: %s",
               params.adapter_.c_str());
 }
 
 void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
+
+  // Message Read
   pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_cloud(new pcl::PointCloud<pcl::PointXYZI>);
   header = (*msg).header;
-
-  // TODO: vscode is complaining here for some reason about template not matching argument list
   pcl::fromROSMsg(*msg, *pcl_cloud);
+
+  fov_trimming(pcl_cloud, 15.0, -35.0, 35.0);
 
   // Ground Removal
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
   _ground_removal_->ground_removal(pcl_cloud, ground_removed_cloud, _ground_plane_);
+
+  // Debugging utils -> Useful to check the ground removed point cloud
+  sensor_msgs::msg::PointCloud2 ground_remved_msg;
+  pcl::toROSMsg(*ground_removed_cloud, ground_remved_msg);
+  this->_ground_removed_publisher_->publish(ground_remved_msg);
 
   // Clustering
   std::vector<Cluster> clusters;
@@ -58,9 +72,8 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
   // Filtering
   std::vector<Cluster> filtered_clusters;
   for (auto cluster : clusters) {
-    if (std::all_of(_cone_validators_.begin(), _cone_validators_.end(), [&](const auto& validator) {
-          return validator->coneValidator(&cluster, _ground_plane_);
-        })) {
+    // Temporary: Just the first validation
+    if (_cone_validators_[0]->coneValidator(&cluster, _ground_plane_)){
       filtered_clusters.push_back(cluster);
     }
   }
@@ -71,22 +84,15 @@ void Perception::pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedP
                pcl_cloud->points.size());
   RCLCPP_DEBUG(this->get_logger(), "Point Cloud After Ground Removal: %ld points",
                ground_removed_cloud->points.size());
-  RCLCPP_DEBUG(this->get_logger(), "Point Cloud after Clustering: %ld clusters", clusters.size());
+  RCLCPP_DEBUG(this->get_logger(), "Point Cloud after Clustering: %ld clusters", 
+               filtered_clusters.size());
 
-  // Cone differentiation
-  for (long unsigned int i = 0; i < filtered_clusters.size(); i++) {
-    _cone_differentiator_->coneDifferentiation(&filtered_clusters[i]);
-    std::string color = filtered_clusters[i].get_color();
-    filtered_clusters[i].set_color(color);
-    RCLCPP_DEBUG(this->get_logger(), "Cone %d: %s", i, color.c_str());
-  }
-
-  publishCones(&clusters);
+  publishCones(&filtered_clusters);
 }
 
 void Perception::publishCones(std::vector<Cluster>* cones) {
   auto message = custom_interfaces::msg::ConeArray();
-  std::vector<custom_interfaces::msg::Cone> temp = {};
+  std::vector<custom_interfaces::msg::Cone> message_array = {};
   message.header = header;
   for (int i = 0; i < static_cast<int>(cones->size()); i++) {
     auto position = custom_interfaces::msg::Point2d();
@@ -98,10 +104,32 @@ void Perception::publishCones(std::vector<Cluster>* cones) {
     cone_message.color = cones->at(i).get_color();
     cone_message.confidence = cones->at(i).get_confidence();
     message.cone_array.push_back(cone_message);
-    temp.push_back(cone_message);
+    message_array.push_back(cone_message);
   }
 
   this->_cones_publisher->publish(message);
-  this->cone_marker_array->publish(common_lib::communication::marker_array_from_structure_array(
-      temp, "perception", "fsds/Lidar2"));
+
+  this->_cone_marker_array_->publish(common_lib::communication::marker_array_from_structure_array(
+      message_array, "perception", "rslidar", "yellow"));
+}
+
+
+void Perception::fov_trimming(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, double max_distance, double min_angle, double max_angle) {
+  pcl::PointCloud<pcl::PointXYZI>::Ptr trimmed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
+
+  for (const auto& point : cloud->points) {
+    // Calculate distance from the origin (assuming the sensor is at the origin)
+    double distance = std::sqrt(point.x * point.x + point.y * point.y);
+
+    // Calculate the angle in the XY plane
+    double angle = std::atan2(point.y, point.x) * 180 / M_PI; // get angle and convert in to degrees
+
+    // Check if the point is within the specified distance and angle range
+    if (distance <= max_distance && angle >= min_angle && angle <= max_angle) {
+      trimmed_cloud->points.push_back(point);
+    }
+  }
+
+  // Replace the input cloud with the trimmed cloud
+  *cloud = *trimmed_cloud;
 }
