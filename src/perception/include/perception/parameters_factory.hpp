@@ -14,7 +14,7 @@ PerceptionParameters load_adapter_parameters() {
 
   double ransac_epsilon = adapter_node->declare_parameter("ransac_epsilon", 0.05);
   int ransac_n_neighbours = adapter_node->declare_parameter("ransac_n_neighbours", 20);
-  int clustering_n_neighbours = adapter_node->declare_parameter("clustering_n_neighbours", 10);
+  int clustering_n_neighbours = adapter_node->declare_parameter("clustering_n_neighbours", 1);
   double clustering_epsilon = adapter_node->declare_parameter("clustering_epsilon", 0.1);
   double horizontal_resolution = adapter_node->declare_parameter("horizontal_resolution", 0.33);
   double vertical_resolution = adapter_node->declare_parameter("vertical_resolution", 0.22);
