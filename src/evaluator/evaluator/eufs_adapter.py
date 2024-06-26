@@ -37,6 +37,7 @@ class EufsAdapter(Adapter):
             self.groundtruth_map_callback,
             10,
         )
+
         self.node.groundtruth_pose_subscription_ = self.node.create_subscription(
             Odometry,
             "/ground_truth/odom",
@@ -64,7 +65,7 @@ class EufsAdapter(Adapter):
             10,
         )
 
-        self._time_sync_ = message_filters.ApproximateTimeSynchronizer(
+        self._se_time_sync_ = message_filters.ApproximateTimeSynchronizer(
             [
                 self.node.vehicle_state_subscription_,
                 self.node.map_subscription_,
@@ -74,7 +75,24 @@ class EufsAdapter(Adapter):
             0.5,
         )
 
-        self._time_sync_.registerCallback(self.state_estimation_callback)
+        self._se_time_sync_.registerCallback(self.state_estimation_callback)
+
+
+        self.node.groundtruth_perception_subscription_ = message_filters.Subscriber(
+            self.node, ConeArrayWithCovariance, "/ground_truth/cones"
+        )
+
+        self._perception_time_sync_ = message_filters.ApproximateTimeSynchronizer(
+            [
+                self.node.perception_subscription_,
+                self.node.groundtruth_perception_subscription_
+            ],
+            10,
+            0.1
+        )
+
+        self._perception_time_sync_.registerCallback(self.perception_callback)
+
     
     def set_control_init(
         self,
@@ -97,7 +115,7 @@ class EufsAdapter(Adapter):
         map: ConeArray,
     ):
         """!
-        Callback function to process synchronized messages and compute perception metrics.
+        Callback function to process synchronized messages and compute state estimation metrics.
 
         Args:
             vehicle_state (VehicleState): Vehicle state estimation message.
@@ -123,6 +141,24 @@ class EufsAdapter(Adapter):
             groundtruth_map_treated,
         )
 
+    def perception_callback(self, perception_output : ConeArray, ground_truth: ConeArrayWithCovariance):
+
+        """!
+        Callback function to process synchronized messages and compute perception metrics.
+
+        Args:
+            perception_output (ConeArray): Perception Output.
+        """
+
+        perception_treated: np.ndarray = format_cone_array_msg(perception_output)
+
+        groundtruth_perception_treated: np.ndarray = (
+            format_eufs_cone_array_with_covariance_msg(ground_truth)
+        )
+
+        self.node.compute_and_publish_perception(perception_treated, groundtruth_perception_treated)
+
+
     def groundtruth_map_callback(self, track: ConeArrayWithCovariance):
         """!
         Callback function to process groundtruth map messages.
@@ -132,6 +168,7 @@ class EufsAdapter(Adapter):
         """
         self.node.get_logger().debug("Received groundtruth map")
         self.groundtruth_map_ = track
+
 
     def groundtruth_pose_callback(self, pose: Odometry):
         """!
