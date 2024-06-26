@@ -12,7 +12,7 @@ from evaluator.formats import (
 import rclpy
 
 
-class RobosenseAdapter(Adapter):
+class VehicleAdapter(Adapter):
 
     def __init__(self, node: rclpy.node.Node):
 

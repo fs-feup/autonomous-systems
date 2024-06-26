@@ -31,8 +31,8 @@ Perception::Perception(const PerceptionParameters& params)
       this->create_publisher<sensor_msgs::msg::PointCloud2>("/perception/ground_removed_cloud", 10);
 
   std::unordered_map<std::string, std::string> adapter_topic_map = {
-      {"vehicle", "/hesai/pandar"}, {"eufs", "/velodyne_points"}, {"fsds", "/lidar/Lidar1"}, 
-          {"robosense", "/rslidar_points/pre_processed"}};
+      {"vehicle", "/rslidar_points"}, {"eufs", "/velodyne_points"}, {"fsds", "/lidar/Lidar1"}, 
+          {"vehicle_preprocessed", "/rslidar_points/pre_processed"}, {"fst", "/hesai/pandar"}};
 
   this->_point_cloud_subscription = this->create_subscription<sensor_msgs::msg::PointCloud2>(
       adapter_topic_map[params.adapter_], 10,

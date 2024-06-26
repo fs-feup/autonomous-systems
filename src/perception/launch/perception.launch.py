@@ -40,7 +40,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "adapter",
                 description="Environment to run node on",
-                default_value="fsds",
+                default_value="vehicle",
             ),
             DeclareLaunchArgument(
                 "ground_removal",

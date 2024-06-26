@@ -31,7 +31,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "adapter",
                 description="Which simulation environment to use",
-                default_value="robosense",
+                default_value="vehicle_preprocessed",
             ),
             Node(
                 package="evaluator",
