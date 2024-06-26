@@ -15,6 +15,7 @@ from bucket_operations import list_blobs, download_csv_from_bucket_to_folder
 
 # Initialize the Dash app
 app = dash.Dash(__name__)
+app.config.suppress_callback_exceptions = True
 
 # List of available CSV files in the bucket
 csv_files = list_blobs("as_evaluation")
@@ -28,6 +29,7 @@ available_dashboards = [
     "Perception",
     "State_estimation",
     "Planning",
+    "Power_log",
 ]
 
 # Define the main layout of the app
@@ -59,6 +61,7 @@ def get_dashboard_layout(dashboard):
         "Perception": "perception",
         "State_estimation": "state_est",
         "Planning": "planning",
+        "Power_log": "power_log",
     }
 
     condition = dashboard_conditions.get(dashboard, "")

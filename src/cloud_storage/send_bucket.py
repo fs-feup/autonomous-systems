@@ -9,6 +9,7 @@ FOLDERS = {
     "perception": "performance/exec_time/perception",
     "planning": "performance/exec_time/planning",
     "evaluator": "performance/evaluator_metrics",
+    "power_log": "performance/power_log_metrics",
 }
 
 
