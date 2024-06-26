@@ -2,7 +2,7 @@ from evaluator.adapter import Adapter
 from evaluator.eufs_adapter import EufsAdapter
 from evaluator.pacsim_adapter import PacsimAdapter
 from evaluator.fsds_adapter import FSDSAdapter
-from evaluator.evaluator.vehicle_adapter import VehicleAdapter
+from evaluator.vehicle_adapter import VehicleAdapter
 
 ADAPTER_POINT_CLOUD_TOPIC_DICTINARY: dict[str, str] = {
     "fsds": "/lidar/Lidar1",
