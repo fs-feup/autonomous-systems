@@ -2,24 +2,25 @@
 #include "rclcpp/rclcpp.hpp"
 #include "test_utils/utils.hpp"
 
-void iterate_coloring(std::string filename) {
-  std::vector<common_lib::structures::Cone> cones =
-      cone_vector_from_file(filename);
+void iterate_coloring(const std::string &filename) {
+  std::vector<common_lib::structures::Cone> cones = cone_vector_from_file(filename);
   auto cone_coloring = ConeColoring();
 
-  std::ofstream measuresPath = openWriteFile("performance/exec_time/planning/planning_" +
-                                             get_current_date_time_as_string() + ".csv");
+  std::ofstream measures_path = openWriteFile("performance/exec_time/planning/planning_" +
+                                              get_current_date_time_as_string() + ".csv");
 
   int no_iters = 100;
   double total_time = 0;
 
   // No_iters repetitions to get average
   for (int i = 0; i < no_iters; i++) {
-    float orientation = atan2(cones[1].position.y - cones[0].position.y, cones[1].position.x - cones[0].position.x);
+    auto orientation = static_cast<float>(atan2(cones[1].position.y - cones[0].position.y,
+                                                cones[1].position.x - cones[0].position.x));
 
     auto t0 = std::chrono::high_resolution_clock::now();
 
-    auto colored_cones = cone_coloring.color_cones(cones, Pose(cones[0].position.x, cones[0].position.y - 1.5, orientation));
+    const auto [blue_cones, yellow_cones] = cone_coloring.color_cones(
+        cones, Pose(cones[0].position.x, cones[0].position.y - 1.5, orientation));
 
     auto t1 = std::chrono::high_resolution_clock::now();
 
@@ -28,8 +29,8 @@ void iterate_coloring(std::string filename) {
     total_time += elapsed_time_ms;
   }
 
-  measuresPath << total_time / no_iters << ",";
-  measuresPath.close();
+  measures_path << total_time / no_iters << ",";
+  measures_path.close();
 
   RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Cones colored in average %f ms.",
               (total_time / no_iters));

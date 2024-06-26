@@ -116,8 +116,8 @@ bool ConeColoring::try_to_color_next_cone(
   }
 }
 
-std::pair<std::vector<Cone>, std::vector<Cone>> ConeColoring::color_cones(std::vector<Cone> cones,
-                                                                          const Pose& car_pose) {
+std::pair<std::vector<Cone>, std::vector<Cone>> ConeColoring::color_cones(
+    std::vector<Cone> cones, const Pose& car_pose) const {
   remove_duplicates(cones);
   if (cones.size() < 2) {
     RCLCPP_WARN(rclcpp::get_logger("Planning : ConeColoring"),

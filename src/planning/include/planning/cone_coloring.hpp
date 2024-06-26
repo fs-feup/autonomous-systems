@@ -128,7 +128,7 @@ public:
    * cones and the second vector contains the yellow cones
    */
   std::pair<std::vector<Cone>, std::vector<Cone>> color_cones(std::vector<Cone> cones,
-                                                              const Pose& car_pose);
+                                                              const Pose& car_pose) const;
 
   /**
    * @brief tests are declared as friend to test the behaviour of private functions
