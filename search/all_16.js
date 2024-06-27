@@ -17,7 +17,6 @@ var searchData=
   ['with_20launch_20files_14',['Running with launch files',['../d7/de6/md_src_2perception_2_r_e_a_d_m_e.html#autotoc_md53',1,'']]],
   ['with_20ros2_15',['Run with ROS2',['../d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md62',1,'']]],
   ['workload_16',['workload',['../df/d4f/class_performance_test.html#a04640eda27a446fbebfef187ee6b15b1',1,'PerformanceTest']]],
-  ['writefinalpath_17',['writeFinalPath',['../d2/da4/class_global_path_planner.html#ac8e1b6a459a7d56c8ba77a1f4f255394',1,'GlobalPathPlanner']]],
-  ['writetofile_18',['writeToFile',['../d3/d0d/class_perception_performance_test.html#a8912c95da87f5544243d06e35d5b0f5a',1,'PerceptionPerformanceTest']]],
-  ['wsspolicy_19',['WSSPolicy',['../de/d3d/class_inspection_mission.html#ad02bcc6803db3e09357cd740ebe94ce4',1,'InspectionMission']]]
+  ['writetofile_17',['writeToFile',['../d3/d0d/class_perception_performance_test.html#a8912c95da87f5544243d06e35d5b0f5a',1,'PerceptionPerformanceTest']]],
+  ['wsspolicy_18',['WSSPolicy',['../de/d3d/class_inspection_mission.html#ad02bcc6803db3e09357cd740ebe94ce4',1,'InspectionMission']]]
 ];

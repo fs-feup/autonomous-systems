@@ -1,7 +1,0 @@
-<map id="ConeColoring::angle_and_norm" name="ConeColoring::angle_and_norm">
-<area shape="rect" id="Node000001" title="calculate angle between the vector made by last two cones and the vector formed by the last cone and ..." alt="" coords="5,23,141,64"/>
-<area shape="rect" id="Node000002" href="$d8/da1/class_cone.html#a51a49cc249e79d06f6a983250fe809b3" title=" " alt="" coords="189,5,273,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="141,30,173,25,174,30,141,35"/>
-<area shape="rect" id="Node000003" href="$d8/da1/class_cone.html#a952987a9de5d20d7930b3e93c04fd278" title=" " alt="" coords="189,55,273,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="141,51,174,56,173,61,141,56"/>
-</map>

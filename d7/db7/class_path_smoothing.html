@@ -93,19 +93,25 @@ $(document).ready(function(){initNavTree('d7/db7/class_path_smoothing.html','../
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../de/d06/class_path_smoothing-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">PathSmoothing Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="../../d2/d1d/path__smoothing_8hpp_source.html">path_smoothing.hpp</a>&gt;</code></p>
+<p>class that defines the path smoothing algorithm  
+ <a href="../../d7/db7/class_path_smoothing.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="../../d0/d28/smoothing_8hpp_source.html">smoothing.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for PathSmoothing:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d0/d45/class_path_smoothing__coll__graph.png" border="0" usemap="#a_path_smoothing_coll__map" alt="Collaboration graph"/></div>
 <map name="a_path_smoothing_coll__map" id="a_path_smoothing_coll__map">
-<area shape="rect" title=" " alt="" coords="5,5,144,351"/>
+<area shape="rect" title="class that defines the path smoothing algorithm" alt="" coords="23,194,143,319"/>
+<area shape="rect" href="../../de/dce/struct_path_smoothing_config.html" title="struct for the configuration of the smoothing algorithm" alt="" coords="5,5,161,131"/>
+<area shape="poly" title=" " alt="" coords="86,131,86,177,81,177,81,131"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -114,54 +120,29 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a48524dbf971d4469d992c09d56178e19" id="r_a48524dbf971d4469d992c09d56178e19"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#a48524dbf971d4469d992c09d56178e19">PathSmoothing</a> ()=default</td></tr>
 <tr class="memdesc:a48524dbf971d4469d992c09d56178e19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new default Path Smoothing object.  <br /></td></tr>
 <tr class="separator:a48524dbf971d4469d992c09d56178e19"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a094dbfe90f93a16152a8bffe2b468a95" id="r_a094dbfe90f93a16152a8bffe2b468a95"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#a094dbfe90f93a16152a8bffe2b468a95">PathSmoothing</a> (int spline_order, float spline_coeffs_ratio, int spline_precision)</td></tr>
-<tr class="memdesc:a094dbfe90f93a16152a8bffe2b468a95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Path Smoothing object.  <br /></td></tr>
-<tr class="separator:a094dbfe90f93a16152a8bffe2b468a95"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3df41d3ad694f3794ff4dc5b010cc825" id="r_a3df41d3ad694f3794ff4dc5b010cc825"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../d9/d32/class_path_point.html">PathPoint</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#a3df41d3ad694f3794ff4dc5b010cc825">getPath</a> ()</td></tr>
-<tr class="memdesc:a3df41d3ad694f3794ff4dc5b010cc825"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Path object.  <br /></td></tr>
-<tr class="separator:a3df41d3ad694f3794ff4dc5b010cc825"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ea650cb431af618f5c4b0977dfcca4a" id="r_a0ea650cb431af618f5c4b0977dfcca4a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#a0ea650cb431af618f5c4b0977dfcca4a">addPathPoint</a> (float xValue, float yValue, float vValue)</td></tr>
-<tr class="memdesc:a0ea650cb431af618f5c4b0977dfcca4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">adds point to path  <br /></td></tr>
-<tr class="separator:a0ea650cb431af618f5c4b0977dfcca4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa166fa4fdd74344246256ee161adc562" id="r_aa166fa4fdd74344246256ee161adc562"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#aa166fa4fdd74344246256ee161adc562">getPointAmount</a> ()</td></tr>
-<tr class="memdesc:aa166fa4fdd74344246256ee161adc562"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of points in the path.  <br /></td></tr>
-<tr class="separator:aa166fa4fdd74344246256ee161adc562"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a87de9c2f357b06e04b33311cdf822485" id="r_a87de9c2f357b06e04b33311cdf822485"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#a87de9c2f357b06e04b33311cdf822485">logPathPoints</a> ()</td></tr>
-<tr class="memdesc:a87de9c2f357b06e04b33311cdf822485"><td class="mdescLeft">&#160;</td><td class="mdescRight">logs the cones in path in the following format: (x,y),...,(xn,yn)  <br /></td></tr>
-<tr class="separator:a87de9c2f357b06e04b33311cdf822485"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a353e6d4bfab4b2a3f92cd630d8dd2175" id="r_a353e6d4bfab4b2a3f92cd630d8dd2175"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#a353e6d4bfab4b2a3f92cd630d8dd2175">fillPath</a> (const std::string &amp;<a class="el" href="../../d7/db7/class_path_smoothing.html#a8031d1739d31fc66b45fc711bbdbfd3f">path</a>)</td></tr>
-<tr class="memdesc:a353e6d4bfab4b2a3f92cd630d8dd2175"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill the track data from a file.  <br /></td></tr>
-<tr class="separator:a353e6d4bfab4b2a3f92cd630d8dd2175"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad044a39b4c65ea74975c57685d7cb149" id="r_ad044a39b4c65ea74975c57685d7cb149"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#ad044a39b4c65ea74975c57685d7cb149">vector_direction</a> (<a class="el" href="../../d9/d32/class_path_point.html">PathPoint</a> *c1, <a class="el" href="../../d9/d32/class_path_point.html">PathPoint</a> *c2, float prev_vx, float prev_vy)</td></tr>
-<tr class="memdesc:ad044a39b4c65ea74975c57685d7cb149"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the direction of two cones is consistent.  <br /></td></tr>
-<tr class="separator:ad044a39b4c65ea74975c57685d7cb149"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a17371b9028a6c6daa56717aa143b59fb" id="r_a17371b9028a6c6daa56717aa143b59fb"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../d9/d32/class_path_point.html">PathPoint</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#a17371b9028a6c6daa56717aa143b59fb">orderPath</a> (std::vector&lt; <a class="el" href="../../d9/d32/class_path_point.html">PathPoint</a> * &gt; *unord_path)</td></tr>
-<tr class="memdesc:a17371b9028a6c6daa56717aa143b59fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Orders the path to fit spline.  <br /></td></tr>
-<tr class="separator:a17371b9028a6c6daa56717aa143b59fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7c36b75c79ce5ec6ff7388f2087e316" id="r_ab7c36b75c79ce5ec6ff7388f2087e316"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#ab7c36b75c79ce5ec6ff7388f2087e316">defaultSmoother</a> (std::vector&lt; <a class="el" href="../../d9/d32/class_path_point.html">PathPoint</a> * &gt; &amp;a_path)</td></tr>
-<tr class="memdesc:ab7c36b75c79ce5ec6ff7388f2087e316"><td class="mdescLeft">&#160;</td><td class="mdescRight">calls pathSmoother with default values for precision, order and coeffs_ratio that were determined to work well  <br /></td></tr>
-<tr class="separator:ab7c36b75c79ce5ec6ff7388f2087e316"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5689b2c07e18bf08311aa99c5efbeb73" id="r_a5689b2c07e18bf08311aa99c5efbeb73"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../d9/d32/class_path_point.html">PathPoint</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#a5689b2c07e18bf08311aa99c5efbeb73">splineSmoother</a> (int precision, int order, float coeffs_ratio, std::vector&lt; <a class="el" href="../../d9/d32/class_path_point.html">PathPoint</a> * &gt; input_path)</td></tr>
-<tr class="memdesc:a5689b2c07e18bf08311aa99c5efbeb73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fits spline to path.  <br /></td></tr>
-<tr class="separator:a5689b2c07e18bf08311aa99c5efbeb73"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae6d8b2ff86ec4829ddb3fc2b0ba0856" id="r_aae6d8b2ff86ec4829ddb3fc2b0ba0856"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../d9/d32/class_path_point.html">PathPoint</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#aae6d8b2ff86ec4829ddb3fc2b0ba0856">pathSmoother</a> (int precision, int order, float coeffs_ratio, std::vector&lt; <a class="el" href="../../d9/d32/class_path_point.html">PathPoint</a> * &gt; unord_path)</td></tr>
-<tr class="memdesc:aae6d8b2ff86ec4829ddb3fc2b0ba0856"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function designed to smooth the path via spline.  <br /></td></tr>
-<tr class="separator:aae6d8b2ff86ec4829ddb3fc2b0ba0856"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad750c5c3a2780780250193e0e84321bf" id="r_ad750c5c3a2780780250193e0e84321bf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#ad750c5c3a2780780250193e0e84321bf">PathSmoothing</a> (<a class="el" href="../../de/dce/struct_path_smoothing_config.html">PathSmoothingConfig</a> config)</td></tr>
+<tr class="memdesc:ad750c5c3a2780780250193e0e84321bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Path Smoothing object with a given configuration.  <br /></td></tr>
+<tr class="separator:ad750c5c3a2780780250193e0e84321bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a946c55cb9da8055214a2f21d7e875580" id="r_a946c55cb9da8055214a2f21d7e875580"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#a946c55cb9da8055214a2f21d7e875580">smooth_path</a> (std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;unordered_path, const <a class="el" href="../../d0/d28/smoothing_8hpp.html#a4dc1cfa8589f8390497feca76cd399d4">Pose</a> &amp;car_pose) const</td></tr>
+<tr class="memdesc:a946c55cb9da8055214a2f21d7e875580"><td class="mdescLeft">&#160;</td><td class="mdescRight">function to smooth a path  <br /></td></tr>
+<tr class="separator:a946c55cb9da8055214a2f21d7e875580"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:afe48518279d4c902c0442453c6a231bc" id="r_afe48518279d4c902c0442453c6a231bc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#afe48518279d4c902c0442453c6a231bc">order_path</a> (std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;unord_path, const <a class="el" href="../../d0/d28/smoothing_8hpp.html#a4dc1cfa8589f8390497feca76cd399d4">Pose</a> &amp;car_pose) const</td></tr>
+<tr class="memdesc:afe48518279d4c902c0442453c6a231bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">function to order the path points to be used in the spline fitting  <br /></td></tr>
+<tr class="separator:afe48518279d4c902c0442453c6a231bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a8031d1739d31fc66b45fc711bbdbfd3f" id="r_a8031d1739d31fc66b45fc711bbdbfd3f"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../d9/d32/class_path_point.html">PathPoint</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#a8031d1739d31fc66b45fc711bbdbfd3f">path</a></td></tr>
-<tr class="separator:a8031d1739d31fc66b45fc711bbdbfd3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae8188c9e1d0f62c618bbbaf1a5df80d8" id="r_ae8188c9e1d0f62c618bbbaf1a5df80d8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#ae8188c9e1d0f62c618bbbaf1a5df80d8">spline_order_</a> = 3</td></tr>
-<tr class="separator:ae8188c9e1d0f62c618bbbaf1a5df80d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a14eb3efda5a3427fe192da6021a92388" id="r_a14eb3efda5a3427fe192da6021a92388"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#a14eb3efda5a3427fe192da6021a92388">spline_coeffs_ratio_</a> = 3</td></tr>
-<tr class="separator:a14eb3efda5a3427fe192da6021a92388"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf7bb9c2b6eaa3e98a74270c64940c09" id="r_acf7bb9c2b6eaa3e98a74270c64940c09"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#acf7bb9c2b6eaa3e98a74270c64940c09">spline_precision_</a> = 10</td></tr>
-<tr class="separator:acf7bb9c2b6eaa3e98a74270c64940c09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba97424070e38a365d98ed139adb7c88" id="r_aba97424070e38a365d98ed139adb7c88"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/dce/struct_path_smoothing_config.html">PathSmoothingConfig</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db7/class_path_smoothing.html#aba97424070e38a365d98ed139adb7c88">config_</a></td></tr>
+<tr class="memdesc:aba97424070e38a365d98ed139adb7c88"><td class="mdescLeft">&#160;</td><td class="mdescRight">configuration of the smoothing algorithm  <br /></td></tr>
+<tr class="separator:aba97424070e38a365d98ed139adb7c88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="../../d2/d1d/path__smoothing_8hpp_source.html#l00022">22</a> of file <a class="el" href="../../d2/d1d/path__smoothing_8hpp_source.html">path_smoothing.hpp</a>.</p>
+<div class="textblock"><p>class that defines the path smoothing algorithm </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d0/d28/smoothing_8hpp_source.html#l00018">18</a> of file <a class="el" href="../../d0/d28/smoothing_8hpp_source.html">smoothing.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a48524dbf971d4469d992c09d56178e19" name="a48524dbf971d4469d992c09d56178e19"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a48524dbf971d4469d992c09d56178e19">&#9670;&#160;</a></span>PathSmoothing() <span class="overload">[1/2]</span></h2>
@@ -190,632 +171,225 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a094dbfe90f93a16152a8bffe2b468a95" name="a094dbfe90f93a16152a8bffe2b468a95"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a094dbfe90f93a16152a8bffe2b468a95">&#9670;&#160;</a></span>PathSmoothing() <span class="overload">[2/2]</span></h2>
+<a id="ad750c5c3a2780780250193e0e84321bf" name="ad750c5c3a2780780250193e0e84321bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad750c5c3a2780780250193e0e84321bf">&#9670;&#160;</a></span>PathSmoothing() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">PathSmoothing::PathSmoothing </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>spline_order</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="../../de/dce/struct_path_smoothing_config.html">PathSmoothingConfig</a>&#160;</td>
+          <td class="paramname"><em>config</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>spline_coeffs_ratio</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>spline_precision</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Construct a new Path Smoothing object. </p>
+<p>Construct a new Path Smoothing object with a given configuration. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d15/path__smoothing_8cpp_source.html#l00003">3</a> of file <a class="el" href="../../d7/d15/path__smoothing_8cpp_source.html">path_smoothing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/d28/smoothing_8hpp_source.html#l00043">43</a> of file <a class="el" href="../../d0/d28/smoothing_8hpp_source.html">smoothing.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a0ea650cb431af618f5c4b0977dfcca4a" name="a0ea650cb431af618f5c4b0977dfcca4a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0ea650cb431af618f5c4b0977dfcca4a">&#9670;&#160;</a></span>addPathPoint()</h2>
+<a id="afe48518279d4c902c0442453c6a231bc" name="afe48518279d4c902c0442453c6a231bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe48518279d4c902c0442453c6a231bc">&#9670;&#160;</a></span>order_path()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void PathSmoothing::addPathPoint </td>
+          <td class="memname">void PathSmoothing::order_path </td>
           <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>xValue</em>, </td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>unord_path</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>yValue</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>vValue</em>&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../d0/d28/smoothing_8hpp.html#a4dc1cfa8589f8390497feca76cd399d4">Pose</a> &amp;&#160;</td>
+          <td class="paramname"><em>car_pose</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>adds point to path </p>
+<p>function to order the path points to be used in the spline fitting </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">xValue</td><td>x coordinate of the path point </td></tr>
-    <tr><td class="paramname">yValue</td><td>y coordinate of the path point </td></tr>
-    <tr><td class="paramname">vValue</td><td>value for velocity </td></tr>
+    <tr><td class="paramname">unord_path</td><td>unoredred path points </td></tr>
+    <tr><td class="paramname">car_pose</td><td>pose of the car to start ordering according to the closest point </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d15/path__smoothing_8cpp_source.html#l00010">10</a> of file <a class="el" href="../../d7/d15/path__smoothing_8cpp_source.html">path_smoothing.cpp</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../d7/db7/class_path_smoothing_a0ea650cb431af618f5c4b0977dfcca4a_icgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_a0ea650cb431af618f5c4b0977dfcca4a_icgraph" alt=""/></div>
-<map name="ad7/db7/class_path_smoothing_a0ea650cb431af618f5c4b0977dfcca4a_icgraph" id="ad7/db7/class_path_smoothing_a0ea650cb431af618f5c4b0977dfcca4a_icgraph">
-<area shape="rect" title="adds point to path" alt="" coords="311,31,505,56"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a353e6d4bfab4b2a3f92cd630d8dd2175" title="Fill the track data from a file." alt="" coords="108,31,263,56"/>
-<area shape="poly" title=" " alt="" coords="296,46,263,46,263,41,296,41"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a6df4e4f75ec78a003fe012ee9a5172f8" title="simple scenario with few points in the path" alt="" coords="5,5,60,31"/>
-<area shape="poly" title=" " alt="" coords="92,31,60,25,61,20,93,25"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#aae8c79094c63a375eea2464aa2a09e00" title="more complex scenario with cones deviating from path and with significant curvature" alt="" coords="5,55,60,80"/>
-<area shape="poly" title=" " alt="" coords="93,61,61,66,60,61,92,56"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="ab7c36b75c79ce5ec6ff7388f2087e316" name="ab7c36b75c79ce5ec6ff7388f2087e316"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab7c36b75c79ce5ec6ff7388f2087e316">&#9670;&#160;</a></span>defaultSmoother()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void PathSmoothing::defaultSmoother </td>
-          <td>(</td>
-          <td class="paramtype">std::vector&lt; <a class="el" href="../../d9/d32/class_path_point.html">PathPoint</a> * &gt; &amp;&#160;</td>
-          <td class="paramname"><em>a_path</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>calls pathSmoother with default values for precision, order and coeffs_ratio that were determined to work well </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">a_path</td><td>path to be smoothed </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="../../d7/d15/path__smoothing_8cpp_source.html#l00097">97</a> of file <a class="el" href="../../d7/d15/path__smoothing_8cpp_source.html">path_smoothing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d35/smoothing_8cpp_source.html#l00003">3</a> of file <a class="el" href="../../d8/d35/smoothing_8cpp_source.html">smoothing.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../d7/db7/class_path_smoothing_ab7c36b75c79ce5ec6ff7388f2087e316_cgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_ab7c36b75c79ce5ec6ff7388f2087e316_cgraph" alt=""/></div>
-<map name="ad7/db7/class_path_smoothing_ab7c36b75c79ce5ec6ff7388f2087e316_cgraph" id="ad7/db7/class_path_smoothing_ab7c36b75c79ce5ec6ff7388f2087e316_cgraph">
-<area shape="rect" title="calls pathSmoother with default values for precision, order and coeffs_ratio that were determined to ..." alt="" coords="5,60,217,86"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#aae6d8b2ff86ec4829ddb3fc2b0ba0856" title="Function designed to smooth the path via spline." alt="" coords="265,60,462,86"/>
-<area shape="poly" title=" " alt="" coords="217,70,249,70,249,76,217,76"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a17371b9028a6c6daa56717aa143b59fb" title="Orders the path to fit spline." alt="" coords="527,35,699,60"/>
-<area shape="poly" title=" " alt="" coords="462,60,511,55,511,60,463,65"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a5689b2c07e18bf08311aa99c5efbeb73" title="Fits spline to path." alt="" coords="510,84,716,110"/>
-<area shape="poly" title=" " alt="" coords="463,80,495,83,494,88,462,85"/>
-<area shape="rect" href="../../d9/d32/class_path_point.html#a88f058d98c6ef403f769cf440358fd23" title="Euclidean distance to another path point." alt="" coords="764,5,933,31"/>
-<area shape="poly" title=" " alt="" coords="699,34,749,28,749,33,700,39"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#ad044a39b4c65ea74975c57685d7cb149" title="Check if the direction of two cones is consistent." alt="" coords="772,55,925,96"/>
-<area shape="poly" title=" " alt="" coords="700,55,757,62,757,67,699,60"/>
-<area shape="rect" href="../../d9/d32/class_path_point.html#a4f84d924fd7ffcbfd9ae67b669251306" title=" " alt="" coords="981,8,1092,34"/>
-<area shape="poly" title=" " alt="" coords="933,17,965,17,965,22,933,22"/>
-<area shape="rect" href="../../d9/d32/class_path_point.html#a722e36fc4d8964c3efe0fb96315be015" title=" " alt="" coords="981,59,1092,84"/>
-<area shape="poly" title=" " alt="" coords="897,29,974,51,973,56,896,34"/>
-<area shape="poly" title=" " alt="" coords="920,52,974,36,976,41,922,57"/>
-<area shape="poly" title=" " alt="" coords="925,71,965,70,965,76,925,77"/>
+<div class="center"><img src="../../d7/db7/class_path_smoothing_afe48518279d4c902c0442453c6a231bc_cgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_afe48518279d4c902c0442453c6a231bc_cgraph" alt=""/></div>
+<map name="ad7/db7/class_path_smoothing_afe48518279d4c902c0442453c6a231bc_cgraph" id="ad7/db7/class_path_smoothing_afe48518279d4c902c0442453c6a231bc_cgraph">
+<area shape="rect" title="function to order the path points to be used in the spline fitting" alt="" coords="5,20,183,46"/>
+<area shape="rect" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html#a7ce25e8e5e8c05f720cd644b35134051" title=" " alt="" coords="231,5,386,61"/>
+<area shape="poly" title=" " alt="" coords="183,31,215,31,215,36,183,36"/>
 </map>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../d7/db7/class_path_smoothing_ab7c36b75c79ce5ec6ff7388f2087e316_icgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_ab7c36b75c79ce5ec6ff7388f2087e316_icgraph" alt=""/></div>
-<map name="ad7/db7/class_path_smoothing_ab7c36b75c79ce5ec6ff7388f2087e316_icgraph" id="ad7/db7/class_path_smoothing_ab7c36b75c79ce5ec6ff7388f2087e316_icgraph">
-<area shape="rect" title="calls pathSmoother with default values for precision, order and coeffs_ratio that were determined to ..." alt="" coords="108,31,319,56"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a6df4e4f75ec78a003fe012ee9a5172f8" title="simple scenario with few points in the path" alt="" coords="5,5,60,31"/>
-<area shape="poly" title=" " alt="" coords="102,31,60,25,61,19,102,25"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#aae8c79094c63a375eea2464aa2a09e00" title="more complex scenario with cones deviating from path and with significant curvature" alt="" coords="5,55,60,80"/>
-<area shape="poly" title=" " alt="" coords="97,62,60,67,60,61,97,56"/>
+<div class="center"><img src="../../d7/db7/class_path_smoothing_afe48518279d4c902c0442453c6a231bc_icgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_afe48518279d4c902c0442453c6a231bc_icgraph" alt=""/></div>
+<map name="ad7/db7/class_path_smoothing_afe48518279d4c902c0442453c6a231bc_icgraph" id="ad7/db7/class_path_smoothing_afe48518279d4c902c0442453c6a231bc_icgraph">
+<area shape="rect" title="function to order the path points to be used in the spline fitting" alt="" coords="1170,173,1347,199"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a946c55cb9da8055214a2f21d7e875580" title="function to smooth a path" alt="" coords="931,173,1122,199"/>
+<area shape="poly" title=" " alt="" coords="1155,188,1123,188,1123,183,1155,183"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the planning algorithms." alt="" coords="732,108,883,149"/>
+<area shape="poly" title=" " alt="" coords="959,171,882,151,884,145,960,166"/>
+<area shape="rect" href="../../d6/da7/smoothing__tests_8cpp.html#acd526ec95d9464063023a78fcf0f64d9" title="simple scenario with few points in the path" alt="" coords="780,173,835,199"/>
+<area shape="poly" title=" " alt="" coords="915,188,835,188,835,183,915,183"/>
+<area shape="rect" href="../../d6/da7/smoothing__tests_8cpp.html#a39420284a210f074cd5864281df8c9b5" title="more complex scenario with cones deviating from path and with significant curvature" alt="" coords="780,222,835,248"/>
+<area shape="poly" title=" " alt="" coords="952,205,836,232,835,226,951,200"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#ab04bd1f3fa9458e5a1360cfabacc56a7" title="Callback for track map updates(when msg received)." alt="" coords="521,72,659,113"/>
+<area shape="poly" title=" " alt="" coords="717,116,659,106,660,101,718,111"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a53d5a67d438860be75a3d9e0bc0df8c3" title="Callback for vehicle localization updates (undefined)." alt="" coords="495,145,684,186"/>
+<area shape="poly" title=" " alt="" coords="718,146,685,152,684,147,717,141"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a60c7f8fa7896a4d10f19d23d6b9d81fa" title=" " alt="" coords="266,70,444,96"/>
+<area shape="poly" title=" " alt="" coords="505,92,444,89,444,84,505,86"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a115541ef5b9431540a991a03832d520d" title="Constructor for the Planning class." alt="" coords="291,120,419,145"/>
+<area shape="poly" title=" " alt="" coords="505,109,419,124,418,119,505,104"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a369c9138f1446127e8f28e5b54242577" title=" " alt="" coords="281,5,429,46"/>
+<area shape="poly" title=" " alt="" coords="505,71,428,49,430,44,506,66"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a041e217f0b1bdf0b8a0d4aede5da7183" title=" " alt="" coords="25,120,195,145"/>
+<area shape="poly" title=" " alt="" coords="273,102,178,121,177,116,272,97"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70" title=" " alt="" coords="5,13,215,39"/>
+<area shape="poly" title=" " alt="" coords="266,28,215,28,215,23,266,23"/>
+<area shape="poly" title=" " alt="" coords="479,153,419,144,419,139,480,147"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#ac145b9dae6abd6c7b4e6582c622faf0b" title=" " alt="" coords="264,169,446,195"/>
+<area shape="poly" title=" " alt="" coords="480,176,446,178,446,173,479,171"/>
+<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#a14e4d6f21f56e74404eb9387fd5d97c9" title=" " alt="" coords="263,218,447,244"/>
+<area shape="poly" title=" " alt="" coords="504,193,448,210,409,220,407,215,446,204,503,188"/>
+<area shape="poly" title=" " alt="" coords="272,168,177,148,178,143,273,163"/>
+<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,218,198,244"/>
+<area shape="poly" title=" " alt="" coords="247,234,198,234,198,228,247,228"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="a353e6d4bfab4b2a3f92cd630d8dd2175" name="a353e6d4bfab4b2a3f92cd630d8dd2175"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a353e6d4bfab4b2a3f92cd630d8dd2175">&#9670;&#160;</a></span>fillPath()</h2>
+<a id="a946c55cb9da8055214a2f21d7e875580" name="a946c55cb9da8055214a2f21d7e875580"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a946c55cb9da8055214a2f21d7e875580">&#9670;&#160;</a></span>smooth_path()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void PathSmoothing::fillPath </td>
+          <td class="memname">std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; PathSmoothing::smooth_path </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>path</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Fill the track data from a file. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">path</td><td>The path to the file containing track data. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="../../d7/d15/path__smoothing_8cpp_source.html#l00026">26</a> of file <a class="el" href="../../d7/d15/path__smoothing_8cpp_source.html">path_smoothing.cpp</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../d7/db7/class_path_smoothing_a353e6d4bfab4b2a3f92cd630d8dd2175_cgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_a353e6d4bfab4b2a3f92cd630d8dd2175_cgraph" alt=""/></div>
-<map name="ad7/db7/class_path_smoothing_a353e6d4bfab4b2a3f92cd630d8dd2175_cgraph" id="ad7/db7/class_path_smoothing_a353e6d4bfab4b2a3f92cd630d8dd2175_cgraph">
-<area shape="rect" title="Fill the track data from a file." alt="" coords="5,31,161,56"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a0ea650cb431af618f5c4b0977dfcca4a" title="adds point to path" alt="" coords="209,5,403,31"/>
-<area shape="poly" title=" " alt="" coords="160,32,193,28,193,34,161,37"/>
-<area shape="rect" href="../../dd/d8b/files_8cpp.html#a440bc5364e11c37c13f14f7a0d1c7208" title=" " alt="" coords="256,55,356,80"/>
-<area shape="poly" title=" " alt="" coords="161,49,240,58,240,63,160,54"/>
-</map>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../d7/db7/class_path_smoothing_a353e6d4bfab4b2a3f92cd630d8dd2175_icgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_a353e6d4bfab4b2a3f92cd630d8dd2175_icgraph" alt=""/></div>
-<map name="ad7/db7/class_path_smoothing_a353e6d4bfab4b2a3f92cd630d8dd2175_icgraph" id="ad7/db7/class_path_smoothing_a353e6d4bfab4b2a3f92cd630d8dd2175_icgraph">
-<area shape="rect" title="Fill the track data from a file." alt="" coords="108,31,263,56"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a6df4e4f75ec78a003fe012ee9a5172f8" title="simple scenario with few points in the path" alt="" coords="5,5,60,31"/>
-<area shape="poly" title=" " alt="" coords="92,31,60,25,61,20,93,25"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#aae8c79094c63a375eea2464aa2a09e00" title="more complex scenario with cones deviating from path and with significant curvature" alt="" coords="5,55,60,80"/>
-<area shape="poly" title=" " alt="" coords="93,61,61,66,60,61,92,56"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a3df41d3ad694f3794ff4dc5b010cc825" name="a3df41d3ad694f3794ff4dc5b010cc825"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3df41d3ad694f3794ff4dc5b010cc825">&#9670;&#160;</a></span>getPath()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt; <a class="el" href="../../d9/d32/class_path_point.html">PathPoint</a> * &gt; PathSmoothing::getPath </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Get the Path object. </p>
-<dl class="section return"><dt>Returns</dt><dd>path (vector of pointers to PathPoints) </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="../../d7/d15/path__smoothing_8cpp_source.html#l00008">8</a> of file <a class="el" href="../../d7/d15/path__smoothing_8cpp_source.html">path_smoothing.cpp</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../d7/db7/class_path_smoothing_a3df41d3ad694f3794ff4dc5b010cc825_icgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_a3df41d3ad694f3794ff4dc5b010cc825_icgraph" alt=""/></div>
-<map name="ad7/db7/class_path_smoothing_a3df41d3ad694f3794ff4dc5b010cc825_icgraph" id="ad7/db7/class_path_smoothing_a3df41d3ad694f3794ff4dc5b010cc825_icgraph">
-<area shape="rect" title="Get the Path object." alt="" coords="108,31,269,56"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a6df4e4f75ec78a003fe012ee9a5172f8" title="simple scenario with few points in the path" alt="" coords="5,5,60,31"/>
-<area shape="poly" title=" " alt="" coords="92,30,60,25,61,20,93,25"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#aae8c79094c63a375eea2464aa2a09e00" title="more complex scenario with cones deviating from path and with significant curvature" alt="" coords="5,55,60,80"/>
-<area shape="poly" title=" " alt="" coords="93,61,61,66,60,61,92,56"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="aa166fa4fdd74344246256ee161adc562" name="aa166fa4fdd74344246256ee161adc562"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa166fa4fdd74344246256ee161adc562">&#9670;&#160;</a></span>getPointAmount()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int PathSmoothing::getPointAmount </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Get the number of points in the path. </p>
-<dl class="section return"><dt>Returns</dt><dd>number of points in the path </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="../../d7/d15/path__smoothing_8cpp_source.html#l00014">14</a> of file <a class="el" href="../../d7/d15/path__smoothing_8cpp_source.html">path_smoothing.cpp</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../d7/db7/class_path_smoothing_aa166fa4fdd74344246256ee161adc562_icgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_aa166fa4fdd74344246256ee161adc562_icgraph" alt=""/></div>
-<map name="ad7/db7/class_path_smoothing_aa166fa4fdd74344246256ee161adc562_icgraph" id="ad7/db7/class_path_smoothing_aa166fa4fdd74344246256ee161adc562_icgraph">
-<area shape="rect" title="Get the number of points in the path." alt="" coords="251,55,460,80"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a87de9c2f357b06e04b33311cdf822485" title="logs the cones in path in the following format: (x,y),...,(xn,yn)" alt="" coords="5,5,203,31"/>
-<area shape="poly" title=" " alt="" coords="271,54,173,34,174,29,272,48"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a6df4e4f75ec78a003fe012ee9a5172f8" title="simple scenario with few points in the path" alt="" coords="77,55,131,80"/>
-<area shape="poly" title=" " alt="" coords="235,70,132,70,132,65,235,65"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#aae8c79094c63a375eea2464aa2a09e00" title="more complex scenario with cones deviating from path and with significant curvature" alt="" coords="77,104,131,130"/>
-<area shape="poly" title=" " alt="" coords="272,87,132,114,131,109,271,81"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a87de9c2f357b06e04b33311cdf822485" name="a87de9c2f357b06e04b33311cdf822485"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a87de9c2f357b06e04b33311cdf822485">&#9670;&#160;</a></span>logPathPoints()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void PathSmoothing::logPathPoints </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>logs the cones in path in the following format: (x,y),...,(xn,yn) </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d7/d15/path__smoothing_8cpp_source.html#l00017">17</a> of file <a class="el" href="../../d7/d15/path__smoothing_8cpp_source.html">path_smoothing.cpp</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../d7/db7/class_path_smoothing_a87de9c2f357b06e04b33311cdf822485_cgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_a87de9c2f357b06e04b33311cdf822485_cgraph" alt=""/></div>
-<map name="ad7/db7/class_path_smoothing_a87de9c2f357b06e04b33311cdf822485_cgraph" id="ad7/db7/class_path_smoothing_a87de9c2f357b06e04b33311cdf822485_cgraph">
-<area shape="rect" title="logs the cones in path in the following format: (x,y),...,(xn,yn)" alt="" coords="5,5,203,31"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#aa166fa4fdd74344246256ee161adc562" title="Get the number of points in the path." alt="" coords="251,5,460,31"/>
-<area shape="poly" title=" " alt="" coords="203,16,235,16,235,21,203,21"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a17371b9028a6c6daa56717aa143b59fb" name="a17371b9028a6c6daa56717aa143b59fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a17371b9028a6c6daa56717aa143b59fb">&#9670;&#160;</a></span>orderPath()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt; <a class="el" href="../../d9/d32/class_path_point.html">PathPoint</a> * &gt; PathSmoothing::orderPath </td>
-          <td>(</td>
-          <td class="paramtype">std::vector&lt; <a class="el" href="../../d9/d32/class_path_point.html">PathPoint</a> * &gt; *&#160;</td>
-          <td class="paramname"><em>unord_path</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Orders the path to fit spline. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">unord_path</td><td>unordered path points </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>ordered path points </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="../../d7/d15/path__smoothing_8cpp_source.html#l00047">47</a> of file <a class="el" href="../../d7/d15/path__smoothing_8cpp_source.html">path_smoothing.cpp</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../d7/db7/class_path_smoothing_a17371b9028a6c6daa56717aa143b59fb_cgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_a17371b9028a6c6daa56717aa143b59fb_cgraph" alt=""/></div>
-<map name="ad7/db7/class_path_smoothing_a17371b9028a6c6daa56717aa143b59fb_cgraph" id="ad7/db7/class_path_smoothing_a17371b9028a6c6daa56717aa143b59fb_cgraph">
-<area shape="rect" title="Orders the path to fit spline." alt="" coords="5,35,178,60"/>
-<area shape="rect" href="../../d9/d32/class_path_point.html#a88f058d98c6ef403f769cf440358fd23" title="Euclidean distance to another path point." alt="" coords="226,5,394,31"/>
-<area shape="poly" title=" " alt="" coords="178,33,210,29,211,34,178,39"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#ad044a39b4c65ea74975c57685d7cb149" title="Check if the direction of two cones is consistent." alt="" coords="234,55,386,96"/>
-<area shape="poly" title=" " alt="" coords="178,56,219,61,218,66,178,61"/>
-<area shape="rect" href="../../d9/d32/class_path_point.html#a4f84d924fd7ffcbfd9ae67b669251306" title=" " alt="" coords="442,8,553,34"/>
-<area shape="poly" title=" " alt="" coords="395,17,426,17,426,22,395,22"/>
-<area shape="rect" href="../../d9/d32/class_path_point.html#a722e36fc4d8964c3efe0fb96315be015" title=" " alt="" coords="442,59,553,84"/>
-<area shape="poly" title=" " alt="" coords="359,29,436,51,434,56,357,34"/>
-<area shape="poly" title=" " alt="" coords="381,52,435,36,437,41,383,57"/>
-<area shape="poly" title=" " alt="" coords="386,71,426,70,427,76,387,77"/>
-</map>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../d7/db7/class_path_smoothing_a17371b9028a6c6daa56717aa143b59fb_icgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_a17371b9028a6c6daa56717aa143b59fb_icgraph" alt=""/></div>
-<map name="ad7/db7/class_path_smoothing_a17371b9028a6c6daa56717aa143b59fb_icgraph" id="ad7/db7/class_path_smoothing_a17371b9028a6c6daa56717aa143b59fb_icgraph">
-<area shape="rect" title="Orders the path to fit spline." alt="" coords="612,31,785,56"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#aae6d8b2ff86ec4829ddb3fc2b0ba0856" title="Function designed to smooth the path via spline." alt="" coords="367,31,564,56"/>
-<area shape="poly" title=" " alt="" coords="597,46,565,46,565,41,597,41"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#ab7c36b75c79ce5ec6ff7388f2087e316" title="calls pathSmoother with default values for precision, order and coeffs_ratio that were determined to ..." alt="" coords="108,31,319,56"/>
-<area shape="poly" title=" " alt="" coords="351,46,319,46,319,41,351,41"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a6df4e4f75ec78a003fe012ee9a5172f8" title="simple scenario with few points in the path" alt="" coords="5,5,60,31"/>
-<area shape="poly" title=" " alt="" coords="102,31,60,25,61,19,102,25"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#aae8c79094c63a375eea2464aa2a09e00" title="more complex scenario with cones deviating from path and with significant curvature" alt="" coords="5,55,60,80"/>
-<area shape="poly" title=" " alt="" coords="97,62,60,67,60,61,97,56"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="aae6d8b2ff86ec4829ddb3fc2b0ba0856" name="aae6d8b2ff86ec4829ddb3fc2b0ba0856"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aae6d8b2ff86ec4829ddb3fc2b0ba0856">&#9670;&#160;</a></span>pathSmoother()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt; <a class="el" href="../../d9/d32/class_path_point.html">PathPoint</a> * &gt; PathSmoothing::pathSmoother </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>precision</em>, </td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="../../d0/d28/smoothing_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>unordered_path</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>order</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>coeffs_ratio</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::vector&lt; <a class="el" href="../../d9/d32/class_path_point.html">PathPoint</a> * &gt;&#160;</td>
-          <td class="paramname"><em>unord_path</em>&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../d0/d28/smoothing_8hpp.html#a4dc1cfa8589f8390497feca76cd399d4">Pose</a> &amp;&#160;</td>
+          <td class="paramname"><em>car_pose</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Function designed to smooth the path via spline. </p>
+<p>function to smooth a path </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">precision</td><td>Number of spline points for each input <a class="el" href="../../d9/d32/class_path_point.html" title="PathPoint class.">PathPoint</a> </td></tr>
-    <tr><td class="paramname">order</td><td>Order of the spline </td></tr>
-    <tr><td class="paramname">coeffs_ratio</td><td>Ratio of coefficients to PathPoints </td></tr>
-    <tr><td class="paramname">unord_path</td><td>Ordered PathPoints </td></tr>
+    <tr><td class="paramname">unordered_path</td><td>input vector of unordered path points </td></tr>
+    <tr><td class="paramname">car_pose</td><td>pose of the car to start ordering according to the closest point </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Smoothed path </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>std::vector&lt;PathPoint&gt; smoothed path points ordered from the closest to the car to farthest </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d15/path__smoothing_8cpp_source.html#l00245">245</a> of file <a class="el" href="../../d7/d15/path__smoothing_8cpp_source.html">path_smoothing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d35/smoothing_8cpp_source.html#l00052">52</a> of file <a class="el" href="../../d8/d35/smoothing_8cpp_source.html">smoothing.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../d7/db7/class_path_smoothing_aae6d8b2ff86ec4829ddb3fc2b0ba0856_cgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_aae6d8b2ff86ec4829ddb3fc2b0ba0856_cgraph" alt=""/></div>
-<map name="ad7/db7/class_path_smoothing_aae6d8b2ff86ec4829ddb3fc2b0ba0856_cgraph" id="ad7/db7/class_path_smoothing_aae6d8b2ff86ec4829ddb3fc2b0ba0856_cgraph">
-<area shape="rect" title="Function designed to smooth the path via spline." alt="" coords="5,60,203,86"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a17371b9028a6c6daa56717aa143b59fb" title="Orders the path to fit spline." alt="" coords="268,35,440,60"/>
-<area shape="poly" title=" " alt="" coords="203,60,252,55,252,60,203,65"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a5689b2c07e18bf08311aa99c5efbeb73" title="Fits spline to path." alt="" coords="251,84,457,110"/>
-<area shape="poly" title=" " alt="" coords="203,80,235,83,235,88,203,85"/>
-<area shape="rect" href="../../d9/d32/class_path_point.html#a88f058d98c6ef403f769cf440358fd23" title="Euclidean distance to another path point." alt="" coords="505,5,673,31"/>
-<area shape="poly" title=" " alt="" coords="440,34,489,28,490,33,441,39"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#ad044a39b4c65ea74975c57685d7cb149" title="Check if the direction of two cones is consistent." alt="" coords="513,55,665,96"/>
-<area shape="poly" title=" " alt="" coords="441,55,498,62,497,67,440,60"/>
-<area shape="rect" href="../../d9/d32/class_path_point.html#a4f84d924fd7ffcbfd9ae67b669251306" title=" " alt="" coords="721,8,833,34"/>
-<area shape="poly" title=" " alt="" coords="674,17,706,17,706,22,674,22"/>
-<area shape="rect" href="../../d9/d32/class_path_point.html#a722e36fc4d8964c3efe0fb96315be015" title=" " alt="" coords="721,59,833,84"/>
-<area shape="poly" title=" " alt="" coords="638,29,715,51,714,56,636,34"/>
-<area shape="poly" title=" " alt="" coords="661,52,715,36,716,41,662,57"/>
-<area shape="poly" title=" " alt="" coords="666,71,706,70,706,76,666,77"/>
+<div class="center"><img src="../../d7/db7/class_path_smoothing_a946c55cb9da8055214a2f21d7e875580_cgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_a946c55cb9da8055214a2f21d7e875580_cgraph" alt=""/></div>
+<map name="ad7/db7/class_path_smoothing_a946c55cb9da8055214a2f21d7e875580_cgraph" id="ad7/db7/class_path_smoothing_a946c55cb9da8055214a2f21d7e875580_cgraph">
+<area shape="rect" title="function to smooth a path" alt="" coords="5,31,197,56"/>
+<area shape="rect" href="../../d6/da8/splines_8hpp.html#a5987a477b79a8b344f897f3be409cb37" title="This function takes a sequence of points (T), fits a spline to them using B&#45;spline basis functions,..." alt="" coords="297,5,370,31"/>
+<area shape="poly" title=" " alt="" coords="197,30,282,21,282,26,197,36"/>
+<area shape="rect" href="../../d7/db7/class_path_smoothing.html#afe48518279d4c902c0442453c6a231bc" title="function to order the path points to be used in the spline fitting" alt="" coords="245,55,422,80"/>
+<area shape="poly" title=" " alt="" coords="197,51,229,54,229,59,197,56"/>
+<area shape="rect" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html#a7ce25e8e5e8c05f720cd644b35134051" title=" " alt="" coords="470,40,625,95"/>
+<area shape="poly" title=" " alt="" coords="423,65,454,65,454,70,423,70"/>
 </map>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../d7/db7/class_path_smoothing_aae6d8b2ff86ec4829ddb3fc2b0ba0856_icgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_aae6d8b2ff86ec4829ddb3fc2b0ba0856_icgraph" alt=""/></div>
-<map name="ad7/db7/class_path_smoothing_aae6d8b2ff86ec4829ddb3fc2b0ba0856_icgraph" id="ad7/db7/class_path_smoothing_aae6d8b2ff86ec4829ddb3fc2b0ba0856_icgraph">
-<area shape="rect" title="Function designed to smooth the path via spline." alt="" coords="367,31,564,56"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#ab7c36b75c79ce5ec6ff7388f2087e316" title="calls pathSmoother with default values for precision, order and coeffs_ratio that were determined to ..." alt="" coords="108,31,319,56"/>
-<area shape="poly" title=" " alt="" coords="351,46,319,46,319,41,351,41"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a6df4e4f75ec78a003fe012ee9a5172f8" title="simple scenario with few points in the path" alt="" coords="5,5,60,31"/>
-<area shape="poly" title=" " alt="" coords="102,31,60,25,61,19,102,25"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#aae8c79094c63a375eea2464aa2a09e00" title="more complex scenario with cones deviating from path and with significant curvature" alt="" coords="5,55,60,80"/>
-<area shape="poly" title=" " alt="" coords="97,62,60,67,60,61,97,56"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a5689b2c07e18bf08311aa99c5efbeb73" name="a5689b2c07e18bf08311aa99c5efbeb73"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5689b2c07e18bf08311aa99c5efbeb73">&#9670;&#160;</a></span>splineSmoother()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt; <a class="el" href="../../d9/d32/class_path_point.html">PathPoint</a> * &gt; PathSmoothing::splineSmoother </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>precision</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>order</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>coeffs_ratio</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::vector&lt; <a class="el" href="../../d9/d32/class_path_point.html">PathPoint</a> * &gt;&#160;</td>
-          <td class="paramname"><em>input_path</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Fits spline to path. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">precision</td><td>Number of spline points for each input <a class="el" href="../../d9/d32/class_path_point.html" title="PathPoint class.">PathPoint</a> </td></tr>
-    <tr><td class="paramname">order</td><td>Order of the spline </td></tr>
-    <tr><td class="paramname">coeffs_ratio</td><td>Ratio of coefficients to PathPoints </td></tr>
-    <tr><td class="paramname">path</td><td>Ordered PathPoints </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Smoothed path </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="../../d7/d15/path__smoothing_8cpp_source.html#l00103">103</a> of file <a class="el" href="../../d7/d15/path__smoothing_8cpp_source.html">path_smoothing.cpp</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../d7/db7/class_path_smoothing_a5689b2c07e18bf08311aa99c5efbeb73_icgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_a5689b2c07e18bf08311aa99c5efbeb73_icgraph" alt=""/></div>
-<map name="ad7/db7/class_path_smoothing_a5689b2c07e18bf08311aa99c5efbeb73_icgraph" id="ad7/db7/class_path_smoothing_a5689b2c07e18bf08311aa99c5efbeb73_icgraph">
-<area shape="rect" title="Fits spline to path." alt="" coords="612,31,819,56"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#aae6d8b2ff86ec4829ddb3fc2b0ba0856" title="Function designed to smooth the path via spline." alt="" coords="367,31,564,56"/>
-<area shape="poly" title=" " alt="" coords="597,46,565,46,565,41,597,41"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#ab7c36b75c79ce5ec6ff7388f2087e316" title="calls pathSmoother with default values for precision, order and coeffs_ratio that were determined to ..." alt="" coords="108,31,319,56"/>
-<area shape="poly" title=" " alt="" coords="351,46,319,46,319,41,351,41"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a6df4e4f75ec78a003fe012ee9a5172f8" title="simple scenario with few points in the path" alt="" coords="5,5,60,31"/>
-<area shape="poly" title=" " alt="" coords="102,31,60,25,61,19,102,25"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#aae8c79094c63a375eea2464aa2a09e00" title="more complex scenario with cones deviating from path and with significant curvature" alt="" coords="5,55,60,80"/>
-<area shape="poly" title=" " alt="" coords="97,62,60,67,60,61,97,56"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="ad044a39b4c65ea74975c57685d7cb149" name="ad044a39b4c65ea74975c57685d7cb149"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad044a39b4c65ea74975c57685d7cb149">&#9670;&#160;</a></span>vector_direction()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool PathSmoothing::vector_direction </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d9/d32/class_path_point.html">PathPoint</a> *&#160;</td>
-          <td class="paramname"><em>c1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../d9/d32/class_path_point.html">PathPoint</a> *&#160;</td>
-          <td class="paramname"><em>c2</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>prev_vx</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>prev_vy</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Check if the direction of two cones is consistent. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">c1</td><td>The first cone. </td></tr>
-    <tr><td class="paramname">c2</td><td>The second cone. </td></tr>
-    <tr><td class="paramname">prev_vx</td><td>The previous x-direction. </td></tr>
-    <tr><td class="paramname">prev_vy</td><td>The previous y-direction. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the direction is consistent, false otherwise. </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="../../d7/d15/path__smoothing_8cpp_source.html#l00040">40</a> of file <a class="el" href="../../d7/d15/path__smoothing_8cpp_source.html">path_smoothing.cpp</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../d7/db7/class_path_smoothing_ad044a39b4c65ea74975c57685d7cb149_cgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_ad044a39b4c65ea74975c57685d7cb149_cgraph" alt=""/></div>
-<map name="ad7/db7/class_path_smoothing_ad044a39b4c65ea74975c57685d7cb149_cgraph" id="ad7/db7/class_path_smoothing_ad044a39b4c65ea74975c57685d7cb149_cgraph">
-<area shape="rect" title="Check if the direction of two cones is consistent." alt="" coords="5,23,158,64"/>
-<area shape="rect" href="../../d9/d32/class_path_point.html#a4f84d924fd7ffcbfd9ae67b669251306" title=" " alt="" coords="206,5,317,31"/>
-<area shape="poly" title=" " alt="" coords="158,30,190,26,190,31,158,35"/>
-<area shape="rect" href="../../d9/d32/class_path_point.html#a722e36fc4d8964c3efe0fb96315be015" title=" " alt="" coords="206,55,317,80"/>
-<area shape="poly" title=" " alt="" coords="158,51,190,55,190,61,158,56"/>
-</map>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../d7/db7/class_path_smoothing_ad044a39b4c65ea74975c57685d7cb149_icgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_ad044a39b4c65ea74975c57685d7cb149_icgraph" alt=""/></div>
-<map name="ad7/db7/class_path_smoothing_ad044a39b4c65ea74975c57685d7cb149_icgraph" id="ad7/db7/class_path_smoothing_ad044a39b4c65ea74975c57685d7cb149_icgraph">
-<area shape="rect" title="Check if the direction of two cones is consistent." alt="" coords="833,23,985,64"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a17371b9028a6c6daa56717aa143b59fb" title="Orders the path to fit spline." alt="" coords="612,31,785,56"/>
-<area shape="poly" title=" " alt="" coords="817,46,785,46,785,41,817,41"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#aae6d8b2ff86ec4829ddb3fc2b0ba0856" title="Function designed to smooth the path via spline." alt="" coords="367,31,564,56"/>
-<area shape="poly" title=" " alt="" coords="597,46,565,46,565,41,597,41"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#ab7c36b75c79ce5ec6ff7388f2087e316" title="calls pathSmoother with default values for precision, order and coeffs_ratio that were determined to ..." alt="" coords="108,31,319,56"/>
-<area shape="poly" title=" " alt="" coords="351,46,319,46,319,41,351,41"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a6df4e4f75ec78a003fe012ee9a5172f8" title="simple scenario with few points in the path" alt="" coords="5,5,60,31"/>
-<area shape="poly" title=" " alt="" coords="102,31,60,25,61,19,102,25"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#aae8c79094c63a375eea2464aa2a09e00" title="more complex scenario with cones deviating from path and with significant curvature" alt="" coords="5,55,60,80"/>
-<area shape="poly" title=" " alt="" coords="97,62,60,67,60,61,97,56"/>
+<div class="center"><img src="../../d7/db7/class_path_smoothing_a946c55cb9da8055214a2f21d7e875580_icgraph.png" border="0" usemap="#ad7/db7/class_path_smoothing_a946c55cb9da8055214a2f21d7e875580_icgraph" alt=""/></div>
+<map name="ad7/db7/class_path_smoothing_a946c55cb9da8055214a2f21d7e875580_icgraph" id="ad7/db7/class_path_smoothing_a946c55cb9da8055214a2f21d7e875580_icgraph">
+<area shape="rect" title="function to smooth a path" alt="" coords="931,173,1122,199"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the planning algorithms." alt="" coords="732,108,883,149"/>
+<area shape="poly" title=" " alt="" coords="959,171,882,151,884,145,960,166"/>
+<area shape="rect" href="../../d6/da7/smoothing__tests_8cpp.html#acd526ec95d9464063023a78fcf0f64d9" title="simple scenario with few points in the path" alt="" coords="780,173,835,199"/>
+<area shape="poly" title=" " alt="" coords="915,188,835,188,835,183,915,183"/>
+<area shape="rect" href="../../d6/da7/smoothing__tests_8cpp.html#a39420284a210f074cd5864281df8c9b5" title="more complex scenario with cones deviating from path and with significant curvature" alt="" coords="780,222,835,248"/>
+<area shape="poly" title=" " alt="" coords="952,205,836,232,835,226,951,200"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#ab04bd1f3fa9458e5a1360cfabacc56a7" title="Callback for track map updates(when msg received)." alt="" coords="521,72,659,113"/>
+<area shape="poly" title=" " alt="" coords="717,116,659,106,660,101,718,111"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a53d5a67d438860be75a3d9e0bc0df8c3" title="Callback for vehicle localization updates (undefined)." alt="" coords="495,145,684,186"/>
+<area shape="poly" title=" " alt="" coords="718,146,685,152,684,147,717,141"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a60c7f8fa7896a4d10f19d23d6b9d81fa" title=" " alt="" coords="266,70,444,96"/>
+<area shape="poly" title=" " alt="" coords="505,92,444,89,444,84,505,86"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a115541ef5b9431540a991a03832d520d" title="Constructor for the Planning class." alt="" coords="291,120,419,145"/>
+<area shape="poly" title=" " alt="" coords="505,109,419,124,418,119,505,104"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a369c9138f1446127e8f28e5b54242577" title=" " alt="" coords="281,5,429,46"/>
+<area shape="poly" title=" " alt="" coords="505,71,428,49,430,44,506,66"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a041e217f0b1bdf0b8a0d4aede5da7183" title=" " alt="" coords="25,120,195,145"/>
+<area shape="poly" title=" " alt="" coords="273,102,178,121,177,116,272,97"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70" title=" " alt="" coords="5,13,215,39"/>
+<area shape="poly" title=" " alt="" coords="266,28,215,28,215,23,266,23"/>
+<area shape="poly" title=" " alt="" coords="479,153,419,144,419,139,480,147"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#ac145b9dae6abd6c7b4e6582c622faf0b" title=" " alt="" coords="264,169,446,195"/>
+<area shape="poly" title=" " alt="" coords="480,176,446,178,446,173,479,171"/>
+<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#a14e4d6f21f56e74404eb9387fd5d97c9" title=" " alt="" coords="263,218,447,244"/>
+<area shape="poly" title=" " alt="" coords="504,193,448,210,409,220,407,215,446,204,503,188"/>
+<area shape="poly" title=" " alt="" coords="272,168,177,148,178,143,273,163"/>
+<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,218,198,244"/>
+<area shape="poly" title=" " alt="" coords="247,234,198,234,198,228,247,228"/>
 </map>
 </div>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a8031d1739d31fc66b45fc711bbdbfd3f" name="a8031d1739d31fc66b45fc711bbdbfd3f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8031d1739d31fc66b45fc711bbdbfd3f">&#9670;&#160;</a></span>path</h2>
+<a id="aba97424070e38a365d98ed139adb7c88" name="aba97424070e38a365d98ed139adb7c88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba97424070e38a365d98ed139adb7c88">&#9670;&#160;</a></span>config_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -824,7 +398,7 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;<a class="el" href="../../d9/d32/class_path_point.html">PathPoint</a> *&gt; PathSmoothing::path</td>
+          <td class="memname"><a class="el" href="../../de/dce/struct_path_smoothing_config.html">PathSmoothingConfig</a> PathSmoothing::config_</td>
         </tr>
       </table>
   </td>
@@ -834,85 +408,15 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d1d/path__smoothing_8hpp_source.html#l00023">23</a> of file <a class="el" href="../../d2/d1d/path__smoothing_8hpp_source.html">path_smoothing.hpp</a>.</p>
+<p>configuration of the smoothing algorithm </p>
 
-</div>
-</div>
-<a id="a14eb3efda5a3427fe192da6021a92388" name="a14eb3efda5a3427fe192da6021a92388"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a14eb3efda5a3427fe192da6021a92388">&#9670;&#160;</a></span>spline_coeffs_ratio_</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float PathSmoothing::spline_coeffs_ratio_ = 3</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../d2/d1d/path__smoothing_8hpp_source.html#l00026">26</a> of file <a class="el" href="../../d2/d1d/path__smoothing_8hpp_source.html">path_smoothing.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ae8188c9e1d0f62c618bbbaf1a5df80d8" name="ae8188c9e1d0f62c618bbbaf1a5df80d8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae8188c9e1d0f62c618bbbaf1a5df80d8">&#9670;&#160;</a></span>spline_order_</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int PathSmoothing::spline_order_ = 3</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../d2/d1d/path__smoothing_8hpp_source.html#l00025">25</a> of file <a class="el" href="../../d2/d1d/path__smoothing_8hpp_source.html">path_smoothing.hpp</a>.</p>
-
-</div>
-</div>
-<a id="acf7bb9c2b6eaa3e98a74270c64940c09" name="acf7bb9c2b6eaa3e98a74270c64940c09"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acf7bb9c2b6eaa3e98a74270c64940c09">&#9670;&#160;</a></span>spline_precision_</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int PathSmoothing::spline_precision_ = 10</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../d2/d1d/path__smoothing_8hpp_source.html#l00027">27</a> of file <a class="el" href="../../d2/d1d/path__smoothing_8hpp_source.html">path_smoothing.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/d28/smoothing_8hpp_source.html#l00024">24</a> of file <a class="el" href="../../d0/d28/smoothing_8hpp_source.html">smoothing.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>src/planning/include/planning/<a class="el" href="../../d2/d1d/path__smoothing_8hpp_source.html">path_smoothing.hpp</a></li>
-<li>src/planning/src/planning/<a class="el" href="../../d7/d15/path__smoothing_8cpp_source.html">path_smoothing.cpp</a></li>
+<li>src/planning/include/planning/<a class="el" href="../../d0/d28/smoothing_8hpp_source.html">smoothing.hpp</a></li>
+<li>src/planning/src/planning/<a class="el" href="../../d8/d35/smoothing_8cpp_source.html">smoothing.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

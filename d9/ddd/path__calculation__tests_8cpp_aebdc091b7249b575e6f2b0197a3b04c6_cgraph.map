@@ -1,0 +1,7 @@
+<map id="TEST" name="TEST">
+<area shape="rect" id="Node000001" title="scenario: small track with sharp edge" alt="" coords="5,5,60,31"/>
+<area shape="rect" id="Node000002" href="$d0/d09/planning_2test_2test__utils_2utils_8cpp.html#ae4770494f4382a6811df453c4e3c5c6b" title="Retrieves a track (a pair of colored cone vectors from each side) from a file." alt="" coords="108,5,214,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,16,92,16,92,21,60,21"/>
+<area shape="rect" id="Node000003" href="$d0/d09/planning_2test_2test__utils_2utils_8cpp.html#a82e479b6e5401fd9ab2dc0a0851f0a55" title="Opens a file for reading." alt="" coords="262,5,366,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="214,16,247,16,247,21,214,21"/>
+</map>

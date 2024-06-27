@@ -1,0 +1,26 @@
+<map id="round" name="round">
+<area shape="rect" id="Node000001" title="round to n decimal places" alt="" coords="223,228,276,254"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="267,215,261,209,250,207,239,209,233,213,232,219,235,227,230,229,227,219,229,210,237,204,250,201,264,204,271,211"/>
+<area shape="rect" id="Node000002" href="$d0/d09/planning_2test_2test__utils_2utils_8cpp.html#afbb0277ee17d082a0d2177393a346904" title="rounds float to n decimal places" alt="" coords="108,203,175,228"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="207,234,175,226,176,221,208,229"/>
+<area shape="rect" id="Node000012" href="$d9/d1e/tests_8cpp.html#aecfda6c17204e7cf412f53b036b63cd1" title="test control while oscilating the goal velocity." alt="" coords="114,252,169,278"/>
+<area shape="poly" id="edge12_Node000001_Node000012" title=" " alt="" coords="209,253,170,261,169,256,208,247"/>
+<area shape="rect" id="Node000003" href="$d2/de6/cone__coloring__tests_8cpp.html#a99ca8feb760b10bde94fbf21119a7604" title="test the placement of initial cones with the car oriented at 0 rad." alt="" coords="5,5,60,31"/>
+<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="129,189,101,120,81,81,58,44,48,33,52,30,62,41,86,78,106,118,134,187"/>
+<area shape="rect" id="Node000004" href="$d2/de6/cone__coloring__tests_8cpp.html#a398d0f768ac526b5665cff1adfe37df2" title="test the placement of initial cones with the car oriented at pi rad" alt="" coords="5,55,60,80"/>
+<area shape="poly" id="edge4_Node000002_Node000004" title=" " alt="" coords="123,190,95,144,58,93,47,82,51,79,62,90,99,141,128,188"/>
+<area shape="rect" id="Node000005" href="$db/d25/outliers__tests_8cpp.html#a6444194f58bc3029a0a05ad139a936bb" title="simplest scenario with cones forming a line and one outlier" alt="" coords="5,104,60,130"/>
+<area shape="poly" id="edge5_Node000002_Node000005" title=" " alt="" coords="113,194,46,132,50,128,116,190"/>
+<area shape="rect" id="Node000006" href="$db/d25/outliers__tests_8cpp.html#a912711c48de39f7de3c2b36e9325044e" title="scenario with large track that barely has outliers (only 2)" alt="" coords="5,153,60,179"/>
+<area shape="poly" id="edge6_Node000002_Node000006" title=" " alt="" coords="96,198,59,181,61,176,98,193"/>
+<area shape="rect" id="Node000007" href="$db/d25/outliers__tests_8cpp.html#a4a68b3eb3b12e17608252a76d0078b3c" title="scenario with large track but few outliers" alt="" coords="5,203,60,228"/>
+<area shape="poly" id="edge7_Node000002_Node000007" title=" " alt="" coords="92,218,60,218,60,213,92,213"/>
+<area shape="rect" id="Node000008" href="$db/d25/outliers__tests_8cpp.html#a8da418d229e5938ce58a1bd2f15f9940" title="scenario with large track and moderate number of outliers" alt="" coords="5,252,60,278"/>
+<area shape="poly" id="edge8_Node000002_Node000008" title=" " alt="" coords="98,238,61,255,59,250,96,233"/>
+<area shape="rect" id="Node000009" href="$db/d25/outliers__tests_8cpp.html#afd7c597757843019f76a4a41f78e4fbe" title="scenario with large track and abundant outliers" alt="" coords="5,301,60,327"/>
+<area shape="poly" id="edge9_Node000002_Node000009" title=" " alt="" coords="111,240,109,241,85,266,62,292,50,303,46,299,58,288,81,263,106,238,107,236"/>
+<area shape="rect" id="Node000010" href="$db/d25/outliers__tests_8cpp.html#adc20401a05e2700e2563f167506a2513" title="simple case in which there are cones only in the left size and no significant outliers" alt="" coords="5,351,60,376"/>
+<area shape="poly" id="edge10_Node000002_Node000010" title=" " alt="" coords="110,241,110,241,93,267,85,290,78,314,62,341,52,352,48,348,58,338,73,311,80,288,89,264,106,238,106,237"/>
+<area shape="rect" id="Node000011" href="$db/d25/outliers__tests_8cpp.html#a77f1e81c905b352c5a9d67f0c587a145" title="simple scenario only with left cones but with 4 significant outliers" alt="" coords="5,400,60,426"/>
+<area shape="poly" id="edge11_Node000002_Node000011" title=" " alt="" coords="110,241,110,241,98,261,91,279,85,314,80,349,73,369,62,390,53,401,48,398,57,387,68,367,75,348,80,313,86,278,93,259,105,238,106,238"/>
+</map>

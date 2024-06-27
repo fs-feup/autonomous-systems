@@ -1,0 +1,13 @@
+<map id="PlanningConfig" name="PlanningConfig">
+<area shape="rect" id="Node000001" title="struct for the configuration of the outliers removal algorithm." alt="" coords="331,254,448,339"/>
+<area shape="rect" id="Node000002" href="$d1/df2/struct_cone_coloring_config.html" title="struct for the configuration of the cone coloring algorithm." alt="" coords="5,5,149,191"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="151,177,163,189,185,210,210,227,262,253,315,272,314,277,260,257,207,232,182,214,159,193,147,181"/>
+<area shape="rect" id="Node000003" href="$d7/d4c/struct_outliers_config.html" title="struct for the configuration of the outliers removal algorithm." alt="" coords="173,35,285,161"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="273,159,326,228,336,240,332,243,322,231,269,162"/>
+<area shape="rect" id="Node000004" href="$df/d7d/struct_path_calculation_config.html" title="struct for the configuration of the outliers removal algorithm." alt="" coords="310,55,469,141"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="392,140,392,236,387,236,387,140"/>
+<area shape="rect" id="Node000005" href="$de/dce/struct_path_smoothing_config.html" title="struct for the configuration of the smoothing algorithm" alt="" coords="493,35,649,161"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="552,162,534,198,509,231,488,250,464,265,461,261,484,246,505,228,529,195,547,159"/>
+<area shape="rect" id="Node000006" href="$d3/db0/struct_simulation_config.html" title="struct for the configuration of the smoothing algorithm" alt="" coords="673,38,833,158"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="700,160,663,193,634,215,601,232,532,259,465,280,463,274,530,254,599,227,631,210,660,189,696,156"/>
+</map>

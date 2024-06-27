@@ -1,0 +1,7 @@
+<map id="test_cone_coloring" name="test_cone_coloring">
+<area shape="rect" id="Node000001" title="Function to validate cone coloring." alt="" coords="108,31,238,56"/>
+<area shape="rect" id="Node000002" href="$d2/de6/cone__coloring__tests_8cpp.html#a04f3065d9004b0a2ac2c8f6d00bc34b0" title="test the full cone coloring algorithm in a large track" alt="" coords="5,5,60,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,32,60,26,60,20,93,26"/>
+<area shape="rect" id="Node000003" href="$d2/de6/cone__coloring__tests_8cpp.html#ae0eb2417c307a7e6015466adfe20b14d" title="test the full cone coloring algorithm in 20 tracks." alt="" coords="5,55,60,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="93,60,60,66,60,60,92,55"/>
+</map>

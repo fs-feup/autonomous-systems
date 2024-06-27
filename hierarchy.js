@@ -6,7 +6,7 @@ var hierarchy =
       [ "evaluator.pacsim_adapter.PacsimAdapter", "d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter.html", null ],
       [ "evaluator.vehicle_adapter.VehicleAdapter", "dc/d76/classevaluator_1_1vehicle__adapter_1_1_vehicle_adapter.html", null ]
     ] ],
-    [ "AngleNorm", "df/d47/struct_angle_norm.html", null ],
+    [ "common_lib::maths::AngleAndNorms", "de/df9/structcommon__lib_1_1maths_1_1_angle_and_norms.html", null ],
     [ "CenterCalculator", "df/daa/class_center_calculator.html", [
       [ "CentroidCalculator", "da/d39/class_centroid_calculator.html", null ],
       [ "CircunferenceCenterCalculation", "d8/d0d/class_circunference_center_calculation.html", null ]
@@ -16,8 +16,8 @@ var hierarchy =
       [ "DBSCAN", "df/d6a/class_d_b_s_c_a_n.html", null ]
     ] ],
     [ "common_lib::structures::Cone", "d6/dd0/structcommon__lib_1_1structures_1_1_cone.html", null ],
-    [ "Cone", "d8/da1/class_cone.html", null ],
     [ "ConeColoring", "dd/d52/class_cone_coloring.html", null ],
+    [ "ConeColoringConfig", "d1/df2/struct_cone_coloring_config.html", null ],
     [ "ConeDifferentiation", "d7/d4e/class_cone_differentiation.html", [
       [ "LeastSquaresDifferentiation", "d7/d15/class_least_squares_differentiation.html", null ]
     ] ],
@@ -39,18 +39,26 @@ var hierarchy =
     [ "ExecTimeTestEKFTests", "d2/dac/class_exec_time_test_e_k_f_tests.html", null ],
     [ "ExtendedKalmanFilter", "da/da6/class_extended_kalman_filter.html", null ],
     [ "std::false_type", null, [
+      [ "HasDefaultConstructor< T, typename >", "d2/de8/struct_has_default_constructor.html", null ],
+      [ "HasEqualityOperator< T, typename >", "d3/dd8/struct_has_equality_operator.html", null ],
+      [ "HasEuclideanDistance< T, typename >", "d2/d8c/struct_has_euclidean_distance.html", null ],
+      [ "HasPosition< T, typename >", "db/d42/struct_has_position.html", null ],
+      [ "HasPositionXY< T, typename >", "dd/d5d/struct_has_position_x_y.html", null ],
+      [ "IsCopyConstructor< T, typename >", "d7/de5/struct_is_copy_constructor.html", null ],
+      [ "IsHashable< T, typename >", "d3/d27/struct_is_hashable.html", null ],
+      [ "PositionXYAreDouble< T, typename >", "d0/dc2/struct_position_x_y_are_double.html", null ],
       [ "common_lib::communication::has_position< T, typename >", "d3/d0c/structcommon__lib_1_1communication_1_1has__position.html", null ]
     ] ],
-    [ "GlobalPathPlanner", "d2/da4/class_global_path_planner.html", null ],
     [ "GroundRemoval", "dc/d84/class_ground_removal.html", [
       [ "GridRANSAC", "de/d59/class_grid_r_a_n_s_a_c.html", null ],
       [ "RANSAC", "d6/dc3/class_r_a_n_s_a_c.html", null ]
     ] ],
-    [ "std::hash< PathPoint >", "d1/d0b/structstd_1_1hash_3_01_path_point_01_4.html", null ],
+    [ "std::hash< common_lib::structures::Cone >", "dc/d41/structstd_1_1hash_3_01common__lib_1_1structures_1_1_cone_01_4.html", null ],
+    [ "std::hash< common_lib::structures::PathPoint >", "db/d69/structstd_1_1hash_3_01common__lib_1_1structures_1_1_path_point_01_4.html", null ],
+    [ "std::hash< common_lib::structures::Position >", "d2/dff/structstd_1_1hash_3_01common__lib_1_1structures_1_1_position_01_4.html", null ],
     [ "ICP", "dd/d10/class_i_c_p.html", null ],
     [ "common_lib::sensor_data::ImuData", "df/d48/structcommon__lib_1_1sensor__data_1_1_imu_data.html", null ],
     [ "InspectionFunctions", "d4/d89/class_inspection_functions.html", null ],
-    [ "LocalPathPlanner", "d3/da1/class_local_path_planner.html", null ],
     [ "MotionModel", "db/d66/class_motion_model.html", [
       [ "ImuVelocityModel", "d2/d58/class_imu_velocity_model.html", null ],
       [ "NormalVelocityModel", "d7/df9/class_normal_velocity_model.html", null ]
@@ -81,24 +89,28 @@ var hierarchy =
     ] ],
     [ "ObservationData", "d9/d90/struct_observation_data.html", null ],
     [ "ObservationModel", "d7/d64/class_observation_model.html", null ],
+    [ "Outliers", "d9/d53/class_outliers.html", null ],
+    [ "OutliersConfig", "d7/d4c/struct_outliers_config.html", null ],
+    [ "PathCalculation", "d0/d89/class_path_calculation.html", null ],
+    [ "PathCalculationConfig", "df/d7d/struct_path_calculation_config.html", null ],
     [ "common_lib::structures::PathPoint", "d9/db0/structcommon__lib_1_1structures_1_1_path_point.html", null ],
-    [ "PathPoint", "d9/d32/class_path_point.html", null ],
     [ "PathPointEqual", "d1/d5e/struct_path_point_equal.html", null ],
     [ "PathPointHash", "d8/da1/struct_path_point_hash.html", null ],
     [ "PathSmoothing", "d7/db7/class_path_smoothing.html", null ],
+    [ "PathSmoothingConfig", "de/dce/struct_path_smoothing_config.html", null ],
     [ "PerceptionExecutionData", "d2/d36/struct_perception_execution_data.html", null ],
     [ "PerceptionParameters", "de/dda/struct_perception_parameters.html", null ],
     [ "PID", "d6/d5a/class_p_i_d.html", null ],
     [ "Plane", "d2/d8d/class_plane.html", null ],
+    [ "PlanningConfig", "df/dec/struct_planning_config.html", null ],
     [ "PlanningParameters", "d2/deb/struct_planning_parameters.html", null ],
     [ "PointSolver", "d9/da5/class_point_solver.html", null ],
     [ "common_lib::structures::Pose", "d8/d4a/structcommon__lib_1_1structures_1_1_pose.html", [
       [ "common_lib::structures::VehiclePose", "de/d41/structcommon__lib_1_1structures_1_1_vehicle_pose.html", null ]
     ] ],
-    [ "Pose", "d8/d11/struct_pose.html", null ],
     [ "common_lib::structures::Position", "dc/d1b/structcommon__lib_1_1structures_1_1_position.html", null ],
-    [ "Position", "d1/d26/struct_position.html", null ],
     [ "PurePursuit", "dc/dde/class_pure_pursuit.html", null ],
+    [ "SimulationConfig", "d3/db0/struct_simulation_config.html", null ],
     [ "testing::Test", null, [
       [ "CircunferenceCenterCalculationTest", "d1/df5/class_circunference_center_calculation_test.html", null ],
       [ "CylinderValidatorTest", "da/dcf/class_cylinder_validator_test.html", null ],
@@ -119,8 +131,15 @@ var hierarchy =
     [ "threading.Thread", null, [
       [ "pacsim_keys.main.PublishThread", "db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html", null ]
     ] ],
-    [ "Track", "d6/d2c/class_track.html", null ],
     [ "std::true_type", null, [
+      [ "HasDefaultConstructor< T, std::void_t< decltype(T())> >", "d1/d5a/struct_has_default_constructor_3_01_t_00_01std_1_1void__t_3_01decltype_07_t_07_08_08_4_01_4.html", null ],
+      [ "HasEqualityOperator< T, std::void_t< decltype(std::declval< T >()==std::declval< T >())> >", "dd/d59/struct_has_equality_operator_3_01_t_00_01std_1_1void__t_3_01decltype_07std_1_1declval_3_01_t_01_def808c9cf5a85b640be170f337607f6.html", null ],
+      [ "HasEuclideanDistance< T, std::void_t< decltype(std::declval< T >().position.euclidean_distance(std::declval< T >().position))> >", "dc/d16/struct_has_euclidean_distance_3_01_t_00_01std_1_1void__t_3_01decltype_07std_1_1declval_3_01_t_01220e586b84eba3363386e4d3fefa434b.html", null ],
+      [ "HasPosition< T, std::void_t< decltype(std::declval< T >().position)> >", "d8/da8/struct_has_position_3_01_t_00_01std_1_1void__t_3_01decltype_07std_1_1declval_3_01_t_01_4_07_08_8position_08_4_01_4.html", null ],
+      [ "HasPositionXY< T, std::void_t< decltype(std::declval< T >().position.x), decltype(std::declval< T >().position.y)> >", "d9/d5e/struct_has_position_x_y_3_01_t_00_01std_1_1void__t_3_01decltype_07std_1_1declval_3_01_t_01_4_07_455e40f4ff60de8f354a633d607f673c.html", null ],
+      [ "IsCopyConstructor< T, std::void_t< decltype(T(std::declval< T >()))> >", "d8/dab/struct_is_copy_constructor_3_01_t_00_01std_1_1void__t_3_01decltype_07_t_07std_1_1declval_3_01_t_01_4_07_08_08_08_4_01_4.html", null ],
+      [ "IsHashable< T, std::void_t< decltype(std::hash< T >{}(std::declval< T >()))> >", "d6/d10/struct_is_hashable_3_01_t_00_01std_1_1void__t_3_01decltype_07std_1_1hash_3_01_t_01_4_02_03_07std25ddd8d3622353e1429f952e1dd1e659.html", null ],
+      [ "PositionXYAreDouble< T, std::enable_if_t< std::is_same_v< decltype(std::declval< T >().position.x), double > &&std::is_same_v< decltype(std::declval< T >().position.y), double > > >", "d8/da1/struct_position_x_y_are_double_3_01_t_00_01std_1_1enable__if__t_3_01std_1_1is__same__v_3_01declt1791f863a2ceff256cf7e96446ba334e.html", null ],
       [ "common_lib::communication::has_position< T, std::enable_if_t< std::is_arithmetic_v< decltype(std::declval< T >().position.x)> &&std::is_arithmetic_v< decltype(std::declval< T >().position.y)> > >", "db/d9e/structcommon__lib_1_1communication_1_1has__position_3_01_t_00_01std_1_1enable__if__t_3_01std_1_1e75ec67db346af9d8f02160e644a1dcb.html", null ]
     ] ],
     [ "common_lib::structures::VehicleState", "d0/d2a/structcommon__lib_1_1structures_1_1_vehicle_state.html", null ],

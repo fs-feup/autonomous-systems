@@ -1,0 +1,11 @@
+<map id="iterate_coloring" name="iterate_coloring">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,63,115,88"/>
+<area shape="rect" id="Node000002" href="$d0/d09/planning_2test_2test__utils_2utils_8cpp.html#a7581946a647c2a991f5e80cbcf2980af" title="Retrieves a cone vector from a file." alt="" coords="164,5,312,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="102,60,180,34,182,39,103,65"/>
+<area shape="rect" id="Node000004" href="$d0/d09/planning_2test_2test__utils_2utils_8cpp.html#a2c3bbc9fd458920b2aa9308286235fd9" title="Get current date and time as a string." alt="" coords="163,55,313,96"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="115,73,147,73,147,78,115,78"/>
+<area shape="rect" id="Node000005" href="$dd/d8b/files_8cpp.html#a31528f6190bb65cd23060103e913aa53" title=" " alt="" coords="188,120,288,146"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="103,86,182,112,180,117,102,91"/>
+<area shape="rect" id="Node000003" href="$d0/d09/planning_2test_2test__utils_2utils_8cpp.html#a82e479b6e5401fd9ab2dc0a0851f0a55" title="Opens a file for reading." alt="" coords="361,5,465,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="312,16,345,16,345,21,312,21"/>
+</map>

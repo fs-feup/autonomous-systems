@@ -14,9 +14,10 @@ var searchData=
   ['differentiator_5f_11',['differentiator_',['../d6/d5a/class_p_i_d.html#a5b80b0c5f3b2bea7a66f1d881d7d97ab',1,'PID']]],
   ['dist_5fcg_5f2_5frear_5faxis_12',['DIST_CG_2_REAR_AXIS',['../d2/da6/car__parameters_8hpp.html#a7b26123754d1a8572624cb977780b1a8',1,'car_parameters.hpp']]],
   ['dist_5fcg_5f2_5frear_5faxis_5f_13',['dist_cg_2_rear_axis_',['../d9/da5/class_point_solver.html#a5ae26697c29c779b29f6ce4a0d34702a',1,'PointSolver']]],
-  ['distance_5fexponent_5f_14',['distance_exponent_',['../d9/db5/class_planning.html#a7638c71cbb787097ce0dc83da813c31a',1,'Planning::distance_exponent_'],['../d2/deb/struct_planning_parameters.html#aa66ae8f1c1bd9f70913bf9bcaa2d631a',1,'PlanningParameters::distance_exponent_']]],
-  ['distance_5fgain_15',['distance_gain',['../dd/d52/class_cone_coloring.html#aaa0c9833a50f5e724323ee555d86baa4',1,'ConeColoring']]],
-  ['distance_5fgain_5f_16',['distance_gain_',['../d9/db5/class_planning.html#aa71e1520ac0d6035bb78e56eb92339de',1,'Planning::distance_gain_'],['../d2/deb/struct_planning_parameters.html#a4b0507baec524e34a3cc66dcce633a73',1,'PlanningParameters::distance_gain_']]],
+  ['dist_5fthreshold_5f_14',['dist_threshold_',['../df/d7d/struct_path_calculation_config.html#a621fb3952537c767bdb79ba03bb2d6d1',1,'PathCalculationConfig']]],
+  ['distance_5fexponent_5f_15',['distance_exponent_',['../d2/deb/struct_planning_parameters.html#aa66ae8f1c1bd9f70913bf9bcaa2d631a',1,'PlanningParameters::distance_exponent_'],['../d1/df2/struct_cone_coloring_config.html#a405b421c77f91d7fd0f45bcffcbb6362',1,'ConeColoringConfig::distance_exponent_']]],
+  ['distance_5fgain_5f_16',['distance_gain_',['../d2/deb/struct_planning_parameters.html#a4b0507baec524e34a3cc66dcce633a73',1,'PlanningParameters']]],
   ['distance_5fpredict_5f_17',['distance_predict_',['../de/dda/struct_perception_parameters.html#a0e0154032909e563baaebbf2cead1a10',1,'PerceptionParameters']]],
-  ['done_18',['done',['../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#a2824cda64de07ed786c4900098082771',1,'pacsim_keys::main::PublishThread']]]
+  ['distance_5fweight_5f_18',['distance_weight_',['../d1/df2/struct_cone_coloring_config.html#acce02c8e2ca22e8881adfd52552c3cb8',1,'ConeColoringConfig']]],
+  ['done_19',['done',['../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#a2824cda64de07ed786c4900098082771',1,'pacsim_keys::main::PublishThread']]]
 ];

@@ -1,0 +1,7 @@
+<map id="ConeColoring::try_to_color_next_cone" name="ConeColoring::try_to_color_next_cone">
+<area shape="rect" id="Node000001" title="select the next cone (which minimizes the cost) to be colored if its cost is less than the maximum es..." alt="" coords="5,5,142,46"/>
+<area shape="rect" id="Node000002" href="$dd/d52/class_cone_coloring.html#a248d064be09d7eb7ebc907f466ac73be" title="calculate the cost of coloring a cone" alt="" coords="190,13,378,39"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="142,23,174,23,174,28,142,28"/>
+<area shape="rect" id="Node000003" href="$d2/d32/namespacecommon__lib_1_1maths.html#a158ecb4f5554792fc31db938539c8008" title="Function used to calculate the angle between two vectors and their norms." alt="" coords="426,5,565,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="378,23,410,23,410,28,378,28"/>
+</map>

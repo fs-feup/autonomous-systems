@@ -23,16 +23,6 @@ var namespaces_dup =
       [ "setup_gcs_client", "d8/dc7/namespacebucket__operations.html#aa94a609f0d95546119319696d87c5ccf", null ],
       [ "upload_csv_to_bucket", "d8/dc7/namespacebucket__operations.html#aa899ad61fdb53bd44dd8c1bf7e94cc28", null ]
     ] ],
-    [ "colors", "dc/d04/namespacecolors.html", [
-      [ "Color", "dc/d04/namespacecolors.html#a76f863e71ce8e67d1ef1850029f93b0a", [
-        [ "blue", "dc/d04/namespacecolors.html#a76f863e71ce8e67d1ef1850029f93b0aa70853d68db63d87ec4ea23c299c42357", null ],
-        [ "yellow", "dc/d04/namespacecolors.html#a76f863e71ce8e67d1ef1850029f93b0aaad4a85d77dd807da987be7cb54649a6d", null ],
-        [ "ORANGE", "dc/d04/namespacecolors.html#a76f863e71ce8e67d1ef1850029f93b0aa3faadcf5ba790b3507788b59ec1d0203", null ],
-        [ "LARGE_ORANGE", "dc/d04/namespacecolors.html#a76f863e71ce8e67d1ef1850029f93b0aa2bc986adbdd29f9e1deac0b5f72c50a2", null ]
-      ] ],
-      [ "color_map", "dc/d04/namespacecolors.html#a7b7bc8b38bbb7e17402852ab86288b01", null ],
-      [ "color_names", "dc/d04/namespacecolors.html#a5fcb35fd759df9bfec1d17fecfcfe6c7", null ]
-    ] ],
     [ "common_lib", "dd/d5f/namespacecommon__lib.html", "dd/d5f/namespacecommon__lib" ],
     [ "dashboard", "df/d91/namespacedashboard.html", [
       [ "cleanup_temp_folder", "df/d91/namespacedashboard.html#a1e6e5d5c2c545f230e2a03ff914b2720", null ],

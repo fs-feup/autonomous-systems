@@ -1,0 +1,5 @@
+<map id="ConeColoring::find_initial_cone" name="ConeColoring::find_initial_cone">
+<area shape="rect" id="Node000001" title="function to find the initial cone according to the distance to the expected position" alt="" coords="5,5,130,46"/>
+<area shape="rect" id="Node000002" href="$dd/d52/class_cone_coloring.html#a4d5383a83dcfeda441351086839c22fd" title="calculate the expected position of the initial cones" alt="" coords="178,5,334,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="130,23,162,23,162,28,130,28"/>
+</map>

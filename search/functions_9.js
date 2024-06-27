@@ -9,5 +9,9 @@ var searchData=
   ['inspectionmission_6',['InspectionMission',['../de/d3d/class_inspection_mission.html#a62ddad48c6252a28b6f2c480f84229d1',1,'InspectionMission']]],
   ['invalidmissionexception_7',['InvalidMissionException',['../d3/df9/class_invalid_mission_exception.html#abc151ad9124b662cc86e87c7ad8995e8',1,'InvalidMissionException']]],
   ['inverse_5fobservation_5fmodel_8',['inverse_observation_model',['../d7/d64/class_observation_model.html#a1e57d72d1b32a2260c9dfc8d25bd802d',1,'ObservationModel']]],
-  ['is_5fpredicitve_5fmission_9',['is_predicitve_mission',['../d9/db5/class_planning.html#a5f0cfd02996a6befd1ab5e6991449497',1,'Planning']]]
+  ['is_5fpredicitve_5fmission_9',['is_predicitve_mission',['../d9/db5/class_planning.html#a5f0cfd02996a6befd1ab5e6991449497',1,'Planning']]],
+  ['iterate_5fcoloring_10',['iterate_coloring',['../d3/d72/planning_2test_2performance__test_8cpp.html#a0545f40dd80c8f8d8814704bd67bad25',1,'performance_test.cpp']]],
+  ['iterate_5foutliers_11',['iterate_outliers',['../d3/d72/planning_2test_2performance__test_8cpp.html#aab2295277d22fafb888111e66fdac82f',1,'performance_test.cpp']]],
+  ['iterate_5fsmoothing_12',['iterate_smoothing',['../d3/d72/planning_2test_2performance__test_8cpp.html#ace1de27c0d0025682943b154a203ad8a',1,'performance_test.cpp']]],
+  ['iterate_5ftriangulations_13',['iterate_triangulations',['../d3/d72/planning_2test_2performance__test_8cpp.html#a808870244af80707b55103c95bfdb4ed',1,'performance_test.cpp']]]
 ];

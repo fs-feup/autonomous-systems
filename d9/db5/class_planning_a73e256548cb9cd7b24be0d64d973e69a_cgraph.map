@@ -1,0 +1,5 @@
+<map id="Planning::publish_track_points" name="Planning::publish_track_points">
+<area shape="rect" id="Node000001" title="Publishes a list of path points." alt="" coords="5,13,160,54"/>
+<area shape="rect" id="Node000002" href="$d1/dd0/namespacecommon__lib_1_1communication.html#a8a2d8764017ab8e3f91e8c5b51c613d2" title=" " alt="" coords="208,5,393,61"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="160,31,192,31,192,36,160,36"/>
+</map>

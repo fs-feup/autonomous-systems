@@ -1,0 +1,9 @@
+<map id="ConeColoring::place_initial_cones" name="ConeColoring::place_initial_cones">
+<area shape="rect" id="Node000001" title="function to place the initial cones, including the virtual ones" alt="" coords="5,39,141,79"/>
+<area shape="rect" id="Node000002" href="$dd/d52/class_cone_coloring.html#a00c350bf4d9f8463dfda24ec1cf09a90" title="function to find the initial cone according to the distance to the expected position" alt="" coords="207,5,332,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="141,45,192,36,193,41,141,50"/>
+<area shape="rect" id="Node000004" href="$dd/d52/class_cone_coloring.html#a46c3e0493a08adc9592494f2a75e681b" title="calculate the position of a virtual cone relative to a real one" alt="" coords="189,71,350,111"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="141,67,174,73,173,78,141,73"/>
+<area shape="rect" id="Node000003" href="$dd/d52/class_cone_coloring.html#a4d5383a83dcfeda441351086839c22fd" title="calculate the expected position of the initial cones" alt="" coords="398,5,554,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="332,23,383,23,383,28,332,28"/>
+</map>

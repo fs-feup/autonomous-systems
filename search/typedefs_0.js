@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['dt_0',['DT',['../d2/d05/local__path__planner_8hpp.html#a9c9de009e728ad35a426eba06617a2c7',1,'local_path_planner.hpp']]]
+  ['angleandnorms_0',['AngleAndNorms',['../d3/d6c/cone__coloring_8hpp.html#aea23b107123f041f7300670228788efe',1,'cone_coloring.hpp']]]
 ];

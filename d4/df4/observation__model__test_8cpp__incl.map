@@ -9,7 +9,7 @@
 <area shape="rect" id="Node000005" href="$d9/def/observation__models_8hpp.html" title=" " alt="" coords="240,94,406,135"/>
 <area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="165,44,263,85,261,90,163,49"/>
 <area shape="poly" id="edge5_Node000005_Node000002" title=" " alt="" coords="267,138,124,187,122,182,265,133"/>
-<area shape="rect" id="Node000006" href="$d8/df3/common__lib_2include_2common__lib_2competition__logic_2color_8hpp.html" title=" " alt="" coords="203,183,365,223"/>
+<area shape="rect" id="Node000006" href="$d6/dfd/color_8hpp.html" title=" " alt="" coords="203,183,365,223"/>
 <area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="316,136,302,169,297,167,312,134"/>
 <area shape="rect" id="Node000009" href="$d5/d91/position_8hpp.html" title=" " alt="" coords="389,183,542,223"/>
 <area shape="poly" id="edge9_Node000005_Node000009" title=" " alt="" coords="357,133,422,172,419,177,354,137"/>
@@ -17,4 +17,6 @@
 <area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="277,225,262,258,257,256,273,223"/>
 <area shape="rect" id="Node000008" title=" " alt="" coords="294,271,347,297"/>
 <area shape="poly" id="edge8_Node000006_Node000008" title=" " alt="" coords="295,223,311,256,306,258,291,225"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="427,271,504,297"/>
+<area shape="poly" id="edge10_Node000009_Node000010" title=" " alt="" coords="468,224,468,256,463,256,463,224"/>
 </map>

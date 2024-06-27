@@ -2,12 +2,7 @@ var searchData=
 [
   ['dataassociationmodel_0',['DataAssociationModel',['../d1/d14/class_data_association_model.html#a54823418322231403c42e31c3b300896',1,'DataAssociationModel']]],
   ['dbscan_1',['DBSCAN',['../df/d6a/class_d_b_s_c_a_n.html#a94493ac3bb1a2e9df61bed66ad78ced8',1,'DBSCAN']]],
-  ['defaultsmoother_2',['defaultSmoother',['../d7/db7/class_path_smoothing.html#ab7c36b75c79ce5ec6ff7388f2087e316',1,'PathSmoothing']]],
-  ['deleteoutliers_3',['deleteOutliers',['../d6/d2c/class_track.html#a16332dc3e5e2cf486f4cc3b5123e3368',1,'Track']]],
-  ['distance_5fsquared_5fto_4',['distance_squared_to',['../d1/d26/struct_position.html#a70b4ea0abb71c5e8940451263ad579c2',1,'Position']]],
-  ['distance_5fto_5',['distance_to',['../d1/d26/struct_position.html#ad3eaacb92df1bdbbd5d3700b215f3284',1,'Position']]],
-  ['distance_5fto_5fside_6',['distance_to_side',['../dd/d52/class_cone_coloring.html#a78736262a20cf6c4a0c4676369ba095a',1,'ConeColoring']]],
-  ['distancepredict_7',['DistancePredict',['../d0/d47/class_distance_predict.html#a891b03e51801728159376f22be4db624',1,'DistancePredict']]],
-  ['download_5fand_5fcombine_5fcsvs_8',['download_and_combine_csvs',['../df/d91/namespacedashboard.html#a90f635ccbe7e0720c3342eaeaaea8968',1,'dashboard']]],
-  ['download_5fcsv_5ffrom_5fbucket_5fto_5ffolder_9',['download_csv_from_bucket_to_folder',['../d8/dc7/namespacebucket__operations.html#aae87ecaefca1236879594bcb25a03eb1',1,'bucket_operations']]]
+  ['distancepredict_2',['DistancePredict',['../d0/d47/class_distance_predict.html#a891b03e51801728159376f22be4db624',1,'DistancePredict']]],
+  ['download_5fand_5fcombine_5fcsvs_3',['download_and_combine_csvs',['../df/d91/namespacedashboard.html#a90f635ccbe7e0720c3342eaeaaea8968',1,'dashboard']]],
+  ['download_5fcsv_5ffrom_5fbucket_5fto_5ffolder_4',['download_csv_from_bucket_to_folder',['../d8/dc7/namespacebucket__operations.html#aae87ecaefca1236879594bcb25a03eb1',1,'bucket_operations']]]
 ];

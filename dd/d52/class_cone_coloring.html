@@ -93,16 +93,13 @@ $(document).ready(function(){initNavTree('dd/d52/class_cone_coloring.html','../.
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="../../d7/d2e/class_cone_coloring-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">ConeColoring Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
-
-<p>Class responsible for recieving a set of uncolored cones and discovering their color This is done by performing a search that tries to find each side of the track by iteratively selecting the cone with the least cost to be added to each side of the track, according to the cost function defined in the class.  
- <a href="../../dd/d52/class_cone_coloring.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="../../d3/d6c/cone__coloring_8hpp_source.html">cone_coloring.hpp</a>&gt;</code></p>
 <div class="dynheader">
@@ -110,94 +107,69 @@ Collaboration diagram for ConeColoring:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../df/d1d/class_cone_coloring__coll__graph.png" border="0" usemap="#a_cone_coloring_coll__map" alt="Collaboration graph"/></div>
 <map name="a_cone_coloring_coll__map" id="a_cone_coloring_coll__map">
-<area shape="rect" title="Class responsible for recieving a set of uncolored cones and discovering their color This is done by ..." alt="" coords="5,5,179,511"/>
+<area shape="rect" title=" " alt="" coords="5,254,169,528"/>
+<area shape="rect" href="../../d1/df2/struct_cone_coloring_config.html" title="struct for the configuration of the cone coloring algorithm." alt="" coords="15,5,159,191"/>
+<area shape="poly" title=" " alt="" coords="90,190,90,237,85,237,85,190"/>
 </map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a9fce70182b8f2676b7f3aa2c77242886" id="r_a9fce70182b8f2676b7f3aa2c77242886"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#a9fce70182b8f2676b7f3aa2c77242886">ConeColoring</a> ()=default</td></tr>
-<tr class="memdesc:a9fce70182b8f2676b7f3aa2c77242886"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new default <a class="el" href="../../d8/da1/class_cone.html" title="Cone class.">Cone</a> Coloring object.  <br /></td></tr>
+<tr class="memdesc:a9fce70182b8f2676b7f3aa2c77242886"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new default <a class="el" href="../../dd/d52/class_cone_coloring.html">ConeColoring</a> object.  <br /></td></tr>
 <tr class="separator:a9fce70182b8f2676b7f3aa2c77242886"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a895fb74cc24bc0e1d9c821aad463409c" id="r_a895fb74cc24bc0e1d9c821aad463409c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#a895fb74cc24bc0e1d9c821aad463409c">ConeColoring</a> (double gain_angle, double gain_distance, double gain_ncones, double exponent_1, double exponent_2, double cost_max)</td></tr>
-<tr class="memdesc:a895fb74cc24bc0e1d9c821aad463409c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="../../d8/da1/class_cone.html" title="Cone class.">Cone</a> Coloring:: <a class="el" href="../../d8/da1/class_cone.html" title="Cone class.">Cone</a> Coloring object.  <br /></td></tr>
-<tr class="separator:a895fb74cc24bc0e1d9c821aad463409c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea4237fcc98dec4eb82034bf8c71e3a0" id="r_aea4237fcc98dec4eb82034bf8c71e3a0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#aea4237fcc98dec4eb82034bf8c71e3a0">color_cones</a> (const std::vector&lt; <a class="el" href="../../d8/da1/class_cone.html">Cone</a> * &gt; &amp;input_cones, <a class="el" href="../../d8/d11/struct_pose.html">Pose</a> initial_car_pose, double distance_threshold)</td></tr>
-<tr class="memdesc:aea4237fcc98dec4eb82034bf8c71e3a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">color the cones based on the cost to reach them  <br /></td></tr>
-<tr class="separator:aea4237fcc98dec4eb82034bf8c71e3a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7606807a4493f219ccaa3fccf259943" id="r_ab7606807a4493f219ccaa3fccf259943"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d8/da1/class_cone.html">Cone</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#ab7606807a4493f219ccaa3fccf259943">get_initial_cone</a> (const std::vector&lt; <a class="el" href="../../d8/da1/class_cone.html">Cone</a> * &gt; &amp;candidates, <a class="el" href="../../d8/d11/struct_pose.html">Pose</a> initial_car_pose, <a class="el" href="../../d7/d88/right__left__enum_8hpp.html#ab29ebb3bd0eb1f2813c692fe882c3186">TrackSide</a> side) const</td></tr>
-<tr class="memdesc:ab7606807a4493f219ccaa3fccf259943"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the initial cone to start the path from side determined by parameter  <br /></td></tr>
-<tr class="separator:ab7606807a4493f219ccaa3fccf259943"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab48a807ad4ebbab14fa66abb2c235d7e" id="r_ab48a807ad4ebbab14fa66abb2c235d7e"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../d8/da1/class_cone.html">Cone</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#ab48a807ad4ebbab14fa66abb2c235d7e">filter_cones_by_distance</a> (const std::vector&lt; <a class="el" href="../../d8/da1/class_cone.html">Cone</a> * &gt; &amp;input_cones, <a class="el" href="../../d1/d26/struct_position.html">Position</a> position, double radius) const</td></tr>
-<tr class="memdesc:ab48a807ad4ebbab14fa66abb2c235d7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">filter cones that are closer than a certain radius  <br /></td></tr>
-<tr class="separator:ab48a807ad4ebbab14fa66abb2c235d7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af78a1e3246e614f0966073d1938f2897" id="r_af78a1e3246e614f0966073d1938f2897"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; std::vector&lt; std::pair&lt; <a class="el" href="../../d8/da1/class_cone.html">Cone</a> *, bool &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#af78a1e3246e614f0966073d1938f2897">make_unvisited_cones</a> (const std::vector&lt; <a class="el" href="../../d8/da1/class_cone.html">Cone</a> * &gt; &amp;cones) const</td></tr>
-<tr class="memdesc:af78a1e3246e614f0966073d1938f2897"><td class="mdescLeft">&#160;</td><td class="mdescRight">make a vector of cones and a boolean to determine if the cone has been visited  <br /></td></tr>
-<tr class="separator:af78a1e3246e614f0966073d1938f2897"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d1cff5f96836f91157149c03903fcc4" id="r_a0d1cff5f96836f91157149c03903fcc4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#a0d1cff5f96836f91157149c03903fcc4">place_initial_cones</a> (const std::vector&lt; <a class="el" href="../../d8/da1/class_cone.html">Cone</a> * &gt; &amp;input_cones, <a class="el" href="../../d8/d11/struct_pose.html">Pose</a> initial_car_pose)</td></tr>
-<tr class="memdesc:a0d1cff5f96836f91157149c03903fcc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">add the best initial cones to the sides of the track  <br /></td></tr>
-<tr class="separator:a0d1cff5f96836f91157149c03903fcc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a5c2cca77802d01ce2cdb49f00d1f51e8" id="r_a5c2cca77802d01ce2cdb49f00d1f51e8"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../d8/da1/class_cone.html">Cone</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#a5c2cca77802d01ce2cdb49f00d1f51e8">current_left_cones</a> = {}</td></tr>
-<tr class="memdesc:a5c2cca77802d01ce2cdb49f00d1f51e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">current cones on the left side  <br /></td></tr>
-<tr class="separator:a5c2cca77802d01ce2cdb49f00d1f51e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad57837293e6b81b21b63ba5923ad2102" id="r_ad57837293e6b81b21b63ba5923ad2102"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../d8/da1/class_cone.html">Cone</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#ad57837293e6b81b21b63ba5923ad2102">current_right_cones</a> = {}</td></tr>
-<tr class="memdesc:ad57837293e6b81b21b63ba5923ad2102"><td class="mdescLeft">&#160;</td><td class="mdescRight">current cones on the right side  <br /></td></tr>
-<tr class="separator:ad57837293e6b81b21b63ba5923ad2102"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac41a4446a39caa915e677f85679958c0" id="r_ac41a4446a39caa915e677f85679958c0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#ac41a4446a39caa915e677f85679958c0">ConeColoring</a> (const <a class="el" href="../../d1/df2/struct_cone_coloring_config.html">ConeColoringConfig</a> &amp;config)</td></tr>
+<tr class="memdesc:ac41a4446a39caa915e677f85679958c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="../../dd/d52/class_cone_coloring.html">ConeColoring</a> object with a given configuration.  <br /></td></tr>
+<tr class="separator:ac41a4446a39caa915e677f85679958c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae156749a11928c8f3d103bfa8410ecf8" id="r_ae156749a11928c8f3d103bfa8410ecf8"><td class="memItemLeft" align="right" valign="top">std::pair&lt; std::vector&lt; <a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a61b9f47c88349017c0fd397c308e5ed5">Cone</a> &gt;, std::vector&lt; <a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a61b9f47c88349017c0fd397c308e5ed5">Cone</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#ae156749a11928c8f3d103bfa8410ecf8">color_cones</a> (std::vector&lt; <a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a61b9f47c88349017c0fd397c308e5ed5">Cone</a> &gt; cones, const <a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a4dc1cfa8589f8390497feca76cd399d4">Pose</a> &amp;car_pose) const</td></tr>
+<tr class="memdesc:ae156749a11928c8f3d103bfa8410ecf8"><td class="mdescLeft">&#160;</td><td class="mdescRight">color all cones  <br /></td></tr>
+<tr class="separator:ae156749a11928c8f3d103bfa8410ecf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
-<tr class="memitem:a5caccbf9451b3891327a097508806fd0" id="r_a5caccbf9451b3891327a097508806fd0"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#a5caccbf9451b3891327a097508806fd0">cost</a> (const <a class="el" href="../../d8/da1/class_cone.html">Cone</a> *possible_next_cone, int n, <a class="el" href="../../d7/d88/right__left__enum_8hpp.html#ab29ebb3bd0eb1f2813c692fe882c3186">TrackSide</a> side) const</td></tr>
-<tr class="memdesc:a5caccbf9451b3891327a097508806fd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">cost function used to minimize the cost of the path.  <br /></td></tr>
-<tr class="separator:a5caccbf9451b3891327a097508806fd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb87ad66a91be33029ec11b30e18b8ac" id="r_acb87ad66a91be33029ec11b30e18b8ac"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#acb87ad66a91be33029ec11b30e18b8ac">cone_is_in_side</a> (const <a class="el" href="../../d8/da1/class_cone.html">Cone</a> *c, <a class="el" href="../../d7/d88/right__left__enum_8hpp.html#ab29ebb3bd0eb1f2813c692fe882c3186">TrackSide</a> side) const</td></tr>
-<tr class="memdesc:acb87ad66a91be33029ec11b30e18b8ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">determine if the specified cone is in the specified side of the track  <br /></td></tr>
-<tr class="separator:acb87ad66a91be33029ec11b30e18b8ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a98c36a16331be4f2318faaa94ab6de17" id="r_a98c36a16331be4f2318faaa94ab6de17"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/d47/struct_angle_norm.html">AngleNorm</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#a98c36a16331be4f2318faaa94ab6de17">angle_and_norm</a> (const <a class="el" href="../../d8/da1/class_cone.html">Cone</a> *possible_next_cone, <a class="el" href="../../d7/d88/right__left__enum_8hpp.html#ab29ebb3bd0eb1f2813c692fe882c3186">TrackSide</a> side) const</td></tr>
-<tr class="memdesc:a98c36a16331be4f2318faaa94ab6de17"><td class="mdescLeft">&#160;</td><td class="mdescRight">calculate angle between the vector made by last two cones and the vector formed by the last cone and the possible next cone and calculate the norm of this last vector.  <br /></td></tr>
-<tr class="separator:a98c36a16331be4f2318faaa94ab6de17"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ba687002332236542dbbc6e6b49b252" id="r_a4ba687002332236542dbbc6e6b49b252"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#a4ba687002332236542dbbc6e6b49b252">place_next_cone</a> (std::shared_ptr&lt; std::vector&lt; std::pair&lt; <a class="el" href="../../d8/da1/class_cone.html">Cone</a> *, bool &gt; &gt; &gt; visited_cones, double distance_threshold, int n, <a class="el" href="../../d7/d88/right__left__enum_8hpp.html#ab29ebb3bd0eb1f2813c692fe882c3186">TrackSide</a> side)</td></tr>
-<tr class="memdesc:a4ba687002332236542dbbc6e6b49b252"><td class="mdescLeft">&#160;</td><td class="mdescRight">place the next cone in the path  <br /></td></tr>
-<tr class="separator:a4ba687002332236542dbbc6e6b49b252"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a78736262a20cf6c4a0c4676369ba095a" id="r_a78736262a20cf6c4a0c4676369ba095a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#a78736262a20cf6c4a0c4676369ba095a">distance_to_side</a> (<a class="el" href="../../d8/d11/struct_pose.html">Pose</a> initial_car_pose, <a class="el" href="../../d7/d88/right__left__enum_8hpp.html#ab29ebb3bd0eb1f2813c692fe882c3186">TrackSide</a> side, double x, double y) const</td></tr>
-<tr class="memdesc:a78736262a20cf6c4a0c4676369ba095a"><td class="mdescLeft">&#160;</td><td class="mdescRight">get an estimate to the distance to the left side of the track when choosing first cone  <br /></td></tr>
-<tr class="separator:a78736262a20cf6c4a0c4676369ba095a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2bf7e41855a5a2e1cca355ec8ae2b321" id="r_a2bf7e41855a5a2e1cca355ec8ae2b321"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#a2bf7e41855a5a2e1cca355ec8ae2b321">remove_duplicates</a> (std::vector&lt; <a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a61b9f47c88349017c0fd397c308e5ed5">Cone</a> &gt; &amp;cones) const</td></tr>
+<tr class="memdesc:a2bf7e41855a5a2e1cca355ec8ae2b321"><td class="mdescLeft">&#160;</td><td class="mdescRight">function to remove duplicates from a vector of cones  <br /></td></tr>
+<tr class="separator:a2bf7e41855a5a2e1cca355ec8ae2b321"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d5383a83dcfeda441351086839c22fd" id="r_a4d5383a83dcfeda441351086839c22fd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a702f79c0212a9ef568c9d42cdb5d4aa1">Position</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#a4d5383a83dcfeda441351086839c22fd">expected_initial_cone_position</a> (const <a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a4dc1cfa8589f8390497feca76cd399d4">Pose</a> &amp;car_pose, const <a class="el" href="../../d9/d8a/namespacecommon__lib_1_1structures.html#a215a4ec12608ced25978cf0e507d24e4">TrackSide</a> &amp;track_side) const</td></tr>
+<tr class="memdesc:a4d5383a83dcfeda441351086839c22fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">calculate the expected position of the initial cones  <br /></td></tr>
+<tr class="separator:a4d5383a83dcfeda441351086839c22fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00c350bf4d9f8463dfda24ec1cf09a90" id="r_a00c350bf4d9f8463dfda24ec1cf09a90"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a61b9f47c88349017c0fd397c308e5ed5">Cone</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#a00c350bf4d9f8463dfda24ec1cf09a90">find_initial_cone</a> (const std::unordered_set&lt; <a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a61b9f47c88349017c0fd397c308e5ed5">Cone</a>, std::hash&lt; <a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a61b9f47c88349017c0fd397c308e5ed5">Cone</a> &gt; &gt; &amp;cones, const <a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a4dc1cfa8589f8390497feca76cd399d4">Pose</a> &amp;car_pose, const <a class="el" href="../../d9/d8a/namespacecommon__lib_1_1structures.html#a215a4ec12608ced25978cf0e507d24e4">TrackSide</a> track_side) const</td></tr>
+<tr class="memdesc:a00c350bf4d9f8463dfda24ec1cf09a90"><td class="mdescLeft">&#160;</td><td class="mdescRight">function to find the initial cone according to the distance to the expected position  <br /></td></tr>
+<tr class="separator:a00c350bf4d9f8463dfda24ec1cf09a90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46c3e0493a08adc9592494f2a75e681b" id="r_a46c3e0493a08adc9592494f2a75e681b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a61b9f47c88349017c0fd397c308e5ed5">Cone</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#a46c3e0493a08adc9592494f2a75e681b">virtual_cone_from_initial_cone</a> (const <a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a61b9f47c88349017c0fd397c308e5ed5">Cone</a> &amp;initial_cone, const <a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a4dc1cfa8589f8390497feca76cd399d4">Pose</a> &amp;car_pose) const</td></tr>
+<tr class="memdesc:a46c3e0493a08adc9592494f2a75e681b"><td class="mdescLeft">&#160;</td><td class="mdescRight">calculate the position of a virtual cone relative to a real one  <br /></td></tr>
+<tr class="separator:a46c3e0493a08adc9592494f2a75e681b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7d599519fe0f8e7cfacb7f3a7a7b379" id="r_aa7d599519fe0f8e7cfacb7f3a7a7b379"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#aa7d599519fe0f8e7cfacb7f3a7a7b379">place_initial_cones</a> (std::unordered_set&lt; <a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a61b9f47c88349017c0fd397c308e5ed5">Cone</a>, std::hash&lt; <a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a61b9f47c88349017c0fd397c308e5ed5">Cone</a> &gt; &gt; &amp;uncolored_cones, std::vector&lt; <a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a61b9f47c88349017c0fd397c308e5ed5">Cone</a> &gt; &amp;colored_blue_cones, std::vector&lt; <a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a61b9f47c88349017c0fd397c308e5ed5">Cone</a> &gt; &amp;colored_yellow_cones, const <a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a4dc1cfa8589f8390497feca76cd399d4">Pose</a> &amp;car_pose, int &amp;n_colored_cones) const</td></tr>
+<tr class="memdesc:aa7d599519fe0f8e7cfacb7f3a7a7b379"><td class="mdescLeft">&#160;</td><td class="mdescRight">function to place the initial cones, including the virtual ones  <br /></td></tr>
+<tr class="separator:aa7d599519fe0f8e7cfacb7f3a7a7b379"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a248d064be09d7eb7ebc907f466ac73be" id="r_a248d064be09d7eb7ebc907f466ac73be"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#a248d064be09d7eb7ebc907f466ac73be">calculate_cost</a> (const <a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a61b9f47c88349017c0fd397c308e5ed5">Cone</a> &amp;next_cone, const <a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a61b9f47c88349017c0fd397c308e5ed5">Cone</a> &amp;last_cone, const <a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a4d132ec299e622f7503c224dcf8764cd">TwoDVector</a> &amp;previous_to_last_vector, const double &amp;colored_to_input_cones_ratio) const</td></tr>
+<tr class="memdesc:a248d064be09d7eb7ebc907f466ac73be"><td class="mdescLeft">&#160;</td><td class="mdescRight">calculate the cost of coloring a cone  <br /></td></tr>
+<tr class="separator:a248d064be09d7eb7ebc907f466ac73be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bbe019de1d5378fd43bd4e2770443af" id="r_a0bbe019de1d5378fd43bd4e2770443af"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#a0bbe019de1d5378fd43bd4e2770443af">try_to_color_next_cone</a> (std::unordered_set&lt; <a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a61b9f47c88349017c0fd397c308e5ed5">Cone</a>, std::hash&lt; <a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a61b9f47c88349017c0fd397c308e5ed5">Cone</a> &gt; &gt; &amp;uncolored_cones, std::vector&lt; <a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a61b9f47c88349017c0fd397c308e5ed5">Cone</a> &gt; &amp;colored_cones, int &amp;n_colored_cones, const int n_input_cones) const</td></tr>
+<tr class="memdesc:a0bbe019de1d5378fd43bd4e2770443af"><td class="mdescLeft">&#160;</td><td class="mdescRight">select the next cone (which minimizes the cost) to be colored if its cost is less than the maximum established in the configuration  <br /></td></tr>
+<tr class="separator:a0bbe019de1d5378fd43bd4e2770443af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a2144539d635436a80e9f71d3b4731a37" id="r_a2144539d635436a80e9f71d3b4731a37"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#a2144539d635436a80e9f71d3b4731a37">angle_gain</a> = 3.7</td></tr>
-<tr class="memdesc:a2144539d635436a80e9f71d3b4731a37"><td class="mdescLeft">&#160;</td><td class="mdescRight">angle gain between the last edge and the possible new edge  <br /></td></tr>
-<tr class="separator:a2144539d635436a80e9f71d3b4731a37"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa0c9833a50f5e724323ee555d86baa4" id="r_aaa0c9833a50f5e724323ee555d86baa4"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#aaa0c9833a50f5e724323ee555d86baa4">distance_gain</a> = 15.0</td></tr>
-<tr class="memdesc:aaa0c9833a50f5e724323ee555d86baa4"><td class="mdescLeft">&#160;</td><td class="mdescRight">distance gain to use for the distance cost  <br /></td></tr>
-<tr class="separator:aaa0c9833a50f5e724323ee555d86baa4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a55e3f078623f4b642bed426682a6e212" id="r_a55e3f078623f4b642bed426682a6e212"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#a55e3f078623f4b642bed426682a6e212">ncones_gain</a> = 8.7</td></tr>
-<tr class="memdesc:a55e3f078623f4b642bed426682a6e212"><td class="mdescLeft">&#160;</td><td class="mdescRight">gain to use for the cost  <br /></td></tr>
-<tr class="separator:a55e3f078623f4b642bed426682a6e212"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b9ab55e9ed01659e3ad779b654596d7" id="r_a6b9ab55e9ed01659e3ad779b654596d7"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#a6b9ab55e9ed01659e3ad779b654596d7">exponent1</a> = 0.7</td></tr>
-<tr class="memdesc:a6b9ab55e9ed01659e3ad779b654596d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">exponent for the sum of distance and angle  <br /></td></tr>
-<tr class="separator:a6b9ab55e9ed01659e3ad779b654596d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0783992aa887fba8191dc574fa12965d" id="r_a0783992aa887fba8191dc574fa12965d"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#a0783992aa887fba8191dc574fa12965d">exponent2</a> = 1.7</td></tr>
-<tr class="memdesc:a0783992aa887fba8191dc574fa12965d"><td class="mdescLeft">&#160;</td><td class="mdescRight">exponent for the overall sum  <br /></td></tr>
-<tr class="separator:a0783992aa887fba8191dc574fa12965d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7eb43e603ecbbaa8714520e13f756ef4" id="r_a7eb43e603ecbbaa8714520e13f756ef4"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#a7eb43e603ecbbaa8714520e13f756ef4">max_cost</a> = 40</td></tr>
-<tr class="memdesc:a7eb43e603ecbbaa8714520e13f756ef4"><td class="mdescLeft">&#160;</td><td class="mdescRight">maximum cost to reach a cone  <br /></td></tr>
-<tr class="separator:a7eb43e603ecbbaa8714520e13f756ef4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab8480545b403be8b4314e24d2c932b4e" id="r_ab8480545b403be8b4314e24d2c932b4e"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d8/da1/class_cone.html">Cone</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#ab8480545b403be8b4314e24d2c932b4e">virtual_left_cone</a> = nullptr</td></tr>
-<tr class="separator:ab8480545b403be8b4314e24d2c932b4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3046ed3b01b024df5c958e628f39b7ce" id="r_a3046ed3b01b024df5c958e628f39b7ce"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d8/da1/class_cone.html">Cone</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#a3046ed3b01b024df5c958e628f39b7ce">virtual_right_cone</a> = nullptr</td></tr>
-<tr class="separator:a3046ed3b01b024df5c958e628f39b7ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a18d7b6e11f8cbff579d4d723463f290a" id="r_a18d7b6e11f8cbff579d4d723463f290a"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d8/da1/class_cone.html">Cone</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#a18d7b6e11f8cbff579d4d723463f290a">initial_cone_left</a> = nullptr</td></tr>
-<tr class="separator:a18d7b6e11f8cbff579d4d723463f290a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada8dfd5ea376a2aed83ad52eeb5b5b34" id="r_ada8dfd5ea376a2aed83ad52eeb5b5b34"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d8/da1/class_cone.html">Cone</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#ada8dfd5ea376a2aed83ad52eeb5b5b34">initial_cone_right</a> = nullptr</td></tr>
-<tr class="separator:ada8dfd5ea376a2aed83ad52eeb5b5b34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b852da12dbe12cacb856aab1d9905a3" id="r_a2b852da12dbe12cacb856aab1d9905a3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/df2/struct_cone_coloring_config.html">ConeColoringConfig</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#a2b852da12dbe12cacb856aab1d9905a3">config_</a></td></tr>
+<tr class="memdesc:a2b852da12dbe12cacb856aab1d9905a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">configuration of the cone coloring algorithm  <br /></td></tr>
+<tr class="separator:a2b852da12dbe12cacb856aab1d9905a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a5007b14f871fa7ab4ddd4a71e66a4847" id="r_a5007b14f871fa7ab4ddd4a71e66a4847"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#a5007b14f871fa7ab4ddd4a71e66a4847">ConeColoring_place_first_cones1_Test</a></td></tr>
+<tr class="memdesc:a5007b14f871fa7ab4ddd4a71e66a4847"><td class="mdescLeft">&#160;</td><td class="mdescRight">tests are declared as friend to test the behaviour of private functions  <br /></td></tr>
+<tr class="separator:a5007b14f871fa7ab4ddd4a71e66a4847"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aabe8469ead5bdd120f30230d23e243d6" id="r_aabe8469ead5bdd120f30230d23e243d6"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#aabe8469ead5bdd120f30230d23e243d6">ConeColoring_place_first_cones2_Test</a></td></tr>
+<tr class="separator:aabe8469ead5bdd120f30230d23e243d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5732e1bfacb34ab222fdf3dc6e2a236b" id="r_a5732e1bfacb34ab222fdf3dc6e2a236b"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#a5732e1bfacb34ab222fdf3dc6e2a236b">ConeColoring_fullconecoloring1_Test</a></td></tr>
+<tr class="separator:a5732e1bfacb34ab222fdf3dc6e2a236b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5a1f4a5386ed63ceb94f6cbaa05ed0a" id="r_ac5a1f4a5386ed63ceb94f6cbaa05ed0a"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d52/class_cone_coloring.html#ac5a1f4a5386ed63ceb94f6cbaa05ed0a">ConeColoring_fullconecoloring2_Test</a></td></tr>
+<tr class="separator:ac5a1f4a5386ed63ceb94f6cbaa05ed0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Class responsible for recieving a set of uncolored cones and discovering their color This is done by performing a search that tries to find each side of the track by iteratively selecting the cone with the least cost to be added to each side of the track, according to the cost function defined in the class. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d3/d6c/cone__coloring_8hpp_source.html#l00022">22</a> of file <a class="el" href="../../d3/d6c/cone__coloring_8hpp_source.html">cone_coloring.hpp</a>.</p>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="../../d3/d6c/cone__coloring_8hpp_source.html#l00025">25</a> of file <a class="el" href="../../d3/d6c/cone__coloring_8hpp_source.html">cone_coloring.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a9fce70182b8f2676b7f3aa2c77242886" name="a9fce70182b8f2676b7f3aa2c77242886"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9fce70182b8f2676b7f3aa2c77242886">&#9670;&#160;</a></span>ConeColoring() <span class="overload">[1/2]</span></h2>
@@ -222,80 +194,43 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Construct a new default <a class="el" href="../../d8/da1/class_cone.html" title="Cone class.">Cone</a> Coloring object. </p>
+<p>Construct a new default <a class="el" href="../../dd/d52/class_cone_coloring.html">ConeColoring</a> object. </p>
 
 </div>
 </div>
-<a id="a895fb74cc24bc0e1d9c821aad463409c" name="a895fb74cc24bc0e1d9c821aad463409c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a895fb74cc24bc0e1d9c821aad463409c">&#9670;&#160;</a></span>ConeColoring() <span class="overload">[2/2]</span></h2>
+<a id="ac41a4446a39caa915e677f85679958c0" name="ac41a4446a39caa915e677f85679958c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac41a4446a39caa915e677f85679958c0">&#9670;&#160;</a></span>ConeColoring() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">ConeColoring::ConeColoring </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>gain_angle</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">const <a class="el" href="../../d1/df2/struct_cone_coloring_config.html">ConeColoringConfig</a> &amp;&#160;</td>
+          <td class="paramname"><em>config</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>gain_distance</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>gain_ncones</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>exponent_1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>exponent_2</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>cost_max</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Construct a new <a class="el" href="../../d8/da1/class_cone.html" title="Cone class.">Cone</a> Coloring:: <a class="el" href="../../d8/da1/class_cone.html" title="Cone class.">Cone</a> Coloring object. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">gain_angle</td><td></td></tr>
-    <tr><td class="paramname">gain_distance</td><td></td></tr>
-    <tr><td class="paramname">gain_ncones</td><td></td></tr>
-    <tr><td class="paramname">exponent_1</td><td></td></tr>
-    <tr><td class="paramname">exponent_2</td><td></td></tr>
-    <tr><td class="paramname">cost_max</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Construct a new <a class="el" href="../../dd/d52/class_cone_coloring.html">ConeColoring</a> object with a given configuration. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html#l00009">9</a> of file <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html">cone_coloring.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d6c/cone__coloring_8hpp_source.html#l00121">121</a> of file <a class="el" href="../../d3/d6c/cone__coloring_8hpp_source.html">cone_coloring.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a98c36a16331be4f2318faaa94ab6de17" name="a98c36a16331be4f2318faaa94ab6de17"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a98c36a16331be4f2318faaa94ab6de17">&#9670;&#160;</a></span>angle_and_norm()</h2>
+<a id="a248d064be09d7eb7ebc907f466ac73be" name="a248d064be09d7eb7ebc907f466ac73be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a248d064be09d7eb7ebc907f466ac73be">&#9670;&#160;</a></span>calculate_cost()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -304,16 +239,28 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../df/d47/struct_angle_norm.html">AngleNorm</a> ConeColoring::angle_and_norm </td>
+          <td class="memname">double ConeColoring::calculate_cost </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d8/da1/class_cone.html">Cone</a> *&#160;</td>
-          <td class="paramname"><em>possible_next_cone</em>, </td>
+          <td class="paramtype">const <a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a61b9f47c88349017c0fd397c308e5ed5">Cone</a> &amp;&#160;</td>
+          <td class="paramname"><em>next_cone</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d7/d88/right__left__enum_8hpp.html#ab29ebb3bd0eb1f2813c692fe882c3186">TrackSide</a>&#160;</td>
-          <td class="paramname"><em>side</em>&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a61b9f47c88349017c0fd397c308e5ed5">Cone</a> &amp;&#160;</td>
+          <td class="paramname"><em>last_cone</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a4d132ec299e622f7503c224dcf8764cd">TwoDVector</a> &amp;&#160;</td>
+          <td class="paramname"><em>previous_to_last_vector</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;&#160;</td>
+          <td class="paramname"><em>colored_to_input_cones_ratio</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -328,142 +275,170 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>calculate angle between the vector made by last two cones and the vector formed by the last cone and the possible next cone and calculate the norm of this last vector. </p>
+<p>calculate the cost of coloring a cone </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">possible_next_cone</td><td>possible next cone to be reached </td></tr>
-    <tr><td class="paramname">side</td><td>reach the cone form the left or right side </td></tr>
+    <tr><td class="paramname">next_cone</td><td>potential cone to be colored </td></tr>
+    <tr><td class="paramname">last_cone</td><td>last cone to be colored in the side of interest </td></tr>
+    <tr><td class="paramname">previous_to_last_vector</td><td>vector formed by the last two cones in the side of interest </td></tr>
+    <tr><td class="paramname">colored_to_input_cones_ratio</td><td>ration of cones which have been colored </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>double angle between the current cone and the next cone </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>double cost </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html#l00022">22</a> of file <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html">cone_coloring.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html#l00071">71</a> of file <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html">cone_coloring.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../dd/d52/class_cone_coloring_a98c36a16331be4f2318faaa94ab6de17_cgraph.png" border="0" usemap="#add/d52/class_cone_coloring_a98c36a16331be4f2318faaa94ab6de17_cgraph" alt=""/></div>
-<map name="add/d52/class_cone_coloring_a98c36a16331be4f2318faaa94ab6de17_cgraph" id="add/d52/class_cone_coloring_a98c36a16331be4f2318faaa94ab6de17_cgraph">
-<area shape="rect" title="calculate angle between the vector made by last two cones and the vector formed by the last cone and ..." alt="" coords="5,23,141,64"/>
-<area shape="rect" href="../../d8/da1/class_cone.html#a51a49cc249e79d06f6a983250fe809b3" title=" " alt="" coords="189,5,273,31"/>
-<area shape="poly" title=" " alt="" coords="141,30,173,25,174,30,141,35"/>
-<area shape="rect" href="../../d8/da1/class_cone.html#a952987a9de5d20d7930b3e93c04fd278" title=" " alt="" coords="189,55,273,80"/>
-<area shape="poly" title=" " alt="" coords="141,51,174,56,173,61,141,56"/>
+<div class="center"><img src="../../dd/d52/class_cone_coloring_a248d064be09d7eb7ebc907f466ac73be_cgraph.png" border="0" usemap="#add/d52/class_cone_coloring_a248d064be09d7eb7ebc907f466ac73be_cgraph" alt=""/></div>
+<map name="add/d52/class_cone_coloring_a248d064be09d7eb7ebc907f466ac73be_cgraph" id="add/d52/class_cone_coloring_a248d064be09d7eb7ebc907f466ac73be_cgraph">
+<area shape="rect" title="calculate the cost of coloring a cone" alt="" coords="5,13,194,39"/>
+<area shape="rect" href="../../d2/d32/namespacecommon__lib_1_1maths.html#a158ecb4f5554792fc31db938539c8008" title="Function used to calculate the angle between two vectors and their norms." alt="" coords="242,5,381,46"/>
+<area shape="poly" title=" " alt="" coords="194,23,226,23,226,28,194,28"/>
 </map>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../dd/d52/class_cone_coloring_a98c36a16331be4f2318faaa94ab6de17_icgraph.png" border="0" usemap="#add/d52/class_cone_coloring_a98c36a16331be4f2318faaa94ab6de17_icgraph" alt=""/></div>
-<map name="add/d52/class_cone_coloring_a98c36a16331be4f2318faaa94ab6de17_icgraph" id="add/d52/class_cone_coloring_a98c36a16331be4f2318faaa94ab6de17_icgraph">
-<area shape="rect" title="calculate angle between the vector made by last two cones and the vector formed by the last cone and ..." alt="" coords="789,39,924,79"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#a5caccbf9451b3891327a097508806fd0" title="cost function used to minimize the cost of the path." alt="" coords="611,46,741,72"/>
-<area shape="poly" title=" " alt="" coords="773,62,741,62,741,56,773,56"/>
-<area shape="poly" title=" " alt="" coords="707,33,696,27,676,25,657,27,647,31,645,37,650,44,646,47,640,38,643,28,656,22,676,20,698,22,709,29"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#ab7606807a4493f219ccaa3fccf259943" title="get the initial cone to start the path from side determined by parameter" alt="" coords="369,17,563,43"/>
-<area shape="poly" title=" " alt="" coords="595,50,562,46,563,41,596,45"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#a4ba687002332236542dbbc6e6b49b252" title="place the next cone in the path" alt="" coords="186,71,321,111"/>
-<area shape="poly" title=" " alt="" coords="596,68,322,89,321,83,595,62"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#a0d1cff5f96836f91157149c03903fcc4" title="add the best initial cones to the sides of the track" alt="" coords="186,5,321,46"/>
-<area shape="poly" title=" " alt="" coords="353,30,321,30,321,24,353,25"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#aea4237fcc98dec4eb82034bf8c71e3a0" title="color the cones based on the cost to reach them" alt="" coords="5,39,138,79"/>
-<area shape="poly" title=" " alt="" coords="171,43,138,50,137,44,170,38"/>
-<area shape="poly" title=" " alt="" coords="170,79,137,73,138,68,171,74"/>
+<div class="center"><img src="../../dd/d52/class_cone_coloring_a248d064be09d7eb7ebc907f466ac73be_icgraph.png" border="0" usemap="#add/d52/class_cone_coloring_a248d064be09d7eb7ebc907f466ac73be_icgraph" alt=""/></div>
+<map name="add/d52/class_cone_coloring_a248d064be09d7eb7ebc907f466ac73be_icgraph" id="add/d52/class_cone_coloring_a248d064be09d7eb7ebc907f466ac73be_icgraph">
+<area shape="rect" title="calculate the cost of coloring a cone" alt="" coords="1295,145,1484,171"/>
+<area shape="rect" href="../../dd/d52/class_cone_coloring.html#a0bbe019de1d5378fd43bd4e2770443af" title="select the next cone (which minimizes the cost) to be colored if its cost is less than the maximum es..." alt="" coords="1111,137,1247,178"/>
+<area shape="poly" title=" " alt="" coords="1280,160,1248,160,1248,155,1280,155"/>
+<area shape="rect" href="../../dd/d52/class_cone_coloring.html#ae156749a11928c8f3d103bfa8410ecf8" title="color all cones" alt="" coords="931,137,1063,178"/>
+<area shape="poly" title=" " alt="" coords="1095,160,1064,160,1064,155,1095,155"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the planning algorithms." alt="" coords="732,108,883,149"/>
+<area shape="poly" title=" " alt="" coords="915,148,882,143,883,137,916,142"/>
+<area shape="rect" href="../../d2/de6/cone__coloring__tests_8cpp.html#ae0eb2417c307a7e6015466adfe20b14d" title="test the full cone coloring algorithm in 20 tracks." alt="" coords="780,173,835,199"/>
+<area shape="poly" title=" " alt="" coords="916,172,835,184,835,179,915,167"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#ab04bd1f3fa9458e5a1360cfabacc56a7" title="Callback for track map updates(when msg received)." alt="" coords="521,72,659,113"/>
+<area shape="poly" title=" " alt="" coords="717,116,659,106,660,101,718,111"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a53d5a67d438860be75a3d9e0bc0df8c3" title="Callback for vehicle localization updates (undefined)." alt="" coords="495,145,684,186"/>
+<area shape="poly" title=" " alt="" coords="718,146,685,152,684,147,717,141"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a60c7f8fa7896a4d10f19d23d6b9d81fa" title=" " alt="" coords="266,70,444,96"/>
+<area shape="poly" title=" " alt="" coords="505,92,444,89,444,84,505,86"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a115541ef5b9431540a991a03832d520d" title="Constructor for the Planning class." alt="" coords="291,120,419,145"/>
+<area shape="poly" title=" " alt="" coords="505,109,419,124,418,119,505,104"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a369c9138f1446127e8f28e5b54242577" title=" " alt="" coords="281,5,429,46"/>
+<area shape="poly" title=" " alt="" coords="505,71,428,49,430,44,506,66"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a041e217f0b1bdf0b8a0d4aede5da7183" title=" " alt="" coords="25,120,195,145"/>
+<area shape="poly" title=" " alt="" coords="273,102,178,121,177,116,272,97"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70" title=" " alt="" coords="5,13,215,39"/>
+<area shape="poly" title=" " alt="" coords="266,28,215,28,215,23,266,23"/>
+<area shape="poly" title=" " alt="" coords="479,153,419,144,419,139,480,147"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#ac145b9dae6abd6c7b4e6582c622faf0b" title=" " alt="" coords="264,169,446,195"/>
+<area shape="poly" title=" " alt="" coords="480,176,446,178,446,173,479,171"/>
+<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#a14e4d6f21f56e74404eb9387fd5d97c9" title=" " alt="" coords="263,218,447,244"/>
+<area shape="poly" title=" " alt="" coords="504,193,448,210,409,220,407,215,446,204,503,188"/>
+<area shape="poly" title=" " alt="" coords="272,168,177,148,178,143,273,163"/>
+<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,218,198,244"/>
+<area shape="poly" title=" " alt="" coords="247,234,198,234,198,228,247,228"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="aea4237fcc98dec4eb82034bf8c71e3a0" name="aea4237fcc98dec4eb82034bf8c71e3a0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aea4237fcc98dec4eb82034bf8c71e3a0">&#9670;&#160;</a></span>color_cones()</h2>
+<a id="ae156749a11928c8f3d103bfa8410ecf8" name="ae156749a11928c8f3d103bfa8410ecf8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae156749a11928c8f3d103bfa8410ecf8">&#9670;&#160;</a></span>color_cones()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void ConeColoring::color_cones </td>
+          <td class="memname">std::pair&lt; std::vector&lt; <a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a61b9f47c88349017c0fd397c308e5ed5">Cone</a> &gt;, std::vector&lt; <a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a61b9f47c88349017c0fd397c308e5ed5">Cone</a> &gt; &gt; ConeColoring::color_cones </td>
           <td>(</td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="../../d8/da1/class_cone.html">Cone</a> * &gt; &amp;&#160;</td>
-          <td class="paramname"><em>input_cones</em>, </td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a61b9f47c88349017c0fd397c308e5ed5">Cone</a> &gt;&#160;</td>
+          <td class="paramname"><em>cones</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d8/d11/struct_pose.html">Pose</a>&#160;</td>
-          <td class="paramname"><em>initial_car_pose</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>distance_threshold</em>&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a4dc1cfa8589f8390497feca76cd399d4">Pose</a> &amp;&#160;</td>
+          <td class="paramname"><em>car_pose</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>color the cones based on the cost to reach them </p>
+<p>color all cones </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">input_cones</td><td>cones to be colored </td></tr>
-    <tr><td class="paramname">initial_car_pose</td><td>initial pose of the car </td></tr>
-    <tr><td class="paramname">distance_threshold</td><td>maximum allowed distance to reach the next cone </td></tr>
+    <tr><td class="paramname">cones</td><td>vector of input cones without color </td></tr>
+    <tr><td class="paramname">car_pose</td><td>pose of the car </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>std::pair&lt;std::vector&lt;Cone&gt;, std::vector&lt;Cone&gt;&gt; the first vector contains the blue cones and the second vector contains the yellow cones </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html#l00185">185</a> of file <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html">cone_coloring.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html#l00114">114</a> of file <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html">cone_coloring.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../dd/d52/class_cone_coloring_aea4237fcc98dec4eb82034bf8c71e3a0_cgraph.png" border="0" usemap="#add/d52/class_cone_coloring_aea4237fcc98dec4eb82034bf8c71e3a0_cgraph" alt=""/></div>
-<map name="add/d52/class_cone_coloring_aea4237fcc98dec4eb82034bf8c71e3a0_cgraph" id="add/d52/class_cone_coloring_aea4237fcc98dec4eb82034bf8c71e3a0_cgraph">
-<area shape="rect" title="color the cones based on the cost to reach them" alt="" coords="5,113,138,154"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#af78a1e3246e614f0966073d1938f2897" title="make a vector of cones and a boolean to determine if the cone has been visited" alt="" coords="186,20,322,61"/>
-<area shape="poly" title=" " alt="" coords="112,110,198,66,200,71,114,115"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#a0d1cff5f96836f91157149c03903fcc4" title="add the best initial cones to the sides of the track" alt="" coords="186,113,322,154"/>
-<area shape="poly" title=" " alt="" coords="138,131,171,131,171,136,138,136"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#a4ba687002332236542dbbc6e6b49b252" title="place the next cone in the path" alt="" coords="400,252,535,293"/>
-<area shape="poly" title=" " alt="" coords="133,152,394,244,392,249,131,157"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#acb87ad66a91be33029ec11b30e18b8ac" title="determine if the specified cone is in the specified side of the track" alt="" coords="401,5,533,46"/>
-<area shape="poly" title=" " alt="" coords="322,33,386,29,386,34,323,38"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#ab48a807ad4ebbab14fa66abb2c235d7e" title="filter cones that are closer than a certain radius" alt="" coords="398,71,537,111"/>
-<area shape="poly" title=" " alt="" coords="321,118,382,105,383,111,322,123"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#ab7606807a4493f219ccaa3fccf259943" title="get the initial cone to start the path from side determined by parameter" alt="" coords="370,136,564,161"/>
-<area shape="poly" title=" " alt="" coords="322,136,355,138,354,143,322,141"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#a5caccbf9451b3891327a097508806fd0" title="cost function used to minimize the cost of the path." alt="" coords="624,209,754,235"/>
-<area shape="poly" title=" " alt="" coords="510,159,634,201,632,206,508,164"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#a78736262a20cf6c4a0c4676369ba095a" title="get an estimate to the distance to the left side of the track when choosing first cone" alt="" coords="612,21,766,62"/>
-<area shape="poly" title=" " alt="" coords="537,132,563,121,578,109,587,97,596,85,611,72,617,67,620,72,614,76,600,88,591,101,581,113,566,125,539,137"/>
-<area shape="rect" href="../../d8/da1/class_cone.html#af72e761554d3e39ba6ac88f9971f5bc7" title=" " alt="" coords="647,86,731,112"/>
-<area shape="poly" title=" " alt="" coords="528,132,631,109,632,114,529,137"/>
-<area shape="rect" href="../../d8/da1/class_cone.html#a9136643a197ccd7b38f32391b965d808" title=" " alt="" coords="647,136,731,161"/>
-<area shape="poly" title=" " alt="" coords="565,146,632,146,632,151,565,151"/>
-<area shape="poly" title=" " alt="" coords="653,210,646,200,651,190,665,184,689,182,715,185,728,192,726,196,714,190,689,187,666,190,654,194,652,200,658,207"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#a98c36a16331be4f2318faaa94ab6de17" title="calculate angle between the vector made by last two cones and the vector formed by the last cone and ..." alt="" coords="835,195,970,235"/>
-<area shape="poly" title=" " alt="" coords="754,217,819,215,820,220,754,222"/>
-<area shape="rect" href="../../d8/da1/class_cone.html#a51a49cc249e79d06f6a983250fe809b3" title=" " alt="" coords="1039,310,1123,336"/>
-<area shape="poly" title=" " alt="" coords="939,234,1047,300,1044,304,936,238"/>
-<area shape="rect" href="../../d8/da1/class_cone.html#a952987a9de5d20d7930b3e93c04fd278" title=" " alt="" coords="1039,260,1123,285"/>
-<area shape="poly" title=" " alt="" coords="969,233,1025,252,1023,257,967,238"/>
-<area shape="poly" title=" " alt="" coords="535,254,614,236,615,241,536,259"/>
-<area shape="poly" title=" " alt="" coords="536,290,613,310,718,334,801,351,884,355,991,346,1026,338,1028,343,991,351,884,361,800,356,717,340,612,315,535,295"/>
-<area shape="poly" title=" " alt="" coords="535,270,1023,270,1023,275,535,275"/>
-<area shape="rect" href="../../d8/da1/class_cone.html#a3a8c9034075fdab8ff11947f39390af3" title=" " alt="" coords="814,310,991,336"/>
-<area shape="poly" title=" " alt="" coords="536,279,613,288,798,309,798,315,612,294,535,284"/>
-<area shape="poly" title=" " alt="" coords="991,320,1024,320,1024,326,991,326"/>
-<area shape="poly" title=" " alt="" coords="950,307,1024,286,1025,291,951,312"/>
+<div class="center"><img src="../../dd/d52/class_cone_coloring_ae156749a11928c8f3d103bfa8410ecf8_cgraph.png" border="0" usemap="#add/d52/class_cone_coloring_ae156749a11928c8f3d103bfa8410ecf8_cgraph" alt=""/></div>
+<map name="add/d52/class_cone_coloring_ae156749a11928c8f3d103bfa8410ecf8_cgraph" id="add/d52/class_cone_coloring_ae156749a11928c8f3d103bfa8410ecf8_cgraph">
+<area shape="rect" title="color all cones" alt="" coords="5,103,138,143"/>
+<area shape="rect" href="../../dd/d52/class_cone_coloring.html#aa7d599519fe0f8e7cfacb7f3a7a7b379" title="function to place the initial cones, including the virtual ones" alt="" coords="192,37,327,78"/>
+<area shape="poly" title=" " alt="" coords="131,100,184,81,185,86,133,105"/>
+<area shape="rect" href="../../dd/d52/class_cone_coloring.html#a2bf7e41855a5a2e1cca355ec8ae2b321" title="function to remove duplicates from a vector of cones" alt="" coords="186,103,333,143"/>
+<area shape="poly" title=" " alt="" coords="138,120,170,120,170,126,138,126"/>
+<area shape="rect" href="../../dd/d52/class_cone_coloring.html#a0bbe019de1d5378fd43bd4e2770443af" title="select the next cone (which minimizes the cost) to be colored if its cost is less than the maximum es..." alt="" coords="191,168,328,209"/>
+<area shape="poly" title=" " alt="" coords="133,141,185,160,184,165,131,146"/>
+<area shape="rect" href="../../dd/d52/class_cone_coloring.html#a00c350bf4d9f8463dfda24ec1cf09a90" title="function to find the initial cone according to the distance to the expected position" alt="" coords="413,5,537,46"/>
+<area shape="poly" title=" " alt="" coords="327,45,397,34,398,40,328,50"/>
+<area shape="rect" href="../../dd/d52/class_cone_coloring.html#a46c3e0493a08adc9592494f2a75e681b" title="calculate the position of a virtual cone relative to a real one" alt="" coords="395,71,556,111"/>
+<area shape="poly" title=" " alt="" coords="328,65,379,74,379,79,327,71"/>
+<area shape="rect" href="../../dd/d52/class_cone_coloring.html#a4d5383a83dcfeda441351086839c22fd" title="calculate the expected position of the initial cones" alt="" coords="617,5,774,46"/>
+<area shape="poly" title=" " alt="" coords="538,23,602,23,602,28,538,28"/>
+<area shape="rect" href="../../dd/d52/class_cone_coloring.html#a248d064be09d7eb7ebc907f466ac73be" title="calculate the cost of coloring a cone" alt="" coords="381,176,569,201"/>
+<area shape="poly" title=" " alt="" coords="328,186,365,186,365,191,328,191"/>
+<area shape="rect" href="../../d2/d32/namespacecommon__lib_1_1maths.html#a158ecb4f5554792fc31db938539c8008" title="Function used to calculate the angle between two vectors and their norms." alt="" coords="626,168,765,209"/>
+<area shape="poly" title=" " alt="" coords="569,186,610,186,610,191,569,191"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../dd/d52/class_cone_coloring_ae156749a11928c8f3d103bfa8410ecf8_icgraph.png" border="0" usemap="#add/d52/class_cone_coloring_ae156749a11928c8f3d103bfa8410ecf8_icgraph" alt=""/></div>
+<map name="add/d52/class_cone_coloring_ae156749a11928c8f3d103bfa8410ecf8_icgraph" id="add/d52/class_cone_coloring_ae156749a11928c8f3d103bfa8410ecf8_icgraph">
+<area shape="rect" title="color all cones" alt="" coords="931,137,1063,178"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the planning algorithms." alt="" coords="732,108,883,149"/>
+<area shape="poly" title=" " alt="" coords="915,148,882,143,883,137,916,142"/>
+<area shape="rect" href="../../d2/de6/cone__coloring__tests_8cpp.html#ae0eb2417c307a7e6015466adfe20b14d" title="test the full cone coloring algorithm in 20 tracks." alt="" coords="780,173,835,199"/>
+<area shape="poly" title=" " alt="" coords="916,172,835,184,835,179,915,167"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#ab04bd1f3fa9458e5a1360cfabacc56a7" title="Callback for track map updates(when msg received)." alt="" coords="521,72,659,113"/>
+<area shape="poly" title=" " alt="" coords="717,116,659,106,660,101,718,111"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a53d5a67d438860be75a3d9e0bc0df8c3" title="Callback for vehicle localization updates (undefined)." alt="" coords="495,145,684,186"/>
+<area shape="poly" title=" " alt="" coords="718,146,685,152,684,147,717,141"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a60c7f8fa7896a4d10f19d23d6b9d81fa" title=" " alt="" coords="266,70,444,96"/>
+<area shape="poly" title=" " alt="" coords="505,92,444,89,444,84,505,86"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a115541ef5b9431540a991a03832d520d" title="Constructor for the Planning class." alt="" coords="291,120,419,145"/>
+<area shape="poly" title=" " alt="" coords="505,109,419,124,418,119,505,104"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a369c9138f1446127e8f28e5b54242577" title=" " alt="" coords="281,5,429,46"/>
+<area shape="poly" title=" " alt="" coords="505,71,428,49,430,44,506,66"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a041e217f0b1bdf0b8a0d4aede5da7183" title=" " alt="" coords="25,120,195,145"/>
+<area shape="poly" title=" " alt="" coords="273,102,178,121,177,116,272,97"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70" title=" " alt="" coords="5,13,215,39"/>
+<area shape="poly" title=" " alt="" coords="266,28,215,28,215,23,266,23"/>
+<area shape="poly" title=" " alt="" coords="479,153,419,144,419,139,480,147"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#ac145b9dae6abd6c7b4e6582c622faf0b" title=" " alt="" coords="264,169,446,195"/>
+<area shape="poly" title=" " alt="" coords="480,176,446,178,446,173,479,171"/>
+<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#a14e4d6f21f56e74404eb9387fd5d97c9" title=" " alt="" coords="263,218,447,244"/>
+<area shape="poly" title=" " alt="" coords="504,193,448,210,409,220,407,215,446,204,503,188"/>
+<area shape="poly" title=" " alt="" coords="272,168,177,148,178,143,273,163"/>
+<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,218,198,244"/>
+<area shape="poly" title=" " alt="" coords="247,234,198,234,198,228,247,228"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="acb87ad66a91be33029ec11b30e18b8ac" name="acb87ad66a91be33029ec11b30e18b8ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acb87ad66a91be33029ec11b30e18b8ac">&#9670;&#160;</a></span>cone_is_in_side()</h2>
+<a id="a4d5383a83dcfeda441351086839c22fd" name="a4d5383a83dcfeda441351086839c22fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d5383a83dcfeda441351086839c22fd">&#9670;&#160;</a></span>expected_initial_cone_position()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -472,16 +447,16 @@ Here is the call graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool ConeColoring::cone_is_in_side </td>
+          <td class="memname"><a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a702f79c0212a9ef568c9d42cdb5d4aa1">Position</a> ConeColoring::expected_initial_cone_position </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d8/da1/class_cone.html">Cone</a> *&#160;</td>
-          <td class="paramname"><em>c</em>, </td>
+          <td class="paramtype">const <a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a4dc1cfa8589f8390497feca76cd399d4">Pose</a> &amp;&#160;</td>
+          <td class="paramname"><em>car_pose</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d7/d88/right__left__enum_8hpp.html#ab29ebb3bd0eb1f2813c692fe882c3186">TrackSide</a>&#160;</td>
-          <td class="paramname"><em>side</em>&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../d9/d8a/namespacecommon__lib_1_1structures.html#a215a4ec12608ced25978cf0e507d24e4">TrackSide</a> &amp;&#160;</td>
+          <td class="paramname"><em>track_side</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -496,36 +471,61 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>determine if the specified cone is in the specified side of the track </p>
+<p>calculate the expected position of the initial cones </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">c</td><td>cone to be checked </td></tr>
-    <tr><td class="paramname">side</td><td>whether to check if the cone is in the left or right side </td></tr>
+    <tr><td class="paramname">car_pose</td><td>car pose in the map relative to the origin </td></tr>
+    <tr><td class="paramname">track_side</td><td>side of the track of the expected position to be calculated </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true if the cone is in the side of the track </dd>
-<dd>
-false if the cone is not in the side of the track </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html#l00035">35</a> of file <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html">cone_coloring.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html#l00016">16</a> of file <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html">cone_coloring.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../dd/d52/class_cone_coloring_acb87ad66a91be33029ec11b30e18b8ac_icgraph.png" border="0" usemap="#add/d52/class_cone_coloring_acb87ad66a91be33029ec11b30e18b8ac_icgraph" alt=""/></div>
-<map name="add/d52/class_cone_coloring_acb87ad66a91be33029ec11b30e18b8ac_icgraph" id="add/d52/class_cone_coloring_acb87ad66a91be33029ec11b30e18b8ac_icgraph">
-<area shape="rect" title="determine if the specified cone is in the specified side of the track" alt="" coords="370,5,502,46"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#af78a1e3246e614f0966073d1938f2897" title="make a vector of cones and a boolean to determine if the cone has been visited" alt="" coords="186,5,322,46"/>
-<area shape="poly" title=" " alt="" coords="354,28,323,28,323,23,354,23"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#aea4237fcc98dec4eb82034bf8c71e3a0" title="color the cones based on the cost to reach them" alt="" coords="5,5,138,46"/>
-<area shape="poly" title=" " alt="" coords="170,28,138,28,138,23,170,23"/>
+<div class="center"><img src="../../dd/d52/class_cone_coloring_a4d5383a83dcfeda441351086839c22fd_icgraph.png" border="0" usemap="#add/d52/class_cone_coloring_a4d5383a83dcfeda441351086839c22fd_icgraph" alt=""/></div>
+<map name="add/d52/class_cone_coloring_a4d5383a83dcfeda441351086839c22fd_icgraph" id="add/d52/class_cone_coloring_a4d5383a83dcfeda441351086839c22fd_icgraph">
+<area shape="rect" title="calculate the expected position of the initial cones" alt="" coords="1467,137,1623,178"/>
+<area shape="rect" href="../../dd/d52/class_cone_coloring.html#a00c350bf4d9f8463dfda24ec1cf09a90" title="function to find the initial cone according to the distance to the expected position" alt="" coords="1294,137,1419,178"/>
+<area shape="poly" title=" " alt="" coords="1451,160,1419,160,1419,155,1451,155"/>
+<area shape="rect" href="../../dd/d52/class_cone_coloring.html#aa7d599519fe0f8e7cfacb7f3a7a7b379" title="function to place the initial cones, including the virtual ones" alt="" coords="1111,137,1246,178"/>
+<area shape="poly" title=" " alt="" coords="1279,160,1247,160,1247,155,1279,155"/>
+<area shape="rect" href="../../dd/d52/class_cone_coloring.html#ae156749a11928c8f3d103bfa8410ecf8" title="color all cones" alt="" coords="931,137,1063,178"/>
+<area shape="poly" title=" " alt="" coords="1095,160,1063,160,1063,155,1095,155"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the planning algorithms." alt="" coords="732,108,883,149"/>
+<area shape="poly" title=" " alt="" coords="915,148,882,143,883,137,916,142"/>
+<area shape="rect" href="../../d2/de6/cone__coloring__tests_8cpp.html#ae0eb2417c307a7e6015466adfe20b14d" title="test the full cone coloring algorithm in 20 tracks." alt="" coords="780,173,835,199"/>
+<area shape="poly" title=" " alt="" coords="916,172,835,184,835,179,915,167"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#ab04bd1f3fa9458e5a1360cfabacc56a7" title="Callback for track map updates(when msg received)." alt="" coords="521,72,659,113"/>
+<area shape="poly" title=" " alt="" coords="717,116,659,106,660,101,718,111"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a53d5a67d438860be75a3d9e0bc0df8c3" title="Callback for vehicle localization updates (undefined)." alt="" coords="495,145,684,186"/>
+<area shape="poly" title=" " alt="" coords="718,146,685,152,684,147,717,141"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a60c7f8fa7896a4d10f19d23d6b9d81fa" title=" " alt="" coords="266,70,444,96"/>
+<area shape="poly" title=" " alt="" coords="505,92,444,89,444,84,505,86"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a115541ef5b9431540a991a03832d520d" title="Constructor for the Planning class." alt="" coords="291,120,419,145"/>
+<area shape="poly" title=" " alt="" coords="505,109,419,124,418,119,505,104"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a369c9138f1446127e8f28e5b54242577" title=" " alt="" coords="281,5,429,46"/>
+<area shape="poly" title=" " alt="" coords="505,71,428,49,430,44,506,66"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a041e217f0b1bdf0b8a0d4aede5da7183" title=" " alt="" coords="25,120,195,145"/>
+<area shape="poly" title=" " alt="" coords="273,102,178,121,177,116,272,97"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70" title=" " alt="" coords="5,13,215,39"/>
+<area shape="poly" title=" " alt="" coords="266,28,215,28,215,23,266,23"/>
+<area shape="poly" title=" " alt="" coords="479,153,419,144,419,139,480,147"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#ac145b9dae6abd6c7b4e6582c622faf0b" title=" " alt="" coords="264,169,446,195"/>
+<area shape="poly" title=" " alt="" coords="480,176,446,178,446,173,479,171"/>
+<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#a14e4d6f21f56e74404eb9387fd5d97c9" title=" " alt="" coords="263,218,447,244"/>
+<area shape="poly" title=" " alt="" coords="504,193,448,210,409,220,407,215,446,204,503,188"/>
+<area shape="poly" title=" " alt="" coords="272,168,177,148,178,143,273,163"/>
+<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,218,198,244"/>
+<area shape="poly" title=" " alt="" coords="247,234,198,234,198,228,247,228"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="a5caccbf9451b3891327a097508806fd0" name="a5caccbf9451b3891327a097508806fd0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5caccbf9451b3891327a097508806fd0">&#9670;&#160;</a></span>cost()</h2>
+<a id="a00c350bf4d9f8463dfda24ec1cf09a90" name="a00c350bf4d9f8463dfda24ec1cf09a90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00c350bf4d9f8463dfda24ec1cf09a90">&#9670;&#160;</a></span>find_initial_cone()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -534,22 +534,22 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">double ConeColoring::cost </td>
+          <td class="memname"><a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a61b9f47c88349017c0fd397c308e5ed5">Cone</a> ConeColoring::find_initial_cone </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d8/da1/class_cone.html">Cone</a> *&#160;</td>
-          <td class="paramname"><em>possible_next_cone</em>, </td>
+          <td class="paramtype">const std::unordered_set&lt; <a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a61b9f47c88349017c0fd397c308e5ed5">Cone</a>, std::hash&lt; <a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a61b9f47c88349017c0fd397c308e5ed5">Cone</a> &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>cones</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>n</em>, </td>
+          <td class="paramtype">const <a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a4dc1cfa8589f8390497feca76cd399d4">Pose</a> &amp;&#160;</td>
+          <td class="paramname"><em>car_pose</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d7/d88/right__left__enum_8hpp.html#ab29ebb3bd0eb1f2813c692fe882c3186">TrackSide</a>&#160;</td>
-          <td class="paramname"><em>side</em>&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../d9/d8a/namespacecommon__lib_1_1structures.html#a215a4ec12608ced25978cf0e507d24e4">TrackSide</a>&#160;</td>
+          <td class="paramname"><em>track_side</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -564,401 +564,373 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>cost function used to minimize the cost of the path. </p>
-<p>Based on the idea that, when there are at least two cones on one side of the track, the next cone is the one that minimizes a combination of the angle formed between consecutiv edges and the distance to the next cone.</p>
-<p>Should not be called when current sides of the tracks are empty</p>
+<p>function to find the initial cone according to the distance to the expected position </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">possible_next_cone</td><td>possible next cone to be reached </td></tr>
-    <tr><td class="paramname">n</td><td>number of cones in the input vector </td></tr>
-    <tr><td class="paramname">side</td><td>reach the cone form the left or right side </td></tr>
+    <tr><td class="paramname">cones</td><td>set of cones </td></tr>
+    <tr><td class="paramname">car_pose</td><td>car pose in the map relative to the origin </td></tr>
+    <tr><td class="paramname">track_side</td><td>side of the track of the expected position to be calculated </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>double cost of reaching the cone provided as a parameter </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Cone initial cone </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html#l00120">120</a> of file <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html">cone_coloring.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html#l00031">31</a> of file <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html">cone_coloring.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../dd/d52/class_cone_coloring_a5caccbf9451b3891327a097508806fd0_cgraph.png" border="0" usemap="#add/d52/class_cone_coloring_a5caccbf9451b3891327a097508806fd0_cgraph" alt=""/></div>
-<map name="add/d52/class_cone_coloring_a5caccbf9451b3891327a097508806fd0_cgraph" id="add/d52/class_cone_coloring_a5caccbf9451b3891327a097508806fd0_cgraph">
-<area shape="rect" title="cost function used to minimize the cost of the path." alt="" coords="5,31,135,56"/>
-<area shape="poly" title=" " alt="" coords="40,32,34,22,37,12,50,6,70,4,92,7,103,13,101,18,90,12,70,9,51,11,41,16,39,21,44,29"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#a98c36a16331be4f2318faaa94ab6de17" title="calculate angle between the vector made by last two cones and the vector formed by the last cone and ..." alt="" coords="183,23,318,64"/>
-<area shape="poly" title=" " alt="" coords="135,41,167,41,167,46,135,46"/>
-<area shape="rect" href="../../d8/da1/class_cone.html#a51a49cc249e79d06f6a983250fe809b3" title=" " alt="" coords="366,5,450,31"/>
-<area shape="poly" title=" " alt="" coords="318,30,350,25,351,30,319,35"/>
-<area shape="rect" href="../../d8/da1/class_cone.html#a952987a9de5d20d7930b3e93c04fd278" title=" " alt="" coords="366,55,450,80"/>
-<area shape="poly" title=" " alt="" coords="319,51,351,56,350,61,318,56"/>
+<div class="center"><img src="../../dd/d52/class_cone_coloring_a00c350bf4d9f8463dfda24ec1cf09a90_cgraph.png" border="0" usemap="#add/d52/class_cone_coloring_a00c350bf4d9f8463dfda24ec1cf09a90_cgraph" alt=""/></div>
+<map name="add/d52/class_cone_coloring_a00c350bf4d9f8463dfda24ec1cf09a90_cgraph" id="add/d52/class_cone_coloring_a00c350bf4d9f8463dfda24ec1cf09a90_cgraph">
+<area shape="rect" title="function to find the initial cone according to the distance to the expected position" alt="" coords="5,5,130,46"/>
+<area shape="rect" href="../../dd/d52/class_cone_coloring.html#a4d5383a83dcfeda441351086839c22fd" title="calculate the expected position of the initial cones" alt="" coords="178,5,334,46"/>
+<area shape="poly" title=" " alt="" coords="130,23,162,23,162,28,130,28"/>
 </map>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../dd/d52/class_cone_coloring_a5caccbf9451b3891327a097508806fd0_icgraph.png" border="0" usemap="#add/d52/class_cone_coloring_a5caccbf9451b3891327a097508806fd0_icgraph" alt=""/></div>
-<map name="add/d52/class_cone_coloring_a5caccbf9451b3891327a097508806fd0_icgraph" id="add/d52/class_cone_coloring_a5caccbf9451b3891327a097508806fd0_icgraph">
-<area shape="rect" title="cost function used to minimize the cost of the path." alt="" coords="611,46,741,72"/>
-<area shape="poly" title=" " alt="" coords="712,34,700,27,676,25,654,27,642,32,639,37,645,44,641,47,634,38,638,28,653,22,676,20,702,22,715,29"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#ab7606807a4493f219ccaa3fccf259943" title="get the initial cone to start the path from side determined by parameter" alt="" coords="369,17,563,43"/>
-<area shape="poly" title=" " alt="" coords="595,50,562,46,563,41,596,45"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#a4ba687002332236542dbbc6e6b49b252" title="place the next cone in the path" alt="" coords="186,71,321,111"/>
-<area shape="poly" title=" " alt="" coords="596,68,322,89,321,83,595,62"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#a0d1cff5f96836f91157149c03903fcc4" title="add the best initial cones to the sides of the track" alt="" coords="186,5,321,46"/>
-<area shape="poly" title=" " alt="" coords="353,30,321,30,321,24,353,25"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#aea4237fcc98dec4eb82034bf8c71e3a0" title="color the cones based on the cost to reach them" alt="" coords="5,39,138,79"/>
-<area shape="poly" title=" " alt="" coords="171,43,138,50,137,44,170,38"/>
-<area shape="poly" title=" " alt="" coords="170,79,137,73,138,68,171,74"/>
+<div class="center"><img src="../../dd/d52/class_cone_coloring_a00c350bf4d9f8463dfda24ec1cf09a90_icgraph.png" border="0" usemap="#add/d52/class_cone_coloring_a00c350bf4d9f8463dfda24ec1cf09a90_icgraph" alt=""/></div>
+<map name="add/d52/class_cone_coloring_a00c350bf4d9f8463dfda24ec1cf09a90_icgraph" id="add/d52/class_cone_coloring_a00c350bf4d9f8463dfda24ec1cf09a90_icgraph">
+<area shape="rect" title="function to find the initial cone according to the distance to the expected position" alt="" coords="1294,137,1419,178"/>
+<area shape="rect" href="../../dd/d52/class_cone_coloring.html#aa7d599519fe0f8e7cfacb7f3a7a7b379" title="function to place the initial cones, including the virtual ones" alt="" coords="1111,137,1246,178"/>
+<area shape="poly" title=" " alt="" coords="1279,160,1247,160,1247,155,1279,155"/>
+<area shape="rect" href="../../dd/d52/class_cone_coloring.html#ae156749a11928c8f3d103bfa8410ecf8" title="color all cones" alt="" coords="931,137,1063,178"/>
+<area shape="poly" title=" " alt="" coords="1095,160,1063,160,1063,155,1095,155"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the planning algorithms." alt="" coords="732,108,883,149"/>
+<area shape="poly" title=" " alt="" coords="915,148,882,143,883,137,916,142"/>
+<area shape="rect" href="../../d2/de6/cone__coloring__tests_8cpp.html#ae0eb2417c307a7e6015466adfe20b14d" title="test the full cone coloring algorithm in 20 tracks." alt="" coords="780,173,835,199"/>
+<area shape="poly" title=" " alt="" coords="916,172,835,184,835,179,915,167"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#ab04bd1f3fa9458e5a1360cfabacc56a7" title="Callback for track map updates(when msg received)." alt="" coords="521,72,659,113"/>
+<area shape="poly" title=" " alt="" coords="717,116,659,106,660,101,718,111"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a53d5a67d438860be75a3d9e0bc0df8c3" title="Callback for vehicle localization updates (undefined)." alt="" coords="495,145,684,186"/>
+<area shape="poly" title=" " alt="" coords="718,146,685,152,684,147,717,141"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a60c7f8fa7896a4d10f19d23d6b9d81fa" title=" " alt="" coords="266,70,444,96"/>
+<area shape="poly" title=" " alt="" coords="505,92,444,89,444,84,505,86"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a115541ef5b9431540a991a03832d520d" title="Constructor for the Planning class." alt="" coords="291,120,419,145"/>
+<area shape="poly" title=" " alt="" coords="505,109,419,124,418,119,505,104"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a369c9138f1446127e8f28e5b54242577" title=" " alt="" coords="281,5,429,46"/>
+<area shape="poly" title=" " alt="" coords="505,71,428,49,430,44,506,66"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a041e217f0b1bdf0b8a0d4aede5da7183" title=" " alt="" coords="25,120,195,145"/>
+<area shape="poly" title=" " alt="" coords="273,102,178,121,177,116,272,97"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70" title=" " alt="" coords="5,13,215,39"/>
+<area shape="poly" title=" " alt="" coords="266,28,215,28,215,23,266,23"/>
+<area shape="poly" title=" " alt="" coords="479,153,419,144,419,139,480,147"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#ac145b9dae6abd6c7b4e6582c622faf0b" title=" " alt="" coords="264,169,446,195"/>
+<area shape="poly" title=" " alt="" coords="480,176,446,178,446,173,479,171"/>
+<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#a14e4d6f21f56e74404eb9387fd5d97c9" title=" " alt="" coords="263,218,447,244"/>
+<area shape="poly" title=" " alt="" coords="504,193,448,210,409,220,407,215,446,204,503,188"/>
+<area shape="poly" title=" " alt="" coords="272,168,177,148,178,143,273,163"/>
+<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,218,198,244"/>
+<area shape="poly" title=" " alt="" coords="247,234,198,234,198,228,247,228"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="a78736262a20cf6c4a0c4676369ba095a" name="a78736262a20cf6c4a0c4676369ba095a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a78736262a20cf6c4a0c4676369ba095a">&#9670;&#160;</a></span>distance_to_side()</h2>
+<a id="aa7d599519fe0f8e7cfacb7f3a7a7b379" name="aa7d599519fe0f8e7cfacb7f3a7a7b379"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7d599519fe0f8e7cfacb7f3a7a7b379">&#9670;&#160;</a></span>place_initial_cones()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double ConeColoring::distance_to_side </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d8/d11/struct_pose.html">Pose</a>&#160;</td>
-          <td class="paramname"><em>initial_car_pose</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../d7/d88/right__left__enum_8hpp.html#ab29ebb3bd0eb1f2813c692fe882c3186">TrackSide</a>&#160;</td>
-          <td class="paramname"><em>side</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>x</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>y</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>get an estimate to the distance to the left side of the track when choosing first cone </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">initial_car_pose</td><td></td></tr>
-    <tr><td class="paramname">side</td><td>distance to the left or right side </td></tr>
-    <tr><td class="paramname">x</td><td>coordinate of the point to estimate the distance </td></tr>
-    <tr><td class="paramname">y</td><td>coordinate of the point to estimate the distance </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>double estimate of the distance to the left side track</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>assumming the car is at the initial_car_pose and going straight, the right side of the track can be estimated to be defined by: y - (car_y + 2*cos(θ)) - tan(θ)*(x - (car_x + 2*sen(θ))) = 0 and the right side by : y - (car_y - 2*cos(θ)) - tan(θ)*(x - (car_x - 2*sen(θ))) = 0 This also assumes the track width to be 4 meters since the minimum is 3 and the maximum is 5 </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html#l00043">43</a> of file <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html">cone_coloring.cpp</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../dd/d52/class_cone_coloring_a78736262a20cf6c4a0c4676369ba095a_icgraph.png" border="0" usemap="#add/d52/class_cone_coloring_a78736262a20cf6c4a0c4676369ba095a_icgraph" alt=""/></div>
-<map name="add/d52/class_cone_coloring_a78736262a20cf6c4a0c4676369ba095a_icgraph" id="add/d52/class_cone_coloring_a78736262a20cf6c4a0c4676369ba095a_icgraph">
-<area shape="rect" title="get an estimate to the distance to the left side of the track when choosing first cone" alt="" coords="611,5,765,46"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#ab7606807a4493f219ccaa3fccf259943" title="get the initial cone to start the path from side determined by parameter" alt="" coords="369,13,563,39"/>
-<area shape="poly" title=" " alt="" coords="596,28,564,28,564,23,596,23"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#a0d1cff5f96836f91157149c03903fcc4" title="add the best initial cones to the sides of the track" alt="" coords="186,5,321,46"/>
-<area shape="poly" title=" " alt="" coords="353,28,321,28,321,23,353,23"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#aea4237fcc98dec4eb82034bf8c71e3a0" title="color the cones based on the cost to reach them" alt="" coords="5,5,138,46"/>
-<area shape="poly" title=" " alt="" coords="170,28,138,28,138,23,170,23"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="ab48a807ad4ebbab14fa66abb2c235d7e" name="ab48a807ad4ebbab14fa66abb2c235d7e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab48a807ad4ebbab14fa66abb2c235d7e">&#9670;&#160;</a></span>filter_cones_by_distance()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt; <a class="el" href="../../d8/da1/class_cone.html">Cone</a> * &gt; ConeColoring::filter_cones_by_distance </td>
-          <td>(</td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="../../d8/da1/class_cone.html">Cone</a> * &gt; &amp;&#160;</td>
-          <td class="paramname"><em>input_cones</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../d1/d26/struct_position.html">Position</a>&#160;</td>
-          <td class="paramname"><em>position</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>radius</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>filter cones that are closer than a certain radius </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">input_cones</td><td>cones to be filtered </td></tr>
-    <tr><td class="paramname">position</td><td>position to filter the cones in accordance to </td></tr>
-    <tr><td class="paramname">radius</td><td>radius to filter the cones </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>std::vector&lt;Cone*&gt; filtered cones </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html#l00072">72</a> of file <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html">cone_coloring.cpp</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../dd/d52/class_cone_coloring_ab48a807ad4ebbab14fa66abb2c235d7e_icgraph.png" border="0" usemap="#add/d52/class_cone_coloring_ab48a807ad4ebbab14fa66abb2c235d7e_icgraph" alt=""/></div>
-<map name="add/d52/class_cone_coloring_ab48a807ad4ebbab14fa66abb2c235d7e_icgraph" id="add/d52/class_cone_coloring_ab48a807ad4ebbab14fa66abb2c235d7e_icgraph">
-<area shape="rect" title="filter cones that are closer than a certain radius" alt="" coords="369,5,508,46"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#a0d1cff5f96836f91157149c03903fcc4" title="add the best initial cones to the sides of the track" alt="" coords="186,5,321,46"/>
-<area shape="poly" title=" " alt="" coords="354,28,321,28,321,23,354,23"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#aea4237fcc98dec4eb82034bf8c71e3a0" title="color the cones based on the cost to reach them" alt="" coords="5,5,138,46"/>
-<area shape="poly" title=" " alt="" coords="170,28,138,28,138,23,170,23"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="ab7606807a4493f219ccaa3fccf259943" name="ab7606807a4493f219ccaa3fccf259943"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab7606807a4493f219ccaa3fccf259943">&#9670;&#160;</a></span>get_initial_cone()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d8/da1/class_cone.html">Cone</a> ConeColoring::get_initial_cone </td>
-          <td>(</td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="../../d8/da1/class_cone.html">Cone</a> * &gt; &amp;&#160;</td>
-          <td class="paramname"><em>candidates</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../d8/d11/struct_pose.html">Pose</a>&#160;</td>
-          <td class="paramname"><em>initial_car_pose</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../d7/d88/right__left__enum_8hpp.html#ab29ebb3bd0eb1f2813c692fe882c3186">TrackSide</a>&#160;</td>
-          <td class="paramname"><em>side</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>get the initial cone to start the path from side determined by parameter </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">candidates</td><td>possible cones to start the path (cones closer than threshold) </td></tr>
-    <tr><td class="paramname">initial_car_pose</td><td>initial pose of the car </td></tr>
-    <tr><td class="paramname">side</td><td>reach the cone form the left or right side </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Cone* initial cone to start the path </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html#l00055">55</a> of file <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html">cone_coloring.cpp</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../dd/d52/class_cone_coloring_ab7606807a4493f219ccaa3fccf259943_cgraph.png" border="0" usemap="#add/d52/class_cone_coloring_ab7606807a4493f219ccaa3fccf259943_cgraph" alt=""/></div>
-<map name="add/d52/class_cone_coloring_ab7606807a4493f219ccaa3fccf259943_cgraph" id="add/d52/class_cone_coloring_ab7606807a4493f219ccaa3fccf259943_cgraph">
-<area shape="rect" title="get the initial cone to start the path from side determined by parameter" alt="" coords="5,117,200,143"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#a5caccbf9451b3891327a097508806fd0" title="cost function used to minimize the cost of the path." alt="" coords="260,31,389,56"/>
-<area shape="poly" title=" " alt="" coords="132,114,247,66,266,59,268,64,249,71,134,119"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#a78736262a20cf6c4a0c4676369ba095a" title="get an estimate to the distance to the left side of the track when choosing first cone" alt="" coords="248,81,401,121"/>
-<area shape="poly" title=" " alt="" coords="200,115,232,110,233,116,200,120"/>
-<area shape="rect" href="../../d8/da1/class_cone.html#af72e761554d3e39ba6ac88f9971f5bc7" title=" " alt="" coords="282,145,367,171"/>
-<area shape="poly" title=" " alt="" coords="200,140,267,148,267,154,200,145"/>
-<area shape="rect" href="../../d8/da1/class_cone.html#a9136643a197ccd7b38f32391b965d808" title=" " alt="" coords="282,195,367,220"/>
-<area shape="poly" title=" " alt="" coords="139,141,249,181,268,188,267,193,247,186,138,146"/>
-<area shape="poly" title=" " alt="" coords="292,32,286,22,290,12,303,6,324,4,348,7,360,14,357,18,346,12,324,9,304,11,293,16,291,21,296,29"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#a98c36a16331be4f2318faaa94ab6de17" title="calculate angle between the vector made by last two cones and the vector formed by the last cone and ..." alt="" coords="449,23,584,64"/>
-<area shape="poly" title=" " alt="" coords="389,41,434,41,434,46,389,46"/>
-<area shape="rect" href="../../d8/da1/class_cone.html#a51a49cc249e79d06f6a983250fe809b3" title=" " alt="" coords="632,5,717,31"/>
-<area shape="poly" title=" " alt="" coords="584,30,617,25,618,30,585,35"/>
-<area shape="rect" href="../../d8/da1/class_cone.html#a952987a9de5d20d7930b3e93c04fd278" title=" " alt="" coords="632,55,717,80"/>
-<area shape="poly" title=" " alt="" coords="585,51,618,56,617,61,584,56"/>
-</map>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../dd/d52/class_cone_coloring_ab7606807a4493f219ccaa3fccf259943_icgraph.png" border="0" usemap="#add/d52/class_cone_coloring_ab7606807a4493f219ccaa3fccf259943_icgraph" alt=""/></div>
-<map name="add/d52/class_cone_coloring_ab7606807a4493f219ccaa3fccf259943_icgraph" id="add/d52/class_cone_coloring_ab7606807a4493f219ccaa3fccf259943_icgraph">
-<area shape="rect" title="get the initial cone to start the path from side determined by parameter" alt="" coords="369,13,563,39"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#a0d1cff5f96836f91157149c03903fcc4" title="add the best initial cones to the sides of the track" alt="" coords="186,5,321,46"/>
-<area shape="poly" title=" " alt="" coords="353,28,321,28,321,23,353,23"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#aea4237fcc98dec4eb82034bf8c71e3a0" title="color the cones based on the cost to reach them" alt="" coords="5,5,138,46"/>
-<area shape="poly" title=" " alt="" coords="170,28,138,28,138,23,170,23"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="af78a1e3246e614f0966073d1938f2897" name="af78a1e3246e614f0966073d1938f2897"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af78a1e3246e614f0966073d1938f2897">&#9670;&#160;</a></span>make_unvisited_cones()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::shared_ptr&lt; std::vector&lt; std::pair&lt; <a class="el" href="../../d8/da1/class_cone.html">Cone</a> *, bool &gt; &gt; &gt; ConeColoring::make_unvisited_cones </td>
-          <td>(</td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="../../d8/da1/class_cone.html">Cone</a> * &gt; &amp;&#160;</td>
-          <td class="paramname"><em>cones</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>make a vector of cones and a boolean to determine if the cone has been visited </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">cones</td><td>cones to be marked as visited [true] or unvisited [false] </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>std::vector&lt;std::pair&lt;Cone *, bool&gt; *&gt; vector of cones and a boolean to determine if the cone has been visited </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html#l00135">135</a> of file <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html">cone_coloring.cpp</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../dd/d52/class_cone_coloring_af78a1e3246e614f0966073d1938f2897_cgraph.png" border="0" usemap="#add/d52/class_cone_coloring_af78a1e3246e614f0966073d1938f2897_cgraph" alt=""/></div>
-<map name="add/d52/class_cone_coloring_af78a1e3246e614f0966073d1938f2897_cgraph" id="add/d52/class_cone_coloring_af78a1e3246e614f0966073d1938f2897_cgraph">
-<area shape="rect" title="make a vector of cones and a boolean to determine if the cone has been visited" alt="" coords="5,5,142,46"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#acb87ad66a91be33029ec11b30e18b8ac" title="determine if the specified cone is in the specified side of the track" alt="" coords="190,5,322,46"/>
-<area shape="poly" title=" " alt="" coords="142,23,174,23,174,28,142,28"/>
-</map>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../dd/d52/class_cone_coloring_af78a1e3246e614f0966073d1938f2897_icgraph.png" border="0" usemap="#add/d52/class_cone_coloring_af78a1e3246e614f0966073d1938f2897_icgraph" alt=""/></div>
-<map name="add/d52/class_cone_coloring_af78a1e3246e614f0966073d1938f2897_icgraph" id="add/d52/class_cone_coloring_af78a1e3246e614f0966073d1938f2897_icgraph">
-<area shape="rect" title="make a vector of cones and a boolean to determine if the cone has been visited" alt="" coords="186,5,322,46"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#aea4237fcc98dec4eb82034bf8c71e3a0" title="color the cones based on the cost to reach them" alt="" coords="5,5,138,46"/>
-<area shape="poly" title=" " alt="" coords="170,28,138,28,138,23,170,23"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a0d1cff5f96836f91157149c03903fcc4" name="a0d1cff5f96836f91157149c03903fcc4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0d1cff5f96836f91157149c03903fcc4">&#9670;&#160;</a></span>place_initial_cones()</h2>
-
-<div class="memitem">
-<div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void ConeColoring::place_initial_cones </td>
           <td>(</td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="../../d8/da1/class_cone.html">Cone</a> * &gt; &amp;&#160;</td>
-          <td class="paramname"><em>input_cones</em>, </td>
+          <td class="paramtype">std::unordered_set&lt; <a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a61b9f47c88349017c0fd397c308e5ed5">Cone</a>, std::hash&lt; <a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a61b9f47c88349017c0fd397c308e5ed5">Cone</a> &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>uncolored_cones</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d8/d11/struct_pose.html">Pose</a>&#160;</td>
-          <td class="paramname"><em>initial_car_pose</em>&#160;</td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a61b9f47c88349017c0fd397c308e5ed5">Cone</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>colored_blue_cones</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a61b9f47c88349017c0fd397c308e5ed5">Cone</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>colored_yellow_cones</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a4dc1cfa8589f8390497feca76cd399d4">Pose</a> &amp;&#160;</td>
+          <td class="paramname"><em>car_pose</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int &amp;&#160;</td>
+          <td class="paramname"><em>n_colored_cones</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>add the best initial cones to the sides of the track </p>
+<p>function to place the initial cones, including the virtual ones </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">input_cones</td><td>uncolored cones </td></tr>
-    <tr><td class="paramname">initial_car_pose</td><td>initial pose of the car </td></tr>
+    <tr><td class="paramname">uncolored_cones</td><td>set of cones </td></tr>
+    <tr><td class="paramname">colored_blue_cones</td><td>vector of blue cones (where the blue cones will be added) </td></tr>
+    <tr><td class="paramname">colored_yellow_cones</td><td>vector of yellow cones (where the yellow cones will be added) </td></tr>
+    <tr><td class="paramname">car_pose</td><td>car pose in the map relative to the origin </td></tr>
+    <tr><td class="paramname">n_colored_cones</td><td>number of colored cones which will be updated </td></tr>
   </table>
   </dd>
 </dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html#l00051">51</a> of file <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html">cone_coloring.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../dd/d52/class_cone_coloring_aa7d599519fe0f8e7cfacb7f3a7a7b379_cgraph.png" border="0" usemap="#add/d52/class_cone_coloring_aa7d599519fe0f8e7cfacb7f3a7a7b379_cgraph" alt=""/></div>
+<map name="add/d52/class_cone_coloring_aa7d599519fe0f8e7cfacb7f3a7a7b379_cgraph" id="add/d52/class_cone_coloring_aa7d599519fe0f8e7cfacb7f3a7a7b379_cgraph">
+<area shape="rect" title="function to place the initial cones, including the virtual ones" alt="" coords="5,39,141,79"/>
+<area shape="rect" href="../../dd/d52/class_cone_coloring.html#a00c350bf4d9f8463dfda24ec1cf09a90" title="function to find the initial cone according to the distance to the expected position" alt="" coords="207,5,332,46"/>
+<area shape="poly" title=" " alt="" coords="141,45,192,36,193,41,141,50"/>
+<area shape="rect" href="../../dd/d52/class_cone_coloring.html#a46c3e0493a08adc9592494f2a75e681b" title="calculate the position of a virtual cone relative to a real one" alt="" coords="189,71,350,111"/>
+<area shape="poly" title=" " alt="" coords="141,67,174,73,173,78,141,73"/>
+<area shape="rect" href="../../dd/d52/class_cone_coloring.html#a4d5383a83dcfeda441351086839c22fd" title="calculate the expected position of the initial cones" alt="" coords="398,5,554,46"/>
+<area shape="poly" title=" " alt="" coords="332,23,383,23,383,28,332,28"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../dd/d52/class_cone_coloring_aa7d599519fe0f8e7cfacb7f3a7a7b379_icgraph.png" border="0" usemap="#add/d52/class_cone_coloring_aa7d599519fe0f8e7cfacb7f3a7a7b379_icgraph" alt=""/></div>
+<map name="add/d52/class_cone_coloring_aa7d599519fe0f8e7cfacb7f3a7a7b379_icgraph" id="add/d52/class_cone_coloring_aa7d599519fe0f8e7cfacb7f3a7a7b379_icgraph">
+<area shape="rect" title="function to place the initial cones, including the virtual ones" alt="" coords="1111,137,1246,178"/>
+<area shape="rect" href="../../dd/d52/class_cone_coloring.html#ae156749a11928c8f3d103bfa8410ecf8" title="color all cones" alt="" coords="931,137,1063,178"/>
+<area shape="poly" title=" " alt="" coords="1095,160,1063,160,1063,155,1095,155"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the planning algorithms." alt="" coords="732,108,883,149"/>
+<area shape="poly" title=" " alt="" coords="915,148,882,143,883,137,916,142"/>
+<area shape="rect" href="../../d2/de6/cone__coloring__tests_8cpp.html#ae0eb2417c307a7e6015466adfe20b14d" title="test the full cone coloring algorithm in 20 tracks." alt="" coords="780,173,835,199"/>
+<area shape="poly" title=" " alt="" coords="916,172,835,184,835,179,915,167"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#ab04bd1f3fa9458e5a1360cfabacc56a7" title="Callback for track map updates(when msg received)." alt="" coords="521,72,659,113"/>
+<area shape="poly" title=" " alt="" coords="717,116,659,106,660,101,718,111"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a53d5a67d438860be75a3d9e0bc0df8c3" title="Callback for vehicle localization updates (undefined)." alt="" coords="495,145,684,186"/>
+<area shape="poly" title=" " alt="" coords="718,146,685,152,684,147,717,141"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a60c7f8fa7896a4d10f19d23d6b9d81fa" title=" " alt="" coords="266,70,444,96"/>
+<area shape="poly" title=" " alt="" coords="505,92,444,89,444,84,505,86"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a115541ef5b9431540a991a03832d520d" title="Constructor for the Planning class." alt="" coords="291,120,419,145"/>
+<area shape="poly" title=" " alt="" coords="505,109,419,124,418,119,505,104"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a369c9138f1446127e8f28e5b54242577" title=" " alt="" coords="281,5,429,46"/>
+<area shape="poly" title=" " alt="" coords="505,71,428,49,430,44,506,66"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a041e217f0b1bdf0b8a0d4aede5da7183" title=" " alt="" coords="25,120,195,145"/>
+<area shape="poly" title=" " alt="" coords="273,102,178,121,177,116,272,97"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70" title=" " alt="" coords="5,13,215,39"/>
+<area shape="poly" title=" " alt="" coords="266,28,215,28,215,23,266,23"/>
+<area shape="poly" title=" " alt="" coords="479,153,419,144,419,139,480,147"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#ac145b9dae6abd6c7b4e6582c622faf0b" title=" " alt="" coords="264,169,446,195"/>
+<area shape="poly" title=" " alt="" coords="480,176,446,178,446,173,479,171"/>
+<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#a14e4d6f21f56e74404eb9387fd5d97c9" title=" " alt="" coords="263,218,447,244"/>
+<area shape="poly" title=" " alt="" coords="504,193,448,210,409,220,407,215,446,204,503,188"/>
+<area shape="poly" title=" " alt="" coords="272,168,177,148,178,143,273,163"/>
+<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,218,198,244"/>
+<area shape="poly" title=" " alt="" coords="247,234,198,234,198,228,247,228"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a2bf7e41855a5a2e1cca355ec8ae2b321" name="a2bf7e41855a5a2e1cca355ec8ae2b321"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2bf7e41855a5a2e1cca355ec8ae2b321">&#9670;&#160;</a></span>remove_duplicates()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ConeColoring::remove_duplicates </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a61b9f47c88349017c0fd397c308e5ed5">Cone</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>cones</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>function to remove duplicates from a vector of cones </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cones</td><td>vector of cones </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html#l00003">3</a> of file <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html">cone_coloring.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../dd/d52/class_cone_coloring_a2bf7e41855a5a2e1cca355ec8ae2b321_icgraph.png" border="0" usemap="#add/d52/class_cone_coloring_a2bf7e41855a5a2e1cca355ec8ae2b321_icgraph" alt=""/></div>
+<map name="add/d52/class_cone_coloring_a2bf7e41855a5a2e1cca355ec8ae2b321_icgraph" id="add/d52/class_cone_coloring_a2bf7e41855a5a2e1cca355ec8ae2b321_icgraph">
+<area shape="rect" title="function to remove duplicates from a vector of cones" alt="" coords="1111,137,1258,178"/>
+<area shape="rect" href="../../dd/d52/class_cone_coloring.html#ae156749a11928c8f3d103bfa8410ecf8" title="color all cones" alt="" coords="931,137,1063,178"/>
+<area shape="poly" title=" " alt="" coords="1096,160,1063,160,1063,155,1096,155"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the planning algorithms." alt="" coords="732,108,883,149"/>
+<area shape="poly" title=" " alt="" coords="915,148,882,143,883,137,916,142"/>
+<area shape="rect" href="../../d2/de6/cone__coloring__tests_8cpp.html#ae0eb2417c307a7e6015466adfe20b14d" title="test the full cone coloring algorithm in 20 tracks." alt="" coords="780,173,835,199"/>
+<area shape="poly" title=" " alt="" coords="916,172,835,184,835,179,915,167"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#ab04bd1f3fa9458e5a1360cfabacc56a7" title="Callback for track map updates(when msg received)." alt="" coords="521,72,659,113"/>
+<area shape="poly" title=" " alt="" coords="717,116,659,106,660,101,718,111"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a53d5a67d438860be75a3d9e0bc0df8c3" title="Callback for vehicle localization updates (undefined)." alt="" coords="495,145,684,186"/>
+<area shape="poly" title=" " alt="" coords="718,146,685,152,684,147,717,141"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a60c7f8fa7896a4d10f19d23d6b9d81fa" title=" " alt="" coords="266,70,444,96"/>
+<area shape="poly" title=" " alt="" coords="505,92,444,89,444,84,505,86"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a115541ef5b9431540a991a03832d520d" title="Constructor for the Planning class." alt="" coords="291,120,419,145"/>
+<area shape="poly" title=" " alt="" coords="505,109,419,124,418,119,505,104"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a369c9138f1446127e8f28e5b54242577" title=" " alt="" coords="281,5,429,46"/>
+<area shape="poly" title=" " alt="" coords="505,71,428,49,430,44,506,66"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a041e217f0b1bdf0b8a0d4aede5da7183" title=" " alt="" coords="25,120,195,145"/>
+<area shape="poly" title=" " alt="" coords="273,102,178,121,177,116,272,97"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70" title=" " alt="" coords="5,13,215,39"/>
+<area shape="poly" title=" " alt="" coords="266,28,215,28,215,23,266,23"/>
+<area shape="poly" title=" " alt="" coords="479,153,419,144,419,139,480,147"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#ac145b9dae6abd6c7b4e6582c622faf0b" title=" " alt="" coords="264,169,446,195"/>
+<area shape="poly" title=" " alt="" coords="480,176,446,178,446,173,479,171"/>
+<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#a14e4d6f21f56e74404eb9387fd5d97c9" title=" " alt="" coords="263,218,447,244"/>
+<area shape="poly" title=" " alt="" coords="504,193,448,210,409,220,407,215,446,204,503,188"/>
+<area shape="poly" title=" " alt="" coords="272,168,177,148,178,143,273,163"/>
+<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,218,198,244"/>
+<area shape="poly" title=" " alt="" coords="247,234,198,234,198,228,247,228"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a0bbe019de1d5378fd43bd4e2770443af" name="a0bbe019de1d5378fd43bd4e2770443af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bbe019de1d5378fd43bd4e2770443af">&#9670;&#160;</a></span>try_to_color_next_cone()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ConeColoring::try_to_color_next_cone </td>
+          <td>(</td>
+          <td class="paramtype">std::unordered_set&lt; <a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a61b9f47c88349017c0fd397c308e5ed5">Cone</a>, std::hash&lt; <a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a61b9f47c88349017c0fd397c308e5ed5">Cone</a> &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>uncolored_cones</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a61b9f47c88349017c0fd397c308e5ed5">Cone</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>colored_cones</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int &amp;&#160;</td>
+          <td class="paramname"><em>n_colored_cones</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>n_input_cones</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>select the next cone (which minimizes the cost) to be colored if its cost is less than the maximum established in the configuration </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">uncolored_cones</td><td>input cones </td></tr>
+    <tr><td class="paramname">colored_cones</td><td>vector to add the next cone </td></tr>
+    <tr><td class="paramname">n_colored_cones</td><td>number of cones which have been colored (updated in the function) </td></tr>
+    <tr><td class="paramname">n_input_cones</td><td>number of input cones (used to calculate the ratio of colored cones to input cones) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the cone has been successfully colored </dd>
+<dd>
+false if all cones had a cost higher than the maximum established or were too far away </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html#l00085">85</a> of file <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html">cone_coloring.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../dd/d52/class_cone_coloring_a0d1cff5f96836f91157149c03903fcc4_cgraph.png" border="0" usemap="#add/d52/class_cone_coloring_a0d1cff5f96836f91157149c03903fcc4_cgraph" alt=""/></div>
-<map name="add/d52/class_cone_coloring_a0d1cff5f96836f91157149c03903fcc4_cgraph" id="add/d52/class_cone_coloring_a0d1cff5f96836f91157149c03903fcc4_cgraph">
-<area shape="rect" title="add the best initial cones to the sides of the track" alt="" coords="5,82,141,123"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#ab48a807ad4ebbab14fa66abb2c235d7e" title="filter cones that are closer than a certain radius" alt="" coords="216,53,356,93"/>
-<area shape="poly" title=" " alt="" coords="140,90,200,82,201,87,141,96"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#ab7606807a4493f219ccaa3fccf259943" title="get the initial cone to start the path from side determined by parameter" alt="" coords="189,117,383,143"/>
-<area shape="poly" title=" " alt="" coords="141,108,173,113,173,118,140,114"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#a5caccbf9451b3891327a097508806fd0" title="cost function used to minimize the cost of the path." alt="" coords="443,31,572,56"/>
-<area shape="poly" title=" " alt="" coords="351,114,382,102,406,85,430,67,443,60,446,65,432,71,409,89,384,107,353,119"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#a78736262a20cf6c4a0c4676369ba095a" title="get an estimate to the distance to the left side of the track when choosing first cone" alt="" coords="431,81,584,121"/>
-<area shape="poly" title=" " alt="" coords="383,115,415,110,416,116,384,120"/>
-<area shape="rect" href="../../d8/da1/class_cone.html#af72e761554d3e39ba6ac88f9971f5bc7" title=" " alt="" coords="466,145,550,171"/>
-<area shape="poly" title=" " alt="" coords="384,140,451,148,450,154,383,145"/>
-<area shape="rect" href="../../d8/da1/class_cone.html#a9136643a197ccd7b38f32391b965d808" title=" " alt="" coords="466,195,550,220"/>
-<area shape="poly" title=" " alt="" coords="323,141,432,181,452,188,450,193,430,186,321,146"/>
-<area shape="poly" title=" " alt="" coords="475,32,469,22,473,12,486,6,508,4,531,7,543,14,541,18,530,12,508,9,487,11,477,16,474,21,480,29"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#a98c36a16331be4f2318faaa94ab6de17" title="calculate angle between the vector made by last two cones and the vector formed by the last cone and ..." alt="" coords="632,23,768,64"/>
-<area shape="poly" title=" " alt="" coords="573,41,617,41,617,46,573,46"/>
-<area shape="rect" href="../../d8/da1/class_cone.html#a51a49cc249e79d06f6a983250fe809b3" title=" " alt="" coords="816,5,900,31"/>
-<area shape="poly" title=" " alt="" coords="768,30,800,25,801,30,768,35"/>
-<area shape="rect" href="../../d8/da1/class_cone.html#a952987a9de5d20d7930b3e93c04fd278" title=" " alt="" coords="816,55,900,80"/>
-<area shape="poly" title=" " alt="" coords="768,51,801,56,800,61,768,56"/>
+<div class="center"><img src="../../dd/d52/class_cone_coloring_a0bbe019de1d5378fd43bd4e2770443af_cgraph.png" border="0" usemap="#add/d52/class_cone_coloring_a0bbe019de1d5378fd43bd4e2770443af_cgraph" alt=""/></div>
+<map name="add/d52/class_cone_coloring_a0bbe019de1d5378fd43bd4e2770443af_cgraph" id="add/d52/class_cone_coloring_a0bbe019de1d5378fd43bd4e2770443af_cgraph">
+<area shape="rect" title="select the next cone (which minimizes the cost) to be colored if its cost is less than the maximum es..." alt="" coords="5,5,142,46"/>
+<area shape="rect" href="../../dd/d52/class_cone_coloring.html#a248d064be09d7eb7ebc907f466ac73be" title="calculate the cost of coloring a cone" alt="" coords="190,13,378,39"/>
+<area shape="poly" title=" " alt="" coords="142,23,174,23,174,28,142,28"/>
+<area shape="rect" href="../../d2/d32/namespacecommon__lib_1_1maths.html#a158ecb4f5554792fc31db938539c8008" title="Function used to calculate the angle between two vectors and their norms." alt="" coords="426,5,565,46"/>
+<area shape="poly" title=" " alt="" coords="378,23,410,23,410,28,378,28"/>
 </map>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../dd/d52/class_cone_coloring_a0d1cff5f96836f91157149c03903fcc4_icgraph.png" border="0" usemap="#add/d52/class_cone_coloring_a0d1cff5f96836f91157149c03903fcc4_icgraph" alt=""/></div>
-<map name="add/d52/class_cone_coloring_a0d1cff5f96836f91157149c03903fcc4_icgraph" id="add/d52/class_cone_coloring_a0d1cff5f96836f91157149c03903fcc4_icgraph">
-<area shape="rect" title="add the best initial cones to the sides of the track" alt="" coords="186,5,321,46"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#aea4237fcc98dec4eb82034bf8c71e3a0" title="color the cones based on the cost to reach them" alt="" coords="5,5,138,46"/>
-<area shape="poly" title=" " alt="" coords="170,28,138,28,138,23,170,23"/>
+<div class="center"><img src="../../dd/d52/class_cone_coloring_a0bbe019de1d5378fd43bd4e2770443af_icgraph.png" border="0" usemap="#add/d52/class_cone_coloring_a0bbe019de1d5378fd43bd4e2770443af_icgraph" alt=""/></div>
+<map name="add/d52/class_cone_coloring_a0bbe019de1d5378fd43bd4e2770443af_icgraph" id="add/d52/class_cone_coloring_a0bbe019de1d5378fd43bd4e2770443af_icgraph">
+<area shape="rect" title="select the next cone (which minimizes the cost) to be colored if its cost is less than the maximum es..." alt="" coords="1111,137,1247,178"/>
+<area shape="rect" href="../../dd/d52/class_cone_coloring.html#ae156749a11928c8f3d103bfa8410ecf8" title="color all cones" alt="" coords="931,137,1063,178"/>
+<area shape="poly" title=" " alt="" coords="1095,160,1064,160,1064,155,1095,155"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the planning algorithms." alt="" coords="732,108,883,149"/>
+<area shape="poly" title=" " alt="" coords="915,148,882,143,883,137,916,142"/>
+<area shape="rect" href="../../d2/de6/cone__coloring__tests_8cpp.html#ae0eb2417c307a7e6015466adfe20b14d" title="test the full cone coloring algorithm in 20 tracks." alt="" coords="780,173,835,199"/>
+<area shape="poly" title=" " alt="" coords="916,172,835,184,835,179,915,167"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#ab04bd1f3fa9458e5a1360cfabacc56a7" title="Callback for track map updates(when msg received)." alt="" coords="521,72,659,113"/>
+<area shape="poly" title=" " alt="" coords="717,116,659,106,660,101,718,111"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a53d5a67d438860be75a3d9e0bc0df8c3" title="Callback for vehicle localization updates (undefined)." alt="" coords="495,145,684,186"/>
+<area shape="poly" title=" " alt="" coords="718,146,685,152,684,147,717,141"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a60c7f8fa7896a4d10f19d23d6b9d81fa" title=" " alt="" coords="266,70,444,96"/>
+<area shape="poly" title=" " alt="" coords="505,92,444,89,444,84,505,86"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a115541ef5b9431540a991a03832d520d" title="Constructor for the Planning class." alt="" coords="291,120,419,145"/>
+<area shape="poly" title=" " alt="" coords="505,109,419,124,418,119,505,104"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a369c9138f1446127e8f28e5b54242577" title=" " alt="" coords="281,5,429,46"/>
+<area shape="poly" title=" " alt="" coords="505,71,428,49,430,44,506,66"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a041e217f0b1bdf0b8a0d4aede5da7183" title=" " alt="" coords="25,120,195,145"/>
+<area shape="poly" title=" " alt="" coords="273,102,178,121,177,116,272,97"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70" title=" " alt="" coords="5,13,215,39"/>
+<area shape="poly" title=" " alt="" coords="266,28,215,28,215,23,266,23"/>
+<area shape="poly" title=" " alt="" coords="479,153,419,144,419,139,480,147"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#ac145b9dae6abd6c7b4e6582c622faf0b" title=" " alt="" coords="264,169,446,195"/>
+<area shape="poly" title=" " alt="" coords="480,176,446,178,446,173,479,171"/>
+<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#a14e4d6f21f56e74404eb9387fd5d97c9" title=" " alt="" coords="263,218,447,244"/>
+<area shape="poly" title=" " alt="" coords="504,193,448,210,409,220,407,215,446,204,503,188"/>
+<area shape="poly" title=" " alt="" coords="272,168,177,148,178,143,273,163"/>
+<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,218,198,244"/>
+<area shape="poly" title=" " alt="" coords="247,234,198,234,198,228,247,228"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="a4ba687002332236542dbbc6e6b49b252" name="a4ba687002332236542dbbc6e6b49b252"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4ba687002332236542dbbc6e6b49b252">&#9670;&#160;</a></span>place_next_cone()</h2>
+<a id="a46c3e0493a08adc9592494f2a75e681b" name="a46c3e0493a08adc9592494f2a75e681b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46c3e0493a08adc9592494f2a75e681b">&#9670;&#160;</a></span>virtual_cone_from_initial_cone()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -967,33 +939,21 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool ConeColoring::place_next_cone </td>
+          <td class="memname"><a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a61b9f47c88349017c0fd397c308e5ed5">Cone</a> ConeColoring::virtual_cone_from_initial_cone </td>
           <td>(</td>
-          <td class="paramtype">std::shared_ptr&lt; std::vector&lt; std::pair&lt; <a class="el" href="../../d8/da1/class_cone.html">Cone</a> *, bool &gt; &gt; &gt;&#160;</td>
-          <td class="paramname"><em>visited_cones</em>, </td>
+          <td class="paramtype">const <a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a61b9f47c88349017c0fd397c308e5ed5">Cone</a> &amp;&#160;</td>
+          <td class="paramname"><em>initial_cone</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>distance_threshold</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>n</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../d7/d88/right__left__enum_8hpp.html#ab29ebb3bd0eb1f2813c692fe882c3186">TrackSide</a>&#160;</td>
-          <td class="paramname"><em>side</em>&#160;</td>
+          <td class="paramtype">const <a class="el" href="../../d3/d6c/cone__coloring_8hpp.html#a4dc1cfa8589f8390497feca76cd399d4">Pose</a> &amp;&#160;</td>
+          <td class="paramname"><em>car_pose</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td> const</td>
         </tr>
       </table>
   </td>
@@ -1003,59 +963,160 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>place the next cone in the path </p>
+<p>calculate the position of a virtual cone relative to a real one </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">un_visited_cones</td><td>array of possible cones to be visited (marked with false if not visited yet) </td></tr>
-    <tr><td class="paramname">distance_threshold</td><td>maximum distance to reach the next cone </td></tr>
-    <tr><td class="paramname">side</td><td>place the next cone in the left or right side </td></tr>
+    <tr><td class="paramname">initial_cone</td><td>cone to be used as reference </td></tr>
+    <tr><td class="paramname">car_pose</td><td>pose of the car </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true if the cone has been successfully placed </dd>
-<dd>
-false if the cone hasn't been placed </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>virtual cone </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html#l00146">146</a> of file <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html">cone_coloring.cpp</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../dd/d52/class_cone_coloring_a4ba687002332236542dbbc6e6b49b252_cgraph.png" border="0" usemap="#add/d52/class_cone_coloring_a4ba687002332236542dbbc6e6b49b252_cgraph" alt=""/></div>
-<map name="add/d52/class_cone_coloring_a4ba687002332236542dbbc6e6b49b252_cgraph" id="add/d52/class_cone_coloring_a4ba687002332236542dbbc6e6b49b252_cgraph">
-<area shape="rect" title="place the next cone in the path" alt="" coords="5,65,141,106"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#a5caccbf9451b3891327a097508806fd0" title="cost function used to minimize the cost of the path." alt="" coords="189,47,318,73"/>
-<area shape="poly" title=" " alt="" coords="141,73,173,69,174,74,141,79"/>
-<area shape="rect" href="../../d8/da1/class_cone.html#a51a49cc249e79d06f6a983250fe809b3" title=" " alt="" coords="591,41,676,66"/>
-<area shape="poly" title=" " alt="" coords="96,62,136,33,161,19,188,8,259,3,370,6,544,19,589,32,587,37,543,24,370,11,259,8,189,13,164,23,139,37,99,67"/>
-<area shape="rect" href="../../d8/da1/class_cone.html#a952987a9de5d20d7930b3e93c04fd278" title=" " alt="" coords="591,98,676,124"/>
-<area shape="poly" title=" " alt="" coords="141,95,189,104,366,137,444,142,543,133,579,126,580,131,544,139,444,147,365,143,188,109,140,101"/>
-<area shape="rect" href="../../d8/da1/class_cone.html#a3a8c9034075fdab8ff11947f39390af3" title=" " alt="" coords="366,98,543,124"/>
-<area shape="poly" title=" " alt="" coords="141,87,350,101,350,107,141,93"/>
-<area shape="poly" title=" " alt="" coords="223,48,217,39,221,29,233,23,253,21,275,23,287,30,284,34,273,28,253,26,234,28,224,33,222,38,227,45"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#a98c36a16331be4f2318faaa94ab6de17" title="calculate angle between the vector made by last two cones and the vector formed by the last cone and ..." alt="" coords="387,33,522,74"/>
-<area shape="poly" title=" " alt="" coords="319,55,371,54,371,59,319,61"/>
-<area shape="poly" title=" " alt="" coords="523,51,576,51,576,56,523,56"/>
-<area shape="poly" title=" " alt="" coords="521,72,577,90,576,95,519,77"/>
-<area shape="poly" title=" " alt="" coords="503,95,543,83,581,70,583,75,544,88,505,100"/>
-<area shape="poly" title=" " alt="" coords="544,108,576,108,576,113,544,113"/>
-</map>
-</div>
+<p class="definition">Definition at line <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html#l00042">42</a> of file <a class="el" href="../../d0/de4/cone__coloring_8cpp_source.html">cone_coloring.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../dd/d52/class_cone_coloring_a4ba687002332236542dbbc6e6b49b252_icgraph.png" border="0" usemap="#add/d52/class_cone_coloring_a4ba687002332236542dbbc6e6b49b252_icgraph" alt=""/></div>
-<map name="add/d52/class_cone_coloring_a4ba687002332236542dbbc6e6b49b252_icgraph" id="add/d52/class_cone_coloring_a4ba687002332236542dbbc6e6b49b252_icgraph">
-<area shape="rect" title="place the next cone in the path" alt="" coords="186,5,321,46"/>
-<area shape="rect" href="../../dd/d52/class_cone_coloring.html#aea4237fcc98dec4eb82034bf8c71e3a0" title="color the cones based on the cost to reach them" alt="" coords="5,5,138,46"/>
-<area shape="poly" title=" " alt="" coords="170,28,138,28,138,23,170,23"/>
+<div class="center"><img src="../../dd/d52/class_cone_coloring_a46c3e0493a08adc9592494f2a75e681b_icgraph.png" border="0" usemap="#add/d52/class_cone_coloring_a46c3e0493a08adc9592494f2a75e681b_icgraph" alt=""/></div>
+<map name="add/d52/class_cone_coloring_a46c3e0493a08adc9592494f2a75e681b_icgraph" id="add/d52/class_cone_coloring_a46c3e0493a08adc9592494f2a75e681b_icgraph">
+<area shape="rect" title="calculate the position of a virtual cone relative to a real one" alt="" coords="1294,137,1456,178"/>
+<area shape="rect" href="../../dd/d52/class_cone_coloring.html#aa7d599519fe0f8e7cfacb7f3a7a7b379" title="function to place the initial cones, including the virtual ones" alt="" coords="1111,137,1246,178"/>
+<area shape="poly" title=" " alt="" coords="1279,160,1247,160,1247,155,1279,155"/>
+<area shape="rect" href="../../dd/d52/class_cone_coloring.html#ae156749a11928c8f3d103bfa8410ecf8" title="color all cones" alt="" coords="931,137,1063,178"/>
+<area shape="poly" title=" " alt="" coords="1095,160,1063,160,1063,155,1095,155"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the planning algorithms." alt="" coords="732,108,883,149"/>
+<area shape="poly" title=" " alt="" coords="915,148,882,143,883,137,916,142"/>
+<area shape="rect" href="../../d2/de6/cone__coloring__tests_8cpp.html#ae0eb2417c307a7e6015466adfe20b14d" title="test the full cone coloring algorithm in 20 tracks." alt="" coords="780,173,835,199"/>
+<area shape="poly" title=" " alt="" coords="916,172,835,184,835,179,915,167"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#ab04bd1f3fa9458e5a1360cfabacc56a7" title="Callback for track map updates(when msg received)." alt="" coords="521,72,659,113"/>
+<area shape="poly" title=" " alt="" coords="717,116,659,106,660,101,718,111"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a53d5a67d438860be75a3d9e0bc0df8c3" title="Callback for vehicle localization updates (undefined)." alt="" coords="495,145,684,186"/>
+<area shape="poly" title=" " alt="" coords="718,146,685,152,684,147,717,141"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a60c7f8fa7896a4d10f19d23d6b9d81fa" title=" " alt="" coords="266,70,444,96"/>
+<area shape="poly" title=" " alt="" coords="505,92,444,89,444,84,505,86"/>
+<area shape="rect" href="../../d9/db5/class_planning.html#a115541ef5b9431540a991a03832d520d" title="Constructor for the Planning class." alt="" coords="291,120,419,145"/>
+<area shape="poly" title=" " alt="" coords="505,109,419,124,418,119,505,104"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a369c9138f1446127e8f28e5b54242577" title=" " alt="" coords="281,5,429,46"/>
+<area shape="poly" title=" " alt="" coords="505,71,428,49,430,44,506,66"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#a041e217f0b1bdf0b8a0d4aede5da7183" title=" " alt="" coords="25,120,195,145"/>
+<area shape="poly" title=" " alt="" coords="273,102,178,121,177,116,272,97"/>
+<area shape="rect" href="../../db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70" title=" " alt="" coords="5,13,215,39"/>
+<area shape="poly" title=" " alt="" coords="266,28,215,28,215,23,266,23"/>
+<area shape="poly" title=" " alt="" coords="479,153,419,144,419,139,480,147"/>
+<area shape="rect" href="../../d0/d1d/class_eufs_adapter.html#ac145b9dae6abd6c7b4e6582c622faf0b" title=" " alt="" coords="264,169,446,195"/>
+<area shape="poly" title=" " alt="" coords="480,176,446,178,446,173,479,171"/>
+<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#a14e4d6f21f56e74404eb9387fd5d97c9" title=" " alt="" coords="263,218,447,244"/>
+<area shape="poly" title=" " alt="" coords="504,193,448,210,409,220,407,215,446,204,503,188"/>
+<area shape="poly" title=" " alt="" coords="272,168,177,148,178,143,273,163"/>
+<area shape="rect" href="../../d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,218,198,244"/>
+<area shape="poly" title=" " alt="" coords="247,234,198,234,198,228,247,228"/>
 </map>
 </div>
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Symbol Documentation</h2>
+<a id="a5732e1bfacb34ab222fdf3dc6e2a236b" name="a5732e1bfacb34ab222fdf3dc6e2a236b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5732e1bfacb34ab222fdf3dc6e2a236b">&#9670;&#160;</a></span>ConeColoring_fullconecoloring1_Test</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class ConeColoring_fullconecoloring1_Test</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d6c/cone__coloring_8hpp_source.html#l00139">139</a> of file <a class="el" href="../../d3/d6c/cone__coloring_8hpp_source.html">cone_coloring.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac5a1f4a5386ed63ceb94f6cbaa05ed0a" name="ac5a1f4a5386ed63ceb94f6cbaa05ed0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5a1f4a5386ed63ceb94f6cbaa05ed0a">&#9670;&#160;</a></span>ConeColoring_fullconecoloring2_Test</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class ConeColoring_fullconecoloring2_Test</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d6c/cone__coloring_8hpp_source.html#l00140">140</a> of file <a class="el" href="../../d3/d6c/cone__coloring_8hpp_source.html">cone_coloring.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5007b14f871fa7ab4ddd4a71e66a4847" name="a5007b14f871fa7ab4ddd4a71e66a4847"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5007b14f871fa7ab4ddd4a71e66a4847">&#9670;&#160;</a></span>ConeColoring_place_first_cones1_Test</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class ConeColoring_place_first_cones1_Test</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>tests are declared as friend to test the behaviour of private functions </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d6c/cone__coloring_8hpp_source.html#l00137">137</a> of file <a class="el" href="../../d3/d6c/cone__coloring_8hpp_source.html">cone_coloring.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aabe8469ead5bdd120f30230d23e243d6" name="aabe8469ead5bdd120f30230d23e243d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aabe8469ead5bdd120f30230d23e243d6">&#9670;&#160;</a></span>ConeColoring_place_first_cones2_Test</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class ConeColoring_place_first_cones2_Test</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d6c/cone__coloring_8hpp_source.html#l00138">138</a> of file <a class="el" href="../../d3/d6c/cone__coloring_8hpp_source.html">cone_coloring.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a2144539d635436a80e9f71d3b4731a37" name="a2144539d635436a80e9f71d3b4731a37"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2144539d635436a80e9f71d3b4731a37">&#9670;&#160;</a></span>angle_gain</h2>
+<a id="a2b852da12dbe12cacb856aab1d9905a3" name="a2b852da12dbe12cacb856aab1d9905a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b852da12dbe12cacb856aab1d9905a3">&#9670;&#160;</a></span>config_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1064,7 +1125,7 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">double ConeColoring::angle_gain = 3.7</td>
+          <td class="memname"><a class="el" href="../../d1/df2/struct_cone_coloring_config.html">ConeColoringConfig</a> ConeColoring::config_</td>
         </tr>
       </table>
   </td>
@@ -1074,271 +1135,9 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>angle gain between the last edge and the possible new edge </p>
+<p>configuration of the cone coloring algorithm </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d6c/cone__coloring_8hpp_source.html#l00028">28</a> of file <a class="el" href="../../d3/d6c/cone__coloring_8hpp_source.html">cone_coloring.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a5c2cca77802d01ce2cdb49f00d1f51e8" name="a5c2cca77802d01ce2cdb49f00d1f51e8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5c2cca77802d01ce2cdb49f00d1f51e8">&#9670;&#160;</a></span>current_left_cones</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt;<a class="el" href="../../d8/da1/class_cone.html">Cone</a>*&gt; ConeColoring::current_left_cones = {}</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>current cones on the left side </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d3/d6c/cone__coloring_8hpp_source.html#l00167">167</a> of file <a class="el" href="../../d3/d6c/cone__coloring_8hpp_source.html">cone_coloring.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ad57837293e6b81b21b63ba5923ad2102" name="ad57837293e6b81b21b63ba5923ad2102"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad57837293e6b81b21b63ba5923ad2102">&#9670;&#160;</a></span>current_right_cones</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt;<a class="el" href="../../d8/da1/class_cone.html">Cone</a>*&gt; ConeColoring::current_right_cones = {}</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>current cones on the right side </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d3/d6c/cone__coloring_8hpp_source.html#l00172">172</a> of file <a class="el" href="../../d3/d6c/cone__coloring_8hpp_source.html">cone_coloring.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aaa0c9833a50f5e724323ee555d86baa4" name="aaa0c9833a50f5e724323ee555d86baa4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaa0c9833a50f5e724323ee555d86baa4">&#9670;&#160;</a></span>distance_gain</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double ConeColoring::distance_gain = 15.0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>distance gain to use for the distance cost </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d3/d6c/cone__coloring_8hpp_source.html#l00034">34</a> of file <a class="el" href="../../d3/d6c/cone__coloring_8hpp_source.html">cone_coloring.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a6b9ab55e9ed01659e3ad779b654596d7" name="a6b9ab55e9ed01659e3ad779b654596d7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6b9ab55e9ed01659e3ad779b654596d7">&#9670;&#160;</a></span>exponent1</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double ConeColoring::exponent1 = 0.7</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>exponent for the sum of distance and angle </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d3/d6c/cone__coloring_8hpp_source.html#l00046">46</a> of file <a class="el" href="../../d3/d6c/cone__coloring_8hpp_source.html">cone_coloring.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a0783992aa887fba8191dc574fa12965d" name="a0783992aa887fba8191dc574fa12965d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0783992aa887fba8191dc574fa12965d">&#9670;&#160;</a></span>exponent2</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double ConeColoring::exponent2 = 1.7</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>exponent for the overall sum </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d3/d6c/cone__coloring_8hpp_source.html#l00052">52</a> of file <a class="el" href="../../d3/d6c/cone__coloring_8hpp_source.html">cone_coloring.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a18d7b6e11f8cbff579d4d723463f290a" name="a18d7b6e11f8cbff579d4d723463f290a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a18d7b6e11f8cbff579d4d723463f290a">&#9670;&#160;</a></span>initial_cone_left</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../d8/da1/class_cone.html">Cone</a>&gt; ConeColoring::initial_cone_left = nullptr</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../d3/d6c/cone__coloring_8hpp_source.html#l00064">64</a> of file <a class="el" href="../../d3/d6c/cone__coloring_8hpp_source.html">cone_coloring.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ada8dfd5ea376a2aed83ad52eeb5b5b34" name="ada8dfd5ea376a2aed83ad52eeb5b5b34"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ada8dfd5ea376a2aed83ad52eeb5b5b34">&#9670;&#160;</a></span>initial_cone_right</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../d8/da1/class_cone.html">Cone</a>&gt; ConeColoring::initial_cone_right = nullptr</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../d3/d6c/cone__coloring_8hpp_source.html#l00066">66</a> of file <a class="el" href="../../d3/d6c/cone__coloring_8hpp_source.html">cone_coloring.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a7eb43e603ecbbaa8714520e13f756ef4" name="a7eb43e603ecbbaa8714520e13f756ef4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7eb43e603ecbbaa8714520e13f756ef4">&#9670;&#160;</a></span>max_cost</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double ConeColoring::max_cost = 40</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>maximum cost to reach a cone </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d3/d6c/cone__coloring_8hpp_source.html#l00058">58</a> of file <a class="el" href="../../d3/d6c/cone__coloring_8hpp_source.html">cone_coloring.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a55e3f078623f4b642bed426682a6e212" name="a55e3f078623f4b642bed426682a6e212"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a55e3f078623f4b642bed426682a6e212">&#9670;&#160;</a></span>ncones_gain</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double ConeColoring::ncones_gain = 8.7</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>gain to use for the cost </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d3/d6c/cone__coloring_8hpp_source.html#l00040">40</a> of file <a class="el" href="../../d3/d6c/cone__coloring_8hpp_source.html">cone_coloring.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ab8480545b403be8b4314e24d2c932b4e" name="ab8480545b403be8b4314e24d2c932b4e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab8480545b403be8b4314e24d2c932b4e">&#9670;&#160;</a></span>virtual_left_cone</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../d8/da1/class_cone.html">Cone</a>&gt; ConeColoring::virtual_left_cone = nullptr</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../d3/d6c/cone__coloring_8hpp_source.html#l00060">60</a> of file <a class="el" href="../../d3/d6c/cone__coloring_8hpp_source.html">cone_coloring.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a3046ed3b01b024df5c958e628f39b7ce" name="a3046ed3b01b024df5c958e628f39b7ce"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3046ed3b01b024df5c958e628f39b7ce">&#9670;&#160;</a></span>virtual_right_cone</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../d8/da1/class_cone.html">Cone</a>&gt; ConeColoring::virtual_right_cone = nullptr</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../d3/d6c/cone__coloring_8hpp_source.html#l00062">62</a> of file <a class="el" href="../../d3/d6c/cone__coloring_8hpp_source.html">cone_coloring.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d6c/cone__coloring_8hpp_source.html#l00031">31</a> of file <a class="el" href="../../d3/d6c/cone__coloring_8hpp_source.html">cone_coloring.hpp</a>.</p>
 
 </div>
 </div>

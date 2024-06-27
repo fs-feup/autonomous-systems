@@ -10,7 +10,7 @@ var searchData=
   ['marker_5fshape_5fmap_7',['marker_shape_map',['../d1/dd0/namespacecommon__lib_1_1communication.html#aa1cdb5d1026cb2d737e07ad24d069a48',1,'common_lib::communication']]],
   ['markersize_8',['markersize',['../d7/dc1/namespacespline.html#a14a612fad52579e23d7e46c64910497a',1,'spline']]],
   ['max_5fangle_9',['max_angle',['../d4/d89/class_inspection_functions.html#ae223a17bea40239b320d815dc492de64',1,'InspectionFunctions']]],
-  ['max_5fcost_10',['max_cost',['../dd/d52/class_cone_coloring.html#a7eb43e603ecbbaa8714520e13f756ef4',1,'ConeColoring']]],
+  ['max_5fcost_5f_10',['max_cost_',['../d1/df2/struct_cone_coloring_config.html#a77d3be6d8741957ba88b0e4142b3a4d1',1,'ConeColoringConfig']]],
   ['max_5flandmark_5fdistance_5f_11',['max_landmark_distance_',['../d1/d14/class_data_association_model.html#accc4954d500f5050f0186ef6c79688e6',1,'DataAssociationModel']]],
   ['max_5fsteering_5fangle_12',['MAX_STEERING_ANGLE',['../d2/db6/pp_8hpp.html#a871a7ae10a8ea978ba26c55e60f11da4',1,'pp.hpp']]],
   ['max_5fsteering_5fangle_5f_13',['max_steering_angle_',['../dc/dde/class_pure_pursuit.html#a3c9883db0681203f0a821f4b0e1668d7',1,'PurePursuit']]],

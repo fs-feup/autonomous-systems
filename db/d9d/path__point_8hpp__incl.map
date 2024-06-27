@@ -1,5 +1,8 @@
 <map id="src/common_lib/include/common_lib/structures/path_point.hpp" name="src/common_lib/include/common_lib/structures/path_point.hpp">
 <area shape="rect" id="Node000001" title=" " alt="" coords="5,5,164,61"/>
-<area shape="rect" id="Node000002" href="$d5/d91/position_8hpp.html" title=" " alt="" coords="8,109,161,150"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="87,62,87,94,82,94,82,62"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="46,198,123,223"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="71,62,56,104,53,126,55,149,70,183,65,185,50,150,48,126,51,102,66,60"/>
+<area shape="rect" id="Node000003" href="$d5/d91/position_8hpp.html" title=" " alt="" coords="65,109,219,150"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="103,60,124,95,120,97,99,63"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="130,152,105,186,100,183,126,148"/>
 </map>

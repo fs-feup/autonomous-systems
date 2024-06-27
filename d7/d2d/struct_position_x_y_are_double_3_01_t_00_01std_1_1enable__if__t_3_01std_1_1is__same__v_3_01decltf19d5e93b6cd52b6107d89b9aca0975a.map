@@ -1,0 +1,5 @@
+<map id="PositionXYAreDouble&lt; T, std::enable_if_t&lt; std::is_same_v&lt; decltype(std::declval&lt; T &gt;().position.x), double &gt; &amp;&amp;std::is_same_v&lt; decltype(std::declval&lt; T &gt;().position.y), double &gt; &gt; &gt;" name="PositionXYAreDouble&lt; T, std::enable_if_t&lt; std::is_same_v&lt; decltype(std::declval&lt; T &gt;().position.x), double &gt; &amp;&amp;std::is_same_v&lt; decltype(std::declval&lt; T &gt;().position.y), double &gt; &gt; &gt;">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,119,264,259"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="90,5,179,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="137,86,137,119,132,119,132,86"/>
+</map>

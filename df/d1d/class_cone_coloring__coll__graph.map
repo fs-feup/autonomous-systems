@@ -1,3 +1,5 @@
 <map id="ConeColoring" name="ConeColoring">
-<area shape="rect" id="Node000001" title="Class responsible for recieving a set of uncolored cones and discovering their color This is done by ..." alt="" coords="5,5,179,511"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,254,169,528"/>
+<area shape="rect" id="Node000002" href="$d1/df2/struct_cone_coloring_config.html" title="struct for the configuration of the cone coloring algorithm." alt="" coords="15,5,159,191"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="90,190,90,237,85,237,85,190"/>
 </map>

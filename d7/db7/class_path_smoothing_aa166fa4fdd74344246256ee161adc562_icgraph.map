@@ -1,9 +1,0 @@
-<map id="PathSmoothing::getPointAmount" name="PathSmoothing::getPointAmount">
-<area shape="rect" id="Node000001" title="Get the number of points in the path." alt="" coords="251,55,460,80"/>
-<area shape="rect" id="Node000002" href="$d7/db7/class_path_smoothing.html#a87de9c2f357b06e04b33311cdf822485" title="logs the cones in path in the following format: (x,y),...,(xn,yn)" alt="" coords="5,5,203,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="271,54,173,34,174,29,272,48"/>
-<area shape="rect" id="Node000003" href="$dd/df6/planning_2test_2tests_8cpp.html#a6df4e4f75ec78a003fe012ee9a5172f8" title="simple scenario with few points in the path" alt="" coords="77,55,131,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="235,70,132,70,132,65,235,65"/>
-<area shape="rect" id="Node000004" href="$dd/df6/planning_2test_2tests_8cpp.html#aae8c79094c63a375eea2464aa2a09e00" title="more complex scenario with cones deviating from path and with significant curvature" alt="" coords="77,104,131,130"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="272,87,132,114,131,109,271,81"/>
-</map>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['point_0',['Point',['../d2/d05/local__path__planner_8hpp.html#aa097b1c3f5429739d7234ac0c50976d9',1,'local_path_planner.hpp']]]
+  ['imupolicy_0',['ImuPolicy',['../d1/df1/class_vehicle_adapter.html#a3f4df8352b4709f3fed5410770264a96',1,'VehicleAdapter']]]
 ];

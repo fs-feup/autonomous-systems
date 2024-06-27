@@ -92,6 +92,7 @@ $(document).ready(function(){initNavTree('d5/d8c/files_8hpp.html','../../'); ini
 
 <div class="header">
   <div class="summary">
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">files.hpp File Reference</div></div>
 </div><!--header-->
@@ -100,57 +101,37 @@ $(document).ready(function(){initNavTree('d5/d8c/files_8hpp.html','../../'); ini
 <code>#include &lt;filesystem&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
-<code>#include &quot;<a class="el" href="../../de/d76/track_8hpp_source.html">../planning/track.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d4/dd1/pathpoint_8hpp_source.html">./pathpoint.hpp</a>&quot;</code><br />
+<code>#include &lt;fstream&gt;</code><br />
+<code>#include &lt;iostream&gt;</code><br />
 <code>#include &quot;rclcpp/rclcpp.hpp&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d9/d07/path__point_8hpp_source.html">common_lib/structures/path_point.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for files.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../dd/d57/files_8hpp__incl.png" border="0" usemap="#asrc_2planning_2include_2utils_2files_8hpp" alt=""/></div>
 <map name="asrc_2planning_2include_2utils_2files_8hpp" id="asrc_2planning_2include_2utils_2files_8hpp">
-<area shape="rect" title=" " alt="" coords="775,5,912,46"/>
+<area shape="rect" title=" " alt="" coords="410,5,546,46"/>
 <area shape="rect" title=" " alt="" coords="5,94,202,135"/>
-<area shape="poly" title=" " alt="" coords="775,35,533,59,217,96,217,91,532,53,774,30"/>
+<area shape="poly" title=" " alt="" coords="410,45,204,93,203,87,409,40"/>
 <area shape="rect" title=" " alt="" coords="225,102,305,127"/>
-<area shape="poly" title=" " alt="" coords="775,34,572,55,448,73,324,97,314,99,312,94,323,91,447,68,571,50,775,29"/>
-<area shape="rect" title=" " alt="" coords="366,256,420,282"/>
-<area shape="poly" title=" " alt="" coords="775,31,686,41,635,51,582,66,530,86,481,111,436,144,399,184,392,197,389,212,390,241,384,241,384,211,387,195,395,181,433,140,478,107,528,81,580,61,633,46,685,36,774,26"/>
-<area shape="rect" title=" " alt="" coords="1356,256,1414,282"/>
-<area shape="poly" title=" " alt="" coords="912,26,1072,32,1268,45,1440,64,1500,77,1533,92,1555,120,1563,149,1559,179,1543,210,1520,234,1490,250,1459,261,1429,267,1428,262,1457,256,1488,245,1516,230,1539,207,1554,177,1558,149,1550,122,1530,96,1498,82,1439,69,1267,50,1072,38,912,31"/>
-<area shape="rect" href="../../de/d76/track_8hpp.html" title=" " alt="" coords="775,102,912,127"/>
-<area shape="poly" title=" " alt="" coords="838,47,838,86,832,86,833,46"/>
-<area shape="rect" title=" " alt="" coords="1256,183,1375,208"/>
-<area shape="poly" title=" " alt="" coords="899,44,1268,175,1266,180,898,49"/>
-<area shape="rect" href="../../d4/dd1/pathpoint_8hpp.html" title=" " alt="" coords="1414,102,1519,127"/>
-<area shape="poly" title=" " alt="" coords="912,34,1398,101,1398,106,912,39"/>
-<area shape="poly" title=" " alt="" coords="847,101,850,61,855,62,853,101"/>
-<area shape="poly" title=" " alt="" coords="775,120,682,126,577,138,482,157,445,169,420,185,410,197,403,211,396,241,391,240,398,209,405,194,416,181,443,165,480,151,576,132,681,121,775,115"/>
-<area shape="poly" title=" " alt="" coords="912,120,1044,141,1120,158,1194,180,1220,192,1245,206,1343,248,1341,253,1242,211,1217,197,1192,185,1118,164,1043,147,911,126"/>
-<area shape="rect" title=" " alt="" coords="925,183,1042,208"/>
-<area shape="poly" title=" " alt="" coords="866,125,950,172,948,177,863,130"/>
-<area shape="rect" title=" " alt="" coords="1066,183,1181,208"/>
-<area shape="poly" title=" " alt="" coords="887,125,1066,175,1065,181,886,130"/>
-<area shape="rect" title=" " alt="" coords="859,256,916,282"/>
-<area shape="poly" title=" " alt="" coords="850,127,882,241,877,242,844,128"/>
-<area shape="rect" title=" " alt="" coords="431,183,491,208"/>
-<area shape="poly" title=" " alt="" coords="776,130,654,153,507,184,506,179,653,148,775,125"/>
-<area shape="rect" title=" " alt="" coords="1399,183,1464,208"/>
-<area shape="poly" title=" " alt="" coords="913,119,1120,140,1250,157,1384,180,1383,185,1249,163,1119,145,912,124"/>
-<area shape="rect" title=" " alt="" coords="515,183,586,208"/>
-<area shape="poly" title=" " alt="" coords="799,130,602,183,600,178,798,125"/>
-<area shape="rect" title=" " alt="" coords="611,183,650,208"/>
-<area shape="poly" title=" " alt="" coords="812,130,665,184,663,179,810,125"/>
-<area shape="rect" title=" " alt="" coords="674,183,725,208"/>
-<area shape="poly" title=" " alt="" coords="823,130,736,177,734,173,820,125"/>
-<area shape="poly" title=" " alt="" coords="913,124,1241,179,1240,184,912,130"/>
-<area shape="rect" href="../../d0/db1/planning_2include_2utils_2cone_8hpp.html" title=" " alt="" coords="749,183,850,208"/>
-<area shape="poly" title=" " alt="" coords="839,129,816,170,811,168,834,126"/>
-<area shape="poly" title=" " alt="" coords="749,209,737,211,436,263,435,258,736,206,748,204"/>
-<area shape="poly" title=" " alt="" coords="851,200,1341,260,1341,265,850,206"/>
-<area shape="poly" title=" " alt="" coords="816,207,863,244,859,249,813,211"/>
-<area shape="poly" title=" " alt="" coords="1484,126,1502,142,1519,163,1528,186,1528,198,1523,210,1504,231,1480,246,1429,264,1427,259,1478,242,1500,227,1519,207,1523,197,1523,187,1514,165,1498,146,1480,130"/>
-<area shape="poly" title=" " alt="" coords="1475,127,1489,167,1489,190,1479,210,1449,225,1395,237,1240,254,1067,264,932,269,931,264,1067,259,1239,249,1394,231,1447,220,1475,206,1483,188,1483,167,1470,129"/>
-<area shape="poly" title=" " alt="" coords="1463,129,1445,169,1441,167,1458,127"/>
+<area shape="poly" title=" " alt="" coords="431,49,310,98,308,93,429,44"/>
+<area shape="rect" title=" " alt="" coords="329,102,382,127"/>
+<area shape="poly" title=" " alt="" coords="452,49,386,95,383,90,449,44"/>
+<area shape="rect" title=" " alt="" coords="407,102,464,127"/>
+<area shape="poly" title=" " alt="" coords="471,48,450,89,446,87,466,45"/>
+<area shape="rect" title=" " alt="" coords="488,102,554,127"/>
+<area shape="poly" title=" " alt="" coords="490,45,511,87,506,89,485,48"/>
+<area shape="rect" title=" " alt="" coords="577,102,649,127"/>
+<area shape="poly" title=" " alt="" coords="510,44,583,91,580,95,507,49"/>
+<area shape="rect" title=" " alt="" coords="673,102,793,127"/>
+<area shape="poly" title=" " alt="" coords="537,44,684,94,682,99,535,49"/>
+<area shape="rect" href="../../d9/d07/path__point_8hpp.html" title=" " alt="" coords="816,94,970,135"/>
+<area shape="poly" title=" " alt="" coords="547,38,801,91,800,96,546,43"/>
+<area shape="rect" title=" " alt="" coords="854,271,932,297"/>
+<area shape="poly" title=" " alt="" coords="883,136,872,158,863,183,860,203,863,223,878,257,873,259,858,224,855,203,858,182,867,156,879,134"/>
+<area shape="rect" href="../../d5/d91/position_8hpp.html" title=" " alt="" coords="874,183,1027,223"/>
+<area shape="poly" title=" " alt="" coords="908,134,931,168,927,171,904,137"/>
+<area shape="poly" title=" " alt="" coords="938,225,913,260,909,257,934,222"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -158,96 +139,103 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../dc/db7/files_8hpp__dep__incl.png" border="0" usemap="#asrc_2planning_2include_2utils_2files_8hppdep" alt=""/></div>
 <map name="asrc_2planning_2include_2utils_2files_8hppdep" id="asrc_2planning_2include_2utils_2files_8hppdep">
-<area shape="rect" title=" " alt="" coords="1006,5,1142,46"/>
-<area shape="rect" href="../../d2/d1d/path__smoothing_8hpp.html" title=" " alt="" coords="544,190,737,231"/>
-<area shape="poly" title=" " alt="" coords="1015,55,688,192,686,187,1013,50"/>
-<area shape="rect" href="../../dc/d5e/planning_2include_2planning_2planning_8hpp.html" title=" " alt="" coords="570,286,719,327"/>
-<area shape="poly" title=" " alt="" coords="991,41,869,62,730,93,665,113,608,134,563,158,534,184,526,198,524,210,534,237,558,264,589,284,586,288,554,268,529,240,519,210,521,196,529,181,560,154,606,129,663,107,729,88,868,57,990,36"/>
-<area shape="rect" href="../../d4/dee/integration__tests_8cpp.html" title=" " alt="" coords="1294,567,1475,608"/>
-<area shape="poly" title=" " alt="" coords="1158,38,1277,64,1407,101,1464,124,1511,149,1542,177,1551,193,1554,209,1554,397,1550,426,1540,453,1525,479,1506,502,1463,541,1422,569,1419,565,1460,537,1502,498,1521,476,1535,451,1545,425,1549,396,1549,209,1546,195,1538,181,1508,154,1462,129,1405,106,1276,69,1157,44"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html" title=" " alt="" coords="1151,294,1325,320"/>
-<area shape="poly" title=" " alt="" coords="1158,48,1208,69,1259,97,1306,135,1326,157,1343,181,1350,197,1352,211,1343,240,1329,259,1311,274,1273,296,1271,291,1308,270,1325,255,1338,237,1347,210,1345,198,1338,184,1322,160,1303,138,1256,102,1206,74,1156,53"/>
-<area shape="rect" href="../../de/d76/track_8hpp.html" title=" " alt="" coords="1006,94,1142,135"/>
-<area shape="poly" title=" " alt="" coords="1068,61,1069,93,1064,94,1063,62"/>
-<area shape="rect" href="../../dd/d8b/files_8cpp.html" title=" " alt="" coords="1589,94,1730,135"/>
-<area shape="poly" title=" " alt="" coords="1158,34,1347,57,1571,91,1589,95,1588,100,1570,97,1347,63,1157,39"/>
-<area shape="poly" title=" " alt="" coords="645,246,647,286,641,286,640,247"/>
-<area shape="rect" href="../../d7/d15/path__smoothing_8cpp.html" title=" " alt="" coords="381,286,546,327"/>
-<area shape="poly" title=" " alt="" coords="591,241,502,288,499,283,589,236"/>
-<area shape="rect" href="../../d3/d72/planning_2test_2performance__test_8cpp.html" title=" " alt="" coords="744,286,937,327"/>
-<area shape="poly" title=" " alt="" coords="698,235,800,283,798,288,695,240"/>
-<area shape="poly" title=" " alt="" coords="732,232,751,236,859,253,945,261,1030,269,1140,284,1179,291,1178,296,1139,289,1030,274,944,267,859,258,750,241,731,237"/>
-<area shape="rect" href="../../d0/d72/planning_2include_2adapter__planning_2eufs_8hpp.html" title=" " alt="" coords="1009,375,1185,416"/>
-<area shape="poly" title=" " alt="" coords="735,325,1008,376,1008,381,734,330"/>
-<area shape="rect" href="../../df/d43/planning_2include_2adapter__planning_2parameters__factory_8hpp.html" title=" " alt="" coords="737,464,929,519"/>
-<area shape="poly" title=" " alt="" coords="733,330,786,350,808,361,821,373,833,395,839,419,840,463,834,463,834,419,828,397,817,377,805,366,784,355,731,335"/>
-<area shape="rect" href="../../d8/df4/planning_2src_2main_8cpp.html" title=" " alt="" coords="403,575,572,601"/>
-<area shape="poly" title=" " alt="" coords="555,330,486,337,426,338,323,333,274,333,224,339,169,353,107,377,75,394,52,411,34,433,18,465,8,493,10,505,17,518,42,536,80,551,128,563,182,571,297,581,402,584,402,590,297,587,181,577,127,568,79,556,40,541,13,521,5,507,3,493,13,463,29,430,48,407,72,389,105,373,168,347,223,334,274,328,323,328,426,332,486,331,555,325"/>
-<area shape="poly" title=" " alt="" coords="735,325,812,333,878,335,991,331,1045,332,1102,337,1164,350,1236,372,1277,388,1309,405,1335,427,1362,462,1375,489,1382,517,1388,567,1382,567,1377,518,1370,491,1357,465,1331,431,1306,409,1275,393,1235,378,1163,355,1101,342,1045,337,991,337,878,340,811,338,734,330"/>
-<area shape="rect" href="../../d0/dce/planning_2src_2adapter__planning_2eufs_8cpp.html" title=" " alt="" coords="1187,471,1348,512"/>
-<area shape="poly" title=" " alt="" coords="735,324,846,331,980,334,1046,338,1106,345,1158,356,1198,373,1222,394,1241,420,1264,470,1259,472,1237,423,1219,397,1195,377,1157,361,1106,350,1045,343,980,339,846,336,735,330"/>
-<area shape="rect" href="../../de/d4a/planning_2include_2adapter__planning_2fsds_8hpp.html" title=" " alt="" coords="146,375,322,416"/>
-<area shape="poly" title=" " alt="" coords="555,330,323,379,322,373,554,325"/>
-<area shape="rect" href="../../d4/d8f/planning_2src_2adapter__planning_2fsds_8cpp.html" title=" " alt="" coords="27,471,188,512"/>
-<area shape="poly" title=" " alt="" coords="555,330,451,334,327,336,267,339,213,347,168,359,136,377,120,398,112,423,108,471,103,471,107,422,116,395,132,373,166,354,212,341,267,334,327,331,451,329,555,324"/>
-<area shape="rect" href="../../d8/d4a/planning_2include_2adapter__planning_2pacsim_8hpp.html" title=" " alt="" coords="347,375,540,416"/>
-<area shape="poly" title=" " alt="" coords="586,336,490,377,488,372,584,331"/>
-<area shape="rect" href="../../dc/d3f/planning_2src_2planning_2planning_8cpp.html" title=" " alt="" coords="497,471,662,512"/>
-<area shape="poly" title=" " alt="" coords="624,341,606,376,591,427,584,471,579,470,586,426,601,374,619,339"/>
-<area shape="rect" href="../../dc/d8f/planning_2include_2adapter__planning_2vehicle_8hpp.html" title=" " alt="" coords="615,375,808,416"/>
-<area shape="poly" title=" " alt="" coords="671,338,698,373,694,376,667,341"/>
-<area shape="rect" href="../../d5/da0/planning_2src_2adapter__planning_2vehicle_8cpp.html" title=" " alt="" coords="953,471,1113,512"/>
-<area shape="poly" title=" " alt="" coords="733,329,791,349,849,373,938,422,1008,469,1005,473,935,426,846,377,789,354,731,335"/>
-<area shape="poly" title=" " alt="" coords="1028,424,910,466,908,461,1027,419"/>
-<area shape="poly" title=" " alt="" coords="1121,428,1131,451,1138,475,1138,499,1127,521,1098,536,1047,548,897,567,724,579,573,586,572,581,723,574,897,562,1046,543,1096,531,1123,517,1133,498,1133,476,1126,452,1116,431"/>
-<area shape="poly" title=" " alt="" coords="1147,421,1233,468,1230,473,1145,426"/>
-<area shape="poly" title=" " alt="" coords="722,526,533,577,531,572,721,520"/>
-<area shape="poly" title=" " alt="" coords="945,517,1135,550,1294,572,1293,578,1134,555,944,523"/>
-<area shape="poly" title=" " alt="" coords="338,413,507,438,674,461,737,471,736,476,674,466,507,443,337,419"/>
-<area shape="poly" title=" " alt="" coords="243,430,259,476,271,498,288,517,314,537,342,552,403,572,401,577,340,557,311,541,284,521,267,501,254,478,238,432"/>
-<area shape="poly" title=" " alt="" coords="198,427,135,473,132,469,194,423"/>
-<area shape="poly" title=" " alt="" coords="540,417,737,464,735,470,539,422"/>
-<area shape="poly" title=" " alt="" coords="351,425,324,442,303,465,296,479,293,492,295,504,303,518,323,539,347,555,375,567,403,575,401,580,373,572,345,560,319,543,299,521,290,506,288,492,291,477,299,462,320,438,348,420"/>
-<area shape="rect" href="../../d2/dd4/planning_2src_2adapter__planning_2pacsim_8cpp.html" title=" " alt="" coords="313,471,473,512"/>
-<area shape="poly" title=" " alt="" coords="428,430,406,472,401,470,424,428"/>
-<area shape="poly" title=" " alt="" coords="485,422,553,469,550,473,482,427"/>
-<area shape="poly" title=" " alt="" coords="750,423,799,461,796,465,747,427"/>
-<area shape="poly" title=" " alt="" coords="712,432,701,477,691,501,676,521,653,541,626,557,570,577,568,572,624,552,650,537,672,518,686,498,696,476,707,430"/>
-<area shape="poly" title=" " alt="" coords="673,427,608,473,605,469,670,423"/>
-<area shape="poly" title=" " alt="" coords="794,418,966,468,965,473,793,423"/>
-<area shape="poly" title=" " alt="" coords="1080,79,1079,47,1084,46,1086,78"/>
-<area shape="poly" title=" " alt="" coords="991,135,751,185,721,192,720,187,750,180,990,129"/>
-<area shape="poly" title=" " alt="" coords="1037,146,992,185,967,213,941,240,875,288,872,284,938,236,963,209,988,181,1034,142"/>
-<area shape="poly" title=" " alt="" coords="1159,125,1255,147,1295,162,1320,181,1328,196,1330,210,1321,239,1309,257,1294,273,1263,295,1260,291,1291,269,1305,254,1316,237,1325,209,1323,197,1316,184,1292,167,1253,152,1157,130"/>
-<area shape="rect" href="../../d6/d97/global__path__planner_8hpp.html" title=" " alt="" coords="1002,183,1146,238"/>
-<area shape="poly" title=" " alt="" coords="1077,150,1077,182,1071,182,1071,150"/>
-<area shape="rect" href="../../d2/d05/local__path__planner_8hpp.html" title=" " alt="" coords="1170,183,1306,238"/>
-<area shape="poly" title=" " alt="" coords="1123,140,1192,180,1189,184,1120,145"/>
-<area shape="rect" href="../../dc/de1/track_8cpp.html" title=" " alt="" coords="762,190,927,231"/>
-<area shape="poly" title=" " alt="" coords="1013,143,894,192,892,187,1011,138"/>
-<area shape="poly" title=" " alt="" coords="988,233,732,289,720,291,719,286,731,284,987,228"/>
-<area shape="poly" title=" " alt="" coords="994,247,891,288,889,283,992,242"/>
-<area shape="poly" title=" " alt="" coords="1136,244,1218,291,1216,296,1133,249"/>
-<area shape="rect" href="../../d9/d94/global__path__planner_8cpp.html" title=" " alt="" coords="962,286,1127,327"/>
-<area shape="poly" title=" " alt="" coords="1064,254,1053,287,1048,285,1059,253"/>
-<area shape="poly" title=" " alt="" coords="1155,241,1036,261,942,269,849,274,732,289,720,291,719,286,731,284,849,269,942,263,1036,256,1154,236"/>
-<area shape="poly" title=" " alt="" coords="1241,254,1241,294,1235,294,1235,254"/>
-<area shape="rect" href="../../dd/d02/local__path__planner_8cpp.html" title=" " alt="" coords="1349,286,1514,327"/>
-<area shape="poly" title=" " alt="" coords="1309,243,1392,283,1390,288,1306,248"/>
+<area shape="rect" title=" " alt="" coords="1227,5,1363,46"/>
+<area shape="rect" href="../../d0/dcc/planning_8hpp.html" title=" " alt="" coords="567,94,717,135"/>
+<area shape="poly" title=" " alt="" coords="1212,41,718,106,717,100,1211,35"/>
+<area shape="rect" href="../../d6/dab/planning_2test_2test__utils_2utils_8hpp.html" title=" " alt="" coords="1864,183,2007,223"/>
+<area shape="poly" title=" " alt="" coords="1296,61,1302,100,1310,118,1322,133,1350,145,1401,156,1550,174,1720,188,1864,196,1863,201,1719,193,1549,180,1400,161,1348,150,1319,137,1306,120,1297,101,1291,62"/>
+<area shape="rect" href="../../dd/d8b/files_8cpp.html" title=" " alt="" coords="1333,94,1474,135"/>
+<area shape="poly" title=" " alt="" coords="1333,54,1381,91,1377,96,1330,58"/>
+<area shape="rect" href="../../d0/d72/planning_2include_2adapter__planning_2eufs_8hpp.html" title=" " alt="" coords="362,183,538,223"/>
+<area shape="poly" title=" " alt="" coords="586,144,494,185,492,180,583,139"/>
+<area shape="rect" href="../../df/d43/planning_2include_2adapter__planning_2parameters__factory_8hpp.html" title=" " alt="" coords="479,271,671,327"/>
+<area shape="poly" title=" " alt="" coords="623,149,604,184,590,230,582,272,576,271,585,228,599,182,618,146"/>
+<area shape="rect" href="../../d8/df4/planning_2src_2main_8cpp.html" title=" " alt="" coords="424,383,593,408"/>
+<area shape="poly" title=" " alt="" coords="552,122,411,130,252,143,116,162,70,173,45,185,19,219,8,254,9,272,14,289,36,325,61,344,99,359,147,371,202,379,318,389,424,392,423,397,318,394,201,385,146,376,98,364,59,349,32,329,9,291,4,272,3,253,14,216,42,181,68,168,115,156,251,138,410,125,552,117"/>
+<area shape="rect" href="../../d0/dce/planning_2src_2adapter__planning_2eufs_8cpp.html" title=" " alt="" coords="244,279,405,320"/>
+<area shape="poly" title=" " alt="" coords="552,128,434,150,384,166,352,185,337,206,329,231,326,278,320,278,324,230,333,204,348,181,382,161,433,145,551,123"/>
+<area shape="rect" href="../../de/d4a/planning_2include_2adapter__planning_2fsds_8hpp.html" title=" " alt="" coords="55,183,231,223"/>
+<area shape="poly" title=" " alt="" coords="553,134,232,189,231,184,552,129"/>
+<area shape="rect" href="../../d4/d8f/planning_2src_2adapter__planning_2fsds_8cpp.html" title=" " alt="" coords="60,279,221,320"/>
+<area shape="poly" title=" " alt="" coords="552,129,442,149,383,165,326,185,280,207,236,232,167,281,164,276,233,228,277,202,324,180,381,160,441,144,551,124"/>
+<area shape="rect" href="../../d8/d4a/planning_2include_2adapter__planning_2pacsim_8hpp.html" title=" " alt="" coords="613,183,807,223"/>
+<area shape="poly" title=" " alt="" coords="669,145,697,181,692,184,665,149"/>
+<area shape="rect" href="../../d8/d65/planning_8cpp.html" title=" " alt="" coords="930,279,1095,320"/>
+<area shape="poly" title=" " alt="" coords="717,138,820,180,911,230,985,276,982,280,909,235,818,185,715,143"/>
+<area shape="rect" href="../../dc/d8f/planning_2include_2adapter__planning_2vehicle_8hpp.html" title=" " alt="" coords="916,183,1109,223"/>
+<area shape="poly" title=" " alt="" coords="732,134,929,179,927,185,731,139"/>
+<area shape="rect" href="../../d5/da0/planning_2src_2adapter__planning_2vehicle_8cpp.html" title=" " alt="" coords="1170,279,1330,320"/>
+<area shape="poly" title=" " alt="" coords="733,119,946,142,1049,159,1090,169,1122,180,1157,201,1189,227,1237,277,1233,280,1186,231,1154,206,1119,185,1089,174,1048,164,946,147,732,125"/>
+<area shape="poly" title=" " alt="" coords="732,119,1863,194,1863,200,732,124"/>
+<area shape="poly" title=" " alt="" coords="490,231,540,269,537,273,487,235"/>
+<area shape="poly" title=" " alt="" coords="454,238,459,281,470,326,485,356,501,380,497,383,480,359,465,328,453,282,448,239"/>
+<area shape="poly" title=" " alt="" coords="414,235,352,281,349,276,411,230"/>
+<area shape="poly" title=" " alt="" coords="549,342,519,384,515,381,545,338"/>
+<area shape="rect" href="../../d4/dee/integration__tests_8cpp.html" title=" " alt="" coords="1423,375,1605,416"/>
+<area shape="poly" title=" " alt="" coords="687,318,734,324,926,346,1117,363,1423,386,1423,391,1117,369,926,351,734,330,687,323"/>
+<area shape="poly" title=" " alt="" coords="247,224,479,274,478,280,246,229"/>
+<area shape="poly" title=" " alt="" coords="88,234,67,251,51,273,41,301,43,313,51,325,75,343,111,358,157,369,210,378,322,388,424,392,424,397,321,394,209,383,156,375,110,363,72,348,47,329,38,314,36,300,46,270,63,247,85,230"/>
+<area shape="poly" title=" " alt="" coords="145,239,144,279,139,278,140,239"/>
+<area shape="poly" title=" " alt="" coords="671,234,616,273,613,268,668,230"/>
+<area shape="poly" title=" " alt="" coords="714,239,707,285,699,308,685,329,664,349,639,364,585,384,583,379,636,359,661,344,681,325,694,306,702,283,708,239"/>
+<area shape="rect" href="../../d2/dd4/planning_2src_2adapter__planning_2pacsim_8cpp.html" title=" " alt="" coords="746,279,906,320"/>
+<area shape="poly" title=" " alt="" coords="747,231,804,276,800,281,744,235"/>
+<area shape="poly" title=" " alt="" coords="789,226,950,276,948,281,787,231"/>
+<area shape="poly" title=" " alt="" coords="907,230,672,280,671,275,905,225"/>
+<area shape="poly" title=" " alt="" coords="1071,230,1093,247,1110,270,1120,300,1118,315,1109,329,1083,343,1035,354,897,373,735,386,594,393,593,388,735,380,896,368,1034,349,1081,338,1105,325,1113,313,1115,301,1105,273,1089,251,1068,234"/>
+<area shape="poly" title=" " alt="" coords="1015,239,1015,278,1010,278,1010,239"/>
+<area shape="poly" title=" " alt="" coords="1077,227,1201,276,1199,281,1075,232"/>
+<area shape="poly" title=" " alt="" coords="2023,204,2133,213,2189,221,2240,233,2281,249,2308,269,2315,282,2315,297,2310,312,2297,329,2283,338,2261,347,2196,361,2109,372,2007,380,1789,391,1605,396,1605,390,1789,386,2006,375,2108,366,2195,355,2260,341,2281,334,2293,325,2305,310,2310,296,2309,284,2304,273,2279,253,2238,238,2188,227,2132,218,2023,209"/>
+<area shape="rect" href="../../d2/de6/cone__coloring__tests_8cpp.html" title=" " alt="" coords="2358,279,2507,320"/>
+<area shape="poly" title=" " alt="" coords="2022,213,2171,236,2340,269,2368,276,2366,281,2339,274,2170,241,2022,218"/>
+<area shape="rect" href="../../db/d25/outliers__tests_8cpp.html" title=" " alt="" coords="2531,279,2694,320"/>
+<area shape="poly" title=" " alt="" coords="2023,207,2249,228,2385,246,2520,269,2549,276,2548,281,2519,274,2384,251,2248,233,2022,213"/>
+<area shape="rect" href="../../d9/ddd/path__calculation__tests_8cpp.html" title=" " alt="" coords="1355,279,1505,320"/>
+<area shape="poly" title=" " alt="" coords="1849,217,1694,240,1519,274,1492,281,1491,276,1517,269,1693,235,1848,212"/>
+<area shape="rect" href="../../d3/d72/planning_2test_2performance__test_8cpp.html" title=" " alt="" coords="1529,279,1723,320"/>
+<area shape="poly" title=" " alt="" coords="1857,231,1691,281,1690,276,1856,226"/>
+<area shape="rect" href="../../d6/da7/smoothing__tests_8cpp.html" title=" " alt="" coords="1747,279,1929,320"/>
+<area shape="poly" title=" " alt="" coords="1906,236,1860,280,1856,277,1902,232"/>
+<area shape="rect" href="../../d9/db5/splines__tests_8cpp.html" title=" " alt="" coords="1953,279,2115,320"/>
+<area shape="poly" title=" " alt="" coords="1969,232,2015,277,2012,280,1965,236"/>
+<area shape="rect" href="../../d0/d09/planning_2test_2test__utils_2utils_8cpp.html" title=" " alt="" coords="2140,279,2283,320"/>
+<area shape="poly" title=" " alt="" coords="2008,226,2154,276,2153,281,2007,231"/>
 </map>
 </div>
 </div>
 <p><a href="../../d5/d8c/files_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a5a0702d218a8b77b2eac4766220fbe13" id="r_a5a0702d218a8b77b2eac4766220fbe13"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d8c/files_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> = <a class="el" href="../../d9/db0/structcommon__lib_1_1structures_1_1_path_point.html">common_lib::structures::PathPoint</a></td></tr>
+<tr class="separator:a5a0702d218a8b77b2eac4766220fbe13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a3e0a28fc547b70f244a9afff9ba15657" id="r_a3e0a28fc547b70f244a9afff9ba15657"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../d9/d32/class_path_point.html">PathPoint</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d8c/files_8hpp.html#a3e0a28fc547b70f244a9afff9ba15657">read_path_file</a> (const std::string &amp;filename)</td></tr>
-<tr class="separator:a3e0a28fc547b70f244a9afff9ba15657"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0fde64337bff68363eac0c12260a615b" id="r_a0fde64337bff68363eac0c12260a615b"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="../../df/ded/path__calculation_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d8c/files_8hpp.html#a0fde64337bff68363eac0c12260a615b">read_path_file</a> (const std::string &amp;filename)</td></tr>
+<tr class="separator:a0fde64337bff68363eac0c12260a615b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a85d7dbeae3b742882c0addb417e565b1" id="r_a85d7dbeae3b742882c0addb417e565b1"><td class="memItemLeft" align="right" valign="top">std::ofstream&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d8c/files_8hpp.html#a85d7dbeae3b742882c0addb417e565b1">openWriteFile</a> (const std::string &amp;filename, const std::string &amp;<a class="el" href="../../dc/dfb/perception__node_8cpp.html#aa2ac37d4781259c99da18f6b3cadb7b1">header</a>=&quot;&quot;)</td></tr>
 <tr class="separator:a85d7dbeae3b742882c0addb417e565b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a440bc5364e11c37c13f14f7a0d1c7208" id="r_a440bc5364e11c37c13f14f7a0d1c7208"><td class="memItemLeft" align="right" valign="top">std::ifstream&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d8c/files_8hpp.html#a440bc5364e11c37c13f14f7a0d1c7208">openReadFile</a> (const std::string &amp;filename)</td></tr>
 <tr class="separator:a440bc5364e11c37c13f14f7a0d1c7208"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a id="a5a0702d218a8b77b2eac4766220fbe13" name="a5a0702d218a8b77b2eac4766220fbe13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a0702d218a8b77b2eac4766220fbe13">&#9670;&#160;</a></span>PathPoint</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="../../df/ded/path__calculation_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> =  <a class="el" href="../../d9/db0/structcommon__lib_1_1structures_1_1_path_point.html">common_lib::structures::PathPoint</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d5/d8c/files_8hpp_source.html#l00014">14</a> of file <a class="el" href="../../d5/d8c/files_8hpp_source.html">files.hpp</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a440bc5364e11c37c13f14f7a0d1c7208" name="a440bc5364e11c37c13f14f7a0d1c7208"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a440bc5364e11c37c13f14f7a0d1c7208">&#9670;&#160;</a></span>openReadFile()</h2>
@@ -266,67 +254,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="../../dd/d8b/files_8cpp_source.html#l00044">44</a> of file <a class="el" href="../../dd/d8b/files_8cpp_source.html">files.cpp</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../d5/d8c/files_8hpp_a440bc5364e11c37c13f14f7a0d1c7208_icgraph.png" border="0" usemap="#ad5/d8c/files_8hpp_a440bc5364e11c37c13f14f7a0d1c7208_icgraph" alt=""/></div>
-<map name="ad5/d8c/files_8hpp_a440bc5364e11c37c13f14f7a0d1c7208_icgraph" id="ad5/d8c/files_8hpp_a440bc5364e11c37c13f14f7a0d1c7208_icgraph">
-<area shape="rect" title=" " alt="" coords="507,325,608,351"/>
-<area shape="rect" href="../../d7/db7/class_path_smoothing.html#a353e6d4bfab4b2a3f92cd630d8dd2175" title="Fill the track data from a file." alt="" coords="304,55,459,80"/>
-<area shape="poly" title=" " alt="" coords="537,313,389,82,393,79,542,311"/>
-<area shape="rect" href="../../d6/d2c/class_track.html#af563702e457e6b2da5e127a7981b9453" title="Fill the track data from a file." alt="" coords="329,572,434,598"/>
-<area shape="poly" title=" " alt="" coords="540,365,395,573,390,570,536,362"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a6df4e4f75ec78a003fe012ee9a5172f8" title="simple scenario with few points in the path" alt="" coords="155,5,209,31"/>
-<area shape="poly" title=" " alt="" coords="311,53,209,27,210,22,312,48"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#aae8c79094c63a375eea2464aa2a09e00" title="more complex scenario with cones deviating from path and with significant curvature" alt="" coords="155,55,209,80"/>
-<area shape="poly" title=" " alt="" coords="289,70,209,70,209,65,289,65"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a21272f9ce533deddd6a2e1bde8f8c097" title="Test function for outlier removal&#39;s efficiency." alt="" coords="118,104,246,130"/>
-<area shape="poly" title=" " alt="" coords="378,556,375,476,369,423,359,365,344,305,322,247,292,191,254,143,240,132,244,128,258,139,297,189,326,244,349,304,364,364,374,422,380,475,384,556"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#af932d610f7999483e18612a7bf469cb0" title="Test function for Delaunay Triangulations&#39; efficiency." alt="" coords="108,153,256,179"/>
-<area shape="poly" title=" " alt="" coords="377,556,371,484,353,386,337,334,316,283,289,234,254,192,240,182,243,177,258,188,293,231,321,280,342,332,358,385,376,483,382,556"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a1b3e0277417f2e2a28398811e1aef5dc" title=" " alt="" coords="155,203,209,228"/>
-<area shape="poly" title=" " alt="" coords="376,557,367,492,347,408,331,363,311,319,285,278,254,242,233,228,209,221,210,216,235,223,258,237,290,275,315,316,336,361,352,406,372,491,381,556"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a04f3065d9004b0a2ac2c8f6d00bc34b0" title=" " alt="" coords="155,252,209,278"/>
-<area shape="poly" title=" " alt="" coords="374,557,362,501,340,429,324,392,305,355,282,321,254,291,233,278,209,271,210,265,235,273,258,287,286,318,310,352,329,390,345,428,367,500,379,556"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#ae0eb2417c307a7e6015466adfe20b14d" title=" " alt="" coords="155,301,209,327"/>
-<area shape="poly" title=" " alt="" coords="371,558,357,511,334,452,300,392,278,364,254,340,232,327,209,320,210,315,235,323,258,336,282,361,304,389,338,450,362,509,376,556"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a09841343505121b96efdf2fc328d0c58" title=" " alt="" coords="155,351,209,376"/>
-<area shape="poly" title=" " alt="" coords="368,558,351,520,326,475,294,429,254,390,232,377,209,370,210,365,234,372,258,385,298,426,331,472,356,518,373,556"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a0922e03bd3192f4432ba5cfd57af61c6" title=" " alt="" coords="155,400,209,426"/>
-<area shape="poly" title=" " alt="" coords="363,560,319,499,289,467,255,439,232,428,209,420,210,415,234,423,257,435,292,463,323,496,367,557"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a99ca8feb760b10bde94fbf21119a7604" title=" " alt="" coords="155,449,209,475"/>
-<area shape="poly" title=" " alt="" coords="354,563,310,525,255,489,208,471,210,466,257,484,313,521,358,559"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a398d0f768ac526b5665cff1adfe37df2" title=" " alt="" coords="155,499,209,524"/>
-<area shape="poly" title=" " alt="" coords="334,568,255,538,209,522,210,517,257,533,336,563"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#afdc65423b0a5a3ca636f3aacfb1dba56" title="simple but realistic scenario with few cones and fwe outliers" alt="" coords="155,548,209,574"/>
-<area shape="poly" title=" " alt="" coords="313,579,209,567,210,561,314,574"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#af9952ff008604d30cd729682048e2167" title="scenario: Large piece of track with no outliers" alt="" coords="155,597,209,623"/>
-<area shape="poly" title=" " alt="" coords="314,596,210,609,209,604,313,591"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a7b7c7d79809f351fb41f6578dbdaf2ca" title="simplest scenario with cones forming a line and one outlier" alt="" coords="155,647,209,672"/>
-<area shape="poly" title=" " alt="" coords="336,607,257,638,210,654,209,649,255,633,334,602"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#ac7fcdd764e3bf039a7651702397702ef" title="scenario with large track that barely has outliers (only 2)" alt="" coords="155,696,209,722"/>
-<area shape="poly" title=" " alt="" coords="358,611,313,649,257,687,210,705,208,700,255,682,310,645,355,607"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#af135d65f2784ab63322d2dc0342433e5" title="scenario with large track but few outliers" alt="" coords="155,745,209,771"/>
-<area shape="poly" title=" " alt="" coords="367,613,323,674,292,708,257,736,234,748,210,756,209,751,232,743,255,732,289,704,319,671,363,610"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a51e9b02efadad69c633bb346d244c040" title="scenario with large track and moderate number of outliers" alt="" coords="155,795,209,820"/>
-<area shape="poly" title=" " alt="" coords="373,614,356,652,331,698,298,745,258,786,234,799,210,806,209,801,232,794,254,781,294,742,326,695,351,650,368,611"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a81c282250a0ddc02a5624391b6d53b9f" title="scenario with large track and abundant outliers" alt="" coords="155,844,209,870"/>
-<area shape="poly" title=" " alt="" coords="377,613,362,660,339,720,304,781,283,810,258,835,235,849,210,856,209,851,232,844,254,831,279,806,300,778,334,718,357,659,372,611"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a31cf5e2275b9c7e8dfd57ad0a102e2de" title="unrealistic scenario with cones randomly positioned in 100 by 100 square" alt="" coords="155,893,209,919"/>
-<area shape="poly" title=" " alt="" coords="379,614,367,670,345,743,329,781,310,818,286,853,258,884,235,898,210,906,209,900,233,893,254,880,282,850,305,816,325,779,340,741,362,669,374,613"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#ac52f5bb92ce5fead956b460602be5875" title="scenario: cones in parallel straight lines that shows that cones exaclty in a circumference are not c..." alt="" coords="155,943,209,968"/>
-<area shape="poly" title=" " alt="" coords="381,613,372,678,352,764,336,809,316,854,290,896,258,934,235,948,210,955,209,950,233,943,254,929,285,893,311,852,331,807,347,762,367,677,376,613"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a24abd4bbadec3144e9f2562ff43add80" title="scenario: small track with sharp edge" alt="" coords="155,992,209,1018"/>
-<area shape="poly" title=" " alt="" coords="382,614,376,687,358,785,342,838,321,890,293,939,258,983,235,997,210,1005,209,1000,233,993,254,979,289,936,316,888,337,837,353,784,371,686,377,613"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a0332ef9190c93cd17d4e05d76a15426a" title="simple case in which there are cones only in the left size and no significant outliers" alt="" coords="155,1041,209,1067"/>
-<area shape="poly" title=" " alt="" coords="384,614,380,695,375,748,364,806,349,867,327,926,297,982,258,1032,235,1047,210,1054,209,1049,233,1042,254,1028,292,979,322,924,344,865,359,805,369,747,375,694,378,613"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a29badad35310b8e08080122d0707b973" title="simple scenario only with left cones but with 4 significant outliers" alt="" coords="155,1091,209,1116"/>
-<area shape="poly" title=" " alt="" coords="379,614,364,717,339,856,322,927,303,991,282,1045,258,1081,235,1097,210,1104,209,1099,233,1092,254,1078,277,1042,298,990,317,926,334,855,359,716,374,613"/>
-<area shape="rect" href="../../d3/d72/planning_2test_2performance__test_8cpp.html#a02628d0c19664647a94e9d2bd23d5f5e" title="Execution Time Test." alt="" coords="5,129,60,155"/>
-<area shape="poly" title=" " alt="" coords="104,133,61,140,60,135,103,128"/>
-<area shape="poly" title=" " alt="" coords="92,154,60,149,60,144,93,149"/>
-</map>
-</div>
 
 </div>
 </div>
@@ -362,48 +289,35 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d5/d8c/files_8hpp_a85d7dbeae3b742882c0addb417e565b1_icgraph.png" border="0" usemap="#ad5/d8c/files_8hpp_a85d7dbeae3b742882c0addb417e565b1_icgraph" alt=""/></div>
 <map name="ad5/d8c/files_8hpp_a85d7dbeae3b742882c0addb417e565b1_icgraph" id="ad5/d8c/files_8hpp_a85d7dbeae3b742882c0addb417e565b1_icgraph">
-<area shape="rect" title=" " alt="" coords="668,203,768,228"/>
-<area shape="rect" href="../../d6/d2c/class_track.html#a16332dc3e5e2cf486f4cc3b5123e3368" title="Delete outliers from the track." alt="" coords="479,203,620,228"/>
-<area shape="poly" title=" " alt="" coords="652,218,620,218,620,213,652,213"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a21272f9ce533deddd6a2e1bde8f8c097" title="Test function for outlier removal&#39;s efficiency." alt="" coords="108,5,235,31"/>
-<area shape="poly" title=" " alt="" coords="664,199,209,34,211,29,666,194"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#af932d610f7999483e18612a7bf469cb0" title="Test function for Delaunay Triangulations&#39; efficiency." alt="" coords="283,401,431,427"/>
-<area shape="poly" title=" " alt="" coords="681,238,384,403,381,399,678,234"/>
-<area shape="rect" href="../../d6/d2c/class_track.html#afaa537e1bdf2a045564500512e98821f" title="Validate the cones in the track by deleting outliers." alt="" coords="286,203,428,228"/>
-<area shape="poly" title=" " alt="" coords="464,218,428,218,428,213,464,213"/>
-<area shape="poly" title=" " alt="" coords="336,192,233,44,216,34,219,29,237,40,340,188"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a7b7c7d79809f351fb41f6578dbdaf2ca" title="simplest scenario with cones forming a line and one outlier" alt="" coords="144,55,199,80"/>
-<area shape="poly" title=" " alt="" coords="335,192,291,143,264,117,234,94,198,77,200,72,236,89,267,112,295,139,339,188"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#ac7fcdd764e3bf039a7651702397702ef" title="scenario with large track that barely has outliers (only 2)" alt="" coords="144,104,199,130"/>
-<area shape="poly" title=" " alt="" coords="323,196,234,143,198,128,200,123,236,138,326,191"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#af135d65f2784ab63322d2dc0342433e5" title="scenario with large track but few outliers" alt="" coords="144,153,199,179"/>
-<area shape="poly" title=" " alt="" coords="290,201,198,176,200,171,292,195"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a51e9b02efadad69c633bb346d244c040" title="scenario with large track and moderate number of outliers" alt="" coords="144,203,199,228"/>
-<area shape="poly" title=" " alt="" coords="270,218,199,218,199,213,270,213"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a81c282250a0ddc02a5624391b6d53b9f" title="scenario with large track and abundant outliers" alt="" coords="144,252,199,278"/>
-<area shape="poly" title=" " alt="" coords="292,236,200,260,198,255,290,230"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a31cf5e2275b9c7e8dfd57ad0a102e2de" title="unrealistic scenario with cones randomly positioned in 100 by 100 square" alt="" coords="144,301,199,327"/>
-<area shape="poly" title=" " alt="" coords="326,240,236,293,200,308,198,303,234,288,323,235"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a0332ef9190c93cd17d4e05d76a15426a" title="simple case in which there are cones only in the left size and no significant outliers" alt="" coords="144,351,199,376"/>
-<area shape="poly" title=" " alt="" coords="339,243,295,292,267,319,236,342,200,359,198,354,234,337,264,314,291,288,335,239"/>
-<area shape="rect" href="../../dd/df6/planning_2test_2tests_8cpp.html#a29badad35310b8e08080122d0707b973" title="simple scenario only with left cones but with 4 significant outliers" alt="" coords="144,400,199,426"/>
-<area shape="poly" title=" " alt="" coords="346,244,304,316,273,356,237,391,219,402,200,409,198,404,216,397,233,387,269,352,299,313,341,241"/>
-<area shape="rect" href="../../d3/d72/planning_2test_2performance__test_8cpp.html#a02628d0c19664647a94e9d2bd23d5f5e" title="Execution Time Test." alt="" coords="5,228,60,254"/>
-<area shape="poly" title=" " alt="" coords="112,42,110,44,92,66,77,90,55,143,43,192,38,228,32,227,38,191,50,141,72,88,87,63,106,40,108,38"/>
-<area shape="poly" title=" " alt="" coords="315,436,269,452,214,462,186,464,158,461,131,454,106,440,85,421,68,397,45,344,35,292,31,254,37,254,40,292,50,343,72,395,89,417,109,436,133,449,159,456,186,458,214,457,267,447,313,431"/>
+<area shape="rect" title=" " alt="" coords="297,104,397,130"/>
+<area shape="rect" href="../../d3/d72/planning_2test_2performance__test_8cpp.html#a0545f40dd80c8f8d8814704bd67bad25" title=" " alt="" coords="124,5,233,31"/>
+<area shape="poly" title=" " alt="" coords="319,96,286,69,248,45,224,34,226,29,250,40,289,65,322,92"/>
+<area shape="rect" href="../../d3/d72/planning_2test_2performance__test_8cpp.html#aab2295277d22fafb888111e66fdac82f" title="Iterates the Outliers algorithm repeatedly and measures the average time." alt="" coords="125,55,232,80"/>
+<area shape="poly" title=" " alt="" coords="285,102,224,84,226,78,287,97"/>
+<area shape="rect" href="../../d3/d72/planning_2test_2performance__test_8cpp.html#ace1de27c0d0025682943b154a203ad8a" title="Iterates the Smoothing algorithm repeatedly and measures the average time." alt="" coords="116,104,241,130"/>
+<area shape="poly" title=" " alt="" coords="281,120,241,120,241,114,281,114"/>
+<area shape="rect" href="../../d3/d72/planning_2test_2performance__test_8cpp.html#a808870244af80707b55103c95bfdb4ed" title="Iterates the Path Calculation algorithm repeatedly and measures the average time." alt="" coords="108,153,249,179"/>
+<area shape="poly" title=" " alt="" coords="287,137,226,155,224,150,285,132"/>
+<area shape="rect" href="../../d2/de6/cone__coloring__tests_8cpp.html#ae0eb2417c307a7e6015466adfe20b14d" title="test the full cone coloring algorithm in 20 tracks." alt="" coords="151,203,206,228"/>
+<area shape="poly" title=" " alt="" coords="322,142,289,169,250,194,207,211,205,206,248,189,286,164,319,138"/>
+<area shape="rect" href="../../d3/d72/planning_2test_2performance__test_8cpp.html#aa6ecce2c7b96e4c5050d5a21b52107d0" title="Execution Time Test." alt="" coords="5,80,60,106"/>
+<area shape="poly" title=" " alt="" coords="120,39,109,44,52,82,49,77,106,40,118,35"/>
+<area shape="poly" title=" " alt="" coords="110,82,61,91,60,86,109,77"/>
+<area shape="poly" title=" " alt="" coords="101,107,60,100,61,95,102,101"/>
+<area shape="poly" title=" " alt="" coords="118,150,106,145,49,108,52,104,109,140,120,145"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="a3e0a28fc547b70f244a9afff9ba15657" name="a3e0a28fc547b70f244a9afff9ba15657"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3e0a28fc547b70f244a9afff9ba15657">&#9670;&#160;</a></span>read_path_file()</h2>
+<a id="a0fde64337bff68363eac0c12260a615b" name="a0fde64337bff68363eac0c12260a615b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0fde64337bff68363eac0c12260a615b">&#9670;&#160;</a></span>read_path_file()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt; <a class="el" href="../../d9/d32/class_path_point.html">PathPoint</a> * &gt; read_path_file </td>
+          <td class="memname">std::vector&lt; <a class="el" href="../../df/ded/path__calculation_8hpp.html#a5a0702d218a8b77b2eac4766220fbe13">PathPoint</a> &gt; read_path_file </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>filename</em></td><td>)</td>
@@ -416,8 +330,8 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../d5/d8c/files_8hpp_a3e0a28fc547b70f244a9afff9ba15657_icgraph.png" border="0" usemap="#ad5/d8c/files_8hpp_a3e0a28fc547b70f244a9afff9ba15657_icgraph" alt=""/></div>
-<map name="ad5/d8c/files_8hpp_a3e0a28fc547b70f244a9afff9ba15657_icgraph" id="ad5/d8c/files_8hpp_a3e0a28fc547b70f244a9afff9ba15657_icgraph">
+<div class="center"><img src="../../d5/d8c/files_8hpp_a0fde64337bff68363eac0c12260a615b_icgraph.png" border="0" usemap="#ad5/d8c/files_8hpp_a0fde64337bff68363eac0c12260a615b_icgraph" alt=""/></div>
+<map name="ad5/d8c/files_8hpp_a0fde64337bff68363eac0c12260a615b_icgraph" id="ad5/d8c/files_8hpp_a0fde64337bff68363eac0c12260a615b_icgraph">
 <area shape="rect" title=" " alt="" coords="413,13,514,39"/>
 <area shape="rect" href="../../d9/db5/class_planning.html#a6e832957e848e7ab37d5c2379d01729a" title="Publishes predictive track points." alt="" coords="181,5,365,46"/>
 <area shape="poly" title=" " alt="" coords="397,28,365,28,365,23,397,23"/>

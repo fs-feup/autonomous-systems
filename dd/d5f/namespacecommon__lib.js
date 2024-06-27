@@ -36,11 +36,7 @@ var namespacecommon__lib =
       [ "STRING_COLOR_MAP", "d9/d2b/namespacecommon__lib_1_1competition__logic.html#af39f271694f6e7e236ff4640e7ae6208", null ],
       [ "STRING_TO_COLOR", "d9/d2b/namespacecommon__lib_1_1competition__logic.html#a35040fcb9b3c0dd185484dcad9c645c6", null ]
     ] ],
-    [ "maths", "d2/d32/namespacecommon__lib_1_1maths.html", [
-      [ "copy_eigen_sparse_matrix", "d2/d32/namespacecommon__lib_1_1maths.html#ad0d064c1af2031dc0a6bd45d4ca0981d", null ],
-      [ "get_wheel_velocity_from_rpm", "d2/d32/namespacecommon__lib_1_1maths.html#a4068519b32978679e461dc19e2b3a5fd", null ],
-      [ "normalize_angle", "d2/d32/namespacecommon__lib_1_1maths.html#acd35b7873c51d71ad7ee2396007da7a3", null ]
-    ] ],
+    [ "maths", "d2/d32/namespacecommon__lib_1_1maths.html", "d2/d32/namespacecommon__lib_1_1maths" ],
     [ "sensor_data", "dc/d34/namespacecommon__lib_1_1sensor__data.html", "dc/d34/namespacecommon__lib_1_1sensor__data" ],
     [ "structures", "d9/d8a/namespacecommon__lib_1_1structures.html", "d9/d8a/namespacecommon__lib_1_1structures" ],
     [ "vehicle_dynamics", "d4/d1a/namespacecommon__lib_1_1vehicle__dynamics.html", [

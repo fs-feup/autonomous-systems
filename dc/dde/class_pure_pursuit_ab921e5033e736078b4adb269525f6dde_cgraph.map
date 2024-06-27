@@ -2,7 +2,7 @@
 <area shape="rect" id="Node000001" title="Pure Pursuit control law." alt="" coords="5,49,168,90"/>
 <area shape="rect" id="Node000002" href="$dc/dde/class_pure_pursuit.html#ae07038f1c02256819e50a7878797d1ac" title="Calculate alpha (angle between the vehicle and lookahead point)" alt="" coords="216,20,363,61"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="168,55,200,51,201,56,168,61"/>
-<area shape="rect" id="Node000004" href="$dc/d1b/structcommon__lib_1_1structures_1_1_position.html#a9d5f2cdfcef053cae4a6a7a3888ce2d6" title=" " alt="" coords="411,70,566,126"/>
+<area shape="rect" id="Node000004" href="$dc/d1b/structcommon__lib_1_1structures_1_1_position.html#a7ce25e8e5e8c05f720cd644b35134051" title=" " alt="" coords="411,70,566,126"/>
 <area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="168,73,396,89,395,94,168,78"/>
 <area shape="rect" id="Node000003" href="$d9/d8a/namespacecommon__lib_1_1structures.html#a985cd88a640d3c7ccc3f8d5094272843" title="Calculate the cross product of two vectors." alt="" coords="411,5,566,46"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="363,32,395,30,395,35,364,38"/>

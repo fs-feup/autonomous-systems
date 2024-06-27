@@ -2,7 +2,7 @@
 <area shape="rect" id="Node000001" title=" " alt="" coords="162,5,332,61"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="5,117,142,142"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="198,64,110,111,108,106,195,59"/>
-<area shape="rect" id="Node000003" href="$d8/df3/common__lib_2include_2common__lib_2competition__logic_2color_8hpp.html" title=" " alt="" coords="166,109,328,150"/>
+<area shape="rect" id="Node000003" href="$d6/dfd/color_8hpp.html" title=" " alt="" coords="166,109,328,150"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="250,62,250,94,244,94,244,62"/>
 <area shape="rect" id="Node000006" href="$d5/d91/position_8hpp.html" title=" " alt="" coords="352,109,505,150"/>
 <area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="301,59,378,99,376,104,298,64"/>
@@ -10,4 +10,6 @@
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="240,151,224,184,219,182,235,149"/>
 <area shape="rect" id="Node000005" title=" " alt="" coords="256,198,310,223"/>
 <area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="258,149,273,182,269,184,253,151"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="390,198,467,223"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="431,150,431,182,426,182,426,150"/>
 </map>

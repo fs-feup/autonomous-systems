@@ -1,0 +1,7 @@
+<map id="path_from_file" name="path_from_file">
+<area shape="rect" id="Node000001" title="Retrieves a path point vector from a file." alt="" coords="108,31,210,56"/>
+<area shape="rect" id="Node000002" href="$d6/da7/smoothing__tests_8cpp.html#acd526ec95d9464063023a78fcf0f64d9" title="simple scenario with few points in the path" alt="" coords="5,5,60,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,33,59,26,61,21,93,28"/>
+<area shape="rect" id="Node000003" href="$d6/da7/smoothing__tests_8cpp.html#a39420284a210f074cd5864281df8c9b5" title="more complex scenario with cones deviating from path and with significant curvature" alt="" coords="5,55,60,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="93,59,61,65,60,60,92,54"/>
+</map>

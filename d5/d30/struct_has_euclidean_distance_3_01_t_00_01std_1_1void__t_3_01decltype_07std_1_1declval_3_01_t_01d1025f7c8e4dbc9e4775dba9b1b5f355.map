@@ -1,0 +1,5 @@
+<map id="HasEuclideanDistance&lt; T, std::void_t&lt; decltype(std::declval&lt; T &gt;().position.euclidean_distance(std::declval&lt; T &gt;().position))&gt; &gt;" name="HasEuclideanDistance&lt; T, std::void_t&lt; decltype(std::declval&lt; T &gt;().position.euclidean_distance(std::declval&lt; T &gt;().position))&gt; &gt;">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,119,256,229"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="86,5,175,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="133,86,133,119,128,119,128,86"/>
+</map>
