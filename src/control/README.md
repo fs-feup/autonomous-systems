@@ -33,7 +33,7 @@ Using simulated state estimation allows you to independently test control withou
 ## Design
 The following class diagram illustrates the structure of the Control package:
 
-![Class Diagram](../../docs/assets/Control/controlClassDiagram.jpg)
+![Class Diagram](../../docs/assets/Control/controlClassDiagram.drawio.png)
 We have the following classes:    
 * Control: The node itself and the main class that initializes the other classes and runs the control callback.
 * PSolver: The class that receives Planning information and calculates the reference for the controllers.
