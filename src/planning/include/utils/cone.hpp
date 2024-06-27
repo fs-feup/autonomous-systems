@@ -1,39 +1,6 @@
-#ifndef SRC_PLANNING_PLANNING_INCLUDE_UTILS_CONE_HPP_
-#define SRC_PLANNING_PLANNING_INCLUDE_UTILS_CONE_HPP_
-
-#include <cmath>
-#include <string>
 #include <vector>
+#include "common_lib/structures/cone.hpp"
 
-/**
- * Cone class. Stores the id, x and y values of a cone
- */
-class Cone {
-  int id;
-  float x;
-  float y;
+using Cone = common_lib::structures::Cone;
 
- public:
-  Cone(int id, float x, float y);
-
-  int getId() const;
-
-  float getX() const;
-
-  void setX(float x);
-
-  float getY() const;
-
-  void setY(float y);
-
-  std::string print();
-
-  /**
-   * Euclidean distance to another position
-   */
-  double getDistanceTo(const Cone *dest) const;
-
-  double squared_distance_to(const Cone *dest) const;
-};
-
-#endif  // SRC_PLANNING_PLANNING_INCLUDE_UTILS_CONE_HPP_
+int find_cone(std::vector<Cone> &cones, double x, double y);

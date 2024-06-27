@@ -33,9 +33,14 @@ find_package(GSL REQUIRED)
 
 set(TESTFILES
   test/main.cpp
-  test/tests.cpp
   test/integration_tests.cpp
   test/performance_test.cpp
+  test/cone_coloring_tests.cpp
+  test/outliers_tests.cpp
+  test/path_calculation_tests.cpp
+  test/smoothing_tests.cpp
+  test/splines_tests.cpp
+  test/test_utils/utils.cpp
 )
 
 set(IMPLEMENTATION_FILES
@@ -43,15 +48,12 @@ set(IMPLEMENTATION_FILES
   src/adapter_planning/fsds.cpp
   src/adapter_planning/pacsim.cpp
   src/adapter_planning/vehicle.cpp
-  src/utils/message_converter.cpp
+  src/planning/path_calculation.cpp
   src/planning/cone_coloring.cpp
-  src/planning/global_path_planner.cpp
-  src/planning/local_path_planner.cpp
-  src/planning/track.cpp
+  src/planning/smoothing.cpp
+  src/planning/outliers.cpp
   src/planning/planning.cpp
-  src/planning/path_smoothing.cpp
   src/utils/cone.cpp
-  src/utils/pathpoint.cpp
   src/utils/files.cpp
 )
 
@@ -87,4 +89,3 @@ if(BUILD_TESTING)
 endif()
 
 ament_package()
-

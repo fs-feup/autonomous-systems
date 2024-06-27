@@ -123,7 +123,7 @@ class Evaluator(Node):
             ADAPTER_POINT_CLOUD_TOPIC_DICTINARY[self._adapter_name_],
         )
         self.planning_subscription = self.create_subscription(
-            PathPointArray, "path_planning/path", self.compute_and_publish_planning, 10
+            PathPointArray, "/path_planning/path", self.compute_and_publish_planning, 10
         )
         self.planning_gt_subscription = self.create_subscription(
             PathPointArray, "path_planning/mock_path", self.planning_gt_callback, 10

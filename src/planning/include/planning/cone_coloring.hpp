@@ -3,212 +3,141 @@
 
 #include <algorithm>
 #include <cmath>
-#include <memory>
-#include <rclcpp/logging.hpp>
+#include <set>
 #include <vector>
 
-#include "utils/angle_and_norm.hpp"
-#include "utils/cone.hpp"
-#include "utils/pose.hpp"
-#include "utils/right_left_enum.hpp"
+#include "common_lib/competition_logic/color.hpp"
+#include "common_lib/maths/angle_and_norms.hpp"
+#include "common_lib/structures/cone.hpp"
+#include "common_lib/structures/pose.hpp"
+#include "common_lib/structures/track_side.hpp"
+#include "config/cone_coloring_config.hpp"
+#include "rclcpp/rclcpp.hpp"
 
-/**
- * @brief Class responsible for recieving a set of uncolored cones and discovering their color
- * This is done by performing a search that tries to find each side of the track by iteratively
- * selecting the cone with the least cost to be added to each side of the track, according to the
- * cost function defined in the class.
- *
- */
+using Cone = common_lib::structures::Cone;
+using Pose = common_lib::structures::Pose;
+using Position = common_lib::structures::Position;
+using TwoDVector = common_lib::structures::Position;
+using TrackSide = common_lib::structures::TrackSide;
+using Color = common_lib::competition_logic::Color;
+using AngleAndNorms = common_lib::maths::AngleAndNorms;
+
 class ConeColoring {
 private:
   /**
-   * @brief angle gain between the last edge and the possible new edge
+   * @brief configuration of the cone coloring algorithm
    *
    */
-  double angle_gain = 3.7;
+  ConeColoringConfig config_;
 
   /**
-   * @brief distance gain to use for the distance cost
+   * @brief function to remove duplicates from a vector of cones
    *
+   * @param cones vector of cones
    */
-  double distance_gain = 15.0;
+  void remove_duplicates(std::vector<Cone>& cones) const;
 
   /**
-   * @brief gain to use for the cost
+   * @brief calculate the expected position of the initial cones
    *
+   * @param car_pose car pose in the map relative to the origin
+   * @param track_side side of the track of the expected position to be calculated
    */
-  double ncones_gain = 8.7;
+  Position expected_initial_cone_position(const Pose& car_pose, const TrackSide& track_side) const;
 
   /**
-   * @brief exponent for the sum of distance and angle
+   * @brief function to find the initial cone according to the distance to the expected position
    *
+   * @param cones set of cones
+   * @param car_pose car pose in the map relative to the origin
+   * @param track_side side of the track of the expected position to be calculated
+   * @return Cone initial cone
    */
-  double exponent1 = 0.7;
+  Cone find_initial_cone(const std::unordered_set<Cone, std::hash<Cone>>& cones,
+                         const Pose& car_pose, const TrackSide track_side) const;
 
   /**
-   * @brief exponent for the overall sum
+   * @brief calculate the position of a virtual cone relative to a real one
    *
+   * @param initial_cone cone to be used as reference
+   * @param car_pose pose of the car
+   * @return virtual cone
    */
-  double exponent2 = 1.7;
+  Cone virtual_cone_from_initial_cone(const Cone& initial_cone, const Pose& car_pose) const;
 
   /**
-   * @brief maximum cost to reach a cone
+   * @brief function to place the initial cones, including the virtual ones
    *
+   * @param uncolored_cones set of cones
+   * @param colored_blue_cones vector of blue cones (where the blue cones will be added)
+   * @param colored_yellow_cones vector of yellow cones (where the yellow cones will be added)
+   * @param car_pose car pose in the map relative to the origin
+   * @param n_colored_cones number of colored cones which will be updated
    */
-  double max_cost = 40;
-
-  std::shared_ptr<Cone> virtual_left_cone = nullptr;
-
-  std::shared_ptr<Cone> virtual_right_cone = nullptr;
-
-  std::shared_ptr<Cone> initial_cone_left = nullptr;
-
-  std::shared_ptr<Cone> initial_cone_right = nullptr;
+  void place_initial_cones(std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones,
+                           std::vector<Cone>& colored_blue_cones,
+                           std::vector<Cone>& colored_yellow_cones, const Pose& car_pose,
+                           int& n_colored_cones) const;
 
   /**
-   * @brief cost function used to minimize the cost of the path.
-   * Based on the idea that, when there are at least two cones on one
-   * side of the track, the next cone is the one that minimizes a combination
-   * of the angle formed between consecutiv edges and the distance to the next cone.
+   * @brief calculate the cost of coloring a cone
    *
-   * Should not be called when current sides of the tracks are empty
-   *
-   * @param possible_next_cone possible next cone to be reached
-   * @param n number of cones in the input vector
-   * @param side reach the cone form the left or right side
-   * @return double cost of reaching the cone provided as a parameter
+   * @param next_cone potential cone to be colored
+   * @param last_cone last cone to be colored in the side of interest
+   * @param previous_to_last_vector vector formed by the last two cones in the side of interest
+   * @param colored_to_input_cones_ratio ration of cones which have been colored
+   * @return double cost
    */
-  double cost(const Cone* possible_next_cone, int n, TrackSide side) const;
+  double calculate_cost(const Cone& next_cone, const Cone& last_cone,
+                        const TwoDVector& previous_to_last_vector,
+                        const double& colored_to_input_cones_ratio) const;
 
   /**
-   * @brief determine if the specified cone is in the specified side of the track
+   * @brief select the next cone (which minimizes the cost) to be colored if its cost is less than
+   * the maximum established in the configuration
    *
-   * @param c cone to be checked
-   * @param side whether to check if the cone is in the left or right side
-   * @return true if the cone is in the side of the track
-   * @return false if the cone is not in the side of the track
+   * @param uncolored_cones input cones
+   * @param colored_cones vector to add the next cone
+   * @param n_colored_cones number of cones which have been colored (updated in the function)
+   * @param n_input_cones number of input cones (used to calculate the ratio of colored cones to
+   * input cones)
+   * @return true if the cone has been successfully colored
+   * @return false if all cones had a cost higher than the maximum established or were too far away
    */
-  bool cone_is_in_side(const Cone* c, TrackSide side) const;
-
-  /**
-   * @brief calculate angle between the vector made by last two cones
-   * and the vector formed by the last cone and the possible next cone
-   * and calculate the norm of this last vector.
-   *
-   * @param possible_next_cone possible next cone to be reached
-   * @param side reach the cone form the left or right side
-   * @return double angle between the current cone and the next cone
-   */
-  AngleNorm angle_and_norm(const Cone* possible_next_cone, TrackSide side) const;  // [rad]
-
-  /**
-   * @brief place the next cone in the path
-   *
-   * @param un_visited_cones array of possible cones to be visited (marked with false if not visited
-   * yet)
-   * @param distance_threshold maximum distance to reach the next cone
-   * @param side place the next cone in the left or right side
-   * @return true if the cone has been successfully placed
-   * @return false if the cone hasn't been placed
-   */
-  bool place_next_cone(std::shared_ptr<std::vector<std::pair<Cone*, bool>>> visited_cones,
-                       double distance_threshold, int n, TrackSide side);
-
-  /**
-   * @brief get an estimate to the distance to the left side of the track when
-   * choosing first cone
-   *
-   * @param initial_car_pose
-   * @param side distance to the left or right side
-   * @param x coordinate of the point to estimate the distance
-   * @param y coordinate of the point to estimate the distance
-   * @return double estimate of the distance to the left side track
-   *
-   * @note assumming the car is at the initial_car_pose and going straight, the right side of the
-   * track can be estimated to be defined by:  y - (car_y + 2*cos(θ)) - tan(θ)*(x - (car_x  +
-   * 2*sen(θ))) = 0 and the right side by : y - (car_y - 2*cos(θ)) - tan(θ)*(x - (car_x  -
-   * 2*sen(θ))) = 0 This also assumes the track width to be 4 meters since the minimum is 3 and the
-   * maximum is 5
-   */
-  double distance_to_side(Pose initial_car_pose, TrackSide side, double x, double y) const;
+  bool try_to_color_next_cone(std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones,
+                              std::vector<Cone>& colored_cones, int& n_colored_cones,
+                              const int n_input_cones) const;
 
 public:
   /**
-   * @brief Construct a new default Cone Coloring object
+   * @brief Construct a new default ConeColoring object
    *
    */
   ConeColoring() = default;
+  /**
+   * @brief Construct a new ConeColoring object with a given configuration
+   *
+   */
+  explicit ConeColoring(const ConeColoringConfig& config) : config_(config){};
+  /**
+   * @brief color all cones
+   *
+   * @param cones vector of input cones without color
+   * @param car_pose pose of the car
+   * @return std::pair<std::vector<Cone>, std::vector<Cone>> the first vector contains the blue
+   * cones and the second vector contains the yellow cones
+   */
+  std::pair<std::vector<Cone>, std::vector<Cone>> color_cones(std::vector<Cone> cones,
+                                                              const Pose& car_pose) const;
 
   /**
-   * @brief Construct a new Cone Coloring:: Cone Coloring object
-   *
-   * @param gain_angle
-   * @param gain_distance
-   * @param gain_ncones
-   * @param exponent_1
-   * @param exponent_2
-   * @param cost_max
-   */
-  ConeColoring(double gain_angle, double gain_distance, double gain_ncones, double exponent_1,
-               double exponent_2, double cost_max);
-  /**
-   * @brief color the cones based on the cost to reach them
-   *
-   * @param input_cones cones to be colored
-   * @param initial_car_pose initial pose of the car
-   * @param distance_threshold maximum allowed distance to reach the next cone
-   */
-  void color_cones(const std::vector<Cone*>& input_cones, Pose initial_car_pose,
-                   double distance_threshold);
-  /**
-   * @brief current cones on the left side
+   * @brief tests are declared as friend to test the behaviour of private functions
    *
    */
-  std::vector<Cone*> current_left_cones = {};
-  /**
-   * @brief current cones on the right side
-   *
-   */
-  std::vector<Cone*> current_right_cones = {};
-  /**
-   * @brief get the initial cone to start the path from side determined by parameter
-   *
-   * @param candidates possible cones to start the path (cones closer than threshold)
-   * @param initial_car_pose initial pose of the car
-   * @param side reach the cone form the left or right side
-   * @return Cone* initial cone to start the path
-   */
-  Cone get_initial_cone(const std::vector<Cone*>& candidates, Pose initial_car_pose,
-                        TrackSide side) const;
-
-  /**
-   * @brief filter cones that are closer than a certain radius
-   *
-   * @param input_cones cones to be filtered
-   * @param position position to filter the cones in accordance to
-   * @param radius radius to filter the cones
-   * @return std::vector<Cone*> filtered cones
-   */
-  std::vector<Cone*> filter_cones_by_distance(const std::vector<Cone*>& input_cones,
-                                              Position position, double radius) const;
-
-  /**
-   * @brief make a vector of cones and a boolean to determine if the cone has been visited
-   *
-   * @param cones cones to be marked as visited [true] or unvisited [false]
-   * @return std::vector<std::pair<Cone *, bool> *> vector of cones and a boolean to determine if
-   * the cone has been visited
-   */
-  std::shared_ptr<std::vector<std::pair<Cone*, bool>>> make_unvisited_cones(
-      const std::vector<Cone*>& cones) const;
-
-  /**
-   * @brief add the best initial cones to the sides of the track
-   *
-   * @param input_cones uncolored cones
-   * @param initial_car_pose initial pose of the car
-   */
-  void place_initial_cones(const std::vector<Cone*>& input_cones, Pose initial_car_pose);
+  friend class ConeColoring_place_first_cones1_Test;
+  friend class ConeColoring_place_first_cones2_Test;
+  friend class ConeColoring_fullconecoloring1_Test;
+  friend class ConeColoring_fullconecoloring2_Test;
 };
 
-#endif
+#endif  // SRC_PLANNING_INCLUDE_PLANNING_CONE_COLORING_HPP_

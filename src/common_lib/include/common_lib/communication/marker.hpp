@@ -14,17 +14,18 @@
 namespace common_lib::communication {
 
 const std::map<std::string, std::array<float, 4>, std::less<>> marker_color_map = {
-    {"blue", {0.0, 0.0, 1.0, 1.0}},
-    {"yellow", {1.0, 1.0, 0.0, 1.0}},
-    {"orange", {1.0, 0.5, 0.0, 1.0}},
-    {"red", {1.0, 0.0, 0.0, 1.0}},
-    {"green", {0.0, 1.0, 0.0, 1.0}}};
+    {"blue", {0.0, 0.0, 1.0, 1.0}},   {"yellow", {1.0, 1.0, 0.0, 1.0}},
+    {"orange", {1.0, 0.5, 0.0, 1.0}}, {"red", {1.0, 0.0, 0.0, 1.0}},
+    {"green", {0.0, 1.0, 0.0, 1.0}},  {"white", {1.0, 1.0, 1.0, 1.0}},
+    {"grey", {0.5, 0.5, 0.5, 1.0}}};
 
 const std::map<std::string, int, std::less<>> marker_shape_map = {
     {"cylinder", visualization_msgs::msg::Marker::CYLINDER},
     {"cube", visualization_msgs::msg::Marker::CUBE},
     {"sphere", visualization_msgs::msg::Marker::SPHERE},
-    {"line", visualization_msgs::msg::Marker::LINE_STRIP}};
+    {"line", visualization_msgs::msg::Marker::LINE_STRIP},
+    {"cone", visualization_msgs::msg::Marker::MESH_RESOURCE},
+    {"arrow", visualization_msgs::msg::Marker::ARROW}};
 
 /**
  * @brief A helper struct to check if a type T has a member named 'position'.
@@ -102,6 +103,16 @@ visualization_msgs::msg::MarkerArray marker_array_from_structure_array(
     marker.color.b = color_array[2];
     marker.color.a = color_array[3];
 
+    if (shape == "cone") {
+      marker.pose.orientation.x = 0.7071;  // Approximately sqrt(2)/2
+      marker.pose.orientation.y = 0.0;
+      marker.pose.orientation.z = 0.0;
+      marker.pose.orientation.w = -0.7071;  // Approximately sqrt(2)/2
+      marker.scale.x = scale * 0.03;
+      marker.scale.y = scale * 0.03;
+      marker.scale.z = scale * 0.03;
+      marker.mesh_resource = "https://paginas.fe.up.pt/~up202109860/FormulaStudent/FSGConev2.obj";
+    }
     marker_array.markers.push_back(marker);
   }
 
