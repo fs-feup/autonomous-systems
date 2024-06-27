@@ -13,12 +13,12 @@
 struct PlanningParameters;
 
 std::string load_adapter_parameters(PlanningParameters& params) {
-  auto adapter_node = std::make_shared<rclcpp::Node>("ekf_state_est_adapter");
-  params.angle_gain_ = adapter_node->declare_parameter("angle_gain", 3.7);
+  auto adapter_node = std::make_shared<rclcpp::Node>("planning_adapter");
+  params.angle_gain_ = adapter_node->declare_parameter("angle_gain", 11.0);
   params.distance_gain_ = adapter_node->declare_parameter("distance_gain", 8.0);
   params.ncones_gain_ = adapter_node->declare_parameter("ncones_gain", 8.7);
-  params.angle_exponent_ = adapter_node->declare_parameter("angle_exponent", 1.0);
-  params.distance_exponent_ = adapter_node->declare_parameter("distance_exponent", 1.7);
+  params.angle_exponent_ = adapter_node->declare_parameter("angle_exponent", 5.3);
+  params.distance_exponent_ = adapter_node->declare_parameter("distance_exponent", 0.698);
   params.cost_max_ = adapter_node->declare_parameter("cost_max", 40.0);
   params.outliers_spline_order_ =
       static_cast<int>(adapter_node->declare_parameter("outliers_spline_order", 3));
@@ -26,6 +26,8 @@ std::string load_adapter_parameters(PlanningParameters& params) {
       static_cast<float>(adapter_node->declare_parameter("outliers_spline_coeffs_ratio", 3.0));
   params.outliers_spline_precision_ =
       static_cast<int>(adapter_node->declare_parameter("outliers_spline_precision", 1));
+  params.path_calculation_dist_threshold_ =
+      adapter_node->declare_parameter("path_calculation_dist_threshold", 7.0);
   params.smoothing_spline_order_ =
       static_cast<int>(adapter_node->declare_parameter("smoothing_spline_order", 3));
   params.smoothing_spline_coeffs_ratio_ =
@@ -33,8 +35,8 @@ std::string load_adapter_parameters(PlanningParameters& params) {
   params.smoothing_spline_precision_ =
       static_cast<int>(adapter_node->declare_parameter("smoothing_spline_precision", 10));
   params.publishing_visualization_msgs_ =
-      adapter_node->declare_parameter("publishing_visualization_msg", true);
-  params.using_simulated_se_ = adapter_node->declare_parameter("using_simulated_se", false);
+      adapter_node->declare_parameter("publishing_visualization_msg", false);
+  params.using_simulated_se_ = adapter_node->declare_parameter("use_simulated_se", false);
 
   return adapter_node->declare_parameter("adapter", "vehicle");
 }

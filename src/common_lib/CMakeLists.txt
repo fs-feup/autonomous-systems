@@ -26,14 +26,16 @@ set(IMPLEMENTATION_FILES
   src/competition_logic/mission_logic.cpp
   src/competition_logic/color.cpp
   src/maths/matrixes.cpp
+  src/maths/angle_and_norms.cpp
   src/maths/transformations.cpp
   src/structures/position.cpp
   src/structures/pose.cpp
   src/structures/cone.cpp
+  src/structures/path_point.cpp
   src/structures/vehicle_state.cpp
   src/sensor_data/wheel_encoders.cpp
   src/sensor_data/imu.cpp
-  src/communication/planning.cpp
+  src/communication/interfaces.cpp
   src/vehicle_dynamics/bicycle_model.cpp
 )
 
