@@ -5,12 +5,15 @@
 #include <filesystem>
 #include <string>
 #include <vector>
-
-#include "../planning/track.hpp"
-#include "./pathpoint.hpp"
+#include <fstream>
+#include <iostream>
 #include "rclcpp/rclcpp.hpp"
 
-std::vector<PathPoint *> read_path_file(const std::string &filename);
+#include "common_lib/structures/path_point.hpp"
+
+using PathPoint = common_lib::structures::PathPoint;
+
+std::vector<PathPoint> read_path_file(const std::string &filename);
 
 std::ofstream openWriteFile(const std::string &filename, const std::string &header = "");
 
