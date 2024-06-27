@@ -30,29 +30,34 @@ constexpr double WHEELS_STOPPED_THRESHOLD = 0.01;
  */
 class InspectionMission : public rclcpp::Node {
 private:
-  rclcpp::Client<std_srvs::srv::Trigger>::SharedPtr finish_client;
-  rclcpp::Client<std_srvs::srv::Trigger>::SharedPtr emergency_client;
-  rclcpp::Publisher<custom_interfaces::msg::ControlCommand>::SharedPtr control_command_publisher;
+  rclcpp::Client<std_srvs::srv::Trigger>::SharedPtr _finish_client_;
+  rclcpp::Client<std_srvs::srv::Trigger>::SharedPtr _emergency_client_;
+  rclcpp::Publisher<custom_interfaces::msg::ControlCommand>::SharedPtr _control_command_publisher_;
 
   rclcpp::Subscription<custom_interfaces::msg::OperationalStatus>::SharedPtr
-      mission_signal_subscription;
-  message_filters::Subscriber<custom_interfaces::msg::WheelRPM> rl_rpm_subscription;
-  message_filters::Subscriber<custom_interfaces::msg::WheelRPM> rr_rpm_subscription;
+      _mission_signal_subscription_;
+  message_filters::Subscriber<custom_interfaces::msg::WheelRPM> _rl_rpm_subscription_;
+  message_filters::Subscriber<custom_interfaces::msg::WheelRPM> _rr_rpm_subscription_;
+  rclcpp::TimerBase::SharedPtr _timer_;
 
   using WSSPolicy =
       message_filters::sync_policies::ApproximateTime<custom_interfaces::msg::WheelRPM,
                                                       custom_interfaces::msg::WheelRPM>;
 
-  std::shared_ptr<message_filters::Synchronizer<WSSPolicy>> sync_;
+  std::shared_ptr<message_filters::Synchronizer<WSSPolicy>> _sync_;
 
-  rclcpp::TimerBase::SharedPtr mission_end_timer;  // Timer for repetition of end of mission signal
-  rclcpp::TimerBase::SharedPtr main_callback_timer;  // Timer for main callback
-  rclcpp::Clock clock;
-  rclcpp::Time initial_time;  // Ellapsed time in seconds
-  InspectionFunctions inspection_object = InspectionFunctions();
+  rclcpp::TimerBase::SharedPtr
+      _mission_end_timer_;  /// Timer for repetition of end of mission signal
+  rclcpp::TimerBase::SharedPtr _main_callback_timer_;  /// Timer for main callback
+  rclcpp::Clock _clock_;
+  rclcpp::Time _initial_time_;  /// Ellapsed time in seconds
+  InspectionFunctions _inspection_object_ = InspectionFunctions();
 
-  bool go = false;                                 // Flag to start the mission
-  common_lib::competition_logic::Mission mission;  // Mission to be executed;
+  bool _go_ = false;                                 /// Flag to start the mission
+  common_lib::competition_logic::Mission _mission_;  /// Mission to be executed;
+
+  double _rr_rpm_ = 0.0;  /// Rotations per minute of the right wheel
+  double _rl_rpm_ = 0.0;  /// Rotations per minute of the left wheel
 
   /**
    * @brief Function for communication of end of mission
@@ -79,8 +84,16 @@ public:
    *
    * @param current_rpm rotations of the wheels per minute
    */
-  void inspection_script(const custom_interfaces::msg::WheelRPM& current_rlRPM,
-                         const custom_interfaces::msg::WheelRPM& current_rrRPM);
+  void inspection_script();
+
+  /**
+   * @brief Function to update the current rpms of the wheels
+   *
+   * @param current_rlRPM rotations of the left wheel per minute
+   * @param current_rrRPM rotations of the right wheel per minute
+   */
+  void update_rpms_callback(const custom_interfaces::msg::WheelRPM& current_rl_rpm,
+                            const custom_interfaces::msg::WheelRPM& current_rr_rpm);
 
   /**
    * @brief Publishes the control command

@@ -29,8 +29,8 @@ TEST(STEERING, steering1) {
       3.14159265358979323846264338327950288 / 6.0, 4.0, 0.254, 26, false, 0.5, 1.0);
   for (unsigned int i = 0; i < 260; i++) {
     double steering = new_inspection->calculate_steering(i);
-    EXPECT_FLOAT_EQ(steering,
-                    sin(i * 2 * M_PI / new_inspection->turning_period) * new_inspection->max_angle);
+    EXPECT_FLOAT_EQ(
+        steering, sin(i * 2 * M_PI / new_inspection->turning_period_) * new_inspection->max_angle_);
   }
 }
 
@@ -107,7 +107,7 @@ TEST(TORQUE, torque4) {
     current_velocity += 0.1 * (new_inspection->calculate_throttle(current_velocity));
 
     // check goal has been reached and flip the goal
-    if (fabs(current_velocity - new_inspection->current_goal_velocity) < 0.2) {
+    if (fabs(current_velocity - new_inspection->current_goal_velocity_) < 0.2) {
       new_inspection->redefine_goal_velocity(current_velocity);
       count += 1;  // count how many times the ideal velocity changes
     }
