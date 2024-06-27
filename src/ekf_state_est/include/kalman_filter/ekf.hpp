@@ -10,6 +10,7 @@
 
 #include "common_lib/competition_logic/mission_logic.hpp"
 #include "common_lib/structures/cone.hpp"
+#include "common_lib/structures/landmark.hpp"
 #include "common_lib/structures/vehicle_state.hpp"
 #include "kalman_filter/data_association.hpp"
 #include "kalman_filter/motion_models.hpp"
@@ -27,15 +28,16 @@
  */
 class ExtendedKalmanFilter {
   Eigen::VectorXf _x_vector_ =
-      Eigen::VectorXf::Zero(5); /**< Expected state vector (localization + mapping) */
-  Eigen::SparseMatrix<float> _p_matrix_ =
-      Eigen::SparseMatrix<float>(5, 5);               /**< Sparse State covariance matrix */
+      Eigen::VectorXf::Zero(6); /**< Expected state vector (localization + mapping) */
+  Eigen::MatrixXf _p_matrix_ = Eigen::MatrixXf::Identity(6, 6);
   rclcpp::Time _last_update_ = rclcpp::Clock().now(); /**< Timestamp of last update */
 
-  std::shared_ptr<MotionModel> _motion_model_; /**< Motion Model chosen for prediction step */
+  std::map<std::string, std::shared_ptr<MotionModel>> _motion_models_;  // Map of motion models
   std::shared_ptr<ObservationModel>
       _observation_model_; /**< Observation Model chosen for correction step */
   std::shared_ptr<DataAssociationModel> _data_association_model_; /**< Data Association Model*/
+  std::vector<common_lib::structures::Landmark>
+      _landmarksDatabase_; /**< Vector of landmarks used for mapping */
 
   bool _fixed_map = false;         /**< Flag to indicate if the map is fixed */
   bool _first_prediction_ = true;  /// Flags used to mark first prediction step
@@ -58,8 +60,7 @@ public:
    * @param motion_model motion model chosen for prediction step
    * @param observation_model observation model chosen for correction step
    */
-  ExtendedKalmanFilter(std::shared_ptr<MotionModel> motion_model,
-                       std::shared_ptr<ObservationModel> observation_model,
+  ExtendedKalmanFilter(std::shared_ptr<ObservationModel> observation_model,
                        std::shared_ptr<DataAssociationModel> data_association_model);
 
   /**
@@ -79,7 +80,11 @@ public:
    *
    * @param motion_update data of motion (velocities)
    */
-  void prediction_step(const MotionUpdate &motion_update);
+  void prediction_step(const MotionUpdate &motion_update, const std::string &sensor_type);
+
+  void add_motion_model(const std::string &model_name, std::shared_ptr<MotionModel> motion_model) {
+    _motion_models_[model_name] = motion_model;
+  }
 
   /**
    * @brief Correction step:
@@ -90,7 +95,7 @@ public:
    * @param perception_map map from perception
    */
   void correction_step(const std::vector<common_lib::structures::Cone> &perception_map);
-
+  //   void wss_correction_step(const MotionUpdate &motion_correction_data);
   /**
    * @brief Get the state vector
    *

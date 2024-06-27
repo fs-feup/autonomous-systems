@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.8)
 project(ekf_state_est)
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-  add_compile_options(-Wall -Wextra -Wpedantic -O2)
+  add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
 # find dependencies
@@ -38,6 +38,7 @@ set(IMPLEMENTATION_FILES
   src/kalman_filter/motion_models.cpp
   src/kalman_filter/observation_models.cpp
   src/kalman_filter/data_association.cpp
+  src/adapter_ekf_state_est/adapter.cpp
   src/adapter_ekf_state_est/eufs.cpp
   src/adapter_ekf_state_est/fsds.cpp
   src/adapter_ekf_state_est/pacsim.cpp

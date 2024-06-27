@@ -38,7 +38,7 @@ def generate_launch_description():
             Node(
                 package="ekf_state_est",
                 executable="ekf_state_est",
-                name="ekf_state_est_adapter",
+                name="ekf_state_est",
                 parameters=[
                     {"motion_model": LaunchConfiguration("motion_model")},
                     {

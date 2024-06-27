@@ -13,17 +13,17 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "data_association_limit_distance",
                 description="Maximum distance to admit landmarks",
-                default_value="15.0",
+                default_value="10.00",
             ),  # meters
             DeclareLaunchArgument(
                 "sml_initial_limit",
                 description="Initial limit for the limit function used in the simple maximum likelihood data association",
-                default_value="0.5",
+                default_value="0.05",
             ),
             DeclareLaunchArgument(
                 "sml_curvature",
                 description="Curvature for the limit function used in the simple maximum likelihood data association",
-                default_value="15.0",
+                default_value="5.0",
             ),
             DeclareLaunchArgument(
                 "observation_noise",
@@ -33,12 +33,12 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "wheel_speed_sensor_noise",
                 description="Noise value for wheel speed sensors (sigma)",
-                default_value="0.1",
+                default_value="0.003",
             ),
             DeclareLaunchArgument(
                 "motion_model",
                 description="Motion model to use",
-                default_value="normal_velocity_model",
+                default_value="imu_velocity_model",
             ),
             DeclareLaunchArgument(
                 "adapter",
@@ -48,7 +48,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "use_odometry",
                 description="Either use odometry or IMU (TODO: remove for complete velocity estimation)",
-                default_value="True",
+                default_value="False",
             ),
             DeclareLaunchArgument(
                 "use_simulated_perception",
@@ -58,7 +58,7 @@ def generate_launch_description():
             Node(
                 package="ekf_state_est",
                 executable="ekf_state_est",
-                name="ekf_state_est_adapter",
+                name="ekf_state_est",
                 parameters=[
                     {"motion_model": LaunchConfiguration("motion_model")},
                     {
