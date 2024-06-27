@@ -29,7 +29,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "inspection_gain",
                 description="Gains for longitudinal P controllers of inspection",
-                default_value="0.25",
+                default_value="0.5",
             ),
             DeclareLaunchArgument(
                 "ebs_test_gain",
@@ -65,7 +65,6 @@ def generate_launch_description():
                     {"finish_time": LaunchConfiguration("finish_time")},
                     {"start_and_stop": LaunchConfiguration("start_and_stop")},
                 ],
-                arguments=["--ros-args", "--log-level", "inspection:=debug"],
             ),
         ]
     )

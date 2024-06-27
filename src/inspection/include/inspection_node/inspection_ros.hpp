@@ -48,6 +48,7 @@ private:
 
   rclcpp::TimerBase::SharedPtr
       _mission_end_timer_;  /// Timer for repetition of end of mission signal
+  bool _mission_end_timer_started_ = false;
   rclcpp::TimerBase::SharedPtr _main_callback_timer_;  /// Timer for main callback
   rclcpp::Clock _clock_;
   rclcpp::Time _initial_time_;  /// Ellapsed time in seconds
