@@ -5,6 +5,7 @@
 #include <memory>
 #include <string>
 
+#include "common_lib/communication/marker.hpp"
 #include "custom_interfaces/msg/evaluator_control_data.hpp"
 #include "custom_interfaces/msg/path_point_array.hpp"
 #include "custom_interfaces/msg/vehicle_state.hpp"
@@ -16,7 +17,7 @@
 
 using namespace common_lib::structures;
 
-using namespace common_lib::structures;
+using namespace common_lib::communication;
 
 Control::Control(const ControlParameters& params)
     : Node("control"),
@@ -50,8 +51,8 @@ void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicl
 
   // find the closest point on the path
   // print pathpoint array size
-  auto [closest_point, closest_point_id] = this->point_solver_.update_closest_point(
-      pathpoint_array_);
+  auto [closest_point, closest_point_id] =
+      this->point_solver_.update_closest_point(pathpoint_array_);
   if (closest_point_id == -1) {
     RCLCPP_ERROR(rclcpp::get_logger("control"), "PurePursuit: Failed to update closest point");
     return;
@@ -112,36 +113,11 @@ void Control::publish_evaluator_data(double lookahead_velocity, Position lookahe
 
 void Control::publish_visualization_data(const Position& lookahead_point,
                                          const Position& closest_point) const {
-  // Visualization
-  // Publish the lookahead point and the closest point
-  // to visualize the control
-  auto marker = visualization_msgs::msg::Marker();
-  marker.header.frame_id = "map";
-  marker.header.stamp = this->now();
-  marker.ns = "control";
-  marker.id = 0;
-  marker.type = visualization_msgs::msg::Marker::SPHERE;
-  marker.action = visualization_msgs::msg::Marker::ADD;
-  marker.pose.position.x = lookahead_point.x;
-  marker.pose.position.y = lookahead_point.y;
-  marker.pose.position.z = 0.1;
-  marker.pose.orientation.x = 0.0;
-  marker.pose.orientation.y = 0.0;
-  marker.pose.orientation.z = 0.0;
-  marker.pose.orientation.w = 1.0;
-  marker.scale.x = 0.2;
-  marker.scale.y = 0.2;
-  marker.scale.z = 0.2;
-  marker.color.a = 1.0;  // Don't forget to set the alpha!
-  marker.color.r = 0.0;
-  marker.color.g = 1.0;
-  marker.color.b = 0.0;
-  this->closest_point_pub_->publish(marker);
+  auto lookahead_msg =
+      common_lib::communication::marker_from_position(lookahead_point, "control", 0, "green");
+  auto closest_msg =
+      common_lib::communication::marker_from_position(closest_point, "control", 1, "red");
 
-  marker.id = 1;
-  marker.pose.position.x = closest_point.x;
-  marker.pose.position.y = closest_point.y;
-  marker.color.r = 1.0;
-  marker.color.g = 0.0;
-  this->lookahead_point_pub_->publish(marker);
+  this->closest_point_pub_->publish(lookahead_msg);
+  this->lookahead_point_pub_->publish(closest_msg);
 }
