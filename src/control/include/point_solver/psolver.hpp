@@ -35,7 +35,7 @@ public:
    *
    * @return std::pair<Point, int> closest point and index
    */
-  std::pair<common_lib::structures::Position, int> update_closest_point(
+  std::tuple<common_lib::structures::Position, int, double> update_closest_point(
       const std::vector<custom_interfaces::msg::PathPoint> &pathpoint_array) const;
 
   /**

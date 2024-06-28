@@ -38,9 +38,10 @@ void PointSolver::update_vehicle_pose(
  *
  * @param path
  */
-std::pair<Position, int> PointSolver::update_closest_point(
+std::tuple<Position, int, double> PointSolver::update_closest_point(
     const std::vector<custom_interfaces::msg::PathPoint> &pathpoint_array) const {
   double min_distance = 1e9;
+  double closest_point_velocity = 0;
   Position closest_point = Position();
   Position aux_point = Position();
   int closest_point_id = -1;
@@ -51,9 +52,10 @@ std::pair<Position, int> PointSolver::update_closest_point(
       min_distance = distance;
       closest_point = aux_point;
       closest_point_id = static_cast<int>(i);
+      closest_point_velocity = pathpoint_array[i].v;
     }
   }
-  return std::make_pair(closest_point, closest_point_id);
+  return std::make_tuple(closest_point, closest_point_id, closest_point_velocity);
 }
 
 std::tuple<Position, double, bool> PointSolver::update_lookahead_point(

@@ -64,7 +64,8 @@ private:
   void publish_evaluator_data(double lookahead_velocity,
                               common_lib::structures::Position lookahead_point,
                               common_lib::structures::Position closest_point,
-                              custom_interfaces::msg::VehicleState vehicle_state_msg) const;
+                              custom_interfaces::msg::VehicleState ,
+                              double closest_point_velocity) const;
 
   virtual void publish_cmd(double acceleration, double steering) = 0;
 

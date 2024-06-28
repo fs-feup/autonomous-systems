@@ -51,7 +51,7 @@ void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicl
 
   // find the closest point on the path
   // print pathpoint array size
-  auto [closest_point, closest_point_id] =
+  auto [closest_point, closest_point_id, closest_point_velocity] =
       this->point_solver_.update_closest_point(pathpoint_array_);
   if (closest_point_id == -1) {
     RCLCPP_ERROR(rclcpp::get_logger("control"), "PurePursuit: Failed to update closest point");
@@ -88,7 +88,7 @@ void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicl
   RCLCPP_DEBUG(rclcpp::get_logger("control"), "Torque: %f, Steering Angle: %f", torque,
                steering_angle);
 
-  publish_evaluator_data(lookahead_velocity, lookahead_point, closest_point, vehicle_state_msg);
+  publish_evaluator_data(lookahead_velocity, lookahead_point, closest_point, vehicle_state_msg, closest_point_velocity);
   publish_visualization_data(lookahead_point, closest_point);
   publish_cmd(torque, steering_angle);
   // Adapter to communicate with the car
@@ -96,7 +96,8 @@ void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicl
 
 void Control::publish_evaluator_data(double lookahead_velocity, Position lookahead_point,
                                      Position closest_point,
-                                     custom_interfaces::msg::VehicleState vehicle_state_msg) const {
+                                     custom_interfaces::msg::VehicleState vehicle_state_msg, 
+                                     double closest_point_velocity) const {
   custom_interfaces::msg::EvaluatorControlData evaluator_data;
   evaluator_data.header = std_msgs::msg::Header();
   evaluator_data.header.stamp = this->now();
@@ -108,6 +109,7 @@ void Control::publish_evaluator_data(double lookahead_velocity, Position lookahe
   evaluator_data.closest_point.x = closest_point.x;
   evaluator_data.closest_point.y = closest_point.y;
   evaluator_data.lookahead_velocity = lookahead_velocity;
+  evaluator_data.closest_point_velocity = closest_point_velocity;
   this->evaluator_data_pub_->publish(evaluator_data);
 }
 
