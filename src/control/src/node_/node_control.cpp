@@ -5,6 +5,7 @@
 #include <memory>
 #include <string>
 
+#include "common_lib/communication/marker.hpp"
 #include "custom_interfaces/msg/evaluator_control_data.hpp"
 #include "custom_interfaces/msg/path_point_array.hpp"
 #include "custom_interfaces/msg/vehicle_state.hpp"
@@ -16,7 +17,7 @@
 
 using namespace common_lib::structures;
 
-using namespace common_lib::structures;
+using namespace common_lib::communication;
 
 Control::Control(const ControlParameters& params)
     : Node("control"),
@@ -30,7 +31,11 @@ Control::Control(const ControlParameters& params)
             RCLCPP_DEBUG(this->get_logger(), "Received pathpoint array");
             pathpoint_array_ = msg.pathpoint_array;
           })),
-      point_solver_(params.lookahead_gain_, params.lookahead_margin_) {
+      closest_point_pub_(create_publisher<visualization_msgs::msg::Marker>(
+          "/control/visualization/closest_point", 10)),
+      lookahead_point_pub_(create_publisher<visualization_msgs::msg::Marker>(
+          "control/visualization/lookahead_point", 10)),
+      point_solver_(params.lookahead_gain_) {
   if (!using_simulated_se_) {
     vehicle_state_sub_ = this->create_subscription<custom_interfaces::msg::VehicleState>(
         "/state_estimation/vehicle_state", 10,
@@ -46,8 +51,8 @@ void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicl
 
   // find the closest point on the path
   // print pathpoint array size
-  auto [closest_point, closest_point_id] = this->point_solver_.update_closest_point(
-      pathpoint_array_, this->point_solver_.vehicle_pose_.rear_axis_);
+  auto [closest_point, closest_point_id] =
+      this->point_solver_.update_closest_point(pathpoint_array_);
   if (closest_point_id == -1) {
     RCLCPP_ERROR(rclcpp::get_logger("control"), "PurePursuit: Failed to update closest point");
     return;
@@ -55,7 +60,7 @@ void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicl
 
   // update the Lookahead point
   auto [lookahead_point, lookahead_velocity, lookahead_error] =
-      this->point_solver_.update_lookahead_point(pathpoint_array_, closest_point, closest_point_id);
+      this->point_solver_.update_lookahead_point(pathpoint_array_, closest_point_id);
   if (lookahead_error) {
     RCLCPP_ERROR(rclcpp::get_logger("control"), "PurePursuit: Failed to update lookahed point");
     return;
@@ -84,6 +89,7 @@ void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicl
                steering_angle);
 
   publish_evaluator_data(lookahead_velocity, lookahead_point, closest_point, vehicle_state_msg);
+  publish_visualization_data(lookahead_point, closest_point);
   publish_cmd(torque, steering_angle);
   // Adapter to communicate with the car
 }
@@ -103,4 +109,15 @@ void Control::publish_evaluator_data(double lookahead_velocity, Position lookahe
   evaluator_data.closest_point.y = closest_point.y;
   evaluator_data.lookahead_velocity = lookahead_velocity;
   this->evaluator_data_pub_->publish(evaluator_data);
+}
+
+void Control::publish_visualization_data(const Position& lookahead_point,
+                                         const Position& closest_point) const {
+  auto lookahead_msg =
+      common_lib::communication::marker_from_position(lookahead_point, "control", 0, "green");
+  auto closest_msg =
+      common_lib::communication::marker_from_position(closest_point, "control", 1, "red");
+
+  this->closest_point_pub_->publish(lookahead_msg);
+  this->lookahead_point_pub_->publish(closest_msg);
 }
