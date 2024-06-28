@@ -114,7 +114,9 @@ void Planning::vehicle_localization_callback(const custom_interfaces::msg::Vehic
  * Publisher point by point
  */
 void Planning::publish_track_points(const std::vector<PathPoint> &path) const {
+
   auto message = common_lib::communication::custom_interfaces_array_from_vector(path);
+  
   local_pub_->publish(message);
 }
 
@@ -124,6 +126,12 @@ void Planning::publish_predicitive_track_points() {
     return;
   }
   std::vector<PathPoint> path = read_path_file(this->predictive_paths_[this->mission]);
+
+  // TODO: Remove this when velocity planning is a reality
+  for (auto& path_point : path){
+    path_point.v = 5;
+  }
+  
   this->publish_track_points(path);
 }
 
