@@ -18,7 +18,7 @@
 
 struct ControlParameters {
   bool using_simulated_se_;
-  bool mocker_node_;
+  bool use_simulated_planning_;
   double lookahead_gain_;
 };
 
@@ -43,8 +43,7 @@ public:
   void publish_control(const custom_interfaces::msg::VehicleState &vehicle_state_msg);
 
 private:
-  bool mocker_node_{false};
-  // std::string adapter_;
+  bool use_simulated_planning_{false};
 
   // Evaluator Publisher
   rclcpp::Publisher<custom_interfaces::msg::EvaluatorControlData>::SharedPtr evaluator_data_pub_;
@@ -64,8 +63,8 @@ private:
   void publish_evaluator_data(double lookahead_velocity,
                               common_lib::structures::Position lookahead_point,
                               common_lib::structures::Position closest_point,
-                              custom_interfaces::msg::VehicleState ,
-                              double closest_point_velocity) const;
+                              const custom_interfaces::msg::VehicleState &vehicle_state_msg,
+                              double closest_point_velocity, double execution_time) const;
 
   virtual void publish_cmd(double acceleration, double steering) = 0;
 

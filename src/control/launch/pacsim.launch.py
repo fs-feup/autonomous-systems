@@ -9,9 +9,9 @@ def generate_launch_description():
     return LaunchDescription(
         [
             DeclareLaunchArgument(
-                "mocker_node",
+                "use_simulated_planning",
                 description="Wether or not to use Mocker Node for Plannning (true/false)",
-                default_value="false",
+                default_value="true",
             ),
             DeclareLaunchArgument(
                 "adapter",
@@ -34,12 +34,15 @@ def generate_launch_description():
                 name="control_adapter",
                 parameters=[
                     {"adapter": LaunchConfiguration("adapter")},
-                    {"mocker_node": LaunchConfiguration("mocker_node")},
+                    {
+                        "use_simulated_planning": LaunchConfiguration(
+                            "use_simulated_planning"
+                        )
+                    },
                     {"lookahead_gain": LaunchConfiguration("lookahead_gain")},
                     {"use_simulated_se": LaunchConfiguration("use_simulated_se")},
                 ],
                 arguments=["--ros-args", "--log-level", "control:=debug"],
             ),
-            
         ]
     )

@@ -14,8 +14,8 @@ struct ControlParameters;
 
 std::string load_adapter_parameters(ControlParameters& params) {
   auto adapter_node = std::make_shared<rclcpp::Node>("control_adapter");
-  params.using_simulated_se_ = adapter_node->declare_parameter("use_simulated_se", false);
-  params.mocker_node_ = adapter_node->declare_parameter("mocker_node", true);
+  params.using_simulated_se_ = adapter_node->declare_parameter("use_simulated_se", true);
+  params.use_simulated_planning_ = adapter_node->declare_parameter("use_simulated_planning", true);
   params.lookahead_gain_ = adapter_node->declare_parameter("lookahead_gain", 0.5);
 
   return adapter_node->declare_parameter("adapter", "vehicle");
