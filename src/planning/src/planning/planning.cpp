@@ -10,6 +10,7 @@ Planning::Planning(const PlanningParameters &params) : Node("planning"), plannin
   outliers_ = Outliers(planning_config_.outliers_);
   path_calculation_ = PathCalculation(planning_config_.path_calculation_);
   path_smoothing_ = PathSmoothing(planning_config_.smoothing_);
+  desired_velocity_ = params.desired_velocity_;
 
   // Control Publisher
   this->local_pub_ =
@@ -129,9 +130,9 @@ void Planning::publish_predicitive_track_points() {
 
   // TODO: Remove this when velocity planning is a reality
   for (auto& path_point : path){
-    path_point.v = 5;
+    path_point.ideal_velocity = desired_velocity_;
   }
-  
+
   this->publish_track_points(path);
 }
 
