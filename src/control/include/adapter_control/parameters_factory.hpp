@@ -17,7 +17,6 @@ std::string load_adapter_parameters(ControlParameters& params) {
   params.using_simulated_se_ = adapter_node->declare_parameter("use_simulated_se", false);
   params.mocker_node_ = adapter_node->declare_parameter("mocker_node", true);
   params.lookahead_gain_ = adapter_node->declare_parameter("lookahead_gain", 0.5);
-  params.lookahead_margin_ = adapter_node->declare_parameter("lookahead_margin", 0.1);
 
   return adapter_node->declare_parameter("adapter", "vehicle");
 }

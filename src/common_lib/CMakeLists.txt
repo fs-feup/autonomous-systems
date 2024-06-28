@@ -35,6 +35,7 @@ set(IMPLEMENTATION_FILES
   src/structures/vehicle_state.cpp
   src/sensor_data/wheel_encoders.cpp
   src/sensor_data/imu.cpp
+  src/communication/marker.cpp
   src/communication/interfaces.cpp
   src/vehicle_dynamics/bicycle_model.cpp
 )
