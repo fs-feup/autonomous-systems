@@ -15,7 +15,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "ransac_n_neighbours",
                 description="RANSAC number of neighbours",
-                default_value="10",
+                default_value="20",
             ),
             DeclareLaunchArgument(
                 "clustering_n_neighbours",
@@ -25,37 +25,37 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "clustering_epsilon",
                 description="Epsilon for Clustering algorithm",
-                default_value="1.0",
+                default_value="0.1",
             ),
             DeclareLaunchArgument(
                 "horizontal_resolution",
                 description="Lidar's horizontal resolution",
-                default_value="0.2",
+                default_value="0.33",
             ),
             DeclareLaunchArgument(
                 "vertical_resolution",
                 description="Lidar's vertical resolution",
-                default_value="0.33",
+                default_value="0.2",
             ),
             DeclareLaunchArgument(
                 "adapter",
                 description="Environment to run node on",
-                default_value="vehicle",
+                default_value="vehicle_preprocessed",
             ),
             DeclareLaunchArgument(
                 "ground_removal",
                 description="Ground Removal algorithm",
-                default_value="ransac",
+                default_value="grid_ransac",
             ),
             DeclareLaunchArgument(
                 "n_angular_grids",
                 description="Number of angular grids",
-                default_value="6",
+                default_value="7",
             ),
             DeclareLaunchArgument(
                 "radius_resolution",
                 description="Radius size of a radius grid (m)",
-                default_value="10.0",
+                default_value="7.5",
             ),
             DeclareLaunchArgument(
                 "target_file",
@@ -85,7 +85,7 @@ def generate_launch_description():
             Node(
                 package="perception",
                 executable="perception",
-                name="perception_adapter",
+                name="perception",
                 parameters=[
                     {"ransac_epsilon": LaunchConfiguration("ransac_epsilon")},
                     {"ransac_n_neighbours": LaunchConfiguration("ransac_n_neighbours")},
