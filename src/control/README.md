@@ -28,7 +28,7 @@ Run with ros2 launch. You may select custom parameters for testing such as simul
 ```bash
 ros2 launch control control.launch.py 'adapter:=pacsim' 'use_simulated_se:=true' 'mocker_node:=true'
 ```
-Using simulated state estimation allows you to independently test control without using the state estimation module, by using information directly from the simulator. The mocker node allows for the same thing but for planning, by using a hand-picked pathpoint array. The lookahead_gain and lookahead_margin are for tuning purposes.
+Using simulated state estimation allows you to independently test control without using the state estimation module, by using information directly from the simulator. The mocker node allows for the same thing but for planning, by using a hand-picked pathpoint array. The lookahead_gain is for tuning purposes.
 
 ## Design
 The following class diagram illustrates the structure of the Control package:
