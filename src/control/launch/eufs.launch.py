@@ -24,6 +24,46 @@ def generate_launch_description():
                 default_value="0.5",
             ),
             DeclareLaunchArgument(
+                "pid_kp",
+                description="Proportional Gain of Longitudinal Control",
+                default_value="0.4",
+            ),
+            DeclareLaunchArgument(
+                "pid_ki",
+                description="Integral Gain of Longitudinal Control",
+                default_value="0.3",
+            ),
+            DeclareLaunchArgument(
+                "pid_kd",
+                description="Derivative Gain of Longitudinal Control",
+                default_value="0.09",
+            ),
+            DeclareLaunchArgument(
+                "pid_tau",
+                description="Derivative low pass filter time constant of Longitudinal Control",
+                default_value="0.5",
+            ),
+            DeclareLaunchArgument(
+                "pid_t",
+                description="Sampling period of Longitudinal Control",
+                default_value="0.01",
+            ),
+            DeclareLaunchArgument(
+                "pid_lim_min",
+                description="Minimum output value of Longitudinal Control",
+                default_value="-1",
+            ),
+            DeclareLaunchArgument(
+                "pid_lim_max",
+                description="Maximum output value of Longitudinal Control",
+                default_value="1",
+            ),
+            DeclareLaunchArgument(
+                "pid_anti_windup",
+                description="Anti windup constant of Longitudinal Control",
+                default_value="0.7",
+            ),
+            DeclareLaunchArgument(
                 "use_simulated_se",
                 description="Use Simulated State Estimation, that is, vehicle state from simulator (true/false)",
                 default_value="true",

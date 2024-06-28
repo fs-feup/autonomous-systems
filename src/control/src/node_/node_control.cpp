@@ -36,7 +36,10 @@ Control::Control(const ControlParameters& params)
           "/control/visualization/closest_point", 10)),
       lookahead_point_pub_(create_publisher<visualization_msgs::msg::Marker>(
           "control/visualization/lookahead_point", 10)),
-      point_solver_(params.lookahead_gain_) {
+      point_solver_(params.lookahead_gain_),
+      long_controller_(params.pid_kp_, params.pid_ki_, params.pid_kd_, params.pid_tau_,
+                       params.pid_t_, params.pid_lim_min_, params.pid_lim_max_,
+                       params.pid_anti_windup_) {
   if (!using_simulated_se_) {
     vehicle_state_sub_ = this->create_subscription<custom_interfaces::msg::VehicleState>(
         "/state_estimation/vehicle_state", 10,

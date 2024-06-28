@@ -20,6 +20,14 @@ struct ControlParameters {
   bool using_simulated_se_;
   bool use_simulated_planning_;
   double lookahead_gain_;
+  double pid_kp_;
+  double pid_ki_;
+  double pid_kd_;
+  double pid_tau_;
+  double pid_t_;
+  double pid_lim_min_;
+  double pid_lim_max_;
+  double pid_anti_windup_;
 };
 
 /**
@@ -57,7 +65,7 @@ private:
 
   std::vector<custom_interfaces::msg::PathPoint> pathpoint_array_{};
   PointSolver point_solver_; /**< Point Solver */
-  PID long_controller_{0.4, 0.3, 0.09, 0.5, 0.01, -1, 1, 0.7};
+  PID long_controller_;
   PurePursuit lat_controller_; /**< Lateral Controller*/
 
   void publish_evaluator_data(double lookahead_velocity,
