@@ -219,6 +219,8 @@ class Evaluator(Node):
         self._control_velocity_sum_error = 0
         self._control_velocity_squared_sum_error = 0
         self._control_count = 0
+        self._control_closest_velocity_sum_error = 0
+        self.control_closest_velocity_squared_sum_error = 0
 
         self._perception_sum_error = 0
         self._perception_squared_sum_error = 0
@@ -314,14 +316,27 @@ class Evaluator(Node):
         self._control_root_mean_squared_difference_ = self.create_publisher(
             Float32, "/evaluator/control/pose/root_mean_squared_difference", 10
         )
-        self._control_velocity_difference_mean_ = self.create_publisher(
-            Float32, "/evaluator/control/velocity/difference_mean", 10
+        self._control_velocity_to_lookahead_velocity_difference_mean_ = self.create_publisher(
+            Float32, "/evaluator/control/velocity/lookahead/difference_mean", 10
         )
-        self._control_velocity_mean_squared_difference_ = self.create_publisher(
-            Float32, "/evaluator/control/velocity/mean_squared_difference", 10
+        self._control_velocity_to_lookahead_velocity_mean_squared_difference_ = self.create_publisher(
+            Float32, "/evaluator/control/velocity/lookahead/mean_squared_difference", 10
         )
-        self._control_velocity_root_mean_squared_difference_ = self.create_publisher(
-            Float32, "/evaluator/control/velocity/root_mean_squared_difference", 10
+        self._control_velocity_to_lookahead_velocity_root_mean_squared_difference_ = self.create_publisher(
+            Float32, "/evaluator/control/velocity/lookahead/root_mean_squared_difference", 10
+        )
+
+        self._control_velocity_to_closest_velocity_difference_ = self.create_publisher(
+            Float32, "/evaluator/control/velocity/closest/difference", 10
+        )
+        self._control_velocity_to_closest_velocity_difference_mean_ = self.create_publisher(
+            Float32, "/evaluator/control/velocity/closest/difference_mean", 10
+        )
+        self._control_velocity_to_closest_velocity_mean_squared_difference_ = self.create_publisher(
+            Float32, "/evaluator/control/velocity/closest/mean_squared_difference", 10
+        )
+        self._control_velocity_to_closest_velocity_root_mean_squared_difference_ = self.create_publisher(
+            Float32, "/evaluator/control/velocity/closest/root_mean_squared_difference", 10
         )
 
         self.planning_mock = (
@@ -880,34 +895,56 @@ class Evaluator(Node):
 
         pose_difference = Float32()
         pose_difference.data = compute_distance(closest_point, pose_position)
-        velocity_difference = Float32()
-        velocity_difference.data = float(
-            abs(
+        velocity_to_lookahead_velocity_difference = Float32()
+        velocity_to_lookahead_velocity_difference.data = float(
                 velocities_treated[0] - lookahead_velocity
-            )  # TODO: change this to closest point velocity
         )
+
+        velocity_to_closest_point_velocity = Float32()
+        velocity_to_closest_point_velocity.data = float(velocities_treated[0] - msg.closest_point_velocity)
 
         # Compute control metrics over time
         self._control_sum_error += pose_difference.data
         self._control_squared_sum_error += pose_difference.data**2
-        self._control_velocity_sum_error += velocity_difference.data
-        self._control_velocity_squared_sum_error += velocity_difference.data**2
+        self._control_velocity_sum_error += velocity_to_lookahead_velocity_difference.data
+        self._control_velocity_squared_sum_error += velocity_to_lookahead_velocity_difference.data**2
         self._control_count += 1
+        self._control_closest_velocity_sum_error += float(velocities_treated[0] - msg.closest_point_velocity)
+        self.control_closest_velocity_squared_sum_error += float(velocities_treated[0] - msg.closest_point_velocity)**2
 
-        velocity_mean_difference = Float32()
-        velocity_mean_difference.data = float(
+        velocity_to_lookahead_mean_difference = Float32()
+        velocity_to_lookahead_mean_difference.data = float(
             self._control_velocity_sum_error / self._control_count
         )
 
-        velocity_mean_squared_difference = Float32()
-        velocity_mean_squared_difference.data = float(
+        velocity_to_lookahead_mean_squared_difference = Float32()
+        velocity_to_lookahead_mean_squared_difference.data = float(
             self._control_velocity_squared_sum_error / self._control_count
         )
 
-        velocity_root_mean_squared = Float32()
-        velocity_root_mean_squared.data = sqrt(
+        velocity_to_lookahead_root_mean_squared = Float32()
+        velocity_to_lookahead_root_mean_squared.data = sqrt(
             self._control_velocity_squared_sum_error / self._control_count
         )
+
+        # Closest point metrics
+        velocity_to_closest_mean_difference = Float32()
+        velocity_to_closest_mean_difference.data = float(
+            self._control_closest_velocity_sum_error / self._control_count
+        )
+
+        velocity_to_closest_mean_squared_difference = Float32()
+        velocity_to_closest_mean_squared_difference.data = float(
+            self.control_closest_velocity_squared_sum_error / self._control_count
+        )
+
+        velocity_to_closest_root_mean_squared = Float32()
+        velocity_to_closest_root_mean_squared.data = sqrt(
+            self.control_closest_velocity_squared_sum_error / self._control_count
+        )
+
+        velocity_to_closest_difference = Float32()
+        velocity_to_closest_difference.data = float(velocities_treated[0] - msg.closest_point_velocity)
 
         mean_difference = Float32()
         mean_difference.data = float(self._control_sum_error / self._control_count)
@@ -943,12 +980,16 @@ class Evaluator(Node):
             root_mean_squared_difference
         )
 
-        self._control_velocity_difference_.publish(velocity_difference)
-        self._control_velocity_difference_mean_.publish(velocity_mean_difference)
-        self._control_mean_squared_difference_.publish(velocity_mean_squared_difference)
-        self._control_velocity_mean_squared_difference_.publish(
-            velocity_root_mean_squared
+        self._control_velocity_difference_.publish(velocity_to_lookahead_velocity_difference)
+        self._control_velocity_to_lookahead_velocity_difference_mean_.publish(velocity_to_lookahead_mean_difference)
+        self._control_mean_squared_difference_.publish(velocity_to_lookahead_mean_squared_difference)
+        self._control_velocity_to_lookahead_velocity_mean_squared_difference_.publish(
+            velocity_to_lookahead_root_mean_squared
         )
+        self._control_velocity_to_closest_velocity_difference_mean_.publish(velocity_to_closest_mean_difference)
+        self._control_velocity_to_closest_velocity_mean_squared_difference_.publish(velocity_to_closest_mean_squared_difference)
+        self._control_velocity_to_closest_velocity_root_mean_squared_difference_.publish(velocity_to_closest_root_mean_squared)
+        self._control_velocity_to_closest_velocity_difference_.publish(velocity_to_closest_difference)
 
         # For exporting metrics to csv
         metrics = {
@@ -957,10 +998,14 @@ class Evaluator(Node):
             "mean_difference": mean_difference.data,
             "mean_squared_difference": mean_squared_difference.data,
             "root_mean_squared_difference": root_mean_squared_difference.data,
-            "velocity_difference": velocity_difference.data,
-            "velocity_mean_difference": velocity_mean_difference.data,
-            "velocity_mean_squared_difference": velocity_mean_squared_difference.data,
-            "velocity_root_mean_squared_difference": velocity_root_mean_squared.data,
+            "velocity_difference": velocity_to_lookahead_velocity_difference.data,
+            "velocity_mean_difference": velocity_to_lookahead_mean_difference.data,
+            "velocity_mean_squared_difference": velocity_to_lookahead_mean_squared_difference.data,
+            "velocity_root_mean_squared_difference": velocity_to_lookahead_root_mean_squared.data,
+            "velocity_to_closest_difference": velocity_to_closest_difference.data,
+            "velocity_to_closest_mean_difference": velocity_to_closest_mean_difference.data,
+            "velocity_to_closest_mean_squared_difference": velocity_to_closest_mean_squared_difference.data,
+            "velocity_to_closest_root_mean_squared_difference": velocity_to_closest_root_mean_squared.data,
         }
         self.control_metrics.append(metrics)
 
