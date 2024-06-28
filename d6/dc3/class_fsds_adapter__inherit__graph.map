@@ -1,9 +1,9 @@
 <map id="FsdsAdapter" name="FsdsAdapter">
 <area shape="rect" id="Node000001" title=" " alt="" coords="181,671,397,1105"/>
-<area shape="rect" id="Node000002" href="$d7/d49/class_control.html" title="Class responsible for the control of the car." alt="" coords="5,218,169,523"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="150,536,183,622,202,670,197,672,178,624,145,538"/>
+<area shape="rect" id="Node000002" href="$d7/d49/class_control.html" title="Class responsible for the control of the car." alt="" coords="5,181,169,561"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="165,574,183,622,202,670,197,672,178,624,160,576"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="246,5,331,71"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="235,73,207,95,183,120,153,168,130,219,125,217,148,165,179,117,203,91,232,69"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="235,73,207,95,183,120,146,182,141,180,179,117,203,91,232,69"/>
 <area shape="rect" id="Node000004" href="$d4/d43/class_s_e_node.html" title="Class representing the main speed_est node responsible for publishing the calculated vehicle state wi..." alt="" coords="193,119,384,623"/>
 <area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="291,85,291,119,286,119,286,85"/>
 <area shape="rect" id="Node000005" href="$d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car." alt="" coords="408,126,580,615"/>

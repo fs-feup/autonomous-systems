@@ -2,8 +2,8 @@ var annotated_dup =
 [
     [ "common_lib", "dd/d5f/namespacecommon__lib.html", [
       [ "communication", "d1/dd0/namespacecommon__lib_1_1communication.html", [
-        [ "has_position", "d3/d0c/structcommon__lib_1_1communication_1_1has__position.html", null ],
-        [ "has_position< T, std::enable_if_t< std::is_arithmetic_v< decltype(std::declval< T >().position.x)> &&std::is_arithmetic_v< decltype(std::declval< T >().position.y)> > >", "db/d9e/structcommon__lib_1_1communication_1_1has__position_3_01_t_00_01std_1_1enable__if__t_3_01std_1_1e75ec67db346af9d8f02160e644a1dcb.html", null ]
+        [ "HasPosition", "d3/d65/structcommon__lib_1_1communication_1_1_has_position.html", null ],
+        [ "HasPosition< T, std::enable_if_t< std::is_arithmetic_v< decltype(std::declval< T >().position.x)> &&std::is_arithmetic_v< decltype(std::declval< T >().position.y)> > >", "d0/d78/structcommon__lib_1_1communication_1_1_has_position_3_01_t_00_01std_1_1enable__if__t_3_01std_1_1f92f66d3afd606fa0b7fa2e397b76781.html", null ]
       ] ],
       [ "maths", "d2/d32/namespacecommon__lib_1_1maths.html", [
         [ "AngleAndNorms", "de/df9/structcommon__lib_1_1maths_1_1_angle_and_norms.html", "de/df9/structcommon__lib_1_1maths_1_1_angle_and_norms" ]

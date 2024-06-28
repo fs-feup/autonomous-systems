@@ -47,7 +47,7 @@ var hierarchy =
       [ "IsCopyConstructor< T, typename >", "d7/de5/struct_is_copy_constructor.html", null ],
       [ "IsHashable< T, typename >", "d3/d27/struct_is_hashable.html", null ],
       [ "PositionXYAreDouble< T, typename >", "d0/dc2/struct_position_x_y_are_double.html", null ],
-      [ "common_lib::communication::has_position< T, typename >", "d3/d0c/structcommon__lib_1_1communication_1_1has__position.html", null ]
+      [ "common_lib::communication::HasPosition< T, typename >", "d3/d65/structcommon__lib_1_1communication_1_1_has_position.html", null ]
     ] ],
     [ "GroundRemoval", "dc/d84/class_ground_removal.html", [
       [ "GridRANSAC", "de/d59/class_grid_r_a_n_s_a_c.html", null ],
@@ -140,7 +140,7 @@ var hierarchy =
       [ "IsCopyConstructor< T, std::void_t< decltype(T(std::declval< T >()))> >", "d8/dab/struct_is_copy_constructor_3_01_t_00_01std_1_1void__t_3_01decltype_07_t_07std_1_1declval_3_01_t_01_4_07_08_08_08_4_01_4.html", null ],
       [ "IsHashable< T, std::void_t< decltype(std::hash< T >{}(std::declval< T >()))> >", "d6/d10/struct_is_hashable_3_01_t_00_01std_1_1void__t_3_01decltype_07std_1_1hash_3_01_t_01_4_02_03_07std25ddd8d3622353e1429f952e1dd1e659.html", null ],
       [ "PositionXYAreDouble< T, std::enable_if_t< std::is_same_v< decltype(std::declval< T >().position.x), double > &&std::is_same_v< decltype(std::declval< T >().position.y), double > > >", "d8/da1/struct_position_x_y_are_double_3_01_t_00_01std_1_1enable__if__t_3_01std_1_1is__same__v_3_01declt1791f863a2ceff256cf7e96446ba334e.html", null ],
-      [ "common_lib::communication::has_position< T, std::enable_if_t< std::is_arithmetic_v< decltype(std::declval< T >().position.x)> &&std::is_arithmetic_v< decltype(std::declval< T >().position.y)> > >", "db/d9e/structcommon__lib_1_1communication_1_1has__position_3_01_t_00_01std_1_1enable__if__t_3_01std_1_1e75ec67db346af9d8f02160e644a1dcb.html", null ]
+      [ "common_lib::communication::HasPosition< T, std::enable_if_t< std::is_arithmetic_v< decltype(std::declval< T >().position.x)> &&std::is_arithmetic_v< decltype(std::declval< T >().position.y)> > >", "d0/d78/structcommon__lib_1_1communication_1_1_has_position_3_01_t_00_01std_1_1enable__if__t_3_01std_1_1f92f66d3afd606fa0b7fa2e397b76781.html", null ]
     ] ],
     [ "common_lib::structures::VehicleState", "d0/d2a/structcommon__lib_1_1structures_1_1_vehicle_state.html", null ],
     [ "common_lib::sensor_data::WheelEncoderData", "d7/de0/structcommon__lib_1_1sensor__data_1_1_wheel_encoder_data.html", null ],

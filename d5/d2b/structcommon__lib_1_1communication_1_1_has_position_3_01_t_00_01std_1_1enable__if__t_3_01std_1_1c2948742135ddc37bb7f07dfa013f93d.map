@@ -1,0 +1,5 @@
+<map id="common_lib::communication::HasPosition&lt; T, std::enable_if_t&lt; std::is_arithmetic_v&lt; decltype(std::declval&lt; T &gt;().position.x)&gt; &amp;&amp;std::is_arithmetic_v&lt; decltype(std::declval&lt; T &gt;().position.y)&gt; &gt; &gt;" name="common_lib::communication::HasPosition&lt; T, std::enable_if_t&lt; std::is_arithmetic_v&lt; decltype(std::declval&lt; T &gt;().position.x)&gt; &amp;&amp;std::is_arithmetic_v&lt; decltype(std::declval&lt; T &gt;().position.y)&gt; &gt; &gt;">
+<area shape="rect" id="Node000001" title="A specialization of the has_position struct for types T that do have a valid &#39;position&#39; member." alt="" coords="5,119,289,259"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="103,5,192,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="150,86,150,119,145,119,145,86"/>
+</map>
