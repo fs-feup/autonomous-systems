@@ -152,7 +152,7 @@ def generate_launch_description():
                         "pre_defined_velocity_planning": LaunchConfiguration(
                             "pre_defined_velocity_planning"
                         )
-                    }
+                    },
                 ],
                 arguments=["--ros-args", "--log-level", "planning:=info"],
             ),

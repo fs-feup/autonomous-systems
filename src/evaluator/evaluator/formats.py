@@ -129,12 +129,11 @@ def format_twist_with_covariance_stamped_msg(
         [msg.twist.twist.linear.x, msg.twist.twist.linear.y, msg.twist.twist.angular.z]
     )
 
+
 def format_car_state_msg(
     msg: CarState,
 ) -> np.ndarray:
-    return np.array(
-        [msg.twist.twist.linear.x, msg.twist.twist.linear.y, 0]
-    )
+    return np.array([msg.twist.twist.linear.x, msg.twist.twist.linear.y, 0])
 
 
 def format_eufs_cone_array_with_covariance_msg(
@@ -198,7 +197,7 @@ def format_nav_odometry_msg(msg: Odometry) -> np.ndarray:
     )
 
 
-def format_path_point_array_msg(path_point_array: PathPointArray):
+def format_path_point_array_msg(path_point_array: PathPointArray) -> np.ndarray:
     """!
     Converts a PathPointArray message into a numpy array.
 
@@ -210,10 +209,18 @@ def format_path_point_array_msg(path_point_array: PathPointArray):
     """
     path_list = []
 
-    for point in path_point_array:
-        path_list.append(np.array([point.x, point.y, 0.0]))
+    for path_point in path_point_array.pathpoint_array:
+        path_list.append(
+            np.array(
+                [
+                    path_point.x,
+                    path_point.y,
+                    path_point.v,
+                ]
+            )
+        )
 
-    return path_list
+    return np.array(path_list)
 
 
 def format_point2d_msg(msg):

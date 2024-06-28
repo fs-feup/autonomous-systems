@@ -3,7 +3,7 @@ import sys
 from scipy.sparse.csgraph import minimum_spanning_tree
 
 
-def get_average_difference(output: np.array, expected: np.array):
+def get_average_difference(output: np.array, expected: np.array) -> float:
     """!
     Computes the average difference between an output output and the expected values.
 
@@ -14,8 +14,6 @@ def get_average_difference(output: np.array, expected: np.array):
     Returns:
         float: Average difference between empirical and expected outputs.
     """
-    sum_error: float = 0
-    count: int = 0
 
     if len(output) == 0:
         return float("inf")
@@ -25,22 +23,21 @@ def get_average_difference(output: np.array, expected: np.array):
             "No ground truth cones provided for computing average difference."
         )
 
-    for empirical_value in output:
-        min_difference: float = sys.float_info.max
+    # Step 1 & 2: Compute the differences using broadcasting and vectorization
+    differences = np.linalg.norm(
+        output[:, np.newaxis, :] - expected[np.newaxis, :, :], axis=2
+    )
 
-        for expected_value in expected:
+    # Step 3: Find the minimum squared difference for each output_value and sum them up
+    min_differences_sum: float = np.min(differences, axis=1).sum()
 
-            difference: float = np.linalg.norm(empirical_value - expected_value)
-            if difference < min_difference:
-                min_difference = difference
+    # Step 4: Compute MSE
+    me: float = min_differences_sum / len(output)
 
-        sum_error += min_difference
-        count += 1
+    return me
 
-    average = sum_error / count
-    return average
 
-def get_false_positives(output: np.array, expected: np.array, threshold: float):
+def get_false_positives(output: np.array, expected: np.array, threshold: float) -> int:
     """!
     Computes the number of false positives in the output compared to the expected values.
 
@@ -56,11 +53,13 @@ def get_false_positives(output: np.array, expected: np.array, threshold: float):
         return 0
 
     if len(expected) == 0:
-        raise ValueError("No ground truth cones provided for computing false positives.")
+        raise ValueError(
+            "No ground truth cones provided for computing false positives."
+        )
 
     # Create a boolean array to mark the expected values that have been matched
     matched_expected = np.zeros(len(expected), dtype=bool)
-    false_positives = 0
+    false_positives: int = 0
 
     for empirical_value in output:
         min_difference = sys.float_info.max
@@ -80,7 +79,7 @@ def get_false_positives(output: np.array, expected: np.array, threshold: float):
     return false_positives
 
 
-def get_mean_squared_difference(output: list, expected: list):
+def get_mean_squared_difference(output: np.ndarray, expected: np.ndarray) -> float:
     """!
     Computes the mean squared difference between an output output and the expected values.
 
@@ -96,22 +95,22 @@ def get_mean_squared_difference(output: list, expected: list):
     if expected is None:
         raise ValueError("No ground truth cones provided.")
 
-    mse_sum = 0
-    for output_value in output:
-        min_difference_sq = sys.float_info.max
+    # Step 1 & 2: Compute the squared differences using broadcasting and vectorization
+    differences = (
+        np.linalg.norm(output[:, np.newaxis, :] - expected[np.newaxis, :, :], axis=2)
+        ** 2
+    )
 
-        for expected_value in expected:
-            difference_sq = np.linalg.norm(output_value - expected_value) ** 2
-            if difference_sq < min_difference_sq:
-                min_difference_sq = difference_sq
+    # Step 3: Find the minimum squared difference for each output_value and sum them up
+    min_differences_sum = np.min(differences, axis=1).sum()
 
-        mse_sum += min_difference_sq
+    # Step 4: Compute MSE
+    mse = min_differences_sum / len(output)
 
-    mse = mse_sum / len(output)
     return mse
 
 
-def compute_distance(cone1, cone2):
+def compute_distance(cone1, cone2) -> float:
     """!
     Compute Euclidean distance between two cones.
     """
