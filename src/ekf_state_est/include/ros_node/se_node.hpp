@@ -8,33 +8,18 @@
 #include <string>
 #include <typeinfo>
 
-
+#include "adapter_ekf_state_est/eufs.hpp"
+#include "adapter_ekf_state_est/fsds.hpp"
 #include "common_lib/competition_logic/mission_logic.hpp"
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "custom_interfaces/msg/point2d.hpp"
 #include "custom_interfaces/msg/vehicle_state.hpp"
-#include "eufs_msgs/msg/can_state.hpp"
 #include "eufs_msgs/msg/wheel_speeds_stamped.hpp"
-#include "eufs_msgs/srv/set_can_state.hpp"
-#include "fs_msgs/msg/finished_signal.hpp"
-#include "fs_msgs/msg/go_signal.hpp"
-#include "fs_msgs/msg/wheel_states.hpp"
 #include "kalman_filter/ekf.hpp"
 #include "rclcpp/rclcpp.hpp"
-#include "sensor_msgs/msg/imu.hpp"
 #include "visualization_msgs/msg/marker_array.hpp"
 
-struct EKFStateEstParameters {
-  bool use_odometry_;
-  bool use_simulated_perception_;
-  std::string motion_model_name_;
-  std::string data_assocation_model_name_;
-  float sml_da_curvature_;
-  float sml_initial_limit_;
-  float observation_noise_;
-  float wheel_speed_sensor_noise_;
-  float data_association_limit_distance_;
-};
+class Adapter;
 
 /**
  * @brief Class representing the main speed_est node responsible for publishing
@@ -45,7 +30,6 @@ struct EKFStateEstParameters {
  */
 class SENode : public rclcpp::Node {
   rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr _perception_subscription_;
-  rclcpp::Subscription<sensor_msgs::msg::Imu>::SharedPtr _imu_subscription_;
   rclcpp::Publisher<custom_interfaces::msg::VehicleState>::SharedPtr _vehicle_state_publisher_;
   rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr _map_publisher_;
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr _visualization_map_publisher_;
@@ -59,6 +43,7 @@ class SENode : public rclcpp::Node {
   bool _go_;  /// flag to start the mission
   bool _use_odometry_;
   bool _use_simulated_perception_;
+  std::shared_ptr<Adapter> _adapter_;
   std::mutex _mutex_;  /// Mutex used to lock EKF access
 
   /**
@@ -77,7 +62,7 @@ class SENode : public rclcpp::Node {
    * @param acceleration_x
    * @param acceleration_y
    */
-  void imu_subscription_callback(const sensor_msgs::msg::Imu& imu_msg);
+  void _imu_subscription_callback(const sensor_msgs::msg::Imu& imu_msg);
 
   /**
    * @brief Function to be called everytime information is received from the
@@ -139,14 +124,13 @@ class SENode : public rclcpp::Node {
                                                        [[maybe_unused]] double rf_speed,
                                                        double steering_angle);
 
-  virtual void finish() = 0;  ///< Function that sends the finish signal to the respective node
-
 public:
   /**
    * @brief Constructor of the main node, most things are received by launch parameter
    */
-  explicit SENode(const EKFStateEstParameters& params);
+  SENode();
 
+  friend class Adapter;
   friend class EufsAdapter;
   friend class FsdsAdapter;
   friend class PacsimAdapter;

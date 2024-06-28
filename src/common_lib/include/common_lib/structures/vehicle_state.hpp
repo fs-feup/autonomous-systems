@@ -8,12 +8,14 @@ namespace common_lib::structures {
 
 struct VehicleState {
   Pose pose;
-  double linear_velocity = 0.0;
-  double angular_velocity = 0.0;
+  double velocity_x = 0.0;
+  double velocity_y = 0.0;
+  double rotational_velocity = 0.0;
 
   VehicleState() = default;
-  VehicleState(Pose pose, double linear_velocity, double angular_velocity);
-  VehicleState(double x, double y, double theta, double linear_velocity, double angular_velocity);
+  VehicleState(Pose pose, double velocity_x, double velocity_y, double rotational_velocity);
+  VehicleState(double x, double y, double theta, double velocity_x, double velocity_y,
+               double rotational_velocity);
 };
 
 }  // namespace common_lib::structures

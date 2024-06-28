@@ -21,7 +21,7 @@ class DataAssociationModel {
    * @return bool True if the observed landmark is a valid match to the expected
    * landmark
    */
-  virtual bool valid_match(const float delta, const float distance_to_vehicle) const = 0;
+  // virtual bool valid_match(const float delta, const float distance_to_vehicle) const = 0;
 
   float max_landmark_distance_; /**< Maximum deviation of the landmark position
                                 from the expected position when the landmark is
@@ -40,7 +40,10 @@ public:
    */
   virtual int match_cone(const Eigen::Vector2f& observed_landmark_absolute,
                          const Eigen::VectorXf& expected_state) const = 0;
-
+  virtual bool validate(const Eigen::Vector2f& observed_landmark,
+                        const Eigen::Vector2f& observed_measurement,
+                        const Eigen::MatrixXf& covariance, int landmark_index,
+                        const Eigen::MatrixXf& R, const Eigen::MatrixXf& H) const = 0;
   explicit DataAssociationModel(float max_landmark_distance);
 
   virtual ~DataAssociationModel() = default;
@@ -52,7 +55,7 @@ public:
  * Uses an exponential function to cut off matches whose error is too great for their distance
  */
 class SimpleMaximumLikelihood : public DataAssociationModel {
-  bool valid_match(const float delta, const float distance_to_vehicle) const override;
+  // bool valid_match(const float delta, const float distance_to_vehicle) const override;
 
 public:
   static float curvature_;      /// Exponential function curvature for the limit
@@ -60,11 +63,16 @@ public:
   int match_cone(const Eigen::Vector2f& observed_landmark_absolute,
                  const Eigen::VectorXf& expected_state) const override;
 
+  bool validate(const Eigen::Vector2f& observed_landmark,
+                const Eigen::Vector2f& observed_measurement, const Eigen::MatrixXf& covariance,
+                int landmark_index, const Eigen::MatrixXf& R,
+                const Eigen::MatrixXf& H) const override;
+
   explicit SimpleMaximumLikelihood(float max_landmark_distance);
 
-  FRIEND_TEST(DATA_ASSOCIATION_MODEL, VALID_MATCH_FUNC_PERFECT_MATCH);
-  FRIEND_TEST(DATA_ASSOCIATION_MODEL, VALID_MATCH_FUNC_NEAR_MATCH);
-  FRIEND_TEST(DATA_ASSOCIATION_MODEL, VALID_MATCH_FUNC_FAILED_MATCH);
+  // FRIEND_TEST(DATA_ASSOCIATION_MODEL, VALID_MATCH_FUNC_PERFECT_MATCH);
+  // FRIEND_TEST(DATA_ASSOCIATION_MODEL, VALID_MATCH_FUNC_NEAR_MATCH);
+  // FRIEND_TEST(DATA_ASSOCIATION_MODEL, VALID_MATCH_FUNC_FAILED_MATCH);
 };
 
 const std::map<std::string,
