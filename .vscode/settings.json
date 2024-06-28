@@ -111,6 +111,5 @@
         "connectionId": "fs-feup",
         "projectKey": "fs-feup_autonomous-systems"
     },
-    "sonarlint.pathToCompileCommands": "${workspaceFolder}/compile_commands.json",
     "C_Cpp.default.compilerPath": "/usr/bin/g++",
 }

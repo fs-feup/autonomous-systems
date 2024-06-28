@@ -36,11 +36,15 @@ SENode::SENode() : Node("ekf_state_est") {
       static_cast<float>(this->declare_parameter("wheel_speed_sensor_noise", 0.003f));
   float data_association_limit_distance =
       static_cast<float>(this->declare_parameter("data_association_limit_distance", 71.0f));
+  //
+  //
   std::shared_ptr<MotionModel> motion_model_wss =
       motion_model_constructors.at("normal_velocity_model")(
-          MotionModel::create_process_noise_covariance_matrix(0.002f));  // TUNE
+          MotionModel::create_process_noise_covariance_matrix(0.00003f));  // TUNE
   std::shared_ptr<MotionModel> motion_model_imu = motion_model_constructors.at(motion_model_name)(
-      MotionModel::create_process_noise_covariance_matrix(0.006f));  // 0.0064//TUNE
+      MotionModel::create_process_noise_covariance_matrix(0.0064f));  // 0.0064//TUNE
+  //
+  //
   std::shared_ptr<ObservationModel> observation_model = std::make_shared<ObservationModel>(
       ObservationModel::create_observation_noise_covariance_matrix(0.03f));  // 0.0009f));//TUNE
   std::shared_ptr<DataAssociationModel> data_association_model =
