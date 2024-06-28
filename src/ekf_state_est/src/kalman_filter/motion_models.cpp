@@ -35,7 +35,7 @@ Eigen::VectorXf NormalVelocityModel::predict_expected_state(
   //              "Motion Model - Motion Prediction Data: %f %f TIME:%f",
   //              motion_prediction_data.translational_velocity,
   //              motion_prediction_data.rotational_velocity, time_interval);
-  if (motion_prediction_data.rotational_velocity < 4) {  // Rectilinear movement
+  if (std::abs(motion_prediction_data.rotational_velocity) < 0.2) {  // Rectilinear movement
     next_state(5) = motion_prediction_data.rotational_velocity;
     next_state(0) +=
         motion_prediction_data.translational_velocity * cos(expected_state(2)) * time_interval;
@@ -70,7 +70,7 @@ Eigen::MatrixXf NormalVelocityModel::get_motion_to_state_matrix(
   Eigen::MatrixXf jacobian =
       Eigen::MatrixXf::Identity(expected_state.size(), expected_state.size());
 
-  if (std::abs(motion_prediction_data.rotational_velocity) < 4.01) {  // Rectilinear movement
+  if (std::abs(motion_prediction_data.rotational_velocity) < 0.2) {  // Rectilinear movement
     jacobian(0, 2) =
         -motion_prediction_data.translational_velocity * sin(expected_state(2)) * time_interval;
     jacobian(1, 2) =
@@ -83,14 +83,15 @@ Eigen::MatrixXf NormalVelocityModel::get_motion_to_state_matrix(
         (motion_prediction_data.translational_velocity /
          motion_prediction_data.rotational_velocity) *
             cos(expected_state(2) + motion_prediction_data.rotational_velocity * time_interval);
-    jacobian(0, 5) =
-        ((motion_prediction_data.translational_velocity *
-          motion_prediction_data.rotational_velocity *
-          cos(expected_state(2) + motion_prediction_data.rotational_velocity * time_interval)) +
-         (motion_prediction_data.translational_velocity * sin(expected_state(2))) +
-         motion_prediction_data.translational_velocity *
-             sin(expected_state(2) + motion_prediction_data.rotational_velocity * time_interval)) /
-        pow(motion_prediction_data.rotational_velocity, 2);
+    // jacobian(0, 5) =
+    //     ((motion_prediction_data.translational_velocity *
+    //       motion_prediction_data.rotational_velocity *
+    //       cos(expected_state(2) + motion_prediction_data.rotational_velocity * time_interval)) +
+    //      (motion_prediction_data.translational_velocity * sin(expected_state(2))) +
+    //      motion_prediction_data.translational_velocity *
+    //          sin(expected_state(2) + motion_prediction_data.rotational_velocity * time_interval))
+    //          /
+    //     pow(motion_prediction_data.rotational_velocity, 2);
     jacobian(1, 2) =
         -(motion_prediction_data.translational_velocity /
           motion_prediction_data.rotational_velocity) *
@@ -98,14 +99,15 @@ Eigen::MatrixXf NormalVelocityModel::get_motion_to_state_matrix(
         (motion_prediction_data.translational_velocity /
          motion_prediction_data.rotational_velocity) *
             sin(expected_state(2) + motion_prediction_data.rotational_velocity * time_interval);
-    jacobian(1, 5) =
-        -((motion_prediction_data.translational_velocity *
-           motion_prediction_data.rotational_velocity *
-           sin(expected_state(2) + motion_prediction_data.rotational_velocity * time_interval)) -
-          (motion_prediction_data.translational_velocity * cos(expected_state(2))) +
-          motion_prediction_data.translational_velocity *
-              cos(expected_state(2) + motion_prediction_data.rotational_velocity * time_interval)) /
-        pow(motion_prediction_data.rotational_velocity, 2);
+    // jacobian(1, 5) =
+    //     -((motion_prediction_data.translational_velocity *
+    //        motion_prediction_data.rotational_velocity *
+    //        sin(expected_state(2) + motion_prediction_data.rotational_velocity * time_interval)) -
+    //       (motion_prediction_data.translational_velocity * cos(expected_state(2))) +
+    //       motion_prediction_data.translational_velocity *
+    //           cos(expected_state(2) + motion_prediction_data.rotational_velocity *
+    //           time_interval)) /
+    //     pow(motion_prediction_data.rotational_velocity, 2);
     jacobian(3, 2) = -motion_prediction_data.translational_velocity * sin(expected_state(2));
     jacobian(4, 2) = motion_prediction_data.translational_velocity * cos(expected_state(2));
   }

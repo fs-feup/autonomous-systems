@@ -10,7 +10,6 @@
 
 #include "common_lib/competition_logic/mission_logic.hpp"
 #include "common_lib/structures/cone.hpp"
-#include "common_lib/structures/landmark.hpp"
 #include "common_lib/structures/vehicle_state.hpp"
 #include "kalman_filter/data_association.hpp"
 #include "kalman_filter/motion_models.hpp"
@@ -36,8 +35,6 @@ class ExtendedKalmanFilter {
   std::shared_ptr<ObservationModel>
       _observation_model_; /**< Observation Model chosen for correction step */
   std::shared_ptr<DataAssociationModel> _data_association_model_; /**< Data Association Model*/
-  std::vector<common_lib::structures::Landmark>
-      _landmarksDatabase_; /**< Vector of landmarks used for mapping */
 
   bool _fixed_map = false;         /**< Flag to indicate if the map is fixed */
   bool _first_prediction_ = true;  /// Flags used to mark first prediction step
