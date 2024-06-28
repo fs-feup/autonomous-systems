@@ -35,7 +35,7 @@ const std::map<std::string, int, std::less<>> marker_shape_map = {
  * @tparam typename A helper typename defaulted to void, used for SFINAE.
  */
 template <typename T, typename = void>
-struct has_position : std::false_type {};
+struct HasPosition : std::false_type {};
 
 /**
  * @brief A specialization of the has_position struct for types T that do have a valid 'position'
@@ -45,9 +45,9 @@ struct has_position : std::false_type {};
  * @tparam T The type to check.
  */
 template <typename T>
-struct has_position<T,
-                    std::enable_if_t<std::is_arithmetic_v<decltype(std::declval<T>().position.x)> &&
-                                     std::is_arithmetic_v<decltype(std::declval<T>().position.y)>>>
+struct HasPosition<T,
+                   std::enable_if_t<std::is_arithmetic_v<decltype(std::declval<T>().position.x)> &&
+                                    std::is_arithmetic_v<decltype(std::declval<T>().position.y)>>>
     : std::true_type {};
 
 /**
@@ -69,7 +69,7 @@ visualization_msgs::msg::MarkerArray marker_array_from_structure_array(
     const std::string& shape = "cylinder", float scale = 0.5,
     int action = visualization_msgs::msg::Marker::MODIFY) {
   static_assert(
-      has_position<T>::value,
+      HasPosition<T>::value,
       "Template argument T must have a data member named 'position' with 'x' and 'y' sub-members");
 
   visualization_msgs::msg::MarkerArray marker_array;
@@ -81,7 +81,7 @@ visualization_msgs::msg::MarkerArray marker_array_from_structure_array(
     marker.header.frame_id = frame_id;
     marker.header.stamp = rclcpp::Clock().now();
     marker.ns = name_space;
-    marker.id = i;
+    marker.id = static_cast<int>(i);
     marker.type = marker_shape_map.at(shape);
     marker.action = action;
 
@@ -135,10 +135,10 @@ template <typename T>
 visualization_msgs::msg::Marker line_marker_from_structure_array(
     const std::vector<T>& structure_array, const std::string& name_space,
     const std::string& frame_id, const int id, const std::string& color = "red",
-    const std::string& shape = "line", float scale = 0.1,
+    const std::string& shape = "line", float scale = 0.1f,
     int action = visualization_msgs::msg::Marker::MODIFY) {
   static_assert(
-      has_position<T>::value,
+      HasPosition<T>::value,
       "Template argument T must have a data member named 'position' with 'x' and 'y' sub-members");
 
   std::array<float, 4> color_array = marker_color_map.at(color);

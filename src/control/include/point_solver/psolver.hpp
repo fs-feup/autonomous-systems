@@ -25,7 +25,7 @@ public:
   /**
    * @brief PointSolver Constructor
    */
-  PointSolver(double k);
+  explicit PointSolver(double k);
 
   /**
    * @brief Find the closest point on the path
