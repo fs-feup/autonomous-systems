@@ -122,9 +122,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab80a2213cf74b5f27e567dc326accc0c" id="r_ab80a2213cf74b5f27e567dc326accc0c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/da5/class_point_solver.html#ab80a2213cf74b5f27e567dc326accc0c">PointSolver</a> (double k)</td></tr>
 <tr class="memdesc:ab80a2213cf74b5f27e567dc326accc0c"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d9/da5/class_point_solver.html">PointSolver</a> Constructor.  <br /></td></tr>
 <tr class="separator:ab80a2213cf74b5f27e567dc326accc0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a247269ae11c54726ee9ada6cf15bdc78" id="r_a247269ae11c54726ee9ada6cf15bdc78"><td class="memItemLeft" align="right" valign="top">std::pair&lt; <a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a>, int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/da5/class_point_solver.html#a247269ae11c54726ee9ada6cf15bdc78">update_closest_point</a> (const std::vector&lt; custom_interfaces::msg::PathPoint &gt; &amp;pathpoint_array) const</td></tr>
-<tr class="memdesc:a247269ae11c54726ee9ada6cf15bdc78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the closest point on the path.  <br /></td></tr>
-<tr class="separator:a247269ae11c54726ee9ada6cf15bdc78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94c8ce68f4b5c7808885e713850365db" id="r_a94c8ce68f4b5c7808885e713850365db"><td class="memItemLeft" align="right" valign="top">std::tuple&lt; <a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a>, int, double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/da5/class_point_solver.html#a94c8ce68f4b5c7808885e713850365db">update_closest_point</a> (const std::vector&lt; custom_interfaces::msg::PathPoint &gt; &amp;pathpoint_array) const</td></tr>
+<tr class="memdesc:a94c8ce68f4b5c7808885e713850365db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the closest point on the path.  <br /></td></tr>
+<tr class="separator:a94c8ce68f4b5c7808885e713850365db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad11abaf305721e003e1c952e37e1320e" id="r_ad11abaf305721e003e1c952e37e1320e"><td class="memItemLeft" align="right" valign="top">std::tuple&lt; <a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">common_lib::structures::Position</a>, double, bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/da5/class_point_solver.html#ad11abaf305721e003e1c952e37e1320e">update_lookahead_point</a> (const std::vector&lt; custom_interfaces::msg::PathPoint &gt; &amp;pathpoint_array, int closest_point_id) const</td></tr>
 <tr class="memdesc:ad11abaf305721e003e1c952e37e1320e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update Lookahead point.  <br /></td></tr>
 <tr class="separator:ad11abaf305721e003e1c952e37e1320e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -245,14 +245,14 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a247269ae11c54726ee9ada6cf15bdc78" name="a247269ae11c54726ee9ada6cf15bdc78"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a247269ae11c54726ee9ada6cf15bdc78">&#9670;&#160;</a></span>update_closest_point()</h2>
+<a id="a94c8ce68f4b5c7808885e713850365db" name="a94c8ce68f4b5c7808885e713850365db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94c8ce68f4b5c7808885e713850365db">&#9670;&#160;</a></span>update_closest_point()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::pair&lt; <a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">Position</a>, int &gt; PointSolver::update_closest_point </td>
+          <td class="memname">std::tuple&lt; <a class="el" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html">Position</a>, int, double &gt; PointSolver::update_closest_point </td>
           <td>(</td>
           <td class="paramtype">const std::vector&lt; custom_interfaces::msg::PathPoint &gt; &amp;&#160;</td>
           <td class="paramname"><em>pathpoint_array</em></td><td>)</td>
@@ -281,8 +281,8 @@ Private Attributes</h2></td></tr>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../d9/da5/class_point_solver_a247269ae11c54726ee9ada6cf15bdc78_cgraph.png" border="0" usemap="#ad9/da5/class_point_solver_a247269ae11c54726ee9ada6cf15bdc78_cgraph" alt=""/></div>
-<map name="ad9/da5/class_point_solver_a247269ae11c54726ee9ada6cf15bdc78_cgraph" id="ad9/da5/class_point_solver_a247269ae11c54726ee9ada6cf15bdc78_cgraph">
+<div class="center"><img src="../../d9/da5/class_point_solver_a94c8ce68f4b5c7808885e713850365db_cgraph.png" border="0" usemap="#ad9/da5/class_point_solver_a94c8ce68f4b5c7808885e713850365db_cgraph" alt=""/></div>
+<map name="ad9/da5/class_point_solver_a94c8ce68f4b5c7808885e713850365db_cgraph" id="ad9/da5/class_point_solver_a94c8ce68f4b5c7808885e713850365db_cgraph">
 <area shape="rect" title="Find the closest point on the path." alt="" coords="5,13,139,54"/>
 <area shape="rect" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html#a7ce25e8e5e8c05f720cd644b35134051" title=" " alt="" coords="187,5,342,61"/>
 <area shape="poly" title=" " alt="" coords="139,31,171,31,171,36,139,36"/>
@@ -291,8 +291,8 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../d9/da5/class_point_solver_a247269ae11c54726ee9ada6cf15bdc78_icgraph.png" border="0" usemap="#ad9/da5/class_point_solver_a247269ae11c54726ee9ada6cf15bdc78_icgraph" alt=""/></div>
-<map name="ad9/da5/class_point_solver_a247269ae11c54726ee9ada6cf15bdc78_icgraph" id="ad9/da5/class_point_solver_a247269ae11c54726ee9ada6cf15bdc78_icgraph">
+<div class="center"><img src="../../d9/da5/class_point_solver_a94c8ce68f4b5c7808885e713850365db_icgraph.png" border="0" usemap="#ad9/da5/class_point_solver_a94c8ce68f4b5c7808885e713850365db_icgraph" alt=""/></div>
+<map name="ad9/da5/class_point_solver_a94c8ce68f4b5c7808885e713850365db_icgraph" id="ad9/da5/class_point_solver_a94c8ce68f4b5c7808885e713850365db_icgraph">
 <area shape="rect" title="Find the closest point on the path." alt="" coords="661,98,795,139"/>
 <area shape="rect" href="../../d7/d49/class_control.html#a4953afbe68bf1d7a023972985c8083d6" title="Publishes the steering angle to the car based on the path and pose using cache." alt="" coords="458,80,613,106"/>
 <area shape="poly" title=" " alt="" coords="646,110,613,106,614,100,646,105"/>
@@ -341,7 +341,7 @@ Here is the caller graph for this function:</div>
 
 <p>update the LookaheadDistance based on a new velocity </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/db4/psolver_8cpp_source.html#l00147">147</a> of file <a class="el" href="../../d9/db4/psolver_8cpp_source.html">psolver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/db4/psolver_8cpp_source.html#l00149">149</a> of file <a class="el" href="../../d9/db4/psolver_8cpp_source.html">psolver.cpp</a>.</p>
 
 </div>
 </div>
@@ -380,7 +380,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>std::tuple&lt;common_lib::structures::Position, double, bool&gt; lookahead point, velocity and error status (1 = error) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/db4/psolver_8cpp_source.html#l00059">59</a> of file <a class="el" href="../../d9/db4/psolver_8cpp_source.html">psolver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/db4/psolver_8cpp_source.html#l00061">61</a> of file <a class="el" href="../../d9/db4/psolver_8cpp_source.html">psolver.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">

@@ -6,13 +6,13 @@
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="279,307,327,246,394,170,463,111,466,115,398,174,331,249,284,310"/>
 <area shape="rect" id="Node000007" href="$d7/d49/class_control.html#a23d410d03e7229c173efb6c39e8d271e" title=" " alt="" coords="435,185,576,211"/>
 <area shape="poly" id="edge7_Node000002_Node000007" title=" " alt="" coords="282,306,329,263,360,239,395,219,419,210,421,215,397,224,363,244,332,267,286,310"/>
-<area shape="rect" id="Node000008" href="$d7/d49/class_control.html#a0a00af51d42f0a4160f6bd326588f2c4" title=" " alt="" coords="405,234,606,260"/>
+<area shape="rect" id="Node000008" href="$d7/d49/class_control.html#a72c77dbeea43a931a035127402075189" title=" " alt="" coords="405,234,606,260"/>
 <area shape="poly" id="edge8_Node000002_Node000008" title=" " alt="" coords="299,306,395,268,421,261,422,266,397,274,301,311"/>
 <area shape="rect" id="Node000009" href="$d7/d49/class_control.html#ad54ef9c0479f65c23b5312b926535e75" title=" " alt="" coords="396,284,615,309"/>
 <area shape="poly" id="edge9_Node000002_Node000009" title=" " alt="" coords="348,311,380,307,381,312,349,316"/>
 <area shape="rect" id="Node000011" href="$d6/d5a/class_p_i_d.html#a6b2e0ee3c86f4106bccac154b8baf65e" title="Calculate the output value." alt="" coords="462,333,550,359"/>
 <area shape="poly" id="edge11_Node000002_Node000011" title=" " alt="" coords="349,327,446,337,445,342,348,332"/>
-<area shape="rect" id="Node000018" href="$d9/da5/class_point_solver.html#a247269ae11c54726ee9ada6cf15bdc78" title="Find the closest point on the path." alt="" coords="439,391,572,431"/>
+<area shape="rect" id="Node000018" href="$d9/da5/class_point_solver.html#a94c8ce68f4b5c7808885e713850365db" title="Find the closest point on the path." alt="" coords="439,391,572,431"/>
 <area shape="poly" id="edge18_Node000002_Node000018" title=" " alt="" coords="306,333,397,369,434,382,432,387,395,373,304,338"/>
 <area shape="rect" id="Node000019" href="$d9/da5/class_point_solver.html#ad11abaf305721e003e1c952e37e1320e" title="Update Lookahead point." alt="" coords="439,473,572,514"/>
 <area shape="poly" id="edge20_Node000002_Node000019" title=" " alt="" coords="284,333,331,384,363,414,397,441,438,464,435,469,395,445,359,418,327,387,281,337"/>

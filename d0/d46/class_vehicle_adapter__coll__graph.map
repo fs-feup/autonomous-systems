@@ -1,31 +1,31 @@
 <map id="VehicleAdapter" name="VehicleAdapter">
-<area shape="rect" id="Node000001" title=" " alt="" coords="922,2077,1122,2586"/>
-<area shape="rect" id="Node000002" href="$d7/d49/class_control.html" title="Class responsible for the control of the car." alt="" coords="1141,1583,1305,1903"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1170,1918,1133,2029,1115,2078,1110,2077,1127,2027,1165,1916"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="921,2012,1121,2521"/>
+<area shape="rect" id="Node000002" href="$d7/d49/class_control.html" title="Class responsible for the control of the car." alt="" coords="1140,1550,1309,1870"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1163,1885,1116,2013,1111,2011,1158,1883"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="1013,978,1098,1043"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1062,1058,1079,1209,1094,1302,1113,1395,1174,1582,1169,1584,1107,1396,1089,1303,1074,1209,1057,1059"/>
-<area shape="rect" id="Node000010" href="$d4/d43/class_s_e_node.html" title="Class representing the main speed_est node responsible for publishing the calculated vehicle state wi..." alt="" coords="927,1491,1117,1995"/>
-<area shape="poly" id="edge11_Node000010_Node000003" title=" " alt="" coords="1056,1058,1036,1491,1031,1491,1051,1058"/>
-<area shape="rect" id="Node000011" href="$d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car." alt="" coords="669,1458,868,2028"/>
-<area shape="poly" id="edge13_Node000011_Node000003" title=" " alt="" coords="1066,1057,1073,1137,1074,1186,1071,1238,1062,1291,1048,1343,1026,1392,996,1436,976,1449,956,1451,936,1451,915,1461,892,1483,870,1509,866,1506,888,1480,913,1456,935,1446,955,1445,974,1444,992,1432,1022,1389,1043,1341,1057,1290,1065,1237,1068,1186,1068,1137,1061,1058"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1061,1058,1078,1209,1093,1302,1113,1395,1134,1461,1166,1550,1161,1552,1128,1463,1107,1396,1088,1303,1073,1210,1056,1059"/>
+<area shape="rect" id="Node000010" href="$d4/d43/class_s_e_node.html" title="Class representing the main speed_est node responsible for publishing the calculated vehicle state wi..." alt="" coords="925,1458,1116,1962"/>
+<area shape="poly" id="edge11_Node000010_Node000003" title=" " alt="" coords="1056,1058,1036,1459,1030,1459,1050,1058"/>
+<area shape="rect" id="Node000011" href="$d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car." alt="" coords="689,1466,861,1955"/>
+<area shape="poly" id="edge13_Node000011_Node000003" title=" " alt="" coords="1066,1058,1073,1137,1074,1186,1071,1238,1063,1291,1048,1343,1027,1392,996,1436,976,1449,955,1451,935,1451,914,1461,887,1486,863,1516,859,1512,883,1483,911,1456,934,1446,955,1445,974,1444,992,1432,1022,1389,1043,1341,1057,1290,1065,1237,1068,1186,1068,1138,1061,1058"/>
 <area shape="rect" id="Node000004" href="$d9/da5/class_point_solver.html" title=" " alt="" coords="1295,908,1487,1113"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="1379,1113,1353,1266,1318,1435,1282,1567,1277,1566,1313,1434,1348,1265,1374,1112"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="1380,1114,1355,1266,1319,1435,1290,1535,1285,1533,1314,1434,1350,1265,1375,1113"/>
 <area shape="rect" id="Node000005" href="$de/d41/structcommon__lib_1_1structures_1_1_vehicle_pose.html" title=" " alt="" coords="1097,420,1243,520"/>
 <area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="1215,519,1252,568,1286,625,1314,691,1338,760,1372,891,1367,892,1333,762,1309,693,1281,627,1248,571,1211,522"/>
 <area shape="rect" id="Node000006" href="$d8/d4a/structcommon__lib_1_1structures_1_1_pose.html" title="Struct for pose representation." alt="" coords="975,208,1122,328"/>
 <area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="1094,340,1143,419,1138,422,1090,342"/>
-<area shape="poly" id="edge28_Node000011_Node000006" title=" " alt="" coords="1042,329,1023,464,1003,626,995,744,994,844,1001,1015,1001,1097,995,1185,980,1282,951,1396,936,1429,916,1460,878,1532,874,1530,912,1457,931,1426,946,1394,975,1281,990,1184,996,1097,995,1015,989,844,990,743,998,626,1017,464,1037,328"/>
+<area shape="poly" id="edge28_Node000011_Node000006" title=" " alt="" coords="1042,329,1023,464,1003,626,995,744,995,844,1002,1015,1002,1098,996,1185,981,1283,951,1396,935,1429,915,1460,872,1538,867,1535,910,1457,931,1427,946,1394,975,1282,991,1184,997,1098,996,1016,989,844,990,743,998,626,1017,464,1037,328"/>
 <area shape="rect" id="Node000007" href="$dc/d1b/structcommon__lib_1_1structures_1_1_position.html" title=" " alt="" coords="1035,5,1182,145"/>
 <area shape="poly" id="edge7_Node000005_Node000007" title=" " alt="" coords="1136,144,1142,169,1161,293,1170,403,1165,404,1156,294,1137,170,1131,146"/>
 <area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="1090,146,1075,193,1070,191,1085,144"/>
 <area shape="rect" id="Node000008" href="$d6/d5a/class_p_i_d.html" title="PI&#45;D Controller class." alt="" coords="1122,626,1271,1395"/>
-<area shape="poly" id="edge8_Node000002_Node000008" title=" " alt="" coords="1213,1395,1220,1566,1214,1566,1208,1395"/>
+<area shape="poly" id="edge8_Node000002_Node000008" title=" " alt="" coords="1215,1395,1220,1533,1215,1533,1209,1395"/>
 <area shape="rect" id="Node000009" href="$dc/dde/class_pure_pursuit.html" title="Pure Pursuit class." alt="" coords="1512,871,1657,1151"/>
-<area shape="poly" id="edge9_Node000002_Node000009" title=" " alt="" coords="1572,1151,1546,1273,1527,1336,1502,1396,1462,1467,1416,1535,1367,1597,1319,1651,1315,1647,1363,1593,1412,1532,1458,1465,1497,1394,1522,1334,1541,1272,1567,1150"/>
-<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="1025,2010,1025,2077,1019,2077,1019,2010"/>
-<area shape="poly" id="edge12_Node000001_Node000011" title=" " alt="" coords="876,1987,925,2098,920,2100,872,1989"/>
+<area shape="poly" id="edge9_Node000002_Node000009" title=" " alt="" coords="1573,1151,1563,1210,1548,1273,1528,1336,1502,1397,1464,1461,1418,1522,1370,1577,1323,1625,1320,1621,1366,1573,1414,1518,1459,1458,1497,1394,1523,1335,1543,1272,1558,1209,1568,1150"/>
+<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="1023,1977,1023,2012,1018,2012,1018,1977"/>
+<area shape="poly" id="edge12_Node000001_Node000011" title=" " alt="" coords="870,1918,923,2039,918,2041,865,1920"/>
 <area shape="rect" id="Node000012" href="$df/dec/struct_planning_config.html" title="struct for the configuration of the outliers removal algorithm." alt="" coords="481,968,598,1053"/>
-<area shape="poly" id="edge14_Node000011_Node000012" title=" " alt="" coords="544,1053,550,1126,561,1222,580,1328,608,1434,633,1499,664,1562,659,1565,629,1501,603,1435,575,1329,556,1222,544,1126,539,1053"/>
+<area shape="poly" id="edge14_Node000011_Node000012" title=" " alt="" coords="541,1053,542,1126,549,1222,566,1329,578,1382,595,1433,634,1515,682,1590,677,1592,629,1517,590,1435,573,1384,560,1330,544,1223,537,1127,536,1053"/>
 <area shape="rect" id="Node000013" href="$d1/df2/struct_cone_coloring_config.html" title="struct for the configuration of the cone coloring algorithm." alt="" coords="785,378,929,563"/>
 <area shape="poly" id="edge15_Node000012_Node000013" title=" " alt="" coords="786,543,754,565,720,579,686,589,660,604,637,614,628,618,619,628,595,666,577,708,563,751,552,795,542,880,539,951,534,951,536,880,547,794,557,750,572,706,590,663,615,624,624,614,635,609,658,600,684,585,719,574,751,561,783,539"/>
 <area shape="rect" id="Node000018" href="$dd/d52/class_cone_coloring.html" title=" " alt="" coords="773,873,937,1148"/>
@@ -44,8 +44,8 @@
 <area shape="poly" id="edge27_Node000021_Node000016" title=" " alt="" coords="741,531,772,561,791,586,793,595,791,603,784,612,776,617,769,620,763,628,744,664,729,703,708,784,696,863,691,931,686,931,691,862,702,783,724,702,739,662,758,624,766,616,774,612,781,608,786,601,788,595,786,588,768,564,738,535"/>
 <area shape="rect" id="Node000017" href="$d3/db0/struct_simulation_config.html" title="struct for the configuration of the smoothing algorithm" alt="" coords="391,410,551,530"/>
 <area shape="poly" id="edge19_Node000012_Node000017" title=" " alt="" coords="473,530,476,602,487,698,501,794,530,951,525,952,496,795,481,699,470,602,468,530"/>
-<area shape="poly" id="edge20_Node000011_Node000018" title=" " alt="" coords="850,1148,839,1287,823,1435,822,1442,817,1441,818,1434,834,1286,844,1148"/>
-<area shape="poly" id="edge22_Node000011_Node000019" title=" " alt="" coords="97,1070,109,1141,130,1226,164,1314,186,1355,212,1394,259,1447,312,1496,370,1541,429,1581,548,1648,655,1696,652,1701,546,1653,427,1586,367,1545,309,1501,255,1451,208,1397,181,1358,159,1316,125,1227,104,1142,92,1071"/>
-<area shape="poly" id="edge24_Node000011_Node000020" title=" " alt="" coords="345,1063,364,1139,394,1235,436,1337,463,1386,492,1433,574,1536,659,1630,655,1634,570,1540,488,1436,458,1389,432,1339,389,1237,359,1141,340,1064"/>
-<area shape="poly" id="edge26_Node000011_Node000021" title=" " alt="" coords="693,1073,700,1236,717,1434,718,1441,713,1442,712,1435,695,1237,688,1073"/>
+<area shape="poly" id="edge20_Node000011_Node000018" title=" " alt="" coords="845,1148,815,1435,814,1449,808,1448,810,1434,840,1147"/>
+<area shape="poly" id="edge22_Node000011_Node000019" title=" " alt="" coords="96,1070,108,1142,129,1227,162,1314,185,1356,212,1394,262,1447,318,1495,379,1537,441,1575,566,1635,674,1676,672,1681,564,1640,439,1579,376,1542,315,1499,258,1451,208,1397,181,1359,158,1317,124,1228,102,1143,91,1071"/>
+<area shape="poly" id="edge24_Node000011_Node000020" title=" " alt="" coords="344,1063,361,1139,387,1234,426,1336,450,1386,478,1433,522,1492,573,1546,626,1595,678,1637,674,1641,623,1599,569,1550,518,1495,473,1436,445,1389,421,1338,382,1236,355,1140,339,1064"/>
+<area shape="poly" id="edge26_Node000011_Node000021" title=" " alt="" coords="689,1073,688,1237,693,1336,704,1434,706,1449,701,1449,699,1435,688,1336,683,1237,683,1073"/>
 </map>

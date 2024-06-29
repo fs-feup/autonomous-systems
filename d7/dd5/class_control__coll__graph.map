@@ -1,7 +1,7 @@
 <map id="Control" name="Control">
-<area shape="rect" id="Node000001" title="Class responsible for the control of the car." alt="" coords="266,1373,430,1693"/>
+<area shape="rect" id="Node000001" title="Class responsible for the control of the car." alt="" coords="263,1373,433,1693"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="5,893,91,958"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="47,973,47,1042,53,1128,71,1221,86,1266,105,1309,139,1359,180,1405,224,1445,268,1478,265,1483,221,1449,176,1409,134,1363,100,1311,81,1268,66,1222,48,1129,42,1042,42,973"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="47,973,47,1042,53,1128,71,1221,86,1266,105,1309,138,1359,178,1404,222,1443,265,1476,262,1480,219,1447,174,1407,134,1362,100,1311,81,1268,66,1222,48,1129,42,1042,42,973"/>
 <area shape="rect" id="Node000003" href="$d9/da5/class_point_solver.html" title=" " alt="" coords="115,823,307,1028"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="223,1027,244,1180,260,1265,280,1348,282,1356,277,1358,275,1350,255,1266,239,1181,218,1028"/>
 <area shape="rect" id="Node000004" href="$de/d41/structcommon__lib_1_1structures_1_1_vehicle_pose.html" title=" " alt="" coords="137,378,284,478"/>
@@ -14,5 +14,5 @@
 <area shape="rect" id="Node000007" href="$d6/d5a/class_p_i_d.html" title="PI&#45;D Controller class." alt="" coords="331,541,480,1310"/>
 <area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="372,1310,367,1357,362,1356,366,1310"/>
 <area shape="rect" id="Node000008" href="$dc/dde/class_pure_pursuit.html" title="Pure Pursuit class." alt="" coords="505,785,650,1065"/>
-<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="560,1066,534,1187,516,1250,494,1311,484,1331,472,1350,442,1397,437,1395,467,1348,480,1329,490,1309,511,1248,528,1185,555,1064"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="560,1066,534,1187,516,1250,494,1311,484,1331,472,1350,444,1394,440,1391,467,1348,480,1329,490,1309,511,1248,528,1185,555,1064"/>
 </map>

@@ -1,65 +1,67 @@
 <map id="common_lib::communication::marker_array_from_structure_array" name="common_lib::communication::marker_array_from_structure_array">
-<area shape="rect" id="Node000001" title="Converts a vector of cones to a marker array." alt="" coords="1285,536,1513,576"/>
-<area shape="rect" id="Node000002" href="$d4/d43/class_s_e_node.html#a6f3571b56b21f6d5fa7191fae4e21681" title="publishes the map (&#39;track_map&#39;) to the topic track_map" alt="" coords="1042,439,1197,465"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1327,532,1156,468,1158,463,1329,527"/>
-<area shape="rect" id="Node000017" href="$d9/db5/class_planning.html#a3c52f795bfb91d20139211f02acfdbd0" title="publish all visualization messages from the planning node" alt="" coords="1002,543,1237,569"/>
-<area shape="poly" id="edge18_Node000001_Node000017" title=" " alt="" coords="1270,559,1237,559,1237,553,1270,553"/>
-<area shape="rect" id="Node000029" href="$de/d07/class_perception.html#a0ed87dbcc41d99a6c40f6363afdebce4" title="Publishes information about clusters (cones) using a custom ROS2 message." alt="" coords="1036,596,1203,622"/>
-<area shape="poly" id="edge32_Node000001_Node000029" title=" " alt="" coords="1275,582,1191,598,1190,593,1274,577"/>
-<area shape="rect" id="Node000003" href="$d4/d43/class_s_e_node.html#ae87a4d5f2baf38b9fb9a34a81b9149ad" title="Mutex used to lock EKF access." alt="" coords="777,398,930,439"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1026,443,930,431,931,425,1026,438"/>
-<area shape="rect" id="Node000009" href="$d4/d43/class_s_e_node.html#a807afbd7576422568395876d5c3e7296" title="Executes:" alt="" coords="779,464,928,504"/>
-<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="1027,466,929,478,928,472,1026,460"/>
-<area shape="rect" id="Node000010" href="$d4/d43/class_s_e_node.html#aa9238d6e6cdebf7becd57514858df115" title="Function to be called everytime information is received from the wheel encoders." alt="" coords="771,173,936,214"/>
-<area shape="poly" id="edge9_Node000002_Node000010" title=" " alt="" coords="1092,430,874,216,878,212,1096,427"/>
-<area shape="rect" id="Node000004" href="$d0/d1d/class_eufs_adapter.html#a07396c47f0f5158a20bf2ea220069ee4" title=" " alt="" coords="528,325,693,381"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="761,396,693,378,694,373,762,391"/>
-<area shape="rect" id="Node000006" href="$d1/dcb/class_pacsim_adapter.html#a911ab67545afbbc50e6be888b893ac2e" title="Callback for simulated perception detections from pacsim." alt="" coords="523,456,699,512"/>
-<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="762,446,700,463,699,458,761,441"/>
+<area shape="rect" id="Node000001" title="Converts a vector of cones to a marker array." alt="" coords="1250,526,1478,567"/>
+<area shape="rect" id="Node000002" href="$d4/d43/class_s_e_node.html#a6f3571b56b21f6d5fa7191fae4e21681" title="publishes the map (&#39;track_map&#39;) to the topic track_map" alt="" coords="1007,302,1162,327"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1324,518,1100,330,1103,326,1328,514"/>
+<area shape="rect" id="Node000017" href="$de/d07/class_perception.html#a1dbc6dbd5c5c70f5eb25d2b0171ebd2e" title="Publishes information about clusters (cones) using a custom ROS2 message." alt="" coords="1019,526,1150,567"/>
+<area shape="poly" id="edge18_Node000001_Node000017" title=" " alt="" coords="1234,549,1150,549,1150,544,1234,544"/>
+<area shape="rect" id="Node000020" href="$d9/db5/class_planning.html#a3c52f795bfb91d20139211f02acfdbd0" title="publish all visualization messages from the planning node" alt="" coords="967,595,1202,621"/>
+<area shape="poly" id="edge21_Node000001_Node000020" title=" " alt="" coords="1254,573,1147,597,1146,592,1253,568"/>
+<area shape="rect" id="Node000003" href="$d4/d43/class_s_e_node.html#ae87a4d5f2baf38b9fb9a34a81b9149ad" title="Mutex used to lock EKF access." alt="" coords="759,366,913,407"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1023,335,910,368,908,363,1022,330"/>
+<area shape="rect" id="Node000009" href="$d4/d43/class_s_e_node.html#a807afbd7576422568395876d5c3e7296" title="Executes:" alt="" coords="761,148,911,188"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="1053,294,992,250,917,204,892,191,894,186,920,199,995,246,1056,290"/>
+<area shape="rect" id="Node000010" href="$d4/d43/class_s_e_node.html#aa9238d6e6cdebf7becd57514858df115" title="Function to be called everytime information is received from the wheel encoders." alt="" coords="753,213,919,254"/>
+<area shape="poly" id="edge9_Node000002_Node000010" title=" " alt="" coords="1027,299,900,257,901,252,1029,294"/>
+<area shape="rect" id="Node000004" href="$d0/d1d/class_eufs_adapter.html#a07396c47f0f5158a20bf2ea220069ee4" title=" " alt="" coords="528,456,693,512"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="775,416,706,446,679,458,677,453,704,441,773,411"/>
+<area shape="rect" id="Node000006" href="$d1/dcb/class_pacsim_adapter.html#a911ab67545afbbc50e6be888b893ac2e" title="Callback for simulated perception detections from pacsim." alt="" coords="523,325,699,381"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="744,376,699,369,700,364,745,370"/>
 <area shape="rect" id="Node000008" href="$d4/d43/class_s_e_node.html#a233082ccbddcbffc227080542c76d054" title="Constructor of the main node, most things are received by launch parameter." alt="" coords="549,406,672,431"/>
-<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="761,421,673,421,673,416,761,416"/>
-<area shape="rect" id="Node000005" href="$d0/d1d/class_eufs_adapter.html#ab365c1d1d2342a41171a593d3341e66a" title=" " alt="" coords="281,232,450,258"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="528,321,515,316,395,261,397,256,517,311,530,316"/>
-<area shape="rect" id="Node000007" href="$d1/dcb/class_pacsim_adapter.html#a651658e032269c4ddccbd36377f0cc0e" title=" " alt="" coords="263,335,468,361"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="524,451,515,446,441,402,384,364,387,359,444,398,517,442,527,446"/>
-<area shape="rect" id="Node000011" href="$d1/df1/class_vehicle_adapter.html#af96b3cf76411fcbfd826a13bd8030649" title="Wheel speed subscription callback, which receives both wheel speeds and steering angle through a sync..." alt="" coords="536,85,685,141"/>
-<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="775,170,685,140,687,135,776,165"/>
-<area shape="rect" id="Node000013" href="$d0/d1d/class_eufs_adapter.html#a325a2c46e1761b2b117bc6f0345902fd" title=" " alt="" coords="537,165,684,221"/>
-<area shape="poly" id="edge12_Node000010_Node000013" title=" " alt="" coords="755,196,685,196,685,191,755,191"/>
-<area shape="rect" id="Node000014" href="$d7/d8e/class_fsds_adapter.html#a25b17529c78b88ceb1b5f0d600c9dae0" title=" " alt="" coords="537,5,684,61"/>
-<area shape="poly" id="edge14_Node000010_Node000014" title=" " alt="" coords="818,164,766,120,704,75,683,64,685,59,707,71,770,115,822,160"/>
-<area shape="rect" id="Node000016" href="$d1/dcb/class_pacsim_adapter.html#aab061eb3b58bd6eae572bd11c63077f8" title="Wheel speed subscription callback, which receives both wheel speeds and steering angle through a sync..." alt="" coords="536,245,686,301"/>
-<area shape="poly" id="edge16_Node000010_Node000016" title=" " alt="" coords="776,221,687,251,685,246,774,216"/>
-<area shape="rect" id="Node000012" href="$d1/df1/class_vehicle_adapter.html#ab09c1998114e5331ba3c4ed05aaef010" title=" " alt="" coords="264,100,467,126"/>
-<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="521,116,468,116,468,111,521,111"/>
-<area shape="poly" id="edge13_Node000013_Node000005" title=" " alt="" coords="522,215,430,234,429,229,521,209"/>
-<area shape="rect" id="Node000015" href="$d7/d8e/class_fsds_adapter.html#a5e998caf44eeeb0f85c2150feffc84ad" title=" " alt="" coords="278,20,453,46"/>
-<area shape="poly" id="edge15_Node000014_Node000015" title=" " alt="" coords="522,36,454,36,454,31,522,31"/>
-<area shape="poly" id="edge17_Node000016_Node000007" title=" " alt="" coords="521,303,411,337,410,332,520,298"/>
-<area shape="rect" id="Node000018" href="$d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the planning algorithms." alt="" coords="778,536,929,576"/>
-<area shape="poly" id="edge19_Node000017_Node000018" title=" " alt="" coords="986,559,929,559,929,553,986,553"/>
-<area shape="rect" id="Node000019" href="$d9/db5/class_planning.html#ab04bd1f3fa9458e5a1360cfabacc56a7" title="Callback for track map updates(when msg received)." alt="" coords="542,609,680,650"/>
-<area shape="poly" id="edge20_Node000018_Node000019" title=" " alt="" coords="770,584,681,611,680,606,769,579"/>
-<area shape="rect" id="Node000025" href="$d9/db5/class_planning.html#a53d5a67d438860be75a3d9e0bc0df8c3" title="Callback for vehicle localization updates (undefined)." alt="" coords="516,536,705,576"/>
-<area shape="poly" id="edge26_Node000018_Node000025" title=" " alt="" coords="763,559,706,559,706,553,763,553"/>
-<area shape="rect" id="Node000020" href="$d0/d1d/class_eufs_adapter.html#a60c7f8fa7896a4d10f19d23d6b9d81fa" title=" " alt="" coords="276,632,455,658"/>
-<area shape="poly" id="edge21_Node000019_Node000020" title=" " alt="" coords="526,637,455,642,455,637,526,632"/>
-<area shape="rect" id="Node000022" href="$d9/db5/class_planning.html#a115541ef5b9431540a991a03832d520d" title="Constructor for the Planning class." alt="" coords="302,583,429,609"/>
-<area shape="poly" id="edge23_Node000019_Node000022" title=" " alt="" coords="526,620,429,607,430,602,526,615"/>
-<area shape="rect" id="Node000023" href="$db/d68/class_pac_sim_adapter.html#a369c9138f1446127e8f28e5b54242577" title=" " alt="" coords="292,682,439,723"/>
-<area shape="poly" id="edge24_Node000019_Node000023" title=" " alt="" coords="527,657,437,684,435,679,526,652"/>
-<area shape="rect" id="Node000021" href="$d0/d1d/class_eufs_adapter.html#a041e217f0b1bdf0b8a0d4aede5da7183" title=" " alt="" coords="25,583,195,609"/>
-<area shape="poly" id="edge22_Node000020_Node000021" title=" " alt="" coords="279,631,180,612,181,607,280,626"/>
-<area shape="rect" id="Node000024" href="$db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70" title=" " alt="" coords="5,690,215,715"/>
-<area shape="poly" id="edge25_Node000023_Node000024" title=" " alt="" coords="276,705,215,705,215,700,276,700"/>
-<area shape="poly" id="edge27_Node000025_Node000022" title=" " alt="" coords="501,576,430,588,429,583,500,571"/>
-<area shape="rect" id="Node000026" href="$d0/d1d/class_eufs_adapter.html#ac145b9dae6abd6c7b4e6582c622faf0b" title=" " alt="" coords="275,534,456,559"/>
-<area shape="poly" id="edge28_Node000025_Node000026" title=" " alt="" coords="500,554,457,553,457,547,500,549"/>
-<area shape="rect" id="Node000027" href="$d7/d8e/class_fsds_adapter.html#a14e4d6f21f56e74404eb9387fd5d97c9" title=" " alt="" coords="273,484,458,510"/>
-<area shape="poly" id="edge30_Node000025_Node000027" title=" " alt="" coords="509,534,467,524,423,513,424,508,469,519,511,529"/>
-<area shape="poly" id="edge29_Node000026_Node000021" title=" " alt="" coords="280,566,181,585,180,580,279,560"/>
-<area shape="rect" id="Node000028" href="$d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,484,198,510"/>
-<area shape="poly" id="edge31_Node000027_Node000028" title=" " alt="" coords="258,500,198,500,198,495,258,495"/>
-<area shape="rect" id="Node000030" href="$de/d07/class_perception.html#afaf42fed2ffa3ed23d5c636bf3fdadd7" title="Callback function for the PointCloud2 subscription." alt="" coords="753,600,954,626"/>
-<area shape="poly" id="edge33_Node000029_Node000030" title=" " alt="" coords="1020,613,954,614,954,609,1020,608"/>
+<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="745,402,673,412,673,407,744,397"/>
+<area shape="rect" id="Node000005" href="$d0/d1d/class_eufs_adapter.html#ab365c1d1d2342a41171a593d3341e66a" title=" " alt="" coords="281,350,450,375"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="526,452,515,446,388,378,391,374,517,441,528,447"/>
+<area shape="rect" id="Node000007" href="$d1/dcb/class_pacsim_adapter.html#a651658e032269c4ddccbd36377f0cc0e" title=" " alt="" coords="263,260,468,286"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="508,322,406,289,408,284,509,317"/>
+<area shape="rect" id="Node000011" href="$d1/df1/class_vehicle_adapter.html#af96b3cf76411fcbfd826a13bd8030649" title="Wheel speed subscription callback, which receives both wheel speeds and steering angle through a sync..." alt="" coords="536,5,685,61"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="755,205,751,202,739,185,731,169,727,137,722,106,715,91,703,75,684,60,687,56,707,71,720,88,727,104,732,136,737,167,743,182,755,198,759,201"/>
+<area shape="rect" id="Node000013" href="$d0/d1d/class_eufs_adapter.html#a325a2c46e1761b2b117bc6f0345902fd" title=" " alt="" coords="537,245,684,301"/>
+<area shape="poly" id="edge12_Node000010_Node000013" title=" " alt="" coords="739,253,685,263,684,257,738,248"/>
+<area shape="rect" id="Node000014" href="$d7/d8e/class_fsds_adapter.html#a25b17529c78b88ceb1b5f0d600c9dae0" title=" " alt="" coords="537,85,684,141"/>
+<area shape="poly" id="edge14_Node000010_Node000014" title=" " alt="" coords="761,208,752,202,737,190,727,178,718,167,704,155,683,143,686,139,707,151,722,163,731,175,741,186,755,198,764,203"/>
+<area shape="rect" id="Node000016" href="$d1/dcb/class_pacsim_adapter.html#aab061eb3b58bd6eae572bd11c63077f8" title="Wheel speed subscription callback, which receives both wheel speeds and steering angle through a sync..." alt="" coords="536,165,686,221"/>
+<area shape="poly" id="edge16_Node000010_Node000016" title=" " alt="" coords="737,218,686,209,687,204,738,213"/>
+<area shape="rect" id="Node000012" href="$d1/df1/class_vehicle_adapter.html#ab09c1998114e5331ba3c4ed05aaef010" title=" " alt="" coords="264,20,467,46"/>
+<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="521,36,468,36,468,31,521,31"/>
+<area shape="poly" id="edge13_Node000013_Node000005" title=" " alt="" coords="523,308,404,352,402,347,521,303"/>
+<area shape="rect" id="Node000015" href="$d7/d8e/class_fsds_adapter.html#a5e998caf44eeeb0f85c2150feffc84ad" title=" " alt="" coords="278,100,453,126"/>
+<area shape="poly" id="edge15_Node000014_Node000015" title=" " alt="" coords="522,116,454,116,454,111,522,111"/>
+<area shape="poly" id="edge17_Node000016_Node000007" title=" " alt="" coords="521,225,408,262,407,257,520,220"/>
+<area shape="rect" id="Node000018" href="$de/d07/class_perception.html#a592f3cc2120d974b503f5934970ac5db" title="Callback function for the PointCloud2 subscription." alt="" coords="758,526,914,567"/>
+<area shape="poly" id="edge19_Node000017_Node000018" title=" " alt="" coords="1004,549,914,549,914,544,1004,544"/>
+<area shape="rect" id="Node000019" href="$de/d07/class_perception.html#a99447b0f39e7b103d320b6072021a3af" title="Constructor for the Perception node." alt="" coords="535,536,686,562"/>
+<area shape="poly" id="edge20_Node000018_Node000019" title=" " alt="" coords="743,550,687,551,687,546,743,545"/>
+<area shape="rect" id="Node000021" href="$d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the planning algorithms." alt="" coords="761,592,911,632"/>
+<area shape="poly" id="edge22_Node000020_Node000021" title=" " alt="" coords="951,613,912,613,912,608,951,607"/>
+<area shape="rect" id="Node000022" href="$d9/db5/class_planning.html#ab04bd1f3fa9458e5a1360cfabacc56a7" title="Callback for track map updates(when msg received)." alt="" coords="542,590,680,631"/>
+<area shape="poly" id="edge23_Node000021_Node000022" title=" " alt="" coords="746,614,680,614,680,608,746,609"/>
+<area shape="rect" id="Node000028" href="$d9/db5/class_planning.html#a53d5a67d438860be75a3d9e0bc0df8c3" title="Callback for vehicle localization updates (undefined)." alt="" coords="516,664,705,704"/>
+<area shape="poly" id="edge29_Node000021_Node000028" title=" " alt="" coords="757,640,677,665,676,660,755,635"/>
+<area shape="rect" id="Node000023" href="$d0/d1d/class_eufs_adapter.html#a60c7f8fa7896a4d10f19d23d6b9d81fa" title=" " alt="" coords="276,588,455,614"/>
+<area shape="poly" id="edge24_Node000022_Node000023" title=" " alt="" coords="526,610,455,607,455,602,526,605"/>
+<area shape="rect" id="Node000025" href="$d9/db5/class_planning.html#a115541ef5b9431540a991a03832d520d" title="Constructor for the Planning class." alt="" coords="302,638,429,663"/>
+<area shape="poly" id="edge26_Node000022_Node000025" title=" " alt="" coords="527,627,430,643,429,638,526,622"/>
+<area shape="rect" id="Node000026" href="$db/d68/class_pac_sim_adapter.html#a369c9138f1446127e8f28e5b54242577" title=" " alt="" coords="292,524,439,564"/>
+<area shape="poly" id="edge27_Node000022_Node000026" title=" " alt="" coords="526,590,439,566,440,561,527,585"/>
+<area shape="rect" id="Node000024" href="$d0/d1d/class_eufs_adapter.html#a041e217f0b1bdf0b8a0d4aede5da7183" title=" " alt="" coords="25,638,195,663"/>
+<area shape="poly" id="edge25_Node000023_Node000024" title=" " alt="" coords="280,620,181,640,180,634,279,615"/>
+<area shape="rect" id="Node000027" href="$db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70" title=" " alt="" coords="5,531,215,557"/>
+<area shape="poly" id="edge28_Node000026_Node000027" title=" " alt="" coords="276,547,215,547,215,541,276,541"/>
+<area shape="poly" id="edge30_Node000028_Node000025" title=" " alt="" coords="500,672,429,662,430,656,501,666"/>
+<area shape="rect" id="Node000029" href="$d0/d1d/class_eufs_adapter.html#ac145b9dae6abd6c7b4e6582c622faf0b" title=" " alt="" coords="275,687,456,713"/>
+<area shape="poly" id="edge31_Node000028_Node000029" title=" " alt="" coords="501,694,457,697,456,691,500,688"/>
+<area shape="rect" id="Node000030" href="$d7/d8e/class_fsds_adapter.html#a14e4d6f21f56e74404eb9387fd5d97c9" title=" " alt="" coords="273,736,458,762"/>
+<area shape="poly" id="edge33_Node000028_Node000030" title=" " alt="" coords="527,711,469,728,426,738,425,733,467,723,525,706"/>
+<area shape="poly" id="edge32_Node000029_Node000024" title=" " alt="" coords="279,686,180,667,181,661,280,681"/>
+<area shape="rect" id="Node000031" href="$d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,736,198,762"/>
+<area shape="poly" id="edge34_Node000030_Node000031" title=" " alt="" coords="258,752,198,752,198,747,258,747"/>
 </map>

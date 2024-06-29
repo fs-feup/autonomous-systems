@@ -16,6 +16,6 @@ var searchData=
   ['locmap_5fsender_13',['locmap_sender',['../d7/d4e/class_integration_test.html#a9af8879bf09a9767daab48d991af0046',1,'IntegrationTest']]],
   ['long_5fcontroller_5f_14',['long_controller_',['../d7/d49/class_control.html#a46db151e27100785832e4b2fc9ec1872',1,'Control']]],
   ['longitudinal_5fcommand_5fmsg_15',['longitudinal_command_msg',['../de/df5/namespacepacsim__keys_1_1main.html#a05047bf483d5f0eaeee34f2e9958c2e7',1,'pacsim_keys::main']]],
-  ['lookahead_5fgain_5f_16',['lookahead_gain_',['../d4/de1/struct_control_parameters.html#a180a5d003f919098d113d2ed021b37da',1,'ControlParameters']]],
+  ['lookahead_5fgain_5f_16',['lookahead_gain_',['../d4/de1/struct_control_parameters.html#a06321b8415d43a792fd2b8af46cc6ed8',1,'ControlParameters']]],
   ['lookahead_5fpoint_5fpub_5f_17',['lookahead_point_pub_',['../d7/d49/class_control.html#a38e2fd1545e2ba854086f8c1c53b9821',1,'Control']]]
 ];

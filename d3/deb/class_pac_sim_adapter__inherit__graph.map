@@ -1,10 +1,10 @@
 <map id="PacSimAdapter" name="PacSimAdapter">
-<area shape="rect" id="Node000001" title=" " alt="" coords="111,656,256,1041"/>
-<area shape="rect" id="Node000002" href="$d7/d49/class_control.html" title="Class responsible for the control of the car." alt="" coords="5,173,169,553"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="130,567,148,656,143,657,125,568"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="141,5,226,71"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="172,85,146,174,141,173,167,84"/>
-<area shape="rect" id="Node000004" href="$d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car." alt="" coords="193,119,365,608"/>
-<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="199,84,210,118,204,119,194,85"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="231,623,224,657,219,656,225,622"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="115,656,260,1041"/>
+<area shape="rect" id="Node000002" href="$d7/d49/class_control.html" title="Class responsible for the control of the car." alt="" coords="5,173,175,553"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="134,567,151,656,146,657,128,568"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="145,5,230,71"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="176,85,149,174,144,173,171,84"/>
+<area shape="rect" id="Node000004" href="$d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car." alt="" coords="199,119,371,608"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="204,84,214,118,209,119,198,85"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="235,623,228,657,223,656,230,622"/>
 </map>

@@ -1,5 +1,0 @@
-<map id="Perception::publishCones" name="Perception::publishCones">
-<area shape="rect" id="Node000001" title="Publishes information about clusters (cones) using a custom ROS2 message." alt="" coords="5,13,173,39"/>
-<area shape="rect" id="Node000002" href="$d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="221,5,449,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="173,23,205,23,205,28,173,28"/>
-</map>

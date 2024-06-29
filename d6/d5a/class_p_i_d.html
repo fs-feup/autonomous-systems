@@ -231,19 +231,19 @@ Private Attributes</h2></td></tr>
           <td class="memname">PID::PID </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a>&#160;</td>
-          <td class="paramname"><em>Kp</em>, </td>
+          <td class="paramname"><em>kp</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a>&#160;</td>
-          <td class="paramname"><em>Ki</em>, </td>
+          <td class="paramname"><em>ki</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a>&#160;</td>
-          <td class="paramname"><em>Kd</em>, </td>
+          <td class="paramname"><em>kd</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -255,25 +255,25 @@ Private Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a>&#160;</td>
-          <td class="paramname"><em>T</em>, </td>
+          <td class="paramname"><em>t</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a>&#160;</td>
-          <td class="paramname"><em>limMin</em>, </td>
+          <td class="paramname"><em>lim_min</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a>&#160;</td>
-          <td class="paramname"><em>limMax</em>, </td>
+          <td class="paramname"><em>lim_max</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="../../d6/d5a/class_p_i_d.html#a8eb686b3c4053c020d2bbfa218d198be">double</a>&#160;</td>
-          <td class="paramname"><em>antiWindup</em>&#160;</td>
+          <td class="paramname"><em>anti_windup</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -286,27 +286,28 @@ Private Attributes</h2></td></tr>
 <p>Construct a new <a class="el" href="../../d6/d5a/class_p_i_d.html" title="PI-D Controller class.">PID</a> object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">Kp</td><td>Proporcional gain </td></tr>
-    <tr><td class="paramname">Ki</td><td>Integral gain </td></tr>
-    <tr><td class="paramname">Kd</td><td>Derivative gain </td></tr>
+    <tr><td class="paramname">kp</td><td>Proporcional gain </td></tr>
+    <tr><td class="paramname">ki</td><td>Integral gain </td></tr>
+    <tr><td class="paramname">kd</td><td>Derivative gain </td></tr>
+    <tr><td class="paramname">anti_windup</td><td>Anti-windup constant </td></tr>
     <tr><td class="paramname">tau</td><td>Derivative low pass filter time constant </td></tr>
-    <tr><td class="paramname">T</td><td>Sampling time </td></tr>
-    <tr><td class="paramname">limMin</td><td>Minimum output value </td></tr>
-    <tr><td class="paramname">limMax</td><td>Maximum output value </td></tr>
-    <tr><td class="paramname">antiWindup</td><td>Gain of integrator impact when saturated</td></tr>
-    <tr><td class="paramname">Kp</td><td>Proporcional gain </td></tr>
-    <tr><td class="paramname">Ki</td><td>Integral gain </td></tr>
-    <tr><td class="paramname">Kd</td><td>Derivative gain </td></tr>
-    <tr><td class="paramname">antiWindup</td><td>Anti-windup constant </td></tr>
+    <tr><td class="paramname">t</td><td>Sampling time </td></tr>
+    <tr><td class="paramname">lim_min</td><td>Minimum output value </td></tr>
+    <tr><td class="paramname">lim_max</td><td>Maximum output value </td></tr>
+    <tr><td class="paramname">antiWindup</td><td>Anti-windup constant</td></tr>
+    <tr><td class="paramname">kp</td><td>Proporcional gain </td></tr>
+    <tr><td class="paramname">ki</td><td>Integral gain </td></tr>
+    <tr><td class="paramname">kd</td><td>Derivative gain </td></tr>
+    <tr><td class="paramname">anti_windup</td><td>Anti-windup constant </td></tr>
     <tr><td class="paramname">tau</td><td>Derivative low pass filter time constant </td></tr>
-    <tr><td class="paramname">T</td><td>Sampling time </td></tr>
-    <tr><td class="paramname">limMin</td><td>Minimum output value </td></tr>
-    <tr><td class="paramname">limMax</td><td>Maximum output value </td></tr>
+    <tr><td class="paramname">t</td><td>Sampling time </td></tr>
+    <tr><td class="paramname">lim_min</td><td>Minimum output value </td></tr>
+    <tr><td class="paramname">lim_max</td><td>Maximum output value </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00018">18</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00017">17</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
 
 </div>
 </div>
@@ -363,7 +364,7 @@ Private Attributes</h2></td></tr>
 
 <p>Anti-wind-up via dynamic integrator clamping. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00090">90</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00089">89</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -431,7 +432,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00098">98</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00097">97</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -509,7 +510,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>error (double) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00080">80</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00079">79</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -571,7 +572,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00086">86</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00085">85</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -637,7 +638,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00084">84</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00083">83</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -694,7 +695,7 @@ Here is the caller graph for this function:</div>
 
 <p>Compute the output value and apply limits. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00104">104</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00103">103</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1102,7 +1103,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>double </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00037">37</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dcb/pid_8cpp_source.html#l00036">36</a> of file <a class="el" href="../../d8/dcb/pid_8cpp_source.html">pid.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">

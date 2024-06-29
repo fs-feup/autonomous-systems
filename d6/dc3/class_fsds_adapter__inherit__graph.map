@@ -1,13 +1,13 @@
 <map id="FsdsAdapter" name="FsdsAdapter">
-<area shape="rect" id="Node000001" title=" " alt="" coords="181,671,397,1105"/>
-<area shape="rect" id="Node000002" href="$d7/d49/class_control.html" title="Class responsible for the control of the car." alt="" coords="5,181,169,561"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="165,574,183,622,202,670,197,672,178,624,160,576"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="246,5,331,71"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="235,73,207,95,183,120,146,182,141,180,179,117,203,91,232,69"/>
-<area shape="rect" id="Node000004" href="$d4/d43/class_s_e_node.html" title="Class representing the main speed_est node responsible for publishing the calculated vehicle state wi..." alt="" coords="193,119,384,623"/>
-<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="291,85,291,119,286,119,286,85"/>
-<area shape="rect" id="Node000005" href="$d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car." alt="" coords="408,126,580,615"/>
-<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="346,69,374,91,399,117,410,133,406,136,395,120,370,95,342,73"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="291,638,291,671,286,671,286,638"/>
-<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="405,609,399,624,380,672,375,670,394,622,400,607"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="186,671,402,1105"/>
+<area shape="rect" id="Node000002" href="$d7/d49/class_control.html" title="Class responsible for the control of the car." alt="" coords="5,181,175,561"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="170,574,188,622,208,670,203,672,184,624,165,576"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="251,5,337,71"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="240,73,212,95,188,120,151,182,146,180,184,117,209,91,237,69"/>
+<area shape="rect" id="Node000004" href="$d4/d43/class_s_e_node.html" title="Class representing the main speed_est node responsible for publishing the calculated vehicle state wi..." alt="" coords="199,119,389,623"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="297,85,297,119,291,119,291,85"/>
+<area shape="rect" id="Node000005" href="$d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car." alt="" coords="413,126,585,615"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="351,69,379,91,404,117,416,133,411,136,400,120,376,95,348,73"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="297,638,297,671,291,671,291,638"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="410,609,404,624,385,672,380,670,400,622,405,607"/>
 </map>

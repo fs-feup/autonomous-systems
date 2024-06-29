@@ -99,71 +99,75 @@ $(document).ready(function(){initNavTree('d7/d92/namespaceevaluator_1_1metrics.h
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a74348fafc9c81f7532a908962ddba7d1" id="r_a74348fafc9c81f7532a908962ddba7d1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d92/namespaceevaluator_1_1metrics.html#a74348fafc9c81f7532a908962ddba7d1">get_average_difference</a> (np.array output, np.array expected)</td></tr>
-<tr class="memdesc:a74348fafc9c81f7532a908962ddba7d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the average difference between an output output and the expected values.  <br /></td></tr>
-<tr class="separator:a74348fafc9c81f7532a908962ddba7d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a73bf2aa18b655601736117f1612d90df" id="r_a73bf2aa18b655601736117f1612d90df"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d92/namespaceevaluator_1_1metrics.html#a73bf2aa18b655601736117f1612d90df">get_mean_squared_difference</a> (list output, list expected)</td></tr>
-<tr class="memdesc:a73bf2aa18b655601736117f1612d90df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the mean squared difference between an output output and the expected values.  <br /></td></tr>
-<tr class="separator:a73bf2aa18b655601736117f1612d90df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a354a2409d5c6a4450ebca42cd56bceee" id="r_a354a2409d5c6a4450ebca42cd56bceee"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d92/namespaceevaluator_1_1metrics.html#a354a2409d5c6a4450ebca42cd56bceee">compute_distance</a> (cone1, cone2)</td></tr>
-<tr class="memdesc:a354a2409d5c6a4450ebca42cd56bceee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute Euclidean distance between two cones.  <br /></td></tr>
-<tr class="separator:a354a2409d5c6a4450ebca42cd56bceee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13fed0386ed9364f8b19e37f1c996d2b" id="r_a13fed0386ed9364f8b19e37f1c996d2b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d92/namespaceevaluator_1_1metrics.html#a13fed0386ed9364f8b19e37f1c996d2b">build_adjacency_matrix</a> (cones)</td></tr>
-<tr class="memdesc:a13fed0386ed9364f8b19e37f1c996d2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build adjacency matrix based on distances between cones.  <br /></td></tr>
-<tr class="separator:a13fed0386ed9364f8b19e37f1c996d2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8094c7ef156cde0140392ea009339177" id="r_a8094c7ef156cde0140392ea009339177"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d92/namespaceevaluator_1_1metrics.html#a8094c7ef156cde0140392ea009339177">get_inter_cones_distance</a> (list perception_output)</td></tr>
-<tr class="memdesc:a8094c7ef156cde0140392ea009339177"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the average distance between pairs of perceived cones using Minimum Spanning Tree Prim's algorithm.  <br /></td></tr>
-<tr class="separator:a8094c7ef156cde0140392ea009339177"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46b0e183f7ee4958460f8e1f702f0860" id="r_a46b0e183f7ee4958460f8e1f702f0860"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d92/namespaceevaluator_1_1metrics.html#a46b0e183f7ee4958460f8e1f702f0860">get_average_difference</a> (np.array output, np.array expected)</td></tr>
+<tr class="memdesc:a46b0e183f7ee4958460f8e1f702f0860"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the average difference between an output output and the expected values.  <br /></td></tr>
+<tr class="separator:a46b0e183f7ee4958460f8e1f702f0860"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ba1d8166032a1824439b0bb16fe5564" id="r_a9ba1d8166032a1824439b0bb16fe5564"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d92/namespaceevaluator_1_1metrics.html#a9ba1d8166032a1824439b0bb16fe5564">get_false_positives</a> (np.ndarray output, np.ndarray expected, float threshold)</td></tr>
+<tr class="memdesc:a9ba1d8166032a1824439b0bb16fe5564"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the number of false positives in the output compared to the expected values.  <br /></td></tr>
+<tr class="separator:a9ba1d8166032a1824439b0bb16fe5564"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc14edd4119b16ba22b7357cbbe5faff" id="r_acc14edd4119b16ba22b7357cbbe5faff"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d92/namespaceevaluator_1_1metrics.html#acc14edd4119b16ba22b7357cbbe5faff">get_mean_squared_difference</a> (np.ndarray output, np.ndarray expected)</td></tr>
+<tr class="memdesc:acc14edd4119b16ba22b7357cbbe5faff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the mean squared difference between an output output and the expected values.  <br /></td></tr>
+<tr class="separator:acc14edd4119b16ba22b7357cbbe5faff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf17d74673bf42aa48009e003b5d6e8b" id="r_acf17d74673bf42aa48009e003b5d6e8b"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d92/namespaceevaluator_1_1metrics.html#acf17d74673bf42aa48009e003b5d6e8b">compute_distance</a> (np.array cone1, np.array cone2)</td></tr>
+<tr class="memdesc:acf17d74673bf42aa48009e003b5d6e8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute Euclidean distance between two cones.  <br /></td></tr>
+<tr class="separator:acf17d74673bf42aa48009e003b5d6e8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67fb2de017620156f3758f24363e7853" id="r_a67fb2de017620156f3758f24363e7853"><td class="memItemLeft" align="right" valign="top">np.array&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d92/namespaceevaluator_1_1metrics.html#a67fb2de017620156f3758f24363e7853">build_adjacency_matrix</a> (np.array cones)</td></tr>
+<tr class="separator:a67fb2de017620156f3758f24363e7853"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e8e98b2d5197fa4019fcbefd634beab" id="r_a0e8e98b2d5197fa4019fcbefd634beab"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d92/namespaceevaluator_1_1metrics.html#a0e8e98b2d5197fa4019fcbefd634beab">get_duplicates</a> (np.array output, float threshold)</td></tr>
+<tr class="separator:a0e8e98b2d5197fa4019fcbefd634beab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26ceb2655390708bd05e0e0d10318bb3" id="r_a26ceb2655390708bd05e0e0d10318bb3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d92/namespaceevaluator_1_1metrics.html#a26ceb2655390708bd05e0e0d10318bb3">get_inter_cones_distance</a> (np.array perception_output)</td></tr>
+<tr class="memdesc:a26ceb2655390708bd05e0e0d10318bb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the average distance between pairs of perceived cones using Minimum Spanning Tree Prim's algorithm.  <br /></td></tr>
+<tr class="separator:a26ceb2655390708bd05e0e0d10318bb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a13fed0386ed9364f8b19e37f1c996d2b" name="a13fed0386ed9364f8b19e37f1c996d2b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a13fed0386ed9364f8b19e37f1c996d2b">&#9670;&#160;</a></span>build_adjacency_matrix()</h2>
+<a id="a67fb2de017620156f3758f24363e7853" name="a67fb2de017620156f3758f24363e7853"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67fb2de017620156f3758f24363e7853">&#9670;&#160;</a></span>build_adjacency_matrix()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">evaluator.metrics.build_adjacency_matrix </td>
+          <td class="memname"> np.array evaluator.metrics.build_adjacency_matrix </td>
           <td>(</td>
-          <td class="paramtype">&#160;</td>
+          <td class="paramtype">np.array&#160;</td>
           <td class="paramname"><em>cones</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Build adjacency matrix based on distances between cones. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../df/d68/metrics_8py_source.html#l00082">82</a> of file <a class="el" href="../../df/d68/metrics_8py_source.html">metrics.py</a>.</p>
+<pre class="fragment">Build adjacency matrix based on distances between cones.</pre> 
+<p class="definition">Definition at line <a class="el" href="../../df/d68/metrics_8py_source.html#l00112">112</a> of file <a class="el" href="../../df/d68/metrics_8py_source.html">metrics.py</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../d7/d92/namespaceevaluator_1_1metrics_a13fed0386ed9364f8b19e37f1c996d2b_icgraph.png" border="0" usemap="#ad7/d92/namespaceevaluator_1_1metrics_a13fed0386ed9364f8b19e37f1c996d2b_icgraph" alt=""/></div>
-<map name="ad7/d92/namespaceevaluator_1_1metrics_a13fed0386ed9364f8b19e37f1c996d2b_icgraph" id="ad7/d92/namespaceevaluator_1_1metrics_a13fed0386ed9364f8b19e37f1c996d2b_icgraph">
-<area shape="rect" title="Build adjacency matrix based on distances between cones." alt="" coords="205,5,355,46"/>
-<area shape="rect" href="../../d7/d92/namespaceevaluator_1_1metrics.html#a8094c7ef156cde0140392ea009339177" title="Computes the average distance between pairs of perceived cones using Minimum Spanning Tree Prim&#39;s alg..." alt="" coords="5,5,157,46"/>
-<area shape="poly" title=" " alt="" coords="189,28,157,28,157,23,189,23"/>
+<div class="center"><img src="../../d7/d92/namespaceevaluator_1_1metrics_a67fb2de017620156f3758f24363e7853_icgraph.png" border="0" usemap="#ad7/d92/namespaceevaluator_1_1metrics_a67fb2de017620156f3758f24363e7853_icgraph" alt=""/></div>
+<map name="ad7/d92/namespaceevaluator_1_1metrics_a67fb2de017620156f3758f24363e7853_icgraph" id="ad7/d92/namespaceevaluator_1_1metrics_a67fb2de017620156f3758f24363e7853_icgraph">
+<area shape="rect" title=" " alt="" coords="205,39,355,79"/>
+<area shape="rect" href="../../d7/d92/namespaceevaluator_1_1metrics.html#a0e8e98b2d5197fa4019fcbefd634beab" title=" " alt="" coords="10,5,152,46"/>
+<area shape="poly" title=" " alt="" coords="189,46,152,40,153,35,190,41"/>
+<area shape="rect" href="../../d7/d92/namespaceevaluator_1_1metrics.html#a26ceb2655390708bd05e0e0d10318bb3" title="Computes the average distance between pairs of perceived cones using Minimum Spanning Tree Prim&#39;s alg..." alt="" coords="5,71,157,111"/>
+<area shape="poly" title=" " alt="" coords="190,76,158,81,157,76,189,71"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="a354a2409d5c6a4450ebca42cd56bceee" name="a354a2409d5c6a4450ebca42cd56bceee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a354a2409d5c6a4450ebca42cd56bceee">&#9670;&#160;</a></span>compute_distance()</h2>
+<a id="acf17d74673bf42aa48009e003b5d6e8b" name="acf17d74673bf42aa48009e003b5d6e8b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf17d74673bf42aa48009e003b5d6e8b">&#9670;&#160;</a></span>compute_distance()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">evaluator.metrics.compute_distance </td>
+          <td class="memname"> float evaluator.metrics.compute_distance </td>
           <td>(</td>
-          <td class="paramtype">&#160;</td>
+          <td class="paramtype">np.array&#160;</td>
           <td class="paramname"><em>cone1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">&#160;</td>
+          <td class="paramtype">np.array&#160;</td>
           <td class="paramname"><em>cone2</em>&#160;</td>
         </tr>
         <tr>
@@ -176,18 +180,18 @@ Here is the caller graph for this function:</div>
 
 <p>Compute Euclidean distance between two cones. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d68/metrics_8py_source.html#l00075">75</a> of file <a class="el" href="../../df/d68/metrics_8py_source.html">metrics.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d68/metrics_8py_source.html#l00105">105</a> of file <a class="el" href="../../df/d68/metrics_8py_source.html">metrics.py</a>.</p>
 
 </div>
 </div>
-<a id="a74348fafc9c81f7532a908962ddba7d1" name="a74348fafc9c81f7532a908962ddba7d1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a74348fafc9c81f7532a908962ddba7d1">&#9670;&#160;</a></span>get_average_difference()</h2>
+<a id="a46b0e183f7ee4958460f8e1f702f0860" name="a46b0e183f7ee4958460f8e1f702f0860"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46b0e183f7ee4958460f8e1f702f0860">&#9670;&#160;</a></span>get_average_difference()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">evaluator.metrics.get_average_difference </td>
+          <td class="memname"> float evaluator.metrics.get_average_difference </td>
           <td>(</td>
           <td class="paramtype">np.array&#160;</td>
           <td class="paramname"><em>output</em>, </td>
@@ -214,8 +218,89 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a8094c7ef156cde0140392ea009339177" name="a8094c7ef156cde0140392ea009339177"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8094c7ef156cde0140392ea009339177">&#9670;&#160;</a></span>get_inter_cones_distance()</h2>
+<a id="a0e8e98b2d5197fa4019fcbefd634beab" name="a0e8e98b2d5197fa4019fcbefd634beab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e8e98b2d5197fa4019fcbefd634beab">&#9670;&#160;</a></span>get_duplicates()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.metrics.get_duplicates </td>
+          <td>(</td>
+          <td class="paramtype">np.array&#160;</td>
+          <td class="paramname"><em>output</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>threshold</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Receives a set of cones and identify the possible dupliates</pre> 
+<p class="definition">Definition at line <a class="el" href="../../df/d68/metrics_8py_source.html#l00127">127</a> of file <a class="el" href="../../df/d68/metrics_8py_source.html">metrics.py</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d7/d92/namespaceevaluator_1_1metrics_a0e8e98b2d5197fa4019fcbefd634beab_cgraph.png" border="0" usemap="#ad7/d92/namespaceevaluator_1_1metrics_a0e8e98b2d5197fa4019fcbefd634beab_cgraph" alt=""/></div>
+<map name="ad7/d92/namespaceevaluator_1_1metrics_a0e8e98b2d5197fa4019fcbefd634beab_cgraph" id="ad7/d92/namespaceevaluator_1_1metrics_a0e8e98b2d5197fa4019fcbefd634beab_cgraph">
+<area shape="rect" title=" " alt="" coords="5,5,147,46"/>
+<area shape="rect" href="../../d7/d92/namespaceevaluator_1_1metrics.html#a67fb2de017620156f3758f24363e7853" title=" " alt="" coords="195,5,345,46"/>
+<area shape="poly" title=" " alt="" coords="147,23,179,23,179,28,147,28"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a9ba1d8166032a1824439b0bb16fe5564" name="a9ba1d8166032a1824439b0bb16fe5564"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ba1d8166032a1824439b0bb16fe5564">&#9670;&#160;</a></span>get_false_positives()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> int evaluator.metrics.get_false_positives </td>
+          <td>(</td>
+          <td class="paramtype">np.ndarray&#160;</td>
+          <td class="paramname"><em>output</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">np.ndarray&#160;</td>
+          <td class="paramname"><em>expected</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float
+&#160;</td>
+          <td class="paramname"><em>threshold</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Computes the number of false positives in the output compared to the expected values. </p>
+<p>Args: output (np.ndarray): Empirical Output. expected (np.ndarray): Expected output. threshold (float): Distance threshold to consider values as matching.</p>
+<p>Returns: int: Number of false positives. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../df/d68/metrics_8py_source.html#l00040">40</a> of file <a class="el" href="../../df/d68/metrics_8py_source.html">metrics.py</a>.</p>
+
+</div>
+</div>
+<a id="a26ceb2655390708bd05e0e0d10318bb3" name="a26ceb2655390708bd05e0e0d10318bb3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26ceb2655390708bd05e0e0d10318bb3">&#9670;&#160;</a></span>get_inter_cones_distance()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -223,7 +308,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">evaluator.metrics.get_inter_cones_distance </td>
           <td>(</td>
-          <td class="paramtype">list&#160;</td>
+          <td class="paramtype">np.array&#160;</td>
           <td class="paramname"><em>perception_output</em></td><td>)</td>
           <td></td>
         </tr>
@@ -231,39 +316,39 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Computes the average distance between pairs of perceived cones using Minimum Spanning Tree Prim's algorithm. </p>
-<p>Args: perception_output (list): List of perceived cones, where each cone is represented as a numpy array.</p>
+<p>Args: perception_output (np.array): List of perceived cones, where each cone is represented as a numpy array.</p>
 <p>Returns: float: Average distance between pairs of perceived cones. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d68/metrics_8py_source.html#l00096">96</a> of file <a class="el" href="../../df/d68/metrics_8py_source.html">metrics.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d68/metrics_8py_source.html#l00136">136</a> of file <a class="el" href="../../df/d68/metrics_8py_source.html">metrics.py</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../d7/d92/namespaceevaluator_1_1metrics_a8094c7ef156cde0140392ea009339177_cgraph.png" border="0" usemap="#ad7/d92/namespaceevaluator_1_1metrics_a8094c7ef156cde0140392ea009339177_cgraph" alt=""/></div>
-<map name="ad7/d92/namespaceevaluator_1_1metrics_a8094c7ef156cde0140392ea009339177_cgraph" id="ad7/d92/namespaceevaluator_1_1metrics_a8094c7ef156cde0140392ea009339177_cgraph">
+<div class="center"><img src="../../d7/d92/namespaceevaluator_1_1metrics_a26ceb2655390708bd05e0e0d10318bb3_cgraph.png" border="0" usemap="#ad7/d92/namespaceevaluator_1_1metrics_a26ceb2655390708bd05e0e0d10318bb3_cgraph" alt=""/></div>
+<map name="ad7/d92/namespaceevaluator_1_1metrics_a26ceb2655390708bd05e0e0d10318bb3_cgraph" id="ad7/d92/namespaceevaluator_1_1metrics_a26ceb2655390708bd05e0e0d10318bb3_cgraph">
 <area shape="rect" title="Computes the average distance between pairs of perceived cones using Minimum Spanning Tree Prim&#39;s alg..." alt="" coords="5,5,157,46"/>
-<area shape="rect" href="../../d7/d92/namespaceevaluator_1_1metrics.html#a13fed0386ed9364f8b19e37f1c996d2b" title="Build adjacency matrix based on distances between cones." alt="" coords="205,5,355,46"/>
+<area shape="rect" href="../../d7/d92/namespaceevaluator_1_1metrics.html#a67fb2de017620156f3758f24363e7853" title=" " alt="" coords="205,5,355,46"/>
 <area shape="poly" title=" " alt="" coords="157,23,189,23,189,28,157,28"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="a73bf2aa18b655601736117f1612d90df" name="a73bf2aa18b655601736117f1612d90df"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a73bf2aa18b655601736117f1612d90df">&#9670;&#160;</a></span>get_mean_squared_difference()</h2>
+<a id="acc14edd4119b16ba22b7357cbbe5faff" name="acc14edd4119b16ba22b7357cbbe5faff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc14edd4119b16ba22b7357cbbe5faff">&#9670;&#160;</a></span>get_mean_squared_difference()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">evaluator.metrics.get_mean_squared_difference </td>
+          <td class="memname"> float evaluator.metrics.get_mean_squared_difference </td>
           <td>(</td>
-          <td class="paramtype">list&#160;</td>
+          <td class="paramtype">np.ndarray&#160;</td>
           <td class="paramname"><em>output</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">list&#160;</td>
+          <td class="paramtype">np.ndarray&#160;</td>
           <td class="paramname"><em>expected</em>&#160;</td>
         </tr>
         <tr>
@@ -278,7 +363,7 @@ Here is the call graph for this function:</div>
 <p>Args: output (list): Empirical Output. expected (list): Expected output.</p>
 <p>Returns: float: Mean squared difference. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d68/metrics_8py_source.html#l00044">44</a> of file <a class="el" href="../../df/d68/metrics_8py_source.html">metrics.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d68/metrics_8py_source.html#l00074">74</a> of file <a class="el" href="../../df/d68/metrics_8py_source.html">metrics.py</a>.</p>
 
 </div>
 </div>

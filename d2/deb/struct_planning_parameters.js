@@ -3,6 +3,7 @@ var struct_planning_parameters =
     [ "angle_exponent_", "d2/deb/struct_planning_parameters.html#a29eefe0c74217a778c51e099e137cc5d", null ],
     [ "angle_gain_", "d2/deb/struct_planning_parameters.html#ae2e44dea0fc9041d98cea1209ea19327", null ],
     [ "cost_max_", "d2/deb/struct_planning_parameters.html#ad66d33a19e5db22c61c77cc0f703ff05", null ],
+    [ "desired_velocity_", "d2/deb/struct_planning_parameters.html#aa1886f95031889429fedcdafa22ce2b3", null ],
     [ "distance_exponent_", "d2/deb/struct_planning_parameters.html#aa66ae8f1c1bd9f70913bf9bcaa2d631a", null ],
     [ "distance_gain_", "d2/deb/struct_planning_parameters.html#a4b0507baec524e34a3cc66dcce633a73", null ],
     [ "ncones_gain_", "d2/deb/struct_planning_parameters.html#a0d4a5657263f69593a8f30cb909ad26a", null ],
