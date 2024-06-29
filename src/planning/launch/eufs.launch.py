@@ -93,7 +93,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "pre_defined_velocity_planning",
                 description="A pre-defined velocity planning value",
-                default_value="5",
+                default_value="2",
             ),
             Node(
                 package="planning",
@@ -152,7 +152,7 @@ def generate_launch_description():
                         "pre_defined_velocity_planning": LaunchConfiguration(
                             "pre_defined_velocity_planning"
                         )
-                    }
+                    },
                 ],
                 arguments=["--ros-args", "--log-level", "planning:=info"],
             ),

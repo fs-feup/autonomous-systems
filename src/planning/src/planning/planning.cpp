@@ -93,9 +93,14 @@ void Planning::run_planning_algorithms() {
   // Smooth the calculated path
   std::vector<PathPoint> final_path = path_smoothing_.smooth_path(triangulations_path, this->pose);
 
+  // Velocity Planning
+  // TODO: Remove this when velocity planning is a reality
+  for (auto &path_point : final_path) {
+    path_point.ideal_velocity = desired_velocity_;
+  }
+  publish_track_points(final_path);
   RCLCPP_DEBUG(this->get_logger(), "Planning will publish %i path points\n",
                static_cast<int>(final_path.size()));
-  publish_track_points(final_path);
 
   if (planning_config_.simulation_.publishing_visualization_msgs_) {
     publish_visualization_msgs(colored_cones.first, colored_cones.second,

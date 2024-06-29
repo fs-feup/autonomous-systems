@@ -143,10 +143,10 @@ std::vector<T> fit_spline(int precision, int order, float coeffs_ratio, std::vec
   const int nbreak = static_cast<int>(ncoeffs) - order + 2;
 
   if (nbreak < 2 || n == 0) {
-    RCLCPP_WARN(rclcpp::get_logger("rclcpp"),
-                "Too few points to calculate spline while executing 'fit_spline'"
-                "Number of cones was %i",
-                static_cast<int>(n));
+    RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"),
+                 "Too few points to calculate spline while executing 'fit_spline'"
+                 "Number of cones was %i",
+                 static_cast<int>(n));
     return cone_seq;
   }
   // Initialize vars (pointers) and allocate memory for the actual objects the pointers will point

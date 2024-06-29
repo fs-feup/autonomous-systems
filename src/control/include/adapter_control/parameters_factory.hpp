@@ -25,10 +25,10 @@ std::string load_adapter_parameters(ControlParameters& params) {
   params.pid_lim_min_ = adapter_node->declare_parameter("pid_lim_min", -1);
   params.pid_lim_max_ = adapter_node->declare_parameter("pid_lim_max", 1);
   params.pid_anti_windup_ = adapter_node->declare_parameter("pid_anti_windup", 0.7);
-  params.map_frame_id_ =
-      adapter_node->declare_parameter("adapter", "vehicle") == "eufs" ? "base_footprint" : "map";
+  std::string adapter_type = adapter_node->declare_parameter("adapter", "vehicle");
+  params.map_frame_id_ = adapter_type == "eufs" ? "base_footprint" : "map";
 
-  return adapter_node->declare_parameter("adapter", "vehicle");
+  return adapter_type;
 }
 
 std::shared_ptr<Control> create_control(const std::string_view& adapter_type,

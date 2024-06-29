@@ -95,7 +95,7 @@ bool ConeColoring::try_to_color_next_cone(
     double cost =
         calculate_cost(cone, last_cone, last_vector,
                        static_cast<double>(n_colored_cones) / static_cast<double>(n_input_cones));
-    if (cost < min_cost && cone.position.euclidean_distance(last_cone.position) < 5 &&
+    if (cost < min_cost && cone.position.euclidean_distance(last_cone.position) < 7 &&
         cost < this->config_.max_cost_) {
       min_cost = cost;
       cheapest_cone = cone;

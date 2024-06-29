@@ -35,14 +35,13 @@ void PathSmoothing::order_path(std::vector<PathPoint>& unord_path, const Pose& c
       }
     }
 
-    if (min_distance < std::numeric_limits<double>::max() &&
-        index < static_cast<int>(unord_path.size())) {
+    if (min_distance < MAX_DISTANCE_BETWEEN_POINTS && index < static_cast<int>(unord_path.size())) {
       current_point = closest_point;
       unord_set.erase(current_point);
       unord_path[index] = current_point;
       index++;
     } else {
-      RCLCPP_ERROR(rclcpp::get_logger("planning"),
+      RCLCPP_DEBUG(rclcpp::get_logger("planning"),
                    "Index out of bounds while ordering path OR no valid point found");
       break;
     }
