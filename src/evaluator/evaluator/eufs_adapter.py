@@ -11,7 +11,7 @@ from evaluator.formats import (
     format_vehicle_state_msg,
     format_eufs_cone_array_with_covariance_msg,
     format_nav_odometry_msg,
-    format_car_state_msg
+    format_car_state_msg,
 )
 
 
@@ -46,9 +46,7 @@ class EufsAdapter(Adapter):
         )
 
         self.node.groundtruth_velocity_ = message_filters.Subscriber(
-            self.node,
-            CarState,
-            "/ground_truth/state"
+            self.node, CarState, "/ground_truth/state"
         )
 
         self.node.simulated_perception_subscription_ = self.node.create_subscription(
@@ -58,7 +56,7 @@ class EufsAdapter(Adapter):
             10,
         )
 
-        self.node.simulated_planning_subscription = self.node.create_subscription(
+        self.node.simulated_state_subscription = self.node.create_subscription(
             CarState,
             "/odometry_integration/car_state",
             self.set_control_init,
@@ -69,7 +67,7 @@ class EufsAdapter(Adapter):
             [
                 self.node.vehicle_state_subscription_,
                 self.node.map_subscription_,
-                self.node.groundtruth_velocity_
+                self.node.groundtruth_velocity_,
             ],
             10,
             0.5,
@@ -77,41 +75,34 @@ class EufsAdapter(Adapter):
 
         self._se_time_sync_.registerCallback(self.state_estimation_callback)
 
-
         self.node.groundtruth_perception_subscription_ = message_filters.Subscriber(
             self.node, ConeArrayWithCovariance, "/ground_truth/cones"
         )
-
         self._perception_time_sync_ = message_filters.ApproximateTimeSynchronizer(
             [
                 self.node.perception_subscription_,
-                self.node.groundtruth_perception_subscription_
+                self.node.groundtruth_perception_subscription_,
             ],
             10,
-            0.1
+            0.1,
         )
 
         self._perception_time_sync_.registerCallback(self.perception_callback)
 
-    
-    def set_control_init(
-        self,
-        msg: CarState
-    ):
+    def set_control_init(self, _: CarState):
         """!
         Callback function to mark the initial timestamp of the control execution
 
         Args:
             msg (CarState): Car state coming from EUFS simulator
         """
-        if self.node.use_simulated_planning_:
-            self.node._planning_receive_time_ = datetime.datetime.now()
-        
+        if self.node.use_simulated_se_:
+            self.node.pose_receive_time_ = datetime.datetime.now()
 
     def state_estimation_callback(
         self,
         vehicle_state: VehicleState,
-        velocity_state : CarState, 
+        velocity_state: CarState,
         map: ConeArray,
     ):
         """!
@@ -141,8 +132,9 @@ class EufsAdapter(Adapter):
             groundtruth_map_treated,
         )
 
-    def perception_callback(self, perception_output : ConeArray, ground_truth: ConeArrayWithCovariance):
-
+    def perception_callback(
+        self, perception_output: ConeArray, ground_truth: ConeArrayWithCovariance
+    ):
         """!
         Callback function to process synchronized messages and compute perception metrics.
 
@@ -156,8 +148,9 @@ class EufsAdapter(Adapter):
             format_eufs_cone_array_with_covariance_msg(ground_truth)
         )
 
-        self.node.compute_and_publish_perception(perception_treated, groundtruth_perception_treated)
-
+        self.node.compute_and_publish_perception(
+            perception_treated, groundtruth_perception_treated
+        )
 
     def groundtruth_map_callback(self, track: ConeArrayWithCovariance):
         """!
@@ -168,7 +161,8 @@ class EufsAdapter(Adapter):
         """
         self.node.get_logger().debug("Received groundtruth map")
         self.groundtruth_map_ = track
-
+        if self.node.use_simulated_se_:
+            self.node.map_receive_time_ = datetime.datetime.now()
 
     def groundtruth_pose_callback(self, pose: Odometry):
         """!
@@ -179,8 +173,6 @@ class EufsAdapter(Adapter):
         """
         self.node.get_logger().debug("Received groundtruth pose")
         self.groundtruth_pose_ = pose
-        if self.node.use_simulated_se_:
-            self.node.map_receive_time_ = datetime.datetime.now()
 
     def simulated_perception_callback(self, perception: ConeArrayWithCovariance):
         """!
