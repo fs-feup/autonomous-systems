@@ -7,8 +7,8 @@
 
 #include "common_lib/structures/pose.hpp"
 #include "common_lib/structures/position.hpp"
-#include "common_lib/vehicle_dynamics/car_parameters.hpp"
 #include "common_lib/vehicle_dynamics/bicycle_model.hpp"
+#include "common_lib/vehicle_dynamics/car_parameters.hpp"
 #include "custom_interfaces/msg/path_point_array.hpp"
 #include "custom_interfaces/msg/vehicle_state.hpp"
 #include "gtest/gtest.h"
@@ -16,8 +16,7 @@
 
 class PointSolver {
 private:
-  double k_;         /**< Lookahead gain */
-  double ld_margin_; /**< Lookahead distance margin, a percentange of ld_ */
+  double k_; /**< Lookahead gain */
   /**< Distance from the center of gravity to the rear axis */
 
 public:
@@ -26,7 +25,7 @@ public:
   /**
    * @brief PointSolver Constructor
    */
-  PointSolver(double k, double ld_margin);
+  explicit PointSolver(double k);
 
   /**
    * @brief Find the closest point on the path
@@ -36,19 +35,19 @@ public:
    *
    * @return std::pair<Point, int> closest point and index
    */
-  std::pair<common_lib::structures::Position, int> update_closest_point(
-      const std::vector<custom_interfaces::msg::PathPoint> &pathpoint_array,
-      common_lib::structures::Position rear_axis_point) const;
+  std::tuple<common_lib::structures::Position, int, double> update_closest_point(
+      const std::vector<custom_interfaces::msg::PathPoint> &pathpoint_array) const;
 
   /**
    * @brief Update Lookahead point
    *
    * @param path
-   * @return std::pair<Point, double, bool> lookahead point, velocity and error status (1 = error)
+   * @return std::tuple<common_lib::structures::Position, double, bool> lookahead point, velocity
+   * and error status (1 = error)
    */
   std::tuple<common_lib::structures::Position, double, bool> update_lookahead_point(
       const std::vector<custom_interfaces::msg::PathPoint> &pathpoint_array,
-      common_lib::structures::Position rear_axis_point, int closest_point_id) const;
+      int closest_point_id) const;
 
   /**
    * @brief update the LookaheadDistance based on a new velocity

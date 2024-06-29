@@ -1,7 +1,7 @@
 #include "adapter_planning/pacsim.hpp"
 
 PacSimAdapter::PacSimAdapter(const PlanningParameters& params) : Planning(params) {
-  if (this->using_simulated_se_) {
+  if (params.using_simulated_se_) {
     RCLCPP_INFO(this->get_logger(), "Planning : Pacsim using simulated State Estimation");
     tf_buffer_ = std::make_unique<tf2_ros::Buffer>(this->get_clock());
     tf_listener_ = std::make_shared<tf2_ros::TransformListener>(*tf_buffer_);

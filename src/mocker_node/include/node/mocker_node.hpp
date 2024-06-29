@@ -7,7 +7,7 @@
 #include <string>
 
 #include "common_lib/communication/marker.hpp"
-#include "common_lib/communication/planning.hpp"
+#include "common_lib/communication/interfaces.hpp"
 #include "fs_msgs/msg/finished_signal.hpp"
 #include "fs_msgs/msg/go_signal.hpp"
 #include "rclcpp/rclcpp.hpp"

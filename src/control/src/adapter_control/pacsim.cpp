@@ -15,7 +15,7 @@ PacSimAdapter::PacSimAdapter(const ControlParameters& params)
 
     // Maybe change time to a lower value if needed: std::chrono::milliseconds(10)
     RCLCPP_INFO(this->get_logger(), "Creating wall timer");
-    timer_ = this->create_wall_timer(std::chrono::milliseconds(5),
+    timer_ = this->create_wall_timer(std::chrono::milliseconds(10),
                                      std::bind(&PacSimAdapter::timer_callback, this));
 
     this->finished_client_ = this->create_client<std_srvs::srv::Empty>("/pacsim/finish_signal");
@@ -25,8 +25,6 @@ PacSimAdapter::PacSimAdapter(const ControlParameters& params)
           last_stored_velocity_ = std::sqrt(std::pow(msg.twist.twist.linear.x, 2) +
                                             std::pow(msg.twist.twist.linear.y, 2) +
                                             std::pow(msg.twist.twist.linear.z, 2));
-          // RCLCPP_INFO(this->get_logger(), "velocity_callback: storing current
-          // velocity");
         });
   }
 
@@ -34,9 +32,7 @@ PacSimAdapter::PacSimAdapter(const ControlParameters& params)
 }
 
 void PacSimAdapter::timer_callback() {
-  RCLCPP_INFO(this->get_logger(), "timer_callback: trying to call canTransform");
   if (tf_buffer_->canTransform("map", "car", tf2::TimePointZero)) {
-    RCLCPP_INFO(this->get_logger(), "timer_callback: canTransform success");
     custom_interfaces::msg::VehicleState pose;
     geometry_msgs::msg::TransformStamped t =
         tf_buffer_->lookupTransform("map", "car", tf2::TimePointZero);
@@ -54,8 +50,8 @@ void PacSimAdapter::timer_callback() {
     pose.linear_velocity = this->last_stored_velocity_;
     pose.angular_velocity = 0.0;  // not needed -> default value
 
-    RCLCPP_INFO(get_logger(), "Pose info. Position:%f, %f;  Linear velocity %f, Theta %f",
-                pose.position.x, pose.position.y, pose.linear_velocity, pose.theta);
+    RCLCPP_DEBUG(get_logger(), "Pose info. Position:%f, %f;  Linear velocity %f, Theta %f",
+                 pose.position.x, pose.position.y, pose.linear_velocity, pose.theta);
     this->publish_control(pose);
   }
 }

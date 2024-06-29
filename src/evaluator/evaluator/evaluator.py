@@ -14,6 +14,8 @@ from evaluator.metrics import (
     get_average_difference,
     get_inter_cones_distance,
     compute_distance,
+    get_false_positives,
+    get_duplicates
 )
 from evaluator.formats import (
     format_vehicle_state_msg,
@@ -24,12 +26,13 @@ import sys
 from tf2_ros.transform_listener import TransformListener
 from evaluator.adapter_maps import (
     ADAPTER_CONSTRUCTOR_DICTINARY,
-    ADAPTER_POINT_CLOUD_TOPIC_DICTINARY,
+    ADAPTER_POINT_CLOUD_TOPIC_DICTIONARY,
+    ADAPTER_POINT_CLOUD_TOPIC_QOS_DICTIONARY,
 )
 import message_filters
 import numpy as np
 import rclpy.subscription
-from std_msgs.msg import Float32, Float32MultiArray, MultiArrayDimension
+from std_msgs.msg import Float32, Float32MultiArray, MultiArrayDimension, Int32
 from sensor_msgs.msg import PointCloud2
 import datetime
 from math import sqrt
@@ -74,33 +77,33 @@ class Evaluator(Node):
             .bool_value
         )
         if (self._adapter_name_ == "fsds") and (self.use_simulated_perception_):
-            rclpy.get_logger().error(
+            self.get_logger().error(
                 "Simulated perception is not supported for FSDS adapter"
-            )
-            sys.exit(1)
-        if self.use_simulated_planning_ and (
-            self._adapter_name_ == "fsds" or self._adapter_name_ == "pacsim"
-        ):
-            rclpy.get_logger().error(
-                "Simulated planning is not supported for FSDS and PacSIM adapter"
             )
             sys.exit(1)
 
         self._point_cloud_receive_time_: datetime.datetime = datetime.datetime.now()
         self.perception_receive_time_: datetime.datetime = datetime.datetime.now()
         self.map_receive_time_: datetime.datetime = datetime.datetime.now()
+        self.pose_receive_time_: datetime.datetime = datetime.datetime.now()
         self._planning_receive_time_: datetime.datetime = datetime.datetime.now()
         self._control_receive_time_: datetime.datetime = datetime.datetime.now()
 
         # Subscriptions
-        self.perception_timing_subscription_ = self.create_subscription(
+        self._perception_timing_subscription_ = self.create_subscription(
             ConeArray,
             "/perception/cones",
             self.perception_callback_time_measurement,
             10,
-        )  # TODO: probably to be removed and moved to the perception callback
+        )
         self.perception_subscription_ = message_filters.Subscriber(
             self, ConeArray, "/perception/cones"
+        )
+        self._map_timing_subscription_ = self.create_subscription(
+            ConeArray,
+            "/state_estimation/map",
+            self.map_callback_time_measurement,
+            10,
         )
         self.map_subscription_ = message_filters.Subscriber(
             self, ConeArray, "/state_estimation/map"
@@ -112,24 +115,19 @@ class Evaluator(Node):
         self._transforms_listener_ = TransformListener(self.transform_buffer_, self)
         self.point_cloud_timing_subscription_ = self.create_subscription(
             PointCloud2,
-            ADAPTER_POINT_CLOUD_TOPIC_DICTINARY[self._adapter_name_],
+            ADAPTER_POINT_CLOUD_TOPIC_DICTIONARY[self._adapter_name_],
             self.point_cloud_callback,
-            10,
-        )
-        self.point_cloud_subscription_ = message_filters.Subscriber(
-            self,
-            PointCloud2,
-            ADAPTER_POINT_CLOUD_TOPIC_DICTINARY[self._adapter_name_],
+            ADAPTER_POINT_CLOUD_TOPIC_QOS_DICTIONARY[self._adapter_name_],
         )
         self.planning_subscription = self.create_subscription(
-            PathPointArray, "path_planning/path", self.compute_and_publish_planning, 10
+            PathPointArray, "/path_planning/path", self.compute_and_publish_planning, 1
         )
         self.planning_gt_subscription = self.create_subscription(
-            PathPointArray, "path_planning/mock_path", self.planning_gt_callback, 10
+            PathPointArray, "/path_planning/mock_path", self.planning_gt_callback, 1
         )
         self.control_data_sub_ = self.create_subscription(
             EvaluatorControlData,
-            "control/evaluator_data",
+            "/control/evaluator_data",
             self.compute_and_publish_control,
             10,
         )
@@ -147,6 +145,14 @@ class Evaluator(Node):
         self._perception_inter_cones_distance_ = self.create_publisher(
             Float32, "/evaluator/perception/inter_cones_distance", 10
         )
+        self._perception_false_positives_ = self.create_publisher(
+            Int32, "/evaluator/perception/false_positives", 10
+        )
+
+        self._perception_number_duplicates = self.create_publisher(
+            Int32, "/evaluator/perception/number_duplicates", 10
+        )
+
         self._perception_execution_time_ = self.create_publisher(
             Float32, "/evaluator/perception/execution_time", 10
         )
@@ -170,6 +176,18 @@ class Evaluator(Node):
             Float32, "/evaluator/state_estimation/map_root_mean_squared_difference", 10
         )
 
+        self._se_false_positives_ = self.create_publisher(
+            Int32, "/evaluator/state_estimation/false_positives", 10
+        )
+
+        self._se_number_duplicates = self.create_publisher(
+            Int32, "/evaluator/state_estimation/number_duplicates", 10
+        )
+
+        self._se_difference_with_map_ = self.create_publisher(
+            Int32, "/evaluator/state_estimation/difference_with_map", 10
+        )
+
         # Publisher for path planning metrics
         self._planning_mean_difference_ = self.create_publisher(
             Float32, "/evaluator/planning/mean_difference", 10
@@ -188,11 +206,11 @@ class Evaluator(Node):
         self._control_execution_time_ = self.create_publisher(
             Float32, "/evaluator/control/execution_time", 10
         )
-        self._control_difference_ = self.create_publisher(
+        self._control_pose_difference_ = self.create_publisher(
             Float32, "/evaluator/control/pose/difference", 10
         )
 
-        self._control_velocity_difference_ = self.create_publisher(
+        self._control_velocity_lookahead_difference_ = self.create_publisher(
             Float32, "/evaluator/control/velocity/difference", 10
         )
 
@@ -202,11 +220,13 @@ class Evaluator(Node):
         self.planning_metrics = []
         self.control_metrics = []
 
-        self._control_sum_error = 0
-        self._control_squared_sum_error = 0
+        self._control_pose_sum_error = 0
+        self._control_pose_squared_sum_error = 0
         self._control_velocity_sum_error = 0
         self._control_velocity_squared_sum_error = 0
         self._control_count = 0
+        self._control_closest_velocity_sum_error = 0
+        self.control_closest_velocity_squared_sum_error = 0
 
         self._perception_sum_error = 0
         self._perception_squared_sum_error = 0
@@ -291,30 +311,61 @@ class Evaluator(Node):
         )
 
         # Control metrics over time
-        self._control_difference_mean_ = self.create_publisher(
+        self._control_pose_difference_mean_ = self.create_publisher(
             Float32, "/evaluator/control/pose/difference_mean", 10
         )
 
-        self._control_mean_squared_difference_ = self.create_publisher(
+        self._control_pose_mean_squared_difference_ = self.create_publisher(
             Float32, "/evaluator/control/pose/mean_squared_difference", 10
         )
 
-        self._control_root_mean_squared_difference_ = self.create_publisher(
+        self._control_pose_root_mean_squared_difference_ = self.create_publisher(
             Float32, "/evaluator/control/pose/root_mean_squared_difference", 10
         )
-        self._control_velocity_difference_mean_ = self.create_publisher(
-            Float32, "/evaluator/control/velocity/difference_mean", 10
+        self._control_velocity_to_lookahead_velocity_difference_mean_ = (
+            self.create_publisher(
+                Float32, "/evaluator/control/velocity/lookahead/difference_mean", 10
+            )
         )
-        self._control_velocity_mean_squared_difference_ = self.create_publisher(
-            Float32, "/evaluator/control/velocity/mean_squared_difference", 10
+        self._control_velocity_to_lookahead_velocity_mean_squared_difference_ = (
+            self.create_publisher(
+                Float32,
+                "/evaluator/control/velocity/lookahead/mean_squared_difference",
+                10,
+            )
         )
-        self._control_velocity_root_mean_squared_difference_ = self.create_publisher(
-            Float32, "/evaluator/control/velocity/root_mean_squared_difference", 10
+        self._control_velocity_to_lookahead_velocity_root_mean_squared_difference_ = (
+            self.create_publisher(
+                Float32,
+                "/evaluator/control/velocity/lookahead/root_mean_squared_difference",
+                10,
+            )
         )
 
-        self.planning_mock = (
-            []
-        )  # will store the reception of a planning mock from subscriber
+        self._control_velocity_to_closest_velocity_difference_ = self.create_publisher(
+            Float32, "/evaluator/control/velocity/closest/difference", 10
+        )
+        self._control_velocity_to_closest_velocity_difference_mean_ = (
+            self.create_publisher(
+                Float32, "/evaluator/control/velocity/closest/difference_mean", 10
+            )
+        )
+        self._control_velocity_to_closest_velocity_mean_squared_difference_ = (
+            self.create_publisher(
+                Float32,
+                "/evaluator/control/velocity/closest/mean_squared_difference",
+                10,
+            )
+        )
+        self._control_velocity_to_closest_velocity_root_mean_squared_difference_ = (
+            self.create_publisher(
+                Float32,
+                "/evaluator/control/velocity/closest/root_mean_squared_difference",
+                10,
+            )
+        )
+
+        self.planning_mock = PathPointArray()
 
         if self._adapter_name_ == "vehicle":
             return
@@ -383,7 +434,6 @@ class Evaluator(Node):
         Computes the perception's execution time
         """
 
-        # TODO: probably to be removed and moved to the perception callback
         self.get_logger().debug("Received perception")
         self.perception_receive_time_ = datetime.datetime.now()
         time_difference = float(
@@ -395,6 +445,21 @@ class Evaluator(Node):
         execution_time = Float32()
         execution_time.data = time_difference
         self._perception_execution_time_.publish(execution_time)
+
+    def map_callback_time_measurement(self, _: ConeArray) -> None:
+        """!
+        Computes the state estimation's execution time
+        """
+
+        self.get_logger().debug("Received map")
+        self.map_receive_time_ = datetime.datetime.now()
+        self.pose_receive_time_ = datetime.datetime.now()
+        time_difference: datetime.timedelta = float(
+            (self.map_receive_time_ - self.perception_receive_time_).microseconds / 1000
+        )
+        execution_time = Float32()
+        execution_time.data = time_difference
+        self._map_execution_time_.publish(execution_time)
 
     def compute_and_publish_state_estimation(
         self,
@@ -419,8 +484,8 @@ class Evaluator(Node):
             return
 
         # Compute execution time
-        self.get_logger().debug("Received map")
         self.map_receive_time_ = datetime.datetime.now()
+        self.pose_receive_time_ = datetime.datetime.now()
         time_difference: datetime.timedelta = float(
             (self.map_receive_time_ - self.perception_receive_time_).microseconds / 1000
         )
@@ -466,6 +531,9 @@ class Evaluator(Node):
             cone_positions, groundtruth_cone_positions
         )
 
+        num_duplicates = Int32()
+        num_duplicates.data = int(get_duplicates(cone_positions, 0.1))
+
         root_mean_squared_difference = Float32()
         root_mean_squared_difference.data = sqrt(
             get_mean_squared_difference(cone_positions, groundtruth_cone_positions)
@@ -489,6 +557,7 @@ class Evaluator(Node):
         self._map_mean_difference_.publish(mean_difference)
         self._map_mean_squared_difference_.publish(mean_squared_difference)
         self._map_root_mean_squared_difference_.publish(root_mean_squared_difference)
+        self._se_number_duplicates.publish(num_duplicates)
 
         # Compute map metrics over time
         self._se_map_sum_error += get_average_difference(
@@ -560,6 +629,14 @@ class Evaluator(Node):
         self._map_mean_mean_error.publish(mean_mean_error)
         self._map_mean_mean_squared_error.publish(mean_mean_squared_error)
 
+        false_positives = Int32()
+        false_positives.data = int(get_false_positives(map, groundtruth_map, 0.1))
+        self._se_false_positives_.publish(false_positives)
+
+        difference_with_map = Int32()
+        difference_with_map.data = map.size - groundtruth_map.size
+        self._se_difference_with_map_.publish(difference_with_map)
+
         # For exporting metrics to csv
         metrics = {
             "timestamp": datetime.datetime.now(),
@@ -617,6 +694,9 @@ class Evaluator(Node):
             "mean_mean_error": mean_mean_error.data,
             "mean_mean_squared_error": mean_mean_squared_error.data,
             "mean_mean_root_squared_error": mean_mean_root_squared_error.data,
+            "false_positives": false_positives.data,
+            "difference_with_map": difference_with_map.data,
+            "num_duplicates": num_duplicates.data
         }
         self.se_metrics.append(metrics)
 
@@ -632,8 +712,10 @@ class Evaluator(Node):
         """
 
         # Compute instantaneous perception metrics
-        cone_positions = np.append(perception_output[:2], 0)
-        groundtruth_cone_positions = perception_ground_truth
+
+        # TODO: include confidence in evaluator
+        cone_positions = perception_output[:, :2]
+        groundtruth_cone_positions = perception_ground_truth[:, :2]
         mean_difference = Float32()
         mean_difference.data = get_average_difference(
             cone_positions, groundtruth_cone_positions
@@ -646,6 +728,41 @@ class Evaluator(Node):
         inter_cones_distance.data = get_inter_cones_distance(cone_positions)
         root_mean_squared_difference = Float32()
         root_mean_squared_difference.data = sqrt(mean_squared_error.data)
+
+        false_positives = Int32()
+        false_positives.data = int(get_false_positives(
+            perception_output, perception_ground_truth, 0.1
+        ))
+
+        num_duplicates = Int32()
+        num_duplicates.data = int(get_duplicates(perception_output, 0.1))
+
+        self.get_logger().debug(
+            "Computed perception metrics:\n \
+                               Mean difference: {}\n \
+                               Inter cones distance: {}\n \
+                               Mean squared difference: {}\n \
+                               Root mean squared difference: {}\n \
+                               False positives: {}\n \
+                               Duplicates: {}".format(
+                mean_difference,
+                inter_cones_distance,
+                mean_squared_error,
+                root_mean_squared_difference,
+                false_positives,
+                num_duplicates
+            )
+        )
+
+        # Publishes computed perception metrics
+        self._perception_mean_difference_.publish(mean_difference)
+        self._perception_inter_cones_distance_.publish(inter_cones_distance)
+        self._perception_mean_squared_difference_.publish(mean_squared_error)
+        self._perception_root_mean_squared_difference_.publish(
+            root_mean_squared_difference
+        )
+        self._perception_false_positives_.publish(false_positives)
+        self._perception_number_duplicates.publish(num_duplicates)
 
         # Compute perception metrics over time
         self._perception_sum_error += get_average_difference(
@@ -669,27 +786,6 @@ class Evaluator(Node):
             self._perception_root_squared_sum_error / self._perception_count
         )
 
-        self.get_logger().debug(
-            "Computed perception metrics:\n \
-                               Mean difference: {}\n \
-                               Inter cones distance: {}\n \
-                               Mean squared difference: {}\n \
-                               Root mean squared difference: {}".format(
-                mean_difference,
-                inter_cones_distance,
-                mean_squared_error,
-                root_mean_squared_difference,
-            )
-        )
-
-        # Publishes computed perception metrics
-        self._perception_mean_difference_.publish(mean_difference)
-        self._perception_inter_cones_distance_.publish(inter_cones_distance)
-        self._perception_mean_squared_difference_.publish(mean_squared_error)
-        self._perception_root_mean_squared_difference_.publish(
-            root_mean_squared_difference
-        )
-
         # Publish perception metrics over time
         self._perception_mean_mean_error.publish(mean_mean_error)
         self._perception_mean_mean_squared_error.publish(mean_mean_squared_error)
@@ -707,6 +803,8 @@ class Evaluator(Node):
             "mean_mean_error": mean_mean_error.data,
             "mean_mean_squared_error": mean_mean_squared_error.data,
             "mean_mean_root_squared_error": mean_mean_root_squared_error.data,
+            "false_positives": false_positives.data,
+            "duplicates": num_duplicates.data
         }
         self.perception_metrics.append(metrics)
 
@@ -730,14 +828,14 @@ class Evaluator(Node):
         self._planning_execution_time_.publish(execution_time)
 
         # Compute instantaneous planning metrics
-        actual_path = format_path_point_array_msg(msg.pathpoint_array)
-        expected_path = format_path_point_array_msg(self.planning_mock)
+        actual_path: np.ndarray = format_path_point_array_msg(msg)
+        expected_path: np.ndarray = format_path_point_array_msg(self.planning_mock)
 
         if len(actual_path) == 0 or len(expected_path) == 0:
             self.get_logger().debug("Path info missing")
             return
 
-        mean_difference = Float32()  #
+        mean_difference = Float32()
         mean_difference.data = get_average_difference(actual_path, expected_path)
         mean_squared_difference = Float32()
         mean_squared_difference.data = get_mean_squared_difference(
@@ -805,8 +903,6 @@ class Evaluator(Node):
         }
         self.planning_metrics.append(metrics)
 
-        self.get_logger().info(self.planning_metrics)
-
     def planning_gt_callback(self, msg: PathPointArray):
         """!
         Stores the path planning ground truth from mocker node.
@@ -815,7 +911,7 @@ class Evaluator(Node):
             msg (PathPointArray): Path points array message.
         """
         self.get_logger().debug("Received GT planning")
-        self.planning_mock = msg.pathpoint_array
+        self.planning_mock: PathPointArray = msg
         if self.use_simulated_planning_:
             self._planning_receive_time_ = datetime.datetime.now()
 
@@ -823,28 +919,24 @@ class Evaluator(Node):
         """!
         Computes control metrics and publishes them.
         Args:
-            vehicle_state (VehicleState): Vehicle state message.
-            closest_point (PathPoint): Closest point message.
+            msg (EvaluatorControlData): Control info data message.
         """
-
         self.get_logger().debug("Received control")
-        self._control_receive_time_ = datetime.datetime.now()
 
-        # Execution time metrics calculation
-        time_difference = float(
-            (self._control_receive_time_ - self._planning_receive_time_).microseconds
-            / 1000
-        )
-        execution_time = Float32()
-        execution_time.data = time_difference
+        if not self.use_simulated_se_ or self._adapter_name_ == "eufs":
+            # Execution time metrics calculation
+            self._control_receive_time_ = datetime.datetime.now()
+            time_difference = float(
+                (self._control_receive_time_ - self.pose_receive_time_).microseconds
+                / 1000
+            )
+            execution_time = Float32()
+            execution_time.data = time_difference
 
-        self._control_execution_time_.publish(
-            execution_time
-        )  # Publishes execution time
+            self._control_execution_time_.publish(execution_time)
 
         # Compute instantaneous control metrics
         pose_treated, velocities_treated = format_vehicle_state_msg(msg.vehicle_state)
-        # lookahead_point = format_point2d_msg(msg.lookahead_point)
         lookahead_velocity = msg.lookahead_velocity
 
         pose_position = pose_treated[:2]
@@ -852,87 +944,141 @@ class Evaluator(Node):
 
         pose_difference = Float32()
         pose_difference.data = compute_distance(closest_point, pose_position)
-        velocity_difference = Float32()
-        velocity_difference.data = float(
-            abs(
-                velocities_treated[0] - lookahead_velocity
-            )  # TODO: change this to closest point velocity
+        velocity_to_lookahead_velocity_difference = Float32()
+        velocity_to_lookahead_velocity_difference.data = float(
+            velocities_treated[0] - lookahead_velocity
         )
 
-        # Compute control metrics over time
-        self._control_sum_error += pose_difference.data
-        self._control_squared_sum_error += pose_difference.data**2
-        self._control_velocity_sum_error += velocity_difference.data
-        self._control_velocity_squared_sum_error += velocity_difference.data**2
-        self._control_count += 1
-
-        velocity_mean_difference = Float32()
-        velocity_mean_difference.data = float(
-            self._control_velocity_sum_error / self._control_count
-        )
-
-        velocity_mean_squared_difference = Float32()
-        velocity_mean_squared_difference.data = float(
-            self._control_velocity_squared_sum_error / self._control_count
-        )
-
-        velocity_root_mean_squared = Float32()
-        velocity_root_mean_squared.data = sqrt(
-            self._control_velocity_squared_sum_error / self._control_count
-        )
-
-        mean_difference = Float32()
-        mean_difference.data = float(self._control_sum_error / self._control_count)
-
-        mean_squared_difference = Float32()
-        mean_squared_difference.data = float(
-            self._control_squared_sum_error / self._control_count
-        )
-
-        root_mean_squared_difference = Float32()
-        root_mean_squared_difference.data = sqrt(
-            self._control_squared_sum_error / self._control_count
+        velocity_to_closest_difference = Float32()
+        velocity_to_closest_difference.data = float(
+            velocities_treated[0] - msg.closest_point_velocity
         )
 
         self.get_logger().debug(
             "Computed control metrics:\n \
-                                Difference: {}\n \
-                                Mean difference: {}\n \
-                                Mean squared difference: {}\n \
-                                Root mean squared difference: {}".format(
+                                Pose Difference: {}\n \
+                                Velocity Difference: {}\n \
+                                Lookahead Velocity Difference: {}".format(
                 pose_difference,
-                mean_difference,
-                mean_squared_difference,
-                root_mean_squared_difference,
+                velocity_to_closest_difference,
+                velocity_to_lookahead_velocity_difference,
             )
         )
 
         # Publish control metrics
-        self._control_difference_.publish(pose_difference)
-        self._control_difference_mean_.publish(mean_difference)
-        self._control_mean_squared_difference_.publish(mean_squared_difference)
-        self._control_root_mean_squared_difference_.publish(
-            root_mean_squared_difference
+        self._control_pose_difference_.publish(pose_difference)
+        self._control_velocity_to_closest_velocity_difference_.publish(
+            velocity_to_closest_difference
+        )
+        self._control_velocity_lookahead_difference_.publish(
+            velocity_to_lookahead_velocity_difference
         )
 
-        self._control_velocity_difference_.publish(velocity_difference)
-        self._control_velocity_difference_mean_.publish(velocity_mean_difference)
-        self._control_mean_squared_difference_.publish(velocity_mean_squared_difference)
-        self._control_velocity_mean_squared_difference_.publish(
-            velocity_root_mean_squared
+        # Compute control metrics over time
+        self._control_pose_sum_error += pose_difference.data
+        self._control_pose_squared_sum_error += pose_difference.data**2
+        self._control_velocity_sum_error += (
+            velocity_to_lookahead_velocity_difference.data
+        )
+        self._control_velocity_squared_sum_error += (
+            velocity_to_lookahead_velocity_difference.data**2
+        )
+        self._control_count += 1
+        self._control_closest_velocity_sum_error += float(
+            velocities_treated[0] - msg.closest_point_velocity
+        )
+        self.control_closest_velocity_squared_sum_error += (
+            float(velocities_treated[0] - msg.closest_point_velocity) ** 2
+        )
+
+        velocity_to_lookahead_mean_difference = Float32()
+        velocity_to_lookahead_mean_difference.data = float(
+            self._control_velocity_sum_error / self._control_count
+        )
+
+        velocity_to_lookahead_mean_squared_difference = Float32()
+        velocity_to_lookahead_mean_squared_difference.data = float(
+            self._control_velocity_squared_sum_error / self._control_count
+        )
+
+        velocity_to_lookahead_root_mean_squared = Float32()
+        velocity_to_lookahead_root_mean_squared.data = sqrt(
+            self._control_velocity_squared_sum_error / self._control_count
+        )
+
+        velocity_to_closest_mean_difference = Float32()
+        velocity_to_closest_mean_difference.data = float(
+            self._control_closest_velocity_sum_error / self._control_count
+        )
+
+        velocity_to_closest_mean_squared_difference = Float32()
+        velocity_to_closest_mean_squared_difference.data = float(
+            self.control_closest_velocity_squared_sum_error / self._control_count
+        )
+
+        velocity_to_closest_root_mean_squared = Float32()
+        velocity_to_closest_root_mean_squared.data = sqrt(
+            self.control_closest_velocity_squared_sum_error / self._control_count
+        )
+
+        pose_mean_difference = Float32()
+        pose_mean_difference.data = float(
+            self._control_pose_sum_error / self._control_count
+        )
+
+        pose_mean_squared_difference = Float32()
+        pose_mean_squared_difference.data = float(
+            self._control_pose_squared_sum_error / self._control_count
+        )
+
+        pose_root_mean_squared_difference = Float32()
+        pose_root_mean_squared_difference.data = sqrt(
+            self._control_pose_squared_sum_error / self._control_count
+        )
+
+        # Publish control metrics over time
+        self._control_pose_difference_mean_.publish(pose_mean_difference)
+        self._control_pose_mean_squared_difference_.publish(
+            pose_mean_squared_difference
+        )
+        self._control_pose_root_mean_squared_difference_.publish(
+            pose_root_mean_squared_difference
+        )
+
+        self._control_velocity_to_lookahead_velocity_difference_mean_.publish(
+            velocity_to_lookahead_mean_difference
+        )
+        self._control_pose_mean_squared_difference_.publish(
+            velocity_to_lookahead_mean_squared_difference
+        )
+        self._control_velocity_to_lookahead_velocity_mean_squared_difference_.publish(
+            velocity_to_lookahead_root_mean_squared
+        )
+        self._control_velocity_to_closest_velocity_difference_mean_.publish(
+            velocity_to_closest_mean_difference
+        )
+        self._control_velocity_to_closest_velocity_mean_squared_difference_.publish(
+            velocity_to_closest_mean_squared_difference
+        )
+        self._control_velocity_to_closest_velocity_root_mean_squared_difference_.publish(
+            velocity_to_closest_root_mean_squared
         )
 
         # For exporting metrics to csv
         metrics = {
             "timestamp": datetime.datetime.now(),
             "difference": pose_difference.data,
-            "mean_difference": mean_difference.data,
-            "mean_squared_difference": mean_squared_difference.data,
-            "root_mean_squared_difference": root_mean_squared_difference.data,
-            "velocity_difference": velocity_difference.data,
-            "velocity_mean_difference": velocity_mean_difference.data,
-            "velocity_mean_squared_difference": velocity_mean_squared_difference.data,
-            "velocity_root_mean_squared_difference": velocity_root_mean_squared.data,
+            "mean_difference": pose_mean_difference.data,
+            "mean_squared_difference": pose_mean_squared_difference.data,
+            "root_mean_squared_difference": pose_root_mean_squared_difference.data,
+            "velocity_difference": velocity_to_lookahead_velocity_difference.data,
+            "velocity_mean_difference": velocity_to_lookahead_mean_difference.data,
+            "velocity_mean_squared_difference": velocity_to_lookahead_mean_squared_difference.data,
+            "velocity_root_mean_squared_difference": velocity_to_lookahead_root_mean_squared.data,
+            "velocity_to_closest_difference": velocity_to_closest_difference.data,
+            "velocity_to_closest_mean_difference": velocity_to_closest_mean_difference.data,
+            "velocity_to_closest_mean_squared_difference": velocity_to_closest_mean_squared_difference.data,
+            "velocity_to_closest_root_mean_squared_difference": velocity_to_closest_root_mean_squared.data,
         }
         self.control_metrics.append(metrics)
 
