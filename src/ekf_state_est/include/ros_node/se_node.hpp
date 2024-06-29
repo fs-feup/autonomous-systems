@@ -43,6 +43,7 @@ class SENode : public rclcpp::Node {
   bool _go_;  /// flag to start the mission
   bool _use_odometry_;
   bool _use_simulated_perception_;
+  std::string _adapter_name_;
   std::shared_ptr<Adapter> _adapter_;
   std::mutex _mutex_;  /// Mutex used to lock EKF access
 

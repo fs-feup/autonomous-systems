@@ -20,7 +20,7 @@ SENode::SENode() : Node("ekf_state_est") {
   // TODO: noise matrixes by parameter
   this->_use_odometry_ = this->declare_parameter("use_odometry", true);
   _use_simulated_perception_ = this->declare_parameter("use_simulated_perception", false);
-  std::string adapter_name = this->declare_parameter("adapter", "fsds");
+  _adapter_name_ = this->declare_parameter("adapter", "eufs");
   std::string motion_model_name = this->declare_parameter("motion_model", "normal_velocity_model");
   std::string data_assocation_model_name =
       this->declare_parameter("data_assocation_model", "simple_ml");
@@ -71,7 +71,7 @@ SENode::SENode() : Node("ekf_state_est") {
   this->_visualization_map_publisher_ =
       this->create_publisher<visualization_msgs::msg::MarkerArray>(
           "/state_estimation/visualization_map", 10);
-  _adapter_ = adapter_map.at(adapter_name)(std::shared_ptr<SENode>(this));
+  _adapter_ = adapter_map.at(_adapter_name_)(std::shared_ptr<SENode>(this));
 }
 
 /*---------------------- Subscriptions --------------------*/
@@ -216,7 +216,7 @@ void SENode::_publish_map() {
   // RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
   cone_array_msg.header.stamp = this->get_clock()->now();
   marker_array_msg = common_lib::communication::marker_array_from_structure_array(
-      *this->_track_map_, "map_cones", "map");
+      *this->_track_map_, "map_cones", _adapter_name_ == "eufs" ? "base_footprint" : "map");
   this->_map_publisher_->publish(cone_array_msg);
   this->_visualization_map_publisher_->publish(marker_array_msg);
 }
