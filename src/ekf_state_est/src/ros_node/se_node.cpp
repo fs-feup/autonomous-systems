@@ -31,16 +31,15 @@ SENode::SENode() : Node("ekf_state_est") {
     SimpleMaximumLikelihood::curvature_ = sml_da_curvature;
     SimpleMaximumLikelihood::initial_limit_ = sml_initial_limit;
   }
-  float observation_noise = static_cast<float>(this->declare_parameter("observation_noise", 0.05f));
-  float wheel_speed_sensor_noise =
-      static_cast<float>(this->declare_parameter("wheel_speed_sensor_noise", 0.003f));
+  // float observation_noise = static_cast<float>(this->declare_parameter("observation_noise",
+  // 0.05f)); float wheel_speed_sensor_noise =
+  //     static_cast<float>(this->declare_parameter("wheel_speed_sensor_noise", 0.003f));
   float data_association_limit_distance =
       static_cast<float>(this->declare_parameter("data_association_limit_distance", 71.0f));
   //
   //
-  std::shared_ptr<MotionModel> motion_model_wss =
-      motion_model_constructors.at("normal_velocity_model")(
-          MotionModel::create_process_noise_covariance_matrix(0.00003f));  // TUNE
+  std::shared_ptr<MotionModel> motion_model_wss = motion_model_constructors.at(
+      "normal_velocity_model")(MotionModel::create_process_noise_covariance_matrix(0.3f));  // TUNE
   std::shared_ptr<MotionModel> motion_model_imu = motion_model_constructors.at(motion_model_name)(
       MotionModel::create_process_noise_covariance_matrix(0.0064f));  // 0.0064//TUNE
   //
