@@ -4,6 +4,7 @@ from evaluator.metrics import (
     get_average_difference,
     get_mean_squared_difference,
     get_inter_cones_distance,
+    get_false_positives
 )
 
 
@@ -74,8 +75,25 @@ class TestEvaluatorMethods(unittest.TestCase):
         """
         Test case for the get_inter_cones_distance method when the output array is empty.
         """
-        inter_cones_distance = get_inter_cones_distance([])
+        inter_cones_distance = get_inter_cones_distance(np.array([]))
         self.assertEqual(inter_cones_distance, 0)
+    
+    def test_get_false_positives(self):
+        """
+        Test case for the get_false_positives method.
+        """
+        threshold = 1.0
+        false_positives = get_false_positives(self.output, self.ground_truth, threshold)
+        self.assertEqual(false_positives, 1)
+
+    def test_get_false_positives2(self):
+        threshold = 1.0
+
+        # Swapping for testing purposes
+        output = self.ground_truth
+        ground_truth = self.output
+        false_positives = get_false_positives(output, ground_truth, threshold)
+        self.assertEqual(false_positives, 5)
 
 
 if __name__ == "__main__":
