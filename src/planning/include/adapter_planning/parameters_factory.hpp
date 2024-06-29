@@ -37,6 +37,7 @@ std::string load_adapter_parameters(PlanningParameters& params) {
   params.publishing_visualization_msgs_ =
       adapter_node->declare_parameter("publishing_visualization_msg", false);
   params.using_simulated_se_ = adapter_node->declare_parameter("use_simulated_se", false);
+  params.desired_velocity_ = adapter_node->declare_parameter("pre_defined_velocity_planning", 5);
 
   return adapter_node->declare_parameter("adapter", "vehicle");
 }

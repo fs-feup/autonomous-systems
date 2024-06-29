@@ -90,6 +90,11 @@ def generate_launch_description():
                 description="Whether to publish path in visualization format",
                 default_value="true",
             ),
+            DeclareLaunchArgument(
+                "pre_defined_velocity_planning",
+                description="A pre-defined velocity planning value",
+                default_value="5",
+            ),
             Node(
                 package="planning",
                 executable="planning",
@@ -141,6 +146,11 @@ def generate_launch_description():
                     {
                         "publishing_visualization_msg": LaunchConfiguration(
                             "publishing_visualization_msg"
+                        )
+                    },
+                    {
+                        "pre_defined_velocity_planning": LaunchConfiguration(
+                            "pre_defined_velocity_planning"
                         )
                     },
                 ],

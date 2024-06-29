@@ -1,7 +1,0 @@
-Number of Left Cones,Number of Right Cones,Number of Outliers,Outliers Removal Execution Time,Triangulations Execution Time,Smoothing Execution Time
-143,123,0,6.64508,0.465955,24.5552
-127,139,50,6.65121,0.398339,32.7906
-127,139,25,5.8735,0.338164,30.9156
-127,139,0,5.2429,0.320528,32.5945
-47,51,0,0.43548,0.0752619,1.88607
-127,139,10,5.31599,0.320888,30.5723

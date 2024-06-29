@@ -21,15 +21,15 @@ void PointSolver::update_vehicle_pose(
 
   this->vehicle_pose_.velocity_ = vehicle_state_msg.linear_velocity;
   this->vehicle_pose_.orientation = vehicle_state_msg.theta;
-  RCLCPP_INFO(rclcpp::get_logger("control"),
-              "Calculating rear axis: CG.x %f CG.y %f, orientation %f, Dist cg 2 rear axis %f",
-              this->vehicle_pose_.position.x, vehicle_pose_.position.y,
-              this->vehicle_pose_.orientation, this->dist_cg_2_rear_axis_);
+  // RCLCPP_DEBUG(rclcpp::get_logger("control"),
+  //              "Calculating rear axis: CG.x %f CG.y %f, orientation %f, Dist cg 2 rear axis %f",
+  //              this->vehicle_pose_.position.x, vehicle_pose_.position.y,
+  //              this->vehicle_pose_.orientation, this->dist_cg_2_rear_axis_);
   this->vehicle_pose_.rear_axis_ = cg_2_rear_axis(
       this->vehicle_pose_.position, this->vehicle_pose_.orientation, this->dist_cg_2_rear_axis_);
 
-  RCLCPP_INFO(rclcpp::get_logger("control"), "Current rear axis: %f, %f",
-              vehicle_pose_.rear_axis_.x, vehicle_pose_.rear_axis_.y);
+  // RCLCPP_DEBUG(rclcpp::get_logger("control"), "Current rear axis: %f, %f",
+  //              vehicle_pose_.rear_axis_.x, vehicle_pose_.rear_axis_.y);
   return;
 }
 
@@ -38,9 +38,10 @@ void PointSolver::update_vehicle_pose(
  *
  * @param path
  */
-std::pair<Position, int> PointSolver::update_closest_point(
+std::tuple<Position, int, double> PointSolver::update_closest_point(
     const std::vector<custom_interfaces::msg::PathPoint> &pathpoint_array) const {
   double min_distance = 1e9;
+  double closest_point_velocity = 0;
   Position closest_point = Position();
   Position aux_point = Position();
   int closest_point_id = -1;
@@ -51,9 +52,10 @@ std::pair<Position, int> PointSolver::update_closest_point(
       min_distance = distance;
       closest_point = aux_point;
       closest_point_id = static_cast<int>(i);
+      closest_point_velocity = pathpoint_array[i].v;
     }
   }
-  return std::make_pair(closest_point, closest_point_id);
+  return std::make_tuple(closest_point, closest_point_id, closest_point_velocity);
 }
 
 std::tuple<Position, double, bool> PointSolver::update_lookahead_point(

@@ -50,8 +50,8 @@ void PacSimAdapter::timer_callback() {
     pose.linear_velocity = this->last_stored_velocity_;
     pose.angular_velocity = 0.0;  // not needed -> default value
 
-    RCLCPP_INFO(get_logger(), "Pose info. Position:%f, %f;  Linear velocity %f, Theta %f",
-                pose.position.x, pose.position.y, pose.linear_velocity, pose.theta);
+    RCLCPP_DEBUG(get_logger(), "Pose info. Position:%f, %f;  Linear velocity %f, Theta %f",
+                 pose.position.x, pose.position.y, pose.linear_velocity, pose.theta);
     this->publish_control(pose);
   }
 }

@@ -18,6 +18,11 @@ def generate_launch_description():
                 default_value="15",
             ),
             DeclareLaunchArgument(
+                "fov_trim",
+                description="Trim the points received to a max angle",
+                default_value="90",  # degrees
+            ),
+            DeclareLaunchArgument(
                 "clustering_n_neighbours",
                 description="Number of neighbours for Clustering algorithm",
                 default_value="1",
@@ -89,6 +94,7 @@ def generate_launch_description():
                 parameters=[
                     {"ransac_epsilon": LaunchConfiguration("ransac_epsilon")},
                     {"ransac_n_neighbours": LaunchConfiguration("ransac_n_neighbours")},
+                    {"fov_trim": LaunchConfiguration("fov_trim")},
                     {
                         "clustering_n_neighbours": LaunchConfiguration(
                             "clustering_n_neighbours"
@@ -123,13 +129,13 @@ def generate_launch_description():
                         )
                     },
                 ],
-                arguments=["--ros-args", "--log-level", "perception:=debug"],
+                arguments=["--ros-args", "--log-level", "perception:=info"],
             ),
             Node(
                 package="perception",
                 executable="perception",
                 name="perception",
-                arguments=["--ros-args", "--log-level", "perception:=debug"],
+                arguments=["--ros-args", "--log-level", "perception:=info"],
             ),
         ]
     )

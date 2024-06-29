@@ -10,59 +10,44 @@ def generate_launch_description():
     se_launch_description = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             PathJoinSubstitution(
-                [FindPackageShare("ekf_state_est"), "launch", "eufs.launch.py"]
+                [FindPackageShare("ekf_state_est"), "launch", "pacsim.launch.py"]
             )
         ),
     )
     evaluator_launch_description = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             PathJoinSubstitution(
-                [FindPackageShare("evaluator"), "launch", "eufs.launch.py"]
+                [FindPackageShare("evaluator"), "launch", "pacsim.launch.py"]
             )
         ),
     )
     planning_launch_description = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             PathJoinSubstitution(
-                [FindPackageShare("planning"), "launch", "eufs.launch.py"]
+                [FindPackageShare("planning"), "launch", "pacsim.launch.py"]
             )
         ),
     )
     control_launch_description = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             PathJoinSubstitution(
-                [FindPackageShare("control"), "launch", "eufs.launch.py"]
+                [FindPackageShare("control"), "launch", "pacsim.launch.py"]
             )
         ),
     )
-    perception_launch_description = IncludeLaunchDescription(
+    mocker_node_launch_description = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             PathJoinSubstitution(
-                [FindPackageShare("perception"), "launch", "eufs.launch.py"]
+                [FindPackageShare("mocker_node"), "launch", "pacsim.launch.py"]
             )
         ),
     )
     return LaunchDescription(
         [
-            DeclareLaunchArgument(
-                "use_simulated_se",
-                description="Use Simulated State Estimation, that is, vehicle state from simulator (true/false)",
-                default_value="False",
-            ),
-            DeclareLaunchArgument(
-                "use_simulated_perception",
-                description="Whether the system is using simulated perception or not",
-                default_value="False",
-            ),
-            DeclareLaunchArgument(
-                "use_simulated_planning",
-                description="Whether the system is using simulated Planning or not",
-                default_value="False",
-            ),
-            se_launch_description,
+            # se_launch_description,
             evaluator_launch_description,
             planning_launch_description,
-            control_launch_description,
-            perception_launch_description,
+            # control_launch_description,
+            mocker_node_launch_description,
         ],
     )

@@ -18,8 +18,16 @@
 
 struct ControlParameters {
   bool using_simulated_se_;
-  bool mocker_node_;
-  double lookahead_gain_;
+  bool use_simulated_planning_;
+  long double lookahead_gain_;
+  long double pid_kp_;
+  long double pid_ki_;
+  long double pid_kd_;
+  long double pid_tau_;
+  long double pid_t_;
+  long double pid_lim_min_;
+  long double pid_lim_max_;
+  long double pid_anti_windup_;
 };
 
 /**
@@ -43,8 +51,7 @@ public:
   void publish_control(const custom_interfaces::msg::VehicleState &vehicle_state_msg);
 
 private:
-  bool mocker_node_{false};
-  // std::string adapter_;
+  bool use_simulated_planning_{false};
 
   // Evaluator Publisher
   rclcpp::Publisher<custom_interfaces::msg::EvaluatorControlData>::SharedPtr evaluator_data_pub_;
@@ -58,13 +65,14 @@ private:
 
   std::vector<custom_interfaces::msg::PathPoint> pathpoint_array_{};
   PointSolver point_solver_; /**< Point Solver */
-  PID long_controller_{0.4, 0.3, 0.09, 0.5, 0.01, -1, 1, 0.7};
+  PID long_controller_;
   PurePursuit lat_controller_; /**< Lateral Controller*/
 
   void publish_evaluator_data(double lookahead_velocity,
                               common_lib::structures::Position lookahead_point,
                               common_lib::structures::Position closest_point,
-                              custom_interfaces::msg::VehicleState vehicle_state_msg) const;
+                              const custom_interfaces::msg::VehicleState &vehicle_state_msg,
+                              double closest_point_velocity, double execution_time) const;
 
   virtual void publish_cmd(double acceleration, double steering) = 0;
 

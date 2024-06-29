@@ -23,6 +23,7 @@ struct PlanningParameters {
   int smoothing_spline_precision_;
   bool publishing_visualization_msgs_;
   bool using_simulated_se_;
+  long double desired_velocity_;
 };
 
 /**
