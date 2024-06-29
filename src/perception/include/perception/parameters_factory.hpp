@@ -29,6 +29,7 @@ PerceptionParameters load_adapter_parameters() {
       adapter_node->declare_parameter("euclidean_fitness_epsilon", 1e-6);
   double fov_trim = adapter_node->declare_parameter("fov_trim", 90);
   params.adapter_ = adapter_node->declare_parameter("adapter", "fsds");
+  params.pc_max_range_ = adapter_node->declare_parameter("pc_max_range", 15.0);
 
   // Create shared pointers for components
   if (ground_removal_algoritm == "ransac") {

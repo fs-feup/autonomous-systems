@@ -39,6 +39,8 @@ Perception::Perception(const PerceptionParameters& params)
 
   this->_fov_trim_ = params.fov_trim_;
 
+  this->_pc_max_range_ = params.pc_max_range_;
+
   // std::unordered_map<std::string, std::tuple<std::string, rclcpp::QoS>> adapter_topic_map = {
   //     {"vehicle", {"/rslidar_points", rclcpp::QoS(10)}},
   //     {"eufs",
@@ -100,7 +102,7 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   header = (*msg).header;
   pcl::fromROSMsg(*msg, *pcl_cloud);
 
-  fov_trimming(pcl_cloud, 15.0, -_fov_trim_, _fov_trim_);
+  fov_trimming(pcl_cloud, this->_pc_max_range_, -_fov_trim_, _fov_trim_);
 
   // Ground Removal
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
