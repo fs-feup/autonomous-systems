@@ -37,13 +37,13 @@ def get_average_difference(output: np.array, expected: np.array) -> float:
     return me
 
 
-def get_false_positives(output: np.array, expected: np.array, threshold: float) -> int:
+def get_false_positives(output: np.ndarray, expected: np.ndarray, threshold: float) -> int:
     """!
     Computes the number of false positives in the output compared to the expected values.
 
     Args:
-        output (np.array): Empirical Output.
-        expected (np.array): Expected output.
+        output (np.ndarray): Empirical Output.
+        expected (np.ndarray): Expected output.
         threshold (float): Distance threshold to consider values as matching.
 
     Returns:
@@ -53,28 +53,15 @@ def get_false_positives(output: np.array, expected: np.array, threshold: float) 
         return 0
 
     if len(expected) == 0:
-        raise ValueError(
-            "No ground truth cones provided for computing false positives."
-        )
+        raise ValueError("No ground truth values provided for computing false positives.")
 
-    # Create a boolean array to mark the expected values that have been matched
-    matched_expected = np.zeros(len(expected), dtype=bool)
-    false_positives: int = 0
+    false_positives = 0
 
-    for empirical_value in output:
-        min_difference = sys.float_info.max
-        min_index = -1
+    differences = np.linalg.norm(output[:, np.newaxis, :] - expected[np.newaxis, :, :], axis=-1)
 
-        for i, expected_value in enumerate(expected):
-            difference = np.linalg.norm(empirical_value - expected_value)
-            if difference < min_difference:
-                min_difference = difference
-                min_index = i
+    matched_expected = np.any(differences < threshold, axis=1)
 
-        if min_difference < threshold and not matched_expected[min_index]:
-            matched_expected[min_index] = True
-        else:
-            false_positives += 1
+    false_positives = np.sum(~matched_expected)
 
     return false_positives
 
@@ -110,39 +97,46 @@ def get_mean_squared_difference(output: np.ndarray, expected: np.ndarray) -> flo
     return mse
 
 
-def compute_distance(cone1, cone2) -> float:
+def compute_distance(cone1 : np.array, cone2 : np.array) -> float:
     """!
     Compute Euclidean distance between two cones.
     """
     return np.linalg.norm(cone1 - cone2)
 
 
-def build_adjacency_matrix(cones):
-    """!
-    Build adjacency matrix based on distances between cones.
-    """
-    size = len(cones)
-    adjacency_matrix = np.zeros((size, size))
-    for i in range(size):
-        for j in range(i + 1, size):
-            distance_ij = compute_distance(cones[i], cones[j])
-            adjacency_matrix[i][j] = distance_ij
-            adjacency_matrix[j][i] = distance_ij
-    return adjacency_matrix
+def build_adjacency_matrix(cones: np.array) -> np.array:
+    """Build adjacency matrix based on distances between cones."""
+    
+    num_cones = cones.shape[0]
+
+    if num_cones == 0:
+        return np.array([])
+
+    differences = cones[:, np.newaxis] - cones[np.newaxis, :]
+    distances = np.linalg.norm(differences, axis=-1)
+
+    np.fill_diagonal(distances, 0.0)
+
+    return distances
 
 
-def get_inter_cones_distance(perception_output: list):
+def get_inter_cones_distance(perception_output: np.array):
     """!
     Computes the average distance between pairs of perceived cones using Minimum Spanning Tree Prim's algorithm.
 
     Args:
-        perception_output (list): List of perceived cones, where each cone is represented as a numpy array.
+        perception_output (np.array): List of perceived cones, where each cone is represented as a numpy array.
 
     Returns:
         float: Average distance between pairs of perceived cones.
     """
 
-    adjacency_matrix: list = build_adjacency_matrix(perception_output)
+    adjacency_matrix: np.array = build_adjacency_matrix(perception_output)
+
+    adjacency_matrix : list[np.array] = [adjacency_matrix[i] for i in range(len(adjacency_matrix))]
+
+    if (len(adjacency_matrix) == 0):
+        return 0
 
     mst = minimum_spanning_tree(adjacency_matrix)
     mst_sum = mst.sum()
