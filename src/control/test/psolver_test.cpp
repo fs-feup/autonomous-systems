@@ -22,7 +22,7 @@ TEST(PointSolverTests, Test_update_closest_point_1) {
   Position expected_point = Position(46.5, -12.37);
   int expected_id = 76;
 
-  auto [path, rear_axis_point] = point_solver_.update_closest_point(pathpoint_array);
+  auto [path, rear_axis_point, closest_point_velocity] = point_solver_.update_closest_point(pathpoint_array);
 
   EXPECT_EQ(path.x, expected_point.x);
   EXPECT_EQ(path.y, expected_point.y);

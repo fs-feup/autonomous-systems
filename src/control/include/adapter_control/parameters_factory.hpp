@@ -14,9 +14,17 @@ struct ControlParameters;
 
 std::string load_adapter_parameters(ControlParameters& params) {
   auto adapter_node = std::make_shared<rclcpp::Node>("control_adapter");
-  params.using_simulated_se_ = adapter_node->declare_parameter("use_simulated_se", false);
-  params.mocker_node_ = adapter_node->declare_parameter("mocker_node", true);
+  params.using_simulated_se_ = adapter_node->declare_parameter("use_simulated_se", true);
+  params.use_simulated_planning_ = adapter_node->declare_parameter("use_simulated_planning", true);
   params.lookahead_gain_ = adapter_node->declare_parameter("lookahead_gain", 0.5);
+  params.pid_kp_ = adapter_node->declare_parameter("pid_kp", 0.4);
+  params.pid_ki_ = adapter_node->declare_parameter("pid_ki", 0.3);
+  params.pid_kd_ = adapter_node->declare_parameter("pid_kd", 0.09);
+  params.pid_tau_ = adapter_node->declare_parameter("pid_tau", 0.5);
+  params.pid_t_ = adapter_node->declare_parameter("pid_t", 0.01);
+  params.pid_lim_min_ = adapter_node->declare_parameter("pid_lim_min", -1);
+  params.pid_lim_max_ = adapter_node->declare_parameter("pid_lim_max", 1);
+  params.pid_anti_windup_ = adapter_node->declare_parameter("pid_anti_windup", 0.7);
 
   return adapter_node->declare_parameter("adapter", "vehicle");
 }

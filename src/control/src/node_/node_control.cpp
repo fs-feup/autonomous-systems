@@ -22,11 +22,12 @@ using namespace common_lib::communication;
 Control::Control(const ControlParameters& params)
     : Node("control"),
       using_simulated_se_(params.using_simulated_se_),
-      mocker_node_(params.mocker_node_),
+      use_simulated_planning_(params.use_simulated_planning_),
       evaluator_data_pub_(create_publisher<custom_interfaces::msg::EvaluatorControlData>(
           "/control/evaluator_data", 10)),
       path_point_array_sub_(create_subscription<custom_interfaces::msg::PathPointArray>(
-          mocker_node_ ? "/path_planning/mock_path" : "/path_planning/path", rclcpp::QoS(10),
+          use_simulated_planning_ ? "/path_planning/mock_path" : "/path_planning/path",
+          rclcpp::QoS(10),
           [this](const custom_interfaces::msg::PathPointArray& msg) {
             RCLCPP_DEBUG(this->get_logger(), "Received pathpoint array");
             pathpoint_array_ = msg.pathpoint_array;
@@ -35,7 +36,10 @@ Control::Control(const ControlParameters& params)
           "/control/visualization/closest_point", 10)),
       lookahead_point_pub_(create_publisher<visualization_msgs::msg::Marker>(
           "control/visualization/lookahead_point", 10)),
-      point_solver_(params.lookahead_gain_) {
+      point_solver_(params.lookahead_gain_),
+      long_controller_(params.pid_kp_, params.pid_ki_, params.pid_kd_, params.pid_tau_,
+                       params.pid_t_, params.pid_lim_min_, params.pid_lim_max_,
+                       params.pid_anti_windup_) {
   if (!using_simulated_se_) {
     vehicle_state_sub_ = this->create_subscription<custom_interfaces::msg::VehicleState>(
         "/state_estimation/vehicle_state", 10,
@@ -46,12 +50,15 @@ Control::Control(const ControlParameters& params)
 // This function is called when a new pose is received
 void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicle_state_msg) {
   if (!go_signal_) return;
+
+  rclcpp::Time start = this->now();
+
   // update vehicle pose
   this->point_solver_.update_vehicle_pose(vehicle_state_msg);
 
   // find the closest point on the path
   // print pathpoint array size
-  auto [closest_point, closest_point_id] =
+  auto [closest_point, closest_point_id, closest_point_velocity] =
       this->point_solver_.update_closest_point(pathpoint_array_);
   if (closest_point_id == -1) {
     RCLCPP_ERROR(rclcpp::get_logger("control"), "PurePursuit: Failed to update closest point");
@@ -75,6 +82,8 @@ void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicl
       this->point_solver_.vehicle_pose_.rear_axis_, this->point_solver_.vehicle_pose_.position,
       lookahead_point, this->point_solver_.dist_cg_2_rear_axis_);
 
+  double execution_time = (this->now() - start).seconds() * 1000;
+
   RCLCPP_DEBUG(rclcpp::get_logger("control"), "Current vehicle velocity: %f",
                this->point_solver_.vehicle_pose_.velocity_);
   RCLCPP_DEBUG(rclcpp::get_logger("control"), "Rear axis coords: %f, %f",
@@ -88,7 +97,8 @@ void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicl
   RCLCPP_DEBUG(rclcpp::get_logger("control"), "Torque: %f, Steering Angle: %f", torque,
                steering_angle);
 
-  publish_evaluator_data(lookahead_velocity, lookahead_point, closest_point, vehicle_state_msg);
+  publish_evaluator_data(lookahead_velocity, lookahead_point, closest_point, vehicle_state_msg,
+                         closest_point_velocity, execution_time);
   publish_visualization_data(lookahead_point, closest_point);
   publish_cmd(torque, steering_angle);
   // Adapter to communicate with the car
@@ -96,7 +106,8 @@ void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicl
 
 void Control::publish_evaluator_data(double lookahead_velocity, Position lookahead_point,
                                      Position closest_point,
-                                     custom_interfaces::msg::VehicleState vehicle_state_msg) const {
+                                     const custom_interfaces::msg::VehicleState& vehicle_state_msg,
+                                     double closest_point_velocity, double execution_time) const {
   custom_interfaces::msg::EvaluatorControlData evaluator_data;
   evaluator_data.header = std_msgs::msg::Header();
   evaluator_data.header.stamp = this->now();
@@ -108,6 +119,8 @@ void Control::publish_evaluator_data(double lookahead_velocity, Position lookahe
   evaluator_data.closest_point.x = closest_point.x;
   evaluator_data.closest_point.y = closest_point.y;
   evaluator_data.lookahead_velocity = lookahead_velocity;
+  evaluator_data.closest_point_velocity = closest_point_velocity;
+  evaluator_data.execution_time = execution_time;
   this->evaluator_data_pub_->publish(evaluator_data);
 }
 
