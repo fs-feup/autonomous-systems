@@ -16,19 +16,22 @@ class TestEvaluatorMethods(unittest.TestCase):
         """
         Set up the test environment by initializing output and ground truth arrays.
         """
-        self.output = []
-        self.output.append(np.array([1, 2, 0]))
-        self.output.append(np.array([2, 1, 0]))
-        self.output.append(np.array([2, 3.5, 0]))
+        self.output = np.array([
+            [1, 2, 0],
+            [2, 1, 0],
+            [2, 3.5, 0]
+        ])
 
-        self.ground_truth = []
-        self.ground_truth.append(np.array([1, 2, 0]))
-        self.ground_truth.append(np.array([2.4, 0.8, 0]))
-        self.ground_truth.append(np.array([4, 3, 0]))
-        self.ground_truth.append(np.array([5, 5, 0]))
-        self.ground_truth.append(np.array([3.5, 4.3, 0]))
-        self.ground_truth.append(np.array([0, 0, 0]))
-        self.ground_truth.append(np.array([4.3, 3.4, 0]))
+        self.ground_truth = np.array([
+            np.array([1, 2, 0]),
+            np.array([2.4, 0.8, 0]),
+            np.array([4, 3, 0]),
+            np.array([5, 5, 0]),
+            np.array([3.5, 4.3, 0]),
+            np.array([0, 0, 0]),
+            np.array([4.3, 3.4, 0])
+        ])
+
 
     def test_get_average_difference1(self):
         """
