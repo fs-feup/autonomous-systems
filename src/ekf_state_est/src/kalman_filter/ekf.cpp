@@ -16,7 +16,7 @@ ExtendedKalmanFilter::ExtendedKalmanFilter(
     std::shared_ptr<DataAssociationModel> data_association_model)
     : _observation_model_(observation_model), _data_association_model_(data_association_model) {
   //_p_matrix_ = Eigen::MatrixXf::Identity(6, 6) * 100.0f;
-  _x_vector_ = Eigen::VectorXf::Constant(6, 0.00001);
+  _x_vector_ = Eigen::VectorXf::Constant(6, 0.0000001);
 }
 /*-----------------------Algorithms-----------------------*/
 
