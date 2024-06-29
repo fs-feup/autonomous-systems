@@ -56,7 +56,7 @@ class EufsAdapter(Adapter):
             10,
         )
 
-        self.node.simulated_planning_subscription = self.node.create_subscription(
+        self.node.simulated_state_subscription = self.node.create_subscription(
             CarState,
             "/odometry_integration/car_state",
             self.set_control_init,
@@ -96,8 +96,8 @@ class EufsAdapter(Adapter):
         Args:
             msg (CarState): Car state coming from EUFS simulator
         """
-        if self.node.use_simulated_planning_:
-            self.node._planning_receive_time_ = datetime.datetime.now()
+        if self.node.use_simulated_se_:
+            self.node.pose_receive_time_ = datetime.datetime.now()
 
     def state_estimation_callback(
         self,
@@ -173,8 +173,6 @@ class EufsAdapter(Adapter):
         """
         self.node.get_logger().debug("Received groundtruth pose")
         self.groundtruth_pose_ = pose
-        if self.node.use_simulated_se_:
-            self.node.pose_receive_time_ = datetime.datetime.now()
 
     def simulated_perception_callback(self, perception: ConeArrayWithCovariance):
         """!

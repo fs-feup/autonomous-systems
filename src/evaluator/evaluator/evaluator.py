@@ -84,6 +84,7 @@ class Evaluator(Node):
         self._point_cloud_receive_time_: datetime.datetime = datetime.datetime.now()
         self.perception_receive_time_: datetime.datetime = datetime.datetime.now()
         self.map_receive_time_: datetime.datetime = datetime.datetime.now()
+        self.pose_receive_time_: datetime.datetime = datetime.datetime.now()
         self._planning_receive_time_: datetime.datetime = datetime.datetime.now()
         self._control_receive_time_: datetime.datetime = datetime.datetime.now()
 
@@ -121,11 +122,11 @@ class Evaluator(Node):
             PathPointArray, "/path_planning/path", self.compute_and_publish_planning, 1
         )
         self.planning_gt_subscription = self.create_subscription(
-            PathPointArray, "path_planning/mock_path", self.planning_gt_callback, 1
+            PathPointArray, "/path_planning/mock_path", self.planning_gt_callback, 1
         )
         self.control_data_sub_ = self.create_subscription(
             EvaluatorControlData,
-            "control/evaluator_data",
+            "/control/evaluator_data",
             self.compute_and_publish_control,
             10,
         )
@@ -896,11 +897,22 @@ class Evaluator(Node):
         """!
         Computes control metrics and publishes them.
         Args:
-            vehicle_state (VehicleState): Vehicle state message.
-            closest_point (PathPoint): Closest point message.
+            msg (EvaluatorControlData): Control info data message.
         """
+        self.get_logger().debug("Received control")
 
-        # No execution time for control because it is calculated by control node
+        if not self.use_simulated_se_ or self._adapter_name_ == "eufs":
+            # Execution time metrics calculation
+            self._control_receive_time_ = datetime.datetime.now()
+            time_difference = float(
+                (self._control_receive_time_ - self.pose_receive_time_).microseconds
+                / 1000
+            )
+            execution_time = Float32()
+            execution_time.data = time_difference
+
+            self._control_execution_time_.publish(execution_time)
+
         # Compute instantaneous control metrics
         pose_treated, velocities_treated = format_vehicle_state_msg(msg.vehicle_state)
         lookahead_velocity = msg.lookahead_velocity

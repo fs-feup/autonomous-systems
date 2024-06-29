@@ -37,7 +37,9 @@ def get_average_difference(output: np.array, expected: np.array) -> float:
     return me
 
 
-def get_false_positives(output: np.ndarray, expected: np.ndarray, threshold: float) -> int:
+def get_false_positives(
+    output: np.ndarray, expected: np.ndarray, threshold: float
+) -> int:
     """!
     Computes the number of false positives in the output compared to the expected values.
 
@@ -53,15 +55,19 @@ def get_false_positives(output: np.ndarray, expected: np.ndarray, threshold: flo
         return 0
 
     if len(expected) == 0:
-        raise ValueError("No ground truth values provided for computing false positives.")
+        raise ValueError(
+            "No ground truth values provided for computing false positives."
+        )
 
     false_positives = 0
 
-    differences = np.linalg.norm(output[:, np.newaxis, :] - expected[np.newaxis, :, :], axis=-1)
+    differences = np.linalg.norm(
+        output[:, np.newaxis, :] - expected[np.newaxis, :, :], axis=-1
+    )
 
     matched_expected = np.any(differences < threshold, axis=1)
 
-    false_positives = np.sum(~matched_expected)
+    false_positives = int(np.sum(~matched_expected))
 
     return false_positives
 
@@ -97,7 +103,7 @@ def get_mean_squared_difference(output: np.ndarray, expected: np.ndarray) -> flo
     return mse
 
 
-def compute_distance(cone1 : np.array, cone2 : np.array) -> float:
+def compute_distance(cone1: np.array, cone2: np.array) -> float:
     """!
     Compute Euclidean distance between two cones.
     """
@@ -106,7 +112,7 @@ def compute_distance(cone1 : np.array, cone2 : np.array) -> float:
 
 def build_adjacency_matrix(cones: np.array) -> np.array:
     """Build adjacency matrix based on distances between cones."""
-    
+
     num_cones = cones.shape[0]
 
     if num_cones == 0:
@@ -133,9 +139,11 @@ def get_inter_cones_distance(perception_output: np.array):
 
     adjacency_matrix: np.array = build_adjacency_matrix(perception_output)
 
-    adjacency_matrix : list[np.array] = [adjacency_matrix[i] for i in range(len(adjacency_matrix))]
+    adjacency_matrix: list[np.array] = [
+        adjacency_matrix[i] for i in range(len(adjacency_matrix))
+    ]
 
-    if (len(adjacency_matrix) == 0):
+    if len(adjacency_matrix) == 0:
         return 0
 
     mst = minimum_spanning_tree(adjacency_matrix)
