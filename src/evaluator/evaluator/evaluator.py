@@ -25,7 +25,8 @@ import sys
 from tf2_ros.transform_listener import TransformListener
 from evaluator.adapter_maps import (
     ADAPTER_CONSTRUCTOR_DICTINARY,
-    ADAPTER_POINT_CLOUD_TOPIC_DICTINARY,
+    ADAPTER_POINT_CLOUD_TOPIC_DICTIONARY,
+    ADAPTER_POINT_CLOUD_TOPIC_QOS_DICTIONARY,
 )
 import message_filters
 import numpy as np
@@ -87,14 +88,20 @@ class Evaluator(Node):
         self._control_receive_time_: datetime.datetime = datetime.datetime.now()
 
         # Subscriptions
-        self.perception_timing_subscription_ = self.create_subscription(
+        self._perception_timing_subscription_ = self.create_subscription(
             ConeArray,
             "/perception/cones",
             self.perception_callback_time_measurement,
             10,
-        )  # TODO: probably to be removed and moved to the perception callback
+        )
         self.perception_subscription_ = message_filters.Subscriber(
             self, ConeArray, "/perception/cones"
+        )
+        self._map_timing_subscription_ = self.create_subscription(
+            ConeArray,
+            "/state_estimation/map",
+            self.map_callback_time_measurement,
+            10,
         )
         self.map_subscription_ = message_filters.Subscriber(
             self, ConeArray, "/state_estimation/map"
@@ -106,14 +113,9 @@ class Evaluator(Node):
         self._transforms_listener_ = TransformListener(self.transform_buffer_, self)
         self.point_cloud_timing_subscription_ = self.create_subscription(
             PointCloud2,
-            ADAPTER_POINT_CLOUD_TOPIC_DICTINARY[self._adapter_name_],
+            ADAPTER_POINT_CLOUD_TOPIC_DICTIONARY[self._adapter_name_],
             self.point_cloud_callback,
-            10,
-        )
-        self.point_cloud_subscription_ = message_filters.Subscriber(
-            self,
-            PointCloud2,
-            ADAPTER_POINT_CLOUD_TOPIC_DICTINARY[self._adapter_name_],
+            ADAPTER_POINT_CLOUD_TOPIC_QOS_DICTIONARY[self._adapter_name_],
         )
         self.planning_subscription = self.create_subscription(
             PathPointArray, "/path_planning/path", self.compute_and_publish_planning, 1
@@ -421,7 +423,6 @@ class Evaluator(Node):
         Computes the perception's execution time
         """
 
-        # TODO: probably to be removed and moved to the perception callback
         self.get_logger().debug("Received perception")
         self.perception_receive_time_ = datetime.datetime.now()
         time_difference = float(
@@ -433,6 +434,21 @@ class Evaluator(Node):
         execution_time = Float32()
         execution_time.data = time_difference
         self._perception_execution_time_.publish(execution_time)
+
+    def map_callback_time_measurement(self, _: ConeArray) -> None:
+        """!
+        Computes the state estimation's execution time
+        """
+
+        self.get_logger().debug("Received map")
+        self.map_receive_time_ = datetime.datetime.now()
+        self.pose_receive_time_ = datetime.datetime.now()
+        time_difference: datetime.timedelta = float(
+            (self.map_receive_time_ - self.perception_receive_time_).microseconds / 1000
+        )
+        execution_time = Float32()
+        execution_time.data = time_difference
+        self._map_execution_time_.publish(execution_time)
 
     def compute_and_publish_state_estimation(
         self,
@@ -457,7 +473,6 @@ class Evaluator(Node):
             return
 
         # Compute execution time
-        self.get_logger().debug("Received map")
         self.map_receive_time_ = datetime.datetime.now()
         self.pose_receive_time_ = datetime.datetime.now()
         time_difference: datetime.timedelta = float(
@@ -681,8 +696,10 @@ class Evaluator(Node):
         """
 
         # Compute instantaneous perception metrics
-        cone_positions = np.append(perception_output[:2], 0)
-        groundtruth_cone_positions = perception_ground_truth
+
+        # TODO: include confidence in evaluator
+        cone_positions = perception_output[:, :2]
+        groundtruth_cone_positions = perception_ground_truth[:, :2]
         mean_difference = Float32()
         mean_difference.data = get_average_difference(
             cone_positions, groundtruth_cone_positions
