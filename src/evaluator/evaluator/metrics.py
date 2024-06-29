@@ -55,15 +55,15 @@ def get_false_positives(output: np.ndarray, expected: np.ndarray, threshold: flo
     if len(expected) == 0:
         raise ValueError("No ground truth values provided for computing false positives.")
 
-    false_positives = 0
+    true_positives = 0
 
     differences = np.linalg.norm(output[:, np.newaxis, :] - expected[np.newaxis, :, :], axis=-1)
 
     matched_expected = np.any(differences < threshold, axis=1)
 
-    false_positives = np.sum(~matched_expected)
+    true_positives = np.sum(matched_expected)
 
-    return false_positives
+    return max(0, len(output) - true_positives)
 
 
 def get_mean_squared_difference(output: np.ndarray, expected: np.ndarray) -> float:

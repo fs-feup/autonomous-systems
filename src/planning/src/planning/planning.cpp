@@ -5,12 +5,11 @@
 
 using std::placeholders::_1;
 
-Planning::Planning(const PlanningParameters &params) : Node("planning"), planning_config_(params) {
+Planning::Planning(const PlanningParameters &params) : Node("planning"), planning_config_(params), desired_velocity_(params.desired_velocity_) {
   cone_coloring_ = ConeColoring(planning_config_.cone_coloring_);
   outliers_ = Outliers(planning_config_.outliers_);
   path_calculation_ = PathCalculation(planning_config_.path_calculation_);
   path_smoothing_ = PathSmoothing(planning_config_.smoothing_);
-  desired_velocity_ = params.desired_velocity_;
 
   // Control Publisher
   this->local_pub_ =
