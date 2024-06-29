@@ -15,7 +15,7 @@ from evaluator.metrics import (
     get_inter_cones_distance,
     compute_distance,
     get_false_positives,
-    get_duplicates
+    get_duplicates,
 )
 from evaluator.formats import (
     format_vehicle_state_msg,
@@ -483,6 +483,8 @@ class Evaluator(Node):
         if map.size == 0 or groundtruth_map.size == 0:
             return
 
+        self.get_logger().debug("Received state estimation")
+
         # Compute execution time
         self.map_receive_time_ = datetime.datetime.now()
         self.pose_receive_time_ = datetime.datetime.now()
@@ -696,7 +698,7 @@ class Evaluator(Node):
             "mean_mean_root_squared_error": mean_mean_root_squared_error.data,
             "false_positives": false_positives.data,
             "difference_with_map": difference_with_map.data,
-            "num_duplicates": num_duplicates.data
+            "num_duplicates": num_duplicates.data,
         }
         self.se_metrics.append(metrics)
 
@@ -730,9 +732,9 @@ class Evaluator(Node):
         root_mean_squared_difference.data = sqrt(mean_squared_error.data)
 
         false_positives = Int32()
-        false_positives.data = int(get_false_positives(
-            perception_output, perception_ground_truth, 0.1
-        ))
+        false_positives.data = int(
+            get_false_positives(perception_output, perception_ground_truth, 0.1)
+        )
 
         num_duplicates = Int32()
         num_duplicates.data = int(get_duplicates(perception_output, 0.1))
@@ -750,7 +752,7 @@ class Evaluator(Node):
                 mean_squared_error,
                 root_mean_squared_difference,
                 false_positives,
-                num_duplicates
+                num_duplicates,
             )
         )
 
@@ -804,7 +806,7 @@ class Evaluator(Node):
             "mean_mean_squared_error": mean_mean_squared_error.data,
             "mean_mean_root_squared_error": mean_mean_root_squared_error.data,
             "false_positives": false_positives.data,
-            "duplicates": num_duplicates.data
+            "duplicates": num_duplicates.data,
         }
         self.perception_metrics.append(metrics)
 

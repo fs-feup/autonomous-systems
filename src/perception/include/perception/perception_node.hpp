@@ -26,6 +26,7 @@ struct PerceptionParameters {
   std::shared_ptr<DistancePredict> distance_predict_;
   std::shared_ptr<ICP> icp_;
   std::string adapter_;
+  std::string vehicle_frame_id_;
   double fov_trim_;
 };
 
@@ -47,6 +48,7 @@ private:
   std::vector<std::shared_ptr<ConeValidator>> _cone_validators_;
   std::shared_ptr<ConeEvaluator> _cone_evaluator_;
   std::string _adapter_;
+  std::string _vehicle_frame_id_;
   std::shared_ptr<ICP> _icp_;
 
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr

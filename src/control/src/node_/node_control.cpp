@@ -23,6 +23,7 @@ Control::Control(const ControlParameters& params)
     : Node("control"),
       using_simulated_se_(params.using_simulated_se_),
       use_simulated_planning_(params.use_simulated_planning_),
+      _map_frame_id_(params.map_frame_id_),
       evaluator_data_pub_(create_publisher<custom_interfaces::msg::EvaluatorControlData>(
           "/control/evaluator_data", 10)),
       path_point_array_sub_(create_subscription<custom_interfaces::msg::PathPointArray>(
@@ -126,10 +127,10 @@ void Control::publish_evaluator_data(double lookahead_velocity, Position lookahe
 
 void Control::publish_visualization_data(const Position& lookahead_point,
                                          const Position& closest_point) const {
-  auto lookahead_msg =
-      common_lib::communication::marker_from_position(lookahead_point, "control", 0, "green");
-  auto closest_msg =
-      common_lib::communication::marker_from_position(closest_point, "control", 1, "red");
+  auto lookahead_msg = common_lib::communication::marker_from_position(
+      lookahead_point, "control", 0, "green", 0.5, _map_frame_id_);
+  auto closest_msg = common_lib::communication::marker_from_position(closest_point, "control", 1,
+                                                                     "red", 0.5, _map_frame_id_);
 
   this->closest_point_pub_->publish(lookahead_msg);
   this->lookahead_point_pub_->publish(closest_msg);

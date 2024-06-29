@@ -55,6 +55,7 @@ class Planning : public rclcpp::Node {
       {common_lib::competition_logic::Mission::SKIDPAD,
        "/events/skidpad.txt"}}; /**< Predictive paths for different missions */
 
+  std::string _map_frame_id_; /**< Frame ID for the map */
   bool received_first_track_ = false;
   bool received_first_pose_ = false;
   std::vector<Cone> cone_array_;

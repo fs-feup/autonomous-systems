@@ -28,7 +28,8 @@ PerceptionParameters load_adapter_parameters() {
   double euclidean_fitness_epsilon =
       adapter_node->declare_parameter("euclidean_fitness_epsilon", 1e-6);
   double fov_trim = adapter_node->declare_parameter("fov_trim", 90);
-  params.adapter_ = adapter_node->declare_parameter("adapter", "fsds");
+  params.adapter_ = adapter_node->declare_parameter("adapter", "eufs");
+  params.vehicle_frame_id_ = params.adapter_ == "eufs" ? "chassis" : "livox_front";
 
   // Create shared pointers for components
   if (ground_removal_algoritm == "ransac") {

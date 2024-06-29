@@ -29,8 +29,9 @@ class EufsAdapter(Adapter):
         """
 
         super().__init__(node)
-        self.groundtruth_pose_ = None
+        self.groundtruth_vehicle_state_ = None
         self.groundtruth_map_ = None
+        self.simulated_vehicle_state_ = None
         self.node.groundtruth_map_subscription_ = self.node.create_subscription(
             ConeArrayWithCovariance,
             "/ground_truth/track",
@@ -38,15 +39,11 @@ class EufsAdapter(Adapter):
             10,
         )
 
-        self.node.groundtruth_pose_subscription_ = self.node.create_subscription(
+        self.node.groundtruth_state_subscription_ = self.node.create_subscription(
             Odometry,
             "/ground_truth/odom",
-            self.groundtruth_pose_callback,
+            self.groundtruth_vehicle_state_callback,
             10,
-        )
-
-        self.node.groundtruth_velocity_ = message_filters.Subscriber(
-            self.node, CarState, "/ground_truth/state"
         )
 
         self.node.simulated_perception_subscription_ = self.node.create_subscription(
@@ -59,7 +56,7 @@ class EufsAdapter(Adapter):
         self.node.simulated_state_subscription = self.node.create_subscription(
             CarState,
             "/odometry_integration/car_state",
-            self.set_control_init,
+            self.simulated_vehicle_state_callback,
             10,
         )
 
@@ -67,7 +64,6 @@ class EufsAdapter(Adapter):
             [
                 self.node.vehicle_state_subscription_,
                 self.node.map_subscription_,
-                self.node.groundtruth_velocity_,
             ],
             10,
             0.5,
@@ -89,20 +85,20 @@ class EufsAdapter(Adapter):
 
         self._perception_time_sync_.registerCallback(self.perception_callback)
 
-    def set_control_init(self, _: CarState):
+    def simulated_vehicle_state_callback(self, msg: CarState):
         """!
         Callback function to mark the initial timestamp of the control execution
 
         Args:
             msg (CarState): Car state coming from EUFS simulator
         """
+        self.simulated_vehicle_state_ = msg
         if self.node.use_simulated_se_:
             self.node.pose_receive_time_ = datetime.datetime.now()
 
     def state_estimation_callback(
         self,
         vehicle_state: VehicleState,
-        velocity_state: CarState,
         map: ConeArray,
     ):
         """!
@@ -112,22 +108,25 @@ class EufsAdapter(Adapter):
             vehicle_state (VehicleState): Vehicle state estimation message.
             map (ConeArray): Cone array message.
         """
-        if self.groundtruth_pose_ is None or self.groundtruth_map_ is None:
+        if (
+            self.groundtruth_vehicle_state_ is None
+            or self.groundtruth_map_ is None
+            or self.simulated_vehicle_state_ is None
+        ):
             return
-        pose_treated, velociies_treated = format_vehicle_state_msg(vehicle_state)
+        pose_treated, velocities_treated = format_vehicle_state_msg(vehicle_state)
         map_treated: np.ndarray = format_cone_array_msg(map)
-        groundtruth_pose_treated: np.ndarray = format_nav_odometry_msg(
-            self.groundtruth_pose_
+        groundtruth_pose_treated, groundtruth_velocity_treated = (
+            format_nav_odometry_msg(self.groundtruth_vehicle_state_)
         )
         groundtruth_map_treated: np.ndarray = (
             format_eufs_cone_array_with_covariance_msg(self.groundtruth_map_)
         )
-        groundtruth_velocity_ = format_car_state_msg(velocity_state)
         self.node.compute_and_publish_state_estimation(
             pose_treated,
             groundtruth_pose_treated,
-            velociies_treated,
-            groundtruth_velocity_,
+            velocities_treated,
+            groundtruth_velocity_treated,
             map_treated,
             groundtruth_map_treated,
         )
@@ -164,15 +163,15 @@ class EufsAdapter(Adapter):
         if self.node.use_simulated_se_:
             self.node.map_receive_time_ = datetime.datetime.now()
 
-    def groundtruth_pose_callback(self, pose: Odometry):
+    def groundtruth_vehicle_state_callback(self, vehicle_state: Odometry):
         """!
-        Callback function to process groundtruth pose messages.
+        Callback function to process groundtruth vehicle_state messages.
 
         Args:
-            pose (Odometry): Groundtruth pose data.
+            vehicle_state (Odometry): Groundtruth vehicle_state data.
         """
-        self.node.get_logger().debug("Received groundtruth pose")
-        self.groundtruth_pose_ = pose
+        self.node.get_logger().debug("Received groundtruth vehicle state")
+        self.groundtruth_vehicle_state_ = vehicle_state
 
     def simulated_perception_callback(self, perception: ConeArrayWithCovariance):
         """!

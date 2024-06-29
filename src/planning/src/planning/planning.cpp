@@ -5,7 +5,11 @@
 
 using std::placeholders::_1;
 
-Planning::Planning(const PlanningParameters &params) : Node("planning"), planning_config_(params), desired_velocity_(params.desired_velocity_) {
+Planning::Planning(const PlanningParameters &params)
+    : Node("planning"),
+      planning_config_(params),
+      desired_velocity_(static_cast<double>(params.desired_velocity_)),
+      _map_frame_id_(params.map_frame_id_) {
   cone_coloring_ = ConeColoring(planning_config_.cone_coloring_);
   outliers_ = Outliers(planning_config_.outliers_);
   path_calculation_ = PathCalculation(planning_config_.path_calculation_);
@@ -114,9 +118,8 @@ void Planning::vehicle_localization_callback(const custom_interfaces::msg::Vehic
  * Publisher point by point
  */
 void Planning::publish_track_points(const std::vector<PathPoint> &path) const {
-
   auto message = common_lib::communication::custom_interfaces_array_from_vector(path);
-  
+
   local_pub_->publish(message);
 }
 
@@ -128,7 +131,7 @@ void Planning::publish_predicitive_track_points() {
   std::vector<PathPoint> path = read_path_file(this->predictive_paths_[this->mission]);
 
   // TODO: Remove this when velocity planning is a reality
-  for (auto& path_point : path){
+  for (auto &path_point : path) {
     path_point.ideal_velocity = desired_velocity_;
   }
 
@@ -151,17 +154,17 @@ void Planning::publish_visualization_msgs(const std::vector<Cone> &left_cones,
                                           const std::vector<PathPoint> &after_triangulations_path,
                                           const std::vector<PathPoint> &final_path) const {
   this->blue_cones_pub_->publish(common_lib::communication::marker_array_from_structure_array(
-      left_cones, "blue_cones_colored", "map", "blue"));
+      left_cones, "blue_cones_colored", this->_map_frame_id_, "blue"));
   this->yellow_cones_pub_->publish(common_lib::communication::marker_array_from_structure_array(
-      right_cones, "yellow_cones_colored", "map", "yellow"));
+      right_cones, "yellow_cones_colored", this->_map_frame_id_, "yellow"));
   this->after_rem_blue_cones_pub_->publish(
       common_lib::communication::marker_array_from_structure_array(
-          after_refining_blue_cones, "blue_cones_colored", "map", "blue"));
+          after_refining_blue_cones, "blue_cones_colored", this->_map_frame_id_, "blue"));
   this->after_rem_yellow_cones_pub_->publish(
       common_lib::communication::marker_array_from_structure_array(
-          after_refining_yellow_cones, "yellow_cones_colored", "map", "yellow"));
+          after_refining_yellow_cones, "yellow_cones_colored", this->_map_frame_id_, "yellow"));
   this->triangulations_pub_->publish(common_lib::communication::marker_array_from_structure_array(
-      after_triangulations_path, "after_triangulations_path", "map", "orange"));
+      after_triangulations_path, "after_triangulations_path", this->_map_frame_id_, "orange"));
   this->visualization_pub_->publish(common_lib::communication::line_marker_from_structure_array(
-      final_path, "smoothed_path_planning", "map", 12, "green"));
+      final_path, "smoothed_path_planning", this->_map_frame_id_, 12, "green"));
 }

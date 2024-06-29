@@ -23,6 +23,7 @@ const std::unordered_map<std::string, std::string> adapter_frame_map = {
 
 Perception::Perception(const PerceptionParameters& params)
     : Node("perception"),
+      _vehicle_frame_id_(params.vehicle_frame_id_),
       _ground_removal_(params.ground_removal_),
       _clustering_(params.clustering_),
       _cone_differentiator_(params.cone_differentiator_),
@@ -154,9 +155,9 @@ void Perception::publish_cones(std::vector<Cluster>* cones) {
   }
 
   this->_cones_publisher->publish(message);
-
+  // TODO: correct frame id to LiDAR instead of vehicle
   this->_cone_marker_array_->publish(common_lib::communication::marker_array_from_structure_array(
-      message_array, "perception", adapter_frame_map.at(this->_adapter_), "green"));
+      message_array, "perception", this->_vehicle_frame_id_, "green"));
 }
 
 void Perception::fov_trimming(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, double max_distance,

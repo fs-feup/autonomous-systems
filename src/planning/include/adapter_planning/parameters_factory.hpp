@@ -38,6 +38,8 @@ std::string load_adapter_parameters(PlanningParameters& params) {
       adapter_node->declare_parameter("publishing_visualization_msg", false);
   params.using_simulated_se_ = adapter_node->declare_parameter("use_simulated_se", false);
   params.desired_velocity_ = adapter_node->declare_parameter("pre_defined_velocity_planning", 5);
+  params.map_frame_id_ =
+      adapter_node->declare_parameter("adapter", "vehicle") == "eufs" ? "base_footprint" : "map";
 
   return adapter_node->declare_parameter("adapter", "vehicle");
 }

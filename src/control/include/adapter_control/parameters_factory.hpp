@@ -25,6 +25,8 @@ std::string load_adapter_parameters(ControlParameters& params) {
   params.pid_lim_min_ = adapter_node->declare_parameter("pid_lim_min", -1);
   params.pid_lim_max_ = adapter_node->declare_parameter("pid_lim_max", 1);
   params.pid_anti_windup_ = adapter_node->declare_parameter("pid_anti_windup", 0.7);
+  params.map_frame_id_ =
+      adapter_node->declare_parameter("adapter", "vehicle") == "eufs" ? "base_footprint" : "map";
 
   return adapter_node->declare_parameter("adapter", "vehicle");
 }
