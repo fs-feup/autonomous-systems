@@ -77,7 +77,7 @@ void GridRANSAC::ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Ptr point
     #pragma omp parallel for reduction(+:count) schedule(dynamic)
     for (int i = 0; i < grids.size(); ++i) {
         for (int j = 0; j < grids[i].size(); ++j) {
-            if (grids[i][j]->points.size() <= 3) continue;
+            if (grids[i][j]->points.size() < 3) continue;
             Plane grid_plane;
             pcl::PointCloud<pcl::PointXYZI>::Ptr grid_ret(new pcl::PointCloud<pcl::PointXYZI>);
             this->_ransac_.ground_removal(grids[i][j], grid_ret, grid_plane);
