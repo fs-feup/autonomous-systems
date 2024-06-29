@@ -15,6 +15,7 @@ from evaluator.metrics import (
     get_inter_cones_distance,
     compute_distance,
     get_false_positives,
+    get_duplicates
 )
 from evaluator.formats import (
     format_vehicle_state_msg,
@@ -147,6 +148,11 @@ class Evaluator(Node):
         self._perception_false_positives_ = self.create_publisher(
             Int32, "/evaluator/perception/false_positives", 10
         )
+
+        self._perception_number_duplicates = self.create_publisher(
+            Int32, "/evaluator/perception/number_duplicates", 10
+        )
+
         self._perception_execution_time_ = self.create_publisher(
             Float32, "/evaluator/perception/execution_time", 10
         )
@@ -172,6 +178,10 @@ class Evaluator(Node):
 
         self._se_false_positives_ = self.create_publisher(
             Int32, "/evaluator/state_estimation/false_positives", 10
+        )
+
+        self._se_number_duplicates = self.create_publisher(
+            Int32, "/evaluator/state_estimation/number_duplicates", 10
         )
 
         self._se_difference_with_map_ = self.create_publisher(
@@ -521,6 +531,9 @@ class Evaluator(Node):
             cone_positions, groundtruth_cone_positions
         )
 
+        num_duplicates = Int32()
+        num_duplicates.data = int(get_duplicates(cone_positions, 0.1))
+
         root_mean_squared_difference = Float32()
         root_mean_squared_difference.data = sqrt(
             get_mean_squared_difference(cone_positions, groundtruth_cone_positions)
@@ -544,6 +557,7 @@ class Evaluator(Node):
         self._map_mean_difference_.publish(mean_difference)
         self._map_mean_squared_difference_.publish(mean_squared_difference)
         self._map_root_mean_squared_difference_.publish(root_mean_squared_difference)
+        self._se_number_duplicates.publish(num_duplicates)
 
         # Compute map metrics over time
         self._se_map_sum_error += get_average_difference(
@@ -616,7 +630,7 @@ class Evaluator(Node):
         self._map_mean_mean_squared_error.publish(mean_mean_squared_error)
 
         false_positives = Int32()
-        false_positives.data = get_false_positives(map, groundtruth_map, 0.1)
+        false_positives.data = int(get_false_positives(map, groundtruth_map, 0.1))
         self._se_false_positives_.publish(false_positives)
 
         difference_with_map = Int32()
@@ -682,6 +696,7 @@ class Evaluator(Node):
             "mean_mean_root_squared_error": mean_mean_root_squared_error.data,
             "false_positives": false_positives.data,
             "difference_with_map": difference_with_map.data,
+            "num_duplicates": num_duplicates.data
         }
         self.se_metrics.append(metrics)
 
@@ -715,9 +730,12 @@ class Evaluator(Node):
         root_mean_squared_difference.data = sqrt(mean_squared_error.data)
 
         false_positives = Int32()
-        false_positives.data = get_false_positives(
+        false_positives.data = int(get_false_positives(
             perception_output, perception_ground_truth, 0.1
-        )
+        ))
+
+        num_duplicates = Int32()
+        num_duplicates.data = int(get_duplicates(perception_output, 0.1))
 
         self.get_logger().debug(
             "Computed perception metrics:\n \
@@ -725,12 +743,14 @@ class Evaluator(Node):
                                Inter cones distance: {}\n \
                                Mean squared difference: {}\n \
                                Root mean squared difference: {}\n \
-                                False positives: {}".format(
+                               False positives: {}\n \
+                               Duplicates: {}".format(
                 mean_difference,
                 inter_cones_distance,
                 mean_squared_error,
                 root_mean_squared_difference,
                 false_positives,
+                num_duplicates
             )
         )
 
@@ -742,6 +762,7 @@ class Evaluator(Node):
             root_mean_squared_difference
         )
         self._perception_false_positives_.publish(false_positives)
+        self._perception_number_duplicates.publish(num_duplicates)
 
         # Compute perception metrics over time
         self._perception_sum_error += get_average_difference(
@@ -783,6 +804,7 @@ class Evaluator(Node):
             "mean_mean_squared_error": mean_mean_squared_error.data,
             "mean_mean_root_squared_error": mean_mean_root_squared_error.data,
             "false_positives": false_positives.data,
+            "duplicates": num_duplicates.data
         }
         self.perception_metrics.append(metrics)
 

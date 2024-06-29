@@ -124,6 +124,14 @@ def build_adjacency_matrix(cones: np.array) -> np.array:
 
     return distances
 
+def get_duplicates(output : np.array, threshold : float):
+    """Receives a set of cones and identify the possible dupliates"""
+
+    adjacency_matrix = build_adjacency_matrix(output)
+    num_duplicates = np.sum(np.tril(adjacency_matrix < threshold, k=-1))
+
+    return num_duplicates
+
 
 def get_inter_cones_distance(perception_output: np.array):
     """!
