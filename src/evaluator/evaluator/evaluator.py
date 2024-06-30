@@ -727,7 +727,7 @@ class Evaluator(Node):
             cone_positions, groundtruth_cone_positions
         )
         inter_cones_distance = Float32()
-        inter_cones_distance.data = get_inter_cones_distance(cone_positions)
+        inter_cones_distance.data = float(get_inter_cones_distance(cone_positions))
         root_mean_squared_difference = Float32()
         root_mean_squared_difference.data = sqrt(mean_squared_error.data)
 

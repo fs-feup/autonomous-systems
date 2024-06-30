@@ -101,7 +101,8 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   header = (*msg).header;
   pcl::fromROSMsg(*msg, *pcl_cloud);
 
-  fov_trimming(pcl_cloud, 15.0, -_fov_trim_, _fov_trim_);
+  // Low Pass Filter
+  fov_trimming(pcl_cloud, 11.0, -_fov_trim_, _fov_trim_);
 
   // Ground Removal
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
@@ -110,6 +111,7 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   // Debugging utils -> Useful to check the ground removed point cloud
   sensor_msgs::msg::PointCloud2 ground_remved_msg;
   pcl::toROSMsg(*ground_removed_cloud, ground_remved_msg);
+  ground_remved_msg.header.frame_id = _vehicle_frame_id_;
   this->_ground_removed_publisher_->publish(ground_remved_msg);
 
   // Clustering
@@ -171,6 +173,10 @@ void Perception::fov_trimming(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, double
     // Calculate the angle in the XY plane
     double angle =
         std::atan2(point.y, point.x) * 180 / M_PI;  // get angle and convert in to degrees
+
+    if (distance <= 0.5) {  // Ignore points from the vehicle
+      continue;
+    }
 
     // Check if the point is within the specified distance and angle range
     if (distance <= max_distance && angle >= min_angle && angle <= max_angle) {
