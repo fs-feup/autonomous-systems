@@ -106,7 +106,7 @@ void ExtendedKalmanFilter::correction_step(
                    innovation(1));
       RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "NIS %f", nis);
       RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "ND %f", nd);
-      if (nis < 5.991 /* gate1 */ && nd < n_best) {  // TUNE
+      if (nis < 4.991 /* gate1 */ && nd < n_best) {  // TUNE
         // dbg with what matched
         RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "MATCHED CONE: %f %f", cone.position.x,
                      cone.position.y);
