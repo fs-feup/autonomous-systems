@@ -1,6 +1,8 @@
 import numpy as np
 import sys
 from scipy.sparse.csgraph import minimum_spanning_tree
+import rclpy
+import rclpy.logging
 
 
 def get_average_difference(output: np.array, expected: np.array) -> float:
@@ -65,7 +67,9 @@ def get_false_positives(
         output[:, np.newaxis, :] - expected[np.newaxis, :, :], axis=-1
     )
 
+    # TODO: this function does not work well
     matched_expected = np.any(differences < threshold, axis=1)
+
     true_positives = np.sum(matched_expected)
 
     return max(0, len(output) - true_positives)

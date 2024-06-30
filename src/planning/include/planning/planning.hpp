@@ -23,6 +23,7 @@
 #include "planning/path_calculation.hpp"
 #include "planning/smoothing.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
+#include "std_msgs/msg/float64.hpp"
 #include "utils/files.hpp"
 
 using PathPoint = common_lib::structures::PathPoint;
@@ -78,6 +79,7 @@ class Planning : public rclcpp::Node {
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr after_rem_blue_cones_pub_;
   /**< Publisher for yellow cones after cone coloring*/
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr after_rem_yellow_cones_pub_;
+  rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr _planning_execution_time_publisher_;
   rclcpp::TimerBase::SharedPtr timer_;
   /**
    * @brief Callback for vehicle localization updates (undefined).

@@ -32,7 +32,7 @@ from evaluator.adapter_maps import (
 import message_filters
 import numpy as np
 import rclpy.subscription
-from std_msgs.msg import Float32, Float32MultiArray, MultiArrayDimension, Int32
+from std_msgs.msg import Float32, Float32MultiArray, MultiArrayDimension, Int32, Float64
 from sensor_msgs.msg import PointCloud2
 import datetime
 from math import sqrt
@@ -82,28 +82,9 @@ class Evaluator(Node):
             )
             sys.exit(1)
 
-        self._point_cloud_receive_time_: datetime.datetime = datetime.datetime.now()
-        self.perception_receive_time_: datetime.datetime = datetime.datetime.now()
-        self.map_receive_time_: datetime.datetime = datetime.datetime.now()
-        self.pose_receive_time_: datetime.datetime = datetime.datetime.now()
-        self._planning_receive_time_: datetime.datetime = datetime.datetime.now()
-        self._control_receive_time_: datetime.datetime = datetime.datetime.now()
-
         # Subscriptions
-        self._perception_timing_subscription_ = self.create_subscription(
-            ConeArray,
-            "/perception/cones",
-            self.perception_callback_time_measurement,
-            10,
-        )
         self.perception_subscription_ = message_filters.Subscriber(
             self, ConeArray, "/perception/cones"
-        )
-        self._map_timing_subscription_ = self.create_subscription(
-            ConeArray,
-            "/state_estimation/map",
-            self.map_callback_time_measurement,
-            10,
         )
         self.map_subscription_ = message_filters.Subscriber(
             self, ConeArray, "/state_estimation/map"
@@ -113,12 +94,6 @@ class Evaluator(Node):
         )
         self.transform_buffer_ = tf2_ros.Buffer()
         self._transforms_listener_ = TransformListener(self.transform_buffer_, self)
-        self.point_cloud_timing_subscription_ = self.create_subscription(
-            PointCloud2,
-            ADAPTER_POINT_CLOUD_TOPIC_DICTIONARY[self._adapter_name_],
-            self.point_cloud_callback,
-            ADAPTER_POINT_CLOUD_TOPIC_QOS_DICTIONARY[self._adapter_name_],
-        )
         self.planning_subscription = self.create_subscription(
             PathPointArray, "/path_planning/path", self.compute_and_publish_planning, 1
         )
@@ -129,6 +104,30 @@ class Evaluator(Node):
             EvaluatorControlData,
             "/control/evaluator_data",
             self.compute_and_publish_control,
+            10,
+        )
+        self._correction_step_time_subscription_ = self.create_subscription(
+            Float64,
+            "/state_estimation/execution_time/correction_step",
+            self.correction_step_time_callback,
+            10,
+        )
+        self._prediction_step_time_subscription_ = self.create_subscription(
+            Float64,
+            "/state_estimation/execution_time/prediction_step",
+            self.prediction_step_time_callback,
+            10,
+        )
+        self._planning_execution_time_subscription_ = self.create_subscription(
+            Float64,
+            "/planning/execution_time",
+            self.planning_execution_time_callback,
+            10,
+        )
+        self._perception_execution_time_subscription_ = self.create_subscription(
+            Float64,
+            "/perception/execution_time",
+            self.perception_execution_time_callback,
             10,
         )
 
@@ -148,19 +147,11 @@ class Evaluator(Node):
         self._perception_false_positives_ = self.create_publisher(
             Int32, "/evaluator/perception/false_positives", 10
         )
-
         self._perception_number_duplicates = self.create_publisher(
             Int32, "/evaluator/perception/number_duplicates", 10
         )
 
-        self._perception_execution_time_ = self.create_publisher(
-            Float32, "/evaluator/perception/execution_time", 10
-        )
-
         # Publishers for state estimation metrics
-        self._map_execution_time_ = self.create_publisher(
-            Float32, "/evaluator/state_estimation/execution_time", 10
-        )
         self._vehicle_state_difference_ = self.create_publisher(
             Float32MultiArray,
             "/evaluator/state_estimation/vehicle_state_difference",
@@ -179,11 +170,9 @@ class Evaluator(Node):
         self._se_false_positives_ = self.create_publisher(
             Int32, "/evaluator/state_estimation/false_positives", 10
         )
-
         self._se_number_duplicates = self.create_publisher(
             Int32, "/evaluator/state_estimation/number_duplicates", 10
         )
-
         self._se_difference_with_map_ = self.create_publisher(
             Int32, "/evaluator/state_estimation/difference_with_map", 10
         )
@@ -198,18 +187,11 @@ class Evaluator(Node):
         self._planning_root_mean_squared_difference_ = self.create_publisher(
             Float32, "/evaluator/planning/root_mean_squared_difference", 10
         )
-        self._planning_execution_time_ = self.create_publisher(
-            Float32, "/evaluator/planning/execution_time", 10
-        )
 
-        # Publisehr for control metrics
-        self._control_execution_time_ = self.create_publisher(
-            Float32, "/evaluator/control/execution_time", 10
-        )
+        # Publisher for control metrics
         self._control_pose_difference_ = self.create_publisher(
             Float32, "/evaluator/control/pose/difference", 10
         )
-
         self._control_velocity_lookahead_difference_ = self.create_publisher(
             Float32, "/evaluator/control/velocity/difference", 10
         )
@@ -219,6 +201,11 @@ class Evaluator(Node):
         self.se_metrics = []
         self.planning_metrics = []
         self.control_metrics = []
+        self._se_correction_execution_time_ = []
+        self._se_prediction_execution_time_ = []
+        self._control_execution_time_ = []
+        self._planning_execution_time_ = []
+        self._perception_execution_time_ = []
 
         self._control_pose_sum_error = 0
         self._control_pose_squared_sum_error = 0
@@ -392,6 +379,8 @@ class Evaluator(Node):
             "se": self.se_metrics,
             "planning": self.planning_metrics,
             "control": self.control_metrics,
+            "se_correction_execution_time": self._se_correction_execution_time_,
+            "se_prediction_execution_time": self._se_prediction_execution_time_,
         }
         for filename, metrics in metrics_dict.items():
             if metrics:
@@ -423,43 +412,49 @@ class Evaluator(Node):
             writer.writeheader()
             writer.writerows(metrics)
 
-    def point_cloud_callback(self, _: PointCloud2):
+    def correction_step_time_callback(self, msg: Float64):
         """!
-        Point Cloud Callback to get the initial time of perception pipeline
-        """
-        self._point_cloud_receive_time_ = datetime.datetime.now()
+        Callback function to store the correction step time.
 
-    def perception_callback_time_measurement(self, _: ConeArray) -> None:
-        """!
-        Computes the perception's execution time
+        Args:
+            msg (Float64): Correction step time.
         """
-
-        self.get_logger().debug("Received perception")
-        self.perception_receive_time_ = datetime.datetime.now()
-        time_difference = float(
-            (
-                self.perception_receive_time_ - self._point_cloud_receive_time_
-            ).microseconds
-            / 1000
+        self._se_correction_execution_time_.append(
+            {"timestamp": datetime.datetime.now(), "execution_time": msg.data}
         )
-        execution_time = Float32()
-        execution_time.data = time_difference
-        self._perception_execution_time_.publish(execution_time)
 
-    def map_callback_time_measurement(self, _: ConeArray) -> None:
+    def prediction_step_time_callback(self, msg: Float64):
         """!
-        Computes the state estimation's execution time
-        """
+        Callback function to store the prediction step time.
 
-        self.get_logger().debug("Received map")
-        self.map_receive_time_ = datetime.datetime.now()
-        self.pose_receive_time_ = datetime.datetime.now()
-        time_difference: datetime.timedelta = float(
-            (self.map_receive_time_ - self.perception_receive_time_).microseconds / 1000
+        Args:
+            msg (Float64): Prediction step time.
+        """
+        self._se_prediction_execution_time_.append(
+            {"timestamp": datetime.datetime.now(), "execution_time": msg.data}
         )
-        execution_time = Float32()
-        execution_time.data = time_difference
-        self._map_execution_time_.publish(execution_time)
+
+    def perception_execution_time_callback(self, msg: Float64):
+        """!
+        Callback function to store the perception execution time.
+
+        Args:
+            msg (Float64): Perception execution time.
+        """
+        self._perception_execution_time_.append(
+            {"timestamp": datetime.datetime.now(), "execution_time": msg.data}
+        )
+
+    def planning_execution_time_callback(self, msg: Float64):
+        """!
+        Callback function to store the planning execution time.
+
+        Args:
+            msg (Float64): planning execution time.
+        """
+        self._planning_execution_time_.append(
+            {"timestamp": datetime.datetime.now(), "execution_time": msg.data}
+        )
 
     def compute_and_publish_state_estimation(
         self,
@@ -484,16 +479,6 @@ class Evaluator(Node):
             return
 
         self.get_logger().debug("Received state estimation")
-
-        # Compute execution time
-        self.map_receive_time_ = datetime.datetime.now()
-        self.pose_receive_time_ = datetime.datetime.now()
-        time_difference: datetime.timedelta = float(
-            (self.map_receive_time_ - self.perception_receive_time_).microseconds / 1000
-        )
-        execution_time = Float32()
-        execution_time.data = time_difference
-        self._map_execution_time_.publish(execution_time)
 
         # Compute instantaneous vehicle state metrics
         vehicle_state_error = Float32MultiArray()
@@ -541,6 +526,14 @@ class Evaluator(Node):
             get_mean_squared_difference(cone_positions, groundtruth_cone_positions)
         )
 
+        false_positives = Int32()
+        false_positives.data = int(
+            get_false_positives(cone_positions, groundtruth_cone_positions, 2)
+        )
+
+        difference_with_map = Int32()
+        difference_with_map.data = cone_positions.size - groundtruth_cone_positions.size
+
         self.get_logger().debug(
             "Computed state estimation metrics:\n \
                                 Vehicle state error: {}\n \
@@ -560,6 +553,8 @@ class Evaluator(Node):
         self._map_mean_squared_difference_.publish(mean_squared_difference)
         self._map_root_mean_squared_difference_.publish(root_mean_squared_difference)
         self._se_number_duplicates.publish(num_duplicates)
+        self._se_false_positives_.publish(false_positives)
+        self._se_difference_with_map_.publish(difference_with_map)
 
         # Compute map metrics over time
         self._se_map_sum_error += get_average_difference(
@@ -572,6 +567,14 @@ class Evaluator(Node):
             cone_positions, groundtruth_cone_positions
         ) ** (1 / 2)
         self._se_count += 1
+        mean_mean_error = Float32()
+        mean_mean_error.data = self._se_map_sum_error / self._se_count
+        mean_mean_squared_error = Float32()
+        mean_mean_squared_error.data = self._se_map_squared_sum_error / self._se_count
+        mean_mean_root_squared_error = Float32()
+        mean_mean_root_squared_error.data = (
+            self._se_map_mean_root_squared_sum_error / self._se_count
+        )
 
         # Compute vehicle state metrics over time
         mean_vehicle_state_error = Float32MultiArray()
@@ -612,32 +615,10 @@ class Evaluator(Node):
             mean_root_squared_vehicle_state_error
         )
 
-        # Compute map metrics over time
-        mean_mean_error = Float32()
-        mean_mean_error.data = self._se_map_sum_error / self._se_count
-        self._map_mean_mean_error.publish(mean_mean_error)
-
-        mean_mean_squared_error = Float32()
-        mean_mean_squared_error.data = self._se_map_squared_sum_error / self._se_count
-        self._map_mean_mean_squared_error.publish(mean_mean_squared_error)
-
-        mean_mean_root_squared_error = Float32()
-        mean_mean_root_squared_error.data = (
-            self._se_map_mean_root_squared_sum_error / self._se_count
-        )
-
         # Publish map metrics over time
-        self._map_mean_mean_root_squared_error.publish(mean_mean_root_squared_error)
         self._map_mean_mean_error.publish(mean_mean_error)
         self._map_mean_mean_squared_error.publish(mean_mean_squared_error)
-
-        false_positives = Int32()
-        false_positives.data = int(get_false_positives(map, groundtruth_map, 0.1))
-        self._se_false_positives_.publish(false_positives)
-
-        difference_with_map = Int32()
-        difference_with_map.data = map.size - groundtruth_map.size
-        self._se_difference_with_map_.publish(difference_with_map)
+        self._map_mean_mean_root_squared_error.publish(mean_mean_root_squared_error)
 
         # For exporting metrics to csv
         metrics = {
@@ -733,7 +714,7 @@ class Evaluator(Node):
 
         false_positives = Int32()
         false_positives.data = int(
-            get_false_positives(perception_output, perception_ground_truth, 0.1)
+            get_false_positives(cone_positions, groundtruth_cone_positions, 0.1)
         )
 
         num_duplicates = Int32()
@@ -818,16 +799,6 @@ class Evaluator(Node):
             msg (PathPointArray): Path points array message.
         """
         self.get_logger().debug("Received planning")
-
-        # Execution time metrics calculation
-        self._planning_receive_time_ = datetime.datetime.now()
-        time_difference = float(
-            (self._planning_receive_time_ - self.map_receive_time_).microseconds / 1000
-        )
-        execution_time = Float32()
-        execution_time.data = time_difference
-
-        self._planning_execution_time_.publish(execution_time)
 
         # Compute instantaneous planning metrics
         actual_path: np.ndarray = format_path_point_array_msg(msg)
@@ -914,8 +885,6 @@ class Evaluator(Node):
         """
         self.get_logger().debug("Received GT planning")
         self.planning_mock: PathPointArray = msg
-        if self.use_simulated_planning_:
-            self._planning_receive_time_ = datetime.datetime.now()
 
     def compute_and_publish_control(self, msg: EvaluatorControlData):
         """!
@@ -924,18 +893,6 @@ class Evaluator(Node):
             msg (EvaluatorControlData): Control info data message.
         """
         self.get_logger().debug("Received control")
-
-        if not self.use_simulated_se_ or self._adapter_name_ == "eufs":
-            # Execution time metrics calculation
-            self._control_receive_time_ = datetime.datetime.now()
-            time_difference = float(
-                (self._control_receive_time_ - self.pose_receive_time_).microseconds
-                / 1000
-            )
-            execution_time = Float32()
-            execution_time.data = time_difference
-
-            self._control_execution_time_.publish(execution_time)
 
         # Compute instantaneous control metrics
         pose_treated, velocities_treated = format_vehicle_state_msg(msg.vehicle_state)
@@ -1064,6 +1021,10 @@ class Evaluator(Node):
         )
         self._control_velocity_to_closest_velocity_root_mean_squared_difference_.publish(
             velocity_to_closest_root_mean_squared
+        )
+
+        self._control_execution_time_.append(
+            {"timestamp": datetime.datetime.now(), "execution_time": msg.execution_time}
         )
 
         # For exporting metrics to csv

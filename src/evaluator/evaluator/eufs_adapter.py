@@ -46,13 +46,6 @@ class EufsAdapter(Adapter):
             10,
         )
 
-        self.node.simulated_perception_subscription_ = self.node.create_subscription(
-            ConeArrayWithCovariance,
-            "/cones",
-            self.simulated_perception_callback,
-            10,
-        )
-
         self.node.simulated_state_subscription = self.node.create_subscription(
             CarState,
             "/odometry_integration/car_state",
@@ -93,8 +86,6 @@ class EufsAdapter(Adapter):
             msg (CarState): Car state coming from EUFS simulator
         """
         self.simulated_vehicle_state_ = msg
-        if self.node.use_simulated_se_:
-            self.node.pose_receive_time_ = datetime.datetime.now()
 
     def state_estimation_callback(
         self,
@@ -160,8 +151,6 @@ class EufsAdapter(Adapter):
         """
         self.node.get_logger().debug("Received groundtruth map")
         self.groundtruth_map_ = track
-        if self.node.use_simulated_se_:
-            self.node.map_receive_time_ = datetime.datetime.now()
 
     def groundtruth_vehicle_state_callback(self, vehicle_state: Odometry):
         """!
@@ -172,13 +161,3 @@ class EufsAdapter(Adapter):
         """
         self.node.get_logger().debug("Received groundtruth vehicle state")
         self.groundtruth_vehicle_state_ = vehicle_state
-
-    def simulated_perception_callback(self, perception: ConeArrayWithCovariance):
-        """!
-        Callback function to process simulated perception messages.
-
-        Args:
-            perception (PerceptionDetections): Simulated perception data.
-        """
-        if self.node.use_simulated_perception_:
-            self.node.perception_receive_time_ = datetime.datetime.now()

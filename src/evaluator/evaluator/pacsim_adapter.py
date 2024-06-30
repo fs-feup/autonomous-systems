@@ -121,15 +121,3 @@ class PacsimAdapter(Adapter):
             groundtruth_map (MarkerArray): Ground truth map data.
         """
         self._groundtruth_map_: MarkerArray = groundtruth_map
-        if self.node.use_simulated_se_:
-            self.node.map_receive_time_ = datetime.datetime.now()
-
-    def simulated_perception_callback(self, perception: PerceptionDetections):
-        """!
-        Callback function to process simulated perception messages.
-
-        Args:
-            perception (PerceptionDetections): Simulated perception data.
-        """
-        if self.node.use_simulated_perception_:
-            self.node.perception_receive_time_ = datetime.datetime.now()

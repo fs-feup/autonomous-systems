@@ -19,6 +19,10 @@ Planning::Planning(const PlanningParameters &params)
   this->local_pub_ =
       this->create_publisher<custom_interfaces::msg::PathPointArray>("/path_planning/path", 10);
 
+  // Publisher for execution time
+  this->_planning_execution_time_publisher_ =
+      this->create_publisher<std_msgs::msg::Float64>("/path_planning/execution_time", 10);
+
   if (planning_config_.simulation_.publishing_visualization_msgs_) {
     // Publisher for visualization
     this->visualization_pub_ =
@@ -78,6 +82,8 @@ void Planning::run_planning_algorithms() {
     return;
   }
 
+  rclcpp::Time start_time = this->now();
+
   // Color the cones
   std::pair<std::vector<Cone>, std::vector<Cone>> colored_cones =
       cone_coloring_.color_cones(this->cone_array_, this->pose);
@@ -98,6 +104,13 @@ void Planning::run_planning_algorithms() {
   for (auto &path_point : final_path) {
     path_point.ideal_velocity = desired_velocity_;
   }
+
+  // Execution Time calculation
+  rclcpp::Time end_time = this->now();
+  std_msgs::msg::Float64 planning_execution_time;
+  planning_execution_time.data = (end_time - start_time).seconds() * 1000;
+  this->_planning_execution_time_publisher_->publish(planning_execution_time);
+
   publish_track_points(final_path);
   RCLCPP_DEBUG(this->get_logger(), "Planning will publish %i path points\n",
                static_cast<int>(final_path.size()));
