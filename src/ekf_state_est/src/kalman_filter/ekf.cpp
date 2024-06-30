@@ -72,10 +72,7 @@ void ExtendedKalmanFilter::correction_step(
     for (int j = 6; j < this->_x_vector_.size(); j += 2) {
       // get expect observation from the state vector with the observation model
       Eigen::Vector2f z_hat = this->_observation_model_->observation_model(this->_x_vector_, j);
-      // print dbg msg z_hat and cone in the samle line
-      // RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "Z_HAT X|%f| Y|%f| CONE X|%f| Y|%f|",
-      //              z_hat(0), z_hat(1), cone.position.x, cone.position.y);
-      // get the state to observation matrix
+
       Eigen::MatrixXf h_matrix = this->_observation_model_->get_state_to_observation_matrix(
           this->_x_vector_, j, static_cast<unsigned int>(this->_x_vector_.size()));
       // get the observation noise covariance matrix
@@ -83,40 +80,17 @@ void ExtendedKalmanFilter::correction_step(
           this->_observation_model_->get_observation_noise_covariance_matrix();
       // calculate innovation cone position - z_hat(predicted cone position)
       Eigen::Vector2f innovation = Eigen::Vector2f(cone.position.x, cone.position.y) - z_hat;
-      // dbg
-      // RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "INNOVATION X|%f| Y|%f|",
-      // innovation(0),
-      //              innovation(1));
-      // calculate the S matrix
+
       Eigen::MatrixXf s_matrix = h_matrix * this->_p_matrix_ * h_matrix.transpose() + q_matrix;
       // calculate nis, that means normalized innovation squared
       float nis = innovation.transpose() * s_matrix.inverse() * innovation;
-      // dbg
-      // RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "NIS %f", nis);
-      // calculate nd, that means normalized determinant
+
       float nd = nis + log(s_matrix.determinant());
-      // dbg
-      // RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "ND %f\n", nd);
-      RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "CURRENT CONE: %f %f", cone.position.x,
-                   cone.position.y);
-      RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "WITH Z_HAT: %f %f", z_hat(0), z_hat(1));
-      RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "IN THE MAP REF: %f %f",
-                   this->_x_vector_(j), this->_x_vector_(j + 1));
-      RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "INNOVATION %f %f", innovation(0),
-                   innovation(1));
-      RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "NIS %f", nis);
-      RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "ND %f", nd);
-      if (nis < 5.991 /* gate1 */ && nd < n_best) {  // TUNE
-        // dbg with what matched
-        RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "MATCHED CONE: %f %f", cone.position.x,
-                     cone.position.y);
-        RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "WITH Z_HAT: %f %f", z_hat(0), z_hat(1));
-        RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "IN THE MAP REF: %f %f",
-                     this->_x_vector_(j), this->_x_vector_(j + 1));
-        RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "INNOVATION %f %f", innovation(0),
-                     innovation(1));
-        RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "NIS %f", nis);
-        RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "ND %f", nd);
+
+      //
+      //
+      //
+      if (nis < 6.00 /* gate1 */ && nd < n_best) {  // TUNE
         n_best = nd;
         j_best = j;
       } else if (nis < outer) {
@@ -129,7 +103,10 @@ void ExtendedKalmanFilter::correction_step(
                    this->_x_vector_(j_best), this->_x_vector_(j_best + 1));
       matched_ids.push_back(j_best);
       matched_cone_positions.push_back(Eigen::Vector2f(cone.position.x, cone.position.y));
-    } else if (outer > 20 /* gate2 */) {  // TUNE
+      //
+      //
+      //
+    } else if (outer > 30 /* gate2 */) {  // TUNE
       new_features.push_back(Eigen::Vector2f(cone.position.x, cone.position.y));
     }
   }
