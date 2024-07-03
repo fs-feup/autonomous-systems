@@ -58,7 +58,7 @@ def get_dashboard_layout(dashboard):
         "Evaluator_state_estimation": "evaluator/se",
         "Evaluator_planning": "evaluator/planning",
         "Evaluator_control": "evaluator/control",
-        "Perception": "perception",
+        "Perception": "perception/perception",
         "State_estimation": "state_est",
         "Planning": "planning",
         "Power_log": "power_log",
