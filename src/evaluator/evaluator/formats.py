@@ -2,13 +2,15 @@ from custom_interfaces.msg import ConeArray, VehicleState, PathPointArray
 from visualization_msgs.msg import MarkerArray
 from geometry_msgs.msg import TransformStamped, TwistWithCovarianceStamped
 from tf_transformations import euler_from_quaternion
-from eufs_msgs.msg import ConeArrayWithCovariance
+from eufs_msgs.msg import ConeArrayWithCovariance, CarState
 from nav_msgs.msg import Odometry
 import numpy as np
 
 cone_color_dictionary: dict[str, int] = {
     "blue_cone": 0,
+    "blue": 0,
     "yellow_cone": 1,
+    "yellow": 1,
     "orange_cone": 2,
     "large_orange_cone": 3,
     "undefined": 4,
@@ -128,6 +130,12 @@ def format_twist_with_covariance_stamped_msg(
     )
 
 
+def format_car_state_msg(
+    msg: CarState,
+) -> np.ndarray:
+    return np.array([msg.twist.twist.linear.x, msg.twist.twist.linear.y, 0])
+
+
 def format_eufs_cone_array_with_covariance_msg(
     msg: ConeArrayWithCovariance,
 ) -> np.ndarray[np.ndarray]:
@@ -189,7 +197,7 @@ def format_nav_odometry_msg(msg: Odometry) -> np.ndarray:
     )
 
 
-def format_path_point_array_msg(path_point_array: PathPointArray):
+def format_path_point_array_msg(path_point_array: PathPointArray) -> np.ndarray:
     """!
     Converts a PathPointArray message into a numpy array.
 
@@ -201,10 +209,18 @@ def format_path_point_array_msg(path_point_array: PathPointArray):
     """
     path_list = []
 
-    for point in path_point_array:
-        path_list.append(np.array([point.x, point.y, 0.0]))
+    for path_point in path_point_array.pathpoint_array:
+        path_list.append(
+            np.array(
+                [
+                    path_point.x,
+                    path_point.y,
+                    path_point.v,
+                ]
+            )
+        )
 
-    return path_list
+    return np.array(path_list)
 
 
 def format_point2d_msg(msg):

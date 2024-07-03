@@ -7,8 +7,10 @@ from bucket_operations import upload_csv_to_bucket
 FOLDERS = {
     "state_est": "performance/exec_time/ekf_state_est",
     "perception": "performance/exec_time/perception",
-    "planning": "performance/exec_time/planning",
+    "planning_exec_time": "performance/exec_time/planning",
     "evaluator": "performance/evaluator_metrics",
+    "power_log": "performance/power_log_metrics",
+    "planning_cone_coloring": "performance/other_metrics/planning",
 }
 
 

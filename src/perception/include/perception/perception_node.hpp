@@ -13,10 +13,10 @@
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "ground_removal/grid_ransac.hpp"
 #include "ground_removal/ransac.hpp"
+#include "icp/icp.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
 #include "visualization_msgs/msg/marker_array.hpp"
-#include "icp/icp.hpp"
 
 struct PerceptionParameters {
   std::shared_ptr<GroundRemoval> ground_removal_;
@@ -26,6 +26,7 @@ struct PerceptionParameters {
   std::shared_ptr<DistancePredict> distance_predict_;
   std::shared_ptr<ICP> icp_;
   std::string adapter_;
+  double fov_trim_;
 };
 
 /**
@@ -45,14 +46,18 @@ private:
   Plane _ground_plane_;
   std::vector<std::shared_ptr<ConeValidator>> _cone_validators_;
   std::shared_ptr<ConeEvaluator> _cone_evaluator_;
-  std::string _mode_;
+  std::string _adapter_;
   std::shared_ptr<ICP> _icp_;
 
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr
       _point_cloud_subscription;  ///< PointCloud2 subscription.
   rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr
       _cones_publisher;  ///< ConeArray publisher.
-  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr cone_marker_array;
+  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr _cone_marker_array_;
+
+  rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr _ground_removed_publisher_;
+
+  double _fov_trim_;
 
   /**
    * @brief Publishes information about clusters (cones) using a custom ROS2 message.
@@ -64,7 +69,7 @@ private:
    * @param cones A reference to a vector of Cluster objects representing the clusters (cones)
    * to be published.
    */
-  void publishCones(std::vector<Cluster>* cones);
+  void publish_cones(std::vector<Cluster>* cones);
 
 public:
   /**
@@ -77,6 +82,8 @@ public:
    * @brief Callback function for the PointCloud2 subscription.
    * @param msg The received PointCloud2 message.
    */
-  void pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg);
+  void point_cloud_callback(const sensor_msgs::msg::PointCloud2::SharedPtr msg);
 
+  void fov_trimming(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, double max_distance,
+                    double min_angle, double max_angle);
 };
