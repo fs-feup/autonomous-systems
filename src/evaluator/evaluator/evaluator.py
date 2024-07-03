@@ -189,11 +189,14 @@ class Evaluator(Node):
         )
 
         # Publisher for control metrics
-        self._control_pose_difference_ = self.create_publisher(
-            Float32, "/evaluator/control/pose/difference", 10
+        self._control_closest_pose_difference_ = self.create_publisher(
+            Float32, "/evaluator/control/pose/closest/difference", 10
+        )
+        self._control_velocity_closest_difference_ = self.create_publisher(
+            Float32, "/evaluator/control/velocity/closest/difference", 10
         )
         self._control_velocity_lookahead_difference_ = self.create_publisher(
-            Float32, "/evaluator/control/velocity/difference", 10
+            Float32, "/evaluator/control/velocity/lookahead/difference", 10
         )
 
         # Metrics over time
@@ -329,9 +332,6 @@ class Evaluator(Node):
             )
         )
 
-        self._control_velocity_to_closest_velocity_difference_ = self.create_publisher(
-            Float32, "/evaluator/control/velocity/closest/difference", 10
-        )
         self._control_velocity_to_closest_velocity_difference_mean_ = (
             self.create_publisher(
                 Float32, "/evaluator/control/velocity/closest/difference_mean", 10
@@ -344,6 +344,7 @@ class Evaluator(Node):
                 10,
             )
         )
+
         self._control_velocity_to_closest_velocity_root_mean_squared_difference_ = (
             self.create_publisher(
                 Float32,
@@ -925,8 +926,8 @@ class Evaluator(Node):
         )
 
         # Publish control metrics
-        self._control_pose_difference_.publish(pose_difference)
-        self._control_velocity_to_closest_velocity_difference_.publish(
+        self._control_closest_pose_difference_.publish(pose_difference)
+        self._control_velocity_closest_difference_.publish(
             velocity_to_closest_difference
         )
         self._control_velocity_lookahead_difference_.publish(
