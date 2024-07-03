@@ -86,11 +86,28 @@ void ExtendedKalmanFilter::correction_step(
       float nis = innovation.transpose() * s_matrix.inverse() * innovation;
 
       float nd = nis + log(s_matrix.determinant());
-
-      //
-      //
-      //
-      if (nis < 6.00 /* gate1 */ && nd < n_best) {  // TUNE
+      // dbg
+      // RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "ND %f\n", nd);
+      RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "CURRENT CONE: %f %f", cone.position.x,
+                   cone.position.y);
+      RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "WITH Z_HAT: %f %f", z_hat(0), z_hat(1));
+      RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "IN THE MAP REF: %f %f",
+                   this->_x_vector_(j), this->_x_vector_(j + 1));
+      RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "INNOVATION %f %f", innovation(0),
+                   innovation(1));
+      RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "NIS %f", nis);
+      RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "ND %f", nd);
+      if (nis < 4.991 /* gate1 */ && nd < n_best) {  // TUNE
+        // dbg with what matched
+        RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "MATCHED CONE: %f %f", cone.position.x,
+                     cone.position.y);
+        RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "WITH Z_HAT: %f %f", z_hat(0), z_hat(1));
+        RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "IN THE MAP REF: %f %f",
+                     this->_x_vector_(j), this->_x_vector_(j + 1));
+        RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "INNOVATION %f %f", innovation(0),
+                     innovation(1));
+        RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "NIS %f", nis);
+        RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "ND %f", nd);
         n_best = nd;
         j_best = j;
       } else if (nis < outer) {

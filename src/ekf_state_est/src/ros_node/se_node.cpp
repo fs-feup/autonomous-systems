@@ -76,6 +76,10 @@ SENode::SENode() : Node("ekf_state_est") {
   this->_visualization_map_publisher_ =
       this->create_publisher<visualization_msgs::msg::MarkerArray>(
           "/state_estimation/visualization_map", 10);
+  this->_correction_execution_time_publisher_ = this->create_publisher<std_msgs::msg::Float64>(
+      "/state_estimation/execution_time/correction_step", 10);
+  this->_prediction_execution_time_publisher_ = this->create_publisher<std_msgs::msg::Float64>(
+      "/state_estimation/execution_time/prediction_step", 10);
   _adapter_ = adapter_map.at(_adapter_name_)(std::shared_ptr<SENode>(this));
 }
 
@@ -87,7 +91,9 @@ void SENode::_perception_subscription_callback(const custom_interfaces::msg::Con
     RCLCPP_WARN(this->get_logger(), "SUB - Perception map is null");
     return;
   }
-  // std::lock_guard lock(this->_mutex_);  // BLOCK IF PREDICTION STEP IS ON GOING
+
+  rclcpp::Time start_time = this->get_clock()->now();
+
   this->_perception_map_->clear();
 
   for (auto &cone : cone_array) {
@@ -102,15 +108,24 @@ void SENode::_perception_subscription_callback(const custom_interfaces::msg::Con
   // RCLCPP_DEBUG(this->get_logger(), "CORRECTION STEP END\n---------------------------\n");
   this->_ekf_->correction_step(*(this->_perception_map_));
   this->_ekf_->update(this->_vehicle_state_, this->_track_map_);
+
+  rclcpp::Time end_time = this->get_clock()->now();
+
+  // Execution Time calculation
+  std_msgs::msg::Float64 correction_execution_time;
+  correction_execution_time.data = (end_time - start_time).seconds() * 1000.0;
+  this->_correction_execution_time_publisher_->publish(correction_execution_time);
   this->_publish_vehicle_state();
   this->_publish_map();
-  // sleep(20);
 }
 
 void SENode::_imu_subscription_callback(const sensor_msgs::msg::Imu &imu_msg) {
   if (this->_use_odometry_) {
     return;
   }
+
+  rclcpp::Time start_time = this->get_clock()->now();
+
   double ax = imu_msg.linear_acceleration.x;
   // double ay = imu_msg.linear_acceleration.y;
 
@@ -143,6 +158,12 @@ void SENode::_imu_subscription_callback(const sensor_msgs::msg::Imu &imu_msg) {
   this->_ekf_->prediction_step(temp_update, "imu");
   this->_ekf_->update(this->_vehicle_state_, this->_track_map_);
 
+  // Execution Time calculation
+  rclcpp::Time end_time = this->get_clock()->now();
+  std_msgs::msg::Float64 prediction_execution_time;
+  prediction_execution_time.data = (end_time - start_time).seconds() * 1000.0;
+  this->_prediction_execution_time_publisher_->publish(prediction_execution_time);
+
   this->_publish_vehicle_state();
   this->_publish_map();
 }
@@ -156,6 +177,8 @@ void SENode::_wheel_speeds_subscription_callback(double rl_speed, double fl_spee
   //              "SUB - Raw from wheel speeds: lb:%f - rb:%f - lf:%f - rf:%f - "
   //              "steering: %f",
   //              rl_speed, rr_speed, fl_speed, fr_speed, steering_angle);
+  rclcpp::Time start_time = this->get_clock()->now();
+
   auto [linear_velocity, angular_velocity] =
       common_lib::vehicle_dynamics::odometry_to_velocities_transform(rl_speed, fl_speed, rr_speed,
                                                                      fr_speed, steering_angle);
@@ -178,6 +201,13 @@ void SENode::_wheel_speeds_subscription_callback(double rl_speed, double fl_spee
 
   this->_ekf_->prediction_step(temp_update, "wheel_speed_sensor");
   this->_ekf_->update(this->_vehicle_state_, this->_track_map_);
+
+  // Execution Time calculation
+  rclcpp::Time end_time = this->get_clock()->now();
+  std_msgs::msg::Float64 prediction_execution_time;
+  prediction_execution_time.data = (end_time - start_time).seconds() * 1000.0;
+  this->_prediction_execution_time_publisher_->publish(prediction_execution_time);
+
   this->_publish_vehicle_state();
   this->_publish_map();
 }

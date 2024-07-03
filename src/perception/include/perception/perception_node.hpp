@@ -16,6 +16,7 @@
 #include "icp/icp.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
+#include "std_msgs/msg/float64.hpp"
 #include "visualization_msgs/msg/marker_array.hpp"
 
 struct PerceptionParameters {
@@ -56,7 +57,7 @@ private:
   rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr
       _cones_publisher;  ///< ConeArray publisher.
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr _cone_marker_array_;
-
+  rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr _perception_execution_time_publisher_;
   rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr _ground_removed_publisher_;
 
   double _fov_trim_;

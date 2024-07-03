@@ -17,6 +17,7 @@
 #include "eufs_msgs/msg/wheel_speeds_stamped.hpp"
 #include "kalman_filter/ekf.hpp"
 #include "rclcpp/rclcpp.hpp"
+#include "std_msgs/msg/float64.hpp"
 #include "visualization_msgs/msg/marker_array.hpp"
 
 class Adapter;
@@ -33,6 +34,8 @@ class SENode : public rclcpp::Node {
   rclcpp::Publisher<custom_interfaces::msg::VehicleState>::SharedPtr _vehicle_state_publisher_;
   rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr _map_publisher_;
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr _visualization_map_publisher_;
+  rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr _correction_execution_time_publisher_;
+  rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr _prediction_execution_time_publisher_;
   rclcpp::TimerBase::SharedPtr _timer_;        /**< timer */
   std::shared_ptr<ExtendedKalmanFilter> _ekf_; /**< SLAM EKF object */
   std::shared_ptr<std::vector<common_lib::structures::Cone>> _perception_map_;
