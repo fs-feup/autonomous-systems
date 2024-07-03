@@ -59,7 +59,7 @@ def get_dashboard_layout(dashboard):
         "Evaluator_state_estimation": "evaluator/se",
         "Evaluator_planning": "evaluator/planning",
         "Evaluator_control": "evaluator/control",
-        "Perception_exec_time": "perception",
+        "Perception_exec_time": "perception/perception/",
         "State_estimation_exec_time": "state_est",
         "Planning_exec_time": "planning_exec_time",
         "Planning_cone_coloring": "planning_cone_coloring",
@@ -273,7 +273,7 @@ def create_update_graph_callback(graph_id, dashboard, graph_number, graph_type="
                 combined_df["time"] = range(len(combined_df))
 
         df_melted = combined_df.melt(id_vars=[x_axis, "Source"], value_vars=metrics)
-        df_melted["Source_Metric"] = df_melted["Source"] + " - " + df_melted["variable"]
+        df_melted["Source_Metric"] = df_melted["variable"]
         df_melted = df_melted[df_melted["variable"].isin(metrics)]
 
         if graph_type == "line":
