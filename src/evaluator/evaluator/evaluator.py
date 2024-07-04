@@ -120,7 +120,7 @@ class Evaluator(Node):
         )
         self._planning_execution_time_subscription_ = self.create_subscription(
             Float64,
-            "/planning/execution_time",
+            "/path_planning/execution_time",
             self.planning_execution_time_callback,
             10,
         )
@@ -382,6 +382,9 @@ class Evaluator(Node):
             "control": self.control_metrics,
             "se_correction_execution_time": self._se_correction_execution_time_,
             "se_prediction_execution_time": self._se_prediction_execution_time_,
+            "control_execution_time": self._control_execution_time_,
+            "planning_execution_time": self._planning_execution_time_,
+            "perception_execution_time": self._perception_execution_time_,
         }
         for filename, metrics in metrics_dict.items():
             if metrics:
