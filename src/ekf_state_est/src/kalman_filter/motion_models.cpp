@@ -113,16 +113,47 @@ Eigen::VectorXf ImuVelocityModel::predict_expected_state(const Eigen::VectorXf &
                                                          const double time_interval) const {
   Eigen::VectorXf next_state = expected_state;
 
-  next_state(0) += expected_state(3) * time_interval +
-                   0.5 * motion_prediction_data.acceleration_x * pow(time_interval, 2);
-  next_state(1) += expected_state(4) * time_interval +
-                   0.5 * motion_prediction_data.acceleration_y * pow(time_interval, 2);
-  next_state(5) = motion_prediction_data.rotational_velocity;
-  next_state(2) =
-      common_lib::maths::normalize_angle(expected_state(2) + next_state(5) * time_interval);
-  next_state(3) += motion_prediction_data.acceleration_x * time_interval;
-  next_state(4) += motion_prediction_data.acceleration_y * time_interval;
+  // next_state(0) += expected_state(3) * time_interval +
+  //                  0.5 * motion_prediction_data.acceleration_x * pow(time_interval, 2);
+  // next_state(1) += expected_state(4) * time_interval +
+  //                  0.5 * motion_prediction_data.acceleration_y * pow(time_interval, 2);
+  // next_state(5) = motion_prediction_data.rotational_velocity;
+  // next_state(2) =
+  //     common_lib::maths::normalize_angle(expected_state(2) + next_state(5) * time_interval);
+  // next_state(3) += motion_prediction_data.acceleration_x * time_interval;
+  // next_state(4) += motion_prediction_data.acceleration_y * time_interval;
 
+  // return next_state;
+  double theta = expected_state(2);
+  double vx = expected_state(3);
+  double vy = expected_state(4);
+  double v = sqrt(vx * vx + vy * vy);
+  double a = motion_prediction_data.acceleration_x;
+  double omega = motion_prediction_data.rotational_velocity;
+
+  // Handle division by zero (omega = 0 case)
+  double omega_sq = omega * omega;
+  double denom = (omega_sq != 0.0) ? omega_sq : 1.0;
+  double omega_dt = omega * time_interval;
+
+  double sin_omega_dt = sin(omega_dt);
+  double cos_omega_dt = cos(omega_dt);
+  double sin_theta = sin(theta);
+  double cos_theta = cos(theta);
+
+  double delta_x =
+      (1.0 / denom) * ((v * omega + a * omega_dt) * sin(theta + omega_dt) +
+                       a * cos(theta + omega_dt) - v * omega * sin_theta - a * cos_theta);
+  double delta_y =
+      (1.0 / denom) * ((-v * omega - a * omega_dt) * cos(theta + omega_dt) +
+                       a * sin(theta + omega_dt) + v * omega * cos_theta - a * sin_theta);
+
+  next_state(0) += delta_x;
+  next_state(1) += delta_y;
+  next_state(2) += omega_dt;
+  double updated_v = v + a * time_interval;        // updated velocity magnitude
+  next_state(3) = updated_v * cos(next_state(2));  // Vx
+  next_state(4) = updated_v * sin(next_state(2));  // Vy
   return next_state;
 }
 
@@ -132,9 +163,22 @@ Eigen::MatrixXf ImuVelocityModel::get_motion_to_state_matrix(
   Eigen::MatrixXf jacobian =
       Eigen::MatrixXf::Identity(expected_state.size(), expected_state.size());
 
-  jacobian(0, 3) = time_interval;
-  jacobian(1, 4) = time_interval;
-  jacobian(2, 2) = time_interval;
-  jacobian(2, 5) = time_interval;
+  // double theta = expected_state(2);
+  // double vx = expected_state(3);
+  // double vy = expected_state(4);
+  // double v = sqrt(vx * vx + vy * vy);
+  // double a = motion_prediction_data.acceleration_x;
+  // double o = motion_prediction_data.rotational_velocity;
+  // double omega_sq = o * o;
+  // double denom = (omega_sq != 0.0) ? omega_sq : 1.0;
+  // jacobian(0, 2) = (cos(o * time_interval + expected_state(2)) * (v * o * time_interval) +
+  //                   a * sin(theta) - a * sin(o * time_interval + theta) - v * o * cos(theta)) /
+  //                  (denom);
+  // jacobian(1, 2) = (a * cos(o * time_interval + theta) -
+  //                   sin(o * time_interval + theta) * (-v * o - a * o * time_interval) -
+  //                   v * o * sin(theta) - a * cos(theta)) /
+  //                  (denom);
+
+  // need to compute jacobian of the above code
   return jacobian;
 }

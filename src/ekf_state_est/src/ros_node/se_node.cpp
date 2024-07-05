@@ -48,7 +48,7 @@ SENode::SENode() : Node("ekf_state_est") {
   //
   //
   std::shared_ptr<ObservationModel> observation_model = std::make_shared<ObservationModel>(
-      ObservationModel::create_observation_noise_covariance_matrix(0.02f));  // 0.0009f));//TUNE
+      ObservationModel::create_observation_noise_covariance_matrix(0.03f));  // 0.0009f));//TUNE
   //
   //
   //
@@ -143,8 +143,8 @@ void SENode::_imu_subscription_callback(const sensor_msgs::msg::Imu &imu_msg) {
   //              ay_map, v_rot);
 
   MotionUpdate motion_prediction_data;
-  motion_prediction_data.acceleration_x = ax_map;
-  motion_prediction_data.acceleration_y = ay_map;
+  motion_prediction_data.acceleration_x = ax;
+  motion_prediction_data.acceleration_y = 0 /* ay_map */;
   motion_prediction_data.rotational_velocity = v_rot;
   this->_motion_update_->acceleration_x = motion_prediction_data.acceleration_x;
   this->_motion_update_->acceleration_y = motion_prediction_data.acceleration_y;
