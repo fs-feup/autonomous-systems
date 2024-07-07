@@ -234,9 +234,8 @@ void ExtendedKalmanFilter::update(
   vehicle_state->pose.position.x = this->_x_vector_(0);
   vehicle_state->pose.position.y = this->_x_vector_(1);
   vehicle_state->pose.orientation = this->_x_vector_(2);
-  vehicle_state->velocity_x = this->_x_vector_(3);
-  vehicle_state->velocity_y = this->_x_vector_(4);
-  vehicle_state->rotational_velocity = this->_x_vector_(5);
+  vehicle_state->linear_velocity = this->_x_vector_(3);
+  vehicle_state->rotational_velocity = this->_x_vector_(4);
   track_map->clear();
   for (int i = 6; i < this->_x_vector_.size() - 1; i += 2) {
     track_map->push_back(

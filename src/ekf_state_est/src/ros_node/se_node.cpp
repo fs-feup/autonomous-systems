@@ -40,10 +40,11 @@ SENode::SENode() : Node("ekf_state_est") {
   //
   //
   //
-  std::shared_ptr<MotionModel> motion_model_wss = motion_model_constructors.at(
-      "normal_velocity_model")(MotionModel::create_process_noise_covariance_matrix(0.3f));  // TUNE
+  std::shared_ptr<MotionModel> motion_model_wss =
+      motion_model_constructors.at("normal_velocity_model")(
+          MotionModel::create_process_noise_covariance_matrix(0.000000002f));  // TUNE
   std::shared_ptr<MotionModel> motion_model_imu = motion_model_constructors.at(motion_model_name)(
-      MotionModel::create_process_noise_covariance_matrix(0.0064f));  // 0.0064//TUNE
+      MotionModel::create_process_noise_covariance_matrix(0.0000064f));  // 0.0064//TUNE
   //
   //
   //
@@ -143,11 +144,9 @@ void SENode::_imu_subscription_callback(const sensor_msgs::msg::Imu &imu_msg) {
   //              ay_map, v_rot);
 
   MotionUpdate motion_prediction_data;
-  motion_prediction_data.acceleration_x = ax;
-  motion_prediction_data.acceleration_y = 0 /* ay_map */;
+  motion_prediction_data.acceleration = ax;
   motion_prediction_data.rotational_velocity = v_rot;
-  this->_motion_update_->acceleration_x = motion_prediction_data.acceleration_x;
-  this->_motion_update_->acceleration_y = motion_prediction_data.acceleration_y;
+  this->_motion_update_->acceleration = motion_prediction_data.acceleration;
   this->_motion_update_->rotational_velocity = motion_prediction_data.rotational_velocity;
   this->_motion_update_->last_update = imu_msg.header.stamp;
   if (this->_ekf_ == nullptr) {
@@ -222,9 +221,7 @@ void SENode::_publish_vehicle_state() {
   message.position.x = this->_vehicle_state_->pose.position.x;
   message.position.y = this->_vehicle_state_->pose.position.y;
   message.theta = this->_vehicle_state_->pose.orientation;
-  float velocity_x = this->_vehicle_state_->velocity_x;
-  float velocity_y = this->_vehicle_state_->velocity_y;
-  message.linear_velocity = std::sqrt(velocity_x * velocity_x + velocity_y * velocity_y);
+  message.linear_velocity = this->_vehicle_state_->linear_velocity;
   message.angular_velocity = this->_vehicle_state_->rotational_velocity;
   message.header.stamp = this->get_clock()->now();
 

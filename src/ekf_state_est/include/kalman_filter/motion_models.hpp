@@ -19,8 +19,7 @@
  */
 struct MotionUpdate {
   double translational_velocity = 0.0; /**< Meters per sec */
-  double acceleration_x = 0.0;         /**< Meters per sec */
-  double acceleration_y = 0.0;         /**< Meters per sec */
+  double acceleration = 0.0;         /**< Meters per sec */
   double rotational_velocity = 0.0;    /**< Degrees per sec */
   double steering_angle = 0.0;         /**< Degrees */
   rclcpp::Time last_update;            /**< Timestamp of last update */
