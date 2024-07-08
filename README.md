@@ -1,7 +1,6 @@
 [![Testing and Building](https://github.com/fs-feup/autonomous-systems/actions/workflows/build.yml/badge.svg)](https://github.com/fs-feup/autonomous-systems/actions/workflows/build.yml)
 [![Doxygen Documentation Page](https://github.com/fs-feup/autonomous-systems/actions/workflows/doxygen.yml/badge.svg)](https://github.com/fs-feup/autonomous-systems/actions/workflows/doxygen.yml)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=fs-feup_autonomous-systems&metric=bugs)](https://sonarcloud.io/summary/new_code?id=fs-feup_autonomous-systems)
-[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=fs-feup_autonomous-systems&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=fs-feup_autonomous-systems)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=fs-feup_autonomous-systems&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=fs-feup_autonomous-systems)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=fs-feup_autonomous-systems&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=fs-feup_autonomous-systems)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=fs-feup_autonomous-systems&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=fs-feup_autonomous-systems)
