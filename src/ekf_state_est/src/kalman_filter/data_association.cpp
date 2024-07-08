@@ -13,73 +13,60 @@ DataAssociationModel::DataAssociationModel(float max_landmark_distance)
 float DataAssociationModel::get_max_landmark_distance() const {
   return this->max_landmark_distance_;
 }
-
-float SimpleMaximumLikelihood::curvature_ = 15.0;
-float SimpleMaximumLikelihood::initial_limit_ = 0.1;
-
-SimpleMaximumLikelihood::SimpleMaximumLikelihood(float max_landmark_distance)
+float MaximumLikelihood::nis_gate_ = 0.0f;  // Default value, can be overridden
+float MaximumLikelihood::nd_gate_ = 0.0f;
+MaximumLikelihood::MaximumLikelihood(float max_landmark_distance)
     : DataAssociationModel(max_landmark_distance) {
   if (max_landmark_distance < 1) {
     throw std::invalid_argument("Invalid parameters for SimpleMaximumLikelihood");
   }
-};
-
-bool SimpleMaximumLikelihood::validate(const Eigen::Vector2f& predicted_measurement,
-                                       const Eigen::Vector2f& observed_measurement,
-                                       const Eigen::MatrixXf& covariance, int landmark_index,
-                                       const Eigen::MatrixXf& R, const Eigen::MatrixXf& H) const {
-  // Get the expected landmark from the state
-  if (landmark_index < 0) {
-    return false;
-  }
-  std::ofstream file("matrices.txt", std::ios::app);
-  // file << "H" << H << "\n";
-  // file << "covariance" << covariance << "\n";
-  file.flush();
-  // Eigen::Matrix2f P = covariance.block<2, 2>(landmark_index, landmark_index);
-  // file << "P" << P << "\n";
-  file.flush();
-  // Eigen::Matrix2f H_landmark = H.block<2, 2>(0, landmark_index);
-  // file << "H" << H_landmark << "\n";
-  file.flush();
-  Eigen::Vector2f v = predicted_measurement - observed_measurement;
-  // print matrices to file
-
-  // file << "P" << P << "\n";
-  // file << "V" << v << "\n";
-  // file << "R" << R << "\n";
-
-  file.flush();
-
-  // Eigen::Matrix2f R_block = R.block<2, 2>(0, 0);
-
-  Eigen::Matrix2f S = H * covariance * H.transpose() + R /* R_block */;
-  float validation_value = v.transpose() * S.inverse() * v;
-  // output to ////file valçue and v values
-  // file << "VALIDATION VALUE" << validation_value << "\n";
-  // file << "V" << v << "\n";
-  file.flush();
-  S.diagonal().array() += 1e-6;
-  float nd = validation_value + log(S.determinant());
-  return nd < 7.815;
 }
-int SimpleMaximumLikelihood::match_cone(const Eigen::Vector2f& observed_landmark_absolute,
-                                        const Eigen::VectorXf& expected_state) const {
-  // Check if landmark is within valid distance
-  float distance_to_vehicle = (observed_landmark_absolute - expected_state.segment<2>(0)).norm();
-  if (distance_to_vehicle > get_max_landmark_distance()) {
-    return -1;
-  }
+int MaximumLikelihood::associate_n_filter(
+    const std::vector<common_lib::structures::Cone>& perception_map, Eigen::VectorXf& _x_vector_,
+    Eigen::MatrixXf& _p_matrix_, std::vector<int>& matched_ids,
+    std::vector<Eigen::Vector2f>& matched_cone_positions,
+    std::vector<Eigen::Vector2f>& new_features, ObservationModel* observation_model) const {
+  for (const common_lib::structures::Cone& cone : perception_map) {
+    Eigen::Vector2f landmark_absolute = observation_model->inverse_observation_model(
+        _x_vector_, ObservationData(cone.position.x, cone.position.y,
+                                    common_lib::competition_logic::Color::BLUE));
 
-  float min_delta = std::numeric_limits<float>::max();
-  int closest_landmark_index = -2;
-  for (int i = 6; i < expected_state.size(); i += 2) {
-    float delta = (observed_landmark_absolute - expected_state.segment<2>(i)).norm();
-    if (delta < min_delta) {
-      min_delta = delta;
-      closest_landmark_index = i;
+    float distance_to_vehicle = (landmark_absolute - _x_vector_.segment<2>(0)).norm();
+    if (distance_to_vehicle > this->get_max_landmark_distance()) {
+      continue;
+    }
+    int j_best = 0;
+    float n_best = std::numeric_limits<int>::max();
+    float outer = std::numeric_limits<int>::max();
+    for (int j = 6; j < _x_vector_.size(); j += 2) {
+      // get expect observation from the state vector with the observation model
+      Eigen::Vector2f z_hat = observation_model->observation_model(_x_vector_, j);
+
+      Eigen::MatrixXf h_matrix = observation_model->get_state_to_observation_matrix(
+          _x_vector_, j, static_cast<unsigned int>(_x_vector_.size()));
+      // get the observation noise covariance matrix
+      Eigen::MatrixXf q_matrix = observation_model->get_observation_noise_covariance_matrix();
+
+      Eigen::Vector2f innovation = Eigen::Vector2f(cone.position.x, cone.position.y) - z_hat;
+
+      Eigen::MatrixXf s_matrix = h_matrix * _p_matrix_ * h_matrix.transpose() + q_matrix;
+      // calculate nis, that means normalized innovation squared
+      float nis = innovation.transpose() * s_matrix.inverse() * innovation;
+
+      float nd = nis + log(s_matrix.determinant());
+      if (nis < this->nis_gate_ && nd < n_best) {
+        n_best = nd;
+        j_best = j;
+      } else if (nis < outer) {
+        outer = nis;  // outer is the closest unmatched distance
+      }
+    }
+    if (j_best != 0) {
+      matched_ids.push_back(j_best);
+      matched_cone_positions.push_back(Eigen::Vector2f(cone.position.x, cone.position.y));
+    } else if (outer > this->nd_gate_) {  // TUNE
+      new_features.push_back(Eigen::Vector2f(cone.position.x, cone.position.y));
     }
   }
-
-  return closest_landmark_index;
-}
+  return 0;
+};

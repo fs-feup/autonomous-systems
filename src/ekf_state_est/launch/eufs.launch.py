@@ -11,44 +11,44 @@ def generate_launch_description():
     return LaunchDescription(
         [
             DeclareLaunchArgument(
-                "data_association_limit_distance",
-                description="Maximum distance to admit landmarks",
-                default_value="10.00",
+                "data_association_gate1",
+                description="Data association gate 1, used for setting a threshold of acceptance for associating landmarks",
+                default_value="5.991",
             ),  # meters
             DeclareLaunchArgument(
-                "sml_initial_limit",
-                description="Initial limit for the limit function used in the simple maximum likelihood data association",
-                default_value="0.05",
+                "data_association_gate2",
+                description="Data association gate 2, used for setting a base limit creating new landmark",
+                default_value="30.0",
             ),
             DeclareLaunchArgument(
-                "sml_curvature",
-                description="Curvature for the limit function used in the simple maximum likelihood data association",
-                default_value="5.0",
+                "data_association_limit_distance",
+                description="Data association limit distance for considering a landmark as worth analyzing as new or existing landmark",
+                default_value="15",
+            ),
+            DeclareLaunchArgument(
+                "IMU_noise",
+                description="Noise value for IMU",
+                default_value="0.00000064",
+            ),
+            DeclareLaunchArgument(
+                "data_association_model",
+                description="Data Association Model Name",
+                default_value="max_likelihood",
             ),
             DeclareLaunchArgument(
                 "observation_noise",
-                description="Noise value for observations (sigma)",
+                description="Noise value for observations",
                 default_value="0.05",
             ),
             DeclareLaunchArgument(
                 "wheel_speed_sensor_noise",
-                description="Noise value for wheel speed sensors (sigma)",
-                default_value="0.003",
-            ),
-            DeclareLaunchArgument(
-                "motion_model",
-                description="Motion model to use",
-                default_value="imu_velocity_model",
+                description="Noise value for wheel speed sensors",
+                default_value="0.00002",
             ),
             DeclareLaunchArgument(
                 "adapter",
                 description="Environment to run node on",
                 default_value="eufs",
-            ),
-            DeclareLaunchArgument(
-                "use_odometry",
-                description="Either use odometry or IMU (TODO: remove for complete velocity estimation)",
-                default_value="False",
             ),
             DeclareLaunchArgument(
                 "use_simulated_perception",
@@ -60,14 +60,18 @@ def generate_launch_description():
                 executable="ekf_state_est",
                 name="ekf_state_est",
                 parameters=[
-                    {"motion_model": LaunchConfiguration("motion_model")},
+                    {
+                        "data_association_model": LaunchConfiguration(
+                            "data_association_model"
+                        )
+                    },
                     {
                         "data_association_limit_distance": LaunchConfiguration(
                             "data_association_limit_distance"
                         )
                     },
                     {"adapter": LaunchConfiguration("adapter")},
-                    {"use_odometry": LaunchConfiguration("use_odometry")},
+                    {"IMU_noise": LaunchConfiguration("IMU_noise")},
                     {
                         "use_simulated_perception": LaunchConfiguration(
                             "use_simulated_perception"
@@ -79,8 +83,16 @@ def generate_launch_description():
                             "wheel_speed_sensor_noise"
                         )
                     },
-                    {"sml_curvature": LaunchConfiguration("sml_curvature")},
-                    {"sml_initial_limit": LaunchConfiguration("sml_initial_limit")},
+                    {
+                        "data_association_gate1": LaunchConfiguration(
+                            "data_association_gate1"
+                        )
+                    },
+                    {
+                        "data_association_gate2": LaunchConfiguration(
+                            "data_association_gate2"
+                        )
+                    },
                 ],
                 arguments=["--ros-args", "--log-level", "ekf_state_est:=info"],
             ),

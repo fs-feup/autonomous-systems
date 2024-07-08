@@ -44,7 +44,6 @@ class SENode : public rclcpp::Node {
   std::shared_ptr<common_lib::structures::VehicleState> _vehicle_state_;
   common_lib::competition_logic::Mission _mission_;
   bool _go_;  /// flag to start the mission
-  bool _use_odometry_;
   bool _use_simulated_perception_;
   std::string _adapter_name_;
   std::shared_ptr<Adapter> _adapter_;
@@ -82,15 +81,6 @@ class SENode : public rclcpp::Node {
   void _wheel_speeds_subscription_callback(double lb_speed, double lf_speed, double rb_speed,
                                            double rf_speed, double steering_angle,
                                            const rclcpp::Time& timestamp);
-
-  /**
-   * @brief Executes:
-   * - the prediction, validation and discovery steps of the EKF
-   * - publication of localization
-   * - publication of map
-   *
-   */
-  void _update_and_publish();
 
   /**
    * @brief publishes the localization ('vehicle_localization') to the topic
