@@ -16,5 +16,6 @@ var class_perception =
     [ "_ground_removal_", "de/d07/class_perception.html#a598949be823659d711d71f168f257318", null ],
     [ "_ground_removed_publisher_", "de/d07/class_perception.html#a94498724d0ffb4a5a6af9d5fa10a0695", null ],
     [ "_icp_", "de/d07/class_perception.html#a3d972eb66409703aff7389e38a33d381", null ],
+    [ "_pc_max_range_", "de/d07/class_perception.html#a0b98cacef77c9202bae18a6d1a84ea8b", null ],
     [ "_point_cloud_subscription", "de/d07/class_perception.html#a5754f98499e1aae7724c3a46f56c401f", null ]
 ];
