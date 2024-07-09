@@ -1,3 +1,4 @@
+#include "rclcpp/rclcpp.hpp"
 #include "functions/inspection_functions.hpp"
 
 InspectionFunctions::InspectionFunctions(double max_angle, double turning_period,
@@ -21,6 +22,7 @@ double InspectionFunctions::rpm_to_velocity(double rpm) const {
 }
 
 double InspectionFunctions::calculate_throttle(double current_velocity) const {
+  RCLCPP_DEBUG(rclcpp::get_logger("inspection"), "Current goal velocity - current velocity: %lf-%lf", current_goal_velocity_, current_velocity);
   double error = current_goal_velocity_ - current_velocity;
   return gain_ * error;
 }
