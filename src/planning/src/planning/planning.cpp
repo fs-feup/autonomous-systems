@@ -87,18 +87,50 @@ void Planning::run_planning_algorithms() {
   // Color the cones
   std::pair<std::vector<Cone>, std::vector<Cone>> colored_cones =
       cone_coloring_.color_cones(this->cone_array_, this->pose);
+  if (colored_cones.first.size() < 5 || colored_cones.second.size() < 5) {
+    RCLCPP_WARN(rclcpp::get_logger("planning"), "Not enough cones to plan: %d blue, %d yellow",
+                static_cast<int>(colored_cones.first.size()),
+                static_cast<int>(colored_cones.second.size()));
+    return;
+  }
 
   // Outliers dealt by approximating all cones
   std::pair<std::vector<Cone>, std::vector<Cone>> refined_colored_cones =
       outliers_.approximate_cones_with_spline(colored_cones);
+  if (refined_colored_cones.first.size() < 5 || refined_colored_cones.second.size() < 5) {
+    RCLCPP_WARN(rclcpp::get_logger("planning"),
+                "Not enough cones to plan after outlier removal: %d blue, %d yellow",
+                static_cast<int>(refined_colored_cones.first.size()),
+                static_cast<int>(refined_colored_cones.second.size()));
+    return;
+  }
+  for (auto &cone : colored_cones.first) {
+    cone.color = Color::BLUE;
+  }
+  for (auto &cone : colored_cones.second) {
+    cone.color = Color::YELLOW;
+  }
 
   // Calculate middle points using triangulations
   std::vector<PathPoint> triangulations_path =
       path_calculation_.process_delaunay_triangulations(refined_colored_cones);
+  if (triangulations_path.size() < 5) {
+    RCLCPP_WARN(rclcpp::get_logger("planning"), "Not enough cones to plan after triangulations: %d",
+                static_cast<int>(triangulations_path.size()));
+    return;
+  }
+
+  std::vector<PathPoint> triangulations_path_without_outliers =
+      path_calculation_.process_delaunay_triangulations(colored_cones);
 
   // Smooth the calculated path
   std::vector<PathPoint> final_path = path_smoothing_.smooth_path(triangulations_path, this->pose);
 
+  std::vector<PathPoint> final_path_without_outliers =
+      path_smoothing_.smooth_path(triangulations_path_without_outliers, this->pose);
+  if (final_path.size() < 10) {
+    RCLCPP_WARN(rclcpp::get_logger("planning"), "Final path size: %d", final_path.size());
+  }
   // Velocity Planning
   // TODO: Remove this when velocity planning is a reality
   for (auto &path_point : final_path) {
@@ -118,7 +150,8 @@ void Planning::run_planning_algorithms() {
   if (planning_config_.simulation_.publishing_visualization_msgs_) {
     publish_visualization_msgs(colored_cones.first, colored_cones.second,
                                refined_colored_cones.first, refined_colored_cones.second,
-                               triangulations_path, final_path);
+                               triangulations_path, triangulations_path_without_outliers,
+                               final_path, final_path_without_outliers);
   }
 }
 
@@ -165,12 +198,14 @@ bool Planning::is_predicitve_mission() const {
          this->mission == common_lib::competition_logic::Mission::ACCELERATION;
 }
 
-void Planning::publish_visualization_msgs(const std::vector<Cone> &left_cones,
-                                          const std::vector<Cone> &right_cones,
-                                          const std::vector<Cone> &after_refining_blue_cones,
-                                          const std::vector<Cone> &after_refining_yellow_cones,
-                                          const std::vector<PathPoint> &after_triangulations_path,
-                                          const std::vector<PathPoint> &final_path) const {
+void Planning::publish_visualization_msgs(
+    const std::vector<Cone> &left_cones, const std::vector<Cone> &right_cones,
+    const std::vector<Cone> &after_refining_blue_cones,
+    const std::vector<Cone> &after_refining_yellow_cones,
+    const std::vector<PathPoint> &after_triangulations_path,
+    const std::vector<PathPoint> &trinagulations_without_outliers,
+    const std::vector<PathPoint> &final_path,
+    const std::vector<PathPoint> &final_path_without_outliers) const {
   this->blue_cones_pub_->publish(common_lib::communication::marker_array_from_structure_array(
       left_cones, "blue_cones_colored", this->_map_frame_id_, "blue"));
   this->yellow_cones_pub_->publish(common_lib::communication::marker_array_from_structure_array(

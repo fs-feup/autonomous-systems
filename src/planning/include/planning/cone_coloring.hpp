@@ -79,6 +79,11 @@ private:
                            std::vector<Cone>& colored_yellow_cones, const Pose& car_pose,
                            int& n_colored_cones) const;
 
+  void place_second_cones(std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones,
+                          std::vector<Cone>& colored_blue_cones,
+                          std::vector<Cone>& colored_yellow_cones, const Pose& car_pose,
+                          int& n_colored_cones) const;
+
   /**
    * @brief calculate the cost of coloring a cone
    *
