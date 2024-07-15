@@ -2,7 +2,7 @@
 
 HeightValidator::HeightValidator(double height) : height(height) {}
 
-bool HeightValidator::coneValidator(Cluster* cone_point_cloud, Plane& plane) const {
+bool HeightValidator::cone_validator(Cluster* cone_point_cloud, Plane& plane) const {
   double maxZ = cone_point_cloud->get_point_cloud()->points[0].z;
   auto maxPoint = cone_point_cloud->get_point_cloud()->points[0];
 

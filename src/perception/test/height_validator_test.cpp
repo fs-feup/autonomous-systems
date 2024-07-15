@@ -31,7 +31,7 @@ TEST_F(HeightValidatorTest, ConeWithinHeightThreshold) {
 
   Cluster conePointCloud = Cluster(point_cloud);
 
-  bool result = validator.coneValidator(&conePointCloud, plane);
+  bool result = validator.cone_validator(&conePointCloud, plane);
 
   ASSERT_TRUE(result);
 }
@@ -47,7 +47,7 @@ TEST_F(HeightValidatorTest, ConeExceedsHeightThreshold) {
 
   Cluster conePointCloud = Cluster(point_cloud);
 
-  bool result = validator.coneValidator(&conePointCloud, plane);
+  bool result = validator.cone_validator(&conePointCloud, plane);
 
   ASSERT_FALSE(result);
 }

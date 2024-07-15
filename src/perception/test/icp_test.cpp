@@ -36,7 +36,7 @@ public:
 TEST_F(ICPSuite, Initialization) {
     auto icp = ICP("../../src/perception/test/icp_tests/basic_cloud.pcd", 0.1, 50, 1e-8, 1);
     pcl::PointCloud<pcl::PointXYZI>::Ptr target_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-    ASSERT_NO_THROW(icp.executeICP(source_cloud, target_cloud));
+    ASSERT_NO_THROW(icp.execute_ICP(source_cloud, target_cloud));
 }
 
 /**
@@ -47,7 +47,7 @@ TEST_F(ICPSuite, Alignment) {
     auto icp = ICP("../../src/perception/test/icp_tests/basic_cloud.pcd", 100.0, 300, 5, 5);
 
     pcl::PointCloud<pcl::PointXYZI>::Ptr aligned_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-    double fitness_score = icp.executeICP(source_cloud, aligned_cloud);
+    double fitness_score = icp.execute_ICP(source_cloud, aligned_cloud);
 
     // Ensure that the fitness score is not negative, indicating successful alignment
     ASSERT_GE(fitness_score, 0);
@@ -61,7 +61,7 @@ TEST_F(ICPSuite, AlignmentFailed) {
     auto icp = ICP("../../src/perception/test/icp_tests/basic_cloud.pcd", 1.0, 50, 1e-8, 5);
 
     pcl::PointCloud<pcl::PointXYZI>::Ptr aligned_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-    double fitness_score = icp.executeICP(source_cloud, aligned_cloud);
+    double fitness_score = icp.execute_ICP(source_cloud, aligned_cloud);
 
     ASSERT_EQ(fitness_score, -1);
 }

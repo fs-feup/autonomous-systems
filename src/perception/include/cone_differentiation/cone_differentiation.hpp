@@ -20,5 +20,5 @@ class ConeDifferentiation {
    * @param cone_point_cloud Cluster's point cloud.
    * @return Color The cone's color.
    */
-  virtual void coneDifferentiation(Cluster* cone_point_cloud) const = 0;
+  virtual void cone_differentiation(Cluster* cone_point_cloud) const = 0;
 };

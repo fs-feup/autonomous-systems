@@ -2,9 +2,9 @@
 
 CylinderValidator::CylinderValidator(double width, double height) : width(width), height(height) {}
 
-double CylinderValidator::getRadius() const { return std::sqrt(2 * width * width) / 2; }
+double CylinderValidator::get_radius() const { return std::sqrt(2 * width * width) / 2; }
 
-bool CylinderValidator::coneValidator(Cluster* cone_point_cloud, Plane& plane) const {
+bool CylinderValidator::cone_validator(Cluster* cone_point_cloud, Plane& plane) const {
   pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud = cone_point_cloud->get_point_cloud();
 
   for (const auto& point : *cone_point_cloud->get_point_cloud()) {
@@ -18,7 +18,7 @@ bool CylinderValidator::coneValidator(Cluster* cone_point_cloud, Plane& plane) c
     double distanceZ = std::abs(point.z - cone_point_cloud->get_centroid().z());
 
     // If the point is outside the cylinder, return false
-    if (distanceXY > getRadius() || distanceZ > height / 2) return false;
+    if (distanceXY > get_radius() || distanceZ > height / 2) return false;
   }
 
   // All points are inside the cylinder

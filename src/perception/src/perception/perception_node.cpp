@@ -121,7 +121,7 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   std::vector<Cluster> filtered_clusters;
   for (auto cluster : clusters) {
     // Temporary: Just the first validation
-    if (_cone_validators_[0]->coneValidator(&cluster, _ground_plane_)) {
+    if (_cone_validators_[0]->cone_validator(&cluster, _ground_plane_)) {
       filtered_clusters.push_back(cluster);
     }
   }

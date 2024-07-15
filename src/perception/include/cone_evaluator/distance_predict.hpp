@@ -28,5 +28,5 @@ class DistancePredict : public ConeEvaluator {
    * @param cluster Cluster to evaluate
    * @return double Cluster's confidence &isin; [0,1]
    */
-  double evaluateCluster(Cluster& cluster) const override;
+  double evaluate_cluster(Cluster& cluster) const override;
 };

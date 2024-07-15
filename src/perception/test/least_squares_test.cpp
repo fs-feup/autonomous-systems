@@ -63,7 +63,7 @@ TEST_F(LeastSquaresDifferentiationTest, TestYellowCone) {
   Cluster* cluster = new Cluster(yellow_cone);
   auto cone_differentiator = new LeastSquaresDifferentiation();
 
-  cone_differentiator->coneDifferentiation(cluster);
+  cone_differentiator->cone_differentiation(cluster);
 
   ASSERT_EQ(cluster->get_color(), "yellow");
 }
@@ -75,7 +75,7 @@ TEST_F(LeastSquaresDifferentiationTest, TestBlueCone) {
   Cluster* cluster = new Cluster(blue_cone);
   auto cone_differentiator = new LeastSquaresDifferentiation();
 
-  cone_differentiator->coneDifferentiation(cluster);
+  cone_differentiator->cone_differentiation(cluster);
 
   ASSERT_EQ(cluster->get_color(), "blue");
 }
@@ -88,7 +88,7 @@ TEST_F(LeastSquaresDifferentiationTest, TestUndefinedCone) {
 
   auto cone_differentiator = new LeastSquaresDifferentiation();
 
-  cone_differentiator->coneDifferentiation(cluster);
+  cone_differentiator->cone_differentiation(cluster);
 
   ASSERT_EQ(cluster->get_color(), "undefined");
 }

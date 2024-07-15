@@ -31,7 +31,7 @@ TEST_F(CylinderValidatorTest, PointInsideCylinder) {
   Cluster cylinderPointCloud = Cluster(point_cloud);
 
   // Validate point against the cylinder
-  bool result = validator.coneValidator(&cylinderPointCloud, plane);
+  bool result = validator.cone_validator(&cylinderPointCloud, plane);
 
   ASSERT_TRUE(result);
 }
@@ -48,7 +48,7 @@ TEST_F(CylinderValidatorTest, PointOutsideCylinder) {
 
   Cluster cylinderPointCloud = Cluster(point_cloud);
 
-  bool result = validator.coneValidator(&cylinderPointCloud, plane);
+  bool result = validator.cone_validator(&cylinderPointCloud, plane);
 
   ASSERT_FALSE(result);
 }

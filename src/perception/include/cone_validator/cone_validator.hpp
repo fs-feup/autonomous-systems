@@ -23,5 +23,5 @@ class ConeValidator {
    * @return true if the cluster is considered a cone
    * @return false if the cluster is not considered a cone
    */
-  virtual bool coneValidator(Cluster* cone_point_cloud, Plane& plane) const = 0;
+  virtual bool cone_validator(Cluster* cone_point_cloud, Plane& plane) const = 0;
 };

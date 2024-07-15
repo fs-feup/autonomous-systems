@@ -15,5 +15,5 @@ class ConeEvaluator {
    * @param cluster Cluster to evaluate
    * @return double Cluster's confidence &isin; [0,1]
    */
-  virtual double evaluateCluster(Cluster& cluster) const = 0;
+  virtual double evaluate_cluster(Cluster& cluster) const = 0;
 };
