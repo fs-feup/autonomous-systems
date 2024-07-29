@@ -133,9 +133,7 @@ class Planning : public rclcpp::Node {
                                   const std::vector<Cone> &after_refining_blue_cones,
                                   const std::vector<Cone> &after_refining_yellow_cones,
                                   const std::vector<PathPoint> &after_triangulations_path,
-                                  const std::vector<PathPoint> &trinagulations_without_outliers,
-                                  const std::vector<PathPoint> &final_path,
-                                  const std::vector<PathPoint> &final_path_without_outliers) const;
+                                  const std::vector<PathPoint> &final_path) const;
 
   /**
    * @brief Checks if the current mission is predictive.

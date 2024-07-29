@@ -210,12 +210,12 @@ std::pair<std::vector<Cone>, std::vector<Cone>> ConeColoring::color_cones(
   colored_blue_cones.erase(colored_blue_cones.begin());
   colored_yellow_cones.erase(colored_yellow_cones.begin());
   if (colored_blue_cones.size() < 5) {
-    RCLCPP_WARN(rclcpp::get_logger("Planning : ConeColoring"), "Not enough blue cones found: %ld",
-                colored_blue_cones.size());
+    RCLCPP_DEBUG(rclcpp::get_logger("Planning : ConeColoring"), "Not enough blue cones found: %ld",
+                 colored_blue_cones.size());
   }
   if (colored_yellow_cones.size() < 5) {
-    RCLCPP_WARN(rclcpp::get_logger("Planning : ConeColoring"), "Not enough yellow cones found: %ld",
-                colored_yellow_cones.size());
+    RCLCPP_DEBUG(rclcpp::get_logger("Planning : ConeColoring"),
+                 "Not enough yellow cones found: %ld", colored_yellow_cones.size());
   }
   return {colored_blue_cones, colored_yellow_cones};
 }
