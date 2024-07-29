@@ -30,6 +30,7 @@ PerceptionParameters load_adapter_parameters() {
   double fov_trim = adapter_node->declare_parameter("fov_trim", 90);
   params.adapter_ = adapter_node->declare_parameter("adapter", "eufs");
   params.vehicle_frame_id_ = params.adapter_ == "eufs" ? "velodyne" : "livox_front";
+  params.pc_max_range_ = adapter_node->declare_parameter("pc_max_range", 15.0);
 
   // Create shared pointers for components
   if (ground_removal_algoritm == "ransac") {

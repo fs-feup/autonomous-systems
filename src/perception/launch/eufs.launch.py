@@ -15,12 +15,17 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "ransac_n_neighbours",
                 description="RANSAC number of neighbours",
-                default_value="15",
+                default_value="15.0",
             ),
             DeclareLaunchArgument(
                 "fov_trim",
                 description="Trim the points received to a max angle",
                 default_value="90",  # degrees
+            ),
+            DeclareLaunchArgument(
+                "pc_max_range",
+                description="Point cloud filtering based on distance (m)",
+                default_value="15",
             ),
             DeclareLaunchArgument(
                 "clustering_n_neighbours",
@@ -128,6 +133,16 @@ def generate_launch_description():
                             "euclidean_fitness_epsilon"
                         )
                     },
+                    {
+                        "transformation_epsilon" : LaunchConfiguration(
+                            "transformation_epsilon"
+                        )
+                    },
+                    {
+                        "pc_max_range" : LaunchConfiguration(
+                            "pc_max_range"
+                        )
+                    }
                 ],
                 arguments=["--ros-args", "--log-level", "perception:=info"],
             ),

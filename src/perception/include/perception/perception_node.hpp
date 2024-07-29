@@ -29,6 +29,7 @@ struct PerceptionParameters {
   std::string adapter_;
   std::string vehicle_frame_id_;
   double fov_trim_;
+  double pc_max_range_;
 };
 
 /**
@@ -61,6 +62,8 @@ private:
   rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr _ground_removed_publisher_;
 
   double _fov_trim_;
+
+  double _pc_max_range_;
 
   /**
    * @brief Publishes information about clusters (cones) using a custom ROS2 message.
