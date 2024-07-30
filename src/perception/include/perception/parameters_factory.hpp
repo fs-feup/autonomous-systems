@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include <cone_validator/deviation_validator.hpp>
 
 #include "perception/perception_node.hpp"
 
@@ -44,7 +45,8 @@ PerceptionParameters load_adapter_parameters() {
   params.clustering_ = std::make_shared<DBSCAN>(clustering_n_neighbours, clustering_epsilon);
   params.cone_differentiator_ = std::make_shared<LeastSquaresDifferentiation>();
   params.cone_validators_ = {std::make_shared<CylinderValidator>(0.228, 0.325),
-                             std::make_shared<HeightValidator>(0.325)};
+                             std::make_shared<HeightValidator>(0.55),
+                             std::make_shared<DeviationValidator>(0, 0.2, 0.0001, 0.6)};
   params.distance_predict_ =
       std::make_shared<DistancePredict>(vertical_resolution, horizontal_resolution);
 

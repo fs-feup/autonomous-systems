@@ -10,7 +10,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "ransac_epsilon",
                 description="RANSAC epsilon threshold",
-                default_value="0.05",
+                default_value="0.06",
             ),
             DeclareLaunchArgument(
                 "ransac_n_neighbours",
@@ -25,13 +25,13 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "pc_max_range",
                 description="Point cloud filtering based on distance (m)",
-                default_value="15.0",
+                default_value="10.0",
             ),
             
             DeclareLaunchArgument(
                 "clustering_n_neighbours",
                 description="Number of neighbours for Clustering algorithm",
-                default_value="1",
+                default_value="3",
             ),
             DeclareLaunchArgument(
                 "clustering_epsilon",
@@ -61,12 +61,12 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "n_angular_grids",
                 description="Number of angular grids",
-                default_value="7",
+                default_value="8",
             ),
             DeclareLaunchArgument(
                 "radius_resolution",
                 description="Radius size of a radius grid (m)",
-                default_value="7.5",
+                default_value="20.0",
             ),
             DeclareLaunchArgument(
                 "target_file",

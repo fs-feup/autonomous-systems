@@ -3,12 +3,12 @@
 HeightValidator::HeightValidator(double height) : height(height) {}
 
 bool HeightValidator::coneValidator(Cluster* cone_point_cloud, Plane& plane) const {
-  double maxZ = cone_point_cloud->get_point_cloud()->points[0].z;
+  double maxZ = plane.get_distance_to_point(cone_point_cloud->get_point_cloud()->points[0]);
   auto maxPoint = cone_point_cloud->get_point_cloud()->points[0];
 
   for (long unsigned int i = 0; i < cone_point_cloud->get_point_cloud()->points.size(); i++) {
-    if (cone_point_cloud->get_point_cloud()->points[i].z > maxZ) {
-      maxZ = cone_point_cloud->get_point_cloud()->points[i].z;
+    if (plane.get_distance_to_point(cone_point_cloud->get_point_cloud()->points[i]) > maxZ) {
+      maxZ = plane.get_distance_to_point(cone_point_cloud->get_point_cloud()->points[i]);
       maxPoint = cone_point_cloud->get_point_cloud()->points[i];
     }
   }

@@ -30,8 +30,9 @@ set(IMPLEMENTATION_FILES
   src/clustering/dbscan.cpp
   src/utils/cluster.cpp
   src/cone_validator/cylinder_validator.cpp
-  src/utils/plane.cpp
   src/cone_validator/height_validator.cpp
+  src/cone_validator/deviation_validator.cpp
+  src/utils/plane.cpp
   src/cone_evaluator/distance_predict.cpp
   src/center_calculation/centroid_calculation.cpp
   src/icp/icp.cpp
