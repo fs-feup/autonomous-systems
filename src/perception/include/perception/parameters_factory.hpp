@@ -42,11 +42,21 @@ PerceptionParameters load_adapter_parameters() {
                                                           n_angular_grids, radius_resolution);
   }
 
+  // Height Validator Parameters
+  double min_height = adapter_node->declare_parameter("min_height", 0.1);
+  double max_height = adapter_node->declare_parameter("max_height", 0.55);
+
+  // Deviation Validator Parameters
+  double min_xoy = adapter_node->declare_parameter("min_xoy", 0.0);
+  double max_xoy = adapter_node->declare_parameter("max_xoy", 0.3);
+  double min_z = adapter_node->declare_parameter("min_z", 0.00001);
+  double max_z = adapter_node->declare_parameter("max_z", 0.6);
+
   params.clustering_ = std::make_shared<DBSCAN>(clustering_n_neighbours, clustering_epsilon);
   params.cone_differentiator_ = std::make_shared<LeastSquaresDifferentiation>();
   params.cone_validators_ = {std::make_shared<CylinderValidator>(0.228, 0.325),
-                             std::make_shared<HeightValidator>(0.55),
-                             std::make_shared<DeviationValidator>(0, 0.2, 0.0001, 0.6)};
+                             std::make_shared<HeightValidator>(min_height, max_height),
+                             std::make_shared<DeviationValidator>(min_xoy, max_xoy, min_z, max_z)};
   params.distance_predict_ =
       std::make_shared<DistancePredict>(vertical_resolution, horizontal_resolution);
 

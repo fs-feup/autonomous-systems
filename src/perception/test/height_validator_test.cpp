@@ -24,7 +24,7 @@ class HeightValidatorTest : public ::testing::Test {
  * @brief Test case to validate if the cone height is within the height threshold.
  */
 TEST_F(HeightValidatorTest, ConeWithinHeightThreshold) {
-  HeightValidator validator = HeightValidator(0.375);
+  HeightValidator validator = HeightValidator(0.1, 0.375);
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud(new pcl::PointCloud<pcl::PointXYZI>);
   point_cloud->points.push_back(pcl::PointXYZI{0.3, 0.0, 0, 0});
@@ -40,7 +40,7 @@ TEST_F(HeightValidatorTest, ConeWithinHeightThreshold) {
  * @brief Test case to validate if the cone height exceeds the height threshold.
  */
 TEST_F(HeightValidatorTest, ConeExceedsHeightThreshold) {
-  HeightValidator validator = HeightValidator(0.375);
+  HeightValidator validator = HeightValidator(0.1, 0.375);
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud(new pcl::PointCloud<pcl::PointXYZI>);
   point_cloud->points.push_back(pcl::PointXYZI{1.0, 0.0, 0, 0});

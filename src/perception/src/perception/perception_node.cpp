@@ -124,6 +124,9 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
     bool is_valid = true;
     for (auto validator : _cone_validators_){
       is_valid = is_valid && validator->coneValidator(&cluster, _ground_plane_);
+
+      // Break the cycle to avoid wasting time on invalid clusters
+      if (!is_valid) break;
     }
     if (is_valid) {
       filtered_clusters.push_back(cluster);
@@ -137,7 +140,10 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   RCLCPP_DEBUG(this->get_logger(), "Point Cloud After Ground Removal: %ld points",
                ground_removed_cloud->points.size());
   RCLCPP_DEBUG(this->get_logger(), "Point Cloud after Clustering: %ld clusters",
+               clusters.size());
+  RCLCPP_DEBUG(this->get_logger(), "Point Cloud after Validations: %ld clusters",
                filtered_clusters.size());
+  
 
   publish_cones(&filtered_clusters);
 }

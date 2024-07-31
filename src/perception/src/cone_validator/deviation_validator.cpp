@@ -2,6 +2,7 @@
 #include <cmath>
 #include <numeric>
 #include <vector>
+#include "rclcpp/rclcpp.hpp"
 
 DeviationValidator::DeviationValidator(double min_xoy, 
         double max_xoy, double min_z, double max_z) : 
@@ -44,5 +45,13 @@ bool DeviationValidator::coneValidator(Cluster* cone_point_cloud, [[maybe_unused
     double std_dev_z = calc_std_dev(deviations_z);
 
     // Validate against the thresholds
-    return (std_dev_xoy >= min_xoy && std_dev_xoy <= max_xoy) && (std_dev_z >= min_z && std_dev_z <= max_z);
+    if ((std_dev_xoy >= min_xoy && std_dev_xoy <= max_xoy) && (std_dev_z >= min_z && std_dev_z <= max_z)){
+         RCLCPP_DEBUG(rclcpp::get_logger("perception-1"), "Valid! - xOy: %f - z: %f", std_dev_xoy, std_dev_z);
+         return true;
+    }
+    else{
+        RCLCPP_DEBUG(rclcpp::get_logger("perception-1"), "Invalid! - xOy: %f - z: %f", std_dev_xoy, std_dev_z);
+        return false;
+    }
+
 }
