@@ -41,11 +41,14 @@ void PathSmoothing::order_path(std::vector<PathPoint>& unord_path, const Pose& c
       unord_path[index] = current_point;
       index++;
     } else {
-      RCLCPP_DEBUG(rclcpp::get_logger("planning"),
-                   "Index out of bounds while ordering path OR no valid point found");
+      RCLCPP_INFO(rclcpp::get_logger("planning"),
+                  "Index out of bounds while ordering path OR no valid point found. index: %d, min "
+                  "distance: %f",
+                  index, min_distance);
       break;
     }
   }
+  unord_path.erase(unord_path.begin() + index, unord_path.end());
 }
 
 std::vector<PathPoint> PathSmoothing::smooth_path(std::vector<PathPoint>& unordered_path,

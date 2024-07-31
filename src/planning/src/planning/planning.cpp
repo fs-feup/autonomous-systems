@@ -87,18 +87,49 @@ void Planning::run_planning_algorithms() {
   // Color the cones
   std::pair<std::vector<Cone>, std::vector<Cone>> colored_cones =
       cone_coloring_.color_cones(this->cone_array_, this->pose);
+  if (colored_cones.first.size() < 5 || colored_cones.second.size() < 5) {
+    RCLCPP_WARN(rclcpp::get_logger("planning"), "Not enough cones to plan: %d blue, %d yellow",
+                static_cast<int>(colored_cones.first.size()),
+                static_cast<int>(colored_cones.second.size()));
+    publish_track_points({});
+    return;
+  }
 
   // Outliers dealt by approximating all cones
   std::pair<std::vector<Cone>, std::vector<Cone>> refined_colored_cones =
       outliers_.approximate_cones_with_spline(colored_cones);
+  if (refined_colored_cones.first.size() < 5 || refined_colored_cones.second.size() < 5) {
+    RCLCPP_WARN(rclcpp::get_logger("planning"),
+                "Not enough cones to plan after outlier removal: %d blue, %d yellow",
+                static_cast<int>(refined_colored_cones.first.size()),
+                static_cast<int>(refined_colored_cones.second.size()));
+    publish_track_points({});
+    return;
+  }
+  for (auto &cone : colored_cones.first) {
+    cone.color = Color::BLUE;
+  }
+  for (auto &cone : colored_cones.second) {
+    cone.color = Color::YELLOW;
+  }
 
   // Calculate middle points using triangulations
   std::vector<PathPoint> triangulations_path =
       path_calculation_.process_delaunay_triangulations(refined_colored_cones);
+  if (triangulations_path.size() < 5) {
+    RCLCPP_WARN(rclcpp::get_logger("planning"), "Not enough cones to plan after triangulations: %d",
+                static_cast<int>(triangulations_path.size()));
+    publish_track_points({});
+    return;
+  }
 
   // Smooth the calculated path
   std::vector<PathPoint> final_path = path_smoothing_.smooth_path(triangulations_path, this->pose);
 
+  if (final_path.size() < 10) {
+    RCLCPP_WARN(rclcpp::get_logger("planning"), "Final path size: %d",
+                static_cast<int>(final_path.size()));
+  }
   // Velocity Planning
   // TODO: Remove this when velocity planning is a reality
   for (auto &path_point : final_path) {

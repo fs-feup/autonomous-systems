@@ -13,22 +13,22 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "angle_gain",
                 description="Gain for the angle in the cone coloring cost function",
-                default_value="11.0",
+                default_value="9.246",
             ),
             DeclareLaunchArgument(
                 "distance_gain",
                 description="Gain for the distance in the cone coloring cost function",
-                default_value="8.0",
+                default_value="6.657",
             ),
             DeclareLaunchArgument(
                 "ncones_gain",
                 description="Gain for the number of cones in the cone coloring cost funtcion",
-                default_value="8.7",
+                default_value="20.7",
             ),
             DeclareLaunchArgument(
                 "angle_exponent",
                 description="Exponent on the angle in the cone coloring cost function",
-                default_value="5.3",
+                default_value="2.0",
             ),
             DeclareLaunchArgument(
                 "distance_exponent",

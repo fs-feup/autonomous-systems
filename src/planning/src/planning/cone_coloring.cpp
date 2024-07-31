@@ -62,10 +62,66 @@ void ConeColoring::place_initial_cones(std::unordered_set<Cone, std::hash<Cone>>
   colored_yellow_cones.push_back(initial_cone_right);
   n_colored_cones++;
 
-  Cone virtual_cone_left = virtual_cone_from_initial_cone(initial_cone_left, car_pose);
-  Cone virtual_cone_right = virtual_cone_from_initial_cone(initial_cone_right, car_pose);
-  colored_blue_cones.insert(colored_blue_cones.begin(), virtual_cone_left);
-  colored_yellow_cones.insert(colored_yellow_cones.begin(), virtual_cone_right);
+  place_second_cones(uncolored_cones, colored_blue_cones, colored_yellow_cones, car_pose,
+                     n_colored_cones);
+}
+
+void ConeColoring::place_second_cones(std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones,
+                                      std::vector<Cone>& colored_blue_cones,
+                                      std::vector<Cone>& colored_yellow_cones, const Pose& car_pose,
+                                      int& n_colored_cones) const {
+  Cone first_left_cone = colored_blue_cones.front();
+  Cone first_right_cone = colored_yellow_cones.front();
+
+  double car_orientation = car_pose.orientation;
+  double min_distance = std::numeric_limits<double>::max();
+
+  Cone second_left_cone;
+  for (const auto& cone : uncolored_cones) {
+    double segment_orientation = atan2(cone.position.y - first_left_cone.position.y,
+                                       cone.position.x - first_left_cone.position.x);
+    segment_orientation = std::fmod(segment_orientation + 2.0 * M_PI, 2.0 * M_PI);
+    double orientation_difference = std::fabs(car_orientation - segment_orientation);
+    if (orientation_difference > 2.0 * M_PI / 5.0 && orientation_difference < 8.0 * M_PI / 5.0) {
+      continue;
+    }
+    double distance = cone.position.euclidean_distance(first_left_cone.position);
+    if (distance < min_distance) {
+      min_distance = distance;
+      second_left_cone = cone;
+    }
+  }
+  if (min_distance < std::numeric_limits<double>::max()) {
+    colored_blue_cones.push_back(second_left_cone);
+    uncolored_cones.erase(second_left_cone);
+    n_colored_cones++;
+  } else {
+    RCLCPP_ERROR(rclcpp::get_logger("ConeColoring"), "Could not find second left cone");
+  }
+
+  min_distance = std::numeric_limits<double>::max();
+  Cone second_right_cone;
+  for (const auto& cone : uncolored_cones) {
+    double segment_orientation = atan2(cone.position.y - first_right_cone.position.y,
+                                       cone.position.x - first_right_cone.position.x);
+    segment_orientation = std::fmod(segment_orientation + 2.0 * M_PI, 2.0 * M_PI);
+    double orientation_difference = std::fabs(car_orientation - segment_orientation);
+    if (orientation_difference > 2.0 * M_PI / 5.0 && orientation_difference < 8.0 * M_PI / 5.0) {
+      continue;
+    }
+    double distance = cone.position.euclidean_distance(first_right_cone.position);
+    if (distance < min_distance) {
+      min_distance = distance;
+      second_right_cone = cone;
+    }
+  }
+  if (min_distance < std::numeric_limits<double>::max()) {
+    colored_yellow_cones.push_back(second_right_cone);
+    uncolored_cones.erase(second_right_cone);
+    n_colored_cones++;
+  } else {
+    RCLCPP_ERROR(rclcpp::get_logger("ConeColoring"), "Could not find second right cone");
+  }
 }
 
 double ConeColoring::calculate_cost(const Cone& next_cone, const Cone& last_cone,
@@ -129,19 +185,37 @@ std::pair<std::vector<Cone>, std::vector<Cone>> ConeColoring::color_cones(
   std::unordered_set<Cone, std::hash<Cone>> uncolored_cones(cones.begin(), cones.end());
   place_initial_cones(uncolored_cones, colored_blue_cones, colored_yellow_cones, car_pose,
                       n_colored_cones);
+  int i = 0;
+  bool colouring = true;
   // Color blue cones
-  while (
-      try_to_color_next_cone(uncolored_cones, colored_blue_cones, n_colored_cones, n_input_cones)) {
+  while (colouring) {
     // keep coloring yellow cones while the function "try_to_color_next_cone" returns true (i.e. a
     // suitble cone is found)
+    if (i % 2 == 0) {
+      colouring = try_to_color_next_cone(uncolored_cones, colored_blue_cones, n_colored_cones,
+                                         n_input_cones);
+    } else {
+      colouring = try_to_color_next_cone(uncolored_cones, colored_yellow_cones, n_colored_cones,
+                                         n_input_cones);
+    }
+    i++;
   }
-  // Color yellow cones
-  while (try_to_color_next_cone(uncolored_cones, colored_yellow_cones, n_colored_cones,
-                                n_input_cones)) {
-    // keep coloring yellow cones while the function "try_to_color_next_cone" returns true (i.e. a
-    // suitble cone is found)
-  }
+  //// Color yellow cones
+  // while (try_to_color_next_cone(uncolored_cones, colored_yellow_cones, n_colored_cones,
+  //                               n_input_cones)) {
+  //   // keep coloring yellow cones while the function "try_to_color_next_cone" returns true (i.e.
+  //   a
+  //   // suitble cone is found)
+  // }
   colored_blue_cones.erase(colored_blue_cones.begin());
   colored_yellow_cones.erase(colored_yellow_cones.begin());
+  if (colored_blue_cones.size() < 5) {
+    RCLCPP_DEBUG(rclcpp::get_logger("Planning : ConeColoring"), "Not enough blue cones found: %ld",
+                 colored_blue_cones.size());
+  }
+  if (colored_yellow_cones.size() < 5) {
+    RCLCPP_DEBUG(rclcpp::get_logger("Planning : ConeColoring"),
+                 "Not enough yellow cones found: %ld", colored_yellow_cones.size());
+  }
   return {colored_blue_cones, colored_yellow_cones};
 }
