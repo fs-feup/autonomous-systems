@@ -82,7 +82,7 @@ def generate_launch_description():
                     {"sml_curvature": LaunchConfiguration("sml_curvature")},
                     {"sml_initial_limit": LaunchConfiguration("sml_initial_limit")},
                 ],
-                arguments=["--ros-args", "--log-level", "ekf_state_est:=info"],
+                arguments=["--ros-args", "--log-level", "ekf_state_est:=debug"],
             ),
         ]
     )

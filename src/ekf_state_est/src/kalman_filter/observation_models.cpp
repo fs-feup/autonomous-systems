@@ -7,12 +7,12 @@ ObservationModel::ObservationModel(const Eigen::MatrixXf &observation_noise_cova
 
 Eigen::Vector2f ObservationModel::inverse_observation_model(
     const Eigen::VectorXf &expected_state, const ObservationData &observation_data) const {
-  // RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"),
-  //              "Observation Model - Expected State: %f %f %f %f %f", expected_state(0),
-  //              expected_state(1), expected_state(2), expected_state(3), expected_state(4));
-  // RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "Observation Model - Observation Data: %f
-  // %f",
-  //              observation_data.position.x, observation_data.position.y);
+  RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"),
+               "Observation Model - Expected State: %f %f %f %f %f", expected_state(0),
+               expected_state(1), expected_state(2), expected_state(3), expected_state(4));
+  RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "Observation Model - Observation Data: (%f,%f)", 
+      observation_data.position.x, observation_data.position.y);
+
   Eigen::Matrix3f transformation_matrix = Eigen::Matrix3f::Identity();
   transformation_matrix(0, 0) = cos(expected_state(2));
   transformation_matrix(0, 1) = -sin(expected_state(2));
@@ -20,12 +20,14 @@ Eigen::Vector2f ObservationModel::inverse_observation_model(
   transformation_matrix(1, 0) = sin(expected_state(2));
   transformation_matrix(1, 1) = cos(expected_state(2));
   transformation_matrix(1, 2) = expected_state(1);
+
   Eigen::Vector3f observation =
       Eigen::Vector3f(observation_data.position.x, observation_data.position.y, 1);
   Eigen::Vector3f observed_landmark_absolute_position = transformation_matrix * observation;
-  // RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"),
-  //              "Observation Model - Observed Landmark Absolute Position: %f %f",
-  //              observed_landmark_absolute_position(0), observed_landmark_absolute_position(1));
+
+  RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"),
+               "Observation Model - Observed Landmark Absolute Position: %f %f",
+               observed_landmark_absolute_position(0), observed_landmark_absolute_position(1));
 
   return Eigen::Vector2f(observed_landmark_absolute_position(0),
                          observed_landmark_absolute_position(1));
@@ -106,29 +108,29 @@ Eigen::MatrixXf ObservationModel::get_state_to_observation_matrix(
   // where x is the x coordinate of the robot, y is the y coordinate of the robot, theta is the
   // orientation of the robot, m is the x coordinate of the landmark, n is the y coordinate of the
   // landmark
-  low_jacobian(0, 0) = -cos(-expected_state(2));
-  low_jacobian(0, 1) = sin(-expected_state(2));
-  low_jacobian(0, 2) = -expected_state(landmark_index) * sin(expected_state(2)) +
+  low_jacobian(0, 0) = (float) -cos(-expected_state(2));
+  low_jacobian(0, 1) = (float) sin(-expected_state(2));
+  low_jacobian(0, 2) = (float) -expected_state(landmark_index) * sin(expected_state(2)) +
                        expected_state(landmark_index + 1) * cos(-expected_state(2)) +
                        expected_state(0) * sin(expected_state(2)) -
                        expected_state(1) * cos(-expected_state(2));
   low_jacobian(0, 3) = 0;
   low_jacobian(0, 4) = 0;
   low_jacobian(0, 5) = 0;
-  low_jacobian(0, 6) = cos(-expected_state(2));
-  low_jacobian(0, 7) = -sin(-expected_state(2));
+  low_jacobian(0, 6) = (float) cos(-expected_state(2));
+  low_jacobian(0, 7) = (float) -sin(-expected_state(2));
 
-  low_jacobian(1, 0) = -sin(-expected_state(2));
-  low_jacobian(1, 1) = -cos(-expected_state(2));
-  low_jacobian(1, 2) = -expected_state(landmark_index) * cos(-expected_state(2)) -
+  low_jacobian(1, 0) = (float) -sin(-expected_state(2));
+  low_jacobian(1, 1) = (float) -cos(-expected_state(2));
+  low_jacobian(1, 2) = (float) -expected_state(landmark_index) * cos(-expected_state(2)) -
                        expected_state(landmark_index + 1) * sin(expected_state(2)) +
                        expected_state(0) * cos(-expected_state(2)) +
                        expected_state(1) * sin(expected_state(2));
   low_jacobian(1, 3) = 0;
   low_jacobian(1, 4) = 0;
   low_jacobian(1, 5) = 0;
-  low_jacobian(1, 6) = sin(-expected_state(2));
-  low_jacobian(1, 7) = cos(-expected_state(2));
+  low_jacobian(1, 6) = (float) sin(-expected_state(2));
+  low_jacobian(1, 7) = (float) cos(-expected_state(2));
 
   Eigen::MatrixXf validation_jacobian = low_jacobian * reformating_matrix;
 
