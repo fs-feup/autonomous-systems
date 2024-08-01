@@ -35,7 +35,7 @@ EufsAdapter::EufsAdapter(std::shared_ptr<SENode> se_node) : Adapter(se_node) {
 }
 
 void EufsAdapter::mission_state_callback(const eufs_msgs::msg::CanState& msg) const {
-  // RCLCPP_DEBUG(this->node_->get_logger(), "Mission state received: %d", msg.ami_state);
+  RCLCPP_DEBUG(this->node_->get_logger(), "Mission state received: %d", msg.ami_state);
   this->node_->_mission_ = common_lib::competition_logic::get_mission_from_eufs(msg.ami_state);
   if (msg.as_state == 2) {
     this->node_->_go_ = true;

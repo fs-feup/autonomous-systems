@@ -51,12 +51,12 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "pid_lim_min",
                 description="Minimum output value of Longitudinal Control",
-                default_value="-1",
+                default_value="-1.0",
             ),
             DeclareLaunchArgument(
                 "pid_lim_max",
                 description="Maximum output value of Longitudinal Control",
-                default_value="1",
+                default_value="1.0",
             ),
             DeclareLaunchArgument(
                 "pid_anti_windup",

@@ -92,7 +92,10 @@ public:
    * @param perception_map map from perception
    */
   void correction_step(const std::vector<common_lib::structures::Cone> &perception_map);
-  //   void wss_correction_step(const MotionUpdate &motion_correction_data);
+  
+  // TODO: Method Implementation
+  void wss_correction_step(const MotionUpdate &motion_correction_data);
+
   /**
    * @brief Get the state vector
    *

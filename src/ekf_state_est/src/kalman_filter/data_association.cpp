@@ -59,17 +59,19 @@ bool SimpleMaximumLikelihood::validate(const Eigen::Vector2f& predicted_measurem
   // file << "VALIDATION VALUE" << validation_value << "\n";
   // file << "V" << v << "\n";
   file.flush();
-  S.diagonal().array() += 1e-6;
-  float nd = validation_value + log(S.determinant());
+  S.diagonal().array() += (float) 1e-6;
+  double nd = validation_value + log(S.determinant());
   return nd < 7.815;
 }
 int SimpleMaximumLikelihood::match_cone(const Eigen::Vector2f& observed_landmark_absolute,
                                         const Eigen::VectorXf& expected_state) const {
+                                          
   // Check if landmark is within valid distance
-  float distance_to_vehicle = (observed_landmark_absolute - expected_state.segment<2>(0)).norm();
-  if (distance_to_vehicle > get_max_landmark_distance()) {
+  if (float distance_to_vehicle = (observed_landmark_absolute - expected_state.segment<2>(0)).norm(); 
+      distance_to_vehicle > get_max_landmark_distance()) {
     return -1;
   }
+
 
   float min_delta = std::numeric_limits<float>::max();
   int closest_landmark_index = -2;

@@ -33,7 +33,7 @@ public:
    *
    * @param msg Message sent from the ros IMU topic
    */
-  void imu_subscription_callback(const sensor_msgs::msg::Imu& msg);
+  void imu_subscription_callback(const sensor_msgs::msg::Imu& msg) const;
 
   virtual ~Adapter() = default;
 };

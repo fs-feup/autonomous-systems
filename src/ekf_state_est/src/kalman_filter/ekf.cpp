@@ -16,7 +16,7 @@ ExtendedKalmanFilter::ExtendedKalmanFilter(
     std::shared_ptr<DataAssociationModel> data_association_model)
     : _observation_model_(observation_model), _data_association_model_(data_association_model) {
   //_p_matrix_ = Eigen::MatrixXf::Identity(6, 6) * 100.0f;
-  _x_vector_ = Eigen::VectorXf::Constant(6, 0.0000001);
+  _x_vector_ = Eigen::VectorXf::Constant(6, (float) 0.0000001);
 }
 /*-----------------------Algorithms-----------------------*/
 
@@ -38,7 +38,7 @@ void ExtendedKalmanFilter::prediction_step(const MotionUpdate &motion_update,
       motion_model->get_motion_to_state_matrix(temp_x_vector, motion_update, delta);
   Eigen::MatrixXf r_matrix = motion_model->get_process_noise_covariance_matrix(
       static_cast<unsigned int>(this->_x_vector_.size()));  // Process Noise Matrix
-  // this->_p_matrix_ = g_matrix * this->_p_matrix_ * g_matrix.transpose() + r_matrix;
+
   this->_p_matrix_ = g_matrix * Eigen::MatrixXf(this->_p_matrix_) * g_matrix.transpose() + r_matrix;
 }
 void ExtendedKalmanFilter::correction_step(
@@ -67,14 +67,14 @@ void ExtendedKalmanFilter::correction_step(
       continue;
     }
     int j_best = 0;
-    float n_best = std::numeric_limits<int>::max();
-    float outer = std::numeric_limits<int>::max();
+    float n_best = std::numeric_limits<float>::max();
+    float outer = std::numeric_limits<float>::max();
     for (int j = 6; j < this->_x_vector_.size(); j += 2) {
       // get expect observation from the state vector with the observation model
       Eigen::Vector2f z_hat = this->_observation_model_->observation_model(this->_x_vector_, j);
       // print dbg msg z_hat and cone in the samle line
-      // RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "Z_HAT X|%f| Y|%f| CONE X|%f| Y|%f|",
-      //              z_hat(0), z_hat(1), cone.position.x, cone.position.y);
+      RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "Z_HAT X|%f| Y|%f| CONE X|%f| Y|%f|",
+                   z_hat(0), z_hat(1), cone.position.x, cone.position.y);
       // get the state to observation matrix
       Eigen::MatrixXf h_matrix = this->_observation_model_->get_state_to_observation_matrix(
           this->_x_vector_, j, static_cast<unsigned int>(this->_x_vector_.size()));
@@ -84,19 +84,19 @@ void ExtendedKalmanFilter::correction_step(
       // calculate innovation cone position - z_hat(predicted cone position)
       Eigen::Vector2f innovation = Eigen::Vector2f(cone.position.x, cone.position.y) - z_hat;
       // dbg
-      // RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "INNOVATION X|%f| Y|%f|",
-      // innovation(0),
-      //              innovation(1));
+      RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "INNOVATION X|%f| Y|%f|",
+        innovation(0), innovation(1));
       // calculate the S matrix
       Eigen::MatrixXf s_matrix = h_matrix * this->_p_matrix_ * h_matrix.transpose() + q_matrix;
       // calculate nis, that means normalized innovation squared
       float nis = innovation.transpose() * s_matrix.inverse() * innovation;
       // dbg
-      // RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "NIS %f", nis);
+      RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "NIS %f", nis);
       // calculate nd, that means normalized determinant
-      float nd = nis + log(s_matrix.determinant());
+      double nd = nis + log(s_matrix.determinant());
+
       // dbg
-      // RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "ND %f\n", nd);
+      RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "ND %f\n", nd);
       RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "CURRENT CONE: %f %f", cone.position.x,
                    cone.position.y);
       RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "WITH Z_HAT: %f %f", z_hat(0), z_hat(1));
@@ -167,7 +167,7 @@ void ExtendedKalmanFilter::correction_step(
   for (int i = 0; i < new_features.size(); i++) {
     RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "Adding to state vector %f %f",
                  new_features[i](0), new_features[i](1));
-    int length = this->_x_vector_.size();
+    long length = this->_x_vector_.size();
     this->_x_vector_.conservativeResizeLike(Eigen::VectorXf::Zero(this->_x_vector_.size() + 2));
     // call inverse observational model ot change the cone position to the car frame
     Eigen::Vector2f landmark_absolute = this->_observation_model_->inverse_observation_model(
