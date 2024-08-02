@@ -51,3 +51,34 @@ TEST_F(HeightValidatorTest, ConeExceedsHeightThreshold) {
 
   ASSERT_FALSE(result);
 }
+
+/**
+ * @brief Test case to validate if the cone height is below the minimum height threshold.
+ */
+TEST_F(HeightValidatorTest, ConeBelowHeightThreshold) {
+  HeightValidator validator = HeightValidator(0.1, 0.375);
+
+  pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud(new pcl::PointCloud<pcl::PointXYZI>);
+  point_cloud->points.push_back(pcl::PointXYZI{0.01, 0.0, 0, 0});
+
+  Cluster conePointCloud = Cluster(point_cloud);
+
+  bool result = validator.coneValidator(&conePointCloud, plane);
+
+  ASSERT_FALSE(result);
+}
+/**
+ * @brief Test case to validate if the cone height isn't below the minimum height threshold.
+ */
+TEST_F(HeightValidatorTest, ConeHeightThreshold) {
+  HeightValidator validator = HeightValidator(0.1, 0.375);
+
+  pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud(new pcl::PointCloud<pcl::PointXYZI>);
+  point_cloud->points.push_back(pcl::PointXYZI{0.15, 0.0, 0, 0});
+
+  Cluster conePointCloud = Cluster(point_cloud);
+
+  bool result = validator.coneValidator(&conePointCloud, plane);
+
+  ASSERT_TRUE(result);
+}

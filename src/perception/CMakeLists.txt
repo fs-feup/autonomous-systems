@@ -23,7 +23,6 @@ find_package(common_lib REQUIRED)
 
 
 set(IMPLEMENTATION_FILES 
-  src/perception/perception_node.cpp
   src/ground_removal/ransac.cpp
   src/ground_removal/grid_ransac.cpp
   src/cone_differentiation/least_squares_differentiation.cpp
@@ -39,13 +38,27 @@ set(IMPLEMENTATION_FILES
   src/center_calculation/circunference_center_calculation.cpp
 )
 
+set(TEST_INCLUDE_FILES
+  test/ransac_test.cpp
+  test/least_squares_test.cpp
+  test/dbscan_test.cpp
+  test/performance_test.cpp
+  test/height_validator_test.cpp
+  test/cylinder_validator_test.cpp
+  test/grid_ransac_test.cpp
+  test/distance_validator_test.cpp
+  test/icp_test.cpp
+  test/circunference_center_calculation_test.cpp
+  test/standard_deviation_validator_test.cpp
+)
+
 include_directories(${PCL_INCLUDE_DIRS})
 include_directories(${PCL_CONVERSIONS_INCLUDE_DIRS})
 include_directories(${sensor_msgs_INCLUDE_DIRS})
 link_directories(${PCL_LIBRARY_DIRS})
 add_definitions(${PCL_DEFINITIONS})
 
-add_executable(perception src/perception.cpp ${IMPLEMENTATION_FILES})
+add_executable(perception src/perception.cpp src/perception/perception_node.cpp ${IMPLEMENTATION_FILES})
 target_include_directories(perception PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include> ${pcl_conversions_INCLUDE_DIRS})
@@ -63,26 +76,9 @@ ament_target_dependencies(perception rclcpp visualization_msgs common_lib custom
 if(BUILD_TESTING)
   find_package(ament_cmake_gtest REQUIRED)
   
-  ament_add_gtest(perception_test test/ransac_test.cpp test/least_squares_test.cpp 
-                  test/dbscan_test.cpp src/clustering/dbscan.cpp
-                  test/performance_test.cpp 
-                  src/cone_differentiation/least_squares_differentiation.cpp 
-                  src/ground_removal/ransac.cpp
-                  src/utils/cluster.cpp
-                  src/utils/plane.cpp
-                  src/cone_validator/cylinder_validator.cpp
-                  src/cone_validator/height_validator.cpp
-                  test/height_validator_test.cpp
-                  test/cylinder_validator_test.cpp
-                  test/grid_ransac_test.cpp
-                  src/cone_evaluator/distance_predict.cpp
-                  test/distance_validator_test.cpp
-                  src/ground_removal/grid_ransac.cpp
-                  src/center_calculation/centroid_calculation.cpp
-                  src/center_calculation/circunference_center_calculation.cpp
-                  src/icp/icp.cpp
-                  test/icp_test.cpp
-                  test/circunference_center_calculation_test.cpp)
+  ament_add_gtest(perception_test
+                  ${IMPLEMENTATION_FILES}
+                  ${TEST_INCLUDE_FILES})
 
 
   target_link_libraries(perception_test ${PCL_LIBRARIES})

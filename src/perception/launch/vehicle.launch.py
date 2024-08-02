@@ -94,6 +94,36 @@ def generate_launch_description():
                 description="Euclidean fitness epsilon for convergence criteria",
                 default_value="1e-6",
             ),
+                        DeclareLaunchArgument(
+                "min_height",
+                description="Minimum height of a cluster to be considered a cone",
+                default_value="0.1"
+            ),
+            DeclareLaunchArgument(
+                "max_height",
+                description="Maximum height of a cluster to be considered a cone",
+                default_value="0.55"
+            ),
+            DeclareLaunchArgument(
+                "min_xoy",
+                description="Minimum xOy plane deviation",
+                default_value="0.0"
+            ),
+            DeclareLaunchArgument(
+                "max_xoy",
+                description="Maximum xOy plane deviation",
+                default_value="0.3"
+            ),
+            DeclareLaunchArgument(
+                "min_z",
+                description="Minimum z axis deviation",
+                default_value="0.00001"
+            ),
+            DeclareLaunchArgument(
+                "max_z",
+                description="Maximum z axis deviation",
+                default_value="0.6"
+            ),
             Node(
                 package="perception",
                 executable="perception",
@@ -144,6 +174,24 @@ def generate_launch_description():
                         "pc_max_range" : LaunchConfiguration(
                             "pc_max_range"
                         )
+                    },
+                                        {
+                        "min_height" : LaunchConfiguration("min_height")
+                    },
+                    {
+                        "max_height" : LaunchConfiguration("max_height")
+                    },
+                    {
+                        "min_xoy" : LaunchConfiguration("min_xoy")
+                    },
+                    {
+                        "max_xoy" : LaunchConfiguration("max_xoy")
+                    },
+                    {
+                        "min_z" : LaunchConfiguration("min_z")
+                    },
+                    {
+                        "max_z" : LaunchConfiguration("max_z")
                     }
                 ],
                 arguments=["--ros-args", "--log-level", "perception:=info"],
