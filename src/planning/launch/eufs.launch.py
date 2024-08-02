@@ -93,7 +93,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "pre_defined_velocity_planning",
                 description="A pre-defined velocity planning value",
-                default_value="2",
+                default_value="1",
             ),
             Node(
                 package="planning",

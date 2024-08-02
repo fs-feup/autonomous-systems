@@ -21,7 +21,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "lookahead_gain",
                 description="Variable K -> Lookahead Gain",
-                default_value="2.0",
+                default_value="3.5",
             ),
             DeclareLaunchArgument(
                 "pid_kp",
@@ -51,12 +51,12 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "pid_lim_min",
                 description="Minimum output value of Longitudinal Control",
-                default_value="-1.0",
+                default_value="-1",
             ),
             DeclareLaunchArgument(
                 "pid_lim_max",
                 description="Maximum output value of Longitudinal Control",
-                default_value="1.0",
+                default_value="1",
             ),
             DeclareLaunchArgument(
                 "pid_anti_windup",
@@ -82,7 +82,7 @@ def generate_launch_description():
                     {"lookahead_gain": LaunchConfiguration("lookahead_gain")},
                     {"use_simulated_se": LaunchConfiguration("use_simulated_se")},
                 ],
-                arguments=["--ros-args", "--log-level", "control:=info"],
+                arguments=["--ros-args", "--log-level", "control:=debug"],
             ),
         ]
     )

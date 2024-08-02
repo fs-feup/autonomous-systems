@@ -87,7 +87,7 @@ void Planning::run_planning_algorithms() {
   // Color the cones
   std::pair<std::vector<Cone>, std::vector<Cone>> colored_cones =
       cone_coloring_.color_cones(this->cone_array_, this->pose);
-  if (colored_cones.first.size() < 5 || colored_cones.second.size() < 5) {
+  if (colored_cones.first.size() < 2 || colored_cones.second.size() < 2) {
     RCLCPP_WARN(rclcpp::get_logger("planning"), "Not enough cones to plan: %d blue, %d yellow",
                 static_cast<int>(colored_cones.first.size()),
                 static_cast<int>(colored_cones.second.size()));
@@ -98,7 +98,7 @@ void Planning::run_planning_algorithms() {
   // Outliers dealt by approximating all cones
   std::pair<std::vector<Cone>, std::vector<Cone>> refined_colored_cones =
       outliers_.approximate_cones_with_spline(colored_cones);
-  if (refined_colored_cones.first.size() < 5 || refined_colored_cones.second.size() < 5) {
+  if (refined_colored_cones.first.size() < 2 || refined_colored_cones.second.size() < 2) {
     RCLCPP_WARN(rclcpp::get_logger("planning"),
                 "Not enough cones to plan after outlier removal: %d blue, %d yellow",
                 static_cast<int>(refined_colored_cones.first.size()),
@@ -116,7 +116,7 @@ void Planning::run_planning_algorithms() {
   // Calculate middle points using triangulations
   std::vector<PathPoint> triangulations_path =
       path_calculation_.process_delaunay_triangulations(refined_colored_cones);
-  if (triangulations_path.size() < 5) {
+  if (triangulations_path.size() < 2) {
     RCLCPP_WARN(rclcpp::get_logger("planning"), "Not enough cones to plan after triangulations: %d",
                 static_cast<int>(triangulations_path.size()));
     publish_track_points({});
