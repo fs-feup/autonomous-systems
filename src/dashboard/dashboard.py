@@ -273,7 +273,7 @@ def create_update_graph_callback(graph_id, dashboard, graph_number, graph_type="
                 combined_df["time"] = range(len(combined_df))
 
         df_melted = combined_df.melt(id_vars=[x_axis, "Source"], value_vars=metrics)
-        df_melted["Source_Metric"] = df_melted["variable"]
+        df_melted["Source_Metric"] = df_melted["Source"] + " - " + df_melted["variable"]
         df_melted = df_melted[df_melted["variable"].isin(metrics)]
 
         if graph_type == "line":
