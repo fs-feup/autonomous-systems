@@ -120,17 +120,17 @@ Eigen::MatrixXf ObservationModel::get_state_to_observation_matrix(
   low_jacobian(0, 6) = cos(-expected_state(2));
   low_jacobian(0, 7) = -sin(-expected_state(2));
 
-  low_jacobian(1, 0) = (float) -sin(-expected_state(2));
-  low_jacobian(1, 1) = (float) -cos(-expected_state(2));
-  low_jacobian(1, 2) = (float) -expected_state(landmark_index) * cos(-expected_state(2)) -
+  low_jacobian(1, 0) = -sin(-expected_state(2));
+  low_jacobian(1, 1) = -cos(-expected_state(2));
+  low_jacobian(1, 2) = -expected_state(landmark_index) * cos(-expected_state(2)) -
                        expected_state(landmark_index + 1) * sin(expected_state(2)) +
                        expected_state(0) * cos(-expected_state(2)) +
                        expected_state(1) * sin(expected_state(2));
   low_jacobian(1, 3) = 0;
   low_jacobian(1, 4) = 0;
   low_jacobian(1, 5) = 0;
-  low_jacobian(1, 6) = (float) sin(-expected_state(2));
-  low_jacobian(1, 7) = (float) cos(-expected_state(2));
+  low_jacobian(1, 6) = sin(-expected_state(2));
+  low_jacobian(1, 7) = cos(-expected_state(2));
 
   Eigen::MatrixXf validation_jacobian = low_jacobian * reformating_matrix;
 

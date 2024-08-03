@@ -59,7 +59,7 @@ bool SimpleMaximumLikelihood::validate(const Eigen::Vector2f& predicted_measurem
   // file << "VALIDATION VALUE" << validation_value << "\n";
   // file << "V" << v << "\n";
   file.flush();
-  S.diagonal().array() += (float) 1e-6;
+  S.diagonal().array() += 1e-6;
   double nd = validation_value + log(S.determinant());
   return nd < 7.815;
 }
