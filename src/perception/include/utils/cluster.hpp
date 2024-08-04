@@ -1,5 +1,4 @@
-#ifndef CLUSTER_HPP
-#define CLUSTER_HPP
+#pragma once
 
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
@@ -7,6 +6,7 @@
 
 #include <pcl/common/impl/centroid.hpp>
 #include <string>
+#include <tuple>
 
 /**
  * @brief Represents a cluster of 3D points using PCL (Point Cloud Library).
@@ -21,6 +21,8 @@ class Cluster {
   bool _center_is_defined_ = false; ///< Flag indicating whether the center is defined or not.
   double _confidence_ = 0; ///< Confidence on the cluster to be (or not) a cone
   static constexpr auto center_calculator = CircunferenceCenterCalculation(); ///< Calculates the center of the cone
+  double _z_score_x_ = 0;
+  double _z_score_y_ = 0;
 
  public:
   /**
@@ -79,6 +81,15 @@ class Cluster {
    * @return double Cluster's confidence
    */
   double get_confidence();
-};
 
-#endif  // CLUSTER_HPP
+  void set_z_score(double mean_x, double std_dev_x, double mean_y, double std_dev_y);
+
+  double get_z_score_x();
+
+  double get_z_score_y();
+
+  static std::tuple<double, double, double, double> calculate_mean_and_std_dev(std::vector<Cluster>& clusters);
+
+  static void set_z_scores(std::vector<Cluster>& clusters);
+
+};

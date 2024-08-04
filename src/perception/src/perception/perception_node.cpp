@@ -117,6 +117,10 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   std::vector<Cluster> clusters;
   _clustering_->clustering(ground_removed_cloud, &clusters);
 
+
+  // Z-scores calculation for future validations
+  Cluster::set_z_scores(clusters);
+
   // Filtering
   std::vector<Cluster> filtered_clusters;
 

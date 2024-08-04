@@ -122,6 +122,26 @@ def generate_launch_description():
                 description="Maximum z axis deviation",
                 default_value="0.6"
             ),
+            DeclareLaunchArgument(
+                "min_z_score_x",
+                description="Minimum z score on cones distribution (x)",
+                default_value="0.45"
+            ),
+            DeclareLaunchArgument(
+                "max_z_score_x",
+                description="Maximum z score on cones distribution (x)",
+                default_value="1.55"
+            ),
+            DeclareLaunchArgument(
+                "min_z_score_y",
+                description="Minimum z score on cones distribution (y)",
+                default_value="0.45"
+            ),
+            DeclareLaunchArgument(
+                "max_z_score_y",
+                description="Minimum z score on cones distribution (y)",
+                default_value="1.55"
+            ),
             Node(
                 package="perception",
                 executable="perception",
@@ -190,6 +210,18 @@ def generate_launch_description():
                     },
                     {
                         "max_z" : LaunchConfiguration("max_z")
+                    },
+                    {
+                        "min_z_score_x" : LaunchConfiguration("min_z_score_x")
+                    },
+                    {
+                        "max_z_score_x" : LaunchConfiguration("max_z_score_x")
+                    },
+                    {
+                        "min_z_score_y" : LaunchConfiguration("min_z_score_y")
+                    },
+                    {
+                        "max_z_score_y" : LaunchConfiguration("max_z_score_y")
                     }
                 ],
                 arguments=["--ros-args", "--log-level", "perception:=info"],
