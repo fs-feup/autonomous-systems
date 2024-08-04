@@ -12,10 +12,10 @@
  */
 class DeviationValidator : public ConeValidator {
  private:
-  double min_xoy; /**< Minimum xOy plane deviation. */
-  double max_xoy; /**< Maximum xOy plane deviation. */
-  double min_z; /**< Minimum z axis deviation. */
-  double max_z; /**< Maximum z axis deviation. */
+  double _min_xoy_; /**< Minimum xOy plane deviation. */
+  double _max_xoy_; /**< Maximum xOy plane deviation. */
+  double _min_z_; /**< Minimum z axis deviation. */
+  double _max_z_; /**< Maximum z axis deviation. */
 
  public:
   /**
@@ -33,5 +33,10 @@ class DeviationValidator : public ConeValidator {
    * @return True if the cluster is valid, false otherwise.
    */
   bool coneValidator(Cluster* cone_point_cloud, Plane& plane) const override;
+
+  /**
+   * @brief Virtual destructor for DeviationValidator.
+   */
+  virtual ~DeviationValidator() {}
 };
 

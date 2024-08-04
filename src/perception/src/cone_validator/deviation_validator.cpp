@@ -6,7 +6,7 @@
 
 DeviationValidator::DeviationValidator(double min_xoy, 
         double max_xoy, double min_z, double max_z) : 
-        min_xoy(min_xoy), max_xoy(max_xoy), min_z(min_z), max_z(max_z) {}
+        _min_xoy_(min_xoy), _max_xoy_(max_xoy), _min_z_(min_z), _max_z_(max_z) {}
 
 bool DeviationValidator::coneValidator(Cluster* cone_point_cloud, [[maybe_unused]]Plane& plane) const {
     // Vectors to store deviations in XOY and Z
@@ -45,7 +45,7 @@ bool DeviationValidator::coneValidator(Cluster* cone_point_cloud, [[maybe_unused
     double std_dev_z = calc_std_dev(deviations_z);
 
     // Validate against the thresholds
-    if ((std_dev_xoy >= min_xoy && std_dev_xoy <= max_xoy) && (std_dev_z >= min_z && std_dev_z <= max_z)){
+    if ((std_dev_xoy >= _min_xoy_ && std_dev_xoy <= _max_xoy_) && (std_dev_z >= _min_z_ && std_dev_z <= _max_z_)){
          RCLCPP_DEBUG(rclcpp::get_logger("perception-1"), "Valid! - xOy: %f - z: %f", std_dev_xoy, std_dev_z);
          return true;
     }
