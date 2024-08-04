@@ -97,14 +97,14 @@ class Cluster {
    * 
    * @return double Z-score on x axis
    */
-  double get_z_score_x();
+  double get_z_score_x() const;
 
   /**
    * @brief Get the z score on y-axis of an object
    * 
    * @return double Z-score on y axis
    */
-  double get_z_score_y();
+  double get_z_score_y() const;
 
   /**
    * @brief Calculates the mean and standard deviation on x and y axis.

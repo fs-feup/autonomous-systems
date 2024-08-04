@@ -14,8 +14,10 @@ bool DeviationValidator::coneValidator(Cluster* cone_point_cloud, [[maybe_unused
     std::vector<double> deviations_z;
 
     // Calculate the mean point in XOY and Z
-    double mean_x = 0.0, mean_y = 0.0, mean_z = 0.0;
-    int num_points = cone_point_cloud->get_point_cloud()->points.size();
+    double mean_x = 0.0;
+    double mean_y = 0.0;
+    double mean_z = 0.0;
+    unsigned long num_points = cone_point_cloud->get_point_cloud()->points.size();
     for (const auto& point : cone_point_cloud->get_point_cloud()->points) {
         mean_x += point.x;
         mean_y += point.y;

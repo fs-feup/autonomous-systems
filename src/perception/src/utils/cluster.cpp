@@ -49,11 +49,11 @@ void Cluster::set_z_score(double mean_x, double std_dev_x, double mean_y, double
   if (std_dev_y == 0) _z_score_y_ = 1;
 }
 
-double Cluster::get_z_score_x(){
+double Cluster::get_z_score_x() const {
   return _z_score_x_;
 }
 
-double Cluster::get_z_score_y(){
+double Cluster::get_z_score_y() const {
   return _z_score_y_;
 }
 

@@ -34,5 +34,10 @@ class ZScoreValidator : public ConeValidator {
    * @return true if the cluster is valid, false otherwise
    */
   bool coneValidator(Cluster* cluster, Plane& plane) const override;
+
+  /**
+   * @brief Virtual destructor for ZScoreValidator.
+   */
+  virtual ~ZScoreValidator() = default;
 };
 

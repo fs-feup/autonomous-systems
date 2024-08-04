@@ -37,6 +37,6 @@ class DeviationValidator : public ConeValidator {
   /**
    * @brief Virtual destructor for DeviationValidator.
    */
-  virtual ~DeviationValidator() {}
+  virtual ~DeviationValidator() = default;
 };
 

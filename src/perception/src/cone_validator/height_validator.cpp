@@ -1,6 +1,6 @@
 #include <cone_validator/height_validator.hpp>
 
-HeightValidator::HeightValidator(double min_height, double max_height) : min_height(min_height), max_height(max_height) {}
+HeightValidator::HeightValidator(double min_height, double max_height) : _min_height_(min_height), _max_height_(max_height) {}
 
 bool HeightValidator::coneValidator(Cluster* cone_point_cloud, Plane& plane) const {
   double maxZ = plane.get_distance_to_point(cone_point_cloud->get_point_cloud()->points[0]);
@@ -13,5 +13,5 @@ bool HeightValidator::coneValidator(Cluster* cone_point_cloud, Plane& plane) con
     }
   }
 
-  return plane.get_distance_to_point(maxPoint) < max_height && plane.get_distance_to_point(maxPoint) > min_height;
+  return plane.get_distance_to_point(maxPoint) < _max_height_ && plane.get_distance_to_point(maxPoint) > _min_height_;
 }

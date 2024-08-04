@@ -11,8 +11,8 @@
  */
 class HeightValidator : public ConeValidator {
  private:
-  double min_height;  ///< Min Height threshold for cone validation */
-  double max_height;  ///< Max Height threshold for cone validation */
+  double _min_height_;  ///< Min Height threshold for cone validation */
+  double _max_height_;  ///< Max Height threshold for cone validation */
 
  public:
   /**
@@ -35,5 +35,10 @@ class HeightValidator : public ConeValidator {
    * @return true if the cone satisfies the height criteria, false otherwise.
    */
   bool coneValidator(Cluster* cone_point_cloud, Plane& plane) const override;
+
+  /**
+   * @brief Virtual destructor for HeightValidator.
+   */
+  virtual ~HeightValidator() = default;
 };
 
