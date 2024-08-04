@@ -102,7 +102,7 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   header = (*msg).header;
   pcl::fromROSMsg(*msg, *pcl_cloud);
 
-  fov_trimming(pcl_cloud, this->_pc_max_range_, -_fov_trim_, _fov_trim_);
+  fov_trimming(pcl_cloud, this->_pc_max_range_, -_fov_trim_, _fov_trim_, 5);
 
   // Ground Removal
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
@@ -176,16 +176,18 @@ void Perception::publish_cones(std::vector<Cluster>* cones) {
 }
 
 void Perception::fov_trimming(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, double max_distance,
-                              double min_angle, double max_angle) {
+                              double min_angle, double max_angle, double x_discount) {
   pcl::PointCloud<pcl::PointXYZI>::Ptr trimmed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
+
+  double center_x = -x_discount; // assuming (0, 0) as the center
 
   for (const auto& point : cloud->points) {
     // Calculate distance from the origin (assuming the sensor is at the origin)
-    double distance = std::sqrt(point.x * point.x + point.y * point.y);
+    double distance = std::sqrt((point.x - center_x) * (point.x - center_x) + point.y * point.y);
 
     // Calculate the angle in the XY plane
     double angle =
-        std::atan2(point.y, point.x) * 180 / M_PI;  // get angle and convert in to degrees
+        std::atan2(point.y, point.x - center_x) * 180 / M_PI;  // get angle and convert in to degrees
 
     // Check if the point is within the specified distance and angle range
     if (distance <= max_distance && angle >= min_angle && angle <= max_angle) {
