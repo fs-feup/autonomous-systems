@@ -82,14 +82,43 @@ class Cluster {
    */
   double get_confidence();
 
+  /**
+   * @brief Set the z score object on the x and y axis
+   * 
+   * @param mean_x Mean of the x on the point's distribution
+   * @param std_dev_x Standard Deviation of the x on the point's distribution
+   * @param mean_y Mean of the y on the point's distribution
+   * @param std_dev_y Standard Deviation of the y on the point's distribution
+   */
   void set_z_score(double mean_x, double std_dev_x, double mean_y, double std_dev_y);
 
+  /**
+   * @brief Get the z score on x-axis of an object
+   * 
+   * @return double Z-score on x axis
+   */
   double get_z_score_x();
 
+  /**
+   * @brief Get the z score on y-axis of an object
+   * 
+   * @return double Z-score on y axis
+   */
   double get_z_score_y();
 
+  /**
+   * @brief Calculates the mean and standard deviation on x and y axis.
+   * 
+   * @param clusters Clusters to apply get the statistical values
+   * @return std::tuple<double, double, double, double> (mean x, mean y, standard deviation x, standard deviation y)
+   */
   static std::tuple<double, double, double, double> calculate_mean_and_std_dev(std::vector<Cluster>& clusters);
 
+  /**
+   * @brief Set the z scores object on every cluster of the vector
+   * 
+   * @param clusters Vector of clusters in which the a-scores will be applied individually
+   */
   static void set_z_scores(std::vector<Cluster>& clusters);
 
 };

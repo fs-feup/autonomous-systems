@@ -3,8 +3,14 @@
 
 #include <gtest/gtest.h>
 
+/**
+ * @brief Fixture for testing the ZScoreValidatorTest class.
+ */
 class ZScoreValidatorTest : public ::testing::Test {
  protected:
+  /**
+   * @brief Set up the test fixtures.
+   */
   void SetUp() override {
     clusters = {};
   }
@@ -19,6 +25,10 @@ class ZScoreValidatorTest : public ::testing::Test {
   Plane plane;
 };
 
+
+/**
+ * @brief Test case to validate the a vector with only one cluster
+ */
 TEST_F(ZScoreValidatorTest, SinglePointPerfectZScores) {
   auto validator = new ZScoreValidator(1, 1, 1, 1);
   add_cluster(-1, 0);
@@ -29,6 +39,9 @@ TEST_F(ZScoreValidatorTest, SinglePointPerfectZScores) {
   ASSERT_EQ(clusters[0].get_z_score_y(), 1);
 }
 
+/**
+ * @brief Test case to validate the a vector with only two clusters
+ */
 TEST_F(ZScoreValidatorTest, TwoPointsPerfectZScores) {
   auto validator = new ZScoreValidator(1, 1, 1, 1);
   add_cluster(-1, 0);
@@ -42,8 +55,10 @@ TEST_F(ZScoreValidatorTest, TwoPointsPerfectZScores) {
   ASSERT_EQ(clusters[1].get_z_score_y(), 1);
 }
 
-
-
+/**
+ * @brief Test case to validate a perfectly distributed vector of clusters
+ * 
+ */
 TEST_F(ZScoreValidatorTest, PerfectZScore) {
   auto validator = new ZScoreValidator(1, 1, 1, 1);
   add_cluster(-1, 0);
@@ -57,6 +72,10 @@ TEST_F(ZScoreValidatorTest, PerfectZScore) {
   }
 }
 
+/**
+ * @brief Test case to validate a perfectly distributed vector of clusters with 1 outlier (not perfect)
+ * 
+ */
 TEST_F(ZScoreValidatorTest, PerfectZScoreWith1Outlier) {
   auto validator = new ZScoreValidator(1, 1, 1, 1);
   add_cluster(-1, 0);
@@ -71,6 +90,10 @@ TEST_F(ZScoreValidatorTest, PerfectZScoreWith1Outlier) {
   }
 }
 
+/**
+ * @brief Test case to validate a perfectly distributed vector of clusters with 1 outlier (all points except the outlier)
+ * 
+ */
 TEST_F(ZScoreValidatorTest, PerfectZScoreWith1Outlier2) {
   auto validator = new ZScoreValidator(0, 1, 0, 1);
 
