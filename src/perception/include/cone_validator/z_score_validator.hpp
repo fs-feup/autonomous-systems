@@ -7,6 +7,15 @@
  * @brief The ZScoreValidator class is responsible for validating cones based on
  *  the approximation of z-score of when compared with some thresholds.
  * 
+ * A z-score is used to determine how unusual or typical a particular value is within a set of data. 
+ * It helps in comparing values from different distributions by standardizing them, allowing for 
+ * meaningful comparisons. 
+ * 
+ * The z-score references the normal distribution, where most values cluster around the mean. Values with z-scores 
+ * close to zero are near the mean, while values with higher positive or negative z-scores are further from the mean, 
+ * indicating they are more unusual or extreme. This makes z-scores useful in identifying outliers and understanding 
+ * data spread.
+ * 
  */
 class ZScoreValidator : public ConeValidator {
  private:

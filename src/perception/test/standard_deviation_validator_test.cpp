@@ -30,7 +30,7 @@ TEST_F(StandardDeviationTest, NullPointCloud) {
 }
 
 /**
- * @brief Test case to validate the a cluster with the same Z
+ * @brief Test case to validate the a cluster with the same Z (0 standard deviation)
  */
 TEST_F(StandardDeviationTest, ZeroZDeviation) {
   auto deviation_validator = DeviationValidator(-1, 100, 0.1, 100);
@@ -43,7 +43,7 @@ TEST_F(StandardDeviationTest, ZeroZDeviation) {
 }
 
 /**
- * @brief Test case to validate the a cluster with different Z
+ * @brief Test case to validate the a cluster with different Z (non 0 standard deviation)
  */
 TEST_F(StandardDeviationTest, NonZeroZDeviation) {
   auto deviation_validator = DeviationValidator(-1, 100, 0.1, 100);
@@ -56,7 +56,7 @@ TEST_F(StandardDeviationTest, NonZeroZDeviation) {
 }
 
 /**
- * @brief Test case to validate the a cluster with the same xOy
+ * @brief Test case to validate the a cluster with the same xOy (0 standard deviation)
  */
 TEST_F(StandardDeviationTest, ZeroXoYDeviation) {
   auto deviation_validator = DeviationValidator(0.1, 100, -1, 100);
@@ -82,7 +82,7 @@ TEST_F(StandardDeviationTest, NonZeroXoYDeviation) {
 }
 
 /**
- * @brief Test case to validate the a cluster with zero xOy and Z
+ * @brief Test case to validate the a cluster with zero xOy and Z standard deviation
  */
 TEST_F(StandardDeviationTest, ZeroXoYAndZDeviation) {
   auto deviation_validator = DeviationValidator(0.1, 100, 0.1, 100);
@@ -95,7 +95,7 @@ TEST_F(StandardDeviationTest, ZeroXoYAndZDeviation) {
 }
 
 /**
- * @brief Test case to validate the a cluster with non-zero xOy and Z
+ * @brief Test case to validate the a cluster with non-zero xOy and Z standar deviation
  */
 TEST_F(StandardDeviationTest, NonZeroXoYAndZDeviation) {
   auto deviation_validator = DeviationValidator(0.1, 100, 0.1, 100);

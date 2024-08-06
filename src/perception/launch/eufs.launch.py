@@ -92,7 +92,7 @@ def generate_launch_description():
                 description="Euclidean fitness epsilon for convergence criteria",
                 default_value="1e-6",
             ),
-                        DeclareLaunchArgument(
+            DeclareLaunchArgument(
                 "min_height",
                 description="Minimum height of a cluster to be considered a cone",
                 default_value="0.1"
