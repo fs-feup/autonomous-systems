@@ -1,5 +1,4 @@
-#ifndef PLANE_HPP
-#define PLANE_HPP
+#pragma once
 
 #include <pcl/point_types.h>
 
@@ -85,6 +84,5 @@ class Plane {
    * @return The distance from the point to the plane.
    */
   double get_distance_to_point(pcl::PointXYZI point) const;
-};
 
-#endif  // PLANE_HPP
+};
