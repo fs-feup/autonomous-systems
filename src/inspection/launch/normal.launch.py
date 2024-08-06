@@ -15,15 +15,15 @@ def generate_launch_description():
                 default_value="0.392699",
             ),  # Pi / 6.0, rad; 22.5 degrees in rad
             DeclareLaunchArgument(
-                "inspection_ideal_velocity", default_value="1.0"
+                "inspection_ideal_velocity", default_value="2.0"
             ),  # m/s
             DeclareLaunchArgument(
-                "ebs_test_ideal_velocity", default_value="2.0"
+                "ebs_test_ideal_velocity", default_value="5.0"
             ),  # m/s
             DeclareLaunchArgument(
                 "turning_period",
                 description="Time to perform a full turning cycle in inspection",
-                default_value="4.0",
+                default_value="2.0",
             ),  # seconds
             DeclareLaunchArgument("wheel_radius", default_value="0.254"),
             DeclareLaunchArgument(
@@ -34,13 +34,13 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "ebs_test_gain",
                 description="Gains for longitudinal P controllers of inspection",
-                default_value="0.25",
+                default_value="4.0",
             ),
             DeclareLaunchArgument("finish_time", default_value="26.0"),  # seconds
             DeclareLaunchArgument(
                 "start_and_stop",
                 description="Normal mode or testing regenerative braking mode",
-                default_value="False",
+                default_value="True",
             ),
             Node(
                 package="inspection",
@@ -65,7 +65,7 @@ def generate_launch_description():
                     {"finish_time": LaunchConfiguration("finish_time")},
                     {"start_and_stop": LaunchConfiguration("start_and_stop")},
                 ],
-                arguments=["--ros-args", "--log-level", "ekf_state_est:=debug"],
+                arguments=["--ros-args", "--log-level", "inspection:=debug"],
             ),
         ]
     )

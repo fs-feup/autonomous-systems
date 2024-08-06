@@ -37,14 +37,9 @@ InspectionMission::InspectionMission() : Node("inspection") {
       std::chrono::milliseconds(10),
       std::bind(&InspectionMission::inspection_script, this));  // Timer for end of mission
 
-  _rl_rpm_subscription_.subscribe(this, "/vehicle/rl_rpm");
-  _rr_rpm_subscription_.subscribe(this, "/vehicle/rr_rpm");
-
-  // WSS Synchronization
-  const WSSPolicy policy(10);
-  _sync_ = std::make_shared<message_filters::Synchronizer<WSSPolicy>>(policy, _rl_rpm_subscription_,
-                                                                      _rr_rpm_subscription_);
-  _sync_->registerCallback(&InspectionMission::update_rpms_callback, this);
+  _motor_rpm_subscription_ = this->create_subscription<custom_interfaces::msg::WheelRPM>(
+        "/vehicle/motor_rpm", 10,
+        std::bind(&InspectionMission::update_rpms_callback, this, std::placeholders::_1));
 
   RCLCPP_INFO(this->get_logger(), "Inspection node has been started.");
 }
@@ -83,24 +78,25 @@ void InspectionMission::mission_decider(
   _go_ = mission_signal->go_signal;
 }
 
-void InspectionMission::update_rpms_callback(const custom_interfaces::msg::WheelRPM& rl_rpm,
-                                             const custom_interfaces::msg::WheelRPM& rr_rpm) {
-  _rl_rpm_ = rl_rpm.rr_rpm;
-  _rr_rpm_ = rr_rpm.rl_rpm;
+void InspectionMission::update_rpms_callback(const custom_interfaces::msg::WheelRPM& motor_rpm) {
+  RCLCPP_DEBUG(this->get_logger(), "Motor RPM: %f",motor_rpm.rr_rpm);
+  _motor_rpm_ = motor_rpm.rl_rpm / 4.0;
 }
 
 void InspectionMission::inspection_script() {
   if (!_go_ || _mission_ == common_lib::competition_logic::Mission::NONE) {
     return;
   }
-  // RCLCPP_DEBUG(this->get_logger(), "Executing Inspection Script.");
+  RCLCPP_DEBUG(this->get_logger(), "Executing Inspection Script.");
 
   // initialization
   auto current_time = this->_clock_.now();
   auto elapsed_time = (current_time - _initial_time_).seconds();
-  double average_rpm = (_rl_rpm_ + _rr_rpm_) / 2.0;
+  double average_rpm = _motor_rpm_;
+  RCLCPP_DEBUG(this->get_logger(), "average_rpm %f", average_rpm);
   double current_velocity = _inspection_object_.rpm_to_velocity(average_rpm);
-
+  RCLCPP_DEBUG(this->get_logger(), "current_velocity %f", current_velocity);
+  
   // calculate steering
   double calculated_steering = _mission_ == common_lib::competition_logic::Mission::INSPECTION
                                    ? _inspection_object_.calculate_steering(elapsed_time)
@@ -121,10 +117,11 @@ void InspectionMission::inspection_script() {
   // publish suitable message
   if (elapsed_time < _inspection_object_.finish_time_ ||
       std::abs(current_velocity) > WHEELS_STOPPED_THRESHOLD || !steering_straight) {
+    double scaled_throttle = _inspection_object_.throttle_to_adequate_range(calculated_throttle); 
     RCLCPP_DEBUG(this->get_logger(),
-                 "Publishing control command. Steering: %f; Torque: %f; Elapsed Time: %f",
-                 calculated_steering, calculated_throttle, elapsed_time);
-    publish_controls(_inspection_object_.throttle_to_adequate_range(calculated_throttle),
+                 "Publishing control command. Steering: %lf; Torque after conversion - before: %lf - %lf; Elapsed Time: %lf",
+                 calculated_steering, scaled_throttle, calculated_throttle, elapsed_time);
+    publish_controls(scaled_throttle,
                      calculated_steering);
   } else if (!this->_mission_end_timer_started_) {
     // if the mission is over, publish the finish signal

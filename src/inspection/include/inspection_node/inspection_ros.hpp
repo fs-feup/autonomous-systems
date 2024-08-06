@@ -36,10 +36,10 @@ private:
 
   rclcpp::Subscription<custom_interfaces::msg::OperationalStatus>::SharedPtr
       _mission_signal_subscription_;
-  message_filters::Subscriber<custom_interfaces::msg::WheelRPM> _rl_rpm_subscription_;
-  message_filters::Subscriber<custom_interfaces::msg::WheelRPM> _rr_rpm_subscription_;
+  rclcpp::Subscription<custom_interfaces::msg::WheelRPM>::SharedPtr _motor_rpm_subscription_;
   rclcpp::TimerBase::SharedPtr _timer_;
 
+  // Not used now
   using WSSPolicy =
       message_filters::sync_policies::ApproximateTime<custom_interfaces::msg::WheelRPM,
                                                       custom_interfaces::msg::WheelRPM>;
@@ -57,8 +57,7 @@ private:
   bool _go_ = false;                                 /// Flag to start the mission
   common_lib::competition_logic::Mission _mission_;  /// Mission to be executed;
 
-  double _rr_rpm_ = 0.0;  /// Rotations per minute of the right wheel
-  double _rl_rpm_ = 0.0;  /// Rotations per minute of the left wheel
+  double _motor_rpm_ = 0.0;  /// Rotations per minute of the motor
 
   /**
    * @brief Function for communication of end of mission
@@ -90,11 +89,9 @@ public:
   /**
    * @brief Function to update the current rpms of the wheels
    *
-   * @param current_rlRPM rotations of the left wheel per minute
-   * @param current_rrRPM rotations of the right wheel per minute
+   * @param motor_rpm rotations of the motor per minute
    */
-  void update_rpms_callback(const custom_interfaces::msg::WheelRPM& current_rl_rpm,
-                            const custom_interfaces::msg::WheelRPM& current_rr_rpm);
+  void update_rpms_callback(const custom_interfaces::msg::WheelRPM& motor_rpm);
 
   /**
    * @brief Publishes the control command
