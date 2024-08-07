@@ -61,10 +61,10 @@ track_from_file(const std::string &path) {
     common_lib::structures::Cone cone;
     cone.position.x = static_cast<double>(x_value);
     cone.position.y = static_cast<double>(y_value);
-    if (color == "blue_cone") {
+    if (color == "blue_cone" || color == "blue") {
       cone.color = common_lib::competition_logic::Color::BLUE;
       left_output.push_back(cone);
-    } else if (color == "yellow_cone") {
+    } else if (color == "yellow_cone" || color == "yellow") {
       cone.color = common_lib::competition_logic::Color::YELLOW;
       right_output.push_back(cone);
     }

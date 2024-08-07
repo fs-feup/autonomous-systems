@@ -8,6 +8,8 @@
 #include "config/smoothing_config.hpp"
 #include "utils/splines.hpp"
 
+constexpr double MAX_DISTANCE_BETWEEN_POINTS = 8.5;
+
 using PathPoint = common_lib::structures::PathPoint;
 using Pose = common_lib::structures::Pose;
 

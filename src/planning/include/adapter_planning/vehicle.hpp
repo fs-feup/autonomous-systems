@@ -1,7 +1,7 @@
 #pragma once
 
-#include "planning/planning.hpp"
 #include "custom_interfaces/msg/operational_status.hpp"
+#include "planning/planning.hpp"
 #include "std_msgs/msg/string.hpp"
 
 class VehicleAdapter : public Planning {

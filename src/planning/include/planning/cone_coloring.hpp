@@ -80,6 +80,20 @@ private:
                            int& n_colored_cones) const;
 
   /**
+   * @brief function to place the second cones by selecting the closest to initial cones
+   *
+   * @param uncolored_cones set of cones
+   * @param colored_blue_cones vector of blue cones (where the blue cones will be added)
+   * @param colored_yellow_cones vector of yellow cones (where the yellow cones will be added)
+   * @param car_pose car pose in the map relative to the origin
+   * @param n_colored_cones number of colored cones which will be updated
+   */
+  void place_second_cones(std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones,
+                          std::vector<Cone>& colored_blue_cones,
+                          std::vector<Cone>& colored_yellow_cones, const Pose& car_pose,
+                          int& n_colored_cones) const;
+
+  /**
    * @brief calculate the cost of coloring a cone
    *
    * @param next_cone potential cone to be colored

@@ -29,6 +29,8 @@ MockerNode::MockerNode(const std::string &track_name, const std::string &sim)
   planning_visualization_publisher = this->create_publisher<visualization_msgs::msg::Marker>(
       "/path_planning/smoothed_mock_path", 10);
 
+  this->_map_frame_id_ = sim == "eufs" ? "base_footprint" : "map";
+
   this->timer_ = this->create_wall_timer(std::chrono::milliseconds(100),
                                          std::bind(&MockerNode::publish_data, this));
 }
@@ -40,5 +42,5 @@ void MockerNode::publish_data() {
   planning_visualization_publisher->publish(
       common_lib::communication::line_marker_from_structure_array(
           common_lib::communication::path_point_array_from_ci_vector(gtruth_planning),
-          "mock_path_planning", "map", 12, "green"));
+          "mock_path_planning", this->_map_frame_id_, 12, "green"));
 }

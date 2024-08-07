@@ -60,5 +60,8 @@ std::vector<PathPoint> PathCalculation::process_delaunay_triangulations(
     }
   }
 
+  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Unordered path size: %d",
+               static_cast<int>(unordered_path.size()));
+
   return unordered_path;
 }

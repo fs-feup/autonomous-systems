@@ -16,6 +16,7 @@
 #include "icp/icp.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
+#include "std_msgs/msg/float64.hpp"
 #include "visualization_msgs/msg/marker_array.hpp"
 
 struct PerceptionParameters {
@@ -26,6 +27,7 @@ struct PerceptionParameters {
   std::shared_ptr<DistancePredict> distance_predict_;
   std::shared_ptr<ICP> icp_;
   std::string adapter_;
+  std::string vehicle_frame_id_;
   double fov_trim_;
   double pc_max_range_;
 };
@@ -48,6 +50,7 @@ private:
   std::vector<std::shared_ptr<ConeValidator>> _cone_validators_;
   std::shared_ptr<ConeEvaluator> _cone_evaluator_;
   std::string _adapter_;
+  std::string _vehicle_frame_id_;
   std::shared_ptr<ICP> _icp_;
 
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr
@@ -55,7 +58,7 @@ private:
   rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr
       _cones_publisher;  ///< ConeArray publisher.
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr _cone_marker_array_;
-
+  rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr _perception_execution_time_publisher_;
   rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr _ground_removed_publisher_;
 
   double _fov_trim_;

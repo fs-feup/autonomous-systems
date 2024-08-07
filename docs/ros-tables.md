@@ -54,7 +54,7 @@ Camera | ? | ? | Images from ZED Stereo Camera | Input
 Camera Info | /custom_camera_info | TOPIC_MESSAGE : sensor_msgs/msg/CameraInfo | Camera Calibration information | Input
 Joint State | /eufs/joint_states | TOPIC_MESSAGE : sensor_msgs/msg/JointState | Wheel Joint States (Torque information) | Topic
 Noisy Bounding Boxes | /noisy_bounding_boxes | TOPIC_MESSAGE : eufs_msgs/msg/BoundingBoxes | Bounding Boxes of the cone detection on the camera with noise | Mock
-Kinematic and Dynamic States Ground Truths (e. g. velocity) | /odometry_integration/car_state | TOPIC_MESSAGE : eufs_msgs/msg/CarState | Dynamic and Kinematic State of the car | Groundtruth
+Simulated Kinematic and Dynamic States (e. g. velocity) | /odometry_integration/car_state | TOPIC_MESSAGE : eufs_msgs/msg/CarState | Dynamic and Kinematic State of the car | Groundtruth / Mock
 Mission Finished | /ros_can/mission_completed | TOPIC_MESSAGE : std_msgs/msg/Bool | Signal sent by the AS Main Pipeline that notifies the vehicle of the end of the mission | Output
 Go Signal | /ros_can/state | TOPIC_MESSAGE : eufs_msgs/msg/CanState | Information on the AS Status and mission | Input
 Wheel Speeds | /ros_can/wheel_speeds | TOPIC_MESSAGE : eufs_msgs/msg/WheelSpeedsStamped | Wheel Speeds and Steering information with noise | INPUT

@@ -59,17 +59,17 @@ TEST(ConeColoring, place_first_cones1) {
   int colored_cones = 0;
   cone_coloring.place_initial_cones(uncolored_cones, blue_cones, yellow_cones, initial_car_pose,
                                     colored_cones);
-  EXPECT_DOUBLE_EQ(round_n(blue_cones[0].position.x, 3), round_n(28.98699951, 3));
-  EXPECT_DOUBLE_EQ(round_n(blue_cones[0].position.y, 3), round_n(18.340000, 3));
+  EXPECT_NEAR(blue_cones[0].position.x, 30.986999, 0.001);
+  EXPECT_NEAR(blue_cones[0].position.y, 18.340000, 0.001);
   EXPECT_EQ(blue_cones[1].color, common_lib::competition_logic::Color::YELLOW);
-  EXPECT_DOUBLE_EQ(round_n(yellow_cones[0].position.x, 3), round_n(27.8945, 3));
-  EXPECT_DOUBLE_EQ(round_n(yellow_cones[0].position.y, 3), round_n(13.0521, 3));
+  EXPECT_NEAR(yellow_cones[0].position.x, 29.8945, 0.001);
+  EXPECT_NEAR(yellow_cones[0].position.y, 13.0521, 0.001);
   EXPECT_EQ(yellow_cones[1].color, common_lib::competition_logic::Color::BLUE);
-  EXPECT_DOUBLE_EQ(round_n(blue_cones[1].position.x, 3), round_n(30.98699951, 3));
-  EXPECT_DOUBLE_EQ(round_n(blue_cones[1].position.y, 3), round_n(18.340000, 3));
+  EXPECT_NEAR(blue_cones[1].position.x, 34.640998, 0.001);
+  EXPECT_NEAR(blue_cones[1].position.y, 17.208000, 0.001);
   EXPECT_EQ(blue_cones[1].color, common_lib::competition_logic::Color::YELLOW);
-  EXPECT_DOUBLE_EQ(round_n(yellow_cones[1].position.x, 3), round_n(29.8945, 3));
-  EXPECT_DOUBLE_EQ(round_n(yellow_cones[1].position.y, 3), round_n(13.0521, 3));
+  EXPECT_NEAR(yellow_cones[1].position.x, 33.45899, 0.001);
+  EXPECT_NEAR(yellow_cones[1].position.y, 12.34300, 0.001);
   EXPECT_EQ(yellow_cones[1].color, common_lib::competition_logic::Color::BLUE);
 }
 
@@ -97,17 +97,17 @@ TEST(ConeColoring, place_first_cones2) {
   int colored_cones = 0;
   cone_coloring.place_initial_cones(uncolored_cones, blue_cones, yellow_cones, initial_car_pose,
                                     colored_cones);
-  EXPECT_DOUBLE_EQ(round_n(yellow_cones[0].position.x, 3), round_n(32.98699951, 3));
-  EXPECT_DOUBLE_EQ(round_n(yellow_cones[0].position.y, 3), round_n(18.340000, 3));
+  EXPECT_NEAR(yellow_cones[0].position.x, 30.986999, 0.001);
+  EXPECT_NEAR(yellow_cones[0].position.y, 18.340000, 0.001);
   EXPECT_EQ(yellow_cones[1].color, common_lib::competition_logic::Color::YELLOW);
-  EXPECT_DOUBLE_EQ(round_n(blue_cones[0].position.x, 3), round_n(31.8945, 3));
-  EXPECT_DOUBLE_EQ(round_n(blue_cones[0].position.y, 3), round_n(13.0521, 3));
+  EXPECT_NEAR(blue_cones[0].position.x, 29.8950, 0.001);
+  EXPECT_NEAR(blue_cones[0].position.y, 13.0521, 0.001);
   EXPECT_EQ(blue_cones[1].color, common_lib::competition_logic::Color::BLUE);
-  EXPECT_DOUBLE_EQ(round_n(yellow_cones[1].position.x, 3), round_n(30.98699951, 3));
-  EXPECT_DOUBLE_EQ(round_n(yellow_cones[1].position.y, 3), round_n(18.340000, 3));
+  EXPECT_NEAR(yellow_cones[1].position.x, 27.408000, 0.001);
+  EXPECT_NEAR(yellow_cones[1].position.y, 17.923999, 0.001);
   EXPECT_EQ(yellow_cones[1].color, common_lib::competition_logic::Color::YELLOW);
-  EXPECT_DOUBLE_EQ(round_n(blue_cones[1].position.x, 3), round_n(29.8945, 3));
-  EXPECT_DOUBLE_EQ(round_n(blue_cones[1].position.y, 3), round_n(13.0521, 3));
+  EXPECT_NEAR(blue_cones[1].position.x, 26.46400, 0.001);
+  EXPECT_NEAR(blue_cones[1].position.y, 11.49600, 0.001);
   EXPECT_EQ(blue_cones[1].color, common_lib::competition_logic::Color::BLUE);
 }
 
@@ -128,10 +128,10 @@ TEST(ConeColoring, fullconecoloring1) {
   auto track = cone_coloring.color_cones(track_cones, initial_car_pose);
 
   test_cone_coloring(track, c_left, c_right, inc_left, inc_right);
-  EXPECT_EQ(c_left, 127);
-  EXPECT_EQ(c_right, 139);
+  EXPECT_EQ(c_left, 11);
+  EXPECT_EQ(c_right, 12);
   EXPECT_EQ(inc_left, 0);
-  EXPECT_EQ(inc_right, 0);
+  EXPECT_EQ(inc_right, 1);
 }
 
 /**

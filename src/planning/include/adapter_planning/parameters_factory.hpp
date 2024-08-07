@@ -37,9 +37,11 @@ std::string load_adapter_parameters(PlanningParameters& params) {
   params.publishing_visualization_msgs_ =
       adapter_node->declare_parameter("publishing_visualization_msg", false);
   params.using_simulated_se_ = adapter_node->declare_parameter("use_simulated_se", false);
-  params.desired_velocity_ = adapter_node->declare_parameter("pre_defined_velocity_planning", 5);
+  params.desired_velocity_ = adapter_node->declare_parameter("pre_defined_velocity_planning", 2);
+  std::string adapter_type = adapter_node->declare_parameter("adapter", "vehicle");
+  params.map_frame_id_ = adapter_type == "eufs" ? "base_footprint" : "map";
 
-  return adapter_node->declare_parameter("adapter", "vehicle");
+  return adapter_type;
 }
 
 std::shared_ptr<Planning> create_planning(const std::string_view& adapter_type,
