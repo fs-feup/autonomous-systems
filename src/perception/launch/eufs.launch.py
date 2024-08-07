@@ -30,12 +30,12 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "clustering_n_neighbours",
                 description="Number of neighbours for Clustering algorithm",
-                default_value="1",
+                default_value="3",
             ),
             DeclareLaunchArgument(
                 "clustering_epsilon",
                 description="Epsilon for Clustering algorithm",
-                default_value="0.45",
+                default_value="1.5",
             ),
             DeclareLaunchArgument(
                 "horizontal_resolution",

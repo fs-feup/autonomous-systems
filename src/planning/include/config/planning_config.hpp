@@ -24,6 +24,7 @@ struct PlanningParameters {
   bool publishing_visualization_msgs_;
   bool using_simulated_se_;
   long double desired_velocity_;
+  std::string map_frame_id_;
 };
 
 /**

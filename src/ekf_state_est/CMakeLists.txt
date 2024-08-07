@@ -38,6 +38,7 @@ set(IMPLEMENTATION_FILES
   src/kalman_filter/motion_models.cpp
   src/kalman_filter/observation_models.cpp
   src/kalman_filter/data_association.cpp
+  src/adapter_ekf_state_est/adapter.cpp
   src/adapter_ekf_state_est/eufs.cpp
   src/adapter_ekf_state_est/fsds.cpp
   src/adapter_ekf_state_est/pacsim.cpp

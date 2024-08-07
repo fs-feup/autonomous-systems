@@ -142,8 +142,8 @@ void EufsAdapter::finish() { RCLCPP_DEBUG(this->get_logger(), "Finish undefined 
 
 void EufsAdapter::map_callback(const eufs_msgs::msg::ConeArrayWithCovariance& msg) {
   RCLCPP_DEBUG(this->get_logger(), "Received cones from EUFS");
-  this->eufs_map_publisher_->publish(
-      marker_array_from_cone_array_w_covariance(msg, "recieved_path_from_eufs", "map"));
+  this->eufs_map_publisher_->publish(marker_array_from_cone_array_w_covariance(
+      msg, "recieved_path_from_eufs", this->_map_frame_id_));
   if (!this->planning_config_.simulation_.using_simulated_se_) {
     return;
   }

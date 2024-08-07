@@ -132,8 +132,38 @@ def format_twist_with_covariance_stamped_msg(
 
 def format_car_state_msg(
     msg: CarState,
-) -> np.ndarray:
-    return np.array([msg.twist.twist.linear.x, msg.twist.twist.linear.y, 0])
+) -> tuple[np.ndarray, np.ndarray]:
+    """!
+
+    Formats the CarState message from eufs into a tuple of numpy arrays.
+
+    Args: msg (CarState): CarState message from eufs
+
+    Returns: tuple[np.ndarray, np.ndarray]: (state, velocities)
+    """
+    return (
+        np.array(
+            [
+                msg.pose.pose.position.x,
+                msg.pose.pose.position.y,
+                euler_from_quaternion(
+                    [
+                        msg.pose.pose.orientation.x,
+                        msg.pose.pose.orientation.y,
+                        msg.pose.pose.orientation.z,
+                        msg.pose.pose.orientation.w,
+                    ]
+                )[2],
+            ]
+        ),
+        np.array(
+            [
+                msg.twist.twist.linear.x,
+                msg.twist.twist.linear.y,
+                msg.twist.twist.angular.z,
+            ],
+        ),
+    )
 
 
 def format_eufs_cone_array_with_covariance_msg(
@@ -171,7 +201,7 @@ def format_eufs_cone_array_with_covariance_msg(
     return np.array(output)
 
 
-def format_nav_odometry_msg(msg: Odometry) -> np.ndarray:
+def format_nav_odometry_msg(msg: Odometry) -> tuple[np.ndarray, np.ndarray]:
     """!
     Formats the Odometry message into a numpy array.
 
@@ -181,19 +211,28 @@ def format_nav_odometry_msg(msg: Odometry) -> np.ndarray:
     Returns:
         np.ndarray: Numpy array of odometry.
     """
-    return np.array(
-        [
-            msg.pose.pose.position.x,
-            msg.pose.pose.position.y,
-            euler_from_quaternion(
-                [
-                    msg.pose.pose.orientation.x,
-                    msg.pose.pose.orientation.y,
-                    msg.pose.pose.orientation.z,
-                    msg.pose.pose.orientation.w,
-                ]
-            )[2],
-        ]
+    return (
+        np.array(
+            [
+                msg.pose.pose.position.x,
+                msg.pose.pose.position.y,
+                euler_from_quaternion(
+                    [
+                        msg.pose.pose.orientation.x,
+                        msg.pose.pose.orientation.y,
+                        msg.pose.pose.orientation.z,
+                        msg.pose.pose.orientation.w,
+                    ]
+                )[2],
+            ]
+        ),
+        np.array(
+            [
+                msg.twist.twist.linear.x,
+                msg.twist.twist.linear.y,
+                msg.twist.twist.angular.z,
+            ]
+        ),
     )
 
 

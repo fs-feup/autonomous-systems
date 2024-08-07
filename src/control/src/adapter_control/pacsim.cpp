@@ -71,7 +71,7 @@ void PacSimAdapter::publish_cmd(double acceleration, double steering) {
   // TODO: Convert values if necessary then fill the messages
   //  CODE HERE
   acceleration_msg.fl = acceleration_msg.fr = acceleration_msg.rl = acceleration_msg.rr =
-      acceleration;
+      acceleration * 10;
   steering_msg.value = steering;
 
   this->steering_pub_->publish(steering_msg);
