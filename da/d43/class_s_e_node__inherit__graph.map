@@ -1,13 +1,5 @@
 <map id="SENode" name="SENode">
-<area shape="rect" id="Node000001" title="Class representing the main speed_est node responsible for publishing the calculated vehicle state wi..." alt="" coords="342,119,533,623"/>
-<area shape="rect" id="Node000003" href="$d0/d1d/class_eufs_adapter.html" title=" " alt="" coords="5,671,189,1249"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="334,488,266,576,204,672,192,695,187,692,199,669,261,573,330,485"/>
-<area shape="rect" id="Node000004" href="$d7/d8e/class_fsds_adapter.html" title=" " alt="" coords="213,743,429,1177"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="387,638,367,743,361,742,382,637"/>
-<area shape="rect" id="Node000005" href="$d1/dcb/class_pacsim_adapter.html" title=" " alt="" coords="454,828,653,1092"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="492,637,530,828,525,829,487,638"/>
-<area shape="rect" id="Node000006" href="$d1/df1/class_vehicle_adapter.html" title=" " alt="" coords="677,705,877,1215"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="544,491,608,576,668,669,686,704,681,707,663,672,604,580,540,494"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="395,5,480,71"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="440,85,440,119,435,119,435,85"/>
+<area shape="rect" id="Node000001" title="Class representing the main speed_est node responsible for publishing the calculated vehicle state wi..." alt="" coords="5,119,197,632"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="59,5,144,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="104,85,104,119,99,119,99,85"/>
 </map>

@@ -5,6 +5,7 @@ var class_control =
     [ "publish_control", "d7/d49/class_control.html#a4953afbe68bf1d7a023972985c8083d6", null ],
     [ "publish_evaluator_data", "d7/d49/class_control.html#a72c77dbeea43a931a035127402075189", null ],
     [ "publish_visualization_data", "d7/d49/class_control.html#ad54ef9c0479f65c23b5312b926535e75", null ],
+    [ "_map_frame_id_", "d7/d49/class_control.html#a70f07b86028c64d05365b99169101ec8", null ],
     [ "closest_point_pub_", "d7/d49/class_control.html#abca1100c63e24b6fa16b1a307bd0152d", null ],
     [ "evaluator_data_pub_", "d7/d49/class_control.html#add3ae8a316aa9ba08a189a7120ae0edb", null ],
     [ "go_signal_", "d7/d49/class_control.html#a8a7d5c79dcea2577ef224feeddcdac99", null ],

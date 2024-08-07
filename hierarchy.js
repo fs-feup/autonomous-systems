@@ -1,5 +1,11 @@
 var hierarchy =
 [
+    [ "Adapter", "d3/d7f/class_adapter.html", [
+      [ "EufsAdapter", "d0/d1d/class_eufs_adapter.html", null ],
+      [ "FsdsAdapter", "d7/d8e/class_fsds_adapter.html", null ],
+      [ "PacsimAdapter", "d1/dcb/class_pacsim_adapter.html", null ],
+      [ "VehicleAdapter", "d1/df1/class_vehicle_adapter.html", null ]
+    ] ],
     [ "evaluator.adapter.Adapter", "d7/dff/classevaluator_1_1adapter_1_1_adapter.html", [
       [ "evaluator.eufs_adapter.EufsAdapter", "dc/dab/classevaluator_1_1eufs__adapter_1_1_eufs_adapter.html", null ],
       [ "evaluator.fsds_adapter.FSDSAdapter", "dc/de8/classevaluator_1_1fsds__adapter_1_1_f_s_d_s_adapter.html", null ],
@@ -32,11 +38,9 @@ var hierarchy =
     [ "DataAssociationModel", "d1/d14/class_data_association_model.html", [
       [ "SimpleMaximumLikelihood", "d5/dc2/class_simple_maximum_likelihood.html", null ]
     ] ],
-    [ "EKFStateEstParameters", "d8/d1b/struct_e_k_f_state_est_parameters.html", null ],
     [ "std::exception", null, [
       [ "InvalidMissionException", "d3/df9/class_invalid_mission_exception.html", null ]
     ] ],
-    [ "ExecTimeTestEKFTests", "d2/dac/class_exec_time_test_e_k_f_tests.html", null ],
     [ "ExtendedKalmanFilter", "da/da6/class_extended_kalman_filter.html", null ],
     [ "std::false_type", null, [
       [ "HasDefaultConstructor< T, typename >", "d2/de8/struct_has_default_constructor.html", null ],
@@ -80,12 +84,7 @@ var hierarchy =
         [ "PacSimAdapter", "db/d68/class_pac_sim_adapter.html", null ],
         [ "VehicleAdapter", "d1/df1/class_vehicle_adapter.html", null ]
       ] ],
-      [ "SENode", "d4/d43/class_s_e_node.html", [
-        [ "EufsAdapter", "d0/d1d/class_eufs_adapter.html", null ],
-        [ "FsdsAdapter", "d7/d8e/class_fsds_adapter.html", null ],
-        [ "PacsimAdapter", "d1/dcb/class_pacsim_adapter.html", null ],
-        [ "VehicleAdapter", "d1/df1/class_vehicle_adapter.html", null ]
-      ] ]
+      [ "SENode", "d4/d43/class_s_e_node.html", null ]
     ] ],
     [ "ObservationData", "d9/d90/struct_observation_data.html", null ],
     [ "ObservationModel", "d7/d64/class_observation_model.html", null ],
@@ -122,7 +121,6 @@ var hierarchy =
       [ "IntegrationTest", "d7/d4e/class_integration_test.html", null ],
       [ "LeastSquaresDifferentiationTest", "de/d1e/class_least_squares_differentiation_test.html", null ],
       [ "PerceptionPerformanceTest", "d3/d0d/class_perception_performance_test.html", null ],
-      [ "PerformanceTest", "df/d4f/class_performance_test.html", null ],
       [ "RANSACTest", "d8/d5a/class_r_a_n_s_a_c_test.html", null ]
     ] ],
     [ "unittest.TestCase", null, [

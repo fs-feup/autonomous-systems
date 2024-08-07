@@ -1,7 +1,7 @@
 var class_pacsim_adapter =
 [
     [ "WheelSteerPolicy", "d1/dcb/class_pacsim_adapter.html#a6353ef4e67a902698f20eeda9e30af43", null ],
-    [ "PacsimAdapter", "d1/dcb/class_pacsim_adapter.html#a651658e032269c4ddccbd36377f0cc0e", null ],
+    [ "PacsimAdapter", "d1/dcb/class_pacsim_adapter.html#a7c46a660a7d6263ca48d60ce650364cc", null ],
     [ "finish", "d1/dcb/class_pacsim_adapter.html#ac73591802c8be70ca342c51be40890cd", null ],
     [ "perception_detections_subscription_callback", "d1/dcb/class_pacsim_adapter.html#a911ab67545afbbc50e6be888b893ac2e", null ],
     [ "wheel_speeds_subscription_callback", "d1/dcb/class_pacsim_adapter.html#aab061eb3b58bd6eae572bd11c63077f8", null ],

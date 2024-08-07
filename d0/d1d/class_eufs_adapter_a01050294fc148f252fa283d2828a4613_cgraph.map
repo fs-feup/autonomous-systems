@@ -1,0 +1,15 @@
+<map id="EufsAdapter::EufsAdapter" name="EufsAdapter::EufsAdapter">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,114,175,140"/>
+<area shape="rect" id="Node000002" href="$d3/d7f/class_adapter.html#a3f8e5c482d7fbf9bf4b2834d8fd7a814" title="Function that parses the message sent from the ros IMU topic and calls the respective node&#39;s function..." alt="" coords="223,5,393,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="114,111,222,57,237,50,239,55,224,61,116,116"/>
+<area shape="rect" id="Node000003" href="$d0/d1d/class_eufs_adapter.html#a7ad951a56a38fd25acd7febf83004f5c" title=" " alt="" coords="236,71,380,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="171,111,220,103,221,108,172,116"/>
+<area shape="rect" id="Node000005" href="$d0/d1d/class_eufs_adapter.html#ad7b2adb066e44e9d5fee49490d3eda3a" title=" " alt="" coords="225,135,391,191"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="172,138,210,144,209,149,171,143"/>
+<area shape="rect" id="Node000007" href="$d0/d1d/class_eufs_adapter.html#a21f75aa612f5b12f626e0ebe6ecc4e5b" title=" " alt="" coords="234,215,382,271"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="115,138,224,201,233,205,230,210,221,205,112,143"/>
+<area shape="rect" id="Node000004" href="$d9/d2b/namespacecommon__lib_1_1competition__logic.html#ab8a32389b3b8c68a9b524af28ecf5100" title=" " alt="" coords="441,71,637,111"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="380,88,426,88,426,94,380,94"/>
+<area shape="rect" id="Node000006" href="$d9/d2b/namespacecommon__lib_1_1competition__logic.html#a843c25f51bc237705083bc50bafa67af" title=" " alt="" coords="457,143,621,183"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="391,160,441,160,441,166,391,166"/>
+</map>

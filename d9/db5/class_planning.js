@@ -14,6 +14,8 @@ var class_planning =
     [ "FsdsAdapter", "d9/db5/class_planning.html#a2ef9fe7fc2ed642f3a8fbf09bb5e1bc9", null ],
     [ "PacSimAdapter", "d9/db5/class_planning.html#a38950dc8be7d5fffeaed03c14314806f", null ],
     [ "VehicleAdapter", "d9/db5/class_planning.html#a7533e3444801bb395e08fb6790b29647", null ],
+    [ "_map_frame_id_", "d9/db5/class_planning.html#a627fa5ee42211cad4c274efd054512a4", null ],
+    [ "_planning_execution_time_publisher_", "d9/db5/class_planning.html#aee0591bb708fb7e181c4aedf39c8a818", null ],
     [ "after_rem_blue_cones_pub_", "d9/db5/class_planning.html#a5e9b886872e252d6193a77dd6433243a", null ],
     [ "after_rem_yellow_cones_pub_", "d9/db5/class_planning.html#a344b2e0ab338449bc0ddbeb48c60e3b6", null ],
     [ "blue_cones_pub_", "d9/db5/class_planning.html#a812060f567d238eafda7da5dbbd70719", null ],

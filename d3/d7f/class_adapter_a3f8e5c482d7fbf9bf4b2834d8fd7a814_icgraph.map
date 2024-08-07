@@ -1,0 +1,9 @@
+<map id="Adapter::imu_subscription_callback" name="Adapter::imu_subscription_callback">
+<area shape="rect" id="Node000001" title="Function that parses the message sent from the ros IMU topic and calls the respective node&#39;s function..." alt="" coords="259,47,429,88"/>
+<area shape="rect" id="Node000002" href="$d0/d1d/class_eufs_adapter.html#a01050294fc148f252fa283d2828a4613" title=" " alt="" coords="23,5,193,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="243,49,172,34,173,29,244,44"/>
+<area shape="rect" id="Node000003" href="$d7/d8e/class_fsds_adapter.html#a92ddea4a14bad52447a078fb76bf8231" title=" " alt="" coords="20,55,196,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="243,70,196,70,196,65,243,65"/>
+<area shape="rect" id="Node000004" href="$d1/dcb/class_pacsim_adapter.html#a7c46a660a7d6263ca48d60ce650364cc" title=" " alt="" coords="5,104,211,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="244,91,173,106,172,101,243,86"/>
+</map>

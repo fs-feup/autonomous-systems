@@ -107,7 +107,7 @@ Collaboration diagram for MotionUpdate:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../db/d4b/struct_motion_update__coll__graph.png" border="0" usemap="#a_motion_update_coll__map" alt="Collaboration graph"/></div>
 <map name="a_motion_update_coll__map" id="a_motion_update_coll__map">
-<area shape="rect" title="Struct for data retrieved by the IMU." alt="" coords="5,5,163,171"/>
+<area shape="rect" title="Struct for data retrieved by the IMU." alt="" coords="5,5,149,171"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -116,12 +116,12 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a1049e83ac5ff8baa3e00a9f5d6a4d6ab" id="r_a1049e83ac5ff8baa3e00a9f5d6a4d6ab"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d6d/struct_motion_update.html#a1049e83ac5ff8baa3e00a9f5d6a4d6ab">translational_velocity</a> = 0.0</td></tr>
 <tr class="memdesc:a1049e83ac5ff8baa3e00a9f5d6a4d6ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Meters per sec.  <br /></td></tr>
 <tr class="separator:a1049e83ac5ff8baa3e00a9f5d6a4d6ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e379a3961481052b24b69a8531eae76" id="r_a9e379a3961481052b24b69a8531eae76"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d6d/struct_motion_update.html#a9e379a3961481052b24b69a8531eae76">translational_velocity_x</a> = 0.0</td></tr>
-<tr class="memdesc:a9e379a3961481052b24b69a8531eae76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Meters per sec.  <br /></td></tr>
-<tr class="separator:a9e379a3961481052b24b69a8531eae76"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13590c3adfe4160d5fe911c05713d316" id="r_a13590c3adfe4160d5fe911c05713d316"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d6d/struct_motion_update.html#a13590c3adfe4160d5fe911c05713d316">translational_velocity_y</a> = 0.0</td></tr>
-<tr class="memdesc:a13590c3adfe4160d5fe911c05713d316"><td class="mdescLeft">&#160;</td><td class="mdescRight">Meters per sec.  <br /></td></tr>
-<tr class="separator:a13590c3adfe4160d5fe911c05713d316"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4df7b01626faa030e94f9fe679a54942" id="r_a4df7b01626faa030e94f9fe679a54942"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d6d/struct_motion_update.html#a4df7b01626faa030e94f9fe679a54942">acceleration_x</a> = 0.0</td></tr>
+<tr class="memdesc:a4df7b01626faa030e94f9fe679a54942"><td class="mdescLeft">&#160;</td><td class="mdescRight">Meters per sec.  <br /></td></tr>
+<tr class="separator:a4df7b01626faa030e94f9fe679a54942"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55d69e174228c2474abae731628587b1" id="r_a55d69e174228c2474abae731628587b1"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d6d/struct_motion_update.html#a55d69e174228c2474abae731628587b1">acceleration_y</a> = 0.0</td></tr>
+<tr class="memdesc:a55d69e174228c2474abae731628587b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Meters per sec.  <br /></td></tr>
+<tr class="separator:a55d69e174228c2474abae731628587b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a7390da3d4ef6ce0efbae0b990741fd" id="r_a0a7390da3d4ef6ce0efbae0b990741fd"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d6d/struct_motion_update.html#a0a7390da3d4ef6ce0efbae0b990741fd">rotational_velocity</a> = 0.0</td></tr>
 <tr class="memdesc:a0a7390da3d4ef6ce0efbae0b990741fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Degrees per sec.  <br /></td></tr>
 <tr class="separator:a0a7390da3d4ef6ce0efbae0b990741fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -148,6 +148,42 @@ Public Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="../../df/dc4/motion__models_8hpp_source.html#l00020">20</a> of file <a class="el" href="../../df/dc4/motion__models_8hpp_source.html">motion_models.hpp</a>.</p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="a4df7b01626faa030e94f9fe679a54942" name="a4df7b01626faa030e94f9fe679a54942"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4df7b01626faa030e94f9fe679a54942">&#9670;&#160;</a></span>acceleration_x</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double MotionUpdate::acceleration_x = 0.0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Meters per sec. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../df/dc4/motion__models_8hpp_source.html#l00022">22</a> of file <a class="el" href="../../df/dc4/motion__models_8hpp_source.html">motion_models.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a55d69e174228c2474abae731628587b1" name="a55d69e174228c2474abae731628587b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55d69e174228c2474abae731628587b1">&#9670;&#160;</a></span>acceleration_y</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double MotionUpdate::acceleration_y = 0.0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Meters per sec. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../df/dc4/motion__models_8hpp_source.html#l00023">23</a> of file <a class="el" href="../../df/dc4/motion__models_8hpp_source.html">motion_models.hpp</a>.</p>
+
+</div>
+</div>
 <a id="a436ca42829b0fe4f3d9c6a0c57758116" name="a436ca42829b0fe4f3d9c6a0c57758116"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a436ca42829b0fe4f3d9c6a0c57758116">&#9670;&#160;</a></span>last_update</h2>
 
@@ -217,42 +253,6 @@ Public Attributes</h2></td></tr>
 <p>Meters per sec. </p>
 
 <p class="definition">Definition at line <a class="el" href="../../df/dc4/motion__models_8hpp_source.html#l00021">21</a> of file <a class="el" href="../../df/dc4/motion__models_8hpp_source.html">motion_models.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a9e379a3961481052b24b69a8531eae76" name="a9e379a3961481052b24b69a8531eae76"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9e379a3961481052b24b69a8531eae76">&#9670;&#160;</a></span>translational_velocity_x</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double MotionUpdate::translational_velocity_x = 0.0</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Meters per sec. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../df/dc4/motion__models_8hpp_source.html#l00022">22</a> of file <a class="el" href="../../df/dc4/motion__models_8hpp_source.html">motion_models.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a13590c3adfe4160d5fe911c05713d316" name="a13590c3adfe4160d5fe911c05713d316"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a13590c3adfe4160d5fe911c05713d316">&#9670;&#160;</a></span>translational_velocity_y</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double MotionUpdate::translational_velocity_y = 0.0</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Meters per sec. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../df/dc4/motion__models_8hpp_source.html#l00023">23</a> of file <a class="el" href="../../df/dc4/motion__models_8hpp_source.html">motion_models.hpp</a>.</p>
 
 </div>
 </div>

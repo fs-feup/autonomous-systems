@@ -17,5 +17,7 @@ var class_perception =
     [ "_ground_removed_publisher_", "de/d07/class_perception.html#a94498724d0ffb4a5a6af9d5fa10a0695", null ],
     [ "_icp_", "de/d07/class_perception.html#a3d972eb66409703aff7389e38a33d381", null ],
     [ "_pc_max_range_", "de/d07/class_perception.html#a0b98cacef77c9202bae18a6d1a84ea8b", null ],
-    [ "_point_cloud_subscription", "de/d07/class_perception.html#a5754f98499e1aae7724c3a46f56c401f", null ]
+    [ "_perception_execution_time_publisher_", "de/d07/class_perception.html#ae8912ad635c78200a5115757d62f361e", null ],
+    [ "_point_cloud_subscription", "de/d07/class_perception.html#a5754f98499e1aae7724c3a46f56c401f", null ],
+    [ "_vehicle_frame_id_", "de/d07/class_perception.html#a1c525235bdf69f8f061eb1ad773b56d6", null ]
 ];

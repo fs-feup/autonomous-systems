@@ -1,5 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$d8/d4a/structcommon__lib_1_1structures_1_1_pose.html" title="Struct for pose representation." alt="" coords="5,5,161,46"/>
-<area shape="rect" id="Node000001" href="$de/d41/structcommon__lib_1_1structures_1_1_vehicle_pose.html" title=" " alt="" coords="209,5,364,46"/>
-<area shape="poly" id="edge4_Node000000_Node000001" title=" " alt="" coords="176,23,208,23,208,28,176,28"/>
+<area shape="rect" id="Node000000" href="$d9/db0/structcommon__lib_1_1structures_1_1_path_point.html" title=" " alt="" coords="5,5,161,46"/>
 </map>

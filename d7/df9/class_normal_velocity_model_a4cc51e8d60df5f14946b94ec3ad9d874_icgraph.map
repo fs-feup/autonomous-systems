@@ -1,11 +1,5 @@
 <map id="NormalVelocityModel::get_motion_to_state_matrix" name="NormalVelocityModel::get_motion_to_state_matrix">
-<area shape="rect" id="Node000001" title="Calculate state covariance matrix from velocity model using normal motion data Uses translation veloc..." alt="" coords="108,65,253,121"/>
-<area shape="rect" id="Node000002" href="$d8/dbd/motion__model__test_8cpp.html#a4b4be8c03914d03c683a1fecbcbdf310" title=" " alt="" coords="5,5,60,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="109,60,59,34,61,29,111,55"/>
-<area shape="rect" id="Node000003" href="$d8/dbd/motion__model__test_8cpp.html#ac536fb8afc350c3ccd4907c25a507b81" title=" " alt="" coords="5,55,60,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="92,80,60,75,61,69,93,75"/>
-<area shape="rect" id="Node000004" href="$d8/dbd/motion__model__test_8cpp.html#a985258fd91e481fac6ee05ad73bab7fd" title=" " alt="" coords="5,104,60,130"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="93,110,61,115,60,110,92,105"/>
-<area shape="rect" id="Node000005" href="$d8/dbd/motion__model__test_8cpp.html#abaac5c4600343357227b100565bf0831" title=" " alt="" coords="5,153,60,179"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="111,130,61,155,59,150,108,126"/>
+<area shape="rect" id="Node000001" title="Calculate state covariance matrix from velocity model using normal motion data Uses translation veloc..." alt="" coords="108,5,253,61"/>
+<area shape="rect" id="Node000002" href="$d8/dbd/motion__model__test_8cpp.html#abaac5c4600343357227b100565bf0831" title=" " alt="" coords="5,20,60,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,36,60,36,60,31,92,31"/>
 </map>

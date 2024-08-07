@@ -13,8 +13,8 @@ var searchData=
   ['ground_5ftruth_10',['ground_truth',['../d7/d4e/classtest__perception__metrics_1_1_test_evaluator_methods.html#a52166809fc448668ce81f705c0b42e32',1,'test_perception_metrics::TestEvaluatorMethods']]],
   ['groundtruth_5fmap_5f_11',['groundtruth_map_',['../dc/dab/classevaluator_1_1eufs__adapter_1_1_eufs_adapter.html#a11b69d1d6d7db5032c2c72528e30a2a3',1,'evaluator::eufs_adapter::EufsAdapter']]],
   ['groundtruth_5fmap_5fcallback_12',['groundtruth_map_callback',['../dc/dab/classevaluator_1_1eufs__adapter_1_1_eufs_adapter.html#aca3341baf50d581dfadd9f422344dbb1',1,'evaluator.eufs_adapter.EufsAdapter.groundtruth_map_callback'],['../d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter.html#a46674b75d3ff2ffedb697bc8db642763',1,'evaluator.pacsim_adapter.PacsimAdapter.groundtruth_map_callback']]],
-  ['groundtruth_5fpose_5f_13',['groundtruth_pose_',['../dc/dab/classevaluator_1_1eufs__adapter_1_1_eufs_adapter.html#aed1e03420186340bf522d3421ba7b236',1,'evaluator::eufs_adapter::EufsAdapter']]],
-  ['groundtruth_5fpose_5fcallback_14',['groundtruth_pose_callback',['../dc/dab/classevaluator_1_1eufs__adapter_1_1_eufs_adapter.html#a1180a5593b31483075984b9b6b7c933e',1,'evaluator::eufs_adapter::EufsAdapter']]],
+  ['groundtruth_5fvehicle_5fstate_5f_13',['groundtruth_vehicle_state_',['../dc/dab/classevaluator_1_1eufs__adapter_1_1_eufs_adapter.html#a59c0c7d5740d1ea82ddf5003398dceb0',1,'evaluator::eufs_adapter::EufsAdapter']]],
+  ['groundtruth_5fvehicle_5fstate_5fcallback_14',['groundtruth_vehicle_state_callback',['../dc/dab/classevaluator_1_1eufs__adapter_1_1_eufs_adapter.html#a9d4f1a3973fbe0a2c6eb17d2632c148e',1,'evaluator::eufs_adapter::EufsAdapter']]],
   ['groundtruth_5fvelocity_5fcallback_15',['groundtruth_velocity_callback',['../d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter.html#aa6df0a5170929e40df8d8929a8ac0a57',1,'evaluator::pacsim_adapter::PacsimAdapter']]],
   ['gtruth_5fplanning_16',['gtruth_planning',['../d1/d4c/class_mocker_node.html#ae520a39047f1b356b491d610568aca9c',1,'MockerNode']]],
   ['gtruth_5fse_17',['gtruth_se',['../d1/d4c/class_mocker_node.html#a7f1e666e35fd096bdec32b6e5ae083be',1,'MockerNode']]]

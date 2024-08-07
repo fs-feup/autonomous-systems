@@ -18,8 +18,8 @@
 <area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="250,153,297,165,296,170,249,158"/>
 <area shape="rect" id="Node000004" href="$dd/d52/class_cone_coloring.html#a00c350bf4d9f8463dfda24ec1cf09a90" title="function to find the initial cone according to the distance to the expected position" alt="" coords="533,5,658,46"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="447,45,518,34,519,40,448,50"/>
-<area shape="rect" id="Node000006" href="$dd/d52/class_cone_coloring.html#a46c3e0493a08adc9592494f2a75e681b" title="calculate the position of a virtual cone relative to a real one" alt="" coords="515,71,676,111"/>
-<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="448,65,500,74,499,79,447,71"/>
+<area shape="rect" id="Node000006" href="$dd/d52/class_cone_coloring.html#a498827199c2d82474067a6dea86e35fd" title="function to place the second cones by selecting the closest to initial cones" alt="" coords="528,71,663,111"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="448,65,512,76,512,81,447,71"/>
 <area shape="rect" id="Node000005" href="$dd/d52/class_cone_coloring.html#a4d5383a83dcfeda441351086839c22fd" title="calculate the expected position of the initial cones" alt="" coords="738,5,894,46"/>
 <area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="658,23,722,23,722,28,658,28"/>
 <area shape="rect" id="Node000009" href="$dd/d52/class_cone_coloring.html#a248d064be09d7eb7ebc907f466ac73be" title="calculate the cost of coloring a cone" alt="" coords="501,176,690,201"/>

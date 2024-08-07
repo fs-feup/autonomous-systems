@@ -94,20 +94,20 @@ $(document).ready(function(){initNavTree('d7/de6/md_src_2perception_2_r_e_a_d_m_
   <div class="headertitle"><div class="title">Perception Package</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md50"></a> The <a class="el" href="../../de/d07/class_perception.html" title="Node for perception tasks, such as ground removal and cone detection.">Perception</a> module is responsible for the processing of the perception module and perception sensors' data and its transformation into useful information. In this case, the LiDAR's point cloud is processed to generate the cones' position on the track.</p>
-<h1><a class="anchor" id="autotoc_md51"></a>
+<div class="textblock"><p><a class="anchor" id="autotoc_md52"></a> The <a class="el" href="../../de/d07/class_perception.html" title="Node for perception tasks, such as ground removal and cone detection.">Perception</a> module is responsible for the processing of the perception module and perception sensors' data and its transformation into useful information. In this case, the LiDAR's point cloud is processed to generate the cones' position on the track.</p>
+<h1><a class="anchor" id="autotoc_md53"></a>
 Run the Node</h1>
-<h2><a class="anchor" id="autotoc_md52"></a>
+<h2><a class="anchor" id="autotoc_md54"></a>
 Compiling</h2>
 <p>From src folder: </p><div class="fragment"><div class="line">colcon build --packages-select perception custom_interfaces fs_msgs eufs_msgs common_lib pacsim</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md53"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md55"></a>
 Testing</h1>
 <p>From src folder: </p><div class="fragment"><div class="line">colcon test --packages-select perception # use event-handler=console_direct+ for imediate output</div>
 </div><!-- fragment --><p>To check test results: </p><div class="fragment"><div class="line">colcon test-result --all --verbose</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md54"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md56"></a>
 Running the node</h2>
 <div class="fragment"><div class="line">ros2 run perception perception</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md55"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md57"></a>
 Running with launch files</h2>
 <p>To streamline parameter management, a launch file is used to set these parameters. For ease of use, additional files can also be created:</p>
 <p>To run the node with the specified launch file parameters, you can:</p>
@@ -131,13 +131,13 @@ Running with launch files</h2>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">adapter   </td><td class="markdownTableBodyNone">Component that adapts the system to its operating environment   </td></tr>
 </table>
-<h1><a class="anchor" id="autotoc_md56"></a>
+<h1><a class="anchor" id="autotoc_md58"></a>
 Design</h1>
 <p>Below, some diagrams are presented that can illustrate the structure and behaviour of the program.</p>
-<h2><a class="anchor" id="autotoc_md57"></a>
+<h2><a class="anchor" id="autotoc_md59"></a>
 Class Diagram</h2>
 <p><img src="../../../../docs/diagrams/perception/class_diagram.drawio.png" alt="Perception Class Diagram" class="inline"/></p>
-<h1><a class="anchor" id="autotoc_md58"></a>
+<h1><a class="anchor" id="autotoc_md60"></a>
 Main External Libraries</h1>
 <ul>
 <li><a href="https://eigen.tuxfamily.org/index.php?title=Main_Page">Eigen</a></li>

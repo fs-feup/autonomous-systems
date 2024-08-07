@@ -1,5 +1,5 @@
 <map id="PacsimAdapter::wheel_speeds_subscription_callback" name="PacsimAdapter::wheel_speeds_subscription_callback">
 <area shape="rect" id="Node000001" title="Wheel speed subscription callback, which receives both wheel speeds and steering angle through a sync..." alt="" coords="259,5,409,61"/>
-<area shape="rect" id="Node000002" href="$d1/dcb/class_pacsim_adapter.html#a651658e032269c4ddccbd36377f0cc0e" title=" " alt="" coords="5,20,211,46"/>
+<area shape="rect" id="Node000002" href="$d1/dcb/class_pacsim_adapter.html#a7c46a660a7d6263ca48d60ce650364cc" title=" " alt="" coords="5,20,211,46"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="243,36,211,36,211,31,243,31"/>
 </map>

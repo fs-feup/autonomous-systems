@@ -1,7 +1,33 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$df/daa/class_center_calculator.html" title="Abstract Class representing the logic for estimating the center position of a cone." alt="" coords="5,31,123,56"/>
-<area shape="rect" id="Node000001" href="$da/d39/class_centroid_calculator.html" title="Concrete Class representing a centroid&#45;based method for estimating the center position of a cone." alt="" coords="209,5,336,31"/>
-<area shape="poly" id="edge1_Node000000_Node000001" title=" " alt="" coords="138,32,208,23,209,29,138,37"/>
-<area shape="rect" id="Node000002" href="$d8/d0d/class_circunference_center_calculation.html" title="Concrete class representing a circumference&#45;based method for estimating the center position of a cone..." alt="" coords="171,55,374,80"/>
-<area shape="poly" id="edge2_Node000000_Node000002" title=" " alt="" coords="138,49,171,53,170,58,138,55"/>
+<area shape="rect" id="Node000000" href="$d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst..." alt="" coords="177,252,243,278"/>
+<area shape="rect" id="Node000001" href="$d0/d1d/class_eufs_adapter.html" title=" " alt="" coords="331,153,423,179"/>
+<area shape="poly" id="edge1_Node000000_Node000001" title=" " alt="" coords="256,247,271,239,286,226,295,214,304,201,319,188,339,177,341,182,323,192,308,205,299,217,290,230,275,243,258,252"/>
+<area shape="rect" id="Node000003" href="$d7/d8e/class_fsds_adapter.html" title=" " alt="" coords="330,203,425,228"/>
+<area shape="poly" id="edge2_Node000000_Node000003" title=" " alt="" coords="257,248,331,226,332,231,258,253"/>
+<area shape="rect" id="Node000012" href="$d1/dcb/class_pacsim_adapter.html" title=" " alt="" coords="322,301,432,327"/>
+<area shape="poly" id="edge3_Node000000_Node000012" title=" " alt="" coords="258,276,332,298,331,303,257,281"/>
+<area shape="rect" id="Node000006" href="$d1/df1/class_vehicle_adapter.html" title=" " alt="" coords="323,252,432,278"/>
+<area shape="poly" id="edge4_Node000000_Node000006" title=" " alt="" coords="258,262,322,262,322,268,258,268"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="5,129,99,155"/>
+<area shape="rect" id="Node000002" href="$d7/d49/class_control.html" title="Class responsible for the control of the car." alt="" coords="179,203,241,228"/>
+<area shape="poly" id="edge5_Node000007_Node000002" title=" " alt="" coords="91,160,148,189,179,202,177,207,146,194,89,165"/>
+<area shape="rect" id="Node000008" href="$de/d3d/class_inspection_mission.html" title="Class responsible for the Inspection Mission of the car." alt="" coords="147,301,273,327"/>
+<area shape="poly" id="edge10_Node000007_Node000008" title=" " alt="" coords="66,168,98,228,121,260,148,288,165,299,163,303,145,292,117,264,93,231,62,171"/>
+<area shape="rect" id="Node000009" href="$d1/d4c/class_mocker_node.html" title=" " alt="" coords="162,5,258,31"/>
+<area shape="poly" id="edge11_Node000007_Node000009" title=" " alt="" coords="70,115,102,77,145,40,165,29,168,34,148,44,106,81,74,119"/>
+<area shape="rect" id="Node000010" href="$de/d07/class_perception.html" title="Node for perception tasks, such as ground removal and cone detection." alt="" coords="168,55,252,80"/>
+<area shape="poly" id="edge12_Node000007_Node000010" title=" " alt="" coords="88,119,146,89,171,78,173,83,148,94,90,124"/>
+<area shape="rect" id="Node000004" href="$d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car." alt="" coords="174,153,246,179"/>
+<area shape="poly" id="edge13_Node000007_Node000004" title=" " alt="" coords="115,149,174,158,174,163,114,154"/>
+<area shape="rect" id="Node000011" href="$d4/d43/class_s_e_node.html" title="Class representing the main speed_est node responsible for publishing the calculated vehicle state wi..." alt="" coords="175,104,245,130"/>
+<area shape="poly" id="edge18_Node000007_Node000011" title=" " alt="" coords="113,130,174,120,175,125,114,135"/>
+<area shape="poly" id="edge6_Node000002_Node000001" title=" " alt="" coords="255,200,330,177,332,182,257,205"/>
+<area shape="poly" id="edge7_Node000002_Node000003" title=" " alt="" coords="256,213,329,213,329,218,256,218"/>
+<area shape="poly" id="edge9_Node000002_Node000006" title=" " alt="" coords="257,226,332,249,330,254,255,231"/>
+<area shape="rect" id="Node000005" href="$db/d68/class_pac_sim_adapter.html" title=" " alt="" coords="321,104,433,130"/>
+<area shape="poly" id="edge8_Node000002_Node000005" title=" " alt="" coords="254,199,271,189,286,177,295,165,304,152,319,139,339,128,341,132,323,143,308,156,299,168,290,181,275,194,257,203"/>
+<area shape="poly" id="edge14_Node000004_Node000001" title=" " alt="" coords="261,164,331,164,331,169,261,169"/>
+<area shape="poly" id="edge15_Node000004_Node000003" title=" " alt="" coords="261,178,332,199,330,205,259,183"/>
+<area shape="poly" id="edge17_Node000004_Node000006" title=" " alt="" coords="261,180,275,188,290,201,299,214,308,226,323,239,341,249,339,254,319,243,304,230,295,217,286,205,271,192,258,185"/>
+<area shape="poly" id="edge16_Node000004_Node000005" title=" " alt="" coords="259,149,330,128,332,133,261,154"/>
 </map>

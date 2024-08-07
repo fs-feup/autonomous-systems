@@ -1,12 +1,7 @@
 <map id="TEST" name="TEST">
-<area shape="rect" id="Node000001" title="test the placement of initial cones with the car oriented at 0 rad." alt="" coords="5,43,60,68"/>
-<area shape="rect" id="Node000002" href="$d0/d09/planning_2test_2test__utils_2utils_8cpp.html#a7581946a647c2a991f5e80cbcf2980af" title="Retrieves a cone vector from a file." alt="" coords="108,12,256,38"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,47,101,39,102,44,61,53"/>
-<area shape="rect" id="Node000004" href="$d0/d09/planning_2test_2test__utils_2utils_8cpp.html#afbb0277ee17d082a0d2177393a346904" title="rounds float to n decimal places" alt="" coords="148,67,216,92"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="60,57,133,69,132,74,60,62"/>
+<area shape="rect" id="Node000001" title="test the placement of initial cones with the car oriented at 0 rad." alt="" coords="5,5,60,31"/>
+<area shape="rect" id="Node000002" href="$d0/d09/planning_2test_2test__utils_2utils_8cpp.html#a7581946a647c2a991f5e80cbcf2980af" title="Retrieves a cone vector from a file." alt="" coords="108,5,256,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,16,92,16,92,21,60,21"/>
 <area shape="rect" id="Node000003" href="$d0/d09/planning_2test_2test__utils_2utils_8cpp.html#a82e479b6e5401fd9ab2dc0a0851f0a55" title="Opens a file for reading." alt="" coords="304,5,408,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="256,19,288,18,289,23,257,25"/>
-<area shape="rect" id="Node000005" href="$d9/d1e/tests_8cpp.html#a322889033b0102b5c2eb49fe3c081fd8" title="round to n decimal places" alt="" coords="330,79,383,104"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="216,79,314,86,314,91,216,84"/>
-<area shape="poly" id="edge5_Node000005_Node000005" title=" " alt="" coords="327,80,321,70,324,60,336,54,356,52,377,55,388,61,386,66,376,60,356,57,338,59,328,64,326,69,331,77"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="256,16,289,16,289,21,256,21"/>
 </map>

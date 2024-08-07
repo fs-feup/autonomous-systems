@@ -1,9 +1,0 @@
-<map id="TEST" name="TEST">
-<area shape="rect" id="Node000001" title="Test case for when a landmarks is not in the state yet." alt="" coords="5,46,60,72"/>
-<area shape="rect" id="Node000002" href="$d5/dc2/class_simple_maximum_likelihood.html#abcfa1880931aeddcdb4608c2eca413a6" title="Limit for 0 meters." alt="" coords="108,39,284,79"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,56,92,56,92,62,60,62"/>
-<area shape="rect" id="Node000003" href="$d1/d14/class_data_association_model.html#ae17040b15f7eb1e6b46061c94b07d2b9" title=" " alt="" coords="332,5,524,46"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="284,44,316,39,317,44,285,49"/>
-<area shape="rect" id="Node000004" href="$d5/dc2/class_simple_maximum_likelihood.html#ac75961c5a3fb028bbf888c4b2ff7ca94" title="Check if the observed landmark is a valid match to the expected landmark It depends on external param..." alt="" coords="340,71,516,111"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="285,69,325,74,324,79,284,74"/>
-</map>

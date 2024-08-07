@@ -96,27 +96,28 @@ $(document).ready(function(){initNavTree('d6/d5b/md_src_2ekf__state__est_2_r_e_a
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="autotoc_md19"></a> The State Estimation module is responsible for the processing of the perception module and localisation sensors' data and its transformation into useful information. In this case, the data is combined to generate the best estimates possible on the pose and speed of the vehicle and the location of the cones that delimit the track.</p>
 <h1><a class="anchor" id="autotoc_md20"></a>
-Package Info</h1>
-<ul>
-<li><b>Node name:</b> ekf_state_est</li>
-<li><b>Package name:</b> ekf_state_est</li>
-</ul>
+Run the Node</h1>
 <h2><a class="anchor" id="autotoc_md21"></a>
-Launch files</h2>
-<ul>
-<li><b>eufssim-slam.launch.py</b> - EUFS SIM simulator adapter and SLAM with EKF</li>
-<li><b>pacsim-slam.launch.py</b> - PacSim simulator adapter and SLAM with EKF</li>
-<li><b>normal-slam.launch.py</b> - in vehicle SLAM with EKF</li>
-</ul>
-<h1><a class="anchor" id="autotoc_md22"></a>
+Compiling</h2>
+<p>From src folder: </p><div class="fragment"><div class="line">colcon build --packages-select ekf_state_est custom_interfaces eufs_msgs fs_msgs</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md22"></a>
+Testing</h1>
+<p>From src folder: </p><div class="fragment"><div class="line">colcon test --packages-select ekf_state_est # use event-handler=console_direct+ for imediate output</div>
+</div><!-- fragment --><p>To check test results: </p><div class="fragment"><div class="line">colcon test-result --all --verbose</div>
+</div><!-- fragment --><p>or</p>
+<div class="fragment"><div class="line">ros2 run ekf_state_est ekf_state_est_test</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md23"></a>
+Running the node</h2>
+<div class="fragment"><div class="line">ros2 run ekf_state_est ekf_state_est</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md24"></a>
 Design</h1>
 <p>Below, some diagrams are presented that can illustrate the structure and behaviour of the program.</p>
-<h2><a class="anchor" id="autotoc_md23"></a>
+<h2><a class="anchor" id="autotoc_md25"></a>
 Behaviour</h2>
 <p>The control flow below illustrates briefly the flow of execution and information through the node, you can also checkout <a href="../../../../docs/assets/Loc_map/EKFSlam1.0.pdf">documentation pdf</a> to get a better understanding.</p>
-<p><img src="../../../../docs/diagrams/state_estimation/control-flow.drawio.svg" alt="Control Flow Diagram" style="pointer-events: none;" class="inline"/></p>
+<p><img src="../../../../docs/assets/Loc_map/locmap-flow-chart.svg" alt="Control Flow Diagram" style="pointer-events: none;" class="inline"/></p>
 <p>The sequence diagrams below illustrate in greater detail the interactions between the components of the system in a normal use case.</p>
-<p><img src="../../../../docs/diagrams/state_estimation/sequence.drawio.svg" alt="Sequence Diagram" style="pointer-events: none;" class="inline"/></p>
+<p><img src="../../../../docs/assets/Loc_map/main-sequence-diagram.svg" alt="Sequence Diagram" style="pointer-events: none;" class="inline"/></p>
 <ol type="1">
 <li>Information from localisation sensors is received in the adapter (the adapter is a layer for adaptation of the different environments the node runs in).</li>
 <li>LMNode (the localisation and mapping node) processes the information and requests execution of the prediction step to the Extended Kalman Filter cass (illustrated below).<ol type="a">
@@ -127,6 +128,9 @@ Behaviour</h2>
 </ol>
 </li>
 <li>After the step, the pose and map are updated and published.</li>
+</ol>
+<p><img src="../../../../docs/assets/Loc_map/prediction-sequence-diagram.svg" alt="Sequence Diagram Part 2" style="pointer-events: none;" class="inline"/></p>
+<ol type="1">
 <li>When cone coordinates are published by perception, the LMNode receives them directly, executing the perception_callback.</li>
 <li>The node requests execution of the correction step to the EKF (more detail below). For every landmark (cone):<ol type="a">
 <li>Discovery is executed, checking if the observation corresponds to a new cone/landmark or one that already exists in the state vector (X)</li>
@@ -138,15 +142,15 @@ Behaviour</h2>
 </li>
 <li>The EKF updates the estimates and the node publishes them.</li>
 </ol>
-<h2><a class="anchor" id="autotoc_md24"></a>
+<p><img src="../../../../docs/assets/Loc_map/correction-sequence-diagram.svg" alt="Sequence Diagram Part 3" style="pointer-events: none;" class="inline"/></p>
+<h2><a class="anchor" id="autotoc_md26"></a>
 Structure</h2>
 <p>The node is composed by multiple classes. The diagram below illustrates roughly how they sit in the code structure. The main two are the LMNode, which is the class of the node, and the Extended Kalman Filter, which corresponds to the code of the implementation of the EKF SLAM.</p>
-<p><img src="../../../../docs/diagrams/state_estimation/class.drawio.svg" alt="Class Diagram" style="pointer-events: none;" class="inline"/></p>
-<p>Take a look at the <a href="https://fs-feup.github.io/autonomous-systems/dir_388d5df3221aab46ce4275c3697a683f.html">Doxygen generated documentation</a>.</p>
-<h1><a class="anchor" id="autotoc_md25"></a>
+<p><img src="../../../../docs/assets/Loc_map/class-diagram.svg" alt="Class Diagram" style="pointer-events: none;" class="inline"/></p>
+<h1><a class="anchor" id="autotoc_md27"></a>
 Full Documentation</h1>
-<p>More precise documentation can be found <a href="https://github.com/fs-feup/documentation/blob/main/AS/FSFEUP_02_State_Estimation/main.pdf">here</a>.</p>
-<h1><a class="anchor" id="autotoc_md26"></a>
+<p>More precise documentation can be found <a href="https://www.overleaf.com/8294456817dmdsrfrhbxcf">here</a>.</p>
+<h1><a class="anchor" id="autotoc_md28"></a>
 Main External Libraries</h1>
 <ul>
 <li><a href="https://eigen.tuxfamily.org/index.php?title=Main_Page">Eigen</a></li>

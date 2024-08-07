@@ -8,5 +8,6 @@ var struct_perception_parameters =
     [ "fov_trim_", "de/dda/struct_perception_parameters.html#ab2728a9b94146a8d3c8df519ba2515f9", null ],
     [ "ground_removal_", "de/dda/struct_perception_parameters.html#a2739befa72bb10939a0f7ff4570d5d44", null ],
     [ "icp_", "de/dda/struct_perception_parameters.html#a9f7882e866eb531373f3ee4c8965267f", null ],
-    [ "pc_max_range_", "de/dda/struct_perception_parameters.html#a077937f6ba7213a399a296736df09830", null ]
+    [ "pc_max_range_", "de/dda/struct_perception_parameters.html#a077937f6ba7213a399a296736df09830", null ],
+    [ "vehicle_frame_id_", "de/dda/struct_perception_parameters.html#a3837e8da0d9d2d139a7a8ae45db7d6f0", null ]
 ];

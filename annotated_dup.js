@@ -59,6 +59,7 @@ var annotated_dup =
     [ "test_perception_metrics", "df/d68/namespacetest__perception__metrics.html", [
       [ "TestEvaluatorMethods", "d7/d4e/classtest__perception__metrics_1_1_test_evaluator_methods.html", "d7/d4e/classtest__perception__metrics_1_1_test_evaluator_methods" ]
     ] ],
+    [ "Adapter", "d3/d7f/class_adapter.html", "d3/d7f/class_adapter" ],
     [ "CenterCalculator", "df/daa/class_center_calculator.html", "df/daa/class_center_calculator" ],
     [ "CentroidCalculator", "da/d39/class_centroid_calculator.html", "da/d39/class_centroid_calculator" ],
     [ "CircunferenceCenterCalculation", "d8/d0d/class_circunference_center_calculation.html", "d8/d0d/class_circunference_center_calculation" ],
@@ -79,9 +80,7 @@ var annotated_dup =
     [ "DBSCANTest", "d8/d90/class_d_b_s_c_a_n_test.html", "d8/d90/class_d_b_s_c_a_n_test" ],
     [ "DistancePredict", "d0/d47/class_distance_predict.html", "d0/d47/class_distance_predict" ],
     [ "DistanceValidatorTest", "db/df7/class_distance_validator_test.html", "db/df7/class_distance_validator_test" ],
-    [ "EKFStateEstParameters", "d8/d1b/struct_e_k_f_state_est_parameters.html", "d8/d1b/struct_e_k_f_state_est_parameters" ],
     [ "EufsAdapter", "d0/d1d/class_eufs_adapter.html", "d0/d1d/class_eufs_adapter" ],
-    [ "ExecTimeTestEKFTests", "d2/dac/class_exec_time_test_e_k_f_tests.html", null ],
     [ "ExtendedKalmanFilter", "da/da6/class_extended_kalman_filter.html", "da/da6/class_extended_kalman_filter" ],
     [ "FsdsAdapter", "d7/d8e/class_fsds_adapter.html", "d7/d8e/class_fsds_adapter" ],
     [ "GridRANSAC", "de/d59/class_grid_r_a_n_s_a_c.html", "de/d59/class_grid_r_a_n_s_a_c" ],
@@ -132,7 +131,6 @@ var annotated_dup =
     [ "PerceptionExecutionData", "d2/d36/struct_perception_execution_data.html", "d2/d36/struct_perception_execution_data" ],
     [ "PerceptionParameters", "de/dda/struct_perception_parameters.html", "de/dda/struct_perception_parameters" ],
     [ "PerceptionPerformanceTest", "d3/d0d/class_perception_performance_test.html", "d3/d0d/class_perception_performance_test" ],
-    [ "PerformanceTest", "df/d4f/class_performance_test.html", "df/d4f/class_performance_test" ],
     [ "PID", "d6/d5a/class_p_i_d.html", "d6/d5a/class_p_i_d" ],
     [ "Plane", "d2/d8d/class_plane.html", "d2/d8d/class_plane" ],
     [ "Planning", "d9/db5/class_planning.html", "d9/db5/class_planning" ],

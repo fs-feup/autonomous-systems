@@ -110,24 +110,28 @@ Collaboration diagram for ExtendedKalmanFilter:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d8/da0/class_extended_kalman_filter__coll__graph.png" border="0" usemap="#a_extended_kalman_filter_coll__map" alt="Collaboration graph"/></div>
 <map name="a_extended_kalman_filter_coll__map" id="a_extended_kalman_filter_coll__map">
-<area shape="rect" title="Extended Kalman Filter class." alt="" coords="5,5,183,351"/>
+<area shape="rect" title="Extended Kalman Filter class." alt="" coords="5,5,183,391"/>
 </map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a917f5ade93de4ec66e865ede2600bf32" id="r_a917f5ade93de4ec66e865ede2600bf32"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#a917f5ade93de4ec66e865ede2600bf32">ExtendedKalmanFilter</a> (std::shared_ptr&lt; <a class="el" href="../../db/d66/class_motion_model.html">MotionModel</a> &gt; motion_model, std::shared_ptr&lt; <a class="el" href="../../d7/d64/class_observation_model.html">ObservationModel</a> &gt; observation_model, std::shared_ptr&lt; <a class="el" href="../../d1/d14/class_data_association_model.html">DataAssociationModel</a> &gt; data_association_model)</td></tr>
-<tr class="memdesc:a917f5ade93de4ec66e865ede2600bf32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extended Kalman Filter constructor declaration.  <br /></td></tr>
-<tr class="separator:a917f5ade93de4ec66e865ede2600bf32"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa39eb53750719608d37389cd7391c202" id="r_aa39eb53750719608d37389cd7391c202"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#aa39eb53750719608d37389cd7391c202">ExtendedKalmanFilter</a> (std::shared_ptr&lt; <a class="el" href="../../d7/d64/class_observation_model.html">ObservationModel</a> &gt; observation_model, std::shared_ptr&lt; <a class="el" href="../../d1/d14/class_data_association_model.html">DataAssociationModel</a> &gt; data_association_model)</td></tr>
+<tr class="memdesc:aa39eb53750719608d37389cd7391c202"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extended Kalman Filter constructor declaration.  <br /></td></tr>
+<tr class="separator:aa39eb53750719608d37389cd7391c202"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acf5d4c31b01020285ad184c55cfcf928" id="r_acf5d4c31b01020285ad184c55cfcf928"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#acf5d4c31b01020285ad184c55cfcf928">update</a> (std::shared_ptr&lt; <a class="el" href="../../d0/d2a/structcommon__lib_1_1structures_1_1_vehicle_state.html">common_lib::structures::VehicleState</a> &gt; vehicle_state, std::shared_ptr&lt; std::vector&lt; <a class="el" href="../../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html">common_lib::structures::Cone</a> &gt; &gt; track_map)</td></tr>
 <tr class="memdesc:acf5d4c31b01020285ad184c55cfcf928"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates vehicle state and map variables according to the state vector <em>x_vector</em>  <br /></td></tr>
 <tr class="separator:acf5d4c31b01020285ad184c55cfcf928"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa5aeb5c329fffcbcb1a197de8e263427" id="r_aa5aeb5c329fffcbcb1a197de8e263427"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#aa5aeb5c329fffcbcb1a197de8e263427">prediction_step</a> (const <a class="el" href="../../db/d6d/struct_motion_update.html">MotionUpdate</a> &amp;motion_update)</td></tr>
-<tr class="memdesc:aa5aeb5c329fffcbcb1a197de8e263427"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prediction step:  <br /></td></tr>
-<tr class="separator:aa5aeb5c329fffcbcb1a197de8e263427"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a180f0241b66c956246ee645e829640b3" id="r_a180f0241b66c956246ee645e829640b3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#a180f0241b66c956246ee645e829640b3">prediction_step</a> (const <a class="el" href="../../db/d6d/struct_motion_update.html">MotionUpdate</a> &amp;motion_update, const std::string &amp;sensor_type)</td></tr>
+<tr class="memdesc:a180f0241b66c956246ee645e829640b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prediction step:  <br /></td></tr>
+<tr class="separator:a180f0241b66c956246ee645e829640b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef214739221bfc1addce6caa1709af45" id="r_aef214739221bfc1addce6caa1709af45"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#aef214739221bfc1addce6caa1709af45">add_motion_model</a> (const std::string &amp;model_name, std::shared_ptr&lt; <a class="el" href="../../db/d66/class_motion_model.html">MotionModel</a> &gt; motion_model)</td></tr>
+<tr class="separator:aef214739221bfc1addce6caa1709af45"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0677b8f535ac4b4c59c161d99b9b028b" id="r_a0677b8f535ac4b4c59c161d99b9b028b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#a0677b8f535ac4b4c59c161d99b9b028b">correction_step</a> (const std::vector&lt; <a class="el" href="../../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html">common_lib::structures::Cone</a> &gt; &amp;perception_map)</td></tr>
 <tr class="memdesc:a0677b8f535ac4b4c59c161d99b9b028b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Correction step:  <br /></td></tr>
 <tr class="separator:a0677b8f535ac4b4c59c161d99b9b028b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8014fb59cdc788f5e7af49534f51f284" id="r_a8014fb59cdc788f5e7af49534f51f284"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#a8014fb59cdc788f5e7af49534f51f284">wss_correction_step</a> (const <a class="el" href="../../db/d6d/struct_motion_update.html">MotionUpdate</a> &amp;motion_correction_data)</td></tr>
+<tr class="separator:a8014fb59cdc788f5e7af49534f51f284"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a588e12f311b7f5c696d1959940f0c70c" id="r_a588e12f311b7f5c696d1959940f0c70c"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXf&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#a588e12f311b7f5c696d1959940f0c70c">get_state</a> () const</td></tr>
 <tr class="memdesc:a588e12f311b7f5c696d1959940f0c70c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the state vector.  <br /></td></tr>
 <tr class="separator:a588e12f311b7f5c696d1959940f0c70c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -140,7 +144,7 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
-<tr class="memitem:a3595dd28ba06e12edc4c3db689145845" id="r_a3595dd28ba06e12edc4c3db689145845"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXf&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#a3595dd28ba06e12edc4c3db689145845">get_kalman_gain</a> (const Eigen::MatrixXf &amp;H, const Eigen::MatrixXf &amp;<a class="el" href="../../da/da6/class_extended_kalman_filter.html#af7cf364722f683c5f2660fa70405150d">_p_matrix_</a>, const Eigen::MatrixXf &amp;Q) const</td></tr>
+<tr class="memitem:a3595dd28ba06e12edc4c3db689145845" id="r_a3595dd28ba06e12edc4c3db689145845"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXf&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#a3595dd28ba06e12edc4c3db689145845">get_kalman_gain</a> (const Eigen::MatrixXf &amp;H, const Eigen::MatrixXf &amp;<a class="el" href="../../da/da6/class_extended_kalman_filter.html#a231c7a4454693616e689025120192433">_p_matrix_</a>, const Eigen::MatrixXf &amp;Q) const</td></tr>
 <tr class="memdesc:a3595dd28ba06e12edc4c3db689145845"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flags used to mark first prediction step.  <br /></td></tr>
 <tr class="separator:a3595dd28ba06e12edc4c3db689145845"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -149,15 +153,13 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a9160897e91106c729d76c878e334fdcc" id="r_a9160897e91106c729d76c878e334fdcc"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXf&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#a9160897e91106c729d76c878e334fdcc">_x_vector_</a></td></tr>
 <tr class="memdesc:a9160897e91106c729d76c878e334fdcc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Expected state vector (localization + mapping)  <br /></td></tr>
 <tr class="separator:a9160897e91106c729d76c878e334fdcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af7cf364722f683c5f2660fa70405150d" id="r_af7cf364722f683c5f2660fa70405150d"><td class="memItemLeft" align="right" valign="top">Eigen::SparseMatrix&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#af7cf364722f683c5f2660fa70405150d">_p_matrix_</a></td></tr>
-<tr class="memdesc:af7cf364722f683c5f2660fa70405150d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sparse State covariance matrix.  <br /></td></tr>
-<tr class="separator:af7cf364722f683c5f2660fa70405150d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a231c7a4454693616e689025120192433" id="r_a231c7a4454693616e689025120192433"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXf&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#a231c7a4454693616e689025120192433">_p_matrix_</a> = Eigen::MatrixXf::Identity(6, 6)</td></tr>
+<tr class="separator:a231c7a4454693616e689025120192433"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a257f891a98929e29bc2871ba7eeebc3b" id="r_a257f891a98929e29bc2871ba7eeebc3b"><td class="memItemLeft" align="right" valign="top">rclcpp::Time&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#a257f891a98929e29bc2871ba7eeebc3b">_last_update_</a> = rclcpp::Clock().now()</td></tr>
 <tr class="memdesc:a257f891a98929e29bc2871ba7eeebc3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timestamp of last update.  <br /></td></tr>
 <tr class="separator:a257f891a98929e29bc2871ba7eeebc3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b660f0a70622157b00eaf2152142440" id="r_a9b660f0a70622157b00eaf2152142440"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../db/d66/class_motion_model.html">MotionModel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#a9b660f0a70622157b00eaf2152142440">_motion_model_</a></td></tr>
-<tr class="memdesc:a9b660f0a70622157b00eaf2152142440"><td class="mdescLeft">&#160;</td><td class="mdescRight">Motion Model chosen for prediction step.  <br /></td></tr>
-<tr class="separator:a9b660f0a70622157b00eaf2152142440"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e0728ba5e20d683fb176000c550c239" id="r_a1e0728ba5e20d683fb176000c550c239"><td class="memItemLeft" align="right" valign="top">std::map&lt; std::string, std::shared_ptr&lt; <a class="el" href="../../db/d66/class_motion_model.html">MotionModel</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#a1e0728ba5e20d683fb176000c550c239">_motion_models_</a></td></tr>
+<tr class="separator:a1e0728ba5e20d683fb176000c550c239"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0b5352a7a64d8d965e4d0a2e9de166c7" id="r_a0b5352a7a64d8d965e4d0a2e9de166c7"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d7/d64/class_observation_model.html">ObservationModel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#a0b5352a7a64d8d965e4d0a2e9de166c7">_observation_model_</a></td></tr>
 <tr class="memdesc:a0b5352a7a64d8d965e4d0a2e9de166c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Observation Model chosen for correction step.  <br /></td></tr>
 <tr class="separator:a0b5352a7a64d8d965e4d0a2e9de166c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -181,8 +183,8 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00028">28</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a917f5ade93de4ec66e865ede2600bf32" name="a917f5ade93de4ec66e865ede2600bf32"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a917f5ade93de4ec66e865ede2600bf32">&#9670;&#160;</a></span>ExtendedKalmanFilter()</h2>
+<a id="aa39eb53750719608d37389cd7391c202" name="aa39eb53750719608d37389cd7391c202"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa39eb53750719608d37389cd7391c202">&#9670;&#160;</a></span>ExtendedKalmanFilter()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -190,12 +192,6 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">ExtendedKalmanFilter::ExtendedKalmanFilter </td>
           <td>(</td>
-          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="../../db/d66/class_motion_model.html">MotionModel</a> &gt;&#160;</td>
-          <td class="paramname"><em>motion_model</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">std::shared_ptr&lt; <a class="el" href="../../d7/d64/class_observation_model.html">ObservationModel</a> &gt;&#160;</td>
           <td class="paramname"><em>observation_model</em>, </td>
         </tr>
@@ -222,11 +218,49 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d7a/ekf_8cpp_source.html#l00015">15</a> of file <a class="el" href="../../dd/d7a/ekf_8cpp_source.html">ekf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d7a/ekf_8cpp_source.html#l00014">14</a> of file <a class="el" href="../../dd/d7a/ekf_8cpp_source.html">ekf.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="aef214739221bfc1addce6caa1709af45" name="aef214739221bfc1addce6caa1709af45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef214739221bfc1addce6caa1709af45">&#9670;&#160;</a></span>add_motion_model()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ExtendedKalmanFilter::add_motion_model </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>model_name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="../../db/d66/class_motion_model.html">MotionModel</a> &gt;&#160;</td>
+          <td class="paramname"><em>motion_model</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00082">82</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+
+</div>
+</div>
 <a id="a0677b8f535ac4b4c59c161d99b9b028b" name="a0677b8f535ac4b4c59c161d99b9b028b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0677b8f535ac4b4c59c161d99b9b028b">&#9670;&#160;</a></span>correction_step()</h2>
 
@@ -256,17 +290,15 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d7a/ekf_8cpp_source.html#l00046">46</a> of file <a class="el" href="../../dd/d7a/ekf_8cpp_source.html">ekf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d7a/ekf_8cpp_source.html#l00044">44</a> of file <a class="el" href="../../dd/d7a/ekf_8cpp_source.html">ekf.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../da/da6/class_extended_kalman_filter_a0677b8f535ac4b4c59c161d99b9b028b_cgraph.png" border="0" usemap="#ada/da6/class_extended_kalman_filter_a0677b8f535ac4b4c59c161d99b9b028b_cgraph" alt=""/></div>
 <map name="ada/da6/class_extended_kalman_filter_a0677b8f535ac4b4c59c161d99b9b028b_cgraph" id="ada/da6/class_extended_kalman_filter_a0677b8f535ac4b4c59c161d99b9b028b_cgraph">
-<area shape="rect" title="Correction step:" alt="" coords="5,39,153,79"/>
-<area shape="rect" href="../../d2/d32/namespacecommon__lib_1_1maths.html#ad0d064c1af2031dc0a6bd45d4ca0981d" title=" " alt="" coords="201,5,375,46"/>
-<area shape="poly" title=" " alt="" coords="153,45,185,39,186,45,153,50"/>
-<area shape="rect" href="../../da/da6/class_extended_kalman_filter.html#a3595dd28ba06e12edc4c3db689145845" title="Flags used to mark first prediction step." alt="" coords="214,71,362,111"/>
-<area shape="poly" title=" " alt="" coords="153,68,199,75,198,80,153,73"/>
+<area shape="rect" title="Correction step:" alt="" coords="5,5,153,46"/>
+<area shape="rect" href="../../da/da6/class_extended_kalman_filter.html#a3595dd28ba06e12edc4c3db689145845" title="Flags used to mark first prediction step." alt="" coords="201,5,348,46"/>
+<area shape="poly" title=" " alt="" coords="153,23,185,23,185,28,153,28"/>
 </map>
 </div>
 
@@ -298,7 +330,7 @@ Here is the call graph for this function:</div>
 <p>Get the state covariance matrix. </p>
 <dl class="section return"><dt>Returns</dt><dd>Eigen::MatrixXf covariance matrix </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00106">106</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00111">111</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
 
 </div>
 </div>
@@ -354,7 +386,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Eigen::MatrixXf kalman gain matrix </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d7a/ekf_8cpp_source.html#l00096">96</a> of file <a class="el" href="../../dd/d7a/ekf_8cpp_source.html">ekf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d7a/ekf_8cpp_source.html#l00224">224</a> of file <a class="el" href="../../dd/d7a/ekf_8cpp_source.html">ekf.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -394,7 +426,7 @@ Here is the caller graph for this function:</div>
 <p>Get the last update timestamp. </p>
 <dl class="section return"><dt>Returns</dt><dd>rclcpp::Time timestamp </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00114">114</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00119">119</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
 
 </div>
 </div>
@@ -424,12 +456,12 @@ Here is the caller graph for this function:</div>
 <p>Get the state vector. </p>
 <dl class="section return"><dt>Returns</dt><dd>Eigen::VectorXf state vector </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00099">99</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00104">104</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
 
 </div>
 </div>
-<a id="aa5aeb5c329fffcbcb1a197de8e263427" name="aa5aeb5c329fffcbcb1a197de8e263427"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa5aeb5c329fffcbcb1a197de8e263427">&#9670;&#160;</a></span>prediction_step()</h2>
+<a id="a180f0241b66c956246ee645e829640b3" name="a180f0241b66c956246ee645e829640b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a180f0241b66c956246ee645e829640b3">&#9670;&#160;</a></span>prediction_step()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -438,8 +470,18 @@ Here is the caller graph for this function:</div>
           <td class="memname">void ExtendedKalmanFilter::prediction_step </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="../../db/d6d/struct_motion_update.html">MotionUpdate</a> &amp;&#160;</td>
-          <td class="paramname"><em>motion_update</em></td><td>)</td>
+          <td class="paramname"><em>motion_update</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>sensor_type</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -456,7 +498,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d7a/ekf_8cpp_source.html#l00025">25</a> of file <a class="el" href="../../dd/d7a/ekf_8cpp_source.html">ekf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d7a/ekf_8cpp_source.html#l00023">23</a> of file <a class="el" href="../../dd/d7a/ekf_8cpp_source.html">ekf.cpp</a>.</p>
 
 </div>
 </div>
@@ -495,7 +537,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d7a/ekf_8cpp_source.html#l00104">104</a> of file <a class="el" href="../../dd/d7a/ekf_8cpp_source.html">ekf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d7a/ekf_8cpp_source.html#l00237">237</a> of file <a class="el" href="../../dd/d7a/ekf_8cpp_source.html">ekf.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -506,6 +548,24 @@ Here is the caller graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="212,28,180,28,180,23,212,23"/>
 </map>
 </div>
+
+</div>
+</div>
+<a id="a8014fb59cdc788f5e7af49534f51f284" name="a8014fb59cdc788f5e7af49534f51f284"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8014fb59cdc788f5e7af49534f51f284">&#9670;&#160;</a></span>wss_correction_step()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ExtendedKalmanFilter::wss_correction_step </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../db/d6d/struct_motion_update.html">MotionUpdate</a> &amp;&#160;</td>
+          <td class="paramname"><em>motion_correction_data</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -520,7 +580,7 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">friend class <a class="el" href="../../df/d4f/class_performance_test.html">PerformanceTest</a></td>
+          <td class="memname">friend class PerformanceTest</td>
         </tr>
       </table>
   </td>
@@ -530,7 +590,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00116">116</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00121">121</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
 
 </div>
 </div>
@@ -557,7 +617,7 @@ Here is the caller graph for this function:</div>
 
 <p>Data Association Model. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00038">38</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00037">37</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
 
 </div>
 </div>
@@ -581,7 +641,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00041">41</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00040">40</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
 
 </div>
 </div>
@@ -607,7 +667,7 @@ Here is the caller graph for this function:</div>
 
 <p>Flag to indicate if the map is fixed. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00040">40</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00039">39</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
 
 </div>
 </div>
@@ -633,12 +693,12 @@ Here is the caller graph for this function:</div>
 
 <p>Timestamp of last update. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00033">33</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00032">32</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a9b660f0a70622157b00eaf2152142440" name="a9b660f0a70622157b00eaf2152142440"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9b660f0a70622157b00eaf2152142440">&#9670;&#160;</a></span>_motion_model_</h2>
+<a id="a1e0728ba5e20d683fb176000c550c239" name="a1e0728ba5e20d683fb176000c550c239"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e0728ba5e20d683fb176000c550c239">&#9670;&#160;</a></span>_motion_models_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -647,7 +707,7 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::shared_ptr&lt;<a class="el" href="../../db/d66/class_motion_model.html">MotionModel</a>&gt; ExtendedKalmanFilter::_motion_model_</td>
+          <td class="memname">std::map&lt;std::string, std::shared_ptr&lt;<a class="el" href="../../db/d66/class_motion_model.html">MotionModel</a>&gt; &gt; ExtendedKalmanFilter::_motion_models_</td>
         </tr>
       </table>
   </td>
@@ -657,9 +717,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Motion Model chosen for prediction step. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00035">35</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00034">34</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
 
 </div>
 </div>
@@ -685,12 +743,12 @@ Here is the caller graph for this function:</div>
 
 <p>Observation Model chosen for correction step. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00037">37</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00036">36</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
 
 </div>
 </div>
-<a id="af7cf364722f683c5f2660fa70405150d" name="af7cf364722f683c5f2660fa70405150d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af7cf364722f683c5f2660fa70405150d">&#9670;&#160;</a></span>_p_matrix_</h2>
+<a id="a231c7a4454693616e689025120192433" name="a231c7a4454693616e689025120192433"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a231c7a4454693616e689025120192433">&#9670;&#160;</a></span>_p_matrix_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -699,7 +757,7 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Eigen::SparseMatrix&lt;float&gt; ExtendedKalmanFilter::_p_matrix_</td>
+          <td class="memname">Eigen::MatrixXf ExtendedKalmanFilter::_p_matrix_ = Eigen::MatrixXf::Identity(6, 6)</td>
         </tr>
       </table>
   </td>
@@ -708,10 +766,6 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div>
-<div class="line">      Eigen::SparseMatrix&lt;float&gt;(5, 5)</div>
-</div><!-- fragment -->
-<p>Sparse State covariance matrix. </p>
 
 <p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00031">31</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
 
@@ -737,7 +791,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">=</div>
-<div class="line">      Eigen::VectorXf::Zero(5)</div>
+<div class="line">      Eigen::VectorXf::Zero(6)</div>
 </div><!-- fragment -->
 <p>Expected state vector (localization + mapping) </p>
 

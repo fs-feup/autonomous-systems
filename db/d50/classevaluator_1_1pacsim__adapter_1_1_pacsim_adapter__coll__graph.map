@@ -1,5 +1,5 @@
 <map id="evaluator.pacsim_adapter.PacsimAdapter" name="evaluator.pacsim_adapter.PacsimAdapter">
-<area shape="rect" id="Node000001" title="Adapter class for subscribing to PacSim topics." alt="" coords="5,119,189,457"/>
+<area shape="rect" id="Node000001" title="Adapter class for subscribing to PacSim topics." alt="" coords="5,119,189,423"/>
 <area shape="rect" id="Node000002" href="$d7/dff/classevaluator_1_1adapter_1_1_adapter.html" title="Class for subscribing to a point cloud topic and synchronizing messages with a ROS2 node." alt="" coords="17,5,177,71"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="100,86,100,119,95,119,95,86"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="100,85,100,119,95,119,95,85"/>
 </map>

@@ -6,6 +6,7 @@ var struct_planning_parameters =
     [ "desired_velocity_", "d2/deb/struct_planning_parameters.html#aa1886f95031889429fedcdafa22ce2b3", null ],
     [ "distance_exponent_", "d2/deb/struct_planning_parameters.html#aa66ae8f1c1bd9f70913bf9bcaa2d631a", null ],
     [ "distance_gain_", "d2/deb/struct_planning_parameters.html#a4b0507baec524e34a3cc66dcce633a73", null ],
+    [ "map_frame_id_", "d2/deb/struct_planning_parameters.html#a8e026b1090e4cb270744cb79475d6182", null ],
     [ "ncones_gain_", "d2/deb/struct_planning_parameters.html#a0d4a5657263f69593a8f30cb909ad26a", null ],
     [ "outliers_spline_coeffs_ratio_", "d2/deb/struct_planning_parameters.html#a1e1d10e3c84e7f2196818a657cb83cde", null ],
     [ "outliers_spline_order_", "d2/deb/struct_planning_parameters.html#a73f48d0464af8da7e517f18a42936112", null ],
