@@ -1,7 +1,7 @@
 #include <Eigen/Dense>
 #include <cone_differentiation/least_squares_differentiation.hpp>
 
-void LeastSquaresDifferentiation::coneDifferentiation(Cluster* cone_point_cloud) const {
+void LeastSquaresDifferentiation::cone_differentiation(Cluster* cone_point_cloud) const {
   int n = cone_point_cloud->get_point_cloud()->points.size();
 
   // It is impractical to compute a parabola using fewer than three points

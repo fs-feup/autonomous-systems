@@ -29,7 +29,7 @@ TEST_F(DistanceValidatorTest, TestDistance1) {
   Cluster cluster = Cluster(point_cloud);
   auto coneEvaluator = new DistancePredict(0.33, 0.2);
 
-  double coneConfidence = coneEvaluator->evaluateCluster(cluster);
+  double coneConfidence = coneEvaluator->evaluate_cluster(cluster);
 
   ASSERT_LE(coneConfidence, 1.0);
 
@@ -47,7 +47,7 @@ TEST_F(DistanceValidatorTest, TestDistance2) {
   Cluster cluster = Cluster(point_cloud);
   auto coneEvaluator = new DistancePredict(0.33, 0.2);
 
-  double coneConfidence = coneEvaluator->evaluateCluster(cluster);
+  double coneConfidence = coneEvaluator->evaluate_cluster(cluster);
 
   ASSERT_LE(coneConfidence, 1.0);
 
@@ -71,7 +71,7 @@ TEST_F(DistanceValidatorTest, TestDistance25) {
   Cluster cluster = Cluster(point_cloud);
   auto coneEvaluator = new DistancePredict(0.33, 0.2);
 
-  double coneConfidence = coneEvaluator->evaluateCluster(cluster);
+  double coneConfidence = coneEvaluator->evaluate_cluster(cluster);
 
   ASSERT_LE(coneConfidence, 1.0);
 

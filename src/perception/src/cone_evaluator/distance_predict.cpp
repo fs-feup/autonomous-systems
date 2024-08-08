@@ -7,7 +7,7 @@
 DistancePredict::DistancePredict(double vertical_ang_res, double horizontal_ang_res)
     : vertical_ang_res(vertical_ang_res), horizontal_ang_res(horizontal_ang_res) {}
 
-double DistancePredict::evaluateCluster(Cluster& cluster) const {
+double DistancePredict::evaluate_cluster(Cluster& cluster) const {
   double coneDistance = cluster.get_centroid().norm();
 
   if (coneDistance <= 0) return 0;

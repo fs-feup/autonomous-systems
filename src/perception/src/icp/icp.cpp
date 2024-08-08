@@ -21,7 +21,7 @@ ICP::ICP(std::string target_file, double max_correspondence_distance, long max_i
     _icp_.setEuclideanFitnessEpsilon(euclidean_fitness_epsilon);
 }
 
-double ICP::executeICP(pcl::PointCloud<pcl::PointXYZI>::Ptr source_cloud, pcl::PointCloud<pcl::PointXYZI>::Ptr final_cloud){
+double ICP::execute_ICP(pcl::PointCloud<pcl::PointXYZI>::Ptr source_cloud, pcl::PointCloud<pcl::PointXYZI>::Ptr final_cloud){
 
     _icp_.setInputSource(source_cloud);
 

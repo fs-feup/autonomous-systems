@@ -14,5 +14,5 @@ class LeastSquaresDifferentiation : public ConeDifferentiation {
    * @param cone_point_cloud Cluster's point cloud.
    * @return Color The cone's color.
    */
-  void coneDifferentiation(Cluster* cone_point_cloud) const override;
+  void cone_differentiation(Cluster* cone_point_cloud) const override;
 };

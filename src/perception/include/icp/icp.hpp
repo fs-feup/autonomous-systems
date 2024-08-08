@@ -31,6 +31,6 @@ class ICP{
      * @param final_cloud Final registered point cloud.
      * @return Fitness score after registration.
      */
-    double executeICP(pcl::PointCloud<pcl::PointXYZI>::Ptr source, 
+    double execute_ICP(pcl::PointCloud<pcl::PointXYZI>::Ptr source, 
                       pcl::PointCloud<pcl::PointXYZI>::Ptr final_cloud);
 };

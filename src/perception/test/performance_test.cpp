@@ -185,7 +185,7 @@ TEST_F(PerceptionPerformanceTest, TestPerformance) {
     executionTime.yellows = 0;
     executionTime.undefineds = 0;
     for (auto cluster : clusters) {
-      cone_differentiator->coneDifferentiation(&cluster);
+      cone_differentiator->cone_differentiation(&cluster);
       std::string color = cluster.get_color();
       if (color == "blue")
         executionTime.blues++;

@@ -32,6 +32,6 @@ class HeightValidator : public ConeValidator {
    * @param plane The plane against which the cone's height is evaluated.
    * @return true if the cone satisfies the height criteria, false otherwise.
    */
-  bool coneValidator(Cluster* cone_point_cloud, Plane& plane) const override;
+  bool cone_validator(Cluster* cone_point_cloud, Plane& plane) const override;
 };
 
