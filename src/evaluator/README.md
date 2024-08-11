@@ -1,17 +1,70 @@
 # Evaluator Package
 
+## Package Information
+
+### Description
+
 This package contains the evaluator node, used to evaluate the AS main pipeline, with aid of simulation environments and other data.
 
-## Package info 
+### Folder Structure
 
-- **Package name:** evaluator
-- **Node name:** evaluator
+- [adapter](evaluator/adapter.py): Adapter base class to change ROS2 interfaces according to the simulator or environment
+- [pacsim_adapter](evaluator/pacsim_adapter.py): Adapter for PacSim simulator
+- [eufs_adapter](evaluator/eufs_adapter.py): Adapter for EUFS simulator
+- [fsds_adapter](evaluator/fsds_adapter.py): Adapter for FSDS simulator
+- [vehicle_adapter](evaluator/vehicle_adapter.py): Adapter for the vehicle
+- [formats](evaluator/formats.py): Functions for formatting messages into a common format
+- [metrics](evaluator/metrics.py): Functions for metrics calculation
+- [adapter_maps](evaluator/adapter_maps.py): Maps for adapter configurations
+- [evaluator](evaluator/evaluator.py): Evaluator node class
 
-### Launch files
-- **evaluator-eufs.launch.py** - evaluator with adapters for EUFS SIM
-- **evaluator-pacsim.launch.py** - evaluator with adapters for PacSim
-- **evaluator-fsds.launch.py** - evaluator with adapters for FSDS
 
+### Launch Configurations
+
+- [evaluator-eufs.launch.py]: evaluator with adapters for EUFS SIM
+- [evaluator-pacsim.launch.py]: evaluator with adapters for PacSim
+- [evaluator-fsds.launch.py]: evaluator with adapters for FSDS
+
+## How to Run
+
+### Install Dependencies
+
+```sh
+./denpendencies_install.sh
+```
+
+### Compiling
+
+```sh
+colcon build --packages-up-to evaluator
+```
+
+### Testing
+
+```sh
+colcon test --packages-select evaluator # use event-handler=console_direct+ for imediate output
+```
+
+To check test results:
+```sh
+colcon test-result --all --verbose
+```
+
+### Running
+
+Use a launch file:
+
+```sh
+source ./install/setup.bash # If in a new terminal
+ros2 launch evaluator evaluator-eufs.launch.py
+```
+
+or run directly:
+
+```sh
+source ./install/setup.bash # If in a new terminal
+ros2 run evaluator evaluator
+```
 
 ## Design
 
@@ -31,6 +84,6 @@ The concept of the complete evaluation system can be seen in the following diagr
 
 ![System Diagram](../../docs/diagrams/sim-inf/evaluation-system.drawio.svg)
 
-## Results
+### Results
 
 The metrics will be published in ```/evaluator/*``` topics.

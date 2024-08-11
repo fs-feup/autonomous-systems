@@ -1,19 +1,48 @@
 # EKF State Estimation Package
 
+## Package Information
+
+
+### Description
+
 The State Estimation module is responsible for the processing of the perception module and localisation sensors' data and its transformation into useful information. In this case, the data is combined to generate the best estimates possible on the pose and speed of the vehicle and the location of the cones that delimit the track.
 
-## Run the Node
+
+### Folder Structure
+
+- [adapter_ekf_state_est](./include/adapter_ekf_state_est/): Adapters to change ros2 interfaces according to simulator or environment
+- [kalman_filter](./include/ekf/): Extended Kalman Filter class, used for state estimation
+    - [kalman_filter/data_association](./include/ekf/data_association.hpp): Data Association class, used to associate observations to landmarks
+    - [kalman_filter/motion_model](./include/ekf/motion_model.hpp): Motion Model class, used to predict the state based on motion
+    - [kalman_filter/observation_model](./include/ekf/observation_model.hpp): Observation Model class, used to correct the state based on observations
+- [ros_node](./include/ros_node/): Node class
+
+
+### Launch Configurations
+
+- [eufs.launch.py](./launch/eufs.launch.py): Launch file for the EUFS simulator
+- [pacsim.launch.py](./launch/pacsim.launch.py): Launch file for the PacSim simulator
+
+### Important Dependencies
+
+- [Eigen3](https://eigen.tuxfamily.org/index.php?title=Main_Page)
+
+## How to Run
+
+### Install Dependencies
+
+```sh
+  ./denpendencies_install.sh
+```
 
 ### Compiling
 
-From src folder:
 ```sh
-colcon build --packages-select ekf_state_est custom_interfaces eufs_msgs fs_msgs
+colcon build --packages-up-to ekf_state_est
 ```
 
-## Testing
+### Testing
 
-From src folder:
 ```sh
 colcon test --packages-select ekf_state_est # use event-handler=console_direct+ for imediate output
 ```
@@ -26,11 +55,24 @@ colcon test-result --all --verbose
 or 
 
 ```sh
+source ./install/setup.bash # If in a new terminal
 ros2 run ekf_state_est ekf_state_est_test
 ```
 
-### Running the node
+### Running
+
+Use a launch file:
+
 ```sh
+source ./install/setup.bash # If in a new terminal
+ros2 launch ekf_state_est eufs.launch.py
+```
+
+or run directly:
+
+
+```sh
+source ./install/setup.bash # If in a new terminal
 ros2 run ekf_state_est ekf_state_est
 ```
 
@@ -74,13 +116,3 @@ The sequence diagrams below illustrate in greater detail the interactions betwee
 The node is composed by multiple classes. The diagram below illustrates roughly how they sit in the code structure. The main two are the LMNode, which is the class of the node, and the Extended Kalman Filter, which corresponds to the code of the implementation of the EKF SLAM.
 
 ![Class Diagram](../../docs/assets/Loc_map/class-diagram.svg)
-
-## Full Documentation
-
-More precise documentation can be found [here](https://www.overleaf.com/8294456817dmdsrfrhbxcf).
-
-## Main External Libraries
-
-- [Eigen](https://eigen.tuxfamily.org/index.php?title=Main_Page)
-- [ROS2](https://docs.ros.org/en/foxy/index.html)
-- [Gtest](http://google.github.io/googletest/)

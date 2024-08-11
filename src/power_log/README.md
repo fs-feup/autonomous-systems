@@ -1,13 +1,36 @@
 # Power Log
 
+## Package Information
+
+### Description
+
 This package is for a python node used in vehicle to record diagnostics of AS CU's health, such as:
 - RAM usage
 - CPU core usage
 - CPU temperature
 
-## Package info
+### Important Dependencies
 
-This package is very simple as of now, and requires no configuration and has no dependencies.
+- [psutil](https://psutil.readthedocs.io/en/latest/)
 
-- **Package name:** power_log
-- **Node name:** power_log_node
+## How to Run
+
+### Install Dependencies
+
+```sh
+./dependencies_install.sh
+```
+
+### Compiling
+
+```sh
+colcon build --packages-up-to power_log
+```
+
+### Running
+
+To run the power log, you need to run the following command:
+
+```sh
+ros2 run power_log power_log
+```

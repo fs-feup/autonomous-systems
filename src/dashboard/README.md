@@ -1,6 +1,17 @@
-## Dashboard
+# Dashboard
 
-This folder contains the script that run the visualization dashboard.
+This folder contains the script that runs the visualization dashboard. This dashboard contains plots of evaluation data fetched from the cloud.
+
+## Package Information
+
+This is not a ros2 package. It is a standalone python script that uses the dash library to create a dashboard.
+
+### Important Dependencies
+
+- [dash](https://dash.plotly.com/)
+
+
+## How to Run
 
 To run the script, from the workspace use the following command:
 
