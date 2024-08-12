@@ -34,9 +34,9 @@ TEST_F(StandardDeviationTest, NullPointCloud) {
  */
 TEST_F(StandardDeviationTest, ZeroZDeviation) {
   auto deviation_validator = DeviationValidator(-1, 100, 0.1, 100);
-  _point_cloud_->push_back(pcl::PointXYZI(1.0, 2.0, 10, 0.1));
-  _point_cloud_->push_back(pcl::PointXYZI(4.0, 5.0, 10, 0.2));
-  _point_cloud_->push_back(pcl::PointXYZI(7.0, 8.0, 10, 0.3));
+  _point_cloud_->emplace_back(1.0, 2.0, 10, 0.1);
+  _point_cloud_->emplace_back(4.0, 5.0, 10, 0.2);
+  _point_cloud_->emplace_back(7.0, 8.0, 10, 0.3);
   auto cluster = Cluster(_point_cloud_);
 
   ASSERT_FALSE(deviation_validator.coneValidator(&cluster, _plane_));
@@ -47,9 +47,9 @@ TEST_F(StandardDeviationTest, ZeroZDeviation) {
  */
 TEST_F(StandardDeviationTest, NonZeroZDeviation) {
   auto deviation_validator = DeviationValidator(-1, 100, 0.1, 100);
-  _point_cloud_->push_back(pcl::PointXYZI(0.0, 0.0, 0.8, 0.8));
-  _point_cloud_->push_back(pcl::PointXYZI(0.0, 0.0, 0.1, 0.1));
-  _point_cloud_->push_back(pcl::PointXYZI(0.0, 0.0, 0.3, 0.3));
+  _point_cloud_->emplace_back(0.0, 0.0, 0.8, 0.8);
+  _point_cloud_->emplace_back(0.0, 0.0, 0.1, 0.1);
+  _point_cloud_->emplace_back(0.0, 0.0, 0.3, 0.3);
   auto cluster = Cluster(_point_cloud_);
 
   ASSERT_TRUE(deviation_validator.coneValidator(&cluster, _plane_));
@@ -60,9 +60,9 @@ TEST_F(StandardDeviationTest, NonZeroZDeviation) {
  */
 TEST_F(StandardDeviationTest, ZeroXoYDeviation) {
   auto deviation_validator = DeviationValidator(0.1, 100, -1, 100);
-  _point_cloud_->push_back(pcl::PointXYZI(1.0, 2.0, 10, 0.1));
-  _point_cloud_->push_back(pcl::PointXYZI(1.0, 2.0, 100, 0.2));
-  _point_cloud_->push_back(pcl::PointXYZI(1.0, 2.0, 100, 0.3));
+  _point_cloud_->emplace_back(1.0, 2.0, 10, 0.1);
+  _point_cloud_->emplace_back(1.0, 2.0, 100, 0.2);
+  _point_cloud_->emplace_back(1.0, 2.0, 100, 0.3);
   auto cluster = Cluster(_point_cloud_);
 
   ASSERT_FALSE(deviation_validator.coneValidator(&cluster, _plane_));
@@ -73,9 +73,9 @@ TEST_F(StandardDeviationTest, ZeroXoYDeviation) {
  */
 TEST_F(StandardDeviationTest, NonZeroXoYDeviation) {
   auto deviation_validator = DeviationValidator(0.1, 100, -1, 100);
-  _point_cloud_->push_back(pcl::PointXYZI(1.0, 2.0, 10, 0.1));
-  _point_cloud_->push_back(pcl::PointXYZI(3.0, 5.0, 100, 0.2));
-  _point_cloud_->push_back(pcl::PointXYZI(10.0, -6.0, 100, 0.3));
+  _point_cloud_->emplace_back(1.0, 2.0, 10, 0.1);
+  _point_cloud_->emplace_back(3.0, 5.0, 100, 0.2);
+  _point_cloud_->emplace_back(10.0, -6.0, 100, 0.3);
   auto cluster = Cluster(_point_cloud_);
 
   ASSERT_TRUE(deviation_validator.coneValidator(&cluster, _plane_));
@@ -86,9 +86,9 @@ TEST_F(StandardDeviationTest, NonZeroXoYDeviation) {
  */
 TEST_F(StandardDeviationTest, ZeroXoYAndZDeviation) {
   auto deviation_validator = DeviationValidator(0.1, 100, 0.1, 100);
-  _point_cloud_->push_back(pcl::PointXYZI(1.0, 2.0, 10, 0.1));
-  _point_cloud_->push_back(pcl::PointXYZI(1.0, 2.0, 10, 0.2));
-  _point_cloud_->push_back(pcl::PointXYZI(1.0, 2.0, 10, 0.3));
+  _point_cloud_->emplace_back(1.0, 2.0, 10, 0.1);
+  _point_cloud_->emplace_back(1.0, 2.0, 10, 0.2);
+  _point_cloud_->emplace_back(1.0, 2.0, 10, 0.3);
   auto cluster = Cluster(_point_cloud_);
 
   ASSERT_FALSE(deviation_validator.coneValidator(&cluster, _plane_));
@@ -99,9 +99,9 @@ TEST_F(StandardDeviationTest, ZeroXoYAndZDeviation) {
  */
 TEST_F(StandardDeviationTest, NonZeroXoYAndZDeviation) {
   auto deviation_validator = DeviationValidator(0.1, 100, 0.1, 100);
-  _point_cloud_->push_back(pcl::PointXYZI(1.0, 2.0, 0.8, 0.1));
-  _point_cloud_->push_back(pcl::PointXYZI(3.0, 5.0, 0.1, 0.2));
-  _point_cloud_->push_back(pcl::PointXYZI(10.0, -6.0, 0.3, 0.3));
+  _point_cloud_->emplace_back(1.0, 2.0, 0.8, 0.1);
+  _point_cloud_->emplace_back(3.0, 5.0, 0.1, 0.2);
+  _point_cloud_->emplace_back(10.0, -6.0, 0.3, 0.3);
   auto cluster = Cluster(_point_cloud_);
 
   ASSERT_TRUE(deviation_validator.coneValidator(&cluster, _plane_));

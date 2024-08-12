@@ -27,7 +27,7 @@ TEST_F(HeightValidatorTest, ConeWithinHeightThreshold) {
   HeightValidator validator = HeightValidator(0.1, 0.375);
 
   auto point_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
-  point_cloud->points.emplace_back(pcl::PointXYZI{0.3, 0.0, 0, 0});
+  point_cloud->points.emplace_back(0.3, 0.0, 0, 0);
 
   Cluster cone_point_cloud = Cluster(point_cloud);
 
@@ -43,7 +43,7 @@ TEST_F(HeightValidatorTest, ConeExceedsHeightThreshold) {
   HeightValidator validator = HeightValidator(0.1, 0.375);
 
   auto point_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
-  point_cloud->points.emplace_back(pcl::PointXYZI{1.0, 0.0, 0, 0});
+  point_cloud->points.emplace_back(1.0, 0.0, 0, 0);
 
   Cluster cone_point_cloud = Cluster(point_cloud);
 
@@ -59,7 +59,7 @@ TEST_F(HeightValidatorTest, ConeBelowHeightThreshold) {
   HeightValidator validator = HeightValidator(0.1, 0.375);
 
   auto point_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
-  point_cloud->points.emplace_back(pcl::PointXYZI{0.01, 0.0, 0, 0});
+  point_cloud->points.emplace_back(0.01, 0.0, 0, 0);
 
   Cluster cone_point_cloud = Cluster(point_cloud);
 
@@ -75,7 +75,7 @@ TEST_F(HeightValidatorTest, ConeHeightThreshold) {
   HeightValidator validator = HeightValidator(0.1, 0.375);
 
   auto point_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
-  point_cloud->points.emplace_back(pcl::PointXYZI{0.15, 0.0, 0, 0});
+  point_cloud->points.emplace_back(0.15, 0.0, 0, 0);
 
   Cluster cone_point_cloud = Cluster(point_cloud);
 

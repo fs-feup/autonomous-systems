@@ -65,8 +65,8 @@ std::tuple<double, double, double, double> Cluster::calculate_mean_and_std_dev(s
     sum_y += point.get_centroid().y();
   }
 
-  double mean_x = sum_x / clusters.size();
-  double mean_y = sum_y / clusters.size();
+  double mean_x = sum_x / static_cast<double>(clusters.size());
+  double mean_y = sum_y / static_cast<double>(clusters.size());
 
   double sum_squared_diff_x = 0.0;
   double sum_squared_diff_y = 0.0;
@@ -75,8 +75,8 @@ std::tuple<double, double, double, double> Cluster::calculate_mean_and_std_dev(s
     sum_squared_diff_y += pow(point.get_centroid().y() - mean_y, 2);
   }
 
-  double stddev_x = sqrt(sum_squared_diff_x / clusters.size());
-  double stddev_y = sqrt(sum_squared_diff_y / clusters.size());
+  double stddev_x = sqrt(sum_squared_diff_x / static_cast<double>(clusters.size()));
+  double stddev_y = sqrt(sum_squared_diff_y / static_cast<double>(clusters.size()));
 
   return std::make_tuple(mean_x, mean_y, stddev_x, stddev_y);
 }

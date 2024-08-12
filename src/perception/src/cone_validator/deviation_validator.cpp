@@ -23,9 +23,9 @@ bool DeviationValidator::coneValidator(Cluster* cone_point_cloud, [[maybe_unused
         mean_y += point.y;
         mean_z += point.z;
     }
-    mean_x /= num_points;
-    mean_y /= num_points;
-    mean_z /= num_points;
+    mean_x /= static_cast<double>(num_points);
+    mean_y /= static_cast<double>(num_points);
+    mean_z /= static_cast<double>(num_points);
 
     // Calculate deviations from the mean
     for (const auto& point : cone_point_cloud->get_point_cloud()->points) {
@@ -37,9 +37,9 @@ bool DeviationValidator::coneValidator(Cluster* cone_point_cloud, [[maybe_unused
     // Calculate the standard deviation of the deviations
     auto calc_std_dev = [](const std::vector<double>& deviations) {
         double sum = std::accumulate(deviations.begin(), deviations.end(), 0.0);
-        double mean = sum / deviations.size();
+        double mean = sum / static_cast<double>(deviations.size());
         double sq_sum = std::inner_product(deviations.begin(), deviations.end(), deviations.begin(), 0.0);
-        double variance = sq_sum / deviations.size() - mean * mean;
+        double variance = sq_sum / static_cast<double>(deviations.size()) - mean * mean;
         return std::sqrt(variance);
     };
 

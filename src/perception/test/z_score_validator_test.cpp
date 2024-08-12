@@ -19,7 +19,7 @@ class ZScoreValidatorTest : public ::testing::Test {
   void add_cluster(float centroid_x, float centroid_y) {
     auto point_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
     point_cloud->push_back(pcl::PointXYZI{centroid_x, centroid_y, 42, 42});
-    _clusters_.emplace_back(Cluster(point_cloud));
+    _clusters_.emplace_back(point_cloud);
   }
 
   std::vector<Cluster> _clusters_;
