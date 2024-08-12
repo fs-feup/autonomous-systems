@@ -21,7 +21,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "lookahead_gain",
                 description="Variable K -> Lookahead Gain",
-                default_value="0.5",
+                default_value="2.0",
             ),
             DeclareLaunchArgument(
                 "pid_kp",
@@ -82,7 +82,7 @@ def generate_launch_description():
                     {"lookahead_gain": LaunchConfiguration("lookahead_gain")},
                     {"use_simulated_se": LaunchConfiguration("use_simulated_se")},
                 ],
-                arguments=["--ros-args", "--log-level", "control:=info"],
+                arguments=["--ros-args", "--log-level", "control:=debug"],
             ),
         ]
     )

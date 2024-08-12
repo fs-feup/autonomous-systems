@@ -1,6 +1,8 @@
 import numpy as np
 import sys
 from scipy.sparse.csgraph import minimum_spanning_tree
+import rclpy
+import rclpy.logging
 
 
 def get_average_difference(output: np.array, expected: np.array) -> float:
@@ -65,7 +67,9 @@ def get_false_positives(
         output[:, np.newaxis, :] - expected[np.newaxis, :, :], axis=-1
     )
 
+    # TODO: this function does not work well
     matched_expected = np.any(differences < threshold, axis=1)
+
     true_positives = np.sum(matched_expected)
 
     return max(0, len(output) - true_positives)
@@ -124,7 +128,8 @@ def build_adjacency_matrix(cones: np.array) -> np.array:
 
     return distances
 
-def get_duplicates(output : np.array, threshold : float):
+
+def get_duplicates(output: np.array, threshold: float):
     """Receives a set of cones and identify the possible dupliates"""
 
     adjacency_matrix = build_adjacency_matrix(output)
@@ -133,7 +138,7 @@ def get_duplicates(output : np.array, threshold : float):
     return num_duplicates
 
 
-def get_inter_cones_distance(perception_output: np.array):
+def get_inter_cones_distance(perception_output: np.array) -> float:
     """!
     Computes the average distance between pairs of perceived cones using Minimum Spanning Tree Prim's algorithm.
 
@@ -159,7 +164,7 @@ def get_inter_cones_distance(perception_output: np.array):
     num_pairs = np.count_nonzero(mst.toarray().astype(float))
 
     if num_pairs == 0:
-        return 0
+        return 0.0
     else:
         average_distance = mst_sum / num_pairs
-        return average_distance
+        return float(average_distance)

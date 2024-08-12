@@ -26,9 +26,10 @@ available_dashboards = [
     "Evaluator_state_estimation",
     "Evaluator_planning",
     "Evaluator_control",
-    "Perception",
-    "State_estimation",
-    "Planning",
+    "Perception_exec_time",
+    "State_estimation_exec_time",
+    "Planning_exec_time",
+    "Planning_cone_coloring",
     "Power_log",
 ]
 
@@ -58,9 +59,10 @@ def get_dashboard_layout(dashboard):
         "Evaluator_state_estimation": "evaluator/se",
         "Evaluator_planning": "evaluator/planning",
         "Evaluator_control": "evaluator/control",
-        "Perception": "perception",
-        "State_estimation": "state_est",
-        "Planning": "planning",
+        "Perception_exec_time": "perception/perception/",
+        "State_estimation_exec_time": "state_est",
+        "Planning_exec_time": "planning_exec_time",
+        "Planning_cone_coloring": "planning_cone_coloring",
         "Power_log": "power_log",
     }
 

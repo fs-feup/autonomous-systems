@@ -57,7 +57,8 @@ void PacSimAdapter::track_callback(const visualization_msgs::msg::MarkerArray& m
   RCLCPP_DEBUG(this->get_logger(), "Planning : Received track map in pacsim adapter");
   custom_interfaces::msg::ConeArray cones;
   for (auto c : msg.markers) {
-    if (c.type == 4 || (c.pose.position.x == 0 && c.pose.position.y == 0)) {
+    if (c.type == 4 || (c.pose.position.x == 0 && c.pose.position.y == 0) ||
+        std::pow(c.pose.position.x - 10.17, 2) + std::pow(c.pose.position.y - 7.02, 2) < 0.5) {
       continue;
     }
     custom_interfaces::msg::Cone cone;

@@ -23,6 +23,7 @@ const std::unordered_map<std::string, std::string> adapter_frame_map = {
 
 Perception::Perception(const PerceptionParameters& params)
     : Node("perception"),
+      _vehicle_frame_id_(params.vehicle_frame_id_),
       _ground_removal_(params.ground_removal_),
       _clustering_(params.clustering_),
       _cone_differentiator_(params.cone_differentiator_),
@@ -36,6 +37,9 @@ Perception::Perception(const PerceptionParameters& params)
 
   this->_ground_removed_publisher_ =
       this->create_publisher<sensor_msgs::msg::PointCloud2>("/perception/ground_removed_cloud", 10);
+
+  this->_perception_execution_time_publisher_ =
+      this->create_publisher<std_msgs::msg::Float64>("/perception/execution_time", 10);
 
   this->_fov_trim_ = params.fov_trim_;
 
@@ -97,11 +101,14 @@ Perception::Perception(const PerceptionParameters& params)
 }
 
 void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
+  rclcpp::Time time = this->now();
+
   // Message Read
   pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_cloud(new pcl::PointCloud<pcl::PointXYZI>);
   header = (*msg).header;
   pcl::fromROSMsg(*msg, *pcl_cloud);
 
+  // Pass-trough Filter
   fov_trimming(pcl_cloud, this->_pc_max_range_, -_fov_trim_, _fov_trim_, 5);
 
   // Ground Removal
@@ -111,6 +118,7 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   // Debugging utils -> Useful to check the ground removed point cloud
   sensor_msgs::msg::PointCloud2 ground_remved_msg;
   pcl::toROSMsg(*ground_removed_cloud, ground_remved_msg);
+  ground_remved_msg.header.frame_id = _vehicle_frame_id_;
   this->_ground_removed_publisher_->publish(ground_remved_msg);
 
   // Clustering
@@ -136,6 +144,12 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
       filtered_clusters.push_back(cluster);
     }
   }
+
+  // Execution Time calculation
+  rclcpp::Time end_time = this->now();
+  std_msgs::msg::Float64 perception_execution_time;
+  perception_execution_time.data = (end_time - time).seconds() * 1000;
+  this->_perception_execution_time_publisher_->publish(perception_execution_time);
 
   // Logging
   RCLCPP_DEBUG(this->get_logger(), "---------- Point Cloud Received ----------");
@@ -170,9 +184,9 @@ void Perception::publish_cones(std::vector<Cluster>* cones) {
   }
 
   this->_cones_publisher->publish(message);
-
+  // TODO: correct frame id to LiDAR instead of vehicle
   this->_cone_marker_array_->publish(common_lib::communication::marker_array_from_structure_array(
-      message_array, "perception", adapter_frame_map.at(this->_adapter_), "green"));
+      message_array, "perception", this->_vehicle_frame_id_, "green"));
 }
 
 void Perception::fov_trimming(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, double max_distance,
@@ -188,6 +202,10 @@ void Perception::fov_trimming(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, double
     // Calculate the angle in the XY plane
     double angle =
         std::atan2(point.y, point.x - center_x) * 180 / M_PI;  // get angle and convert in to degrees
+
+    if (distance <= 0.5) {  // Ignore points from the vehicle
+      continue;
+    }
 
     // Check if the point is within the specified distance and angle range
     if (distance <= max_distance && angle >= min_angle && angle <= max_angle) {
