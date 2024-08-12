@@ -1,0 +1,5 @@
+<map id="Cluster::set_z_score" name="Cluster::set_z_score">
+<area shape="rect" id="Node000001" title="Set the z score object on the x and y axis." alt="" coords="5,5,144,31"/>
+<area shape="rect" id="Node000002" href="$d2/d23/class_cluster.html#ab0b0056112da3ff27a13304f38f5f4d1" title="Get the centroid of the cluster." alt="" coords="192,5,331,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="144,16,176,16,176,21,144,21"/>
+</map>

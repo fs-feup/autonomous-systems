@@ -135,8 +135,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a592f3cc2120d974b503f5934970ac5db" id="r_a592f3cc2120d974b503f5934970ac5db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d07/class_perception.html#a592f3cc2120d974b503f5934970ac5db">point_cloud_callback</a> (const sensor_msgs::msg::PointCloud2::SharedPtr msg)</td></tr>
 <tr class="memdesc:a592f3cc2120d974b503f5934970ac5db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function for the PointCloud2 subscription.  <br /></td></tr>
 <tr class="separator:a592f3cc2120d974b503f5934970ac5db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a816ac49439a31dd18eedf002487267c4" id="r_a816ac49439a31dd18eedf002487267c4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d07/class_perception.html#a816ac49439a31dd18eedf002487267c4">fov_trimming</a> (pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr cloud, double max_distance, double min_angle, double max_angle)</td></tr>
-<tr class="separator:a816ac49439a31dd18eedf002487267c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac11a3b5e52ce1edd5164b15a781b4727" id="r_ac11a3b5e52ce1edd5164b15a781b4727"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d07/class_perception.html#ac11a3b5e52ce1edd5164b15a781b4727">fov_trimming</a> (pcl::PointCloud&lt; pcl::PointXYZI &gt;::Ptr cloud, double max_distance, double min_angle, double max_angle, double x_discount=0)</td></tr>
+<tr class="separator:ac11a3b5e52ce1edd5164b15a781b4727"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -227,23 +227,27 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../de/d07/class_perception_a99447b0f39e7b103d320b6072021a3af_cgraph.png" border="0" usemap="#ade/d07/class_perception_a99447b0f39e7b103d320b6072021a3af_cgraph" alt=""/></div>
 <map name="ade/d07/class_perception_a99447b0f39e7b103d320b6072021a3af_cgraph" id="ade/d07/class_perception_a99447b0f39e7b103d320b6072021a3af_cgraph">
-<area shape="rect" title="Constructor for the Perception node." alt="" coords="5,35,157,60"/>
-<area shape="rect" href="../../de/d07/class_perception.html#a592f3cc2120d974b503f5934970ac5db" title="Callback function for the PointCloud2 subscription." alt="" coords="205,27,360,68"/>
-<area shape="poly" title=" " alt="" coords="157,45,189,45,189,50,157,50"/>
-<area shape="rect" href="../../de/d07/class_perception.html#a816ac49439a31dd18eedf002487267c4" title=" " alt="" coords="408,5,572,31"/>
-<area shape="poly" title=" " alt="" coords="360,34,392,29,393,35,361,39"/>
+<area shape="rect" title="Constructor for the Perception node." alt="" coords="5,63,157,88"/>
+<area shape="rect" href="../../de/d07/class_perception.html#a592f3cc2120d974b503f5934970ac5db" title="Callback function for the PointCloud2 subscription." alt="" coords="205,55,360,96"/>
+<area shape="poly" title=" " alt="" coords="157,73,189,73,189,78,157,78"/>
+<area shape="rect" href="../../de/d07/class_perception.html#ac11a3b5e52ce1edd5164b15a781b4727" title=" " alt="" coords="408,5,572,31"/>
+<area shape="poly" title=" " alt="" coords="358,52,426,33,427,38,359,57"/>
 <area shape="rect" href="../../de/d07/class_perception.html#a1dbc6dbd5c5c70f5eb25d2b0171ebd2e" title="Publishes information about clusters (cones) using a custom ROS2 message." alt="" coords="425,55,555,96"/>
-<area shape="poly" title=" " alt="" coords="361,55,410,62,409,67,360,61"/>
-<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="620,55,849,96"/>
-<area shape="poly" title=" " alt="" coords="556,73,605,73,605,78,556,78"/>
+<area shape="poly" title=" " alt="" coords="361,73,410,73,410,78,361,78"/>
+<area shape="rect" href="../../d2/d23/class_cluster.html#a9018afcce64d5b973aeef0bd395f87f8" title="Set the z scores object on every cluster of the vector." alt="" coords="418,121,563,147"/>
+<area shape="poly" title=" " alt="" coords="357,94,428,114,427,119,356,99"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="620,53,849,93"/>
+<area shape="poly" title=" " alt="" coords="556,72,605,72,605,77,556,77"/>
+<area shape="rect" href="../../d2/d23/class_cluster.html#ae8851c19294d2e0022b2c4ebf061fe9b" title="Calculates the mean and standard deviation on x and y axis." alt="" coords="664,118,805,159"/>
+<area shape="poly" title=" " alt="" coords="563,133,648,134,648,139,563,138"/>
 </map>
 </div>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a816ac49439a31dd18eedf002487267c4" name="a816ac49439a31dd18eedf002487267c4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a816ac49439a31dd18eedf002487267c4">&#9670;&#160;</a></span>fov_trimming()</h2>
+<a id="ac11a3b5e52ce1edd5164b15a781b4727" name="ac11a3b5e52ce1edd5164b15a781b4727"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac11a3b5e52ce1edd5164b15a781b4727">&#9670;&#160;</a></span>fov_trimming()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -270,7 +274,13 @@ Here is the call graph for this function:</div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>max_angle</em>&#160;</td>
+          <td class="paramname"><em>max_angle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>x_discount</em> = <code>0</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -280,12 +290,12 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dc/dfb/perception__node_8cpp_source.html#l00178">178</a> of file <a class="el" href="../../dc/dfb/perception__node_8cpp_source.html">perception_node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/dfb/perception__node_8cpp_source.html#l00192">192</a> of file <a class="el" href="../../dc/dfb/perception__node_8cpp_source.html">perception_node.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../de/d07/class_perception_a816ac49439a31dd18eedf002487267c4_icgraph.png" border="0" usemap="#ade/d07/class_perception_a816ac49439a31dd18eedf002487267c4_icgraph" alt=""/></div>
-<map name="ade/d07/class_perception_a816ac49439a31dd18eedf002487267c4_icgraph" id="ade/d07/class_perception_a816ac49439a31dd18eedf002487267c4_icgraph">
+<div class="center"><img src="../../de/d07/class_perception_ac11a3b5e52ce1edd5164b15a781b4727_icgraph.png" border="0" usemap="#ade/d07/class_perception_ac11a3b5e52ce1edd5164b15a781b4727_icgraph" alt=""/></div>
+<map name="ade/d07/class_perception_ac11a3b5e52ce1edd5164b15a781b4727_icgraph" id="ade/d07/class_perception_ac11a3b5e52ce1edd5164b15a781b4727_icgraph">
 <area shape="rect" title=" " alt="" coords="408,13,572,39"/>
 <area shape="rect" href="../../de/d07/class_perception.html#a592f3cc2120d974b503f5934970ac5db" title="Callback function for the PointCloud2 subscription." alt="" coords="205,5,360,46"/>
 <area shape="poly" title=" " alt="" coords="393,28,360,28,360,23,393,23"/>
@@ -326,13 +336,17 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../de/d07/class_perception_a592f3cc2120d974b503f5934970ac5db_cgraph.png" border="0" usemap="#ade/d07/class_perception_a592f3cc2120d974b503f5934970ac5db_cgraph" alt=""/></div>
 <map name="ade/d07/class_perception_a592f3cc2120d974b503f5934970ac5db_cgraph" id="ade/d07/class_perception_a592f3cc2120d974b503f5934970ac5db_cgraph">
-<area shape="rect" title="Callback function for the PointCloud2 subscription." alt="" coords="5,27,161,68"/>
-<area shape="rect" href="../../de/d07/class_perception.html#a816ac49439a31dd18eedf002487267c4" title=" " alt="" coords="209,5,373,31"/>
-<area shape="poly" title=" " alt="" coords="161,34,193,29,194,35,162,39"/>
+<area shape="rect" title="Callback function for the PointCloud2 subscription." alt="" coords="5,55,161,96"/>
+<area shape="rect" href="../../de/d07/class_perception.html#ac11a3b5e52ce1edd5164b15a781b4727" title=" " alt="" coords="209,5,373,31"/>
+<area shape="poly" title=" " alt="" coords="158,52,226,33,228,38,160,57"/>
 <area shape="rect" href="../../de/d07/class_perception.html#a1dbc6dbd5c5c70f5eb25d2b0171ebd2e" title="Publishes information about clusters (cones) using a custom ROS2 message." alt="" coords="226,55,356,96"/>
-<area shape="poly" title=" " alt="" coords="162,55,211,62,210,67,161,61"/>
-<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="421,55,649,96"/>
-<area shape="poly" title=" " alt="" coords="356,73,406,73,406,78,356,78"/>
+<area shape="poly" title=" " alt="" coords="161,73,210,73,210,78,161,78"/>
+<area shape="rect" href="../../d2/d23/class_cluster.html#a9018afcce64d5b973aeef0bd395f87f8" title="Set the z scores object on every cluster of the vector." alt="" coords="218,121,364,147"/>
+<area shape="poly" title=" " alt="" coords="158,94,229,114,228,119,157,99"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="421,53,649,93"/>
+<area shape="poly" title=" " alt="" coords="356,72,406,72,406,77,356,77"/>
+<area shape="rect" href="../../d2/d23/class_cluster.html#ae8851c19294d2e0022b2c4ebf061fe9b" title="Calculates the mean and standard deviation on x and y axis." alt="" coords="465,118,606,159"/>
+<area shape="poly" title=" " alt="" coords="364,133,449,134,449,139,364,138"/>
 </map>
 </div>
 <div class="dynheader">
@@ -381,7 +395,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/dfb/perception__node_8cpp_source.html#l00155">155</a> of file <a class="el" href="../../dc/dfb/perception__node_8cpp_source.html">perception_node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/dfb/perception__node_8cpp_source.html#l00169">169</a> of file <a class="el" href="../../dc/dfb/perception__node_8cpp_source.html">perception_node.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">

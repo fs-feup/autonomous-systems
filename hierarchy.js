@@ -32,7 +32,9 @@ var hierarchy =
     ] ],
     [ "ConeValidator", "d3/d57/class_cone_validator.html", [
       [ "CylinderValidator", "dd/def/class_cylinder_validator.html", null ],
-      [ "HeightValidator", "d9/d1f/class_height_validator.html", null ]
+      [ "DeviationValidator", "d2/d55/class_deviation_validator.html", null ],
+      [ "HeightValidator", "d9/d1f/class_height_validator.html", null ],
+      [ "ZScoreValidator", "d5/d4f/class_z_score_validator.html", null ]
     ] ],
     [ "ControlParameters", "d4/de1/struct_control_parameters.html", null ],
     [ "DataAssociationModel", "d1/d14/class_data_association_model.html", [
@@ -121,7 +123,9 @@ var hierarchy =
       [ "IntegrationTest", "d7/d4e/class_integration_test.html", null ],
       [ "LeastSquaresDifferentiationTest", "de/d1e/class_least_squares_differentiation_test.html", null ],
       [ "PerceptionPerformanceTest", "d3/d0d/class_perception_performance_test.html", null ],
-      [ "RANSACTest", "d8/d5a/class_r_a_n_s_a_c_test.html", null ]
+      [ "RANSACTest", "d8/d5a/class_r_a_n_s_a_c_test.html", null ],
+      [ "StandardDeviationTest", "d9/d2d/class_standard_deviation_test.html", null ],
+      [ "ZScoreValidatorTest", "d7/d1e/class_z_score_validator_test.html", null ]
     ] ],
     [ "unittest.TestCase", null, [
       [ "test_perception_metrics.TestEvaluatorMethods", "d7/d4e/classtest__perception__metrics_1_1_test_evaluator_methods.html", null ]

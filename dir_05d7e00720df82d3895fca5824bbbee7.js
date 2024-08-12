@@ -9,5 +9,7 @@ var dir_05d7e00720df82d3895fca5824bbbee7 =
     [ "icp_test.cpp", "dd/d8c/icp__test_8cpp.html", "dd/d8c/icp__test_8cpp" ],
     [ "least_squares_test.cpp", "d5/dfa/least__squares__test_8cpp.html", "d5/dfa/least__squares__test_8cpp" ],
     [ "performance_test.cpp", "da/d89/perception_2test_2performance__test_8cpp.html", "da/d89/perception_2test_2performance__test_8cpp" ],
-    [ "ransac_test.cpp", "d3/da8/ransac__test_8cpp.html", "d3/da8/ransac__test_8cpp" ]
+    [ "ransac_test.cpp", "d3/da8/ransac__test_8cpp.html", "d3/da8/ransac__test_8cpp" ],
+    [ "standard_deviation_validator_test.cpp", "d7/d73/standard__deviation__validator__test_8cpp.html", "d7/d73/standard__deviation__validator__test_8cpp" ],
+    [ "z_score_validator_test.cpp", "d3/d74/z__score__validator__test_8cpp.html", "d3/d74/z__score__validator__test_8cpp" ]
 ];

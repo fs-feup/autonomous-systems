@@ -1,0 +1,5 @@
+<map id="Cluster::set_z_scores" name="Cluster::set_z_scores">
+<area shape="rect" id="Node000001" title="Set the z scores object on every cluster of the vector." alt="" coords="5,13,151,39"/>
+<area shape="rect" id="Node000002" href="$d2/d23/class_cluster.html#ae8851c19294d2e0022b2c4ebf061fe9b" title="Calculates the mean and standard deviation on x and y axis." alt="" coords="199,5,340,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="151,23,183,23,183,28,151,28"/>
+</map>

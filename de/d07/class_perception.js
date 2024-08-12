@@ -1,7 +1,7 @@
 var class_perception =
 [
     [ "Perception", "de/d07/class_perception.html#a99447b0f39e7b103d320b6072021a3af", null ],
-    [ "fov_trimming", "de/d07/class_perception.html#a816ac49439a31dd18eedf002487267c4", null ],
+    [ "fov_trimming", "de/d07/class_perception.html#ac11a3b5e52ce1edd5164b15a781b4727", null ],
     [ "point_cloud_callback", "de/d07/class_perception.html#a592f3cc2120d974b503f5934970ac5db", null ],
     [ "publish_cones", "de/d07/class_perception.html#a1dbc6dbd5c5c70f5eb25d2b0171ebd2e", null ],
     [ "_adapter_", "de/d07/class_perception.html#a3a6c23028078a3adc6694145a447c834", null ],

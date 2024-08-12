@@ -1,0 +1,7 @@
+<map id="TEST_F" name="TEST_F">
+<area shape="rect" id="Node000001" title="Test case to validate a perfectly distributed vector of clusters." alt="" coords="5,13,75,39"/>
+<area shape="rect" id="Node000002" href="$d2/d23/class_cluster.html#a9018afcce64d5b973aeef0bd395f87f8" title="Set the z scores object on every cluster of the vector." alt="" coords="123,13,268,39"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="75,23,107,23,107,28,75,28"/>
+<area shape="rect" id="Node000003" href="$d2/d23/class_cluster.html#ae8851c19294d2e0022b2c4ebf061fe9b" title="Calculates the mean and standard deviation on x and y axis." alt="" coords="316,5,457,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="269,23,300,23,300,28,269,28"/>
+</map>

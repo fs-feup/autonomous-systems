@@ -1,11 +1,15 @@
 <map id="Perception::Perception" name="Perception::Perception">
-<area shape="rect" id="Node000001" title="Constructor for the Perception node." alt="" coords="5,35,157,60"/>
-<area shape="rect" id="Node000002" href="$de/d07/class_perception.html#a592f3cc2120d974b503f5934970ac5db" title="Callback function for the PointCloud2 subscription." alt="" coords="205,27,360,68"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="157,45,189,45,189,50,157,50"/>
-<area shape="rect" id="Node000003" href="$de/d07/class_perception.html#a816ac49439a31dd18eedf002487267c4" title=" " alt="" coords="408,5,572,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="360,34,392,29,393,35,361,39"/>
+<area shape="rect" id="Node000001" title="Constructor for the Perception node." alt="" coords="5,63,157,88"/>
+<area shape="rect" id="Node000002" href="$de/d07/class_perception.html#a592f3cc2120d974b503f5934970ac5db" title="Callback function for the PointCloud2 subscription." alt="" coords="205,55,360,96"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="157,73,189,73,189,78,157,78"/>
+<area shape="rect" id="Node000003" href="$de/d07/class_perception.html#ac11a3b5e52ce1edd5164b15a781b4727" title=" " alt="" coords="408,5,572,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="358,52,426,33,427,38,359,57"/>
 <area shape="rect" id="Node000004" href="$de/d07/class_perception.html#a1dbc6dbd5c5c70f5eb25d2b0171ebd2e" title="Publishes information about clusters (cones) using a custom ROS2 message." alt="" coords="425,55,555,96"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="361,55,410,62,409,67,360,61"/>
-<area shape="rect" id="Node000005" href="$d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="620,55,849,96"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="556,73,605,73,605,78,556,78"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="361,73,410,73,410,78,361,78"/>
+<area shape="rect" id="Node000006" href="$d2/d23/class_cluster.html#a9018afcce64d5b973aeef0bd395f87f8" title="Set the z scores object on every cluster of the vector." alt="" coords="418,121,563,147"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="357,94,428,114,427,119,356,99"/>
+<area shape="rect" id="Node000005" href="$d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="620,53,849,93"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="556,72,605,72,605,77,556,77"/>
+<area shape="rect" id="Node000007" href="$d2/d23/class_cluster.html#ae8851c19294d2e0022b2c4ebf061fe9b" title="Calculates the mean and standard deviation on x and y axis." alt="" coords="664,118,805,159"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="563,133,648,134,648,139,563,138"/>
 </map>

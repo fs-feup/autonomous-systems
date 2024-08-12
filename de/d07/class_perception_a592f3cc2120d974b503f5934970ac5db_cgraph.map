@@ -1,9 +1,13 @@
 <map id="Perception::point_cloud_callback" name="Perception::point_cloud_callback">
-<area shape="rect" id="Node000001" title="Callback function for the PointCloud2 subscription." alt="" coords="5,27,161,68"/>
-<area shape="rect" id="Node000002" href="$de/d07/class_perception.html#a816ac49439a31dd18eedf002487267c4" title=" " alt="" coords="209,5,373,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="161,34,193,29,194,35,162,39"/>
+<area shape="rect" id="Node000001" title="Callback function for the PointCloud2 subscription." alt="" coords="5,55,161,96"/>
+<area shape="rect" id="Node000002" href="$de/d07/class_perception.html#ac11a3b5e52ce1edd5164b15a781b4727" title=" " alt="" coords="209,5,373,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="158,52,226,33,228,38,160,57"/>
 <area shape="rect" id="Node000003" href="$de/d07/class_perception.html#a1dbc6dbd5c5c70f5eb25d2b0171ebd2e" title="Publishes information about clusters (cones) using a custom ROS2 message." alt="" coords="226,55,356,96"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="162,55,211,62,210,67,161,61"/>
-<area shape="rect" id="Node000004" href="$d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="421,55,649,96"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="356,73,406,73,406,78,356,78"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="161,73,210,73,210,78,161,78"/>
+<area shape="rect" id="Node000005" href="$d2/d23/class_cluster.html#a9018afcce64d5b973aeef0bd395f87f8" title="Set the z scores object on every cluster of the vector." alt="" coords="218,121,364,147"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="158,94,229,114,228,119,157,99"/>
+<area shape="rect" id="Node000004" href="$d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="421,53,649,93"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="356,72,406,72,406,77,356,77"/>
+<area shape="rect" id="Node000006" href="$d2/d23/class_cluster.html#ae8851c19294d2e0022b2c4ebf061fe9b" title="Calculates the mean and standard deviation on x and y axis." alt="" coords="465,118,606,159"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="364,133,449,134,449,139,364,138"/>
 </map>

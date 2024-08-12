@@ -78,6 +78,7 @@ var annotated_dup =
     [ "DataAssociationModel", "d1/d14/class_data_association_model.html", "d1/d14/class_data_association_model" ],
     [ "DBSCAN", "df/d6a/class_d_b_s_c_a_n.html", "df/d6a/class_d_b_s_c_a_n" ],
     [ "DBSCANTest", "d8/d90/class_d_b_s_c_a_n_test.html", "d8/d90/class_d_b_s_c_a_n_test" ],
+    [ "DeviationValidator", "d2/d55/class_deviation_validator.html", "d2/d55/class_deviation_validator" ],
     [ "DistancePredict", "d0/d47/class_distance_predict.html", "d0/d47/class_distance_predict" ],
     [ "DistanceValidatorTest", "db/df7/class_distance_validator_test.html", "db/df7/class_distance_validator_test" ],
     [ "EufsAdapter", "d0/d1d/class_eufs_adapter.html", "d0/d1d/class_eufs_adapter" ],
@@ -119,8 +120,8 @@ var annotated_dup =
     [ "ObservationModel", "d7/d64/class_observation_model.html", "d7/d64/class_observation_model" ],
     [ "Outliers", "d9/d53/class_outliers.html", "d9/d53/class_outliers" ],
     [ "OutliersConfig", "d7/d4c/struct_outliers_config.html", "d7/d4c/struct_outliers_config" ],
-    [ "PacSimAdapter", "db/d68/class_pac_sim_adapter.html", "db/d68/class_pac_sim_adapter" ],
     [ "PacsimAdapter", "d1/dcb/class_pacsim_adapter.html", "d1/dcb/class_pacsim_adapter" ],
+    [ "PacSimAdapter", "db/d68/class_pac_sim_adapter.html", "db/d68/class_pac_sim_adapter" ],
     [ "PathCalculation", "d0/d89/class_path_calculation.html", "d0/d89/class_path_calculation" ],
     [ "PathCalculationConfig", "df/d7d/struct_path_calculation_config.html", "df/d7d/struct_path_calculation_config" ],
     [ "PathPointEqual", "d1/d5e/struct_path_point_equal.html", "d1/d5e/struct_path_point_equal" ],
@@ -145,5 +146,8 @@ var annotated_dup =
     [ "SENode", "d4/d43/class_s_e_node.html", "d4/d43/class_s_e_node" ],
     [ "SimpleMaximumLikelihood", "d5/dc2/class_simple_maximum_likelihood.html", "d5/dc2/class_simple_maximum_likelihood" ],
     [ "SimulationConfig", "d3/db0/struct_simulation_config.html", "d3/db0/struct_simulation_config" ],
-    [ "VehicleAdapter", "d1/df1/class_vehicle_adapter.html", "d1/df1/class_vehicle_adapter" ]
+    [ "StandardDeviationTest", "d9/d2d/class_standard_deviation_test.html", "d9/d2d/class_standard_deviation_test" ],
+    [ "VehicleAdapter", "d1/df1/class_vehicle_adapter.html", "d1/df1/class_vehicle_adapter" ],
+    [ "ZScoreValidator", "d5/d4f/class_z_score_validator.html", "d5/d4f/class_z_score_validator" ],
+    [ "ZScoreValidatorTest", "d7/d1e/class_z_score_validator_test.html", "d7/d1e/class_z_score_validator_test" ]
 ];

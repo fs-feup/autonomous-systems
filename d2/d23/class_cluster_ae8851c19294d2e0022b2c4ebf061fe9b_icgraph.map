@@ -1,0 +1,19 @@
+<map id="Cluster::calculate_mean_and_std_dev" name="Cluster::calculate_mean_and_std_dev">
+<area shape="rect" id="Node000001" title="Calculates the mean and standard deviation on x and y axis." alt="" coords="601,137,743,178"/>
+<area shape="rect" id="Node000002" href="$d2/d23/class_cluster.html#a9018afcce64d5b973aeef0bd395f87f8" title="Set the z scores object on every cluster of the vector." alt="" coords="408,145,553,171"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="586,160,554,160,554,155,586,155"/>
+<area shape="rect" id="Node000003" href="$de/d07/class_perception.html#a592f3cc2120d974b503f5934970ac5db" title="Callback function for the PointCloud2 subscription." alt="" coords="205,5,360,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="454,136,411,98,359,60,338,49,341,44,361,55,414,94,457,132"/>
+<area shape="rect" id="Node000005" href="$d3/d74/z__score__validator__test_8cpp.html#aee2f802a1755206bbd1c0b0d53195044" title="Test case to validate a perfectly distributed vector of clusters." alt="" coords="248,70,317,96"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="435,141,359,110,317,95,318,90,361,104,437,136"/>
+<area shape="rect" id="Node000006" href="$d3/d74/z__score__validator__test_8cpp.html#a4f7100bece7335d55809d6d71ca3601c" title="Test case to validate a perfectly distributed vector of clusters with 1 outlier (not perfect)" alt="" coords="248,120,317,145"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="392,149,317,139,318,134,393,144"/>
+<area shape="rect" id="Node000007" href="$d3/d74/z__score__validator__test_8cpp.html#aaf061c6dbf9981d8a48d5aa83eb8b5d7" title="Test case to validate a perfectly distributed vector of clusters with 1 outlier (all points except th..." alt="" coords="248,169,317,195"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="393,171,318,180,317,175,392,166"/>
+<area shape="rect" id="Node000008" href="$d3/d74/z__score__validator__test_8cpp.html#a7f0ace492ca1a6d1dd2322ce52070b57" title="Test case to validate the a vector with only one cluster." alt="" coords="248,218,317,244"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="436,179,361,210,318,224,316,219,359,204,434,174"/>
+<area shape="rect" id="Node000009" href="$d3/d74/z__score__validator__test_8cpp.html#a7db70aacf614ee8f07fba7ca9d3b46d3" title="Test case to validate the a vector with only two clusters." alt="" coords="248,268,317,293"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="458,184,415,222,361,259,318,275,317,270,359,254,412,218,454,180"/>
+<area shape="rect" id="Node000004" href="$de/d07/class_perception.html#a99447b0f39e7b103d320b6072021a3af" title="Constructor for the Perception node." alt="" coords="5,13,157,39"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="189,28,157,28,157,23,189,23"/>
+</map>

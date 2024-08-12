@@ -1,0 +1,5 @@
+<map id="DeviationValidator::coneValidator" name="DeviationValidator::coneValidator">
+<area shape="rect" id="Node000001" title="Validates a cluster using standard deviation." alt="" coords="5,5,132,46"/>
+<area shape="rect" id="Node000002" href="$d2/d23/class_cluster.html#a763032aa726408defaea180f280f55f3" title="Get the Point Cloud data of the cluster." alt="" coords="180,5,301,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="132,23,164,23,164,28,132,28"/>
+</map>

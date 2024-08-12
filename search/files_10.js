@@ -13,5 +13,6 @@ var searchData=
   ['smoothing_5ftests_2ecpp_10',['smoothing_tests.cpp',['../d6/da7/smoothing__tests_8cpp.html',1,'']]],
   ['spline_2epy_11',['spline.py',['../d4/dfa/spline_8py.html',1,'']]],
   ['splines_2ehpp_12',['splines.hpp',['../d6/da8/splines_8hpp.html',1,'']]],
-  ['splines_5ftests_2ecpp_13',['splines_tests.cpp',['../d9/db5/splines__tests_8cpp.html',1,'']]]
+  ['splines_5ftests_2ecpp_13',['splines_tests.cpp',['../d9/db5/splines__tests_8cpp.html',1,'']]],
+  ['standard_5fdeviation_5fvalidator_5ftest_2ecpp_14',['standard_deviation_validator_test.cpp',['../d7/d73/standard__deviation__validator__test_8cpp.html',1,'']]]
 ];

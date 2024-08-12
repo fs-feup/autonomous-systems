@@ -1,15 +1,19 @@
 <map id="src/perception/include/clustering/clustering.hpp" name="src/perception/include/clustering/clustering.hpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="371,5,536,46"/>
-<area shape="rect" id="Node000002" href="$dd/d8d/dbscan_8hpp.html" title=" " alt="" coords="378,94,529,135"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="456,62,456,94,451,94,451,62"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="535,5,700,46"/>
+<area shape="rect" id="Node000002" href="$dd/d8d/dbscan_8hpp.html" title=" " alt="" coords="542,94,693,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="620,62,620,94,615,94,615,62"/>
 <area shape="rect" id="Node000003" href="$de/da5/perception__node_8hpp.html" title=" " alt="" coords="123,183,272,238"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="386,143,272,185,270,180,385,138"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="527,134,411,157,284,185,273,188,272,183,283,180,410,151,526,129"/>
 <area shape="rect" id="Node000007" href="$da/dad/dbscan_8cpp.html" title=" " alt="" coords="296,190,448,231"/>
-<area shape="poly" id="edge7_Node000002_Node000007" title=" " alt="" coords="428,148,391,192,387,188,424,145"/>
+<area shape="poly" id="edge7_Node000002_Node000007" title=" " alt="" coords="552,143,424,192,422,187,550,138"/>
 <area shape="rect" id="Node000008" href="$df/d7f/dbscan__test_8cpp.html" title=" " alt="" coords="471,190,601,231"/>
-<area shape="poly" id="edge8_Node000002_Node000008" title=" " alt="" coords="482,145,521,188,517,192,478,148"/>
+<area shape="poly" id="edge8_Node000002_Node000008" title=" " alt="" coords="592,148,555,192,551,188,588,145"/>
 <area shape="rect" id="Node000009" href="$da/d89/perception_2test_2performance__test_8cpp.html" title=" " alt="" coords="625,190,775,231"/>
-<area shape="poly" id="edge9_Node000002_Node000009" title=" " alt="" coords="520,138,649,187,647,192,518,143"/>
+<area shape="poly" id="edge9_Node000002_Node000009" title=" " alt="" coords="646,145,685,188,681,192,642,148"/>
+<area shape="rect" id="Node000010" href="$d7/d73/standard__deviation__validator__test_8cpp.html" title=" " alt="" coords="799,183,934,238"/>
+<area shape="poly" id="edge10_Node000002_Node000010" title=" " alt="" coords="685,138,800,181,798,186,683,143"/>
+<area shape="rect" id="Node000011" href="$d3/d74/z__score__validator__test_8cpp.html" title=" " alt="" coords="958,190,1138,231"/>
+<area shape="poly" id="edge11_Node000002_Node000011" title=" " alt="" coords="708,130,946,180,975,187,973,192,945,185,707,136"/>
 <area shape="rect" id="Node000004" href="$d7/d69/perception_2include_2perception_2parameters__factory_8hpp.html" title=" " alt="" coords="5,286,160,342"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="157,251,115,288,112,284,153,247"/>
 <area shape="rect" id="Node000005" href="$d9/dc1/perception_8cpp.html" title=" " alt="" coords="77,390,203,431"/>
