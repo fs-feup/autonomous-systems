@@ -91,5 +91,5 @@ public:
   void point_cloud_callback(const sensor_msgs::msg::PointCloud2::SharedPtr msg);
 
   void fov_trimming(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, double max_distance,
-                    double min_angle, double max_angle);
+                    double min_angle, double max_angle, double x_discount = 0);
 };
