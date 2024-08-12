@@ -6,14 +6,12 @@
 
 This package provides a "Control Mock" by allowing the control of the acceleration and steering of the PacSim vehicle using the keyboard.
 
-### Important Dependencies
-
 ## How to Run
 
 ### Install Dependencies
 
 ```sh
-./denpendencies_install.sh
+./dependencies_install.sh
 ```
 
 ### Compiling

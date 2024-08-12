@@ -32,7 +32,7 @@ The State Estimation module is responsible for the processing of the perception 
 ### Install Dependencies
 
 ```sh
-  ./denpendencies_install.sh
+  ./dependencies_install.sh
 ```
 
 ### Compiling

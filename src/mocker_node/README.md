@@ -13,14 +13,12 @@ with the launch file available at the launch folder.
 - [eufs.launch.py](launch/eufs.launch.py): Launches the mocker node with the configuration for EUFS simulator.
 - [pacsim.launch.py](launch/pacsim.launch.py): Launches the mocker node with the configuration for PacSim simulator.
 
-### Important Dependencies
-
 ## How to Run
 
 ### Install Dependencies
 
 ```sh
-./denpendencies_install.sh
+./dependencies_install.sh
 ```
 
 ### Compiling

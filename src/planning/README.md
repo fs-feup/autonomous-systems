@@ -40,7 +40,7 @@ The planning module is the third main module in the autonomous system. It comes 
 You will need CGAL library for the Delaunay Triangulations. GSL library for the splines.
 
 ```sh
-  ./denpendencies_install.sh
+  ./dependencies_install.sh
 ```
 
 ### Compiling

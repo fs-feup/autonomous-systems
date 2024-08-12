@@ -33,7 +33,7 @@ The Control node uses Planning (pathpoints with expected velocity values) and St
 ### Install Dependencies
 
 ```sh
-  ./denpendencies_install.sh
+  ./dependencies_install.sh
 ```
 
 ### Compiling

@@ -30,7 +30,7 @@ This package contains the evaluator node, used to evaluate the AS main pipeline,
 ### Install Dependencies
 
 ```sh
-./denpendencies_install.sh
+./dependencies_install.sh
 ```
 
 ### Compiling

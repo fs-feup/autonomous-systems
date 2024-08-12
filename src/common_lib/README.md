@@ -29,7 +29,7 @@ It is composed of multiple namespaces:
 ### Install Dependencies
 
 ```sh
-  ./denpendencies_install.sh
+  ./dependencies_install.sh
 ```
 
 ### Compiling

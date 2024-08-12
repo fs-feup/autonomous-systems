@@ -16,4 +16,4 @@ This directory contains the code for the main AS Pipeline.
 - **dashboard** -> package for the dashboard for plotting the evaluation metrics
 - **cloud_storage** -> package for storing the evaluation metrics in the cloud
 
-All code for the main pipeline is developed in ROS2 packages and is meant to be developed inside the teams' dev container environment.
+All code for the main pipeline is developed in ROS2 packages and is meant to be developed inside the teams' dev container environment. Some software is located in separate repositories, such as the simulator, interfaces and vehicle integration software, which are configured as submodules of this repository.
