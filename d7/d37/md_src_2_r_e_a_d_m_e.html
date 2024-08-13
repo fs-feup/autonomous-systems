@@ -94,7 +94,7 @@ $(document).ready(function(){initNavTree('d7/d37/md_src_2_r_e_a_d_m_e.html','../
   <div class="headertitle"><div class="title">Src Folder</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md76"></a> This directory contains the code for the main AS Pipeline.</p>
+<div class="textblock"><p><a class="anchor" id="autotoc_md135"></a> This directory contains the code for the main AS Pipeline.</p>
 <ul>
 <li><b>control</b> -&gt; longitudinal/lateral control</li>
 <li><b>planning</b> -&gt; path planning</li>
@@ -103,8 +103,14 @@ $(document).ready(function(){initNavTree('d7/d37/md_src_2_r_e_a_d_m_e.html','../
 <li><b>inspection</b> -&gt; static inspection package</li>
 <li><b>mocker_node</b> -&gt; package for a node that is a path planning mock</li>
 <li><b>evaluator</b> -&gt; package for the node that calculates metrics of the system</li>
+<li><b><a class="el" href="../../dd/d5f/namespacecommon__lib.html">common_lib</a></b> -&gt; common library for the AS pipeline</li>
+<li><b><a class="el" href="../../d6/d8f/namespacepacsim__keys.html">pacsim_keys</a></b> -&gt; package for controlling the PacSim vehicle with the keyboard</li>
+<li><b><a class="el" href="../../d0/daf/namespacepower__log.html">power_log</a></b> -&gt; package for logging the power consumption of the computer</li>
+<li><b>launcher</b> -&gt; package for launching the AS pipeline, with multiple launch configurations</li>
+<li><b>dashboard</b> -&gt; package for the dashboard for plotting the evaluation metrics</li>
+<li><b>cloud_storage</b> -&gt; package for storing the evaluation metrics in the cloud</li>
 </ul>
-<p>All code is developed in ROS2 packages and is meant to be developed inside the teams' dev container environment. </p>
+<p>All code for the main pipeline is developed in ROS2 packages and is meant to be developed inside the teams' dev container environment. Some software is located in separate repositories, such as the simulator, interfaces and vehicle integration software, which are configured as submodules of this repository. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

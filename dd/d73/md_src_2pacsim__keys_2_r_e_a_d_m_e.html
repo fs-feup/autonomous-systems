@@ -94,13 +94,26 @@ $(document).ready(function(){initNavTree('dd/d73/md_src_2pacsim__keys_2_r_e_a_d_
   <div class="headertitle"><div class="title">PacSim Keys</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md49"></a> This package provides a "Control Mock" by allowing the control of the acceleration and steering of the PacSim vehicle using the keyboard.</p>
-<h1><a class="anchor" id="autotoc_md50"></a>
-How to run</h1>
+<div class="textblock"><p><a class="anchor" id="autotoc_md91"></a> </p>
+<h1><a class="anchor" id="autotoc_md92"></a>
+Package Information</h1>
+<h2><a class="anchor" id="autotoc_md93"></a>
+Description</h2>
+<p>This package provides a "Control Mock" by allowing the control of the acceleration and steering of the PacSim vehicle using the keyboard.</p>
+<h1><a class="anchor" id="autotoc_md94"></a>
+How to Run</h1>
+<h2><a class="anchor" id="autotoc_md95"></a>
+Install Dependencies</h2>
+<div class="fragment"><div class="line">./dependencies_install.sh</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md96"></a>
+Compiling</h2>
+<div class="fragment"><div class="line">colcon build --packages-up-to pacsim_keys</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md97"></a>
+Running</h2>
 <p>To run the control mock, you need to run the following command:</p>
 <div class="fragment"><div class="line">ros2 run pacsim_keys pacsim_keys</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md51"></a>
-How to use</h1>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md98"></a>
+How to use</h2>
 <p>The control mock uses the following keys:</p><ul>
 <li><code>w</code>: Increase torque by 0.1 to a max of 1.0</li>
 <li><code>s</code>: Decrease torque by 0.1 to a min of -1.0</li>

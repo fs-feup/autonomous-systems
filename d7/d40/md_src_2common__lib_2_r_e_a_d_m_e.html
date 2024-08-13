@@ -94,20 +94,42 @@ $(document).ready(function(){initNavTree('d7/d40/md_src_2common__lib_2_r_e_a_d_m
   <div class="headertitle"><div class="title">Common Lib</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md9"></a> This package serves as a library for definition of functions and structures that can be used by multiple nodes of the system.</p>
-<h1><a class="anchor" id="autotoc_md10"></a>
-Package info</h1>
+<div class="textblock"><p><a class="anchor" id="autotoc_md15"></a> </p>
+<h1><a class="anchor" id="autotoc_md16"></a>
+Package Information</h1>
+<h2><a class="anchor" id="autotoc_md17"></a>
+Description</h2>
+<p>This package serves as a library for definition of functions and structures that can be used by multiple nodes of the system.</p>
+<h2><a class="anchor" id="autotoc_md18"></a>
+Folder Structure</h2>
 <p>Package is called <b><a class="el" href="../../dd/d5f/namespacecommon__lib.html">common_lib</a></b> and has no executable.</p>
 <p>It is composed of multiple namespaces:</p>
 <ul>
-<li><b>communication:</b> implementations related to ROS messages</li>
-<li><b>competition_logic:</b> functionality related to competition details, like mission logic or colours</li>
-<li><b>maths:</b> mathematical formulas and structures</li>
-<li><b>sensor_data:</b> structures and functions to represent and process data from sensors</li>
-<li><b>structures:</b> generic structures from internal logic, like Position, Pose, Cone, PathPoint...</li>
-<li><b>vehicle_dynamics:</b> formulas related to the bicycle model and other vehicle related logic </li>
+<li><a href="../../include/common_lib/communication/">communication</a>: implementations related to ROS messages</li>
+<li><a href="../../include/common_lib/competition_logic/">competition_logic</a>: functionality related to competition details, like mission logic or colours</li>
+<li><a href="../../include/common_lib/maths/">maths</a>: mathematical formulas and structures</li>
+<li><a href="../../include/common_lib/sensor_data/">sensor_data</a>: structures and functions to represent and process data from sensors</li>
+<li><a href="../../include/common_lib/structures/">structures</a>: generic structures from internal logic, like Position, Pose, Cone, PathPoint...</li>
+<li><a href="../../include/common_lib/vehicle_dynamics/">vehicle_dynamics</a>: formulas related to the bicycle model and other vehicle related logic</li>
 </ul>
-</div></div><!-- contents -->
+<h2><a class="anchor" id="autotoc_md19"></a>
+Important Dependencies</h2>
+<ul>
+<li><a href="https://eigen.tuxfamily.org/index.php?title=Main_Page">Eigen3</a></li>
+</ul>
+<h1><a class="anchor" id="autotoc_md20"></a>
+How to Run</h1>
+<h2><a class="anchor" id="autotoc_md21"></a>
+Install Dependencies</h2>
+<div class="fragment"><div class="line">./dependencies_install.sh</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md22"></a>
+Compiling</h2>
+<div class="fragment"><div class="line">colcon build --packages-up-to common_lib</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md23"></a>
+Testing</h2>
+<div class="fragment"><div class="line">colcon test --packages-select common_lib # use event-handler=console_direct+ for imediate output</div>
+</div><!-- fragment --><p>To check test results: </p><div class="fragment"><div class="line">colcon test-result --all --verbose</div>
+</div><!-- fragment --> </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -19,7 +19,7 @@ var searchData=
   ['operator_2f_3d_16',['operator/=',['../d2/d8d/class_plane.html#a93e2833c6d565d005b6323efadfeaada',1,'Plane']]],
   ['operator_3c_17',['operator&lt;',['../d9/d8a/namespacecommon__lib_1_1structures.html#a7fbece117fc1fd60d9a047e7a6f22ad4',1,'common_lib::structures']]],
   ['operator_3d_3d_18',['operator==',['../dc/d1b/structcommon__lib_1_1structures_1_1_position.html#aee25668b4af52d8ae7a930171f20c68c',1,'common_lib::structures::Position::operator=='],['../d9/db0/structcommon__lib_1_1structures_1_1_path_point.html#a2609b887ee75d1898b0f331989a7b1c4',1,'common_lib::structures::PathPoint::operator=='],['../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html#a22d5225f030a6a61bf1d1c3b5c83318e',1,'common_lib::structures::Cone::operator=='],['../d9/d2b/namespacecommon__lib_1_1competition__logic.html#a9430e79fc9601467e161c04d4df65bb5',1,'common_lib::competition_logic::operator==(const int &amp;value, const Mission &amp;mission)'],['../d9/d2b/namespacecommon__lib_1_1competition__logic.html#ac6ab8d1bfe58efddbc3ed3a349fe2bb9',1,'common_lib::competition_logic::operator==(const Mission &amp;mission, const int &amp;value)'],['../d9/d2b/namespacecommon__lib_1_1competition__logic.html#af51582604e7a07dc5dc6b4e8ac172a2f',1,'common_lib::competition_logic::operator==(const int &amp;value, const Color &amp;color)'],['../d9/d2b/namespacecommon__lib_1_1competition__logic.html#a6f4242e2587640a41fe756cf4a7b979e',1,'common_lib::competition_logic::operator==(const Color &amp;color, const int &amp;value)']]],
-  ['options_20for_20csv_5ffile_5foption_19',['Options for **&lt;csv_file_option&gt;**',['../db/da2/md_src_2cloud__storage_2_r_e_a_d_m_e.html#autotoc_md6',1,'']]],
+  ['options_20for_20csv_5ffile_5foption_19',['Options for **&lt;csv_file_option&gt;**',['../db/da2/md_src_2cloud__storage_2_r_e_a_d_m_e.html#autotoc_md12',1,'']]],
   ['orange_20',['ORANGE',['../d9/d2b/namespacecommon__lib_1_1competition__logic.html#a36deec2ca2854e7543cc4d5caab92feba5b6490317b6f7270bc3ab5ffd07c1f52',1,'common_lib::competition_logic']]],
   ['order_5f_21',['order_',['../d7/d4c/struct_outliers_config.html#ac714ede89ec956831b1ec895386c58a2',1,'OutliersConfig::order_'],['../de/dce/struct_path_smoothing_config.html#ad874391e5b350093b4d2d791eeb58fab',1,'PathSmoothingConfig::order_']]],
   ['order_5fpath_22',['order_path',['../d7/db7/class_path_smoothing.html#afe48518279d4c902c0442453c6a231bc',1,'PathSmoothing']]],
@@ -39,9 +39,8 @@ var searchData=
   ['outliersconfig_36',['outliersconfig',['../d7/d4c/struct_outliers_config.html',1,'OutliersConfig'],['../d7/d4c/struct_outliers_config.html#aea362494bd10f6ad924e7bf7a642f1c8',1,'OutliersConfig::OutliersConfig(int precision, int order, float coeffs_ratio)'],['../d7/d4c/struct_outliers_config.html#af1648468445f54b76f39d4b6a161712e',1,'OutliersConfig::OutliersConfig()=default']]],
   ['output_37',['output',['../d7/d4e/classtest__perception__metrics_1_1_test_evaluator_methods.html#a7514266b6f7e0b3d5a4c9a4634ccb39e',1,'test_perception_metrics::TestEvaluatorMethods']]],
   ['output_5fstatistics_5fpath_5ffile_38',['output_statistics_path_file',['../d3/d0d/class_perception_performance_test.html#a6b899a2f558737fc9f64bb40152c955a',1,'PerceptionPerformanceTest']]],
-  ['overview_39',['Overview',['../db/da2/md_src_2cloud__storage_2_r_e_a_d_m_e.html',1,'']]],
-  ['ox_5fvalues0_40',['ox_values0',['../d7/dc1/namespacespline.html#a1addd17c915676a98334518e5ea6e98b',1,'spline']]],
-  ['ox_5fvalues1_41',['ox_values1',['../d7/dc1/namespacespline.html#a3a1e8e2d2b25dd3acc6794dc788c14de',1,'spline']]],
-  ['oy_5fvalues0_42',['oy_values0',['../d7/dc1/namespacespline.html#ab70234eb3ce5137cc91639563aa34ba9',1,'spline']]],
-  ['oy_5fvalues1_43',['oy_values1',['../d7/dc1/namespacespline.html#a1e5a4c2c7be917cdb790c23e6fd3cc19',1,'spline']]]
+  ['ox_5fvalues0_39',['ox_values0',['../d7/dc1/namespacespline.html#a1addd17c915676a98334518e5ea6e98b',1,'spline']]],
+  ['ox_5fvalues1_40',['ox_values1',['../d7/dc1/namespacespline.html#a3a1e8e2d2b25dd3acc6794dc788c14de',1,'spline']]],
+  ['oy_5fvalues0_41',['oy_values0',['../d7/dc1/namespacespline.html#ab70234eb3ce5137cc91639563aa34ba9',1,'spline']]],
+  ['oy_5fvalues1_42',['oy_values1',['../d7/dc1/namespacespline.html#a1e5a4c2c7be917cdb790c23e6fd3cc19',1,'spline']]]
 ];

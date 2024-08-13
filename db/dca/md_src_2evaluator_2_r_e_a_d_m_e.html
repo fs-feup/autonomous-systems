@@ -94,21 +94,53 @@ $(document).ready(function(){initNavTree('db/dca/md_src_2evaluator_2_r_e_a_d_m_e
   <div class="headertitle"><div class="title">Evaluator Package</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md29"></a> This package contains the evaluator node, used to evaluate the AS main pipeline, with aid of simulation environments and other data.</p>
-<h1><a class="anchor" id="autotoc_md30"></a>
-Package info</h1>
+<div class="textblock"><p><a class="anchor" id="autotoc_md55"></a> </p>
+<h1><a class="anchor" id="autotoc_md56"></a>
+Package Information</h1>
+<h2><a class="anchor" id="autotoc_md57"></a>
+Description</h2>
+<p>This package contains the evaluator node, used to evaluate the AS main pipeline, with aid of simulation environments and other data.</p>
+<h2><a class="anchor" id="autotoc_md58"></a>
+Folder Structure</h2>
 <ul>
-<li><b>Package name:</b> evaluator</li>
-<li><b>Node name:</b> evaluator</li>
+<li><a href="../../evaluator/adapter.py">adapter</a>: <a class="el" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst...">Adapter</a> base class to change ROS2 interfaces according to the simulator or environment</li>
+<li><a href="../../evaluator/pacsim_adapter.py">pacsim_adapter</a>: <a class="el" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst...">Adapter</a> for PacSim simulator</li>
+<li><a href="../../evaluator/eufs_adapter.py">eufs_adapter</a>: <a class="el" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst...">Adapter</a> for EUFS simulator</li>
+<li><a href="../../evaluator/fsds_adapter.py">fsds_adapter</a>: <a class="el" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst...">Adapter</a> for FSDS simulator</li>
+<li><a href="../../evaluator/vehicle_adapter.py">vehicle_adapter</a>: <a class="el" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst...">Adapter</a> for the vehicle</li>
+<li><a href="../../evaluator/formats.py">formats</a>: Functions for formatting messages into a common format</li>
+<li><a href="../../evaluator/metrics.py">metrics</a>: Functions for metrics calculation</li>
+<li><a href="../../evaluator/adapter_maps.py">adapter_maps</a>: Maps for adapter configurations</li>
+<li><a href="../../evaluator/evaluator.py">evaluator</a>: Evaluator node class</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md31"></a>
-Launch files</h2>
+<h2><a class="anchor" id="autotoc_md59"></a>
+Launch Configurations</h2>
 <ul>
-<li><b>evaluator-eufs.launch.py</b> - evaluator with adapters for EUFS SIM</li>
-<li><b>evaluator-pacsim.launch.py</b> - evaluator with adapters for PacSim</li>
-<li><b>evaluator-fsds.launch.py</b> - evaluator with adapters for FSDS</li>
+<li>[evaluator-eufs.launch.py]: evaluator with adapters for EUFS SIM</li>
+<li>[evaluator-pacsim.launch.py]: evaluator with adapters for PacSim</li>
+<li>[evaluator-fsds.launch.py]: evaluator with adapters for FSDS</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md32"></a>
+<h1><a class="anchor" id="autotoc_md60"></a>
+How to Run</h1>
+<h2><a class="anchor" id="autotoc_md61"></a>
+Install Dependencies</h2>
+<div class="fragment"><div class="line">./dependencies_install.sh</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md62"></a>
+Compiling</h2>
+<div class="fragment"><div class="line">colcon build --packages-up-to evaluator</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md63"></a>
+Testing</h2>
+<div class="fragment"><div class="line">colcon test --packages-select evaluator # use event-handler=console_direct+ for imediate output</div>
+</div><!-- fragment --><p>To check test results: </p><div class="fragment"><div class="line">colcon test-result --all --verbose</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md64"></a>
+Running</h2>
+<p>Use a launch file:</p>
+<div class="fragment"><div class="line">source ./install/setup.bash # If in a new terminal</div>
+<div class="line">ros2 launch evaluator evaluator-eufs.launch.py</div>
+</div><!-- fragment --><p>or run directly:</p>
+<div class="fragment"><div class="line">source ./install/setup.bash # If in a new terminal</div>
+<div class="line">ros2 run evaluator evaluator</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md65"></a>
 Design</h1>
 <p>The structure of the node is quite simple and depicted by the following class diagram:</p>
 <p><img src="../../../../docs/diagrams/sim-inf/evaluator-class-diagram.drawio.svg" alt="Class Diagram" style="pointer-events: none;" class="inline"/></p>
@@ -118,8 +150,8 @@ Design</h1>
 <p>This is true for all but the control node, which for simplicity reasons sends all the information necessary for evaluation in a separate message, as it does not use simulation data to evaluate itself.</p>
 <p>The concept of the complete evaluation system can be seen in the following diagram:</p>
 <p><img src="../../../../docs/diagrams/sim-inf/evaluation-system.drawio.svg" alt="System Diagram" style="pointer-events: none;" class="inline"/></p>
-<h1><a class="anchor" id="autotoc_md33"></a>
-Results</h1>
+<h2><a class="anchor" id="autotoc_md66"></a>
+Results</h2>
 <p>The metrics will be published in <code>/evaluator/*</code> topics. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
