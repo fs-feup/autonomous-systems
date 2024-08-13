@@ -1,8 +1,26 @@
 # PacSim Keys
 
+## Package Information
+
+### Description
+
 This package provides a "Control Mock" by allowing the control of the acceleration and steering of the PacSim vehicle using the keyboard.
 
-## How to run
+## How to Run
+
+### Install Dependencies
+
+```sh
+./dependencies_install.sh
+```
+
+### Compiling
+    
+```sh
+colcon build --packages-up-to pacsim_keys
+```
+
+### Running
 
 To run the control mock, you need to run the following command:
 
@@ -10,7 +28,7 @@ To run the control mock, you need to run the following command:
 ros2 run pacsim_keys pacsim_keys
 ```
 
-## How to use
+### How to use
 
 The control mock uses the following keys:
 - `w`: Increase torque by 0.1 to a max of 1.0
