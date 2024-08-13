@@ -22,9 +22,9 @@ using Cone = common_lib::structures::Cone;
 using PathPoint = common_lib::structures::PathPoint;
 
 /**
- * @brief LocalPathPlanner class for generating local paths.
+ * @brief PathCalculation class for generating local paths.
  *
- * The LocalPathPlanner class contains methods for calculating the best local
+ * The PathCalculation class contains methods for calculating the best local
  * path and stores input data and results related to path planning.
  */
 class PathCalculation {

@@ -1,8 +1,12 @@
 # Launcher Package
 
+## Package Information
+
+### Description
+
 This package contains launch files that are supposed to make your life easier when it comes to running the system.
 
-## Launch Files
+### Launch Configurations
 
 - `eufs_sim-testing.launch.py`: Launches the fyll system for evaluation in the eufs_sim simulator.
 - `pacsim-testing.launch.py`: Launches the full system for evaluation in the pacsim simulator.

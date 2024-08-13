@@ -1,19 +1,52 @@
 # Perception Package
 
+## Package Information
+
+### Description
+
 The Perception module is responsible for the processing of the perception module and perception sensors' data and its transformation into useful information. In this case, the LiDAR's point cloud is processed to generate the cones' position on the track.
 
-## Run the Node
+### Folder Structure
+
+- [center_calculation](include/center_calculation/): Functions to calculate the center of the cones
+- [cone_differentiation](include/cone_differentiation/): Functions to differentiate cones of different types
+- [cone_validator](include/cone_validator/): Functions to validate cones
+- [perception](include/perception/): Perception node class
+- [clustering](include/clustering/): Functions to create clusters of cones
+- [cone_evaluator](include/cone_evaluator/): Functions to evaluate cone detections' quality
+- [ground_removal](include/ground_removal/): Functions to remove the ground from the point cloud
+- [utils](include/utils/): Utility functions
+- [icp](include/icp/): Functions to perform ICP, used in a validation method
+
+### Launch Configurations
+
+- [eufs.launch.py](launch/eufs.launch.py): Launch file for the EUFS simulator
+- [rosbag-preprocessed.launch.py](launch/rosbag-preprocessed.launch.py): Launch file for the a preprocessed rosbag with a cone scene
+- [vehicle.launch.py](launch/vehicle.launch.py): Launch file for the 01 vehicle
+
+
+### Important Dependencies
+
+- [Eigen3](https://eigen.tuxfamily.org/index.php?title=Main_Page)
+- [PCL](https://pointclouds.org/)
+
+
+## How to Run
+
+### Install Dependencies
+
+```sh
+./dependencies_install.sh
+```
 
 ### Compiling
 
-From src folder:
 ```sh
-colcon build --packages-select perception custom_interfaces fs_msgs eufs_msgs common_lib pacsim
+colcon build --packages-up-to perception
 ```
 
-## Testing
+### Testing
 
-From src folder:
 ```sh
 colcon test --packages-select perception # use event-handler=console_direct+ for imediate output
 ```
@@ -23,33 +56,22 @@ To check test results:
 colcon test-result --all --verbose
 ```
 
-### Running the node
+### Running
+
+Use a launch file:
 
 ```sh
+source ./install/setup.bash # If in a new terminal
+ros2 launch perception eufs.launch.py
+```
+
+or run directly:
+
+```sh
+source ./install/setup.bash # If in a new terminal
 ros2 run perception perception
 ```
 
-### Running with launch files
-
-To streamline parameter management, a launch file is used to set these parameters. For ease of use, additional files can also be created:
-
-To run the node with the specified launch file parameters, you can:
-
-```sh
-ros2 launch perception perception.launch.py
-```
-
-The parameters are
-
-| Parameter               | Description                                                |
-|-------------------------|------------------------------------------------------------|
-| ransac_epsilon          | Threshold for determining inliers in RANSAC                |
-| ransac_n_neighbours     | Number of neighbours considered in RANSAC                  |
-| clustering_n_neighbours | Number of neighbours for DBSCAN clustering                 |
-| clustering_epsilon      | Distance threshold for DBSCAN clustering                   |
-| horizontal_resolution   | Angular resolution of the lidar sensor in the horizontal plane |
-| vertical_resolution     | Angular resolution of the lidar sensor in the vertical plane   |
-| adapter                 | Component that adapts the system to its operating environment |
 
 ## Design
 
@@ -58,12 +80,3 @@ Below, some diagrams are presented that can illustrate the structure and behavio
 ### Class Diagram
 
 ![Perception Class Diagram](../../docs/diagrams/perception/class_diagram.drawio.png)
-
-
-## Main External Libraries
-
-- [Eigen](https://eigen.tuxfamily.org/index.php?title=Main_Page)
-- [PCL](https://pointclouds.org)
-- [ROS2](https://docs.ros.org/en/foxy/index.html)
-- [Gtest](http://google.github.io/googletest/)
-- [OpenMP](https://www.openmp.org)
