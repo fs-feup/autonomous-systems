@@ -207,7 +207,7 @@ class Evaluator(Node):
             Float32, "/evaluator/planning/right_cones_me", 10
         )
         self._planning_mean_squared_difference_to_right_cones = self.create_publisher(
-            Float32, "/evaluator/planning/roght_cones_mse", 10
+            Float32, "/evaluator/planning/right_cones_mse", 10
         )
         self._planning_root_mean_squared_difference_to_right_cones = (
             self.create_publisher(Float32, "/evaluator/planning/right_cones_rmse", 10)

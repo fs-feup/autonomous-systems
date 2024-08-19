@@ -39,12 +39,7 @@ class PacsimAdapter(Adapter):
             self.groundtruth_map_callback,
             10,
         )  # because the map gets published only once at the beginning
-        self.node.simulated_perception_subscription_ = self.node.create_subscription(
-            PerceptionDetections,
-            "/pacsim/perception/livox_front/landmarks",
-            self.simulated_perception_callback,
-            10,
-        )
+
         self.node.groundtruth_velocity_subscription_ = self.node.create_subscription(
             TwistWithCovarianceStamped,
             "/pacsim/velocity",
@@ -126,6 +121,8 @@ class PacsimAdapter(Adapter):
             planning_output (PathPointArray): Planning output.
             path_ground_truth (PathPointArray): Groundtruth path message.
         """
+        if self._groundtruth_map_ is None:
+            return
         map_ground_truth_treated: np.ndarray = format_marker_array_msg(
             self._groundtruth_map_
         )
