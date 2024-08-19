@@ -21,6 +21,7 @@ VehicleAdapter::VehicleAdapter(std::shared_ptr<SENode> se_node) : Adapter(se_nod
       imu_policy, _yaw_accy_imu_subscription_, _roll_accx_imu_subscription_);
   this->_imu_sync_->registerCallback(&VehicleAdapter::imu_subscription_callback, this);
 
+
   this->_rl_wheel_rpm_subscription_.subscribe(this->node_, "/vehicle/rl_rpm");
   this->_rr_wheel_rpm_subscription_.subscribe(this->node_, "/vehicle/rr_rpm");
   this->_steering_angle_subscription_.subscribe(this->node_, "/vehicle/bosch_steering_angle");
@@ -43,9 +44,10 @@ void VehicleAdapter::wheel_speeds_subscription_callback (
                                                    steering_angle_msg.header.stamp);
 }
 
+
 void VehicleAdapter::imu_subscription_callback(
-    const custom_interfaces::msg::ImuData& roll_accx_data,
-    const custom_interfaces::msg::ImuData& yaw_accy_data) {
+  const custom_interfaces::msg::ImuData& roll_accx_data,
+  const custom_interfaces::msg::ImuData& yaw_accy_data) {
   auto imu_msg = sensor_msgs::msg::Imu();
   imu_msg.angular_velocity.z = yaw_accy_data.gyro;
   imu_msg.linear_acceleration.x = roll_accx_data.acc;

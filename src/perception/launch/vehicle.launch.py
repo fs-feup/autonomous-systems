@@ -94,7 +94,7 @@ def generate_launch_description():
                 description="Euclidean fitness epsilon for convergence criteria",
                 default_value="1e-6",
             ),
-                        DeclareLaunchArgument(
+            DeclareLaunchArgument(
                 "min_height",
                 description="Minimum height of a cluster to be considered a cone",
                 default_value="0.1"
@@ -141,7 +141,7 @@ def generate_launch_description():
             ),
             DeclareLaunchArgument(
                 "max_z_score_y",
-                description="Minimum z score on cones distribution (y)",
+                description="Maximum z score on cones distribution (y)",
                 default_value="1.55"
             ),
             Node(
