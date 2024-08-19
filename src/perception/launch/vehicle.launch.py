@@ -10,7 +10,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "ransac_epsilon",
                 description="RANSAC epsilon threshold",
-                default_value="0.05",
+                default_value="0.06",
             ),
             DeclareLaunchArgument(
                 "ransac_n_neighbours",
@@ -18,22 +18,21 @@ def generate_launch_description():
                 default_value="20",
             ),
             DeclareLaunchArgument(
-                "clustering_n_neighbours",
-                description="Number of neighbours for Clustering algorithm",
-                default_value="1",
-            ),
-            DeclareLaunchArgument(
                 "fov_trim",
-                description="Trim the points received to a max angle (in degrees)",
-                default_value="90",  # degrees
+                description="Trim the points received to a max angle",
+                default_value="35",  # degrees
             ),
-
             DeclareLaunchArgument(
                 "pc_max_range",
                 description="Point cloud filtering based on distance (m)",
-                default_value="15.0",
+                default_value="12.0",
             ),
-
+            
+            DeclareLaunchArgument(
+                "clustering_n_neighbours",
+                description="Number of neighbours for Clustering algorithm",
+                default_value="3",
+            ),
             DeclareLaunchArgument(
                 "clustering_epsilon",
                 description="Epsilon for Clustering algorithm",
@@ -62,12 +61,12 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "n_angular_grids",
                 description="Number of angular grids",
-                default_value="7",
+                default_value="8",
             ),
             DeclareLaunchArgument(
                 "radius_resolution",
                 description="Radius size of a radius grid (m)",
-                default_value="7.5",
+                default_value="20.0",
             ),
             DeclareLaunchArgument(
                 "target_file",
@@ -141,7 +140,7 @@ def generate_launch_description():
             ),
             DeclareLaunchArgument(
                 "max_z_score_y",
-                description="Maximum z score on cones distribution (y)",
+                description="Minimum z score on cones distribution (y)",
                 default_value="1.55"
             ),
             Node(
@@ -195,7 +194,7 @@ def generate_launch_description():
                             "pc_max_range"
                         )
                     },
-                                        {
+                    {
                         "min_height" : LaunchConfiguration("min_height")
                     },
                     {
@@ -226,13 +225,13 @@ def generate_launch_description():
                         "max_z_score_y" : LaunchConfiguration("max_z_score_y")
                     }
                 ],
-                arguments=["--ros-args", "--log-level", "perception:=info"],
+                arguments=["--ros-args", "--log-level", "perception:=debug"],
             ),
             Node(
                 package="perception",
                 executable="perception",
                 name="perception",
-                arguments=["--ros-args", "--log-level", "perception:=info"],
+                arguments=["--ros-args", "--log-level", "perception:=debug"],
             ),
         ]
     )
