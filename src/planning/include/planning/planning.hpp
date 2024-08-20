@@ -1,5 +1,4 @@
-#ifndef SRC_PLANNING_INCLUDE_PLANNING_PLANNING_HPP_
-#define SRC_PLANNING_INCLUDE_PLANNING_PLANNING_HPP_
+#pragma once
 
 #include <functional>
 #include <map>
@@ -7,10 +6,12 @@
 #include <string>
 #include <vector>
 
+#include "common_lib/communication/interfaces.hpp"
 #include "common_lib/communication/marker.hpp"
 #include "common_lib/competition_logic/mission_logic.hpp"
 #include "common_lib/structures/cone.hpp"
 #include "common_lib/structures/path_point.hpp"
+#include "config/planning_config.hpp"
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "custom_interfaces/msg/path_point.hpp"
 #include "custom_interfaces/msg/path_point_array.hpp"
@@ -18,17 +19,17 @@
 #include "custom_interfaces/msg/point_array.hpp"
 #include "custom_interfaces/msg/vehicle_state.hpp"
 #include "planning/cone_coloring.hpp"
-#include "planning/global_path_planner.hpp"
-#include "planning/local_path_planner.hpp"
-#include "planning/path_smoothing.hpp"
+#include "planning/outliers.hpp"
+#include "planning/path_calculation.hpp"
+#include "planning/smoothing.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
+#include "std_msgs/msg/float64.hpp"
 #include "utils/files.hpp"
-#include "utils/message_converter.hpp"
-#include "utils/pose.hpp"
+
+using PathPoint = common_lib::structures::PathPoint;
+using Pose = common_lib::structures::Pose;
 
 using std::placeholders::_1;
-
-class Adapter;
 
 /**
  * @class Planning
@@ -40,32 +41,25 @@ class Adapter;
  */
 class Planning : public rclcpp::Node {
   common_lib::competition_logic::Mission mission =
-      common_lib::competition_logic::Mission::NONE;              /**< Current planning mission */
-  LocalPathPlanner *local_path_planner = new LocalPathPlanner(); /**< Local path planner instance */
-  Adapter *_adapter_;
-  std::string mode;
+      common_lib::competition_logic::Mission::NONE; /**< Current planning mission */
+
+  PlanningConfig planning_config_;
+
+  ConeColoring cone_coloring_;
+  Outliers outliers_;
+  PathCalculation path_calculation_;
+  PathSmoothing path_smoothing_;
+  double desired_velocity_;
 
   std::map<common_lib::competition_logic::Mission, std::string> predictive_paths_ = {
       {common_lib::competition_logic::Mission::ACCELERATION, "/events/acceleration.txt"},
       {common_lib::competition_logic::Mission::SKIDPAD,
        "/events/skidpad.txt"}}; /**< Predictive paths for different missions */
-  double angle_gain_;
-  double distance_gain_;
-  double ncones_gain_;
-  double angle_exponent_;
-  double distance_exponent_;
-  double cost_max_;
-  int outliers_spline_order_;
-  float outliers_spline_coeffs_ratio_;
-  int outliers_spline_precision_;
-  int smoothing_spline_order_;
-  float smoothing_spline_coeffs_ratio_;
-  int smoothing_spline_precision_;
-  bool publishing_visualization_msgs_;
-  bool using_simulated_se_ = false;
-  bool recieved_first_track_ = false;
-  bool recieved_first_pose_ = false;
-  std::vector<Cone *> cone_array_;
+
+  std::string _map_frame_id_; /**< Frame ID for the map */
+  bool received_first_track_ = false;
+  bool received_first_pose_ = false;
+  std::vector<Cone> cone_array_;
   /**< Subscription to vehicle localization */
   rclcpp::Subscription<custom_interfaces::msg::VehicleState>::SharedPtr vl_sub_;
   /**< Subscription to track map */
@@ -85,6 +79,7 @@ class Planning : public rclcpp::Node {
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr after_rem_blue_cones_pub_;
   /**< Publisher for yellow cones after cone coloring*/
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr after_rem_yellow_cones_pub_;
+  rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr _planning_execution_time_publisher_;
   rclcpp::TimerBase::SharedPtr timer_;
   /**
    * @brief Callback for vehicle localization updates (undefined).
@@ -116,7 +111,7 @@ class Planning : public rclcpp::Node {
    * created PointArray message.
    */
 
-  void publish_track_points(const std::vector<PathPoint *> &path) const;
+  void publish_track_points(const std::vector<PathPoint> &path) const;
   /**
    * @brief Publishes predictive track points.
    * @details Depending on the selected mission, this function publishes
@@ -133,12 +128,12 @@ class Planning : public rclcpp::Node {
    * @param after_triangulations_path path after triangulations
    * @param final_path final path after smoothing
    */
-  void publish_visualization_msgs(const std::vector<Cone *> &left_cones,
-                                  const std::vector<Cone *> &right_cones,
-                                  const std::vector<PathPoint *> &after_triangulations_path,
-                                  const std::vector<PathPoint *> &final_path,
-                                  const std::vector<Cone *> &after_rem_blue_cones,
-                                  const std::vector<Cone *> &after_rem_yellow_cones);
+  void publish_visualization_msgs(const std::vector<Cone> &left_cones,
+                                  const std::vector<Cone> &right_cones,
+                                  const std::vector<Cone> &after_refining_blue_cones,
+                                  const std::vector<Cone> &after_refining_yellow_cones,
+                                  const std::vector<PathPoint> &after_triangulations_path,
+                                  const std::vector<PathPoint> &final_path) const;
 
   /**
    * @brief Checks if the current mission is predictive.
@@ -146,6 +141,8 @@ class Planning : public rclcpp::Node {
    * @return True if the mission is predictive, false otherwise.
    */
   bool is_predicitve_mission() const;
+
+  virtual void finish() = 0;
 
   /**
    * @brief current vehicle pose
@@ -166,7 +163,7 @@ public:
    * publishing info to topics. Additionally, it initializes an Adapter instance
    * for communication with external systems.
    */
-  Planning();
+  explicit Planning(const PlanningParameters &params);
   /**
    * @brief Set the mission for planning.
    *
@@ -185,5 +182,3 @@ public:
 
   friend class VehicleAdapter;
 };
-
-#endif  // SRC_PLANNING_PLANNING_INCLUDE_PLANNING_PLANNING_HPP_

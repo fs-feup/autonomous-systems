@@ -1,18 +1,15 @@
-#ifndef SRC_PLANNING_PLANNING_INCLUDE_ADAPTER_VEHICLE_HPP_
-#define SRC_PLANNING_PLANNING_INCLUDE_ADAPTER_VEHICLE_HPP_
+#pragma once
 
-#include "adapter_planning/adapter.hpp"
 #include "custom_interfaces/msg/operational_status.hpp"
+#include "planning/planning.hpp"
 #include "std_msgs/msg/string.hpp"
 
-class VehicleAdapter : public Adapter {
+class VehicleAdapter : public Planning {
   rclcpp::Subscription<custom_interfaces::msg::OperationalStatus>::SharedPtr mission_subscription_;
 
 public:
-  explicit VehicleAdapter(Planning* planning);
+  explicit VehicleAdapter(const PlanningParameters& params);
 
   void mission_state_callback(const custom_interfaces::msg::OperationalStatus& msg);
   void finish() override;
 };
-
-#endif

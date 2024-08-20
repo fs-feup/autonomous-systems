@@ -27,7 +27,7 @@ struct ObservationData {
  * compiled of functions for observation model
  */
 class ObservationModel {
-  Eigen::Matrix2f _observation_noise_covariance_matrix_; /**< H or C */
+  Eigen::MatrixXf _observation_noise_covariance_matrix_; /**< H or C */
 
 public:
   /**
@@ -36,7 +36,7 @@ public:
    * @param observation_noise_covariance_matrix covariance matrix of the
    * observation noise (Q)
    */
-  explicit ObservationModel(const Eigen::Matrix2f &observation_noise_covariance_matrix);
+  explicit ObservationModel(const Eigen::MatrixXf &observation_noise_covariance_matrix);
 
   /**
    * @brief Calculate expected observation from
@@ -61,6 +61,12 @@ public:
    */
   Eigen::Vector2f inverse_observation_model(const Eigen::VectorXf &expected_state,
                                             const ObservationData &observation_data) const;
+
+  Eigen::MatrixXf get_gv(const Eigen::VectorXf &expected_state,
+                         const ObservationData &observation_data) const;
+
+  Eigen::MatrixXf get_gz(const Eigen::VectorXf &expected_state,
+                         const ObservationData &observation_data) const;
 
   /**
    * @brief Get the state to observation matrix
@@ -87,5 +93,5 @@ public:
    *
    * @return Eigen::Matrix2f
    */
-  static Eigen::Matrix2f create_observation_noise_covariance_matrix(float noise_value);
+  static Eigen::MatrixXf create_observation_noise_covariance_matrix(float noise_value);
 };

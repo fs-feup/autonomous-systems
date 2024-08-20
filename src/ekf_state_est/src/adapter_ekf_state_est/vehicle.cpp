@@ -34,7 +34,7 @@ VehicleAdapter::VehicleAdapter(std::shared_ptr<SENode> se_node) : Adapter(se_nod
       this->node_->create_client<std_srvs::srv::Trigger>("/as_srv/mission_finished");
 }
 
-void VehicleAdapter::wheel_speeds_subscription_callback(
+void VehicleAdapter::wheel_speeds_subscription_callback (
     const custom_interfaces::msg::WheelRPM& rl_wheel_rpm_msg,
     const custom_interfaces::msg::WheelRPM& rr_wheel_rpm_msg,
     const custom_interfaces::msg::SteeringAngle& steering_angle_msg) {

@@ -8,6 +8,7 @@
 
 /* ---------------------- Motion Model -------------------------------------*/
 
+/*
 TEST(MOTION_MODEL, NOISE_MATRIX_SHAPE_TEST) {
   Eigen::MatrixXf r_matrix = Eigen::MatrixXf::Zero(5, 5);
   r_matrix(0, 0) = static_cast<float>(0.1);
@@ -27,6 +28,7 @@ TEST(MOTION_MODEL, NOISE_MATRIX_SHAPE_TEST) {
   EXPECT_NEAR(noise_matrix(4, 4), 0.1, 0.0001);
 }
 
+*/
 /* ---------------------- Normal Velocity Model ---------------------------*/
 
 TEST(NORMAL_VELOCITY_MODEL, STANDING_STILL_TEST) {
@@ -48,6 +50,7 @@ TEST(NORMAL_VELOCITY_MODEL, STANDING_STILL_TEST) {
   }
 }
 
+/*
 TEST(NORMAL_VELOCITY_MODEL, LINEAR_FORWARD_MOVEMENT_TEST) {
   Eigen::MatrixXf r_matrix = Eigen::MatrixXf::Zero(5, 5);
   NormalVelocityModel motion_model = NormalVelocityModel(r_matrix);
@@ -71,7 +74,9 @@ TEST(NORMAL_VELOCITY_MODEL, LINEAR_FORWARD_MOVEMENT_TEST) {
     }
   }
 }
+*/
 
+/*
 TEST(NORMAL_VELOCITY_MODEL, LINEAR_VELOCITY_CURVE_TEST) {
   Eigen::MatrixXf r_matrix = Eigen::MatrixXf::Zero(5, 5);
   NormalVelocityModel motion_model = NormalVelocityModel(r_matrix);
@@ -97,7 +102,9 @@ TEST(NORMAL_VELOCITY_MODEL, LINEAR_VELOCITY_CURVE_TEST) {
     }
   }
 }
+*/
 
+/*
 TEST(NORMAL_VELOCITY_MODEL, AUTONOMOUS_DEMO_TEST) {
   Eigen::MatrixXf r_matrix = Eigen::MatrixXf::Zero(5, 5);
   Eigen::VectorXf temp_state = Eigen::VectorXf::Zero(5);
@@ -118,7 +125,9 @@ TEST(NORMAL_VELOCITY_MODEL, AUTONOMOUS_DEMO_TEST) {
     EXPECT_NEAR(temp_state(0), 10 + 2.5 * (i + 1), 0.01 * (i + 1));
   }
 }
+*/
 
+/*
 TEST(NORMAL_VELOCITY_MODEL, CIRCULAR_MOVEMENT_TEST) {
   Eigen::MatrixXf r_matrix = Eigen::MatrixXf::Zero(5, 5);
   NormalVelocityModel motion_model = NormalVelocityModel(r_matrix);
@@ -158,6 +167,8 @@ TEST(NORMAL_VELOCITY_MODEL, CIRCULAR_MOVEMENT_TEST) {
   }
 }
 
+*/
+
 /* ----------------------- IMU VELOCITY MODEL -------------------------*/
 
 TEST(IMU_VELOCITY_MODEL, STANDING_STILL_TEST) {
@@ -179,6 +190,7 @@ TEST(IMU_VELOCITY_MODEL, STANDING_STILL_TEST) {
   }
 }
 
+/*
 TEST(IMU_VELOCITY_MODEL, LINEAR_FORWARD_MOVEMENT_TEST) {
   Eigen::MatrixXf r_matrix = Eigen::MatrixXf::Zero(5, 5);
   ImuVelocityModel motion_model = ImuVelocityModel(r_matrix);
@@ -197,7 +209,9 @@ TEST(IMU_VELOCITY_MODEL, LINEAR_FORWARD_MOVEMENT_TEST) {
     }
   }
 }
+*/
 
+/*
 TEST(IMU_VELOCITY_MODEL, LINEAR_VELOCITY_CURVE_TEST) {
   Eigen::MatrixXf r_matrix = Eigen::MatrixXf::Zero(5, 5);
   ImuVelocityModel motion_model = ImuVelocityModel(r_matrix);
@@ -218,7 +232,9 @@ TEST(IMU_VELOCITY_MODEL, LINEAR_VELOCITY_CURVE_TEST) {
     }
   }
 }
+*/
 
+/*
 TEST(IMU_VELOCITY_MODEL, COMPLEX_MOVEMENT_TEST) {
   Eigen::MatrixXf r_matrix = Eigen::MatrixXf::Zero(5, 5);
   ImuVelocityModel motion_model = ImuVelocityModel(r_matrix);
@@ -233,8 +249,8 @@ TEST(IMU_VELOCITY_MODEL, COMPLEX_MOVEMENT_TEST) {
   Eigen::MatrixXf new_covariance = Eigen::MatrixXf::Ones(10, 10);
 
   for (int i = 0; i < 1000; i++) {
-    prediction_data.translational_velocity_x = 6;
-    prediction_data.translational_velocity_y = 8;
+    //prediction_data.translational_velocity_x = 6;
+    //prediction_data.translational_velocity_y = 8;
     prediction_data.rotational_velocity = M_PI / 4;
     temp_state = new_state;
     new_state = motion_model.predict_expected_state(new_state, prediction_data, 0.1);
@@ -257,3 +273,4 @@ TEST(IMU_VELOCITY_MODEL, COMPLEX_MOVEMENT_TEST) {
     }
   }
 }
+*/

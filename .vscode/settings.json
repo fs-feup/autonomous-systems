@@ -95,7 +95,9 @@
         "numericaldiff": "cpp",
         "sparse": "cpp",
         "*.ipp": "cpp",
-        "filesystem": "cpp"
+        "filesystem": "cpp",
+        "nonlinearoptimization": "cpp",
+        "*.txx": "cpp"
     },
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter",
@@ -106,9 +108,10 @@
         "editor.formatOnSave": true
     },
     "sonarlint.connectedMode.project": {
-        "connectionId": "fs-feup",
+        "connectionId": "FS FEUP",
         "projectKey": "fs-feup_autonomous-systems"
     },
-    "sonarlint.pathToCompileCommands": "${workspaceFolder}/compile_commands.json",
     "C_Cpp.default.compilerPath": "/usr/bin/g++",
+    "sonarlint.pathToCompileCommands": "${workspaceFolder}/compile_commands.json",
+    "ros.distro": "humble",
 }

@@ -10,20 +10,22 @@
 #include "std_msgs/msg/color_rgba.hpp"
 #include "visualization_msgs/msg/marker.hpp"
 #include "visualization_msgs/msg/marker_array.hpp"
+
 namespace common_lib::communication {
 
 const std::map<std::string, std::array<float, 4>, std::less<>> marker_color_map = {
-    {"blue", {0.0, 0.0, 1.0, 1.0}},
-    {"yellow", {1.0, 1.0, 0.0, 1.0}},
-    {"orange", {1.0, 0.5, 0.0, 1.0}},
-    {"red", {1.0, 0.0, 0.0, 1.0}},
-    {"green", {0.0, 1.0, 0.0, 1.0}}};
+    {"blue", {0.0, 0.0, 1.0, 1.0}},   {"yellow", {1.0, 1.0, 0.0, 1.0}},
+    {"orange", {1.0, 0.5, 0.0, 1.0}}, {"red", {1.0, 0.0, 0.0, 1.0}},
+    {"green", {0.0, 1.0, 0.0, 1.0}},  {"white", {1.0, 1.0, 1.0, 1.0}},
+    {"grey", {0.5, 0.5, 0.5, 1.0}}};
 
 const std::map<std::string, int, std::less<>> marker_shape_map = {
     {"cylinder", visualization_msgs::msg::Marker::CYLINDER},
     {"cube", visualization_msgs::msg::Marker::CUBE},
     {"sphere", visualization_msgs::msg::Marker::SPHERE},
-    {"line", visualization_msgs::msg::Marker::LINE_STRIP}};
+    {"line", visualization_msgs::msg::Marker::LINE_STRIP},
+    {"cone", visualization_msgs::msg::Marker::MESH_RESOURCE},
+    {"arrow", visualization_msgs::msg::Marker::ARROW}};
 
 /**
  * @brief A helper struct to check if a type T has a member named 'position'.
@@ -33,7 +35,7 @@ const std::map<std::string, int, std::less<>> marker_shape_map = {
  * @tparam typename A helper typename defaulted to void, used for SFINAE.
  */
 template <typename T, typename = void>
-struct has_position : std::false_type {};
+struct HasPosition : std::false_type {};
 
 /**
  * @brief A specialization of the has_position struct for types T that do have a valid 'position'
@@ -43,9 +45,9 @@ struct has_position : std::false_type {};
  * @tparam T The type to check.
  */
 template <typename T>
-struct has_position<T,
-                    std::enable_if_t<std::is_arithmetic_v<decltype(std::declval<T>().position.x)> &&
-                                     std::is_arithmetic_v<decltype(std::declval<T>().position.y)>>>
+struct HasPosition<T,
+                   std::enable_if_t<std::is_arithmetic_v<decltype(std::declval<T>().position.x)> &&
+                                    std::is_arithmetic_v<decltype(std::declval<T>().position.y)>>>
     : std::true_type {};
 
 /**
@@ -67,7 +69,7 @@ visualization_msgs::msg::MarkerArray marker_array_from_structure_array(
     const std::string& shape = "cylinder", float scale = 0.5,
     int action = visualization_msgs::msg::Marker::MODIFY) {
   static_assert(
-      has_position<T>::value,
+      HasPosition<T>::value,
       "Template argument T must have a data member named 'position' with 'x' and 'y' sub-members");
 
   visualization_msgs::msg::MarkerArray marker_array;
@@ -79,7 +81,7 @@ visualization_msgs::msg::MarkerArray marker_array_from_structure_array(
     marker.header.frame_id = frame_id;
     marker.header.stamp = rclcpp::Clock().now();
     marker.ns = name_space;
-    marker.id = i;
+    marker.id = static_cast<int>(i);
     marker.type = marker_shape_map.at(shape);
     marker.action = action;
 
@@ -101,6 +103,16 @@ visualization_msgs::msg::MarkerArray marker_array_from_structure_array(
     marker.color.b = color_array[2];
     marker.color.a = color_array[3];
 
+    if (shape == "cone") {
+      marker.pose.orientation.x = 0.7071;  // Approximately sqrt(2)/2
+      marker.pose.orientation.y = 0.0;
+      marker.pose.orientation.z = 0.0;
+      marker.pose.orientation.w = -0.7071;  // Approximately sqrt(2)/2
+      marker.scale.x = scale * 0.03;
+      marker.scale.y = scale * 0.03;
+      marker.scale.z = scale * 0.03;
+      marker.mesh_resource = "https://paginas.fe.up.pt/~up202109860/FormulaStudent/FSGConev2.obj";
+    }
     marker_array.markers.push_back(marker);
   }
 
@@ -123,10 +135,10 @@ template <typename T>
 visualization_msgs::msg::Marker line_marker_from_structure_array(
     const std::vector<T>& structure_array, const std::string& name_space,
     const std::string& frame_id, const int id, const std::string& color = "red",
-    const std::string& shape = "line", float scale = 0.1,
+    const std::string& shape = "line", float scale = 0.1f,
     int action = visualization_msgs::msg::Marker::MODIFY) {
   static_assert(
-      has_position<T>::value,
+      HasPosition<T>::value,
       "Template argument T must have a data member named 'position' with 'x' and 'y' sub-members");
 
   std::array<float, 4> color_array = marker_color_map.at(color);
@@ -169,4 +181,21 @@ visualization_msgs::msg::Marker line_marker_from_structure_array(
   return marker;
 }
 
+/**
+ * @brief Converts a position to a marker
+ *
+ * @param position position to convert
+ * @param name_space namespace of the marker, used in conjunction with ID to identify marker
+ * @param id id of the marker
+ * @param color color of the marker (blue, yellow, orange, red, green)
+ * @param scale scale of the marker, default is 0.5
+ * @param frame_id frame id of the marker, for transforms
+ * @param shape shape of the marker (cylinder, cube, sphere)
+ * @param action action of the marker, default is ADD/MODIFY
+ * @return visualization_msgs::msg::Marker
+ */
+visualization_msgs::msg::Marker marker_from_position(
+    const common_lib::structures::Position& position, const std::string& name_space, const int id,
+    const std::string& color = "red", float scale = 0.5, const std::string& frame_id = "map",
+    const std::string& shape = "sphere", int action = visualization_msgs::msg::Marker::ADD);
 }  // namespace common_lib::communication

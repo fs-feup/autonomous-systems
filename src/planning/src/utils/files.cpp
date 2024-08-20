@@ -4,14 +4,14 @@
 #include <string>
 #include <vector>
 
-std::vector<PathPoint *> read_path_file(const std::string &filename) {
+std::vector<PathPoint> read_path_file(const std::string &filename) {
   std::string filePrefix = ament_index_cpp::get_package_share_directory("planning");
   std::string filepath = filePrefix + "/planning/planning" + filename;
   std::ifstream path_file(filepath);
-  std::vector<PathPoint *> path;
+  std::vector<PathPoint> path;
   float x, y;
   while (path_file >> x >> y) {
-    PathPoint *pathpoint = new PathPoint(x, y);
+    PathPoint pathpoint = PathPoint(x, y);
     path.push_back(pathpoint);
   }
   path_file.close();
@@ -57,9 +57,3 @@ std::ifstream openReadFile(const std::string &filename) {
   return file;
 }
 
-// Track* read_track_file(const std::string& filename) {
-//   std::string filePrefix = rcpputils::fs::current_path().string();
-//   std::string filePackage = filePrefix + "/planning/planning/files/" +
-//   filename; Track* track = new Track(); track->fillTrack(filePackage); return
-//   track;
-// }

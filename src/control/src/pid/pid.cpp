@@ -5,26 +5,25 @@
 /**
  * @brief Construct a new PID object
  *
- * @param Kp Proporcional gain
- * @param Ki Integral gain
- * @param Kd Derivative gain
- * @param antiWindup Anti-windup constant
+ * @param kp Proporcional gain
+ * @param ki Integral gain
+ * @param kd Derivative gain
+ * @param anti_windup Anti-windup constant
  * @param tau Derivative low pass filter time constant
- * @param T Sampling time
- * @param limMin Minimum output value
- * @param limMax Maximum output value
+ * @param t Sampling time
+ * @param lim_min Minimum output value
+ * @param lim_max Maximum output value
  */
-
-PID::PID(double Kp, double Ki, double Kd, double tau, double T, double limMin, double limMax,
-         double antiWindup)
-    : Kp(Kp),
-      Ki(Ki),
-      Kd(Kd),
-      antiWindup(antiWindup),
-      tau(tau),
-      T(T),
-      limMin(limMin),
-      limMax(limMax) {}
+PID::PID(double kp, double ki, double kd, double tau, double t, double lim_min, double lim_max,
+         double anti_windup)
+    : kp_(kp),
+      ki_(ki),
+      kd_(kd),
+      anti_windup_(anti_windup),
+      tau_(tau),
+      t_(t),
+      lim_min_(lim_min),
+      lim_max_(lim_max) {}
 
 /**
  * @brief Calculate the output value
@@ -60,7 +59,6 @@ double PID::update(double setpoint, double measurement) {
    */
   this->anti_wind_up();
 
-
   /*
    * Compute output and apply limits
    */
@@ -69,46 +67,46 @@ double PID::update(double setpoint, double measurement) {
   /*
    * Store error and measurement for the next iteration
    */
-  this->prevError = error;
-  this->prevMeasurement = measurement;
+  this->prev_error_ = error;
+  this->prev_measurement_ = measurement;
 
   /*
    * return output value
    */
-  return this->out;
+  return this->out_;
 }
 
 double PID::calculate_error(double setpoint, double measurement) const {
   return setpoint - measurement;
 }
 
-void PID::calculate_proportional_term(double error) { this->proportional = this->Kp * error; }
+void PID::calculate_proportional_term(double error) { this->proportional_ = this->kp_ * error; }
 
 void PID::calculate_integral_term(double error) {
-  this->integrator = this->integrator + 0.5f * this->Ki * this->T * (error + this->prevError);
+  this->integrator_ = this->integrator_ + 0.5f * this->ki_ * this->t_ * (error + this->prev_error_);
 }
 
 void PID::anti_wind_up() {
-  double curr_output = this->proportional + this->integrator + this->differentiator;
+  double curr_output = this->proportional_ + this->integrator_ + this->differentiator_;
 
-  if (curr_output > this->limMax || curr_output < this->limMin) {
-    this->integrator = this->integrator * this->antiWindup;
+  if (curr_output > this->lim_max_ || curr_output < this->lim_min_) {
+    this->integrator_ = this->integrator_ * this->anti_windup_;
   }
 }
 
 void PID::calculate_derivative_term(double measurement) {
-  this->differentiator = (-2.0f * this->Kd * (measurement - this->prevMeasurement) +
-                          (2.0f * this->tau - this->T) * this->differentiator) /
-                         (2.0f * this->tau + this->T);
+  this->differentiator_ = (-2.0f * this->kd_ * (measurement - this->prev_measurement_) +
+                           (2.0f * this->tau_ - this->t_) * this->differentiator_) /
+                          (2.0f * this->tau_ + this->t_);
 }
 
 void PID::compute_output() {
-  this->out = this->proportional + this->integrator + this->differentiator;
+  this->out_ = this->proportional_ + this->integrator_ + this->differentiator_;
 
-  if (this->out > this->limMax) {
-    this->out = this->limMax;
-  } else if (this->out < this->limMin) {
-    this->out = this->limMin;
+  if (this->out_ > this->lim_max_) {
+    this->out_ = this->lim_max_;
+  } else if (this->out_ < this->lim_min_) {
+    this->out_ = this->lim_min_;
   }
 }
 

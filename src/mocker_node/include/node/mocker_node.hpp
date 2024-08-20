@@ -6,20 +6,26 @@
 #include <memory>
 #include <string>
 
+#include "common_lib/communication/interfaces.hpp"
+#include "common_lib/communication/marker.hpp"
 #include "fs_msgs/msg/finished_signal.hpp"
 #include "fs_msgs/msg/go_signal.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "utils/mocks.hpp"
+#include "visualization_msgs/msg/marker.hpp"
 
 class MockerNode : public rclcpp::Node {
- private:
+private:
   rclcpp::Publisher<custom_interfaces::msg::PathPointArray>::SharedPtr planning_publisher;
   rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr se_publisher;
+  rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr planning_visualization_publisher;
 
   /**< Timer for the periodic publishing */
   rclcpp::TimerBase::SharedPtr timer_;
 
- public:
+  std::string _map_frame_id_;
+
+public:
   custom_interfaces::msg::PathPointArray gtruth_planning;  // ground truth for the planning node
   custom_interfaces::msg::ConeArray gtruth_se;  // ground truth for the state estimation node
 
