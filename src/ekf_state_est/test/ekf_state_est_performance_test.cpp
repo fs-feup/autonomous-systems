@@ -161,7 +161,7 @@
 //     r_test(3, 3) = static_cast<float>(0.8);
 //     r_test(4, 4) = static_cast<float>(0.8);
 //     motion_model_ = std::make_shared<NormalVelocityModel>(r_test);
-//     data_association_model_ = std::make_shared<SimpleMaximumLikelihood>(71.0);
+//     data_association_model_ = std::make_shared<MaxLikelihood>(71.0);
 //     observation_model_ = std::make_shared<ObservationModel>(q_test);
 //     ekf_test = std::make_shared<ExtendedKalmanFilter>(motion_model_, observation_model_,
 //                                                       data_association_model_);

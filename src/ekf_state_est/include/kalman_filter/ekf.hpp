@@ -79,6 +79,11 @@ public:
    */
   void prediction_step(const MotionUpdate &motion_update, const std::string &sensor_type);
 
+  void correct_with_matched_ids(const std::vector<int> &matched_ids,
+                                const std::vector<Eigen::Vector2f> &matched_cone_positions);
+
+  void augment_state(const std::vector<Eigen::Vector2f> &new_features);
+
   void add_motion_model(const std::string &model_name, std::shared_ptr<MotionModel> motion_model) {
     _motion_models_[model_name] = motion_model;
   }
@@ -92,7 +97,7 @@ public:
    * @param perception_map map from perception
    */
   void correction_step(const std::vector<common_lib::structures::Cone> &perception_map);
-  
+
   // TODO: Method Implementation
   void wss_correction_step(const MotionUpdate &motion_correction_data);
 

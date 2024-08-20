@@ -42,7 +42,7 @@
 //   std::shared_ptr<ObservationModel> observation_model =
 //       std::make_shared<ObservationModel>(q_matrix);
 //   std::shared_ptr<DataAssociationModel> data_association_model =
-//       std::make_shared<SimpleMaximumLikelihood>(71.0);
+//       std::make_shared<MaxLikelihood>(71.0);
 
 //   // Initial map
 //   initial_map->push_back(
