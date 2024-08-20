@@ -19,7 +19,7 @@
 #include "custom_interfaces/msg/wheel_rpm.hpp"
 #include "functions/inspection_functions.hpp"
 
-constexpr double WHEELS_STOPPED_THRESHOLD = 0.01;
+constexpr double WHEELS_STOPPED_THRESHOLD = 0.1;
 
 /**
  * @class InspectionMission
@@ -49,6 +49,7 @@ private:
   rclcpp::TimerBase::SharedPtr
       _mission_end_timer_;  /// Timer for repetition of end of mission signal
   bool _mission_end_timer_started_ = false;
+  bool _car_stopped_ = false;
   rclcpp::TimerBase::SharedPtr _main_callback_timer_;  /// Timer for main callback
   rclcpp::Clock _clock_;
   rclcpp::Time _initial_time_;  /// Ellapsed time in seconds

@@ -68,12 +68,13 @@ void InspectionMission::mission_decider(
     return;
   }
 
-  if (mission_signal->go_signal != _go_) {
+  if (mission_signal->go_signal != _go_ && mission_signal->go_signal) {
     RCLCPP_INFO(this->get_logger(), "Starting timer");
     _initial_time_ = this->_clock_.now();
     _inspection_object_.stop_oscilating_ = false;
     _inspection_object_.current_goal_velocity_ = _inspection_object_.ideal_velocity_; 
     this->_mission_end_timer_started_ = false;
+    this->_car_stopped_ = false;
   }
   _go_ = mission_signal->go_signal;
 }
@@ -89,10 +90,21 @@ void InspectionMission::inspection_script() {
   }
   RCLCPP_DEBUG(this->get_logger(), "Executing Inspection Script.");
 
+  if (this->_car_stopped_) {
+    // if the mission is over, publish the finish signal
+    RCLCPP_DEBUG(this->get_logger(), "Mission is over. Stopping the car.");
+    if (!this->_mission_end_timer_started_) {
+      this->_mission_end_timer_ = this->create_wall_timer(
+          std::chrono::milliseconds(500), std::bind(&InspectionMission::end_of_mission, this));
+      this->_mission_end_timer_started_ = true;
+    }
+    return;
+  }
+
   // initialization
   auto current_time = this->_clock_.now();
   auto elapsed_time = (current_time - _initial_time_).seconds();
-  double average_rpm = _motor_rpm_;
+  double average_rpm = _motor_rpm_ / 4;
   RCLCPP_DEBUG(this->get_logger(), "average_rpm %f", average_rpm);
   double current_velocity = _inspection_object_.rpm_to_velocity(average_rpm);
   RCLCPP_DEBUG(this->get_logger(), "current_velocity %f", current_velocity);
@@ -114,23 +126,27 @@ void InspectionMission::inspection_script() {
   // calculate throttle and convert to control command
   double calculated_throttle = _inspection_object_.calculate_throttle(current_velocity);
 
-  // publish suitable message
-  if (elapsed_time < _inspection_object_.finish_time_ ||
-      std::abs(current_velocity) > WHEELS_STOPPED_THRESHOLD || !steering_straight) {
-    double scaled_throttle = _inspection_object_.throttle_to_adequate_range(calculated_throttle); 
-    RCLCPP_DEBUG(this->get_logger(),
-                 "Publishing control command. Steering: %lf; Torque after conversion - before: %lf - %lf; Elapsed Time: %lf",
-                 calculated_steering, scaled_throttle, calculated_throttle, elapsed_time);
-    publish_controls(scaled_throttle,
-                     calculated_steering);
-  } else if (!this->_mission_end_timer_started_) {
-    // if the mission is over, publish the finish signal
-    RCLCPP_DEBUG(this->get_logger(), "Mission is over. Stopping the car.");
-    this->_mission_end_timer_ = this->create_wall_timer(
-        std::chrono::milliseconds(500), std::bind(&InspectionMission::end_of_mission, this));
-    this->_mission_end_timer_started_ = true;
+  if (elapsed_time >= _inspection_object_.finish_time_ && 
+    std::abs(current_velocity) <= WHEELS_STOPPED_THRESHOLD) {
+        calculated_throttle = 0.0;
+      }
+  
+  if (elapsed_time >= _inspection_object_.finish_time_ && steering_straight) {
+    calculated_steering = 0.0;
   }
 
+  if (elapsed_time >= _inspection_object_.finish_time_ &&
+      std::abs(current_velocity) <= WHEELS_STOPPED_THRESHOLD && steering_straight) {
+      this->_car_stopped_ = true;
+  }
+
+  // publish suitable message
+  double scaled_throttle = _inspection_object_.throttle_to_adequate_range(calculated_throttle); 
+  publish_controls(scaled_throttle,calculated_steering);
+  RCLCPP_DEBUG(this->get_logger(),
+                 "Publishing control command. Steering: %lf; Torque after conversion - before: %lf - %lf; Elapsed Time: %lf",
+                 calculated_steering, scaled_throttle, calculated_throttle, elapsed_time);
+                 
   // update ideal velocity if necessary
   _inspection_object_.redefine_goal_velocity(current_velocity);
 }

@@ -12,13 +12,13 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "max_angle",
                 description="max angle for the turning of the inspection script",
-                default_value="0.392699",
-            ),  # Pi / 6.0, rad; 22.5 degrees in rad
+                default_value="0.3491",
+            ),  # Pi / 6.0, rad; 20 degrees in rad
             DeclareLaunchArgument(
                 "inspection_ideal_velocity", default_value="2.0"
             ),  # m/s
             DeclareLaunchArgument(
-                "ebs_test_ideal_velocity", default_value="5.0"
+                "ebs_test_ideal_velocity", default_value="2.0"
             ),  # m/s
             DeclareLaunchArgument(
                 "turning_period",
@@ -29,12 +29,12 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "inspection_gain",
                 description="Gains for longitudinal P controllers of inspection",
-                default_value="0.5",
+                default_value="1.0",
             ),
             DeclareLaunchArgument(
                 "ebs_test_gain",
                 description="Gains for longitudinal P controllers of inspection",
-                default_value="4.0",
+                default_value="1.0",
             ),
             DeclareLaunchArgument("finish_time", default_value="26.0"),  # seconds
             DeclareLaunchArgument(
