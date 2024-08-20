@@ -6,7 +6,7 @@ VehicleAdapter::VehicleAdapter(const ControlParameters& params)
           "/vehicle/operational_status", 10,
           std::bind(&VehicleAdapter::go_signal_callback, this, std::placeholders::_1))),
       control_pub_(
-          create_publisher<custom_interfaces::msg::ControlCommand>("/car/control_command", 10)) {
+          create_publisher<custom_interfaces::msg::ControlCommand>("/as_msgs/controls", 10)) {
   RCLCPP_INFO(this->get_logger(), "Vehicle adapter created");
 }
 
