@@ -24,9 +24,8 @@ void VehicleAdapter::publish_cmd(double acceleration, double steering) {
 void VehicleAdapter::go_signal_callback(const custom_interfaces::msg::OperationalStatus msg) {
   // No need to do anything with the message, just set the go_signal to true
   go_signal_ = msg.go_signal;
-  if (msg.as_mission == common_lib::competition_logic::Mission::EBS_TEST || 
-      msg.as_mission == common_lib::competition_logic::Mission::INSPECTION ||
-      msg.as_mission == common_lib::competition_logic::Mission::MANUAL){
+  if (msg.as_mission != common_lib::competition_logic::Mission::TRACKDRIVE && 
+      msg.as_mission != common_lib::competition_logic::Mission::AUTOCROSS) {
       
       go_signal_ = false;
   }
