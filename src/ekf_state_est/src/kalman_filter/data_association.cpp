@@ -60,7 +60,7 @@ int MaxLikelihood::associate_n_filter(
         n_best = nd;
         j_best = j;
       } else if (nis < outer) {
-        outer = nis;  // outer is the closest unmatched distance
+        outer = nis;  // outer is the closest unmatched distanced
       }
     }
     if (j_best != 0) {

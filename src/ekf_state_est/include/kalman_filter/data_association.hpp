@@ -45,9 +45,13 @@ public:
 };
 
 /**
- * @brief Simple (Dumb) Maximum Likelihood Method class,
- * attempts to match the observed landmark to the closest landmark in the map.
- * Uses an exponential function to cut off matches whose error is too great for their distance
+ * @brief Maximum Likelihood Method class,
+ * used to match observations to landmarks in the map with maximum likelihood method
+ * It uses the Mahalanobis distance to determine the best match
+ * It also uses a gate to determine if the match is valid
+ * The Mahalanobis distance is calculated as the square root of the innovation covariance
+ * The gate is a threshold that the Mahalanobis distance must be below to be considered a valid
+ * match The gate is defined as the normalized innovation squared (NIS) gate Normalized Distance
  */
 class MaxLikelihood : public DataAssociationModel {
   // bool valid_match(const float delta, const float distance_to_vehicle) const override;
@@ -74,6 +78,7 @@ const std::map<std::string,
                std::function<std::shared_ptr<DataAssociationModel>(float max_landmark_distance)>,
                std::less<>>
     data_association_model_constructors = {
-        {"simple_ml", [](float max_landmark_distance) -> std::shared_ptr<DataAssociationModel> {
+        {"max_likelihood",
+         [](float max_landmark_distance) -> std::shared_ptr<DataAssociationModel> {
            return std::make_shared<MaxLikelihood>(max_landmark_distance);
          }}};
