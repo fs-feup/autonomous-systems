@@ -28,6 +28,16 @@ std::string load_adapter_parameters(PlanningParameters& params) {
       static_cast<int>(adapter_node->declare_parameter("outliers_spline_precision", 1));
   params.path_calculation_dist_threshold_ =
       adapter_node->declare_parameter("path_calculation_dist_threshold", 7.0);
+  params.path_search_angle_gain_ = adapter_node->declare_parameter("path_search_angle_gain", 11.0);
+  params.path_search_distance_gain_ =
+      adapter_node->declare_parameter("path_search_distance_gain", 8.0);
+  params.path_search_npoints_gain_ =
+      adapter_node->declare_parameter("path_search_npoints_gain", 8.7);
+  params.path_search_angle_exponent_ =
+      adapter_node->declare_parameter("path_search_angle_exponent", 5.3);
+  params.path_search_distance_exponent_ =
+      adapter_node->declare_parameter("path_search_distance_exponent", 0.698);
+  params.path_search_cost_max_ = adapter_node->declare_parameter("path_search_cost_max", 40.0);
   params.smoothing_spline_order_ =
       static_cast<int>(adapter_node->declare_parameter("smoothing_spline_order", 3));
   params.smoothing_spline_coeffs_ratio_ =
@@ -37,6 +47,7 @@ std::string load_adapter_parameters(PlanningParameters& params) {
   params.publishing_visualization_msgs_ =
       adapter_node->declare_parameter("publishing_visualization_msg", false);
   params.using_simulated_se_ = adapter_node->declare_parameter("use_simulated_se", false);
+  params.using_cone_colouring_ = adapter_node->declare_parameter("using_cone_colouring", true);
   params.desired_velocity_ = adapter_node->declare_parameter("pre_defined_velocity_planning", 2);
   std::string adapter_type = adapter_node->declare_parameter("adapter", "vehicle");
   params.map_frame_id_ = adapter_type == "eufs" ? "base_footprint" : "map";

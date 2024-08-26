@@ -1,11 +1,11 @@
-#ifndef SRC_PLANNING_INCLUDE_CONFIG_CONE_COLORING_CONFIG_HPP_
-#define SRC_PLANNING_INCLUDE_CONFIG_CONE_COLORING_CONFIG_HPP_
+#ifndef SRC_PLANNING_INCLUDE_CONFIG_PATH_SEARCH_CONFIG_HPP_
+#define SRC_PLANNING_INCLUDE_CONFIG_PATH_SEARCH_CONFIG_HPP_
 
 /**
- * @brief struct for the configuration of the cone coloring algorithm.
+ * @brief struct for the configuration of the path search algorithm.
  *
  */
-struct ConeColoringConfig {
+struct PathSearchConfig {
   /**
    * @brief angle gain between the last edge and the possible new edge
    *
@@ -22,7 +22,7 @@ struct ConeColoringConfig {
    * @brief gain to use for the cost
    *
    */
-  double ncones_weight_ = 8.7;
+  double npoints_weight_ = 8.7;
 
   /**
    * @brief exponent for the distance
@@ -47,16 +47,17 @@ struct ConeColoringConfig {
    *
    */
   bool using_cone_colouring_ = true;
-  ConeColoringConfig() = default;
-  ConeColoringConfig(double angle_gain, double distance_gain, double ncones_gain, double exponent1,
-                     double exponent2, double max_cost, bool using_cone_colouring)
+
+  PathSearchConfig() = default;
+  PathSearchConfig(double angle_gain, double distance_gain, double npoints_gain, double exponent1,
+                   double exponent2, double max_cost, bool using_cone_colouring)
       : angle_weight_(angle_gain),
         distance_weight_(distance_gain),
-        ncones_weight_(ncones_gain),
+        npoints_weight_(npoints_gain),
         distance_exponent_(exponent1),
         angle_exponent_(exponent2),
         max_cost_(max_cost),
         using_cone_colouring_(using_cone_colouring) {}
 };
 
-#endif  // SRC_PLANNING_INCLUDE_CONFIG_CONE_COLORING_CONFIG_HPP_
+#endif  // SRC_PLANNING_INCLUDE_CONFIG_PATH_SEARCH_CONFIG_HPP_

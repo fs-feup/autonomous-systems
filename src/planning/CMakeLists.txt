@@ -49,6 +49,7 @@ set(IMPLEMENTATION_FILES
   src/adapter_planning/pacsim.cpp
   src/adapter_planning/vehicle.cpp
   src/planning/path_calculation.cpp
+  src/planning/path_search.cpp
   src/planning/cone_coloring.cpp
   src/planning/smoothing.cpp
   src/planning/outliers.cpp

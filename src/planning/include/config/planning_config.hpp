@@ -4,6 +4,7 @@
 #include "cone_coloring_config.hpp"
 #include "outliers_config.hpp"
 #include "path_calculation_config.hpp"
+#include "path_search_config.hpp"
 #include "simulation_config.hpp"
 #include "smoothing_config.hpp"
 
@@ -14,6 +15,12 @@ struct PlanningParameters {
   double angle_exponent_;
   double distance_exponent_;
   double cost_max_;
+  double path_search_angle_gain_;
+  double path_search_distance_gain_;
+  double path_search_npoints_gain_;
+  double path_search_angle_exponent_;
+  double path_search_distance_exponent_;
+  double path_search_cost_max_;
   int outliers_spline_order_;
   float outliers_spline_coeffs_ratio_;
   int outliers_spline_precision_;
@@ -24,6 +31,7 @@ struct PlanningParameters {
   bool publishing_visualization_msgs_;
   bool using_simulated_se_;
   long double desired_velocity_;
+  bool using_cone_colouring_;
   std::string map_frame_id_;
 };
 
@@ -35,6 +43,7 @@ struct PlanningConfig {
   ConeColoringConfig cone_coloring_;
   OutliersConfig outliers_;
   PathCalculationConfig path_calculation_;
+  PathSearchConfig path_search_;
   PathSmoothingConfig smoothing_;
   SimulationConfig simulation_;
 
@@ -46,12 +55,23 @@ struct PlanningConfig {
     cone_coloring_.angle_exponent_ = params.angle_exponent_;
     cone_coloring_.distance_exponent_ = params.distance_exponent_;
     cone_coloring_.max_cost_ = params.cost_max_;
+    cone_coloring_.using_cone_colouring_ = params.using_cone_colouring_;
 
     outliers_.order_ = params.outliers_spline_order_;
     outliers_.precision_ = params.outliers_spline_precision_;
     outliers_.coeffs_ratio_ = params.outliers_spline_coeffs_ratio_;
+    outliers_.using_cone_colouring_ = params.using_cone_colouring_;
 
     path_calculation_.dist_threshold_ = params.path_calculation_dist_threshold_;
+    path_calculation_.using_cone_colouring_ = params.using_cone_colouring_;
+
+    path_search_.angle_weight_ = params.path_search_angle_gain_;
+    path_search_.distance_weight_ = params.path_search_distance_gain_;
+    path_search_.npoints_weight_ = params.path_search_npoints_gain_;
+    path_search_.angle_exponent_ = params.path_search_angle_exponent_;
+    path_search_.distance_exponent_ = params.path_search_distance_exponent_;
+    path_search_.max_cost_ = params.path_search_cost_max_;
+    path_search_.using_cone_colouring_ = params.using_cone_colouring_;
 
     smoothing_.order_ = params.smoothing_spline_order_;
     smoothing_.precision_ = params.smoothing_spline_precision_;

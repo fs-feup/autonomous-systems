@@ -176,6 +176,9 @@ std::pair<std::vector<Cone>, std::vector<Cone>> ConeColoring::color_cones(
                 "Not enough cones recieved to be colored: %ld", cones.size());
     return {};
   }
+  if (!config_.using_cone_colouring_) {
+    return {cones, {}};
+  }
   std::vector<Cone> colored_blue_cones;
   std::vector<Cone> colored_yellow_cones;
   colored_blue_cones.reserve(cones.size() / 2);
@@ -207,8 +210,6 @@ std::pair<std::vector<Cone>, std::vector<Cone>> ConeColoring::color_cones(
   //   a
   //   // suitble cone is found)
   // }
-  colored_blue_cones.erase(colored_blue_cones.begin());
-  colored_yellow_cones.erase(colored_yellow_cones.begin());
   if (colored_blue_cones.size() < 5) {
     RCLCPP_DEBUG(rclcpp::get_logger("Planning : ConeColoring"), "Not enough blue cones found: %ld",
                  colored_blue_cones.size());

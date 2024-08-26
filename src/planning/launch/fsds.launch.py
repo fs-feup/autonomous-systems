@@ -61,6 +61,36 @@ def generate_launch_description():
                 default_value="7.0",
             ),
             DeclareLaunchArgument(
+                "path_search_angle_gain",
+                description="Gain for the angle in the path search cost function",
+                default_value="9.246",
+            ),
+            DeclareLaunchArgument(
+                "path_search_distance_gain",
+                description="Gain for the distance in the path search cost function",
+                default_value="6.657",
+            ),
+            DeclareLaunchArgument(
+                "path_search_npoints_gain",
+                description="Gain for the number of cones in the path search cost funtcion",
+                default_value="20.7",
+            ),
+            DeclareLaunchArgument(
+                "path_search_angle_exponent",
+                description="Exponent on the angle in the path search cost function",
+                default_value="2.0",
+            ),
+            DeclareLaunchArgument(
+                "path_search_distance_exponent",
+                description="Exponent on the distance in the path search cost function",
+                default_value="0.698",
+            ),
+            DeclareLaunchArgument(
+                "path_search_cost_max",
+                description="Maximum allowed cost to place a cone in the path search cost function",
+                default_value="40.0",
+            ),
+            DeclareLaunchArgument(
                 "smoothing_spline_order",
                 description="Order of the spline to remove smooth the path",
                 default_value="3",
@@ -95,6 +125,11 @@ def generate_launch_description():
                 description="A pre-defined velocity planning value",
                 default_value="5",
             ),
+            DeclareLaunchArgument(
+                "using_cone_colouring",
+                description="Whether to use cone colouring or path search",
+                default_value="true",
+            ),
             Node(
                 package="planning",
                 executable="planning",
@@ -127,6 +162,36 @@ def generate_launch_description():
                         )
                     },
                     {
+                        "path_search_angle_gain": LaunchConfiguration(
+                            "path_search_angle_gain"
+                        )
+                    },
+                    {
+                        "path_search_distance_gain": LaunchConfiguration(
+                            "path_search_distance_gain"
+                        )
+                    },
+                    {
+                        "path_search_npoints_gain": LaunchConfiguration(
+                            "path_search_npoints_gain"
+                        )
+                    },
+                    {
+                        "path_search_angle_exponent": LaunchConfiguration(
+                            "path_search_angle_exponent"
+                        )
+                    },
+                    {
+                        "path_search_distance_exponent": LaunchConfiguration(
+                            "path_search_distance_exponent"
+                        )
+                    },
+                    {
+                        "path_search_cost_max": LaunchConfiguration(
+                            "path_search_cost_max"
+                        )
+                    },
+                    {
                         "smoothing_spline_order": LaunchConfiguration(
                             "smoothing_spline_order"
                         )
@@ -152,7 +217,12 @@ def generate_launch_description():
                         "pre_defined_velocity_planning": LaunchConfiguration(
                             "pre_defined_velocity_planning"
                         )
-                    }
+                    },
+                    {
+                        "using_cone_colouring": LaunchConfiguration(
+                            "using_cone_colouring"
+                        )
+                    },
                 ],
                 arguments=["--ros-args", "--log-level", "planning:=info"],
             ),
