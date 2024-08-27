@@ -5,6 +5,7 @@
 
 #include <fstream>
 #include <iostream>
+#include <rclcpp/rclcpp.hpp>
 
 DataAssociationModel::DataAssociationModel(float max_landmark_distance)
 
@@ -14,8 +15,8 @@ float DataAssociationModel::get_max_landmark_distance() const {
   return this->max_landmark_distance_;
 }
 
-float MaxLikelihood::nis_gate_ = 4.991f;  // Default value, can be overridden
-float MaxLikelihood::nd_gate_ = 20.0f;
+float MaxLikelihood::association_gate_ = 4.991f;  // Default value, can be overridden
+float MaxLikelihood::new_landmark_gate_ = 20.0f;
 MaxLikelihood::MaxLikelihood(float max_landmark_distance)
     : DataAssociationModel(max_landmark_distance) {
   if (max_landmark_distance < 1) {
@@ -34,15 +35,22 @@ int MaxLikelihood::associate_n_filter(
                                     common_lib::competition_logic::Color::BLUE));
 
     float distance_to_vehicle = (landmark_absolute - _x_vector_.segment<2>(0)).norm();
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Distance to vehicle %f",
+                distance_to_vehicle);  // Log distance to vehicle
+
     if (distance_to_vehicle > this->get_max_landmark_distance()) {
       continue;
     }
+
     int j_best = 0;
     float n_best = std::numeric_limits<int>::max();
     float outer = std::numeric_limits<int>::max();
     for (int j = 6; j < _x_vector_.size(); j += 2) {
       // get expect observation from the state vector with the observation model
+
       Eigen::Vector2f z_hat = observation_model->observation_model(_x_vector_, j);
+      RCLCPP_INFO(rclcpp::get_logger("data_association"), "Expected observation (z_hat): [%f, %f]",
+                  z_hat(0), z_hat(1));
 
       Eigen::MatrixXf h_matrix = observation_model->get_state_to_observation_matrix(
           _x_vector_, j, static_cast<unsigned int>(_x_vector_.size()));
@@ -50,13 +58,18 @@ int MaxLikelihood::associate_n_filter(
       Eigen::MatrixXf q_matrix = observation_model->get_observation_noise_covariance_matrix();
 
       Eigen::Vector2f innovation = Eigen::Vector2f(cone.position.x, cone.position.y) - z_hat;
+      RCLCPP_INFO(rclcpp::get_logger("data_association"), "Innovation: [%f, %f]", innovation(0),
+                  innovation(1));
 
       Eigen::MatrixXf s_matrix = h_matrix * _p_matrix_ * h_matrix.transpose() + q_matrix;
       // calculate nis, that means normalized innovation squared
       float nis = innovation.transpose() * s_matrix.inverse() * innovation;
+      RCLCPP_INFO(rclcpp::get_logger("data_association"), "NIS: %f", nis);
 
       float nd = nis + log(s_matrix.determinant());
-      if (nis < this->nis_gate_ && nd < n_best) {  // 4.991
+      RCLCPP_INFO(rclcpp::get_logger("data_association"), "ND: %f", nd);
+
+      if (nis < this->association_gate_ && nd < n_best) {  // 4.991
         n_best = nd;
         j_best = j;
       } else if (nis < outer) {
@@ -66,7 +79,7 @@ int MaxLikelihood::associate_n_filter(
     if (j_best != 0) {
       matched_ids.push_back(j_best);
       matched_cone_positions.push_back(Eigen::Vector2f(cone.position.x, cone.position.y));
-    } else if (outer > this->nd_gate_) {  // 20 TUNE
+    } else if (outer > this->new_landmark_gate_) {  // 20 TUNE
       new_features.push_back(Eigen::Vector2f(cone.position.x, cone.position.y));
     }
   }

@@ -83,9 +83,9 @@ Eigen::MatrixXf NormalVelocityModel::get_motion_to_state_matrix(
 
 /*----------------------IMU Velocity Model ------------------------*/
 
-Eigen::VectorXf ImuVelocityModel::predict_expected_state(const Eigen::VectorXf &expected_state,
-                                                         const MotionUpdate &motion_prediction_data,
-                                                         const double time_interval) const {
+Eigen::VectorXf ImuVelocityModel::predict_expected_state(
+    const Eigen::VectorXf &expected_state, const MotionUpdate &motion_prediction_data,
+    const double time_interval) const {  // working better than CTRA, but needs fix probably
   Eigen::VectorXf next_state = expected_state;
 
   next_state(0) += expected_state(3) * time_interval +

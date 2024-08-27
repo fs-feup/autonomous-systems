@@ -57,8 +57,8 @@ class MaxLikelihood : public DataAssociationModel {
   // bool valid_match(const float delta, const float distance_to_vehicle) const override;
 
 public:
-  static float nis_gate_;  /// normalized innovation squared gate
-  static float nd_gate_;   /// normalized distance gate (closest unmatched landmark)
+  static float association_gate_;   /// normalized innovation squared gate
+  static float new_landmark_gate_;  /// normalized distance gate (closest unmatched landmark)
 
   int associate_n_filter(const std::vector<common_lib::structures::Cone> &perception_map,
                          Eigen::VectorXf &_x_vector_, Eigen::MatrixXf &_p_matrix_,

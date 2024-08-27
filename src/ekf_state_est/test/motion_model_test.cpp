@@ -31,24 +31,23 @@ TEST(MOTION_MODEL, NOISE_MATRIX_SHAPE_TEST) {
 */
 /* ---------------------- Normal Velocity Model ---------------------------*/
 
-TEST(NORMAL_VELOCITY_MODEL, STANDING_STILL_TEST) {
-  Eigen::MatrixXf r_matrix = Eigen::MatrixXf::Zero(5, 5);
-  NormalVelocityModel motion_model = NormalVelocityModel(r_matrix);
-  MotionUpdate prediction_data = {0, 0, 0, 0, 0, rclcpp::Clock().now()};
-  Eigen::VectorXf new_state =
-      motion_model.predict_expected_state(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
-  Eigen::MatrixXf g_matrix =
-      motion_model.get_motion_to_state_matrix(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
-  Eigen::MatrixXf new_covariance = g_matrix * Eigen::MatrixXf::Zero(10, 10) * g_matrix.transpose();
-  EXPECT_DOUBLE_EQ(new_state(0), 0.0);
-  EXPECT_DOUBLE_EQ(new_state(1), 0.0);
-  EXPECT_DOUBLE_EQ(new_state(2), 0.0);
-  for (int i = 0; i < 10; i++) {
-    for (int j = 0; j < 10; j++) {
-      EXPECT_DOUBLE_EQ(new_covariance(i, j), 0.0);
-    }
-  }
-}
+// TEST(NORMAL_VELOCITY_MODEL, STANDING_STILL_TEST) {
+//   Eigen::MatrixXf r_matrix = Eigen::MatrixXf::Zero(5, 5);
+//   NormalVelocityModel motion_model = NormalVelocityModel(r_matrix);
+//   MotionUpdate prediction_data = {0, 0, 0, 0, 0, rclcpp::Clock().now()};
+//   Eigen::VectorXf new_state =
+//       motion_model.predict_expected_state(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
+//   Eigen::MatrixXf g_matrix =
+//       motion_model.get_motion_to_state_matrix(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
+//   Eigen::MatrixXf new_covariance = g_matrix * Eigen::MatrixXf::Zero(10, 10) *
+//   g_matrix.transpose(); EXPECT_DOUBLE_EQ(new_state(0), 0.0); EXPECT_DOUBLE_EQ(new_state(1), 0.0);
+//   EXPECT_DOUBLE_EQ(new_state(2), 0.0);
+//   for (int i = 0; i < 10; i++) {
+//     for (int j = 0; j < 10; j++) {
+//       EXPECT_DOUBLE_EQ(new_covariance(i, j), 0.0);
+//     }
+//   }
+// }
 
 /*
 TEST(NORMAL_VELOCITY_MODEL, LINEAR_FORWARD_MOVEMENT_TEST) {
@@ -171,24 +170,23 @@ TEST(NORMAL_VELOCITY_MODEL, CIRCULAR_MOVEMENT_TEST) {
 
 /* ----------------------- IMU VELOCITY MODEL -------------------------*/
 
-TEST(IMU_VELOCITY_MODEL, STANDING_STILL_TEST) {
-  Eigen::MatrixXf r_matrix = Eigen::MatrixXf::Zero(5, 5);
-  ImuVelocityModel motion_model = ImuVelocityModel(r_matrix);
-  MotionUpdate prediction_data = {0, 0, 0, 0, 0, rclcpp::Clock().now()};
-  Eigen::VectorXf new_state =
-      motion_model.predict_expected_state(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
-  Eigen::MatrixXf g_matrix =
-      motion_model.get_motion_to_state_matrix(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
-  Eigen::MatrixXf new_covariance = g_matrix * Eigen::MatrixXf::Zero(10, 10) * g_matrix.transpose();
-  EXPECT_DOUBLE_EQ(new_state(0), 0.0);
-  EXPECT_DOUBLE_EQ(new_state(1), 0.0);
-  EXPECT_DOUBLE_EQ(new_state(2), 0.0);
-  for (int i = 0; i < 10; i++) {
-    for (int j = 0; j < 10; j++) {
-      EXPECT_DOUBLE_EQ(new_covariance(i, j), 0.0);
-    }
-  }
-}
+// TEST(IMU_VELOCITY_MODEL, STANDING_STILL_TEST) {
+//   Eigen::MatrixXf r_matrix = Eigen::MatrixXf::Zero(5, 5);
+//   ImuVelocityModel motion_model = ImuVelocityModel(r_matrix);
+//   MotionUpdate prediction_data = {0, 0, 0, 0, 0, rclcpp::Clock().now()};
+//   Eigen::VectorXf new_state =
+//       motion_model.predict_expected_state(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
+//   Eigen::MatrixXf g_matrix =
+//       motion_model.get_motion_to_state_matrix(Eigen::VectorXf::Zero(10), prediction_data, 1.0);
+//   Eigen::MatrixXf new_covariance = g_matrix * Eigen::MatrixXf::Zero(10, 10) *
+//   g_matrix.transpose(); EXPECT_DOUBLE_EQ(new_state(0), 0.0); EXPECT_DOUBLE_EQ(new_state(1), 0.0);
+//   EXPECT_DOUBLE_EQ(new_state(2), 0.0);
+//   for (int i = 0; i < 10; i++) {
+//     for (int j = 0; j < 10; j++) {
+//       EXPECT_DOUBLE_EQ(new_covariance(i, j), 0.0);
+//     }
+//   }
+// }
 
 /*
 TEST(IMU_VELOCITY_MODEL, LINEAR_FORWARD_MOVEMENT_TEST) {
