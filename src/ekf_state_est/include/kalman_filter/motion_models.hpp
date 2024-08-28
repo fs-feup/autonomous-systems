@@ -11,8 +11,8 @@
  * @brief Struct for data retrieved by the IMU
  *
  * @param translational_velocity Translational velocity of the vehicle
- * @param translational_velocity_x Translational velocity in X axis
- * @param translational_velocity_y Translational velocity in Y axis
+ * @param acceleration_x Acceleration in X axis
+ * @param acceleration_y Acceleration in Y axis
  * @param rotational_velocity Rotational velocity of the vehicle
  * @param steering_angle Steering angle of the vehicle
  * @param last_update Timestamp of last update
