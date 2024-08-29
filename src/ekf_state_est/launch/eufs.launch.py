@@ -13,7 +13,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "data_association_limit_distance",
                 description="Maximum distance to admit landmarks",
-                default_value="10.00",
+                default_value="15.00",
             ),  # meters
             DeclareLaunchArgument(
                 "wss_noise",
