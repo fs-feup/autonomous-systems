@@ -205,10 +205,14 @@ class Evaluator(Node):
             self.get_parameter("generate_csv").get_parameter_value().bool_value
         )
 
-        # self.declare_parameter("add_text", "")
-        # self.add_text = (
-        #     self.get_parameter("add_text").get_parameter_value().bool_value
-        # )
+        # Retrieve the 'csv_suffix' parameter
+        self.declare_parameter("csv_suffix", "")
+        self.csv_suffix = (
+            self.get_parameter("csv_suffix").get_parameter_value().string_value
+        )
+
+        # Replace spaces with underscores in csv_suffix
+        self.csv_suffix = self.csv_suffix.replace(" ", "_")
 
         # Metrics over time
         self.perception_metrics = []
@@ -399,7 +403,7 @@ class Evaluator(Node):
             }
             for filename, metrics in metrics_dict.items():
                 if metrics:
-                    datetime_filename = f"{filename}_{finish_time}.csv"
+                    datetime_filename = f"{filename}_{self._adapter_name_}_{finish_time}_{self.csv_suffix}.csv"
                     self.metrics_to_csv(
                         metrics, "performance/evaluator_metrics/" + datetime_filename
                     )

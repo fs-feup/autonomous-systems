@@ -35,11 +35,11 @@ def generate_launch_description():
                 description="Whether to generate CSV files for metrics",
                 default_value="False",
             ),
-            # DeclareLaunchArgument(
-            #     "add_text",
-            #     description="Whether to generate CSV files for metrics",
-            #     default_value="",
-            # ),
+            DeclareLaunchArgument(
+                "csv_suffix",
+                description="String to add to the CSV filename",
+                default_value="",
+            ),
             Node(
                 package="evaluator",
                 executable="evaluator",
@@ -58,7 +58,7 @@ def generate_launch_description():
                         )
                     },
                     {"generate_csv": LaunchConfiguration("generate_csv")},
-                    # {"add_text": LaunchConfiguration("add_text")},
+                    {"csv_suffix": LaunchConfiguration("csv_suffix")},
                 ],
             ),
         ]
