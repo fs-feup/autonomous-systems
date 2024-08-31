@@ -15,24 +15,31 @@ def generate_launch_description():
                 description="Whether the system is using simulated perception or not",
                 default_value="True",
             ),
-
             DeclareLaunchArgument(
                 "use_simulated_se",
                 description="Whether the system is using simulated State Estimation or not",
                 default_value="True",
             ),
-
             DeclareLaunchArgument(
                 "use_simulated_planning",
                 description="Whether the system is using simulated Planning or not",
                 default_value="True",
             ),
-
             DeclareLaunchArgument(
                 "adapter",
                 description="Which simulation environment to use",
                 default_value="eufs",
             ),
+            DeclareLaunchArgument(
+                "generate_csv",
+                description="Whether to generate CSV files for metrics",
+                default_value="False",
+            ),
+            # DeclareLaunchArgument(
+            #     "add_text",
+            #     description="Whether to generate CSV files for metrics",
+            #     default_value="",
+            # ),
             Node(
                 package="evaluator",
                 executable="evaluator",
@@ -44,8 +51,14 @@ def generate_launch_description():
                             "use_simulated_perception"
                         )
                     },
-                    {"use_simulated_se" : LaunchConfiguration("use_simulated_se")},
-                    {"use_simulated_planning" : LaunchConfiguration("use_simulated_planning")}
+                    {"use_simulated_se": LaunchConfiguration("use_simulated_se")},
+                    {
+                        "use_simulated_planning": LaunchConfiguration(
+                            "use_simulated_planning"
+                        )
+                    },
+                    {"generate_csv": LaunchConfiguration("generate_csv")},
+                    # {"add_text": LaunchConfiguration("add_text")},
                 ],
             ),
         ]
