@@ -41,8 +41,8 @@ bool PathSearch::try_to_color_next_cone(
     n_current_pathpoints++;
     return true;
   } else {
-    RCLCPP_INFO(rclcpp::get_logger("PathSearch"), "Could not find next path point %i",
-                n_current_pathpoints);
+    RCLCPP_DEBUG(rclcpp::get_logger("PathSearch"), "Could not find next path point %i",
+                 n_current_pathpoints);
     return false;
   }
 }

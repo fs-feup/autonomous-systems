@@ -55,6 +55,8 @@ std::tuple<Position, int, double> PointSolver::update_closest_point(
       closest_point_velocity = pathpoint_array[i].v;
     }
   }
+  RCLCPP_INFO(rclcpp::get_logger("control"), "Closest point id: %d; number: %i", closest_point_id,
+              pathpoint_array.size());
   return std::make_tuple(closest_point, closest_point_id, closest_point_velocity);
 }
 
@@ -62,7 +64,7 @@ std::tuple<Position, double, bool> PointSolver::update_lookahead_point(
     const std::vector<custom_interfaces::msg::PathPoint> &pathpoint_array,
     int closest_point_id) const {
   Position rear_axis_point = this->vehicle_pose_.rear_axis_;
-  double ld = this->k_ * std::max(this->vehicle_pose_.velocity_, 2.0);
+  double ld = this->k_ * std::max(this->vehicle_pose_.velocity_, 2.5);
   RCLCPP_DEBUG(rclcpp::get_logger("control"), "Current ld: %f", ld);
 
   for (size_t i = 0; i < pathpoint_array.size(); i++) {
