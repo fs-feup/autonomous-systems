@@ -21,9 +21,14 @@ struct OutliersConfig {
    *
    */
   float coeffs_ratio_ = 3.0;
+  /**
+   * @brief flag to enable/disable the outliers removal
+   *
+   */
+  bool use_outlier_removal_ = true;
   OutliersConfig() = default;
-  OutliersConfig(int precision, int order, float coeffs_ratio)
-      : precision_(precision), order_(order), coeffs_ratio_(coeffs_ratio) {}
+  OutliersConfig(int precision, int order, float coeffs_ratio, bool use_outlier_removal)
+      : precision_(precision), order_(order), coeffs_ratio_(coeffs_ratio), use_outlier_removal_(use_outlier_removal) {}
 };
 
 #endif  // SRC_PLANNING_INCLUDE_CONFIG_OUTLIERS_CONFIG_HPP_
