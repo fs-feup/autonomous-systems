@@ -8,18 +8,18 @@
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="420,189,452,228,468,239,483,252,513,296,535,341,530,343,508,298,479,255,464,243,448,232,416,192"/>
 <area shape="rect" id="Node000009" href="$dd/d52/class_cone_coloring.html" title=" " alt="" coords="306,254,470,548"/>
 <area shape="poly" id="edge9_Node000009_Node000004" title=" " alt="" coords="351,191,349,215,349,237,344,237,344,215,346,190"/>
-<area shape="rect" id="Node000005" href="$d7/d4c/struct_outliers_config.html" title="struct for the configuration of the outliers removal algorithm." alt="" coords="145,35,257,161"/>
-<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="227,159,250,197,265,214,283,227,309,240,334,244,382,238,406,233,430,232,456,237,483,251,503,270,520,293,542,341,537,343,515,295,499,274,480,256,454,242,430,238,406,239,383,243,334,249,308,245,280,232,262,218,246,200,222,162"/>
+<area shape="rect" id="Node000005" href="$d7/d4c/struct_outliers_config.html" title="struct for the configuration of the outliers removal algorithm." alt="" coords="119,25,265,171"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="228,169,252,201,283,227,310,239,335,243,382,237,406,233,430,232,456,237,483,251,503,270,520,293,542,341,537,343,515,295,499,274,480,256,454,242,430,237,406,238,383,242,335,248,308,244,280,232,248,205,223,172"/>
 <area shape="rect" id="Node000010" href="$d9/d53/class_outliers.html" title="Class to deal with outliers." alt="" coords="115,341,282,461"/>
-<area shape="poly" id="edge11_Node000010_Node000005" title=" " alt="" coords="189,161,180,215,179,270,185,324,180,325,174,271,175,214,184,160"/>
+<area shape="poly" id="edge11_Node000010_Node000005" title=" " alt="" coords="184,171,180,215,181,270,186,324,181,324,175,271,175,215,179,170"/>
 <area shape="rect" id="Node000006" href="$df/d7d/struct_path_calculation_config.html" title="struct for the configuration of the outliers removal algorithm." alt="" coords="659,55,818,141"/>
 <area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="707,142,667,195,626,255,580,345,575,342,622,252,662,192,703,139"/>
 <area shape="rect" id="Node000011" href="$d0/d89/class_path_calculation.html" title="PathCalculation class for generating local paths." alt="" coords="637,348,857,454"/>
 <area shape="poly" id="edge13_Node000011_Node000006" title=" " alt="" coords="757,139,769,175,777,214,779,275,769,333,764,332,773,275,772,215,764,177,752,141"/>
-<area shape="rect" id="Node000007" href="$de/dce/struct_path_smoothing_config.html" title="struct for the configuration of the smoothing algorithm" alt="" coords="843,35,999,161"/>
-<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="895,162,868,200,851,218,832,232,803,245,776,249,725,242,701,238,677,237,652,242,626,256,606,274,590,295,569,343,564,341,586,293,602,270,622,251,650,237,677,231,702,232,726,237,775,243,801,240,829,227,848,214,864,197,891,159"/>
+<area shape="rect" id="Node000007" href="$de/dce/struct_path_smoothing_config.html" title="struct for the configuration of the smoothing algorithm" alt="" coords="843,25,999,171"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="889,172,864,205,832,232,803,245,776,249,725,242,701,238,677,237,652,242,626,256,606,274,590,295,569,343,564,341,586,293,602,270,622,251,650,237,677,231,702,232,726,237,775,243,801,240,829,227,860,201,885,169"/>
 <area shape="rect" id="Node000012" href="$d7/db7/class_path_smoothing.html" title="class that defines the path smoothing algorithm" alt="" coords="881,338,1001,464"/>
-<area shape="poly" id="edge15_Node000012_Node000007" title=" " alt="" coords="950,160,965,214,968,269,963,322,958,322,963,269,960,215,945,161"/>
+<area shape="poly" id="edge15_Node000012_Node000007" title=" " alt="" coords="954,170,965,214,968,269,963,322,958,322,963,269,960,215,948,171"/>
 <area shape="rect" id="Node000008" href="$d3/db0/struct_simulation_config.html" title="struct for the configuration of the smoothing algorithm" alt="" coords="473,38,633,158"/>
 <area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="556,158,556,341,551,341,551,158"/>
 <area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="442,547,457,586,464,607,459,609,451,588,437,549"/>

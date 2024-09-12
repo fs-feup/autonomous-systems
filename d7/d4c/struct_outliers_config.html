@@ -108,7 +108,7 @@ Collaboration diagram for OutliersConfig:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../dc/d1c/struct_outliers_config__coll__graph.png" border="0" usemap="#a_outliers_config_coll__map" alt="Collaboration graph"/></div>
 <map name="a_outliers_config_coll__map" id="a_outliers_config_coll__map">
-<area shape="rect" title="struct for the configuration of the outliers removal algorithm." alt="" coords="5,5,117,131"/>
+<area shape="rect" title="struct for the configuration of the outliers removal algorithm." alt="" coords="5,5,152,151"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -116,8 +116,8 @@ Collaboration diagram for OutliersConfig:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:af1648468445f54b76f39d4b6a161712e" id="r_af1648468445f54b76f39d4b6a161712e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d4c/struct_outliers_config.html#af1648468445f54b76f39d4b6a161712e">OutliersConfig</a> ()=default</td></tr>
 <tr class="separator:af1648468445f54b76f39d4b6a161712e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea362494bd10f6ad924e7bf7a642f1c8" id="r_aea362494bd10f6ad924e7bf7a642f1c8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d4c/struct_outliers_config.html#aea362494bd10f6ad924e7bf7a642f1c8">OutliersConfig</a> (int precision, int order, float coeffs_ratio)</td></tr>
-<tr class="separator:aea362494bd10f6ad924e7bf7a642f1c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6ca3ae09f159c9fc491938add7b41f6" id="r_ad6ca3ae09f159c9fc491938add7b41f6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d4c/struct_outliers_config.html#ad6ca3ae09f159c9fc491938add7b41f6">OutliersConfig</a> (int precision, int order, float coeffs_ratio, bool use_outlier_removal)</td></tr>
+<tr class="separator:ad6ca3ae09f159c9fc491938add7b41f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -130,6 +130,9 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a87f6800a41b116362eac3c8fdf51764a" id="r_a87f6800a41b116362eac3c8fdf51764a"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d4c/struct_outliers_config.html#a87f6800a41b116362eac3c8fdf51764a">coeffs_ratio_</a> = 3.0</td></tr>
 <tr class="memdesc:a87f6800a41b116362eac3c8fdf51764a"><td class="mdescLeft">&#160;</td><td class="mdescRight">ratio of coefficients to input points  <br /></td></tr>
 <tr class="separator:a87f6800a41b116362eac3c8fdf51764a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9bdbba1bc6b782fd5da6fe92f7441d52" id="r_a9bdbba1bc6b782fd5da6fe92f7441d52"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d4c/struct_outliers_config.html#a9bdbba1bc6b782fd5da6fe92f7441d52">use_outlier_removal_</a> = true</td></tr>
+<tr class="memdesc:a9bdbba1bc6b782fd5da6fe92f7441d52"><td class="mdescLeft">&#160;</td><td class="mdescRight">flag to enable/disable the outliers removal  <br /></td></tr>
+<tr class="separator:a9bdbba1bc6b782fd5da6fe92f7441d52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>struct for the configuration of the outliers removal algorithm. </p>
@@ -161,8 +164,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="aea362494bd10f6ad924e7bf7a642f1c8" name="aea362494bd10f6ad924e7bf7a642f1c8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aea362494bd10f6ad924e7bf7a642f1c8">&#9670;&#160;</a></span>OutliersConfig() <span class="overload">[2/2]</span></h2>
+<a id="ad6ca3ae09f159c9fc491938add7b41f6" name="ad6ca3ae09f159c9fc491938add7b41f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6ca3ae09f159c9fc491938add7b41f6">&#9670;&#160;</a></span>OutliersConfig() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -186,7 +189,13 @@ Public Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>coeffs_ratio</em>&#160;</td>
+          <td class="paramname"><em>coeffs_ratio</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>use_outlier_removal</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -201,7 +210,7 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d7/dcf/outliers__config_8hpp_source.html#l00025">25</a> of file <a class="el" href="../../d7/dcf/outliers__config_8hpp_source.html">outliers_config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/dcf/outliers__config_8hpp_source.html#l00030">30</a> of file <a class="el" href="../../d7/dcf/outliers__config_8hpp_source.html">outliers_config.hpp</a>.</p>
 
 </div>
 </div>
@@ -257,6 +266,24 @@ Public Attributes</h2></td></tr>
 <p>ratio of output cones to input cones </p>
 
 <p class="definition">Definition at line <a class="el" href="../../d7/dcf/outliers__config_8hpp_source.html#l00013">13</a> of file <a class="el" href="../../d7/dcf/outliers__config_8hpp_source.html">outliers_config.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a9bdbba1bc6b782fd5da6fe92f7441d52" name="a9bdbba1bc6b782fd5da6fe92f7441d52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9bdbba1bc6b782fd5da6fe92f7441d52">&#9670;&#160;</a></span>use_outlier_removal_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OutliersConfig::use_outlier_removal_ = true</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>flag to enable/disable the outliers removal </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d7/dcf/outliers__config_8hpp_source.html#l00028">28</a> of file <a class="el" href="../../d7/dcf/outliers__config_8hpp_source.html">outliers_config.hpp</a>.</p>
 
 </div>
 </div>

@@ -36,7 +36,7 @@ var searchData=
   ['outliers_5fspline_5forder_5f_33',['outliers_spline_order_',['../d2/deb/struct_planning_parameters.html#a73f48d0464af8da7e517f18a42936112',1,'PlanningParameters']]],
   ['outliers_5fspline_5fprecision_5f_34',['outliers_spline_precision_',['../d2/deb/struct_planning_parameters.html#a88f98ab083f2cf9c0b5bd4dea59ea4b9',1,'PlanningParameters']]],
   ['outliers_5ftests_2ecpp_35',['outliers_tests.cpp',['../db/d25/outliers__tests_8cpp.html',1,'']]],
-  ['outliersconfig_36',['outliersconfig',['../d7/d4c/struct_outliers_config.html',1,'OutliersConfig'],['../d7/d4c/struct_outliers_config.html#aea362494bd10f6ad924e7bf7a642f1c8',1,'OutliersConfig::OutliersConfig(int precision, int order, float coeffs_ratio)'],['../d7/d4c/struct_outliers_config.html#af1648468445f54b76f39d4b6a161712e',1,'OutliersConfig::OutliersConfig()=default']]],
+  ['outliersconfig_36',['outliersconfig',['../d7/d4c/struct_outliers_config.html',1,'OutliersConfig'],['../d7/d4c/struct_outliers_config.html#ad6ca3ae09f159c9fc491938add7b41f6',1,'OutliersConfig::OutliersConfig(int precision, int order, float coeffs_ratio, bool use_outlier_removal)'],['../d7/d4c/struct_outliers_config.html#af1648468445f54b76f39d4b6a161712e',1,'OutliersConfig::OutliersConfig()=default']]],
   ['output_37',['output',['../d7/d4e/classtest__perception__metrics_1_1_test_evaluator_methods.html#a7514266b6f7e0b3d5a4c9a4634ccb39e',1,'test_perception_metrics::TestEvaluatorMethods']]],
   ['output_5fstatistics_5fpath_5ffile_38',['output_statistics_path_file',['../d3/d0d/class_perception_performance_test.html#a6b899a2f558737fc9f64bb40152c955a',1,'PerceptionPerformanceTest']]],
   ['ox_5fvalues0_39',['ox_values0',['../d7/dc1/namespacespline.html#a1addd17c915676a98334518e5ea6e98b',1,'spline']]],

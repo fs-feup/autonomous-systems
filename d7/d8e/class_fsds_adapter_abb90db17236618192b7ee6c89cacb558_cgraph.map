@@ -8,7 +8,7 @@
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="413,330,445,330,445,335,413,335"/>
 <area shape="rect" id="Node000005" href="$d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the planning algorithms." alt="" coords="698,312,849,353"/>
 <area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="651,330,683,330,683,335,651,335"/>
-<area shape="rect" id="Node000006" href="$d9/d53/class_outliers.html#acd98cdeece738c4dce18848ab35bdb81" title="function to remove outliers from a set of cones" alt="" coords="943,283,1086,323"/>
+<area shape="rect" id="Node000006" href="$d9/d53/class_outliers.html#aec8b9b17a4cc2ca754244d7fe8283610" title="function to remove outliers from a set of cones" alt="" coords="943,283,1086,323"/>
 <area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="849,321,927,311,928,316,849,326"/>
 <area shape="rect" id="Node000008" href="$dd/d52/class_cone_coloring.html#ae156749a11928c8f3d103bfa8410ecf8" title="color all cones" alt="" coords="948,128,1081,169"/>
 <area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="789,310,834,259,863,230,895,203,946,173,949,178,898,208,867,234,838,262,793,314"/>

@@ -2,7 +2,7 @@
 <area shape="rect" id="Node000001" title="Callback for vehicle localization updates (undefined)." alt="" coords="5,312,195,353"/>
 <area shape="rect" id="Node000002" href="$d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the planning algorithms." alt="" coords="243,312,393,353"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="195,330,227,330,227,335,195,335"/>
-<area shape="rect" id="Node000003" href="$d9/d53/class_outliers.html#acd98cdeece738c4dce18848ab35bdb81" title="function to remove outliers from a set of cones" alt="" coords="488,283,630,323"/>
+<area shape="rect" id="Node000003" href="$d9/d53/class_outliers.html#aec8b9b17a4cc2ca754244d7fe8283610" title="function to remove outliers from a set of cones" alt="" coords="488,283,630,323"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="393,321,472,311,472,316,394,326"/>
 <area shape="rect" id="Node000005" href="$dd/d52/class_cone_coloring.html#ae156749a11928c8f3d103bfa8410ecf8" title="color all cones" alt="" coords="493,128,625,169"/>
 <area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="333,310,378,259,408,230,439,203,490,173,493,178,443,208,411,234,382,262,337,314"/>

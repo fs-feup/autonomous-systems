@@ -16,5 +16,7 @@ var struct_planning_parameters =
     [ "smoothing_spline_coeffs_ratio_", "d2/deb/struct_planning_parameters.html#a7b805d2fc7f0c719e605b163f8fc82cb", null ],
     [ "smoothing_spline_order_", "d2/deb/struct_planning_parameters.html#a8d676b1a478bc92eaefc08061d987848", null ],
     [ "smoothing_spline_precision_", "d2/deb/struct_planning_parameters.html#aa3dc1d308628d494337ff00701830501", null ],
+    [ "use_outlier_removal_", "d2/deb/struct_planning_parameters.html#a97ebc5cf0008b25c273ddcceb7b5bf1b", null ],
+    [ "use_path_smoothing_", "d2/deb/struct_planning_parameters.html#a69e172628329827a3b9bea5c960ca0df", null ],
     [ "using_simulated_se_", "d2/deb/struct_planning_parameters.html#af4f254eae6518082565ecc11eb09d527", null ]
 ];

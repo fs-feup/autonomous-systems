@@ -1,6 +1,6 @@
 <map id="TEST" name="TEST">
 <area shape="rect" id="Node000001" title="simple case in which there are cones only in the left size and no significant outliers" alt="" coords="5,96,60,121"/>
-<area shape="rect" id="Node000002" href="$d9/d53/class_outliers.html#acd98cdeece738c4dce18848ab35bdb81" title="function to remove outliers from a set of cones" alt="" coords="126,5,268,46"/>
+<area shape="rect" id="Node000002" href="$d9/d53/class_outliers.html#aec8b9b17a4cc2ca754244d7fe8283610" title="function to remove outliers from a set of cones" alt="" coords="126,5,268,46"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="49,93,106,55,117,50,119,55,109,60,52,97"/>
 <area shape="rect" id="Node000004" href="$d0/d09/planning_2test_2test__utils_2utils_8cpp.html#abc87a9fd0dfbca5b67ce5428a965efa9" title="Retrieves the max consecutive distance between adjacent cones in a vector." alt="" coords="108,70,286,96"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="60,102,94,96,95,101,61,107"/>

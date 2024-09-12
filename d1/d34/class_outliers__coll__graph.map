@@ -1,5 +1,5 @@
 <map id="Outliers" name="Outliers">
-<area shape="rect" id="Node000001" title="Class to deal with outliers." alt="" coords="5,194,172,314"/>
-<area shape="rect" id="Node000002" href="$d7/d4c/struct_outliers_config.html" title="struct for the configuration of the outliers removal algorithm." alt="" coords="33,5,145,131"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="91,130,91,177,86,177,86,130"/>
+<area shape="rect" id="Node000001" title="Class to deal with outliers." alt="" coords="5,214,172,334"/>
+<area shape="rect" id="Node000002" href="$d7/d4c/struct_outliers_config.html" title="struct for the configuration of the outliers removal algorithm." alt="" coords="15,5,162,151"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="91,151,91,197,86,197,86,151"/>
 </map>

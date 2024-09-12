@@ -35,7 +35,7 @@ var searchData=
   ['anti_5fwind_5fup_32',['anti_wind_up',['../d6/d5a/class_p_i_d.html#aa587fab53433af6127bbc5c7fdf50a35',1,'PID']]],
   ['anti_5fwindup_5f_33',['anti_windup_',['../d6/d5a/class_p_i_d.html#a5af2e0873be2f52d2e6874b6238abd98',1,'PID']]],
   ['app_34',['app',['../df/d91/namespacedashboard.html#a0dc4d8c06bb063b02c536005f36adc7c',1,'dashboard']]],
-  ['approximate_5fcones_5fwith_5fspline_35',['approximate_cones_with_spline',['../d9/d53/class_outliers.html#acd98cdeece738c4dce18848ab35bdb81',1,'Outliers']]],
+  ['approximate_5fcones_5fwith_5fspline_35',['approximate_cones_with_spline',['../d9/d53/class_outliers.html#aec8b9b17a4cc2ca754244d7fe8283610',1,'Outliers']]],
   ['autocross_36',['AUTOCROSS',['../d9/d2b/namespacecommon__lib_1_1competition__logic.html#adc523f54f1498f443c97303976f40140a748105e3604329b8be29b48c8de915f7',1,'common_lib::competition_logic']]],
   ['autonomous_20systems_37',['autonomous systems',['../index.html',1,'Formula Student Autonomous Systems'],['../index.html#autotoc_md0',1,'FS-FEUP Autonomous Systems']]],
   ['available_5fdashboards_38',['available_dashboards',['../df/d91/namespacedashboard.html#a362e831daf55963e9cbeb65a1f76d7d6',1,'dashboard']]],
