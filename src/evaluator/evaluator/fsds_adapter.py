@@ -17,7 +17,7 @@ import rclpy
 
 class FSDSAdapter(Adapter):
     """!
-    Adapter class for adapting/synchronizing computations' data with ground truth.
+    Adapter class for adapting/synchronizing computations' data with ground truth when using the FSDS simulator.
     """
 
     def __init__(self, node: rclpy.node.Node):
@@ -92,17 +92,15 @@ class FSDSAdapter(Adapter):
         self.node.compute_and_publish_perception(
             perception_output, perception_ground_truth
         )
-    
-    def odometry_callback(
-        self, odometry: Odometry
-    ):
+
+    def odometry_callback(self, odometry: Odometry):
         """!
         Callback function to mark the planning's initial timestamp
 
         Args:
             odometry (Odometry): Behicle's odometry information.
         """
-        
+
         if self.node.use_simulated_se_:
             self.node.map_receive_time_ = datetime.datetime.now()
 
