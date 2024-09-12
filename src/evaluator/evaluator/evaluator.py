@@ -45,12 +45,18 @@ import signal
 
 class Evaluator(Node):
     """!
-    A ROS2 node for computing and publishing system's metrics
+    A ROS2 node for computing and publishing the system's real-time metrics
     """
 
-    def __init__(self):
-        """!
-        Initializes the Evaluator node and creates the subscriptions/adapters
+    def __init__(self) -> None:
+        """
+        Initializes the Evaluator Node.
+        This function sets up the necessary parameters, subscriptions, and publishers for the Evaluator Node.
+        It also initializes variables for storing metrics over time.
+        Parameters:
+            None
+        Returns:
+            None
         """
         super().__init__("evaluator")
         self.get_logger().info("Evaluator Node has started")
@@ -365,13 +371,26 @@ class Evaluator(Node):
 
         signal.signal(signal.SIGINT, self.signal_handler)
 
-    def signal_handler(self, sig, frame):
+    def signal_handler(self, sig: int, frame) -> None:
         """!
         Writes metrics to csv and exits when Ctrl+C is pressed.
+        This function is triggered when the program receives a termination signal (e.g., SIGINT or SIGTERM)
+        and it saves the collected metrics to CSV files, then exits the program with a status code of 0.
+        The metrics are saved in separate CSV files based on their category.
 
         Args:
-            sig (int): Signal number.
-            frame (frame): Current stack frame.
+            sig (int): The signal number. (not used in this function)
+            frame (frame): The current stack frame. (not used in this function)
+        Note:
+            - Metrics are saved in the "performance/evaluator_metrics" directory as "<metric_name>_<timestamp>.csv".
+            - If a category has no metrics, no CSV file will be created for that category.
+        Example:
+            # Create an instance of the Evaluator class
+            evaluator = Evaluator()
+            # Register the signal handler function
+            signal.signal(signal.SIGINT, evaluator.signal_handler)
+            # Start the program
+            evaluator.run()
         """
 
         finish_time = datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
@@ -394,13 +413,14 @@ class Evaluator(Node):
                 )
         sys.exit(0)
 
-    def metrics_to_csv(self, metrics, filename):
-        """!
+    def metrics_to_csv(self, metrics: list, filename: str) -> None:
+        """
         Converts metrics to csv and writes them to a file.
-
         Args:
-            metrics (list): List of metrics dictionaries.
-            filename (str): Name of the file to write the metrics to.
+            metrics (list): A list of dictionaries representing the metrics.
+            filename (str): The name of the CSV file to write the metrics to.
+        Returns:
+            None
         """
 
         # Add 'time' key to each metric
@@ -416,45 +436,52 @@ class Evaluator(Node):
             writer.writeheader()
             writer.writerows(metrics)
 
-    def correction_step_time_callback(self, msg: Float64):
+    def correction_step_time_callback(self, msg: Float64) -> None:
         """!
-        Callback function to store the correction step time.
+        Callback function to store the execution time of the correction step.
 
         Args:
-            msg (Float64): Correction step time.
+            msg (Float64): Message containing the correction step execution time.
+        Returns:
+            None
         """
         self._se_correction_execution_time_.append(
             {"timestamp": datetime.datetime.now(), "execution_time": msg.data}
         )
 
-    def prediction_step_time_callback(self, msg: Float64):
-        """!
-        Callback function to store the prediction step time.
-
+    def prediction_step_time_callback(self, msg: Float64) -> None:
+        """
+        Callback function to store the execution time of the prediction step.
         Args:
-            msg (Float64): Prediction step time.
+            msg (Float64): Message containing the prediction step execution time.
+        Returns:
+            None
         """
         self._se_prediction_execution_time_.append(
             {"timestamp": datetime.datetime.now(), "execution_time": msg.data}
         )
 
-    def perception_execution_time_callback(self, msg: Float64):
+    def perception_execution_time_callback(self, msg: Float64) -> None:
         """!
         Callback function to store the perception execution time.
 
         Args:
-            msg (Float64): Perception execution time.
+            msg (Float64): Message containing the Perception execution time.
+        Returns:
+            None
         """
         self._perception_execution_time_.append(
             {"timestamp": datetime.datetime.now(), "execution_time": msg.data}
         )
 
-    def planning_execution_time_callback(self, msg: Float64):
+    def planning_execution_time_callback(self, msg: Float64) -> None:
         """!
         Callback function to store the planning execution time.
 
         Args:
-            msg (Float64): planning execution time.
+            msg (Float64): Message containing the planning execution time.
+        Returns:
+            None
         """
         self._planning_execution_time_.append(
             {"timestamp": datetime.datetime.now(), "execution_time": msg.data}
@@ -800,27 +827,27 @@ class Evaluator(Node):
         Computes planning metrics and publishes them.
 
         Args:
-            msg (PathPointArray): Path points array message.
+            msg (PathPointArray): Path calculated by the Planning module.
         """
         self.get_logger().debug("Received planning")
 
         # Compute instantaneous planning metrics
-        actual_path: np.ndarray = format_path_point_array_msg(msg)
+        planning_output: np.ndarray = format_path_point_array_msg(msg)
         expected_path: np.ndarray = format_path_point_array_msg(self.planning_mock)
 
-        if len(actual_path) == 0 or len(expected_path) == 0:
+        if len(planning_output) == 0 or len(expected_path) == 0:
             self.get_logger().debug("Path info missing")
             return
 
         mean_difference = Float32()
-        mean_difference.data = get_average_difference(actual_path, expected_path)
+        mean_difference.data = get_average_difference(planning_output, expected_path)
         mean_squared_difference = Float32()
         mean_squared_difference.data = get_mean_squared_difference(
-            actual_path, expected_path
+            planning_output, expected_path
         )
         root_mean_squared_difference = Float32()
         root_mean_squared_difference.data = sqrt(
-            get_mean_squared_difference(actual_path, expected_path)
+            get_mean_squared_difference(planning_output, expected_path)
         )
 
         self.get_logger().debug(
@@ -842,12 +869,14 @@ class Evaluator(Node):
         )
 
         # Compute planning metrics over time
-        self._planning_sum_error += get_average_difference(actual_path, expected_path)
+        self._planning_sum_error += get_average_difference(
+            planning_output, expected_path
+        )
         self._planning_squared_sum_error += get_mean_squared_difference(
-            actual_path, expected_path
+            planning_output, expected_path
         )
         self._planning_mean_root_squared_sum_error += get_mean_squared_difference(
-            actual_path, expected_path
+            planning_output, expected_path
         ) ** (1 / 2)
         self._planning_count += 1
         mean_mean_error = Float32()
@@ -885,7 +914,7 @@ class Evaluator(Node):
         Stores the path planning ground truth from mocker node.
 
         Args:
-            msg (PathPointArray): Path points array message.
+            msg (PathPointArray): message containing path ground truth.
         """
         self.get_logger().debug("Received GT planning")
         self.planning_mock: PathPointArray = msg
@@ -1051,6 +1080,11 @@ class Evaluator(Node):
 
 
 def main(args=None):
+    """
+    Main function for the evaluator module.
+    Args:
+        args (list): Optional command-line arguments.
+    """
     rclpy.init(args=args)
     node = Evaluator()
     rclpy.spin(node)
