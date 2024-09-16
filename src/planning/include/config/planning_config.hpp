@@ -23,6 +23,8 @@ struct PlanningParameters {
   int smoothing_spline_precision_;
   bool publishing_visualization_msgs_;
   bool using_simulated_se_;
+  bool use_outlier_removal_;
+  bool use_path_smoothing_;
   long double desired_velocity_;
   std::string map_frame_id_;
 };
@@ -50,12 +52,14 @@ struct PlanningConfig {
     outliers_.order_ = params.outliers_spline_order_;
     outliers_.precision_ = params.outliers_spline_precision_;
     outliers_.coeffs_ratio_ = params.outliers_spline_coeffs_ratio_;
+    outliers_.use_outlier_removal_ = params.use_outlier_removal_;
 
     path_calculation_.dist_threshold_ = params.path_calculation_dist_threshold_;
 
     smoothing_.order_ = params.smoothing_spline_order_;
     smoothing_.precision_ = params.smoothing_spline_precision_;
     smoothing_.coeffs_ratio_ = params.smoothing_spline_coeffs_ratio_;
+    smoothing_.use_path_smoothing_ = params.use_path_smoothing_;
 
     simulation_.publishing_visualization_msgs_ = params.publishing_visualization_msgs_;
     simulation_.using_simulated_se_ = params.using_simulated_se_;
