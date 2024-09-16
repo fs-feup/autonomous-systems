@@ -50,7 +50,9 @@ add_executable(${PROJECT_NAME} src/main.cpp ${IMPLEMENTATION_FILES})
 ament_target_dependencies(ekf_state_est ${PACKAGES} Eigen3)
 target_include_directories(${PROJECT_NAME} PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:include>)
+  $<INSTALL_INTERFACE:include>
+  ${CMAKE_CURRENT_SOURCE_DIR}/common_lib/structures  
+)
 
 target_compile_features(ekf_state_est PUBLIC c_std_99 cxx_std_17)
 
@@ -84,7 +86,9 @@ if(BUILD_TESTING)
   ament_target_dependencies(${PROJECT_NAME}_test ${PACKAGES})
   target_include_directories(${PROJECT_NAME}_test PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    $<INSTALL_INTERFACE:include>)
+    $<INSTALL_INTERFACE:include>
+    ${CMAKE_CURRENT_SOURCE_DIR}/common_lib/structures  
+  )
 
   install(TARGETS ${PROJECT_NAME}_test DESTINATION lib/${PROJECT_NAME})
 endif()
