@@ -91,11 +91,148 @@ $(document).ready(function(){initNavTree('d3/dc5/slam__test_8cpp.html','../../')
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">slam_test.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-
+<div class="textblock"><code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;thread&gt;</code><br />
+<code>#include &quot;<a class="el" href="../../d5/d13/common__lib_2include_2common__lib_2structures_2cone_8hpp_source.html">common_lib/structures/cone.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d5/d91/position_8hpp_source.html">common_lib/structures/position.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../df/d53/vehicle__state_8hpp_source.html">common_lib/structures/vehicle_state.hpp</a>&quot;</code><br />
+<code>#include &quot;gtest/gtest.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d5/d5e/ekf_8hpp_source.html">kalman_filter/ekf.hpp</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for slam_test.cpp:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d5/dd3/slam__test_8cpp__incl.png" border="0" usemap="#asrc_2ekf__state__est_2test_2slam__test_8cpp" alt=""/></div>
+<map name="asrc_2ekf__state__est_2test_2slam__test_8cpp" id="asrc_2ekf__state__est_2test_2slam__test_8cpp">
+<area shape="rect" title=" " alt="" coords="855,5,1003,46"/>
+<area shape="rect" title=" " alt="" coords="1014,264,1081,290"/>
+<area shape="poly" title=" " alt="" coords="941,45,1038,249,1033,251,936,48"/>
+<area shape="rect" title=" " alt="" coords="1068,94,1126,120"/>
+<area shape="poly" title=" " alt="" coords="972,44,1059,85,1056,89,970,49"/>
+<area shape="rect" href="../../d5/d13/common__lib_2include_2common__lib_2structures_2cone_8hpp.html" title=" " alt="" coords="836,256,990,297"/>
+<area shape="poly" title=" " alt="" coords="930,47,918,241,913,241,925,46"/>
+<area shape="rect" href="../../d5/d91/position_8hpp.html" title=" " alt="" coords="316,345,470,386"/>
+<area shape="poly" title=" " alt="" coords="855,35,648,55,520,73,388,96,261,126,151,162,104,183,65,206,35,231,15,258,8,278,9,286,15,295,33,310,60,322,133,340,219,352,301,358,301,364,218,357,132,346,58,327,30,314,11,299,4,288,3,277,11,255,32,227,62,202,102,179,149,157,260,121,387,91,519,68,648,50,854,30"/>
+<area shape="rect" href="../../df/d53/vehicle__state_8hpp.html" title=" " alt="" coords="156,168,310,208"/>
+<area shape="poly" title=" " alt="" coords="855,47,326,168,324,163,854,41"/>
+<area shape="rect" title=" " alt="" coords="1150,94,1244,120"/>
+<area shape="poly" title=" " alt="" coords="997,44,1142,87,1141,92,995,49"/>
+<area shape="rect" href="../../d5/d5e/ekf_8hpp.html" title=" " alt="" coords="710,94,850,120"/>
+<area shape="poly" title=" " alt="" coords="893,49,817,89,815,84,891,44"/>
+<area shape="rect" title=" " alt="" coords="1088,353,1146,378"/>
+<area shape="poly" title=" " alt="" coords="964,295,1078,343,1080,343,1077,348,1076,347,962,300"/>
+<area shape="rect" title=" " alt="" coords="494,434,572,459"/>
+<area shape="poly" title=" " alt="" coords="836,298,709,328,635,347,611,364,589,383,553,423,549,419,585,380,608,360,633,343,708,323,835,293"/>
+<area shape="rect" title=" " alt="" coords="993,353,1065,378"/>
+<area shape="poly" title=" " alt="" coords="941,295,1003,341,1000,346,938,300"/>
+<area shape="rect" title=" " alt="" coords="1157,434,1210,459"/>
+<area shape="poly" title=" " alt="" coords="991,293,1095,319,1136,332,1159,343,1171,360,1180,380,1186,418,1181,419,1174,381,1167,363,1155,347,1134,337,1093,324,989,298"/>
+<area shape="rect" href="../../d6/dfd/color_8hpp.html" title=" " alt="" coords="647,345,809,386"/>
+<area shape="poly" title=" " alt="" coords="872,300,784,341,782,336,870,295"/>
+<area shape="poly" title=" " alt="" coords="837,297,824,300,644,330,485,354,485,349,643,325,823,294,836,292"/>
+<area shape="poly" title=" " alt="" coords="810,381,822,383,1142,436,1142,441,821,388,809,386"/>
+<area shape="rect" title=" " alt="" coords="895,434,942,459"/>
+<area shape="poly" title=" " alt="" coords="776,384,882,427,880,432,774,389"/>
+<area shape="poly" title=" " alt="" coords="429,384,500,423,497,428,427,389"/>
+<area shape="rect" title=" " alt="" coords="203,264,255,290"/>
+<area shape="poly" title=" " alt="" coords="235,209,233,249,228,248,229,209"/>
+<area shape="rect" href="../../de/d59/pose_8hpp.html" title=" " alt="" coords="26,256,179,297"/>
+<area shape="poly" title=" " alt="" coords="205,211,146,250,143,245,202,207"/>
+<area shape="poly" title=" " alt="" coords="169,295,313,338,312,343,168,300"/>
+<area shape="poly" title=" " alt="" coords="804,118,888,165,1020,252,1017,257,885,170,801,123"/>
+<area shape="poly" title=" " alt="" coords="800,118,827,139,855,166,881,204,901,241,896,243,877,206,851,169,824,143,797,122"/>
+<area shape="poly" title=" " alt="" coords="710,120,349,170,325,174,325,169,349,165,709,115"/>
+<area shape="rect" title=" " alt="" coords="278,264,404,290"/>
+<area shape="poly" title=" " alt="" coords="709,114,654,119,592,130,528,146,466,170,436,188,407,210,363,254,359,250,404,206,433,184,464,165,526,141,591,124,654,114,709,108"/>
+<area shape="rect" title=" " alt="" coords="427,264,522,290"/>
+<area shape="poly" title=" " alt="" coords="709,116,646,123,580,134,524,149,503,159,488,169,477,187,472,207,472,248,467,248,467,207,473,185,484,166,500,154,522,144,579,128,645,117,709,110"/>
+<area shape="rect" title=" " alt="" coords="515,175,613,201"/>
+<area shape="poly" title=" " alt="" coords="747,123,612,172,610,167,746,118"/>
+<area shape="rect" title=" " alt="" coords="1413,264,1533,290"/>
+<area shape="poly" title=" " alt="" coords="851,109,1098,128,1225,144,1276,154,1315,165,1355,183,1392,206,1450,251,1447,255,1389,210,1352,188,1313,170,1275,159,1224,150,1098,134,850,114"/>
+<area shape="rect" title=" " alt="" coords="636,175,694,201"/>
+<area shape="poly" title=" " alt="" coords="764,122,696,168,693,164,761,118"/>
+<area shape="rect" href="../../dc/de2/mission__logic_8hpp.html" title=" " alt="" coords="1323,345,1485,386"/>
+<area shape="poly" title=" " alt="" coords="850,107,1023,115,1128,124,1237,138,1340,157,1431,182,1470,197,1503,214,1529,233,1547,255,1555,277,1547,298,1525,323,1498,341,1495,336,1522,319,1543,296,1550,277,1543,258,1525,237,1500,219,1468,202,1430,187,1339,162,1236,143,1128,129,1022,120,850,112"/>
+<area shape="rect" href="../../da/d49/data__association_8hpp.html" title=" " alt="" coords="718,168,841,208"/>
+<area shape="poly" title=" " alt="" coords="782,120,782,152,777,152,777,120"/>
+<area shape="rect" href="../../d9/def/observation__models_8hpp.html" title=" " alt="" coords="646,256,812,297"/>
+<area shape="poly" title=" " alt="" coords="710,116,650,123,588,134,536,149,517,159,504,169,495,187,496,202,505,215,522,227,572,247,631,260,630,265,571,252,520,232,502,219,491,204,490,186,500,166,514,154,534,144,587,129,649,118,709,111"/>
+<area shape="rect" href="../../df/dc4/motion__models_8hpp.html" title=" " alt="" coords="1166,168,1303,208"/>
+<area shape="poly" title=" " alt="" coords="850,118,1151,170,1150,175,849,123"/>
+<area shape="poly" title=" " alt="" coords="1350,389,1226,433,1224,428,1348,384"/>
+<area shape="poly" title=" " alt="" coords="1322,385,1304,388,957,442,957,437,1303,383,1321,380"/>
+<area shape="rect" title=" " alt="" coords="1291,434,1402,459"/>
+<area shape="poly" title=" " alt="" coords="1392,388,1366,422,1362,419,1387,384"/>
+<area shape="rect" title=" " alt="" coords="1425,434,1625,459"/>
+<area shape="poly" title=" " alt="" coords="1435,384,1495,423,1492,427,1432,388"/>
+<area shape="poly" title=" " alt="" coords="843,204,1002,254,1006,255,1004,260,1000,259,841,209"/>
+<area shape="poly" title=" " alt="" coords="811,207,872,246,869,250,809,211"/>
+<area shape="poly" title=" " alt="" coords="718,211,655,234,629,246,612,258,583,296,562,340,548,383,540,419,535,418,543,382,557,338,578,294,609,254,627,242,653,229,717,206"/>
+<area shape="poly" title=" " alt="" coords="722,211,670,234,649,246,637,258,619,292,612,322,617,352,636,384,652,396,677,407,743,424,816,434,880,440,880,446,816,440,742,429,675,412,649,401,632,387,612,354,607,322,614,290,632,255,646,242,667,229,720,206"/>
+<area shape="poly" title=" " alt="" coords="718,208,706,211,624,226,561,235,497,244,416,259,401,262,400,257,415,254,496,239,560,230,624,221,705,206,717,203"/>
+<area shape="poly" title=" " alt="" coords="718,209,540,259,531,262,530,256,539,254,717,204"/>
+<area shape="poly" title=" " alt="" coords="771,210,751,244,746,241,766,207"/>
+<area shape="poly" title=" " alt="" coords="731,298,731,330,726,329,726,297"/>
+<area shape="poly" title=" " alt="" coords="653,300,485,343,484,338,652,295"/>
+<area shape="rect" title=" " alt="" coords="833,353,969,378"/>
+<area shape="poly" title=" " alt="" coords="769,295,865,343,862,348,767,300"/>
+<area shape="poly" title=" " alt="" coords="1193,211,1089,259,1086,255,1191,206"/>
+<area shape="poly" title=" " alt="" coords="1236,209,1230,248,1218,297,1195,347,1179,369,1158,388,1126,400,1070,411,909,428,731,439,588,446,587,441,731,434,909,422,1069,406,1125,395,1156,383,1175,365,1190,344,1213,295,1225,247,1231,209"/>
+<area shape="poly" title=" " alt="" coords="1247,208,1262,245,1274,292,1277,317,1275,342,1268,366,1255,387,1234,403,1203,416,1121,433,1032,443,957,447,957,442,1032,438,1121,428,1201,411,1232,399,1251,384,1263,364,1270,341,1271,317,1269,293,1257,246,1242,210"/>
+<area shape="poly" title=" " alt="" coords="1289,206,1426,256,1424,261,1288,211"/>
+<area shape="poly" title=" " alt="" coords="1215,211,1162,255,1094,299,1028,329,965,350,963,345,1026,324,1092,295,1159,250,1212,207"/>
+<area shape="rect" title=" " alt="" coords="1323,264,1389,290"/>
+<area shape="poly" title=" " alt="" coords="1263,207,1328,252,1325,257,1260,211"/>
+</map>
+</div>
+</div>
 <p><a href="../../d3/dc5/slam__test_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:aa751639fa208fe991a3ba5969c0daa28" id="r_aa751639fa208fe991a3ba5969c0daa28"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dc5/slam__test_8cpp.html#aa751639fa208fe991a3ba5969c0daa28">TEST</a> (EKF_SLAM, LINEAR_MOVEMENT_INTEGRITY_TEST)</td></tr>
+<tr class="memdesc:aa751639fa208fe991a3ba5969c0daa28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test the EKF SLAM algorithm in a linear movement.  <br /></td></tr>
+<tr class="separator:aa751639fa208fe991a3ba5969c0daa28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="aa751639fa208fe991a3ba5969c0daa28" name="aa751639fa208fe991a3ba5969c0daa28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa751639fa208fe991a3ba5969c0daa28">&#9670;&#160;</a></span>TEST()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">EKF_SLAM&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LINEAR_MOVEMENT_INTEGRITY_TEST&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Test the EKF SLAM algorithm in a linear movement. </p>
+<p>This test aims to check if the EKF SLAM is not commiting any atrocity in terms of precision or any calculation errors. The test simulates a very simple linear movement with constant velocity </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d3/dc5/slam__test_8cpp_source.html#l00019">19</a> of file <a class="el" href="../../d3/dc5/slam__test_8cpp_source.html">slam_test.cpp</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

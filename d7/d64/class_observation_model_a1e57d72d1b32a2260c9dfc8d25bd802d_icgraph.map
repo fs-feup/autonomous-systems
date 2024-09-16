@@ -1,11 +1,27 @@
 <map id="ObservationModel::inverse_observation_model" name="ObservationModel::inverse_observation_model">
-<area shape="rect" id="Node000001" title="Calculate landmark position from observation." alt="" coords="108,73,282,113"/>
-<area shape="rect" id="Node000002" href="$db/d09/observation__model__test_8cpp.html#ace83b03e85ae2ce2ae7e32c548597d3f" title="Test the observation model in a scenario where the vehicle is always aligned with the x axis." alt="" coords="5,5,60,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="134,68,59,33,61,28,136,63"/>
-<area shape="rect" id="Node000003" href="$db/d09/observation__model__test_8cpp.html#a039756d7cb68185518077e1c2dc6c2fc" title="45 degrees to the left" alt="" coords="5,55,60,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="92,79,60,74,61,69,93,74"/>
-<area shape="rect" id="Node000004" href="$db/d09/observation__model__test_8cpp.html#a0bdecc4af5092c7e5e1a10331a04399c" title="Straight forward 360 degrees." alt="" coords="5,104,60,130"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="93,111,61,115,60,110,92,105"/>
-<area shape="rect" id="Node000005" href="$db/d09/observation__model__test_8cpp.html#a3ad774be8af4a0c5d879a015aa4c2167" title="90 degrees to the right" alt="" coords="5,153,60,179"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="136,122,61,156,59,152,133,118"/>
+<area shape="rect" id="Node000001" title="Calculate landmark position from observation." alt="" coords="322,253,496,293"/>
+<area shape="rect" id="Node000002" href="$dd/d06/class_max_likelihood.html#a911db655cde119a889e7a0aa7e0773b2" title="normalized distance gate (closest unmatched landmark)" alt="" coords="108,146,274,187"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="359,247,273,201,247,189,250,185,275,196,362,242"/>
+<area shape="rect" id="Node000010" href="$db/d09/observation__model__test_8cpp.html#ace83b03e85ae2ce2ae7e32c548597d3f" title="Test the observation model in a scenario where the vehicle is always aligned with the x axis." alt="" coords="164,211,218,236"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="306,252,218,232,219,227,307,247"/>
+<area shape="rect" id="Node000011" href="$db/d09/observation__model__test_8cpp.html#a039756d7cb68185518077e1c2dc6c2fc" title="45 degrees to the left" alt="" coords="164,260,218,286"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="306,276,218,276,218,270,306,270"/>
+<area shape="rect" id="Node000012" href="$db/d09/observation__model__test_8cpp.html#a0bdecc4af5092c7e5e1a10331a04399c" title="Straight forward 360 degrees." alt="" coords="164,309,218,335"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="307,299,219,319,218,314,306,293"/>
+<area shape="rect" id="Node000013" href="$db/d09/observation__model__test_8cpp.html#a3ad774be8af4a0c5d879a015aa4c2167" title="90 degrees to the right" alt="" coords="164,359,218,384"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="364,304,321,328,275,350,219,368,218,363,273,345,319,323,361,299"/>
+<area shape="rect" id="Node000003" href="$dc/dd5/data__association__test_8cpp.html#ad8e377318ba077cbaf50154f855e1415" title="Test case for when a landmark has a near mismatch." alt="" coords="5,5,60,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="155,137,58,44,46,33,50,29,61,40,159,133"/>
+<area shape="rect" id="Node000004" href="$dc/dd5/data__association__test_8cpp.html#a286e34fe3857b5930a1c5c51f13fe666" title="Test case for when a landmark has a near match." alt="" coords="5,55,60,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="142,139,53,83,56,79,145,135"/>
+<area shape="rect" id="Node000005" href="$dc/dd5/data__association__test_8cpp.html#a851f8c5b4d5c46708f7cbf11b6fe7b78" title="Test case for when a landmark is not in the state yet." alt="" coords="5,104,60,130"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="108,143,59,128,61,123,110,138"/>
+<area shape="rect" id="Node000006" href="$dc/dd5/data__association__test_8cpp.html#a2acf2f8bd32e8e9dac98a9e3afe1ec10" title="Test case for when a landmark has a perfect match." alt="" coords="5,153,60,179"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="92,169,60,169,60,164,92,164"/>
+<area shape="rect" id="Node000007" href="$dc/dd5/data__association__test_8cpp.html#a4794fc7121bed6aa63625500cb913099" title="Test case for testing the valid match function with increasing noise." alt="" coords="5,203,60,228"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="110,194,61,210,59,205,108,189"/>
+<area shape="rect" id="Node000008" href="$dc/dd5/data__association__test_8cpp.html#a1378fac9fc751334bc4dfe2fc4090d7c" title="Test case for testing the valid match function &#45; moderate noise (should pass)" alt="" coords="5,252,60,278"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="117,196,109,200,50,254,46,250,106,196,114,191"/>
+<area shape="rect" id="Node000009" href="$dc/dd5/data__association__test_8cpp.html#ac227f7e106389a85febcb4bf04bf27cc" title="Test case for testing the valid match function &#45; 0 delta (zero noise)" alt="" coords="5,301,60,327"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="113,198,110,200,92,222,84,243,77,266,62,292,52,303,48,299,58,289,72,264,79,241,87,219,106,196,109,193"/>
 </map>

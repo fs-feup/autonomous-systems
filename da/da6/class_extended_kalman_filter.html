@@ -110,7 +110,7 @@ Collaboration diagram for ExtendedKalmanFilter:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d8/da0/class_extended_kalman_filter__coll__graph.png" border="0" usemap="#a_extended_kalman_filter_coll__map" alt="Collaboration graph"/></div>
 <map name="a_extended_kalman_filter_coll__map" id="a_extended_kalman_filter_coll__map">
-<area shape="rect" title="Extended Kalman Filter class." alt="" coords="5,5,183,391"/>
+<area shape="rect" title="Extended Kalman Filter class." alt="" coords="5,5,183,425"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -125,13 +125,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a180f0241b66c956246ee645e829640b3" id="r_a180f0241b66c956246ee645e829640b3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#a180f0241b66c956246ee645e829640b3">prediction_step</a> (const <a class="el" href="../../db/d6d/struct_motion_update.html">MotionUpdate</a> &amp;motion_update, const std::string &amp;sensor_type)</td></tr>
 <tr class="memdesc:a180f0241b66c956246ee645e829640b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prediction step:  <br /></td></tr>
 <tr class="separator:a180f0241b66c956246ee645e829640b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee1eb85208a6f26cc844eef54ec90b23" id="r_aee1eb85208a6f26cc844eef54ec90b23"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#aee1eb85208a6f26cc844eef54ec90b23">correct_with_matched_ids</a> (const std::vector&lt; int &gt; &amp;matched_ids, const std::vector&lt; Eigen::Vector2f &gt; &amp;matched_cone_positions)</td></tr>
+<tr class="memdesc:aee1eb85208a6f26cc844eef54ec90b23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Correct the state vector with matched cones, 2 vector inputs the first is the id of the cone in the map matched and the second is the position (observed) of the cone.  <br /></td></tr>
+<tr class="separator:aee1eb85208a6f26cc844eef54ec90b23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6efcb7b428704e3d0938b9cccc1e5ee5" id="r_a6efcb7b428704e3d0938b9cccc1e5ee5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#a6efcb7b428704e3d0938b9cccc1e5ee5">augment_state</a> (const std::vector&lt; Eigen::Vector2f &gt; &amp;new_features)</td></tr>
+<tr class="memdesc:a6efcb7b428704e3d0938b9cccc1e5ee5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Augment the state vector with new features, vector input has the new features.  <br /></td></tr>
+<tr class="separator:a6efcb7b428704e3d0938b9cccc1e5ee5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aef214739221bfc1addce6caa1709af45" id="r_aef214739221bfc1addce6caa1709af45"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#aef214739221bfc1addce6caa1709af45">add_motion_model</a> (const std::string &amp;model_name, std::shared_ptr&lt; <a class="el" href="../../db/d66/class_motion_model.html">MotionModel</a> &gt; motion_model)</td></tr>
+<tr class="memdesc:aef214739221bfc1addce6caa1709af45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a motion model to the motion model map.  <br /></td></tr>
 <tr class="separator:aef214739221bfc1addce6caa1709af45"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0677b8f535ac4b4c59c161d99b9b028b" id="r_a0677b8f535ac4b4c59c161d99b9b028b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#a0677b8f535ac4b4c59c161d99b9b028b">correction_step</a> (const std::vector&lt; <a class="el" href="../../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html">common_lib::structures::Cone</a> &gt; &amp;perception_map)</td></tr>
 <tr class="memdesc:a0677b8f535ac4b4c59c161d99b9b028b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Correction step:  <br /></td></tr>
 <tr class="separator:a0677b8f535ac4b4c59c161d99b9b028b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8014fb59cdc788f5e7af49534f51f284" id="r_a8014fb59cdc788f5e7af49534f51f284"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#a8014fb59cdc788f5e7af49534f51f284">wss_correction_step</a> (const <a class="el" href="../../db/d6d/struct_motion_update.html">MotionUpdate</a> &amp;motion_correction_data)</td></tr>
-<tr class="separator:a8014fb59cdc788f5e7af49534f51f284"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a588e12f311b7f5c696d1959940f0c70c" id="r_a588e12f311b7f5c696d1959940f0c70c"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXf&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/da6/class_extended_kalman_filter.html#a588e12f311b7f5c696d1959940f0c70c">get_state</a> () const</td></tr>
 <tr class="memdesc:a588e12f311b7f5c696d1959940f0c70c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the state vector.  <br /></td></tr>
 <tr class="separator:a588e12f311b7f5c696d1959940f0c70c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -257,7 +262,113 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00082">82</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+<p>Add a motion model to the motion model map. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">model_name</td><td>name of the motion model </td></tr>
+    <tr><td class="paramname">motion_model</td><td>motion model </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00105">105</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a6efcb7b428704e3d0938b9cccc1e5ee5" name="a6efcb7b428704e3d0938b9cccc1e5ee5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6efcb7b428704e3d0938b9cccc1e5ee5">&#9670;&#160;</a></span>augment_state()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ExtendedKalmanFilter::augment_state </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; Eigen::Vector2f &gt; &amp;&#160;</td>
+          <td class="paramname"><em>new_features</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Augment the state vector with new features, vector input has the new features. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">new_features</td><td>vector of new features </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="../../dd/d7a/ekf_8cpp_source.html#l00088">88</a> of file <a class="el" href="../../dd/d7a/ekf_8cpp_source.html">ekf.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../da/da6/class_extended_kalman_filter_a6efcb7b428704e3d0938b9cccc1e5ee5_icgraph.png" border="0" usemap="#ada/da6/class_extended_kalman_filter_a6efcb7b428704e3d0938b9cccc1e5ee5_icgraph" alt=""/></div>
+<map name="ada/da6/class_extended_kalman_filter_a6efcb7b428704e3d0938b9cccc1e5ee5_icgraph" id="ada/da6/class_extended_kalman_filter_a6efcb7b428704e3d0938b9cccc1e5ee5_icgraph">
+<area shape="rect" title="Augment the state vector with new features, vector input has the new features." alt="" coords="201,5,348,46"/>
+<area shape="rect" href="../../da/da6/class_extended_kalman_filter.html#a0677b8f535ac4b4c59c161d99b9b028b" title="Correction step:" alt="" coords="5,5,153,46"/>
+<area shape="poly" title=" " alt="" coords="185,28,153,28,153,23,185,23"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="aee1eb85208a6f26cc844eef54ec90b23" name="aee1eb85208a6f26cc844eef54ec90b23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee1eb85208a6f26cc844eef54ec90b23">&#9670;&#160;</a></span>correct_with_matched_ids()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ExtendedKalmanFilter::correct_with_matched_ids </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; int &gt; &amp;&#160;</td>
+          <td class="paramname"><em>matched_ids</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; Eigen::Vector2f &gt; &amp;&#160;</td>
+          <td class="paramname"><em>matched_cone_positions</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Correct the state vector with matched cones, 2 vector inputs the first is the id of the cone in the map matched and the second is the position (observed) of the cone. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">matched_ids</td><td>vector of matched ids </td></tr>
+    <tr><td class="paramname">matched_cone_positions</td><td>vector of matched cone positions </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="../../dd/d7a/ekf_8cpp_source.html#l00065">65</a> of file <a class="el" href="../../dd/d7a/ekf_8cpp_source.html">ekf.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../da/da6/class_extended_kalman_filter_aee1eb85208a6f26cc844eef54ec90b23_cgraph.png" border="0" usemap="#ada/da6/class_extended_kalman_filter_aee1eb85208a6f26cc844eef54ec90b23_cgraph" alt=""/></div>
+<map name="ada/da6/class_extended_kalman_filter_aee1eb85208a6f26cc844eef54ec90b23_cgraph" id="ada/da6/class_extended_kalman_filter_aee1eb85208a6f26cc844eef54ec90b23_cgraph">
+<area shape="rect" title="Correct the state vector with matched cones, 2 vector inputs the first is the id of the cone in the m..." alt="" coords="5,5,185,46"/>
+<area shape="rect" href="../../da/da6/class_extended_kalman_filter.html#a3595dd28ba06e12edc4c3db689145845" title="Flags used to mark first prediction step." alt="" coords="233,5,380,46"/>
+<area shape="poly" title=" " alt="" coords="185,23,217,23,217,28,185,28"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../da/da6/class_extended_kalman_filter_aee1eb85208a6f26cc844eef54ec90b23_icgraph.png" border="0" usemap="#ada/da6/class_extended_kalman_filter_aee1eb85208a6f26cc844eef54ec90b23_icgraph" alt=""/></div>
+<map name="ada/da6/class_extended_kalman_filter_aee1eb85208a6f26cc844eef54ec90b23_icgraph" id="ada/da6/class_extended_kalman_filter_aee1eb85208a6f26cc844eef54ec90b23_icgraph">
+<area shape="rect" title="Correct the state vector with matched cones, 2 vector inputs the first is the id of the cone in the m..." alt="" coords="201,5,380,46"/>
+<area shape="rect" href="../../da/da6/class_extended_kalman_filter.html#a0677b8f535ac4b4c59c161d99b9b028b" title="Correction step:" alt="" coords="5,5,153,46"/>
+<area shape="poly" title=" " alt="" coords="185,28,153,28,153,23,185,23"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -290,15 +401,19 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d7a/ekf_8cpp_source.html#l00044">44</a> of file <a class="el" href="../../dd/d7a/ekf_8cpp_source.html">ekf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d7a/ekf_8cpp_source.html#l00045">45</a> of file <a class="el" href="../../dd/d7a/ekf_8cpp_source.html">ekf.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../da/da6/class_extended_kalman_filter_a0677b8f535ac4b4c59c161d99b9b028b_cgraph.png" border="0" usemap="#ada/da6/class_extended_kalman_filter_a0677b8f535ac4b4c59c161d99b9b028b_cgraph" alt=""/></div>
 <map name="ada/da6/class_extended_kalman_filter_a0677b8f535ac4b4c59c161d99b9b028b_cgraph" id="ada/da6/class_extended_kalman_filter_a0677b8f535ac4b4c59c161d99b9b028b_cgraph">
-<area shape="rect" title="Correction step:" alt="" coords="5,5,153,46"/>
-<area shape="rect" href="../../da/da6/class_extended_kalman_filter.html#a3595dd28ba06e12edc4c3db689145845" title="Flags used to mark first prediction step." alt="" coords="201,5,348,46"/>
-<area shape="poly" title=" " alt="" coords="153,23,185,23,185,28,153,28"/>
+<area shape="rect" title="Correction step:" alt="" coords="5,39,153,79"/>
+<area shape="rect" href="../../da/da6/class_extended_kalman_filter.html#a6efcb7b428704e3d0938b9cccc1e5ee5" title="Augment the state vector with new features, vector input has the new features." alt="" coords="217,5,364,46"/>
+<area shape="poly" title=" " alt="" coords="153,45,201,37,201,42,154,50"/>
+<area shape="rect" href="../../da/da6/class_extended_kalman_filter.html#aee1eb85208a6f26cc844eef54ec90b23" title="Correct the state vector with matched cones, 2 vector inputs the first is the id of the cone in the m..." alt="" coords="201,71,380,111"/>
+<area shape="poly" title=" " alt="" coords="154,68,186,72,185,78,153,73"/>
+<area shape="rect" href="../../da/da6/class_extended_kalman_filter.html#a3595dd28ba06e12edc4c3db689145845" title="Flags used to mark first prediction step." alt="" coords="428,71,575,111"/>
+<area shape="poly" title=" " alt="" coords="380,88,412,88,412,94,380,94"/>
 </map>
 </div>
 
@@ -330,7 +445,7 @@ Here is the call graph for this function:</div>
 <p>Get the state covariance matrix. </p>
 <dl class="section return"><dt>Returns</dt><dd>Eigen::MatrixXf covariance matrix </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00111">111</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00131">131</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
 
 </div>
 </div>
@@ -386,13 +501,15 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Eigen::MatrixXf kalman gain matrix </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d7a/ekf_8cpp_source.html#l00224">224</a> of file <a class="el" href="../../dd/d7a/ekf_8cpp_source.html">ekf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d7a/ekf_8cpp_source.html#l00139">139</a> of file <a class="el" href="../../dd/d7a/ekf_8cpp_source.html">ekf.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../da/da6/class_extended_kalman_filter_a3595dd28ba06e12edc4c3db689145845_icgraph.png" border="0" usemap="#ada/da6/class_extended_kalman_filter_a3595dd28ba06e12edc4c3db689145845_icgraph" alt=""/></div>
 <map name="ada/da6/class_extended_kalman_filter_a3595dd28ba06e12edc4c3db689145845_icgraph" id="ada/da6/class_extended_kalman_filter_a3595dd28ba06e12edc4c3db689145845_icgraph">
-<area shape="rect" title="Flags used to mark first prediction step." alt="" coords="201,5,348,46"/>
+<area shape="rect" title="Flags used to mark first prediction step." alt="" coords="428,5,575,46"/>
+<area shape="rect" href="../../da/da6/class_extended_kalman_filter.html#aee1eb85208a6f26cc844eef54ec90b23" title="Correct the state vector with matched cones, 2 vector inputs the first is the id of the cone in the m..." alt="" coords="201,5,380,46"/>
+<area shape="poly" title=" " alt="" coords="412,28,380,28,380,23,412,23"/>
 <area shape="rect" href="../../da/da6/class_extended_kalman_filter.html#a0677b8f535ac4b4c59c161d99b9b028b" title="Correction step:" alt="" coords="5,5,153,46"/>
 <area shape="poly" title=" " alt="" coords="185,28,153,28,153,23,185,23"/>
 </map>
@@ -426,7 +543,7 @@ Here is the caller graph for this function:</div>
 <p>Get the last update timestamp. </p>
 <dl class="section return"><dt>Returns</dt><dd>rclcpp::Time timestamp </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00119">119</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00139">139</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
 
 </div>
 </div>
@@ -456,7 +573,7 @@ Here is the caller graph for this function:</div>
 <p>Get the state vector. </p>
 <dl class="section return"><dt>Returns</dt><dd>Eigen::VectorXf state vector </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00104">104</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00124">124</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
 
 </div>
 </div>
@@ -537,7 +654,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d7a/ekf_8cpp_source.html#l00237">237</a> of file <a class="el" href="../../dd/d7a/ekf_8cpp_source.html">ekf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d7a/ekf_8cpp_source.html#l00152">152</a> of file <a class="el" href="../../dd/d7a/ekf_8cpp_source.html">ekf.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -548,24 +665,6 @@ Here is the caller graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="212,28,180,28,180,23,212,23"/>
 </map>
 </div>
-
-</div>
-</div>
-<a id="a8014fb59cdc788f5e7af49534f51f284" name="a8014fb59cdc788f5e7af49534f51f284"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8014fb59cdc788f5e7af49534f51f284">&#9670;&#160;</a></span>wss_correction_step()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ExtendedKalmanFilter::wss_correction_step </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../db/d6d/struct_motion_update.html">MotionUpdate</a> &amp;&#160;</td>
-          <td class="paramname"><em>motion_correction_data</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
 
 </div>
 </div>
@@ -580,7 +679,7 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">friend class PerformanceTest</td>
+          <td class="memname">friend class <a class="el" href="../../df/d4f/class_performance_test.html">PerformanceTest</a></td>
         </tr>
       </table>
   </td>
@@ -590,7 +689,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00121">121</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00141">141</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
 
 </div>
 </div>

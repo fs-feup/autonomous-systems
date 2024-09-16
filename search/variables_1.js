@@ -20,7 +20,8 @@ var searchData=
   ['angle_5fweight_5f_17',['angle_weight_',['../d1/df2/struct_cone_coloring_config.html#a194783649da822bbd3e52e277d465f1b',1,'ConeColoringConfig']]],
   ['anti_5fwindup_5f_18',['anti_windup_',['../d6/d5a/class_p_i_d.html#a5af2e0873be2f52d2e6874b6238abd98',1,'PID']]],
   ['app_19',['app',['../df/d91/namespacedashboard.html#a0dc4d8c06bb063b02c536005f36adc7c',1,'dashboard']]],
-  ['available_5fdashboards_20',['available_dashboards',['../df/d91/namespacedashboard.html#a362e831daf55963e9cbeb65a1f76d7d6',1,'dashboard']]],
-  ['axis_21',['axis',['../d7/dc1/namespacespline.html#ab8ba046c9c8639715623a604b0d35fcc',1,'spline']]],
-  ['axis_5flength_22',['AXIS_LENGTH',['../d2/da6/car__parameters_8hpp.html#a7aa40be05ed9dd8853abd1f635ccd5f9',1,'car_parameters.hpp']]]
+  ['association_5fgate_5f_20',['association_gate_',['../dd/d06/class_max_likelihood.html#ad89a57632c3cd8202798bcfa3af7d9c7',1,'MaxLikelihood']]],
+  ['available_5fdashboards_21',['available_dashboards',['../df/d91/namespacedashboard.html#a362e831daf55963e9cbeb65a1f76d7d6',1,'dashboard']]],
+  ['axis_22',['axis',['../d7/dc1/namespacespline.html#ab8ba046c9c8639715623a604b0d35fcc',1,'spline']]],
+  ['axis_5flength_23',['AXIS_LENGTH',['../d2/da6/car__parameters_8hpp.html#a7aa40be05ed9dd8853abd1f635ccd5f9',1,'car_parameters.hpp']]]
 ];

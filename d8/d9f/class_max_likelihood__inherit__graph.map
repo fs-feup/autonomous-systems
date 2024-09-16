@@ -1,0 +1,5 @@
+<map id="MaxLikelihood" name="MaxLikelihood">
+<area shape="rect" id="Node000001" title="Maximum Likelihood Method class, used to match observations to landmarks in the map with maximum like..." alt="" coords="30,179,177,284"/>
+<area shape="rect" id="Node000002" href="$d1/d14/class_data_association_model.html" title="Data Association Method class, used to match observations to landmarks in the map." alt="" coords="5,5,201,131"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="106,146,106,179,101,179,101,146"/>
+</map>

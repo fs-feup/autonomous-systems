@@ -1,5 +1,7 @@
 <map id="ExtendedKalmanFilter::get_kalman_gain" name="ExtendedKalmanFilter::get_kalman_gain">
-<area shape="rect" id="Node000001" title="Flags used to mark first prediction step." alt="" coords="201,5,348,46"/>
-<area shape="rect" id="Node000002" href="$da/da6/class_extended_kalman_filter.html#a0677b8f535ac4b4c59c161d99b9b028b" title="Correction step:" alt="" coords="5,5,153,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="185,28,153,28,153,23,185,23"/>
+<area shape="rect" id="Node000001" title="Flags used to mark first prediction step." alt="" coords="428,5,575,46"/>
+<area shape="rect" id="Node000002" href="$da/da6/class_extended_kalman_filter.html#aee1eb85208a6f26cc844eef54ec90b23" title="Correct the state vector with matched cones, 2 vector inputs the first is the id of the cone in the m..." alt="" coords="201,5,380,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="412,28,380,28,380,23,412,23"/>
+<area shape="rect" id="Node000003" href="$da/da6/class_extended_kalman_filter.html#a0677b8f535ac4b4c59c161d99b9b028b" title="Correction step:" alt="" coords="5,5,153,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="185,28,153,28,153,23,185,23"/>
 </map>

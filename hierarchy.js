@@ -38,11 +38,12 @@ var hierarchy =
     ] ],
     [ "ControlParameters", "d4/de1/struct_control_parameters.html", null ],
     [ "DataAssociationModel", "d1/d14/class_data_association_model.html", [
-      [ "SimpleMaximumLikelihood", "d5/dc2/class_simple_maximum_likelihood.html", null ]
+      [ "MaxLikelihood", "dd/d06/class_max_likelihood.html", null ]
     ] ],
     [ "std::exception", null, [
       [ "InvalidMissionException", "d3/df9/class_invalid_mission_exception.html", null ]
     ] ],
+    [ "ExecTimeTestEKFTests", "d2/dac/class_exec_time_test_e_k_f_tests.html", null ],
     [ "ExtendedKalmanFilter", "da/da6/class_extended_kalman_filter.html", null ],
     [ "std::false_type", null, [
       [ "HasDefaultConstructor< T, typename >", "d2/de8/struct_has_default_constructor.html", null ],
@@ -123,6 +124,7 @@ var hierarchy =
       [ "IntegrationTest", "d7/d4e/class_integration_test.html", null ],
       [ "LeastSquaresDifferentiationTest", "de/d1e/class_least_squares_differentiation_test.html", null ],
       [ "PerceptionPerformanceTest", "d3/d0d/class_perception_performance_test.html", null ],
+      [ "PerformanceTest", "df/d4f/class_performance_test.html", null ],
       [ "RANSACTest", "d8/d5a/class_r_a_n_s_a_c_test.html", null ],
       [ "StandardDeviationTest", "d9/d2d/class_standard_deviation_test.html", null ],
       [ "ZScoreValidatorTest", "d7/d1e/class_z_score_validator_test.html", null ]

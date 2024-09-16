@@ -109,9 +109,9 @@ Inheritance diagram for DataAssociationModel:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../dc/dd8/class_data_association_model__inherit__graph.png" border="0" usemap="#a_data_association_model_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_data_association_model_inherit__map" id="a_data_association_model_inherit__map">
-<area shape="rect" title="Data Association Method class, used to match observations to landmarks in the map." alt="" coords="5,5,201,151"/>
-<area shape="rect" href="../../d5/dc2/class_simple_maximum_likelihood.html" title="Simple (Dumb) Maximum Likelihood Method class, attempts to match the observed landmark to the closest..." alt="" coords="10,199,197,324"/>
-<area shape="poly" title=" " alt="" coords="106,165,106,199,101,199,101,165"/>
+<area shape="rect" title="Data Association Method class, used to match observations to landmarks in the map." alt="" coords="5,5,201,131"/>
+<area shape="rect" href="../../dd/d06/class_max_likelihood.html" title="Maximum Likelihood Method class, used to match observations to landmarks in the map with maximum like..." alt="" coords="30,179,177,284"/>
+<area shape="poly" title=" " alt="" coords="106,146,106,179,101,179,101,146"/>
 </map>
 </div>
 <div class="dynheader">
@@ -119,17 +119,14 @@ Collaboration diagram for DataAssociationModel:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d5/dbf/class_data_association_model__coll__graph.png" border="0" usemap="#a_data_association_model_coll__map" alt="Collaboration graph"/></div>
 <map name="a_data_association_model_coll__map" id="a_data_association_model_coll__map">
-<area shape="rect" title="Data Association Method class, used to match observations to landmarks in the map." alt="" coords="5,5,201,151"/>
+<area shape="rect" title="Data Association Method class, used to match observations to landmarks in the map." alt="" coords="5,5,201,131"/>
 </map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a9f97ec9ae611784e4e317cc69b15e703" id="r_a9f97ec9ae611784e4e317cc69b15e703"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d14/class_data_association_model.html#a9f97ec9ae611784e4e317cc69b15e703">match_cone</a> (const Eigen::Vector2f &amp;observed_landmark_absolute, const Eigen::VectorXf &amp;expected_state) const =0</td></tr>
-<tr class="memdesc:a9f97ec9ae611784e4e317cc69b15e703"><td class="mdescLeft">&#160;</td><td class="mdescRight">Match the observed landmark to a landmark in the map.  <br /></td></tr>
-<tr class="separator:a9f97ec9ae611784e4e317cc69b15e703"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a06bf8ac3c39dde6d11771c4194f0f817" id="r_a06bf8ac3c39dde6d11771c4194f0f817"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d14/class_data_association_model.html#a06bf8ac3c39dde6d11771c4194f0f817">validate</a> (const Eigen::Vector2f &amp;observed_landmark, const Eigen::Vector2f &amp;observed_measurement, const Eigen::MatrixXf &amp;covariance, int landmark_index, const Eigen::MatrixXf &amp;R, const Eigen::MatrixXf &amp;H) const =0</td></tr>
-<tr class="separator:a06bf8ac3c39dde6d11771c4194f0f817"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0d2681ff464e0a80ed07ca1d422d64f" id="r_ae0d2681ff464e0a80ed07ca1d422d64f"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d14/class_data_association_model.html#ae0d2681ff464e0a80ed07ca1d422d64f">associate_n_filter</a> (const std::vector&lt; <a class="el" href="../../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html">common_lib::structures::Cone</a> &gt; &amp;perception_map, Eigen::VectorXf &amp;_x_vector_, Eigen::MatrixXf &amp;_p_matrix_, std::vector&lt; int &gt; &amp;matched_ids, std::vector&lt; Eigen::Vector2f &gt; &amp;matched_cone_positions, std::vector&lt; Eigen::Vector2f &gt; &amp;new_features, <a class="el" href="../../d7/d64/class_observation_model.html">ObservationModel</a> *observation_model) const =0</td></tr>
+<tr class="separator:ae0d2681ff464e0a80ed07ca1d422d64f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a54823418322231403c42e31c3b300896" id="r_a54823418322231403c42e31c3b300896"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d14/class_data_association_model.html#a54823418322231403c42e31c3b300896">DataAssociationModel</a> (float max_landmark_distance)</td></tr>
 <tr class="separator:a54823418322231403c42e31c3b300896"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a76a5a370d193f667a122945ea7fc671f" id="r_a76a5a370d193f667a122945ea7fc671f"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d14/class_data_association_model.html#a76a5a370d193f667a122945ea7fc671f">~DataAssociationModel</a> ()=default</td></tr>
@@ -149,7 +146,7 @@ Private Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Data Association Method class, used to match observations to landmarks in the map. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/d49/data__association_8hpp_source.html#l00014">14</a> of file <a class="el" href="../../da/d49/data__association_8hpp_source.html">data_association.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/d49/data__association_8hpp_source.html#l00017">17</a> of file <a class="el" href="../../da/d49/data__association_8hpp_source.html">data_association.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a54823418322231403c42e31c3b300896" name="a54823418322231403c42e31c3b300896"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a54823418322231403c42e31c3b300896">&#9670;&#160;</a></span>DataAssociationModel()</h2>
@@ -175,7 +172,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../db/d7b/data__association_8cpp_source.html#l00009">9</a> of file <a class="el" href="../../db/d7b/data__association_8cpp_source.html">data_association.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d7b/data__association_8cpp_source.html#l00010">10</a> of file <a class="el" href="../../db/d7b/data__association_8cpp_source.html">data_association.cpp</a>.</p>
 
 </div>
 </div>
@@ -205,6 +202,74 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="ae0d2681ff464e0a80ed07ca1d422d64f" name="ae0d2681ff464e0a80ed07ca1d422d64f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0d2681ff464e0a80ed07ca1d422d64f">&#9670;&#160;</a></span>associate_n_filter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual int DataAssociationModel::associate_n_filter </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="../../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html">common_lib::structures::Cone</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>perception_map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Eigen::VectorXf &amp;&#160;</td>
+          <td class="paramname"><em>_x_vector_</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Eigen::MatrixXf &amp;&#160;</td>
+          <td class="paramname"><em>_p_matrix_</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; int &gt; &amp;&#160;</td>
+          <td class="paramname"><em>matched_ids</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; Eigen::Vector2f &gt; &amp;&#160;</td>
+          <td class="paramname"><em>matched_cone_positions</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; Eigen::Vector2f &gt; &amp;&#160;</td>
+          <td class="paramname"><em>new_features</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d7/d64/class_observation_model.html">ObservationModel</a> *&#160;</td>
+          <td class="paramname"><em>observation_model</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="../../dd/d06/class_max_likelihood.html#a911db655cde119a889e7a0aa7e0773b2">MaxLikelihood</a>.</p>
+
+</div>
+</div>
 <a id="ae17040b15f7eb1e6b46061c94b07d2b9" name="ae17040b15f7eb1e6b46061c94b07d2b9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae17040b15f7eb1e6b46061c94b07d2b9">&#9670;&#160;</a></span>get_max_landmark_distance()</h2>
 
@@ -228,127 +293,31 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../db/d7b/data__association_8cpp_source.html#l00013">13</a> of file <a class="el" href="../../db/d7b/data__association_8cpp_source.html">data_association.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d7b/data__association_8cpp_source.html#l00014">14</a> of file <a class="el" href="../../db/d7b/data__association_8cpp_source.html">data_association.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d1/d14/class_data_association_model_ae17040b15f7eb1e6b46061c94b07d2b9_icgraph.png" border="0" usemap="#ad1/d14/class_data_association_model_ae17040b15f7eb1e6b46061c94b07d2b9_icgraph" alt=""/></div>
 <map name="ad1/d14/class_data_association_model_ae17040b15f7eb1e6b46061c94b07d2b9_icgraph" id="ad1/d14/class_data_association_model_ae17040b15f7eb1e6b46061c94b07d2b9_icgraph">
-<area shape="rect" title=" " alt="" coords="230,5,422,46"/>
-<area shape="rect" href="../../d5/dc2/class_simple_maximum_likelihood.html#abcfa1880931aeddcdb4608c2eca413a6" title="Limit for 0 meters." alt="" coords="5,5,182,46"/>
-<area shape="poly" title=" " alt="" coords="214,28,182,28,182,23,214,23"/>
+<area shape="rect" title=" " alt="" coords="322,146,514,187"/>
+<area shape="rect" href="../../dd/d06/class_max_likelihood.html#a911db655cde119a889e7a0aa7e0773b2" title="normalized distance gate (closest unmatched landmark)" alt="" coords="108,146,274,187"/>
+<area shape="poly" title=" " alt="" coords="306,169,274,169,274,164,306,164"/>
+<area shape="rect" href="../../dc/dd5/data__association__test_8cpp.html#ad8e377318ba077cbaf50154f855e1415" title="Test case for when a landmark has a near mismatch." alt="" coords="5,5,60,31"/>
+<area shape="poly" title=" " alt="" coords="155,137,58,44,46,33,50,29,61,40,159,133"/>
+<area shape="rect" href="../../dc/dd5/data__association__test_8cpp.html#a286e34fe3857b5930a1c5c51f13fe666" title="Test case for when a landmark has a near match." alt="" coords="5,55,60,80"/>
+<area shape="poly" title=" " alt="" coords="142,139,53,83,56,79,145,135"/>
+<area shape="rect" href="../../dc/dd5/data__association__test_8cpp.html#a851f8c5b4d5c46708f7cbf11b6fe7b78" title="Test case for when a landmark is not in the state yet." alt="" coords="5,104,60,130"/>
+<area shape="poly" title=" " alt="" coords="108,143,59,128,61,123,110,138"/>
+<area shape="rect" href="../../dc/dd5/data__association__test_8cpp.html#a2acf2f8bd32e8e9dac98a9e3afe1ec10" title="Test case for when a landmark has a perfect match." alt="" coords="5,153,60,179"/>
+<area shape="poly" title=" " alt="" coords="92,169,60,169,60,164,92,164"/>
+<area shape="rect" href="../../dc/dd5/data__association__test_8cpp.html#a4794fc7121bed6aa63625500cb913099" title="Test case for testing the valid match function with increasing noise." alt="" coords="5,203,60,228"/>
+<area shape="poly" title=" " alt="" coords="110,194,61,210,59,205,108,189"/>
+<area shape="rect" href="../../dc/dd5/data__association__test_8cpp.html#a1378fac9fc751334bc4dfe2fc4090d7c" title="Test case for testing the valid match function &#45; moderate noise (should pass)" alt="" coords="5,252,60,278"/>
+<area shape="poly" title=" " alt="" coords="145,198,56,254,53,249,142,193"/>
+<area shape="rect" href="../../dc/dd5/data__association__test_8cpp.html#ac227f7e106389a85febcb4bf04bf27cc" title="Test case for testing the valid match function &#45; 0 delta (zero noise)" alt="" coords="5,301,60,327"/>
+<area shape="poly" title=" " alt="" coords="159,199,61,292,50,303,46,299,58,288,155,195"/>
 </map>
 </div>
-
-</div>
-</div>
-<a id="a9f97ec9ae611784e4e317cc69b15e703" name="a9f97ec9ae611784e4e317cc69b15e703"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9f97ec9ae611784e4e317cc69b15e703">&#9670;&#160;</a></span>match_cone()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual int DataAssociationModel::match_cone </td>
-          <td>(</td>
-          <td class="paramtype">const Eigen::Vector2f &amp;&#160;</td>
-          <td class="paramname"><em>observed_landmark_absolute</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const Eigen::VectorXf &amp;&#160;</td>
-          <td class="paramname"><em>expected_state</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Match the observed landmark to a landmark in the map. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">observed_landmark_absolute</td><td>The observed landmark position in the map </td></tr>
-    <tr><td class="paramname">expected_state</td><td>The expected state vector, containing the map landmarks </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>int The index of the matched landmark in the map, -1 if invalid, -2 if not matched </dd></dl>
-
-<p>Implemented in <a class="el" href="../../d5/dc2/class_simple_maximum_likelihood.html#abcfa1880931aeddcdb4608c2eca413a6">SimpleMaximumLikelihood</a>.</p>
-
-</div>
-</div>
-<a id="a06bf8ac3c39dde6d11771c4194f0f817" name="a06bf8ac3c39dde6d11771c4194f0f817"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a06bf8ac3c39dde6d11771c4194f0f817">&#9670;&#160;</a></span>validate()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual bool DataAssociationModel::validate </td>
-          <td>(</td>
-          <td class="paramtype">const Eigen::Vector2f &amp;&#160;</td>
-          <td class="paramname"><em>observed_landmark</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const Eigen::Vector2f &amp;&#160;</td>
-          <td class="paramname"><em>observed_measurement</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const Eigen::MatrixXf &amp;&#160;</td>
-          <td class="paramname"><em>covariance</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>landmark_index</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const Eigen::MatrixXf &amp;&#160;</td>
-          <td class="paramname"><em>R</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const Eigen::MatrixXf &amp;&#160;</td>
-          <td class="paramname"><em>H</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Implemented in <a class="el" href="../../d5/dc2/class_simple_maximum_likelihood.html#a89dd68e4be78a6527431f9cde5d113f7">SimpleMaximumLikelihood</a>.</p>
 
 </div>
 </div>
@@ -383,7 +352,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>bool True if the observed landmark is a valid match to the expected landmark Maximum deviation of the landmark position from the expected position when the landmark is perceived to be 1 meter away </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/d49/data__association_8hpp_source.html#l00026">26</a> of file <a class="el" href="../../da/d49/data__association_8hpp_source.html">data_association.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/d49/data__association_8hpp_source.html#l00029">29</a> of file <a class="el" href="../../da/d49/data__association_8hpp_source.html">data_association.hpp</a>.</p>
 
 </div>
 </div>

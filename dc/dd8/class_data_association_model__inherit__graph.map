@@ -1,5 +1,5 @@
 <map id="DataAssociationModel" name="DataAssociationModel">
-<area shape="rect" id="Node000001" title="Data Association Method class, used to match observations to landmarks in the map." alt="" coords="5,5,201,151"/>
-<area shape="rect" id="Node000002" href="$d5/dc2/class_simple_maximum_likelihood.html" title="Simple (Dumb) Maximum Likelihood Method class, attempts to match the observed landmark to the closest..." alt="" coords="10,199,197,324"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="106,165,106,199,101,199,101,165"/>
+<area shape="rect" id="Node000001" title="Data Association Method class, used to match observations to landmarks in the map." alt="" coords="5,5,201,131"/>
+<area shape="rect" id="Node000002" href="$dd/d06/class_max_likelihood.html" title="Maximum Likelihood Method class, used to match observations to landmarks in the map with maximum like..." alt="" coords="30,179,177,284"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="106,146,106,179,101,179,101,146"/>
 </map>

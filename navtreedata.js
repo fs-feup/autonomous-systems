@@ -231,7 +231,7 @@ var NAVTREE =
       [ "File List", "files.html", "files_dup" ],
       [ "File Members", "globals.html", [
         [ "All", "globals.html", "globals_dup" ],
-        [ "Functions", "globals_func.html", null ],
+        [ "Functions", "globals_func.html", "globals_func" ],
         [ "Variables", "globals_vars.html", null ],
         [ "Typedefs", "globals_type.html", null ],
         [ "Enumerations", "globals_enum.html", null ],
@@ -245,16 +245,16 @@ var NAVTREEINDEX =
 [
 "annotated.html",
 "d1/df1/class_vehicle_adapter.html#a49a7f199e87d7e9b6c644471812b5561",
-"d3/d4a/evaluator_8py.html",
-"d5/d4f/class_z_score_validator.html#a7803882597ccee8254a97b4b05cb4825",
-"d7/d49/class_control.html#a38e2fd1545e2ba854086f8c1c53b9821",
-"d8/d55/mocks_8hpp.html#ad7efec0603f4091fdc6e2287143c67ce",
-"d9/dc5/track__side_8hpp.html#a215a4ec12608ced25978cf0e507d24e4a684d325a7303f52e64011467ff5c5758",
-"db/db7/imu_8cpp_source.html",
-"dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#acddc4124256bb36e3431b470d7a3897b",
-"dd/d7f/control_2src_2adapter__control_2fsds_8cpp_source.html",
-"df/d7d/struct_path_calculation_config.html#a8196a941a71ff63edf568e785ab4481c",
-"globals_e.html"
+"d3/d4a/control_2include_2adapter__control_2eufs_8hpp_source.html",
+"d5/d4f/class_z_score_validator.html#a2eb4539d0899621e7cf618174d2b65c1",
+"d7/d49/class_control.html#a6e25ac7cb5a0e306e072388e62f5c84d",
+"d8/d5a/class_r_a_n_s_a_c_test.html#a5274df69ef305f77c082c89f6a482e43",
+"d9/dc3/path__calculation__config_8hpp_source.html",
+"db/da2/md_src_2cloud__storage_2_r_e_a_d_m_e.html#autotoc_md6",
+"dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#ac89a69672d2284d1f679578e7eae57b4",
+"dd/d6b/namespaceoffsettrack.html#a5324cb11b8bd1bb4a08fef0f29eda572",
+"df/d4f/class_performance_test.html#a74ccde754406aaa0107904712247bb86",
+"functions_rela.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
