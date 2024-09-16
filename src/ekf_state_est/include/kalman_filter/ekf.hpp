@@ -79,6 +79,29 @@ public:
    */
   void prediction_step(const MotionUpdate &motion_update, const std::string &sensor_type);
 
+  /**
+   * @brief Correct the state vector with matched cones, 2 vector inputs the first is the id of the
+   * cone in the map matched and the second is the position (observed) of the cone
+   *
+   * @param matched_ids vector of matched ids
+   * @param matched_cone_positions vector of matched cone positions
+   */
+  void correct_with_matched_ids(const std::vector<int> &matched_ids,
+                                const std::vector<Eigen::Vector2f> &matched_cone_positions);
+
+  /**
+   * @brief Augment the state vector with new features, vector input has the new features
+   *
+   * @param new_features vector of new features
+   */
+  void augment_state(const std::vector<Eigen::Vector2f> &new_features);
+
+  /**
+   * @brief Add a motion model to the motion model map
+   *
+   * @param model_name name of the motion model
+   * @param motion_model motion model
+   */
   void add_motion_model(const std::string &model_name, std::shared_ptr<MotionModel> motion_model) {
     _motion_models_[model_name] = motion_model;
   }
@@ -92,9 +115,6 @@ public:
    * @param perception_map map from perception
    */
   void correction_step(const std::vector<common_lib::structures::Cone> &perception_map);
-  
-  // TODO: Method Implementation
-  void wss_correction_step(const MotionUpdate &motion_correction_data);
 
   /**
    * @brief Get the state vector
