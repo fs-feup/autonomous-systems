@@ -16,36 +16,50 @@ Cone find_equivalent(Cone cone, const std::vector<Cone>& cones) {
 double evaluate_cone_coloring(const std::vector<Cone>& track,
                               std::pair<std::vector<Cone>, std::vector<Cone>> result) {
   double score = 0;
+  // std::cout << "Left cones: ";
   for (Cone cone : result.first) {
     Cone match = find_equivalent(cone, track);
+    // std::cout << "(" << cone.position.x << ", " << cone.position.y << "), ";
     if (match.color == Color::BLUE) {
       score++;
     } else {
       score--;
     }
   }
+  // std::cout << std::endl << "Right cones: ";
   for (Cone cone : result.second) {
     Cone match = find_equivalent(cone, track);
+    // std::cout << "(" << cone.position.x << ", " << cone.position.y << "), ";
     if (match.color == Color::YELLOW) {
       score++;
     } else {
       score--;
     }
   }
+  // std::cout << std::endl;
+
   double final_score = score / static_cast<double>(track.size());
-  return 100 * (1.0 - final_score);
+  double final_final_score = 100 * (1.0 - final_score);
+  return final_final_score;
 }
 
 // Function to process the parameters (you can customize this as needed)
 double evaluate_function(const ConeColoringConfig& params, const std::vector<Cone>& track) {
   ConeColoring cone_coloring(params);
 
-  std::vector<Pose> poses = {Pose(0, 0, 0), Pose(2, 11, 0.26), Pose(11.5, 13.5, 0.52)};
+  std::vector<Pose> poses = {
+      Pose(-10, 10.8, 0),       Pose(2, 11, 0.26),      Pose(11.5, 13.5, 0.52), Pose(14.2, 14.2, 0),
+      Pose(15.7, 13.6, 6),      Pose(18.5, 10, 4.71),   Pose(17.5, 2, 4.45),    Pose(-7, -14, 3.93),
+      Pose(-12.3, -14.5, 2.62), Pose(-15, -11.5, 2.36), Pose(-16.5, -9, 1.57),  Pose(-15, 7, 1.57),
+      Pose(-13.5, 9, 0.785)};
 
   double score = 0;
   for (const auto& pose : poses) {
+    // std::cout << "\n\n\n NEW SCENARIO \n\n\n" << std::endl;
     std::pair<std::vector<Cone>, std::vector<Cone>> colored_cones =
         cone_coloring.color_cones(track, pose);
+    // std::cout << "Number of output cones: "
+    //           << colored_cones.first.size() + colored_cones.second.size() << std::endl;
     score += evaluate_cone_coloring(track, colored_cones);
   }
 
@@ -55,7 +69,7 @@ double evaluate_function(const ConeColoringConfig& params, const std::vector<Con
 int main(int argc, char* argv[]) {
   // Ensure we have the correct number of arguments
   if (argc != 7) {  // 6 parameters + program name
-    std::cerr << "Usage: ./my_cpp_executable param1 param2 param3" << std::endl;
+    std::cerr << "Usage: ./my_cpp_executable" << std::endl;
     return 1;
   }
 
@@ -102,9 +116,14 @@ int main(int argc, char* argv[]) {
   params.angle_weight_ = std::atof(argv[1]);       // Convert first argument to double
   params.distance_weight_ = std::atof(argv[2]);    // Convert second argument to double
   params.ncones_weight_ = std::atof(argv[3]);      // Convert third argument to double
-  params.distance_exponent_ = std::atof(argv[4]);  // Convert first argument to double
-  params.angle_exponent_ = std::atof(argv[5]);     // Convert second argument to double
+  params.angle_exponent_ = std::atof(argv[4]);     // Convert first argument to double
+  params.distance_exponent_ = std::atof(argv[5]);  // Convert second argument to double
   params.max_cost_ = std::atof(argv[6]);           // Convert third argument to double
+
+  // for (Cone cone : track) {
+  //   std::cout << "(" << cone.position.x << ", " << cone.position.y << "),";
+  // }
+  // std::cout << "\n\n\n" << std::endl;
 
   // Now params contains the parameters as doubles
   // You can use this struct to run your logic, simulations, etc.

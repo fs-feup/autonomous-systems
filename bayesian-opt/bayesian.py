@@ -1,32 +1,46 @@
+import sys
+import os
+import signal
 import subprocess
-import time
-from skopt import gp_minimize
-from skopt.space import Real
-from skopt.utils import use_named_args
+import importlib
 from skopt import Optimizer
+from operator import itemgetter
 
-# Define the parameter space as a list of `Real` objects, specifying the range for each parameter.
-param_space = [
-    Real(0.001, 0.1, name="param1"),  # Example: Learning rate or some parameter
-    Real(
-        100, 1000, name="param2"
-    ),  # Example: Number of iterations or some other parameter
-    Real(0.1, 10, name="param3"),  # Example: Another hyperparameter
-]
+algorithm_to_tune = "cone_coloring"
+
+# Base directory where bayesian.py is located
+base_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Construct the full path to the subdirectory
+full_path = os.path.join(base_dir, algorithm_to_tune)
+
+# Check if the adapt.py exists in the specified directory
+if os.path.exists(os.path.join(full_path, "adapt.py")):
+    # Append the subdirectory to sys.path
+    sys.path.append(full_path)
+
+    # Dynamically import the "adapt" module (without the .py extension)
+    module = importlib.import_module("adapt")
+else:
+    print(f"adapt.py not found in {algorithm_to_tune}")
+
+
+executable_path = "./" + algorithm_to_tune + "/bayesian_opt"
+export_path = algorithm_to_tune + "/parameters_rank.txt"
 
 
 # Define a wrapper function to call the C++ program and pass the parameters.
 def call_cpp_program(params):
     # Convert the parameters to a string format to send them to the C++ executable.
-    param_str = " ".join(map(str, params))
+    param_str_list = list(map(str, params))
 
     try:
         # Use subprocess to call the C++ executable and pass the parameters.
         result = subprocess.run(
             [
-                "./my_cpp_executable",
-                param_str,
-            ],  # Replace with your actual executable path
+                executable_path,
+                *param_str_list,
+            ],
             capture_output=True,
             text=True,
             check=True,
@@ -47,12 +61,58 @@ def objective_function(params):
     return result
 
 
-# Initialize the Bayesian optimizer with the parameter space.
-optimizer = Optimizer(param_space, "GP", n_initial_points=10, random_state=None)
+# To track the top 5 sets of parameters and their values.
+top_5 = []
 
-# Initial parameters for tracking best result
-best_params = None
 best_value = float("inf")
+best_params = module.parameters_list[0]
+
+
+def update_top_5(params, value):
+    # Append the new parameters and value to the list.
+    top_5.append((params, value))
+
+    # Sort the list based on the objective value (second item in the tuple).
+    top_5.sort(key=itemgetter(1))
+
+    # Keep only the top 5 values.
+    if len(top_5) > 5:
+        top_5.pop()
+
+
+# Function to export the top 5 parameters to a file.
+def export_top_5_to_file():
+    with open(export_path, "a") as f:
+        f.write("Top 5 parameter sets and their objective values:\n")
+        for i, (params, value) in enumerate(top_5, 1):
+            f.write(f"Rank {i}: Parameters = {params}, Objective Value = {value}\n")
+    print("\nTop 5 parameters have been saved to 'parameters_rank.txt'.")
+
+
+# Signal handler to catch KeyboardInterrupt and perform cleanup.
+def signal_handler(sig, frame):
+    print("\nTermination signal received. Exporting top 5 parameters...")
+    export_top_5_to_file()
+    sys.exit(0)
+
+
+# Register the signal handler for KeyboardInterrupt (Ctrl+C).
+signal.signal(signal.SIGINT, signal_handler)
+
+
+# Initialize the Bayesian optimizer with the parameter space.
+optimizer = Optimizer(module.param_space, "GP", n_initial_points=10, random_state=None)
+
+for params in module.parameters_list:
+    result = objective_function(params)
+    optimizer.tell(params, result)
+    update_top_5(params, result)
+    if result < best_value:
+        best_value = result
+        best_params = params
+        # Print the current best parameters and result.
+        print(f"New best parameters: {best_params}")
+        print(f"New best objective value (to minimize): {best_value}")
 
 # Run indefinitely
 while True:
@@ -69,10 +129,8 @@ while True:
     if current_value < best_value:
         best_value = current_value
         best_params = next_params
+        # Print the current best parameters and result.
+        print(f"New best parameters: {best_params}")
+        print(f"New best objective value (to minimize): {best_value}")
 
-    # Print the current best parameters and result.
-    print(f"Best parameters so far: {best_params}")
-    print(f"Best objective value (to minimize): {best_value}")
-
-    # Sleep for a short time before the next iteration (optional)
-    time.sleep(1)
+    update_top_5(next_params, current_value)
