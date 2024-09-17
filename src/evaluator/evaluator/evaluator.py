@@ -199,6 +199,21 @@ class Evaluator(Node):
             Float32, "/evaluator/control/velocity/lookahead/difference", 10
         )
 
+        # Retrieve the 'generate_csv' parameter
+        self.declare_parameter("generate_csv", False)
+        self.generate_csv = (
+            self.get_parameter("generate_csv").get_parameter_value().bool_value
+        )
+
+        # Retrieve the 'csv_suffix' parameter
+        self.declare_parameter("csv_suffix", "")
+        self.csv_suffix = (
+            self.get_parameter("csv_suffix").get_parameter_value().string_value
+        )
+
+        # Replace spaces with underscores in csv_suffix
+        self.csv_suffix = self.csv_suffix.replace(" ", "_")
+
         # Metrics over time
         self.perception_metrics = []
         self.se_metrics = []
@@ -373,25 +388,25 @@ class Evaluator(Node):
             sig (int): Signal number.
             frame (frame): Current stack frame.
         """
-
-        finish_time = datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
-        metrics_dict = {
-            "perception": self.perception_metrics,
-            "se": self.se_metrics,
-            "planning": self.planning_metrics,
-            "control": self.control_metrics,
-            "se_correction_execution_time": self._se_correction_execution_time_,
-            "se_prediction_execution_time": self._se_prediction_execution_time_,
-            "control_execution_time": self._control_execution_time_,
-            "planning_execution_time": self._planning_execution_time_,
-            "perception_execution_time": self._perception_execution_time_,
-        }
-        for filename, metrics in metrics_dict.items():
-            if metrics:
-                datetime_filename = f"{filename}_{finish_time}.csv"
-                self.metrics_to_csv(
-                    metrics, "performance/evaluator_metrics/" + datetime_filename
-                )
+        if self.generate_csv:
+            finish_time = datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
+            metrics_dict = {
+                "perception": self.perception_metrics,
+                "se": self.se_metrics,
+                "planning": self.planning_metrics,
+                "control": self.control_metrics,
+                "se_correction_execution_time": self._se_correction_execution_time_,
+                "se_prediction_execution_time": self._se_prediction_execution_time_,
+                "control_execution_time": self._control_execution_time_,
+                "planning_execution_time": self._planning_execution_time_,
+                "perception_execution_time": self._perception_execution_time_,
+            }
+            for filename, metrics in metrics_dict.items():
+                if metrics:
+                    datetime_filename = f"{filename}_{self._adapter_name_}_{finish_time}_{self.csv_suffix}.csv"
+                    self.metrics_to_csv(
+                        metrics, "performance/evaluator_metrics/" + datetime_filename
+                    )
         sys.exit(0)
 
     def metrics_to_csv(self, metrics, filename):
