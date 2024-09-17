@@ -46,5 +46,6 @@ var searchData=
   ['count_43',['count',['../dc/d1a/namespaceplot__track.html#aeb1d71342484b0943985adb65e165e3e',1,'plot_track.count'],['../dd/d6b/namespaceoffsettrack.html#afefbbb4f39da3e83816bf5d31d797527',1,'offsettrack.count']]],
   ['cpu_5fpublisher_44',['cpu_publisher',['../db/d78/classpower__log_1_1power__log__node_1_1_power_node.html#a89396f78a3463b35796f7d73a90d1c72',1,'power_log::power_log_node::PowerNode']]],
   ['csv_5ffiles_45',['csv_files',['../df/d91/namespacedashboard.html#a1a4e9557de70313494afd311e0bea781',1,'dashboard']]],
-  ['current_5fgoal_5fvelocity_46',['current_goal_velocity',['../d4/d89/class_inspection_functions.html#ab28a953b2f7bb994a3afb1a6c7f636c7',1,'InspectionFunctions']]]
+  ['csv_5fsuffix_46',['csv_suffix',['../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a02bce07c4f8551e2af6b294126aaad25',1,'evaluator::evaluator::Evaluator']]],
+  ['current_5fgoal_5fvelocity_47',['current_goal_velocity',['../d4/d89/class_inspection_functions.html#ab28a953b2f7bb994a3afb1a6c7f636c7',1,'InspectionFunctions']]]
 ];

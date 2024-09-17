@@ -89,6 +89,8 @@ var classevaluator_1_1evaluator_1_1_evaluator =
     [ "control_data_sub_", "dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#ab440b5334ecf3eb1738f10a3209a6ad3", null ],
     [ "control_metrics", "dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#ad7a438efb38aaeedf16c750cc0ad1e39", null ],
     [ "correction_step_time_callback", "dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#af2ce2b1e3f8a0cc09870294cea4dc8cc", null ],
+    [ "csv_suffix", "dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a02bce07c4f8551e2af6b294126aaad25", null ],
+    [ "generate_csv", "dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a97f2f3141b84b2b471463744ed541dc1", null ],
     [ "map_subscription_", "dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a1be91276c9156253a6a7d312ac6d029c", null ],
     [ "perception_execution_time_callback", "dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#afae97dbafedb77e7c388ddd99cc42134", null ],
     [ "perception_metrics", "dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#aa4462f0e563c9284139ddc2bdae8d9e8", null ],
