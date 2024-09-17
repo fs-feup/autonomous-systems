@@ -129,7 +129,6 @@ def build_adjacency_matrix(cones: np.array) -> np.array:
     Returns:
         np.array: The adjacency matrix representing the distances between cones.
     """
-    """Build adjacency matrix based on distances between cones."""
 
     num_cones = cones.shape[0]
 
