@@ -146,7 +146,7 @@ def build_adjacency_matrix(cones: np.array) -> np.array:
 
 def get_duplicates(output: np.array, threshold: float) -> int:
     """
-    Receives a set of cones and removes the possible duplicates.
+    Receives a set of cones and identifies the possible duplicates.
 
     Args:
         output (np.array): The set of cones.
