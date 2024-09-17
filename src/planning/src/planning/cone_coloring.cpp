@@ -176,7 +176,7 @@ std::pair<std::vector<Cone>, std::vector<Cone>> ConeColoring::color_cones(
                 "Not enough cones recieved to be colored: %ld", cones.size());
     return {};
   }
-  if (!config_.using_cone_colouring_) {
+  if (!config_.use_cone_colouring_) {
     return {cones, {}};
   }
   std::vector<Cone> colored_blue_cones;

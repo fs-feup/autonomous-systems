@@ -30,8 +30,10 @@ struct PlanningParameters {
   int smoothing_spline_precision_;
   bool publishing_visualization_msgs_;
   bool using_simulated_se_;
+  bool use_outlier_removal_;
+  bool use_path_smoothing_;
   long double desired_velocity_;
-  bool using_cone_colouring_;
+  bool use_cone_colouring_;
   std::string map_frame_id_;
 };
 
@@ -55,15 +57,16 @@ struct PlanningConfig {
     cone_coloring_.angle_exponent_ = params.angle_exponent_;
     cone_coloring_.distance_exponent_ = params.distance_exponent_;
     cone_coloring_.max_cost_ = params.cost_max_;
-    cone_coloring_.using_cone_colouring_ = params.using_cone_colouring_;
+    cone_coloring_.use_cone_colouring_ = params.use_cone_colouring_;
 
     outliers_.order_ = params.outliers_spline_order_;
     outliers_.precision_ = params.outliers_spline_precision_;
     outliers_.coeffs_ratio_ = params.outliers_spline_coeffs_ratio_;
-    outliers_.using_cone_colouring_ = params.using_cone_colouring_;
+    outliers_.use_cone_colouring_ = params.use_cone_colouring_;
+    outliers_.use_outlier_removal_ = params.use_outlier_removal_;
 
     path_calculation_.dist_threshold_ = params.path_calculation_dist_threshold_;
-    path_calculation_.using_cone_colouring_ = params.using_cone_colouring_;
+    path_calculation_.use_cone_colouring_ = params.use_cone_colouring_;
 
     path_search_.angle_weight_ = params.path_search_angle_gain_;
     path_search_.distance_weight_ = params.path_search_distance_gain_;
@@ -71,11 +74,12 @@ struct PlanningConfig {
     path_search_.angle_exponent_ = params.path_search_angle_exponent_;
     path_search_.distance_exponent_ = params.path_search_distance_exponent_;
     path_search_.max_cost_ = params.path_search_cost_max_;
-    path_search_.using_cone_colouring_ = params.using_cone_colouring_;
+    path_search_.use_cone_colouring_ = params.use_cone_colouring_;
 
     smoothing_.order_ = params.smoothing_spline_order_;
     smoothing_.precision_ = params.smoothing_spline_precision_;
     smoothing_.coeffs_ratio_ = params.smoothing_spline_coeffs_ratio_;
+    smoothing_.use_path_smoothing_ = params.use_path_smoothing_;
 
     simulation_.publishing_visualization_msgs_ = params.publishing_visualization_msgs_;
     simulation_.using_simulated_se_ = params.using_simulated_se_;

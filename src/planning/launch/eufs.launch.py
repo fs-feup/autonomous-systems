@@ -126,9 +126,19 @@ def generate_launch_description():
                 default_value="2",
             ),
             DeclareLaunchArgument(
-                "using_cone_colouring",
+                "use_cone_colouring",
                 description="Whether to use cone colouring or path search",
-                default_value="false",
+                default_value="true",
+            ),
+            DeclareLaunchArgument(
+                "use_outlier_removal",
+                description="Whether to use outlier removal or to skip it",
+                default_value="true",
+            ),
+            DeclareLaunchArgument(
+                "use_path_smoothing",
+                description="Whether to use path smoothing or to skip it",
+                default_value="true",
             ),
             Node(
                 package="planning",
@@ -218,11 +228,9 @@ def generate_launch_description():
                             "pre_defined_velocity_planning"
                         )
                     },
-                    {
-                        "using_cone_colouring": LaunchConfiguration(
-                            "using_cone_colouring"
-                        )
-                    },
+                    {"use_cone_colouring": LaunchConfiguration("use_cone_colouring")},
+                    {"use_outlier_removal": LaunchConfiguration("use_outlier_removal")},
+                    {"use_path_smoothing": LaunchConfiguration("use_path_smoothing")},
                 ],
                 arguments=["--ros-args", "--log-level", "planning:=info"],
             ),

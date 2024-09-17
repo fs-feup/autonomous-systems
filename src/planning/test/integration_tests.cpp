@@ -110,7 +110,7 @@ TEST_F(IntegrationTest, PUBLISH_PATH1) {
     EXPECT_GE(p.x, -2);
   }
   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()),
-            (long unsigned int)210);
+            (long unsigned int)230);
 }
 
 /**
@@ -149,7 +149,7 @@ TEST_F(IntegrationTest, PUBLISH_PATH2) {
     EXPECT_LE(p.y - p.x, 0.1);
   }
   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()),
-            (long unsigned int)210);
+            (long unsigned int)230);
 }
 
 /**
@@ -190,7 +190,7 @@ TEST_F(IntegrationTest, PUBLISH_PATH3) {
     EXPECT_LE(p.y + p.x, 0.1);
   }
   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()),
-            (long unsigned int)210);
+            (long unsigned int)230);
 }
 
 /**
@@ -229,7 +229,7 @@ TEST_F(IntegrationTest, PUBLISH_PATH4) {
     EXPECT_LE(p.y - p.x, 0.1);
   }
   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()),
-            (long unsigned int)210);
+            (long unsigned int)230);
 }
 
 /**
@@ -268,7 +268,7 @@ TEST_F(IntegrationTest, PUBLISH_PATH5) {
     EXPECT_LE(p.y + p.x, 0.1);
   }
   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()),
-            (long unsigned int)210);
+            (long unsigned int)230);
 }
 
 /**
@@ -301,7 +301,7 @@ TEST_F(IntegrationTest, PUBLISH_PATH6) {
     EXPECT_GE(p.y, -1);
   }
   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()),
-            (long unsigned int)210);
+            (long unsigned int)230);
 }
 
 /**

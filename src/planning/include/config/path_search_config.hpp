@@ -46,18 +46,18 @@ struct PathSearchConfig {
    * @brief flag to use cone coloring or cost function after Delaunay triangulations
    *
    */
-  bool using_cone_colouring_ = true;
+  bool use_cone_colouring_ = true;
 
   PathSearchConfig() = default;
   PathSearchConfig(double angle_gain, double distance_gain, double npoints_gain, double exponent1,
-                   double exponent2, double max_cost, bool using_cone_colouring)
+                   double exponent2, double max_cost, bool use_cone_colouring)
       : angle_weight_(angle_gain),
         distance_weight_(distance_gain),
         npoints_weight_(npoints_gain),
         distance_exponent_(exponent1),
         angle_exponent_(exponent2),
         max_cost_(max_cost),
-        using_cone_colouring_(using_cone_colouring) {}
+        use_cone_colouring_(use_cone_colouring) {}
 };
 
 #endif  // SRC_PLANNING_INCLUDE_CONFIG_PATH_SEARCH_CONFIG_HPP_

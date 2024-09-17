@@ -128,8 +128,8 @@ TEST(ConeColoring, fullconecoloring1) {
   auto track = cone_coloring.color_cones(track_cones, initial_car_pose);
 
   test_cone_coloring(track, c_left, c_right, inc_left, inc_right);
-  EXPECT_EQ(c_left, 11);
-  EXPECT_EQ(c_right, 12);
+  EXPECT_EQ(c_left, 12);
+  EXPECT_EQ(c_right, 13);
   EXPECT_EQ(inc_left, 0);
   EXPECT_EQ(inc_right, 1);
 }

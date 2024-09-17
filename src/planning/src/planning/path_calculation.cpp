@@ -47,7 +47,7 @@ std::vector<PathPoint> PathCalculation::process_delaunay_triangulations(
     Cone cone1 = cones[id_cone1];
     Cone cone2 = cones[id_cone2];
     // If cones are from different sides
-    if (cone1.color != cone2.color || !config_.using_cone_colouring_) {
+    if (cone1.color != cone2.color || !config_.use_cone_colouring_) {
       // Calculate the midpoint between the two cones
       double x_dist = cone2.position.x - cone1.position.x;
       double y_dist = cone2.position.y - cone1.position.y;

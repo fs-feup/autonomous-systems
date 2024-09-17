@@ -26,13 +26,20 @@ struct OutliersConfig {
    * @brief flag to use cone colouring
    *
    */
-  bool using_cone_colouring_ = false;
+  bool use_cone_colouring_ = true;
+  /**
+   * @brief flag to enable/disable the outliers removal
+   *
+   */
+  bool use_outlier_removal_ = true;
   OutliersConfig() = default;
-  OutliersConfig(int precision, int order, float coeffs_ratio, bool using_cone_colouring)
+  OutliersConfig(int precision, int order, float coeffs_ratio, bool use_cone_coloring,
+                 bool use_outlier_removal)
       : precision_(precision),
         order_(order),
         coeffs_ratio_(coeffs_ratio),
-        using_cone_colouring_(using_cone_colouring) {}
+        use_cone_colouring_(use_cone_coloring),
+        use_outlier_removal_(use_outlier_removal) {}
 };
 
 #endif  // SRC_PLANNING_INCLUDE_CONFIG_OUTLIERS_CONFIG_HPP_

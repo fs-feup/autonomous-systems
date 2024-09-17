@@ -107,7 +107,7 @@ void PathSearch::place_initial_cones(
 
 std::vector<PathPoint> PathSearch::find_path(const std::vector<PathPoint>& path_points,
                                              const Pose& car_pose) const {
-  if (config_.using_cone_colouring_) {
+  if (config_.use_cone_colouring_) {
     return path_points;
   }
   if (path_points.size() < 2) {
