@@ -30,6 +30,16 @@ def generate_launch_description():
                 description="Which simulation environment to use",
                 default_value="pacsim",
             ),
+            DeclareLaunchArgument(
+                "generate_csv",
+                description="Whether to generate CSV files for metrics",
+                default_value="False",
+            ),
+            DeclareLaunchArgument(
+                "csv_suffix",
+                description="String to add to the CSV filename",
+                default_value="",
+            ),
             Node(
                 package="evaluator",
                 executable="evaluator",
@@ -47,6 +57,8 @@ def generate_launch_description():
                             "use_simulated_planning"
                         )
                     },
+                    {"generate_csv": LaunchConfiguration("generate_csv")},
+                    {"csv_suffix": LaunchConfiguration("csv_suffix")},
                 ],
                 arguments=["--ros-args", "--log-level", "evaluator:=info"],
             ),
