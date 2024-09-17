@@ -35,7 +35,7 @@ class VehicleAdapter(Adapter):
                 self.node.perception_subscription_,
             ],
             10,
-            0.1,
+            0.1
         )
 
         self._perception_sync_.registerCallback(self.perception_callback)
