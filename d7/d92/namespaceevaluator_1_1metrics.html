@@ -118,6 +118,18 @@ Functions</h2></td></tr>
 <tr class="memitem:a7ac161e4fc60a4264fc8450374cb36c6" id="r_a7ac161e4fc60a4264fc8450374cb36c6"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d92/namespaceevaluator_1_1metrics.html#a7ac161e4fc60a4264fc8450374cb36c6">get_inter_cones_distance</a> (np.array perception_output)</td></tr>
 <tr class="memdesc:a7ac161e4fc60a4264fc8450374cb36c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the average distance between pairs of perceived cones using Minimum Spanning Tree Prim's algorithm.  <br /></td></tr>
 <tr class="separator:a7ac161e4fc60a4264fc8450374cb36c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1f5d3cf2582c941d062183baacb1b4b" id="r_af1f5d3cf2582c941d062183baacb1b4b"><td class="memItemLeft" align="right" valign="top">np.ndarray&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d92/namespaceevaluator_1_1metrics.html#af1f5d3cf2582c941d062183baacb1b4b">compute_closest_distances</a> (np.ndarray arr1, np.ndarray arr2)</td></tr>
+<tr class="memdesc:af1f5d3cf2582c941d062183baacb1b4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the distance between each element in arr2 and the closest element in arr1.  <br /></td></tr>
+<tr class="separator:af1f5d3cf2582c941d062183baacb1b4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf39ed012fc2592a43dd2996c37a1e3c" id="r_adf39ed012fc2592a43dd2996c37a1e3c"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d92/namespaceevaluator_1_1metrics.html#adf39ed012fc2592a43dd2996c37a1e3c">get_average_error</a> (np.array values)</td></tr>
+<tr class="memdesc:adf39ed012fc2592a43dd2996c37a1e3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the average of a list of values.  <br /></td></tr>
+<tr class="separator:adf39ed012fc2592a43dd2996c37a1e3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ee2f13b22718ef575c737624c2b79e6" id="r_a6ee2f13b22718ef575c737624c2b79e6"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d92/namespaceevaluator_1_1metrics.html#a6ee2f13b22718ef575c737624c2b79e6">get_mean_squared_error</a> (np.array values)</td></tr>
+<tr class="memdesc:a6ee2f13b22718ef575c737624c2b79e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the mean squared value of a list of values.  <br /></td></tr>
+<tr class="separator:a6ee2f13b22718ef575c737624c2b79e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f46173c6c754f9c96f4d4f4f102987f" id="r_a1f46173c6c754f9c96f4d4f4f102987f"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d92/namespaceevaluator_1_1metrics.html#a1f46173c6c754f9c96f4d4f4f102987f">get_root_mean_squared_error</a> (np.array values)</td></tr>
+<tr class="memdesc:a1f46173c6c754f9c96f4d4f4f102987f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the root mean squared error of a list of values.  <br /></td></tr>
+<tr class="separator:a1f46173c6c754f9c96f4d4f4f102987f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a67fb2de017620156f3758f24363e7853" name="a67fb2de017620156f3758f24363e7853"></a>
@@ -149,6 +161,40 @@ Here is the caller graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="190,76,158,81,157,76,189,71"/>
 </map>
 </div>
+
+</div>
+</div>
+<a id="af1f5d3cf2582c941d062183baacb1b4b" name="af1f5d3cf2582c941d062183baacb1b4b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1f5d3cf2582c941d062183baacb1b4b">&#9670;&#160;</a></span>compute_closest_distances()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> np.ndarray evaluator.metrics.compute_closest_distances </td>
+          <td>(</td>
+          <td class="paramtype">np.ndarray&#160;</td>
+          <td class="paramname"><em>arr1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">np.ndarray&#160;</td>
+          <td class="paramname"><em>arr2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Computes the distance between each element in arr2 and the closest element in arr1. </p>
+<p>Args: arr1 (np.ndarray): First array of positions. arr2 (np.ndarray): Second array of positions.</p>
+<p>Returns: np.ndarray: Array of distances between each element in arr2 and the closest element in arr1. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../df/d68/metrics_8py_source.html#l00173">173</a> of file <a class="el" href="../../df/d68/metrics_8py_source.html">metrics.py</a>.</p>
 
 </div>
 </div>
@@ -215,6 +261,30 @@ Here is the caller graph for this function:</div>
 <p>Returns: float: Average difference between empirical and expected outputs. </p>
 
 <p class="definition">Definition at line <a class="el" href="../../df/d68/metrics_8py_source.html#l00008">8</a> of file <a class="el" href="../../df/d68/metrics_8py_source.html">metrics.py</a>.</p>
+
+</div>
+</div>
+<a id="adf39ed012fc2592a43dd2996c37a1e3c" name="adf39ed012fc2592a43dd2996c37a1e3c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf39ed012fc2592a43dd2996c37a1e3c">&#9670;&#160;</a></span>get_average_error()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> float evaluator.metrics.get_average_error </td>
+          <td>(</td>
+          <td class="paramtype">np.array&#160;</td>
+          <td class="paramname"><em>values</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Computes the average of a list of values. </p>
+<p>Args: values (np.array): List of values.</p>
+<p>Returns: float: Average of the values. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../df/d68/metrics_8py_source.html#l00197">197</a> of file <a class="el" href="../../df/d68/metrics_8py_source.html">metrics.py</a>.</p>
 
 </div>
 </div>
@@ -364,6 +434,54 @@ Here is the call graph for this function:</div>
 <p>Returns: float: Mean squared difference. </p>
 
 <p class="definition">Definition at line <a class="el" href="../../df/d68/metrics_8py_source.html#l00078">78</a> of file <a class="el" href="../../df/d68/metrics_8py_source.html">metrics.py</a>.</p>
+
+</div>
+</div>
+<a id="a6ee2f13b22718ef575c737624c2b79e6" name="a6ee2f13b22718ef575c737624c2b79e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ee2f13b22718ef575c737624c2b79e6">&#9670;&#160;</a></span>get_mean_squared_error()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> float evaluator.metrics.get_mean_squared_error </td>
+          <td>(</td>
+          <td class="paramtype">np.array&#160;</td>
+          <td class="paramname"><em>values</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Computes the mean squared value of a list of values. </p>
+<p>Args: values (np.array): List of values.</p>
+<p>Returns: float: Mean squared value of the values. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../df/d68/metrics_8py_source.html#l00213">213</a> of file <a class="el" href="../../df/d68/metrics_8py_source.html">metrics.py</a>.</p>
+
+</div>
+</div>
+<a id="a1f46173c6c754f9c96f4d4f4f102987f" name="a1f46173c6c754f9c96f4d4f4f102987f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f46173c6c754f9c96f4d4f4f102987f">&#9670;&#160;</a></span>get_root_mean_squared_error()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> float evaluator.metrics.get_root_mean_squared_error </td>
+          <td>(</td>
+          <td class="paramtype">np.array&#160;</td>
+          <td class="paramname"><em>values</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Computes the root mean squared error of a list of values. </p>
+<p>Args: values (np.array): List of values.</p>
+<p>Returns: float: Root mean squared error of the values. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../df/d68/metrics_8py_source.html#l00229">229</a> of file <a class="el" href="../../df/d68/metrics_8py_source.html">metrics.py</a>.</p>
 
 </div>
 </div>

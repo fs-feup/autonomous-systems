@@ -106,6 +106,8 @@ Functions</h2></td></tr>
 <tr class="memitem:ac28db8c6124b942e503799656f7a83e3" id="r_ac28db8c6124b942e503799656f7a83e3"><td class="memItemLeft" align="right" valign="top">np.ndarray[np.ndarray]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dad/namespaceevaluator_1_1formats.html#ac28db8c6124b942e503799656f7a83e3">format_cone_array_msg</a> (ConeArray msg)</td></tr>
 <tr class="memdesc:ac28db8c6124b942e503799656f7a83e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Formats the ConeArray message into a numpy array.  <br /></td></tr>
 <tr class="separator:ac28db8c6124b942e503799656f7a83e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95f77d8294da84509a9a956a31b8975b" id="r_a95f77d8294da84509a9a956a31b8975b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dad/namespaceevaluator_1_1formats.html#a95f77d8294da84509a9a956a31b8975b">get_color_number_from_rgb</a> (r, g, b)</td></tr>
+<tr class="separator:a95f77d8294da84509a9a956a31b8975b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6cde6effb3a41b1f89f4e91841c50a69" id="r_a6cde6effb3a41b1f89f4e91841c50a69"><td class="memItemLeft" align="right" valign="top">np.ndarray[np.ndarray]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dad/namespaceevaluator_1_1formats.html#a6cde6effb3a41b1f89f4e91841c50a69">format_marker_array_msg</a> (MarkerArray msg)</td></tr>
 <tr class="memdesc:a6cde6effb3a41b1f89f4e91841c50a69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Formats the MarkerArray message into a numpy array.  <br /></td></tr>
 <tr class="separator:a6cde6effb3a41b1f89f4e91841c50a69"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -130,6 +132,11 @@ Functions</h2></td></tr>
 <tr class="memitem:a0bdcc7f60ef29eb0a298a1a9454fb474" id="r_a0bdcc7f60ef29eb0a298a1a9454fb474"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dad/namespaceevaluator_1_1formats.html#a0bdcc7f60ef29eb0a298a1a9454fb474">format_point2d_msg</a> (msg)</td></tr>
 <tr class="memdesc:a0bdcc7f60ef29eb0a298a1a9454fb474"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a Point2D message into a numpy array.  <br /></td></tr>
 <tr class="separator:a0bdcc7f60ef29eb0a298a1a9454fb474"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87735713917cd17dd60fec1c124f1a1f" id="r_a87735713917cd17dd60fec1c124f1a1f"><td class="memItemLeft" align="right" valign="top">np.ndarray&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dad/namespaceevaluator_1_1formats.html#a87735713917cd17dd60fec1c124f1a1f">find_closest_elements</a> (np.ndarray arr1, np.ndarray arr2)</td></tr>
+<tr class="separator:a87735713917cd17dd60fec1c124f1a1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a097584595bd59753af47aa347f8cfd63" id="r_a097584595bd59753af47aa347f8cfd63"><td class="memItemLeft" align="right" valign="top">tuple[np.ndarray, np.ndarray]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dad/namespaceevaluator_1_1formats.html#a097584595bd59753af47aa347f8cfd63">get_blue_and_yellow_cones_after_msg_treatment</a> (np.ndarray arr)</td></tr>
+<tr class="memdesc:a097584595bd59753af47aa347f8cfd63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Divides the result of converting the EUFS or FSDS map message to np.ndarray into blue and yellow cones arrays, attributing orange cones into blue or yellow cones.  <br /></td></tr>
+<tr class="separator:a097584595bd59753af47aa347f8cfd63"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -137,6 +144,44 @@ Variables</h2></td></tr>
 <tr class="separator:af995c59dd9c6d0e08f31195b021350a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a87735713917cd17dd60fec1c124f1a1f" name="a87735713917cd17dd60fec1c124f1a1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87735713917cd17dd60fec1c124f1a1f">&#9670;&#160;</a></span>find_closest_elements()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> np.ndarray evaluator.formats.find_closest_elements </td>
+          <td>(</td>
+          <td class="paramtype">np.ndarray&#160;</td>
+          <td class="paramname"><em>arr1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">np.ndarray&#160;</td>
+          <td class="paramname"><em>arr2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">_summary_
+
+Args:
+    arr1 (np.ndarray): array in which each element's 2 initial values are x and y positions
+    arr2 (np.ndarray): array in which each element's 2 initial values are x and y positions
+
+Returns:
+    np.ndarray: array of elements from arr2 that are the closest to at least one element in arr1
+</pre> 
+<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00296">296</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
+
+</div>
+</div>
 <a id="a7260bdf5571aa0ee20f51948d1443e88" name="a7260bdf5571aa0ee20f51948d1443e88"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7260bdf5571aa0ee20f51948d1443e88">&#9670;&#160;</a></span>format_car_state_msg()</h2>
 
@@ -157,7 +202,7 @@ Variables</h2></td></tr>
 <p>Args: msg (CarState): CarState message from eufs</p>
 <p>Returns: tuple[np.ndarray, np.ndarray]: (state, velocities) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00133">133</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00151">151</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
 
 </div>
 </div>
@@ -204,7 +249,7 @@ Variables</h2></td></tr>
 <p>Args: msg (ConeArrayWithCovariance): cone array message from eufs. </p>
 <p>Returns: np.ndarray[np.ndarray]: [[x, y, color, confidence], ...] </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00169">169</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00187">187</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
 
 </div>
 </div>
@@ -228,7 +273,17 @@ Variables</h2></td></tr>
 <p>Args: msg (MarkerArray): Marker array message.</p>
 <p>Returns: np.ndarray: Numpy array of arrays. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00069">69</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00078">78</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../da/dad/namespaceevaluator_1_1formats_a6cde6effb3a41b1f89f4e91841c50a69_cgraph.png" border="0" usemap="#ada/dad/namespaceevaluator_1_1formats_a6cde6effb3a41b1f89f4e91841c50a69_cgraph" alt=""/></div>
+<map name="ada/dad/namespaceevaluator_1_1formats_a6cde6effb3a41b1f89f4e91841c50a69_cgraph" id="ada/dad/namespaceevaluator_1_1formats_a6cde6effb3a41b1f89f4e91841c50a69_cgraph">
+<area shape="rect" title="Formats the MarkerArray message into a numpy array." alt="" coords="5,5,167,46"/>
+<area shape="rect" href="../../da/dad/namespaceevaluator_1_1formats.html#a95f77d8294da84509a9a956a31b8975b" title=" " alt="" coords="215,5,379,46"/>
+<area shape="poly" title=" " alt="" coords="167,23,199,23,199,28,167,28"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -252,7 +307,7 @@ Variables</h2></td></tr>
 <p>Args: msg (Odometry): Odometry message.</p>
 <p>Returns: np.ndarray: Numpy array of odometry. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00204">204</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00222">222</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
 
 </div>
 </div>
@@ -276,7 +331,7 @@ Variables</h2></td></tr>
 <p>Args: path_point_array (PathPointArray): PathPointArray message.</p>
 <p>Returns: np.ndarray: Numpy array of path points. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00239">239</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00257">257</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
 
 </div>
 </div>
@@ -300,7 +355,7 @@ Variables</h2></td></tr>
 <p>Args: msg: Point2D message.</p>
 <p>Returns: np.ndarray: Numpy array of point. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00265">265</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00283">283</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
 
 </div>
 </div>
@@ -324,7 +379,7 @@ Variables</h2></td></tr>
 <p>Args: msg (TransformStamped): TransformStamped message.</p>
 <p>Returns: np.ndarray: Numpy array of transform. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00089">89</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00107">107</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
 
 </div>
 </div>
@@ -348,7 +403,7 @@ Variables</h2></td></tr>
 <p>Args: msg (TwistWithCovarianceStamped): TwistWithCovarianceStamped message.</p>
 <p>Returns: np.ndarray: Numpy array of twist (used for velocities). </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00116">116</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00134">134</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
 
 </div>
 </div>
@@ -373,6 +428,76 @@ Variables</h2></td></tr>
 <p>Returns: np.ndarray: Numpy array of vehicle state. </p>
 
 <p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00020">20</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
+
+</div>
+</div>
+<a id="a097584595bd59753af47aa347f8cfd63" name="a097584595bd59753af47aa347f8cfd63"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a097584595bd59753af47aa347f8cfd63">&#9670;&#160;</a></span>get_blue_and_yellow_cones_after_msg_treatment()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> tuple[np.ndarray, np.ndarray] evaluator.formats.get_blue_and_yellow_cones_after_msg_treatment </td>
+          <td>(</td>
+          <td class="paramtype">np.ndarray&#160;</td>
+          <td class="paramname"><em>arr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Divides the result of converting the EUFS or FSDS map message to np.ndarray into blue and yellow cones arrays, attributing orange cones into blue or yellow cones. </p>
+<p>Args: arr (np.ndarray): Array of cones with the following attributes: x, y, index, confidence, type.</p>
+<p>Returns: tuple[np.ndarray, np.ndarray]: the first array is the array of blue cones and the second contains yellow cones. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00327">327</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
+
+</div>
+</div>
+<a id="a95f77d8294da84509a9a956a31b8975b" name="a95f77d8294da84509a9a956a31b8975b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95f77d8294da84509a9a956a31b8975b">&#9670;&#160;</a></span>get_color_number_from_rgb()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator.formats.get_color_number_from_rgb </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>r</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>g</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d7/d97/formats_8py_source.html#l00069">69</a> of file <a class="el" href="../../d7/d97/formats_8py_source.html">formats.py</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../da/dad/namespaceevaluator_1_1formats_a95f77d8294da84509a9a956a31b8975b_icgraph.png" border="0" usemap="#ada/dad/namespaceevaluator_1_1formats_a95f77d8294da84509a9a956a31b8975b_icgraph" alt=""/></div>
+<map name="ada/dad/namespaceevaluator_1_1formats_a95f77d8294da84509a9a956a31b8975b_icgraph" id="ada/dad/namespaceevaluator_1_1formats_a95f77d8294da84509a9a956a31b8975b_icgraph">
+<area shape="rect" title=" " alt="" coords="215,5,379,46"/>
+<area shape="rect" href="../../da/dad/namespaceevaluator_1_1formats.html#a6cde6effb3a41b1f89f4e91841c50a69" title="Formats the MarkerArray message into a numpy array." alt="" coords="5,5,167,46"/>
+<area shape="poly" title=" " alt="" coords="199,28,167,28,167,23,199,23"/>
+</map>
+</div>
 
 </div>
 </div>
