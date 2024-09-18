@@ -168,3 +168,75 @@ def get_inter_cones_distance(perception_output: np.array) -> float:
     else:
         average_distance = mst_sum / num_pairs
         return float(average_distance)
+
+
+def compute_closest_distances(arr1: np.ndarray, arr2: np.ndarray) -> np.ndarray:
+    """!
+    Computes the distance between each element in arr2 and the closest element in arr1.
+
+    Args:
+        arr1 (np.ndarray): First array of positions.
+        arr2 (np.ndarray): Second array of positions.
+
+    Returns:
+        np.ndarray: Array of distances between each element in arr2 and the closest element in arr1.
+    """
+    distances = []
+
+    for pos2 in arr2:
+        closest_distance = float("inf")
+        for pos1 in arr1:
+            distance = np.linalg.norm(pos2[:2] - pos1[:2])
+            if distance < closest_distance:
+                closest_distance = distance
+        distances.append(closest_distance)
+
+    return np.array(distances)
+
+
+def get_average_error(values: np.array) -> float:
+    """!
+    Computes the average of a list of values.
+
+    Args:
+        values (np.array): List of values.
+
+    Returns:
+        float: Average of the values.
+    """
+    if len(values) == 0:
+        return 0.0
+
+    return np.mean(values)
+
+
+def get_mean_squared_error(values: np.array) -> float:
+    """!
+    Computes the mean squared value of a list of values.
+
+    Args:
+        values (np.array): List of values.
+
+    Returns:
+        float: Mean squared value of the values.
+    """
+    if len(values) == 0:
+        return 0.0
+
+    return np.mean(values**2)
+
+
+def get_root_mean_squared_error(values: np.array) -> float:
+    """!
+    Computes the root mean squared error of a list of values.
+
+    Args:
+        values (np.array): List of values.
+
+    Returns:
+        float: Root mean squared error of the values.
+    """
+    if len(values) == 0:
+        return 0.0
+
+    return np.sqrt(np.mean(values**2))

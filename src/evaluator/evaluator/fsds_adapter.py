@@ -5,12 +5,13 @@ from geometry_msgs.msg import Quaternion
 import numpy as np
 import datetime
 from sensor_msgs.msg import PointCloud2
-from evaluator.formats import format_cone_array_msg
-from custom_interfaces.msg import ConeArray, VehicleState
+from custom_interfaces.msg import ConeArray, VehicleState, PathPointArray
 from evaluator.formats import (
     format_vehicle_state_msg,
     format_cone_array_msg,
     format_nav_odometry_msg,
+    format_path_point_array_msg,
+    get_blue_and_yellow_cones_after_msg_treatment,
 )
 import rclpy
 
@@ -63,7 +64,16 @@ class FSDSAdapter(Adapter):
             10,
             0.1,
         )
+        self._planning_time_sync_ = message_filters.ApproximateTimeSynchronizer(
+            [
+                self.node.planning_subscription_,
+                self.node.planning_gt_subscription_,
+            ],
+            10,
+            0.5,
+        )
 
+        self._planning_time_sync_.registerCallback(self.planning_callback)
         self._perception_sync_.registerCallback(self.perception_callback)
         self._state_estimation_sync_.registerCallback(self.state_estimation_callback)
 
@@ -92,17 +102,15 @@ class FSDSAdapter(Adapter):
         self.node.compute_and_publish_perception(
             perception_output, perception_ground_truth
         )
-    
-    def odometry_callback(
-        self, odometry: Odometry
-    ):
+
+    def odometry_callback(self, odometry: Odometry):
         """!
         Callback function to mark the planning's initial timestamp
 
         Args:
             odometry (Odometry): Behicle's odometry information.
         """
-        
+
         if self.node.use_simulated_se_:
             self.node.map_receive_time_ = datetime.datetime.now()
 
@@ -129,6 +137,35 @@ class FSDSAdapter(Adapter):
             empty_groundtruth_velocity_treated,
             map_treated,
             groundtruth_map_treated,
+        )
+
+    def planning_callback(
+        self,
+        planning_output: PathPointArray,
+        path_ground_truth: PathPointArray,
+    ):
+        """!
+        Callback function to process synchronized messages and compute planning metrics.
+
+        Args:
+            planning_output (PathPointArray): Planning output.
+            path_ground_truth (PathPointArray): Groundtruth path message.
+        """
+        map_ground_truth_treated: np.ndarray = format_nav_odometry_msg(self.track)
+        blue_cones, yellow_cones = get_blue_and_yellow_cones_after_msg_treatment(
+            map_ground_truth_treated
+        )
+        planning_output_treated: np.ndarray = format_path_point_array_msg(
+            planning_output
+        )
+        path_ground_truth_treated: np.ndarray = format_path_point_array_msg(
+            path_ground_truth
+        )
+        self.node.compute_and_publish_planning(
+            planning_output_treated,
+            path_ground_truth_treated,
+            blue_cones,
+            yellow_cones,
         )
 
     def create_perception_ground_truth(self, odometry: Odometry) -> list:
