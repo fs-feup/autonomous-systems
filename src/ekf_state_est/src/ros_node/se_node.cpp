@@ -17,35 +17,30 @@
 /*---------------------- Constructor --------------------*/
 
 SENode::SENode() : Node("ekf_state_est") {
-  // TODO: noise matrixes by parameter
   this->_use_odometry_ = this->declare_parameter("use_odometry", true);
   _use_simulated_perception_ = this->declare_parameter("use_simulated_perception", false);
   _adapter_name_ = this->declare_parameter("adapter", "eufs");
   std::string motion_model_name = this->declare_parameter("motion_model", "normal_velocity_model");
   std::string data_assocation_model_name =
-      this->declare_parameter("data_assocation_model", "simple_ml");
-  if (data_assocation_model_name == "simple_ml") {
-    float sml_da_curvature = static_cast<float>(this->declare_parameter("sml_da_curvature", 15.0f));
-    float sml_initial_limit =
-        static_cast<float>(this->declare_parameter("sml_initial_limit", 0.1f));
-    SimpleMaximumLikelihood::curvature_ = sml_da_curvature;
-    SimpleMaximumLikelihood::initial_limit_ = sml_initial_limit;
+      this->declare_parameter("data_assocation_model", "max_likelihood");
+  float wss_noise = 0.0f;
+  float imu_noise = 0.0f;  // Declare the 'imu_noise' variable
+  if (data_assocation_model_name == "max_likelihood") {
+    wss_noise = static_cast<float>(this->declare_parameter("wss_noise", 0.3f));
+    imu_noise = static_cast<float>(this->declare_parameter("imu_noise", 0.0064f));
   }
-  // float observation_noise = static_cast<float>(this->declare_parameter("observation_noise",
-  // 0.05f)); float wheel_speed_sensor_noise =
-  //     static_cast<float>(this->declare_parameter("wheel_speed_sensor_noise", 0.003f));
   float data_association_limit_distance =
       static_cast<float>(this->declare_parameter("data_association_limit_distance", 71.0f));
 
+  float observation_noise = static_cast<float>(this->declare_parameter("observation_noise", 0.03f));
 
   std::shared_ptr<MotionModel> motion_model_wss = motion_model_constructors.at(
-      "normal_velocity_model")(MotionModel::create_process_noise_covariance_matrix(0.3f));  // TUNE
+      "normal_velocity_model")(MotionModel::create_process_noise_covariance_matrix(wss_noise));
   std::shared_ptr<MotionModel> motion_model_imu = motion_model_constructors.at(motion_model_name)(
-      MotionModel::create_process_noise_covariance_matrix(0.0064f));  // 0.0064//TUNE
-
+      MotionModel::create_process_noise_covariance_matrix(imu_noise));
 
   std::shared_ptr<ObservationModel> observation_model = std::make_shared<ObservationModel>(
-      ObservationModel::create_observation_noise_covariance_matrix(0.03f));  // 0.0009f));//TUNE
+      ObservationModel::create_observation_noise_covariance_matrix(observation_noise));
   std::shared_ptr<DataAssociationModel> data_association_model =
       data_association_model_constructors.at(data_assocation_model_name)(
           data_association_limit_distance);
@@ -130,11 +125,6 @@ void SENode::_imu_subscription_callback(const sensor_msgs::msg::Imu &imu_msg) {
   double ax_map = ax * cos(angle) /* - ay * sin(angle)*/;
   double ay_map = ax * sin(angle) /* + ay * cos(angle) */;
 
-  // print the acceleration in both frames
-  RCLCPP_DEBUG(this->get_logger(), "SUB - Raw from IMU: ax:%f  - v_rot:%f", ax, v_rot);
-  RCLCPP_DEBUG(this->get_logger(), "SUB - translated from IMU: ax:%f - ay:%f - v_rot:%f", ax_map,
-               ay_map, v_rot);
-
   MotionUpdate motion_prediction_data;
   motion_prediction_data.acceleration_x = ax_map;
   motion_prediction_data.acceleration_y = ay_map;
@@ -164,12 +154,6 @@ void SENode::_imu_subscription_callback(const sensor_msgs::msg::Imu &imu_msg) {
 void SENode::_wheel_speeds_subscription_callback(double rl_speed, double fl_speed, double rr_speed,
                                                  double fr_speed, double steering_angle,
                                                  const rclcpp::Time &timestamp) {
-  // std::lock_guard lock(this->_mutex_);  // BLOCK IF PREDICTION STEP IS ON GOING
-  RCLCPP_DEBUG(this->get_logger(), "PREDICTION STEP");
-  RCLCPP_DEBUG(this->get_logger(),
-               "SUB - Raw from wheel speeds: lb:%f - rb:%f - lf:%f - rf:%f - "
-               "steering: %f",
-               rl_speed, rr_speed, fl_speed, fr_speed, steering_angle);
   rclcpp::Time start_time = this->get_clock()->now();
 
   auto [linear_velocity, angular_velocity] =
@@ -182,9 +166,6 @@ void SENode::_wheel_speeds_subscription_callback(double rl_speed, double fl_spee
   this->_motion_update_->rotational_velocity = motion_prediction_data.rotational_velocity;
   this->_motion_update_->steering_angle = steering_angle;
   this->_motion_update_->last_update = timestamp;
-  RCLCPP_DEBUG(this->get_logger(), "SUB - translated from wheel speeds: v:%f - w:%f",
-               this->_motion_update_->translational_velocity,
-               this->_motion_update_->rotational_velocity);
 
   if (this->_ekf_ == nullptr) {
     RCLCPP_ERROR(this->get_logger(), "ATTR - EKF object is null");
