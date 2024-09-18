@@ -108,13 +108,27 @@ def get_mean_squared_difference(output: np.ndarray, expected: np.ndarray) -> flo
 
 def compute_distance(cone1: np.array, cone2: np.array) -> float:
     """!
-    Compute Euclidean distance between two cones.
+    Compute the Euclidean distance between two cones.
+    Args:
+        cone1 (np.array): The coordinates of the first cone.
+        cone2 (np.array): The coordinates of the second cone.
+    Returns:
+        float: The Euclidean distance between the two cones.
     """
+
     return np.linalg.norm(cone1 - cone2)
 
 
 def build_adjacency_matrix(cones: np.array) -> np.array:
-    """Build adjacency matrix based on distances between cones."""
+    """
+    Build an adjacency matrix based on the distances between cones.
+
+    Args:
+        cones (np.array): An array containing the coordinates of cones.
+
+    Returns:
+        np.array: The adjacency matrix representing the distances between cones.
+    """
 
     num_cones = cones.shape[0]
 
@@ -129,8 +143,18 @@ def build_adjacency_matrix(cones: np.array) -> np.array:
     return distances
 
 
-def get_duplicates(output: np.array, threshold: float):
-    """Receives a set of cones and identify the possible dupliates"""
+def get_duplicates(output: np.array, threshold: float) -> int:
+    """
+    Receives a set of cones and identifies the possible duplicates.
+
+    Args:
+        output (np.array): The set of cones.
+        threshold (float): The threshold value to consider cones different or duplicates.
+
+    Returns:
+        int: The number of possible duplicates.
+
+    """
 
     adjacency_matrix = build_adjacency_matrix(output)
     num_duplicates = np.sum(np.tril(adjacency_matrix < threshold, k=-1))

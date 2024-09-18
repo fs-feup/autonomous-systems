@@ -20,7 +20,7 @@ from evaluator.formats import (
 
 class PacsimAdapter(Adapter):
     """!
-    Adapter class for subscribing to PacSim topics
+    Adapter class to manage the use of Pacsim.
     """
 
     def __init__(self, node: rclpy.node.Node):

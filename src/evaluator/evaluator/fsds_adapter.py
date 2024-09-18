@@ -18,7 +18,7 @@ import rclpy
 
 class FSDSAdapter(Adapter):
     """!
-    Adapter class for adapting/synchronizing computations' data with ground truth.
+    Adapter class for adapting/synchronizing computations' data with ground truth when using the FSDS simulator.
     """
 
     def __init__(self, node: rclpy.node.Node):
