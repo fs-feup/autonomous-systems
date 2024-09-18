@@ -109,12 +109,12 @@ Functions</h2></td></tr>
 <tr class="memdesc:acc14edd4119b16ba22b7357cbbe5faff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the mean squared difference between an output output and the expected values.  <br /></td></tr>
 <tr class="separator:acc14edd4119b16ba22b7357cbbe5faff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acf17d74673bf42aa48009e003b5d6e8b" id="r_acf17d74673bf42aa48009e003b5d6e8b"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d92/namespaceevaluator_1_1metrics.html#acf17d74673bf42aa48009e003b5d6e8b">compute_distance</a> (np.array cone1, np.array cone2)</td></tr>
-<tr class="memdesc:acf17d74673bf42aa48009e003b5d6e8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute Euclidean distance between two cones.  <br /></td></tr>
+<tr class="memdesc:acf17d74673bf42aa48009e003b5d6e8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the Euclidean distance between two cones.  <br /></td></tr>
 <tr class="separator:acf17d74673bf42aa48009e003b5d6e8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a67fb2de017620156f3758f24363e7853" id="r_a67fb2de017620156f3758f24363e7853"><td class="memItemLeft" align="right" valign="top">np.array&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d92/namespaceevaluator_1_1metrics.html#a67fb2de017620156f3758f24363e7853">build_adjacency_matrix</a> (np.array cones)</td></tr>
 <tr class="separator:a67fb2de017620156f3758f24363e7853"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e8e98b2d5197fa4019fcbefd634beab" id="r_a0e8e98b2d5197fa4019fcbefd634beab"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d92/namespaceevaluator_1_1metrics.html#a0e8e98b2d5197fa4019fcbefd634beab">get_duplicates</a> (np.array output, float threshold)</td></tr>
-<tr class="separator:a0e8e98b2d5197fa4019fcbefd634beab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a617250b642eac0a39158de22dd2a417d" id="r_a617250b642eac0a39158de22dd2a417d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d92/namespaceevaluator_1_1metrics.html#a617250b642eac0a39158de22dd2a417d">get_duplicates</a> (np.array output, float threshold)</td></tr>
+<tr class="separator:a617250b642eac0a39158de22dd2a417d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7ac161e4fc60a4264fc8450374cb36c6" id="r_a7ac161e4fc60a4264fc8450374cb36c6"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d92/namespaceevaluator_1_1metrics.html#a7ac161e4fc60a4264fc8450374cb36c6">get_inter_cones_distance</a> (np.array perception_output)</td></tr>
 <tr class="memdesc:a7ac161e4fc60a4264fc8450374cb36c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the average distance between pairs of perceived cones using Minimum Spanning Tree Prim's algorithm.  <br /></td></tr>
 <tr class="separator:a7ac161e4fc60a4264fc8450374cb36c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -147,15 +147,22 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Build adjacency matrix based on distances between cones.</pre> 
-<p class="definition">Definition at line <a class="el" href="../../df/d68/metrics_8py_source.html#l00116">116</a> of file <a class="el" href="../../df/d68/metrics_8py_source.html">metrics.py</a>.</p>
+<pre class="fragment">Build an adjacency matrix based on the distances between cones.
+
+Args:
+    cones (np.array): An array containing the coordinates of cones.
+
+Returns:
+    np.array: The adjacency matrix representing the distances between cones.
+</pre> 
+<p class="definition">Definition at line <a class="el" href="../../df/d68/metrics_8py_source.html#l00122">122</a> of file <a class="el" href="../../df/d68/metrics_8py_source.html">metrics.py</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d7/d92/namespaceevaluator_1_1metrics_a67fb2de017620156f3758f24363e7853_icgraph.png" border="0" usemap="#ad7/d92/namespaceevaluator_1_1metrics_a67fb2de017620156f3758f24363e7853_icgraph" alt=""/></div>
 <map name="ad7/d92/namespaceevaluator_1_1metrics_a67fb2de017620156f3758f24363e7853_icgraph" id="ad7/d92/namespaceevaluator_1_1metrics_a67fb2de017620156f3758f24363e7853_icgraph">
 <area shape="rect" title=" " alt="" coords="205,39,355,79"/>
-<area shape="rect" href="../../d7/d92/namespaceevaluator_1_1metrics.html#a0e8e98b2d5197fa4019fcbefd634beab" title=" " alt="" coords="10,5,152,46"/>
+<area shape="rect" href="../../d7/d92/namespaceevaluator_1_1metrics.html#a617250b642eac0a39158de22dd2a417d" title=" " alt="" coords="10,5,152,46"/>
 <area shape="poly" title=" " alt="" coords="189,46,152,40,153,35,190,41"/>
 <area shape="rect" href="../../d7/d92/namespaceevaluator_1_1metrics.html#a7ac161e4fc60a4264fc8450374cb36c6" title="Computes the average distance between pairs of perceived cones using Minimum Spanning Tree Prim&#39;s alg..." alt="" coords="5,71,157,111"/>
 <area shape="poly" title=" " alt="" coords="190,76,158,81,157,76,189,71"/>
@@ -194,7 +201,7 @@ Here is the caller graph for this function:</div>
 <p>Args: arr1 (np.ndarray): First array of positions. arr2 (np.ndarray): Second array of positions.</p>
 <p>Returns: np.ndarray: Array of distances between each element in arr2 and the closest element in arr1. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d68/metrics_8py_source.html#l00173">173</a> of file <a class="el" href="../../df/d68/metrics_8py_source.html">metrics.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d68/metrics_8py_source.html#l00197">197</a> of file <a class="el" href="../../df/d68/metrics_8py_source.html">metrics.py</a>.</p>
 
 </div>
 </div>
@@ -224,7 +231,8 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Compute Euclidean distance between two cones. </p>
+<p>Compute the Euclidean distance between two cones. </p>
+<p>Args: cone1 (np.array): The coordinates of the first cone. cone2 (np.array): The coordinates of the second cone. Returns: float: The Euclidean distance between the two cones. </p>
 
 <p class="definition">Definition at line <a class="el" href="../../df/d68/metrics_8py_source.html#l00109">109</a> of file <a class="el" href="../../df/d68/metrics_8py_source.html">metrics.py</a>.</p>
 
@@ -284,18 +292,18 @@ Here is the caller graph for this function:</div>
 <p>Args: values (np.array): List of values.</p>
 <p>Returns: float: Average of the values. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d68/metrics_8py_source.html#l00197">197</a> of file <a class="el" href="../../df/d68/metrics_8py_source.html">metrics.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d68/metrics_8py_source.html#l00221">221</a> of file <a class="el" href="../../df/d68/metrics_8py_source.html">metrics.py</a>.</p>
 
 </div>
 </div>
-<a id="a0e8e98b2d5197fa4019fcbefd634beab" name="a0e8e98b2d5197fa4019fcbefd634beab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0e8e98b2d5197fa4019fcbefd634beab">&#9670;&#160;</a></span>get_duplicates()</h2>
+<a id="a617250b642eac0a39158de22dd2a417d" name="a617250b642eac0a39158de22dd2a417d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a617250b642eac0a39158de22dd2a417d">&#9670;&#160;</a></span>get_duplicates()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">evaluator.metrics.get_duplicates </td>
+          <td class="memname"> int evaluator.metrics.get_duplicates </td>
           <td>(</td>
           <td class="paramtype">np.array&#160;</td>
           <td class="paramname"><em>output</em>, </td>
@@ -313,13 +321,20 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Receives a set of cones and identify the possible dupliates</pre> 
-<p class="definition">Definition at line <a class="el" href="../../df/d68/metrics_8py_source.html#l00132">132</a> of file <a class="el" href="../../df/d68/metrics_8py_source.html">metrics.py</a>.</p>
+<pre class="fragment">Receives a set of cones and identifies the possible duplicates.
+
+Args:
+    output (np.array): The set of cones.
+    threshold (float): The threshold value to consider cones different or duplicates.
+
+Returns:
+    int: The number of possible duplicates.</pre> 
+<p class="definition">Definition at line <a class="el" href="../../df/d68/metrics_8py_source.html#l00146">146</a> of file <a class="el" href="../../df/d68/metrics_8py_source.html">metrics.py</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../d7/d92/namespaceevaluator_1_1metrics_a0e8e98b2d5197fa4019fcbefd634beab_cgraph.png" border="0" usemap="#ad7/d92/namespaceevaluator_1_1metrics_a0e8e98b2d5197fa4019fcbefd634beab_cgraph" alt=""/></div>
-<map name="ad7/d92/namespaceevaluator_1_1metrics_a0e8e98b2d5197fa4019fcbefd634beab_cgraph" id="ad7/d92/namespaceevaluator_1_1metrics_a0e8e98b2d5197fa4019fcbefd634beab_cgraph">
+<div class="center"><img src="../../d7/d92/namespaceevaluator_1_1metrics_a617250b642eac0a39158de22dd2a417d_cgraph.png" border="0" usemap="#ad7/d92/namespaceevaluator_1_1metrics_a617250b642eac0a39158de22dd2a417d_cgraph" alt=""/></div>
+<map name="ad7/d92/namespaceevaluator_1_1metrics_a617250b642eac0a39158de22dd2a417d_cgraph" id="ad7/d92/namespaceevaluator_1_1metrics_a617250b642eac0a39158de22dd2a417d_cgraph">
 <area shape="rect" title=" " alt="" coords="5,5,147,46"/>
 <area shape="rect" href="../../d7/d92/namespaceevaluator_1_1metrics.html#a67fb2de017620156f3758f24363e7853" title=" " alt="" coords="195,5,345,46"/>
 <area shape="poly" title=" " alt="" coords="147,23,179,23,179,28,147,28"/>
@@ -389,7 +404,7 @@ Here is the call graph for this function:</div>
 <p>Args: perception_output (np.array): List of perceived cones, where each cone is represented as a numpy array.</p>
 <p>Returns: float: Average distance between pairs of perceived cones. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d68/metrics_8py_source.html#l00141">141</a> of file <a class="el" href="../../df/d68/metrics_8py_source.html">metrics.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d68/metrics_8py_source.html#l00165">165</a> of file <a class="el" href="../../df/d68/metrics_8py_source.html">metrics.py</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -457,7 +472,7 @@ Here is the call graph for this function:</div>
 <p>Args: values (np.array): List of values.</p>
 <p>Returns: float: Mean squared value of the values. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d68/metrics_8py_source.html#l00213">213</a> of file <a class="el" href="../../df/d68/metrics_8py_source.html">metrics.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d68/metrics_8py_source.html#l00237">237</a> of file <a class="el" href="../../df/d68/metrics_8py_source.html">metrics.py</a>.</p>
 
 </div>
 </div>
@@ -481,7 +496,7 @@ Here is the call graph for this function:</div>
 <p>Args: values (np.array): List of values.</p>
 <p>Returns: float: Root mean squared error of the values. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d68/metrics_8py_source.html#l00229">229</a> of file <a class="el" href="../../df/d68/metrics_8py_source.html">metrics.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d68/metrics_8py_source.html#l00253">253</a> of file <a class="el" href="../../df/d68/metrics_8py_source.html">metrics.py</a>.</p>
 
 </div>
 </div>

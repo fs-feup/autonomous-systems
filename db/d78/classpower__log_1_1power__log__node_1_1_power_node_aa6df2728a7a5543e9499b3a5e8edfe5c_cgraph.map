@@ -1,6 +1,6 @@
 <map id="power_log.power_log_node.PowerNode.signal_handler" name="power_log.power_log_node.PowerNode.signal_handler">
 <area shape="rect" id="Node000001" title="Writes metrics to csv and exits when Ctrl+C is pressed." alt="" coords="5,34,170,90"/>
-<area shape="rect" id="Node000002" href="$dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#af3e00d2f4c3f4dec70027d59e2a8a517" title="Converts metrics to csv and writes them to a file." alt="" coords="218,5,451,46"/>
+<area shape="rect" id="Node000002" href="$dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#aa6db7023a69720941dd4a8cec5beae89" title=" " alt="" coords="218,5,451,46"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="170,47,202,42,203,48,171,52"/>
 <area shape="rect" id="Node000003" href="$db/d78/classpower__log_1_1power__log__node_1_1_power_node.html#a12285ed5ad7da06a5dcdb333b82889cb" title="Converts metrics to csv and writes them to a file." alt="" coords="248,70,421,126"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="171,71,233,80,232,85,170,76"/>

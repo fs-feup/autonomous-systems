@@ -19,7 +19,7 @@ var searchData=
   ['get_5fd_16',['get_d',['../d2/d8d/class_plane.html#ad0e5724dd5a95ef65b6c642bb848c4bf',1,'Plane']]],
   ['get_5fdashboard_5flayout_17',['get_dashboard_layout',['../df/d91/namespacedashboard.html#aa7603ebdfaa0146f67b1b20fe729cc2b',1,'dashboard']]],
   ['get_5fdistance_5fto_5fpoint_18',['get_distance_to_point',['../d2/d8d/class_plane.html#afe168b482b5979fc6e259b1848510b30',1,'Plane']]],
-  ['get_5fduplicates_19',['get_duplicates',['../d7/d92/namespaceevaluator_1_1metrics.html#a0e8e98b2d5197fa4019fcbefd634beab',1,'evaluator::metrics']]],
+  ['get_5fduplicates_19',['get_duplicates',['../d7/d92/namespaceevaluator_1_1metrics.html#a617250b642eac0a39158de22dd2a417d',1,'evaluator::metrics']]],
   ['get_5ffalse_5fpositives_20',['get_false_positives',['../d7/d92/namespaceevaluator_1_1metrics.html#a9ba1d8166032a1824439b0bb16fe5564',1,'evaluator::metrics']]],
   ['get_5ffurthest_5fpoint_21',['get_furthest_point',['../de/d59/class_grid_r_a_n_s_a_c.html#ae261a8780ae54096aaf18f55c909bd82',1,'GridRANSAC']]],
   ['get_5fgv_22',['get_gv',['../d7/d64/class_observation_model.html#a3c7754187b6534a2bf84f36d7f87b6b8',1,'ObservationModel']]],

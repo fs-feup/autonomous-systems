@@ -99,109 +99,111 @@ var NAVTREE =
       ] ]
     ] ],
     [ "Evaluator Package", "db/dca/md_src_2evaluator_2_r_e_a_d_m_e.html", [
-      [ "Package Information", "db/dca/md_src_2evaluator_2_r_e_a_d_m_e.html#autotoc_md56", [
-        [ "Description", "db/dca/md_src_2evaluator_2_r_e_a_d_m_e.html#autotoc_md57", null ],
-        [ "Folder Structure", "db/dca/md_src_2evaluator_2_r_e_a_d_m_e.html#autotoc_md58", null ],
-        [ "Launch Configurations", "db/dca/md_src_2evaluator_2_r_e_a_d_m_e.html#autotoc_md59", null ]
+      [ "Package Information", "db/dca/md_src_2evaluator_2_r_e_a_d_m_e.html#autotoc_md59", [
+        [ "Description", "db/dca/md_src_2evaluator_2_r_e_a_d_m_e.html#autotoc_md60", null ],
+        [ "Folder Structure", "db/dca/md_src_2evaluator_2_r_e_a_d_m_e.html#autotoc_md61", null ],
+        [ "Launch Configurations", "db/dca/md_src_2evaluator_2_r_e_a_d_m_e.html#autotoc_md62", null ]
       ] ],
-      [ "How to Run", "db/dca/md_src_2evaluator_2_r_e_a_d_m_e.html#autotoc_md60", [
-        [ "Install Dependencies", "db/dca/md_src_2evaluator_2_r_e_a_d_m_e.html#autotoc_md61", null ],
-        [ "Compiling", "db/dca/md_src_2evaluator_2_r_e_a_d_m_e.html#autotoc_md62", null ],
-        [ "Testing", "db/dca/md_src_2evaluator_2_r_e_a_d_m_e.html#autotoc_md63", null ],
-        [ "Running", "db/dca/md_src_2evaluator_2_r_e_a_d_m_e.html#autotoc_md64", null ]
-      ] ],
-      [ "Design", "db/dca/md_src_2evaluator_2_r_e_a_d_m_e.html#autotoc_md65", [
+      [ "Design", "db/dca/md_src_2evaluator_2_r_e_a_d_m_e.html#autotoc_md63", [
+        [ "Roles of Adapters vs. the Evaluator Class", "db/dca/md_src_2evaluator_2_r_e_a_d_m_e.html#autotoc_md64", null ],
+        [ "Complete Evaluation System Diagram", "db/dca/md_src_2evaluator_2_r_e_a_d_m_e.html#autotoc_md65", null ],
         [ "Results", "db/dca/md_src_2evaluator_2_r_e_a_d_m_e.html#autotoc_md66", null ]
+      ] ],
+      [ "How to Run", "db/dca/md_src_2evaluator_2_r_e_a_d_m_e.html#autotoc_md67", [
+        [ "Install Dependencies", "db/dca/md_src_2evaluator_2_r_e_a_d_m_e.html#autotoc_md68", null ],
+        [ "Compiling", "db/dca/md_src_2evaluator_2_r_e_a_d_m_e.html#autotoc_md69", null ],
+        [ "Testing", "db/dca/md_src_2evaluator_2_r_e_a_d_m_e.html#autotoc_md70", null ],
+        [ "Running", "db/dca/md_src_2evaluator_2_r_e_a_d_m_e.html#autotoc_md71", null ]
       ] ]
     ] ],
     [ "Inspection package", "dc/d23/md_src_2inspection_2_r_e_a_d_m_e.html", [
-      [ "Package Information", "dc/d23/md_src_2inspection_2_r_e_a_d_m_e.html#autotoc_md68", [
-        [ "Description", "dc/d23/md_src_2inspection_2_r_e_a_d_m_e.html#autotoc_md69", null ],
-        [ "Folder Structure", "dc/d23/md_src_2inspection_2_r_e_a_d_m_e.html#autotoc_md70", null ],
-        [ "Launch Configurations", "dc/d23/md_src_2inspection_2_r_e_a_d_m_e.html#autotoc_md71", null ],
-        [ "Important Dependencies", "dc/d23/md_src_2inspection_2_r_e_a_d_m_e.html#autotoc_md72", null ]
+      [ "Package Information", "dc/d23/md_src_2inspection_2_r_e_a_d_m_e.html#autotoc_md73", [
+        [ "Description", "dc/d23/md_src_2inspection_2_r_e_a_d_m_e.html#autotoc_md74", null ],
+        [ "Folder Structure", "dc/d23/md_src_2inspection_2_r_e_a_d_m_e.html#autotoc_md75", null ],
+        [ "Launch Configurations", "dc/d23/md_src_2inspection_2_r_e_a_d_m_e.html#autotoc_md76", null ],
+        [ "Important Dependencies", "dc/d23/md_src_2inspection_2_r_e_a_d_m_e.html#autotoc_md77", null ]
       ] ],
-      [ "How to Run", "dc/d23/md_src_2inspection_2_r_e_a_d_m_e.html#autotoc_md73", [
-        [ "Compiling", "dc/d23/md_src_2inspection_2_r_e_a_d_m_e.html#autotoc_md74", null ],
-        [ "Testing", "dc/d23/md_src_2inspection_2_r_e_a_d_m_e.html#autotoc_md75", null ],
-        [ "Running", "dc/d23/md_src_2inspection_2_r_e_a_d_m_e.html#autotoc_md76", null ]
+      [ "How to Run", "dc/d23/md_src_2inspection_2_r_e_a_d_m_e.html#autotoc_md78", [
+        [ "Compiling", "dc/d23/md_src_2inspection_2_r_e_a_d_m_e.html#autotoc_md79", null ],
+        [ "Testing", "dc/d23/md_src_2inspection_2_r_e_a_d_m_e.html#autotoc_md80", null ],
+        [ "Running", "dc/d23/md_src_2inspection_2_r_e_a_d_m_e.html#autotoc_md81", null ]
       ] ],
-      [ "Design", "dc/d23/md_src_2inspection_2_r_e_a_d_m_e.html#autotoc_md77", null ]
+      [ "Design", "dc/d23/md_src_2inspection_2_r_e_a_d_m_e.html#autotoc_md82", null ]
     ] ],
     [ "Launcher Package", "da/d86/md_src_2launcher_2_r_e_a_d_m_e.html", [
-      [ "Package Information", "da/d86/md_src_2launcher_2_r_e_a_d_m_e.html#autotoc_md79", [
-        [ "Description", "da/d86/md_src_2launcher_2_r_e_a_d_m_e.html#autotoc_md80", null ],
-        [ "Launch Configurations", "da/d86/md_src_2launcher_2_r_e_a_d_m_e.html#autotoc_md81", null ]
+      [ "Package Information", "da/d86/md_src_2launcher_2_r_e_a_d_m_e.html#autotoc_md84", [
+        [ "Description", "da/d86/md_src_2launcher_2_r_e_a_d_m_e.html#autotoc_md85", null ],
+        [ "Launch Configurations", "da/d86/md_src_2launcher_2_r_e_a_d_m_e.html#autotoc_md86", null ]
       ] ]
     ] ],
     [ "MockerNode package", "d4/dca/md_src_2mocker__node_2_r_e_a_d_m_e.html", [
-      [ "Package Information", "d4/dca/md_src_2mocker__node_2_r_e_a_d_m_e.html#autotoc_md83", [
-        [ "Description", "d4/dca/md_src_2mocker__node_2_r_e_a_d_m_e.html#autotoc_md84", null ],
-        [ "Launch Configurations", "d4/dca/md_src_2mocker__node_2_r_e_a_d_m_e.html#autotoc_md85", null ]
+      [ "Package Information", "d4/dca/md_src_2mocker__node_2_r_e_a_d_m_e.html#autotoc_md88", [
+        [ "Description", "d4/dca/md_src_2mocker__node_2_r_e_a_d_m_e.html#autotoc_md89", null ],
+        [ "Launch Configurations", "d4/dca/md_src_2mocker__node_2_r_e_a_d_m_e.html#autotoc_md90", null ]
       ] ],
-      [ "How to Run", "d4/dca/md_src_2mocker__node_2_r_e_a_d_m_e.html#autotoc_md86", [
-        [ "Install Dependencies", "d4/dca/md_src_2mocker__node_2_r_e_a_d_m_e.html#autotoc_md87", null ],
-        [ "Compiling", "d4/dca/md_src_2mocker__node_2_r_e_a_d_m_e.html#autotoc_md88", null ],
-        [ "Running", "d4/dca/md_src_2mocker__node_2_r_e_a_d_m_e.html#autotoc_md89", null ]
+      [ "How to Run", "d4/dca/md_src_2mocker__node_2_r_e_a_d_m_e.html#autotoc_md91", [
+        [ "Install Dependencies", "d4/dca/md_src_2mocker__node_2_r_e_a_d_m_e.html#autotoc_md92", null ],
+        [ "Compiling", "d4/dca/md_src_2mocker__node_2_r_e_a_d_m_e.html#autotoc_md93", null ],
+        [ "Running", "d4/dca/md_src_2mocker__node_2_r_e_a_d_m_e.html#autotoc_md94", null ]
       ] ],
-      [ "Design", "d4/dca/md_src_2mocker__node_2_r_e_a_d_m_e.html#autotoc_md90", null ]
+      [ "Design", "d4/dca/md_src_2mocker__node_2_r_e_a_d_m_e.html#autotoc_md95", null ]
     ] ],
     [ "PacSim Keys", "dd/d73/md_src_2pacsim__keys_2_r_e_a_d_m_e.html", [
-      [ "Package Information", "dd/d73/md_src_2pacsim__keys_2_r_e_a_d_m_e.html#autotoc_md92", [
-        [ "Description", "dd/d73/md_src_2pacsim__keys_2_r_e_a_d_m_e.html#autotoc_md93", null ]
+      [ "Package Information", "dd/d73/md_src_2pacsim__keys_2_r_e_a_d_m_e.html#autotoc_md97", [
+        [ "Description", "dd/d73/md_src_2pacsim__keys_2_r_e_a_d_m_e.html#autotoc_md98", null ]
       ] ],
-      [ "How to Run", "dd/d73/md_src_2pacsim__keys_2_r_e_a_d_m_e.html#autotoc_md94", [
-        [ "Install Dependencies", "dd/d73/md_src_2pacsim__keys_2_r_e_a_d_m_e.html#autotoc_md95", null ],
-        [ "Compiling", "dd/d73/md_src_2pacsim__keys_2_r_e_a_d_m_e.html#autotoc_md96", null ],
-        [ "Running", "dd/d73/md_src_2pacsim__keys_2_r_e_a_d_m_e.html#autotoc_md97", null ],
-        [ "How to use", "dd/d73/md_src_2pacsim__keys_2_r_e_a_d_m_e.html#autotoc_md98", null ]
+      [ "How to Run", "dd/d73/md_src_2pacsim__keys_2_r_e_a_d_m_e.html#autotoc_md99", [
+        [ "Install Dependencies", "dd/d73/md_src_2pacsim__keys_2_r_e_a_d_m_e.html#autotoc_md100", null ],
+        [ "Compiling", "dd/d73/md_src_2pacsim__keys_2_r_e_a_d_m_e.html#autotoc_md101", null ],
+        [ "Running", "dd/d73/md_src_2pacsim__keys_2_r_e_a_d_m_e.html#autotoc_md102", null ],
+        [ "How to use", "dd/d73/md_src_2pacsim__keys_2_r_e_a_d_m_e.html#autotoc_md103", null ]
       ] ]
     ] ],
     [ "Perception Package", "d7/de6/md_src_2perception_2_r_e_a_d_m_e.html", [
-      [ "Package Information", "d7/de6/md_src_2perception_2_r_e_a_d_m_e.html#autotoc_md100", [
-        [ "Description", "d7/de6/md_src_2perception_2_r_e_a_d_m_e.html#autotoc_md101", null ],
-        [ "Folder Structure", "d7/de6/md_src_2perception_2_r_e_a_d_m_e.html#autotoc_md102", null ],
-        [ "Launch Configurations", "d7/de6/md_src_2perception_2_r_e_a_d_m_e.html#autotoc_md103", null ],
-        [ "Important Dependencies", "d7/de6/md_src_2perception_2_r_e_a_d_m_e.html#autotoc_md104", null ]
+      [ "Package Information", "d7/de6/md_src_2perception_2_r_e_a_d_m_e.html#autotoc_md105", [
+        [ "Description", "d7/de6/md_src_2perception_2_r_e_a_d_m_e.html#autotoc_md106", null ],
+        [ "Folder Structure", "d7/de6/md_src_2perception_2_r_e_a_d_m_e.html#autotoc_md107", null ],
+        [ "Launch Configurations", "d7/de6/md_src_2perception_2_r_e_a_d_m_e.html#autotoc_md108", null ],
+        [ "Important Dependencies", "d7/de6/md_src_2perception_2_r_e_a_d_m_e.html#autotoc_md109", null ]
       ] ],
-      [ "How to Run", "d7/de6/md_src_2perception_2_r_e_a_d_m_e.html#autotoc_md105", [
-        [ "Install Dependencies", "d7/de6/md_src_2perception_2_r_e_a_d_m_e.html#autotoc_md106", null ],
-        [ "Compiling", "d7/de6/md_src_2perception_2_r_e_a_d_m_e.html#autotoc_md107", null ],
-        [ "Testing", "d7/de6/md_src_2perception_2_r_e_a_d_m_e.html#autotoc_md108", null ],
-        [ "Running", "d7/de6/md_src_2perception_2_r_e_a_d_m_e.html#autotoc_md109", null ]
+      [ "How to Run", "d7/de6/md_src_2perception_2_r_e_a_d_m_e.html#autotoc_md110", [
+        [ "Install Dependencies", "d7/de6/md_src_2perception_2_r_e_a_d_m_e.html#autotoc_md111", null ],
+        [ "Compiling", "d7/de6/md_src_2perception_2_r_e_a_d_m_e.html#autotoc_md112", null ],
+        [ "Testing", "d7/de6/md_src_2perception_2_r_e_a_d_m_e.html#autotoc_md113", null ],
+        [ "Running", "d7/de6/md_src_2perception_2_r_e_a_d_m_e.html#autotoc_md114", null ]
       ] ],
-      [ "Design", "d7/de6/md_src_2perception_2_r_e_a_d_m_e.html#autotoc_md110", [
-        [ "Class Diagram", "d7/de6/md_src_2perception_2_r_e_a_d_m_e.html#autotoc_md111", null ]
+      [ "Design", "d7/de6/md_src_2perception_2_r_e_a_d_m_e.html#autotoc_md115", [
+        [ "Class Diagram", "d7/de6/md_src_2perception_2_r_e_a_d_m_e.html#autotoc_md116", null ]
       ] ]
     ] ],
     [ "Planning Module", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html", [
-      [ "Package Information", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md113", [
-        [ "Description", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md114", null ],
-        [ "Folder Structure", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md115", null ],
-        [ "Launch Configurations", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md116", null ],
-        [ "Important Dependencies", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md117", null ]
+      [ "Package Information", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md118", [
+        [ "Description", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md119", null ],
+        [ "Folder Structure", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md120", null ],
+        [ "Launch Configurations", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md121", null ],
+        [ "Important Dependencies", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md122", null ]
       ] ],
-      [ "How to Run", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md118", [
-        [ "Install Dependencies", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md119", null ],
-        [ "Compiling", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md120", null ],
-        [ "Testing", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md121", null ],
-        [ "Running", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md122", null ]
+      [ "How to Run", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md123", [
+        [ "Install Dependencies", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md124", null ],
+        [ "Compiling", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md125", null ],
+        [ "Testing", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md126", null ],
+        [ "Running", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md127", null ]
       ] ],
-      [ "Design", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md123", [
-        [ "Class Diagram", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md124", null ],
-        [ "Sequence Diagram", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md125", null ],
-        [ "Activity Diagram", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md126", null ]
+      [ "Design", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md128", [
+        [ "Class Diagram", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md129", null ],
+        [ "Sequence Diagram", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md130", null ],
+        [ "Activity Diagram", "d4/d0c/md_src_2planning_2_r_e_a_d_m_e.html#autotoc_md131", null ]
       ] ]
     ] ],
     [ "Power Log", "d4/d59/md_src_2power__log_2_r_e_a_d_m_e.html", [
-      [ "Package Information", "d4/d59/md_src_2power__log_2_r_e_a_d_m_e.html#autotoc_md128", [
-        [ "Description", "d4/d59/md_src_2power__log_2_r_e_a_d_m_e.html#autotoc_md129", null ],
-        [ "Important Dependencies", "d4/d59/md_src_2power__log_2_r_e_a_d_m_e.html#autotoc_md130", null ]
+      [ "Package Information", "d4/d59/md_src_2power__log_2_r_e_a_d_m_e.html#autotoc_md133", [
+        [ "Description", "d4/d59/md_src_2power__log_2_r_e_a_d_m_e.html#autotoc_md134", null ],
+        [ "Important Dependencies", "d4/d59/md_src_2power__log_2_r_e_a_d_m_e.html#autotoc_md135", null ]
       ] ],
-      [ "How to Run", "d4/d59/md_src_2power__log_2_r_e_a_d_m_e.html#autotoc_md131", [
-        [ "Install Dependencies", "d4/d59/md_src_2power__log_2_r_e_a_d_m_e.html#autotoc_md132", null ],
-        [ "Compiling", "d4/d59/md_src_2power__log_2_r_e_a_d_m_e.html#autotoc_md133", null ],
-        [ "Running", "d4/d59/md_src_2power__log_2_r_e_a_d_m_e.html#autotoc_md134", null ]
+      [ "How to Run", "d4/d59/md_src_2power__log_2_r_e_a_d_m_e.html#autotoc_md136", [
+        [ "Install Dependencies", "d4/d59/md_src_2power__log_2_r_e_a_d_m_e.html#autotoc_md137", null ],
+        [ "Compiling", "d4/d59/md_src_2power__log_2_r_e_a_d_m_e.html#autotoc_md138", null ],
+        [ "Running", "d4/d59/md_src_2power__log_2_r_e_a_d_m_e.html#autotoc_md139", null ]
       ] ]
     ] ],
     [ "Src Folder", "d7/d37/md_src_2_r_e_a_d_m_e.html", null ],
@@ -251,10 +253,10 @@ var NAVTREEINDEX =
 "d8/d4a/structcommon__lib_1_1structures_1_1_pose.html#ac1933295cbda1a55db410240fe8f3d3a",
 "d9/db5/class_planning.html#aec0746e73051cb3b3754932854a96582",
 "db/d78/classpower__log_1_1power__log__node_1_1_power_node.html#aa6df2728a7a5543e9499b3a5e8edfe5c",
-"dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#aa4db57ac237069fa6dc904ebafaf3657",
-"dc/dfb/perception__node_8cpp.html#ae60e0691f6d4f328c256c19a5f030484",
-"de/df9/structcommon__lib_1_1maths_1_1_angle_and_norms.html",
-"dir_ff89eca9a2888a4bb55bd9ed7991ab6c.html"
+"dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#aa2470568ab15034e03fe86f2dfa050ad",
+"dc/dfb/perception__node_8cpp.html",
+"de/df5/namespacepacsim__keys_1_1main.html#af5e0a29dd8ce11eca99d0a9d4ce3d654",
+"dir_fbb9b9995ef8067d47a7284d7a4afe92.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

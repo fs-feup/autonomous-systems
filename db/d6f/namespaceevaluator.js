@@ -31,7 +31,7 @@ var namespaceevaluator =
       [ "compute_distance", "d7/d92/namespaceevaluator_1_1metrics.html#acf17d74673bf42aa48009e003b5d6e8b", null ],
       [ "get_average_difference", "d7/d92/namespaceevaluator_1_1metrics.html#a46b0e183f7ee4958460f8e1f702f0860", null ],
       [ "get_average_error", "d7/d92/namespaceevaluator_1_1metrics.html#adf39ed012fc2592a43dd2996c37a1e3c", null ],
-      [ "get_duplicates", "d7/d92/namespaceevaluator_1_1metrics.html#a0e8e98b2d5197fa4019fcbefd634beab", null ],
+      [ "get_duplicates", "d7/d92/namespaceevaluator_1_1metrics.html#a617250b642eac0a39158de22dd2a417d", null ],
       [ "get_false_positives", "d7/d92/namespaceevaluator_1_1metrics.html#a9ba1d8166032a1824439b0bb16fe5564", null ],
       [ "get_inter_cones_distance", "d7/d92/namespaceevaluator_1_1metrics.html#a7ac161e4fc60a4264fc8450374cb36c6", null ],
       [ "get_mean_squared_difference", "d7/d92/namespaceevaluator_1_1metrics.html#acc14edd4119b16ba22b7357cbbe5faff", null ],
