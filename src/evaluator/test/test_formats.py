@@ -128,6 +128,7 @@ class TestFormats(unittest.TestCase):
 
         formated_msg = format_marker_array_msg(msg)
         formated_msg[0][3] = 73
+        formated_msg[0][2] = 0.0
 
         npt.assert_array_almost_equal(formated_msg, self.expected_cone_array, decimal=6)
 
