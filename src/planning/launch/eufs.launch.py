@@ -83,7 +83,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "use_simulated_se",
                 description="Whether to use simulated state estimation",
-                default_value="true",
+                default_value="false",
             ),
             DeclareLaunchArgument(
                 "publishing_visualization_msg",

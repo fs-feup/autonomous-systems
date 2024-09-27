@@ -60,6 +60,8 @@ Planning::Planning(const PlanningParameters &params)
     this->track_sub_ = this->create_subscription<custom_interfaces::msg::ConeArray>(
         "/state_estimation/map", 10, std::bind(&Planning::track_map_callback, this, _1));
   }
+  RCLCPP_INFO(rclcpp::get_logger("planning"), "using simulated state estimation: %d",
+              planning_config_.simulation_.using_simulated_se_);
 }
 
 void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &msg) {
@@ -117,8 +119,9 @@ void Planning::run_planning_algorithms() {
   std::vector<PathPoint> triangulations_path =
       path_calculation_.process_delaunay_triangulations(refined_colored_cones);
   if (triangulations_path.size() < 2) {
-    RCLCPP_WARN(rclcpp::get_logger("planning"), "Not enough cones to plan after triangulations: %d",
-                static_cast<int>(triangulations_path.size()));
+    // RCLCPP_WARN(rclcpp::get_logger("planning"), "Not enough cones to plan after triangulations:
+    // %d",
+    //             static_cast<int>(triangulations_path.size()));
     publish_track_points({});
     return;
   }
