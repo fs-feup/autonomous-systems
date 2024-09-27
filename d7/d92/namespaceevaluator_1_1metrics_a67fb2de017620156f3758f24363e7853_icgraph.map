@@ -1,7 +1,0 @@
-<map id="evaluator.metrics.build_adjacency_matrix" name="evaluator.metrics.build_adjacency_matrix">
-<area shape="rect" id="Node000001" title=" " alt="" coords="205,39,355,79"/>
-<area shape="rect" id="Node000002" href="$d7/d92/namespaceevaluator_1_1metrics.html#a617250b642eac0a39158de22dd2a417d" title=" " alt="" coords="10,5,152,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="189,46,152,40,153,35,190,41"/>
-<area shape="rect" id="Node000003" href="$d7/d92/namespaceevaluator_1_1metrics.html#a7ac161e4fc60a4264fc8450374cb36c6" title="Computes the average distance between pairs of perceived cones using Minimum Spanning Tree Prim&#39;s alg..." alt="" coords="5,71,157,111"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="190,76,158,81,157,76,189,71"/>
-</map>

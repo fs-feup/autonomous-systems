@@ -229,7 +229,7 @@ $(document).ready(function(){initNavTree('df/d68/metrics_8py_source.html','../..
 <div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
 </div>
 <div class="foldopen" id="foldopen00122" data-start="" data-end="">
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno"><a class="line" href="../../d7/d92/namespaceevaluator_1_1metrics.html#a67fb2de017620156f3758f24363e7853">  122</a></span><span class="keyword">def </span><a class="code hl_function" href="../../d7/d92/namespaceevaluator_1_1metrics.html#a67fb2de017620156f3758f24363e7853">build_adjacency_matrix</a>(cones: np.array) -&gt; np.array:</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno"><a class="line" href="../../d7/d92/namespaceevaluator_1_1metrics.html#a67fb2de017620156f3758f24363e7853">  122</a></span><span class="keyword">def </span>build_adjacency_matrix(cones: np.array) -&gt; np.array:</div>
 <div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
 <div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><span class="stringliteral">    Build an adjacency matrix based on the distances between cones.</span></div>
 <div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="stringliteral"></span> </div>
@@ -268,7 +268,7 @@ $(document).ready(function(){initNavTree('df/d68/metrics_8py_source.html','../..
 <div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span><span class="stringliteral"></span> </div>
 <div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
 <div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    adjacency_matrix = <a class="code hl_function" href="../../d7/d92/namespaceevaluator_1_1metrics.html#a67fb2de017620156f3758f24363e7853">build_adjacency_matrix</a>(output)</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    adjacency_matrix = build_adjacency_matrix(output)</div>
 <div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    num_duplicates = np.sum(np.tril(adjacency_matrix &lt; threshold, k=-1))</div>
 <div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span> </div>
 <div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    <span class="keywordflow">return</span> num_duplicates</div>
@@ -287,7 +287,7 @@ $(document).ready(function(){initNavTree('df/d68/metrics_8py_source.html','../..
 <div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span><span class="stringliteral">        float: Average distance between pairs of perceived cones.</span></div>
 <div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
 <div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span> </div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    adjacency_matrix: np.array = <a class="code hl_function" href="../../d7/d92/namespaceevaluator_1_1metrics.html#a67fb2de017620156f3758f24363e7853">build_adjacency_matrix</a>(perception_output)</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    adjacency_matrix: np.array = build_adjacency_matrix(perception_output)</div>
 <div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span> </div>
 <div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    adjacency_matrix: list[np.array] = [</div>
 <div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>        adjacency_matrix[i] <span class="keywordflow">for</span> i <span class="keywordflow">in</span> range(len(adjacency_matrix))</div>
@@ -388,7 +388,6 @@ $(document).ready(function(){initNavTree('df/d68/metrics_8py_source.html','../..
 <div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>    <span class="keywordflow">return</span> np.sqrt(np.mean(values**2))</div>
 </div>
 <div class="ttc" id="anamespaceevaluator_1_1metrics_html_a1f46173c6c754f9c96f4d4f4f102987f"><div class="ttname"><a href="../../d7/d92/namespaceevaluator_1_1metrics.html#a1f46173c6c754f9c96f4d4f4f102987f">evaluator.metrics.get_root_mean_squared_error</a></div><div class="ttdeci">float get_root_mean_squared_error(np.array values)</div><div class="ttdoc">Computes the root mean squared error of a list of values.</div><div class="ttdef"><b>Definition</b> <a href="../../df/d68/metrics_8py_source.html#l00253">metrics.py:253</a></div></div>
-<div class="ttc" id="anamespaceevaluator_1_1metrics_html_a67fb2de017620156f3758f24363e7853"><div class="ttname"><a href="../../d7/d92/namespaceevaluator_1_1metrics.html#a67fb2de017620156f3758f24363e7853">evaluator.metrics.build_adjacency_matrix</a></div><div class="ttdeci">np.array build_adjacency_matrix(np.array cones)</div><div class="ttdef"><b>Definition</b> <a href="../../df/d68/metrics_8py_source.html#l00122">metrics.py:122</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

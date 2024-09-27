@@ -56,8 +56,11 @@ var annotated_dup =
       [ "hash< common_lib::structures::PathPoint >", "db/d69/structstd_1_1hash_3_01common__lib_1_1structures_1_1_path_point_01_4.html", "db/d69/structstd_1_1hash_3_01common__lib_1_1structures_1_1_path_point_01_4" ],
       [ "hash< common_lib::structures::Position >", "d2/dff/structstd_1_1hash_3_01common__lib_1_1structures_1_1_position_01_4.html", "d2/dff/structstd_1_1hash_3_01common__lib_1_1structures_1_1_position_01_4" ]
     ] ],
-    [ "test_perception_metrics", "df/d68/namespacetest__perception__metrics.html", [
-      [ "TestEvaluatorMethods", "d7/d4e/classtest__perception__metrics_1_1_test_evaluator_methods.html", "d7/d4e/classtest__perception__metrics_1_1_test_evaluator_methods" ]
+    [ "test_data_association_metrics", "d9/dae/namespacetest__data__association__metrics.html", [
+      [ "TestDataAssociationMetrics", "d7/d9e/classtest__data__association__metrics_1_1_test_data_association_metrics.html", "d7/d9e/classtest__data__association__metrics_1_1_test_data_association_metrics" ]
+    ] ],
+    [ "test_formats", "d1/d64/namespacetest__formats.html", [
+      [ "TestFormats", "d7/db4/classtest__formats_1_1_test_formats.html", "d7/db4/classtest__formats_1_1_test_formats" ]
     ] ],
     [ "Adapter", "d3/d7f/class_adapter.html", "d3/d7f/class_adapter" ],
     [ "CenterCalculator", "df/daa/class_center_calculator.html", "df/daa/class_center_calculator" ],

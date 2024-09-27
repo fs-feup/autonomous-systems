@@ -130,7 +130,8 @@ var hierarchy =
       [ "ZScoreValidatorTest", "d7/d1e/class_z_score_validator_test.html", null ]
     ] ],
     [ "unittest.TestCase", null, [
-      [ "test_perception_metrics.TestEvaluatorMethods", "d7/d4e/classtest__perception__metrics_1_1_test_evaluator_methods.html", null ]
+      [ "test_data_association_metrics.TestDataAssociationMetrics", "d7/d9e/classtest__data__association__metrics_1_1_test_data_association_metrics.html", null ],
+      [ "test_formats.TestFormats", "d7/db4/classtest__formats_1_1_test_formats.html", null ]
     ] ],
     [ "threading.Thread", null, [
       [ "pacsim_keys.main.PublishThread", "db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html", null ]

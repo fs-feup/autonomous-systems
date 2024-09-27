@@ -15,5 +15,10 @@ var searchData=
   ['eufs_5fpose_5fsubscription_5f_12',['eufs_pose_subscription_',['../d0/d1d/class_eufs_adapter.html#a91187e708588875c32c54d43e233c052',1,'EufsAdapter']]],
   ['eufs_5fstate_5fsubscription_5f_13',['eufs_state_subscription_',['../d0/d1d/class_eufs_adapter.html#aff83aed83227bb2bc53cb2618a881f86',1,'EufsAdapter']]],
   ['eufs_5fto_5fsystem_14',['eufs_to_system',['../d9/d2b/namespacecommon__lib_1_1competition__logic.html#aa87f4b55e52b33afc8de420f6ae1e7dc',1,'common_lib::competition_logic']]],
-  ['evaluator_5fdata_5fpub_5f_15',['evaluator_data_pub_',['../d7/d49/class_control.html#add3ae8a316aa9ba08a189a7120ae0edb',1,'Control']]]
+  ['evaluator_5fdata_5fpub_5f_15',['evaluator_data_pub_',['../d7/d49/class_control.html#add3ae8a316aa9ba08a189a7120ae0edb',1,'Control']]],
+  ['expected_5fcone_5farray_16',['expected_cone_array',['../d7/db4/classtest__formats_1_1_test_formats.html#ab158cfe336d73549c0ecf1a8998be649',1,'test_formats::TestFormats']]],
+  ['expected_5fpath_5fpoint_5farray_17',['expected_path_point_array',['../d7/db4/classtest__formats_1_1_test_formats.html#addb2b2c88564604197122b1c400fc581',1,'test_formats::TestFormats']]],
+  ['expected_5fposition_18',['expected_position',['../d7/db4/classtest__formats_1_1_test_formats.html#a8233761038e880661d109ab81bc4e973',1,'test_formats::TestFormats']]],
+  ['expected_5fstamped_5fmessage_19',['expected_stamped_message',['../d7/db4/classtest__formats_1_1_test_formats.html#a9ee8b7395b22f4888e95afdb581dab1d',1,'test_formats::TestFormats']]],
+  ['expected_5fvelocities_20',['expected_velocities',['../d7/db4/classtest__formats_1_1_test_formats.html#a253d1fae0a284df97427cea01e1575d4',1,'test_formats::TestFormats']]]
 ];

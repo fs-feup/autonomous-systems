@@ -47,8 +47,13 @@ var searchData=
   ['examples_44',['Examples',['../db/da2/md_src_2cloud__storage_2_r_e_a_d_m_e.html#autotoc_md13',1,'']]],
   ['exectimetestekftests_45',['ExecTimeTestEKFTests',['../d2/dac/class_exec_time_test_e_k_f_tests.html',1,'']]],
   ['executeicp_46',['executeICP',['../dd/d10/class_i_c_p.html#ac7aa77bae1ac288c7447654ff910a669',1,'ICP']]],
-  ['expected_5finitial_5fcone_5fposition_47',['expected_initial_cone_position',['../dd/d52/class_cone_coloring.html#a4d5383a83dcfeda441351086839c22fd',1,'ConeColoring']]],
-  ['extendedkalmanfilter_48',['extendedkalmanfilter',['../da/da6/class_extended_kalman_filter.html',1,'ExtendedKalmanFilter'],['../da/da6/class_extended_kalman_filter.html#aa39eb53750719608d37389cd7391c202',1,'ExtendedKalmanFilter::ExtendedKalmanFilter()']]],
-  ['extra_49',['extra',['../db/da2/md_src_2cloud__storage_2_r_e_a_d_m_e.html#autotoc_md14',1,'Extra'],['../da/dd4/md_src_2dashboard_2_r_e_a_d_m_e.html#autotoc_md40',1,'Extra']]],
-  ['extract_5finfo_50',['extract_info',['../d0/d09/planning_2test_2test__utils_2utils_8cpp.html#a52c2960346523b12ecb7da88a3c7a41a',1,'extract_info(const std::string_view &amp;filename_view, int &amp;size, int &amp;n_outliers):&#160;utils.cpp'],['../d6/dab/planning_2test_2test__utils_2utils_8hpp.html#a52c2960346523b12ecb7da88a3c7a41a',1,'extract_info(const std::string_view &amp;filename_view, int &amp;size, int &amp;n_outliers):&#160;utils.cpp']]]
+  ['expected_5fcone_5farray_47',['expected_cone_array',['../d7/db4/classtest__formats_1_1_test_formats.html#ab158cfe336d73549c0ecf1a8998be649',1,'test_formats::TestFormats']]],
+  ['expected_5finitial_5fcone_5fposition_48',['expected_initial_cone_position',['../dd/d52/class_cone_coloring.html#a4d5383a83dcfeda441351086839c22fd',1,'ConeColoring']]],
+  ['expected_5fpath_5fpoint_5farray_49',['expected_path_point_array',['../d7/db4/classtest__formats_1_1_test_formats.html#addb2b2c88564604197122b1c400fc581',1,'test_formats::TestFormats']]],
+  ['expected_5fposition_50',['expected_position',['../d7/db4/classtest__formats_1_1_test_formats.html#a8233761038e880661d109ab81bc4e973',1,'test_formats::TestFormats']]],
+  ['expected_5fstamped_5fmessage_51',['expected_stamped_message',['../d7/db4/classtest__formats_1_1_test_formats.html#a9ee8b7395b22f4888e95afdb581dab1d',1,'test_formats::TestFormats']]],
+  ['expected_5fvelocities_52',['expected_velocities',['../d7/db4/classtest__formats_1_1_test_formats.html#a253d1fae0a284df97427cea01e1575d4',1,'test_formats::TestFormats']]],
+  ['extendedkalmanfilter_53',['extendedkalmanfilter',['../da/da6/class_extended_kalman_filter.html',1,'ExtendedKalmanFilter'],['../da/da6/class_extended_kalman_filter.html#aa39eb53750719608d37389cd7391c202',1,'ExtendedKalmanFilter::ExtendedKalmanFilter()']]],
+  ['extra_54',['extra',['../db/da2/md_src_2cloud__storage_2_r_e_a_d_m_e.html#autotoc_md14',1,'Extra'],['../da/dd4/md_src_2dashboard_2_r_e_a_d_m_e.html#autotoc_md40',1,'Extra']]],
+  ['extract_5finfo_55',['extract_info',['../d6/dab/planning_2test_2test__utils_2utils_8hpp.html#a52c2960346523b12ecb7da88a3c7a41a',1,'extract_info(const std::string_view &amp;filename_view, int &amp;size, int &amp;n_outliers):&#160;utils.cpp'],['../d0/d09/planning_2test_2test__utils_2utils_8cpp.html#a52c2960346523b12ecb7da88a3c7a41a',1,'extract_info(const std::string_view &amp;filename_view, int &amp;size, int &amp;n_outliers):&#160;utils.cpp']]]
 ];

@@ -139,11 +139,12 @@ var namespaces_dup =
     [ "test_copyright", "d0/d36/namespacetest__copyright.html", [
       [ "test_copyright", "d0/d36/namespacetest__copyright.html#a2f0d547fdc7431d3dd7641ff4e01c102", null ]
     ] ],
+    [ "test_data_association_metrics", "d9/dae/namespacetest__data__association__metrics.html", "d9/dae/namespacetest__data__association__metrics" ],
     [ "test_flake8", "d9/d0d/namespacetest__flake8.html", [
       [ "test_flake8", "d9/d0d/namespacetest__flake8.html#aa03dada197705fd5e8d710de753ca95c", null ]
     ] ],
+    [ "test_formats", "d1/d64/namespacetest__formats.html", "d1/d64/namespacetest__formats" ],
     [ "test_pep257", "d0/d5e/namespacetest__pep257.html", [
       [ "test_pep257", "d0/d5e/namespacetest__pep257.html#a25dd726750a66bf2fc6439546bfdfcd9", null ]
-    ] ],
-    [ "test_perception_metrics", "df/d68/namespacetest__perception__metrics.html", "df/d68/namespacetest__perception__metrics" ]
+    ] ]
 ];
