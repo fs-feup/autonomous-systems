@@ -52,7 +52,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "use_simulated_perception",
                 description="Whether the system is using simulated perception or not",
-                default_value="False",
+                default_value="True",
             ),
             DeclareLaunchArgument(
                 "use_simulated_planning",
@@ -63,6 +63,6 @@ def generate_launch_description():
             # evaluator_launch_description,
             planning_launch_description,
             control_launch_description,
-            # mocker_node_launch_description,
+            mocker_node_launch_description,
         ],
     )

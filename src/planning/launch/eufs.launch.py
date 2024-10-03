@@ -13,7 +13,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "angle_gain",
                 description="Gain for the angle in the cone coloring cost function",
-                default_value="9.246",
+                default_value="15.246",
             ),
             DeclareLaunchArgument(
                 "distance_gain",
@@ -38,7 +38,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "cost_max",
                 description="Maximum allowed cost to place a cone in the cone coloring cost function",
-                default_value="40.0",
+                default_value="30.0",
             ),
             DeclareLaunchArgument(
                 "outliers_spline_order",
