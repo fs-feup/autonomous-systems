@@ -13,19 +13,24 @@ void ConeColoring::remove_duplicates(std::vector<Cone>& cones) const {
   cones = result;
 }
 
-std::vector<Cone> ConeColoring::filter_previously_colored_cones(const std::vector<Cone>& cones) {
+std::vector<Cone> ConeColoring::filter_previously_colored_cones(const std::vector<Cone>& cones,
+                                                                const Pose& car_pose) {
   std::vector<Cone> uncolored_cones;
   bool seen;
   for (const auto& cone : cones) {
     seen = false;
-    for (auto& colored_cone : this->colored_blue_cones_) {
-      if (cone.position.euclidean_distance(colored_cone.position) < 0.6) {
-        seen = true;
-        colored_cone.position.x = cone.position.x;
-        colored_cone.position.y = cone.position.y;
-        break;
+    if (cone.position.euclidean_distance(car_pose.position) > 15) seen = true;
+    if (!seen) {
+      for (auto& colored_cone : this->colored_blue_cones_) {
+        if (cone.position.euclidean_distance(colored_cone.position) < 0.6) {
+          seen = true;
+          colored_cone.position.x = cone.position.x;
+          colored_cone.position.y = cone.position.y;
+          break;
+        }
       }
     }
+
     if (!seen) {
       for (auto& colored_cone : this->colored_yellow_cones_) {
         if (cone.position.euclidean_distance(colored_cone.position) < 0.6) {
@@ -196,34 +201,25 @@ bool ConeColoring::try_to_color_next_cone(
 std::pair<std::vector<Cone>, std::vector<Cone>> ConeColoring::color_cones(std::vector<Cone> cones,
                                                                           const Pose& car_pose) {
   remove_duplicates(cones);
-  cones = filter_previously_colored_cones(cones);
-  RCLCPP_WARN(rclcpp::get_logger("Planning : ConeColoring"),
-              "Not enough cones recieved to be colored: %ld", cones.size());
+  cones = filter_previously_colored_cones(cones, car_pose);
   int n_colored_cones = 0;
   const auto n_input_cones = static_cast<int>(cones.size());
   std::unordered_set<Cone, std::hash<Cone>> uncolored_cones(cones.begin(), cones.end());
-  RCLCPP_INFO(rclcpp::get_logger("Planning : ConeColoring"), "Cone Coloring reached. %d, %d",
-              static_cast<int>(colored_blue_cones_.size()),
-              static_cast<int>(colored_yellow_cones_.size()));
   if (this->colored_blue_cones_.empty() || this->colored_yellow_cones_.empty()) {
     RCLCPP_WARN(rclcpp::get_logger("Planning : ConeColoring"),
                 "No colored cones found, placing initial cones");
     place_initial_cones(uncolored_cones, car_pose, n_colored_cones);
   }
-  int i = 0;
-  bool colouring = true;
+
+  bool colouring_blue_cones = true, colouring_yellow_cones = true;
   // Color blue cones
-  while (colouring) {
+  while (colouring_blue_cones || colouring_yellow_cones) {
     // keep coloring yellow cones while the function "try_to_color_next_cone" returns true (i.e. a
     // suitble cone is found)
-    if (i % 2 == 0) {
-      colouring = try_to_color_next_cone(uncolored_cones, this->colored_blue_cones_,
-                                         n_colored_cones, n_input_cones);
-    } else {
-      colouring = try_to_color_next_cone(uncolored_cones, this->colored_yellow_cones_,
-                                         n_colored_cones, n_input_cones);
-    }
-    i++;
+    colouring_blue_cones = try_to_color_next_cone(uncolored_cones, this->colored_blue_cones_,
+                                                  n_colored_cones, n_input_cones);
+    colouring_yellow_cones = try_to_color_next_cone(uncolored_cones, this->colored_yellow_cones_,
+                                                    n_colored_cones, n_input_cones);
   }
   //// Color yellow cones
   // while (try_to_color_next_cone(uncolored_cones, colored_yellow_cones, n_colored_cones,

@@ -130,8 +130,8 @@ void Planning::run_planning_algorithms() {
   std::vector<PathPoint> final_path = path_smoothing_.smooth_path(triangulations_path, this->pose);
 
   if (final_path.size() < 10) {
-    RCLCPP_WARN(rclcpp::get_logger("planning"), "Final path size: %d",
-                static_cast<int>(final_path.size()));
+    RCLCPP_DEBUG(rclcpp::get_logger("planning"), "Final path size: %d",
+                 static_cast<int>(final_path.size()));
   }
   // Velocity Planning
   // TODO: Remove this when velocity planning is a reality

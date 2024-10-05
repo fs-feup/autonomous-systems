@@ -47,7 +47,8 @@ std::vector<common_lib::structures::Cone> cone_vector_from_custom_interfaces(
     if (cone.position.x == 0 && cone.position.y == 0) {
       RCLCPP_WARN(rclcpp::get_logger("rclcpp"), "Cone at (0,0)");
     }
-    common_lib::structures::Cone new_cone = common_lib::structures::Cone(static_cast<float>(cone.position.x), static_cast<float>(cone.position.y));
+    common_lib::structures::Cone new_cone = common_lib::structures::Cone(
+        static_cast<float>(cone.position.x), static_cast<float>(cone.position.y));
     cone_array.push_back(new_cone);
   }
   return cone_array;

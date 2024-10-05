@@ -39,5 +39,5 @@ sudo pip install google-cloud-storage
 sudo pip install dash
 
 # needed to not broke evaluator
-sudo pip install numpy==1.26.4
+sudo pip install numpy==1.21.5
 
