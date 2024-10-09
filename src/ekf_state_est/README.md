@@ -12,8 +12,8 @@ The State Estimation module is responsible for the processing of the perception 
 
 - [adapter_ekf_state_est](./include/adapter_ekf_state_est/): Adapters to change ros2 interfaces according to simulator or environment
 - [kalman_filter](./include/ekf/): Extended Kalman Filter class, used for state estimation
-    - [kalman_filter/data_association](./include/ekf/data_association.hpp): Data Association class, used to associate observations to landmarks
-    - [kalman_filter/motion_model](./include/ekf/motion_model.hpp): Motion Model class, used to predict the state based on motion
+    - [kalman_filter/data_association](./include/ekf/data_association.hpp): Data Association class, used to associate observations to landmarks and determine which landmarks are new
+    - [kalman_filter/motion_model](./include/ekf/motion_model.hpp): Motion Model class, used to predict the state based on previous states and measurements
     - [kalman_filter/observation_model](./include/ekf/observation_model.hpp): Observation Model class, used to correct the state based on observations
 - [ros_node](./include/ros_node/): Node class
 

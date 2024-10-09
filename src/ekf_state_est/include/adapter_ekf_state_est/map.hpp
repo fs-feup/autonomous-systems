@@ -9,6 +9,10 @@
 #include "adapter_ekf_state_est/pacsim.hpp"
 #include "adapter_ekf_state_est/vehicle.hpp"
 
+/*
+ * Map of adapters, with the key being the type of the adapter and the value being a lambda function
+ * that creates the adapter
+ */
 const std::map<std::string, std::function<std::shared_ptr<Adapter>(std::shared_ptr<SENode>)>,
                std::less<>>
     adapter_map = {{"fsds",

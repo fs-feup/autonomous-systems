@@ -108,9 +108,10 @@ public:
 
   /**
    * @brief Correction step:
-   * 1. Calculate the Kalman Gain
-   * 2. Calculate the expected measurement
+   * 1. Calculate the expected measurement
+   * 2. Calculate the Kalman Gain
    * 3. Calculate the expected measurement covariance matrix
+   * 4. Augment state to include the newly detected cones
    *
    * @param perception_map map from perception
    */
