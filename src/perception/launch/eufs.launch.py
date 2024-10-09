@@ -10,7 +10,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "ransac_epsilon",
                 description="RANSAC epsilon threshold",
-                default_value="0.1",
+                default_value="0.02",
             ),
             DeclareLaunchArgument(
                 "ransac_n_neighbours",
@@ -30,12 +30,12 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "clustering_n_neighbours",
                 description="Number of neighbours for Clustering algorithm",
-                default_value="1",
+                default_value="3",
             ),
             DeclareLaunchArgument(
                 "clustering_epsilon",
                 description="Epsilon for Clustering algorithm",
-                default_value="0.3",
+                default_value="1.5",
             ),
             DeclareLaunchArgument(
                 "horizontal_resolution",
@@ -55,7 +55,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "ground_removal",
                 description="Ground Removal algorithm",
-                default_value="ransac",
+                default_value="grid_ransac",
             ),
             DeclareLaunchArgument(
                 "n_angular_grids",
