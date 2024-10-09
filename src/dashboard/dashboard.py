@@ -101,6 +101,28 @@ def get_dashboard_layout(dashboard):
                                 id=f"x-axis-dropdown-{dashboard}-1",
                                 style={"minWidth": "200px"},
                             ),
+                            html.Br(),
+                            html.Label("Custom Y-Axis Label"),
+                            dcc.Input(
+                                id=f"y-axis-label-{dashboard}-1",
+                                type="text",
+                                placeholder="Enter custom Y-axis label",
+                                style={"minWidth": "200px"},
+                            ),
+                            html.Br(),
+                            html.Label("Custom X-Axis Label"),
+                            dcc.Input(
+                                id=f"x-axis-label-{dashboard}-1",
+                                type="text",
+                                placeholder="Enter custom X-axis label",
+                                style={"minWidth": "200px"},
+                            ),
+                            html.Label("Custom Label Replacement"),
+                            dcc.Textarea(
+                                id=f"label-replacement-{dashboard}-1",
+                                placeholder="Enter custom labels separated by commas (e.g., 'Source, Metric')",
+                                style={"minWidth": "200px", "height": "100px"},
+                            ),
                         ],
                         id=f"graph1-metrics-{dashboard}",
                         style={"minWidth": "200px", "width": "25%"},
@@ -127,6 +149,28 @@ def get_dashboard_layout(dashboard):
                             dcc.Dropdown(
                                 id=f"x-axis-dropdown-{dashboard}-2",
                                 style={"minWidth": "200px"},
+                            ),
+                            html.Br(),
+                            html.Label("Custom Y-Axis Label"),
+                            dcc.Input(
+                                id=f"y-axis-label-{dashboard}-2",
+                                type="text",
+                                placeholder="Enter custom Y-axis label",
+                                style={"minWidth": "200px"},
+                            ),
+                            html.Br(),
+                            html.Label("Custom X-Axis Label"),
+                            dcc.Input(
+                                id=f"x-axis-label-{dashboard}-2",
+                                type="text",
+                                placeholder="Enter custom X-axis label",
+                                style={"minWidth": "200px"},
+                            ),
+                            html.Label("Custom Label Replacement"),
+                            dcc.Textarea(
+                                id=f"label-replacement-{dashboard}-2",
+                                placeholder="Enter custom labels separated by commas (e.g., 'Source, Metric')",
+                                style={"minWidth": "200px", "height": "100px"},
                             ),
                         ],
                         id=f"graph2-metrics-{dashboard}",
@@ -155,6 +199,28 @@ def get_dashboard_layout(dashboard):
                                 id=f"x-axis-dropdown-{dashboard}-3",
                                 style={"minWidth": "200px"},
                             ),
+                            html.Br(),
+                            html.Label("Custom Y-Axis Label"),
+                            dcc.Input(
+                                id=f"y-axis-label-{dashboard}-3",
+                                type="text",
+                                placeholder="Enter custom Y-axis label",
+                                style={"minWidth": "200px"},
+                            ),
+                            html.Br(),
+                            html.Label("Custom X-Axis Label"),
+                            dcc.Input(
+                                id=f"x-axis-label-{dashboard}-3",
+                                type="text",
+                                placeholder="Enter custom X-axis label",
+                                style={"minWidth": "200px"},
+                            ),
+                            html.Label("Custom Label Replacement"),
+                            dcc.Textarea(
+                                id=f"label-replacement-{dashboard}-3",
+                                placeholder="Enter custom labels separated by commas (e.g., 'Source, Metric')",
+                                style={"minWidth": "200px", "height": "100px"},
+                            ),
                         ],
                         id=f"graph3-metrics-{dashboard}",
                         style={"minWidth": "200px", "width": "25%"},
@@ -164,6 +230,9 @@ def get_dashboard_layout(dashboard):
             ),
         ]
     )
+
+
+
 
 
 # Callback to update the layout based on selected dashboard
@@ -243,11 +312,14 @@ def create_update_graph_callback(graph_id, dashboard, graph_number, graph_type="
             Input(f"graph{graph_number}-{dashboard}-metrics-dropdown", "value"),
             Input(f"x-axis-dropdown-{dashboard}-{graph_number}", "value"),
             Input(f"stored-csv-data", "data"),
+            Input(f"y-axis-label-{dashboard}-{graph_number}", "value"),
+            Input(f"x-axis-label-{dashboard}-{graph_number}", "value"),
+            Input(f"label-replacement-{dashboard}-{graph_number}", "value"),
         ],
         State(f"csv-dropdown-{dashboard}", "value"),
     )
     def update_graph(
-        selected_csvs, metrics, x_axis, stored_data, current_selected_csvs
+        selected_csvs, metrics, x_axis, stored_data, y_axis_label, x_axis_label, label_replacements, current_selected_csvs
     ):
         """!
         Update the graph based on the selected CSV files and metrics.
@@ -256,6 +328,9 @@ def create_update_graph_callback(graph_id, dashboard, graph_number, graph_type="
             metrics: The selected metrics.
             x_axis: The selected x-axis.
             stored_data: The stored CSV data.
+            y_axis_label: The custom Y-axis label.
+            x_axis_label: The custom X-axis label.
+            label_replacements: The custom label replacements.
             current_selected_csvs: The currently selected CSV files.
         """
         if not selected_csvs or not metrics:
@@ -273,7 +348,20 @@ def create_update_graph_callback(graph_id, dashboard, graph_number, graph_type="
                 combined_df["time"] = range(len(combined_df))
 
         df_melted = combined_df.melt(id_vars=[x_axis, "Source"], value_vars=metrics)
-        df_melted["Source_Metric"] = df_melted["Source"] + " - " + df_melted["variable"]
+
+        # Apply custom label replacements if provided
+        if label_replacements:
+            replacements = [label.strip() for label in label_replacements.split(",")]
+            try:
+                df_melted["Source_Metric"] = df_melted.apply(
+                    lambda row: f"{replacements[metrics.index(row['variable'])]}",
+                    axis=1
+                )
+            except:
+                print("Expecting same number of labels")
+        else:
+            df_melted["Source_Metric"] = df_melted["Source"] + " - " + df_melted["variable"]
+
         df_melted = df_melted[df_melted["variable"].isin(metrics)]
 
         if graph_type == "line":
@@ -282,7 +370,10 @@ def create_update_graph_callback(graph_id, dashboard, graph_number, graph_type="
                 x=x_axis,
                 y="value",
                 color="Source_Metric",
-                labels={"value": "Metrics", x_axis: x_axis},
+                labels={
+                    "value": y_axis_label if y_axis_label else "Metrics",
+                    x_axis: x_axis_label if x_axis_label else x_axis,
+                },
                 title="Line Graph",
             )
         elif graph_type == "scatter":
@@ -291,11 +382,15 @@ def create_update_graph_callback(graph_id, dashboard, graph_number, graph_type="
                 x=x_axis,
                 y="value",
                 color="Source_Metric",
-                labels={"value": "Metrics", x_axis: x_axis},
+                labels={
+                    "value": y_axis_label if y_axis_label else "Metrics",
+                    x_axis: x_axis_label if x_axis_label else x_axis,
+                },
                 title="Scatter Plot",
             )
 
         return fig
+
 
 
 # Register callbacks for all dashboards and graphs
@@ -306,6 +401,7 @@ for dashboard in available_dashboards:
     create_update_graph_callback(f"graph1-{dashboard}", dashboard, 1, "line")
     create_update_graph_callback(f"graph2-{dashboard}", dashboard, 2, "line")
     create_update_graph_callback(f"graph3-{dashboard}", dashboard, 3, "scatter")
+
 
 
 # Cleanup function to remove the temp folder
