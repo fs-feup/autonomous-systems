@@ -118,6 +118,7 @@ TEST(ConeColoring, place_first_cones2) {
 TEST(ConeColoring, fullconecoloring1) {
   std::vector<common_lib::structures::Cone> track_cones =
       cone_vector_from_file("src/planning/tracks/track1.txt");
+
   int c_right;
   int inc_right;
   int c_left;
@@ -128,8 +129,8 @@ TEST(ConeColoring, fullconecoloring1) {
   auto track = cone_coloring.color_cones(track_cones, initial_car_pose);
 
   test_cone_coloring(track, c_left, c_right, inc_left, inc_right);
-  EXPECT_EQ(c_left, 11);
-  EXPECT_EQ(c_right, 12);
+  EXPECT_EQ(c_left, 12);
+  EXPECT_EQ(c_right, 14);
   EXPECT_EQ(inc_left, 0);
   EXPECT_EQ(inc_right, 1);
 }

@@ -13,13 +13,11 @@ void ConeColoring::remove_duplicates(std::vector<Cone>& cones) const {
   cones = result;
 }
 
-std::vector<Cone> ConeColoring::filter_previously_colored_cones(const std::vector<Cone>& cones,
-                                                                const Pose& car_pose) {
+std::vector<Cone> ConeColoring::filter_previously_colored_cones(const std::vector<Cone>& cones) {
   std::vector<Cone> uncolored_cones;
   bool seen;
   for (const auto& cone : cones) {
     seen = false;
-    if (cone.position.euclidean_distance(car_pose.position) > 15) seen = true;
     if (!seen) {
       for (auto& colored_cone : this->colored_blue_cones_) {
         if (cone.position.euclidean_distance(colored_cone.position) < 0.6) {
@@ -201,14 +199,21 @@ bool ConeColoring::try_to_color_next_cone(
 std::pair<std::vector<Cone>, std::vector<Cone>> ConeColoring::color_cones(std::vector<Cone> cones,
                                                                           const Pose& car_pose) {
   remove_duplicates(cones);
-  cones = filter_previously_colored_cones(cones, car_pose);
+  cones = filter_previously_colored_cones(cones);
+
   int n_colored_cones = 0;
   const auto n_input_cones = static_cast<int>(cones.size());
+  RCLCPP_DEBUG(rclcpp::get_logger("Planning : ConeColoring"), "Number of received cones: %d",
+               n_input_cones);
   std::unordered_set<Cone, std::hash<Cone>> uncolored_cones(cones.begin(), cones.end());
+
   if (this->colored_blue_cones_.empty() || this->colored_yellow_cones_.empty()) {
-    RCLCPP_WARN(rclcpp::get_logger("Planning : ConeColoring"),
-                "No colored cones found, placing initial cones");
-    place_initial_cones(uncolored_cones, car_pose, n_colored_cones);
+    if (cones.size() < 4) {
+      RCLCPP_WARN(rclcpp::get_logger("Planning: Cone Coloring"), "No cones found yet.");
+      return {{}, {}};
+    } else {
+      place_initial_cones(uncolored_cones, car_pose, n_colored_cones);
+    }
   }
 
   bool colouring_blue_cones = true, colouring_yellow_cones = true;

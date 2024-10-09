@@ -43,8 +43,7 @@ private:
    * @param cones vector of cones from SE
    * @return std::vector<Cone> vector of cones which have not been colored
    */
-  std::vector<Cone> filter_previously_colored_cones(const std::vector<Cone>& cones,
-                                                    const Pose& car_pose);
+  std::vector<Cone> filter_previously_colored_cones(const std::vector<Cone>& cones);
 
   /**
    * @brief calculate the expected position of the initial cones
