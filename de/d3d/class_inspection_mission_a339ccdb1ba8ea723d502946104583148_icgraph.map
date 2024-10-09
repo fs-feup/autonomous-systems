@@ -1,6 +1,6 @@
 <map id="InspectionMission::publish_controls" name="InspectionMission::publish_controls">
 <area shape="rect" id="Node000001" title="Publishes the control command." alt="" coords="366,5,498,46"/>
-<area shape="rect" id="Node000002" href="$de/d3d/class_inspection_mission.html#aaefabede0c0991d2eeb9aa6a418403e0" title="Function to publish control command while time is less than the defined time limit." alt="" coords="186,5,318,46"/>
+<area shape="rect" id="Node000002" href="$de/d3d/class_inspection_mission.html#a35b4aee106941a568c0f1916481c77ed" title="Function to publish control command while time is less than the defined time limit." alt="" coords="186,5,318,46"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="351,28,318,28,318,23,351,23"/>
 <area shape="rect" id="Node000003" href="$de/d3d/class_inspection_mission.html#a62ddad48c6252a28b6f2c480f84229d1" title="Contruct a new Inspection Mission with constants defined in file." alt="" coords="5,5,138,46"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="170,28,138,28,138,23,170,23"/>

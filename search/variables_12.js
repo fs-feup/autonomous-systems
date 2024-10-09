@@ -12,7 +12,7 @@ var searchData=
   ['smoothing_5fspline_5forder_5f_9',['smoothing_spline_order_',['../d2/deb/struct_planning_parameters.html#a8d676b1a478bc92eaefc08061d987848',1,'PlanningParameters']]],
   ['smoothing_5fspline_5fprecision_5f_10',['smoothing_spline_precision_',['../d2/deb/struct_planning_parameters.html#aa3dc1d308628d494337ff00701830501',1,'PlanningParameters']]],
   ['source_5fcloud_11',['source_cloud',['../de/dab/class_i_c_p_suite.html#ad5baaea8731eb3a7524dfc88aa23bc0c',1,'ICPSuite']]],
-  ['start_5fand_5fstop_12',['start_and_stop',['../d4/d89/class_inspection_functions.html#ad7591825785159a9f79107cb710593fb',1,'InspectionFunctions']]],
+  ['start_5fand_5fstop_5f_12',['start_and_stop_',['../d4/d89/class_inspection_functions.html#a6cab8b9402c14b7b59c6bfad638e52cd',1,'InspectionFunctions']]],
   ['start_5fline_13',['START_LINE',['../d2/de4/namespaceskidpad__mapper.html#a8a8b3592ea8f5f30082b678dd12e083c',1,'skidpad_mapper']]],
   ['start_5ftime_14',['start_time',['../df/d4f/class_performance_test.html#ad43de34c4cedc065c7cc1ac03f80d341',1,'PerformanceTest']]],
   ['startline_15',['startLine',['../d9/de5/namespaceacceleration__mapper.html#afa7f404d099ac0274e7b9501b353ad8f',1,'acceleration_mapper']]],
@@ -20,10 +20,10 @@ var searchData=
   ['steering_5fangle_17',['steering_angle',['../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#ab08fa5ee1c6f4555b9c1ae22c50c779f',1,'pacsim_keys.main.PublishThread.steering_angle'],['../db/d6d/struct_motion_update.html#a87e8e0c4bca0060025e89ea9dac9b421',1,'MotionUpdate::steering_angle'],['../d7/de0/structcommon__lib_1_1sensor__data_1_1_wheel_encoder_data.html#a27cf5722787ff1b5aeff767a27cda6e7',1,'common_lib::sensor_data::WheelEncoderData::steering_angle']]],
   ['steering_5fpub_5f_18',['steering_pub_',['../db/d68/class_pac_sim_adapter.html#ac179a09c1048ec7b7c1eda206b11e5c1',1,'PacSimAdapter']]],
   ['steering_5fpublisher_19',['steering_publisher',['../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#a28ed8df1438b28d59b5eeff0ee62deb6',1,'pacsim_keys::main::PublishThread']]],
-  ['straight_5fpoints_20',['STRAIGHT_POINTS',['../d2/de4/namespaceskidpad__mapper.html#a8dc02d7e146e1ddd5af81923ff08be8a',1,'skidpad_mapper']]],
-  ['straightpoints_21',['straightPoints',['../d9/de5/namespaceacceleration__mapper.html#a9b380571f426452caf2fb71bbab761a9',1,'acceleration_mapper']]],
-  ['string_5fcolor_5fmap_22',['STRING_COLOR_MAP',['../d9/d2b/namespacecommon__lib_1_1competition__logic.html#af39f271694f6e7e236ff4640e7ae6208',1,'common_lib::competition_logic']]],
-  ['string_5fto_5fcolor_23',['STRING_TO_COLOR',['../d9/d2b/namespacecommon__lib_1_1competition__logic.html#a35040fcb9b3c0dd185484dcad9c645c6',1,'common_lib::competition_logic']]],
-  ['suppress_5fcallback_5fexceptions_24',['suppress_callback_exceptions',['../df/d91/namespacedashboard.html#abbd08efe3761a9696345c9c5907053c3',1,'dashboard']]],
-  ['sync_5f_25',['sync_',['../de/d3d/class_inspection_mission.html#a2f4774a5dc9885a09fd3c3fddf6668d3',1,'InspectionMission']]]
+  ['stop_5foscilating_5f_20',['stop_oscilating_',['../d4/d89/class_inspection_functions.html#a32d57e524f958ae0d8484c7d4e83b07e',1,'InspectionFunctions']]],
+  ['straight_5fpoints_21',['STRAIGHT_POINTS',['../d2/de4/namespaceskidpad__mapper.html#a8dc02d7e146e1ddd5af81923ff08be8a',1,'skidpad_mapper']]],
+  ['straightpoints_22',['straightPoints',['../d9/de5/namespaceacceleration__mapper.html#a9b380571f426452caf2fb71bbab761a9',1,'acceleration_mapper']]],
+  ['string_5fcolor_5fmap_23',['STRING_COLOR_MAP',['../d9/d2b/namespacecommon__lib_1_1competition__logic.html#af39f271694f6e7e236ff4640e7ae6208',1,'common_lib::competition_logic']]],
+  ['string_5fto_5fcolor_24',['STRING_TO_COLOR',['../d9/d2b/namespacecommon__lib_1_1competition__logic.html#a35040fcb9b3c0dd185484dcad9c645c6',1,'common_lib::competition_logic']]],
+  ['suppress_5fcallback_5fexceptions_25',['suppress_callback_exceptions',['../df/d91/namespacedashboard.html#abbd08efe3761a9696345c9c5907053c3',1,'dashboard']]]
 ];

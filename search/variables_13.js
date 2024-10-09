@@ -14,5 +14,5 @@ var searchData=
   ['transform_5fbuffer_5f_11',['transform_buffer_',['../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a514f5de790cd4e8691eb9ea8b65be22d',1,'evaluator::evaluator::Evaluator']]],
   ['translational_5fvelocity_12',['translational_velocity',['../db/d6d/struct_motion_update.html#a1049e83ac5ff8baa3e00a9f5d6a4d6ab',1,'MotionUpdate']]],
   ['triangulations_5fpub_5f_13',['triangulations_pub_',['../d9/db5/class_planning.html#ad03ff43ed2e57a012af8923600ba3198',1,'Planning']]],
-  ['turning_5fperiod_14',['turning_period',['../d4/d89/class_inspection_functions.html#a6fb67ddb70958cef1e2873cf587b866a',1,'InspectionFunctions']]]
+  ['turning_5fperiod_5f_14',['turning_period_',['../d4/d89/class_inspection_functions.html#aca817985d891221e4714e3417a6e1366',1,'InspectionFunctions']]]
 ];

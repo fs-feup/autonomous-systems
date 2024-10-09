@@ -110,9 +110,9 @@ Inheritance diagram for InspectionMission:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d8/d6f/class_inspection_mission__inherit__graph.png" border="0" usemap="#a_inspection_mission_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_inspection_mission_inherit__map" id="a_inspection_mission_inherit__map">
-<area shape="rect" title="Class responsible for the Inspection Mission of the car." alt="" coords="5,119,192,559"/>
-<area shape="rect" title=" " alt="" coords="56,5,141,71"/>
-<area shape="poly" title=" " alt="" coords="101,86,101,119,96,119,96,86"/>
+<area shape="rect" title="Class responsible for the Inspection Mission of the car." alt="" coords="5,119,205,533"/>
+<area shape="rect" title=" " alt="" coords="63,5,148,71"/>
+<area shape="poly" title=" " alt="" coords="108,86,108,119,103,119,103,86"/>
 </map>
 </div>
 <div class="dynheader">
@@ -120,11 +120,11 @@ Collaboration diagram for InspectionMission:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d6/d2f/class_inspection_mission__coll__graph.png" border="0" usemap="#a_inspection_mission_coll__map" alt="Collaboration graph"/></div>
 <map name="a_inspection_mission_coll__map" id="a_inspection_mission_coll__map">
-<area shape="rect" title="Class responsible for the Inspection Mission of the car." alt="" coords="28,408,215,828"/>
-<area shape="rect" title=" " alt="" coords="5,143,91,208"/>
-<area shape="poly" title=" " alt="" coords="58,222,89,408,84,409,53,223"/>
-<area shape="rect" href="../../d4/d89/class_inspection_functions.html" title=" " alt="" coords="115,5,274,345"/>
-<area shape="poly" title=" " alt="" coords="169,345,162,392,156,391,164,345"/>
+<area shape="rect" title="Class responsible for the Inspection Mission of the car." alt="" coords="21,428,221,843"/>
+<area shape="rect" title=" " alt="" coords="5,153,91,218"/>
+<area shape="poly" title=" " alt="" coords="58,232,90,428,85,429,53,233"/>
+<area shape="rect" href="../../d4/d89/class_inspection_functions.html" title=" " alt="" coords="115,5,274,365"/>
+<area shape="poly" title=" " alt="" coords="168,365,160,412,155,411,163,364"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -133,9 +133,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4308e35a3779d96cf47d941faeef8780" id="r_a4308e35a3779d96cf47d941faeef8780"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3d/class_inspection_mission.html#a4308e35a3779d96cf47d941faeef8780">mission_decider</a> (custom_interfaces::msg::OperationalStatus::SharedPtr mission_signal)</td></tr>
 <tr class="memdesc:a4308e35a3779d96cf47d941faeef8780"><td class="mdescLeft">&#160;</td><td class="mdescRight">recieves GoSignal and stores the mission that should be ran  <br /></td></tr>
 <tr class="separator:a4308e35a3779d96cf47d941faeef8780"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaefabede0c0991d2eeb9aa6a418403e0" id="r_aaefabede0c0991d2eeb9aa6a418403e0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3d/class_inspection_mission.html#aaefabede0c0991d2eeb9aa6a418403e0">inspection_script</a> (const custom_interfaces::msg::WheelRPM &amp;current_rlRPM, const custom_interfaces::msg::WheelRPM &amp;current_rrRPM)</td></tr>
-<tr class="memdesc:aaefabede0c0991d2eeb9aa6a418403e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to publish control command while time is less than the defined time limit.  <br /></td></tr>
-<tr class="separator:aaefabede0c0991d2eeb9aa6a418403e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35b4aee106941a568c0f1916481c77ed" id="r_a35b4aee106941a568c0f1916481c77ed"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3d/class_inspection_mission.html#a35b4aee106941a568c0f1916481c77ed">inspection_script</a> ()</td></tr>
+<tr class="memdesc:a35b4aee106941a568c0f1916481c77ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to publish control command while time is less than the defined time limit.  <br /></td></tr>
+<tr class="separator:a35b4aee106941a568c0f1916481c77ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e529c97d075ceac8e0731a06e2671e5" id="r_a7e529c97d075ceac8e0731a06e2671e5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3d/class_inspection_mission.html#a7e529c97d075ceac8e0731a06e2671e5">update_rpms_callback</a> (const custom_interfaces::msg::WheelRPM &amp;motor_rpm)</td></tr>
+<tr class="memdesc:a7e529c97d075ceac8e0731a06e2671e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to update the current rpms of the wheels.  <br /></td></tr>
+<tr class="separator:a7e529c97d075ceac8e0731a06e2671e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a339ccdb1ba8ea723d502946104583148" id="r_a339ccdb1ba8ea723d502946104583148"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3d/class_inspection_mission.html#a339ccdb1ba8ea723d502946104583148">publish_controls</a> (double throttle, double steering) const</td></tr>
 <tr class="memdesc:a339ccdb1ba8ea723d502946104583148"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publishes the control command.  <br /></td></tr>
 <tr class="separator:a339ccdb1ba8ea723d502946104583148"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -151,7 +154,7 @@ Private Types</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:a9a5bfb51641629d7106bb304663d3a22" id="r_a9a5bfb51641629d7106bb304663d3a22"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3d/class_inspection_mission.html#a9a5bfb51641629d7106bb304663d3a22">end_of_mission</a> ()</td></tr>
-<tr class="memdesc:a9a5bfb51641629d7106bb304663d3a22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function for communication of end of mission (or emergency according to the mission)  <br /></td></tr>
+<tr class="memdesc:a9a5bfb51641629d7106bb304663d3a22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotations per minute of the motor.  <br /></td></tr>
 <tr class="separator:a9a5bfb51641629d7106bb304663d3a22"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad3c83d4cdc73d65eb5ab3da2be83e3ae" id="r_ad3c83d4cdc73d65eb5ab3da2be83e3ae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3d/class_inspection_mission.html#ad3c83d4cdc73d65eb5ab3da2be83e3ae">handle_end_of_mission_response</a> (rclcpp::Client&lt; std_srvs::srv::Trigger &gt;::SharedFuture future) const</td></tr>
 <tr class="memdesc:ad3c83d4cdc73d65eb5ab3da2be83e3ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to end communication of end of mission.  <br /></td></tr>
@@ -159,40 +162,51 @@ Private Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a9685920dcd1073dc65032b6f29fa056f" id="r_a9685920dcd1073dc65032b6f29fa056f"><td class="memItemLeft" align="right" valign="top">rclcpp::Client&lt; std_srvs::srv::Trigger &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3d/class_inspection_mission.html#a9685920dcd1073dc65032b6f29fa056f">finish_client</a></td></tr>
-<tr class="separator:a9685920dcd1073dc65032b6f29fa056f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a09e40e5341117bcfd4b0d774a638002a" id="r_a09e40e5341117bcfd4b0d774a638002a"><td class="memItemLeft" align="right" valign="top">rclcpp::Client&lt; std_srvs::srv::Trigger &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3d/class_inspection_mission.html#a09e40e5341117bcfd4b0d774a638002a">emergency_client</a></td></tr>
-<tr class="separator:a09e40e5341117bcfd4b0d774a638002a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae1da2d4ecefa06eb64e48ed2f6432cb6" id="r_ae1da2d4ecefa06eb64e48ed2f6432cb6"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; custom_interfaces::msg::ControlCommand &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3d/class_inspection_mission.html#ae1da2d4ecefa06eb64e48ed2f6432cb6">control_command_publisher</a></td></tr>
-<tr class="separator:ae1da2d4ecefa06eb64e48ed2f6432cb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a63ecc6d7ebc0e6e44fcfd05c30ffe14a" id="r_a63ecc6d7ebc0e6e44fcfd05c30ffe14a"><td class="memItemLeft" align="right" valign="top">rclcpp::Subscription&lt; custom_interfaces::msg::OperationalStatus &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3d/class_inspection_mission.html#a63ecc6d7ebc0e6e44fcfd05c30ffe14a">mission_signal_subscription</a></td></tr>
-<tr class="separator:a63ecc6d7ebc0e6e44fcfd05c30ffe14a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a09e85984dc1eecce5f5d94823264756d" id="r_a09e85984dc1eecce5f5d94823264756d"><td class="memItemLeft" align="right" valign="top">message_filters::Subscriber&lt; custom_interfaces::msg::WheelRPM &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3d/class_inspection_mission.html#a09e85984dc1eecce5f5d94823264756d">rl_rpm_subscription</a></td></tr>
-<tr class="separator:a09e85984dc1eecce5f5d94823264756d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c7e2fdb5a0956de43d70347b3cdc13c" id="r_a2c7e2fdb5a0956de43d70347b3cdc13c"><td class="memItemLeft" align="right" valign="top">message_filters::Subscriber&lt; custom_interfaces::msg::WheelRPM &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3d/class_inspection_mission.html#a2c7e2fdb5a0956de43d70347b3cdc13c">rr_rpm_subscription</a></td></tr>
-<tr class="separator:a2c7e2fdb5a0956de43d70347b3cdc13c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f4774a5dc9885a09fd3c3fddf6668d3" id="r_a2f4774a5dc9885a09fd3c3fddf6668d3"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; message_filters::Synchronizer&lt; <a class="el" href="../../de/d3d/class_inspection_mission.html#ad02bcc6803db3e09357cd740ebe94ce4">WSSPolicy</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3d/class_inspection_mission.html#a2f4774a5dc9885a09fd3c3fddf6668d3">sync_</a></td></tr>
-<tr class="separator:a2f4774a5dc9885a09fd3c3fddf6668d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01befd7aaf937a990bd5aadc8e3f61e0" id="r_a01befd7aaf937a990bd5aadc8e3f61e0"><td class="memItemLeft" align="right" valign="top">rclcpp::TimerBase::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3d/class_inspection_mission.html#a01befd7aaf937a990bd5aadc8e3f61e0">mission_end_timer</a></td></tr>
-<tr class="separator:a01befd7aaf937a990bd5aadc8e3f61e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66335539c3853512afa8cbb47adf6d21" id="r_a66335539c3853512afa8cbb47adf6d21"><td class="memItemLeft" align="right" valign="top">rclcpp::TimerBase::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3d/class_inspection_mission.html#a66335539c3853512afa8cbb47adf6d21">main_callback_timer</a></td></tr>
-<tr class="separator:a66335539c3853512afa8cbb47adf6d21"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab9af65eebed80ec403b93c213cde8cd8" id="r_ab9af65eebed80ec403b93c213cde8cd8"><td class="memItemLeft" align="right" valign="top">rclcpp::Clock&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3d/class_inspection_mission.html#ab9af65eebed80ec403b93c213cde8cd8">clock</a></td></tr>
-<tr class="separator:ab9af65eebed80ec403b93c213cde8cd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a44d19cba4d7c601a74771f07993bb828" id="r_a44d19cba4d7c601a74771f07993bb828"><td class="memItemLeft" align="right" valign="top">rclcpp::Time&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3d/class_inspection_mission.html#a44d19cba4d7c601a74771f07993bb828">initial_time</a></td></tr>
-<tr class="separator:a44d19cba4d7c601a74771f07993bb828"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ecbe7bffda13b47b92da4df1893e4c9" id="r_a4ecbe7bffda13b47b92da4df1893e4c9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d89/class_inspection_functions.html">InspectionFunctions</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3d/class_inspection_mission.html#a4ecbe7bffda13b47b92da4df1893e4c9">inspection_object</a> = <a class="el" href="../../d4/d89/class_inspection_functions.html">InspectionFunctions</a>()</td></tr>
-<tr class="separator:a4ecbe7bffda13b47b92da4df1893e4c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f7c7fe868353248022490c67d9ed381" id="r_a0f7c7fe868353248022490c67d9ed381"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3d/class_inspection_mission.html#a0f7c7fe868353248022490c67d9ed381">go</a> = false</td></tr>
-<tr class="separator:a0f7c7fe868353248022490c67d9ed381"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4d7a62ee8f37d53201525e439fe22afb" id="r_a4d7a62ee8f37d53201525e439fe22afb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/d2b/namespacecommon__lib_1_1competition__logic.html#adc523f54f1498f443c97303976f40140">common_lib::competition_logic::Mission</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3d/class_inspection_mission.html#a4d7a62ee8f37d53201525e439fe22afb">mission</a></td></tr>
-<tr class="separator:a4d7a62ee8f37d53201525e439fe22afb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abee2cdf1caf70d0039fd0707696ad972" id="r_abee2cdf1caf70d0039fd0707696ad972"><td class="memItemLeft" align="right" valign="top">rclcpp::Client&lt; std_srvs::srv::Trigger &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3d/class_inspection_mission.html#abee2cdf1caf70d0039fd0707696ad972">_finish_client_</a></td></tr>
+<tr class="separator:abee2cdf1caf70d0039fd0707696ad972"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3e6c5017174cf1300a00bb26d2dfa01" id="r_ab3e6c5017174cf1300a00bb26d2dfa01"><td class="memItemLeft" align="right" valign="top">rclcpp::Client&lt; std_srvs::srv::Trigger &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3d/class_inspection_mission.html#ab3e6c5017174cf1300a00bb26d2dfa01">_emergency_client_</a></td></tr>
+<tr class="separator:ab3e6c5017174cf1300a00bb26d2dfa01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a371abe00ef8f10580b54dc816ef6e7cc" id="r_a371abe00ef8f10580b54dc816ef6e7cc"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; custom_interfaces::msg::ControlCommand &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3d/class_inspection_mission.html#a371abe00ef8f10580b54dc816ef6e7cc">_control_command_publisher_</a></td></tr>
+<tr class="separator:a371abe00ef8f10580b54dc816ef6e7cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d23aa488f2f8b052e9157bf3b7a693e" id="r_a0d23aa488f2f8b052e9157bf3b7a693e"><td class="memItemLeft" align="right" valign="top">rclcpp::Subscription&lt; custom_interfaces::msg::OperationalStatus &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3d/class_inspection_mission.html#a0d23aa488f2f8b052e9157bf3b7a693e">_mission_signal_subscription_</a></td></tr>
+<tr class="separator:a0d23aa488f2f8b052e9157bf3b7a693e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50b175581cc7d33e6d74bfa8485b4108" id="r_a50b175581cc7d33e6d74bfa8485b4108"><td class="memItemLeft" align="right" valign="top">rclcpp::Subscription&lt; custom_interfaces::msg::WheelRPM &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3d/class_inspection_mission.html#a50b175581cc7d33e6d74bfa8485b4108">_motor_rpm_subscription_</a></td></tr>
+<tr class="separator:a50b175581cc7d33e6d74bfa8485b4108"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:accf5b7bc14966480930ccdd6b5788d68" id="r_accf5b7bc14966480930ccdd6b5788d68"><td class="memItemLeft" align="right" valign="top">rclcpp::TimerBase::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3d/class_inspection_mission.html#accf5b7bc14966480930ccdd6b5788d68">_timer_</a></td></tr>
+<tr class="separator:accf5b7bc14966480930ccdd6b5788d68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ac15c243b58a644af77ff9c9fd0a8a1" id="r_a5ac15c243b58a644af77ff9c9fd0a8a1"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; message_filters::Synchronizer&lt; <a class="el" href="../../de/d3d/class_inspection_mission.html#ad02bcc6803db3e09357cd740ebe94ce4">WSSPolicy</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3d/class_inspection_mission.html#a5ac15c243b58a644af77ff9c9fd0a8a1">_sync_</a></td></tr>
+<tr class="separator:a5ac15c243b58a644af77ff9c9fd0a8a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5dc72b92c6fac491a25ca6b3aed4366c" id="r_a5dc72b92c6fac491a25ca6b3aed4366c"><td class="memItemLeft" align="right" valign="top">rclcpp::TimerBase::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3d/class_inspection_mission.html#a5dc72b92c6fac491a25ca6b3aed4366c">_mission_end_timer_</a></td></tr>
+<tr class="separator:a5dc72b92c6fac491a25ca6b3aed4366c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae71451ddafa56cd54653702caad77a46" id="r_ae71451ddafa56cd54653702caad77a46"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3d/class_inspection_mission.html#ae71451ddafa56cd54653702caad77a46">_mission_end_timer_started_</a> = false</td></tr>
+<tr class="memdesc:ae71451ddafa56cd54653702caad77a46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timer for repetition of end of mission signal.  <br /></td></tr>
+<tr class="separator:ae71451ddafa56cd54653702caad77a46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1af2cdd5e7bdbecb323b5c27df35a062" id="r_a1af2cdd5e7bdbecb323b5c27df35a062"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3d/class_inspection_mission.html#a1af2cdd5e7bdbecb323b5c27df35a062">_car_stopped_</a> = false</td></tr>
+<tr class="separator:a1af2cdd5e7bdbecb323b5c27df35a062"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3803049fb687fb5a5bf88274a105fe5" id="r_ae3803049fb687fb5a5bf88274a105fe5"><td class="memItemLeft" align="right" valign="top">rclcpp::TimerBase::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3d/class_inspection_mission.html#ae3803049fb687fb5a5bf88274a105fe5">_main_callback_timer_</a></td></tr>
+<tr class="separator:ae3803049fb687fb5a5bf88274a105fe5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a225f434fbc147c55429c1caef7ba7557" id="r_a225f434fbc147c55429c1caef7ba7557"><td class="memItemLeft" align="right" valign="top">rclcpp::Clock&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3d/class_inspection_mission.html#a225f434fbc147c55429c1caef7ba7557">_clock_</a></td></tr>
+<tr class="memdesc:a225f434fbc147c55429c1caef7ba7557"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timer for main callback.  <br /></td></tr>
+<tr class="separator:a225f434fbc147c55429c1caef7ba7557"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af04d947b1fe4a1da4108ac44b7020067" id="r_af04d947b1fe4a1da4108ac44b7020067"><td class="memItemLeft" align="right" valign="top">rclcpp::Time&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3d/class_inspection_mission.html#af04d947b1fe4a1da4108ac44b7020067">_initial_time_</a></td></tr>
+<tr class="separator:af04d947b1fe4a1da4108ac44b7020067"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e5c8a018c0225f1959eea3343365e8f" id="r_a6e5c8a018c0225f1959eea3343365e8f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d89/class_inspection_functions.html">InspectionFunctions</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3d/class_inspection_mission.html#a6e5c8a018c0225f1959eea3343365e8f">_inspection_object_</a> = <a class="el" href="../../d4/d89/class_inspection_functions.html">InspectionFunctions</a>()</td></tr>
+<tr class="memdesc:a6e5c8a018c0225f1959eea3343365e8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ellapsed time in seconds.  <br /></td></tr>
+<tr class="separator:a6e5c8a018c0225f1959eea3343365e8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42a9a51aa22eb0d4df28c61d084b4ec8" id="r_a42a9a51aa22eb0d4df28c61d084b4ec8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3d/class_inspection_mission.html#a42a9a51aa22eb0d4df28c61d084b4ec8">_go_</a> = false</td></tr>
+<tr class="separator:a42a9a51aa22eb0d4df28c61d084b4ec8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae449335a96fc3ac1edf079fb0ee0a703" id="r_ae449335a96fc3ac1edf079fb0ee0a703"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/d2b/namespacecommon__lib_1_1competition__logic.html#adc523f54f1498f443c97303976f40140">common_lib::competition_logic::Mission</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3d/class_inspection_mission.html#ae449335a96fc3ac1edf079fb0ee0a703">_mission_</a></td></tr>
+<tr class="memdesc:ae449335a96fc3ac1edf079fb0ee0a703"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag to start the mission.  <br /></td></tr>
+<tr class="separator:ae449335a96fc3ac1edf079fb0ee0a703"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac87af83010bc65f3809b8210cbed94ca" id="r_ac87af83010bc65f3809b8210cbed94ca"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d3d/class_inspection_mission.html#ac87af83010bc65f3809b8210cbed94ca">_motor_rpm_</a> = 0.0</td></tr>
+<tr class="memdesc:ac87af83010bc65f3809b8210cbed94ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mission to be executed;.  <br /></td></tr>
+<tr class="separator:ac87af83010bc65f3809b8210cbed94ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class responsible for the Inspection Mission of the car. </p>
 <p>This class inherits from rclcpp::Node, subscribing to current velocity and publishing control commands. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html#l00031">31</a> of file <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html">inspection_ros.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html#l00029">29</a> of file <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html">inspection_ros.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="ad02bcc6803db3e09357cd740ebe94ce4" name="ad02bcc6803db3e09357cd740ebe94ce4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad02bcc6803db3e09357cd740ebe94ce4">&#9670;&#160;</a></span>WSSPolicy</h2>
@@ -214,7 +228,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html#l00042">42</a> of file <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html">inspection_ros.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html#l00041">41</a> of file <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html">inspection_ros.hpp</a>.</p>
 
 </div>
 </div>
@@ -242,29 +256,31 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../de/d3d/class_inspection_mission_a62ddad48c6252a28b6f2c480f84229d1_cgraph.png" border="0" usemap="#ade/d3d/class_inspection_mission_a62ddad48c6252a28b6f2c480f84229d1_cgraph" alt=""/></div>
 <map name="ade/d3d/class_inspection_mission_a62ddad48c6252a28b6f2c480f84229d1_cgraph" id="ade/d3d/class_inspection_mission_a62ddad48c6252a28b6f2c480f84229d1_cgraph">
-<area shape="rect" title="Contruct a new Inspection Mission with constants defined in file." alt="" coords="5,333,138,374"/>
-<area shape="rect" href="../../de/d3d/class_inspection_mission.html#aaefabede0c0991d2eeb9aa6a418403e0" title="Function to publish control command while time is less than the defined time limit." alt="" coords="186,235,318,275"/>
-<area shape="poly" title=" " alt="" coords="109,330,198,281,201,286,112,335"/>
-<area shape="rect" href="../../de/d3d/class_inspection_mission.html#a4308e35a3779d96cf47d941faeef8780" title="recieves GoSignal and stores the mission that should be ran" alt="" coords="186,365,318,406"/>
-<area shape="poly" title=" " alt="" coords="138,363,171,369,170,374,138,368"/>
-<area shape="rect" href="../../d4/d89/class_inspection_functions.html#a793594cd002fd71ae3501ad057d06128" title="calculate the steering angle according to time" alt="" coords="389,5,527,46"/>
-<area shape="poly" title=" " alt="" coords="257,233,271,196,294,149,325,100,364,57,374,50,377,54,368,61,329,103,299,151,276,198,262,235"/>
-<area shape="rect" href="../../d4/d89/class_inspection_functions.html#a1000128622db49d47cc3f483dbcc9190" title="calculate torque output according to velocity" alt="" coords="389,71,527,111"/>
-<area shape="poly" title=" " alt="" coords="264,233,305,178,333,148,364,122,374,116,377,121,368,126,336,152,309,182,268,236"/>
-<area shape="rect" href="../../de/d3d/class_inspection_mission.html#a9a5bfb51641629d7106bb304663d3a22" title="Function for communication of end of mission (or emergency according to the mission)" alt="" coords="392,136,524,177"/>
-<area shape="poly" title=" " alt="" coords="285,232,365,187,380,180,382,185,367,192,287,236"/>
-<area shape="rect" href="../../de/d3d/class_inspection_mission.html#a339ccdb1ba8ea723d502946104583148" title="Publishes the control command." alt="" coords="392,201,524,242"/>
-<area shape="poly" title=" " alt="" coords="318,242,376,232,377,237,319,247"/>
-<area shape="rect" href="../../d4/d89/class_inspection_functions.html#a06acb01e381faf5b8a2ab45c1b60abe7" title="used when in oscilation mode to redefine the ideal velocity" alt="" coords="381,267,535,307"/>
-<area shape="poly" title=" " alt="" coords="319,263,366,270,365,275,318,268"/>
-<area shape="rect" href="../../d4/d89/class_inspection_functions.html#a6ca9c7bc559802b2fbd3beffe2197331" title="convert rpm [rotations/minute] to velocity [m/s]" alt="" coords="389,332,527,373"/>
-<area shape="poly" title=" " alt="" coords="288,273,367,317,383,323,380,328,365,321,285,278"/>
-<area shape="rect" href="../../d4/d89/class_inspection_functions.html#a487bdcfa6316f5ef39126be29af428b3" title="convert the throttle to a range between &#45;1 and 1" alt="" coords="366,397,550,438"/>
-<area shape="poly" title=" " alt="" coords="268,274,309,328,337,357,368,382,376,387,373,392,364,386,333,361,305,331,264,277"/>
-<area shape="rect" href="../../de/d3d/class_inspection_mission.html#ad3c83d4cdc73d65eb5ab3da2be83e3ae" title="Function to end communication of end of mission." alt="" coords="598,129,756,184"/>
-<area shape="poly" title=" " alt="" coords="525,154,583,154,583,159,525,159"/>
-<area shape="rect" href="../../d9/d2b/namespacecommon__lib_1_1competition__logic.html#a5f2f421d317c5814f38b4c9037ad2ccc" title=" " alt="" coords="373,463,543,503"/>
-<area shape="poly" title=" " alt="" coords="288,404,367,447,383,454,380,459,365,452,285,409"/>
+<area shape="rect" title="Contruct a new Inspection Mission with constants defined in file." alt="" coords="5,365,138,406"/>
+<area shape="rect" href="../../de/d3d/class_inspection_mission.html#a35b4aee106941a568c0f1916481c77ed" title="Function to publish control command while time is less than the defined time limit." alt="" coords="195,235,328,275"/>
+<area shape="poly" title=" " alt="" coords="101,362,216,282,219,287,104,367"/>
+<area shape="rect" href="../../de/d3d/class_inspection_mission.html#a4308e35a3779d96cf47d941faeef8780" title="recieves GoSignal and stores the mission that should be ran" alt="" coords="195,365,328,406"/>
+<area shape="poly" title=" " alt="" coords="138,383,180,383,180,388,138,388"/>
+<area shape="rect" href="../../de/d3d/class_inspection_mission.html#a7e529c97d075ceac8e0731a06e2671e5" title="Function to update the current rpms of the wheels." alt="" coords="186,431,337,471"/>
+<area shape="poly" title=" " alt="" coords="133,404,187,423,185,428,132,409"/>
+<area shape="rect" href="../../d4/d89/class_inspection_functions.html#a793594cd002fd71ae3501ad057d06128" title="calculate the steering angle according to time" alt="" coords="408,5,546,46"/>
+<area shape="poly" title=" " alt="" coords="268,233,284,196,309,149,342,100,383,57,393,50,396,54,387,61,346,103,313,151,289,198,273,235"/>
+<area shape="rect" href="../../d4/d89/class_inspection_functions.html#a1000128622db49d47cc3f483dbcc9190" title="calculate torque output according to velocity" alt="" coords="408,71,546,111"/>
+<area shape="poly" title=" " alt="" coords="275,232,320,178,350,148,383,122,393,116,396,121,387,127,354,152,324,182,279,236"/>
+<area shape="rect" href="../../de/d3d/class_inspection_mission.html#a9a5bfb51641629d7106bb304663d3a22" title="Rotations per minute of the motor." alt="" coords="411,136,543,177"/>
+<area shape="poly" title=" " alt="" coords="297,232,384,187,400,180,402,185,386,192,300,237"/>
+<area shape="rect" href="../../de/d3d/class_inspection_mission.html#a339ccdb1ba8ea723d502946104583148" title="Publishes the control command." alt="" coords="411,201,543,242"/>
+<area shape="poly" title=" " alt="" coords="327,242,395,232,396,237,328,247"/>
+<area shape="rect" href="../../d4/d89/class_inspection_functions.html#a06acb01e381faf5b8a2ab45c1b60abe7" title="used when in oscilation mode to redefine the ideal velocity" alt="" coords="400,267,554,307"/>
+<area shape="poly" title=" " alt="" coords="328,262,385,271,384,276,327,267"/>
+<area shape="rect" href="../../d4/d89/class_inspection_functions.html#a6ca9c7bc559802b2fbd3beffe2197331" title="convert rpm [rotations/minute] to velocity [m/s]" alt="" coords="408,332,546,373"/>
+<area shape="poly" title=" " alt="" coords="301,274,386,317,402,323,400,328,384,321,298,278"/>
+<area shape="rect" href="../../d4/d89/class_inspection_functions.html#a487bdcfa6316f5ef39126be29af428b3" title="convert the throttle to a range between &#45;1 and 1" alt="" coords="385,397,569,438"/>
+<area shape="poly" title=" " alt="" coords="279,274,324,328,354,357,387,382,396,388,393,392,383,387,350,361,320,331,275,277"/>
+<area shape="rect" href="../../de/d3d/class_inspection_mission.html#ad3c83d4cdc73d65eb5ab3da2be83e3ae" title="Function to end communication of end of mission." alt="" coords="617,129,775,184"/>
+<area shape="poly" title=" " alt="" coords="544,154,602,154,602,159,544,159"/>
+<area shape="rect" href="../../d9/d2b/namespacecommon__lib_1_1competition__logic.html#a5f2f421d317c5814f38b4c9037ad2ccc" title=" " alt="" coords="392,463,562,503"/>
+<area shape="poly" title=" " alt="" coords="313,404,338,417,362,432,386,447,401,454,398,459,384,452,359,437,336,421,311,409"/>
 </map>
 </div>
 
@@ -294,15 +310,16 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
+<p>Rotations per minute of the motor. </p>
 <p>Function for communication of end of mission (or emergency according to the mission) </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/db1/inspection__ros_8cpp_source.html#l00133">133</a> of file <a class="el" href="../../d6/db1/inspection__ros_8cpp_source.html">inspection_ros.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/db1/inspection__ros_8cpp_source.html#l00174">174</a> of file <a class="el" href="../../d6/db1/inspection__ros_8cpp_source.html">inspection_ros.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../de/d3d/class_inspection_mission_a9a5bfb51641629d7106bb304663d3a22_cgraph.png" border="0" usemap="#ade/d3d/class_inspection_mission_a9a5bfb51641629d7106bb304663d3a22_cgraph" alt=""/></div>
 <map name="ade/d3d/class_inspection_mission_a9a5bfb51641629d7106bb304663d3a22_cgraph" id="ade/d3d/class_inspection_mission_a9a5bfb51641629d7106bb304663d3a22_cgraph">
-<area shape="rect" title="Function for communication of end of mission (or emergency according to the mission)" alt="" coords="5,13,138,54"/>
+<area shape="rect" title="Rotations per minute of the motor." alt="" coords="5,13,138,54"/>
 <area shape="rect" href="../../de/d3d/class_inspection_mission.html#ad3c83d4cdc73d65eb5ab3da2be83e3ae" title="Function to end communication of end of mission." alt="" coords="186,5,343,61"/>
 <area shape="poly" title=" " alt="" coords="138,31,170,31,170,36,138,36"/>
 </map>
@@ -312,8 +329,8 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../de/d3d/class_inspection_mission_a9a5bfb51641629d7106bb304663d3a22_icgraph.png" border="0" usemap="#ade/d3d/class_inspection_mission_a9a5bfb51641629d7106bb304663d3a22_icgraph" alt=""/></div>
 <map name="ade/d3d/class_inspection_mission_a9a5bfb51641629d7106bb304663d3a22_icgraph" id="ade/d3d/class_inspection_mission_a9a5bfb51641629d7106bb304663d3a22_icgraph">
-<area shape="rect" title="Function for communication of end of mission (or emergency according to the mission)" alt="" coords="366,5,498,46"/>
-<area shape="rect" href="../../de/d3d/class_inspection_mission.html#aaefabede0c0991d2eeb9aa6a418403e0" title="Function to publish control command while time is less than the defined time limit." alt="" coords="186,5,318,46"/>
+<area shape="rect" title="Rotations per minute of the motor." alt="" coords="366,5,498,46"/>
+<area shape="rect" href="../../de/d3d/class_inspection_mission.html#a35b4aee106941a568c0f1916481c77ed" title="Function to publish control command while time is less than the defined time limit." alt="" coords="186,5,318,46"/>
 <area shape="poly" title=" " alt="" coords="351,28,318,28,318,23,351,23"/>
 <area shape="rect" href="../../de/d3d/class_inspection_mission.html#a62ddad48c6252a28b6f2c480f84229d1" title="Contruct a new Inspection Mission with constants defined in file." alt="" coords="5,5,138,46"/>
 <area shape="poly" title=" " alt="" coords="170,28,138,28,138,23,170,23"/>
@@ -348,16 +365,16 @@ Here is the caller graph for this function:</div>
 
 <p>Function to end communication of end of mission. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/db1/inspection__ros_8cpp_source.html#l00150">150</a> of file <a class="el" href="../../d6/db1/inspection__ros_8cpp_source.html">inspection_ros.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/db1/inspection__ros_8cpp_source.html#l00191">191</a> of file <a class="el" href="../../d6/db1/inspection__ros_8cpp_source.html">inspection_ros.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../de/d3d/class_inspection_mission_ad3c83d4cdc73d65eb5ab3da2be83e3ae_icgraph.png" border="0" usemap="#ade/d3d/class_inspection_mission_ad3c83d4cdc73d65eb5ab3da2be83e3ae_icgraph" alt=""/></div>
 <map name="ade/d3d/class_inspection_mission_ad3c83d4cdc73d65eb5ab3da2be83e3ae_icgraph" id="ade/d3d/class_inspection_mission_ad3c83d4cdc73d65eb5ab3da2be83e3ae_icgraph">
 <area shape="rect" title="Function to end communication of end of mission." alt="" coords="546,5,704,61"/>
-<area shape="rect" href="../../de/d3d/class_inspection_mission.html#a9a5bfb51641629d7106bb304663d3a22" title="Function for communication of end of mission (or emergency according to the mission)" alt="" coords="366,13,498,54"/>
+<area shape="rect" href="../../de/d3d/class_inspection_mission.html#a9a5bfb51641629d7106bb304663d3a22" title="Rotations per minute of the motor." alt="" coords="366,13,498,54"/>
 <area shape="poly" title=" " alt="" coords="531,36,499,36,499,31,531,31"/>
-<area shape="rect" href="../../de/d3d/class_inspection_mission.html#aaefabede0c0991d2eeb9aa6a418403e0" title="Function to publish control command while time is less than the defined time limit." alt="" coords="186,13,318,54"/>
+<area shape="rect" href="../../de/d3d/class_inspection_mission.html#a35b4aee106941a568c0f1916481c77ed" title="Function to publish control command while time is less than the defined time limit." alt="" coords="186,13,318,54"/>
 <area shape="poly" title=" " alt="" coords="351,36,318,36,318,31,351,31"/>
 <area shape="rect" href="../../de/d3d/class_inspection_mission.html#a62ddad48c6252a28b6f2c480f84229d1" title="Contruct a new Inspection Mission with constants defined in file." alt="" coords="5,13,138,54"/>
 <area shape="poly" title=" " alt="" coords="170,36,138,36,138,31,170,31"/>
@@ -366,8 +383,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="aaefabede0c0991d2eeb9aa6a418403e0" name="aaefabede0c0991d2eeb9aa6a418403e0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaefabede0c0991d2eeb9aa6a418403e0">&#9670;&#160;</a></span>inspection_script()</h2>
+<a id="a35b4aee106941a568c0f1916481c77ed" name="a35b4aee106941a568c0f1916481c77ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35b4aee106941a568c0f1916481c77ed">&#9670;&#160;</a></span>inspection_script()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -375,19 +392,8 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">void InspectionMission::inspection_script </td>
           <td>(</td>
-          <td class="paramtype">const custom_interfaces::msg::WheelRPM &amp;&#160;</td>
-          <td class="paramname"><em>current_rlRPM</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
-          <td class="paramtype">const custom_interfaces::msg::WheelRPM &amp;&#160;</td>
-          <td class="paramname"><em>current_rrRPM</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -400,18 +406,18 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/db1/inspection__ros_8cpp_source.html#l00078">78</a> of file <a class="el" href="../../d6/db1/inspection__ros_8cpp_source.html">inspection_ros.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/db1/inspection__ros_8cpp_source.html#l00089">89</a> of file <a class="el" href="../../d6/db1/inspection__ros_8cpp_source.html">inspection_ros.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../de/d3d/class_inspection_mission_aaefabede0c0991d2eeb9aa6a418403e0_cgraph.png" border="0" usemap="#ade/d3d/class_inspection_mission_aaefabede0c0991d2eeb9aa6a418403e0_cgraph" alt=""/></div>
-<map name="ade/d3d/class_inspection_mission_aaefabede0c0991d2eeb9aa6a418403e0_cgraph" id="ade/d3d/class_inspection_mission_aaefabede0c0991d2eeb9aa6a418403e0_cgraph">
+<div class="center"><img src="../../de/d3d/class_inspection_mission_a35b4aee106941a568c0f1916481c77ed_cgraph.png" border="0" usemap="#ade/d3d/class_inspection_mission_a35b4aee106941a568c0f1916481c77ed_cgraph" alt=""/></div>
+<map name="ade/d3d/class_inspection_mission_a35b4aee106941a568c0f1916481c77ed_cgraph" id="ade/d3d/class_inspection_mission_a35b4aee106941a568c0f1916481c77ed_cgraph">
 <area shape="rect" title="Function to publish control command while time is less than the defined time limit." alt="" coords="5,201,138,242"/>
 <area shape="rect" href="../../d4/d89/class_inspection_functions.html#a793594cd002fd71ae3501ad057d06128" title="calculate the steering angle according to time" alt="" coords="209,5,347,46"/>
 <area shape="poly" title=" " alt="" coords="80,200,119,131,148,91,184,57,193,51,196,55,187,61,152,95,123,133,84,202"/>
 <area shape="rect" href="../../d4/d89/class_inspection_functions.html#a1000128622db49d47cc3f483dbcc9190" title="calculate torque output according to velocity" alt="" coords="209,71,347,111"/>
 <area shape="poly" title=" " alt="" coords="90,199,132,160,184,122,196,116,198,121,187,127,135,165,94,203"/>
-<area shape="rect" href="../../de/d3d/class_inspection_mission.html#a9a5bfb51641629d7106bb304663d3a22" title="Function for communication of end of mission (or emergency according to the mission)" alt="" coords="212,136,344,177"/>
+<area shape="rect" href="../../de/d3d/class_inspection_mission.html#a9a5bfb51641629d7106bb304663d3a22" title="Rotations per minute of the motor." alt="" coords="212,136,344,177"/>
 <area shape="poly" title=" " alt="" coords="137,198,196,179,197,185,139,203"/>
 <area shape="rect" href="../../de/d3d/class_inspection_mission.html#a339ccdb1ba8ea723d502946104583148" title="Publishes the control command." alt="" coords="212,201,344,242"/>
 <area shape="poly" title=" " alt="" coords="138,219,196,219,196,224,138,224"/>
@@ -428,8 +434,8 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../de/d3d/class_inspection_mission_aaefabede0c0991d2eeb9aa6a418403e0_icgraph.png" border="0" usemap="#ade/d3d/class_inspection_mission_aaefabede0c0991d2eeb9aa6a418403e0_icgraph" alt=""/></div>
-<map name="ade/d3d/class_inspection_mission_aaefabede0c0991d2eeb9aa6a418403e0_icgraph" id="ade/d3d/class_inspection_mission_aaefabede0c0991d2eeb9aa6a418403e0_icgraph">
+<div class="center"><img src="../../de/d3d/class_inspection_mission_a35b4aee106941a568c0f1916481c77ed_icgraph.png" border="0" usemap="#ade/d3d/class_inspection_mission_a35b4aee106941a568c0f1916481c77ed_icgraph" alt=""/></div>
+<map name="ade/d3d/class_inspection_mission_a35b4aee106941a568c0f1916481c77ed_icgraph" id="ade/d3d/class_inspection_mission_a35b4aee106941a568c0f1916481c77ed_icgraph">
 <area shape="rect" title="Function to publish control command while time is less than the defined time limit." alt="" coords="186,5,318,46"/>
 <area shape="rect" href="../../de/d3d/class_inspection_mission.html#a62ddad48c6252a28b6f2c480f84229d1" title="Contruct a new Inspection Mission with constants defined in file." alt="" coords="5,5,138,46"/>
 <area shape="poly" title=" " alt="" coords="170,28,138,28,138,23,170,23"/>
@@ -462,7 +468,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/db1/inspection__ros_8cpp_source.html#l00048">48</a> of file <a class="el" href="../../d6/db1/inspection__ros_8cpp_source.html">inspection_ros.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/db1/inspection__ros_8cpp_source.html#l00049">49</a> of file <a class="el" href="../../d6/db1/inspection__ros_8cpp_source.html">inspection_ros.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -521,14 +527,14 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/db1/inspection__ros_8cpp_source.html#l00124">124</a> of file <a class="el" href="../../d6/db1/inspection__ros_8cpp_source.html">inspection_ros.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/db1/inspection__ros_8cpp_source.html#l00165">165</a> of file <a class="el" href="../../d6/db1/inspection__ros_8cpp_source.html">inspection_ros.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../de/d3d/class_inspection_mission_a339ccdb1ba8ea723d502946104583148_icgraph.png" border="0" usemap="#ade/d3d/class_inspection_mission_a339ccdb1ba8ea723d502946104583148_icgraph" alt=""/></div>
 <map name="ade/d3d/class_inspection_mission_a339ccdb1ba8ea723d502946104583148_icgraph" id="ade/d3d/class_inspection_mission_a339ccdb1ba8ea723d502946104583148_icgraph">
 <area shape="rect" title="Publishes the control command." alt="" coords="366,5,498,46"/>
-<area shape="rect" href="../../de/d3d/class_inspection_mission.html#aaefabede0c0991d2eeb9aa6a418403e0" title="Function to publish control command while time is less than the defined time limit." alt="" coords="186,5,318,46"/>
+<area shape="rect" href="../../de/d3d/class_inspection_mission.html#a35b4aee106941a568c0f1916481c77ed" title="Function to publish control command while time is less than the defined time limit." alt="" coords="186,5,318,46"/>
 <area shape="poly" title=" " alt="" coords="351,28,318,28,318,23,351,23"/>
 <area shape="rect" href="../../de/d3d/class_inspection_mission.html#a62ddad48c6252a28b6f2c480f84229d1" title="Contruct a new Inspection Mission with constants defined in file." alt="" coords="5,5,138,46"/>
 <area shape="poly" title=" " alt="" coords="170,28,138,28,138,23,170,23"/>
@@ -537,9 +543,47 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a id="a7e529c97d075ceac8e0731a06e2671e5" name="a7e529c97d075ceac8e0731a06e2671e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e529c97d075ceac8e0731a06e2671e5">&#9670;&#160;</a></span>update_rpms_callback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void InspectionMission::update_rpms_callback </td>
+          <td>(</td>
+          <td class="paramtype">const custom_interfaces::msg::WheelRPM &amp;&#160;</td>
+          <td class="paramname"><em>motor_rpm</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function to update the current rpms of the wheels. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">motor_rpm</td><td>rotations of the motor per minute </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d6/db1/inspection__ros_8cpp_source.html#l00084">84</a> of file <a class="el" href="../../d6/db1/inspection__ros_8cpp_source.html">inspection_ros.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../de/d3d/class_inspection_mission_a7e529c97d075ceac8e0731a06e2671e5_icgraph.png" border="0" usemap="#ade/d3d/class_inspection_mission_a7e529c97d075ceac8e0731a06e2671e5_icgraph" alt=""/></div>
+<map name="ade/d3d/class_inspection_mission_a7e529c97d075ceac8e0731a06e2671e5_icgraph" id="ade/d3d/class_inspection_mission_a7e529c97d075ceac8e0731a06e2671e5_icgraph">
+<area shape="rect" title="Function to update the current rpms of the wheels." alt="" coords="186,5,337,46"/>
+<area shape="rect" href="../../de/d3d/class_inspection_mission.html#a62ddad48c6252a28b6f2c480f84229d1" title="Contruct a new Inspection Mission with constants defined in file." alt="" coords="5,5,138,46"/>
+<area shape="poly" title=" " alt="" coords="170,28,138,28,138,23,170,23"/>
+</map>
+</div>
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="ab9af65eebed80ec403b93c213cde8cd8" name="ab9af65eebed80ec403b93c213cde8cd8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab9af65eebed80ec403b93c213cde8cd8">&#9670;&#160;</a></span>clock</h2>
+<a id="a1af2cdd5e7bdbecb323b5c27df35a062" name="a1af2cdd5e7bdbecb323b5c27df35a062"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1af2cdd5e7bdbecb323b5c27df35a062">&#9670;&#160;</a></span>_car_stopped_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -548,7 +592,7 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">rclcpp::Clock InspectionMission::clock</td>
+          <td class="memname">bool InspectionMission::_car_stopped_ = false</td>
         </tr>
       </table>
   </td>
@@ -562,8 +606,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="ae1da2d4ecefa06eb64e48ed2f6432cb6" name="ae1da2d4ecefa06eb64e48ed2f6432cb6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae1da2d4ecefa06eb64e48ed2f6432cb6">&#9670;&#160;</a></span>control_command_publisher</h2>
+<a id="a225f434fbc147c55429c1caef7ba7557" name="a225f434fbc147c55429c1caef7ba7557"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a225f434fbc147c55429c1caef7ba7557">&#9670;&#160;</a></span>_clock_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -572,7 +616,7 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">rclcpp::Publisher&lt;custom_interfaces::msg::ControlCommand&gt;::SharedPtr InspectionMission::control_command_publisher</td>
+          <td class="memname">rclcpp::Clock InspectionMission::_clock_</td>
         </tr>
       </table>
   </td>
@@ -582,12 +626,14 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html#l00035">35</a> of file <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html">inspection_ros.hpp</a>.</p>
+<p>Timer for main callback. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html#l00052">52</a> of file <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html">inspection_ros.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a09e40e5341117bcfd4b0d774a638002a" name="a09e40e5341117bcfd4b0d774a638002a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a09e40e5341117bcfd4b0d774a638002a">&#9670;&#160;</a></span>emergency_client</h2>
+<a id="a371abe00ef8f10580b54dc816ef6e7cc" name="a371abe00ef8f10580b54dc816ef6e7cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a371abe00ef8f10580b54dc816ef6e7cc">&#9670;&#160;</a></span>_control_command_publisher_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -596,31 +642,7 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">rclcpp::Client&lt;std_srvs::srv::Trigger&gt;::SharedPtr InspectionMission::emergency_client</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html#l00034">34</a> of file <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html">inspection_ros.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a9685920dcd1073dc65032b6f29fa056f" name="a9685920dcd1073dc65032b6f29fa056f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9685920dcd1073dc65032b6f29fa056f">&#9670;&#160;</a></span>finish_client</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">rclcpp::Client&lt;std_srvs::srv::Trigger&gt;::SharedPtr InspectionMission::finish_client</td>
+          <td class="memname">rclcpp::Publisher&lt;custom_interfaces::msg::ControlCommand&gt;::SharedPtr InspectionMission::_control_command_publisher_</td>
         </tr>
       </table>
   </td>
@@ -634,8 +656,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a0f7c7fe868353248022490c67d9ed381" name="a0f7c7fe868353248022490c67d9ed381"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0f7c7fe868353248022490c67d9ed381">&#9670;&#160;</a></span>go</h2>
+<a id="ab3e6c5017174cf1300a00bb26d2dfa01" name="ab3e6c5017174cf1300a00bb26d2dfa01"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3e6c5017174cf1300a00bb26d2dfa01">&#9670;&#160;</a></span>_emergency_client_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -644,7 +666,7 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool InspectionMission::go = false</td>
+          <td class="memname">rclcpp::Client&lt;std_srvs::srv::Trigger&gt;::SharedPtr InspectionMission::_emergency_client_</td>
         </tr>
       </table>
   </td>
@@ -654,12 +676,12 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html#l00054">54</a> of file <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html">inspection_ros.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html#l00032">32</a> of file <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html">inspection_ros.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a44d19cba4d7c601a74771f07993bb828" name="a44d19cba4d7c601a74771f07993bb828"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a44d19cba4d7c601a74771f07993bb828">&#9670;&#160;</a></span>initial_time</h2>
+<a id="abee2cdf1caf70d0039fd0707696ad972" name="abee2cdf1caf70d0039fd0707696ad972"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abee2cdf1caf70d0039fd0707696ad972">&#9670;&#160;</a></span>_finish_client_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -668,7 +690,105 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">rclcpp::Time InspectionMission::initial_time</td>
+          <td class="memname">rclcpp::Client&lt;std_srvs::srv::Trigger&gt;::SharedPtr InspectionMission::_finish_client_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html#l00031">31</a> of file <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html">inspection_ros.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a42a9a51aa22eb0d4df28c61d084b4ec8" name="a42a9a51aa22eb0d4df28c61d084b4ec8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42a9a51aa22eb0d4df28c61d084b4ec8">&#9670;&#160;</a></span>_go_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool InspectionMission::_go_ = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html#l00056">56</a> of file <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html">inspection_ros.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af04d947b1fe4a1da4108ac44b7020067" name="af04d947b1fe4a1da4108ac44b7020067"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af04d947b1fe4a1da4108ac44b7020067">&#9670;&#160;</a></span>_initial_time_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rclcpp::Time InspectionMission::_initial_time_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html#l00053">53</a> of file <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html">inspection_ros.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a6e5c8a018c0225f1959eea3343365e8f" name="a6e5c8a018c0225f1959eea3343365e8f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e5c8a018c0225f1959eea3343365e8f">&#9670;&#160;</a></span>_inspection_object_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d4/d89/class_inspection_functions.html">InspectionFunctions</a> InspectionMission::_inspection_object_ = <a class="el" href="../../d4/d89/class_inspection_functions.html">InspectionFunctions</a>()</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ellapsed time in seconds. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html#l00054">54</a> of file <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html">inspection_ros.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ae3803049fb687fb5a5bf88274a105fe5" name="ae3803049fb687fb5a5bf88274a105fe5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3803049fb687fb5a5bf88274a105fe5">&#9670;&#160;</a></span>_main_callback_timer_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rclcpp::TimerBase::SharedPtr InspectionMission::_main_callback_timer_</td>
         </tr>
       </table>
   </td>
@@ -682,8 +802,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a4ecbe7bffda13b47b92da4df1893e4c9" name="a4ecbe7bffda13b47b92da4df1893e4c9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4ecbe7bffda13b47b92da4df1893e4c9">&#9670;&#160;</a></span>inspection_object</h2>
+<a id="ae449335a96fc3ac1edf079fb0ee0a703" name="ae449335a96fc3ac1edf079fb0ee0a703"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae449335a96fc3ac1edf079fb0ee0a703">&#9670;&#160;</a></span>_mission_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -692,7 +812,7 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d4/d89/class_inspection_functions.html">InspectionFunctions</a> InspectionMission::inspection_object = <a class="el" href="../../d4/d89/class_inspection_functions.html">InspectionFunctions</a>()</td>
+          <td class="memname"><a class="el" href="../../d9/d2b/namespacecommon__lib_1_1competition__logic.html#adc523f54f1498f443c97303976f40140">common_lib::competition_logic::Mission</a> InspectionMission::_mission_</td>
         </tr>
       </table>
   </td>
@@ -702,12 +822,14 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html#l00052">52</a> of file <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html">inspection_ros.hpp</a>.</p>
+<p>Flag to start the mission. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html#l00057">57</a> of file <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html">inspection_ros.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a66335539c3853512afa8cbb47adf6d21" name="a66335539c3853512afa8cbb47adf6d21"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a66335539c3853512afa8cbb47adf6d21">&#9670;&#160;</a></span>main_callback_timer</h2>
+<a id="a5dc72b92c6fac491a25ca6b3aed4366c" name="a5dc72b92c6fac491a25ca6b3aed4366c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5dc72b92c6fac491a25ca6b3aed4366c">&#9670;&#160;</a></span>_mission_end_timer_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -716,55 +838,7 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">rclcpp::TimerBase::SharedPtr InspectionMission::main_callback_timer</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html#l00049">49</a> of file <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html">inspection_ros.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a4d7a62ee8f37d53201525e439fe22afb" name="a4d7a62ee8f37d53201525e439fe22afb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4d7a62ee8f37d53201525e439fe22afb">&#9670;&#160;</a></span>mission</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="../../d9/d2b/namespacecommon__lib_1_1competition__logic.html#adc523f54f1498f443c97303976f40140">common_lib::competition_logic::Mission</a> InspectionMission::mission</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html#l00055">55</a> of file <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html">inspection_ros.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a01befd7aaf937a990bd5aadc8e3f61e0" name="a01befd7aaf937a990bd5aadc8e3f61e0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a01befd7aaf937a990bd5aadc8e3f61e0">&#9670;&#160;</a></span>mission_end_timer</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">rclcpp::TimerBase::SharedPtr InspectionMission::mission_end_timer</td>
+          <td class="memname">rclcpp::TimerBase::SharedPtr InspectionMission::_mission_end_timer_</td>
         </tr>
       </table>
   </td>
@@ -778,8 +852,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a63ecc6d7ebc0e6e44fcfd05c30ffe14a" name="a63ecc6d7ebc0e6e44fcfd05c30ffe14a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a63ecc6d7ebc0e6e44fcfd05c30ffe14a">&#9670;&#160;</a></span>mission_signal_subscription</h2>
+<a id="ae71451ddafa56cd54653702caad77a46" name="ae71451ddafa56cd54653702caad77a46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae71451ddafa56cd54653702caad77a46">&#9670;&#160;</a></span>_mission_end_timer_started_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -788,7 +862,131 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">rclcpp::Subscription&lt;custom_interfaces::msg::OperationalStatus&gt;::SharedPtr InspectionMission::mission_signal_subscription</td>
+          <td class="memname">bool InspectionMission::_mission_end_timer_started_ = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Timer for repetition of end of mission signal. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html#l00049">49</a> of file <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html">inspection_ros.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a0d23aa488f2f8b052e9157bf3b7a693e" name="a0d23aa488f2f8b052e9157bf3b7a693e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d23aa488f2f8b052e9157bf3b7a693e">&#9670;&#160;</a></span>_mission_signal_subscription_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rclcpp::Subscription&lt;custom_interfaces::msg::OperationalStatus&gt;::SharedPtr InspectionMission::_mission_signal_subscription_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html#l00036">36</a> of file <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html">inspection_ros.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac87af83010bc65f3809b8210cbed94ca" name="ac87af83010bc65f3809b8210cbed94ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac87af83010bc65f3809b8210cbed94ca">&#9670;&#160;</a></span>_motor_rpm_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double InspectionMission::_motor_rpm_ = 0.0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Mission to be executed;. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html#l00059">59</a> of file <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html">inspection_ros.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a50b175581cc7d33e6d74bfa8485b4108" name="a50b175581cc7d33e6d74bfa8485b4108"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50b175581cc7d33e6d74bfa8485b4108">&#9670;&#160;</a></span>_motor_rpm_subscription_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rclcpp::Subscription&lt;custom_interfaces::msg::WheelRPM&gt;::SharedPtr InspectionMission::_motor_rpm_subscription_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html#l00037">37</a> of file <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html">inspection_ros.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5ac15c243b58a644af77ff9c9fd0a8a1" name="a5ac15c243b58a644af77ff9c9fd0a8a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ac15c243b58a644af77ff9c9fd0a8a1">&#9670;&#160;</a></span>_sync_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;message_filters::Synchronizer&lt;<a class="el" href="../../de/d3d/class_inspection_mission.html#ad02bcc6803db3e09357cd740ebe94ce4">WSSPolicy</a>&gt; &gt; InspectionMission::_sync_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html#l00045">45</a> of file <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html">inspection_ros.hpp</a>.</p>
+
+</div>
+</div>
+<a id="accf5b7bc14966480930ccdd6b5788d68" name="accf5b7bc14966480930ccdd6b5788d68"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#accf5b7bc14966480930ccdd6b5788d68">&#9670;&#160;</a></span>_timer_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rclcpp::TimerBase::SharedPtr InspectionMission::_timer_</td>
         </tr>
       </table>
   </td>
@@ -799,78 +997,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html#l00038">38</a> of file <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html">inspection_ros.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a09e85984dc1eecce5f5d94823264756d" name="a09e85984dc1eecce5f5d94823264756d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a09e85984dc1eecce5f5d94823264756d">&#9670;&#160;</a></span>rl_rpm_subscription</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">message_filters::Subscriber&lt;custom_interfaces::msg::WheelRPM&gt; InspectionMission::rl_rpm_subscription</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html#l00039">39</a> of file <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html">inspection_ros.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a2c7e2fdb5a0956de43d70347b3cdc13c" name="a2c7e2fdb5a0956de43d70347b3cdc13c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c7e2fdb5a0956de43d70347b3cdc13c">&#9670;&#160;</a></span>rr_rpm_subscription</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">message_filters::Subscriber&lt;custom_interfaces::msg::WheelRPM&gt; InspectionMission::rr_rpm_subscription</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html#l00040">40</a> of file <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html">inspection_ros.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a2f4774a5dc9885a09fd3c3fddf6668d3" name="a2f4774a5dc9885a09fd3c3fddf6668d3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2f4774a5dc9885a09fd3c3fddf6668d3">&#9670;&#160;</a></span>sync_</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::shared_ptr&lt;message_filters::Synchronizer&lt;<a class="el" href="../../de/d3d/class_inspection_mission.html#ad02bcc6803db3e09357cd740ebe94ce4">WSSPolicy</a>&gt; &gt; InspectionMission::sync_</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html#l00046">46</a> of file <a class="el" href="../../dc/d87/inspection__ros_8hpp_source.html">inspection_ros.hpp</a>.</p>
 
 </div>
 </div>

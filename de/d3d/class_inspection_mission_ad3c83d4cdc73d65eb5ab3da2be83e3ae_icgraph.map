@@ -1,8 +1,8 @@
 <map id="InspectionMission::handle_end_of_mission_response" name="InspectionMission::handle_end_of_mission_response">
 <area shape="rect" id="Node000001" title="Function to end communication of end of mission." alt="" coords="546,5,704,61"/>
-<area shape="rect" id="Node000002" href="$de/d3d/class_inspection_mission.html#a9a5bfb51641629d7106bb304663d3a22" title="Function for communication of end of mission (or emergency according to the mission)" alt="" coords="366,13,498,54"/>
+<area shape="rect" id="Node000002" href="$de/d3d/class_inspection_mission.html#a9a5bfb51641629d7106bb304663d3a22" title="Rotations per minute of the motor." alt="" coords="366,13,498,54"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="531,36,499,36,499,31,531,31"/>
-<area shape="rect" id="Node000003" href="$de/d3d/class_inspection_mission.html#aaefabede0c0991d2eeb9aa6a418403e0" title="Function to publish control command while time is less than the defined time limit." alt="" coords="186,13,318,54"/>
+<area shape="rect" id="Node000003" href="$de/d3d/class_inspection_mission.html#a35b4aee106941a568c0f1916481c77ed" title="Function to publish control command while time is less than the defined time limit." alt="" coords="186,13,318,54"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="351,36,318,36,318,31,351,31"/>
 <area shape="rect" id="Node000004" href="$de/d3d/class_inspection_mission.html#a62ddad48c6252a28b6f2c480f84229d1" title="Contruct a new Inspection Mission with constants defined in file." alt="" coords="5,13,138,54"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="170,36,138,36,138,31,170,31"/>

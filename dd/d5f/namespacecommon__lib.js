@@ -10,13 +10,13 @@ var namespacecommon__lib =
         [ "UNKNOWN", "d9/d2b/namespacecommon__lib_1_1competition__logic.html#a36deec2ca2854e7543cc4d5caab92feba696b031073e74bf2cb98e5ef201d4aa3", null ]
       ] ],
       [ "Mission", "d9/d2b/namespacecommon__lib_1_1competition__logic.html#adc523f54f1498f443c97303976f40140", [
+        [ "MANUAL", "d9/d2b/namespacecommon__lib_1_1competition__logic.html#adc523f54f1498f443c97303976f40140aa60a6a471c0681e5a49c4f5d00f6bc5a", null ],
         [ "ACCELERATION", "d9/d2b/namespacecommon__lib_1_1competition__logic.html#adc523f54f1498f443c97303976f40140aee49d439f92c07271c132560998b73e1", null ],
         [ "SKIDPAD", "d9/d2b/namespacecommon__lib_1_1competition__logic.html#adc523f54f1498f443c97303976f40140abaf272b06d68165527e91888c294dd52", null ],
         [ "AUTOCROSS", "d9/d2b/namespacecommon__lib_1_1competition__logic.html#adc523f54f1498f443c97303976f40140a748105e3604329b8be29b48c8de915f7", null ],
         [ "TRACKDRIVE", "d9/d2b/namespacecommon__lib_1_1competition__logic.html#adc523f54f1498f443c97303976f40140a0ca25c5af22edc019d28afcf211c34dd", null ],
         [ "EBS_TEST", "d9/d2b/namespacecommon__lib_1_1competition__logic.html#adc523f54f1498f443c97303976f40140a3805508c91ba0e8c66494b9fb9a96c4f", null ],
         [ "INSPECTION", "d9/d2b/namespacecommon__lib_1_1competition__logic.html#adc523f54f1498f443c97303976f40140ab95152130e074a54464df84e2086b1ad", null ],
-        [ "MANUAL", "d9/d2b/namespacecommon__lib_1_1competition__logic.html#adc523f54f1498f443c97303976f40140aa60a6a471c0681e5a49c4f5d00f6bc5a", null ],
         [ "NONE", "d9/d2b/namespacecommon__lib_1_1competition__logic.html#adc523f54f1498f443c97303976f40140ab50339a10e1de285ac99d4c3990b8693", null ]
       ] ],
       [ "get_color_enum", "d9/d2b/namespacecommon__lib_1_1competition__logic.html#a72953c74cbe411c7b5ac5aa72e437b05", null ],

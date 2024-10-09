@@ -1,25 +1,27 @@
 <map id="InspectionMission::InspectionMission" name="InspectionMission::InspectionMission">
-<area shape="rect" id="Node000001" title="Contruct a new Inspection Mission with constants defined in file." alt="" coords="5,333,138,374"/>
-<area shape="rect" id="Node000002" href="$de/d3d/class_inspection_mission.html#aaefabede0c0991d2eeb9aa6a418403e0" title="Function to publish control command while time is less than the defined time limit." alt="" coords="186,235,318,275"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="109,330,198,281,201,286,112,335"/>
-<area shape="rect" id="Node000011" href="$de/d3d/class_inspection_mission.html#a4308e35a3779d96cf47d941faeef8780" title="recieves GoSignal and stores the mission that should be ran" alt="" coords="186,365,318,406"/>
-<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="138,363,171,369,170,374,138,368"/>
-<area shape="rect" id="Node000003" href="$d4/d89/class_inspection_functions.html#a793594cd002fd71ae3501ad057d06128" title="calculate the steering angle according to time" alt="" coords="389,5,527,46"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="257,233,271,196,294,149,325,100,364,57,374,50,377,54,368,61,329,103,299,151,276,198,262,235"/>
-<area shape="rect" id="Node000004" href="$d4/d89/class_inspection_functions.html#a1000128622db49d47cc3f483dbcc9190" title="calculate torque output according to velocity" alt="" coords="389,71,527,111"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="264,233,305,178,333,148,364,122,374,116,377,121,368,126,336,152,309,182,268,236"/>
-<area shape="rect" id="Node000005" href="$de/d3d/class_inspection_mission.html#a9a5bfb51641629d7106bb304663d3a22" title="Function for communication of end of mission (or emergency according to the mission)" alt="" coords="392,136,524,177"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="285,232,365,187,380,180,382,185,367,192,287,236"/>
-<area shape="rect" id="Node000007" href="$de/d3d/class_inspection_mission.html#a339ccdb1ba8ea723d502946104583148" title="Publishes the control command." alt="" coords="392,201,524,242"/>
-<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="318,242,376,232,377,237,319,247"/>
-<area shape="rect" id="Node000008" href="$d4/d89/class_inspection_functions.html#a06acb01e381faf5b8a2ab45c1b60abe7" title="used when in oscilation mode to redefine the ideal velocity" alt="" coords="381,267,535,307"/>
-<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="319,263,366,270,365,275,318,268"/>
-<area shape="rect" id="Node000009" href="$d4/d89/class_inspection_functions.html#a6ca9c7bc559802b2fbd3beffe2197331" title="convert rpm [rotations/minute] to velocity [m/s]" alt="" coords="389,332,527,373"/>
-<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="288,273,367,317,383,323,380,328,365,321,285,278"/>
-<area shape="rect" id="Node000010" href="$d4/d89/class_inspection_functions.html#a487bdcfa6316f5ef39126be29af428b3" title="convert the throttle to a range between &#45;1 and 1" alt="" coords="366,397,550,438"/>
-<area shape="poly" id="edge9_Node000002_Node000010" title=" " alt="" coords="268,274,309,328,337,357,368,382,376,387,373,392,364,386,333,361,305,331,264,277"/>
-<area shape="rect" id="Node000006" href="$de/d3d/class_inspection_mission.html#ad3c83d4cdc73d65eb5ab3da2be83e3ae" title="Function to end communication of end of mission." alt="" coords="598,129,756,184"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="525,154,583,154,583,159,525,159"/>
-<area shape="rect" id="Node000012" href="$d9/d2b/namespacecommon__lib_1_1competition__logic.html#a5f2f421d317c5814f38b4c9037ad2ccc" title=" " alt="" coords="373,463,543,503"/>
-<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="288,404,367,447,383,454,380,459,365,452,285,409"/>
+<area shape="rect" id="Node000001" title="Contruct a new Inspection Mission with constants defined in file." alt="" coords="5,365,138,406"/>
+<area shape="rect" id="Node000002" href="$de/d3d/class_inspection_mission.html#a35b4aee106941a568c0f1916481c77ed" title="Function to publish control command while time is less than the defined time limit." alt="" coords="195,235,328,275"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,362,216,282,219,287,104,367"/>
+<area shape="rect" id="Node000011" href="$de/d3d/class_inspection_mission.html#a4308e35a3779d96cf47d941faeef8780" title="recieves GoSignal and stores the mission that should be ran" alt="" coords="195,365,328,406"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="138,383,180,383,180,388,138,388"/>
+<area shape="rect" id="Node000013" href="$de/d3d/class_inspection_mission.html#a7e529c97d075ceac8e0731a06e2671e5" title="Function to update the current rpms of the wheels." alt="" coords="186,431,337,471"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="133,404,187,423,185,428,132,409"/>
+<area shape="rect" id="Node000003" href="$d4/d89/class_inspection_functions.html#a793594cd002fd71ae3501ad057d06128" title="calculate the steering angle according to time" alt="" coords="408,5,546,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="268,233,284,196,309,149,342,100,383,57,393,50,396,54,387,61,346,103,313,151,289,198,273,235"/>
+<area shape="rect" id="Node000004" href="$d4/d89/class_inspection_functions.html#a1000128622db49d47cc3f483dbcc9190" title="calculate torque output according to velocity" alt="" coords="408,71,546,111"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="275,232,320,178,350,148,383,122,393,116,396,121,387,127,354,152,324,182,279,236"/>
+<area shape="rect" id="Node000005" href="$de/d3d/class_inspection_mission.html#a9a5bfb51641629d7106bb304663d3a22" title="Rotations per minute of the motor." alt="" coords="411,136,543,177"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="297,232,384,187,400,180,402,185,386,192,300,237"/>
+<area shape="rect" id="Node000007" href="$de/d3d/class_inspection_mission.html#a339ccdb1ba8ea723d502946104583148" title="Publishes the control command." alt="" coords="411,201,543,242"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="327,242,395,232,396,237,328,247"/>
+<area shape="rect" id="Node000008" href="$d4/d89/class_inspection_functions.html#a06acb01e381faf5b8a2ab45c1b60abe7" title="used when in oscilation mode to redefine the ideal velocity" alt="" coords="400,267,554,307"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="328,262,385,271,384,276,327,267"/>
+<area shape="rect" id="Node000009" href="$d4/d89/class_inspection_functions.html#a6ca9c7bc559802b2fbd3beffe2197331" title="convert rpm [rotations/minute] to velocity [m/s]" alt="" coords="408,332,546,373"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="301,274,386,317,402,323,400,328,384,321,298,278"/>
+<area shape="rect" id="Node000010" href="$d4/d89/class_inspection_functions.html#a487bdcfa6316f5ef39126be29af428b3" title="convert the throttle to a range between &#45;1 and 1" alt="" coords="385,397,569,438"/>
+<area shape="poly" id="edge9_Node000002_Node000010" title=" " alt="" coords="279,274,324,328,354,357,387,382,396,388,393,392,383,387,350,361,320,331,275,277"/>
+<area shape="rect" id="Node000006" href="$de/d3d/class_inspection_mission.html#ad3c83d4cdc73d65eb5ab3da2be83e3ae" title="Function to end communication of end of mission." alt="" coords="617,129,775,184"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="544,154,602,154,602,159,544,159"/>
+<area shape="rect" id="Node000012" href="$d9/d2b/namespacecommon__lib_1_1competition__logic.html#a5f2f421d317c5814f38b4c9037ad2ccc" title=" " alt="" coords="392,463,562,503"/>
+<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="313,404,338,417,362,432,386,447,401,454,398,459,384,452,359,437,336,421,311,409"/>
 </map>

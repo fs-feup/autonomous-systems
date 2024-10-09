@@ -1,13 +1,13 @@
 var mission__logic_8hpp =
 [
     [ "Mission", "dc/de2/mission__logic_8hpp.html#adc523f54f1498f443c97303976f40140", [
+      [ "MANUAL", "dc/de2/mission__logic_8hpp.html#adc523f54f1498f443c97303976f40140aa60a6a471c0681e5a49c4f5d00f6bc5a", null ],
       [ "ACCELERATION", "dc/de2/mission__logic_8hpp.html#adc523f54f1498f443c97303976f40140aee49d439f92c07271c132560998b73e1", null ],
       [ "SKIDPAD", "dc/de2/mission__logic_8hpp.html#adc523f54f1498f443c97303976f40140abaf272b06d68165527e91888c294dd52", null ],
       [ "AUTOCROSS", "dc/de2/mission__logic_8hpp.html#adc523f54f1498f443c97303976f40140a748105e3604329b8be29b48c8de915f7", null ],
       [ "TRACKDRIVE", "dc/de2/mission__logic_8hpp.html#adc523f54f1498f443c97303976f40140a0ca25c5af22edc019d28afcf211c34dd", null ],
       [ "EBS_TEST", "dc/de2/mission__logic_8hpp.html#adc523f54f1498f443c97303976f40140a3805508c91ba0e8c66494b9fb9a96c4f", null ],
       [ "INSPECTION", "dc/de2/mission__logic_8hpp.html#adc523f54f1498f443c97303976f40140ab95152130e074a54464df84e2086b1ad", null ],
-      [ "MANUAL", "dc/de2/mission__logic_8hpp.html#adc523f54f1498f443c97303976f40140aa60a6a471c0681e5a49c4f5d00f6bc5a", null ],
       [ "NONE", "dc/de2/mission__logic_8hpp.html#adc523f54f1498f443c97303976f40140ab50339a10e1de285ac99d4c3990b8693", null ]
     ] ],
     [ "get_mission_from_eufs", "dc/de2/mission__logic_8hpp.html#ab8a32389b3b8c68a9b524af28ecf5100", null ],
