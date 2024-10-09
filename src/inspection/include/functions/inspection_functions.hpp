@@ -10,6 +10,8 @@
 #include <memory>
 #include <string>
 
+constexpr double WHEELS_STOPPED_THRESHOLD = 0.2;
+
 class InspectionFunctions {
 public:
   // default to EBS test values

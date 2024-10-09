@@ -44,6 +44,8 @@ InspectionMission::InspectionMission() : Node("inspection") {
   RCLCPP_INFO(this->get_logger(), "Inspection node has been started.");
 }
 
+bool finished = false;
+
 void InspectionMission::mission_decider(
     custom_interfaces::msg::OperationalStatus::SharedPtr mission_signal) {
   std::string mission_string =
@@ -120,7 +122,7 @@ void InspectionMission::inspection_script() {
     _inspection_object_.current_goal_velocity_ = 0;
     if (steering_straight) {
       _inspection_object_.stop_oscilating_ = true;
-    }
+    } 
   }
 
   // calculate throttle and convert to control command
@@ -131,8 +133,17 @@ void InspectionMission::inspection_script() {
         calculated_throttle = 0.0;
       }
   
+  //if (elapsed_time >= _inspection_object_.finish_time_){
+   //// calculated_throttle = 0.0;
+  //}
+  
   if (elapsed_time >= _inspection_object_.finish_time_ && steering_straight) {
     calculated_steering = 0.0;
+  }
+
+  if (current_velocity < 0.85 && !finished) {
+    calculated_steering = 0.0;
+    finished = true;
   }
 
   if (elapsed_time >= _inspection_object_.finish_time_ &&

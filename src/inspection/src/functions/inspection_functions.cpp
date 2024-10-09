@@ -39,7 +39,7 @@ double InspectionFunctions::throttle_to_adequate_range(double throttle) const {
 }
 
 void InspectionFunctions::redefine_goal_velocity(double current_velocity) {
-  if (start_and_stop_ && fabs(current_velocity - this->current_goal_velocity_) < 0.1) {
+  if (start_and_stop_ && fabs(current_velocity - this->current_goal_velocity_) < WHEELS_STOPPED_THRESHOLD) {
     if (this->current_goal_velocity_ == 0) {
       this->current_goal_velocity_ = this->ideal_velocity_;
     } else {

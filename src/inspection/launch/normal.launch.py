@@ -15,7 +15,7 @@ def generate_launch_description():
                 default_value="0.3491",
             ),  # Pi / 6.0, rad; 20 degrees in rad
             DeclareLaunchArgument(
-                "inspection_ideal_velocity", default_value="2.0"
+                "inspection_ideal_velocity", default_value="1.0"
             ),  # m/s
             DeclareLaunchArgument(
                 "ebs_test_ideal_velocity", default_value="2.0"
@@ -29,14 +29,14 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "inspection_gain",
                 description="Gains for longitudinal P controllers of inspection",
-                default_value="1.0",
+                default_value="2.0",
             ),
             DeclareLaunchArgument(
                 "ebs_test_gain",
                 description="Gains for longitudinal P controllers of inspection",
-                default_value="1.0",
+                default_value="2.0",
             ),
-            DeclareLaunchArgument("finish_time", default_value="26.0"),  # seconds
+            DeclareLaunchArgument("finish_time", default_value="7.0"),  # seconds
             DeclareLaunchArgument(
                 "start_and_stop",
                 description="Normal mode or testing regenerative braking mode",

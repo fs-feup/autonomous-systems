@@ -19,8 +19,6 @@
 #include "custom_interfaces/msg/wheel_rpm.hpp"
 #include "functions/inspection_functions.hpp"
 
-constexpr double WHEELS_STOPPED_THRESHOLD = 0.1;
-
 /**
  * @class InspectionMission
  * @brief Class responsible for the Inspection Mission of the car
