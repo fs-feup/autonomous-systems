@@ -885,7 +885,7 @@ class Evaluator(Node):
             left_cones_gt (np.ndarray): Ground truth of the left cones.
             right_cones_gt (np.ndarray): Ground truth of the right cones.
         """
-        self.get_logger().info("Received planning")
+        self.get_logger().debug("Received planning")
 
         # Compute instantaneous planning metrics
 
@@ -895,7 +895,7 @@ class Evaluator(Node):
             or len(left_cones_gt) == 0
             or len(right_cones_gt) == 0
         ):
-            self.get_logger().info(
+            self.get_logger().debug(
                 "Path, path ground truth or map ground truth info missing"
             )
             return
