@@ -326,5 +326,5 @@ jobs:
         run: |
           source install/setup.bash
           colcon build --packages-select evaluator
-          colcon test --packages-select evaluator
+          colcon test --packages-select evaluator --event-handler=console_direct+
           colcon test-result --all --verbose

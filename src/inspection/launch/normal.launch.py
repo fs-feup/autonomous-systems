@@ -12,8 +12,8 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "max_angle",
                 description="max angle for the turning of the inspection script",
-                default_value="0.52359877559",
-            ),  # Pi / 6.0, rad; 30 degrees
+                default_value="0.3491",
+            ),  # Pi / 6.0, rad; 20 degrees in rad
             DeclareLaunchArgument(
                 "inspection_ideal_velocity", default_value="1.0"
             ),  # m/s
@@ -23,24 +23,24 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "turning_period",
                 description="Time to perform a full turning cycle in inspection",
-                default_value="4.0",
+                default_value="2.0",
             ),  # seconds
             DeclareLaunchArgument("wheel_radius", default_value="0.254"),
             DeclareLaunchArgument(
                 "inspection_gain",
                 description="Gains for longitudinal P controllers of inspection",
-                default_value="0.25",
+                default_value="2.0",
             ),
             DeclareLaunchArgument(
                 "ebs_test_gain",
                 description="Gains for longitudinal P controllers of inspection",
-                default_value="0.25",
+                default_value="2.0",
             ),
-            DeclareLaunchArgument("finish_time", default_value="26.0"),  # seconds
+            DeclareLaunchArgument("finish_time", default_value="7.0"),  # seconds
             DeclareLaunchArgument(
                 "start_and_stop",
                 description="Normal mode or testing regenerative braking mode",
-                default_value="False",
+                default_value="True",
             ),
             Node(
                 package="inspection",

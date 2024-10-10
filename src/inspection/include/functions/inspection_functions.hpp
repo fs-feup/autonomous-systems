@@ -2,6 +2,7 @@
 #define INSPECTION_FUNCTIONS_HPP
 
 #define MAX_THROTTLE (2.5)
+#define MAX_ANGLE 0.392699  // 22.5 degrees in rad
 
 #include <chrono>
 #include <cmath>
@@ -9,17 +10,22 @@
 #include <memory>
 #include <string>
 
+constexpr double WHEELS_STOPPED_THRESHOLD = 0.2;
+
 class InspectionFunctions {
- public:
+public:
   // default to EBS test values
-  double max_angle = 0.52359877559;
-  double ideal_velocity = 2.0;
-  double turning_period = 4.0;
-  double wheel_radius = 0.254;
-  double gain = 0.25;
-  double finish_time = 26.0;
-  double current_goal_velocity = 2.0;
-  bool start_and_stop = false;
+  double max_angle_ = MAX_ANGLE;
+  double ideal_velocity_ = 2.0;
+  double turning_period_ = 4.0;
+  double wheel_radius_ = 0.254;
+  double gain_ = 0.25;
+  double finish_time_ = 26.0;
+  double current_goal_velocity_ = 2.0;
+  bool start_and_stop_ = false;
+
+  /// Used to stop the oscilation near zero and avoid violent wheel movements
+  bool stop_oscilating_ = false;
 
   /**
    * @brief calculate the steering angle according to time

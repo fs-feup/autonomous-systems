@@ -9,13 +9,13 @@
 namespace common_lib::competition_logic {
 
 enum class Mission {
-  ACCELERATION = 0,
-  SKIDPAD = 1,
-  AUTOCROSS = 2,
-  TRACKDRIVE = 3,
-  EBS_TEST = 4,
-  INSPECTION = 5,
-  MANUAL = 6,
+  MANUAL = 0,
+  ACCELERATION = 1,
+  SKIDPAD = 2,
+  AUTOCROSS = 3,
+  TRACKDRIVE = 4,
+  EBS_TEST = 5,
+  INSPECTION = 6,
   NONE = 7
 };
 

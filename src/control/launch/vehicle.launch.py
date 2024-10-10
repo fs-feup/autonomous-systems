@@ -21,7 +21,47 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "lookahead_gain",
                 description="Variable K -> Lookahead Gain",
+                default_value="2.0",
+            ),
+            DeclareLaunchArgument(
+                "pid_kp",
+                description="Proportional Gain of Longitudinal Control",
+                default_value="0.4",
+            ),
+            DeclareLaunchArgument(
+                "pid_ki",
+                description="Integral Gain of Longitudinal Control",
+                default_value="0.3",
+            ),
+            DeclareLaunchArgument(
+                "pid_kd",
+                description="Derivative Gain of Longitudinal Control",
+                default_value="0.09",
+            ),
+            DeclareLaunchArgument(
+                "pid_tau",
+                description="Derivative low pass filter time constant of Longitudinal Control",
                 default_value="0.5",
+            ),
+            DeclareLaunchArgument(
+                "pid_t",
+                description="Sampling period of Longitudinal Control",
+                default_value="0.01",
+            ),
+            DeclareLaunchArgument(
+                "pid_lim_min",
+                description="Minimum output value of Longitudinal Control",
+                default_value="-1",
+            ),
+            DeclareLaunchArgument(
+                "pid_lim_max",
+                description="Maximum output value of Longitudinal Control",
+                default_value="1",
+            ),
+            DeclareLaunchArgument(
+                "pid_anti_windup",
+                description="Anti windup constant of Longitudinal Control",
+                default_value="0.7",
             ),
             DeclareLaunchArgument(
                 "use_simulated_se",
@@ -41,6 +81,15 @@ def generate_launch_description():
                     },
                     {"lookahead_gain": LaunchConfiguration("lookahead_gain")},
                     {"use_simulated_se": LaunchConfiguration("use_simulated_se")},
+                    {"pid_kp": LaunchConfiguration("pid_kp")},
+                    {"pid_ki": LaunchConfiguration("pid_ki")},
+                    {"pid_kd": LaunchConfiguration("pid_kd")},
+                    {"pid_tau": LaunchConfiguration("pid_tau")},
+                    {"pid_t": LaunchConfiguration("pid_t")},
+                    {"pid_lim_min": LaunchConfiguration("pid_lim_min")},
+                    {"pid_lim_max": LaunchConfiguration("pid_lim_max")},
+                    {"pid_anti_windup": LaunchConfiguration("pid_anti_windup")},
+                    {"use_simulated_se": LaunchConfiguration("use_simulated_se")}
                 ],
                 arguments=["--ros-args", "--log-level", "control:=info"],
             ),

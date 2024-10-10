@@ -1,4 +1,5 @@
 #include "adapter_control/vehicle.hpp"
+#include "common_lib/competition_logic/mission_logic.hpp"
 
 VehicleAdapter::VehicleAdapter(const ControlParameters& params)
     : Control(params),
@@ -6,7 +7,7 @@ VehicleAdapter::VehicleAdapter(const ControlParameters& params)
           "/vehicle/operational_status", 10,
           std::bind(&VehicleAdapter::go_signal_callback, this, std::placeholders::_1))),
       control_pub_(
-          create_publisher<custom_interfaces::msg::ControlCommand>("/car/control_command", 10)) {
+          create_publisher<custom_interfaces::msg::ControlCommand>("/as_msgs/controls", 10)) {
   RCLCPP_INFO(this->get_logger(), "Vehicle adapter created");
 }
 
@@ -23,4 +24,9 @@ void VehicleAdapter::publish_cmd(double acceleration, double steering) {
 void VehicleAdapter::go_signal_callback(const custom_interfaces::msg::OperationalStatus msg) {
   // No need to do anything with the message, just set the go_signal to true
   go_signal_ = msg.go_signal;
+  if (!(msg.as_mission == common_lib::competition_logic::Mission::TRACKDRIVE) && 
+      !(msg.as_mission == common_lib::competition_logic::Mission::AUTOCROSS)) {
+      
+      go_signal_ = false;
+  }
 }
