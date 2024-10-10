@@ -889,7 +889,6 @@ class Evaluator(Node):
 
         # Compute instantaneous planning metrics
 
-
         if (
             len(path) == 0
             or len(path_gt) == 0
@@ -902,7 +901,9 @@ class Evaluator(Node):
             return
 
         # Metric 1: compute distances between cones and closes point in the path
-        blue_cones, yellow_cones = left_cones_gt, right_cones_gt
+        blue_cones = left_cones_gt
+        yellow_cones = right_cones_gt
+
         useful_blue_cones = find_closest_elements(path, blue_cones)
         useful_yellow_cones = find_closest_elements(path, yellow_cones)
         distance_to_cones_left = compute_closest_distances(path, useful_blue_cones)
@@ -918,7 +919,6 @@ class Evaluator(Node):
         root_mean_squared_cones_difference_left = (
             mean_squared_cones_difference_left ** (1 / 2)
         )
-
         mean_cones_difference_right = get_average_error(distance_to_cones_right)
         mean_squared_cones_difference_right = get_mean_squared_error(
             distance_to_cones_right
@@ -926,7 +926,6 @@ class Evaluator(Node):
         root_mean_squared_cones_difference_right = (
             mean_squared_cones_difference_right ** (1 / 2)
         )
-
         mean_cones_difference = get_average_error(general_distance_to_cones)
         # if mean_cones_difference > 4.0:
         #    self.get_logger().info(
@@ -942,7 +941,6 @@ class Evaluator(Node):
             general_distance_to_cones
         )
         root_mean_squared_cones_difference = mean_squared_cones_difference ** (1 / 2)
-
         # Metric 2: compute distance between ground truth and closest point in the path
         useful_gt_points = find_closest_elements(path, path_gt)
         distance_to_gt = compute_closest_distances(path, useful_gt_points)
@@ -974,13 +972,11 @@ class Evaluator(Node):
             Float32(data=root_mean_squared_gt_difference)
         )
 
-
         self._planning_mean_difference_to_left_cones.publish(
             Float32(data=mean_cones_difference_left)
         )
         self._planning_mean_squared_difference_to_left_cones.publish(
             Float32(data=mean_squared_cones_difference_left)
-
         )
         self._planning_root_mean_squared_difference_to_left_cones.publish(
             Float32(data=root_mean_squared_cones_difference_left)
@@ -1048,7 +1044,6 @@ class Evaluator(Node):
             "root_mean_squared_difference_to_cones": root_mean_squared_cones_difference.data,
         }
         self.planning_metrics.append(metrics)
-
 
     def compute_and_publish_control(self, msg: EvaluatorControlData):
         """!

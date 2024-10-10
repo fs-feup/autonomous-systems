@@ -294,7 +294,7 @@ def format_point2d_msg(msg):
 
 
 def find_closest_elements(arr1: np.ndarray, arr2: np.ndarray) -> np.ndarray:
-    """_summary_
+    """Find the closest elements in arr2 for each element in arr1.
 
     Args:
         arr1 (np.ndarray): array in which each element's 2 initial values are x and y positions
@@ -303,25 +303,22 @@ def find_closest_elements(arr1: np.ndarray, arr2: np.ndarray) -> np.ndarray:
     Returns:
         np.ndarray: array of elements from arr2 that are the closest to at least one element in arr1
     """
-    closest_elements = []
+    # Extract the x and y positions
+    arr1_xy = arr1[:, :2]
+    arr2_xy = arr2[:, :2]
 
-    for point1 in arr1:
-        closest_distance = float("inf")
-        closest_element = None
+    # Calculate the squared Euclidean distances
+    distances = np.linalg.norm(
+        arr1_xy[:, np.newaxis, :] - arr2_xy[np.newaxis, :, :], axis=2
+    )
 
-        for point2 in arr2:
-            distance = np.linalg.norm(point1[:2] - point2[:2])
+    # Find the indices of the closest elements in arr2 for each element in arr1
+    closest_indices = np.argmin(distances, axis=1)
 
-            if distance < closest_distance:
-                closest_distance = distance
-                closest_element = point2
+    # Get the unique closest elements from arr2
+    closest_elements = np.unique(arr2[closest_indices], axis=0)
 
-        if closest_element is not None and not any(
-            np.array_equal(closest_element, elem) for elem in closest_elements
-        ):
-            closest_elements.append(closest_element)
-
-    return np.array(closest_elements)
+    return closest_elements
 
 
 def get_blue_and_yellow_cones_after_msg_treatment(
