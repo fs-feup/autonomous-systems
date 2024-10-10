@@ -78,7 +78,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "adapter",
                 description="Environment to run node on",
-                default_value="vehicle",
+                default_value="eufs",
             ),
             DeclareLaunchArgument(
                 "use_simulated_se",
@@ -162,7 +162,7 @@ def generate_launch_description():
                         "pre_defined_velocity_planning": LaunchConfiguration(
                             "pre_defined_velocity_planning"
                         )
-                    }
+                    },
                     {"use_outlier_removal": LaunchConfiguration("use_outlier_removal")},
                     {"use_path_smoothing": LaunchConfiguration("use_path_smoothing")},
                 ],
