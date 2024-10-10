@@ -44,8 +44,6 @@ InspectionMission::InspectionMission() : Node("inspection") {
   RCLCPP_INFO(this->get_logger(), "Inspection node has been started.");
 }
 
-bool finished = false;
-
 void InspectionMission::mission_decider(
     custom_interfaces::msg::OperationalStatus::SharedPtr mission_signal) {
   std::string mission_string =
@@ -141,10 +139,6 @@ void InspectionMission::inspection_script() {
     calculated_steering = 0.0;
   }
 
-  if (current_velocity < 0.85 && !finished) {
-    calculated_steering = 0.0;
-    finished = true;
-  }
 
   if (elapsed_time >= _inspection_object_.finish_time_ &&
       std::abs(current_velocity) <= WHEELS_STOPPED_THRESHOLD && steering_straight) {
