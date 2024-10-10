@@ -39,7 +39,7 @@ def format_vehicle_state_msg(msg: VehicleState) -> tuple[np.ndarray, np.ndarray]
     )
 
 
-def format_cone_array_msg(msg: ConeArray) -> np.ndarray[np.ndarray]:
+def format_cone_array_msg(msg: ConeArray):
     """!
     Formats the ConeArray message into a numpy array.
 
@@ -75,7 +75,7 @@ def get_color_number_from_rgb(r, g, b):
         return 2
 
 
-def format_marker_array_msg(msg: MarkerArray) -> np.ndarray[np.ndarray]:
+def format_marker_array_msg(msg: MarkerArray):
     """!
     Formats the MarkerArray message into a numpy array.
 
@@ -186,7 +186,7 @@ def format_car_state_msg(
 
 def format_eufs_cone_array_with_covariance_msg(
     msg: ConeArrayWithCovariance,
-) -> np.ndarray[np.ndarray]:
+):
     """!
 
     Args:

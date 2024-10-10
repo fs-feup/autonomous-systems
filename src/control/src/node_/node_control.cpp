@@ -63,7 +63,9 @@ void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicl
   auto [closest_point, closest_point_id, closest_point_velocity] =
       this->point_solver_.update_closest_point(pathpoint_array_);
   if (closest_point_id == -1) {
-    RCLCPP_ERROR(rclcpp::get_logger("control"), "PurePursuit: Failed to update closest point");
+    RCLCPP_ERROR(rclcpp::get_logger("control"),
+                 "PurePursuit: Failed to update closest point, size of pathpoint_array: %ld",
+                 pathpoint_array_.size());
     return;
   }
 

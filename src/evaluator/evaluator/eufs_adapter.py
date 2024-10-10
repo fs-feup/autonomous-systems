@@ -173,13 +173,13 @@ class EufsAdapter(Adapter):
         map_ground_truth_treated: np.ndarray = (
             format_eufs_cone_array_with_covariance_msg(self.groundtruth_map_)
         )
-        self.node.get_logger().info(
+        self.node.get_logger().debug(
             "treated gt with size: %d" % len(map_ground_truth_treated)
         )
         blue_cones, yellow_cones = get_blue_and_yellow_cones_after_msg_treatment(
             map_ground_truth_treated
         )
-        self.node.get_logger().info(
+        self.node.get_logger().debug(
             "n blue cones: %d; n yellow cones : %d"
             % (len(blue_cones), len(yellow_cones))
         )

@@ -13,7 +13,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "angle_gain",
                 description="Gain for the angle in the cone coloring cost function",
-                default_value="9.246",
+                default_value="10.246",
             ),
             DeclareLaunchArgument(
                 "distance_gain",
@@ -33,12 +33,12 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "distance_exponent",
                 description="Exponent on the distance in the cone coloring cost function",
-                default_value="0.698",
+                default_value="0.998",
             ),
             DeclareLaunchArgument(
                 "cost_max",
                 description="Maximum allowed cost to place a cone in the cone coloring cost function",
-                default_value="40.0",
+                default_value="35.0",
             ),
             DeclareLaunchArgument(
                 "outliers_spline_order",
@@ -83,7 +83,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "use_simulated_se",
                 description="Whether to use simulated state estimation",
-                default_value="true",
+                default_value="false",
             ),
             DeclareLaunchArgument(
                 "publishing_visualization_msg",
@@ -93,12 +93,12 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "pre_defined_velocity_planning",
                 description="A pre-defined velocity planning value",
-                default_value="2",
+                default_value="4",
             ),
             DeclareLaunchArgument(
                 "use_outlier_removal",
                 description="Whether to use outlier removal or to skip it",
-                default_value="true",
+                default_value="false",
             ),
             DeclareLaunchArgument(
                 "use_path_smoothing",

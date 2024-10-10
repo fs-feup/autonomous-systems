@@ -32,6 +32,8 @@ class Adapter;
 class SENode : public rclcpp::Node {
   rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr _perception_subscription_;
   rclcpp::Publisher<custom_interfaces::msg::VehicleState>::SharedPtr _vehicle_state_publisher_;
+  rclcpp::Publisher<custom_interfaces::msg::VehicleState>::SharedPtr _vehicle_state_publisher_wss_;
+  rclcpp::Publisher<custom_interfaces::msg::VehicleState>::SharedPtr _vehicle_state_publisher_imu_;
   rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr _map_publisher_;
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr _visualization_map_publisher_;
   rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr _correction_execution_time_publisher_;
@@ -98,6 +100,20 @@ class SENode : public rclcpp::Node {
    *
    */
   void _publish_vehicle_state();
+
+  /**
+   * @brief publishes the localization ('vehicle_localization') to the topic
+   * vehicle_location
+   *
+   */
+  void _publish_vehicle_state_wss();
+
+  /**
+   * @brief publishes the localization ('vehicle_localization') to the topic
+   * vehicle_location
+   *
+   */
+  void _publish_vehicle_state_imu();
 
   /**
    * @brief publishes the map ('track_map') to the topic track_map
