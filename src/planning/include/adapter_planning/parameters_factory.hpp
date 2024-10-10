@@ -14,12 +14,12 @@ struct PlanningParameters;
 
 std::string load_adapter_parameters(PlanningParameters& params) {
   auto adapter_node = std::make_shared<rclcpp::Node>("planning_adapter");
-  params.angle_gain_ = adapter_node->declare_parameter("angle_gain", 11.0);
-  params.distance_gain_ = adapter_node->declare_parameter("distance_gain", 8.0);
-  params.ncones_gain_ = adapter_node->declare_parameter("ncones_gain", 8.7);
-  params.angle_exponent_ = adapter_node->declare_parameter("angle_exponent", 5.3);
-  params.distance_exponent_ = adapter_node->declare_parameter("distance_exponent", 0.698);
-  params.cost_max_ = adapter_node->declare_parameter("cost_max", 40.0);
+  params.angle_gain_ = adapter_node->declare_parameter("angle_gain", 10.246);
+  params.distance_gain_ = adapter_node->declare_parameter("distance_gain", 6.657);
+  params.ncones_gain_ = adapter_node->declare_parameter("ncones_gain", 20.7);
+  params.angle_exponent_ = adapter_node->declare_parameter("angle_exponent", 2.0);
+  params.distance_exponent_ = adapter_node->declare_parameter("distance_exponent", 0.998);
+  params.cost_max_ = adapter_node->declare_parameter("cost_max", 35.0);
   params.outliers_spline_order_ =
       static_cast<int>(adapter_node->declare_parameter("outliers_spline_order", 3));
   params.outliers_spline_coeffs_ratio_ =
@@ -38,7 +38,7 @@ std::string load_adapter_parameters(PlanningParameters& params) {
       adapter_node->declare_parameter("publishing_visualization_msg", false);
   params.using_simulated_se_ = adapter_node->declare_parameter("use_simulated_se", false);
   params.desired_velocity_ = adapter_node->declare_parameter("pre_defined_velocity_planning", 2);
-  params.use_outlier_removal_ = adapter_node->declare_parameter("use_outlier_removal", true);
+  params.use_outlier_removal_ = adapter_node->declare_parameter("use_outlier_removal", false);
   params.use_path_smoothing_ = adapter_node->declare_parameter("use_path_smoothing", true);
   std::string adapter_type = adapter_node->declare_parameter("adapter", "vehicle");
   params.map_frame_id_ = adapter_type == "eufs" ? "base_footprint" : "map";
