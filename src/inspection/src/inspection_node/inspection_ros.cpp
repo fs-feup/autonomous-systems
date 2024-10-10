@@ -141,11 +141,6 @@ void InspectionMission::inspection_script() {
     calculated_steering = 0.0;
   }
 
-  if (current_velocity < 0.85 && !finished) {
-    calculated_steering = 0.0;
-    finished = true;
-  }
-
   if (elapsed_time >= _inspection_object_.finish_time_ &&
       std::abs(current_velocity) <= WHEELS_STOPPED_THRESHOLD && steering_straight) {
       this->_car_stopped_ = true;
