@@ -10,33 +10,33 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "ransac_epsilon",
                 description="RANSAC epsilon threshold",
-                default_value="0.06",
+                default_value="0.09",
             ),
             DeclareLaunchArgument(
                 "ransac_n_neighbours",
                 description="RANSAC number of neighbours",
-                default_value="20",
+                default_value="40",
             ),
             DeclareLaunchArgument(
                 "fov_trim",
                 description="Trim the points received to a max angle",
-                default_value="35",  # degrees
+                default_value="30",  # degrees
             ),
             DeclareLaunchArgument(
                 "pc_max_range",
                 description="Point cloud filtering based on distance (m)",
-                default_value="12.0",
+                default_value="20.0",
             ),
             
             DeclareLaunchArgument(
                 "clustering_n_neighbours",
                 description="Number of neighbours for Clustering algorithm",
-                default_value="3",
+                default_value="1",
             ),
             DeclareLaunchArgument(
                 "clustering_epsilon",
                 description="Epsilon for Clustering algorithm",
-                default_value="0.1",
+                default_value="0.2",
             ),
             DeclareLaunchArgument(
                 "horizontal_resolution",
@@ -61,12 +61,12 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "n_angular_grids",
                 description="Number of angular grids",
-                default_value="8",
+                default_value="2",
             ),
             DeclareLaunchArgument(
                 "radius_resolution",
                 description="Radius size of a radius grid (m)",
-                default_value="20.0",
+                default_value="7.5",
             ),
             DeclareLaunchArgument(
                 "target_file",
@@ -96,7 +96,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "min_height",
                 description="Minimum height of a cluster to be considered a cone",
-                default_value="0.1"
+                default_value="0.05"
             ),
             DeclareLaunchArgument(
                 "max_height",
@@ -126,22 +126,22 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "min_z_score_x",
                 description="Minimum z score on cones distribution (x)",
-                default_value="0.45"
+                default_value="-100000000.0"
             ),
             DeclareLaunchArgument(
                 "max_z_score_x",
                 description="Maximum z score on cones distribution (x)",
-                default_value="1.55"
+                default_value="100000000000.0"
             ),
             DeclareLaunchArgument(
                 "min_z_score_y",
                 description="Minimum z score on cones distribution (y)",
-                default_value="0.45"
+                default_value="-1000000000.0"
             ),
             DeclareLaunchArgument(
                 "max_z_score_y",
                 description="Minimum z score on cones distribution (y)",
-                default_value="1.55"
+                default_value="1000000000.0"
             ),
             Node(
                 package="perception",
