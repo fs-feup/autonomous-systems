@@ -4,7 +4,7 @@
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="105,155,153,105,184,79,218,55,227,51,230,55,221,60,187,83,157,109,109,159"/>
 <area shape="rect" id="Node000003" href="$d7/d64/class_observation_model.html#a97a9e71e7cee696be91a569eb65b9df9" title="Get the observation noise covariance matrix (C or H)" alt="" coords="220,70,423,126"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="149,154,223,128,225,134,151,159"/>
-<area shape="rect" id="Node000004" href="$d7/d64/class_observation_model.html#aa789708c6a934ba1edfc8386b1f38d4f" title="Get the state to observation matrix of the observation model (H)" alt="" coords="246,150,397,206"/>
+<area shape="rect" id="Node000004" href="$d7/d64/class_observation_model.html#aa789708c6a934ba1edfc8386b1f38d4f" title="Get the state to observation matrix of the observation model (H in LaTeX documentation)" alt="" coords="246,150,397,206"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="172,175,231,175,231,180,172,180"/>
 <area shape="rect" id="Node000005" href="$d7/d64/class_observation_model.html#a1e57d72d1b32a2260c9dfc8d25bd802d" title="Calculate landmark position from observation." alt="" coords="234,229,409,270"/>
 <area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="157,196,239,222,238,227,156,201"/>

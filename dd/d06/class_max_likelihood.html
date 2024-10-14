@@ -130,6 +130,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a911db655cde119a889e7a0aa7e0773b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">normalized distance gate (closest unmatched landmark)  <br /></td></tr>
 <tr class="separator:a911db655cde119a889e7a0aa7e0773b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1418fc6295d1f13ab71708fc73a5758e" id="r_a1418fc6295d1f13ab71708fc73a5758e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d06/class_max_likelihood.html#a1418fc6295d1f13ab71708fc73a5758e">MaxLikelihood</a> (float max_landmark_distance)</td></tr>
+<tr class="memdesc:a1418fc6295d1f13ab71708fc73a5758e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Max Likelihood object.  <br /></td></tr>
 <tr class="separator:a1418fc6295d1f13ab71708fc73a5758e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_data_association_model"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_data_association_model')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d1/d14/class_data_association_model.html">DataAssociationModel</a></td></tr>
 <tr class="memitem:a54823418322231403c42e31c3b300896 inherit pub_methods_class_data_association_model" id="r_a54823418322231403c42e31c3b300896"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d14/class_data_association_model.html#a54823418322231403c42e31c3b300896">DataAssociationModel</a> (float max_landmark_distance)</td></tr>
@@ -154,7 +155,7 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Maximum Likelihood Method class, used to match observations to landmarks in the map with maximum likelihood method It uses the Mahalanobis distance to determine the best match It also uses a gate to determine if the match is valid The Mahalanobis distance is calculated as the square root of the innovation covariance The gate is a threshold that the Mahalanobis distance must be below to be considered a valid match The gate is defined as the normalized innovation squared (NIS) gate Normalized Distance. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/d49/data__association_8hpp_source.html#l00056">56</a> of file <a class="el" href="../../da/d49/data__association_8hpp_source.html">data_association.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/d49/data__association_8hpp_source.html#l00071">71</a> of file <a class="el" href="../../da/d49/data__association_8hpp_source.html">data_association.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a1418fc6295d1f13ab71708fc73a5758e" name="a1418fc6295d1f13ab71708fc73a5758e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1418fc6295d1f13ab71708fc73a5758e">&#9670;&#160;</a></span>MaxLikelihood()</h2>
@@ -179,6 +180,14 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Construct a new Max Likelihood object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">max_landmark_distance</td><td>Maximum distance from the car to an observed landmark for it to be considered in the state estimation </td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p class="definition">Definition at line <a class="el" href="../../db/d7b/data__association_8cpp_source.html#l00020">20</a> of file <a class="el" href="../../db/d7b/data__association_8cpp_source.html">data_association.cpp</a>.</p>
 
@@ -250,6 +259,19 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>normalized distance gate (closest unmatched landmark) </p>
+<p>Associate the observed landmarks to the expected landmarks and update the state vector and the covariance matrix </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">perception_map</td><td>The observed landmarks </td></tr>
+    <tr><td class="paramname">_x_vector_</td><td>The state vector </td></tr>
+    <tr><td class="paramname">_p_matrix_</td><td>The covariance matrix </td></tr>
+    <tr><td class="paramname">matched_ids</td><td>Vector in which the ids of the matched landmarks will be placed </td></tr>
+    <tr><td class="paramname">matched_cone_positions</td><td>Vector in which the positions of the matched landmarks will be placed </td></tr>
+    <tr><td class="paramname">new_features</td><td>Vector in which the positions of the new landmarks (unmatched landmarks) will be placed </td></tr>
+    <tr><td class="paramname">observation_model</td><td>The observation model </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int Always 0 </dd></dl>
 
 <p>Implements <a class="el" href="../../d1/d14/class_data_association_model.html#ae0d2681ff464e0a80ed07ca1d422d64f">DataAssociationModel</a>.</p>
 
@@ -264,7 +286,7 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="105,155,153,105,184,79,218,55,227,51,230,55,221,60,187,83,157,109,109,159"/>
 <area shape="rect" href="../../d7/d64/class_observation_model.html#a97a9e71e7cee696be91a569eb65b9df9" title="Get the observation noise covariance matrix (C or H)" alt="" coords="220,70,423,126"/>
 <area shape="poly" title=" " alt="" coords="149,154,223,128,225,134,151,159"/>
-<area shape="rect" href="../../d7/d64/class_observation_model.html#aa789708c6a934ba1edfc8386b1f38d4f" title="Get the state to observation matrix of the observation model (H)" alt="" coords="246,150,397,206"/>
+<area shape="rect" href="../../d7/d64/class_observation_model.html#aa789708c6a934ba1edfc8386b1f38d4f" title="Get the state to observation matrix of the observation model (H in LaTeX documentation)" alt="" coords="246,150,397,206"/>
 <area shape="poly" title=" " alt="" coords="172,175,231,175,231,180,172,180"/>
 <area shape="rect" href="../../d7/d64/class_observation_model.html#a1e57d72d1b32a2260c9dfc8d25bd802d" title="Calculate landmark position from observation." alt="" coords="234,229,409,270"/>
 <area shape="poly" title=" " alt="" coords="157,196,239,222,238,227,156,201"/>
@@ -318,7 +340,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../da/d49/data__association_8hpp_source.html#l00060">60</a> of file <a class="el" href="../../da/d49/data__association_8hpp_source.html">data_association.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/d49/data__association_8hpp_source.html#l00075">75</a> of file <a class="el" href="../../da/d49/data__association_8hpp_source.html">data_association.hpp</a>.</p>
 
 </div>
 </div>
@@ -344,7 +366,7 @@ Here is the caller graph for this function:</div>
 
 <p>normalized innovation squared gate </p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/d49/data__association_8hpp_source.html#l00061">61</a> of file <a class="el" href="../../da/d49/data__association_8hpp_source.html">data_association.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/d49/data__association_8hpp_source.html#l00076">76</a> of file <a class="el" href="../../da/d49/data__association_8hpp_source.html">data_association.hpp</a>.</p>
 
 </div>
 </div>

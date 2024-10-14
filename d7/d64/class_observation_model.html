@@ -129,7 +129,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac93e7c085cc327eac8ee714b1d86e626" id="r_ac93e7c085cc327eac8ee714b1d86e626"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXf&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d64/class_observation_model.html#ac93e7c085cc327eac8ee714b1d86e626">get_gz</a> (const Eigen::VectorXf &amp;expected_state, const <a class="el" href="../../d9/d90/struct_observation_data.html">ObservationData</a> &amp;observation_data) const</td></tr>
 <tr class="separator:ac93e7c085cc327eac8ee714b1d86e626"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa789708c6a934ba1edfc8386b1f38d4f" id="r_aa789708c6a934ba1edfc8386b1f38d4f"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXf&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d64/class_observation_model.html#aa789708c6a934ba1edfc8386b1f38d4f">get_state_to_observation_matrix</a> (const Eigen::VectorXf &amp;expected_state, const unsigned int landmark_index, const unsigned int state_size) const</td></tr>
-<tr class="memdesc:aa789708c6a934ba1edfc8386b1f38d4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the state to observation matrix of the observation model (H)  <br /></td></tr>
+<tr class="memdesc:aa789708c6a934ba1edfc8386b1f38d4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the state to observation matrix of the observation model (H in LaTeX documentation)  <br /></td></tr>
 <tr class="separator:aa789708c6a934ba1edfc8386b1f38d4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a97a9e71e7cee696be91a569eb65b9df9" id="r_a97a9e71e7cee696be91a569eb65b9df9"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXf&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d64/class_observation_model.html#a97a9e71e7cee696be91a569eb65b9df9">get_observation_noise_covariance_matrix</a> () const</td></tr>
 <tr class="memdesc:a97a9e71e7cee696be91a569eb65b9df9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the observation noise covariance matrix (C or H)  <br /></td></tr>
@@ -368,7 +368,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Get the state to observation matrix of the observation model (H) </p>
+<p>Get the state to observation matrix of the observation model (H in LaTeX documentation) </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">landmark_index</td><td>index of the x variable of the landmark in the state vector </td></tr>
@@ -384,7 +384,7 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d7/d64/class_observation_model_aa789708c6a934ba1edfc8386b1f38d4f_icgraph.png" border="0" usemap="#ad7/d64/class_observation_model_aa789708c6a934ba1edfc8386b1f38d4f_icgraph" alt=""/></div>
 <map name="ad7/d64/class_observation_model_aa789708c6a934ba1edfc8386b1f38d4f_icgraph" id="ad7/d64/class_observation_model_aa789708c6a934ba1edfc8386b1f38d4f_icgraph">
-<area shape="rect" title="Get the state to observation matrix of the observation model (H)" alt="" coords="322,138,472,194"/>
+<area shape="rect" title="Get the state to observation matrix of the observation model (H in LaTeX documentation)" alt="" coords="322,138,472,194"/>
 <area shape="rect" href="../../dd/d06/class_max_likelihood.html#a911db655cde119a889e7a0aa7e0773b2" title="normalized distance gate (closest unmatched landmark)" alt="" coords="108,146,274,187"/>
 <area shape="poly" title=" " alt="" coords="307,169,274,169,274,164,307,164"/>
 <area shape="rect" href="../../dc/dd5/data__association__test_8cpp.html#ad8e377318ba077cbaf50154f855e1415" title="Test case for when a landmark has a near mismatch." alt="" coords="5,5,60,31"/>
@@ -433,6 +433,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Calculate landmark position from observation. </p>
+<p>Translates from the car's frame to the map frame.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">expected_state</td><td></td></tr>
@@ -505,6 +506,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Calculate expected observation from the state vector. </p>
+<p>Correponds to h in LaTeX documentation.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">expected_state</td><td></td></tr>

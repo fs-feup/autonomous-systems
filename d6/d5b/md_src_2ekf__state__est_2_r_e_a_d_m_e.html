@@ -105,8 +105,8 @@ Folder Structure</h2>
 <ul>
 <li><a href="../.././include/adapter_ekf_state_est/">adapter_ekf_state_est</a>: Adapters to change ros2 interfaces according to simulator or environment</li>
 <li><a href="../.././include/ekf/">kalman_filter</a>: Extended Kalman Filter class, used for state estimation<ul>
-<li><a href="../.././include/ekf/data_association.hpp">kalman_filter/data_association</a>: Data Association class, used to associate observations to landmarks</li>
-<li><a href="../.././include/ekf/motion_model.hpp">kalman_filter/motion_model</a>: Motion Model class, used to predict the state based on motion</li>
+<li><a href="../.././include/ekf/data_association.hpp">kalman_filter/data_association</a>: Data Association class, used to associate observations to landmarks and determine which landmarks are new</li>
+<li><a href="../.././include/ekf/motion_model.hpp">kalman_filter/motion_model</a>: Motion Model class, used to predict the state based on previous states and measurements</li>
 <li><a href="../.././include/ekf/observation_model.hpp">kalman_filter/observation_model</a>: Observation Model class, used to correct the state based on observations</li>
 </ul>
 </li>

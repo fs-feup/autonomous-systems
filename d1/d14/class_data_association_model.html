@@ -126,6 +126,7 @@ Collaboration diagram for DataAssociationModel:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ae0d2681ff464e0a80ed07ca1d422d64f" id="r_ae0d2681ff464e0a80ed07ca1d422d64f"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d14/class_data_association_model.html#ae0d2681ff464e0a80ed07ca1d422d64f">associate_n_filter</a> (const std::vector&lt; <a class="el" href="../../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html">common_lib::structures::Cone</a> &gt; &amp;perception_map, Eigen::VectorXf &amp;_x_vector_, Eigen::MatrixXf &amp;_p_matrix_, std::vector&lt; int &gt; &amp;matched_ids, std::vector&lt; Eigen::Vector2f &gt; &amp;matched_cone_positions, std::vector&lt; Eigen::Vector2f &gt; &amp;new_features, <a class="el" href="../../d7/d64/class_observation_model.html">ObservationModel</a> *observation_model) const =0</td></tr>
+<tr class="memdesc:ae0d2681ff464e0a80ed07ca1d422d64f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Associate the observed landmarks to the expected landmarks and update the state vector and the covariance matrix.  <br /></td></tr>
 <tr class="separator:ae0d2681ff464e0a80ed07ca1d422d64f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a54823418322231403c42e31c3b300896" id="r_a54823418322231403c42e31c3b300896"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d14/class_data_association_model.html#a54823418322231403c42e31c3b300896">DataAssociationModel</a> (float max_landmark_distance)</td></tr>
 <tr class="separator:a54823418322231403c42e31c3b300896"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -266,6 +267,21 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Associate the observed landmarks to the expected landmarks and update the state vector and the covariance matrix. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">perception_map</td><td>The observed landmarks </td></tr>
+    <tr><td class="paramname">_x_vector_</td><td>The state vector </td></tr>
+    <tr><td class="paramname">_p_matrix_</td><td>The covariance matrix </td></tr>
+    <tr><td class="paramname">matched_ids</td><td>Vector in which the ids of the matched landmarks will be placed </td></tr>
+    <tr><td class="paramname">matched_cone_positions</td><td>Vector in which the positions of the matched landmarks will be placed </td></tr>
+    <tr><td class="paramname">new_features</td><td>Vector in which the positions of the new landmarks (unmatched landmarks) will be placed </td></tr>
+    <tr><td class="paramname">observation_model</td><td>The observation model </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int Always 0 </dd></dl>
+
 <p>Implemented in <a class="el" href="../../dd/d06/class_max_likelihood.html#a911db655cde119a889e7a0aa7e0773b2">MaxLikelihood</a>.</p>
 
 </div>
@@ -350,9 +366,9 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>bool True if the observed landmark is a valid match to the expected landmark Maximum deviation of the landmark position from the expected position when the landmark is perceived to be 1 meter away </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>bool True if the observed landmark is a valid match to the expected landmark Maximum distance from the car to a cone for it to be considered in the State Estimation. Cones farther away will be ignored. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/d49/data__association_8hpp_source.html#l00029">29</a> of file <a class="el" href="../../da/d49/data__association_8hpp_source.html">data_association.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/d49/data__association_8hpp_source.html#l00031">31</a> of file <a class="el" href="../../da/d49/data__association_8hpp_source.html">data_association.hpp</a>.</p>
 
 </div>
 </div>

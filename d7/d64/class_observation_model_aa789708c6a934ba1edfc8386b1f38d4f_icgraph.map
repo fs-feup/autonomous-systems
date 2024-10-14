@@ -1,5 +1,5 @@
 <map id="ObservationModel::get_state_to_observation_matrix" name="ObservationModel::get_state_to_observation_matrix">
-<area shape="rect" id="Node000001" title="Get the state to observation matrix of the observation model (H)" alt="" coords="322,138,472,194"/>
+<area shape="rect" id="Node000001" title="Get the state to observation matrix of the observation model (H in LaTeX documentation)" alt="" coords="322,138,472,194"/>
 <area shape="rect" id="Node000002" href="$dd/d06/class_max_likelihood.html#a911db655cde119a889e7a0aa7e0773b2" title="normalized distance gate (closest unmatched landmark)" alt="" coords="108,146,274,187"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="307,169,274,169,274,164,307,164"/>
 <area shape="rect" id="Node000003" href="$dc/dd5/data__association__test_8cpp.html#ad8e377318ba077cbaf50154f855e1415" title="Test case for when a landmark has a near mismatch." alt="" coords="5,5,60,31"/>

@@ -110,30 +110,34 @@ $(document).ready(function(){initNavTree('df/d7c/map_8hpp_source.html','../../')
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="../../df/d31/ekf__state__est_2include_2adapter__ekf__state__est_2pacsim_8hpp.html">adapter_ekf_state_est/pacsim.hpp</a>&quot;</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="../../de/d21/ekf__state__est_2include_2adapter__ekf__state__est_2vehicle_8hpp.html">adapter_ekf_state_est/vehicle.hpp</a>&quot;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">const</span> std::map&lt;std::string, std::function&lt;std::shared_ptr&lt;Adapter&gt;(std::shared_ptr&lt;SENode&gt;)&gt;,</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>               std::less&lt;&gt;&gt;</div>
-<div class="foldopen" id="foldopen00014" data-start="{" data-end="};">
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="../../df/d7c/map_8hpp.html#ae14cbe4fb4d01886f7dfcae4f26d255d">   14</a></span>    <a class="code hl_variable" href="../../df/d7c/map_8hpp.html#ae14cbe4fb4d01886f7dfcae4f26d255d">adapter_map</a> = {{<span class="stringliteral">&quot;fsds&quot;</span>,</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>                    [](std::shared_ptr&lt;SENode&gt; se_node) -&gt; std::shared_ptr&lt;Adapter&gt; {</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>                      <span class="keywordflow">return</span> std::make_shared&lt;FsdsAdapter&gt;(se_node);</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>                    }},</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>                   {<span class="stringliteral">&quot;eufs&quot;</span>,</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">/*</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment"> * Map of adapters, with the key being the type of the adapter and the value being a lambda function</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment"> * that creates the adapter</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">const</span> std::map&lt;std::string, std::function&lt;std::shared_ptr&lt;Adapter&gt;(std::shared_ptr&lt;SENode&gt;)&gt;,</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>               std::less&lt;&gt;&gt;</div>
+<div class="foldopen" id="foldopen00018" data-start="{" data-end="};">
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="../../df/d7c/map_8hpp.html#ae14cbe4fb4d01886f7dfcae4f26d255d">   18</a></span>    <a class="code hl_variable" href="../../df/d7c/map_8hpp.html#ae14cbe4fb4d01886f7dfcae4f26d255d">adapter_map</a> = {{<span class="stringliteral">&quot;fsds&quot;</span>,</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>                    [](std::shared_ptr&lt;SENode&gt; se_node) -&gt; std::shared_ptr&lt;Adapter&gt; {</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>                      <span class="keywordflow">return</span> std::make_shared&lt;EufsAdapter&gt;(se_node);</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>                      <span class="keywordflow">return</span> std::make_shared&lt;FsdsAdapter&gt;(se_node);</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>                    }},</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>                   {<span class="stringliteral">&quot;pacsim&quot;</span>,</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>                   {<span class="stringliteral">&quot;eufs&quot;</span>,</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>                    [](std::shared_ptr&lt;SENode&gt; se_node) -&gt; std::shared_ptr&lt;Adapter&gt; {</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>                      <span class="keywordflow">return</span> std::make_shared&lt;PacsimAdapter&gt;(se_node);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>                      <span class="keywordflow">return</span> std::make_shared&lt;EufsAdapter&gt;(se_node);</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>                    }},</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>                   {<span class="stringliteral">&quot;vehicle&quot;</span>, [](std::shared_ptr&lt;SENode&gt; se_node) -&gt; std::shared_ptr&lt;Adapter&gt; {</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>                      <span class="keywordflow">return</span> std::make_shared&lt;VehicleAdapter&gt;(se_node);</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>                    }}};</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>                   {<span class="stringliteral">&quot;pacsim&quot;</span>,</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>                    [](std::shared_ptr&lt;SENode&gt; se_node) -&gt; std::shared_ptr&lt;Adapter&gt; {</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>                      <span class="keywordflow">return</span> std::make_shared&lt;PacsimAdapter&gt;(se_node);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>                    }},</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>                   {<span class="stringliteral">&quot;vehicle&quot;</span>, [](std::shared_ptr&lt;SENode&gt; se_node) -&gt; std::shared_ptr&lt;Adapter&gt; {</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>                      <span class="keywordflow">return</span> std::make_shared&lt;VehicleAdapter&gt;(se_node);</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>                    }}};</div>
 </div>
 <div class="ttc" id="aekf__state__est_2include_2adapter__ekf__state__est_2eufs_8hpp_html"><div class="ttname"><a href="../../d9/d1b/ekf__state__est_2include_2adapter__ekf__state__est_2eufs_8hpp.html">eufs.hpp</a></div></div>
 <div class="ttc" id="aekf__state__est_2include_2adapter__ekf__state__est_2fsds_8hpp_html"><div class="ttname"><a href="../../d8/dba/ekf__state__est_2include_2adapter__ekf__state__est_2fsds_8hpp.html">fsds.hpp</a></div></div>
 <div class="ttc" id="aekf__state__est_2include_2adapter__ekf__state__est_2pacsim_8hpp_html"><div class="ttname"><a href="../../df/d31/ekf__state__est_2include_2adapter__ekf__state__est_2pacsim_8hpp.html">pacsim.hpp</a></div></div>
 <div class="ttc" id="aekf__state__est_2include_2adapter__ekf__state__est_2vehicle_8hpp_html"><div class="ttname"><a href="../../de/d21/ekf__state__est_2include_2adapter__ekf__state__est_2vehicle_8hpp.html">vehicle.hpp</a></div></div>
-<div class="ttc" id="amap_8hpp_html_ae14cbe4fb4d01886f7dfcae4f26d255d"><div class="ttname"><a href="../../df/d7c/map_8hpp.html#ae14cbe4fb4d01886f7dfcae4f26d255d">adapter_map</a></div><div class="ttdeci">const std::map&lt; std::string, std::function&lt; std::shared_ptr&lt; Adapter &gt;(std::shared_ptr&lt; SENode &gt;)&gt;, std::less&lt;&gt; &gt; adapter_map</div><div class="ttdef"><b>Definition</b> <a href="../../df/d7c/map_8hpp_source.html#l00014">map.hpp:14</a></div></div>
+<div class="ttc" id="amap_8hpp_html_ae14cbe4fb4d01886f7dfcae4f26d255d"><div class="ttname"><a href="../../df/d7c/map_8hpp.html#ae14cbe4fb4d01886f7dfcae4f26d255d">adapter_map</a></div><div class="ttdeci">const std::map&lt; std::string, std::function&lt; std::shared_ptr&lt; Adapter &gt;(std::shared_ptr&lt; SENode &gt;)&gt;, std::less&lt;&gt; &gt; adapter_map</div><div class="ttdef"><b>Definition</b> <a href="../../df/d7c/map_8hpp_source.html#l00018">map.hpp:18</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

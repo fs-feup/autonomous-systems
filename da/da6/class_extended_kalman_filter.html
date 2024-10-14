@@ -390,9 +390,10 @@ Here is the caller graph for this function:</div>
 
 <p>Correction step: </p>
 <ol type="1">
-<li>Calculate the Kalman Gain</li>
 <li>Calculate the expected measurement</li>
+<li>Calculate the Kalman Gain</li>
 <li>Calculate the expected measurement covariance matrix</li>
+<li>Augment state to include the newly detected cones</li>
 </ol>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -445,7 +446,7 @@ Here is the call graph for this function:</div>
 <p>Get the state covariance matrix. </p>
 <dl class="section return"><dt>Returns</dt><dd>Eigen::MatrixXf covariance matrix </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00131">131</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00132">132</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
 
 </div>
 </div>
@@ -543,7 +544,7 @@ Here is the caller graph for this function:</div>
 <p>Get the last update timestamp. </p>
 <dl class="section return"><dt>Returns</dt><dd>rclcpp::Time timestamp </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00139">139</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00140">140</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
 
 </div>
 </div>
@@ -573,7 +574,7 @@ Here is the caller graph for this function:</div>
 <p>Get the state vector. </p>
 <dl class="section return"><dt>Returns</dt><dd>Eigen::VectorXf state vector </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00124">124</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00125">125</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
 
 </div>
 </div>
@@ -689,7 +690,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00141">141</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d5e/ekf_8hpp_source.html#l00142">142</a> of file <a class="el" href="../../d5/d5e/ekf_8hpp_source.html">ekf.hpp</a>.</p>
 
 </div>
 </div>
