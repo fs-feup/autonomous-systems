@@ -11,12 +11,12 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "use_simulated_planning",
                 description="Wether or not to use Mocker Node for Plannning (true/false)",
-                default_value="true",
+                default_value="false",
             ),
             DeclareLaunchArgument(
                 "adapter",
                 description="Vehicle or Simulation mode (pacsim, vehicle, fsds, eufs)",
-                default_value="eufs",
+                default_value="vehicle",
             ),
             DeclareLaunchArgument(
                 "lookahead_gain",
@@ -51,12 +51,12 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "pid_lim_min",
                 description="Minimum output value of Longitudinal Control",
-                default_value="-1",
+                default_value="-1.0",
             ),
             DeclareLaunchArgument(
                 "pid_lim_max",
                 description="Maximum output value of Longitudinal Control",
-                default_value="1",
+                default_value="1.0",
             ),
             DeclareLaunchArgument(
                 "pid_anti_windup",

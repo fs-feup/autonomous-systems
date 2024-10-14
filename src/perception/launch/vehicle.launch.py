@@ -25,7 +25,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "pc_max_range",
                 description="Point cloud filtering based on distance (m)",
-                default_value="12.0",
+                default_value="20.0",
             ),
             
             DeclareLaunchArgument(

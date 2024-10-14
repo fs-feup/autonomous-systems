@@ -23,12 +23,12 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "imu_noise",
                 description="Noise value for IMU (sigma)",
-                default_value="0.0064",
+                default_value="0.001",
             ),
             DeclareLaunchArgument(
                 "observation_noise",
                 description="Noise value for observations (sigma)",
-                default_value="0.03",
+                default_value="0.025",
             ),
             DeclareLaunchArgument(
                 "motion_model",
@@ -38,7 +38,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "adapter",
                 description="Environment to run node on",
-                default_value="eufs",
+                default_value="vehicle",
             ),
             DeclareLaunchArgument(
                 "data_assocation_model",
