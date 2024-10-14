@@ -112,6 +112,5 @@
         "projectKey": "fs-feup_autonomous-systems"
     },
     "C_Cpp.default.compilerPath": "/usr/bin/g++",
-    "sonarlint.pathToCompileCommands": "${workspaceFolder}/compile_commands.json",
     "ros.distro": "humble",
 }

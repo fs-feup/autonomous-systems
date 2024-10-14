@@ -16,10 +16,14 @@ from evaluator.metrics import (
     compute_distance,
     get_false_positives,
     get_duplicates,
+    compute_closest_distances,
+    get_average_error,
+    get_mean_squared_error,
 )
 from evaluator.formats import (
     format_vehicle_state_msg,
     format_point2d_msg,
+    find_closest_elements,
 )
 import tf2_ros
 import sys
@@ -38,6 +42,7 @@ import datetime
 from math import sqrt
 from evaluator.formats import format_path_point_array_msg
 from message_filters import TimeSynchronizer
+from std_msgs.msg import Float32
 
 import csv
 import signal
@@ -45,12 +50,18 @@ import signal
 
 class Evaluator(Node):
     """!
-    A ROS2 node for computing and publishing system's metrics
+    A ROS2 node for computing and publishing the system's real-time metrics
     """
 
-    def __init__(self):
-        """!
-        Initializes the Evaluator node and creates the subscriptions/adapters
+    def __init__(self) -> None:
+        """
+        Initializes the Evaluator Node.
+        This function sets up the necessary parameters, subscriptions, and publishers for the Evaluator Node.
+        It also initializes variables for storing metrics over time.
+        Parameters:
+            None
+        Returns:
+            None
         """
         super().__init__("evaluator")
         self.get_logger().info("Evaluator Node has started")
@@ -92,13 +103,13 @@ class Evaluator(Node):
         self.vehicle_state_subscription_ = message_filters.Subscriber(
             self, VehicleState, "/state_estimation/vehicle_state"
         )
+        self.planning_subscription_ = message_filters.Subscriber(
+            self, PathPointArray, "/path_planning/path"
+        )
         self.transform_buffer_ = tf2_ros.Buffer()
         self._transforms_listener_ = TransformListener(self.transform_buffer_, self)
-        self.planning_subscription = self.create_subscription(
-            PathPointArray, "/path_planning/path", self.compute_and_publish_planning, 1
-        )
-        self.planning_gt_subscription = self.create_subscription(
-            PathPointArray, "/path_planning/mock_path", self.planning_gt_callback, 1
+        self.planning_gt_subscription_ = message_filters.Subscriber(
+            self, PathPointArray, "/path_planning/mock_path"
         )
         self.control_data_sub_ = self.create_subscription(
             EvaluatorControlData,
@@ -178,14 +189,44 @@ class Evaluator(Node):
         )
 
         # Publisher for path planning metrics
-        self._planning_mean_difference_ = self.create_publisher(
-            Float32, "/evaluator/planning/mean_difference", 10
+        self._planning_mean_difference_to_gt = self.create_publisher(
+            Float32, "/evaluator/planning/gt_me", 10
         )
-        self._planning_mean_squared_difference_ = self.create_publisher(
-            Float32, "/evaluator/planning/mean_squared_difference", 10
+        self._planning_mean_squared_difference_to_gt = self.create_publisher(
+            Float32, "/evaluator/planning/gt_mse", 10
         )
-        self._planning_root_mean_squared_difference_ = self.create_publisher(
-            Float32, "/evaluator/planning/root_mean_squared_difference", 10
+        self._planning_root_mean_squared_difference_to_gt = self.create_publisher(
+            Float32, "/evaluator/planning/gt_rmse", 10
+        )
+
+        self._planning_mean_difference_to_left_cones = self.create_publisher(
+            Float32, "/evaluator/planning/left_cones_me", 10
+        )
+        self._planning_mean_squared_difference_to_left_cones = self.create_publisher(
+            Float32, "/evaluator/planning/left_cones_mse", 10
+        )
+        self._planning_root_mean_squared_difference_to_left_cones = (
+            self.create_publisher(Float32, "/evaluator/planning/left_cones_rmse", 10)
+        )
+
+        self._planning_mean_difference_to_right_cones = self.create_publisher(
+            Float32, "/evaluator/planning/right_cones_me", 10
+        )
+        self._planning_mean_squared_difference_to_right_cones = self.create_publisher(
+            Float32, "/evaluator/planning/right_cones_mse", 10
+        )
+        self._planning_root_mean_squared_difference_to_right_cones = (
+            self.create_publisher(Float32, "/evaluator/planning/right_cones_rmse", 10)
+        )
+
+        self._planning_mean_difference_to_cones = self.create_publisher(
+            Float32, "/evaluator/planning/cones_me", 10
+        )
+        self._planning_mean_squared_difference_to_cones = self.create_publisher(
+            Float32, "/evaluator/planning/cones_mse", 10
+        )
+        self._planning_root_mean_squared_difference_to_cones = self.create_publisher(
+            Float32, "/evaluator/planning/cones_rmse", 10
         )
 
         # Publisher for control metrics
@@ -198,6 +239,21 @@ class Evaluator(Node):
         self._control_velocity_lookahead_difference_ = self.create_publisher(
             Float32, "/evaluator/control/velocity/lookahead/difference", 10
         )
+
+        # Retrieve the 'generate_csv' parameter
+        self.declare_parameter("generate_csv", False)
+        self.generate_csv = (
+            self.get_parameter("generate_csv").get_parameter_value().bool_value
+        )
+
+        # Retrieve the 'csv_suffix' parameter
+        self.declare_parameter("csv_suffix", "")
+        self.csv_suffix = (
+            self.get_parameter("csv_suffix").get_parameter_value().string_value
+        )
+
+        # Replace spaces with underscores in csv_suffix
+        self.csv_suffix = self.csv_suffix.replace(" ", "_")
 
         # Metrics over time
         self.perception_metrics = []
@@ -353,8 +409,6 @@ class Evaluator(Node):
             )
         )
 
-        self.planning_mock = PathPointArray()
-
         if self._adapter_name_ == "vehicle":
             return
 
@@ -365,42 +419,56 @@ class Evaluator(Node):
 
         signal.signal(signal.SIGINT, self.signal_handler)
 
-    def signal_handler(self, sig, frame):
+    def signal_handler(self, sig: int, frame) -> None:
         """!
         Writes metrics to csv and exits when Ctrl+C is pressed.
+        This function is triggered when the program receives a termination signal (e.g., SIGINT or SIGTERM)
+        and it saves the collected metrics to CSV files, then exits the program with a status code of 0.
+        The metrics are saved in separate CSV files based on their category.
 
         Args:
-            sig (int): Signal number.
-            frame (frame): Current stack frame.
+            sig (int): The signal number. (not used in this function)
+            frame (frame): The current stack frame. (not used in this function)
+        Note:
+            - Metrics are saved in the "performance/evaluator_metrics" directory as "<metric_name>_<timestamp>.csv".
+            - If a category has no metrics, no CSV file will be created for that category.
+        Example:
+            # Create an instance of the Evaluator class
+            evaluator = Evaluator()
+            # Register the signal handler function
+            signal.signal(signal.SIGINT, evaluator.signal_handler)
+            # Start the program
+            evaluator.run()
         """
-
-        finish_time = datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
-        metrics_dict = {
-            "perception": self.perception_metrics,
-            "se": self.se_metrics,
-            "planning": self.planning_metrics,
-            "control": self.control_metrics,
-            "se_correction_execution_time": self._se_correction_execution_time_,
-            "se_prediction_execution_time": self._se_prediction_execution_time_,
-            "control_execution_time": self._control_execution_time_,
-            "planning_execution_time": self._planning_execution_time_,
-            "perception_execution_time": self._perception_execution_time_,
-        }
-        for filename, metrics in metrics_dict.items():
-            if metrics:
-                datetime_filename = f"{filename}_{finish_time}.csv"
-                self.metrics_to_csv(
-                    metrics, "performance/evaluator_metrics/" + datetime_filename
-                )
+        if self.generate_csv:
+            finish_time = datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
+            metrics_dict = {
+                "perception": self.perception_metrics,
+                "se": self.se_metrics,
+                "planning": self.planning_metrics,
+                "control": self.control_metrics,
+                "se_correction_execution_time": self._se_correction_execution_time_,
+                "se_prediction_execution_time": self._se_prediction_execution_time_,
+                "control_execution_time": self._control_execution_time_,
+                "planning_execution_time": self._planning_execution_time_,
+                "perception_execution_time": self._perception_execution_time_,
+            }
+            for filename, metrics in metrics_dict.items():
+                if metrics:
+                    datetime_filename = f"{filename}_{self._adapter_name_}_{finish_time}_{self.csv_suffix}.csv"
+                    self.metrics_to_csv(
+                        metrics, "performance/evaluator_metrics/" + datetime_filename
+                    )
         sys.exit(0)
 
-    def metrics_to_csv(self, metrics, filename):
-        """!
+    def metrics_to_csv(self, metrics: list, filename: str) -> None:
+        """
         Converts metrics to csv and writes them to a file.
-
         Args:
-            metrics (list): List of metrics dictionaries.
-            filename (str): Name of the file to write the metrics to.
+            metrics (list): A list of dictionaries representing the metrics.
+            filename (str): The name of the CSV file to write the metrics to.
+        Returns:
+            None
         """
 
         # Add 'time' key to each metric
@@ -416,45 +484,52 @@ class Evaluator(Node):
             writer.writeheader()
             writer.writerows(metrics)
 
-    def correction_step_time_callback(self, msg: Float64):
+    def correction_step_time_callback(self, msg: Float64) -> None:
         """!
-        Callback function to store the correction step time.
+        Callback function to store the execution time of the correction step.
 
         Args:
-            msg (Float64): Correction step time.
+            msg (Float64): Message containing the correction step execution time.
+        Returns:
+            None
         """
         self._se_correction_execution_time_.append(
             {"timestamp": datetime.datetime.now(), "execution_time": msg.data}
         )
 
-    def prediction_step_time_callback(self, msg: Float64):
-        """!
-        Callback function to store the prediction step time.
-
+    def prediction_step_time_callback(self, msg: Float64) -> None:
+        """
+        Callback function to store the execution time of the prediction step.
         Args:
-            msg (Float64): Prediction step time.
+            msg (Float64): Message containing the prediction step execution time.
+        Returns:
+            None
         """
         self._se_prediction_execution_time_.append(
             {"timestamp": datetime.datetime.now(), "execution_time": msg.data}
         )
 
-    def perception_execution_time_callback(self, msg: Float64):
+    def perception_execution_time_callback(self, msg: Float64) -> None:
         """!
         Callback function to store the perception execution time.
 
         Args:
-            msg (Float64): Perception execution time.
+            msg (Float64): Message containing the Perception execution time.
+        Returns:
+            None
         """
         self._perception_execution_time_.append(
             {"timestamp": datetime.datetime.now(), "execution_time": msg.data}
         )
 
-    def planning_execution_time_callback(self, msg: Float64):
+    def planning_execution_time_callback(self, msg: Float64) -> None:
         """!
         Callback function to store the planning execution time.
 
         Args:
-            msg (Float64): planning execution time.
+            msg (Float64): Message containing the planning execution time.
+        Returns:
+            None
         """
         self._planning_execution_time_.append(
             {"timestamp": datetime.datetime.now(), "execution_time": msg.data}
@@ -795,100 +870,185 @@ class Evaluator(Node):
         }
         self.perception_metrics.append(metrics)
 
-    def compute_and_publish_planning(self, msg: PathPointArray):
+    def compute_and_publish_planning(
+        self,
+        path: np.ndarray,
+        path_gt: np.ndarray,
+        left_cones_gt: np.ndarray,
+        right_cones_gt: np.ndarray,
+    ):
         """!
         Computes planning metrics and publishes them.
 
         Args:
-            msg (PathPointArray): Path points array message.
+            path (np.ndarray): Path computed by the planner.
+            left_cones_gt (np.ndarray): Ground truth of the left cones.
+            right_cones_gt (np.ndarray): Ground truth of the right cones.
         """
         self.get_logger().debug("Received planning")
 
         # Compute instantaneous planning metrics
-        actual_path: np.ndarray = format_path_point_array_msg(msg)
-        expected_path: np.ndarray = format_path_point_array_msg(self.planning_mock)
 
-        if len(actual_path) == 0 or len(expected_path) == 0:
-            self.get_logger().debug("Path info missing")
+
+        if (
+            len(path) == 0
+            or len(path_gt) == 0
+            or len(left_cones_gt) == 0
+            or len(right_cones_gt) == 0
+        ):
+            self.get_logger().debug(
+                "Path, path ground truth or map ground truth info missing"
+            )
             return
 
-        mean_difference = Float32()
-        mean_difference.data = get_average_difference(actual_path, expected_path)
-        mean_squared_difference = Float32()
-        mean_squared_difference.data = get_mean_squared_difference(
-            actual_path, expected_path
-        )
-        root_mean_squared_difference = Float32()
-        root_mean_squared_difference.data = sqrt(
-            get_mean_squared_difference(actual_path, expected_path)
+        # Metric 1: compute distances between cones and closes point in the path
+        blue_cones, yellow_cones = left_cones_gt, right_cones_gt
+        useful_blue_cones = find_closest_elements(path, blue_cones)
+        useful_yellow_cones = find_closest_elements(path, yellow_cones)
+        distance_to_cones_left = compute_closest_distances(path, useful_blue_cones)
+        distance_to_cones_right = compute_closest_distances(path, useful_yellow_cones)
+        general_distance_to_cones = np.concatenate(
+            [distance_to_cones_left, distance_to_cones_right]
         )
 
+        mean_cones_difference_left = get_average_error(distance_to_cones_left)
+        mean_squared_cones_difference_left = get_mean_squared_error(
+            distance_to_cones_left
+        )
+        root_mean_squared_cones_difference_left = (
+            mean_squared_cones_difference_left ** (1 / 2)
+        )
+
+        mean_cones_difference_right = get_average_error(distance_to_cones_right)
+        mean_squared_cones_difference_right = get_mean_squared_error(
+            distance_to_cones_right
+        )
+        root_mean_squared_cones_difference_right = (
+            mean_squared_cones_difference_right ** (1 / 2)
+        )
+
+        mean_cones_difference = get_average_error(general_distance_to_cones)
+        # if mean_cones_difference > 4.0:
+        #    self.get_logger().info(
+        #        "blue_cones: {}\n yellow_cones: {}\n useful_blue_cones: {}\n useful_yellow_cones: {}\n path: {}".format(
+        #            blue_cones,
+        #            yellow_cones,
+        #            useful_blue_cones,
+        #            useful_yellow_cones,
+        #            path,
+        #        )
+        #    )
+        mean_squared_cones_difference = get_mean_squared_error(
+            general_distance_to_cones
+        )
+        root_mean_squared_cones_difference = mean_squared_cones_difference ** (1 / 2)
+
+        # Metric 2: compute distance between ground truth and closest point in the path
+        useful_gt_points = find_closest_elements(path, path_gt)
+        distance_to_gt = compute_closest_distances(path, useful_gt_points)
+
+        mean_gt_difference = get_average_error(distance_to_gt)
+        mean_squared_gt_difference = get_mean_squared_error(distance_to_gt)
+        root_mean_squared_gt_difference = mean_squared_gt_difference ** (1 / 2)
+
+        # Log some computed metrics
         self.get_logger().debug(
             "Computed planning metrics:\n \
-                                Mean difference: {}\n \
-                                Mean squared difference: {}\n \
-                                Root mean squared difference: {}".format(
-                mean_difference,
-                mean_squared_difference,
-                root_mean_squared_difference,
+                                Mean difference to cones: {}\n \
+                                Mean squared difference to cones: {}\n \
+                                Mean difference to ground truth: {}\n \
+                                Mean squared difference to ground truth: {}".format(
+                mean_cones_difference,
+                mean_squared_cones_difference,
+                mean_gt_difference,
+                mean_squared_gt_difference,
             )
         )
 
         # Publish planning metrics
-        self._planning_mean_difference_.publish(mean_difference)
-        self._planning_mean_squared_difference_.publish(mean_squared_difference)
-        self._planning_root_mean_squared_difference_.publish(
-            root_mean_squared_difference
+        self._planning_mean_difference_to_gt.publish(Float32(data=mean_gt_difference))
+        self._planning_mean_squared_difference_to_gt.publish(
+            Float32(data=mean_squared_gt_difference)
+        )
+        self._planning_root_mean_squared_difference_to_gt.publish(
+            Float32(data=root_mean_squared_gt_difference)
+        )
+
+
+        self._planning_mean_difference_to_left_cones.publish(
+            Float32(data=mean_cones_difference_left)
+        )
+        self._planning_mean_squared_difference_to_left_cones.publish(
+            Float32(data=mean_squared_cones_difference_left)
+
+        )
+        self._planning_root_mean_squared_difference_to_left_cones.publish(
+            Float32(data=root_mean_squared_cones_difference_left)
+        )
+
+        self._planning_mean_difference_to_right_cones.publish(
+            Float32(data=mean_cones_difference_right)
+        )
+        self._planning_mean_squared_difference_to_right_cones.publish(
+            Float32(data=mean_squared_cones_difference_right)
+        )
+        self._planning_root_mean_squared_difference_to_right_cones.publish(
+            Float32(data=root_mean_squared_cones_difference_right)
+        )
+
+        self._planning_mean_difference_to_cones.publish(
+            Float32(data=mean_cones_difference)
+        )
+        self._planning_mean_squared_difference_to_cones.publish(
+            Float32(data=mean_squared_cones_difference)
+        )
+        self._planning_root_mean_squared_difference_to_cones.publish(
+            Float32(data=root_mean_squared_cones_difference)
         )
 
         # Compute planning metrics over time
-        self._planning_sum_error += get_average_difference(actual_path, expected_path)
-        self._planning_squared_sum_error += get_mean_squared_difference(
-            actual_path, expected_path
-        )
-        self._planning_mean_root_squared_sum_error += get_mean_squared_difference(
-            actual_path, expected_path
-        ) ** (1 / 2)
-        self._planning_count += 1
-        mean_mean_error = Float32()
-        mean_mean_error.data = self._planning_sum_error / self._planning_count
-        mean_mean_squared_error = Float32()
-        mean_mean_squared_error.data = (
-            self._planning_squared_sum_error / self._planning_count
-        )
-        mean_mean_root_squared_error = Float32()
-        mean_mean_root_squared_error.data = (
-            self._planning_mean_root_squared_sum_error / self._planning_count
-        )
+        # self._planning_sum_error += get_average_difference(path, path_gt)
+        # self._planning_squared_sum_error += get_mean_squared_difference(path, path_gt)
+        # self._planning_mean_root_squared_sum_error += get_mean_squared_difference(
+        #    path, path_gt
+        # ) ** (1 / 2)
+        # self._planning_count += 1
+        # mean_mean_error = Float32()
+        # mean_mean_error.data = self._planning_sum_error / self._planning_count
+        # mean_mean_squared_error = Float32()
+        # mean_mean_squared_error.data = (
+        #    self._planning_squared_sum_error / self._planning_count
+        # )
+        # mean_mean_root_squared_error = Float32()
+        # mean_mean_root_squared_error.data = (
+        #    self._planning_mean_root_squared_sum_error / self._planning_count
+        # )
 
         # Publish planning metrics over time
-        self._planning_mean_mean_error.publish(mean_mean_error)
-        self._planning_mean_mean_squared_error.publish(mean_mean_squared_error)
-        self._planning_mean_mean_root_squared_error.publish(
-            mean_mean_root_squared_error
-        )
+        # self._planning_mean_mean_error.publish(mean_mean_error)
+        # self._planning_mean_mean_squared_error.publish(mean_mean_squared_error)
+        # self._planning_mean_mean_root_squared_error.publish(
+        #    mean_mean_root_squared_error
+        # )
 
         # For exporting metrics to csv
         metrics = {
             "timestamp": datetime.datetime.now(),
-            "mean_difference": mean_difference.data,
-            "mean_squared_difference": mean_squared_difference.data,
-            "root_mean_squared_difference": root_mean_squared_difference.data,
-            "mean_mean_error": mean_mean_error.data,
-            "mean_mean_squared_error": mean_mean_squared_error.data,
-            "mean_mean_root_squared_error": mean_mean_root_squared_error.data,
+            "mean_difference_to_gt": mean_gt_difference.data,
+            "mean_squared_difference_to_gt": mean_squared_gt_difference.data,
+            "root_mean_squared_difference_to_gt": root_mean_squared_gt_difference.data,
+            "mean_difference_left_cones": mean_cones_difference_left.data,
+            "mean_squared_difference_left_cones": mean_squared_cones_difference_left.data,
+            "root_mean_squared_difference_left_cones": root_mean_squared_cones_difference_left.data,
+            "mean_difference_right_cones": mean_cones_difference_right.data,
+            "mean_squared_difference_right_cones": mean_squared_cones_difference_right.data,
+            "root_mean_squared_difference_right_cones": root_mean_squared_cones_difference_right.data,
+            "mean_difference_to_cones": mean_cones_difference.data,
+            "mean_squared_difference_to_cones": mean_squared_cones_difference.data,
+            "root_mean_squared_difference_to_cones": root_mean_squared_cones_difference.data,
         }
         self.planning_metrics.append(metrics)
 
-    def planning_gt_callback(self, msg: PathPointArray):
-        """!
-        Stores the path planning ground truth from mocker node.
-
-        Args:
-            msg (PathPointArray): Path points array message.
-        """
-        self.get_logger().debug("Received GT planning")
-        self.planning_mock: PathPointArray = msg
 
     def compute_and_publish_control(self, msg: EvaluatorControlData):
         """!
@@ -1051,6 +1211,11 @@ class Evaluator(Node):
 
 
 def main(args=None):
+    """
+    Main function for the evaluator module.
+    Args:
+        args (list): Optional command-line arguments.
+    """
     rclpy.init(args=args)
     node = Evaluator()
     rclpy.spin(node)

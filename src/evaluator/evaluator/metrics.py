@@ -108,13 +108,27 @@ def get_mean_squared_difference(output: np.ndarray, expected: np.ndarray) -> flo
 
 def compute_distance(cone1: np.array, cone2: np.array) -> float:
     """!
-    Compute Euclidean distance between two cones.
+    Compute the Euclidean distance between two cones.
+    Args:
+        cone1 (np.array): The coordinates of the first cone.
+        cone2 (np.array): The coordinates of the second cone.
+    Returns:
+        float: The Euclidean distance between the two cones.
     """
+
     return np.linalg.norm(cone1 - cone2)
 
 
 def build_adjacency_matrix(cones: np.array) -> np.array:
-    """Build adjacency matrix based on distances between cones."""
+    """
+    Build an adjacency matrix based on the distances between cones.
+
+    Args:
+        cones (np.array): An array containing the coordinates of cones.
+
+    Returns:
+        np.array: The adjacency matrix representing the distances between cones.
+    """
 
     num_cones = cones.shape[0]
 
@@ -129,8 +143,18 @@ def build_adjacency_matrix(cones: np.array) -> np.array:
     return distances
 
 
-def get_duplicates(output: np.array, threshold: float):
-    """Receives a set of cones and identify the possible dupliates"""
+def get_duplicates(output: np.array, threshold: float) -> int:
+    """
+    Receives a set of cones and identifies the possible duplicates.
+
+    Args:
+        output (np.array): The set of cones.
+        threshold (float): The threshold value to consider cones different or duplicates.
+
+    Returns:
+        int: The number of possible duplicates.
+
+    """
 
     adjacency_matrix = build_adjacency_matrix(output)
     num_duplicates = np.sum(np.tril(adjacency_matrix < threshold, k=-1))
@@ -168,3 +192,75 @@ def get_inter_cones_distance(perception_output: np.array) -> float:
     else:
         average_distance = mst_sum / num_pairs
         return float(average_distance)
+
+
+def compute_closest_distances(arr1: np.ndarray, arr2: np.ndarray) -> np.ndarray:
+    """!
+    Computes the distance between each element in arr2 and the closest element in arr1.
+
+    Args:
+        arr1 (np.ndarray): First array of positions.
+        arr2 (np.ndarray): Second array of positions.
+
+    Returns:
+        np.ndarray: Array of distances between each element in arr2 and the closest element in arr1.
+    """
+    distances = []
+
+    for pos2 in arr2:
+        closest_distance = float("inf")
+        for pos1 in arr1:
+            distance = np.linalg.norm(pos2[:2] - pos1[:2])
+            if distance < closest_distance:
+                closest_distance = distance
+        distances.append(closest_distance)
+
+    return np.array(distances)
+
+
+def get_average_error(values: np.array) -> float:
+    """!
+    Computes the average of a list of values.
+
+    Args:
+        values (np.array): List of values.
+
+    Returns:
+        float: Average of the values.
+    """
+    if len(values) == 0:
+        return 0.0
+
+    return np.mean(values)
+
+
+def get_mean_squared_error(values: np.array) -> float:
+    """!
+    Computes the mean squared value of a list of values.
+
+    Args:
+        values (np.array): List of values.
+
+    Returns:
+        float: Mean squared value of the values.
+    """
+    if len(values) == 0:
+        return 0.0
+
+    return np.mean(values**2)
+
+
+def get_root_mean_squared_error(values: np.array) -> float:
+    """!
+    Computes the root mean squared error of a list of values.
+
+    Args:
+        values (np.array): List of values.
+
+    Returns:
+        float: Root mean squared error of the values.
+    """
+    if len(values) == 0:
+        return 0.0
+
+    return np.sqrt(np.mean(values**2))
