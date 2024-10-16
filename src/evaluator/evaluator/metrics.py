@@ -205,17 +205,19 @@ def compute_closest_distances(arr1: np.ndarray, arr2: np.ndarray) -> np.ndarray:
     Returns:
         np.ndarray: Array of distances between each element in arr2 and the closest element in arr1.
     """
-    distances = []
+    # Extract the x and y positions
+    arr1_xy = arr1[:, :2]
+    arr2_xy = arr2[:, :2]
 
-    for pos2 in arr2:
-        closest_distance = float("inf")
-        for pos1 in arr1:
-            distance = np.linalg.norm(pos2[:2] - pos1[:2])
-            if distance < closest_distance:
-                closest_distance = distance
-        distances.append(closest_distance)
+    # Calculate the squared Euclidean distances
+    distances = np.linalg.norm(
+        arr2_xy[:, np.newaxis, :] - arr1_xy[np.newaxis, :, :], axis=2
+    )
 
-    return np.array(distances)
+    # Find the minimum distances for each element in arr2
+    closest_distances = np.min(distances, axis=1)
+
+    return closest_distances
 
 
 def get_average_error(values: np.array) -> float:
