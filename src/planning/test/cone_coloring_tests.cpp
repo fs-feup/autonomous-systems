@@ -50,8 +50,8 @@ TEST(ConeColoring, place_first_cones1) {
   double exponent_1 = 1.0;
   double exponent_2 = 1.0;
   double cost_max = 5000.0;
-  auto config =
-      ConeColoringConfig(gain_angle, gain_distance, gain_ncones, exponent_1, exponent_2, cost_max);
+  auto config = ConeColoringConfig(gain_angle, gain_distance, gain_ncones, exponent_1, exponent_2,
+                                   cost_max, true);
   auto cone_coloring = ConeColoring(config);
   auto initial_car_pose = Pose(30.0, 15.0, 0);
   std::vector<common_lib::structures::Cone> blue_cones;
@@ -88,8 +88,8 @@ TEST(ConeColoring, place_first_cones2) {
   double exponent_1 = 1.0;
   double exponent_2 = 1.0;
   double cost_max = 5000.0;
-  auto config =
-      ConeColoringConfig(gain_angle, gain_distance, gain_ncones, exponent_1, exponent_2, cost_max);
+  auto config = ConeColoringConfig(gain_angle, gain_distance, gain_ncones, exponent_1, exponent_2,
+                                   cost_max, true);
   auto cone_coloring = ConeColoring(config);
   auto initial_car_pose = Pose(30.0, 15.0, 3.1416);
   std::vector<common_lib::structures::Cone> blue_cones;
@@ -128,8 +128,8 @@ TEST(ConeColoring, fullconecoloring1) {
   auto track = cone_coloring.color_cones(track_cones, initial_car_pose);
 
   test_cone_coloring(track, c_left, c_right, inc_left, inc_right);
-  EXPECT_EQ(c_left, 11);
-  EXPECT_EQ(c_right, 12);
+  EXPECT_EQ(c_left, 12);
+  EXPECT_EQ(c_right, 13);
   EXPECT_EQ(inc_left, 0);
   EXPECT_EQ(inc_right, 1);
 }

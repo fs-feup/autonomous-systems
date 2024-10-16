@@ -55,6 +55,8 @@ std::tuple<Position, int, double> PointSolver::update_closest_point(
       closest_point_velocity = pathpoint_array[i].v;
     }
   }
+  RCLCPP_INFO(rclcpp::get_logger("control"), "Closest point id: %d; number: %i", closest_point_id,
+              pathpoint_array.size());
   return std::make_tuple(closest_point, closest_point_id, closest_point_velocity);
 }
 

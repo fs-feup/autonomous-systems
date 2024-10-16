@@ -13,6 +13,7 @@ Planning::Planning(const PlanningParameters &params)
   cone_coloring_ = ConeColoring(planning_config_.cone_coloring_);
   outliers_ = Outliers(planning_config_.outliers_);
   path_calculation_ = PathCalculation(planning_config_.path_calculation_);
+  path_search = PathSearch(planning_config_.path_search_);
   path_smoothing_ = PathSmoothing(planning_config_.smoothing_);
 
   // Control Publisher
@@ -79,6 +80,7 @@ void Planning::run_planning_algorithms() {
   RCLCPP_DEBUG(rclcpp::get_logger("planning"), "Running Planning Algorithms");
   if (this->cone_array_.empty()) {
     publish_track_points({});
+    RCLCPP_DEBUG(rclcpp::get_logger("planning"), "No cones received");
     return;
   }
 
@@ -87,7 +89,7 @@ void Planning::run_planning_algorithms() {
   // Color the cones
   std::pair<std::vector<Cone>, std::vector<Cone>> colored_cones =
       cone_coloring_.color_cones(this->cone_array_, this->pose);
-  if (colored_cones.first.size() < 2 || colored_cones.second.size() < 2) {
+  if (colored_cones.first.size() < 2 && colored_cones.second.size() < 2) {
     RCLCPP_WARN(rclcpp::get_logger("planning"), "Not enough cones to plan: %d blue, %d yellow",
                 static_cast<int>(colored_cones.first.size()),
                 static_cast<int>(colored_cones.second.size()));
@@ -98,7 +100,7 @@ void Planning::run_planning_algorithms() {
   // Outliers dealt by approximating all cones
   std::pair<std::vector<Cone>, std::vector<Cone>> refined_colored_cones =
       outliers_.approximate_cones_with_spline(colored_cones);
-  if (refined_colored_cones.first.size() < 2 || refined_colored_cones.second.size() < 2) {
+  if (refined_colored_cones.first.size() < 2 && refined_colored_cones.second.size() < 2) {
     RCLCPP_WARN(rclcpp::get_logger("planning"),
                 "Not enough cones to plan after outlier removal: %d blue, %d yellow",
                 static_cast<int>(refined_colored_cones.first.size()),
@@ -123,8 +125,11 @@ void Planning::run_planning_algorithms() {
     return;
   }
 
+  // Path Search if not using cone coloring
+  std::vector<PathPoint> path_after_search = path_search.find_path(triangulations_path, this->pose);
+
   // Smooth the calculated path
-  std::vector<PathPoint> final_path = path_smoothing_.smooth_path(triangulations_path, this->pose);
+  std::vector<PathPoint> final_path = path_smoothing_.smooth_path(path_after_search, this->pose);
 
   if (final_path.size() < 10) {
     RCLCPP_WARN(rclcpp::get_logger("planning"), "Final path size: %d",

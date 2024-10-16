@@ -21,6 +21,7 @@
 #include "planning/cone_coloring.hpp"
 #include "planning/outliers.hpp"
 #include "planning/path_calculation.hpp"
+#include "planning/path_search.hpp"
 #include "planning/smoothing.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
 #include "std_msgs/msg/float64.hpp"
@@ -48,6 +49,7 @@ class Planning : public rclcpp::Node {
   ConeColoring cone_coloring_;
   Outliers outliers_;
   PathCalculation path_calculation_;
+  PathSearch path_search;
   PathSmoothing path_smoothing_;
   double desired_velocity_;
 
