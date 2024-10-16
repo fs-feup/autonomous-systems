@@ -25,17 +25,17 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "pc_max_range",
                 description="Point cloud filtering based on distance (m)",
-                default_value="15.0",
+                default_value="30.0",
             ),
             DeclareLaunchArgument(
                 "clustering_n_neighbours",
                 description="Number of neighbours for Clustering algorithm",
-                default_value="3",
+                default_value="1",
             ),
             DeclareLaunchArgument(
                 "clustering_epsilon",
                 description="Epsilon for Clustering algorithm",
-                default_value="1.5",
+                default_value="0.3",
             ),
             DeclareLaunchArgument(
                 "horizontal_resolution",
@@ -55,7 +55,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "ground_removal",
                 description="Ground Removal algorithm",
-                default_value="grid_ransac",
+                default_value="ransac",
             ),
             DeclareLaunchArgument(
                 "n_angular_grids",
@@ -95,48 +95,48 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "min_height",
                 description="Minimum height of a cluster to be considered a cone",
-                default_value="0.1",
+                default_value="-100.0",
             ),
             DeclareLaunchArgument(
                 "max_height",
                 description="Maximum height of a cluster to be considered a cone",
-                default_value="0.55",
+                default_value="100.0",
             ),
             DeclareLaunchArgument(
                 "min_xoy",
                 description="Minimum xOy plane deviation",
-                default_value="0.0",
+                default_value="-100.0",
             ),
             DeclareLaunchArgument(
                 "max_xoy",
                 description="Maximum xOy plane deviation",
-                default_value="0.3",
+                default_value="100.0",
             ),
             DeclareLaunchArgument(
-                "min_z", description="Minimum z axis deviation", default_value="0.00001"
+                "min_z", description="Minimum z axis deviation", default_value="-100.0"
             ),
             DeclareLaunchArgument(
-                "max_z", description="Maximum z axis deviation", default_value="0.6"
+                "max_z", description="Maximum z axis deviation", default_value="100.0"
             ),
             DeclareLaunchArgument(
                 "min_z_score_x",
                 description="Minimum z score on cones distribution (x)",
-                default_value="0.45",
+                default_value="-100.0",
             ),
             DeclareLaunchArgument(
                 "max_z_score_x",
                 description="Maximum z score on cones distribution (x)",
-                default_value="1.55",
+                default_value="100.0",
             ),
             DeclareLaunchArgument(
                 "min_z_score_y",
                 description="Minimum z score on cones distribution (y)",
-                default_value="0.45",
+                default_value="-100.0",
             ),
             DeclareLaunchArgument(
                 "max_z_score_y",
                 description="Minimum z score on cones distribution (y)",
-                default_value="1.55",
+                default_value="100.0",
             ),
             Node(
                 package="perception",
