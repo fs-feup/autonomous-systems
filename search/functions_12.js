@@ -34,5 +34,5 @@ var searchData=
   ['track_5fcallback_31',['track_callback',['../db/d68/class_pac_sim_adapter.html#a369c9138f1446127e8f28e5b54242577',1,'PacSimAdapter']]],
   ['track_5ffrom_5ffile_32',['track_from_file',['../d0/d09/planning_2test_2test__utils_2utils_8cpp.html#ae4770494f4382a6811df453c4e3c5c6b',1,'track_from_file(const std::string &amp;path):&#160;utils.cpp'],['../d6/dab/planning_2test_2test__utils_2utils_8hpp.html#ae4770494f4382a6811df453c4e3c5c6b',1,'track_from_file(const std::string &amp;path):&#160;utils.cpp']]],
   ['track_5fmap_5fcallback_33',['track_map_callback',['../d9/db5/class_planning.html#ab04bd1f3fa9458e5a1360cfabacc56a7',1,'Planning']]],
-  ['try_5fto_5fcolor_5fnext_5fcone_34',['try_to_color_next_cone',['../dd/d52/class_cone_coloring.html#a0bbe019de1d5378fd43bd4e2770443af',1,'ConeColoring']]]
+  ['try_5fto_5fcolor_5fnext_5fcone_34',['try_to_color_next_cone',['../dd/d52/class_cone_coloring.html#ad5fa063af400585b82f1320a756fc4a4',1,'ConeColoring']]]
 ];

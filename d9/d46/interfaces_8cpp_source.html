@@ -155,14 +155,15 @@ $(document).ready(function(){initNavTree('d9/d46/interfaces_8cpp_source.html','.
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordflow">if</span> (cone.position.x == 0 &amp;&amp; cone.position.y == 0) {</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>      RCLCPP_WARN(rclcpp::get_logger(<span class="stringliteral">&quot;rclcpp&quot;</span>), <span class="stringliteral">&quot;Cone at (0,0)&quot;</span>);</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    }</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <a class="code hl_struct" href="../../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html">common_lib::structures::Cone</a> new_cone = <a class="code hl_struct" href="../../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html">common_lib::structures::Cone</a>(<span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(cone.position.x), <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(cone.position.y));</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    cone_array.push_back(new_cone);</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>  }</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  <span class="keywordflow">return</span> cone_array;</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>}</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <a class="code hl_struct" href="../../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html">common_lib::structures::Cone</a> new_cone = <a class="code hl_struct" href="../../d6/dd0/structcommon__lib_1_1structures_1_1_cone.html">common_lib::structures::Cone</a>(</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(cone.position.x), <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(cone.position.y));</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    cone_array.push_back(new_cone);</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  }</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>  <span class="keywordflow">return</span> cone_array;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>}</div>
 </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>}  <span class="comment">// namespace common_lib::communication</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>}  <span class="comment">// namespace common_lib::communication</span></div>
 <div class="ttc" id="ainterfaces_8hpp_html"><div class="ttname"><a href="../../d1/d1b/interfaces_8hpp.html">interfaces.hpp</a></div></div>
 <div class="ttc" id="anamespacecommon__lib_1_1communication_html"><div class="ttname"><a href="../../d1/dd0/namespacecommon__lib_1_1communication.html">common_lib::communication</a></div><div class="ttdef"><b>Definition</b> <a href="../../d1/d1b/interfaces_8hpp_source.html#l00012">interfaces.hpp:12</a></div></div>
 <div class="ttc" id="anamespacecommon__lib_1_1communication_html_a72d8d8f96d0fecb170617070d8a1a0a9"><div class="ttname"><a href="../../d1/dd0/namespacecommon__lib_1_1communication.html#a72d8d8f96d0fecb170617070d8a1a0a9">common_lib::communication::path_point_array_from_ci_vector</a></div><div class="ttdeci">std::vector&lt; common_lib::structures::PathPoint &gt; path_point_array_from_ci_vector(const custom_interfaces::msg::PathPointArray &amp;path_point_array)</div><div class="ttdoc">Convert from custom interfaces PathPointArray to vector of common_lib PathPoints.</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d46/interfaces_8cpp_source.html#l00005">interfaces.cpp:5</a></div></div>

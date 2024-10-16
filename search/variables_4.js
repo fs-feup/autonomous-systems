@@ -9,7 +9,7 @@ var searchData=
   ['dbscan_5ftime_6',['DBSCAN_time',['../d2/d36/struct_perception_execution_data.html#a29a0c681218dfb2b8fd32d7da6b7b3cf',1,'PerceptionExecutionData']]],
   ['debug_7',['debug',['../df/d91/namespacedashboard.html#a12b0373c1038d60f2e6f9fc52558211a',1,'dashboard']]],
   ['description_8',['description',['../dd/dc4/namespacesetup.html#aedf461ec52a946bda975938ba0b93ec0',1,'setup']]],
-  ['desired_5fvelocity_5f_9',['desired_velocity_',['../d2/deb/struct_planning_parameters.html#aa1886f95031889429fedcdafa22ce2b3',1,'PlanningParameters::desired_velocity_'],['../d9/db5/class_planning.html#af8099cf647e569a7bfb2eb6220754e93',1,'Planning::desired_velocity_']]],
+  ['desired_5fvelocity_5f_9',['desired_velocity_',['../d2/deb/struct_planning_parameters.html#a9160708bac609ffbb6ac4e3911f0a4e6',1,'PlanningParameters::desired_velocity_'],['../d9/db5/class_planning.html#af8099cf647e569a7bfb2eb6220754e93',1,'Planning::desired_velocity_']]],
   ['differentiator_5f_10',['differentiator_',['../d6/d5a/class_p_i_d.html#a5b80b0c5f3b2bea7a66f1d881d7d97ab',1,'PID']]],
   ['dist_5fcg_5f2_5frear_5faxis_11',['DIST_CG_2_REAR_AXIS',['../d2/da6/car__parameters_8hpp.html#a7b26123754d1a8572624cb977780b1a8',1,'car_parameters.hpp']]],
   ['dist_5fcg_5f2_5frear_5faxis_5f_12',['dist_cg_2_rear_axis_',['../d9/da5/class_point_solver.html#a5ae26697c29c779b29f6ce4a0d34702a',1,'PointSolver']]],

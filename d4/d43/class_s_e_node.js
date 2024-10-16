@@ -6,6 +6,8 @@ var class_s_e_node =
     [ "_perception_subscription_callback", "d4/d43/class_s_e_node.html#ae87a4d5f2baf38b9fb9a34a81b9149ad", null ],
     [ "_publish_map", "d4/d43/class_s_e_node.html#a6f3571b56b21f6d5fa7191fae4e21681", null ],
     [ "_publish_vehicle_state", "d4/d43/class_s_e_node.html#a97f9cce4985902a634cd878f973715e6", null ],
+    [ "_publish_vehicle_state_imu", "d4/d43/class_s_e_node.html#a7cf1958b75e734242d1085b4afd4e564", null ],
+    [ "_publish_vehicle_state_wss", "d4/d43/class_s_e_node.html#a200e0eb89123dcf1ee7bb76ceb993e91", null ],
     [ "_update_and_publish", "d4/d43/class_s_e_node.html#a807afbd7576422568395876d5c3e7296", null ],
     [ "_wheel_speeds_subscription_callback", "d4/d43/class_s_e_node.html#aa9238d6e6cdebf7becd57514858df115", null ],
     [ "odometry_to_velocities_transform", "d4/d43/class_s_e_node.html#a67ab0ad9ce3cdeaf588f5b3bffc3c40c", null ],
@@ -32,5 +34,7 @@ var class_s_e_node =
     [ "_use_simulated_perception_", "d4/d43/class_s_e_node.html#a0f4b86778834a75046d3c70ff03fc730", null ],
     [ "_vehicle_state_", "d4/d43/class_s_e_node.html#ac13d7c1fd2cbb2794a219d9c57393acb", null ],
     [ "_vehicle_state_publisher_", "d4/d43/class_s_e_node.html#aa21a62ca6c0497adf94d0eabf21b9cc7", null ],
+    [ "_vehicle_state_publisher_imu_", "d4/d43/class_s_e_node.html#af12ca6b664826040bc612addd425f38d", null ],
+    [ "_vehicle_state_publisher_wss_", "d4/d43/class_s_e_node.html#a4e72b779cfb5efddbc532697e79beb56", null ],
     [ "_visualization_map_publisher_", "d4/d43/class_s_e_node.html#a31b49644edb25845bf40b8b7773df8f7", null ]
 ];

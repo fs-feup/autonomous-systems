@@ -167,7 +167,7 @@ $(document).ready(function(){initNavTree('d7/d69/perception_2include_2perception
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>  params.<a class="code hl_variable" href="../../de/dda/struct_perception_parameters.html#af9731a63d992475cb64b755312789385">cone_differentiator_</a> = std::make_shared&lt;LeastSquaresDifferentiation&gt;();</div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>  params.<a class="code hl_variable" href="../../de/dda/struct_perception_parameters.html#a48040a3a5d03dde330b8205d2fbd2d38">cone_validators_</a> = {std::make_shared&lt;CylinderValidator&gt;(0.228, 0.325),</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>  params.<a class="code hl_variable" href="../../de/dda/struct_perception_parameters.html#a48040a3a5d03dde330b8205d2fbd2d38">cone_validators_</a> = {std::make_shared&lt;CylinderValidator&gt;(0.220, 0.325),</div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>                             std::make_shared&lt;HeightValidator&gt;(min_height, max_height),</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>                             std::make_shared&lt;DeviationValidator&gt;(min_xoy, max_xoy, min_z, max_z),</div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>                             std::make_shared&lt;ZScoreValidator&gt;(min_z_score_x, max_z_score_x, min_z_score_y, max_z_score_y)};</div>

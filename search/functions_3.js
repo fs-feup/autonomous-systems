@@ -14,7 +14,7 @@ var searchData=
   ['cleanup_5ftemp_5ffolder_11',['cleanup_temp_folder',['../df/d91/namespacedashboard.html#a1e6e5d5c2c545f230e2a03ff914b2720',1,'dashboard']]],
   ['cluster_12',['Cluster',['../d2/d23/class_cluster.html#ae654220b3efbcb24863d4f7c3d844a39',1,'Cluster']]],
   ['clustering_13',['clustering',['../df/d6a/class_d_b_s_c_a_n.html#a9a9605c898a26dbd557113419f4c8c6e',1,'DBSCAN::clustering()'],['../d9/d10/class_clustering.html#a17e55a061852f4a7d6bbb48c3dec5bba',1,'Clustering::clustering()']]],
-  ['color_5fcones_14',['color_cones',['../dd/d52/class_cone_coloring.html#ae156749a11928c8f3d103bfa8410ecf8',1,'ConeColoring']]],
+  ['color_5fcones_14',['color_cones',['../dd/d52/class_cone_coloring.html#a1baaec47531589cb1eb5c70d634782a5',1,'ConeColoring']]],
   ['compute_5fand_5fpublish_5fcontrol_15',['compute_and_publish_control',['../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a40a6162ec73ceaf713fba72c18805400',1,'evaluator::evaluator::Evaluator']]],
   ['compute_5fand_5fpublish_5fperception_16',['compute_and_publish_perception',['../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a02589b9f82e85fbc7d571fcb5ed7e73c',1,'evaluator::evaluator::Evaluator']]],
   ['compute_5fand_5fpublish_5fplanning_17',['compute_and_publish_planning',['../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#a84ad56f4c0fcb9f96c2f93e5b3a0d356',1,'evaluator::evaluator::Evaluator']]],

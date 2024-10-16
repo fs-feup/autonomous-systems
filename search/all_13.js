@@ -70,7 +70,7 @@ var searchData=
   ['transformations_2ehpp_67',['transformations.hpp',['../d8/d71/transformations_8hpp.html',1,'']]],
   ['translational_5fvelocity_68',['translational_velocity',['../db/d6d/struct_motion_update.html#a1049e83ac5ff8baa3e00a9f5d6a4d6ab',1,'MotionUpdate']]],
   ['triangulations_5fpub_5f_69',['triangulations_pub_',['../d9/db5/class_planning.html#ad03ff43ed2e57a012af8923600ba3198',1,'Planning']]],
-  ['try_5fto_5fcolor_5fnext_5fcone_70',['try_to_color_next_cone',['../dd/d52/class_cone_coloring.html#a0bbe019de1d5378fd43bd4e2770443af',1,'ConeColoring']]],
+  ['try_5fto_5fcolor_5fnext_5fcone_70',['try_to_color_next_cone',['../dd/d52/class_cone_coloring.html#ad5fa063af400585b82f1320a756fc4a4',1,'ConeColoring']]],
   ['turning_5fperiod_5f_71',['turning_period_',['../d4/d89/class_inspection_functions.html#aca817985d891221e4714e3417a6e1366',1,'InspectionFunctions']]],
   ['twodvector_72',['twodvector',['../d3/d6c/cone__coloring_8hpp.html#a4d132ec299e622f7503c224dcf8764cd',1,'TwoDVector:&#160;cone_coloring.hpp'],['../d2/d32/namespacecommon__lib_1_1maths.html#aa8a0bc2a3bbcbb54e11a8c1862cab93a',1,'common_lib::maths::TwoDVector']]]
 ];

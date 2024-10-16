@@ -1,0 +1,5 @@
+<map id="SENode::_publish_vehicle_state_imu" name="SENode::_publish_vehicle_state_imu">
+<area shape="rect" id="Node000001" title="publishes the localization (&#39;vehicle_localization&#39;) to the topic vehicle_location" alt="" coords="234,5,405,46"/>
+<area shape="rect" id="Node000002" href="$d4/d43/class_s_e_node.html#a6e3d03aa2f2cbbf8c2ff425fdc274e2b" title="Function to be called everytime information is received from the IMU." alt="" coords="5,5,186,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="218,28,186,28,186,23,218,23"/>
+</map>
