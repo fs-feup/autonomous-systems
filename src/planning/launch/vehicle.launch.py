@@ -93,7 +93,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "pre_defined_velocity_planning",
                 description="A pre-defined velocity planning value",
-                default_value="1",
+                default_value="0.5",
             ),
             DeclareLaunchArgument(
                 "use_outlier_removal",
@@ -162,7 +162,7 @@ def generate_launch_description():
                         "pre_defined_velocity_planning": LaunchConfiguration(
                             "pre_defined_velocity_planning"
                         )
-                    }
+                    },
                     {"use_outlier_removal": LaunchConfiguration("use_outlier_removal")},
                     {"use_path_smoothing": LaunchConfiguration("use_path_smoothing")},
                 ],

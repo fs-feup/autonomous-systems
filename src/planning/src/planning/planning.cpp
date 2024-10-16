@@ -119,9 +119,9 @@ void Planning::run_planning_algorithms() {
   std::vector<PathPoint> triangulations_path =
       path_calculation_.process_delaunay_triangulations(refined_colored_cones);
   if (triangulations_path.size() < 2) {
-    RCLCPP_WARN(rclcpp::get_logger("planning"),
-                "Not enough cones to plan after triangulations: %d ",
-                static_cast<int>(triangulations_path.size()));
+    // RCLCPP_WARN(rclcpp::get_logger("planning"), "Not enough cones to plan after triangulations:
+    // %d",
+    //             static_cast<int>(triangulations_path.size()));
     publish_track_points({});
     return;
   }

@@ -15,7 +15,7 @@ def generate_launch_description():
             ),
             DeclareLaunchArgument(
                 "adapter",
-                description="Vehicle or Simulation mode (pacsim, fsds, eufs)",
+                description="Vehicle or Simulation mode (pacsim, vehicle, fsds, eufs)",
                 default_value="vehicle",
             ),
             DeclareLaunchArgument(
@@ -51,12 +51,12 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "pid_lim_min",
                 description="Minimum output value of Longitudinal Control",
-                default_value="-1",
+                default_value="-1.0",
             ),
             DeclareLaunchArgument(
                 "pid_lim_max",
                 description="Maximum output value of Longitudinal Control",
-                default_value="1",
+                default_value="1.0",
             ),
             DeclareLaunchArgument(
                 "pid_anti_windup",
@@ -66,7 +66,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "use_simulated_se",
                 description="Use Simulated State Estimation, that is, vehicle state from simulator (true/false)",
-                default_value="false",
+                default_value="true",
             ),
             Node(
                 package="control",
@@ -81,15 +81,6 @@ def generate_launch_description():
                     },
                     {"lookahead_gain": LaunchConfiguration("lookahead_gain")},
                     {"use_simulated_se": LaunchConfiguration("use_simulated_se")},
-                    {"pid_kp": LaunchConfiguration("pid_kp")},
-                    {"pid_ki": LaunchConfiguration("pid_ki")},
-                    {"pid_kd": LaunchConfiguration("pid_kd")},
-                    {"pid_tau": LaunchConfiguration("pid_tau")},
-                    {"pid_t": LaunchConfiguration("pid_t")},
-                    {"pid_lim_min": LaunchConfiguration("pid_lim_min")},
-                    {"pid_lim_max": LaunchConfiguration("pid_lim_max")},
-                    {"pid_anti_windup": LaunchConfiguration("pid_anti_windup")},
-                    {"use_simulated_se": LaunchConfiguration("use_simulated_se")}
                 ],
                 arguments=["--ros-args", "--log-level", "control:=info"],
             ),

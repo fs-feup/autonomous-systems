@@ -25,7 +25,7 @@ struct PlanningParameters {
   bool using_simulated_se_;
   bool use_outlier_removal_;
   bool use_path_smoothing_;
-  long double desired_velocity_;
+  double desired_velocity_;
   std::string map_frame_id_;
 };
 

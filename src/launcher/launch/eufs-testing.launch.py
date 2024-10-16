@@ -68,7 +68,6 @@ def generate_launch_description():
             ),
             perception_launch_description,
             se_launch_description,
-            # mocker_node_launch_description,
             evaluator_launch_description,
             planning_launch_description,
             control_launch_description,

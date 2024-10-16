@@ -8,8 +8,8 @@
 /**
  * @brief Struct containing observation data
  *
- * @param position
- * @param color
+ * @param position position of the observed landmark
+ * @param color color of the observed landmark
  */
 struct ObservationData {
   common_lib::structures::Position position;
@@ -40,7 +40,7 @@ public:
 
   /**
    * @brief Calculate expected observation from
-   * the state vector
+   * the state vector. Correponds to h in LaTeX documentation.
    *
    * @param expected_state
    * @param landmark_index index of the x variable of the landmark in the state
@@ -62,7 +62,7 @@ public:
 
   /**
    * @brief Calculate landmark position from
-   * observation
+   * observation. Translates from the car's frame to the map frame.
    *
    *
    * @param expected_state
@@ -80,7 +80,7 @@ public:
 
   /**
    * @brief Get the state to observation matrix
-   * of the observation model (H)
+   * of the observation model (H in LaTeX documentation)
    *
    * @param landmark_index index of the x variable of the landmark in the state
    * vector
