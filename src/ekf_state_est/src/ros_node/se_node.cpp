@@ -60,6 +60,12 @@ SENode::SENode() : Node("ekf_state_est") {
   }
   this->_vehicle_state_publisher_ = this->create_publisher<custom_interfaces::msg::VehicleState>(
       "/state_estimation/vehicle_state", 10);
+  this->_vehicle_state_publisher_wss_ =
+      this->create_publisher<custom_interfaces::msg::VehicleState>(
+          "/state_estimation/vehicle_state/wss", 10);
+  this->_vehicle_state_publisher_imu_ =
+      this->create_publisher<custom_interfaces::msg::VehicleState>(
+          "/state_estimation/vehicle_state/imu", 10);
   this->_map_publisher_ =
       this->create_publisher<custom_interfaces::msg::ConeArray>("/state_estimation/map", 10);
   this->_visualization_map_publisher_ =
@@ -147,7 +153,7 @@ void SENode::_imu_subscription_callback(const sensor_msgs::msg::Imu &imu_msg) {
   prediction_execution_time.data = (end_time - start_time).seconds() * 1000.0;
   this->_prediction_execution_time_publisher_->publish(prediction_execution_time);
 
-  this->_publish_vehicle_state();
+  this->_publish_vehicle_state_imu();
   this->_publish_map();
 }
 
@@ -182,7 +188,7 @@ void SENode::_wheel_speeds_subscription_callback(double rl_speed, double fl_spee
   prediction_execution_time.data = (end_time - start_time).seconds() * 1000.0;
   this->_prediction_execution_time_publisher_->publish(prediction_execution_time);
 
-  this->_publish_vehicle_state();
+  this->_publish_vehicle_state_wss();
   this->_publish_map();
 }
 /*---------------------- Publications --------------------*/
@@ -206,6 +212,48 @@ void SENode::_publish_vehicle_state() {
                message.position.x, message.position.y, message.theta, message.linear_velocity,
                message.angular_velocity);
   this->_vehicle_state_publisher_->publish(message);
+}
+
+void SENode::_publish_vehicle_state_wss() {
+  if (this->_vehicle_state_ == nullptr) {
+    RCLCPP_WARN(this->get_logger(), "PUB - Vehicle state object is null");
+    return;
+  }
+  auto message = custom_interfaces::msg::VehicleState();
+  message.position.x = this->_vehicle_state_->pose.position.x;
+  message.position.y = this->_vehicle_state_->pose.position.y;
+  message.theta = this->_vehicle_state_->pose.orientation;
+  double velocity_x = this->_vehicle_state_->velocity_x;
+  double velocity_y = this->_vehicle_state_->velocity_y;
+  message.linear_velocity = std::sqrt(velocity_x * velocity_x + velocity_y * velocity_y);
+  message.angular_velocity = this->_vehicle_state_->rotational_velocity;
+  message.header.stamp = this->get_clock()->now();
+
+  RCLCPP_DEBUG(this->get_logger(), "PUB - Pose: (%f, %f, %f); Velocities: (%f, %f)",
+               message.position.x, message.position.y, message.theta, message.linear_velocity,
+               message.angular_velocity);
+  this->_vehicle_state_publisher_wss_->publish(message);
+}
+
+void SENode::_publish_vehicle_state_imu() {
+  if (this->_vehicle_state_ == nullptr) {
+    RCLCPP_WARN(this->get_logger(), "PUB - Vehicle state object is null");
+    return;
+  }
+  auto message = custom_interfaces::msg::VehicleState();
+  message.position.x = this->_vehicle_state_->pose.position.x;
+  message.position.y = this->_vehicle_state_->pose.position.y;
+  message.theta = this->_vehicle_state_->pose.orientation;
+  double velocity_x = this->_vehicle_state_->velocity_x;
+  double velocity_y = this->_vehicle_state_->velocity_y;
+  message.linear_velocity = std::sqrt(velocity_x * velocity_x + velocity_y * velocity_y);
+  message.angular_velocity = this->_vehicle_state_->rotational_velocity;
+  message.header.stamp = this->get_clock()->now();
+
+  RCLCPP_DEBUG(this->get_logger(), "PUB - Pose: (%f, %f, %f); Velocities: (%f, %f)",
+               message.position.x, message.position.y, message.theta, message.linear_velocity,
+               message.angular_velocity);
+  this->_vehicle_state_publisher_imu_->publish(message);
 }
 
 void SENode::_publish_map() {

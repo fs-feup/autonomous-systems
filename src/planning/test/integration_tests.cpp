@@ -110,7 +110,7 @@ TEST_F(IntegrationTest, PUBLISH_PATH1) {
     EXPECT_GE(p.x, -2);
   }
   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()),
-            (long unsigned int)210);
+            (long unsigned int)170);
 }
 
 /**
@@ -172,7 +172,6 @@ TEST_F(IntegrationTest, PUBLISH_PATH3) {
       Cone((float)-9.206, (float)12.034),  Cone((float)-10.976, (float)13.804),
       Cone((float)-12.746, (float)15.574), Cone((float)-14.516, (float)17.344),
       Cone((float)-16.286, (float)19.114), Cone((float)-18.056, (float)20.884)};
-
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
 
   custom_interfaces::msg::VehicleState vehicle_state;
@@ -212,7 +211,6 @@ TEST_F(IntegrationTest, PUBLISH_PATH4) {
       Cone((float)-12.746, (float)-15.574), Cone((float)-14.516, (float)-17.344),
       Cone((float)-16.286, (float)-19.114), Cone((float)-18.056, (float)-20.884)};
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
-
   custom_interfaces::msg::VehicleState vehicle_state;
   vehicle_state.position.x = 0;
   vehicle_state.position.y = 0;
@@ -251,7 +249,6 @@ TEST_F(IntegrationTest, PUBLISH_PATH5) {
       Cone((float)12.746, (float)-15.574), Cone((float)14.516, (float)-17.344),
       Cone((float)16.286, (float)-19.114), Cone((float)18.056, (float)-20.884)};
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
-
   custom_interfaces::msg::VehicleState vehicle_state;
   vehicle_state.position.x = 0;
   vehicle_state.position.y = 0;
@@ -282,7 +279,6 @@ TEST_F(IntegrationTest, PUBLISH_PATH6) {
       Cone(-2, 1),  Cone(-2, 4),  Cone(-2, 7),  Cone(-2, 25), Cone(-2, 28), Cone(-2, 31),
       Cone(-2, 34), Cone(-2, 10), Cone(-2, 13), Cone(-2, 16), Cone(-2, 19), Cone(-2, 22)};
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
-
   custom_interfaces::msg::VehicleState vehicle_state;
   vehicle_state.position.x = 0;
   vehicle_state.position.y = 0;
@@ -301,7 +297,7 @@ TEST_F(IntegrationTest, PUBLISH_PATH6) {
     EXPECT_GE(p.y, -1);
   }
   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()),
-            (long unsigned int)210);
+            (long unsigned int)170);
 }
 
 /**

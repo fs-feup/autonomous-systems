@@ -12,6 +12,9 @@
 std::vector<PathPoint> PathCalculation::process_delaunay_triangulations(
     std::pair<std::vector<Cone>, std::vector<Cone>> refined_cones) const {
   // merge left and right cones for next step
+  // RCLCPP_WARN(rclcpp::get_logger("planning"), "Refined cones: %d blue, %d yellow",
+  //            static_cast<int>(refined_cones.first.size()),
+  //            static_cast<int>(refined_cones.second.size()));
   std::vector<Cone> cones;
   cones.reserve(refined_cones.first.size() + refined_cones.second.size());
   cones.insert(cones.end(), refined_cones.first.begin(), refined_cones.first.end());

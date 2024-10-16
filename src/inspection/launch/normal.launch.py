@@ -40,7 +40,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "start_and_stop",
                 description="Normal mode or testing regenerative braking mode",
-                default_value="True",
+                default_value="False",
             ),
             Node(
                 package="inspection",

@@ -109,7 +109,7 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   pcl::fromROSMsg(*msg, *pcl_cloud);
 
   // Pass-trough Filter
-  fov_trimming(pcl_cloud, this->_pc_max_range_, -_fov_trim_, _fov_trim_, 5);
+  fov_trimming(pcl_cloud, this->_pc_max_range_, -_fov_trim_, _fov_trim_, 0);
 
   // Ground Removal
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
@@ -204,6 +204,10 @@ void Perception::fov_trimming(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, double
         std::atan2(point.y, point.x - center_x) * 180 / M_PI;  // get angle and convert in to degrees
 
     if (distance <= 0.5) {  // Ignore points from the vehicle
+      continue;
+    }
+
+    if (point.z >= -0.2){
       continue;
     }
 
