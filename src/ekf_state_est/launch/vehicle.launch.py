@@ -53,7 +53,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "use_simulated_perception",
                 description="Use simulated perception from simulator instead of Perception node",
-                default_value="True",
+                default_value="False",
             ),
             Node(
                 package="ekf_state_est",
