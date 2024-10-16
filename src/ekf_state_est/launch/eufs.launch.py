@@ -23,12 +23,12 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "imu_noise",
                 description="Noise value for IMU (sigma)",
-                default_value="0.001",
+                default_value="0.0064",
             ),
             DeclareLaunchArgument(
                 "observation_noise",
                 description="Noise value for observations (sigma)",
-                default_value="0.25",
+                default_value="0.03",
             ),
             DeclareLaunchArgument(
                 "motion_model",
