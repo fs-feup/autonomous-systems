@@ -76,6 +76,75 @@ Eigen::Vector2f ObservationModel::observation_model(const Eigen::VectorXf &expec
   return Eigen::Vector2f(observation(0), observation(1));
 }
 
+Eigen::VectorXf ObservationModel::format_observation(
+    const std::vector<Eigen::Vector2f> &observations) const {
+  Eigen::VectorXf formatted_observation(2 * observations.size());
+  for (int i = 0; i < static_cast<int>(observations.size()); i++) {
+    formatted_observation(2 * i) = observations[i](0);
+    formatted_observation(2 * i + 1) = observations[i](1);
+  }
+  return formatted_observation;
+}
+
+Eigen::VectorXf ObservationModel::observation_model_n_landmarks(
+    const Eigen::VectorXf &current_state, const std::vector<int> &matched_ids) const {
+  auto number_of_landmarks = static_cast<int>(matched_ids.size());
+  Eigen::VectorXf expected_observation(2 * number_of_landmarks);
+  // transformation matrix is the matrix that transforms the landmark position from the world
+  // coordinate system to the robot coordinate system for future comparison with the observed
+  // landmark position
+
+  double cossine_minus_theta = cos(-current_state(2));
+  double sine_minus_theta = sin(-current_state(2));
+
+  double car_shift_x =
+      -current_state(0) * cossine_minus_theta + current_state(1) * sine_minus_theta;
+  double car_shift_y =
+      -current_state(0) * sine_minus_theta - current_state(1) * cossine_minus_theta;
+
+  unsigned int j = 0;
+  for (unsigned int i : matched_ids) {
+    expected_observation(2 * j) = cossine_minus_theta * current_state(i) -
+                                  sine_minus_theta * current_state(i + 1) + car_shift_x;
+    expected_observation(2 * j + 1) = sine_minus_theta * current_state(i) +
+                                      cossine_minus_theta * current_state(i + 1) + car_shift_y;
+    j++;
+  }
+
+  return expected_observation;
+}
+
+Eigen::MatrixXf ObservationModel::get_jacobian_of_observation_model(
+    const Eigen::VectorXf &current_state, const std::vector<int> &matched_ids) const {
+  int number_of_landmarks = matched_ids.size();
+  double cossine_minus_theta = cos(-current_state(2));
+  double sine_minus_theta = sin(-current_state(2));
+  Eigen::MatrixXf jacobian = Eigen::MatrixXf::Zero(number_of_landmarks * 2, current_state.size());
+  for (int i = 0; i < number_of_landmarks; i++) {
+    jacobian(2 * i, 0) = -cossine_minus_theta;
+    jacobian(2 * i + 1, 0) = -sine_minus_theta;
+  }
+  for (int i = 0; i < number_of_landmarks; i++) {
+    jacobian(2 * i, 1) = sine_minus_theta;
+    jacobian(2 * i + 1, 1) = -cossine_minus_theta;
+  }
+  for (int i = 0; i < number_of_landmarks; i++) {
+    jacobian(2 * i, 2) =
+        sine_minus_theta * (current_state(matched_ids[i]) - current_state(0)) +
+        cossine_minus_theta * (current_state(matched_ids[i] + 1) - current_state(1));
+    jacobian(2 * i + 1, 2) =
+        -cossine_minus_theta * (current_state(matched_ids[i]) - current_state(0)) +
+        sine_minus_theta * (current_state(matched_ids[i] + 1) - current_state(1));
+  }
+  for (int i = 0; i < number_of_landmarks; i++) {
+    jacobian(2 * i, matched_ids[i]) = cossine_minus_theta;
+    jacobian(2 * i, matched_ids[i] + 1) = -sine_minus_theta;
+    jacobian(2 * i + 1, matched_ids[i]) = sine_minus_theta;
+    jacobian(2 * i + 1, matched_ids[i] + 1) = cossine_minus_theta;
+  }
+  return jacobian;
+}
+
 Eigen::MatrixXf ObservationModel::get_state_to_observation_matrix(
     const Eigen::VectorXf &expected_state, const unsigned int landmark_index,
     const unsigned int state_size) const {
@@ -135,6 +204,12 @@ Eigen::MatrixXf ObservationModel::get_state_to_observation_matrix(
 
 Eigen::MatrixXf ObservationModel::get_observation_noise_covariance_matrix() const {
   return this->_observation_noise_covariance_matrix_;
+}
+
+Eigen::MatrixXf ObservationModel::get_full_observation_noise_covariance_matrix(
+    const int observation_size) const {
+  double noise_value = this->get_observation_noise_covariance_matrix()(0, 0);
+  return Eigen::MatrixXf::Identity(observation_size, observation_size) * noise_value;
 }
 
 Eigen::MatrixXf ObservationModel::create_observation_noise_covariance_matrix(float noise_value) {
