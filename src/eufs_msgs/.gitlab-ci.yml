@@ -1,0 +1,6 @@
+variables: 
+  DEPENDENCIES:
+
+include:
+  - project: 'eufs/infrastructure_group/eufs_ci'
+    file: /templates/pipelines/ci-ros-package-pipeline.gitlab-ci.yml
