@@ -68,6 +68,10 @@ PerceptionParameters load_adapter_parameters() {
                                std::make_shared<ZScoreValidator>(min_z_score_x, max_z_score_x,
     min_z_score_y, max_z_score_y)};
 
+  if (params.adapter_ == "eufs"){
+    params.cone_validators_ = {};
+  }
+
   params.distance_predict_ =
       std::make_shared<DistancePredict>(vertical_resolution, horizontal_resolution);
 
