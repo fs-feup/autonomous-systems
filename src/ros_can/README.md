@@ -4,7 +4,7 @@ This node makes the interface between the AS ROS system and the CAN bus of the p
 It has the main mission of translating the information doubling as a wall of defence, employing safety measures such as limiting control commands.
 
 <p align="center">
-  <img src="../..//assets/roscan.drawio.png" alt="Description"/>
+  <img src="../../docs/diagrams/ros_can/roscan.drawio.png" alt="Description"/>
 </p>
 
 
