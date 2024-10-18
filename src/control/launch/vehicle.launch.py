@@ -82,7 +82,7 @@ def generate_launch_description():
                     {"lookahead_gain": LaunchConfiguration("lookahead_gain")},
                     {"use_simulated_se": LaunchConfiguration("use_simulated_se")},
                 ],
-                arguments=["--ros-args", "--log-level", "control:=info"],
+                arguments=["--ros-args", "--log-level", "control:=debug"],
             ),
         ]
     )

@@ -51,7 +51,12 @@ Control::Control(const ControlParameters& params)
 
 // This function is called when a new pose is received
 void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicle_state_msg) {
-  if (!go_signal_) return;
+  if (!go_signal_) {
+    RCLCPP_INFO(rclcpp::get_logger("control"),
+                 "Go Signal Not received");
+
+    return;
+  }
 
   rclcpp::Time start = this->now();
 
