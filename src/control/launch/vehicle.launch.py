@@ -66,7 +66,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "use_simulated_se",
                 description="Use Simulated State Estimation, that is, vehicle state from simulator (true/false)",
-                default_value="true",
+                default_value="false",
             ),
             Node(
                 package="control",
@@ -82,7 +82,7 @@ def generate_launch_description():
                     {"lookahead_gain": LaunchConfiguration("lookahead_gain")},
                     {"use_simulated_se": LaunchConfiguration("use_simulated_se")},
                 ],
-                arguments=["--ros-args", "--log-level", "control:=info"],
+                arguments=["--ros-args", "--log-level", "control:=debug"],
             ),
         ]
     )

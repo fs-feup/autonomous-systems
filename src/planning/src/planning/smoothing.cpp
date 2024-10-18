@@ -3,7 +3,7 @@
 void PathSmoothing::order_path(std::vector<PathPoint>& unord_path, const Pose& car_pose) const {
   std::unordered_set<PathPoint> unord_set(unord_path.begin(), unord_path.end());
 
-  PathPoint current_point = PathPoint(car_pose.position, 1);
+  PathPoint current_point = PathPoint(0, 0, 1);
   int index = 0;
 
   while (!unord_set.empty()) {
@@ -57,7 +57,7 @@ std::vector<PathPoint> PathSmoothing::smooth_path(std::vector<PathPoint>& unorde
   order_path(unordered_path, car_pose);
   if (this->config_.use_path_smoothing_) {
     return fit_spline(this->config_.precision_, this->config_.order_, this->config_.coeffs_ratio_,
-                    unordered_path);
+                      unordered_path);
   } else {
     return unordered_path;
   }

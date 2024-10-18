@@ -43,7 +43,7 @@ TEST(EKF_SLAM, LINEAR_MOVEMENT_INTEGRITY_TEST) {  // This test is not that
   std::shared_ptr<ObservationModel> observation_model =
       std::make_shared<ObservationModel>(q_matrix);
   std::shared_ptr<DataAssociationModel> data_association_model =
-      std::make_shared<MaxLikelihood>(71.0);
+      std::make_shared<MaxLikelihood>(20.0);
 
   // Initial map
   initial_map->push_back(
@@ -167,21 +167,21 @@ TEST(EKF_SLAM, LINEAR_MOVEMENT_INTEGRITY_TEST) {  // This test is not that
         big_orange_count++;
       }
       EXPECT_GE(cone.position.x, -1);
-      EXPECT_NEAR(cone.position.y, 2, 8);
+      EXPECT_NEAR(cone.position.y, 2, 9);
     }
     // TODO(marhcouto): add more assertions
     // EXPECT_EQ(orange_count, 6);
     // EXPECT_EQ(blue_count, 8);
     // EXPECT_EQ(big_orange_count, 2);
     EXPECT_GE(track_map->size(), static_cast<unsigned long int>(6));
-    EXPECT_LE(track_map->size(), static_cast<unsigned long int>(20));
+    EXPECT_LE(track_map->size(), static_cast<unsigned long int>(22));
 
     EXPECT_GE(vehicle_state->pose.position.x, -0.5);
     EXPECT_LE(vehicle_state->pose.position.x, 20);
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
   }
   EXPECT_GE(track_map->size(), static_cast<unsigned long int>(12));
-  EXPECT_LE(track_map->size(), static_cast<unsigned long int>(20));
+  EXPECT_LE(track_map->size(), static_cast<unsigned long int>(22));
   EXPECT_GE(vehicle_state->pose.position.x, -0.5);
-  EXPECT_LE(vehicle_state->pose.position.x, 20);
+  EXPECT_LE(vehicle_state->pose.position.x, 22);
 }

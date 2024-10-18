@@ -50,6 +50,16 @@ public:
   Eigen::Vector2f observation_model(const Eigen::VectorXf &expected_state,
                                     const unsigned int landmark_index) const;
 
+  Eigen::VectorXf observation_model_n_landmarks(const Eigen::VectorXf &current_state,
+                                                const std::vector<int> &matched_ids) const;
+
+  Eigen::VectorXf format_observation(const std::vector<Eigen::Vector2f> &observations) const;
+
+  Eigen::MatrixXf get_jacobian_of_observation_model(const Eigen::VectorXf &current_state,
+                                                    const std::vector<int> &matched_ids) const;
+
+  Eigen::MatrixXf get_full_observation_noise_covariance_matrix(const int observation_size) const;
+
   /**
    * @brief Calculate landmark position from
    * observation. Translates from the car's frame to the map frame.

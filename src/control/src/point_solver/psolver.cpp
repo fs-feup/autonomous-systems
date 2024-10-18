@@ -62,7 +62,7 @@ std::tuple<Position, double, bool> PointSolver::update_lookahead_point(
     const std::vector<custom_interfaces::msg::PathPoint> &pathpoint_array,
     int closest_point_id) const {
   Position rear_axis_point = this->vehicle_pose_.rear_axis_;
-  double ld = this->k_ * std::max(this->vehicle_pose_.velocity_, 2.0);
+  double ld = this->k_ * std::max(this->vehicle_pose_.velocity_, 3.0);
   RCLCPP_DEBUG(rclcpp::get_logger("control"), "Current ld: %f", ld);
 
   for (size_t i = 0; i < pathpoint_array.size(); i++) {
@@ -139,7 +139,7 @@ std::tuple<Position, double, bool> PointSolver::update_lookahead_point(
     return std::make_tuple(Position(result_x, result_y),
                            (pathpoint_array[index_a].v + pathpoint_array[index_b].v) / 2.0, false);
   }
-  RCLCPP_WARN(rclcpp::get_logger("control"), "No lookahead point found");
+  RCLCPP_DEBUG(rclcpp::get_logger("control"), "No lookahead point found");
   return std::make_tuple(Position(), 0.0, true);
 }
 

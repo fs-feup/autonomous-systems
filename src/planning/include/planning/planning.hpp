@@ -50,6 +50,7 @@ class Planning : public rclcpp::Node {
   PathCalculation path_calculation_;
   PathSmoothing path_smoothing_;
   double desired_velocity_;
+  double initial_car_orientation_;
 
   std::map<common_lib::competition_logic::Mission, std::string> predictive_paths_ = {
       {common_lib::competition_logic::Mission::ACCELERATION, "/events/acceleration.txt"},

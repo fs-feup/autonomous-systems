@@ -125,7 +125,6 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   std::vector<Cluster> clusters;
   _clustering_->clustering(ground_removed_cloud, &clusters);
 
-
   // Z-scores calculation for future validations
   Cluster::set_z_scores(clusters);
 
@@ -134,7 +133,7 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
 
   for (auto cluster : clusters) {
     bool is_valid = true;
-    for (auto validator : _cone_validators_){
+    for (auto validator : _cone_validators_) {
       is_valid = is_valid && validator->coneValidator(&cluster, _ground_plane_);
 
       // Break the cycle to avoid wasting time on invalid clusters
@@ -157,11 +156,9 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
                pcl_cloud->points.size());
   RCLCPP_DEBUG(this->get_logger(), "Point Cloud After Ground Removal: %ld points",
                ground_removed_cloud->points.size());
-  RCLCPP_DEBUG(this->get_logger(), "Point Cloud after Clustering: %ld clusters",
-               clusters.size());
+  RCLCPP_DEBUG(this->get_logger(), "Point Cloud after Clustering: %ld clusters", clusters.size());
   RCLCPP_DEBUG(this->get_logger(), "Point Cloud after Validations: %ld clusters",
                filtered_clusters.size());
-  
 
   publish_cones(&filtered_clusters);
 }
@@ -193,17 +190,21 @@ void Perception::fov_trimming(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, double
                               double min_angle, double max_angle, double x_discount) {
   pcl::PointCloud<pcl::PointXYZI>::Ptr trimmed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
 
-  double center_x = -x_discount; // assuming (0, 0) as the center
+  double center_x = -x_discount;  // assuming (0, 0) as the center
 
   for (const auto& point : cloud->points) {
     // Calculate distance from the origin (assuming the sensor is at the origin)
     double distance = std::sqrt((point.x - center_x) * (point.x - center_x) + point.y * point.y);
 
     // Calculate the angle in the XY plane
-    double angle =
-        std::atan2(point.y, point.x - center_x) * 180 / M_PI;  // get angle and convert in to degrees
+    double angle = std::atan2(point.y, point.x - center_x) * 180 /
+                   M_PI;  // get angle and convert in to degrees
 
-    if (distance <= 0.5) {  // Ignore points from the vehicle
+    if (distance <= 1.0) {  // Ignore points from the vehicle
+      continue;
+    }
+
+    if (point.z >= -0.1 && point.z <= 0.1) {  // Ignore points on the ground
       continue;
     }
 
