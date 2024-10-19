@@ -22,7 +22,7 @@ void PathSmoothing::order_path(std::vector<PathPoint>& unord_path, const Pose& c
                                   point.position.x - current_point.position.x);
 
         // Check if next point is in the same direction range or side as the vehicle orientation
-        double angle_diff = fmod(path_angle + 2 * M_PI, 2 * M_PI);
+        double angle_diff = fmod(path_angle - car_pose.orientation + 2 * M_PI, 2 * M_PI);
         if (abs(angle_diff) > M_PI / 2 && abs(angle_diff) < 3 * M_PI / 2) {
           continue;
         }

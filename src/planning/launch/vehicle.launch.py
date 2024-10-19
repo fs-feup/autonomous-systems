@@ -38,7 +38,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "cost_max",
                 description="Maximum allowed cost to place a cone in the cone coloring cost function",
-                default_value="35.0",
+                default_value="30.0",
             ),
             DeclareLaunchArgument(
                 "outliers_spline_order",
