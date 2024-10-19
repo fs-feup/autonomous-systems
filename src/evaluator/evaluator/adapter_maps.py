@@ -12,7 +12,7 @@ ADAPTER_POINT_CLOUD_TOPIC_DICTIONARY: dict[str, str] = {
     "pacsim": "/no/topic",
     "eufs": "/velodyne_points",
     "vehicle_preprocessed": "/rslidar_points/pre_processed",
-    "onground": "/rslidar_points/pre_processed",
+    "onground": "/rslidar_points",
 }
 ADAPTER_POINT_CLOUD_TOPIC_QOS_DICTIONARY: dict[str, rclpy.qos.QoSProfile] = {
     "fsds": rclpy.qos.QoSProfile(depth=10),
