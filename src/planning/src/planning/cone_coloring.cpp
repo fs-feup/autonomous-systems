@@ -181,6 +181,7 @@ bool ConeColoring::try_to_color_next_cone(
                        static_cast<double>(n_colored_cones) / static_cast<double>(n_input_cones));
     // TODO: put this value as a parameter
     if (cost < min_cost && cone.position.euclidean_distance(last_cone.position) < 7 &&
+        cone.position.euclidean_distance(last_cone.position) > 0.8 &&
         cost < this->config_.max_cost_) {
       min_cost = cost;
       cheapest_cone = cone;

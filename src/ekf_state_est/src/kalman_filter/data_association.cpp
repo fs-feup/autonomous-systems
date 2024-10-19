@@ -16,7 +16,7 @@ float DataAssociationModel::get_max_landmark_distance() const {
 }
 
 float MaxLikelihood::association_gate_ = 4.991f;  // Default value, can be overridden
-float MaxLikelihood::new_landmark_gate_ = 20.0f;
+float MaxLikelihood::new_landmark_gate_ = 26.0f;
 MaxLikelihood::MaxLikelihood(float max_landmark_distance)
     : DataAssociationModel(max_landmark_distance) {
   if (max_landmark_distance < 1 || association_gate_ < 0 || new_landmark_gate_ < 0) {
