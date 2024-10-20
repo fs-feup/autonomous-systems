@@ -4,6 +4,7 @@ var class_extended_kalman_filter =
     [ "add_motion_model", "da/da6/class_extended_kalman_filter.html#aef214739221bfc1addce6caa1709af45", null ],
     [ "augment_state", "da/da6/class_extended_kalman_filter.html#a6efcb7b428704e3d0938b9cccc1e5ee5", null ],
     [ "correct_with_matched_ids", "da/da6/class_extended_kalman_filter.html#aee1eb85208a6f26cc844eef54ec90b23", null ],
+    [ "correct_with_matched_ids_full_state", "da/da6/class_extended_kalman_filter.html#a60cb014dc4d591ec8e47f3086bca35e6", null ],
     [ "correction_step", "da/da6/class_extended_kalman_filter.html#a0677b8f535ac4b4c59c161d99b9b028b", null ],
     [ "get_covariance", "da/da6/class_extended_kalman_filter.html#a131c93e908354173fd6868235d63fc9c", null ],
     [ "get_kalman_gain", "da/da6/class_extended_kalman_filter.html#a3595dd28ba06e12edc4c3db689145845", null ],

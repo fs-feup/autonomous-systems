@@ -109,7 +109,7 @@ Collaboration diagram for ObservationModel:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d9/d67/class_observation_model__coll__graph.png" border="0" usemap="#a_observation_model_coll__map" alt="Collaboration graph"/></div>
 <map name="a_observation_model_coll__map" id="a_observation_model_coll__map">
-<area shape="rect" title="Observation Model class compiled of functions for observation model." alt="" coords="5,5,187,284"/>
+<area shape="rect" title="Observation Model class compiled of functions for observation model." alt="" coords="5,5,193,408"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -121,6 +121,14 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0f8d3fc26c59869171ad60d08322d1d7" id="r_a0f8d3fc26c59869171ad60d08322d1d7"><td class="memItemLeft" align="right" valign="top">Eigen::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d64/class_observation_model.html#a0f8d3fc26c59869171ad60d08322d1d7">observation_model</a> (const Eigen::VectorXf &amp;expected_state, const unsigned int landmark_index) const</td></tr>
 <tr class="memdesc:a0f8d3fc26c59869171ad60d08322d1d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate expected observation from the state vector.  <br /></td></tr>
 <tr class="separator:a0f8d3fc26c59869171ad60d08322d1d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab51db04ce0d2bd44b65c2d28763f25ac" id="r_ab51db04ce0d2bd44b65c2d28763f25ac"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXf&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d64/class_observation_model.html#ab51db04ce0d2bd44b65c2d28763f25ac">observation_model_n_landmarks</a> (const Eigen::VectorXf &amp;current_state, const std::vector&lt; int &gt; &amp;matched_ids) const</td></tr>
+<tr class="separator:ab51db04ce0d2bd44b65c2d28763f25ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65a9e69a7de963525a2f1b2d88882694" id="r_a65a9e69a7de963525a2f1b2d88882694"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXf&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d64/class_observation_model.html#a65a9e69a7de963525a2f1b2d88882694">format_observation</a> (const std::vector&lt; Eigen::Vector2f &gt; &amp;observations) const</td></tr>
+<tr class="separator:a65a9e69a7de963525a2f1b2d88882694"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2c5085975610aeec3eff12c3a1de6ed" id="r_ae2c5085975610aeec3eff12c3a1de6ed"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXf&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d64/class_observation_model.html#ae2c5085975610aeec3eff12c3a1de6ed">get_jacobian_of_observation_model</a> (const Eigen::VectorXf &amp;current_state, const std::vector&lt; int &gt; &amp;matched_ids) const</td></tr>
+<tr class="separator:ae2c5085975610aeec3eff12c3a1de6ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18d5179a7ca11d8f4825a28cc01ccc33" id="r_a18d5179a7ca11d8f4825a28cc01ccc33"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXf&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d64/class_observation_model.html#a18d5179a7ca11d8f4825a28cc01ccc33">get_full_observation_noise_covariance_matrix</a> (const int observation_size) const</td></tr>
+<tr class="separator:a18d5179a7ca11d8f4825a28cc01ccc33"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1e57d72d1b32a2260c9dfc8d25bd802d" id="r_a1e57d72d1b32a2260c9dfc8d25bd802d"><td class="memItemLeft" align="right" valign="top">Eigen::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d64/class_observation_model.html#a1e57d72d1b32a2260c9dfc8d25bd802d">inverse_observation_model</a> (const Eigen::VectorXf &amp;expected_state, const <a class="el" href="../../d9/d90/struct_observation_data.html">ObservationData</a> &amp;observation_data) const</td></tr>
 <tr class="memdesc:a1e57d72d1b32a2260c9dfc8d25bd802d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate landmark position from observation.  <br /></td></tr>
 <tr class="separator:a1e57d72d1b32a2260c9dfc8d25bd802d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -216,7 +224,7 @@ Private Attributes</h2></td></tr>
 <p>Create a Q matrix from a given noise value. </p>
 <dl class="section return"><dt>Returns</dt><dd>Eigen::Matrix2f </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/d38/observation__models_8cpp_source.html#l00140">140</a> of file <a class="el" href="../../da/d38/observation__models_8cpp_source.html">observation_models.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/d38/observation__models_8cpp_source.html#l00215">215</a> of file <a class="el" href="../../da/d38/observation__models_8cpp_source.html">observation_models.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -225,6 +233,56 @@ Here is the caller graph for this function:</div>
 <area shape="rect" title="Create a Q matrix from a given noise value." alt="" coords="177,5,422,46"/>
 <area shape="rect" href="../../d4/d43/class_s_e_node.html#a5d61b6c80a21c02b29074e434cc6703b" title="Constructor of the main node, most things are received by launch parameter." alt="" coords="5,13,129,39"/>
 <area shape="poly" title=" " alt="" coords="161,28,129,28,129,23,161,23"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a65a9e69a7de963525a2f1b2d88882694" name="a65a9e69a7de963525a2f1b2d88882694"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65a9e69a7de963525a2f1b2d88882694">&#9670;&#160;</a></span>format_observation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::VectorXf ObservationModel::format_observation </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; Eigen::Vector2f &gt; &amp;&#160;</td>
+          <td class="paramname"><em>observations</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d38/observation__models_8cpp_source.html#l00079">79</a> of file <a class="el" href="../../da/d38/observation__models_8cpp_source.html">observation_models.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a18d5179a7ca11d8f4825a28cc01ccc33" name="a18d5179a7ca11d8f4825a28cc01ccc33"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18d5179a7ca11d8f4825a28cc01ccc33">&#9670;&#160;</a></span>get_full_observation_noise_covariance_matrix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::MatrixXf ObservationModel::get_full_observation_noise_covariance_matrix </td>
+          <td>(</td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>observation_size</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d38/observation__models_8cpp_source.html#l00209">209</a> of file <a class="el" href="../../da/d38/observation__models_8cpp_source.html">observation_models.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d7/d64/class_observation_model_a18d5179a7ca11d8f4825a28cc01ccc33_cgraph.png" border="0" usemap="#ad7/d64/class_observation_model_a18d5179a7ca11d8f4825a28cc01ccc33_cgraph" alt=""/></div>
+<map name="ad7/d64/class_observation_model_a18d5179a7ca11d8f4825a28cc01ccc33_cgraph" id="ad7/d64/class_observation_model_a18d5179a7ca11d8f4825a28cc01ccc33_cgraph">
+<area shape="rect" title=" " alt="" coords="5,5,163,61"/>
+<area shape="rect" href="../../d7/d64/class_observation_model.html#a97a9e71e7cee696be91a569eb65b9df9" title="Get the observation noise covariance matrix (C or H)" alt="" coords="211,5,414,61"/>
+<area shape="poly" title=" " alt="" coords="163,31,195,31,195,36,163,36"/>
 </map>
 </div>
 
@@ -290,6 +348,36 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a id="ae2c5085975610aeec3eff12c3a1de6ed" name="ae2c5085975610aeec3eff12c3a1de6ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2c5085975610aeec3eff12c3a1de6ed">&#9670;&#160;</a></span>get_jacobian_of_observation_model()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::MatrixXf ObservationModel::get_jacobian_of_observation_model </td>
+          <td>(</td>
+          <td class="paramtype">const Eigen::VectorXf &amp;&#160;</td>
+          <td class="paramname"><em>current_state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; int &gt; &amp;&#160;</td>
+          <td class="paramname"><em>matched_ids</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d38/observation__models_8cpp_source.html#l00117">117</a> of file <a class="el" href="../../da/d38/observation__models_8cpp_source.html">observation_models.cpp</a>.</p>
+
+</div>
+</div>
 <a id="a97a9e71e7cee696be91a569eb65b9df9" name="a97a9e71e7cee696be91a569eb65b9df9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a97a9e71e7cee696be91a569eb65b9df9">&#9670;&#160;</a></span>get_observation_noise_covariance_matrix()</h2>
 
@@ -308,15 +396,17 @@ Here is the caller graph for this function:</div>
 <p>Get the observation noise covariance matrix (C or H) </p>
 <dl class="section return"><dt>Returns</dt><dd>Eigen::MatrixXf </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/d38/observation__models_8cpp_source.html#l00136">136</a> of file <a class="el" href="../../da/d38/observation__models_8cpp_source.html">observation_models.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/d38/observation__models_8cpp_source.html#l00205">205</a> of file <a class="el" href="../../da/d38/observation__models_8cpp_source.html">observation_models.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d7/d64/class_observation_model_a97a9e71e7cee696be91a569eb65b9df9_icgraph.png" border="0" usemap="#ad7/d64/class_observation_model_a97a9e71e7cee696be91a569eb65b9df9_icgraph" alt=""/></div>
 <map name="ad7/d64/class_observation_model_a97a9e71e7cee696be91a569eb65b9df9_icgraph" id="ad7/d64/class_observation_model_a97a9e71e7cee696be91a569eb65b9df9_icgraph">
-<area shape="rect" title="Get the observation noise covariance matrix (C or H)" alt="" coords="322,138,525,194"/>
+<area shape="rect" title="Get the observation noise covariance matrix (C or H)" alt="" coords="322,174,525,230"/>
 <area shape="rect" href="../../dd/d06/class_max_likelihood.html#a911db655cde119a889e7a0aa7e0773b2" title="normalized distance gate (closest unmatched landmark)" alt="" coords="108,146,274,187"/>
-<area shape="poly" title=" " alt="" coords="306,169,274,169,274,164,306,164"/>
+<area shape="poly" title=" " alt="" coords="306,187,274,182,275,176,307,181"/>
+<area shape="rect" href="../../d7/d64/class_observation_model.html#a18d5179a7ca11d8f4825a28cc01ccc33" title=" " alt="" coords="112,210,270,266"/>
+<area shape="poly" title=" " alt="" coords="307,223,270,229,269,223,306,218"/>
 <area shape="rect" href="../../dc/dd5/data__association__test_8cpp.html#ad8e377318ba077cbaf50154f855e1415" title="Test case for when a landmark has a near mismatch." alt="" coords="5,5,60,31"/>
 <area shape="poly" title=" " alt="" coords="155,137,58,44,46,33,50,29,61,40,159,133"/>
 <area shape="rect" href="../../dc/dd5/data__association__test_8cpp.html#a286e34fe3857b5930a1c5c51f13fe666" title="Test case for when a landmark has a near match." alt="" coords="5,55,60,80"/>
@@ -328,9 +418,9 @@ Here is the caller graph for this function:</div>
 <area shape="rect" href="../../dc/dd5/data__association__test_8cpp.html#a4794fc7121bed6aa63625500cb913099" title="Test case for testing the valid match function with increasing noise." alt="" coords="5,203,60,228"/>
 <area shape="poly" title=" " alt="" coords="110,194,61,210,59,205,108,189"/>
 <area shape="rect" href="../../dc/dd5/data__association__test_8cpp.html#a1378fac9fc751334bc4dfe2fc4090d7c" title="Test case for testing the valid match function &#45; moderate noise (should pass)" alt="" coords="5,252,60,278"/>
-<area shape="poly" title=" " alt="" coords="145,198,56,254,53,249,142,193"/>
+<area shape="poly" title=" " alt="" coords="117,196,109,200,50,254,46,250,106,196,114,191"/>
 <area shape="rect" href="../../dc/dd5/data__association__test_8cpp.html#ac227f7e106389a85febcb4bf04bf27cc" title="Test case for testing the valid match function &#45; 0 delta (zero noise)" alt="" coords="5,301,60,327"/>
-<area shape="poly" title=" " alt="" coords="159,199,61,292,50,303,46,299,58,288,155,195"/>
+<area shape="poly" title=" " alt="" coords="113,198,110,200,92,222,84,243,77,266,62,292,52,303,48,299,58,289,72,264,79,241,87,219,106,196,109,193"/>
 </map>
 </div>
 
@@ -378,7 +468,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Eigen::MatrixXf </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/d38/observation__models_8cpp_source.html#l00079">79</a> of file <a class="el" href="../../da/d38/observation__models_8cpp_source.html">observation_models.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/d38/observation__models_8cpp_source.html#l00148">148</a> of file <a class="el" href="../../da/d38/observation__models_8cpp_source.html">observation_models.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -549,6 +639,36 @@ Here is the caller graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="113,198,110,200,92,222,84,243,77,266,62,292,52,303,48,299,58,289,72,264,79,241,87,219,106,196,109,193"/>
 </map>
 </div>
+
+</div>
+</div>
+<a id="ab51db04ce0d2bd44b65c2d28763f25ac" name="ab51db04ce0d2bd44b65c2d28763f25ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab51db04ce0d2bd44b65c2d28763f25ac">&#9670;&#160;</a></span>observation_model_n_landmarks()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::VectorXf ObservationModel::observation_model_n_landmarks </td>
+          <td>(</td>
+          <td class="paramtype">const Eigen::VectorXf &amp;&#160;</td>
+          <td class="paramname"><em>current_state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; int &gt; &amp;&#160;</td>
+          <td class="paramname"><em>matched_ids</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../da/d38/observation__models_8cpp_source.html#l00089">89</a> of file <a class="el" href="../../da/d38/observation__models_8cpp_source.html">observation_models.cpp</a>.</p>
 
 </div>
 </div>

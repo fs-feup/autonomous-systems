@@ -1,7 +1,9 @@
 <map id="ObservationModel::get_observation_noise_covariance_matrix" name="ObservationModel::get_observation_noise_covariance_matrix">
-<area shape="rect" id="Node000001" title="Get the observation noise covariance matrix (C or H)" alt="" coords="322,138,525,194"/>
+<area shape="rect" id="Node000001" title="Get the observation noise covariance matrix (C or H)" alt="" coords="322,174,525,230"/>
 <area shape="rect" id="Node000002" href="$dd/d06/class_max_likelihood.html#a911db655cde119a889e7a0aa7e0773b2" title="normalized distance gate (closest unmatched landmark)" alt="" coords="108,146,274,187"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="306,169,274,169,274,164,306,164"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="306,187,274,182,275,176,307,181"/>
+<area shape="rect" id="Node000010" href="$d7/d64/class_observation_model.html#a18d5179a7ca11d8f4825a28cc01ccc33" title=" " alt="" coords="112,210,270,266"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="307,223,270,229,269,223,306,218"/>
 <area shape="rect" id="Node000003" href="$dc/dd5/data__association__test_8cpp.html#ad8e377318ba077cbaf50154f855e1415" title="Test case for when a landmark has a near mismatch." alt="" coords="5,5,60,31"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="155,137,58,44,46,33,50,29,61,40,159,133"/>
 <area shape="rect" id="Node000004" href="$dc/dd5/data__association__test_8cpp.html#a286e34fe3857b5930a1c5c51f13fe666" title="Test case for when a landmark has a near match." alt="" coords="5,55,60,80"/>
@@ -13,7 +15,7 @@
 <area shape="rect" id="Node000007" href="$dc/dd5/data__association__test_8cpp.html#a4794fc7121bed6aa63625500cb913099" title="Test case for testing the valid match function with increasing noise." alt="" coords="5,203,60,228"/>
 <area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="110,194,61,210,59,205,108,189"/>
 <area shape="rect" id="Node000008" href="$dc/dd5/data__association__test_8cpp.html#a1378fac9fc751334bc4dfe2fc4090d7c" title="Test case for testing the valid match function &#45; moderate noise (should pass)" alt="" coords="5,252,60,278"/>
-<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="145,198,56,254,53,249,142,193"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="117,196,109,200,50,254,46,250,106,196,114,191"/>
 <area shape="rect" id="Node000009" href="$dc/dd5/data__association__test_8cpp.html#ac227f7e106389a85febcb4bf04bf27cc" title="Test case for testing the valid match function &#45; 0 delta (zero noise)" alt="" coords="5,301,60,327"/>
-<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="159,199,61,292,50,303,46,299,58,288,155,195"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="113,198,110,200,92,222,84,243,77,266,62,292,52,303,48,299,58,289,72,264,79,241,87,219,106,196,109,193"/>
 </map>

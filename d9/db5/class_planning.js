@@ -22,6 +22,7 @@ var class_planning =
     [ "cone_array_", "d9/db5/class_planning.html#a344cf5b2a5bcafe4424579a3f1c56120", null ],
     [ "cone_coloring_", "d9/db5/class_planning.html#a37049baba5d4caa488d540e93a0ba5d3", null ],
     [ "desired_velocity_", "d9/db5/class_planning.html#af8099cf647e569a7bfb2eb6220754e93", null ],
+    [ "initial_car_orientation_", "d9/db5/class_planning.html#a7b0ca13f93982c3a36b19b188f176f32", null ],
     [ "local_pub_", "d9/db5/class_planning.html#a550c85dde94bd45e9a4d5dd6700f5cdd", null ],
     [ "mission", "d9/db5/class_planning.html#a5fe5e85ca8878e7a1a05f6c61e491384", null ],
     [ "outliers_", "d9/db5/class_planning.html#ab4f24fcb4cb000aaf51b510c6d3013b3", null ],
