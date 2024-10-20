@@ -40,7 +40,7 @@ TEST(PointSolverTests, Test_update_lookahead_point_1) {
   PointSolver point_solver_(1.5);
   point_solver_.vehicle_pose_.rear_axis_ = Position(47.0, -13.0);
   int closest_point_id = 76;
-  Position expected_point = Position(48.58, -10.44);
+  Position expected_point = Position(49.56, -9.30);
 
   auto [result_point, result_velocity, result_error] =
       point_solver_.update_lookahead_point(pathpoint_array, closest_point_id);

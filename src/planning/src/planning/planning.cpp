@@ -119,19 +119,24 @@ void Planning::run_planning_algorithms() {
   std::vector<PathPoint> triangulations_path =
       path_calculation_.process_delaunay_triangulations(refined_colored_cones);
   if (triangulations_path.size() < 2) {
-    // RCLCPP_WARN(rclcpp::get_logger("planning"), "Not enough cones to plan after triangulations:
-    // %d",
-    //             static_cast<int>(triangulations_path.size()));
+    RCLCPP_WARN(rclcpp::get_logger("planning"),
+                "Not enough cones to plan after triangulations: % d ",
+                static_cast<int>(triangulations_path.size()));
     publish_track_points({});
     return;
   }
 
+
+  Pose temp_pose = this->pose;
+
+  temp_pose.orientation = initial_car_orientation_;
+
   // Smooth the calculated path
-  std::vector<PathPoint> final_path = path_smoothing_.smooth_path(triangulations_path, this->pose);
+  std::vector<PathPoint> final_path = path_smoothing_.smooth_path(triangulations_path, temp_pose);
 
   if (final_path.size() < 10) {
-    RCLCPP_DEBUG(rclcpp::get_logger("planning"), "Final path size: %d",
-                 static_cast<int>(final_path.size()));
+    RCLCPP_INFO(rclcpp::get_logger("planning"), "Final path size: %d",
+                static_cast<int>(final_path.size()));
   }
   // Velocity Planning
   // TODO: Remove this when velocity planning is a reality
@@ -158,6 +163,10 @@ void Planning::run_planning_algorithms() {
 
 void Planning::vehicle_localization_callback(const custom_interfaces::msg::VehicleState &msg) {
   this->pose = Pose(msg.position.x, msg.position.y, msg.theta);
+
+  if (!this->received_first_pose_){
+    this->initial_car_orientation_ = msg.theta;
+  }
   if (this->received_first_track_ && !this->received_first_pose_) {
     this->received_first_pose_ = true;
     run_planning_algorithms();
