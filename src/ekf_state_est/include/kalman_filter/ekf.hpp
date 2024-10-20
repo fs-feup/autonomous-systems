@@ -90,6 +90,17 @@ public:
                                 const std::vector<Eigen::Vector2f> &matched_cone_positions);
 
   /**
+   * @brief Correct the state vector with matched cones, 2 vector inputs the first is the id of the
+   * cone in the map matched and the second is the position (observed) of the cone
+   *
+   * @param matched_ids vector of matched ids
+   * @param matched_cone_positions vector of matched cone positions
+   */
+  void correct_with_matched_ids_full_state(
+      const std::vector<int> &matched_ids,
+      const std::vector<Eigen::Vector2f> &matched_cone_positions);
+
+  /**
    * @brief Augment the state vector with new features, vector input has the new features
    *
    * @param new_features vector of new features

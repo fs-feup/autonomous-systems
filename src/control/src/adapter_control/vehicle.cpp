@@ -25,7 +25,9 @@ void VehicleAdapter::go_signal_callback(const custom_interfaces::msg::Operationa
   // No need to do anything with the message, just set the go_signal to true
   go_signal_ = msg.go_signal;
   if (!(msg.as_mission == common_lib::competition_logic::Mission::TRACKDRIVE) && 
-      !(msg.as_mission == common_lib::competition_logic::Mission::AUTOCROSS)) {
+      !(msg.as_mission == common_lib::competition_logic::Mission::AUTOCROSS) &&
+      !(msg.as_mission == common_lib::competition_logic::Mission::SKIDPAD) &&
+      !(msg.as_mission == common_lib::competition_logic::Mission::ACCELERATION)) {
       
       go_signal_ = false;
   }

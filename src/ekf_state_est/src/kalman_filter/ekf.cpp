@@ -42,6 +42,14 @@ void ExtendedKalmanFilter::prediction_step(const MotionUpdate &motion_update,
   this->_p_matrix_ = g_matrix * Eigen::MatrixXf(this->_p_matrix_) * g_matrix.transpose() + r_matrix;
 }
 
+std::string track_to_string(Eigen::VectorXf state) {
+  std::string track = "";
+  for (int i = 6; i < state.size(); i += 2) {
+    track += "(" + std::to_string(state(i)) + "," + std::to_string(state(i + 1)) + "), ";
+  }
+  return track;
+}
+
 void ExtendedKalmanFilter::correction_step(
     const std::vector<common_lib::structures::Cone> &perception_map) {
   // loop through all the cones in the perception map
@@ -55,7 +63,7 @@ void ExtendedKalmanFilter::correction_step(
       new_features, this->_observation_model_.get());
   // loop through the matched ids and cone positions and make the corrections
 
-  correct_with_matched_ids(matched_ids, matched_cone_positions);
+  correct_with_matched_ids_full_state(matched_ids, matched_cone_positions);
 
   // loop through the new features and add them to the state vector
   augment_state(new_features);
@@ -82,6 +90,24 @@ void ExtendedKalmanFilter::correct_with_matched_ids(
             .sparseView() *  // for some reason, this is needed otherwise the map created is absurd
         this->_p_matrix_;
   }
+}
+
+void ExtendedKalmanFilter::correct_with_matched_ids_full_state(
+    const std::vector<int> &matched_ids,
+    const std::vector<Eigen::Vector2f> &matched_cone_positions) {
+  Eigen::VectorXf observations =
+      this->_observation_model_->format_observation(matched_cone_positions);
+  Eigen::VectorXf expected_observations =
+      this->_observation_model_->observation_model_n_landmarks(this->_x_vector_, matched_ids);
+  Eigen::MatrixXf Q = this->_observation_model_->get_full_observation_noise_covariance_matrix(
+      static_cast<int>(observations.size()));
+  Eigen::MatrixXf H =
+      this->_observation_model_->get_jacobian_of_observation_model(this->_x_vector_, matched_ids);
+  Eigen::MatrixXf P = this->_p_matrix_;
+  Eigen::MatrixXf S = H * P * H.transpose() + Q;
+  Eigen::MatrixXf K = P * H.transpose() * S.inverse();
+  this->_x_vector_ += K * (observations - expected_observations);
+  this->_p_matrix_ = (Eigen::MatrixXf::Identity(P.rows(), P.cols()) - K * H) * P;
 }
 
 // loop through the new features and add them to the state vector
