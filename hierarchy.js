@@ -9,6 +9,7 @@ var hierarchy =
     [ "evaluator.adapter.Adapter", "d7/dff/classevaluator_1_1adapter_1_1_adapter.html", [
       [ "evaluator.eufs_adapter.EufsAdapter", "dc/dab/classevaluator_1_1eufs__adapter_1_1_eufs_adapter.html", null ],
       [ "evaluator.fsds_adapter.FSDSAdapter", "dc/de8/classevaluator_1_1fsds__adapter_1_1_f_s_d_s_adapter.html", null ],
+      [ "evaluator.onground_adapter.OnGroundAdapter", "d6/d04/classevaluator_1_1onground__adapter_1_1_on_ground_adapter.html", null ],
       [ "evaluator.pacsim_adapter.PacsimAdapter", "d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter.html", null ],
       [ "evaluator.vehicle_adapter.VehicleAdapter", "dc/d76/classevaluator_1_1vehicle__adapter_1_1_vehicle_adapter.html", null ]
     ] ],

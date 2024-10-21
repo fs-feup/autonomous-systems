@@ -418,7 +418,7 @@ $(document).ready(function(){initNavTree('d7/d97/formats_8py_source.html','../..
 </div>
 <div class="foldopen" id="foldopen00296" data-start="" data-end="">
 <div class="line"><a id="l00296" name="l00296"></a><span class="lineno"><a class="line" href="../../da/dad/namespaceevaluator_1_1formats.html#a87735713917cd17dd60fec1c124f1a1f">  296</a></span><span class="keyword">def </span>find_closest_elements(arr1: np.ndarray, arr2: np.ndarray) -&gt; np.ndarray:</div>
-<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>    <span class="stringliteral">&quot;&quot;&quot;_summary_</span></div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>    <span class="stringliteral">&quot;&quot;&quot;Find the closest elements in arr2 for each element in arr1.</span></div>
 <div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span><span class="stringliteral"></span> </div>
 <div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span><span class="stringliteral">    Args:</span></div>
 <div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span><span class="stringliteral">        arr1 (np.ndarray): array in which each element&#39;s 2 initial values are x and y positions</span></div>
@@ -427,67 +427,64 @@ $(document).ready(function(){initNavTree('d7/d97/formats_8py_source.html','../..
 <div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span><span class="stringliteral">    Returns:</span></div>
 <div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span><span class="stringliteral">        np.ndarray: array of elements from arr2 that are the closest to at least one element in arr1</span></div>
 <div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>    closest_elements = []</div>
-<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span> </div>
-<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>    <span class="keywordflow">for</span> point1 <span class="keywordflow">in</span> arr1:</div>
-<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>        closest_distance = float(<span class="stringliteral">&quot;inf&quot;</span>)</div>
-<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>        closest_element = <span class="keywordtype">None</span></div>
-<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span> </div>
-<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>        <span class="keywordflow">for</span> point2 <span class="keywordflow">in</span> arr2:</div>
-<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>            distance = np.linalg.norm(point1[:2] - point2[:2])</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>    <span class="comment"># Extract the x and y positions</span></div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>    arr1_xy = arr1[:, :2]</div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>    arr2_xy = arr2[:, :2]</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span> </div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>    <span class="comment"># Calculate the squared Euclidean distances</span></div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>    distances = np.linalg.norm(</div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>        arr1_xy[:, np.newaxis, :] - arr2_xy[np.newaxis, :, :], axis=2</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>    )</div>
 <div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span> </div>
-<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>            <span class="keywordflow">if</span> distance &lt; closest_distance:</div>
-<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>                closest_distance = distance</div>
-<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>                closest_element = point2</div>
-<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span> </div>
-<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>        <span class="keywordflow">if</span> closest_element <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> <span class="keywordflow">not</span> any(</div>
-<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>            np.array_equal(closest_element, elem) <span class="keywordflow">for</span> elem <span class="keywordflow">in</span> closest_elements</div>
-<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>        ):</div>
-<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>            closest_elements.append(closest_element)</div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>    <span class="comment"># Find the indices of the closest elements in arr2 for each element in arr1</span></div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>    closest_indices = np.argmin(distances, axis=1)</div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span> </div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>    <span class="comment"># Get the unique closest elements from arr2</span></div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>    closest_elements = np.unique(arr2[closest_indices], axis=0)</div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span> </div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>    <span class="keywordflow">return</span> closest_elements</div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span> </div>
 <div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span> </div>
-<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>    <span class="keywordflow">return</span> np.array(closest_elements)</div>
-<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span> </div>
-<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span> </div>
 </div>
-<div class="foldopen" id="foldopen00327" data-start="" data-end="">
-<div class="line"><a id="l00327" name="l00327"></a><span class="lineno"><a class="line" href="../../da/dad/namespaceevaluator_1_1formats.html#a097584595bd59753af47aa347f8cfd63">  327</a></span><span class="keyword">def </span>get_blue_and_yellow_cones_after_msg_treatment(</div>
-<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>    arr: np.ndarray,</div>
-<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>) -&gt; tuple[np.ndarray, np.ndarray]:</div>
-<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>    <span class="stringliteral">&quot;&quot;&quot;!</span></div>
-<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span><span class="stringliteral">    Divides the result of converting the EUFS or FSDS map message to np.ndarray into blue and yellow cones arrays, attributing orange</span></div>
-<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span><span class="stringliteral">    cones into blue or yellow cones.</span></div>
+<div class="foldopen" id="foldopen00324" data-start="" data-end="">
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno"><a class="line" href="../../da/dad/namespaceevaluator_1_1formats.html#a097584595bd59753af47aa347f8cfd63">  324</a></span><span class="keyword">def </span>get_blue_and_yellow_cones_after_msg_treatment(</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>    arr: np.ndarray,</div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>) -&gt; tuple[np.ndarray, np.ndarray]:</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>    <span class="stringliteral">&quot;&quot;&quot;!</span></div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span><span class="stringliteral">    Divides the result of converting the EUFS or FSDS map message to np.ndarray into blue and yellow cones arrays, attributing orange</span></div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span><span class="stringliteral">    cones into blue or yellow cones.</span></div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span><span class="stringliteral">    Args:</span></div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span><span class="stringliteral">        arr (np.ndarray): Array of cones with the following attributes: x, y, index, confidence, type.</span></div>
 <div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span><span class="stringliteral"></span> </div>
-<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span><span class="stringliteral">    Args:</span></div>
-<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span><span class="stringliteral">        arr (np.ndarray): Array of cones with the following attributes: x, y, index, confidence, type.</span></div>
-<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span><span class="stringliteral"></span> </div>
-<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span><span class="stringliteral">    Returns:</span></div>
-<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span><span class="stringliteral">        tuple[np.ndarray, np.ndarray]: the first array is the array of blue cones and the second contains yellow cones.</span></div>
-<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>    array1 = []</div>
-<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>    array2 = []</div>
-<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>    <span class="keywordflow">for</span> element <span class="keywordflow">in</span> arr:</div>
-<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>        <span class="keywordflow">if</span> element[2] == 0:</div>
-<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>            array1.append(element)</div>
-<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>        <span class="keywordflow">elif</span> element[2] == 1:</div>
-<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>            array2.append(element)</div>
-<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>        <span class="keywordflow">elif</span> element[2] <span class="keywordflow">in</span> [2, 3]:</div>
-<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>            closest_distance = float(<span class="stringliteral">&quot;inf&quot;</span>)</div>
-<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>            closest_array = <span class="keywordtype">None</span></div>
-<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span> </div>
-<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>            <span class="keywordflow">for</span> array <span class="keywordflow">in</span> [array1, array2]:</div>
-<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>                <span class="keywordflow">for</span> array_element <span class="keywordflow">in</span> array:</div>
-<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>                    distance = np.linalg.norm(element[:2] - array_element[:2])</div>
-<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span> </div>
-<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>                    <span class="keywordflow">if</span> distance &lt; closest_distance:</div>
-<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>                        closest_distance = distance</div>
-<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>                        closest_array = array</div>
-<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span> </div>
-<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>            <span class="keywordflow">if</span> closest_array <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
-<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>                closest_array.append(element)</div>
-<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>        <span class="keywordflow">else</span>:</div>
-<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>            <span class="keywordflow">raise</span> ValueError(<span class="stringliteral">&quot;Invalid cone color index: %d&quot;</span> % element[2])</div>
-<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span> </div>
-<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>    <span class="keywordflow">return</span> np.array(array1), np.array(array2)</div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span><span class="stringliteral">    Returns:</span></div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span><span class="stringliteral">        tuple[np.ndarray, np.ndarray]: the first array is the array of blue cones and the second contains yellow cones.</span></div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>    array1 = []</div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>    array2 = []</div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>    <span class="keywordflow">for</span> element <span class="keywordflow">in</span> arr:</div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>        <span class="keywordflow">if</span> element[2] == 0:</div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>            array1.append(element)</div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>        <span class="keywordflow">elif</span> element[2] == 1:</div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>            array2.append(element)</div>
+<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>        <span class="keywordflow">elif</span> element[2] <span class="keywordflow">in</span> [2, 3]:</div>
+<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>            closest_distance = float(<span class="stringliteral">&quot;inf&quot;</span>)</div>
+<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>            closest_array = <span class="keywordtype">None</span></div>
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span> </div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>            <span class="keywordflow">for</span> array <span class="keywordflow">in</span> [array1, array2]:</div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>                <span class="keywordflow">for</span> array_element <span class="keywordflow">in</span> array:</div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>                    distance = np.linalg.norm(element[:2] - array_element[:2])</div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span> </div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>                    <span class="keywordflow">if</span> distance &lt; closest_distance:</div>
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>                        closest_distance = distance</div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>                        closest_array = array</div>
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span> </div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>            <span class="keywordflow">if</span> closest_array <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>                closest_array.append(element)</div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>            <span class="keywordflow">raise</span> ValueError(<span class="stringliteral">&quot;Invalid cone color index: %d&quot;</span> % element[2])</div>
+<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span> </div>
+<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>    <span class="keywordflow">return</span> np.array(array1), np.array(array2)</div>
 </div>
 <div class="ttc" id="anamespaceevaluator_1_1formats_html_a95f77d8294da84509a9a956a31b8975b"><div class="ttname"><a href="../../da/dad/namespaceevaluator_1_1formats.html#a95f77d8294da84509a9a956a31b8975b">evaluator.formats.get_color_number_from_rgb</a></div><div class="ttdeci">get_color_number_from_rgb(r, g, b)</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d97/formats_8py_source.html#l00069">formats.py:69</a></div></div>
 </div><!-- fragment --></div><!-- contents -->

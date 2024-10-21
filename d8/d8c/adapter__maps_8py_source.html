@@ -103,33 +103,37 @@ $(document).ready(function(){initNavTree('d8/d8c/adapter__maps_8py_source.html',
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="keyword">from</span> <a class="code hl_namespace" href="../../d9/d12/namespaceevaluator_1_1eufs__adapter.html">evaluator.eufs_adapter</a> <span class="keyword">import</span> EufsAdapter</div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">from</span> <a class="code hl_namespace" href="../../d5/dc2/namespaceevaluator_1_1pacsim__adapter.html">evaluator.pacsim_adapter</a> <span class="keyword">import</span> PacsimAdapter</div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keyword">from</span> <a class="code hl_namespace" href="../../d8/daa/namespaceevaluator_1_1fsds__adapter.html">evaluator.fsds_adapter</a> <span class="keyword">import</span> FSDSAdapter</div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">from</span> <a class="code hl_namespace" href="../../d9/da0/namespaceevaluator_1_1vehicle__adapter.html">evaluator.vehicle_adapter</a> <span class="keyword">import</span> VehicleAdapter</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">import</span> rclpy</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">import</span> rclpy.qos</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="../../d5/da4/namespaceevaluator_1_1adapter__maps.html#a1b4c1027b4376935300d3e5cd20ada7e">    9</a></span>ADAPTER_POINT_CLOUD_TOPIC_DICTIONARY: dict[str, str] = {</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="stringliteral">&quot;fsds&quot;</span>: <span class="stringliteral">&quot;/lidar/Lidar1&quot;</span>,</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="stringliteral">&quot;pacsim&quot;</span>: <span class="stringliteral">&quot;/no/topic&quot;</span>,</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="stringliteral">&quot;eufs&quot;</span>: <span class="stringliteral">&quot;/velodyne_points&quot;</span>,</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="stringliteral">&quot;vehicle_preprocessed&quot;</span>: <span class="stringliteral">&quot;/rslidar_points/pre_processed&quot;</span>,</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>}</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="../../d5/da4/namespaceevaluator_1_1adapter__maps.html#a7cc6f517e26caa603c642b8b5158e3d7">   15</a></span>ADAPTER_POINT_CLOUD_TOPIC_QOS_DICTIONARY: dict[str, rclpy.qos.QoSProfile] = {</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="stringliteral">&quot;fsds&quot;</span>: rclpy.qos.QoSProfile(depth=10),</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="stringliteral">&quot;pacsim&quot;</span>: rclpy.qos.QoSProfile(depth=10),</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="stringliteral">&quot;eufs&quot;</span>: rclpy.qos.QoSProfile(</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        depth=1, reliability=rclpy.qos.ReliabilityPolicy.BEST_EFFORT</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    ),</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="stringliteral">&quot;vehicle_preprocessed&quot;</span>: rclpy.qos.QoSProfile(depth=10),</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>}</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="../../d5/da4/namespaceevaluator_1_1adapter__maps.html#a41e7c9fae359374c69800f9eaadd9551">   23</a></span>ADAPTER_CONSTRUCTOR_DICTINARY: dict[str, Adapter] = {</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="stringliteral">&quot;fsds&quot;</span>: FSDSAdapter,</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="stringliteral">&quot;pacsim&quot;</span>: PacsimAdapter,</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="stringliteral">&quot;eufs&quot;</span>: EufsAdapter,</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="stringliteral">&quot;vehicle_preprocessed&quot;</span>: VehicleAdapter,</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>}</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">from</span> <a class="code hl_namespace" href="../../d2/d84/namespaceevaluator_1_1onground__adapter.html">evaluator.onground_adapter</a> <span class="keyword">import</span> OnGroundAdapter</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">from</span> <a class="code hl_namespace" href="../../d9/da0/namespaceevaluator_1_1vehicle__adapter.html">evaluator.vehicle_adapter</a> <span class="keyword">import</span> VehicleAdapter</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">import</span> rclpy</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">import</span> rclpy.qos</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="../../d5/da4/namespaceevaluator_1_1adapter__maps.html#a1b4c1027b4376935300d3e5cd20ada7e">   10</a></span>ADAPTER_POINT_CLOUD_TOPIC_DICTIONARY: dict[str, str] = {</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="stringliteral">&quot;fsds&quot;</span>: <span class="stringliteral">&quot;/lidar/Lidar1&quot;</span>,</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="stringliteral">&quot;pacsim&quot;</span>: <span class="stringliteral">&quot;/no/topic&quot;</span>,</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="stringliteral">&quot;eufs&quot;</span>: <span class="stringliteral">&quot;/velodyne_points&quot;</span>,</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="stringliteral">&quot;vehicle_preprocessed&quot;</span>: <span class="stringliteral">&quot;/rslidar_points/pre_processed&quot;</span>,</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="stringliteral">&quot;onground&quot;</span>: <span class="stringliteral">&quot;/rslidar_points&quot;</span>,</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>}</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="../../d5/da4/namespaceevaluator_1_1adapter__maps.html#a7cc6f517e26caa603c642b8b5158e3d7">   17</a></span>ADAPTER_POINT_CLOUD_TOPIC_QOS_DICTIONARY: dict[str, rclpy.qos.QoSProfile] = {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="stringliteral">&quot;fsds&quot;</span>: rclpy.qos.QoSProfile(depth=10),</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="stringliteral">&quot;pacsim&quot;</span>: rclpy.qos.QoSProfile(depth=10),</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="stringliteral">&quot;eufs&quot;</span>: rclpy.qos.QoSProfile(</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        depth=1, reliability=rclpy.qos.ReliabilityPolicy.BEST_EFFORT</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    ),</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="stringliteral">&quot;vehicle_preprocessed&quot;</span>: rclpy.qos.QoSProfile(depth=10),</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>}</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="../../d5/da4/namespaceevaluator_1_1adapter__maps.html#a41e7c9fae359374c69800f9eaadd9551">   25</a></span>ADAPTER_CONSTRUCTOR_DICTINARY: dict[str, Adapter] = {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="stringliteral">&quot;fsds&quot;</span>: FSDSAdapter,</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="stringliteral">&quot;pacsim&quot;</span>: PacsimAdapter,</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="stringliteral">&quot;eufs&quot;</span>: EufsAdapter,</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="stringliteral">&quot;vehicle_preprocessed&quot;</span>: VehicleAdapter,</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="stringliteral">&quot;onground&quot;</span>: OnGroundAdapter,</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>}</div>
 <div class="ttc" id="anamespaceevaluator_1_1adapter_html"><div class="ttname"><a href="../../dc/da0/namespaceevaluator_1_1adapter.html">evaluator.adapter</a></div><div class="ttdef"><b>Definition</b> <a href="../../da/da4/adapter_8py_source.html#l00001">adapter.py:1</a></div></div>
 <div class="ttc" id="anamespaceevaluator_1_1eufs__adapter_html"><div class="ttname"><a href="../../d9/d12/namespaceevaluator_1_1eufs__adapter.html">evaluator.eufs_adapter</a></div><div class="ttdef"><b>Definition</b> <a href="../../d4/dd9/eufs__adapter_8py_source.html#l00001">eufs_adapter.py:1</a></div></div>
 <div class="ttc" id="anamespaceevaluator_1_1fsds__adapter_html"><div class="ttname"><a href="../../d8/daa/namespaceevaluator_1_1fsds__adapter.html">evaluator.fsds_adapter</a></div><div class="ttdef"><b>Definition</b> <a href="../../d9/d65/fsds__adapter_8py_source.html#l00001">fsds_adapter.py:1</a></div></div>
+<div class="ttc" id="anamespaceevaluator_1_1onground__adapter_html"><div class="ttname"><a href="../../d2/d84/namespaceevaluator_1_1onground__adapter.html">evaluator.onground_adapter</a></div><div class="ttdef"><b>Definition</b> <a href="../../d0/d81/onground__adapter_8py_source.html#l00001">onground_adapter.py:1</a></div></div>
 <div class="ttc" id="anamespaceevaluator_1_1pacsim__adapter_html"><div class="ttname"><a href="../../d5/dc2/namespaceevaluator_1_1pacsim__adapter.html">evaluator.pacsim_adapter</a></div><div class="ttdef"><b>Definition</b> <a href="../../da/de1/pacsim__adapter_8py_source.html#l00001">pacsim_adapter.py:1</a></div></div>
 <div class="ttc" id="anamespaceevaluator_1_1vehicle__adapter_html"><div class="ttname"><a href="../../d9/da0/namespaceevaluator_1_1vehicle__adapter.html">evaluator.vehicle_adapter</a></div><div class="ttdef"><b>Definition</b> <a href="../../de/d47/vehicle__adapter_8py_source.html#l00001">vehicle_adapter.py:1</a></div></div>
 </div><!-- fragment --></div><!-- contents -->

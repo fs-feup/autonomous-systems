@@ -1,7 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
 <area shape="rect" id="Node000000" href="$dc/d84/class_ground_removal.html" title="Abstract class for ground removal from a point cloud." alt="" coords="5,31,120,56"/>
 <area shape="rect" id="Node000001" href="$de/d59/class_grid_r_a_n_s_a_c.html" title="Implementation of ground removal using a grid&#45;based RANSAC algorithm." alt="" coords="168,5,268,31"/>
-<area shape="poly" id="edge34_Node000000_Node000001" title=" " alt="" coords="135,29,167,24,168,29,136,34"/>
+<area shape="poly" id="edge35_Node000000_Node000001" title=" " alt="" coords="135,29,167,24,168,29,136,34"/>
 <area shape="rect" id="Node000002" href="$d6/dc3/class_r_a_n_s_a_c.html" title="Ground removal using the RANSAC algorithm." alt="" coords="180,55,256,80"/>
-<area shape="poly" id="edge35_Node000000_Node000002" title=" " alt="" coords="136,52,180,59,179,64,135,57"/>
+<area shape="poly" id="edge36_Node000000_Node000002" title=" " alt="" coords="136,52,180,59,179,64,135,57"/>
 </map>

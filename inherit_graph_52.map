@@ -1,21 +1,21 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
 <area shape="rect" id="Node000000" title=" " alt="" coords="5,383,104,409"/>
 <area shape="rect" id="Node000001" href="$d1/d5a/struct_has_default_constructor_3_01_t_00_01std_1_1void__t_3_01decltype_07_t_07_08_08_4_01_4.html" title=" " alt="" coords="215,5,381,61"/>
-<area shape="poly" id="edge50_Node000000_Node000001" title=" " alt="" coords="53,367,57,306,70,226,82,184,99,142,121,104,150,70,180,49,214,38,216,43,182,54,153,74,126,107,104,145,87,185,75,227,62,306,58,367"/>
+<area shape="poly" id="edge51_Node000000_Node000001" title=" " alt="" coords="53,367,57,306,70,226,82,184,99,142,121,104,150,70,180,49,214,38,216,43,182,54,153,74,126,107,104,145,87,185,75,227,62,306,58,367"/>
 <area shape="rect" id="Node000002" href="$dd/d59/struct_has_equality_operator_3_01_t_00_01std_1_1void__t_3_01decltype_07std_1_1declval_3_01_t_01_def808c9cf5a85b640be170f337607f6.html" title=" " alt="" coords="215,85,381,155"/>
-<area shape="poly" id="edge51_Node000000_Node000002" title=" " alt="" coords="57,368,67,323,84,269,111,213,129,187,150,164,180,144,214,130,216,135,183,149,153,169,133,191,115,216,89,271,72,325,62,369"/>
+<area shape="poly" id="edge52_Node000000_Node000002" title=" " alt="" coords="57,368,67,323,84,269,111,213,129,187,150,164,180,144,214,130,216,135,183,149,153,169,133,191,115,216,89,271,72,325,62,369"/>
 <area shape="rect" id="Node000003" href="$dc/d16/struct_has_euclidean_distance_3_01_t_00_01std_1_1void__t_3_01decltype_07std_1_1declval_3_01_t_01220e586b84eba3363386e4d3fefa434b.html" title=" " alt="" coords="168,179,428,250"/>
-<area shape="poly" id="edge52_Node000000_Node000003" title=" " alt="" coords="66,368,99,313,123,284,150,259,167,248,170,253,153,263,126,288,103,316,71,370"/>
+<area shape="poly" id="edge53_Node000000_Node000003" title=" " alt="" coords="66,368,99,313,123,284,150,259,167,248,170,253,153,263,126,288,103,316,71,370"/>
 <area shape="rect" id="Node000004" href="$d8/da8/struct_has_position_3_01_t_00_01std_1_1void__t_3_01decltype_07std_1_1declval_3_01_t_01_4_07_08_8position_08_4_01_4.html" title=" " alt="" coords="209,273,387,329"/>
-<area shape="poly" id="edge53_Node000000_Node000004" title=" " alt="" coords="87,372,151,339,208,319,210,324,153,344,90,377"/>
+<area shape="poly" id="edge54_Node000000_Node000004" title=" " alt="" coords="87,372,151,339,208,319,210,324,153,344,90,377"/>
 <area shape="rect" id="Node000005" href="$d9/d5e/struct_has_position_x_y_3_01_t_00_01std_1_1void__t_3_01decltype_07std_1_1declval_3_01_t_01_4_07_455e40f4ff60de8f354a633d607f673c.html" title=" " alt="" coords="214,353,382,439"/>
-<area shape="poly" id="edge54_Node000000_Node000005" title=" " alt="" coords="119,393,214,393,214,399,119,399"/>
+<area shape="poly" id="edge55_Node000000_Node000005" title=" " alt="" coords="119,393,214,393,214,399,119,399"/>
 <area shape="rect" id="Node000006" href="$d8/dab/struct_is_copy_constructor_3_01_t_00_01std_1_1void__t_3_01decltype_07_t_07std_1_1declval_3_01_t_01_4_07_08_08_08_4_01_4.html" title=" " alt="" coords="214,463,382,518"/>
-<area shape="poly" id="edge55_Node000000_Node000006" title=" " alt="" coords="90,415,153,448,215,469,213,474,151,453,87,420"/>
+<area shape="poly" id="edge56_Node000000_Node000006" title=" " alt="" coords="90,415,153,448,215,469,213,474,151,453,87,420"/>
 <area shape="rect" id="Node000007" href="$d6/d10/struct_is_hashable_3_01_t_00_01std_1_1void__t_3_01decltype_07std_1_1hash_3_01_t_01_4_02_03_07std25ddd8d3622353e1429f952e1dd1e659.html" title=" " alt="" coords="217,542,379,613"/>
-<area shape="poly" id="edge56_Node000000_Node000007" title=" " alt="" coords="71,421,103,476,126,504,153,528,184,546,217,559,215,564,182,551,150,533,123,508,99,479,66,424"/>
+<area shape="poly" id="edge57_Node000000_Node000007" title=" " alt="" coords="71,421,103,476,126,504,153,528,184,546,217,559,215,564,182,551,150,533,123,508,99,479,66,424"/>
 <area shape="rect" id="Node000008" href="$d8/da1/struct_position_x_y_are_double_3_01_t_00_01std_1_1enable__if__t_3_01std_1_1is__same__v_3_01declt1791f863a2ceff256cf7e96446ba334e.html" title=" " alt="" coords="164,636,432,737"/>
-<area shape="poly" id="edge57_Node000000_Node000008" title=" " alt="" coords="63,424,73,467,91,519,117,574,134,599,154,622,167,634,164,638,150,626,130,602,113,577,86,521,68,468,58,425"/>
+<area shape="poly" id="edge58_Node000000_Node000008" title=" " alt="" coords="63,424,73,467,91,519,117,574,134,599,154,622,167,634,164,638,150,626,130,602,113,577,86,521,68,468,58,425"/>
 <area shape="rect" id="Node000009" href="$d0/d78/structcommon__lib_1_1communication_1_1_has_position_3_01_t_00_01std_1_1enable__if__t_3_01std_1_1f92f66d3afd606fa0b7fa2e397b76781.html" title="A specialization of the has_position struct for types T that do have a valid &#39;position&#39; member." alt="" coords="152,762,444,862"/>
-<area shape="poly" id="edge58_Node000000_Node000009" title=" " alt="" coords="58,424,62,489,75,575,87,620,104,666,126,709,154,747,166,759,162,763,150,751,121,712,99,668,82,622,70,576,57,489,53,424"/>
+<area shape="poly" id="edge59_Node000000_Node000009" title=" " alt="" coords="58,424,62,489,75,575,87,620,104,666,126,709,154,747,166,759,162,763,150,751,121,712,99,668,82,622,70,576,57,489,53,424"/>
 </map>

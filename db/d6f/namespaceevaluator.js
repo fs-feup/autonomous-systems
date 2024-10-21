@@ -38,6 +38,7 @@ var namespaceevaluator =
       [ "get_mean_squared_error", "d7/d92/namespaceevaluator_1_1metrics.html#a6ee2f13b22718ef575c737624c2b79e6", null ],
       [ "get_root_mean_squared_error", "d7/d92/namespaceevaluator_1_1metrics.html#a1f46173c6c754f9c96f4d4f4f102987f", null ]
     ] ],
+    [ "onground_adapter", "d2/d84/namespaceevaluator_1_1onground__adapter.html", "d2/d84/namespaceevaluator_1_1onground__adapter" ],
     [ "pacsim_adapter", "d5/dc2/namespaceevaluator_1_1pacsim__adapter.html", "d5/dc2/namespaceevaluator_1_1pacsim__adapter" ],
     [ "vehicle_adapter", "d9/da0/namespaceevaluator_1_1vehicle__adapter.html", "d9/da0/namespaceevaluator_1_1vehicle__adapter" ]
 ];

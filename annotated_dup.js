@@ -34,6 +34,9 @@ var annotated_dup =
       [ "fsds_adapter", "d8/daa/namespaceevaluator_1_1fsds__adapter.html", [
         [ "FSDSAdapter", "dc/de8/classevaluator_1_1fsds__adapter_1_1_f_s_d_s_adapter.html", "dc/de8/classevaluator_1_1fsds__adapter_1_1_f_s_d_s_adapter" ]
       ] ],
+      [ "onground_adapter", "d2/d84/namespaceevaluator_1_1onground__adapter.html", [
+        [ "OnGroundAdapter", "d6/d04/classevaluator_1_1onground__adapter_1_1_on_ground_adapter.html", "d6/d04/classevaluator_1_1onground__adapter_1_1_on_ground_adapter" ]
+      ] ],
       [ "pacsim_adapter", "d5/dc2/namespaceevaluator_1_1pacsim__adapter.html", [
         [ "PacsimAdapter", "d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter.html", "d3/d34/classevaluator_1_1pacsim__adapter_1_1_pacsim_adapter" ]
       ] ],
@@ -125,8 +128,8 @@ var annotated_dup =
     [ "ObservationModel", "d7/d64/class_observation_model.html", "d7/d64/class_observation_model" ],
     [ "Outliers", "d9/d53/class_outliers.html", "d9/d53/class_outliers" ],
     [ "OutliersConfig", "d7/d4c/struct_outliers_config.html", "d7/d4c/struct_outliers_config" ],
-    [ "PacsimAdapter", "d1/dcb/class_pacsim_adapter.html", "d1/dcb/class_pacsim_adapter" ],
     [ "PacSimAdapter", "db/d68/class_pac_sim_adapter.html", "db/d68/class_pac_sim_adapter" ],
+    [ "PacsimAdapter", "d1/dcb/class_pacsim_adapter.html", "d1/dcb/class_pacsim_adapter" ],
     [ "PathCalculation", "d0/d89/class_path_calculation.html", "d0/d89/class_path_calculation" ],
     [ "PathCalculationConfig", "df/d7d/struct_path_calculation_config.html", "df/d7d/struct_path_calculation_config" ],
     [ "PathPointEqual", "d1/d5e/struct_path_point_equal.html", "d1/d5e/struct_path_point_equal" ],
