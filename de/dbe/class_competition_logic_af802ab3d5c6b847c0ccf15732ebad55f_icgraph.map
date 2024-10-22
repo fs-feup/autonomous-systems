@@ -1,0 +1,12 @@
+<map id="CompetitionLogic::determinantLinePoint" name="CompetitionLogic::determinantLinePoint">
+<area shape="rect" id="Node000001" title=" " alt="" coords="911,35,1107,75"/>
+<area shape="rect" id="Node000002" href="$de/dbe/class_competition_logic.html#a63251e0cb46a78cf362e7e7f971e68f9" title=" " alt="" coords="699,5,863,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="895,43,863,39,863,34,895,38"/>
+<area shape="rect" id="Node000003" href="$de/dbe/class_competition_logic.html#a6448c0ad7924b9b02181a215c0e678de" title=" " alt="" coords="451,35,651,75"/>
+<area shape="poly" id="edge5_Node000001_Node000003" title=" " alt="" coords="895,60,863,60,699,60,652,60,652,54,699,55,863,55,895,55"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="684,41,652,45,651,40,684,35"/>
+<area shape="rect" id="Node000004" href="$de/dbe/class_competition_logic.html#a973f54944cf7b4827467eaf8f3d4cdfc" title=" " alt="" coords="226,35,403,75"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="435,58,404,58,404,52,435,52"/>
+<area shape="rect" id="Node000005" href="$de/dbe/class_competition_logic.html#aa033c5a1d3ea10be407f66dfbb5a07dd" title=" " alt="" coords="5,35,178,75"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="210,58,178,58,178,52,210,52"/>
+</map>

@@ -1,0 +1,8 @@
+<map id="VehicleModelBicycle" name="VehicleModelBicycle">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,613,172,1079"/>
+<area shape="rect" id="Node000002" href="$d1/d5c/class_i_vehicle_model.html" title=" " alt="" coords="139,179,305,564"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="166,579,157,614,151,613,161,578"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="27,5,83,71"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="55,70,49,179,42,372,43,456,49,564,52,596,47,597,44,564,37,456,37,371,44,179,50,70"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="73,69,134,190,129,192,69,72"/>
+</map>

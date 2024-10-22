@@ -1,0 +1,5 @@
+<map id="WheelsSensor" name="WheelsSensor">
+<area shape="rect" id="Node000001" title=" " alt="" coords="22,359,138,504"/>
+<area shape="rect" id="Node000002" href="$dd/dc4/class_sensor_base.html" title=" " alt="" coords="5,5,155,311"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="83,325,83,359,77,359,77,325"/>
+</map>

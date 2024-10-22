@@ -1,20 +1,14 @@
 var searchData=
 [
-  ['undefineds_0',['undefineds',['../d2/d36/struct_perception_execution_data.html#addec0feb48ccaaff35d2a90650d8d8e4',1,'PerceptionExecutionData']]],
-  ['unknown_1',['UNKNOWN',['../d9/d2b/namespacecommon__lib_1_1competition__logic.html#a36deec2ca2854e7543cc4d5caab92feba696b031073e74bf2cb98e5ef201d4aa3',1,'common_lib::competition_logic']]],
-  ['update_2',['update',['../d6/d5a/class_p_i_d.html#a6b2e0ee3c86f4106bccac154b8baf65e',1,'PID::update()'],['../da/da6/class_extended_kalman_filter.html#acf5d4c31b01020285ad184c55cfcf928',1,'ExtendedKalmanFilter::update()'],['../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#a76e679b059edaa88f597bdc83f7ad948',1,'pacsim_keys.main.PublishThread.update()']]],
-  ['update_5fclosest_5fpoint_3',['update_closest_point',['../d9/da5/class_point_solver.html#a94c8ce68f4b5c7808885e713850365db',1,'PointSolver']]],
-  ['update_5fdashboard_4',['update_dashboard',['../df/d91/namespacedashboard.html#a554b47ce91f518b9f9a511dd5c04dab8',1,'dashboard']]],
-  ['update_5flookahead_5fdistance_5',['update_lookahead_distance',['../d9/da5/class_point_solver.html#aab352d6a615eb4e265d8eb9454e45ff8',1,'PointSolver']]],
-  ['update_5flookahead_5fpoint_6',['update_lookahead_point',['../d9/da5/class_point_solver.html#ad11abaf305721e003e1c952e37e1320e',1,'PointSolver']]],
-  ['update_5frpms_5fcallback_7',['update_rpms_callback',['../de/d3d/class_inspection_mission.html#a7e529c97d075ceac8e0731a06e2671e5',1,'InspectionMission']]],
-  ['update_5fvehicle_5fpose_8',['update_vehicle_pose',['../d9/da5/class_point_solver.html#a2547e5834c5e2238a69e7b6a96dc1d7a',1,'PointSolver']]],
-  ['upload_5fcsv_5fto_5fbucket_9',['upload_csv_to_bucket',['../d8/dc7/namespacebucket__operations.html#aa899ad61fdb53bd44dd8c1bf7e94cc28',1,'bucket_operations']]],
-  ['use_10',['How to use',['../dd/d73/md_src_2pacsim__keys_2_r_e_a_d_m_e.html#autotoc_md103',1,'']]],
-  ['use_5foutlier_5fremoval_5f_11',['use_outlier_removal_',['../d7/d4c/struct_outliers_config.html#a9bdbba1bc6b782fd5da6fe92f7441d52',1,'OutliersConfig::use_outlier_removal_'],['../d2/deb/struct_planning_parameters.html#a97ebc5cf0008b25c273ddcceb7b5bf1b',1,'PlanningParameters::use_outlier_removal_']]],
-  ['use_5fpath_5fsmoothing_5f_12',['use_path_smoothing_',['../d2/deb/struct_planning_parameters.html#a69e172628329827a3b9bea5c960ca0df',1,'PlanningParameters::use_path_smoothing_'],['../de/dce/struct_path_smoothing_config.html#af1e1e705957722d368b07d9c371a3db4',1,'PathSmoothingConfig::use_path_smoothing_']]],
-  ['use_5fsimulated_5fplanning_5f_13',['use_simulated_planning_',['../d4/de1/struct_control_parameters.html#aa3382215cf22ddf385d779a96d059936',1,'ControlParameters::use_simulated_planning_'],['../d7/d49/class_control.html#a425a0f55fe457d6621392817c543ed2f',1,'Control::use_simulated_planning_']]],
-  ['using_5fsimulated_5fse_5f_14',['using_simulated_se_',['../d4/de1/struct_control_parameters.html#a12264a08b94581b6c9cab99ed89a6156',1,'ControlParameters::using_simulated_se_'],['../d7/d49/class_control.html#a24e436accce661da6fc26e937c2e9fe4',1,'Control::using_simulated_se_'],['../d2/deb/struct_planning_parameters.html#af4f254eae6518082565ecc11eb09d527',1,'PlanningParameters::using_simulated_se_'],['../d3/db0/struct_simulation_config.html#ac1cb924a7291e7486e4b207effa547ab',1,'SimulationConfig::using_simulated_se_']]],
-  ['utils_2ecpp_15',['utils.cpp',['../d1/d2d/control_2test_2include_2utils_8cpp.html',1,'(Global Namespace)'],['../d0/d09/planning_2test_2test__utils_2utils_8cpp.html',1,'(Global Namespace)']]],
-  ['utils_2ehpp_16',['utils.hpp',['../d6/dab/planning_2test_2test__utils_2utils_8hpp.html',1,'(Global Namespace)'],['../d9/d9c/control_2test_2include_2utils_8hpp.html',1,'(Global Namespace)']]]
+  ['q_5ftest_0',['q_test',['../df/d4f/class_performance_test.html#a9f11c03bac601cc1772a15c4113cfc60',1,'PerformanceTest']]],
+  ['quaternion_1',['quaternion',['../df/d44/structquaternion.html',1,'']]],
+  ['quaternion_2ecpp_2',['quaternion.cpp',['../da/d59/quaternion_8cpp.html',1,'']]],
+  ['quaternion_2ehpp_3',['quaternion.hpp',['../db/d65/quaternion_8hpp.html',1,'']]],
+  ['quaternion_5fto_5frotation_5fmatrix_4',['quaternion_to_rotation_matrix',['../dc/de8/classevaluator_1_1fsds__adapter_1_1_f_s_d_s_adapter.html#acb856e4f90e2109c92cf79ad2eacfe54',1,'evaluator::fsds_adapter::FSDSAdapter']]],
+  ['quatfromeulerangles_5',['quatfromeulerangles',['../db/d65/quaternion_8hpp.html#a73e3ac6469ef5f6ff855227c2170d522',1,'quatFromEulerAngles(Eigen::Vector3d a):&#160;quaternion.cpp'],['../da/d59/quaternion_8cpp.html#a73e3ac6469ef5f6ff855227c2170d522',1,'quatFromEulerAngles(Eigen::Vector3d a):&#160;quaternion.cpp']]],
+  ['quatfromrotationmatrix_6',['quatfromrotationmatrix',['../da/d59/quaternion_8cpp.html#ae873c764c0b9b7c75b55e5d006685a1a',1,'quatFromRotationMatrix(Eigen::Matrix3d mat):&#160;quaternion.cpp'],['../db/d65/quaternion_8hpp.html#ae873c764c0b9b7c75b55e5d006685a1a',1,'quatFromRotationMatrix(Eigen::Matrix3d mat):&#160;quaternion.cpp']]],
+  ['quatinversion_7',['quatinversion',['../db/d65/quaternion_8hpp.html#a269779b6c37ff6325f198db8a3052f42',1,'quatInversion(quaternion a):&#160;quaternion.cpp'],['../da/d59/quaternion_8cpp.html#a269779b6c37ff6325f198db8a3052f42',1,'quatInversion(quaternion a):&#160;quaternion.cpp']]],
+  ['quatmult_8',['quatmult',['../db/d65/quaternion_8hpp.html#a1abc462dade67df25d5062c6b7ab44a5',1,'quatMult(quaternion a, quaternion b):&#160;quaternion.cpp'],['../da/d59/quaternion_8cpp.html#a1abc462dade67df25d5062c6b7ab44a5',1,'quatMult(quaternion a, quaternion b):&#160;quaternion.cpp']]],
+  ['quatnorm_9',['quatnorm',['../db/d65/quaternion_8hpp.html#a6eace781eeab92a89c2b23f43695200e',1,'quatNorm(quaternion a):&#160;quaternion.cpp'],['../da/d59/quaternion_8cpp.html#a6eace781eeab92a89c2b23f43695200e',1,'quatNorm(quaternion a):&#160;quaternion.cpp']]],
+  ['quatnormalize_10',['quatnormalize',['../db/d65/quaternion_8hpp.html#a6160c8c4e5f1709d98f2eea22c747e03',1,'quatNormalize(quaternion a):&#160;quaternion.cpp'],['../da/d59/quaternion_8cpp.html#a6160c8c4e5f1709d98f2eea22c747e03',1,'quatNormalize(quaternion a):&#160;quaternion.cpp']]]
 ];

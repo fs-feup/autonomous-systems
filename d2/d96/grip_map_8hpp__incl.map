@@ -1,0 +1,41 @@
+<map id="src/pacsim/include/track/gripMap.hpp" name="src/pacsim/include/track/gripMap.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="280,5,410,46"/>
+<area shape="rect" id="Node000002" href="$d2/dcb/config_parser_8hpp.html" title=" " alt="" coords="286,94,404,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="348,46,348,78,342,78,342,46"/>
+<area shape="rect" id="Node000004" href="$dd/de3/types_8hpp.html" title=" " alt="" coords="227,168,303,193"/>
+<area shape="poly" id="edge21_Node000001_Node000004" title=" " alt="" coords="318,48,295,69,277,95,268,124,266,152,261,152,263,123,272,93,291,66,314,45"/>
+<area shape="rect" id="Node000013" href="$d6/da3/logger_8hpp.html" title=" " alt="" coords="132,94,212,120"/>
+<area shape="poly" id="edge14_Node000001_Node000013" title=" " alt="" coords="303,49,213,90,211,85,301,44"/>
+<area shape="rect" id="Node000014" href="$d6/deb/transform_8hpp.html" title=" " alt="" coords="428,94,529,120"/>
+<area shape="poly" id="edge17_Node000001_Node000014" title=" " alt="" coords="380,44,446,83,443,88,377,49"/>
+<area shape="rect" id="Node000017" title=" " alt="" coords="553,94,615,120"/>
+<area shape="poly" id="edge22_Node000001_Node000017" title=" " alt="" coords="405,44,539,88,537,93,404,49"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,168,125,193"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="298,123,128,166,127,161,297,118"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="333,122,291,159,288,155,330,118"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="310,241,367,267"/>
+<area shape="poly" id="edge13_Node000002_Node000009" title=" " alt="" coords="347,120,342,226,337,226,342,120"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="379,168,493,193"/>
+<area shape="poly" id="edge10_Node000002_Node000010" title=" " alt="" coords="362,118,410,156,407,160,359,122"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="517,168,584,193"/>
+<area shape="poly" id="edge11_Node000002_Node000011" title=" " alt="" coords="381,118,503,160,501,165,379,123"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="149,168,202,193"/>
+<area shape="poly" id="edge12_Node000002_Node000012" title=" " alt="" coords="317,123,218,164,216,160,315,118"/>
+<area shape="rect" id="Node000005" href="$db/d65/quaternion_8hpp.html" title=" " alt="" coords="116,241,222,267"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="250,196,199,234,195,230,247,192"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="234,315,318,341"/>
+<area shape="poly" id="edge8_Node000004_Node000006" title=" " alt="" coords="269,193,276,299,271,300,263,194"/>
+<area shape="poly" id="edge9_Node000004_Node000009" title=" " alt="" coords="279,192,317,229,313,232,275,195"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="189,265,246,304,243,308,186,270"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="96,315,210,341"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="169,268,162,300,156,299,164,267"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="15,315,72,341"/>
+<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="149,270,79,309,77,305,146,265"/>
+<area shape="poly" id="edge15_Node000013_Node000003" title=" " alt="" coords="155,122,97,161,94,156,152,118"/>
+<area shape="poly" id="edge16_Node000013_Node000012" title=" " alt="" coords="175,120,177,152,171,152,170,120"/>
+<area shape="poly" id="edge18_Node000014_Node000004" title=" " alt="" coords="443,123,316,165,315,160,441,118"/>
+<area shape="rect" id="Node000015" title=" " alt="" coords="609,168,703,193"/>
+<area shape="poly" id="edge19_Node000014_Node000015" title=" " alt="" coords="509,118,612,159,611,164,507,123"/>
+<area shape="rect" id="Node000016" title=" " alt="" coords="727,168,798,193"/>
+<area shape="poly" id="edge20_Node000014_Node000016" title=" " alt="" coords="527,118,712,164,711,169,526,123"/>
+</map>

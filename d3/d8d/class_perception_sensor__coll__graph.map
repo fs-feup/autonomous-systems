@@ -1,0 +1,5 @@
+<map id="PerceptionSensor" name="PerceptionSensor">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,359,243,824"/>
+<area shape="rect" id="Node000002" href="$dd/dc4/class_sensor_base.html" title=" " alt="" coords="31,5,217,311"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="127,326,127,359,121,359,121,326"/>
+</map>

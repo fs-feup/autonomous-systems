@@ -1,0 +1,8 @@
+<map id="drawView.drawView.updateCompass" name="drawView.drawView.updateCompass">
+<area shape="rect" id="Node000001" title=" " alt="" coords="266,63,446,103"/>
+<area shape="rect" id="Node000002" href="$d5/da5/classdraw_view_1_1draw_view.html#a70757131d1e393e3f96456ff7ca7ae24" title=" " alt="" coords="5,29,218,70"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="250,71,218,67,218,62,251,66"/>
+<area shape="rect" id="Node000003" href="$d5/da5/classdraw_view_1_1draw_view.html#a23ece9688df83763476ae441c10c1826" title=" " alt="" coords="34,95,189,135"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="251,99,190,107,189,102,250,94"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="151,16,137,10,111,8,88,10,74,15,69,21,71,28,66,29,63,19,71,10,87,5,112,3,138,5,153,11"/>
+</map>

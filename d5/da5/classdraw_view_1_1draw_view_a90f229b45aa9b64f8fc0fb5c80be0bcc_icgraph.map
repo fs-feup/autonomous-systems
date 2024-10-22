@@ -1,0 +1,16 @@
+<map id="drawView.drawView.getSelected" name="drawView.drawView.getSelected">
+<area shape="rect" id="Node000001" title=" " alt="" coords="512,78,722,104"/>
+<area shape="rect" id="Node000002" href="$d5/da5/classdraw_view_1_1draw_view.html#ab32d9f415fa0aeaf596477303937465a" title=" " alt="" coords="281,5,464,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="551,76,451,49,452,44,552,71"/>
+<area shape="rect" id="Node000004" href="$d5/da5/classdraw_view_1_1draw_view.html#a1c4018589aa1581db48ce59e496d7d91" title=" " alt="" coords="282,71,463,111"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="496,94,463,94,463,88,496,88"/>
+<area shape="rect" id="Node000005" href="$d5/da5/classdraw_view_1_1draw_view.html#afe69ef2f50371a04966d1a0f80cb8863" title=" " alt="" coords="282,136,463,177"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="552,111,452,138,451,133,551,106"/>
+<area shape="rect" id="Node000003" href="$d5/da5/classdraw_view_1_1draw_view.html#ad66f53930ba83e09ae3e3db9bdc610ff" title=" " alt="" coords="5,32,233,57"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="265,36,233,39,233,33,265,31"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="266,74,192,60,193,55,267,69"/>
+<area shape="rect" id="Node000006" href="$d5/da5/classdraw_view_1_1draw_view.html#acbd943f3560b4ee24df89c4f3013544c" title=" " alt="" coords="41,99,197,139"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="266,143,197,133,198,128,267,138"/>
+<area shape="rect" id="Node000007" href="$d5/da5/classdraw_view_1_1draw_view.html#af142dcf0c777a5fdf8f8b3abbe760e88" title=" " alt="" coords="41,164,197,205"/>
+<area shape="poly" id="edge7_Node000005_Node000007" title=" " alt="" coords="267,171,198,178,197,173,266,165"/>
+</map>

@@ -94,30 +94,30 @@ $(document).ready(function(){initNavTree('db/da2/md_src_2cloud__storage_2_r_e_a_
   <div class="headertitle"><div class="title">Cloud Storage</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md4"></a> </p>
-<h1><a class="anchor" id="autotoc_md5"></a>
+<div class="textblock"><p><a class="anchor" id="autotoc_md10"></a> </p>
+<h1><a class="anchor" id="autotoc_md11"></a>
 Package Information</h1>
-<h2><a class="anchor" id="autotoc_md6"></a>
+<h2><a class="anchor" id="autotoc_md12"></a>
 Description</h2>
 <p>This folder contains scripts for interacting with Google Cloud Storage buckets, specifically for uploading CSV files.</p>
-<h2><a class="anchor" id="autotoc_md7"></a>
+<h2><a class="anchor" id="autotoc_md13"></a>
 Folder Structure</h2>
 <p>The main scripts are:</p>
 <ul>
 <li><code><a class="el" href="../../dc/d23/bucket__operations_8py.html">bucket_operations.py</a></code>: Contains functions to upload, list and download files to/from a Google Cloud Storage bucket.</li>
 <li><code><a class="el" href="../../db/d01/send__bucket_8py.html">send_bucket.py</a></code>: Uploads CSV files from unit tests and evaluations to the bucket.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md8"></a>
+<h2><a class="anchor" id="autotoc_md14"></a>
 Important Dependencies</h2>
 <ul>
 <li><a href="https://pypi.org/project/google-cloud-storage/">google-cloud-storage</a></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md9"></a>
+<h1><a class="anchor" id="autotoc_md15"></a>
 How to Run</h1>
-<h2><a class="anchor" id="autotoc_md10"></a>
+<h2><a class="anchor" id="autotoc_md16"></a>
 Install Dependencies</h2>
 <div class="fragment"><div class="line">./dependencies_install.sh</div>
-</div><!-- fragment --> <h2><a class="anchor" id="autotoc_md11"></a>
+</div><!-- fragment --> <h2><a class="anchor" id="autotoc_md17"></a>
 Running</h2>
 <p>To run the <code><a class="el" href="../../db/d01/send__bucket_8py.html">send_bucket.py</a></code> script, from the workspace use the following command:</p>
 <div class="fragment"><div class="line">python3 src/cloud_storage/send_bucket.py &lt;csv_file_option&gt; &lt;file1 file2 file3 | all&gt;</div>
@@ -125,7 +125,7 @@ Running</h2>
 <li>**&lt;csv_file_option&gt;**: Specifies the source folder from which to read the CSV files.</li>
 <li>**&lt;file1 file2 file3 | all&gt;**: Specifies individual file names separated by spaces, or use all to upload all files in the folder.</li>
 </ul>
-<h3><a class="anchor" id="autotoc_md12"></a>
+<h3><a class="anchor" id="autotoc_md18"></a>
 Options for **&lt;csv_file_option&gt;**</h3>
 <ul>
 <li><b>state_est</b>: Reads time_exec measurements from unit tests of state estimation.</li>
@@ -134,7 +134,7 @@ Options for **&lt;csv_file_option&gt;**</h3>
 <li><b>evaluator</b>: Reads measurements of each subsystem from the evaluator.</li>
 <li><b>planning_cone_coloring</b>: Reads accuracy measurements from the cone coloring unit tests.</li>
 </ul>
-<h3><a class="anchor" id="autotoc_md13"></a>
+<h3><a class="anchor" id="autotoc_md19"></a>
 Examples</h3>
 <p>Run the following commands from the workspace directory (/home/ws):</p>
 <ol type="1">
@@ -145,7 +145,7 @@ Examples</h3>
 <li>Upload specific files from the state estimation folder:</li>
 </ol>
 <div class="fragment"><div class="line">python3 src/cloud_storage/send_bucket.py state_est file1.csv file2.csv</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md14"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md20"></a>
 Extra</h2>
 <p>Make sure you have your google cloud authentication file (.json) in this directory. </p>
 </div></div><!-- contents -->

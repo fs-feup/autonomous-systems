@@ -1,0 +1,37 @@
+<map id="src/pacsim/src/sensorModels/wheelsSensor.cpp" name="src/pacsim/src/sensorModels/wheelsSensor.cpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="487,5,680,46"/>
+<area shape="rect" id="Node000002" href="$d7/d9f/wheels_sensor_8hpp.html" title=" " alt="" coords="477,94,690,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="586,46,586,78,581,78,581,46"/>
+<area shape="rect" id="Node000003" href="$d2/dcb/config_parser_8hpp.html" title=" " alt="" coords="364,168,481,193"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="557,123,465,163,462,159,555,118"/>
+<area shape="rect" id="Node000005" href="$dd/de3/types_8hpp.html" title=" " alt="" coords="71,241,147,267"/>
+<area shape="poly" id="edge17_Node000002_Node000005" title=" " alt="" coords="532,123,352,170,246,205,155,238,153,233,244,200,351,165,530,118"/>
+<area shape="rect" id="Node000014" href="$d2/d00/sensor_base_8hpp.html" title=" " alt="" coords="526,168,641,193"/>
+<area shape="poly" id="edge15_Node000002_Node000014" title=" " alt="" coords="586,120,586,152,581,152,581,120"/>
+<area shape="rect" id="Node000015" title=" " alt="" coords="671,241,728,267"/>
+<area shape="poly" id="edge18_Node000002_Node000015" title=" " alt="" coords="602,118,628,139,655,166,675,196,691,226,686,228,671,199,651,169,625,143,599,122"/>
+<area shape="rect" id="Node000016" title=" " alt="" coords="715,168,780,193"/>
+<area shape="poly" id="edge19_Node000002_Node000016" title=" " alt="" coords="612,118,707,159,705,164,610,123"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="171,241,290,267"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="391,196,278,238,276,233,389,191"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="369,197,163,243,162,238,367,191"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="268,315,326,341"/>
+<area shape="poly" id="edge14_Node000003_Node000010" title=" " alt="" coords="407,196,381,217,355,243,332,273,313,303,308,300,327,270,351,240,378,213,404,192"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="365,241,479,267"/>
+<area shape="poly" id="edge11_Node000003_Node000011" title=" " alt="" coords="425,194,425,226,420,226,420,194"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="503,241,571,267"/>
+<area shape="poly" id="edge12_Node000003_Node000012" title=" " alt="" coords="443,192,506,230,503,235,440,196"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="594,241,648,267"/>
+<area shape="poly" id="edge13_Node000003_Node000013" title=" " alt="" coords="457,191,581,236,579,241,455,196"/>
+<area shape="rect" id="Node000006" href="$db/d65/quaternion_8hpp.html" title=" " alt="" coords="110,315,215,341"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="120,266,146,301,142,304,116,269"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="5,389,90,414"/>
+<area shape="poly" id="edge9_Node000005_Node000007" title=" " alt="" coords="106,268,61,375,56,373,101,266"/>
+<area shape="poly" id="edge10_Node000005_Node000010" title=" " alt="" coords="142,265,254,308,253,313,140,270"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="144,343,81,382,79,378,141,339"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="114,389,227,414"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="166,341,170,373,164,374,161,341"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="251,389,308,414"/>
+<area shape="poly" id="edge8_Node000006_Node000009" title=" " alt="" coords="183,339,248,378,245,383,181,343"/>
+<area shape="poly" id="edge16_Node000014_Node000015" title=" " alt="" coords="605,192,669,231,666,235,602,196"/>
+</map>

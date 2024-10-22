@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['mission_0',['Mission',['../d9/d2b/namespacecommon__lib_1_1competition__logic.html#adc523f54f1498f443c97303976f40140',1,'common_lib::competition_logic']]]
+  ['discipline_0',['Discipline',['../dd/de3/types_8hpp.html#a602139322e3c68f68d494fc57800b110',1,'types.hpp']]]
 ];

@@ -1,0 +1,10 @@
+<map id="distanceToLineSegment" name="distanceToLineSegment">
+<area shape="rect" id="Node000001" title=" " alt="" coords="703,31,866,56"/>
+<area shape="rect" id="Node000002" href="$de/dbe/class_competition_logic.html#a05f6afc34f2fed63931a47ce45b4f56e" title=" " alt="" coords="464,31,655,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="688,46,656,46,656,41,688,41"/>
+<area shape="rect" id="Node000003" href="$de/dbe/class_competition_logic.html#a26028866a0b30229f9b15a71d9e0a97c" title=" " alt="" coords="226,5,416,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="448,34,416,31,417,26,449,29"/>
+<area shape="rect" id="Node000004" href="$de/dbe/class_competition_logic.html#aa033c5a1d3ea10be407f66dfbb5a07dd" title=" " alt="" coords="5,23,178,64"/>
+<area shape="poly" id="edge4_Node000002_Node000004" title=" " alt="" coords="448,46,178,46,178,41,448,41"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="210,33,178,37,178,31,210,28"/>
+</map>

@@ -1,0 +1,33 @@
+<map id="ConfigElement::hasElement" name="ConfigElement::hasElement">
+<area shape="rect" id="Node000001" title=" " alt="" coords="762,257,940,283"/>
+<area shape="rect" id="Node000002" href="$d0/d11/class_config_element.html#aa233fbc1dc21b6a44eac22ddfa677aa4" title=" " alt="" coords="538,257,714,283"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="746,273,714,273,714,268,746,268"/>
+<area shape="rect" id="Node000003" href="$d9/d88/pacsim__main_8cpp.html#ac17eeac22d22e0468279e10834b9905e" title=" " alt="" coords="128,5,226,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="614,243,598,200,572,147,536,94,514,71,489,52,457,36,423,24,352,11,283,9,226,13,225,8,283,4,352,6,424,19,459,31,492,48,518,67,540,91,577,144,603,197,619,242"/>
+<area shape="rect" id="Node000004" href="$d9/d88/pacsim__main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title=" " alt="" coords="5,107,55,132"/>
+<area shape="poly" id="edge11_Node000002_Node000004" title=" " alt="" coords="607,245,560,183,527,151,489,126,436,101,388,84,345,74,303,71,260,72,214,78,103,97,56,111,54,106,102,92,213,73,259,67,303,65,345,69,390,79,438,96,492,121,530,147,564,179,611,242"/>
+<area shape="rect" id="Node000005" href="$d9/d88/pacsim__main_8cpp.html#ad09756d13b462eba760e734116d7dc52" title=" " alt="" coords="103,107,251,132"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="601,248,552,204,522,182,489,165,429,144,366,131,305,124,251,121,251,116,305,119,367,126,430,139,491,160,525,178,556,200,604,244"/>
+<area shape="rect" id="Node000006" href="$d9/d88/pacsim__main_8cpp.html#a223f4d2c33370aa8108c10626cd0bb8e" title=" " alt="" coords="134,156,220,182"/>
+<area shape="poly" id="edge6_Node000002_Node000006" title=" " alt="" coords="593,251,546,222,490,198,417,181,343,173,221,170,221,164,344,167,418,176,491,193,548,217,596,246"/>
+<area shape="rect" id="Node000007" href="$de/d10/classgrip_map.html#ac4bd914b1cb35a7017af9f856551c100" title=" " alt="" coords="328,208,461,234"/>
+<area shape="poly" id="edge8_Node000002_Node000007" title=" " alt="" coords="547,256,458,237,459,232,548,251"/>
+<area shape="rect" id="Node000009" href="$d9/df9/class_gnss_sensor.html#a542edaf163911b1e2f1853f4cc8af0e9" title=" " alt="" coords="315,257,475,283"/>
+<area shape="poly" id="edge12_Node000002_Node000009" title=" " alt="" coords="523,273,475,273,475,268,523,268"/>
+<area shape="rect" id="Node000010" href="$d6/d71/class_imu_sensor.html#a1e7ddb85020abf8b59ce64bffd0c49c5" title=" " alt="" coords="319,307,470,332"/>
+<area shape="poly" id="edge13_Node000002_Node000010" title=" " alt="" coords="548,289,459,309,458,303,547,284"/>
+<area shape="rect" id="Node000011" href="$d0/d8a/class_perception_sensor.html#adefe6ae19896f680cac16a55ec70e224" title=" " alt="" coords="299,356,490,382"/>
+<area shape="poly" id="edge14_Node000002_Node000011" title=" " alt="" coords="593,294,546,321,491,347,459,358,457,353,489,342,544,317,591,289"/>
+<area shape="rect" id="Node000012" href="$df/d7c/class_scalar_value_sensor.html#afb8f2b1929be75a5b55c0c48217e4307" title=" " alt="" coords="326,406,464,447"/>
+<area shape="poly" id="edge15_Node000002_Node000012" title=" " alt="" coords="606,297,557,347,526,373,492,396,465,409,463,405,489,392,522,369,553,343,602,293"/>
+<area shape="rect" id="Node000013" href="$dc/df1/class_wheels_sensor.html#a48b1a8770e259143dcf6ad2a16c50044" title=" " alt="" coords="309,471,481,496"/>
+<area shape="poly" id="edge16_Node000002_Node000013" title=" " alt="" coords="615,299,596,335,569,379,534,423,492,460,469,472,466,468,489,456,530,419,565,376,592,333,610,296"/>
+<area shape="rect" id="Node000014" href="$dd/d52/class_vehicle_model_bicycle.html#a73890bf28715fe5ea80c951f3844bed4" title=" " alt="" coords="324,521,465,561"/>
+<area shape="poly" id="edge17_Node000002_Node000014" title=" " alt="" coords="619,299,602,344,576,401,539,460,517,487,492,511,467,526,464,522,489,507,513,483,535,457,571,399,597,342,614,297"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="126,40,104,52,70,81,44,108,40,104,67,77,101,48,123,35"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="87,122,55,122,55,117,87,117"/>
+<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="119,153,102,147,54,131,56,126,104,142,121,148"/>
+<area shape="rect" id="Node000008" href="$d9/d88/pacsim__main_8cpp.html#ad8bb50a4d7c840ecc7ac51807e13c613" title=" " alt="" coords="105,207,249,232"/>
+<area shape="poly" id="edge9_Node000007_Node000008" title=" " alt="" coords="313,223,249,223,249,217,313,218"/>
+<area shape="poly" id="edge10_Node000008_Node000004" title=" " alt="" coords="111,202,101,196,65,165,39,135,43,131,69,162,104,192,114,198"/>
+</map>

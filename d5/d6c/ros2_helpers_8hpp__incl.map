@@ -1,0 +1,38 @@
+<map id="src/pacsim/include/ros2Helpers.hpp" name="src/pacsim/include/ros2Helpers.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="1072,5,1202,46"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,102,125,127"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1072,30,907,32,674,42,407,62,270,77,136,97,120,100,119,95,135,91,269,72,406,56,674,36,907,27,1071,24"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="148,94,350,135"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="1072,34,771,55,571,73,365,96,365,91,571,68,770,50,1071,28"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="374,94,577,135"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="1072,37,863,61,593,96,592,91,862,56,1071,31"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="602,102,750,127"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="1072,40,762,97,744,100,743,95,760,91,1071,35"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="774,94,930,135"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="1073,49,932,92,930,87,1071,44"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="954,102,1131,127"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="1117,48,1068,93,1065,89,1114,45"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="1155,94,1311,135"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="1161,45,1202,81,1198,85,1157,49"/>
+<area shape="rect" id="Node000009" href="$dd/de3/types_8hpp.html" title=" " alt="" coords="1335,102,1411,127"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="1194,44,1325,91,1329,93,1327,98,1323,97,1192,49"/>
+<area shape="rect" id="Node000015" title=" " alt="" coords="1435,94,1588,135"/>
+<area shape="poly" id="edge15_Node000001_Node000015" title=" " alt="" coords="1203,39,1420,89,1419,94,1202,45"/>
+<area shape="rect" id="Node000016" title=" " alt="" coords="1613,102,1707,127"/>
+<area shape="poly" id="edge16_Node000001_Node000016" title=" " alt="" coords="1203,30,1384,52,1493,69,1602,91,1612,94,1611,99,1600,97,1492,75,1383,57,1202,36"/>
+<area shape="rect" id="Node000017" title=" " alt="" coords="1730,102,1784,127"/>
+<area shape="poly" id="edge17_Node000001_Node000017" title=" " alt="" coords="1203,25,1304,28,1434,39,1577,59,1649,73,1719,91,1723,93,1721,98,1718,97,1648,79,1576,64,1433,44,1303,34,1202,30"/>
+<area shape="rect" id="Node000018" title=" " alt="" coords="1807,102,1990,127"/>
+<area shape="poly" id="edge18_Node000001_Node000018" title=" " alt="" coords="1203,29,1463,52,1629,70,1796,91,1823,96,1822,101,1795,97,1628,75,1462,57,1202,35"/>
+<area shape="rect" id="Node000010" href="$db/d65/quaternion_8hpp.html" title=" " alt="" coords="1320,183,1426,208"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="1376,128,1376,167,1370,167,1370,128"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="1216,256,1301,282"/>
+<area shape="poly" id="edge13_Node000009_Node000011" title=" " alt="" coords="1361,130,1336,154,1310,184,1273,243,1269,241,1306,181,1332,150,1358,126"/>
+<area shape="rect" id="Node000014" title=" " alt="" coords="1450,183,1507,208"/>
+<area shape="poly" id="edge14_Node000009_Node000014" title=" " alt="" coords="1391,125,1452,171,1449,175,1387,130"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="1355,211,1292,250,1289,245,1352,207"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="1324,256,1438,282"/>
+<area shape="poly" id="edge11_Node000010_Node000012" title=" " alt="" coords="1377,208,1381,241,1375,241,1372,209"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="1462,256,1519,282"/>
+<area shape="poly" id="edge12_Node000010_Node000013" title=" " alt="" coords="1394,207,1459,246,1456,250,1392,211"/>
+</map>

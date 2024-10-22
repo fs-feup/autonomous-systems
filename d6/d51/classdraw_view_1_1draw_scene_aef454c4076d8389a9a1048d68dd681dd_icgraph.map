@@ -1,0 +1,8 @@
+<map id="drawView.drawScene.zoom_in" name="drawView.drawScene.zoom_in">
+<area shape="rect" id="Node000001" title=" " alt="" coords="266,70,463,96"/>
+<area shape="rect" id="Node000002" href="$d5/da5/classdraw_view_1_1draw_view.html#a70757131d1e393e3f96456ff7ca7ae24" title=" " alt="" coords="5,29,218,70"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="250,71,218,66,218,61,251,65"/>
+<area shape="rect" id="Node000003" href="$d5/da5/classdraw_view_1_1draw_view.html#a23ece9688df83763476ae441c10c1826" title=" " alt="" coords="34,95,189,135"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="251,100,190,108,189,103,250,95"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="153,16,138,10,111,8,87,10,73,15,67,21,69,28,64,29,62,19,70,10,86,5,112,3,139,5,155,11"/>
+</map>

@@ -1,0 +1,11 @@
+<map id="src/bayesian&#45;opt/cone_coloring/cpp&#45;python&#45;bridge.cpp" name="src/bayesian&#45;opt/cone_coloring/cpp&#45;python&#45;bridge.cpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="94,5,243,61"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,124,65,150"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="134,64,65,116,62,112,131,59"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="89,124,160,150"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="159,63,138,111,133,109,154,61"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="184,124,241,150"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="183,61,204,109,199,111,178,63"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="265,109,416,165"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="216,59,282,98,280,103,213,64"/>
+</map>

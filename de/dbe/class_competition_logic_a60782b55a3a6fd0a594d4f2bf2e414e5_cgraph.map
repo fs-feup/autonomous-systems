@@ -1,0 +1,9 @@
+<map id="CompetitionLogic::carConePolyIntersect" name="CompetitionLogic::carConePolyIntersect">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,182,46"/>
+<area shape="rect" id="Node000002" href="$de/dbe/class_competition_logic.html#a6f1b90e120326ea6eb204aec108cff9d" title=" " alt="" coords="230,5,397,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="182,23,214,23,214,28,182,28"/>
+<area shape="rect" id="Node000003" href="$de/dbe/class_competition_logic.html#abcdacd502da8fe0016896fb7170374fc" title=" " alt="" coords="445,5,641,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="397,23,429,23,429,28,397,28"/>
+<area shape="rect" id="Node000004" href="$de/dbe/class_competition_logic.html#a0cd27cc6b8b3af36fe83990fe1ec52c6" title=" " alt="" coords="689,13,864,39"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="642,23,674,23,674,28,642,28"/>
+</map>

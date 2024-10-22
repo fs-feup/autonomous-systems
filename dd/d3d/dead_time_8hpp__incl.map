@@ -1,0 +1,7 @@
+<map id="src/pacsim/include/VehicleModel/deadTime.hpp" name="src/pacsim/include/VehicleModel/deadTime.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,194,46"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="31,94,88,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,48,75,81,70,79,87,45"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="111,94,168,120"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="112,45,129,79,124,81,107,48"/>
+</map>

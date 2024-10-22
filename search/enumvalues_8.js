@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['right_0',['right',['../d9/d8a/namespacecommon__lib_1_1structures.html#a215a4ec12608ced25978cf0e507d24e4a21507b40c80068eda19865706fdc2403',1,'common_lib::structures::RIGHT'],['../d7/d88/right__left__enum_8hpp.html#ab29ebb3bd0eb1f2813c692fe882c3186a21507b40c80068eda19865706fdc2403',1,'RIGHT:&#160;right_left_enum.hpp']]]
+  ['no_5ffix_0',['NO_FIX',['../da/d17/struct_gnss_data.html#a73e0921bb90bb7e1e1aa30d647453433a5c4528e538cfd90c060afd1e3c9552f6',1,'GnssData']]],
+  ['none_1',['NONE',['../d9/d2b/namespacecommon__lib_1_1competition__logic.html#adc523f54f1498f443c97303976f40140ab50339a10e1de285ac99d4c3990b8693',1,'common_lib::competition_logic']]]
 ];

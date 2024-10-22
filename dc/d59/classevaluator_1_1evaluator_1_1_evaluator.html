@@ -594,7 +594,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Computes state estimation metrics and publishes them. </p>
-<p>Args: pose (np.ndarray): Vehicle state estimation data. [x,y,theta] groundtruth_pose (np.ndarray): Ground truth vehicle state data. [x,y,theta] veloevaluator-eufs.launch.pyndtruth_velocities (np.ndarray): Ground truth vehicle state velocities. [vx, vy, w] map (np.ndarray): Map data. [[x,y,color,confidence]] groundtruth_map (np.ndarray): Ground truth map data. [[x,y,color,confidence]] </p>
+<p>Args: pose (np.ndarray): Vehicle state estimation data. [x,y,theta] groundtruth_pose (np.ndarray): Ground truth vehicle state data. [x,y,theta] veloevaluator-eufs.launch.pyndtruth_velocities (np.ndarray): Ground truth vehicle state velocities. [vx, vy, w] map (np.ndarray): <a class="el" href="../../df/d91/struct_map.html">Map</a> data. [[x,y,color,confidence]] groundtruth_map (np.ndarray): Ground truth map data. [[x,y,color,confidence]] </p>
 
 <p class="definition">Definition at line <a class="el" href="../../d3/d4a/evaluator_8py_source.html#l00538">538</a> of file <a class="el" href="../../d3/d4a/evaluator_8py_source.html">evaluator.py</a>.</p>
 
@@ -826,13 +826,13 @@ Returns:
 <li>Metrics are saved in the "performance/evaluator_metrics" directory as "&lt;metric_name&gt;_&lt;timestamp&gt;.csv".</li>
 <li>If a category has no metrics, no CSV file will be created for that category. Example: </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md55"></a>
+<h1><a class="anchor" id="autotoc_md71"></a>
 Create an instance of the Evaluator class</h1>
 <p>evaluator = Evaluator() </p>
-<h1><a class="anchor" id="autotoc_md56"></a>
+<h1><a class="anchor" id="autotoc_md72"></a>
 Register the signal handler function</h1>
 <p>signal.signal(signal.SIGINT, evaluator.signal_handler) </p>
-<h1><a class="anchor" id="autotoc_md57"></a>
+<h1><a class="anchor" id="autotoc_md73"></a>
 Start the program</h1>
 <p>evaluator.run() </p>
 

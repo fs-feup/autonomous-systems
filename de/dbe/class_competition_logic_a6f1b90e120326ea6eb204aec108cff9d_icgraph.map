@@ -1,0 +1,14 @@
+<map id="CompetitionLogic::pointInPolygon" name="CompetitionLogic::pointInPolygon">
+<area shape="rect" id="Node000001" title=" " alt="" coords="675,39,843,79"/>
+<area shape="rect" id="Node000002" href="$de/dbe/class_competition_logic.html#a60782b55a3a6fd0a594d4f2bf2e414e5" title=" " alt="" coords="451,5,627,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="659,47,627,42,628,36,660,41"/>
+<area shape="rect" id="Node000005" href="$de/dbe/class_competition_logic.html#a6c24b1752b9f6196b6068c9131be31fc" title=" " alt="" coords="458,71,621,111"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="660,76,622,82,621,76,660,71"/>
+<area shape="rect" id="Node000003" href="$de/dbe/class_competition_logic.html#aee7835de8bdf01343db95cc164be7476" title=" " alt="" coords="226,5,403,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="436,28,403,28,403,23,436,23"/>
+<area shape="rect" id="Node000004" href="$de/dbe/class_competition_logic.html#aa033c5a1d3ea10be407f66dfbb5a07dd" title=" " alt="" coords="5,39,178,79"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="211,44,178,49,178,43,210,39"/>
+<area shape="rect" id="Node000006" href="$de/dbe/class_competition_logic.html#a1cd9733938b4b5361e2e853337f0fd6e" title=" " alt="" coords="226,71,403,111"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="442,94,404,94,404,88,442,88"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="210,79,178,74,178,69,211,73"/>
+</map>

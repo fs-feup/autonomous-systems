@@ -1,0 +1,9 @@
+<map id="src/pacsim/include/quaternion.hpp" name="src/pacsim/include/quaternion.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="105,5,235,46"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,94,90,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="141,49,80,88,78,83,138,44"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="114,94,227,120"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="173,46,173,78,168,78,168,46"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="251,94,308,120"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="199,44,252,82,249,87,196,49"/>
+</map>

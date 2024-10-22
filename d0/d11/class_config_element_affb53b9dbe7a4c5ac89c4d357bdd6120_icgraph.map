@@ -1,0 +1,15 @@
+<map id="ConfigElement::getElements" name="ConfigElement::getElements">
+<area shape="rect" id="Node000001" title=" " alt="" coords="480,56,663,82"/>
+<area shape="rect" id="Node000002" href="$d9/d88/pacsim__main_8cpp.html#ad09756d13b462eba760e734116d7dc52" title=" " alt="" coords="103,5,251,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="488,55,432,46,251,26,252,21,433,41,488,50"/>
+<area shape="rect" id="Node000004" href="$d9/d88/pacsim__main_8cpp.html#a223f4d2c33370aa8108c10626cd0bb8e" title=" " alt="" coords="323,56,409,82"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="465,72,409,72,409,66,465,66"/>
+<area shape="rect" id="Node000005" href="$de/d10/classgrip_map.html#ac4bd914b1cb35a7017af9f856551c100" title=" " alt="" coords="299,105,432,131"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="500,89,423,107,422,102,499,83"/>
+<area shape="rect" id="Node000003" href="$d9/d88/pacsim__main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title=" " alt="" coords="5,56,55,82"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="124,39,56,63,54,58,122,34"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="307,72,55,72,55,66,307,66"/>
+<area shape="rect" id="Node000006" href="$d9/d88/pacsim__main_8cpp.html#ad8bb50a4d7c840ecc7ac51807e13c613" title=" " alt="" coords="105,107,249,132"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="284,121,249,122,249,116,284,116"/>
+<area shape="poly" id="edge7_Node000006_Node000003" title=" " alt="" coords="122,104,54,80,56,75,124,99"/>
+</map>

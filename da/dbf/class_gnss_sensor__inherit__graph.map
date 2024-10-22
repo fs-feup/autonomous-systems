@@ -1,0 +1,5 @@
+<map id="GnssSensor" name="GnssSensor">
+<area shape="rect" id="Node000001" title=" " alt="" coords="13,359,162,704"/>
+<area shape="rect" id="Node000002" href="$dd/dc4/class_sensor_base.html" title=" " alt="" coords="5,5,169,311"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="90,326,90,359,85,359,85,326"/>
+</map>

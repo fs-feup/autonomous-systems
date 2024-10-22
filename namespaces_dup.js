@@ -17,6 +17,37 @@ var namespaces_dup =
       [ "yCones", "d9/de5/namespaceacceleration__mapper.html#a3658ecf66c22a25a41b4d9b2fce12fce", null ],
       [ "yPoints", "d9/de5/namespaceacceleration__mapper.html#a25b0c8715f104e18ba7fd48de0563d52", null ]
     ] ],
+    [ "adapt", "d5/d03/namespaceadapt.html", [
+      [ "param_space", "d5/d03/namespaceadapt.html#a5b0d8f014f1066771cdb331ff9acda5f", null ],
+      [ "parameters_list", "d5/d03/namespaceadapt.html#a4ed5f79d2b012242b746d9ed085bb97e", null ],
+      [ "params1", "d5/d03/namespaceadapt.html#aa5472cd372e4ced9806ba0197d9b8fa0", null ],
+      [ "params2", "d5/d03/namespaceadapt.html#a5675d419c158927229edabbc36ae8166", null ],
+      [ "params3", "d5/d03/namespaceadapt.html#a2455bfb24409f69f2b99328cfafc0782", null ],
+      [ "params4", "d5/d03/namespaceadapt.html#aa8219b43f3e2ecf1643586312442d81d", null ],
+      [ "params5", "d5/d03/namespaceadapt.html#a944fb5a3bf3a26359e378153a0d6413f", null ],
+      [ "params6", "d5/d03/namespaceadapt.html#ae47a5c55bf34ffbd2481e99d55270e3a", null ],
+      [ "params7", "d5/d03/namespaceadapt.html#a446629a44f5340aa5da5418c634e4135", null ]
+    ] ],
+    [ "bayesian", "dd/d3b/namespacebayesian.html", [
+      [ "call_cpp_program", "dd/d3b/namespacebayesian.html#ab514b131e3cf6509322d50ec3a248a1c", null ],
+      [ "export_top_5_to_file", "dd/d3b/namespacebayesian.html#a92c42740b1d372556df17da44099b751", null ],
+      [ "objective_function", "dd/d3b/namespacebayesian.html#ae382ac9508a926dabb6f4921b01d7a66", null ],
+      [ "signal_handler", "dd/d3b/namespacebayesian.html#a8baa0c17ba39625c35bd7ece7cc8b3a2", null ],
+      [ "update_top_5", "dd/d3b/namespacebayesian.html#a54304415ebd093b498a7089824725d6b", null ],
+      [ "algorithm_to_tune", "dd/d3b/namespacebayesian.html#afa92424a90c70755fa9f65d3dd3854b4", null ],
+      [ "base_dir", "dd/d3b/namespacebayesian.html#a376a1ed9ad765df28a4ba7f384350087", null ],
+      [ "best_params", "dd/d3b/namespacebayesian.html#a505981bb93f59a217c4131617222d664", null ],
+      [ "best_value", "dd/d3b/namespacebayesian.html#a64a11f282e2c2fd33ed2f3c812819c05", null ],
+      [ "current_value", "dd/d3b/namespacebayesian.html#af37178c0f4d9a15b448b526108e9e200", null ],
+      [ "executable_path", "dd/d3b/namespacebayesian.html#adacca7f6d2e1b6e097ba53e6ba037f73", null ],
+      [ "export_path", "dd/d3b/namespacebayesian.html#a5de9d011285170416decfb3817d7fa99", null ],
+      [ "full_path", "dd/d3b/namespacebayesian.html#aab328ab3684fe795d37961c8d4ebfce5", null ],
+      [ "module", "dd/d3b/namespacebayesian.html#ad00e5e1e06e68faf7a8ba0df4176e5c6", null ],
+      [ "next_params", "dd/d3b/namespacebayesian.html#a6028a017403c1d6515fdaded05e532cd", null ],
+      [ "optimizer", "dd/d3b/namespacebayesian.html#a040a732b266592190386eaceda2ec48e", null ],
+      [ "result", "dd/d3b/namespacebayesian.html#a648bdffc7d1a861a609d2a8ba42b0404", null ],
+      [ "top_5", "dd/d3b/namespacebayesian.html#abd79bb8074f06182d7773d05b23cc9af", null ]
+    ] ],
     [ "bucket_operations", "d8/dc7/namespacebucket__operations.html", [
       [ "download_csv_from_bucket_to_folder", "d8/dc7/namespacebucket__operations.html#aae87ecaefca1236879594bcb25a03eb1", null ],
       [ "list_blobs", "d8/dc7/namespacebucket__operations.html#a2dd0951b6a307d887de9772b4696f27c", null ],
@@ -24,6 +55,7 @@ var namespaces_dup =
       [ "upload_csv_to_bucket", "d8/dc7/namespacebucket__operations.html#aa899ad61fdb53bd44dd8c1bf7e94cc28", null ]
     ] ],
     [ "common_lib", "dd/d5f/namespacecommon__lib.html", "dd/d5f/namespacecommon__lib" ],
+    [ "convert_fssim_sdf_to_yaml", "da/d44/namespaceconvert__fssim__sdf__to__yaml.html", "da/d44/namespaceconvert__fssim__sdf__to__yaml" ],
     [ "dashboard", "df/d91/namespacedashboard.html", [
       [ "cleanup_temp_folder", "df/d91/namespacedashboard.html#a1e6e5d5c2c545f230e2a03ff914b2720", null ],
       [ "create_update_graph_callback", "df/d91/namespacedashboard.html#ae5584737f7f9282cc80dfe0b2e404e54", null ],
@@ -38,7 +70,11 @@ var namespaces_dup =
       [ "layout", "df/d91/namespacedashboard.html#a651edf1f918ca2f360e565e52f64ff33", null ],
       [ "suppress_callback_exceptions", "df/d91/namespacedashboard.html#abbd08efe3761a9696345c9c5907053c3", null ]
     ] ],
+    [ "drawView", "d2/dfb/namespacedraw_view.html", "d2/dfb/namespacedraw_view" ],
     [ "evaluator", "db/d6f/namespaceevaluator.html", "db/d6f/namespaceevaluator" ],
+    [ "guiLogic", "db/d15/namespacegui_logic.html", "db/d15/namespacegui_logic" ],
+    [ "main", "d2/dc1/namespacemain.html", "d2/dc1/namespacemain" ],
+    [ "mapFile", "d6/dff/namespacemap_file.html", "d6/dff/namespacemap_file" ],
     [ "offsettrack", "dd/d6b/namespaceoffsettrack.html", [
       [ "c", "dd/d6b/namespaceoffsettrack.html#a69901488f64f2102f31272f623559e12", null ],
       [ "c_values", "dd/d6b/namespaceoffsettrack.html#a5324cb11b8bd1bb4a08fef0f29eda572", null ],
@@ -68,6 +104,12 @@ var namespaces_dup =
       [ "f", "de/da7/namespacerandom__points.html#a14a62e2a87bab023adc792ba94a4a259", null ],
       [ "x", "de/da7/namespacerandom__points.html#ad6e2e4a7b9f2c406d66374be3e62afd9", null ],
       [ "y", "de/da7/namespacerandom__points.html#ae888b532a92ecf74d9946d6c956bc13c", null ]
+    ] ],
+    [ "report_evaluation", "de/da3/namespacereport__evaluation.html", [
+      [ "evaluate", "de/da3/namespacereport__evaluation.html#ad9d5fa1b9c42b2da9c9512dc75b07836", null ],
+      [ "main", "de/da3/namespacereport__evaluation.html#a59d38f23f9bbc2b526460cc9efe97e9b", null ],
+      [ "output", "de/da3/namespacereport__evaluation.html#af052ab547a7ee991f10d9d6a4505438a", null ],
+      [ "path", "de/da3/namespacereport__evaluation.html#abe626143f2e4e27687a9c5375eeefd4d", null ]
     ] ],
     [ "send_bucket", "de/dd5/namespacesend__bucket.html", [
       [ "list_files", "de/dd5/namespacesend__bucket.html#a3f7f7c05a2fda444d135c47e0890404f", null ],

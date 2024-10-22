@@ -94,13 +94,13 @@ $(document).ready(function(){initNavTree('d6/d5b/md_src_2ekf__state__est_2_r_e_a
   <div class="headertitle"><div class="title">EKF State Estimation Package</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md41"></a> </p>
-<h1><a class="anchor" id="autotoc_md42"></a>
+<div class="textblock"><p><a class="anchor" id="autotoc_md47"></a> </p>
+<h1><a class="anchor" id="autotoc_md48"></a>
 Package Information</h1>
-<h2><a class="anchor" id="autotoc_md43"></a>
+<h2><a class="anchor" id="autotoc_md49"></a>
 Description</h2>
 <p>The State Estimation module is responsible for the processing of the perception module and localisation sensors' data and its transformation into useful information. In this case, the data is combined to generate the best estimates possible on the pose and speed of the vehicle and the location of the cones that delimit the track.</p>
-<h2><a class="anchor" id="autotoc_md44"></a>
+<h2><a class="anchor" id="autotoc_md50"></a>
 Folder Structure</h2>
 <ul>
 <li><a href="../.././include/adapter_ekf_state_est/">adapter_ekf_state_est</a>: Adapters to change ros2 interfaces according to simulator or environment</li>
@@ -112,33 +112,33 @@ Folder Structure</h2>
 </li>
 <li><a href="../.././include/ros_node/">ros_node</a>: Node class</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md45"></a>
+<h2><a class="anchor" id="autotoc_md51"></a>
 Launch Configurations</h2>
 <ul>
 <li><a href="../.././launch/eufs.launch.py">eufs.launch.py</a>: Launch file for the EUFS simulator</li>
 <li><a href="../.././launch/pacsim.launch.py">pacsim.launch.py</a>: Launch file for the PacSim simulator</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md46"></a>
+<h2><a class="anchor" id="autotoc_md52"></a>
 Important Dependencies</h2>
 <ul>
 <li><a href="https://eigen.tuxfamily.org/index.php?title=Main_Page">Eigen3</a></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md47"></a>
+<h1><a class="anchor" id="autotoc_md53"></a>
 How to Run</h1>
-<h2><a class="anchor" id="autotoc_md48"></a>
+<h2><a class="anchor" id="autotoc_md54"></a>
 Install Dependencies</h2>
 <div class="fragment"><div class="line">./dependencies_install.sh</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md49"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md55"></a>
 Compiling</h2>
 <div class="fragment"><div class="line">colcon build --packages-up-to ekf_state_est</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md50"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md56"></a>
 Testing</h2>
 <div class="fragment"><div class="line">colcon test --packages-select ekf_state_est # use event-handler=console_direct+ for imediate output</div>
 </div><!-- fragment --><p>To check test results: </p><div class="fragment"><div class="line">colcon test-result --all --verbose</div>
 </div><!-- fragment --><p>or</p>
 <div class="fragment"><div class="line">source ./install/setup.bash # If in a new terminal</div>
 <div class="line">ros2 run ekf_state_est ekf_state_est_test</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md51"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md57"></a>
 Running</h2>
 <p>Use a launch file:</p>
 <div class="fragment"><div class="line">source ./install/setup.bash # If in a new terminal</div>
@@ -146,10 +146,10 @@ Running</h2>
 </div><!-- fragment --><p>or run directly:</p>
 <div class="fragment"><div class="line">source ./install/setup.bash # If in a new terminal</div>
 <div class="line">ros2 run ekf_state_est ekf_state_est</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md52"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md58"></a>
 Design</h1>
 <p>Below, some diagrams are presented that can illustrate the structure and behaviour of the program.</p>
-<h2><a class="anchor" id="autotoc_md53"></a>
+<h2><a class="anchor" id="autotoc_md59"></a>
 Behaviour</h2>
 <p>The control flow below illustrates briefly the flow of execution and information through the node, you can also checkout <a href="../../../../docs/assets/Loc_map/EKFSlam1.0.pdf">documentation pdf</a> to get a better understanding.</p>
 <p><img src="../../../../docs/assets/Loc_map/locmap-flow-chart.svg" alt="Control Flow Diagram" style="pointer-events: none;" class="inline"/></p>
@@ -180,7 +180,7 @@ Behaviour</h2>
 <li>The EKF updates the estimates and the node publishes them.</li>
 </ol>
 <p><img src="../../../../docs/assets/Loc_map/correction-sequence-diagram.svg" alt="Sequence Diagram Part 3" style="pointer-events: none;" class="inline"/></p>
-<h2><a class="anchor" id="autotoc_md54"></a>
+<h2><a class="anchor" id="autotoc_md60"></a>
 Structure</h2>
 <p>The node is composed by multiple classes. The diagram below illustrates roughly how they sit in the code structure. The main two are the LMNode, which is the class of the node, and the Extended Kalman Filter, which corresponds to the code of the implementation of the EKF SLAM.</p>
 <p><img src="../../../../docs/assets/Loc_map/class-diagram.svg" alt="Class Diagram" style="pointer-events: none;" class="inline"/> </p>

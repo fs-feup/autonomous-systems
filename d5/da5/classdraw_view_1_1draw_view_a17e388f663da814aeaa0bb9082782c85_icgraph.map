@@ -1,0 +1,12 @@
+<map id="drawView.drawView.resetLaneConnections" name="drawView.drawView.resetLaneConnections">
+<area shape="rect" id="Node000001" title=" " alt="" coords="776,37,976,78"/>
+<area shape="rect" id="Node000002" href="$d5/da5/classdraw_view_1_1draw_view.html#ad255fb280530433ebfde5ae6e4208d94" title=" " alt="" coords="514,20,728,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="760,49,728,46,729,40,761,44"/>
+<area shape="rect" id="Node000005" href="$d5/da5/classdraw_view_1_1draw_view.html#a1d478257de399c0896b407a5049b0345" title=" " alt="" coords="281,70,466,96"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="761,66,467,81,466,76,761,61"/>
+<area shape="rect" id="Node000003" href="$d5/da5/classdraw_view_1_1draw_view.html#a1c4018589aa1581db48ce59e496d7d91" title=" " alt="" coords="283,5,464,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="498,32,464,31,464,25,498,26"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="540,51,440,72,439,67,539,46"/>
+<area shape="rect" id="Node000004" href="$d5/da5/classdraw_view_1_1draw_view.html#ad66f53930ba83e09ae3e3db9bdc610ff" title=" " alt="" coords="5,13,233,39"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="267,28,233,28,233,23,267,23"/>
+</map>

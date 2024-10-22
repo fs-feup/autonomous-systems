@@ -1,0 +1,25 @@
+<map id="src/pacsim/include/competitionLogic.hpp" name="src/pacsim/include/competitionLogic.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="178,5,326,46"/>
+<area shape="rect" id="Node000002" href="$d6/da3/logger_8hpp.html" title=" " alt="" coords="97,94,177,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="225,49,168,87,165,83,222,44"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="149,168,202,193"/>
+<area shape="poly" id="edge12_Node000001_Node000004" title=" " alt="" coords="244,47,191,155,186,152,240,45"/>
+<area shape="rect" id="Node000005" href="$dd/de3/types_8hpp.html" title=" " alt="" coords="252,94,329,120"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="264,45,280,79,275,81,259,48"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="352,94,423,120"/>
+<area shape="poly" id="edge11_Node000001_Node000011" title=" " alt="" coords="287,44,355,84,353,88,284,49"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,168,125,193"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="127,122,90,158,86,155,123,118"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="146,119,164,153,160,155,141,121"/>
+<area shape="rect" id="Node000006" href="$db/d65/quaternion_8hpp.html" title=" " alt="" coords="278,168,383,193"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="299,119,319,153,314,155,295,121"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="182,241,266,267"/>
+<area shape="poly" id="edge9_Node000005_Node000007" title=" " alt="" coords="287,121,238,228,233,226,282,119"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="407,168,464,193"/>
+<area shape="poly" id="edge10_Node000005_Node000010" title=" " alt="" coords="316,118,398,158,396,163,314,123"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="314,196,256,235,253,230,311,192"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="290,241,403,267"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="336,193,343,225,338,226,330,194"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="427,241,484,267"/>
+<area shape="poly" id="edge8_Node000006_Node000009" title=" " alt="" coords="353,192,423,231,420,236,350,196"/>
+</map>

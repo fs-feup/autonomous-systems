@@ -1,0 +1,9 @@
+<map id="CompetitionLogic::pointInTriangle" name="CompetitionLogic::pointInTriangle">
+<area shape="rect" id="Node000001" title=" " alt="" coords="662,5,830,46"/>
+<area shape="rect" id="Node000002" href="$de/dbe/class_competition_logic.html#a20d9c4bcbbf0d3cbc5dc1d8e8c97b417" title=" " alt="" coords="451,5,614,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="647,28,615,28,615,23,647,23"/>
+<area shape="rect" id="Node000003" href="$de/dbe/class_competition_logic.html#a1cd9733938b4b5361e2e853337f0fd6e" title=" " alt="" coords="226,5,403,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="435,28,404,28,404,23,435,23"/>
+<area shape="rect" id="Node000004" href="$de/dbe/class_competition_logic.html#aa033c5a1d3ea10be407f66dfbb5a07dd" title=" " alt="" coords="5,5,178,46"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="210,28,178,28,178,23,210,23"/>
+</map>

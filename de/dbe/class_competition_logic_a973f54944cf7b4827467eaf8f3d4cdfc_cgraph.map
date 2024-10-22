@@ -1,0 +1,12 @@
+<map id="CompetitionLogic::evaluateTimeKeepings" name="CompetitionLogic::evaluateTimeKeepings">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,39,183,79"/>
+<area shape="rect" id="Node000002" href="$de/dbe/class_competition_logic.html#abebe472121bd4c9d3cc6b28a8f60c428" title=" " alt="" coords="242,5,420,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="183,44,226,38,227,43,184,49"/>
+<area shape="rect" id="Node000003" href="$de/dbe/class_competition_logic.html#a6448c0ad7924b9b02181a215c0e678de" title=" " alt="" coords="231,71,431,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="184,68,215,73,215,78,183,74"/>
+<area shape="rect" id="Node000004" href="$de/dbe/class_competition_logic.html#af802ab3d5c6b847c0ccf15732ebad55f" title=" " alt="" coords="690,71,887,111"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="431,85,479,84,642,84,675,85,674,90,642,90,479,90,431,91"/>
+<area shape="rect" id="Node000005" href="$de/dbe/class_competition_logic.html#a63251e0cb46a78cf362e7e7f971e68f9" title=" " alt="" coords="479,99,642,139"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="431,101,464,105,463,110,431,106"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="642,106,674,102,675,108,643,112"/>
+</map>

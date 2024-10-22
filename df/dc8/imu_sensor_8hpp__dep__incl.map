@@ -1,0 +1,7 @@
+<map id="src/pacsim/include/sensorModels/imuSensor.hpp" name="src/pacsim/include/sensorModels/imuSensor.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="83,5,279,46"/>
+<area shape="rect" id="Node000002" href="$d9/d88/pacsim__main_8cpp.html" title=" " alt="" coords="5,94,159,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="149,58,106,96,103,92,145,54"/>
+<area shape="rect" id="Node000003" href="$d0/d20/imu_sensor_8cpp.html" title=" " alt="" coords="183,94,376,135"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="216,54,259,92,255,96,213,58"/>
+</map>

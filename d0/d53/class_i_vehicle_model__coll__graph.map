@@ -1,0 +1,5 @@
+<map id="IVehicleModel" name="IVehicleModel">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,179,171,564"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="60,5,116,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="91,70,91,162,85,162,85,70"/>
+</map>

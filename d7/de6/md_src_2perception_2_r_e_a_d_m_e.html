@@ -94,13 +94,13 @@ $(document).ready(function(){initNavTree('d7/de6/md_src_2perception_2_r_e_a_d_m_
   <div class="headertitle"><div class="title">Perception Package</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md104"></a> </p>
-<h1><a class="anchor" id="autotoc_md105"></a>
+<div class="textblock"><p><a class="anchor" id="autotoc_md129"></a> </p>
+<h1><a class="anchor" id="autotoc_md130"></a>
 Package Information</h1>
-<h2><a class="anchor" id="autotoc_md106"></a>
+<h2><a class="anchor" id="autotoc_md131"></a>
 Description</h2>
 <p>The <a class="el" href="../../de/d07/class_perception.html" title="Node for perception tasks, such as ground removal and cone detection.">Perception</a> module is responsible for the processing of the perception module and perception sensors' data and its transformation into useful information. In this case, the LiDAR's point cloud is processed to generate the cones' position on the track.</p>
-<h2><a class="anchor" id="autotoc_md107"></a>
+<h2><a class="anchor" id="autotoc_md132"></a>
 Folder Structure</h2>
 <ul>
 <li><a href="../../include/center_calculation/">center_calculation</a>: Functions to calculate the center of the cones</li>
@@ -113,32 +113,32 @@ Folder Structure</h2>
 <li><a href="../../include/utils/">utils</a>: Utility functions</li>
 <li><a href="../../include/icp/">icp</a>: Functions to perform <a class="el" href="../../dd/d10/class_i_c_p.html" title="Class for performing Iterative Closest Point (ICP) registration.">ICP</a>, used in a validation method</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md108"></a>
+<h2><a class="anchor" id="autotoc_md133"></a>
 Launch Configurations</h2>
 <ul>
 <li><a href="../../launch/eufs.launch.py">eufs.launch.py</a>: Launch file for the EUFS simulator</li>
 <li><a href="../../launch/rosbag-preprocessed.launch.py">rosbag-preprocessed.launch.py</a>: Launch file for the a preprocessed rosbag with a cone scene</li>
 <li><a href="../../launch/vehicle.launch.py">vehicle.launch.py</a>: Launch file for the 01 vehicle</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md109"></a>
+<h2><a class="anchor" id="autotoc_md134"></a>
 Important Dependencies</h2>
 <ul>
 <li><a href="https://eigen.tuxfamily.org/index.php?title=Main_Page">Eigen3</a></li>
 <li><a href="https://pointclouds.org/">PCL</a></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md110"></a>
+<h1><a class="anchor" id="autotoc_md135"></a>
 How to Run</h1>
-<h2><a class="anchor" id="autotoc_md111"></a>
+<h2><a class="anchor" id="autotoc_md136"></a>
 Install Dependencies</h2>
 <div class="fragment"><div class="line">./dependencies_install.sh</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md112"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md137"></a>
 Compiling</h2>
 <div class="fragment"><div class="line">colcon build --packages-up-to perception</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md113"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md138"></a>
 Testing</h2>
 <div class="fragment"><div class="line">colcon test --packages-select perception # use event-handler=console_direct+ for imediate output</div>
 </div><!-- fragment --><p>To check test results: </p><div class="fragment"><div class="line">colcon test-result --all --verbose</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md114"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md139"></a>
 Running</h2>
 <p>Use a launch file:</p>
 <div class="fragment"><div class="line">source ./install/setup.bash # If in a new terminal</div>
@@ -146,10 +146,10 @@ Running</h2>
 </div><!-- fragment --><p>or run directly:</p>
 <div class="fragment"><div class="line">source ./install/setup.bash # If in a new terminal</div>
 <div class="line">ros2 run perception perception</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md115"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md140"></a>
 Design</h1>
 <p>Below, some diagrams are presented that can illustrate the structure and behaviour of the program.</p>
-<h2><a class="anchor" id="autotoc_md116"></a>
+<h2><a class="anchor" id="autotoc_md141"></a>
 Class Diagram</h2>
 <p><img src="../../../../docs/diagrams/perception/class_diagram.drawio.png" alt="Perception Class Diagram" class="inline"/> </p>
 </div></div><!-- contents -->

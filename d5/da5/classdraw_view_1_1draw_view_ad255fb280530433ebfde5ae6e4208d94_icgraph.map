@@ -1,0 +1,9 @@
+<map id="drawView.drawView.removeCone" name="drawView.drawView.removeCone">
+<area shape="rect" id="Node000001" title=" " alt="" coords="514,42,728,68"/>
+<area shape="rect" id="Node000002" href="$d5/da5/classdraw_view_1_1draw_view.html#a1c4018589aa1581db48ce59e496d7d91" title=" " alt="" coords="283,5,464,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="498,43,464,39,464,34,499,38"/>
+<area shape="rect" id="Node000004" href="$d5/da5/classdraw_view_1_1draw_view.html#a1d478257de399c0896b407a5049b0345" title=" " alt="" coords="281,70,466,96"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="499,72,467,75,466,70,498,66"/>
+<area shape="rect" id="Node000003" href="$d5/da5/classdraw_view_1_1draw_view.html#ad66f53930ba83e09ae3e3db9bdc610ff" title=" " alt="" coords="5,13,233,39"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="267,28,233,28,233,23,267,23"/>
+</map>

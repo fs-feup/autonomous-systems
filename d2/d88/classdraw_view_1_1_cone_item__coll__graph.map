@@ -1,0 +1,5 @@
+<map id="drawView.ConeItem" name="drawView.ConeItem">
+<area shape="rect" id="Node000001" title=" " alt="" coords="14,119,207,324"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,216,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="113,86,113,119,108,119,108,86"/>
+</map>

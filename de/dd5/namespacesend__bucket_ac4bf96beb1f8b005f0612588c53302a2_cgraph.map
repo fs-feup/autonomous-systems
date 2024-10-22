@@ -1,6 +1,5 @@
 <map id="send_bucket.main" name="send_bucket.main">
-<area shape="rect" id="Node000001" title="Retrieve files from specified folders." alt="" coords="5,29,132,55"/>
-<area shape="poly" id="edge2_Node000001_Node000001" title=" " alt="" coords="37,30,31,21,35,11,48,5,69,3,91,5,102,12,100,16,89,10,68,8,49,10,39,15,37,20,42,27"/>
-<area shape="rect" id="Node000002" href="$de/dd5/namespacesend__bucket.html#a3f7f7c05a2fda444d135c47e0890404f" title="List files in a directory." alt="" coords="180,29,325,55"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="132,40,164,40,164,45,132,45"/>
+<area shape="rect" id="Node000001" title="Retrieve files from specified folders." alt="" coords="5,5,132,31"/>
+<area shape="rect" id="Node000002" href="$de/dd5/namespacesend__bucket.html#a3f7f7c05a2fda444d135c47e0890404f" title="List files in a directory." alt="" coords="180,5,325,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="132,16,164,16,164,21,132,21"/>
 </map>

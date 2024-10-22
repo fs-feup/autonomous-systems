@@ -1,15 +1,13 @@
 var searchData=
 [
-  ['vehicle_5fframe_5fid_5f_0',['vehicle_frame_id_',['../de/dda/struct_perception_parameters.html#a3837e8da0d9d2d139a7a8ae45db7d6f0',1,'PerceptionParameters']]],
-  ['vehicle_5fpose_5f_1',['vehicle_pose_',['../d9/da5/class_point_solver.html#a19035ea0333217b136d55621b91c19f5',1,'PointSolver']]],
-  ['vehicle_5fstate_5fpublisher_5f_2',['vehicle_state_publisher_',['../d7/d4e/class_integration_test.html#ae323c1bfaacc88dbbe0525479fa21894',1,'IntegrationTest']]],
-  ['vehicle_5fstate_5fsub_5f_3',['vehicle_state_sub_',['../d0/d1d/class_eufs_adapter.html#afe51c85dc293e49acdb9d976f75ea357',1,'EufsAdapter::vehicle_state_sub_'],['../d7/d49/class_control.html#a24a9f447f1c52d693d9a1919d06f0bcf',1,'Control::vehicle_state_sub_']]],
-  ['vehicle_5fstate_5fsubscription_5f_4',['vehicle_state_subscription_',['../dc/d59/classevaluator_1_1evaluator_1_1_evaluator.html#ac287b832430e32ca6c11b7e3b840bb87',1,'evaluator::evaluator::Evaluator']]],
-  ['velocity_5f_5',['velocity_',['../de/d41/structcommon__lib_1_1structures_1_1_vehicle_pose.html#acda8c373875e3ff298b68caf5f358412',1,'common_lib::structures::VehiclePose']]],
-  ['velocity_5fx_6',['velocity_x',['../d0/d2a/structcommon__lib_1_1structures_1_1_vehicle_state.html#abe71e8bf086fe75bd06fdb4d7e5824f4',1,'common_lib::structures::VehicleState']]],
-  ['velocity_5fy_7',['velocity_y',['../d0/d2a/structcommon__lib_1_1structures_1_1_vehicle_state.html#aeb41cdbc3a8563cc4a2ef3228d5d63ec',1,'common_lib::structures::VehicleState']]],
-  ['version_8',['version',['../dd/dc4/namespacesetup.html#a2aa722b36a933088812b50ea79b97a5c',1,'setup']]],
-  ['vertical_5fang_5fres_9',['vertical_ang_res',['../d0/d47/class_distance_predict.html#a3b541b7549f590e59929e7d89e817e4d',1,'DistancePredict']]],
-  ['visualization_5fpub_5f_10',['visualization_pub_',['../d9/db5/class_planning.html#ad8e570419d86ad3ed172def789e99dbb',1,'Planning']]],
-  ['vl_5fsub_5f_11',['vl_sub_',['../d9/db5/class_planning.html#a3cedf8f0830477fe7496dd6d9af12300',1,'Planning']]]
+  ['ui_0',['ui',['../d8/def/classmain_1_1_my_window.html#a6b002edc3801cd958445fa38bb9763aa',1,'main.MyWindow.ui'],['../d2/dc1/namespacemain.html#a585545543117cbf867d959823359de49',1,'main.ui']]],
+  ['undefined_1',['UNDEFINED',['../d9/d45/classgui_logic_1_1landmark_type.html#ade8318f9d4dff19c644f30485caf5951',1,'guiLogic::landmarkType']]],
+  ['undefineds_2',['undefineds',['../d2/d36/struct_perception_execution_data.html#addec0feb48ccaaff35d2a90650d8d8e4',1,'PerceptionExecutionData']]],
+  ['unknown_3',['unknown',['../db/df3/struct_track.html#ab875edb35d634a78d1f1ad7e45cece86',1,'Track']]],
+  ['use_5foutlier_5fremoval_5f_4',['use_outlier_removal_',['../d7/d4c/struct_outliers_config.html#a9bdbba1bc6b782fd5da6fe92f7441d52',1,'OutliersConfig::use_outlier_removal_'],['../d2/deb/struct_planning_parameters.html#a97ebc5cf0008b25c273ddcceb7b5bf1b',1,'PlanningParameters::use_outlier_removal_']]],
+  ['use_5fpath_5fsmoothing_5f_5',['use_path_smoothing_',['../d2/deb/struct_planning_parameters.html#a69e172628329827a3b9bea5c960ca0df',1,'PlanningParameters::use_path_smoothing_'],['../de/dce/struct_path_smoothing_config.html#af1e1e705957722d368b07d9c371a3db4',1,'PathSmoothingConfig::use_path_smoothing_']]],
+  ['use_5fsimulated_5fplanning_5f_6',['use_simulated_planning_',['../d4/de1/struct_control_parameters.html#aa3382215cf22ddf385d779a96d059936',1,'ControlParameters::use_simulated_planning_'],['../d7/d49/class_control.html#a425a0f55fe457d6621392817c543ed2f',1,'Control::use_simulated_planning_']]],
+  ['using_5fsimulated_5fse_5f_7',['using_simulated_se_',['../d4/de1/struct_control_parameters.html#a12264a08b94581b6c9cab99ed89a6156',1,'ControlParameters::using_simulated_se_'],['../d7/d49/class_control.html#a24e436accce661da6fc26e937c2e9fe4',1,'Control::using_simulated_se_'],['../d2/deb/struct_planning_parameters.html#af4f254eae6518082565ecc11eb09d527',1,'PlanningParameters::using_simulated_se_'],['../d3/db0/struct_simulation_config.html#ac1cb924a7291e7486e4b207effa547ab',1,'SimulationConfig::using_simulated_se_']]],
+  ['uss_5fdetect_8',['uss_detect',['../d7/dac/struct_report.html#a0e80bb151a30872368a0324ae4d911cc',1,'Report::uss_detect'],['../d7/d28/struct_main_config.html#aa5e8473fa52d0161d98a256979f8a819',1,'MainConfig::uss_detect']]],
+  ['usstriggered_9',['ussTriggered',['../de/dbe/class_competition_logic.html#a3099a545698cf5def9b915ff515e2216',1,'CompetitionLogic']]]
 ];

@@ -94,13 +94,13 @@ $(document).ready(function(){initNavTree('d4/d0c/md_src_2planning_2_r_e_a_d_m_e.
   <div class="headertitle"><div class="title">Planning Module</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md117"></a> </p>
-<h1><a class="anchor" id="autotoc_md118"></a>
+<div class="textblock"><p><a class="anchor" id="autotoc_md142"></a> </p>
+<h1><a class="anchor" id="autotoc_md143"></a>
 Package Information</h1>
-<h2><a class="anchor" id="autotoc_md119"></a>
+<h2><a class="anchor" id="autotoc_md144"></a>
 Description</h2>
 <p>The planning module is the third main module in the autonomous system. It comes after the Localization and Mapping processing and precedes the <a class="el" href="../../d7/d49/class_control.html" title="Class responsible for the control of the car.">Control</a> module. It is responsible for processing the cones information(position and color) and to calculate the best path for the car to follow considering the received track. It then sends the desired path to the control in the form of a ordered position sequence.</p>
-<h2><a class="anchor" id="autotoc_md120"></a>
+<h2><a class="anchor" id="autotoc_md145"></a>
 Folder Structure</h2>
 <ul>
 <li><a href="../../include/adapter_planning/">adapter_planning</a>: Adapters to change ros2 interfaces according to simulator or environment</li>
@@ -115,58 +115,58 @@ Folder Structure</h2>
 </ul>
 </li>
 </ul>
-<h2><a class="anchor" id="autotoc_md121"></a>
+<h2><a class="anchor" id="autotoc_md146"></a>
 Launch Configurations</h2>
 <ul>
 <li><a href="../../launch/eufs.launch.py">eufs.launch.py</a>: Launches the planning node with the necessary parameters for the EUFS simulator.</li>
 <li><a href="../../launch/vehicle.launch.py">vehicle.launch.py</a>: Launches the planning node with the necessary parameters for the 01 vehicle.</li>
 <li><a href="../../launch/pacsim.launch.py">pacsim.launch.py</a>: Launches the planning node with the necessary parameters for the PacSim simulator.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md122"></a>
+<h2><a class="anchor" id="autotoc_md147"></a>
 Important Dependencies</h2>
 <ul>
 <li><a href="https://www.cgal.org/">CGAL</a>: Computational Geometry Algorithms Library. Used for Delaunay Triangulations.</li>
 <li><a href="https://www.gnu.org/software/gsl/">GSL</a>: GNU Scientific Library. Used for splines.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md123"></a>
+<h1><a class="anchor" id="autotoc_md148"></a>
 How to Run</h1>
-<h2><a class="anchor" id="autotoc_md124"></a>
+<h2><a class="anchor" id="autotoc_md149"></a>
 Install Dependencies</h2>
 <p>You will need CGAL library for the Delaunay Triangulations. GSL library for the splines.</p>
 <div class="fragment"><div class="line">./dependencies_install.sh</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md125"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md150"></a>
 Compiling</h2>
 <div class="fragment"><div class="line">colcon build --packages-up-to planning</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md126"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md151"></a>
 Testing</h2>
 <div class="fragment"><div class="line">colcon test --packages-select planning # use event-handler=console_direct+ for imediate output</div>
 </div><!-- fragment --><p>To check test results: </p><div class="fragment"><div class="line">colcon test-result --all --verbose</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md127"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md152"></a>
 Running</h2>
 <p>Choose one of the launch files available at the "launch" directory. Each file's name indicates the context in which it should be used. If the name of the file is &lt;file_name&gt; run the following command (replace &lt;file_name&gt; with the actual name of the launch file): </p><div class="fragment"><div class="line">source ./install/setup.bash # If in a new terminal</div>
 <div class="line">  ros2 run planning &lt;file_name&gt;</div>
 </div><!-- fragment --><p> At each launch file, you can find the arguments which will be passed to the planning node. Those arguments control whether the node publishes visualization messages (which can be used to foxglove), where the node gets its input from, and parameters intrinsic to the algorithms (which were tuned to some extent). At the declaration of each launch argument, you will find the description of the argument and the value which will be used if you launch the node with that launch file. If you want to change the value which will be used, edit the launch file and compile the package again.</p>
-<h1><a class="anchor" id="autotoc_md128"></a>
+<h1><a class="anchor" id="autotoc_md153"></a>
 Design</h1>
 <p>The architecture of the module may be described according to the following diagrams.</p>
-<h2><a class="anchor" id="autotoc_md129"></a>
+<h2><a class="anchor" id="autotoc_md154"></a>
 Class Diagram</h2>
 <p>This diagram will focus on the main classes and instances inside the planning module, mentioning only the core units and most important functions.</p>
 <p><img src="../../../../docs/diagrams/planning/ClassPlanning.drawio.png" alt="" class="inline"/> </p>
 <ul>
 <li><b>ROS Node:</b> Serves as the fundamental structure and operational backbone of the system.</li>
-<li><b><a class="el" href="../../d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car.">Planning</a>:</b> It is the main orchestrator behind all the processes. It is responsible for the communication with other nodes. It contains an <a class="el" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst...">Adapter</a> instance to manage information from the car/simulator and the main intervenients in the pipeline, as the LocalPathPlanner, responsible for the path calculation, the <a class="el" href="../../dd/d52/class_cone_coloring.html">ConeColoring</a>, responsible for attributing a color to unlabeled cones, the <a class="el" href="../../d7/db7/class_path_smoothing.html" title="class that defines the path smoothing algorithm">PathSmoothing</a>, responsible for smoothing the point array to be published and the Track, which assembles the cones information after coloring and averages them using splines.</li>
+<li><b><a class="el" href="../../d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car.">Planning</a>:</b> It is the main orchestrator behind all the processes. It is responsible for the communication with other nodes. It contains an <a class="el" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst...">Adapter</a> instance to manage information from the car/simulator and the main intervenients in the pipeline, as the LocalPathPlanner, responsible for the path calculation, the <a class="el" href="../../dd/d52/class_cone_coloring.html">ConeColoring</a>, responsible for attributing a color to unlabeled cones, the <a class="el" href="../../d7/db7/class_path_smoothing.html" title="class that defines the path smoothing algorithm">PathSmoothing</a>, responsible for smoothing the point array to be published and the <a class="el" href="../../db/df3/struct_track.html">Track</a>, which assembles the cones information after coloring and averages them using splines.</li>
 <li><b>LocalPathPlanner:</b> This component is responsible for calculation the desired path. It takes the information from the track and using that it creates a sequence of points within the track boundaries for the control module to use as a reference later on.</li>
-<li><b>Track:</b> This component assembles the information received by the track map, splitting and organizing the different cones in side and colors. It can also deals with any outliers by averaging out all cones using splines, and thus transforming the outliers into the main distribution sequence.</li>
+<li><b><a class="el" href="../../db/df3/struct_track.html">Track</a>:</b> This component assembles the information received by the track map, splitting and organizing the different cones in side and colors. It can also deals with any outliers by averaging out all cones using splines, and thus transforming the outliers into the main distribution sequence.</li>
 <li><b><a class="el" href="../../dd/d52/class_cone_coloring.html">ConeColoring</a>:</b> This component responsible for attributing a color to unlabeled ones. It starts from a certain pair, and searches for the next cone for each using a cost function, achieving a fully colored track map in the end.</li>
 <li><b><a class="el" href="../../d7/db7/class_path_smoothing.html" title="class that defines the path smoothing algorithm">PathSmoothing</a>:</b> This component is responsible for fitting a spline through all the calculated points, smoothing the path the vehicle will follow and augmenting the number of references if necessary.</li>
 <li><b>PlanningAdapter:</b> Implementation of the <a class="el" href="../../d3/d7f/class_adapter.html" title="Class that handles the communication between the SpeedEstimation node and the other nodes in the syst...">Adapter</a> Pattern. It is an abstraction layer that's used to receive and interact with the car or simulator, depending on the current usage. It can be used for example to control the current event or the car state.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md130"></a>
+<h2><a class="anchor" id="autotoc_md155"></a>
 Sequence Diagram</h2>
-<p>The planning module receives the track map(a cone array) from the Localization and Mapping block. The main module receives it and will send it to the Cone Coloring to attribute a side to each. The Track instance is then filled with these and deals with outliers by averaging the margins using splines. The next step is transmitting the track to the Local Path Planner, which will calculate the ideal path and return it. Finally, these points are sent to the <a class="el" href="../../d7/db7/class_path_smoothing.html" title="class that defines the path smoothing algorithm">PathSmoothing</a>, where they are processed by a spline approximation, being then returned back to the main module. The path is then forwarded to the subsequent node <a class="el" href="../../d7/d49/class_control.html" title="Class responsible for the control of the car.">Control</a>.</p>
+<p>The planning module receives the track map(a cone array) from the Localization and Mapping block. The main module receives it and will send it to the Cone Coloring to attribute a side to each. The <a class="el" href="../../db/df3/struct_track.html">Track</a> instance is then filled with these and deals with outliers by averaging the margins using splines. The next step is transmitting the track to the Local Path Planner, which will calculate the ideal path and return it. Finally, these points are sent to the <a class="el" href="../../d7/db7/class_path_smoothing.html" title="class that defines the path smoothing algorithm">PathSmoothing</a>, where they are processed by a spline approximation, being then returned back to the main module. The path is then forwarded to the subsequent node <a class="el" href="../../d7/d49/class_control.html" title="Class responsible for the control of the car.">Control</a>.</p>
 <p><img src="../../../../docs/diagrams/planning/SequencePlanning.drawio.png" alt="" class="inline"/> </p>
-<h2><a class="anchor" id="autotoc_md131"></a>
+<h2><a class="anchor" id="autotoc_md156"></a>
 Activity Diagram</h2>
 <p>The planning module doesn't have many different flows. The main one to notice is the difference in the action depending on the event. Since for the Skidpad and Acceleration Events, the best path is already calculated, the module will just go find that data and send it. If we are not in the presence of those, the flow will follow just like previously mentioned.</p>
 <p><img src="../../../../docs/diagrams/planning/ActivityPlanning.drawio.png" alt="" style="width: 50%; height: auto;" class="inline"/> </p>

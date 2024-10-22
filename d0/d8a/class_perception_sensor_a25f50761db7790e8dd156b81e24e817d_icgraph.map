@@ -1,0 +1,7 @@
+<map id="PerceptionSensor::addNoise" name="PerceptionSensor::addNoise">
+<area shape="rect" id="Node000001" title=" " alt="" coords="456,5,641,31"/>
+<area shape="rect" id="Node000002" href="$d0/d8a/class_perception_sensor.html#a16eb36337fee8409834fcae07d5d17dc" title=" " alt="" coords="232,5,408,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="440,21,408,21,408,16,440,16"/>
+<area shape="rect" id="Node000003" href="$d0/d8a/class_perception_sensor.html#aa594d99f787701400f4fb1673a7f242f" title=" " alt="" coords="5,5,184,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="216,21,184,21,184,16,216,16"/>
+</map>

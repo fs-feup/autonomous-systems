@@ -1,0 +1,10 @@
+<map id="quatMult" name="quatMult">
+<area shape="rect" id="Node000001" title=" " alt="" coords="394,55,465,80"/>
+<area shape="rect" id="Node000002" href="$da/d59/quaternion_8cpp.html#adae27324f2a38a783493148d4485b19c" title=" " alt="" coords="216,5,331,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="379,54,316,34,317,29,380,49"/>
+<area shape="rect" id="Node000003" href="$da/d59/quaternion_8cpp.html#a73e3ac6469ef5f6ff855227c2170d522" title=" " alt="" coords="201,55,346,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="378,70,346,70,346,65,378,65"/>
+<area shape="rect" id="Node000004" href="$d9/df9/class_gnss_sensor.html#af33773e019dc8100295bdc82b43c0dbe" title=" " alt="" coords="5,80,153,106"/>
+<area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="380,88,346,95,245,103,153,101,153,96,245,98,346,90,378,83"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="186,82,154,86,153,81,185,76"/>
+</map>
