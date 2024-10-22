@@ -1,0 +1,3 @@
+custom_interfaces/Point2d position
+string color
+float64 confidence

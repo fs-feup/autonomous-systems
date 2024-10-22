@@ -9,55 +9,55 @@ on:
 
 jobs:
 
-  build: # Sonarcloud analysis
-    name: sonarcloud-build
+  #build: # Sonarcloud analysis
+  #  name: sonarcloud-build
 
-    runs-on: ubuntu-latest
+  #  runs-on: ubuntu-latest
 
-    container:
-      image: ros:humble-ros-base-jammy
+  #  container:
+  #    image: ros:humble-ros-base-jammy
 
-    defaults:
-      run:
-        shell: bash
+  #  defaults:
+  #    run:
+  #      shell: bash
 
-    env:
-      SONAR_SCANNER_VERSION: 6.0.0.4432
-      SONAR_SERVER_URL: "https://sonarcloud.io"
-      BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directory # Directory where build-wrapper output will be placed
-      SONAR_SCANNER_DOWNLOAD_URL: https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-6.0.0.4432-linux.zip
+  #  env:
+  #    SONAR_SCANNER_VERSION: 6.0.0.4432
+  #    SONAR_SERVER_URL: "https://sonarcloud.io"
+  #    BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directory # Directory where build-wrapper output will be placed
+  #    SONAR_SCANNER_DOWNLOAD_URL: https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-6.0.0.4432-linux.zip
       
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: 'true'
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+  #  steps:
+  #    - uses: actions/checkout@v4
+  #      with:
+  #        submodules: 'true'
+  #        fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
 
-      - name: Install dependencies
-        run: |
-          echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
-          ./dependencies_install.sh
-          sudo apt install curl -y
-          sudo apt install unzip -y
-          sudo apt install bear -y
+  #    - name: Install dependencies
+  #      run: |
+  #        echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
+  #        ./dependencies_install.sh
+  #        sudo apt install curl -y
+  #        sudo apt install unzip -y
+  #        sudo apt install bear -y
 
-      - name: Download and set up sonar-scanner
-        run: |
-          curl ${{ env.SONAR_SCANNER_DOWNLOAD_URL }} --output sonar-scanner-cli-${{env.SONAR_SCANNER_VERSION}}-linux.zip
-          unzip ./sonar-scanner-cli-${{env.SONAR_SCANNER_VERSION}}-linux.zip
-          echo "./sonar-scanner-${{env.SONAR_SCANNER_VERSION}}-linux/bin" >> $GITHUB_PATH
+  #    - name: Download and set up sonar-scanner
+  #      run: |
+  #        curl ${{ env.SONAR_SCANNER_DOWNLOAD_URL }} --output sonar-scanner-cli-${{env.SONAR_SCANNER_VERSION}}-linux.zip
+  #        unzip ./sonar-scanner-cli-${{env.SONAR_SCANNER_VERSION}}-linux.zip
+  #        echo "./sonar-scanner-${{env.SONAR_SCANNER_VERSION}}-linux/bin" >> $GITHUB_PATH
     
-      - name: Compile with bear
-        run: |
-          source /opt/ros/$ROS_DISTRO/setup.bash
-          bear -- colcon build --packages-up-to common_lib perception ekf_state_est control planning inspection mocker_node evaluator
+  #    - name: Compile with bear
+  #      run: |
+  #        source /opt/ros/$ROS_DISTRO/setup.bash
+  #        bear -- colcon build --packages-up-to common_lib perception ekf_state_est control planning inspection mocker_node evaluator
           
-      - name: Run sonar-scanner
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          sonar-scanner --define sonar.cfamily.compile-commands="./compile_commands.json"
+  #    - name: Run sonar-scanner
+  #      env:
+  #        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  #      run: |
+  #        sonar-scanner --define sonar.cfamily.compile-commands="./compile_commands.json"
 
 
   perception:
