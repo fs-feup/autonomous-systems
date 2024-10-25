@@ -16,11 +16,11 @@ class CarSpeedPublisher(Node):
         self.speed_publisher = self.create_publisher(Float32, "car_speed", 10)
         self.rpm_publisher = self.create_publisher(Float32, "rpm", 10)
 
-        self.timer = self.create_timer(0.1, self.publish_car_speed)
+        self.timer = self.create_timer(1, self.publish_car_speed)
 
         self.wheel_radius = 0.26
         self.avg_wheelspeed = 0.0
-    
+
     def wheelspeed_callback(self, msg):
         fl_speed = msg.fl
         fr_speed = msg.fr
