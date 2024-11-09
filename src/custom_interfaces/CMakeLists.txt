@@ -36,6 +36,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/HydraulicLinePressure.msg"
   "msg/MasterLog.msg"
   "msg/MasterLog2.msg"
+  "msg/Temperature.msg"
   DEPENDENCIES builtin_interfaces std_msgs 
 )
 
