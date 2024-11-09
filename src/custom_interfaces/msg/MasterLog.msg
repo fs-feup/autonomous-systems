@@ -1,0 +1,15 @@
+uint32 hydraulic_pressure 
+bool emergency_signal 
+bool pneumatic_line_pressure 
+bool engage_ebs_check 
+bool realease_ebs_check 
+bool steer_dead 
+bool pc_dead 
+bool inversor_dead 
+bool res_dead 
+bool asms_on 
+bool ts_on 
+bool sdc_open 
+uint8 mission
+uint8 master_state
+uint8 checkup_state
