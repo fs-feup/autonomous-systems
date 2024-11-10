@@ -157,14 +157,18 @@ void SENode::_imu_subscription_callback(const sensor_msgs::msg::Imu &imu_msg) {
   this->_publish_map();
 }
 
-void SENode::_wheel_speeds_subscription_callback(double rl_speed, double fl_speed, double rr_speed,
+void SENode::_wheel_speeds_subscription_callback(double rl_speed, double rr_speed, double fl_speed,
                                                  double fr_speed, double steering_angle,
                                                  const rclcpp::Time &timestamp) {
+  
+  RCLCPP_INFO(this->get_logger(), "Rear Left: %f\n Rear Right: %f", rl_speed, rr_speed);
   rclcpp::Time start_time = this->get_clock()->now();
 
   auto [linear_velocity, angular_velocity] =
       common_lib::vehicle_dynamics::odometry_to_velocities_transform(rl_speed, fl_speed, rr_speed,
                                                                      fr_speed, steering_angle);
+
+  RCLCPP_INFO(this->get_logger(), "Linear Velocity: %f\nAngular Velocity: %f", linear_velocity, angular_velocity);
   MotionUpdate motion_prediction_data;
   motion_prediction_data.translational_velocity = linear_velocity;
   motion_prediction_data.rotational_velocity = angular_velocity;
@@ -178,6 +182,9 @@ void SENode::_wheel_speeds_subscription_callback(double rl_speed, double fl_spee
     return;
   }
   MotionUpdate temp_update = *(this->_motion_update_);
+
+
+  RCLCPP_INFO(this->get_logger(), "Motion update Translational Velocity: %f", this->_motion_update_->translational_velocity);
 
   this->_ekf_->prediction_step(temp_update, "wheel_speed_sensor");
   this->_ekf_->update(this->_vehicle_state_, this->_track_map_);

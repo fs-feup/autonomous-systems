@@ -39,6 +39,9 @@ void VehicleAdapter::wheel_speeds_subscription_callback (
     const custom_interfaces::msg::WheelRPM& rl_wheel_rpm_msg,
     const custom_interfaces::msg::WheelRPM& rr_wheel_rpm_msg,
     const custom_interfaces::msg::SteeringAngle& steering_angle_msg) {
+
+  RCLCPP_INFO(this->node_->get_logger(), "Received WSS!");
+  
   this->node_->_wheel_speeds_subscription_callback(rl_wheel_rpm_msg.rl_rpm, rr_wheel_rpm_msg.rr_rpm,
                                                    0.0, 0.0, steering_angle_msg.steering_angle,
                                                    steering_angle_msg.header.stamp);
