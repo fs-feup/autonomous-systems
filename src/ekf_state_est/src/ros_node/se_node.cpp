@@ -87,6 +87,10 @@ void SENode::_perception_subscription_callback(const custom_interfaces::msg::Con
     return;
   }
 
+  if (!this->_go_){
+    return;
+  }
+
   rclcpp::Time start_time = this->get_clock()->now();
 
   this->_perception_map_->clear();
@@ -116,6 +120,10 @@ void SENode::_perception_subscription_callback(const custom_interfaces::msg::Con
 
 void SENode::_imu_subscription_callback(const sensor_msgs::msg::Imu &imu_msg) {
   if (this->_use_odometry_) {
+    return;
+  }
+
+  if (!this->_go_){
     return;
   }
 
@@ -161,6 +169,10 @@ void SENode::_wheel_speeds_subscription_callback(double rl_speed, double rr_spee
                                                  double fr_speed, double steering_angle,
                                                  const rclcpp::Time &timestamp) {
   
+  if (!this->_go_){
+    return;
+  }
+  
   RCLCPP_INFO(this->get_logger(), "Rear Left: %f\n Rear Right: %f", rl_speed, rr_speed);
   rclcpp::Time start_time = this->get_clock()->now();
 
@@ -205,6 +217,10 @@ void SENode::_publish_vehicle_state() {
     RCLCPP_WARN(this->get_logger(), "PUB - Vehicle state object is null");
     return;
   }
+  if (!this->_go_){
+    return;
+  }
+
   auto message = custom_interfaces::msg::VehicleState();
   message.position.x = this->_vehicle_state_->pose.position.x;
   message.position.y = this->_vehicle_state_->pose.position.y;
