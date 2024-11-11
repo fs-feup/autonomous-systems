@@ -19,6 +19,8 @@ std::string load_adapter_parameters(PlanningParameters& params) {
   params.ncones_gain_ = adapter_node->declare_parameter("ncones_gain", 20.7);
   params.angle_exponent_ = adapter_node->declare_parameter("angle_exponent", 2.0);
   params.distance_exponent_ = adapter_node->declare_parameter("distance_exponent", 0.998);
+  params.same_cone_distance_threshold_ =
+      adapter_node->declare_parameter("same_cone_distance_threshold", 0.6);
   params.cost_max_ = adapter_node->declare_parameter("cost_max", 35.0);
   params.use_memory_cone_coloring_ =
       adapter_node->declare_parameter("use_memory_cone_coloring", true);

@@ -14,6 +14,7 @@ struct PlanningParameters {
   double angle_exponent_;
   double distance_exponent_;
   double cost_max_;
+  double same_cone_distance_threshold_;
   bool use_memory_cone_coloring_;
   int outliers_spline_order_;
   float outliers_spline_coeffs_ratio_;
@@ -49,6 +50,7 @@ struct PlanningConfig {
     cone_coloring_.angle_exponent_ = params.angle_exponent_;
     cone_coloring_.distance_exponent_ = params.distance_exponent_;
     cone_coloring_.max_cost_ = params.cost_max_;
+    cone_coloring_.same_cone_distance_threshold_ = params.same_cone_distance_threshold_;
     cone_coloring_.use_memory_ = params.use_memory_cone_coloring_;
 
     outliers_.order_ = params.outliers_spline_order_;

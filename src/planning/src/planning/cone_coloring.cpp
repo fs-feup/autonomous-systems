@@ -9,7 +9,8 @@ void ConeColoring::remove_duplicates(std::vector<Cone>& cones) const {
 
     // Check against each cone in the clustered_cones list
     for (const auto& clustered_cone : clustered_cones) {
-      if (cone.position.euclidean_distance(clustered_cone.position) < 0.6) {
+      if (cone.position.euclidean_distance(clustered_cone.position) <
+          this->config_.same_cone_distance_threshold_) {
         is_duplicate = true;
         break;
       }
@@ -32,7 +33,8 @@ std::vector<Cone> ConeColoring::filter_previously_colored_cones(const std::vecto
     seen = false;
     if (!seen) {
       for (auto& colored_cone : this->colored_blue_cones_) {
-        if (cone.position.euclidean_distance(colored_cone.position) < 0.6) {
+        if (cone.position.euclidean_distance(colored_cone.position) <
+            this->config_.same_cone_distance_threshold_) {
           seen = true;
           colored_cone.position.x = cone.position.x;
           colored_cone.position.y = cone.position.y;
@@ -43,7 +45,8 @@ std::vector<Cone> ConeColoring::filter_previously_colored_cones(const std::vecto
 
     if (!seen) {
       for (auto& colored_cone : this->colored_yellow_cones_) {
-        if (cone.position.euclidean_distance(colored_cone.position) < 0.6) {
+        if (cone.position.euclidean_distance(colored_cone.position) <
+            this->config_.same_cone_distance_threshold_) {
           seen = true;
           colored_cone.position.x = cone.position.x;
           colored_cone.position.y = cone.position.y;
