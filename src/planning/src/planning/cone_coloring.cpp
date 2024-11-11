@@ -1,16 +1,28 @@
 #include "planning/cone_coloring.hpp"
 
 void ConeColoring::remove_duplicates(std::vector<Cone>& cones) const {
-  std::unordered_set<Cone, std::hash<Cone>> unique_cones;
-  std::vector<Cone> result;
-  result.reserve(cones.size());
+  std::vector<Cone> clustered_cones;
+  clustered_cones.reserve(cones.size());
+
   for (const auto& cone : cones) {
-    if (unique_cones.insert(cone).second) {
-      result.push_back(cone);
+    bool is_duplicate = false;
+
+    // Check against each cone in the clustered_cones list
+    for (const auto& clustered_cone : clustered_cones) {
+      if (cone.position.euclidean_distance(clustered_cone.position) < 0.6) {
+        is_duplicate = true;
+        break;
+      }
+    }
+
+    // If not a duplicate, add to the clustered list
+    if (!is_duplicate) {
+      clustered_cones.push_back(cone);
     }
   }
 
-  cones = result;
+  // Update original cones vector with clustered cones
+  cones = clustered_cones;
 }
 
 std::vector<Cone> ConeColoring::filter_previously_colored_cones(const std::vector<Cone>& cones) {
@@ -202,8 +214,8 @@ std::pair<std::vector<Cone>, std::vector<Cone>> ConeColoring::color_cones(std::v
     this->colored_blue_cones_.clear();
     this->colored_yellow_cones_.clear();
   }
-  remove_duplicates(cones);
   cones = filter_previously_colored_cones(cones);
+  remove_duplicates(cones);
 
   int n_colored_cones = 0;
   const auto n_input_cones = static_cast<int>(cones.size());
