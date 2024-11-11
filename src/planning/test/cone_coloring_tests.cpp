@@ -50,8 +50,9 @@ TEST(ConeColoring, place_first_cones1) {
   double exponent_1 = 1.0;
   double exponent_2 = 1.0;
   double cost_max = 5000.0;
-  auto config =
-      ConeColoringConfig(gain_angle, gain_distance, gain_ncones, exponent_1, exponent_2, cost_max);
+  bool use_memory = true;
+  auto config = ConeColoringConfig(gain_angle, gain_distance, gain_ncones, exponent_1, exponent_2,
+                                   cost_max, use_memory);
   auto cone_coloring = ConeColoring(config);
   auto initial_car_pose = Pose(30.0, 15.0, 0);
   int colored_cones = 0;
@@ -89,8 +90,9 @@ TEST(ConeColoring, place_first_cones2) {
   double exponent_1 = 1.0;
   double exponent_2 = 1.0;
   double cost_max = 5000.0;
-  auto config =
-      ConeColoringConfig(gain_angle, gain_distance, gain_ncones, exponent_1, exponent_2, cost_max);
+  bool use_memory = true;
+  auto config = ConeColoringConfig(gain_angle, gain_distance, gain_ncones, exponent_1, exponent_2,
+                                   cost_max, use_memory);
   auto cone_coloring = ConeColoring(config);
   auto initial_car_pose = Pose(30.0, 15.0, 3.1416);
   int colored_cones = 0;
