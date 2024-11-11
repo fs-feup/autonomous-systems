@@ -41,6 +41,11 @@ def generate_launch_description():
                 default_value="30.0",
             ),
             DeclareLaunchArgument(
+                "use_memory_cone_coloring",
+                description="Whether to make cone coloring memorize cones from one run to another",
+                default_value="true",
+            ),
+            DeclareLaunchArgument(
                 "outliers_spline_order",
                 description="Order of the spline to remove outliers",
                 default_value="3",
@@ -116,6 +121,11 @@ def generate_launch_description():
                     {"angle_exponent": LaunchConfiguration("angle_exponent")},
                     {"distance_exponent": LaunchConfiguration("distance_exponent")},
                     {"cost_max": LaunchConfiguration("cost_max")},
+                    {
+                        "use_memory_cone_coloring": LaunchConfiguration(
+                            "use_memory_cone_coloring"
+                        )
+                    },
                     {
                         "outliers_spline_order": LaunchConfiguration(
                             "outliers_spline_order"

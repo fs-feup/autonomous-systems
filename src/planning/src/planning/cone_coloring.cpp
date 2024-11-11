@@ -198,6 +198,10 @@ bool ConeColoring::try_to_color_next_cone(
 
 std::pair<std::vector<Cone>, std::vector<Cone>> ConeColoring::color_cones(std::vector<Cone> cones,
                                                                           const Pose& car_pose) {
+  if (!this->config_.use_memory_) {
+    this->colored_blue_cones_.clear();
+    this->colored_yellow_cones_.clear();
+  }
   remove_duplicates(cones);
   cones = filter_previously_colored_cones(cones);
 
@@ -229,7 +233,8 @@ std::pair<std::vector<Cone>, std::vector<Cone>> ConeColoring::color_cones(std::v
   //// Color yellow cones
   // while (try_to_color_next_cone(uncolored_cones, colored_yellow_cones, n_colored_cones,
   //                               n_input_cones)) {
-  //   // keep coloring yellow cones while the function "try_to_color_next_cone" returns true (i.e.
+  //   // keep coloring yellow cones while the function "try_to_color_next_cone" returns true
+  //   (i.e.
   //   a
   //   // suitble cone is found)
   // }
