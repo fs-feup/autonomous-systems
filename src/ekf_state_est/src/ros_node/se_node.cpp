@@ -173,6 +173,9 @@ void SENode::_imu_subscription_callback(const sensor_msgs::msg::Imu &imu_msg) {
   this->_publish_map();
 }
 
+double rl_before = 0.0, rr_before = 0.0, fl_before = 0.0, fr_before = 0.0;
+double difference = 10;
+
 void SENode::_wheel_speeds_subscription_callback(double rl_speed, double rr_speed, double fl_speed,
                                                  double fr_speed, double steering_angle,
                                                  const rclcpp::Time &timestamp) {
@@ -181,6 +184,19 @@ void SENode::_wheel_speeds_subscription_callback(double rl_speed, double rr_spee
     return;
   }
   */
+
+  bool change = false;
+
+ if (abs(rl_before - rl_speed) >= difference) change = true;
+ if (abs(rr_before - rr_speed) >= difference) change = true;
+ if (abs(fl_before - fl_speed) >= difference) change = true;
+ if (abs(fr_before - fr_speed) >= difference) change = true;
+
+  rl_before = rl_speed;
+  rr_before = rr_speed;
+  fl_before = fl_speed;
+  fr_before = fr_speed;
+  if (change) return;
   
   RCLCPP_INFO(this->get_logger(), "Rear Left: %f\n Rear Right: %f", rl_speed, rr_speed);
   rclcpp::Time start_time = this->get_clock()->now();
