@@ -107,6 +107,13 @@ private:
                         const double& colored_to_input_cones_ratio) const;
 
   /**
+   * @brief Useful when using memory to delete cones which after some
+   * times being detected become too close.
+   *
+   */
+  void remove_too_close_cones();
+
+  /**
    * @brief select the next cone (which minimizes the cost) to be colored if its cost is less than
    * the maximum established in the configuration
    *

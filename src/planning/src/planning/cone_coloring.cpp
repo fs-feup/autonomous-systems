@@ -181,6 +181,49 @@ double ConeColoring::calculate_cost(const Cone& next_cone, const Cone& last_cone
   return cost;
 }
 
+void ConeColoring::remove_too_close_cones() {
+  for (int i = static_cast<int>(this->colored_blue_cones_.size()) - 1; i > 0; i--) {
+    if (this->colored_blue_cones_[i - 1].position.euclidean_distance(
+            this->colored_blue_cones_[i].position) < this->config_.same_cone_distance_threshold_) {
+      this->colored_blue_cones_.erase(this->colored_blue_cones_.begin() + i);
+    }
+  }
+  for (int i = static_cast<int>(this->colored_yellow_cones_.size()) - 1; i > 0; i--) {
+    if (this->colored_yellow_cones_[i - 1].position.euclidean_distance(
+            this->colored_yellow_cones_[i].position) <
+        this->config_.same_cone_distance_threshold_) {
+      this->colored_yellow_cones_.erase(this->colored_yellow_cones_.begin() + i);
+    }
+  }
+  // Check and remove cones that are too close between blue and yellow cones
+  for (int i = static_cast<int>(this->colored_blue_cones_.size()) - 1; i > 1; i--) {
+    for (int j = static_cast<int>(this->colored_yellow_cones_.size()) - 1; j > 1; j--) {
+      double distance = this->colored_blue_cones_[i].position.euclidean_distance(
+          this->colored_yellow_cones_[j].position);
+      if (distance < this->config_.same_cone_distance_threshold_) {
+        Cone last_cone = this->colored_blue_cones_[i - 1];
+        Cone previous_cone = this->colored_blue_cones_[i - 2];
+        TwoDVector last_vector = {last_cone.position.x - previous_cone.position.x,
+                                  last_cone.position.y - previous_cone.position.y};
+        double blue_cost = calculate_cost(this->colored_blue_cones_[i], last_cone, last_vector, 0);
+        last_cone = this->colored_yellow_cones_[j - 1];
+        previous_cone = this->colored_yellow_cones_[j - 2];
+        last_vector = {last_cone.position.x - previous_cone.position.x,
+                       last_cone.position.y - previous_cone.position.y};
+        double yellow_cost =
+            calculate_cost(this->colored_yellow_cones_[j], last_cone, last_vector, 0);
+
+        if (blue_cost > yellow_cost) {
+          this->colored_blue_cones_.erase(this->colored_blue_cones_.begin() + i);
+          break;  // Exit inner loop as this blue cone has been removed
+        } else {
+          this->colored_yellow_cones_.erase(this->colored_yellow_cones_.begin() + j);
+        }
+      }
+    }
+  }
+}
+
 bool ConeColoring::try_to_color_next_cone(
     std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones, std::vector<Cone>& colored_cones,
     int& n_colored_cones, const int n_input_cones) {
@@ -245,16 +288,7 @@ std::pair<std::vector<Cone>, std::vector<Cone>> ConeColoring::color_cones(std::v
     colouring_yellow_cones = try_to_color_next_cone(uncolored_cones, this->colored_yellow_cones_,
                                                     n_colored_cones, n_input_cones);
   }
-  //// Color yellow cones
-  // while (try_to_color_next_cone(uncolored_cones, colored_yellow_cones, n_colored_cones,
-  //                               n_input_cones)) {
-  //   // keep coloring yellow cones while the function "try_to_color_next_cone" returns true
-  //   (i.e.
-  //   a
-  //   // suitble cone is found)
-  // }
-  // colored_blue_cones.erase(colored_blue_cones.begin());
-  // colored_yellow_cones.erase(colored_yellow_cones.begin());
+  remove_too_close_cones();
   if (colored_blue_cones_.size() < 5) {
     RCLCPP_DEBUG(rclcpp::get_logger("Planning : ConeColoring"), "Not enough blue cones found: %ld",
                  colored_blue_cones_.size());
