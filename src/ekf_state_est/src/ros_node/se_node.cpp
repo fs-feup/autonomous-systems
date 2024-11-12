@@ -16,6 +16,8 @@
 #include "visualization_msgs/msg/marker.hpp"
 /*---------------------- Constructor --------------------*/
 
+double last_wss = 0.0;
+
 SENode::SENode() : Node("ekf_state_est") {
   this->_use_odometry_ = this->declare_parameter("use_odometry", true);
   _use_simulated_perception_ = this->declare_parameter("use_simulated_perception", false);
@@ -76,6 +78,9 @@ SENode::SENode() : Node("ekf_state_est") {
   this->_prediction_execution_time_publisher_ = this->create_publisher<std_msgs::msg::Float64>(
       "/state_estimation/execution_time/prediction_step", 10);
   _adapter_ = adapter_map.at(_adapter_name_)(std::shared_ptr<SENode>(this));
+
+  this->_position_publisher_ = this->create_publisher<visualization_msgs::msg::Marker>(
+      "/state_estimation/visualization/position", 10);
 }
 
 /*---------------------- Subscriptions --------------------*/
@@ -87,9 +92,10 @@ void SENode::_perception_subscription_callback(const custom_interfaces::msg::Con
     return;
   }
 
+/*
   if (!this->_go_){
     return;
-  }
+  }*/
 
   rclcpp::Time start_time = this->get_clock()->now();
 
@@ -114,7 +120,7 @@ void SENode::_perception_subscription_callback(const custom_interfaces::msg::Con
   std_msgs::msg::Float64 correction_execution_time;
   correction_execution_time.data = (end_time - start_time).seconds() * 1000.0;
   this->_correction_execution_time_publisher_->publish(correction_execution_time);
-  this->_publish_vehicle_state();
+  //this->_publish_vehicle_state();
   this->_publish_map();
 }
 
@@ -123,9 +129,11 @@ void SENode::_imu_subscription_callback(const sensor_msgs::msg::Imu &imu_msg) {
     return;
   }
 
+  /*
   if (!this->_go_){
     return;
   }
+  */
 
   rclcpp::Time start_time = this->get_clock()->now();
 
@@ -168,10 +176,11 @@ void SENode::_imu_subscription_callback(const sensor_msgs::msg::Imu &imu_msg) {
 void SENode::_wheel_speeds_subscription_callback(double rl_speed, double rr_speed, double fl_speed,
                                                  double fr_speed, double steering_angle,
                                                  const rclcpp::Time &timestamp) {
-  
+  /*
   if (!this->_go_){
     return;
   }
+  */
   
   RCLCPP_INFO(this->get_logger(), "Rear Left: %f\n Rear Right: %f", rl_speed, rr_speed);
   rclcpp::Time start_time = this->get_clock()->now();
@@ -188,6 +197,8 @@ void SENode::_wheel_speeds_subscription_callback(double rl_speed, double rr_spee
   this->_motion_update_->rotational_velocity = motion_prediction_data.rotational_velocity;
   this->_motion_update_->steering_angle = steering_angle;
   this->_motion_update_->last_update = timestamp;
+
+  last_wss = linear_velocity;
 
   if (this->_ekf_ == nullptr) {
     RCLCPP_ERROR(this->get_logger(), "ATTR - EKF object is null");
@@ -217,9 +228,9 @@ void SENode::_publish_vehicle_state() {
     RCLCPP_WARN(this->get_logger(), "PUB - Vehicle state object is null");
     return;
   }
-  if (!this->_go_){
-    return;
-  }
+  //if (!this->_go_){
+  //  return;
+  //}
 
   auto message = custom_interfaces::msg::VehicleState();
   message.position.x = this->_vehicle_state_->pose.position.x;
@@ -255,7 +266,29 @@ void SENode::_publish_vehicle_state_wss() {
   RCLCPP_DEBUG(this->get_logger(), "PUB - Pose: (%f, %f, %f); Velocities: (%f, %f)",
                message.position.x, message.position.y, message.theta, message.linear_velocity,
                message.angular_velocity);
-  this->_vehicle_state_publisher_wss_->publish(message);
+  this->_vehicle_state_publisher_->publish(message);
+
+  auto marker = visualization_msgs::msg::Marker();
+  marker.header.frame_id = "map";  // Use an appropriate frame
+  marker.header.stamp = this->get_clock()->now();
+  marker.ns = "vehicle_state";
+  marker.id = 0;
+  marker.type = visualization_msgs::msg::Marker::SPHERE;
+  marker.action = visualization_msgs::msg::Marker::ADD;
+  marker.pose.position.x = this->_vehicle_state_->pose.position.x;
+  marker.pose.position.y = this->_vehicle_state_->pose.position.y;
+  marker.pose.position.z = 0.0;
+  marker.pose.orientation.w = 1.0;
+  marker.scale.x = 0.5;
+  marker.scale.y = 0.5;
+  marker.scale.z = 0.5;
+  marker.color.r = 0.0;
+  marker.color.g = 1.0;
+  marker.color.b = 0.0;
+  marker.color.a = 1.0;
+
+  RCLCPP_DEBUG(this->get_logger(), "PUB - Marker at position: (%f, %f)", marker.pose.position.x, marker.pose.position.y);
+  this->_position_publisher_->publish(marker);
 }
 
 void SENode::_publish_vehicle_state_imu() {
@@ -276,7 +309,7 @@ void SENode::_publish_vehicle_state_imu() {
   RCLCPP_DEBUG(this->get_logger(), "PUB - Pose: (%f, %f, %f); Velocities: (%f, %f)",
                message.position.x, message.position.y, message.theta, message.linear_velocity,
                message.angular_velocity);
-  this->_vehicle_state_publisher_imu_->publish(message);
+  this->_vehicle_state_publisher_->publish(message);
 }
 
 void SENode::_publish_map() {

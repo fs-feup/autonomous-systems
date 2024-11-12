@@ -48,7 +48,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "use_memory_cone_coloring",
                 description="Whether to make cone coloring memorize cones from one run to another",
-                default_value="true",
+                default_value="false",
             ),
             DeclareLaunchArgument(
                 "outliers_spline_order",
