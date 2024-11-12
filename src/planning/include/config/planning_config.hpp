@@ -64,6 +64,7 @@ struct PlanningConfig {
     smoothing_.precision_ = params.smoothing_spline_precision_;
     smoothing_.coeffs_ratio_ = params.smoothing_spline_coeffs_ratio_;
     smoothing_.use_path_smoothing_ = params.use_path_smoothing_;
+    smoothing_.use_memory_ = params.use_memory_cone_coloring_;
 
     simulation_.publishing_visualization_msgs_ = params.publishing_visualization_msgs_;
     simulation_.using_simulated_se_ = params.using_simulated_se_;

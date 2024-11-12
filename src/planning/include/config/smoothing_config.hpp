@@ -26,9 +26,19 @@ struct PathSmoothingConfig {
    *
    */
   bool use_path_smoothing_ = true;
+  /**
+   * @brief whether to memorize cones
+   *
+   */
+  bool use_memory_ = true;
   PathSmoothingConfig() = default;
-  PathSmoothingConfig(int precision, int order, float coeffs_ratio, bool use_path_smoothing)
-      : precision_(precision), order_(order), coeffs_ratio_(coeffs_ratio), use_path_smoothing_(use_path_smoothing) {}
+  PathSmoothingConfig(int precision, int order, float coeffs_ratio, bool use_path_smoothing,
+                      bool use_memory)
+      : precision_(precision),
+        order_(order),
+        coeffs_ratio_(coeffs_ratio),
+        use_path_smoothing_(use_path_smoothing),
+        use_memory_(use_memory) {}
 };
 
 #endif  // SRC_PLANNING_INCLUDE_CONFIG_SMOOTHING_CONFIG_HPP_
