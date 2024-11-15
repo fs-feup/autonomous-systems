@@ -1,13 +1,14 @@
 #include "planning/smoothing.hpp"
 
-void PathSmoothing::order_path(std::vector<PathPoint>& unord_path, const Pose& car_pose) const {
+void PathSmoothing::order_path(std::vector<PathPoint>& unord_path, const Pose& car_pose,
+                               const double initial_car_orientation) const {
   std::unordered_set<PathPoint> unord_set(unord_path.begin(), unord_path.end());
 
   PathPoint current_point;
   double car_orientation;
   if (this->config_.use_memory_) {
     current_point = PathPoint(0, 0, 1);
-    car_orientation = 0;
+    car_orientation = initial_car_orientation;
   } else {
     car_orientation = car_pose.orientation;
     current_point = PathPoint(car_pose.position.x, car_pose.position.y, 1);
@@ -62,8 +63,9 @@ void PathSmoothing::order_path(std::vector<PathPoint>& unord_path, const Pose& c
 }
 
 std::vector<PathPoint> PathSmoothing::smooth_path(std::vector<PathPoint>& unordered_path,
-                                                  const Pose& car_pose) const {
-  order_path(unordered_path, car_pose);
+                                                  const Pose& car_pose,
+                                                  const double initial_car_orientation) const {
+  order_path(unordered_path, car_pose, initial_car_orientation);
   if (this->config_.use_path_smoothing_) {
     return fit_spline(this->config_.precision_, this->config_.order_, this->config_.coeffs_ratio_,
                       unordered_path);
