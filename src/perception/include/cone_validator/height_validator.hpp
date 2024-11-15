@@ -10,18 +10,20 @@
  * to provide height-based validation logic.
  */
 class HeightValidator : public ConeValidator {
- private:
-  double _min_height_;  ///< Min Height threshold for cone validation */
-  double _max_height_;  ///< Max Height threshold for cone validation */
+private:
+  double _min_height_;        ///< Min Height threshold for cone validation */
+  double _max_height_;        ///< Max Height threshold for cone validation */
+  double _small_max_height_;  ///< Max Height treshhold for small cones */
 
- public:
+public:
   /**
    * @brief Constructs a new HeightValidator object with the specified height threshold.
    *
    * @param min_height Min Height threshold for cone validation
    * @param max_height Max Height threshold for cone validation
+   * @param small_max_height Max Height treshhold for small cones
    */
-  explicit HeightValidator(double min_height, double max_height);
+  explicit HeightValidator(double min_height, double max_height, double small_max_height);
 
   /**
    * @brief Validates a cone based on its height relative to a plane.
@@ -41,4 +43,3 @@ class HeightValidator : public ConeValidator {
    */
   virtual ~HeightValidator() = default;
 };
-

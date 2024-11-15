@@ -175,6 +175,13 @@ void Perception::publish_cones(std::vector<Cluster>* cones) {
     auto cone_message = custom_interfaces::msg::Cone();
     cone_message.position = position;
     cone_message.color = cones->at(i).get_color();
+
+    if (cones->at(i).get_is_large()) {
+      cone_message.is_large = true;
+    } else {
+      cone_message.is_large = false;
+    }
+
     cone_message.confidence = cones->at(i).get_confidence();
     message.cone_array.push_back(cone_message);
     message_array.push_back(cone_message);
@@ -208,7 +215,7 @@ void Perception::fov_trimming(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, double
       continue;
     }
 
-    if (point.z >= -0.2){
+    if (point.z >= -0.2) {
       continue;
     }
 
