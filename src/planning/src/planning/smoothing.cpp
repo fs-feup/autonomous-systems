@@ -4,9 +4,12 @@ void PathSmoothing::order_path(std::vector<PathPoint>& unord_path, const Pose& c
   std::unordered_set<PathPoint> unord_set(unord_path.begin(), unord_path.end());
 
   PathPoint current_point;
+  double car_orientation;
   if (this->config_.use_memory_) {
     current_point = PathPoint(0, 0, 1);
+    car_orientation = 0;
   } else {
+    car_orientation = car_pose.orientation;
     current_point = PathPoint(car_pose.position.x, car_pose.position.y, 1);
   }
   int index = 0;
@@ -27,7 +30,7 @@ void PathSmoothing::order_path(std::vector<PathPoint>& unord_path, const Pose& c
                                   point.position.x - current_point.position.x);
 
         // Check if next point is in the same direction range or side as the vehicle orientation
-        double angle_diff = fmod(path_angle - car_pose.orientation + 2 * M_PI, 2 * M_PI);
+        double angle_diff = fmod(path_angle - car_orientation + 2 * M_PI, 2 * M_PI);
         if (abs(angle_diff) > M_PI / 2 && abs(angle_diff) < 3 * M_PI / 2) {
           continue;
         }
