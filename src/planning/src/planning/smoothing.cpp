@@ -5,12 +5,14 @@ void PathSmoothing::order_path(std::vector<PathPoint>& unord_path, const Pose& c
   std::unordered_set<PathPoint> unord_set(unord_path.begin(), unord_path.end());
 
   PathPoint current_point;
+
   double car_orientation;
   if (this->config_.use_memory_) {
     current_point = PathPoint(0, 0, 1);
     car_orientation = initial_car_orientation;
   } else {
     car_orientation = car_pose.orientation;
+
     current_point = PathPoint(car_pose.position.x, car_pose.position.y, 1);
   }
   int index = 0;

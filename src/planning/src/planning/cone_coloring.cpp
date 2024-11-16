@@ -332,7 +332,20 @@ std::pair<std::vector<Cone>, std::vector<Cone>> ConeColoring::color_cones(std::v
     colouring_yellow_cones = try_to_color_next_cone(uncolored_cones, this->colored_yellow_cones_,
                                                     n_colored_cones, n_input_cones);
   }
+
   remove_too_close_cones();
+
+  //// Color yellow cones
+  // while (try_to_color_next_cone(uncolored_cones, colored_yellow_cones, n_colored_cones,
+  //                               n_input_cones)) {
+  //   // keep coloring yellow cones while the function "try_to_color_next_cone" returns true
+  //   (i.e.
+  //   a
+  //   // suitble cone is found)
+  // }
+  // colored_blue_cones.erase(colored_blue_cones.begin());
+  // colored_yellow_cones.erase(colored_yellow_cones.begin());
+
   if (colored_blue_cones_.size() < 5) {
     RCLCPP_DEBUG(rclcpp::get_logger("Planning : ConeColoring"), "Not enough blue cones found: %ld",
                  colored_blue_cones_.size());
