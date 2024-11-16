@@ -141,9 +141,9 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a6e3d03aa2f2cbbf8c2ff425fdc274e2b" id="r_a6e3d03aa2f2cbbf8c2ff425fdc274e2b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d43/class_s_e_node.html#a6e3d03aa2f2cbbf8c2ff425fdc274e2b">_imu_subscription_callback</a> (const sensor_msgs::msg::Imu &amp;imu_msg)</td></tr>
 <tr class="memdesc:a6e3d03aa2f2cbbf8c2ff425fdc274e2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to be called everytime information is received from the IMU.  <br /></td></tr>
 <tr class="separator:a6e3d03aa2f2cbbf8c2ff425fdc274e2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa9238d6e6cdebf7becd57514858df115" id="r_aa9238d6e6cdebf7becd57514858df115"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d43/class_s_e_node.html#aa9238d6e6cdebf7becd57514858df115">_wheel_speeds_subscription_callback</a> (double lb_speed, double lf_speed, double rb_speed, double rf_speed, double steering_angle, const rclcpp::Time &amp;timestamp)</td></tr>
-<tr class="memdesc:aa9238d6e6cdebf7becd57514858df115"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to be called everytime information is received from the wheel encoders.  <br /></td></tr>
-<tr class="separator:aa9238d6e6cdebf7becd57514858df115"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5134a7c33ca9cd292c9840f748b36f09" id="r_a5134a7c33ca9cd292c9840f748b36f09"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d43/class_s_e_node.html#a5134a7c33ca9cd292c9840f748b36f09">_wheel_speeds_subscription_callback</a> (double rl_speed, double rr_speed, double fl_speed, double fr_speed, double steering_angle, const rclcpp::Time &amp;timestamp)</td></tr>
+<tr class="memdesc:a5134a7c33ca9cd292c9840f748b36f09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to be called everytime information is received from the wheel encoders.  <br /></td></tr>
+<tr class="separator:a5134a7c33ca9cd292c9840f748b36f09"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a807afbd7576422568395876d5c3e7296" id="r_a807afbd7576422568395876d5c3e7296"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d43/class_s_e_node.html#a807afbd7576422568395876d5c3e7296">_update_and_publish</a> ()</td></tr>
 <tr class="memdesc:a807afbd7576422568395876d5c3e7296"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes:  <br /></td></tr>
 <tr class="separator:a807afbd7576422568395876d5c3e7296"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -203,6 +203,8 @@ Private Attributes</h2></td></tr>
 <tr class="separator:ac13d7c1fd2cbb2794a219d9c57393acb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a32a4d14b23b9cd690504a0a3c46ada93" id="r_a32a4d14b23b9cd690504a0a3c46ada93"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/d2b/namespacecommon__lib_1_1competition__logic.html#adc523f54f1498f443c97303976f40140">common_lib::competition_logic::Mission</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d43/class_s_e_node.html#a32a4d14b23b9cd690504a0a3c46ada93">_mission_</a></td></tr>
 <tr class="separator:a32a4d14b23b9cd690504a0a3c46ada93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf9bb66332ea5af52771f22d999a8870" id="r_abf9bb66332ea5af52771f22d999a8870"><td class="memItemLeft" align="right" valign="top">rclcpp::Publisher&lt; visualization_msgs::msg::Marker &gt;::SharedPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d43/class_s_e_node.html#abf9bb66332ea5af52771f22d999a8870">_position_publisher_</a></td></tr>
+<tr class="separator:abf9bb66332ea5af52771f22d999a8870"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:accee6cb15f06b3b40b25ac8cb95df97c" id="r_accee6cb15f06b3b40b25ac8cb95df97c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d43/class_s_e_node.html#accee6cb15f06b3b40b25ac8cb95df97c">_go_</a></td></tr>
 <tr class="separator:accee6cb15f06b3b40b25ac8cb95df97c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afae5265cfdfbbf3540f6276ae8e41b64" id="r_afae5265cfdfbbf3540f6276ae8e41b64"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d43/class_s_e_node.html#afae5265cfdfbbf3540f6276ae8e41b64">_use_odometry_</a></td></tr>
@@ -253,27 +255,25 @@ Friends</h2></td></tr>
 
 <p>Constructor of the main node, most things are received by launch parameter. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d48/se__node_8cpp_source.html#l00019">19</a> of file <a class="el" href="../../d0/d48/se__node_8cpp_source.html">se_node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/d48/se__node_8cpp_source.html#l00021">21</a> of file <a class="el" href="../../d0/d48/se__node_8cpp_source.html">se_node.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d4/d43/class_s_e_node_a5d61b6c80a21c02b29074e434cc6703b_cgraph.png" border="0" usemap="#ad4/d43/class_s_e_node_a5d61b6c80a21c02b29074e434cc6703b_cgraph" alt=""/></div>
 <map name="ad4/d43/class_s_e_node_a5d61b6c80a21c02b29074e434cc6703b_cgraph" id="ad4/d43/class_s_e_node_a5d61b6c80a21c02b29074e434cc6703b_cgraph">
-<area shape="rect" title="Constructor of the main node, most things are received by launch parameter." alt="" coords="5,141,129,167"/>
-<area shape="rect" href="../../d4/d43/class_s_e_node.html#ae87a4d5f2baf38b9fb9a34a81b9149ad" title="Mutex used to lock EKF access." alt="" coords="223,68,376,109"/>
-<area shape="poly" title=" " alt="" coords="112,138,176,119,207,110,208,116,177,124,114,143"/>
-<area shape="rect" href="../../d7/d64/class_observation_model.html#acfcc0193919d34ab7f34c9f19f1b1412" title="Create a Q matrix from a given noise value." alt="" coords="177,133,422,174"/>
-<area shape="poly" title=" " alt="" coords="129,151,161,151,161,156,129,156"/>
-<area shape="rect" href="../../db/d66/class_motion_model.html#a54ca36f8c78bbb93ec99b8207a988363" title=" " alt="" coords="208,198,391,254"/>
-<area shape="poly" title=" " alt="" coords="112,164,194,190,192,195,110,170"/>
-<area shape="rect" href="../../d4/d43/class_s_e_node.html#a6f3571b56b21f6d5fa7191fae4e21681" title="publishes the map (&#39;track_map&#39;) to the topic track_map" alt="" coords="478,46,633,72"/>
-<area shape="poly" title=" " alt="" coords="376,77,462,67,463,72,377,82"/>
-<area shape="rect" href="../../d4/d43/class_s_e_node.html#a97f9cce4985902a634cd878f973715e6" title="publishes the localization (&#39;vehicle_localization&#39;) to the topic vehicle_location" alt="" coords="470,96,641,137"/>
-<area shape="poly" title=" " alt="" coords="377,94,455,103,454,108,376,99"/>
-<area shape="rect" href="../../d9/d2b/namespacecommon__lib_1_1competition__logic.html#a843c25f51bc237705083bc50bafa67af" title=" " alt="" coords="721,5,886,46"/>
-<area shape="poly" title=" " alt="" coords="634,46,705,36,706,41,634,51"/>
-<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="689,71,918,111"/>
-<area shape="poly" title=" " alt="" coords="634,66,674,72,674,77,634,72"/>
+<area shape="rect" title="Constructor of the main node, most things are received by launch parameter." alt="" coords="5,112,129,137"/>
+<area shape="rect" href="../../d4/d43/class_s_e_node.html#ae87a4d5f2baf38b9fb9a34a81b9149ad" title="Mutex used to lock EKF access." alt="" coords="223,39,376,79"/>
+<area shape="poly" title=" " alt="" coords="112,108,176,90,207,81,208,86,177,95,114,113"/>
+<area shape="rect" href="../../d7/d64/class_observation_model.html#acfcc0193919d34ab7f34c9f19f1b1412" title="Create a Q matrix from a given noise value." alt="" coords="177,104,422,145"/>
+<area shape="poly" title=" " alt="" coords="129,122,161,122,161,127,129,127"/>
+<area shape="rect" href="../../db/d66/class_motion_model.html#a54ca36f8c78bbb93ec99b8207a988363" title=" " alt="" coords="208,169,391,224"/>
+<area shape="poly" title=" " alt="" coords="112,135,194,161,192,166,110,140"/>
+<area shape="rect" href="../../d4/d43/class_s_e_node.html#a6f3571b56b21f6d5fa7191fae4e21681" title="publishes the map (&#39;track_map&#39;) to the topic track_map" alt="" coords="470,46,625,72"/>
+<area shape="poly" title=" " alt="" coords="376,56,454,56,454,62,376,62"/>
+<area shape="rect" href="../../d9/d2b/namespacecommon__lib_1_1competition__logic.html#a843c25f51bc237705083bc50bafa67af" title=" " alt="" coords="705,5,870,46"/>
+<area shape="poly" title=" " alt="" coords="625,46,690,37,691,42,626,51"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="673,71,902,111"/>
+<area shape="poly" title=" " alt="" coords="626,67,658,71,657,76,625,72"/>
 </map>
 </div>
 
@@ -305,7 +305,7 @@ Here is the call graph for this function:</div>
 
 <p>executes the prediction step of the EKF </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d48/se__node_8cpp_source.html#l00284">284</a> of file <a class="el" href="../../d0/d48/se__node_8cpp_source.html">se_node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/d48/se__node_8cpp_source.html#l00356">356</a> of file <a class="el" href="../../d0/d48/se__node_8cpp_source.html">se_node.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -353,7 +353,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d48/se__node_8cpp_source.html#l00117">117</a> of file <a class="el" href="../../d0/d48/se__node_8cpp_source.html">se_node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/d48/se__node_8cpp_source.html#l00127">127</a> of file <a class="el" href="../../d0/d48/se__node_8cpp_source.html">se_node.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -406,21 +406,19 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d48/se__node_8cpp_source.html#l00083">83</a> of file <a class="el" href="../../d0/d48/se__node_8cpp_source.html">se_node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/d48/se__node_8cpp_source.html#l00088">88</a> of file <a class="el" href="../../d0/d48/se__node_8cpp_source.html">se_node.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d4/d43/class_s_e_node_ae87a4d5f2baf38b9fb9a34a81b9149ad_cgraph.png" border="0" usemap="#ad4/d43/class_s_e_node_ae87a4d5f2baf38b9fb9a34a81b9149ad_cgraph" alt=""/></div>
 <map name="ad4/d43/class_s_e_node_ae87a4d5f2baf38b9fb9a34a81b9149ad_cgraph" id="ad4/d43/class_s_e_node_ae87a4d5f2baf38b9fb9a34a81b9149ad_cgraph">
-<area shape="rect" title="Mutex used to lock EKF access." alt="" coords="5,68,159,109"/>
-<area shape="rect" href="../../d4/d43/class_s_e_node.html#a6f3571b56b21f6d5fa7191fae4e21681" title="publishes the map (&#39;track_map&#39;) to the topic track_map" alt="" coords="215,46,370,72"/>
-<area shape="poly" title=" " alt="" coords="159,75,199,69,199,75,159,80"/>
-<area shape="rect" href="../../d4/d43/class_s_e_node.html#a97f9cce4985902a634cd878f973715e6" title="publishes the localization (&#39;vehicle_localization&#39;) to the topic vehicle_location" alt="" coords="207,96,378,137"/>
-<area shape="poly" title=" " alt="" coords="159,96,191,100,191,105,159,101"/>
-<area shape="rect" href="../../d9/d2b/namespacecommon__lib_1_1competition__logic.html#a843c25f51bc237705083bc50bafa67af" title=" " alt="" coords="458,5,622,46"/>
-<area shape="poly" title=" " alt="" coords="370,46,442,36,443,41,371,51"/>
-<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="426,71,654,111"/>
-<area shape="poly" title=" " alt="" coords="371,66,411,72,410,77,370,72"/>
+<area shape="rect" title="Mutex used to lock EKF access." alt="" coords="5,39,159,79"/>
+<area shape="rect" href="../../d4/d43/class_s_e_node.html#a6f3571b56b21f6d5fa7191fae4e21681" title="publishes the map (&#39;track_map&#39;) to the topic track_map" alt="" coords="207,46,362,72"/>
+<area shape="poly" title=" " alt="" coords="159,56,191,56,191,62,159,62"/>
+<area shape="rect" href="../../d9/d2b/namespacecommon__lib_1_1competition__logic.html#a843c25f51bc237705083bc50bafa67af" title=" " alt="" coords="442,5,606,46"/>
+<area shape="poly" title=" " alt="" coords="362,46,427,37,427,42,362,51"/>
+<area shape="rect" href="../../d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="410,71,638,111"/>
+<area shape="poly" title=" " alt="" coords="362,67,395,71,394,76,362,72"/>
 </map>
 </div>
 <div class="dynheader">
@@ -461,7 +459,7 @@ Here is the caller graph for this function:</div>
 
 <p>publishes the map ('track_map') to the topic track_map </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d48/se__node_8cpp_source.html#l00259">259</a> of file <a class="el" href="../../d0/d48/se__node_8cpp_source.html">se_node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/d48/se__node_8cpp_source.html#l00331">331</a> of file <a class="el" href="../../d0/d48/se__node_8cpp_source.html">se_node.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -486,7 +484,7 @@ Here is the caller graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="389,113,344,105,344,100,390,107"/>
 <area shape="rect" href="../../d4/d43/class_s_e_node.html#a807afbd7576422568395876d5c3e7296" title="Executes:" alt="" coords="192,136,342,177"/>
 <area shape="poly" title=" " alt="" coords="390,141,343,148,342,143,389,135"/>
-<area shape="rect" href="../../d4/d43/class_s_e_node.html#aa9238d6e6cdebf7becd57514858df115" title="Function to be called everytime information is received from the wheel encoders." alt="" coords="184,201,350,242"/>
+<area shape="rect" href="../../d4/d43/class_s_e_node.html#a5134a7c33ca9cd292c9840f748b36f09" title="Function to be called everytime information is received from the wheel encoders." alt="" coords="184,201,350,242"/>
 <area shape="poly" title=" " alt="" coords="445,147,358,191,328,203,326,198,356,186,443,143"/>
 <area shape="rect" href="../../d4/d43/class_s_e_node.html#a5d61b6c80a21c02b29074e434cc6703b" title="Constructor of the main node, most things are received by launch parameter." alt="" coords="5,78,129,104"/>
 <area shape="poly" title=" " alt="" coords="174,94,129,94,129,88,174,88"/>
@@ -520,19 +518,15 @@ Here is the caller graph for this function:</div>
 
 <p>publishes the localization ('vehicle_localization') to the topic vehicle_location </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d48/se__node_8cpp_source.html#l00196">196</a> of file <a class="el" href="../../d0/d48/se__node_8cpp_source.html">se_node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/d48/se__node_8cpp_source.html#l00242">242</a> of file <a class="el" href="../../d0/d48/se__node_8cpp_source.html">se_node.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d4/d43/class_s_e_node_a97f9cce4985902a634cd878f973715e6_icgraph.png" border="0" usemap="#ad4/d43/class_s_e_node_a97f9cce4985902a634cd878f973715e6_icgraph" alt=""/></div>
 <map name="ad4/d43/class_s_e_node_a97f9cce4985902a634cd878f973715e6_icgraph" id="ad4/d43/class_s_e_node_a97f9cce4985902a634cd878f973715e6_icgraph">
-<area shape="rect" title="publishes the localization (&#39;vehicle_localization&#39;) to the topic vehicle_location" alt="" coords="378,39,549,79"/>
-<area shape="rect" href="../../d4/d43/class_s_e_node.html#ae87a4d5f2baf38b9fb9a34a81b9149ad" title="Mutex used to lock EKF access." alt="" coords="177,5,330,46"/>
-<area shape="poly" title=" " alt="" coords="363,46,330,40,331,35,363,40"/>
-<area shape="rect" href="../../d4/d43/class_s_e_node.html#a807afbd7576422568395876d5c3e7296" title="Executes:" alt="" coords="179,71,328,111"/>
-<area shape="poly" title=" " alt="" coords="363,77,329,82,328,77,362,72"/>
-<area shape="rect" href="../../d4/d43/class_s_e_node.html#a5d61b6c80a21c02b29074e434cc6703b" title="Constructor of the main node, most things are received by launch parameter." alt="" coords="5,13,129,39"/>
-<area shape="poly" title=" " alt="" coords="161,28,129,28,129,23,161,23"/>
+<area shape="rect" title="publishes the localization (&#39;vehicle_localization&#39;) to the topic vehicle_location" alt="" coords="203,5,374,46"/>
+<area shape="rect" href="../../d4/d43/class_s_e_node.html#a807afbd7576422568395876d5c3e7296" title="Executes:" alt="" coords="5,5,155,46"/>
+<area shape="poly" title=" " alt="" coords="187,28,155,28,155,23,187,23"/>
 </map>
 </div>
 
@@ -563,7 +557,7 @@ Here is the caller graph for this function:</div>
 
 <p>publishes the localization ('vehicle_localization') to the topic vehicle_location </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d48/se__node_8cpp_source.html#l00238">238</a> of file <a class="el" href="../../d0/d48/se__node_8cpp_source.html">se_node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/d48/se__node_8cpp_source.html#l00310">310</a> of file <a class="el" href="../../d0/d48/se__node_8cpp_source.html">se_node.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -602,14 +596,14 @@ Here is the caller graph for this function:</div>
 
 <p>publishes the localization ('vehicle_localization') to the topic vehicle_location </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d48/se__node_8cpp_source.html#l00217">217</a> of file <a class="el" href="../../d0/d48/se__node_8cpp_source.html">se_node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/d48/se__node_8cpp_source.html#l00267">267</a> of file <a class="el" href="../../d0/d48/se__node_8cpp_source.html">se_node.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d4/d43/class_s_e_node_a200e0eb89123dcf1ee7bb76ceb993e91_icgraph.png" border="0" usemap="#ad4/d43/class_s_e_node_a200e0eb89123dcf1ee7bb76ceb993e91_icgraph" alt=""/></div>
 <map name="ad4/d43/class_s_e_node_a200e0eb89123dcf1ee7bb76ceb993e91_icgraph" id="ad4/d43/class_s_e_node_a200e0eb89123dcf1ee7bb76ceb993e91_icgraph">
 <area shape="rect" title="publishes the localization (&#39;vehicle_localization&#39;) to the topic vehicle_location" alt="" coords="219,5,390,46"/>
-<area shape="rect" href="../../d4/d43/class_s_e_node.html#aa9238d6e6cdebf7becd57514858df115" title="Function to be called everytime information is received from the wheel encoders." alt="" coords="5,5,171,46"/>
+<area shape="rect" href="../../d4/d43/class_s_e_node.html#a5134a7c33ca9cd292c9840f748b36f09" title="Function to be called everytime information is received from the wheel encoders." alt="" coords="5,5,171,46"/>
 <area shape="poly" title=" " alt="" coords="203,28,171,28,171,23,203,23"/>
 </map>
 </div>
@@ -646,7 +640,7 @@ Here is the caller graph for this function:</div>
 <li>publication of map </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d48/se__node_8cpp_source.html#l00296">296</a> of file <a class="el" href="../../d0/d48/se__node_8cpp_source.html">se_node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/d48/se__node_8cpp_source.html#l00368">368</a> of file <a class="el" href="../../d0/d48/se__node_8cpp_source.html">se_node.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -668,8 +662,8 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a id="aa9238d6e6cdebf7becd57514858df115" name="aa9238d6e6cdebf7becd57514858df115"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa9238d6e6cdebf7becd57514858df115">&#9670;&#160;</a></span>_wheel_speeds_subscription_callback()</h2>
+<a id="a5134a7c33ca9cd292c9840f748b36f09" name="a5134a7c33ca9cd292c9840f748b36f09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5134a7c33ca9cd292c9840f748b36f09">&#9670;&#160;</a></span>_wheel_speeds_subscription_callback()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -681,25 +675,25 @@ Here is the call graph for this function:</div>
           <td class="memname">void SENode::_wheel_speeds_subscription_callback </td>
           <td>(</td>
           <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>lb_speed</em>, </td>
+          <td class="paramname"><em>rl_speed</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>lf_speed</em>, </td>
+          <td class="paramname"><em>rr_speed</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>rb_speed</em>, </td>
+          <td class="paramname"><em>fl_speed</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>rf_speed</em>, </td>
+          <td class="paramname"><em>fr_speed</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -739,12 +733,12 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d48/se__node_8cpp_source.html#l00160">160</a> of file <a class="el" href="../../d0/d48/se__node_8cpp_source.html">se_node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d0/d48/se__node_8cpp_source.html#l00179">179</a> of file <a class="el" href="../../d0/d48/se__node_8cpp_source.html">se_node.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="../../d4/d43/class_s_e_node_aa9238d6e6cdebf7becd57514858df115_cgraph.png" border="0" usemap="#ad4/d43/class_s_e_node_aa9238d6e6cdebf7becd57514858df115_cgraph" alt=""/></div>
-<map name="ad4/d43/class_s_e_node_aa9238d6e6cdebf7becd57514858df115_cgraph" id="ad4/d43/class_s_e_node_aa9238d6e6cdebf7becd57514858df115_cgraph">
+<div class="center"><img src="../../d4/d43/class_s_e_node_a5134a7c33ca9cd292c9840f748b36f09_cgraph.png" border="0" usemap="#ad4/d43/class_s_e_node_a5134a7c33ca9cd292c9840f748b36f09_cgraph" alt=""/></div>
+<map name="ad4/d43/class_s_e_node_a5134a7c33ca9cd292c9840f748b36f09_cgraph" id="ad4/d43/class_s_e_node_a5134a7c33ca9cd292c9840f748b36f09_cgraph">
 <area shape="rect" title="Function to be called everytime information is received from the wheel encoders." alt="" coords="5,96,171,137"/>
 <area shape="rect" href="../../d4/d43/class_s_e_node.html#a6f3571b56b21f6d5fa7191fae4e21681" title="publishes the map (&#39;track_map&#39;) to the topic track_map" alt="" coords="227,46,382,72"/>
 <area shape="poly" title=" " alt="" coords="166,93,238,74,239,79,168,98"/>
@@ -851,7 +845,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d22/se__node_8hpp_source.html#l00153">153</a> of file <a class="el" href="../../d2/d22/se__node_8hpp_source.html">se_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d22/se__node_8hpp_source.html#l00154">154</a> of file <a class="el" href="../../d2/d22/se__node_8hpp_source.html">se_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -875,7 +869,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d22/se__node_8hpp_source.html#l00154">154</a> of file <a class="el" href="../../d2/d22/se__node_8hpp_source.html">se_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d22/se__node_8hpp_source.html#l00155">155</a> of file <a class="el" href="../../d2/d22/se__node_8hpp_source.html">se_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -899,7 +893,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d22/se__node_8hpp_source.html#l00155">155</a> of file <a class="el" href="../../d2/d22/se__node_8hpp_source.html">se_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d22/se__node_8hpp_source.html#l00156">156</a> of file <a class="el" href="../../d2/d22/se__node_8hpp_source.html">se_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -923,7 +917,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d22/se__node_8hpp_source.html#l00156">156</a> of file <a class="el" href="../../d2/d22/se__node_8hpp_source.html">se_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d22/se__node_8hpp_source.html#l00157">157</a> of file <a class="el" href="../../d2/d22/se__node_8hpp_source.html">se_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -947,7 +941,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d22/se__node_8hpp_source.html#l00157">157</a> of file <a class="el" href="../../d2/d22/se__node_8hpp_source.html">se_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d22/se__node_8hpp_source.html#l00158">158</a> of file <a class="el" href="../../d2/d22/se__node_8hpp_source.html">se_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -972,7 +966,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d22/se__node_8hpp_source.html#l00052">52</a> of file <a class="el" href="../../d2/d22/se__node_8hpp_source.html">se_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d22/se__node_8hpp_source.html#l00053">53</a> of file <a class="el" href="../../d2/d22/se__node_8hpp_source.html">se_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -996,7 +990,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d22/se__node_8hpp_source.html#l00051">51</a> of file <a class="el" href="../../d2/d22/se__node_8hpp_source.html">se_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d22/se__node_8hpp_source.html#l00052">52</a> of file <a class="el" href="../../d2/d22/se__node_8hpp_source.html">se_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -1070,7 +1064,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d22/se__node_8hpp_source.html#l00048">48</a> of file <a class="el" href="../../d2/d22/se__node_8hpp_source.html">se_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d22/se__node_8hpp_source.html#l00049">49</a> of file <a class="el" href="../../d2/d22/se__node_8hpp_source.html">se_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -1166,7 +1160,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d22/se__node_8hpp_source.html#l00053">53</a> of file <a class="el" href="../../d2/d22/se__node_8hpp_source.html">se_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d22/se__node_8hpp_source.html#l00054">54</a> of file <a class="el" href="../../d2/d22/se__node_8hpp_source.html">se_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -1215,6 +1209,30 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="../../d2/d22/se__node_8hpp_source.html#l00033">33</a> of file <a class="el" href="../../d2/d22/se__node_8hpp_source.html">se_node.hpp</a>.</p>
+
+</div>
+</div>
+<a id="abf9bb66332ea5af52771f22d999a8870" name="abf9bb66332ea5af52771f22d999a8870"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf9bb66332ea5af52771f22d999a8870">&#9670;&#160;</a></span>_position_publisher_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rclcpp::Publisher&lt;visualization_msgs::msg::Marker&gt;::SharedPtr SENode::_position_publisher_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d2/d22/se__node_8hpp_source.html#l00048">48</a> of file <a class="el" href="../../d2/d22/se__node_8hpp_source.html">se_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -1314,7 +1332,7 @@ Here is the call graph for this function:</div>
 
 <p>flag to start the mission </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d22/se__node_8hpp_source.html#l00049">49</a> of file <a class="el" href="../../d2/d22/se__node_8hpp_source.html">se_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d22/se__node_8hpp_source.html#l00050">50</a> of file <a class="el" href="../../d2/d22/se__node_8hpp_source.html">se_node.hpp</a>.</p>
 
 </div>
 </div>
@@ -1338,7 +1356,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d22/se__node_8hpp_source.html#l00050">50</a> of file <a class="el" href="../../d2/d22/se__node_8hpp_source.html">se_node.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d22/se__node_8hpp_source.html#l00051">51</a> of file <a class="el" href="../../d2/d22/se__node_8hpp_source.html">se_node.hpp</a>.</p>
 
 </div>
 </div>

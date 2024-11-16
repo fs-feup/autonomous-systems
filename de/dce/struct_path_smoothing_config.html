@@ -108,7 +108,7 @@ Collaboration diagram for PathSmoothingConfig:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../da/d13/struct_path_smoothing_config__coll__graph.png" border="0" usemap="#a_path_smoothing_config_coll__map" alt="Collaboration graph"/></div>
 <map name="a_path_smoothing_config_coll__map" id="a_path_smoothing_config_coll__map">
-<area shape="rect" title="struct for the configuration of the smoothing algorithm" alt="" coords="5,5,161,151"/>
+<area shape="rect" title="struct for the configuration of the smoothing algorithm" alt="" coords="5,5,161,171"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -116,8 +116,8 @@ Collaboration diagram for PathSmoothingConfig:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ad9b07e9e5ea9704da1c0c3b9d4145ca5" id="r_ad9b07e9e5ea9704da1c0c3b9d4145ca5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dce/struct_path_smoothing_config.html#ad9b07e9e5ea9704da1c0c3b9d4145ca5">PathSmoothingConfig</a> ()=default</td></tr>
 <tr class="separator:ad9b07e9e5ea9704da1c0c3b9d4145ca5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a98679bade95cba007b6b1405efe9ff00" id="r_a98679bade95cba007b6b1405efe9ff00"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dce/struct_path_smoothing_config.html#a98679bade95cba007b6b1405efe9ff00">PathSmoothingConfig</a> (int precision, int order, float coeffs_ratio, bool use_path_smoothing)</td></tr>
-<tr class="separator:a98679bade95cba007b6b1405efe9ff00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac36da4c33f4f49b2300fc73e1e6ff8c2" id="r_ac36da4c33f4f49b2300fc73e1e6ff8c2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dce/struct_path_smoothing_config.html#ac36da4c33f4f49b2300fc73e1e6ff8c2">PathSmoothingConfig</a> (int precision, int order, float coeffs_ratio, bool use_path_smoothing, bool use_memory)</td></tr>
+<tr class="separator:ac36da4c33f4f49b2300fc73e1e6ff8c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -133,6 +133,9 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:af1e1e705957722d368b07d9c371a3db4" id="r_af1e1e705957722d368b07d9c371a3db4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dce/struct_path_smoothing_config.html#af1e1e705957722d368b07d9c371a3db4">use_path_smoothing_</a> = true</td></tr>
 <tr class="memdesc:af1e1e705957722d368b07d9c371a3db4"><td class="mdescLeft">&#160;</td><td class="mdescRight">flag to enable/disable the path smoothing  <br /></td></tr>
 <tr class="separator:af1e1e705957722d368b07d9c371a3db4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abaadd66cf1a9eb3a57159bbcf7f77845" id="r_abaadd66cf1a9eb3a57159bbcf7f77845"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dce/struct_path_smoothing_config.html#abaadd66cf1a9eb3a57159bbcf7f77845">use_memory_</a> = true</td></tr>
+<tr class="memdesc:abaadd66cf1a9eb3a57159bbcf7f77845"><td class="mdescLeft">&#160;</td><td class="mdescRight">whether to memorize cones  <br /></td></tr>
+<tr class="separator:abaadd66cf1a9eb3a57159bbcf7f77845"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>struct for the configuration of the smoothing algorithm </p>
@@ -164,8 +167,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a98679bade95cba007b6b1405efe9ff00" name="a98679bade95cba007b6b1405efe9ff00"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a98679bade95cba007b6b1405efe9ff00">&#9670;&#160;</a></span>PathSmoothingConfig() <span class="overload">[2/2]</span></h2>
+<a id="ac36da4c33f4f49b2300fc73e1e6ff8c2" name="ac36da4c33f4f49b2300fc73e1e6ff8c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac36da4c33f4f49b2300fc73e1e6ff8c2">&#9670;&#160;</a></span>PathSmoothingConfig() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -195,7 +198,13 @@ Public Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>use_path_smoothing</em>&#160;</td>
+          <td class="paramname"><em>use_path_smoothing</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>use_memory</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -210,7 +219,7 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html#l00030">30</a> of file <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html">smoothing_config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html#l00035">35</a> of file <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html">smoothing_config.hpp</a>.</p>
 
 </div>
 </div>
@@ -266,6 +275,24 @@ Public Attributes</h2></td></tr>
 <p>ratio of output to input cones </p>
 
 <p class="definition">Definition at line <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html#l00013">13</a> of file <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html">smoothing_config.hpp</a>.</p>
+
+</div>
+</div>
+<a id="abaadd66cf1a9eb3a57159bbcf7f77845" name="abaadd66cf1a9eb3a57159bbcf7f77845"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abaadd66cf1a9eb3a57159bbcf7f77845">&#9670;&#160;</a></span>use_memory_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool PathSmoothingConfig::use_memory_ = true</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>whether to memorize cones </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html#l00033">33</a> of file <a class="el" href="../../d2/df8/smoothing__config_8hpp_source.html">smoothing_config.hpp</a>.</p>
 
 </div>
 </div>

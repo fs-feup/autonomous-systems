@@ -1,9 +1,5 @@
 <map id="SENode::_publish_vehicle_state" name="SENode::_publish_vehicle_state">
-<area shape="rect" id="Node000001" title="publishes the localization (&#39;vehicle_localization&#39;) to the topic vehicle_location" alt="" coords="378,39,549,79"/>
-<area shape="rect" id="Node000002" href="$d4/d43/class_s_e_node.html#ae87a4d5f2baf38b9fb9a34a81b9149ad" title="Mutex used to lock EKF access." alt="" coords="177,5,330,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="363,46,330,40,331,35,363,40"/>
-<area shape="rect" id="Node000004" href="$d4/d43/class_s_e_node.html#a807afbd7576422568395876d5c3e7296" title="Executes:" alt="" coords="179,71,328,111"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="363,77,329,82,328,77,362,72"/>
-<area shape="rect" id="Node000003" href="$d4/d43/class_s_e_node.html#a5d61b6c80a21c02b29074e434cc6703b" title="Constructor of the main node, most things are received by launch parameter." alt="" coords="5,13,129,39"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="161,28,129,28,129,23,161,23"/>
+<area shape="rect" id="Node000001" title="publishes the localization (&#39;vehicle_localization&#39;) to the topic vehicle_location" alt="" coords="203,5,374,46"/>
+<area shape="rect" id="Node000002" href="$d4/d43/class_s_e_node.html#a807afbd7576422568395876d5c3e7296" title="Executes:" alt="" coords="5,5,155,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="187,28,155,28,155,23,187,23"/>
 </map>
