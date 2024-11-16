@@ -64,7 +64,7 @@ Perception::Perception(const PerceptionParameters& params)
   this->_adapter_ = params.adapter_;
   if (params.adapter_ == "vehicle") {
     this->_point_cloud_subscription = this->create_subscription<sensor_msgs::msg::PointCloud2>(
-        "/rslidar_points", 10, [this](const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
+        "/hesai/pandar", 10, [this](const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
           this->point_cloud_callback(msg);
         });
   } else if (params.adapter_ == "eufs") {
@@ -192,7 +192,15 @@ void Perception::fov_trimming(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, double
 
   double center_x = -x_discount;  // assuming (0, 0) as the center
 
-  for (const auto& point : cloud->points) {
+  for (auto& point : cloud->points) {
+
+    double x = point.x;
+    double y = point.y;
+
+    // This rotates 90º:
+    point.x = y;
+    point.y = -x;
+
     // Calculate distance from the origin (assuming the sensor is at the origin)
     double distance = std::sqrt((point.x - center_x) * (point.x - center_x) + point.y * point.y);
 
