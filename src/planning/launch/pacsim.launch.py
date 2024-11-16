@@ -41,6 +41,16 @@ def generate_launch_description():
                 default_value="35.0",
             ),
             DeclareLaunchArgument(
+                "same_cone_distance_threshold",
+                description="Distance threshold to consider cones as duplicates or previously seen",
+                default_value="0.6",
+            ),
+            DeclareLaunchArgument(
+                "use_memory_cone_coloring",
+                description="Whether to make cone coloring memorize cones from one run to another",
+                default_value="true",
+            ),
+            DeclareLaunchArgument(
                 "outliers_spline_order",
                 description="Order of the spline to remove outliers",
                 default_value="3",
@@ -116,6 +126,16 @@ def generate_launch_description():
                     {"angle_exponent": LaunchConfiguration("angle_exponent")},
                     {"distance_exponent": LaunchConfiguration("distance_exponent")},
                     {"cost_max": LaunchConfiguration("cost_max")},
+                    {
+                        "same_cone_distance_threshold": LaunchConfiguration(
+                            "same_cone_distance_threshold"
+                        )
+                    },
+                    {
+                        "use_memory_cone_coloring": LaunchConfiguration(
+                            "use_memory_cone_coloring"
+                        )
+                    },
                     {
                         "outliers_spline_order": LaunchConfiguration(
                             "outliers_spline_order"

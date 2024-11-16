@@ -1,16 +1,29 @@
 #include "planning/cone_coloring.hpp"
 
 void ConeColoring::remove_duplicates(std::vector<Cone>& cones) const {
-  std::unordered_set<Cone, std::hash<Cone>> unique_cones;
-  std::vector<Cone> result;
-  result.reserve(cones.size());
+  std::vector<Cone> clustered_cones;
+  clustered_cones.reserve(cones.size());
+
   for (const auto& cone : cones) {
-    if (unique_cones.insert(cone).second) {
-      result.push_back(cone);
+    bool is_duplicate = false;
+
+    // Check against each cone in the clustered_cones list
+    for (const auto& clustered_cone : clustered_cones) {
+      if (cone.position.euclidean_distance(clustered_cone.position) <
+          this->config_.same_cone_distance_threshold_) {
+        is_duplicate = true;
+        break;
+      }
+    }
+
+    // If not a duplicate, add to the clustered list
+    if (!is_duplicate) {
+      clustered_cones.push_back(cone);
     }
   }
 
-  cones = result;
+  // Update original cones vector with clustered cones
+  cones = clustered_cones;
 }
 
 std::vector<Cone> ConeColoring::filter_previously_colored_cones(const std::vector<Cone>& cones) {
@@ -20,7 +33,8 @@ std::vector<Cone> ConeColoring::filter_previously_colored_cones(const std::vecto
     seen = false;
     if (!seen) {
       for (auto& colored_cone : this->colored_blue_cones_) {
-        if (cone.position.euclidean_distance(colored_cone.position) < 0.6) {
+        if (cone.position.euclidean_distance(colored_cone.position) <
+            this->config_.same_cone_distance_threshold_) {
           seen = true;
           colored_cone.position.x = cone.position.x;
           colored_cone.position.y = cone.position.y;
@@ -31,7 +45,8 @@ std::vector<Cone> ConeColoring::filter_previously_colored_cones(const std::vecto
 
     if (!seen) {
       for (auto& colored_cone : this->colored_yellow_cones_) {
-        if (cone.position.euclidean_distance(colored_cone.position) < 0.6) {
+        if (cone.position.euclidean_distance(colored_cone.position) <
+            this->config_.same_cone_distance_threshold_) {
           seen = true;
           colored_cone.position.x = cone.position.x;
           colored_cone.position.y = cone.position.y;
@@ -198,8 +213,12 @@ bool ConeColoring::try_to_color_next_cone(
 
 std::pair<std::vector<Cone>, std::vector<Cone>> ConeColoring::color_cones(std::vector<Cone> cones,
                                                                           const Pose& car_pose) {
-  remove_duplicates(cones);
+  if (!this->config_.use_memory_) {
+    this->colored_blue_cones_.clear();
+    this->colored_yellow_cones_.clear();
+  }
   cones = filter_previously_colored_cones(cones);
+  remove_duplicates(cones);
 
   int n_colored_cones = 0;
   const auto n_input_cones = static_cast<int>(cones.size());
@@ -229,7 +248,8 @@ std::pair<std::vector<Cone>, std::vector<Cone>> ConeColoring::color_cones(std::v
   //// Color yellow cones
   // while (try_to_color_next_cone(uncolored_cones, colored_yellow_cones, n_colored_cones,
   //                               n_input_cones)) {
-  //   // keep coloring yellow cones while the function "try_to_color_next_cone" returns true (i.e.
+  //   // keep coloring yellow cones while the function "try_to_color_next_cone" returns true
+  //   (i.e.
   //   a
   //   // suitble cone is found)
   // }

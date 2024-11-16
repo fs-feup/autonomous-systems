@@ -19,7 +19,11 @@ std::string load_adapter_parameters(PlanningParameters& params) {
   params.ncones_gain_ = adapter_node->declare_parameter("ncones_gain", 20.7);
   params.angle_exponent_ = adapter_node->declare_parameter("angle_exponent", 2.0);
   params.distance_exponent_ = adapter_node->declare_parameter("distance_exponent", 0.998);
+  params.same_cone_distance_threshold_ =
+      adapter_node->declare_parameter("same_cone_distance_threshold", 0.6);
   params.cost_max_ = adapter_node->declare_parameter("cost_max", 35.0);
+  params.use_memory_cone_coloring_ =
+      adapter_node->declare_parameter("use_memory_cone_coloring", true);
   params.outliers_spline_order_ =
       static_cast<int>(adapter_node->declare_parameter("outliers_spline_order", 3));
   params.outliers_spline_coeffs_ratio_ =
@@ -37,7 +41,8 @@ std::string load_adapter_parameters(PlanningParameters& params) {
   params.publishing_visualization_msgs_ =
       adapter_node->declare_parameter("publishing_visualization_msg", false);
   params.using_simulated_se_ = adapter_node->declare_parameter("use_simulated_se", false);
-  params.desired_velocity_ = static_cast<double>(adapter_node->declare_parameter("pre_defined_velocity_planning", 0.5));
+  params.desired_velocity_ =
+      static_cast<double>(adapter_node->declare_parameter("pre_defined_velocity_planning", 0.5));
   params.use_outlier_removal_ = adapter_node->declare_parameter("use_outlier_removal", false);
   params.use_path_smoothing_ = adapter_node->declare_parameter("use_path_smoothing", true);
   std::string adapter_type = adapter_node->declare_parameter("adapter", "vehicle");

@@ -45,6 +45,7 @@ class SENode : public rclcpp::Node {
   std::shared_ptr<std::vector<common_lib::structures::Cone>> _track_map_;
   std::shared_ptr<common_lib::structures::VehicleState> _vehicle_state_;
   common_lib::competition_logic::Mission _mission_;
+  rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr _position_publisher_;
   bool _go_;  /// flag to start the mission
   bool _use_odometry_;
   bool _use_simulated_perception_;
@@ -81,8 +82,8 @@ class SENode : public rclcpp::Node {
    * @param steering_angle steering angle in radians
    * @param timestamp timestamp of the message
    */
-  void _wheel_speeds_subscription_callback(double lb_speed, double lf_speed, double rb_speed,
-                                           double rf_speed, double steering_angle,
+  void _wheel_speeds_subscription_callback(double rl_speed, double rr_speed, double fl_speed,
+                                          double fr_speed, double steering_angle,
                                            const rclcpp::Time& timestamp);
 
   /**
