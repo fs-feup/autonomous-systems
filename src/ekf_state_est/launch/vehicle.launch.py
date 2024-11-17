@@ -48,7 +48,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "use_odometry",
                 description="Either use odometry or IMU (TODO: remove for complete velocity estimation)",
-                default_value="False",
+                default_value="True",
             ),
             DeclareLaunchArgument(
                 "use_simulated_perception",

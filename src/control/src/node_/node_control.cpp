@@ -77,7 +77,13 @@ void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicl
   // update the Lookahead point
   auto [lookahead_point, lookahead_velocity, lookahead_error] =
       this->point_solver_.update_lookahead_point(pathpoint_array_, closest_point_id);
-  if (lookahead_error) {
+
+  if (lookahead_error && closest_point_id == -1){
+    lookahead_point.x = pathpoint_array_[0].x;
+    lookahead_point.y = pathpoint_array_[0].y;
+    lookahead_velocity = pathpoint_array_[0].v;
+  }
+  if (lookahead_error && !(closest_point_id == -1)) {
     RCLCPP_DEBUG(rclcpp::get_logger("control"), "PurePursuit: Failed to update lookahed point");
     return;
   }
