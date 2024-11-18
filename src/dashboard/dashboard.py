@@ -278,26 +278,39 @@ def create_update_metric_dropdowns_callback(dashboard, graph_number):
             stored_data: The stored CSV data.
             current_selected_csvs: The currently selected CSV files.
         """
+        # If no CSVs are selected, return empty dropdowns
         if not selected_csvs:
+            print("No CSVs selected.")
             return [], []
 
         temp_folder = "src/cloud_storage/temp"
+
+        # If stored data is not present or if CSVs have changed, download and combine the new CSVs
         if stored_data is None or set(current_selected_csvs) != set(selected_csvs):
+            print(f"Downloading and combining CSVs: {selected_csvs}")
             combined_df = download_and_combine_csvs(selected_csvs, temp_folder)
         else:
             combined_df = pd.read_json(stored_data, orient="split")
 
+        # Check if the dataframe is empty
+        if combined_df.empty:
+            print("Dataframe is empty.")
+
+        # Extract the columns from the dataframe
         columns = list(combined_df.columns)
+        print(f"Columns found: {columns}")
+
+        # If no columns are found, add a placeholder column with random data
         if not columns:
-            # If no columns are found, add a random value column
-            columns = ["Placeholder Column"]
+            print("No valid columns found. Adding placeholder.")
             combined_df["Placeholder Column"] = [random.randint(1, 100) for _ in range(100)]  # Adding 100 random integers
-            
-            # If no valid columns are found, show the placeholder column as the dropdown option
-            options = [{"label": col, "value": col} for col in columns]
-        else:
-            # If columns are present, use them as options for the dropdown
-            options = [{"label": col, "value": col} for col in columns]
+            columns = ["Placeholder Column"]
+
+        # Return the options for both X and Y axis dropdowns
+        options = [{"label": col, "value": col} for col in columns]
+
+        # Print options for debugging
+        print(f"Dropdown options: {options}")
 
         return options, options
 
