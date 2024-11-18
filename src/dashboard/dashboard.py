@@ -21,6 +21,7 @@ app.config.suppress_callback_exceptions = True
 
 # List of available CSV files in the bucket
 csv_files = list_blobs("as_evaluation")
+print(f"CSV files available: {csv_files}")  # Debugging line
 
 # Define available dashboards
 available_dashboards = [
@@ -250,10 +251,21 @@ def download_and_combine_csvs(selected_csvs, temp_folder):
     """
     combined_df = pd.DataFrame()
     for csv in selected_csvs:
+        print(f"Attempting to download CSV: {csv}")  # Debugging line
         download_csv_from_bucket_to_folder("as_evaluation", csv, temp_folder, csv)
-        temp_df = pd.read_csv(os.path.join(temp_folder, csv))
-        temp_df["Source"] = csv
-        combined_df = pd.concat([combined_df, temp_df], ignore_index=True)
+        
+        file_path = os.path.join(temp_folder, csv)
+        print(f"Downloading completed: {file_path}")  # Debugging line
+        
+        if os.path.exists(file_path):
+            print(f"Reading CSV from: {file_path}")  # Debugging line
+            temp_df = pd.read_csv(file_path)
+            temp_df["Source"] = csv
+            combined_df = pd.concat([combined_df, temp_df], ignore_index=True)
+        else:
+            print(f"File not found: {file_path}")  # Debugging line
+            
+    print(f"Combined DataFrame shape: {combined_df.shape}")  # Debugging line
     return combined_df
 
 
