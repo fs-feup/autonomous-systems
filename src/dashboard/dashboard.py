@@ -30,7 +30,8 @@ available_dashboards = [
     "State_estimation_exec_time",
     "Planning_exec_time",
     "Planning_cone_coloring",
-    "Power_log",
+    "Power_log"
+    "Test",
 ]
 
 # Define the main layout of the app
