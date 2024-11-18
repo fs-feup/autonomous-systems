@@ -161,6 +161,24 @@ def get_dashboard_layout(dashboard):
                         id=f"graph3-metrics-{dashboard}",
                         style={"minWidth": "200px", "width": "25%"},
                     ),
+                    html.Div(
+                        [
+                            html.Label("Y-Axis"),
+                            dcc.Dropdown(
+                                id=f"graph4-{dashboard}-metrics-dropdown",
+                                multi=True,
+                                style={"minWidth": "200px"},
+                            ),
+                            html.Br(),
+                            html.Label("X-Axis"),
+                            dcc.Dropdown(
+                                id=f"x-axis-dropdown-{dashboard}-3",
+                                style={"minWidth": "200px"},
+                            ),
+                        ],
+                        id=f"graph4-metrics-{dashboard}",
+                        style={"minWidth": "200px", "width": "25%"},
+                    ),
                 ],
                 style={"display": "flex"},
             ),
@@ -296,6 +314,16 @@ def create_update_graph_callback(graph_id, dashboard, graph_number, graph_type="
                 labels={"value": "Metrics", x_axis: x_axis},
                 title="Scatter Plot",
             )
+        elif graph_type == "bar":
+            fig = px.scatter(
+                df_melted,
+                x=x_axis,
+                y="value",
+                color="Source_Metric",
+                barmode="group",
+                labels={"value": "Metrics", x_axis: x_axis},
+                title="Bar Chart",
+            )
 
         return fig
 
@@ -305,9 +333,11 @@ for dashboard in available_dashboards:
     create_update_metric_dropdowns_callback(dashboard, 1)
     create_update_metric_dropdowns_callback(dashboard, 2)
     create_update_metric_dropdowns_callback(dashboard, 3)
+    create_update_metric_dropdowns_callback(dashboard, 4)
     create_update_graph_callback(f"graph1-{dashboard}", dashboard, 1, "line")
     create_update_graph_callback(f"graph2-{dashboard}", dashboard, 2, "line")
     create_update_graph_callback(f"graph3-{dashboard}", dashboard, 3, "scatter")
+    create_update_graph_callback(f"graph4-{dashboard}", dashboard, 4, "bar")
 
 
 # Cleanup function to remove the temp folder
