@@ -64,7 +64,7 @@ Perception::Perception(const PerceptionParameters& params)
   this->_adapter_ = params.adapter_;
   if (params.adapter_ == "vehicle") {
     this->_point_cloud_subscription = this->create_subscription<sensor_msgs::msg::PointCloud2>(
-        "/hesai/pandar", 10, [this](const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
+        "/lidar_points", 10, [this](const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
           this->point_cloud_callback(msg);
         });
   } else if (params.adapter_ == "eufs") {
