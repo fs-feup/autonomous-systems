@@ -65,6 +65,7 @@ def get_dashboard_layout(dashboard):
         "Planning_exec_time": "planning_exec_time",
         "Planning_cone_coloring": "planning_cone_coloring",
         "Power_log": "power_log",
+        "Test": "test"
     }
 
     condition = dashboard_conditions.get(dashboard, "")

@@ -11,7 +11,6 @@ FOLDERS = {
     "evaluator": "performance/evaluator_metrics",
     "power_log": "performance/power_log_metrics",
     "planning_cone_coloring": "performance/other_metrics/planning",
-    "test": "test",
 }
 
 
