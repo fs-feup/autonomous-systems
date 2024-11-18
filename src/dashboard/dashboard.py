@@ -8,6 +8,8 @@ import sys
 import shutil
 import atexit
 
+import random
+
 sys.path.append(
     os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "cloud_storage"))
 )
@@ -286,7 +288,16 @@ def create_update_metric_dropdowns_callback(dashboard, graph_number):
             combined_df = pd.read_json(stored_data, orient="split")
 
         columns = list(combined_df.columns)
-        options = [{"label": col, "value": col} for col in columns]
+        if not columns:
+            # If no columns are found, add a random value column
+            columns = ["Placeholder Column"]
+            combined_df["Placeholder Column"] = [random.randint(1, 100) for _ in range(100)]  # Adding 100 random integers
+            
+            # If no valid columns are found, show the placeholder column as the dropdown option
+            options = [{"label": col, "value": col} for col in columns]
+        else:
+            # If columns are present, use them as options for the dropdown
+            options = [{"label": col, "value": col} for col in columns]
 
         return options, options
 
