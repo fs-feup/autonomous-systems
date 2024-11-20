@@ -27,9 +27,13 @@ double PurePursuit::calculate_alpha(Position vehicle_rear_wheel, Position vehicl
   double lookhead_point_2_cg = lookahead_point.euclidean_distance(vehicle_cg);
 
   // Law of cosines
-  double alpha = acos((pow(lookhead_point_2_rear_wheel, 2) + pow(dist_cg_2_rear_axis, 2) -
-                       pow(lookhead_point_2_cg, 2)) /
-                      (2 * lookhead_point_2_rear_wheel * dist_cg_2_rear_axis));
+  double cos_alpha = (pow(lookhead_point_2_rear_wheel, 2) + pow(dist_cg_2_rear_axis, 2) -
+                      pow(lookhead_point_2_cg, 2)) /
+                     (2 * lookhead_point_2_rear_wheel * dist_cg_2_rear_axis);
+  
+  cos_alpha = std::clamp(cos_alpha, -1.0, 1.0);
+  double alpha = acos(cos_alpha);
+
 
   if (cross_product(vehicle_rear_wheel, vehicle_cg, lookahead_point) < 0) {
     alpha = -alpha;
