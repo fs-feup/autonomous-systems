@@ -34,10 +34,10 @@ double find_circle_center(PathPoint &point1, PathPoint &point2, PathPoint &point
 
 void speed_limiter(std::vector<PathPoint> &points, std::vector<double> &velocities,
                    double &brake_acelleration) {
-  for (std::size_t i = points.size() - 2; i >= 0; i--) {
+  for (int i = static_cast<int>(points.size()) - 2; i >= 0; i--) {
     double distance = 0;
     double max_speed = velocities[i];
-    for (std::size_t j=i+1; j<points.size()-1; j++) {
+    for (int j=i+1; j<static_cast<int>(points.size())-1; j++) {
       distance += sqrt(pow(points[j].position.x - points[j-1].position.x, 2) + pow(points[j].position.y - points[j-1].position.y, 2));
       double lookahead_speed = sqrt(pow(velocities[j],2) + 2 * brake_acelleration * distance);
       max_speed = std::min(max_speed, lookahead_speed);
@@ -193,13 +193,13 @@ void Planning::run_planning_algorithms() {
   double braking_aceleration = -30;  // To change in launch file
   double safety_speed = 2;           // To change in launch file
   std::vector<double> radiuses;
-  for (std::size_t i = 1; i < final_path.size() - 1; i++) {
+  for (int i = 1; i < static_cast<int>(final_path.size()) - 1; i++) {
     radiuses.push_back(find_circle_center(final_path[i - 1], final_path[i], final_path[i + 1]));
   }
   radiuses[0] = radiuses[1];
   std::vector<double> velocities;
 
-  for (std::size_t i = 0; i < radiuses.size(); i++) {
+  for (int i = 0; i < static_cast<int>(radiuses.size()); i++) {
     double velocity = sqrt(abs(normal_aceleration * radiuses[i]));
     velocities.push_back(velocity);
   }
@@ -207,7 +207,7 @@ void Planning::run_planning_algorithms() {
 
   speed_limiter(final_path, velocities, braking_aceleration);
 
-  for (std::size_t i = 0; i < final_path.size()-1; i++)
+  for (int i = 0; i < static_cast<int>(final_path.size())-1; i++)
   {
     final_path[i].ideal_velocity = velocities[i];
   }
