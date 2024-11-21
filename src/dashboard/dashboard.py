@@ -8,8 +8,6 @@ import sys
 import shutil
 import atexit
 
-import random
-
 sys.path.append(
     os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "cloud_storage"))
 )
@@ -21,7 +19,6 @@ app.config.suppress_callback_exceptions = True
 
 # List of available CSV files in the bucket
 csv_files = list_blobs("as_evaluation")
-print(f"CSV files available: {csv_files}")  # Debugging line
 
 # Define available dashboards
 available_dashboards = [
@@ -33,7 +30,7 @@ available_dashboards = [
     "State_estimation_exec_time",
     "Planning_exec_time",
     "Planning_cone_coloring",
-    "Power_log"
+    "Power_log",
     "Test",
 ]
 
@@ -68,7 +65,7 @@ def get_dashboard_layout(dashboard):
         "Planning_exec_time": "planning_exec_time",
         "Planning_cone_coloring": "planning_cone_coloring",
         "Power_log": "power_log",
-        "Test": "test"
+        "Test": "test",
     }
 
     condition = dashboard_conditions.get(dashboard, "")
@@ -251,21 +248,10 @@ def download_and_combine_csvs(selected_csvs, temp_folder):
     """
     combined_df = pd.DataFrame()
     for csv in selected_csvs:
-        print(f"Attempting to download CSV: {csv}")  # Debugging line
         download_csv_from_bucket_to_folder("as_evaluation", csv, temp_folder, csv)
-        
-        file_path = os.path.join(temp_folder, csv)
-        print(f"Downloading completed: {file_path}")  # Debugging line
-        
-        if os.path.exists(file_path):
-            print(f"Reading CSV from: {file_path}")  # Debugging line
-            temp_df = pd.read_csv(file_path)
-            temp_df["Source"] = csv
-            combined_df = pd.concat([combined_df, temp_df], ignore_index=True)
-        else:
-            print(f"File not found: {file_path}")  # Debugging line
-            
-    print(f"Combined DataFrame shape: {combined_df.shape}")  # Debugging line
+        temp_df = pd.read_csv(os.path.join(temp_folder, csv))
+        temp_df["Source"] = csv
+        combined_df = pd.concat([combined_df, temp_df], ignore_index=True)
     return combined_df
 
 
@@ -290,39 +276,17 @@ def create_update_metric_dropdowns_callback(dashboard, graph_number):
             stored_data: The stored CSV data.
             current_selected_csvs: The currently selected CSV files.
         """
-        # If no CSVs are selected, return empty dropdowns
         if not selected_csvs:
-            print("No CSVs selected.")
             return [], []
 
         temp_folder = "src/cloud_storage/temp"
-
-        # If stored data is not present or if CSVs have changed, download and combine the new CSVs
         if stored_data is None or set(current_selected_csvs) != set(selected_csvs):
-            print(f"Downloading and combining CSVs: {selected_csvs}")
             combined_df = download_and_combine_csvs(selected_csvs, temp_folder)
         else:
             combined_df = pd.read_json(stored_data, orient="split")
 
-        # Check if the dataframe is empty
-        if combined_df.empty:
-            print("Dataframe is empty.")
-
-        # Extract the columns from the dataframe
         columns = list(combined_df.columns)
-        print(f"Columns found: {columns}")
-
-        # If no columns are found, add a placeholder column with random data
-        if not columns:
-            print("No valid columns found. Adding placeholder.")
-            combined_df["Placeholder Column"] = [random.randint(1, 100) for _ in range(100)]  # Adding 100 random integers
-            columns = ["Placeholder Column"]
-
-        # Return the options for both X and Y axis dropdowns
         options = [{"label": col, "value": col} for col in columns]
-
-        # Print options for debugging
-        print(f"Dropdown options: {options}")
 
         return options, options
 
