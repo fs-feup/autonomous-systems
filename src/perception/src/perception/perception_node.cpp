@@ -198,8 +198,8 @@ void Perception::fov_trimming(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, double
     double y = point.y;
 
     // This rotates 90º:
-    point.x = y;
-    point.y = -x;
+    point.x = -y;
+    point.y = x;
 
     // Calculate distance from the origin (assuming the sensor is at the origin)
     double distance = std::sqrt((point.x - center_x) * (point.x - center_x) + point.y * point.y);
@@ -208,7 +208,7 @@ void Perception::fov_trimming(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, double
     double angle = std::atan2(point.y, point.x - center_x) * 180 /
                    M_PI;  // get angle and convert in to degrees
 
-    if (distance <= 1.0) {  // Ignore points from the vehicle
+    if (distance <= 1.2) {  // Ignore points from the vehicle
       continue;
     }
 
@@ -216,7 +216,7 @@ void Perception::fov_trimming(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, double
       continue;
     }
 
-    if (point.z >= -0.2){
+    if (point.z >= -0.22){
       continue;
     }
 

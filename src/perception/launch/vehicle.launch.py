@@ -25,7 +25,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "pc_max_range",
                 description="Point cloud filtering based on distance (m)",
-                default_value="20.0",
+                default_value="25.0",
             ),
             
             DeclareLaunchArgument(
@@ -36,7 +36,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "clustering_epsilon",
                 description="Epsilon for Clustering algorithm",
-                default_value="0.2",
+                default_value="0.7",
             ),
             DeclareLaunchArgument(
                 "horizontal_resolution",
@@ -96,7 +96,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "min_height",
                 description="Minimum height of a cluster to be considered a cone",
-                default_value="0.1"
+                default_value="0.12"
             ),
             DeclareLaunchArgument(
                 "max_height",
