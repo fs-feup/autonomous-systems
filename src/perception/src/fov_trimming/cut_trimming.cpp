@@ -15,18 +15,16 @@ void CutTrimming::fov_trimming(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud) const
   pcl::PointCloud<pcl::PointXYZI>::Ptr trimmed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
 
   for (const auto& point : cloud->points) {
-    // Calculate distance from the origin (assuming LIDAR is at the origin)
+    // Calculate distance LIDAR on the x0y plane
     double distance = std::sqrt((point.x) * (point.x) + point.y * point.y);
 
     // Calculate the angle of point in the XY plane in deegres
     double angle = std::atan2(point.y, point.x) * 180 / M_PI;
 
-    if (distance <= pc_min_range) {  // Ignore points from the vehicle
-      continue;
-    }
-
-    if (point.z >= pc_rlidar_max_height) {  // Ignore points higher than a defined height relative
-      continue;                             // to the LIDAR's position
+    if (point.z >= pc_rlidar_max_height ||
+        distance <= pc_min_range) {  // Ignore points too close or higher than a
+                                     // defined height relative
+      continue;                      // to the LIDAR's position
     }
 
     // Check if the point is within the specified distance and angle range

@@ -14,13 +14,6 @@
 
 std_msgs::msg::Header header;
 
-const std::unordered_map<std::string, std::string> adapter_frame_map = {
-    {"vehicle", "lidar"},
-    {"eufs", "velodyne"},
-    {"fsds", "lidar"},
-    {"vehicle_preprocessed", "lidar"},
-    {"fst", "lidar"}};
-
 Perception::Perception(const PerceptionParameters& params)
     : Node("perception"),
       _vehicle_frame_id_(params.vehicle_frame_id_),
@@ -29,9 +22,7 @@ Perception::Perception(const PerceptionParameters& params)
       _clustering_(params.clustering_),
       _cone_differentiator_(params.cone_differentiator_),
       _cone_validators_(params.cone_validators_),
-      _cone_evaluator_(
-          params.distance_predict_), /* This is probably wrong and will give an eror when running
-                                        but I dunno the right types to use, davide fix pls */
+      _cone_evaluator_(params.distance_predict_),
       _icp_(params.icp_) {
   this->_cones_publisher =
       this->create_publisher<custom_interfaces::msg::ConeArray>("/perception/cones", 10);
