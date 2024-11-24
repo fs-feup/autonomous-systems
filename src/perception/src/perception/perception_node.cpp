@@ -24,6 +24,7 @@ const std::unordered_map<std::string, std::string> adapter_frame_map = {
 Perception::Perception(const PerceptionParameters& params)
     : Node("perception"),
       _vehicle_frame_id_(params.vehicle_frame_id_),
+      _fov_trimming_(params.fov_trimming_),
       _ground_removal_(params.ground_removal_),
       _clustering_(params.clustering_),
       _cone_differentiator_(params.cone_differentiator_),
@@ -41,55 +42,23 @@ Perception::Perception(const PerceptionParameters& params)
   this->_perception_execution_time_publisher_ =
       this->create_publisher<std_msgs::msg::Float64>("/perception/execution_time", 10);
 
-  this->_fov_trim_ = params.fov_trim_;
+  // Determine which adapter is being used
+  std::unordered_map<std::string, std::tuple<std::string, rclcpp::QoS>> adapter_topic_map = {
+      {"vehicle", {"/rslidar_points", rclcpp::QoS(10)}},
+      {"eufs",
+       {"/velodyne_points", rclcpp::QoS(1).reliability(RMW_QOS_POLICY_RELIABILITY_BEST_EFFORT)}},
+      {"fsds", {"/lidar/Lidar1", rclcpp::QoS(10)}},
+      {"vehicle_preprocessed", {"/rslidar_points/pre_processed", rclcpp::QoS(10)}},
+      {"fst", {"/hesai/pandar", rclcpp::QoS(10)}}};
 
-  this->_pc_max_range_ = params.pc_max_range_;
-
-  // std::unordered_map<std::string, std::tuple<std::string, rclcpp::QoS>> adapter_topic_map = {
-  //     {"vehicle", {"/rslidar_points", rclcpp::QoS(10)}},
-  //     {"eufs",
-  //      {"/velodyne_points", rclcpp::QoS(1).reliability(RMW_QOS_POLICY_RELIABILITY_BEST_EFFORT)}},
-  //     {"fsds", {"/lidar/Lidar1", rclcpp::QoS(10)}},
-  //     {"vehicle_preprocessed", {"/rslidar_points/pre_processed", rclcpp::QoS(10)}},
-  //     {"fst", {"/hesai/pandar", rclcpp::QoS(10)}}};
-
-  // this->_point_cloud_subscription = this->create_subscription<sensor_msgs::msg::PointCloud2>(
-  //     std::get<0>(adapter_topic_map[params.adapter_]),
-  //     std::get<1>(adapter_topic_map[params.adapter_]),
-  //     [this](const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
-  //       this->point_cloud_callback(msg);
-  //     });
-
-  // TODO: fix this shit
-  this->_adapter_ = params.adapter_;
-  if (params.adapter_ == "vehicle") {
+  try {
     this->_point_cloud_subscription = this->create_subscription<sensor_msgs::msg::PointCloud2>(
-        "/rslidar_points", 10, [this](const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
-          this->point_cloud_callback(msg);
-        });
-  } else if (params.adapter_ == "eufs") {
-    this->_point_cloud_subscription = this->create_subscription<sensor_msgs::msg::PointCloud2>(
-        "/velodyne_points", rclcpp::QoS(1).reliability(RMW_QOS_POLICY_RELIABILITY_BEST_EFFORT),
+        std::get<0>(adapter_topic_map.at(params.adapter_)),
+        std::get<1>(adapter_topic_map.at(params.adapter_)),
         [this](const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
           this->point_cloud_callback(msg);
         });
-  } else if (params.adapter_ == "fsds") {
-    this->_point_cloud_subscription = this->create_subscription<sensor_msgs::msg::PointCloud2>(
-        "/lidar/Lidar1", 10, [this](const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
-          this->point_cloud_callback(msg);
-        });
-  } else if (params.adapter_ == "vehicle_preprocessed") {
-    this->_point_cloud_subscription = this->create_subscription<sensor_msgs::msg::PointCloud2>(
-        "/rslidar_points/pre_processed", 10,
-        [this](const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
-          this->point_cloud_callback(msg);
-        });
-  } else if (params.adapter_ == "fst") {
-    this->_point_cloud_subscription = this->create_subscription<sensor_msgs::msg::PointCloud2>(
-        "/hesai/pandar", 10, [this](const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
-          this->point_cloud_callback(msg);
-        });
-  } else {
+  } catch (const std::out_of_range& e) {
     RCLCPP_ERROR(this->get_logger(), "Adapter not recognized: %s", params.adapter_.c_str());
   }
 
@@ -108,8 +77,8 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   header = (*msg).header;
   pcl::fromROSMsg(*msg, *pcl_cloud);
 
-  // Pass-trough Filter
-  fov_trimming(pcl_cloud, this->_pc_max_range_, -_fov_trim_, _fov_trim_, 0);
+  // Pass-trough Filter (trim Pcl)
+  _fov_trimming_->fov_trimming(pcl_cloud);
 
   // Ground Removal
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
@@ -184,40 +153,4 @@ void Perception::publish_cones(std::vector<Cluster>* cones) {
   // TODO: correct frame id to LiDAR instead of vehicle
   this->_cone_marker_array_->publish(common_lib::communication::marker_array_from_structure_array(
       message_array, "perception", this->_vehicle_frame_id_, "green"));
-}
-
-void Perception::fov_trimming(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, double max_distance,
-                              double min_angle, double max_angle, double x_discount) {
-  pcl::PointCloud<pcl::PointXYZI>::Ptr trimmed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-
-  double center_x = -x_discount;  // assuming (0, 0) as the center
-
-  for (const auto& point : cloud->points) {
-    // Calculate distance from the origin (assuming the sensor is at the origin)
-    double distance = std::sqrt((point.x - center_x) * (point.x - center_x) + point.y * point.y);
-
-    // Calculate the angle in the XY plane
-    double angle = std::atan2(point.y, point.x - center_x) * 180 /
-                   M_PI;  // get angle and convert in to degrees
-
-    if (distance <= 1.0) {  // Ignore points from the vehicle
-      continue;
-    }
-
-    if (point.z >= -0.1 && point.z <= 0.1) {  // Ignore points on the ground
-      continue;
-    }
-
-    if (point.z >= -0.2){
-      continue;
-    }
-
-    // Check if the point is within the specified distance and angle range
-    if (distance <= max_distance && angle >= min_angle && angle <= max_angle) {
-      trimmed_cloud->points.push_back(point);
-    }
-  }
-
-  // Replace the input cloud with the trimmed cloud
-  *cloud = *trimmed_cloud;
 }

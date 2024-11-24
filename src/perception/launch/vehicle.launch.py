@@ -18,7 +18,7 @@ def generate_launch_description():
                 default_value="40",
             ),
             DeclareLaunchArgument(
-                "fov_trim",
+                "fov_trim_angle",
                 description="Trim the points received to a max angle",
                 default_value="30",  # degrees
             ),
@@ -27,7 +27,6 @@ def generate_launch_description():
                 description="Point cloud filtering based on distance (m)",
                 default_value="20.0",
             ),
-            
             DeclareLaunchArgument(
                 "clustering_n_neighbours",
                 description="Number of neighbours for Clustering algorithm",
@@ -96,52 +95,48 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "min_height",
                 description="Minimum height of a cluster to be considered a cone",
-                default_value="0.1"
+                default_value="0.1",
             ),
             DeclareLaunchArgument(
                 "max_height",
                 description="Maximum height of a cluster to be considered a cone",
-                default_value="0.4"
+                default_value="0.4",
             ),
             DeclareLaunchArgument(
                 "min_xoy",
                 description="Minimum xOy plane deviation",
-                default_value="0.0"
+                default_value="0.0",
             ),
             DeclareLaunchArgument(
                 "max_xoy",
                 description="Maximum xOy plane deviation",
-                default_value="0.3"
+                default_value="0.3",
             ),
             DeclareLaunchArgument(
-                "min_z",
-                description="Minimum z axis deviation",
-                default_value="0.00001"
+                "min_z", description="Minimum z axis deviation", default_value="0.00001"
             ),
             DeclareLaunchArgument(
-                "max_z",
-                description="Maximum z axis deviation",
-                default_value="0.6"
+                "max_z", description="Maximum z axis deviation", default_value="0.6"
             ),
             DeclareLaunchArgument(
                 "min_z_score_x",
                 description="Minimum z score on cones distribution (x)",
-                default_value="-100000000.0"
+                default_value="-100000000.0",
             ),
             DeclareLaunchArgument(
                 "max_z_score_x",
                 description="Maximum z score on cones distribution (x)",
-                default_value="100000000000.0"
+                default_value="100000000000.0",
             ),
             DeclareLaunchArgument(
                 "min_z_score_y",
                 description="Minimum z score on cones distribution (y)",
-                default_value="-1000000000.0"
+                default_value="-1000000000.0",
             ),
             DeclareLaunchArgument(
                 "max_z_score_y",
                 description="Minimum z score on cones distribution (y)",
-                default_value="1000000000.0"
+                default_value="1000000000.0",
             ),
             Node(
                 package="perception",
@@ -185,45 +180,21 @@ def generate_launch_description():
                         )
                     },
                     {
-                        "transformation_epsilon" : LaunchConfiguration(
+                        "transformation_epsilon": LaunchConfiguration(
                             "transformation_epsilon"
                         )
                     },
-                    {
-                        "pc_max_range" : LaunchConfiguration(
-                            "pc_max_range"
-                        )
-                    },
-                    {
-                        "min_height" : LaunchConfiguration("min_height")
-                    },
-                    {
-                        "max_height" : LaunchConfiguration("max_height")
-                    },
-                    {
-                        "min_xoy" : LaunchConfiguration("min_xoy")
-                    },
-                    {
-                        "max_xoy" : LaunchConfiguration("max_xoy")
-                    },
-                    {
-                        "min_z" : LaunchConfiguration("min_z")
-                    },
-                    {
-                        "max_z" : LaunchConfiguration("max_z")
-                    },
-                    {
-                        "min_z_score_x" : LaunchConfiguration("min_z_score_x")
-                    },
-                    {
-                        "max_z_score_x" : LaunchConfiguration("max_z_score_x")
-                    },
-                    {
-                        "min_z_score_y" : LaunchConfiguration("min_z_score_y")
-                    },
-                    {
-                        "max_z_score_y" : LaunchConfiguration("max_z_score_y")
-                    }
+                    {"pc_max_range": LaunchConfiguration("pc_max_range")},
+                    {"min_height": LaunchConfiguration("min_height")},
+                    {"max_height": LaunchConfiguration("max_height")},
+                    {"min_xoy": LaunchConfiguration("min_xoy")},
+                    {"max_xoy": LaunchConfiguration("max_xoy")},
+                    {"min_z": LaunchConfiguration("min_z")},
+                    {"max_z": LaunchConfiguration("max_z")},
+                    {"min_z_score_x": LaunchConfiguration("min_z_score_x")},
+                    {"max_z_score_x": LaunchConfiguration("max_z_score_x")},
+                    {"min_z_score_y": LaunchConfiguration("min_z_score_y")},
+                    {"max_z_score_y": LaunchConfiguration("max_z_score_y")},
                 ],
                 arguments=["--ros-args", "--log-level", "perception:=debug"],
             ),
