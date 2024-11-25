@@ -1,7 +1,9 @@
 <map id="VehicleModelBicycle::forwardIntegrate" name="VehicleModelBicycle::forwardIntegrate">
 <area shape="rect" id="Node000001" title=" " alt="" coords="5,5,147,46"/>
-<area shape="rect" id="Node000002" href="$dd/d52/class_vehicle_model_bicycle.html#ae619bac973778d3b0186c944f991e814" title=" " alt="" coords="195,5,336,46"/>
+<area shape="rect" id="Node000002" href="$dd/d52/class_vehicle_model_bicycle.html#a4d87d6b145a90af103b362c4f6ff9f82" title=" " alt="" coords="195,5,336,46"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="147,23,179,23,179,28,147,28"/>
-<area shape="rect" id="Node000003" href="$dd/d52/class_vehicle_model_bicycle.html#a2fb68d0bae5180f73becb79ae124f1c9" title=" " alt="" coords="384,5,531,46"/>
+<area shape="rect" id="Node000003" href="$dd/d52/class_vehicle_model_bicycle.html#a4fdabc08228820985c43d9e94b73b570" title=" " alt="" coords="384,5,531,46"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="336,23,368,23,368,28,336,28"/>
+<area shape="rect" id="Node000004" href="$dd/d52/class_vehicle_model_bicycle.html#a7c6b8b772230b981bc58f7a60803361b" title=" " alt="" coords="579,5,721,46"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="532,23,564,23,564,28,532,28"/>
 </map>

@@ -6,6 +6,6 @@ var searchData=
   ['keypressevent_3',['keyPressEvent',['../d8/def/classmain_1_1_my_window.html#a297e698e595c9ec53bfdf8aff80b4ef0',1,'main::MyWindow']]],
   ['keys_4',['PacSim Keys',['../dd/d73/md_src_2pacsim__keys_2_r_e_a_d_m_e.html',1,'']]],
   ['ki_5f_5',['ki_',['../d6/d5a/class_p_i_d.html#a3b53daa42c039a745773ccc60355feca',1,'PID']]],
-  ['known_20issues_6',['Known issues',['../d1/d0c/md_src_2pacsim_2_r_e_a_d_m_e.html#autotoc_md116',1,'']]],
+  ['known_20issues_6',['Known issues',['../d1/d0c/md_src_2pacsim_2_r_e_a_d_m_e.html#autotoc_md122',1,'']]],
   ['kp_5f_7',['kp_',['../d6/d5a/class_p_i_d.html#a5e144cee82e154b288b1e686496e7265',1,'PID']]]
 ];

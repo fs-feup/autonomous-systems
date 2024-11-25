@@ -94,13 +94,13 @@ $(document).ready(function(){initNavTree('d1/d0c/md_src_2pacsim_2_r_e_a_d_m_e.ht
   <div class="headertitle"><div class="title">README</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><img src="../../../../docs/diagrams/pacsim/logo_full.png" alt="Project logo" class="inline"/> </p>
-<h1><a class="anchor" id="autotoc_md112"></a>
+<div class="textblock"><p><img src="../../doc/logo_full.png" alt="Project logo" class="inline"/> </p>
+<h1><a class="anchor" id="autotoc_md116"></a>
 PacSim</h1>
 <p>PacSim (<a class="el" href="../../d9/db5/class_planning.html" title="Class responsible for planning and path generation for our car.">Planning</a> and Controls Simuluator) is a simulator for Formula Student Driverless competitions originally developed at <a href="https://elbflorace.de/">Elbflorace</a>.</p>
 <p>Example of a pipeline running in PacSim with visualizations in Foxglove:</p>
-<p><img src="../../../../docs/diagrams/pacsim/demo.gif" alt="Demo gif" class="inline"/></p>
-<h1><a class="anchor" id="autotoc_md113"></a>
+<p><img src="../../doc/demo.gif" alt="Demo gif" class="inline"/></p>
+<h1><a class="anchor" id="autotoc_md117"></a>
 Features</h1>
 <ul>
 <li>Closed loop simulation of the autonomous system.<ul>
@@ -124,24 +124,32 @@ Features</h1>
 </ul>
 </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md114"></a>
+<h1><a class="anchor" id="autotoc_md118"></a>
+Prerequisites</h1>
+<p>This package is developed and tested on Ubuntu 22.04 with ROS2 Iron.</p>
+<p>Install dependencies:</p>
+<p><code>sudo apt install ros-iron-desktop ros-iron-xacro</code></p>
+<h1><a class="anchor" id="autotoc_md119"></a>
 How to get started</h1>
 <p>To use PacSim with your autonomous system, you need to create a message converter node to match your own interfaces with the simulator.</p>
 <p>We provide an example launch file (example.launch.py) which shows an example of how to start the simulator node and the robot_state_publisher for the 3d visualization of the car.</p>
 <p>The sensors and vehicle model are configured using config files. Examples are provided in the config folder. Things such as the discipline or the path of the track file or config files are defined using ros2 parameters.</p>
 <p>The default vehicle model provided is rather simple and just meant to be a starting point. You are encouraged to integrate your own vehicle model by implementing the <code><a class="el" href="../../d1/d5c/class_i_vehicle_model.html">IVehicleModel</a></code> class.</p>
-<h1><a class="anchor" id="autotoc_md115"></a>
+<h2><a class="anchor" id="autotoc_md120"></a>
+Docker Dev Container</h2>
+<p>A <a href="../.././.devcontainer/Dockerfile">Dockerfile</a> is configured that already contains all the dependencies. It can be used with a <a href="../.././.devcontainer">dev container environment</a> or launched independently wiht the <a href="../.././docker-compose.yml">docker-compose</a> file. For more info, check the <a class="el" href="../../de/da5/md_src_2pacsim_2doc_2docker__usage.html">docs folder</a>.</p>
+<h1><a class="anchor" id="autotoc_md121"></a>
 Contributing</h1>
 <p>Contributions in any form (reports, feedback, requests, submissions) are welcome. Preferably create an Issue or Pull request for that.</p>
 <p>The project also has a <a href="https://discord.gg/Ay3XzB5p33">discord server</a>.</p>
-<h1><a class="anchor" id="autotoc_md116"></a>
+<h1><a class="anchor" id="autotoc_md122"></a>
 Known issues</h1>
 <ul>
 <li>In Foxglove Studio (in contrast to RViz) the mesh of the car is displayed incorrectly using default settings. To fix this go to the left sidebar of the 3d panel -&gt; Scene -&gt; Mesh up axis and select Z-up. Restart to apply the change.</li>
 <li>Currently the track editor can't handle the skidpad and acceleration tracks (lanesFirstWithLastConnected = False) properly.</li>
 <li>Currently there exists no editor and visualization for the grip map.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md117"></a>
+<h1><a class="anchor" id="autotoc_md123"></a>
 Acknowledgements</h1>
 <p>The initial version was developed at Elbflorace by:</p><ul>
 <li>Alexander Phieler (Main development)</li>

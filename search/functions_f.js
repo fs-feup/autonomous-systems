@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['pacsimadapter_0',['pacsimadapter',['../db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70',1,'PacSimAdapter::PacSimAdapter()'],['../d1/dcb/class_pacsim_adapter.html#a7c46a660a7d6263ca48d60ce650364cc',1,'PacsimAdapter::PacsimAdapter()'],['../db/d68/class_pac_sim_adapter.html#a4be2946eb7e577326de44b7c3b8a4868',1,'PacSimAdapter::PacSimAdapter()']]],
+  ['pacsimadapter_0',['pacsimadapter',['../db/d68/class_pac_sim_adapter.html#a4be2946eb7e577326de44b7c3b8a4868',1,'PacSimAdapter::PacSimAdapter(const ControlParameters &amp;params)'],['../db/d68/class_pac_sim_adapter.html#a4dd0d0dfcbce3cae364f9aeee8ac7c70',1,'PacSimAdapter::PacSimAdapter(const PlanningParameters &amp;params)'],['../d1/dcb/class_pacsim_adapter.html#a7c46a660a7d6263ca48d60ce650364cc',1,'PacsimAdapter::PacsimAdapter()']]],
   ['parse_5ftrack_5fcone_1',['parse_track_cone',['../dc/de8/classevaluator_1_1fsds__adapter_1_1_f_s_d_s_adapter.html#a7d737b53477117cccadb4b35f4c84379',1,'evaluator::fsds_adapter::FSDSAdapter']]],
   ['path_5ffrom_5ffile_2',['path_from_file',['../d0/d09/planning_2test_2test__utils_2utils_8cpp.html#a7aaaf0c9d5c4fc7b67418ee1c748f208',1,'path_from_file(const std::string &amp;path):&#160;utils.cpp'],['../d6/dab/planning_2test_2test__utils_2utils_8hpp.html#a7aaaf0c9d5c4fc7b67418ee1c748f208',1,'path_from_file(const std::string &amp;path):&#160;utils.cpp']]],
   ['path_5fpoint_5farray_5ffrom_5fci_5fvector_3',['path_point_array_from_ci_vector',['../d1/dd0/namespacecommon__lib_1_1communication.html#a72d8d8f96d0fecb170617070d8a1a0a9',1,'common_lib::communication']]],
@@ -43,7 +43,7 @@ var searchData=
   ['print_5fto_5ffile_40',['print_to_file',['../df/d4f/class_performance_test.html#ac7522bebe1327e47d30d53df4a3d1b76',1,'PerformanceTest']]],
   ['process_41',['process',['../d6/d71/class_imu_sensor.html#a209a4d3191d0af486e2f8d8df8d6fdff',1,'ImuSensor::process()'],['../d0/d8a/class_perception_sensor.html#a16eb36337fee8409834fcae07d5d17dc',1,'PerceptionSensor::process()']]],
   ['process_5fdelaunay_5ftriangulations_42',['process_delaunay_triangulations',['../d0/d89/class_path_calculation.html#aa0e66c64fa0f6b3e2124da40e1fa183f',1,'PathCalculation']]],
-  ['processslipanglelat_43',['processSlipAngleLat',['../dd/d52/class_vehicle_model_bicycle.html#a2fb68d0bae5180f73becb79ae124f1c9',1,'VehicleModelBicycle']]],
+  ['processslipanglelat_43',['processSlipAngleLat',['../dd/d52/class_vehicle_model_bicycle.html#a4fdabc08228820985c43d9e94b73b570',1,'VehicleModelBicycle']]],
   ['publish_5fcmd_44',['publish_cmd',['../d0/d1d/class_eufs_adapter.html#a3b651290afda6ce152e7fc625302e533',1,'EufsAdapter::publish_cmd()'],['../d7/d49/class_control.html#a23d410d03e7229c173efb6c39e8d271e',1,'Control::publish_cmd()'],['../d1/df1/class_vehicle_adapter.html#a38b71330a7c466688649fd0801ff8794',1,'VehicleAdapter::publish_cmd()'],['../db/d68/class_pac_sim_adapter.html#a2dc4a13d84b41c8741be044542fa8275',1,'PacSimAdapter::publish_cmd()'],['../d7/d8e/class_fsds_adapter.html#a68abeaa6699f31b636edfda4bdf07b73',1,'FsdsAdapter::publish_cmd()']]],
   ['publish_5fcones_45',['publish_cones',['../de/d07/class_perception.html#a1dbc6dbd5c5c70f5eb25d2b0171ebd2e',1,'Perception']]],
   ['publish_5fcontrol_46',['publish_control',['../d7/d49/class_control.html#a4953afbe68bf1d7a023972985c8083d6',1,'Control']]],
