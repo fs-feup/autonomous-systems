@@ -1,10 +1,10 @@
-![Project logo](../../docs/diagrams/pacsim/logo_full.png)
+![Project logo](doc/logo_full.png)
 # PacSim
 PacSim (Planning and Controls Simuluator) is a simulator for Formula Student Driverless competitions originally developed at [Elbflorace](https://elbflorace.de/).
 
 Example of a pipeline running in PacSim with visualizations in Foxglove:
 
-![Demo gif](../../docs/diagrams/pacsim/demo.gif)
+![Demo gif](doc/demo.gif)
 
 # Features
 * Closed loop simulation of the autonomous system.
@@ -20,6 +20,13 @@ Example of a pipeline running in PacSim with visualizations in Foxglove:
   * Track editor (track_editor directory)
   * Converter from [FSSIM](https://github.com/AMZ-Driverless/fssim) sdf to our track format.
 
+# Prerequisites
+This package is developed and tested on Ubuntu 22.04 with ROS2 Iron. 
+
+Install dependencies:
+
+`sudo apt install ros-iron-desktop ros-iron-xacro`
+
 # How to get started
 To use PacSim with your autonomous system, you need to create a message converter node to match your own interfaces with the simulator.
 
@@ -28,6 +35,10 @@ We provide an example launch file (example.launch.py) which shows an example of 
 The sensors and vehicle model are configured using config files. Examples are provided in the config folder. Things such as the discipline or the path of the track file or config files are defined using ros2 parameters.
 
 The default vehicle model provided is rather simple and just meant to be a starting point. You are encouraged to integrate your own vehicle model by implementing the `IVehicleModel` class.
+
+## Docker Dev Container
+
+A [Dockerfile](./.devcontainer/Dockerfile) is configured that already contains all the dependencies. It can be used with a [dev container environment](./.devcontainer) or launched independently wiht the [docker-compose](./docker-compose.yml) file. For more info, check the [docs folder](./doc/docker_usage.md).
 
 # Contributing
 Contributions in any form (reports, feedback, requests, submissions) are welcome. Preferably create an Issue or Pull request for that.
