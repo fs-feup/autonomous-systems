@@ -20,7 +20,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "fov_trim",
                 description="Trim the points received to a max angle",
-                default_value="30",  # degrees
+                default_value="40",  # degrees
             ),
             DeclareLaunchArgument(
                 "pc_max_range",
