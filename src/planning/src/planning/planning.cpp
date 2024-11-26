@@ -1,11 +1,11 @@
 #include "planning/planning.hpp"
 
 #include <vector>
+
 #include "adapter_planning/pacsim.hpp"
 #include "adapter_planning/vehicle.hpp"
 
 using std::placeholders::_1;
-
 
 Planning::Planning(const PlanningParameters &params)
     : Node("planning"),
@@ -16,6 +16,7 @@ Planning::Planning(const PlanningParameters &params)
   outliers_ = Outliers(planning_config_.outliers_);
   path_calculation_ = PathCalculation(planning_config_.path_calculation_);
   path_smoothing_ = PathSmoothing(planning_config_.smoothing_);
+  velocity_planning_ = VelocityPlanning(planning_config_.velocity_planning_);
 
   // Control Publisher
   this->local_pub_ =
@@ -139,10 +140,9 @@ void Planning::run_planning_algorithms() {
     RCLCPP_INFO(rclcpp::get_logger("planning"), "Final path size: %d",
                 static_cast<int>(final_path.size()));
   }
-  
+
   // Velocity Planning
   velocity_planning_.set_velocity(final_path);
-
 
   // Execution Time calculation
   rclcpp::Time end_time = this->now();
@@ -160,7 +160,6 @@ void Planning::run_planning_algorithms() {
                                triangulations_path, final_path);
   }
 }
-
 
 void Planning::vehicle_localization_callback(const custom_interfaces::msg::VehicleState &msg) {
   this->pose = Pose(msg.position.x, msg.position.y, msg.theta);
