@@ -24,11 +24,11 @@ double VelocityPlanning::find_circle_center(PathPoint &point1, PathPoint &point2
 }
 
 void VelocityPlanning::point_speed(std::vector<double> &radiuses, std::vector<double> &velocities) {
-  for (int i = 0; i < static_cast<int>(radiuses.size()) - 1; i++) {
+  for (int i = 0; i < static_cast<int>(radiuses.size()); i++) {
     double velocity = sqrt(abs(config_.braking_acceleration_ * radiuses[i]));
     velocities.push_back(std::max(velocity, config_.safety_speed_));
   }
-  velocities.push_back(config_.safety_speed_);
+  velocities.back() = config_.safety_speed_;
 
   return;
 }
@@ -39,7 +39,7 @@ void VelocityPlanning::speed_limiter(std::vector<PathPoint> &points,
     double distance = 0;
     double max_speed = velocities[i];
 
-    for (int j = i + 1; j < static_cast<int>(points.size()) - 1; j++) {
+    for (int j = i + 1; j < static_cast<int>(points.size())-1; j++) {
       // Calculate segment distance
       double segment_distance = sqrt(pow(points[j].position.x - points[j - 1].position.x, 2) +
                                      pow(points[j].position.y - points[j - 1].position.y, 2));
@@ -60,20 +60,23 @@ void VelocityPlanning::speed_limiter(std::vector<PathPoint> &points,
 // Main function to set the velocity of the car
 void VelocityPlanning::set_velocity(std::vector<PathPoint> &final_path) {
 
-  if (config_.use_velocity_planning_) {
+  if ((config_.use_velocity_planning_) && (final_path.size() > 2)) {
     std::vector<double> radiuses;
+    radiuses.push_back(0);
     for (int i = 1; i < static_cast<int>(final_path.size()) - 1; i++) {
       radiuses.push_back(find_circle_center(final_path[i - 1], final_path[i], final_path[i + 1]));
     }
     radiuses[0] = radiuses[1];
+    radiuses.push_back(radiuses.back());
+
     std::vector<double> velocities;
     point_speed(radiuses, velocities);
     speed_limiter(final_path, velocities);
 
-    for (int i = 0; i < static_cast<int>(final_path.size()) - 1; i++) {
+    for (int i = 0; i < static_cast<int>(final_path.size()); i++) {
       final_path[i].ideal_velocity = velocities[i];
     }
-  } 
+  }
   
   else {
     for (auto &path_point : final_path) {

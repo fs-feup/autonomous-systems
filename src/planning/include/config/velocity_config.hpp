@@ -20,7 +20,7 @@ struct VelocityPlanningConfig {
    * @brief the maximum normal acceleration
    *
    */
-  double normal_acceleration_ = 8;
+  double normal_acceleration_ = 7;
   /**
    * @brief flag to enable/disable velocity planning
    *
