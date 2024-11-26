@@ -96,7 +96,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "min_height",
                 description="Minimum height of a cluster to be considered a cone",
-                default_value="0.12"
+                default_value="0.13"
             ),
             DeclareLaunchArgument(
                 "max_height",
