@@ -41,6 +41,7 @@ set(TESTFILES
   test/smoothing_tests.cpp
   test/splines_tests.cpp
   test/test_utils/utils.cpp
+  test/velocity_planning_tests.cpp
 )
 
 set(IMPLEMENTATION_FILES
