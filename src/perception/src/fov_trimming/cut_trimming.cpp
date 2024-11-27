@@ -14,7 +14,14 @@ CutTrimming::CutTrimming(double pc_max_range, double pc_min_range, double pc_rli
 void CutTrimming::fov_trimming(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud) const {
   pcl::PointCloud<pcl::PointXYZI>::Ptr trimmed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
 
-  for (const auto& point : cloud->points) {
+  for (auto& point : cloud->points) {
+    double x = point.x;
+    double y = point.y;
+
+    // This rotates 90º:
+    point.x = -y;
+    point.y = x;
+
     // Calculate distance LIDAR on the x0y plane
     double distance = std::sqrt((point.x) * (point.x) + point.y * point.y);
 
