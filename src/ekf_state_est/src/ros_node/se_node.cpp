@@ -92,10 +92,9 @@ void SENode::_perception_subscription_callback(const custom_interfaces::msg::Con
     return;
   }
 
-/*
   if (!this->_go_){
     return;
-  }*/
+  }
 
   rclcpp::Time start_time = this->get_clock()->now();
 
@@ -129,11 +128,11 @@ void SENode::_imu_subscription_callback(const sensor_msgs::msg::Imu &imu_msg) {
     return;
   }
 
-  /*
+
   if (!this->_go_){
     return;
   }
-  */
+
 
   rclcpp::Time start_time = this->get_clock()->now();
 
@@ -179,11 +178,11 @@ double difference = 10;
 void SENode::_wheel_speeds_subscription_callback(double rl_speed, double rr_speed, double fl_speed,
                                                  double fr_speed, double steering_angle,
                                                  const rclcpp::Time &timestamp) {
-  /*
+
   if (!this->_go_){
     return;
   }
-  */
+
 
   bool change = false;
 
