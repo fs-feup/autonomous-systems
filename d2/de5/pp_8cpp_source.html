@@ -126,16 +126,20 @@ $(document).ready(function(){initNavTree('d2/de5/pp_8cpp_source.html','../../');
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  <span class="keywordtype">double</span> lookhead_point_2_cg = lookahead_point.<a class="code hl_function" href="../../dc/d1b/structcommon__lib_1_1structures_1_1_position.html#a7ce25e8e5e8c05f720cd644b35134051">euclidean_distance</a>(vehicle_cg);</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>  <span class="comment">// Law of cosines</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>  <span class="keywordtype">double</span> alpha = acos((pow(lookhead_point_2_rear_wheel, 2) + pow(dist_cg_2_rear_axis, 2) -</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>                       pow(lookhead_point_2_cg, 2)) /</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>                      (2 * lookhead_point_2_rear_wheel * dist_cg_2_rear_axis));</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>  <span class="keywordflow">if</span> (<a class="code hl_function" href="../../d9/d8a/namespacecommon__lib_1_1structures.html#a985cd88a640d3c7ccc3f8d5094272843">cross_product</a>(vehicle_rear_wheel, vehicle_cg, lookahead_point) &lt; 0) {</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    alpha = -alpha;</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>  }</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>  <span class="keywordtype">double</span> cos_alpha = (pow(lookhead_point_2_rear_wheel, 2) + pow(dist_cg_2_rear_axis, 2) -</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>                      pow(lookhead_point_2_cg, 2)) /</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>                     (2 * lookhead_point_2_rear_wheel * dist_cg_2_rear_axis);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>  </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>  cos_alpha = std::clamp(cos_alpha, -1.0, 1.0);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>  <span class="keywordtype">double</span> alpha = acos(cos_alpha);</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>  <span class="keywordflow">return</span> alpha;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>}</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>  <span class="keywordflow">if</span> (<a class="code hl_function" href="../../d9/d8a/namespacecommon__lib_1_1structures.html#a985cd88a640d3c7ccc3f8d5094272843">cross_product</a>(vehicle_rear_wheel, vehicle_cg, lookahead_point) &lt; 0) {</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    alpha = -alpha;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>  }</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>  <span class="keywordflow">return</span> alpha;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>}</div>
 </div>
 <div class="ttc" id="aclass_pure_pursuit_html_a0033cad8d2f591460f05ba72695d8574"><div class="ttname"><a href="../../dc/dde/class_pure_pursuit.html#a0033cad8d2f591460f05ba72695d8574">PurePursuit::PurePursuit</a></div><div class="ttdeci">PurePursuit()</div><div class="ttdoc">Construct a new Pure Pursuit object.</div></div>
 <div class="ttc" id="aclass_pure_pursuit_html_a38b664f4020d7176b903ba231ec0a237"><div class="ttname"><a href="../../dc/dde/class_pure_pursuit.html#a38b664f4020d7176b903ba231ec0a237">PurePursuit::wheel_base_</a></div><div class="ttdeci">double wheel_base_</div><div class="ttdoc">Wheel base of the vehicle.</div><div class="ttdef"><b>Definition</b> <a href="../../d2/db6/pp_8hpp_source.html#l00030">pp.hpp:30</a></div></div>

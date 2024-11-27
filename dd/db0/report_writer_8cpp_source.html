@@ -100,128 +100,130 @@ $(document).ready(function(){initNavTree('dd/db0/report_writer_8cpp_source.html'
 </div><!--header-->
 <div class="contents">
 <a href="../../dd/db0/report_writer_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="../../d7/d9f/report_writer_8hpp.html">reportWriter.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="foldopen" id="foldopen00003" data-start="{" data-end="}">
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno"><a class="line" href="../../d7/d9f/report_writer_8hpp.html#afbcee27ff5d182d35a276b6ca1c8c0cd">    3</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="../../dd/db0/report_writer_8cpp.html#afbcee27ff5d182d35a276b6ca1c8c0cd">reportToFile</a>(<a class="code hl_struct" href="../../d7/dac/struct_report.html">Report</a> report, std::string dir)</div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>    YAML::Emitter out;</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>    out &lt;&lt; YAML::BeginMap;</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;report&quot;</span>;</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    out &lt;&lt; YAML::BeginMap;</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;version&quot;</span>;</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    out &lt;&lt; YAML::Value &lt;&lt; <span class="stringliteral">&quot;0.9&quot;</span>;</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;creation_time&quot;</span>;</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    time_t rawtime;</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keyword">struct </span>tm* timeinfo;</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keywordtype">char</span> buffer[80];</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    time(&amp;rawtime);</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    timeinfo = localtime(&amp;rawtime);</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    strftime(buffer, 80, <span class="stringliteral">&quot;%F %T&quot;</span>, timeinfo);</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    out &lt;&lt; YAML::Value &lt;&lt; buffer;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;seed&quot;</span>;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#aa913b8873de42084f4b95e1e1cea98fd">seed</a>;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;track_file&quot;</span>;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#a278eb0a20a2302ccac7640c84569036d">track_name</a>;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;perception_config_file&quot;</span>;</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#a3553e146368531769b1ca803818f2a38">perception_config_file</a>;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;sensors_config_file&quot;</span>;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#a675a5f1af4206421d867671775958fa3">sensors_config_file</a>;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;vehicle_config_file&quot;</span>;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#af46b615aa03daf6a01b860c6fb170bf1">vehicle_config_file</a>;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;status&quot;</span>;</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    out &lt;&lt; YAML::BeginMap;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;discipline&quot;</span>;</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#a8b5f360c47a6923c21f163cc7696d9b2">discipline</a>;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;success&quot;</span>;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#a836571692126f2d79d6444504fff803c">success</a>;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;reason&quot;</span>;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#acd73094af840311c9445f867cc6e6c36">dnf_reason</a>;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;final_time&quot;</span>;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#abcb28b1c9b414762efffce4078b4a8c1">final_time</a>;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;final_time_raw&quot;</span>;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#a3971bef541afd62a08711c9e43a9f477">final_time_raw</a>;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;total_sim_time&quot;</span>;</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#afe94109eb503741ad168c02c2d71c2d1">total_sim_time</a>;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    out &lt;&lt; YAML::EndMap;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;settings&quot;</span>;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    out &lt;&lt; YAML::BeginMap;</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;timeout-first-lap&quot;</span>;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#ac922373ea7db8fdc4c77a20548d16556">timeout_first_lap</a>;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;timeout-total&quot;</span>;</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#a4e37a42c76bcf42beec7c26006ee1ff4">timeout_total</a>;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;oc_detect&quot;</span>;</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#abf9e4740423b7903fbacf4f081d1f2e3">off_course_detect</a>;</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;doo_detect&quot;</span>;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#ae1046d313883590e9e0cabefbdda021b">cone_hit_detect</a>;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;uss_detect&quot;</span>;</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#a0e80bb151a30872368a0324ae4d911cc">uss_detect</a>;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;dnf_detect&quot;</span>;</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#af163d58510a339a502bd5d4c1735535e">dnf_detect</a>;</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;finish_validate&quot;</span>;</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#ad6ce57d1cf5a4c87ad89a7fc1eb60f45">finish_validate</a>;</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    out &lt;&lt; YAML::EndMap;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;laps&quot;</span>;</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    out &lt;&lt; YAML::BeginSeq;</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#af8eef230db3c54d27cbb4b51f5418365">lap_times</a>.size(); ++i)</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    {</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        out &lt;&lt; YAML::BeginMap;</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;lap&quot;</span>;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        out &lt;&lt; YAML::BeginMap;</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;time&quot;</span>;</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#af8eef230db3c54d27cbb4b51f5418365">lap_times</a>[i].time;</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;sectors&quot;</span>;</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        out &lt;&lt; YAML::Flow &lt;&lt; YAML::BeginSeq;</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#af8eef230db3c54d27cbb4b51f5418365">lap_times</a>[i].sector_times.size(); ++j)</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        {</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>            out &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#af8eef230db3c54d27cbb4b51f5418365">lap_times</a>[i].sector_times[j];</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        }</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        out &lt;&lt; YAML::EndSeq;</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        out &lt;&lt; YAML::EndMap;</div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &lt;rclcpp/rclcpp.hpp&gt;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="foldopen" id="foldopen00004" data-start="{" data-end="}">
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno"><a class="line" href="../../d7/d9f/report_writer_8hpp.html#afbcee27ff5d182d35a276b6ca1c8c0cd">    4</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="../../dd/db0/report_writer_8cpp.html#afbcee27ff5d182d35a276b6ca1c8c0cd">reportToFile</a>(<a class="code hl_struct" href="../../d7/dac/struct_report.html">Report</a> report, std::string dir)</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>{</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>    YAML::Emitter out;</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    out &lt;&lt; YAML::BeginMap;</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;report&quot;</span>;</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    out &lt;&lt; YAML::BeginMap;</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;version&quot;</span>;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    out &lt;&lt; YAML::Value &lt;&lt; <span class="stringliteral">&quot;0.9&quot;</span>;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;creation_time&quot;</span>;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    time_t rawtime;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keyword">struct </span>tm* timeinfo;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keywordtype">char</span> buffer[80];</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    time(&amp;rawtime);</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    timeinfo = localtime(&amp;rawtime);</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    strftime(buffer, 80, <span class="stringliteral">&quot;%F %T&quot;</span>, timeinfo);</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    out &lt;&lt; YAML::Value &lt;&lt; buffer;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;seed&quot;</span>;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#aa913b8873de42084f4b95e1e1cea98fd">seed</a>;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;track_file&quot;</span>;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#a278eb0a20a2302ccac7640c84569036d">track_name</a>;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;perception_config_file&quot;</span>;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#a3553e146368531769b1ca803818f2a38">perception_config_file</a>;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;sensors_config_file&quot;</span>;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#a675a5f1af4206421d867671775958fa3">sensors_config_file</a>;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;vehicle_config_file&quot;</span>;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#af46b615aa03daf6a01b860c6fb170bf1">vehicle_config_file</a>;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;status&quot;</span>;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    out &lt;&lt; YAML::BeginMap;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;discipline&quot;</span>;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#a8b5f360c47a6923c21f163cc7696d9b2">discipline</a>;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;success&quot;</span>;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#a836571692126f2d79d6444504fff803c">success</a>;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;reason&quot;</span>;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#acd73094af840311c9445f867cc6e6c36">dnf_reason</a>;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;final_time&quot;</span>;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#abcb28b1c9b414762efffce4078b4a8c1">final_time</a>;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;final_time_raw&quot;</span>;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#a3971bef541afd62a08711c9e43a9f477">final_time_raw</a>;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;total_sim_time&quot;</span>;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#afe94109eb503741ad168c02c2d71c2d1">total_sim_time</a>;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    out &lt;&lt; YAML::EndMap;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;settings&quot;</span>;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    out &lt;&lt; YAML::BeginMap;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;timeout-first-lap&quot;</span>;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#ac922373ea7db8fdc4c77a20548d16556">timeout_first_lap</a>;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;timeout-total&quot;</span>;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#a4e37a42c76bcf42beec7c26006ee1ff4">timeout_total</a>;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;oc_detect&quot;</span>;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#abf9e4740423b7903fbacf4f081d1f2e3">off_course_detect</a>;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;doo_detect&quot;</span>;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#ae1046d313883590e9e0cabefbdda021b">cone_hit_detect</a>;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;uss_detect&quot;</span>;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#a0e80bb151a30872368a0324ae4d911cc">uss_detect</a>;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;dnf_detect&quot;</span>;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#af163d58510a339a502bd5d4c1735535e">dnf_detect</a>;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;finish_validate&quot;</span>;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#ad6ce57d1cf5a4c87ad89a7fc1eb60f45">finish_validate</a>;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    out &lt;&lt; YAML::EndMap;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;laps&quot;</span>;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    out &lt;&lt; YAML::BeginSeq;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#af8eef230db3c54d27cbb4b51f5418365">lap_times</a>.size(); ++i)</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    {</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        out &lt;&lt; YAML::BeginMap;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;lap&quot;</span>;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        out &lt;&lt; YAML::BeginMap;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;time&quot;</span>;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#af8eef230db3c54d27cbb4b51f5418365">lap_times</a>[i].time;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;sectors&quot;</span>;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        out &lt;&lt; YAML::Flow &lt;&lt; YAML::BeginSeq;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#af8eef230db3c54d27cbb4b51f5418365">lap_times</a>[i].sector_times.size(); ++j)</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        {</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>            out &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#af8eef230db3c54d27cbb4b51f5418365">lap_times</a>[i].sector_times[j];</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        }</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        out &lt;&lt; YAML::EndSeq;</div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        out &lt;&lt; YAML::EndMap;</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    }</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    out &lt;&lt; YAML::EndSeq;</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;penalties&quot;</span>;</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    out &lt;&lt; YAML::BeginSeq;</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#a7a5601ca8647957130a12fea5874a9cc">penalties</a>.size(); ++i)</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    {</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        out &lt;&lt; YAML::BeginMap;</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;penalty&quot;</span>;</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        out &lt;&lt; YAML::BeginMap;</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;lap&quot;</span>;</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#a7a5601ca8647957130a12fea5874a9cc">penalties</a>[i].lap;</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;time&quot;</span>;</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#a7a5601ca8647957130a12fea5874a9cc">penalties</a>[i].penalty_time;</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;occurence_time&quot;</span>;</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#a7a5601ca8647957130a12fea5874a9cc">penalties</a>[i].occurence_time;</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;reason&quot;</span>;</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#a7a5601ca8647957130a12fea5874a9cc">penalties</a>[i].reason;</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;car_position&quot;</span>;</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        out &lt;&lt; YAML::Flow &lt;&lt; YAML::BeginSeq;</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        out &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#a7a5601ca8647957130a12fea5874a9cc">penalties</a>[i].position.x() &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#a7a5601ca8647957130a12fea5874a9cc">penalties</a>[i].position.y() &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#a7a5601ca8647957130a12fea5874a9cc">penalties</a>[i].position.z();</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        out &lt;&lt; YAML::EndSeq;</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        out &lt;&lt; YAML::EndMap;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        out &lt;&lt; YAML::EndMap;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    }</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    out &lt;&lt; YAML::EndSeq;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;penalties&quot;</span>;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    out &lt;&lt; YAML::BeginSeq;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#a7a5601ca8647957130a12fea5874a9cc">penalties</a>.size(); ++i)</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    {</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        out &lt;&lt; YAML::BeginMap;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;penalty&quot;</span>;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        out &lt;&lt; YAML::BeginMap;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;lap&quot;</span>;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#a7a5601ca8647957130a12fea5874a9cc">penalties</a>[i].lap;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;time&quot;</span>;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#a7a5601ca8647957130a12fea5874a9cc">penalties</a>[i].penalty_time;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;occurence_time&quot;</span>;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#a7a5601ca8647957130a12fea5874a9cc">penalties</a>[i].occurence_time;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;reason&quot;</span>;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        out &lt;&lt; YAML::Value &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#a7a5601ca8647957130a12fea5874a9cc">penalties</a>[i].reason;</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        out &lt;&lt; YAML::Key &lt;&lt; <span class="stringliteral">&quot;car_position&quot;</span>;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        out &lt;&lt; YAML::Flow &lt;&lt; YAML::BeginSeq;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        out &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#a7a5601ca8647957130a12fea5874a9cc">penalties</a>[i].position.x() &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#a7a5601ca8647957130a12fea5874a9cc">penalties</a>[i].position.y() &lt;&lt; report.<a class="code hl_variable" href="../../d7/dac/struct_report.html#a7a5601ca8647957130a12fea5874a9cc">penalties</a>[i].position.z();</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        out &lt;&lt; YAML::EndSeq;</div>
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        out &lt;&lt; YAML::EndMap;</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    }</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    out &lt;&lt; YAML::EndSeq;</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    out &lt;&lt; YAML::EndMap;</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        out &lt;&lt; YAML::EndMap;</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    }</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    out &lt;&lt; YAML::EndSeq;</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
 <div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    out &lt;&lt; YAML::EndMap;</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    strftime(buffer, 80, <span class="stringliteral">&quot;%F-%H-%M-%S&quot;</span>, timeinfo);</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    std::string path = dir + <span class="stringliteral">&quot;/report-&quot;</span> + std::string(buffer) + <span class="stringliteral">&quot;.yaml&quot;</span>;</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    std::ofstream fout(path);</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    fout &lt;&lt; out.c_str();</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>}</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    out &lt;&lt; YAML::EndMap;</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    strftime(buffer, 80, <span class="stringliteral">&quot;%F-%H-%M-%S&quot;</span>, timeinfo);</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    std::string path = dir + <span class="stringliteral">&quot;/report-&quot;</span> + std::string(buffer) + <span class="stringliteral">&quot;.yaml&quot;</span>;</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    RCLCPP_INFO_STREAM(rclcpp::get_logger(<span class="stringliteral">&quot;pacsim_logger&quot;</span>), <span class="stringliteral">&quot;Writing report to &quot;</span> &lt;&lt; path);</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    std::ofstream fout(path);</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    fout &lt;&lt; out.c_str();</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>}</div>
 </div>
-<div class="ttc" id="areport_writer_8cpp_html_afbcee27ff5d182d35a276b6ca1c8c0cd"><div class="ttname"><a href="../../dd/db0/report_writer_8cpp.html#afbcee27ff5d182d35a276b6ca1c8c0cd">reportToFile</a></div><div class="ttdeci">bool reportToFile(Report report, std::string dir)</div><div class="ttdef"><b>Definition</b> <a href="../../dd/db0/report_writer_8cpp_source.html#l00003">reportWriter.cpp:3</a></div></div>
+<div class="ttc" id="areport_writer_8cpp_html_afbcee27ff5d182d35a276b6ca1c8c0cd"><div class="ttname"><a href="../../dd/db0/report_writer_8cpp.html#afbcee27ff5d182d35a276b6ca1c8c0cd">reportToFile</a></div><div class="ttdeci">bool reportToFile(Report report, std::string dir)</div><div class="ttdef"><b>Definition</b> <a href="../../dd/db0/report_writer_8cpp_source.html#l00004">reportWriter.cpp:4</a></div></div>
 <div class="ttc" id="areport_writer_8hpp_html"><div class="ttname"><a href="../../d7/d9f/report_writer_8hpp.html">reportWriter.hpp</a></div></div>
 <div class="ttc" id="astruct_report_html"><div class="ttname"><a href="../../d7/dac/struct_report.html">Report</a></div><div class="ttdef"><b>Definition</b> <a href="../../dd/de3/types_8hpp_source.html#l00129">types.hpp:130</a></div></div>
 <div class="ttc" id="astruct_report_html_a0e80bb151a30872368a0324ae4d911cc"><div class="ttname"><a href="../../d7/dac/struct_report.html#a0e80bb151a30872368a0324ae4d911cc">Report::uss_detect</a></div><div class="ttdeci">bool uss_detect</div><div class="ttdef"><b>Definition</b> <a href="../../dd/de3/types_8hpp_source.html#l00147">types.hpp:147</a></div></div>
