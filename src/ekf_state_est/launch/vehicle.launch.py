@@ -13,7 +13,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "data_association_limit_distance",
                 description="Maximum distance to admit landmarks",
-                default_value="20.00",
+                default_value="17.50",
             ),  # meters
             DeclareLaunchArgument(
                 "wss_noise",
@@ -28,7 +28,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "observation_noise",
                 description="Noise value for observations (sigma)",
-                default_value="0.04",
+                default_value="0.03",
             ),
             DeclareLaunchArgument(
                 "motion_model",
@@ -48,7 +48,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "use_odometry",
                 description="Either use odometry or IMU (TODO: remove for complete velocity estimation)",
-                default_value="False",
+                default_value="True",
             ),
             DeclareLaunchArgument(
                 "use_simulated_perception",

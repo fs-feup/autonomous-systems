@@ -21,7 +21,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "lookahead_gain",
                 description="Variable K -> Lookahead Gain",
-                default_value="2.0",
+                default_value="1.5",
             ),
             DeclareLaunchArgument(
                 "pid_kp",
