@@ -1,21 +1,24 @@
 <map id="ConeColoring::color_cones" name="ConeColoring::color_cones">
-<area shape="rect" id="Node000001" title="color all cones" alt="" coords="5,104,138,145"/>
-<area shape="rect" id="Node000002" href="$dd/d52/class_cone_coloring.html#a9a86a8144ed4098c288947b5de39d8f7" title="function to filter the cones which have been colored previously" alt="" coords="186,5,363,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="104,101,184,57,199,50,201,55,187,61,107,106"/>
-<area shape="rect" id="Node000003" href="$dd/d52/class_cone_coloring.html#a5edc083feecc117f00edf4468b2928fa" title="function to place the initial cones, including the virtual ones" alt="" coords="207,71,342,111"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="137,111,191,102,192,107,138,116"/>
-<area shape="rect" id="Node000007" href="$dd/d52/class_cone_coloring.html#a2bf7e41855a5a2e1cca355ec8ae2b321" title="function to remove duplicates from a vector of cones" alt="" coords="201,136,348,177"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="138,132,185,140,185,145,137,137"/>
-<area shape="rect" id="Node000008" href="$dd/d52/class_cone_coloring.html#ad5fa063af400585b82f1320a756fc4a4" title="select the next cone (which minimizes the cost) to be colored if its cost is less than the maximum es..." alt="" coords="206,201,343,242"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="108,143,187,186,202,193,200,198,184,191,105,148"/>
-<area shape="rect" id="Node000004" href="$dd/d52/class_cone_coloring.html#a00c350bf4d9f8463dfda24ec1cf09a90" title="function to find the initial cone according to the distance to the expected position" alt="" coords="443,39,567,79"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="342,79,427,67,428,72,343,84"/>
-<area shape="rect" id="Node000006" href="$dd/d52/class_cone_coloring.html#ad8d401f43b2988c73e31c635caff75de" title="function to place the second cones by selecting the closest to initial cones" alt="" coords="438,104,573,145"/>
-<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="343,98,422,110,422,115,342,103"/>
-<area shape="rect" id="Node000005" href="$dd/d52/class_cone_coloring.html#a4d5383a83dcfeda441351086839c22fd" title="calculate the expected position of the initial cones" alt="" coords="647,39,804,79"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="568,56,632,56,632,62,568,62"/>
-<area shape="rect" id="Node000009" href="$dd/d52/class_cone_coloring.html#a248d064be09d7eb7ebc907f466ac73be" title="calculate the cost of coloring a cone" alt="" coords="411,209,599,235"/>
-<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="343,219,395,219,395,224,343,224"/>
-<area shape="rect" id="Node000010" href="$d2/d32/namespacecommon__lib_1_1maths.html#a158ecb4f5554792fc31db938539c8008" title="Function used to calculate the angle between two vectors and their norms." alt="" coords="656,201,795,242"/>
-<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="599,219,640,219,640,224,599,224"/>
+<area shape="rect" id="Node000001" title="color all cones" alt="" coords="5,150,138,191"/>
+<area shape="rect" id="Node000002" href="$dd/d52/class_cone_coloring.html#a9a86a8144ed4098c288947b5de39d8f7" title="function to filter the cones which have been colored previously" alt="" coords="186,20,363,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="91,148,132,109,184,71,195,65,198,70,187,75,135,114,94,152"/>
+<area shape="rect" id="Node000003" href="$dd/d52/class_cone_coloring.html#a5edc083feecc117f00edf4468b2928fa" title="function to place the initial cones, including the virtual ones" alt="" coords="207,85,342,126"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="136,147,194,128,195,133,138,152"/>
+<area shape="rect" id="Node000007" href="$dd/d52/class_cone_coloring.html#a2bf7e41855a5a2e1cca355ec8ae2b321" title="function to remove duplicates from a vector of cones" alt="" coords="201,150,348,191"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="138,168,185,168,185,173,138,173"/>
+<area shape="rect" id="Node000008" href="$dd/d52/class_cone_coloring.html#aafe5e30f212d3003208aa4024815de2d" title="Useful when using memory to delete cones which after some times being detected become too close." alt="" coords="201,216,348,256"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="138,189,195,208,194,213,136,194"/>
+<area shape="rect" id="Node000011" href="$dd/d52/class_cone_coloring.html#ad5fa063af400585b82f1320a756fc4a4" title="select the next cone (which minimizes the cost) to be colored if its cost is less than the maximum es..." alt="" coords="206,281,343,322"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="94,189,135,227,187,266,198,271,195,276,184,270,132,232,91,193"/>
+<area shape="rect" id="Node000004" href="$dc/d1b/structcommon__lib_1_1structures_1_1_position.html#a7ce25e8e5e8c05f720cd644b35134051" title=" " alt="" coords="428,5,583,61"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="341,82,412,59,413,65,342,87"/>
+<area shape="rect" id="Node000005" href="$dd/d52/class_cone_coloring.html#a4d5383a83dcfeda441351086839c22fd" title="calculate the expected position of the initial cones" alt="" coords="427,85,583,126"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="342,103,412,103,412,108,342,108"/>
+<area shape="rect" id="Node000006" href="$dd/d52/class_cone_coloring.html#ad8d401f43b2988c73e31c635caff75de" title="function to place the second cones by selecting the closest to initial cones" alt="" coords="438,150,573,191"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="343,122,423,145,422,150,342,127"/>
+<area shape="rect" id="Node000009" href="$dd/d52/class_cone_coloring.html#a248d064be09d7eb7ebc907f466ac73be" title="calculate the cost of coloring a cone" alt="" coords="411,255,599,281"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="349,243,396,250,395,255,348,249"/>
+<area shape="rect" id="Node000010" href="$d2/d32/namespacecommon__lib_1_1maths.html#a158ecb4f5554792fc31db938539c8008" title="Function used to calculate the angle between two vectors and their norms." alt="" coords="647,248,787,288"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="599,265,632,265,632,271,599,271"/>
+<area shape="poly" id="edge11_Node000011_Node000009" title=" " alt="" coords="343,289,397,281,397,286,343,294"/>
 </map>

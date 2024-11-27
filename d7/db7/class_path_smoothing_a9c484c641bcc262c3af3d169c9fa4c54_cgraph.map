@@ -2,7 +2,7 @@
 <area shape="rect" id="Node000001" title="function to smooth a path" alt="" coords="5,31,197,56"/>
 <area shape="rect" id="Node000002" href="$d6/da8/splines_8hpp.html#a5987a477b79a8b344f897f3be409cb37" title="This function takes a sequence of points (T), fits a spline to them using B&#45;spline basis functions,..." alt="" coords="297,5,370,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="197,30,282,21,282,26,197,36"/>
-<area shape="rect" id="Node000003" href="$d7/db7/class_path_smoothing.html#afe48518279d4c902c0442453c6a231bc" title="function to order the path points to be used in the spline fitting" alt="" coords="245,55,422,80"/>
+<area shape="rect" id="Node000003" href="$d7/db7/class_path_smoothing.html#ace570f760de1ee8b370917096599bd6f" title="function to order the path points to be used in the spline fitting" alt="" coords="245,55,422,80"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="197,51,229,54,229,59,197,56"/>
 <area shape="rect" id="Node000004" href="$dc/d1b/structcommon__lib_1_1structures_1_1_position.html#a7ce25e8e5e8c05f720cd644b35134051" title=" " alt="" coords="470,40,625,95"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="423,65,454,65,454,70,423,70"/>

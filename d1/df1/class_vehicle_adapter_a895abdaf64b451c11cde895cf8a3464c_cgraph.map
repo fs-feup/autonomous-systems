@@ -1,7 +1,9 @@
 <map id="VehicleAdapter::VehicleAdapter" name="VehicleAdapter::VehicleAdapter">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,49,209,75"/>
-<area shape="rect" id="Node000002" href="$d1/df1/class_vehicle_adapter.html#ae04964d74c486580468a81a983c5979c" title="IMU subscriptio callback, which receives both roll and yaw acceleration data separately and synchroni..." alt="" coords="257,5,410,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="191,46,241,38,242,43,192,51"/>
-<area shape="rect" id="Node000003" href="$d1/df1/class_vehicle_adapter.html#af96b3cf76411fcbfd826a13bd8030649" title="Wheel speed subscription callback, which receives both wheel speeds and steering angle through a sync..." alt="" coords="259,70,408,126"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="192,72,244,81,243,86,191,78"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,85,209,111"/>
+<area shape="rect" id="Node000002" href="$d1/df1/class_vehicle_adapter.html#ae04964d74c486580468a81a983c5979c" title="IMU subscriptio callback, which receives both roll and yaw acceleration data separately and synchroni..." alt="" coords="271,5,424,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="152,82,262,48,263,54,153,87"/>
+<area shape="rect" id="Node000003" href="$d1/df1/class_vehicle_adapter.html#af96b3cf76411fcbfd826a13bd8030649" title="Wheel speed subscription callback, which receives both wheel speeds and steering angle through a sync..." alt="" coords="273,70,422,126"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="209,95,257,95,257,100,209,100"/>
+<area shape="rect" id="Node000004" href="$d1/df1/class_vehicle_adapter.html#a534511c9f9830ca9a927fa16432a2a3e" title="Xsens IMU subscription callback, which receives both free acceleration and angular velocity data sepa..." alt="" coords="257,149,438,190"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="153,108,263,142,262,147,152,114"/>
 </map>

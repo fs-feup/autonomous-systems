@@ -1,0 +1,5 @@
+<map id="VehicleAdapter::xsens_imu_subscription_callback" name="VehicleAdapter::xsens_imu_subscription_callback">
+<area shape="rect" id="Node000001" title="Xsens IMU subscription callback, which receives both free acceleration and angular velocity data sepa..." alt="" coords="257,5,438,46"/>
+<area shape="rect" id="Node000002" href="$d1/df1/class_vehicle_adapter.html#a895abdaf64b451c11cde895cf8a3464c" title=" " alt="" coords="5,13,209,39"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="241,28,209,28,209,23,241,23"/>
+</map>

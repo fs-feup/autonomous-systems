@@ -10,6 +10,7 @@ var class_cone_coloring =
     [ "place_initial_cones", "dd/d52/class_cone_coloring.html#a5edc083feecc117f00edf4468b2928fa", null ],
     [ "place_second_cones", "dd/d52/class_cone_coloring.html#ad8d401f43b2988c73e31c635caff75de", null ],
     [ "remove_duplicates", "dd/d52/class_cone_coloring.html#a2bf7e41855a5a2e1cca355ec8ae2b321", null ],
+    [ "remove_too_close_cones", "dd/d52/class_cone_coloring.html#aafe5e30f212d3003208aa4024815de2d", null ],
     [ "try_to_color_next_cone", "dd/d52/class_cone_coloring.html#ad5fa063af400585b82f1320a756fc4a4", null ],
     [ "virtual_cone_from_initial_cone", "dd/d52/class_cone_coloring.html#a46c3e0493a08adc9592494f2a75e681b", null ],
     [ "ConeColoring_fullconecoloring1_Test", "dd/d52/class_cone_coloring.html#a5732e1bfacb34ab222fdf3dc6e2a236b", null ],

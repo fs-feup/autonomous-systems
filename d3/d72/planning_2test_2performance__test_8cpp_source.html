@@ -223,7 +223,7 @@ $(document).ready(function(){initNavTree('d3/d72/planning_2test_2performance__te
 <div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <span class="keyword">auto</span> t0 = std::chrono::high_resolution_clock::now();</div>
 <div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
 <div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    std::vector&lt;PathPoint&gt; smoothed_path =</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        path_smoothing.smooth_path(path, <a class="code hl_struct" href="../../d8/d11/struct_pose.html">Pose</a>(path[0].position, orientation));</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        path_smoothing.smooth_path(path, <a class="code hl_struct" href="../../d8/d11/struct_pose.html">Pose</a>(path[0].position, orientation), orientation);</div>
 <div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
 <div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    <span class="keyword">auto</span> t1 = std::chrono::high_resolution_clock::now();</div>
 <div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>

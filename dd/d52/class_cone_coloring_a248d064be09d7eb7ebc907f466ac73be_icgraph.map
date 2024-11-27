@@ -1,9 +1,11 @@
 <map id="ConeColoring::calculate_cost" name="ConeColoring::calculate_cost">
-<area shape="rect" id="Node000001" title="calculate the cost of coloring a cone" alt="" coords="1295,64,1484,90"/>
-<area shape="rect" id="Node000002" href="$dd/d52/class_cone_coloring.html#ad5fa063af400585b82f1320a756fc4a4" title="select the next cone (which minimizes the cost) to be colored if its cost is less than the maximum es..." alt="" coords="1111,57,1247,97"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1280,80,1248,80,1248,74,1280,74"/>
+<area shape="rect" id="Node000001" title="calculate the cost of coloring a cone" alt="" coords="1306,64,1495,90"/>
+<area shape="rect" id="Node000002" href="$dd/d52/class_cone_coloring.html#aafe5e30f212d3003208aa4024815de2d" title="Useful when using memory to delete cones which after some times being detected become too close." alt="" coords="1111,23,1258,64"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1298,64,1258,58,1259,52,1299,58"/>
+<area shape="rect" id="Node000018" href="$dd/d52/class_cone_coloring.html#ad5fa063af400585b82f1320a756fc4a4" title="select the next cone (which minimizes the cost) to be colored if its cost is less than the maximum es..." alt="" coords="1117,89,1253,129"/>
+<area shape="poly" id="edge19_Node000001_Node000018" title=" " alt="" coords="1295,95,1253,101,1253,96,1294,90"/>
 <area shape="rect" id="Node000003" href="$dd/d52/class_cone_coloring.html#a1baaec47531589cb1eb5c70d634782a5" title="color all cones" alt="" coords="931,57,1063,97"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1095,80,1064,80,1064,74,1095,74"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1096,62,1064,68,1063,62,1095,57"/>
 <area shape="rect" id="Node000004" href="$d9/d46/cpp-python-bridge_8cpp.html#a9ae92c90568fcd2e8a6f65376a61456b" title=" " alt="" coords="746,7,869,32"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="915,55,852,36,853,30,917,50"/>
 <area shape="rect" id="Node000006" href="$d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the planning algorithms." alt="" coords="732,57,883,97"/>
@@ -34,4 +36,5 @@
 <area shape="poly" id="edge15_Node000014_Node000009" title=" " alt="" coords="273,87,178,106,177,101,272,81"/>
 <area shape="rect" id="Node000016" href="$d7/d8e/class_fsds_adapter.html#abb90db17236618192b7ee6c89cacb558" title=" " alt="" coords="22,5,198,31"/>
 <area shape="poly" id="edge17_Node000015_Node000016" title=" " alt="" coords="247,21,198,21,198,16,247,16"/>
+<area shape="poly" id="edge20_Node000018_Node000003" title=" " alt="" coords="1101,97,1063,91,1064,85,1102,92"/>
 </map>
