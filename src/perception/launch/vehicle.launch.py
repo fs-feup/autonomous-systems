@@ -20,12 +20,12 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "fov_trim",
                 description="Trim the points received to a max angle",
-                default_value="30",  # degrees
+                default_value="45",  # degrees
             ),
             DeclareLaunchArgument(
                 "pc_max_range",
                 description="Point cloud filtering based on distance (m)",
-                default_value="20.0",
+                default_value="30.0",
             ),
             
             DeclareLaunchArgument(
@@ -36,7 +36,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "clustering_epsilon",
                 description="Epsilon for Clustering algorithm",
-                default_value="0.2",
+                default_value="0.7",
             ),
             DeclareLaunchArgument(
                 "horizontal_resolution",
@@ -96,7 +96,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "min_height",
                 description="Minimum height of a cluster to be considered a cone",
-                default_value="0.1"
+                default_value="0.13"
             ),
             DeclareLaunchArgument(
                 "max_height",

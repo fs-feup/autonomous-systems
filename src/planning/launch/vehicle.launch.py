@@ -103,7 +103,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "pre_defined_velocity_planning",
                 description="A pre-defined velocity planning value",
-                default_value="0.5",
+                default_value="1.0",
             ),
             DeclareLaunchArgument(
                 "use_outlier_removal",
