@@ -41,15 +41,30 @@ struct ConeColoringConfig {
    *
    */
   double max_cost_ = 40;
+
+  /**
+   * @brief distance threshold to consider cones as duplicates or previously seen
+   *
+   */
+  double same_cone_distance_threshold_ = 0.6;
+
+  /**
+   * @brief whether to memorize cones
+   *
+   */
+  bool use_memory_ = true;
   ConeColoringConfig() = default;
   ConeColoringConfig(double angle_gain, double distance_gain, double ncones_gain, double exponent1,
-                     double exponent2, double max_cost)
+                     double exponent2, double max_cost, double same_cone_distance_threshold,
+                     bool use_memory)
       : angle_weight_(angle_gain),
         distance_weight_(distance_gain),
         ncones_weight_(ncones_gain),
         distance_exponent_(exponent1),
         angle_exponent_(exponent2),
-        max_cost_(max_cost) {}
+        max_cost_(max_cost),
+        same_cone_distance_threshold_(same_cone_distance_threshold),
+        use_memory_(use_memory) {}
 };
 
 #endif  // SRC_PLANNING_INCLUDE_CONFIG_CONE_COLORING_CONFIG_HPP_
