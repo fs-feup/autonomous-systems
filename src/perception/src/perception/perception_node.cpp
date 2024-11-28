@@ -176,11 +176,7 @@ void Perception::publish_cones(std::vector<Cluster>* cones) {
     cone_message.position = position;
     cone_message.color = cones->at(i).get_color();
 
-    if (cones->at(i).get_is_large()) {
-      cone_message.is_large = true;
-    } else {
-      cone_message.is_large = false;
-    }
+     cone_message.is_large = cones->at(i).get_is_large();
 
     cone_message.confidence = cones->at(i).get_confidence();
     message.cone_array.push_back(cone_message);
