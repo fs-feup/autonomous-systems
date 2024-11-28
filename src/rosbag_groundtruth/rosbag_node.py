@@ -4,6 +4,12 @@ from visualization_msgs.msg import Marker, MarkerArray
 
 
 class BagNode(Node):
+    """Class to load and publish ground truth data from two files as a single MarkerArray message.
+
+    Args:
+        node (rclpy.node.Node): The ROS2 node object.
+    """
+
     def __init__(self, ground_truth_file_1, ground_truth_file_2):
         super().__init__("bag_node")
 
@@ -21,7 +27,13 @@ class BagNode(Node):
         self.timer = self.create_timer(1.0, self.publish_ground_truth)
 
     def load_ground_truth_data(self, file_path, label):
-        """Load ground truth data from a file, skipping the header line and assigning each point a label."""
+        """Load ground truth data from a file, skipping the header line and assigning each point a label.
+
+        Args:
+            file_path (str): The path to the file containing ground truth data.
+            label (str): The label to assign to the points.
+        Returns: ground_truth_data (list): A list of tuples containing the x, y coordinates and label of each point.
+        """
         ground_truth_data = []
         try:
             with open(file_path, "r") as file:
@@ -37,7 +49,11 @@ class BagNode(Node):
         return ground_truth_data
 
     def publish_ground_truth(self):
-        """Publish the combined ground truth data as a single MarkerArray message."""
+        """Publish the combined ground truth data as a single MarkerArray message.
+
+        Args: None
+        Returns: None
+        """
         marker_array = MarkerArray()
         id_counter = 0
 
@@ -73,8 +89,15 @@ class BagNode(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-    ground_truth_file_1 = "/home/ws/src/rosbag_groundtruth/ground_truth_data_1_dv4.txt"
-    ground_truth_file_2 = "/home/ws/src/rosbag_groundtruth/ground_truth_data_2_dv4.txt"
+    # files with ground truth data. The first one for the blue cones and the second one for the yellow cones.
+    ground_truth_file_1 = "/home/ws/src/rosbag_groundtruth/ground_truth_data_1_dv5.txt"
+    ground_truth_file_2 = "/home/ws/src/rosbag_groundtruth/ground_truth_data_2_dv5.txt"
+    # format of the file
+    """x y yellow
+    4.878305912017822 -1.296193242073059
+    5.4650559425354 -1.289870023727417
+    6.302743911743164 -1.211436152458191
+    """
     node = BagNode(ground_truth_file_1, ground_truth_file_2)
     rclpy.spin(node)
     node.destroy_node()

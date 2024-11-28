@@ -57,6 +57,13 @@ class VehicleAdapter(Adapter):
         )
 
     def state_estimation_callback(self, map: ConeArray):
+        """
+        Callback function for state estimation data.
+
+        Args:
+            map (ConeArray): The state estimation output received.
+        Returns: None
+        """
         map_treated: np.ndarray = format_cone_array_msg(map)
 
         if self._state_ground_truth is not None:
@@ -104,7 +111,6 @@ class VehicleAdapter(Adapter):
     def state_ground_truth_callback(self, state_ground_truth: MarkerArray):
         """!
         Callback function to process ground truth map messages.
-        It also marks the planning's initial timestamp
 
         Args:
             state_ground_truth (MarkerArray): Ground truth map data.
