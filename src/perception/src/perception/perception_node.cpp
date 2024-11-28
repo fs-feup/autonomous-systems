@@ -64,7 +64,7 @@ Perception::Perception(const PerceptionParameters& params)
   this->_adapter_ = params.adapter_;
   if (params.adapter_ == "vehicle") {
     this->_point_cloud_subscription = this->create_subscription<sensor_msgs::msg::PointCloud2>(
-        "/rslidar_points", 10, [this](const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
+        "/lidar_points", 10, [this](const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
           this->point_cloud_callback(msg);
         });
   } else if (params.adapter_ == "eufs") {
@@ -133,6 +133,7 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
 
   for (auto cluster : clusters) {
     bool is_valid = true;
+    if (cluster.get_point_cloud()->points.size() <= 4) is_valid = false;
     for (auto validator : _cone_validators_) {
       is_valid = is_valid && validator->coneValidator(&cluster, _ground_plane_);
 
@@ -193,7 +194,15 @@ void Perception::fov_trimming(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, double
 
   double center_x = -x_discount;  // assuming (0, 0) as the center
 
-  for (const auto& point : cloud->points) {
+  for (auto& point : cloud->points) {
+
+    double x = point.x;
+    double y = point.y;
+
+    // This rotates 90º:
+    point.x = -y;
+    point.y = x;
+
     // Calculate distance from the origin (assuming the sensor is at the origin)
     double distance = std::sqrt((point.x - center_x) * (point.x - center_x) + point.y * point.y);
 
@@ -201,7 +210,7 @@ void Perception::fov_trimming(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, double
     double angle = std::atan2(point.y, point.x - center_x) * 180 /
                    M_PI;  // get angle and convert in to degrees
 
-    if (distance <= 1.0) {  // Ignore points from the vehicle
+    if (distance <= 1.2) {  // Ignore points from the vehicle
       continue;
     }
 
@@ -209,7 +218,7 @@ void Perception::fov_trimming(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, double
       continue;
     }
 
-    if (point.z >= -0.2) {
+    if (point.z >= -0.22){
       continue;
     }
 
