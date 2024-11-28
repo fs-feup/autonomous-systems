@@ -45,7 +45,7 @@ PerceptionParameters load_adapter_parameters() {
 
   // Height Validator Parameters
   double min_height = adapter_node->declare_parameter("min_height", 0.1);
-  double max_height = adapter_node->declare_parameter("max_height", 0.55);
+  double large_max_height = adapter_node->declare_parameter("large_max_height", 0.55);
   double small_max_height = adapter_node->declare_parameter("small_max_height", 0.4);
 
   // Deviation Validator Parameters
@@ -64,7 +64,7 @@ PerceptionParameters load_adapter_parameters() {
   params.cone_differentiator_ = std::make_shared<LeastSquaresDifferentiation>();
 
   params.cone_validators_ = {
-      std::make_shared<HeightValidator>(min_height, max_height, small_max_height),
+      std::make_shared<HeightValidator>(min_height, large_max_height, small_max_height),
       std::make_shared<CylinderValidator>(0.228, 0.325, 0.285, 0.505),
       std::make_shared<DeviationValidator>(min_xoy, max_xoy, min_z, max_z),
       std::make_shared<ZScoreValidator>(min_z_score_x, max_z_score_x, min_z_score_y,

@@ -175,9 +175,7 @@ void Perception::publish_cones(std::vector<Cluster>* cones) {
     auto cone_message = custom_interfaces::msg::Cone();
     cone_message.position = position;
     cone_message.color = cones->at(i).get_color();
-
-     cone_message.is_large = cones->at(i).get_is_large();
-
+    cone_message.is_large = cones->at(i).get_is_large();
     cone_message.confidence = cones->at(i).get_confidence();
     message.cone_array.push_back(cone_message);
     message_array.push_back(cone_message);
