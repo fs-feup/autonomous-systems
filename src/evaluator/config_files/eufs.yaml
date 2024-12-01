@@ -1,0 +1,8 @@
+evaluator:
+  ros__parameters:
+    adapter: "eufs"
+    use_simulated_perception: true
+    use_simulated_se: true
+    use_simulated_planning: true
+    generate_csv: false
+    csv_suffix: ""
