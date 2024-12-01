@@ -1,0 +1,29 @@
+perception_adapter:
+  ros__parameters:
+    ransac_epsilon: 0.02
+    ransac_n_neighbours: 15
+    fov_trim: 90
+    pc_max_range: 30.0
+    clustering_n_neighbours: 1
+    clustering_epsilon: 0.3
+    horizontal_resolution: 0.2
+    vertical_resolution: 0.33
+    adapter: "eufs"
+    ground_removal: "ransac"
+    n_angular_grids: 12
+    radius_resolution: 5.0
+    target_file: "cone.pcd"
+    max_correspondence_distance: 0.1
+    max_iteration: 100
+    transformation_epsilon: 1e-8
+    euclidean_fitness_epsilon: 1e-6
+    min_height: -100.0
+    max_height: 100.0
+    min_xoy: -100.0
+    max_xoy: 100.0
+    min_z: -100.0
+    max_z: 100.0
+    min_z_score_x: -100.0
+    max_z_score_x: 100.0
+    min_z_score_y: -100.0
+    max_z_score_y: 100.0
