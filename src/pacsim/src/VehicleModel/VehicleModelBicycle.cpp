@@ -257,7 +257,6 @@ public:
         // double Dlat_Rear = this->Dlat * Fz_Rear;
         double Fy_Front = /* Dlat_Front * */ processSlipAngleLat(kappaFront, Fz_Front/2) * 2;
         double Fy_Rear = /* Dlat_Rear * */ processSlipAngleLat(kappaRear, Fz_Rear/2) * 2;
-        printf("Fy_Front: %f, Fy_Rear: %f\n", Fy_Front, Fy_Rear);
 
         // Convert wheel speeds to RPM
         this->wheelspeeds.FL = vFL.x() / rpm2ms;
