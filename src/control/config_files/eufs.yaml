@@ -1,0 +1,13 @@
+control:
+  ros__parameters:
+    use_simulated_planning: true
+    lookahead_gain: 2.0
+    pid_kp: 0.4
+    pid_ki: 0.3
+    pid_kd: 0.09
+    pid_tau: 0.5
+    pid_t: 0.01
+    pid_lim_min: -1
+    pid_lim_max: 1
+    pid_anti_windup: 0.7
+    use_simulated_se: true
