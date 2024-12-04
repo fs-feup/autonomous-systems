@@ -1,8 +1,7 @@
 from launch import LaunchDescription
-from launch_ros.actions import Node
 from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
+from launch.substitutions import PathJoinSubstitution
 from launch_ros.substitutions import FindPackageShare
 
 
@@ -66,10 +65,11 @@ def generate_launch_description():
                 description="Whether the system is using simulated Planning or not",
                 default_value="False",
             ),
+            evaluator_launch_description,
             perception_launch_description,
             se_launch_description,
-            evaluator_launch_description,
             planning_launch_description,
             control_launch_description,
+            # mocker_node_launch_description,
         ],
     )

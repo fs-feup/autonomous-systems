@@ -1,0 +1,11 @@
+ekf_state_est:
+  ros__parameters:
+    data_association_limit_distance: 17.50
+    wss_noise: 0.003
+    imu_noise: 0.0001
+    observation_noise: 0.03
+    motion_model: "imu_velocity_model"
+    adapter: "vehicle"
+    data_assocation_model: "max_likelihood"
+    use_odometry: True
+    use_simulated_perception: False
