@@ -16,11 +16,5 @@ def generate_launch_description():
                 parameters=[config_file],
                 arguments=["--ros-args", "--log-level", "perception:=info"],
             ),
-            Node(
-                package="perception",
-                executable="perception",
-                name="perception",
-                arguments=["--ros-args", "--log-level", "perception:=info"],
-            ),
         ]
     )

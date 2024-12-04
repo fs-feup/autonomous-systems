@@ -8,4 +8,3 @@ ekf_state_est:
     adapter: "eufs"
     data_assocation_model: "max_likelihood"
     use_odometry: False
-    use_simulated_perception: False

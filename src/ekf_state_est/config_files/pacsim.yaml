@@ -8,4 +8,3 @@ ekf_state_est:
     motion_model: "normal_velocity_model"
     adapter: "pacsim"
     use_odometry: True
-    use_simulated_perception: True

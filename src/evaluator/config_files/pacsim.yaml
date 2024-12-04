@@ -1,8 +1,5 @@
 evaluator:
   ros__parameters:
     adapter: "pacsim"
-    use_simulated_perception: true
-    use_simulated_se: true
-    use_simulated_planning: true
     generate_csv: false
     csv_suffix: ""
