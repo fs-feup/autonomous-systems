@@ -35,7 +35,7 @@ Perception::Perception(const PerceptionParameters& params)
 
   // Determine which adapter is being used
   std::unordered_map<std::string, std::tuple<std::string, rclcpp::QoS>> adapter_topic_map = {
-      {"vehicle", {"/rslidar_points", rclcpp::QoS(10)}},
+      {"vehicle", {"/lidar_points", rclcpp::QoS(10)}},
       {"eufs",
        {"/velodyne_points", rclcpp::QoS(1).reliability(RMW_QOS_POLICY_RELIABILITY_BEST_EFFORT)}},
       {"fsds", {"/lidar/Lidar1", rclcpp::QoS(10)}},

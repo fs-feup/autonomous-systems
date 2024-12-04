@@ -105,7 +105,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "min_height",
                 description="Minimum height of a cluster to be considered a cone",
-                default_value="0.13"
+                default_value="0.13",
             ),
             DeclareLaunchArgument(
                 "max_height",
@@ -154,7 +154,7 @@ def generate_launch_description():
                 name="perception",
                 parameters=[
                     {"ransac_epsilon": LaunchConfiguration("ransac_epsilon")},
-                    {"ransac_n_neighbours": LaunchConfiguration("ransac_n_neighbours")},
+                    {"ransac_iterations": LaunchConfiguration("ransac_iterations")},
                     {"fov_trim_angle": LaunchConfiguration("fov_trim_angle")},
                     {"pc_max_range": LaunchConfiguration("pc_max_range")},
                     {"pc_min_range": LaunchConfiguration("pc_min_range")},
