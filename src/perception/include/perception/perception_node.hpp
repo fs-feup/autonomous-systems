@@ -11,6 +11,7 @@
 #include "cone_evaluator/distance_predict.hpp"
 #include "cone_validator/height_validator.hpp"
 #include "custom_interfaces/msg/cone_array.hpp"
+#include "fov_trimming/cut_trimming.hpp"
 #include "ground_removal/grid_ransac.hpp"
 #include "ground_removal/ransac.hpp"
 #include "icp/icp.hpp"
@@ -20,6 +21,7 @@
 #include "visualization_msgs/msg/marker_array.hpp"
 
 struct PerceptionParameters {
+  std::shared_ptr<FovTrimming> fov_trimming_;
   std::shared_ptr<GroundRemoval> ground_removal_;
   std::shared_ptr<DBSCAN> clustering_;
   std::shared_ptr<LeastSquaresDifferentiation> cone_differentiator_;
@@ -28,8 +30,6 @@ struct PerceptionParameters {
   std::shared_ptr<ICP> icp_;
   std::string adapter_;
   std::string vehicle_frame_id_;
-  double fov_trim_;
-  double pc_max_range_;
 };
 
 /**
@@ -42,15 +42,17 @@ struct PerceptionParameters {
  */
 class Perception : public rclcpp::Node {
 private:
+  std::string _vehicle_frame_id_;
+  std::shared_ptr<FovTrimming> _fov_trimming_;      ///< Shared pointer to the FovTrimming object.
   std::shared_ptr<GroundRemoval> _ground_removal_;  ///< Shared pointer to the GroundRemoval object.
-  std::shared_ptr<Clustering> _clustering_;
+  std::shared_ptr<Clustering> _clustering_;         ///< Shared pointer to the Clustering object.
   std::shared_ptr<ConeDifferentiation>
       _cone_differentiator_;  ///< Shared pointer to ConeDifferentiation object.
   Plane _ground_plane_;
-  std::vector<std::shared_ptr<ConeValidator>> _cone_validators_;
+  std::vector<std::shared_ptr<ConeValidator>>
+      _cone_validators_;  ///< Shared pointer to ConeValidator oblects.
   std::shared_ptr<ConeEvaluator> _cone_evaluator_;
   std::string _adapter_;
-  std::string _vehicle_frame_id_;
   std::shared_ptr<ICP> _icp_;
 
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr
@@ -60,10 +62,6 @@ private:
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr _cone_marker_array_;
   rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr _perception_execution_time_publisher_;
   rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr _ground_removed_publisher_;
-
-  double _fov_trim_;
-
-  double _pc_max_range_;
 
   /**
    * @brief Publishes information about clusters (cones) using a custom ROS2 message.
@@ -89,7 +87,4 @@ public:
    * @param msg The received PointCloud2 message.
    */
   void point_cloud_callback(const sensor_msgs::msg::PointCloud2::SharedPtr msg);
-
-  void fov_trimming(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, double max_distance,
-                    double min_angle, double max_angle, double x_discount = 0);
 };
