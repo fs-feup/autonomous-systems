@@ -10,7 +10,7 @@
  * @brief Test fixture for CylinderValidator class.
  */
 class CylinderValidatorTest : public ::testing::Test {
- protected:
+protected:
   /**
    * @brief Set up function to initialize a plane.
    */
@@ -20,10 +20,10 @@ class CylinderValidatorTest : public ::testing::Test {
 };
 
 /**
- * @brief Test case to validate if a point is inside the cylinder.
+ * @brief Test case to validate if a point is inside the small cylinder.
  */
-TEST_F(CylinderValidatorTest, PointInsideCylinder) {
-  CylinderValidator validator(0.5, 1.0);
+TEST_F(CylinderValidatorTest, PointInsideSmallCylinder) {
+  CylinderValidator validator(0.5, 1.0, 0.7, 1.5);
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud(new pcl::PointCloud<pcl::PointXYZI>);
   point_cloud->points.push_back(pcl::PointXYZI{0.3, 0.3, 0.5, 0});
@@ -34,13 +34,36 @@ TEST_F(CylinderValidatorTest, PointInsideCylinder) {
   bool result = validator.coneValidator(&cylinderPointCloud, plane);
 
   ASSERT_TRUE(result);
+  ASSERT_FALSE(cylinderPointCloud.get_is_large());
 }
 
 /**
- * @brief Test case to validate if a point is outside the cylinder.
+ * @brief Test case to validate if a point is inside the large cylinder.
+ */
+TEST_F(CylinderValidatorTest, PointInsideLargeCylinder) {
+  CylinderValidator validator(0.5, 1.0, 0.7, 1.5);
+
+  pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud(new pcl::PointCloud<pcl::PointXYZI>);
+  point_cloud->points.push_back(pcl::PointXYZI{0.6, 0.6, 1.2, 0});
+  point_cloud->points.push_back(pcl::PointXYZI{0.3, 0.3, 0.5, 0});
+
+  Cluster cylinderPointCloud = Cluster(point_cloud);
+
+  // Simulate height validator and set cluster as large.
+  cylinderPointCloud.set_is_large();
+
+  // Validate point against the cylinder
+  bool result = validator.coneValidator(&cylinderPointCloud, plane);
+
+  ASSERT_TRUE(result);
+  ASSERT_TRUE(cylinderPointCloud.get_is_large());
+}
+
+/**
+ * @brief Test case to validate if a point is outside the all cylinders.
  */
 TEST_F(CylinderValidatorTest, PointOutsideCylinder) {
-  CylinderValidator validator(0.5, 1.0);
+  CylinderValidator validator(0.5, 1.0, 0.7, 1.5);
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud(new pcl::PointCloud<pcl::PointXYZI>);
   point_cloud->points.push_back(pcl::PointXYZI{1.0, 1.0, 2.0, 0});
