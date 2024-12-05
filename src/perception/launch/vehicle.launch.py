@@ -35,7 +35,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "clustering_epsilon",
                 description="Epsilon for Clustering algorithm",
-                default_value="0.7",
+                default_value="0.5",
             ),
             DeclareLaunchArgument(
                 "horizontal_resolution",
@@ -100,12 +100,12 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "large_max_height",
                 description="Maximum height of a cluster to be considered a large cone",
-                default_value="0.55",  # untested
+                default_value="0.57",  # untested
             ),
             DeclareLaunchArgument(
                 "small_max_height",
                 description="Maximum height of a cluster to be considered a small cone",
-                default_value="0.4",
+                default_value="0.36",
             ),
             DeclareLaunchArgument(
                 "min_xoy",
