@@ -14,7 +14,7 @@ PerceptionParameters load_adapter_parameters() {
 
   auto adapter_node = std::make_shared<rclcpp::Node>("perception_adapter");
   params.adapter_ = adapter_node->declare_parameter("adapter", "eufs");
-  params.vehicle_frame_id_ = params.adapter_ == "eufs" ? "velodyne" : "livox_front";
+  params.vehicle_frame_id_ = params.adapter_ == "eufs" ? "velodyne" : "hesai_lidar";
 
   // Create shared pointer for Fov Trimming , Fov Trimming Parameters
   double fov_trim_angle = adapter_node->declare_parameter("fov_trim_angle", 90);
@@ -61,11 +61,11 @@ PerceptionParameters load_adapter_parameters() {
 
   params.cone_differentiator_ = std::make_shared<LeastSquaresDifferentiation>();
 
-    params.cone_validators_ = {std::make_shared<CylinderValidator>(0.200, 0.325),
-                               std::make_shared<HeightValidator>(min_height, max_height),
-                               std::make_shared<DeviationValidator>(min_xoy, max_xoy, min_z, max_z),
-                               std::make_shared<ZScoreValidator>(min_z_score_x, max_z_score_x,
-    min_z_score_y, max_z_score_y)};
+  params.cone_validators_ = {std::make_shared<CylinderValidator>(0.200, 0.325),
+                             std::make_shared<HeightValidator>(min_height, max_height),
+                             std::make_shared<DeviationValidator>(min_xoy, max_xoy, min_z, max_z),
+                             std::make_shared<ZScoreValidator>(min_z_score_x, max_z_score_x,
+                                                               min_z_score_y, max_z_score_y)};
 
   if (params.adapter_ == "eufs") {
     params.cone_validators_ = {};
