@@ -94,20 +94,22 @@ visualization_msgs::msg::MarkerArray marker_array_from_structure_array(
     marker.pose.position.y = structure_array[i].position.y;
     marker.pose.position.z = 0;
 
-    if (structure_array[i].is_large) {
-      marker.scale.x = 1.5 * scale;
-      marker.scale.y = 1.5 * scale;
-      marker.scale.z = 1.5 * scale;
-    } else {
-      marker.scale.x = scale;
-      marker.scale.y = scale;
-      marker.scale.z = scale;
-    }
+    marker.scale.x = scale;
+    marker.scale.y = scale;
+    marker.scale.z = scale;
 
     marker.color.r = color_array[0];
     marker.color.g = color_array[1];
     marker.color.b = color_array[2];
     marker.color.a = color_array[3];
+
+    if (shape == "cylinder") {  // Assuming that only cones are represented as cylinders
+      if (structure_array[i].is_large) {
+        marker.scale.x = 1.5 * scale;
+        marker.scale.y = 1.5 * scale;
+        marker.scale.z = 1.5 * scale;
+      }
+    }
 
     if (shape == "cone") {
       marker.pose.orientation.x = 0.7071;  // Approximately sqrt(2)/2
