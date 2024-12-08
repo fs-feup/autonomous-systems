@@ -31,6 +31,7 @@ available_dashboards = [
     "Planning_exec_time",
     "Planning_cone_coloring",
     "Power_log",
+    "Test",
 ]
 
 # Define the main layout of the app
@@ -64,6 +65,7 @@ def get_dashboard_layout(dashboard):
         "Planning_exec_time": "planning_exec_time",
         "Planning_cone_coloring": "planning_cone_coloring",
         "Power_log": "power_log",
+        "Test": "test",
     }
 
     condition = dashboard_conditions.get(dashboard, "")
@@ -157,6 +159,60 @@ def get_dashboard_layout(dashboard):
                             ),
                         ],
                         id=f"graph3-metrics-{dashboard}",
+                        style={"minWidth": "200px", "width": "25%"},
+                    ),
+                ],
+                style={"display": "flex"},
+            ),
+            html.Div(
+                [
+                    dcc.Graph(
+                        id=f"graph4-{dashboard}",
+                        style={"width": "70%", "height": "500px"},
+                    ),
+                    html.Div(
+                        [
+                            html.Label("Y-Axis"),
+                            dcc.Dropdown(
+                                id=f"graph4-{dashboard}-metrics-dropdown",
+                                multi=True,
+                                style={"minWidth": "200px"},
+                            ),
+                            html.Br(),
+                            html.Label("X-Axis"),
+                            dcc.Dropdown(
+                                id=f"x-axis-dropdown-{dashboard}-3",
+                                style={"minWidth": "200px"},
+                            ),
+                        ],
+                        id=f"graph4-metrics-{dashboard}",
+                        style={"minWidth": "200px", "width": "25%"},
+                    ),
+                ],
+                style={"display": "flex"},
+            ),
+            html.Div(
+                [
+                    dcc.Graph(
+                        id=f"graph5-{dashboard}",
+                        style={"width": "70%", "height": "500px"},
+                    ),
+                    html.Div(
+                        [
+                            html.Label("Y-Axis"),
+                            dcc.Dropdown(
+                                id=f"graph5-{dashboard}-metrics-dropdown",
+                                multi=True,
+                                style={"minWidth": "200px"},
+                            ),
+                            html.Br(),
+                            html.Label("X-Axis"),
+                            dcc.Dropdown(
+                                id=f"x-axis-dropdown-{dashboard}-3",
+                                style={"minWidth": "200px"},
+                            ),
+                        ],
+                        id=f"graph5-metrics-{dashboard}",
                         style={"minWidth": "200px", "width": "25%"},
                     ),
                 ],
@@ -294,7 +350,22 @@ def create_update_graph_callback(graph_id, dashboard, graph_number, graph_type="
                 labels={"value": "Metrics", x_axis: x_axis},
                 title="Scatter Plot",
             )
-
+        elif graph_type == "bar":
+            fig = px.bar(
+                df_melted,
+                x=x_axis,
+                y="value",
+                color="Source_Metric",
+                barmode="group",
+                labels={"value": "Metrics", x_axis: x_axis},
+                title="Bar Chart",
+            )
+        elif graph_type == "heatmap":
+            fig = px.imshow(
+            df_melted.pivot_table(index=x_axis, columns="variable", values="value"),
+            labels={"value": "Metric Value", x_axis: x_axis},
+            title="Heatmap",
+            )
         return fig
 
 
@@ -303,9 +374,13 @@ for dashboard in available_dashboards:
     create_update_metric_dropdowns_callback(dashboard, 1)
     create_update_metric_dropdowns_callback(dashboard, 2)
     create_update_metric_dropdowns_callback(dashboard, 3)
+    create_update_metric_dropdowns_callback(dashboard, 4)
+    create_update_metric_dropdowns_callback(dashboard, 5)
     create_update_graph_callback(f"graph1-{dashboard}", dashboard, 1, "line")
     create_update_graph_callback(f"graph2-{dashboard}", dashboard, 2, "line")
     create_update_graph_callback(f"graph3-{dashboard}", dashboard, 3, "scatter")
+    create_update_graph_callback(f"graph4-{dashboard}", dashboard, 4, "bar")
+    create_update_graph_callback(f"graph5-{dashboard}", dashboard, 5, "heatmap")
 
 
 # Cleanup function to remove the temp folder

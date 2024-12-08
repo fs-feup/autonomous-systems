@@ -115,6 +115,26 @@ def generate_launch_description():
                 description="Whether to use path smoothing or to skip it",
                 default_value="true",
             ),
+            DeclareLaunchArgument(
+                "minimum_velocity",
+                description="Minimum speed for velocity planning",
+                default_value="3.0",
+            ),
+            DeclareLaunchArgument(
+                "braking_acceleration",
+                description="Braking acceleration to consider in velocity planning",
+                default_value="-4.0",
+            ),
+            DeclareLaunchArgument(
+                "normal_acceleration",
+                description="Normal acceleration to consider in velocity planning",
+                default_value="7.0",
+            ),
+            DeclareLaunchArgument(
+                "use_velocity_planning",
+                description="Whether to use velocity planning or to skip it",
+                default_value="true",
+            ),
             Node(
                 package="planning",
                 executable="planning",
@@ -185,6 +205,10 @@ def generate_launch_description():
                     },
                     {"use_outlier_removal": LaunchConfiguration("use_outlier_removal")},
                     {"use_path_smoothing": LaunchConfiguration("use_path_smoothing")},
+                    {"minimum_velocity": LaunchConfiguration("minimum_velocity")},
+                    {"braking_acceleration": LaunchConfiguration("braking_acceleration")},
+                    {"normal_acceleration": LaunchConfiguration("normal_acceleration")},
+                    {"use_velocity_planning": LaunchConfiguration("use_velocity_planning")},
                 ],
                 arguments=["--ros-args", "--log-level", "planning:=info"],
             ),
