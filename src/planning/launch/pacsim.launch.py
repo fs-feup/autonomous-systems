@@ -123,12 +123,12 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "braking_acceleration",
                 description="Braking acceleration to consider in velocity planning",
-                default_value="-4.0",
+                default_value="-2.0",
             ),
             DeclareLaunchArgument(
                 "normal_acceleration",
                 description="Normal acceleration to consider in velocity planning",
-                default_value="7.0",
+                default_value="3.0",
             ),
             DeclareLaunchArgument(
                 "use_velocity_planning",

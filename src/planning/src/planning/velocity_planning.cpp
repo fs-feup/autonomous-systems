@@ -13,6 +13,9 @@ double VelocityPlanning::find_circle_center(PathPoint &point1, PathPoint &point2
   PathPoint mid2 = PathPoint((x2 + x3) / 2, (y2 + y3) / 2, 0);
   double slope1 = (x2 != x1) ? ((y2 - y1) / (x2 - x1)) : MAXFLOAT;
   double slope2 = (x3 != x2) ? ((y3 - y2) / (x3 - x2)) : MAXFLOAT;
+  if ((slope1<=0.0001) || (slope2<=0.0001)) {
+    return 100000;
+  }
   double slope1_perpendicular = -1 / slope1;
   double slope2_perpendicular = -1 / slope2;
   double center_x = (slope1_perpendicular * mid1.position.x -
