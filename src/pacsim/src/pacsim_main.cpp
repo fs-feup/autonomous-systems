@@ -373,10 +373,13 @@ int threadMainLoopFunc(std::shared_ptr<rclcpp::Node> node)
         nextLoopTime += std::chrono::microseconds((int)((timestep / realtimeRatio) * 1000000.0));
         std::this_thread::sleep_until(nextLoopTime);
     }
+    logger->logWarning("Ros status, 1 is OK, 0 is not OK: " + to_string(rclcpp::ok()));
+    logger->logWarning("Simulation finished, generating report");
     Report report;
     cl->fillReport(report, simTime);
     report.track_name = trackName;
     reportToFile(report, report_file_dir);
+    logger->logWarning("Canceling executor!");
     executor->cancel();
     return 0;
 }
@@ -668,7 +671,7 @@ int main(int argc, char** argv)
     executor->spin();
 
     mainLoopThread.join();
-
+    logger->logWarning("Finished pacsim");
     rclcpp::shutdown();
 
     return 0;

@@ -1,8 +1,8 @@
 from launch import LaunchDescription
 from launch_ros.actions import Node
-from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument
+from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
+from launch.substitutions import PathJoinSubstitution
 from launch_ros.substitutions import FindPackageShare
 
 
@@ -44,8 +44,9 @@ def generate_launch_description():
     )
     return LaunchDescription(
         [
-            se_launch_description,
+            # The order matters! If you need to change the simulated_... parameters, the first launch file that declares that parameter will have the priority
             evaluator_launch_description,
+            se_launch_description,
             planning_launch_description,
             control_launch_description,
             mocker_node_launch_description,

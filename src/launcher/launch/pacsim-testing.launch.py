@@ -1,40 +1,62 @@
 from launch import LaunchDescription
-from launch_ros.actions import Node
-from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument
+from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
+from launch.substitutions import PathJoinSubstitution
 from launch_ros.substitutions import FindPackageShare
 
 
 def generate_launch_description():
+    use_simulated_se = "True"
+    use_simulated_perception = "True"
+    use_simulated_planning = "False"
+
     se_launch_description = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             PathJoinSubstitution(
                 [FindPackageShare("ekf_state_est"), "launch", "pacsim.launch.py"]
             )
         ),
+        launch_arguments={
+            "use_simulated_perception": use_simulated_perception,
+        }.items(),
     )
+
     evaluator_launch_description = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             PathJoinSubstitution(
                 [FindPackageShare("evaluator"), "launch", "pacsim.launch.py"]
             )
         ),
+        launch_arguments={
+            "use_simulated_perception": use_simulated_perception,
+            "use_simulated_se": use_simulated_se,
+            "use_simulated_planning": use_simulated_planning,
+        }.items(),
     )
+
     planning_launch_description = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             PathJoinSubstitution(
                 [FindPackageShare("planning"), "launch", "pacsim.launch.py"]
             )
         ),
+        launch_arguments={
+            "use_simulated_se": use_simulated_se,
+        }.items(),
     )
+
     control_launch_description = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             PathJoinSubstitution(
                 [FindPackageShare("control"), "launch", "pacsim.launch.py"]
             )
         ),
+        launch_arguments={
+            "use_simulated_se": use_simulated_se,
+            "use_simulated_planning": use_simulated_planning,
+        }.items(),
     )
+
     mocker_node_launch_description = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             PathJoinSubstitution(
@@ -42,27 +64,13 @@ def generate_launch_description():
             )
         ),
     )
+
     return LaunchDescription(
         [
-            DeclareLaunchArgument(
-                "use_simulated_se",
-                description="Use Simulated State Estimation, that is, vehicle state from simulator (true/false)",
-                default_value="True",
-            ),
-            DeclareLaunchArgument(
-                "use_simulated_perception",
-                description="Whether the system is using simulated perception or not",
-                default_value="True",
-            ),
-            DeclareLaunchArgument(
-                "use_simulated_planning",
-                description="Whether the system is using simulated Planning or not",
-                default_value="False",
-            ),
-            # se_launch_description,
-            # evaluator_launch_description,
+            evaluator_launch_description,
+            se_launch_description,
             planning_launch_description,
             control_launch_description,
             mocker_node_launch_description,
-        ],
+        ]
     )
