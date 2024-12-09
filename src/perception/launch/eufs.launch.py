@@ -108,9 +108,14 @@ def generate_launch_description():
                 default_value="-100.0",
             ),
             DeclareLaunchArgument(
-                "max_height",
-                description="Maximum height of a cluster to be considered a cone",
-                default_value="100.0",
+                "large_max_height",
+                description="Maximum height of a cluster to be considered a large cone",
+                default_value="150",  # untested
+            ),
+            DeclareLaunchArgument(
+                "small_max_height",
+                description="Maximum height of a cluster to be considered a small cone",
+                default_value="100",
             ),
             DeclareLaunchArgument(
                 "min_xoy",

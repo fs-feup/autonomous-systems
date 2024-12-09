@@ -108,9 +108,14 @@ def generate_launch_description():
                 default_value="0.1",
             ),
             DeclareLaunchArgument(
-                "max_height",
-                description="Maximum height of a cluster to be considered a cone",
-                default_value="0.55",
+                "large_max_height",
+                description="Maximum height of a cluster to be considered a large cone",
+                default_value="0.55",  # untested
+            ),
+            DeclareLaunchArgument(
+                "small_max_height",
+                description="Maximum height of a cluster to be considered a small cone",
+                default_value="0.4",
             ),
             DeclareLaunchArgument(
                 "min_xoy",
@@ -201,8 +206,11 @@ def generate_launch_description():
                             "transformation_epsilon"
                         )
                     },
+
+                    {"pc_max_range": LaunchConfiguration("pc_max_range")},
                     {"min_height": LaunchConfiguration("min_height")},
-                    {"max_height": LaunchConfiguration("max_height")},
+                    {"max_height": LaunchConfiguration("small_max_height")},
+                    {"max_height": LaunchConfiguration("large_max_height")},
                     {"min_xoy": LaunchConfiguration("min_xoy")},
                     {"max_xoy": LaunchConfiguration("max_xoy")},
                     {"min_z": LaunchConfiguration("min_z")},
