@@ -20,16 +20,19 @@
 #include "std_msgs/msg/float64.hpp"
 #include "visualization_msgs/msg/marker_array.hpp"
 
-struct PerceptionParameters {
-  std::shared_ptr<FovTrimming> fov_trimming_;
-  std::shared_ptr<GroundRemoval> ground_removal_;
-  std::shared_ptr<DBSCAN> clustering_;
-  std::shared_ptr<LeastSquaresDifferentiation> cone_differentiator_;
-  std::vector<std::shared_ptr<ConeValidator>> cone_validators_;
-  std::shared_ptr<DistancePredict> distance_predict_;
-  std::shared_ptr<ICP> icp_;
-  std::string adapter_;
-  std::string vehicle_frame_id_;
+struct PerceptionParameters {  ///< Struct containing parameters and interfaces used in perception.
+  std::string vehicle_frame_id_;                   ///< String for the vehicle's frame id.
+  std::string adapter_;                            ///< String for the name of the current adapter.
+  std::shared_ptr<FovTrimming> fov_trimming_;      ///< Shared pointer to the FovTrimming object.
+  std::shared_ptr<GroundRemoval> ground_removal_;  ///< Shared pointer to the GroundRemoval object.
+  std::shared_ptr<DBSCAN> clustering_;             ///< Shared pointer to the DBSCAN object.
+  std::shared_ptr<LeastSquaresDifferentiation>
+      cone_differentiator_;  ///< Shared pointer to ConeDifferentiation object.
+  std::vector<std::shared_ptr<ConeValidator>>
+      cone_validators_;  ///< Shared pointer to ConeValidator objects.
+  std::shared_ptr<DistancePredict>
+      distance_predict_;      ///< Shared pointer to DistancePredict object.
+  std::shared_ptr<ICP> icp_;  ///< Shared pointer to ICP object.
 };
 
 /**
@@ -42,26 +45,29 @@ struct PerceptionParameters {
  */
 class Perception : public rclcpp::Node {
 private:
-  std::string _vehicle_frame_id_;
+  std::string _vehicle_frame_id_;                   ///< String for the vehicle's frame id.
+  std::string _adapter_;                            ///< String for the current adapter being used.
+  Plane _ground_plane_;                             ///< Model for the ground plane.
   std::shared_ptr<FovTrimming> _fov_trimming_;      ///< Shared pointer to the FovTrimming object.
   std::shared_ptr<GroundRemoval> _ground_removal_;  ///< Shared pointer to the GroundRemoval object.
   std::shared_ptr<Clustering> _clustering_;         ///< Shared pointer to the Clustering object.
   std::shared_ptr<ConeDifferentiation>
       _cone_differentiator_;  ///< Shared pointer to ConeDifferentiation object.
-  Plane _ground_plane_;
   std::vector<std::shared_ptr<ConeValidator>>
-      _cone_validators_;  ///< Shared pointer to ConeValidator oblects.
-  std::shared_ptr<ConeEvaluator> _cone_evaluator_;
-  std::string _adapter_;
-  std::shared_ptr<ICP> _icp_;
+      _cone_validators_;                            ///< Shared pointer to ConeValidator objects.
+  std::shared_ptr<ConeEvaluator> _cone_evaluator_;  ///< Shared pointer to ConeEvaluator object.
+  std::shared_ptr<ICP> _icp_;                       ///< Shared pointer to ICP object.
 
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr
       _point_cloud_subscription;  ///< PointCloud2 subscription.
   rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr
       _cones_publisher;  ///< ConeArray publisher.
-  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr _cone_marker_array_;
-  rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr _perception_execution_time_publisher_;
-  rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr _ground_removed_publisher_;
+  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr
+      _cone_marker_array_;  ///< MarkerArray publisher.
+  rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr
+      _perception_execution_time_publisher_;  ///< Perception execution time publisher.
+  rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr
+      _ground_removed_publisher_;  ///< point cloud after ground removal publisher.
 
   /**
    * @brief Publishes information about clusters (cones) using a custom ROS2 message.
