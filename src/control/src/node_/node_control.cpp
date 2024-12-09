@@ -56,26 +56,23 @@ Control::Control(const ControlParameters& params)
 
 // This function is called when a new pose is received
 void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicle_state_msg) {
-
   if (!go_signal_) {
-    RCLCPP_INFO(rclcpp::get_logger("control"),
-                 "Go Signal Not received");
+    RCLCPP_INFO(rclcpp::get_logger("control"), "Go Signal Not received");
 
     return;
   }
 
   if (received_path_point_array && !received_vehicle_state) {
-      RCLCPP_DEBUG(rclcpp::get_logger("control"),
-                  "First Vehicle State Received");
+    RCLCPP_DEBUG(rclcpp::get_logger("control"), "First Vehicle State Received");
 
-      received_vehicle_state = true;
-      custom_interfaces::msg::PathPoint initial;
-      initial.x = vehicle_state_msg.position.x;
-      initial.y = vehicle_state_msg.position.y;
-      initial.v = vehicle_state_msg.linear_velocity;
+    received_vehicle_state = true;
+    custom_interfaces::msg::PathPoint initial;
+    initial.x = vehicle_state_msg.position.x;
+    initial.y = vehicle_state_msg.position.y;
+    initial.v = vehicle_state_msg.linear_velocity;
 
-      // Insert at the beginning of the pathpoint_array_ (true "push_front")
-      pathpoint_array_.insert(pathpoint_array_.begin(), initial);
+    // Insert at the beginning of the pathpoint_array_ (true "push_front")
+    pathpoint_array_.insert(pathpoint_array_.begin(), initial);
   }
 
   rclcpp::Time start = this->now();

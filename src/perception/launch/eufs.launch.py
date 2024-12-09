@@ -13,8 +13,8 @@ def generate_launch_description():
                 package="perception",
                 executable="perception",
                 name="perception_adapter",
-                parameters=[config_file],
-                arguments=["--ros-args", "--log-level", "perception:=info"],
+                parameters=[{"adapter": "eufs"}, config_file],
+                arguments=["--ros-args", "--log-level", "perception:=debug"],
             ),
         ]
     )

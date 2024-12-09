@@ -24,7 +24,7 @@ def generate_launch_description():
                 package="ekf_state_est",
                 executable="ekf_state_est",
                 name="ekf_state_est",
-                parameters=[config_file, final_params],
+                parameters=[{"adapter": "eufs"}, config_file, final_params],
                 arguments=["--ros-args", "--log-level", "ekf_state_est:=info"],
             ),
         ]

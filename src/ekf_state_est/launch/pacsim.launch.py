@@ -25,6 +25,7 @@ def generate_launch_description():
                 executable="ekf_state_est",
                 name="ekf_state_est",
                 parameters=[
+                    {"adapter": "pacsim"},
                     config_file,
                     final_params,
                 ],

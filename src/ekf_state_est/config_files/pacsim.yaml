@@ -6,5 +6,4 @@ ekf_state_est:
     observation_noise: 0.01
     wheel_speed_sensor_noise: 0.1
     motion_model: "normal_velocity_model"
-    adapter: "pacsim"
     use_odometry: True

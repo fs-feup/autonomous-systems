@@ -92,7 +92,7 @@ void SENode::_perception_subscription_callback(const custom_interfaces::msg::Con
     return;
   }
 
-  if (!this->_go_){
+  if (!this->_go_) {
     return;
   }
 
@@ -119,7 +119,7 @@ void SENode::_perception_subscription_callback(const custom_interfaces::msg::Con
   std_msgs::msg::Float64 correction_execution_time;
   correction_execution_time.data = (end_time - start_time).seconds() * 1000.0;
   this->_correction_execution_time_publisher_->publish(correction_execution_time);
-  //this->_publish_vehicle_state();
+  // this->_publish_vehicle_state();
   this->_publish_map();
 }
 
@@ -128,11 +128,9 @@ void SENode::_imu_subscription_callback(const sensor_msgs::msg::Imu &imu_msg) {
     return;
   }
 
-
-  if (!this->_go_){
+  if (!this->_go_) {
     return;
   }
-
 
   rclcpp::Time start_time = this->get_clock()->now();
 
@@ -178,25 +176,23 @@ double difference = 10;
 void SENode::_wheel_speeds_subscription_callback(double rl_speed, double rr_speed, double fl_speed,
                                                  double fr_speed, double steering_angle,
                                                  const rclcpp::Time &timestamp) {
-
-  if (!this->_go_){
+  if (!this->_go_) {
     return;
   }
 
-
   bool change = false;
 
- if (abs(rl_before - rl_speed) >= difference) change = true;
- if (abs(rr_before - rr_speed) >= difference) change = true;
- if (abs(fl_before - fl_speed) >= difference) change = true;
- if (abs(fr_before - fr_speed) >= difference) change = true;
+  if (abs(rl_before - rl_speed) >= difference) change = true;
+  if (abs(rr_before - rr_speed) >= difference) change = true;
+  if (abs(fl_before - fl_speed) >= difference) change = true;
+  if (abs(fr_before - fr_speed) >= difference) change = true;
 
   rl_before = rl_speed;
   rr_before = rr_speed;
   fl_before = fl_speed;
   fr_before = fr_speed;
   if (change) return;
-  
+
   RCLCPP_INFO(this->get_logger(), "Rear Left: %f\n Rear Right: %f", rl_speed, rr_speed);
   rclcpp::Time start_time = this->get_clock()->now();
 
@@ -204,7 +200,8 @@ void SENode::_wheel_speeds_subscription_callback(double rl_speed, double rr_spee
       common_lib::vehicle_dynamics::odometry_to_velocities_transform(rl_speed, fl_speed, rr_speed,
                                                                      fr_speed, steering_angle);
 
-  RCLCPP_INFO(this->get_logger(), "Linear Velocity: %f\nAngular Velocity: %f", linear_velocity, angular_velocity);
+  RCLCPP_INFO(this->get_logger(), "Linear Velocity: %f\nAngular Velocity: %f", linear_velocity,
+              angular_velocity);
   MotionUpdate motion_prediction_data;
   motion_prediction_data.translational_velocity = linear_velocity;
   motion_prediction_data.rotational_velocity = angular_velocity;
@@ -221,8 +218,8 @@ void SENode::_wheel_speeds_subscription_callback(double rl_speed, double rr_spee
   }
   MotionUpdate temp_update = *(this->_motion_update_);
 
-
-  RCLCPP_INFO(this->get_logger(), "Motion update Translational Velocity: %f", this->_motion_update_->translational_velocity);
+  RCLCPP_INFO(this->get_logger(), "Motion update Translational Velocity: %f",
+              this->_motion_update_->translational_velocity);
 
   this->_ekf_->prediction_step(temp_update, "wheel_speed_sensor");
   this->_ekf_->update(this->_vehicle_state_, this->_track_map_);
@@ -243,9 +240,9 @@ void SENode::_publish_vehicle_state() {
     RCLCPP_WARN(this->get_logger(), "PUB - Vehicle state object is null");
     return;
   }
-  //if (!this->_go_){
-  //  return;
-  //}
+  // if (!this->_go_){
+  //   return;
+  // }
 
   auto message = custom_interfaces::msg::VehicleState();
   message.position.x = this->_vehicle_state_->pose.position.x;
@@ -302,7 +299,8 @@ void SENode::_publish_vehicle_state_wss() {
   marker.color.b = 0.0;
   marker.color.a = 1.0;
 
-  RCLCPP_DEBUG(this->get_logger(), "PUB - Marker at position: (%f, %f)", marker.pose.position.x, marker.pose.position.y);
+  RCLCPP_DEBUG(this->get_logger(), "PUB - Marker at position: (%f, %f)", marker.pose.position.x,
+               marker.pose.position.y);
   this->_position_publisher_->publish(marker);
 }
 

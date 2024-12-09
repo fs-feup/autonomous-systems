@@ -5,7 +5,5 @@ ekf_state_est:
     imu_noise: 0.0001
     observation_noise: 0.03
     motion_model: "imu_velocity_model"
-    adapter: "vehicle"
     data_assocation_model: "max_likelihood"
     use_odometry: True
-    use_simulated_perception: False

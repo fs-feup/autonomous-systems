@@ -1,4 +1,4 @@
-perception:
+perception_adapter:
   ros__parameters:
     ransac_epsilon: 0.09
     ransac_n_neighbours: 40
@@ -8,7 +8,6 @@ perception:
     clustering_epsilon: 0.7
     horizontal_resolution: 0.33
     vertical_resolution: 0.2
-    adapter: "vehicle"
     ground_removal: "grid_ransac"
     n_angular_grids: 2
     radius_resolution: 7.5

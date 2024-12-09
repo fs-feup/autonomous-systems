@@ -51,8 +51,8 @@ def generate_launch_description():
     return LaunchDescription(
         [
             # The order matters! If you need to change the simulated_... parameters, the first launch file that declares that parameter will have the priority
-            mocker_node_launch_description,
             evaluator_launch_description,
+            mocker_node_launch_description,
             se_launch_description,
             planning_launch_description,
             control_launch_description,

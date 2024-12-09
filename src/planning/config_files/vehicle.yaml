@@ -1,4 +1,4 @@
-planning:
+planning_adapter:
   ros__parameters:
     angle_gain: 10.246
     distance_gain: 6.657
@@ -16,7 +16,6 @@ planning:
     smoothing_spline_coeffs_ratio: 3.0
     smoothing_spline_precision: 10
     adapter: "vehicle"
-    use_simulated_se: false
     publishing_visualization_msg: true
     pre_defined_velocity_planning: 1.0
     use_outlier_removal: false

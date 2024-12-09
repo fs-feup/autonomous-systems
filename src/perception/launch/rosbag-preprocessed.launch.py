@@ -12,8 +12,8 @@ def generate_launch_description():
             Node(
                 package="perception",
                 executable="perception",
-                name="perception",
-                parameters=[config_file],
+                name="perception_adapter",
+                parameters=[{"adapter": "vehicle_preprocessed"}, config_file],
                 arguments=["--ros-args", "--log-level", "perception:=debug"],
             ),
         ]

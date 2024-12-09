@@ -1,4 +1,4 @@
-control:
+control_adapter:
   ros__parameters:
     lookahead_gain: 1.0
     pid_kp: 0.4
@@ -6,6 +6,6 @@ control:
     pid_kd: 0.09
     pid_tau: 0.5
     pid_t: 0.01
-    pid_lim_min: -1
-    pid_lim_max: 1
+    pid_lim_min: -1.0
+    pid_lim_max: 1.0
     pid_anti_windup: 0.7

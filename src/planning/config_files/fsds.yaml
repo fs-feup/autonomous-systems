@@ -1,4 +1,4 @@
-planning:
+planning_adapter:
   ros__parameters:
     angle_gain: 10.246
     distance_gain: 6.657

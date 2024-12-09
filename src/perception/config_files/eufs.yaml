@@ -8,7 +8,6 @@ perception_adapter:
     clustering_epsilon: 0.3
     horizontal_resolution: 0.2
     vertical_resolution: 0.33
-    adapter: "eufs"
     ground_removal: "ransac"
     n_angular_grids: 12
     radius_resolution: 5.0

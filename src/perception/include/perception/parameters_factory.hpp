@@ -62,13 +62,13 @@ PerceptionParameters load_adapter_parameters() {
   params.clustering_ = std::make_shared<DBSCAN>(clustering_n_neighbours, clustering_epsilon);
   params.cone_differentiator_ = std::make_shared<LeastSquaresDifferentiation>();
 
-    params.cone_validators_ = {std::make_shared<CylinderValidator>(0.200, 0.325),
-                               std::make_shared<HeightValidator>(min_height, max_height),
-                               std::make_shared<DeviationValidator>(min_xoy, max_xoy, min_z, max_z),
-                               std::make_shared<ZScoreValidator>(min_z_score_x, max_z_score_x,
-    min_z_score_y, max_z_score_y)};
+  params.cone_validators_ = {std::make_shared<CylinderValidator>(0.200, 0.325),
+                             std::make_shared<HeightValidator>(min_height, max_height),
+                             std::make_shared<DeviationValidator>(min_xoy, max_xoy, min_z, max_z),
+                             std::make_shared<ZScoreValidator>(min_z_score_x, max_z_score_x,
+                                                               min_z_score_y, max_z_score_y)};
 
-  if (params.adapter_ == "eufs"){
+  if (params.adapter_ == "eufs") {
     params.cone_validators_ = {};
   }
 

@@ -1,6 +1,5 @@
-control:
+control_adapter:
   ros__parameters:
-    use_simulated_planning: false
     lookahead_gain: 1.5
     pid_kp: 0.4
     pid_ki: 0.3
@@ -10,4 +9,3 @@ control:
     pid_lim_min: -1.0
     pid_lim_max: 1.0
     pid_anti_windup: 0.7
-    use_simulated_se: false
