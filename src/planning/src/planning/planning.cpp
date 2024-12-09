@@ -60,6 +60,8 @@ Planning::Planning(const PlanningParameters &params)
     this->track_sub_ = this->create_subscription<custom_interfaces::msg::ConeArray>(
         "/state_estimation/map", 10, std::bind(&Planning::track_map_callback, this, _1));
   }
+  RCLCPP_INFO(rclcpp::get_logger("planning"), "using simulated state estimation: %d",
+              planning_config_.simulation_.using_simulated_se_);
 }
 
 void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &msg) {
@@ -117,17 +119,19 @@ void Planning::run_planning_algorithms() {
   std::vector<PathPoint> triangulations_path =
       path_calculation_.process_delaunay_triangulations(refined_colored_cones);
   if (triangulations_path.size() < 2) {
-    RCLCPP_WARN(rclcpp::get_logger("planning"), "Not enough cones to plan after triangulations: %d",
+    RCLCPP_WARN(rclcpp::get_logger("planning"),
+                "Not enough cones to plan after triangulations: % d ",
                 static_cast<int>(triangulations_path.size()));
     publish_track_points({});
     return;
   }
 
   // Smooth the calculated path
-  std::vector<PathPoint> final_path = path_smoothing_.smooth_path(triangulations_path, this->pose);
+  std::vector<PathPoint> final_path =
+      path_smoothing_.smooth_path(triangulations_path, this->pose, this->initial_car_orientation_);
 
   if (final_path.size() < 10) {
-    RCLCPP_WARN(rclcpp::get_logger("planning"), "Final path size: %d",
+    RCLCPP_INFO(rclcpp::get_logger("planning"), "Final path size: %d",
                 static_cast<int>(final_path.size()));
   }
   // Velocity Planning
@@ -155,6 +159,10 @@ void Planning::run_planning_algorithms() {
 
 void Planning::vehicle_localization_callback(const custom_interfaces::msg::VehicleState &msg) {
   this->pose = Pose(msg.position.x, msg.position.y, msg.theta);
+
+  if (!this->received_first_pose_) {
+    this->initial_car_orientation_ = msg.theta;
+  }
   if (this->received_first_track_ && !this->received_first_pose_) {
     this->received_first_pose_ = true;
     run_planning_algorithms();

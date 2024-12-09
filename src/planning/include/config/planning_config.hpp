@@ -14,6 +14,8 @@ struct PlanningParameters {
   double angle_exponent_;
   double distance_exponent_;
   double cost_max_;
+  double same_cone_distance_threshold_;
+  bool use_memory_cone_coloring_;
   int outliers_spline_order_;
   float outliers_spline_coeffs_ratio_;
   int outliers_spline_precision_;
@@ -25,7 +27,7 @@ struct PlanningParameters {
   bool using_simulated_se_;
   bool use_outlier_removal_;
   bool use_path_smoothing_;
-  long double desired_velocity_;
+  double desired_velocity_;
   std::string map_frame_id_;
 };
 
@@ -48,6 +50,8 @@ struct PlanningConfig {
     cone_coloring_.angle_exponent_ = params.angle_exponent_;
     cone_coloring_.distance_exponent_ = params.distance_exponent_;
     cone_coloring_.max_cost_ = params.cost_max_;
+    cone_coloring_.same_cone_distance_threshold_ = params.same_cone_distance_threshold_;
+    cone_coloring_.use_memory_ = params.use_memory_cone_coloring_;
 
     outliers_.order_ = params.outliers_spline_order_;
     outliers_.precision_ = params.outliers_spline_precision_;
@@ -60,6 +64,7 @@ struct PlanningConfig {
     smoothing_.precision_ = params.smoothing_spline_precision_;
     smoothing_.coeffs_ratio_ = params.smoothing_spline_coeffs_ratio_;
     smoothing_.use_path_smoothing_ = params.use_path_smoothing_;
+    smoothing_.use_memory_ = params.use_memory_cone_coloring_;
 
     simulation_.publishing_visualization_msgs_ = params.publishing_visualization_msgs_;
     simulation_.using_simulated_se_ = params.using_simulated_se_;

@@ -8,8 +8,8 @@
 /**
  * @brief Struct containing observation data
  *
- * @param position
- * @param color
+ * @param position position of the observed landmark
+ * @param color color of the observed landmark
  */
 struct ObservationData {
   common_lib::structures::Position position;
@@ -40,7 +40,7 @@ public:
 
   /**
    * @brief Calculate expected observation from
-   * the state vector
+   * the state vector. Correponds to h in LaTeX documentation.
    *
    * @param expected_state
    * @param landmark_index index of the x variable of the landmark in the state
@@ -50,9 +50,19 @@ public:
   Eigen::Vector2f observation_model(const Eigen::VectorXf &expected_state,
                                     const unsigned int landmark_index) const;
 
+  Eigen::VectorXf observation_model_n_landmarks(const Eigen::VectorXf &current_state,
+                                                const std::vector<int> &matched_ids) const;
+
+  Eigen::VectorXf format_observation(const std::vector<Eigen::Vector2f> &observations) const;
+
+  Eigen::MatrixXf get_jacobian_of_observation_model(const Eigen::VectorXf &current_state,
+                                                    const std::vector<int> &matched_ids) const;
+
+  Eigen::MatrixXf get_full_observation_noise_covariance_matrix(const int observation_size) const;
+
   /**
    * @brief Calculate landmark position from
-   * observation
+   * observation. Translates from the car's frame to the map frame.
    *
    *
    * @param expected_state
@@ -70,7 +80,7 @@ public:
 
   /**
    * @brief Get the state to observation matrix
-   * of the observation model (H)
+   * of the observation model (H in LaTeX documentation)
    *
    * @param landmark_index index of the x variable of the landmark in the state
    * vector

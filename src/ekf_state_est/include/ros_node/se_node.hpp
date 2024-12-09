@@ -32,6 +32,8 @@ class Adapter;
 class SENode : public rclcpp::Node {
   rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr _perception_subscription_;
   rclcpp::Publisher<custom_interfaces::msg::VehicleState>::SharedPtr _vehicle_state_publisher_;
+  rclcpp::Publisher<custom_interfaces::msg::VehicleState>::SharedPtr _vehicle_state_publisher_wss_;
+  rclcpp::Publisher<custom_interfaces::msg::VehicleState>::SharedPtr _vehicle_state_publisher_imu_;
   rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr _map_publisher_;
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr _visualization_map_publisher_;
   rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr _correction_execution_time_publisher_;
@@ -43,6 +45,7 @@ class SENode : public rclcpp::Node {
   std::shared_ptr<std::vector<common_lib::structures::Cone>> _track_map_;
   std::shared_ptr<common_lib::structures::VehicleState> _vehicle_state_;
   common_lib::competition_logic::Mission _mission_;
+  rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr _position_publisher_;
   bool _go_;  /// flag to start the mission
   bool _use_odometry_;
   bool _use_simulated_perception_;
@@ -79,8 +82,8 @@ class SENode : public rclcpp::Node {
    * @param steering_angle steering angle in radians
    * @param timestamp timestamp of the message
    */
-  void _wheel_speeds_subscription_callback(double lb_speed, double lf_speed, double rb_speed,
-                                           double rf_speed, double steering_angle,
+  void _wheel_speeds_subscription_callback(double rl_speed, double rr_speed, double fl_speed,
+                                          double fr_speed, double steering_angle,
                                            const rclcpp::Time& timestamp);
 
   /**
@@ -98,6 +101,20 @@ class SENode : public rclcpp::Node {
    *
    */
   void _publish_vehicle_state();
+
+  /**
+   * @brief publishes the localization ('vehicle_localization') to the topic
+   * vehicle_location
+   *
+   */
+  void _publish_vehicle_state_wss();
+
+  /**
+   * @brief publishes the localization ('vehicle_localization') to the topic
+   * vehicle_location
+   *
+   */
+  void _publish_vehicle_state_imu();
 
   /**
    * @brief publishes the map ('track_map') to the topic track_map

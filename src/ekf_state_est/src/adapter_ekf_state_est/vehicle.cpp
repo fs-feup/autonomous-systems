@@ -21,6 +21,13 @@ VehicleAdapter::VehicleAdapter(std::shared_ptr<SENode> se_node) : Adapter(se_nod
       imu_policy, _yaw_accy_imu_subscription_, _roll_accx_imu_subscription_);
   this->_imu_sync_->registerCallback(&VehicleAdapter::imu_subscription_callback, this);
 
+  this->_free_acceleration_subscription_.subscribe(this->node_, "/filter/free_acceleration");
+  this->_angular_velocity_subscription_.subscribe(this->node_, "/imu/angular_velocity");
+  const XsensImuPolicy xsens_imu_policy(10);
+  this->_xsens_imu_sync_ = std::make_shared<message_filters::Synchronizer<XsensImuPolicy>>(
+      xsens_imu_policy, _free_acceleration_subscription_, _angular_velocity_subscription_);
+  this->_xsens_imu_sync_->registerCallback(&VehicleAdapter::xsens_imu_subscription_callback, this);
+
   this->_rl_wheel_rpm_subscription_.subscribe(this->node_, "/vehicle/rl_rpm");
   this->_rr_wheel_rpm_subscription_.subscribe(this->node_, "/vehicle/rr_rpm");
   this->_steering_angle_subscription_.subscribe(this->node_, "/vehicle/bosch_steering_angle");
@@ -34,10 +41,12 @@ VehicleAdapter::VehicleAdapter(std::shared_ptr<SENode> se_node) : Adapter(se_nod
       this->node_->create_client<std_srvs::srv::Trigger>("/as_srv/mission_finished");
 }
 
-void VehicleAdapter::wheel_speeds_subscription_callback (
+void VehicleAdapter::wheel_speeds_subscription_callback(
     const custom_interfaces::msg::WheelRPM& rl_wheel_rpm_msg,
     const custom_interfaces::msg::WheelRPM& rr_wheel_rpm_msg,
     const custom_interfaces::msg::SteeringAngle& steering_angle_msg) {
+  RCLCPP_INFO(this->node_->get_logger(), "Received WSS!");
+
   this->node_->_wheel_speeds_subscription_callback(rl_wheel_rpm_msg.rl_rpm, rr_wheel_rpm_msg.rr_rpm,
                                                    0.0, 0.0, steering_angle_msg.steering_angle,
                                                    steering_angle_msg.header.stamp);
@@ -50,6 +59,16 @@ void VehicleAdapter::imu_subscription_callback(
   imu_msg.angular_velocity.z = yaw_accy_data.gyro;
   imu_msg.linear_acceleration.x = roll_accx_data.acc;
   imu_msg.linear_acceleration.y = yaw_accy_data.acc;
+  this->node_->_imu_subscription_callback(imu_msg);
+}
+
+void VehicleAdapter::xsens_imu_subscription_callback(
+    const geometry_msgs::msg::Vector3Stamped::SharedPtr& free_acceleration_msg,
+    const geometry_msgs::msg::Vector3Stamped::SharedPtr& angular_velocity_msg) {
+  auto imu_msg = sensor_msgs::msg::Imu();
+  imu_msg.angular_velocity.z = angular_velocity_msg->vector.z;
+  imu_msg.linear_acceleration.x = free_acceleration_msg->vector.x;
+  imu_msg.linear_acceleration.y = free_acceleration_msg->vector.y;
   this->node_->_imu_subscription_callback(imu_msg);
 }
 

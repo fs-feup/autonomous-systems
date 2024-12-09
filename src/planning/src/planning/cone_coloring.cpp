@@ -1,21 +1,69 @@
 #include "planning/cone_coloring.hpp"
 
 void ConeColoring::remove_duplicates(std::vector<Cone>& cones) const {
-  std::unordered_set<Cone, std::hash<Cone>> unique_cones;
-  std::vector<Cone> result;
-  result.reserve(cones.size());
+  std::vector<Cone> clustered_cones;
+  clustered_cones.reserve(cones.size());
+
   for (const auto& cone : cones) {
-    if (unique_cones.insert(cone).second) {
-      result.push_back(cone);
+    bool is_duplicate = false;
+
+    // Check against each cone in the clustered_cones list
+    for (const auto& clustered_cone : clustered_cones) {
+      if (cone.position.euclidean_distance(clustered_cone.position) <
+          this->config_.same_cone_distance_threshold_) {
+        is_duplicate = true;
+        break;
+      }
+    }
+
+    // If not a duplicate, add to the clustered list
+    if (!is_duplicate) {
+      clustered_cones.push_back(cone);
     }
   }
 
-  cones = result;
+  // Update original cones vector with clustered cones
+  cones = clustered_cones;
+}
+
+std::vector<Cone> ConeColoring::filter_previously_colored_cones(const std::vector<Cone>& cones) {
+  std::vector<Cone> uncolored_cones;
+  bool seen;
+  for (const auto& cone : cones) {
+    seen = false;
+    if (!seen) {
+      for (auto& colored_cone : this->colored_blue_cones_) {
+        if (cone.position.euclidean_distance(colored_cone.position) <
+            this->config_.same_cone_distance_threshold_) {
+          seen = true;
+          colored_cone.position.x = cone.position.x;
+          colored_cone.position.y = cone.position.y;
+          break;
+        }
+      }
+    }
+
+    if (!seen) {
+      for (auto& colored_cone : this->colored_yellow_cones_) {
+        if (cone.position.euclidean_distance(colored_cone.position) <
+            this->config_.same_cone_distance_threshold_) {
+          seen = true;
+          colored_cone.position.x = cone.position.x;
+          colored_cone.position.y = cone.position.y;
+          break;
+        }
+      }
+    }
+    if (!seen) {
+      uncolored_cones.push_back(cone);
+    }
+  }
+  return uncolored_cones;
 }
 
 Position ConeColoring::expected_initial_cone_position(const Pose& car_pose,
                                                       const TrackSide& track_side) const {
-  constexpr double distance_to_car = 2.0;
+  constexpr double distance_to_car = 1.5;
   if (track_side == TrackSide::LEFT) {
     return Position{car_pose.position.x - distance_to_car * sin(car_pose.orientation),
                     car_pose.position.y + distance_to_car * cos(car_pose.orientation)};
@@ -39,6 +87,65 @@ Cone ConeColoring::find_initial_cone(const std::unordered_set<Cone, std::hash<Co
   return initial_cone;
 }
 
+void ConeColoring::place_initial_cones(std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones,
+                                       const Pose& car_pose, int& n_colored_cones) {
+  Position expected_blue_cone_position = expected_initial_cone_position(car_pose, TrackSide::LEFT);
+  Position expected_yellow_cone_position =
+      expected_initial_cone_position(car_pose, TrackSide::RIGHT);
+
+  Cone initial_cone_left =
+      *std::min_element(uncolored_cones.begin(), uncolored_cones.end(),
+                        [&expected_blue_cone_position](const Cone& cone1, const Cone& cone2) {
+                          return cone1.position.euclidean_distance(expected_blue_cone_position) <
+                                 cone2.position.euclidean_distance(expected_blue_cone_position);
+                        });
+  Cone initial_cone_right =
+      *std::min_element(uncolored_cones.begin(), uncolored_cones.end(),
+                        [&expected_yellow_cone_position](const Cone& cone1, const Cone& cone2) {
+                          return cone1.position.euclidean_distance(expected_yellow_cone_position) <
+                                 cone2.position.euclidean_distance(expected_yellow_cone_position);
+                        });
+
+  if (initial_cone_left.position.euclidean_distance(expected_blue_cone_position) >
+      initial_cone_right.position.euclidean_distance(expected_yellow_cone_position)) {
+    expected_blue_cone_position = {expected_blue_cone_position.x + initial_cone_right.position.x -
+                                       expected_yellow_cone_position.x,
+                                   expected_blue_cone_position.y + initial_cone_right.position.y -
+                                       expected_yellow_cone_position.y};
+    uncolored_cones.erase(initial_cone_right);
+    colored_yellow_cones_.push_back(initial_cone_right);
+    n_colored_cones++;
+    initial_cone_left =
+        *std::min_element(uncolored_cones.begin(), uncolored_cones.end(),
+                          [&expected_blue_cone_position](const Cone& cone1, const Cone& cone2) {
+                            return cone1.position.euclidean_distance(expected_blue_cone_position) <
+                                   cone2.position.euclidean_distance(expected_blue_cone_position);
+                          });
+    uncolored_cones.erase(initial_cone_left);
+    colored_blue_cones_.push_back(initial_cone_left);
+    n_colored_cones++;
+  } else {
+    expected_yellow_cone_position = {
+        expected_yellow_cone_position.x + initial_cone_left.position.x -
+            expected_blue_cone_position.x,
+        expected_yellow_cone_position.y + initial_cone_left.position.y -
+            expected_blue_cone_position.y};
+    uncolored_cones.erase(initial_cone_left);
+    colored_blue_cones_.push_back(initial_cone_left);
+    n_colored_cones++;
+    initial_cone_right = *std::min_element(
+        uncolored_cones.begin(), uncolored_cones.end(),
+        [&expected_yellow_cone_position](const Cone& cone1, const Cone& cone2) {
+          return cone1.position.euclidean_distance(expected_yellow_cone_position) <
+                 cone2.position.euclidean_distance(expected_yellow_cone_position);
+        });
+    uncolored_cones.erase(initial_cone_right);
+    colored_yellow_cones_.push_back(initial_cone_right);
+    n_colored_cones++;
+  }
+  place_second_cones(uncolored_cones, car_pose, n_colored_cones);
+}
+
 Cone ConeColoring::virtual_cone_from_initial_cone(const Cone& initial_cone,
                                                   const Pose& car_pose) const {
   constexpr double distance_to_virtual_cone = 2.0;
@@ -48,30 +155,10 @@ Cone ConeColoring::virtual_cone_from_initial_cone(const Cone& initial_cone,
       initial_cone.color, 1.0};
 }
 
-void ConeColoring::place_initial_cones(std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones,
-                                       std::vector<Cone>& colored_blue_cones,
-                                       std::vector<Cone>& colored_yellow_cones,
-                                       const Pose& car_pose, int& n_colored_cones) const {
-  Cone initial_cone_left = find_initial_cone(uncolored_cones, car_pose, TrackSide::LEFT);
-  uncolored_cones.erase(initial_cone_left);
-  colored_blue_cones.push_back(initial_cone_left);
-  n_colored_cones++;
-
-  Cone initial_cone_right = find_initial_cone(uncolored_cones, car_pose, TrackSide::RIGHT);
-  uncolored_cones.erase(initial_cone_right);
-  colored_yellow_cones.push_back(initial_cone_right);
-  n_colored_cones++;
-
-  place_second_cones(uncolored_cones, colored_blue_cones, colored_yellow_cones, car_pose,
-                     n_colored_cones);
-}
-
 void ConeColoring::place_second_cones(std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones,
-                                      std::vector<Cone>& colored_blue_cones,
-                                      std::vector<Cone>& colored_yellow_cones, const Pose& car_pose,
-                                      int& n_colored_cones) const {
-  Cone first_left_cone = colored_blue_cones.front();
-  Cone first_right_cone = colored_yellow_cones.front();
+                                      const Pose& car_pose, int& n_colored_cones) {
+  Cone first_left_cone = colored_blue_cones_.front();
+  Cone first_right_cone = colored_yellow_cones_.front();
 
   double car_orientation = car_pose.orientation;
   double min_distance = std::numeric_limits<double>::max();
@@ -92,7 +179,7 @@ void ConeColoring::place_second_cones(std::unordered_set<Cone, std::hash<Cone>>&
     }
   }
   if (min_distance < std::numeric_limits<double>::max()) {
-    colored_blue_cones.push_back(second_left_cone);
+    colored_blue_cones_.push_back(second_left_cone);
     uncolored_cones.erase(second_left_cone);
     n_colored_cones++;
   } else {
@@ -116,7 +203,7 @@ void ConeColoring::place_second_cones(std::unordered_set<Cone, std::hash<Cone>>&
     }
   }
   if (min_distance < std::numeric_limits<double>::max()) {
-    colored_yellow_cones.push_back(second_right_cone);
+    colored_yellow_cones_.push_back(second_right_cone);
     uncolored_cones.erase(second_right_cone);
     n_colored_cones++;
   } else {
@@ -138,9 +225,52 @@ double ConeColoring::calculate_cost(const Cone& next_cone, const Cone& last_cone
   return cost;
 }
 
+void ConeColoring::remove_too_close_cones() {
+  for (int i = static_cast<int>(this->colored_blue_cones_.size()) - 1; i > 0; i--) {
+    if (this->colored_blue_cones_[i - 1].position.euclidean_distance(
+            this->colored_blue_cones_[i].position) < this->config_.same_cone_distance_threshold_) {
+      this->colored_blue_cones_.erase(this->colored_blue_cones_.begin() + i);
+    }
+  }
+  for (int i = static_cast<int>(this->colored_yellow_cones_.size()) - 1; i > 0; i--) {
+    if (this->colored_yellow_cones_[i - 1].position.euclidean_distance(
+            this->colored_yellow_cones_[i].position) <
+        this->config_.same_cone_distance_threshold_) {
+      this->colored_yellow_cones_.erase(this->colored_yellow_cones_.begin() + i);
+    }
+  }
+  // Check and remove cones that are too close between blue and yellow cones
+  for (int i = static_cast<int>(this->colored_blue_cones_.size()) - 1; i > 1; i--) {
+    for (int j = static_cast<int>(this->colored_yellow_cones_.size()) - 1; j > 1; j--) {
+      double distance = this->colored_blue_cones_[i].position.euclidean_distance(
+          this->colored_yellow_cones_[j].position);
+      if (distance < this->config_.same_cone_distance_threshold_) {
+        Cone last_cone = this->colored_blue_cones_[i - 1];
+        Cone previous_cone = this->colored_blue_cones_[i - 2];
+        TwoDVector last_vector = {last_cone.position.x - previous_cone.position.x,
+                                  last_cone.position.y - previous_cone.position.y};
+        double blue_cost = calculate_cost(this->colored_blue_cones_[i], last_cone, last_vector, 0);
+        last_cone = this->colored_yellow_cones_[j - 1];
+        previous_cone = this->colored_yellow_cones_[j - 2];
+        last_vector = {last_cone.position.x - previous_cone.position.x,
+                       last_cone.position.y - previous_cone.position.y};
+        double yellow_cost =
+            calculate_cost(this->colored_yellow_cones_[j], last_cone, last_vector, 0);
+
+        if (blue_cost > yellow_cost) {
+          this->colored_blue_cones_.erase(this->colored_blue_cones_.begin() + i);
+          break;  // Exit inner loop as this blue cone has been removed
+        } else {
+          this->colored_yellow_cones_.erase(this->colored_yellow_cones_.begin() + j);
+        }
+      }
+    }
+  }
+}
+
 bool ConeColoring::try_to_color_next_cone(
     std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones, std::vector<Cone>& colored_cones,
-    int& n_colored_cones, const int n_input_cones) const {
+    int& n_colored_cones, const int n_input_cones) {
   double min_cost = std::numeric_limits<double>::max();
   Cone cheapest_cone;
   const Cone last_cone = colored_cones.back();
@@ -168,54 +298,61 @@ bool ConeColoring::try_to_color_next_cone(
   }
 }
 
-std::pair<std::vector<Cone>, std::vector<Cone>> ConeColoring::color_cones(
-    std::vector<Cone> cones, const Pose& car_pose) const {
-  remove_duplicates(cones);
-  if (cones.size() < 2) {
-    RCLCPP_WARN(rclcpp::get_logger("Planning : ConeColoring"),
-                "Not enough cones recieved to be colored: %ld", cones.size());
-    return {};
+std::pair<std::vector<Cone>, std::vector<Cone>> ConeColoring::color_cones(std::vector<Cone> cones,
+                                                                          const Pose& car_pose) {
+  if (!this->config_.use_memory_) {
+    this->colored_blue_cones_.clear();
+    this->colored_yellow_cones_.clear();
   }
-  std::vector<Cone> colored_blue_cones;
-  std::vector<Cone> colored_yellow_cones;
-  colored_blue_cones.reserve(cones.size() / 2);
-  colored_yellow_cones.reserve(cones.size() / 2);
+  cones = filter_previously_colored_cones(cones);
+  remove_duplicates(cones);
+
   int n_colored_cones = 0;
   const auto n_input_cones = static_cast<int>(cones.size());
+  RCLCPP_DEBUG(rclcpp::get_logger("Planning : ConeColoring"), "Number of received cones: %d",
+               n_input_cones);
   std::unordered_set<Cone, std::hash<Cone>> uncolored_cones(cones.begin(), cones.end());
-  place_initial_cones(uncolored_cones, colored_blue_cones, colored_yellow_cones, car_pose,
-                      n_colored_cones);
-  int i = 0;
-  bool colouring = true;
+
+  if (this->colored_blue_cones_.empty() || this->colored_yellow_cones_.empty()) {
+    if (cones.size() < 4) {
+      RCLCPP_WARN(rclcpp::get_logger("Planning: Cone Coloring"), "No cones found yet.");
+      return {{}, {}};
+    } else {
+      place_initial_cones(uncolored_cones, car_pose, n_colored_cones);
+    }
+  }
+
+  bool colouring_blue_cones = true, colouring_yellow_cones = true;
   // Color blue cones
-  while (colouring) {
+  while (colouring_blue_cones || colouring_yellow_cones) {
     // keep coloring yellow cones while the function "try_to_color_next_cone" returns true (i.e. a
     // suitble cone is found)
-    if (i % 2 == 0) {
-      colouring = try_to_color_next_cone(uncolored_cones, colored_blue_cones, n_colored_cones,
-                                         n_input_cones);
-    } else {
-      colouring = try_to_color_next_cone(uncolored_cones, colored_yellow_cones, n_colored_cones,
-                                         n_input_cones);
-    }
-    i++;
+    colouring_blue_cones = try_to_color_next_cone(uncolored_cones, this->colored_blue_cones_,
+                                                  n_colored_cones, n_input_cones);
+    colouring_yellow_cones = try_to_color_next_cone(uncolored_cones, this->colored_yellow_cones_,
+                                                    n_colored_cones, n_input_cones);
   }
+
+  remove_too_close_cones();
+
   //// Color yellow cones
   // while (try_to_color_next_cone(uncolored_cones, colored_yellow_cones, n_colored_cones,
   //                               n_input_cones)) {
-  //   // keep coloring yellow cones while the function "try_to_color_next_cone" returns true (i.e.
+  //   // keep coloring yellow cones while the function "try_to_color_next_cone" returns true
+  //   (i.e.
   //   a
   //   // suitble cone is found)
   // }
-  colored_blue_cones.erase(colored_blue_cones.begin());
-  colored_yellow_cones.erase(colored_yellow_cones.begin());
-  if (colored_blue_cones.size() < 5) {
+  // colored_blue_cones.erase(colored_blue_cones.begin());
+  // colored_yellow_cones.erase(colored_yellow_cones.begin());
+
+  if (colored_blue_cones_.size() < 5) {
     RCLCPP_DEBUG(rclcpp::get_logger("Planning : ConeColoring"), "Not enough blue cones found: %ld",
-                 colored_blue_cones.size());
+                 colored_blue_cones_.size());
   }
-  if (colored_yellow_cones.size() < 5) {
+  if (colored_yellow_cones_.size() < 5) {
     RCLCPP_DEBUG(rclcpp::get_logger("Planning : ConeColoring"),
-                 "Not enough yellow cones found: %ld", colored_yellow_cones.size());
+                 "Not enough yellow cones found: %ld", colored_yellow_cones_.size());
   }
-  return {colored_blue_cones, colored_yellow_cones};
+  return {this->colored_blue_cones_, this->colored_yellow_cones_};
 }

@@ -50,27 +50,30 @@ TEST(ConeColoring, place_first_cones1) {
   double exponent_1 = 1.0;
   double exponent_2 = 1.0;
   double cost_max = 5000.0;
-  auto config =
-      ConeColoringConfig(gain_angle, gain_distance, gain_ncones, exponent_1, exponent_2, cost_max);
+  double same_cone_distance_threshold = 0.6;
+  bool use_memory = true;
+  auto config = ConeColoringConfig(gain_angle, gain_distance, gain_ncones, exponent_1, exponent_2,
+                                   cost_max, same_cone_distance_threshold, use_memory);
   auto cone_coloring = ConeColoring(config);
   auto initial_car_pose = Pose(30.0, 15.0, 0);
-  std::vector<common_lib::structures::Cone> blue_cones;
-  std::vector<common_lib::structures::Cone> yellow_cones;
   int colored_cones = 0;
-  cone_coloring.place_initial_cones(uncolored_cones, blue_cones, yellow_cones, initial_car_pose,
-                                    colored_cones);
-  EXPECT_NEAR(blue_cones[0].position.x, 30.986999, 0.001);
-  EXPECT_NEAR(blue_cones[0].position.y, 18.340000, 0.001);
-  EXPECT_EQ(blue_cones[1].color, common_lib::competition_logic::Color::YELLOW);
-  EXPECT_NEAR(yellow_cones[0].position.x, 29.8945, 0.001);
-  EXPECT_NEAR(yellow_cones[0].position.y, 13.0521, 0.001);
-  EXPECT_EQ(yellow_cones[1].color, common_lib::competition_logic::Color::BLUE);
-  EXPECT_NEAR(blue_cones[1].position.x, 34.640998, 0.001);
-  EXPECT_NEAR(blue_cones[1].position.y, 17.208000, 0.001);
-  EXPECT_EQ(blue_cones[1].color, common_lib::competition_logic::Color::YELLOW);
-  EXPECT_NEAR(yellow_cones[1].position.x, 33.45899, 0.001);
-  EXPECT_NEAR(yellow_cones[1].position.y, 12.34300, 0.001);
-  EXPECT_EQ(yellow_cones[1].color, common_lib::competition_logic::Color::BLUE);
+  cone_coloring.place_initial_cones(uncolored_cones, initial_car_pose, colored_cones);
+  EXPECT_NEAR(cone_coloring.colored_blue_cones_[0].position.x, 30.986999, 0.001);
+  EXPECT_NEAR(cone_coloring.colored_blue_cones_[0].position.y, 18.340000, 0.001);
+  EXPECT_EQ(cone_coloring.colored_blue_cones_[1].color,
+            common_lib::competition_logic::Color::YELLOW);
+  EXPECT_NEAR(cone_coloring.colored_yellow_cones_[0].position.x, 29.8945, 0.001);
+  EXPECT_NEAR(cone_coloring.colored_yellow_cones_[0].position.y, 13.0521, 0.001);
+  EXPECT_EQ(cone_coloring.colored_yellow_cones_[1].color,
+            common_lib::competition_logic::Color::BLUE);
+  EXPECT_NEAR(cone_coloring.colored_blue_cones_[1].position.x, 34.640998, 0.001);
+  EXPECT_NEAR(cone_coloring.colored_blue_cones_[1].position.y, 17.208000, 0.001);
+  EXPECT_EQ(cone_coloring.colored_blue_cones_[1].color,
+            common_lib::competition_logic::Color::YELLOW);
+  EXPECT_NEAR(cone_coloring.colored_yellow_cones_[1].position.x, 33.45899, 0.001);
+  EXPECT_NEAR(cone_coloring.colored_yellow_cones_[1].position.y, 12.34300, 0.001);
+  EXPECT_EQ(cone_coloring.colored_yellow_cones_[1].color,
+            common_lib::competition_logic::Color::BLUE);
 }
 
 /**
@@ -88,27 +91,28 @@ TEST(ConeColoring, place_first_cones2) {
   double exponent_1 = 1.0;
   double exponent_2 = 1.0;
   double cost_max = 5000.0;
-  auto config =
-      ConeColoringConfig(gain_angle, gain_distance, gain_ncones, exponent_1, exponent_2, cost_max);
+  double same_cone_distance_threshold = 0.6;
+  bool use_memory = true;
+  auto config = ConeColoringConfig(gain_angle, gain_distance, gain_ncones, exponent_1, exponent_2,
+                                   cost_max, same_cone_distance_threshold, use_memory);
   auto cone_coloring = ConeColoring(config);
   auto initial_car_pose = Pose(30.0, 15.0, 3.1416);
-  std::vector<common_lib::structures::Cone> blue_cones;
-  std::vector<common_lib::structures::Cone> yellow_cones;
   int colored_cones = 0;
-  cone_coloring.place_initial_cones(uncolored_cones, blue_cones, yellow_cones, initial_car_pose,
-                                    colored_cones);
-  EXPECT_NEAR(yellow_cones[0].position.x, 30.986999, 0.001);
-  EXPECT_NEAR(yellow_cones[0].position.y, 18.340000, 0.001);
-  EXPECT_EQ(yellow_cones[1].color, common_lib::competition_logic::Color::YELLOW);
-  EXPECT_NEAR(blue_cones[0].position.x, 29.8950, 0.001);
-  EXPECT_NEAR(blue_cones[0].position.y, 13.0521, 0.001);
-  EXPECT_EQ(blue_cones[1].color, common_lib::competition_logic::Color::BLUE);
-  EXPECT_NEAR(yellow_cones[1].position.x, 27.408000, 0.001);
-  EXPECT_NEAR(yellow_cones[1].position.y, 17.923999, 0.001);
-  EXPECT_EQ(yellow_cones[1].color, common_lib::competition_logic::Color::YELLOW);
-  EXPECT_NEAR(blue_cones[1].position.x, 26.46400, 0.001);
-  EXPECT_NEAR(blue_cones[1].position.y, 11.49600, 0.001);
-  EXPECT_EQ(blue_cones[1].color, common_lib::competition_logic::Color::BLUE);
+  cone_coloring.place_initial_cones(uncolored_cones, initial_car_pose, colored_cones);
+  EXPECT_NEAR(cone_coloring.colored_yellow_cones_[0].position.x, 30.986999, 0.001);
+  EXPECT_NEAR(cone_coloring.colored_yellow_cones_[0].position.y, 18.340000, 0.001);
+  EXPECT_EQ(cone_coloring.colored_yellow_cones_[1].color,
+            common_lib::competition_logic::Color::YELLOW);
+  EXPECT_NEAR(cone_coloring.colored_blue_cones_[0].position.x, 29.8950, 0.001);
+  EXPECT_NEAR(cone_coloring.colored_blue_cones_[0].position.y, 13.0521, 0.001);
+  EXPECT_EQ(cone_coloring.colored_blue_cones_[1].color, common_lib::competition_logic::Color::BLUE);
+  EXPECT_NEAR(cone_coloring.colored_yellow_cones_[1].position.x, 27.408000, 0.001);
+  EXPECT_NEAR(cone_coloring.colored_yellow_cones_[1].position.y, 17.923999, 0.001);
+  EXPECT_EQ(cone_coloring.colored_yellow_cones_[1].color,
+            common_lib::competition_logic::Color::YELLOW);
+  EXPECT_NEAR(cone_coloring.colored_blue_cones_[1].position.x, 26.46400, 0.001);
+  EXPECT_NEAR(cone_coloring.colored_blue_cones_[1].position.y, 11.49600, 0.001);
+  EXPECT_EQ(cone_coloring.colored_blue_cones_[1].color, common_lib::competition_logic::Color::BLUE);
 }
 
 /**
@@ -118,6 +122,7 @@ TEST(ConeColoring, place_first_cones2) {
 TEST(ConeColoring, fullconecoloring1) {
   std::vector<common_lib::structures::Cone> track_cones =
       cone_vector_from_file("src/planning/tracks/track1.txt");
+
   int c_right;
   int inc_right;
   int c_left;
@@ -128,8 +133,8 @@ TEST(ConeColoring, fullconecoloring1) {
   auto track = cone_coloring.color_cones(track_cones, initial_car_pose);
 
   test_cone_coloring(track, c_left, c_right, inc_left, inc_right);
-  EXPECT_EQ(c_left, 11);
-  EXPECT_EQ(c_right, 12);
+  EXPECT_EQ(c_left, 12);
+  EXPECT_EQ(c_right, 14);
   EXPECT_EQ(inc_left, 0);
   EXPECT_EQ(inc_right, 1);
 }

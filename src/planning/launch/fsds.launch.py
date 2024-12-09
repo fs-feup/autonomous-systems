@@ -13,32 +13,42 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "angle_gain",
                 description="Gain for the angle in the cone coloring cost function",
-                default_value="11.0",
+                default_value="10.246",
             ),
             DeclareLaunchArgument(
                 "distance_gain",
                 description="Gain for the distance in the cone coloring cost function",
-                default_value="8.0",
+                default_value="6.657",
             ),
             DeclareLaunchArgument(
                 "ncones_gain",
                 description="Gain for the number of cones in the cone coloring cost funtcion",
-                default_value="8.7",
+                default_value="20.7",
             ),
             DeclareLaunchArgument(
                 "angle_exponent",
                 description="Exponent on the angle in the cone coloring cost function",
-                default_value="5.3",
+                default_value="2.0",
             ),
             DeclareLaunchArgument(
                 "distance_exponent",
                 description="Exponent on the distance in the cone coloring cost function",
-                default_value="0.698",
+                default_value="0.998",
             ),
             DeclareLaunchArgument(
                 "cost_max",
                 description="Maximum allowed cost to place a cone in the cone coloring cost function",
-                default_value="40.0",
+                default_value="35.0",
+            ),
+            DeclareLaunchArgument(
+                "same_cone_distance_threshold",
+                description="Distance threshold to consider cones as duplicates or previously seen",
+                default_value="0.6",
+            ),
+            DeclareLaunchArgument(
+                "use_memory_cone_coloring",
+                description="Whether to make cone coloring memorize cones from one run to another",
+                default_value="true",
             ),
             DeclareLaunchArgument(
                 "outliers_spline_order",
@@ -93,12 +103,12 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "pre_defined_velocity_planning",
                 description="A pre-defined velocity planning value",
-                default_value="5",
+                default_value="4.0",
             ),
             DeclareLaunchArgument(
                 "use_outlier_removal",
                 description="Whether to use outlier removal or to skip it",
-                default_value="true",
+                default_value="false",
             ),
             DeclareLaunchArgument(
                 "use_path_smoothing",
@@ -116,6 +126,16 @@ def generate_launch_description():
                     {"angle_exponent": LaunchConfiguration("angle_exponent")},
                     {"distance_exponent": LaunchConfiguration("distance_exponent")},
                     {"cost_max": LaunchConfiguration("cost_max")},
+                    {
+                        "same_cone_distance_threshold": LaunchConfiguration(
+                            "same_cone_distance_threshold"
+                        )
+                    },
+                    {
+                        "use_memory_cone_coloring": LaunchConfiguration(
+                            "use_memory_cone_coloring"
+                        )
+                    },
                     {
                         "outliers_spline_order": LaunchConfiguration(
                             "outliers_spline_order"

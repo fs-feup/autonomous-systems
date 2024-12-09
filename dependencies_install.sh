@@ -26,19 +26,20 @@ rospack find sensor_msgs -y
 sudo apt-get install libpcap-dev -y
 
 # ground truth generation
-sudo pip install pandas
+pip install pandas
 sudo apt-get install python3-matplotlib -y
 
 # evaluator
-sudo pip3 install transforms3d
+pip install transforms3d
 
 #cloud storage
-sudo pip install google-cloud-storage
+pip install google-cloud-storage
 
 #local dashboard
-sudo pip install dash
+pip install dash
 
 # needed to not broke evaluator
-sudo pip install numpy==1.24.4
-sudo pip install transforms3d==0.4.1
-sudo pip install scipy==1.10.0
+pip install numpy==1.21.5
+
+pip install transforms3d==0.4.1
+pip install scipy==1.10.0

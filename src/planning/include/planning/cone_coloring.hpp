@@ -38,6 +38,14 @@ private:
   void remove_duplicates(std::vector<Cone>& cones) const;
 
   /**
+   * @brief function to filter the cones which have been colored previously
+   *
+   * @param cones vector of cones from SE
+   * @return std::vector<Cone> vector of cones which have not been colored
+   */
+  std::vector<Cone> filter_previously_colored_cones(const std::vector<Cone>& cones);
+
+  /**
    * @brief calculate the expected position of the initial cones
    *
    * @param car_pose car pose in the map relative to the origin
@@ -69,29 +77,21 @@ private:
    * @brief function to place the initial cones, including the virtual ones
    *
    * @param uncolored_cones set of cones
-   * @param colored_blue_cones vector of blue cones (where the blue cones will be added)
-   * @param colored_yellow_cones vector of yellow cones (where the yellow cones will be added)
    * @param car_pose car pose in the map relative to the origin
    * @param n_colored_cones number of colored cones which will be updated
    */
   void place_initial_cones(std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones,
-                           std::vector<Cone>& colored_blue_cones,
-                           std::vector<Cone>& colored_yellow_cones, const Pose& car_pose,
-                           int& n_colored_cones) const;
+                           const Pose& car_pose, int& n_colored_cones);
 
   /**
    * @brief function to place the second cones by selecting the closest to initial cones
    *
    * @param uncolored_cones set of cones
-   * @param colored_blue_cones vector of blue cones (where the blue cones will be added)
-   * @param colored_yellow_cones vector of yellow cones (where the yellow cones will be added)
    * @param car_pose car pose in the map relative to the origin
    * @param n_colored_cones number of colored cones which will be updated
    */
   void place_second_cones(std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones,
-                          std::vector<Cone>& colored_blue_cones,
-                          std::vector<Cone>& colored_yellow_cones, const Pose& car_pose,
-                          int& n_colored_cones) const;
+                          const Pose& car_pose, int& n_colored_cones);
 
   /**
    * @brief calculate the cost of coloring a cone
@@ -107,6 +107,13 @@ private:
                         const double& colored_to_input_cones_ratio) const;
 
   /**
+   * @brief Useful when using memory to delete cones which after some
+   * times being detected become too close.
+   *
+   */
+  void remove_too_close_cones();
+
+  /**
    * @brief select the next cone (which minimizes the cost) to be colored if its cost is less than
    * the maximum established in the configuration
    *
@@ -120,9 +127,11 @@ private:
    */
   bool try_to_color_next_cone(std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones,
                               std::vector<Cone>& colored_cones, int& n_colored_cones,
-                              const int n_input_cones) const;
+                              const int n_input_cones);
 
 public:
+  std::vector<Cone> colored_blue_cones_;
+  std::vector<Cone> colored_yellow_cones_;
   /**
    * @brief Construct a new default ConeColoring object
    *
@@ -142,7 +151,7 @@ public:
    * cones and the second vector contains the yellow cones
    */
   std::pair<std::vector<Cone>, std::vector<Cone>> color_cones(std::vector<Cone> cones,
-                                                              const Pose& car_pose) const;
+                                                              const Pose& car_pose);
 
   /**
    * @brief tests are declared as friend to test the behaviour of private functions

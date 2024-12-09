@@ -65,19 +65,3 @@ This project depends on submodules to function. Most, if not all of these submod
 
 Check the git advanced tutorial in the startup guide later if you want to understand how submodules work.
 
-### Simulator Setup
-
-We use multiple simulators in our project:
-
-#### FSDS
-
-The simulator requires Ubuntu to work (or WSL). The tutorial regarding its setup is [here](./environment_setup/fsds_setup.md).
-
-#### PacSim
-
-This simulator is very light and can run on anything, inside or outside a docker container. Follow the [tutorial](./environment_setup/pacsim_setup.md), or repher to its [fork repo](https://github.com/fs-feup/pacsim) right away.
-
-#### EUFS
-
-This simulator is mostly used to simulate the LiDAR because it is quite light, and it requires Ubuntu to work. To set it up, refer to the short [tutorial](./environment_setup/eufs_setup.md) or to the full [tutorial](https://github.com/fs-feup/eufs-sim) in EUFS Simulator's repository.
-

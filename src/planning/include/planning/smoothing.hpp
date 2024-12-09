@@ -8,7 +8,7 @@
 #include "config/smoothing_config.hpp"
 #include "utils/splines.hpp"
 
-constexpr double MAX_DISTANCE_BETWEEN_POINTS = 8.5;
+constexpr double MAX_DISTANCE_BETWEEN_POINTS = 4.5;
 
 using PathPoint = common_lib::structures::PathPoint;
 using Pose = common_lib::structures::Pose;
@@ -29,8 +29,10 @@ private:
    *
    * @param unord_path unoredred path points
    * @param car_pose pose of the car to start ordering according to the closest point
+   * @param initial_car_orientation initial orientation of the car (usually 0 but not on some tests)
    */
-  void order_path(std::vector<PathPoint>& unord_path, const Pose& car_pose) const;
+  void order_path(std::vector<PathPoint>& unord_path, const Pose& car_pose,
+                  const double initial_car_orientation) const;
 
 public:
   /**
@@ -48,11 +50,12 @@ public:
    *
    * @param unordered_path input vector of unordered path points
    * @param car_pose pose of the car to start ordering according to the closest point
+   * @param initial_car_orientation initial orientation of the car (usually 0 but not on some tests)
    * @return std::vector<PathPoint> smoothed path points ordered from the closest to the car to
    * farthest
    */
-  std::vector<PathPoint> smooth_path(std::vector<PathPoint>& unordered_path,
-                                     const Pose& car_pose) const;
+  std::vector<PathPoint> smooth_path(std::vector<PathPoint>& unordered_path, const Pose& car_pose,
+                                     const double initial_car_orientation) const;
 };
 
 #endif  // SRC_PLANNING_INCLUDE_PLANNING_SMOOTHING2_HPP_

@@ -15,13 +15,53 @@ def generate_launch_description():
             ),
             DeclareLaunchArgument(
                 "adapter",
-                description="Vehicle or Simulation mode (pacsim, fsds, eufs)",
+                description="Vehicle or Simulation mode (pacsim, vehicle, fsds, eufs)",
                 default_value="vehicle",
             ),
             DeclareLaunchArgument(
                 "lookahead_gain",
                 description="Variable K -> Lookahead Gain",
+                default_value="1.5",
+            ),
+            DeclareLaunchArgument(
+                "pid_kp",
+                description="Proportional Gain of Longitudinal Control",
+                default_value="0.4",
+            ),
+            DeclareLaunchArgument(
+                "pid_ki",
+                description="Integral Gain of Longitudinal Control",
+                default_value="0.3",
+            ),
+            DeclareLaunchArgument(
+                "pid_kd",
+                description="Derivative Gain of Longitudinal Control",
+                default_value="0.09",
+            ),
+            DeclareLaunchArgument(
+                "pid_tau",
+                description="Derivative low pass filter time constant of Longitudinal Control",
                 default_value="0.5",
+            ),
+            DeclareLaunchArgument(
+                "pid_t",
+                description="Sampling period of Longitudinal Control",
+                default_value="0.01",
+            ),
+            DeclareLaunchArgument(
+                "pid_lim_min",
+                description="Minimum output value of Longitudinal Control",
+                default_value="-1.0",
+            ),
+            DeclareLaunchArgument(
+                "pid_lim_max",
+                description="Maximum output value of Longitudinal Control",
+                default_value="1.0",
+            ),
+            DeclareLaunchArgument(
+                "pid_anti_windup",
+                description="Anti windup constant of Longitudinal Control",
+                default_value="0.7",
             ),
             DeclareLaunchArgument(
                 "use_simulated_se",
@@ -42,7 +82,7 @@ def generate_launch_description():
                     {"lookahead_gain": LaunchConfiguration("lookahead_gain")},
                     {"use_simulated_se": LaunchConfiguration("use_simulated_se")},
                 ],
-                arguments=["--ros-args", "--log-level", "control:=info"],
+                arguments=["--ros-args", "--log-level", "control:=debug"],
             ),
         ]
     )

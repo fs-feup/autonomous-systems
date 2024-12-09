@@ -19,6 +19,9 @@ using namespace common_lib::structures;
 
 using namespace common_lib::communication;
 
+bool received_vehicle_state = false;
+bool received_path_point_array = false;
+
 Control::Control(const ControlParameters& params)
     : Node("control"),
       using_simulated_se_(params.using_simulated_se_),
@@ -32,6 +35,8 @@ Control::Control(const ControlParameters& params)
           [this](const custom_interfaces::msg::PathPointArray& msg) {
             RCLCPP_DEBUG(this->get_logger(), "Received pathpoint array");
             pathpoint_array_ = msg.pathpoint_array;
+            received_path_point_array = true;
+            received_vehicle_state = false;
           })),
       closest_point_pub_(create_publisher<visualization_msgs::msg::Marker>(
           "/control/visualization/closest_point", 10)),
@@ -51,7 +56,27 @@ Control::Control(const ControlParameters& params)
 
 // This function is called when a new pose is received
 void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicle_state_msg) {
-  if (!go_signal_) return;
+
+  if (!go_signal_) {
+    RCLCPP_INFO(rclcpp::get_logger("control"),
+                 "Go Signal Not received");
+
+    return;
+  }
+
+  if (received_path_point_array && !received_vehicle_state) {
+      RCLCPP_DEBUG(rclcpp::get_logger("control"),
+                  "First Vehicle State Received");
+
+      received_vehicle_state = true;
+      custom_interfaces::msg::PathPoint initial;
+      initial.x = vehicle_state_msg.position.x;
+      initial.y = vehicle_state_msg.position.y;
+      initial.v = vehicle_state_msg.linear_velocity;
+
+      // Insert at the beginning of the pathpoint_array_ (true "push_front")
+      pathpoint_array_.insert(pathpoint_array_.begin(), initial);
+  }
 
   rclcpp::Time start = this->now();
 
@@ -63,15 +88,18 @@ void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicl
   auto [closest_point, closest_point_id, closest_point_velocity] =
       this->point_solver_.update_closest_point(pathpoint_array_);
   if (closest_point_id == -1) {
-    RCLCPP_ERROR(rclcpp::get_logger("control"), "PurePursuit: Failed to update closest point");
+    RCLCPP_ERROR(rclcpp::get_logger("control"),
+                 "PurePursuit: Failed to update closest point, size of pathpoint_array: %ld",
+                 pathpoint_array_.size());
     return;
   }
 
   // update the Lookahead point
   auto [lookahead_point, lookahead_velocity, lookahead_error] =
       this->point_solver_.update_lookahead_point(pathpoint_array_, closest_point_id);
+
   if (lookahead_error) {
-    RCLCPP_ERROR(rclcpp::get_logger("control"), "PurePursuit: Failed to update lookahed point");
+    RCLCPP_DEBUG(rclcpp::get_logger("control"), "PurePursuit: Failed to update lookahed point");
     return;
   }
 
