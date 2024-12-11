@@ -143,6 +143,21 @@ def generate_launch_description():
                 description="Minimum z score on cones distribution (y)",
                 default_value="1000000000.0",
             ),
+            DeclareLaunchArgument(
+                "min_distance_x",
+                description="Minimum distance on the x axis for the cluster ",
+                default_value="0.1",  # untested
+            ),
+            DeclareLaunchArgument(
+                "min_distance_y",
+                description="Minimum distance on the y axis for the cluster ",
+                default_value="0.1",  # untested
+            ),
+            DeclareLaunchArgument(
+                "min_distance_z",
+                description="Minimum distance on the z axis for the cluster ",
+                default_value="0.25",  # untested
+            ),
             Node(
                 package="perception",
                 executable="perception",
@@ -201,6 +216,9 @@ def generate_launch_description():
                     {"max_z_score_x": LaunchConfiguration("max_z_score_x")},
                     {"min_z_score_y": LaunchConfiguration("min_z_score_y")},
                     {"max_z_score_y": LaunchConfiguration("max_z_score_y")},
+                    {"min_distance_x": LaunchConfiguration("min_distance_x")},
+                    {"min_distance_y": LaunchConfiguration("min_distance_y")},
+                    {"min_distance_z": LaunchConfiguration("min_distance_z")},
                 ],
                 arguments=["--ros-args", "--log-level", "perception:=debug"],
             ),

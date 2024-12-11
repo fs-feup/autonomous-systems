@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cone_validator/deviation_validator.hpp>
+#include <cone_validator/size_validator.hpp>
 #include <cone_validator/z_score_validator.hpp>
 #include <string>
 
@@ -53,6 +54,9 @@ PerceptionParameters load_adapter_parameters() {
   double max_xoy = adapter_node->declare_parameter("max_xoy", 0.3);
   double min_z = adapter_node->declare_parameter("min_z", 0.00001);
   double max_z = adapter_node->declare_parameter("max_z", 0.6);
+  double min_distance_x = adapter_node->declare_parameter("min_distance_x", 0.1);   // untested
+  double min_distance_y = adapter_node->declare_parameter("min_distance_y", 0.1);   // untested
+  double min_distance_z = adapter_node->declare_parameter("min_distance_z", 0.25);  // untested
 
   // Z-Score Validator Parameters
   double min_z_score_x = adapter_node->declare_parameter("min_z_score_x", 0.45);
@@ -67,6 +71,7 @@ PerceptionParameters load_adapter_parameters() {
       std::make_shared<HeightValidator>(min_height, large_max_height, small_max_height),
       std::make_shared<CylinderValidator>(0.228, 0.325, 0.285, 0.505),
       std::make_shared<DeviationValidator>(min_xoy, max_xoy, min_z, max_z),
+      std::make_shared<SizeValidator>(min_distance_x, min_distance_y, min_distance_z),
       std::make_shared<ZScoreValidator>(min_z_score_x, max_z_score_x, min_z_score_y,
                                         max_z_score_y)};
 

@@ -30,6 +30,7 @@ set(IMPLEMENTATION_FILES
   src/utils/cluster.cpp
   src/cone_validator/cylinder_validator.cpp
   src/cone_validator/height_validator.cpp
+  src/cone_validator/size_validator.cpp
   src/cone_validator/deviation_validator.cpp
   src/cone_validator/z_score_validator.cpp
   src/utils/plane.cpp
