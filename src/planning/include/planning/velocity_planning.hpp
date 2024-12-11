@@ -19,6 +19,34 @@ private:
    *
    */
   VelocityPlanningConfig config_;
+
+  /**
+   * @brief function to calculate the radius of the circle that passes through 3 points
+   *
+   * @param point1 first point
+   * @param point2 second point
+   * @param point3 third point
+   * @return radius of the circle
+   */
+  double find_circle_center(PathPoint &point1, PathPoint &point2, PathPoint &point3);
+
+  /**
+   * @brief function to limit the speed of the car according to the curvature of the lookahead path
+   *
+   * @param points path points
+   * @param velocities velocities of the path points
+   * @param brake_acelleration maximum braking acelleration
+   */
+  void speed_limiter(std::vector<PathPoint> &points, std::vector<double> &velocities);
+
+  /**
+   * @brief function to calculate the speed of the car according to the curvature of the path
+   *
+   * @param radiuses radiuses vector of the path points
+   * @param velocities velocities vector of the path points
+   */
+  void point_speed(std::vector<double> &radiuses, std::vector<double> &velocities);
+
 public:
   /**
    * @brief Construct a new default Path Smoothing object
@@ -30,35 +58,8 @@ public:
    *
    */
   explicit VelocityPlanning(VelocityPlanningConfig config) : config_(config) {}
-  
-    /**
-     * @brief function to calculate the radius of the circle that passes through 3 points
-     *
-     * @param point1 first point
-     * @param point2 second point
-     * @param point3 third point
-     * @return radius of the circle
-     */
-  double find_circle_center(PathPoint &point1, PathPoint &point2, PathPoint &point3);
 
-    /**
-     * @brief function to limit the speed of the car according to the curvature of the lookahead path
-     *
-     * @param points path points
-     * @param velocities velocities of the path points
-     * @param brake_acelleration maximum braking acelleration
-     */
-  void speed_limiter(std::vector<PathPoint> &points, std::vector<double> &velocities);
-
-    /**
-     * @brief function to calculate the speed of the car according to the curvature of the path
-     * 
-     * @param radiuses radiuses vector of the path points
-     * @param velocities velocities vector of the path points
-     */
-    void point_speed(std::vector<double> &radiuses, std::vector<double> &velocities);
-
-    void set_velocity(std::vector<PathPoint> &final_path);
+  void set_velocity(std::vector<PathPoint> &final_path);
 };
 
 #endif  // SRC_PLANNING_INCLUDE_PLANNING_SMOOTHING2_HPP_
