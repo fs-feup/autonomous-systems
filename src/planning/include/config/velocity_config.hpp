@@ -10,7 +10,7 @@ struct VelocityPlanningConfig {
    * @brief minimum speed the car will consider on the velocity planning lookahead
    *
    */
-  double safety_speed_ = 3;
+  double minimum_velocity_ = 3;
   /**
    * @brief maximum braking acceleration
    *
@@ -27,8 +27,8 @@ struct VelocityPlanningConfig {
    */
   bool use_velocity_planning_ = true;
   VelocityPlanningConfig() = default;
-  VelocityPlanningConfig(double safety_speed, double braking_acc, double normal_acc, bool use_velocity_planning)
-      : safety_speed_(safety_speed),
+  VelocityPlanningConfig(double minimum_velocity, double braking_acc, double normal_acc, bool use_velocity_planning)
+      : minimum_velocity_(minimum_velocity),
       braking_acceleration_(braking_acc),
       normal_acceleration_(normal_acc),
       use_velocity_planning_(use_velocity_planning) {}
