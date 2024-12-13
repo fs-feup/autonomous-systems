@@ -47,6 +47,7 @@ set(TEST_INCLUDE_FILES
   test/performance_test.cpp
   test/height_validator_test.cpp
   test/cylinder_validator_test.cpp
+  test/size_validator_test.cpp
   test/grid_ransac_test.cpp
   test/distance_validator_test.cpp
   test/icp_test.cpp
