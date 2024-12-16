@@ -46,7 +46,7 @@ class SENode : public rclcpp::Node {
   std::shared_ptr<common_lib::structures::VehicleState> _vehicle_state_;
   common_lib::competition_logic::Mission _mission_;
   rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr _position_publisher_;
-  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr _car_model_publisher_;
+  rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr _car_model_publisher_;
   bool _go_;  /// flag to start the mission
   bool _use_odometry_;
   bool _use_simulated_perception_;

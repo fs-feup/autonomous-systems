@@ -81,7 +81,7 @@ SENode::SENode() : Node("ekf_state_est") {
 
   this->_position_publisher_ = this->create_publisher<visualization_msgs::msg::Marker>(
       "/state_estimation/visualization/position", 10);
-  this->_car_model_publisher_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
+  this->_car_model_publisher_ = this->create_publisher<visualization_msgs::msg::Marker>(
       "/state_estimation/visualization/car_model", 10);
 }
 
