@@ -250,12 +250,12 @@ public:
             kappaRear = 0.0;
         }
 
-        double powertrainEfficiency = 0.002333 * (this->torques.RL + this->torques.RR) * 0.5 + 0.594;
+        double powertrainEfficiency = 0.002333 * (this->torques.RL + this->torques.RR) + 0.594;
         // Calculate longitudinal forces on the wheels
         double Fx_FL = 0;
         double Fx_FR = 0;
-        double Fx_RL = (this->gearRatio * this->torques.RL / (this->wheelRadius*2)) * powertrainEfficiency;
-        double Fx_RR = (this->gearRatio * this->torques.RR / (this->wheelRadius*2)) * powertrainEfficiency;
+        double Fx_RL = (this->gearRatio * this->torques.RL / (this->wheelRadius)) * powertrainEfficiency;
+        double Fx_RR = (this->gearRatio * this->torques.RR / (this->wheelRadius)) * powertrainEfficiency;
 
         // Apply forces only if the torques are significant or the vehicle is moving
         Fx_FL *= (((this->torques.FL) > 0.5) || (vCog.x() > 0.3)) ? 1.0 : 0.0;
@@ -316,10 +316,12 @@ public:
         this->position += (yawAngle.matrix() * this->velocity) * dt;
 
         // Convert the throttle actuation to torques
+        // Torque is half for each wheel, 120nm is max total torque.
+
         this->torques.FL = 0;
         this->torques.FR = 0;
-        this->torques.RL = this->throttleActuation * 120;
-        this->torques.RR = this->throttleActuation * 120;
+        this->torques.RL = this->throttleActuation * 120 * 0.5;
+        this->torques.RR = this->throttleActuation * 120 * 0.5;
 
         // Get dynamic states
         Eigen::Vector3d xdotdyn = getDynamicStates(dt);
