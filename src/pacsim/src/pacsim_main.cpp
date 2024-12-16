@@ -84,6 +84,7 @@ std::map<std::shared_ptr<GnssSensor>, rclcpp::Publisher<pacsim::msg::GNSS>::Shar
 
 DeadTime<double> deadTimeSteeringFront(0.0);
 DeadTime<double> deadTimeSteeringRear(0.0);
+DeadTime<double> deadTimeThrottle(0.0);
 DeadTime<Wheels> deadTimeTorques(0.0);
 DeadTime<Wheels> deadTimeWspdSetpoints(0.0);
 DeadTime<Wheels> deadTimeMaxTorques(0.0);
@@ -163,6 +164,7 @@ int threadMainLoopFunc(std::shared_ptr<rclcpp::Node> node)
 
     deadTimeSteeringFront = DeadTime<double>(0.05);
     deadTimeSteeringRear = DeadTime<double>(0.05);
+    deadTimeThrottle = DeadTime<double>(0.02);
     deadTimeTorques = DeadTime<Wheels>(0.02);
     deadTimeWspdSetpoints = DeadTime<Wheels>(0.02);
     deadTimeMaxTorques = DeadTime<Wheels>(0.02);
@@ -185,7 +187,7 @@ int threadMainLoopFunc(std::shared_ptr<rclcpp::Node> node)
         clockPub->publish(clockMsg);
         auto wheelPositions = model->getWheelPositions();
         Wheels gripValues = gm.getGripValues(wheelPositions);
-        model->forwardIntegrate(timestep, gripValues);
+        model->forwardIntegrate(timestep/* , gripValues */);
         auto t = model->getPosition();
         auto rEulerAngles = model->getOrientation();
         auto alpha = model->getAngularAcceleration();
@@ -225,6 +227,12 @@ int threadMainLoopFunc(std::shared_ptr<rclcpp::Node> node)
         {
             Wheels val = deadTimeMinTorques.getOldest();
             model->setMinTorques(val);
+        }
+        if (deadTimeThrottle.availableDeadTime(simTime))
+        {
+            RCLCPP_INFO_STREAM(rclcpp::get_logger("pacsim_logger"), "Setting throttle because of dead time");
+            double val = deadTimeThrottle.getOldest();
+            model->setThrottle(val);
         }
         if (deadTimePowerGroundSetpoint.availableDeadTime(simTime))
         {
@@ -373,10 +381,13 @@ int threadMainLoopFunc(std::shared_ptr<rclcpp::Node> node)
         nextLoopTime += std::chrono::microseconds((int)((timestep / realtimeRatio) * 1000000.0));
         std::this_thread::sleep_until(nextLoopTime);
     }
+    logger->logWarning("Ros status, 1 is OK, 0 is not OK: " + to_string(rclcpp::ok()));
+    logger->logWarning("Simulation finished, generating report");
     Report report;
     cl->fillReport(report, simTime);
     report.track_name = trackName;
     reportToFile(report, report_file_dir);
+    logger->logWarning("Canceling executor!");
     executor->cancel();
     return 0;
 }
@@ -386,6 +397,13 @@ void cbFuncLat(const pacsim::msg::StampedScalar& msg)
     std::lock_guard<std::mutex> l(mutexSimTime);
     deadTimeSteeringFront.addVal(msg.value, simTime);
     deadTimeSteeringRear.addVal(0.0, simTime);
+}
+
+void cbFuncLong(const pacsim::msg::StampedScalar& msg)
+{
+    RCLCPP_INFO_STREAM(rclcpp::get_logger("pacsim_logger"), "Adding value to dead time throttle");
+    std::lock_guard<std::mutex> l(mutexSimTime);
+    deadTimeThrottle.addVal(msg.value, simTime);
 }
 
 void cbFuncTorquesInverterMin(const pacsim::msg::Wheels& msg)
@@ -599,6 +617,10 @@ int main(int argc, char** argv)
     auto torquessubmax
         = node->create_subscription<pacsim::msg::Wheels>("/pacsim/torques_max", 1, cbFuncTorquesInverterMax);
 
+    auto throttleSub = node->create_subscription<pacsim::msg::StampedScalar>("/pacsim/throttle_setpoint", 1, cbFuncLong);
+    RCLCPP_INFO_STREAM(rclcpp::get_logger("pacsim_logger"), "Createdsubscription for throttle");
+
+
     auto wspdSetpointSub
         = node->create_subscription<pacsim::msg::Wheels>("/pacsim/wheelspeed_setpoints", 1, cbWheelspeeds);
 
@@ -668,7 +690,7 @@ int main(int argc, char** argv)
     executor->spin();
 
     mainLoopThread.join();
-
+    logger->logWarning("Finished pacsim");
     rclcpp::shutdown();
 
     return 0;

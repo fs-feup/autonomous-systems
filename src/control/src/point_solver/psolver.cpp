@@ -21,15 +21,9 @@ void PointSolver::update_vehicle_pose(
 
   this->vehicle_pose_.velocity_ = vehicle_state_msg.linear_velocity;
   this->vehicle_pose_.orientation = vehicle_state_msg.theta;
-  // RCLCPP_DEBUG(rclcpp::get_logger("control"),
-  //              "Calculating rear axis: CG.x %f CG.y %f, orientation %f, Dist cg 2 rear axis %f",
-  //              this->vehicle_pose_.position.x, vehicle_pose_.position.y,
-  //              this->vehicle_pose_.orientation, this->dist_cg_2_rear_axis_);
   this->vehicle_pose_.rear_axis_ = cg_2_rear_axis(
       this->vehicle_pose_.position, this->vehicle_pose_.orientation, this->dist_cg_2_rear_axis_);
 
-  // RCLCPP_DEBUG(rclcpp::get_logger("control"), "Current rear axis: %f, %f",
-  //              vehicle_pose_.rear_axis_.x, vehicle_pose_.rear_axis_.y);
   return;
 }
 

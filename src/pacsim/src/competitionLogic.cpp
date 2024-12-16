@@ -550,6 +550,7 @@ bool CompetitionLogic::checkFinishConditionsMet(double time)
     }
     if (ret && !finishConditionsMet)
     {
+        RCLCPP_INFO_STREAM(rclcpp::get_logger("pacsim_logger"), "Finish conditions met at!");
         finishConditionsMet = ret;
         finishConditionsMetFirstTime = time;
     }
@@ -666,9 +667,13 @@ bool CompetitionLogic::checkDNF(Track track, double time, Eigen::Vector3d positi
         {
             ret = true;
             dnf_reason = "OC";
+            RCLCPP_INFO_STREAM(rclcpp::get_logger("pacsim_logger"), "checkDNF returned DNF = true");
         }
     }
     isDNF = isDNF || ret;
+    if (isDNF) {
+        RCLCPP_INFO_STREAM(rclcpp::get_logger("pacsim_logger"), "checkDNF returned DNF = true");
+    }
     return isDNF;
 }
 
