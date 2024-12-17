@@ -13,51 +13,51 @@ PerceptionParameters load_adapter_parameters() {
 
   auto adapter_node = std::make_shared<rclcpp::Node>("perception_adapter");
 
-  double ransac_epsilon = adapter_node->declare_parameter("ransac_epsilon", 0.05);
-  int ransac_n_neighbours = adapter_node->declare_parameter("ransac_n_neighbours", 20);
-  int clustering_n_neighbours = adapter_node->declare_parameter("clustering_n_neighbours", 1);
-  double clustering_epsilon = adapter_node->declare_parameter("clustering_epsilon", 0.1);
-  double horizontal_resolution = adapter_node->declare_parameter("horizontal_resolution", 0.33);
-  double vertical_resolution = adapter_node->declare_parameter("vertical_resolution", 0.22);
+  double ransac_epsilon = adapter_node->declare_parameter<double>("ransac_epsilon");
+  int ransac_n_neighbours = adapter_node->declare_parameter<int>("ransac_n_neighbours");
+  int clustering_n_neighbours = adapter_node->declare_parameter<int>("clustering_n_neighbours");
+  double clustering_epsilon = adapter_node->declare_parameter<double>("clustering_epsilon");
+  double horizontal_resolution = adapter_node->declare_parameter<double>("horizontal_resolution");
+  double vertical_resolution = adapter_node->declare_parameter<double>("vertical_resolution");
   std::string ground_removal_algoritm =
-      adapter_node->declare_parameter("ground_removal", "grid_ransac");
-  std::string target_file = adapter_node->declare_parameter("target_file", "cone.pcd");
+      adapter_node->declare_parameter<std::string>("ground_removal");
+  std::string target_file = adapter_node->declare_parameter<std::string>("target_file");
   double max_correspondence_distance =
-      adapter_node->declare_parameter("max_correspondence_distance", 0.1);
-  int max_iteration = adapter_node->declare_parameter("max_iteration", 100);
-  double transformation_epsilon = adapter_node->declare_parameter("transformation_epsilon", 1e-8);
+      adapter_node->declare_parameter<double>("max_correspondence_distance");
+  int max_iteration = adapter_node->declare_parameter<int>("max_iteration");
+  double transformation_epsilon = adapter_node->declare_parameter<double>("transformation_epsilon");
   double euclidean_fitness_epsilon =
-      adapter_node->declare_parameter("euclidean_fitness_epsilon", 1e-6);
-  double fov_trim = adapter_node->declare_parameter("fov_trim", 90);
-  params.adapter_ = adapter_node->declare_parameter("adapter", "eufs");
+      adapter_node->declare_parameter<double>("euclidean_fitness_epsilon");
+  double fov_trim = adapter_node->declare_parameter<double>("fov_trim");
+  params.adapter_ = adapter_node->declare_parameter<std::string>("adapter");
   params.vehicle_frame_id_ = params.adapter_ == "eufs" ? "velodyne" : "hesai_lidar";
-  params.pc_max_range_ = adapter_node->declare_parameter("pc_max_range", 15.0);
+  params.pc_max_range_ = adapter_node->declare_parameter<double>("pc_max_range");
 
   // Create shared pointers for components
   if (ground_removal_algoritm == "ransac") {
     params.ground_removal_ = std::make_shared<RANSAC>(ransac_epsilon, ransac_n_neighbours);
   } else if (ground_removal_algoritm == "grid_ransac") {
-    int n_angular_grids = adapter_node->declare_parameter("n_angular_grids", 7);
-    double radius_resolution = adapter_node->declare_parameter("radius_resolution", 7.5);
+    int n_angular_grids = adapter_node->declare_parameter<int>("n_angular_grids");
+    double radius_resolution = adapter_node->declare_parameter<double>("radius_resolution");
     params.ground_removal_ = std::make_shared<GridRANSAC>(ransac_epsilon, ransac_n_neighbours,
                                                           n_angular_grids, radius_resolution);
   }
 
   // Height Validator Parameters
-  double min_height = adapter_node->declare_parameter("min_height", 0.1);
-  double max_height = adapter_node->declare_parameter("max_height", 0.55);
-
+  double min_height = adapter_node->declare_parameter<double>("min_height");
+  double max_height = adapter_node->declare_parameter<double>("max_height");
+  
   // Deviation Validator Parameters
-  double min_xoy = adapter_node->declare_parameter("min_xoy", 0.0);
-  double max_xoy = adapter_node->declare_parameter("max_xoy", 0.3);
-  double min_z = adapter_node->declare_parameter("min_z", 0.00001);
-  double max_z = adapter_node->declare_parameter("max_z", 0.6);
-
+  double min_xoy = adapter_node->declare_parameter<double>("min_xoy");
+  double max_xoy = adapter_node->declare_parameter<double>("max_xoy");
+  double min_z = adapter_node->declare_parameter<double>("min_z");
+  double max_z = adapter_node->declare_parameter<double>("max_z");
+  
   // Z-Score Validator Parameters
-  double min_z_score_x = adapter_node->declare_parameter("min_z_score_x", 0.45);
-  double max_z_score_x = adapter_node->declare_parameter("max_z_score_x", 1.55);
-  double min_z_score_y = adapter_node->declare_parameter("min_z_score_y", 0.45);
-  double max_z_score_y = adapter_node->declare_parameter("max_z_score_y", 1.55);
+  double min_z_score_x = adapter_node->declare_parameter<double>("min_z_score_x");
+  double max_z_score_x = adapter_node->declare_parameter<double>("max_z_score_x");
+  double min_z_score_y = adapter_node->declare_parameter<double>("min_z_score_y");
+  double max_z_score_y = adapter_node->declare_parameter<double>("max_z_score_y");
 
   params.clustering_ = std::make_shared<DBSCAN>(clustering_n_neighbours, clustering_epsilon);
   params.cone_differentiator_ = std::make_shared<LeastSquaresDifferentiation>();

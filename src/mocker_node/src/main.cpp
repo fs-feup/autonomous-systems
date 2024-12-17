@@ -21,8 +21,8 @@ int main(int argc, char *argv[]) {
   std::string sim;
   {
     auto mocker_node_interface = std::make_shared<rclcpp::Node>("mocker_node_interface");
-    track_name = mocker_node_interface->declare_parameter("track_name", "small_track");
-    sim = mocker_node_interface->declare_parameter("sim", "pacsim");
+    track_name = mocker_node_interface->declare_parameter<std::string>("track_name");
+    sim = mocker_node_interface->declare_parameter<std::string>("sim");
   }
 
   auto node = std::make_shared<MockerNode>(track_name, sim);

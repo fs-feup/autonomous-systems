@@ -19,22 +19,20 @@
 double last_wss = 0.0;
 
 SENode::SENode() : Node("ekf_state_est") {
-  this->_use_odometry_ = this->declare_parameter("use_odometry", true);
-  _use_simulated_perception_ = this->declare_parameter("use_simulated_perception", false);
-  _adapter_name_ = this->declare_parameter("adapter", "eufs");
-  std::string motion_model_name = this->declare_parameter("motion_model", "normal_velocity_model");
-  std::string data_assocation_model_name =
-      this->declare_parameter("data_assocation_model", "max_likelihood");
+  this->_use_odometry_ = this->declare_parameter<bool>("use_odometry");
+  _use_simulated_perception_ = this->declare_parameter<bool>("use_simulated_perception");
+  _adapter_name_ = this->declare_parameter<std::string>("adapter");
+  std::string motion_model_name = this->declare_parameter<std::string>("motion_model");
+  std::string data_assocation_model_name = this->declare_parameter<std::string>("data_assocation_model");
   float wss_noise = 0.0f;
   float imu_noise = 0.0f;  // Declare the 'imu_noise' variable
   if (data_assocation_model_name == "max_likelihood") {
-    wss_noise = static_cast<float>(this->declare_parameter("wss_noise", 0.3f));
-    imu_noise = static_cast<float>(this->declare_parameter("imu_noise", 0.0064f));
+    wss_noise = static_cast<float>(this->declare_parameter<float>("wss_noise"));
+    imu_noise = static_cast<float>(this->declare_parameter<float>("imu_noise"));
   }
-  float data_association_limit_distance =
-      static_cast<float>(this->declare_parameter("data_association_limit_distance", 71.0f));
-
-  float observation_noise = static_cast<float>(this->declare_parameter("observation_noise", 0.03f));
+  float data_association_limit_distance = static_cast<float>(this->declare_parameter<float>("data_association_limit_distance"));
+  
+  float observation_noise = static_cast<float>(this->declare_parameter<float>("observation_noise"));
 
   std::shared_ptr<MotionModel> motion_model_wss = motion_model_constructors.at(
       "normal_velocity_model")(MotionModel::create_process_noise_covariance_matrix(wss_noise));

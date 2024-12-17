@@ -14,38 +14,38 @@ struct PlanningParameters;
 
 std::string load_adapter_parameters(PlanningParameters& params) {
   auto adapter_node = std::make_shared<rclcpp::Node>("planning_adapter");
-  params.angle_gain_ = adapter_node->declare_parameter("angle_gain", 10.246);
-  params.distance_gain_ = adapter_node->declare_parameter("distance_gain", 6.657);
-  params.ncones_gain_ = adapter_node->declare_parameter("ncones_gain", 20.7);
-  params.angle_exponent_ = adapter_node->declare_parameter("angle_exponent", 2.0);
-  params.distance_exponent_ = adapter_node->declare_parameter("distance_exponent", 0.998);
+  params.angle_gain_ = adapter_node->declare_parameter<double>("angle_gain");
+  params.distance_gain_ = adapter_node->declare_parameter<double>("distance_gain");
+  params.ncones_gain_ = adapter_node->declare_parameter<double>("ncones_gain");
+  params.angle_exponent_ = adapter_node->declare_parameter<double>("angle_exponent");
+  params.distance_exponent_ = adapter_node->declare_parameter<double>("distance_exponent");
   params.same_cone_distance_threshold_ =
-      adapter_node->declare_parameter("same_cone_distance_threshold", 0.6);
-  params.cost_max_ = adapter_node->declare_parameter("cost_max", 35.0);
+      adapter_node->declare_parameter<double>("same_cone_distance_threshold");
+  params.cost_max_ = adapter_node->declare_parameter<double>("cost_max");
   params.use_memory_cone_coloring_ =
-      adapter_node->declare_parameter("use_memory_cone_coloring", true);
+      adapter_node->declare_parameter<bool>("use_memory_cone_coloring");
   params.outliers_spline_order_ =
-      static_cast<int>(adapter_node->declare_parameter("outliers_spline_order", 3));
+      static_cast<int>(adapter_node->declare_parameter<int>("outliers_spline_order"));
   params.outliers_spline_coeffs_ratio_ =
-      static_cast<float>(adapter_node->declare_parameter("outliers_spline_coeffs_ratio", 3.0));
+      static_cast<float>(adapter_node->declare_parameter<double>("outliers_spline_coeffs_ratio"));
   params.outliers_spline_precision_ =
-      static_cast<int>(adapter_node->declare_parameter("outliers_spline_precision", 1));
+      static_cast<int>(adapter_node->declare_parameter<int>("outliers_spline_precision"));
   params.path_calculation_dist_threshold_ =
-      adapter_node->declare_parameter("path_calculation_dist_threshold", 7.0);
+      adapter_node->declare_parameter<double>("path_calculation_dist_threshold");
   params.smoothing_spline_order_ =
-      static_cast<int>(adapter_node->declare_parameter("smoothing_spline_order", 3));
+      static_cast<int>(adapter_node->declare_parameter<int>("smoothing_spline_order"));
   params.smoothing_spline_coeffs_ratio_ =
-      static_cast<float>(adapter_node->declare_parameter("smoothing_spline_coeffs_ratio", 3.0));
+      static_cast<float>(adapter_node->declare_parameter<double>("smoothing_spline_coeffs_ratio"));
   params.smoothing_spline_precision_ =
-      static_cast<int>(adapter_node->declare_parameter("smoothing_spline_precision", 10));
+      static_cast<int>(adapter_node->declare_parameter<int>("smoothing_spline_precision"));
   params.publishing_visualization_msgs_ =
-      adapter_node->declare_parameter("publishing_visualization_msg", false);
-  params.using_simulated_se_ = adapter_node->declare_parameter("use_simulated_se", false);
+      adapter_node->declare_parameter<bool>("publishing_visualization_msg");
+  params.using_simulated_se_ = adapter_node->declare_parameter<bool>("use_simulated_se");
   params.desired_velocity_ =
-      static_cast<double>(adapter_node->declare_parameter("pre_defined_velocity_planning", 0.5));
-  params.use_outlier_removal_ = adapter_node->declare_parameter("use_outlier_removal", false);
-  params.use_path_smoothing_ = adapter_node->declare_parameter("use_path_smoothing", true);
-  std::string adapter_type = adapter_node->declare_parameter("adapter", "vehicle");
+      static_cast<double>(adapter_node->declare_parameter<double>("pre_defined_velocity_planning"));
+  params.use_outlier_removal_ = adapter_node->declare_parameter<bool>("use_outlier_removal");
+  params.use_path_smoothing_ = adapter_node->declare_parameter<bool>("use_path_smoothing");
+  std::string adapter_type = adapter_node->declare_parameter<std::string>("adapter");
   params.map_frame_id_ = adapter_type == "eufs" ? "base_footprint" : "map";
 
   return adapter_type;

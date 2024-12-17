@@ -68,22 +68,22 @@ class Evaluator(Node):
 
         # Parameters
         self._adapter_name_: str = (
-            self.declare_parameter("adapter", "vehicle")
+            self.declare_parameter("adapter")
             .get_parameter_value()
             .string_value
         )
         self.use_simulated_perception_: bool = (
-            self.declare_parameter("use_simulated_perception", False)
+            self.declare_parameter("use_simulated_perception")
             .get_parameter_value()
             .bool_value
         )
         self.use_simulated_se_: bool = (
-            self.declare_parameter("use_simulated_se", False)
+            self.declare_parameter("use_simulated_se")
             .get_parameter_value()
             .bool_value
         )
         self.use_simulated_planning_: bool = (
-            self.declare_parameter("use_simulated_planning", False)
+            self.declare_parameter("use_simulated_planning")
             .get_parameter_value()
             .bool_value
         )
@@ -241,13 +241,13 @@ class Evaluator(Node):
         )
 
         # Retrieve the 'generate_csv' parameter
-        self.declare_parameter("generate_csv", False)
+        self.declare_parameter("generate_csv")
         self.generate_csv = (
             self.get_parameter("generate_csv").get_parameter_value().bool_value
         )
 
         # Retrieve the 'csv_suffix' parameter
-        self.declare_parameter("csv_suffix", "")
+        self.declare_parameter("csv_suffix")
         self.csv_suffix = (
             self.get_parameter("csv_suffix").get_parameter_value().string_value
         )
