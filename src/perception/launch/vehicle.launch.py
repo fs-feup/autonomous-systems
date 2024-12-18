@@ -163,6 +163,7 @@ def generate_launch_description():
                 executable="perception",
                 name="perception",
                 parameters=[
+                    {"vehicle_frame_id": LaunchConfiguration("vehicle_frame_id")},
                     {"ransac_epsilon": LaunchConfiguration("ransac_epsilon")},
                     {"ransac_iterations": LaunchConfiguration("ransac_iterations")},
                     {"fov_trim_angle": LaunchConfiguration("fov_trim_angle")},
