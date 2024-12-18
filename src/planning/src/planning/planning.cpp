@@ -138,6 +138,10 @@ void Planning::run_planning_algorithms() {
                 static_cast<int>(final_path.size()));
   }
 
+  if (true) {  // this->mission == common_lib::competition_logic::Mission::SKIDPAD) {
+    final_path = path_calculation_.skidpad_path(this->cone_array_, this->pose);
+  }
+
   if (this->mission == common_lib::competition_logic::Mission::ACCELERATION) {  // change later
     double dist_from_origin = sqrt(this->pose.position.x * this->pose.position.x +
                                    this->pose.position.y * this->pose.position.y);
@@ -150,24 +154,25 @@ void Planning::run_planning_algorithms() {
         point.ideal_velocity = 1000.0;
       }
     }
-  } else {
+  } else if (this->mission == common_lib::competition_logic::Mission::SKIDPAD) {
     velocity_planning_.set_velocity(final_path);
+  }  // do nothing, velocity is predefined
+
+  // Execution Time calculation
+  rclcpp::Time end_time = this->now();
+  std_msgs::msg::Float64 planning_execution_time;
+  planning_execution_time.data = (end_time - start_time).seconds() * 1000;
+  this->_planning_execution_time_publisher_->publish(planning_execution_time);
+
+  publish_track_points(final_path);
+  RCLCPP_DEBUG(this->get_logger(), "Planning will publish %i path points\n",
+               static_cast<int>(final_path.size()));
+
+  if (planning_config_.simulation_.publishing_visualization_msgs_) {
+    publish_visualization_msgs(colored_cones.first, colored_cones.second,
+                               refined_colored_cones.first, refined_colored_cones.second,
+                               triangulations_path, final_path);
   }
-
-// Execution Time calculation
-rclcpp::Time end_time = this->now();
-std_msgs::msg::Float64 planning_execution_time;
-planning_execution_time.data = (end_time - start_time).seconds() * 1000;
-this->_planning_execution_time_publisher_->publish(planning_execution_time);
-
-publish_track_points(final_path);
-RCLCPP_DEBUG(this->get_logger(), "Planning will publish %i path points\n",
-             static_cast<int>(final_path.size()));
-
-if (planning_config_.simulation_.publishing_visualization_msgs_) {
-  publish_visualization_msgs(colored_cones.first, colored_cones.second, refined_colored_cones.first,
-                             refined_colored_cones.second, triangulations_path, final_path);
-}
 }
 
 void Planning::vehicle_localization_callback(const custom_interfaces::msg::VehicleState &msg) {
