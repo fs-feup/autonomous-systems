@@ -8,6 +8,11 @@ def generate_launch_description():
     return LaunchDescription(
         [
             DeclareLaunchArgument(
+                "vehicle_frame_id",
+                description="vehicle's frame id",
+                default_value="hesai_lidar",
+            ),
+            DeclareLaunchArgument(
                 "horizontal_resolution",
                 description="Lidar's horizontal resolution",
                 default_value="0.33",
@@ -206,7 +211,6 @@ def generate_launch_description():
                             "transformation_epsilon"
                         )
                     },
-
                     {"pc_max_range": LaunchConfiguration("pc_max_range")},
                     {"min_height": LaunchConfiguration("min_height")},
                     {"max_height": LaunchConfiguration("small_max_height")},

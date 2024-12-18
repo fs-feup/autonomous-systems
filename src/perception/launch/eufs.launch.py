@@ -8,6 +8,11 @@ def generate_launch_description():
     return LaunchDescription(
         [
             DeclareLaunchArgument(
+                "vehicle_frame_id",
+                description="Vehicle's frame id",
+                default_value="velodyne",
+            ),
+            DeclareLaunchArgument(
                 "horizontal_resolution",
                 description="Lidar's horizontal resolution",
                 default_value="0.2",

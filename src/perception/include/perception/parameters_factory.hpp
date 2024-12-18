@@ -14,7 +14,7 @@ PerceptionParameters load_adapter_parameters() {
 
   auto adapter_node = std::make_shared<rclcpp::Node>("perception_adapter");
   params.adapter_ = adapter_node->declare_parameter("adapter", "eufs");
-  params.vehicle_frame_id_ = params.adapter_ == "eufs" ? "velodyne" : "hesai_lidar";
+  params.vehicle_frame_id_ = adapter_node->declare_parameter("vehicle_frame_id", "hesai_lidar");
 
   // Create shared pointer for Fov Trimming , Fov Trimming Parameters
   double fov_trim_angle = adapter_node->declare_parameter("fov_trim_angle", 90);
