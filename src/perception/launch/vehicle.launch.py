@@ -151,7 +151,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "min_distance_y",
                 description="Minimum distance on the y axis for the cluster ",
-                default_value="0.02",  # untested
+                default_value="0.04",  # untested
             ),
             DeclareLaunchArgument(
                 "min_distance_z",
