@@ -4,17 +4,17 @@
 
 MockerNode::MockerNode(const std::string &track_name, const std::string &sim)
     : rclcpp::Node("mocker_node") {
-  std::string planning_gtruth_file = std::string(std::filesystem::current_path()) +
+  std::string planning_gtruth_default_file_path = std::string(std::filesystem::current_path()) +
                                                   "/gtruths/tracks/" + sim + "/" + track_name +
                                                   "/" + track_name + "_gtruth.csv";
-  std::string se_gtruth_file = std::string(std::filesystem::current_path()) +
+  std::string se_gtruth_default_file_path = std::string(std::filesystem::current_path()) +
                                             "/gtruths/tracks/" + sim + "/" + track_name + "/" +
                                             track_name + ".csv";
 
-//   std::string planning_gtruth_file = declare_parameter<std::string>(
-//       "planning_gtruth_file_path", planning_gtruth_default_file_path);
-//   std::string se_gtruth_file =
-//       declare_parameter<std::string>("se_gtruth_file_path", se_gtruth_default_file_path);
+  std::string planning_gtruth_file = declare_parameter<std::string>(
+      "planning_gtruth_file_path", planning_gtruth_default_file_path);
+  std::string se_gtruth_file =
+      declare_parameter<std::string>("se_gtruth_file_path", se_gtruth_default_file_path);
 
   gtruth_planning = planning_gtruth_fromfile(open_file_as_stream(planning_gtruth_file));
   gtruth_se = se_gtruth_fromfile(open_file_as_stream(se_gtruth_file));

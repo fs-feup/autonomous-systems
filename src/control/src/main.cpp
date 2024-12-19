@@ -1,7 +1,13 @@
 #include <memory>
+#include <string>
 
-#include "adapter_control/parameters_factory.hpp"
+#include "adapter_control/eufs.hpp"
+#include "adapter_control/fsds.hpp"
+#include "adapter_control/pacsim.hpp"
+#include "adapter_control/vehicle.hpp"
+#include "node_/node_control.hpp"
 #include "rclcpp/rclcpp.hpp"
+
 
 /**
  * @brief Main function for the Ros Can node.
@@ -15,12 +21,20 @@
 int main(int argc, char* argv[]) {
   rclcpp::init(argc, argv);
 
-  ControlParameters params;
-  std::string adapter_type = load_adapter_parameters(params);
-  auto control = create_control(adapter_type, params);
+  std::string adapter;
+  ControlParameters params = Control::load_config(adapter);
 
-  if (!control) {
-    RCLCPP_ERROR(rclcpp::get_logger("control"), "Failed to create control object");
+  std::shared_ptr<Control> control;
+  if (adapter == "vehicle") {
+    control = std::make_shared<VehicleAdapter>(params);
+  } else if (adapter == "pacsim") {
+    control = std::make_shared<PacSimAdapter>(params);
+  } else if (adapter == "eufs") {
+    control = std::make_shared<EufsAdapter>(params);
+  } else if (adapter == "fsds") {
+    control = std::make_shared<FsdsAdapter>(params);
+  } else {
+    RCLCPP_ERROR(rclcpp::get_logger("control"), "Adapter type not recognized");
     return 1;
   }
 

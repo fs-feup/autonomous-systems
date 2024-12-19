@@ -4,6 +4,8 @@
 #include <functional>
 #include <memory>
 #include <string>
+#include <yaml-cpp/yaml.h>
+#include "ament_index_cpp/get_package_prefix.hpp"
 
 #include "common_lib/communication/marker.hpp"
 #include "custom_interfaces/msg/evaluator_control_data.hpp"
@@ -16,11 +18,57 @@
 // to define which function gets executed at each time
 
 using namespace common_lib::structures;
-
 using namespace common_lib::communication;
 
 bool received_vehicle_state = false;
 bool received_path_point_array = false;
+
+std::string get_config_yaml_path(const std::string& package_name, const std::string& dir, const std::string& filename) {
+  std::string package_prefix = ament_index_cpp::get_package_prefix(package_name);
+  std::string workspace_path = package_prefix + "/../../config/" + dir + "/" + filename + ".yaml";
+  return workspace_path;
+}
+
+ControlParameters Control::load_config(std::string& adapter) {
+  ControlParameters params;
+  std::string global_config_path = get_config_yaml_path("control", "global", "global_config");
+  RCLCPP_DEBUG(rclcpp::get_logger("control"), "Loading global config from: %s", global_config_path.c_str());
+  YAML::Node global_config = YAML::LoadFile(global_config_path);
+
+  try {
+    adapter = global_config["global"]["adapter"].as<std::string>();
+    params.using_simulated_se_ = global_config["global"]["use_simulated_se"].as<bool>();
+    params.use_simulated_planning_ = global_config["global"]["use_simulated_planning"].as<bool>();
+  } catch (const YAML::Exception& e) {
+    RCLCPP_ERROR(rclcpp::get_logger("control"), "Error parsing global config: %s", e.what());
+    throw;
+  }
+
+  std::string control_path = get_config_yaml_path("control", "control", adapter);
+  RCLCPP_DEBUG(rclcpp::get_logger("control"), "Loading control config from: %s", control_path.c_str());
+  YAML::Node control = YAML::LoadFile(control_path);
+
+  try {
+    auto control_config = control["control"];
+    RCLCPP_DEBUG(rclcpp::get_logger("control"), "Control config contents: %s", YAML::Dump(control_config).c_str());
+
+    params.lookahead_gain_ = control_config["lookahead_gain"].as<double>();
+    params.pid_kp_ = control_config["pid_kp"].as<double>();
+    params.pid_ki_ = control_config["pid_ki"].as<double>();
+    params.pid_kd_ = control_config["pid_kd"].as<double>();
+    params.pid_tau_ = control_config["pid_tau"].as<double>();
+    params.pid_t_ = control_config["pid_t"].as<double>();
+    params.pid_lim_min_ = control_config["pid_lim_min"].as<double>();
+    params.pid_lim_max_ = control_config["pid_lim_max"].as<double>();
+    params.pid_anti_windup_ = control_config["pid_anti_windup"].as<double>();
+    params.map_frame_id_ = adapter == "eufs" ? "base_footprint" : "map";
+  } catch (const YAML::Exception& e) {
+    RCLCPP_ERROR(rclcpp::get_logger("control"), "Error parsing control config: %s", e.what());
+    throw;
+  }
+
+  return params;
+}
 
 Control::Control(const ControlParameters& params)
     : Node("control"),
