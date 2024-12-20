@@ -10,7 +10,7 @@
  * This class inherits from the ConeValidator class and overrides the coneValidator method
  * to provide size-based validation logic.
  */
-class SizeValidator : public ConeValidator {
+class DisplacementValidator : public ConeValidator {
 private:
   double _min_distance_x_;
   double _min_distance_y_;
@@ -25,7 +25,8 @@ public:
    * @param min_distance_y Minimum distance between the highest an lowest point on the y axis.
    * @param min_distance_z Minimum distance between the highest an lowest point on the z axis.
    */
-  explicit SizeValidator(double min_distance_x, double min_distance_y, double min_distance_z);
+  explicit DisplacementValidator(double min_distance_x, double min_distance_y,
+                                 double min_distance_z);
 
   /**
    * @brief Validates a cone based on the distance between its points.
@@ -42,5 +43,5 @@ public:
   /**
    * @brief Virtual destructor for SizeValidator.
    */
-  virtual ~SizeValidator() = default;
+  virtual ~DisplacementValidator() = default;
 };

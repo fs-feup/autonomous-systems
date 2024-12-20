@@ -143,6 +143,21 @@ def generate_launch_description():
                 description="Minimum z score on cones distribution (y)",
                 default_value="100.0",
             ),
+            DeclareLaunchArgument(
+                "min_distance_x",
+                description="Minimum distance on the x axis for a cluster to be a cone",
+                default_value="0.02",  # untested
+            ),
+            DeclareLaunchArgument(
+                "min_distance_y",
+                description="Minimum distance on the y axis for a cluster to be a cone",
+                default_value="0.04",  # untested
+            ),
+            DeclareLaunchArgument(
+                "min_distance_z",
+                description="Minimum distance on the z axis for a cluster to be a cone",
+                default_value="0.07",  # untested
+            ),
             Node(
                 package="perception",
                 executable="perception",

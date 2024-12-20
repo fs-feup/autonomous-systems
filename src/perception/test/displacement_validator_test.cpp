@@ -3,14 +3,14 @@
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 
-#include <cone_validator/size_validator.hpp>
+#include <cone_validator/displacement_validator.hpp>
 #include <utils/cluster.hpp>
 #include <utils/plane.hpp>
 
 /**
  * @brief Test fixture for HeightValidator class.
  */
-class SizeValidatorTest : public ::testing::Test {
+class DisplacementValidatorTest : public ::testing::Test {
 protected:
   /**
    * @brief Set up function to initialize a plane.
@@ -24,8 +24,8 @@ protected:
  * @brief Test case to validate if the distance between points in the
  * cluster is above the minimum value in all axis.
  */
-TEST_F(SizeValidatorTest, clusterWithWellDistancedPoints) {
-  SizeValidator validator = SizeValidator(0.1, 0.1, 0.25);
+TEST_F(DisplacementValidatorTest, clusterWithWellDistancedPoints) {
+  DisplacementValidator validator = DisplacementValidator(0.1, 0.1, 0.25);
 
   auto point_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
   point_cloud->points.push_back(pcl::PointXYZI{0.3, 0.7, 0.5, 0});
@@ -42,8 +42,8 @@ TEST_F(SizeValidatorTest, clusterWithWellDistancedPoints) {
  * @brief Test case to validate if the points are organized
  * on a vertical line.
  */
-TEST_F(SizeValidatorTest, verticalLine) {
-  SizeValidator validator = SizeValidator(0.1, 0.1, 0.25);
+TEST_F(DisplacementValidatorTest, verticalLine) {
+  DisplacementValidator validator = DisplacementValidator(0.1, 0.1, 0.25);
 
   auto point_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
   point_cloud->points.push_back(pcl::PointXYZI{0.3, 0.35, 0.5, 0});
@@ -61,8 +61,8 @@ TEST_F(SizeValidatorTest, verticalLine) {
  * @brief Test case to validate if the points are organized
  * on a horizontal line.
  */
-TEST_F(SizeValidatorTest, horizontalLine) {
-  SizeValidator validator = SizeValidator(0.1, 0.1, 0.25);
+TEST_F(DisplacementValidatorTest, horizontalLine) {
+  DisplacementValidator validator = DisplacementValidator(0.1, 0.1, 0.25);
 
   auto point_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
   point_cloud->points.push_back(pcl::PointXYZI{0.3, 0.35, 0.12, 0});
@@ -80,8 +80,8 @@ TEST_F(SizeValidatorTest, horizontalLine) {
  * @brief Test case to validate if the points are below the minimum
  * distance only on the x axis.
  */
-TEST_F(SizeValidatorTest, belowOnXAxis) {
-  SizeValidator validator = SizeValidator(0.1, 0.1, 0.25);
+TEST_F(DisplacementValidatorTest, belowOnXAxis) {
+  DisplacementValidator validator = DisplacementValidator(0.1, 0.1, 0.25);
 
   auto point_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
   point_cloud->points.push_back(pcl::PointXYZI{0.3, 0.7, 0.1, 0});
@@ -99,8 +99,8 @@ TEST_F(SizeValidatorTest, belowOnXAxis) {
  * @brief Test case to validate if the points are below the minimum
  * distance only on the y axis.
  */
-TEST_F(SizeValidatorTest, belowOnYAxis) {
-  SizeValidator validator = SizeValidator(0.1, 0.1, 0.25);
+TEST_F(DisplacementValidatorTest, belowOnYAxis) {
+  DisplacementValidator validator = DisplacementValidator(0.1, 0.1, 0.25);
 
   auto point_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
   point_cloud->points.push_back(pcl::PointXYZI{0.3, 0.3, 0.1, 0});
@@ -118,8 +118,8 @@ TEST_F(SizeValidatorTest, belowOnYAxis) {
  * @brief Test case to validate if the points are below the minimum
  * distance only on the z axis.
  */
-TEST_F(SizeValidatorTest, belowOnZAxis) {
-  SizeValidator validator = SizeValidator(0.1, 0.1, 0.25);
+TEST_F(DisplacementValidatorTest, belowOnZAxis) {
+  DisplacementValidator validator = DisplacementValidator(0.1, 0.1, 0.25);
 
   auto point_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
   point_cloud->points.push_back(pcl::PointXYZI{0.3, 0.7, 0.1, 0});

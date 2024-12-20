@@ -30,7 +30,7 @@ set(IMPLEMENTATION_FILES
   src/utils/cluster.cpp
   src/cone_validator/cylinder_validator.cpp
   src/cone_validator/height_validator.cpp
-  src/cone_validator/size_validator.cpp
+  src/cone_validator/displacement_validator.cpp
   src/cone_validator/deviation_validator.cpp
   src/cone_validator/z_score_validator.cpp
   src/utils/plane.cpp
@@ -47,7 +47,7 @@ set(TEST_INCLUDE_FILES
   test/performance_test.cpp
   test/height_validator_test.cpp
   test/cylinder_validator_test.cpp
-  test/size_validator_test.cpp
+  test/displacement_validator_test.cpp
   test/grid_ransac_test.cpp
   test/distance_validator_test.cpp
   test/icp_test.cpp
