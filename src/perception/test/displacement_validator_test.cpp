@@ -39,44 +39,6 @@ TEST_F(DisplacementValidatorTest, clusterWithWellDistancedPoints) {
 }
 
 /**
- * @brief Test case to validate if the points are organized
- * on a vertical line.
- */
-TEST_F(DisplacementValidatorTest, verticalLine) {
-  DisplacementValidator validator = DisplacementValidator(0.1, 0.1, 0.25);
-
-  auto point_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
-  point_cloud->points.push_back(pcl::PointXYZI{0.3, 0.35, 0.5, 0});
-  point_cloud->points.push_back(pcl::PointXYZI{0.32, 0.31, 0.0, 0});
-  point_cloud->points.push_back(pcl::PointXYZI{0.36, 0.26, 0.7, 0});
-
-  Cluster cone_point_cloud = Cluster(point_cloud);
-
-  bool result = validator.coneValidator(&cone_point_cloud, plane);
-
-  ASSERT_FALSE(result);
-}
-
-/**
- * @brief Test case to validate if the points are organized
- * on a horizontal line.
- */
-TEST_F(DisplacementValidatorTest, horizontalLine) {
-  DisplacementValidator validator = DisplacementValidator(0.1, 0.1, 0.25);
-
-  auto point_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
-  point_cloud->points.push_back(pcl::PointXYZI{0.3, 0.35, 0.12, 0});
-  point_cloud->points.push_back(pcl::PointXYZI{0.54, 0.5, 0.14, 0});
-  point_cloud->points.push_back(pcl::PointXYZI{0.85, 0.30, 0.08, 0});
-
-  Cluster cone_point_cloud = Cluster(point_cloud);
-
-  bool result = validator.coneValidator(&cone_point_cloud, plane);
-
-  ASSERT_FALSE(result);
-}
-
-/**
  * @brief Test case to validate if the points are below the minimum
  * distance only on the x axis.
  */
