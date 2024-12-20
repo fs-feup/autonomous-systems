@@ -133,7 +133,6 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
 
   for (auto cluster : clusters) {
     bool is_valid = true;
-    if (cluster.get_point_cloud()->points.size() <= 4) is_valid = false;
     for (auto validator : _cone_validators_) {
       is_valid = is_valid && validator->coneValidator(&cluster, _ground_plane_);
 
@@ -195,7 +194,6 @@ void Perception::fov_trimming(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, double
   double center_x = -x_discount;  // assuming (0, 0) as the center
 
   for (auto& point : cloud->points) {
-
     double x = point.x;
     double y = point.y;
 
@@ -218,7 +216,7 @@ void Perception::fov_trimming(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, double
       continue;
     }
 
-    if (point.z >= -0.22){
+    if (point.z >= -0.22) {
       continue;
     }
 

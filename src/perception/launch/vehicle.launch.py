@@ -100,7 +100,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "large_max_height",
                 description="Maximum height of a cluster to be considered a large cone",
-                default_value="0.57",  # untested
+                default_value="0.57",  # not on ground tested
             ),
             DeclareLaunchArgument(
                 "small_max_height",
@@ -157,6 +157,11 @@ def generate_launch_description():
                 "min_distance_z",
                 description="Minimum distance on the z axis for a cluster to be a cone",
                 default_value="0.07",  # untested
+            ),
+            DeclareLaunchArgument(
+                "min_n_points",
+                description="Minimum number of points in the cluster for it to be a cone",
+                default_value="4",
             ),
             Node(
                 package="perception",
@@ -219,6 +224,7 @@ def generate_launch_description():
                     {"min_distance_x": LaunchConfiguration("min_distance_x")},
                     {"min_distance_y": LaunchConfiguration("min_distance_y")},
                     {"min_distance_z": LaunchConfiguration("min_distance_z")},
+                    {"min_n_points": LaunchConfiguration("min_n_points")},
                 ],
                 arguments=["--ros-args", "--log-level", "perception:=debug"],
             ),

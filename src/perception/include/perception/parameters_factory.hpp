@@ -2,6 +2,7 @@
 
 #include <cone_validator/deviation_validator.hpp>
 #include <cone_validator/displacement_validator.hpp>
+#include <cone_validator/npoints_validator.hpp>
 #include <cone_validator/z_score_validator.hpp>
 #include <string>
 
@@ -44,6 +45,9 @@ PerceptionParameters load_adapter_parameters() {
                                                           n_angular_grids, radius_resolution);
   }
 
+  // Number of points Validator Parameters
+  long unsigned int min_n_points = adapter_node->declare_parameter("min_n_points", 4);
+
   // Height Validator Parameters
   double min_height = adapter_node->declare_parameter("min_height", 0.1);
   double large_max_height = adapter_node->declare_parameter("large_max_height", 0.55);
@@ -54,6 +58,8 @@ PerceptionParameters load_adapter_parameters() {
   double max_xoy = adapter_node->declare_parameter("max_xoy", 0.3);
   double min_z = adapter_node->declare_parameter("min_z", 0.00001);
   double max_z = adapter_node->declare_parameter("max_z", 0.6);
+
+  // Displacement Validator Parameters
   double min_distance_x = adapter_node->declare_parameter("min_distance_x", 0.1);
   double min_distance_y = adapter_node->declare_parameter("min_distance_y", 0.1);
   double min_distance_z = adapter_node->declare_parameter("min_distance_z", 0.25);
@@ -68,6 +74,7 @@ PerceptionParameters load_adapter_parameters() {
   params.cone_differentiator_ = std::make_shared<LeastSquaresDifferentiation>();
 
   params.cone_validators_ = {
+      std::make_shared<NPointsValidator>(min_n_points),
       std::make_shared<HeightValidator>(min_height, large_max_height, small_max_height),
       std::make_shared<CylinderValidator>(0.228, 0.325, 0.285, 0.505),
       std::make_shared<DeviationValidator>(min_xoy, max_xoy, min_z, max_z),

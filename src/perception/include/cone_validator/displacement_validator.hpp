@@ -18,8 +18,8 @@ private:
 
 public:
   /**
-   * @brief Constructs a new SizeValidator object with the specified distance threshold for all
-   * axis.
+   * @brief Constructs a new DisplacementValidator object with the specified distance threshold for
+   * all axis.
    *
    * @param min_distance_x Minimum distance between the highest an lowest point on the x axis.
    * @param min_distance_y Minimum distance between the highest an lowest point on the y axis.
@@ -29,7 +29,7 @@ public:
                                  double min_distance_z);
 
   /**
-   * @brief Validates a cone based on the distance between its points.
+   * @brief Validates a cone based on the maximum distance between its points in all axis.
    *
    * This method overrides the coneValidator method of the base class ConeValidator.
    * It validates whether the given cone, represented by a point cloud cluster,
@@ -41,7 +41,7 @@ public:
   bool coneValidator(Cluster* cone_point_cloud, Plane& plane) const override;
 
   /**
-   * @brief Virtual destructor for SizeValidator.
+   * @brief Virtual destructor for DisplacementValidator.
    */
   virtual ~DisplacementValidator() = default;
 };
