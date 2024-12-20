@@ -8,34 +8,9 @@ def generate_launch_description():
     return LaunchDescription(
         [
             DeclareLaunchArgument(
-                "ransac_epsilon",
-                description="RANSAC epsilon threshold",
-                default_value="0.06",
-            ),
-            DeclareLaunchArgument(
-                "ransac_n_neighbours",
-                description="RANSAC number of neighbours",
-                default_value="20",
-            ),
-            DeclareLaunchArgument(
-                "fov_trim",
-                description="Trim the points received to a max angle",
-                default_value="35",  # degrees
-            ),
-            DeclareLaunchArgument(
-                "pc_max_range",
-                description="Point cloud filtering based on distance (m)",
-                default_value="12.0",
-            ),
-            DeclareLaunchArgument(
-                "clustering_n_neighbours",
-                description="Number of neighbours for Clustering algorithm",
-                default_value="3",
-            ),
-            DeclareLaunchArgument(
-                "clustering_epsilon",
-                description="Epsilon for Clustering algorithm",
-                default_value="0.1",
+                "vehicle_frame_id",
+                description="vehicle's frame id",
+                default_value="hesai_lidar",
             ),
             DeclareLaunchArgument(
                 "horizontal_resolution",
@@ -48,9 +23,34 @@ def generate_launch_description():
                 default_value="0.2",
             ),
             DeclareLaunchArgument(
-                "adapter",
-                description="Environment to run node on",
-                default_value="vehicle_preprocessed",
+                "fov_trim_angle",
+                description="Trim the points received to a max angle",
+                default_value="35",  # degrees
+            ),
+            DeclareLaunchArgument(
+                "pc_max_range",
+                description="Point cloud maximum distance filtering (m)",
+                default_value="12.0",
+            ),
+            DeclareLaunchArgument(
+                "pc_min_range",
+                description="Point cloud minimum distance filtering (m)",
+                default_value="1.0",
+            ),
+            DeclareLaunchArgument(
+                "pc_rlidar_max_height",
+                description="Point cloud height filter (relative to LIDAR) (m)",
+                default_value="-0.20",
+            ),
+            DeclareLaunchArgument(
+                "ransac_epsilon",
+                description="RANSAC epsilon threshold",
+                default_value="0.06",
+            ),
+            DeclareLaunchArgument(
+                "ransac_n_neighbours",
+                description="RANSAC number of neighbours",
+                default_value="20",
             ),
             DeclareLaunchArgument(
                 "ground_removal",
@@ -66,6 +66,21 @@ def generate_launch_description():
                 "radius_resolution",
                 description="Radius size of a radius grid (m)",
                 default_value="20.0",
+            ),
+            DeclareLaunchArgument(
+                "clustering_n_neighbours",
+                description="Number of neighbours for Clustering algorithm",
+                default_value="3",
+            ),
+            DeclareLaunchArgument(
+                "clustering_epsilon",
+                description="Epsilon for Clustering algorithm",
+                default_value="0.1",
+            ),
+            DeclareLaunchArgument(
+                "adapter",
+                description="Environment to run node on",
+                default_value="vehicle_preprocessed",
             ),
             DeclareLaunchArgument(
                 "target_file",
@@ -165,7 +180,14 @@ def generate_launch_description():
                 parameters=[
                     {"ransac_epsilon": LaunchConfiguration("ransac_epsilon")},
                     {"ransac_n_neighbours": LaunchConfiguration("ransac_n_neighbours")},
-                    {"fov_trim": LaunchConfiguration("fov_trim")},
+                    {"fov_trim_angle": LaunchConfiguration("fov_trim_angle")},
+                    {"pc_max_range": LaunchConfiguration("pc_max_range")},
+                    {"pc_min_range": LaunchConfiguration("pc_min_range")},
+                    {
+                        "pc_rlidar_max_height": LaunchConfiguration(
+                            "pc_rlidar_max_height"
+                        )
+                    },
                     {
                         "clustering_n_neighbours": LaunchConfiguration(
                             "clustering_n_neighbours"
@@ -206,7 +228,8 @@ def generate_launch_description():
                     },
                     {"pc_max_range": LaunchConfiguration("pc_max_range")},
                     {"min_height": LaunchConfiguration("min_height")},
-                    {"max_height": LaunchConfiguration("max_height")},
+                    {"max_height": LaunchConfiguration("small_max_height")},
+                    {"max_height": LaunchConfiguration("large_max_height")},
                     {"min_xoy": LaunchConfiguration("min_xoy")},
                     {"max_xoy": LaunchConfiguration("max_xoy")},
                     {"min_z": LaunchConfiguration("min_z")},
