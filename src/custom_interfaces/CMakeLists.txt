@@ -37,6 +37,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/MasterLog.msg"
   "msg/MasterLog2.msg"
   "msg/Temperature.msg"
+  "msg/Velocities.msg"
   DEPENDENCIES builtin_interfaces std_msgs 
 )
 
