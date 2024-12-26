@@ -7,5 +7,5 @@ class VENode;
 
 class Adapter : public VENode {
 public:
-  explicit Adapter(const VEParameters& parameters);
+  explicit Adapter(const VEParameters& parameters) : VENode(parameters){};
 };
