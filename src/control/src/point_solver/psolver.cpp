@@ -1,7 +1,7 @@
 #include "point_solver/psolver.hpp"
 
 using namespace common_lib::structures;
-using namespace common_lib::vehicle_dynamics;
+using namespace motion_lib::bicycle_model;
 
 /**
  * @brief PointSolver Constructer

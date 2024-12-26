@@ -5,10 +5,10 @@
 #include <memory>
 #include <string>
 
+#include "bicycle_model.hpp"
+#include "car_parameters.hpp"
 #include "common_lib/structures/pose.hpp"
 #include "common_lib/structures/position.hpp"
-#include "common_lib/vehicle_dynamics/bicycle_model.hpp"
-#include "common_lib/vehicle_dynamics/car_parameters.hpp"
 #include "custom_interfaces/msg/path_point_array.hpp"
 #include "custom_interfaces/msg/vehicle_state.hpp"
 #include "gtest/gtest.h"
