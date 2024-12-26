@@ -1,12 +1,15 @@
 #include "adapters/pacsim_adapter.hpp"
 
 PacsimAdapter::PacsimAdapter(const VEParameters& parameters) : Adapter(parameters) {
-  cog_imu_sub_ = this->create_subscription<sensor_msgs::msg::Imu>(
+  _imu_sub_ = this->create_subscription<sensor_msgs::msg::Imu>(
       "/pacsim/imu/cog_imu", 1,
       std::bind(&PacsimAdapter::ImuCallback, this, std::placeholders::_1));
   wheel_speeds_sub_ = this->create_subscription<pacsim::msg::Wheels>(
       "/pacsim/wheelspeeds", 1,
       std::bind(&PacsimAdapter::WheelSpeedsCallback, this, std::placeholders::_1));
+  _steering_angle_subscription_ = this->create_subscription<pacsim::msg::StampedScalar>(
+      "/pacsim/steeringFront", 1,
+      std::bind(&PacsimAdapter::SteeringAngleCallback, this, std::placeholders::_1));
 }
 
 void PacsimAdapter::ImuCallback(const sensor_msgs::msg::Imu::SharedPtr msg) {
@@ -24,4 +27,8 @@ void PacsimAdapter::WheelSpeedsCallback(const pacsim::msg::Wheels::SharedPtr msg
   wheel_encoder_data.rl_rpm = msg->rl;
   wheel_encoder_data.rr_rpm = msg->rr;
   this->_velocity_estimator_->WSSCallback(wheel_encoder_data);
+}
+
+void PacsimAdapter::SteeringAngleCallback(const pacsim::msg::StampedScalar::SharedPtr msg) {
+  this->_velocity_estimator_->SteeringCallback(msg->value);
 }
