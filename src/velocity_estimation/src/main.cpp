@@ -1,7 +1,6 @@
 #include <cstdio>
 
-#include "rclcpp/rclcpp.hpp"
-#include "node/node.hpp"
+#include "adapters/parameters_factory.hpp"
 
 /**
  * @brief Main function for the velocity estimation
@@ -14,8 +13,9 @@ int main(int argc, char **argv) {
   (void)argc;
   (void)argv;
   rclcpp::init(argc, argv);
-
-  auto velocity_estimator = std::make_shared<VENode>();
+  VEParameters params;
+  load_adapter_parameters(params);
+  auto velocity_estimator = create_ve(params);
   rclcpp::spin(velocity_estimator);
   rclcpp::shutdown();
 

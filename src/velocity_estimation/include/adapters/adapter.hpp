@@ -1,12 +1,11 @@
 #pragma once
 
-#include "rclcpp/rclcpp.hpp"
 #include "node/node.hpp"
+#include "rclcpp/rclcpp.hpp"
 
 class VENode;
 
-class Adapter {
-    public:
-        std::shared_ptr<VENode> node_;
-        explicit Adapter(std::shared_ptr<VENode> node): node_(node) {}
-}
+class Adapter : public VENode {
+public:
+  explicit Adapter(const VEParameters& parameters);
+};
