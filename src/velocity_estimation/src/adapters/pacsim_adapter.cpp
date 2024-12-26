@@ -4,6 +4,9 @@ PacsimAdapter::PacsimAdapter(const VEParameters& parameters) : Adapter(parameter
   cog_imu_sub_ = this->create_subscription<sensor_msgs::msg::Imu>(
       "/pacsim/imu/cog_imu", 1,
       std::bind(&PacsimAdapter::ImuCallback, this, std::placeholders::_1));
+  wheel_speeds_sub_ = this->create_subscription<pacsim::msg::Wheels>(
+      "/pacsim/wheelspeeds", 1,
+      std::bind(&PacsimAdapter::WheelSpeedsCallback, this, std::placeholders::_1));
 }
 
 void PacsimAdapter::ImuCallback(const sensor_msgs::msg::Imu::SharedPtr msg) {
@@ -12,4 +15,13 @@ void PacsimAdapter::ImuCallback(const sensor_msgs::msg::Imu::SharedPtr msg) {
   imu_data.acceleration_y = msg->linear_acceleration.y;
   imu_data.rotational_velocity = msg->angular_velocity.z;
   this->_velocity_estimator_->IMUCallback(imu_data);
+}
+
+void PacsimAdapter::WheelSpeedsCallback(const pacsim::msg::Wheels::SharedPtr msg) {
+  common_lib::sensor_data::WheelEncoderData wheel_encoder_data;
+  wheel_encoder_data.fl_rpm = msg->fl;
+  wheel_encoder_data.fr_rpm = msg->fr;
+  wheel_encoder_data.rl_rpm = msg->rl;
+  wheel_encoder_data.rr_rpm = msg->rr;
+  this->_velocity_estimator_->WSSCallback(wheel_encoder_data);
 }
