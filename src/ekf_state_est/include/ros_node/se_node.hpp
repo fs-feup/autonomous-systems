@@ -83,7 +83,7 @@ class SENode : public rclcpp::Node {
    * @param timestamp timestamp of the message
    */
   void _wheel_speeds_subscription_callback(double rl_speed, double rr_speed, double fl_speed,
-                                          double fr_speed, double steering_angle,
+                                           double fr_speed, double steering_angle,
                                            const rclcpp::Time& timestamp);
 
   /**
@@ -127,23 +127,6 @@ class SENode : public rclcpp::Node {
    *
    */
   void _ekf_step();
-
-  /**
-   * @brief Converts the odometry data to translational and rotational
-   * velocities
-   *
-   * @param lb_speed wheel speeds in rpm
-   * @param lf_speed wheel speeds in rpm
-   * @param rb_speed wheel speeds in rpm
-   * @param rf_speed wheel speeds in rpm
-   * @param steering_angle steering angle in radians
-   * @return MotionUpdate transformed motion update data
-   */
-  static MotionUpdate odometry_to_velocities_transform(double lb_speed,
-                                                       [[maybe_unused]] double lf_speed,
-                                                       double rb_speed,
-                                                       [[maybe_unused]] double rf_speed,
-                                                       double steering_angle);
 
 public:
   /**
