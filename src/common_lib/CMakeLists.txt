@@ -37,7 +37,6 @@ set(IMPLEMENTATION_FILES
   src/sensor_data/imu.cpp
   src/communication/marker.cpp
   src/communication/interfaces.cpp
-  src/vehicle_dynamics/bicycle_model.cpp
 )
 
 add_library(${PROJECT_NAME} SHARED ${IMPLEMENTATION_FILES})
@@ -72,7 +71,6 @@ if(BUILD_TESTING)
 
   set(TESTFILES
     test/main.cpp
-    test/vehicle_dynamics_test.cpp
   )
 
   include_directories(test)  # Include the 'test' directory for your test targets
