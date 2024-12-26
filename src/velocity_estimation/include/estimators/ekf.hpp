@@ -3,6 +3,7 @@
 #include <Eigen/Dense>
 #include <Eigen/Sparse>
 
+#include "adapters/parameters.hpp"
 #include "common_lib/structures/velocities.hpp"
 #include "estimators/estimator.hpp"
 
@@ -20,7 +21,7 @@ class EKF : public VelocityEstimator {
                double steering_data);
 
 public:
-  EKF() = default;
+  EKF(const VEParameters& params){};
   void IMUCallback(const common_lib::sensor_data::ImuData& imu_data) override;
   void WSSCallback(const common_lib::sensor_data::WheelEncoderData& wss_data) override;
   void ResolverCallback(double resolver_data) override;

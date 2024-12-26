@@ -6,8 +6,7 @@
 
 void load_adapter_parameters(VEParameters& params) {
   auto adapter_node = std::make_shared<rclcpp::Node>("temporary_ve_adapter");
-  params._car_model_ = adapter_node->declare_parameter("car_model", "bicycle");
-  params._motion_model_ = adapter_node->declare_parameter("motion_model", "ctra-no-slip");
+  params._estimation_method_ = adapter_node->declare_parameter("estimation_method", "ekf");
   params._adapter_ = adapter_node->declare_parameter("adapter", "pacsim");
 }
 

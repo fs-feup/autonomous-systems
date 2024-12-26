@@ -11,14 +11,9 @@ def generate_launch_description():
     return LaunchDescription(
         [
             DeclareLaunchArgument(
-                "car_model",
-                description="Car model to use",
-                default_value="bicycle-model",
-            ),
-            DeclareLaunchArgument(
-                "motion_model",
-                description="Motion model to use",
-                default_value="ctra-no-slip",
+                "estimation_method",
+                description="Estimation method to use",
+                default_value="ekf",
             ),
             DeclareLaunchArgument(
                 "adapter",
@@ -29,9 +24,9 @@ def generate_launch_description():
                 package="velocity_estimation",
                 executable="velocity_estimation",
                 name="temporary_ve_adapter",
+                output="screen",
                 parameters=[
-                    {"car_model": LaunchConfiguration("car_model")},
-                    {"motion_model": LaunchConfiguration("motion_model")},
+                    {"estimation_method": LaunchConfiguration("estimation_method")},
                     {"adapter": LaunchConfiguration("adapter")}
                 ],
                 arguments=["--ros-args", "--log-level", "velocity_estimation:=info"],

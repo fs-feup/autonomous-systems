@@ -1,5 +1,6 @@
 #pragma once
 
+#include "adapters/estimator_factory.hpp"
 #include "adapters/parameters.hpp"
 #include "custom_interfaces/msg/velocities.hpp"
 #include "estimators/estimator.hpp"
