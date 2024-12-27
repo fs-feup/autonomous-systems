@@ -20,6 +20,11 @@ def generate_launch_description():
                 description="Environment to run node on",
                 default_value="pacsim",
             ),
+            DeclareLaunchArgument(
+                "ekf_process_noise",
+                description="Process noise for EKF",
+                default_value="0.01",
+            ),
             Node(
                 package="velocity_estimation",
                 executable="velocity_estimation",
@@ -27,7 +32,8 @@ def generate_launch_description():
                 output="screen",
                 parameters=[
                     {"estimation_method": LaunchConfiguration("estimation_method")},
-                    {"adapter": LaunchConfiguration("adapter")}
+                    {"adapter": LaunchConfiguration("adapter")},
+                    {"ekf_process_noise": LaunchConfiguration("ekf_process_noise")},                    
                 ],
                 arguments=["--ros-args", "--log-level", "velocity_estimation:=info"],
             ),

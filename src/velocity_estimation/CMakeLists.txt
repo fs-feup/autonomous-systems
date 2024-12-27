@@ -20,6 +20,7 @@ set(PACKAGES
     common_lib
     visualization_msgs
     message_filters
+    motion_lib
 )
 foreach(pkg ${PACKAGES})
   find_package(${pkg} REQUIRED)

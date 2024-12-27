@@ -8,6 +8,7 @@ void load_adapter_parameters(VEParameters& params) {
   auto adapter_node = std::make_shared<rclcpp::Node>("temporary_ve_adapter");
   params._estimation_method_ = adapter_node->declare_parameter("estimation_method", "ekf");
   params._adapter_ = adapter_node->declare_parameter("adapter", "pacsim");
+  params._ekf_process_noise_ = adapter_node->declare_parameter<double>("ekf_process_noise", 0.01);
 }
 
 std::shared_ptr<Adapter> create_ve(const VEParameters& params) {
