@@ -25,6 +25,7 @@ endif()
 
 set(IMPLEMENTATION_FILES
   src/bicycle_model.cpp
+  src/particle_model.cpp
 )
 
 add_library(${PROJECT_NAME} SHARED ${IMPLEMENTATION_FILES})

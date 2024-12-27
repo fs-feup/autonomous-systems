@@ -1,4 +1,4 @@
-#include "bicycle_model.hpp"
+#include "motion_lib/bicycle_model.hpp"
 
 #include <gtest/gtest.h>
 

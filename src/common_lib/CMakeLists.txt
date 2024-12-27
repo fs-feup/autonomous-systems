@@ -33,6 +33,7 @@ set(IMPLEMENTATION_FILES
   src/structures/cone.cpp
   src/structures/path_point.cpp
   src/structures/vehicle_state.cpp
+  src/structures/velocities.cpp
   src/sensor_data/wheel_encoders.cpp
   src/sensor_data/imu.cpp
   src/communication/marker.cpp

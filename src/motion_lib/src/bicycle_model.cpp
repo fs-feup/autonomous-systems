@@ -1,11 +1,11 @@
-#include "bicycle_model.hpp"
+#include "motion_lib/bicycle_model.hpp"
 
 #include <cmath>
 #include <iostream>
 #include <utility>
 
-#include "car_parameters.hpp"
 #include "common_lib/maths/transformations.hpp"
+#include "motion_lib/car_parameters.hpp"
 
 namespace motion_lib::bicycle_model {
 
