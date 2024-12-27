@@ -93,7 +93,6 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
 
   for (auto cluster : clusters) {
     bool is_valid = true;
-    if (cluster.get_point_cloud()->points.size() <= 4) is_valid = false;
     for (auto validator : _cone_validators_) {
       is_valid = is_valid && validator->coneValidator(&cluster, _ground_plane_);
 
