@@ -32,7 +32,7 @@ public:
    * @param cone_point_cloud Pointer to a Cluster object representing the point cloud of the cone.
    * @return true if the cone satisfies the number of points criteria, false otherwise.
    */
-  bool coneValidator(Cluster* cone_point_cloud, Plane& plane) const override;
+  std::vector<double> coneValidator(Cluster* cone_point_cloud, Plane& plane) const override;
 
   /**
    * @brief Virtual destructor for NpointsValidator.

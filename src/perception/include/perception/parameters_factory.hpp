@@ -44,7 +44,7 @@ PerceptionParameters load_adapter_parameters() {
   int clustering_n_neighbours = adapter_node->declare_parameter("clustering_n_neighbours", 1);
   double clustering_epsilon = adapter_node->declare_parameter("clustering_epsilon", 0.1);
   params.clustering_ = std::make_shared<DBSCAN>(clustering_n_neighbours, clustering_epsilon);
-  
+
   // Number of points Validator Parameters
   long unsigned int min_n_points = adapter_node->declare_parameter("min_n_points", 4);
 
@@ -73,13 +73,14 @@ PerceptionParameters load_adapter_parameters() {
   params.cone_differentiator_ = std::make_shared<LeastSquaresDifferentiation>();
 
   params.cone_validators_ = {
-      std::make_shared<NPointsValidator>(min_n_points),
-      std::make_shared<HeightValidator>(min_height, large_max_height, small_max_height),
-      std::make_shared<CylinderValidator>(0.228, 0.325, 0.285, 0.505),
-      std::make_shared<DeviationValidator>(min_xoy, max_xoy, min_z, max_z),
-      std::make_shared<DisplacementValidator>(min_distance_x, min_distance_y, min_distance_z),
-      std::make_shared<ZScoreValidator>(min_z_score_x, max_z_score_x, min_z_score_y,
-                                        max_z_score_y)};
+      {'npoints', std::make_shared<NPointsValidator>(min_n_points)},
+      {'height', std::make_shared<HeightValidator>(min_height, large_max_height, small_max_height)},
+      {'cylinder', std::make_shared<CylinderValidator>(0.228, 0.325, 0.285, 0.505)},
+      {'deviation', std::make_shared<DeviationValidator>(min_xoy, max_xoy, min_z, max_z)},
+      {'displacement',
+       std::make_shared<DisplacementValidator>(min_distance_x, min_distance_y, min_distance_z)},
+      {'zscore', std::make_shared<ZScoreValidator>(min_z_score_x, max_z_score_x, min_z_score_y,
+                                                   max_z_score_y)}};
 
   if (params.adapter_ == "eufs") {
     params.cone_validators_ = {};

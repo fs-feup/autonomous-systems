@@ -15,9 +15,13 @@ double CylinderValidator::large_getRadius() const {
   return std::sqrt(2 * large_width * large_width) / 2;
 }
 
-bool CylinderValidator::coneValidator(Cluster* cone_point_cloud,
-                                      [[maybe_unused]] Plane& plane) const {
+std::vector<double> CylinderValidator::coneValidator(Cluster* cone_point_cloud,
+                                                     [[maybe_unused]] Plane& plane) const {
   pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud = cone_point_cloud->get_point_cloud();
+
+  double out_distanceXY = 1;
+  double out_distanceZ = 1;
+  int n_out_points = 0;
 
   for (const auto& point : *cone_point_cloud->get_point_cloud()) {
     // Calculate the distance between the point and the cylinder's centroid
@@ -31,15 +35,21 @@ bool CylinderValidator::coneValidator(Cluster* cone_point_cloud,
 
     // Choose which cylinder to use depending on the size of the cluster (decided in
     // height_validator).
-    if (cone_point_cloud->get_is_large()) {
-      // If the point is outside the large cylinder, return false
-      if (distanceXY > large_getRadius() || distanceZ > large_height / 2) return false;
-    } else {
-      // If the point is outside the small cylinder, return false
-      if (distanceXY > small_getRadius() || distanceZ > small_height / 2) return false;
+    if (cone_point_cloud->get_is_large() &&
+        (distanceXY > large_getRadius() || distanceZ > large_height / 2)) {
+      n_out_points++;
+      out_distanceXY = std::min(out_distanceXY, large_getRadius() / distanceXY);
+      out_distanceZ = std::min(out_distanceZ, large_height / (2 * distanceZ));
+
+    } else if (distanceXY > small_getRadius() || distanceZ > small_height / 2) {
+      n_out_points++;
+      out_distanceXY = std::min(out_distanceXY, small_getRadius() / distanceXY);
+      out_distanceZ = std::min(out_distanceZ, small_height / (2 * distanceZ));
     }
   }
-
-  // All points are inside the cylinder
-  return true;
+  // index 0 = ratio of between distance to the farthest point and the cylinder radius.
+  // index 1 = ratio of between distance to the farthest point and the cylinder heigth.
+  // index 2 = ratio between the number of points outside the cylinder and the number of total
+  // points.
+  return {out_distanceXY, out_distanceZ, 1.0 - (double)n_out_points / point_cloud->size()};
 }

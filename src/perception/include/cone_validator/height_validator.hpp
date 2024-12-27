@@ -36,7 +36,7 @@ public:
    * @param plane The plane against which the cone's height is evaluated.
    * @return true if the cone satisfies the height criteria, false otherwise.
    */
-  bool coneValidator(Cluster* cone_point_cloud, Plane& plane) const override;
+  std::vector<double> coneValidator(Cluster* cone_point_cloud, Plane& plane) const override;
 
   /**
    * @brief Virtual destructor for HeightValidator.

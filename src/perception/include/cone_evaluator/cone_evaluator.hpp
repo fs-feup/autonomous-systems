@@ -1,19 +1,32 @@
 #pragma once
+#include <cone_validator/cone_validator.hpp>
 #include <utils/cluster.hpp>
 
 /**
  * @class ConeEvaluator
  *
- * @brief Abstract class that represents an heurisic that evaluates the cluster as a cone
+ * @brief class that evaluates the cluster as a cone on a [0,1] confidence value
  *
  */
 class ConeEvaluator {
- public:
+private:
+  std::unordered_map<std::string, ConeValidator> cone_validators_;
+  std::unordered_map<std::string, double> validator_weights_;
+
+public:
   /**
-   * @brief Perform the cluster evaluation
+   * @brief Constructs a new DeviationValidator object with specified intervals on the deviation.
+   * @param cone_validators Minimum xOy plane deviation.
+   * @param validator_weights Maximum xOy plane deviation.
+   */
+  ConeEvaluator(std::unordered_map<std::string, ConeValidator> cone_validators,
+                std::unordered_map<std::string, double> validator_weights);
+
+  /**
+   * @brief Perform the cluster evaluation, changes the clusters confidence attribute to the
+   * obtained result.
    *
    * @param cluster Cluster to evaluate
-   * @return double Cluster's confidence &isin; [0,1]
    */
-  virtual double evaluateCluster(Cluster& cluster) const = 0;
+  void evaluateCluster(Cluster& cluster) const = 0;
 };

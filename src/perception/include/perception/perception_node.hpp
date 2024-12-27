@@ -3,6 +3,7 @@
 #include <cone_evaluator/cone_evaluator.hpp>
 #include <cone_validator/cylinder_validator.hpp>
 #include <string>
+#include <unordered_map>
 #include <utils/plane.hpp>
 #include <vector>
 
@@ -28,8 +29,10 @@ struct PerceptionParameters {  ///< Struct containing parameters and interfaces 
   std::shared_ptr<DBSCAN> clustering_;             ///< Shared pointer to the DBSCAN object.
   std::shared_ptr<LeastSquaresDifferentiation>
       cone_differentiator_;  ///< Shared pointer to ConeDifferentiation object.
-  std::vector<std::shared_ptr<ConeValidator>>
+  std::unordered_map<std::string, std::shared_ptr<ConeValidator>>
       cone_validators_;  ///< Shared pointer to ConeValidator objects.
+  std::unordered_map<std::string, double>
+      weight_values;  ///< Map containing weight value parameters names and values.
   std::shared_ptr<DistancePredict>
       distance_predict_;      ///< Shared pointer to DistancePredict object.
   std::shared_ptr<ICP> icp_;  ///< Shared pointer to ICP object.

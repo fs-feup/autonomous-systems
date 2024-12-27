@@ -46,5 +46,5 @@ public:
    * @param cone_point_cloud Pointer to the cluster to be validated.
    * @return True if the cluster is valid, false otherwise.
    */
-  bool coneValidator(Cluster* cone_point_cloud, Plane& plane) const override;
+  std::vector<double> coneValidator(Cluster* cone_point_cloud, Plane& plane) const override;
 };
