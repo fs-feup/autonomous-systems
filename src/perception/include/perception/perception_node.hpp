@@ -9,7 +9,6 @@
 
 #include "clustering/dbscan.hpp"
 #include "cone_differentiation/least_squares_differentiation.hpp"
-#include "cone_evaluator/distance_predict.hpp"
 #include "cone_validator/height_validator.hpp"
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "fov_trimming/cut_trimming.hpp"
@@ -31,9 +30,7 @@ struct PerceptionParameters {  ///< Struct containing parameters and interfaces 
       cone_differentiator_;  ///< Shared pointer to ConeDifferentiation object.
   std::shared_ptr<ConeEvaluator> cone_evaluator_;  ///< Shared pointer to ConeEvaluator object.
   std::unordered_map<std::string, double>
-      weight_values;  ///< Map containing all weight value parameters for cone evaluation.
-  std::shared_ptr<DistancePredict>
-      distance_predict_;      ///< Shared pointer to DistancePredict object.
+      weight_values;          ///< Map containing all weight value parameters for cone evaluation.
   std::shared_ptr<ICP> icp_;  ///< Shared pointer to ICP object.
 };
 

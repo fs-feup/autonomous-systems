@@ -7,7 +7,7 @@ ConeEvaluator::ConeEvaluator(
       evaluator_weights_(evaluator_weights),
       min_confidence_(min_confidence) {}
 
-bool ConeEvaluator::evaluateCluster(Cluster &cluster, Plane &ground_plane) const {
+bool ConeEvaluator::evaluateCluster(Cluster &cluster, Plane &ground_plane) {
   double condifence = 0;
   std::vector<double> cur_validator_results;
 

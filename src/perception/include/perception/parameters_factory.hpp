@@ -132,8 +132,6 @@ PerceptionParameters load_adapter_parameters() {
   // Create shared pointer for Distance prediction, Distance prediction Parameters
   double horizontal_resolution = adapter_node->declare_parameter("horizontal_resolution", 0.33);
   double vertical_resolution = adapter_node->declare_parameter("vertical_resolution", 0.22);
-  params.distance_predict_ =
-      std::make_shared<DistancePredict>(vertical_resolution, horizontal_resolution);
 
   // Create shared pointer for Distance prediction, Distance prediction Parameters
   std::string target_file = adapter_node->declare_parameter("target_file", "cone.pcd");
