@@ -1,6 +1,7 @@
 #pragma once
 #include <cone_validator/cone_validator.hpp>
 #include <utils/cluster.hpp>
+#include <utils/plane.hpp>
 
 /**
  * @class ConeEvaluator
@@ -10,17 +11,18 @@
  */
 class ConeEvaluator {
 private:
-  std::unordered_map<std::string, ConeValidator> cone_validators_;
-  std::unordered_map<std::string, double> validator_weights_;
+  std::unordered_map<std::string, std::shared_ptr<ConeValidator>>& cone_validators_;
+  std::unordered_map<std::string, double>& evaluator_weights_;
+  double min_confidence_;
 
 public:
   /**
    * @brief Constructs a new DeviationValidator object with specified intervals on the deviation.
-   * @param cone_validators Minimum xOy plane deviation.
-   * @param validator_weights Maximum xOy plane deviation.
+   * @param cone_validators Map with all cone validators and their names.
+   * @param validator_weights Map with all weights.
    */
-  ConeEvaluator(std::unordered_map<std::string, ConeValidator> cone_validators,
-                std::unordered_map<std::string, double> validator_weights);
+  ConeEvaluator(std::unordered_map<std::string, std::shared_ptr<ConeValidator>>& cone_validators,
+                std::unordered_map<std::string, double>& evaluator_weights, double min_confidence);
 
   /**
    * @brief Perform the cluster evaluation, changes the clusters confidence attribute to the
@@ -28,5 +30,5 @@ public:
    *
    * @param cluster Cluster to evaluate
    */
-  void evaluateCluster(Cluster& cluster) const = 0;
+  bool evaluateCluster(Cluster& cluster, Plane& ground_plane);
 };

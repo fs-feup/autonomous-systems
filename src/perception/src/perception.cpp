@@ -1,7 +1,6 @@
 #include <pcl/conversions.h>
 #include <pcl/features/normal_3d.h>
 
-#include <cone_evaluator/distance_predict.hpp>
 #include <cstdio>
 #include <memory>
 #include <vector>

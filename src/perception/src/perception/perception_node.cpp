@@ -22,7 +22,7 @@ Perception::Perception(const PerceptionParameters& params)
       _clustering_(params.clustering_),
       _cone_differentiator_(params.cone_differentiator_),
       _cone_validators_(params.cone_validators_),
-      _cone_evaluator_(params.distance_predict_),
+      _cone_evaluator_(params.cone_evaluator_),
       _icp_(params.icp_) {
   this->_cones_publisher =
       this->create_publisher<custom_interfaces::msg::ConeArray>("/perception/cones", 10);
@@ -91,15 +91,8 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   // Filtering
   std::vector<Cluster> filtered_clusters;
 
-  for (auto cluster : clusters) {
-    bool is_valid = true;
-    for (auto validator : _cone_validators_) {
-      is_valid = is_valid && validator->coneValidator(&cluster, _ground_plane_);
-
-      // Break the cycle to avoid wasting time on invalid clusters
-      if (!is_valid) break;
-    }
-    if (is_valid) {
+  for (auto& cluster : clusters) {
+    if (_cone_evaluator_->coneValidation(&cluster, _ground_plane_)) {
       filtered_clusters.push_back(cluster);
     }
   }

@@ -36,7 +36,7 @@ set(IMPLEMENTATION_FILES
   src/cone_validator/deviation_validator.cpp
   src/cone_validator/z_score_validator.cpp
   src/utils/plane.cpp
-  src/cone_evaluator/distance_predict.cpp
+  src/cone_evaluator/cone_evaluator.cpp
   src/center_calculation/centroid_calculation.cpp
   src/icp/icp.cpp
   src/center_calculation/circunference_center_calculation.cpp

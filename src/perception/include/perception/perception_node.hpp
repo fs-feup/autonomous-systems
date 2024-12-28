@@ -29,10 +29,9 @@ struct PerceptionParameters {  ///< Struct containing parameters and interfaces 
   std::shared_ptr<DBSCAN> clustering_;             ///< Shared pointer to the DBSCAN object.
   std::shared_ptr<LeastSquaresDifferentiation>
       cone_differentiator_;  ///< Shared pointer to ConeDifferentiation object.
-  std::unordered_map<std::string, std::shared_ptr<ConeValidator>>
-      cone_validators_;  ///< Shared pointer to ConeValidator objects.
+  std::shared_ptr<ConeEvaluator> cone_evaluator_;  ///< Shared pointer to ConeEvaluator object.
   std::unordered_map<std::string, double>
-      weight_values;  ///< Map containing weight value parameters names and values.
+      weight_values;  ///< Map containing all weight value parameters for cone evaluation.
   std::shared_ptr<DistancePredict>
       distance_predict_;      ///< Shared pointer to DistancePredict object.
   std::shared_ptr<ICP> icp_;  ///< Shared pointer to ICP object.
@@ -56,11 +55,8 @@ private:
   std::shared_ptr<Clustering> _clustering_;         ///< Shared pointer to the Clustering object.
   std::shared_ptr<ConeDifferentiation>
       _cone_differentiator_;  ///< Shared pointer to ConeDifferentiation object.
-  std::vector<std::shared_ptr<ConeValidator>>
-      _cone_validators_;                            ///< Shared pointer to ConeValidator objects.
   std::shared_ptr<ConeEvaluator> _cone_evaluator_;  ///< Shared pointer to ConeEvaluator object.
   std::shared_ptr<ICP> _icp_;                       ///< Shared pointer to ICP object.
-
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr
       _point_cloud_subscription;  ///< PointCloud2 subscription.
   rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr
