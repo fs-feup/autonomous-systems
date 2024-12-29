@@ -7,7 +7,7 @@ PacsimAdapter::PacsimAdapter(const VEParameters& parameters) : VENode(parameters
   wheel_speeds_sub_ = this->create_subscription<pacsim::msg::Wheels>(
       "/pacsim/wheelspeeds", 1,
       std::bind(&PacsimAdapter::wss_callback, this, std::placeholders::_1));
-  _steering_angle_subscription_ = this->create_subscription<pacsim::msg::StampedScalar>(
+  _steering_angle_sub_ = this->create_subscription<pacsim::msg::StampedScalar>(
       "/pacsim/steeringFront", 1,
       std::bind(&PacsimAdapter::steering_angle_callback, this, std::placeholders::_1));
 }

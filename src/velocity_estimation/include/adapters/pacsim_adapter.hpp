@@ -16,7 +16,7 @@
 class PacsimAdapter : public VENode {
   rclcpp::Subscription<sensor_msgs::msg::Imu>::SharedPtr _imu_sub_;
   rclcpp::Subscription<pacsim::msg::Wheels>::SharedPtr wheel_speeds_sub_;
-  rclcpp::Subscription<pacsim::msg::StampedScalar>::SharedPtr _steering_angle_subscription_;
+  rclcpp::Subscription<pacsim::msg::StampedScalar>::SharedPtr _steering_angle_sub_;
 
 public:
   explicit PacsimAdapter(const VEParameters& parameters);
