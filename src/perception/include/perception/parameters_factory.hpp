@@ -72,15 +72,18 @@ PerceptionParameters load_adapter_parameters() {
   double min_z_score_y = adapter_node->declare_parameter("min_z_score_y", 0.45);
   double max_z_score_y = adapter_node->declare_parameter("max_z_score_y", 1.55);
 
-  std::unordered_map<std::string, std::shared_ptr<ConeValidator>> cone_validators = {
-      {"npoints", std::make_shared<NPointsValidator>(min_n_points)},
-      {"height", std::make_shared<HeightValidator>(min_height, large_max_height, small_max_height)},
-      {"cylinder", std::make_shared<CylinderValidator>(0.228, 0.325, 0.285, 0.505)},
-      {"deviation", std::make_shared<DeviationValidator>(min_xoy, max_xoy, min_z, max_z)},
-      {"displacement",
-       std::make_shared<DisplacementValidator>(min_distance_x, min_distance_y, min_distance_z)},
-      {"zscore", std::make_shared<ZScoreValidator>(min_z_score_x, max_z_score_x, min_z_score_y,
-                                                   max_z_score_y)}};
+  auto cone_validators =
+      std::make_shared<std::unordered_map<std::string, std::shared_ptr<ConeValidator>>>(
+          std::unordered_map<std::string, std::shared_ptr<ConeValidator>>{
+              {"npoints", std::make_shared<NPointsValidator>(min_n_points)},
+              {"height",
+               std::make_shared<HeightValidator>(min_height, large_max_height, small_max_height)},
+              {"cylinder", std::make_shared<CylinderValidator>(0.228, 0.325, 0.285, 0.505)},
+              {"deviation", std::make_shared<DeviationValidator>(min_xoy, max_xoy, min_z, max_z)},
+              {"displacement", std::make_shared<DisplacementValidator>(
+                                   min_distance_x, min_distance_y, min_distance_z)},
+              {"zscore", std::make_shared<ZScoreValidator>(min_z_score_x, max_z_score_x,
+                                                           min_z_score_y, max_z_score_y)}});
 
   // Weight values for cone evaluator
 
@@ -103,35 +106,24 @@ PerceptionParameters load_adapter_parameters() {
   double deviation_xoy_weight = adapter_node->declare_parameter("deviation_xoy_weight", 0.2);
   double deviation_z_weight = adapter_node->declare_parameter("deviation_z_weight", 0.1);
 
-  // Weights maps setup
-  std::unordered_map<std::string, double> weight_values = {
-      {"height_out_weight", height_out_weight},
-      {"height_in_weight", height_in_weight},
-      {"cylinder_radius_weight", cylinder_radius_weight},
-      {"cylinder_height_weight", cylinder_height_weight},
-      {"cylinder_npoints_weight", cylinder_npoints_weight},
-      {"npoints_weight", npoints_weight},
-      {"displacement_x_weight", displacement_x_weight},
-      {"displacement_y_weight", displacement_y_weight},
-      {"displacement_z_weight", displacement_z_weight},
-      {"deviation_xoy_weight", deviation_xoy_weight},
-      {"deviation_z_weight", deviation_z_weight}};
-
+  // Weights maps shared pointer setup
+  auto weight_values = std::make_shared<std::unordered_map<std::string, double>>(
+      std::unordered_map<std::string, double>{{"height_out_weight", height_out_weight},
+                                              {"height_in_weight", height_in_weight},
+                                              {"cylinder_radius_weight", cylinder_radius_weight},
+                                              {"cylinder_height_weight", cylinder_height_weight},
+                                              {"cylinder_npoints_weight", cylinder_npoints_weight},
+                                              {"npoints_weight", npoints_weight},
+                                              {"displacement_x_weight", displacement_x_weight},
+                                              {"displacement_y_weight", displacement_y_weight},
+                                              {"displacement_z_weight", displacement_z_weight},
+                                              {"deviation_xoy_weight", deviation_xoy_weight},
+                                              {"deviation_z_weight", deviation_z_weight}});
   // Minimum confidence
-  double min_confidence = adapter_node->declare_parameter("minimum_confidence", 1);
+  double min_confidence = adapter_node->declare_parameter("min_confidence", 1.0);
 
   params.cone_evaluator_ =
       std::make_shared<ConeEvaluator>(cone_validators, weight_values, min_confidence);
-
-  /*
-  if (params.adapter_ == "eufs") {
-    params.cone_validators_ = {};
-  }
-  */
-
-  // Create shared pointer for Distance prediction, Distance prediction Parameters
-  double horizontal_resolution = adapter_node->declare_parameter("horizontal_resolution", 0.33);
-  double vertical_resolution = adapter_node->declare_parameter("vertical_resolution", 0.22);
 
   // Create shared pointer for Distance prediction, Distance prediction Parameters
   std::string target_file = adapter_node->declare_parameter("target_file", "cone.pcd");

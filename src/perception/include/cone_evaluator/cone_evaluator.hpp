@@ -11,24 +11,28 @@
  */
 class ConeEvaluator {
 private:
-  std::unordered_map<std::string, std::shared_ptr<ConeValidator>>& cone_validators_;
-  std::unordered_map<std::string, double>& evaluator_weights_;
+  std::shared_ptr<std::unordered_map<std::string, std::shared_ptr<ConeValidator>>> cone_validators_;
+  std::shared_ptr<std::unordered_map<std::string, double>> evaluator_weights_;
   double min_confidence_;
 
 public:
   /**
    * @brief Constructs a new DeviationValidator object with specified intervals on the deviation.
    * @param cone_validators Map with all cone validators and their names.
-   * @param validator_weights Map with all weights.
+   * @param evaluator_weights Map with all weights.
+   * @param min_confidence Minimum confidence needed for the cluster to be accepted.
    */
-  ConeEvaluator(std::unordered_map<std::string, std::shared_ptr<ConeValidator>>& cone_validators,
-                std::unordered_map<std::string, double>& evaluator_weights, double min_confidence);
+  ConeEvaluator(std::shared_ptr<std::unordered_map<std::string, std::shared_ptr<ConeValidator>>>
+                    cone_validators,
+                std::shared_ptr<std::unordered_map<std::string, double>> evaluator_weights,
+                double min_confidence);
 
   /**
    * @brief Perform the cluster evaluation, changes the clusters confidence attribute to the
    * obtained result.
    *
-   * @param cluster Cluster to evaluate
+   * @param cluster Cluster to evaluate.
+   * @param ground_plane The plane against which some validators compare the cluster.
    */
   bool evaluateCluster(Cluster& cluster, Plane& ground_plane);
 };

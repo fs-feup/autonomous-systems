@@ -94,6 +94,7 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
     if (_cone_evaluator_->evaluateCluster(cluster, _ground_plane_)) {
       filtered_clusters.push_back(cluster);
     }
+    RCLCPP_DEBUG(this->get_logger(), "Cluster confidence: %f ", cluster.get_confidence());
   }
 
   // Execution Time calculation

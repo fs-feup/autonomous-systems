@@ -33,7 +33,7 @@ std::vector<double> DisplacementValidator::coneValidator(Cluster* cone_point_clo
   // index 0 = ratio between the x axis displacement and the minimum distance for that axis.
   // index 1 = ratio between the y axis displacement and the minimum distance for that axis.
   // index 2 = ratio between the z axis displacement and the minimum distance for that axis.
-  return {std::min(maxX - minX / _min_distance_x_, 1.0),
-          std::min(maxY - minY / _min_distance_y_, 1.0),
-          std::min(maxZ - minZ / _min_distance_z_, 1.0)};
+  return {std::min((maxX - minX) / _min_distance_x_, 1.0),
+          std::min((maxY - minY) / _min_distance_y_, 1.0),
+          std::min((maxZ - minZ) / _min_distance_z_, 1.0)};
 }
