@@ -1,7 +1,5 @@
 #include "estimators/ekf.hpp"
 
-#include <iostream>
-
 EKF::EKF(const VEParameters& params) {
   this->process_noise_matrix_ = Eigen::Matrix3f::Identity() * params._ekf_process_noise_;
 }

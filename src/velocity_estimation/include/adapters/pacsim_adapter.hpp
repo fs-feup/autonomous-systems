@@ -1,14 +1,13 @@
 #pragma once
 
-#include "adapters/adapter.hpp"
 #include "common_lib/sensor_data/imu.hpp"
 #include "common_lib/sensor_data/wheel_encoders.hpp"
 #include "pacsim/msg/stamped_scalar.hpp"
 #include "pacsim/msg/wheels.hpp"
 #include "sensor_msgs/msg/imu.hpp"
-class VENode;
+#include "node/node.hpp"
 
-class PacsimAdapter : public Adapter {
+class PacsimAdapter : public VENode {
   rclcpp::Subscription<sensor_msgs::msg::Imu>::SharedPtr _imu_sub_;
   rclcpp::Subscription<pacsim::msg::Wheels>::SharedPtr wheel_speeds_sub_;
   rclcpp::Subscription<pacsim::msg::StampedScalar>::SharedPtr _steering_angle_subscription_;

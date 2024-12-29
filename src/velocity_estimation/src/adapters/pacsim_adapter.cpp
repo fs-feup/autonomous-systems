@@ -1,6 +1,6 @@
 #include "adapters/pacsim_adapter.hpp"
 
-PacsimAdapter::PacsimAdapter(const VEParameters& parameters) : Adapter(parameters) {
+PacsimAdapter::PacsimAdapter(const VEParameters& parameters) : VENode(parameters) {
   _imu_sub_ = this->create_subscription<sensor_msgs::msg::Imu>(
       "/pacsim/imu/cog_imu", 1,
       std::bind(&PacsimAdapter::ImuCallback, this, std::placeholders::_1));

@@ -11,9 +11,9 @@ void load_adapter_parameters(VEParameters& params) {
   params._ekf_process_noise_ = adapter_node->declare_parameter<double>("ekf_process_noise", 0.01);
 }
 
-std::shared_ptr<Adapter> create_ve(const VEParameters& params) {
+std::shared_ptr<VENode> create_ve(const VEParameters& params) {
   static const std::unordered_map<std::string_view,
-                                  std::function<std::shared_ptr<Adapter>(const VEParameters&)>>
+                                  std::function<std::shared_ptr<VENode>(const VEParameters&)>>
       adapter_map = {{"pacsim", [](const VEParameters& parameters) {
                         return std::make_shared<PacsimAdapter>(parameters);
                       }}};
