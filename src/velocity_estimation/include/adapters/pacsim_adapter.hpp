@@ -20,7 +20,7 @@ class PacsimAdapter : public VENode {
 
 public:
   explicit PacsimAdapter(const VEParameters& parameters);
-  void ImuCallback(const sensor_msgs::msg::Imu::SharedPtr msg);
-  void WheelSpeedsCallback(const pacsim::msg::Wheels::SharedPtr msg);
-  void SteeringAngleCallback(const pacsim::msg::StampedScalar::SharedPtr msg);
+  void imu_callback(const sensor_msgs::msg::Imu::SharedPtr msg);
+  void wss_callback(const pacsim::msg::Wheels::SharedPtr msg);
+  void steering_angle_callback(const pacsim::msg::StampedScalar::SharedPtr msg);
 };

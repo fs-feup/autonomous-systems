@@ -17,16 +17,16 @@ class EKF : public VelocityEstimator {
 
   common_lib::sensor_data::ImuData imu_data_;
   common_lib::sensor_data::WheelEncoderData wss_data_;
-  double resolver_data_;
-  double steering_data_;
+  double motor_rpm_;
+  double steering_angle_;
 
   // The following flags are used to keep track of which sensors have provided at least one
   // measurement. This is necessary to ensure that the estimator is not used before all sensors have
   // provided at least one measurement.
   bool imu_data_received_ = false;
   bool wss_data_received_ = false;
-  bool resolver_data_received_ = false;
-  bool steering_data_received_ = false;
+  bool motor_rpm_received_ = false;
+  bool steering_angle_received_ = false;
 
   /**
    * @brief Predict velocities at the next index based on IMU measurements and current state
@@ -53,18 +53,18 @@ class EKF : public VelocityEstimator {
    * @param state Vector of velocities {velocity_x, velocity_y, rotational_velocity}
    * @param covariance Covariance matrix representing the uncertainty in the state estimate.
    * @param wss_data Wheel speed sensor data containing wheel speeds.
-   * @param resolver_data Resolver data representing the motor's rpms.
-   * @param steering_data Steering data representing the steering angle.
+   * @param motor_rpm data representing the motor's rpms.
+   * @param steering_angle data representing the steering angle.
    */
   void correct(Eigen::Vector3f& state, Eigen::Matrix3f& covariance,
-               common_lib::sensor_data::WheelEncoderData& wss_data, double resolver_data,
-               double steering_data);
+               common_lib::sensor_data::WheelEncoderData& wss_data, double motor_rpm,
+               double steering_angle);
 
 public:
   EKF(const VEParameters& params);
-  void IMUCallback(const common_lib::sensor_data::ImuData& imu_data) override;
-  void WSSCallback(const common_lib::sensor_data::WheelEncoderData& wss_data) override;
-  void ResolverCallback(double resolver_data) override;
-  void SteeringCallback(double steering_data) override;
+  void imu_callback(const common_lib::sensor_data::ImuData& imu_data) override;
+  void wss_callback(const common_lib::sensor_data::WheelEncoderData& wss_data) override;
+  void motor_rpm_callback(double motor_rpm) override;
+  void steering_callback(double steering_angle) override;
   common_lib::structures::Velocities get_velocities() override;
 };
