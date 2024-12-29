@@ -4,6 +4,12 @@
 
 #include "estimators/ekf.hpp"
 
+/**
+ * @brief Factory function to create a velocity estimator based on the provided parameters.
+ *
+ * @param params Parameters used to configure the velocity estimator.
+ * @return std::shared_ptr<VelocityEstimator> Pointer to the created velocity estimator.
+ */
 inline std::shared_ptr<VelocityEstimator> create_estimator(const VEParameters& params) {
   static const std::unordered_map<
       std::string_view, std::function<std::shared_ptr<VelocityEstimator>(const VEParameters&)>>

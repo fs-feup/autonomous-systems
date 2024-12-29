@@ -3,7 +3,12 @@
 #include "common_lib/sensor_data/imu.hpp"
 #include "common_lib/sensor_data/wheel_encoders.hpp"
 #include "common_lib/structures/velocities.hpp"
-
+/**
+ * @brief Interface for velocity estimators
+ *
+ * This class defines the interface for velocity estimators. Velocity estimators are used to
+ * estimate the vehicle's velocity based on sensor measurements.
+ */
 class VelocityEstimator {
 public:
   virtual void IMUCallback(const common_lib::sensor_data::ImuData& imu_data) = 0;
