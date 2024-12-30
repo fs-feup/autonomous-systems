@@ -123,6 +123,11 @@ def generate_launch_description():
                 default_value="0.36",
             ),
             DeclareLaunchArgument(
+                "out_distance_cap",
+                description="Minimum out distance value cap for it to be 0 for a point",
+                default_value="0.5",
+            ),
+            DeclareLaunchArgument(
                 "min_xoy",
                 description="Minimum xOy plane deviation",
                 default_value="0.0",
@@ -304,6 +309,7 @@ def generate_launch_description():
                     {"max_z_score_x": LaunchConfiguration("max_z_score_x")},
                     {"min_z_score_y": LaunchConfiguration("min_z_score_y")},
                     {"max_z_score_y": LaunchConfiguration("max_z_score_y")},
+                    {"out_distance_cap": LaunchConfiguration("out_distance_cap")},
                     {"min_distance_x": LaunchConfiguration("min_distance_x")},
                     {"min_distance_y": LaunchConfiguration("min_distance_y")},
                     {"min_distance_z": LaunchConfiguration("min_distance_z")},

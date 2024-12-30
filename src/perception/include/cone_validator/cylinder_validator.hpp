@@ -13,10 +13,11 @@
  */
 class CylinderValidator : public ConeValidator {
 private:
-  double small_width;  /**< Width of the cylinder for a small cone. */
-  double small_height; /**< Height of the cylinder for a small cone. */
-  double large_width;  /**< Width of the cylinder for a large cone. */
-  double large_height; /**< Height of the cylinder for a large cone. */
+  double small_width;      /**< Width of the cylinder for a small cone. */
+  double small_height;     /**< Height of the cylinder for a small cone. */
+  double large_width;      /**< Width of the cylinder for a large cone. */
+  double large_height;     /**< Height of the cylinder for a large cone. */
+  double out_distance_cap; /**< Minimum out_distance value for it to be 0*/
 
 public:
   /**
@@ -27,7 +28,7 @@ public:
    * @param large_height The height of the cylinder for a large cone.
    */
   CylinderValidator(double small_width, double small_height, double large_width,
-                    double large_height);
+                    double large_height, double out_distance_cap);
 
   /**
    * @brief Gets the radius of the cylinder for small cones.

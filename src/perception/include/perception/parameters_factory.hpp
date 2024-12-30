@@ -72,13 +72,17 @@ PerceptionParameters load_adapter_parameters() {
   double min_z_score_y = adapter_node->declare_parameter("min_z_score_y", 0.45);
   double max_z_score_y = adapter_node->declare_parameter("max_z_score_y", 1.55);
 
+  // Cylinder Validator Parameters
+  double out_distance_cap = adapter_node->declare_parameter("out_distance_cap", 0.5);
+
   auto cone_validators =
       std::make_shared<std::unordered_map<std::string, std::shared_ptr<ConeValidator>>>(
           std::unordered_map<std::string, std::shared_ptr<ConeValidator>>{
               {"npoints", std::make_shared<NPointsValidator>(min_n_points)},
               {"height",
                std::make_shared<HeightValidator>(min_height, large_max_height, small_max_height)},
-              {"cylinder", std::make_shared<CylinderValidator>(0.228, 0.325, 0.285, 0.505)},
+              {"cylinder",
+               std::make_shared<CylinderValidator>(0.228, 0.325, 0.285, 0.505, out_distance_cap)},
               {"deviation", std::make_shared<DeviationValidator>(min_xoy, max_xoy, min_z, max_z)},
               {"displacement", std::make_shared<DisplacementValidator>(
                                    min_distance_x, min_distance_y, min_distance_z)},

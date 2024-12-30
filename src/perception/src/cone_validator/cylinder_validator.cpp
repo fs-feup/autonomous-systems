@@ -1,11 +1,12 @@
 #include <cone_validator/cylinder_validator.hpp>
 
 CylinderValidator::CylinderValidator(double small_width, double small_height, double large_width,
-                                     double large_height)
+                                     double large_height, double out_distance_cap)
     : small_width(small_width),
       small_height(small_height),
       large_width(large_width),
-      large_height(large_height) {}
+      large_height(large_height),
+      out_distance_cap(out_distance_cap) {}
 
 double CylinderValidator::small_getRadius() const {
   return std::sqrt(2 * small_width * small_width) / 2;
@@ -46,6 +47,8 @@ std::vector<double> CylinderValidator::coneValidator(Cluster* cone_point_cloud,
       out_distanceXY = std::min(out_distanceXY, small_getRadius() / distanceXY);
       out_distanceZ = std::min(out_distanceZ, small_height / (2 * distanceZ));
     }
+    out_distanceXY = out_distanceXY >= out_distance_cap ? out_distanceXY : 0.0;
+    out_distanceZ = out_distanceZ >= out_distance_cap ? out_distanceZ : 0.0;
   }
   // index 0 = ratio of between distance to the farthest point and the cylinder radius.
   // index 1 = ratio of between distance to the farthest point and the cylinder heigth.
