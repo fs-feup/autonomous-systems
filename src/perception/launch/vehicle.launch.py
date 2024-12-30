@@ -135,7 +135,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "min_xoy",
                 description="Minimum xOy plane deviation",
-                default_value="0.0",
+                default_value="0.0",  # revise
             ),
             DeclareLaunchArgument(
                 "max_xoy",
