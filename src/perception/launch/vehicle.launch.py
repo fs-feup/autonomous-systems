@@ -123,8 +123,13 @@ def generate_launch_description():
                 default_value="0.36",
             ),
             DeclareLaunchArgument(
+                "height_cap",
+                description="Minimum height ratio value cap for it to be 0 for a point  in height validator",
+                default_value="0.5",
+            ),
+            DeclareLaunchArgument(
                 "out_distance_cap",
-                description="Minimum out distance value cap for it to be 0 for a point",
+                description="Minimum out distance value cap for it to be 0 for a point  in cylinder validator",
                 default_value="0.5",
             ),
             DeclareLaunchArgument(

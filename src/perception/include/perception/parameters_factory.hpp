@@ -54,6 +54,7 @@ PerceptionParameters load_adapter_parameters() {
   double min_height = adapter_node->declare_parameter("min_height", 0.1);
   double large_max_height = adapter_node->declare_parameter("large_max_height", 0.55);
   double small_max_height = adapter_node->declare_parameter("small_max_height", 0.4);
+  double height_cap = adapter_node->declare_parameter("height_cap", 0.5);
 
   // Deviation Validator Parameters
   double min_xoy = adapter_node->declare_parameter("min_xoy", 0.0);
@@ -79,8 +80,8 @@ PerceptionParameters load_adapter_parameters() {
       std::make_shared<std::unordered_map<std::string, std::shared_ptr<ConeValidator>>>(
           std::unordered_map<std::string, std::shared_ptr<ConeValidator>>{
               {"npoints", std::make_shared<NPointsValidator>(min_n_points)},
-              {"height",
-               std::make_shared<HeightValidator>(min_height, large_max_height, small_max_height)},
+              {"height", std::make_shared<HeightValidator>(min_height, large_max_height,
+                                                           small_max_height, height_cap)},
               {"cylinder",
                std::make_shared<CylinderValidator>(0.228, 0.325, 0.285, 0.505, out_distance_cap)},
               {"deviation", std::make_shared<DeviationValidator>(min_xoy, max_xoy, min_z, max_z)},

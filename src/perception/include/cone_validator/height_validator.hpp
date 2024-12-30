@@ -14,6 +14,7 @@ private:
   double _min_height_;        ///< Min Height threshold for cone validation */
   double _large_max_height_;  ///< Max Height threshold for large cones */
   double _small_max_height_;  ///< Max Height treshhold for small cones */
+  double _height_cap_;
 
 public:
   /**
@@ -22,8 +23,10 @@ public:
    * @param min_height Min Height threshold for cone validation
    * @param max_height Max Height threshold for cone validation
    * @param small_max_height Max Height treshhold for small cones
+   *
    */
-  explicit HeightValidator(double min_height, double large_max_height, double small_max_height);
+  explicit HeightValidator(double min_height, double large_max_height, double small_max_height,
+                           double height_cap);
 
   /**
    * @brief Validates a cone based on its height relative to a plane.
