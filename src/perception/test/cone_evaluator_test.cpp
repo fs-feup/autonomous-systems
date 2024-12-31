@@ -14,7 +14,6 @@ class TestConeValidator : public ConeValidator {
 public:
   TestConeValidator(const std::vector<double>& results) : results_(results) {}
 
-  // Override the coneValidator method
   std::vector<double> coneValidator([[maybe_unused]] Cluster* cluster,
                                     [[maybe_unused]] Plane& ground_plane) const override {
     return results_;
@@ -48,16 +47,16 @@ TEST(ConeEvaluatorTest, EvaluateClusterConfidenceSufficient) {
   // Create a map of evaluator weights
   auto evaluator_weights = std::make_shared<std::unordered_map<std::string, double>>();
   (*evaluator_weights)["height_out_weight"] = 0.1;
-  (*evaluator_weights)["height_in_weight"] = 0.2;
-  (*evaluator_weights)["cylinder_radius_weight"] = 0.3;
-  (*evaluator_weights)["cylinder_height_weight"] = 0.2;
-  (*evaluator_weights)["cylinder_npoints_weight"] = 0.1;
-  (*evaluator_weights)["npoints_weight"] = 0.4;
-  (*evaluator_weights)["displacement_x_weight"] = 0.2;
-  (*evaluator_weights)["displacement_y_weight"] = 0.2;
-  (*evaluator_weights)["displacement_z_weight"] = 0.2;
-  (*evaluator_weights)["deviation_xoy_weight"] = 0.1;
-  (*evaluator_weights)["deviation_z_weight"] = 0.1;
+  (*evaluator_weights)["height_in_weight"] = 0.1;
+  (*evaluator_weights)["cylinder_radius_weight"] = 0.2;
+  (*evaluator_weights)["cylinder_height_weight"] = 0.05;
+  (*evaluator_weights)["cylinder_npoints_weight"] = 0.05;
+  (*evaluator_weights)["npoints_weight"] = 0.25;
+  (*evaluator_weights)["displacement_x_weight"] = 0.05;
+  (*evaluator_weights)["displacement_y_weight"] = 0.05;
+  (*evaluator_weights)["displacement_z_weight"] = 0.05;
+  (*evaluator_weights)["deviation_xoy_weight"] = 0.05;
+  (*evaluator_weights)["deviation_z_weight"] = 0.05;
 
   double min_confidence = 0.5;
   ConeEvaluator cone_evaluator(cone_validators, evaluator_weights, min_confidence);
@@ -68,9 +67,8 @@ TEST(ConeEvaluatorTest, EvaluateClusterConfidenceSufficient) {
 
   bool result = cone_evaluator.evaluateCluster(cluster, ground_plane);
 
-  EXPECT_GE(cluster.get_confidence(), 0.0);
-  EXPECT_LE(cluster.get_confidence(), 1.0);
-  EXPECT_EQ(result, true);
+  ASSERT_NEAR(cluster.get_confidence(), 0.565, 1e-4);
+  ASSERT_EQ(result, true);
 }
 
 /**
@@ -97,16 +95,16 @@ TEST(ConeEvaluatorTest, EvaluateClusterConfidenceInsufficient) {
   // Create a map of evaluator weights
   auto evaluator_weights = std::make_shared<std::unordered_map<std::string, double>>();
   (*evaluator_weights)["height_out_weight"] = 0.1;
-  (*evaluator_weights)["height_in_weight"] = 0.2;
-  (*evaluator_weights)["cylinder_radius_weight"] = 0.3;
-  (*evaluator_weights)["cylinder_height_weight"] = 0.2;
-  (*evaluator_weights)["cylinder_npoints_weight"] = 0.1;
-  (*evaluator_weights)["npoints_weight"] = 0.4;
-  (*evaluator_weights)["displacement_x_weight"] = 0.2;
-  (*evaluator_weights)["displacement_y_weight"] = 0.2;
-  (*evaluator_weights)["displacement_z_weight"] = 0.2;
-  (*evaluator_weights)["deviation_xoy_weight"] = 0.1;
-  (*evaluator_weights)["deviation_z_weight"] = 0.1;
+  (*evaluator_weights)["height_in_weight"] = 0.1;
+  (*evaluator_weights)["cylinder_radius_weight"] = 0.2;
+  (*evaluator_weights)["cylinder_height_weight"] = 0.05;
+  (*evaluator_weights)["cylinder_npoints_weight"] = 0.05;
+  (*evaluator_weights)["npoints_weight"] = 0.25;
+  (*evaluator_weights)["displacement_x_weight"] = 0.05;
+  (*evaluator_weights)["displacement_y_weight"] = 0.05;
+  (*evaluator_weights)["displacement_z_weight"] = 0.05;
+  (*evaluator_weights)["deviation_xoy_weight"] = 0.05;
+  (*evaluator_weights)["deviation_z_weight"] = 0.05;
 
   double min_confidence = 0.5;
   ConeEvaluator cone_evaluator(cone_validators, evaluator_weights, min_confidence);
@@ -117,7 +115,6 @@ TEST(ConeEvaluatorTest, EvaluateClusterConfidenceInsufficient) {
 
   bool result = cone_evaluator.evaluateCluster(cluster, ground_plane);
 
-  EXPECT_GE(cluster.get_confidence(), 0.0);
-  EXPECT_LE(cluster.get_confidence(), 1.0);
-  EXPECT_EQ(result, false);
+  ASSERT_NEAR(cluster.get_confidence(), 0.0, 1e-3);
+  ASSERT_EQ(result, false);
 }
