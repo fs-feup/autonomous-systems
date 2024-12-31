@@ -36,7 +36,10 @@ public:
    * meets the minimum distance criteria in all axis.
    *
    * @param cone_point_cloud Pointer to a Cluster object representing the point cloud of the cone.
-   * @return true if the cone satisfies the distance criteria, false otherwise.
+   * @return vector containing:
+   * Index 0 -> ratio between the x axis displacement and the minimum distance for that axis. |
+   * Index 1 -> ratio between the y axis displacement and the minimum distance for that axis. |
+   * Index 2 -> ratio between the z axis displacement and the minimum distance for that axis.
    */
   std::vector<double> coneValidator(Cluster* cone_point_cloud, Plane& plane) const override;
 

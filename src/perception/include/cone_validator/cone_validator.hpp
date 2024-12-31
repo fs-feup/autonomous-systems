@@ -20,8 +20,7 @@ public:
    * @brief Validate a Cluster as a cone
    *
    * @param cone_point_cloud Point Cloud to be Validated
-   * @return true if the cluster is considered a cone
-   * @return false if the cluster is not considered a cone
+   * @return vector with all double values for the respective validator
    */
   virtual std::vector<double> coneValidator(Cluster* cone_point_cloud, Plane& plane) const = 0;
 };

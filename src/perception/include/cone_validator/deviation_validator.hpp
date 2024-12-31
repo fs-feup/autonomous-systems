@@ -30,7 +30,11 @@ public:
   /**
    * @brief Validates a cluster using standard deviation.
    * @param cone_point_cloud Pointer to the cluster to be validated.
-   * @return True if the cluster is valid, false otherwise.
+   * @return vector containing:
+   * Index 0 -> if not in xoy interval, ratio between the cluster std deviation and the closest
+   * limit on the xoy plane|
+   * Index 1 -> if not z in interval, ratio between cluster std deviation and the closest limit on
+   * the z axis.
    */
   std::vector<double> coneValidator(Cluster* cone_point_cloud, Plane& plane) const override;
 

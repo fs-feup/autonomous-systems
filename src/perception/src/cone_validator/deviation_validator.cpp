@@ -51,7 +51,7 @@ std::vector<double> DeviationValidator::coneValidator(Cluster* cone_point_cloud,
   // index 0 = if not in xoy interval, ratio between the std deviation of the cluster and the
   // maximum or minimum deviation, whichever is closest to.
   // index 1 = if not z in interval, ratio between the std deviation of the cluster and the maximum
-  // or minimum deviation, whichever is the closest to.z
+  // or minimum deviation, whichever is the closest to z
   return {std::min({_min_xoy_ > 0 ? std_dev_xoy / _min_xoy_ : 1.0, _max_xoy_ / std_dev_xoy, 1.0}),
           std::min({_min_z_ > 0 ? std_dev_z / _min_z_ : 1.0, _max_z_ / std_dev_z, 1.0})};
 }

@@ -33,6 +33,7 @@ public:
    *
    * @param cluster Cluster to evaluate.
    * @param ground_plane The plane against which some validators compare the cluster.
+   * @return True if cluster is equal or above minimum confidence and false if below.
    */
   bool evaluateCluster(Cluster& cluster, Plane& ground_plane);
 };
