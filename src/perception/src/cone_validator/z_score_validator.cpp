@@ -7,7 +7,7 @@ ZScoreValidator::ZScoreValidator(double min_z_score_x, double max_z_score_x, dou
       _min_z_score_y_(min_z_score_y),
       _max_z_score_y_(max_z_score_y){};
 
-std::vector<double> ZScoreValidator::coneValidator(Cluster* cluster,
+std::vector<double> ZScoreValidator::coneValidator([[maybe_unused]] Cluster* cluster,
                                                    [[maybe_unused]] Plane& plane) const {
   /*
   (_min_z_score_x_ <= cluster->get_z_score_x() &&
