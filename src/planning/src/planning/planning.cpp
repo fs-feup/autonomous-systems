@@ -138,11 +138,11 @@ void Planning::run_planning_algorithms() {
                 static_cast<int>(final_path.size()));
   }
 
-  if (true) {  // this->mission == common_lib::competition_logic::Mission::SKIDPAD) {
+  if ((this->mission == common_lib::competition_logic::Mission::SKIDPAD)) { // place a ! before the condition, to test skidpad until the simulator publishes the mission correctly
     final_path = path_calculation_.skidpad_path(this->cone_array_, this->pose);
   }
 
-  if (this->mission == common_lib::competition_logic::Mission::ACCELERATION) {  // change later
+  if ((this->mission == common_lib::competition_logic::Mission::ACCELERATION)) {  // place a ! before the condition, to test acceleration until the simulator publishes the mission correctly
     double dist_from_origin = sqrt(this->pose.position.x * this->pose.position.x +
                                    this->pose.position.y * this->pose.position.y);
     if (dist_from_origin > 80.0) {
@@ -154,9 +154,9 @@ void Planning::run_planning_algorithms() {
         point.ideal_velocity = 1000.0;
       }
     }
-  } else if (this->mission == common_lib::competition_logic::Mission::SKIDPAD) {
+  } else if (!(this->mission == common_lib::competition_logic::Mission::SKIDPAD)) { // remove the ! before the condition, to test skidpad until the simulator publishes the mission correctly
     velocity_planning_.set_velocity(final_path);
-  }  // do nothing, velocity is predefined
+  }
 
   // Execution Time calculation
   rclcpp::Time end_time = this->now();
