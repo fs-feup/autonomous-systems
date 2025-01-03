@@ -10,7 +10,7 @@ entryspeed=6
 exitspeed = 7
 circular_speed = 5
 
-file_name = "./src/planning/src/planning/skidpad.txt"
+file_name = "./src/planning/src/utils/skidpad.txt"
 
 # Get the absolute path of the file
 

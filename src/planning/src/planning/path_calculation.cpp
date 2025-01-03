@@ -72,7 +72,7 @@ std::vector<PathPoint> PathCalculation::process_delaunay_triangulations(
 std::vector<PathPoint> PathCalculation::skidpad_path(std::vector<Cone> &cone_array,
                                                      common_lib::structures::Pose pose) {
   if (!path_orientation_corrected_) {
-    std::string file = "./src/planning/src/planning/skidpad.txt";  // --------------------
+    std::string file = "./src/planning/src/utils/skidpad.txt";  // --------------------
     // open and read file line by line
     std::ifstream infile(file);
     std::string line;
