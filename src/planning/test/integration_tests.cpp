@@ -347,3 +347,61 @@ TEST_F(IntegrationTest, one_cone) {
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()), (long unsigned int)0);
 }
+
+
+
+TEST_F(IntegrationTest, simple_straight_path) {
+  // Open file straight_1.txt to read the initial state
+  std::ifstream file("./src/planning/test/integration_tests/straight_1.txt");
+  if (!file.is_open()) {
+    FAIL() << "Failed to open file: straight_1.txt";
+    return;
+  }
+
+  std::string line;
+  std::vector<Cone> cone_array;
+  custom_interfaces::msg::VehicleState vehicle_state;
+
+  double finalxi = 0.0, finalxf = 0.0, finalyi = 0.0, finalyf = 0.0;
+
+  while (std::getline(file, line)) {
+    std::istringstream iss(line);
+    std::string flag;
+    iss >> flag;
+    if (flag == "P") {
+      // Read initial vehicle state
+      iss >> vehicle_state.position.x >> vehicle_state.position.y >> vehicle_state.theta;
+      vehicle_state.linear_velocity = 0.0;
+      vehicle_state.angular_velocity = 0.0;
+    } else if (flag == "C") {
+      Cone cone;
+      std::string color;
+      iss >> cone.position.x >> cone.position.y >> color;
+      cone.color = common_lib::competition_logic::get_color_enum(color);
+      cone_array.push_back(cone);
+    } else if (flag == "F") {
+      // Read final expected position range
+      iss >> finalxi >> finalxf >> finalyi >> finalyf;
+    } else {
+      FAIL() << "Unknown flag in file: " << flag;
+      return;
+    }
+  }
+  file.close();
+
+  // Convert cone array to the appropriate message type
+  this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
+
+  // Run the nodes
+  auto duration = run_nodes(cone_array_msg, vehicle_state);
+
+  // Verify final position
+  if ((this->received_path.pathpoint_array.back().x >= finalxi &&
+       this->received_path.pathpoint_array.back().x <= finalxf) &&
+      (this->received_path.pathpoint_array.back().y >= finalyi &&
+       this->received_path.pathpoint_array.back().y <= finalyf)) {
+    SUCCEED();
+  } else {
+    FAIL() << "The final point is not in the expected range. ";
+  }
+}
