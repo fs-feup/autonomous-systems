@@ -1,4 +1,4 @@
-#include "bicycle_model.hpp"
+#include "observation_lib/bicycle_model.hpp"
 
 namespace observation_lib::bicycle_model {
 
