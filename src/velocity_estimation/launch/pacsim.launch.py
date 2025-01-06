@@ -23,8 +23,33 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "ekf_process_noise",
                 description="Process noise for EKF",
-                default_value="0.01",
+                default_value="0.4",
             ),
+            DeclareLaunchArgument(
+                "ekf_measurement_noise",
+                description="Process noise for EKF",
+                default_value="0.5",
+            ),
+            DeclareLaunchArgument(
+                "wheel_base",
+                description="distance between front and rear wheels",
+                default_value="1.6",
+            ),
+            DeclareLaunchArgument(
+                "weight_distribution_front",
+                description="weight distribution on front wheels",
+                default_value="0.5",
+            ),
+            DeclareLaunchArgument(
+                "gear_ratio",
+                description="Motor to wheel gear ratio",
+                default_value="4.0",
+            ),
+            DeclareLaunchArgument(
+                "wheel_radius",
+                description="Wheel radius",
+                default_value="0.258",
+            ),            
             Node(
                 package="velocity_estimation",
                 executable="velocity_estimation",
@@ -33,7 +58,12 @@ def generate_launch_description():
                 parameters=[
                     {"estimation_method": LaunchConfiguration("estimation_method")},
                     {"adapter": LaunchConfiguration("adapter")},
-                    {"ekf_process_noise": LaunchConfiguration("ekf_process_noise")},                    
+                    {"ekf_process_noise": LaunchConfiguration("ekf_process_noise")},  
+                    {"ekf_measurement_noise": LaunchConfiguration("ekf_measurement_noise")},
+                    {"wheel_base": LaunchConfiguration("wheel_base")},  
+                    {"weight_distribution_front": LaunchConfiguration("weight_distribution_front")},  
+                    {"gear_ratio": LaunchConfiguration("gear_ratio")},  
+                    {"wheel_radius": LaunchConfiguration("wheel_radius")},                  
                 ],
                 arguments=["--ros-args", "--log-level", "velocity_estimation:=info"],
             ),

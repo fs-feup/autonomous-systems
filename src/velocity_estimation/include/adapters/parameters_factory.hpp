@@ -11,6 +11,13 @@ void load_adapter_parameters(VEParameters& params) {
   params._estimation_method_ = adapter_node->declare_parameter("estimation_method", "ekf");
   params._adapter_ = adapter_node->declare_parameter("adapter", "pacsim");
   params._ekf_process_noise_ = adapter_node->declare_parameter<double>("ekf_process_noise", 0.01);
+  params._ekf_measurement_noise_ =
+      adapter_node->declare_parameter<double>("ekf_measurement_noise", 0.01);
+  params._wheel_base_ = adapter_node->declare_parameter<double>("wheel_base", 1.6);
+  params._weight_distribution_front_ =
+      adapter_node->declare_parameter<double>("weight_distribution_front", 0.5);
+  params._gear_ratio_ = adapter_node->declare_parameter<double>("gear_ratio", 4.0);
+  params._wheel_radius_ = adapter_node->declare_parameter<double>("wheel_radius", 0.258);
 }
 
 /**

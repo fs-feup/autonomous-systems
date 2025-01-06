@@ -1,16 +1,32 @@
 #include "estimators/ekf.hpp"
 
+#include <iostream>
+
 EKF::EKF(const VEParameters& params) {
   this->process_noise_matrix_ = Eigen::Matrix3f::Identity() * params._ekf_process_noise_;
+  this->measurement_noise_matrix_ =
+      Eigen::MatrixXf::Identity(6, 6) * params._ekf_measurement_noise_;
+  this->wheel_base_ = params._wheel_base_;
+  this->weight_distribution_front_ = params._weight_distribution_front_;
+  this->wheel_radius_ = params._wheel_radius_;
+  this->gear_ratio_ = params._gear_ratio_;
 }
 
 void EKF::imu_callback(const common_lib::sensor_data::ImuData& imu_data) {
   this->imu_data_ = imu_data;
+  this->imu_data_ = common_lib::sensor_data::ImuData(0, 0, 0);
   if (this->imu_data_received_ && this->wss_data_received_ && this->motor_rpm_received_ &&
       this->steering_angle_received_) {
+    std::cout << "1 - State: " << this->state_(0) << " " << this->state_(1) << " "
+              << this->state_(2) << std::endl;
     this->predict(this->state_, this->covariance_, this->process_noise_matrix_, this->last_update_,
                   this->imu_data_);
-    // TODO: correct(this->state_, this->covariance_, this->wss_data_, this->resolver_data_,
+    std::cout << "2 - State: " << this->state_(0) << " " << this->state_(1) << " "
+              << this->state_(2) << std::endl;
+    this->correct(this->state_, this->covariance_, this->wss_data_, this->motor_rpm_,
+                  this->steering_angle_);
+    std::cout << "3 - State: " << this->state_(0) << " " << this->state_(1) << " "
+              << this->state_(2) << std::endl;
   }
   this->imu_data_received_ = true;
   this->last_update_ = std::chrono::high_resolution_clock::now();
@@ -51,4 +67,129 @@ void EKF::predict(Eigen::Vector3f& state, Eigen::Matrix3f& covariance,
   covariance = jacobian * covariance * jacobian.transpose() + process_noise_matrix;
   motion_lib::particle_model::update_velocities(
       state, imu_data.acceleration_x, imu_data.acceleration_y, imu_data.rotational_velocity, dt);
+}
+
+Eigen::VectorXf EKF::estimate_observations(Eigen::Vector3f& state, double wheel_base,
+                                           double weight_distribution_front, double gear_ratio,
+                                           double wheel_radius) {
+  double Lr = wheel_base *
+              weight_distribution_front;  // distance from the center of mass to the rear wheels
+  double Lf =
+      wheel_base *
+      (1 - weight_distribution_front);  // distance from the center of mass to the front wheels
+  double rear_wheel_velocity = sqrt(pow(state(0), 2) + pow(state(1) - state(2) * Lr, 2));
+  double rear_wheels_rpm = 60 * rear_wheel_velocity / (2 * M_PI * wheel_radius);
+  double front_wheel_velocity = sqrt(pow(state(0), 2) + pow(state(1) + state(2) * Lf, 2));
+  double front_wheels_rpm = 60 * front_wheel_velocity / (2 * M_PI * wheel_radius);
+  double steering_angle = state(0) == 0 ? 0 : atan((state(1) + state(2) * Lf) / state(0));
+  double motor_rpm = 60 * gear_ratio * rear_wheel_velocity / (2 * M_PI * wheel_radius);
+
+  Eigen::VectorXf observations = Eigen::VectorXf::Zero(6);
+  observations << front_wheels_rpm, front_wheels_rpm, rear_wheels_rpm, rear_wheels_rpm,
+      steering_angle, motor_rpm;
+  return observations;
+}
+
+Eigen::MatrixXf EKF::jacobian_of_observation_estimation(Eigen::Vector3f& state, double wheel_base,
+                                                        double weight_distribution_front,
+                                                        double gear_ratio, double wheel_radius) {
+  Eigen::MatrixXf jacobian = Eigen::MatrixXf::Zero(6, 3);
+  double Lr = wheel_base *
+              weight_distribution_front;  // distance from the center of mass to the rear wheels
+  double Lf =
+      wheel_base *
+      (1 - weight_distribution_front);  // distance from the center of mass to the front wheels
+  double rear_wheel_velocity = sqrt(pow(state(0), 2) + pow(state(1) - state(2) * Lr, 2));
+  if (rear_wheel_velocity == 0) {
+    rear_wheel_velocity = 0.00001;
+  }
+  double front_wheel_velocity = sqrt(pow(state(0), 2) + pow(state(1) + state(2) * Lf, 2));
+  if (front_wheel_velocity == 0) {
+    front_wheel_velocity = 0.00001;
+  }
+  double vx = state(0) == 0 ? 1 : state(0);
+  jacobian(0, 0) = 60 * 2 * state(0) / (2 * M_PI * wheel_radius * 2 * rear_wheel_velocity);
+  jacobian(0, 1) =
+      60 * 2 * (state(1) + state(2) * Lf) / (2 * M_PI * wheel_radius * 2 * front_wheel_velocity);
+  jacobian(0, 2) = 60 * 2 * Lf * (state(1) + state(2) * Lf) /
+                   (2 * M_PI * wheel_radius * 2 * front_wheel_velocity);
+  jacobian(1, 0) = jacobian(0, 0);
+  jacobian(1, 1) = jacobian(0, 1);
+  jacobian(1, 2) = jacobian(0, 2);
+
+  jacobian(2, 0) = 60 * 2 * state(0) / (2 * M_PI * wheel_radius * 2 * rear_wheel_velocity);
+  jacobian(2, 1) =
+      60 * 2 * (state(1) - state(2) * Lr) / (2 * M_PI * wheel_radius * 2 * rear_wheel_velocity);
+  jacobian(2, 2) = 60 * 2 * (-Lr) * (state(1) - state(2) * Lr) /
+                   (2 * M_PI * wheel_radius * 2 * rear_wheel_velocity);
+  jacobian(3, 0) = jacobian(2, 0);
+  jacobian(3, 1) = jacobian(2, 1);
+  jacobian(3, 2) = jacobian(2, 2);
+
+  jacobian(4, 0) =
+      (-(state(1) + state(2) * Lf) / (vx * vx)) / (1 + pow((state(1) + state(2) * Lf) / vx, 2));
+  jacobian(4, 1) = (1 / vx) / (1 + pow((state(1) + state(2) * Lf) / vx, 2));
+  jacobian(4, 2) = (Lf / vx) / (1 + pow((state(1) + state(2) * Lf) / vx, 2));
+
+  jacobian(5, 0) =
+      gear_ratio * 60 * 2 * state(0) / (2 * M_PI * wheel_radius * 2 * rear_wheel_velocity);
+  jacobian(5, 1) = gear_ratio * 60 * 2 * (state(1) - state(2) * Lr) /
+                   (2 * M_PI * wheel_radius * 2 * rear_wheel_velocity);
+  jacobian(5, 2) = gear_ratio * 60 * 2 * (-Lr) * (state(1) - state(2) * Lr) /
+                   (2 * M_PI * wheel_radius * 2 * rear_wheel_velocity);
+  return jacobian;
+}
+
+void EKF::correct(Eigen::Vector3f& state, Eigen::Matrix3f& covariance,
+                  common_lib::sensor_data::WheelEncoderData& wss_data, double motor_rpm,
+                  double steering_angle) {
+  Eigen::VectorXf predicted_observations =
+      estimate_observations(state, this->wheel_base_, this->weight_distribution_front_,
+                            this->gear_ratio_, this->wheel_radius_);
+  Eigen::VectorXf observations = Eigen::VectorXf::Zero(6);
+  observations << wss_data.fl_rpm, wss_data.fr_rpm, wss_data.rl_rpm, wss_data.rr_rpm,
+      steering_angle, motor_rpm;
+  std::cout << "Predicted observations: ";
+  for (int i = 0; i < predicted_observations.rows(); i++) {
+    std::cout << predicted_observations(i) << " ";
+  }
+  std::cout << std::endl;
+  std::cout << "Observations: ";
+  for (int i = 0; i < observations.rows(); i++) {
+    std::cout << observations(i) << " ";
+  }
+  std::cout << std::endl;
+  Eigen::VectorXf y = observations - predicted_observations;
+  std::cout << "y: ";
+  for (int i = 0; i < y.rows(); i++) {
+    std::cout << y(i) << " ";
+  }
+  std::cout << std::endl;
+  Eigen::MatrixXf jacobian =
+      jacobian_of_observation_estimation(state, this->wheel_base_, this->weight_distribution_front_,
+                                         this->gear_ratio_, this->wheel_radius_);
+  std::cout << "Jacobian: " << std::endl;
+  for (int i = 0; i < jacobian.rows(); i++) {
+    for (int j = 0; j < jacobian.cols(); j++) {
+      std::cout << jacobian(i, j) << " ";
+    }
+    std::cout << std::endl;
+  }
+
+  Eigen::MatrixXf kalman_gain =
+      covariance * jacobian.transpose() *
+      (jacobian * covariance * jacobian.transpose() + this->measurement_noise_matrix_).inverse();
+  std::cout << "Kalman gain: ";
+  for (int i = 0; i < kalman_gain.rows(); i++) {
+    std::cout << kalman_gain(i, 0) << " ";
+  }
+  std::cout << std::endl;
+  Eigen::Vector3f dx = kalman_gain * y;
+  std::cout << "dx: ";
+  for (int i = 0; i < dx.rows(); i++) {
+    std::cout << dx(i) << " ";
+  }
+  std::cout << std::endl;
+  state += kalman_gain * y;
+  covariance = (Eigen::Matrix3f::Identity() - kalman_gain * jacobian) * covariance;
 }

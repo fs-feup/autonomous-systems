@@ -1,11 +1,14 @@
 #pragma once
 
+#include <math.h>
+
 #include <Eigen/Dense>
 #include <Eigen/Sparse>
 #include <chrono>
 
 #include "adapters/parameters.hpp"
 #include "common_lib/structures/velocities.hpp"
+#include "custom_interfaces/msg/velocities.hpp"
 #include "estimators/estimator.hpp"
 #include "motion_lib/particle_model.hpp"
 
@@ -14,6 +17,7 @@ class EKF : public VelocityEstimator {
   Eigen::Vector3f state_ = Eigen::Vector3f::Zero();
   Eigen::Matrix3f covariance_ = Eigen::Matrix3f::Identity();
   Eigen::Matrix3f process_noise_matrix_;
+  Eigen::MatrixXf measurement_noise_matrix_;
 
   common_lib::sensor_data::ImuData imu_data_;
   common_lib::sensor_data::WheelEncoderData wss_data_;
@@ -27,6 +31,12 @@ class EKF : public VelocityEstimator {
   bool wss_data_received_ = false;
   bool motor_rpm_received_ = false;
   bool steering_angle_received_ = false;
+
+  // Parameters
+  double wheel_base_;
+  double weight_distribution_front_;
+  double wheel_radius_;
+  double gear_ratio_;
 
   /**
    * @brief Predict velocities at the next index based on IMU measurements and current state
@@ -59,6 +69,25 @@ class EKF : public VelocityEstimator {
   void correct(Eigen::Vector3f& state, Eigen::Matrix3f& covariance,
                common_lib::sensor_data::WheelEncoderData& wss_data, double motor_rpm,
                double steering_angle);
+
+  /**
+   * @brief Estimate observations assuming a bicycle model and a set of parameters
+   *
+   * @param state vector of velocities {velocity_x, velocity_y, rotational_velocity}
+   * @param wheel_base distance between the front and rear wheels
+   * @param weight_distribution_front percentage of the vehicle's weight on the front wheels
+   * @param gear_ratio rations of the motor for each rotation of the rear wheels
+   * @param wheel_radius radius of the rear wheels
+   * @return Eigen::VectorXf vector of observations {fl_rpm, fr_rpm, rl_rpm, rr_rpm, steering_angle,
+   * motor_rpm}
+   */
+  Eigen::VectorXf estimate_observations(Eigen::Vector3f& state, double wheel_base,
+                                        double weight_distribution_front, double gear_ratio,
+                                        double wheel_radius);
+
+  Eigen::MatrixXf jacobian_of_observation_estimation(Eigen::Vector3f& state, double wheel_base,
+                                                     double weight_distribution_front,
+                                                     double gear_ratio, double wheel_radius);
 
 public:
   EKF(const VEParameters& params);
