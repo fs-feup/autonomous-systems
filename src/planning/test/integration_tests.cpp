@@ -348,21 +348,10 @@ TEST_F(IntegrationTest, one_cone) {
   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()), (long unsigned int)0);
 }
 
-
-
-TEST_F(IntegrationTest, simple_straight_path) {
-  // Open file straight_1.txt to read the initial state
-  std::ifstream file("./src/planning/test/integration_tests/straight_1.txt");
-  if (!file.is_open()) {
-    FAIL() << "Failed to open file: straight_1.txt";
-    return;
-  }
-
+void read_file_and_run_nodes(std::ifstream &file, double &finalxi, double &finalxf, double &finalyi,
+                             double &finalyf, std::vector<Cone> &cone_array,
+                             custom_interfaces::msg::VehicleState &vehicle_state) {
   std::string line;
-  std::vector<Cone> cone_array;
-  custom_interfaces::msg::VehicleState vehicle_state;
-
-  double finalxi = 0.0, finalxf = 0.0, finalyi = 0.0, finalyf = 0.0;
 
   while (std::getline(file, line)) {
     std::istringstream iss(line);
@@ -383,25 +372,51 @@ TEST_F(IntegrationTest, simple_straight_path) {
       // Read final expected position range
       iss >> finalxi >> finalxf >> finalyi >> finalyf;
     } else {
-      FAIL() << "Unknown flag in file: " << flag;
-      return;
+      // Ignore all other lines with no flags
     }
   }
   file.close();
+}
 
-  // Convert cone array to the appropriate message type
+/**
+ * @brief Tests the full pipeline with a simple straight path
+ *
+ */
+TEST_F(IntegrationTest, simple_straight_path) {
+
+  // file with the testing scenario
+  std::string filename = "straight_1.txt";
+
+  // box of the final point
+  double x1 = 0.0, x2 = 0.0, y1 = 0.0, y2 = 0.0;
+
+  // Open file straight_1.txt to read the initial state
+  std::ifstream file("../../src/planning/test/integration_tests/" + filename);
+
+  if (!file.is_open()) {
+    FAIL() << "Failed to open file: straight_1.txt";
+    return;
+  }
+
+  std::vector<Cone> cone_array;
+  custom_interfaces::msg::VehicleState vehicle_state;
+  read_file_and_run_nodes(file, x1, x2, y1, y2, cone_array, vehicle_state);
+
+  // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
-
   // Run the nodes
   auto duration = run_nodes(cone_array_msg, vehicle_state);
 
   // Verify final position
-  if ((this->received_path.pathpoint_array.back().x >= finalxi &&
-       this->received_path.pathpoint_array.back().x <= finalxf) &&
-      (this->received_path.pathpoint_array.back().y >= finalyi &&
-       this->received_path.pathpoint_array.back().y <= finalyf)) {
+  if ((this->received_path.pathpoint_array.back().x >= x1 &&
+       this->received_path.pathpoint_array.back().x <= x2) &&
+      (this->received_path.pathpoint_array.back().y >= y1 &&
+       this->received_path.pathpoint_array.back().y <= y2)) {
     SUCCEED();
   } else {
-    FAIL() << "The final point is not in the expected range. ";
+    FAIL() << "The final point is not in the expected range. "
+           << "Expected range: (" << x1 << ", " << x2 << ", " << y1 << ", " << y2 << "), but got: ("
+           << this->received_path.pathpoint_array.back().x << ", "
+           << this->received_path.pathpoint_array.back().y << ")";
   }
 }
