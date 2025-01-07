@@ -5,7 +5,7 @@
 PacSimAdapter::PacSimAdapter(const ControlParameters& params)
     : Control(params),
       steering_pub_(create_publisher<pacsim::msg::StampedScalar>("/pacsim/steering_setpoint", 10)),
-      acceleration_pub_(create_publisher<pacsim::msg::Wheels>("/pacsim/torques_max", 10)) {
+      acceleration_pub_(create_publisher<pacsim::msg::StampedScalar>("/pacsim/throttle_setpoint", 10)) {
   // No topic for pacsim, just set the go_signal to true
   go_signal_ = true;
 
@@ -66,12 +66,9 @@ void PacSimAdapter::finish() {
 
 void PacSimAdapter::publish_cmd(double acceleration, double steering) {
   auto steering_msg = pacsim::msg::StampedScalar();
-  auto acceleration_msg = pacsim::msg::Wheels();
+  auto acceleration_msg = pacsim::msg::StampedScalar();
 
-  // TODO: Convert values if necessary then fill the messages
-  //  CODE HERE
-  acceleration_msg.fl = acceleration_msg.fr = acceleration_msg.rl = acceleration_msg.rr =
-      acceleration * 10;
+  acceleration_msg.value = acceleration;
   steering_msg.value = steering;
 
   this->steering_pub_->publish(steering_msg);
