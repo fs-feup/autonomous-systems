@@ -52,7 +52,7 @@ set(TEST_INCLUDE_FILES
   test/displacement_validator_test.cpp
   test/npoints_validator_test.cpp
   test/grid_ransac_test.cpp
-  test/distance_validator_test.cpp
+  test/perception_integration_tests.cpp
   test/icp_test.cpp
   test/circunference_center_calculation_test.cpp
   test/standard_deviation_validator_test.cpp
@@ -82,8 +82,10 @@ ament_target_dependencies(perception rclcpp visualization_msgs common_lib custom
 
 if(BUILD_TESTING)
   find_package(ament_cmake_gtest REQUIRED)
-  
+  find_package(visualization_msgs REQUIRED)
+  find_package(common_lib REQUIRED)
   ament_add_gtest(perception_test
+                  src/perception/perception_node.cpp
                   ${IMPLEMENTATION_FILES}
                   ${TEST_INCLUDE_FILES})
 
@@ -93,10 +95,21 @@ if(BUILD_TESTING)
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include> ${pcl_conversions_INCLUDE_DIRS})
 
-    ament_target_dependencies(perception_test rclcpp custom_interfaces fs_msgs ament_cmake_gtest)
-
+  ament_target_dependencies(perception_test
+      rclcpp
+      visualization_msgs
+      common_lib
+      custom_interfaces
+      fs_msgs
+      eufs_msgs
+      message_filters
+      pcl_conversions
+      tf2
+      tf2_ros
+      ament_cmake_gtest)
 endif()
 
 
 ament_export_include_directories(include)
+ament_export_dependencies(rclcpp visualization_msgs sensor_msgs pcl_conversions tf2 tf2_ros custom_interfaces)
 ament_package()

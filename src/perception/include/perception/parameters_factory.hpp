@@ -15,7 +15,7 @@ PerceptionParameters load_adapter_parameters() {
   PerceptionParameters params;
 
   auto adapter_node = std::make_shared<rclcpp::Node>("perception_adapter");
-  params.adapter_ = adapter_node->declare_parameter("adapter", "eufs");
+  params.adapter_ = adapter_node->declare_parameter("adapter", "vehicle");
   params.vehicle_frame_id_ = adapter_node->declare_parameter("vehicle_frame_id", "hesai_lidar");
 
   // Create shared pointer for Fov Trimming , Fov Trimming Parameters
@@ -44,7 +44,7 @@ PerceptionParameters load_adapter_parameters() {
   int clustering_n_neighbours = adapter_node->declare_parameter("clustering_n_neighbours", 1);
   double clustering_epsilon = adapter_node->declare_parameter("clustering_epsilon", 0.1);
   params.clustering_ = std::make_shared<DBSCAN>(clustering_n_neighbours, clustering_epsilon);
-  
+
   // Number of points Validator Parameters
   long unsigned int min_n_points = adapter_node->declare_parameter("min_n_points", 4);
 
