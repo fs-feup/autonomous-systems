@@ -20,14 +20,14 @@ std::vector<double> DisplacementValidator::coneValidator(Cluster* cone_point_clo
   for (long unsigned int i = 1; i < cone_point_cloud->get_point_cloud()->points.size(); i++) {
     pcl::PointXYZI point = cone_point_cloud->get_point_cloud()->points[i];
 
-    minX = std::min(minX, abs(point.x));
-    maxX = std::max(maxX, abs(point.x));
+    minX = std::min(minX, (float) abs(point.x));
+    maxX = std::max(maxX, (float) abs(point.x));
 
-    minY = std::min(minY, abs(point.y));
-    maxY = std::max(maxY, abs(point.y));
+    minY = std::min(minY, (float) abs(point.y));
+    maxY = std::max(maxY, (float) abs(point.y));
 
-    minZ = std::min(minZ, abs(point.z));
-    maxZ = std::max(maxZ, abs(point.z));
+    minZ = std::min(minZ, (float) abs(point.z));
+    maxZ = std::max(maxZ, (float) abs(point.z));
   }
 
   // index 0 = ratio between the x axis displacement and the minimum distance for that axis.
