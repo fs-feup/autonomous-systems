@@ -1,5 +1,3 @@
 evaluator:
-  ros__parameters:
-    adapter: "eufs"
-    generate_csv: false
-    csv_suffix: ""
+  generate_csv: false
+  csv_suffix: ""

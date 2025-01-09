@@ -1,8 +1,3 @@
 evaluator:
-  ros__parameters:
-    adapter: "vehicle_preprocessed"
-    use_simulated_perception: false
-    use_simulated_se: false
-    use_simulated_planning: false
-    generate_csv: false
-    csv_suffix: ""
+  generate_csv: false
+  csv_suffix: ""
