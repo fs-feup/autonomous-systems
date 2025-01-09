@@ -6,7 +6,6 @@
 #include <memory>
 #include <vector>
 
-#include "perception/parameters_factory.hpp"
 #include "perception/perception_node.hpp"
 
 int main(int argc, char** argv) {

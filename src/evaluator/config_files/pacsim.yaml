@@ -1,5 +1,0 @@
-evaluator:
-  ros__parameters:
-    adapter: "pacsim"
-    generate_csv: false
-    csv_suffix: ""

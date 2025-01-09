@@ -20,6 +20,7 @@ find_package(message_filters REQUIRED)
 find_package(pcl_conversions REQUIRED)
 find_package(visualization_msgs REQUIRED)
 find_package(common_lib REQUIRED)
+find_package(yaml-cpp REQUIRED)
 
 
 set(IMPLEMENTATION_FILES 
@@ -66,7 +67,7 @@ target_include_directories(perception PUBLIC
   $<INSTALL_INTERFACE:include> ${pcl_conversions_INCLUDE_DIRS})
 target_compile_features(perception PUBLIC c_std_99 cxx_std_17)
 
-target_link_libraries(perception ${PCL_LIBRARIES})
+target_link_libraries(perception ${PCL_LIBRARIES} yaml-cpp)
 
 install(TARGETS perception
   DESTINATION lib/${PROJECT_NAME})
@@ -83,7 +84,7 @@ if(BUILD_TESTING)
                   ${TEST_INCLUDE_FILES})
 
 
-  target_link_libraries(perception_test ${PCL_LIBRARIES})
+  target_link_libraries(perception_test ${PCL_LIBRARIES} yaml-cpp)
   target_include_directories(perception_test PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include> ${pcl_conversions_INCLUDE_DIRS})

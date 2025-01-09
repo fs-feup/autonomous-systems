@@ -1,8 +1,0 @@
-evaluator:
-  ros__parameters:
-    adapter: "onground"
-    use_simulated_perception: false
-    use_simulated_se: false
-    use_simulated_planning: false
-    generate_csv: false
-    csv_suffix: ""

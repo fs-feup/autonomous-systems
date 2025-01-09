@@ -4,10 +4,13 @@ from launch import LaunchDescription
 from launch_ros.actions import Node
 from launch.actions import DeclareLaunchArgument
 from launch.substitutions import LaunchConfiguration
+import os
 
 
 def generate_launch_description():
-    config_file = "/home/ws/src/planning/config_files/pacsim.yaml"
+    config_file = os.path.join(
+        os.path.dirname(__file__), '..', 'config_files', 'pacsim.yaml'
+    )
 
     final_params = {
         "use_simulated_se": LaunchConfiguration("use_simulated_se"),
