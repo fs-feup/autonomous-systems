@@ -10,6 +10,8 @@
 #include "cone_differentiation/least_squares_differentiation.hpp"
 #include "cone_evaluator/distance_predict.hpp"
 #include "cone_validator/height_validator.hpp"
+#include <cone_validator/deviation_validator.hpp>
+#include <cone_validator/z_score_validator.hpp>
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "ground_removal/grid_ransac.hpp"
 #include "ground_removal/ransac.hpp"
@@ -42,6 +44,7 @@ struct PerceptionParameters {
  */
 class Perception : public rclcpp::Node {
 private:
+  std::string _vehicle_frame_id_;
   std::shared_ptr<GroundRemoval> _ground_removal_;  ///< Shared pointer to the GroundRemoval object.
   std::shared_ptr<Clustering> _clustering_;
   std::shared_ptr<ConeDifferentiation>
@@ -50,7 +53,6 @@ private:
   std::vector<std::shared_ptr<ConeValidator>> _cone_validators_;
   std::shared_ptr<ConeEvaluator> _cone_evaluator_;
   std::string _adapter_;
-  std::string _vehicle_frame_id_;
   std::shared_ptr<ICP> _icp_;
 
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr
@@ -84,6 +86,7 @@ public:
    */
   explicit Perception(const PerceptionParameters& params);
 
+  static PerceptionParameters load_config();
   /**
    * @brief Callback function for the PointCloud2 subscription.
    * @param msg The received PointCloud2 message.

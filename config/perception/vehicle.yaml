@@ -1,7 +1,7 @@
 perception:
   ransac_epsilon: 0.09
   ransac_n_neighbours: 40
-  fov_trim: 45
+  fov_trim: 45.0
   pc_max_range: 30.0
   clustering_n_neighbours: 1
   clustering_epsilon: 0.7

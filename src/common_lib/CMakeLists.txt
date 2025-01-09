@@ -38,6 +38,7 @@ set(IMPLEMENTATION_FILES
   src/communication/marker.cpp
   src/communication/interfaces.cpp
   src/vehicle_dynamics/bicycle_model.cpp
+  src/config_load/config_load.cpp
 )
 
 add_library(${PROJECT_NAME} SHARED ${IMPLEMENTATION_FILES})
