@@ -3,6 +3,7 @@
 #include <rclcpp/rclcpp.hpp>
 
 #include "adapters/pacsim_adapter.hpp"
+#include "adapters/vehicle_adapter.hpp"
 /**
  * @brief Loads parameters used to configure the velocity estimation node from a launch file.
  */
@@ -29,8 +30,12 @@ void load_adapter_parameters(VEParameters& params) {
 std::shared_ptr<VENode> create_ve(const VEParameters& params) {
   static const std::unordered_map<std::string_view,
                                   std::function<std::shared_ptr<VENode>(const VEParameters&)>>
-      adapter_map = {{"pacsim", [](const VEParameters& parameters) {
+      adapter_map = {{"pacsim",
+                      [](const VEParameters& parameters) {
                         return std::make_shared<PacsimAdapter>(parameters);
+                      }},
+                     {"vehicle", [](const VEParameters& parameters) {
+                        return std::make_shared<VehicleAdapter>(parameters);
                       }}};
 
   auto it = adapter_map.find(params._adapter_);
