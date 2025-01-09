@@ -2,7 +2,6 @@
 #include <math.h>
 
 #include <Eigen/Dense>
-#include <Eigen/Sparse>
 #include <utility>
 
 namespace observation_lib::bicycle_model {
@@ -14,10 +13,10 @@ namespace observation_lib::bicycle_model {
  * @param weight_distribution_front percentage of the vehicle's weight on the front wheels
  * @param gear_ratio rotations of the motor for each rotation of the rear wheels
  * @param wheel_radius radius of the rear wheels
- * @return Eigen::VectorXf vector of observations {fl_rpm, fr_rpm, rl_rpm, rr_rpm, steering_angle,
+ * @return Eigen::VectorXd vector of observations {fl_rpm, fr_rpm, rl_rpm, rr_rpm, steering_angle,
  * motor_rpm}
  */
-Eigen::VectorXf estimate_observations(Eigen::Vector3f& state, double wheel_base,
+Eigen::VectorXd estimate_observations(Eigen::Vector3d& state, double wheel_base,
                                       double weight_distribution_front, double gear_ratio,
                                       double wheel_radius);
 
@@ -29,9 +28,9 @@ Eigen::VectorXf estimate_observations(Eigen::Vector3f& state, double wheel_base,
  * @param weight_distribution_front percentage of the vehicle's weight on the front wheels
  * @param gear_ratio rotations of the motor for each rotation of the rear wheels
  * @param wheel_radius radius of the rear wheels
- * @return Eigen::MatrixXf jacobian matrix of the function estimate_observations (6x3)
+ * @return Eigen::MatrixXd jacobian matrix of the function estimate_observations (6x3)
  */
-Eigen::MatrixXf jacobian_of_observation_estimation(Eigen::Vector3f& state, double wheel_base,
+Eigen::MatrixXd jacobian_of_observation_estimation(Eigen::Vector3d& state, double wheel_base,
                                                    double weight_distribution_front,
                                                    double gear_ratio, double wheel_radius);
 

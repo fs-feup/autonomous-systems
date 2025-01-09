@@ -17,11 +17,11 @@ namespace motion_lib::particle_model {
  * @param angular_velocity angular velocity around z axis
  * @param time_interval time interval over which the update is applied
  */
-void update_velocities(Eigen::Vector3f& velocities, double ax, double ay, double angular_velocity,
+void update_velocities(Eigen::Vector3d& velocities, double ax, double ay, double angular_velocity,
                        double time_interval);
 /**
  * @brief Compute the Jacobian matrix of the velocity update function
  */
-Eigen::Matrix3f jacobian_of_velocity_update();
+Eigen::Matrix3d jacobian_of_velocity_update();
 
 }  // namespace motion_lib::particle_model

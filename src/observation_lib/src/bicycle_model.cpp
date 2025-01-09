@@ -2,7 +2,7 @@
 
 namespace observation_lib::bicycle_model {
 
-Eigen::VectorXf estimate_observations(Eigen::Vector3f& state, double wheel_base,
+Eigen::VectorXd estimate_observations(Eigen::Vector3d& state, double wheel_base,
                                       double weight_distribution_front, double gear_ratio,
                                       double wheel_radius) {
   double Lr = wheel_base *
@@ -14,19 +14,20 @@ Eigen::VectorXf estimate_observations(Eigen::Vector3f& state, double wheel_base,
   double rear_wheels_rpm = 60 * rear_wheel_velocity / (2 * M_PI * wheel_radius);
   double front_wheel_velocity = sqrt(pow(state(0), 2) + pow(state(1) + state(2) * Lf, 2));
   double front_wheels_rpm = 60 * front_wheel_velocity / (2 * M_PI * wheel_radius);
-  double steering_angle = state(0) == 0 ? 0 : atan((state(1) + state(2) * Lf) / state(0));
+  double steering_angle =
+      (std::fabs(state(0)) <= 0.01) ? 0 : atan((state(1) + state(2) * Lf) / state(0));
   double motor_rpm = 60 * gear_ratio * rear_wheel_velocity / (2 * M_PI * wheel_radius);
 
-  Eigen::VectorXf observations = Eigen::VectorXf::Zero(6);
+  Eigen::VectorXd observations = Eigen::VectorXd::Zero(6);
   observations << front_wheels_rpm, front_wheels_rpm, rear_wheels_rpm, rear_wheels_rpm,
       steering_angle, motor_rpm;
   return observations;
 }
 
-Eigen::MatrixXf jacobian_of_observation_estimation(Eigen::Vector3f& state, double wheel_base,
+Eigen::MatrixXd jacobian_of_observation_estimation(Eigen::Vector3d& state, double wheel_base,
                                                    double weight_distribution_front,
                                                    double gear_ratio, double wheel_radius) {
-  Eigen::MatrixXf jacobian = Eigen::MatrixXf::Zero(6, 3);
+  Eigen::MatrixXd jacobian = Eigen::MatrixXd::Zero(6, 3);
   double Lr = wheel_base *
               weight_distribution_front;  // distance from the center of mass to the rear wheels
   double Lf =
@@ -40,7 +41,10 @@ Eigen::MatrixXf jacobian_of_observation_estimation(Eigen::Vector3f& state, doubl
   if (front_wheel_velocity == 0) {
     front_wheel_velocity = 0.00001;
   }
-  double vx = state(0) == 0 ? 1 : state(0);
+  double vx = (std::fabs(state(0)) <= 0.001) ? 0.001 : state(0);
+  if (state(0) < 0 && vx > 0) {
+    vx *= -1.0;
+  }
   jacobian(0, 0) = 60 * 2 * state(0) / (2 * M_PI * wheel_radius * 2 * rear_wheel_velocity);
   jacobian(0, 1) =
       60 * 2 * (state(1) + state(2) * Lf) / (2 * M_PI * wheel_radius * 2 * front_wheel_velocity);
