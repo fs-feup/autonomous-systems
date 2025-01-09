@@ -7,7 +7,7 @@ perception_sensors:
       mean: 0.05 # deadtime processing delay (signal won't be available for processing for 0.1s)
     pose:
       position: [0.0, 0.0, 0.115] # relative position to car's center of mass
-      orientation: [0.12472367, -0.00889492, 1.21845561] # relative orientation relative to car's orientation
+      orientation: [0.0, 0.0, 0.0] # relative orientation relative to car's orientation
     observation:  
       # all self explanatory, units are meters / radians
       min_range: 1.5
