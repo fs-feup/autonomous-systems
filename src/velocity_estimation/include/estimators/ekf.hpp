@@ -15,10 +15,10 @@
 
 class EKF : public VelocityEstimator {
   std::chrono::high_resolution_clock::time_point last_update_;
-  Eigen::Vector3f state_ = Eigen::Vector3f::Zero();
-  Eigen::Matrix3f covariance_ = Eigen::Matrix3f::Identity();
-  Eigen::Matrix3f process_noise_matrix_;
-  Eigen::MatrixXf measurement_noise_matrix_;
+  Eigen::Vector3d state_ = Eigen::Vector3d::Zero();
+  Eigen::Matrix3d covariance_ = Eigen::Matrix3d::Identity();
+  Eigen::Matrix3d process_noise_matrix_;
+  Eigen::MatrixXd measurement_noise_matrix_;
 
   common_lib::sensor_data::ImuData imu_data_;
   common_lib::sensor_data::WheelEncoderData wss_data_;
@@ -49,8 +49,8 @@ class EKF : public VelocityEstimator {
    * @param last_update Time point of the last update.
    * @param imu_data IMU data containing acceleration and rotational velocity measurements.
    */
-  void predict(Eigen::Vector3f& state, Eigen::Matrix3f& covariance,
-               const Eigen::Matrix3f& process_noise_matrix,
+  void predict(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
+               const Eigen::Matrix3d& process_noise_matrix,
                const std::chrono::high_resolution_clock::time_point last_update,
                common_lib::sensor_data::ImuData& imu_data);
 
@@ -67,7 +67,7 @@ class EKF : public VelocityEstimator {
    * @param motor_rpm data representing the motor's rpms.
    * @param steering_angle data representing the steering angle.
    */
-  void correct(Eigen::Vector3f& state, Eigen::Matrix3f& covariance,
+  void correct(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
                common_lib::sensor_data::WheelEncoderData& wss_data, double motor_rpm,
                double steering_angle);
 
