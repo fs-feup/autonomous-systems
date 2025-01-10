@@ -13,6 +13,12 @@
 
 class PerceptionIntegrationTest : public ::testing::Test {
 protected:
+  rclcpp::Node::SharedPtr test_node_;
+  rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr pcl_publisher_;
+  rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr cones_subscriber_;
+  custom_interfaces::msg::ConeArray::SharedPtr cones_result_;
+  bool cones_received_;
+
   void SetUp() override {
     rclcpp::init(0, nullptr);
 
@@ -33,6 +39,22 @@ protected:
     cones_received_ = false;
   }
 
+  bool inRange(double value, double target, double tolerance) {
+    return value >= target - tolerance && value <= target + tolerance;
+  };
+
+  int checkPosition(custom_interfaces::msg::ConeArray::SharedPtr cones_result, double xTarget,
+                    double yTarget, double tolerance, bool large) {
+    int count = 0;
+    for (auto cone : cones_result->cone_array) {
+      if (inRange(cone.position.x, xTarget, tolerance) &&
+          inRange(cone.position.y, yTarget, tolerance) && cone.is_large == large) {
+        count++;
+      }
+    }
+    return count;
+  };
+
   void TearDown() override { rclcpp::shutdown(); }
 
   void publish_pcd(const std::string& pcd_file_path) {
@@ -51,26 +73,18 @@ protected:
     // Publish the message
     pcl_publisher_->publish(msg);
   }
-
-  rclcpp::Node::SharedPtr test_node_;
-  rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr pcl_publisher_;
-  rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr cones_subscriber_;
-
-  custom_interfaces::msg::ConeArray::SharedPtr cones_result_;
-  bool cones_received_;
 };
 
-TEST_F(PerceptionIntegrationTest, AccelarationEndFar) {
-  auto perception_node = std::make_shared<Perception>(load_adapter_parameters());
+TEST_F(PerceptionIntegrationTest, StraigthLine) {
+  auto params = load_adapter_parameters();
+  rclcpp::Node::SharedPtr perception_node = std::make_shared<Perception>(params);
   ASSERT_NE(perception_node, nullptr) << "Failed to initialize Perception node.";
 
-  auto executor = std::make_shared<rclcpp::executors::SingleThreadedExecutor>();
-  executor->add_node(perception_node);
-  executor->add_node(test_node_);
+  rclcpp::executors::SingleThreadedExecutor executor;
+  executor.add_node(perception_node);
+  executor.add_node(test_node_);
 
-  std::thread executor_thread([&]() { executor->spin(); });
-
-  std::string pcd_file_path = "/home/ws/src/perception/test/point_clouds/accelaration_end_far.pcd";
+  std::string pcd_file_path = "/home/ws/src/perception/test/point_clouds/straigth_line.pcd";
   ASSERT_TRUE(std::filesystem::exists(pcd_file_path))
       << "PCD file does not exist: " << pcd_file_path;
 
@@ -82,15 +96,65 @@ TEST_F(PerceptionIntegrationTest, AccelarationEndFar) {
 
   auto start_time = std::chrono::steady_clock::now();
   while (!cones_received_ &&
-         std::chrono::steady_clock::now() - start_time < std::chrono::seconds(10)) {
-    rclcpp::spin_some(test_node_);
+         std::chrono::steady_clock::now() - start_time < std::chrono::seconds(2)) {
+    executor.spin_some();
+    rclcpp::sleep_for(std::chrono::milliseconds(100));  // Prevent busy-waiting
   }
 
   EXPECT_TRUE(cones_received_) << "No cones received within the timeout.";
   if (cones_received_) {
-    EXPECT_GT(cones_result_->cone_array.size(), 0) << "No cones detected in the point cloud.";
+    EXPECT_EQ(cones_result_->cone_array.size(), 6)
+        << "Wrong number of cones detected in the point cloud.";
+
+    EXPECT_EQ(checkPosition(cones_result_, 3.2, 1.55, 0.2, false), 1)
+        << "Wrong detection in the 1st cone on the left";
+    EXPECT_EQ(checkPosition(cones_result_, 3.2, -1.8, 0.2, false), 1)
+        << "Wrong detection in the 1st cone on the right";
+    EXPECT_EQ(checkPosition(cones_result_, 5.94, 1.55, 0.2, false), 1)
+        << "Wrong detection in the 2nd cone on the left";
+    EXPECT_EQ(checkPosition(cones_result_, 5.94, -1.8, 0.2, false), 1)
+        << "Wrong detection in the 2nd cone on the right";
+    EXPECT_EQ(checkPosition(cones_result_, 8.8, 1.55, 0.2, false), 1)
+        << "Wrong detection in the 3rd cone on the left";
+    EXPECT_EQ(checkPosition(cones_result_, 8.8, -1.8, 0.2, false), 1)
+        << "Wrong detection in the 3rd cone on the right";
   }
 
-  executor->cancel();
-  executor_thread.join();
+  executor.cancel();
+}
+
+TEST_F(PerceptionIntegrationTest, Accelaration_close) {
+  auto params = load_adapter_parameters();
+  rclcpp::Node::SharedPtr perception_node = std::make_shared<Perception>(params);
+  ASSERT_NE(perception_node, nullptr) << "Failed to initialize Perception node.";
+
+  rclcpp::executors::SingleThreadedExecutor executor;
+  executor.add_node(perception_node);
+  executor.add_node(test_node_);
+
+  std::string pcd_file_path =
+      "/home/ws/src/perception/test/point_clouds/accelaration_end_close.pcd";
+  ASSERT_TRUE(std::filesystem::exists(pcd_file_path))
+      << "PCD file does not exist: " << pcd_file_path;
+
+  try {
+    publish_pcd(pcd_file_path);
+  } catch (const std::exception& e) {
+    FAIL() << "Failed to publish PCD: " << e.what();
+  }
+
+  auto start_time = std::chrono::steady_clock::now();
+  while (!cones_received_ &&
+         std::chrono::steady_clock::now() - start_time < std::chrono::seconds(2)) {
+    executor.spin_some();
+    rclcpp::sleep_for(std::chrono::milliseconds(100));  // Prevent busy-waiting
+  }
+
+  EXPECT_TRUE(cones_received_) << "No cones received within the timeout.";
+  if (cones_received_) {
+    EXPECT_EQ(cones_result_->cone_array.size(), 12)
+        << "Wrong number of cones detected in the point cloud.";
+  }
+
+  executor.cancel();
 }
