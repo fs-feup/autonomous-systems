@@ -10,7 +10,7 @@ def generate_launch_description():
                 package="control",
                 executable="node_control",
                 name="control_adapter",
-                arguments=["--ros-args", "--log-level", "control:=debug"],
+                arguments=["--ros-args", "--log-level", "control:=info"],
             ),
         ]
     )

@@ -2,13 +2,62 @@
 
 #include "adapter_planning/pacsim.hpp"
 #include "adapter_planning/vehicle.hpp"
+#include "common_lib/config_load/config_load.hpp"
 
 using std::placeholders::_1;
+
+PlanningParameters Planning::load_config(std::string &adapter) {
+  PlanningParameters params;
+  std::string global_config_path =
+      common_lib::config_load::get_config_yaml_path("planning", "global", "global_config");
+  RCLCPP_DEBUG(rclcpp::get_logger("planning"), "Loading global config from: %s",
+               global_config_path.c_str());
+  YAML::Node global_config = YAML::LoadFile(global_config_path);
+
+  adapter = global_config["global"]["adapter"].as<std::string>();
+  params.using_simulated_se_ = global_config["global"]["use_simulated_se"].as<bool>();
+
+  std::string planning_config_path =
+      common_lib::config_load::get_config_yaml_path("planning", "planning", adapter);
+  RCLCPP_DEBUG(rclcpp::get_logger("planning"), "Loading planning config from: %s",
+               planning_config_path.c_str());
+               
+  YAML::Node planning = YAML::LoadFile(planning_config_path);
+  auto planning_config = planning["planning"];
+
+  params.angle_gain_ = planning_config["angle_gain"].as<double>();
+  params.distance_gain_ = planning_config["distance_gain"].as<double>();
+  params.ncones_gain_ = planning_config["ncones_gain"].as<double>();
+  params.angle_exponent_ = planning_config["angle_exponent"].as<double>();
+  params.distance_exponent_ = planning_config["distance_exponent"].as<double>();
+  params.same_cone_distance_threshold_ =
+      planning_config["same_cone_distance_threshold"].as<double>();
+  params.cost_max_ = planning_config["cost_max"].as<double>();
+  params.use_memory_cone_coloring_ = planning_config["use_memory_cone_coloring"].as<bool>();
+  params.outliers_spline_order_ = planning_config["outliers_spline_order"].as<int>();
+  params.outliers_spline_coeffs_ratio_ =
+      planning_config["outliers_spline_coeffs_ratio"].as<float>();
+  params.outliers_spline_precision_ = planning_config["outliers_spline_precision"].as<int>();
+  params.path_calculation_dist_threshold_ =
+      planning_config["path_calculation_dist_threshold"].as<double>();
+  params.smoothing_spline_order_ = planning_config["smoothing_spline_order"].as<int>();
+  params.smoothing_spline_coeffs_ratio_ =
+      planning_config["smoothing_spline_coeffs_ratio"].as<float>();
+  params.smoothing_spline_precision_ = planning_config["smoothing_spline_precision"].as<int>();
+  params.publishing_visualization_msgs_ =
+      planning_config["publishing_visualization_msg"].as<bool>();
+  params.desired_velocity_ = planning_config["pre_defined_velocity_planning"].as<double>();
+  params.use_outlier_removal_ = planning_config["use_outlier_removal"].as<bool>();
+  params.use_path_smoothing_ = planning_config["use_path_smoothing"].as<bool>();
+  params.map_frame_id_ = adapter == "eufs" ? "base_footprint" : "map";
+
+  return params;
+}
 
 Planning::Planning(const PlanningParameters &params)
     : Node("planning"),
       planning_config_(params),
-      desired_velocity_(static_cast<double>(params.desired_velocity_)),
+      desired_velocity_(params.desired_velocity_),
       _map_frame_id_(params.map_frame_id_) {
   cone_coloring_ = ConeColoring(planning_config_.cone_coloring_);
   outliers_ = Outliers(planning_config_.outliers_);

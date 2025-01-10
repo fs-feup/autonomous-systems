@@ -25,6 +25,9 @@
 #include "sensor_msgs/msg/point_cloud2.hpp"
 #include "std_msgs/msg/float64.hpp"
 #include "utils/files.hpp"
+#include <yaml-cpp/yaml.h>
+#include <rclcpp/rclcpp.hpp>
+#include <string>
 
 using PathPoint = common_lib::structures::PathPoint;
 using Pose = common_lib::structures::Pose;
@@ -165,6 +168,8 @@ public:
    * for communication with external systems.
    */
   explicit Planning(const PlanningParameters &params);
+
+  static PlanningParameters load_config(std::string &adapter);
   /**
    * @brief Set the mission for planning.
    *
