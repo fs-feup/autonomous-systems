@@ -30,7 +30,8 @@ void VehicleAdapter::wss_callback(const custom_interfaces::msg::WheelRPM& rl_whe
   wss_data.fr_rpm = rr_wheel_rpm_msg.rr_rpm;
   this->_velocity_estimator_->wss_callback(wss_data);
   this->_velocity_estimator_->motor_rpm_callback(
-      (rl_wheel_rpm_msg.rl_rpm + rr_wheel_rpm_msg.rr_rpm) * 2.0);
+      (rl_wheel_rpm_msg.rl_rpm + rr_wheel_rpm_msg.rr_rpm) * 0.5 *
+      this->_parameters_._gear_ratio_);  // simulate resolver data
 }
 
 void VehicleAdapter::steering_angle_callback(const custom_interfaces::msg::SteeringAngle msg) {

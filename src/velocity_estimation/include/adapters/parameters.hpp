@@ -10,6 +10,6 @@ struct VEParameters {
   double _ekf_measurement_noise_;      // Measurement noise for the EKF correction step
   double _wheel_base_;                 // Distance between the front and rear axles
   double _weight_distribution_front_;  // Weight distribution on the front axle [0,1]
-  double _gear_ratio_;                 // Gear ratio of the vehicle
-  double _wheel_radius_;               // Radius of the wheel
+  double _gear_ratio_;                 // Gear ratio (Motor to wheels) of the vehicle
+  double _wheel_radius_;
 };

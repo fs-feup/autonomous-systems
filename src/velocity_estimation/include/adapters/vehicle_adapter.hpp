@@ -42,6 +42,10 @@ class VehicleAdapter : public VENode {
 
 public:
   explicit VehicleAdapter(const VEParameters& parameters);
+  /**
+   * @brief IMU subscription callback, which receives both free acceleration and angular velocity
+   * through a synchronizer message filter
+   */
   void imu_callback(const geometry_msgs::msg::Vector3Stamped::SharedPtr& free_acceleration_msg,
                     const geometry_msgs::msg::Vector3Stamped::SharedPtr& angular_velocity_msg);
   /**

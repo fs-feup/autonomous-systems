@@ -73,9 +73,25 @@ class EKF : public VelocityEstimator {
 
 public:
   EKF(const VEParameters& params);
+  /**
+   * @brief Callback function for the IMU data that should be called by adapters when new IMU data
+   * is available.
+   */
   void imu_callback(const common_lib::sensor_data::ImuData& imu_data) override;
+  /**
+   * @brief Callback function for the wheel speed sensor data that should be called by adapters when
+   * new wheel speed sensor data is available.
+   */
   void wss_callback(const common_lib::sensor_data::WheelEncoderData& wss_data) override;
+  /**
+   * @brief Callback function for the motor RPM data that should be called by adapters when new
+   * motor RPM data is available.
+   */
   void motor_rpm_callback(double motor_rpm) override;
+  /**
+   * @brief Callback function for the steering angle data that should be called by adapters when new
+   * steering angle data is available.
+   */
   void steering_callback(double steering_angle) override;
   common_lib::structures::Velocities get_velocities() override;
 };

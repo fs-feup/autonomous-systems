@@ -33,8 +33,8 @@ void PacsimAdapter::wss_callback(const pacsim::msg::Wheels::SharedPtr msg) {
   wheel_encoder_data.rl_rpm = msg->rl;
   wheel_encoder_data.rr_rpm = msg->rr;
   this->_velocity_estimator_->wss_callback(wheel_encoder_data);
-  this->_velocity_estimator_->motor_rpm_callback(
-      2 * (msg->rl + msg->rr));  // Simulate resolver data assuming gear ratio of 4:1
+  this->_velocity_estimator_->motor_rpm_callback(0.5 * this->_parameters_._gear_ratio_ *
+                                                 (msg->rl + msg->rr));  // Simulate resolver data
 }
 
 void PacsimAdapter::steering_angle_callback(const pacsim::msg::StampedScalar::SharedPtr msg) {

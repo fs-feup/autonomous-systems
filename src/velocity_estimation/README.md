@@ -2,11 +2,11 @@
 
 ## Description
 
-This package is responsible for estimating the velocity of the vehicle based on measurements by the sensors. The results of this estimation are meant to be used for SLAM and Control.
+This package is responsible for estimating the velocity of the vehicle based on measurements by the sensors. The results of this estimation are meant to be used for SLAM and Control. The package has enough modularity that using different estimators and running it on different environments only requires changing/creating launch files.
 
 ## Directory Structure
 
-- [include](./include/): declarations of all classes and functions
+- [include](./include/): declarations of all classes and functions, implementations of factories
     - [include/adapters/parameters.hpp](./include/adapters/parameters.hpp): struct of parameters to use when launching the node
     - [include/adapters/estimator_factory.hpp](./include/adapters/estimator_factory.hpp): factory to generate estimator based on parameters
     - [include/adapters/parameters_factory.hpp](./include/adapters/parameters_factory.hpp): load parameters from launch files, and create adapter
@@ -19,6 +19,7 @@ This package is responsible for estimating the velocity of the vehicle based on 
 ## Launch Configurations
 
 - [pacsim.launch.py](./launch/pacsim.launch.py): Launch file for the PacSim simulator
+- [vehicle.launch.py](./launch/vehicle.launch.py): Launch file for the vehicle
 
 ## How to Run
 
@@ -60,6 +61,12 @@ To check test results:
 ```sh
 colcon test-result --all --verbose
 ```
+
+## Estimators
+
+### EKF
+
+This estimator is an extension of the Kalman Filter for non-linear models. It's car model is the kinematic bicycle model, which assumes no-slip in the tires, with lateral dynamics included. The sensors used are an IMU, wheel speed sensors, a steering angle sensor and a motor rpm sensor.
 
 ## Structure
 This UML diagram shows how the classes that compose this package are related to each other. The main takeaway is that there is a main class called VENode, a ROS2 node, which depends on a velocity estimator to do the actual velocity estimation.
