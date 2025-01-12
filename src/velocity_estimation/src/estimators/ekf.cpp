@@ -87,6 +87,7 @@ void EKF::correct(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
   observations << wss_data.fl_rpm, wss_data.fr_rpm, wss_data.rl_rpm, wss_data.rr_rpm,
       steering_angle, motor_rpm;
   Eigen::VectorXd y = observations - predicted_observations;
+  // TODO: design new debugging method
   // std::cout << "Covariance: " << std::endl;
   // print_matrix(covariance);
   // std::cout << "Predicted observations: ";
