@@ -21,7 +21,6 @@ set(PACKAGES
     visualization_msgs
     message_filters
     motion_lib
-    observation_lib
 )
 foreach(pkg ${PACKAGES})
   find_package(${pkg} REQUIRED)
