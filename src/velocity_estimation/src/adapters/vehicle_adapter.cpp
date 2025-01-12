@@ -45,4 +45,11 @@ void VehicleAdapter::imu_callback(
   imu_data.acceleration_x = free_acceleration_msg->vector.x;
   imu_data.acceleration_y = free_acceleration_msg->vector.y;
   this->_velocity_estimator_->imu_callback(imu_data);
+  auto state = this->_velocity_estimator_->get_velocities();
+  custom_interfaces::msg::Velocities velocities_msg;
+  velocities_msg.header.stamp = rclcpp::Clock().now();
+  velocities_msg.velocity_x = state.velocity_x;
+  velocities_msg.velocity_y = state.velocity_y;
+  velocities_msg.angular_velocity = state.rotational_velocity;
+  this->_velocities_pub_->publish(velocities_msg);
 }

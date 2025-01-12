@@ -18,7 +18,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "adapter",
                 description="Environment to run node on",
-                default_value="pacsim",
+                default_value="vehicle",
             ),
             DeclareLaunchArgument(
                 "ekf_process_noise",
