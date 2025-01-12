@@ -38,8 +38,7 @@ bool ConeEvaluator::evaluateCluster(Cluster &cluster, Plane &ground_plane) {
   // NPoints
 
   cur_validator_results = cone_validators_->at("npoints")->coneValidator(&cluster, ground_plane);
-  // index 0 = if below minimum number of points ratio between cluster point number and minimum
-  // points, else 1.
+  // index 0 = if below minimum number of points 0, else 1.
 
   confidence += evaluator_weights_->at("npoints_weight") * cur_validator_results.at(0);
 

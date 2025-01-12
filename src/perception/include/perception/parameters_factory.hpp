@@ -124,22 +124,22 @@ PerceptionParameters load_adapter_parameters() {
                                               {"displacement_z_weight", displacement_z_weight},
                                               {"deviation_xoy_weight", deviation_xoy_weight},
                                               {"deviation_z_weight", deviation_z_weight}});
-  // Minimum confidence
+
+  // Normalize weights using scale by sum so the confidence value is always [0,1] and there is no
+  // need to always make sure the weights sum to 1.
+  double weight_sum = 0.0;
+  for (const auto &pair : *weight_values) {
+    weight_sum += pair.second;
+  }
+  for (auto &pair : *weight_values) {
+    pair.second /= weight_sum;
+  }
+
+  // Minimum confidence needed for a cluster to be a cone.
   double min_confidence = adapter_node->declare_parameter("min_confidence", 1.0);
 
   params.cone_evaluator_ =
       std::make_shared<ConeEvaluator>(cone_validators, weight_values, min_confidence);
-
-  // Create shared pointer for Distance prediction, Distance prediction Parameters
-  std::string target_file = adapter_node->declare_parameter("target_file", "cone.pcd");
-  double max_correspondence_distance =
-      adapter_node->declare_parameter("max_correspondence_distance", 0.1);
-  int max_iteration = adapter_node->declare_parameter("max_iteration", 100);
-  double transformation_epsilon = adapter_node->declare_parameter("transformation_epsilon", 1e-8);
-  double euclidean_fitness_epsilon =
-      adapter_node->declare_parameter("euclidean_fitness_epsilon", 1e-6);
-  params.icp_ = std::make_shared<ICP>(target_file, max_correspondence_distance, max_iteration,
-                                      transformation_epsilon, euclidean_fitness_epsilon);
 
   return params;
 }
