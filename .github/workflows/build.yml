@@ -127,7 +127,7 @@ jobs:
       - name: Build Dependencies
         run: |
           source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib pacsim
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib pacsim motion_lib
 
       - name: Build and Test Localization and Mapping
         run: |
@@ -166,7 +166,7 @@ jobs:
       - name: Build Dependencies
         run: |
           source /opt/ros/$ROS_DISTRO/setup.bash
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib pacsim
+          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib pacsim motion_lib
 
       - name: Build and Test Control
         run: |
