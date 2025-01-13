@@ -33,7 +33,8 @@ def plot_data(filename, min_x=(-10, 10), min_y=(-10, 10)):
     # Plot path points and connect them with a line
     ax.plot(path_x, path_y, 'r-', linewidth=1, zorder=1)  # Add line connecting path points
     ax.scatter(path_x, path_y, c='red', s=50, label='Path', zorder=2)  # Points on top of line
-    
+    ax.scatter(path_x[0], path_y[0], c='green', s=100, label='Start', zorder=3)  # First point in green
+
     all_x = path_x + cone_x
     all_y = path_y + cone_y
     
