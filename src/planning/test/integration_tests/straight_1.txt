@@ -1,5 +1,4 @@
 P 2 0 1.57079632679
-
 C 0 0 blue_cone
 C 0 2.2 blue_cone
 C 0 4.5 blue_cone
