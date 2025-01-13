@@ -143,6 +143,7 @@ void Planning::run_planning_algorithms() {
   }
 
   if ((this->mission == common_lib::competition_logic::Mission::ACCELERATION)) {  // place a ! before the condition, to test acceleration until the simulator publishes the mission correctly
+
     double dist_from_origin = sqrt(this->pose.position.x * this->pose.position.x +
                                    this->pose.position.y * this->pose.position.y);
     if (dist_from_origin > 80.0) {
@@ -158,21 +159,20 @@ void Planning::run_planning_algorithms() {
     velocity_planning_.set_velocity(final_path);
   }
 
-  // Execution Time calculation
-  rclcpp::Time end_time = this->now();
-  std_msgs::msg::Float64 planning_execution_time;
-  planning_execution_time.data = (end_time - start_time).seconds() * 1000;
-  this->_planning_execution_time_publisher_->publish(planning_execution_time);
+// Execution Time calculation
+rclcpp::Time end_time = this->now();
+std_msgs::msg::Float64 planning_execution_time;
+planning_execution_time.data = (end_time - start_time).seconds() * 1000;
+this->_planning_execution_time_publisher_->publish(planning_execution_time);
 
-  publish_track_points(final_path);
-  RCLCPP_DEBUG(this->get_logger(), "Planning will publish %i path points\n",
-               static_cast<int>(final_path.size()));
+publish_track_points(final_path);
+RCLCPP_DEBUG(this->get_logger(), "Planning will publish %i path points\n",
+             static_cast<int>(final_path.size()));
 
-  if (planning_config_.simulation_.publishing_visualization_msgs_) {
-    publish_visualization_msgs(colored_cones.first, colored_cones.second,
-                               refined_colored_cones.first, refined_colored_cones.second,
-                               triangulations_path, final_path);
-  }
+if (planning_config_.simulation_.publishing_visualization_msgs_) {
+  publish_visualization_msgs(colored_cones.first, colored_cones.second, refined_colored_cones.first,
+                             refined_colored_cones.second, triangulations_path, final_path);
+}
 }
 
 void Planning::vehicle_localization_callback(const custom_interfaces::msg::VehicleState &msg) {
