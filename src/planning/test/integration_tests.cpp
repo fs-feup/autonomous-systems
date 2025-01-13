@@ -731,7 +731,6 @@ TEST_F(IntegrationTest, ROSBAG_PATH_1) {
 }
 
 
-
 TEST_F(IntegrationTest, ROSBAG_PATH_2) {
   // file with the testing scenario
   std::string filename = "rosbag_2.txt";
@@ -880,7 +879,7 @@ TEST_F(IntegrationTest, ROSBAG_PATH_4) {
       debug_file << "C " << cone.position.x << " " << cone.position.y << " "
                  << common_lib::competition_logic::get_color_string(cone.color) << "\n";
     }
-    
+
     debug_file.close();
   } else {
     std::cerr << "Failed to open debug file for writing.\n";
