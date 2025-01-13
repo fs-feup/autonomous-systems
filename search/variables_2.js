@@ -14,5 +14,6 @@ var searchData=
   ['blue_5fcones_5fcallback_11',['blue_cones_callback',['../d6/d04/classevaluator_1_1onground__adapter_1_1_on_ground_adapter.html#aa5fc76d719c5a93d2346d4fae302cc27',1,'evaluator::onground_adapter::OnGroundAdapter']]],
   ['blue_5fcones_5fpub_5f_12',['blue_cones_pub_',['../d9/db5/class_planning.html#a812060f567d238eafda7da5dbbd70719',1,'Planning']]],
   ['blues_13',['blues',['../d2/d36/struct_perception_execution_data.html#aa64cb591a060c53042799e02e9027e5d',1,'PerceptionExecutionData']]],
-  ['broadcast_5fsensors_5ftf2_14',['broadcast_sensors_tf2',['../d7/d28/struct_main_config.html#a6fe8d337e1074e8c79e475eb8f67e266',1,'MainConfig']]]
+  ['braking_5facceleration_5f_14',['braking_acceleration_',['../d2/deb/struct_planning_parameters.html#a7fba7bf443fddd5e907ca304f670e277',1,'PlanningParameters::braking_acceleration_'],['../d2/d0d/struct_velocity_planning_config.html#acc599793db1ca597293485a8bde21449',1,'VelocityPlanningConfig::braking_acceleration_']]],
+  ['broadcast_5fsensors_5ftf2_15',['broadcast_sensors_tf2',['../d7/d28/struct_main_config.html#a6fe8d337e1074e8c79e475eb8f67e266',1,'MainConfig']]]
 ];

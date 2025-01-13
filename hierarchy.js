@@ -206,6 +206,8 @@ var hierarchy =
       [ "common_lib::communication::HasPosition< T, std::enable_if_t< std::is_arithmetic_v< decltype(std::declval< T >().position.x)> &&std::is_arithmetic_v< decltype(std::declval< T >().position.y)> > >", "d0/d78/structcommon__lib_1_1communication_1_1_has_position_3_01_t_00_01std_1_1enable__if__t_3_01std_1_1f92f66d3afd606fa0b7fa2e397b76781.html", null ]
     ] ],
     [ "common_lib::structures::VehicleState", "d0/d2a/structcommon__lib_1_1structures_1_1_vehicle_state.html", null ],
+    [ "VelocityPlanning", "d3/dcc/class_velocity_planning.html", null ],
+    [ "VelocityPlanningConfig", "d2/d0d/struct_velocity_planning_config.html", null ],
     [ "common_lib::sensor_data::WheelEncoderData", "d7/de0/structcommon__lib_1_1sensor__data_1_1_wheel_encoder_data.html", null ],
     [ "Wheels", "de/d84/struct_wheels.html", null ],
     [ "Enum", null, [

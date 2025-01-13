@@ -5,5 +5,6 @@ var dir_0585873cad33e488be1c216fc991de26 =
     [ "path_calculation_config.hpp", "d9/dc3/path__calculation__config_8hpp.html", "d9/dc3/path__calculation__config_8hpp" ],
     [ "planning_config.hpp", "d6/dca/planning__config_8hpp.html", "d6/dca/planning__config_8hpp" ],
     [ "simulation_config.hpp", "d3/d97/simulation__config_8hpp.html", "d3/d97/simulation__config_8hpp" ],
-    [ "smoothing_config.hpp", "d2/df8/smoothing__config_8hpp.html", "d2/df8/smoothing__config_8hpp" ]
+    [ "smoothing_config.hpp", "d2/df8/smoothing__config_8hpp.html", "d2/df8/smoothing__config_8hpp" ],
+    [ "velocity_config.hpp", "d0/dd4/velocity__config_8hpp.html", "d0/dd4/velocity__config_8hpp" ]
 ];

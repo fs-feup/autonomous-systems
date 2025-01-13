@@ -20,9 +20,11 @@ var searchData=
   ['none_17',['NONE',['../d9/d2b/namespacecommon__lib_1_1competition__logic.html#adc523f54f1498f443c97303976f40140ab50339a10e1de285ac99d4c3990b8693',1,'common_lib::competition_logic']]],
   ['norm1_5f_18',['norm1_',['../de/df9/structcommon__lib_1_1maths_1_1_angle_and_norms.html#abb161166532eef4db88b278c9830ecd9',1,'common_lib::maths::AngleAndNorms']]],
   ['norm2_5f_19',['norm2_',['../de/df9/structcommon__lib_1_1maths_1_1_angle_and_norms.html#a77b4015088955ad1a23d63d39e55d0f8',1,'common_lib::maths::AngleAndNorms']]],
-  ['normalconeheight_20',['normalConeHeight',['../d6/d51/classdraw_view_1_1draw_scene.html#ac2d68ca415b53085793def48e823d9ee',1,'drawView::drawScene']]],
-  ['normalize_5fangle_21',['normalize_angle',['../d2/d32/namespacecommon__lib_1_1maths.html#acd35b7873c51d71ad7ee2396007da7a3',1,'common_lib::maths']]],
-  ['normalvelocitymodel_22',['normalvelocitymodel',['../d7/df9/class_normal_velocity_model.html#a053c266f34e38e3e609eaa4affe76bf8',1,'NormalVelocityModel::NormalVelocityModel()'],['../d7/df9/class_normal_velocity_model.html',1,'NormalVelocityModel']]],
-  ['notes_23',['General Notes',['../de/da5/md_src_2pacsim_2doc_2docker__usage.html#autotoc_md115',1,'']]],
-  ['numframes_24',['numFrames',['../dd/dc4/class_sensor_base.html#a46cb3b3bb49263827e80650d21a0cb32',1,'SensorBase']]]
+  ['normal_5facceleration_5f_20',['normal_acceleration_',['../d2/deb/struct_planning_parameters.html#a569d3a19ad03df21587ee35747c61048',1,'PlanningParameters::normal_acceleration_'],['../d2/d0d/struct_velocity_planning_config.html#ab73b34ca6f6c540bdfd63f18f162fdf5',1,'VelocityPlanningConfig::normal_acceleration_']]],
+  ['normalconeheight_21',['normalConeHeight',['../d6/d51/classdraw_view_1_1draw_scene.html#ac2d68ca415b53085793def48e823d9ee',1,'drawView::drawScene']]],
+  ['normalize_5fangle_22',['normalize_angle',['../d2/d32/namespacecommon__lib_1_1maths.html#acd35b7873c51d71ad7ee2396007da7a3',1,'common_lib::maths']]],
+  ['normalvelocitymodel_23',['normalvelocitymodel',['../d7/df9/class_normal_velocity_model.html#a053c266f34e38e3e609eaa4affe76bf8',1,'NormalVelocityModel::NormalVelocityModel()'],['../d7/df9/class_normal_velocity_model.html',1,'NormalVelocityModel']]],
+  ['notes_24',['General Notes',['../de/da5/md_src_2pacsim_2doc_2docker__usage.html#autotoc_md115',1,'']]],
+  ['numframes_25',['numFrames',['../dd/dc4/class_sensor_base.html#a46cb3b3bb49263827e80650d21a0cb32',1,'SensorBase']]],
+  ['numpoints_26',['numPoints',['../db/d61/namespaceskidpadgenerator.html#af064634c2aa59ae3d87deae531584ca8',1,'skidpadgenerator']]]
 ];

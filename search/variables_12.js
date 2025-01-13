@@ -1,7 +1,7 @@
 var searchData=
 [
   ['r_5ftest_0',['r_test',['../df/d4f/class_performance_test.html#a083128b67975fea995b37a31b78ebf6a',1,'PerformanceTest']]],
-  ['radius_1',['RADIUS',['../d2/de4/namespaceskidpad__mapper.html#ad6c664e08886d47a27db076238ff9dec',1,'skidpad_mapper']]],
+  ['radius_1',['radius',['../db/d61/namespaceskidpadgenerator.html#af9b5a88bb94a8f7c34b9b15a9f19fb69',1,'skidpadgenerator.radius'],['../d2/de4/namespaceskidpad__mapper.html#ad6c664e08886d47a27db076238ff9dec',1,'skidpad_mapper.RADIUS']]],
   ['ransac_5feps_2',['ransac_eps',['../d2/d36/struct_perception_execution_data.html#a54eb7b3cfd276914a1800126f6106ed5',1,'PerceptionExecutionData::RANSAC_eps'],['../d3/d0d/class_perception_performance_test.html#ad184b1947b67f7bb9fe9d322b70d2c08',1,'PerceptionPerformanceTest::RANSAC_eps']]],
   ['ransac_5fiter_3',['RANSAC_Iter',['../d3/d0d/class_perception_performance_test.html#a27a6b9543d1bb2eadbdbe273246ede95',1,'PerceptionPerformanceTest']]],
   ['ransac_5ftime_4',['RANSAC_time',['../d2/d36/struct_perception_execution_data.html#ac5fcc0e51e6d1d6676cc32541269b06b',1,'PerceptionExecutionData']]],
@@ -15,7 +15,7 @@ var searchData=
   ['realtimeratio_12',['realtimeRatio',['../d9/d88/pacsim__main_8cpp.html#a5808508e68bf0d35c32420db8cf9ab13',1,'pacsim_main.cpp']]],
   ['rear_5faxis_5f_13',['rear_axis_',['../de/d41/structcommon__lib_1_1structures_1_1_vehicle_pose.html#a17af73a22ce3e7ae88bc93b7ca8ccf13',1,'common_lib::structures::VehiclePose']]],
   ['rear_5faxis_5fto_5fcamera_14',['REAR_AXIS_TO_CAMERA',['../d2/da6/car__parameters_8hpp.html#a572a440631bd5b422de7aa55cb36246f',1,'car_parameters.hpp']]],
-  ['reason_15',['reason',['../da/d68/struct_competition_logic_1_1_penalty.html#aa0ac5aa4ff58ec1d4a638471352e5a83',1,'CompetitionLogic::Penalty::reason'],['../dc/dbf/struct_report_1_1_penalty.html#ac0d47dfd68c4fc06fed97c2359402500',1,'Report::Penalty::reason']]],
+  ['reason_15',['reason',['../dc/dbf/struct_report_1_1_penalty.html#ac0d47dfd68c4fc06fed97c2359402500',1,'Report::Penalty::reason'],['../da/d68/struct_competition_logic_1_1_penalty.html#aa0ac5aa4ff58ec1d4a638471352e5a83',1,'CompetitionLogic::Penalty::reason']]],
   ['received_5ffirst_5fpose_5f_16',['received_first_pose_',['../d9/db5/class_planning.html#a57c4bddcaa7bb0ce9bca7187ad30b1e4',1,'Planning']]],
   ['received_5ffirst_5ftrack_5f_17',['received_first_track_',['../d9/db5/class_planning.html#a4c4cdd557b2be2d1587b94a0894c8c35',1,'Planning']]],
   ['received_5fpath_18',['received_path',['../d7/d4e/class_integration_test.html#a7f5f7d0147cdfe8ef63181290a414d25',1,'IntegrationTest']]],
@@ -38,7 +38,7 @@ var searchData=
   ['rot_35',['rot',['../d6/dc7/struct_imu_data.html#a820f7bf393cf3a1201168e7e9fb02802',1,'ImuData']]],
   ['rot_5fcov_36',['rot_cov',['../d6/dc7/struct_imu_data.html#acd7ca7a69c97a39a809d5979f2f9d2c3',1,'ImuData']]],
   ['rotation_37',['rotation',['../dc/d00/classdraw_view_1_1frame_origin.html#a70af957ef6750d65b6f06861031b3936',1,'drawView::frameOrigin']]],
-  ['rotational_5fvelocity_38',['rotational_velocity',['../df/d48/structcommon__lib_1_1sensor__data_1_1_imu_data.html#aa2128bf02c9b4251b5c8cfb2afc98b4b',1,'common_lib::sensor_data::ImuData::rotational_velocity'],['../db/d6d/struct_motion_update.html#a0a7390da3d4ef6ce0efbae0b990741fd',1,'MotionUpdate::rotational_velocity'],['../d0/d2a/structcommon__lib_1_1structures_1_1_vehicle_state.html#a3dfa941f24f0d5b0145418739fd32c4d',1,'common_lib::structures::VehicleState::rotational_velocity']]],
+  ['rotational_5fvelocity_38',['rotational_velocity',['../db/d6d/struct_motion_update.html#a0a7390da3d4ef6ce0efbae0b990741fd',1,'MotionUpdate::rotational_velocity'],['../df/d48/structcommon__lib_1_1sensor__data_1_1_imu_data.html#aa2128bf02c9b4251b5c8cfb2afc98b4b',1,'common_lib::sensor_data::ImuData::rotational_velocity'],['../d0/d2a/structcommon__lib_1_1structures_1_1_vehicle_state.html#a3dfa941f24f0d5b0145418739fd32c4d',1,'common_lib::structures::VehicleState::rotational_velocity']]],
   ['round_5fcases_39',['ROUND_CASES',['../d2/de4/namespaceskidpad__mapper.html#a102ee1d4b182674059a63e18dafa4a99',1,'skidpad_mapper']]],
   ['roundcases_40',['roundCases',['../d9/de5/namespaceacceleration__mapper.html#a97a95e38a95c53f9d57e6e63a41cf316',1,'acceleration_mapper']]],
   ['rpmsetpoints_41',['rpmSetpoints',['../dd/d52/class_vehicle_model_bicycle.html#aefdb65b77d2a8923419ae2edea107b40',1,'VehicleModelBicycle']]],

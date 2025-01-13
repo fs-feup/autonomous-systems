@@ -1,7 +1,15 @@
 <map id="path_from_file" name="path_from_file">
-<area shape="rect" id="Node000001" title="Retrieves a path point vector from a file." alt="" coords="108,31,210,56"/>
+<area shape="rect" id="Node000001" title="Retrieves a path point vector from a file." alt="" coords="108,129,210,155"/>
 <area shape="rect" id="Node000002" href="$d6/da7/smoothing__tests_8cpp.html#acd526ec95d9464063023a78fcf0f64d9" title="simple scenario with few points in the path" alt="" coords="5,5,60,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,33,59,26,61,21,93,28"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="133,120,58,44,46,33,50,29,62,40,137,116"/>
 <area shape="rect" id="Node000003" href="$d6/da7/smoothing__tests_8cpp.html#a39420284a210f074cd5864281df8c9b5" title="more complex scenario with cones deviating from path and with significant curvature" alt="" coords="5,55,60,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="93,59,61,65,60,60,92,54"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="121,123,55,83,58,79,124,119"/>
+<area shape="rect" id="Node000004" href="$d9/dba/velocity__planning__tests_8cpp.html#ae7bdb50e99a2d0bae5638143bf25e069" title="simple scenario with few points in the path" alt="" coords="5,104,60,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="92,131,59,125,61,120,93,126"/>
+<area shape="rect" id="Node000005" href="$d9/dba/velocity__planning__tests_8cpp.html#a1fa6f577535226be0d06a954e74e448a" title="Check if the velocity is always greater than the minimum velocity." alt="" coords="5,153,60,179"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="93,157,61,164,60,158,92,152"/>
+<area shape="rect" id="Node000006" href="$d9/dba/velocity__planning__tests_8cpp.html#af97fb83dccb617636d3886e3a3a352a6" title="test for a path with only one point" alt="" coords="5,203,60,228"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="123,166,58,204,55,200,120,161"/>
+<area shape="rect" id="Node000007" href="$d9/dba/velocity__planning__tests_8cpp.html#aa66702413e03977b4630566218ffde6a" title="test for a path with no points" alt="" coords="5,252,60,278"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="137,168,62,243,50,254,46,250,58,239,133,164"/>
 </map>

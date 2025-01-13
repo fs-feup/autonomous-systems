@@ -9,13 +9,15 @@ var searchData=
   ['new_5fcommand_6',['new_command',['../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#a62aad558fc53c1d0d29b77ad46c3471e',1,'pacsim_keys::main::PublishThread']]],
   ['new_5flandmark_5fgate_5f_7',['new_landmark_gate_',['../dd/d06/class_max_likelihood.html#a955ccd65e1a1fafa6cc9c4e43f0d1d7a',1,'MaxLikelihood']]],
   ['next_5fparams_8',['next_params',['../dd/d3b/namespacebayesian.html#a6028a017403c1d6515fdaded05e532cd',1,'bayesian']]],
-  ['node_9',['node',['../d0/d11/class_config_element.html#ad9410de550069186070abc6d6e83ade3',1,'ConfigElement::node'],['../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#aeeddccc6a4e5a58d465b39443f554d88',1,'pacsim_keys.main.PublishThread.node'],['../dc/de8/classevaluator_1_1fsds__adapter_1_1_f_s_d_s_adapter.html#a9d1b19712f88e00ff5c95a4b007b34e4',1,'evaluator.fsds_adapter.FSDSAdapter.node'],['../dc/dab/classevaluator_1_1eufs__adapter_1_1_eufs_adapter.html#a1f0fd3eaa5e684672f1a300fd224d132',1,'evaluator.eufs_adapter.EufsAdapter.node']]],
+  ['node_9',['node',['../db/d1d/classpacsim__keys_1_1main_1_1_publish_thread.html#aeeddccc6a4e5a58d465b39443f554d88',1,'pacsim_keys.main.PublishThread.node'],['../d0/d11/class_config_element.html#ad9410de550069186070abc6d6e83ade3',1,'ConfigElement::node'],['../dc/de8/classevaluator_1_1fsds__adapter_1_1_f_s_d_s_adapter.html#a9d1b19712f88e00ff5c95a4b007b34e4',1,'evaluator.fsds_adapter.FSDSAdapter.node'],['../dc/dab/classevaluator_1_1eufs__adapter_1_1_eufs_adapter.html#a1f0fd3eaa5e684672f1a300fd224d132',1,'evaluator.eufs_adapter.EufsAdapter.node']]],
   ['node_5f_10',['node_',['../d3/d7f/class_adapter.html#a702c7aa0062af19c90ba6148d2683079',1,'Adapter']]],
   ['noiseseed_11',['noiseSeed',['../d9/df9/class_gnss_sensor.html#ac6f2d5d8d7f392dbe86fab7d8a2055e7',1,'GnssSensor']]],
   ['nominalvoltagets_12',['nominalVoltageTS',['../dd/d52/class_vehicle_model_bicycle.html#a61f458ae74ff2656f43143f396bcf241',1,'VehicleModelBicycle']]],
   ['nompres_13',['NOMPRES',['../d9/d21/namespace_vehicle_model_constants.html#a67bbaec14a05189eeed4a320a4c163f8',1,'VehicleModelConstants']]],
   ['norm1_5f_14',['norm1_',['../de/df9/structcommon__lib_1_1maths_1_1_angle_and_norms.html#abb161166532eef4db88b278c9830ecd9',1,'common_lib::maths::AngleAndNorms']]],
   ['norm2_5f_15',['norm2_',['../de/df9/structcommon__lib_1_1maths_1_1_angle_and_norms.html#a77b4015088955ad1a23d63d39e55d0f8',1,'common_lib::maths::AngleAndNorms']]],
-  ['normalconeheight_16',['normalConeHeight',['../d6/d51/classdraw_view_1_1draw_scene.html#ac2d68ca415b53085793def48e823d9ee',1,'drawView::drawScene']]],
-  ['numframes_17',['numFrames',['../dd/dc4/class_sensor_base.html#a46cb3b3bb49263827e80650d21a0cb32',1,'SensorBase']]]
+  ['normal_5facceleration_5f_16',['normal_acceleration_',['../d2/deb/struct_planning_parameters.html#a569d3a19ad03df21587ee35747c61048',1,'PlanningParameters::normal_acceleration_'],['../d2/d0d/struct_velocity_planning_config.html#ab73b34ca6f6c540bdfd63f18f162fdf5',1,'VelocityPlanningConfig::normal_acceleration_']]],
+  ['normalconeheight_17',['normalConeHeight',['../d6/d51/classdraw_view_1_1draw_scene.html#ac2d68ca415b53085793def48e823d9ee',1,'drawView::drawScene']]],
+  ['numframes_18',['numFrames',['../dd/dc4/class_sensor_base.html#a46cb3b3bb49263827e80650d21a0cb32',1,'SensorBase']]],
+  ['numpoints_19',['numPoints',['../db/d61/namespaceskidpadgenerator.html#af064634c2aa59ae3d87deae531584ca8',1,'skidpadgenerator']]]
 ];

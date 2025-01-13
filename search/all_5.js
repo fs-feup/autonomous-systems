@@ -18,11 +18,12 @@ var searchData=
   ['blue_15',['blue',['../d9/d45/classgui_logic_1_1landmark_type.html#a860d70289622f55b8e18b83c6ba43f45',1,'guiLogic.landmarkType.BLUE'],['../d9/d2b/namespacecommon__lib_1_1competition__logic.html#a36deec2ca2854e7543cc4d5caab92feba1b3e1ee9bff86431dea6b181365ba65f',1,'common_lib::competition_logic::BLUE'],['../dd/de3/types_8hpp.html#a9bea77c5585e2b9481fe74ff0be72942a35d6719cb4d7577c031b3d79057a1b79',1,'BLUE:&#160;types.hpp']]],
   ['blue_5fcone_16',['blue_cone',['../de/d1e/class_least_squares_differentiation_test.html#a6581b8e16ea7f9b9783662c5a3d6b18b',1,'LeastSquaresDifferentiationTest']]],
   ['blue_5fcones_17',['blue_cones',['../d6/d04/classevaluator_1_1onground__adapter_1_1_on_ground_adapter.html#af8f73755a124a1f5d54e17904418b6ac',1,'evaluator::onground_adapter::OnGroundAdapter']]],
-  ['blue_5fcones_5fcallback_18',['blue_cones_callback',['../d6/d04/classevaluator_1_1onground__adapter_1_1_on_ground_adapter.html#aa5fc76d719c5a93d2346d4fae302cc27',1,'evaluator.onground_adapter.OnGroundAdapter.blue_cones_callback'],['../d6/d04/classevaluator_1_1onground__adapter_1_1_on_ground_adapter.html#a35a8f35ce682b59431fa0862ad02f755',1,'evaluator.onground_adapter.OnGroundAdapter.blue_cones_callback(self, MarkerArray blue_cones_msg)']]],
+  ['blue_5fcones_5fcallback_18',['blue_cones_callback',['../d6/d04/classevaluator_1_1onground__adapter_1_1_on_ground_adapter.html#a35a8f35ce682b59431fa0862ad02f755',1,'evaluator.onground_adapter.OnGroundAdapter.blue_cones_callback(self, MarkerArray blue_cones_msg)'],['../d6/d04/classevaluator_1_1onground__adapter_1_1_on_ground_adapter.html#aa5fc76d719c5a93d2346d4fae302cc27',1,'evaluator.onground_adapter.OnGroundAdapter.blue_cones_callback']]],
   ['blue_5fcones_5fpub_5f_19',['blue_cones_pub_',['../d9/db5/class_planning.html#a812060f567d238eafda7da5dbbd70719',1,'Planning']]],
   ['blues_20',['blues',['../d2/d36/struct_perception_execution_data.html#aa64cb591a060c53042799e02e9027e5d',1,'PerceptionExecutionData']]],
-  ['broadcast_5fsensors_5ftf2_21',['broadcast_sensors_tf2',['../d7/d28/struct_main_config.html#a6fe8d337e1074e8c79e475eb8f67e266',1,'MainConfig']]],
-  ['bucket_5foperations_22',['bucket_operations',['../d8/dc7/namespacebucket__operations.html',1,'']]],
-  ['bucket_5foperations_2epy_23',['bucket_operations.py',['../dc/d23/bucket__operations_8py.html',1,'']]],
-  ['build_5fadjacency_5fmatrix_24',['build_adjacency_matrix',['../d7/d92/namespaceevaluator_1_1metrics.html#a67fb2de017620156f3758f24363e7853',1,'evaluator::metrics']]]
+  ['braking_5facceleration_5f_21',['braking_acceleration_',['../d2/d0d/struct_velocity_planning_config.html#acc599793db1ca597293485a8bde21449',1,'VelocityPlanningConfig::braking_acceleration_'],['../d2/deb/struct_planning_parameters.html#a7fba7bf443fddd5e907ca304f670e277',1,'PlanningParameters::braking_acceleration_']]],
+  ['broadcast_5fsensors_5ftf2_22',['broadcast_sensors_tf2',['../d7/d28/struct_main_config.html#a6fe8d337e1074e8c79e475eb8f67e266',1,'MainConfig']]],
+  ['bucket_5foperations_23',['bucket_operations',['../d8/dc7/namespacebucket__operations.html',1,'']]],
+  ['bucket_5foperations_2epy_24',['bucket_operations.py',['../dc/d23/bucket__operations_8py.html',1,'']]],
+  ['build_5fadjacency_5fmatrix_25',['build_adjacency_matrix',['../d7/d92/namespaceevaluator_1_1metrics.html#a67fb2de017620156f3758f24363e7853',1,'evaluator::metrics']]]
 ];

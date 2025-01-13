@@ -36,6 +36,7 @@ var class_planning =
     [ "timer_", "d9/db5/class_planning.html#a66f41c6e420ddaf6ccf952c2937ef115", null ],
     [ "track_sub_", "d9/db5/class_planning.html#ae6b572068cd34507cd0ed3f9f6e4335b", null ],
     [ "triangulations_pub_", "d9/db5/class_planning.html#ad03ff43ed2e57a012af8923600ba3198", null ],
+    [ "velocity_planning_", "d9/db5/class_planning.html#af85bfae6440c1e752dc1ff83b59072ea", null ],
     [ "visualization_pub_", "d9/db5/class_planning.html#ad8e570419d86ad3ed172def789e99dbb", null ],
     [ "vl_sub_", "d9/db5/class_planning.html#a3cedf8f0830477fe7496dd6d9af12300", null ],
     [ "yellow_cones_pub_", "d9/db5/class_planning.html#a3e31844f5310297f7f4a4abf262d6355", null ]
