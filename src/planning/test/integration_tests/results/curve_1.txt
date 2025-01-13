@@ -178,3 +178,4 @@ C 16 4.5 blue_cone
 C 16.3 2.4 blue_cone
 C 16.8 0.6 blue_cone
 C 17.1 -1.4 blue_cone
+V 2 0.1 1.59404
