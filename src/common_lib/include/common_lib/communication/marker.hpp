@@ -103,6 +103,16 @@ visualization_msgs::msg::MarkerArray marker_array_from_structure_array(
     marker.color.b = color_array[2];
     marker.color.a = color_array[3];
 
+    /* path points in planning also use this and have no islarge.
+    if (shape == "cylinder") {
+      if (structure_array[i].is_large) {
+        marker.scale.x = 1.5 * scale;
+        marker.scale.y = 1.5 * scale;
+        marker.scale.z = 1.5 * scale;
+      }
+    }
+    */
+
     if (shape == "cone") {
       marker.pose.orientation.x = 0.7071;  // Approximately sqrt(2)/2
       marker.pose.orientation.y = 0.0;
