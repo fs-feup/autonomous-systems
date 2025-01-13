@@ -15,6 +15,8 @@ def plot_data(filename, min_x=(-10, 10), min_y=(-10, 10)):
     with open(filename, 'r') as f:
         for line in f:
             data = line.strip().split()
+            if len(data) == 0:
+                continue
             if data[0] == 'P':
                 path_x.append(float(data[1]))
                 path_y.append(float(data[2]))
@@ -25,8 +27,12 @@ def plot_data(filename, min_x=(-10, 10), min_y=(-10, 10)):
     
     fig, ax = plt.subplots(figsize=(10, 8))
     
+    # Plot cones
     ax.scatter(cone_x, cone_y, c=cone_colors, edgecolors='black', s=100)
-    ax.scatter(path_x, path_y, c='red', s=50, label='Path')
+    
+    # Plot path points and connect them with a line
+    ax.plot(path_x, path_y, 'r-', linewidth=1, zorder=1)  # Add line connecting path points
+    ax.scatter(path_x, path_y, c='red', s=50, label='Path', zorder=2)  # Points on top of line
     
     all_x = path_x + cone_x
     all_y = path_y + cone_y
