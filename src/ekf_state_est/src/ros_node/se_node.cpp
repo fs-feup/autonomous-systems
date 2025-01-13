@@ -12,27 +12,42 @@
 #include "common_lib/structures/position.hpp"
 #include "common_lib/vehicle_dynamics/bicycle_model.hpp"
 #include "common_lib/vehicle_dynamics/car_parameters.hpp"
+#include "common_lib/config_load/config_load.hpp"
 #include "geometry_msgs/msg/pose_with_covariance.hpp"
 #include "visualization_msgs/msg/marker.hpp"
+#include <yaml-cpp/yaml.h>
+#include "rclcpp/rclcpp.hpp"
 /*---------------------- Constructor --------------------*/
 
 double last_wss = 0.0;
 
 SENode::SENode() : Node("ekf_state_est") {
-  this->_use_odometry_ = this->declare_parameter<bool>("use_odometry");
-  _use_simulated_perception_ = this->declare_parameter<bool>("use_simulated_perception");
-  _adapter_name_ = this->declare_parameter<std::string>("adapter");
-  std::string motion_model_name = this->declare_parameter<std::string>("motion_model");
-  std::string data_assocation_model_name = this->declare_parameter<std::string>("data_assocation_model");
+
+  auto global_config_path = common_lib::config_load::get_config_yaml_path("ekf_state_est", "global",
+                                                                    "global_config");
+  auto global_config = YAML::LoadFile(global_config_path);
+
+  _use_simulated_perception_ = global_config["global"]["use_simulated_perception"].as<bool>();
+  _adapter_name_ = global_config["global"]["adapter"].as<std::string>();
+
+  auto se_config_path = common_lib::config_load::get_config_yaml_path("ekf_state_est", "state_estimation",
+                                                                _adapter_name_);
+
+  auto se_config = YAML::LoadFile(se_config_path)["ekf_state_est"];
+  RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "SE config contents: %s", YAML::Dump(se_config).c_str());
+
+  _use_odometry_ = se_config["use_odometry"].as<bool>();
+  std::string motion_model_name = se_config["motion_model"].as<std::string>();
+  std::string data_assocation_model_name = se_config["data_association_model"].as<std::string>();
+
   float wss_noise = 0.0f;
   float imu_noise = 0.0f;  // Declare the 'imu_noise' variable
   if (data_assocation_model_name == "max_likelihood") {
-    wss_noise = static_cast<float>(this->declare_parameter<float>("wss_noise"));
-    imu_noise = static_cast<float>(this->declare_parameter<float>("imu_noise"));
+    wss_noise = se_config["wss_noise"].as<float>();
+    imu_noise = se_config["imu_noise"].as<float>();
   }
-  float data_association_limit_distance = static_cast<float>(this->declare_parameter<float>("data_association_limit_distance"));
-  
-  float observation_noise = static_cast<float>(this->declare_parameter<float>("observation_noise"));
+  float data_association_limit_distance = se_config["data_association_limit_distance"].as<float>();
+  float observation_noise = se_config["observation_noise"].as<float>();
 
   std::shared_ptr<MotionModel> motion_model_wss = motion_model_constructors.at(
       "normal_velocity_model")(MotionModel::create_process_noise_covariance_matrix(wss_noise));
