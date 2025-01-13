@@ -12,23 +12,34 @@
  * and retrieve cylinder dimensions and to perform validation of clusters.
  */
 class CylinderValidator : public ConeValidator {
- private:
-  double width;  /**< Width of the cylinder. */
-  double height; /**< Height of the cylinder. */
+private:
+  double small_width;  /**< Width of the cylinder for a small cone. */
+  double small_height; /**< Height of the cylinder for a small cone. */
+  double large_width;  /**< Width of the cylinder for a large cone. */
+  double large_height; /**< Height of the cylinder for a large cone. */
 
- public:
+public:
   /**
    * @brief Constructs a new CylinderValidator object with specified width and height.
-   * @param width The width of the cylinder.
-   * @param height The height of the cylinder.
+   * @param small_width The width of the cylinder for a small cone.
+   * @param small_height The height of the cylinder for a small cone.
+   * @param large_width The width of the cylinder for a large cone.
+   * @param large_height The height of the cylinder for a large cone.
    */
-  CylinderValidator(double width, double height);
+  CylinderValidator(double small_width, double small_height, double large_width,
+                    double large_height);
 
   /**
-   * @brief Gets the radius of the cylinder.
-   * @return The radius of the cylinder.
+   * @brief Gets the radius of the cylinder for small cones.
+   * @return The radius of the cylinder for small cones.
    */
-  double getRadius() const;
+  double small_getRadius() const;
+
+  /**
+   * @brief Gets the radius of the cylinder for large cones.
+   * @return The radius of the cylinder for large cones.
+   */
+  double large_getRadius() const;
 
   /**
    * @brief Validates a cluster using cylinder approximation.
@@ -37,4 +48,3 @@ class CylinderValidator : public ConeValidator {
    */
   bool coneValidator(Cluster* cone_point_cloud, Plane& plane) const override;
 };
-

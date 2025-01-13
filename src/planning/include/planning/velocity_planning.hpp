@@ -1,5 +1,4 @@
-#ifndef SRC_PLANNING_INCLUDE_PLANNING_VELOCITY_HPP_
-#define SRC_PLANNING_INCLUDE_PLANNING_VELOCITY_HPP_
+#pragma once
 
 #include <cmath>
 
@@ -61,5 +60,3 @@ public:
 
   void set_velocity(std::vector<PathPoint> &final_path);
 };
-
-#endif  // SRC_PLANNING_INCLUDE_PLANNING_SMOOTHING2_HPP_

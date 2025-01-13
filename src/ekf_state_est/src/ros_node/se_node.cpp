@@ -81,6 +81,8 @@ SENode::SENode() : Node("ekf_state_est") {
 
   this->_position_publisher_ = this->create_publisher<visualization_msgs::msg::Marker>(
       "/state_estimation/visualization/position", 10);
+  this->_car_model_publisher_ = this->create_publisher<visualization_msgs::msg::Marker>(
+      "/state_estimation/visualization/car_model", 10);
 }
 
 /*---------------------- Subscriptions --------------------*/
@@ -295,7 +297,7 @@ void SENode::_publish_vehicle_state_wss() {
   marker.pose.position.z = 0.0;
   marker.pose.orientation.w = 1.0;
   marker.scale.x = 0.5;
-  marker.scale.y = 0.5;
+  marker.scale.y = 0.5; 
   marker.scale.z = 0.5;
   marker.color.r = 0.0;
   marker.color.g = 1.0;
@@ -304,6 +306,42 @@ void SENode::_publish_vehicle_state_wss() {
 
   RCLCPP_DEBUG(this->get_logger(), "PUB - Marker at position: (%f, %f)", marker.pose.position.x, marker.pose.position.y);
   this->_position_publisher_->publish(marker);
+
+  // Calculate front and rear axle positions
+  double lr = 0.791;
+  double lf = 1.6;
+  double theta = this->_vehicle_state_->pose.orientation;
+  double cos_theta = std::cos(theta);
+  double sin_theta = std::sin(theta);
+
+  geometry_msgs::msg::Point rear_axis;
+  rear_axis.x = message.position.x - lr * cos_theta;
+  rear_axis.y = message.position.y - lr * sin_theta;
+
+  geometry_msgs::msg::Point front_axis;
+  front_axis.x = message.position.x + lf * cos_theta;
+  front_axis.y = message.position.y + lf * sin_theta;
+
+  // Create a marker array to draw the line between front and rear axis
+  visualization_msgs::msg::Marker line_marker;
+  line_marker.header.frame_id = "map";
+  line_marker.header.stamp = this->get_clock()->now();
+  line_marker.ns = "vehicle_state";
+  line_marker.id = 1;
+  line_marker.type = visualization_msgs::msg::Marker::LINE_STRIP;
+  line_marker.action = visualization_msgs::msg::Marker::ADD;
+  line_marker.scale.x = 0.1;  // Line width
+  line_marker.color.r = 1.0;
+  line_marker.color.g = 1.0;
+  line_marker.color.b = 0.0;
+  line_marker.color.a = 1.0;
+
+  // Add points to the line marker
+  line_marker.points.push_back(rear_axis);
+  line_marker.points.push_back(front_axis);
+
+  // Publish the line marker
+  this->_car_model_publisher_->publish(line_marker);
 }
 
 void SENode::_publish_vehicle_state_imu() {
