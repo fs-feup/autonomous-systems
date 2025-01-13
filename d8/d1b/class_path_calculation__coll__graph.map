@@ -1,5 +1,5 @@
 <map id="PathCalculation" name="PathCalculation">
-<area shape="rect" id="Node000001" title="PathCalculation class for generating local paths." alt="" coords="5,154,225,299"/>
+<area shape="rect" id="Node000001" title="PathCalculation class for generating local paths." alt="" coords="5,154,225,259"/>
 <area shape="rect" id="Node000002" href="$df/d7d/struct_path_calculation_config.html" title="struct for the configuration of the outliers removal algorithm." alt="" coords="36,5,195,91"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="118,91,118,136,113,136,113,91"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="118,91,118,137,113,137,113,91"/>
 </map>

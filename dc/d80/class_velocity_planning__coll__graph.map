@@ -1,5 +1,0 @@
-<map id="VelocityPlanning" name="VelocityPlanning">
-<area shape="rect" id="Node000001" title="class that defines the path smoothing algorithm" alt="" coords="21,214,153,379"/>
-<area shape="rect" id="Node000002" href="$d2/d0d/struct_velocity_planning_config.html" title="struct for the configuration of the velocity planning algorithm" alt="" coords="5,5,169,151"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="90,151,90,196,85,196,85,151"/>
-</map>

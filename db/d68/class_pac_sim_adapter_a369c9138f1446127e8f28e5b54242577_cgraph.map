@@ -1,69 +1,58 @@
 <map id="PacSimAdapter::track_callback" name="PacSimAdapter::track_callback">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,311,153,351"/>
-<area shape="rect" id="Node000002" href="$d9/db5/class_planning.html#ab04bd1f3fa9458e5a1360cfabacc56a7" title="Callback for track map updates(when msg received)." alt="" coords="201,311,339,351"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="153,328,185,328,185,334,153,334"/>
-<area shape="rect" id="Node000003" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ab6656b173ca5e1bb92e976eca68b7315" title=" " alt="" coords="387,231,572,287"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="330,308,381,290,383,295,332,313"/>
-<area shape="rect" id="Node000004" href="$d9/db5/class_planning.html#a5f0cfd02996a6befd1ab5e6991449497" title="Checks if the current mission is predictive." alt="" coords="405,311,555,351"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="340,328,389,328,389,334,340,334"/>
-<area shape="rect" id="Node000005" href="$d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the planning algorithms." alt="" coords="405,376,555,417"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="338,349,398,368,397,373,336,354"/>
-<area shape="rect" id="Node000006" href="$d9/d53/class_outliers.html#aec8b9b17a4cc2ca754244d7fe8283610" title="function to remove outliers from a set of cones" alt="" coords="667,5,809,46"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="554,375,570,361,593,323,601,285,599,247,592,209,585,172,584,133,593,95,618,56,633,43,651,34,653,39,636,48,622,59,598,97,589,134,591,171,597,208,604,246,606,285,598,325,574,365,557,379"/>
-<area shape="rect" id="Node000008" href="$dd/d52/class_cone_coloring.html#a1baaec47531589cb1eb5c70d634782a5" title="color all cones" alt="" coords="672,327,804,367"/>
-<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="555,379,656,360,657,365,556,385"/>
-<area shape="rect" id="Node000019" href="$d0/d89/class_path_calculation.html#aa0e66c64fa0f6b3e2124da40e1fa183f" title="Process an array of cones to generate a local path." alt="" coords="656,437,820,478"/>
-<area shape="poly" id="edge19_Node000005_Node000019" title=" " alt="" coords="556,412,642,432,640,437,555,417"/>
-<area shape="rect" id="Node000021" href="$d9/db5/class_planning.html#a73e256548cb9cd7b24be0d64d973e69a" title="Publishes a list of path points." alt="" coords="661,503,815,543"/>
-<area shape="poly" id="edge21_Node000005_Node000021" title=" " alt="" coords="508,415,559,452,621,487,647,498,645,503,619,492,556,456,505,419"/>
-<area shape="rect" id="Node000023" href="$d9/db5/class_planning.html#a3c52f795bfb91d20139211f02acfdbd0" title="publish all visualization messages from the planning node" alt="" coords="620,626,856,652"/>
-<area shape="poly" id="edge23_Node000005_Node000023" title=" " alt="" coords="499,416,551,479,622,553,664,587,704,615,701,620,661,591,619,557,547,483,495,419"/>
-<area shape="rect" id="Node000026" href="$d3/dcc/class_velocity_planning.html#aa0af0b050d79a4efe649c778810ab5ef" title=" " alt="" coords="667,781,809,822"/>
-<area shape="poly" id="edge26_Node000005_Node000026" title=" " alt="" coords="492,416,543,524,580,594,623,663,666,720,708,768,704,772,662,723,618,666,576,597,538,527,487,418"/>
-<area shape="rect" id="Node000030" href="$d0/d89/class_path_calculation.html#af563ce27b3a2e2158c43c6796ff07a0e" title=" " alt="" coords="640,214,836,240"/>
-<area shape="poly" id="edge30_Node000005_Node000030" title=" " alt="" coords="548,373,571,361,595,338,619,313,704,247,707,251,622,317,599,342,574,365,550,378"/>
-<area shape="rect" id="Node000031" href="$d7/db7/class_path_smoothing.html#a9c484c641bcc262c3af3d169c9fa4c54" title="function to smooth a path" alt="" coords="642,70,834,96"/>
-<area shape="poly" id="edge32_Node000005_Node000031" title=" " alt="" coords="553,374,570,361,585,342,594,323,599,286,601,246,607,224,618,200,638,172,660,146,705,104,709,108,664,149,642,175,623,203,612,226,607,247,604,286,599,325,590,344,574,365,557,379"/>
-<area shape="rect" id="Node000007" href="$d6/da8/splines_8hpp.html#a5987a477b79a8b344f897f3be409cb37" title="This function takes a sequence of points (T), fits a spline to them using B&#45;spline basis functions,..." alt="" coords="982,13,1054,39"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="810,23,966,23,966,28,810,28"/>
-<area shape="rect" id="Node000009" href="$dd/d52/class_cone_coloring.html#a9a86a8144ed4098c288947b5de39d8f7" title="function to filter the cones which have been colored previously" alt="" coords="929,228,1107,269"/>
-<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="788,324,903,279,927,271,928,276,905,284,789,329"/>
-<area shape="rect" id="Node000010" href="$dd/d52/class_cone_coloring.html#a5edc083feecc117f00edf4468b2928fa" title="function to place the initial cones, including the virtual ones" alt="" coords="950,163,1086,203"/>
-<area shape="poly" id="edge9_Node000008_Node000010" title=" " alt="" coords="763,324,902,214,934,200,936,205,905,219,767,328"/>
-<area shape="rect" id="Node000014" href="$dd/d52/class_cone_coloring.html#a2bf7e41855a5a2e1cca355ec8ae2b321" title="function to remove duplicates from a vector of cones" alt="" coords="944,293,1092,334"/>
-<area shape="poly" id="edge13_Node000008_Node000014" title=" " alt="" coords="804,336,928,322,929,327,805,342"/>
-<area shape="rect" id="Node000015" href="$dd/d52/class_cone_coloring.html#aafe5e30f212d3003208aa4024815de2d" title="Useful when using memory to delete cones which after some times being detected become too close." alt="" coords="944,359,1092,399"/>
-<area shape="poly" id="edge14_Node000008_Node000015" title=" " alt="" coords="805,352,929,366,928,372,804,357"/>
-<area shape="rect" id="Node000018" href="$dd/d52/class_cone_coloring.html#ad5fa063af400585b82f1320a756fc4a4" title="select the next cone (which minimizes the cost) to be colored if its cost is less than the maximum es..." alt="" coords="950,424,1086,465"/>
-<area shape="poly" id="edge17_Node000008_Node000018" title=" " alt="" coords="791,365,905,408,936,419,934,424,903,414,789,370"/>
-<area shape="rect" id="Node000011" href="$dc/d1b/structcommon__lib_1_1structures_1_1_position.html#a7ce25e8e5e8c05f720cd644b35134051" title=" " alt="" coords="1197,83,1352,139"/>
-<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="1085,162,1180,134,1182,140,1087,167"/>
-<area shape="rect" id="Node000012" href="$dd/d52/class_cone_coloring.html#a4d5383a83dcfeda441351086839c22fd" title="calculate the expected position of the initial cones" alt="" coords="1196,163,1352,203"/>
-<area shape="poly" id="edge11_Node000010_Node000012" title=" " alt="" coords="1086,180,1180,180,1180,186,1086,186"/>
-<area shape="rect" id="Node000013" href="$dd/d52/class_cone_coloring.html#ad8d401f43b2988c73e31c635caff75de" title="function to place the second cones by selecting the closest to initial cones" alt="" coords="1207,228,1342,269"/>
-<area shape="poly" id="edge12_Node000010_Node000013" title=" " alt="" coords="1086,198,1192,225,1191,230,1085,203"/>
-<area shape="rect" id="Node000016" href="$dd/d52/class_cone_coloring.html#a248d064be09d7eb7ebc907f466ac73be" title="calculate the cost of coloring a cone" alt="" coords="1180,398,1368,424"/>
-<area shape="poly" id="edge15_Node000015_Node000016" title=" " alt="" coords="1092,386,1165,395,1164,400,1092,391"/>
-<area shape="rect" id="Node000017" href="$d2/d32/namespacecommon__lib_1_1maths.html#a158ecb4f5554792fc31db938539c8008" title="Function used to calculate the angle between two vectors and their norms." alt="" coords="1416,391,1556,431"/>
-<area shape="poly" id="edge16_Node000016_Node000017" title=" " alt="" coords="1368,408,1401,408,1401,414,1368,414"/>
-<area shape="poly" id="edge18_Node000018_Node000016" title=" " alt="" coords="1086,433,1164,423,1165,428,1087,438"/>
-<area shape="rect" id="Node000020" href="$d8/dbc/planning_2src_2utils_2cone_8cpp.html#a7b69d8ec416740df4516705b6b92ca2e" title=" " alt="" coords="980,489,1056,515"/>
-<area shape="poly" id="edge20_Node000019_Node000020" title=" " alt="" coords="821,468,965,491,964,496,820,473"/>
-<area shape="rect" id="Node000022" href="$d1/dd0/namespacecommon__lib_1_1communication.html#a8a2d8764017ab8e3f91e8c5b51c613d2" title=" " alt="" coords="925,539,1111,595"/>
-<area shape="poly" id="edge22_Node000021_Node000022" title=" " alt="" coords="816,533,910,547,909,553,815,538"/>
-<area shape="rect" id="Node000024" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ac5ec37420a86bf2c41c59243de0c7997" title="Converts a vector of cones to a marker array." alt="" coords="908,619,1128,659"/>
-<area shape="poly" id="edge24_Node000023_Node000024" title=" " alt="" coords="856,636,892,636,892,642,856,642"/>
-<area shape="rect" id="Node000025" href="$d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="904,684,1132,725"/>
-<area shape="poly" id="edge25_Node000023_Node000025" title=" " alt="" coords="797,650,914,677,912,683,796,655"/>
-<area shape="rect" id="Node000027" href="$d3/dcc/class_velocity_planning.html#a22bde2b36b14c926b184939d9a58b444" title="function to calculate the radius of the circle that passes through 3 points" alt="" coords="946,749,1090,790"/>
-<area shape="poly" id="edge27_Node000026_Node000027" title=" " alt="" coords="809,791,930,777,931,782,810,796"/>
-<area shape="rect" id="Node000028" href="$d3/dcc/class_velocity_planning.html#a46da78971eebffd3490c34e8bd0a974d" title="function to calculate the speed of the car according to the curvature of the path" alt="" coords="942,815,1094,855"/>
-<area shape="poly" id="edge28_Node000026_Node000028" title=" " alt="" coords="810,807,927,822,927,827,809,813"/>
-<area shape="rect" id="Node000029" href="$d3/dcc/class_velocity_planning.html#ab74815515808651d953b291ca59e1f80" title="function to limit the speed of the car according to the curvature of the lookahead path" alt="" coords="939,880,1097,921"/>
-<area shape="poly" id="edge29_Node000026_Node000029" title=" " alt="" coords="789,820,905,864,928,872,927,877,903,870,788,825"/>
-<area shape="poly" id="edge31_Node000030_Node000011" title=" " alt="" coords="761,211,823,179,903,148,975,132,1048,121,1181,110,1181,115,1049,126,976,137,904,154,825,184,763,216"/>
-<area shape="poly" id="edge33_Node000031_Node000007" title=" " alt="" coords="804,67,966,33,967,39,805,72"/>
-<area shape="rect" id="Node000032" href="$d7/db7/class_path_smoothing.html#ace570f760de1ee8b370917096599bd6f" title="function to order the path points to be used in the spline fitting" alt="" coords="929,62,1107,88"/>
-<area shape="poly" id="edge34_Node000031_Node000032" title=" " alt="" coords="834,78,913,75,914,81,834,83"/>
-<area shape="poly" id="edge35_Node000032_Node000011" title=" " alt="" coords="1107,85,1181,95,1181,101,1106,90"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,337,153,378"/>
+<area shape="rect" id="Node000002" href="$d9/db5/class_planning.html#ab04bd1f3fa9458e5a1360cfabacc56a7" title="Callback for track map updates(when msg received)." alt="" coords="201,337,339,378"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="153,355,185,355,185,360,153,360"/>
+<area shape="rect" id="Node000003" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ab6656b173ca5e1bb92e976eca68b7315" title=" " alt="" coords="387,258,572,314"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="330,334,381,317,383,322,332,339"/>
+<area shape="rect" id="Node000004" href="$d9/db5/class_planning.html#a5f0cfd02996a6befd1ab5e6991449497" title="Checks if the current mission is predictive." alt="" coords="405,337,555,378"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="340,355,389,355,389,360,340,360"/>
+<area shape="rect" id="Node000005" href="$d9/db5/class_planning.html#adb0482e33869c1c4550fa78dc1c61025" title="Runs the planning algorithms." alt="" coords="405,403,555,443"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="338,376,398,395,397,400,336,381"/>
+<area shape="rect" id="Node000006" href="$d9/d53/class_outliers.html#aec8b9b17a4cc2ca754244d7fe8283610" title="function to remove outliers from a set of cones" alt="" coords="667,373,809,414"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="555,412,651,401,652,406,556,417"/>
+<area shape="rect" id="Node000008" href="$dd/d52/class_cone_coloring.html#a1baaec47531589cb1eb5c70d634782a5" title="color all cones" alt="" coords="672,169,804,210"/>
+<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="553,400,571,388,588,366,596,344,603,321,618,295,656,253,696,218,699,222,660,257,622,298,608,323,601,346,593,369,574,392,556,404"/>
+<area shape="rect" id="Node000019" href="$d0/d89/class_path_calculation.html#aa0e66c64fa0f6b3e2124da40e1fa183f" title="Process an array of cones to generate a local path." alt="" coords="656,308,820,349"/>
+<area shape="poly" id="edge19_Node000005_Node000019" title=" " alt="" coords="542,400,571,387,595,373,619,359,641,351,643,356,621,364,598,378,574,392,544,405"/>
+<area shape="rect" id="Node000021" href="$d9/db5/class_planning.html#a73e256548cb9cd7b24be0d64d973e69a" title="Publishes a list of path points." alt="" coords="661,488,815,529"/>
+<area shape="poly" id="edge21_Node000005_Node000021" title=" " alt="" coords="533,441,621,474,647,482,645,487,619,479,531,446"/>
+<area shape="rect" id="Node000023" href="$d9/db5/class_planning.html#a3c52f795bfb91d20139211f02acfdbd0" title="publish all visualization messages from the planning node" alt="" coords="620,568,856,593"/>
+<area shape="poly" id="edge23_Node000005_Node000023" title=" " alt="" coords="503,442,554,490,587,515,622,538,671,560,669,565,619,543,584,520,551,494,499,446"/>
+<area shape="rect" id="Node000026" href="$d7/db7/class_path_smoothing.html#a9c484c641bcc262c3af3d169c9fa4c54" title="function to smooth a path" alt="" coords="642,438,834,464"/>
+<area shape="poly" id="edge26_Node000005_Node000026" title=" " alt="" coords="556,428,627,436,627,442,555,434"/>
+<area shape="rect" id="Node000007" href="$d6/da8/splines_8hpp.html#a5987a477b79a8b344f897f3be409cb37" title="This function takes a sequence of points (T), fits a spline to them using B&#45;spline basis functions,..." alt="" coords="982,381,1054,407"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="810,391,966,391,966,396,810,396"/>
+<area shape="rect" id="Node000009" href="$dd/d52/class_cone_coloring.html#a9a86a8144ed4098c288947b5de39d8f7" title="function to filter the cones which have been colored previously" alt="" coords="929,71,1107,111"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="788,166,903,122,927,114,928,119,905,127,789,171"/>
+<area shape="rect" id="Node000010" href="$dd/d52/class_cone_coloring.html#a5edc083feecc117f00edf4468b2928fa" title="function to place the initial cones, including the virtual ones" alt="" coords="950,267,1086,307"/>
+<area shape="poly" id="edge9_Node000008_Node000010" title=" " alt="" coords="791,208,905,251,936,261,935,266,903,256,789,213"/>
+<area shape="rect" id="Node000014" href="$dd/d52/class_cone_coloring.html#a2bf7e41855a5a2e1cca355ec8ae2b321" title="function to remove duplicates from a vector of cones" alt="" coords="944,201,1092,242"/>
+<area shape="poly" id="edge13_Node000008_Node000014" title=" " alt="" coords="805,195,929,209,928,214,804,200"/>
+<area shape="rect" id="Node000015" href="$dd/d52/class_cone_coloring.html#aafe5e30f212d3003208aa4024815de2d" title="Useful when using memory to delete cones which after some times being detected become too close." alt="" coords="944,5,1092,46"/>
+<area shape="poly" id="edge14_Node000008_Node000015" title=" " alt="" coords="758,167,819,112,860,83,902,57,929,45,931,50,905,61,863,87,823,117,762,171"/>
+<area shape="rect" id="Node000018" href="$dd/d52/class_cone_coloring.html#ad5fa063af400585b82f1320a756fc4a4" title="select the next cone (which minimizes the cost) to be colored if its cost is less than the maximum es..." alt="" coords="950,136,1086,177"/>
+<area shape="poly" id="edge17_Node000008_Node000018" title=" " alt="" coords="804,179,934,164,935,169,805,184"/>
+<area shape="rect" id="Node000011" href="$dc/d1b/structcommon__lib_1_1structures_1_1_position.html#a7ce25e8e5e8c05f720cd644b35134051" title=" " alt="" coords="1197,374,1352,430"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="1087,300,1133,317,1158,333,1181,350,1205,364,1202,368,1179,355,1155,337,1131,321,1085,305"/>
+<area shape="rect" id="Node000012" href="$dd/d52/class_cone_coloring.html#a4d5383a83dcfeda441351086839c22fd" title="calculate the expected position of the initial cones" alt="" coords="1196,235,1352,275"/>
+<area shape="poly" id="edge11_Node000010_Node000012" title=" " alt="" coords="1085,276,1180,264,1181,269,1086,281"/>
+<area shape="rect" id="Node000013" href="$dd/d52/class_cone_coloring.html#ad8d401f43b2988c73e31c635caff75de" title="function to place the second cones by selecting the closest to initial cones" alt="" coords="1207,300,1342,341"/>
+<area shape="poly" id="edge12_Node000010_Node000013" title=" " alt="" coords="1086,293,1192,307,1191,312,1085,298"/>
+<area shape="rect" id="Node000016" href="$dd/d52/class_cone_coloring.html#a248d064be09d7eb7ebc907f466ac73be" title="calculate the cost of coloring a cone" alt="" coords="1180,78,1368,104"/>
+<area shape="poly" id="edge15_Node000015_Node000016" title=" " alt="" coords="1093,42,1207,71,1205,76,1091,47"/>
+<area shape="rect" id="Node000017" href="$d2/d32/namespacecommon__lib_1_1maths.html#a158ecb4f5554792fc31db938539c8008" title="Function used to calculate the angle between two vectors and their norms." alt="" coords="1416,71,1556,111"/>
+<area shape="poly" id="edge16_Node000016_Node000017" title=" " alt="" coords="1368,88,1401,88,1401,94,1368,94"/>
+<area shape="poly" id="edge18_Node000018_Node000016" title=" " alt="" coords="1086,136,1205,106,1206,111,1087,142"/>
+<area shape="rect" id="Node000020" href="$d8/dbc/planning_2src_2utils_2cone_8cpp.html#a7b69d8ec416740df4516705b6b92ca2e" title=" " alt="" coords="980,332,1056,357"/>
+<area shape="poly" id="edge20_Node000019_Node000020" title=" " alt="" coords="821,330,964,339,964,344,820,336"/>
+<area shape="rect" id="Node000022" href="$d1/dd0/namespacecommon__lib_1_1communication.html#a8a2d8764017ab8e3f91e8c5b51c613d2" title=" " alt="" coords="925,481,1111,536"/>
+<area shape="poly" id="edge22_Node000021_Node000022" title=" " alt="" coords="816,506,909,506,909,511,816,511"/>
+<area shape="rect" id="Node000024" href="$d1/dd0/namespacecommon__lib_1_1communication.html#ac5ec37420a86bf2c41c59243de0c7997" title="Converts a vector of cones to a marker array." alt="" coords="908,625,1128,666"/>
+<area shape="poly" id="edge24_Node000023_Node000024" title=" " alt="" coords="797,591,914,619,912,624,796,596"/>
+<area shape="rect" id="Node000025" href="$d1/dd0/namespacecommon__lib_1_1communication.html#acc06a51ec257283cb5f8afd4b19e7021" title="Converts a vector of cones to a marker array." alt="" coords="904,560,1132,601"/>
+<area shape="poly" id="edge25_Node000023_Node000025" title=" " alt="" coords="856,578,888,578,888,583,856,583"/>
+<area shape="poly" id="edge27_Node000026_Node000007" title=" " alt="" coords="804,435,966,401,967,407,805,440"/>
+<area shape="rect" id="Node000027" href="$d7/db7/class_path_smoothing.html#ace570f760de1ee8b370917096599bd6f" title="function to order the path points to be used in the spline fitting" alt="" coords="929,430,1107,456"/>
+<area shape="poly" id="edge28_Node000026_Node000027" title=" " alt="" coords="834,446,913,443,914,449,834,451"/>
+<area shape="poly" id="edge29_Node000027_Node000011" title=" " alt="" coords="1101,427,1181,414,1182,419,1102,432"/>
 </map>

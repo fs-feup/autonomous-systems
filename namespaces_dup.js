@@ -156,20 +156,6 @@ var namespaces_dup =
       [ "yCones", "d2/de4/namespaceskidpad__mapper.html#a32dbc2e413cc67c7ae7ff0b0e40ebaa5", null ],
       [ "yPoints", "d2/de4/namespaceskidpad__mapper.html#acc783a98e45b5dcf067f749e5f1ba916", null ]
     ] ],
-    [ "skidpadgenerator", "db/d61/namespaceskidpadgenerator.html", [
-      [ "centerX", "db/d61/namespaceskidpadgenerator.html#ad93a0a6f8c57dc9a1d3969097f52d631", null ],
-      [ "centerY", "db/d61/namespaceskidpadgenerator.html#a172eaddd063d6b20928fcfe92838234a", null ],
-      [ "circular_speed", "db/d61/namespaceskidpadgenerator.html#a4a858cfb9bb3d90510ece663c3c6883f", null ],
-      [ "entryspeed", "db/d61/namespaceskidpadgenerator.html#a3b822efdacb0d002c44a43c4833ba24b", null ],
-      [ "exitspeed", "db/d61/namespaceskidpadgenerator.html#a0ae9b7a603f02a4badf2ebe3fe47be77", null ],
-      [ "file_name", "db/d61/namespaceskidpadgenerator.html#aa5a943f37f20bc64239f539860b3a9de", null ],
-      [ "file_path", "db/d61/namespaceskidpadgenerator.html#a022247aaf0d0a342a2a035dee6dd6fde", null ],
-      [ "numPoints", "db/d61/namespaceskidpadgenerator.html#af064634c2aa59ae3d87deae531584ca8", null ],
-      [ "radius", "db/d61/namespaceskidpadgenerator.html#af9b5a88bb94a8f7c34b9b15a9f19fb69", null ],
-      [ "theta", "db/d61/namespaceskidpadgenerator.html#a308d08f962a436e8e9295e88b5784ed1", null ],
-      [ "x", "db/d61/namespaceskidpadgenerator.html#ad6403dbad684e5a8e523f74857eef78b", null ],
-      [ "y", "db/d61/namespaceskidpadgenerator.html#a230b533827778a0f5913127d01b42f70", null ]
-    ] ],
     [ "spline", "d7/dc1/namespacespline.html", [
       [ "axis", "d7/dc1/namespacespline.html#ab8ba046c9c8639715623a604b0d35fcc", null ],
       [ "c", "d7/dc1/namespacespline.html#adcb92c1b2308379ecffcbb7a299c2c2b", null ],
