@@ -3,7 +3,7 @@ import numpy as np
 import os
 
 def list_txt_files(folder_path):
-    txt_files = [f for f in os.listdir(folder_path) if f.endswith('.txt')]
+    txt_files = sorted([f for f in os.listdir(folder_path) if f.endswith('.txt')])
     for i, file in enumerate(txt_files, 1):
         print(f"{i}. {file}")
     return txt_files
@@ -11,7 +11,7 @@ def list_txt_files(folder_path):
 def plot_data(filename, min_x=(-10, 10), min_y=(-10, 10)):
     path_x, path_y = [], []
     cone_x, cone_y, cone_colors = [], [], []
-    car_x, car_y = None, None  # New variables for car position
+    car_x, car_y = None, None
     
     with open(filename, 'r') as f:
         for line in f:
@@ -25,21 +25,18 @@ def plot_data(filename, min_x=(-10, 10), min_y=(-10, 10)):
                 cone_x.append(float(data[1]))
                 cone_y.append(float(data[2]))
                 cone_colors.append('yellow' if data[3] == 'yellow_cone' else 'blue')
-            elif data[0] == 'V':  # New condition for vehicle position
+            elif data[0] == 'V':
                 car_x = float(data[1])
                 car_y = float(data[2])
     
     fig, ax = plt.subplots(figsize=(10, 8))
     
-    # Plot cones
     ax.scatter(cone_x, cone_y, c=cone_colors, edgecolors='black', s=100)
     
-    # Plot path points and connect them with a line
     ax.plot(path_x[0:], path_y[0:], 'r-', linewidth=1, zorder=1)
     ax.scatter(path_x[1:], path_y[1:], c='red', s=50, label='Path', zorder=2)
     ax.scatter(path_x[0], path_y[0], c='orange', s=50, label='Start', zorder=3)
     
-    # Plot car position if available
     if car_x is not None and car_y is not None:
         ax.scatter(car_x, car_y, c='green', s=150, label='Car Position', zorder=4)
         
