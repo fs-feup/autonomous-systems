@@ -438,7 +438,7 @@ TEST_F(IntegrationTest, simple_straight_path) {
 }
 
 /*
- * @brief Tests the full pipeline in a straight line with fewer cones
+ * @brief Tests the full pipeline in a straight line with fewer cones in one and more in the other
  */
 TEST_F(IntegrationTest, unbalanced_straight_path) {
   // file with the testing scenario
@@ -847,6 +847,63 @@ TEST_F(IntegrationTest, ROSBAG_PATH_3) {
 TEST_F(IntegrationTest, ROSBAG_PATH_4) {
   // file with the testing scenario
   std::string filename = "rosbag_4.txt";
+
+  // box of the final point
+  double x1 = 0.0, x2 = 0.0, y1 = 0.0, y2 = 0.0;
+
+  // Open file straight_1.txt to read the initial state
+  std::ifstream file("../../src/planning/test/integration_tests/" + filename);
+
+  if (!file.is_open()) {
+    FAIL() << "Failed to open file: straight_1.txt";
+    return;
+  }
+
+  std::vector<Cone> cone_array;
+  custom_interfaces::msg::VehicleState vehicle_state;
+  read_file_and_run_nodes(file, x1, x2, y1, y2, cone_array, vehicle_state);
+
+  // Convert the cone array to the message
+  this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
+  // Run the nodes
+  auto duration = run_nodes(cone_array_msg, vehicle_state);
+
+  // Salvar pathpoint_array em um arquivo para depuração
+  std::ofstream debug_file("../../src/planning/test/integration_tests/results/" + filename);
+  if (debug_file.is_open()) {
+    for (const auto &point : this->received_path.pathpoint_array) {
+      debug_file << "P"
+                 << " " << point.x << " " << point.y << "\n";
+    }
+    // also write the cone array
+    for (const auto &cone : cone_array) {
+      debug_file << "C " << cone.position.x << " " << cone.position.y << " "
+                 << common_lib::competition_logic::get_color_string(cone.color) << "\n";
+    }
+    
+    debug_file.close();
+  } else {
+    std::cerr << "Failed to open debug file for writing.\n";
+  }
+
+  // Verify final position
+  if ((this->received_path.pathpoint_array.back().x >= x1 &&
+       this->received_path.pathpoint_array.back().x <= x2) &&
+      (this->received_path.pathpoint_array.back().y >= y1 &&
+       this->received_path.pathpoint_array.back().y <= y2)) {
+    SUCCEED();
+  } else {
+    FAIL() << "The final point is not in the expected range. "
+           << "Expected range: (" << x1 << ", " << x2 << ", " << y1 << ", " << y2 << "), but got: ("
+           << this->received_path.pathpoint_array.back().x << ", "
+           << this->received_path.pathpoint_array.back().y << ")\n\n";
+  }
+}
+
+
+TEST_F(IntegrationTest, ROSBAG_PATH_5) {
+  // file with the testing scenario
+  std::string filename = "rosbag_5.txt";
 
   // box of the final point
   double x1 = 0.0, x2 = 0.0, y1 = 0.0, y2 = 0.0;
