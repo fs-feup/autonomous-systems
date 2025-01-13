@@ -9,48 +9,33 @@ def generate_launch_description():
     perception_launch_description = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             PathJoinSubstitution(
-                [FindPackageShare("perception"), "launch", "vehicle.launch.py"]
+                [FindPackageShare("perception"), "launch", "perception.launch.py"]
             )
         ),
     )
     se_launch_description = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             PathJoinSubstitution(
-                [FindPackageShare("ekf_state_est"), "launch", "vehicle.launch.py"]
+                [FindPackageShare("ekf_state_est"), "launch", "state_estimation.launch.py"]
             )
         ),
     )
     planning_launch_description = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             PathJoinSubstitution(
-                [FindPackageShare("planning"), "launch", "vehicle.launch.py"]
+                [FindPackageShare("planning"), "launch", "planning.launch.py"]
             )
         ),
     )
     control_launch_description = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             PathJoinSubstitution(
-                [FindPackageShare("control"), "launch", "vehicle.launch.py"]
+                [FindPackageShare("control"), "launch", "control.launch.py"]
             )
         ),
     )
     return LaunchDescription(
         [
-            DeclareLaunchArgument(
-                "use_simulated_se",
-                description="Use Simulated State Estimation, that is, vehicle state from simulator (true/false)",
-                default_value="True",
-            ),
-            DeclareLaunchArgument(
-                "use_simulated_perception",
-                description="Whether the system is using simulated perception or not",
-                default_value="True",
-            ),
-            DeclareLaunchArgument(
-                "use_simulated_planning",
-                description="Whether the system is using simulated Planning or not",
-                default_value="True",
-            ),
             perception_launch_description,
             se_launch_description,
             planning_launch_description,

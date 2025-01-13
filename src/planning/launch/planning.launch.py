@@ -11,7 +11,7 @@ def generate_launch_description():
                 package="planning",
                 executable="planning",
                 name="planning_adapter",
-                arguments=["--ros-args", "--log-level", "planning:=debug"],
+                arguments=["--ros-args", "--log-level", "planning:=info"],
             ),
         ]
     )

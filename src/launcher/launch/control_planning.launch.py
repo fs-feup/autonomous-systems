@@ -7,48 +7,31 @@ from launch_ros.substitutions import FindPackageShare
 
 
 def generate_launch_description():
-    se_launch_description = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            PathJoinSubstitution(
-                [FindPackageShare("ekf_state_est"), "launch", "pacsim.launch.py"]
-            )
-        ),
-    )
     evaluator_launch_description = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             PathJoinSubstitution(
-                [FindPackageShare("evaluator"), "launch", "pacsim.launch.py"]
+                [FindPackageShare("evaluator"), "launch", "evaluator.launch.py"]
             )
         ),
     )
     planning_launch_description = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             PathJoinSubstitution(
-                [FindPackageShare("planning"), "launch", "pacsim.launch.py"]
+                [FindPackageShare("planning"), "launch", "planning.launch.py"]
             )
         ),
     )
     control_launch_description = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             PathJoinSubstitution(
-                [FindPackageShare("control"), "launch", "pacsim.launch.py"]
-            )
-        ),
-    )
-    mocker_node_launch_description = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            PathJoinSubstitution(
-                [FindPackageShare("mocker_node"), "launch", "pacsim.launch.py"]
+                [FindPackageShare("control"), "launch", "control.launch.py"]
             )
         ),
     )
     return LaunchDescription(
         [
-            # The order matters! If you need to change the simulated_... parameters, the first launch file that declares that parameter will have the priority
             evaluator_launch_description,
-            se_launch_description,
             planning_launch_description,
             control_launch_description,
-            mocker_node_launch_description,
         ],
     )
