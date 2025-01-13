@@ -378,6 +378,28 @@ void read_file_and_run_nodes(std::ifstream &file, double &finalxi, double &final
   file.close();
 }
 
+void save_debug_file(std::string filename, std::vector<Cone> cone_array,
+                     custom_interfaces::msg::PathPointArray received_path,
+                     custom_interfaces::msg::VehicleState vehicle_state) {
+  std::ofstream debug_file("../../src/planning/test/integration_tests/results/" + filename);
+  if (debug_file.is_open()) {
+    for (const auto &point : received_path.pathpoint_array) {
+      debug_file << "P"
+                 << " " << point.x << " " << point.y << "\n";
+    }
+    // also write the cone array
+    for (const auto &cone : cone_array) {
+      debug_file << "C " << cone.position.x << " " << cone.position.y << " "
+                 << common_lib::competition_logic::get_color_string(cone.color) << "\n";
+    }
+    debug_file << "V " << vehicle_state.position.x << " " << vehicle_state.position.y << " "
+               << vehicle_state.theta << "\n";
+    debug_file.close();
+  } else {
+    std::cerr << "Failed to open debug file for writing.\n";
+  }
+}
+
 /**
  * @brief Tests the full pipeline with a simple straight path
  *
@@ -406,22 +428,7 @@ TEST_F(IntegrationTest, simple_straight_path) {
   // Run the nodes
   auto duration = run_nodes(cone_array_msg, vehicle_state);
 
-  // Salvar pathpoint_array em um arquivo para depuração
-  std::ofstream debug_file("../../src/planning/test/integration_tests/results/" + filename);
-  if (debug_file.is_open()) {
-    for (const auto &point : this->received_path.pathpoint_array) {
-      debug_file << "P"
-                 << " " << point.x << " " << point.y << "\n";
-    }
-    // also write the cone array
-    for (const auto &cone : cone_array) {
-      debug_file << "C " << cone.position.x << " " << cone.position.y << " "
-                 << common_lib::competition_logic::get_color_string(cone.color) << "\n";
-    }
-    debug_file.close();
-  } else {
-    std::cerr << "Failed to open debug file for writing.\n";
-  }
+  save_debug_file(filename, cone_array, this->received_path, vehicle_state);
 
   // Verify final position
   if ((this->received_path.pathpoint_array.back().x >= x1 &&
@@ -464,22 +471,7 @@ TEST_F(IntegrationTest, unbalanced_straight_path) {
   // Run the nodes
   auto duration = run_nodes(cone_array_msg, vehicle_state);
 
-  // Salvar pathpoint_array em um arquivo para depuração
-  std::ofstream debug_file("../../src/planning/test/integration_tests/results/" + filename);
-  if (debug_file.is_open()) {
-    for (const auto &point : this->received_path.pathpoint_array) {
-      debug_file << "P"
-                 << " " << point.x << " " << point.y << "\n";
-    }
-    // also write the cone array
-    for (const auto &cone : cone_array) {
-      debug_file << "C " << cone.position.x << " " << cone.position.y << " "
-                 << common_lib::competition_logic::get_color_string(cone.color) << "\n";
-    }
-    debug_file.close();
-  } else {
-    std::cerr << "Failed to open debug file for writing.\n";
-  }
+  save_debug_file(filename, cone_array, this->received_path, vehicle_state);
 
   // Verify final position
   if ((this->received_path.pathpoint_array.back().x >= x1 &&
@@ -494,7 +486,6 @@ TEST_F(IntegrationTest, unbalanced_straight_path) {
            << this->received_path.pathpoint_array.back().y << ")\n\n";
   }
 }
-
 
 /*
  * @brief Tests the full pipeline in a straight line with fewer cones
@@ -523,22 +514,7 @@ TEST_F(IntegrationTest, CURVED_PATH_1) {
   // Run the nodes
   auto duration = run_nodes(cone_array_msg, vehicle_state);
 
-  // Salvar pathpoint_array em um arquivo para depuração
-  std::ofstream debug_file("../../src/planning/test/integration_tests/results/" + filename);
-  if (debug_file.is_open()) {
-    for (const auto &point : this->received_path.pathpoint_array) {
-      debug_file << "P"
-                 << " " << point.x << " " << point.y << "\n";
-    }
-    // also write the cone array
-    for (const auto &cone : cone_array) {
-      debug_file << "C " << cone.position.x << " " << cone.position.y << " "
-                 << common_lib::competition_logic::get_color_string(cone.color) << "\n";
-    }
-    debug_file.close();
-  } else {
-    std::cerr << "Failed to open debug file for writing.\n";
-  }
+  save_debug_file(filename, cone_array, this->received_path, vehicle_state);
 
   // Verify final position
   if ((this->received_path.pathpoint_array.back().x >= x1 &&
@@ -553,7 +529,6 @@ TEST_F(IntegrationTest, CURVED_PATH_1) {
            << this->received_path.pathpoint_array.back().y << ")\n\n";
   }
 }
-
 
 /*
  * @brief Tests the full pipeline in a straight line with fewer cones
@@ -582,22 +557,7 @@ TEST_F(IntegrationTest, CURVED_PATH_2) {
   // Run the nodes
   auto duration = run_nodes(cone_array_msg, vehicle_state);
 
-  // Salvar pathpoint_array em um arquivo para depuração
-  std::ofstream debug_file("../../src/planning/test/integration_tests/results/" + filename);
-  if (debug_file.is_open()) {
-    for (const auto &point : this->received_path.pathpoint_array) {
-      debug_file << "P"
-                 << " " << point.x << " " << point.y << "\n";
-    }
-    // also write the cone array
-    for (const auto &cone : cone_array) {
-      debug_file << "C " << cone.position.x << " " << cone.position.y << " "
-                 << common_lib::competition_logic::get_color_string(cone.color) << "\n";
-    }
-    debug_file.close();
-  } else {
-    std::cerr << "Failed to open debug file for writing.\n";
-  }
+  save_debug_file(filename, cone_array, this->received_path, vehicle_state);
 
   // Verify final position
   if ((this->received_path.pathpoint_array.back().x >= x1 &&
@@ -612,7 +572,6 @@ TEST_F(IntegrationTest, CURVED_PATH_2) {
            << this->received_path.pathpoint_array.back().y << ")\n\n";
   }
 }
-
 
 /*
  * @brief Tests the full pipeline in a straight line with fewer cones
@@ -641,22 +600,7 @@ TEST_F(IntegrationTest, CURVED_PATH_3) {
   // Run the nodes
   auto duration = run_nodes(cone_array_msg, vehicle_state);
 
-  // Salvar pathpoint_array em um arquivo para depuração
-  std::ofstream debug_file("../../src/planning/test/integration_tests/results/" + filename);
-  if (debug_file.is_open()) {
-    for (const auto &point : this->received_path.pathpoint_array) {
-      debug_file << "P"
-                 << " " << point.x << " " << point.y << "\n";
-    }
-    // also write the cone array
-    for (const auto &cone : cone_array) {
-      debug_file << "C " << cone.position.x << " " << cone.position.y << " "
-                 << common_lib::competition_logic::get_color_string(cone.color) << "\n";
-    }
-    debug_file.close();
-  } else {
-    std::cerr << "Failed to open debug file for writing.\n";
-  }
+  save_debug_file(filename, cone_array, this->received_path, vehicle_state);
 
   // Verify final position
   if ((this->received_path.pathpoint_array.back().x >= x1 &&
@@ -671,9 +615,6 @@ TEST_F(IntegrationTest, CURVED_PATH_3) {
            << this->received_path.pathpoint_array.back().y << ")\n\n";
   }
 }
-
-
-
 
 TEST_F(IntegrationTest, ROSBAG_PATH_1) {
   // file with the testing scenario
@@ -699,22 +640,7 @@ TEST_F(IntegrationTest, ROSBAG_PATH_1) {
   // Run the nodes
   auto duration = run_nodes(cone_array_msg, vehicle_state);
 
-  // Salvar pathpoint_array em um arquivo para depuração
-  std::ofstream debug_file("../../src/planning/test/integration_tests/results/" + filename);
-  if (debug_file.is_open()) {
-    for (const auto &point : this->received_path.pathpoint_array) {
-      debug_file << "P"
-                 << " " << point.x << " " << point.y << "\n";
-    }
-    // also write the cone array
-    for (const auto &cone : cone_array) {
-      debug_file << "C " << cone.position.x << " " << cone.position.y << " "
-                 << common_lib::competition_logic::get_color_string(cone.color) << "\n";
-    }
-    debug_file.close();
-  } else {
-    std::cerr << "Failed to open debug file for writing.\n";
-  }
+  save_debug_file(filename, cone_array, this->received_path, vehicle_state);
 
   // Verify final position
   if ((this->received_path.pathpoint_array.back().x >= x1 &&
@@ -729,7 +655,6 @@ TEST_F(IntegrationTest, ROSBAG_PATH_1) {
            << this->received_path.pathpoint_array.back().y << ")\n\n";
   }
 }
-
 
 TEST_F(IntegrationTest, ROSBAG_PATH_2) {
   // file with the testing scenario
@@ -755,22 +680,7 @@ TEST_F(IntegrationTest, ROSBAG_PATH_2) {
   // Run the nodes
   auto duration = run_nodes(cone_array_msg, vehicle_state);
 
-  // Salvar pathpoint_array em um arquivo para depuração
-  std::ofstream debug_file("../../src/planning/test/integration_tests/results/" + filename);
-  if (debug_file.is_open()) {
-    for (const auto &point : this->received_path.pathpoint_array) {
-      debug_file << "P"
-                 << " " << point.x << " " << point.y << "\n";
-    }
-    // also write the cone array
-    for (const auto &cone : cone_array) {
-      debug_file << "C " << cone.position.x << " " << cone.position.y << " "
-                 << common_lib::competition_logic::get_color_string(cone.color) << "\n";
-    }
-    debug_file.close();
-  } else {
-    std::cerr << "Failed to open debug file for writing.\n";
-  }
+  save_debug_file(filename, cone_array, this->received_path, vehicle_state);
 
   // Verify final position
   if ((this->received_path.pathpoint_array.back().x >= x1 &&
@@ -785,7 +695,6 @@ TEST_F(IntegrationTest, ROSBAG_PATH_2) {
            << this->received_path.pathpoint_array.back().y << ")\n\n";
   }
 }
-
 
 TEST_F(IntegrationTest, ROSBAG_PATH_3) {
   // file with the testing scenario
@@ -811,22 +720,7 @@ TEST_F(IntegrationTest, ROSBAG_PATH_3) {
   // Run the nodes
   auto duration = run_nodes(cone_array_msg, vehicle_state);
 
-  // Salvar pathpoint_array em um arquivo para depuração
-  std::ofstream debug_file("../../src/planning/test/integration_tests/results/" + filename);
-  if (debug_file.is_open()) {
-    for (const auto &point : this->received_path.pathpoint_array) {
-      debug_file << "P"
-                 << " " << point.x << " " << point.y << "\n";
-    }
-    // also write the cone array
-    for (const auto &cone : cone_array) {
-      debug_file << "C " << cone.position.x << " " << cone.position.y << " "
-                 << common_lib::competition_logic::get_color_string(cone.color) << "\n";
-    }
-    debug_file.close();
-  } else {
-    std::cerr << "Failed to open debug file for writing.\n";
-  }
+  save_debug_file(filename, cone_array, this->received_path, vehicle_state);
 
   // Verify final position
   if ((this->received_path.pathpoint_array.back().x >= x1 &&
@@ -841,7 +735,6 @@ TEST_F(IntegrationTest, ROSBAG_PATH_3) {
            << this->received_path.pathpoint_array.back().y << ")\n\n";
   }
 }
-
 
 TEST_F(IntegrationTest, ROSBAG_PATH_4) {
   // file with the testing scenario
@@ -867,23 +760,7 @@ TEST_F(IntegrationTest, ROSBAG_PATH_4) {
   // Run the nodes
   auto duration = run_nodes(cone_array_msg, vehicle_state);
 
-  // Salvar pathpoint_array em um arquivo para depuração
-  std::ofstream debug_file("../../src/planning/test/integration_tests/results/" + filename);
-  if (debug_file.is_open()) {
-    for (const auto &point : this->received_path.pathpoint_array) {
-      debug_file << "P"
-                 << " " << point.x << " " << point.y << "\n";
-    }
-    // also write the cone array
-    for (const auto &cone : cone_array) {
-      debug_file << "C " << cone.position.x << " " << cone.position.y << " "
-                 << common_lib::competition_logic::get_color_string(cone.color) << "\n";
-    }
-
-    debug_file.close();
-  } else {
-    std::cerr << "Failed to open debug file for writing.\n";
-  }
+  save_debug_file(filename, cone_array, this->received_path, vehicle_state);
 
   // Verify final position
   if ((this->received_path.pathpoint_array.back().x >= x1 &&
@@ -898,7 +775,6 @@ TEST_F(IntegrationTest, ROSBAG_PATH_4) {
            << this->received_path.pathpoint_array.back().y << ")\n\n";
   }
 }
-
 
 TEST_F(IntegrationTest, ROSBAG_PATH_5) {
   // file with the testing scenario
@@ -924,22 +800,7 @@ TEST_F(IntegrationTest, ROSBAG_PATH_5) {
   // Run the nodes
   auto duration = run_nodes(cone_array_msg, vehicle_state);
 
-  // Salvar pathpoint_array em um arquivo para depuração
-  std::ofstream debug_file("../../src/planning/test/integration_tests/results/" + filename);
-  if (debug_file.is_open()) {
-    for (const auto &point : this->received_path.pathpoint_array) {
-      debug_file << "P"
-                 << " " << point.x << " " << point.y << "\n";
-    }
-    // also write the cone array
-    for (const auto &cone : cone_array) {
-      debug_file << "C " << cone.position.x << " " << cone.position.y << " "
-                 << common_lib::competition_logic::get_color_string(cone.color) << "\n";
-    }
-    debug_file.close();
-  } else {
-    std::cerr << "Failed to open debug file for writing.\n";
-  }
+  save_debug_file(filename, cone_array, this->received_path, vehicle_state);
 
   // Verify final position
   if ((this->received_path.pathpoint_array.back().x >= x1 &&

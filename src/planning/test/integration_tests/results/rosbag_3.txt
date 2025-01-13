@@ -2,9 +2,6 @@ P 2.35 -0.1
 P 3.35 -0.05
 P 4.35 0.15
 P 6.3 0.2
-P 8.25 0.25
-P 9.75 0.2
-P 11.2 0.2
 C 8.2 2 yellow_cone
 C 4.3 1.9 yellow_cone
 C 8.3 -1.5 blue_cone
@@ -16,3 +13,4 @@ C 9.9 -7.2 blue_cone
 C 7.8 -5.2 blue_cone
 C 11.2 -1.5 blue_cone
 C 2.3 1.5 yellow_cone
+V 3.3 0.2 0.08284
