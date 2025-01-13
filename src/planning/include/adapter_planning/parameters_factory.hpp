@@ -45,11 +45,6 @@ std::string load_adapter_parameters(PlanningParameters& params) {
       static_cast<double>(adapter_node->declare_parameter("pre_defined_velocity_planning", 0.5));
   params.use_outlier_removal_ = adapter_node->declare_parameter("use_outlier_removal", false);
   params.use_path_smoothing_ = adapter_node->declare_parameter("use_path_smoothing", true);
-  params.minimum_velocity_ = adapter_node->declare_parameter("minimum_velocity", 3.0);
-  params.braking_acceleration_ = adapter_node->declare_parameter("braking_acceleration", -2.0);
-  params.normal_acceleration_ = adapter_node->declare_parameter("normal_acceleration", 6.0);
-  params.use_velocity_planning_ = adapter_node->declare_parameter("use_velocity_planning", true);
-
   std::string adapter_type = adapter_node->declare_parameter("adapter", "vehicle");
   params.map_frame_id_ = adapter_type == "eufs" ? "base_footprint" : "map";
 

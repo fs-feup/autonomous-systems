@@ -19,7 +19,6 @@
 #include "planning/path_calculation.hpp"
 #include "planning/planning.hpp"
 #include "planning/smoothing.hpp"
-#include "planning/velocity_planning.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "utils/files.hpp"
 #include "utils/splines.hpp"
