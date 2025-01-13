@@ -1,5 +1,4 @@
-#ifndef SRC_PLANNING_INCLUDE_CONFIG_VELOCITY_CONFIG_HPP_
-#define SRC_PLANNING_INCLUDE_CONFIG_VELOCITY_CONFIG_HPP_
+#pragma once
 
 /**
  * @brief struct for the configuration of the velocity planning algorithm
@@ -33,5 +32,3 @@ struct VelocityPlanningConfig {
       normal_acceleration_(normal_acc),
       use_velocity_planning_(use_velocity_planning) {}
 };
-
-#endif  // SRC_PLANNING_INCLUDE_CONFIG_VELOCITY_CONFIG_HPP_
