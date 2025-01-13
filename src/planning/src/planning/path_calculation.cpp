@@ -26,7 +26,7 @@ std::vector<PathPoint> PathCalculation::process_delaunay_triangulations(
   // Create a Delaunay triangulation
   DT dt;
   // Insert cones coordinates into the Delaunay triangulation
-  for (const Cone& cone : cones) {
+  for (const Cone &cone : cones) {
     dt.insert(Point(cone.position.x, cone.position.y));
   }
 
@@ -67,4 +67,72 @@ std::vector<PathPoint> PathCalculation::process_delaunay_triangulations(
                static_cast<int>(unordered_path.size()));
 
   return unordered_path;
+}
+
+std::vector<PathPoint> PathCalculation::skidpad_path(std::vector<Cone> &cone_array,
+                                                     common_lib::structures::Pose pose) {
+  if (!path_orientation_corrected_) {
+    std::string file = "./src/planning/src/utils/skidpad.txt";  // --------------------
+    // open and read file line by line
+    std::ifstream infile(file);
+    std::string line;
+    std::vector<PathPoint> hardcoded_path_;
+    while (std::getline(infile, line)) {
+      std::istringstream iss(line);
+      double x, y, v;
+      if (!(iss >> x >> y >> v)) {
+        break;
+      }  // error
+      hardcoded_path_.push_back(PathPoint(x, y, v));
+    }
+
+
+    if (cone_array.size() < 4) {
+      throw std::runtime_error("Insufficient cones to calculate path");  // --------------------
+    }
+    // sort the cones by distance
+    std::sort(cone_array.begin(), cone_array.end(), [&pose](Cone &a, Cone &b) {
+      return sqrt(pow((a.position.x - pose.position.x), 2) +
+                  pow((a.position.y - pose.position.y), 2)) <
+             sqrt(pow((b.position.x - pose.position.x), 2) +
+                  pow((b.position.y - pose.position.y), 2));
+    });
+
+    // get the middle point between the two closest points
+    PathPoint middle_closest =
+        PathPoint((cone_array[0].position.x + cone_array[1].position.x) / 2,
+                  (cone_array[0].position.y + cone_array[1].position.y) / 2, 0);
+
+    // get the middle point between the two farthest points
+    PathPoint middle_farthest =
+        PathPoint((cone_array[2].position.x + cone_array[3].position.x) / 2,
+                  (cone_array[2].position.y + cone_array[3].position.y) / 2, 0);
+
+    // Find the slope of the line between the two middle points
+    double dx = middle_farthest.position.x - middle_closest.position.x;  // --------------------
+    double dy = middle_farthest.position.y - middle_closest.position.y;  // --------------------
+    double slope = (dx != 0) ? (dy / dx) : 10000000000;                  // --------------------
+
+    // calculate the angle
+    double angle = atan(slope);
+
+    // rotate all the points by the angle and add the origin point
+    for (auto &point : hardcoded_path_) {
+      double x = point.position.x;
+      double y = point.position.y;
+      point.position.x = x * cos(angle) - y * sin(angle) + middle_closest.position.x;
+      point.position.y = x * sin(angle) + y * cos(angle) + middle_closest.position.y;
+    }
+
+    predefined_path_ = hardcoded_path_;
+    path_orientation_corrected_ = true;
+  }
+
+  while (!predefined_path_.empty() &&
+         pose.position.euclidean_distance(predefined_path_[0].position) < 1) {
+    predefined_path_.erase(predefined_path_.begin());
+  }
+
+  // set it as the final path
+  return std::vector<PathPoint>(predefined_path_.begin(), predefined_path_.begin() + 70);
 }
