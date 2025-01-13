@@ -22,7 +22,7 @@ PacsimAdapter::PacsimAdapter(std::shared_ptr<SENode> se_node) : Adapter(se_node)
   if (this->node_->_use_simulated_perception_) {
     this->_perception_detections_subscription_ =
         this->node_->create_subscription<pacsim::msg::PerceptionDetections>(
-            "/pacsim/perception/livox_front/landmarks", 1,
+            "/pacsim/perception/lidar/landmarks", 1,
             std::bind(&PacsimAdapter::perception_detections_subscription_callback, this,
                       std::placeholders::_1));
   }
