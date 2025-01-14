@@ -35,17 +35,16 @@ link_directories(${Eigen_INCLUDE_DIRS})
 
 set(IMPLEMENTATION_FILES
   src/ros_node/slam_node.cpp
-  src/adapter_slam/eufs.cpp
   src/adapter_slam/pacsim.cpp
   src/adapter_slam/vehicle.cpp
   src/slam_config/general_config.cpp
   src/slam_solver/slam_solver.cpp
-  src/slam_solver/graph_slam/graph_slam_solver.cpp
-  src/slam_solver/ekf_slam/ekf_slam_solver.cpp
+  # src/slam_solver/graph_slam/graph_slam_solver.cpp
+  # src/slam_solver/ekf_slam/ekf_slam_solver.cpp
 )
 
 add_executable(${PROJECT_NAME} src/main.cpp ${IMPLEMENTATION_FILES})
-ament_target_dependencies(slam ${PACKAGES} Eigen3)
+ament_target_dependencies(slam ${PACKAGES})
 target_include_directories(${PROJECT_NAME} PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>
@@ -74,6 +73,7 @@ if(BUILD_TESTING)
     # test/observation_model_test.cpp
     # test/slam_test.cpp
     # test/slam_performance_test.cpp
+    # test/slam_solver/graph_slam/graph_slam_solver_test.cpp
   )
 
   include_directories(test)  # Include the 'test' directory for your test targets

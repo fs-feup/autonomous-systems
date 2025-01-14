@@ -5,8 +5,6 @@
 #include "std_srvs/srv/empty.hpp"
 #include "std_srvs/srv/trigger.hpp"
 
-class SLAMNode;
-
 class VehicleAdapter : public SLAMNode {
   rclcpp::Subscription<custom_interfaces::msg::OperationalStatus>::SharedPtr
       _operational_status_subscription_;  ///< Subscriber for operational status
@@ -15,7 +13,18 @@ class VehicleAdapter : public SLAMNode {
       _finished_client_;  ///< Client for finished signal
 
 public:
-  explicit VehicleAdapter();
+  // /**
+  //  * TODO: remove - deprecated
+  //  */
+  // explicit VehicleAdapter();
 
+  /**
+   * @brief Constructor of the vehicle adapter node
+   */
+  VehicleAdapter(const SLAMParameters &params);
+
+  /**
+   * @brief Sends the finished signal to the vehicle control
+   */
   void finish();
 };

@@ -5,16 +5,16 @@
 #include <string>
 
 struct SLAMParameters {
-  bool _use_simulated_perception_ = false;
-  bool _use_simulated_velocities_ = false;
-  std::string _motion_model_name;
-  std::string _data_assocation_model_name;
-  float _data_association_limit_distance;
-  float _observation_x_noise;
-  float _observation_y_noise;
-  float _velocity_x_noise;
-  float _velocity_y_noise;
-  float _angular_velocity_noise;
+  bool use_simulated_perception_ = false;
+  bool use_simulated_velocities_ = false;
+  std::string motion_model_name_;
+  std::string data_assocation_model_name_;
+  float data_association_limit_distance_;
+  float observation_x_noise_;
+  float observation_y_noise_;
+  float velocity_x_noise_;
+  float velocity_y_noise_;
+  float angular_velocity_noise_;
 
   SLAMParameters() = default;
   explicit SLAMParameters(const SLAMParameters &params);

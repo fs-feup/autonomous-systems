@@ -7,20 +7,40 @@
 #include "custom_interfaces/msg/velocities.hpp"
 #include "ros_node/slam_node.hpp"
 
-PacsimAdapter::PacsimAdapter() : SLAMNode() {
-  if (_use_simulated_perception_) {
+// PacsimAdapter::PacsimAdapter() : SLAMNode() {
+//   if (_use_simulated_perception_) {
+//     this->_perception_detections_subscription_ =
+//         this->create_subscription<pacsim::msg::PerceptionDetections>(
+//             "/pacsim/perception/livox_front/landmarks", 1,
+//             std::bind(&PacsimAdapter::_pacsim_perception_subscription_callback, this,
+//                       std::placeholders::_1));
+//   }
+
+//   if (_use_simulated_velocities_) {
+//     this->_velocities_subscription_ =
+//         this->create_subscription<geometry_msgs::msg::TwistWithCovarianceStamped>(
+//             "/pacsim/velocities", 1,
+//             std::bind(&PacsimAdapter::_pacsim_velocities_subscription_callback, this,
+//                       std::placeholders::_1));
+//   }
+
+//   this->_finished_client_ = this->create_client<std_srvs::srv::Empty>("/pacsim/finish_signal");
+// }
+
+PacsimAdapter::PacsimAdapter(const SLAMParameters& params) : SLAMNode(params) {
+  if (params.use_simulated_perception_) {
     this->_perception_detections_subscription_ =
         this->create_subscription<pacsim::msg::PerceptionDetections>(
             "/pacsim/perception/livox_front/landmarks", 1,
-            std::bind(&PacsimAdapter::perception_detections_subscription_callback, this,
+            std::bind(&PacsimAdapter::_pacsim_perception_subscription_callback, this,
                       std::placeholders::_1));
   }
 
-  if (_use_simulated_velocities_) {
+  if (params.use_simulated_velocities_) {
     this->_velocities_subscription_ =
         this->create_subscription<geometry_msgs::msg::TwistWithCovarianceStamped>(
             "/pacsim/velocities", 1,
-            std::bind(&PacsimAdapter::velocities_subscription_callback, this,
+            std::bind(&PacsimAdapter::_pacsim_velocities_subscription_callback, this,
                       std::placeholders::_1));
   }
 
@@ -35,7 +55,7 @@ void PacsimAdapter::finish() {
       });
 }
 
-void PacsimAdapter::perception_detections_subscription_callback(
+void PacsimAdapter::_pacsim_perception_subscription_callback(
     const pacsim::msg::PerceptionDetections& msg) {
   custom_interfaces::msg::ConeArray cone_array_msg;
   for (const pacsim::msg::PerceptionDetection& detection : msg.detections) {
@@ -53,7 +73,7 @@ void PacsimAdapter::perception_detections_subscription_callback(
   _perception_subscription_callback(cone_array_msg);
 }
 
-void PacsimAdapter::velocities_subscription_callback(
+void PacsimAdapter::_pacsim_velocities_subscription_callback(
     const geometry_msgs::msg::TwistWithCovarianceStamped& msg) {
   custom_interfaces::msg::Velocities velocities;
   velocities.velocity_x = msg.twist.twist.linear.x;

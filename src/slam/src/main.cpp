@@ -18,7 +18,7 @@ int main(int argc, char **argv) {
 
   SLAMParameters params;
   std::string adapter_type = params.load_parameters();
-  std::shared_ptr<SLAMNode> slam_node = adapter_map.at(adapter_type)();
+  std::shared_ptr<SLAMNode> slam_node = adapter_map.at(adapter_type)(params);
 
   rclcpp::spin(slam_node);
   rclcpp::shutdown();

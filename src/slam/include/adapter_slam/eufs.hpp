@@ -4,8 +4,9 @@
 #include "eufs_msgs/srv/set_can_state.hpp"
 #include "ros_node/slam_node.hpp"
 
-class SLAMNode;
-
+/**
+ * TODO: remove - deprecated
+ */
 class EufsAdapter : public SLAMNode {
   rclcpp::Subscription<eufs_msgs::msg::ConeArrayWithCovariance>::SharedPtr
       _perception_detections_subscription_;  ///< Subscriber for simulated perception detections

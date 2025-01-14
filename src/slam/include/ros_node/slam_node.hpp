@@ -19,9 +19,8 @@
 #include "custom_interfaces/msg/velocities.hpp"
 #include "eufs_msgs/msg/wheel_speeds_stamped.hpp"
 #include "rclcpp/rclcpp.hpp"
+#include "slam_config/general_config.hpp"
 #include "std_msgs/msg/float64.hpp"
-
-class Adapter;
 
 /**
  * @brief Class representing the main speed_est node responsible for publishing
@@ -52,7 +51,6 @@ protected:
   bool _use_simulated_perception_;
   bool _use_simulated_velocities_;
   std::string _adapter_name_;
-  std::shared_ptr<Adapter> _adapter_;
 
   /**
    * @brief Callback that updates everytime information
@@ -118,8 +116,13 @@ protected:
   void _publish_map();
 
 public:
+  // /**
+  //  * @brief Constructor of the main node, most things are received by launch parameter
+  //  */
+  // SLAMNode();
+
   /**
-   * @brief Constructor of the main node, most things are received by launch parameter
+   * @brief Constructor that uses the parameters structure
    */
-  SLAMNode();
+  SLAMNode(const SLAMParameters& params);
 };

@@ -6,8 +6,6 @@
 #include "pacsim/msg/perception_detections.hpp"
 #include "ros_node/slam_node.hpp"
 
-class SLAMNode;
-
 class PacsimAdapter : public SLAMNode {
   rclcpp::Subscription<pacsim::msg::PerceptionDetections>::SharedPtr
       _perception_detections_subscription_;  ///< Subscriber for simulated perception detections
@@ -23,17 +21,26 @@ class PacsimAdapter : public SLAMNode {
    *
    * @param msg Message containing the array of perceived detections
    */
-  void perception_detections_subscription_callback(const pacsim::msg::PerceptionDetections& msg);
+  void _pacsim_perception_subscription_callback(const pacsim::msg::PerceptionDetections& msg);
 
   /**
    * @brief Callback for simulated velocities from pacsim
    *
    * @param msg Message containing the velocities of the vehicle
    */
-  void velocities_subscription_callback(const geometry_msgs::msg::TwistWithCovarianceStamped& msg);
+  void _pacsim_velocities_subscription_callback(
+      const geometry_msgs::msg::TwistWithCovarianceStamped& msg);
 
 public:
-  explicit PacsimAdapter();
+  // /**
+  //  * TODO: remove - deprecated
+  //  */
+  // explicit PacsimAdapter();
+
+  /**
+   * @brief Constructor of the pacsim adapter node
+   */
+  PacsimAdapter(const SLAMParameters& params);
 
   void finish();
 };

@@ -41,5 +41,11 @@ pip install dash
 # needed to not broke evaluator
 pip install numpy==1.21.5
 
+# for Graph SLAM, needed for GTSAM
+sudo apt-get install libboost-all-dev
+
+# install GTSAM
+# cd ./ext/gtsam && mkdir build && cd build && cmake -DGTSAM_USE_SYSTEM_EIGEN=ON -DCMAKE_PREFIX_PATH="/usr/share/eigen3" .. && sudo make check && sudo make install && cd ../../..
+
 pip install transforms3d==0.4.1
 pip install scipy==1.10.0

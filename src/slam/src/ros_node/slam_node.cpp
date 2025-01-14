@@ -14,48 +14,90 @@
 
 /*---------------------- Constructor --------------------*/
 
-SLAMNode::SLAMNode() : Node("slam") {
-  // Parameters initialization
-  _use_simulated_perception_ = this->declare_parameter("use_simulated_perception", false);
-  _adapter_name_ = this->declare_parameter("adapter", "eufs");
-  std::string motion_model_name = this->declare_parameter("motion_model", "normal_velocity_model");
-  std::string data_assocation_model_name =
-      this->declare_parameter("data_assocation_model", "max_likelihood");
-  float wss_noise = 0.0f;
-  float imu_noise = 0.0f;  // Declare the 'imu_noise' variable
-  if (data_assocation_model_name == "max_likelihood") {
-    wss_noise = static_cast<float>(this->declare_parameter("wss_noise", 0.3f));
-    imu_noise = static_cast<float>(this->declare_parameter("imu_noise", 0.0064f));
-  }
-  float data_association_limit_distance =
-      static_cast<float>(this->declare_parameter("data_association_limit_distance", 71.0f));
-  float observation_noise = static_cast<float>(this->declare_parameter("observation_noise", 0.03f));
+// SLAMNode::SLAMNode() : Node("slam") {
+//   // Parameters initialization
+//   _use_simulated_perception_ = this->declare_parameter("use_simulated_perception", false);
+//   _adapter_name_ = this->declare_parameter("adapter", "eufs");
+//   std::string motion_model_name = this->declare_parameter("motion_model",
+//   "normal_velocity_model"); std::string data_assocation_model_name =
+//       this->declare_parameter("data_assocation_model", "max_likelihood");
+//   float wss_noise = 0.0f;
+//   float imu_noise = 0.0f;  // Declare the 'imu_noise' variable
+//   if (data_assocation_model_name == "max_likelihood") {
+//     wss_noise = static_cast<float>(this->declare_parameter("wss_noise", 0.3f));
+//     imu_noise = static_cast<float>(this->declare_parameter("imu_noise", 0.0064f));
+//   }
+//   float data_association_limit_distance =
+//       static_cast<float>(this->declare_parameter("data_association_limit_distance", 71.0f));
+//   float observation_noise = static_cast<float>(this->declare_parameter("observation_noise",
+//   0.03f));
 
+//   // Initialize the models
+//   // std::shared_ptr<MotionModel> motion_model_wss = motion_model_constructors.at(
+//   // "normal_velocity_model")(MotionModel::create_process_noise_covariance_matrix(wss_noise));
+//   // std::shared_ptr<MotionModel> motion_model_imu =
+//   // motion_model_constructors.at(motion_model_name)(
+//   //     MotionModel::create_process_noise_covariance_matrix(imu_noise));
+//   // std::shared_ptr<ObservationModel> observation_model = std::make_shared<ObservationModel>(
+//   //     ObservationModel::create_observation_noise_covariance_matrix(observation_noise));
+//   // std::shared_ptr<DataAssociationModel> data_association_model =
+//   //     data_association_model_constructors.at(data_assocation_model_name)(
+//   //         data_association_limit_distance);
+
+//   // Initialize SLAM solver object
+//   // _ekf_ = std::make_shared<ExtendedKalmanFilter>(observation_model, data_association_model);
+//   // _ekf_->add_motion_model("wheel_speed_sensor", motion_model_wss);
+//   // _ekf_->add_motion_model("imu", motion_model_imu);
+
+//   // Initialize data structures
+//   _perception_map_ = std::make_shared<std::vector<common_lib::structures::Cone>>();
+//   _vehicle_state_velocities_ = std::make_shared<common_lib::structures::Velocities>();
+//   _track_map_ = std::make_shared<std::vector<common_lib::structures::Cone>>();
+//   _vehicle_pose_ = std::make_shared<common_lib::structures::Pose>();
+
+//   // Subscriptions
+//   if (!_use_simulated_perception_) {
+//     this->_perception_subscription_ =
+//     this->create_subscription<custom_interfaces::msg::ConeArray>(
+//         "/perception/cones", 1,
+//         std::bind(&SLAMNode::_perception_subscription_callback, this, std::placeholders::_1));
+//   }
+//   if (!_use_simulated_velocities_) {
+//     this->_velocities_subscription_ =
+//     this->create_subscription<custom_interfaces::msg::Velocities>(
+//         "/vehicle/velocities", 1,
+//         std::bind(&SLAMNode::_velocities_subscription_callback, this, std::placeholders::_1));
+//   }
+
+//   // Publishers
+//   this->_map_publisher_ =
+//       this->create_publisher<custom_interfaces::msg::ConeArray>("/state_estimation/map", 10);
+//   this->_visualization_map_publisher_ =
+//       this->create_publisher<visualization_msgs::msg::MarkerArray>(
+//           "/state_estimation/visualization_map", 10);
+//   this->_position_publisher_ = this->create_publisher<visualization_msgs::msg::Marker>(
+//       "/state_estimation/visualization/position", 10);
+//   this->_correction_execution_time_publisher_ = this->create_publisher<std_msgs::msg::Float64>(
+//       "/state_estimation/execution_time/correction_step", 10);
+//   this->_prediction_execution_time_publisher_ = this->create_publisher<std_msgs::msg::Float64>(
+//       "/state_estimation/execution_time/prediction_step", 10);
+// }
+
+SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam") {
   // Initialize the models
-  // std::shared_ptr<MotionModel> motion_model_wss = motion_model_constructors.at(
-  //     "normal_velocity_model")(MotionModel::create_process_noise_covariance_matrix(wss_noise));
-  // std::shared_ptr<MotionModel> motion_model_imu =
-  // motion_model_constructors.at(motion_model_name)(
-  //     MotionModel::create_process_noise_covariance_matrix(imu_noise));
-  // std::shared_ptr<ObservationModel> observation_model = std::make_shared<ObservationModel>(
-  //     ObservationModel::create_observation_noise_covariance_matrix(observation_noise));
-  // std::shared_ptr<DataAssociationModel> data_association_model =
-  //     data_association_model_constructors.at(data_assocation_model_name)(
-  //         data_association_limit_distance);
 
   // Initialize SLAM solver object
-  // _ekf_ = std::make_shared<ExtendedKalmanFilter>(observation_model, data_association_model);
-  // _ekf_->add_motion_model("wheel_speed_sensor", motion_model_wss);
-  // _ekf_->add_motion_model("imu", motion_model_imu);
 
-  // Initialize data structures
+  // Parameters initialization
+  std::string motion_model_name = params.motion_model_name_;
+
   _perception_map_ = std::make_shared<std::vector<common_lib::structures::Cone>>();
   _vehicle_state_velocities_ = std::make_shared<common_lib::structures::Velocities>();
   _track_map_ = std::make_shared<std::vector<common_lib::structures::Cone>>();
   _vehicle_pose_ = std::make_shared<common_lib::structures::Pose>();
 
   // Subscriptions
-  if (!_use_simulated_perception_) {
+  if (!params.use_simulated_perception_) {
     this->_perception_subscription_ = this->create_subscription<custom_interfaces::msg::ConeArray>(
         "/perception/cones", 1,
         std::bind(&SLAMNode::_perception_subscription_callback, this, std::placeholders::_1));
