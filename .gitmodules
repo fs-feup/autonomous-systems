@@ -2,10 +2,6 @@
 	path = docs/doxygen/doxygen-awesome-css
 	url = git@github.com:jothepro/doxygen-awesome-css.git
 
-[submodule "ext/hesai-lidar"]
-	path = ext/hedai-lidar
-	url = git@github.com:fs-feup/hesai-lidar.git
-
 [submodule "ext/kiss-icp"]
 	path = ext/kiss-icp
 	url = git@github.com:fs-feup/kiss-icp.git
@@ -13,3 +9,7 @@
 [submodule "ext/as-integration"]
 	path = ext/as-integration
 	url = git@github.com:fs-feup/as-integration.git
+
+[submodule "ext/hesai-lidar"]
+	path = ext/hesai-lidar
+	url = git@github.com:fs-feup/hesai-lidar.git
