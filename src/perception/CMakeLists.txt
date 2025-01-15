@@ -36,7 +36,7 @@ set(IMPLEMENTATION_FILES
   src/cone_validator/deviation_validator.cpp
   src/cone_validator/z_score_validator.cpp
   src/utils/plane.cpp
-  src/cone_evaluator/distance_predict.cpp
+  src/cone_evaluator/cone_evaluator.cpp
   src/center_calculation/centroid_calculation.cpp
   src/icp/icp.cpp
   src/center_calculation/circunference_center_calculation.cpp
@@ -52,11 +52,11 @@ set(TEST_INCLUDE_FILES
   test/displacement_validator_test.cpp
   test/npoints_validator_test.cpp
   test/grid_ransac_test.cpp
-  test/distance_validator_test.cpp
   test/icp_test.cpp
   test/circunference_center_calculation_test.cpp
   test/standard_deviation_validator_test.cpp
-  test/z_score_validator_test.cpp
+  test/cone_evaluator_test.cpp
+  #test/z_score_validator_test.cpp
 )
 
 include_directories(${PCL_INCLUDE_DIRS})

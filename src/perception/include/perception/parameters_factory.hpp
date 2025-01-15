@@ -40,11 +40,13 @@ PerceptionParameters load_adapter_parameters() {
                                                           n_angular_grids, radius_resolution);
   }
 
-  // Create shared pointer for Cultering, Clustering Parameters
+  // Create shared pointer for Clustering, Clustering Parameters
   int clustering_n_neighbours = adapter_node->declare_parameter("clustering_n_neighbours", 1);
   double clustering_epsilon = adapter_node->declare_parameter("clustering_epsilon", 0.1);
   params.clustering_ = std::make_shared<DBSCAN>(clustering_n_neighbours, clustering_epsilon);
-  
+
+  params.cone_differentiator_ = std::make_shared<LeastSquaresDifferentiation>();
+
   // Number of points Validator Parameters
   long unsigned int min_n_points = adapter_node->declare_parameter("min_n_points", 4);
 
@@ -52,6 +54,7 @@ PerceptionParameters load_adapter_parameters() {
   double min_height = adapter_node->declare_parameter("min_height", 0.1);
   double large_max_height = adapter_node->declare_parameter("large_max_height", 0.55);
   double small_max_height = adapter_node->declare_parameter("small_max_height", 0.4);
+  double height_cap = adapter_node->declare_parameter("height_cap", 0.5);
 
   // Deviation Validator Parameters
   double min_xoy = adapter_node->declare_parameter("min_xoy", 0.0);
@@ -70,37 +73,73 @@ PerceptionParameters load_adapter_parameters() {
   double min_z_score_y = adapter_node->declare_parameter("min_z_score_y", 0.45);
   double max_z_score_y = adapter_node->declare_parameter("max_z_score_y", 1.55);
 
-  params.cone_differentiator_ = std::make_shared<LeastSquaresDifferentiation>();
+  // Cylinder Validator Parameters
+  double out_distance_cap = adapter_node->declare_parameter("out_distance_cap", 0.5);
 
-  params.cone_validators_ = {
-      std::make_shared<NPointsValidator>(min_n_points),
-      std::make_shared<HeightValidator>(min_height, large_max_height, small_max_height),
-      std::make_shared<CylinderValidator>(0.228, 0.325, 0.285, 0.505),
-      std::make_shared<DeviationValidator>(min_xoy, max_xoy, min_z, max_z),
-      std::make_shared<DisplacementValidator>(min_distance_x, min_distance_y, min_distance_z),
-      std::make_shared<ZScoreValidator>(min_z_score_x, max_z_score_x, min_z_score_y,
-                                        max_z_score_y)};
+  auto cone_validators =
+      std::make_shared<std::unordered_map<std::string, std::shared_ptr<ConeValidator>>>(
+          std::unordered_map<std::string, std::shared_ptr<ConeValidator>>{
+              {"npoints", std::make_shared<NPointsValidator>(min_n_points)},
+              {"height", std::make_shared<HeightValidator>(min_height, large_max_height,
+                                                           small_max_height, height_cap)},
+              {"cylinder",
+               std::make_shared<CylinderValidator>(0.228, 0.325, 0.285, 0.505, out_distance_cap)},
+              {"deviation", std::make_shared<DeviationValidator>(min_xoy, max_xoy, min_z, max_z)},
+              {"displacement", std::make_shared<DisplacementValidator>(
+                                   min_distance_x, min_distance_y, min_distance_z)},
+              {"zscore", std::make_shared<ZScoreValidator>(min_z_score_x, max_z_score_x,
+                                                           min_z_score_y, max_z_score_y)}});
 
-  if (params.adapter_ == "eufs") {
-    params.cone_validators_ = {};
+  // Weight values for cone evaluator
+
+  // Height weights
+  double height_out_weight = adapter_node->declare_parameter("height_out_weight", 0.15);
+  double height_in_weight = adapter_node->declare_parameter("height_in_weight", 0.15);
+
+  // Cylinder weights
+  double cylinder_radius_weight = adapter_node->declare_parameter("cylinder_radius_weight", 0.15);
+  double cylinder_height_weight = adapter_node->declare_parameter("cylinder_height_weight", 0.15);
+  double cylinder_npoints_weight = adapter_node->declare_parameter("cylinder_npoints_weight", 0.05);
+  double npoints_weight = adapter_node->declare_parameter("npoints_weight", 0.1);
+
+  // Displacement weights
+  double displacement_x_weight = adapter_node->declare_parameter("displacement_x_weight", 0.05);
+  double displacement_y_weight = adapter_node->declare_parameter("displacement_y_weight", 0.05);
+  double displacement_z_weight = adapter_node->declare_parameter("displacement_z_weight", 0.05);
+
+  // Deviation weights
+  double deviation_xoy_weight = adapter_node->declare_parameter("deviation_xoy_weight", 0.2);
+  double deviation_z_weight = adapter_node->declare_parameter("deviation_z_weight", 0.1);
+
+  // Weights maps shared pointer setup
+  auto weight_values = std::make_shared<std::unordered_map<std::string, double>>(
+      std::unordered_map<std::string, double>{{"height_out_weight", height_out_weight},
+                                              {"height_in_weight", height_in_weight},
+                                              {"cylinder_radius_weight", cylinder_radius_weight},
+                                              {"cylinder_height_weight", cylinder_height_weight},
+                                              {"cylinder_npoints_weight", cylinder_npoints_weight},
+                                              {"npoints_weight", npoints_weight},
+                                              {"displacement_x_weight", displacement_x_weight},
+                                              {"displacement_y_weight", displacement_y_weight},
+                                              {"displacement_z_weight", displacement_z_weight},
+                                              {"deviation_xoy_weight", deviation_xoy_weight},
+                                              {"deviation_z_weight", deviation_z_weight}});
+
+  // Normalize weights using scale by sum so the confidence value is always [0,1] and there is no
+  // need to always make sure the weights sum to 1.
+  double weight_sum = 0.0;
+  for (const auto &pair : *weight_values) {
+    weight_sum += pair.second;
+  }
+  for (auto &pair : *weight_values) {
+    pair.second /= weight_sum;
   }
 
-  // Create shared pointer for Distance prediction, Distance prediction Parameters
-  double horizontal_resolution = adapter_node->declare_parameter("horizontal_resolution", 0.33);
-  double vertical_resolution = adapter_node->declare_parameter("vertical_resolution", 0.22);
-  params.distance_predict_ =
-      std::make_shared<DistancePredict>(vertical_resolution, horizontal_resolution);
+  // Minimum confidence needed for a cluster to be a cone.
+  double min_confidence = adapter_node->declare_parameter("min_confidence", 1.0);
 
-  // Create shared pointer for Distance prediction, Distance prediction Parameters
-  std::string target_file = adapter_node->declare_parameter("target_file", "cone.pcd");
-  double max_correspondence_distance =
-      adapter_node->declare_parameter("max_correspondence_distance", 0.1);
-  int max_iteration = adapter_node->declare_parameter("max_iteration", 100);
-  double transformation_epsilon = adapter_node->declare_parameter("transformation_epsilon", 1e-8);
-  double euclidean_fitness_epsilon =
-      adapter_node->declare_parameter("euclidean_fitness_epsilon", 1e-6);
-  params.icp_ = std::make_shared<ICP>(target_file, max_correspondence_distance, max_iteration,
-                                      transformation_epsilon, euclidean_fitness_epsilon);
+  params.cone_evaluator_ =
+      std::make_shared<ConeEvaluator>(cone_validators, weight_values, min_confidence);
 
   return params;
 }

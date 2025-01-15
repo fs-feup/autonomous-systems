@@ -14,6 +14,7 @@ private:
   double _min_height_;        ///< Min Height threshold for cone validation */
   double _large_max_height_;  ///< Max Height threshold for large cones */
   double _small_max_height_;  ///< Max Height treshhold for small cones */
+  double _height_cap_;        ///< Minimum ratio result needed for return values to not be 0. */
 
 public:
   /**
@@ -22,8 +23,11 @@ public:
    * @param min_height Min Height threshold for cone validation
    * @param max_height Max Height threshold for cone validation
    * @param small_max_height Max Height treshhold for small cones
+   * @param height_cap Minimum ratio result needed for return values to not be 0
+   *
    */
-  explicit HeightValidator(double min_height, double large_max_height, double small_max_height);
+  explicit HeightValidator(double min_height, double large_max_height, double small_max_height,
+                           double height_cap);
 
   /**
    * @brief Validates a cone based on its height relative to a plane.
@@ -34,9 +38,11 @@ public:
    *
    * @param cone_point_cloud Pointer to a Cluster object representing the point cloud of the cone.
    * @param plane The plane against which the cone's height is evaluated.
-   * @return true if the cone satisfies the height criteria, false otherwise.
+   * @return vector containing:
+   * Index 0 -> the ratio between the clusters height and the limit, 1 if inside.
+   * Index 1 -> if in height interval, how close is it to the maximum height, else 0.
    */
-  bool coneValidator(Cluster* cone_point_cloud, Plane& plane) const override;
+  std::vector<double> coneValidator(Cluster* cone_point_cloud, Plane& plane) const override;
 
   /**
    * @brief Virtual destructor for HeightValidator.
