@@ -1,5 +1,7 @@
 #include "planning/planning.hpp"
 
+#include <vector>
+
 #include "adapter_planning/pacsim.hpp"
 #include "adapter_planning/vehicle.hpp"
 
@@ -14,6 +16,7 @@ Planning::Planning(const PlanningParameters &params)
   outliers_ = Outliers(planning_config_.outliers_);
   path_calculation_ = PathCalculation(planning_config_.path_calculation_);
   path_smoothing_ = PathSmoothing(planning_config_.smoothing_);
+  velocity_planning_ = VelocityPlanning(planning_config_.velocity_planning_);
 
   // Control Publisher
   this->local_pub_ =
@@ -134,27 +137,42 @@ void Planning::run_planning_algorithms() {
     RCLCPP_INFO(rclcpp::get_logger("planning"), "Final path size: %d",
                 static_cast<int>(final_path.size()));
   }
-  // Velocity Planning
-  // TODO: Remove this when velocity planning is a reality
-  for (auto &path_point : final_path) {
-    path_point.ideal_velocity = desired_velocity_;
+
+  if ((this->mission == common_lib::competition_logic::Mission::SKIDPAD)) { // place a ! before the condition, to test skidpad until the simulator publishes the mission correctly
+    final_path = path_calculation_.skidpad_path(this->cone_array_, this->pose);
   }
 
-  // Execution Time calculation
-  rclcpp::Time end_time = this->now();
-  std_msgs::msg::Float64 planning_execution_time;
-  planning_execution_time.data = (end_time - start_time).seconds() * 1000;
-  this->_planning_execution_time_publisher_->publish(planning_execution_time);
+  if ((this->mission == common_lib::competition_logic::Mission::ACCELERATION)) {  // place a ! before the condition, to test acceleration until the simulator publishes the mission correctly
 
-  publish_track_points(final_path);
-  RCLCPP_DEBUG(this->get_logger(), "Planning will publish %i path points\n",
-               static_cast<int>(final_path.size()));
-
-  if (planning_config_.simulation_.publishing_visualization_msgs_) {
-    publish_visualization_msgs(colored_cones.first, colored_cones.second,
-                               refined_colored_cones.first, refined_colored_cones.second,
-                               triangulations_path, final_path);
+    double dist_from_origin = sqrt(this->pose.position.x * this->pose.position.x +
+                                   this->pose.position.y * this->pose.position.y);
+    if (dist_from_origin > 80.0) {
+      for (auto &point : final_path) {
+        point.ideal_velocity = 0.0;
+      }
+    } else {
+      for (auto &point : final_path) {
+        point.ideal_velocity = 1000.0;
+      }
+    }
+  } else if (!(this->mission == common_lib::competition_logic::Mission::SKIDPAD)) { // remove the ! before the condition, to test skidpad until the simulator publishes the mission correctly
+    velocity_planning_.set_velocity(final_path);
   }
+
+// Execution Time calculation
+rclcpp::Time end_time = this->now();
+std_msgs::msg::Float64 planning_execution_time;
+planning_execution_time.data = (end_time - start_time).seconds() * 1000;
+this->_planning_execution_time_publisher_->publish(planning_execution_time);
+
+publish_track_points(final_path);
+RCLCPP_DEBUG(this->get_logger(), "Planning will publish %i path points\n",
+             static_cast<int>(final_path.size()));
+
+if (planning_config_.simulation_.publishing_visualization_msgs_) {
+  publish_visualization_msgs(colored_cones.first, colored_cones.second, refined_colored_cones.first,
+                             refined_colored_cones.second, triangulations_path, final_path);
+}
 }
 
 void Planning::vehicle_localization_callback(const custom_interfaces::msg::VehicleState &msg) {
