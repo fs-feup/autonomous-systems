@@ -161,16 +161,81 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "min_distance_x",
                 description="Minimum distance on the x axis for a cluster to be a cone",
-                default_value="0.02",  # untested
+                default_value="0.02",  # not on ground tested
             ),
             DeclareLaunchArgument(
                 "min_distance_y",
                 description="Minimum distance on the y axis for a cluster to be a cone",
-                default_value="0.04",  # untested
+                default_value="0.04",  # not on ground tested
             ),
             DeclareLaunchArgument(
                 "min_distance_z",
                 description="Minimum distance on the z axis for a cluster to be a cone",
+                default_value="0.07",  # not on ground tested
+            ),
+            DeclareLaunchArgument(
+                "min_n_points",
+                description="Minimum number of points in the cluster for it to be a cone",
+                default_value="4",
+            ),
+            DeclareLaunchArgument(
+                "min_confidence",
+                description="Minimum number of confidence a cluster needs to be considered a cone",
+                default_value="0.90",  # untested
+            ),
+            DeclareLaunchArgument(
+                "height_out_weight",
+                description="Weight for how far the cluster is outside the height limit interval (evaluation)",
+                default_value="0.15",  # untested
+            ),
+            DeclareLaunchArgument(
+                "height_in_weight",
+                description="Weight for how close the cluster is to the limit while inside it (evaluation)",
+                default_value="0.10",  # untested
+            ),
+            DeclareLaunchArgument(
+                "cylinder_radius_weight",
+                description="Weight for how far the cluster is outside the cylinders radius(XY plane) (evaluation)",
+                default_value="0.2",  # untested
+            ),
+            DeclareLaunchArgument(
+                "cylinder_height_weight",
+                description="Weight for how far the cluster is outside the cylinders height(Z axis) (evaluation)",
+                default_value="0.10",  # untested
+            ),
+            DeclareLaunchArgument(
+                "cylinder_npoints_weight",
+                description="Weight for the ratio of points outside the cylinder (evaluation)",
+                default_value="0.05",  # untested
+            ),
+            DeclareLaunchArgument(
+                "npoints_weight",
+                description="Weight for how low is the number of points in the cluster compared to the minimum (evaluation)",
+                default_value="0.2",  # untested
+            ),
+            DeclareLaunchArgument(
+                "displacement_x_weight",
+                description="Weight for the displacement in the X direction compared to a minimum (evaluation)",
+                default_value="0.03",  # untested
+            ),
+            DeclareLaunchArgument(
+                "displacement_y_weight",
+                description="Weight for the displacement in the Y direction compared to a minimum (evaluation)",
+                default_value="0.04",  # untested
+            ),
+            DeclareLaunchArgument(
+                "displacement_z_weight",
+                description="Weight for the displacement in the Z direction compared to a minimum (evaluation)",
+                default_value="0.04",  # untested
+            ),
+            DeclareLaunchArgument(
+                "deviation_xoy_weight",
+                description="Weight for how far the cluster is outside the standard deviation in the XOY plane interval (evaluation)",
+                default_value="0.07",  # untested
+            ),
+            DeclareLaunchArgument(
+                "deviation_z_weight",
+                description="Weight for how far the cluster is outside the standard deviation in the Z axis interval (evaluation)",
                 default_value="0.07",  # untested
             ),
             Node(
@@ -238,6 +303,50 @@ def generate_launch_description():
                     {"max_z_score_x": LaunchConfiguration("max_z_score_x")},
                     {"min_z_score_y": LaunchConfiguration("min_z_score_y")},
                     {"max_z_score_y": LaunchConfiguration("max_z_score_y")},
+                    {"min_distance_x": LaunchConfiguration("min_distance_x")},
+                    {"min_distance_y": LaunchConfiguration("min_distance_y")},
+                    {"min_distance_z": LaunchConfiguration("min_distance_z")},
+                    {"min_n_points": LaunchConfiguration("min_n_points")},
+                    {"min_confidence": LaunchConfiguration("min_confidence")},
+                    {"height_out_weight": LaunchConfiguration("height_out_weight")},
+                    {"height_in_weight": LaunchConfiguration("height_in_weight")},
+                    {
+                        "cylinder_radius_weight": LaunchConfiguration(
+                            "cylinder_radius_weight"
+                        )
+                    },
+                    {
+                        "cylinder_height_weight": LaunchConfiguration(
+                            "cylinder_height_weight"
+                        )
+                    },
+                    {
+                        "cylinder_npoints_weight": LaunchConfiguration(
+                            "cylinder_npoints_weight"
+                        )
+                    },
+                    {"npoints_weight": LaunchConfiguration("npoints_weight")},
+                    {
+                        "displacement_x_weight": LaunchConfiguration(
+                            "displacement_x_weight"
+                        )
+                    },
+                    {
+                        "displacement_y_weight": LaunchConfiguration(
+                            "displacement_y_weight"
+                        )
+                    },
+                    {
+                        "displacement_z_weight": LaunchConfiguration(
+                            "displacement_z_weight"
+                        )
+                    },
+                    {
+                        "deviation_xoy_weight": LaunchConfiguration(
+                            "deviation_xoy_weight"
+                        )
+                    },
+                    {"deviation_z_weight": LaunchConfiguration("deviation_z_weight")},
                 ],
                 arguments=["--ros-args", "--log-level", "perception:=debug"],
             ),

@@ -8,7 +8,7 @@
 #include <utils/plane.hpp>
 
 /**
- * @brief Test fixture for HeightValidator class.
+ * @brief Test fixture for NPointsValidator class.
  */
 class NPointsValidatorTest : public ::testing::Test {
 protected:
@@ -21,63 +21,56 @@ protected:
 };
 
 /**
- * @brief Test case to validate if the cone has lower number of points than the minimum.
+ * @brief Test case to validate a cluster with fewer points than the minimum threshold.
  */
-TEST_F(NPointsValidatorTest, ConeWithSmallNumberOfPoints) {
-  NPointsValidator validator = NPointsValidator(4);
+TEST_F(NPointsValidatorTest, ConeWithFewerPointsThanThreshold) {
+  NPointsValidator validator(4);
 
   auto point_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
-  point_cloud->points.emplace_back(0.3, 0.0, 0, 0);
+  point_cloud->points.emplace_back(0.3, 0.0, 0.0, 0);  // 1 point
 
-  Cluster cone_point_cloud = Cluster(point_cloud);
+  Cluster cone_point_cloud(point_cloud);
 
-  bool result = validator.coneValidator(&cone_point_cloud, plane);
+  std::vector<double> result = validator.coneValidator(&cone_point_cloud, plane);
 
-  ASSERT_FALSE(result);
+  ASSERT_LT(result[0], 1.0);
 }
 
 /**
- * @brief Test case to validate if the cone has higher number of points than the minimum.
+ * @brief Test case to validate a cluster with exactly the minimum threshold number of points.
  */
-TEST_F(NPointsValidatorTest, ConeWithHighNumberOfPoints) {
-  NPointsValidator validator = NPointsValidator(4);
+TEST_F(NPointsValidatorTest, ConeWithExactMinPoints) {
+  NPointsValidator validator(4);
+
+  auto point_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
+  point_cloud->points.insert(point_cloud->points.end(), {{0.3, 0.0, 0.0, 0},
+                                                         {0.5, 0.1, 0.2, 0},
+                                                         {0.1, 0.2, 0.3, 0},
+                                                         {-0.2, -0.3, 0.1, 0}});  // 4 points
+
+  Cluster cone_point_cloud(point_cloud);
+
+  std::vector<double> result = validator.coneValidator(&cone_point_cloud, plane);
+
+  ASSERT_DOUBLE_EQ(result[0], 1.0);
+}
+
+/**
+ * @brief Test case to validate a cluster with more points than the minimum threshold.
+ */
+TEST_F(NPointsValidatorTest, ConeWithMorePointsThanThreshold) {
+  NPointsValidator validator(4);
 
   auto point_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
   point_cloud->points.insert(point_cloud->points.end(), {{0.3, 0.0, 0.0, 0},
                                                          {0.5, 0.1, 0.2, 0},
                                                          {0.1, 0.2, 0.3, 0},
                                                          {-0.2, -0.3, 0.1, 0},
-                                                         {0.4, -0.1, 0.0, 0},
-                                                         {-0.1, 0.5, 0.2, 0},
-                                                         {0.0, -0.4, 0.3, 0},
-                                                         {0.3, 0.3, -0.2, 0},
-                                                         {-0.3, 0.1, -0.1, 0},
-                                                         {0.2, -0.2, 0.4, 0}});
+                                                         {0.4, -0.1, 0.0, 0}});  // 5 points
 
-  Cluster cone_point_cloud = Cluster(point_cloud);
+  Cluster cone_point_cloud(point_cloud);
 
-  bool result = validator.coneValidator(&cone_point_cloud, plane);
+  std::vector<double> result = validator.coneValidator(&cone_point_cloud, plane);
 
-  ASSERT_TRUE(result);
-}
-
-/**
- * @brief Test case to validate if the cone has the same number of points as the minimum.
- */
-TEST_F(NPointsValidatorTest, ConeWithMinNumberOfPoints) {
-  NPointsValidator validator = NPointsValidator(4);
-
-  auto point_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
-  point_cloud->points.insert(point_cloud->points.end(), {
-                                                            {0.3, 0.0, 0.0, 0},
-                                                            {0.5, 0.1, 0.2, 0},
-                                                            {0.1, 0.2, 0.3, 0},
-                                                            {-0.2, -0.3, 0.1, 0},
-                                                        });
-
-  Cluster cone_point_cloud = Cluster(point_cloud);
-
-  bool result = validator.coneValidator(&cone_point_cloud, plane);
-
-  ASSERT_TRUE(result);
+  ASSERT_DOUBLE_EQ(result[0], 1.0);
 }
