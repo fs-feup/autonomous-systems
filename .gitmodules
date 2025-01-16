@@ -13,3 +13,7 @@
 [submodule "ext/hesai-lidar"]
 	path = ext/hesai-lidar
 	url = git@github.com:fs-feup/hesai-lidar.git
+	
+[submodule "ext/xsens-imu"]
+	path = ext/xsens-imu
+	url = git@github.com:fs-feup/xsens-imu.git
