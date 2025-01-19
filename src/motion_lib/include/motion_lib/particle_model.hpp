@@ -24,4 +24,9 @@ void update_velocities(Eigen::Vector3f& velocities, double ax, double ay, double
  */
 Eigen::Matrix3f jacobian_of_velocity_update();
 
+void update_pose(Eigen::VectorXd& state, double vx, double vy, double angular_velocity,
+                 double time_interval);
+
+Eigen::MatrixXd jacobian_of_pose_update(int state_size);
+
 }  // namespace motion_lib::particle_model
