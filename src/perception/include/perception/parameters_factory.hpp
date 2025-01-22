@@ -51,7 +51,7 @@ PerceptionParameters load_adapter_parameters() {
   // Height Validator Parameters
   double min_height = adapter_node->declare_parameter("min_height", 0.13);
   double large_max_height = adapter_node->declare_parameter("large_max_height", 0.57);
-  double small_max_height = adapter_node->declare_parameter("small_max_height", 0.36);
+  double small_max_height = adapter_node->declare_parameter("small_max_height", 0.44);
 
   // Deviation Validator Parameters
   double min_xoy = adapter_node->declare_parameter("min_xoy", 0.0);

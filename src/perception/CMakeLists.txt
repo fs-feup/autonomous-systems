@@ -52,11 +52,11 @@ set(TEST_INCLUDE_FILES
   test/displacement_validator_test.cpp
   test/npoints_validator_test.cpp
   test/grid_ransac_test.cpp
-  test/perception_integration_tests.cpp
   test/icp_test.cpp
   test/circunference_center_calculation_test.cpp
   test/standard_deviation_validator_test.cpp
   test/z_score_validator_test.cpp
+  test/perception_integration_tests/perception_integration_tests.cpp
 )
 
 include_directories(${PCL_INCLUDE_DIRS})

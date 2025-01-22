@@ -33,10 +33,10 @@ class PointCloudExtractor(Node):
             # Write PCD file header
             f.write(f"# .PCD v0.7 - Point Cloud Data file format\n")
             f.write(f"VERSION 0.7\n")
-            f.write(f"FIELDS x y z\n")
-            f.write(f"SIZE 4 4 4\n")
-            f.write(f"TYPE F F F\n")
-            f.write(f"COUNT 1 1 1\n")
+            f.write(f"FIELDS x y z intensity\n")
+            f.write(f"SIZE 4 4 4 4\n")
+            f.write(f"TYPE F F F F\n")
+            f.write(f"COUNT 1 1 1 1\n")
             f.write(f"WIDTH {len(points)}\n")
             f.write(f"HEIGHT 1\n")
             f.write(f"VIEWPOINT 0 0 0 1 0 0 0\n")
@@ -45,7 +45,7 @@ class PointCloudExtractor(Node):
 
             # Write point data
             for point in points:
-                f.write(f"{point[0]} {point[1]} {point[2]}\n")
+                f.write(f"{point[0]} {point[1]} {point[2]} {0}\n")
 
 
 def main(args=None):
