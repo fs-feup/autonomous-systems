@@ -11,17 +11,27 @@
 #include "perception/parameters_factory.hpp"
 #include "perception/perception_node.hpp"
 
+/**
+ * @brief Test class for blackbox perception integration tests.
+ * (When using pcd-viewer or other extension the result clouds only update after they are manually
+ * reset)
+ */
 class PerceptionIntegrationTest : public ::testing::Test {
 protected:
-  rclcpp::Node::SharedPtr test_node_;
+  rclcpp::Node::SharedPtr test_node_;  /// Test node created to publish a pcl and subsribe to the
+                                       /// cones array on the perception node.
   rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr pcl_publisher_;
   rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr cones_subscriber_;
-  custom_interfaces::msg::ConeArray::SharedPtr cones_result_;
+  custom_interfaces::msg::ConeArray::SharedPtr
+      cones_result_;  /// Recieves and stores perception node output
   pcl::PointCloud<pcl::PointXYZI>::Ptr
-      result_cloud_;  // Cloud that will be filled with the found cones as cylinders and saved in
-                      // the results file for visualization
-  bool cones_received_;
+      result_cloud_;  /// Cloud that will be filled with the found cones as cylinders and saved in
+                      /// the results file for visualization
+  bool cones_received_;  /// Flag that determines if the cones were recieved on the test node side
 
+  /**
+   * @brief Setup publishers, subscribers and helper functions.
+   */
   void SetUp() override {
     rclcpp::init(0, nullptr);
 
@@ -42,7 +52,9 @@ protected:
     result_cloud_ = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
   }
 
-  // Generates a cylinder made of pcl points, used to add the found cones in the results pcl.
+  /**
+   * @brief Generates a cylinder made of pcl points, used to add the found cones in the results pcl.
+   */
   void generateCylinder(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, float radius, float height,
                         float centerX, float centerY, int numSlices, int numHeightSegments,
                         float intensity) {
@@ -77,8 +89,9 @@ protected:
   }
 };
 
-// Straight line test for perception node from rosbag:
-// Accelaration_Testing_DV_1B.mcap
+/**
+ * @brief Straight line test for perception node from rosbag: Accelaration_Testing_DV_1B.mcap
+ */
 TEST_F(PerceptionIntegrationTest, StraigthLine) {
   auto params = load_adapter_parameters();
   rclcpp::Node::SharedPtr perception_node = std::make_shared<Perception>(params);
@@ -138,8 +151,10 @@ TEST_F(PerceptionIntegrationTest, StraigthLine) {
   executor.cancel();
 }
 
-// Close to accelaration end test for perception node from rosbag:
-// Accelaration_Testing_Manual-4.mcap
+/**
+ * @brief Close to accelaration end test for perception node from rosbag:
+ * Accelaration_Testing_Manual-4.mcap
+ */
 TEST_F(PerceptionIntegrationTest, AccelarationClose) {
   auto params = load_adapter_parameters();
   rclcpp::Node::SharedPtr perception_node = std::make_shared<Perception>(params);
@@ -208,8 +223,10 @@ TEST_F(PerceptionIntegrationTest, AccelarationClose) {
   executor.cancel();
 }
 
-// Medium distance to accelaration end test for perception node from rosbag:
-// Accelaration_Testing_Manual-4.mcap
+/**
+ * @brief Medium distance to accelaration end test for perception node from rosbag:
+ * Accelaration_Testing_Manual-4.mcap
+ */
 TEST_F(PerceptionIntegrationTest, AccelarationMedium) {
   auto params = load_adapter_parameters();
   rclcpp::Node::SharedPtr perception_node = std::make_shared<Perception>(params);
@@ -278,8 +295,10 @@ TEST_F(PerceptionIntegrationTest, AccelarationMedium) {
   executor.cancel();
 }
 
-// Far distance to accelaration end test for perception node from rosbag:
-// Accelaration_Testing_Manual-4.mcap
+/**
+ * @brief Far distance to accelaration end test for perception node from rosbag:
+ * Accelaration_Testing_Manual-4.mcap
+ */
 TEST_F(PerceptionIntegrationTest, AccelarationFar) {
   auto params = load_adapter_parameters();
   rclcpp::Node::SharedPtr perception_node = std::make_shared<Perception>(params);
@@ -348,8 +367,9 @@ TEST_F(PerceptionIntegrationTest, AccelarationFar) {
   executor.cancel();
 }
 
-// Blind turn test for perception node from rosbag:
-// Closed_Course_Manual-6.mcap
+/**
+ * @brief Blind turn test for perception node from rosbag: Closed_Course_Manual-6.mcap
+ */
 TEST_F(PerceptionIntegrationTest, EnterHairpin) {
   auto params = load_adapter_parameters();
   rclcpp::Node::SharedPtr perception_node = std::make_shared<Perception>(params);
@@ -418,8 +438,9 @@ TEST_F(PerceptionIntegrationTest, EnterHairpin) {
   executor.cancel();
 }
 
-// Turn test for perception node from rosbag:
-// Hard_Course-DV-5.mcap
+/**
+ * @brief Turn test for perception node from rosbag: Hard_Course-DV-5.mcap
+ */
 TEST_F(PerceptionIntegrationTest, TurnStart) {
   auto params = load_adapter_parameters();
   rclcpp::Node::SharedPtr perception_node = std::make_shared<Perception>(params);
@@ -488,8 +509,9 @@ TEST_F(PerceptionIntegrationTest, TurnStart) {
   executor.cancel();
 }
 
-// Odd situation test for perception node from rosbag:
-// Hard_Course-DV-5.mcap
+/**
+ * @brief Odd situation test for perception node from rosbag: Hard_Course-DV-5.mcap
+ */
 TEST_F(PerceptionIntegrationTest, OddStituation) {
   auto params = load_adapter_parameters();
   rclcpp::Node::SharedPtr perception_node = std::make_shared<Perception>(params);
@@ -558,8 +580,9 @@ TEST_F(PerceptionIntegrationTest, OddStituation) {
   executor.cancel();
 }
 
-// Medium distance to accelaration end test for perception node from rosbag:
-// Accelaration_Testing_Manual-4.mcap
+/**
+ * @brief A fully diagonal path test for perception node from rosbag: Autocross_DV-1.mcap
+ */
 TEST_F(PerceptionIntegrationTest, DiagonalPath) {
   auto params = load_adapter_parameters();
   rclcpp::Node::SharedPtr perception_node = std::make_shared<Perception>(params);
@@ -591,7 +614,7 @@ TEST_F(PerceptionIntegrationTest, DiagonalPath) {
   EXPECT_TRUE(cones_received_) << "No cones received within the timeout.";
   if (cones_received_) {
     if (cones_result_->cone_array.size() != 9)
-      RCLCPP_INFO(test_node_->get_logger(), "Wrong number of cones: detected->%ld expected->%d",
+      RCLCPP_INFO(test_node_->get_logger(), "Wrong number of cones: detected->%ld expected->c%d",
                   cones_result_->cone_array.size(), 9);
 
     int large_count = 0;
