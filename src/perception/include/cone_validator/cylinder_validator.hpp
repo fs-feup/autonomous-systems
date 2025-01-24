@@ -13,10 +13,11 @@
  */
 class CylinderValidator : public ConeValidator {
 private:
-  double small_width;  /**< Width of the cylinder for a small cone. */
-  double small_height; /**< Height of the cylinder for a small cone. */
-  double large_width;  /**< Width of the cylinder for a large cone. */
-  double large_height; /**< Height of the cylinder for a large cone. */
+  double small_width;      /**< Width of the cylinder for a small cone. */
+  double small_height;     /**< Height of the cylinder for a small cone. */
+  double large_width;      /**< Width of the cylinder for a large cone. */
+  double large_height;     /**< Height of the cylinder for a large cone. */
+  double out_distance_cap; /**< Minimum out_distance value for it to be 0*/
 
 public:
   /**
@@ -25,9 +26,10 @@ public:
    * @param small_height The height of the cylinder for a small cone.
    * @param large_width The width of the cylinder for a large cone.
    * @param large_height The height of the cylinder for a large cone.
+   * @param out_distance_cap Minimum out_distance value for a cluster to have a 0 result.
    */
   CylinderValidator(double small_width, double small_height, double large_width,
-                    double large_height);
+                    double large_height, double out_distance_cap);
 
   /**
    * @brief Gets the radius of the cylinder for small cones.
@@ -44,7 +46,10 @@ public:
   /**
    * @brief Validates a cluster using cylinder approximation.
    * @param cone_point_cloud Pointer to the cluster to be validated.
-   * @return True if the cluster is valid, false otherwise.
+   * @return Vector containing: \n
+   * Index 0 -> Ratio of between distance to the farthest point and the cylinder radius.|
+   * Index 1 -> Ratio of between distance to the farthest point and the cylinder heigth.|
+   * Index 2 -> Ratio between the number of points outside the cylinder and the total.
    */
-  bool coneValidator(Cluster* cone_point_cloud, Plane& plane) const override;
+  std::vector<double> coneValidator(Cluster* cone_point_cloud, Plane& plane) const override;
 };

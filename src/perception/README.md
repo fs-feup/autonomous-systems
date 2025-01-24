@@ -13,7 +13,7 @@ The Perception module is responsible for the processing of the perception module
 - [cone_validator](include/cone_validator/): Functions to validate cones
 - [perception](include/perception/): Perception node class
 - [clustering](include/clustering/): Functions to create clusters of cones
-- [cone_evaluator](include/cone_evaluator/): Functions to evaluate cone detections' quality
+- [cone_evaluator](include/cone_evaluator/): Functions to evaluate cones based on validator results
 - [ground_removal](include/ground_removal/): Functions to remove the ground from the point cloud
 - [utils](include/utils/): Utility functions
 - [icp](include/icp/): Functions to perform ICP, used in a validation method

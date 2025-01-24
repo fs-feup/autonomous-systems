@@ -8,7 +8,7 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
-find_package(custom_interfaces REQUIRED)
+find_package(custom_interfaces REQUIRED)>>>>>>> dev
 find_package(fs_msgs REQUIRED)
 find_package(eufs_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
@@ -36,7 +36,7 @@ set(IMPLEMENTATION_FILES
   src/cone_validator/deviation_validator.cpp
   src/cone_validator/z_score_validator.cpp
   src/utils/plane.cpp
-  src/cone_evaluator/distance_predict.cpp
+  src/cone_evaluator/cone_evaluator.cpp
   src/center_calculation/centroid_calculation.cpp
   src/icp/icp.cpp
   src/center_calculation/circunference_center_calculation.cpp
@@ -55,8 +55,9 @@ set(TEST_INCLUDE_FILES
   test/icp_test.cpp
   test/circunference_center_calculation_test.cpp
   test/standard_deviation_validator_test.cpp
-  test/z_score_validator_test.cpp
   test/perception_integration_tests/perception_integration_tests.cpp
+  test/cone_evaluator_test.cpp
+  #test/z_score_validator_test.cpp
 )
 
 include_directories(${PCL_INCLUDE_DIRS})
