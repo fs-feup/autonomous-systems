@@ -29,7 +29,7 @@ def plot_data(filename, min_x=(-10, 10), min_y=(-10, 10)):
                 car_x = float(data[1])
                 car_y = float(data[2])
     
-    fig, ax = plt.subplots(figsize=(10, 8))
+    fig, ax = plt.subplots(figsize=(11, 10))
     
     ax.scatter(cone_x, cone_y, c=cone_colors, edgecolors='black', s=100)
     
@@ -60,6 +60,11 @@ def plot_data(filename, min_x=(-10, 10), min_y=(-10, 10)):
 def main():
     folder_path = "/home/ws/src/planning/test/integration_tests/results/"
     txt_files = list_txt_files(folder_path)
+    
+    # open all the files on the first run
+    for i in range(1, len(txt_files)+1):
+        selected_file = os.path.join(folder_path, txt_files[i-1])
+        plot_data(selected_file, min_x=(-2, 20), min_y=(-2, 20))
     
     while True:
         try:
