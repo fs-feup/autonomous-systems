@@ -136,7 +136,7 @@ PerceptionParameters load_adapter_parameters() {
   }
 
   // Minimum confidence needed for a cluster to be a cone.
-  double min_confidence = adapter_node->declare_parameter("min_confidence", 1.0);
+  double min_confidence = adapter_node->declare_parameter("min_confidence", 0.912);
 
   params.cone_evaluator_ =
       std::make_shared<ConeEvaluator>(cone_validators, weight_values, min_confidence);
