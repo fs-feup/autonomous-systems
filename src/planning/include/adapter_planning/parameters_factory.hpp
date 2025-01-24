@@ -14,14 +14,14 @@ struct PlanningParameters;
 
 std::string load_adapter_parameters(PlanningParameters& params) {
   auto adapter_node = std::make_shared<rclcpp::Node>("planning_adapter");
-  params.angle_gain_ = adapter_node->declare_parameter("angle_gain", 10.246);
-  params.distance_gain_ = adapter_node->declare_parameter("distance_gain", 6.657);
-  params.ncones_gain_ = adapter_node->declare_parameter("ncones_gain", 20.7);
+  params.angle_gain_ = adapter_node->declare_parameter("angle_gain", 4);
+  params.distance_gain_ = adapter_node->declare_parameter("distance_gain", 5);
+  params.ncones_gain_ = adapter_node->declare_parameter("ncones_gain", 10); 
   params.angle_exponent_ = adapter_node->declare_parameter("angle_exponent", 2.0);
   params.distance_exponent_ = adapter_node->declare_parameter("distance_exponent", 0.998);
   params.same_cone_distance_threshold_ =
       adapter_node->declare_parameter("same_cone_distance_threshold", 0.6);
-  params.cost_max_ = adapter_node->declare_parameter("cost_max", 35.0);
+  params.cost_max_ = adapter_node->declare_parameter("cost_max", 40.0);
   params.use_memory_cone_coloring_ =
       adapter_node->declare_parameter("use_memory_cone_coloring", true);
   params.outliers_spline_order_ =
@@ -33,7 +33,7 @@ std::string load_adapter_parameters(PlanningParameters& params) {
   params.path_calculation_dist_threshold_ =
       adapter_node->declare_parameter("path_calculation_dist_threshold", 7.0);
   params.smoothing_spline_order_ =
-      static_cast<int>(adapter_node->declare_parameter("smoothing_spline_order", 3));
+      static_cast<int>(adapter_node->declare_parameter("smoothing_spline_order", 4));
   params.smoothing_spline_coeffs_ratio_ =
       static_cast<float>(adapter_node->declare_parameter("smoothing_spline_coeffs_ratio", 3.0));
   params.smoothing_spline_precision_ =

@@ -211,6 +211,33 @@ void ConeColoring::place_second_cones(std::unordered_set<Cone, std::hash<Cone>>&
   }
 }
 
+
+double get_curvature(Cone &point1, Cone &point2,
+                                            Cone &point3) {
+  double x1 = point1.position.x;
+  double y1 = point1.position.y;
+  double x2 = point2.position.x;
+  double y2 = point2.position.y;
+  double x3 = point3.position.x;
+  double y3 = point3.position.y;
+
+  Cone mid1 = Cone((x1 + x2) / 2, (y1 + y2) / 2, 0);
+  Cone mid2 = Cone((x2 + x3) / 2, (y2 + y3) / 2, 0);
+  double slope1 = (x2 != x1) ? ((y2 - y1) / (x2 - x1)) : MAXFLOAT;
+  double slope2 = (x3 != x2) ? ((y3 - y2) / (x3 - x2)) : MAXFLOAT;
+  double slope1_perpendicular = (slope1 != 0) ? -1 / slope1 : 10000;
+  double slope2_perpendicular = (slope2 != 0) ? -1 / slope2 : 10000;
+  if (slope1_perpendicular == slope2_perpendicular) return 1/MAXFLOAT;
+
+  double center_x = (slope1_perpendicular * mid1.position.x -
+                     slope2_perpendicular * mid2.position.x + mid2.position.y - mid1.position.y) /
+                    (slope1_perpendicular - slope2_perpendicular);
+  double center_y = slope1_perpendicular * (center_x - mid1.position.x) + mid1.position.y;
+  double radius = sqrt(pow(center_x - x2, 2) + pow(center_y - y2, 2));
+  return 1/radius;
+}
+
+
 double ConeColoring::calculate_cost(const Cone& next_cone, const Cone& last_cone,
                                     const TwoDVector& previous_to_last_vector,
                                     const double& colored_to_input_cones_ratio) const {
