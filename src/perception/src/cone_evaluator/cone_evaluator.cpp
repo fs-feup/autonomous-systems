@@ -3,8 +3,7 @@
 ConeEvaluator::ConeEvaluator(
     std::shared_ptr<std::unordered_map<std::string, std::shared_ptr<ConeValidator>>>
         cone_validators,
-    std::shared_ptr<std::unordered_map<std::string, double>> evaluator_weights,
-    double min_confidence)
+    std::shared_ptr<Weights> evaluator_weights, double min_confidence)
     : cone_validators_(cone_validators),
       evaluator_weights_(evaluator_weights),
       min_confidence_(min_confidence) {}
@@ -20,8 +19,8 @@ bool ConeEvaluator::evaluateCluster(Cluster &cluster, Plane &ground_plane) {
   // minimum height, whichever is closest to.
   // index 1 = if in height interval, how close is it to the maximum height, else 0.
 
-  confidence += evaluator_weights_->at("height_out_weight") * cur_validator_results.at(0) +
-                evaluator_weights_->at("height_in_weight") * cur_validator_results.at(1);
+  confidence += evaluator_weights_->height_out * cur_validator_results.at(0) +
+                evaluator_weights_->height_in * cur_validator_results.at(1);
 
   // Cylinder
 
@@ -31,16 +30,16 @@ bool ConeEvaluator::evaluateCluster(Cluster &cluster, Plane &ground_plane) {
   // index 2 = ratio between the number of points outside the cylinder and the number of total
   // points.
 
-  confidence += evaluator_weights_->at("cylinder_radius_weight") * cur_validator_results.at(0) +
-                evaluator_weights_->at("cylinder_height_weight") * cur_validator_results.at(1) +
-                evaluator_weights_->at("cylinder_npoints_weight") * cur_validator_results.at(2);
+  confidence += evaluator_weights_->cylinder_radius * cur_validator_results.at(0) +
+                evaluator_weights_->cylinder_height * cur_validator_results.at(1) +
+                evaluator_weights_->cylinder_npoints * cur_validator_results.at(2);
 
   // NPoints
 
   cur_validator_results = cone_validators_->at("npoints")->coneValidator(&cluster, ground_plane);
   // index 0 = if below minimum number of points 0, else 1.
 
-  confidence += evaluator_weights_->at("npoints_weight") * cur_validator_results.at(0);
+  confidence += evaluator_weights_->npoints * cur_validator_results.at(0);
 
   // Displacement
 
@@ -50,9 +49,9 @@ bool ConeEvaluator::evaluateCluster(Cluster &cluster, Plane &ground_plane) {
   // index 1 = ratio between the y axis displacement and the minimum distance for that axis.
   // index 2 = ratio between the z axis displacement and the minimum distance for that axis.
 
-  confidence += evaluator_weights_->at("displacement_x_weight") * cur_validator_results.at(0) +
-                evaluator_weights_->at("displacement_y_weight") * cur_validator_results.at(1) +
-                evaluator_weights_->at("displacement_z_weight") * cur_validator_results.at(2);
+  confidence += evaluator_weights_->displacement_x * cur_validator_results.at(0) +
+                evaluator_weights_->displacement_y * cur_validator_results.at(1) +
+                evaluator_weights_->displacement_z * cur_validator_results.at(2);
 
   // Deviation
   cur_validator_results = cone_validators_->at("deviation")->coneValidator(&cluster, ground_plane);
@@ -61,8 +60,8 @@ bool ConeEvaluator::evaluateCluster(Cluster &cluster, Plane &ground_plane) {
   // index 1 = if not z in interval, ratio between the std deviation of the cluster and the maximum
   // or minimum deviation, whichever is the closest to.
 
-  confidence += evaluator_weights_->at("deviation_xoy_weight") * cur_validator_results.at(0) +
-                evaluator_weights_->at("deviation_z_weight") * cur_validator_results.at(1);
+  confidence += evaluator_weights_->deviation_xoy * cur_validator_results.at(0) +
+                evaluator_weights_->deviation_z * cur_validator_results.at(1);
 
   // Adjust for precision issues [0,1]
   confidence = std::max(0.0, std::min(confidence, 1.0));

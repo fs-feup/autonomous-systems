@@ -6,6 +6,7 @@
 #include <cone_validator/z_score_validator.hpp>
 #include <fov_trimming/cut_trimming.hpp>
 #include <string>
+#include <utils/weights.hpp>
 
 #include "perception/perception_node.hpp"
 
@@ -91,55 +92,36 @@ PerceptionParameters load_adapter_parameters() {
                                                            min_z_score_y, max_z_score_y)}});
 
   // Weight values for cone evaluator
+  auto weights = std::make_shared<Weights>();
 
   // Height weights
-  double height_out_weight = adapter_node->declare_parameter("height_out_weight", 0.15);
-  double height_in_weight = adapter_node->declare_parameter("height_in_weight", 0.15);
+  weights->height_out = adapter_node->declare_parameter("height_out_weight", 0.15);
+  weights->height_in = adapter_node->declare_parameter("height_in_weight", 0.15);
 
   // Cylinder weights
-  double cylinder_radius_weight = adapter_node->declare_parameter("cylinder_radius_weight", 0.15);
-  double cylinder_height_weight = adapter_node->declare_parameter("cylinder_height_weight", 0.15);
-  double cylinder_npoints_weight = adapter_node->declare_parameter("cylinder_npoints_weight", 0.05);
-  double npoints_weight = adapter_node->declare_parameter("npoints_weight", 0.1);
+  weights->cylinder_radius = adapter_node->declare_parameter("cylinder_radius_weight", 0.15);
+  weights->cylinder_height = adapter_node->declare_parameter("cylinder_height_weight", 0.15);
+  weights->cylinder_npoints = adapter_node->declare_parameter("cylinder_npoints_weight", 0.05);
+  weights->npoints = adapter_node->declare_parameter("npoints_weight", 0.1);
 
   // Displacement weights
-  double displacement_x_weight = adapter_node->declare_parameter("displacement_x_weight", 0.05);
-  double displacement_y_weight = adapter_node->declare_parameter("displacement_y_weight", 0.05);
-  double displacement_z_weight = adapter_node->declare_parameter("displacement_z_weight", 0.05);
+  weights->displacement_x = adapter_node->declare_parameter("displacement_x_weight", 0.05);
+  weights->displacement_y = adapter_node->declare_parameter("displacement_y_weight", 0.05);
+  weights->displacement_z = adapter_node->declare_parameter("displacement_z_weight", 0.05);
 
   // Deviation weights
-  double deviation_xoy_weight = adapter_node->declare_parameter("deviation_xoy_weight", 0.2);
-  double deviation_z_weight = adapter_node->declare_parameter("deviation_z_weight", 0.1);
-
-  // Weights maps shared pointer setup
-  auto weight_values = std::make_shared<std::unordered_map<std::string, double>>(
-      std::unordered_map<std::string, double>{{"height_out_weight", height_out_weight},
-                                              {"height_in_weight", height_in_weight},
-                                              {"cylinder_radius_weight", cylinder_radius_weight},
-                                              {"cylinder_height_weight", cylinder_height_weight},
-                                              {"cylinder_npoints_weight", cylinder_npoints_weight},
-                                              {"npoints_weight", npoints_weight},
-                                              {"displacement_x_weight", displacement_x_weight},
-                                              {"displacement_y_weight", displacement_y_weight},
-                                              {"displacement_z_weight", displacement_z_weight},
-                                              {"deviation_xoy_weight", deviation_xoy_weight},
-                                              {"deviation_z_weight", deviation_z_weight}});
+  weights->deviation_xoy = adapter_node->declare_parameter("deviation_xoy_weight", 0.2);
+  weights->deviation_z = adapter_node->declare_parameter("deviation_z_weight", 0.1);
 
   // Normalize weights using scale by sum so the confidence value is always [0,1] and there is no
   // need to always make sure the weights sum to 1.
-  double weight_sum = 0.0;
-  for (const auto &pair : *weight_values) {
-    weight_sum += pair.second;
-  }
-  for (auto &pair : *weight_values) {
-    pair.second /= weight_sum;
-  }
+  weights->normalize();
 
   // Minimum confidence needed for a cluster to be a cone.
   double min_confidence = adapter_node->declare_parameter("min_confidence", 1.0);
 
   params.cone_evaluator_ =
-      std::make_shared<ConeEvaluator>(cone_validators, weight_values, min_confidence);
+      std::make_shared<ConeEvaluator>(cone_validators, weights, min_confidence);
 
   return params;
 }
