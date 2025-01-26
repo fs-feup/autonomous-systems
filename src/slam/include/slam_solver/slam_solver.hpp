@@ -3,6 +3,7 @@
 #include "common_lib/structures/pose.hpp"
 #include "common_lib/structures/position.hpp"
 #include "common_lib/structures/velocities.hpp"
+#include "slam_config/general_config.hpp"
 
 /**
  * @brief Interface for SLAM solvers
@@ -14,7 +15,7 @@ public:
   /**
    * @brief Construct a new SLAMSolver object
    */
-  SLAMSolver() = default;
+  SLAMSolver(const SLAMParameters& params){};
 
   virtual ~SLAMSolver() = default;
 
@@ -26,7 +27,7 @@ public:
   /**
    * @brief Add observation to the solver (correction step)
    */
-  virtual void add_observation(const common_lib::structures::Position& position) = 0;
+  virtual void add_observations(const std::vector<common_lib::structures::Position>& positions) = 0;
 
   /**
    * @brief Get the map estimate object
