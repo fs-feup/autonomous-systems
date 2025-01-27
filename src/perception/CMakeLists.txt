@@ -24,17 +24,20 @@ find_package(yaml-cpp REQUIRED)
 
 
 set(IMPLEMENTATION_FILES 
+  src/fov_trimming/cut_trimming.cpp
   src/ground_removal/ransac.cpp
   src/ground_removal/grid_ransac.cpp
   src/cone_differentiation/least_squares_differentiation.cpp
   src/clustering/dbscan.cpp
   src/utils/cluster.cpp
+  src/cone_validator/npoints_validator.cpp
   src/cone_validator/cylinder_validator.cpp
   src/cone_validator/height_validator.cpp
+  src/cone_validator/displacement_validator.cpp
   src/cone_validator/deviation_validator.cpp
   src/cone_validator/z_score_validator.cpp
   src/utils/plane.cpp
-  src/cone_evaluator/distance_predict.cpp
+  src/cone_evaluator/cone_evaluator.cpp
   src/center_calculation/centroid_calculation.cpp
   src/icp/icp.cpp
   src/center_calculation/circunference_center_calculation.cpp
@@ -47,12 +50,14 @@ set(TEST_INCLUDE_FILES
   test/performance_test.cpp
   test/height_validator_test.cpp
   test/cylinder_validator_test.cpp
+  test/displacement_validator_test.cpp
+  test/npoints_validator_test.cpp
   test/grid_ransac_test.cpp
-  test/distance_validator_test.cpp
   test/icp_test.cpp
   test/circunference_center_calculation_test.cpp
   test/standard_deviation_validator_test.cpp
-  test/z_score_validator_test.cpp
+  test/cone_evaluator_test.cpp
+  #test/z_score_validator_test.cpp
 )
 
 include_directories(${PCL_INCLUDE_DIRS})

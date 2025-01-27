@@ -566,22 +566,27 @@ class Evaluator(Node):
             "vehicle state error: [x, y, theta, v, v, w]"
         )
         vehicle_state_error.data = [0.0] * 6
-        vehicle_state_error.data[0] = abs(pose[0] - groundtruth_pose[0])
-        vehicle_state_error.data[1] = abs(pose[1] - groundtruth_pose[1])
-        vehicle_state_error.data[2] = abs(pose[2] - groundtruth_pose[2]) % (2 * np.pi)
-        vehicle_state_error.data[3] = abs(
-            velocities[0]
-            - sqrt(
-                pow(groundtruth_velocities[0], 2) + pow(groundtruth_velocities[1], 2)
+        if groundtruth_pose != []:
+            vehicle_state_error.data[0] = abs(pose[0] - groundtruth_pose[0])
+            vehicle_state_error.data[1] = abs(pose[1] - groundtruth_pose[1])
+            vehicle_state_error.data[2] = abs(pose[2] - groundtruth_pose[2]) % (
+                2 * np.pi
             )
-        )
-        vehicle_state_error.data[4] = abs(
-            velocities[1]
-            - sqrt(
-                pow(groundtruth_velocities[0], 2) + pow(groundtruth_velocities[1], 2)
+            vehicle_state_error.data[3] = abs(
+                velocities[0]
+                - sqrt(
+                    pow(groundtruth_velocities[0], 2)
+                    + pow(groundtruth_velocities[1], 2)
+                )
             )
-        )
-        vehicle_state_error.data[5] = abs(velocities[2] - groundtruth_velocities[2])
+            vehicle_state_error.data[4] = abs(
+                velocities[1]
+                - sqrt(
+                    pow(groundtruth_velocities[0], 2)
+                    + pow(groundtruth_velocities[1], 2)
+                )
+            )
+            vehicle_state_error.data[5] = abs(velocities[2] - groundtruth_velocities[2])
 
         # Compute instantaneous map metrics
         cone_positions = map[:, :2]
