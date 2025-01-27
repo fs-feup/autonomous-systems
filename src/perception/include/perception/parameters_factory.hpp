@@ -77,8 +77,10 @@ PerceptionParameters load_adapter_parameters() {
   // Cylinder Validator Parameters
   double out_distance_cap = adapter_node->declare_parameter("out_distance_cap", 0.5);
 
+  // Evaluator Parameters (ConeValidators + weights + minimum confidence)
   auto eval_params = std::make_shared<EvaluatorParameters>();
 
+  // ConeValidators for cone evaluator
   eval_params->npoints_validator = std::make_shared<NPointsValidator>(min_n_points);
   eval_params->height_validator =
       std::make_shared<HeightValidator>(min_height, large_max_height, small_max_height, height_cap);
@@ -122,7 +124,7 @@ PerceptionParameters load_adapter_parameters() {
   // need to always make sure the weights sum to 1.
   eval_params->normalize_weights();
 
-  // Minimum confidence needed for a cluster to be a cone.
+  // Minimum confidence needed for a cluster to be considered a cone.
   eval_params->min_confidence = adapter_node->declare_parameter("min_confidence", 1.0);
 
   params.cone_evaluator_ = std::make_shared<ConeEvaluator>(eval_params);
