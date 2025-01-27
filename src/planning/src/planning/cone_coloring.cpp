@@ -211,9 +211,7 @@ void ConeColoring::place_second_cones(std::unordered_set<Cone, std::hash<Cone>>&
   }
 }
 
-
-double get_curvature(Cone &point1, Cone &point2,
-                                            Cone &point3) {
+double get_curvature(Cone point1, Cone point2, Cone point3) {
   double x1 = point1.position.x;
   double y1 = point1.position.y;
   double x2 = point2.position.x;
@@ -221,24 +219,27 @@ double get_curvature(Cone &point1, Cone &point2,
   double x3 = point3.position.x;
   double y3 = point3.position.y;
 
-  Cone mid1 = Cone((x1 + x2) / 2, (y1 + y2) / 2, 0);
-  Cone mid2 = Cone((x2 + x3) / 2, (y2 + y3) / 2, 0);
-  double slope1 = (x2 != x1) ? ((y2 - y1) / (x2 - x1)) : MAXFLOAT;
-  double slope2 = (x3 != x2) ? ((y3 - y2) / (x3 - x2)) : MAXFLOAT;
-  double slope1_perpendicular = (slope1 != 0) ? -1 / slope1 : 10000;
-  double slope2_perpendicular = (slope2 != 0) ? -1 / slope2 : 10000;
-  if (slope1_perpendicular == slope2_perpendicular) return 1/MAXFLOAT;
+  Cone mid1 = Cone((x1 + x2) / 2, (y1 + y2) / 2, "unknown", 1);
+  Cone mid2 = Cone((x2 + x3) / 2, (y2 + y3) / 2, "unknown", 1);
+
+  double slope1 = (x2 != x1) ? ((y2 - y1) / (x2 - x1)) : 1000000;
+  double slope2 = (x3 != x2) ? ((y3 - y2) / (x3 - x2)) : 1000000;
+  double slope1_perpendicular = (slope1 != 0) ? -1 / slope1 : 1000000;
+  double slope2_perpendicular = (slope2 != 0) ? -1 / slope2 : 1000000;
+
+  if (slope1_perpendicular == slope2_perpendicular) return 0;
 
   double center_x = (slope1_perpendicular * mid1.position.x -
                      slope2_perpendicular * mid2.position.x + mid2.position.y - mid1.position.y) /
                     (slope1_perpendicular - slope2_perpendicular);
   double center_y = slope1_perpendicular * (center_x - mid1.position.x) + mid1.position.y;
   double radius = sqrt(pow(center_x - x2, 2) + pow(center_y - y2, 2));
-  return 1/radius;
+
+  return 1 / radius;
 }
 
-
 double ConeColoring::calculate_cost(const Cone& next_cone, const Cone& last_cone,
+                                    const Cone& second_last_cone,
                                     const TwoDVector& previous_to_last_vector,
                                     const double& colored_to_input_cones_ratio) const {
   AngleAndNorms angle_and_norms = common_lib::maths::angle_and_norms(
@@ -246,9 +247,12 @@ double ConeColoring::calculate_cost(const Cone& next_cone, const Cone& last_cone
                                         next_cone.position.y - last_cone.position.y});
   double distance = angle_and_norms.norm2_;
   double angle = angle_and_norms.angle_;
+  double curvature = get_curvature(next_cone, last_cone, second_last_cone);
+  double curvature_weight = 0;
   double cost = this->config_.distance_weight_ * pow(distance, this->config_.distance_exponent_) +
                 this->config_.angle_weight_ * pow(angle, this->config_.angle_exponent_) +
-                this->config_.ncones_weight_ * colored_to_input_cones_ratio;
+                this->config_.ncones_weight_ * colored_to_input_cones_ratio +
+                curvature_weight * curvature;
   return cost;
 }
 
@@ -276,13 +280,14 @@ void ConeColoring::remove_too_close_cones() {
         Cone previous_cone = this->colored_blue_cones_[i - 2];
         TwoDVector last_vector = {last_cone.position.x - previous_cone.position.x,
                                   last_cone.position.y - previous_cone.position.y};
-        double blue_cost = calculate_cost(this->colored_blue_cones_[i], last_cone, last_vector, 0);
+        double blue_cost =
+            calculate_cost(this->colored_blue_cones_[i], last_cone, previous_cone, last_vector, 0);
         last_cone = this->colored_yellow_cones_[j - 1];
         previous_cone = this->colored_yellow_cones_[j - 2];
         last_vector = {last_cone.position.x - previous_cone.position.x,
                        last_cone.position.y - previous_cone.position.y};
-        double yellow_cost =
-            calculate_cost(this->colored_yellow_cones_[j], last_cone, last_vector, 0);
+        double yellow_cost = calculate_cost(this->colored_yellow_cones_[j], last_cone,
+                                            previous_cone, last_vector, 0);
 
         if (blue_cost > yellow_cost) {
           this->colored_blue_cones_.erase(this->colored_blue_cones_.begin() + i);
@@ -305,8 +310,21 @@ bool ConeColoring::try_to_color_next_cone(
   const TwoDVector last_vector = {last_cone.position.x - second_last_cone.position.x,
                                   last_cone.position.y - second_last_cone.position.y};
   for (const auto& cone : uncolored_cones) {
+    if (colored_cones.back() == this->colored_blue_cones_.back()) {
+      for (auto& colored_cone : this->colored_yellow_cones_) {
+        if (cone.position.euclidean_distance(colored_cone.position) < 2.5) {
+          continue;
+        }
+      }
+    } else {
+      for (auto& colored_cone : this->colored_blue_cones_) {
+        if (cone.position.euclidean_distance(colored_cone.position) < 2.5) {
+          continue;
+        }
+      }
+    }
     double cost =
-        calculate_cost(cone, last_cone, last_vector,
+        calculate_cost(cone, last_cone, second_last_cone, last_vector,
                        static_cast<double>(n_colored_cones) / static_cast<double>(n_input_cones));
     // TODO: put this value as a parameter
     if (cost < min_cost && cone.position.euclidean_distance(last_cone.position) < 7 &&
