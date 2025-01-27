@@ -13,6 +13,7 @@
 #include <vector>
 
 #include "common_lib/communication/marker.hpp"
+#include "common_lib/config_load/config_load.hpp"
 #include "std_msgs/msg/header.hpp"
 #include "yaml-cpp/yaml.h"
 
@@ -38,7 +39,7 @@ PerceptionParameters Perception::load_config() {
   params.vehicle_frame_id_ = global_config["vehicle_frame_id"].as<std::string>();
 
   const std::string perception_path =
-      common_lib::config_load::get_config_yaml_path("perception", "perception", adapter);
+      common_lib::config_load::get_config_yaml_path("perception", "perception", params.adapter_);
   RCLCPP_DEBUG(rclcpp::get_logger("perception"), "Loading perception config from: %s",
                perception_path.c_str());
   const YAML::Node perception = YAML::LoadFile(perception_path);
