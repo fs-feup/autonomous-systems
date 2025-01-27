@@ -102,7 +102,7 @@ private:
    * @param colored_to_input_cones_ratio ration of cones which have been colored
    * @return double cost
    */
-  double calculate_cost(const Cone& next_cone, const Cone& last_cone,
+  double calculate_cost(const Cone& next_cone, const Cone& last_cone, const Cone& second_last_cone,
                         const TwoDVector& previous_to_last_vector,
                         const double& colored_to_input_cones_ratio) const;
 
