@@ -18,3 +18,7 @@ planning:
   pre_defined_velocity_planning: 4.0
   use_outlier_removal: false
   use_path_smoothing: true
+  minimum_velocity: 2.0
+  braking_acceleration: -1.0
+  normal_acceleration: 4.0
+  use_velocity_planning: true

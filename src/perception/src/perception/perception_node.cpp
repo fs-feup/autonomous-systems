@@ -5,6 +5,9 @@
 #include <pcl/point_types.h>
 #include <pcl_conversions/pcl_conversions.h>
 
+#include <cone_validator/displacement_validator.hpp>
+#include <cone_validator/npoints_validator.hpp>
+
 #include <cstdio>
 #include <string>
 #include <vector>
@@ -31,9 +34,8 @@ PerceptionParameters Perception::load_config() {
                global_config_path.c_str());
   const YAML::Node global_config = YAML::LoadFile(global_config_path);
 
-  const std::string adapter = global_config["global"]["adapter"].as<std::string>();
-  params.adapter_ = adapter;
-  params.vehicle_frame_id_ = (adapter == "eufs") ? "velodyne" : "hesai_lidar";
+  params.adapter_ = global_config["adapter"].as<std::string>();
+  params.vehicle_frame_id_ = global_config["vehicle_frame_id"].as<std::string>();
 
   const std::string perception_path =
       common_lib::config_load::get_config_yaml_path("perception", "perception", adapter);
@@ -45,53 +47,99 @@ PerceptionParameters Perception::load_config() {
   RCLCPP_DEBUG(rclcpp::get_logger("perception"), "Perception config contents: %s",
                YAML::Dump(perception_config).c_str());
 
-  params.pc_max_range_ = perception_config["pc_max_range"].as<double>();
+  double fov_trim_angle = perception_config["fov_trim_angle"].as<double>();
+  double pc_max_range = perception_config["pc_max_range"].as<double>();
+  double pc_min_range = perception_config["pc_min_range"].as<double>();
+  double pc_rlidar_max_height = perception_config["pc_rlidar_max_height"].as<double>();
+  params.fov_trimming_ = std::make_shared<CutTrimming>(pc_max_range, pc_min_range, pc_rlidar_max_height, fov_trim_angle);
 
-  const std::string ground_removal_algorithm =
-      perception_config["ground_removal"].as<std::string>();
+  std::string ground_removal_algorithm = perception_config["ground_removal"].as<std::string>();
+  double ransac_epsilon = perception_config["ransac_epsilon"].as<double>();
+  int ransac_iterations = perception_config["ransac_iterations"].as<int>();
   if (ground_removal_algorithm == "ransac") {
-    params.ground_removal_ =
-        std::make_shared<RANSAC>(perception_config["ransac_epsilon"].as<double>(),
-                                 perception_config["ransac_n_neighbours"].as<int>());
+    params.ground_removal_ = std::make_shared<RANSAC>(ransac_epsilon, ransac_iterations);
   } else if (ground_removal_algorithm == "grid_ransac") {
-    params.ground_removal_ =
-        std::make_shared<GridRANSAC>(perception_config["ransac_epsilon"].as<double>(),
-                                     perception_config["ransac_n_neighbours"].as<int>(),
-                                     perception_config["n_angular_grids"].as<int>(),
-                                     perception_config["radius_resolution"].as<double>());
+    int n_angular_grids = perception_config["n_angular_grids"].as<int>();
+    double radius_resolution = perception_config["radius_resolution"].as<double>();
+    params.ground_removal_ = std::make_shared<GridRANSAC>(ransac_epsilon, ransac_iterations, n_angular_grids, radius_resolution);
   }
 
-  params.clustering_ =
-      std::make_shared<DBSCAN>(perception_config["clustering_n_neighbours"].as<int>(),
-                               perception_config["clustering_epsilon"].as<double>());
+  int clustering_n_neighbours = perception_config["clustering_n_neighbours"].as<int>();
+  double clustering_epsilon = perception_config["clustering_epsilon"].as<double>();
+  params.clustering_ = std::make_shared<DBSCAN>(clustering_n_neighbours, clustering_epsilon);
 
   params.cone_differentiator_ = std::make_shared<LeastSquaresDifferentiation>();
 
-  if (params.adapter_ != "eufs") {
-    params.cone_validators_ = {
-        std::make_shared<CylinderValidator>(0.200, 0.325),
-        std::make_shared<HeightValidator>(perception_config["min_height"].as<double>(),
-                                          perception_config["max_height"].as<double>()),
-        std::make_shared<DeviationValidator>(
-            perception_config["min_xoy"].as<double>(), perception_config["max_xoy"].as<double>(),
-            perception_config["min_z"].as<double>(), perception_config["max_z"].as<double>()),
-        std::make_shared<ZScoreValidator>(perception_config["min_z_score_x"].as<double>(),
-                                          perception_config["max_z_score_x"].as<double>(),
-                                          perception_config["min_z_score_y"].as<double>(),
-                                          perception_config["max_z_score_y"].as<double>())};
+  long unsigned int min_n_points = perception_config["min_n_points"].as<long unsigned int>();
+  double min_height = perception_config["min_height"].as<double>();
+  double large_max_height = perception_config["large_max_height"].as<double>();
+  double small_max_height = perception_config["small_max_height"].as<double>();
+  double height_cap = perception_config["height_cap"].as<double>();
+
+  double min_xoy = perception_config["min_xoy"].as<double>();
+  double max_xoy = perception_config["max_xoy"].as<double>();
+  double min_z = perception_config["min_z"].as<double>();
+  double max_z = perception_config["max_z"].as<double>();
+
+  double min_distance_x = perception_config["min_distance_x"].as<double>();
+  double min_distance_y = perception_config["min_distance_y"].as<double>();
+  double min_distance_z = perception_config["min_distance_z"].as<double>();
+
+  double min_z_score_x = perception_config["min_z_score_x"].as<double>();
+  double max_z_score_x = perception_config["max_z_score_x"].as<double>();
+  double min_z_score_y = perception_config["min_z_score_y"].as<double>();
+  double max_z_score_y = perception_config["max_z_score_y"].as<double>();
+
+  double out_distance_cap = perception_config["out_distance_cap"].as<double>();
+
+  auto cone_validators = std::make_shared<std::unordered_map<std::string, std::shared_ptr<ConeValidator>>>(
+    std::unordered_map<std::string, std::shared_ptr<ConeValidator>>{
+      {"npoints", std::make_shared<NPointsValidator>(min_n_points)},
+      {"height", std::make_shared<HeightValidator>(min_height, large_max_height, small_max_height, height_cap)},
+      {"cylinder", std::make_shared<CylinderValidator>(0.228, 0.325, 0.285, 0.505, out_distance_cap)},
+      {"deviation", std::make_shared<DeviationValidator>(min_xoy, max_xoy, min_z, max_z)},
+      {"displacement", std::make_shared<DisplacementValidator>(min_distance_x, min_distance_y, min_distance_z)},
+      {"zscore", std::make_shared<ZScoreValidator>(min_z_score_x, max_z_score_x, min_z_score_y, max_z_score_y)}
+    });
+
+  double height_out_weight = perception_config["height_out_weight"].as<double>();
+  double height_in_weight = perception_config["height_in_weight"].as<double>();
+  double cylinder_radius_weight = perception_config["cylinder_radius_weight"].as<double>();
+  double cylinder_height_weight = perception_config["cylinder_height_weight"].as<double>();
+  double cylinder_npoints_weight = perception_config["cylinder_npoints_weight"].as<double>();
+  double npoints_weight = perception_config["npoints_weight"].as<double>();
+  double displacement_x_weight = perception_config["displacement_x_weight"].as<double>();
+  double displacement_y_weight = perception_config["displacement_y_weight"].as<double>();
+  double displacement_z_weight = perception_config["displacement_z_weight"].as<double>();
+  double deviation_xoy_weight = perception_config["deviation_xoy_weight"].as<double>();
+  double deviation_z_weight = perception_config["deviation_z_weight"].as<double>();
+
+  auto weight_values = std::make_shared<std::unordered_map<std::string, double>>(
+    std::unordered_map<std::string, double>{
+      {"height_out_weight", height_out_weight},
+      {"height_in_weight", height_in_weight},
+      {"cylinder_radius_weight", cylinder_radius_weight},
+      {"cylinder_height_weight", cylinder_height_weight},
+      {"cylinder_npoints_weight", cylinder_npoints_weight},
+      {"npoints_weight", npoints_weight},
+      {"displacement_x_weight", displacement_x_weight},
+      {"displacement_y_weight", displacement_y_weight},
+      {"displacement_z_weight", displacement_z_weight},
+      {"deviation_xoy_weight", deviation_xoy_weight},
+      {"deviation_z_weight", deviation_z_weight}
+    });
+
+  double weight_sum = 0.0;
+  for (const auto &pair : *weight_values) {
+    weight_sum += pair.second;
+  }
+  for (auto &pair : *weight_values) {
+    pair.second /= weight_sum;
   }
 
-  params.distance_predict_ =
-      std::make_shared<DistancePredict>(perception_config["vertical_resolution"].as<double>(),
-                                        perception_config["horizontal_resolution"].as<double>());
+  double min_confidence = perception_config["min_confidence"].as<double>();
 
-  params.icp_ = std::make_shared<ICP>(perception_config["target_file"].as<std::string>(),
-                                      perception_config["max_correspondence_distance"].as<double>(),
-                                      perception_config["max_iteration"].as<int>(),
-                                      perception_config["transformation_epsilon"].as<double>(),
-                                      perception_config["euclidean_fitness_epsilon"].as<double>());
-
-  params.fov_trim_ = perception_config["fov_trim"].as<double>();
+  params.cone_evaluator_ = std::make_shared<ConeEvaluator>(cone_validators, weight_values, min_confidence);
 
   return params;
 }

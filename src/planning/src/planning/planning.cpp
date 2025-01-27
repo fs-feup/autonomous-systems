@@ -52,6 +52,10 @@ PlanningParameters Planning::load_config(std::string &adapter) {
   params.use_outlier_removal_ = planning_config["use_outlier_removal"].as<bool>();
   params.use_path_smoothing_ = planning_config["use_path_smoothing"].as<bool>();
   params.map_frame_id_ = adapter == "eufs" ? "base_footprint" : "map";
+  params.minimum_velocity_ = planning_config["minimum_velocity"].as<double>();
+  params.braking_acceleration_ = planning_config["braking_acceleration"].as<double>();
+  params.normal_acceleration_ = planning_config["normal_acceleration"].as<double>();
+  params.use_velocity_planning_ = planning_config["use_velocity_planning"].as<bool>();
 
   return params;
 }
