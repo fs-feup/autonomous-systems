@@ -1,6 +1,6 @@
 global:
-  adapter: "vehicle"
-  use_simulated_se: false
+  adapter: "pacsim"
+  use_simulated_se: true
   use_simulated_perception: false
   use_simulated_planning: false
   track_name: "FSE23"
