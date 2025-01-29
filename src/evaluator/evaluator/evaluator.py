@@ -46,6 +46,9 @@ from std_msgs.msg import Float32
 
 import csv
 import signal
+import yaml
+import os
+from ament_index_python.packages import get_package_prefix
 
 
 class Evaluator(Node):
@@ -66,27 +69,9 @@ class Evaluator(Node):
         super().__init__("evaluator")
         self.get_logger().info("Evaluator Node has started")
 
-        # Parameters
-        self._adapter_name_: str = (
-            self.declare_parameter("adapter", "vehicle")
-            .get_parameter_value()
-            .string_value
-        )
-        self.use_simulated_perception_: bool = (
-            self.declare_parameter("use_simulated_perception", False)
-            .get_parameter_value()
-            .bool_value
-        )
-        self.use_simulated_se_: bool = (
-            self.declare_parameter("use_simulated_se", False)
-            .get_parameter_value()
-            .bool_value
-        )
-        self.use_simulated_planning_: bool = (
-            self.declare_parameter("use_simulated_planning", False)
-            .get_parameter_value()
-            .bool_value
-        )
+        # Load configuration from YAML file
+        self.load_config()
+
         if (self._adapter_name_ == "fsds") and (self.use_simulated_perception_):
             self.get_logger().error(
                 "Simulated perception is not supported for FSDS adapter"
@@ -238,18 +223,6 @@ class Evaluator(Node):
         )
         self._control_velocity_lookahead_difference_ = self.create_publisher(
             Float32, "/evaluator/control/velocity/lookahead/difference", 10
-        )
-
-        # Retrieve the 'generate_csv' parameter
-        self.declare_parameter("generate_csv", False)
-        self.generate_csv = (
-            self.get_parameter("generate_csv").get_parameter_value().bool_value
-        )
-
-        # Retrieve the 'csv_suffix' parameter
-        self.declare_parameter("csv_suffix", "")
-        self.csv_suffix = (
-            self.get_parameter("csv_suffix").get_parameter_value().string_value
         )
 
         # Replace spaces with underscores in csv_suffix
@@ -418,6 +391,32 @@ class Evaluator(Node):
         )
 
         signal.signal(signal.SIGINT, self.signal_handler)
+    
+    def get_config_yaml_path(self, package_name, dir, filename):
+        package_share_directory = get_package_prefix(package_name)
+        config_path = os.path.join(package_share_directory, '..', '..', 'config', dir, f"{filename}.yaml")
+        return config_path
+
+    def load_config(self):
+        """Load configuration from YAML file."""
+        global_config_path = self.get_config_yaml_path("evaluator", "global", "global_config")
+        self.get_logger().debug(f"Loading global config from: {global_config_path}")
+        with open(global_config_path, 'r') as file:
+            global_config = yaml.safe_load(file)
+
+        adapter = global_config["global"]["adapter"]
+        self._adapter_name_ = adapter
+        self.use_simulated_perception_ = global_config["global"]["use_simulated_perception"]
+        self.use_simulated_se_ = global_config["global"]["use_simulated_se"]
+        self.use_simulated_planning_ = global_config["global"]["use_simulated_planning"]
+
+        specific_config_path = self.get_config_yaml_path("evaluator", "evaluator", adapter)
+        self.get_logger().debug(f"Loading specific config from: {specific_config_path}")
+        with open(specific_config_path, 'r') as file:
+            specific_config = yaml.safe_load(file)
+
+        self.generate_csv = specific_config["evaluator"]["generate_csv"]
+        self.csv_suffix = specific_config["evaluator"]["csv_suffix"].replace(" ", "_")
 
     def signal_handler(self, sig: int, frame) -> None:
         """!

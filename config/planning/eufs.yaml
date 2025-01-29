@@ -1,0 +1,24 @@
+planning:
+  angle_gain: 10.246
+  distance_gain: 6.657
+  ncones_gain: 20.7
+  angle_exponent: 2.0
+  distance_exponent: 0.998
+  cost_max: 35.0
+  same_cone_distance_threshold: 0.6
+  use_memory_cone_coloring: true
+  outliers_spline_order: 3
+  outliers_spline_coeffs_ratio: 3.0
+  outliers_spline_precision: 1
+  path_calculation_dist_threshold: 7.0
+  smoothing_spline_order: 3
+  smoothing_spline_coeffs_ratio: 3.0
+  smoothing_spline_precision: 10
+  publishing_visualization_msg: true
+  pre_defined_velocity_planning: 1.0
+  use_outlier_removal: false
+  use_path_smoothing: true
+  minimum_velocity: 3.0
+  braking_acceleration: -4.0
+  normal_acceleration: 7.0
+  use_velocity_planning: true
