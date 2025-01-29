@@ -30,7 +30,7 @@ SENode::SENode() : Node("ekf_state_est") {
   _use_simulated_perception_ = global_config["global"]["use_simulated_perception"].as<bool>();
   _adapter_name_ = global_config["global"]["adapter"].as<std::string>();
 
-  auto se_config_path = common_lib::config_load::get_config_yaml_path("ekf_state_est", "state_estimation",
+  auto se_config_path = common_lib::config_load::get_config_yaml_path("ekf_state_est", "ekf_state_est",
                                                                 _adapter_name_);
 
   auto se_config = YAML::LoadFile(se_config_path)["ekf_state_est"];
