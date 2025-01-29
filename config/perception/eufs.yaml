@@ -1,5 +1,6 @@
 perception:
   ransac_epsilon: 0.02
+  ransac_iterations: 20
   ransac_n_neighbours: 15
   fov_trim_angle: 60.0
   pc_max_range: 30.0
@@ -20,6 +21,7 @@ perception:
   min_height: -100.0
   large_max_height: 150.0
   small_max_height: 100.0
+  height_cap: 0.5
   min_xoy: -100.0
   max_xoy: 100.0
   min_z: -100.0
@@ -28,6 +30,7 @@ perception:
   max_z_score_x: 100.0
   min_z_score_y: -100.0
   max_z_score_y: 100.0
+  out_distance_cap: 0.5
   min_distance_x: 0.02
   min_distance_y: 0.04
   min_distance_z: 0.07

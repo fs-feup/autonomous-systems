@@ -35,8 +35,8 @@ PerceptionParameters Perception::load_config() {
                global_config_path.c_str());
   const YAML::Node global_config = YAML::LoadFile(global_config_path);
 
-  params.adapter_ = global_config["adapter"].as<std::string>();
-  params.vehicle_frame_id_ = global_config["vehicle_frame_id"].as<std::string>();
+  params.adapter_ = global_config["global"]["adapter"].as<std::string>();
+  params.vehicle_frame_id_ = global_config["global"]["vehicle_frame_id"].as<std::string>();
 
   const std::string perception_path =
       common_lib::config_load::get_config_yaml_path("perception", "perception", params.adapter_);
