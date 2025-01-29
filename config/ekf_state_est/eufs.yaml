@@ -1,0 +1,8 @@
+ekf_state_est:
+  data_association_limit_distance: 15.00
+  wss_noise: 0.003
+  imu_noise: 0.0064
+  observation_noise: 0.03
+  motion_model: "imu_velocity_model"
+  data_assocation_model: "max_likelihood"
+  use_odometry: False

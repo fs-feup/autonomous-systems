@@ -5,12 +5,11 @@
 #include <memory>
 #include <vector>
 
-#include "perception/parameters_factory.hpp"
 #include "perception/perception_node.hpp"
 
 int main(int argc, char** argv) {
   rclcpp::init(argc, argv);
-  auto params = load_adapter_parameters();
+  PerceptionParameters params = Perception::load_config();
   auto perception = std::make_shared<Perception>(params);
   rclcpp::spin(perception);  // Spin the perception node
   rclcpp::shutdown();
