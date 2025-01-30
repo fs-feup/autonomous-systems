@@ -1,5 +1,6 @@
 perception:
   ransac_epsilon: 0.06
+  ransac_iterations: 20
   ransac_n_neighbours: 20
   fov_trim_angle: 35.0
   pc_max_range: 12.0
@@ -29,6 +30,7 @@ perception:
   max_z_score_x: 1.55
   min_z_score_y: 0.45
   max_z_score_y: 1.55
+  out_distance_cap: 0.5
   min_distance_x: 0.02
   min_distance_y: 0.04
   min_distance_z: 0.07

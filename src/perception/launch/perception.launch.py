@@ -10,7 +10,7 @@ def generate_launch_description():
                 package="perception",
                 executable="perception",
                 name="perception_adapter",
-                arguments=["--ros-args", "--log-level", "perception:=debug"],
+                arguments=["--ros-args", "--log-level", "perception:=info"],
             ),
         ]
     )
