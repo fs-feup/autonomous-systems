@@ -20,7 +20,7 @@ perception:
   euclidean_fitness_epsilon: 1e-6
   min_height: 0.13
   large_max_height: 0.57
-  small_max_height: 0.36
+  small_max_height: 0.44
   height_cap: 0.5
   min_xoy: 0.0
   max_xoy: 0.3

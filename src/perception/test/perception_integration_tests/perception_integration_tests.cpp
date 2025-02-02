@@ -8,7 +8,6 @@
 #include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/point_cloud2.hpp>
 
-#include "perception/parameters_factory.hpp"
 #include "perception/perception_node.hpp"
 
 /**
@@ -93,7 +92,7 @@ protected:
  * @brief Straight line test for perception node from rosbag: Accelaration_Testing_DV_1B.mcap
  */
 TEST_F(PerceptionIntegrationTest, StraigthLine) {
-  auto params = load_adapter_parameters();
+  auto params = Perception::load_config();
   rclcpp::Node::SharedPtr perception_node = std::make_shared<Perception>(params);
   ASSERT_NE(perception_node, nullptr) << "Failed to initialize Perception node.";
 
@@ -156,7 +155,7 @@ TEST_F(PerceptionIntegrationTest, StraigthLine) {
  * Accelaration_Testing_Manual-4.mcap
  */
 TEST_F(PerceptionIntegrationTest, AccelarationClose) {
-  auto params = load_adapter_parameters();
+  auto params = Perception::load_config();
   rclcpp::Node::SharedPtr perception_node = std::make_shared<Perception>(params);
   ASSERT_NE(perception_node, nullptr) << "Failed to initialize Perception node.";
 
@@ -228,7 +227,7 @@ TEST_F(PerceptionIntegrationTest, AccelarationClose) {
  * Accelaration_Testing_Manual-4.mcap
  */
 TEST_F(PerceptionIntegrationTest, AccelarationMedium) {
-  auto params = load_adapter_parameters();
+  auto params = Perception::load_config();
   rclcpp::Node::SharedPtr perception_node = std::make_shared<Perception>(params);
   ASSERT_NE(perception_node, nullptr) << "Failed to initialize Perception node.";
 
@@ -300,7 +299,7 @@ TEST_F(PerceptionIntegrationTest, AccelarationMedium) {
  * Accelaration_Testing_Manual-4.mcap
  */
 TEST_F(PerceptionIntegrationTest, AccelarationFar) {
-  auto params = load_adapter_parameters();
+  auto params = Perception::load_config();
   rclcpp::Node::SharedPtr perception_node = std::make_shared<Perception>(params);
   ASSERT_NE(perception_node, nullptr) << "Failed to initialize Perception node.";
 
@@ -371,7 +370,7 @@ TEST_F(PerceptionIntegrationTest, AccelarationFar) {
  * @brief Blind turn test for perception node from rosbag: Closed_Course_Manual-6.mcap
  */
 TEST_F(PerceptionIntegrationTest, EnterHairpin) {
-  auto params = load_adapter_parameters();
+  auto params = Perception::load_config();
   rclcpp::Node::SharedPtr perception_node = std::make_shared<Perception>(params);
   ASSERT_NE(perception_node, nullptr) << "Failed to initialize Perception node.";
 
@@ -442,7 +441,7 @@ TEST_F(PerceptionIntegrationTest, EnterHairpin) {
  * @brief Turn test for perception node from rosbag: Hard_Course-DV-5.mcap
  */
 TEST_F(PerceptionIntegrationTest, TurnStart) {
-  auto params = load_adapter_parameters();
+  auto params = Perception::load_config();
   rclcpp::Node::SharedPtr perception_node = std::make_shared<Perception>(params);
   ASSERT_NE(perception_node, nullptr) << "Failed to initialize Perception node.";
 
@@ -513,7 +512,7 @@ TEST_F(PerceptionIntegrationTest, TurnStart) {
  * @brief Odd situation test for perception node from rosbag: Hard_Course-DV-5.mcap
  */
 TEST_F(PerceptionIntegrationTest, OddStituation) {
-  auto params = load_adapter_parameters();
+  auto params = Perception::load_config();
   rclcpp::Node::SharedPtr perception_node = std::make_shared<Perception>(params);
   ASSERT_NE(perception_node, nullptr) << "Failed to initialize Perception node.";
 
@@ -584,7 +583,7 @@ TEST_F(PerceptionIntegrationTest, OddStituation) {
  * @brief A fully diagonal path test for perception node from rosbag: Autocross_DV-1.mcap
  */
 TEST_F(PerceptionIntegrationTest, DiagonalPath) {
-  auto params = load_adapter_parameters();
+  auto params = Perception::load_config();
   rclcpp::Node::SharedPtr perception_node = std::make_shared<Perception>(params);
   ASSERT_NE(perception_node, nullptr) << "Failed to initialize Perception node.";
 
