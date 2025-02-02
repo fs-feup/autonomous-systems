@@ -10,6 +10,8 @@
 #include "clustering/dbscan.hpp"
 #include "cone_differentiation/least_squares_differentiation.hpp"
 #include "cone_validator/height_validator.hpp"
+#include <cone_validator/deviation_validator.hpp>
+#include <cone_validator/z_score_validator.hpp>
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "fov_trimming/cut_trimming.hpp"
 #include "ground_removal/grid_ransac.hpp"
@@ -84,6 +86,7 @@ public:
    */
   explicit Perception(const PerceptionParameters& params);
 
+  static PerceptionParameters load_config();
   /**
    * @brief Callback function for the PointCloud2 subscription.
    * @param msg The received PointCloud2 message.

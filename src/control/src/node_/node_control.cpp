@@ -4,8 +4,10 @@
 #include <functional>
 #include <memory>
 #include <string>
+#include <yaml-cpp/yaml.h>
 
 #include "common_lib/communication/marker.hpp"
+#include "common_lib/config_load/config_load.hpp"
 #include "custom_interfaces/msg/evaluator_control_data.hpp"
 #include "custom_interfaces/msg/path_point_array.hpp"
 #include "custom_interfaces/msg/vehicle_state.hpp"
@@ -16,11 +18,42 @@
 // to define which function gets executed at each time
 
 using namespace common_lib::structures;
-
 using namespace common_lib::communication;
 
 bool received_vehicle_state = false;
 bool received_path_point_array = false;
+
+ControlParameters Control::load_config(std::string& adapter) {
+  ControlParameters params;
+  std::string global_config_path = common_lib::config_load::get_config_yaml_path("control", "global", "global_config");
+  RCLCPP_DEBUG(rclcpp::get_logger("control"), "Loading global config from: %s", global_config_path.c_str());
+  YAML::Node global_config = YAML::LoadFile(global_config_path);
+
+  adapter = global_config["global"]["adapter"].as<std::string>();
+  params.using_simulated_se_ = global_config["global"]["use_simulated_se"].as<bool>();
+  params.use_simulated_planning_ = global_config["global"]["use_simulated_planning"].as<bool>();
+
+
+  std::string control_path = common_lib::config_load::get_config_yaml_path("control", "control", adapter);
+  RCLCPP_DEBUG(rclcpp::get_logger("control"), "Loading control config from: %s", control_path.c_str());
+  YAML::Node control = YAML::LoadFile(control_path);
+
+  auto control_config = control["control"];
+  RCLCPP_DEBUG(rclcpp::get_logger("control"), "Control config contents: %s", YAML::Dump(control_config).c_str());
+
+  params.lookahead_gain_ = control_config["lookahead_gain"].as<double>();
+  params.pid_kp_ = control_config["pid_kp"].as<double>();
+  params.pid_ki_ = control_config["pid_ki"].as<double>();
+  params.pid_kd_ = control_config["pid_kd"].as<double>();
+  params.pid_tau_ = control_config["pid_tau"].as<double>();
+  params.pid_t_ = control_config["pid_t"].as<double>();
+  params.pid_lim_min_ = control_config["pid_lim_min"].as<double>();
+  params.pid_lim_max_ = control_config["pid_lim_max"].as<double>();
+  params.pid_anti_windup_ = control_config["pid_anti_windup"].as<double>();
+  params.map_frame_id_ = adapter == "eufs" ? "base_footprint" : "map";
+
+  return params;
+}
 
 Control::Control(const ControlParameters& params)
     : Node("control"),
@@ -56,26 +89,23 @@ Control::Control(const ControlParameters& params)
 
 // This function is called when a new pose is received
 void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicle_state_msg) {
-
   if (!go_signal_) {
-    RCLCPP_INFO(rclcpp::get_logger("control"),
-                 "Go Signal Not received");
+    RCLCPP_INFO(rclcpp::get_logger("control"), "Go Signal Not received");
 
     return;
   }
 
   if (received_path_point_array && !received_vehicle_state) {
-      RCLCPP_DEBUG(rclcpp::get_logger("control"),
-                  "First Vehicle State Received");
+    RCLCPP_DEBUG(rclcpp::get_logger("control"), "First Vehicle State Received");
 
-      received_vehicle_state = true;
-      custom_interfaces::msg::PathPoint initial;
-      initial.x = vehicle_state_msg.position.x;
-      initial.y = vehicle_state_msg.position.y;
-      initial.v = vehicle_state_msg.linear_velocity;
+    received_vehicle_state = true;
+    custom_interfaces::msg::PathPoint initial;
+    initial.x = vehicle_state_msg.position.x;
+    initial.y = vehicle_state_msg.position.y;
+    initial.v = vehicle_state_msg.linear_velocity;
 
-      // Insert at the beginning of the pathpoint_array_ (true "push_front")
-      pathpoint_array_.insert(pathpoint_array_.begin(), initial);
+    // Insert at the beginning of the pathpoint_array_ (true "push_front")
+    pathpoint_array_.insert(pathpoint_array_.begin(), initial);
   }
 
   rclcpp::Time start = this->now();
