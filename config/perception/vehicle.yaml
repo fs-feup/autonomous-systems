@@ -1,12 +1,16 @@
 perception:
 
+  horizontal_resolution: 0.33
+  vertical_resolution: 0.2
+  radius_resolution: 7.5
+
   #FOV trimming
-  trimming_mode: "acceleration" # acceleration / skidpad / autrocross
+  trimming_mode: "autocross" # acceleration / skidpad / autrocross
   fov_trim_angle: 45.0
   pc_max_range: 30.0
   pc_min_range: 1.0
   pc_rlidar_max_height: -0.22
-  pc_max_y: 4.5
+  acc_pc_max_y: 4.5
   
   #Ground Removal
   ground_removal: "grid_ransac"
@@ -18,9 +22,8 @@ perception:
   n_angular_grids: 2
 
   #Clustering
-  horizontal_resolution: 0.33
-  vertical_resolution: 0.2
-  radius_resolution: 7.5
+  clustering_n_neighbours: 1
+  clustering_epsilon: 0.5
 
   #Evaluator
   min_height: 0.13

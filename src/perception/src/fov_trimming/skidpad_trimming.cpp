@@ -1,14 +1,13 @@
-#include "fov_trimming/acceleration_trimming.hpp"
+#include "fov_trimming/skidpad_trimming.hpp"
 
 #include <pcl/PCLPointField.h>
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 
-AccelerationTrimming::AccelerationTrimming(double pc_max_y, double pc_min_range,
-                                           double pc_rlidar_max_height)
-    : pc_max_y(pc_max_y), pc_min_range(pc_min_range), pc_rlidar_max_height(pc_rlidar_max_height) {}
+SkidpadTrimming::SkidpadTrimming(double pc_min_range, double pc_rlidar_max_height)
+    : pc_min_range(pc_min_range), pc_rlidar_max_height(pc_rlidar_max_height) {}
 
-void AccelerationTrimming::fov_trimming(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud) const {
+void SkidpadTrimming::fov_trimming(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud) const {
   pcl::PointCloud<pcl::PointXYZI>::Ptr trimmed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
 
   for (auto& point : cloud->points) {
@@ -32,8 +31,7 @@ void AccelerationTrimming::fov_trimming(pcl::PointCloud<pcl::PointXYZI>::Ptr clo
     }
 
     // Check if the point is within the specified distance, angle range and lateral distance
-    if (angle >= -fov_trim_angle && angle <= fov_trim_angle && pc_max_y >= point.y &&
-        -pc_max_y <= point.y) {
+    if (angle >= -fov_trim_angle && angle <= fov_trim_angle) {
       trimmed_cloud->points.push_back(point);
     }
   }
