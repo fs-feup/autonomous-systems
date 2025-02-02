@@ -2,6 +2,8 @@
 
 #include <cone_evaluator/cone_evaluator.hpp>
 #include <cone_validator/cylinder_validator.hpp>
+#include <cone_validator/deviation_validator.hpp>
+#include <cone_validator/z_score_validator.hpp>
 #include <string>
 #include <unordered_map>
 #include <utils/plane.hpp>
@@ -10,9 +12,8 @@
 #include "clustering/dbscan.hpp"
 #include "cone_differentiation/least_squares_differentiation.hpp"
 #include "cone_validator/height_validator.hpp"
-#include <cone_validator/deviation_validator.hpp>
-#include <cone_validator/z_score_validator.hpp>
 #include "custom_interfaces/msg/cone_array.hpp"
+#include "fov_trimming/acceleration_trimming.hpp"
 #include "fov_trimming/cut_trimming.hpp"
 #include "ground_removal/grid_ransac.hpp"
 #include "ground_removal/ransac.hpp"

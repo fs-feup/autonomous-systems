@@ -25,6 +25,7 @@ find_package(yaml-cpp REQUIRED)
 
 set(IMPLEMENTATION_FILES 
   src/fov_trimming/cut_trimming.cpp
+  src/fov_trimming/acceleration_trimming.cpp
   src/ground_removal/ransac.cpp
   src/ground_removal/grid_ransac.cpp
   src/cone_differentiation/least_squares_differentiation.cpp
