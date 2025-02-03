@@ -664,6 +664,51 @@ TEST_F(IntegrationTest, DISTANT_CONES_CURVE) {
 
 
 /**
+ * @brief Hardest curve for cone coloring
+ */
+TEST_F(IntegrationTest, EXTREME_CURVE) {
+  // file with the testing scenario
+  std::string filename = "curve_5.txt";
+
+  // box of the final point
+  double x1 = 0.0, x2 = 0.0, y1 = 0.0, y2 = 0.0;
+
+  // Open file straight_1.txt to read the initial state
+  std::ifstream file("../../src/planning/test/integration_tests/" + filename);
+
+  if (!file.is_open()) {
+    FAIL() << "Failed to open file: straight_1.txt";
+    return;
+  }
+
+  std::vector<Cone> cone_array;
+  custom_interfaces::msg::VehicleState vehicle_state;
+  read_file_and_run_nodes(file, x1, x2, y1, y2, cone_array, vehicle_state);
+
+  // Convert the cone array to the message
+  this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
+  // Run the nodes
+  auto duration = run_nodes(cone_array_msg, vehicle_state);
+
+  save_debug_file(filename, cone_array, this->received_path, vehicle_state);
+
+  // Verify final position
+  if ((this->received_path.pathpoint_array.back().x >= x1 &&
+       this->received_path.pathpoint_array.back().x <= x2) &&
+      (this->received_path.pathpoint_array.back().y >= y1 &&
+       this->received_path.pathpoint_array.back().y <= y2)) {
+    SUCCEED();
+  } else {
+    FAIL() << "The final point is not in the expected range. "
+           << "Expected range: (" << x1 << ", " << x2 << ", " << y1 << ", " << y2 << "), but got: ("
+           << this->received_path.pathpoint_array.back().x << ", "
+           << this->received_path.pathpoint_array.back().y << ")\n\n";
+  }
+}
+
+
+
+/**
  * @brief Testing a scenario from rosbag Autocross_DV-5
  */
 TEST_F(IntegrationTest, ROSBAG_PATH_1) {

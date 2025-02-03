@@ -14,9 +14,9 @@ struct PlanningParameters;
 
 std::string load_adapter_parameters(PlanningParameters& params) {
   auto adapter_node = std::make_shared<rclcpp::Node>("planning_adapter");
-  params.angle_gain_ = adapter_node->declare_parameter("angle_gain", 4.2);
+  params.angle_gain_ = adapter_node->declare_parameter("angle_gain", 4.1);
   params.distance_gain_ = adapter_node->declare_parameter("distance_gain", 5.01);
-  params.ncones_gain_ = adapter_node->declare_parameter("ncones_gain", 9.5); 
+  params.ncones_gain_ = adapter_node->declare_parameter("ncones_gain", 10.1); 
   params.angle_exponent_ = adapter_node->declare_parameter("angle_exponent", 2.0);
   params.distance_exponent_ = adapter_node->declare_parameter("distance_exponent", 0.998);
   params.same_cone_distance_threshold_ =
