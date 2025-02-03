@@ -202,7 +202,6 @@ public:
             = 0.5 * 1.29 * this->aeroArea * this->cla * (vx * vx) + this->powerGroundSetpoint * this->powerGroundForce;
         double F_aero_drag = 0.5 * 1.29 * this->aeroArea * this->cda * (vx * vx);
         double g = 9.81;
-        double steeringFront = 0.5 * (this->steeringAngles.FL + this->steeringAngles.FR);
 
         // Calculate normal forces on the front and rear axles
         double Fz_Front = std::max(0.0, ((m * g + F_aero_downforce) * 0.5 * this->lr / l));
@@ -241,13 +240,17 @@ public:
 
         // Calculate tire side slip angles
         double eps = 0.00001;
-        double kappaFront = std::atan2(vFront.y(), std::max(std::abs(vFront.x()), eps)) - steeringFront;
-        double kappaRear = std::atan2(vRear.y(), std::max(std::abs(vRear.x()), eps));
+        double kappaFL = std::atan2(vFL.y(), std::max(std::abs(vFL.x()), eps)) - this->steeringAngles.FL;
+        double kappaFR = std::atan2(vFR.y(), std::max(std::abs(vFR.x()), eps)) - this->steeringAngles.FR;
+        double kappaRL = std::atan2(vRL.y(), std::max(std::abs(vRL.x()), eps));
+        double kappaRR = std::atan2(vRR.y(), std::max(std::abs(vRR.x()), eps));
 
         if (stillstand)
         {
-            kappaFront = 0.0;
-            kappaRear = 0.0;
+            kappaFL = 0.0;
+            kappaFR = 0.0;
+            kappaRL = 0.0;
+            kappaRR = 0.0;
         }
 
         double powertrainEfficiency = 0.002333 * (this->torques.RL + this->torques.RR) + 0.594;
@@ -266,8 +269,10 @@ public:
         // Calculate lateral forces on the front and rear axles
         // double Dlat_Front = this->Dlat * Fz_Front;
         // double Dlat_Rear = this->Dlat * Fz_Rear;
-        double Fy_Front = /* Dlat_Front * */ processSlipAngleLat(kappaFront, Fz_Front/2) * 2;
-        double Fy_Rear = /* Dlat_Rear * */ processSlipAngleLat(kappaRear, Fz_Rear/2) * 2;
+        double Fy_FL = processSlipAngleLat(kappaFL, Fz_Front/2);
+        double Fy_FR = processSlipAngleLat(kappaFR, Fz_Front/2);
+        double Fy_RL =  processSlipAngleLat(kappaRL, Fz_Rear/2);
+        double Fy_RR =  processSlipAngleLat(kappaRR, Fz_Rear/2);
 
         // Convert wheel speeds to RPMr
         this->wheelspeeds.FL = vFL.x() / rpm2ms;
@@ -280,12 +285,12 @@ public:
 
         // Calculate longitudinal and lateral accelerations
         double axTires = (std::cos(this->steeringAngles.FL) * Fx_FL + std::cos(this->steeringAngles.FR) * Fx_FR + Fx_RL
-                             + Fx_RR - std::sin(steeringFront) * Fy_Front)
+                             + Fx_RR - std::sin(this->steeringAngles.FL) * Fy_FL - std::sin(this->steeringAngles.FR) * Fy_FR)
             / m;
         double axModel = axTires - F_aero_drag / m - friction.x() / m;
 
         double ayTires = (std::sin(this->steeringAngles.FL) * Fx_FL + std::sin(this->steeringAngles.FR) * Fx_FR
-                             + std::cos(steeringFront) * Fy_Front + Fy_Rear)
+                             + std::cos(this->steeringAngles.FL) * Fy_FL + std::cos(this->steeringAngles.FR) * Fy_FR + Fy_RL + Fy_RR)
             / m;
         double ayModel = (ayTires);
 
@@ -295,7 +300,7 @@ public:
             + this->lf * (Fx_FL * std::sin(this->steeringAngles.FL) + Fx_FR * std::sin(this->steeringAngles.FR))
             + 0.5 * this->sr * (Fx_RR * std::cos(this->steeringAngles.RR) - Fx_RL * std::cos(this->steeringAngles.RL))
             - this->lr * (Fx_RL * std::sin(this->steeringAngles.RL) + Fx_RR * std::sin(this->steeringAngles.RR));
-        double rdotFy = this->lf * (Fy_Front * std::cos(steeringFront)) - this->lr * (Fy_Rear);
+        double rdotFy = this->lf * (Fy_FL * std::cos(this->steeringAngles.FL) + Fy_FL * std::cos(this->steeringAngles.FL)) - this->lr * (Fy_RL + Fy_RR);
         double rdot = (1 / Izz * (rdotFx + rdotFy));
 
         // Return the calculated dynamic states
