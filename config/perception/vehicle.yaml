@@ -5,7 +5,7 @@ perception:
   radius_resolution: 7.5
 
   #FOV trimming
-  trimming_mode: "autocross" # acceleration / skidpad / autrocross
+  trimming_mode: "cut" # acceleration / skidpad / cut
   fov_trim_angle: 45.0
   pc_max_range: 30.0
   pc_min_range: 1.0

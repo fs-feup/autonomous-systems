@@ -56,7 +56,7 @@ PerceptionParameters Perception::load_config() {
         std::make_shared<AccelerationTrimming>(acc_pc_max_y, pc_min_range, pc_rlidar_max_height);
   } else if (trimming_mode == "skidpad") {
     params.fov_trimming_ = std::make_shared<SkidpadTrimming>(pc_min_range, pc_rlidar_max_height);
-  } else {
+  } else if (trimming_mode == "cut") {
     double fov_trim_angle = perception_config["fov_trim_angle"].as<double>();
     double pc_max_range = perception_config["pc_max_range"].as<double>();
     params.fov_trimming_ = std::make_shared<CutTrimming>(pc_max_range, pc_min_range,
