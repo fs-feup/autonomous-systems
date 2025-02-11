@@ -21,6 +21,7 @@ protected:
                                        /// cones array on the perception node.
   rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr pcl_publisher_;
   rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr cones_subscriber_;
+  rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr pcl_removed_cloud_subscriber_;
   custom_interfaces::msg::ConeArray::SharedPtr
       cones_result_;  /// Recieves and stores perception node output
   pcl::PointCloud<pcl::PointXYZI>::Ptr
@@ -39,6 +40,13 @@ protected:
     // Publisher for input point cloud
     pcl_publisher_ = test_node_->create_publisher<sensor_msgs::msg::PointCloud2>("/lidar_points",
                                                                                  rclcpp::QoS(10));
+
+    // Subscriber for ground removed cloud (msg is shown in the respective results file)
+    pcl_removed_cloud_subscriber_ = test_node_->create_subscription<sensor_msgs::msg::PointCloud2>(
+        "/perception/ground_removed_cloud", 1,
+        [this](const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
+          pcl::fromROSMsg(*msg, *result_cloud_);
+        });
 
     // Subscriber for output cones
     cones_subscriber_ = test_node_->create_subscription<custom_interfaces::msg::ConeArray>(
@@ -124,15 +132,19 @@ TEST_F(PerceptionIntegrationTest, StraigthLine) {
       RCLCPP_INFO(test_node_->get_logger(), "Wrong number of cones: detected->%ld expected->%d",
                   cones_result_->cone_array.size(), 6);
 
+    int large_count = 0;
     for (auto cone : cones_result_->cone_array) {
-      if (cone.is_large)
-        generateCylinder(result_cloud_, 0.220, 0.605, cone.position.x, cone.position.y, 100, 100,
-                         100);
-      else
-        generateCylinder(result_cloud_, 0.150, 0.325, cone.position.x, cone.position.y, 100, 100,
-                         0);
+      if (cone.is_large) {
+        large_count++;
+        generateCylinder(result_cloud_, 0.220, 0.605, cone.position.x, cone.position.y, 50, 50, 14);
+      } else {
+        generateCylinder(result_cloud_, 0.150, 0.325, cone.position.x, cone.position.y, 50, 50, 36);
+      }
     }
 
+    if (large_count != 0)
+      RCLCPP_INFO(test_node_->get_logger(), "Wrong number of cones: detected->%d expected->%d",
+                  large_count, 0);
     // Number of points in the PCD should be height*width
     result_cloud_->width = result_cloud_->points.size();
     result_cloud_->height = 1;
@@ -192,11 +204,9 @@ TEST_F(PerceptionIntegrationTest, AccelarationClose) {
     for (auto cone : cones_result_->cone_array) {
       if (cone.is_large) {
         large_count++;
-        generateCylinder(result_cloud_, 0.220, 0.605, cone.position.x, cone.position.y, 100, 100,
-                         100);
+        generateCylinder(result_cloud_, 0.220, 0.605, cone.position.x, cone.position.y, 50, 50, 14);
       } else {
-        generateCylinder(result_cloud_, 0.150, 0.325, cone.position.x, cone.position.y, 100, 100,
-                         0);
+        generateCylinder(result_cloud_, 0.150, 0.325, cone.position.x, cone.position.y, 50, 50, 36);
       }
     }
 
@@ -264,11 +274,9 @@ TEST_F(PerceptionIntegrationTest, AccelarationMedium) {
     for (auto cone : cones_result_->cone_array) {
       if (cone.is_large) {
         large_count++;
-        generateCylinder(result_cloud_, 0.220, 0.605, cone.position.x, cone.position.y, 100, 100,
-                         100);
+        generateCylinder(result_cloud_, 0.220, 0.605, cone.position.x, cone.position.y, 50, 50, 14);
       } else {
-        generateCylinder(result_cloud_, 0.150, 0.325, cone.position.x, cone.position.y, 100, 100,
-                         0);
+        generateCylinder(result_cloud_, 0.150, 0.325, cone.position.x, cone.position.y, 50, 50, 36);
       }
     }
 
@@ -336,11 +344,9 @@ TEST_F(PerceptionIntegrationTest, AccelarationFar) {
     for (auto cone : cones_result_->cone_array) {
       if (cone.is_large) {
         large_count++;
-        generateCylinder(result_cloud_, 0.220, 0.605, cone.position.x, cone.position.y, 100, 100,
-                         100);
+        generateCylinder(result_cloud_, 0.220, 0.605, cone.position.x, cone.position.y, 50, 50, 14);
       } else {
-        generateCylinder(result_cloud_, 0.150, 0.325, cone.position.x, cone.position.y, 100, 100,
-                         0);
+        generateCylinder(result_cloud_, 0.150, 0.325, cone.position.x, cone.position.y, 50, 50, 36);
       }
     }
 
@@ -407,11 +413,9 @@ TEST_F(PerceptionIntegrationTest, EnterHairpin) {
     for (auto cone : cones_result_->cone_array) {
       if (cone.is_large) {
         large_count++;
-        generateCylinder(result_cloud_, 0.220, 0.605, cone.position.x, cone.position.y, 100, 100,
-                         100);
+        generateCylinder(result_cloud_, 0.20, 0.605, cone.position.x, cone.position.y, 50, 50, 14);
       } else {
-        generateCylinder(result_cloud_, 0.150, 0.325, cone.position.x, cone.position.y, 100, 100,
-                         0);
+        generateCylinder(result_cloud_, 0.10, 0.325, cone.position.x, cone.position.y, 50, 50, 36);
       }
     }
 
@@ -478,11 +482,9 @@ TEST_F(PerceptionIntegrationTest, TurnStart) {
     for (auto cone : cones_result_->cone_array) {
       if (cone.is_large) {
         large_count++;
-        generateCylinder(result_cloud_, 0.220, 0.605, cone.position.x, cone.position.y, 100, 100,
-                         100);
+        generateCylinder(result_cloud_, 0.220, 0.605, cone.position.x, cone.position.y, 50, 50, 14);
       } else {
-        generateCylinder(result_cloud_, 0.150, 0.325, cone.position.x, cone.position.y, 100, 100,
-                         0);
+        generateCylinder(result_cloud_, 0.150, 0.325, cone.position.x, cone.position.y, 50, 50, 36);
       }
     }
 
@@ -549,11 +551,9 @@ TEST_F(PerceptionIntegrationTest, OddStituation) {
     for (auto cone : cones_result_->cone_array) {
       if (cone.is_large) {
         large_count++;
-        generateCylinder(result_cloud_, 0.220, 0.605, cone.position.x, cone.position.y, 100, 100,
-                         100);
+        generateCylinder(result_cloud_, 0.220, 0.605, cone.position.x, cone.position.y, 50, 50, 14);
       } else {
-        generateCylinder(result_cloud_, 0.150, 0.325, cone.position.x, cone.position.y, 100, 100,
-                         0);
+        generateCylinder(result_cloud_, 0.150, 0.325, cone.position.x, cone.position.y, 50, 50, 36);
       }
     }
 
@@ -620,11 +620,9 @@ TEST_F(PerceptionIntegrationTest, DiagonalPath) {
     for (auto cone : cones_result_->cone_array) {
       if (cone.is_large) {
         large_count++;
-        generateCylinder(result_cloud_, 0.220, 0.605, cone.position.x, cone.position.y, 100, 100,
-                         100);
+        generateCylinder(result_cloud_, 0.220, 0.605, cone.position.x, cone.position.y, 50, 50, 14);
       } else {
-        generateCylinder(result_cloud_, 0.150, 0.325, cone.position.x, cone.position.y, 100, 100,
-                         0);
+        generateCylinder(result_cloud_, 0.150, 0.325, cone.position.x, cone.position.y, 50, 50, 36);
       }
     }
 
