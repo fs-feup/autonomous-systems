@@ -1,4 +1,4 @@
-#include "slam_solver/graph_slam/graph_slam_solver.hpp"
+#include "slam_solver/graph_slam_solver.hpp"
 
 #include <gtest/gtest.h>
 #include <gtsam/geometry/Point2.h>

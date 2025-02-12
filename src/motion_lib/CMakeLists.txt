@@ -29,9 +29,7 @@ set(IMPLEMENTATION_FILES
 )
 
 add_library(${PROJECT_NAME} SHARED ${IMPLEMENTATION_FILES})
-ament_target_dependencies(${PROJECT_NAME} eufs_msgs std_msgs rclcpp visualization_msgs fs_msgs Eigen3 custom_interfaces common_lib)
-link_directories(${Eigen_INCLUDE_DIRS})
-target_link_libraries(motion_lib ${Eigen_LIBRARIES})
+ament_target_dependencies(${PROJECT_NAME} eufs_msgs std_msgs rclcpp visualization_msgs fs_msgs custom_interfaces common_lib)
 
 ament_export_targets(${PROJECT_NAME} HAS_LIBRARY_TARGET)
 
@@ -67,7 +65,7 @@ if(BUILD_TESTING)
 
   # Unit tests
   ament_add_gtest(${PROJECT_NAME}_test ${TESTFILES} ${IMPLEMENTATION_FILES} TIMEOUT 600)
-  ament_target_dependencies(${PROJECT_NAME}_test eufs_msgs rclcpp fs_msgs std_msgs visualization_msgs Eigen3 custom_interfaces common_lib)
+  ament_target_dependencies(${PROJECT_NAME}_test eufs_msgs rclcpp fs_msgs std_msgs visualization_msgs custom_interfaces common_lib)
   target_include_directories(${PROJECT_NAME}_test PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
