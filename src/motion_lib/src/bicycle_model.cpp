@@ -46,26 +46,26 @@ common_lib::structures::Position cg_2_rear_axis(common_lib::structures::Position
 Eigen::VectorXd estimate_observations(Eigen::Vector3d& state, double wheel_base,
                                       double weight_distribution_front, double gear_ratio,
                                       double wheel_radius) {
-  double Lr = wheel_base *
+  double lr = wheel_base *
               weight_distribution_front;  // distance from the center of mass to the rear wheels
-  double Lf =
+  double lf =
       wheel_base *
       (1 - weight_distribution_front);  // distance from the center of mass to the front wheels
 
-  double rear_wheel_velocity = sqrt(pow(state(0), 2) + pow(state(1) - state(2) * Lr, 2));
+  double rear_wheel_velocity = sqrt(pow(state(0), 2) + pow(state(1) - state(2) * lr, 2));
   double rear_wheels_rpm = 60 * rear_wheel_velocity / (2 * M_PI * wheel_radius);
   if (state(0) < 0) {
     rear_wheels_rpm = -rear_wheels_rpm;
   }
 
-  double front_wheel_velocity = sqrt(pow(state(0), 2) + pow(state(1) + state(2) * Lf, 2));
+  double front_wheel_velocity = sqrt(pow(state(0), 2) + pow(state(1) + state(2) * lf, 2));
   double front_wheels_rpm = 60 * front_wheel_velocity / (2 * M_PI * wheel_radius);
   if (state(0) < 0) {
     front_wheels_rpm = -front_wheels_rpm;
   }
 
   double steering_angle =
-      (std::fabs(state(0)) <= 0.01) ? 0 : atan((state(1) + state(2) * Lf) / state(0));
+      (std::fabs(state(0)) <= 0.01) ? 0 : atan((state(1) + state(2) * lf) / state(0));
   double motor_rpm = 60 * gear_ratio * rear_wheel_velocity / (2 * M_PI * wheel_radius);
   if (state(0) < 0) {
     motor_rpm = -motor_rpm;

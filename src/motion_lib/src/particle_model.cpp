@@ -7,10 +7,7 @@ void update_velocities(Eigen::Vector3d& velocities, double ax, double ay, double
                        double time_interval) {
   velocities(0) += ax * time_interval;
   velocities(1) += ay * time_interval;
-  velocities(2) += angular_velocity;
-  // std::cout << "IMU Measurings: time:" << time_interval << " AX: " << ax << " AY: " << ay
-  //           << " AV: " << angular_velocity << "CHANGE: dvx: " << ax * time_interval
-  //           << " dvy: " << ay * time_interval << std::endl;
+  velocities(2) = angular_velocity;
 }
 
 Eigen::Matrix3d jacobian_of_velocity_update() {
