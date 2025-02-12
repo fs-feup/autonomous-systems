@@ -167,7 +167,7 @@ jobs:
                   source /opt/ros/$ROS_DISTRO/setup.bash
                   colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib pacsim motion_lib
         
-              - name: Build and Test Localization and Mapping
+              - name: Build and Test Velocity Estimation
                 run: |
                   source install/setup.bash
                   colcon build --packages-select velocity_estimation
