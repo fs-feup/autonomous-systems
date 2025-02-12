@@ -6,16 +6,15 @@
 #include "message_filters/time_synchronizer.h"
 
 InspectionMission::InspectionMission() : Node("inspection") {
-  _inspection_object_.turning_period_ = declare_parameter<double>("turning_period", 4.0);
-  _inspection_object_.finish_time_ = declare_parameter<double>("finish_time", 26.0);
-  _inspection_object_.wheel_radius_ = declare_parameter<double>("wheel_radius", 0.254);
-  _inspection_object_.max_angle_ =
-      declare_parameter<double>("max_angle", MAX_ANGLE);  // 22.5 degrees in rad
-  _inspection_object_.start_and_stop_ = declare_parameter<bool>("start_and_stop", false);
-  declare_parameter<double>("ebs_test_ideal_velocity", 2.0);
-  declare_parameter<double>("ebs_test_gain", 0.25);
-  declare_parameter<double>("inspection_ideal_velocity", 1.0);
-  declare_parameter<double>("inspection_gain", 0.25);
+  _inspection_object_.turning_period_ = declare_parameter<double>("turning_period");
+  _inspection_object_.finish_time_ = declare_parameter<double>("finish_time");
+  _inspection_object_.wheel_radius_ = declare_parameter<double>("wheel_radius");
+  _inspection_object_.max_angle_ = declare_parameter<double>("max_angle");  // 22.5 degrees in rad
+  _inspection_object_.start_and_stop_ = declare_parameter<bool>("start_and_stop");
+  declare_parameter<double>("ebs_test_ideal_velocity");
+  declare_parameter<double>("ebs_test_gain");
+  declare_parameter<double>("inspection_ideal_velocity");
+  declare_parameter<double>("inspection_gain");
 
   // creates publisher that should yield throttle/acceleration/...
   _control_command_publisher_ =

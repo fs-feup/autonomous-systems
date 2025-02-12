@@ -38,6 +38,7 @@ set(IMPLEMENTATION_FILES
   src/sensor_data/imu.cpp
   src/communication/marker.cpp
   src/communication/interfaces.cpp
+  src/config_load/config_load.cpp
 )
 
 add_library(${PROJECT_NAME} SHARED ${IMPLEMENTATION_FILES})

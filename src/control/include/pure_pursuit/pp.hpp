@@ -5,10 +5,10 @@
 #include "rclcpp/rclcpp.hpp"
 
 /**< Maximum steering angle in rad */
-constexpr double MAX_STEERING_ANGLE = 1.570;
+constexpr double MAX_STEERING_ANGLE = 0.392699;
 
 /**< Minimum steering angle in rad */
-constexpr double MIN_STEERING_ANGLE = -1.570;
+constexpr double MIN_STEERING_ANGLE = -0.392699;
 
 /**< Wheel base of the vehicle in m */
 constexpr double WHEEL_BASE = 1.5;

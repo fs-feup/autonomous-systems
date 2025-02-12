@@ -4,6 +4,7 @@
 #include <functional>
 #include <memory>
 #include <string>
+#include <yaml-cpp/yaml.h>
 
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "custom_interfaces/msg/evaluator_control_data.hpp"
@@ -50,6 +51,8 @@ public:
    *
    */
   void publish_control(const custom_interfaces::msg::VehicleState &vehicle_state_msg);
+
+  static ControlParameters load_config(std::string& adapter);
 
 private:
   bool use_simulated_planning_{false};

@@ -1,0 +1,11 @@
+ekf_state_est:
+  data_association_limit_distance: 20.0
+  sml_initial_limit: 0.1
+  sml_curvature: 10.0
+  observation_noise: 0.01
+  wheel_speed_sensor_noise: 0.1
+  motion_model: "normal_velocity_model"
+  use_odometry: True
+  data_association_model: "max_likelihood"
+  wss_noise: 0.0
+  imu_noise: 0.0

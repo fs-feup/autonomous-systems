@@ -22,9 +22,13 @@
 #include "planning/outliers.hpp"
 #include "planning/path_calculation.hpp"
 #include "planning/smoothing.hpp"
+#include "planning/velocity_planning.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
 #include "std_msgs/msg/float64.hpp"
 #include "utils/files.hpp"
+#include <yaml-cpp/yaml.h>
+#include <rclcpp/rclcpp.hpp>
+#include <string>
 
 using PathPoint = common_lib::structures::PathPoint;
 using Pose = common_lib::structures::Pose;
@@ -49,8 +53,12 @@ class Planning : public rclcpp::Node {
   Outliers outliers_;
   PathCalculation path_calculation_;
   PathSmoothing path_smoothing_;
+  VelocityPlanning velocity_planning_;
   double desired_velocity_;
   double initial_car_orientation_;
+
+  bool path_orientation_corrected_ = false; // TODO: Put in Skidpad class
+  std::vector<PathPoint> predefined_path_; // TODO: Put in Skidpad class
 
   std::map<common_lib::competition_logic::Mission, std::string> predictive_paths_ = {
       {common_lib::competition_logic::Mission::ACCELERATION, "/events/acceleration.txt"},
@@ -165,6 +173,8 @@ public:
    * for communication with external systems.
    */
   explicit Planning(const PlanningParameters &params);
+
+  static PlanningParameters load_config(std::string &adapter);
   /**
    * @brief Set the mission for planning.
    *
