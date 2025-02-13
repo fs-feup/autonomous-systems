@@ -3,7 +3,6 @@
 
 #include "gtest/gtest.h"
 #include "kalman_filter/motion_models.hpp"
-#include "motion_lib/bicycle_model.hpp"
 #include "ros_node/se_node.hpp"
 
 /* ---------------------- Motion Model -------------------------------------*/

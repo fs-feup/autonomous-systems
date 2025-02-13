@@ -81,9 +81,8 @@ void print_matrix(const Eigen::MatrixXd& matrix) {
 void EKF::correct(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
                   common_lib::sensor_data::WheelEncoderData& wss_data, double motor_rpm,
                   double steering_angle) {
-  Eigen::VectorXd predicted_observations = motion_lib::bicycle_model::estimate_observations(
-      state, this->wheel_base_, this->weight_distribution_front_, this->gear_ratio_,
-      this->wheel_radius_);
+  BicycleModel bicycle_model = BicycleModel(common_lib::car_parameters::CarParameters());
+  Eigen::VectorXd predicted_observations = bicycle_model.cg_velocity_to_wheels(state);
   Eigen::VectorXd observations = Eigen::VectorXd::Zero(6);
   observations << wss_data.fl_rpm, wss_data.fr_rpm, wss_data.rl_rpm, wss_data.rr_rpm,
       steering_angle, motor_rpm;
@@ -97,9 +96,7 @@ void EKF::correct(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
   // print_matrix(observations);
   // std::cout << "y: ";
   // print_matrix(y);
-  Eigen::MatrixXd jacobian = motion_lib::bicycle_model::jacobian_of_observation_estimation(
-      state, this->wheel_base_, this->weight_distribution_front_, this->gear_ratio_,
-      this->wheel_radius_);
+  Eigen::MatrixXd jacobian = bicycle_model.jacobian_cg_velocity_to_wheels(state);
   // std::cout << "Jacobian: " << std::endl;
   // print_matrix(jacobian);
   // auto A = jacobian * covariance * jacobian.transpose() + this->measurement_noise_matrix_;

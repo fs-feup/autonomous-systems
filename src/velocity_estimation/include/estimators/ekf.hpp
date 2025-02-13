@@ -10,8 +10,8 @@
 #include "common_lib/structures/velocities.hpp"
 #include "custom_interfaces/msg/velocities.hpp"
 #include "estimators/estimator.hpp"
-#include "motion_lib/bicycle_model.hpp"
 #include "motion_lib/particle_model.hpp"
+#include "motion_lib/s2v_model/bicycle_model.hpp"
 
 class EKF : public VelocityEstimator {
   std::chrono::high_resolution_clock::time_point last_update_;

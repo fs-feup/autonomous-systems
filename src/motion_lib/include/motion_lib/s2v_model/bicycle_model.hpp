@@ -5,7 +5,6 @@
 #include <utility>
 
 #include "common_lib/maths/transformations.hpp"
-#include "motion_lib/car_parameters.hpp"
 #include "motion_lib/s2v_model/s2v_model.hpp"
 
 class BicycleModel : public S2VModel {
