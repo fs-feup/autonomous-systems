@@ -27,39 +27,34 @@ private:
  * @brief Test when confidence is sufficient
  */
 TEST(ConeEvaluatorTest, EvaluateClusterConfidenceSufficient) {
-  // Create test validators with predefined results
-  auto height_validator = std::make_shared<TestConeValidator>(std::vector<double>{0.3, 0.7});
-  auto cylinder_validator = std::make_shared<TestConeValidator>(std::vector<double>{0.5, 0.2, 0.1});
-  auto npoints_validator = std::make_shared<TestConeValidator>(std::vector<double>{1.0});
-  auto displacement_validator =
-      std::make_shared<TestConeValidator>(std::vector<double>{0.2, 0.3, 0.4});
-  auto deviation_validator = std::make_shared<TestConeValidator>(std::vector<double>{0.5, 0.6});
+  auto eval_params = std::make_shared<EvaluatorParameters>();
 
-  // Create a map of validators
-  auto cone_validators =
-      std::make_shared<std::unordered_map<std::string, std::shared_ptr<ConeValidator>>>();
-  cone_validators->emplace("height", height_validator);
-  cone_validators->emplace("cylinder", cylinder_validator);
-  cone_validators->emplace("npoints", npoints_validator);
-  cone_validators->emplace("displacement", displacement_validator);
-  cone_validators->emplace("deviation", deviation_validator);
+  // Create test validators with predefined results
+  eval_params->height_validator =
+      std::make_shared<TestConeValidator>(std::vector<double>{0.3, 0.7});
+  eval_params->cylinder_validator =
+      std::make_shared<TestConeValidator>(std::vector<double>{0.5, 0.2, 0.1});
+  eval_params->npoints_validator = std::make_shared<TestConeValidator>(std::vector<double>{1.0});
+  eval_params->displacement_validator =
+      std::make_shared<TestConeValidator>(std::vector<double>{0.2, 0.3, 0.4});
+  eval_params->deviation_validator =
+      std::make_shared<TestConeValidator>(std::vector<double>{0.5, 0.6});
 
   // Create a map of evaluator weights
-  auto evaluator_weights = std::make_shared<std::unordered_map<std::string, double>>();
-  (*evaluator_weights)["height_out_weight"] = 0.1;
-  (*evaluator_weights)["height_in_weight"] = 0.1;
-  (*evaluator_weights)["cylinder_radius_weight"] = 0.2;
-  (*evaluator_weights)["cylinder_height_weight"] = 0.05;
-  (*evaluator_weights)["cylinder_npoints_weight"] = 0.05;
-  (*evaluator_weights)["npoints_weight"] = 0.25;
-  (*evaluator_weights)["displacement_x_weight"] = 0.05;
-  (*evaluator_weights)["displacement_y_weight"] = 0.05;
-  (*evaluator_weights)["displacement_z_weight"] = 0.05;
-  (*evaluator_weights)["deviation_xoy_weight"] = 0.05;
-  (*evaluator_weights)["deviation_z_weight"] = 0.05;
+  eval_params->height_out_weight = 0.1;
+  eval_params->height_in_weight = 0.1;
+  eval_params->cylinder_radius_weight = 0.2;
+  eval_params->cylinder_height_weight = 0.05;
+  eval_params->cylinder_npoints_weight = 0.05;
+  eval_params->npoints_weight = 0.25;
+  eval_params->displacement_x_weight = 0.05;
+  eval_params->displacement_y_weight = 0.05;
+  eval_params->displacement_z_weight = 0.05;
+  eval_params->deviation_xoy_weight = 0.05;
+  eval_params->deviation_z_weight = 0.05;
 
-  double min_confidence = 0.5;
-  ConeEvaluator cone_evaluator(cone_validators, evaluator_weights, min_confidence);
+  eval_params->min_confidence = 0.5;
+  ConeEvaluator cone_evaluator(eval_params);
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZI>());
   Cluster cluster(cloud);
@@ -75,39 +70,34 @@ TEST(ConeEvaluatorTest, EvaluateClusterConfidenceSufficient) {
  * @brief Test when confidence is insufficient
  */
 TEST(ConeEvaluatorTest, EvaluateClusterConfidenceInsufficient) {
-  // Create test validators with predefined results that yield low confidence
-  auto height_validator = std::make_shared<TestConeValidator>(std::vector<double>{0.0, 0.0});
-  auto cylinder_validator = std::make_shared<TestConeValidator>(std::vector<double>{0.0, 0.0, 0.0});
-  auto npoints_validator = std::make_shared<TestConeValidator>(std::vector<double>{0.0});
-  auto displacement_validator =
-      std::make_shared<TestConeValidator>(std::vector<double>{0.0, 0.0, 0.0});
-  auto deviation_validator = std::make_shared<TestConeValidator>(std::vector<double>{0.0, 0.0});
+  auto eval_params = std::make_shared<EvaluatorParameters>();
 
-  // Create a map of validators
-  auto cone_validators =
-      std::make_shared<std::unordered_map<std::string, std::shared_ptr<ConeValidator>>>();
-  cone_validators->emplace("height", height_validator);
-  cone_validators->emplace("cylinder", cylinder_validator);
-  cone_validators->emplace("npoints", npoints_validator);
-  cone_validators->emplace("displacement", displacement_validator);
-  cone_validators->emplace("deviation", deviation_validator);
+  // Create test validators with predefined results
+  eval_params->height_validator =
+      std::make_shared<TestConeValidator>(std::vector<double>{0.0, 0.0});
+  eval_params->cylinder_validator =
+      std::make_shared<TestConeValidator>(std::vector<double>{0.0, 0.0, 0.0});
+  eval_params->npoints_validator = std::make_shared<TestConeValidator>(std::vector<double>{0.0});
+  eval_params->displacement_validator =
+      std::make_shared<TestConeValidator>(std::vector<double>{0.0, 0.0, 0.0});
+  eval_params->deviation_validator =
+      std::make_shared<TestConeValidator>(std::vector<double>{0.0, 0.0});
 
   // Create a map of evaluator weights
-  auto evaluator_weights = std::make_shared<std::unordered_map<std::string, double>>();
-  (*evaluator_weights)["height_out_weight"] = 0.1;
-  (*evaluator_weights)["height_in_weight"] = 0.1;
-  (*evaluator_weights)["cylinder_radius_weight"] = 0.2;
-  (*evaluator_weights)["cylinder_height_weight"] = 0.05;
-  (*evaluator_weights)["cylinder_npoints_weight"] = 0.05;
-  (*evaluator_weights)["npoints_weight"] = 0.25;
-  (*evaluator_weights)["displacement_x_weight"] = 0.05;
-  (*evaluator_weights)["displacement_y_weight"] = 0.05;
-  (*evaluator_weights)["displacement_z_weight"] = 0.05;
-  (*evaluator_weights)["deviation_xoy_weight"] = 0.05;
-  (*evaluator_weights)["deviation_z_weight"] = 0.05;
+  eval_params->height_out_weight = 0.1;
+  eval_params->height_in_weight = 0.1;
+  eval_params->cylinder_radius_weight = 0.2;
+  eval_params->cylinder_height_weight = 0.05;
+  eval_params->cylinder_npoints_weight = 0.05;
+  eval_params->npoints_weight = 0.25;
+  eval_params->displacement_x_weight = 0.05;
+  eval_params->displacement_y_weight = 0.05;
+  eval_params->displacement_z_weight = 0.05;
+  eval_params->deviation_xoy_weight = 0.05;
+  eval_params->deviation_z_weight = 0.05;
 
-  double min_confidence = 0.5;
-  ConeEvaluator cone_evaluator(cone_validators, evaluator_weights, min_confidence);
+  eval_params->min_confidence = 0.5;
+  ConeEvaluator cone_evaluator(eval_params);
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZI>());
   Cluster cluster(cloud);
