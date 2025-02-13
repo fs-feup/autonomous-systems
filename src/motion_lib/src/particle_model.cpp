@@ -10,9 +10,5 @@ void CVParticleModel::update_velocities(Eigen::Vector3d& velocities, double ax, 
 }
 
 Eigen::Matrix3d CVParticleModel::jacobian_of_velocity_update() {
-  Eigen::Matrix3d jacobian = Eigen::Matrix3d::Identity();
-  jacobian(0, 0) = 1;
-  jacobian(1, 1) = 1;
-  jacobian(2, 2) = 1;
-  return jacobian;
+  return Eigen::Matrix3d::Identity();
 }
