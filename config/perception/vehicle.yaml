@@ -2,24 +2,22 @@ perception:
 
   horizontal_resolution: 0.33
   vertical_resolution: 0.2
-  radius_resolution: 7.5
 
   #FOV trimming
   trimming_mode: "cut" # acceleration / skidpad / cut
+  pc_rlidar_max_height: -0.22
+  pc_min_range: 1.0
   fov_trim_angle: 45.0
   pc_max_range: 30.0
-  pc_min_range: 1.0
-  pc_rlidar_max_height: -0.22
   acc_pc_max_y: 4.5
+  min_distance_to_cone: 2.1
   
   #Ground Removal
   ground_removal: "grid_ransac"
   ransac_epsilon: 0.09
-  ransac_iterations: 20
-  ransac_n_neighbours: 40
-  clustering_n_neighbours: 1
-  clustering_epsilon: 0.5
+  ransac_iterations: 40
   n_angular_grids: 2
+  radius_resolution: 7.5
 
   #Clustering
   clustering_n_neighbours: 1

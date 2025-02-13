@@ -8,16 +8,17 @@
 
 class SkidpadTrimming : public FovTrimming {
 private:
-  double pc_max_range = 30, fov_trim_angle = 90;
-  double pc_min_range, pc_rlidar_max_height;
+  double pc_max_range = 30.2853;
+  double pc_min_range, pc_rlidar_max_height, min_distance_to_cone, fov_trim_angle;
 
 public:
   /**
    * @brief Constructor for the Skidpad Point Cloud Trimming algorithm.
    * @param pc_min_range Minimum point cloud distance after trimming.
    * @param pc_rlidar_max_height Maximum point cloud height after trimming.
+   * @param  min_distance_to_cone Minimum distance to a cone for it to be seen.
    */
-  SkidpadTrimming(double pc_min_range, double pc_rlidar_max_height);
+  SkidpadTrimming(double pc_min_range, double pc_rlidar_max_height, double min_distance_to_cone);
 
   /**
    * @brief Default constructor.

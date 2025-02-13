@@ -4,8 +4,14 @@
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 
-SkidpadTrimming::SkidpadTrimming(double pc_min_range, double pc_rlidar_max_height)
-    : pc_min_range(pc_min_range), pc_rlidar_max_height(pc_rlidar_max_height) {}
+SkidpadTrimming::SkidpadTrimming(double pc_min_range, double pc_rlidar_max_height,
+                                 double min_distance_to_cone)
+    : pc_min_range(pc_min_range),
+      pc_rlidar_max_height(pc_rlidar_max_height),
+      min_distance_to_cone(min_distance_to_cone) {
+  // Calculate fov_trim_angle from the given minimum distance to a cone.
+  fov_trim_angle = std::acos(1.5 / std::max(min_distance_to_cone, 1.5));
+}
 
 void SkidpadTrimming::fov_trimming(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud) const {
   pcl::PointCloud<pcl::PointXYZI>::Ptr trimmed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
