@@ -18,6 +18,7 @@ protected:
   VEParameters _parameters_;
   std::shared_ptr<VelocityEstimator> _velocity_estimator_;
   rclcpp::Publisher<custom_interfaces::msg::Velocities>::SharedPtr _velocities_pub_;
+  void publish_velocities() const;
 
 public:
   VENode(const VEParameters& parameters);

@@ -18,12 +18,7 @@ void PacsimAdapter::imu_callback(const sensor_msgs::msg::Imu::SharedPtr msg) {
   imu_data.acceleration_y = msg->linear_acceleration.y;
   imu_data.rotational_velocity = msg->angular_velocity.z;
   this->_velocity_estimator_->imu_callback(imu_data);
-  common_lib::structures::Velocities velocities = this->_velocity_estimator_->get_velocities();
-  custom_interfaces::msg::Velocities velocities_msg;
-  velocities_msg.velocity_x = velocities.velocity_x;
-  velocities_msg.velocity_y = velocities.velocity_y;
-  velocities_msg.angular_velocity = velocities.rotational_velocity;
-  this->_velocities_pub_->publish(velocities_msg);
+  this->publish_velocities();
 }
 
 void PacsimAdapter::wss_callback(const pacsim::msg::Wheels::SharedPtr msg) {
