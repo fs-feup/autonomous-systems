@@ -24,7 +24,6 @@ if(OpenMP_CXX_FOUND)
 endif()
 
 set(IMPLEMENTATION_FILES
-  src/bicycle_model.cpp
   src/s2v_model/bicycle_model.cpp
   src/particle_model.cpp
 )
