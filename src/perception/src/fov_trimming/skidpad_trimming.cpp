@@ -6,9 +6,7 @@
 
 SkidpadTrimming::SkidpadTrimming(double pc_min_range, double pc_rlidar_max_height,
                                  double min_distance_to_cone)
-    : pc_min_range(pc_min_range),
-      pc_rlidar_max_height(pc_rlidar_max_height),
-      min_distance_to_cone(min_distance_to_cone) {
+    : pc_min_range(pc_min_range), pc_rlidar_max_height(pc_rlidar_max_height) {
   // Calculate fov_trim_angle from the given minimum distance to a cone.
   fov_trim_angle = 90 - std::acos(1.5 / std::max(min_distance_to_cone, 1.5)) * 180 / M_PI;
 }

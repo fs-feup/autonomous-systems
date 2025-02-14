@@ -9,7 +9,7 @@
 class SkidpadTrimming : public FovTrimming {
 private:
   double pc_max_range = 30.2853;
-  double pc_min_range, pc_rlidar_max_height, min_distance_to_cone, fov_trim_angle;
+  double pc_min_range, pc_rlidar_max_height, fov_trim_angle;
 
 public:
   /**

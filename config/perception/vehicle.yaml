@@ -10,7 +10,7 @@ perception:
   fov_trim_angle: 45.0
   pc_max_range: 30.0
   acc_pc_max_y: 4.5
-  min_distance_to_cone: 2.1
+  min_distance_to_cone: 2.3
   
   #Ground Removal
   ground_removal: "grid_ransac"
