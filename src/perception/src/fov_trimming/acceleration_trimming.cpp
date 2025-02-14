@@ -4,8 +4,8 @@
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 
-AccelerationTrimming::AccelerationTrimming(double pc_max_y, double pc_min_range,
-                                           double pc_rlidar_max_height)
+AccelerationTrimming::AccelerationTrimming(double pc_min_range, double pc_rlidar_max_height,
+                                           double pc_max_y)
     : pc_max_y(pc_max_y), pc_min_range(pc_min_range), pc_rlidar_max_height(pc_rlidar_max_height) {}
 
 void AccelerationTrimming::fov_trimming(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud) const {

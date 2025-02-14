@@ -53,7 +53,7 @@ PerceptionParameters Perception::load_config() {
   if (trimming_mode == "acceleration") {
     double acc_pc_max_y = perception_config["acc_pc_max_y"].as<double>();
     params.fov_trimming_ =
-        std::make_shared<AccelerationTrimming>(acc_pc_max_y, pc_min_range, pc_rlidar_max_height);
+        std::make_shared<AccelerationTrimming>(pc_min_range, pc_rlidar_max_height, acc_pc_max_y);
   } else if (trimming_mode == "skidpad") {
     double min_distance_to_cone = perception_config["min_distance_to_cone"].as<double>();
     params.fov_trimming_ =

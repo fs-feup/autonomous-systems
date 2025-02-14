@@ -59,6 +59,9 @@ set(TEST_INCLUDE_FILES
   test/circunference_center_calculation_test.cpp
   test/standard_deviation_validator_test.cpp
   test/cone_evaluator_test.cpp
+  test/cut_trimming_test.cpp
+  test/skidpad_trimming_test.cpp
+  test/acceleration_trimming_test.cpp
   #test/z_score_validator_test.cpp
 )
 

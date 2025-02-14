@@ -8,7 +8,7 @@
 
 class AccelerationTrimming : public FovTrimming {
 private:
-  double pc_max_range = 30, fov_trim_angle = 90;
+  double pc_max_range = 20.250, fov_trim_angle = 90;
   double pc_max_y, pc_min_range, pc_rlidar_max_height;
 
 public:
@@ -18,7 +18,7 @@ public:
    * @param pc_min_range Minimum point cloud distance after trimming.
    * @param pc_rlidar_max_height Maximum point cloud height after trimming.
    */
-  AccelerationTrimming(double pc_max_y, double pc_min_range, double pc_rlidar_max_height);
+  AccelerationTrimming(double pc_min_range, double pc_rlidar_max_height, double pc_max_y);
 
   /**
    * @brief Default constructor.
