@@ -26,6 +26,8 @@ endif()
 set(IMPLEMENTATION_FILES
   src/bicycle_model.cpp
   src/particle_model.cpp
+  src/v2p_models/constant_velocity_model.cpp
+  src/v2p_models/base_v2p_motion_model.cpp
 )
 
 add_library(${PROJECT_NAME} SHARED ${IMPLEMENTATION_FILES})
@@ -48,7 +50,7 @@ install(
   )
   
 install(
-  DIRECTORY include/
+  DIRECTORY include/${PROJECT_NAME}
   DESTINATION include
   )
 
@@ -57,7 +59,9 @@ if(BUILD_TESTING)
   find_package(ament_cmake_gtest REQUIRED)
 
   set(TESTFILES
+    test/main.cpp
     test/bicycle_model_test.cpp
+    test/v2p_models/constant_velocity_model_test.cpp
   )
 
   include_directories(test)  # Include the 'test' directory for your test targets

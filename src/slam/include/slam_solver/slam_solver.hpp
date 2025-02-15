@@ -3,6 +3,8 @@
 #include "common_lib/structures/pose.hpp"
 #include "common_lib/structures/position.hpp"
 #include "common_lib/structures/velocities.hpp"
+#include "custom_interfaces/msg/pose2_d_with_covariance_stamped.hpp"
+#include "custom_interfaces/msg/velocities_with_covariance_stamped.hpp"
 
 /**
  * @brief Interface for SLAM solvers
@@ -21,7 +23,8 @@ public:
   /**
    * @brief Add motion prior to the solver (prediction step)
    */
-  virtual void add_motion_prior(const common_lib::structures::Velocities& velocities) = 0;
+  virtual void add_motion_prior(
+      const custom_interfaces::msg::VelocitiesWithCovarianceStamped& velocities) = 0;
 
   /**
    * @brief Add observation to the solver (correction step)
@@ -36,5 +39,5 @@ public:
   /**
    * @brief Get the pose estimate object
    */
-  virtual common_lib::structures::Pose get_pose_estimate() = 0;
+  virtual custom_interfaces::msg::Pose2DWithCovarianceStamped get_pose_estimate() = 0;
 };

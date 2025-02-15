@@ -2,7 +2,7 @@
 
 namespace common_lib::maths {
 /**
- * @brief Function to keep angle between 0 and 2Pi radians
+ * @brief Function to keep angle in [-Pi, Pi[ radians
  *
  * @param angle
  * @return double

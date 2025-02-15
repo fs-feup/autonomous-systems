@@ -23,6 +23,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/VcuCommand.msg"
   "msg/PathPoint.msg"
   "msg/PathPointArray.msg"
+  "msg/Pose2DWithCovarianceStamped.msg"
   "msg/Vcu.msg"
   "msg/Imu.msg"
   "msg/Gps.msg"
@@ -38,6 +39,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/MasterLog2.msg"
   "msg/Temperature.msg"
   "msg/Velocities.msg"
+  "msg/VelocitiesWithCovarianceStamped.msg"
   DEPENDENCIES builtin_interfaces std_msgs 
 )
 
