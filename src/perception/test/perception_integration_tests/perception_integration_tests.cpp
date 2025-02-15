@@ -27,6 +27,10 @@ bool loadGroundTruth(const std::string& file_path,
   return true;
 }
 
+/**
+ *@brief Helper function to compute correctness for a specific test case.
+ *
+ */
 double computeCorrectness(const custom_interfaces::msg::ConeArray::SharedPtr& detected,
                           std::vector<std::tuple<float, float, bool, bool>> ground_truth,
                           float tolerance = 0.2) {
@@ -325,7 +329,7 @@ TEST_F(PerceptionIntegrationTest, AccelerationEndMedium) {
  * @brief Far distance to accelaration end test for perception node from rosbag:
  * Accelaration_Testing_Manual-4.mcap
  */
-TEST_F(PerceptionIntegrationTest, AccelarationFar) {
+TEST_F(PerceptionIntegrationTest, AccelerationFar) {
   std::string test_name = "acceleration_end_far";
   auto params = Perception::load_config();
   rclcpp::Node::SharedPtr perception_node = std::make_shared<Perception>(params);
