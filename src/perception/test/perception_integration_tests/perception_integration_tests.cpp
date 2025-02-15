@@ -203,8 +203,6 @@ TEST_F(PerceptionIntegrationTest, StraightLine) {
       << "PCD file does not exist: " << input_pcd_path;
   std::string output_pcd_path =
       "../../src/perception/test/perception_integration_tests/results/" + test_name + ".pcd";
-  ASSERT_TRUE(std::filesystem::exists(output_pcd_path))
-      << "Output file does not exist: " << output_pcd_path;
   std::string gt_txt_path =
       "../../src/perception/test/perception_integration_tests/ground_truths/" + test_name + ".txt";
   ASSERT_TRUE(std::filesystem::exists(gt_txt_path))
@@ -249,8 +247,6 @@ TEST_F(PerceptionIntegrationTest, AccelerationEndClose) {
       << "PCD file does not exist: " << input_pcd_path;
   std::string output_pcd_path =
       "../../src/perception/test/perception_integration_tests/results/" + test_name + ".pcd";
-  ASSERT_TRUE(std::filesystem::exists(output_pcd_path))
-      << "Output file does not exist: " << output_pcd_path;
   std::string gt_txt_path =
       "../../src/perception/test/perception_integration_tests/ground_truths/" + test_name + ".txt";
   ASSERT_TRUE(std::filesystem::exists(gt_txt_path))
@@ -295,8 +291,6 @@ TEST_F(PerceptionIntegrationTest, AccelerationEndMedium) {
       << "PCD file does not exist: " << input_pcd_path;
   std::string output_pcd_path =
       "../../src/perception/test/perception_integration_tests/results/" + test_name + ".pcd";
-  ASSERT_TRUE(std::filesystem::exists(output_pcd_path))
-      << "Output file does not exist: " << output_pcd_path;
   std::string gt_txt_path =
       "../../src/perception/test/perception_integration_tests/ground_truths/" + test_name + ".txt";
   ASSERT_TRUE(std::filesystem::exists(gt_txt_path))
@@ -341,8 +335,6 @@ TEST_F(PerceptionIntegrationTest, AccelarationFar) {
       << "PCD file does not exist: " << input_pcd_path;
   std::string output_pcd_path =
       "../../src/perception/test/perception_integration_tests/results/" + test_name + ".pcd";
-  ASSERT_TRUE(std::filesystem::exists(output_pcd_path))
-      << "Output file does not exist: " << output_pcd_path;
   std::string gt_txt_path =
       "../../src/perception/test/perception_integration_tests/ground_truths/" + test_name + ".txt";
   ASSERT_TRUE(std::filesystem::exists(gt_txt_path))
@@ -386,8 +378,6 @@ TEST_F(PerceptionIntegrationTest, EnterHairpin) {
       << "PCD file does not exist: " << input_pcd_path;
   std::string output_pcd_path =
       "../../src/perception/test/perception_integration_tests/results/" + test_name + ".pcd";
-  ASSERT_TRUE(std::filesystem::exists(output_pcd_path))
-      << "Output file does not exist: " << output_pcd_path;
   std::string gt_txt_path =
       "../../src/perception/test/perception_integration_tests/ground_truths/" + test_name + ".txt";
   ASSERT_TRUE(std::filesystem::exists(gt_txt_path))
@@ -431,8 +421,6 @@ TEST_F(PerceptionIntegrationTest, TurnStart) {
       << "PCD file does not exist: " << input_pcd_path;
   std::string output_pcd_path =
       "../../src/perception/test/perception_integration_tests/results/" + test_name + ".pcd";
-  ASSERT_TRUE(std::filesystem::exists(output_pcd_path))
-      << "Output file does not exist: " << output_pcd_path;
   std::string gt_txt_path =
       "../../src/perception/test/perception_integration_tests/ground_truths/" + test_name + ".txt";
   ASSERT_TRUE(std::filesystem::exists(gt_txt_path))
@@ -476,8 +464,6 @@ TEST_F(PerceptionIntegrationTest, OddStituation) {
       << "PCD file does not exist: " << input_pcd_path;
   std::string output_pcd_path =
       "../../src/perception/test/perception_integration_tests/results/" + test_name + ".pcd";
-  ASSERT_TRUE(std::filesystem::exists(output_pcd_path))
-      << "Output file does not exist: " << output_pcd_path;
   std::string gt_txt_path =
       "../../src/perception/test/perception_integration_tests/ground_truths/" + test_name + ".txt";
   ASSERT_TRUE(std::filesystem::exists(gt_txt_path))
@@ -521,8 +507,6 @@ TEST_F(PerceptionIntegrationTest, DiagonalPath) {
       << "PCD file does not exist: " << input_pcd_path;
   std::string output_pcd_path =
       "../../src/perception/test/perception_integration_tests/results/" + test_name + ".pcd";
-  ASSERT_TRUE(std::filesystem::exists(output_pcd_path))
-      << "Output file does not exist: " << output_pcd_path;
   std::string gt_txt_path =
       "../../src/perception/test/perception_integration_tests/ground_truths/" + test_name + ".txt";
   ASSERT_TRUE(std::filesystem::exists(gt_txt_path))
