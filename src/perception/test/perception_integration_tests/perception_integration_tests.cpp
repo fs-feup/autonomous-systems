@@ -271,7 +271,7 @@ TEST_F(PerceptionIntegrationTest, AccelerationEndClose) {
   std::vector<std::tuple<float, float, bool, bool>> ground_truth;
   ASSERT_TRUE(loadGroundTruth(gt_txt_path, ground_truth)) << "Failed to load ground truth file.";
   double correctness = computeCorrectness(cones_result_, ground_truth);
-  RCLCPP_INFO(test_node_->get_logger(), "Correctness score: %f percent", correctness);
+  RCLCPP_INFO(test_node_->get_logger(), "Correctness score: %.2f%%", correctness);
   EXPECT_GT(correctness, 80.0) << "Cone detection correctness below acceptable threshold.";
 
   executor.cancel();
@@ -315,7 +315,7 @@ TEST_F(PerceptionIntegrationTest, AccelerationEndMedium) {
   std::vector<std::tuple<float, float, bool, bool>> ground_truth;
   ASSERT_TRUE(loadGroundTruth(gt_txt_path, ground_truth)) << "Failed to load ground truth file.";
   double correctness = computeCorrectness(cones_result_, ground_truth);
-  RCLCPP_INFO(test_node_->get_logger(), "Correctness score: %f percent", correctness);
+  RCLCPP_INFO(test_node_->get_logger(), "Correctness score: %.2f%%", correctness);
   EXPECT_GT(correctness, 80.0) << "Cone detection correctness below acceptable threshold.";
 
   executor.cancel();
@@ -359,7 +359,7 @@ TEST_F(PerceptionIntegrationTest, AccelarationFar) {
   std::vector<std::tuple<float, float, bool, bool>> ground_truth;
   ASSERT_TRUE(loadGroundTruth(gt_txt_path, ground_truth)) << "Failed to load ground truth file.";
   double correctness = computeCorrectness(cones_result_, ground_truth);
-  RCLCPP_INFO(test_node_->get_logger(), "Correctness score: %f percent", correctness);
+  RCLCPP_INFO(test_node_->get_logger(), "Correctness score: %.2f%%", correctness);
   EXPECT_GT(correctness, 80.0) << "Cone detection correctness below acceptable threshold.";
 
   executor.cancel();
@@ -402,7 +402,7 @@ TEST_F(PerceptionIntegrationTest, EnterHairpin) {
   std::vector<std::tuple<float, float, bool, bool>> ground_truth;
   ASSERT_TRUE(loadGroundTruth(gt_txt_path, ground_truth)) << "Failed to load ground truth file.";
   double correctness = computeCorrectness(cones_result_, ground_truth);
-  RCLCPP_INFO(test_node_->get_logger(), "Correctness score: %f percent", correctness);
+  RCLCPP_INFO(test_node_->get_logger(), "Correctness score: %.2f%%", correctness);
   EXPECT_GT(correctness, 80.0) << "Cone detection correctness below acceptable threshold.";
 
   executor.cancel();
@@ -445,7 +445,7 @@ TEST_F(PerceptionIntegrationTest, TurnStart) {
   std::vector<std::tuple<float, float, bool, bool>> ground_truth;
   ASSERT_TRUE(loadGroundTruth(gt_txt_path, ground_truth)) << "Failed to load ground truth file.";
   double correctness = computeCorrectness(cones_result_, ground_truth);
-  RCLCPP_INFO(test_node_->get_logger(), "Correctness score: %f percent", correctness);
+  RCLCPP_INFO(test_node_->get_logger(), "Correctness score: %.2f%%", correctness);
   EXPECT_GT(correctness, 80.0) << "Cone detection correctness below acceptable threshold.";
 
   executor.cancel();
@@ -488,7 +488,7 @@ TEST_F(PerceptionIntegrationTest, OddStituation) {
   std::vector<std::tuple<float, float, bool, bool>> ground_truth;
   ASSERT_TRUE(loadGroundTruth(gt_txt_path, ground_truth)) << "Failed to load ground truth file.";
   double correctness = computeCorrectness(cones_result_, ground_truth);
-  RCLCPP_INFO(test_node_->get_logger(), "Correctness score: %f percent", correctness);
+  RCLCPP_INFO(test_node_->get_logger(), "Correctness score: %.2f%%", correctness);
   EXPECT_GT(correctness, 80.0) << "Cone detection correctness below acceptable threshold.";
 
   executor.cancel();
@@ -531,7 +531,7 @@ TEST_F(PerceptionIntegrationTest, DiagonalPath) {
   std::vector<std::tuple<float, float, bool, bool>> ground_truth;
   ASSERT_TRUE(loadGroundTruth(gt_txt_path, ground_truth)) << "Failed to load ground truth file.";
   double correctness = computeCorrectness(cones_result_, ground_truth);
-  RCLCPP_INFO(test_node_->get_logger(), "Correctness score: %f percent", correctness);
+  RCLCPP_INFO(test_node_->get_logger(), "Correctness score: %.2f%%", correctness);
   EXPECT_GT(correctness, 80.0) << "Cone detection correctness below acceptable threshold.";
 
   executor.cancel();
