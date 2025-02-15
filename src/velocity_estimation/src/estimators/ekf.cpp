@@ -63,7 +63,7 @@ void EKF::predict(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
   auto dt =
       std::chrono::duration_cast<std::chrono::duration<double>>(current_time_point - last_update)
           .count();
-  CVParticleModel cvparticle_model = CVParticleModel();
+  CAParticleModel cvparticle_model = CAParticleModel();
   auto jacobian = cvparticle_model.jacobian_of_velocity_update();
   covariance = jacobian * covariance * jacobian.transpose() + process_noise_matrix;
   cvparticle_model.update_velocities(state, imu_data.acceleration_x, imu_data.acceleration_y,

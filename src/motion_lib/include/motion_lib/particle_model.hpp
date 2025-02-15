@@ -5,9 +5,9 @@
 
 #include "common_lib/structures/velocities.hpp"
 
-class CVParticleModel {
+class CAParticleModel {
 public:
-  CVParticleModel() = default;
+  CAParticleModel() = default;
   /**
    * @brief Update velocities assuming period of time with constant accelerations acting in the
    * Center of Mass

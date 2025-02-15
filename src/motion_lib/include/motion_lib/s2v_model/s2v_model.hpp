@@ -32,9 +32,9 @@ public:
   /**
    * @brief Calculate rear axis coordinates
    *
-   * @param cg
-   * @param orientation
-   * @param dist_cg_2_rear_axis
+   * @param cg center of gravity position
+   * @param orientation orientation of the vehicle in radians relative to the world frame (ccw)
+   * @param dist_cg_2_rear_axis distance between the center of gravity and the rear axis
    *
    * @return Point
    */
@@ -43,29 +43,27 @@ public:
                                                               double dist_cg_2_rear_axis) = 0;
 
   /**
-   * @brief Estimate observations assuming a bicycle model and a set of parameters
+   * @brief Estimate wheel and motor velocities, as well as steering angle from the velocities of
+   * the center of gravity
    *
    * @param cg_velocities vector of velocities on the Center of Gravity {velocity_x, velocity_y,
-   * rotational_velocity}
-   * @param wheel_base distance between the front and rear wheels
-   * @param weight_distribution_front percentage of the vehicle's weight on the front wheels
-   * @param gear_ratio rotations of the motor for each rotation of the rear wheels
-   * @param wheel_radius radius of the rear wheels
-   * @return Eigen::VectorXd vector of observations {fl_rpm, fr_rpm, rl_rpm, rr_rpm, steering_angle,
-   * motor_rpm}
+   * rotational_velocity} in m/s and rad/s respectively
+   * @return Eigen::VectorXd vector of wheel speeds, steering angle and motor speed
+   * {fl_rpm, fr_rpm, rl_rpm, rr_rpm, steering_angle, motor_rpm}
    */
   virtual Eigen::VectorXd cg_velocity_to_wheels(Eigen::Vector3d& cg_velocities) = 0;
 
   /**
-   * @brief jacobian of the function estimate_observations with respect to the state
+   * @brief jacobian of the function cg_velocity_to_wheels with respect to the velocities of the
+   * center of gravity
+   *
+   * @details Each entry at row i and column j of the resulting matrix is the partial derivative of
+   * the i-th element of the output of function cg_velocity_to_wheels with respect to the j-th
+   * element of the vector cg_velocities
    *
    * @param cg_velocities vector of velocities on the Center of Gravity {velocity_x, velocity_y,
-   * rotational_velocity}
-   * @param wheel_base distance between the front and rear wheels
-   * @param weight_distribution_front percentage of the vehicle's weight on the front wheels
-   * @param gear_ratio rotations of the motor for each rotation of the rear wheels
-   * @param wheel_radius radius of the rear wheels
-   * @return Eigen::MatrixXd jacobian matrix of the function estimate_observations (6x3)
+   * rotational_velocity} in m/s and rad/s respectively
+   * @return Eigen::MatrixXd jacobian matrix of the function cg_velocity_to_wheels (dimensions: 6x3)
    */
   virtual Eigen::MatrixXd jacobian_cg_velocity_to_wheels(Eigen::Vector3d& cg_velocities) = 0;
 };

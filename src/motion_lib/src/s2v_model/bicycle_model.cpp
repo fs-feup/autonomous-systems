@@ -92,40 +92,42 @@ Eigen::MatrixXd BicycleModel::jacobian_cg_velocity_to_wheels(Eigen::Vector3d& cg
   if (front_wheel_velocity == 0) {
     front_wheel_velocity = 0.00001;
   }
-  vx = (std::fabs(vx) <= 0.001) ? 0.001 : vx;
-  if (vx < 0 && vx > 0) {
-    vx *= -1.0;
+  double temp_vx = (std::fabs(vx) <= 0.001) ? 0.001 : vx;
+  if (vx < 0 && temp_vx > 0) {
+    temp_vx = -temp_vx;
   }
+  vx = temp_vx;
   double sign = (vx < 0) ? -1.0 : 1.0;
   jacobian(0, 0) =
-      sign * 60 * 2 * vx / (M_PI * this->car_parameters_.wheel_diameter * 2 * rear_wheel_velocity);
-  jacobian(0, 1) = sign * 60 * 2 * (vy + omega * lf) /
-                   (M_PI * this->car_parameters_.wheel_diameter * 2 * front_wheel_velocity);
-  jacobian(0, 2) = sign * 60 * 2 * lf * (vy + omega * lf) /
-                   (M_PI * this->car_parameters_.wheel_diameter * 2 * front_wheel_velocity);
+      sign * 60 * vx / (M_PI * this->car_parameters_.wheel_diameter * front_wheel_velocity);
+  jacobian(0, 1) = sign * 60 * (vy + omega * lf) /
+                   (M_PI * this->car_parameters_.wheel_diameter * front_wheel_velocity);
+  jacobian(0, 2) = sign * 60 * lf * (vy + omega * lf) /
+                   (M_PI * this->car_parameters_.wheel_diameter * front_wheel_velocity);
   jacobian(1, 0) = jacobian(0, 0);
   jacobian(1, 1) = jacobian(0, 1);
   jacobian(1, 2) = jacobian(0, 2);
 
   jacobian(2, 0) =
-      sign * 60 * 2 * vx / (M_PI * this->car_parameters_.wheel_diameter * 2 * rear_wheel_velocity);
-  jacobian(2, 1) = sign * 60 * 2 * (vy - omega * lr) /
-                   (M_PI * this->car_parameters_.wheel_diameter * 2 * rear_wheel_velocity);
-  jacobian(2, 2) = sign * 60 * 2 * (-lr) * (vy - omega * lr) /
-                   (M_PI * this->car_parameters_.wheel_diameter * 2 * rear_wheel_velocity);
+      sign * 60 * vx / (M_PI * this->car_parameters_.wheel_diameter * rear_wheel_velocity);
+  jacobian(2, 1) = sign * 60 * (vy - omega * lr) /
+                   (M_PI * this->car_parameters_.wheel_diameter * rear_wheel_velocity);
+  jacobian(2, 2) = sign * 60 * (-lr) * (vy - omega * lr) /
+                   (M_PI * this->car_parameters_.wheel_diameter * rear_wheel_velocity);
   jacobian(3, 0) = jacobian(2, 0);
   jacobian(3, 1) = jacobian(2, 1);
   jacobian(3, 2) = jacobian(2, 2);
 
-  jacobian(4, 0) = (-(vy + omega * lf) / (vx * vx)) / (1 + pow((vy + omega * lf) / vx, 2));
-  jacobian(4, 1) = (1 / vx) / (1 + pow((vy + omega * lf) / vx, 2));
-  jacobian(4, 2) = (lf / vx) / (1 + pow((vy + omega * lf) / vx, 2));
+  double tan_squared = pow((vy + omega * lf) / vx, 2);
+  jacobian(4, 0) = (-(vy + omega * lf) / (vx * vx)) / (1 + tan_squared);
+  jacobian(4, 1) = (1 / vx) / (1 + tan_squared);
+  jacobian(4, 2) = (lf / vx) / (1 + tan_squared);
 
-  jacobian(5, 0) = sign * this->car_parameters_.gear_ratio * 60 * 2 * vx /
-                   (M_PI * this->car_parameters_.wheel_diameter * 2 * rear_wheel_velocity);
-  jacobian(5, 1) = sign * this->car_parameters_.gear_ratio * 60 * 2 * (vy - omega * lr) /
-                   (M_PI * this->car_parameters_.wheel_diameter * 2 * rear_wheel_velocity);
-  jacobian(5, 2) = sign * this->car_parameters_.gear_ratio * 60 * 2 * (-lr) * (vy - omega * lr) /
-                   (M_PI * this->car_parameters_.wheel_diameter * 2 * rear_wheel_velocity);
+  jacobian(5, 0) = sign * this->car_parameters_.gear_ratio * 60 * vx /
+                   (M_PI * this->car_parameters_.wheel_diameter * rear_wheel_velocity);
+  jacobian(5, 1) = sign * this->car_parameters_.gear_ratio * 60 * (vy - omega * lr) /
+                   (M_PI * this->car_parameters_.wheel_diameter * rear_wheel_velocity);
+  jacobian(5, 2) = sign * this->car_parameters_.gear_ratio * 60 * (-lr) * (vy - omega * lr) /
+                   (M_PI * this->car_parameters_.wheel_diameter * rear_wheel_velocity);
   return jacobian;
 }
