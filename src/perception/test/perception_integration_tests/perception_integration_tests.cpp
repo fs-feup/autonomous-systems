@@ -47,14 +47,20 @@ double computeCorrectness(const custom_interfaces::msg::ConeArray::SharedPtr& de
     if (!found) false_positives++;
   }
 
-  // Represent correctness as a f1_score
-  int false_negatives = std::max((int)ground_truth.size() - true_positives, 0);
+  // Calculate false negatives
+  int false_negatives = std::count_if(ground_truth.begin(), ground_truth.end(),
+                                      [](const auto& gt) { return !std::get<3>(gt); });
 
-  double precision = true_positives / true_positives + false_positives;
-  double recall = true_positives / true_positives + false_negatives;
+  // Compute precision and recall
+  double precision =
+      (true_positives == 0) ? 0.0 : (double)true_positives / (true_positives + false_positives);
+  double recall =
+      (true_positives == 0) ? 0.0 : (double)true_positives / (true_positives + false_negatives);
 
-  if (precision == 0.0 || recall == 0.0) return 0.0;  // Avoid division by zero
+  // Avoid division by zero
+  if (precision == 0.0 && recall == 0.0) return 0.0;
 
+  // Compute F1-score
   double f1_score = 2.0 * (precision * recall) / (precision + recall);
   return f1_score * 100.0;  // Return as percentage
 }
@@ -221,7 +227,7 @@ TEST_F(PerceptionIntegrationTest, StraightLine) {
   std::vector<std::tuple<float, float, bool, bool>> ground_truth;
   ASSERT_TRUE(loadGroundTruth(gt_txt_path, ground_truth)) << "Failed to load ground truth file.";
   double correctness = computeCorrectness(cones_result_, ground_truth);
-  RCLCPP_INFO(test_node_->get_logger(), "Correctness score: %f percent", correctness);
+  RCLCPP_INFO(test_node_->get_logger(), "Correctness score: %.2f%%", correctness);
   EXPECT_GT(correctness, 80.0) << "Cone detection correctness below acceptable threshold.";
 
   executor.cancel();
