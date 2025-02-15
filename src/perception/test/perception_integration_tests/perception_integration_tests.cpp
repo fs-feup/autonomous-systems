@@ -11,6 +11,72 @@
 #include "perception/perception_node.hpp"
 
 /**
+ *@brief Helper function to load ground truth cone positions from a file.
+ *
+ */
+bool loadGroundTruth(const std::string& file_path,
+                     std::vector<std::tuple<float, float, bool, bool>>& ground_truth) {
+  std::ifstream file(file_path);
+  if (!file.is_open()) return false;
+
+  float x, y;
+  int is_large;
+  while (file >> x >> y >> is_large) {
+    ground_truth.emplace_back(x, y, is_large, false);
+  }
+  return true;
+}
+
+double computeCorrectness(const custom_interfaces::msg::ConeArray::SharedPtr& detected,
+                          std::vector<std::tuple<float, float, bool, bool>> ground_truth,
+                          float tolerance = 0.2) {
+  int true_positives = 0;
+  int false_positives = 0;
+
+  for (const auto& cone : detected->cone_array) {
+    bool found = false;
+    for (auto& [gt_x, gt_y, gt_is_large, gt_found] : ground_truth) {
+      float distance = std::hypot(cone.position.x - gt_x, cone.position.y - gt_y);
+      if (distance < tolerance && cone.is_large == gt_is_large && !gt_found) {
+        true_positives++;
+        gt_found = true;
+        found = true;
+        break;
+      }
+    }
+    if (!found) false_positives++;
+  }
+
+  // Represent correctness as a f1_score
+  int false_negatives = std::max((int)ground_truth.size() - true_positives, 0);
+
+  double precision = true_positives / true_positives + false_positives;
+  double recall = true_positives / true_positives + false_negatives;
+
+  if (precision == 0.0 || recall == 0.0) return 0.0;  // Avoid division by zero
+
+  double f1_score = 2.0 * (precision * recall) / (precision + recall);
+  return f1_score * 100.0;  // Return as percentage
+}
+
+/**
+ * @brief Generates a cylinder made of pcl points, used to add the found cones in the results pcl.
+ */
+void generateCylinder(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, float radius, float height,
+                      float centerX, float centerY, int numSlices, int numHeightSegments,
+                      float intensity) {
+  for (int i = 0; i <= numHeightSegments; ++i) {
+    float z = i * height / numHeightSegments;
+    for (int j = 0; j < numSlices; ++j) {
+      float theta = 2.0 * M_PI * j / numSlices;
+      float x = centerX + radius * cos(theta);
+      float y = centerY + radius * sin(theta);
+      cloud->points.emplace_back(x, y, z, intensity);
+    }
+  }
+}
+
+/**
  * @brief Test class for blackbox perception integration tests.
  * (When using pcd-viewer or other extension the result clouds only update after they are manually
  * reset)
@@ -59,30 +125,12 @@ protected:
     result_cloud_ = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
   }
 
-  /**
-   * @brief Generates a cylinder made of pcl points, used to add the found cones in the results pcl.
-   */
-  void generateCylinder(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, float radius, float height,
-                        float centerX, float centerY, int numSlices, int numHeightSegments,
-                        float intensity) {
-    for (int i = 0; i <= numHeightSegments; ++i) {
-      float z = i * height / numHeightSegments;
-      for (int j = 0; j < numSlices; ++j) {
-        float theta = 2.0 * M_PI * j / numSlices;
-        float x = centerX + radius * cos(theta);
-        float y = centerY + radius * sin(theta);
-        cloud->points.emplace_back(x, y, z, intensity);
-      }
-    }
-  }
-
   void TearDown() override { rclcpp::shutdown(); }
 
-  void publish_pcd(const std::string& pcd_file_path) {
-    // Load the PCD file
+  void publish_pcd(const std::string& input_pcd_path) {
     pcl::PointCloud<pcl::PointXYZI> pcl_cloud;
-    if (pcl::io::loadPCDFile<pcl::PointXYZI>(pcd_file_path, pcl_cloud) == -1) {
-      throw std::runtime_error("Could not load PCD file: " + pcd_file_path);
+    if (pcl::io::loadPCDFile<pcl::PointXYZI>(input_pcd_path, pcl_cloud) == -1) {
+      throw std::runtime_error("Could not load PCD file: " + input_pcd_path);
     }
 
     // Convert PCL cloud to ROS PointCloud2 message
@@ -94,43 +142,21 @@ protected:
     // Publish the message
     pcl_publisher_->publish(msg);
   }
-};
 
-/**
- * @brief Straight line test for perception node from rosbag: Accelaration_Testing_DV_1B.mcap
- */
-TEST_F(PerceptionIntegrationTest, StraigthLine) {
-  auto params = Perception::load_config();
-  rclcpp::Node::SharedPtr perception_node = std::make_shared<Perception>(params);
-  ASSERT_NE(perception_node, nullptr) << "Failed to initialize Perception node.";
-
-  rclcpp::executors::SingleThreadedExecutor executor;
-  executor.add_node(perception_node);
-  executor.add_node(test_node_);
-
-  std::string pcd_file_path =
-      "../../src/perception/test/perception_integration_tests/point_clouds/straigth_line.pcd";
-  ASSERT_TRUE(std::filesystem::exists(pcd_file_path))
-      << "PCD file does not exist: " << pcd_file_path;
-
-  try {
-    publish_pcd(pcd_file_path);
-  } catch (const std::exception& e) {
-    FAIL() << "Failed to publish PCD: " << e.what();
+  bool waitForCones(rclcpp::executors::SingleThreadedExecutor& executor, int timeout_sec = 2) {
+    auto start_time = std::chrono::steady_clock::now();
+    while (!cones_received_ &&
+           std::chrono::steady_clock::now() - start_time < std::chrono::seconds(timeout_sec)) {
+      executor.spin_some();
+      rclcpp::sleep_for(std::chrono::milliseconds(100));
+    }
+    return cones_received_;
   }
 
-  auto start_time = std::chrono::steady_clock::now();
-  while (!cones_received_ &&
-         std::chrono::steady_clock::now() - start_time < std::chrono::seconds(2)) {
-    executor.spin_some();
-    rclcpp::sleep_for(std::chrono::milliseconds(100));  // Prevent busy-waiting
-  }
-
-  EXPECT_TRUE(cones_received_) << "No cones received within the timeout.";
-  if (cones_received_) {
-    if (cones_result_->cone_array.size() != 6)
+  void writeResults(std::string output_pcd_path, int cone_gt, int large_cone_gt) {
+    if ((int)cones_result_->cone_array.size() != cone_gt)
       RCLCPP_INFO(test_node_->get_logger(), "Wrong number of cones: detected->%ld expected->%d",
-                  cones_result_->cone_array.size(), 6);
+                  cones_result_->cone_array.size(), cone_gt);
 
     int large_count = 0;
     for (auto cone : cones_result_->cone_array) {
@@ -142,22 +168,63 @@ TEST_F(PerceptionIntegrationTest, StraigthLine) {
       }
     }
 
-    if (large_count != 0)
+    if (large_count != large_cone_gt)
       RCLCPP_INFO(test_node_->get_logger(), "Wrong number of cones: detected->%d expected->%d",
-                  large_count, 0);
+                  large_count, large_cone_gt);
     // Number of points in the PCD should be height*width
     result_cloud_->width = result_cloud_->points.size();
     result_cloud_->height = 1;
 
     // Save the generated cloud to a PCD file
-    std::string output_pcd_path =
-        "../../src/perception/test/perception_integration_tests/results/straight_line.pcd";
     if (pcl::io::savePCDFile(output_pcd_path, *result_cloud_) == -1) {
       RCLCPP_ERROR(test_node_->get_logger(), "Failed to save result PCD file.");
     } else {
       RCLCPP_INFO(test_node_->get_logger(), "Result cloud saved to: %s", output_pcd_path.c_str());
     }
   }
+};
+
+/**
+ * @brief Straight line test for perception node from rosbag: Accelaration_Testing_DV_1B.mcap
+ */
+TEST_F(PerceptionIntegrationTest, StraightLine) {
+  std::string test_name = "straight_line";
+  auto params = Perception::load_config();
+  rclcpp::Node::SharedPtr perception_node = std::make_shared<Perception>(params);
+  ASSERT_NE(perception_node, nullptr) << "Failed to initialize Perception node.";
+
+  rclcpp::executors::SingleThreadedExecutor executor;
+  executor.add_node(perception_node);
+  executor.add_node(test_node_);
+
+  std::string input_pcd_path =
+      "../../src/perception/test/perception_integration_tests/point_clouds/" + test_name + ".pcd";
+  ASSERT_TRUE(std::filesystem::exists(input_pcd_path))
+      << "PCD file does not exist: " << input_pcd_path;
+  std::string output_pcd_path =
+      "../../src/perception/test/perception_integration_tests/results/" + test_name + ".pcd";
+  ASSERT_TRUE(std::filesystem::exists(output_pcd_path))
+      << "Output file does not exist: " << output_pcd_path;
+  std::string gt_txt_path =
+      "../../src/perception/test/perception_integration_tests/ground_truths/" + test_name + ".txt";
+  ASSERT_TRUE(std::filesystem::exists(gt_txt_path))
+      << "Ground truth file does not exist: " << gt_txt_path;
+
+  try {
+    publish_pcd(input_pcd_path);
+  } catch (const std::exception& e) {
+    FAIL() << "Failed to publish PCD: " << e.what();
+  }
+
+  ASSERT_TRUE(waitForCones(executor));
+
+  writeResults(output_pcd_path, 6, 0);
+
+  std::vector<std::tuple<float, float, bool, bool>> ground_truth;
+  ASSERT_TRUE(loadGroundTruth(gt_txt_path, ground_truth)) << "Failed to load ground truth file.";
+  double correctness = computeCorrectness(cones_result_, ground_truth);
+  RCLCPP_INFO(test_node_->get_logger(), "Correctness score: %f percent", correctness);
+  EXPECT_GT(correctness, 80.0) << "Cone detection correctness below acceptable threshold.";
 
   executor.cancel();
 }
@@ -166,7 +233,8 @@ TEST_F(PerceptionIntegrationTest, StraigthLine) {
  * @brief Close to accelaration end test for perception node from rosbag:
  * Accelaration_Testing_Manual-4.mcap
  */
-TEST_F(PerceptionIntegrationTest, AccelarationClose) {
+TEST_F(PerceptionIntegrationTest, AccelerationEndClose) {
+  std::string test_name = "acceleration_end_close";
   auto params = Perception::load_config();
   rclcpp::Node::SharedPtr perception_node = std::make_shared<Perception>(params);
   ASSERT_NE(perception_node, nullptr) << "Failed to initialize Perception node.";
@@ -175,59 +243,34 @@ TEST_F(PerceptionIntegrationTest, AccelarationClose) {
   executor.add_node(perception_node);
   executor.add_node(test_node_);
 
-  std::string pcd_file_path =
-      "../../src/perception/test/perception_integration_tests/point_clouds/"
-      "accelaration_end_close.pcd";
-  ASSERT_TRUE(std::filesystem::exists(pcd_file_path))
-      << "PCD file does not exist: " << pcd_file_path;
+  std::string input_pcd_path =
+      "../../src/perception/test/perception_integration_tests/point_clouds/" + test_name + ".pcd";
+  ASSERT_TRUE(std::filesystem::exists(input_pcd_path))
+      << "PCD file does not exist: " << input_pcd_path;
+  std::string output_pcd_path =
+      "../../src/perception/test/perception_integration_tests/results/" + test_name + ".pcd";
+  ASSERT_TRUE(std::filesystem::exists(output_pcd_path))
+      << "Output file does not exist: " << output_pcd_path;
+  std::string gt_txt_path =
+      "../../src/perception/test/perception_integration_tests/ground_truths/" + test_name + ".txt";
+  ASSERT_TRUE(std::filesystem::exists(gt_txt_path))
+      << "Ground truth file does not exist: " << gt_txt_path;
 
   try {
-    publish_pcd(pcd_file_path);
+    publish_pcd(input_pcd_path);
   } catch (const std::exception& e) {
     FAIL() << "Failed to publish PCD: " << e.what();
   }
 
-  auto start_time = std::chrono::steady_clock::now();
-  while (!cones_received_ &&
-         std::chrono::steady_clock::now() - start_time < std::chrono::seconds(2)) {
-    executor.spin_some();
-    rclcpp::sleep_for(std::chrono::milliseconds(100));  // Prevent busy-waiting
-  }
+  ASSERT_TRUE(waitForCones(executor));
 
-  EXPECT_TRUE(cones_received_) << "No cones received within the timeout.";
-  if (cones_received_) {
-    if (cones_result_->cone_array.size() != 12)
-      RCLCPP_INFO(test_node_->get_logger(), "Wrong number of cones: detected->%ld expected->%d",
-                  cones_result_->cone_array.size(), 12);
+  writeResults(output_pcd_path, 12, 4);
 
-    int large_count = 0;
-    for (auto cone : cones_result_->cone_array) {
-      if (cone.is_large) {
-        large_count++;
-        generateCylinder(result_cloud_, 0.220, 0.605, cone.position.x, cone.position.y, 50, 50, 14);
-      } else {
-        generateCylinder(result_cloud_, 0.150, 0.325, cone.position.x, cone.position.y, 50, 50, 36);
-      }
-    }
-
-    if (large_count != 4)
-      RCLCPP_INFO(test_node_->get_logger(), "Wrong number of cones: detected->%d expected->%d",
-                  large_count, 4);
-
-    // Number of points in the PCD should be height*width
-    result_cloud_->width = result_cloud_->points.size();
-    result_cloud_->height = 1;
-
-    // Save the generated cloud to a PCD file
-    std::string output_pcd_path =
-        "../../src/perception/test/perception_integration_tests/results/"
-        "accelaration_end_close.pcd";
-    if (pcl::io::savePCDFile(output_pcd_path, *result_cloud_) == -1) {
-      RCLCPP_ERROR(test_node_->get_logger(), "Failed to save result PCD file.");
-    } else {
-      RCLCPP_INFO(test_node_->get_logger(), "Result cloud saved to: %s", output_pcd_path.c_str());
-    }
-  }
+  std::vector<std::tuple<float, float, bool, bool>> ground_truth;
+  ASSERT_TRUE(loadGroundTruth(gt_txt_path, ground_truth)) << "Failed to load ground truth file.";
+  double correctness = computeCorrectness(cones_result_, ground_truth);
+  RCLCPP_INFO(test_node_->get_logger(), "Correctness score: %f percent", correctness);
+  EXPECT_GT(correctness, 80.0) << "Cone detection correctness below acceptable threshold.";
 
   executor.cancel();
 }
@@ -236,7 +279,8 @@ TEST_F(PerceptionIntegrationTest, AccelarationClose) {
  * @brief Medium distance to accelaration end test for perception node from rosbag:
  * Accelaration_Testing_Manual-4.mcap
  */
-TEST_F(PerceptionIntegrationTest, AccelarationMedium) {
+TEST_F(PerceptionIntegrationTest, AccelerationEndMedium) {
+  std::string test_name = "acceleration_end_medium";
   auto params = Perception::load_config();
   rclcpp::Node::SharedPtr perception_node = std::make_shared<Perception>(params);
   ASSERT_NE(perception_node, nullptr) << "Failed to initialize Perception node.";
@@ -245,59 +289,34 @@ TEST_F(PerceptionIntegrationTest, AccelarationMedium) {
   executor.add_node(perception_node);
   executor.add_node(test_node_);
 
-  std::string pcd_file_path =
-      "../../src/perception/test/perception_integration_tests/point_clouds/"
-      "accelaration_end_medium.pcd";
-  ASSERT_TRUE(std::filesystem::exists(pcd_file_path))
-      << "PCD file does not exist: " << pcd_file_path;
+  std::string input_pcd_path =
+      "../../src/perception/test/perception_integration_tests/point_clouds/" + test_name + ".pcd";
+  ASSERT_TRUE(std::filesystem::exists(input_pcd_path))
+      << "PCD file does not exist: " << input_pcd_path;
+  std::string output_pcd_path =
+      "../../src/perception/test/perception_integration_tests/results/" + test_name + ".pcd";
+  ASSERT_TRUE(std::filesystem::exists(output_pcd_path))
+      << "Output file does not exist: " << output_pcd_path;
+  std::string gt_txt_path =
+      "../../src/perception/test/perception_integration_tests/ground_truths/" + test_name + ".txt";
+  ASSERT_TRUE(std::filesystem::exists(gt_txt_path))
+      << "Ground truth file does not exist: " << gt_txt_path;
 
   try {
-    publish_pcd(pcd_file_path);
+    publish_pcd(input_pcd_path);
   } catch (const std::exception& e) {
     FAIL() << "Failed to publish PCD: " << e.what();
   }
 
-  auto start_time = std::chrono::steady_clock::now();
-  while (!cones_received_ &&
-         std::chrono::steady_clock::now() - start_time < std::chrono::seconds(2)) {
-    executor.spin_some();
-    rclcpp::sleep_for(std::chrono::milliseconds(100));  // Prevent busy-waiting
-  }
+  ASSERT_TRUE(waitForCones(executor));
 
-  EXPECT_TRUE(cones_received_) << "No cones received within the timeout.";
-  if (cones_received_) {
-    if (cones_result_->cone_array.size() != 12)
-      RCLCPP_INFO(test_node_->get_logger(), "Wrong number of cones: detected->%ld expected->%d",
-                  cones_result_->cone_array.size(), 12);
+  writeResults(output_pcd_path, 14, 4);
 
-    int large_count = 0;
-    for (auto cone : cones_result_->cone_array) {
-      if (cone.is_large) {
-        large_count++;
-        generateCylinder(result_cloud_, 0.220, 0.605, cone.position.x, cone.position.y, 50, 50, 14);
-      } else {
-        generateCylinder(result_cloud_, 0.150, 0.325, cone.position.x, cone.position.y, 50, 50, 36);
-      }
-    }
-
-    if (large_count != 4)
-      RCLCPP_INFO(test_node_->get_logger(), "Wrong number of cones: detected->%d expected->%d",
-                  large_count, 4);
-
-    // Number of points in the PCD should be height*width
-    result_cloud_->width = result_cloud_->points.size();
-    result_cloud_->height = 1;
-
-    // Save the generated cloud to a PCD file
-    std::string output_pcd_path =
-        "../../src/perception/test/perception_integration_tests/results/"
-        "accelaration_end_medium.pcd";
-    if (pcl::io::savePCDFile(output_pcd_path, *result_cloud_) == -1) {
-      RCLCPP_ERROR(test_node_->get_logger(), "Failed to save result PCD file.");
-    } else {
-      RCLCPP_INFO(test_node_->get_logger(), "Result cloud saved to: %s", output_pcd_path.c_str());
-    }
-  }
+  std::vector<std::tuple<float, float, bool, bool>> ground_truth;
+  ASSERT_TRUE(loadGroundTruth(gt_txt_path, ground_truth)) << "Failed to load ground truth file.";
+  double correctness = computeCorrectness(cones_result_, ground_truth);
+  RCLCPP_INFO(test_node_->get_logger(), "Correctness score: %f percent", correctness);
+  EXPECT_GT(correctness, 80.0) << "Cone detection correctness below acceptable threshold.";
 
   executor.cancel();
 }
@@ -307,6 +326,7 @@ TEST_F(PerceptionIntegrationTest, AccelarationMedium) {
  * Accelaration_Testing_Manual-4.mcap
  */
 TEST_F(PerceptionIntegrationTest, AccelarationFar) {
+  std::string test_name = "acceleration_end_far";
   auto params = Perception::load_config();
   rclcpp::Node::SharedPtr perception_node = std::make_shared<Perception>(params);
   ASSERT_NE(perception_node, nullptr) << "Failed to initialize Perception node.";
@@ -315,59 +335,34 @@ TEST_F(PerceptionIntegrationTest, AccelarationFar) {
   executor.add_node(perception_node);
   executor.add_node(test_node_);
 
-  std::string pcd_file_path =
-      "../../src/perception/test/perception_integration_tests/point_clouds/"
-      "accelaration_end_far.pcd";
-  ASSERT_TRUE(std::filesystem::exists(pcd_file_path))
-      << "PCD file does not exist: " << pcd_file_path;
+  std::string input_pcd_path =
+      "../../src/perception/test/perception_integration_tests/point_clouds/" + test_name + ".pcd";
+  ASSERT_TRUE(std::filesystem::exists(input_pcd_path))
+      << "PCD file does not exist: " << input_pcd_path;
+  std::string output_pcd_path =
+      "../../src/perception/test/perception_integration_tests/results/" + test_name + ".pcd";
+  ASSERT_TRUE(std::filesystem::exists(output_pcd_path))
+      << "Output file does not exist: " << output_pcd_path;
+  std::string gt_txt_path =
+      "../../src/perception/test/perception_integration_tests/ground_truths/" + test_name + ".txt";
+  ASSERT_TRUE(std::filesystem::exists(gt_txt_path))
+      << "Ground truth file does not exist: " << gt_txt_path;
 
   try {
-    publish_pcd(pcd_file_path);
+    publish_pcd(input_pcd_path);
   } catch (const std::exception& e) {
     FAIL() << "Failed to publish PCD: " << e.what();
   }
 
-  auto start_time = std::chrono::steady_clock::now();
-  while (!cones_received_ &&
-         std::chrono::steady_clock::now() - start_time < std::chrono::seconds(2)) {
-    executor.spin_some();
-    rclcpp::sleep_for(std::chrono::milliseconds(100));  // Prevent busy-waiting
-  }
+  ASSERT_TRUE(waitForCones(executor));
 
-  EXPECT_TRUE(cones_received_) << "No cones received within the timeout.";
-  if (cones_received_) {
-    if (cones_result_->cone_array.size() != 14)
-      RCLCPP_INFO(test_node_->get_logger(), "Wrong number of cones: detected->%ld expected->%d",
-                  cones_result_->cone_array.size(), 14);
+  writeResults(output_pcd_path, 14, 4);
 
-    int large_count = 0;
-    for (auto cone : cones_result_->cone_array) {
-      if (cone.is_large) {
-        large_count++;
-        generateCylinder(result_cloud_, 0.220, 0.605, cone.position.x, cone.position.y, 50, 50, 14);
-      } else {
-        generateCylinder(result_cloud_, 0.150, 0.325, cone.position.x, cone.position.y, 50, 50, 36);
-      }
-    }
-
-    if (large_count != 4)
-      RCLCPP_INFO(test_node_->get_logger(),
-                  "Wrong number of large cones: detected->%d expected->%d", large_count, 4);
-
-    // Number of points in the PCD should be height*width
-    result_cloud_->width = result_cloud_->points.size();
-    result_cloud_->height = 1;
-
-    // Save the generated cloud to a PCD file
-    std::string output_pcd_path =
-        "../../src/perception/test/perception_integration_tests/results/"
-        "accelaration_end_far.pcd";
-    if (pcl::io::savePCDFile(output_pcd_path, *result_cloud_) == -1) {
-      RCLCPP_ERROR(test_node_->get_logger(), "Failed to save result PCD file.");
-    } else {
-      RCLCPP_INFO(test_node_->get_logger(), "Result cloud saved to: %s", output_pcd_path.c_str());
-    }
-  }
+  std::vector<std::tuple<float, float, bool, bool>> ground_truth;
+  ASSERT_TRUE(loadGroundTruth(gt_txt_path, ground_truth)) << "Failed to load ground truth file.";
+  double correctness = computeCorrectness(cones_result_, ground_truth);
+  RCLCPP_INFO(test_node_->get_logger(), "Correctness score: %f percent", correctness);
+  EXPECT_GT(correctness, 80.0) << "Cone detection correctness below acceptable threshold.";
 
   executor.cancel();
 }
@@ -376,6 +371,7 @@ TEST_F(PerceptionIntegrationTest, AccelarationFar) {
  * @brief Blind turn test for perception node from rosbag: Closed_Course_Manual-6.mcap
  */
 TEST_F(PerceptionIntegrationTest, EnterHairpin) {
+  std::string test_name = "enter_hairpin";
   auto params = Perception::load_config();
   rclcpp::Node::SharedPtr perception_node = std::make_shared<Perception>(params);
   ASSERT_NE(perception_node, nullptr) << "Failed to initialize Perception node.";
@@ -384,59 +380,34 @@ TEST_F(PerceptionIntegrationTest, EnterHairpin) {
   executor.add_node(perception_node);
   executor.add_node(test_node_);
 
-  std::string pcd_file_path =
-      "../../src/perception/test/perception_integration_tests/point_clouds/"
-      "enter_hairpin.pcd";
-  ASSERT_TRUE(std::filesystem::exists(pcd_file_path))
-      << "PCD file does not exist: " << pcd_file_path;
+  std::string input_pcd_path =
+      "../../src/perception/test/perception_integration_tests/point_clouds/" + test_name + ".pcd";
+  ASSERT_TRUE(std::filesystem::exists(input_pcd_path))
+      << "PCD file does not exist: " << input_pcd_path;
+  std::string output_pcd_path =
+      "../../src/perception/test/perception_integration_tests/results/" + test_name + ".pcd";
+  ASSERT_TRUE(std::filesystem::exists(output_pcd_path))
+      << "Output file does not exist: " << output_pcd_path;
+  std::string gt_txt_path =
+      "../../src/perception/test/perception_integration_tests/ground_truths/" + test_name + ".txt";
+  ASSERT_TRUE(std::filesystem::exists(gt_txt_path))
+      << "Ground truth file does not exist: " << gt_txt_path;
 
   try {
-    publish_pcd(pcd_file_path);
+    publish_pcd(input_pcd_path);
   } catch (const std::exception& e) {
     FAIL() << "Failed to publish PCD: " << e.what();
   }
 
-  auto start_time = std::chrono::steady_clock::now();
-  while (!cones_received_ &&
-         std::chrono::steady_clock::now() - start_time < std::chrono::seconds(2)) {
-    executor.spin_some();
-    rclcpp::sleep_for(std::chrono::milliseconds(100));  // Prevent busy-waiting
-  }
+  ASSERT_TRUE(waitForCones(executor));
 
-  EXPECT_TRUE(cones_received_) << "No cones received within the timeout.";
-  if (cones_received_) {
-    if (cones_result_->cone_array.size() != 10)
-      RCLCPP_INFO(test_node_->get_logger(), "Wrong number of cones: detected->%ld expected->%d",
-                  cones_result_->cone_array.size(), 10);
+  writeResults(output_pcd_path, 10, 0);
 
-    int large_count = 0;
-    for (auto cone : cones_result_->cone_array) {
-      if (cone.is_large) {
-        large_count++;
-        generateCylinder(result_cloud_, 0.20, 0.605, cone.position.x, cone.position.y, 50, 50, 14);
-      } else {
-        generateCylinder(result_cloud_, 0.10, 0.325, cone.position.x, cone.position.y, 50, 50, 36);
-      }
-    }
-
-    if (large_count != 0)
-      RCLCPP_INFO(test_node_->get_logger(), "Wrong number of cones: detected->%d expected->%d",
-                  large_count, 0);
-
-    // Number of points in the PCD should be height*width
-    result_cloud_->width = result_cloud_->points.size();
-    result_cloud_->height = 1;
-
-    // Save the generated cloud to a PCD file
-    std::string output_pcd_path =
-        "../../src/perception/test/perception_integration_tests/results/"
-        "enter_hairpin.pcd";
-    if (pcl::io::savePCDFile(output_pcd_path, *result_cloud_) == -1) {
-      RCLCPP_ERROR(test_node_->get_logger(), "Failed to save result PCD file.");
-    } else {
-      RCLCPP_INFO(test_node_->get_logger(), "Result cloud saved to: %s", output_pcd_path.c_str());
-    }
-  }
+  std::vector<std::tuple<float, float, bool, bool>> ground_truth;
+  ASSERT_TRUE(loadGroundTruth(gt_txt_path, ground_truth)) << "Failed to load ground truth file.";
+  double correctness = computeCorrectness(cones_result_, ground_truth);
+  RCLCPP_INFO(test_node_->get_logger(), "Correctness score: %f percent", correctness);
+  EXPECT_GT(correctness, 80.0) << "Cone detection correctness below acceptable threshold.";
 
   executor.cancel();
 }
@@ -445,6 +416,7 @@ TEST_F(PerceptionIntegrationTest, EnterHairpin) {
  * @brief Turn test for perception node from rosbag: Hard_Course-DV-5.mcap
  */
 TEST_F(PerceptionIntegrationTest, TurnStart) {
+  std::string test_name = "turn_start";
   auto params = Perception::load_config();
   rclcpp::Node::SharedPtr perception_node = std::make_shared<Perception>(params);
   ASSERT_NE(perception_node, nullptr) << "Failed to initialize Perception node.";
@@ -453,59 +425,34 @@ TEST_F(PerceptionIntegrationTest, TurnStart) {
   executor.add_node(perception_node);
   executor.add_node(test_node_);
 
-  std::string pcd_file_path =
-      "../../src/perception/test/perception_integration_tests/point_clouds/"
-      "turn_start.pcd";
-  ASSERT_TRUE(std::filesystem::exists(pcd_file_path))
-      << "PCD file does not exist: " << pcd_file_path;
+  std::string input_pcd_path =
+      "../../src/perception/test/perception_integration_tests/point_clouds/" + test_name + ".pcd";
+  ASSERT_TRUE(std::filesystem::exists(input_pcd_path))
+      << "PCD file does not exist: " << input_pcd_path;
+  std::string output_pcd_path =
+      "../../src/perception/test/perception_integration_tests/results/" + test_name + ".pcd";
+  ASSERT_TRUE(std::filesystem::exists(output_pcd_path))
+      << "Output file does not exist: " << output_pcd_path;
+  std::string gt_txt_path =
+      "../../src/perception/test/perception_integration_tests/ground_truths/" + test_name + ".txt";
+  ASSERT_TRUE(std::filesystem::exists(gt_txt_path))
+      << "Ground truth file does not exist: " << gt_txt_path;
 
   try {
-    publish_pcd(pcd_file_path);
+    publish_pcd(input_pcd_path);
   } catch (const std::exception& e) {
     FAIL() << "Failed to publish PCD: " << e.what();
   }
 
-  auto start_time = std::chrono::steady_clock::now();
-  while (!cones_received_ &&
-         std::chrono::steady_clock::now() - start_time < std::chrono::seconds(2)) {
-    executor.spin_some();
-    rclcpp::sleep_for(std::chrono::milliseconds(100));  // Prevent busy-waiting
-  }
+  ASSERT_TRUE(waitForCones(executor));
 
-  EXPECT_TRUE(cones_received_) << "No cones received within the timeout.";
-  if (cones_received_) {
-    if (cones_result_->cone_array.size() != 12)
-      RCLCPP_INFO(test_node_->get_logger(), "Wrong number of cones: detected->%ld expected->%d",
-                  cones_result_->cone_array.size(), 12);
+  writeResults(output_pcd_path, 13, 0);
 
-    int large_count = 0;
-    for (auto cone : cones_result_->cone_array) {
-      if (cone.is_large) {
-        large_count++;
-        generateCylinder(result_cloud_, 0.220, 0.605, cone.position.x, cone.position.y, 50, 50, 14);
-      } else {
-        generateCylinder(result_cloud_, 0.150, 0.325, cone.position.x, cone.position.y, 50, 50, 36);
-      }
-    }
-
-    if (large_count != 0)
-      RCLCPP_INFO(test_node_->get_logger(), "Wrong number of cones: detected->%d expected->%d",
-                  large_count, 0);
-
-    // Number of points in the PCD should be height*width
-    result_cloud_->width = result_cloud_->points.size();
-    result_cloud_->height = 1;
-
-    // Save the generated cloud to a PCD file
-    std::string output_pcd_path =
-        "../../src/perception/test/perception_integration_tests/results/"
-        "turn_start.pcd";
-    if (pcl::io::savePCDFile(output_pcd_path, *result_cloud_) == -1) {
-      RCLCPP_ERROR(test_node_->get_logger(), "Failed to save result PCD file.");
-    } else {
-      RCLCPP_INFO(test_node_->get_logger(), "Result cloud saved to: %s", output_pcd_path.c_str());
-    }
-  }
+  std::vector<std::tuple<float, float, bool, bool>> ground_truth;
+  ASSERT_TRUE(loadGroundTruth(gt_txt_path, ground_truth)) << "Failed to load ground truth file.";
+  double correctness = computeCorrectness(cones_result_, ground_truth);
+  RCLCPP_INFO(test_node_->get_logger(), "Correctness score: %f percent", correctness);
+  EXPECT_GT(correctness, 80.0) << "Cone detection correctness below acceptable threshold.";
 
   executor.cancel();
 }
@@ -514,6 +461,7 @@ TEST_F(PerceptionIntegrationTest, TurnStart) {
  * @brief Odd situation test for perception node from rosbag: Hard_Course-DV-5.mcap
  */
 TEST_F(PerceptionIntegrationTest, OddStituation) {
+  std::string test_name = "odd_situation";
   auto params = Perception::load_config();
   rclcpp::Node::SharedPtr perception_node = std::make_shared<Perception>(params);
   ASSERT_NE(perception_node, nullptr) << "Failed to initialize Perception node.";
@@ -522,59 +470,34 @@ TEST_F(PerceptionIntegrationTest, OddStituation) {
   executor.add_node(perception_node);
   executor.add_node(test_node_);
 
-  std::string pcd_file_path =
-      "../../src/perception/test/perception_integration_tests/point_clouds/"
-      "odd_situation.pcd";
-  ASSERT_TRUE(std::filesystem::exists(pcd_file_path))
-      << "PCD file does not exist: " << pcd_file_path;
+  std::string input_pcd_path =
+      "../../src/perception/test/perception_integration_tests/point_clouds/" + test_name + ".pcd";
+  ASSERT_TRUE(std::filesystem::exists(input_pcd_path))
+      << "PCD file does not exist: " << input_pcd_path;
+  std::string output_pcd_path =
+      "../../src/perception/test/perception_integration_tests/results/" + test_name + ".pcd";
+  ASSERT_TRUE(std::filesystem::exists(output_pcd_path))
+      << "Output file does not exist: " << output_pcd_path;
+  std::string gt_txt_path =
+      "../../src/perception/test/perception_integration_tests/ground_truths/" + test_name + ".txt";
+  ASSERT_TRUE(std::filesystem::exists(gt_txt_path))
+      << "Ground truth file does not exist: " << gt_txt_path;
 
   try {
-    publish_pcd(pcd_file_path);
+    publish_pcd(input_pcd_path);
   } catch (const std::exception& e) {
     FAIL() << "Failed to publish PCD: " << e.what();
   }
 
-  auto start_time = std::chrono::steady_clock::now();
-  while (!cones_received_ &&
-         std::chrono::steady_clock::now() - start_time < std::chrono::seconds(2)) {
-    executor.spin_some();
-    rclcpp::sleep_for(std::chrono::milliseconds(100));  // Prevent busy-waiting
-  }
+  ASSERT_TRUE(waitForCones(executor));
 
-  EXPECT_TRUE(cones_received_) << "No cones received within the timeout.";
-  if (cones_received_) {
-    if (cones_result_->cone_array.size() != 10)
-      RCLCPP_INFO(test_node_->get_logger(), "Wrong number of cones: detected->%ld expected->%d",
-                  cones_result_->cone_array.size(), 10);
+  writeResults(output_pcd_path, 14, 4);
 
-    int large_count = 0;
-    for (auto cone : cones_result_->cone_array) {
-      if (cone.is_large) {
-        large_count++;
-        generateCylinder(result_cloud_, 0.220, 0.605, cone.position.x, cone.position.y, 50, 50, 14);
-      } else {
-        generateCylinder(result_cloud_, 0.150, 0.325, cone.position.x, cone.position.y, 50, 50, 36);
-      }
-    }
-
-    if (large_count != 4)
-      RCLCPP_INFO(test_node_->get_logger(),
-                  "Wrong number of large cones: detected->%d expected->%d", large_count, 4);
-
-    // Number of points in the PCD should be height*width
-    result_cloud_->width = result_cloud_->points.size();
-    result_cloud_->height = 1;
-
-    // Save the generated cloud to a PCD file
-    std::string output_pcd_path =
-        "../../src/perception/test/perception_integration_tests/results/"
-        "odd_situation.pcd";
-    if (pcl::io::savePCDFile(output_pcd_path, *result_cloud_) == -1) {
-      RCLCPP_ERROR(test_node_->get_logger(), "Failed to save result PCD file.");
-    } else {
-      RCLCPP_INFO(test_node_->get_logger(), "Result cloud saved to: %s", output_pcd_path.c_str());
-    }
-  }
+  std::vector<std::tuple<float, float, bool, bool>> ground_truth;
+  ASSERT_TRUE(loadGroundTruth(gt_txt_path, ground_truth)) << "Failed to load ground truth file.";
+  double correctness = computeCorrectness(cones_result_, ground_truth);
+  RCLCPP_INFO(test_node_->get_logger(), "Correctness score: %f percent", correctness);
+  EXPECT_GT(correctness, 80.0) << "Cone detection correctness below acceptable threshold.";
 
   executor.cancel();
 }
@@ -583,6 +506,7 @@ TEST_F(PerceptionIntegrationTest, OddStituation) {
  * @brief A fully diagonal path test for perception node from rosbag: Autocross_DV-1.mcap
  */
 TEST_F(PerceptionIntegrationTest, DiagonalPath) {
+  std::string test_name = "diagonal_path";
   auto params = Perception::load_config();
   rclcpp::Node::SharedPtr perception_node = std::make_shared<Perception>(params);
   ASSERT_NE(perception_node, nullptr) << "Failed to initialize Perception node.";
@@ -591,59 +515,34 @@ TEST_F(PerceptionIntegrationTest, DiagonalPath) {
   executor.add_node(perception_node);
   executor.add_node(test_node_);
 
-  std::string pcd_file_path =
-      "../../src/perception/test/perception_integration_tests/point_clouds/"
-      "diagonal_path.pcd";
-  ASSERT_TRUE(std::filesystem::exists(pcd_file_path))
-      << "PCD file does not exist: " << pcd_file_path;
+  std::string input_pcd_path =
+      "../../src/perception/test/perception_integration_tests/point_clouds/" + test_name + ".pcd";
+  ASSERT_TRUE(std::filesystem::exists(input_pcd_path))
+      << "PCD file does not exist: " << input_pcd_path;
+  std::string output_pcd_path =
+      "../../src/perception/test/perception_integration_tests/results/" + test_name + ".pcd";
+  ASSERT_TRUE(std::filesystem::exists(output_pcd_path))
+      << "Output file does not exist: " << output_pcd_path;
+  std::string gt_txt_path =
+      "../../src/perception/test/perception_integration_tests/ground_truths/" + test_name + ".txt";
+  ASSERT_TRUE(std::filesystem::exists(gt_txt_path))
+      << "Ground truth file does not exist: " << gt_txt_path;
 
   try {
-    publish_pcd(pcd_file_path);
+    publish_pcd(input_pcd_path);
   } catch (const std::exception& e) {
     FAIL() << "Failed to publish PCD: " << e.what();
   }
 
-  auto start_time = std::chrono::steady_clock::now();
-  while (!cones_received_ &&
-         std::chrono::steady_clock::now() - start_time < std::chrono::seconds(2)) {
-    executor.spin_some();
-    rclcpp::sleep_for(std::chrono::milliseconds(100));  // Prevent busy-waiting
-  }
+  ASSERT_TRUE(waitForCones(executor));
 
-  EXPECT_TRUE(cones_received_) << "No cones received within the timeout.";
-  if (cones_received_) {
-    if (cones_result_->cone_array.size() != 9)
-      RCLCPP_INFO(test_node_->get_logger(), "Wrong number of cones: detected->%ld expected->c%d",
-                  cones_result_->cone_array.size(), 9);
+  writeResults(output_pcd_path, 12, 0);
 
-    int large_count = 0;
-    for (auto cone : cones_result_->cone_array) {
-      if (cone.is_large) {
-        large_count++;
-        generateCylinder(result_cloud_, 0.220, 0.605, cone.position.x, cone.position.y, 50, 50, 14);
-      } else {
-        generateCylinder(result_cloud_, 0.150, 0.325, cone.position.x, cone.position.y, 50, 50, 36);
-      }
-    }
-
-    if (large_count != 0)
-      RCLCPP_INFO(test_node_->get_logger(), "Wrong number of cones: detected->%d expected->%d",
-                  large_count, 0);
-
-    // Number of points in the PCD should be height*width
-    result_cloud_->width = result_cloud_->points.size();
-    result_cloud_->height = 1;
-
-    // Save the generated cloud to a PCD file
-    std::string output_pcd_path =
-        "../../src/perception/test/perception_integration_tests/results/"
-        "diagonal_path.pcd";
-    if (pcl::io::savePCDFile(output_pcd_path, *result_cloud_) == -1) {
-      RCLCPP_ERROR(test_node_->get_logger(), "Failed to save result PCD file.");
-    } else {
-      RCLCPP_INFO(test_node_->get_logger(), "Result cloud saved to: %s", output_pcd_path.c_str());
-    }
-  }
+  std::vector<std::tuple<float, float, bool, bool>> ground_truth;
+  ASSERT_TRUE(loadGroundTruth(gt_txt_path, ground_truth)) << "Failed to load ground truth file.";
+  double correctness = computeCorrectness(cones_result_, ground_truth);
+  RCLCPP_INFO(test_node_->get_logger(), "Correctness score: %f percent", correctness);
+  EXPECT_GT(correctness, 80.0) << "Cone detection correctness below acceptable threshold.";
 
   executor.cancel();
 }
