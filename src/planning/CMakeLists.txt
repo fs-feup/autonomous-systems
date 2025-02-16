@@ -33,16 +33,6 @@ find_package(GSL REQUIRED)
 # find_package(Qt5)
 
 set(TESTFILES
-  test/main.cpp
-  test/integration_tests.cpp
-  test/performance_test.cpp
-  test/cone_coloring_tests.cpp
-  test/outliers_tests.cpp
-  test/path_calculation_tests.cpp
-  test/smoothing_tests.cpp
-  test/splines_tests.cpp
-  test/test_utils/utils.cpp
-  test/velocity_planning_tests.cpp
 )
 
 set(IMPLEMENTATION_FILES
@@ -53,6 +43,7 @@ set(IMPLEMENTATION_FILES
   src/planning/path_calculation.cpp
   src/planning/cone_coloring.cpp
   src/planning/smoothing.cpp
+  src/planning/path_finder.cpp
   src/planning/outliers.cpp
   src/planning/planning.cpp
   src/planning/velocity_planning.cpp

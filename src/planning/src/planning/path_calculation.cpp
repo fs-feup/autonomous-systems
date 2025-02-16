@@ -9,24 +9,24 @@
 
 #include "utils/cone.hpp"
 
-std::vector<PathPoint> PathCalculation::process_delaunay_triangulations(
-    std::pair<std::vector<Cone>, std::vector<Cone>> refined_cones) const {
+std::vector<Cone *> PathCalculation::process_delaunay_triangulations(
+    std::pair<std::vector<Cone>, std::vector<Cone>> refined_cones,
+    std::vector<PathPoint *> &mid_points) const {
   // merge left and right cones for next step
   // RCLCPP_WARN(rclcpp::get_logger("planning"), "Refined cones: %d blue, %d yellow",
   //            static_cast<int>(refined_cones.first.size()),
   //            static_cast<int>(refined_cones.second.size()));
   std::vector<Cone> cones;
+  std::vector<Cone *> cones_with_neighbors;
   cones.reserve(refined_cones.first.size() + refined_cones.second.size());
   cones.insert(cones.end(), refined_cones.first.begin(), refined_cones.first.end());
   cones.insert(cones.end(), refined_cones.second.begin(), refined_cones.second.end());
-
-  std::vector<PathPoint> unordered_path;
-  unordered_path.reserve(cones.size());
 
   // Create a Delaunay triangulation
   DT dt;
   // Insert cones coordinates into the Delaunay triangulation
   for (const Cone &cone : cones) {
+    cones_with_neighbors.push_back(new Cone(cone.position.x, cone.position.y));
     dt.insert(Point(cone.position.x, cone.position.y));
   }
 
@@ -47,26 +47,16 @@ std::vector<PathPoint> PathCalculation::process_delaunay_triangulations(
       continue;
     }
 
-    Cone cone1 = cones[id_cone1];
-    Cone cone2 = cones[id_cone2];
-    // If cones are from different sides
-    if (cone1.color != cone2.color) {
-      // Calculate the midpoint between the two cones
-      double x_dist = cone2.position.x - cone1.position.x;
-      double y_dist = cone2.position.y - cone1.position.y;
-      double dist = sqrt(pow(x_dist, 2) + pow(y_dist, 2));
+    Cone *cone1 = cones_with_neighbors[id_cone1];
+    Cone *cone2 = cones_with_neighbors[id_cone2];
+    PathPoint *mid_point = new PathPoint((x1 + x2) / 2, (y1 + y2) / 2, cone1, cone2);
+    mid_points.push_back(mid_point);
 
-      if (dist < config_.dist_threshold_) {
-        PathPoint pt = PathPoint(cone1.position.x + x_dist / 2, cone1.position.y + y_dist / 2);
-        unordered_path.push_back(pt);
-      }
-    }
+    cone1->neighbors.push_back(cone2);
+    cone2->neighbors.push_back(cone1);
   }
 
-  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Unordered path size: %d",
-               static_cast<int>(unordered_path.size()));
-
-  return unordered_path;
+  return cones_with_neighbors;
 }
 
 std::vector<PathPoint> PathCalculation::skidpad_path(std::vector<Cone> &cone_array,
@@ -85,7 +75,6 @@ std::vector<PathPoint> PathCalculation::skidpad_path(std::vector<Cone> &cone_arr
       }  // error
       hardcoded_path_.push_back(PathPoint(x, y, v));
     }
-
 
     if (cone_array.size() < 4) {
       throw std::runtime_error("Insufficient cones to calculate path");  // --------------------

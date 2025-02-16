@@ -2,6 +2,7 @@
 
 #include <functional>
 
+#include "common_lib/structures/cone.hpp"
 #include "common_lib/structures/position.hpp"
 
 namespace common_lib::structures {
@@ -12,10 +13,13 @@ struct PathPoint {
   PathPoint() = default;
   PathPoint(Position position, double ideal_velocity = 1.0);
   PathPoint(double x, double y, double ideal_velocity = 1.0);
+  PathPoint(double x, double y, Cone* cone1, Cone* cone2);
   PathPoint(PathPoint const& path_point) = default;
   double getX() const;
   double getY() const;
   double getV() const;
+  Cone* cone1 = nullptr;
+  Cone* cone2 = nullptr;
   friend bool operator==(const PathPoint& lhs, const PathPoint& rhs) {
     return lhs.position == rhs.position && lhs.ideal_velocity == rhs.ideal_velocity;
   }

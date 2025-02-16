@@ -15,6 +15,7 @@ struct Cone {
   double certainty = 1.0;
   static constexpr double equality_tolerance = 0.1;
   bool is_large = false;
+  std::vector<Cone*> neighbors = {};
   Cone() = default;
   Cone(Position position, common_lib::competition_logic::Color cone_color, double certainty);
   Cone(double x, double y, const std::string& color = "unknown", double certainty = 1.0);

@@ -1,8 +1,11 @@
 #pragma once
 
+#include <yaml-cpp/yaml.h>
+
 #include <functional>
 #include <map>
 #include <memory>
+#include <rclcpp/rclcpp.hpp>
 #include <string>
 #include <vector>
 
@@ -21,14 +24,12 @@
 #include "planning/cone_coloring.hpp"
 #include "planning/outliers.hpp"
 #include "planning/path_calculation.hpp"
+#include "planning/path_finder.hpp"
 #include "planning/smoothing.hpp"
 #include "planning/velocity_planning.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
 #include "std_msgs/msg/float64.hpp"
 #include "utils/files.hpp"
-#include <yaml-cpp/yaml.h>
-#include <rclcpp/rclcpp.hpp>
-#include <string>
 
 using PathPoint = common_lib::structures::PathPoint;
 using Pose = common_lib::structures::Pose;
@@ -54,11 +55,12 @@ class Planning : public rclcpp::Node {
   PathCalculation path_calculation_;
   PathSmoothing path_smoothing_;
   VelocityPlanning velocity_planning_;
+  PathFinder path_finder_;
   double desired_velocity_;
   double initial_car_orientation_;
 
-  bool path_orientation_corrected_ = false; // TODO: Put in Skidpad class
-  std::vector<PathPoint> predefined_path_; // TODO: Put in Skidpad class
+  bool path_orientation_corrected_ = false;  // TODO: Put in Skidpad class
+  std::vector<PathPoint> predefined_path_;   // TODO: Put in Skidpad class
 
   std::map<common_lib::competition_logic::Mission, std::string> predictive_paths_ = {
       {common_lib::competition_logic::Mission::ACCELERATION, "/events/acceleration.txt"},
@@ -137,12 +139,7 @@ class Planning : public rclcpp::Node {
    * @param after_triangulations_path path after triangulations
    * @param final_path final path after smoothing
    */
-  void publish_visualization_msgs(const std::vector<Cone> &left_cones,
-                                  const std::vector<Cone> &right_cones,
-                                  const std::vector<Cone> &after_refining_blue_cones,
-                                  const std::vector<Cone> &after_refining_yellow_cones,
-                                  const std::vector<PathPoint> &after_triangulations_path,
-                                  const std::vector<PathPoint> &final_path) const;
+  void publish_visualization_msgs(const std::vector<PathPoint> &final_path) const;
 
   /**
    * @brief Checks if the current mission is predictive.

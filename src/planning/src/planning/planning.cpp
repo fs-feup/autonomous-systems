@@ -23,7 +23,7 @@ PlanningParameters Planning::load_config(std::string &adapter) {
       common_lib::config_load::get_config_yaml_path("planning", "planning", adapter);
   RCLCPP_DEBUG(rclcpp::get_logger("planning"), "Loading planning config from: %s",
                planning_config_path.c_str());
-               
+
   YAML::Node planning = YAML::LoadFile(planning_config_path);
   auto planning_config = planning["planning"];
 
@@ -68,6 +68,7 @@ Planning::Planning(const PlanningParameters &params)
   cone_coloring_ = ConeColoring(planning_config_.cone_coloring_);
   outliers_ = Outliers(planning_config_.outliers_);
   path_calculation_ = PathCalculation(planning_config_.path_calculation_);
+  path_finder_ = PathFinder(planning_config_.cone_coloring_);
   path_smoothing_ = PathSmoothing(planning_config_.smoothing_);
   velocity_planning_ = VelocityPlanning(planning_config_.velocity_planning_);
 
@@ -134,7 +135,7 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &msg) 
 }
 
 void Planning::run_planning_algorithms() {
-  RCLCPP_DEBUG(rclcpp::get_logger("planning"), "Running Planning Algorithms");
+  RCLCPP_INFO(rclcpp::get_logger("planning"), "NEW PATH");
   if (this->cone_array_.empty()) {
     publish_track_points({});
     return;
@@ -142,38 +143,20 @@ void Planning::run_planning_algorithms() {
 
   rclcpp::Time start_time = this->now();
 
-  // Color the cones
-  std::pair<std::vector<Cone>, std::vector<Cone>> colored_cones =
-      cone_coloring_.color_cones(this->cone_array_, this->pose);
-  if (colored_cones.first.size() < 2 || colored_cones.second.size() < 2) {
-    RCLCPP_WARN(rclcpp::get_logger("planning"), "Not enough cones to plan: %d blue, %d yellow",
-                static_cast<int>(colored_cones.first.size()),
-                static_cast<int>(colored_cones.second.size()));
-    publish_track_points({});
-    return;
+  std::string track = "";
+  for (auto cone : this->cone_array_) {
+    if (cone.position.euclidean_distance(this->pose.position) < 20) {
+      track +=
+          "(" + std::to_string(cone.position.x) + ", " + std::to_string(cone.position.y) + "),";
+    }
   }
-
-  // Outliers dealt by approximating all cones
-  std::pair<std::vector<Cone>, std::vector<Cone>> refined_colored_cones =
-      outliers_.approximate_cones_with_spline(colored_cones);
-  if (refined_colored_cones.first.size() < 2 || refined_colored_cones.second.size() < 2) {
-    RCLCPP_WARN(rclcpp::get_logger("planning"),
-                "Not enough cones to plan after outlier removal: %d blue, %d yellow",
-                static_cast<int>(refined_colored_cones.first.size()),
-                static_cast<int>(refined_colored_cones.second.size()));
-    publish_track_points({});
-    return;
-  }
-  for (auto &cone : colored_cones.first) {
-    cone.color = Color::BLUE;
-  }
-  for (auto &cone : colored_cones.second) {
-    cone.color = Color::YELLOW;
-  }
+  track += "\n";
+  RCLCPP_INFO(rclcpp::get_logger("planning"), "Cones : %s", track.c_str());
 
   // Calculate middle points using triangulations
-  std::vector<PathPoint> triangulations_path =
-      path_calculation_.process_delaunay_triangulations(refined_colored_cones);
+  std::vector<PathPoint *> mid_points = {};
+  std::vector<Cone *> triangulations_path = path_calculation_.process_delaunay_triangulations(
+      std::make_pair(this->cone_array_, std::vector<Cone>()), mid_points);
   if (triangulations_path.size() < 2) {
     RCLCPP_WARN(rclcpp::get_logger("planning"),
                 "Not enough cones to plan after triangulations: % d ",
@@ -182,50 +165,22 @@ void Planning::run_planning_algorithms() {
     return;
   }
 
-  // Smooth the calculated path
-  std::vector<PathPoint> final_path =
-      path_smoothing_.smooth_path(triangulations_path, this->pose, this->initial_car_orientation_);
+  // Finding path
+  std::vector<PathPoint> final_path = path_finder_.find_path(mid_points, this->pose);
 
-  if (final_path.size() < 10) {
-    RCLCPP_INFO(rclcpp::get_logger("planning"), "Final path size: %d",
-                static_cast<int>(final_path.size()));
+  // Execution Time calculation
+  rclcpp::Time end_time = this->now();
+  std_msgs::msg::Float64 planning_execution_time;
+  planning_execution_time.data = (end_time - start_time).seconds() * 1000;
+  this->_planning_execution_time_publisher_->publish(planning_execution_time);
+
+  publish_track_points(final_path);
+  RCLCPP_DEBUG(this->get_logger(), "Planning will publish %i path points\n",
+               static_cast<int>(final_path.size()));
+
+  if (planning_config_.simulation_.publishing_visualization_msgs_) {
+    publish_visualization_msgs(final_path);
   }
-
-  if ((this->mission == common_lib::competition_logic::Mission::SKIDPAD)) { // place a ! before the condition, to test skidpad until the simulator publishes the mission correctly
-    final_path = path_calculation_.skidpad_path(this->cone_array_, this->pose);
-  }
-
-  if ((this->mission == common_lib::competition_logic::Mission::ACCELERATION)) {  // place a ! before the condition, to test acceleration until the simulator publishes the mission correctly
-
-    double dist_from_origin = sqrt(this->pose.position.x * this->pose.position.x +
-                                   this->pose.position.y * this->pose.position.y);
-    if (dist_from_origin > 80.0) {
-      for (auto &point : final_path) {
-        point.ideal_velocity = 0.0;
-      }
-    } else {
-      for (auto &point : final_path) {
-        point.ideal_velocity = 1000.0;
-      }
-    }
-  } else if (!(this->mission == common_lib::competition_logic::Mission::SKIDPAD)) { // remove the ! before the condition, to test skidpad until the simulator publishes the mission correctly
-    velocity_planning_.set_velocity(final_path);
-  }
-
-// Execution Time calculation
-rclcpp::Time end_time = this->now();
-std_msgs::msg::Float64 planning_execution_time;
-planning_execution_time.data = (end_time - start_time).seconds() * 1000;
-this->_planning_execution_time_publisher_->publish(planning_execution_time);
-
-publish_track_points(final_path);
-RCLCPP_DEBUG(this->get_logger(), "Planning will publish %i path points\n",
-             static_cast<int>(final_path.size()));
-
-if (planning_config_.simulation_.publishing_visualization_msgs_) {
-  publish_visualization_msgs(colored_cones.first, colored_cones.second, refined_colored_cones.first,
-                             refined_colored_cones.second, triangulations_path, final_path);
-}
 }
 
 void Planning::vehicle_localization_callback(const custom_interfaces::msg::VehicleState &msg) {
@@ -275,24 +230,7 @@ bool Planning::is_predicitve_mission() const {
          this->mission == common_lib::competition_logic::Mission::ACCELERATION;
 }
 
-void Planning::publish_visualization_msgs(const std::vector<Cone> &left_cones,
-                                          const std::vector<Cone> &right_cones,
-                                          const std::vector<Cone> &after_refining_blue_cones,
-                                          const std::vector<Cone> &after_refining_yellow_cones,
-                                          const std::vector<PathPoint> &after_triangulations_path,
-                                          const std::vector<PathPoint> &final_path) const {
-  this->blue_cones_pub_->publish(common_lib::communication::marker_array_from_structure_array(
-      left_cones, "blue_cones_colored", this->_map_frame_id_, "blue"));
-  this->yellow_cones_pub_->publish(common_lib::communication::marker_array_from_structure_array(
-      right_cones, "yellow_cones_colored", this->_map_frame_id_, "yellow"));
-  this->after_rem_blue_cones_pub_->publish(
-      common_lib::communication::marker_array_from_structure_array(
-          after_refining_blue_cones, "blue_cones_colored", this->_map_frame_id_, "blue"));
-  this->after_rem_yellow_cones_pub_->publish(
-      common_lib::communication::marker_array_from_structure_array(
-          after_refining_yellow_cones, "yellow_cones_colored", this->_map_frame_id_, "yellow"));
-  this->triangulations_pub_->publish(common_lib::communication::marker_array_from_structure_array(
-      after_triangulations_path, "after_triangulations_path", this->_map_frame_id_, "orange"));
+void Planning::publish_visualization_msgs(const std::vector<PathPoint> &final_path) const {
   this->visualization_pub_->publish(common_lib::communication::line_marker_from_structure_array(
       final_path, "smoothed_path_planning", this->_map_frame_id_, 12, "green"));
 }
