@@ -105,57 +105,41 @@ PerceptionParameters Perception::load_config() {
 
   double out_distance_cap = perception_config["out_distance_cap"].as<double>();
 
-  auto cone_validators =
-      std::make_shared<std::unordered_map<std::string, std::shared_ptr<ConeValidator>>>(
-          std::unordered_map<std::string, std::shared_ptr<ConeValidator>>{
-              {"npoints", std::make_shared<NPointsValidator>(min_n_points)},
-              {"height", std::make_shared<HeightValidator>(min_height, large_max_height,
-                                                           small_max_height, height_cap)},
-              {"cylinder",
-               std::make_shared<CylinderValidator>(0.228, 0.325, 0.285, 0.505, out_distance_cap)},
-              {"deviation", std::make_shared<DeviationValidator>(min_xoy, max_xoy, min_z, max_z)},
-              {"displacement", std::make_shared<DisplacementValidator>(
-                                   min_distance_x, min_distance_y, min_distance_z)},
-              {"zscore", std::make_shared<ZScoreValidator>(min_z_score_x, max_z_score_x,
-                                                           min_z_score_y, max_z_score_y)}});
+  // Evaluator Parameters (ConeValidators + weights + minimum confidence)
+  auto eval_params = std::make_shared<EvaluatorParameters>();
 
-  double height_out_weight = perception_config["height_out_weight"].as<double>();
-  double height_in_weight = perception_config["height_in_weight"].as<double>();
-  double cylinder_radius_weight = perception_config["cylinder_radius_weight"].as<double>();
-  double cylinder_height_weight = perception_config["cylinder_height_weight"].as<double>();
-  double cylinder_npoints_weight = perception_config["cylinder_npoints_weight"].as<double>();
-  double npoints_weight = perception_config["npoints_weight"].as<double>();
-  double displacement_x_weight = perception_config["displacement_x_weight"].as<double>();
-  double displacement_y_weight = perception_config["displacement_y_weight"].as<double>();
-  double displacement_z_weight = perception_config["displacement_z_weight"].as<double>();
-  double deviation_xoy_weight = perception_config["deviation_xoy_weight"].as<double>();
-  double deviation_z_weight = perception_config["deviation_z_weight"].as<double>();
+  // ConeValidators for cone evaluator
+  eval_params->npoints_validator = std::make_shared<NPointsValidator>(min_n_points);
+  eval_params->height_validator =
+      std::make_shared<HeightValidator>(min_height, large_max_height, small_max_height, height_cap);
+  eval_params->cylinder_validator =
+      std::make_shared<CylinderValidator>(0.228, 0.325, 0.285, 0.505, out_distance_cap);
+  eval_params->deviation_validator =
+      std::make_shared<DeviationValidator>(min_xoy, max_xoy, min_z, max_z);
+  eval_params->displacement_validator =
+      std::make_shared<DisplacementValidator>(min_distance_x, min_distance_y, min_distance_z);
+  eval_params->zscore_validator =
+      std::make_shared<ZScoreValidator>(min_z_score_x, max_z_score_x, min_z_score_y, max_z_score_y);
 
-  auto weight_values = std::make_shared<std::unordered_map<std::string, double>>(
-      std::unordered_map<std::string, double>{{"height_out_weight", height_out_weight},
-                                              {"height_in_weight", height_in_weight},
-                                              {"cylinder_radius_weight", cylinder_radius_weight},
-                                              {"cylinder_height_weight", cylinder_height_weight},
-                                              {"cylinder_npoints_weight", cylinder_npoints_weight},
-                                              {"npoints_weight", npoints_weight},
-                                              {"displacement_x_weight", displacement_x_weight},
-                                              {"displacement_y_weight", displacement_y_weight},
-                                              {"displacement_z_weight", displacement_z_weight},
-                                              {"deviation_xoy_weight", deviation_xoy_weight},
-                                              {"deviation_z_weight", deviation_z_weight}});
+  // Weight values for cone evaluator
+  eval_params->height_out_weight = perception_config["height_out_weight"].as<double>();
+  eval_params->height_in_weight = perception_config["height_in_weight"].as<double>();
+  eval_params->cylinder_radius_weight = perception_config["cylinder_radius_weight"].as<double>();
+  eval_params->cylinder_height_weight = perception_config["cylinder_height_weight"].as<double>();
+  eval_params->cylinder_npoints_weight = perception_config["cylinder_npoints_weight"].as<double>();
+  eval_params->npoints_weight = perception_config["npoints_weight"].as<double>();
+  eval_params->displacement_x_weight = perception_config["displacement_x_weight"].as<double>();
+  eval_params->displacement_y_weight = perception_config["displacement_y_weight"].as<double>();
+  eval_params->displacement_z_weight = perception_config["displacement_z_weight"].as<double>();
+  eval_params->deviation_xoy_weight = perception_config["deviation_xoy_weight"].as<double>();
+  eval_params->deviation_z_weight = perception_config["deviation_z_weight"].as<double>();
 
-  double weight_sum = 0.0;
-  for (const auto& pair : *weight_values) {
-    weight_sum += pair.second;
-  }
-  for (auto& pair : *weight_values) {
-    pair.second /= weight_sum;
-  }
+  eval_params->normalize_weights();
 
-  double min_confidence = perception_config["min_confidence"].as<double>();
+  // Minimum confidence needed for a cluster to be considered a cone.
+  eval_params->min_confidence = perception_config["min_confidence"].as<double>();
 
-  params.cone_evaluator_ =
-      std::make_shared<ConeEvaluator>(cone_validators, weight_values, min_confidence);
+  params.cone_evaluator_ = params.cone_evaluator_ = std::make_shared<ConeEvaluator>(eval_params);
 
   return params;
 }

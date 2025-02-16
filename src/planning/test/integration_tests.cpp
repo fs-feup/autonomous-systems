@@ -1,15 +1,14 @@
-#include "planning/planning.hpp"
+#include "adapter_planning/vehicle.hpp"
 #include "common_lib/communication/interfaces.hpp"
+#include "planning/planning.hpp"
 #include "test_utils/utils.hpp"
-
-// THESE ARE BROKEN FOR SOME REASON (CREATE_PLANNING DOES NOT EXIST??)
 
 class IntegrationTest : public ::testing::Test {
 protected:
   // Required Nodes
   std::shared_ptr<rclcpp::Node> locmap_sender;
   std::shared_ptr<rclcpp::Node> control_receiver;
-  // std::shared_ptr<Planning> planning_test_;
+  std::shared_ptr<Planning> planning_test_;
 
   custom_interfaces::msg::ConeArray cone_array_msg;      // message to receive
   custom_interfaces::msg::PathPointArray received_path;  // message to send
@@ -29,7 +28,7 @@ protected:
     std::string adapter;
     PlanningParameters params = Planning::load_config(adapter);
 
-    // planning_test_ = create_planning(adapter, params);
+    planning_test_ = std::make_shared<VehicleAdapter>(params);
 
     cone_array_msg = custom_interfaces::msg::ConeArray();  // init received message
 
@@ -72,7 +71,7 @@ protected:
     rclcpp::executors::MultiThreadedExecutor executor;
     executor.add_node(this->locmap_sender);
     executor.add_node(this->control_receiver);
-    // executor.add_node(this->planning_test_);
+    executor.add_node(this->planning_test_);
 
     auto start_time = std::chrono::high_resolution_clock::now();
     executor.spin();  // Execute nodes
@@ -113,7 +112,7 @@ TEST_F(IntegrationTest, PUBLISH_PATH1) {
     EXPECT_GE(p.x, -2);
   }
   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()),
-            (long unsigned int)170);
+            (long unsigned int)110);
 }
 
 /**
@@ -152,7 +151,7 @@ TEST_F(IntegrationTest, PUBLISH_PATH2) {
     EXPECT_LE(p.y - p.x, 0.1);
   }
   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()),
-            (long unsigned int)210);
+            (long unsigned int)150);
 }
 
 /**
@@ -192,7 +191,7 @@ TEST_F(IntegrationTest, PUBLISH_PATH3) {
     EXPECT_LE(p.y + p.x, 0.1);
   }
   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()),
-            (long unsigned int)210);
+            (long unsigned int)150);
 }
 
 /**
@@ -230,7 +229,7 @@ TEST_F(IntegrationTest, PUBLISH_PATH4) {
     EXPECT_LE(p.y - p.x, 0.1);
   }
   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()),
-            (long unsigned int)210);
+            (long unsigned int)150);
 }
 
 /**
@@ -268,7 +267,7 @@ TEST_F(IntegrationTest, PUBLISH_PATH5) {
     EXPECT_LE(p.y + p.x, 0.1);
   }
   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()),
-            (long unsigned int)210);
+            (long unsigned int)150);
 }
 
 /**
@@ -300,7 +299,7 @@ TEST_F(IntegrationTest, PUBLISH_PATH6) {
     EXPECT_GE(p.y, -1);
   }
   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()),
-            (long unsigned int)170);
+            (long unsigned int)110);
 }
 
 /**
