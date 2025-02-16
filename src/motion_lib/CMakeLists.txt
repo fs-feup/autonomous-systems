@@ -59,7 +59,9 @@ if(BUILD_TESTING)
   find_package(ament_cmake_gtest REQUIRED)
 
   set(TESTFILES
+    test/main.cpp
     test/bicycle_model_test.cpp
+    test/particle_model_test.cpp
   )
 
   include_directories(test)  # Include the 'test' directory for your test targets
