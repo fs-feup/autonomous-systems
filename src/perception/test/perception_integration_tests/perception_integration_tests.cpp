@@ -192,93 +192,59 @@ protected:
       RCLCPP_INFO(test_node_->get_logger(), "Result cloud saved to: %s", output_pcd_path.c_str());
     }
   }
+
+  void runTest(std::string test_name, int cone_gt, int large_cone_gt) {
+    auto params = Perception::load_config();
+    rclcpp::Node::SharedPtr perception_node = std::make_shared<Perception>(params);
+    ASSERT_NE(perception_node, nullptr) << "Failed to initialize Perception node.";
+
+    rclcpp::executors::SingleThreadedExecutor executor;
+    executor.add_node(perception_node);
+    executor.add_node(test_node_);
+
+    std::string input_pcd_path =
+        "../../src/perception/test/perception_integration_tests/point_clouds/" + test_name + ".pcd";
+    ASSERT_TRUE(std::filesystem::exists(input_pcd_path))
+        << "PCD file does not exist: " << input_pcd_path;
+    std::string output_pcd_path =
+        "../../src/perception/test/perception_integration_tests/results/" + test_name + ".pcd";
+    std::string gt_txt_path =
+        "../../src/perception/test/perception_integration_tests/ground_truths/" + test_name +
+        ".txt";
+    ASSERT_TRUE(std::filesystem::exists(gt_txt_path))
+        << "Ground truth file does not exist: " << gt_txt_path;
+
+    try {
+      publish_pcd(input_pcd_path);
+    } catch (const std::exception& e) {
+      FAIL() << "Failed to publish PCD: " << e.what();
+    }
+
+    ASSERT_TRUE(waitForCones(executor));
+
+    writeResults(output_pcd_path, cone_gt, large_cone_gt);
+
+    std::vector<std::tuple<float, float, bool, bool>> ground_truth;
+    ASSERT_TRUE(loadGroundTruth(gt_txt_path, ground_truth)) << "Failed to load ground truth file.";
+    double correctness = computeCorrectness(cones_result_, ground_truth);
+    RCLCPP_INFO(test_node_->get_logger(), "Correctness score: %.2f%%", correctness);
+    EXPECT_GT(correctness, 80.0) << "Cone detection correctness below acceptable threshold.";
+
+    executor.cancel();
+  }
 };
 
 /**
  * @brief Straight line test for perception node from rosbag: Accelaration_Testing_DV_1B.mcap
  */
-TEST_F(PerceptionIntegrationTest, StraightLine) {
-  std::string test_name = "straight_line";
-  auto params = Perception::load_config();
-  rclcpp::Node::SharedPtr perception_node = std::make_shared<Perception>(params);
-  ASSERT_NE(perception_node, nullptr) << "Failed to initialize Perception node.";
-
-  rclcpp::executors::SingleThreadedExecutor executor;
-  executor.add_node(perception_node);
-  executor.add_node(test_node_);
-
-  std::string input_pcd_path =
-      "../../src/perception/test/perception_integration_tests/point_clouds/" + test_name + ".pcd";
-  ASSERT_TRUE(std::filesystem::exists(input_pcd_path))
-      << "PCD file does not exist: " << input_pcd_path;
-  std::string output_pcd_path =
-      "../../src/perception/test/perception_integration_tests/results/" + test_name + ".pcd";
-  std::string gt_txt_path =
-      "../../src/perception/test/perception_integration_tests/ground_truths/" + test_name + ".txt";
-  ASSERT_TRUE(std::filesystem::exists(gt_txt_path))
-      << "Ground truth file does not exist: " << gt_txt_path;
-
-  try {
-    publish_pcd(input_pcd_path);
-  } catch (const std::exception& e) {
-    FAIL() << "Failed to publish PCD: " << e.what();
-  }
-
-  ASSERT_TRUE(waitForCones(executor));
-
-  writeResults(output_pcd_path, 6, 0);
-
-  std::vector<std::tuple<float, float, bool, bool>> ground_truth;
-  ASSERT_TRUE(loadGroundTruth(gt_txt_path, ground_truth)) << "Failed to load ground truth file.";
-  double correctness = computeCorrectness(cones_result_, ground_truth);
-  RCLCPP_INFO(test_node_->get_logger(), "Correctness score: %.2f%%", correctness);
-  EXPECT_GT(correctness, 80.0) << "Cone detection correctness below acceptable threshold.";
-
-  executor.cancel();
-}
+TEST_F(PerceptionIntegrationTest, StraightLine) { runTest("straight_line", 6, 0); }
 
 /**
  * @brief Close to accelaration end test for perception node from rosbag:
  * Accelaration_Testing_Manual-4.mcap
  */
 TEST_F(PerceptionIntegrationTest, AccelerationEndClose) {
-  std::string test_name = "acceleration_end_close";
-  auto params = Perception::load_config();
-  rclcpp::Node::SharedPtr perception_node = std::make_shared<Perception>(params);
-  ASSERT_NE(perception_node, nullptr) << "Failed to initialize Perception node.";
-
-  rclcpp::executors::SingleThreadedExecutor executor;
-  executor.add_node(perception_node);
-  executor.add_node(test_node_);
-
-  std::string input_pcd_path =
-      "../../src/perception/test/perception_integration_tests/point_clouds/" + test_name + ".pcd";
-  ASSERT_TRUE(std::filesystem::exists(input_pcd_path))
-      << "PCD file does not exist: " << input_pcd_path;
-  std::string output_pcd_path =
-      "../../src/perception/test/perception_integration_tests/results/" + test_name + ".pcd";
-  std::string gt_txt_path =
-      "../../src/perception/test/perception_integration_tests/ground_truths/" + test_name + ".txt";
-  ASSERT_TRUE(std::filesystem::exists(gt_txt_path))
-      << "Ground truth file does not exist: " << gt_txt_path;
-
-  try {
-    publish_pcd(input_pcd_path);
-  } catch (const std::exception& e) {
-    FAIL() << "Failed to publish PCD: " << e.what();
-  }
-
-  ASSERT_TRUE(waitForCones(executor));
-
-  writeResults(output_pcd_path, 12, 4);
-
-  std::vector<std::tuple<float, float, bool, bool>> ground_truth;
-  ASSERT_TRUE(loadGroundTruth(gt_txt_path, ground_truth)) << "Failed to load ground truth file.";
-  double correctness = computeCorrectness(cones_result_, ground_truth);
-  RCLCPP_INFO(test_node_->get_logger(), "Correctness score: %.2f%%", correctness);
-  EXPECT_GT(correctness, 80.0) << "Cone detection correctness below acceptable threshold.";
-
-  executor.cancel();
+  runTest("acceleration_end_close", 12, 4);
 }
 
 /**
@@ -286,257 +252,31 @@ TEST_F(PerceptionIntegrationTest, AccelerationEndClose) {
  * Accelaration_Testing_Manual-4.mcap
  */
 TEST_F(PerceptionIntegrationTest, AccelerationEndMedium) {
-  std::string test_name = "acceleration_end_medium";
-  auto params = Perception::load_config();
-  rclcpp::Node::SharedPtr perception_node = std::make_shared<Perception>(params);
-  ASSERT_NE(perception_node, nullptr) << "Failed to initialize Perception node.";
-
-  rclcpp::executors::SingleThreadedExecutor executor;
-  executor.add_node(perception_node);
-  executor.add_node(test_node_);
-
-  std::string input_pcd_path =
-      "../../src/perception/test/perception_integration_tests/point_clouds/" + test_name + ".pcd";
-  ASSERT_TRUE(std::filesystem::exists(input_pcd_path))
-      << "PCD file does not exist: " << input_pcd_path;
-  std::string output_pcd_path =
-      "../../src/perception/test/perception_integration_tests/results/" + test_name + ".pcd";
-  std::string gt_txt_path =
-      "../../src/perception/test/perception_integration_tests/ground_truths/" + test_name + ".txt";
-  ASSERT_TRUE(std::filesystem::exists(gt_txt_path))
-      << "Ground truth file does not exist: " << gt_txt_path;
-
-  try {
-    publish_pcd(input_pcd_path);
-  } catch (const std::exception& e) {
-    FAIL() << "Failed to publish PCD: " << e.what();
-  }
-
-  ASSERT_TRUE(waitForCones(executor));
-
-  writeResults(output_pcd_path, 14, 4);
-
-  std::vector<std::tuple<float, float, bool, bool>> ground_truth;
-  ASSERT_TRUE(loadGroundTruth(gt_txt_path, ground_truth)) << "Failed to load ground truth file.";
-  double correctness = computeCorrectness(cones_result_, ground_truth);
-  RCLCPP_INFO(test_node_->get_logger(), "Correctness score: %.2f%%", correctness);
-  EXPECT_GT(correctness, 80.0) << "Cone detection correctness below acceptable threshold.";
-
-  executor.cancel();
+  runTest("acceleration_end_medium", 14, 4);
 }
 
 /**
  * @brief Far distance to accelaration end test for perception node from rosbag:
  * Accelaration_Testing_Manual-4.mcap
  */
-TEST_F(PerceptionIntegrationTest, AccelerationFar) {
-  std::string test_name = "acceleration_end_far";
-  auto params = Perception::load_config();
-  rclcpp::Node::SharedPtr perception_node = std::make_shared<Perception>(params);
-  ASSERT_NE(perception_node, nullptr) << "Failed to initialize Perception node.";
-
-  rclcpp::executors::SingleThreadedExecutor executor;
-  executor.add_node(perception_node);
-  executor.add_node(test_node_);
-
-  std::string input_pcd_path =
-      "../../src/perception/test/perception_integration_tests/point_clouds/" + test_name + ".pcd";
-  ASSERT_TRUE(std::filesystem::exists(input_pcd_path))
-      << "PCD file does not exist: " << input_pcd_path;
-  std::string output_pcd_path =
-      "../../src/perception/test/perception_integration_tests/results/" + test_name + ".pcd";
-  std::string gt_txt_path =
-      "../../src/perception/test/perception_integration_tests/ground_truths/" + test_name + ".txt";
-  ASSERT_TRUE(std::filesystem::exists(gt_txt_path))
-      << "Ground truth file does not exist: " << gt_txt_path;
-
-  try {
-    publish_pcd(input_pcd_path);
-  } catch (const std::exception& e) {
-    FAIL() << "Failed to publish PCD: " << e.what();
-  }
-
-  ASSERT_TRUE(waitForCones(executor));
-
-  writeResults(output_pcd_path, 14, 4);
-
-  std::vector<std::tuple<float, float, bool, bool>> ground_truth;
-  ASSERT_TRUE(loadGroundTruth(gt_txt_path, ground_truth)) << "Failed to load ground truth file.";
-  double correctness = computeCorrectness(cones_result_, ground_truth);
-  RCLCPP_INFO(test_node_->get_logger(), "Correctness score: %.2f%%", correctness);
-  EXPECT_GT(correctness, 80.0) << "Cone detection correctness below acceptable threshold.";
-
-  executor.cancel();
-}
+TEST_F(PerceptionIntegrationTest, AccelerationFar) { runTest("acceleration_end_far", 14, 4); }
 
 /**
  * @brief Blind turn test for perception node from rosbag: Closed_Course_Manual-6.mcap
  */
-TEST_F(PerceptionIntegrationTest, EnterHairpin) {
-  std::string test_name = "enter_hairpin";
-  auto params = Perception::load_config();
-  rclcpp::Node::SharedPtr perception_node = std::make_shared<Perception>(params);
-  ASSERT_NE(perception_node, nullptr) << "Failed to initialize Perception node.";
-
-  rclcpp::executors::SingleThreadedExecutor executor;
-  executor.add_node(perception_node);
-  executor.add_node(test_node_);
-
-  std::string input_pcd_path =
-      "../../src/perception/test/perception_integration_tests/point_clouds/" + test_name + ".pcd";
-  ASSERT_TRUE(std::filesystem::exists(input_pcd_path))
-      << "PCD file does not exist: " << input_pcd_path;
-  std::string output_pcd_path =
-      "../../src/perception/test/perception_integration_tests/results/" + test_name + ".pcd";
-  std::string gt_txt_path =
-      "../../src/perception/test/perception_integration_tests/ground_truths/" + test_name + ".txt";
-  ASSERT_TRUE(std::filesystem::exists(gt_txt_path))
-      << "Ground truth file does not exist: " << gt_txt_path;
-
-  try {
-    publish_pcd(input_pcd_path);
-  } catch (const std::exception& e) {
-    FAIL() << "Failed to publish PCD: " << e.what();
-  }
-
-  ASSERT_TRUE(waitForCones(executor));
-
-  writeResults(output_pcd_path, 10, 0);
-
-  std::vector<std::tuple<float, float, bool, bool>> ground_truth;
-  ASSERT_TRUE(loadGroundTruth(gt_txt_path, ground_truth)) << "Failed to load ground truth file.";
-  double correctness = computeCorrectness(cones_result_, ground_truth);
-  RCLCPP_INFO(test_node_->get_logger(), "Correctness score: %.2f%%", correctness);
-  EXPECT_GT(correctness, 80.0) << "Cone detection correctness below acceptable threshold.";
-
-  executor.cancel();
-}
+TEST_F(PerceptionIntegrationTest, EnterHairpin) { runTest("enter_hairpin", 10, 0); }
 
 /**
  * @brief Turn test for perception node from rosbag: Hard_Course-DV-5.mcap
  */
-TEST_F(PerceptionIntegrationTest, TurnStart) {
-  std::string test_name = "turn_start";
-  auto params = Perception::load_config();
-  rclcpp::Node::SharedPtr perception_node = std::make_shared<Perception>(params);
-  ASSERT_NE(perception_node, nullptr) << "Failed to initialize Perception node.";
-
-  rclcpp::executors::SingleThreadedExecutor executor;
-  executor.add_node(perception_node);
-  executor.add_node(test_node_);
-
-  std::string input_pcd_path =
-      "../../src/perception/test/perception_integration_tests/point_clouds/" + test_name + ".pcd";
-  ASSERT_TRUE(std::filesystem::exists(input_pcd_path))
-      << "PCD file does not exist: " << input_pcd_path;
-  std::string output_pcd_path =
-      "../../src/perception/test/perception_integration_tests/results/" + test_name + ".pcd";
-  std::string gt_txt_path =
-      "../../src/perception/test/perception_integration_tests/ground_truths/" + test_name + ".txt";
-  ASSERT_TRUE(std::filesystem::exists(gt_txt_path))
-      << "Ground truth file does not exist: " << gt_txt_path;
-
-  try {
-    publish_pcd(input_pcd_path);
-  } catch (const std::exception& e) {
-    FAIL() << "Failed to publish PCD: " << e.what();
-  }
-
-  ASSERT_TRUE(waitForCones(executor));
-
-  writeResults(output_pcd_path, 13, 0);
-
-  std::vector<std::tuple<float, float, bool, bool>> ground_truth;
-  ASSERT_TRUE(loadGroundTruth(gt_txt_path, ground_truth)) << "Failed to load ground truth file.";
-  double correctness = computeCorrectness(cones_result_, ground_truth);
-  RCLCPP_INFO(test_node_->get_logger(), "Correctness score: %.2f%%", correctness);
-  EXPECT_GT(correctness, 80.0) << "Cone detection correctness below acceptable threshold.";
-
-  executor.cancel();
-}
+TEST_F(PerceptionIntegrationTest, TurnStart) { runTest("turn_start", 13, 0); }
 
 /**
  * @brief Odd situation test for perception node from rosbag: Hard_Course-DV-5.mcap
  */
-TEST_F(PerceptionIntegrationTest, OddStituation) {
-  std::string test_name = "odd_situation";
-  auto params = Perception::load_config();
-  rclcpp::Node::SharedPtr perception_node = std::make_shared<Perception>(params);
-  ASSERT_NE(perception_node, nullptr) << "Failed to initialize Perception node.";
-
-  rclcpp::executors::SingleThreadedExecutor executor;
-  executor.add_node(perception_node);
-  executor.add_node(test_node_);
-
-  std::string input_pcd_path =
-      "../../src/perception/test/perception_integration_tests/point_clouds/" + test_name + ".pcd";
-  ASSERT_TRUE(std::filesystem::exists(input_pcd_path))
-      << "PCD file does not exist: " << input_pcd_path;
-  std::string output_pcd_path =
-      "../../src/perception/test/perception_integration_tests/results/" + test_name + ".pcd";
-  std::string gt_txt_path =
-      "../../src/perception/test/perception_integration_tests/ground_truths/" + test_name + ".txt";
-  ASSERT_TRUE(std::filesystem::exists(gt_txt_path))
-      << "Ground truth file does not exist: " << gt_txt_path;
-
-  try {
-    publish_pcd(input_pcd_path);
-  } catch (const std::exception& e) {
-    FAIL() << "Failed to publish PCD: " << e.what();
-  }
-
-  ASSERT_TRUE(waitForCones(executor));
-
-  writeResults(output_pcd_path, 14, 4);
-
-  std::vector<std::tuple<float, float, bool, bool>> ground_truth;
-  ASSERT_TRUE(loadGroundTruth(gt_txt_path, ground_truth)) << "Failed to load ground truth file.";
-  double correctness = computeCorrectness(cones_result_, ground_truth);
-  RCLCPP_INFO(test_node_->get_logger(), "Correctness score: %.2f%%", correctness);
-  EXPECT_GT(correctness, 80.0) << "Cone detection correctness below acceptable threshold.";
-
-  executor.cancel();
-}
+TEST_F(PerceptionIntegrationTest, OddStituation) { runTest("odd_situation", 14, 4); }
 
 /**
  * @brief A fully diagonal path test for perception node from rosbag: Autocross_DV-1.mcap
  */
-TEST_F(PerceptionIntegrationTest, DiagonalPath) {
-  std::string test_name = "diagonal_path";
-  auto params = Perception::load_config();
-  rclcpp::Node::SharedPtr perception_node = std::make_shared<Perception>(params);
-  ASSERT_NE(perception_node, nullptr) << "Failed to initialize Perception node.";
-
-  rclcpp::executors::SingleThreadedExecutor executor;
-  executor.add_node(perception_node);
-  executor.add_node(test_node_);
-
-  std::string input_pcd_path =
-      "../../src/perception/test/perception_integration_tests/point_clouds/" + test_name + ".pcd";
-  ASSERT_TRUE(std::filesystem::exists(input_pcd_path))
-      << "PCD file does not exist: " << input_pcd_path;
-  std::string output_pcd_path =
-      "../../src/perception/test/perception_integration_tests/results/" + test_name + ".pcd";
-  std::string gt_txt_path =
-      "../../src/perception/test/perception_integration_tests/ground_truths/" + test_name + ".txt";
-  ASSERT_TRUE(std::filesystem::exists(gt_txt_path))
-      << "Ground truth file does not exist: " << gt_txt_path;
-
-  try {
-    publish_pcd(input_pcd_path);
-  } catch (const std::exception& e) {
-    FAIL() << "Failed to publish PCD: " << e.what();
-  }
-
-  ASSERT_TRUE(waitForCones(executor));
-
-  writeResults(output_pcd_path, 12, 0);
-
-  std::vector<std::tuple<float, float, bool, bool>> ground_truth;
-  ASSERT_TRUE(loadGroundTruth(gt_txt_path, ground_truth)) << "Failed to load ground truth file.";
-  double correctness = computeCorrectness(cones_result_, ground_truth);
-  RCLCPP_INFO(test_node_->get_logger(), "Correctness score: %.2f%%", correctness);
-  EXPECT_GT(correctness, 80.0) << "Cone detection correctness below acceptable threshold.";
-
-  executor.cancel();
-}
+TEST_F(PerceptionIntegrationTest, DiagonalPath) { runTest("diagonal_path", 12, 0); }
