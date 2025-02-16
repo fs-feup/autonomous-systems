@@ -15,7 +15,6 @@ struct SLAMParameters {
   float velocity_x_noise_;
   float velocity_y_noise_;
   float angular_velocity_noise_;
-  float lidar_noise_;
 
   SLAMParameters() = default;
   explicit SLAMParameters(const SLAMParameters &params);

@@ -2,6 +2,16 @@
 
 #include "motion_lib/particle_model.hpp"
 
+Eigen::MatrixXd EKFSLAMSolver::get_observation_noise_matrix(size_t num_landmarks) const {
+  Eigen::MatrixXd observation_noise_matrix =
+      Eigen::MatrixXd::Zero(num_landmarks * 2, num_landmarks * 2);
+  for (size_t i = 0; i < num_landmarks; i++) {
+    observation_noise_matrix(2 * i, 2 * i) = this->slam_parameters_.observation_x_noise_;
+    observation_noise_matrix(2 * i + 1, 2 * i + 1) = this->slam_parameters_.observation_y_noise_;
+  }
+  return observation_noise_matrix;
+}
+
 void EKFSLAMSolver::add_motion_prior(const common_lib::structures::Velocities& velocities) {
   if (velocities_received_ && cones_receieved_) {
     predict(this->state_, this->covariance_, process_noise_matrix_, this->last_update_, velocities);
@@ -49,9 +59,7 @@ Eigen::VectorXd EKFSLAMSolver::observations_prediction(const Eigen::VectorXd& st
   double car_y = state(1);
   double car_orientation = state(2);
 
-  Eigen::Matrix2d rotation_matrix;
-  rotation_matrix << cos(car_orientation), sin(car_orientation), -sin(car_orientation),
-      cos(car_orientation);
+  Eigen::Matrix2d rotation_matrix = common_lib::maths::get_rotation_matrix(-car_orientation);
 
   int num_landmarks = static_cast<int>(matched_landmarks.size());
   Eigen::VectorXd observations = Eigen::VectorXd(num_landmarks * 2);
@@ -72,9 +80,7 @@ Eigen::VectorXd EKFSLAMSolver::inverse_of_observations_prediction(
   double car_y = state(1);
   double car_orientation = state(2);
 
-  Eigen::Matrix2d rotation_matrix;
-  rotation_matrix << cos(car_orientation), -sin(car_orientation), sin(car_orientation),
-      cos(car_orientation);
+  Eigen::Matrix2d rotation_matrix = common_lib::maths::get_rotation_matrix(car_orientation);
 
   int num_landmarks = observations.size() / 2;
 
@@ -126,9 +132,7 @@ void EKFSLAMSolver::correct(Eigen::VectorXd& state, Eigen::MatrixXd& covariance,
       observations_prediction(state, matched_landmarks_indices);
   Eigen::MatrixXd jacobian = observations_prediction_jacobian(state, matched_landmarks_indices);
   Eigen::MatrixXd observation_noise_matrix =
-      Eigen::MatrixXd::Identity(matched_landmarks_indices.size(),
-                                matched_landmarks_indices.size()) *
-      this->observation_noise_;
+      get_observation_noise_matrix(matched_landmarks_indices.size());
   Eigen::MatrixXd kalman_gain =
       covariance * jacobian.transpose() *
       (jacobian * covariance * jacobian.transpose() + observation_noise_matrix).inverse();

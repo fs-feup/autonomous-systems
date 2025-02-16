@@ -3,6 +3,7 @@
 #include <Eigen/Dense>
 #include <chrono>
 
+#include "common_lib/maths/transformations.hpp"
 #include "slam_solver/slam_solver.hpp"
 
 class EKFSLAMSolver : public SLAMSolver {
@@ -10,7 +11,6 @@ class EKFSLAMSolver : public SLAMSolver {
   Eigen::VectorXd state_ = Eigen::VectorXd::Zero(3);
   Eigen::MatrixXd covariance_ = Eigen::MatrixXd::Identity(3, 3);
   Eigen::MatrixXd process_noise_matrix_;
-  double observation_noise_;
 
   std::chrono::high_resolution_clock::time_point last_update_;
 
@@ -20,13 +20,21 @@ class EKFSLAMSolver : public SLAMSolver {
   bool cones_receieved_ = false;
 
 public:
-  EKFSLAMSolver(const SLAMParameters& params)
-      : SLAMSolver(params), slam_parameters_(params), observation_noise_(params.lidar_noise_) {
+  EKFSLAMSolver(const SLAMParameters& params) : SLAMSolver(params), slam_parameters_(params) {
     this->process_noise_matrix_ = Eigen::MatrixXd::Zero(3, 3);
     this->process_noise_matrix_(0, 0) = params.velocity_x_noise_;
     this->process_noise_matrix_(1, 1) = params.velocity_y_noise_;
     this->process_noise_matrix_(2, 2) = params.angular_velocity_noise_;
   }
+
+  /**
+   * @brief Get the observation noise matrix object used in the correction step of the EKF
+   * with the right dimensions
+   *
+   * @param num_landmarks number of observed landmarks in a given EKF correction step
+   * @return Eigen::MatrixXd
+   */
+  Eigen::MatrixXd get_observation_noise_matrix(size_t num_landmarks) const;
 
   /**
    * @brief Executed to deal with new velocity data
