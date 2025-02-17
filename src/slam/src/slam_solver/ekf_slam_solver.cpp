@@ -141,7 +141,7 @@ void EKFSLAMSolver::correct(Eigen::VectorXd& state, Eigen::MatrixXd& covariance,
 }
 
 Eigen::MatrixXd EKFSLAMSolver::inverse_observation_model_jacobian_pose(
-    const Eigen::VectorXd& state, const Eigen::VectorXf& new_landmarks) {
+    const Eigen::VectorXd& state, const Eigen::VectorXd& new_landmarks) {
   int num_landmarks = new_landmarks.size() / 2;
   Eigen::MatrixXd gv = Eigen::MatrixXd::Zero(num_landmarks * 2, 3);
   for (int i = 0; i < num_landmarks; i++) {
@@ -157,7 +157,7 @@ Eigen::MatrixXd EKFSLAMSolver::inverse_observation_model_jacobian_pose(
 }
 
 Eigen::MatrixXd EKFSLAMSolver::inverse_observation_model_jacobian_landmarks(
-    const Eigen::VectorXd& state, const Eigen::VectorXf& new_landmarks) {
+    const Eigen::VectorXd& state, const Eigen::VectorXd& new_landmarks) {
   int num_landmarks = new_landmarks.size() / 2;
   Eigen::MatrixXd gz = Eigen::MatrixXd::Zero(num_landmarks * 2, num_landmarks * 2);
   for (int i = 0; i < num_landmarks; i++) {

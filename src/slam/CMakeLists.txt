@@ -41,7 +41,7 @@ set(IMPLEMENTATION_FILES
   src/slam_config/general_config.cpp
   src/slam_solver/slam_solver.cpp
   src/slam_solver/graph_slam_solver.cpp
-  # src/slam_solver/ekf_slam_solver.cpp
+  src/slam_solver/ekf_slam_solver.cpp
 )
 
 add_executable(slam src/main.cpp ${IMPLEMENTATION_FILES})
@@ -75,6 +75,7 @@ if(BUILD_TESTING)
     # test/slam_test.cpp
     # test/slam_performance_test.cpp
     test/slam_solver/graph_slam_solver_test.cpp
+    test/slam_solver/ekf_slam_solver_test.cpp
   )
 
   include_directories(test)  # Include the 'test' directory for your test targets

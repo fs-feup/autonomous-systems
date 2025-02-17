@@ -17,17 +17,6 @@ class EKFSLAMSolver : public SLAMSolver {
   bool velocities_received_ = false;
   bool cones_receieved_ = false;
 
-public:
-  EKFSLAMSolver(const SLAMSolverParameters& params,
-                std::shared_ptr<DataAssociationModel> data_association,
-                std::shared_ptr<V2PMotionModel> motion_model)
-      : SLAMSolver(params, data_association, motion_model), slam_parameters_(params) {
-    this->process_noise_matrix_ = Eigen::MatrixXd::Zero(3, 3);
-    // this->process_noise_matrix_(0, 0) = params.velocity_x_noise_;
-    // this->process_noise_matrix_(1, 1) = params.velocity_y_noise_;
-    // this->process_noise_matrix_(2, 2) = params.angular_velocity_noise_;
-  }
-
   /**
    * @brief Get the observation noise matrix object used in the correction step of the EKF
    * with the right dimensions
@@ -36,20 +25,6 @@ public:
    * @return Eigen::MatrixXd
    */
   Eigen::MatrixXd get_observation_noise_matrix(int num_landmarks) const;
-
-  /**
-   * @brief Executed to deal with new velocity data
-   *
-   * @param velocities
-   */
-  void add_motion_prior(const common_lib::structures::Velocities& velocities) override;
-
-  /**
-   * @brief process obervations of landmarks
-   *
-   * @param position
-   */
-  void add_observations(const std::vector<common_lib::structures::Cone>& positions) override;
 
   /**
    * @brief executed when velocity data is received. Prediction step of the EKF
@@ -154,7 +129,7 @@ public:
    * @return Eigen::MatrixXd Gv matrix of size (2 * num_new_landmarks, 3)
    */
   Eigen::MatrixXd inverse_observation_model_jacobian_pose(const Eigen::VectorXd& state,
-                                                          const Eigen::VectorXf& new_landmarks);
+                                                          const Eigen::VectorXd& new_landmarks);
 
   /**
    * @brief get the Gz matrix used in the state augmentation function, calculated as the jacobian of
@@ -166,5 +141,39 @@ public:
    * @return Eigen::MatrixXd Gz matrix of size (2 * num_new_landmarks, 2 * num_new_landmarks)
    */
   Eigen::MatrixXd inverse_observation_model_jacobian_landmarks(
-      const Eigen::VectorXd& state, const Eigen::VectorXf& new_landmarks);
+      const Eigen::VectorXd& state, const Eigen::VectorXd& new_landmarks);
+
+  void add_observation(const common_lib::structures::Cone& position) override {}
+  std::vector<common_lib::structures::Cone> get_map_estimate() override { return {}; }
+  common_lib::structures::Pose get_pose_estimate() override { return {}; }
+
+  friend class EKFSLAMSolverTest_test_observation_model_1_Test;
+  friend class EKFSLAMSolverTest_test_observation_model_2_Test;
+  friend class EKFSLAMSolverTest_test_observation_model_3_Test;
+  friend class EKFSLAMSolverTest_test_inverse_observation_model1_Test;
+
+public:
+  EKFSLAMSolver(const SLAMSolverParameters& params,
+                std::shared_ptr<DataAssociationModel> data_association,
+                std::shared_ptr<V2PMotionModel> motion_model)
+      : SLAMSolver(params, data_association, motion_model), slam_parameters_(params) {
+    this->process_noise_matrix_ = Eigen::MatrixXd::Zero(3, 3);
+    // this->process_noise_matrix_(0, 0) = params.velocity_x_noise_;
+    // this->process_noise_matrix_(1, 1) = params.velocity_y_noise_;
+    // this->process_noise_matrix_(2, 2) = params.angular_velocity_noise_;
+  }
+
+  /**
+   * @brief Executed to deal with new velocity data
+   *
+   * @param velocities
+   */
+  void add_motion_prior(const common_lib::structures::Velocities& velocities) override;
+
+  /**
+   * @brief process obervations of landmarks
+   *
+   * @param position
+   */
+  void add_observations(const std::vector<common_lib::structures::Cone>& positions) override;
 };
