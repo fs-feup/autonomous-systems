@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(common_lib)
+project(motion_lib)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -15,6 +15,7 @@ find_package(std_msgs REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(custom_interfaces REQUIRED)
+find_package(common_lib REQUIRED)
 
 # Enable OpenMP
 find_package(OpenMP)
@@ -23,28 +24,14 @@ if(OpenMP_CXX_FOUND)
 endif()
 
 set(IMPLEMENTATION_FILES
-  src/competition_logic/mission_logic.cpp
-  src/competition_logic/color.cpp
-  src/maths/matrixes.cpp
-  src/maths/angle_and_norms.cpp
-  src/maths/transformations.cpp
-  src/structures/position.cpp
-  src/structures/pose.cpp
-  src/structures/cone.cpp
-  src/structures/path_point.cpp
-  src/structures/vehicle_state.cpp
-  src/structures/velocities.cpp
-  src/sensor_data/wheel_encoders.cpp
-  src/sensor_data/imu.cpp
-  src/communication/marker.cpp
-  src/communication/interfaces.cpp
-  src/config_load/config_load.cpp
+  src/s2v_model/bicycle_model.cpp
+  src/particle_model.cpp
 )
 
 add_library(${PROJECT_NAME} SHARED ${IMPLEMENTATION_FILES})
-ament_target_dependencies(${PROJECT_NAME} eufs_msgs std_msgs rclcpp visualization_msgs fs_msgs Eigen3 custom_interfaces)
+ament_target_dependencies(${PROJECT_NAME} eufs_msgs std_msgs rclcpp visualization_msgs fs_msgs Eigen3 custom_interfaces common_lib)
 link_directories(${Eigen_INCLUDE_DIRS})
-target_link_libraries(common_lib ${Eigen_LIBRARIES})
+target_link_libraries(motion_lib ${Eigen_LIBRARIES})
 
 ament_export_targets(${PROJECT_NAME} HAS_LIBRARY_TARGET)
 
@@ -63,7 +50,7 @@ install(
   )
   
 install(
-  DIRECTORY include/${PROJECT_NAME}
+  DIRECTORY include/
   DESTINATION include
   )
 
@@ -73,6 +60,8 @@ if(BUILD_TESTING)
 
   set(TESTFILES
     test/main.cpp
+    test/bicycle_model_test.cpp
+    test/particle_model_test.cpp
   )
 
   include_directories(test)  # Include the 'test' directory for your test targets
@@ -80,7 +69,7 @@ if(BUILD_TESTING)
 
   # Unit tests
   ament_add_gtest(${PROJECT_NAME}_test ${TESTFILES} ${IMPLEMENTATION_FILES} TIMEOUT 600)
-  ament_target_dependencies(${PROJECT_NAME}_test eufs_msgs rclcpp fs_msgs std_msgs visualization_msgs Eigen3 custom_interfaces)
+  ament_target_dependencies(${PROJECT_NAME}_test eufs_msgs rclcpp fs_msgs std_msgs visualization_msgs Eigen3 custom_interfaces common_lib)
   target_include_directories(${PROJECT_NAME}_test PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>

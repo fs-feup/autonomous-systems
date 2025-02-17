@@ -1,40 +1,40 @@
 #include "ros_node/se_node.hpp"
 
+#include <yaml-cpp/yaml.h>
+
 #include <fstream>
 
 #include "adapter_ekf_state_est/eufs.hpp"
 #include "adapter_ekf_state_est/fsds.hpp"
 #include "adapter_ekf_state_est/map.hpp"
 #include "common_lib/communication/marker.hpp"
+#include "common_lib/config_load/config_load.hpp"
 #include "common_lib/maths/transformations.hpp"
 #include "common_lib/structures/cone.hpp"
 #include "common_lib/structures/pose.hpp"
 #include "common_lib/structures/position.hpp"
-#include "common_lib/vehicle_dynamics/bicycle_model.hpp"
-#include "common_lib/vehicle_dynamics/car_parameters.hpp"
-#include "common_lib/config_load/config_load.hpp"
 #include "geometry_msgs/msg/pose_with_covariance.hpp"
-#include "visualization_msgs/msg/marker.hpp"
-#include <yaml-cpp/yaml.h>
+#include "motion_lib/s2v_model/bicycle_model.hpp"
 #include "rclcpp/rclcpp.hpp"
+#include "visualization_msgs/msg/marker.hpp"
 /*---------------------- Constructor --------------------*/
 
 double last_wss = 0.0;
 
 SENode::SENode() : Node("ekf_state_est") {
-
-  auto global_config_path = common_lib::config_load::get_config_yaml_path("ekf_state_est", "global",
-                                                                    "global_config");
+  auto global_config_path =
+      common_lib::config_load::get_config_yaml_path("ekf_state_est", "global", "global_config");
   auto global_config = YAML::LoadFile(global_config_path);
 
   _use_simulated_perception_ = global_config["global"]["use_simulated_perception"].as<bool>();
   _adapter_name_ = global_config["global"]["adapter"].as<std::string>();
 
-  auto se_config_path = common_lib::config_load::get_config_yaml_path("ekf_state_est", "ekf_state_est",
-                                                                _adapter_name_);
+  auto se_config_path = common_lib::config_load::get_config_yaml_path(
+      "ekf_state_est", "ekf_state_est", _adapter_name_);
 
   auto se_config = YAML::LoadFile(se_config_path)["ekf_state_est"];
-  RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "SE config contents: %s", YAML::Dump(se_config).c_str());
+  RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "SE config contents: %s",
+               YAML::Dump(se_config).c_str());
 
   _use_odometry_ = se_config["use_odometry"].as<bool>();
   std::string motion_model_name = se_config["motion_model"].as<std::string>();
@@ -211,9 +211,9 @@ void SENode::_wheel_speeds_subscription_callback(double rl_speed, double rr_spee
   RCLCPP_INFO(this->get_logger(), "Rear Left: %f\n Rear Right: %f", rl_speed, rr_speed);
   rclcpp::Time start_time = this->get_clock()->now();
 
+  BicycleModel model = BicycleModel(common_lib::car_parameters::CarParameters());
   auto [linear_velocity, angular_velocity] =
-      common_lib::vehicle_dynamics::odometry_to_velocities_transform(rl_speed, fl_speed, rr_speed,
-                                                                     fr_speed, steering_angle);
+      model.wheels_velocities_to_cg(rl_speed, fl_speed, rr_speed, fr_speed, steering_angle);
 
   RCLCPP_INFO(this->get_logger(), "Linear Velocity: %f\nAngular Velocity: %f", linear_velocity,
               angular_velocity);
@@ -307,7 +307,7 @@ void SENode::_publish_vehicle_state_wss() {
   marker.pose.position.z = 0.0;
   marker.pose.orientation.w = 1.0;
   marker.scale.x = 0.5;
-  marker.scale.y = 0.5; 
+  marker.scale.y = 0.5;
   marker.scale.z = 0.5;
   marker.color.r = 0.0;
   marker.color.g = 1.0;
