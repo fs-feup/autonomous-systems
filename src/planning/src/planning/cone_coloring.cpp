@@ -248,7 +248,7 @@ double ConeColoring::calculate_cost(const Cone& next_cone, const Cone& last_cone
   double distance = angle_and_norms.norm2_;
   double angle = angle_and_norms.angle_;
   double curvature = get_curvature(next_cone, last_cone, second_last_cone);
-  double curvature_weight = 0;
+  double curvature_weight = 5;
   double cost = this->config_.distance_weight_ * pow(distance, this->config_.distance_exponent_) +
                 this->config_.angle_weight_ * pow(angle, this->config_.angle_exponent_) +
                 this->config_.ncones_weight_ * colored_to_input_cones_ratio +
