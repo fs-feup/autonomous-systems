@@ -45,7 +45,6 @@ pip install numpy==1.21.5
 sudo apt-get install libboost-all-dev
 
 # install GTSAM
-cd ./ext/gtsam && mkdir build && cd build && cmake .. && sudo make check && sudo make install && cd ../../..
 # cd ./ext/gtsam && mkdir build && cd build && cmake -DGTSAM_USE_SYSTEM_EIGEN=ON -DCMAKE_PREFIX_PATH="/usr/share/eigen3" .. && sudo make check && sudo make install && cd ../../..
 
 pip install transforms3d==0.4.1
