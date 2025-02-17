@@ -18,9 +18,9 @@ std::string SLAMParameters::load_parameters() {
   auto adapter_node = std::make_shared<rclcpp::Node>("slam_adapter");
   use_simulated_perception_ = adapter_node->declare_parameter("use_simulated_perception", false);
   use_simulated_velocities_ = adapter_node->declare_parameter("use_simulated_velocities", false);
-  motion_model_name_ = adapter_node->declare_parameter("motion_model", "normal_velocity_model");
+  motion_model_name_ = adapter_node->declare_parameter("motion_model", "constant_velocity");
   data_association_model_name_ =
-      adapter_node->declare_parameter("data_assocation_model", "max_likelihood");
+      adapter_node->declare_parameter("data_assocation_model", "maximum_likelihood");
   data_association_limit_distance_ =
       adapter_node->declare_parameter("data_association_limit_distance", 71.0f);
   observation_x_noise_ = adapter_node->declare_parameter("observation_x_noise", 0.03f);
