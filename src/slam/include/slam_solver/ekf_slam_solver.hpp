@@ -7,12 +7,12 @@
 #include "slam_solver/slam_solver.hpp"
 
 class EKFSLAMSolver : public SLAMSolver {
-  SLAMParameters slam_parameters_;
+  SLAMSolverParameters slam_parameters_;
   Eigen::VectorXd state_ = Eigen::VectorXd::Zero(3);
   Eigen::MatrixXd covariance_ = Eigen::MatrixXd::Identity(3, 3);
   Eigen::MatrixXd process_noise_matrix_;
 
-  std::chrono::high_resolution_clock::time_point last_update_;
+  rclcpp::Time last_update_;
 
   Eigen::VectorXd observed_landmarks_;
 
@@ -20,11 +20,14 @@ class EKFSLAMSolver : public SLAMSolver {
   bool cones_receieved_ = false;
 
 public:
-  EKFSLAMSolver(const SLAMParameters& params) : SLAMSolver(params), slam_parameters_(params) {
+  EKFSLAMSolver(const SLAMSolverParameters& params,
+                std::shared_ptr<DataAssociationModel> data_association,
+                std::shared_ptr<V2PMotionModel> motion_model)
+      : SLAMSolver(params, data_association, motion_model), slam_parameters_(params) {
     this->process_noise_matrix_ = Eigen::MatrixXd::Zero(3, 3);
-    this->process_noise_matrix_(0, 0) = params.velocity_x_noise_;
-    this->process_noise_matrix_(1, 1) = params.velocity_y_noise_;
-    this->process_noise_matrix_(2, 2) = params.angular_velocity_noise_;
+    // this->process_noise_matrix_(0, 0) = params.velocity_x_noise_;
+    // this->process_noise_matrix_(1, 1) = params.velocity_y_noise_;
+    // this->process_noise_matrix_(2, 2) = params.angular_velocity_noise_;
   }
 
   /**
@@ -34,7 +37,7 @@ public:
    * @param num_landmarks number of observed landmarks in a given EKF correction step
    * @return Eigen::MatrixXd
    */
-  Eigen::MatrixXd get_observation_noise_matrix(size_t num_landmarks) const;
+  Eigen::MatrixXd get_observation_noise_matrix(int num_landmarks) const;
 
   /**
    * @brief Executed to deal with new velocity data
@@ -48,7 +51,7 @@ public:
    *
    * @param position
    */
-  void add_observations(const std::vector<common_lib::structures::Position>& positions);
+  void add_observations(const std::vector<common_lib::structures::Cone>& positions) override;
 
   /**
    * @brief executed when velocity data is received. Prediction step of the EKF
@@ -62,8 +65,7 @@ public:
    * @param velocities new velocity data
    */
   void predict(Eigen::VectorXd& state, Eigen::MatrixXd& covariance,
-               const Eigen::MatrixXd& process_noise_matrix,
-               const std::chrono::high_resolution_clock::time_point last_update,
+               const Eigen::MatrixXd& process_noise_matrix, const rclcpp::Time last_update,
                const common_lib::structures::Velocities& velocities);
 
   /**
@@ -75,8 +77,8 @@ public:
    * observed in a specific measurement
    * @return Eigen::VectorXd predicted observations {x_cone_1, y_cone_1, x_cone_2, y_cone_2, ...}
    */
-  Eigen::VectorXd observations_prediction(const Eigen::VectorXd& state,
-                                          const std::vector<int> matched_landmarks);
+  Eigen::VectorXd observation_model(const Eigen::VectorXd& state,
+                                    const std::vector<int> matched_landmarks);
 
   /**
    * @brief inverse of the observation prediction: transforms the observations from the car's frame
@@ -88,8 +90,8 @@ public:
    * @return Eigen::VectorXd landmarks in the global frame in form {x_cone_1, y_cone_1, x_cone_2,
    * y_cone_2, ...}
    */
-  Eigen::VectorXd inverse_of_observations_prediction(const Eigen::VectorXd& state,
-                                                     const Eigen::VectorXd& observations);
+  Eigen::VectorXd inverse_observation_model(const Eigen::VectorXd& state,
+                                            const Eigen::VectorXd& observations);
 
   /**
    * @brief jacobian of the observation prediction
@@ -100,8 +102,8 @@ public:
    * observed in a specific measurement
    * @return Eigen::MatrixXd jacobian of the observation prediction
    */
-  Eigen::MatrixXd observations_prediction_jacobian(const Eigen::VectorXd& state,
-                                                   const std::vector<int> matched_landmarks);
+  Eigen::MatrixXd observation_model_jacobian(const Eigen::VectorXd& state,
+                                             const std::vector<int> matched_landmarks);
 
   /**
    * @brief correction step of the EKF that updates the state and covariance based on the observed
@@ -153,7 +155,8 @@ public:
    * @param new_landmarks new landmarks in the form {x_cone_1, y_cone_1, x_cone_2, y_cone_2, ...}
    * @return Eigen::MatrixXd Gv matrix of size (2 * num_new_landmarks, 3)
    */
-  Eigen::MatrixXd gv(const Eigen::VectorXd& state, const Eigen::VectorXf& new_landmarks);
+  Eigen::MatrixXd inverse_observation_model_jacobian_pose(const Eigen::VectorXd& state,
+                                                          const Eigen::VectorXf& new_landmarks);
 
   /**
    * @brief get the Gz matrix used in the state augmentation function, calculated as the jacobian of
@@ -164,5 +167,6 @@ public:
    * @param new_landmarks new landmarks in the form {x_cone_1, y_cone_1, x_cone_2, y_cone_2, ...}
    * @return Eigen::MatrixXd Gz matrix of size (2 * num_new_landmarks, 2 * num_new_landmarks)
    */
-  Eigen::MatrixXd gz(const Eigen::VectorXd& state, const Eigen::VectorXf& new_landmarks);
+  Eigen::MatrixXd inverse_observation_model_jacobian_landmarks(
+      const Eigen::VectorXd& state, const Eigen::VectorXf& new_landmarks);
 };

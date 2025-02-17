@@ -1,13 +1,12 @@
-#include "slam_solver/ekf_slam/ekf_slam_solver.hpp"
+#include "slam_solver/ekf_slam_solver.hpp"
 
-#include "motion_lib/particle_model.hpp"
-
-Eigen::MatrixXd EKFSLAMSolver::get_observation_noise_matrix(size_t num_landmarks) const {
+Eigen::MatrixXd EKFSLAMSolver::get_observation_noise_matrix(int num_landmarks) const {
   Eigen::MatrixXd observation_noise_matrix =
       Eigen::MatrixXd::Zero(num_landmarks * 2, num_landmarks * 2);
-  for (size_t i = 0; i < num_landmarks; i++) {
-    observation_noise_matrix(2 * i, 2 * i) = this->slam_parameters_.observation_x_noise_;
-    observation_noise_matrix(2 * i + 1, 2 * i + 1) = this->slam_parameters_.observation_y_noise_;
+  for (int i = 0; i < num_landmarks; i++) {
+    observation_noise_matrix(2 * i, 2 * i) = 0;  // this->slam_parameters_.observation_x_noise_;
+    observation_noise_matrix(2 * i + 1, 2 * i + 1) =
+        0;  // this->slam_parameters_.observation_y_noise_;
   }
   return observation_noise_matrix;
 }
@@ -24,37 +23,39 @@ void EKFSLAMSolver::add_motion_prior(const common_lib::structures::Velocities& v
   } else {
     velocities_received_ = true;
   }
-  this->last_update_ = std::chrono::high_resolution_clock::now();
+  this->last_update_ = velocities.timestamp;
 }
 
-void EKFSLAMSolver::add_observations(
-    const std::vector<common_lib::structures::Position>& positions) {
-  Eigen::VectorXd landmarks = Eigen::VectorXd::Zero(2 * positions.size());
-  for (int i = 0; i < static_cast<int>(positions.size()); ++i) {
-    landmarks(2 * i) = positions[i].x;
-    landmarks(2 * i + 1) = positions[i].y;
+void EKFSLAMSolver::add_observations(const std::vector<common_lib::structures::Cone>& cones) {
+  Eigen::VectorXd landmarks = Eigen::VectorXd::Zero(2 * cones.size());
+  for (int i = 0; i < static_cast<int>(cones.size()); ++i) {
+    landmarks(2 * i) = cones[i].position.x;
+    landmarks(2 * i + 1) = cones[i].position.y;
   }
   this->observed_landmarks_ = landmarks;
 }
 
 void EKFSLAMSolver::predict(Eigen::VectorXd& state, Eigen::MatrixXd& covariance,
                             const Eigen::MatrixXd& process_noise_matrix,
-                            const std::chrono::high_resolution_clock::time_point last_update,
+                            const rclcpp::Time last_update,
                             const common_lib::structures::Velocities& velocities) {
-  auto current_time = std::chrono::high_resolution_clock::now();
-  auto time_interval =
-      std::chrono::duration_cast<std::chrono::duration<double>>(current_time - last_update).count();
+  auto time_interval = velocities.timestamp.seconds() - last_update.seconds();
+
+  Eigen::Vector3d previous_pose = state.segment(0, 3);
+  Eigen::Vector3d temp_velocities(velocities.velocity_x, velocities.velocity_y,
+                                  velocities.rotational_velocity);
 
   Eigen::MatrixXd jacobian =
-      motion_lib::particle_model::jacobian_of_pose_update(static_cast<int>(state.size()));
+      this->_motion_model_->get_jacobian(previous_pose, temp_velocities, time_interval);
 
-  motion_lib::particle_model::update_pose(state, velocities.velocity_x, velocities.velocity_y,
-                                          velocities.rotational_velocity, time_interval);
+  Eigen::Vector3d next_pose =
+      this->_motion_model_->get_next_pose(previous_pose, temp_velocities, time_interval);
+  state.segment(0, 3) = next_pose;
   covariance = jacobian * covariance * jacobian.transpose() + process_noise_matrix;
 }
 
-Eigen::VectorXd EKFSLAMSolver::observations_prediction(const Eigen::VectorXd& state,
-                                                       const std::vector<int> matched_landmarks) {
+Eigen::VectorXd EKFSLAMSolver::observation_model(const Eigen::VectorXd& state,
+                                                 const std::vector<int> matched_landmarks) {
   double car_x = state(0);
   double car_y = state(1);
   double car_orientation = state(2);
@@ -74,8 +75,8 @@ Eigen::VectorXd EKFSLAMSolver::observations_prediction(const Eigen::VectorXd& st
   return observations;
 }
 
-Eigen::VectorXd EKFSLAMSolver::inverse_of_observations_prediction(
-    const Eigen::VectorXd& state, const Eigen::VectorXd& observations) {
+Eigen::VectorXd EKFSLAMSolver::inverse_observation_model(const Eigen::VectorXd& state,
+                                                         const Eigen::VectorXd& observations) {
   double car_x = state(0);
   double car_y = state(1);
   double car_orientation = state(2);
@@ -99,7 +100,7 @@ Eigen::VectorXd EKFSLAMSolver::inverse_of_observations_prediction(
   return landmarks_global;
 }
 
-Eigen::MatrixXd EKFSLAMSolver::observations_prediction_jacobian(
+Eigen::MatrixXd EKFSLAMSolver::observation_model_jacobian(
     const Eigen::VectorXd& state, const std::vector<int> matched_landmarks) {
   Eigen::MatrixXd jacobian = Eigen::MatrixXd::Zero(matched_landmarks.size() * 2, state.size());
   double car_x = state(0);
@@ -128,9 +129,8 @@ Eigen::MatrixXd EKFSLAMSolver::observations_prediction_jacobian(
 void EKFSLAMSolver::correct(Eigen::VectorXd& state, Eigen::MatrixXd& covariance,
                             const std::vector<int>& matched_landmarks_indices,
                             const Eigen::VectorXd& matched_observations) {
-  Eigen::VectorXd predicted_observations =
-      observations_prediction(state, matched_landmarks_indices);
-  Eigen::MatrixXd jacobian = observations_prediction_jacobian(state, matched_landmarks_indices);
+  Eigen::VectorXd predicted_observations = observation_model(state, matched_landmarks_indices);
+  Eigen::MatrixXd jacobian = observation_model_jacobian(state, matched_landmarks_indices);
   Eigen::MatrixXd observation_noise_matrix =
       get_observation_noise_matrix(matched_landmarks_indices.size());
   Eigen::MatrixXd kalman_gain =
@@ -141,8 +141,8 @@ void EKFSLAMSolver::correct(Eigen::VectorXd& state, Eigen::MatrixXd& covariance,
       (Eigen::MatrixXd::Identity(state.size(), state.size()) - kalman_gain * jacobian) * covariance;
 }
 
-Eigen::MatrixXd EKFSLAMSolver::gv(const Eigen::VectorXd& state,
-                                  const Eigen::VectorXf& new_landmarks) {
+Eigen::MatrixXd EKFSLAMSolver::inverse_observation_model_jacobian_pose(
+    const Eigen::VectorXd& state, const Eigen::VectorXf& new_landmarks) {
   int num_landmarks = new_landmarks.size() / 2;
   Eigen::MatrixXd gv = Eigen::MatrixXd::Zero(num_landmarks * 2, 3);
   for (int i = 0; i < num_landmarks; i++) {
@@ -157,8 +157,8 @@ Eigen::MatrixXd EKFSLAMSolver::gv(const Eigen::VectorXd& state,
   return gv;
 }
 
-Eigen::MatrixXd EKFSLAMSolver::gz(const Eigen::VectorXd& state,
-                                  const Eigen::VectorXf& new_landmarks) {
+Eigen::MatrixXd EKFSLAMSolver::inverse_observation_model_jacobian_landmarks(
+    const Eigen::VectorXd& state, const Eigen::VectorXf& new_landmarks) {
   int num_landmarks = new_landmarks.size() / 2;
   Eigen::MatrixXd gz = Eigen::MatrixXd::Zero(num_landmarks * 2, num_landmarks * 2);
   for (int i = 0; i < num_landmarks; i++) {
@@ -179,12 +179,11 @@ void EKFSLAMSolver::state_augmentation(Eigen::VectorXd& state, Eigen::MatrixXd& 
   Eigen::MatrixXd Pcc = covariance.block(0, 0, 3, 3);
   Eigen::MatrixXd Plc = covariance.block(3, 0, covariance_rows - 3, 3);
 
-  Eigen::MatrixXd gv = this->gv(state, new_landmarks);
+  Eigen::MatrixXd gv = this->inverse_observation_model_jacobian_pose(state, new_landmarks);
   Eigen::MatrixXd GvT = gv.transpose();
-  Eigen::MatrixXd gz = this->gz(state, new_landmarks);
+  Eigen::MatrixXd gz = this->inverse_observation_model_jacobian_landmarks(state, new_landmarks);
 
-  Eigen::MatrixXd R =
-      Eigen::MatrixXd::Identity(2 * num_landmarks, 2 * num_landmarks) * this->observation_noise_;
+  Eigen::MatrixXd R = this->get_observation_noise_matrix(num_landmarks);
 
   Eigen::MatrixXd Pcn = Pcc * GvT;
   Eigen::MatrixXd Pln = Plc * GvT;
@@ -203,5 +202,5 @@ void EKFSLAMSolver::state_augmentation(Eigen::VectorXd& state, Eigen::MatrixXd& 
   int original_state_size = static_cast<int>(state.size());
   state.conservativeResizeLike(Eigen::VectorXd::Zero(original_state_size + 2 * num_landmarks));
   state.segment(original_state_size, 2 * num_landmarks) =
-      this->inverse_of_observations_prediction(state, new_landmarks);
+      this->inverse_observation_model(state, new_landmarks);
 }

@@ -98,7 +98,8 @@
         "filesystem": "cpp",
         "nonlinearoptimization": "cpp",
         "*.txx": "cpp",
-        "dense": "cpp"
+        "dense": "cpp",
+        "hash_map": "cpp"
     },
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter",
@@ -114,4 +115,5 @@
     },
     "C_Cpp.default.compilerPath": "/usr/bin/g++",
     "ros.distro": "humble",
+    "sonarlint.pathToCompileCommands": "${workspaceFolder}/compile_commands.json",
 }
