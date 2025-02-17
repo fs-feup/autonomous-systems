@@ -18,6 +18,7 @@
   <exec_depend>std_srvs</exec_depend>
   <exec_depend>visualization_msgs</exec_depend>
   <exec_depend>motion_lib</exec_depend>
+  <exec_depend>perception_sensor_lib</exec_depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>

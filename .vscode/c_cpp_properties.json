@@ -5,12 +5,16 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "/opt/ros/humble/include/**",
-                "/usr/include/**"
+                "/usr/include/**",
+                "/usr/local/include/**"
             ],
             "defines": [],
             "cStandard": "c17",
             "cppStandard": "gnu++17",
-            "intelliSenseMode": "linux-gcc-x64"
+            "intelliSenseMode": "linux-gcc-x64",
+            "C_Cpp.intelliSenseEngine": "Default",
+            "C_Cpp.intelliSenseCacheSize": 2048,
+            "compileCommands": "/home/ws/compile_commands.json"
         }
     ],
     "version": 4
