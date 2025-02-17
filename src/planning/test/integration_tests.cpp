@@ -412,7 +412,7 @@ TEST_F(IntegrationTest, simple_straight_path) {
   double x1 = 0.0, x2 = 0.0, y1 = 0.0, y2 = 0.0;
 
   // Open file straight_1.txt to read the initial state
-  std::ifstream file("../../src/planning/test/integration_tests/" + filename);
+  std::ifstream file("../../src/planning/test/integration_tests/tests/" + filename);
 
   if (!file.is_open()) {
     FAIL() << "Failed to open file: straight_1.txt";
@@ -455,7 +455,7 @@ TEST_F(IntegrationTest, unbalanced_STRAIGHT_PATH) {
   double x1 = 0.0, x2 = 0.0, y1 = 0.0, y2 = 0.0;
 
   // Open file straight_1.txt to read the initial state
-  std::ifstream file("../../src/planning/test/integration_tests/" + filename);
+  std::ifstream file("../../src/planning/test/integration_tests/tests/" + filename);
 
   if (!file.is_open()) {
     FAIL() << "Failed to open file: straight_1.txt";
@@ -498,7 +498,7 @@ TEST_F(IntegrationTest, FULL_CURVE_PATH) {
   double x1 = 0.0, x2 = 0.0, y1 = 0.0, y2 = 0.0;
 
   // Open file straight_1.txt to read the initial state
-  std::ifstream file("../../src/planning/test/integration_tests/" + filename);
+  std::ifstream file("../../src/planning/test/integration_tests/tests/" + filename);
 
   if (!file.is_open()) {
     FAIL() << "Failed to open file: straight_1.txt";
@@ -541,7 +541,7 @@ TEST_F(IntegrationTest, CURVES_AND_CLOSE_TRACKSIDES) {
   double x1 = 0.0, x2 = 0.0, y1 = 0.0, y2 = 0.0;
 
   // Open file straight_1.txt to read the initial state
-  std::ifstream file("../../src/planning/test/integration_tests/" + filename);
+  std::ifstream file("../../src/planning/test/integration_tests/tests/" + filename);
 
   if (!file.is_open()) {
     FAIL() << "Failed to open file: straight_1.txt";
@@ -584,7 +584,7 @@ TEST_F(IntegrationTest, SHARP_SINOSOIDAL_CURVE) {
   double x1 = 0.0, x2 = 0.0, y1 = 0.0, y2 = 0.0;
 
   // Open file straight_1.txt to read the initial state
-  std::ifstream file("../../src/planning/test/integration_tests/" + filename);
+  std::ifstream file("../../src/planning/test/integration_tests/tests/" + filename);
 
   if (!file.is_open()) {
     FAIL() << "Failed to open file: straight_1.txt";
@@ -627,7 +627,7 @@ TEST_F(IntegrationTest, ROSBAG_PATH_1) {
   double x1 = 0.0, x2 = 0.0, y1 = 0.0, y2 = 0.0;
 
   // Open file straight_1.txt to read the initial state
-  std::ifstream file("../../src/planning/test/integration_tests/" + filename);
+  std::ifstream file("../../src/planning/test/integration_tests/tests/" + filename);
 
   if (!file.is_open()) {
     FAIL() << "Failed to open file: straight_1.txt";
@@ -670,7 +670,7 @@ TEST_F(IntegrationTest, ROSBAG_PATH_2) {
   double x1 = 0.0, x2 = 0.0, y1 = 0.0, y2 = 0.0;
 
   // Open file straight_1.txt to read the initial state
-  std::ifstream file("../../src/planning/test/integration_tests/" + filename);
+  std::ifstream file("../../src/planning/test/integration_tests/tests/" + filename);
 
   if (!file.is_open()) {
     FAIL() << "Failed to open file: straight_1.txt";
@@ -714,7 +714,7 @@ TEST_F(IntegrationTest, ROSBAG_PATH_3) {
   double x1 = 0.0, x2 = 0.0, y1 = 0.0, y2 = 0.0;
 
   // Open file straight_1.txt to read the initial state
-  std::ifstream file("../../src/planning/test/integration_tests/" + filename);
+  std::ifstream file("../../src/planning/test/integration_tests/tests/" + filename);
 
   if (!file.is_open()) {
     FAIL() << "Failed to open file: straight_1.txt";
@@ -757,7 +757,7 @@ TEST_F(IntegrationTest, ROSBAG_PATH_4) {
   double x1 = 0.0, x2 = 0.0, y1 = 0.0, y2 = 0.0;
 
   // Open file straight_1.txt to read the initial state
-  std::ifstream file("../../src/planning/test/integration_tests/" + filename);
+  std::ifstream file("../../src/planning/test/integration_tests/tests/" + filename);
 
   if (!file.is_open()) {
     FAIL() << "Failed to open file: straight_1.txt";
@@ -801,7 +801,7 @@ TEST_F(IntegrationTest, ROSBAG_PATH_5) {
   double x1 = 0.0, x2 = 0.0, y1 = 0.0, y2 = 0.0;
 
   // Open file straight_1.txt to read the initial state
-  std::ifstream file("../../src/planning/test/integration_tests/" + filename);
+  std::ifstream file("../../src/planning/test/integration_tests/tests/" + filename);
 
   if (!file.is_open()) {
     FAIL() << "Failed to open file: straight_1.txt";
