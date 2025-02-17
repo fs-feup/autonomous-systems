@@ -38,45 +38,29 @@ public:
 
   /**
    * @brief Add observation to the solver (correction step)
+   *
+   * @param cone Position of the observation
    */
-  void add_observation(const common_lib::structures::Cone& position) override;
+  void add_observation(const common_lib::structures::Cone& cone) override;
 
   /**
    * @brief Add observations to the solver (correction step)
+   *
+   * @param cones Positions of the observations
    */
-  void add_observations(const std::vector<common_lib::structures::Cone>& positions) override;
+  void add_observations(const std::vector<common_lib::structures::Cone>& cones) override;
 
   /**
    * @brief Get the map estimate object
+   *
+   * @return std::vector<common_lib::structures::Cone>
    */
   std::vector<common_lib::structures::Cone> get_map_estimate() override;
 
   /**
    * @brief Get the pose estimate object
+   *
+   * @return common_lib::structures::Pose
    */
   common_lib::structures::Pose get_pose_estimate() override;
-
-  // void addPose(const Pose2& pose) override;
-
-  // void addLandmark(const Point2& landmark) override;
-
-  // void addPriorPose(const Pose2& pose) override;
-
-  // void addPriorLandmark(const Point2& landmark) override;
-
-  // void addBetweenFactor(const Pose2& pose1, const Pose2& pose2, const Pose2& relative_pose)
-  // override;
-
-  // void addBearingRangeFactor(const Pose2& pose, const Point2& landmark, const BearingRange&
-  // bearing_range) override;
-
-  // void optimize() override;
-
-  // Pose2 getPose(const size_t pose_id) const override;
-
-  // Point2 getLandmark(const size_t landmark_id) const override;
-
-  // Marginals getMarginals() const override;
-
-  // void print() const override;
 };
