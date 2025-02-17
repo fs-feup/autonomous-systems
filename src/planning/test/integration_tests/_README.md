@@ -6,18 +6,18 @@ The `scenario_generator.py` script is used to generate test scenarios for the sy
 
 ### Instructions
 
-1. **Creating Cones and Points**:
+1. **Creating Cones, Starting Position and Final Box**:
 
    - Press `Y` and select points on the plot with the mouse to create **yellow cones**.
    - Press `B` and select points on the plot with the mouse to create **blue cones**.
    - Press `P` and select one point on the plot with the mouse to create the **starting point**.
    - Press `T` and select one point on the plot with the mouse to create the **target point**, indicating the direction where the car is pointing.
-   - Press `Z` to select two points (upper-left corner and lower-right corner) to define the **bounding box** for the final path point (ground truth for the test).
+   - Press `F` to select two points (upper-left corner and lower-right corner) to define the **bounding box** for the final path point (ground truth for the test).
 
 2. **Saving the File**:
 
    - Right-click with the mouse to save the file.
-   - The file will be saved as `cones.txt` in the `integration_tests` folder. Rename this file to a new, descriptive name for clarity.
+   - The file will be saved as `cones.txt` in the `integration_tests/tests/` folder. Rename this file to a new, descriptive name for clarity.
 
 ### Test File Structure
 
@@ -61,12 +61,37 @@ Ensure that your test file follows the correct structure:
    python debug_plot.py
    ```
 
-3. When prompted, enter the number corresponding to the file you want to visualize.
+3. **Selecting a File to Visualize**:
+
+   - When prompted in the terminal, enter the number corresponding to the debug file you wish to view.
+   
+   - **Understanding Debug File Structure**:
+     - Debug files include additional information compared to standard test files:
+
+       - **Vehicle Initial Position**:  
+         Represented by a line starting with `V` (instead of P) followed by the x-coordinate, y-coordinate, and the vehicle's orientation (theta).  
+         *Example:*  
+         ```
+         V 1.5 -0.2 1.38473
+         ```
+       - **Final Path Points**:  
+         Represented by one or more lines starting with `P`, each containing the x and y coordinates of a point along the calculated path.  
+         *Example:*  
+         ```
+         P 2.06738 1.81299
+         P 2.08687 1.91947
+         P 2.10737 2.02601
+         P 2.12889 2.1326
+         P 2.15142 2.23926
+         P 2.17497 2.34598
+         ```
+        
 
 4. The plot will display:
 
-   - Cones (yellow and blue)
-   - The final path
+   - Cones (yellow and blue) - GROUND TRUTH, not calculated by the system
+   - The final path - calculated by path planning algorithms
+   - The initial position of the vehicle
 
 5. To exit:
 
