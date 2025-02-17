@@ -8,7 +8,8 @@ struct SLAMParameters {
   bool use_simulated_perception_ = false;
   bool use_simulated_velocities_ = false;
   std::string motion_model_name_;
-  std::string data_assocation_model_name_;
+  std::string data_association_model_name_;
+  std::string slam_solver_name_;
   float data_association_limit_distance_;
   float observation_x_noise_;
   float observation_y_noise_;

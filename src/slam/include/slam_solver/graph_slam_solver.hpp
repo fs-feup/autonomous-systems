@@ -1,5 +1,7 @@
 #pragma once
 
+#include <gtsam/geometry/Pose2.h>
+#include <gtsam/inference/Symbol.h>
 #include <gtsam/nonlinear/NonlinearFactorGraph.h>
 #include <gtsam/nonlinear/Values.h>
 
@@ -11,10 +13,21 @@
 class GraphSLAMSolver : public SLAMSolver {
   gtsam::NonlinearFactorGraph
       _factor_graph_;  //< Factor graph for the graph SLAM solver (only factors, no estimates)
-  gtsam::Values _graph_values_;  //< Estimate for the graph SLAM solver
+  gtsam::Values _graph_values_;         //< Estimate for the graph SLAM solver
+  unsigned int _pose_counter_ = 0;      //< Counter for the pose symbols
+  unsigned int _landmark_counter_ = 0;  //< Counter for the landmark symbols
 
 public:
-  GraphSLAMSolver();
+  /**
+   * @brief Construct a new GraphSLAMSolver object
+   *
+   * @param params Parameters for the SLAM solver
+   * @param data_association Data association module
+   * @param motion_model Motion model
+   */
+  GraphSLAMSolver(const SLAMSolverParameters& params,
+                  std::shared_ptr<DataAssociationModel> data_association,
+                  std::shared_ptr<V2PMotionModel> motion_model);
 
   ~GraphSLAMSolver() = default;
 
@@ -26,9 +39,12 @@ public:
   /**
    * @brief Add observation to the solver (correction step)
    */
-  void add_observation(const common_lib::structures::Position& position) override;
+  void add_observation(const common_lib::structures::Cone& position) override;
 
-  void solve();
+  /**
+   * @brief Add observations to the solver (correction step)
+   */
+  void add_observations(const std::vector<common_lib::structures::Cone>& positions) override;
 
   /**
    * @brief Get the map estimate object

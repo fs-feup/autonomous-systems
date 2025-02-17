@@ -21,6 +21,7 @@ set(PACKAGES
     visualization_msgs
     message_filters
     motion_lib
+    perception_sensor_lib
 )
 set(GTSAM_INCLUDE_DIRS "/usr/local/include/gtsam")
 foreach(pkg ${PACKAGES})
@@ -40,7 +41,7 @@ set(IMPLEMENTATION_FILES
   src/slam_config/general_config.cpp
   src/slam_solver/slam_solver.cpp
   src/slam_solver/graph_slam_solver.cpp
-  # src/slam_solver/ekf_slam/ekf_slam_solver.cpp
+  # src/slam_solver/ekf_slam_solver.cpp
 )
 
 add_executable(slam src/main.cpp ${IMPLEMENTATION_FILES})
@@ -50,7 +51,7 @@ target_include_directories(slam PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>
   ${GTSAM_INCLUDE_DIRS}
-  ${CMAKE_CURRENT_SOURCE_DIR}/common_lib/structures
+  ${CMAKE_CURRENT_SOURCE_DIR}
   ${EIGEN3_INCLUDE_DIR}
 )
 
@@ -87,7 +88,7 @@ if(BUILD_TESTING)
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
     ${GTSAM_INCLUDE_DIRS} # Necessary to be here before Eigen3
-    ${CMAKE_CURRENT_SOURCE_DIR}/common_lib/structures
+    ${CMAKE_CURRENT_SOURCE_DIR}
     ${EIGEN3_INCLUDE_DIR}  
   )
 
