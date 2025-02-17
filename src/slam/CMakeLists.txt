@@ -93,6 +93,8 @@ if(BUILD_TESTING)
     ${EIGEN3_INCLUDE_DIR}  
   )
 
+  target_compile_features(slam_test PUBLIC c_std_99 cxx_std_17)
+
   install(TARGETS ${PROJECT_NAME}_test DESTINATION lib/${PROJECT_NAME})
 endif()
 

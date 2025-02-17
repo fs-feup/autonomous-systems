@@ -8,7 +8,6 @@
 #include "motion_lib/v2p_models/base_v2p_motion_model.hpp"
 #include "perception_sensor_lib/data_association/base_data_association.hpp"
 #include "rclcpp/rclcpp.hpp"
-#include "slam_config/general_config.hpp"
 
 struct SLAMSolverParameters {};
 
@@ -50,18 +49,18 @@ public:
   /**
    * @brief Add observations to the solver (correction step)
    *
-   * @param positions Positions of the observations
+   * @param cones Positions of the observations
    * @param timestamp Timestamp of the observations
    */
-  virtual void add_observations(const std::vector<common_lib::structures::Cone>& positions) = 0;
+  virtual void add_observations(const std::vector<common_lib::structures::Cone>& cones) = 0;
 
   /**
    * @brief Add observation to the solver (correction step)
    *
-   * @param position Position of the observation
+   * @param cone Position of the observation
    * @param timestamp Timestamp of the observation
    */
-  virtual void add_observation(const common_lib::structures::Cone& position) = 0;
+  virtual void add_observation(const common_lib::structures::Cone& cone) = 0;
 
   /**
    * @brief Get the map estimate object
