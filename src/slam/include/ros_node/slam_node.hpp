@@ -12,7 +12,7 @@
 #include "common_lib/structures/velocities.hpp"
 #include "custom_interfaces/msg/cone_array.hpp"
 #include "custom_interfaces/msg/point2d.hpp"
-#include "custom_interfaces/msg/pose2_d_with_covariance_stamped.hpp"
+#include "custom_interfaces/msg/pose.hpp"
 #include "custom_interfaces/msg/velocities.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "slam_config/general_config.hpp"
@@ -30,8 +30,7 @@ class SLAMNode : public rclcpp::Node {
 protected:
   rclcpp::Subscription<custom_interfaces::msg::ConeArray>::SharedPtr _perception_subscription_;
   rclcpp::Subscription<custom_interfaces::msg::Velocities>::SharedPtr _velocities_subscription_;
-  rclcpp::Publisher<custom_interfaces::msg::Pose2DWithCovarianceStamped>::SharedPtr
-      _vehicle_pose_publisher_;
+  rclcpp::Publisher<custom_interfaces::msg::Pose>::SharedPtr _vehicle_pose_publisher_;
   rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr _map_publisher_;
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr _visualization_map_publisher_;
   rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr _position_publisher_;

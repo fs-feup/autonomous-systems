@@ -49,8 +49,7 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam") {
   this->_map_publisher_ =
       this->create_publisher<custom_interfaces::msg::ConeArray>("/state_estimation/map", 10);
   this->_vehicle_pose_publisher_ =
-      this->create_publisher<custom_interfaces::msg::Pose2DWithCovarianceStamped>(
-          "/state_estimation/vehicle_pose", 10);
+      this->create_publisher<custom_interfaces::msg::Pose>("/state_estimation/vehicle_pose", 10);
   this->_visualization_map_publisher_ =
       this->create_publisher<visualization_msgs::msg::MarkerArray>(
           "/state_estimation/visualization_map", 10);
@@ -110,7 +109,7 @@ void SLAMNode::_velocities_subscription_callback(const custom_interfaces::msg::V
 /*---------------------- Publications --------------------*/
 
 void SLAMNode::_publish_vehicle_pose() {
-  auto message = custom_interfaces::msg::Pose2DWithCovarianceStamped();
+  auto message = custom_interfaces::msg::Pose();
   message.x = this->_vehicle_pose_.position.x;
   message.y = this->_vehicle_pose_.position.y;
   message.theta = this->_vehicle_pose_.orientation;
