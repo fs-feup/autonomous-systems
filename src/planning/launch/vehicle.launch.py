@@ -13,17 +13,17 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "angle_gain",
                 description="Gain for the angle in the cone coloring cost function",
-                default_value="10.246",
+                default_value="4.246",
             ),
             DeclareLaunchArgument(
                 "distance_gain",
                 description="Gain for the distance in the cone coloring cost function",
-                default_value="6.657",
+                default_value="5.657",
             ),
             DeclareLaunchArgument(
                 "ncones_gain",
                 description="Gain for the number of cones in the cone coloring cost funtcion",
-                default_value="20.7",
+                default_value="10.7",
             ),
             DeclareLaunchArgument(
                 "angle_exponent",
@@ -38,7 +38,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                 "cost_max",
                 description="Maximum allowed cost to place a cone in the cone coloring cost function",
-                default_value="30.0",
+                default_value="40.0",
             ),
             DeclareLaunchArgument(
                 "same_cone_distance_threshold",
