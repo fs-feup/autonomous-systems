@@ -2,6 +2,11 @@
 
 #include <gtest/gtest.h>
 
+/**
+ * @brief Test the particle model
+ *
+ * @details Tests if the particle model updates the velocities correctly
+ */
 TEST(CAParticleModelTest, TestUpdateVelocities) {
   CAParticleModel particle_model;
   Eigen::Vector3d velocities(1.0, 2.0, 0.5);
@@ -17,6 +22,11 @@ TEST(CAParticleModelTest, TestUpdateVelocities) {
   EXPECT_NEAR(velocities(2), 0.3, 1e-5);
 }
 
+/**
+ * @brief Test the particle model's jacobian
+ *
+ * @details Tests if the particle model jacobian is filled out correctly
+ */
 TEST(CAParticleModelTest, TestJacobianOfVelocityUpdate) {
   CAParticleModel particle_model;
   Eigen::Matrix3d jacobian = particle_model.jacobian_of_velocity_update();
