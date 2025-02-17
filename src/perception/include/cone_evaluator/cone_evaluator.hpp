@@ -1,6 +1,7 @@
 #pragma once
 #include <cone_validator/cone_validator.hpp>
 #include <utils/cluster.hpp>
+#include <utils/evaluator_parameters.hpp>
 #include <utils/plane.hpp>
 
 /**
@@ -11,21 +12,14 @@
  */
 class ConeEvaluator {
 private:
-  std::shared_ptr<std::unordered_map<std::string, std::shared_ptr<ConeValidator>>> cone_validators_;
-  std::shared_ptr<std::unordered_map<std::string, double>> evaluator_weights_;
-  double min_confidence_;
+  std::shared_ptr<EvaluatorParameters> params_;
 
 public:
   /**
    * @brief Constructs a new DeviationValidator object with specified intervals on the deviation.
-   * @param cone_validators Map with all cone validators and their names.
-   * @param evaluator_weights Map with all weights.
-   * @param min_confidence Minimum confidence needed for the cluster to be accepted.
+   * @param params Struct with all validators, weights and minimum confidence.
    */
-  ConeEvaluator(std::shared_ptr<std::unordered_map<std::string, std::shared_ptr<ConeValidator>>>
-                    cone_validators,
-                std::shared_ptr<std::unordered_map<std::string, double>> evaluator_weights,
-                double min_confidence);
+  ConeEvaluator(std::shared_ptr<EvaluatorParameters> params);
 
   /**
    * @brief Perform the cluster evaluation, changes the clusters confidence attribute to the
