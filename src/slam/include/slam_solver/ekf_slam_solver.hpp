@@ -14,8 +14,6 @@ class EKFSLAMSolver : public SLAMSolver {
 
   rclcpp::Time last_update_;
 
-  Eigen::VectorXd observed_landmarks_;
-
   bool velocities_received_ = false;
   bool cones_receieved_ = false;
 

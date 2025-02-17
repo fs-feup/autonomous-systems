@@ -14,12 +14,6 @@ Eigen::MatrixXd EKFSLAMSolver::get_observation_noise_matrix(int num_landmarks) c
 void EKFSLAMSolver::add_motion_prior(const common_lib::structures::Velocities& velocities) {
   if (velocities_received_ && cones_receieved_) {
     predict(this->state_, this->covariance_, process_noise_matrix_, this->last_update_, velocities);
-    // TODO: call data_association(this->state, this->observed_landmarks)
-    std::vector<int> matched_landmarks_indices;
-    Eigen::VectorXd matched_observations;
-    Eigen::VectorXd new_landmarks;
-    correct(this->state_, this->covariance_, matched_landmarks_indices, matched_observations);
-    state_augmentation(this->state_, this->covariance_, new_landmarks);
   } else {
     velocities_received_ = true;
   }
@@ -32,7 +26,12 @@ void EKFSLAMSolver::add_observations(const std::vector<common_lib::structures::C
     landmarks(2 * i) = cones[i].position.x;
     landmarks(2 * i + 1) = cones[i].position.y;
   }
-  this->observed_landmarks_ = landmarks;
+  std::vector<int> matched_landmarks_indices;
+  Eigen::VectorXd matched_observations;
+  Eigen::VectorXd new_landmarks;
+  // TODO: call data_association(this->state, this->observed_landmarks)
+  correct(this->state_, this->covariance_, matched_landmarks_indices, matched_observations);
+  state_augmentation(this->state_, this->covariance_, new_landmarks);
 }
 
 void EKFSLAMSolver::predict(Eigen::VectorXd& state, Eigen::MatrixXd& covariance,
