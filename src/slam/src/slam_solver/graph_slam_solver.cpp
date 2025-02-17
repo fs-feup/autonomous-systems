@@ -24,6 +24,9 @@ GraphSLAMSolver::GraphSLAMSolver(const SLAMSolverParameters& params,
 }
 
 void GraphSLAMSolver::add_motion_prior(const common_lib::structures::Velocities& velocities) {
+  if (_last_pose_update_ == rclcpp::Time(0)) {
+    return;
+  }
   // Prepare data
   double delta_t = (velocities.timestamp - this->_last_pose_update_).seconds();  // Get the time
 
@@ -45,6 +48,9 @@ void GraphSLAMSolver::add_motion_prior(const common_lib::structures::Velocities&
   // Add the prior pose to the values
   gtsam::Symbol pose_symbol('x', ++(this->_pose_counter_));
   _graph_values_.insert(pose_symbol, prior_pose);
+
+  // Update the last pose update
+  _last_pose_update_ = velocities.timestamp;
 }
 
 void GraphSLAMSolver::add_observation(const common_lib::structures::Cone& cone) {
