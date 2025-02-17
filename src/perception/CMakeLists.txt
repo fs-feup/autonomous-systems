@@ -24,6 +24,7 @@ find_package(yaml-cpp REQUIRED)
 
 
 set(IMPLEMENTATION_FILES 
+  src/fov_trimming/fov_trimming.cpp
   src/fov_trimming/cut_trimming.cpp
   src/fov_trimming/acceleration_trimming.cpp
   src/fov_trimming/skidpad_trimming.cpp

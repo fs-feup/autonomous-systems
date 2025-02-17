@@ -15,18 +15,9 @@ void CutTrimming::fov_trimming(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud) const
   pcl::PointCloud<pcl::PointXYZI>::Ptr trimmed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
 
   for (auto& point : cloud->points) {
-    double x = point.x;
-    double y = point.y;
+    double distance, angle;
 
-    // This rotates 90º:
-    point.x = -y;
-    point.y = x;
-
-    // Calculate distance LIDAR on the x0y plane
-    double distance = std::sqrt((point.x) * (point.x) + point.y * point.y);
-
-    // Calculate the angle of point in the XY plane in deegres
-    double angle = std::atan2(point.y, point.x) * 180 / M_PI;
+    process_point(point, distance, angle);
 
     if (point.z >= pc_rlidar_max_height ||
         distance <= pc_min_range) {  // Ignore points too close or higher than a

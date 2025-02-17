@@ -15,4 +15,6 @@ public:
    * @param[out] ret The resulting point cloud after trimming.
    */
   virtual void fov_trimming(pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud) const = 0;
+
+  void process_point(pcl::PointXYZI& point, double& distance, double& angle) const;
 };
