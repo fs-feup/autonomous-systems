@@ -1,7 +1,6 @@
 #include "point_solver/psolver.hpp"
 
 using namespace common_lib::structures;
-using namespace common_lib::vehicle_dynamics;
 
 /**
  * @brief PointSolver Constructer
@@ -21,7 +20,8 @@ void PointSolver::update_vehicle_pose(
 
   this->vehicle_pose_.velocity_ = vehicle_state_msg.linear_velocity;
   this->vehicle_pose_.orientation = vehicle_state_msg.theta;
-  this->vehicle_pose_.rear_axis_ = cg_2_rear_axis(
+  BicycleModel bicycle_model = BicycleModel(common_lib::car_parameters::CarParameters());
+  this->vehicle_pose_.rear_axis_ = bicycle_model.rear_axis_position(
       this->vehicle_pose_.position, this->vehicle_pose_.orientation, this->dist_cg_2_rear_axis_);
 
   return;

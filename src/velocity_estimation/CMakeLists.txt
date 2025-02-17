@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(ekf_state_est)
+project(velocity_estimation)
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic -O2)
 endif()
@@ -21,7 +21,6 @@ set(PACKAGES
     visualization_msgs
     message_filters
     motion_lib
-    yaml-cpp
 )
 foreach(pkg ${PACKAGES})
   find_package(${pkg} REQUIRED)
@@ -35,33 +34,27 @@ endif()
 link_directories(${Eigen_INCLUDE_DIRS})
 
 set(IMPLEMENTATION_FILES
-  src/ros_node/se_node.cpp
-  src/kalman_filter/ekf.cpp
-  src/kalman_filter/motion_models.cpp
-  src/kalman_filter/observation_models.cpp
-  src/kalman_filter/data_association.cpp
-  src/adapter_ekf_state_est/adapter.cpp
-  src/adapter_ekf_state_est/eufs.cpp
-  src/adapter_ekf_state_est/fsds.cpp
-  src/adapter_ekf_state_est/pacsim.cpp
-  src/adapter_ekf_state_est/vehicle.cpp
+  src/node/node.cpp
+  src/adapters/pacsim_adapter.cpp
+  src/adapters/vehicle_adapter.cpp
+  src/estimators/ekf.cpp
 )
 
 
 add_executable(${PROJECT_NAME} src/main.cpp ${IMPLEMENTATION_FILES})
-ament_target_dependencies(ekf_state_est ${PACKAGES} Eigen3)
+ament_target_dependencies(velocity_estimation ${PACKAGES} Eigen3)
 target_include_directories(${PROJECT_NAME} PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>
   ${CMAKE_CURRENT_SOURCE_DIR}/common_lib/structures  
 )
 
-target_compile_features(ekf_state_est PUBLIC c_std_99 cxx_std_17)
+target_compile_features(velocity_estimation PUBLIC c_std_99 cxx_std_17)
 
 include_directories(${EIGEN_INCLUDE_DIR} ${EIGEN_ROOT_DIR})
-target_link_libraries(ekf_state_est ${Eigen_LIBRARIES} yaml-cpp)
+target_link_libraries(velocity_estimation ${Eigen_LIBRARIES})
 
-install(TARGETS ekf_state_est
+install(TARGETS velocity_estimation
   DESTINATION lib/${PROJECT_NAME})
 
 # Install launch files
@@ -73,11 +66,6 @@ if(BUILD_TESTING)
 
   set(TESTFILES
     test/main.cpp
-    test/data_association_test.cpp
-    test/motion_model_test.cpp
-    test/observation_model_test.cpp
-    test/slam_test.cpp
-    test/ekf_state_est_performance_test.cpp
   )
 
   include_directories(test)  # Include the 'test' directory for your test targets
@@ -91,7 +79,6 @@ if(BUILD_TESTING)
     $<INSTALL_INTERFACE:include>
     ${CMAKE_CURRENT_SOURCE_DIR}/common_lib/structures  
   )
-  target_link_libraries(${PROJECT_NAME}_test ${Eigen_LIBRARIES} yaml-cpp)
 
   install(TARGETS ${PROJECT_NAME}_test DESTINATION lib/${PROJECT_NAME})
 endif()

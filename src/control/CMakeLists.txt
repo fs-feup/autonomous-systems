@@ -34,6 +34,7 @@ find_package(tf2_geometry_msgs REQUIRED)
 find_package(eufs_msgs REQUIRED)
 find_package(common_lib REQUIRED)
 find_package(visualization_msgs REQUIRED)
+find_package(motion_lib REQUIRED)
 find_package(yaml-cpp REQUIRED)
 
 # uncomment the following section in order to fill in
@@ -41,7 +42,7 @@ find_package(yaml-cpp REQUIRED)
 # find_package(<dependency> REQUIRED)
 
 add_executable(node_control src/main.cpp ${IMPLEMENTATION_FILES})
-ament_target_dependencies(node_control rclcpp std_msgs sensor_msgs custom_interfaces fs_msgs message_filters pacsim ackermann_msgs std_srvs tf2_ros tf2_geometry_msgs eufs_msgs common_lib visualization_msgs)
+ament_target_dependencies(node_control rclcpp std_msgs sensor_msgs custom_interfaces fs_msgs message_filters pacsim ackermann_msgs std_srvs tf2_ros tf2_geometry_msgs eufs_msgs common_lib visualization_msgs motion_lib)
 target_include_directories(node_control PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
@@ -71,7 +72,7 @@ if(BUILD_TESTING)
   include_directories(${CMAKE_CURRENT_SOURCE_DIR})  # Include the current source directory
   ament_add_gtest(${PROJECT_NAME}_test ${TESTFILES} ${IMPLEMENTATION_FILES})
 
-  ament_target_dependencies(${PROJECT_NAME}_test rclcpp std_msgs sensor_msgs fs_msgs custom_interfaces message_filters pacsim ackermann_msgs std_srvs tf2_ros tf2_geometry_msgs eufs_msgs common_lib visualization_msgs)
+  ament_target_dependencies(${PROJECT_NAME}_test rclcpp std_msgs sensor_msgs fs_msgs custom_interfaces message_filters pacsim ackermann_msgs std_srvs tf2_ros tf2_geometry_msgs eufs_msgs common_lib visualization_msgs motion_lib)
   target_include_directories(${PROJECT_NAME}_test PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>)
