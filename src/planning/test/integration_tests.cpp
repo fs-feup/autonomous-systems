@@ -348,7 +348,24 @@ TEST_F(IntegrationTest, one_cone) {
   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()), (long unsigned int)0);
 }
 
-void read_file_and_run_nodes(std::ifstream &file, double &finalxi, double &finalxf, double &finalyi,
+
+/**
+ * @brief Reads a file and processes its contents to initialize vehicle state, cones, and final position range.
+ *
+ * This function reads lines from the provided file stream and processes them based on specific flags:
+ * - "P": Initializes the vehicle state with position (x, y) and orientation (theta).
+ * - "C": Adds a cone to the cone array with position (x, y) and color.
+ * - "F": Sets the final expected position range (finalxi, finalxf, finalyi, finalyf).
+ *
+ * @param file The input file stream to read from.
+ * @param finalxi Reference to the variable to store the initial x-coordinate of the final position range.
+ * @param finalxf Reference to the variable to store the final x-coordinate of the final position range.
+ * @param finalyi Reference to the variable to store the initial y-coordinate of the final position range.
+ * @param finalyf Reference to the variable to store the final y-coordinate of the final position range.
+ * @param cone_array Reference to the vector to store the cones read from the file.
+ * @param vehicle_state Reference to the VehicleState object to store the initial vehicle state.
+ */
+void read_from_file(std::ifstream &file, double &finalxi, double &finalxf, double &finalyi,
                              double &finalyf, std::vector<Cone> &cone_array,
                              custom_interfaces::msg::VehicleState &vehicle_state) {
   std::string line;
@@ -378,6 +395,18 @@ void read_file_and_run_nodes(std::ifstream &file, double &finalxi, double &final
   file.close();
 }
 
+/**
+ * @brief Saves debug information to a file.
+ *
+ * This function writes the received path points, cone array, and vehicle state
+ * to a specified debug file. The file is saved in the directory
+ * "../../src/planning/test/integration_tests/results/" with the given filename.
+ *
+ * @param filename The name of the file to save the debug information.
+ * @param cone_array A vector of Cone objects representing the cone positions and colors.
+ * @param received_path A PathPointArray message containing the path points.
+ * @param vehicle_state A VehicleState message containing the vehicle's position and orientation.
+ */
 void save_debug_file(std::string filename, std::vector<Cone> cone_array,
                      custom_interfaces::msg::PathPointArray received_path,
                      custom_interfaces::msg::VehicleState vehicle_state) {
@@ -421,7 +450,7 @@ TEST_F(IntegrationTest, simple_straight_path) {
 
   std::vector<Cone> cone_array;
   custom_interfaces::msg::VehicleState vehicle_state;
-  read_file_and_run_nodes(file, x1, x2, y1, y2, cone_array, vehicle_state);
+  read_from_file(file, x1, x2, y1, y2, cone_array, vehicle_state);
 
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
@@ -464,7 +493,7 @@ TEST_F(IntegrationTest, unbalanced_STRAIGHT_PATH) {
 
   std::vector<Cone> cone_array;
   custom_interfaces::msg::VehicleState vehicle_state;
-  read_file_and_run_nodes(file, x1, x2, y1, y2, cone_array, vehicle_state);
+  read_from_file(file, x1, x2, y1, y2, cone_array, vehicle_state);
 
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
@@ -507,7 +536,7 @@ TEST_F(IntegrationTest, FULL_CURVE_PATH) {
 
   std::vector<Cone> cone_array;
   custom_interfaces::msg::VehicleState vehicle_state;
-  read_file_and_run_nodes(file, x1, x2, y1, y2, cone_array, vehicle_state);
+  read_from_file(file, x1, x2, y1, y2, cone_array, vehicle_state);
 
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
@@ -550,7 +579,7 @@ TEST_F(IntegrationTest, CURVES_AND_CLOSE_TRACKSIDES) {
 
   std::vector<Cone> cone_array;
   custom_interfaces::msg::VehicleState vehicle_state;
-  read_file_and_run_nodes(file, x1, x2, y1, y2, cone_array, vehicle_state);
+  read_from_file(file, x1, x2, y1, y2, cone_array, vehicle_state);
 
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
@@ -593,7 +622,7 @@ TEST_F(IntegrationTest, SHARP_SINOSOIDAL_CURVE) {
 
   std::vector<Cone> cone_array;
   custom_interfaces::msg::VehicleState vehicle_state;
-  read_file_and_run_nodes(file, x1, x2, y1, y2, cone_array, vehicle_state);
+  read_from_file(file, x1, x2, y1, y2, cone_array, vehicle_state);
 
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
@@ -636,7 +665,7 @@ TEST_F(IntegrationTest, ROSBAG_PATH_1) {
 
   std::vector<Cone> cone_array;
   custom_interfaces::msg::VehicleState vehicle_state;
-  read_file_and_run_nodes(file, x1, x2, y1, y2, cone_array, vehicle_state);
+  read_from_file(file, x1, x2, y1, y2, cone_array, vehicle_state);
 
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
@@ -679,7 +708,7 @@ TEST_F(IntegrationTest, ROSBAG_PATH_2) {
 
   std::vector<Cone> cone_array;
   custom_interfaces::msg::VehicleState vehicle_state;
-  read_file_and_run_nodes(file, x1, x2, y1, y2, cone_array, vehicle_state);
+  read_from_file(file, x1, x2, y1, y2, cone_array, vehicle_state);
 
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
@@ -723,7 +752,7 @@ TEST_F(IntegrationTest, ROSBAG_PATH_3) {
 
   std::vector<Cone> cone_array;
   custom_interfaces::msg::VehicleState vehicle_state;
-  read_file_and_run_nodes(file, x1, x2, y1, y2, cone_array, vehicle_state);
+  read_from_file(file, x1, x2, y1, y2, cone_array, vehicle_state);
 
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
@@ -766,7 +795,7 @@ TEST_F(IntegrationTest, ROSBAG_PATH_4) {
 
   std::vector<Cone> cone_array;
   custom_interfaces::msg::VehicleState vehicle_state;
-  read_file_and_run_nodes(file, x1, x2, y1, y2, cone_array, vehicle_state);
+  read_from_file(file, x1, x2, y1, y2, cone_array, vehicle_state);
 
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
@@ -810,7 +839,7 @@ TEST_F(IntegrationTest, ROSBAG_PATH_5) {
 
   std::vector<Cone> cone_array;
   custom_interfaces::msg::VehicleState vehicle_state;
-  read_file_and_run_nodes(file, x1, x2, y1, y2, cone_array, vehicle_state);
+  read_from_file(file, x1, x2, y1, y2, cone_array, vehicle_state);
 
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
