@@ -4,9 +4,19 @@
 
 #include "motion_lib/v2p_models/base_v2p_motion_model.hpp"
 
+/**
+ * @brief Motion model that predicts the pose of the robot given the velocities
+ * with a constant velocity model
+ */
 class ConstantVelocityModel : public V2PMotionModel {
 public:
   explicit ConstantVelocityModel();
+
+  /**
+   * @brief Construct a new ConstantVelocityModel object with a base process noise
+   *
+   * @param base_process_noise standard non variating noise if used
+   */
   explicit ConstantVelocityModel(Eigen::Vector3d base_process_noise);
 
   /**

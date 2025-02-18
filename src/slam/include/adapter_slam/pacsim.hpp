@@ -32,11 +32,6 @@ class PacsimAdapter : public SLAMNode {
       const geometry_msgs::msg::TwistWithCovarianceStamped& msg);
 
 public:
-  // /**
-  //  * TODO: remove - deprecated
-  //  */
-  // explicit PacsimAdapter();
-
   /**
    * @brief Constructor of the pacsim adapter node
    */

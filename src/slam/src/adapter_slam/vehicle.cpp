@@ -3,20 +3,6 @@
 #include "common_lib/competition_logic/color.hpp"
 #include "ros_node/slam_node.hpp"
 
-// VehicleAdapter::VehicleAdapter() : SLAMNode() {
-//   _operational_status_subscription_ =
-//       this->create_subscription<custom_interfaces::msg::OperationalStatus>(
-//           "/vehicle/operational_status", 10,
-//           [this](const custom_interfaces::msg::OperationalStatus::SharedPtr msg) {
-//             RCLCPP_DEBUG(this->get_logger(), "Operational status received. Mission: %d - Go: %d",
-//                          msg->as_mission, msg->go_signal);
-//             _go_ = msg->go_signal;
-//             _mission_ = common_lib::competition_logic::Mission(msg->as_mission);
-//           });
-
-//   _finished_client_ = this->create_client<std_srvs::srv::Trigger>("/as_srv/mission_finished");
-// }
-
 VehicleAdapter::VehicleAdapter(const SLAMParameters& params) : SLAMNode(params) {
   _operational_status_subscription_ =
       this->create_subscription<custom_interfaces::msg::OperationalStatus>(

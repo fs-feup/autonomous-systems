@@ -37,13 +37,6 @@ public:
   void add_motion_prior(const common_lib::structures::Velocities& velocities) override;
 
   /**
-   * @brief Add observation to the solver (correction step)
-   *
-   * @param cone Position of the observation
-   */
-  void add_observation(const common_lib::structures::Cone& cone) override;
-
-  /**
    * @brief Add observations to the solver (correction step)
    *
    * @param cones Positions of the observations

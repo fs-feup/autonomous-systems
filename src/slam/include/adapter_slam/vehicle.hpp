@@ -13,11 +13,6 @@ class VehicleAdapter : public SLAMNode {
       _finished_client_;  ///< Client for finished signal
 
 public:
-  // /**
-  //  * TODO: remove - deprecated
-  //  */
-  // explicit VehicleAdapter();
-
   /**
    * @brief Constructor of the vehicle adapter node
    */

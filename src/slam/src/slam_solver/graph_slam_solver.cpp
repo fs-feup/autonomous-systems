@@ -53,12 +53,6 @@ void GraphSLAMSolver::add_motion_prior(const common_lib::structures::Velocities&
   _last_pose_update_ = velocities.timestamp;
 }
 
-void GraphSLAMSolver::add_observation(const common_lib::structures::Cone& cone) {
-  // Create a new observation factor
-
-  // Add the observation factor to the graph
-}
-
 void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures::Cone>& cones) {
   // Create a new observation factor
 

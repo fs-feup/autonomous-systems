@@ -4,6 +4,9 @@
 #include <rclcpp/rclcpp.hpp>
 #include <string>
 
+/**
+ * @brief Parameters for the SLAM node
+ */
 struct SLAMParameters {
   bool use_simulated_perception_ = false;
   bool use_simulated_velocities_ = false;

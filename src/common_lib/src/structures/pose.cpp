@@ -10,6 +10,9 @@ Pose::Pose(Position position, double orientation, double orientation_noise, rclc
 
 Pose::Pose(double x, double y, double theta, double x_noise, double y_noise, double theta_noise,
            rclcpp::Time timestamp)
-    : position(x, y), orientation(theta) {}
+    : position(x, y, x_noise, y_noise, timestamp),
+      orientation(theta),
+      orientation_noise(theta_noise),
+      timestamp(timestamp) {}
 
 }  // namespace common_lib::structures

@@ -20,10 +20,8 @@
 #include "std_msgs/msg/float64.hpp"
 
 /**
- * @brief Class representing the main speed_est node responsible for publishing
- * the calculated vehicle state with speed and the map. As well as, subscribing and
- * interpreting information, such as the cone's position and colors, from the
- * perception module.
+ * @brief Class representing the main SLAM node responsible for publishing
+ * the calculated pose and map.
  *
  */
 class SLAMNode : public rclcpp::Node {

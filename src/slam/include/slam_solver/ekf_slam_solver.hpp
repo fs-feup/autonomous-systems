@@ -143,7 +143,6 @@ class EKFSLAMSolver : public SLAMSolver {
   Eigen::MatrixXd inverse_observation_model_jacobian_landmarks(
       const Eigen::VectorXd& state, const Eigen::VectorXd& new_landmarks);
 
-  void add_observation(const common_lib::structures::Cone& position) override {}
   std::vector<common_lib::structures::Cone> get_map_estimate() override { return {}; }
   common_lib::structures::Pose get_pose_estimate() override { return {}; }
 
