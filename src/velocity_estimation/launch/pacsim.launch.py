@@ -58,16 +58,12 @@ def generate_launch_description():
                 parameters=[
                     {"estimation_method": LaunchConfiguration("estimation_method")},
                     {"adapter": LaunchConfiguration("adapter")},
-<<<<<<< HEAD
-                    {"ekf_process_noise": LaunchConfiguration("ekf_process_noise")},                    
-=======
                     {"ekf_process_noise": LaunchConfiguration("ekf_process_noise")},  
                     {"ekf_measurement_noise": LaunchConfiguration("ekf_measurement_noise")},
                     {"wheel_base": LaunchConfiguration("wheel_base")},  
                     {"weight_distribution_front": LaunchConfiguration("weight_distribution_front")},  
                     {"gear_ratio": LaunchConfiguration("gear_ratio")},  
                     {"wheel_radius": LaunchConfiguration("wheel_radius")},                  
->>>>>>> dev
                 ],
                 arguments=["--ros-args", "--log-level", "velocity_estimation:=info"],
             ),

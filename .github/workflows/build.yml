@@ -127,11 +127,7 @@ jobs:
       - name: Build Dependencies
         run: |
           source /opt/ros/$ROS_DISTRO/setup.bash
-<<<<<<< HEAD
           colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib pacsim motion_lib perception_sensor_lib
-=======
-          colcon build --packages-select custom_interfaces eufs_msgs fs_msgs common_lib pacsim motion_lib
->>>>>>> dev
 
       - name: Build and Test EKF State Estimation
         run: |
@@ -140,7 +136,6 @@ jobs:
           colcon test --packages-select ekf_state_est
           colcon test-result --all --verbose
 
-<<<<<<< HEAD
   # slam:
   #   runs-on: ubuntu-latest
 
@@ -178,7 +173,6 @@ jobs:
   #         colcon build --packages-select slam
   #         colcon test --packages-select slam
   #         colcon test-result --all --verbose
-=======
   velocity_estimation:
             runs-on: ubuntu-latest
         
@@ -216,7 +210,6 @@ jobs:
                   colcon build --packages-select velocity_estimation
                   colcon test --packages-select velocity_estimation
                   colcon test-result --all --verbose
->>>>>>> dev
       
   control:
     runs-on: ubuntu-latest
