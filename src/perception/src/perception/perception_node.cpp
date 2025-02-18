@@ -185,14 +185,14 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_cloud(new pcl::PointCloud<pcl::PointXYZI>);
   header = (*msg).header;
   pcl::fromROSMsg(*msg, *pcl_cloud);
-
+    
   // Pass-trough Filter (trim Pcl)
   _fov_trimming_->fov_trimming(pcl_cloud);
 
   // Ground Removal
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
   _ground_removal_->ground_removal(pcl_cloud, ground_removed_cloud, _ground_plane_);
-
+  
   // Debugging utils -> Useful to check the ground removed point cloud
   sensor_msgs::msg::PointCloud2 ground_remved_msg;
   pcl::toROSMsg(*ground_removed_cloud, ground_remved_msg);
@@ -202,6 +202,7 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   // Clustering
   std::vector<Cluster> clusters;
   _clustering_->clustering(ground_removed_cloud, &clusters);
+ 
 
   // Z-scores calculation for future validations
   Cluster::set_z_scores(clusters);
@@ -214,6 +215,7 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
       filtered_clusters.push_back(cluster);
     }
   }
+  
 
   // Execution Time calculation
   rclcpp::Time end_time = this->now();
