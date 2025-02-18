@@ -39,7 +39,7 @@ std::tuple<Position, int, double> PointSolver::update_closest_point(
   Position closest_point = Position();
   Position aux_point = Position();
   int closest_point_id = -1;
-  for (size_t i = 0; i < pathpoint_array.size(); i++) {
+  for (size_t i = 1; i < pathpoint_array.size(); i++) {
     aux_point = Position(pathpoint_array[i].x, pathpoint_array[i].y);
     double distance = this->vehicle_pose_.rear_axis_.euclidean_distance(aux_point);
     if (distance < min_distance) {

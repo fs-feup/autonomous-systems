@@ -141,7 +141,6 @@ void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicl
   double steering_angle = this->lat_controller_.pp_steering_control_law(
       this->point_solver_.vehicle_pose_.rear_axis_, this->point_solver_.vehicle_pose_.position,
       lookahead_point, this->point_solver_.dist_cg_2_rear_axis_);
-  RCLCPP_WARN(rclcpp::get_logger("control"), "Steering Angle: %f", steering_angle);
   // check if steering is Nan
   if (std::isnan(steering_angle) || std::isnan(torque)) {
     RCLCPP_ERROR(rclcpp::get_logger("control"), "Steering Angle or Torque is NaN");
@@ -155,8 +154,8 @@ void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicl
   RCLCPP_DEBUG(rclcpp::get_logger("control"), "Rear axis coords: %f, %f",
                this->point_solver_.vehicle_pose_.rear_axis_.x,
                this->point_solver_.vehicle_pose_.rear_axis_.y);
-  RCLCPP_DEBUG(rclcpp::get_logger("control"), "Closest Point: %f, %f", closest_point.x,
-               closest_point.y);
+  RCLCPP_DEBUG(rclcpp::get_logger("control"), "Closest Point: %f, %f, ID %d", closest_point.x,
+               closest_point.y, closest_point_id);
   RCLCPP_DEBUG(rclcpp::get_logger("control"), "Lookahead Point: %f, %f", lookahead_point.x,
                lookahead_point.y);
   RCLCPP_DEBUG(rclcpp::get_logger("control"), "Lookahead Velocity: %f", lookahead_velocity);
