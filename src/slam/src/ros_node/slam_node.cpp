@@ -110,7 +110,11 @@ void SLAMNode::_velocities_subscription_callback(const custom_interfaces::msg::V
 
 void SLAMNode::_publish_vehicle_pose() {
   auto message = custom_interfaces::msg::Pose();
+  message.x = this->_vehicle_pose_.position.x;
+  message.y = this->_vehicle_pose_.position.y;
+  message.theta = this->_vehicle_pose_.orientation;
   // TODO(marhcouto): add covariance
+  message.header.stamp = this->get_clock()->now();
 
   RCLCPP_DEBUG(this->get_logger(), "PUB - Pose: (%f, %f, %f)", message.x, message.y, message.theta);
   this->_vehicle_pose_publisher_->publish(message);
