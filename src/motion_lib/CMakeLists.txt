@@ -24,14 +24,14 @@ if(OpenMP_CXX_FOUND)
 endif()
 
 set(IMPLEMENTATION_FILES
-  src/s2v_model/bicycle_model.cpp
   src/particle_model.cpp
+  src/v2p_models/constant_velocity_model.cpp
+  src/v2p_models/base_v2p_motion_model.cpp
+  src/s2v_model/bicycle_model.cpp
 )
 
 add_library(${PROJECT_NAME} SHARED ${IMPLEMENTATION_FILES})
 ament_target_dependencies(${PROJECT_NAME} eufs_msgs std_msgs rclcpp visualization_msgs fs_msgs Eigen3 custom_interfaces common_lib)
-link_directories(${Eigen_INCLUDE_DIRS})
-target_link_libraries(motion_lib ${Eigen_LIBRARIES})
 
 ament_export_targets(${PROJECT_NAME} HAS_LIBRARY_TARGET)
 
@@ -50,7 +50,7 @@ install(
   )
   
 install(
-  DIRECTORY include/
+  DIRECTORY include/${PROJECT_NAME}
   DESTINATION include
   )
 
@@ -61,6 +61,7 @@ if(BUILD_TESTING)
   set(TESTFILES
     test/main.cpp
     test/bicycle_model_test.cpp
+    test/v2p_models/constant_velocity_model_test.cpp
     test/particle_model_test.cpp
   )
 
