@@ -38,11 +38,11 @@ set(IMPLEMENTATION_FILES
   src/sensor_data/imu.cpp
   src/communication/marker.cpp
   src/communication/interfaces.cpp
+  src/config_load/config_load.cpp
 )
 
 add_library(${PROJECT_NAME} SHARED ${IMPLEMENTATION_FILES})
 ament_target_dependencies(${PROJECT_NAME} eufs_msgs std_msgs rclcpp visualization_msgs fs_msgs custom_interfaces)
-# target_link_libraries(common_lib ${Eigen_LIBRARIES})
 
 ament_export_targets(${PROJECT_NAME} HAS_LIBRARY_TARGET)
 

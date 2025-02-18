@@ -34,9 +34,9 @@ endif()
 link_directories(${Eigen_INCLUDE_DIRS})
 
 set(IMPLEMENTATION_FILES
-  src/main.cpp
   src/node/node.cpp
   src/adapters/pacsim_adapter.cpp
+  src/adapters/vehicle_adapter.cpp
   src/estimators/ekf.cpp
 )
 
@@ -65,7 +65,7 @@ if(BUILD_TESTING)
   find_package(ament_cmake_gtest REQUIRED)
 
   set(TESTFILES
-    
+    test/main.cpp
   )
 
   include_directories(test)  # Include the 'test' directory for your test targets

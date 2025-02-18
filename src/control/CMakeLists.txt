@@ -35,6 +35,8 @@ find_package(eufs_msgs REQUIRED)
 find_package(common_lib REQUIRED)
 find_package(visualization_msgs REQUIRED)
 find_package(motion_lib REQUIRED)
+find_package(yaml-cpp REQUIRED)
+
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
@@ -44,6 +46,7 @@ ament_target_dependencies(node_control rclcpp std_msgs sensor_msgs custom_interf
 target_include_directories(node_control PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
+target_link_libraries(node_control yaml-cpp)
 
 target_compile_features(node_control PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
 
@@ -73,6 +76,7 @@ if(BUILD_TESTING)
   target_include_directories(${PROJECT_NAME}_test PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>)
+  target_link_libraries(${PROJECT_NAME}_test yaml-cpp)
 endif()
 
 ament_package()

@@ -1,7 +1,6 @@
 #include "point_solver/psolver.hpp"
 
 using namespace common_lib::structures;
-using namespace motion_lib::bicycle_model;
 
 /**
  * @brief PointSolver Constructer
@@ -21,15 +20,10 @@ void PointSolver::update_vehicle_pose(
 
   this->vehicle_pose_.velocity_ = vehicle_state_msg.linear_velocity;
   this->vehicle_pose_.orientation = vehicle_state_msg.theta;
-  // RCLCPP_DEBUG(rclcpp::get_logger("control"),
-  //              "Calculating rear axis: CG.x %f CG.y %f, orientation %f, Dist cg 2 rear axis %f",
-  //              this->vehicle_pose_.position.x, vehicle_pose_.position.y,
-  //              this->vehicle_pose_.orientation, this->dist_cg_2_rear_axis_);
-  this->vehicle_pose_.rear_axis_ = cg_2_rear_axis(
+  BicycleModel bicycle_model = BicycleModel(common_lib::car_parameters::CarParameters());
+  this->vehicle_pose_.rear_axis_ = bicycle_model.rear_axis_position(
       this->vehicle_pose_.position, this->vehicle_pose_.orientation, this->dist_cg_2_rear_axis_);
 
-  // RCLCPP_DEBUG(rclcpp::get_logger("control"), "Current rear axis: %f, %f",
-  //              vehicle_pose_.rear_axis_.x, vehicle_pose_.rear_axis_.y);
   return;
 }
 
@@ -45,7 +39,7 @@ std::tuple<Position, int, double> PointSolver::update_closest_point(
   Position closest_point = Position();
   Position aux_point = Position();
   int closest_point_id = -1;
-  for (size_t i = 0; i < pathpoint_array.size(); i++) {
+  for (size_t i = 1; i < pathpoint_array.size(); i++) {
     aux_point = Position(pathpoint_array[i].x, pathpoint_array[i].y);
     double distance = this->vehicle_pose_.rear_axis_.euclidean_distance(aux_point);
     if (distance < min_distance) {

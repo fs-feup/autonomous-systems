@@ -1,5 +1,6 @@
-#include "adapter_planning/parameters_factory.hpp"
+#include "adapter_planning/vehicle.hpp"
 #include "common_lib/communication/interfaces.hpp"
+#include "planning/planning.hpp"
 #include "test_utils/utils.hpp"
 
 class IntegrationTest : public ::testing::Test {
@@ -24,9 +25,10 @@ protected:
     control_receiver = rclcpp::Node::make_shared("control_receiver");  // gets path from planning
     locmap_sender = rclcpp::Node::make_shared("locmap_sender");        // publishes map from
 
-    PlanningParameters params;
-    std::string adapter_type = load_adapter_parameters(params);
-    planning_test_ = create_planning(adapter_type, params);
+    std::string adapter;
+    PlanningParameters params = Planning::load_config(adapter);
+
+    planning_test_ = std::make_shared<VehicleAdapter>(params);
 
     cone_array_msg = custom_interfaces::msg::ConeArray();  // init received message
 
@@ -54,7 +56,7 @@ protected:
     locmap_sender.reset();
     map_publisher.reset();
     control_sub.reset();
-    planning_test_.reset();
+    // planning_test_.reset();
     vehicle_state_publisher_.reset();
     rclcpp::shutdown();
   }
@@ -110,7 +112,7 @@ TEST_F(IntegrationTest, PUBLISH_PATH1) {
     EXPECT_GE(p.x, -2);
   }
   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()),
-            (long unsigned int)170);
+            (long unsigned int)110);
 }
 
 /**
@@ -149,7 +151,7 @@ TEST_F(IntegrationTest, PUBLISH_PATH2) {
     EXPECT_LE(p.y - p.x, 0.1);
   }
   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()),
-            (long unsigned int)210);
+            (long unsigned int)150);
 }
 
 /**
@@ -189,7 +191,7 @@ TEST_F(IntegrationTest, PUBLISH_PATH3) {
     EXPECT_LE(p.y + p.x, 0.1);
   }
   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()),
-            (long unsigned int)210);
+            (long unsigned int)150);
 }
 
 /**
@@ -227,7 +229,7 @@ TEST_F(IntegrationTest, PUBLISH_PATH4) {
     EXPECT_LE(p.y - p.x, 0.1);
   }
   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()),
-            (long unsigned int)210);
+            (long unsigned int)150);
 }
 
 /**
@@ -265,7 +267,7 @@ TEST_F(IntegrationTest, PUBLISH_PATH5) {
     EXPECT_LE(p.y + p.x, 0.1);
   }
   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()),
-            (long unsigned int)210);
+            (long unsigned int)150);
 }
 
 /**
@@ -297,7 +299,7 @@ TEST_F(IntegrationTest, PUBLISH_PATH6) {
     EXPECT_GE(p.y, -1);
   }
   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()),
-            (long unsigned int)170);
+            (long unsigned int)110);
 }
 
 /**

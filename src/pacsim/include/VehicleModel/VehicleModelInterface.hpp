@@ -31,12 +31,13 @@ public:
     virtual void setMaxTorques(Wheels in) = 0;
     virtual void setSteeringSetpointFront(double in) = 0;
     virtual void setSteeringSetpointRear(double in) = 0;
+    virtual void setThrottle(double in) = 0;
     virtual void setPowerGroundSetpoint(double in) = 0;
 
     virtual void setPosition(Eigen::Vector3d position) = 0;
     virtual void setOrientation(Eigen::Vector3d orientation) = 0;
 
-    virtual void forwardIntegrate(double dt, Wheels frictionCoefficients) = 0;
+    virtual void forwardIntegrate(double dt) = 0;
 
 protected:
     // states

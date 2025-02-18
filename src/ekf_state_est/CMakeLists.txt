@@ -21,6 +21,7 @@ set(PACKAGES
     visualization_msgs
     message_filters
     motion_lib
+    yaml-cpp
 )
 foreach(pkg ${PACKAGES})
   find_package(${pkg} REQUIRED)
@@ -56,6 +57,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 )
 
 target_compile_features(ekf_state_est PUBLIC c_std_99 cxx_std_17)
+target_link_libraries(ekf_state_est yaml-cpp)
 
 install(TARGETS ekf_state_est
   DESTINATION lib/${PROJECT_NAME})
@@ -88,6 +90,7 @@ if(BUILD_TESTING)
     ${CMAKE_CURRENT_SOURCE_DIR}/common_lib/structures
     ${EIGEN3_INCLUDE_DIR}  
   )
+  target_link_libraries(${PROJECT_NAME}_test ${Eigen_LIBRARIES} yaml-cpp)
 
   install(TARGETS ${PROJECT_NAME}_test DESTINATION lib/${PROJECT_NAME})
 endif()

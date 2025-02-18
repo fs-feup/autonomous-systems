@@ -69,11 +69,6 @@ if(BUILD_TESTING)
 
   set(TESTFILES
     test/main.cpp
-    # test/data_association_test.cpp
-    # test/motion_model_test.cpp
-    # test/observation_model_test.cpp
-    # test/slam_test.cpp
-    # test/slam_performance_test.cpp
     test/slam_solver/graph_slam_solver_test.cpp
     test/slam_solver/ekf_slam_solver_test.cpp
   )

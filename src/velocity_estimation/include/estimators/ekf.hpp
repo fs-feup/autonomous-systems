@@ -1,19 +1,24 @@
 #pragma once
 
+#include <math.h>
+
 #include <Eigen/Dense>
 #include <Eigen/Sparse>
 #include <chrono>
 
 #include "adapters/parameters.hpp"
 #include "common_lib/structures/velocities.hpp"
+#include "custom_interfaces/msg/velocities.hpp"
 #include "estimators/estimator.hpp"
 #include "motion_lib/particle_model.hpp"
+#include "motion_lib/s2v_model/bicycle_model.hpp"
 
 class EKF : public VelocityEstimator {
   std::chrono::high_resolution_clock::time_point last_update_;
-  Eigen::Vector3f state_ = Eigen::Vector3f::Zero();
-  Eigen::Matrix3f covariance_ = Eigen::Matrix3f::Identity();
-  Eigen::Matrix3f process_noise_matrix_;
+  Eigen::Vector3d state_ = Eigen::Vector3d::Zero();
+  Eigen::Matrix3d covariance_ = Eigen::Matrix3d::Identity();
+  Eigen::Matrix3d process_noise_matrix_;
+  Eigen::MatrixXd measurement_noise_matrix_;
 
   common_lib::sensor_data::ImuData imu_data_;
   common_lib::sensor_data::WheelEncoderData wss_data_;
@@ -28,6 +33,12 @@ class EKF : public VelocityEstimator {
   bool motor_rpm_received_ = false;
   bool steering_angle_received_ = false;
 
+  // Parameters
+  double wheel_base_;
+  double weight_distribution_front_;
+  double wheel_radius_;
+  double gear_ratio_;
+
   /**
    * @brief Predict velocities at the next index based on IMU measurements and current state
    *
@@ -38,8 +49,8 @@ class EKF : public VelocityEstimator {
    * @param last_update Time point of the last update.
    * @param imu_data IMU data containing acceleration and rotational velocity measurements.
    */
-  void predict(Eigen::Vector3f& state, Eigen::Matrix3f& covariance,
-               const Eigen::Matrix3f& process_noise_matrix,
+  void predict(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
+               const Eigen::Matrix3d& process_noise_matrix,
                const std::chrono::high_resolution_clock::time_point last_update,
                common_lib::sensor_data::ImuData& imu_data);
 
@@ -56,15 +67,31 @@ class EKF : public VelocityEstimator {
    * @param motor_rpm data representing the motor's rpms.
    * @param steering_angle data representing the steering angle.
    */
-  void correct(Eigen::Vector3f& state, Eigen::Matrix3f& covariance,
+  void correct(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
                common_lib::sensor_data::WheelEncoderData& wss_data, double motor_rpm,
                double steering_angle);
 
 public:
   EKF(const VEParameters& params);
+  /**
+   * @brief Callback function for the IMU data that should be called by adapters when new IMU data
+   * is available.
+   */
   void imu_callback(const common_lib::sensor_data::ImuData& imu_data) override;
+  /**
+   * @brief Callback function for the wheel speed sensor data that should be called by adapters when
+   * new wheel speed sensor data is available.
+   */
   void wss_callback(const common_lib::sensor_data::WheelEncoderData& wss_data) override;
+  /**
+   * @brief Callback function for the motor RPM data that should be called by adapters when new
+   * motor RPM data is available.
+   */
   void motor_rpm_callback(double motor_rpm) override;
+  /**
+   * @brief Callback function for the steering angle data that should be called by adapters when new
+   * steering angle data is available.
+   */
   void steering_callback(double steering_angle) override;
   common_lib::structures::Velocities get_velocities() override;
 };

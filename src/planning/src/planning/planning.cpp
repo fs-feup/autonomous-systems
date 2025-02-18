@@ -1,19 +1,75 @@
 #include "planning/planning.hpp"
 
+#include <vector>
+
 #include "adapter_planning/pacsim.hpp"
 #include "adapter_planning/vehicle.hpp"
+#include "common_lib/config_load/config_load.hpp"
 
 using std::placeholders::_1;
+
+PlanningParameters Planning::load_config(std::string &adapter) {
+  PlanningParameters params;
+  std::string global_config_path =
+      common_lib::config_load::get_config_yaml_path("planning", "global", "global_config");
+  RCLCPP_DEBUG(rclcpp::get_logger("planning"), "Loading global config from: %s",
+               global_config_path.c_str());
+  YAML::Node global_config = YAML::LoadFile(global_config_path);
+
+  adapter = global_config["global"]["adapter"].as<std::string>();
+  params.using_simulated_se_ = global_config["global"]["use_simulated_se"].as<bool>();
+
+  std::string planning_config_path =
+      common_lib::config_load::get_config_yaml_path("planning", "planning", adapter);
+  RCLCPP_DEBUG(rclcpp::get_logger("planning"), "Loading planning config from: %s",
+               planning_config_path.c_str());
+               
+  YAML::Node planning = YAML::LoadFile(planning_config_path);
+  auto planning_config = planning["planning"];
+
+  params.angle_gain_ = planning_config["angle_gain"].as<double>();
+  params.distance_gain_ = planning_config["distance_gain"].as<double>();
+  params.ncones_gain_ = planning_config["ncones_gain"].as<double>();
+  params.angle_exponent_ = planning_config["angle_exponent"].as<double>();
+  params.distance_exponent_ = planning_config["distance_exponent"].as<double>();
+  params.same_cone_distance_threshold_ =
+      planning_config["same_cone_distance_threshold"].as<double>();
+  params.cost_max_ = planning_config["cost_max"].as<double>();
+  params.use_memory_cone_coloring_ = planning_config["use_memory_cone_coloring"].as<bool>();
+  params.outliers_spline_order_ = planning_config["outliers_spline_order"].as<int>();
+  params.outliers_spline_coeffs_ratio_ =
+      planning_config["outliers_spline_coeffs_ratio"].as<float>();
+  params.outliers_spline_precision_ = planning_config["outliers_spline_precision"].as<int>();
+  params.path_calculation_dist_threshold_ =
+      planning_config["path_calculation_dist_threshold"].as<double>();
+  params.smoothing_spline_order_ = planning_config["smoothing_spline_order"].as<int>();
+  params.smoothing_spline_coeffs_ratio_ =
+      planning_config["smoothing_spline_coeffs_ratio"].as<float>();
+  params.smoothing_spline_precision_ = planning_config["smoothing_spline_precision"].as<int>();
+  params.publishing_visualization_msgs_ =
+      planning_config["publishing_visualization_msg"].as<bool>();
+  params.desired_velocity_ = planning_config["pre_defined_velocity_planning"].as<double>();
+  params.use_outlier_removal_ = planning_config["use_outlier_removal"].as<bool>();
+  params.use_path_smoothing_ = planning_config["use_path_smoothing"].as<bool>();
+  params.map_frame_id_ = adapter == "eufs" ? "base_footprint" : "map";
+  params.minimum_velocity_ = planning_config["minimum_velocity"].as<double>();
+  params.braking_acceleration_ = planning_config["braking_acceleration"].as<double>();
+  params.normal_acceleration_ = planning_config["normal_acceleration"].as<double>();
+  params.use_velocity_planning_ = planning_config["use_velocity_planning"].as<bool>();
+
+  return params;
+}
 
 Planning::Planning(const PlanningParameters &params)
     : Node("planning"),
       planning_config_(params),
-      desired_velocity_(static_cast<double>(params.desired_velocity_)),
+      desired_velocity_(params.desired_velocity_),
       _map_frame_id_(params.map_frame_id_) {
   cone_coloring_ = ConeColoring(planning_config_.cone_coloring_);
   outliers_ = Outliers(planning_config_.outliers_);
   path_calculation_ = PathCalculation(planning_config_.path_calculation_);
   path_smoothing_ = PathSmoothing(planning_config_.smoothing_);
+  velocity_planning_ = VelocityPlanning(planning_config_.velocity_planning_);
 
   // Control Publisher
   this->local_pub_ =
@@ -134,27 +190,42 @@ void Planning::run_planning_algorithms() {
     RCLCPP_INFO(rclcpp::get_logger("planning"), "Final path size: %d",
                 static_cast<int>(final_path.size()));
   }
-  // Velocity Planning
-  // TODO: Remove this when velocity planning is a reality
-  for (auto &path_point : final_path) {
-    path_point.ideal_velocity = desired_velocity_;
+
+  if ((this->mission == common_lib::competition_logic::Mission::SKIDPAD)) { // place a ! before the condition, to test skidpad until the simulator publishes the mission correctly
+    final_path = path_calculation_.skidpad_path(this->cone_array_, this->pose);
   }
 
-  // Execution Time calculation
-  rclcpp::Time end_time = this->now();
-  std_msgs::msg::Float64 planning_execution_time;
-  planning_execution_time.data = (end_time - start_time).seconds() * 1000;
-  this->_planning_execution_time_publisher_->publish(planning_execution_time);
+  if ((this->mission == common_lib::competition_logic::Mission::ACCELERATION)) {  // place a ! before the condition, to test acceleration until the simulator publishes the mission correctly
 
-  publish_track_points(final_path);
-  RCLCPP_DEBUG(this->get_logger(), "Planning will publish %i path points\n",
-               static_cast<int>(final_path.size()));
-
-  if (planning_config_.simulation_.publishing_visualization_msgs_) {
-    publish_visualization_msgs(colored_cones.first, colored_cones.second,
-                               refined_colored_cones.first, refined_colored_cones.second,
-                               triangulations_path, final_path);
+    double dist_from_origin = sqrt(this->pose.position.x * this->pose.position.x +
+                                   this->pose.position.y * this->pose.position.y);
+    if (dist_from_origin > 80.0) {
+      for (auto &point : final_path) {
+        point.ideal_velocity = 0.0;
+      }
+    } else {
+      for (auto &point : final_path) {
+        point.ideal_velocity = 1000.0;
+      }
+    }
+  } else if (!(this->mission == common_lib::competition_logic::Mission::SKIDPAD)) { // remove the ! before the condition, to test skidpad until the simulator publishes the mission correctly
+    velocity_planning_.set_velocity(final_path);
   }
+
+// Execution Time calculation
+rclcpp::Time end_time = this->now();
+std_msgs::msg::Float64 planning_execution_time;
+planning_execution_time.data = (end_time - start_time).seconds() * 1000;
+this->_planning_execution_time_publisher_->publish(planning_execution_time);
+
+publish_track_points(final_path);
+RCLCPP_DEBUG(this->get_logger(), "Planning will publish %i path points\n",
+             static_cast<int>(final_path.size()));
+
+if (planning_config_.simulation_.publishing_visualization_msgs_) {
+  publish_visualization_msgs(colored_cones.first, colored_cones.second, refined_colored_cones.first,
+                             refined_colored_cones.second, triangulations_path, final_path);
+}
 }
 
 void Planning::vehicle_localization_callback(const custom_interfaces::msg::VehicleState &msg) {

@@ -11,13 +11,13 @@
  * cluster validation using the standard deviation.
  */
 class DeviationValidator : public ConeValidator {
- private:
+private:
   double _min_xoy_; /**< Minimum xOy plane deviation. */
   double _max_xoy_; /**< Maximum xOy plane deviation. */
-  double _min_z_; /**< Minimum z axis deviation. */
-  double _max_z_; /**< Maximum z axis deviation. */
+  double _min_z_;   /**< Minimum z axis deviation. */
+  double _max_z_;   /**< Maximum z axis deviation. */
 
- public:
+public:
   /**
    * @brief Constructs a new DeviationValidator object with specified intervals on the deviation.
    * @param min_xoy Minimum xOy plane deviation.
@@ -30,13 +30,16 @@ class DeviationValidator : public ConeValidator {
   /**
    * @brief Validates a cluster using standard deviation.
    * @param cone_point_cloud Pointer to the cluster to be validated.
-   * @return True if the cluster is valid, false otherwise.
+   * @return vector containing:
+   * Index 0 -> if not in xoy interval, ratio between the cluster std deviation and the closest
+   * limit on the xoy plane|
+   * Index 1 -> if not z in interval, ratio between cluster std deviation and the closest limit on
+   * the z axis.
    */
-  bool coneValidator(Cluster* cone_point_cloud, Plane& plane) const override;
+  std::vector<double> coneValidator(Cluster* cone_point_cloud, Plane& plane) const override;
 
   /**
    * @brief Virtual destructor for DeviationValidator.
    */
   virtual ~DeviationValidator() = default;
 };
-
