@@ -9,12 +9,5 @@ void update_velocities(Eigen::Vector3f& velocities, double ax, double ay, double
   velocities(2) += angular_velocity;
 }
 
-Eigen::Matrix3f jacobian_of_velocity_update() {
-  Eigen::Matrix3f jacobian = Eigen::Matrix3f::Identity();
-  jacobian(0, 0) = 1;
-  jacobian(1, 1) = 1;
-  jacobian(2, 2) = 1;
-  return jacobian;
-}
-
+Eigen::Matrix3f jacobian_of_velocity_update() { return Eigen::Matrix3f::Identity(); }
 }  // namespace motion_lib::particle_model

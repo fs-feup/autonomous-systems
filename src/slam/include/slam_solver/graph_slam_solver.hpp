@@ -60,7 +60,7 @@ public:
   /**
    * @brief Get the pose estimate object
    *
-   * @return common_lib::structures::Pose
+   *  @ return common_lib::structures::Pose
    */
   common_lib::structures::Pose get_pose_estimate() override;
 };
