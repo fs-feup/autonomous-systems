@@ -1,0 +1,10 @@
+slam:
+  motion_model_name: "constant_velocity"
+  data_association_model_name: "maximum_likelihood"
+  data_association_limit_distance: 70
+  observation_x_noise: 0.03
+  observation_y_noise: 0.03
+  velocity_x_noise: 0.01
+  velocity_y_noise: 0.01
+  angular_velocity_noise: 0.01
+  slam_solver: "graph_slam"

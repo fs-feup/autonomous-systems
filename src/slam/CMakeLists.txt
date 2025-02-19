@@ -22,6 +22,7 @@ set(PACKAGES
     message_filters
     motion_lib
     perception_sensor_lib
+    yaml-cpp
 )
 set(GTSAM_INCLUDE_DIRS "/usr/local/include/gtsam")
 foreach(pkg ${PACKAGES})
@@ -45,7 +46,7 @@ set(IMPLEMENTATION_FILES
 )
 
 add_executable(slam src/main.cpp ${IMPLEMENTATION_FILES})
-target_link_libraries(slam tbb gtsam)
+target_link_libraries(slam tbb gtsam yaml-cpp)
 ament_target_dependencies(slam ${PACKAGES})
 target_include_directories(slam PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -78,7 +79,7 @@ if(BUILD_TESTING)
 
   # Unit tests
   ament_add_gtest(slam_test ${TESTFILES} ${IMPLEMENTATION_FILES} TIMEOUT 600)
-  target_link_libraries(slam_test tbb gtsam) # Necessary to be here before Eigen3
+  target_link_libraries(slam_test tbb gtsam yaml-cpp) # Necessary to be here before Eigen3
   ament_target_dependencies(slam_test ${PACKAGES})
   target_include_directories(slam_test PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>

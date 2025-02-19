@@ -3,5 +3,6 @@ global:
   use_simulated_se: false
   use_simulated_perception: false
   use_simulated_planning: false
+  use_simulated_velocities: false
   track_name: "FSE23"
   vehicle_frame_id: "map"

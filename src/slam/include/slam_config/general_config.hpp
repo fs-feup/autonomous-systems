@@ -23,5 +23,10 @@ struct SLAMParameters {
   SLAMParameters() = default;
   explicit SLAMParameters(const SLAMParameters &params);
 
-  std::string load_parameters();
+  /**
+   * @brief Load the configuration for the SLAM node from YAML file
+   *
+   * @return std::string adapter_name
+   */
+  std::string load_config();
 };
