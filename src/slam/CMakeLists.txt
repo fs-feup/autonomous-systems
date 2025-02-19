@@ -40,6 +40,7 @@ set(IMPLEMENTATION_FILES
   src/adapter_slam/pacsim.cpp
   src/adapter_slam/vehicle.cpp
   src/slam_config/general_config.cpp
+  src/slam_config/solver_config.cpp
   src/slam_solver/slam_solver.cpp
   src/slam_solver/graph_slam_solver.cpp
   src/slam_solver/ekf_slam_solver.cpp
@@ -60,9 +61,6 @@ target_compile_features(slam PUBLIC c_std_99 cxx_std_17)
 
 install(TARGETS slam
   DESTINATION lib/${PROJECT_NAME})
-
-# Install launch files
-install(DIRECTORY launch DESTINATION share/${PROJECT_NAME}/)
 
 # Testing
 if(BUILD_TESTING)

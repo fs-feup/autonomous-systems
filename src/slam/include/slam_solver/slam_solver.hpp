@@ -8,8 +8,7 @@
 #include "motion_lib/v2p_models/base_v2p_motion_model.hpp"
 #include "perception_sensor_lib/data_association/base_data_association.hpp"
 #include "rclcpp/rclcpp.hpp"
-
-struct SLAMSolverParameters {};
+#include "slam_config/solver_config.hpp"
 
 /**
  * @brief Interface for SLAM solvers
@@ -23,6 +22,7 @@ protected:
 
   rclcpp::Time _last_pose_update_ = rclcpp::Time(0);
   rclcpp::Time _last_observation_update_ = rclcpp::Time(0);
+  SLAMSolverParameters _params_;
 
 public:
   /**

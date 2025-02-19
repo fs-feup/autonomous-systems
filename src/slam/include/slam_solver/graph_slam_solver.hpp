@@ -9,6 +9,9 @@
 
 /**
  * @brief Graph SLAM solver class
+ *
+ * @details This class implements the Graph SLAM solver using GTSAM
+ * It uses a factor graph to represent the problem and the values to store the estimates
  */
 class GraphSLAMSolver : public SLAMSolver {
   gtsam::NonlinearFactorGraph
@@ -16,6 +19,11 @@ class GraphSLAMSolver : public SLAMSolver {
   gtsam::Values _graph_values_;         //< Estimate for the graph SLAM solver
   unsigned int _pose_counter_ = 0;      //< Counter for the pose symbols
   unsigned int _landmark_counter_ = 0;  //< Counter for the landmark symbols
+
+  /**
+   * @brief Optimize the graph
+   */
+  void optimize();
 
 public:
   /**

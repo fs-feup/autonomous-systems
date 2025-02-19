@@ -20,8 +20,7 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam") {
       data_association_models_map.at(params.data_association_model_name_)();
 
   // Initialize SLAM solver object
-  SLAMSolverParameters slam_solver_params;
-  // TODO(marhcouto): create slam solver parameters
+  SLAMSolverParameters slam_solver_params(params);
   this->_slam_solver_ = slam_solver_constructors_map.at(params.slam_solver_name_)(
       slam_solver_params, data_association, motion_model);
 

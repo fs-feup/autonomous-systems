@@ -24,4 +24,13 @@ double get_wheel_velocity_from_rpm(const double rpm, const double wheel_diameter
  * @return Eigen::Matrix2d
  */
 Eigen::Matrix2d get_rotation_matrix(const double angle);
+
+/**
+ * @brief Function to convert cartesian coordinates
+ * to cylindrical coordinates
+ *
+ * @param cartesian Coordinates in cartesian
+ * @return Eigen::Vector2d Coordinates in cylindrical [range, angle]
+ */
+Eigen::Vector2d cartesian_to_cylindrical(const Eigen::Vector2d& cartesian);
 }  // namespace common_lib::maths

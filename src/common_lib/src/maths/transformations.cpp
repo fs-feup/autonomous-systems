@@ -23,4 +23,10 @@ Eigen::Matrix2d get_rotation_matrix(const double angle) {
   rotation_matrix << std::cos(angle), -std::sin(angle), std::sin(angle), std::cos(angle);
   return rotation_matrix;
 }
+
+Eigen::Vector2d cartesian_to_cylindrical(const Eigen::Vector2d& cartesian) {
+  Eigen::Vector2d cylindrical;
+  cylindrical << cartesian.norm(), std::atan2(cartesian.y(), cartesian.x());
+  return cylindrical;
+}
 }  // namespace common_lib::maths
