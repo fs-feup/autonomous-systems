@@ -1,10 +1,10 @@
 slam:
-  motion_model_name: "constant_velocity"
-  data_association_model_name: "maximum_likelihood"
-  data_association_limit_distance: 70
-  observation_x_noise: 0.03
-  observation_y_noise: 0.03
-  velocity_x_noise: 0.01
-  velocity_y_noise: 0.01
-  angular_velocity_noise: 0.01
-  slam_solver: "graph_slam"
+  motion_model_name: "constant_velocity" # "constant_velocity" or ... -> name of the motion model
+  data_association_model_name: "maximum_likelihood" # "maximum_likelihood" or ... -> name of the data association model
+  data_association_limit_distance: 70 # maximum distance to consider a cone for data association
+  observation_x_noise: 0.03 # sigma of the noise for cone positions in x
+  observation_y_noise: 0.03 # sigma of the noise for cone positions in y
+  velocity_x_noise: 0.01 # sigma of the noise for the velocity in x
+  velocity_y_noise: 0.01 # sigma of the noise for the velocity in y
+  angular_velocity_noise: 0.01 # sigma of the noise for the angular velocity
+  slam_solver: "graph_slam" # "graph_slam" or "ekf_slam" or ... -> name of the slam solver
