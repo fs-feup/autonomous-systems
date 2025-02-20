@@ -155,7 +155,7 @@ jobs:
         run: |
           echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
           ./dependencies_install.sh
-          ./slam/dependencies_install.sh
+          ./src/slam/dependencies_install.sh
       
       - name: Rosdep
         run: |
