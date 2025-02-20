@@ -349,3 +349,580 @@ TEST_F(IntegrationTest, one_cone) {
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()), (long unsigned int)0);
 }
+
+void read_file_and_run_nodes(std::ifstream &file, double &finalxi, double &finalxf, double &finalyi,
+                             double &finalyf, std::vector<Cone> &cone_array,
+                             custom_interfaces::msg::VehicleState &vehicle_state) {
+  std::string line;
+
+  while (std::getline(file, line)) {
+    std::istringstream iss(line);
+    std::string flag;
+    iss >> flag;
+    if (flag == "P") {
+      // Read initial vehicle state
+      iss >> vehicle_state.position.x >> vehicle_state.position.y >> vehicle_state.theta;
+      vehicle_state.linear_velocity = 0.0;
+      vehicle_state.angular_velocity = 0.0;
+    } else if (flag == "C") {
+      Cone cone;
+      std::string color;
+      iss >> cone.position.x >> cone.position.y >> color;
+      cone.color = common_lib::competition_logic::get_color_enum(color);
+      cone_array.push_back(cone);
+    } else if (flag == "F") {
+      // Read final expected position range
+      iss >> finalxi >> finalxf >> finalyi >> finalyf;
+    } else {
+      // Ignore all other lines with no flags
+    }
+  }
+  file.close();
+}
+
+void save_debug_file(std::string filename, std::vector<Cone> cone_array,
+                     custom_interfaces::msg::PathPointArray received_path,
+                     custom_interfaces::msg::VehicleState vehicle_state) {
+  std::ofstream debug_file("../../src/planning/test/integration_tests/results/" + filename);
+  if (debug_file.is_open()) {
+    for (const auto &point : received_path.pathpoint_array) {
+      debug_file << "P"
+                 << " " << point.x << " " << point.y << "\n";
+    }
+    // also write the cone array
+    for (const auto &cone : cone_array) {
+      debug_file << "C " << cone.position.x << " " << cone.position.y << " "
+                 << common_lib::competition_logic::get_color_string(cone.color) << "\n";
+    }
+    debug_file << "V " << vehicle_state.position.x << " " << vehicle_state.position.y << " "
+               << vehicle_state.theta << "\n";
+    debug_file.close();
+  } else {
+    std::cerr << "Failed to open debug file for writing.\n";
+  }
+}
+
+
+
+/**
+ * @brief Tests the full pipeline with a simple straight path
+ *
+ */
+TEST_F(IntegrationTest, simple_straight_path) {
+  // file with the testing scenario
+  std::string filename = "straight_1.txt";
+
+  // box of the final point
+  double x1 = 0.0, x2 = 0.0, y1 = 0.0, y2 = 0.0;
+
+  // Open file straight_1.txt to read the initial state
+  std::ifstream file("../../src/planning/test/integration_tests/" + filename);
+
+  if (!file.is_open()) {
+    FAIL() << "Failed to open file: straight_1.txt";
+    return;
+  }
+
+  std::vector<Cone> cone_array;
+  custom_interfaces::msg::VehicleState vehicle_state;
+  read_file_and_run_nodes(file, x1, x2, y1, y2, cone_array, vehicle_state);
+
+  // Convert the cone array to the message
+  this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
+  // Run the nodes
+  auto duration = run_nodes(cone_array_msg, vehicle_state);
+
+  save_debug_file(filename, cone_array, this->received_path, vehicle_state);
+
+  // Verify final position
+  if ((this->received_path.pathpoint_array.back().x >= x1 &&
+       this->received_path.pathpoint_array.back().x <= x2) &&
+      (this->received_path.pathpoint_array.back().y >= y1 &&
+       this->received_path.pathpoint_array.back().y <= y2)) {
+    SUCCEED();
+  } else {
+    FAIL() << "The final point is not in the expected range. "
+           << "Expected range: (" << x1 << ", " << x2 << ", " << y1 << ", " << y2 << "), but got: ("
+           << this->received_path.pathpoint_array.back().x << ", "
+           << this->received_path.pathpoint_array.back().y << ")\n\n";
+  }
+}
+
+/**
+ * @brief Tests the full pipeline in a straight line with fewer cones in one and more in the other
+ */
+TEST_F(IntegrationTest, unbalanced_STRAIGHT_PATH) {
+  // file with the testing scenario
+  std::string filename = "straight_2.txt";
+
+  // box of the final point
+  double x1 = 0.0, x2 = 0.0, y1 = 0.0, y2 = 0.0;
+
+  // Open file straight_1.txt to read the initial state
+  std::ifstream file("../../src/planning/test/integration_tests/" + filename);
+
+  if (!file.is_open()) {
+    FAIL() << "Failed to open file: straight_1.txt";
+    return;
+  }
+
+  std::vector<Cone> cone_array;
+  custom_interfaces::msg::VehicleState vehicle_state;
+  read_file_and_run_nodes(file, x1, x2, y1, y2, cone_array, vehicle_state);
+
+  // Convert the cone array to the message
+  this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
+  // Run the nodes
+  auto duration = run_nodes(cone_array_msg, vehicle_state);
+
+  save_debug_file(filename, cone_array, this->received_path, vehicle_state);
+
+  // Verify final position
+  if ((this->received_path.pathpoint_array.back().x >= x1 &&
+       this->received_path.pathpoint_array.back().x <= x2) &&
+      (this->received_path.pathpoint_array.back().y >= y1 &&
+       this->received_path.pathpoint_array.back().y <= y2)) {
+    SUCCEED();
+  } else {
+    FAIL() << "The final point is not in the expected range. "
+           << "Expected range: (" << x1 << ", " << x2 << ", " << y1 << ", " << y2 << "), but got: ("
+           << this->received_path.pathpoint_array.back().x << ", "
+           << this->received_path.pathpoint_array.back().y << ")\n\n";
+  }
+}
+
+/**
+ * @brief Tests the full pipeline in a simple curve
+ */
+TEST_F(IntegrationTest, FULL_CURVE_PATH) {
+  // file with the testing scenario
+  std::string filename = "curve_1.txt";
+
+  // box of the final point
+  double x1 = 0.0, x2 = 0.0, y1 = 0.0, y2 = 0.0;
+
+  // Open file straight_1.txt to read the initial state
+  std::ifstream file("../../src/planning/test/integration_tests/" + filename);
+
+  if (!file.is_open()) {
+    FAIL() << "Failed to open file: straight_1.txt";
+    return;
+  }
+
+  std::vector<Cone> cone_array;
+  custom_interfaces::msg::VehicleState vehicle_state;
+  read_file_and_run_nodes(file, x1, x2, y1, y2, cone_array, vehicle_state);
+
+  // Convert the cone array to the message
+  this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
+  // Run the nodes
+  auto duration = run_nodes(cone_array_msg, vehicle_state);
+
+  save_debug_file(filename, cone_array, this->received_path, vehicle_state);
+
+  // Verify final position
+  if ((this->received_path.pathpoint_array.back().x >= x1 &&
+       this->received_path.pathpoint_array.back().x <= x2) &&
+      (this->received_path.pathpoint_array.back().y >= y1 &&
+       this->received_path.pathpoint_array.back().y <= y2)) {
+    SUCCEED();
+  } else {
+    FAIL() << "The final point is not in the expected range. "
+           << "Expected range: (" << x1 << ", " << x2 << ", " << y1 << ", " << y2 << "), but got: ("
+           << this->received_path.pathpoint_array.back().x << ", "
+           << this->received_path.pathpoint_array.back().y << ")\n\n";
+  }
+}
+
+/**
+ * @brief A path with curves where one side of the track is close to other part of the track
+ */
+TEST_F(IntegrationTest, CURVES_AND_CLOSE_TRACKSIDES) {
+  // file with the testing scenario
+  std::string filename = "curve_2.txt";
+
+  // box of the final point
+  double x1 = 0.0, x2 = 0.0, y1 = 0.0, y2 = 0.0;
+
+  // Open file straight_1.txt to read the initial state
+  std::ifstream file("../../src/planning/test/integration_tests/" + filename);
+
+  if (!file.is_open()) {
+    FAIL() << "Failed to open file: straight_1.txt";
+    return;
+  }
+
+  std::vector<Cone> cone_array;
+  custom_interfaces::msg::VehicleState vehicle_state;
+  read_file_and_run_nodes(file, x1, x2, y1, y2, cone_array, vehicle_state);
+
+  // Convert the cone array to the message
+  this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
+  // Run the nodes
+  auto duration = run_nodes(cone_array_msg, vehicle_state);
+
+  save_debug_file(filename, cone_array, this->received_path, vehicle_state);
+
+  // Verify final position
+  if ((this->received_path.pathpoint_array.back().x >= x1 &&
+       this->received_path.pathpoint_array.back().x <= x2) &&
+      (this->received_path.pathpoint_array.back().y >= y1 &&
+       this->received_path.pathpoint_array.back().y <= y2)) {
+    SUCCEED();
+  } else {
+    FAIL() << "The final point is not in the expected range. "
+           << "Expected range: (" << x1 << ", " << x2 << ", " << y1 << ", " << y2 << "), but got: ("
+           << this->received_path.pathpoint_array.back().x << ", "
+           << this->received_path.pathpoint_array.back().y << ")\n\n";
+  }
+}
+
+/**
+ * @brief A path with a sharp sinosoidal curve, where cones on both sides get closer
+ */
+TEST_F(IntegrationTest, SHARP_SINOSOIDAL_CURVE) {
+  // file with the testing scenario
+  std::string filename = "curve_3.txt";
+
+  // box of the final point
+  double x1 = 0.0, x2 = 0.0, y1 = 0.0, y2 = 0.0;
+
+  // Open file straight_1.txt to read the initial state
+  std::ifstream file("../../src/planning/test/integration_tests/" + filename);
+
+  if (!file.is_open()) {
+    FAIL() << "Failed to open file: straight_1.txt";
+    return;
+  }
+
+  std::vector<Cone> cone_array;
+  custom_interfaces::msg::VehicleState vehicle_state;
+  read_file_and_run_nodes(file, x1, x2, y1, y2, cone_array, vehicle_state);
+
+  // Convert the cone array to the message
+  this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
+  // Run the nodes
+  auto duration = run_nodes(cone_array_msg, vehicle_state);
+
+  save_debug_file(filename, cone_array, this->received_path, vehicle_state);
+
+  // Verify final position
+  if ((this->received_path.pathpoint_array.back().x >= x1 &&
+       this->received_path.pathpoint_array.back().x <= x2) &&
+      (this->received_path.pathpoint_array.back().y >= y1 &&
+       this->received_path.pathpoint_array.back().y <= y2)) {
+    SUCCEED();
+  } else {
+    FAIL() << "The final point is not in the expected range. "
+           << "Expected range: (" << x1 << ", " << x2 << ", " << y1 << ", " << y2 << "), but got: ("
+           << this->received_path.pathpoint_array.back().x << ", "
+           << this->received_path.pathpoint_array.back().y << ")\n\n";
+  }
+}
+
+
+/**
+ * @brief A realistic path with distant cones and curves
+ */
+TEST_F(IntegrationTest, DISTANT_CONES_CURVE) {
+  // file with the testing scenario
+  std::string filename = "curve_4.txt";
+
+  // box of the final point
+  double x1 = 0.0, x2 = 0.0, y1 = 0.0, y2 = 0.0;
+
+  // Open file straight_1.txt to read the initial state
+  std::ifstream file("../../src/planning/test/integration_tests/" + filename);
+
+  if (!file.is_open()) {
+    FAIL() << "Failed to open file: straight_1.txt";
+    return;
+  }
+
+  std::vector<Cone> cone_array;
+  custom_interfaces::msg::VehicleState vehicle_state;
+  read_file_and_run_nodes(file, x1, x2, y1, y2, cone_array, vehicle_state);
+
+  // Convert the cone array to the message
+  this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
+  // Run the nodes
+  auto duration = run_nodes(cone_array_msg, vehicle_state);
+
+  save_debug_file(filename, cone_array, this->received_path, vehicle_state);
+
+  // Verify final position
+  if ((this->received_path.pathpoint_array.back().x >= x1 &&
+       this->received_path.pathpoint_array.back().x <= x2) &&
+      (this->received_path.pathpoint_array.back().y >= y1 &&
+       this->received_path.pathpoint_array.back().y <= y2)) {
+    SUCCEED();
+  } else {
+    FAIL() << "The final point is not in the expected range. "
+           << "Expected range: (" << x1 << ", " << x2 << ", " << y1 << ", " << y2 << "), but got: ("
+           << this->received_path.pathpoint_array.back().x << ", "
+           << this->received_path.pathpoint_array.back().y << ")\n\n";
+  }
+}
+
+
+/**
+ * @brief Hardest curve for cone coloring
+ */
+TEST_F(IntegrationTest, EXTREME_CURVE) {
+  // file with the testing scenario
+  std::string filename = "curve_5.txt";
+
+  // box of the final point
+  double x1 = 0.0, x2 = 0.0, y1 = 0.0, y2 = 0.0;
+
+  // Open file straight_1.txt to read the initial state
+  std::ifstream file("../../src/planning/test/integration_tests/" + filename);
+
+  if (!file.is_open()) {
+    FAIL() << "Failed to open file: straight_1.txt";
+    return;
+  }
+
+  std::vector<Cone> cone_array;
+  custom_interfaces::msg::VehicleState vehicle_state;
+  read_file_and_run_nodes(file, x1, x2, y1, y2, cone_array, vehicle_state);
+
+  // Convert the cone array to the message
+  this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
+  // Run the nodes
+  auto duration = run_nodes(cone_array_msg, vehicle_state);
+
+  save_debug_file(filename, cone_array, this->received_path, vehicle_state);
+
+  // Verify final position
+  if ((this->received_path.pathpoint_array.back().x >= x1 &&
+       this->received_path.pathpoint_array.back().x <= x2) &&
+      (this->received_path.pathpoint_array.back().y >= y1 &&
+       this->received_path.pathpoint_array.back().y <= y2)) {
+    SUCCEED();
+  } else {
+    FAIL() << "The final point is not in the expected range. "
+           << "Expected range: (" << x1 << ", " << x2 << ", " << y1 << ", " << y2 << "), but got: ("
+           << this->received_path.pathpoint_array.back().x << ", "
+           << this->received_path.pathpoint_array.back().y << ")\n\n";
+  }
+}
+
+
+
+/**
+ * @brief Testing a scenario from rosbag Autocross_DV-5
+ */
+TEST_F(IntegrationTest, ROSBAG_PATH_1) {
+  // file with the testing scenario
+  std::string filename = "rosbag_1.txt";
+
+  // box of the final point
+  double x1 = 0.0, x2 = 0.0, y1 = 0.0, y2 = 0.0;
+
+  // Open file straight_1.txt to read the initial state
+  std::ifstream file("../../src/planning/test/integration_tests/" + filename);
+
+  if (!file.is_open()) {
+    FAIL() << "Failed to open file: straight_1.txt";
+    return;
+  }
+
+  std::vector<Cone> cone_array;
+  custom_interfaces::msg::VehicleState vehicle_state;
+  read_file_and_run_nodes(file, x1, x2, y1, y2, cone_array, vehicle_state);
+
+  // Convert the cone array to the message
+  this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
+  // Run the nodes
+  auto duration = run_nodes(cone_array_msg, vehicle_state);
+
+  save_debug_file(filename, cone_array, this->received_path, vehicle_state);
+
+  // Verify final position
+  if ((this->received_path.pathpoint_array.back().x >= x1 &&
+       this->received_path.pathpoint_array.back().x <= x2) &&
+      (this->received_path.pathpoint_array.back().y >= y1 &&
+       this->received_path.pathpoint_array.back().y <= y2)) {
+    SUCCEED();
+  } else {
+    FAIL() << "The final point is not in the expected range. "
+           << "Expected range: (" << x1 << ", " << x2 << ", " << y1 << ", " << y2 << "), but got: ("
+           << this->received_path.pathpoint_array.back().x << ", "
+           << this->received_path.pathpoint_array.back().y << ")\n\n";
+  }
+}
+
+/**
+ * @brief Testing a scenario from rosbag ZigZag_DV-11
+ */
+TEST_F(IntegrationTest, ROSBAG_PATH_2) {
+  // file with the testing scenario
+  std::string filename = "rosbag_2.txt";
+
+  // box of the final point
+  double x1 = 0.0, x2 = 0.0, y1 = 0.0, y2 = 0.0;
+
+  // Open file straight_1.txt to read the initial state
+  std::ifstream file("../../src/planning/test/integration_tests/" + filename);
+
+  if (!file.is_open()) {
+    FAIL() << "Failed to open file: straight_1.txt";
+    return;
+  }
+
+  std::vector<Cone> cone_array;
+  custom_interfaces::msg::VehicleState vehicle_state;
+  read_file_and_run_nodes(file, x1, x2, y1, y2, cone_array, vehicle_state);
+
+  // Convert the cone array to the message
+  this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
+  // Run the nodes
+  auto duration = run_nodes(cone_array_msg, vehicle_state);
+
+  save_debug_file(filename, cone_array, this->received_path, vehicle_state);
+
+  // Verify final position
+  if ((this->received_path.pathpoint_array.back().x >= x1 &&
+       this->received_path.pathpoint_array.back().x <= x2) &&
+      (this->received_path.pathpoint_array.back().y >= y1 &&
+       this->received_path.pathpoint_array.back().y <= y2)) {
+    SUCCEED();
+  } else {
+    FAIL() << "The final point is not in the expected range. "
+           << "Expected range: (" << x1 << ", " << x2 << ", " << y1 << ", " << y2 << "), but got: ("
+           << this->received_path.pathpoint_array.back().x << ", "
+           << this->received_path.pathpoint_array.back().y << ")\n\n";
+  }
+}
+
+
+/**
+ * @brief Testing a scenario from rosbag Acceleration_Testing_DV-1B
+ */
+TEST_F(IntegrationTest, ROSBAG_PATH_3) {
+  // file with the testing scenario
+  std::string filename = "rosbag_3.txt";
+
+  // box of the final point
+  double x1 = 0.0, x2 = 0.0, y1 = 0.0, y2 = 0.0;
+
+  // Open file straight_1.txt to read the initial state
+  std::ifstream file("../../src/planning/test/integration_tests/" + filename);
+
+  if (!file.is_open()) {
+    FAIL() << "Failed to open file: straight_1.txt";
+    return;
+  }
+
+  std::vector<Cone> cone_array;
+  custom_interfaces::msg::VehicleState vehicle_state;
+  read_file_and_run_nodes(file, x1, x2, y1, y2, cone_array, vehicle_state);
+
+  // Convert the cone array to the message
+  this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
+  // Run the nodes
+  auto duration = run_nodes(cone_array_msg, vehicle_state);
+
+  save_debug_file(filename, cone_array, this->received_path, vehicle_state);
+
+  // Verify final position
+  if ((this->received_path.pathpoint_array.back().x >= x1 &&
+       this->received_path.pathpoint_array.back().x <= x2) &&
+      (this->received_path.pathpoint_array.back().y >= y1 &&
+       this->received_path.pathpoint_array.back().y <= y2)) {
+    SUCCEED();
+  } else {
+    FAIL() << "The final point is not in the expected range. "
+           << "Expected range: (" << x1 << ", " << x2 << ", " << y1 << ", " << y2 << "), but got: ("
+           << this->received_path.pathpoint_array.back().x << ", "
+           << this->received_path.pathpoint_array.back().y << ")\n\n";
+  }
+}
+
+/**
+ * @brief Testing a scenario from rosbag Hard_Course-DV-3 from the beggining of the track
+ */
+TEST_F(IntegrationTest, ROSBAG_PATH_4) {
+  // file with the testing scenario
+  std::string filename = "rosbag_4.txt";
+
+  // box of the final point
+  double x1 = 0.0, x2 = 0.0, y1 = 0.0, y2 = 0.0;
+
+  // Open file straight_1.txt to read the initial state
+  std::ifstream file("../../src/planning/test/integration_tests/" + filename);
+
+  if (!file.is_open()) {
+    FAIL() << "Failed to open file: straight_1.txt";
+    return;
+  }
+
+  std::vector<Cone> cone_array;
+  custom_interfaces::msg::VehicleState vehicle_state;
+  read_file_and_run_nodes(file, x1, x2, y1, y2, cone_array, vehicle_state);
+
+  // Convert the cone array to the message
+  this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
+  // Run the nodes
+  auto duration = run_nodes(cone_array_msg, vehicle_state);
+
+  save_debug_file(filename, cone_array, this->received_path, vehicle_state);
+
+  // Verify final position
+  if ((this->received_path.pathpoint_array.back().x >= x1 &&
+       this->received_path.pathpoint_array.back().x <= x2) &&
+      (this->received_path.pathpoint_array.back().y >= y1 &&
+       this->received_path.pathpoint_array.back().y <= y2)) {
+    SUCCEED();
+  } else {
+    FAIL() << "The final point is not in the expected range. "
+           << "Expected range: (" << x1 << ", " << x2 << ", " << y1 << ", " << y2 << "), but got: ("
+           << this->received_path.pathpoint_array.back().x << ", "
+           << this->received_path.pathpoint_array.back().y << ")\n\n";
+  }
+}
+
+
+/**
+ * @brief Testing a scenario from rosbag Hard_Course-DV-3 with a different initial position
+ */
+TEST_F(IntegrationTest, ROSBAG_PATH_5) {
+  // file with the testing scenario
+  std::string filename = "rosbag_5.txt";
+
+  // box of the final point
+  double x1 = 0.0, x2 = 0.0, y1 = 0.0, y2 = 0.0;
+
+  // Open file straight_1.txt to read the initial state
+  std::ifstream file("../../src/planning/test/integration_tests/" + filename);
+
+  if (!file.is_open()) {
+    FAIL() << "Failed to open file: straight_1.txt";
+    return;
+  }
+
+  std::vector<Cone> cone_array;
+  custom_interfaces::msg::VehicleState vehicle_state;
+  read_file_and_run_nodes(file, x1, x2, y1, y2, cone_array, vehicle_state);
+
+  // Convert the cone array to the message
+  this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
+  // Run the nodes
+  auto duration = run_nodes(cone_array_msg, vehicle_state);
+
+  save_debug_file(filename, cone_array, this->received_path, vehicle_state);
+
+  // Verify final position
+  if ((this->received_path.pathpoint_array.back().x >= x1 &&
+       this->received_path.pathpoint_array.back().x <= x2) &&
+      (this->received_path.pathpoint_array.back().y >= y1 &&
+       this->received_path.pathpoint_array.back().y <= y2)) {
+    SUCCEED();
+  } else {
+    FAIL() << "The final point is not in the expected range. "
+           << "Expected range: (" << x1 << ", " << x2 << ", " << y1 << ", " << y2 << "), but got: ("
+           << this->received_path.pathpoint_array.back().x << ", "
+           << this->received_path.pathpoint_array.back().y << ")\n\n";
+  }
+}

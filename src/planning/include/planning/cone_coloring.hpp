@@ -83,15 +83,18 @@ private:
   void place_initial_cones(std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones,
                            const Pose& car_pose, int& n_colored_cones);
 
-  /**
-   * @brief function to place the second cones by selecting the closest to initial cones
-   *
-   * @param uncolored_cones set of cones
-   * @param car_pose car pose in the map relative to the origin
-   * @param n_colored_cones number of colored cones which will be updated
-   */
-  void place_second_cones(std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones,
-                          const Pose& car_pose, int& n_colored_cones);
+  Cone find_best_initial_cone_ransac(const std::unordered_set<Cone, std::hash<Cone>>& cones,
+                                     const Position& expected_position);
+
+      /**
+       * @brief function to place the second cones by selecting the closest to initial cones
+       *
+       * @param uncolored_cones set of cones
+       * @param car_pose car pose in the map relative to the origin
+       * @param n_colored_cones number of colored cones which will be updated
+       */
+      void place_second_cones(std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones,
+                              const Pose& car_pose, int& n_colored_cones);
 
   /**
    * @brief calculate the cost of coloring a cone
@@ -102,7 +105,7 @@ private:
    * @param colored_to_input_cones_ratio ration of cones which have been colored
    * @return double cost
    */
-  double calculate_cost(const Cone& next_cone, const Cone& last_cone,
+  double calculate_cost(const Cone& next_cone, const Cone& last_cone, const Cone& second_last_cone,
                         const TwoDVector& previous_to_last_vector,
                         const double& colored_to_input_cones_ratio) const;
 
@@ -128,6 +131,11 @@ private:
   bool try_to_color_next_cone(std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones,
                               std::vector<Cone>& colored_cones, int& n_colored_cones,
                               const int n_input_cones);
+
+  //Test
+  std::pair<double, Cone> best_coloring_cost(std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones, 
+std::vector<Cone>& colored_cones, std::vector<Cone>& oposite_color_cones, int& n_colored_cones, const int n_input_cones);
+
 
 public:
   std::vector<Cone> colored_blue_cones_;
