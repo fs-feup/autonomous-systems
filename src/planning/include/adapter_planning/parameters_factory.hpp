@@ -21,7 +21,7 @@ std::string load_adapter_parameters(PlanningParameters& params) {
   params.distance_exponent_ = adapter_node->declare_parameter("distance_exponent", 0.998);
   params.same_cone_distance_threshold_ =
       adapter_node->declare_parameter("same_cone_distance_threshold", 0.6);
-  params.cost_max_ = adapter_node->declare_parameter("cost_max", 50.0);
+  params.cost_max_ = adapter_node->declare_parameter("cost_max", 40.0);
   params.use_memory_cone_coloring_ =
       adapter_node->declare_parameter("use_memory_cone_coloring", true);
   params.outliers_spline_order_ =

@@ -132,11 +132,6 @@ private:
                               std::vector<Cone>& colored_cones, int& n_colored_cones,
                               const int n_input_cones);
 
-  //Test
-  std::pair<double, Cone> best_coloring_cost(std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones, 
-std::vector<Cone>& colored_cones, std::vector<Cone>& oposite_color_cones, int& n_colored_cones, const int n_input_cones);
-
-
 public:
   std::vector<Cone> colored_blue_cones_;
   std::vector<Cone> colored_yellow_cones_;
