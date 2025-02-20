@@ -4,9 +4,6 @@
 
 namespace common_lib::structures {
 
-Position::Position(double x, double y, double x_noise, double y_noise, rclcpp::Time timestamp)
-    : x(x), y(y), x_noise(x_noise), y_noise(y_noise), timestamp(timestamp) {}
-
 double Position::euclidean_distance(const Position &other) const {
   return sqrt(pow(x - other.x, 2) + pow(y - other.y, 2));
 }

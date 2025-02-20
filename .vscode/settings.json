@@ -97,9 +97,7 @@
         "*.ipp": "cpp",
         "filesystem": "cpp",
         "nonlinearoptimization": "cpp",
-        "*.txx": "cpp",
-        "dense": "cpp",
-        "hash_map": "cpp"
+        "*.txx": "cpp"
     },
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter",

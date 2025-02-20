@@ -60,7 +60,6 @@ If all correct, should open a window with no errors.
     ${workspaceFolder}/**
     /opt/ros/humble/include/**
     /usr/include/**
-    /usr/local/include/**
     ```
 
 ## Usage of the Environment

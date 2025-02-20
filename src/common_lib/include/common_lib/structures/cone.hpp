@@ -15,12 +15,9 @@ struct Cone {
   double certainty = 1.0;
   static constexpr double equality_tolerance = 0.1;
   bool is_large = false;
-  rclcpp::Time timestamp = rclcpp::Time(0);  //< Last time the cone was updated
   Cone() = default;
-  Cone(Position position, common_lib::competition_logic::Color cone_color, double certainty,
-       rclcpp::Time timestamp = rclcpp::Time(0));
-  Cone(double x, double y, const std::string& color = "unknown", double certainty = 1.0,
-       rclcpp::Time timestamp = rclcpp::Time(0));
+  Cone(Position position, common_lib::competition_logic::Color cone_color, double certainty);
+  Cone(double x, double y, const std::string& color = "unknown", double certainty = 1.0);
   friend bool operator==(const Cone& c1, const Cone& c2) {
     return c1.position.euclidean_distance(c2.position) <
            common_lib::structures::Cone::equality_tolerance;
