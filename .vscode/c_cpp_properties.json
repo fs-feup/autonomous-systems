@@ -6,19 +6,12 @@
                 "${workspaceFolder}/**",
                 "/opt/ros/humble/include/**",
                 "/usr/include/**",
-<<<<<<< HEAD
-                "/usr/local/include/**"
-=======
                 "/opt/ros/humble/include"
->>>>>>> dev
             ],
             "defines": [],
             "cStandard": "c17",
             "cppStandard": "gnu++17",
-            "intelliSenseMode": "linux-gcc-x64",
-            "C_Cpp.intelliSenseEngine": "Default",
-            "C_Cpp.intelliSenseCacheSize": 2048,
-            "compileCommands": "/home/ws/compile_commands.json"
+            "intelliSenseMode": "linux-gcc-x64"
         }
     ],
     "version": 4

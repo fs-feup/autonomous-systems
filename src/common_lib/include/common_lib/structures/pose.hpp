@@ -12,14 +12,10 @@ namespace common_lib::structures {
  */
 struct Pose {
   Position position;
-  double orientation = 0.0;                  /// theta in radians
-  double orientation_noise = 0.0;            //< theta noise
-  rclcpp::Time timestamp = rclcpp::Time(0);  //< Last time the pose was updated
+  double orientation = 0.0;  /// theta in radians
   Pose() = default;
-  Pose(Position position, double orientation, double orientation_noise = 0.0,
-       rclcpp::Time timestamp = rclcpp::Time(0));
-  Pose(double x, double y, double theta, double x_noise = 0.0, double y_noise = 0.0,
-       double theta_noise = 0.0, rclcpp::Time timestamp = rclcpp::Time(0));
+  Pose(Position position, double orientation);
+  Pose(double x, double y, double theta);
 };
 
 struct VehiclePose : public Pose {

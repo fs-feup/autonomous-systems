@@ -1,26 +1,13 @@
 #pragma once
 
 #include <functional>
-#include <rclcpp/rclcpp.hpp>
 
 namespace common_lib::structures {
 struct Position {
   double x = 0;
   double y = 0;
-  double x_noise = 0;
-  double y_noise = 0;
-  rclcpp::Time timestamp = rclcpp::Time(0);  //< Last time the position was updated
-
-  /**
-   * @brief Construct a new Position object with default values
-   */
   Position() = default;
-
-  /**
-   * @brief Construct a new Position object with the given x and y values
-   */
-  Position(double x, double y, double x_noise = 0.0, double y_noise = 0.0,
-           rclcpp::Time timestamp = rclcpp::Time(0));
+  Position(double x, double y) : x(x), y(y) {}
   double euclidean_distance(const Position &other) const;
 
   friend bool operator==(const Position &p1, const Position &p2) {
