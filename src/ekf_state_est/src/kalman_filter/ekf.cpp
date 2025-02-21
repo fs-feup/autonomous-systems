@@ -73,7 +73,7 @@ void ExtendedKalmanFilter::correction_step(
 void ExtendedKalmanFilter::correct_with_matched_ids(
     const std::vector<int> &matched_ids,
     const std::vector<Eigen::Vector2f> &matched_cone_positions) {
-  for (int i = 0; i < matched_ids.size(); i++) {
+  for (int i = 0; i < static_cast<int>(matched_ids.size()); i++) {
     Eigen::Vector2f z_hat =
         this->_observation_model_->observation_model(this->_x_vector_, matched_ids[i]);
     Eigen::MatrixXf h_matrix = this->_observation_model_->get_state_to_observation_matrix(
@@ -112,7 +112,7 @@ void ExtendedKalmanFilter::correct_with_matched_ids_full_state(
 
 // loop through the new features and add them to the state vector
 void ExtendedKalmanFilter::augment_state(const std::vector<Eigen::Vector2f> &new_features) {
-  for (int i = 0; i < new_features.size(); i++) {
+  for (int i = 0; i < static_cast<int>(new_features.size()); i++) {
     int length = this->_x_vector_.size();
     this->_x_vector_.conservativeResizeLike(Eigen::VectorXf::Zero(this->_x_vector_.size() + 2));
     // call inverse observational model ot change the cone position to the car frame

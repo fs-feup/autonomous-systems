@@ -7,11 +7,11 @@
 
 #include "common_lib/structures/pose.hpp"
 #include "common_lib/structures/position.hpp"
-#include "common_lib/vehicle_dynamics/bicycle_model.hpp"
-#include "common_lib/vehicle_dynamics/car_parameters.hpp"
 #include "custom_interfaces/msg/path_point_array.hpp"
 #include "custom_interfaces/msg/vehicle_state.hpp"
 #include "gtest/gtest.h"
+#include "motion_lib/car_parameters.hpp"
+#include "motion_lib/s2v_model/bicycle_model.hpp"
 #include "rclcpp/rclcpp.hpp"
 
 class PointSolver {

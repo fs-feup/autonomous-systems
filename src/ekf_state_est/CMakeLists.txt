@@ -20,6 +20,7 @@ set(PACKAGES
     common_lib
     visualization_msgs
     message_filters
+    motion_lib
     yaml-cpp
 )
 foreach(pkg ${PACKAGES})
@@ -31,7 +32,6 @@ find_package(OpenMP)
 if(OpenMP_CXX_FOUND)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
 endif()
-link_directories(${Eigen_INCLUDE_DIRS})
 
 set(IMPLEMENTATION_FILES
   src/ros_node/se_node.cpp
@@ -48,17 +48,16 @@ set(IMPLEMENTATION_FILES
 
 
 add_executable(${PROJECT_NAME} src/main.cpp ${IMPLEMENTATION_FILES})
-ament_target_dependencies(ekf_state_est ${PACKAGES} Eigen3)
+ament_target_dependencies(ekf_state_est ${PACKAGES})
 target_include_directories(${PROJECT_NAME} PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>
-  ${CMAKE_CURRENT_SOURCE_DIR}/common_lib/structures  
+  ${CMAKE_CURRENT_SOURCE_DIR}/common_lib/structures
+  ${EIGEN3_INCLUDE_DIR}  
 )
 
 target_compile_features(ekf_state_est PUBLIC c_std_99 cxx_std_17)
-
-include_directories(${EIGEN_INCLUDE_DIR} ${EIGEN_ROOT_DIR})
-target_link_libraries(ekf_state_est ${Eigen_LIBRARIES} yaml-cpp)
+target_link_libraries(ekf_state_est yaml-cpp)
 
 install(TARGETS ekf_state_est
   DESTINATION lib/${PROJECT_NAME})
@@ -88,7 +87,8 @@ if(BUILD_TESTING)
   target_include_directories(${PROJECT_NAME}_test PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
-    ${CMAKE_CURRENT_SOURCE_DIR}/common_lib/structures  
+    ${CMAKE_CURRENT_SOURCE_DIR}/common_lib/structures
+    ${EIGEN3_INCLUDE_DIR}  
   )
   target_link_libraries(${PROJECT_NAME}_test ${Eigen_LIBRARIES} yaml-cpp)
 

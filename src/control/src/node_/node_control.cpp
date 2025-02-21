@@ -1,10 +1,11 @@
 #include "node_/node_control.hpp"
 
+#include <yaml-cpp/yaml.h>
+
 #include <chrono>
 #include <functional>
 #include <memory>
 #include <string>
-#include <yaml-cpp/yaml.h>
 
 #include "common_lib/communication/marker.hpp"
 #include "common_lib/config_load/config_load.hpp"
@@ -25,21 +26,25 @@ bool received_path_point_array = false;
 
 ControlParameters Control::load_config(std::string& adapter) {
   ControlParameters params;
-  std::string global_config_path = common_lib::config_load::get_config_yaml_path("control", "global", "global_config");
-  RCLCPP_DEBUG(rclcpp::get_logger("control"), "Loading global config from: %s", global_config_path.c_str());
+  std::string global_config_path =
+      common_lib::config_load::get_config_yaml_path("control", "global", "global_config");
+  RCLCPP_DEBUG(rclcpp::get_logger("control"), "Loading global config from: %s",
+               global_config_path.c_str());
   YAML::Node global_config = YAML::LoadFile(global_config_path);
 
   adapter = global_config["global"]["adapter"].as<std::string>();
   params.using_simulated_se_ = global_config["global"]["use_simulated_se"].as<bool>();
   params.use_simulated_planning_ = global_config["global"]["use_simulated_planning"].as<bool>();
 
-
-  std::string control_path = common_lib::config_load::get_config_yaml_path("control", "control", adapter);
-  RCLCPP_DEBUG(rclcpp::get_logger("control"), "Loading control config from: %s", control_path.c_str());
+  std::string control_path =
+      common_lib::config_load::get_config_yaml_path("control", "control", adapter);
+  RCLCPP_DEBUG(rclcpp::get_logger("control"), "Loading control config from: %s",
+               control_path.c_str());
   YAML::Node control = YAML::LoadFile(control_path);
 
   auto control_config = control["control"];
-  RCLCPP_DEBUG(rclcpp::get_logger("control"), "Control config contents: %s", YAML::Dump(control_config).c_str());
+  RCLCPP_DEBUG(rclcpp::get_logger("control"), "Control config contents: %s",
+               YAML::Dump(control_config).c_str());
 
   params.lookahead_gain_ = control_config["lookahead_gain"].as<double>();
   params.pid_kp_ = control_config["pid_kp"].as<double>();
@@ -141,7 +146,6 @@ void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicl
   double steering_angle = this->lat_controller_.pp_steering_control_law(
       this->point_solver_.vehicle_pose_.rear_axis_, this->point_solver_.vehicle_pose_.position,
       lookahead_point, this->point_solver_.dist_cg_2_rear_axis_);
-  RCLCPP_WARN(rclcpp::get_logger("control"), "Steering Angle: %f", steering_angle);
   // check if steering is Nan
   if (std::isnan(steering_angle) || std::isnan(torque)) {
     RCLCPP_ERROR(rclcpp::get_logger("control"), "Steering Angle or Torque is NaN");
@@ -155,8 +159,8 @@ void Control::publish_control(const custom_interfaces::msg::VehicleState& vehicl
   RCLCPP_DEBUG(rclcpp::get_logger("control"), "Rear axis coords: %f, %f",
                this->point_solver_.vehicle_pose_.rear_axis_.x,
                this->point_solver_.vehicle_pose_.rear_axis_.y);
-  RCLCPP_DEBUG(rclcpp::get_logger("control"), "Closest Point: %f, %f", closest_point.x,
-               closest_point.y);
+  RCLCPP_DEBUG(rclcpp::get_logger("control"), "Closest Point: %f, %f, ID %d", closest_point.x,
+               closest_point.y, closest_point_id);
   RCLCPP_DEBUG(rclcpp::get_logger("control"), "Lookahead Point: %f, %f", lookahead_point.x,
                lookahead_point.y);
   RCLCPP_DEBUG(rclcpp::get_logger("control"), "Lookahead Velocity: %f", lookahead_velocity);

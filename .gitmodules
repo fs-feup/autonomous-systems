@@ -9,6 +9,10 @@
 [submodule "ext/as-integration"]
 	path = ext/as-integration
 	url = git@github.com:fs-feup/as-integration.git
+	
+[submodule "ext/gtsam"]
+	path = ext/gtsam
+	url = https://github.com/borglab/gtsam
 
 [submodule "ext/hesai-lidar"]
 	path = ext/hesai-lidar

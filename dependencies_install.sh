@@ -40,6 +40,3 @@ pip install dash
 
 # needed to not broke evaluator
 pip install numpy==1.21.5
-
-pip install transforms3d==0.4.1
-pip install scipy==1.10.0

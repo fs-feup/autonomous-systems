@@ -14,6 +14,13 @@ def generate_launch_description():
             )
         ),
     )
+    mocker_node_launch_description = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            PathJoinSubstitution(
+                [FindPackageShare("mocker_node"), "launch", "mocker_node.launch.py"]
+            )
+        ),
+    )
     planning_launch_description = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             PathJoinSubstitution(
@@ -31,6 +38,7 @@ def generate_launch_description():
     return LaunchDescription(
         [
             evaluator_launch_description,
+            #mocker_node_launch_description,
             planning_launch_description,
             control_launch_description,
         ],

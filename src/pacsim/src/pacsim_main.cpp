@@ -230,7 +230,6 @@ int threadMainLoopFunc(std::shared_ptr<rclcpp::Node> node)
         }
         if (deadTimeThrottle.availableDeadTime(simTime))
         {
-            RCLCPP_INFO_STREAM(rclcpp::get_logger("pacsim_logger"), "Setting throttle because of dead time");
             double val = deadTimeThrottle.getOldest();
             model->setThrottle(val);
         }
@@ -401,7 +400,6 @@ void cbFuncLat(const pacsim::msg::StampedScalar& msg)
 
 void cbFuncLong(const pacsim::msg::StampedScalar& msg)
 {
-    RCLCPP_INFO_STREAM(rclcpp::get_logger("pacsim_logger"), "Adding value to dead time throttle");
     std::lock_guard<std::mutex> l(mutexSimTime);
     deadTimeThrottle.addVal(msg.value, simTime);
 }
