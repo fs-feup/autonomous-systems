@@ -41,6 +41,7 @@ set(IMPLEMENTATION_FILES
   src/cone_validator/z_score_validator.cpp
   src/utils/plane.cpp
   src/utils/evaluator_parameters.cpp
+  src/utils/trimming_parameters.cpp
   src/cone_evaluator/cone_evaluator.cpp
   src/center_calculation/centroid_calculation.cpp
   src/icp/icp.cpp
@@ -48,24 +49,24 @@ set(IMPLEMENTATION_FILES
 )
 
 set(TEST_INCLUDE_FILES
-  test/ransac_test.cpp
-  test/least_squares_test.cpp
-  test/dbscan_test.cpp
-  test/performance_test.cpp
-  test/height_validator_test.cpp
-  test/cylinder_validator_test.cpp
-  test/displacement_validator_test.cpp
-  test/npoints_validator_test.cpp
-  test/grid_ransac_test.cpp
-  test/icp_test.cpp
-  test/circunference_center_calculation_test.cpp
-  test/standard_deviation_validator_test.cpp
-  test/cone_evaluator_test.cpp
-  test/cut_trimming_test.cpp
-  test/skidpad_trimming_test.cpp
-  test/acceleration_trimming_test.cpp
-  test/perception_integration_tests/perception_integration_tests.cpp
+  test/center_calculation/circunference_center_calculation_test.cpp
+  test/cone_differentiation/least_squares_test.cpp
+  test/fov_trimming/cut_trimming_test.cpp
+  test/fov_trimming/skidpad_trimming_test.cpp
+  test/fov_trimming/acceleration_trimming_test.cpp
+  test/ground_removal/ransac_test.cpp
+  test/ground_removal/grid_ransac_test.cpp
+  test/clustering/dbscan_test.cpp
+  test/cone_validator/height_validator_test.cpp
+  test/cone_validator/cylinder_validator_test.cpp
+  test/cone_validator/displacement_validator_test.cpp
+  test/cone_validator/npoints_validator_test.cpp
+  test/cone_validator/standard_deviation_validator_test.cpp
   #test/z_score_validator_test.cpp
+  test/cone_evaluator/cone_evaluator_test.cpp
+  test/icp/icp_test.cpp
+  test/performance_test.cpp
+  test/perception_integration_tests/perception_integration_tests.cpp
 )
 
 include_directories(${PCL_INCLUDE_DIRS})

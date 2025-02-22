@@ -1,8 +1,8 @@
 #include "fov_trimming/fov_trimming.hpp"
 
 void FovTrimming::process_point(pcl::PointXYZI& point, double& distance, double& angle) const {
-  double x = point.x;
-  double y = point.y;
+  const double x = point.x;
+  const double y = point.y;
 
   // This rotates 90º:
   point.x = -y;

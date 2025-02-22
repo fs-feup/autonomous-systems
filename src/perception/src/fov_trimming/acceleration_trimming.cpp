@@ -4,27 +4,27 @@
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 
-AccelerationTrimming::AccelerationTrimming(double pc_min_range, double pc_rlidar_max_height,
-                                           double pc_max_y)
-    : pc_max_y(pc_max_y), pc_min_range(pc_min_range), pc_rlidar_max_height(pc_rlidar_max_height) {}
+AccelerationTrimming::AccelerationTrimming(TrimmingParameters params) : params_(params) {
+  params_.set_acceleration();
+}
 
-void AccelerationTrimming::fov_trimming(pcl::PointCloud<pcl::PointXYZI>::Ptr cloud) const {
-  pcl::PointCloud<pcl::PointXYZI>::Ptr trimmed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
+void AccelerationTrimming::fov_trimming(const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud) const {
+  std::unique_ptr<pcl::PointCloud<pcl::PointXYZI>> trimmed_cloud =
+      std::make_unique<pcl::PointCloud<pcl::PointXYZI>>();
 
+  double distance, angle;
   for (auto& point : cloud->points) {
-    double distance, angle;
-
     process_point(point, distance, angle);
 
-    if (point.z >= pc_rlidar_max_height || distance > pc_max_range ||
-        distance <= pc_min_range) {  // Ignore points too close, too far, or higher than a
-                                     // defined height relative
-      continue;                      // to the LIDAR's position
+    if (point.z >= params_.max_height - params_.lidar_height || distance > params_.max_range ||
+        distance <= params_.min_range) {  // Ignore points too close, too far, or higher than a
+                                          // defined height relative
+      continue;                           // to the LIDAR's position
     }
 
     // Check if the point is within the specified distance, angle range and lateral distance
-    if (angle >= -fov_trim_angle && angle <= fov_trim_angle && pc_max_y >= point.y &&
-        -pc_max_y <= point.y) {
+    if (angle >= -params_.fov_trim_angle && angle <= params_.fov_trim_angle &&
+        params_.acc_max_y >= point.y && -params_.acc_max_y <= point.y) {
       trimmed_cloud->points.push_back(point);
     }
   }

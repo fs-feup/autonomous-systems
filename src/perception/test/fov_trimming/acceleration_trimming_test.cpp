@@ -4,6 +4,8 @@
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 
+#include <utils/trimming_parameters.hpp>
+
 /**
  * @brief Test class for setting up data and testing AccelerationTrimming algorithm.
  *
@@ -20,10 +22,16 @@ protected:
     pcl_cloud->points.push_back(pcl::PointXYZI{-5.1, -5.0, 0.5, 0.0});  // Outside max y range
 
     pcl_cloud_empty.reset(new pcl::PointCloud<pcl::PointXYZI>);
+
+    params.min_range = 0.0;
+    params.max_height = 10.0;
+    params.lidar_height = 0;
+    params.acc_max_y = 10.0;
   }
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_cloud;
   pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_cloud_empty;
+  TrimmingParameters params;
 };
 
 /**
@@ -31,7 +39,7 @@ protected:
  *
  */
 TEST_F(AccelerationTrimmingTest, TestMaxRange) {
-  AccelerationTrimming acc_trimming(0.0, 10.0, 10.0);
+  AccelerationTrimming acc_trimming(params);
   acc_trimming.fov_trimming(pcl_cloud);
 
   ASSERT_EQ(pcl_cloud->points.size(), 4);
@@ -42,7 +50,8 @@ TEST_F(AccelerationTrimmingTest, TestMaxRange) {
  *
  */
 TEST_F(AccelerationTrimmingTest, TestMaxHeight) {
-  AccelerationTrimming acc_trimming(0.0, 2.0, 10.0);
+  params.max_height = 2.0;
+  AccelerationTrimming acc_trimming(params);
   acc_trimming.fov_trimming(pcl_cloud);
 
   ASSERT_EQ(pcl_cloud->points.size(), 3);
@@ -53,7 +62,8 @@ TEST_F(AccelerationTrimmingTest, TestMaxHeight) {
  *
  */
 TEST_F(AccelerationTrimmingTest, TestMinRange) {
-  AccelerationTrimming acc_trimming(0.2, 10.0, 10.0);
+  params.min_range = 0.2;
+  AccelerationTrimming acc_trimming(params);
   acc_trimming.fov_trimming(pcl_cloud);
 
   ASSERT_EQ(pcl_cloud->points.size(), 3);
@@ -64,7 +74,8 @@ TEST_F(AccelerationTrimmingTest, TestMinRange) {
  *
  */
 TEST_F(AccelerationTrimmingTest, TestMaxY) {
-  AccelerationTrimming acc_trimming(0.0, 10.0, 4.0);
+  params.acc_max_y = 4.0;
+  AccelerationTrimming acc_trimming(params);
   acc_trimming.fov_trimming(pcl_cloud);
 
   ASSERT_EQ(pcl_cloud->points.size(), 3);
@@ -75,7 +86,11 @@ TEST_F(AccelerationTrimmingTest, TestMaxY) {
  *
  */
 TEST_F(AccelerationTrimmingTest, TestEmptyPointCloud) {
-  AccelerationTrimming acc_trimming(0.2, 2.0, 4.0);
+  params.min_range = 0.2;
+  params.max_height = 2.0;
+  params.lidar_height = 0;
+  params.acc_max_y = 4.0;
+  AccelerationTrimming acc_trimming(params);
   acc_trimming.fov_trimming(pcl_cloud_empty);
 
   ASSERT_EQ(pcl_cloud_empty->points.size(), 0);
@@ -86,7 +101,11 @@ TEST_F(AccelerationTrimmingTest, TestEmptyPointCloud) {
  *
  */
 TEST_F(AccelerationTrimmingTest, TestGeneralResult) {
-  AccelerationTrimming acc_trimming(0.2, 2.0, 4.0);
+  params.min_range = 0.2;
+  params.max_height = 2.0;
+  params.lidar_height = 0;
+  params.acc_max_y = 4.0;
+  AccelerationTrimming acc_trimming(params);
   acc_trimming.fov_trimming(pcl_cloud);
 
   ASSERT_EQ(pcl_cloud->points.size(), 1);

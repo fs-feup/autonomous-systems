@@ -20,10 +20,17 @@ protected:
     pcl_cloud->points.push_back(pcl::PointXYZI{-5.1, 2.0, 0.5, 0.0});   // Outside FOV trim angle
 
     pcl_cloud_empty.reset(new pcl::PointCloud<pcl::PointXYZI>);
+
+    params.max_range = 1000.0;
+    params.min_range = 0.0;
+    params.max_height = 1000.0;
+    params.lidar_height = 0.0;
+    params.fov_trim_angle = 120.0;
   }
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_cloud;
   pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_cloud_empty;
+  TrimmingParameters params;
 };
 
 /**
@@ -31,7 +38,8 @@ protected:
  *
  */
 TEST_F(CutTrimmingTest, TestMaxRange) {
-  CutTrimming cut_trimming(15.0, 0.0, 1000.0, 120.0);
+  params.max_range = 15.0;
+  CutTrimming cut_trimming(params);
   cut_trimming.fov_trimming(pcl_cloud);
 
   ASSERT_EQ(pcl_cloud->points.size(), 4);
@@ -42,7 +50,8 @@ TEST_F(CutTrimmingTest, TestMaxRange) {
  *
  */
 TEST_F(CutTrimmingTest, TestMaxHeight) {
-  CutTrimming cut_trimming(1000.0, 0.0, 2.0, 120.0);
+  params.max_height = 2.0;
+  CutTrimming cut_trimming(params);
   cut_trimming.fov_trimming(pcl_cloud);
 
   ASSERT_EQ(pcl_cloud->points.size(), 4);
@@ -53,7 +62,8 @@ TEST_F(CutTrimmingTest, TestMaxHeight) {
  *
  */
 TEST_F(CutTrimmingTest, TestMinRange) {
-  CutTrimming cut_trimming(1000.0, 0.5, 1000.0, 120.0);
+  params.min_range = 0.5;
+  CutTrimming cut_trimming(params);
   cut_trimming.fov_trimming(pcl_cloud);
 
   ASSERT_EQ(pcl_cloud->points.size(), 4);
@@ -64,7 +74,8 @@ TEST_F(CutTrimmingTest, TestMinRange) {
  *
  */
 TEST_F(CutTrimmingTest, TestFOVAngle) {
-  CutTrimming cut_trimming(1000.0, 0.0, 1000.0, 60.0);
+  params.fov_trim_angle = 60.0;
+  CutTrimming cut_trimming(params);
   cut_trimming.fov_trimming(pcl_cloud);
 
   ASSERT_EQ(pcl_cloud->points.size(), 4);
@@ -75,7 +86,7 @@ TEST_F(CutTrimmingTest, TestFOVAngle) {
  *
  */
 TEST_F(CutTrimmingTest, TestEmptyPointCloud) {
-  CutTrimming cut_trimming(10.0, 0.2, 2.5, 45.0);
+  CutTrimming cut_trimming(params);
   cut_trimming.fov_trimming(pcl_cloud_empty);
 
   ASSERT_EQ(pcl_cloud_empty->points.size(), 0);
@@ -86,7 +97,12 @@ TEST_F(CutTrimmingTest, TestEmptyPointCloud) {
  *
  */
 TEST_F(CutTrimmingTest, TestGeneralResult) {
-  CutTrimming cut_trimming(10.0, 0.2, 2.5, 45.0);
+  params.max_range = 10.0;
+  params.min_range = 0.2;
+  params.max_height = 2.5;
+  params.lidar_height = 0.0;
+  params.fov_trim_angle = 45.0;
+  CutTrimming cut_trimming(params);
   cut_trimming.fov_trimming(pcl_cloud);
 
   ASSERT_EQ(pcl_cloud->points.size(), 1);

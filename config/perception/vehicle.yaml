@@ -4,12 +4,13 @@ perception:
   vertical_resolution: 0.2
 
   #FOV trimming
-  trimming_mode: "cut" # acceleration / skidpad / cut
-  pc_rlidar_max_height: -0.22
-  pc_min_range: 1.0
+  lidar_height: 0.92
+  max_range: 30.0
+  min_range: 1.0
+  max_range: 30.0
+  max_height: 0.7
   fov_trim_angle: 45.0
-  pc_max_range: 30.0
-  acc_pc_max_y: 4.5
+  acc_max_y: 4.5
   min_distance_to_cone: 2.3
   
   #Ground Removal
@@ -39,7 +40,7 @@ perception:
   out_distance_cap: 0.5
   min_distance_x: 0.02
   min_distance_y: 0.04
-  min_distance_z: 0.13
+  min_distance_z: 0.07
   min_n_points: 4
   min_confidence: 0.912
   height_out_weight: 15.0
