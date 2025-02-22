@@ -49,6 +49,10 @@ PerceptionParameters Perception::load_config() {
   RCLCPP_DEBUG(rclcpp::get_logger("perception"), "Perception config contents: %s",
                YAML::Dump(perception_config).c_str());
 
+  auto default_mission_str = perception_config["default_mission"].as<std::string>();
+  params.default_mission_ =
+      static_cast<uint8_t>(common_lib::competition_logic::fsds_to_system.at(default_mission_str));
+
   TrimmingParameters trim_params;
   trim_params.min_range = perception_config["min_range"].as<double>();
   trim_params.max_height = perception_config["max_height"].as<double>();
@@ -154,6 +158,7 @@ PerceptionParameters Perception::load_config() {
 Perception::Perception(const PerceptionParameters& params)
     : Node("perception"),
       _vehicle_frame_id_(params.vehicle_frame_id_),
+      _mission_type_(params.default_mission_),
       _fov_trim_map_(params.fov_trim_map_),
       _ground_removal_(params.ground_removal_),
       _clustering_(params.clustering_),

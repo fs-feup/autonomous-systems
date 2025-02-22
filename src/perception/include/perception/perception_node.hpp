@@ -31,6 +31,7 @@ struct PerceptionParameters {     ///< Struct containing parameters and interfac
                                   ///< perception.
   std::string vehicle_frame_id_;  ///< String for the vehicle's frame id.
   std::string adapter_;           ///< String for the name of the current adapter.
+  uint8_t default_mission_;
   std::shared_ptr<std::unordered_map<uint8_t, std::shared_ptr<FovTrimming>>> fov_trim_map_;
   std::shared_ptr<GroundRemoval> ground_removal_;  ///< Shared pointer to the GroundRemoval object.
   std::shared_ptr<DBSCAN> clustering_;             ///< Shared pointer to the DBSCAN object.
@@ -54,7 +55,7 @@ class Perception : public rclcpp::Node {
 private:
   std::string _vehicle_frame_id_;  ///< String for the vehicle's frame id.
   std::string _adapter_;           ///< String for the current adapter being used.
-  uint8_t _mission_type_ = 4;      ///< integer value for the current mission type running.
+  uint8_t _mission_type_;          ///< integer value for the current mission type running.
   Plane _ground_plane_;            ///< Model for the ground plane.
   std::shared_ptr<std::unordered_map<uint8_t, std::shared_ptr<FovTrimming>>>
       _fov_trim_map_;                               ///< Shared pointer to the FovTrimming object.
@@ -96,7 +97,13 @@ public:
    */
   explicit Perception(const PerceptionParameters& params);
 
+  /**
+   * @brief Turns the parameters in the yaml file into PerceptionParameters class.
+   * @return parameters configured following yaml file.
+   *
+   */
   static PerceptionParameters load_config();
+
   /**
    * @brief Callback function for the PointCloud2 subscription.
    * @param msg The received PointCloud2 message.
