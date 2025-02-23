@@ -13,6 +13,9 @@ set(PACKAGES
     visualization_msgs
     geometry_msgs
     custom_interfaces
+    common_lib
+    eufs_msgs
+    fs_msgs
 )
 
 foreach(pkg ${PACKAGES})
@@ -28,6 +31,8 @@ endif()
 
 set(IMPLEMENTATION_FILES
   src/data_association/base_data_association.cpp
+  src/data_association/maximum_likelihood.cpp
+  src/observation_model/base_observation_model.cpp
 )
 
 add_library(${PROJECT_NAME} SHARED ${IMPLEMENTATION_FILES})
