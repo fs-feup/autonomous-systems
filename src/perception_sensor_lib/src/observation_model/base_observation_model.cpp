@@ -4,48 +4,18 @@
 
 Eigen::VectorXd ObservationModel::observation_model(
     const Eigen::VectorXd& state, const std::vector<int> matched_landmarks) const {
-  double car_x = state(0);
-  double car_y = state(1);
-  double car_orientation = state(2);
-
-  Eigen::Matrix2d rotation_matrix = common_lib::maths::get_rotation_matrix(-car_orientation);
-
-  int num_landmarks = static_cast<int>(matched_landmarks.size());
-  Eigen::VectorXd observations = Eigen::VectorXd(num_landmarks * 2);
-
-  for (int i = 0; i < num_landmarks; ++i) {
-    Eigen::Vector2d landmark_global(state(matched_landmarks[i]), state(matched_landmarks[i] + 1));
-    Eigen::Vector2d landmark_relative =
-        rotation_matrix * (landmark_global - Eigen::Vector2d(car_x, car_y));
-    observations(2 * i) = landmark_relative(0);
-    observations(2 * i + 1) = landmark_relative(1);
+  Eigen::VectorXd matched_landmarks_coordinates(matched_landmarks.size() * 2);
+  for (int i = 0; i < static_cast<int>(matched_landmarks.size()); i++) {
+    matched_landmarks_coordinates(2 * i) = state(matched_landmarks[i]);
+    matched_landmarks_coordinates(2 * i + 1) = state(matched_landmarks[i] + 1);
   }
-  return observations;
+  return common_lib::maths::global_to_local_referential(state.segment(0, 3),
+                                                        matched_landmarks_coordinates);
 }
 
 Eigen::VectorXd ObservationModel::inverse_observation_model(
     const Eigen::VectorXd& state, const Eigen::VectorXd& observations) const {
-  double car_x = state(0);
-  double car_y = state(1);
-  double car_orientation = state(2);
-
-  Eigen::Matrix2d rotation_matrix = common_lib::maths::get_rotation_matrix(car_orientation);
-
-  int num_landmarks = observations.size() / 2;
-
-  Eigen::VectorXd landmarks_global(num_landmarks * 2);
-
-  for (int i = 0; i < num_landmarks; ++i) {
-    Eigen::Vector2d landmark_relative(observations(2 * i), observations(2 * i + 1));
-
-    Eigen::Vector2d landmark_global =
-        rotation_matrix * landmark_relative + Eigen::Vector2d(car_x, car_y);
-
-    landmarks_global(2 * i) = landmark_global(0);
-    landmarks_global(2 * i + 1) = landmark_global(1);
-  }
-
-  return landmarks_global;
+  return common_lib::maths::local_to_global_referential(state.segment(0, 3), observations);
 }
 
 Eigen::MatrixXd ObservationModel::observation_model_jacobian(

@@ -2,6 +2,8 @@
 
 #include <Eigen/Dense>
 #include <vector>
+
+#include "common_lib/maths/transformations.hpp"
 class ObservationModel {
 public:
   ObservationModel() = default;
