@@ -9,7 +9,7 @@ std::vector<int> MaximumLikelihoodNLL::associate(
     const Eigen::VectorXd& state, const Eigen::MatrixXd& covariance,
     const Eigen::VectorXd& observations, const Eigen::VectorXd& observation_confidences) const {
   int num_observations = observations.size() / 2;
-  std::vector<int> associations(num_observations, -1);  // Default: not associated (-1)
+  std::vector<int> associations(num_observations, -2);  // Default: not associated (-2)
 
   double car_x = state(0);
   double car_y = state(1);
@@ -96,7 +96,7 @@ std::vector<int> MaximumLikelihoodNLL::associate(
     if (best_landmark_index != -1) {
       associations[i] = best_landmark_index;
     } else if (observation_confidences[i] > this->params_.new_landmark_confidence_gate) {
-      associations[i] = -2;  // New landmark
+      associations[i] = -1;  // New landmark
     }
   }
 
