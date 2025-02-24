@@ -74,7 +74,7 @@ TEST(MaximumLikelihoodMD, TestCase3) {
 }
 
 /**
- * @brief Only new landmarks
+ * @brief Only new landmarks with high confidence
  *
  */
 TEST(MaximumLikelihoodMD, TestCase4) {
@@ -91,8 +91,75 @@ TEST(MaximumLikelihoodMD, TestCase4) {
   MaximumLikelihoodMD ml(params);
   std::vector<int> associations =
       ml.associate(state, covariance, observations, observation_confidences);
-  std::vector<int> expected_associations = {-1, -1, -1, -1, -1};
+  std::vector<int> expected_associations = {-1, -1, -1, -1};
   for (int i = 0; i < static_cast<int>(associations.size()); ++i) {
     EXPECT_EQ(associations[i], expected_associations[i]);
   }
+}
+
+/**
+ * @brief Only new landmarks with low confidence
+ *
+ */
+TEST(MaximumLikelihoodMD, TestCase5) {
+  Eigen::VectorXd state(13);
+  state << -2, 3, -0.7, 34.5, -7, 12.3, 4.5, 3.2, 5.6, 6.8, 9.1, 1.8, 0.4;
+  Eigen::VectorXd observations(8);
+  observations << -6.59954619, 7.988805, 14.25830, 5.5192899677, -2.193518284, 7.3123420012,
+      12.7823521, 0.449790270;
+  Eigen::VectorXd observation_confidences = Eigen::VectorXd::Zero(4);
+  Eigen::MatrixXd covariance(13, 13);
+  covariance.setIdentity();
+  covariance *= 0.1;
+  DataAssociationParameters params;
+  MaximumLikelihoodMD ml(params);
+  std::vector<int> associations =
+      ml.associate(state, covariance, observations, observation_confidences);
+  std::vector<int> expected_associations = {-2, -2, -2, -2};
+  for (int i = 0; i < static_cast<int>(associations.size()); ++i) {
+    EXPECT_EQ(associations[i], expected_associations[i]);
+  }
+}
+
+/**
+ * @brief Only new landmarks with high confidence, high covariance and empty state
+ *
+ */
+TEST(MaximumLikelihoodMD, TestCase6) {
+  Eigen::VectorXd state(3);
+  state << 4, -10, 2;
+  Eigen::VectorXd observations(8);
+  observations << -6.59954619, 7.988805, 14.25830, 5.5192899677, -2.193518284, 7.3123420012,
+      12.7823521, 0.449790270;
+  Eigen::VectorXd observation_confidences = Eigen::VectorXd::Ones(4);
+  Eigen::MatrixXd covariance(3, 3);
+  covariance.setIdentity();
+  covariance *= 0.6;
+  DataAssociationParameters params;
+  MaximumLikelihoodMD ml(params);
+  std::vector<int> associations =
+      ml.associate(state, covariance, observations, observation_confidences);
+  std::vector<int> expected_associations = {-1, -1, -1, -1};
+  for (int i = 0; i < static_cast<int>(associations.size()); ++i) {
+    EXPECT_EQ(associations[i], expected_associations[i]);
+  }
+}
+
+/**
+ * @brief Empty state and observations
+ *
+ */
+TEST(MaximumLikelihoodMD, TestCase7) {
+  Eigen::VectorXd state(3);
+  state << 4, -10, 2;
+  Eigen::VectorXd observations(0);
+  Eigen::VectorXd observation_confidences = Eigen::VectorXd::Ones(4);
+  Eigen::MatrixXd covariance(3, 3);
+  covariance.setIdentity();
+  covariance *= 0.6;
+  DataAssociationParameters params;
+  MaximumLikelihoodMD ml(params);
+  std::vector<int> associations =
+      ml.associate(state, covariance, observations, observation_confidences);
+  EXPECT_EQ(associations.size(), 0);
 }
