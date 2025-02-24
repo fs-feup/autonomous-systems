@@ -44,8 +44,7 @@ int MaxLikelihood::associate_n_filter(
     float n_best = std::numeric_limits<int>::max();
     float outer = std::numeric_limits<int>::max();
     for (int j = 6; j < _x_vector_.size(); j += 2) {
-      Eigen::Vector2f z_hat = observation_model->observation_model(
-          _x_vector_, j);  // otimizar: calcular z_hat fora do loop
+      Eigen::Vector2f z_hat = observation_model->observation_model(_x_vector_, j);
 
       Eigen::MatrixXf h_matrix = observation_model->get_state_to_observation_matrix(
           _x_vector_, j, static_cast<unsigned int>(_x_vector_.size()));
