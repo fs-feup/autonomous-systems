@@ -3,7 +3,11 @@
 #include <vector>
 
 #include "perception_sensor_lib/data_association/parameters.hpp"
-
+/**
+ * @brief Data association models are responsible for associating landmarks with observations
+ * given the current state, covariance, and confidences in the observations.
+ *
+ */
 class DataAssociationModel {
 protected:
   DataAssociationParameters params_;
