@@ -43,7 +43,7 @@ std::vector<int> MaximumLikelihoodNLL::associate(
       double dy = ly - car_y;
 
       // Set fields of the jacobian that are not common to all landmarks.
-      jacobian_local_coordinates(0, 2) = -(-sin_theta * dx + cos_theta * dy);
+      jacobian_local_coordinates(0, 2) = -sin_theta * dx + cos_theta * dy;
       jacobian_local_coordinates(1, 2) = -(cos_theta * dx + sin_theta * dy);
       jacobian_local_coordinates(0, j) = cos_theta;
       jacobian_local_coordinates(0, j + 1) = sin_theta;
