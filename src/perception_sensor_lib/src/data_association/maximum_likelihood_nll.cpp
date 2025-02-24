@@ -17,12 +17,6 @@ std::vector<int> MaximumLikelihoodNLL::associate(
   double cos_theta = std::cos(car_theta);
   double sin_theta = std::sin(car_theta);
 
-  // Generate indexes of all landmarks in state vector
-  std::vector<int> vec(num_observations);
-  for (int i = 0; i < num_observations; ++i) {
-    vec[i] = 2 * i + 3;
-  }
-
   // Get coordinates of all landmarks in local frame
   Eigen::VectorXd landmarks_local_coordinates = common_lib::maths::global_to_local_referential(
       state.segment(0, 3), state.segment(3, state.size() - 3));
