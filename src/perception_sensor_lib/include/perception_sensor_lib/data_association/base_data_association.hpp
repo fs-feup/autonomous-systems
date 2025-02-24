@@ -2,9 +2,14 @@
 #include <Eigen/Dense>
 #include <vector>
 
+#include "perception_sensor_lib/data_association/parameters.hpp"
+
 class DataAssociationModel {
+protected:
+  DataAssociationParameters params_;
+
 public:
-  DataAssociationModel() = default;
+  DataAssociationModel(DataAssociationParameters params) : params_(params) {}
   virtual ~DataAssociationModel() = default;
   /**
    * @brief This function associates the landmarks with the observations
@@ -17,7 +22,8 @@ public:
    * observations
    * @return std::vector<int> Each entry corresponds to an observation and contains the index of the
    * landmark that the observation is associated with in the state vector (x coordinate). If the
-   * observation is not associated with any landmark, the entry is -1
+   * observation is considered new, the entry is -1. If the observation is considered an outlier,
+   * the entry is -2.
    */
   virtual std::vector<int> associate(const Eigen::VectorXd& state,
                                      const Eigen::MatrixXd& covariance,

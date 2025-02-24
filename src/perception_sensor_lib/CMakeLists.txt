@@ -31,6 +31,8 @@ endif()
 
 set(IMPLEMENTATION_FILES
   src/data_association/base_data_association.cpp
+  src/data_association/maximum_likelihood_nll.cpp
+  src/data_association/maximum_likelihood_md.cpp
   src/observation_model/base_observation_model.cpp
 )
 
@@ -65,6 +67,7 @@ if(BUILD_TESTING)
   set(TESTFILES
     test/main.cpp
     test/base_observation_model_test.cpp
+    test/maximum_likelihood_nll_test.cpp
   )
 
   include_directories(test)  # Include the 'test' directory for your test targets
