@@ -21,6 +21,7 @@ using TwoDVector = common_lib::structures::Position;
 using TrackSide = common_lib::structures::TrackSide;
 using Color = common_lib::competition_logic::Color;
 using AngleAndNorms = common_lib::maths::AngleAndNorms;
+using namespace std;
 
 class ConeColoring {
 private:
@@ -132,9 +133,55 @@ private:
                               std::vector<Cone>& colored_cones, int& n_colored_cones,
                               const int n_input_cones);
 
-  //Test
-  std::pair<double, Cone> best_coloring_cost(std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones, 
-std::vector<Cone>& colored_cones, std::vector<Cone>& oposite_color_cones, int& n_colored_cones, const int n_input_cones);
+  
+  /**
+   * @brief Computes the best coloring cost for a set of cones.
+   * 
+   * This function evaluates the cost of coloring cones and returns the best cost along with the corresponding cone.
+   * 
+   * @param uncolored_cones A set of cones that have not been colored yet.
+   * @param colored_cones A vector of cones that have already been colored.
+   * @param oposite_color_cones A vector of cones that have been colored with the opposite color.
+   * @param n_colored_cones The number of cones that have been colored so far.
+   * @param n_input_cones The total number of input cones.
+   * @return A pair consisting of the best coloring cost (double) and the corresponding cone (Cone).
+   */
+  std::pair<double, Cone> best_coloring_cost(std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones,  std::vector<Cone>& colored_cones, std::vector<Cone>& oposite_color_cones, int& n_colored_cones, const int n_input_cones);
+
+
+std::vector<std::pair<double, Cone>> top_coloring_costs(std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones, 
+std::vector<Cone>& colored_cones, vector<Cone>& oposite_color_cones, int& n_colored_cones, const int n_input_cones);
+  
+  struct ConePair {
+    ConePair* previous_blue;
+    ConePair* previous_yellow;
+    Cone * blue;
+    Cone * yellow;
+  };
+
+  struct ColoringCombination {
+    std::vector<Cone> blue_cones;
+    std::vector<Cone> yellow_cones;
+    std::unordered_set<Cone, std::hash<Cone>> remaining_cones;
+    double cost;
+    bool last = false;
+    int depth = 0;
+  };
+
+
+  struct ColoringCombinationComparator {
+    bool operator()(const ColoringCombination &a, const ColoringCombination &b) const {
+        return a.cost > b.cost;
+    }
+  };
+
+  struct ColoringComparator {
+    bool operator()(const pair<bool, pair<double,Cone>> &a, const pair<bool, pair<double,Cone>> &b) const {
+        return a.second.first > b.second.first;
+    }
+  };
+
+  pair<vector<Cone>, vector<Cone>> dijkstra_search(ColoringCombination initial_state);
 
 
 public:
@@ -171,4 +218,4 @@ public:
   friend class ConeColoring_fullconecoloring2_Test;
 };
 
-#endif  // SRC_PLANNING_INCLUDE_PLANNING_CONE_COLORING_HPP_
+#endif  // SRC_PLANNING_INCLUDE_PLANNING_CONE_COLORING_HPP

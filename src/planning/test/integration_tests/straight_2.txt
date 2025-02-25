@@ -1,12 +1,9 @@
 P 0 0 1.57079632679
 
 C 1.5 0.5 yellow_cone
-C 1.4 2.3 yellow_cone
 C 1.4 3.1 yellow_cone
 C 1.5 4.9 yellow_cone
-C 1.6 6.2 yellow_cone
 C 1.7 7.0 yellow_cone
-C 1.7 8.1 yellow_cone
 C 1.7 9.2 yellow_cone
 C 1.8 9.9 yellow_cone
 C 1.8 11.2 yellow_cone
