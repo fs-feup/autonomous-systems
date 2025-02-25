@@ -9,6 +9,12 @@
 #include <utils/cluster.hpp>
 #include <utils/plane.hpp>
 
+// Non-owning deleter: does nothing.
+template <typename T>
+struct non_owning_deleter {
+  void operator()(T*) const {}
+};
+
 /// Mock ConeValidator class
 class TestConeValidator : public ConeValidator {
 public:
@@ -40,7 +46,7 @@ TEST(ConeEvaluatorTest, EvaluateClusterConfidenceSufficient) {
   eval_params->deviation_validator =
       std::make_shared<TestConeValidator>(std::vector<double>{0.5, 0.6});
 
-  // Create a map of evaluator weights
+  // Set evaluator weights
   eval_params->height_out_weight = 0.1;
   eval_params->height_in_weight = 0.1;
   eval_params->cylinder_radius_weight = 0.2;
@@ -56,8 +62,13 @@ TEST(ConeEvaluatorTest, EvaluateClusterConfidenceSufficient) {
   eval_params->min_confidence = 0.5;
   ConeEvaluator cone_evaluator(eval_params);
 
-  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZI>());
-  Cluster cluster(cloud);
+  // Create a stack-allocated point cloud.
+  pcl::PointCloud<pcl::PointXYZI> cloud;
+  // Wrap the stack object with a non-owning shared pointer.
+  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
+
+  Cluster cluster(cloud_ptr);
   Plane ground_plane;
 
   bool result = cone_evaluator.evaluateCluster(cluster, ground_plane);
@@ -83,7 +94,7 @@ TEST(ConeEvaluatorTest, EvaluateClusterConfidenceInsufficient) {
   eval_params->deviation_validator =
       std::make_shared<TestConeValidator>(std::vector<double>{0.0, 0.0});
 
-  // Create a map of evaluator weights
+  // Set evaluator weights
   eval_params->height_out_weight = 0.1;
   eval_params->height_in_weight = 0.1;
   eval_params->cylinder_radius_weight = 0.2;
@@ -99,8 +110,13 @@ TEST(ConeEvaluatorTest, EvaluateClusterConfidenceInsufficient) {
   eval_params->min_confidence = 0.5;
   ConeEvaluator cone_evaluator(eval_params);
 
-  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZI>());
-  Cluster cluster(cloud);
+  // Create a stack-allocated point cloud.
+  pcl::PointCloud<pcl::PointXYZI> cloud;
+  // Wrap the stack object with a non-owning shared pointer.
+  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
+
+  Cluster cluster(cloud_ptr);
   Plane ground_plane;
 
   bool result = cone_evaluator.evaluateCluster(cluster, ground_plane);

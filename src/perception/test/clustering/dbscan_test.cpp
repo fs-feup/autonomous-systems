@@ -2,26 +2,36 @@
 
 #include <gtest/gtest.h>
 
+#include <memory>
+
+// Non-owning deleter: does nothing.
+template <typename T>
+struct non_owning_deleter {
+  void operator()(T*) const {}
+};
+
 /**
  * @brief Test fixture for the DBSCAN class.
  *
  * The DBSCANTest class provides a test fixture for testing the DBSCAN clustering algorithm.
  */
 class DBSCANTest : public ::testing::Test {
- protected:
+protected:
   void SetUp() override {
-    point_cloud.reset(new pcl::PointCloud<pcl::PointXYZI>);
+    // Create point cloud on the stack
+    point_cloud.clear();
 
-    point_cloud->push_back(pcl::PointXYZI(1.0, 2.0, 0.0, 0.1));
-    point_cloud->push_back(pcl::PointXYZI(4.0, 5.0, 0.0, 0.2));
-    point_cloud->push_back(pcl::PointXYZI(7.0, 8.0, 0.0, 0.3));
-    point_cloud->push_back(pcl::PointXYZI(4.0, 3.5, 0.0, 0.4));
-    point_cloud->push_back(pcl::PointXYZI(0, 7.0, 0.0, 0.5));
-    point_cloud->push_back(pcl::PointXYZI(4.0, 4.0, 0.0, 0.6));
-    point_cloud->push_back(pcl::PointXYZI(5.0, 4.5, 0.0, 0.7));
-    point_cloud->push_back(pcl::PointXYZI(40.0, 40.0, 0.0, 0.8));
+    point_cloud.push_back(pcl::PointXYZI(1.0, 2.0, 0.0, 0.1));
+    point_cloud.push_back(pcl::PointXYZI(4.0, 5.0, 0.0, 0.2));
+    point_cloud.push_back(pcl::PointXYZI(7.0, 8.0, 0.0, 0.3));
+    point_cloud.push_back(pcl::PointXYZI(4.0, 3.5, 0.0, 0.4));
+    point_cloud.push_back(pcl::PointXYZI(0, 7.0, 0.0, 0.5));
+    point_cloud.push_back(pcl::PointXYZI(4.0, 4.0, 0.0, 0.6));
+    point_cloud.push_back(pcl::PointXYZI(5.0, 4.5, 0.0, 0.7));
+    point_cloud.push_back(pcl::PointXYZI(40.0, 40.0, 0.0, 0.8));
   }
-  pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud;
+  // Declare a stack-allocated point cloud object.
+  pcl::PointCloud<pcl::PointXYZI> point_cloud;
 };
 
 /**
@@ -29,10 +39,14 @@ class DBSCANTest : public ::testing::Test {
  *
  */
 TEST_F(DBSCANTest, TestZeroNieghboursZeroEpsilon) {
-  auto clustering = new DBSCAN(0, 0);
+  const auto clustering = std::make_unique<DBSCAN>(0, 0);
+
+  // Create a non-owning shared pointer from our stack object.
+  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &point_cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
 
   std::vector<Cluster> clusters;
-  clustering->clustering(point_cloud, &clusters);
+  clustering->clustering(cloud_ptr, &clusters);
 
   ASSERT_EQ(clusters.size(), 8);
 }
@@ -42,10 +56,14 @@ TEST_F(DBSCANTest, TestZeroNieghboursZeroEpsilon) {
  *
  */
 TEST_F(DBSCANTest, TestLargeEpsilon) {
-  auto clustering = new DBSCAN(0, 30);
+  const auto clustering = std::make_unique<DBSCAN>(0, 30);
+
+  // Create a non-owning shared pointer from our stack object.
+  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &point_cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
 
   std::vector<Cluster> clusters;
-  clustering->clustering(point_cloud, &clusters);
+  clustering->clustering(cloud_ptr, &clusters);
 
   ASSERT_EQ(clusters.size(), 2);
 }
@@ -55,10 +73,14 @@ TEST_F(DBSCANTest, TestLargeEpsilon) {
  *
  */
 TEST_F(DBSCANTest, TestMinClusterSize) {
-  auto clustering = new DBSCAN(2, 30);
+  const auto clustering = std::make_unique<DBSCAN>(2, 30);
+
+  // Create a non-owning shared pointer from our stack object.
+  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &point_cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
 
   std::vector<Cluster> clusters;
-  clustering->clustering(point_cloud, &clusters);
+  clustering->clustering(cloud_ptr, &clusters);
 
   ASSERT_EQ(clusters.size(), 1);
 }
@@ -68,10 +90,14 @@ TEST_F(DBSCANTest, TestMinClusterSize) {
  *
  */
 TEST_F(DBSCANTest, TestLargeEpsilon2) {
-  auto clustering = new DBSCAN(0, 50);
+  const auto clustering = std::make_unique<DBSCAN>(0, 50);
+
+  // Create a non-owning shared pointer from our stack object.
+  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &point_cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
 
   std::vector<Cluster> clusters;
-  clustering->clustering(point_cloud, &clusters);
+  clustering->clustering(cloud_ptr, &clusters);
 
   ASSERT_EQ(clusters.size(), 1);
 }
@@ -81,10 +107,14 @@ TEST_F(DBSCANTest, TestLargeEpsilon2) {
  *
  */
 TEST_F(DBSCANTest, TestSmallThreshold) {
-  auto clustering = new DBSCAN(0, 1.5);
+  const auto clustering = std::make_unique<DBSCAN>(0, 1.5);
+
+  // Create a non-owning shared pointer from our stack object.
+  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &point_cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
 
   std::vector<Cluster> clusters;
-  clustering->clustering(point_cloud, &clusters);
+  clustering->clustering(cloud_ptr, &clusters);
 
   ASSERT_EQ(clusters.size(), 5);
 }
@@ -94,10 +124,14 @@ TEST_F(DBSCANTest, TestSmallThreshold) {
  *
  */
 TEST_F(DBSCANTest, TestMinClusterSize2) {
-  auto clustering = new DBSCAN(2, 1.5);
+  const auto clustering = std::make_unique<DBSCAN>(2, 1.5);
+
+  // Create a non-owning shared pointer from our stack object.
+  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &point_cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
 
   std::vector<Cluster> clusters;
-  clustering->clustering(point_cloud, &clusters);
+  clustering->clustering(cloud_ptr, &clusters);
 
   ASSERT_EQ(clusters.size(), 1);
 }
@@ -107,10 +141,14 @@ TEST_F(DBSCANTest, TestMinClusterSize2) {
  *
  */
 TEST_F(DBSCANTest, TestSmallThreshold3) {
-  auto clustering = new DBSCAN(0, 0.4);
+  const auto clustering = std::make_unique<DBSCAN>(0, 0.4);
+
+  // Create a non-owning shared pointer from our stack object.
+  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &point_cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
 
   std::vector<Cluster> clusters;
-  clustering->clustering(point_cloud, &clusters);
+  clustering->clustering(cloud_ptr, &clusters);
 
   ASSERT_EQ(clusters.size(), 8);
 }
@@ -120,10 +158,14 @@ TEST_F(DBSCANTest, TestSmallThreshold3) {
  *
  */
 TEST_F(DBSCANTest, TestAggregate2Points) {
-  auto clustering = new DBSCAN(0, 0.6);
+  const auto clustering = std::make_unique<DBSCAN>(0, 0.6);
+
+  // Create a non-owning shared pointer from our stack object.
+  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &point_cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
 
   std::vector<Cluster> clusters;
-  clustering->clustering(point_cloud, &clusters);
+  clustering->clustering(cloud_ptr, &clusters);
 
   ASSERT_EQ(clusters.size(), 7);
 }
@@ -133,10 +175,14 @@ TEST_F(DBSCANTest, TestAggregate2Points) {
  *
  */
 TEST_F(DBSCANTest, TestMorePointsThanThreshold) {
-  auto clustering = new DBSCAN(10, 50);
+  const auto clustering = std::make_unique<DBSCAN>(10, 50);
+
+  // Create a non-owning shared pointer from our stack object.
+  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &point_cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
 
   std::vector<Cluster> clusters;
-  clustering->clustering(point_cloud, &clusters);
+  clustering->clustering(cloud_ptr, &clusters);
 
   ASSERT_EQ(clusters.size(), 0);
 }
@@ -146,10 +192,14 @@ TEST_F(DBSCANTest, TestMorePointsThanThreshold) {
  *
  */
 TEST_F(DBSCANTest, TestMinClusterWithSmallThreshold) {
-  auto clustering = new DBSCAN(1, 0.1);
+  const auto clustering = std::make_unique<DBSCAN>(1, 0.1);
+
+  // Create a non-owning shared pointer from our stack object.
+  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &point_cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
 
   std::vector<Cluster> clusters;
-  clustering->clustering(point_cloud, &clusters);
+  clustering->clustering(cloud_ptr, &clusters);
 
   ASSERT_EQ(clusters.size(), 8);
 }

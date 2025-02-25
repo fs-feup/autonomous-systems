@@ -4,10 +4,10 @@
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 
-CutTrimming::CutTrimming(TrimmingParameters params) : params_(params) {}
+CutTrimming::CutTrimming(const TrimmingParameters params) : params_(params) {}
 
 void CutTrimming::fov_trimming(const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud) const {
-  std::unique_ptr<pcl::PointCloud<pcl::PointXYZI>> trimmed_cloud =
+  const std::unique_ptr<pcl::PointCloud<pcl::PointXYZI>> trimmed_cloud =
       std::make_unique<pcl::PointCloud<pcl::PointXYZI>>();
 
   double distance, angle;

@@ -4,72 +4,94 @@
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 
+#include <algorithm>
+#include <cmath>
+
+// Non-owning deleter: does nothing.
+template <typename T>
+struct non_owning_deleter {
+  void operator()(T*) const {}
+};
+
 class SkidpadTrimmingTest : public ::testing::Test {
 protected:
   void SetUp() override {
-    pcl_cloud.reset(new pcl::PointCloud<pcl::PointXYZI>);
+    // Create the point cloud on the stack.
+    cloud.points.clear();
+    cloud.points.push_back(pcl::PointXYZI{1.0, -4.0, 0.5, 0.0});    // Inside
+    cloud.points.push_back(pcl::PointXYZI{1.0, -21.0, 0.5, 0.0});   // Outside max range
+    cloud.points.push_back(pcl::PointXYZI{1.0, -3.5, 3.0, 0.0});    // Above max height
+    cloud.points.push_back(pcl::PointXYZI{0.05, -0.05, 0.5, 0.0});  // Below min range
+    cloud.points.push_back(pcl::PointXYZI{2.0, -0.2, 0.5, 0.0});    // Outside FOV trim angle
 
-    pcl_cloud->points.push_back(pcl::PointXYZI{1.0, -4.0, 0.5, 0.0});    // Inside
-    pcl_cloud->points.push_back(pcl::PointXYZI{1.0, -21.0, 0.5, 0.0});   // Outside max range
-    pcl_cloud->points.push_back(pcl::PointXYZI{1.0, -3.5, 3.0, 0.0});    // Above max height
-    pcl_cloud->points.push_back(pcl::PointXYZI{0.05, -0.05, 0.5, 0.0});  // Below min range
-    pcl_cloud->points.push_back(pcl::PointXYZI{2.0, -0.2, 0.5, 0.0});    // Outside FOV trim angle
+    // Ensure the empty cloud is empty.
+    cloud_empty.points.clear();
 
-    pcl_cloud_empty.reset(new pcl::PointCloud<pcl::PointXYZI>);
-
+    // Set initial trimming parameters.
     params.min_range = 0.0;
     params.max_height = 1000.0;
     params.lidar_height = 0.0;
     params.min_distance_to_cone = 1.5;
+    // fov_trim_angle is not set here for every test, but will be adjusted in tests as needed.
   }
 
-  pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_cloud;
-  pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_cloud_empty;
+  // Stack-allocated point clouds.
+  pcl::PointCloud<pcl::PointXYZI> cloud;
+  pcl::PointCloud<pcl::PointXYZI> cloud_empty;
   TrimmingParameters params;
 };
 
 TEST_F(SkidpadTrimmingTest, TestMaxRange) {
+  // Wrap the stack cloud with a non-owning shared pointer.
+  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
   SkidpadTrimming skidpad_trimming(params);
-  skidpad_trimming.fov_trimming(pcl_cloud);
-  ASSERT_EQ(pcl_cloud->points.size(), 4);
+  skidpad_trimming.fov_trimming(cloud_ptr);
+  ASSERT_EQ(cloud_ptr->points.size(), 4);
 }
 
 TEST_F(SkidpadTrimmingTest, TestMaxHeight) {
   params.max_height = 2.5;
+  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
   SkidpadTrimming skidpad_trimming(params);
-  skidpad_trimming.fov_trimming(pcl_cloud);
-  ASSERT_EQ(pcl_cloud->points.size(), 3);
+  skidpad_trimming.fov_trimming(cloud_ptr);
+  ASSERT_EQ(cloud_ptr->points.size(), 3);
 }
 
 TEST_F(SkidpadTrimmingTest, TestMinRange) {
   params.min_range = 0.3;
+  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
   SkidpadTrimming skidpad_trimming(params);
-  skidpad_trimming.fov_trimming(pcl_cloud);
-  ASSERT_EQ(pcl_cloud->points.size(), 3);
+  skidpad_trimming.fov_trimming(cloud_ptr);
+  ASSERT_EQ(cloud_ptr->points.size(), 3);
 }
 
 TEST_F(SkidpadTrimmingTest, TestFOVAngle) {
   params.min_distance_to_cone = 1.7;
-  params.fov_trim_angle =
-      90 - std::acos(1.5 / std::max(params.min_distance_to_cone, 1.5)) * 180 / M_PI;
+  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
   SkidpadTrimming skidpad_trimming(params);
-  skidpad_trimming.fov_trimming(pcl_cloud);
-  ASSERT_EQ(pcl_cloud->points.size(), 3);
+  skidpad_trimming.fov_trimming(cloud_ptr);
+  ASSERT_EQ(cloud_ptr->points.size(), 3);
 }
 
 TEST_F(SkidpadTrimmingTest, TestEmptyPointCloud) {
+  pcl::PointCloud<pcl::PointXYZI>::Ptr empty_ptr(
+      &cloud_empty, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
   SkidpadTrimming skidpad_trimming(params);
-  skidpad_trimming.fov_trimming(pcl_cloud_empty);
-  ASSERT_EQ(pcl_cloud_empty->points.size(), 0);
+  skidpad_trimming.fov_trimming(empty_ptr);
+  ASSERT_EQ(empty_ptr->points.size(), 0);
 }
 
 TEST_F(SkidpadTrimmingTest, TestGeneralResult) {
   params.min_range = 0.4;
   params.max_height = 2.5;
   params.min_distance_to_cone = 4.0;
-  params.fov_trim_angle =
-      90 - std::acos(1.5 / std::max(params.min_distance_to_cone, 1.5)) * 180 / M_PI;
+  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
   SkidpadTrimming skidpad_trimming(params);
-  skidpad_trimming.fov_trimming(pcl_cloud);
-  ASSERT_EQ(pcl_cloud->points.size(), 1);
+  skidpad_trimming.fov_trimming(cloud_ptr);
+  ASSERT_EQ(cloud_ptr->points.size(), 1);
 }
