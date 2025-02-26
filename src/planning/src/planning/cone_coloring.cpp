@@ -429,7 +429,7 @@ pair<vector<Cone>, vector<Cone>> ConeColoring::dijkstra_search(ColoringCombinati
                                                                             
   double outlier_cost_per_cone = 60;    // the cost of accepting to not color a cone
   double max_cost = this->config_.max_cost_;               // the maximum cost of coloring a cone  
-  int max_tree_growth = 3; // the maximum number of new cones to consider per level
+  int max_tree_growth = 2; // the maximum number of new cones to consider per level
 
   std::priority_queue<ColoringCombination, std::vector<ColoringCombination>, ColoringCombinationComparator> pq;
   
@@ -440,13 +440,28 @@ pair<vector<Cone>, vector<Cone>> ConeColoring::dijkstra_search(ColoringCombinati
 
   // Start loop
   int iterations = 0;
+  int deepest = -1;
+  int tolerance = 2;
   ColoringCombination current;
   while (!pq.empty())
   {
     iterations++;
     current = pq.top();
     pq.pop();
-    if (current.last || current.depth == 15)
+    
+
+    if (current.depth + tolerance < deepest)
+    {
+      continue;
+    }
+    
+    if (current.depth > deepest)
+    {
+      deepest = current.depth;
+      RCLCPP_DEBUG(rclcpp::get_logger("Planning : ConeColoring"), "Deepest level: %d", deepest);
+    }
+    
+    if (current.last || current.depth == 12)
     {
       break;
     }
@@ -471,6 +486,7 @@ pair<vector<Cone>, vector<Cone>> ConeColoring::dijkstra_search(ColoringCombinati
     }
     
     // Push the new cone pairs to the pq, only push a maximum of max_tree_growth new cone pairs, the ones with the lowest cost  
+  
     for (int i = 0; i < std::min(max_tree_growth, static_cast<int>(sorted_cones.size())); i++)
     {
       pair<bool, pair<double,Cone>> temporary = sorted_cones.top();
