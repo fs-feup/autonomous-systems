@@ -14,6 +14,9 @@
  * @brief Test suite for the ICP class.
  */
 class ICPSuite : public ::testing::Test {
+public:
+  pcl::PointCloud<pcl::PointXYZI>::Ptr source_cloud;
+
 protected:
   /**
    * @brief Set up the test fixture.
@@ -26,9 +29,6 @@ protected:
     source_cloud->width = 1;
     source_cloud->height = 3;
   }
-
-public:
-  pcl::PointCloud<pcl::PointXYZI>::Ptr source_cloud;
 };
 
 /**
@@ -36,7 +36,7 @@ public:
  */
 TEST_F(ICPSuite, Initialization) {
   ICP icp("../../src/perception/test/icp/icp_tests/basic_cloud.pcd", 0.1, 50, 1e-8, 1);
-  pcl::PointCloud<pcl::PointXYZI>::Ptr target_cloud =
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr target_cloud =
       std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
   ASSERT_NO_THROW(icp.executeICP(source_cloud, target_cloud));
 }
@@ -47,9 +47,9 @@ TEST_F(ICPSuite, Initialization) {
 TEST_F(ICPSuite, Alignment) {
   ICP icp("../../src/perception/test/icp/icp_tests/basic_cloud.pcd", 100.0, 300, 5, 5);
 
-  pcl::PointCloud<pcl::PointXYZI>::Ptr aligned_cloud =
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr aligned_cloud =
       std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
-  double fitness_score = icp.executeICP(source_cloud, aligned_cloud);
+  const double fitness_score = icp.executeICP(source_cloud, aligned_cloud);
 
   // Ensure that the fitness score is not negative, indicating successful alignment
   ASSERT_GE(fitness_score, 0);
@@ -61,9 +61,9 @@ TEST_F(ICPSuite, Alignment) {
 TEST_F(ICPSuite, AlignmentFailed) {
   ICP icp("../../src/perception/test/icp/icp_tests/basic_cloud.pcd", 1.0, 50, 1e-8, 5);
 
-  pcl::PointCloud<pcl::PointXYZI>::Ptr aligned_cloud =
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr aligned_cloud =
       std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
-  double fitness_score = icp.executeICP(source_cloud, aligned_cloud);
+  const double fitness_score = icp.executeICP(source_cloud, aligned_cloud);
 
   ASSERT_EQ(fitness_score, -1);
 }

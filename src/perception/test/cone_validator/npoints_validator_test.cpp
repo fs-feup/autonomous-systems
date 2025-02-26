@@ -27,7 +27,7 @@ TEST_F(NPointsValidatorTest, ConeWithFewerPointsThanThreshold) {
   const NPointsValidator validator(4);
 
   const auto point_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
-  point_cloud->points.emplace_back(0.3, 0.0, 0.0, 0);  // 1 point
+  (void)point_cloud->points.emplace_back(0.3, 0.0, 0.0, 0);  // 1 point
 
   Cluster cone_point_cloud(point_cloud);
 

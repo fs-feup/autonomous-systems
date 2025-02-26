@@ -78,9 +78,9 @@ TEST_F(SkidpadTrimmingTest, TestFOVAngle) {
 }
 
 TEST_F(SkidpadTrimmingTest, TestEmptyPointCloud) {
-  pcl::PointCloud<pcl::PointXYZI>::Ptr empty_ptr(
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr empty_ptr(
       &cloud_empty, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
-  SkidpadTrimming skidpad_trimming(params);
+  const SkidpadTrimming skidpad_trimming(params);
   skidpad_trimming.fov_trimming(empty_ptr);
   ASSERT_EQ(empty_ptr->points.size(), 0);
 }

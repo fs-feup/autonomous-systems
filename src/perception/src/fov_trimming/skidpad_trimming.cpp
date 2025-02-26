@@ -9,10 +9,10 @@ SkidpadTrimming::SkidpadTrimming(const TrimmingParameters params) : params_(para
 }
 
 void SkidpadTrimming::fov_trimming(const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud) const {
-  double distance, angle;
   const std::unique_ptr<pcl::PointCloud<pcl::PointXYZI>> trimmed_cloud =
       std::make_unique<pcl::PointCloud<pcl::PointXYZI>>();
 
+  double distance = 0, angle = 0;
   for (auto& point : cloud->points) {
     process_point(point, distance, angle);
 

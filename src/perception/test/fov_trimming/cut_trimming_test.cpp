@@ -106,9 +106,9 @@ TEST_F(CutTrimmingTest, TestFOVAngle) {
  *
  */
 TEST_F(CutTrimmingTest, TestEmptyPointCloud) {
-  pcl::PointCloud<pcl::PointXYZI>::Ptr empty_ptr(
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr empty_ptr(
       &cloud_empty, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
-  CutTrimming cut_trimming(params);
+  const CutTrimming cut_trimming(params);
   cut_trimming.fov_trimming(empty_ptr);
 
   ASSERT_EQ(empty_ptr->points.size(), 0);

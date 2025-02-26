@@ -108,9 +108,9 @@ TEST_F(AccelerationTrimmingTest, TestEmptyPointCloud) {
   params.max_height = 2.0;
   params.lidar_height = 0;
   params.acc_max_y = 4.0;
-  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_empty_ptr(
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_empty_ptr(
       &cloud_empty, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
-  AccelerationTrimming acc_trimming(params);
+  const AccelerationTrimming acc_trimming(params);
   acc_trimming.fov_trimming(cloud_empty_ptr);
 
   ASSERT_EQ(cloud_empty_ptr->points.size(), 0);
