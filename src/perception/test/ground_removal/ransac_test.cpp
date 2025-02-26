@@ -5,14 +5,13 @@
 #include <pcl/point_types.h>
 
 #include <memory>
+#include <utils/plane.hpp>
 
 // Non-owning deleter: does nothing.
 template <typename T>
-struct non_owning_deleter {
+struct NonOwningDeleter {
   void operator()(T*) const {}
 };
-
-#include <utils/plane.hpp>
 
 /**
  * @brief Test class for setting up data and testing RANSAC algorithm.
@@ -39,6 +38,7 @@ protected:
 
   // Stack-allocated point clouds.
   pcl::PointCloud<pcl::PointXYZI> cloud;
+  pcl::PointCloud<pcl::PointXYZI> ground_removed_cloud;
   pcl::PointCloud<pcl::PointXYZI> empty_cloud;
   pcl::PointCloud<pcl::PointXYZI> cloud_3_points;
 };
@@ -48,16 +48,17 @@ protected:
  *
  */
 TEST_F(RANSACTest, TestBigEpsilon) {
-  RANSAC ground_removal(10000, 1);  // Create on the stack.
+  const RANSAC ground_removal(10'000, 1);  // Create on the stack.
   Plane plane;
 
   // Wrap stack cloud in a non-owning shared pointer.
-  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
-  pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  ground_removal.ground_removal(cloud_ptr, ground_removed_cloud, plane);
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud_ptr(
+      &ground_removed_cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  ground_removal.ground_removal(cloud_ptr, ground_removed_cloud_ptr, plane);
 
-  ASSERT_EQ(ground_removed_cloud->points.size(), 0);
+  ASSERT_EQ(ground_removed_cloud_ptr->points.size(), 0);
 }
 
 /**
@@ -66,15 +67,16 @@ TEST_F(RANSACTest, TestBigEpsilon) {
  *
  */
 TEST_F(RANSACTest, TestCommonScenario) {
-  RANSAC ground_removal(0.05, 100);
+  const RANSAC ground_removal(0.05, 100);
   Plane plane;
 
-  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
-  pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  ground_removal.ground_removal(cloud_ptr, ground_removed_cloud, plane);
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud_ptr(
+      &ground_removed_cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  ground_removal.ground_removal(cloud_ptr, ground_removed_cloud_ptr, plane);
 
-  ASSERT_EQ(ground_removed_cloud->points.size(), 2);
+  ASSERT_EQ(ground_removed_cloud_ptr->points.size(), 2);
 }
 
 /**
@@ -82,15 +84,16 @@ TEST_F(RANSACTest, TestCommonScenario) {
  *
  */
 TEST_F(RANSACTest, TestCommonScenario2) {
-  RANSAC ground_removal(0.5, 100);
+  const RANSAC ground_removal(0.5, 100);
   Plane plane;
 
-  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
-  pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  ground_removal.ground_removal(cloud_ptr, ground_removed_cloud, plane);
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud_ptr(
+      &ground_removed_cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  ground_removal.ground_removal(cloud_ptr, ground_removed_cloud_ptr, plane);
 
-  ASSERT_EQ(ground_removed_cloud->points.size(), 1);
+  ASSERT_EQ(ground_removed_cloud_ptr->points.size(), 1);
 }
 
 /**
@@ -98,15 +101,16 @@ TEST_F(RANSACTest, TestCommonScenario2) {
  *
  */
 TEST_F(RANSACTest, TestThresholdZero) {
-  RANSAC ground_removal(0, 10);
+  const RANSAC ground_removal(0, 10);
   Plane plane;
 
-  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
-  pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  ground_removal.ground_removal(cloud_ptr, ground_removed_cloud, plane);
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud_ptr(
+      &ground_removed_cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  ground_removal.ground_removal(cloud_ptr, ground_removed_cloud_ptr, plane);
 
-  ASSERT_EQ(ground_removed_cloud->points.size(), 5);
+  ASSERT_EQ(ground_removed_cloud_ptr->points.size(), 5);
 }
 
 /**
@@ -114,15 +118,16 @@ TEST_F(RANSACTest, TestThresholdZero) {
  *
  */
 TEST_F(RANSACTest, TestZeroRepetitions) {
-  RANSAC ground_removal(100, 0);
+  const RANSAC ground_removal(100, 0);
   Plane plane;
 
-  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
-  pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  ground_removal.ground_removal(cloud_ptr, ground_removed_cloud, plane);
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud_ptr(
+      &ground_removed_cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  ground_removal.ground_removal(cloud_ptr, ground_removed_cloud_ptr, plane);
 
-  ASSERT_EQ(ground_removed_cloud->points.size(), 0);
+  ASSERT_EQ(ground_removed_cloud_ptr->points.size(), 0);
 }
 
 /**
@@ -131,15 +136,16 @@ TEST_F(RANSACTest, TestZeroRepetitions) {
  *
  */
 TEST_F(RANSACTest, TestSmallEpsilon) {
-  RANSAC ground_removal(0.00000000000000001, 10);
+  const RANSAC ground_removal(0.000'000'000'000'000'01, 10);
   Plane plane;
 
-  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
-  pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  ground_removal.ground_removal(cloud_ptr, ground_removed_cloud, plane);
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud_ptr(
+      &ground_removed_cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  ground_removal.ground_removal(cloud_ptr, ground_removed_cloud_ptr, plane);
 
-  ASSERT_EQ(ground_removed_cloud->points.size(), 2);
+  ASSERT_EQ(ground_removed_cloud_ptr->points.size(), 2);
 }
 
 /**
@@ -147,15 +153,16 @@ TEST_F(RANSACTest, TestSmallEpsilon) {
  *
  */
 TEST_F(RANSACTest, TestBigEpsilon2) {
-  RANSAC ground_removal(1000000, 1);
+  const RANSAC ground_removal(1'000'000, 1);
   Plane plane;
 
-  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
-  pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  ground_removal.ground_removal(cloud_ptr, ground_removed_cloud, plane);
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud_ptr(
+      &ground_removed_cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  ground_removal.ground_removal(cloud_ptr, ground_removed_cloud_ptr, plane);
 
-  ASSERT_EQ(ground_removed_cloud->points.size(), 0);
+  ASSERT_EQ(ground_removed_cloud_ptr->points.size(), 0);
 }
 
 /**
@@ -164,15 +171,16 @@ TEST_F(RANSACTest, TestBigEpsilon2) {
  *
  */
 TEST_F(RANSACTest, TestCommonScenario3Points) {
-  RANSAC ground_removal(100, 100);
+  const RANSAC ground_removal(100, 100);
   Plane plane;
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr cloud3_ptr(
-      &cloud_3_points, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
-  pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  ground_removal.ground_removal(cloud3_ptr, ground_removed_cloud, plane);
+      &cloud_3_points, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud_ptr(
+      &ground_removed_cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  ground_removal.ground_removal(cloud3_ptr, ground_removed_cloud_ptr, plane);
 
-  ASSERT_EQ(ground_removed_cloud->points.size(), 0);
+  ASSERT_EQ(ground_removed_cloud_ptr->points.size(), 0);
 }
 
 /**
@@ -181,15 +189,16 @@ TEST_F(RANSACTest, TestCommonScenario3Points) {
  *
  */
 TEST_F(RANSACTest, Test3PointsThresholdZero) {
-  RANSAC ground_removal(0, 100);
+  const RANSAC ground_removal(0, 100);
   Plane plane;
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr cloud3_ptr(
-      &cloud_3_points, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
-  pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  ground_removal.ground_removal(cloud3_ptr, ground_removed_cloud, plane);
+      &cloud_3_points, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud_ptr(
+      &ground_removed_cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  ground_removal.ground_removal(cloud3_ptr, ground_removed_cloud_ptr, plane);
 
-  ASSERT_EQ(ground_removed_cloud->points.size(), 3);
+  ASSERT_EQ(ground_removed_cloud_ptr->points.size(), 3);
 }
 
 /**
@@ -197,15 +206,16 @@ TEST_F(RANSACTest, Test3PointsThresholdZero) {
  *
  */
 TEST_F(RANSACTest, TestEmptyPointCloud) {
-  RANSAC ground_removal(100, 100);
+  const RANSAC ground_removal(100, 100);
   Plane plane;
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr empty_ptr(
-      &empty_cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
-  pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  ground_removal.ground_removal(empty_ptr, ground_removed_cloud, plane);
+      &empty_cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud_ptr(
+      &ground_removed_cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  ground_removal.ground_removal(empty_ptr, ground_removed_cloud_ptr, plane);
 
-  ASSERT_EQ(ground_removed_cloud->points.size(), 0);
+  ASSERT_EQ(ground_removed_cloud_ptr->points.size(), 0);
 }
 
 /**
@@ -214,13 +224,14 @@ TEST_F(RANSACTest, TestEmptyPointCloud) {
  *
  */
 TEST_F(RANSACTest, TestEmptyPointCloud2) {
-  RANSAC ground_removal(0, 0);
+  const RANSAC ground_removal(0, 0);
   Plane plane;
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr empty_ptr(
-      &empty_cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
-  pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  ground_removal.ground_removal(empty_ptr, ground_removed_cloud, plane);
+      &empty_cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud_ptr(
+      &ground_removed_cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  ground_removal.ground_removal(empty_ptr, ground_removed_cloud_ptr, plane);
 
-  ASSERT_EQ(ground_removed_cloud->points.size(), 0);
+  ASSERT_EQ(ground_removed_cloud_ptr->points.size(), 0);
 }

@@ -152,7 +152,8 @@ TEST_F(PerceptionPerformanceTest, TestPerformance) {
     executionTime.conversion_duration =
         std::chrono::duration_cast<std::chrono::milliseconds>(start_time - conversion_time).count();
 
-    pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
+    const pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(
+        new pcl::PointCloud<pcl::PointXYZI>);
 
     Plane plane;
 

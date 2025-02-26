@@ -5,7 +5,7 @@
 
 // Non-owning deleter: does nothing.
 template <typename T>
-struct non_owning_deleter {
+struct NonOwningDeleter {
   void operator()(T*) const {}
 };
 
@@ -29,16 +29,16 @@ public:
 TEST_F(StandardDeviationTest, ZeroZDeviation) {
   // Create a stack-allocated point cloud.
   pcl::PointCloud<pcl::PointXYZI> cloud;
-  cloud.emplace_back(1.0, 2.0, 10, 0.1);
-  cloud.emplace_back(4.0, 5.0, 10, 0.2);
-  cloud.emplace_back(7.0, 8.0, 10, 0.3);
+  (void)cloud.emplace_back(1.0, 2.0, 10, 0.1);
+  (void)cloud.emplace_back(4.0, 5.0, 10, 0.2);
+  (void)cloud.emplace_back(7.0, 8.0, 10, 0.3);
   // Wrap the stack object with a non-owning shared pointer.
-  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
 
   // Create cluster using the wrapped point cloud.
   auto cluster = Cluster(cloud_ptr);
-  auto deviation_validator = DeviationValidator(-1, 100, 0.1, 100);
+  const auto deviation_validator = DeviationValidator(-1, 100, 0.1, 100);
 
   auto result = deviation_validator.coneValidator(&cluster, _plane_);
   EXPECT_EQ(result.size(), 2);
@@ -52,14 +52,14 @@ TEST_F(StandardDeviationTest, ZeroZDeviation) {
  */
 TEST_F(StandardDeviationTest, NonZeroZDeviation) {
   pcl::PointCloud<pcl::PointXYZI> cloud;
-  cloud.emplace_back(0.0, 0.0, 0.8, 0.8);
-  cloud.emplace_back(0.0, 0.0, 0.1, 0.1);
-  cloud.emplace_back(0.0, 0.0, 0.3, 0.3);
-  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
+  (void)cloud.emplace_back(0.0, 0.0, 0.8, 0.8);
+  (void)cloud.emplace_back(0.0, 0.0, 0.1, 0.1);
+  (void)cloud.emplace_back(0.0, 0.0, 0.3, 0.3);
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
 
   auto cluster = Cluster(cloud_ptr);
-  auto deviation_validator = DeviationValidator(-1, 100, 0.1, 100);
+  const auto deviation_validator = DeviationValidator(-1, 100, 0.1, 100);
 
   auto result = deviation_validator.coneValidator(&cluster, _plane_);
   EXPECT_EQ(result.size(), 2);
@@ -72,14 +72,14 @@ TEST_F(StandardDeviationTest, NonZeroZDeviation) {
  */
 TEST_F(StandardDeviationTest, ZeroXoYDeviation) {
   pcl::PointCloud<pcl::PointXYZI> cloud;
-  cloud.emplace_back(1.0, 2.0, 10, 0.1);
-  cloud.emplace_back(1.0, 2.0, 100, 0.2);
-  cloud.emplace_back(1.0, 2.0, 100, 0.3);
-  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
+  (void)cloud.emplace_back(1.0, 2.0, 10, 0.1);
+  (void)cloud.emplace_back(1.0, 2.0, 100, 0.2);
+  (void)cloud.emplace_back(1.0, 2.0, 100, 0.3);
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
 
   auto cluster = Cluster(cloud_ptr);
-  auto deviation_validator = DeviationValidator(0.1, 100, -1, 100);
+  const auto deviation_validator = DeviationValidator(0.1, 100, -1, 100);
 
   auto result = deviation_validator.coneValidator(&cluster, _plane_);
   EXPECT_EQ(result.size(), 2);
@@ -93,14 +93,14 @@ TEST_F(StandardDeviationTest, ZeroXoYDeviation) {
  */
 TEST_F(StandardDeviationTest, NonZeroXoYDeviation) {
   pcl::PointCloud<pcl::PointXYZI> cloud;
-  cloud.emplace_back(1.0, 2.0, 10, 0.1);
-  cloud.emplace_back(3.0, 5.0, 100, 0.2);
-  cloud.emplace_back(10.0, -6.0, 100, 0.3);
-  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
+  (void)cloud.emplace_back(1.0, 2.0, 10, 0.1);
+  (void)cloud.emplace_back(3.0, 5.0, 100, 0.2);
+  (void)cloud.emplace_back(10.0, -6.0, 100, 0.3);
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
 
   auto cluster = Cluster(cloud_ptr);
-  auto deviation_validator = DeviationValidator(0.1, 100, -1, 100);
+  const auto deviation_validator = DeviationValidator(0.1, 100, -1, 100);
 
   auto result = deviation_validator.coneValidator(&cluster, _plane_);
   EXPECT_EQ(result.size(), 2);
@@ -113,14 +113,14 @@ TEST_F(StandardDeviationTest, NonZeroXoYDeviation) {
  */
 TEST_F(StandardDeviationTest, ZeroXoYAndZDeviation) {
   pcl::PointCloud<pcl::PointXYZI> cloud;
-  cloud.emplace_back(1.0, 2.0, 10, 0.1);
-  cloud.emplace_back(1.0, 2.0, 10, 0.2);
-  cloud.emplace_back(1.0, 2.0, 10, 0.3);
-  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
+  (void)cloud.emplace_back(1.0, 2.0, 10, 0.1);
+  (void)cloud.emplace_back(1.0, 2.0, 10, 0.2);
+  (void)cloud.emplace_back(1.0, 2.0, 10, 0.3);
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
 
   auto cluster = Cluster(cloud_ptr);
-  auto deviation_validator = DeviationValidator(0.1, 100, 0.1, 100);
+  const auto deviation_validator = DeviationValidator(0.1, 100, 0.1, 100);
 
   auto result = deviation_validator.coneValidator(&cluster, _plane_);
   ASSERT_LT(result[0], 1.0);
@@ -134,14 +134,14 @@ TEST_F(StandardDeviationTest, ZeroXoYAndZDeviation) {
  */
 TEST_F(StandardDeviationTest, NonZeroXoYAndZDeviation) {
   pcl::PointCloud<pcl::PointXYZI> cloud;
-  cloud.emplace_back(1.0, 2.0, 0.8, 0.1);
-  cloud.emplace_back(3.0, 5.0, 0.1, 0.2);
-  cloud.emplace_back(10.0, -6.0, 0.3, 0.3);
-  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
+  (void)cloud.emplace_back(1.0, 2.0, 0.8, 0.1);
+  (void)cloud.emplace_back(3.0, 5.0, 0.1, 0.2);
+  (void)cloud.emplace_back(10.0, -6.0, 0.3, 0.3);
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
 
   auto cluster = Cluster(cloud_ptr);
-  auto deviation_validator = DeviationValidator(0.1, 100, 0.1, 100);
+  const auto deviation_validator = DeviationValidator(0.1, 100, 0.1, 100);
 
   auto result = deviation_validator.coneValidator(&cluster, _plane_);
   ASSERT_NEAR(result[0], 1.0, 1e-6);

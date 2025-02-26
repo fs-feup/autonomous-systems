@@ -24,9 +24,9 @@ protected:
  * @brief Test case to validate a cluster with fewer points than the minimum threshold.
  */
 TEST_F(NPointsValidatorTest, ConeWithFewerPointsThanThreshold) {
-  NPointsValidator validator(4);
+  const NPointsValidator validator(4);
 
-  auto point_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
+  const auto point_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
   point_cloud->points.emplace_back(0.3, 0.0, 0.0, 0);  // 1 point
 
   Cluster cone_point_cloud(point_cloud);
@@ -40,13 +40,13 @@ TEST_F(NPointsValidatorTest, ConeWithFewerPointsThanThreshold) {
  * @brief Test case to validate a cluster with exactly the minimum threshold number of points.
  */
 TEST_F(NPointsValidatorTest, ConeWithExactMinPoints) {
-  NPointsValidator validator(4);
+  const NPointsValidator validator(4);
 
-  auto point_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
-  point_cloud->points.insert(point_cloud->points.end(), {{0.3, 0.0, 0.0, 0},
-                                                         {0.5, 0.1, 0.2, 0},
-                                                         {0.1, 0.2, 0.3, 0},
-                                                         {-0.2, -0.3, 0.1, 0}});  // 4 points
+  const auto point_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
+  (void)point_cloud->points.insert(point_cloud->points.end(), {{0.3, 0.0, 0.0, 0},
+                                                               {0.5, 0.1, 0.2, 0},
+                                                               {0.1, 0.2, 0.3, 0},
+                                                               {-0.2, -0.3, 0.1, 0}});  // 4 points
 
   Cluster cone_point_cloud(point_cloud);
 
@@ -59,14 +59,14 @@ TEST_F(NPointsValidatorTest, ConeWithExactMinPoints) {
  * @brief Test case to validate a cluster with more points than the minimum threshold.
  */
 TEST_F(NPointsValidatorTest, ConeWithMorePointsThanThreshold) {
-  NPointsValidator validator(4);
+  const NPointsValidator validator(4);
 
-  auto point_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
-  point_cloud->points.insert(point_cloud->points.end(), {{0.3, 0.0, 0.0, 0},
-                                                         {0.5, 0.1, 0.2, 0},
-                                                         {0.1, 0.2, 0.3, 0},
-                                                         {-0.2, -0.3, 0.1, 0},
-                                                         {0.4, -0.1, 0.0, 0}});  // 5 points
+  const auto point_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
+  (void)point_cloud->points.insert(point_cloud->points.end(), {{0.3, 0.0, 0.0, 0},
+                                                               {0.5, 0.1, 0.2, 0},
+                                                               {0.1, 0.2, 0.3, 0},
+                                                               {-0.2, -0.3, 0.1, 0},
+                                                               {0.4, -0.1, 0.0, 0}});  // 5 points
 
   Cluster cone_point_cloud(point_cloud);
 

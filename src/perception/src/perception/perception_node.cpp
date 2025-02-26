@@ -49,7 +49,7 @@ PerceptionParameters Perception::load_config() {
   RCLCPP_DEBUG(rclcpp::get_logger("perception"), "Perception config contents: %s",
                YAML::Dump(perception_config).c_str());
 
-  auto default_mission_str = perception_config["default_mission"].as<std::string>();
+  const auto default_mission_str = perception_config["default_mission"].as<std::string>();
   params.default_mission_ =
       static_cast<uint8_t>(common_lib::competition_logic::fsds_to_system.at(default_mission_str));
 

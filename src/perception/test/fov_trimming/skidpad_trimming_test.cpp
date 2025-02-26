@@ -9,7 +9,7 @@
 
 // Non-owning deleter: does nothing.
 template <typename T>
-struct non_owning_deleter {
+struct NonOwningDeleter {
   void operator()(T*) const {}
 };
 
@@ -43,43 +43,43 @@ protected:
 
 TEST_F(SkidpadTrimmingTest, TestMaxRange) {
   // Wrap the stack cloud with a non-owning shared pointer.
-  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
-  SkidpadTrimming skidpad_trimming(params);
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  const SkidpadTrimming skidpad_trimming(params);
   skidpad_trimming.fov_trimming(cloud_ptr);
   ASSERT_EQ(cloud_ptr->points.size(), 4);
 }
 
 TEST_F(SkidpadTrimmingTest, TestMaxHeight) {
   params.max_height = 2.5;
-  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
-  SkidpadTrimming skidpad_trimming(params);
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  const SkidpadTrimming skidpad_trimming(params);
   skidpad_trimming.fov_trimming(cloud_ptr);
   ASSERT_EQ(cloud_ptr->points.size(), 3);
 }
 
 TEST_F(SkidpadTrimmingTest, TestMinRange) {
   params.min_range = 0.3;
-  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
-  SkidpadTrimming skidpad_trimming(params);
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  const SkidpadTrimming skidpad_trimming(params);
   skidpad_trimming.fov_trimming(cloud_ptr);
   ASSERT_EQ(cloud_ptr->points.size(), 3);
 }
 
 TEST_F(SkidpadTrimmingTest, TestFOVAngle) {
   params.min_distance_to_cone = 1.7;
-  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
-  SkidpadTrimming skidpad_trimming(params);
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  const SkidpadTrimming skidpad_trimming(params);
   skidpad_trimming.fov_trimming(cloud_ptr);
   ASSERT_EQ(cloud_ptr->points.size(), 3);
 }
 
 TEST_F(SkidpadTrimmingTest, TestEmptyPointCloud) {
   pcl::PointCloud<pcl::PointXYZI>::Ptr empty_ptr(
-      &cloud_empty, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
+      &cloud_empty, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
   SkidpadTrimming skidpad_trimming(params);
   skidpad_trimming.fov_trimming(empty_ptr);
   ASSERT_EQ(empty_ptr->points.size(), 0);
@@ -89,9 +89,9 @@ TEST_F(SkidpadTrimmingTest, TestGeneralResult) {
   params.min_range = 0.4;
   params.max_height = 2.5;
   params.min_distance_to_cone = 4.0;
-  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
-  SkidpadTrimming skidpad_trimming(params);
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  const SkidpadTrimming skidpad_trimming(params);
   skidpad_trimming.fov_trimming(cloud_ptr);
   ASSERT_EQ(cloud_ptr->points.size(), 1);
 }

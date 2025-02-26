@@ -8,7 +8,7 @@
 
 // Non-owning deleter: does nothing.
 template <typename T>
-struct non_owning_deleter {
+struct NonOwningDeleter {
   void operator()(T*) const {}
 };
 
@@ -28,14 +28,14 @@ protected:
  * @brief Test case to validate if points are inside the small cylinder.
  */
 TEST_F(CylinderValidatorTest, PointsInsideSmallCylinder) {
-  CylinderValidator validator(0.5, 1.0, 0.7, 1.5, 0.5);
+  const CylinderValidator validator(0.5, 1.0, 0.7, 1.5, 0.5);
 
   // Create a stack-allocated point cloud.
   pcl::PointCloud<pcl::PointXYZI> cloud;
   cloud.points.push_back(pcl::PointXYZI{0.3, 0.3, 0.5, 0});
   // Wrap the stack object with a non-owning shared pointer.
-  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
 
   Cluster cylinderPointCloud(cloud_ptr);
 
@@ -51,13 +51,13 @@ TEST_F(CylinderValidatorTest, PointsInsideSmallCylinder) {
  * @brief Test case to validate if points are inside the large cylinder.
  */
 TEST_F(CylinderValidatorTest, PointsInsideLargeCylinder) {
-  CylinderValidator validator(0.5, 1.0, 0.7, 1.5, 0.5);
+  const CylinderValidator validator(0.5, 1.0, 0.7, 1.5, 0.5);
 
   pcl::PointCloud<pcl::PointXYZI> cloud;
   cloud.points.push_back(pcl::PointXYZI{0.6, 0.6, 1.2, 0});
   cloud.points.push_back(pcl::PointXYZI{0.3, 0.3, 0.5, 0});
-  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
 
   Cluster cylinderPointCloud(cloud_ptr);
   // Simulate height validator and set cluster as large.
@@ -74,14 +74,14 @@ TEST_F(CylinderValidatorTest, PointsInsideLargeCylinder) {
  * @brief Test case to validate if points are outside all cylinders.
  */
 TEST_F(CylinderValidatorTest, PointsFarOutsideCylinders) {
-  CylinderValidator validator(0.5, 1.0, 0.7, 1.5, 0.5);
+  const CylinderValidator validator(0.5, 1.0, 0.7, 1.5, 0.5);
 
   pcl::PointCloud<pcl::PointXYZI> cloud;
   cloud.points.push_back(pcl::PointXYZI{1.0, 1.0, 2.0, 0});
   cloud.points.push_back(pcl::PointXYZI{20.0, 20.0, 20.0, 0});
   cloud.points.push_back(pcl::PointXYZI{0.3, 0.3, 0.5, 0});
-  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
 
   Cluster cylinderPointCloud(cloud_ptr);
 
@@ -96,14 +96,14 @@ TEST_F(CylinderValidatorTest, PointsFarOutsideCylinders) {
  * @brief Test case to validate if points are outside all cylinders.
  */
 TEST_F(CylinderValidatorTest, PointsOutsideCylinders) {
-  CylinderValidator validator(0.5, 1.0, 0.7, 1.5, 0.5);
+  const CylinderValidator validator(0.5, 1.0, 0.7, 1.5, 0.5);
 
   pcl::PointCloud<pcl::PointXYZI> cloud;
   cloud.points.push_back(pcl::PointXYZI{1.0, 1.0, 2.0, 0});
   cloud.points.push_back(pcl::PointXYZI{0.6, 0.6, 0.9, 0});
   cloud.points.push_back(pcl::PointXYZI{0.3, 0.3, 0.5, 0});
-  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
 
   Cluster cylinderPointCloud(cloud_ptr);
 

@@ -8,7 +8,7 @@
 
 // Non-owning deleter: does nothing.
 template <typename T>
-struct non_owning_deleter {
+struct NonOwningDeleter {
   void operator()(T*) const {}
 };
 
@@ -49,9 +49,9 @@ protected:
  */
 TEST_F(AccelerationTrimmingTest, TestMaxRange) {
   // Wrap the stack object in a non-owning shared pointer.
-  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
-  AccelerationTrimming acc_trimming(params);
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  const AccelerationTrimming acc_trimming(params);
   acc_trimming.fov_trimming(cloud_ptr);
 
   ASSERT_EQ(cloud_ptr->points.size(), 4);
@@ -63,9 +63,9 @@ TEST_F(AccelerationTrimmingTest, TestMaxRange) {
  */
 TEST_F(AccelerationTrimmingTest, TestMaxHeight) {
   params.max_height = 2.0;
-  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
-  AccelerationTrimming acc_trimming(params);
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  const AccelerationTrimming acc_trimming(params);
   acc_trimming.fov_trimming(cloud_ptr);
 
   ASSERT_EQ(cloud_ptr->points.size(), 3);
@@ -77,9 +77,9 @@ TEST_F(AccelerationTrimmingTest, TestMaxHeight) {
  */
 TEST_F(AccelerationTrimmingTest, TestMinRange) {
   params.min_range = 0.2;
-  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
-  AccelerationTrimming acc_trimming(params);
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  const AccelerationTrimming acc_trimming(params);
   acc_trimming.fov_trimming(cloud_ptr);
 
   ASSERT_EQ(cloud_ptr->points.size(), 3);
@@ -91,9 +91,9 @@ TEST_F(AccelerationTrimmingTest, TestMinRange) {
  */
 TEST_F(AccelerationTrimmingTest, TestMaxY) {
   params.acc_max_y = 4.0;
-  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
-  AccelerationTrimming acc_trimming(params);
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  const AccelerationTrimming acc_trimming(params);
   acc_trimming.fov_trimming(cloud_ptr);
 
   ASSERT_EQ(cloud_ptr->points.size(), 3);
@@ -109,7 +109,7 @@ TEST_F(AccelerationTrimmingTest, TestEmptyPointCloud) {
   params.lidar_height = 0;
   params.acc_max_y = 4.0;
   pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_empty_ptr(
-      &cloud_empty, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
+      &cloud_empty, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
   AccelerationTrimming acc_trimming(params);
   acc_trimming.fov_trimming(cloud_empty_ptr);
 
@@ -125,9 +125,9 @@ TEST_F(AccelerationTrimmingTest, TestGeneralResult) {
   params.max_height = 2.0;
   params.lidar_height = 0;
   params.acc_max_y = 4.0;
-  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
-  AccelerationTrimming acc_trimming(params);
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+  const AccelerationTrimming acc_trimming(params);
   acc_trimming.fov_trimming(cloud_ptr);
 
   ASSERT_EQ(cloud_ptr->points.size(), 1);

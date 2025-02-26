@@ -7,6 +7,8 @@
 
 #include <gtest/gtest.h>
 
+#include <memory>
+
 /**
  * @class ICPSuite
  * @brief Test suite for the ICP class.
@@ -18,7 +20,6 @@ protected:
    */
   void SetUp() override {
     source_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
-
     source_cloud->points.push_back(pcl::PointXYZI{3, -3, 0, 0});
     source_cloud->points.push_back(pcl::PointXYZI{2, -4, 0, 0});
     source_cloud->points.push_back(pcl::PointXYZI{4, -4, 0, 0});
@@ -27,27 +28,27 @@ protected:
   }
 
 public:
-  std::shared_ptr<pcl::PointCloud<pcl::PointXYZI>> source_cloud;
+  pcl::PointCloud<pcl::PointXYZI>::Ptr source_cloud;
 };
 
 /**
  * @brief Test case to check if ICP initializes properly
- *
  */
 TEST_F(ICPSuite, Initialization) {
-  auto icp = ICP("../../src/perception/test/icp/icp_tests/basic_cloud.pcd", 0.1, 50, 1e-8, 1);
-  pcl::PointCloud<pcl::PointXYZI>::Ptr target_cloud(new pcl::PointCloud<pcl::PointXYZI>);
+  ICP icp("../../src/perception/test/icp/icp_tests/basic_cloud.pcd", 0.1, 50, 1e-8, 1);
+  pcl::PointCloud<pcl::PointXYZI>::Ptr target_cloud =
+      std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
   ASSERT_NO_THROW(icp.executeICP(source_cloud, target_cloud));
 }
 
 /**
  * @brief Test case to check if ICP aligns source cloud properly
- *
  */
 TEST_F(ICPSuite, Alignment) {
-  auto icp = ICP("../../src/perception/test/icp/icp_tests/basic_cloud.pcd", 100.0, 300, 5, 5);
+  ICP icp("../../src/perception/test/icp/icp_tests/basic_cloud.pcd", 100.0, 300, 5, 5);
 
-  pcl::PointCloud<pcl::PointXYZI>::Ptr aligned_cloud(new pcl::PointCloud<pcl::PointXYZI>);
+  pcl::PointCloud<pcl::PointXYZI>::Ptr aligned_cloud =
+      std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
   double fitness_score = icp.executeICP(source_cloud, aligned_cloud);
 
   // Ensure that the fitness score is not negative, indicating successful alignment
@@ -56,12 +57,12 @@ TEST_F(ICPSuite, Alignment) {
 
 /**
  * @brief Test case to check if ICP fails to align properly
- *
  */
 TEST_F(ICPSuite, AlignmentFailed) {
-  auto icp = ICP("../../src/perception/test/icp/icp_tests/basic_cloud.pcd", 1.0, 50, 1e-8, 5);
+  ICP icp("../../src/perception/test/icp/icp_tests/basic_cloud.pcd", 1.0, 50, 1e-8, 5);
 
-  pcl::PointCloud<pcl::PointXYZI>::Ptr aligned_cloud(new pcl::PointCloud<pcl::PointXYZI>);
+  pcl::PointCloud<pcl::PointXYZI>::Ptr aligned_cloud =
+      std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
   double fitness_score = icp.executeICP(source_cloud, aligned_cloud);
 
   ASSERT_EQ(fitness_score, -1);

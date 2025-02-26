@@ -11,7 +11,7 @@
 
 // Non-owning deleter: does nothing.
 template <typename T>
-struct non_owning_deleter {
+struct NonOwningDeleter {
   void operator()(T*) const {}
 };
 
@@ -33,7 +33,7 @@ private:
  * @brief Test when confidence is sufficient
  */
 TEST(ConeEvaluatorTest, EvaluateClusterConfidenceSufficient) {
-  auto eval_params = std::make_shared<EvaluatorParameters>();
+  const auto eval_params = std::make_shared<EvaluatorParameters>();
 
   // Create test validators with predefined results
   eval_params->height_validator =
@@ -65,13 +65,13 @@ TEST(ConeEvaluatorTest, EvaluateClusterConfidenceSufficient) {
   // Create a stack-allocated point cloud.
   pcl::PointCloud<pcl::PointXYZI> cloud;
   // Wrap the stack object with a non-owning shared pointer.
-  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
 
   Cluster cluster(cloud_ptr);
   Plane ground_plane;
 
-  bool result = cone_evaluator.evaluateCluster(cluster, ground_plane);
+  const bool result = cone_evaluator.evaluateCluster(cluster, ground_plane);
 
   ASSERT_NEAR(cluster.get_confidence(), 0.565, 1e-4);
   ASSERT_EQ(result, true);
@@ -81,7 +81,7 @@ TEST(ConeEvaluatorTest, EvaluateClusterConfidenceSufficient) {
  * @brief Test when confidence is insufficient
  */
 TEST(ConeEvaluatorTest, EvaluateClusterConfidenceInsufficient) {
-  auto eval_params = std::make_shared<EvaluatorParameters>();
+  const auto eval_params = std::make_shared<EvaluatorParameters>();
 
   // Create test validators with predefined results
   eval_params->height_validator =
@@ -113,13 +113,13 @@ TEST(ConeEvaluatorTest, EvaluateClusterConfidenceInsufficient) {
   // Create a stack-allocated point cloud.
   pcl::PointCloud<pcl::PointXYZI> cloud;
   // Wrap the stack object with a non-owning shared pointer.
-  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
-      &cloud, non_owning_deleter<pcl::PointCloud<pcl::PointXYZI>>());
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
 
   Cluster cluster(cloud_ptr);
   Plane ground_plane;
 
-  bool result = cone_evaluator.evaluateCluster(cluster, ground_plane);
+  const bool result = cone_evaluator.evaluateCluster(cluster, ground_plane);
 
   ASSERT_NEAR(cluster.get_confidence(), 0.0, 1e-3);
   ASSERT_EQ(result, false);
