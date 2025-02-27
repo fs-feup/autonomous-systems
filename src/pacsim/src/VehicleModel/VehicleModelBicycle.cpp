@@ -44,11 +44,10 @@ public:
         configModel.getElement<double>(&this->wheelRadius, "wheelRadius");
         configModel.getElement<double>(&this->gearRatio, "gearRatio");
         configModel.getElement<double>(&this->innerSteeringRatio, "innerSteeringRatio");
-        configModel.getElement<double>(&this->innerSteeringRatio, "innerSteeringRatio");
+        configModel.getElement<double>(&this->outerSteeringRatio, "outerSteeringRatio");
         configModel.getElement<double>(&this->nominalVoltageTS, "nominalVoltageTS");
         configModel.getElement<double>(&this->powerGroundForce, "powerGroundForce");
         // configModel.getElement<double>(&this->powertrainEfficiency, "powertrainEfficiency");
-
         return true;
     }
 
@@ -112,7 +111,7 @@ public:
 
     void setSteeringSetpointRear(double in) { return; }
 
-    void setThrottle(double in) { this->throttleActuation = std::clamp(in, 0.0, 1.0); }
+    void setThrottle(double in) { this->throttleActuation = std::clamp(in, -1.0, 1.0); }
 
     void setPowerGroundSetpoint(double in) { this->powerGroundSetpoint = std::min(std::max(in, 0.0), 1.0); }
 
@@ -372,34 +371,34 @@ public:
 
 private:
     // Vehicle parameters
-    double lr = 0.72; // Distance from the center of gravity to the rear axle
-    double lf = 0.78; // Distance from the center of gravity to the front axle
-    double sf = 1.15; // Track width front
-    double sr = 1.15; // Track width rear
+    double lr; // Distance from the center of gravity to the rear axle
+    double lf; // Distance from the center of gravity to the front axle
+    double sf; // Track width front
+    double sr; // Track width rear
 
     // Tire model parameters
-    double Blat = 9.63;
-    double Clat = -1.39;
-    double Dlat = 1.6;
-    double Elat = 1.0;
+    double Blat;
+    double Clat;
+    double Dlat;
+    double Elat;
 
     // Aerodynamic parameters
-    double cla = 3.7;
-    double cda = 1.1;
-    double aeroArea = 1.1;
+    double cla;
+    double cda;
+    double aeroArea;
 
     // Vehicle mass and inertia
-    double m = 275.0;
-    double Izz = 111.0;
+    double m;
+    double Izz;
 
     // Wheel and steering parameters
-    double wheelRadius = 0.206;
-    double gearRatio = 12.23;
-    double innerSteeringRatio = 0.255625;
-    double outerSteeringRatio = 0.20375;
-    double nominalVoltageTS = 550.0;
+    double wheelRadius;
+    double gearRatio;
+    double innerSteeringRatio;
+    double outerSteeringRatio;
+    double nominalVoltageTS;
     double powerGroundSetpoint = 0.0;
-    double powerGroundForce = 700.0;
+    double powerGroundForce;
     // double powertrainEfficiency = 1.0;
 
     // Wheel torques and speeds
