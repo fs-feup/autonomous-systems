@@ -24,7 +24,7 @@ Eigen::Matrix2d get_rotation_matrix(const double angle) {
   return rotation_matrix;
 }
 
-Eigen::VectorXd global_to_local_referential(const Eigen::Vector3d& local_reference_frame,
+Eigen::VectorXd global_to_local_coordinates(const Eigen::Vector3d& local_reference_frame,
                                             const Eigen::VectorXd& global_points) {
   const double x = local_reference_frame(0);
   const double y = local_reference_frame(1);
@@ -42,7 +42,7 @@ Eigen::VectorXd global_to_local_referential(const Eigen::Vector3d& local_referen
   return local_points;
 }
 
-Eigen::VectorXd local_to_global_referential(const Eigen::Vector3d& local_reference_frame,
+Eigen::VectorXd local_to_global_coordinates(const Eigen::Vector3d& local_reference_frame,
                                             const Eigen::VectorXd& local_points) {
   const double x = local_reference_frame(0);
   const double y = local_reference_frame(1);

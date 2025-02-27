@@ -33,7 +33,7 @@ Eigen::Matrix2d get_rotation_matrix(const double angle);
  * @param global_points points in the global reference frame in format [x1, y1, x2, y2, ...]
  * @return Eigen::VectorXd points in the local reference frame in format [x1, y1, x2, y2, ...]
  */
-Eigen::VectorXd global_to_local_referential(const Eigen::Vector3d& local_reference_frame,
+Eigen::VectorXd global_to_local_coordinates(const Eigen::Vector3d& local_reference_frame,
                                             const Eigen::VectorXd& global_points);
 
 /**
@@ -44,6 +44,6 @@ Eigen::VectorXd global_to_local_referential(const Eigen::Vector3d& local_referen
  * @param local_points points in the local reference frame in format [x1, y1, x2, y2, ...]
  * @return Eigen::VectorXd points in the global reference frame in format [x1, y1, x2, y2, ...]
  */
-Eigen::VectorXd local_to_global_referential(const Eigen::Vector3d& local_reference_frame,
+Eigen::VectorXd local_to_global_coordinates(const Eigen::Vector3d& local_reference_frame,
                                             const Eigen::VectorXd& local_points);
 }  // namespace common_lib::maths

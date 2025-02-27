@@ -19,7 +19,7 @@ Eigen::VectorXi MaximumLikelihoodNLL::associate(
   double sin_theta = std::sin(car_theta);
 
   // Get coordinates of all landmarks in local frame
-  Eigen::VectorXd landmarks_local_coordinates = common_lib::maths::global_to_local_referential(
+  Eigen::VectorXd landmarks_local_coordinates = common_lib::maths::global_to_local_coordinates(
       state.segment(0, 3), state.segment(3, state.size() - 3));
 
   // Set fields of the jacobian that are common to all landmarks

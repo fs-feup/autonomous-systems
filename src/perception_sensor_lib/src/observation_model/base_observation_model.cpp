@@ -9,13 +9,13 @@ Eigen::VectorXd ObservationModel::observation_model(
     matched_landmarks_coordinates(2 * i) = state(matched_landmarks[i]);
     matched_landmarks_coordinates(2 * i + 1) = state(matched_landmarks[i] + 1);
   }
-  return common_lib::maths::global_to_local_referential(state.segment(0, 3),
+  return common_lib::maths::global_to_local_coordinates(state.segment(0, 3),
                                                         matched_landmarks_coordinates);
 }
 
 Eigen::VectorXd ObservationModel::inverse_observation_model(
     const Eigen::VectorXd& state, const Eigen::VectorXd& observations) const {
-  return common_lib::maths::local_to_global_referential(state.segment(0, 3), observations);
+  return common_lib::maths::local_to_global_coordinates(state.segment(0, 3), observations);
 }
 
 Eigen::MatrixXd ObservationModel::observation_model_jacobian(
