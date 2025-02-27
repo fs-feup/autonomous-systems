@@ -43,15 +43,15 @@ Eigen::VectorXd global_to_local_referential(const Eigen::Vector3d& local_referen
 }
 
 Eigen::VectorXd local_to_global_referential(const Eigen::Vector3d& local_reference_frame,
-                                            const Eigen::VectorXd& global_points) {
+                                            const Eigen::VectorXd& local_points) {
   const double x = local_reference_frame(0);
   const double y = local_reference_frame(1);
   const double angle = local_reference_frame(2);
   const Eigen::Matrix2d rotation_matrix = get_rotation_matrix(angle);
-  Eigen::VectorXd global_points_vector(global_points.size());
-  for (int i = 0; i < global_points.size(); i += 2) {
-    const double x_local = global_points(i);
-    const double y_local = global_points(i + 1);
+  Eigen::VectorXd global_points_vector(local_points.size());
+  for (int i = 0; i < local_points.size(); i += 2) {
+    const double x_local = local_points(i);
+    const double y_local = local_points(i + 1);
     const Eigen::Vector2d local_point(x_local, y_local);
     const Eigen::Vector2d global_point = rotation_matrix * local_point;
     global_points_vector(i) = global_point(0) + x;

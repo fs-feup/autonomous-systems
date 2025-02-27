@@ -4,7 +4,11 @@
 
 #include <cmath>
 
-TEST(EKFSLAMSolverTest, test_observation_model_1) {
+/**
+ * @brief Test the observation model with trivial state
+ *
+ */
+TEST(ObservationModelTest, test_observation_model_1) {
   Eigen::VectorXd state(3);
   state << 0, 0, 0;
   ObservationModel observation_model_;
@@ -12,7 +16,11 @@ TEST(EKFSLAMSolverTest, test_observation_model_1) {
   EXPECT_FLOAT_EQ(observations.size(), 0);
 }
 
-TEST(EKFSLAMSolverTest, test_observation_model_2) {
+/**
+ * @brief Test observation model with a single landmark and trivial pose
+ *
+ */
+TEST(ObservationModelTest, test_observation_model_2) {
   Eigen::VectorXd state(5);
   state << 0, 0, 0, 1, 1;
   ObservationModel observation_model_;
@@ -22,7 +30,11 @@ TEST(EKFSLAMSolverTest, test_observation_model_2) {
   EXPECT_FLOAT_EQ(observations(1), 1);
 }
 
-TEST(EKFSLAMSolverTest, test_observation_model_3) {
+/**
+ * @brief Test observation model with a single landmark and non-trivial pose
+ *
+ */
+TEST(ObservationModelTest, test_observation_model_3) {
   Eigen::VectorXd state(5);
   state << 0, 0, M_PI / 2.0, 1, 1;
   ObservationModel observation_model_;
@@ -32,7 +44,11 @@ TEST(EKFSLAMSolverTest, test_observation_model_3) {
   EXPECT_FLOAT_EQ(observations(1), -1);
 }
 
-TEST(EKFSLAMSolverTest, test_inverse_observation_model1) {
+/**
+ * @brief Test inverse observation model with trivial state and a single observation
+ *
+ */
+TEST(ObservationModelTest, test_inverse_observation_model1) {
   Eigen::VectorXd state(3);
   state << 0, 0, 0;
   ObservationModel observation_model_;

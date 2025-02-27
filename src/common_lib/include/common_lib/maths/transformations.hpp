@@ -45,5 +45,5 @@ Eigen::VectorXd global_to_local_referential(const Eigen::Vector3d& local_referen
  * @return Eigen::VectorXd points in the global reference frame in format [x1, y1, x2, y2, ...]
  */
 Eigen::VectorXd local_to_global_referential(const Eigen::Vector3d& local_reference_frame,
-                                            const Eigen::VectorXd& global_points);
+                                            const Eigen::VectorXd& local_points);
 }  // namespace common_lib::maths

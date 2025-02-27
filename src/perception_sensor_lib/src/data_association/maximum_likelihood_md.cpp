@@ -5,11 +5,12 @@
 #include <limits>
 #include <vector>
 
-std::vector<int> MaximumLikelihoodMD::associate(
+Eigen::VectorXi MaximumLikelihoodMD::associate(
     const Eigen::VectorXd& state, const Eigen::MatrixXd& covariance,
     const Eigen::VectorXd& observations, const Eigen::VectorXd& observation_confidences) const {
   int num_observations = observations.size() / 2;
-  std::vector<int> associations(num_observations, -2);  // Default: not associated (-2)
+  Eigen::VectorXi associations =
+      Eigen::VectorXi::Constant(num_observations, -2);  // Default: not associated (-2)
 
   double car_x = state(0);
   double car_y = state(1);
@@ -36,6 +37,11 @@ std::vector<int> MaximumLikelihoodMD::associate(
     int best_landmark_index = -1;
 
     for (int j = 3; j < state.size(); j += 2) {
+      // Check if the landmark is within a valid distance from the car
+      double distance =
+          std::hypot(landmarks_local_coordinates(j - 3), landmarks_local_coordinates(j - 2));
+      if (distance > this->_params_.max_landmark_distance) continue;
+
       // Extract landmark global coordinates
       double lx = state(j);
       double ly = state(j + 1);
@@ -50,11 +56,6 @@ std::vector<int> MaximumLikelihoodMD::associate(
       jacobian_local_coordinates(1, j) = -sin_theta;
       jacobian_local_coordinates(1, j + 1) = cos_theta;
 
-      // Check if the landmark is within a valid distance from the car
-      double distance =
-          std::hypot(landmarks_local_coordinates(j - 3), landmarks_local_coordinates(j - 2));
-      if (distance > this->params_.max_landmark_distance) continue;
-
       // Innovation: difference between actual and predicted observation
       Eigen::Vector2d innovation = obs - landmarks_local_coordinates.segment(j - 3, 2);
 
@@ -65,7 +66,11 @@ std::vector<int> MaximumLikelihoodMD::associate(
 
       // Guard against non-invertible innovation_covariance
       double det = innovation_covariance.determinant();
-      if (det == 0) continue;
+      if (det == 0) {
+        RCLCPP_WARN(rclcpp::get_logger("data_association"),
+                    "Non-invertible innovation covariance matrix");
+        continue;
+      }
 
       double normalized_innovation_squared =
           innovation.transpose() * innovation_covariance.inverse() * innovation;
@@ -85,10 +90,10 @@ std::vector<int> MaximumLikelihoodMD::associate(
       jacobian_local_coordinates(1, j + 1) = 0;
     }
 
-    if (best_cost < this->params_.association_gate) {
-      associations[i] = best_landmark_index;
-    } else if (observation_confidences[i] > this->params_.new_landmark_confidence_gate) {
-      associations[i] = -1;  // New landmark
+    if (best_cost < this->_params_.association_gate) {
+      associations(i) = best_landmark_index;
+    } else if (observation_confidences[i] > this->_params_.new_landmark_confidence_gate) {
+      associations(i) = -1;  // New landmark
     }
   }
 

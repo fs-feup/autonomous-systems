@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include <rclcpp/rclcpp.hpp>
 
 #include "common_lib/maths/transformations.hpp"
 #include "perception_sensor_lib/data_association/base_data_association.hpp"
@@ -21,7 +22,7 @@ public:
 
   ~MaximumLikelihoodMD() = default;
 
-  std::vector<int> associate(const Eigen::VectorXd& state, const Eigen::MatrixXd& covariance,
-                             const Eigen::VectorXd& observations,
-                             const Eigen::VectorXd& observation_confidences) const override;
+  Eigen::VectorXi associate(const Eigen::VectorXd& state, const Eigen::MatrixXd& covariance,
+                            const Eigen::VectorXd& observations,
+                            const Eigen::VectorXd& observation_confidences) const override;
 };
