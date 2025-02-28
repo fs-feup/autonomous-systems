@@ -28,10 +28,12 @@ protected:
     cloud_empty.points.clear();
 
     // Set initial trimming parameters.
+    params.skid_max_range = 20.25;
     params.min_range = 0.0;
     params.max_height = 1000.0;
     params.lidar_height = 0.0;
-    params.min_distance_to_cone = 1.5;
+    params.skid_min_distance_to_cone = 1.5;
+    params.lidar_rotation = 90.0;
     // fov_trim_angle is not set here for every test, but will be adjusted in tests as needed.
   }
 
@@ -41,6 +43,10 @@ protected:
   TrimmingParameters params;
 };
 
+/**
+ * @brief Test case where points outside max range should be removed.
+ *
+ */
 TEST_F(SkidpadTrimmingTest, TestMaxRange) {
   // Wrap the stack cloud with a non-owning shared pointer.
   const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
@@ -50,6 +56,10 @@ TEST_F(SkidpadTrimmingTest, TestMaxRange) {
   ASSERT_EQ(cloud_ptr->points.size(), 4);
 }
 
+/**
+ * @brief Test case where points above max height should be removed.
+ *
+ */
 TEST_F(SkidpadTrimmingTest, TestMaxHeight) {
   params.max_height = 2.5;
   const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
@@ -59,6 +69,10 @@ TEST_F(SkidpadTrimmingTest, TestMaxHeight) {
   ASSERT_EQ(cloud_ptr->points.size(), 3);
 }
 
+/**
+ * @brief Test case where points within min range should be removed.
+ *
+ */
 TEST_F(SkidpadTrimmingTest, TestMinRange) {
   params.min_range = 0.3;
   const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
@@ -68,8 +82,12 @@ TEST_F(SkidpadTrimmingTest, TestMinRange) {
   ASSERT_EQ(cloud_ptr->points.size(), 3);
 }
 
+/**
+ * @brief Test case where points outside FOV trim angle should be removed.
+ *
+ */
 TEST_F(SkidpadTrimmingTest, TestFOVAngle) {
-  params.min_distance_to_cone = 1.7;
+  params.skid_min_distance_to_cone = 1.7;
   const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
       &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
   const SkidpadTrimming skidpad_trimming(params);
@@ -77,6 +95,10 @@ TEST_F(SkidpadTrimmingTest, TestFOVAngle) {
   ASSERT_EQ(cloud_ptr->points.size(), 3);
 }
 
+/**
+ * @brief Empty point cloud remains empty.
+ *
+ */
 TEST_F(SkidpadTrimmingTest, TestEmptyPointCloud) {
   const pcl::PointCloud<pcl::PointXYZI>::Ptr empty_ptr(
       &cloud_empty, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
@@ -85,10 +107,14 @@ TEST_F(SkidpadTrimmingTest, TestEmptyPointCloud) {
   ASSERT_EQ(empty_ptr->points.size(), 0);
 }
 
+/**
+ * @brief Test for the general result of skidpad_trimming.
+ *
+ */
 TEST_F(SkidpadTrimmingTest, TestGeneralResult) {
   params.min_range = 0.4;
   params.max_height = 2.5;
-  params.min_distance_to_cone = 4.0;
+  params.skid_min_distance_to_cone = 4.0;
   const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
       &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
   const SkidpadTrimming skidpad_trimming(params);

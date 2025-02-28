@@ -36,6 +36,7 @@ protected:
     params.max_height = 1000.0;
     params.lidar_height = 0.0;
     params.fov_trim_angle = 120.0;
+    params.lidar_rotation = 90.0;
   }
 
   // Stack-allocated point clouds.

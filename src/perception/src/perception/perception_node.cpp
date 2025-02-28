@@ -54,13 +54,20 @@ PerceptionParameters Perception::load_config() {
       static_cast<uint8_t>(common_lib::competition_logic::fsds_to_system.at(default_mission_str));
 
   TrimmingParameters trim_params;
+  trim_params.lidar_rotation = perception_config["lidar_rotation"].as<double>();
+  trim_params.fov_trim_angle = perception_config["fov_trim_angle"].as<double>();
+  trim_params.max_range = perception_config["max_range"].as<double>();
   trim_params.min_range = perception_config["min_range"].as<double>();
   trim_params.max_height = perception_config["max_height"].as<double>();
   trim_params.lidar_height = perception_config["lidar_height"].as<double>();
+
+  trim_params.acc_max_range = perception_config["acc_max_range"].as<double>();
+  trim_params.acc_fov_trim_angle = perception_config["acc_fov_trim_angle"].as<double>();
   trim_params.acc_max_y = perception_config["acc_max_y"].as<double>();
-  trim_params.min_distance_to_cone = perception_config["min_distance_to_cone"].as<double>();
-  trim_params.fov_trim_angle = perception_config["fov_trim_angle"].as<double>();
-  trim_params.max_range = perception_config["max_range"].as<double>();
+
+  trim_params.skid_max_range = perception_config["skid_max_range"].as<double>();
+  trim_params.skid_min_distance_to_cone =
+      perception_config["skid_min_distance_to_cone"].as<double>();
 
   auto acceleration_trimming = std::make_shared<AccelerationTrimming>(trim_params);
   auto skidpad_trimming = std::make_shared<SkidpadTrimming>(trim_params);

@@ -32,7 +32,4 @@ public:
    * @param[out] ret The resulting point cloud after trimming.
    */
   void fov_trimming(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud) const override;
-
-private:
-  TrimmingParameters params_;
 };

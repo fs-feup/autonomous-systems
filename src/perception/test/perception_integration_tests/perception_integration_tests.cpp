@@ -198,6 +198,10 @@ protected:
     auto params = Perception::load_config();
     params.default_mission_ = mission;
 
+    for (auto& [mission, trim] : *params.fov_trim_map_) {
+      trim->set_lidar_rotation(90);
+    }
+
     rclcpp::Node::SharedPtr perception_node = std::make_shared<Perception>(params);
     ASSERT_NE(perception_node, nullptr) << "Failed to initialize Perception node.";
 

@@ -4,6 +4,8 @@
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 
+#include <utils/trimming_parameters.hpp>
+
 class FovTrimming {
 public:
   /**
@@ -16,5 +18,14 @@ public:
    */
   virtual void fov_trimming(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud) const = 0;
 
-  void process_point(pcl::PointXYZI& point, double& distance, double& angle) const;
+  void process_point(pcl::PointXYZI& point, const double rotation, double& distance,
+                     double& angle) const;
+
+  bool within_limits(pcl::PointXYZI& point, const TrimmingParameters& params, double max_range,
+                     double fov_trim_angle) const;
+
+  void set_lidar_rotation(const double rotation);
+
+protected:
+  TrimmingParameters params_;
 };

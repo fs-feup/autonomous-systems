@@ -31,10 +31,13 @@ protected:
     cloud_empty.points.clear();
 
     // Set trimming parameters.
+    params.acc_max_range = 20.25;
+    params.acc_fov_trim_angle = 90.0;
     params.min_range = 0.0;
     params.max_height = 10.0;
     params.lidar_height = 0;
     params.acc_max_y = 10.0;
+    params.lidar_rotation = 90.0;
   }
 
   // Stack-allocated point clouds.
