@@ -5,18 +5,18 @@
 #include <random>
 
 // Function to generate a random integer in the interval [a, b[
-int generate_random_integer(int a, int b) {
+int generate_random_integer(const int a, const int b) {
   std::random_device rd;
   std::default_random_engine eng(rd());
-  std::uniform_int_distribution<int> distr(a, b - 1);
+  std::uniform_int_distribution distr(a, b - 1);
   return distr(eng);
 }
 
 // Function to generate a random double in the interval [a, b[
-double generate_random_double(double a, double b) {
+double generate_random_double(const double a, const double b) {
   std::random_device rd;
   std::default_random_engine eng(rd());
-  std::uniform_real_distribution<double> distr(a, b);
+  std::uniform_real_distribution distr(a, b);
   return distr(eng);
 }
 
@@ -25,10 +25,10 @@ double generate_random_double(double a, double b) {
  *
  */
 TEST(TransformGlobalToLocal, TestCase1) {
-  Eigen::Vector3d referencial(0, 0, 0);
-  Eigen::VectorXd global_landmarks = Eigen::VectorXd::Zero(0);
-  Eigen::VectorXd transformed_landmarks =
-      common_lib::maths::global_to_local_coordinates(referencial, global_landmarks);
+  const Eigen::Vector3d reference_frame(0, 0, 0);
+  const Eigen::VectorXd global_landmarks = Eigen::VectorXd::Zero(0);
+  const Eigen::VectorXd transformed_landmarks =
+      common_lib::maths::global_to_local_coordinates(reference_frame, global_landmarks);
   EXPECT_EQ(transformed_landmarks.size(), 0);
 }
 
@@ -37,7 +37,7 @@ TEST(TransformGlobalToLocal, TestCase1) {
  *
  */
 TEST(TransformGlobalToLocal, TestCase2) {
-  Eigen::Vector3d referencial(5, -5, 1.1);
+  const Eigen::Vector3d reference_frame(5, -5, 1.1);
   Eigen::VectorXd global_landmarks = Eigen::VectorXd::Zero(10);
   global_landmarks << 1, 2, 3, 4, 5, 6, 7, 8, 9, 10;
   Eigen::VectorXd expected_local_landmarks(10);
@@ -45,7 +45,7 @@ TEST(TransformGlobalToLocal, TestCase2) {
       5.864779812953067, 9.803280960675789, 4.989557335681351, 12.492887923649814,
       4.114334858409635, 15.18249488662384, 3.239112381137919;
   Eigen::VectorXd local_landmarks =
-      common_lib::maths::global_to_local_coordinates(referencial, global_landmarks);
+      common_lib::maths::global_to_local_coordinates(reference_frame, global_landmarks);
   for (int i = 0; i < 10; i++) {
     EXPECT_NEAR(local_landmarks(i), expected_local_landmarks(i), 1e-6);
   }
@@ -56,10 +56,10 @@ TEST(TransformGlobalToLocal, TestCase2) {
  *
  */
 TEST(TransformLocalToGlobal, TestCase1) {
-  Eigen::Vector3d referencial(0, 0, 0);
-  Eigen::VectorXd local_landmarks = Eigen::VectorXd::Zero(0);
-  Eigen::VectorXd transformed_landmarks =
-      common_lib::maths::local_to_global_coordinates(referencial, local_landmarks);
+  const Eigen::Vector3d reference_frame(0, 0, 0);
+  const Eigen::VectorXd local_landmarks = Eigen::VectorXd::Zero(0);
+  const Eigen::VectorXd transformed_landmarks =
+      common_lib::maths::local_to_global_coordinates(reference_frame, local_landmarks);
   EXPECT_EQ(transformed_landmarks.size(), 0);
 }
 
@@ -68,7 +68,7 @@ TEST(TransformLocalToGlobal, TestCase1) {
  *
  */
 TEST(TransformLocalToGlobal, TestCase2) {
-  Eigen::Vector3d referencial(5, -5, 1.1);
+  const Eigen::Vector3d reference_frame(5, -5, 1.1);
   Eigen::VectorXd local_landmarks = Eigen::VectorXd::Zero(10);
   local_landmarks << 4.424067034727738, 6.740002290224783, 7.113673997701763, 5.864779812953067,
       9.803280960675789, 4.989557335681351, 12.492887923649814, 4.114334858409635,
@@ -76,7 +76,7 @@ TEST(TransformLocalToGlobal, TestCase2) {
   Eigen::VectorXd expected_global_landmarks(10);
   expected_global_landmarks << 1, 2, 3, 4, 5, 6, 7, 8, 9, 10;
   Eigen::VectorXd global_landmarks =
-      common_lib::maths::local_to_global_coordinates(referencial, local_landmarks);
+      common_lib::maths::local_to_global_coordinates(reference_frame, local_landmarks);
   for (int i = 0; i < 10; i++) {
     EXPECT_NEAR(global_landmarks(i), expected_global_landmarks(i), 1e-6);
   }
@@ -94,12 +94,12 @@ TEST(TransformGlobalANDLocal, TestCase1) {
 
   // Run 15 randomized tests
   for (int i = 0; i < 15; i++) {
-    int number_of_landmarks = generate_random_integer(1, 20);
-    referencial << generate_random_double(-100, 100), generate_random_double(-100, 100),
-        generate_random_double(-M_PI, M_PI);
+    const int number_of_landmarks = ::generate_random_integer(1, 20);
+    referencial << ::generate_random_double(-100, 100), ::generate_random_double(-100, 100),
+        ::generate_random_double(-M_PI, M_PI);
     global_landmarks = Eigen::VectorXd::Zero(2 * number_of_landmarks);
     for (int j = 0; j < 2 * number_of_landmarks; j++) {
-      global_landmarks(j) = generate_random_double(-100, 100);
+      global_landmarks(j) = ::generate_random_double(-100, 100);
     }
     transformed_landmarks =
         common_lib::maths::global_to_local_coordinates(referencial, global_landmarks);
@@ -123,12 +123,12 @@ TEST(TransformGlobalANDLocal, TestCase2) {
 
   // Run 15 randomized tests
   for (int i = 0; i < 15; i++) {
-    int number_of_landmarks = generate_random_integer(1, 20);
-    referencial << generate_random_double(-100, 100), generate_random_double(-100, 100),
-        generate_random_double(-M_PI, M_PI);
+    const int number_of_landmarks = ::generate_random_integer(1, 20);
+    referencial << ::generate_random_double(-100, 100), ::generate_random_double(-100, 100),
+        ::generate_random_double(-M_PI, M_PI);
     local_landmarks = Eigen::VectorXd::Zero(2 * number_of_landmarks);
     for (int j = 0; j < 2 * number_of_landmarks; j++) {
-      local_landmarks(j) = generate_random_double(-100, 100);
+      local_landmarks(j) = ::generate_random_double(-100, 100);
     }
     transformed_landmarks =
         common_lib::maths::local_to_global_coordinates(referencial, local_landmarks);
