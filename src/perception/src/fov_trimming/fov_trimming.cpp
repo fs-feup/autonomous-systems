@@ -24,9 +24,9 @@ bool FovTrimming::within_limits(pcl::PointXYZI& point, const TrimmingParameters&
   double distance = 0, angle = 0;
   process_point(point, params.lidar_rotation, distance, angle);
 
-  bool within_height = point.z < (params.max_height - params.lidar_height);
-  bool within_range = (distance > params.min_range) && (distance <= max_range);
-  bool within_fov = (angle >= -fov_trim_angle) && (angle <= fov_trim_angle);
+  const bool within_height = point.z < (params.max_height - params.lidar_height);
+  const bool within_range = (distance > params.min_range) && (distance <= max_range);
+  const bool within_fov = (angle >= -fov_trim_angle) && (angle <= fov_trim_angle);
 
   return within_height && within_range && within_fov;
 }

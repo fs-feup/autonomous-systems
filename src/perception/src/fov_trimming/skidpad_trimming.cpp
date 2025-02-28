@@ -11,7 +11,7 @@ void SkidpadTrimming::fov_trimming(const pcl::PointCloud<pcl::PointXYZI>::Ptr cl
       std::make_unique<pcl::PointCloud<pcl::PointXYZI>>();
 
   // Calculate fov_trim_angle from the given minimum distance to a cone.
-  double skid_fov_trim_angle =
+  const double skid_fov_trim_angle =
       90 - std::acos(1.5 / std::max(params_.skid_min_distance_to_cone, 1.5)) * 180 / M_PI;
 
   for (auto& point : cloud->points) {
