@@ -22,6 +22,7 @@ double generate_random_double(const double a, const double b) {
 
 /**
  * @brief Trivial scenario of transformation from global to local coordinates
+ * with no landmarks and trivial state
  *
  */
 TEST(TransformGlobalToLocal, TestCase1) {
@@ -33,10 +34,40 @@ TEST(TransformGlobalToLocal, TestCase1) {
 }
 
 /**
- * @brief test transformation from global to local coordinates
+ * @brief Trivial scenario of transformation from global to local coordinates with no landmarks
+ * and non trivial state
  *
  */
 TEST(TransformGlobalToLocal, TestCase2) {
+  const Eigen::Vector3d reference_frame(12, -2, 1.5);
+  const Eigen::VectorXd global_landmarks = Eigen::VectorXd::Zero(0);
+  const Eigen::VectorXd transformed_landmarks =
+      common_lib::maths::global_to_local_coordinates(reference_frame, global_landmarks);
+  EXPECT_EQ(transformed_landmarks.size(), 0);
+}
+
+/**
+ * @brief test transformation from global to local coordinates with trivial state
+ *
+ */
+TEST(TransformGlobalToLocal, TestCase3) {
+  const Eigen::Vector3d reference_frame(0, 0, 0);
+  Eigen::VectorXd global_landmarks = Eigen::VectorXd::Zero(10);
+  global_landmarks << 1, 2, 3, 4, 5, 6, 7, 8, 9, 10;
+  Eigen::VectorXd expected_local_landmarks(10);
+  expected_local_landmarks << 1, 2, 3, 4, 5, 6, 7, 8, 9, 10;
+  Eigen::VectorXd local_landmarks =
+      common_lib::maths::global_to_local_coordinates(reference_frame, global_landmarks);
+  for (int i = 0; i < 10; i++) {
+    EXPECT_NEAR(local_landmarks(i), expected_local_landmarks(i), 1e-6);
+  }
+}
+
+/**
+ * @brief test transformation from global to local coordinates
+ *
+ */
+TEST(TransformGlobalToLocal, TestCase4) {
   const Eigen::Vector3d reference_frame(5, -5, 1.1);
   Eigen::VectorXd global_landmarks = Eigen::VectorXd::Zero(10);
   global_landmarks << 1, 2, 3, 4, 5, 6, 7, 8, 9, 10;
@@ -53,6 +84,7 @@ TEST(TransformGlobalToLocal, TestCase2) {
 
 /**
  * @brief Trivial scenario of transformation from local to global coordinates
+ * with no landmarks and trivial state
  *
  */
 TEST(TransformLocalToGlobal, TestCase1) {
@@ -64,10 +96,39 @@ TEST(TransformLocalToGlobal, TestCase1) {
 }
 
 /**
- * @brief Test transformation from local to global coordinates
+ * @brief Test with no landmarks and non trivial state
  *
  */
 TEST(TransformLocalToGlobal, TestCase2) {
+  const Eigen::Vector3d reference_frame(5, -5, 1.1);
+  Eigen::VectorXd local_landmarks = Eigen::VectorXd::Zero(0);
+  Eigen::VectorXd global_landmarks =
+      common_lib::maths::local_to_global_coordinates(reference_frame, local_landmarks);
+  EXPECT_EQ(global_landmarks.size(), 0);
+}
+
+/**
+ * @brief Test with trivial state and some landmarks
+ *
+ */
+TEST(TransformLocalToGlobal, TestCase3) {
+  const Eigen::Vector3d reference_frame(0, 0, 0);
+  Eigen::VectorXd local_landmarks = Eigen::VectorXd::Zero(10);
+  local_landmarks << 1, 2, 3, 4, 5, 6, 7, 8, 9, 10;
+  Eigen::VectorXd expected_global_landmarks(10);
+  expected_global_landmarks << 1, 2, 3, 4, 5, 6, 7, 8, 9, 10;
+  Eigen::VectorXd global_landmarks =
+      common_lib::maths::local_to_global_coordinates(reference_frame, local_landmarks);
+  for (int i = 0; i < 10; i++) {
+    EXPECT_NEAR(global_landmarks(i), expected_global_landmarks(i), 1e-6);
+  }
+}
+
+/**
+ * @brief Test transformation from local to global coordinates
+ *
+ */
+TEST(TransformLocalToGlobal, TestCase4) {
   const Eigen::Vector3d reference_frame(5, -5, 1.1);
   Eigen::VectorXd local_landmarks = Eigen::VectorXd::Zero(10);
   local_landmarks << 4.424067034727738, 6.740002290224783, 7.113673997701763, 5.864779812953067,
