@@ -198,7 +198,7 @@ protected:
     auto params = Perception::load_config();
     params.default_mission_ = mission;
 
-    for (auto& [mission, trim] : *params.fov_trim_map_) {
+    for (const auto& [mission, trim] : *params.fov_trim_map_) {
       trim->set_lidar_rotation(90);
     }
 

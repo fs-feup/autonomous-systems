@@ -6,7 +6,7 @@ void FovTrimming::process_point(pcl::PointXYZI& point, const double rotation, do
   const double y = point.y;
 
   // Convert rotation angle to radians
-  double rad = rotation * M_PI / 180.0;
+  const double rad = rotation * M_PI / 180.0;
 
   // Apply rotation transformation
   point.x = x * std::cos(rad) - y * std::sin(rad);
@@ -20,7 +20,7 @@ void FovTrimming::process_point(pcl::PointXYZI& point, const double rotation, do
 }
 
 bool FovTrimming::within_limits(pcl::PointXYZI& point, const TrimmingParameters& params,
-                                double max_range, double fov_trim_angle) const {
+                                const double max_range, const double fov_trim_angle) const {
   double distance = 0, angle = 0;
   process_point(point, params.lidar_rotation, distance, angle);
 

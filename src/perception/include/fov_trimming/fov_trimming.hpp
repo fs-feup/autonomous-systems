@@ -21,8 +21,8 @@ public:
   void process_point(pcl::PointXYZI& point, const double rotation, double& distance,
                      double& angle) const;
 
-  bool within_limits(pcl::PointXYZI& point, const TrimmingParameters& params, double max_range,
-                     double fov_trim_angle) const;
+  bool within_limits(pcl::PointXYZI& point, const TrimmingParameters& params,
+                     const double max_range, const double fov_trim_angle) const;
 
   void set_lidar_rotation(const double rotation);
 
