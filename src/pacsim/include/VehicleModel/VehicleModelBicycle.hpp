@@ -195,6 +195,27 @@ private:
         double calculateSteeringWheelAngle(const Wheels& steeringAngles) const;
     };
 
+    void calculateWheelGeometry(
+        double& steeringFront,
+        Eigen::Vector3d& rFL, Eigen::Vector3d& rFR,
+        Eigen::Vector3d& rRL, Eigen::Vector3d& rRR,
+        Eigen::Vector3d& rFront, Eigen::Vector3d& rRear,
+        Eigen::Vector3d& vFL, Eigen::Vector3d& vFR,
+        Eigen::Vector3d& vRL, Eigen::Vector3d& vRR) const;
+        
+    void calculateLongitudinalForces(
+        double& Fx_FL, double& Fx_FR, double& Fx_RL, double& Fx_RR) const;
+        
+    Eigen::Vector3d calculateAccelerations(
+        double steeringFront,
+        double Fx_FL, double Fx_FR, double Fx_RL, double Fx_RR,
+        double Fy_Front, double Fy_Rear,
+        double drag, const Eigen::Vector3d& friction) const;
+        
+    void updateWheelSpeeds(
+        const Eigen::Vector3d& vFL, const Eigen::Vector3d& vFR,
+        const Eigen::Vector3d& vRL, const Eigen::Vector3d& vRR);
+
     // Physics calculation methods
     Eigen::Vector3d getDynamicStates(double dt);
     void calculateNormalForces(double& Fz_Front, double& Fz_Rear) const;
