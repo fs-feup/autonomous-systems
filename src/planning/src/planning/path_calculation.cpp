@@ -15,15 +15,15 @@ double PathCalculation::dfs_cost(int depth, MidPoint *previous, MidPoint *curren
     return 0;
   }
   // TODO: put in params
-  double angle_weight = 10.0;
+  double angle_weight = 20.0;
   double distance_weight = 5.0;
-  double angle_exponent = 2.0;
+  double angle_exponent = 3.0;
   double distance_exponent = 0.998;
 
   double cost = 0;
   double res = maxcost * depth;
   for (MidPoint *next : current->close_points) {
-    if (next == previous) {
+    if (*next == *previous) {
       continue;
     }
     double distance = sqrt(pow(current->point.x() - next->point.x(), 2) +
@@ -33,6 +33,7 @@ double PathCalculation::dfs_cost(int depth, MidPoint *previous, MidPoint *curren
     double angle_with_next =
         atan2(next->point.y() - current->point.y(), next->point.x() - current->point.x());
     double angle = std::abs(angle_with_next - angle_with_previous);
+    if (angle > M_PI) angle = 2 * M_PI - angle;
 
     cost = pow(angle, angle_exponent) * angle_weight +
            pow(distance, distance_exponent) * distance_weight;
@@ -41,7 +42,7 @@ double PathCalculation::dfs_cost(int depth, MidPoint *previous, MidPoint *curren
       continue;
     }
 
-    cost = cost + dfs_cost(depth - 1, current, next, maxcost);
+    cost = cost + dfs_cost(depth - 1, current, next, maxcost)/2;
     if (cost < res) {
       res = cost;
     }

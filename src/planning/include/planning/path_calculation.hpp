@@ -101,6 +101,11 @@ public:
     Vertex* v1;
     Vertex* v2;
     std::vector<MidPoint*> close_points;
+
+    bool operator==(const MidPoint& other) const {
+        return (point.x() == other.point.x()) && (point.y() == other.point.y());
+    }
+
   };
 
   double dfs_cost(int depth, MidPoint *previous, MidPoint *current, double maxcost);
