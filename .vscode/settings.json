@@ -113,4 +113,5 @@
     },
     "C_Cpp.default.compilerPath": "/usr/bin/g++",
     "ros.distro": "humble",
+    "C_Cpp.intelliSenseCacheSize": 2048,
 }

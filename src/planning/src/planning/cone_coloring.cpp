@@ -2,6 +2,7 @@
 #include <queue>
 using namespace std;
 
+
 void ConeColoring::remove_duplicates(std::vector<Cone>& cones) const {
   std::vector<Cone> clustered_cones;
   clustered_cones.reserve(cones.size());
@@ -461,7 +462,7 @@ pair<vector<Cone>, vector<Cone>> ConeColoring::dijkstra_search(ColoringCombinati
       RCLCPP_DEBUG(rclcpp::get_logger("Planning : ConeColoring"), "Deepest level: %d", deepest);
     }
     
-    if (current.last || current.depth == 12)
+    if (current.last || current.depth == 5 || current.remaining_cones.size() == 0)
     {
       break;
     }

@@ -14,6 +14,16 @@
 #include "config/cone_coloring_config.hpp"
 #include "rclcpp/rclcpp.hpp"
 
+#include <CGAL/Delaunay_triangulation_2.h>
+#include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
+#include "common_lib/structures/path_point.hpp"
+
+using K = CGAL::Exact_predicates_inexact_constructions_kernel;
+using DT = CGAL::Delaunay_triangulation_2<K>;
+using Point = K::Point_2;
+
+using PathPoint = common_lib::structures::PathPoint;
+
 using Cone = common_lib::structures::Cone;
 using Pose = common_lib::structures::Pose;
 using Position = common_lib::structures::Position;
@@ -84,9 +94,6 @@ private:
   void place_initial_cones(std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones,
                            const Pose& car_pose, int& n_colored_cones);
 
-  Cone find_best_initial_cone_ransac(const std::unordered_set<Cone, std::hash<Cone>>& cones,
-                                     const Position& expected_position);
-
       /**
        * @brief function to place the second cones by selecting the closest to initial cones
        *
@@ -152,11 +159,16 @@ private:
 std::vector<std::pair<double, Cone>> top_coloring_costs(std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones, 
 std::vector<Cone>& colored_cones, vector<Cone>& oposite_color_cones, int& n_colored_cones, const int n_input_cones);
   
-  struct ConePair {
-    ConePair* previous_blue;
-    ConePair* previous_yellow;
-    Cone * blue;
-    Cone * yellow;
+  struct ConeToPoints;
+
+  struct PointToCones{
+    PathPoint point;
+    std::vector<ConeToPoints *> cones;
+  };
+
+  struct ConeToPoints{
+    Cone * cone;
+    std::vector<PointToCones *> points;
   };
 
   struct ColoringCombination {

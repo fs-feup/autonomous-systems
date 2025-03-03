@@ -118,17 +118,18 @@ void Planning::run_planning_algorithms() {
     cone.color = Color::YELLOW;
   }
 
-  // Calculate middle points using triangulations
-  std::vector<PathPoint> triangulations_path =
-      path_calculation_.process_delaunay_triangulations(refined_colored_cones);
-  if (triangulations_path.size() < 2) {
-    RCLCPP_WARN(rclcpp::get_logger("planning"),
-                "Not enough cones to plan after triangulations: % d ",
-                static_cast<int>(triangulations_path.size()));
-    publish_track_points({});
-    return;
-  }
+  // // Calculate middle points using triangulations
+  // std::vector<PathPoint> triangulations_path =
+  //     path_calculation_.process_delaunay_triangulations(refined_colored_cones);
+  // if (triangulations_path.size() < 2) {
+  //   RCLCPP_WARN(rclcpp::get_logger("planning"),
+  //               "Not enough cones to plan after triangulations: % d ",
+  //               static_cast<int>(triangulations_path.size()));
+  //   publish_track_points({});
+  //   return;
+  // }
 
+  std::vector<PathPoint> triangulations_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
   // Smooth the calculated path
   std::vector<PathPoint> final_path =
       path_smoothing_.smooth_path(triangulations_path, this->pose, this->initial_car_orientation_);
