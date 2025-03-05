@@ -13,6 +13,9 @@ set(PACKAGES
     visualization_msgs
     geometry_msgs
     custom_interfaces
+    common_lib
+    eufs_msgs
+    fs_msgs
 )
 
 foreach(pkg ${PACKAGES})
@@ -27,7 +30,9 @@ if(OpenMP_CXX_FOUND)
 endif()
 
 set(IMPLEMENTATION_FILES
-  src/data_association/base_data_association.cpp
+  src/data_association/maximum_likelihood_nll.cpp
+  src/data_association/maximum_likelihood_md.cpp
+  src/observation_model/base_observation_model.cpp
 )
 
 add_library(${PROJECT_NAME} SHARED ${IMPLEMENTATION_FILES})
@@ -60,6 +65,9 @@ if(BUILD_TESTING)
 
   set(TESTFILES
     test/main.cpp
+    test/observation_model/base_observation_model_test.cpp
+    test/data_association/maximum_likelihood_nll_test.cpp
+    test/data_association/maximum_likelihood_md_test.cpp
   )
 
   include_directories(test)  # Include the 'test' directory for your test targets
