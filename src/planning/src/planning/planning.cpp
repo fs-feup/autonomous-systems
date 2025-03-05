@@ -121,8 +121,8 @@ void Planning::run_planning_algorithms() {
   
   std::vector<PathPoint> triangulations_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
   // Smooth the calculated path
-  std::vector<PathPoint> final_path = 
-      path_smoothing_.smooth_path(triangulations_path, this->pose, this->initial_car_orientation_);
+  std::vector<PathPoint> final_path = triangulations_path;
+      //path_smoothing_.smooth_path(triangulations_path, this->pose, this->initial_car_orientation_);
 
   if (final_path.size() < 10) {
     RCLCPP_INFO(rclcpp::get_logger("planning"), "Final path size: %d",

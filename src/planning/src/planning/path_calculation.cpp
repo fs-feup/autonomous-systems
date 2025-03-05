@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <cmath>
 #include <map>
+#include <queue>
 #include <set>
 #include <utility>
 #include <vector>
@@ -10,119 +11,106 @@
 #include "utils/cone.hpp"
 using namespace std;
 
-double PathCalculation::dfs_cost(int depth, MidPoint *previous, MidPoint *current, double maxcost) {
+std::pair<double, PathCalculation::MidPoint> PathCalculation::dfs_cost(int depth,
+                                                                       MidPoint &previous,
+                                                                       MidPoint &current,
+                                                                       double maxcost) {
   if (depth == 0) {
-    return 0;
+    return {0, current};  // Return current point if depth is 0
   }
-  // TODO: put in params
+
+  // Parameters for cost calculation
   double angle_weight = 20.0;
   double distance_weight = 5.0;
   double angle_exponent = 3.0;
   double distance_exponent = 0.998;
 
-  double cost = 0;
-  double res = maxcost * depth;
-  for (MidPoint *next : current->close_points) {
-    if (*next == *previous) {
+  double min_cost = maxcost * depth;
+  MidPoint min_point = current;  // Default to current point
+
+  for (MidPoint next : current.close_points) {
+    // Avoid revisiting the previous point
+    if (next == previous) {
       continue;
     }
-    double distance = sqrt(pow(current->point.x() - next->point.x(), 2) +
-                           pow(current->point.y() - next->point.y(), 2));
+
+    // Calculate distance between current and next points
+    double distance = sqrt(pow(current.point.x() - next.point.x(), 2) +
+                           pow(current.point.y() - next.point.y(), 2));
+
+    // Calculate angle between path segments
     double angle_with_previous =
-        atan2(current->point.y() - previous->point.y(), current->point.x() - previous->point.x());
+        atan2(current.point.y() - previous.point.y(), current.point.x() - previous.point.x());
     double angle_with_next =
-        atan2(next->point.y() - current->point.y(), next->point.x() - current->point.x());
+        atan2(next.point.y() - current.point.y(), next.point.x() - current.point.x());
+
+    // Normalize angle to be between 0 and π
     double angle = std::abs(angle_with_next - angle_with_previous);
     if (angle > M_PI) angle = 2 * M_PI - angle;
 
-    cost = pow(angle, angle_exponent) * angle_weight +
-           pow(distance, distance_exponent) * distance_weight;
+    // Calculate local cost for this segment
+    double local_cost = pow(angle, angle_exponent) * angle_weight +
+                        pow(distance, distance_exponent) * distance_weight;
 
-    if (cost > maxcost) {
+    // Skip if local cost exceeds maximum allowed cost
+    if (local_cost > maxcost) {
       continue;
     }
 
-    cost = cost + dfs_cost(depth - 1, current, next, maxcost)/2;
-    if (cost < res) {
-      res = cost;
+    // Recursively calculate cost for the remaining depth
+    std::pair<double, MidPoint> recursive_result = dfs_cost(depth - 1, current, next, maxcost);
+
+    // Total cost is local cost plus recursive cost
+    double total_cost = local_cost + recursive_result.first;
+
+    // Update minimum cost and corresponding point
+    if (total_cost < min_cost) {
+      min_cost = total_cost;
+      min_point = next;
     }
   }
 
-  return res;
+  return {min_cost, min_point};
 }
 
 std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone> &cone_array,
                                                              common_lib::structures::Pose pose) {
-  std::unordered_map<Vertex, Vertex, VertexHash> vertexMap;
-  std::list<MidPoint> midPoints;
-
-  for (Cone cone : cone_array) {
-    Vertex vertex = {Point(cone.position.x, cone.position.y), {}};
-    vertexMap[vertex] = vertex;
-  }
+  std::vector<MidPoint> midPoints;
 
   DT dt;
 
-  for (auto v : vertexMap) {
-    dt.insert(v.first.point);
+  for (auto cone : cone_array) {
+    dt.insert(Point(cone.position.x, cone.position.y));
   }
 
   for (DT::Finite_edges_iterator it = dt.finite_edges_begin(); it != dt.finite_edges_end(); ++it) {
     // Extract vertices' coordinates from both edges
-    Vertex v1{it->first->vertex((it->second + 1) % 3)->point(), {}};
-    Vertex v2{it->first->vertex((it->second + 2) % 3)->point(), {}};
-
-    auto v1_it = vertexMap.find(v1);
-    auto v2_it = vertexMap.find(v2);
-
-    // Get pointers to the modifiable Vertex objects.
-    Vertex *pv1 = &v1_it->second;
-    Vertex *pv2 = &v2_it->second;
+    Point p1 = it->first->vertex((it->second + 1) % 3)->point();
+    Point p2 = it->first->vertex((it->second + 2) % 3)->point();
 
     // Compute the mid-point between the two vertices.
-    MidPoint midPoint = {
-        Point((v1.point.x() + v2.point.x()) / 2, (v1.point.y() + v2.point.y()) / 2),
-        pv1,
-        pv2,
-        {}  // Initially empty close_points.
-    };
+    MidPoint midPoint = {Point((p1.x() + p2.x()) / 2, (p1.y() + p2.y()) / 2), {}};
 
     midPoints.push_back(midPoint);
-    MidPoint &addedMidPoint = midPoints.back();
-
-    // Link this midPoint with its adjacent vertices.
-    addedMidPoint.v1->neighbors.push_back(&addedMidPoint);
-    addedMidPoint.v2->neighbors.push_back(&addedMidPoint);
   }
 
-  for (MidPoint &p : midPoints) {  // For each mid-point.
-    Vertex *v1 = p.v1;
-    Vertex *v2 = p.v2;
+  auto cmp = [](const std::pair<double, MidPoint> &a, const std::pair<double, MidPoint> &b) {
+    return a.first > b.first;
+  };
 
-    for (MidPoint *m1 : v1->neighbors) {
-      for (MidPoint *m2 : v2->neighbors) {
-        if (m1 == m2) {
-          continue;
-        }
-
-        if (m1->v1 == v1) {
-          if (m2->v1 == v2 && m1->v2 == m2->v2) {
-            p.close_points.push_back(m1);
-            p.close_points.push_back(m2);
-          } else if (m2->v2 == v2 && m1->v2 == m2->v1) {
-            p.close_points.push_back(m1);
-            p.close_points.push_back(m2);
-          }
-        } else if (m1->v2 == v1) {
-          if (m2->v1 == v2 && m1->v1 == m2->v2) {
-            p.close_points.push_back(m1);
-            p.close_points.push_back(m2);
-          } else if (m2->v2 == v2 && m1->v1 == m2->v1) {
-            p.close_points.push_back(m1);
-            p.close_points.push_back(m2);
-          }
-        }
-      }
+  for (MidPoint &p : midPoints) {
+    std::priority_queue<std::pair<double, MidPoint>, std::vector<std::pair<double, MidPoint>>,
+                        decltype(cmp)>
+        pq(cmp);
+    for (MidPoint &q : midPoints) {
+      if (&p == &q) continue;
+      double dist = std::sqrt(std::pow(p.point.x() - q.point.x(), 2) +
+                              std::pow(p.point.y() - q.point.y(), 2));
+      pq.push({dist, q});
+    }
+    for (int i = 0; i < 5; i++) {
+      p.close_points.push_back(pq.top().second);
+      pq.pop();
     }
   }
 
@@ -140,8 +128,6 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone> &
   double proj_distance = 1;  // 1 meter away from first point
   MidPoint projected = MidPoint{Point(first.point.x() + cos(pose.orientation) * proj_distance,
                                       first.point.y() + sin(pose.orientation) * proj_distance),
-                                nullptr,
-                                nullptr,
                                 {}};
 
   min_dist = 10000;
@@ -160,25 +146,24 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone> &
   path.push_back(second);
 
   bool planning = true;
-  double max_cost = 500;
-  int depth = 5;
+  double max_cost = 50;
+  int depth = 1;
   int n_points = 0;
   while (planning) {
-    MidPoint *min_point = nullptr;
-    double min_cost = 1000;
-    for (MidPoint *p : path.back().close_points) {
-      double cost = dfs_cost(depth, &path.back(), p, max_cost);
-      if (cost < min_cost) {
-        min_cost = cost;
-        min_point = p;
-      }
+    double worst_cost = max_cost * 3;
+
+    std::pair<double, MidPoint> best_result =
+        dfs_cost(depth, path[path.size() - 2], path.back(), max_cost);
+    if (best_result.first > worst_cost) {
+      planning = false;
+      break;
     }
 
-    if (min_point == nullptr || n_points > 30) {
+    n_points++;
+    if ((n_points > 10) || (best_result.second == path.back())) {
       planning = false;
     } else {
-      path.push_back(*min_point);
-      n_points++;
+      path.push_back(best_result.second);
     }
   }
 

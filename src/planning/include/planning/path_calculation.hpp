@@ -68,39 +68,10 @@ public:
    */
   std::vector<PathPoint> process_delaunay_triangulations(
       std::pair<std::vector<Cone>, std::vector<Cone>> refined_cones) const;
-
-
-  struct MidPoint;
-
-  struct Vertex {
-    Point point;
-    std::vector<MidPoint*> neighbors;
-
-    bool operator==(const Vertex& other) const {
-        return (point.x() == other.point.x()) && (point.y() == other.point.y());
-    }
-  };
-
-  struct VertexHash {
-    static constexpr double equality_tolerance = 0.1;  // Tolerance for quantization
-
-    std::size_t operator()(const Vertex& v) const noexcept {
-        // Quantize function rounds values based on tolerance
-        auto quantize = [](double value, double tolerance) { return std::round(value / tolerance); };
-
-        std::size_t x_hash = std::hash<double>()(quantize(v.point.x(), equality_tolerance));
-        std::size_t y_hash = std::hash<double>()(quantize(v.point.y(), equality_tolerance));
-
-        return x_hash ^ (y_hash << 1);  // Combine hashes
-    }
-};
   
-
   struct MidPoint {
     Point point;
-    Vertex* v1;
-    Vertex* v2;
-    std::vector<MidPoint*> close_points;
+    std::vector<MidPoint> close_points;
 
     bool operator==(const MidPoint& other) const {
         return (point.x() == other.point.x()) && (point.y() == other.point.y());
@@ -108,7 +79,8 @@ public:
 
   };
 
-  double dfs_cost(int depth, MidPoint *previous, MidPoint *current, double maxcost);
+  std::pair<double, MidPoint> dfs_cost(int depth, MidPoint &previous, MidPoint &current, double maxcost);
+
 
   std::vector<PathPoint> no_coloring_planning(std::vector<Cone>& cone_array,
                                               common_lib::structures::Pose pose);
