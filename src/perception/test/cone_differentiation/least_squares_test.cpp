@@ -8,12 +8,16 @@
  * @brief Fixture for testing the LeastSquaresDifferentiation class.
  */
 class LeastSquaresDifferentiationTest : public ::testing::Test {
- protected:
+protected:
   /**
    * @brief Set up the test fixtures.
    */
   void SetUp() override {
-    blue_cone.reset(new pcl::PointCloud<pcl::PointXYZI>);
+    blue_cone = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
+    yellow_cone = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
+    pcl_cloud_2_points = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
+    real_blue_cone = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
+
     blue_cone->points.push_back(pcl::PointXYZI{1.0, 0.0, 0.0, 20});
     blue_cone->points.push_back(pcl::PointXYZI{0.0, 1.0, 1, 20});
     blue_cone->points.push_back(pcl::PointXYZI{0.0, 0.0, 2.0, 21});
@@ -23,8 +27,6 @@ class LeastSquaresDifferentiationTest : public ::testing::Test {
     blue_cone->points.push_back(pcl::PointXYZI{10, 10, 7, 49});
     blue_cone->points.push_back(pcl::PointXYZI{10, 10, 9, 30});
     blue_cone->points.push_back(pcl::PointXYZI{10, 10, 10, 20});
-
-    yellow_cone.reset(new pcl::PointCloud<pcl::PointXYZI>);
 
     yellow_cone->points.push_back(pcl::PointXYZI{1.0, 0.0, 0.0, 60});
     yellow_cone->points.push_back(pcl::PointXYZI{0.0, 1.0, 0, 70});
@@ -38,11 +40,8 @@ class LeastSquaresDifferentiationTest : public ::testing::Test {
     yellow_cone->points.push_back(pcl::PointXYZI{10, 10, 9, 60});
     yellow_cone->points.push_back(pcl::PointXYZI{10, 10, 10, 80});
 
-    pcl_cloud_2_points.reset(new pcl::PointCloud<pcl::PointXYZI>);
     pcl_cloud_2_points->points.push_back(pcl::PointXYZI{1.0, 0.0, 0.0, 0.5});
     pcl_cloud_2_points->points.push_back(pcl::PointXYZI{0.0, 1.0, 0.0, 1.0});
-
-    real_blue_cone.reset(new pcl::PointCloud<pcl::PointXYZI>);
 
     real_blue_cone->points.push_back(pcl::PointXYZI{1.0, 0.0, 0.3, 5});
     real_blue_cone->points.push_back(pcl::PointXYZI{1.0, 0.0, 0.3, 1});
@@ -54,41 +53,29 @@ class LeastSquaresDifferentiationTest : public ::testing::Test {
   pcl::PointCloud<pcl::PointXYZI>::Ptr yellow_cone;
   pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_cloud_2_points;
   pcl::PointCloud<pcl::PointXYZI>::Ptr real_blue_cone;
+  const LeastSquaresDifferentiation cone_differentiator;
 };
 
-/**
- * @brief Test case to validate the cone differentiation for a yellow cone.
- */
 TEST_F(LeastSquaresDifferentiationTest, TestYellowCone) {
-  Cluster* cluster = new Cluster(yellow_cone);
-  auto cone_differentiator = new LeastSquaresDifferentiation();
+  Cluster cluster(yellow_cone);
 
-  cone_differentiator->coneDifferentiation(cluster);
+  cone_differentiator.coneDifferentiation(&cluster);
 
-  ASSERT_EQ(cluster->get_color(), "yellow");
+  ASSERT_EQ(cluster.get_color(), "yellow");
 }
 
-/**
- * @brief Test case to validate the cone differentiation for a blue cone.
- */
 TEST_F(LeastSquaresDifferentiationTest, TestBlueCone) {
-  Cluster* cluster = new Cluster(blue_cone);
-  auto cone_differentiator = new LeastSquaresDifferentiation();
+  Cluster cluster(blue_cone);
 
-  cone_differentiator->coneDifferentiation(cluster);
+  cone_differentiator.coneDifferentiation(&cluster);
 
-  ASSERT_EQ(cluster->get_color(), "blue");
+  ASSERT_EQ(cluster.get_color(), "blue");
 }
 
-/**
- * @brief Test case to validate the cone differentiation for an undefined cone.
- */
 TEST_F(LeastSquaresDifferentiationTest, TestUndefinedCone) {
-  Cluster* cluster = new Cluster(pcl_cloud_2_points);
+  Cluster cluster(pcl_cloud_2_points);
 
-  auto cone_differentiator = new LeastSquaresDifferentiation();
+  cone_differentiator.coneDifferentiation(&cluster);
 
-  cone_differentiator->coneDifferentiation(cluster);
-
-  ASSERT_EQ(cluster->get_color(), "undefined");
+  ASSERT_EQ(cluster.get_color(), "undefined");
 }

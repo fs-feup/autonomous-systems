@@ -8,20 +8,20 @@
 
 #include "fov_trimming/fov_trimming.hpp"
 
-class CutTrimming : public FovTrimming {
+class SkidpadTrimming : public FovTrimming {
 public:
   /**
-   * @brief Constructor for the Cut Point Cloud Trimming algorithm.
-   * @param params All trimming related parameters.
+   * @brief Constructor for the Skidpad Point Cloud Trimming algorithm.
+   * @param params trimming related parameters.
    */
-  CutTrimming(const TrimmingParameters params);
+  SkidpadTrimming(const TrimmingParameters params);
 
   /**
    * @brief Default constructor.
    *
    * This constructor is provided as a default constructor.
    */
-  CutTrimming() = default;
+  SkidpadTrimming() = default;
 
   /**
    * @brief Perform ground removal on the input point cloud.
