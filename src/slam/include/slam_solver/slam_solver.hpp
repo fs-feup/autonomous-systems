@@ -17,12 +17,12 @@
  */
 class SLAMSolver {
 protected:
+  SLAMSolverParameters _params_;
   std::shared_ptr<DataAssociationModel> _data_association_;
   std::shared_ptr<V2PMotionModel> _motion_model_;
 
   rclcpp::Time _last_pose_update_ = rclcpp::Time(0);
   rclcpp::Time _last_observation_update_ = rclcpp::Time(0);
-  SLAMSolverParameters _params_;
 
 public:
   /**
@@ -33,8 +33,8 @@ public:
    * @param motion_model Motion model
    */
   SLAMSolver(const SLAMSolverParameters& params,
-             std::shared_ptr<DataAssociationModel> data_association,
-             std::shared_ptr<V2PMotionModel> motion_model);
+             const std::shared_ptr<DataAssociationModel> data_association,
+             const std::shared_ptr<V2PMotionModel> motion_model);
 
   virtual ~SLAMSolver() = default;
 

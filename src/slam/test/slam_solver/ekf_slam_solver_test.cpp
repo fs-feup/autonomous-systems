@@ -8,7 +8,7 @@ TEST(EKFSLAMSolverTest, test_observation_model_1) {
   Eigen::VectorXd state(3);
   state << 0, 0, 0;
   EKFSLAMSolver ekf_slam_solver(SLAMSolverParameters(), nullptr, nullptr);
-  Eigen::VectorXd observations = ekf_slam_solver.observation_model(state, std::vector<int>());
+  const Eigen::VectorXd observations = ekf_slam_solver.observation_model(state, std::vector<int>());
   EXPECT_FLOAT_EQ(observations.size(), 0);
 }
 

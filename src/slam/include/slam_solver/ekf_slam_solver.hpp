@@ -153,8 +153,8 @@ class EKFSLAMSolver : public SLAMSolver {
 
 public:
   EKFSLAMSolver(const SLAMSolverParameters& params,
-                std::shared_ptr<DataAssociationModel> data_association,
-                std::shared_ptr<V2PMotionModel> motion_model)
+                const std::shared_ptr<DataAssociationModel> data_association,
+                const std::shared_ptr<V2PMotionModel> motion_model)
       : SLAMSolver(params, data_association, motion_model), slam_parameters_(params) {
     this->process_noise_matrix_ = Eigen::MatrixXd::Zero(3, 3);
     // this->process_noise_matrix_(0, 0) = params.velocity_x_noise_;

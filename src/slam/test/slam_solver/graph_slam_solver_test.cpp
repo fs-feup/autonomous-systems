@@ -1,19 +1,161 @@
 #include "slam_solver/graph_slam_solver.hpp"
 
+#include <gmock/gmock.h>
 #include <gtest/gtest.h>
-#include <gtsam/geometry/Pose2.h>
-#include <gtsam/inference/Symbol.h>
-#include <gtsam/nonlinear/NonlinearFactorGraph.h>
+#include <yaml-cpp/yaml.h>
 
-TEST(GraphSLAMSolver, Test) {
+class MockDataAssociationModel : public DataAssociationModel {
+public:
+  MOCK_METHOD(Eigen::VectorXd, associate,
+              (const Eigen::VectorXd& state, const Eigen::MatrixXd& covariance,
+               const Eigen::VectorXd& observations, const Eigen::VectorXd& observation_confidences),
+              (const, override));
+};
+
+class MockV2PModel : public V2PMotionModel {
+public:
+  MOCK_METHOD(Eigen::Vector3d, get_next_pose,
+              (const Eigen::Vector3d& previous_pose, const Eigen::Vector3d& velocities,
+               double delta_t),
+              (override));
+
+  MOCK_METHOD(Eigen::Matrix3d, get_jacobian,
+              (const Eigen::Vector3d& previous_pose, const Eigen::Vector3d& velocities,
+               const double delta_t),
+              (override));
+};
+
+class GraphSlamSolverTest : public testing::Test {
+public:
+  GraphSlamSolverTest() : params() {
+    mock_motion_model_ptr = std::make_shared<MockV2PModel>();
+    mock_data_association_ptr = std::make_shared<MockDataAssociationModel>();
+    motion_model_ptr = mock_motion_model_ptr;
+    data_association_ptr = mock_data_association_ptr;
+    solver = std::make_shared<GraphSLAMSolver>(params, data_association_ptr, motion_model_ptr);
+  }
+
+  SLAMSolverParameters params;
+  std::shared_ptr<MockV2PModel> mock_motion_model_ptr;
+  std::shared_ptr<MockDataAssociationModel> mock_data_association_ptr;
+  std::shared_ptr<V2PMotionModel> motion_model_ptr;
+  std::shared_ptr<DataAssociationModel> data_association_ptr;
+  std::shared_ptr<GraphSLAMSolver> solver;
+};
+
+TEST_F(GraphSlamSolverTest, Prediction_1) {
   // Arrange
-  gtsam::NonlinearFactorGraph graph;
+  EXPECT_CALL(*mock_motion_model_ptr, get_next_pose)
+      .Times(1)
+      .WillOnce(testing::Return(Eigen::Vector3d(1.0, 0.0, 0.0)));
+  solver->_last_pose_update_ = rclcpp::Clock().now();
 
-  static gtsam::Symbol x1('x', 1), x2('x', 2), x3('x', 3);
-  static gtsam::Symbol l1('l', 1), l2('l', 2), l3('l', 3);
+  common_lib::structures::Velocities velocities;
+  velocities.timestamp = solver->_last_pose_update_ + rclcpp::Duration(1, 0);
+  velocities.velocity_x = 1.0;
+  velocities.velocity_y = 0.0;
+  velocities.rotational_velocity = 0.0;
 
   // Act
+  solver->add_motion_prior(velocities);
+  const common_lib::structures::Pose result = solver->get_pose_estimate();
 
   // Assert
-  ASSERT_TRUE(true);
+  EXPECT_FLOAT_EQ(result.position.x, 1.0);
+}
+
+TEST_F(GraphSlamSolverTest, Prediction_2) {
+  // Arrange
+  Eigen::VectorXd associations_first = Eigen::VectorXd::Ones(4) * -1;
+  Eigen::VectorXd associations_second = Eigen::VectorXd::Ones(4) * -1;
+  associations_second(0) = 1;
+  associations_second(1) = 2;
+  associations_second(2) = 3;
+  associations_second(3) = 4;
+  EXPECT_CALL(*mock_motion_model_ptr, get_next_pose)
+      .Times(4)
+      .WillOnce(testing::Return(Eigen::Vector3d(1.1, 0.0, 0.0)))
+      .WillOnce(testing::Return(Eigen::Vector3d(2.2, 0.0, 0.0)))
+      .WillOnce(testing::Return(Eigen::Vector3d(3.3, 0.0, 0.0)))
+      .WillOnce(testing::Return(Eigen::Vector3d(4.4, 0.0, 0.0)));
+  EXPECT_CALL(*mock_data_association_ptr, associate)
+      .Times(2)
+      .WillOnce(testing::Return(associations_first))
+      .WillOnce(testing::Return(associations_second));
+
+  common_lib::structures::Velocities velocities;
+  velocities.timestamp = solver->_last_pose_update_ + rclcpp::Duration(1, 0);
+  velocities.velocity_x = 1.1;
+  velocities.velocity_y = 0.0;
+  velocities.rotational_velocity = 0.0;
+
+  std::vector<common_lib::structures::Cone> cones_start, cones_end;
+  cones_start.push_back(common_lib::structures::Cone(3.0, 1.0, "blue", 1.0, rclcpp::Clock().now()));
+  cones_start.push_back(
+      common_lib::structures::Cone(3.0, -1.0, "yellow", 1.0, rclcpp::Clock().now()));
+  cones_start.push_back(common_lib::structures::Cone(6.0, 1.0, "blue", 1.0, rclcpp::Clock().now()));
+  cones_start.push_back(
+      common_lib::structures::Cone(6.0, -1.0, "yellow", 1.0, rclcpp::Clock().now()));
+  cones_end.push_back(common_lib::structures::Cone(-1.0, 1.0, "blue", 1.0, rclcpp::Clock().now()));
+  cones_end.push_back(
+      common_lib::structures::Cone(-1.0, -1.0, "yellow", 1.0, rclcpp::Clock().now()));
+  cones_end.push_back(common_lib::structures::Cone(2.0, 1.0, "blue", 1.0, rclcpp::Clock().now()));
+  cones_end.push_back(
+      common_lib::structures::Cone(2.0, -1.0, "yellow", 1.0, rclcpp::Clock().now()));
+
+  // Act
+  solver->add_observations(cones_start);
+  solver->add_motion_prior(velocities);
+  velocities.timestamp += rclcpp::Duration(1, 0);
+  solver->add_motion_prior(velocities);
+  velocities.timestamp += rclcpp::Duration(1, 0);
+  solver->add_motion_prior(velocities);
+  velocities.timestamp += rclcpp::Duration(1, 0);
+  solver->add_motion_prior(velocities);
+  velocities.timestamp += rclcpp::Duration(1, 0);
+  solver->add_motion_prior(velocities);
+  const common_lib::structures::Pose pose_before_observations = solver->get_pose_estimate();
+  const std::vector<common_lib::structures::Cone> map_before_observations =
+      solver->get_map_estimate();
+  solver->_factor_graph_.print("Factor Graph:\n");
+  solver->_graph_values_.print("Graph Values:\n");
+
+  solver->add_observations(cones_end);
+  const common_lib::structures::Pose pose_after_observations = solver->get_pose_estimate();
+  const std::vector<common_lib::structures::Cone> map_after_observations =
+      solver->get_map_estimate();
+
+  solver->_factor_graph_.print("Factor Graph:\n");
+  solver->_graph_values_.print("Graph Values:\n");
+
+  // Assert
+  EXPECT_NEAR(pose_before_observations.position.x, 4.0, 0.5);
+  EXPECT_NEAR(pose_after_observations.position.x, 4.0, 0.2);
+  EXPECT_GT(pose_before_observations.position.x - 4.0, pose_after_observations.position.x - 4.0);
+  ASSERT_EQ(map_before_observations.size(), 4);
+  ASSERT_EQ(map_after_observations.size(), 4);
+  EXPECT_NEAR(map_before_observations[0].position.x, 3.0, 0.5);
+  EXPECT_NEAR(map_before_observations[1].position.x, 3.0, 0.5);
+  EXPECT_NEAR(map_before_observations[2].position.x, 6.0, 0.5);
+  EXPECT_NEAR(map_before_observations[3].position.x, 6.0, 0.5);
+  EXPECT_NEAR(map_after_observations[0].position.x, 3.0, 0.2);
+  EXPECT_NEAR(map_after_observations[1].position.x, 3.0, 0.2);
+  EXPECT_NEAR(map_after_observations[2].position.x, 6.0, 0.2);
+  EXPECT_NEAR(map_after_observations[3].position.x, 6.0, 0.2);
+  EXPECT_GT(abs(map_before_observations[0].position.x - 3.0),
+            abs(map_after_observations[0].position.x - 3.0));
+  EXPECT_GT(abs(map_before_observations[1].position.x - 3.0),
+            abs(map_after_observations[1].position.x - 3.0));
+  EXPECT_GT(abs(map_before_observations[2].position.x - 6.0),
+            abs(map_after_observations[2].position.x - 6.0));
+  EXPECT_GT(abs(map_before_observations[3].position.x - 6.0),
+            abs(map_after_observations[3].position.x - 6.0));
+  EXPECT_NEAR(map_before_observations[0].position.y, 1.0, 0.5);
+  EXPECT_NEAR(map_before_observations[1].position.y, -1.0, 0.5);
+  EXPECT_NEAR(map_before_observations[2].position.y, 1.0, 0.5);
+  EXPECT_NEAR(map_before_observations[3].position.y, -1.0, 0.5);
+  EXPECT_NEAR(map_after_observations[0].position.y, 1.0, 0.2);
+  EXPECT_NEAR(map_after_observations[1].position.y, -1.0, 0.2);
+  EXPECT_NEAR(map_after_observations[2].position.y, 1.0, 0.2);
+  EXPECT_NEAR(map_after_observations[3].position.y, -1.0, 0.2);
 }

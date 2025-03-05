@@ -64,7 +64,7 @@ install(TARGETS slam
 
 # Testing
 if(BUILD_TESTING)
-  find_package(ament_cmake_gtest REQUIRED)
+  find_package(ament_cmake_gmock REQUIRED)
 
   set(TESTFILES
     test/main.cpp
@@ -76,8 +76,8 @@ if(BUILD_TESTING)
   include_directories(${CMAKE_CURRENT_SOURCE_DIR})  # Include the current source directory
 
   # Unit tests
-  ament_add_gtest(slam_test ${TESTFILES} ${IMPLEMENTATION_FILES} TIMEOUT 600)
-  target_link_libraries(slam_test tbb gtsam yaml-cpp) # Necessary to be here before Eigen3
+  ament_add_gmock(slam_test ${TESTFILES} ${IMPLEMENTATION_FILES} TIMEOUT 600)
+  target_link_libraries(slam_test gmock gmock_main tbb gtsam yaml-cpp) # Necessary to be here before Eigen3
   ament_target_dependencies(slam_test ${PACKAGES})
   target_include_directories(slam_test PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>

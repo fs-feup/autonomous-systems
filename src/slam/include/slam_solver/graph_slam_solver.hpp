@@ -23,7 +23,18 @@ class GraphSLAMSolver : public SLAMSolver {
   /**
    * @brief Optimize the graph
    */
-  void optimize();
+  void _optimize();
+
+  /**
+   * @brief Get the covariance matrix of the graph
+   *
+   * @return Eigen::MatrixXd covariance matrix
+   */
+  Eigen::MatrixXd _get_covariance();
+
+  // friend class GraphSLAMSolver_BaseTest;
+  friend class GraphSlamSolverTest_Prediction_1_Test;
+  friend class GraphSlamSolverTest_Prediction_2_Test;
 
 public:
   /**
@@ -34,8 +45,8 @@ public:
    * @param motion_model Motion model
    */
   GraphSLAMSolver(const SLAMSolverParameters& params,
-                  std::shared_ptr<DataAssociationModel> data_association,
-                  std::shared_ptr<V2PMotionModel> motion_model);
+                  const std::shared_ptr<DataAssociationModel> data_association,
+                  const std::shared_ptr<V2PMotionModel> motion_model);
 
   ~GraphSLAMSolver() = default;
 
