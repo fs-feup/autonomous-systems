@@ -116,4 +116,5 @@
     "C_Cpp.default.compilerPath": "/usr/bin/g++",
     "ros.distro": "humble",
     "sonarlint.pathToCompileCommands": "${workspaceFolder}/compile_commands.json",
+    "C_Cpp.errorSquiggles": "enabled",
 }

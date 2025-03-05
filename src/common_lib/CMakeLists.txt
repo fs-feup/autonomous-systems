@@ -71,6 +71,7 @@ if(BUILD_TESTING)
 
   set(TESTFILES
     test/main.cpp
+    test/maths/transformations_test.cpp
   )
 
   include_directories(test)  # Include the 'test' directory for your test targets
