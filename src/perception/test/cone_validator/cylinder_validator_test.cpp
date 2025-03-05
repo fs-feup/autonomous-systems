@@ -6,6 +6,12 @@
 #include <utils/cluster.hpp>
 #include <utils/plane.hpp>
 
+// Non-owning deleter: does nothing.
+template <typename T>
+struct NonOwningDeleter {
+  void operator()(T*) const {}
+};
+
 /**
  * @brief Test fixture for CylinderValidator class.
  */
@@ -22,16 +28,22 @@ protected:
  * @brief Test case to validate if points are inside the small cylinder.
  */
 TEST_F(CylinderValidatorTest, PointsInsideSmallCylinder) {
-  CylinderValidator validator(0.5, 1.0, 0.7, 1.5, 0.5);
-  pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  point_cloud->points.push_back(pcl::PointXYZI{0.3, 0.3, 0.5, 0});
+  const CylinderValidator validator(0.5, 1.0, 0.7, 1.5, 0.5);
 
-  Cluster cylinderPointCloud = Cluster(point_cloud);
+  // Create a stack-allocated point cloud.
+  pcl::PointCloud<pcl::PointXYZI> cloud;
+  cloud.points.push_back(pcl::PointXYZI{0.3, 0.3, 0.5, 0});
+  // Wrap the stack object with a non-owning shared pointer.
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+
+  Cluster cylinderPointCloud(cloud_ptr);
 
   std::vector<double> result = validator.coneValidator(&cylinderPointCloud, plane);
 
+  // Check the results.
   ASSERT_NEAR(result[0], 1.0, 1e-6);  // Distance XY ratio is 1.
-  ASSERT_NEAR(result[0], 1.0, 1e-6);  // Distance Z ratio is 1.
+  ASSERT_NEAR(result[1], 1.0, 1e-6);  // Distance Z ratio is 1.
   ASSERT_DOUBLE_EQ(result[2], 1.0);   // All points are inside the cylinder.
 }
 
@@ -39,20 +51,22 @@ TEST_F(CylinderValidatorTest, PointsInsideSmallCylinder) {
  * @brief Test case to validate if points are inside the large cylinder.
  */
 TEST_F(CylinderValidatorTest, PointsInsideLargeCylinder) {
-  CylinderValidator validator(0.5, 1.0, 0.7, 1.5, 0.5);
-  pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  point_cloud->points.push_back(pcl::PointXYZI{0.6, 0.6, 1.2, 0});
-  point_cloud->points.push_back(pcl::PointXYZI{0.3, 0.3, 0.5, 0});
+  const CylinderValidator validator(0.5, 1.0, 0.7, 1.5, 0.5);
 
-  Cluster cylinderPointCloud = Cluster(point_cloud);
+  pcl::PointCloud<pcl::PointXYZI> cloud;
+  cloud.points.push_back(pcl::PointXYZI{0.6, 0.6, 1.2, 0});
+  cloud.points.push_back(pcl::PointXYZI{0.3, 0.3, 0.5, 0});
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
 
+  Cluster cylinderPointCloud(cloud_ptr);
   // Simulate height validator and set cluster as large.
   cylinderPointCloud.set_is_large();
 
   std::vector<double> result = validator.coneValidator(&cylinderPointCloud, plane);
 
   ASSERT_NEAR(result[0], 1.0, 1e-6);  // Distance XY ratio is 1.
-  ASSERT_NEAR(result[0], 1.0, 1e-6);  // Distance Z ratio is 1.
+  ASSERT_NEAR(result[1], 1.0, 1e-6);  // Distance Z ratio is 1.
   ASSERT_DOUBLE_EQ(result[2], 1.0);   // All points are inside the cylinder.
 }
 
@@ -60,18 +74,21 @@ TEST_F(CylinderValidatorTest, PointsInsideLargeCylinder) {
  * @brief Test case to validate if points are outside all cylinders.
  */
 TEST_F(CylinderValidatorTest, PointsFarOutsideCylinders) {
-  CylinderValidator validator(0.5, 1.0, 0.7, 1.5, 0.5);
-  pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  point_cloud->points.push_back(pcl::PointXYZI{1.0, 1.0, 2.0, 0});
-  point_cloud->points.push_back(pcl::PointXYZI{20.0, 20.0, 20.0, 0});
-  point_cloud->points.push_back(pcl::PointXYZI{0.3, 0.3, 0.5, 0});
+  const CylinderValidator validator(0.5, 1.0, 0.7, 1.5, 0.5);
 
-  Cluster cylinderPointCloud = Cluster(point_cloud);
+  pcl::PointCloud<pcl::PointXYZI> cloud;
+  cloud.points.push_back(pcl::PointXYZI{1.0, 1.0, 2.0, 0});
+  cloud.points.push_back(pcl::PointXYZI{20.0, 20.0, 20.0, 0});
+  cloud.points.push_back(pcl::PointXYZI{0.3, 0.3, 0.5, 0});
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+
+  Cluster cylinderPointCloud(cloud_ptr);
 
   std::vector<double> result = validator.coneValidator(&cylinderPointCloud, plane);
 
   ASSERT_NEAR(result[0], 0.0, 1e-6);  // Distance XY ratio is 0.
-  ASSERT_NEAR(result[0], 0.0, 1e-6);  // Distance XY ratio is 0.
+  ASSERT_NEAR(result[1], 0.0, 1e-6);  // Distance Z ratio is 0.
   ASSERT_LT(result[2], 1.0);          // Some points are outside the cylinder.
 }
 
@@ -79,13 +96,16 @@ TEST_F(CylinderValidatorTest, PointsFarOutsideCylinders) {
  * @brief Test case to validate if points are outside all cylinders.
  */
 TEST_F(CylinderValidatorTest, PointsOutsideCylinders) {
-  CylinderValidator validator(0.5, 1.0, 0.7, 1.5, 0.5);
-  pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  point_cloud->points.push_back(pcl::PointXYZI{1.0, 1.0, 2.0, 0});
-  point_cloud->points.push_back(pcl::PointXYZI{0.6, 0.6, 0.9, 0});
-  point_cloud->points.push_back(pcl::PointXYZI{0.3, 0.3, 0.5, 0});
+  const CylinderValidator validator(0.5, 1.0, 0.7, 1.5, 0.5);
 
-  Cluster cylinderPointCloud = Cluster(point_cloud);
+  pcl::PointCloud<pcl::PointXYZI> cloud;
+  cloud.points.push_back(pcl::PointXYZI{1.0, 1.0, 2.0, 0});
+  cloud.points.push_back(pcl::PointXYZI{0.6, 0.6, 0.9, 0});
+  cloud.points.push_back(pcl::PointXYZI{0.3, 0.3, 0.5, 0});
+  const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
+      &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
+
+  Cluster cylinderPointCloud(cloud_ptr);
 
   std::vector<double> result = validator.coneValidator(&cylinderPointCloud, plane);
 
