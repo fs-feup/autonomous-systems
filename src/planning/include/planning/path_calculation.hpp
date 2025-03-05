@@ -71,7 +71,7 @@ public:
   
   struct MidPoint {
     Point point;
-    std::vector<MidPoint> close_points;
+    std::vector<MidPoint *> close_points;
 
     bool operator==(const MidPoint& other) const {
         return (point.x() == other.point.x()) && (point.y() == other.point.y());
@@ -79,7 +79,7 @@ public:
 
   };
 
-  std::pair<double, MidPoint> dfs_cost(int depth, MidPoint &previous, MidPoint &current, double maxcost);
+  std::pair<double, MidPoint*> dfs_cost(int depth, MidPoint *previous, MidPoint *current, double maxcost);
 
 
   std::vector<PathPoint> no_coloring_planning(std::vector<Cone>& cone_array,
