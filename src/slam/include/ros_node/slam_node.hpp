@@ -44,8 +44,6 @@ protected:
   common_lib::structures::Pose _vehicle_pose_;
   common_lib::competition_logic::Mission _mission_;
   bool _go_;  /// flag to start the mission
-  bool _use_simulated_perception_;
-  bool _use_simulated_velocities_;
   std::string _adapter_name_;
 
   /**

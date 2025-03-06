@@ -40,9 +40,9 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam") {
         "/perception/cones", 1,
         std::bind(&SLAMNode::_perception_subscription_callback, this, std::placeholders::_1));
   }
-  if (!_use_simulated_velocities_) {
+  if (!params.use_simulated_velocities_) {
     this->_velocities_subscription_ = this->create_subscription<custom_interfaces::msg::Velocities>(
-        "/vehicle/velocities", 1,
+        "/state_estimation/velocities", 1,
         std::bind(&SLAMNode::_velocities_subscription_callback, this, std::placeholders::_1));
   }
 
