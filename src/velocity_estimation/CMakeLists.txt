@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.8)
 project(velocity_estimation)
+
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic -O2)
 endif()
@@ -21,7 +22,9 @@ set(PACKAGES
     visualization_msgs
     message_filters
     motion_lib
+    yaml-cpp
 )
+
 foreach(pkg ${PACKAGES})
   find_package(${pkg} REQUIRED)
 endforeach()
@@ -38,23 +41,21 @@ set(IMPLEMENTATION_FILES
   src/adapters/pacsim_adapter.cpp
   src/adapters/vehicle_adapter.cpp
   src/estimators/ekf.cpp
+  src/config/parameters.cpp
 )
 
-
 add_executable(${PROJECT_NAME} src/main.cpp ${IMPLEMENTATION_FILES})
-ament_target_dependencies(velocity_estimation ${PACKAGES} Eigen3)
+target_link_libraries(${PROJECT_NAME} ${Eigen_LIBRARIES} yaml-cpp)
+ament_target_dependencies(${PROJECT_NAME} ${PACKAGES} Eigen3)
 target_include_directories(${PROJECT_NAME} PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>
   ${CMAKE_CURRENT_SOURCE_DIR}/common_lib/structures  
 )
 
-target_compile_features(velocity_estimation PUBLIC c_std_99 cxx_std_17)
+target_compile_features(${PROJECT_NAME} PUBLIC c_std_99 cxx_std_17)
 
-include_directories(${EIGEN_INCLUDE_DIR} ${EIGEN_ROOT_DIR})
-target_link_libraries(velocity_estimation ${Eigen_LIBRARIES})
-
-install(TARGETS velocity_estimation
+install(TARGETS ${PROJECT_NAME}
   DESTINATION lib/${PROJECT_NAME})
 
 # Install launch files
@@ -73,6 +74,7 @@ if(BUILD_TESTING)
 
   # Unit tests
   ament_add_gtest(${PROJECT_NAME}_test ${TESTFILES} ${IMPLEMENTATION_FILES} TIMEOUT 600)
+  target_link_libraries(${PROJECT_NAME}_test ${Eigen_LIBRARIES} yaml-cpp)
   ament_target_dependencies(${PROJECT_NAME}_test ${PACKAGES})
   target_include_directories(${PROJECT_NAME}_test PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>

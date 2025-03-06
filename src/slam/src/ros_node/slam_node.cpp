@@ -17,13 +17,14 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam") {
   // Initialize the models
   std::shared_ptr<V2PMotionModel> motion_model = v2p_models_map.at(params.motion_model_name_)();
   std::shared_ptr<DataAssociationModel> data_association =
-      data_association_models_map.at(params.data_association_model_name_)();
+      data_association_models_map.at(params.data_association_model_name_)(DataAssociationParameters(
+          params.data_association_limit_distance_, params.data_association_gate_,
+          params.new_landmark_confidence_gate_, params.observation_x_noise_,
+          params.observation_y_noise_));
 
   // Initialize SLAM solver object
-  SLAMSolverParameters slam_solver_params;
-  // TODO(marhcouto): create slam solver parameters
   this->_slam_solver_ = slam_solver_constructors_map.at(params.slam_solver_name_)(
-      slam_solver_params, data_association, motion_model);
+      params, data_association, motion_model);
 
   // Parameters initialization
   std::string motion_model_name = params.motion_model_name_;
@@ -39,9 +40,9 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam") {
         "/perception/cones", 1,
         std::bind(&SLAMNode::_perception_subscription_callback, this, std::placeholders::_1));
   }
-  if (!_use_simulated_velocities_) {
+  if (!params.use_simulated_velocities_) {
     this->_velocities_subscription_ = this->create_subscription<custom_interfaces::msg::Velocities>(
-        "/vehicle/velocities", 1,
+        "/state_estimation/velocities", 1,
         std::bind(&SLAMNode::_velocities_subscription_callback, this, std::placeholders::_1));
   }
 
