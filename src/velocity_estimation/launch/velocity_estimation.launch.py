@@ -7,10 +7,10 @@ def generate_launch_description():
     return LaunchDescription(
         [
             Node(
-                package="velcity_estimation",
-                executable="velcity_estimation",
-                name="velcity_estimation",
-                arguments=["--ros-args", "--log-level", "velcity_estimation:=info"],
+                package="velocity_estimation",
+                executable="velocity_estimation",
+                name="velocity_estimation",
+                arguments=["--ros-args", "--log-level", "velocity_estimation:=info"],
             ),
         ]
     )
