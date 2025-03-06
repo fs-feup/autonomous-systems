@@ -2,18 +2,22 @@
 	path = docs/doxygen/doxygen-awesome-css
 	url = git@github.com:jothepro/doxygen-awesome-css.git
 
-[submodule "ext/rslidar_sdk"]
-	path = ext/rslidar_sdk
-	url = git@github.com:fs-feup/rslidar_sdk.git
-
 [submodule "ext/kiss-icp"]
 	path = ext/kiss-icp
 	url = git@github.com:fs-feup/kiss-icp.git
 
-[submodule "ext/rslidar_msg"]
-	path = ext/rslidar_msg
-	url = git@github.com:RoboSense-LiDAR/rslidar_msg.git
-
 [submodule "ext/as-integration"]
 	path = ext/as-integration
 	url = git@github.com:fs-feup/as-integration.git
+	
+[submodule "ext/gtsam"]
+	path = ext/gtsam
+	url = https://github.com/borglab/gtsam
+
+[submodule "ext/hesai-lidar"]
+	path = ext/hesai-lidar
+	url = git@github.com:fs-feup/hesai-lidar.git
+	
+[submodule "ext/xsens-imu"]
+	path = ext/xsens-imu
+	url = git@github.com:fs-feup/xsens-imu.git

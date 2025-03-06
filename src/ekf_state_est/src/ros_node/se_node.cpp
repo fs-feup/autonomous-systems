@@ -1,40 +1,53 @@
 #include "ros_node/se_node.hpp"
 
+#include <yaml-cpp/yaml.h>
+
 #include <fstream>
 
 #include "adapter_ekf_state_est/eufs.hpp"
 #include "adapter_ekf_state_est/fsds.hpp"
 #include "adapter_ekf_state_est/map.hpp"
 #include "common_lib/communication/marker.hpp"
+#include "common_lib/config_load/config_load.hpp"
 #include "common_lib/maths/transformations.hpp"
 #include "common_lib/structures/cone.hpp"
 #include "common_lib/structures/pose.hpp"
 #include "common_lib/structures/position.hpp"
-#include "common_lib/vehicle_dynamics/bicycle_model.hpp"
-#include "common_lib/vehicle_dynamics/car_parameters.hpp"
 #include "geometry_msgs/msg/pose_with_covariance.hpp"
+#include "motion_lib/s2v_model/bicycle_model.hpp"
+#include "rclcpp/rclcpp.hpp"
 #include "visualization_msgs/msg/marker.hpp"
 /*---------------------- Constructor --------------------*/
 
 double last_wss = 0.0;
 
 SENode::SENode() : Node("ekf_state_est") {
-  this->_use_odometry_ = this->declare_parameter("use_odometry", true);
-  _use_simulated_perception_ = this->declare_parameter("use_simulated_perception", false);
-  _adapter_name_ = this->declare_parameter("adapter", "eufs");
-  std::string motion_model_name = this->declare_parameter("motion_model", "normal_velocity_model");
-  std::string data_assocation_model_name =
-      this->declare_parameter("data_assocation_model", "max_likelihood");
+  auto global_config_path =
+      common_lib::config_load::get_config_yaml_path("ekf_state_est", "global", "global_config");
+  auto global_config = YAML::LoadFile(global_config_path);
+
+  _use_simulated_perception_ = global_config["global"]["use_simulated_perception"].as<bool>();
+  _adapter_name_ = global_config["global"]["adapter"].as<std::string>();
+
+  auto se_config_path = common_lib::config_load::get_config_yaml_path(
+      "ekf_state_est", "ekf_state_est", _adapter_name_);
+
+  auto se_config = YAML::LoadFile(se_config_path)["ekf_state_est"];
+  RCLCPP_DEBUG(rclcpp::get_logger("ekf_state_est"), "SE config contents: %s",
+               YAML::Dump(se_config).c_str());
+
+  _use_odometry_ = se_config["use_odometry"].as<bool>();
+  std::string motion_model_name = se_config["motion_model"].as<std::string>();
+  std::string data_assocation_model_name = se_config["data_association_model"].as<std::string>();
+
   float wss_noise = 0.0f;
   float imu_noise = 0.0f;  // Declare the 'imu_noise' variable
   if (data_assocation_model_name == "max_likelihood") {
-    wss_noise = static_cast<float>(this->declare_parameter("wss_noise", 0.3f));
-    imu_noise = static_cast<float>(this->declare_parameter("imu_noise", 0.0064f));
+    wss_noise = se_config["wss_noise"].as<float>();
+    imu_noise = se_config["imu_noise"].as<float>();
   }
-  float data_association_limit_distance =
-      static_cast<float>(this->declare_parameter("data_association_limit_distance", 71.0f));
-
-  float observation_noise = static_cast<float>(this->declare_parameter("observation_noise", 0.03f));
+  float data_association_limit_distance = se_config["data_association_limit_distance"].as<float>();
+  float observation_noise = se_config["observation_noise"].as<float>();
 
   std::shared_ptr<MotionModel> motion_model_wss = motion_model_constructors.at(
       "normal_velocity_model")(MotionModel::create_process_noise_covariance_matrix(wss_noise));
@@ -94,7 +107,7 @@ void SENode::_perception_subscription_callback(const custom_interfaces::msg::Con
     return;
   }
 
-  if (!this->_go_){
+  if (!this->_go_) {
     return;
   }
 
@@ -121,7 +134,7 @@ void SENode::_perception_subscription_callback(const custom_interfaces::msg::Con
   std_msgs::msg::Float64 correction_execution_time;
   correction_execution_time.data = (end_time - start_time).seconds() * 1000.0;
   this->_correction_execution_time_publisher_->publish(correction_execution_time);
-  //this->_publish_vehicle_state();
+  // this->_publish_vehicle_state();
   this->_publish_map();
 }
 
@@ -130,11 +143,9 @@ void SENode::_imu_subscription_callback(const sensor_msgs::msg::Imu &imu_msg) {
     return;
   }
 
-
-  if (!this->_go_){
+  if (!this->_go_) {
     return;
   }
-
 
   rclcpp::Time start_time = this->get_clock()->now();
 
@@ -180,33 +191,32 @@ double difference = 10;
 void SENode::_wheel_speeds_subscription_callback(double rl_speed, double rr_speed, double fl_speed,
                                                  double fr_speed, double steering_angle,
                                                  const rclcpp::Time &timestamp) {
-
-  if (!this->_go_){
+  if (!this->_go_) {
     return;
   }
 
-
   bool change = false;
 
- if (abs(rl_before - rl_speed) >= difference) change = true;
- if (abs(rr_before - rr_speed) >= difference) change = true;
- if (abs(fl_before - fl_speed) >= difference) change = true;
- if (abs(fr_before - fr_speed) >= difference) change = true;
+  if (abs(rl_before - rl_speed) >= difference) change = true;
+  if (abs(rr_before - rr_speed) >= difference) change = true;
+  if (abs(fl_before - fl_speed) >= difference) change = true;
+  if (abs(fr_before - fr_speed) >= difference) change = true;
 
   rl_before = rl_speed;
   rr_before = rr_speed;
   fl_before = fl_speed;
   fr_before = fr_speed;
   if (change) return;
-  
+
   RCLCPP_INFO(this->get_logger(), "Rear Left: %f\n Rear Right: %f", rl_speed, rr_speed);
   rclcpp::Time start_time = this->get_clock()->now();
 
+  BicycleModel model = BicycleModel(common_lib::car_parameters::CarParameters());
   auto [linear_velocity, angular_velocity] =
-      common_lib::vehicle_dynamics::odometry_to_velocities_transform(rl_speed, fl_speed, rr_speed,
-                                                                     fr_speed, steering_angle);
+      model.wheels_velocities_to_cg(rl_speed, fl_speed, rr_speed, fr_speed, steering_angle);
 
-  RCLCPP_INFO(this->get_logger(), "Linear Velocity: %f\nAngular Velocity: %f", linear_velocity, angular_velocity);
+  RCLCPP_INFO(this->get_logger(), "Linear Velocity: %f\nAngular Velocity: %f", linear_velocity,
+              angular_velocity);
   MotionUpdate motion_prediction_data;
   motion_prediction_data.translational_velocity = linear_velocity;
   motion_prediction_data.rotational_velocity = angular_velocity;
@@ -223,8 +233,8 @@ void SENode::_wheel_speeds_subscription_callback(double rl_speed, double rr_spee
   }
   MotionUpdate temp_update = *(this->_motion_update_);
 
-
-  RCLCPP_INFO(this->get_logger(), "Motion update Translational Velocity: %f", this->_motion_update_->translational_velocity);
+  RCLCPP_INFO(this->get_logger(), "Motion update Translational Velocity: %f",
+              this->_motion_update_->translational_velocity);
 
   this->_ekf_->prediction_step(temp_update, "wheel_speed_sensor");
   this->_ekf_->update(this->_vehicle_state_, this->_track_map_);
@@ -245,9 +255,9 @@ void SENode::_publish_vehicle_state() {
     RCLCPP_WARN(this->get_logger(), "PUB - Vehicle state object is null");
     return;
   }
-  //if (!this->_go_){
-  //  return;
-  //}
+  // if (!this->_go_){
+  //   return;
+  // }
 
   auto message = custom_interfaces::msg::VehicleState();
   message.position.x = this->_vehicle_state_->pose.position.x;
@@ -297,14 +307,15 @@ void SENode::_publish_vehicle_state_wss() {
   marker.pose.position.z = 0.0;
   marker.pose.orientation.w = 1.0;
   marker.scale.x = 0.5;
-  marker.scale.y = 0.5; 
+  marker.scale.y = 0.5;
   marker.scale.z = 0.5;
   marker.color.r = 0.0;
   marker.color.g = 1.0;
   marker.color.b = 0.0;
   marker.color.a = 1.0;
 
-  RCLCPP_DEBUG(this->get_logger(), "PUB - Marker at position: (%f, %f)", marker.pose.position.x, marker.pose.position.y);
+  RCLCPP_DEBUG(this->get_logger(), "PUB - Marker at position: (%f, %f)", marker.pose.position.x,
+               marker.pose.position.y);
   this->_position_publisher_->publish(marker);
 
   // Calculate front and rear axle positions

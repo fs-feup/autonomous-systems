@@ -1,9 +1,9 @@
 #include <memory>
 #include <rclcpp/rclcpp.hpp>
 
-#include "common_lib/vehicle_dynamics/bicycle_model.hpp"
 #include "gtest/gtest.h"
 #include "kalman_filter/motion_models.hpp"
+#include "motion_lib/s2v_model/bicycle_model.hpp"
 #include "ros_node/se_node.hpp"
 
 /* ---------------------- Motion Model -------------------------------------*/
