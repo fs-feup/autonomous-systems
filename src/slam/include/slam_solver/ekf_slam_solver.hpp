@@ -3,6 +3,7 @@
 #include <Eigen/Dense>
 #include <chrono>
 
+#include "common_lib/conversions/cones.hpp"
 #include "common_lib/maths/transformations.hpp"
 #include "perception_sensor_lib/observation_model/base_observation_model.hpp"
 #include "slam_solver/slam_solver.hpp"

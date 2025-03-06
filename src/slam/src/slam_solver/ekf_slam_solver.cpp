@@ -40,9 +40,27 @@ void EKFSLAMSolver::add_observations(const std::vector<common_lib::structures::C
   std::vector<int> matched_landmarks_indices;
   Eigen::VectorXd matched_observations;
   Eigen::VectorXd new_landmarks;
-  // TODO: call data_association(this->state, this->observed_landmarks)
-  correct(this->state_, this->covariance_, matched_landmarks_indices, matched_observations);
-  state_augmentation(this->state_, this->covariance_, new_landmarks);
+  Eigen::VectorXd observations = Eigen::VectorXd::Zero(2 * cones.size());
+  Eigen::VectorXd observation_confidences = Eigen::VectorXd::Zero(cones.size());
+  common_lib::conversions::cone_vector_to_eigen(cones, observations, observation_confidences);
+  Eigen::VectorXi associations = this->_data_association_->associate(
+      this->state_, this->covariance_, observations, observation_confidences);
+  for (int i = 0; i < static_cast<int>(associations.size()); ++i) {
+    if (associations(i) == -2) {
+      continue;
+    } else if (associations(i) == -1) {
+      new_landmarks.conservativeResize(new_landmarks.size() + 2);
+      new_landmarks(new_landmarks.size() - 2) = observations(2 * i);
+      new_landmarks(new_landmarks.size() - 1) = observations(2 * i + 1);
+    } else {
+      matched_landmarks_indices.push_back(associations(i));
+      matched_observations.conservativeResize(matched_observations.size() + 2);
+      matched_observations(matched_observations.size() - 2) = observations(2 * i);
+      matched_observations(matched_observations.size() - 1) = observations(2 * i + 1);
+    }
+  }
+  this->correct(this->state_, this->covariance_, matched_landmarks_indices, matched_observations);
+  this->state_augmentation(this->state_, this->covariance_, new_landmarks);
 }
 
 void EKFSLAMSolver::predict(Eigen::VectorXd& state, Eigen::MatrixXd& covariance,
