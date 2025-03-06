@@ -1,9 +1,9 @@
 #pragma once
 
-#include "adapters/estimator_factory.hpp"
-#include "adapters/parameters.hpp"
+#include "config/parameters.hpp"
 #include "custom_interfaces/msg/velocities.hpp"
 #include "estimators/estimator.hpp"
+#include "estimators/map.hpp"
 #include "rclcpp/rclcpp.hpp"
 /**
  * @brief Node class for the velocity estimation node.
