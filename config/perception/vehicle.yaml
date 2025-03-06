@@ -7,6 +7,7 @@ perception:
   #FOV trimming
   lidar_height: 0.92
   lidar_rotation: 90.0
+  lidar_pitch: -3.90
   max_range: 30.0
   min_range: 1.0
   max_height: 0.7
@@ -35,7 +36,7 @@ perception:
   #Evaluator
   min_height: 0.15
   large_max_height: 0.57
-  small_max_height: 0.455
+  small_max_height: 0.42
   height_cap: 0.5
   min_xoy: 0.0
   max_xoy: 0.3
@@ -48,13 +49,13 @@ perception:
   out_distance_cap: 0.5
   min_distance_x: 0.02
   min_distance_y: 0.04
-  min_distance_z: 0.07
+  min_distance_z: 0.11
   min_n_points: 4
   min_confidence: 0.912
-  height_out_weight: 15.0
+  height_out_weight: 12.0
   height_in_weight: 5.0
   cylinder_radius_weight: 20.0
-  cylinder_height_weight: 6.0
+  cylinder_height_weight: 8.0
   cylinder_npoints_weight: 10.0
   npoints_weight: 11.0
   displacement_x_weight: 7.0

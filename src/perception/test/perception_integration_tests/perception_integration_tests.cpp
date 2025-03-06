@@ -200,6 +200,7 @@ protected:
 
     for (const auto& [mission, trim] : *params.fov_trim_map_) {
       trim->set_lidar_rotation(90);
+      trim->set_lidar_pitch(-3.9);
     }
 
     rclcpp::Node::SharedPtr perception_node = std::make_shared<Perception>(params);

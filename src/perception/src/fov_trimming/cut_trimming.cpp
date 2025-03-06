@@ -6,7 +6,8 @@
 
 CutTrimming::CutTrimming(const TrimmingParameters params) { params_ = params; }
 
-void CutTrimming::fov_trimming(const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud) const {
+PclSplitParameters CutTrimming::fov_trimming(
+    const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud) const {
   const std::unique_ptr<pcl::PointCloud<pcl::PointXYZI>> trimmed_cloud =
       std::make_unique<pcl::PointCloud<pcl::PointXYZI>>();
 
@@ -17,4 +18,5 @@ void CutTrimming::fov_trimming(const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud)
   }
 
   *cloud = *trimmed_cloud;
+  return params_.split_params;
 }

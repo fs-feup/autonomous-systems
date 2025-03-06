@@ -4,6 +4,9 @@
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 
+#include <utils/pcl_split_parameters.hpp>
+#include <utils/plane.hpp>
+
 #include "sensor_msgs/msg/point_cloud2.hpp"
 
 /**
@@ -14,7 +17,7 @@
  * Inherit from this class to implement specific ground removal algorithms.
  */
 class GroundRemoval {
- public:
+public:
   /**
    * @brief Perform ground removal on the input point cloud.
    *
@@ -24,5 +27,6 @@ class GroundRemoval {
    * @param[out] ret The resulting point cloud after ground removal.
    */
   virtual void ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
-                             pcl::PointCloud<pcl::PointXYZI>::Ptr ret, Plane& plane) const = 0;
+                              pcl::PointCloud<pcl::PointXYZI>::Ptr ret, Plane& plane,
+                              PclSplitParameters split_params) const = 0;
 };

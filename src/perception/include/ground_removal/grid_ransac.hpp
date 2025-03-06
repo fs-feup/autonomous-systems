@@ -1,6 +1,7 @@
 #include <pcl/sample_consensus/ransac.h>
 
 #include <string>
+#include <utils/pcl_split_parameters.hpp>
 #include <utils/plane.hpp>
 
 #include "ground_removal/ground_removal.hpp"
@@ -14,12 +15,7 @@
  * an implementation for ground removal using a grid-based RANSAC algorithm.
  */
 class GridRANSAC : public GroundRemoval {
- private:
-  RANSAC _ransac_; ///< RANSAC object for ground plane fitting.
-  int _n_angular_grids_; ///< Number of angular grids in the algorithm.
-  double _radius_resolution_; ///< Resolution of the radius for grid splitting.
-
- public:
+public:
   /**
    * @brief Constructor for GridRANSAC class.
    *
@@ -27,23 +23,24 @@ class GridRANSAC : public GroundRemoval {
    *
    * @param epsilon Epsilon value for RANSAC algorithm.
    * @param n_tries Number of RANSAC iterations.
-   * @param n_angular_grids Number of angular grids for grid-based segmentation.
-   * @param radius_resolution Resolution of the radius for grid splitting.
+   *
    */
-  GridRANSAC(double epsilon, int n_tries, int n_angular_grids, double radius_resolution);
+  GridRANSAC(double epsilon, int n_tries);
 
   /**
    * @brief Perform ground removal on the input point cloud using grid-based RANSAC.
    *
    * This method implements the groundRemoval virtual function from the GroundRemoval interface.
-   * It segments the input point cloud into grids and applies RANSAC on each grid for ground removal.
+   * It segments the input point cloud into grids and applies RANSAC on each grid for ground
+   * removal.
    *
    * @param point_cloud The input point cloud to be processed.
    * @param[out] ret The resulting point cloud after ground removal.
    * @param plane The estimated ground plane model.
    */
   void ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
-                     pcl::PointCloud<pcl::PointXYZI>::Ptr ret, Plane& plane) const override;
+                      pcl::PointCloud<pcl::PointXYZI>::Ptr ret, Plane& plane,
+                      PclSplitParameters split_params) const override;
 
   /**
    * @brief Get the furthest point from the input point cloud.
@@ -63,6 +60,10 @@ class GridRANSAC : public GroundRemoval {
    * @param cloud The input point cloud to be split.
    * @param[out] grids Vector of vectors representing the grids.
    */
-  void split_point_cloud(const pcl::PointCloud<pcl::PointXYZI>::Ptr& cloud, 
-                                std::vector<std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr>>& grids) const;
+  void split_point_cloud(
+      const pcl::PointCloud<pcl::PointXYZI>::Ptr& cloud,
+      std::vector<std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr>>& grids) const;
+
+private:
+  RANSAC _ransac_;  ///< RANSAC object for ground plane fitting.
 };
