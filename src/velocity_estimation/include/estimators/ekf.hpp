@@ -6,8 +6,8 @@
 #include <Eigen/Sparse>
 #include <chrono>
 
-#include "adapters/parameters.hpp"
 #include "common_lib/structures/velocities.hpp"
+#include "config/parameters.hpp"
 #include "custom_interfaces/msg/velocities.hpp"
 #include "estimators/estimator.hpp"
 #include "motion_lib/particle_model.hpp"

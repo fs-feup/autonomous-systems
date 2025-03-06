@@ -19,6 +19,8 @@ struct SLAMParameters {
   float velocity_x_noise_;
   float velocity_y_noise_;
   float angular_velocity_noise_;
+  double data_association_gate_;
+  double new_landmark_confidence_gate_;
 
   SLAMParameters() = default;
   explicit SLAMParameters(const SLAMParameters &params);
