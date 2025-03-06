@@ -14,6 +14,8 @@
 #include "custom_interfaces/msg/point2d.hpp"
 #include "custom_interfaces/msg/pose.hpp"
 #include "custom_interfaces/msg/velocities.hpp"
+#include "perception_sensor_lib/data_association/maximum_likelihood_md.hpp"
+#include "perception_sensor_lib/data_association/maximum_likelihood_nll.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "slam_config/general_config.hpp"
 #include "slam_solver/slam_solver.hpp"

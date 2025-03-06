@@ -8,8 +8,7 @@
 #include "motion_lib/v2p_models/base_v2p_motion_model.hpp"
 #include "perception_sensor_lib/data_association/base_data_association.hpp"
 #include "rclcpp/rclcpp.hpp"
-
-struct SLAMSolverParameters {};
+#include "slam_config/general_config.hpp"
 
 /**
  * @brief Interface for SLAM solvers
@@ -32,8 +31,7 @@ public:
    * @param data_association Data association module
    * @param motion_model Motion model
    */
-  SLAMSolver(const SLAMSolverParameters& params,
-             std::shared_ptr<DataAssociationModel> data_association,
+  SLAMSolver(const SLAMParameters& params, std::shared_ptr<DataAssociationModel> data_association,
              std::shared_ptr<V2PMotionModel> motion_model);
 
   virtual ~SLAMSolver() = default;

@@ -1,12 +1,23 @@
 #include "slam_solver/ekf_slam_solver.hpp"
 
+EKFSLAMSolver::EKFSLAMSolver(const SLAMParameters& params,
+                             std::shared_ptr<DataAssociationModel> data_association,
+                             std::shared_ptr<V2PMotionModel> motion_model)
+    : SLAMSolver(params, data_association, motion_model), slam_parameters_(params) {
+  this->covariance_ =
+      Eigen::MatrixXd::Identity(3, 3) * 0.4;  // TODO: initialize with the right values
+  this->process_noise_matrix_ = Eigen::MatrixXd::Zero(3, 3);
+  this->process_noise_matrix_(0, 0) = params.velocity_x_noise_;
+  this->process_noise_matrix_(1, 1) = params.velocity_y_noise_;
+  this->process_noise_matrix_(2, 2) = params.angular_velocity_noise_;
+}
+
 Eigen::MatrixXd EKFSLAMSolver::get_observation_noise_matrix(int num_landmarks) const {
   Eigen::MatrixXd observation_noise_matrix =
       Eigen::MatrixXd::Zero(num_landmarks * 2, num_landmarks * 2);
   for (int i = 0; i < num_landmarks; i++) {
-    observation_noise_matrix(2 * i, 2 * i) = 0;  // this->slam_parameters_.observation_x_noise_;
-    observation_noise_matrix(2 * i + 1, 2 * i + 1) =
-        0;  // this->slam_parameters_.observation_y_noise_;
+    observation_noise_matrix(2 * i, 2 * i) = this->slam_parameters_.observation_x_noise_;
+    observation_noise_matrix(2 * i + 1, 2 * i + 1) = this->slam_parameters_.observation_y_noise_;
   }
   return observation_noise_matrix;
 }

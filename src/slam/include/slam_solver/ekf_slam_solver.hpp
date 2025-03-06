@@ -8,10 +8,10 @@
 #include "slam_solver/slam_solver.hpp"
 
 class EKFSLAMSolver : public SLAMSolver {
-  SLAMSolverParameters slam_parameters_;
+  SLAMParameters slam_parameters_;
   std::shared_ptr<ObservationModel> observation_model_;
   Eigen::VectorXd state_ = Eigen::VectorXd::Zero(3);
-  Eigen::MatrixXd covariance_ = Eigen::MatrixXd::Identity(3, 3);
+  Eigen::MatrixXd covariance_;
   Eigen::MatrixXd process_noise_matrix_;
 
   rclcpp::Time last_update_;
@@ -88,16 +88,9 @@ class EKFSLAMSolver : public SLAMSolver {
   common_lib::structures::Pose get_pose_estimate() override { return {}; }
 
 public:
-  EKFSLAMSolver(const SLAMSolverParameters& params,
+  EKFSLAMSolver(const SLAMParameters& params,
                 std::shared_ptr<DataAssociationModel> data_association,
-                std::shared_ptr<V2PMotionModel> motion_model)
-      : SLAMSolver(params, data_association, motion_model), slam_parameters_(params) {
-    this->process_noise_matrix_ = Eigen::MatrixXd::Zero(3, 3);
-    // this->process_noise_matrix_(0, 0) = params.velocity_x_noise_;
-    // this->process_noise_matrix_(1, 1) = params.velocity_y_noise_;
-    // this->process_noise_matrix_(2, 2) = params.angular_velocity_noise_;
-  }
-
+                std::shared_ptr<V2PMotionModel> motion_model);
   /**
    * @brief Executed to deal with new velocity data
    *
