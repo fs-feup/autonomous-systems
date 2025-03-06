@@ -89,40 +89,10 @@ void Planning::run_planning_algorithms() {
 
   rclcpp::Time start_time = this->now();
 
-  // // Color the cones
-  // std::pair<std::vector<Cone>, std::vector<Cone>> colored_cones =
-  //     cone_coloring_.color_cones(this->cone_array_, this->pose);
-  // if (colored_cones.first.size() < 2 || colored_cones.second.size() < 2) {
-  //   RCLCPP_WARN(rclcpp::get_logger("planning"), "Not enough cones to plan: %d blue, %d yellow",
-  //               static_cast<int>(colored_cones.first.size()),
-  //               static_cast<int>(colored_cones.second.size()));
-  //   publish_track_points({});
-  //   return;
-  // }
-
-  // // Outliers dealt by approximating all cones
-  // std::pair<std::vector<Cone>, std::vector<Cone>> refined_colored_cones =
-  //     outliers_.approximate_cones_with_spline(colored_cones);
-  // if (refined_colored_cones.first.size() < 2 || refined_colored_cones.second.size() < 2) {
-  //   RCLCPP_WARN(rclcpp::get_logger("planning"),
-  //               "Not enough cones to plan after outlier removal: %d blue, %d yellow",
-  //               static_cast<int>(refined_colored_cones.first.size()),
-  //               static_cast<int>(refined_colored_cones.second.size()));
-  //   publish_track_points({});
-  //   return;
-  // }
-  // for (auto &cone : colored_cones.first) {
-  //   cone.color = Color::BLUE;
-  // }
-  // for (auto &cone : colored_cones.second) {
-  //   cone.color = Color::YELLOW;
-  // }
-
-  
   std::vector<PathPoint> triangulations_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
   // Smooth the calculated path
-  std::vector<PathPoint> final_path = triangulations_path;
-      //path_smoothing_.smooth_path(triangulations_path, this->pose, this->initial_car_orientation_);
+  std::vector<PathPoint> final_path =
+      path_smoothing_.smooth_path(triangulations_path, this->pose, this->initial_car_orientation_);
 
   if (final_path.size() < 10) {
     RCLCPP_INFO(rclcpp::get_logger("planning"), "Final path size: %d",
