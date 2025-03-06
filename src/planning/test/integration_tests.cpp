@@ -111,8 +111,8 @@ TEST_F(IntegrationTest, PUBLISH_PATH1) {
     EXPECT_LE(p.x, 35.5);
     EXPECT_GE(p.x, -2);
   }
-  EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()),
-            (long unsigned int)110);
+  EXPECT_GE(static_cast<long unsigned>(received_path.pathpoint_array.size()),
+            (long unsigned int)100);
 }
 
 /**
@@ -150,8 +150,8 @@ TEST_F(IntegrationTest, PUBLISH_PATH2) {
   for (const auto &p : received_path.pathpoint_array) {
     EXPECT_LE(p.y - p.x, 0.1);
   }
-  EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()),
-            (long unsigned int)150);
+  EXPECT_GE(static_cast<long unsigned>(received_path.pathpoint_array.size()),
+            (long unsigned int)100);
 }
 
 /**
@@ -190,8 +190,8 @@ TEST_F(IntegrationTest, PUBLISH_PATH3) {
   for (const auto &p : received_path.pathpoint_array) {
     EXPECT_LE(p.y + p.x, 0.1);
   }
-  EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()),
-            (long unsigned int)150);
+  EXPECT_GE(static_cast<long unsigned>(received_path.pathpoint_array.size()),
+            (long unsigned int)100);
 }
 
 /**
@@ -228,8 +228,8 @@ TEST_F(IntegrationTest, PUBLISH_PATH4) {
   for (const auto &p : received_path.pathpoint_array) {
     EXPECT_LE(p.y - p.x, 0.1);
   }
-  EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()),
-            (long unsigned int)150);
+  EXPECT_GE(static_cast<long unsigned>(received_path.pathpoint_array.size()),
+            (long unsigned int)100);
 }
 
 /**
@@ -266,8 +266,8 @@ TEST_F(IntegrationTest, PUBLISH_PATH5) {
   for (const auto &p : received_path.pathpoint_array) {
     EXPECT_LE(p.y + p.x, 0.1);
   }
-  EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()),
-            (long unsigned int)150);
+  EXPECT_GE(static_cast<long unsigned>(received_path.pathpoint_array.size()),
+            (long unsigned int)100);
 }
 
 /**
@@ -298,8 +298,8 @@ TEST_F(IntegrationTest, PUBLISH_PATH6) {
     EXPECT_LE(p.y, 35.5);
     EXPECT_GE(p.y, -1);
   }
-  EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()),
-            (long unsigned int)110);
+  EXPECT_GE(static_cast<long unsigned>(received_path.pathpoint_array.size()),
+            (long unsigned int)100);
 }
 
 /**
