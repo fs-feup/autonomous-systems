@@ -26,11 +26,11 @@ protected:
  * @brief Test case to validate if the cluster is well-distributed across all axes.
  */
 TEST_F(DisplacementValidatorTest, ClusterWithWellDistributedPoints) {
-  DisplacementValidator validator(0.1, 0.1, 0.25);
+  const DisplacementValidator validator(0.1, 0.1, 0.25);
 
-  auto point_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
-  point_cloud->points.emplace_back(0.0, 0.0, 0.0, 0);
-  point_cloud->points.emplace_back(0.3, 0.7, 0.5, 0);
+  const auto point_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
+  (void)point_cloud->points.emplace_back(0.0, 0.0, 0.0, 0);
+  (void)point_cloud->points.emplace_back(0.3, 0.7, 0.5, 0);
 
   Cluster cone_point_cloud = Cluster(point_cloud);
 
@@ -45,12 +45,12 @@ TEST_F(DisplacementValidatorTest, ClusterWithWellDistributedPoints) {
  * @brief Test case to validate points below the minimum distance on the x-axis.
  */
 TEST_F(DisplacementValidatorTest, BelowThresholdOnXAxis) {
-  DisplacementValidator validator(0.1, 0.1, 0.25);
+  const DisplacementValidator validator(0.1, 0.1, 0.25);
 
-  auto point_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
-  point_cloud->points.emplace_back(0.3, 0.7, 0.1, 0);
-  point_cloud->points.emplace_back(0.34, 0.5, 0.7, 0);
-  point_cloud->points.emplace_back(0.28, 0.0, 0.5, 0);
+  const auto point_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
+  (void)point_cloud->points.emplace_back(0.3, 0.7, 0.1, 0);
+  (void)point_cloud->points.emplace_back(0.34, 0.5, 0.7, 0);
+  (void)point_cloud->points.emplace_back(0.28, 0.0, 0.5, 0);
 
   Cluster cone_point_cloud = Cluster(point_cloud);
 
@@ -66,12 +66,12 @@ TEST_F(DisplacementValidatorTest, BelowThresholdOnXAxis) {
  * @brief Test case to validate points below the minimum distance on the y-axis.
  */
 TEST_F(DisplacementValidatorTest, BelowThresholdOnYAxis) {
-  DisplacementValidator validator(0.1, 0.1, 0.25);
+  const DisplacementValidator validator(0.1, 0.1, 0.25);
 
-  auto point_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
-  point_cloud->points.emplace_back(0.3, 0.3, 0.1, 0);
-  point_cloud->points.emplace_back(0.7, 0.32, 0.7, 0);
-  point_cloud->points.emplace_back(0.5, 0.34, 0.5, 0);
+  const auto point_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
+  (void)point_cloud->points.emplace_back(0.3, 0.3, 0.1, 0);
+  (void)point_cloud->points.emplace_back(0.7, 0.32, 0.7, 0);
+  (void)point_cloud->points.emplace_back(0.5, 0.34, 0.5, 0);
 
   Cluster cone_point_cloud = Cluster(point_cloud);
 
@@ -87,12 +87,12 @@ TEST_F(DisplacementValidatorTest, BelowThresholdOnYAxis) {
  * @brief Test case to validate points below the minimum distance on the z-axis.
  */
 TEST_F(DisplacementValidatorTest, BelowThresholdOnZAxis) {
-  DisplacementValidator validator(0.1, 0.1, 0.25);
+  const DisplacementValidator validator(0.1, 0.1, 0.25);
 
-  auto point_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
-  point_cloud->points.emplace_back(0.3, 0.7, 0.1, 0);
-  point_cloud->points.emplace_back(0.6, 0.5, 0.17, 0);
-  point_cloud->points.emplace_back(0.9, 0.0, 0.08, 0);
+  const auto point_cloud = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
+  (void)point_cloud->points.emplace_back(0.3, 0.7, 0.1, 0);
+  (void)point_cloud->points.emplace_back(0.6, 0.5, 0.17, 0);
+  (void)point_cloud->points.emplace_back(0.9, 0.0, 0.08, 0);
 
   Cluster cone_point_cloud = Cluster(point_cloud);
 

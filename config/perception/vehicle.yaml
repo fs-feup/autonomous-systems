@@ -1,26 +1,41 @@
 perception:
-  ransac_epsilon: 0.09
-  ransac_iterations: 20
-  ransac_n_neighbours: 40
-  fov_trim_angle: 45.0
-  pc_max_range: 30.0
-  pc_min_range: 1.0
-  pc_rlidar_max_height: -0.22
-  clustering_n_neighbours: 1
-  clustering_epsilon: 0.5
+
   horizontal_resolution: 0.33
   vertical_resolution: 0.2
+  default_mission: "acceleration"
+
+  #FOV trimming
+  lidar_height: 0.92
+  lidar_rotation: 90.0
+  max_range: 30.0
+  min_range: 1.0
+  max_height: 0.7
+  fov_trim_angle: 45.0
+
+    #ACCELERATION TRIMMING
+  acc_max_range: 20.25
+  acc_fov_trim_angle: 90.0
+  acc_max_y: 2.5
+
+    #SKIDPAD TRIMMING
+  skid_max_range: 20.25
+  skid_min_distance_to_cone: 2.3
+  
+  #Ground Removal
   ground_removal: "grid_ransac"
+  ransac_epsilon: 0.09
+  ransac_iterations: 20
   n_angular_grids: 2
   radius_resolution: 7.5
-  target_file: "cone.pcd"
-  max_correspondence_distance: 0.1
-  max_iteration: 100
-  transformation_epsilon: 1e-8
-  euclidean_fitness_epsilon: 1e-6
-  min_height: 0.13
+
+  #Clustering
+  clustering_n_neighbours: 1
+  clustering_epsilon: 0.5
+
+  #Evaluator
+  min_height: 0.15
   large_max_height: 0.57
-  small_max_height: 0.44
+  small_max_height: 0.455
   height_cap: 0.5
   min_xoy: 0.0
   max_xoy: 0.3
@@ -33,7 +48,7 @@ perception:
   out_distance_cap: 0.5
   min_distance_x: 0.02
   min_distance_y: 0.04
-  min_distance_z: 0.13
+  min_distance_z: 0.07
   min_n_points: 4
   min_confidence: 0.912
   height_out_weight: 15.0
@@ -47,3 +62,12 @@ perception:
   displacement_z_weight: 10.5
   deviation_xoy_weight: 10.0
   deviation_z_weight: 10.0
+
+  #ICP
+  target_file: "cone.pcd"
+  max_correspondence_distance: 0.1
+  max_iteration: 100
+  transformation_epsilon: 1e-8
+  euclidean_fitness_epsilon: 1e-6
+
+  
