@@ -101,7 +101,7 @@ TEST_F(IntegrationTest, PUBLISH_PATH1) {
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Publishing cone array with size: %ld",
                cone_array_msg.cone_array.size());
 
-  auto duration = run_nodes(cone_array_msg, vehicle_state);
+  const auto duration = run_nodes(cone_array_msg, vehicle_state);
 
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
   for (const auto &p : received_path.pathpoint_array) {
@@ -142,7 +142,7 @@ TEST_F(IntegrationTest, PUBLISH_PATH2) {
 
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Publishing cone array with size: %ld",
                cone_array_msg.cone_array.size());
-  auto duration = run_nodes(cone_array_msg, vehicle_state);
+  const auto duration = run_nodes(cone_array_msg, vehicle_state);
 
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
   for (const auto &p : received_path.pathpoint_array) {
@@ -183,7 +183,7 @@ TEST_F(IntegrationTest, PUBLISH_PATH3) {
 
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Publishing cone array with size: %ld",
                cone_array_msg.cone_array.size());
-  auto duration = run_nodes(cone_array_msg, vehicle_state);
+  const auto duration = run_nodes(cone_array_msg, vehicle_state);
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
   for (const auto &p : received_path.pathpoint_array) {
     EXPECT_LE(p.y + p.x, 0.1);
@@ -220,7 +220,7 @@ TEST_F(IntegrationTest, PUBLISH_PATH4) {
 
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Publishing cone array with size: %ld",
                cone_array_msg.cone_array.size());
-  auto duration = run_nodes(cone_array_msg, vehicle_state);
+  const auto duration = run_nodes(cone_array_msg, vehicle_state);
 
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
   for (const auto &p : received_path.pathpoint_array) {
@@ -258,7 +258,7 @@ TEST_F(IntegrationTest, PUBLISH_PATH5) {
 
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Publishing cone array with size: %ld",
                cone_array_msg.cone_array.size());
-  auto duration = run_nodes(cone_array_msg, vehicle_state);
+  const auto duration = run_nodes(cone_array_msg, vehicle_state);
 
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
   for (const auto &p : received_path.pathpoint_array) {
@@ -288,7 +288,7 @@ TEST_F(IntegrationTest, PUBLISH_PATH6) {
 
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Publishing cone array with size: %ld",
                cone_array_msg.cone_array.size());
-  auto duration = run_nodes(cone_array_msg, vehicle_state);
+  const auto duration = run_nodes(cone_array_msg, vehicle_state);
 
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
   for (const auto &p : received_path.pathpoint_array) {
@@ -315,7 +315,7 @@ TEST_F(IntegrationTest, no_cones) {
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Publishing cone array with size: %ld",
                cone_array_msg.cone_array.size());
 
-  auto duration = run_nodes(this->cone_array_msg, vehicle_state);
+  const auto duration = run_nodes(this->cone_array_msg, vehicle_state);
 
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()), (long unsigned int)0);
@@ -342,7 +342,7 @@ TEST_F(IntegrationTest, one_cone) {
 
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Publishing cone array with size: %ld",
                cone_array_msg.cone_array.size());
-  auto duration = run_nodes(cone_array_msg, vehicle_state);
+  const auto duration = run_nodes(cone_array_msg, vehicle_state);
 
   RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Execution time: %f ms", duration.count());
   EXPECT_EQ(static_cast<long unsigned>(received_path.pathpoint_array.size()), (long unsigned int)0);
@@ -407,9 +407,9 @@ void read_from_file(std::ifstream &file, double &finalxi, double &finalxf, doubl
  * @param received_path A PathPointArray message containing the path points.
  * @param vehicle_state A VehicleState message containing the vehicle's position and orientation.
  */
-void save_debug_file(std::string filename, std::vector<Cone> cone_array,
-                     custom_interfaces::msg::PathPointArray received_path,
-                     custom_interfaces::msg::VehicleState vehicle_state) {
+void save_debug_file(const std::string filename, const std::vector<Cone> cone_array,
+                     const custom_interfaces::msg::PathPointArray received_path,
+                     const custom_interfaces::msg::VehicleState vehicle_state) {
   std::ofstream debug_file("../../src/planning/test/integration_tests/results/" + filename);
   if (debug_file.is_open()) {
     for (const auto &point : received_path.pathpoint_array) {
@@ -435,7 +435,7 @@ void save_debug_file(std::string filename, std::vector<Cone> cone_array,
  */
 TEST_F(IntegrationTest, simple_straight_path) {
   // file with the testing scenario
-  std::string filename = "straight_1.txt";
+  const std::string filename = "straight_1.txt";
 
   // box of the final point
   double x1 = 0.0, x2 = 0.0, y1 = 0.0, y2 = 0.0;
@@ -455,7 +455,7 @@ TEST_F(IntegrationTest, simple_straight_path) {
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
   // Run the nodes
-  auto duration = run_nodes(cone_array_msg, vehicle_state);
+  run_nodes(cone_array_msg, vehicle_state);
 
   save_debug_file(filename, cone_array, this->received_path, vehicle_state);
 
@@ -478,7 +478,7 @@ TEST_F(IntegrationTest, simple_straight_path) {
  */
 TEST_F(IntegrationTest, unbalanced_STRAIGHT_PATH) {
   // file with the testing scenario
-  std::string filename = "straight_2.txt";
+  const std::string filename = "straight_2.txt";
 
   // box of the final point
   double x1 = 0.0, x2 = 0.0, y1 = 0.0, y2 = 0.0;
@@ -498,7 +498,7 @@ TEST_F(IntegrationTest, unbalanced_STRAIGHT_PATH) {
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
   // Run the nodes
-  auto duration = run_nodes(cone_array_msg, vehicle_state);
+  run_nodes(cone_array_msg, vehicle_state);
 
   save_debug_file(filename, cone_array, this->received_path, vehicle_state);
 
@@ -521,7 +521,7 @@ TEST_F(IntegrationTest, unbalanced_STRAIGHT_PATH) {
  */
 TEST_F(IntegrationTest, FULL_CURVE_PATH) {
   // file with the testing scenario
-  std::string filename = "curve_1.txt";
+  const std::string filename = "curve_1.txt";
 
   // box of the final point
   double x1 = 0.0, x2 = 0.0, y1 = 0.0, y2 = 0.0;
@@ -541,7 +541,7 @@ TEST_F(IntegrationTest, FULL_CURVE_PATH) {
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
   // Run the nodes
-  auto duration = run_nodes(cone_array_msg, vehicle_state);
+  run_nodes(cone_array_msg, vehicle_state);
 
   save_debug_file(filename, cone_array, this->received_path, vehicle_state);
 
@@ -564,7 +564,7 @@ TEST_F(IntegrationTest, FULL_CURVE_PATH) {
  */
 TEST_F(IntegrationTest, CURVES_AND_CLOSE_TRACKSIDES) {
   // file with the testing scenario
-  std::string filename = "curve_2.txt";
+  const std::string filename = "curve_2.txt";
 
   // box of the final point
   double x1 = 0.0, x2 = 0.0, y1 = 0.0, y2 = 0.0;
@@ -584,7 +584,7 @@ TEST_F(IntegrationTest, CURVES_AND_CLOSE_TRACKSIDES) {
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
   // Run the nodes
-  auto duration = run_nodes(cone_array_msg, vehicle_state);
+  run_nodes(cone_array_msg, vehicle_state);
 
   save_debug_file(filename, cone_array, this->received_path, vehicle_state);
 
@@ -607,7 +607,7 @@ TEST_F(IntegrationTest, CURVES_AND_CLOSE_TRACKSIDES) {
  */
 TEST_F(IntegrationTest, SHARP_SINOSOIDAL_CURVE) {
   // file with the testing scenario
-  std::string filename = "curve_3.txt";
+  const std::string filename = "curve_3.txt";
 
   // box of the final point
   double x1 = 0.0, x2 = 0.0, y1 = 0.0, y2 = 0.0;
@@ -627,7 +627,7 @@ TEST_F(IntegrationTest, SHARP_SINOSOIDAL_CURVE) {
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
   // Run the nodes
-  auto duration = run_nodes(cone_array_msg, vehicle_state);
+  run_nodes(cone_array_msg, vehicle_state);
 
   save_debug_file(filename, cone_array, this->received_path, vehicle_state);
 
@@ -650,7 +650,7 @@ TEST_F(IntegrationTest, SHARP_SINOSOIDAL_CURVE) {
  */
 TEST_F(IntegrationTest, ROSBAG_PATH_1) {
   // file with the testing scenario
-  std::string filename = "rosbag_1.txt";
+  const std::string filename = "rosbag_1.txt";
 
   // box of the final point
   double x1 = 0.0, x2 = 0.0, y1 = 0.0, y2 = 0.0;
@@ -670,7 +670,7 @@ TEST_F(IntegrationTest, ROSBAG_PATH_1) {
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
   // Run the nodes
-  auto duration = run_nodes(cone_array_msg, vehicle_state);
+  run_nodes(cone_array_msg, vehicle_state);
 
   save_debug_file(filename, cone_array, this->received_path, vehicle_state);
 
@@ -693,7 +693,7 @@ TEST_F(IntegrationTest, ROSBAG_PATH_1) {
  */
 TEST_F(IntegrationTest, ROSBAG_PATH_2) {
   // file with the testing scenario
-  std::string filename = "rosbag_2.txt";
+  const std::string filename = "rosbag_2.txt";
 
   // box of the final point
   double x1 = 0.0, x2 = 0.0, y1 = 0.0, y2 = 0.0;
@@ -713,7 +713,7 @@ TEST_F(IntegrationTest, ROSBAG_PATH_2) {
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
   // Run the nodes
-  auto duration = run_nodes(cone_array_msg, vehicle_state);
+  run_nodes(cone_array_msg, vehicle_state);
 
   save_debug_file(filename, cone_array, this->received_path, vehicle_state);
 
@@ -737,7 +737,7 @@ TEST_F(IntegrationTest, ROSBAG_PATH_2) {
  */
 TEST_F(IntegrationTest, ROSBAG_PATH_3) {
   // file with the testing scenario
-  std::string filename = "rosbag_3.txt";
+  const std::string filename = "rosbag_3.txt";
 
   // box of the final point
   double x1 = 0.0, x2 = 0.0, y1 = 0.0, y2 = 0.0;
@@ -757,7 +757,7 @@ TEST_F(IntegrationTest, ROSBAG_PATH_3) {
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
   // Run the nodes
-  auto duration = run_nodes(cone_array_msg, vehicle_state);
+  run_nodes(cone_array_msg, vehicle_state);
 
   save_debug_file(filename, cone_array, this->received_path, vehicle_state);
 
@@ -780,7 +780,7 @@ TEST_F(IntegrationTest, ROSBAG_PATH_3) {
  */
 TEST_F(IntegrationTest, ROSBAG_PATH_4) {
   // file with the testing scenario
-  std::string filename = "rosbag_4.txt";
+  const std::string filename = "rosbag_4.txt";
 
   // box of the final point
   double x1 = 0.0, x2 = 0.0, y1 = 0.0, y2 = 0.0;
@@ -800,7 +800,7 @@ TEST_F(IntegrationTest, ROSBAG_PATH_4) {
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
   // Run the nodes
-  auto duration = run_nodes(cone_array_msg, vehicle_state);
+  run_nodes(cone_array_msg, vehicle_state);
 
   save_debug_file(filename, cone_array, this->received_path, vehicle_state);
 
@@ -824,7 +824,7 @@ TEST_F(IntegrationTest, ROSBAG_PATH_4) {
  */
 TEST_F(IntegrationTest, ROSBAG_PATH_5) {
   // file with the testing scenario
-  std::string filename = "rosbag_5.txt";
+  const std::string filename = "rosbag_5.txt";
 
   // box of the final point
   double x1 = 0.0, x2 = 0.0, y1 = 0.0, y2 = 0.0;
@@ -844,7 +844,7 @@ TEST_F(IntegrationTest, ROSBAG_PATH_5) {
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
   // Run the nodes
-  auto duration = run_nodes(cone_array_msg, vehicle_state);
+  run_nodes(cone_array_msg, vehicle_state);
 
   save_debug_file(filename, cone_array, this->received_path, vehicle_state);
 
