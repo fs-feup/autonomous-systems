@@ -15,7 +15,7 @@
 
 #include "common_lib/maths/transformations.hpp"
 
-GraphSLAMSolver::GraphSLAMSolver(const SLAMSolverParameters& params,
+GraphSLAMSolver::GraphSLAMSolver(const SLAMParameters& params,
                                  std::shared_ptr<DataAssociationModel> data_association,
                                  std::shared_ptr<V2PMotionModel> motion_model)
     : SLAMSolver(params, data_association, motion_model) {

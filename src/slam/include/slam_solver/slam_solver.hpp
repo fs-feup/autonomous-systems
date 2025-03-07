@@ -8,14 +8,18 @@
 #include "motion_lib/v2p_models/base_v2p_motion_model.hpp"
 #include "perception_sensor_lib/data_association/base_data_association.hpp"
 #include "rclcpp/rclcpp.hpp"
+<<<<<<< HEAD
 #include "slam_config/solver_config.hpp"
+    =======
+#include "slam_config/general_config.hpp"
+    >>>>>>> dev
 
-/**
- * @brief Interface for SLAM solvers
- *
- * This class defines the interface for SLAM solvers like EKF or GTSAM
- */
-class SLAMSolver {
+    /**
+     * @brief Interface for SLAM solvers
+     *
+     * This class defines the interface for SLAM solvers like EKF or GTSAM
+     */
+    class SLAMSolver {
 protected:
   SLAMSolverParameters _params_;
   std::shared_ptr<DataAssociationModel> _data_association_;
@@ -32,9 +36,8 @@ public:
    * @param data_association Data association module
    * @param motion_model Motion model
    */
-  SLAMSolver(const SLAMSolverParameters& params,
-             const std::shared_ptr<DataAssociationModel> data_association,
-             const std::shared_ptr<V2PMotionModel> motion_model);
+  SLAMSolver(const SLAMParameters& params, std::shared_ptr<DataAssociationModel> data_association,
+             std::shared_ptr<V2PMotionModel> motion_model);
 
   virtual ~SLAMSolver() = default;
 

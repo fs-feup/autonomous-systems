@@ -44,9 +44,9 @@ public:
    * @param data_association Data association module
    * @param motion_model Motion model
    */
-  GraphSLAMSolver(const SLAMSolverParameters& params,
-                  const std::shared_ptr<DataAssociationModel> data_association,
-                  const std::shared_ptr<V2PMotionModel> motion_model);
+  GraphSLAMSolver(const SLAMParameters& params,
+                  std::shared_ptr<DataAssociationModel> data_association,
+                  std::shared_ptr<V2PMotionModel> motion_model);
 
   ~GraphSLAMSolver() = default;
 
