@@ -131,7 +131,7 @@ class PointTracker:
             if self.scatter:
                 self.scatter.remove()
                 self.scatter = None
-            if self.x_points:
+            if len(self.x_points) > 0:
                 display_colors = ['yellow' if c == 'yellow_cone' else 'blue' for c in self.colors]
                 self.scatter = self.ax.scatter(
                     self.x_points, 
