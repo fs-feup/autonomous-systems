@@ -22,7 +22,7 @@ public:
    * @param epsilon Epsilon threshold for ground removal.
    * @param n_tries Number of RANSAC iterations.
    */
-  RANSAC(double epsilon, int n_tries);
+  RANSAC(const double epsilon, const int n_tries);
 
   /**
    * @brief Default constructor.
@@ -42,7 +42,7 @@ public:
    */
   void ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
                       pcl::PointCloud<pcl::PointXYZI>::Ptr ret, Plane& plane,
-                      [[maybe_unused]] PclSplitParameters split_params) const override;
+                      [[maybe_unused]] const PclSplitParameters split_params) const override;
 
 private:
   double epsilon;  ///< Epsilon threshold for ground removal.

@@ -2,15 +2,17 @@ perception:
 
   horizontal_resolution: 0.33
   vertical_resolution: 0.2
-  default_mission: "acceleration"
+  default_mission: "trackdrive"
 
   #FOV trimming
   lidar_height: 0.92
   lidar_rotation: 90.0
   lidar_pitch: -3.90
-  max_range: 30.0
   min_range: 1.0
   max_height: 0.7
+
+    #TRACKDRIVE/AUTOCROSS TRIMMING
+  max_range: 30.0
   fov_trim_angle: 45.0
 
     #ACCELERATION TRIMMING
@@ -24,10 +26,21 @@ perception:
   
   #Ground Removal
   ground_removal: "grid_ransac"
-  ransac_epsilon: 0.09
-  ransac_iterations: 20
-  n_angular_grids: 2
+  ransac_epsilon: 0.13
+  ransac_iterations: 100
+
+    #TRACKDRIVE/AUTOCROSS GROUND REMOVAL
+  n_angular_grids: 4
   radius_resolution: 7.5
+
+    #ACCELERATION GROUND REMOVAL
+  acc_n_angular_grids: 2
+  acc_radius_resolution: 7.5
+
+    #SKIDPAD GROUND REMOVAL
+  skid_n_angular_grids: 2
+  skid_radius_resolution: 7.5
+
 
   #Clustering
   clustering_n_neighbours: 1

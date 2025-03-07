@@ -8,11 +8,11 @@
 #include <pcl/sample_consensus/model_types.h>
 #include <pcl/segmentation/sac_segmentation.h>
 
-RANSAC::RANSAC(double epsilon, int n_tries) : epsilon(epsilon), n_tries(n_tries) {}
+RANSAC::RANSAC(const double epsilon, const int n_tries) : epsilon(epsilon), n_tries(n_tries) {}
 
 void RANSAC::ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
                             pcl::PointCloud<pcl::PointXYZI>::Ptr ret, Plane& plane,
-                            [[maybe_unused]] PclSplitParameters split_params) const {
+                            [[maybe_unused]] const PclSplitParameters split_params) const {
   pcl::ModelCoefficients::Ptr coefficients(new pcl::ModelCoefficients);
   pcl::PointIndices::Ptr inliers_indices(new pcl::PointIndices);
 

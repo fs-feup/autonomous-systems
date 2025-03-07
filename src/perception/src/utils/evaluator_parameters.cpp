@@ -1,4 +1,4 @@
-#include <utils/parameter_structs.hpp>
+#include <utils/evaluator_parameters.hpp>
 
 double EvaluatorParameters::getSum() const {
   return height_out_weight + height_in_weight + cylinder_radius_weight + cylinder_height_weight +

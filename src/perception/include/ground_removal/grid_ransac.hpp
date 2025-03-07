@@ -25,7 +25,7 @@ public:
    * @param n_tries Number of RANSAC iterations.
    *
    */
-  GridRANSAC(double epsilon, int n_tries);
+  GridRANSAC(const double epsilon, const int n_tries);
 
   /**
    * @brief Perform ground removal on the input point cloud using grid-based RANSAC.
@@ -40,7 +40,7 @@ public:
    */
   void ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
                       pcl::PointCloud<pcl::PointXYZI>::Ptr ret, Plane& plane,
-                      PclSplitParameters split_params) const override;
+                      const PclSplitParameters split_params) const override;
 
   /**
    * @brief Get the furthest point from the input point cloud.
@@ -60,9 +60,9 @@ public:
    * @param cloud The input point cloud to be split.
    * @param[out] grids Vector of vectors representing the grids.
    */
-  void split_point_cloud(
-      const pcl::PointCloud<pcl::PointXYZI>::Ptr& cloud,
-      std::vector<std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr>>& grids) const;
+  void split_point_cloud(const pcl::PointCloud<pcl::PointXYZI>::Ptr& cloud,
+                         std::vector<std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr>>& grids,
+                         const PclSplitParameters split_params) const;
 
 private:
   RANSAC _ransac_;  ///< RANSAC object for ground plane fitting.
