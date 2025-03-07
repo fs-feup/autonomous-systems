@@ -450,14 +450,14 @@ TEST_F(IntegrationTest, simple_straight_path) {
 
   std::vector<Cone> cone_array;
   custom_interfaces::msg::VehicleState vehicle_state;
-  read_from_file(file, x1, x2, y1, y2, cone_array, vehicle_state);
+  ::read_from_file(file, x1, x2, y1, y2, cone_array, vehicle_state);
 
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
   // Run the nodes
-  run_nodes(cone_array_msg, vehicle_state);
+  auto _ = run_nodes(cone_array_msg, vehicle_state);
 
-  save_debug_file(filename, cone_array, this->received_path, vehicle_state);
+  ::save_debug_file(filename, cone_array, this->received_path, vehicle_state);
 
   // Verify final position
   if ((this->received_path.pathpoint_array.back().x >= x1 &&
@@ -493,14 +493,14 @@ TEST_F(IntegrationTest, unbalanced_STRAIGHT_PATH) {
 
   std::vector<Cone> cone_array;
   custom_interfaces::msg::VehicleState vehicle_state;
-  read_from_file(file, x1, x2, y1, y2, cone_array, vehicle_state);
+  ::read_from_file(file, x1, x2, y1, y2, cone_array, vehicle_state);
 
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
   // Run the nodes
-  run_nodes(cone_array_msg, vehicle_state);
+  auto _ = run_nodes(cone_array_msg, vehicle_state);
 
-  save_debug_file(filename, cone_array, this->received_path, vehicle_state);
+  ::save_debug_file(filename, cone_array, this->received_path, vehicle_state);
 
   // Verify final position
   if ((this->received_path.pathpoint_array.back().x >= x1 &&
@@ -536,14 +536,14 @@ TEST_F(IntegrationTest, FULL_CURVE_PATH) {
 
   std::vector<Cone> cone_array;
   custom_interfaces::msg::VehicleState vehicle_state;
-  read_from_file(file, x1, x2, y1, y2, cone_array, vehicle_state);
+  ::read_from_file(file, x1, x2, y1, y2, cone_array, vehicle_state);
 
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
   // Run the nodes
-  run_nodes(cone_array_msg, vehicle_state);
+  auto _ = run_nodes(cone_array_msg, vehicle_state);
 
-  save_debug_file(filename, cone_array, this->received_path, vehicle_state);
+  ::save_debug_file(filename, cone_array, this->received_path, vehicle_state);
 
   // Verify final position
   if ((this->received_path.pathpoint_array.back().x >= x1 &&
@@ -579,14 +579,14 @@ TEST_F(IntegrationTest, CURVES_AND_CLOSE_TRACKSIDES) {
 
   std::vector<Cone> cone_array;
   custom_interfaces::msg::VehicleState vehicle_state;
-  read_from_file(file, x1, x2, y1, y2, cone_array, vehicle_state);
+  ::read_from_file(file, x1, x2, y1, y2, cone_array, vehicle_state);
 
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
   // Run the nodes
-  run_nodes(cone_array_msg, vehicle_state);
+  auto _ = run_nodes(cone_array_msg, vehicle_state);
 
-  save_debug_file(filename, cone_array, this->received_path, vehicle_state);
+  ::save_debug_file(filename, cone_array, this->received_path, vehicle_state);
 
   // Verify final position
   if ((this->received_path.pathpoint_array.back().x >= x1 &&
@@ -622,14 +622,14 @@ TEST_F(IntegrationTest, SHARP_SINOSOIDAL_CURVE) {
 
   std::vector<Cone> cone_array;
   custom_interfaces::msg::VehicleState vehicle_state;
-  read_from_file(file, x1, x2, y1, y2, cone_array, vehicle_state);
+  ::read_from_file(file, x1, x2, y1, y2, cone_array, vehicle_state);
 
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
   // Run the nodes
-  run_nodes(cone_array_msg, vehicle_state);
+  auto _ = run_nodes(cone_array_msg, vehicle_state);
 
-  save_debug_file(filename, cone_array, this->received_path, vehicle_state);
+  ::save_debug_file(filename, cone_array, this->received_path, vehicle_state);
 
   // Verify final position
   if ((this->received_path.pathpoint_array.back().x >= x1 &&
@@ -665,14 +665,14 @@ TEST_F(IntegrationTest, ROSBAG_PATH_1) {
 
   std::vector<Cone> cone_array;
   custom_interfaces::msg::VehicleState vehicle_state;
-  read_from_file(file, x1, x2, y1, y2, cone_array, vehicle_state);
+  ::read_from_file(file, x1, x2, y1, y2, cone_array, vehicle_state);
 
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
   // Run the nodes
-  run_nodes(cone_array_msg, vehicle_state);
+  auto _ = run_nodes(cone_array_msg, vehicle_state);
 
-  save_debug_file(filename, cone_array, this->received_path, vehicle_state);
+  ::save_debug_file(filename, cone_array, this->received_path, vehicle_state);
 
   // Verify final position
   if ((this->received_path.pathpoint_array.back().x >= x1 &&
@@ -708,14 +708,14 @@ TEST_F(IntegrationTest, ROSBAG_PATH_2) {
 
   std::vector<Cone> cone_array;
   custom_interfaces::msg::VehicleState vehicle_state;
-  read_from_file(file, x1, x2, y1, y2, cone_array, vehicle_state);
+  ::read_from_file(file, x1, x2, y1, y2, cone_array, vehicle_state);
 
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
   // Run the nodes
-  run_nodes(cone_array_msg, vehicle_state);
+  auto _ = run_nodes(cone_array_msg, vehicle_state);
 
-  save_debug_file(filename, cone_array, this->received_path, vehicle_state);
+  ::save_debug_file(filename, cone_array, this->received_path, vehicle_state);
 
   // Verify final position
   if ((this->received_path.pathpoint_array.back().x >= x1 &&
@@ -752,14 +752,14 @@ TEST_F(IntegrationTest, ROSBAG_PATH_3) {
 
   std::vector<Cone> cone_array;
   custom_interfaces::msg::VehicleState vehicle_state;
-  read_from_file(file, x1, x2, y1, y2, cone_array, vehicle_state);
+  ::read_from_file(file, x1, x2, y1, y2, cone_array, vehicle_state);
 
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
   // Run the nodes
-  run_nodes(cone_array_msg, vehicle_state);
+  auto _ = run_nodes(cone_array_msg, vehicle_state);
 
-  save_debug_file(filename, cone_array, this->received_path, vehicle_state);
+  ::save_debug_file(filename, cone_array, this->received_path, vehicle_state);
 
   // Verify final position
   if ((this->received_path.pathpoint_array.back().x >= x1 &&
@@ -795,14 +795,14 @@ TEST_F(IntegrationTest, ROSBAG_PATH_4) {
 
   std::vector<Cone> cone_array;
   custom_interfaces::msg::VehicleState vehicle_state;
-  read_from_file(file, x1, x2, y1, y2, cone_array, vehicle_state);
+  ::read_from_file(file, x1, x2, y1, y2, cone_array, vehicle_state);
 
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
   // Run the nodes
-  run_nodes(cone_array_msg, vehicle_state);
+  auto _ = run_nodes(cone_array_msg, vehicle_state);
 
-  save_debug_file(filename, cone_array, this->received_path, vehicle_state);
+  ::save_debug_file(filename, cone_array, this->received_path, vehicle_state);
 
   // Verify final position
   if ((this->received_path.pathpoint_array.back().x >= x1 &&
@@ -839,14 +839,14 @@ TEST_F(IntegrationTest, ROSBAG_PATH_5) {
 
   std::vector<Cone> cone_array;
   custom_interfaces::msg::VehicleState vehicle_state;
-  read_from_file(file, x1, x2, y1, y2, cone_array, vehicle_state);
+  ::read_from_file(file, x1, x2, y1, y2, cone_array, vehicle_state);
 
   // Convert the cone array to the message
   this->cone_array_msg = common_lib::communication::custom_interfaces_array_from_vector(cone_array);
   // Run the nodes
-  run_nodes(cone_array_msg, vehicle_state);
+  auto _ = run_nodes(cone_array_msg, vehicle_state);
 
-  save_debug_file(filename, cone_array, this->received_path, vehicle_state);
+  ::save_debug_file(filename, cone_array, this->received_path, vehicle_state);
 
   // Verify final position
   if ((this->received_path.pathpoint_array.back().x >= x1 &&
