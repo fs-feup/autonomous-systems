@@ -3,6 +3,7 @@
 **/.DS_Store
 **/build/*
 **/install/*
+**/src/planning/test/integration_tests/results/*.txt
 **/log/*
 **/doxygen/html/** 
 **/bags/*
