@@ -61,16 +61,21 @@ def get_false_positives(
             "No ground truth values provided for computing false positives."
         )
 
-    true_positives = 0
-
     differences = np.linalg.norm(
         output[:, np.newaxis, :] - expected[np.newaxis, :, :], axis=-1
     )
 
-    # TODO: this function does not work well
-    matched_expected = np.any(differences < threshold, axis=1)
+    matched_output = np.full(len(output), False)  # Track which outputs are matched
+    matched_expected = np.full(len(expected), False)  # Track expected matches
 
-    true_positives = np.sum(matched_expected)
+    for i in range(len(output)):
+        for j in range(len(expected)):
+            if not matched_expected[j] and differences[i, j] < threshold:
+                matched_output[i] = True
+                matched_expected[j] = True
+                break
+
+    true_positives = np.sum(matched_output)
 
     return max(0, len(output) - true_positives)
 

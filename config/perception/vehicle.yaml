@@ -6,7 +6,7 @@ perception:
 
   #FOV trimming
   lidar_height: 0.92
-  lidar_rotation: 90.0
+  lidar_rotation: 0.0
   max_range: 30.0
   min_range: 1.0
   max_height: 0.7
