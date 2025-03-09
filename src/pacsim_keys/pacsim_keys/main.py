@@ -10,7 +10,7 @@ import math
 
 from rclpy.node import Node
 import rclpy
-from pacsim.msg import Wheels, StampedScalar
+from pacsim.msg import StampedScalar
 
 lateral_command_msg = StampedScalar()
 longitudinal_command_msg = StampedScalar()
