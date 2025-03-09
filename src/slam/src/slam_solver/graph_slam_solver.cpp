@@ -8,7 +8,9 @@
 #include <gtsam/nonlinear/LevenbergMarquardtOptimizer.h>
 #include <gtsam/nonlinear/Marginals.h>
 #include <gtsam/nonlinear/Values.h>
+#include <gtsam/sam/BearingFactor.h>
 #include <gtsam/sam/BearingRangeFactor.h>
+#include <gtsam/sam/RangeFactor.h>
 #include <gtsam/slam/BetweenFactor.h>
 #include <gtsam/slam/PriorFactor.h>
 #include <gtsam/slam/ProjectionFactor.h>
@@ -75,6 +77,7 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
   // Prepare structures for data association
   Eigen::VectorXd observations(cones.size() * 2);
   Eigen::VectorXd observations_confidences(cones.size());
+  RCLCPP_DEBUG(rclcpp::get_logger("slam"), "landmark_counter: %d", this->_landmark_counter_);
   Eigen::VectorXd state(this->_landmark_counter_ * 2 + 3);
   gtsam::Pose2 current_pose =
       this->_graph_values_.at<gtsam::Pose2>(gtsam::Symbol('x', this->_pose_counter_));
@@ -98,10 +101,16 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
     observations_confidences(i) = cones[i].certainty;
   }
 
+  Eigen::VectorXd observations_global = common_lib::maths::local_to_global_coordinates(
+      state.head<3>(), observations);  // Convert to global coordinates
+
+  RCLCPP_DEBUG(rclcpp::get_logger("slam"), "I am here 1");
   // Data association
-  Eigen::VectorXd associations(cones.size());
+  Eigen::VectorXi associations(cones.size());
   associations = this->_data_association_->associate(state, this->_get_covariance(), observations,
                                                      observations_confidences);
+
+  RCLCPP_DEBUG(rclcpp::get_logger("slam"), "I am here 2");
 
   // Create a new observation factor
   for (unsigned int i = 0; i < cones.size(); i++) {
@@ -113,8 +122,7 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
     } else if (associations(i) == -1) {
       // Create new landmark
       landmark_symbol = gtsam::Symbol('l', ++(this->_landmark_counter_));
-      landmark = gtsam::Point2(observations(i * 2),
-                               observations(i * 2 + 1));  // TODO(marhcouto): fix this shit
+      landmark = gtsam::Point2(observations_global(i * 2), observations_global(i * 2 + 1));
       _graph_values_.insert(landmark_symbol, landmark);
     } else {
       // Association to previous landmark
@@ -125,12 +133,21 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
         observation_cartesian);  // Convert to cylindrical coordinates
     const gtsam::Rot2 observation_rotation(observation_cylindrical(1));
 
-    // Add the observation factor to the graph
-    this->_factor_graph_.add(gtsam::BearingRangeFactor<gtsam::Pose2, gtsam::Point2>(
-        gtsam::Symbol('x', this->_pose_counter_), landmark_symbol, observation_rotation,
-        observation_cylindrical(0),
+    const gtsam::noiseModel::Diagonal::shared_ptr observation_noise =
         gtsam::noiseModel::Diagonal::Sigmas(gtsam::Vector2(this->_params_.observation_x_noise_,
-                                                           this->_params_.observation_x_noise_))));
+                                                           this->_params_.observation_y_noise_));
+
+    // Add the observation factor to the graph
+    this->_factor_graph_.add(gtsam::BearingFactor<gtsam::Pose2, gtsam::Point2>(
+        gtsam::Symbol('x', this->_pose_counter_), landmark_symbol, observation_rotation,
+        gtsam::noiseModel::Isotropic::Sigma(1, this->_params_.observation_x_noise_)));
+    this->_factor_graph_.add(gtsam::RangeFactor<gtsam::Pose2, gtsam::Point2>(
+        gtsam::Symbol('x', this->_pose_counter_), landmark_symbol, observation_cylindrical(0),
+        gtsam::noiseModel::Isotropic::Sigma(1, this->_params_.observation_x_noise_)));
+
+    // this->_factor_graph_.add(gtsam::BearingRangeFactor<gtsam::Pose2, gtsam::Point2>(
+    //     gtsam::Symbol('x', this->_pose_counter_), landmark_symbol, observation_rotation,
+    //     observation_cylindrical(0), observation_noise));
   }
 
   // Optimize the graph
@@ -143,8 +160,27 @@ void GraphSLAMSolver::_optimize() {
 }
 
 Eigen::MatrixXd GraphSLAMSolver::_get_covariance() {
-  gtsam::Marginals marginals(this->_factor_graph_, this->_graph_values_);
-  return marginals.marginalCovariance(gtsam::Symbol('x', this->_pose_counter_));
+  // gtsam::Ordering ordering = gtsam::Ordering();
+  // ordering.push_back(gtsam::Symbol('x', this->_pose_counter_));
+  // for (unsigned int i = 1; i <= this->_landmark_counter_; i++) {
+  //   ordering.push_back(gtsam::Symbol('l', i));
+  // }
+  // const gtsam::Marginals marginals(this->_factor_graph_, this->_graph_values_, ordering);
+
+  // // Create a gtsam::KeyVector with keys of all landmarks and the current pose, current pose
+  // first,
+  // // landmarks ordered by id
+  // gtsam::KeyVector keys;
+  // keys.push_back(gtsam::Symbol('x', this->_pose_counter_));
+  // for (unsigned int i = 1; i <= this->_landmark_counter_; i++) {
+  //   keys.push_back(gtsam::Symbol('l', i));
+  // }
+
+  // Eigen::MatrixXd covariance = marginals.jointMarginalCovariance(keys).fullMatrix();
+
+  // return covariance;
+
+  return Eigen::MatrixXd();  // Temporary
 }
 
 std::vector<common_lib::structures::Cone> GraphSLAMSolver::get_map_estimate() {

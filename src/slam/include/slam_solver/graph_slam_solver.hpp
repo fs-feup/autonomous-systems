@@ -35,6 +35,7 @@ class GraphSLAMSolver : public SLAMSolver {
   // friend class GraphSLAMSolver_BaseTest;
   friend class GraphSlamSolverTest_Prediction_1_Test;
   friend class GraphSlamSolverTest_Prediction_2_Test;
+  friend class GraphSlamSolverTest_Prediction_3_Test;
 
 public:
   /**

@@ -26,9 +26,6 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam") {
   this->_slam_solver_ = slam_solver_constructors_map.at(params.slam_solver_name_)(
       params, data_association, motion_model);
 
-  // Parameters initialization
-  std::string motion_model_name = params.motion_model_name_;
-
   _perception_map_ = std::vector<common_lib::structures::Cone>();
   _vehicle_state_velocities_ = common_lib::structures::Velocities();
   _track_map_ = std::vector<common_lib::structures::Cone>();
@@ -138,8 +135,8 @@ void SLAMNode::_publish_map() {
   }
   RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
   cone_array_msg.header.stamp = this->get_clock()->now();
+  this->_map_publisher_->publish(cone_array_msg);
   marker_array_msg = common_lib::communication::marker_array_from_structure_array(
       this->_track_map_, "map_cones", _adapter_name_ == "eufs" ? "base_footprint" : "map");
-  this->_map_publisher_->publish(cone_array_msg);
   this->_visualization_map_publisher_->publish(marker_array_msg);
 }

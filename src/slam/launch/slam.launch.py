@@ -3,6 +3,7 @@
 from launch import LaunchDescription
 from launch_ros.actions import Node
 
+
 def generate_launch_description():
     return LaunchDescription(
         [
@@ -10,7 +11,7 @@ def generate_launch_description():
                 package="slam",
                 executable="slam",
                 name="slam",
-                arguments=["--ros-args", "--log-level", "slam:=info"],
+                arguments=["--ros-args", "--log-level", "slam:=debug"],
             ),
         ]
     )

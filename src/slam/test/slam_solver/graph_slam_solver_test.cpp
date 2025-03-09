@@ -6,7 +6,7 @@
 
 class MockDataAssociationModel : public DataAssociationModel {
 public:
-  MOCK_METHOD(Eigen::VectorXd, associate,
+  MOCK_METHOD(Eigen::VectorXi, associate,
               (const Eigen::VectorXd& state, const Eigen::MatrixXd& covariance,
                const Eigen::VectorXd& observations, const Eigen::VectorXd& observation_confidences),
               (const, override));
@@ -35,7 +35,7 @@ public:
     solver = std::make_shared<GraphSLAMSolver>(params, data_association_ptr, motion_model_ptr);
   }
 
-  SLAMSolverParameters params;
+  SLAMParameters params;
   std::shared_ptr<MockV2PModel> mock_motion_model_ptr;
   std::shared_ptr<MockDataAssociationModel> mock_data_association_ptr;
   std::shared_ptr<V2PMotionModel> motion_model_ptr;
@@ -66,8 +66,8 @@ TEST_F(GraphSlamSolverTest, Prediction_1) {
 
 TEST_F(GraphSlamSolverTest, Prediction_2) {
   // Arrange
-  Eigen::VectorXd associations_first = Eigen::VectorXd::Ones(4) * -1;
-  Eigen::VectorXd associations_second = Eigen::VectorXd::Ones(4) * -1;
+  Eigen::VectorXi associations_first = Eigen::VectorXi::Ones(4) * -1;
+  Eigen::VectorXi associations_second = Eigen::VectorXi::Ones(4) * -1;
   associations_second(0) = 1;
   associations_second(1) = 2;
   associations_second(2) = 3;
@@ -117,43 +117,31 @@ TEST_F(GraphSlamSolverTest, Prediction_2) {
   const common_lib::structures::Pose pose_before_observations = solver->get_pose_estimate();
   const std::vector<common_lib::structures::Cone> map_before_observations =
       solver->get_map_estimate();
-  solver->_factor_graph_.print("Factor Graph:\n");
-  solver->_graph_values_.print("Graph Values:\n");
 
   solver->add_observations(cones_end);
   const common_lib::structures::Pose pose_after_observations = solver->get_pose_estimate();
   const std::vector<common_lib::structures::Cone> map_after_observations =
       solver->get_map_estimate();
 
-  solver->_factor_graph_.print("Factor Graph:\n");
-  solver->_graph_values_.print("Graph Values:\n");
-
   // Assert
   EXPECT_NEAR(pose_before_observations.position.x, 4.0, 0.5);
   EXPECT_NEAR(pose_after_observations.position.x, 4.0, 0.2);
-  EXPECT_GT(pose_before_observations.position.x - 4.0, pose_after_observations.position.x - 4.0);
+  EXPECT_GT(abs(pose_before_observations.position.x - 4.0),
+            abs(pose_after_observations.position.x - 4.0));
   ASSERT_EQ(map_before_observations.size(), 4);
   ASSERT_EQ(map_after_observations.size(), 4);
-  EXPECT_NEAR(map_before_observations[0].position.x, 3.0, 0.5);
-  EXPECT_NEAR(map_before_observations[1].position.x, 3.0, 0.5);
-  EXPECT_NEAR(map_before_observations[2].position.x, 6.0, 0.5);
-  EXPECT_NEAR(map_before_observations[3].position.x, 6.0, 0.5);
+  EXPECT_NEAR(map_before_observations[0].position.x, 3.0, 0.2);
+  EXPECT_NEAR(map_before_observations[1].position.x, 3.0, 0.2);
+  EXPECT_NEAR(map_before_observations[2].position.x, 6.0, 0.2);
+  EXPECT_NEAR(map_before_observations[3].position.x, 6.0, 0.2);
   EXPECT_NEAR(map_after_observations[0].position.x, 3.0, 0.2);
   EXPECT_NEAR(map_after_observations[1].position.x, 3.0, 0.2);
   EXPECT_NEAR(map_after_observations[2].position.x, 6.0, 0.2);
   EXPECT_NEAR(map_after_observations[3].position.x, 6.0, 0.2);
-  EXPECT_GT(abs(map_before_observations[0].position.x - 3.0),
-            abs(map_after_observations[0].position.x - 3.0));
-  EXPECT_GT(abs(map_before_observations[1].position.x - 3.0),
-            abs(map_after_observations[1].position.x - 3.0));
-  EXPECT_GT(abs(map_before_observations[2].position.x - 6.0),
-            abs(map_after_observations[2].position.x - 6.0));
-  EXPECT_GT(abs(map_before_observations[3].position.x - 6.0),
-            abs(map_after_observations[3].position.x - 6.0));
-  EXPECT_NEAR(map_before_observations[0].position.y, 1.0, 0.5);
-  EXPECT_NEAR(map_before_observations[1].position.y, -1.0, 0.5);
-  EXPECT_NEAR(map_before_observations[2].position.y, 1.0, 0.5);
-  EXPECT_NEAR(map_before_observations[3].position.y, -1.0, 0.5);
+  EXPECT_NEAR(map_before_observations[0].position.y, 1.0, 0.2);
+  EXPECT_NEAR(map_before_observations[1].position.y, -1.0, 0.2);
+  EXPECT_NEAR(map_before_observations[2].position.y, 1.0, 0.2);
+  EXPECT_NEAR(map_before_observations[3].position.y, -1.0, 0.2);
   EXPECT_NEAR(map_after_observations[0].position.y, 1.0, 0.2);
   EXPECT_NEAR(map_after_observations[1].position.y, -1.0, 0.2);
   EXPECT_NEAR(map_after_observations[2].position.y, 1.0, 0.2);
