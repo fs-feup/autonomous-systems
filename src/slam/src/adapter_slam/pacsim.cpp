@@ -20,7 +20,7 @@ PacsimAdapter::PacsimAdapter(const SLAMParameters& params) : SLAMNode(params) {
   if (params.use_simulated_velocities_) {
     this->_velocities_subscription_ =
         this->create_subscription<geometry_msgs::msg::TwistWithCovarianceStamped>(
-            "/pacsim/velocities", 1,
+            "/pacsim/velocity", 1,
             std::bind(&PacsimAdapter::_pacsim_velocities_subscription_callback, this,
                       std::placeholders::_1));
   }
