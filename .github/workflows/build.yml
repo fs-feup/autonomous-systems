@@ -159,7 +159,7 @@ jobs:
 
       - name: Set up GTSAM path
         run: |
-          echo 'export LD_LIBRARY_PATH=/usr/local/lib:LD_LIBRARY_PATH' >> /home/$USERNAME/.bashrc
+          echo "export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH" >> /home/$USERNAME/.bashrc
       
       - name: Rosdep
         run: |
