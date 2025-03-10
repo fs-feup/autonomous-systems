@@ -30,6 +30,9 @@
 #include <rclcpp/rclcpp.hpp>
 #include <string>
 
+#include "rcl_interfaces/srv/get_parameters.hpp"
+
+
 using PathPoint = common_lib::structures::PathPoint;
 using Pose = common_lib::structures::Pose;
 
@@ -57,8 +60,10 @@ class Planning : public rclcpp::Node {
   double desired_velocity_;
   double initial_car_orientation_;
 
-  bool path_orientation_corrected_ = false; // TODO: Put in Skidpad class
-  std::vector<PathPoint> predefined_path_; // TODO: Put in Skidpad class
+  bool path_orientation_corrected_ = false; // for Skidpad
+  std::vector<PathPoint> predefined_path_; // for Skidpad 
+  rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedPtr param_client_; // for mission logic
+
 
   std::map<common_lib::competition_logic::Mission, std::string> predictive_paths_ = {
       {common_lib::competition_logic::Mission::ACCELERATION, "/events/acceleration.txt"},
@@ -96,6 +101,12 @@ class Planning : public rclcpp::Node {
    * @param msg The received VehicleState message.
    */
   void vehicle_localization_callback(const custom_interfaces::msg::VehicleState &msg);
+
+  /**
+   * @brief Fetches the mission from the parameters.
+   */
+  void fetch_discipline();
+
   /**
    * @brief Callback for track map updates(when msg received).
    *

@@ -116,9 +116,49 @@ Planning::Planning(const PlanningParameters &params)
     this->track_sub_ = this->create_subscription<custom_interfaces::msg::ConeArray>(
         "/state_estimation/map", 10, std::bind(&Planning::track_map_callback, this, _1));
   }
+
+  param_client_ = this->create_client<rcl_interfaces::srv::GetParameters>("/pacsim/pacsim_node/get_parameters");
+
+  // Call the function to fetch discipline
+  fetch_discipline();
+
   RCLCPP_INFO(rclcpp::get_logger("planning"), "using simulated state estimation: %d",
               planning_config_.simulation_.using_simulated_se_);
 }
+
+void Planning::fetch_discipline() {
+  if (!param_client_->wait_for_service(std::chrono::seconds(2))) {
+      RCLCPP_ERROR(this->get_logger(), "Service /pacsim/pacsim_node/get_parameters not available.");
+      return;
+  }
+
+  auto request = std::make_shared<rcl_interfaces::srv::GetParameters::Request>();
+  request->names.push_back("discipline");
+
+  auto future_result = param_client_->async_send_request(request,
+      [this](rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedFuture future) {
+          auto response = future.get();
+
+          if (!response->values.empty() && response->values[0].type == 4) { // Type 4 = string
+              std::string discipline = response->values[0].string_value;
+              RCLCPP_INFO(this->get_logger(), "Discipline received: %s", discipline.c_str());
+              if (discipline == "skidpad") {
+                  this->mission = common_lib::competition_logic::Mission::SKIDPAD;
+              } else if (discipline == "acceleration") {
+                  this->mission = common_lib::competition_logic::Mission::ACCELERATION;
+              } else {
+                  this->mission = common_lib::competition_logic::Mission::AUTOCROSS;
+              }
+              RCLCPP_INFO(this->get_logger(), "Mission set to: %d", this->mission);
+              // Use discipline value as needed (store it, modify parameters, etc.)
+          } else {
+              RCLCPP_ERROR(this->get_logger(), "Failed to retrieve discipline parameter.");
+          }
+      });
+}
+
+
+
 
 void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &msg) {
   auto number_of_cones_received = static_cast<int>(msg.cone_array.size());
