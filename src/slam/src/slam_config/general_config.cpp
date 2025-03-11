@@ -33,17 +33,20 @@ std::string SLAMParameters::load_config() {
 
   YAML::Node slam_config = YAML::LoadFile(slam_config_path);
 
-  this->motion_model_name_ = slam_config["slam"]["motion_model"].as<std::string>();
+  this->motion_model_name_ = slam_config["slam"]["motion_model_name"].as<std::string>();
   this->data_association_model_name_ =
-      slam_config["slam"]["data_association_model"].as<std::string>();
+      slam_config["slam"]["data_association_model_name"].as<std::string>();
   this->data_association_limit_distance_ =
       slam_config["slam"]["data_association_limit_distance"].as<float>();
+  this->data_association_gate_ = slam_config["slam"]["data_association_gate"].as<float>();
+  this->new_landmark_confidence_gate_ =
+      slam_config["slam"]["new_landmark_confidence_gate"].as<float>();
   this->observation_x_noise_ = slam_config["slam"]["observation_x_noise"].as<float>();
   this->observation_y_noise_ = slam_config["slam"]["observation_y_noise"].as<float>();
   this->velocity_x_noise_ = slam_config["slam"]["velocity_x_noise"].as<float>();
   this->velocity_y_noise_ = slam_config["slam"]["velocity_y_noise"].as<float>();
   this->angular_velocity_noise_ = slam_config["slam"]["angular_velocity_noise"].as<float>();
-  this->slam_solver_name_ = slam_config["slam"]["slam_solver"].as<std::string>();
+  this->slam_solver_name_ = slam_config["slam"]["slam_solver_name"].as<std::string>();
 
   return adapter;
 }

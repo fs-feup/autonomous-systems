@@ -141,7 +141,7 @@ def main():
             if key == "w":
                 pub_thread.new_command = True
                 clicked = True
-                acceleration = 0.1
+                acceleration += 0.1
                 acceleration = min(acceleration, 1.0)
             elif key == "s":
                 pub_thread.new_command = True
