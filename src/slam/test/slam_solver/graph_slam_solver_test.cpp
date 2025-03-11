@@ -57,6 +57,7 @@ TEST_F(GraphSlamSolverTest, Prediction_1) {
   velocities.rotational_velocity = 0.0;
 
   // Act
+  solver->_received_first_velocities_ = true;
   solver->add_motion_prior(velocities);
   const common_lib::structures::Pose result = solver->get_pose_estimate();
 
@@ -68,10 +69,10 @@ TEST_F(GraphSlamSolverTest, Prediction_2) {
   // Arrange
   Eigen::VectorXi associations_first = Eigen::VectorXi::Ones(4) * -1;
   Eigen::VectorXi associations_second = Eigen::VectorXi::Ones(4) * -1;
-  associations_second(0) = 1;
-  associations_second(1) = 2;
-  associations_second(2) = 3;
-  associations_second(3) = 4;
+  associations_second(0) = 3;
+  associations_second(1) = 5;
+  associations_second(2) = 7;
+  associations_second(3) = 9;
   EXPECT_CALL(*mock_motion_model_ptr, get_next_pose)
       .Times(4)
       .WillOnce(testing::Return(Eigen::Vector3d(1.1, 0.0, 0.0)))
