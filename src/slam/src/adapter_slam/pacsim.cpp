@@ -9,9 +9,10 @@
 
 PacsimAdapter::PacsimAdapter(const SLAMParameters& params) : SLAMNode(params) {
   if (params.use_simulated_perception_) {
+    RCLCPP_DEBUG(this->get_logger(), "Using simulated perception");
     this->_perception_detections_subscription_ =
         this->create_subscription<pacsim::msg::PerceptionDetections>(
-            "/pacsim/perception/livox_front/landmarks", 1,
+            "/pacsim/perception/lidar/landmarks", 1,
             std::bind(&PacsimAdapter::_pacsim_perception_subscription_callback, this,
                       std::placeholders::_1));
   }
@@ -19,12 +20,14 @@ PacsimAdapter::PacsimAdapter(const SLAMParameters& params) : SLAMNode(params) {
   if (params.use_simulated_velocities_) {
     this->_velocities_subscription_ =
         this->create_subscription<geometry_msgs::msg::TwistWithCovarianceStamped>(
-            "/pacsim/velocities", 1,
+            "/pacsim/velocity", 1,
             std::bind(&PacsimAdapter::_pacsim_velocities_subscription_callback, this,
                       std::placeholders::_1));
   }
 
   this->_finished_client_ = this->create_client<std_srvs::srv::Empty>("/pacsim/finish_signal");
+
+  this->_go_ = true;  // No go signal needed for pacsim
 }
 
 void PacsimAdapter::finish() {
@@ -59,5 +62,6 @@ void PacsimAdapter::_pacsim_velocities_subscription_callback(
   velocities.velocity_x = msg.twist.twist.linear.x;
   velocities.velocity_y = msg.twist.twist.linear.y;
   velocities.angular_velocity = msg.twist.twist.angular.z;
+  velocities.header.stamp = msg.header.stamp;
   _velocities_subscription_callback(velocities);
 }

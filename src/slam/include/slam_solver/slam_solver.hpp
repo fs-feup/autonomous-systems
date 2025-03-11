@@ -17,11 +17,15 @@
  */
 class SLAMSolver {
 protected:
+  SLAMParameters _params_;
   std::shared_ptr<DataAssociationModel> _data_association_;
   std::shared_ptr<V2PMotionModel> _motion_model_;
 
   rclcpp::Time _last_pose_update_ = rclcpp::Time(0);
   rclcpp::Time _last_observation_update_ = rclcpp::Time(0);
+
+  bool _received_first_velocities_ =
+      false;  //< Flag to check if the first velocities have been received
 
 public:
   /**
