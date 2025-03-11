@@ -240,7 +240,7 @@ void VehicleModelBicycle::calculateNormalForces(double& Fz_Front, double& Fz_Rea
 
 void VehicleModelBicycle::calculateSlipAngles(double& kappaFront, double& kappaRear) const {
   constexpr double eps = 0.00001;  // Prevent division by zero
-
+  
   /**
    * It seems like this isn't needed anymore with the approach of applying friction to
    * the opposite of the velocity vector instead of Vx only. Drag also applied opposite of Vx
@@ -330,11 +330,13 @@ Eigen::Vector3d VehicleModelBicycle::calculateAccelerations(double steeringFront
   // Apply aerodynamic drag and friction to get total acceleration
   double axModel = axTires + drag / m + friction.x() / m;
 
+
   // Calculate lateral acceleration from tire forces
   double ayTires = (std::sin(steeringAngles.FL) * Fx_FL + std::sin(steeringAngles.FR) * Fx_FR +
                     std::cos(steeringFront) * Fy_Front + Fy_Rear) /
                    m;
   double ayModel = ayTires + friction.y() / m;
+
 
   // Calculate yaw moment contributions
   double rdotFx =
@@ -390,6 +392,7 @@ Eigen::Vector3d VehicleModelBicycle::getDynamicStates(double dt) {
       Eigen::Vector3d velDir = -velocity.normalized();
       friction = frict * velDir;
   }
+
 
   // Calculate longitudinal forces
   double Fx_FL, Fx_FR, Fx_RL, Fx_RR;

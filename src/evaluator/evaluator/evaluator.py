@@ -143,6 +143,12 @@ class Evaluator(Node):
         self._perception_false_positives_ = self.create_publisher(
             Int32, "/evaluator/perception/false_positives", 10
         )
+        self._perception_precision_ = self.create_publisher(
+            Float32, "/evaluator/perception/precision", 10
+        )
+        self._perception_recall_ = self.create_publisher(
+            Float32, "/evaluator/perception/recall", 10
+        )
         self._perception_number_duplicates = self.create_publisher(
             Int32, "/evaluator/perception/number_duplicates", 10
         )
@@ -250,6 +256,8 @@ class Evaluator(Node):
         self._perception_sum_error = 0
         self._perception_squared_sum_error = 0
         self._perception_root_squared_sum_error = 0
+        self._perception_precision_sum = 0
+        self._perception_recall_sum = 0
         self._perception_count = 0
 
         self._se_map_sum_error = 0
@@ -281,6 +289,14 @@ class Evaluator(Node):
 
         self._perception_mean_mean_root_squared_error = self.create_publisher(
             Float32, "/evaluator/perception/mean_mean_root_squared_error", 10
+        )
+
+        self._perception_mean_precision = self.create_publisher(
+            Float32, "/evaluator/perception/mean_precision", 10
+        )
+
+        self._perception_mean_recall = self.create_publisher(
+            Float32, "/evaluator/perception/mean_recall", 10
         )
 
         # State estimation metrics over time
@@ -382,37 +398,42 @@ class Evaluator(Node):
             )
         )
 
-        if self._adapter_name_ == "vehicle":
-            return
-
         # Adapter selection
         self._adapter_: Adapter = ADAPTER_CONSTRUCTOR_DICTINARY[self._adapter_name_](
             self
         )
 
         signal.signal(signal.SIGINT, self.signal_handler)
-    
+
     def get_config_yaml_path(self, package_name, dir, filename):
         package_share_directory = get_package_prefix(package_name)
-        config_path = os.path.join(package_share_directory, '..', '..', 'config', dir, f"{filename}.yaml")
+        config_path = os.path.join(
+            package_share_directory, "..", "..", "config", dir, f"{filename}.yaml"
+        )
         return config_path
 
     def load_config(self):
         """Load configuration from YAML file."""
-        global_config_path = self.get_config_yaml_path("evaluator", "global", "global_config")
+        global_config_path = self.get_config_yaml_path(
+            "evaluator", "global", "global_config"
+        )
         self.get_logger().debug(f"Loading global config from: {global_config_path}")
-        with open(global_config_path, 'r') as file:
+        with open(global_config_path, "r") as file:
             global_config = yaml.safe_load(file)
 
         adapter = global_config["global"]["adapter"]
         self._adapter_name_ = adapter
-        self.use_simulated_perception_ = global_config["global"]["use_simulated_perception"]
+        self.use_simulated_perception_ = global_config["global"][
+            "use_simulated_perception"
+        ]
         self.use_simulated_se_ = global_config["global"]["use_simulated_se"]
         self.use_simulated_planning_ = global_config["global"]["use_simulated_planning"]
 
-        specific_config_path = self.get_config_yaml_path("evaluator", "evaluator", adapter)
+        specific_config_path = self.get_config_yaml_path(
+            "evaluator", "evaluator", adapter
+        )
         self.get_logger().debug(f"Loading specific config from: {specific_config_path}")
-        with open(specific_config_path, 'r') as file:
+        with open(specific_config_path, "r") as file:
             specific_config = yaml.safe_load(file)
 
         self.generate_csv = specific_config["evaluator"]["generate_csv"]
@@ -777,9 +798,12 @@ class Evaluator(Node):
             perception_ground_truth (np.ndarray): Ground truth cones.
         """
 
+        if len(perception_output) == 0 or len(perception_ground_truth) == 0:
+            self.get_logger().debug("Perception, ground truth or cones info missing")
+            return
+
         # Compute instantaneous perception metrics
 
-        # TODO: include confidence in evaluator
         cone_positions = perception_output[:, :2]
         groundtruth_cone_positions = perception_ground_truth[:, :2]
         mean_difference = Float32()
@@ -799,6 +823,15 @@ class Evaluator(Node):
         false_positives.data = int(
             get_false_positives(cone_positions, groundtruth_cone_positions, 0.1)
         )
+        precision = Float32()
+        precision.data = float(
+            (len(cone_positions) - false_positives.data) / len(cone_positions)
+        )
+        recall = Float32()
+        recall.data = float(
+            (len(cone_positions) - false_positives.data)
+            / len(groundtruth_cone_positions)
+        )
 
         num_duplicates = Int32()
         num_duplicates.data = int(get_duplicates(perception_output, 0.1))
@@ -810,12 +843,16 @@ class Evaluator(Node):
                                Mean squared difference: {}\n \
                                Root mean squared difference: {}\n \
                                False positives: {}\n \
+                               Precision: {}\n \
+                               Recall: {}\n \
                                Duplicates: {}".format(
                 mean_difference,
                 inter_cones_distance,
                 mean_squared_error,
                 root_mean_squared_difference,
                 false_positives,
+                precision,
+                recall,
                 num_duplicates,
             )
         )
@@ -828,6 +865,8 @@ class Evaluator(Node):
             root_mean_squared_difference
         )
         self._perception_false_positives_.publish(false_positives)
+        self._perception_precision_.publish(precision)
+        self._perception_recall_.publish(recall)
         self._perception_number_duplicates.publish(num_duplicates)
 
         # Compute perception metrics over time
@@ -840,6 +879,20 @@ class Evaluator(Node):
         self._perception_root_squared_sum_error += get_mean_squared_difference(
             cone_positions, groundtruth_cone_positions
         ) ** (1 / 2)
+        self._perception_precision_sum += float(
+            (
+                len(cone_positions)
+                - get_false_positives(cone_positions, groundtruth_cone_positions, 0.1)
+            )
+            / len(cone_positions)
+        )
+        self._perception_recall_sum += float(
+            (
+                len(cone_positions)
+                - get_false_positives(cone_positions, groundtruth_cone_positions, 0.1)
+            )
+            / len(groundtruth_cone_positions)
+        )
         self._perception_count += 1
         mean_mean_error = Float32()
         mean_mean_error.data = self._perception_sum_error / self._perception_count
@@ -851,6 +904,10 @@ class Evaluator(Node):
         mean_mean_root_squared_error.data = (
             self._perception_root_squared_sum_error / self._perception_count
         )
+        mean_precision = Float32()
+        mean_precision.data = self._perception_precision_sum / self._perception_count
+        mean_recall = Float32()
+        mean_recall.data = self._perception_recall_sum / self._perception_count
 
         # Publish perception metrics over time
         self._perception_mean_mean_error.publish(mean_mean_error)
@@ -858,6 +915,8 @@ class Evaluator(Node):
         self._perception_mean_mean_root_squared_error.publish(
             mean_mean_root_squared_error
         )
+        self._perception_mean_precision.publish(mean_precision)
+        self._perception_mean_recall.publish(mean_recall)
 
         # For exporting metrics to csv
         metrics = {
@@ -870,6 +929,10 @@ class Evaluator(Node):
             "mean_mean_squared_error": mean_mean_squared_error.data,
             "mean_mean_root_squared_error": mean_mean_root_squared_error.data,
             "false_positives": false_positives.data,
+            "precision": precision.data,
+            "recall": recall.data,
+            "mean_precision": mean_precision.data,
+            "mean_recall": mean_recall.data,
             "duplicates": num_duplicates.data,
         }
         self.perception_metrics.append(metrics)
