@@ -64,6 +64,8 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam") {
 void SLAMNode::_perception_subscription_callback(const custom_interfaces::msg::ConeArray &msg) {
   auto const &cone_array = msg.cone_array;
 
+  RCLCPP_DEBUG(this->get_logger(), "SUB - Perception: %ld cones", cone_array.size());
+
   if (!this->_go_) {
     return;
   }
@@ -93,12 +95,15 @@ void SLAMNode::_perception_subscription_callback(const custom_interfaces::msg::C
   this->_correction_execution_time_publisher_->publish(correction_execution_time);
   this->_publish_vehicle_pose();
   this->_publish_map();
+  RCLCPP_DEBUG(this->get_logger(), "Execution time: %f ms", correction_execution_time.data);
 }
 
 void SLAMNode::_velocities_subscription_callback(const custom_interfaces::msg::Velocities &msg) {
   this->_vehicle_state_velocities_ = common_lib::structures::Velocities(
       msg.velocity_x, msg.velocity_y, msg.angular_velocity, msg.covariance[0], msg.covariance[4],
       msg.covariance[8], msg.header.stamp);
+  RCLCPP_DEBUG(this->get_logger(), "SUB - Velocities: (%f, %f, %f)", msg.velocity_x, msg.velocity_y,
+               msg.angular_velocity);
   this->_slam_solver_->add_motion_prior(this->_vehicle_state_velocities_);
   this->_vehicle_pose_ = this->_slam_solver_->get_pose_estimate();
   this->_publish_vehicle_pose();
