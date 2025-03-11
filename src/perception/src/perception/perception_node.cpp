@@ -9,9 +9,11 @@
 #include <cone_validator/npoints_validator.hpp>
 #include <cstdio>
 #include <string>
+#include <utils/trimming_parameters.hpp>
 #include <vector>
 
 #include "common_lib/communication/marker.hpp"
+#include "common_lib/competition_logic/mission_logic.hpp"
 #include "common_lib/config_load/config_load.hpp"
 #include "std_msgs/msg/header.hpp"
 #include "yaml-cpp/yaml.h"
@@ -37,6 +39,10 @@ PerceptionParameters Perception::load_config() {
   params.adapter_ = global_config["global"]["adapter"].as<std::string>();
   params.vehicle_frame_id_ = global_config["global"]["vehicle_frame_id"].as<std::string>();
 
+  if (params.adapter_ == "pacsim") {
+    params.adapter_ = "vehicle";
+  }
+
   const std::string perception_path =
       common_lib::config_load::get_config_yaml_path("perception", "perception", params.adapter_);
   RCLCPP_DEBUG(rclcpp::get_logger("perception"), "Loading perception config from: %s",
@@ -47,12 +53,39 @@ PerceptionParameters Perception::load_config() {
   RCLCPP_DEBUG(rclcpp::get_logger("perception"), "Perception config contents: %s",
                YAML::Dump(perception_config).c_str());
 
-  double fov_trim_angle = perception_config["fov_trim_angle"].as<double>();
-  double pc_max_range = perception_config["pc_max_range"].as<double>();
-  double pc_min_range = perception_config["pc_min_range"].as<double>();
-  double pc_rlidar_max_height = perception_config["pc_rlidar_max_height"].as<double>();
-  params.fov_trimming_ = std::make_shared<CutTrimming>(pc_max_range, pc_min_range,
-                                                       pc_rlidar_max_height, fov_trim_angle);
+  const auto default_mission_str = perception_config["default_mission"].as<std::string>();
+  params.default_mission_ =
+      static_cast<uint8_t>(common_lib::competition_logic::fsds_to_system.at(default_mission_str));
+
+  TrimmingParameters trim_params;
+  trim_params.lidar_rotation = perception_config["lidar_rotation"].as<double>();
+  trim_params.fov_trim_angle = perception_config["fov_trim_angle"].as<double>();
+  trim_params.max_range = perception_config["max_range"].as<double>();
+  trim_params.min_range = perception_config["min_range"].as<double>();
+  trim_params.max_height = perception_config["max_height"].as<double>();
+  trim_params.lidar_height = perception_config["lidar_height"].as<double>();
+
+  trim_params.acc_max_range = perception_config["acc_max_range"].as<double>();
+  trim_params.acc_fov_trim_angle = perception_config["acc_fov_trim_angle"].as<double>();
+  trim_params.acc_max_y = perception_config["acc_max_y"].as<double>();
+
+  trim_params.skid_max_range = perception_config["skid_max_range"].as<double>();
+  trim_params.skid_min_distance_to_cone =
+      perception_config["skid_min_distance_to_cone"].as<double>();
+
+  auto acceleration_trimming = std::make_shared<AccelerationTrimming>(trim_params);
+  auto skidpad_trimming = std::make_shared<SkidpadTrimming>(trim_params);
+  auto cut_trimming = std::make_shared<CutTrimming>(trim_params);
+
+  auto temp_fov_trim_map = std::unordered_map<uint8_t, std::shared_ptr<FovTrimming>>{
+      {static_cast<uint8_t>(Mission::ACCELERATION), acceleration_trimming},
+      {static_cast<uint8_t>(Mission::SKIDPAD), skidpad_trimming},
+      {static_cast<uint8_t>(Mission::TRACKDRIVE), cut_trimming},
+      {static_cast<uint8_t>(Mission::AUTOCROSS), cut_trimming}};
+
+  params.fov_trim_map_ =
+      std::make_shared<std::unordered_map<uint8_t, std::shared_ptr<FovTrimming>>>(
+          temp_fov_trim_map);
 
   std::string ground_removal_algorithm = perception_config["ground_removal"].as<std::string>();
   double ransac_epsilon = perception_config["ransac_epsilon"].as<double>();
@@ -136,7 +169,8 @@ PerceptionParameters Perception::load_config() {
 Perception::Perception(const PerceptionParameters& params)
     : Node("perception"),
       _vehicle_frame_id_(params.vehicle_frame_id_),
-      _fov_trimming_(params.fov_trimming_),
+      _mission_type_(params.default_mission_),
+      _fov_trim_map_(params.fov_trim_map_),
       _ground_removal_(params.ground_removal_),
       _clustering_(params.clustering_),
       _cone_differentiator_(params.cone_differentiator_),
@@ -150,6 +184,12 @@ Perception::Perception(const PerceptionParameters& params)
 
   this->_perception_execution_time_publisher_ =
       this->create_publisher<std_msgs::msg::Float64>("/perception/execution_time", 10);
+
+  this->_master_log_subscription = this->create_subscription<custom_interfaces::msg::MasterLog>(
+      "/vehicle/master_log", rclcpp::QoS(10),
+      [this](const custom_interfaces::msg::MasterLog::SharedPtr msg) {
+        _mission_type_ = msg->mission;
+      });
 
   // Determine which adapter is being used
   std::unordered_map<std::string, std::tuple<std::string, rclcpp::QoS>> adapter_topic_map = {
@@ -185,14 +225,14 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   pcl::PointCloud<pcl::PointXYZI>::Ptr pcl_cloud(new pcl::PointCloud<pcl::PointXYZI>);
   header = (*msg).header;
   pcl::fromROSMsg(*msg, *pcl_cloud);
-    
+
   // Pass-trough Filter (trim Pcl)
-  _fov_trimming_->fov_trimming(pcl_cloud);
+  _fov_trim_map_->at(_mission_type_)->fov_trimming(pcl_cloud);
 
   // Ground Removal
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
   _ground_removal_->ground_removal(pcl_cloud, ground_removed_cloud, _ground_plane_);
-  
+
   // Debugging utils -> Useful to check the ground removed point cloud
   sensor_msgs::msg::PointCloud2 ground_remved_msg;
   pcl::toROSMsg(*ground_removed_cloud, ground_remved_msg);
@@ -202,7 +242,6 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   // Clustering
   std::vector<Cluster> clusters;
   _clustering_->clustering(ground_removed_cloud, &clusters);
- 
 
   // Z-scores calculation for future validations
   Cluster::set_z_scores(clusters);
@@ -215,7 +254,6 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
       filtered_clusters.push_back(cluster);
     }
   }
-  
 
   // Execution Time calculation
   rclcpp::Time end_time = this->now();

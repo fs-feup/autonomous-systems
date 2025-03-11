@@ -1,6 +1,7 @@
 #include <cstdio>
 
-#include "adapters/parameters_factory.hpp"
+#include "adapters/map.hpp"
+#include "config/parameters.hpp"
 
 /**
  * @brief Main function for the velocity estimation
@@ -14,9 +15,9 @@ int main(int argc, char **argv) {
   (void)argv;
   rclcpp::init(argc, argv);
   VEParameters params;
-  load_adapter_parameters(params);
-  auto velocity_estimator = create_ve(params);
-  rclcpp::spin(velocity_estimator);
+  std::string adapter_name = params.load_config();
+  auto ve_node = adapter_map.at(adapter_name)(params);
+  rclcpp::spin(ve_node);
   rclcpp::shutdown();
 
   return 0;

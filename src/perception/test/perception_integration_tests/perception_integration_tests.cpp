@@ -193,8 +193,15 @@ protected:
     }
   }
 
-  void runTest(std::string test_name, int cone_gt, int large_cone_gt, int min_correctness) {
+  void runTest(const std::string test_name, const int cone_gt, const int large_cone_gt,
+               const int min_correctness, const uint8_t mission) {
     auto params = Perception::load_config();
+    params.default_mission_ = mission;
+
+    for (const auto& [mission, trim] : *params.fov_trim_map_) {
+      trim->set_lidar_rotation(90);
+    }
+
     rclcpp::Node::SharedPtr perception_node = std::make_shared<Perception>(params);
     ASSERT_NE(perception_node, nullptr) << "Failed to initialize Perception node.";
 
@@ -238,14 +245,14 @@ protected:
 /**
  * @brief Straight line test for perception node from rosbag: Accelaration_Testing_DV_1B.mcap
  */
-TEST_F(PerceptionIntegrationTest, StraightLine) { runTest("straight_line", 6, 0, 80); }
+TEST_F(PerceptionIntegrationTest, StraightLine) { runTest("straight_line", 6, 0, 80, 1); }
 
 /**
  * @brief Close to accelaration end test for perception node from rosbag:
  * Accelaration_Testing_Manual-4.mcap
  */
 TEST_F(PerceptionIntegrationTest, AccelerationEndClose) {
-  runTest("acceleration_end_close", 12, 4, 80);
+  runTest("acceleration_end_close", 12, 4, 80, 1);
 }
 
 /**
@@ -253,31 +260,33 @@ TEST_F(PerceptionIntegrationTest, AccelerationEndClose) {
  * Accelaration_Testing_Manual-4.mcap
  */
 TEST_F(PerceptionIntegrationTest, AccelerationEndMedium) {
-  runTest("acceleration_end_medium", 14, 4, 80);
+  runTest("acceleration_end_medium", 14, 4, 80, 1);
 }
 
 /**
  * @brief Far distance to accelaration end test for perception node from rosbag:
  * Accelaration_Testing_Manual-4.mcap
  */
-TEST_F(PerceptionIntegrationTest, AccelerationFar) { runTest("acceleration_end_far", 14, 4, 30); }
+TEST_F(PerceptionIntegrationTest, AccelerationFar) {
+  runTest("acceleration_end_far", 14, 4, 30, 1);
+}
 
 /**
  * @brief Blind turn test for perception node from rosbag: Closed_Course_Manual-6.mcap
  */
-TEST_F(PerceptionIntegrationTest, EnterHairpin) { runTest("enter_hairpin", 10, 0, 80); }
+TEST_F(PerceptionIntegrationTest, EnterHairpin) { runTest("enter_hairpin", 10, 0, 80, 4); }
 
 /**
  * @brief Turn test for perception node from rosbag: Hard_Course-DV-5.mcap
  */
-TEST_F(PerceptionIntegrationTest, TurnStart) { runTest("turn_start", 13, 0, 80); }
+TEST_F(PerceptionIntegrationTest, TurnStart) { runTest("turn_start", 13, 0, 80, 4); }
 
 /**
  * @brief Odd situation test for perception node from rosbag: Hard_Course-DV-5.mcap
  */
-TEST_F(PerceptionIntegrationTest, OddStituation) { runTest("odd_situation", 14, 4, 70); }
+TEST_F(PerceptionIntegrationTest, OddStituation) { runTest("odd_situation", 14, 4, 70, 4); }
 
 /**
  * @brief A fully diagonal path test for perception node from rosbag: Autocross_DV-1.mcap
  */
-TEST_F(PerceptionIntegrationTest, DiagonalPath) { runTest("diagonal_path", 12, 0, 80); }
+TEST_F(PerceptionIntegrationTest, DiagonalPath) { runTest("diagonal_path", 12, 0, 80, 4); }

@@ -39,6 +39,7 @@ set(IMPLEMENTATION_FILES
   src/communication/marker.cpp
   src/communication/interfaces.cpp
   src/config_load/config_load.cpp
+  src/conversions/cones.cpp
 )
 
 add_library(${PROJECT_NAME} SHARED ${IMPLEMENTATION_FILES})
@@ -71,6 +72,7 @@ if(BUILD_TESTING)
 
   set(TESTFILES
     test/main.cpp
+    test/maths/transformations_test.cpp
   )
 
   include_directories(test)  # Include the 'test' directory for your test targets
