@@ -32,7 +32,7 @@ class VehicleAdapter(Adapter):
 
         self.node.g_truth_subscription_ = self.node.create_subscription(
             MarkerArray,
-            "/perception/visualization/ground_truth/cones",
+            "/ground_truth_data",
             self.g_truth_callback,
             10,
         )
