@@ -114,7 +114,8 @@ void VehicleModelBicycle::AerodynamicsModel::calculateForces(double velocityX, d
                                                              double& drag) const {
   double velocitySquared = velocityX * velocityX;
   downforce = 0.5 * AIR_DENSITY * aeroArea * cla * velocitySquared;
-  drag = 0.5 * AIR_DENSITY * aeroArea * cda * velocitySquared;
+  double dragMagnitude = 0.5 * AIR_DENSITY * aeroArea * cda * velocitySquared;
+  drag = (velocityX > 0) ? -dragMagnitude : dragMagnitude;
 }
 
 int VehicleModelBicycle::TireModel::sign(double value) const {
@@ -239,8 +240,14 @@ void VehicleModelBicycle::calculateNormalForces(double& Fz_Front, double& Fz_Rea
 
 void VehicleModelBicycle::calculateSlipAngles(double& kappaFront, double& kappaRear) const {
   constexpr double eps = 0.00001;  // Prevent division by zero
-  bool stillstand = (velocity.norm() < VELOCITY_THRESHOLD) &&
-                    (std::abs(angularVelocity.z()) < ANGULAR_VELOCITY_THRESHOLD);
+
+  /**
+   * It seems like this isn't needed anymore with the approach of applying friction to
+   * the opposite of the velocity vector instead of Vx only. Drag also applied opposite of Vx
+   * instead of simply adding the negative value.
+   */
+  // bool stillstand = (velocity.norm() < VELOCITY_THRESHOLD) &&
+  //                   (std::abs(angularVelocity.z()) < ANGULAR_VELOCITY_THRESHOLD);
 
   // Calculate wheel positions relative to CoG
   Eigen::Vector3d rFront(lf, 0.0, 0.0);
@@ -254,10 +261,13 @@ void VehicleModelBicycle::calculateSlipAngles(double& kappaFront, double& kappaR
   double steeringFront = 0.5 * (steeringAngles.FL + steeringAngles.FR);
 
   // Calculate slip angles for front and rear
-  kappaFront = stillstand
-                   ? 0.0
-                   : std::atan2(vFront.y(), std::max(std::abs(vFront.x()), eps)) - steeringFront;
-  kappaRear = stillstand ? 0.0 : std::atan2(vRear.y(), std::max(std::abs(vRear.x()), eps));
+  kappaFront = std::atan2(vFront.y(), std::max(std::abs(vFront.x()), eps)) - steeringFront;
+  kappaRear = std::atan2(vRear.y(), std::max(std::abs(vRear.x()), eps));
+
+  // if (stillstand) {
+  //   kappaFront = 0.0;
+  //   kappaRear = 0.0;
+  // }
 }
 
 // New helper function to calculate wheel positions and velocities
@@ -318,13 +328,13 @@ Eigen::Vector3d VehicleModelBicycle::calculateAccelerations(double steeringFront
                    m;
 
   // Apply aerodynamic drag and friction to get total acceleration
-  double axModel = axTires - drag / m - friction.x() / m;
+  double axModel = axTires + drag / m + friction.x() / m;
 
   // Calculate lateral acceleration from tire forces
   double ayTires = (std::sin(steeringAngles.FL) * Fx_FL + std::sin(steeringAngles.FR) * Fx_FR +
                     std::cos(steeringFront) * Fy_Front + Fy_Rear) /
                    m;
-  double ayModel = ayTires;
+  double ayModel = ayTires + friction.y() / m;
 
   // Calculate yaw moment contributions
   double rdotFx =
@@ -372,8 +382,14 @@ Eigen::Vector3d VehicleModelBicycle::getDynamicStates(double dt) {
 
   // Calculate rolling resistance (applied opposite to velocity direction)
   double frict = (Fz_Front + Fz_Rear) * ROLLING_RESISTANCE_COEFF;
-  Eigen::Vector3d friction =
-      (velocity.norm() < 0.01) ? Eigen::Vector3d::Zero() : Eigen::Vector3d(frict, 0.0, 0.0);
+  Eigen::Vector3d friction;
+
+  if (velocity.norm() < 0.01) {
+      friction = Eigen::Vector3d::Zero();
+  } else {
+      Eigen::Vector3d velDir = -velocity.normalized();
+      friction = frict * velDir;
+  }
 
   // Calculate longitudinal forces
   double Fx_FL, Fx_FR, Fx_RL, Fx_RR;
@@ -389,6 +405,10 @@ Eigen::Vector3d VehicleModelBicycle::getDynamicStates(double dt) {
 
   // Update wheel speeds
   updateWheelSpeeds(vFL, vFR, vRL, vRR);
+
+  RCLCPP_DEBUG(rclcpp::get_logger("a"),
+      "Vx: %f, Vy: %f, W: %f, KappaF: %f, KappaR: %f, Fy_Front: %f, Fy_Rear: %f, drag: %f, friction: %f", velocity.x(),
+      velocity.y(), angularVelocity.z(), kappaFront, kappaRear, Fy_Front, Fy_Rear, drag, friction.x());
 
   // Calculate accelerations
   return calculateAccelerations(steeringFront, Fx_FL, Fx_FR, Fx_RL, Fx_RR, Fy_Front, Fy_Rear, drag,
