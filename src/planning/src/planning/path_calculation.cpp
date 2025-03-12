@@ -17,13 +17,7 @@ std::pair<double, PathCalculation::MidPoint*> PathCalculation::dfs_cost(int dept
     return {0, current};  // Return current point if depth is 0
   }
 
-  // Parameters remain the same as in the original implementation
-  double angle_weight = 20.0;
-  double distance_weight = 5.0;
-  double angle_exponent = 3.0;
-  double distance_exponent = 0.998;
-
-  double min_cost = maxcost * depth;
+  double min_cost = this->config_.max_cost_ * this->config_.search_depth_;
   MidPoint* min_point = current;  // Default to current point
 
   for (MidPoint* next : current->close_points) {
@@ -47,8 +41,8 @@ std::pair<double, PathCalculation::MidPoint*> PathCalculation::dfs_cost(int dept
     if (angle > M_PI) angle = 2 * M_PI - angle;
 
     // Local cost calculation
-    double local_cost = pow(angle, angle_exponent) * angle_weight +
-                        pow(distance, distance_exponent) * distance_weight;
+    double local_cost = pow(angle, this->config_.angle_exponent_) * this->config_.angle_gain_+
+                        pow(distance, this->config_.distance_exponent_) * this->config_.distance_gain_;
 
     // Skip if local cost exceeds maximum allowed cost
     if (local_cost > maxcost) {
@@ -164,14 +158,12 @@ std::pair<double, PathCalculation::MidPoint*> PathCalculation::dfs_cost(int dept
 
 
     bool planning = true;
-    double max_cost = 30;
-    int depth = 2;
     int n_points = 0;
     while (planning) {
-      double worst_cost = max_cost * depth;
+      double worst_cost = this->config_.max_cost_ * this->config_.search_depth_;
 
       std::pair<double, MidPoint*> best_result =
-          dfs_cost(depth, path[path.size() - 2], path.back(), max_cost);
+          dfs_cost(this->config_.search_depth_, path[path.size() - 2], path.back(), this->config_.max_cost_);
 
       if (best_result.first > worst_cost) {
         planning = false;

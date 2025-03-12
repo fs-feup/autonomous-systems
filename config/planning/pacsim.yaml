@@ -1,19 +1,26 @@
 planning:
-  angle_gain: 10.246
+  angle_gain: 5.246
   distance_gain: 6.657
-  ncones_gain: 20.7
+  ncones_gain: 10.7
   angle_exponent: 2.0
   distance_exponent: 0.998
-  cost_max: 35.0
+  cost_max: 40.0
   same_cone_distance_threshold: 0.6
   use_memory_cone_coloring: true
+  nc_angle_gain: 20.0  # Parameters for path planning with no coloring (nc)
+  nc_distance_gain: 5.0
+  nc_angle_exponent: 3.0
+  nc_distance_exponent: 1.0
+  nc_max_cost: 30.0
+  nc_search_depth: 6
+  nc_max_points: 100 # --------------------------
   outliers_spline_order: 3
   outliers_spline_coeffs_ratio: 3.0
   outliers_spline_precision: 1
   path_calculation_dist_threshold: 7.0
   smoothing_spline_order: 3
   smoothing_spline_coeffs_ratio: 3.0
-  smoothing_spline_precision: 10
+  smoothing_spline_precision: 10 
   publishing_visualization_msg: true
   pre_defined_velocity_planning: 4.0
   use_outlier_removal: false

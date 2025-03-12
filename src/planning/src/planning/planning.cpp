@@ -36,6 +36,15 @@ PlanningParameters Planning::load_config(std::string &adapter) {
       planning_config["same_cone_distance_threshold"].as<double>();
   params.cost_max_ = planning_config["cost_max"].as<double>();
   params.use_memory_cone_coloring_ = planning_config["use_memory_cone_coloring"].as<bool>();
+
+  params.nc_angle_gain_ = planning_config["nc_angle_gain"].as<double>();
+  params.nc_distance_gain_ = planning_config["nc_distance_gain"].as<double>();
+  params.nc_angle_exponent_ = planning_config["nc_angle_exponent"].as<double>();
+  params.nc_distance_exponent_ = planning_config["nc_distance_exponent"].as<double>();
+  params.nc_max_cost_ = planning_config["nc_max_cost"].as<double>();
+  params.nc_search_depth_ = planning_config["nc_search_depth"].as<int>();
+  params.nc_max_points_ = planning_config["nc_max_points"].as<int>();
+
   params.outliers_spline_order_ = planning_config["outliers_spline_order"].as<int>();
   params.outliers_spline_coeffs_ratio_ =
       planning_config["outliers_spline_coeffs_ratio"].as<float>();
