@@ -179,8 +179,9 @@ protected:
     }
 
     if (large_count != large_cone_gt)
-      RCLCPP_INFO(test_node_->get_logger(), "Wrong number of cones: detected->%d expected->%d",
-                  large_count, large_cone_gt);
+      RCLCPP_INFO(test_node_->get_logger(),
+                  "Wrong number of large cones: detected->%d expected->%d", large_count,
+                  large_cone_gt);
     // Number of points in the PCD should be height*width
     result_cloud_->width = result_cloud_->points.size();
     result_cloud_->height = 1;
@@ -246,7 +247,7 @@ protected:
 /**
  * @brief Straight line test for perception node from rosbag: Accelaration_Testing_DV_1B.mcap
  */
-TEST_F(PerceptionIntegrationTest, StraightLine) { runTest("straight_line", 6, 0, 80, 1); }
+TEST_F(PerceptionIntegrationTest, StraightLine) { runTest("straight_line", 20, 4, 80, 1); }
 
 /**
  * @brief Close to accelaration end test for perception node from rosbag:
@@ -269,25 +270,25 @@ TEST_F(PerceptionIntegrationTest, AccelerationEndMedium) {
  * Accelaration_Testing_Manual-4.mcap
  */
 TEST_F(PerceptionIntegrationTest, AccelerationFar) {
-  runTest("acceleration_end_far", 14, 4, 30, 1);
+  runTest("acceleration_end_far", 16, 4, 80, 1);
 }
 
 /**
  * @brief Blind turn test for perception node from rosbag: Closed_Course_Manual-6.mcap
  */
-TEST_F(PerceptionIntegrationTest, EnterHairpin) { runTest("enter_hairpin", 10, 0, 80, 4); }
+TEST_F(PerceptionIntegrationTest, EnterHairpin) { runTest("enter_hairpin", 16, 0, 80, 4); }
 
 /**
  * @brief Turn test for perception node from rosbag: Hard_Course-DV-5.mcap
  */
-TEST_F(PerceptionIntegrationTest, TurnStart) { runTest("turn_start", 13, 0, 80, 4); }
+TEST_F(PerceptionIntegrationTest, TurnStart) { runTest("turn_start", 33, 4, 80, 4); }
 
 /**
  * @brief Odd situation test for perception node from rosbag: Hard_Course-DV-5.mcap
  */
-TEST_F(PerceptionIntegrationTest, OddStituation) { runTest("odd_situation", 14, 4, 70, 4); }
+TEST_F(PerceptionIntegrationTest, OddStituation) { runTest("odd_situation", 33, 4, 80, 4); }
 
 /**
  * @brief A fully diagonal path test for perception node from rosbag: Autocross_DV-1.mcap
  */
-TEST_F(PerceptionIntegrationTest, DiagonalPath) { runTest("diagonal_path", 12, 0, 80, 4); }
+TEST_F(PerceptionIntegrationTest, DiagonalPath) { runTest("diagonal_path", 26, 0, 80, 4); }
