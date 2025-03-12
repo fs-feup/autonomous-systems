@@ -17,16 +17,14 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam") {
   // Initialize the models
   std::shared_ptr<V2PMotionModel> motion_model = v2p_models_map.at(params.motion_model_name_)();
   std::shared_ptr<DataAssociationModel> data_association =
-      data_association_models_map.at(params.data_association_model_name_)();
+      data_association_models_map.at(params.data_association_model_name_)(DataAssociationParameters(
+          params.data_association_limit_distance_, params.data_association_gate_,
+          params.new_landmark_confidence_gate_, params.observation_x_noise_,
+          params.observation_y_noise_));
 
   // Initialize SLAM solver object
-  SLAMSolverParameters slam_solver_params;
-  // TODO(marhcouto): create slam solver parameters
   this->_slam_solver_ = slam_solver_constructors_map.at(params.slam_solver_name_)(
-      slam_solver_params, data_association, motion_model);
-
-  // Parameters initialization
-  std::string motion_model_name = params.motion_model_name_;
+      params, data_association, motion_model);
 
   _perception_map_ = std::vector<common_lib::structures::Cone>();
   _vehicle_state_velocities_ = common_lib::structures::Velocities();
@@ -39,9 +37,9 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam") {
         "/perception/cones", 1,
         std::bind(&SLAMNode::_perception_subscription_callback, this, std::placeholders::_1));
   }
-  if (!_use_simulated_velocities_) {
+  if (!params.use_simulated_velocities_) {
     this->_velocities_subscription_ = this->create_subscription<custom_interfaces::msg::Velocities>(
-        "/vehicle/velocities", 1,
+        "/state_estimation/velocities", 1,
         std::bind(&SLAMNode::_velocities_subscription_callback, this, std::placeholders::_1));
   }
 
@@ -65,6 +63,8 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam") {
 
 void SLAMNode::_perception_subscription_callback(const custom_interfaces::msg::ConeArray &msg) {
   auto const &cone_array = msg.cone_array;
+
+  RCLCPP_DEBUG(this->get_logger(), "SUB - Perception: %ld cones", cone_array.size());
 
   if (!this->_go_) {
     return;
@@ -95,12 +95,15 @@ void SLAMNode::_perception_subscription_callback(const custom_interfaces::msg::C
   this->_correction_execution_time_publisher_->publish(correction_execution_time);
   this->_publish_vehicle_pose();
   this->_publish_map();
+  RCLCPP_DEBUG(this->get_logger(), "Execution time: %f ms", correction_execution_time.data);
 }
 
 void SLAMNode::_velocities_subscription_callback(const custom_interfaces::msg::Velocities &msg) {
   this->_vehicle_state_velocities_ = common_lib::structures::Velocities(
       msg.velocity_x, msg.velocity_y, msg.angular_velocity, msg.covariance[0], msg.covariance[4],
       msg.covariance[8], msg.header.stamp);
+  RCLCPP_DEBUG(this->get_logger(), "SUB - Velocities: (%f, %f, %f)", msg.velocity_x, msg.velocity_y,
+               msg.angular_velocity);
   this->_slam_solver_->add_motion_prior(this->_vehicle_state_velocities_);
   this->_vehicle_pose_ = this->_slam_solver_->get_pose_estimate();
   this->_publish_vehicle_pose();
@@ -137,8 +140,8 @@ void SLAMNode::_publish_map() {
   }
   RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
   cone_array_msg.header.stamp = this->get_clock()->now();
+  this->_map_publisher_->publish(cone_array_msg);
   marker_array_msg = common_lib::communication::marker_array_from_structure_array(
       this->_track_map_, "map_cones", _adapter_name_ == "eufs" ? "base_footprint" : "map");
-  this->_map_publisher_->publish(cone_array_msg);
   this->_visualization_map_publisher_->publish(marker_array_msg);
 }

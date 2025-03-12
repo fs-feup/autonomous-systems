@@ -13,6 +13,7 @@ protected:
   DataAssociationParameters _params_;
 
 public:
+  DataAssociationModel() = default;
   DataAssociationModel(DataAssociationParameters params) : _params_(params) {}
   virtual ~DataAssociationModel() = default;
   /**

@@ -26,6 +26,15 @@ double get_wheel_velocity_from_rpm(const double rpm, const double wheel_diameter
 Eigen::Matrix2d get_rotation_matrix(const double angle);
 
 /**
+ * @brief Function to convert cartesian coordinates
+ * to cylindrical coordinates
+ *
+ * @param cartesian Coordinates in cartesian
+ * @return Eigen::Vector2d Coordinates in cylindrical [range, angle]
+ */
+Eigen::Vector2d cartesian_to_cylindrical(const Eigen::Vector2d& cartesian);
+
+/**
  * @brief Transform points from a global reference frame to a local reference frame
  *
  * @param local_reference_frame coordinates of the local reference frame in the global reference

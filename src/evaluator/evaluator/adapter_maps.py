@@ -11,7 +11,7 @@ ADAPTER_POINT_CLOUD_TOPIC_DICTIONARY: dict[str, str] = {
     "fsds": "/lidar/Lidar1",
     "pacsim": "/no/topic",
     "eufs": "/velodyne_points",
-    "vehicle_preprocessed": "/rslidar_points/pre_processed",
+    "vehicle": "/rslidar_points",
     "onground": "/rslidar_points",
 }
 ADAPTER_POINT_CLOUD_TOPIC_QOS_DICTIONARY: dict[str, rclpy.qos.QoSProfile] = {
@@ -26,6 +26,6 @@ ADAPTER_CONSTRUCTOR_DICTINARY: dict[str, Adapter] = {
     "fsds": FSDSAdapter,
     "pacsim": PacsimAdapter,
     "eufs": EufsAdapter,
-    "vehicle_preprocessed": VehicleAdapter,
+    "vehicle": VehicleAdapter,
     "onground": OnGroundAdapter,
 }
