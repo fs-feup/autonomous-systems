@@ -46,6 +46,9 @@
 #include "track/trackLoader.hpp"
 #include "types.hpp"
 #include "visualization_msgs/msg/marker_array.hpp"
+#include "VehicleModel/deadTime.hpp"
+#include "VehicleModel/vehicleModelInterface.hpp"
+#include "competitionLogic.hpp"
 
 // Constants
 constexpr double DEFAULT_TIMESTEP = 1.0 / 1000.0;
