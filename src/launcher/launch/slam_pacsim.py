@@ -29,6 +29,6 @@ def generate_launch_description():
         [
             slam_launch_description,
             pacsim_launch_description,
-            # evaluator_launch_description
+            evaluator_launch_description,
         ],
     )

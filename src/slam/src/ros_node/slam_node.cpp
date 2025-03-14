@@ -51,12 +51,17 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam") {
   this->_visualization_map_publisher_ =
       this->create_publisher<visualization_msgs::msg::MarkerArray>(
           "/state_estimation/visualization_map", 10);
+  this->_visualization_perception_map_publisher_ =
+      this->create_publisher<visualization_msgs::msg::MarkerArray>(
+          "/state_estimation/visualization_map_perception", 10);
   this->_position_publisher_ = this->create_publisher<visualization_msgs::msg::Marker>(
       "/state_estimation/visualization/position", 10);
   this->_correction_execution_time_publisher_ = this->create_publisher<std_msgs::msg::Float64>(
       "/state_estimation/execution_time/correction_step", 10);
   this->_prediction_execution_time_publisher_ = this->create_publisher<std_msgs::msg::Float64>(
       "/state_estimation/execution_time/prediction_step", 10);
+
+  RCLCPP_INFO(this->get_logger(), "SLAM Node has been initialized");
 }
 
 /*---------------------- Subscriptions --------------------*/
@@ -99,13 +104,23 @@ void SLAMNode::_perception_subscription_callback(const custom_interfaces::msg::C
 }
 
 void SLAMNode::_velocities_subscription_callback(const custom_interfaces::msg::Velocities &msg) {
+  rclcpp::Time start_time = this->get_clock()->now();
+
   this->_vehicle_state_velocities_ = common_lib::structures::Velocities(
       msg.velocity_x, msg.velocity_y, msg.angular_velocity, msg.covariance[0], msg.covariance[4],
       msg.covariance[8], msg.header.stamp);
   RCLCPP_DEBUG(this->get_logger(), "SUB - Velocities: (%f, %f, %f)", msg.velocity_x, msg.velocity_y,
                msg.angular_velocity);
+
   this->_slam_solver_->add_motion_prior(this->_vehicle_state_velocities_);
   this->_vehicle_pose_ = this->_slam_solver_->get_pose_estimate();
+
+  rclcpp::Time end_time = this->get_clock()->now();
+
+  // Execution Time calculation
+  std_msgs::msg::Float64 prediction_execution_time;
+  prediction_execution_time.data = (end_time - start_time).seconds() * 1000.0;
+  this->_prediction_execution_time_publisher_->publish(prediction_execution_time);
   this->_publish_vehicle_pose();
 }
 
@@ -126,6 +141,7 @@ void SLAMNode::_publish_vehicle_pose() {
 void SLAMNode::_publish_map() {
   auto cone_array_msg = custom_interfaces::msg::ConeArray();
   auto marker_array_msg = visualization_msgs::msg::MarkerArray();
+  auto marker_array_msg_perception = visualization_msgs::msg::MarkerArray();
   RCLCPP_DEBUG(this->get_logger(), "PUB - cone map:");
   RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
   for (common_lib::structures::Cone const &cone : this->_track_map_) {
@@ -143,5 +159,7 @@ void SLAMNode::_publish_map() {
   this->_map_publisher_->publish(cone_array_msg);
   marker_array_msg = common_lib::communication::marker_array_from_structure_array(
       this->_track_map_, "map_cones", _adapter_name_ == "eufs" ? "base_footprint" : "map");
+  marker_array_msg_perception = common_lib::communication::marker_array_from_structure_array(
+      this->_perception_map_, "perception_cones", "lidar");
   this->_visualization_map_publisher_->publish(marker_array_msg);
 }

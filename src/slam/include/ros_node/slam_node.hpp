@@ -33,6 +33,8 @@ protected:
   rclcpp::Publisher<custom_interfaces::msg::Pose>::SharedPtr _vehicle_pose_publisher_;
   rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr _map_publisher_;
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr _visualization_map_publisher_;
+  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr
+      _visualization_perception_map_publisher_;
   rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr _position_publisher_;
   rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr _correction_execution_time_publisher_;
   rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr _prediction_execution_time_publisher_;
