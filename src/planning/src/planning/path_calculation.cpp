@@ -171,7 +171,7 @@ std::pair<double, PathCalculation::MidPoint*> PathCalculation::dfs_cost(int dept
       }
 
       n_points++;
-      if ((n_points > 60) || (best_result.second == path.back())) {
+      if ((n_points >this->config_.max_points_) || (best_result.second == path.back())) {
         planning = false;
       } else {
         path.push_back(best_result.second);

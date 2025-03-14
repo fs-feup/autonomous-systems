@@ -10,9 +10,9 @@ planning:
   nc_angle_gain: 20.0  # Parameters for path planning with no coloring (nc)
   nc_distance_gain: 5.0
   nc_angle_exponent: 3.0
-  nc_distance_exponent: 1.0
+  nc_distance_exponent: 2.0
   nc_max_cost: 30.0
-  nc_search_depth: 6
+  nc_search_depth: 2
   nc_max_points: 100 # --------------------------
   outliers_spline_order: 3
   outliers_spline_coeffs_ratio: 3.0
