@@ -79,7 +79,7 @@ PerceptionParameters Perception::load_config() {
   trim_params.acc_split_params.fov_angle = 2 * trim_params.acc_fov_trim_angle;
 
   trim_params.skid_max_range = perception_config["skid_max_range"].as<double>();
-  double min_distance_to_cone = perception_config["skid_min_distance_to_cone"].as<double>();
+  const double min_distance_to_cone = perception_config["skid_min_distance_to_cone"].as<double>();
   trim_params.skid_fov_trim_angle =
       90 - std::acos(1.5 / std::max(min_distance_to_cone, 1.5)) * 180 / M_PI;
   trim_params.skid_split_params.n_angular_grids =
@@ -239,7 +239,7 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   pcl::fromROSMsg(*msg, *pcl_cloud);
 
   // Pass-trough Filter (trim Pcl)
-  SplitParameters split_params = _fov_trim_map_->at(_mission_type_)->fov_trimming(pcl_cloud);
+  const SplitParameters split_params = _fov_trim_map_->at(_mission_type_)->fov_trimming(pcl_cloud);
 
   // Ground Removal
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);

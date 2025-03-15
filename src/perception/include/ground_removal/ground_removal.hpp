@@ -27,6 +27,6 @@ public:
    * @param[out] ret The resulting point cloud after ground removal.
    */
   virtual void ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
-                              pcl::PointCloud<pcl::PointXYZI>::Ptr ret, Plane& plane,
+                              const pcl::PointCloud<pcl::PointXYZI>::Ptr ret, Plane& plane,
                               const SplitParameters split_params) const = 0;
 };

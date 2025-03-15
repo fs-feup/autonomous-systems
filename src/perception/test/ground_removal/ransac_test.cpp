@@ -180,7 +180,6 @@ TEST_F(RANSACTest, TestCommonScenario3Points) {
   const pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud_ptr(
       &ground_removed_cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
   ground_removal.ground_removal(cloud3_ptr, ground_removed_cloud_ptr, plane, split_params);
-  ;
 
   ASSERT_EQ(ground_removed_cloud_ptr->points.size(), 0);
 }
@@ -199,7 +198,6 @@ TEST_F(RANSACTest, Test3PointsThresholdZero) {
   const pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud_ptr(
       &ground_removed_cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
   ground_removal.ground_removal(cloud3_ptr, ground_removed_cloud_ptr, plane, split_params);
-  ;
 
   ASSERT_EQ(ground_removed_cloud_ptr->points.size(), 3);
 }
