@@ -239,7 +239,7 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   pcl::fromROSMsg(*msg, *pcl_cloud);
 
   // Pass-trough Filter (trim Pcl)
-  PclSplitParameters split_params = _fov_trim_map_->at(_mission_type_)->fov_trimming(pcl_cloud);
+  SplitParameters split_params = _fov_trim_map_->at(_mission_type_)->fov_trimming(pcl_cloud);
 
   // Ground Removal
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);

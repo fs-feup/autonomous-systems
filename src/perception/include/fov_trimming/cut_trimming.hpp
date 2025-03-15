@@ -32,6 +32,6 @@ public:
    * @param[out] ret The resulting point cloud after trimming and the corresponding split parameters
    * for GridRANSAC.
    */
-  PclSplitParameters fov_trimming(
+  SplitParameters fov_trimming(
       const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud) const override;
 };

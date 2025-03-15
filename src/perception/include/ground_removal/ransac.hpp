@@ -3,8 +3,8 @@
 #include <pcl/sample_consensus/ransac.h>
 
 #include <string>
-#include <utils/pcl_split_parameters.hpp>
 #include <utils/plane.hpp>
+#include <utils/split_parameters.hpp>
 
 #include "ground_removal/ground_removal.hpp"
 
@@ -42,7 +42,7 @@ public:
    */
   void ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
                       pcl::PointCloud<pcl::PointXYZI>::Ptr ret, Plane& plane,
-                      [[maybe_unused]] const PclSplitParameters split_params) const override;
+                      [[maybe_unused]] const SplitParameters split_params) const override;
 
 private:
   double epsilon;  ///< Epsilon threshold for ground removal.

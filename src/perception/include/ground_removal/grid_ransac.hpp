@@ -1,8 +1,8 @@
 #include <pcl/sample_consensus/ransac.h>
 
 #include <string>
-#include <utils/pcl_split_parameters.hpp>
 #include <utils/plane.hpp>
+#include <utils/split_parameters.hpp>
 
 #include "ground_removal/ground_removal.hpp"
 #include "ground_removal/ransac.hpp"
@@ -40,7 +40,7 @@ public:
    */
   void ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
                       pcl::PointCloud<pcl::PointXYZI>::Ptr ret, Plane& plane,
-                      const PclSplitParameters split_params) const override;
+                      const SplitParameters split_params) const override;
 
   /**
    * @brief Get the furthest point from the input point cloud.
@@ -62,7 +62,7 @@ public:
    */
   void split_point_cloud(const pcl::PointCloud<pcl::PointXYZI>::Ptr& cloud,
                          std::vector<std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr>>& grids,
-                         const PclSplitParameters split_params) const;
+                         const SplitParameters split_params) const;
 
 private:
   RANSAC _ransac_;  ///< RANSAC object for ground plane fitting.

@@ -41,7 +41,7 @@ protected:
   pcl::PointCloud<pcl::PointXYZI> ground_removed_cloud;
   pcl::PointCloud<pcl::PointXYZI> empty_cloud;
   pcl::PointCloud<pcl::PointXYZI> cloud_3_points;
-  PclSplitParameters split_params;
+  SplitParameters split_params;
 };
 
 /**

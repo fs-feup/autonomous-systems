@@ -156,7 +156,7 @@ TEST_F(PerceptionPerformanceTest, TestPerformance) {
         new pcl::PointCloud<pcl::PointXYZI>);
 
     Plane plane;
-    PclSplitParameters split_params;
+    SplitParameters split_params;
 
     ground_removal->ground_removal(pcl_cloud, ground_removed_cloud, plane, split_params);
 

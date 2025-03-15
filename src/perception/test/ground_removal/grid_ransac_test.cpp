@@ -79,7 +79,7 @@ public:
   pcl::PointCloud<pcl::PointXYZI> two_radius;
   pcl::PointCloud<pcl::PointXYZI> ground_removed_cloud;
 
-  PclSplitParameters split_params;
+  SplitParameters split_params;
 };
 
 //

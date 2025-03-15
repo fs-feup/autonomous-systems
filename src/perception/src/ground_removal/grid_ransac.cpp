@@ -32,7 +32,7 @@ double GridRANSAC::get_furthest_point(const pcl::PointCloud<pcl::PointXYZI>::Ptr
 void GridRANSAC::split_point_cloud(
     const pcl::PointCloud<pcl::PointXYZI>::Ptr& cloud,
     std::vector<std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr>>& grids,
-    const PclSplitParameters split_params) const {
+    const SplitParameters split_params) const {
   grids.clear();
 
   double max_distance = get_furthest_point(cloud);
@@ -68,7 +68,7 @@ void GridRANSAC::split_point_cloud(
 
 void GridRANSAC::ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
                                 pcl::PointCloud<pcl::PointXYZI>::Ptr ret, Plane& plane,
-                                const PclSplitParameters split_params) const {
+                                const SplitParameters split_params) const {
   ret->clear();
   plane = Plane(0, 0, 0, 0);
 

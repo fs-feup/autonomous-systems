@@ -6,7 +6,7 @@
 
 SkidpadTrimming::SkidpadTrimming(const TrimmingParameters params) { params_ = params; }
 
-PclSplitParameters SkidpadTrimming::fov_trimming(
+SplitParameters SkidpadTrimming::fov_trimming(
     const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud) const {
   const std::unique_ptr<pcl::PointCloud<pcl::PointXYZI>> trimmed_cloud =
       std::make_unique<pcl::PointCloud<pcl::PointXYZI>>();

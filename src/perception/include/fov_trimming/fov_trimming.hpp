@@ -4,7 +4,7 @@
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 
-#include <utils/pcl_split_parameters.hpp>
+#include <utils/split_parameters.hpp>
 #include <utils/trimming_parameters.hpp>
 
 class FovTrimming {
@@ -18,7 +18,7 @@ public:
    * @param[out] ret The resulting point cloud after trimming and the corresponding split parameters
    * for GridRANSAC.
    */
-  virtual PclSplitParameters fov_trimming(
+  virtual SplitParameters fov_trimming(
       const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud) const = 0;
 
   void process_point(pcl::PointXYZI& point, const double rotation, const double pitch,

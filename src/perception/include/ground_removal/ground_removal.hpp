@@ -4,8 +4,8 @@
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 
-#include <utils/pcl_split_parameters.hpp>
 #include <utils/plane.hpp>
+#include <utils/split_parameters.hpp>
 
 #include "sensor_msgs/msg/point_cloud2.hpp"
 
@@ -28,5 +28,5 @@ public:
    */
   virtual void ground_removal(const pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud,
                               pcl::PointCloud<pcl::PointXYZI>::Ptr ret, Plane& plane,
-                              const PclSplitParameters split_params) const = 0;
+                              const SplitParameters split_params) const = 0;
 };
