@@ -46,7 +46,7 @@ std::string SLAMParameters::load_config() {
   this->velocity_x_noise_ = slam_config["slam"]["velocity_x_noise"].as<float>();
   this->velocity_y_noise_ = slam_config["slam"]["velocity_y_noise"].as<float>();
   this->angular_velocity_noise_ = slam_config["slam"]["angular_velocity_noise"].as<float>();
-  this->slam_solver_name_ = slam_config["slam"]["slam_solver"].as<std::string>();
+  this->slam_solver_name_ = slam_config["slam"]["slam_solver_name"].as<std::string>();
 
   return adapter;
 }

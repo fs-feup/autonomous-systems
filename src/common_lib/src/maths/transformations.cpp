@@ -24,6 +24,12 @@ Eigen::Matrix2d get_rotation_matrix(const double angle) {
   return rotation_matrix;
 }
 
+Eigen::Vector2d cartesian_to_cylindrical(const Eigen::Vector2d& cartesian) {
+  Eigen::Vector2d cylindrical;
+  cylindrical << cartesian.norm(), std::atan2(cartesian.y(), cartesian.x());
+  return cylindrical;
+}
+
 Eigen::VectorXd global_to_local_coordinates(const Eigen::Vector3d& local_reference_frame,
                                             const Eigen::VectorXd& global_points) {
   const double x = local_reference_frame(0);
