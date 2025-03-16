@@ -4,5 +4,5 @@ velocity_estimation:
   ekf_measurement_noise: 0.7
   wheel_base: 1.6
   weight_distribution_front: 0.5
-  gear_ratio: 0.4
+  gear_ratio: 4
   wheel_radius: 0.258
