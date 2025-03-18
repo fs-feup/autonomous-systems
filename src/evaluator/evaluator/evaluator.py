@@ -601,7 +601,7 @@ class Evaluator(Node):
             {"timestamp": datetime.datetime.now(), "execution_time": msg.data}
         )
 
-    def compute_and_publish_slam(
+    def compute_and_publish_slam(  # TODO: separate map and pose metrics
         self,
         pose: np.ndarray,
         groundtruth_pose: np.ndarray,

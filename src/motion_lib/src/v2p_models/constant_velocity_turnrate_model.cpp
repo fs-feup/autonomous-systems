@@ -12,9 +12,7 @@ Eigen::Vector3d ConstantVelocityTurnrateModel::get_next_pose(const Eigen::Vector
                                                              const Eigen::Vector3d &velocities,
                                                              const double delta_t) {
   Eigen::Vector3d next_pose;
-  const double velocity_modulus =
-      ::sqrt(velocities(0) * velocities(0) + velocities(1) * velocities(1));
-  if (::abs(velocities(2)) < 0.001) {
+  if (::abs(velocities(2)) < 0.0001) {
     next_pose(0) = previous_pose(0) + (velocities(0) * ::cos(previous_pose(2)) -
                                        velocities(1) * ::sin(previous_pose(2))) *
                                           delta_t;
@@ -22,10 +20,10 @@ Eigen::Vector3d ConstantVelocityTurnrateModel::get_next_pose(const Eigen::Vector
                                        velocities(1) * ::cos(previous_pose(2))) *
                                           delta_t;
   } else {
-    next_pose(0) = previous_pose(0) + velocity_modulus / velocities(2) *
+    next_pose(0) = previous_pose(0) + velocities(0) / velocities(2) *
                                           (::sin(velocities(2) * delta_t + previous_pose(2)) -
                                            ::sin(previous_pose(2)));
-    next_pose(1) = previous_pose(1) + velocity_modulus / velocities(2) *
+    next_pose(1) = previous_pose(1) + velocities(0) / velocities(2) *
                                           (-::cos(velocities(2) * delta_t + previous_pose(2)) +
                                            ::cos(previous_pose(2)));
   }
@@ -37,8 +35,6 @@ Eigen::Matrix3d ConstantVelocityTurnrateModel::get_jacobian(const Eigen::Vector3
                                                             const Eigen::Vector3d &velocities,
                                                             const double delta_t) {
   Eigen::Matrix3d jacobian = Eigen::Matrix3d::Identity();
-  const double velocity_modulus =
-      ::sqrt(velocities(0) * velocities(0) + velocities(1) * velocities(1));
   if (::abs(velocities(2)) < 0.001) {
     jacobian(0, 2) =
         -(velocities(0) * ::sin(previous_pose(2)) + velocities(1) * ::cos(previous_pose(2))) *
@@ -47,9 +43,9 @@ Eigen::Matrix3d ConstantVelocityTurnrateModel::get_jacobian(const Eigen::Vector3
         (velocities(0) * ::cos(previous_pose(2)) - velocities(1) * ::sin(previous_pose(2))) *
         delta_t;
   } else {
-    jacobian(0, 2) = velocity_modulus / velocities(2) *
+    jacobian(0, 2) = velocities(0) / velocities(2) *
                      (::cos(velocities(2) * delta_t + previous_pose(2)) - ::cos(previous_pose(2)));
-    jacobian(1, 2) = velocity_modulus / velocities(2) *
+    jacobian(1, 2) = velocities(0) / velocities(2) *
                      (::sin(velocities(2) * delta_t + previous_pose(2)) - ::sin(previous_pose(2)));
   }
   return jacobian;

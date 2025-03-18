@@ -10,18 +10,19 @@
 struct SLAMParameters {
   bool use_simulated_perception_ = false;
   bool use_simulated_velocities_ = false;
-  std::string motion_model_name_;
-  std::string data_association_model_name_;
-  std::string slam_solver_name_;
-  float data_association_limit_distance_;
+  std::string motion_model_name_ = "constant_velocity";
+  std::string data_association_model_name_ = "nearest_neighbor";
+  std::string slam_solver_name_ = "graph_slam";
+  float data_association_limit_distance_ = 70;
   float observation_x_noise_ = 0.01;
   float observation_y_noise_ = 0.01;
   float velocity_x_noise_ = 0.1;
   float velocity_y_noise_ = 0.1;
   float angular_velocity_noise_ = 0.1;
-  double data_association_gate_;
-  double new_landmark_confidence_gate_;
-  double slam_min_pose_difference_;  //< Minimum pose difference to add a new pose to the graph
+  double data_association_gate_ = 1.23;
+  double new_landmark_confidence_gate_ = 0.6;
+  double slam_min_pose_difference_ =
+      0.3;  //< Minimum pose difference to add a new pose to the graph
   double slam_optimization_period_ = 0.0;  //< Period for running optimization of the graph (s),
                                            //  0.0 means optimization on observations receival
 

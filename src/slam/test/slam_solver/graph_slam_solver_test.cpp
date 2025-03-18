@@ -4,6 +4,8 @@
 #include <gtest/gtest.h>
 #include <yaml-cpp/yaml.h>
 
+#include <iostream>
+
 class MockDataAssociationModel : public DataAssociationModel {
 public:
   MOCK_METHOD(Eigen::VectorXi, associate,
@@ -44,7 +46,10 @@ public:
   std::shared_ptr<GraphSLAMSolver> solver;
 };
 
-TEST_F(GraphSlamSolverTest, Prediction_1) {
+/**
+ * @brief Test the GraphSLAMSolver add_motion_prior method
+ */
+TEST_F(GraphSlamSolverTest, Prediction) {
   // Arrange
   EXPECT_CALL(*mock_motion_model_ptr, get_next_pose)
       .Times(1)
@@ -66,7 +71,10 @@ TEST_F(GraphSlamSolverTest, Prediction_1) {
   EXPECT_FLOAT_EQ(result.position.x, 1.0);
 }
 
-TEST_F(GraphSlamSolverTest, Prediction_2) {
+/**
+ * @brief Test the GraphSLAMSolver in one iteration of inputs
+ */
+TEST_F(GraphSlamSolverTest, MotionAndObservation) {
   // Arrange
   Eigen::VectorXi associations_first = Eigen::VectorXi::Ones(4) * -1;
   Eigen::VectorXi associations_second = Eigen::VectorXi::Ones(4) * -1;
@@ -107,6 +115,8 @@ TEST_F(GraphSlamSolverTest, Prediction_2) {
 
   // Act
   solver->add_observations(cones_start);
+  solver->_factor_graph_.print("Factor Graph after first observations");
+  solver->_graph_values_.print("Graph Values after first observations");
   solver->add_motion_prior(velocities);
   velocities.timestamp += rclcpp::Duration(1, 0);
   solver->add_motion_prior(velocities);
@@ -120,10 +130,16 @@ TEST_F(GraphSlamSolverTest, Prediction_2) {
   const std::vector<common_lib::structures::Cone> map_before_observations =
       solver->get_map_estimate();
 
+  solver->_factor_graph_.print("Factor Graph after motion");
+  solver->_graph_values_.print("Graph Values after motion");
+
   solver->add_observations(cones_end);
   const common_lib::structures::Pose pose_after_observations = solver->get_pose_estimate();
   const std::vector<common_lib::structures::Cone> map_after_observations =
       solver->get_map_estimate();
+
+  solver->_factor_graph_.print("Factor Graph after last observations");
+  solver->_graph_values_.print("Graph Values after last observations");
 
   // Assert
   EXPECT_NEAR(pose_before_observations.position.x, 4.0, 0.5);

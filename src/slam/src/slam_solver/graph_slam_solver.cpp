@@ -15,7 +15,6 @@
 #include <gtsam/slam/PriorFactor.h>
 #include <gtsam/slam/ProjectionFactor.h>
 
-#include <iostream>
 #include <rclcpp/rclcpp.hpp>
 
 #include "common_lib/maths/transformations.hpp"
@@ -220,6 +219,9 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
 
   // Timekeeping
   rclcpp::Time final_time = rclcpp::Clock().now();
+  if (this->_execution_times_ == nullptr) {
+    return;
+  }
   this->_execution_times_->at(3) = (covariance_time - initialization_time).seconds() * 1000.0;
   this->_execution_times_->at(2) = (association_time - covariance_time).seconds() * 1000.0;
   this->_execution_times_->at(4) = (factor_graph_time - association_time).seconds() * 1000.0;
@@ -232,6 +234,12 @@ void GraphSLAMSolver::_optimize() {  // TODO: mutexes and parallelization and im
   this->_graph_values_ = optimizer.optimize();
 
   rclcpp::Time optimization_time = rclcpp::Clock().now();
+  this->_last_pose_ = this->_graph_values_.at<gtsam::Pose2>(
+      gtsam::Symbol('x', this->_pose_counter_));  // Update last pose
+  if (this->_execution_times_ == nullptr) {
+    return;
+  }
+
   this->_execution_times_->at(5) = (optimization_time - start_time).seconds() * 1000.0;
 }
 

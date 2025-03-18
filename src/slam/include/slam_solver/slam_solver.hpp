@@ -20,6 +20,9 @@ protected:
   SLAMParameters _params_;
   std::shared_ptr<DataAssociationModel> _data_association_;
   std::shared_ptr<V2PMotionModel> _motion_model_;
+  std::shared_ptr<std::vector<double>>
+      _execution_times_;  //< Execution times: 0 -> total motion; 1 -> total
+                          // observation; the rest are solver specific
   std::weak_ptr<rclcpp::Node> _node_;
 
   rclcpp::Time _last_pose_update_ = rclcpp::Time(0);
@@ -27,9 +30,6 @@ protected:
 
   bool _received_first_velocities_ =
       false;  //< Flag to check if the first velocities have been received
-  std::shared_ptr<std::vector<double>>
-      _execution_times_;  //< Execution times: 0 -> total motion; 1 -> total
-                          // observation; the rest are solver specific
 
 public:
   /**

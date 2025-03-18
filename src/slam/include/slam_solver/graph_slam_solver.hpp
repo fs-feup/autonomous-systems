@@ -37,9 +37,8 @@ class GraphSLAMSolver : public SLAMSolver {
    */
   void _init();
 
-  friend class GraphSlamSolverTest_Prediction_1_Test;
-  friend class GraphSlamSolverTest_Prediction_2_Test;
-  friend class GraphSlamSolverTest_Prediction_3_Test;
+  friend class GraphSlamSolverTest_MotionAndObservation_Test;
+  friend class GraphSlamSolverTest_Prediction_Test;
 
 public:
   /**
