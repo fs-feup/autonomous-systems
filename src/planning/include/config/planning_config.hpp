@@ -7,8 +7,10 @@
 #include "simulation_config.hpp"
 #include "smoothing_config.hpp"
 #include "velocity_config.hpp"
+#include <string>
 
 struct PlanningParameters {
+  double path_calculation_dist_threshold_;
   double angle_gain_;
   double distance_gain_;
   double ncones_gain_;
@@ -17,17 +19,25 @@ struct PlanningParameters {
   double cost_max_;
   double same_cone_distance_threshold_;
   bool use_memory_cone_coloring_;
-  int outliers_spline_order_;
-  float outliers_spline_coeffs_ratio_;
-  int outliers_spline_precision_;
-  double path_calculation_dist_threshold_;
+  double nc_angle_gain_;
+  double nc_distance_gain_;
+  double nc_angle_exponent_;
+  double nc_distance_exponent_;
+  double nc_max_cost_;
+  int nc_search_depth_;
+  int nc_max_points_;
+  bool use_outlier_removal_;
   int smoothing_spline_order_;
   float smoothing_spline_coeffs_ratio_;
   int smoothing_spline_precision_;
+  bool use_path_smoothing_;
   bool publishing_visualization_msgs_;
   bool using_simulated_se_;
-  bool use_outlier_removal_;
-  bool use_path_smoothing_;
+
+  int outliers_spline_order_;
+  float outliers_spline_coeffs_ratio_;
+  int outliers_spline_precision_;
+
   double desired_velocity_;
   double minimum_velocity_;
   double braking_acceleration_;
@@ -65,6 +75,14 @@ struct PlanningConfig {
     outliers_.use_outlier_removal_ = params.use_outlier_removal_;
 
     path_calculation_.dist_threshold_ = params.path_calculation_dist_threshold_;
+    path_calculation_.angle_gain_ = params.nc_angle_gain_;
+    path_calculation_.distance_gain_ = params.nc_distance_gain_;
+    path_calculation_.angle_exponent_ = params.nc_angle_exponent_;
+    path_calculation_.distance_exponent_ = params.nc_distance_exponent_;
+    path_calculation_.max_cost_ = params.nc_max_cost_;
+    path_calculation_.search_depth_ = params.nc_search_depth_;
+    path_calculation_.max_points_ = params.nc_max_points_;
+
 
     smoothing_.order_ = params.smoothing_spline_order_;
     smoothing_.precision_ = params.smoothing_spline_precision_;

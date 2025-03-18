@@ -14,6 +14,16 @@
 #include "config/cone_coloring_config.hpp"
 #include "rclcpp/rclcpp.hpp"
 
+#include <CGAL/Delaunay_triangulation_2.h>
+#include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
+#include "common_lib/structures/path_point.hpp"
+
+using K = CGAL::Exact_predicates_inexact_constructions_kernel;
+using DT = CGAL::Delaunay_triangulation_2<K>;
+using Point = K::Point_2;
+
+using PathPoint = common_lib::structures::PathPoint;
+
 using Cone = common_lib::structures::Cone;
 using Pose = common_lib::structures::Pose;
 using Position = common_lib::structures::Position;
@@ -21,6 +31,7 @@ using TwoDVector = common_lib::structures::Position;
 using TrackSide = common_lib::structures::TrackSide;
 using Color = common_lib::competition_logic::Color;
 using AngleAndNorms = common_lib::maths::AngleAndNorms;
+using namespace std;
 
 class ConeColoring {
 private:
@@ -83,15 +94,15 @@ private:
   void place_initial_cones(std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones,
                            const Pose& car_pose, int& n_colored_cones);
 
-  /**
-   * @brief function to place the second cones by selecting the closest to initial cones
-   *
-   * @param uncolored_cones set of cones
-   * @param car_pose car pose in the map relative to the origin
-   * @param n_colored_cones number of colored cones which will be updated
-   */
-  void place_second_cones(std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones,
-                          const Pose& car_pose, int& n_colored_cones);
+      /**
+       * @brief function to place the second cones by selecting the closest to initial cones
+       *
+       * @param uncolored_cones set of cones
+       * @param car_pose car pose in the map relative to the origin
+       * @param n_colored_cones number of colored cones which will be updated
+       */
+      void place_second_cones(std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones,
+                              const Pose& car_pose, int& n_colored_cones);
 
   /**
    * @brief calculate the cost of coloring a cone
@@ -102,7 +113,7 @@ private:
    * @param colored_to_input_cones_ratio ration of cones which have been colored
    * @return double cost
    */
-  double calculate_cost(const Cone& next_cone, const Cone& last_cone,
+  double calculate_cost(const Cone& next_cone, const Cone& last_cone, const Cone& second_last_cone,
                         const TwoDVector& previous_to_last_vector,
                         const double& colored_to_input_cones_ratio) const;
 
@@ -128,6 +139,62 @@ private:
   bool try_to_color_next_cone(std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones,
                               std::vector<Cone>& colored_cones, int& n_colored_cones,
                               const int n_input_cones);
+
+  
+  /**
+   * @brief Computes the best coloring cost for a set of cones.
+   * 
+   * This function evaluates the cost of coloring cones and returns the best cost along with the corresponding cone.
+   * 
+   * @param uncolored_cones A set of cones that have not been colored yet.
+   * @param colored_cones A vector of cones that have already been colored.
+   * @param oposite_color_cones A vector of cones that have been colored with the opposite color.
+   * @param n_colored_cones The number of cones that have been colored so far.
+   * @param n_input_cones The total number of input cones.
+   * @return A pair consisting of the best coloring cost (double) and the corresponding cone (Cone).
+   */
+  std::pair<double, Cone> best_coloring_cost(std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones,  std::vector<Cone>& colored_cones, std::vector<Cone>& oposite_color_cones, int& n_colored_cones, const int n_input_cones);
+
+
+std::vector<std::pair<double, Cone>> top_coloring_costs(std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones, 
+std::vector<Cone>& colored_cones, vector<Cone>& oposite_color_cones, int& n_colored_cones, const int n_input_cones);
+  
+  struct ConeToPoints;
+
+  struct PointToCones{
+    PathPoint point;
+    std::vector<ConeToPoints *> cones;
+  };
+
+  struct ConeToPoints{
+    Cone * cone;
+    std::vector<PointToCones *> points;
+  };
+
+  struct ColoringCombination {
+    std::vector<Cone> blue_cones;
+    std::vector<Cone> yellow_cones;
+    std::unordered_set<Cone, std::hash<Cone>> remaining_cones;
+    double cost;
+    bool last = false;
+    int depth = 0;
+  };
+
+
+  struct ColoringCombinationComparator {
+    bool operator()(const ColoringCombination &a, const ColoringCombination &b) const {
+        return a.cost > b.cost;
+    }
+  };
+
+  struct ColoringComparator {
+    bool operator()(const pair<bool, pair<double,Cone>> &a, const pair<bool, pair<double,Cone>> &b) const {
+        return a.second.first > b.second.first;
+    }
+  };
+
+  pair<vector<Cone>, vector<Cone>> dijkstra_search(ColoringCombination initial_state);
+
 
 public:
   std::vector<Cone> colored_blue_cones_;
@@ -163,4 +230,4 @@ public:
   friend class ConeColoring_fullconecoloring2_Test;
 };
 
-#endif  // SRC_PLANNING_INCLUDE_PLANNING_CONE_COLORING_HPP_
+#endif  // SRC_PLANNING_INCLUDE_PLANNING_CONE_COLORING_HPP

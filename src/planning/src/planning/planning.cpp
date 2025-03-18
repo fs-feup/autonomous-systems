@@ -36,6 +36,15 @@ PlanningParameters Planning::load_config(std::string &adapter) {
       planning_config["same_cone_distance_threshold"].as<double>();
   params.cost_max_ = planning_config["cost_max"].as<double>();
   params.use_memory_cone_coloring_ = planning_config["use_memory_cone_coloring"].as<bool>();
+
+  params.nc_angle_gain_ = planning_config["nc_angle_gain"].as<double>();
+  params.nc_distance_gain_ = planning_config["nc_distance_gain"].as<double>();
+  params.nc_angle_exponent_ = planning_config["nc_angle_exponent"].as<double>();
+  params.nc_distance_exponent_ = planning_config["nc_distance_exponent"].as<double>();
+  params.nc_max_cost_ = planning_config["nc_max_cost"].as<double>();
+  params.nc_search_depth_ = planning_config["nc_search_depth"].as<int>();
+  params.nc_max_points_ = planning_config["nc_max_points"].as<int>();
+
   params.outliers_spline_order_ = planning_config["outliers_spline_order"].as<int>();
   params.outliers_spline_coeffs_ratio_ =
       planning_config["outliers_spline_coeffs_ratio"].as<float>();
@@ -70,6 +79,10 @@ Planning::Planning(const PlanningParameters &params)
   path_calculation_ = PathCalculation(planning_config_.path_calculation_);
   path_smoothing_ = PathSmoothing(planning_config_.smoothing_);
   velocity_planning_ = VelocityPlanning(planning_config_.velocity_planning_);
+
+  param_client_ = this->create_client<rcl_interfaces::srv::GetParameters>("/pacsim/pacsim_node/get_parameters");
+  fetch_discipline();
+
 
   // Control Publisher
   this->local_pub_ =
@@ -116,16 +129,50 @@ Planning::Planning(const PlanningParameters &params)
     this->track_sub_ = this->create_subscription<custom_interfaces::msg::ConeArray>(
         "/state_estimation/map", 10, std::bind(&Planning::track_map_callback, this, _1));
   }
+
   RCLCPP_INFO(rclcpp::get_logger("planning"), "using simulated state estimation: %d",
               planning_config_.simulation_.using_simulated_se_);
 }
+
+void Planning::fetch_discipline() {
+  if (!param_client_->wait_for_service(std::chrono::seconds(2))) {
+      RCLCPP_ERROR(this->get_logger(), "Service /pacsim/pacsim_node/get_parameters not available.");
+      return;
+  }
+
+  auto request = std::make_shared<rcl_interfaces::srv::GetParameters::Request>();
+  request->names.push_back("discipline");
+
+  auto future_result = param_client_->async_send_request(request,
+      [this](rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedFuture future) {
+          auto response = future.get();
+
+          if (!response->values.empty() && response->values[0].type == 4) { // Type 4 = string
+              std::string discipline = response->values[0].string_value;
+              RCLCPP_INFO(this->get_logger(), "Discipline received: %s", discipline.c_str());
+              if (discipline == "skidpad") {
+                  RCLCPP_INFO(this->get_logger(), "Discipline received: %s", discipline.c_str());
+                  this->mission = common_lib::competition_logic::Mission::SKIDPAD;
+              } else if (discipline == "acceleration") {
+                  RCLCPP_INFO(this->get_logger(), "Discipline received: %s", discipline.c_str());
+                  this->mission = common_lib::competition_logic::Mission::ACCELERATION;
+              } else {
+                  this->mission = common_lib::competition_logic::Mission::AUTOCROSS;
+              }
+          } else {
+              RCLCPP_ERROR(this->get_logger(), "Failed to retrieve discipline parameter.");
+          }
+      });
+}
+
+
 
 void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &msg) {
   auto number_of_cones_received = static_cast<int>(msg.cone_array.size());
   RCLCPP_DEBUG(this->get_logger(), "Planning received %i cones", number_of_cones_received);
   this->cone_array_ = common_lib::communication::cone_vector_from_custom_interfaces(msg);
   this->received_first_track_ = true;
-  if (this->is_predicitve_mission() || !(this->received_first_pose_)) {
+  if (!(this->received_first_pose_)) {
     return;
   } else {
     RCLCPP_DEBUG(this->get_logger(), "Running all Planning algorithms");
@@ -142,74 +189,43 @@ void Planning::run_planning_algorithms() {
 
   rclcpp::Time start_time = this->now();
 
-  // Color the cones
-  std::pair<std::vector<Cone>, std::vector<Cone>> colored_cones =
-      cone_coloring_.color_cones(this->cone_array_, this->pose);
-  if (colored_cones.first.size() < 2 || colored_cones.second.size() < 2) {
-    RCLCPP_WARN(rclcpp::get_logger("planning"), "Not enough cones to plan: %d blue, %d yellow",
-                static_cast<int>(colored_cones.first.size()),
-                static_cast<int>(colored_cones.second.size()));
-    publish_track_points({});
-    return;
-  }
+  std::vector<PathPoint> triangulations_path = {};
+  std::vector<PathPoint> final_path = {};
 
-  // Outliers dealt by approximating all cones
-  std::pair<std::vector<Cone>, std::vector<Cone>> refined_colored_cones =
-      outliers_.approximate_cones_with_spline(colored_cones);
-  if (refined_colored_cones.first.size() < 2 || refined_colored_cones.second.size() < 2) {
-    RCLCPP_WARN(rclcpp::get_logger("planning"),
-                "Not enough cones to plan after outlier removal: %d blue, %d yellow",
-                static_cast<int>(refined_colored_cones.first.size()),
-                static_cast<int>(refined_colored_cones.second.size()));
-    publish_track_points({});
-    return;
-  }
-  for (auto &cone : colored_cones.first) {
-    cone.color = Color::BLUE;
-  }
-  for (auto &cone : colored_cones.second) {
-    cone.color = Color::YELLOW;
-  }
-
-  // Calculate middle points using triangulations
-  std::vector<PathPoint> triangulations_path =
-      path_calculation_.process_delaunay_triangulations(refined_colored_cones);
-  if (triangulations_path.size() < 2) {
-    RCLCPP_WARN(rclcpp::get_logger("planning"),
-                "Not enough cones to plan after triangulations: % d ",
-                static_cast<int>(triangulations_path.size()));
-    publish_track_points({});
-    return;
-  }
-
-  // Smooth the calculated path
-  std::vector<PathPoint> final_path =
-      path_smoothing_.smooth_path(triangulations_path, this->pose, this->initial_car_orientation_);
-
-  if (final_path.size() < 10) {
-    RCLCPP_INFO(rclcpp::get_logger("planning"), "Final path size: %d",
-                static_cast<int>(final_path.size()));
-  }
-
-  if ((this->mission == common_lib::competition_logic::Mission::SKIDPAD)) { // place a ! before the condition, to test skidpad until the simulator publishes the mission correctly
+  if ((this->mission == common_lib::competition_logic::Mission::SKIDPAD)) {
     final_path = path_calculation_.skidpad_path(this->cone_array_, this->pose);
-  }
 
-  if ((this->mission == common_lib::competition_logic::Mission::ACCELERATION)) {  // place a ! before the condition, to test acceleration until the simulator publishes the mission correctly
+  } else if ((this->mission == common_lib::competition_logic::Mission::ACCELERATION)) {
+
+    triangulations_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
+    // Smooth the calculated path
+    final_path = path_smoothing_.smooth_path(triangulations_path, this->pose,
+                                             this->initial_car_orientation_);
 
     double dist_from_origin = sqrt(this->pose.position.x * this->pose.position.x +
                                    this->pose.position.y * this->pose.position.y);
-    if (dist_from_origin > 80.0) {
+    if (dist_from_origin > 75.0) {
       for (auto &point : final_path) {
         point.ideal_velocity = 0.0;
       }
     } else {
       for (auto &point : final_path) {
-        point.ideal_velocity = 1000.0;
+        point.ideal_velocity = 100.0;
       }
     }
-  } else if (!(this->mission == common_lib::competition_logic::Mission::SKIDPAD)) { // remove the ! before the condition, to test skidpad until the simulator publishes the mission correctly
+  } else {
+
+    triangulations_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
+    // Smooth the calculated path
+    final_path = path_smoothing_.smooth_path(triangulations_path, this->pose,
+                                             this->initial_car_orientation_);
     velocity_planning_.set_velocity(final_path);
+
+  }
+
+  if (final_path.size() < 10) {
+    RCLCPP_INFO(rclcpp::get_logger("planning"), "Final path size: %d",
+                static_cast<int>(final_path.size()));
   }
 
 // Execution Time calculation
@@ -223,8 +239,8 @@ RCLCPP_DEBUG(this->get_logger(), "Planning will publish %i path points\n",
              static_cast<int>(final_path.size()));
 
 if (planning_config_.simulation_.publishing_visualization_msgs_) {
-  publish_visualization_msgs(colored_cones.first, colored_cones.second, refined_colored_cones.first,
-                             refined_colored_cones.second, triangulations_path, final_path);
+  publish_visualization_msgs(std::vector<Cone>{}, std::vector<Cone>{}, std::vector<Cone>{},
+    std::vector<Cone>{}, triangulations_path, final_path);
 }
 }
 

@@ -11,9 +11,9 @@
 
 #include "common_lib/structures/cone.hpp"
 #include "common_lib/structures/path_point.hpp"
+#include "common_lib/structures/pose.hpp"
 #include "config/path_calculation_config.hpp"
 #include "rclcpp/rclcpp.hpp"
-#include "common_lib/structures/pose.hpp" // Add this line to include Pose definition
 
 using K = CGAL::Exact_predicates_inexact_constructions_kernel;
 using DT = CGAL::Delaunay_triangulation_2<K>;
@@ -36,8 +36,9 @@ class PathCalculation {
   PathCalculationConfig config_;
 
 private:
-  bool path_orientation_corrected_ = false; // TODO: Put in Skidpad class
-  std::vector<PathPoint> predefined_path_; // TODO: Put in Skidpad class
+  bool path_orientation_corrected_ = false;
+  std::vector<PathPoint> predefined_path_;  
+
 
 public:
   /**
@@ -67,8 +68,26 @@ public:
    */
   std::vector<PathPoint> process_delaunay_triangulations(
       std::pair<std::vector<Cone>, std::vector<Cone>> refined_cones) const;
+  
+  struct MidPoint {
+    Point point;
+    std::vector<MidPoint *> close_points;
 
-  std::vector<PathPoint> skidpad_path(std::vector<Cone>& cone_array, common_lib::structures::Pose pose);
+    bool operator==(const MidPoint& other) const {
+        return (point.x() == other.point.x()) && (point.y() == other.point.y());
+    }
+
+  };
+
+  std::pair<double, MidPoint*> dfs_cost(int depth, MidPoint *previous, MidPoint *current, double maxcost);
+
+
+  std::vector<PathPoint> no_coloring_planning(std::vector<Cone>& cone_array,
+                                              common_lib::structures::Pose pose);
+
+
+  std::vector<PathPoint> skidpad_path(std::vector<Cone>& cone_array,
+                                      common_lib::structures::Pose pose);
 };
 
 #endif  // SRC_PLANNING_PLANNING_INCLUDE_PLANNING_PATH_CALCULATION_HPP_

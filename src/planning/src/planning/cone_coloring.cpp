@@ -1,4 +1,7 @@
 #include "planning/cone_coloring.hpp"
+#include <queue>
+using namespace std;
+
 
 void ConeColoring::remove_duplicates(std::vector<Cone>& cones) const {
   std::vector<Cone> clustered_cones;
@@ -211,7 +214,35 @@ void ConeColoring::place_second_cones(std::unordered_set<Cone, std::hash<Cone>>&
   }
 }
 
+double get_curvature(Cone point1, Cone point2, Cone point3) {
+  double x1 = point1.position.x;
+  double y1 = point1.position.y;
+  double x2 = point2.position.x;
+  double y2 = point2.position.y;
+  double x3 = point3.position.x;
+  double y3 = point3.position.y;
+
+  Cone mid1 = Cone((x1 + x2) / 2, (y1 + y2) / 2, "unknown", 1);
+  Cone mid2 = Cone((x2 + x3) / 2, (y2 + y3) / 2, "unknown", 1);
+
+  double slope1 = (x2 != x1) ? ((y2 - y1) / (x2 - x1)) : 1000000;
+  double slope2 = (x3 != x2) ? ((y3 - y2) / (x3 - x2)) : 1000000;
+  double slope1_perpendicular = (slope1 != 0) ? -1 / slope1 : 1000000;
+  double slope2_perpendicular = (slope2 != 0) ? -1 / slope2 : 1000000;
+
+  if (slope1_perpendicular == slope2_perpendicular) return 0;
+
+  double center_x = (slope1_perpendicular * mid1.position.x -
+                     slope2_perpendicular * mid2.position.x + mid2.position.y - mid1.position.y) /
+                    (slope1_perpendicular - slope2_perpendicular);
+  double center_y = slope1_perpendicular * (center_x - mid1.position.x) + mid1.position.y;
+  double radius = sqrt(pow(center_x - x2, 2) + pow(center_y - y2, 2));
+
+  return 1 / radius;
+}
+
 double ConeColoring::calculate_cost(const Cone& next_cone, const Cone& last_cone,
+                                    const Cone& second_last_cone,
                                     const TwoDVector& previous_to_last_vector,
                                     const double& colored_to_input_cones_ratio) const {
   AngleAndNorms angle_and_norms = common_lib::maths::angle_and_norms(
@@ -219,9 +250,12 @@ double ConeColoring::calculate_cost(const Cone& next_cone, const Cone& last_cone
                                         next_cone.position.y - last_cone.position.y});
   double distance = angle_and_norms.norm2_;
   double angle = angle_and_norms.angle_;
+  double curvature = get_curvature(next_cone, last_cone, second_last_cone);
+  double curvature_weight = 5;
   double cost = this->config_.distance_weight_ * pow(distance, this->config_.distance_exponent_) +
                 this->config_.angle_weight_ * pow(angle, this->config_.angle_exponent_) +
-                this->config_.ncones_weight_ * colored_to_input_cones_ratio;
+                this->config_.ncones_weight_ * colored_to_input_cones_ratio +
+                curvature_weight * curvature;
   return cost;
 }
 
@@ -249,13 +283,14 @@ void ConeColoring::remove_too_close_cones() {
         Cone previous_cone = this->colored_blue_cones_[i - 2];
         TwoDVector last_vector = {last_cone.position.x - previous_cone.position.x,
                                   last_cone.position.y - previous_cone.position.y};
-        double blue_cost = calculate_cost(this->colored_blue_cones_[i], last_cone, last_vector, 0);
+        double blue_cost =
+            calculate_cost(this->colored_blue_cones_[i], last_cone, previous_cone, last_vector, 0);
         last_cone = this->colored_yellow_cones_[j - 1];
         previous_cone = this->colored_yellow_cones_[j - 2];
         last_vector = {last_cone.position.x - previous_cone.position.x,
                        last_cone.position.y - previous_cone.position.y};
-        double yellow_cost =
-            calculate_cost(this->colored_yellow_cones_[j], last_cone, last_vector, 0);
+        double yellow_cost = calculate_cost(this->colored_yellow_cones_[j], last_cone,
+                                            previous_cone, last_vector, 0);
 
         if (blue_cost > yellow_cost) {
           this->colored_blue_cones_.erase(this->colored_blue_cones_.begin() + i);
@@ -278,8 +313,21 @@ bool ConeColoring::try_to_color_next_cone(
   const TwoDVector last_vector = {last_cone.position.x - second_last_cone.position.x,
                                   last_cone.position.y - second_last_cone.position.y};
   for (const auto& cone : uncolored_cones) {
+    if (colored_cones.back() == this->colored_blue_cones_.back()) {
+      for (auto& colored_cone : this->colored_yellow_cones_) {
+        if (cone.position.euclidean_distance(colored_cone.position) < 2.5) {
+          continue;
+        }
+      }
+    } else {
+      for (auto& colored_cone : this->colored_blue_cones_) {
+        if (cone.position.euclidean_distance(colored_cone.position) < 2.5) {
+          continue;
+        }
+      }
+    }
     double cost =
-        calculate_cost(cone, last_cone, last_vector,
+        calculate_cost(cone, last_cone, second_last_cone, last_vector,
                        static_cast<double>(n_colored_cones) / static_cast<double>(n_input_cones));
     // TODO: put this value as a parameter
     if (cost < min_cost && cone.position.euclidean_distance(last_cone.position) < 7 &&
@@ -297,6 +345,186 @@ bool ConeColoring::try_to_color_next_cone(
     return false;
   }
 }
+
+
+pair<double, Cone> ConeColoring::best_coloring_cost(std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones, 
+std::vector<Cone>& colored_cones, vector<Cone>& oposite_color_cones, int& n_colored_cones, const int n_input_cones) {
+  double min_cost = std::numeric_limits<double>::max();
+  Cone cheapest_cone;
+  const Cone last_cone = colored_cones.back();
+  const Cone second_last_cone = colored_cones[colored_cones.size() - 2];
+  const TwoDVector last_vector = {last_cone.position.x - second_last_cone.position.x,
+                                  last_cone.position.y - second_last_cone.position.y};
+  for (const auto& cone : uncolored_cones) {
+    
+    double mindistance = std::numeric_limits<double>::max();  
+    double distance;
+      for (auto& colored_cone : oposite_color_cones) {
+        distance = cone.position.euclidean_distance(colored_cone.position);
+        if (distance < mindistance) {
+          mindistance = distance;
+        }
+        if (distance < 2.0) {
+          continue;
+        }
+      }
+    
+    double cost =
+        ConeColoring::calculate_cost(cone, last_cone, second_last_cone, last_vector,
+                       static_cast<double>(n_colored_cones) / static_cast<double>(n_input_cones)) + mindistance*1;
+    // TODO: put this value as a parameter
+    if (cost < min_cost && cone.position.euclidean_distance(last_cone.position) < 10 &&
+        cost < this->config_.max_cost_) {
+      min_cost = cost;
+      cheapest_cone = cone;
+    }
+  }
+  
+  return {min_cost, cheapest_cone};
+}
+
+
+
+std::vector<std::pair<double, Cone>> ConeColoring::top_coloring_costs(std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones, 
+std::vector<Cone>& colored_cones, vector<Cone>& oposite_color_cones, int& n_colored_cones, const int n_input_cones) {
+
+  const Cone last_cone = colored_cones.back();
+  const Cone second_last_cone = colored_cones[colored_cones.size() - 2];
+  const TwoDVector last_vector = {last_cone.position.x - second_last_cone.position.x,
+                                  last_cone.position.y - second_last_cone.position.y};
+
+
+  std::vector<std::pair<double, Cone>> top_cones;
+               
+  for (const auto& cone : uncolored_cones) {
+    
+    double mindistance = std::numeric_limits<double>::max();  
+    double distance;
+      for (auto& colored_cone : oposite_color_cones) {
+        distance = cone.position.euclidean_distance(colored_cone.position);
+        if (distance < mindistance) {
+          mindistance = distance;
+        }
+        if (distance < 2.0) {
+          continue;
+        }
+      }
+    
+    double cost = ConeColoring::calculate_cost(cone, last_cone, second_last_cone, last_vector,
+                       static_cast<double>(n_colored_cones) / static_cast<double>(n_input_cones)) + mindistance*1;
+    // TODO: put this value as a parameter
+    if (cone.position.euclidean_distance(last_cone.position) < 10 &&
+        cost < this->config_.max_cost_) {
+      top_cones.push_back({cost, cone});
+    }
+  }
+  
+  return top_cones;
+}
+
+
+
+
+
+pair<vector<Cone>, vector<Cone>> ConeColoring::dijkstra_search(ColoringCombination initial_state) {
+                                                                            
+  double outlier_cost_per_cone = 60;    // the cost of accepting to not color a cone
+  double max_cost = this->config_.max_cost_;               // the maximum cost of coloring a cone  
+  int max_tree_growth = 2; // the maximum number of new cones to consider per level
+
+  std::priority_queue<ColoringCombination, std::vector<ColoringCombination>, ColoringCombinationComparator> pq;
+  
+  //Continue code
+  
+  // Push to the stack the first Combination
+  pq.push(initial_state);
+
+  // Start loop
+  int iterations = 0;
+  int deepest = -1;
+  int tolerance = 2;
+  ColoringCombination current;
+  while (!pq.empty())
+  {
+    iterations++;
+    current = pq.top();
+    pq.pop();
+    
+
+    if (current.depth + tolerance < deepest)
+    {
+      continue;
+    }
+    
+    if (current.depth > deepest)
+    {
+      deepest = current.depth;
+      RCLCPP_DEBUG(rclcpp::get_logger("Planning : ConeColoring"), "Deepest level: %d", deepest);
+    }
+    
+    if (current.last || current.depth == 5 || current.remaining_cones.size() == 0)
+    {
+      break;
+    }
+
+    // Push the possibility of not coloring any cone (outlier cost * n_cones) to the pq in a ConePair with nullpointer
+    pq.push({current.blue_cones, current.yellow_cones, current.remaining_cones, current.cost + outlier_cost_per_cone*current.remaining_cones.size(), true, current.depth+1});
+
+    int total_cones = current.blue_cones.size() + current.yellow_cones.size();
+    // Calculate all the possible cones to go to from the ConePairs, that are less than the max cost
+    vector<pair<double,Cone>> yellow_cones = top_coloring_costs(current.remaining_cones, current.yellow_cones, current.blue_cones, total_cones, total_cones+current.remaining_cones.size());
+    vector<pair<double,Cone>> blue_cones = top_coloring_costs(current.remaining_cones, current.blue_cones, current.yellow_cones, total_cones, total_cones+current.remaining_cones.size());
+
+    priority_queue<pair<bool, pair<double,Cone>>, vector<pair<bool, pair<double,Cone>>>, ColoringComparator> sorted_cones;
+    for (int i = 0; i < blue_cones.size(); i++)
+    {
+      sorted_cones.push({true, blue_cones[i]});
+    }
+
+    for (int i = 0; i < yellow_cones.size(); i++)
+    {
+      sorted_cones.push({false, yellow_cones[i]});
+    }
+    
+    // Push the new cone pairs to the pq, only push a maximum of max_tree_growth new cone pairs, the ones with the lowest cost  
+  
+    for (int i = 0; i < std::min(max_tree_growth, static_cast<int>(sorted_cones.size())); i++)
+    {
+      pair<bool, pair<double,Cone>> temporary = sorted_cones.top();
+      sorted_cones.pop();
+      if (temporary.first){
+        vector<Cone> blue_cones = current.blue_cones;
+        blue_cones.push_back(temporary.second.second);
+        std::unordered_set<Cone, std::hash<Cone>> remaining_cones = current.remaining_cones;
+        remaining_cones.erase(temporary.second.second);
+        pq.push({blue_cones, current.yellow_cones, remaining_cones, current.cost + temporary.second.first, false, current.depth+1});
+      }
+      else{
+        vector<Cone> yellow_cones = current.yellow_cones;
+        yellow_cones.push_back(temporary.second.second);
+        std::unordered_set<Cone, std::hash<Cone>> remaining_cones = current.remaining_cones;
+        remaining_cones.erase(temporary.second.second);
+        pq.push({current.blue_cones, yellow_cones, remaining_cones, current.cost + temporary.second.first, false, current.depth+1});
+      }
+    }
+
+    if(sorted_cones.size() == 0){
+      pq.push({current.blue_cones, current.yellow_cones, current.remaining_cones, current.cost + outlier_cost_per_cone*current.remaining_cones.size(), true, current.depth+1});
+    }
+    // Pop the first element of the pq and repeat the process
+
+
+    // Filtrar as melhores opções 
+  }
+  
+  this->colored_blue_cones_ = current.blue_cones;
+  this->colored_yellow_cones_ = current.yellow_cones; 
+  
+
+  return {this->colored_blue_cones_, this->colored_yellow_cones_};
+  }
+
+
 
 std::pair<std::vector<Cone>, std::vector<Cone>> ConeColoring::color_cones(std::vector<Cone> cones,
                                                                           const Pose& car_pose) {
@@ -322,16 +550,53 @@ std::pair<std::vector<Cone>, std::vector<Cone>> ConeColoring::color_cones(std::v
     }
   }
 
-  bool colouring_blue_cones = true, colouring_yellow_cones = true;
-  // Color blue cones
-  while (colouring_blue_cones || colouring_yellow_cones) {
-    // keep coloring yellow cones while the function "try_to_color_next_cone" returns true (i.e. a
-    // suitble cone is found)
-    colouring_blue_cones = try_to_color_next_cone(uncolored_cones, this->colored_blue_cones_,
-                                                  n_colored_cones, n_input_cones);
-    colouring_yellow_cones = try_to_color_next_cone(uncolored_cones, this->colored_yellow_cones_,
-                                                    n_colored_cones, n_input_cones);
-  }
+  // Place the new algorithm here, and remove the old one
+
+  // Dijkstra search
+  ColoringCombination initial_state;
+  initial_state.blue_cones = this->colored_blue_cones_;
+  initial_state.yellow_cones = this->colored_yellow_cones_;
+  initial_state.remaining_cones = uncolored_cones;
+  initial_state.cost = 0;
+  initial_state.last = false;
+
+  dijkstra_search(initial_state);
+
+
+
+
+  // bool colouring_blue_cones = true, colouring_yellow_cones = true;
+  // // Color blue cones
+  // pair<double, Cone> min_blue_cost, min_yellow_cost;
+  // while (colouring_blue_cones || colouring_yellow_cones) {
+  //   // keep coloring yellow cones while the function "try_to_color_next_cone" returns true (i.e. a
+  //   // suitble cone is found)
+  //   // colouring_blue_cones = try_to_color_next_cone(uncolored_cones, this->colored_blue_cones_,
+  //   //                                               n_colored_cones, n_input_cones);
+  //   // colouring_yellow_cones = try_to_color_next_cone(uncolored_cones, this->colored_yellow_cones_,
+  //   //                                                 n_colored_cones, n_input_cones);
+  //   min_blue_cost = best_coloring_cost(uncolored_cones, this->colored_blue_cones_, this->colored_yellow_cones_,
+  //                                      n_colored_cones, n_input_cones);
+    
+  //   min_yellow_cost = best_coloring_cost(uncolored_cones, this->colored_yellow_cones_, this->colored_blue_cones_,
+  //                                      n_colored_cones, n_input_cones);
+
+  //   if (min_blue_cost.first < min_yellow_cost.first) {
+  //     if(min_blue_cost.first > this->config_.max_cost_){
+  //       break;
+  //     }
+  //     this->colored_blue_cones_.push_back(min_blue_cost.second);
+  //     uncolored_cones.erase(min_blue_cost.second);
+  //     n_colored_cones++;
+  //   } else {
+  //     if(min_yellow_cost.first > this->config_.max_cost_){
+  //       break;
+  //     }
+  //     this->colored_yellow_cones_.push_back(min_yellow_cost.second);
+  //     uncolored_cones.erase(min_yellow_cost.second);
+  //     n_colored_cones++;
+  //   }
+  // }
 
   remove_too_close_cones();
 
