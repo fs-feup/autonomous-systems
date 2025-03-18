@@ -21,6 +21,9 @@ struct SLAMParameters {
   float angular_velocity_noise_ = 0.1;
   double data_association_gate_;
   double new_landmark_confidence_gate_;
+  double slam_min_pose_difference_;  //< Minimum pose difference to add a new pose to the graph
+  double slam_optimization_period_ = 0.0;  //< Period for running optimization of the graph (s),
+                                           //  0.0 means optimization on observations receival
 
   SLAMParameters() = default;
   explicit SLAMParameters(const SLAMParameters &params);

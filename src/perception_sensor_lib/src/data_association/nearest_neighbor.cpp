@@ -16,12 +16,14 @@ Eigen::VectorXi NearestNeighbor::associate(const Eigen::VectorXd& state,
   Eigen::VectorXd landmarks_local_coordinates = common_lib::maths::global_to_local_coordinates(
       state.segment(0, 3), state.segment(3, state.size() - 3));
   Eigen::VectorXd landmarks_global_coordinates = state.segment(3, state.size() - 3);
-  Eigen::VectorXd obvservation_global_coordinates =
+  Eigen::VectorXd observation_global_coordinates =
       common_lib::maths::local_to_global_coordinates(state.segment(0, 3), observations);
 
   for (int i = 0; i < num_observations; ++i) {
     Eigen::Vector2d obs;
-    obs << obvservation_global_coordinates(2 * i), obvservation_global_coordinates(2 * i + 1);
+    obs << observation_global_coordinates(2 * i),
+        observation_global_coordinates(
+            2 * i + 1);  // TODO: make another one with relative coordinates or a flag
 
     double best_cost = std::numeric_limits<double>::max();
     int best_landmark_index = -1;

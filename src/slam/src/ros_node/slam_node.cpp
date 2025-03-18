@@ -22,9 +22,11 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam") {
           params.new_landmark_confidence_gate_, params.observation_x_noise_,
           params.observation_y_noise_));
 
+  this->_execution_times_ = std::make_shared<std::vector<double>>(10, 0.0);
+
   // Initialize SLAM solver object
   this->_slam_solver_ = slam_solver_constructors_map.at(params.slam_solver_name_)(
-      params, data_association, motion_model);
+      params, data_association, motion_model, this->_execution_times_, this->weak_from_this());
 
   _perception_map_ = std::vector<common_lib::structures::Cone>();
   _vehicle_state_velocities_ = common_lib::structures::Velocities();
@@ -56,10 +58,10 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam") {
           "/state_estimation/visualization_map_perception", 10);
   this->_position_publisher_ = this->create_publisher<visualization_msgs::msg::Marker>(
       "/state_estimation/visualization/position", 10);
-  this->_correction_execution_time_publisher_ = this->create_publisher<std_msgs::msg::Float64>(
-      "/state_estimation/execution_time/correction_step", 10);
-  this->_prediction_execution_time_publisher_ = this->create_publisher<std_msgs::msg::Float64>(
-      "/state_estimation/execution_time/prediction_step", 10);
+  this->_execution_time_publisher_ = this->create_publisher<std_msgs::msg::Float64MultiArray>(
+      "/state_estimation/slam_execution_time", 10);
+  this->_covariance_publisher_ = this->create_publisher<std_msgs::msg::Float64MultiArray>(
+      "/state_estimation/slam_covariance", 10);
 
   RCLCPP_INFO(this->get_logger(), "SLAM Node has been initialized");
 }
@@ -92,15 +94,18 @@ void SLAMNode::_perception_subscription_callback(const custom_interfaces::msg::C
   this->_slam_solver_->add_observations(this->_perception_map_);
   this->_track_map_ = this->_slam_solver_->get_map_estimate();
 
-  rclcpp::Time end_time = this->get_clock()->now();
+  // this->_publish_covariance(); // TODO: get covariance to work fast
 
-  // Execution Time calculation
-  std_msgs::msg::Float64 correction_execution_time;
-  correction_execution_time.data = (end_time - start_time).seconds() * 1000.0;
-  this->_correction_execution_time_publisher_->publish(correction_execution_time);
   this->_publish_vehicle_pose();
   this->_publish_map();
-  RCLCPP_DEBUG(this->get_logger(), "Execution time: %f ms", correction_execution_time.data);
+
+  // Timekeeping
+  rclcpp::Time end_time = this->get_clock()->now();
+  this->_execution_times_->at(1) = (end_time - start_time).seconds() * 1000.0;
+
+  std_msgs::msg::Float64MultiArray execution_time_msg;
+  execution_time_msg.data = *this->_execution_times_;
+  this->_execution_time_publisher_->publish(execution_time_msg);
 }
 
 void SLAMNode::_velocities_subscription_callback(const custom_interfaces::msg::Velocities &msg) {
@@ -115,13 +120,14 @@ void SLAMNode::_velocities_subscription_callback(const custom_interfaces::msg::V
   this->_slam_solver_->add_motion_prior(this->_vehicle_state_velocities_);
   this->_vehicle_pose_ = this->_slam_solver_->get_pose_estimate();
 
-  rclcpp::Time end_time = this->get_clock()->now();
-
-  // Execution Time calculation
-  std_msgs::msg::Float64 prediction_execution_time;
-  prediction_execution_time.data = (end_time - start_time).seconds() * 1000.0;
-  this->_prediction_execution_time_publisher_->publish(prediction_execution_time);
+  // this->_publish_covariance(); // TODO: get covariance to work fast
   this->_publish_vehicle_pose();
+
+  rclcpp::Time end_time = this->get_clock()->now();
+  this->_execution_times_->at(0) = (end_time - start_time).seconds() * 1000.0;
+  std_msgs::msg::Float64MultiArray execution_time_msg;
+  execution_time_msg.data = *this->_execution_times_;
+  this->_execution_time_publisher_->publish(execution_time_msg);
 }
 
 /*---------------------- Publications --------------------*/
@@ -148,7 +154,7 @@ void SLAMNode::_publish_map() {
     auto cone_message = custom_interfaces::msg::Cone();
     cone_message.position.x = cone.position.x;
     cone_message.position.y = cone.position.y;
-    // TODO(marhcouto): add covariance
+    // TODO(marhcouto): add covariance & large cones & confidence
     cone_message.color = common_lib::competition_logic::get_color_string(cone.color);
     cone_array_msg.cone_array.push_back(cone_message);
     RCLCPP_DEBUG(this->get_logger(), "(%f\t%f)\t%s", cone_message.position.x,
@@ -158,8 +164,28 @@ void SLAMNode::_publish_map() {
   cone_array_msg.header.stamp = this->get_clock()->now();
   this->_map_publisher_->publish(cone_array_msg);
   marker_array_msg = common_lib::communication::marker_array_from_structure_array(
-      this->_track_map_, "map_cones", _adapter_name_ == "eufs" ? "base_footprint" : "map");
-  marker_array_msg_perception = common_lib::communication::marker_array_from_structure_array(
-      this->_perception_map_, "perception_cones", "lidar");
+      this->_track_map_, "map_cones", "map");
   this->_visualization_map_publisher_->publish(marker_array_msg);
+}
+
+void SLAMNode::_publish_covariance() {
+  // Publish the covariance
+  std_msgs::msg::Float64MultiArray covariance_msg;
+  covariance_msg.layout = std_msgs::msg::MultiArrayLayout();
+  covariance_msg.layout.dim.push_back(std_msgs::msg::MultiArrayDimension());
+  covariance_msg.layout.dim[0].size = this->_slam_solver_->get_covariance().rows();
+  covariance_msg.layout.dim[0].stride =
+      this->_slam_solver_->get_covariance().rows() * this->_slam_solver_->get_covariance().cols();
+  covariance_msg.layout.dim[0].label = "rows";
+  covariance_msg.layout.dim.push_back(std_msgs::msg::MultiArrayDimension());
+  covariance_msg.layout.dim[1].size = this->_slam_solver_->get_covariance().cols();
+  covariance_msg.layout.dim[1].stride = this->_slam_solver_->get_covariance().cols();
+  covariance_msg.layout.dim[1].label = "cols";
+  Eigen::MatrixXd covariance_matrix = this->_slam_solver_->get_covariance();
+  for (unsigned int i = 0; i < covariance_matrix.rows(); i++) {
+    for (unsigned int j = 0; j < covariance_matrix.cols(); j++) {
+      covariance_msg.data.push_back(covariance_matrix(i, j));
+    }
+  }
+  this->_covariance_publisher_->publish(covariance_msg);
 }

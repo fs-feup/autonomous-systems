@@ -63,5 +63,8 @@ void PacsimAdapter::_pacsim_velocities_subscription_callback(
   velocities.velocity_y = msg.twist.twist.linear.y;
   velocities.angular_velocity = msg.twist.twist.angular.z;
   velocities.header.stamp = msg.header.stamp;
+  for (unsigned int i = 0; i < 9; i++) {
+    velocities.covariance[i] = 0.0;
+  }
   _velocities_subscription_callback(velocities);
 }

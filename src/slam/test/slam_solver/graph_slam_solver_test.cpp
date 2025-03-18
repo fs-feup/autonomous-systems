@@ -32,7 +32,8 @@ public:
     mock_data_association_ptr = std::make_shared<MockDataAssociationModel>();
     motion_model_ptr = mock_motion_model_ptr;
     data_association_ptr = mock_data_association_ptr;
-    solver = std::make_shared<GraphSLAMSolver>(params, data_association_ptr, motion_model_ptr);
+    solver =
+        std::make_shared<GraphSLAMSolver>(params, data_association_ptr, motion_model_ptr, nullptr);
   }
 
   SLAMParameters params;
