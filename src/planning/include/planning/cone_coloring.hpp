@@ -94,15 +94,15 @@ private:
   void place_initial_cones(std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones,
                            const Pose& car_pose, int& n_colored_cones);
 
-      /**
-       * @brief function to place the second cones by selecting the closest to initial cones
-       *
-       * @param uncolored_cones set of cones
-       * @param car_pose car pose in the map relative to the origin
-       * @param n_colored_cones number of colored cones which will be updated
-       */
-      void place_second_cones(std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones,
-                              const Pose& car_pose, int& n_colored_cones);
+  /**
+   * @brief function to place the second cones by selecting the closest to initial cones
+   *
+   * @param uncolored_cones set of cones
+   * @param car_pose car pose in the map relative to the origin
+   * @param n_colored_cones number of colored cones which will be updated
+   */
+  void place_second_cones(std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones,
+                          const Pose& car_pose, int& n_colored_cones);
 
   /**
    * @brief calculate the cost of coloring a cone
@@ -154,46 +154,6 @@ private:
    * @return A pair consisting of the best coloring cost (double) and the corresponding cone (Cone).
    */
   std::pair<double, Cone> best_coloring_cost(std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones,  std::vector<Cone>& colored_cones, std::vector<Cone>& oposite_color_cones, int& n_colored_cones, const int n_input_cones);
-
-
-std::vector<std::pair<double, Cone>> top_coloring_costs(std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones, 
-std::vector<Cone>& colored_cones, vector<Cone>& oposite_color_cones, int& n_colored_cones, const int n_input_cones);
-  
-  struct ConeToPoints;
-
-  struct PointToCones{
-    PathPoint point;
-    std::vector<ConeToPoints *> cones;
-  };
-
-  struct ConeToPoints{
-    Cone * cone;
-    std::vector<PointToCones *> points;
-  };
-
-  struct ColoringCombination {
-    std::vector<Cone> blue_cones;
-    std::vector<Cone> yellow_cones;
-    std::unordered_set<Cone, std::hash<Cone>> remaining_cones;
-    double cost;
-    bool last = false;
-    int depth = 0;
-  };
-
-
-  struct ColoringCombinationComparator {
-    bool operator()(const ColoringCombination &a, const ColoringCombination &b) const {
-        return a.cost > b.cost;
-    }
-  };
-
-  struct ColoringComparator {
-    bool operator()(const pair<bool, pair<double,Cone>> &a, const pair<bool, pair<double,Cone>> &b) const {
-        return a.second.first > b.second.first;
-    }
-  };
-
-  pair<vector<Cone>, vector<Cone>> dijkstra_search(ColoringCombination initial_state);
 
 
 public:
