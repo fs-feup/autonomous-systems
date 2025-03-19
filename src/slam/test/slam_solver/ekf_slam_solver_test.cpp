@@ -24,6 +24,10 @@ protected:
   std::shared_ptr<EKFSLAMSolver> ekf_slam_solver;
 };
 
+/**
+ * @brief Test the state augmentation function of the EKF SLAM solver with trivial state
+ * 
+ */
 TEST_F(EKFSLAMSolverTest, stateAugmentation) {
   Eigen::VectorXd state = Eigen::VectorXd::Zero(3);
   Eigen::MatrixXd covariance = Eigen::MatrixXd::Identity(3, 3);
@@ -40,6 +44,10 @@ TEST_F(EKFSLAMSolverTest, stateAugmentation) {
   }
 }
 
+/**
+ * @brief Test the state augmentation function of the EKF SLAM solver with non-trivial state
+ * 
+ */
 TEST_F(EKFSLAMSolverTest, stateAugmentation2) {
   Eigen::VectorXd state = Eigen::VectorXd::Zero(3);
   state << 0, 0, M_PI / 2;
