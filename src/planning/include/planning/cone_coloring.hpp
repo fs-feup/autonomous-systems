@@ -1,6 +1,9 @@
 #ifndef SRC_PLANNING_INCLUDE_PLANNING_CONE_COLORING_HPP_
 #define SRC_PLANNING_INCLUDE_PLANNING_CONE_COLORING_HPP_
 
+#include <CGAL/Delaunay_triangulation_2.h>
+#include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
+
 #include <algorithm>
 #include <cmath>
 #include <set>
@@ -9,14 +12,11 @@
 #include "common_lib/competition_logic/color.hpp"
 #include "common_lib/maths/angle_and_norms.hpp"
 #include "common_lib/structures/cone.hpp"
+#include "common_lib/structures/path_point.hpp"
 #include "common_lib/structures/pose.hpp"
 #include "common_lib/structures/track_side.hpp"
 #include "config/cone_coloring_config.hpp"
 #include "rclcpp/rclcpp.hpp"
-
-#include <CGAL/Delaunay_triangulation_2.h>
-#include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
-#include "common_lib/structures/path_point.hpp"
 
 using K = CGAL::Exact_predicates_inexact_constructions_kernel;
 using DT = CGAL::Delaunay_triangulation_2<K>;
@@ -140,12 +140,12 @@ private:
                               std::vector<Cone>& colored_cones, int& n_colored_cones,
                               const int n_input_cones);
 
-  
   /**
    * @brief Computes the best coloring cost for a set of cones.
-   * 
-   * This function evaluates the cost of coloring cones and returns the best cost along with the corresponding cone.
-   * 
+   *
+   * This function evaluates the cost of coloring cones and returns the best cost along with the
+   * corresponding cone.
+   *
    * @param uncolored_cones A set of cones that have not been colored yet.
    * @param colored_cones A vector of cones that have already been colored.
    * @param oposite_color_cones A vector of cones that have been colored with the opposite color.
@@ -153,8 +153,9 @@ private:
    * @param n_input_cones The total number of input cones.
    * @return A pair consisting of the best coloring cost (double) and the corresponding cone (Cone).
    */
-  std::pair<double, Cone> best_coloring_cost(std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones,  std::vector<Cone>& colored_cones, std::vector<Cone>& oposite_color_cones, int& n_colored_cones, const int n_input_cones);
-
+  std::pair<double, Cone> best_coloring_cost(
+      std::unordered_set<Cone, std::hash<Cone>>& uncolored_cones, std::vector<Cone>& colored_cones,
+      std::vector<Cone>& oposite_color_cones, int& n_colored_cones, const int n_input_cones);
 
 public:
   std::vector<Cone> colored_blue_cones_;

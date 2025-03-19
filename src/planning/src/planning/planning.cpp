@@ -23,7 +23,7 @@ PlanningParameters Planning::load_config(std::string &adapter) {
       common_lib::config_load::get_config_yaml_path("planning", "planning", adapter);
   RCLCPP_DEBUG(rclcpp::get_logger("planning"), "Loading planning config from: %s",
                planning_config_path.c_str());
-               
+
   YAML::Node planning = YAML::LoadFile(planning_config_path);
   auto planning_config = planning["planning"];
 
@@ -80,9 +80,9 @@ Planning::Planning(const PlanningParameters &params)
   path_smoothing_ = PathSmoothing(planning_config_.smoothing_);
   velocity_planning_ = VelocityPlanning(planning_config_.velocity_planning_);
 
-  param_client_ = this->create_client<rcl_interfaces::srv::GetParameters>("/pacsim/pacsim_node/get_parameters");
+  param_client_ =
+      this->create_client<rcl_interfaces::srv::GetParameters>("/pacsim/pacsim_node/get_parameters");
   fetch_discipline();
-
 
   // Control Publisher
   this->local_pub_ =
@@ -136,36 +136,34 @@ Planning::Planning(const PlanningParameters &params)
 
 void Planning::fetch_discipline() {
   if (!param_client_->wait_for_service(std::chrono::seconds(2))) {
-      RCLCPP_ERROR(this->get_logger(), "Service /pacsim/pacsim_node/get_parameters not available.");
-      return;
+    RCLCPP_ERROR(this->get_logger(), "Service /pacsim/pacsim_node/get_parameters not available.");
+    return;
   }
 
   auto request = std::make_shared<rcl_interfaces::srv::GetParameters::Request>();
   request->names.push_back("discipline");
 
-  auto future_result = param_client_->async_send_request(request,
-      [this](rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedFuture future) {
-          auto response = future.get();
+  auto future_result = param_client_->async_send_request(
+      request, [this](rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedFuture future) {
+        auto response = future.get();
 
-          if (!response->values.empty() && response->values[0].type == 4) { // Type 4 = string
-              std::string discipline = response->values[0].string_value;
-              RCLCPP_INFO(this->get_logger(), "Discipline received: %s", discipline.c_str());
-              if (discipline == "skidpad") {
-                  RCLCPP_INFO(this->get_logger(), "Discipline received: %s", discipline.c_str());
-                  this->mission = common_lib::competition_logic::Mission::SKIDPAD;
-              } else if (discipline == "acceleration") {
-                  RCLCPP_INFO(this->get_logger(), "Discipline received: %s", discipline.c_str());
-                  this->mission = common_lib::competition_logic::Mission::ACCELERATION;
-              } else {
-                  this->mission = common_lib::competition_logic::Mission::AUTOCROSS;
-              }
+        if (!response->values.empty() && response->values[0].type == 4) {  // Type 4 = string
+          std::string discipline = response->values[0].string_value;
+          RCLCPP_INFO(this->get_logger(), "Discipline received: %s", discipline.c_str());
+          if (discipline == "skidpad") {
+            RCLCPP_INFO(this->get_logger(), "Discipline received: %s", discipline.c_str());
+            this->mission = common_lib::competition_logic::Mission::SKIDPAD;
+          } else if (discipline == "acceleration") {
+            RCLCPP_INFO(this->get_logger(), "Discipline received: %s", discipline.c_str());
+            this->mission = common_lib::competition_logic::Mission::ACCELERATION;
           } else {
-              RCLCPP_ERROR(this->get_logger(), "Failed to retrieve discipline parameter.");
+            this->mission = common_lib::competition_logic::Mission::AUTOCROSS;
           }
+        } else {
+          RCLCPP_ERROR(this->get_logger(), "Failed to retrieve discipline parameter.");
+        }
       });
 }
-
-
 
 void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &msg) {
   auto number_of_cones_received = static_cast<int>(msg.cone_array.size());
@@ -196,7 +194,6 @@ void Planning::run_planning_algorithms() {
     final_path = path_calculation_.skidpad_path(this->cone_array_, this->pose);
 
   } else if ((this->mission == common_lib::competition_logic::Mission::ACCELERATION)) {
-
     triangulations_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
     // Smooth the calculated path
     final_path = path_smoothing_.smooth_path(triangulations_path, this->pose,
@@ -214,13 +211,11 @@ void Planning::run_planning_algorithms() {
       }
     }
   } else {
-
     triangulations_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
     // Smooth the calculated path
     final_path = path_smoothing_.smooth_path(triangulations_path, this->pose,
                                              this->initial_car_orientation_);
     velocity_planning_.set_velocity(final_path);
-
   }
 
   if (final_path.size() < 10) {
@@ -228,20 +223,20 @@ void Planning::run_planning_algorithms() {
                 static_cast<int>(final_path.size()));
   }
 
-// Execution Time calculation
-rclcpp::Time end_time = this->now();
-std_msgs::msg::Float64 planning_execution_time;
-planning_execution_time.data = (end_time - start_time).seconds() * 1000;
-this->_planning_execution_time_publisher_->publish(planning_execution_time);
+  // Execution Time calculation
+  rclcpp::Time end_time = this->now();
+  std_msgs::msg::Float64 planning_execution_time;
+  planning_execution_time.data = (end_time - start_time).seconds() * 1000;
+  this->_planning_execution_time_publisher_->publish(planning_execution_time);
 
-publish_track_points(final_path);
-RCLCPP_DEBUG(this->get_logger(), "Planning will publish %i path points\n",
-             static_cast<int>(final_path.size()));
+  publish_track_points(final_path);
+  RCLCPP_DEBUG(this->get_logger(), "Planning will publish %i path points\n",
+               static_cast<int>(final_path.size()));
 
-if (planning_config_.simulation_.publishing_visualization_msgs_) {
-  publish_visualization_msgs(std::vector<Cone>{}, std::vector<Cone>{}, std::vector<Cone>{},
-    std::vector<Cone>{}, triangulations_path, final_path);
-}
+  if (planning_config_.simulation_.publishing_visualization_msgs_) {
+    publish_visualization_msgs(std::vector<Cone>{}, std::vector<Cone>{}, std::vector<Cone>{},
+                               std::vector<Cone>{}, triangulations_path, final_path);
+  }
 }
 
 void Planning::vehicle_localization_callback(const custom_interfaces::msg::VehicleState &msg) {

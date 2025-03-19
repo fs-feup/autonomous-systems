@@ -145,7 +145,7 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
   for (auto& p : midPoints) {
     double dist = sqrt(pow(p->point.x() - projected.point.x(), 2) +
                        pow(p->point.y() - projected.point.y(), 2));
-    if ((dist < min_dist) && (dist > 0.01)) { // 0.01 to guarantee it is not the same point
+    if ((dist < min_dist) && (dist > 0.01)) {  // 0.01 to guarantee it is not the same point
       min_dist = dist;
       second = p.get();
     }
