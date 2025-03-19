@@ -3,12 +3,13 @@ import numpy as np
 import datetime
 import rclpy
 import message_filters
-from custom_interfaces.msg import ConeArray, VehicleState, PathPointArray
+from custom_interfaces.msg import ConeArray, PathPointArray, Pose, Velocities
 from visualization_msgs.msg import MarkerArray
 from pacsim.msg import PerceptionDetections
 from geometry_msgs.msg import TwistWithCovarianceStamped, TransformStamped
 from evaluator.formats import (
-    format_vehicle_state_msg,
+    format_vehicle_pose_msg,
+    format_velocities_msg,
     format_cone_array_msg,
     format_transform_stamped_msg,
     format_twist_with_covariance_stamped_msg,
@@ -31,7 +32,6 @@ class PacsimAdapter(Adapter):
             node (Node): ROS2 node instance.
         """
         super().__init__(node)
-        self._groundtruth_velocity_ = None
         self._groundtruth_map_ = None
         self.node.groundtruth_map_subscription_ = self.node.create_subscription(
             MarkerArray,
@@ -40,23 +40,27 @@ class PacsimAdapter(Adapter):
             10,
         )  # because the map gets published only once at the beginning
 
-        self.node.groundtruth_velocity_subscription_ = self.node.create_subscription(
-            TwistWithCovarianceStamped,
-            "/pacsim/velocity",
-            self.groundtruth_velocity_callback,
-            10,
-        )  # Pose is given by transforms
-
-        self._time_sync_ = message_filters.ApproximateTimeSynchronizer(
+        self._time_sync_velocities_ = message_filters.ApproximateTimeSynchronizer(
             [
-                self.node.vehicle_state_subscription_,
+                self.node.velocities_subscription_,
+                self.node.groundtruth_velocity_subscription_,
+            ],
+            10,
+            0.02,
+        )
+
+        self._time_sync_slam_ = message_filters.ApproximateTimeSynchronizer(
+            [
+                self.node.vehicle_pose_subscription_,
                 self.node.map_subscription_,
             ],
             10,
             0.1,
         )
 
-        self._time_sync_.registerCallback(self.state_estimation_callback)
+        self._time_sync_slam_.registerCallback(self.slam_callback)
+
+        self._time_sync_velocities_.registerCallback(self.velocities_callback)
 
         self._planning_time_sync_ = message_filters.ApproximateTimeSynchronizer(
             [
@@ -69,20 +73,21 @@ class PacsimAdapter(Adapter):
 
         self._planning_time_sync_.registerCallback(self.planning_callback)
 
-    def state_estimation_callback(
+    def slam_callback(
         self,
-        vehicle_state: VehicleState,
+        vehicle_pose: Pose,
         map: ConeArray,
     ):
         """!
         Callback function to process synchronized messages
-        and compute state estimation metrics.
+        and compute pose and map metrics.
 
         Args:
-            vehicle_state (VehicleState): Vehicle state estimation data.
+            vehicle_pose (Pose): Pose of the vehicle.
             map (ConeArray): Map data.
         """
-        if self._groundtruth_map_ is None or self._groundtruth_velocity_ is None:
+        if self._groundtruth_map_ is None:
+            self.node.get_logger().warn("Groundtruth map not received")
             return
         transform: TransformStamped = self.node.transform_buffer_.lookup_transform(
             "map", "car", rclpy.time.Time()
@@ -90,23 +95,39 @@ class PacsimAdapter(Adapter):
         if transform is None:
             return
         groundtruth_pose_treated: np.ndarray = format_transform_stamped_msg(transform)
-        groundtruth_velocities_treated: np.ndarray = (
-            format_twist_with_covariance_stamped_msg(self._groundtruth_velocity_)
-        )  # [vx, vy, w]
         map_treated: np.ndarray = format_cone_array_msg(map)
         groundtruth_map_treated: np.ndarray = format_marker_array_msg(
             self._groundtruth_map_
         )
-        pose_treated, velocities_treated = format_vehicle_state_msg(
-            vehicle_state
-        )  # [x, y, yaw], [v, v, w]
-        self.node.compute_and_publish_state_estimation(
+        pose_treated: np.ndarray = format_vehicle_pose_msg(vehicle_pose)
+        self.node.compute_and_publish_slam(
             pose_treated,
             groundtruth_pose_treated,
-            velocities_treated,
-            groundtruth_velocities_treated,
             map_treated,
             groundtruth_map_treated,
+        )
+
+    def velocities_callback(
+        self,
+        velocities: Velocities,
+        groundtruth_velocity: TwistWithCovarianceStamped,
+    ):
+        """!
+        Callback function to process synchronized messages
+        and compute state estimation metrics.
+
+        Args:
+            velocities (Velocities): Vehicle velocities estimation data.
+            groundtruth_velocity (TwistWithCovarianceStamped): Ground truth velocity data.
+        """
+
+        groundtruth_velocities_treated: np.ndarray = (
+            format_twist_with_covariance_stamped_msg(groundtruth_velocity)
+        )  # [vx, vy, w]
+        velocities_treated = format_velocities_msg(velocities)  # [x, y, yaw], [v, v, w]
+        self.node.compute_and_publish_velocities(
+            velocities_treated,
+            groundtruth_velocities_treated,
         )
 
     def planning_callback(
@@ -141,17 +162,6 @@ class PacsimAdapter(Adapter):
             blue_cones,
             yellow_cones,
         )
-
-    def groundtruth_velocity_callback(
-        self, groundtruth_velocity: TwistWithCovarianceStamped
-    ):
-        """!
-        Callback function to process ground truth velocity messages.
-
-        Args:
-            groundtruth_velocity (TwistWithCovarianceStamped): Ground truth velocity data.
-        """
-        self._groundtruth_velocity_: TwistWithCovarianceStamped = groundtruth_velocity
 
     def groundtruth_map_callback(self, groundtruth_map: MarkerArray):
         """!
