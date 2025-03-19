@@ -9,4 +9,4 @@ slam:
   velocity_x_noise: 0.01 # sigma of the noise for the velocity in x
   velocity_y_noise: 0.01 # sigma of the noise for the velocity in y
   angular_velocity_noise: 0.01 # sigma of the noise for the angular velocity
-  slam_solver: "ekf_slam" # "graph_slam" or "ekf_slam" or ... -> name of the slam solver
+  slam_solver_name: "ekf_slam" # "graph_slam" or "ekf_slam" or ... -> name of the slam solver

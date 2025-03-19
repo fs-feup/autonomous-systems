@@ -102,7 +102,6 @@ void EKFSLAMSolver::correct(Eigen::VectorXd& state, Eigen::MatrixXd& covariance,
       covariance * jacobian.transpose() *
       (jacobian * covariance * jacobian.transpose() + observation_noise_matrix).inverse();
   state += kalman_gain * (matched_observations - predicted_observations);
-  state.segment(0, 3) = this->pose;
   covariance =
       (Eigen::MatrixXd::Identity(state.size(), state.size()) - kalman_gain * jacobian) * covariance;
 }

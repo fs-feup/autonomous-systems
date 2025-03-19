@@ -1,7 +1,7 @@
 slam:
   motion_model_name: "constant_velocity" # "constant_velocity" or ... -> name of the motion model
   data_association_model_name: "nearest_neighbour" # "maximum_likelihood" or ... -> name of the data association model
-  data_association_limit_distance: 2500 # maximum distance to consider a cone for data association
+  data_association_limit_distance: 50 # maximum distance to consider a cone for data association
   data_association_gate: 1.0 # Maximum allowed Malahanobis distance between an observation and matched landmark
   new_landmark_confidence_gate: 0.8 # Minimum confidence to consider an observation as a new landmark in data asociation
   observation_x_noise: 0.01 # sigma of the noise for cone positions in x
@@ -9,4 +9,4 @@ slam:
   velocity_x_noise: 0.01 # sigma of the noise for the velocity in x
   velocity_y_noise: 0.01 # sigma of the noise for the velocity in y
   angular_velocity_noise: 0.01 # sigma of the noise for the angular velocity
-  slam_solver: "ekf_slam" # "graph_slam" or "ekf_slam" or ... -> name of the slam solver
+  slam_solver_name: "ekf_slam" # "graph_slam" or "ekf_slam" or ... -> name of the slam solver

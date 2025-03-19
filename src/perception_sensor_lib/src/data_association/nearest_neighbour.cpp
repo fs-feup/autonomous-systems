@@ -10,7 +10,7 @@ Eigen::VectorXi NearestNeighbour::associate(const Eigen::VectorXd& state,
 
   double squared_distance_threshold =
       this->_params_.association_gate * this->_params_.association_gate;
-  double new_landmark_squared_distance_gate = 1;
+  double new_landmark_squared_distance_gate = 1.5;
 
   Eigen::VectorXi associations = Eigen::VectorXi::Constant(observations.size() / 2, -2);
 
@@ -18,7 +18,7 @@ Eigen::VectorXi NearestNeighbour::associate(const Eigen::VectorXd& state,
 
   for (int i = 0; i < observations.size(); i += 2) {
     if (observations(i) * observations(i) + observations(i + 1) * observations(i + 1) >
-        this->_params_.max_landmark_distance) {
+        this->_params_.max_landmark_distance * this->_params_.max_landmark_distance) {
       continue;
     }
 

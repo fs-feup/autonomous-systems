@@ -1,6 +1,5 @@
 #include "perception_sensor_lib/data_association/maximum_likelihood_nll.hpp"
 
-#include <Eigen/Dense>
 #include <cmath>
 #include <limits>
 #include <vector>
