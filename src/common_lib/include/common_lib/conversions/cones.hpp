@@ -1,6 +1,6 @@
 // This file contains conversions of cones to different formats
 #pragma once
-#include <Eigen/Dense>
+#include <Eigen/Sparse>
 #include <vector>
 
 #include "common_lib/structures/cone.hpp"
@@ -14,6 +14,7 @@ namespace common_lib::conversions {
  * @param confidences confidence associated with each cone
  */
 void cone_vector_to_eigen(const std::vector<common_lib::structures::Cone>& cones,
-                          Eigen::VectorXd& positions, Eigen::VectorXd& confidences);
+                          Eigen::SparseMatrix<double>& positions,
+                          Eigen::SparseMatrix<double>& confidences);
 
 }  // namespace common_lib::conversions

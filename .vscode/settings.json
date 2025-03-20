@@ -99,7 +99,21 @@
         "nonlinearoptimization": "cpp",
         "*.txx": "cpp",
         "dense": "cpp",
-        "hash_map": "cpp"
+        "hash_map": "cpp",
+        "superlusupport": "cpp",
+        "*.evaluator": "cpp",
+        "*.traits": "cpp",
+        "adolcforward": "cpp",
+        "alignedvector3": "cpp",
+        "autodiff": "cpp",
+        "bvh": "cpp",
+        "eulerangles": "cpp",
+        "fft": "cpp",
+        "kroneckerproduct": "cpp",
+        "mprealsupport": "cpp",
+        "openglsupport": "cpp",
+        "specialfunctions": "cpp",
+        "splines": "cpp"
     },
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter",

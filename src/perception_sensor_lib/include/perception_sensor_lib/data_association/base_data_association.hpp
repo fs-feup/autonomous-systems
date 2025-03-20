@@ -1,5 +1,6 @@
 #pragma once
 #include <Eigen/Dense>
+#include <Eigen/Sparse>
 #include <vector>
 
 #include "perception_sensor_lib/data_association/parameters.hpp"
@@ -30,7 +31,7 @@ public:
    * observation is considered new, the entry is -1. If the observation is considered an outlier,
    * the entry is -2.
    */
-  virtual Eigen::VectorXi associate(const Eigen::VectorXd& state, const Eigen::MatrixXd& covariance,
+  virtual Eigen::VectorXi associate(const Eigen::VectorXd& state, const Eigen::SparseMatrix<double>& covariance,
                                     const Eigen::VectorXd& observations,
                                     const Eigen::VectorXd& observation_confidences) const = 0;
 };

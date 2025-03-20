@@ -1,7 +1,7 @@
 #include "perception_sensor_lib/data_association/nearest_neighbour.hpp"
 
 Eigen::VectorXi NearestNeighbour::associate(const Eigen::VectorXd& state,
-                                            const Eigen::MatrixXd& covariance,
+                                            const Eigen::SparseMatrix<double>& covariance,
                                             const Eigen::VectorXd& observations,
                                             const Eigen::VectorXd& observation_confidences) const {
   // Transform observations to global coordinates

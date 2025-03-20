@@ -26,11 +26,12 @@ protected:
 
 /**
  * @brief Test the state augmentation function of the EKF SLAM solver with trivial state
- * 
+ *
  */
 TEST_F(EKFSLAMSolverTest, stateAugmentation) {
   Eigen::VectorXd state = Eigen::VectorXd::Zero(3);
-  Eigen::MatrixXd covariance = Eigen::MatrixXd::Identity(3, 3);
+  Eigen::SparseMatrix<double> covariance(3, 3);
+  covariance.setIdentity();
   Eigen::VectorXd new_landmarks_coordinates(10);
   Eigen::VectorXd new_landmarks_confidences(5);
   new_landmarks_coordinates << 1, 2, 3, 4, 5, 6, 7, 8, 9, 10;
@@ -46,12 +47,13 @@ TEST_F(EKFSLAMSolverTest, stateAugmentation) {
 
 /**
  * @brief Test the state augmentation function of the EKF SLAM solver with non-trivial state
- * 
+ *
  */
 TEST_F(EKFSLAMSolverTest, stateAugmentation2) {
   Eigen::VectorXd state = Eigen::VectorXd::Zero(3);
   state << 0, 0, M_PI / 2;
-  Eigen::MatrixXd covariance = Eigen::MatrixXd::Identity(3, 3);
+  Eigen::SparseMatrix<double> covariance(3, 3);
+  covariance.setIdentity();
   Eigen::VectorXd new_landmarks_coordinates(10);
   Eigen::VectorXd new_landmarks_confidences(5);
   new_landmarks_coordinates << 1, 2, 3, 4, 5, 6, 7, 8, 9, 10;

@@ -17,7 +17,7 @@ public:
 
   ~NearestNeighbour() = default;
 
-  Eigen::VectorXi associate(const Eigen::VectorXd& state, const Eigen::MatrixXd& covariance,
+  Eigen::VectorXi associate(const Eigen::VectorXd& state, const Eigen::SparseMatrix<double>& covariance,
                             const Eigen::VectorXd& observations,
                             const Eigen::VectorXd& observation_confidences) const override;
 };
