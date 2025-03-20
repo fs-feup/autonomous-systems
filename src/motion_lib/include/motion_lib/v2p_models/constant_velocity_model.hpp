@@ -17,7 +17,7 @@ public:
    *
    * @param base_process_noise standard non variating noise if used
    */
-  explicit ConstantVelocityModel(Eigen::Vector3d base_process_noise);
+  explicit ConstantVelocityModel(const Eigen::Vector3d base_process_noise);
 
   /**
    * @brief Predict the pose of the robot given the velocities
