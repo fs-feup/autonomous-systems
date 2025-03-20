@@ -527,7 +527,7 @@ void updateStateEstimation(const pacsim::msg::PerceptionDetections msg)
                        sin(yaw),  cos(yaw);
 
     // Set duplicate removal threshold (meters)
-    const double epsilon = 0.3;  // Ignore detections closer than 30cm to existing cones
+    const double epsilon = 2.5;  // Ignore detections closer than 30cm to existing cones
 
     for (const auto& detection : msg.detections)
     {
