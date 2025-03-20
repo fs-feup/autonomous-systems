@@ -1,5 +1,7 @@
 #include "adapter_planning/pacsim.hpp"
 
+#include "custom_interfaces/msg/pose.hpp"
+
 PacSimAdapter::PacSimAdapter(const PlanningParameters& params) : Planning(params) {
   if (params.using_simulated_se_) {
     RCLCPP_INFO(this->get_logger(), "Planning : Pacsim using simulated State Estimation");
@@ -21,7 +23,7 @@ void PacSimAdapter::timer_callback() {
   RCLCPP_DEBUG(this->get_logger(), "Planning pacsim timer callback");
   if (tf_buffer_->canTransform("map", "car", tf2::TimePointZero)) {
     RCLCPP_DEBUG(this->get_logger(), "Planning recieved already recieved first pose\n");
-    custom_interfaces::msg::VehicleState pose;
+    custom_interfaces::msg::Pose pose;
     geometry_msgs::msg::TransformStamped t =
         tf_buffer_->lookupTransform("map", "car", tf2::TimePointZero);
     pose.header = t.header;
@@ -33,10 +35,8 @@ void PacSimAdapter::timer_callback() {
     double yaw;
     m.getRPY(roll, pitch, yaw);
     pose.theta = yaw;
-    pose.position.x = t.transform.translation.x;
-    pose.position.y = t.transform.translation.y;
-    pose.linear_velocity = 0.0;   // not needed -> default value
-    pose.angular_velocity = 0.0;  // not needed -> default value
+    pose.x = t.transform.translation.x;
+    pose.y = t.transform.translation.y;
     this->vehicle_localization_callback(pose);
   }
 }

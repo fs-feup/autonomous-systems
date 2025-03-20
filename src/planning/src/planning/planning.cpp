@@ -122,8 +122,8 @@ Planning::Planning(const PlanningParameters &params)
 
   if (!planning_config_.simulation_.using_simulated_se_) {
     // Vehicle Localization Subscriber
-    this->vl_sub_ = this->create_subscription<custom_interfaces::msg::VehicleState>(
-        "/state_estimation/vehicle_state", 10,
+    this->vl_sub_ = this->create_subscription<custom_interfaces::msg::Pose>(
+        "/state_estimation/vehicle_pose", 10,
         std::bind(&Planning::vehicle_localization_callback, this, _1));
     // State Estimation map Subscriber
     this->track_sub_ = this->create_subscription<custom_interfaces::msg::ConeArray>(
@@ -239,8 +239,8 @@ void Planning::run_planning_algorithms() {
   }
 }
 
-void Planning::vehicle_localization_callback(const custom_interfaces::msg::VehicleState &msg) {
-  this->pose = Pose(msg.position.x, msg.position.y, msg.theta);
+void Planning::vehicle_localization_callback(const custom_interfaces::msg::Pose &msg) {
+  this->pose = Pose(msg.x, msg.y, msg.theta);
 
   if (!this->received_first_pose_) {
     this->initial_car_orientation_ = msg.theta;

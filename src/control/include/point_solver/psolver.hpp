@@ -13,6 +13,7 @@
 #include "motion_lib/car_parameters.hpp"
 #include "motion_lib/s2v_model/bicycle_model.hpp"
 #include "rclcpp/rclcpp.hpp"
+#include "custom_interfaces/msg/pose.hpp"
 
 class PointSolver {
 private:
@@ -59,7 +60,7 @@ public:
    *
    * @param pose msg
    */
-  void update_vehicle_pose(const custom_interfaces::msg::VehicleState &vehicle_state_msg);
+  void update_vehicle_pose(const custom_interfaces::msg::Pose &vehicle_state_msg, double velocity = 0.0);
 
   FRIEND_TEST(PointSolverTests, Test_update_closest_point_1);
   FRIEND_TEST(PointSolverTests, Test_update_lookahead_point_1);
