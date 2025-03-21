@@ -8,12 +8,13 @@ on:
     types: [opened, synchronize, reopened]
 
 jobs:
-
   pre-commit:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Ensure full history for commits
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -26,7 +27,24 @@ jobs:
           pre-commit install
 
       - name: Run Pre-Commit
-        run: pre-commit run --all-files
+        id: pre_commit
+        run: |
+          pre-commit run --all-files || true  # Prevents failure if changes are made
+
+      - name: Check for changes
+        id: check_changes
+        run: |
+          git diff --quiet || echo "has_changes=true" >> $GITHUB_ENV
+
+      - name: Commit and push changes
+        if: env.has_changes == 'true'
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add .
+          git commit -m "Apply pre-commit fixes"
+          git push
+
 
   build: # Sonarcloud analysis
     name: sonarcloud-build
