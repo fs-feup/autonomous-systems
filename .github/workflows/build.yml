@@ -57,7 +57,7 @@ jobs:
           # Create a pull request targeting the original branch
           gh pr create --base $BASE_BRANCH --head $BRANCH_NAME --title "chore: Apply pre-commit fixes" --body "This PR applies pre-commit fixes automatically."
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PAT_KEY }}
 
 
   build: # Sonarcloud analysis
