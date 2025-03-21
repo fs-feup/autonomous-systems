@@ -43,7 +43,9 @@ jobs:
           git config --global user.email "actions@github.com"
           git add .
           git commit -m "Apply pre-commit fixes"
-          git push
+          # Extract the branch name from GITHUB_REF and push changes
+          BRANCH_NAME=${GITHUB_REF#refs/heads/}
+          git push origin HEAD:$BRANCH_NAME
 
 
   build: # Sonarcloud analysis
