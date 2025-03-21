@@ -60,7 +60,7 @@ jobs:
             echo $BRANCH
             git push origin $BRANCH
         env:
-            GITHUB_TOKEN: ${{ secrets.PAT_KEY }}
+            PAT_KEY: ${{ secrets.PAT_KEY }}
         
   
 
