@@ -36,31 +36,30 @@ jobs:
         run: |
           git diff --quiet || echo "has_changes=true" >> $GITHUB_ENV
 
-      - name: Commit and push changes
+          - name: Commit and push changes
         if: env.has_changes == 'true'
         run: |
             git config --global user.name "GitHub Actions"
             git config --global user.email "actions@github.com"
-  
-            # Determine the correct base branch
+        
+            # Figure out the correct branch to push to
             if [[ "${GITHUB_REF}" == refs/pull/* ]]; then
-              # Extract the branch name from pull request reference
-              BASE_BRANCH=${GITHUB_BASE_REF}
+              BRANCH=${GITHUB_HEAD_REF}  # PR source branch
             else
-              # Extract the branch name from direct push event
-              BASE_BRANCH=${GITHUB_REF#refs/heads/}
+              BRANCH=${GITHUB_REF#refs/heads/}  # Direct push event
             fi
-  
-            # Fetch and switch to the correct branch
-            git fetch origin $BASE_BRANCH
-            git checkout $BASE_BRANCH
-  
-            # Commit and push changes
+        
+            # Fetch and check out the source branch
+            git fetch origin $BRANCH
+            git checkout $BRANCH
+        
+            # Commit and push changes back to the branch
             git add .
             git commit -m "chore: Apply pre-commit fixes"
-            git push origin $BASE_BRANCH
+            git push origin $BRANCH
         env:
             GITHUB_TOKEN: ${{ secrets.PAT_KEY }}
+        
   
 
 
