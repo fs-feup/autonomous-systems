@@ -57,6 +57,7 @@ jobs:
             git add .
             git commit -m "chore: Apply pre-commit fixes"
             git remote set-url origin https://x-access-token:${PAT_KEY}@github.com/${GITHUB_REPOSITORY}
+            echo $BRANCH
             git push origin $BRANCH
         env:
             GITHUB_TOKEN: ${{ secrets.PAT_KEY }}
