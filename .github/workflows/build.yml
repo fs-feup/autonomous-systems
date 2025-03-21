@@ -36,7 +36,7 @@ jobs:
         run: |
           git diff --quiet || echo "has_changes=true" >> $GITHUB_ENV
 
-          - name: Commit and push changes
+      - name: Commit and push changes
         if: env.has_changes == 'true'
         run: |
             git config --global user.name "GitHub Actions"
