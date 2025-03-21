@@ -42,22 +42,17 @@ jobs:
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
 
-          # Extract the original branch name (e.g., 'main', 'feature-xyz')
+          # Ensure we are on the correct branch
           BASE_BRANCH=${GITHUB_REF#refs/heads/}
+          git checkout $BASE_BRANCH
 
-          # Generate a unique branch name (timestamp-based)
-          BRANCH_NAME="pre-commit-fixes-$(date +%s)"
-
-          # Create a new branch from the base branch
-          git checkout -b $BRANCH_NAME
+          # Commit and push changes
           git add .
           git commit -m "chore: Apply pre-commit fixes"
-          git push origin $BRANCH_NAME
-
-          # Create a pull request targeting the original branch
-          gh pr create --base $BASE_BRANCH --head $BRANCH_NAME --title "chore: Apply pre-commit fixes" --body "This PR applies pre-commit fixes automatically."
+          git push origin $BASE_BRANCH
         env:
           GITHUB_TOKEN: ${{ secrets.PAT_KEY }}
+
 
 
   build: # Sonarcloud analysis
