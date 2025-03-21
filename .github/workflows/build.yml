@@ -36,16 +36,18 @@ jobs:
         run: |
           git diff --quiet || echo "has_changes=true" >> $GITHUB_ENV
 
-      - name: Commit and push changes
-        if: env.has_changes == 'true'
-        run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
-          git add .
-          git commit -m "Apply pre-commit fixes"
-          # Extract the branch name from GITHUB_REF and push changes
-          BRANCH_NAME=${GITHUB_REF#refs/heads/}
-          git push origin HEAD:$BRANCH_NAME
+          - name: Commit and push changes
+          if: env.has_changes == 'true'
+          run: |
+            git config --global user.name "GitHub Actions"
+            git config --global user.email "actions@github.com"
+            git add .
+            git commit -m "Apply pre-commit fixes"
+            BRANCH_NAME=${GITHUB_REF#refs/heads/}
+            git push origin HEAD:$BRANCH_NAME
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  
 
 
   build: # Sonarcloud analysis
