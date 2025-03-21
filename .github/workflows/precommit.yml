@@ -2,6 +2,7 @@ name: C++ Pre-Commit Checks
 
 on:
   pull_request:
+    types: [opened, synchronize, reopened]
   push:
     branches: [main, dev]
 

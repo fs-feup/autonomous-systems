@@ -3,7 +3,7 @@ name: Testing and Building
 on:
   push:
     branches:
-      - [main, dev]
+      [main, dev]
   pull_request:
     types: [opened, synchronize, reopened]
 
