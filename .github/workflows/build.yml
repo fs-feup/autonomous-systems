@@ -175,9 +175,11 @@ jobs:
       - name: Build and Test SLAM
         run: |
           source install/setup.bash
+          export LD_LIBRARY_PATH=/usr/local/lib:LD_LIBRARY_PATH
           colcon build --packages-select slam
           colcon test --packages-select slam
           colcon test-result --all --verbose
+
   velocity_estimation:
             runs-on: ubuntu-latest
         
