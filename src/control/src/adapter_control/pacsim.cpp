@@ -24,7 +24,7 @@ PacSimAdapter::PacSimAdapter(const ControlParameters& params)
 
     car_velocity_sub_ = this->create_subscription<geometry_msgs::msg::TwistWithCovarianceStamped>(
         "/pacsim/velocity", 10, [this](const geometry_msgs::msg::TwistWithCovarianceStamped& msg) {
-          last_stored_velocity_ = std::sqrt(std::pow(msg.twist.twist.linear.x, 2) +
+          velocity_ = std::sqrt(std::pow(msg.twist.twist.linear.x, 2) +
                                             std::pow(msg.twist.twist.linear.y, 2) +
                                             std::pow(msg.twist.twist.linear.z, 2));
         });

@@ -740,7 +740,7 @@ bool CompetitionLogic::performAllChecks(
     {
         evaluateOffCourse(track, time, position, orientation);
         evaluateTimeKeepings(track, position, orientation, time);
-        checkFinishConditionsMet(time);
+        //checkFinishConditionsMet(time);
         ussTriggered = ussTriggered || checkUSS(track, time, position);
         ret = ret || checkDNF(track, time, position);
     }
