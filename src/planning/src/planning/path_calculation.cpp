@@ -121,22 +121,33 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
     }
   }
 
+  if (!anchor_point_set_) {
+    anchor_point_ = pose;
+    anchor_point_set_ = true;
+  }
+
   // Find the first point closest to the current pose
   MidPoint* first = nullptr;
   double min_dist = 10000;
   for (auto& p : midPoints) {
     double dist =
-        sqrt(pow(p->point.x() - pose.position.x, 2) + pow(p->point.y() - pose.position.y, 2));
+        sqrt(pow(p->point.x() - anchor_point_.position.x, 2) + pow(p->point.y() - anchor_point_.position.y, 2));
     if (dist < min_dist) {
-      min_dist = dist;
-      first = p.get();
+      // Check if the point is in front of the car
+      double angle_with_pose = atan2(p->point.y() - anchor_point_.position.y,
+                                     p->point.x() - anchor_point_.position.x);
+      double angle_diff = abs(angle_with_pose - anchor_point_.orientation);
+      if (angle_diff < M_PI / 2) {
+        min_dist = dist;
+        first = p.get();
+      }
     }
   }
 
   // Project a point based on pose orientation
   double proj_distance = 1;  // 1 meter away from first point
-  MidPoint projected = {Point(first->point.x() + cos(pose.orientation) * proj_distance,
-                              first->point.y() + sin(pose.orientation) * proj_distance),
+  MidPoint projected = {Point(first->point.x() + cos(anchor_point_.orientation) * proj_distance,
+                              first->point.y() + sin(anchor_point_.orientation) * proj_distance),
                         {}};
 
   // Find the second point closest to the projected point

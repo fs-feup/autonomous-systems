@@ -39,6 +39,9 @@ private:
   bool path_orientation_corrected_ = false;
   std::vector<PathPoint> predefined_path_;  
 
+  common_lib::structures::Pose anchor_point_;
+  bool anchor_point_set_ = false;
+
 
 public:
   /**
