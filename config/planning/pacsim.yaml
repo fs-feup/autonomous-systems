@@ -22,10 +22,10 @@ planning:
   smoothing_spline_coeffs_ratio: 3.0
   smoothing_spline_precision: 10 
   publishing_visualization_msg: true
-  pre_defined_velocity_planning: 1.5
+  pre_defined_velocity_planning: 4.0
   use_outlier_removal: false
   use_path_smoothing: true
   minimum_velocity: 2.0
-  braking_acceleration: -0.1
-  normal_acceleration: 1.0
-  use_velocity_planning: false
+  braking_acceleration: -1.0
+  normal_acceleration: 4.0
+  use_velocity_planning: true
