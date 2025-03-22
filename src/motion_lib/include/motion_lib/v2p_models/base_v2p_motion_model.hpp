@@ -28,7 +28,7 @@ public:
    * @brief Predict the pose of the robot given the velocities
    *
    * @param previous_pose
-   * @param velocities
+   * @param velocities (vx, vy, omega)
    * @param delta_t
    * @return Eigen::Vector3d
    */

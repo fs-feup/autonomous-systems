@@ -1,4 +1,10 @@
-from custom_interfaces.msg import ConeArray, VehicleState, PathPointArray
+from custom_interfaces.msg import (
+    ConeArray,
+    VehicleState,
+    PathPointArray,
+    Pose,
+    Velocities,
+)
 from visualization_msgs.msg import MarkerArray
 from geometry_msgs.msg import TransformStamped, TwistWithCovarianceStamped
 from tf_transformations import euler_from_quaternion
@@ -13,8 +19,46 @@ cone_color_dictionary: dict[str, int] = {
     "yellow": 1,
     "orange_cone": 2,
     "large_orange_cone": 3,
-    "undefined": 4,
+    "unknown": 4,
 }
+
+
+def format_vehicle_pose_msg(msg: Pose) -> tuple[np.ndarray, np.ndarray]:
+    """!
+    Formats the Pose message into a numpy array.
+
+    Args:
+        msg (Pose): Vehicle pose message.
+
+    Returns:
+        np.ndarray: Numpy array of vehicle pose.
+    """
+    return np.array(
+        [
+            msg.x,
+            msg.y,
+            msg.theta,
+        ]
+    )
+
+
+def format_velocities_msg(msg: Velocities) -> tuple[np.ndarray, np.ndarray]:
+    """!
+    Formats the Velocities message into a numpy array.
+
+    Args:
+        msg (Velocities): Vehicle velocities message.
+
+    Returns:
+        np.ndarray: Numpy array of vehicle velocities.
+    """
+    return np.array(
+        [
+            msg.velocity_x,
+            msg.velocity_y,
+            msg.angular_velocity,
+        ]
+    )
 
 
 def format_vehicle_state_msg(msg: VehicleState) -> tuple[np.ndarray, np.ndarray]:

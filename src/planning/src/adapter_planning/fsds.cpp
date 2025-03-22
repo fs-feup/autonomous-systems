@@ -1,6 +1,7 @@
 #include "adapter_planning/fsds.hpp"
 
 #include "planning/planning.hpp"
+#include "custom_interfaces/msg/pose.hpp"
 
 FsdsAdapter::FsdsAdapter(const PlanningParameters& params) : Planning(params) {
   if (this->planning_config_.simulation_.using_simulated_se_) {
@@ -37,7 +38,7 @@ void FsdsAdapter::finish() {
 }
 
 void FsdsAdapter::pose_callback(const nav_msgs::msg::Odometry& msg) {
-  custom_interfaces::msg::VehicleState pose;
+  custom_interfaces::msg::Pose pose;
   pose.header = msg.header;
   tf2::Quaternion q(msg.pose.pose.orientation.x, msg.pose.pose.orientation.y,
                     msg.pose.pose.orientation.z, msg.pose.pose.orientation.w);
@@ -47,7 +48,7 @@ void FsdsAdapter::pose_callback(const nav_msgs::msg::Odometry& msg) {
   double yaw;
   m.getRPY(roll, pitch, yaw);
   pose.theta = yaw;
-  pose.position.x = msg.pose.pose.position.x;
-  pose.position.y = msg.pose.pose.position.y;
+  pose.x = msg.pose.pose.position.x;
+  pose.y = msg.pose.pose.position.y;
   this->vehicle_localization_callback(pose);
 }

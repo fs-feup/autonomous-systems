@@ -16,6 +16,8 @@ SLAMParameters::SLAMParameters(const SLAMParameters &params) {
   velocity_y_noise_ = params.velocity_y_noise_;
   angular_velocity_noise_ = params.angular_velocity_noise_;
   slam_solver_name_ = params.slam_solver_name_;
+  slam_min_pose_difference_ = params.slam_min_pose_difference_;
+  slam_optimization_period_ = params.slam_optimization_period_;
 }
 
 std::string SLAMParameters::load_config() {
@@ -47,6 +49,8 @@ std::string SLAMParameters::load_config() {
   this->velocity_y_noise_ = slam_config["slam"]["velocity_y_noise"].as<float>();
   this->angular_velocity_noise_ = slam_config["slam"]["angular_velocity_noise"].as<float>();
   this->slam_solver_name_ = slam_config["slam"]["slam_solver_name"].as<std::string>();
+  this->slam_min_pose_difference_ = slam_config["slam"]["slam_min_pose_difference"].as<float>();
+  this->slam_optimization_period_ = slam_config["slam"]["slam_optimization_period"].as<double>();
 
   return adapter;
 }
