@@ -9,9 +9,9 @@
  */
 TEST(CONSTANT_VELOCITY_MODEL, STRAIGHT_LINE_MOVEMENT_TEST_1) {
   // Arrange
-  Eigen::Vector3d previous_pose(0, 0, 0);
-  Eigen::Vector3d velocities(1, 0, 0);
-  double delta_t = 1;
+  const Eigen::Vector3d previous_pose(0, 0, 0);
+  const Eigen::Vector3d velocities(1, 0, 0);
+  const double delta_t = 1;
   ConstantVelocityModel model;
 
   // Act
@@ -38,9 +38,9 @@ TEST(CONSTANT_VELOCITY_MODEL, STRAIGHT_LINE_MOVEMENT_TEST_1) {
  */
 TEST(CONSTANT_VELOCITY_MODEL, STRAIGHT_LINE_MOVEMENT_TEST_2) {
   // Arrange
-  Eigen::Vector3d previous_pose(0, 0, M_PI / 4);
-  Eigen::Vector3d velocities(2, 0, 0);
-  double delta_t = 1;
+  const Eigen::Vector3d previous_pose(0, 0, M_PI / 4);
+  const Eigen::Vector3d velocities(2, 0, 0);
+  const double delta_t = 1;
   ConstantVelocityModel model;
 
   // Act
@@ -67,9 +67,9 @@ TEST(CONSTANT_VELOCITY_MODEL, STRAIGHT_LINE_MOVEMENT_TEST_2) {
  */
 TEST(CONSTANT_VELOCITY_MODEL, BACKWARDS_MOVEMENT_TEST_1) {
   // Arrange
-  Eigen::Vector3d previous_pose(0, 0, 0.0);
-  Eigen::Vector3d velocities(-1, 0.0, 0);
-  double delta_t = 1;
+  const Eigen::Vector3d previous_pose(0, 0, 0.0);
+  const Eigen::Vector3d velocities(-1, 0.0, 0);
+  const double delta_t = 1;
   ConstantVelocityModel model;
 
   // Act
@@ -97,9 +97,9 @@ TEST(CONSTANT_VELOCITY_MODEL, BACKWARDS_MOVEMENT_TEST_1) {
  */
 TEST(CONSTANT_VELOCITY_MODEL, BACKWARDS_MOVEMENT_TEST_2) {
   // Arrange
-  Eigen::Vector3d previous_pose(0, 0, M_PI);
-  Eigen::Vector3d velocities(1, 0.0, 0);
-  double delta_t = 1;
+  const Eigen::Vector3d previous_pose(0, 0, M_PI);
+  const Eigen::Vector3d velocities(1, 0.0, 0);
+  const double delta_t = 1;
   ConstantVelocityModel model;
 
   // Act
@@ -127,9 +127,9 @@ TEST(CONSTANT_VELOCITY_MODEL, BACKWARDS_MOVEMENT_TEST_2) {
  */
 TEST(CONSTANT_VELOCITY_MODEL, BACKWARDS_MOVEMENT_TEST_3) {
   // Arrange
-  Eigen::Vector3d previous_pose(0, 0, -M_PI);
-  Eigen::Vector3d velocities(-1, 0.0, 0);
-  double delta_t = 1;
+  const Eigen::Vector3d previous_pose(0, 0, -M_PI);
+  const Eigen::Vector3d velocities(-1, 0.0, 0);
+  const double delta_t = 1;
   ConstantVelocityModel model;
 
   // Act
@@ -156,9 +156,9 @@ TEST(CONSTANT_VELOCITY_MODEL, BACKWARDS_MOVEMENT_TEST_3) {
  */
 TEST(CONSTANT_VELOCITY_MODEL, ORIENTATION_ANGLE_CAP_TEST_1) {
   // Arrange
-  Eigen::Vector3d previous_pose(0, 0, 2 * M_PI);
-  Eigen::Vector3d velocities(0.0, 0.0, 0);
-  double delta_t = 1;
+  const Eigen::Vector3d previous_pose(0, 0, 2 * M_PI);
+  const Eigen::Vector3d velocities(0.0, 0.0, 0);
+  const double delta_t = 1;
   ConstantVelocityModel model;
 
   // Act
@@ -185,9 +185,9 @@ TEST(CONSTANT_VELOCITY_MODEL, ORIENTATION_ANGLE_CAP_TEST_1) {
  */
 TEST(CONSTANT_VELOCITY_MODEL, ORIENTATION_ANGLE_CAP_TEST_2) {
   // Arrange
-  Eigen::Vector3d previous_pose(0, 0, 3 * M_PI);
-  Eigen::Vector3d velocities(0.0, 0.0, 0);
-  double delta_t = 1;
+  const Eigen::Vector3d previous_pose(0, 0, 3 * M_PI);
+  const Eigen::Vector3d velocities(0.0, 0.0, 0);
+  const double delta_t = 1;
   ConstantVelocityModel model;
 
   // Act
@@ -214,9 +214,9 @@ TEST(CONSTANT_VELOCITY_MODEL, ORIENTATION_ANGLE_CAP_TEST_2) {
  */
 TEST(CONSTANT_VELOCITY_MODEL, ORIENTATION_ANGLE_CAP_TEST_3) {
   // Arrange
-  Eigen::Vector3d previous_pose(0, 0, -3 * M_PI);
-  Eigen::Vector3d velocities(0.0, 0.0, 0);
-  double delta_t = 1;
+  const Eigen::Vector3d previous_pose(0, 0, -3 * M_PI);
+  const Eigen::Vector3d velocities(0.0, 0.0, 0);
+  const double delta_t = 1;
   ConstantVelocityModel model;
 
   // Act
@@ -243,9 +243,9 @@ TEST(CONSTANT_VELOCITY_MODEL, ORIENTATION_ANGLE_CAP_TEST_3) {
  */
 TEST(CONSTANT_VELOCITY_MODEL, ORIENTATION_ANGLE_CAP_TEST_4) {
   // Arrange
-  Eigen::Vector3d previous_pose(0, 0, 1.5 * M_PI);
-  Eigen::Vector3d velocities(0.0, 0.0, 0);
-  double delta_t = 1;
+  const Eigen::Vector3d previous_pose(0, 0, 1.5 * M_PI);
+  const Eigen::Vector3d velocities(0.0, 0.0, 0);
+  const double delta_t = 1;
   ConstantVelocityModel model;
 
   // Act
@@ -272,9 +272,9 @@ TEST(CONSTANT_VELOCITY_MODEL, ORIENTATION_ANGLE_CAP_TEST_4) {
  */
 TEST(CONSTANT_VELOCITY_MODEL, ORIENTATION_ANGLE_CAP_TEST_5) {
   // Arrange
-  Eigen::Vector3d previous_pose(0, 0, -2.5 * M_PI);
-  Eigen::Vector3d velocities(0.0, 0.0, 0);
-  double delta_t = 1;
+  const Eigen::Vector3d previous_pose(0, 0, -2.5 * M_PI);
+  const Eigen::Vector3d velocities(0.0, 0.0, 0);
+  const double delta_t = 1;
   ConstantVelocityModel model;
 
   // Act
@@ -301,9 +301,9 @@ TEST(CONSTANT_VELOCITY_MODEL, ORIENTATION_ANGLE_CAP_TEST_5) {
  */
 TEST(CONSTANT_VELOCITY_MODEL, CURVILINEAR_MOVEMENT_TEST_1) {
   // Arrange
-  Eigen::Vector3d previous_pose(1, 2, M_PI / 4);
-  Eigen::Vector3d velocities(3, 3, M_PI / 16);
-  double delta_t = 1;
+  const Eigen::Vector3d previous_pose(1, 2, M_PI / 4);
+  const Eigen::Vector3d velocities(3, 3, M_PI / 16);
+  const double delta_t = 1;
   ConstantVelocityModel model;
 
   // Act
@@ -330,9 +330,9 @@ TEST(CONSTANT_VELOCITY_MODEL, CURVILINEAR_MOVEMENT_TEST_1) {
  */
 TEST(CONSTANT_VELOCITY_MODEL, CURVILINEAR_MOVEMENT_TEST_2) {
   // Arrange
-  Eigen::Vector3d previous_pose(1, 2, -M_PI / 4);
-  Eigen::Vector3d velocities(3, -0.5, -M_PI / 8);
-  double delta_t = 1;
+  const Eigen::Vector3d previous_pose(1, 2, -M_PI / 4);
+  const Eigen::Vector3d velocities(3, -0.5, -M_PI / 8);
+  const double delta_t = 1;
   ConstantVelocityModel model;
 
   // Act
@@ -360,9 +360,9 @@ TEST(CONSTANT_VELOCITY_MODEL, CURVILINEAR_MOVEMENT_TEST_2) {
  */
 TEST(CONSTANT_VELOCITY_MODEL, CURVILINEAR_MOVEMENT_TEST_3) {
   // Arrange
-  Eigen::Vector3d previous_pose(1, 2, -M_PI / 2);
-  Eigen::Vector3d velocities(3, 1.5, M_PI / 4);
-  double delta_t = 2;
+  const Eigen::Vector3d previous_pose(1, 2, -M_PI / 2);
+  const Eigen::Vector3d velocities(3, 1.5, M_PI / 4);
+  const double delta_t = 2;
   ConstantVelocityModel model;
 
   // Act

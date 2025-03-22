@@ -3,7 +3,7 @@
 
 #include "common_lib/maths/transformations.hpp"
 
-ConstantVelocityModel::ConstantVelocityModel(Eigen::Vector3d base_process_noise)
+ConstantVelocityModel::ConstantVelocityModel(const Eigen::Vector3d base_process_noise)
     : V2PMotionModel(base_process_noise) {}
 
 ConstantVelocityModel::ConstantVelocityModel() : V2PMotionModel() {}

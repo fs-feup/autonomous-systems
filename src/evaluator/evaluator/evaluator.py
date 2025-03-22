@@ -806,25 +806,11 @@ class Evaluator(Node):
         velocities_error = Float32MultiArray()
         velocities_error.layout.dim = [MultiArrayDimension()]
         velocities_error.layout.dim[0].size = 3
-        velocities_error.layout.dim[0].label = (
-            "vehicle state error: [x, y, theta, v, v, w]"
-        )
+        velocities_error.layout.dim[0].label = "vehicle state error: [vx, vy, w]"
         velocities_error.data = [0.0] * 6
         if groundtruth_velocities != []:
-            velocities_error.data[0] = abs(
-                velocities[0]
-                - sqrt(
-                    pow(groundtruth_velocities[0], 2)
-                    + pow(groundtruth_velocities[1], 2)
-                )
-            )
-            velocities_error.data[1] = abs(
-                velocities[1]
-                - sqrt(
-                    pow(groundtruth_velocities[0], 2)
-                    + pow(groundtruth_velocities[1], 2)
-                )
-            )
+            velocities_error.data[0] = abs(velocities[0] - groundtruth_velocities[0])
+            velocities_error.data[1] = abs(velocities[1] - groundtruth_velocities[1])
             velocities_error.data[2] = abs(velocities[2] - groundtruth_velocities[2])
 
         self.get_logger().debug(
