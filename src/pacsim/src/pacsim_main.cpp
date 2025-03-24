@@ -270,12 +270,13 @@ int threadMainLoopFunc(std::shared_ptr<rclcpp::Node> node)
         Wheels steeringCurr = model->getSteeringAngles();
         double steeringWheelCurr = model->getSteeringWheelAngle();
 
-        StampedScalar steeringDataFront { steeringWheelCurr, simTime };
+        StampedScalar steeringDataFront { (steeringCurr.FL + steeringCurr.FR) / 2, simTime };
         // tire_positions for model
 
         //
         if (steeringSensorFront->RunTick(steeringDataFront, simTime))
         {
+            RCLCPP_INFO(rclcpp::get_logger("PACSIM"), "steeringDataFront: %f", steeringDataFront.data);
             StampedScalar steeringData = steeringSensorFront->getOldest();
             pacsim::msg::StampedScalar msg;
             msg.value = steeringData.data;
