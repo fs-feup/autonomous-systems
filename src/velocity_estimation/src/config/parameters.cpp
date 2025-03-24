@@ -15,9 +15,14 @@ std::string VEParameters::load_config() {
 
   this->_estimation_method_ =
       ve_config["velocity_estimation"]["estimation_method"].as<std::string>();
-  this->_ekf_process_noise_ = ve_config["velocity_estimation"]["ekf_process_noise"].as<double>();
-  this->_ekf_measurement_noise_ =
-      ve_config["velocity_estimation"]["ekf_measurement_noise"].as<double>();
+  this->imu_acceleration_noise_ =
+      ve_config["velocity_estimation"]["imu_acceleration_noise"].as<double>();
+  this->imu_rotational_noise_ =
+      ve_config["velocity_estimation"]["imu_rotational_noise"].as<double>();
+  this->wheel_speed_noise_ = ve_config["velocity_estimation"]["wheel_speed_noise"].as<double>();
+  this->steering_angle_noise_ =
+      ve_config["velocity_estimation"]["steering_angle_noise"].as<double>();
+  this->motor_rpm_noise_ = ve_config["velocity_estimation"]["motor_rpm_noise"].as<double>();
   this->_wheel_base_ = ve_config["velocity_estimation"]["wheel_base"].as<double>();
   this->_weight_distribution_front_ =
       ve_config["velocity_estimation"]["weight_distribution_front"].as<double>();

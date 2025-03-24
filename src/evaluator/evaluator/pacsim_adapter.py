@@ -40,13 +40,19 @@ class PacsimAdapter(Adapter):
             10,
         )  # because the map gets published only once at the beginning
 
-        self._time_sync_velocities_ = message_filters.ApproximateTimeSynchronizer(
-            [
-                self.node.velocities_subscription_,
-                self.node.groundtruth_velocity_subscription_,
-            ],
+        self.node.velocities_subscription_ = self.node.create_subscription(
+            Velocities,
+            "/state_estimation/velocities",
+            self.velocities_callback,
             10,
-            0.02,
+        )
+
+        self._groundtruth_velocity_ = None
+        self.node.velocities_groundtruth_subscription_ = self.node.create_subscription(
+            TwistWithCovarianceStamped,
+            "/pacsim/velocity",
+            self.groundtruth_velocity_callback,
+            10,
         )
 
         self._time_sync_slam_ = message_filters.ApproximateTimeSynchronizer(
@@ -60,7 +66,7 @@ class PacsimAdapter(Adapter):
 
         self._time_sync_slam_.registerCallback(self.slam_callback)
 
-        self._time_sync_velocities_.registerCallback(self.velocities_callback)
+        # self._time_sync_velocities_.registerCallback(self.velocities_callback)
 
         self._planning_time_sync_ = message_filters.ApproximateTimeSynchronizer(
             [
@@ -110,7 +116,6 @@ class PacsimAdapter(Adapter):
     def velocities_callback(
         self,
         velocities: Velocities,
-        groundtruth_velocity: TwistWithCovarianceStamped,
     ):
         """!
         Callback function to process synchronized messages
@@ -118,13 +123,16 @@ class PacsimAdapter(Adapter):
 
         Args:
             velocities (Velocities): Vehicle velocities estimation data.
-            groundtruth_velocity (TwistWithCovarianceStamped): Ground truth velocity data.
         """
 
+        if self._groundtruth_velocity_ is None:
+            self.node.get_logger().warn("Groundtruth velocity not received")
+            return
+
         groundtruth_velocities_treated: np.ndarray = (
-            format_twist_with_covariance_stamped_msg(groundtruth_velocity)
+            format_twist_with_covariance_stamped_msg(self._groundtruth_velocity_)
         )  # [vx, vy, w]
-        velocities_treated = format_velocities_msg(velocities)  # [x, y, yaw], [v, v, w]
+        velocities_treated = format_velocities_msg(velocities)  # [vx, vy, w]
         self.node.compute_and_publish_velocities(
             velocities_treated,
             groundtruth_velocities_treated,
@@ -172,3 +180,14 @@ class PacsimAdapter(Adapter):
             groundtruth_map (MarkerArray): Ground truth map data.
         """
         self._groundtruth_map_: MarkerArray = groundtruth_map
+
+    def groundtruth_velocity_callback(
+        self, groundtruth_velocity: TwistWithCovarianceStamped
+    ):
+        """!
+        Callback function to process ground truth velocity messages.
+
+        Args:
+            groundtruth_velocity (TwistWithCovarianceStamped): Ground truth velocity data.
+        """
+        self._groundtruth_velocity_: TwistWithCovarianceStamped = groundtruth_velocity

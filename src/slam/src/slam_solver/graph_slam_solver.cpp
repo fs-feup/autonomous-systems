@@ -65,14 +65,14 @@ GraphSLAMSolver::GraphSLAMSolver(const SLAMParameters& params,
 
 void GraphSLAMSolver::add_motion_prior(const common_lib::structures::Velocities& velocities) {
   if (!this->_received_first_velocities_) {
-    _last_pose_update_ = velocities.timestamp;
+    _last_pose_update_ = velocities.timestamp_;
     this->_received_first_velocities_ = true;
     return;
   }
 
   // Apply Motion Model
   const double delta_t =
-      (velocities.timestamp - this->_last_pose_update_).seconds();  // Get the time
+      (velocities.timestamp_ - this->_last_pose_update_).seconds();  // Get the time
 
   const Eigen::Vector3d velocities_vector(velocities.velocity_x, velocities.velocity_y,
                                           velocities.rotational_velocity);
@@ -90,7 +90,7 @@ void GraphSLAMSolver::add_motion_prior(const common_lib::structures::Velocities&
                                this->_last_pose_.theta() - previous_graphed_pose.theta());
 
   // Update the last pose update
-  _last_pose_update_ = velocities.timestamp;
+  _last_pose_update_ = velocities.timestamp_;
 
   // If the difference is too small, do not add the factor
   if (const double pose_difference_norm =
