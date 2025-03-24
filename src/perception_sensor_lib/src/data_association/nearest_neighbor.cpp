@@ -20,10 +20,9 @@ Eigen::VectorXi NearestNeighbor::associate(const Eigen::VectorXd& state,
       common_lib::maths::local_to_global_coordinates(state.segment(0, 3), observations);
 
   for (int i = 0; i < num_observations; ++i) {
-    Eigen::Vector2d curr_obs_global_coordinates;
-    curr_obs_global_coordinates << observation_global_coordinates(2 * i),
-        observation_global_coordinates(
-            2 * i + 1);  // TODO: make another one with relative coordinates or a flag
+    Eigen::Vector2d obs;
+    obs << observations(2 * i),
+        observations(2 * i + 1);  // TODO: make another one with relative coordinates or a flag
 
     double best_cost = std::numeric_limits<double>::max();
     int best_landmark_index = -1;
@@ -36,9 +35,8 @@ Eigen::VectorXi NearestNeighbor::associate(const Eigen::VectorXd& state,
         continue;
       }
 
-      const double euclidian_difference =
-          std::hypot(curr_obs_global_coordinates(0) - landmarks_global_coordinates(j - 3),
-                     curr_obs_global_coordinates(1) - landmarks_global_coordinates(j - 2));
+      const double euclidian_difference = std::hypot(obs(0) - landmarks_local_coordinates(j - 3),
+                                                     obs(1) - landmarks_local_coordinates(j - 2));
 
       // Check if this landmark is a good candidate for association
       if (euclidian_difference < best_cost) {
