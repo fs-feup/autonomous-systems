@@ -13,7 +13,7 @@ struct Velocities {
   double velocity_y_noise_ = 0.0;
   double rotational_velocity_noise_ = 0.0;
 
-  rclcpp::Time timestamp = rclcpp::Time(0);  //< Last time the velocities were updated
+  rclcpp::Time timestamp_ = rclcpp::Time(0);  //< Last time the velocities were updated
 
   /**
    * @brief Construct a new Velocities object with default values

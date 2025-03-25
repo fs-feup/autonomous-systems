@@ -17,6 +17,7 @@ void PacsimAdapter::imu_callback(const sensor_msgs::msg::Imu::SharedPtr msg) {
   imu_data.acceleration_x = msg->linear_acceleration.x;
   imu_data.acceleration_y = msg->linear_acceleration.y;
   imu_data.rotational_velocity = msg->angular_velocity.z;
+  imu_data.timestamp_ = msg->header.stamp;
   this->_velocity_estimator_->imu_callback(imu_data);
   this->publish_velocities();
 }
@@ -27,6 +28,7 @@ void PacsimAdapter::wss_callback(const pacsim::msg::Wheels::SharedPtr msg) {
   wheel_encoder_data.fr_rpm = msg->fr;
   wheel_encoder_data.rl_rpm = msg->rl;
   wheel_encoder_data.rr_rpm = msg->rr;
+  wheel_encoder_data.timestamp_ = msg->stamp;
   this->_velocity_estimator_->wss_callback(wheel_encoder_data);
   this->_velocity_estimator_->motor_rpm_callback(0.5 * this->_parameters_._gear_ratio_ *
                                                  (msg->rl + msg->rr));  // Simulate resolver data

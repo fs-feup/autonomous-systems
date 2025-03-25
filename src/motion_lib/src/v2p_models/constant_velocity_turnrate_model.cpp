@@ -32,9 +32,8 @@ Eigen::Vector3d ConstantVelocityTurnrateModel::get_next_pose(const Eigen::Vector
   return next_pose;
 }
 
-Eigen::Matrix3d ConstantVelocityTurnrateModel::get_jacobian(const Eigen::Vector3d &previous_pose,
-                                                            const Eigen::Vector3d &velocities,
-                                                            const double delta_t) {
+Eigen::Matrix3d ConstantVelocityTurnrateModel::get_jacobian_pose(
+    const Eigen::Vector3d &previous_pose, const Eigen::Vector3d &velocities, const double delta_t) {
   Eigen::Matrix3d jacobian = Eigen::Matrix3d::Identity();
   if (::abs(velocities(2)) < 0.001) {  // Avoid division by zero when car is going straight
     jacobian(0, 2) =
@@ -49,5 +48,34 @@ Eigen::Matrix3d ConstantVelocityTurnrateModel::get_jacobian(const Eigen::Vector3
     jacobian(1, 2) = velocities(0) / velocities(2) *
                      (::sin(velocities(2) * delta_t + previous_pose(2)) - ::sin(previous_pose(2)));
   }
+  return jacobian;
+}
+
+Eigen::Matrix3d ConstantVelocityTurnrateModel::get_jacobian_velocities(
+    const Eigen::Vector3d &previous_pose, const Eigen::Vector3d &velocities, const double delta_t) {
+  Eigen::Matrix3d jacobian = Eigen::Matrix3d::Zero();
+  if (::abs(velocities(2)) < 0.001) {
+    jacobian(0, 0) = ::cos(previous_pose(2)) * delta_t;
+    jacobian(0, 1) = -::sin(previous_pose(2)) * delta_t;
+    jacobian(1, 0) = ::sin(previous_pose(2)) * delta_t;
+    jacobian(1, 1) = ::cos(previous_pose(2)) * delta_t;
+  } else {
+    jacobian(0, 0) = 1 / velocities(2) *
+                     (::sin(velocities(2) * delta_t + previous_pose(2)) - ::sin(previous_pose(2)));
+    jacobian(0, 2) =
+        -(velocities(0) *
+          (::sin(velocities(2) * delta_t + previous_pose(2)) -
+           velocities(2) * delta_t * ::cos(velocities(2) * delta_t + previous_pose(2)) -
+           ::sin(previous_pose(2))) /
+          (velocities(2) * velocities(2)));
+    jacobian(1, 0) = 1 / velocities(2) *
+                     (-::cos(velocities(2) * delta_t + previous_pose(2)) + ::cos(previous_pose(2)));
+    jacobian(1, 2) = (velocities(0) *
+                      (::cos(velocities(2) * delta_t + previous_pose(2)) +
+                       velocities(2) * delta_t * ::sin(velocities(2) * delta_t + previous_pose(2)) -
+                       ::cos(previous_pose(2))) /
+                      (velocities(2) * velocities(2)));
+  }
+  jacobian(2, 2) = delta_t;
   return jacobian;
 }

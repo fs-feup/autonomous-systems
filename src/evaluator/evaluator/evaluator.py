@@ -132,10 +132,6 @@ class Evaluator(Node):
             self.perception_execution_time_callback,
             10,
         )
-        # PacSim groundtruth subscriptions
-        self.groundtruth_velocity_subscription_ = message_filters.Subscriber(
-            self, TwistWithCovarianceStamped, "/pacsim/velocity"
-        )
 
         # Publishers for perception metrics
         self._perception_mean_difference_ = self.create_publisher(
@@ -279,7 +275,8 @@ class Evaluator(Node):
         self._se_map_sum_error = 0
         self._se_map_squared_sum_error = 0
         self._se_map_mean_root_squared_sum_error = 0
-        self._se_count = 0
+        self._slam_count_ = 0
+        self._ve_count_ = 0
 
         self._sum_velocities_error = Float32MultiArray()
         self._sum_squared_velocities_error = Float32MultiArray()
@@ -696,14 +693,16 @@ class Evaluator(Node):
         self._se_map_mean_root_squared_sum_error += get_mean_squared_difference(
             cone_positions, groundtruth_cone_positions
         ) ** (1 / 2)
-        self._se_count += 1
+        self._slam_count_ += 1
         mean_mean_error = Float32()
-        mean_mean_error.data = self._se_map_sum_error / self._se_count
+        mean_mean_error.data = self._se_map_sum_error / self._slam_count_
         mean_mean_squared_error = Float32()
-        mean_mean_squared_error.data = self._se_map_squared_sum_error / self._se_count
+        mean_mean_squared_error.data = (
+            self._se_map_squared_sum_error / self._slam_count_
+        )
         mean_mean_root_squared_error = Float32()
         mean_mean_root_squared_error.data = (
-            self._se_map_mean_root_squared_sum_error / self._se_count
+            self._se_map_mean_root_squared_sum_error / self._slam_count_
         )
 
         # Compute vehicle pose metrics over time
@@ -725,13 +724,13 @@ class Evaluator(Node):
                 vehicle_pose_error.data[i] ** 2
             )
             mean_vehicle_pose_error.data[i] = (
-                self._sum_vehicle_pose_error.data[i] / self._se_count
+                self._sum_vehicle_pose_error.data[i] / self._slam_count_
             )
             mean_squared_vehicle_pose_error.data[i] = (
-                self._sum_squared_vehicle_pose_error.data[i] / self._se_count
+                self._sum_squared_vehicle_pose_error.data[i] / self._slam_count_
             )
             mean_root_squared_vehicle_pose_error.data[i] = (
-                sqrt(self._sum_squared_vehicle_pose_error.data[i]) / self._se_count
+                sqrt(self._sum_squared_vehicle_pose_error.data[i]) / self._slam_count_
             )
 
         # Publish vehicle state errors over time
@@ -807,7 +806,7 @@ class Evaluator(Node):
         velocities_error.layout.dim = [MultiArrayDimension()]
         velocities_error.layout.dim[0].size = 3
         velocities_error.layout.dim[0].label = "vehicle state error: [vx, vy, w]"
-        velocities_error.data = [0.0] * 6
+        velocities_error.data = [0.0] * 3
         if groundtruth_velocities != []:
             velocities_error.data[0] = abs(velocities[0] - groundtruth_velocities[0])
             velocities_error.data[1] = abs(velocities[1] - groundtruth_velocities[1])
@@ -824,6 +823,7 @@ class Evaluator(Node):
         self._velocities_difference_.publish(velocities_error)
 
         # Compute vehicle velocity metrics over time
+        self._ve_count_ += 1
         mean_velocities_error = Float32MultiArray()
         mean_squared_velocities_error = Float32MultiArray()
         mean_root_squared_velocities_error = Float32MultiArray()
@@ -840,13 +840,13 @@ class Evaluator(Node):
             self._sum_velocities_error.data[i] += velocities_error.data[i]
             self._sum_squared_velocities_error.data[i] += velocities_error.data[i] ** 2
             mean_velocities_error.data[i] = (
-                self._sum_velocities_error.data[i] / self._se_count
+                self._sum_velocities_error.data[i] / self._ve_count_
             )
             mean_squared_velocities_error.data[i] = (
-                self._sum_squared_velocities_error.data[i] / self._se_count
+                self._sum_squared_velocities_error.data[i] / self._ve_count_
             )
             mean_root_squared_velocities_error.data[i] = (
-                sqrt(self._sum_squared_velocities_error.data[i]) / self._se_count
+                sqrt(self._sum_squared_velocities_error.data[i]) / self._ve_count_
             )
 
         # Publish vehicle state errors over time

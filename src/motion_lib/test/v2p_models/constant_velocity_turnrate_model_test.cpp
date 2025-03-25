@@ -17,21 +17,23 @@ TEST(CONSTANT_VELOCITY_TURNRATE_MODEL, STRAIGHT_LINE_MOVEMENT_TEST_1) {
 
   // Act
   Eigen::Vector3d next_pose = model.get_next_pose(previous_pose, velocities, delta_t);
-  Eigen::Matrix3d jacobian = model.get_jacobian(previous_pose, velocities, delta_t);
+  Eigen::Matrix3d pose_jacobian = model.get_jacobian_pose(previous_pose, velocities, delta_t);
+  Eigen::Matrix3d velocities_jacobian =
+      model.get_jacobian_velocities(previous_pose, velocities, delta_t);
 
   // Assert
   EXPECT_NEAR(next_pose(0), 1, 0.000001);
   EXPECT_NEAR(next_pose(1), 0, 0.000001);
   EXPECT_NEAR(next_pose(2), 0, 0.000001);
-  EXPECT_FLOAT_EQ(jacobian(0, 0), 1);
-  EXPECT_FLOAT_EQ(jacobian(0, 1), 0);
-  EXPECT_FLOAT_EQ(jacobian(0, 2), 0);
-  EXPECT_FLOAT_EQ(jacobian(1, 0), 0);
-  EXPECT_FLOAT_EQ(jacobian(1, 1), 1);
-  EXPECT_FLOAT_EQ(jacobian(1, 2), 1);
-  EXPECT_FLOAT_EQ(jacobian(2, 0), 0);
-  EXPECT_FLOAT_EQ(jacobian(2, 1), 0);
-  EXPECT_FLOAT_EQ(jacobian(2, 2), 1);
+  EXPECT_FLOAT_EQ(pose_jacobian(0, 0), 1);
+  EXPECT_FLOAT_EQ(pose_jacobian(0, 1), 0);
+  EXPECT_FLOAT_EQ(pose_jacobian(0, 2), 0);
+  EXPECT_FLOAT_EQ(pose_jacobian(1, 0), 0);
+  EXPECT_FLOAT_EQ(pose_jacobian(1, 1), 1);
+  EXPECT_FLOAT_EQ(pose_jacobian(1, 2), 1);
+  EXPECT_FLOAT_EQ(pose_jacobian(2, 0), 0);
+  EXPECT_FLOAT_EQ(pose_jacobian(2, 1), 0);
+  EXPECT_FLOAT_EQ(pose_jacobian(2, 2), 1);
 }
 
 /**
@@ -47,21 +49,23 @@ TEST(CONSTANT_VELOCITY_TURNRATE_MODEL, STRAIGHT_LINE_MOVEMENT_TEST_2) {
 
   // Act
   Eigen::Vector3d next_pose = model.get_next_pose(previous_pose, velocities, delta_t);
-  Eigen::Matrix3d jacobian = model.get_jacobian(previous_pose, velocities, delta_t);
+  Eigen::Matrix3d pose_jacobian = model.get_jacobian_pose(previous_pose, velocities, delta_t);
+  Eigen::Matrix3d velocities_jacobian =
+      model.get_jacobian_velocities(previous_pose, velocities, delta_t);
 
   // Assert
   EXPECT_NEAR(next_pose(0), 1.41, 0.01);
   EXPECT_NEAR(next_pose(1), 1.41, 0.01);
   EXPECT_NEAR(next_pose(2), M_PI / 4, 0.000001);
-  EXPECT_FLOAT_EQ(jacobian(0, 0), 1);
-  EXPECT_FLOAT_EQ(jacobian(0, 1), 0);
-  EXPECT_NEAR(jacobian(0, 2), -1.41, 0.01);
-  EXPECT_FLOAT_EQ(jacobian(1, 0), 0);
-  EXPECT_FLOAT_EQ(jacobian(1, 1), 1);
-  EXPECT_NEAR(jacobian(1, 2), 1.41, 0.01);
-  EXPECT_FLOAT_EQ(jacobian(2, 0), 0);
-  EXPECT_FLOAT_EQ(jacobian(2, 1), 0);
-  EXPECT_FLOAT_EQ(jacobian(2, 2), 1);
+  EXPECT_FLOAT_EQ(pose_jacobian(0, 0), 1);
+  EXPECT_FLOAT_EQ(pose_jacobian(0, 1), 0);
+  EXPECT_NEAR(pose_jacobian(0, 2), -1.41, 0.01);
+  EXPECT_FLOAT_EQ(pose_jacobian(1, 0), 0);
+  EXPECT_FLOAT_EQ(pose_jacobian(1, 1), 1);
+  EXPECT_NEAR(pose_jacobian(1, 2), 1.41, 0.01);
+  EXPECT_FLOAT_EQ(pose_jacobian(2, 0), 0);
+  EXPECT_FLOAT_EQ(pose_jacobian(2, 1), 0);
+  EXPECT_FLOAT_EQ(pose_jacobian(2, 2), 1);
 }
 
 /**
@@ -77,21 +81,23 @@ TEST(CONSTANT_VELOCITY_TURNRATE_MODEL, BACKWARDS_MOVEMENT_TEST_1) {
 
   // Act
   Eigen::Vector3d next_pose = model.get_next_pose(previous_pose, velocities, delta_t);
-  Eigen::Matrix3d jacobian = model.get_jacobian(previous_pose, velocities, delta_t);
+  Eigen::Matrix3d pose_jacobian = model.get_jacobian_pose(previous_pose, velocities, delta_t);
+  Eigen::Matrix3d velocities_jacobian =
+      model.get_jacobian_velocities(previous_pose, velocities, delta_t);
 
   // Assert
   EXPECT_NEAR(next_pose(0), -1.0, 0.000001);
   EXPECT_NEAR(next_pose(1), 0, 0.000001);
   EXPECT_NEAR(abs(next_pose(2)), 0.0, 0.000001);
-  EXPECT_FLOAT_EQ(jacobian(0, 0), 1);
-  EXPECT_FLOAT_EQ(jacobian(0, 1), 0);
-  EXPECT_NEAR(jacobian(0, 2), 0, 0.01);
-  EXPECT_FLOAT_EQ(jacobian(1, 0), 0);
-  EXPECT_FLOAT_EQ(jacobian(1, 1), 1);
-  EXPECT_NEAR(jacobian(1, 2), -1, 0.01);
-  EXPECT_FLOAT_EQ(jacobian(2, 0), 0);
-  EXPECT_FLOAT_EQ(jacobian(2, 1), 0);
-  EXPECT_FLOAT_EQ(jacobian(2, 2), 1);
+  EXPECT_FLOAT_EQ(pose_jacobian(0, 0), 1);
+  EXPECT_FLOAT_EQ(pose_jacobian(0, 1), 0);
+  EXPECT_NEAR(pose_jacobian(0, 2), 0, 0.01);
+  EXPECT_FLOAT_EQ(pose_jacobian(1, 0), 0);
+  EXPECT_FLOAT_EQ(pose_jacobian(1, 1), 1);
+  EXPECT_NEAR(pose_jacobian(1, 2), -1, 0.01);
+  EXPECT_FLOAT_EQ(pose_jacobian(2, 0), 0);
+  EXPECT_FLOAT_EQ(pose_jacobian(2, 1), 0);
+  EXPECT_FLOAT_EQ(pose_jacobian(2, 2), 1);
 }
 
 /**
@@ -107,21 +113,23 @@ TEST(CONSTANT_VELOCITY_TURNRATE_MODEL, BACKWARDS_MOVEMENT_TEST_2) {
 
   // Act
   Eigen::Vector3d next_pose = model.get_next_pose(previous_pose, velocities, delta_t);
-  Eigen::Matrix3d jacobian = model.get_jacobian(previous_pose, velocities, delta_t);
+  Eigen::Matrix3d pose_jacobian = model.get_jacobian_pose(previous_pose, velocities, delta_t);
+  Eigen::Matrix3d velocities_jacobian =
+      model.get_jacobian_velocities(previous_pose, velocities, delta_t);
 
   // Assert
   EXPECT_NEAR(next_pose(0), -1.00, 0.000001);
   EXPECT_NEAR(next_pose(1), 0, 0.000001);
   EXPECT_NEAR(abs(next_pose(2)), M_PI, 0.000001);
-  EXPECT_FLOAT_EQ(jacobian(0, 0), 1);
-  EXPECT_FLOAT_EQ(jacobian(0, 1), 0);
-  EXPECT_NEAR(jacobian(0, 2), 0, 0.01);
-  EXPECT_FLOAT_EQ(jacobian(1, 0), 0);
-  EXPECT_FLOAT_EQ(jacobian(1, 1), 1);
-  EXPECT_NEAR(jacobian(1, 2), -1, 0.01);
-  EXPECT_FLOAT_EQ(jacobian(2, 0), 0);
-  EXPECT_FLOAT_EQ(jacobian(2, 1), 0);
-  EXPECT_FLOAT_EQ(jacobian(2, 2), 1);
+  EXPECT_FLOAT_EQ(pose_jacobian(0, 0), 1);
+  EXPECT_FLOAT_EQ(pose_jacobian(0, 1), 0);
+  EXPECT_NEAR(pose_jacobian(0, 2), 0, 0.01);
+  EXPECT_FLOAT_EQ(pose_jacobian(1, 0), 0);
+  EXPECT_FLOAT_EQ(pose_jacobian(1, 1), 1);
+  EXPECT_NEAR(pose_jacobian(1, 2), -1, 0.01);
+  EXPECT_FLOAT_EQ(pose_jacobian(2, 0), 0);
+  EXPECT_FLOAT_EQ(pose_jacobian(2, 1), 0);
+  EXPECT_FLOAT_EQ(pose_jacobian(2, 2), 1);
 }
 
 /**
@@ -137,21 +145,23 @@ TEST(CONSTANT_VELOCITY_TURNRATE_MODEL, BACKWARDS_MOVEMENT_TEST_3) {
 
   // Act
   Eigen::Vector3d next_pose = model.get_next_pose(previous_pose, velocities, delta_t);
-  Eigen::Matrix3d jacobian = model.get_jacobian(previous_pose, velocities, delta_t);
+  Eigen::Matrix3d pose_jacobian = model.get_jacobian_pose(previous_pose, velocities, delta_t);
+  Eigen::Matrix3d velocities_jacobian =
+      model.get_jacobian_velocities(previous_pose, velocities, delta_t);
 
   // Assert
   EXPECT_NEAR(next_pose(0), 1.00, 0.000001);
   EXPECT_NEAR(next_pose(1), 0, 0.000001);
   EXPECT_NEAR(abs(next_pose(2)), M_PI, 0.000001);
-  EXPECT_FLOAT_EQ(jacobian(0, 0), 1);
-  EXPECT_FLOAT_EQ(jacobian(0, 1), 0);
-  EXPECT_NEAR(jacobian(0, 2), 0, 0.01);
-  EXPECT_FLOAT_EQ(jacobian(1, 0), 0);
-  EXPECT_FLOAT_EQ(jacobian(1, 1), 1);
-  EXPECT_NEAR(jacobian(1, 2), 1, 0.01);
-  EXPECT_FLOAT_EQ(jacobian(2, 0), 0);
-  EXPECT_FLOAT_EQ(jacobian(2, 1), 0);
-  EXPECT_FLOAT_EQ(jacobian(2, 2), 1);
+  EXPECT_FLOAT_EQ(pose_jacobian(0, 0), 1);
+  EXPECT_FLOAT_EQ(pose_jacobian(0, 1), 0);
+  EXPECT_NEAR(pose_jacobian(0, 2), 0, 0.01);
+  EXPECT_FLOAT_EQ(pose_jacobian(1, 0), 0);
+  EXPECT_FLOAT_EQ(pose_jacobian(1, 1), 1);
+  EXPECT_NEAR(pose_jacobian(1, 2), 1, 0.01);
+  EXPECT_FLOAT_EQ(pose_jacobian(2, 0), 0);
+  EXPECT_FLOAT_EQ(pose_jacobian(2, 1), 0);
+  EXPECT_FLOAT_EQ(pose_jacobian(2, 2), 1);
 }
 
 /**
@@ -167,21 +177,23 @@ TEST(CONSTANT_VELOCITY_TURNRATE_MODEL, ORIENTATION_ANGLE_CAP_TEST_1) {
 
   // Act
   Eigen::Vector3d next_pose = model.get_next_pose(previous_pose, velocities, delta_t);
-  Eigen::Matrix3d jacobian = model.get_jacobian(previous_pose, velocities, delta_t);
+  Eigen::Matrix3d pose_jacobian = model.get_jacobian_pose(previous_pose, velocities, delta_t);
+  Eigen::Matrix3d velocities_jacobian =
+      model.get_jacobian_velocities(previous_pose, velocities, delta_t);
 
   // Assert
   EXPECT_NEAR(next_pose(0), 0.0, 0.001);
   EXPECT_NEAR(next_pose(1), 0.0, 0.000001);
   EXPECT_NEAR(next_pose(2), 0.0, 0.000001);
-  EXPECT_FLOAT_EQ(jacobian(0, 0), 1);
-  EXPECT_FLOAT_EQ(jacobian(0, 1), 0);
-  EXPECT_NEAR(jacobian(0, 2), 0, 0.01);
-  EXPECT_FLOAT_EQ(jacobian(1, 0), 0);
-  EXPECT_FLOAT_EQ(jacobian(1, 1), 1);
-  EXPECT_NEAR(jacobian(1, 2), 0, 0.01);
-  EXPECT_FLOAT_EQ(jacobian(2, 0), 0);
-  EXPECT_FLOAT_EQ(jacobian(2, 1), 0);
-  EXPECT_FLOAT_EQ(jacobian(2, 2), 1);
+  EXPECT_FLOAT_EQ(pose_jacobian(0, 0), 1);
+  EXPECT_FLOAT_EQ(pose_jacobian(0, 1), 0);
+  EXPECT_NEAR(pose_jacobian(0, 2), 0, 0.01);
+  EXPECT_FLOAT_EQ(pose_jacobian(1, 0), 0);
+  EXPECT_FLOAT_EQ(pose_jacobian(1, 1), 1);
+  EXPECT_NEAR(pose_jacobian(1, 2), 0, 0.01);
+  EXPECT_FLOAT_EQ(pose_jacobian(2, 0), 0);
+  EXPECT_FLOAT_EQ(pose_jacobian(2, 1), 0);
+  EXPECT_FLOAT_EQ(pose_jacobian(2, 2), 1);
 }
 
 /**
@@ -197,21 +209,23 @@ TEST(CONSTANT_VELOCITY_TURNRATE_MODEL, ORIENTATION_ANGLE_CAP_TEST_2) {
 
   // Act
   Eigen::Vector3d next_pose = model.get_next_pose(previous_pose, velocities, delta_t);
-  Eigen::Matrix3d jacobian = model.get_jacobian(previous_pose, velocities, delta_t);
+  Eigen::Matrix3d pose_jacobian = model.get_jacobian_pose(previous_pose, velocities, delta_t);
+  Eigen::Matrix3d velocities_jacobian =
+      model.get_jacobian_velocities(previous_pose, velocities, delta_t);
 
   // Assert
   EXPECT_NEAR(next_pose(0), 0.0, 0.001);
   EXPECT_NEAR(next_pose(1), 0.0, 0.000001);
   EXPECT_NEAR(abs(next_pose(2)), M_PI, 0.000001);
-  EXPECT_FLOAT_EQ(jacobian(0, 0), 1);
-  EXPECT_FLOAT_EQ(jacobian(0, 1), 0);
-  EXPECT_NEAR(jacobian(0, 2), 0, 0.01);
-  EXPECT_FLOAT_EQ(jacobian(1, 0), 0);
-  EXPECT_FLOAT_EQ(jacobian(1, 1), 1);
-  EXPECT_NEAR(jacobian(1, 2), 0, 0.01);
-  EXPECT_FLOAT_EQ(jacobian(2, 0), 0);
-  EXPECT_FLOAT_EQ(jacobian(2, 1), 0);
-  EXPECT_FLOAT_EQ(jacobian(2, 2), 1);
+  EXPECT_FLOAT_EQ(pose_jacobian(0, 0), 1);
+  EXPECT_FLOAT_EQ(pose_jacobian(0, 1), 0);
+  EXPECT_NEAR(pose_jacobian(0, 2), 0, 0.01);
+  EXPECT_FLOAT_EQ(pose_jacobian(1, 0), 0);
+  EXPECT_FLOAT_EQ(pose_jacobian(1, 1), 1);
+  EXPECT_NEAR(pose_jacobian(1, 2), 0, 0.01);
+  EXPECT_FLOAT_EQ(pose_jacobian(2, 0), 0);
+  EXPECT_FLOAT_EQ(pose_jacobian(2, 1), 0);
+  EXPECT_FLOAT_EQ(pose_jacobian(2, 2), 1);
 }
 
 /**
@@ -227,21 +241,23 @@ TEST(CONSTANT_VELOCITY_TURNRATE_MODEL, ORIENTATION_ANGLE_CAP_TEST_3) {
 
   // Act
   Eigen::Vector3d next_pose = model.get_next_pose(previous_pose, velocities, delta_t);
-  Eigen::Matrix3d jacobian = model.get_jacobian(previous_pose, velocities, delta_t);
+  Eigen::Matrix3d pose_jacobian = model.get_jacobian_pose(previous_pose, velocities, delta_t);
+  Eigen::Matrix3d velocities_jacobian =
+      model.get_jacobian_velocities(previous_pose, velocities, delta_t);
 
   // Assert
   EXPECT_NEAR(next_pose(0), 0.0, 0.001);
   EXPECT_NEAR(next_pose(1), 0.0, 0.000001);
   EXPECT_NEAR(abs(next_pose(2)), M_PI, 0.000001);
-  EXPECT_FLOAT_EQ(jacobian(0, 0), 1);
-  EXPECT_FLOAT_EQ(jacobian(0, 1), 0);
-  EXPECT_NEAR(jacobian(0, 2), 0, 0.01);
-  EXPECT_FLOAT_EQ(jacobian(1, 0), 0);
-  EXPECT_FLOAT_EQ(jacobian(1, 1), 1);
-  EXPECT_NEAR(jacobian(1, 2), 0, 0.01);
-  EXPECT_FLOAT_EQ(jacobian(2, 0), 0);
-  EXPECT_FLOAT_EQ(jacobian(2, 1), 0);
-  EXPECT_FLOAT_EQ(jacobian(2, 2), 1);
+  EXPECT_FLOAT_EQ(pose_jacobian(0, 0), 1);
+  EXPECT_FLOAT_EQ(pose_jacobian(0, 1), 0);
+  EXPECT_NEAR(pose_jacobian(0, 2), 0, 0.01);
+  EXPECT_FLOAT_EQ(pose_jacobian(1, 0), 0);
+  EXPECT_FLOAT_EQ(pose_jacobian(1, 1), 1);
+  EXPECT_NEAR(pose_jacobian(1, 2), 0, 0.01);
+  EXPECT_FLOAT_EQ(pose_jacobian(2, 0), 0);
+  EXPECT_FLOAT_EQ(pose_jacobian(2, 1), 0);
+  EXPECT_FLOAT_EQ(pose_jacobian(2, 2), 1);
 }
 
 /**
@@ -257,21 +273,23 @@ TEST(CONSTANT_VELOCITY_TURNRATE_MODEL, ORIENTATION_ANGLE_CAP_TEST_4) {
 
   // Act
   Eigen::Vector3d next_pose = model.get_next_pose(previous_pose, velocities, delta_t);
-  Eigen::Matrix3d jacobian = model.get_jacobian(previous_pose, velocities, delta_t);
+  Eigen::Matrix3d pose_jacobian = model.get_jacobian_pose(previous_pose, velocities, delta_t);
+  Eigen::Matrix3d velocities_jacobian =
+      model.get_jacobian_velocities(previous_pose, velocities, delta_t);
 
   // Assert
   EXPECT_NEAR(next_pose(0), 0.0, 0.001);
   EXPECT_NEAR(next_pose(1), 0.0, 0.000001);
   EXPECT_NEAR(next_pose(2), -M_PI / 2, 0.000001);
-  EXPECT_FLOAT_EQ(jacobian(0, 0), 1);
-  EXPECT_FLOAT_EQ(jacobian(0, 1), 0);
-  EXPECT_NEAR(jacobian(0, 2), 0, 0.01);
-  EXPECT_FLOAT_EQ(jacobian(1, 0), 0);
-  EXPECT_FLOAT_EQ(jacobian(1, 1), 1);
-  EXPECT_NEAR(jacobian(1, 2), 0, 0.01);
-  EXPECT_FLOAT_EQ(jacobian(2, 0), 0);
-  EXPECT_FLOAT_EQ(jacobian(2, 1), 0);
-  EXPECT_FLOAT_EQ(jacobian(2, 2), 1);
+  EXPECT_FLOAT_EQ(pose_jacobian(0, 0), 1);
+  EXPECT_FLOAT_EQ(pose_jacobian(0, 1), 0);
+  EXPECT_NEAR(pose_jacobian(0, 2), 0, 0.01);
+  EXPECT_FLOAT_EQ(pose_jacobian(1, 0), 0);
+  EXPECT_FLOAT_EQ(pose_jacobian(1, 1), 1);
+  EXPECT_NEAR(pose_jacobian(1, 2), 0, 0.01);
+  EXPECT_FLOAT_EQ(pose_jacobian(2, 0), 0);
+  EXPECT_FLOAT_EQ(pose_jacobian(2, 1), 0);
+  EXPECT_FLOAT_EQ(pose_jacobian(2, 2), 1);
 }
 
 /**
@@ -287,21 +305,23 @@ TEST(CONSTANT_VELOCITY_TURNRATE_MODEL, ORIENTATION_ANGLE_CAP_TEST_5) {
 
   // Act
   Eigen::Vector3d next_pose = model.get_next_pose(previous_pose, velocities, delta_t);
-  Eigen::Matrix3d jacobian = model.get_jacobian(previous_pose, velocities, delta_t);
+  Eigen::Matrix3d pose_jacobian = model.get_jacobian_pose(previous_pose, velocities, delta_t);
+  Eigen::Matrix3d velocities_jacobian =
+      model.get_jacobian_velocities(previous_pose, velocities, delta_t);
 
   // Assert
   EXPECT_NEAR(next_pose(0), 0.0, 0.001);
   EXPECT_NEAR(next_pose(1), 0.0, 0.000001);
   EXPECT_NEAR(next_pose(2), -M_PI / 2, 0.000001);
-  EXPECT_FLOAT_EQ(jacobian(0, 0), 1);
-  EXPECT_FLOAT_EQ(jacobian(0, 1), 0);
-  EXPECT_NEAR(jacobian(0, 2), 0, 0.01);
-  EXPECT_FLOAT_EQ(jacobian(1, 0), 0);
-  EXPECT_FLOAT_EQ(jacobian(1, 1), 1);
-  EXPECT_NEAR(jacobian(1, 2), 0, 0.01);
-  EXPECT_FLOAT_EQ(jacobian(2, 0), 0);
-  EXPECT_FLOAT_EQ(jacobian(2, 1), 0);
-  EXPECT_FLOAT_EQ(jacobian(2, 2), 1);
+  EXPECT_FLOAT_EQ(pose_jacobian(0, 0), 1);
+  EXPECT_FLOAT_EQ(pose_jacobian(0, 1), 0);
+  EXPECT_NEAR(pose_jacobian(0, 2), 0, 0.01);
+  EXPECT_FLOAT_EQ(pose_jacobian(1, 0), 0);
+  EXPECT_FLOAT_EQ(pose_jacobian(1, 1), 1);
+  EXPECT_NEAR(pose_jacobian(1, 2), 0, 0.01);
+  EXPECT_FLOAT_EQ(pose_jacobian(2, 0), 0);
+  EXPECT_FLOAT_EQ(pose_jacobian(2, 1), 0);
+  EXPECT_FLOAT_EQ(pose_jacobian(2, 2), 1);
 }
 
 /**
@@ -317,21 +337,23 @@ TEST(CONSTANT_VELOCITY_TURNRATE_MODEL, CURVILINEAR_MOVEMENT_TEST_1) {
 
   // Act
   Eigen::Vector3d next_pose = model.get_next_pose(previous_pose, velocities, delta_t);
-  Eigen::Matrix3d jacobian = model.get_jacobian(previous_pose, velocities, delta_t);
+  Eigen::Matrix3d pose_jacobian = model.get_jacobian_pose(previous_pose, velocities, delta_t);
+  Eigen::Matrix3d velocities_jacobian =
+      model.get_jacobian_velocities(previous_pose, velocities, delta_t);
 
   // Assert
   EXPECT_NEAR(next_pose(0), 2.9, 0.01);
   EXPECT_NEAR(next_pose(1), 4.316, 0.01);
   EXPECT_NEAR(next_pose(2), 0.98, 0.01);
-  EXPECT_FLOAT_EQ(jacobian(0, 0), 1);
-  EXPECT_FLOAT_EQ(jacobian(0, 1), 0);
-  EXPECT_NEAR(jacobian(0, 2), -2.315, 0.01);
-  EXPECT_FLOAT_EQ(jacobian(1, 0), 0);
-  EXPECT_FLOAT_EQ(jacobian(1, 1), 1);
-  EXPECT_NEAR(jacobian(1, 2), 1.9, 0.01);
-  EXPECT_FLOAT_EQ(jacobian(2, 0), 0);
-  EXPECT_FLOAT_EQ(jacobian(2, 1), 0);
-  EXPECT_FLOAT_EQ(jacobian(2, 2), 1);
+  EXPECT_FLOAT_EQ(pose_jacobian(0, 0), 1);
+  EXPECT_FLOAT_EQ(pose_jacobian(0, 1), 0);
+  EXPECT_NEAR(pose_jacobian(0, 2), -2.315, 0.01);
+  EXPECT_FLOAT_EQ(pose_jacobian(1, 0), 0);
+  EXPECT_FLOAT_EQ(pose_jacobian(1, 1), 1);
+  EXPECT_NEAR(pose_jacobian(1, 2), 1.9, 0.01);
+  EXPECT_FLOAT_EQ(pose_jacobian(2, 0), 0);
+  EXPECT_FLOAT_EQ(pose_jacobian(2, 1), 0);
+  EXPECT_FLOAT_EQ(pose_jacobian(2, 2), 1);
 }
 
 /**
@@ -347,21 +369,23 @@ TEST(CONSTANT_VELOCITY_TURNRATE_MODEL, CURVILINEAR_MOVEMENT_TEST_2) {
 
   // Act
   Eigen::Vector3d next_pose = model.get_next_pose(previous_pose, velocities, delta_t);
-  Eigen::Matrix3d jacobian = model.get_jacobian(previous_pose, velocities, delta_t);
+  Eigen::Matrix3d pose_jacobian = model.get_jacobian_pose(previous_pose, velocities, delta_t);
+  Eigen::Matrix3d velocities_jacobian =
+      model.get_jacobian_velocities(previous_pose, velocities, delta_t);
 
   // Assert
   EXPECT_NEAR(next_pose(0), 2.656, 0.01);
   EXPECT_NEAR(next_pose(1), -0.48, 0.01);
   EXPECT_NEAR(next_pose(2), -3 * M_PI / 8, 0.000001);
-  EXPECT_FLOAT_EQ(jacobian(0, 0), 1);
-  EXPECT_FLOAT_EQ(jacobian(0, 1), 0);
-  EXPECT_NEAR(jacobian(0, 2), 2.48, 0.01);
-  EXPECT_FLOAT_EQ(jacobian(1, 0), 0);
-  EXPECT_FLOAT_EQ(jacobian(1, 1), 1);
-  EXPECT_NEAR(jacobian(1, 2), 1.656, 0.01);
-  EXPECT_FLOAT_EQ(jacobian(2, 0), 0);
-  EXPECT_FLOAT_EQ(jacobian(2, 1), 0);
-  EXPECT_FLOAT_EQ(jacobian(2, 2), 1);
+  EXPECT_FLOAT_EQ(pose_jacobian(0, 0), 1);
+  EXPECT_FLOAT_EQ(pose_jacobian(0, 1), 0);
+  EXPECT_NEAR(pose_jacobian(0, 2), 2.48, 0.01);
+  EXPECT_FLOAT_EQ(pose_jacobian(1, 0), 0);
+  EXPECT_FLOAT_EQ(pose_jacobian(1, 1), 1);
+  EXPECT_NEAR(pose_jacobian(1, 2), 1.656, 0.01);
+  EXPECT_FLOAT_EQ(pose_jacobian(2, 0), 0);
+  EXPECT_FLOAT_EQ(pose_jacobian(2, 1), 0);
+  EXPECT_FLOAT_EQ(pose_jacobian(2, 2), 1);
 }
 
 /**
@@ -377,19 +401,21 @@ TEST(CONSTANT_VELOCITY_TURNRATE_MODEL, CURVILINEAR_MOVEMENT_TEST_3) {
 
   // Act
   Eigen::Vector3d next_pose = model.get_next_pose(previous_pose, velocities, delta_t);
-  Eigen::Matrix3d jacobian = model.get_jacobian(previous_pose, velocities, delta_t);
+  Eigen::Matrix3d pose_jacobian = model.get_jacobian_pose(previous_pose, velocities, delta_t);
+  Eigen::Matrix3d velocities_jacobian =
+      model.get_jacobian_velocities(previous_pose, velocities, delta_t);
 
   // Assert
   EXPECT_NEAR(next_pose(0), 4.820, 0.01);
   EXPECT_NEAR(next_pose(1), -1.820, 0.01);
   EXPECT_NEAR(next_pose(2), 0.0, 0.01);
-  EXPECT_FLOAT_EQ(jacobian(0, 0), 1);
-  EXPECT_FLOAT_EQ(jacobian(0, 1), 0);
-  EXPECT_NEAR(jacobian(0, 2), 3.820, 0.01);
-  EXPECT_FLOAT_EQ(jacobian(1, 0), 0);
-  EXPECT_FLOAT_EQ(jacobian(1, 1), 1);
-  EXPECT_NEAR(jacobian(1, 2), 3.820, 0.01);
-  EXPECT_FLOAT_EQ(jacobian(2, 0), 0);
-  EXPECT_FLOAT_EQ(jacobian(2, 1), 0);
-  EXPECT_FLOAT_EQ(jacobian(2, 2), 1);
+  EXPECT_FLOAT_EQ(pose_jacobian(0, 0), 1);
+  EXPECT_FLOAT_EQ(pose_jacobian(0, 1), 0);
+  EXPECT_NEAR(pose_jacobian(0, 2), 3.820, 0.01);
+  EXPECT_FLOAT_EQ(pose_jacobian(1, 0), 0);
+  EXPECT_FLOAT_EQ(pose_jacobian(1, 1), 1);
+  EXPECT_NEAR(pose_jacobian(1, 2), 3.820, 0.01);
+  EXPECT_FLOAT_EQ(pose_jacobian(2, 0), 0);
+  EXPECT_FLOAT_EQ(pose_jacobian(2, 1), 0);
+  EXPECT_FLOAT_EQ(pose_jacobian(2, 2), 1);
 }

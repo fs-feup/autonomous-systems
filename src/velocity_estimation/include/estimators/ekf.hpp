@@ -14,7 +14,7 @@
 #include "motion_lib/s2v_model/bicycle_model.hpp"
 
 class EKF : public VelocityEstimator {
-  std::chrono::high_resolution_clock::time_point last_update_;
+  rclcpp::Time _last_update_;
   Eigen::Vector3d state_ = Eigen::Vector3d::Zero();
   Eigen::Matrix3d covariance_ = Eigen::Matrix3d::Identity();
   Eigen::Matrix3d process_noise_matrix_;
@@ -50,8 +50,7 @@ class EKF : public VelocityEstimator {
    * @param imu_data IMU data containing acceleration and rotational velocity measurements.
    */
   void predict(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
-               const Eigen::Matrix3d& process_noise_matrix,
-               const std::chrono::high_resolution_clock::time_point last_update,
+               const Eigen::Matrix3d& process_noise_matrix, const rclcpp::Time last_update,
                common_lib::sensor_data::ImuData& imu_data);
 
   /**

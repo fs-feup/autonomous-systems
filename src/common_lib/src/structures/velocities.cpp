@@ -11,6 +11,6 @@ Velocities::Velocities(double velocity_x, double velocity_y, double rotational_v
       velocity_x_noise_(velocity_x_noise),
       velocity_y_noise_(velocity_y_noise),
       rotational_velocity_noise_(rotational_velocity_noise),
-      timestamp(timestamp) {}
+      timestamp_(timestamp) {}
 
 }  // namespace common_lib::structures
