@@ -5,6 +5,8 @@
 #include <gtsam/nonlinear/NonlinearFactorGraph.h>
 #include <gtsam/nonlinear/Values.h>
 
+#include <queue>
+
 #include "slam_solver/slam_solver.hpp"
 
 /**
@@ -17,45 +19,30 @@ class GraphSLAMSolver : public SLAMSolver {
   gtsam::NonlinearFactorGraph
       _factor_graph_;  //< Factor graph for the graph SLAM solver (only factors, no estimates)
   gtsam::Values _graph_values_;          //< Estimate for the graph SLAM solver
+  Eigen::MatrixXd _covariance_;          //< Covariance matrix of the graph
   unsigned int _pose_counter_ = 0;       //< Counter for the pose symbols
   unsigned int _landmark_counter_ = 0;   //< Counter for the landmark symbols
-  Eigen::MatrixXd _covariance_;          //< Covariance matrix of the graph
   bool _covariance_up_to_date_ = false;  //< Flag to check if the covariance matrix is up to date
   bool _updated_pose_ = false;  //< Flag to check if the pose was updated before adding observations
+  bool _new_factors_in_graph_ =
+      false;  //< Flag to check if new factors were added to the graph for optimization
   bool _first_observation_ = true;  //< Flag to check if it is the first observation
   gtsam::Pose2
       _last_pose_;  //< Last calculated pose (from the motion model, different than the graph)
+  std::queue<Eigen::Vector3d>
+      _velocities_queue_;  //< Queue of velocities received while optimization ran
   rclcpp::TimerBase::SharedPtr _optimization_timer_;  //< Timer for asynchronous optimization
+  std::shared_mutex _mutex_;  //< Mutex for the graph SLAM solver, locks access to the graph
 
   /**
    * @brief Optimize the graph
    */
   void _optimize();
 
-  /**
-   * @brief Initialize the graph SLAM solver (called by both constructors)
-   */
-  void _init();
-
   friend class GraphSlamSolverTest_MotionAndObservation_Test;
   friend class GraphSlamSolverTest_Prediction_Test;
 
 public:
-  /**
-   * @brief Construct a new GraphSLAMSolver object
-   *
-   * @param params Parameters for the SLAM solver
-   * @param data_association Data association module
-   * @param motion_model Motion model
-   * @param execution_times Timekeeping array
-   * @param node SLAM ROS2 node
-   */
-  GraphSLAMSolver(const SLAMParameters& params,
-                  std::shared_ptr<DataAssociationModel> data_association,
-                  std::shared_ptr<V2PMotionModel> motion_model,
-                  std::shared_ptr<std::vector<double>> execution_times,
-                  std::weak_ptr<rclcpp::Node> node);
-
   /**
    * @brief Construct a new GraphSLAMSolver object
    *
@@ -70,6 +57,15 @@ public:
                   std::shared_ptr<std::vector<double>> execution_times);
 
   ~GraphSLAMSolver() = default;
+
+  /**
+   * @brief Initialize the SLAM solver
+   * @description This method is used to initialize the SLAM solver's
+   * aspects that require the node e.g. timer callbacks
+   *
+   * @param node ROS2 node
+   */
+  void init(std::weak_ptr<rclcpp::Node> node) override;
 
   /**
    * @brief Add motion prior to the solver (prediction step)

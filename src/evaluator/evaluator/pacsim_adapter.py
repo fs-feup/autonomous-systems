@@ -62,7 +62,7 @@ class PacsimAdapter(Adapter):
             ],
             10,
             0.1,
-        )
+        )  # TODO: separate the time sync for the map and the vehicle pose
 
         self._time_sync_slam_.registerCallback(self.slam_callback)
 

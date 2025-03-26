@@ -97,4 +97,10 @@ public:
    * @brief Constructor that uses the parameters structure
    */
   SLAMNode(const SLAMParameters& params);
+
+  /**
+   * @brief Initialize functions
+   * @description This method is used to initialize things that require the constructed node
+   */
+  void init();
 };

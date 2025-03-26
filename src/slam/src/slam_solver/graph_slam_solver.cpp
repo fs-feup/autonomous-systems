@@ -19,7 +19,11 @@
 
 #include "common_lib/maths/transformations.hpp"
 
-void GraphSLAMSolver::_init() {
+GraphSLAMSolver::GraphSLAMSolver(const SLAMParameters& params,
+                                 std::shared_ptr<DataAssociationModel> data_association,
+                                 std::shared_ptr<V2PMotionModel> motion_model,
+                                 std::shared_ptr<std::vector<double>> execution_times)
+    : SLAMSolver(params, data_association, motion_model, execution_times) {
   // Create a new factor graph
   _factor_graph_ = gtsam::NonlinearFactorGraph();
   const gtsam::Pose2 prior_pose(0.0, 0.0, 0.0);
@@ -33,29 +37,18 @@ void GraphSLAMSolver::_init() {
   _graph_values_.insert(pose_symbol, prior_pose);
 }
 
-GraphSLAMSolver::GraphSLAMSolver(const SLAMParameters& params,
-                                 std::shared_ptr<DataAssociationModel> data_association,
-                                 std::shared_ptr<V2PMotionModel> motion_model,
-                                 std::shared_ptr<std::vector<double>> execution_times)
-    : SLAMSolver(params, data_association, motion_model, execution_times) {
-  _init();
-}
-
-GraphSLAMSolver::GraphSLAMSolver(const SLAMParameters& params,
-                                 std::shared_ptr<DataAssociationModel> data_association,
-                                 std::shared_ptr<V2PMotionModel> motion_model,
-                                 std::shared_ptr<std::vector<double>> execution_times,
-                                 std::weak_ptr<rclcpp::Node> node)
-    : SLAMSolver(params, data_association, motion_model, execution_times, node) {
-  _init();
-
+void GraphSLAMSolver::init(std::weak_ptr<rclcpp::Node> node) {
   // Create a timer for asynchronous optimization
-  if (params.slam_optimization_period_ <= 0.0) {
-    return;
-  } else if (const auto node_ptr = _node_.lock()) {
+  if (this->_params_.slam_optimization_period_ <= 0.0) {
+    RCLCPP_INFO(rclcpp::get_logger("slam"),
+                "Optimization period is zero, optimization is synchronous");
+  } else if (const auto node_ptr = node.lock()) {
     this->_optimization_timer_ = node_ptr->create_wall_timer(
-        std::chrono::milliseconds(static_cast<int>(params.slam_optimization_period_)),
+        std::chrono::milliseconds(
+            static_cast<int>(this->_params_.slam_optimization_period_ * 1000)),
         [this]() { this->_optimize(); });
+    RCLCPP_INFO(rclcpp::get_logger("slam"), "Optimization timer created with period %f seconds",
+                this->_params_.slam_optimization_period_);
   } else {
     this->_params_.slam_optimization_period_ = 0.0;  // Trigger optimization on observations
     RCLCPP_ERROR(rclcpp::get_logger("slam"),
@@ -64,41 +57,50 @@ GraphSLAMSolver::GraphSLAMSolver(const SLAMParameters& params,
 }
 
 void GraphSLAMSolver::add_motion_prior(const common_lib::structures::Velocities& velocities) {
-  if (!this->_received_first_velocities_) {
+  gtsam::Pose2 pose_difference;
+  {
+    const std::shared_lock lock(this->_mutex_);
+    RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_motion_prior - Shared mutex accessed");
+
+    if (!this->_received_first_velocities_) {
+      _last_pose_update_ = velocities.timestamp_;
+      this->_received_first_velocities_ = true;
+      return;
+    }
+
+    // Apply Motion Model
+    const double delta_t =
+        (velocities.timestamp_ - this->_last_pose_update_).seconds();  // Get the time
+
+    const Eigen::Vector3d velocities_vector(velocities.velocity_x, velocities.velocity_y,
+                                            velocities.rotational_velocity);
+    const Eigen::Vector3d previous_pose(this->_last_pose_.x(), this->_last_pose_.y(),
+                                        this->_last_pose_.theta());
+    const Eigen::Vector3d next_pose =
+        this->_motion_model_->get_next_pose(previous_pose, velocities_vector, delta_t);
+    this->_last_pose_ = gtsam::Pose2(next_pose[0], next_pose[1], next_pose[2]);
+
+    // Calculate pose difference
+    const gtsam::Pose2 previous_graphed_pose =
+        this->_graph_values_.at<gtsam::Pose2>(gtsam::Symbol('x', this->_pose_counter_));
+    pose_difference = gtsam::Pose2(this->_last_pose_.x() - previous_graphed_pose.x(),
+                                   this->_last_pose_.y() - previous_graphed_pose.y(),
+                                   this->_last_pose_.theta() - previous_graphed_pose.theta());
+
+    // Update the last pose update
     _last_pose_update_ = velocities.timestamp_;
-    this->_received_first_velocities_ = true;
-    return;
+
+    // If the difference is too small, do not add the factor
+    if (const double pose_difference_norm =
+            ::sqrt(pow(pose_difference.x(), 2) + pow(pose_difference.y(), 2) +
+                   pow(pose_difference.theta(), 2));
+        pose_difference_norm < this->_params_.slam_min_pose_difference_) {
+      return;
+    }
   }
 
-  // Apply Motion Model
-  const double delta_t =
-      (velocities.timestamp_ - this->_last_pose_update_).seconds();  // Get the time
-
-  const Eigen::Vector3d velocities_vector(velocities.velocity_x, velocities.velocity_y,
-                                          velocities.rotational_velocity);
-  const Eigen::Vector3d previous_pose(this->_last_pose_.x(), this->_last_pose_.y(),
-                                      this->_last_pose_.theta());
-  const Eigen::Vector3d next_pose =
-      this->_motion_model_->get_next_pose(previous_pose, velocities_vector, delta_t);
-  this->_last_pose_ = gtsam::Pose2(next_pose[0], next_pose[1], next_pose[2]);
-
-  // Calculate pose difference
-  const gtsam::Pose2 previous_graphed_pose =
-      this->_graph_values_.at<gtsam::Pose2>(gtsam::Symbol('x', this->_pose_counter_));
-  gtsam::Pose2 pose_difference(this->_last_pose_.x() - previous_graphed_pose.x(),
-                               this->_last_pose_.y() - previous_graphed_pose.y(),
-                               this->_last_pose_.theta() - previous_graphed_pose.theta());
-
-  // Update the last pose update
-  _last_pose_update_ = velocities.timestamp_;
-
-  // If the difference is too small, do not add the factor
-  if (const double pose_difference_norm =
-          sqrt(pow(pose_difference.x(), 2) + pow(pose_difference.y(), 2) +
-               pow(pose_difference.theta(), 2));
-      pose_difference_norm < this->_params_.slam_min_pose_difference_) {
-    return;
-  }
+  std::unique_lock lock2(this->_mutex_);
+  RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_motion_prior - Mutex locked");
 
   // Calculate noise
   // // TODO: Implement noise -> this was shit because covariance from velocity estimation had too
@@ -129,34 +131,45 @@ void GraphSLAMSolver::add_motion_prior(const common_lib::structures::Velocities&
 
   // Add the prior pose to the values
   _graph_values_.insert(new_pose_symbol, this->_last_pose_);
+
+  lock2.unlock();
+  RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_motion_prior - Mutex unlocked");
 }
 
 void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures::Cone>& cones) {
-  // Only proceed if the vehicle has moved
-  if (!this->_updated_pose_ && !this->_first_observation_) {
-    return;
-  }
-
-  this->_first_observation_ = false;
-
-  rclcpp::Time start_time = rclcpp::Clock().now();
+  rclcpp::Time start_time, initialization_time, covariance_time, association_time,
+      factor_graph_time;
 
   // Prepare structures for data association
   Eigen::VectorXd observations(cones.size() * 2);
   Eigen::VectorXd observations_confidences(cones.size());
   Eigen::VectorXd state(this->_landmark_counter_ * 2 + 3);
-  gtsam::Pose2 current_pose =
-      this->_graph_values_.at<gtsam::Pose2>(gtsam::Symbol('x', this->_pose_counter_));
-  state(0) = current_pose.x();
-  state(1) = current_pose.y();
-  state(2) = current_pose.theta();
-  unsigned int landmark_id = 3;
-  for (auto it = _graph_values_.begin(); it != _graph_values_.end(); ++it) {
-    // Iterate through the landmarks in the _graph_values_
-    if (gtsam::Symbol(it->key).chr() == 'l') {
-      gtsam::Point2 landmark = it->value.cast<gtsam::Point2>();
-      state(landmark_id++) = landmark.x();
-      state(landmark_id++) = landmark.y();
+  Eigen::MatrixXd covariance = Eigen::MatrixXd::Zero(
+      observations.size(), observations.size());  // TODO(marhcouto): true covariance
+  {
+    const std::shared_lock lock(this->_mutex_);
+    RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Shared mutex accessed");
+    // Only proceed if the vehicle has moved
+    if (!this->_updated_pose_ && !this->_first_observation_) {
+      return;
+    }
+    this->_first_observation_ = false;
+
+    start_time = rclcpp::Clock().now();
+
+    const gtsam::Pose2 current_pose =
+        this->_graph_values_.at<gtsam::Pose2>(gtsam::Symbol('x', this->_pose_counter_));
+    state(0) = current_pose.x();
+    state(1) = current_pose.y();
+    state(2) = current_pose.theta();
+    unsigned int landmark_id = 3;
+    for (auto it = _graph_values_.begin(); it != _graph_values_.end(); ++it) {
+      // Iterate through the landmarks in the _graph_values_
+      if (gtsam::Symbol(it->key).chr() == 'l') {
+        gtsam::Point2 landmark = it->value.cast<gtsam::Point2>();
+        state(landmark_id++) = landmark.x();
+        state(landmark_id++) = landmark.y();
+      }
     }
   }
 
@@ -170,12 +183,10 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
   Eigen::VectorXd observations_global = common_lib::maths::local_to_global_coordinates(
       state.head<3>(), observations);  // Convert to global coordinates
 
-  rclcpp::Time initialization_time = rclcpp::Clock().now();
+  initialization_time = rclcpp::Clock().now();
 
-  Eigen::MatrixXd covariance = Eigen::MatrixXd::Zero(
-      observations.size(), observations.size());  // TODO(marhcouto): true covariance
-
-  rclcpp::Time covariance_time = rclcpp::Clock().now();
+  covariance_time = rclcpp::Clock().now();
+  RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Covariance calculated");
 
   // Data association
   Eigen::VectorXi associations(cones.size());
@@ -183,9 +194,12 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
       state, covariance, observations,
       observations_confidences);  // TODO: implement different mahalanobis distance
 
-  rclcpp::Time association_time = rclcpp::Clock().now();
+  association_time = rclcpp::Clock().now();
+  RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Associations calculated");
 
-  // Create a new observation factor
+  // Create new observation factor
+  std::unique_lock lock2(this->_mutex_);
+  RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Mutex locked");
   for (unsigned int i = 0; i < cones.size(); i++) {
     gtsam::Point2 landmark;
     gtsam::Symbol landmark_symbol;
@@ -217,8 +231,14 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
     _covariance_up_to_date_ = false;
   }
   this->_updated_pose_ = false;
+  this->_new_factors_in_graph_ = true;
 
-  rclcpp::Time factor_graph_time = rclcpp::Clock().now();
+  RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Factors added");
+
+  lock2.unlock();
+  RCLCPP_DEBUG(rclcpp::get_logger("slam"), "add_observations - Mutex unlocked");
+
+  factor_graph_time = rclcpp::Clock().now();
 
   // Optimize the graph
   if (this->_params_.slam_optimization_period_ == 0.0) {  // If optimization is synchronous
@@ -236,22 +256,51 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
 }
 
 void GraphSLAMSolver::_optimize() {  // TODO: mutexes and parallelization and implement sliding
-                                     // window mode
   rclcpp::Time start_time = rclcpp::Clock().now();
-  gtsam::LevenbergMarquardtOptimizer optimizer(this->_factor_graph_, this->_graph_values_);
-  this->_graph_values_ = optimizer.optimize();
+  gtsam::NonlinearFactorGraph factor_graph_copy;
+  gtsam::Values graph_values_copy;
 
+  // Copy the factor graph and the values
+  {
+    const std::shared_lock lock(this->_mutex_);
+    if (this->_factor_graph_.empty() || this->_landmark_counter_ <= 0) {
+      return;
+    }
+    RCLCPP_DEBUG(rclcpp::get_logger("slam"), "_optimize - Shared mutex accessed");
+    factor_graph_copy = this->_factor_graph_;
+    graph_values_copy = this->_graph_values_;
+  }
+
+  // Optimize the graph
+  RCLCPP_DEBUG(rclcpp::get_logger("slam"), "_optimize - Starting optimization");
+  gtsam::LevenbergMarquardtOptimizer optimizer(factor_graph_copy, graph_values_copy);
+  graph_values_copy = optimizer.optimize();
+  RCLCPP_DEBUG(rclcpp::get_logger("slam"), "_optimize - Graph optimized");
+
+  // Update the graph values
+  {
+    std::unique_lock lock(this->_mutex_);
+    RCLCPP_DEBUG(rclcpp::get_logger("slam"), "_optimize - Mutex locked");
+    for (auto it = this->_graph_values_.begin(); it != this->_graph_values_.end(); ++it) {
+      // Check if value is in graph_values_copy and add it not
+      if (!graph_values_copy.exists(it->key)) {
+        graph_values_copy.insert(it->key, it->value);
+      }
+    }
+    this->_graph_values_ = graph_values_copy;
+    this->_new_factors_in_graph_ = false;
+  }
+  RCLCPP_DEBUG(rclcpp::get_logger("slam"), "_optimize - Mutex unlocked - Graph values updated");
+
+  // Timekeeping
   rclcpp::Time optimization_time = rclcpp::Clock().now();
-  this->_last_pose_ = this->_graph_values_.at<gtsam::Pose2>(
-      gtsam::Symbol('x', this->_pose_counter_));  // Update last pose
   if (this->_execution_times_ == nullptr) {
     return;
   }
-
   this->_execution_times_->at(5) = (optimization_time - start_time).seconds() * 1000.0;
 }
 
-Eigen::MatrixXd GraphSLAMSolver::get_covariance() {
+Eigen::MatrixXd GraphSLAMSolver::get_covariance() {  // TODO: add mutexes
   if (this->_covariance_up_to_date_) {
     return _covariance_;
   }
@@ -274,7 +323,7 @@ Eigen::MatrixXd GraphSLAMSolver::get_covariance() {
 std::vector<common_lib::structures::Cone>
 GraphSLAMSolver::get_map_estimate() {  // TODO: include the map updates in observation to save time
   rclcpp::Time current_time = rclcpp::Clock().now();
-  std::vector<common_lib::structures::Cone> map_estimate;
+  std::vector<common_lib::structures::Cone> map_estimate(this->_landmark_counter_);
   // const gtsam::Marginals marginals(this->_factor_graph_, this->_graph_values_);
   for (auto it = _graph_values_.begin(); it != _graph_values_.end(); ++it) {
     // Iterate through the landmarks in the _graph_values_

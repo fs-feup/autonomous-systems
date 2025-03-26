@@ -26,7 +26,7 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam") {
 
   // Initialize SLAM solver object
   this->_slam_solver_ = slam_solver_constructors_map.at(params.slam_solver_name_)(
-      params, data_association, motion_model, this->_execution_times_, this->weak_from_this());
+      params, data_association, motion_model, this->_execution_times_);
 
   _perception_map_ = std::vector<common_lib::structures::Cone>();
   _vehicle_state_velocities_ = common_lib::structures::Velocities();
@@ -65,6 +65,8 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam") {
 
   RCLCPP_INFO(this->get_logger(), "SLAM Node has been initialized");
 }
+
+void SLAMNode::init() { this->_slam_solver_->init(this->weak_from_this()); }
 
 /*---------------------- Subscriptions --------------------*/
 
@@ -148,8 +150,8 @@ void SLAMNode::_publish_map() {
   auto cone_array_msg = custom_interfaces::msg::ConeArray();
   auto marker_array_msg = visualization_msgs::msg::MarkerArray();
   auto marker_array_msg_perception = visualization_msgs::msg::MarkerArray();
-  RCLCPP_DEBUG(this->get_logger(), "PUB - cone map:");
-  RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
+  RCLCPP_DEBUG(this->get_logger(), "PUB - cone map");
+  // RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
   for (common_lib::structures::Cone const &cone : this->_track_map_) {
     auto cone_message = custom_interfaces::msg::Cone();
     cone_message.position.x = cone.position.x;
@@ -157,10 +159,10 @@ void SLAMNode::_publish_map() {
     // TODO(marhcouto): add covariance & large cones & confidence
     cone_message.color = common_lib::competition_logic::get_color_string(cone.color);
     cone_array_msg.cone_array.push_back(cone_message);
-    RCLCPP_DEBUG(this->get_logger(), "(%f\t%f)\t%s", cone_message.position.x,
-                 cone_message.position.y, cone_message.color.c_str());
+    // RCLCPP_DEBUG(this->get_logger(), "(%f\t%f)\t%s", cone_message.position.x,
+    //              cone_message.position.y, cone_message.color.c_str());
   }
-  RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
+  // RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
   cone_array_msg.header.stamp = this->get_clock()->now();
   this->_map_publisher_->publish(cone_array_msg);
   marker_array_msg = common_lib::communication::marker_array_from_structure_array(
