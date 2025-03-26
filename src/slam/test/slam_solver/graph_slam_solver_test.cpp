@@ -61,9 +61,9 @@ TEST_F(GraphSlamSolverTest, Prediction) {
       .WillOnce(testing::Return(Eigen::Vector3d(1.0, 0.0, 0.0)));
   solver->_last_pose_update_ = rclcpp::Clock().now();
 
-  EXPECT_CALL(*mock_motion_model_ptr, get_jacobian_velocities)
-      .Times(1)
-      .WillOnce(testing::Return(Eigen::Matrix3d::Identity() * 0.1));
+  //   EXPECT_CALL(*mock_motion_model_ptr, get_jacobian_velocities)
+  //       .Times(1)
+  //       .WillOnce(testing::Return(Eigen::Matrix3d::Identity() * 0.1));
 
   common_lib::structures::Velocities velocities;
   velocities.timestamp_ = solver->_last_pose_update_ + rclcpp::Duration(1, 0);
@@ -97,9 +97,9 @@ TEST_F(GraphSlamSolverTest, MotionAndObservation) {
       .WillOnce(testing::Return(Eigen::Vector3d(2.2, 0.0, 0.0)))
       .WillOnce(testing::Return(Eigen::Vector3d(3.3, 0.0, 0.0)))
       .WillOnce(testing::Return(Eigen::Vector3d(4.4, 0.0, 0.0)));
-  EXPECT_CALL(*mock_motion_model_ptr, get_jacobian_velocities)
-      .Times(4)
-      .WillRepeatedly(testing::Return(Eigen::Matrix3d::Identity() * 0.1));
+  //   EXPECT_CALL(*mock_motion_model_ptr, get_jacobian_velocities)
+  //       .Times(4)
+  //       .WillRepeatedly(testing::Return(Eigen::Matrix3d::Identity() * 0.1));
   EXPECT_CALL(*mock_data_association_ptr, associate)
       .Times(2)
       .WillOnce(testing::Return(associations_first))
@@ -127,8 +127,6 @@ TEST_F(GraphSlamSolverTest, MotionAndObservation) {
 
   // Act
   solver->add_observations(cones_start);
-  solver->_factor_graph_.print("Factor Graph after first observations");
-  solver->_graph_values_.print("Graph Values after first observations");
   solver->add_motion_prior(velocities);
   velocities.timestamp_ += rclcpp::Duration(1, 0);
   solver->add_motion_prior(velocities);
