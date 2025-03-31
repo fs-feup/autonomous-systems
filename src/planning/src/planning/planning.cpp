@@ -207,7 +207,7 @@ void Planning::run_planning_algorithms() {
       }
     } else {
       for (auto &point : final_path) {
-        point.ideal_velocity = 100.0;
+        point.ideal_velocity = this->desired_velocity_;
       }
     }
   } else {

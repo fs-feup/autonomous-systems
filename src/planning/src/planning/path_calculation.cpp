@@ -316,7 +316,7 @@ std::vector<PathPoint> PathCalculation::skidpad_path(std::vector<Cone>& cone_arr
   }
 
   while (!predefined_path_.empty() &&
-         pose.position.euclidean_distance(predefined_path_[0].position) < 1) {
+         pose.position.euclidean_distance(predefined_path_[0].position) < 2) {
     predefined_path_.erase(predefined_path_.begin());
   }
 
