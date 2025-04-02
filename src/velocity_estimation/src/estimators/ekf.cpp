@@ -16,17 +16,10 @@ void EKF::imu_callback(const common_lib::sensor_data::ImuData& imu_data) {
   this->imu_data_ = imu_data;
   if (this->imu_data_received_ && this->wss_data_received_ && this->motor_rpm_received_ &&
       this->steering_angle_received_) {
-    // TODO: design new debugging method
-    // std::cout << "1 - State: " << this->state_(0) << " " << this->state_(1) << " "
-    //           << this->state_(2) << std::endl;
     this->predict(this->state_, this->covariance_, this->process_noise_matrix_, this->last_update_,
                   this->imu_data_);
-    // std::cout << "2 - State: " << this->state_(0) << " " << this->state_(1) << " "
-    //           << this->state_(2) << std::endl;
     this->correct(this->state_, this->covariance_, this->wss_data_, this->motor_rpm_,
                   this->steering_angle_);
-    // std::cout << "3 - State: " << this->state_(0) << " " << this->state_(1) << " "
-    //           << this->state_(2) << std::endl;
   }
   this->imu_data_received_ = true;
   this->last_update_ = std::chrono::high_resolution_clock::now();
@@ -70,15 +63,6 @@ void EKF::predict(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
                                      imu_data.rotational_velocity, dt);
 }
 
-void print_matrix(const Eigen::MatrixXd& matrix) {
-  for (int i = 0; i < matrix.rows(); i++) {
-    for (int j = 0; j < matrix.cols(); j++) {
-      std::cout << matrix(i, j) << " ";
-    }
-    std::cout << std::endl;
-  }
-}
-
 void EKF::correct(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
                   common_lib::sensor_data::WheelEncoderData& wss_data, double motor_rpm,
                   double steering_angle) {
@@ -88,32 +72,10 @@ void EKF::correct(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
   observations << wss_data.fl_rpm, wss_data.fr_rpm, wss_data.rl_rpm, wss_data.rr_rpm,
       steering_angle, motor_rpm;
   Eigen::VectorXd y = observations - predicted_observations;
-  // TODO: design new debugging method
-  // std::cout << "Covariance: " << std::endl;
-  // print_matrix(covariance);
-  // std::cout << "Predicted observations: ";
-  // print_matrix(predicted_observations);
-  // std::cout << "Observations: ";
-  // print_matrix(observations);
-  // std::cout << "y: ";
-  // print_matrix(y);
   Eigen::MatrixXd jacobian = bicycle_model.jacobian_cg_velocity_to_wheels(state);
-  // std::cout << "Jacobian: " << std::endl;
-  // print_matrix(jacobian);
-  // auto A = jacobian * covariance * jacobian.transpose() + this->measurement_noise_matrix_;
-  // auto A2 = A.inverse();
-  // std::cout << "A: " << std::endl;
-  // print_matrix(A);
-  // std::cout << "A inverse: " << std::endl;
-  // print_matrix(A2);
   Eigen::MatrixXd kalman_gain =
       covariance * jacobian.transpose() *
       (jacobian * covariance * jacobian.transpose() + this->measurement_noise_matrix_).inverse();
-  // std::cout << "Kalman gain: ";
-  // print_matrix(kalman_gain);
-  // Eigen::Vector3d dx = kalman_gain * y;
-  // std::cout << "dx: ";
-  // print_matrix(dx);
   state += kalman_gain * y;
   covariance = (Eigen::Matrix3d::Identity() - kalman_gain * jacobian) * covariance;
 }
