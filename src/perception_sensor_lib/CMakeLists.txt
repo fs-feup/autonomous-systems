@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.8)
 project(perception_sensor_lib)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-  add_compile_options(-Wall -Wextra -Wpedantic)
+  add_compile_options(-O2 -Wall -Wextra -Wpedantic)
 endif()
 
 set(PACKAGES
@@ -33,6 +33,7 @@ set(IMPLEMENTATION_FILES
   src/data_association/maximum_likelihood_nll.cpp
   src/data_association/maximum_likelihood_md.cpp
   src/data_association/nearest_neighbour.cpp
+  src/data_association/nearest_neighbor.cpp
   src/observation_model/base_observation_model.cpp
 )
 
@@ -68,6 +69,7 @@ if(BUILD_TESTING)
     test/main.cpp
     test/observation_model/base_observation_model_test.cpp
     test/data_association/maximum_likelihood_nll_test.cpp
+    test/data_association/nearest_neighbor_test.cpp
     test/data_association/maximum_likelihood_md_test.cpp
   )
 

@@ -6,6 +6,7 @@
 
 #include "motion_lib/v2p_models/base_v2p_motion_model.hpp"
 #include "motion_lib/v2p_models/constant_velocity_model.hpp"
+#include "motion_lib/v2p_models/constant_velocity_turnrate_model.hpp"
 
 /*
  * Map of slam_solvers, with the key being the type of the slam_solver and the value being a lambda
@@ -17,6 +18,8 @@ const std::map<std::string, std::function<std::shared_ptr<V2PMotionModel>()>, st
          []() -> std::shared_ptr<V2PMotionModel> {
            return std::make_shared<ConstantVelocityModel>();
          }},
-        // {"ekf_slam",
-        //  []() -> std::shared_ptr<V2PMotionModel> { return std::make_shared<EKFSLAMSolver>(); }}
+        {"constant_velocity_turnrate",
+         []() -> std::shared_ptr<V2PMotionModel> {
+           return std::make_shared<ConstantVelocityTurnrateModel>();
+         }},
 };

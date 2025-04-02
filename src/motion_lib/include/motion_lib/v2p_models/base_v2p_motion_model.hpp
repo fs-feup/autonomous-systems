@@ -20,7 +20,7 @@ public:
    *
    * @param base_process_noise standard non variating noise if used
    */
-  explicit V2PMotionModel(Eigen::Vector3d base_process_noise);
+  explicit V2PMotionModel(const Eigen::Vector3d base_process_noise);
 
   virtual ~V2PMotionModel() = default;
 
@@ -28,7 +28,7 @@ public:
    * @brief Predict the pose of the robot given the velocities
    *
    * @param previous_pose
-   * @param velocities
+   * @param velocities (vx, vy, omega)
    * @param delta_t
    * @return Eigen::Vector3d
    */

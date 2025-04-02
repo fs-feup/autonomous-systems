@@ -6,18 +6,18 @@
 
 /**
  * @brief Motion model that predicts the pose of the robot given the velocities
- * with a constant velocity model
+ * with a constant velocity model and turnrate model
  */
-class ConstantVelocityModel : public V2PMotionModel {
+class ConstantVelocityTurnrateModel : public V2PMotionModel {
 public:
-  explicit ConstantVelocityModel();
+  explicit ConstantVelocityTurnrateModel();
 
   /**
-   * @brief Construct a new ConstantVelocityModel object with a base process noise
+   * @brief Construct a new ConstantVelocityTurnrateModel object with a base process noise
    *
    * @param base_process_noise standard non variating noise if used
    */
-  explicit ConstantVelocityModel(const Eigen::Vector3d base_process_noise);
+  explicit ConstantVelocityTurnrateModel(const Eigen::Vector3d base_process_noise);
 
   /**
    * @brief Predict the pose of the robot given the velocities
