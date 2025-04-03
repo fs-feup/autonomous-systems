@@ -65,14 +65,14 @@ GraphSLAMSolver::GraphSLAMSolver(const SLAMParameters& params,
 
 void GraphSLAMSolver::add_motion_prior(const common_lib::structures::Velocities& velocities) {
   if (!this->_received_first_velocities_) {
-    _last_pose_update_ = velocities.timestamp;
+    _last_pose_update_ = velocities.timestamp_;
     this->_received_first_velocities_ = true;
     return;
   }
 
   // Apply Motion Model
   const double delta_t =
-      (velocities.timestamp - this->_last_pose_update_).seconds();  // Get the time
+      (velocities.timestamp_ - this->_last_pose_update_).seconds();  // Get the time
 
   const Eigen::Vector3d velocities_vector(velocities.velocity_x, velocities.velocity_y,
                                           velocities.rotational_velocity);
@@ -90,7 +90,7 @@ void GraphSLAMSolver::add_motion_prior(const common_lib::structures::Velocities&
                                this->_last_pose_.theta() - previous_graphed_pose.theta());
 
   // Update the last pose update
-  _last_pose_update_ = velocities.timestamp;
+  _last_pose_update_ = velocities.timestamp_;
 
   // If the difference is too small, do not add the factor
   if (const double pose_difference_norm =
@@ -100,11 +100,27 @@ void GraphSLAMSolver::add_motion_prior(const common_lib::structures::Velocities&
     return;
   }
 
+  // Calculate noise
+  // // TODO: Implement noise -> this was shit because covariance from velocity estimation had too
+  // // small error
+  // Eigen::Matrix3d velocities_noise = Eigen::Matrix3d::Identity(); velocities_noise(0,
+  // 0) = velocities.velocity_x_noise_; velocities_noise(1, 1) = velocities.velocity_y_noise_;
+  // velocities_noise(2, 2) = velocities.rotational_velocity_noise_;
+  // RCLCPP_DEBUG(rclcpp::get_logger("slam"), "Velocities noise: %f %f %f", velocities_noise(0, 0),
+  //              velocities_noise(1, 1), velocities_noise(2, 2));
+  // Eigen::Matrix3d velocities_jacobian =
+  //     this->_motion_model_->get_jacobian_velocities(previous_pose, velocities_vector, delta_t);
+  // Eigen::Matrix3d motion_covariance =
+  //     velocities_jacobian * velocities_noise * velocities_jacobian.transpose();
+  // RCLCPP_DEBUG(rclcpp::get_logger("slam"), "Motion covariance: %f %f %f", motion_covariance(0,
+  // 0),
+  //              motion_covariance(1, 1), motion_covariance(2, 2));
+  gtsam::noiseModel::Diagonal::shared_ptr prior_noise =
+      gtsam::noiseModel::Diagonal::Sigmas(gtsam::Vector3(0.1, 0.1, 0.1));
+
   // Add the prior factor to the graph
   gtsam::Symbol previous_pose_symbol('x', this->_pose_counter_);
   gtsam::Symbol new_pose_symbol('x', ++(this->_pose_counter_));
-  gtsam::noiseModel::Diagonal::shared_ptr prior_noise = gtsam::noiseModel::Diagonal::Sigmas(
-      gtsam::Vector3(0.1, 0.1, 0.1));  // TODO(marhcouto): new noise model for each motion model
 
   _factor_graph_.add(gtsam::BetweenFactor<gtsam::Pose2>(previous_pose_symbol, new_pose_symbol,
                                                         pose_difference, prior_noise));
@@ -194,14 +210,6 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
     const gtsam::noiseModel::Diagonal::shared_ptr observation_noise =
         gtsam::noiseModel::Diagonal::Sigmas(gtsam::Vector2(this->_params_.observation_x_noise_,
                                                            this->_params_.observation_y_noise_));
-
-    // Add the observation factor to the graph
-    // this->_factor_graph_.add(gtsam::BearingFactor<gtsam::Pose2, gtsam::Point2>(
-    //     gtsam::Symbol('x', this->_pose_counter_), landmark_symbol, observation_rotation,
-    //     gtsam::noiseModel::Isotropic::Sigma(1, this->_params_.observation_x_noise_)));
-    // this->_factor_graph_.add(gtsam::RangeFactor<gtsam::Pose2, gtsam::Point2>(
-    //     gtsam::Symbol('x', this->_pose_counter_), landmark_symbol, observation_cylindrical(0),
-    //     gtsam::noiseModel::Isotropic::Sigma(1, this->_params_.observation_x_noise_)));
 
     this->_factor_graph_.add(gtsam::BearingRangeFactor<gtsam::Pose2, gtsam::Point2>(
         gtsam::Symbol('x', this->_pose_counter_), landmark_symbol, observation_rotation,

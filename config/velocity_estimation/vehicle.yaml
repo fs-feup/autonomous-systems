@@ -1,7 +1,10 @@
 velocity_estimation:
   estimation_method: "ekf"
-  ekf_process_noise: 0.3
-  ekf_measurement_noise: 0.7
+  wheel_speed_noise: 0.7
+  motor_rpm_noise: 0.7
+  steering_angle_noise: 0.1
+  imu_acceleration_noise: 0.1
+  imu_rotational_noise: 0.1
   wheel_base: 1.6
   weight_distribution_front: 0.5
   gear_ratio: 4

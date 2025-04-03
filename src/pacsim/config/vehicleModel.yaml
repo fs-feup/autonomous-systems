@@ -1,10 +1,10 @@
 vehicle_model:
   simple_bicycle_model:
     kinematics:
-      lr: 0.804
-      lf: 0.726
-      sf: 1.2
-      sr: 1.2
+      lr: 0.804 # Distance from the center of mass to the rear axle
+      lf: 0.726 # Distance from the center of mass to the front axle
+      sf: 1.2 # Track width front
+      sr: 1.2 # Track width rear
     tire:
       Blat: 9.63
       Clat: -1.39

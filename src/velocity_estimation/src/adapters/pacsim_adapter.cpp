@@ -13,20 +13,15 @@ PacsimAdapter::PacsimAdapter(const VEParameters& parameters) : VENode(parameters
 }
 
 void PacsimAdapter::imu_callback(const sensor_msgs::msg::Imu::SharedPtr msg) {
-  common_lib::sensor_data::ImuData imu_data;
-  imu_data.acceleration_x = msg->linear_acceleration.x;
-  imu_data.acceleration_y = msg->linear_acceleration.y;
-  imu_data.rotational_velocity = msg->angular_velocity.z;
+  common_lib::sensor_data::ImuData imu_data(msg->angular_velocity.z, msg->linear_acceleration.x,
+                                            msg->linear_acceleration.y, msg->header.stamp);
   this->_velocity_estimator_->imu_callback(imu_data);
   this->publish_velocities();
 }
 
 void PacsimAdapter::wss_callback(const pacsim::msg::Wheels::SharedPtr msg) {
-  common_lib::sensor_data::WheelEncoderData wheel_encoder_data;
-  wheel_encoder_data.fl_rpm = msg->fl;
-  wheel_encoder_data.fr_rpm = msg->fr;
-  wheel_encoder_data.rl_rpm = msg->rl;
-  wheel_encoder_data.rr_rpm = msg->rr;
+  common_lib::sensor_data::WheelEncoderData wheel_encoder_data(msg->rl, msg->rr, msg->fl, msg->fr,
+                                                               0.0, msg->stamp);
   this->_velocity_estimator_->wss_callback(wheel_encoder_data);
   this->_velocity_estimator_->motor_rpm_callback(0.5 * this->_parameters_._gear_ratio_ *
                                                  (msg->rl + msg->rr));  // Simulate resolver data

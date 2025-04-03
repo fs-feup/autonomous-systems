@@ -32,7 +32,7 @@ void EKFSLAMSolver::add_motion_prior(const common_lib::structures::Velocities& v
   } else {
     velocities_received_ = true;
   }
-  this->last_update_ = velocities.timestamp;
+  this->last_update_ = velocities.timestamp_;
 }
 
 void EKFSLAMSolver::add_observations(const std::vector<common_lib::structures::Cone>& cones) {
@@ -72,11 +72,12 @@ void EKFSLAMSolver::predict(Eigen::VectorXd& state, Eigen::MatrixXd& covariance,
                             const Eigen::MatrixXd& process_noise_matrix,
                             const rclcpp::Time last_update,
                             const common_lib::structures::Velocities& velocities) {
-  auto time_interval = velocities.timestamp.seconds() - last_update.seconds();
+  auto time_interval = velocities.timestamp_.seconds() - last_update.seconds();
 
   Eigen::Vector3d previous_pose = state.segment(0, 3);
   Eigen::Vector3d temp_velocities(velocities.velocity_x, velocities.velocity_y,
                                   velocities.rotational_velocity);
+
 
   Eigen::MatrixXd pose_jacobian =
       this->_motion_model_->get_jacobian(previous_pose, temp_velocities, time_interval);
