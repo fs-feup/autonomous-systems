@@ -8,4 +8,4 @@ velocity_estimation:
   wheel_base: 1.6
   weight_distribution_front: 0.5
   gear_ratio: 4.0
-  wheel_radius: 0.258
+  wheel_radius: 0.129
