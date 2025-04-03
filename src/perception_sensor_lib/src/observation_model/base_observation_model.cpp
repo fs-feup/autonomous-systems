@@ -28,18 +28,18 @@ Eigen::MatrixXd ObservationModel::observation_model_jacobian(
   int num_landmarks = static_cast<int>(matched_landmarks.size());
 
   for (int i = 0; i < num_landmarks; ++i) {
-    jacobian(i, 0) = -cos(car_orientation);
-    jacobian(i + 1, 0) = sin(car_orientation);
-    jacobian(i, 1) = -sin(car_orientation);
-    jacobian(i + 1, 1) = -cos(car_orientation);
-    jacobian(i, 2) = -sin(car_orientation) * (state(matched_landmarks[i]) - car_x) +
-                     cos(car_orientation) * (state(matched_landmarks[i] + 1) - car_y);
-    jacobian(i + 1, 2) = -cos(car_orientation) * (state(matched_landmarks[i]) - car_x) -
-                         sin(car_orientation) * (state(matched_landmarks[i] + 1) - car_y);
-    jacobian(i, matched_landmarks[i]) = cos(car_orientation);
-    jacobian(i + 1, matched_landmarks[i]) = -sin(car_orientation);
-    jacobian(i, matched_landmarks[i] + 1) = sin(car_orientation);
-    jacobian(i + 1, matched_landmarks[i] + 1) = cos(car_orientation);
+    jacobian(2 * i, 0) = -cos(car_orientation);
+    jacobian(2 * i + 1, 0) = sin(car_orientation);
+    jacobian(2 * i, 1) = -sin(car_orientation);
+    jacobian(2 * i + 1, 1) = -cos(car_orientation);
+    jacobian(2 * i, 2) = -sin(car_orientation) * (state(matched_landmarks[i]) - car_x) +
+                         cos(car_orientation) * (state(matched_landmarks[i] + 1) - car_y);
+    jacobian(2 * i + 1, 2) = -cos(car_orientation) * (state(matched_landmarks[i]) - car_x) -
+                             sin(car_orientation) * (state(matched_landmarks[i] + 1) - car_y);
+    jacobian(2 * i, matched_landmarks[i]) = cos(car_orientation);
+    jacobian(2 * i + 1, matched_landmarks[i]) = -sin(car_orientation);
+    jacobian(2 * i, matched_landmarks[i] + 1) = sin(car_orientation);
+    jacobian(2 * i + 1, matched_landmarks[i] + 1) = cos(car_orientation);
   }
   return jacobian;
 }

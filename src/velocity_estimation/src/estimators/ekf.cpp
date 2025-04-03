@@ -34,6 +34,7 @@ void EKF::imu_callback(const common_lib::sensor_data::ImuData& imu_data) {
                   this->steering_angle_);
     RCLCPP_DEBUG(rclcpp::get_logger("velocity_estimation"), "3 - State: %f %f %f", this->state_(0),
                  this->state_(1), this->state_(2));
+
   }
   this->imu_data_received_ = true;
   this->_last_update_ = rclcpp::Clock().now();
@@ -93,7 +94,7 @@ void EKF::correct(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
       covariance * jacobian.transpose() *
       (jacobian * covariance * jacobian.transpose() + this->measurement_noise_matrix_).inverse();
 
-  // DEBUG PRINTS
+  //DEBUG PRINTS
   RCLCPP_DEBUG(rclcpp::get_logger("velocity_estimation"),
                "Predicted observations: %f %f %f %f %f %f", predicted_observations(0),
                predicted_observations(1), predicted_observations(2), predicted_observations(3),
@@ -105,15 +106,7 @@ void EKF::correct(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "y: \n" << y);
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "Jacobian: \n" << jacobian);
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "Kalman gain: \n" << kalman_gain);
-  // auto A = jacobian * covariance * jacobian.transpose() + this->measurement_noise_matrix_;
-  // auto A2 = A.inverse();
-  // std::cout << "A: " << std::endl;
-  // print_matrix(A);
-  // std::cout << "A inverse: " << std::endl;
-  // print_matrix(A2);
-  // Eigen::Vector3d dx = kalman_gain * y;
-  // std::cout << "dx: ";
-  // print_matrix(dx);
+
   state += kalman_gain * y;
   covariance = (Eigen::Matrix3d::Identity() - kalman_gain * jacobian) * covariance;
 }

@@ -32,7 +32,7 @@ protected:
     params.min_range = 0.0;
     params.max_height = 1000.0;
     params.lidar_height = 0.0;
-    params.skid_min_distance_to_cone = 1.5;
+    params.skid_fov_trim_angle = 90.0;
     params.lidar_rotation = 90.0;
     // fov_trim_angle is not set here for every test, but will be adjusted in tests as needed.
   }
@@ -87,7 +87,7 @@ TEST_F(SkidpadTrimmingTest, TestMinRange) {
  *
  */
 TEST_F(SkidpadTrimmingTest, TestFOVAngle) {
-  params.skid_min_distance_to_cone = 1.7;
+  params.skid_fov_trim_angle = 75.0;
   const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
       &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
   const SkidpadTrimming skidpad_trimming(params);
@@ -114,7 +114,7 @@ TEST_F(SkidpadTrimmingTest, TestEmptyPointCloud) {
 TEST_F(SkidpadTrimmingTest, TestGeneralResult) {
   params.min_range = 0.4;
   params.max_height = 2.5;
-  params.skid_min_distance_to_cone = 4.0;
+  params.skid_fov_trim_angle = 35.0;
   const pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(
       &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
   const SkidpadTrimming skidpad_trimming(params);
