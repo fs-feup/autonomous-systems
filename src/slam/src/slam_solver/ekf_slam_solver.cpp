@@ -78,13 +78,8 @@ void EKFSLAMSolver::predict(Eigen::VectorXd& state, Eigen::MatrixXd& covariance,
   Eigen::Vector3d temp_velocities(velocities.velocity_x, velocities.velocity_y,
                                   velocities.rotational_velocity);
 
-
-  Eigen::MatrixXd pose_jacobian =
-      this->_motion_model_->get_jacobian(previous_pose, temp_velocities, time_interval);
-  int desired_jacobian_size = covariance.cols();
   Eigen::MatrixXd jacobian =
-      Eigen::MatrixXd::Identity(desired_jacobian_size, desired_jacobian_size);
-  jacobian.block(0, 0, 3, 3) = pose_jacobian;
+      this->_motion_model_->get_jacobian_pose(previous_pose, temp_velocities, time_interval);
 
   Eigen::Vector3d next_pose =
       this->_motion_model_->get_next_pose(previous_pose, temp_velocities, time_interval);

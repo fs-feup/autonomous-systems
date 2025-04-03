@@ -16,17 +16,21 @@ protected:
                                   params.new_landmark_confidence_gate_, params.observation_x_noise_,
                                   params.observation_y_noise_));
     motion_model = v2p_models_map.at(params.motion_model_name_)();
-    ekf_slam_solver = std::make_shared<EKFSLAMSolver>(params, data_association, motion_model);
+
+    ekf_slam_solver = std::make_shared<EKFSLAMSolver>(params, data_association, motion_model,
+                                                      execution_time, node);
   }
 
   std::shared_ptr<DataAssociationModel> data_association;
   std::shared_ptr<V2PMotionModel> motion_model;
   std::shared_ptr<EKFSLAMSolver> ekf_slam_solver;
+  std::shared_ptr<std::vector<double>> execution_time;
+  std::weak_ptr<rclcpp::Node> node;
 };
 
 /**
  * @brief Test the state augmentation function of the EKF SLAM solver with trivial state
- * 
+ *
  */
 TEST_F(EKFSLAMSolverTest, stateAugmentation) {
   Eigen::VectorXd state = Eigen::VectorXd::Zero(3);
@@ -46,7 +50,7 @@ TEST_F(EKFSLAMSolverTest, stateAugmentation) {
 
 /**
  * @brief Test the state augmentation function of the EKF SLAM solver with non-trivial state
- * 
+ *
  */
 TEST_F(EKFSLAMSolverTest, stateAugmentation2) {
   Eigen::VectorXd state = Eigen::VectorXd::Zero(3);
