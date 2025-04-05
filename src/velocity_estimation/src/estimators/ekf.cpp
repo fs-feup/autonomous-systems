@@ -34,7 +34,6 @@ void EKF::imu_callback(const common_lib::sensor_data::ImuData& imu_data) {
                   this->steering_angle_);
     RCLCPP_DEBUG(rclcpp::get_logger("velocity_estimation"), "3 - State: %f %f %f", this->state_(0),
                  this->state_(1), this->state_(2));
-
   }
   this->imu_data_received_ = true;
   this->_last_update_ = rclcpp::Clock().now();
@@ -82,8 +81,7 @@ void EKF::predict(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
 void EKF::correct(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
                   common_lib::sensor_data::WheelEncoderData& wss_data, double motor_rpm,
                   double steering_angle) {
-  BicycleModel bicycle_model =
-      BicycleModel(common_lib::car_parameters::CarParameters(0.406, 1.53, 0.804, 1.2, 0.804, 4));
+  BicycleModel bicycle_model = BicycleModel(common_lib::car_parameters::CarParameters());
   Eigen::VectorXd predicted_observations = bicycle_model.cg_velocity_to_wheels(state);
   Eigen::VectorXd observations = Eigen::VectorXd::Zero(6);
   observations << wss_data.fl_rpm, wss_data.fr_rpm, wss_data.rl_rpm, wss_data.rr_rpm,
@@ -94,7 +92,7 @@ void EKF::correct(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
       covariance * jacobian.transpose() *
       (jacobian * covariance * jacobian.transpose() + this->measurement_noise_matrix_).inverse();
 
-  //DEBUG PRINTS
+  // DEBUG PRINTS
   RCLCPP_DEBUG(rclcpp::get_logger("velocity_estimation"),
                "Predicted observations: %f %f %f %f %f %f", predicted_observations(0),
                predicted_observations(1), predicted_observations(2), predicted_observations(3),
