@@ -42,6 +42,11 @@ struct ObservationData {
         timestamp_(timestamp) {}
 };
 
+/**
+ * @brief Class to update the pose of the vehicle
+ * @details This class is the one to apply the motion model and keep track of the most up to date
+ * pose
+ */
 class PoseUpdater {
   Eigen::Vector3d _last_pose_;
   rclcpp::Time _last_pose_update_ = rclcpp::Time(0);
@@ -65,6 +70,11 @@ public:
   void set_last_pose(const Eigen::Vector3d& last_pose) { _last_pose_ = last_pose; }
 };
 
+/**
+ * @brief Graph SLAM instance class - class to hold the factor graph and the values
+ * @details This class is used to hold the factor graph and the values for the graph SLAM solver
+ * All operations to the factor graph and values are carried out by this object
+ */
 class GraphSLAMInstance {
   gtsam::NonlinearFactorGraph
       _factor_graph_;  //< Factor graph for the graph SLAM solver (only factors, no estimates)
@@ -89,26 +99,66 @@ public:
 
   ~GraphSLAMInstance() = default;
 
+  /**
+   * @brief Checks if new observation factors should be added
+   *
+   * @return true if new pose factors exist
+   */
   bool should_process_observations() const;
 
+  /**
+   * @brief Checks if it is worth running optimization
+   *
+   * @return true if new observation factors exist
+   */
   bool should_perform_optimization() const;
 
   unsigned int get_landmark_counter() const;
 
-  // TODO: improve copying times and stuff like that
+  unsigned int get_pose_counter() const;
+
+  // TODO: improve copying times and referencing and stuff like that
 
   const gtsam::Pose2 get_pose() const;
 
+  /**
+   * @brief Get the graph values reference
+   *
+   * @return const gtsam::gtsam::Values& reference to the factor graph
+   */
   const gtsam::Values& get_graph_values_reference() const;
 
+  /**
+   * @brief Get the state vector, EKF style
+   *
+   * @return const Eigen::VectorXd state vector
+   */
   Eigen::VectorXd get_state_vector() const;
 
+  /**
+   * @brief Get the covariance matrix of the graph
+   *
+   * @return Eigen::MatrixXd covariance matrix
+   */
   Eigen::MatrixXd get_covariance_matrix() const;
 
+  /**
+   * @brief Add observation factors to the graph
+   *
+   * @param observation_data Observation data to add to the graph
+   */
   void process_observations(const ObservationData& observation_data);
 
+  /**
+   * @brief Add motion prior to the graph
+   *
+   * @param pose Pose to add to the graph
+   */
   void process_pose(const gtsam::Pose2& pose);
 
+  /**
+   * @brief Runs optimization on the graph
+   */
   void optimize();
 };
 
@@ -117,6 +167,8 @@ public:
  *
  * @details This class implements the Graph SLAM solver using GTSAM
  * It uses a factor graph to represent the problem and the values to store the estimates
+ * This specific class controls the access to the models used in the SLAM implementation,
+ * including measures for parallel execution
  */
 class GraphSLAMSolver : public SLAMSolver {
   GraphSLAMInstance _graph_slam_instance_;  //< Instance of the graph SLAM solver
@@ -127,7 +179,17 @@ class GraphSLAMSolver : public SLAMSolver {
       _observation_data_queue_;  //< Queue of observations received while optimization ran
   rclcpp::TimerBase::SharedPtr _optimization_timer_;  //< Timer for asynchronous optimization
   std::shared_mutex _mutex_;  //< Mutex for the graph SLAM solver, locks access to the graph
+  bool _optimization_under_way_ = false;  //< Flag to check if the optimization is under way
 
+  rclcpp::CallbackGroup::SharedPtr
+      _reentrant_group_;  //< Reentrant callback group for the timer callback
+
+  /**
+   * @brief Asynchronous optimization routine
+   * @details This method is used to run the optimization in a separate thread
+   * It is called by the timer and runs the optimization on the graph
+   * It also updates the pose and the graph values accordingly afterwards
+   */
   void _asynchronous_optimization_routine();
 
   friend class GraphSlamSolverTest_MotionAndObservation_Test;

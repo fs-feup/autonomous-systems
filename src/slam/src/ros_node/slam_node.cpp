@@ -150,7 +150,7 @@ void SLAMNode::_publish_map() {
   auto cone_array_msg = custom_interfaces::msg::ConeArray();
   auto marker_array_msg = visualization_msgs::msg::MarkerArray();
   auto marker_array_msg_perception = visualization_msgs::msg::MarkerArray();
-  RCLCPP_DEBUG(this->get_logger(), "PUB - cone map");
+  RCLCPP_DEBUG(this->get_logger(), "PUB - cone map %ld", this->_track_map_.size());
   // RCLCPP_DEBUG(this->get_logger(), "--------------------------------------");
   for (common_lib::structures::Cone const &cone : this->_track_map_) {
     auto cone_message = custom_interfaces::msg::Cone();
