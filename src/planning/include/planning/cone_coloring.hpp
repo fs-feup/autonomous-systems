@@ -18,9 +18,6 @@
 #include "config/cone_coloring_config.hpp"
 #include "rclcpp/rclcpp.hpp"
 
-using K = CGAL::Exact_predicates_inexact_constructions_kernel;
-using DT = CGAL::Delaunay_triangulation_2<K>;
-using Point = K::Point_2;
 
 using PathPoint = common_lib::structures::PathPoint;
 

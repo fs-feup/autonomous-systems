@@ -73,7 +73,7 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
   if (cone_array.size() < 4) {
     return {};
   }
-  std::vector<std::unique_ptr<MidPoint>> midPoints;  // Use unique_ptr for memory management
+  std::vector<std::unique_ptr<MidPoint>> mid_points;  // Use unique_ptr for memory management
 
   DT dt;
 
@@ -91,22 +91,24 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
 
     double dist = sqrt(pow(p1.x() - p2.x(), 2) + pow(p1.y() - p2.y(), 2));
     if (dist > 2.5) {
-      midPoints.push_back(std::move(midPoint));
+      mid_points.push_back(std::move(midPoint));
     }
   }
 
   // Comparison function for priority queue using pointers
-  auto cmp = [](const std::pair<double, MidPoint*>& a, const std::pair<double, MidPoint*>& b) {
-    return a.first > b.first;
+  auto cmp = [](const std::pair<double, MidPoint*>& distance_to_midpoint1, const std::pair<double, MidPoint*>& distance_to_midpoint2) {
+    return distance_to_midpoint1.first > distance_to_midpoint2.first;
   };
 
   // Populate close points using pointers
-  for (auto& p : midPoints) {
+  // The idea of this portion of the code is to remove the overhead of checking the distances to all midpoints when calculating the path and just doing it once on the beggining and putting it on the close points vector
+  // This is done by using a priority queue to sort the distances and then taking the top closest points
+  for (auto& p : mid_points) {
     std::priority_queue<std::pair<double, MidPoint*>, std::vector<std::pair<double, MidPoint*>>,
                         decltype(cmp)>
         pq(cmp);
 
-    for (auto& q : midPoints) {
+    for (auto& q : mid_points) {
       if (p.get() == q.get()) continue;
 
       double dist = std::sqrt(std::pow(p->point.x() - q->point.x(), 2) +
@@ -121,6 +123,12 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
     }
   }
 
+  /* 
+  Set the anchor point to the current pose if not set (first position of the car)
+  This is done to calculate the path relative to a fixed point that we know for sure that is in the middle of the track
+  This is done to avoid the path being calculated relative to the car position, which can be fatal if the car is not in the middle of the track
+  The idea is to dinamically update this point in the future to only calculate the portion of the path that is needed 
+  */
   if (!anchor_point_set_) {
     anchor_point_ = pose;
     anchor_point_set_ = true;
@@ -128,35 +136,55 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
 
   // Find the first point closest to the current pose
   MidPoint* first = nullptr;
-  double min_dist = 10000;
-  for (auto& p : midPoints) {
-    double dist =
-        sqrt(pow(p->point.x() - anchor_point_.position.x, 2) + pow(p->point.y() - anchor_point_.position.y, 2));
+  double min_dist = std::numeric_limits<double>::max();
+
+  for (auto& p : mid_points) {
+    // Vector from car to the point
+    double dx = p->point.x() - anchor_point_.position.x;
+    double dy = p->point.y() - anchor_point_.position.y;
+
+    double dist = sqrt(dx * dx + dy * dy);
     if (dist < min_dist) {
-      // Check if the point is in front of the car
-      double angle_with_pose = atan2(p->point.y() - anchor_point_.position.y,
-                                     p->point.x() - anchor_point_.position.x);
-      double angle_diff = abs(angle_with_pose - anchor_point_.orientation);
-      if (angle_diff < M_PI / 2) {
-        min_dist = dist;
-        first = p.get();
-      }
+      min_dist = dist;
+      first = p.get();
     }
   }
 
   // Project a point based on pose orientation
   double proj_distance = 1;  // 1 meter away from first point
+  if (first == nullptr) {
+    RCLCPP_ERROR(rclcpp::get_logger("planning"), "No first point found");
+    return {};
+  }
+
+  // Calculate the projected point from the first point
   MidPoint projected = {Point(first->point.x() + cos(anchor_point_.orientation) * proj_distance,
                               first->point.y() + sin(anchor_point_.orientation) * proj_distance),
                         {}};
 
-  // Find the second point closest to the projected point
+  // Find the second point closest to the projected point that is in front of the car
   MidPoint* second = nullptr;
-  min_dist = 10000;
-  for (auto& p : midPoints) {
+  min_dist = std::numeric_limits<double>::max();
+  // Calculate the car's direction vector
+  double car_direction_x = cos(anchor_point_.orientation);
+  double car_direction_y = sin(anchor_point_.orientation);
+
+  for (auto& p : mid_points) {
+    if (p.get() == first) continue;
+
+    // Compute vector from the first point to this candidate point.
+    double dx = p->point.x() - first->point.x();
+    double dy = p->point.y() - first->point.y();
+
+    // Dot product checks whether the candidate is in front of the first point (relative to car's
+    // orientation)
+    double dot_product = dx * car_direction_x + dy * car_direction_y;
+
+    if (dot_product <= 0.0) continue;  // This candidate is not in front; skip it.
+
     double dist = sqrt(pow(p->point.x() - projected.point.x(), 2) +
                        pow(p->point.y() - projected.point.y(), 2));
-    if ((dist < min_dist) && (dist > 0.01)) {  // 0.01 to guarantee it is not the same point
+    if (dist < min_dist) {
       min_dist = dist;
       second = p.get();
     }
@@ -167,22 +195,21 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
   path.push_back(first);
   path.push_back(second);
 
-  bool planning = true;
+
   int n_points = 0;
-  while (planning) {
+  while (true) {
     double worst_cost = this->config_.max_cost_ * this->config_.search_depth_;
 
     std::pair<double, MidPoint*> best_result = dfs_cost(
         this->config_.search_depth_, path[path.size() - 2], path.back(), this->config_.max_cost_);
 
     if (best_result.first > worst_cost) {
-      planning = false;
       break;
     }
 
     n_points++;
     if ((n_points > this->config_.max_points_) || (best_result.second == path.back())) {
-      planning = false;
+        break;
     } else {
       path.push_back(best_result.second);
     }
@@ -231,7 +258,7 @@ std::vector<PathPoint> PathCalculation::process_delaunay_triangulations(
     int id_cone2 = find_cone(cones, x2, y2);
     // Check both cones have been found
     if (id_cone1 == -1 || id_cone2 == -1) {
-      RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Cone not found in triangulations");
+      RCLCPP_INFO(rclcpp::get_logger("planning"), "Cone not found in triangulations");
       continue;
     }
 
@@ -251,7 +278,7 @@ std::vector<PathPoint> PathCalculation::process_delaunay_triangulations(
     }
   }
 
-  RCLCPP_DEBUG(rclcpp::get_logger("rclcpp"), "Unordered path size: %d",
+  RCLCPP_DEBUG(rclcpp::get_logger("planning"), "Unordered path size: %d",
                static_cast<int>(unordered_path.size()));
 
   return unordered_path;

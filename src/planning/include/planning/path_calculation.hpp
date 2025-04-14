@@ -39,6 +39,7 @@ private:
   bool path_orientation_corrected_ = false;
   std::vector<PathPoint> predefined_path_;  
 
+  // Anchor point for the path, to avoid calculating the path from the position of the car
   common_lib::structures::Pose anchor_point_;
   bool anchor_point_set_ = false;
 
