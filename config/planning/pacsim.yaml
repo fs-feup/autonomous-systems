@@ -1,12 +1,12 @@
 planning:
-  angle_gain: 5.246
+  angle_gain: 5.246  # Outdated >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   distance_gain: 6.657
   ncones_gain: 10.7
   angle_exponent: 2.0
   distance_exponent: 0.998
   cost_max: 40.0
   same_cone_distance_threshold: 0.6
-  use_memory_cone_coloring: true
+  use_memory_cone_coloring: true   # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   projected_point_distance: 1.0 # the distamce from the first point to the projected point to search for the second point
   nc_angle_gain: 20.0  # Parameters for path planning with no coloring (nc)
   nc_distance_gain: 5.0
