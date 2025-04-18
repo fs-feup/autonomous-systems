@@ -73,15 +73,43 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
   if (cone_array.size() < 4) {
     return {};
   }
-  std::vector<std::unique_ptr<MidPoint>> mid_points;  // Use unique_ptr for memory management
 
+  // Create Delaunay triangulation and midpoints
+  std::vector<std::unique_ptr<MidPoint>> mid_points = createMidPointsFromTriangulation(cone_array);
+
+  // Create connections between midpoints
+  establishMidPointConnections(mid_points);
+
+  // Update anchor point if needed
+  updateAnchorPoint(pose);
+
+  // Find starting points for path
+  auto [first, second] = findPathStartPoints(mid_points, anchor_point_);
+
+  if (first == nullptr || second == nullptr) {
+    RCLCPP_ERROR(rclcpp::get_logger("planning"), "Failed to find valid starting points");
+    return {};
+  }
+
+  // Generate path using DFS
+  std::vector<MidPoint*> path = generatePath(first, second);
+
+  // Convert to final path points
+  return convertToPathPoints(path);
+}
+
+
+std::vector<std::unique_ptr<PathCalculation::MidPoint>> PathCalculation::createMidPointsFromTriangulation(
+    const std::vector<Cone>& cone_array) {
+  std::vector<std::unique_ptr<MidPoint>> mid_points;
   DT dt;
 
+  // Insert cones into triangulation
   for (auto cone : cone_array) {
     dt.insert(Point(cone.position.x, cone.position.y));
   }
 
-  // Create midpoints using unique_ptr
+  // Create midpoints
   for (DT::Finite_edges_iterator it = dt.finite_edges_begin(); it != dt.finite_edges_end(); ++it) {
     Point p1 = it->first->vertex((it->second + 1) % 3)->point();
     Point p2 = it->first->vertex((it->second + 2) % 3)->point();
@@ -95,14 +123,19 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
     }
   }
 
-  // Comparison function for priority queue using pointers
-  auto cmp = [](const std::pair<double, MidPoint*>& distance_to_midpoint1, const std::pair<double, MidPoint*>& distance_to_midpoint2) {
+  return mid_points;
+}
+
+
+void PathCalculation::establishMidPointConnections(
+    std::vector<std::unique_ptr<MidPoint>>& mid_points) {
+  // Comparison function for priority queue
+  auto cmp = [](const std::pair<double, MidPoint*>& distance_to_midpoint1,
+                const std::pair<double, MidPoint*>& distance_to_midpoint2) {
     return distance_to_midpoint1.first > distance_to_midpoint2.first;
   };
 
-  // Populate close points using pointers
-  // The idea of this portion of the code is to remove the overhead of checking the distances to all midpoints when calculating the path and just doing it once on the beggining and putting it on the close points vector
-  // This is done by using a priority queue to sort the distances and then taking the top closest points
+  // Populate close points for each midpoint
   for (auto& p : mid_points) {
     std::priority_queue<std::pair<double, MidPoint*>, std::vector<std::pair<double, MidPoint*>>,
                         decltype(cmp)>
@@ -122,26 +155,25 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
       pq.pop();
     }
   }
+}
 
-  /* 
-  Set the anchor point to the current pose if not set (first position of the car)
-  This is done to calculate the path relative to a fixed point that we know for sure that is in the middle of the track
-  This is done to avoid the path being calculated relative to the car position, which can be fatal if the car is not in the middle of the track
-  The idea is to dinamically update this point in the future to only calculate the portion of the path that is needed 
-  */
+void PathCalculation::updateAnchorPoint(const common_lib::structures::Pose& pose) {
   if (!anchor_point_set_) {
     anchor_point_ = pose;
     anchor_point_set_ = true;
   }
+}
 
-  // Find the first point closest to the current pose
+std::pair<PathCalculation::MidPoint*, PathCalculation::MidPoint*>
+PathCalculation::findPathStartPoints(const std::vector<std::unique_ptr<MidPoint>>& mid_points,
+                                     const common_lib::structures::Pose& anchor_pose) {
+  // Find the first point closest to the anchor pose
   MidPoint* first = nullptr;
   double min_dist = std::numeric_limits<double>::max();
 
   for (auto& p : mid_points) {
-    // Vector from car to the point
-    double dx = p->point.x() - anchor_point_.position.x;
-    double dy = p->point.y() - anchor_point_.position.y;
+    double dx = p->point.x() - anchor_pose.position.x;
+    double dy = p->point.y() - anchor_pose.position.y;
 
     double dist = sqrt(dx * dx + dy * dy);
     if (dist < min_dist) {
@@ -150,37 +182,42 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
     }
   }
 
-  // Project a point based on pose orientation
-  double proj_distance = 1;  // 1 meter away from first point
   if (first == nullptr) {
-    RCLCPP_ERROR(rclcpp::get_logger("planning"), "No first point found");
-    return {};
+    return {nullptr, nullptr};
   }
 
-  // Calculate the projected point from the first point
-  MidPoint projected = {Point(first->point.x() + cos(anchor_point_.orientation) * proj_distance,
-                              first->point.y() + sin(anchor_point_.orientation) * proj_distance),
+  // Project a point based on pose orientation
+  double proj_distance = 1.0;  // 1 meter away from first point
+  MidPoint projected = {Point(first->point.x() + cos(anchor_pose.orientation) * proj_distance,
+                              first->point.y() + sin(anchor_pose.orientation) * proj_distance),
                         {}};
 
-  // Find the second point closest to the projected point that is in front of the car
+  // Find second point based on projected point
+  MidPoint* second = findSecondPoint(mid_points, first, projected, anchor_pose);
+
+  return {first, second};
+}
+
+PathCalculation::MidPoint* PathCalculation::findSecondPoint(
+    const std::vector<std::unique_ptr<MidPoint>>& mid_points, MidPoint* first,
+    const MidPoint& projected, const common_lib::structures::Pose& anchor_pose) {
   MidPoint* second = nullptr;
-  min_dist = std::numeric_limits<double>::max();
+  double min_dist = std::numeric_limits<double>::max();
+
   // Calculate the car's direction vector
-  double car_direction_x = cos(anchor_point_.orientation);
-  double car_direction_y = sin(anchor_point_.orientation);
+  double car_direction_x = cos(anchor_pose.orientation);
+  double car_direction_y = sin(anchor_pose.orientation);
 
   for (auto& p : mid_points) {
     if (p.get() == first) continue;
 
-    // Compute vector from the first point to this candidate point.
+    // Compute vector from the first point to this candidate point
     double dx = p->point.x() - first->point.x();
     double dy = p->point.y() - first->point.y();
 
-    // Dot product checks whether the candidate is in front of the first point (relative to car's
-    // orientation)
+    // Dot product checks whether the candidate is in front of the first point
     double dot_product = dx * car_direction_x + dy * car_direction_y;
-
-    if (dot_product <= 0.0) continue;  // This candidate is not in front; skip it.
+    if (dot_product <= 0.0) continue;  // Skip points not in front
 
     double dist = sqrt(pow(p->point.x() - projected.point.x(), 2) +
                        pow(p->point.y() - projected.point.y(), 2));
@@ -190,11 +227,14 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
     }
   }
 
-  // Rest of the path planning remains largely the same
+  return second;
+}
+
+std::vector<PathCalculation::MidPoint*> PathCalculation::generatePath(MidPoint* first,
+                                                                      MidPoint* second) {
   std::vector<MidPoint*> path;
   path.push_back(first);
   path.push_back(second);
-
 
   int n_points = 0;
   while (true) {
@@ -209,13 +249,16 @@ std::vector<PathPoint> PathCalculation::no_coloring_planning(std::vector<Cone>& 
 
     n_points++;
     if ((n_points > this->config_.max_points_) || (best_result.second == path.back())) {
-        break;
+      break;
     } else {
       path.push_back(best_result.second);
     }
   }
 
-  // Convert path to final path points
+  return path;
+}
+
+std::vector<PathPoint> PathCalculation::convertToPathPoints(const std::vector<MidPoint*>& path) {
   std::vector<PathPoint> final_path;
   for (MidPoint* p : path) {
     final_path.push_back(PathPoint(p->point.x(), p->point.y()));
