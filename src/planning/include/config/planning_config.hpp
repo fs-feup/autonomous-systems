@@ -19,6 +19,7 @@ struct PlanningParameters {
   double cost_max_;
   double same_cone_distance_threshold_;
   bool use_memory_cone_coloring_;
+  double projected_point_distance;
   double nc_angle_gain_;
   double nc_distance_gain_;
   double nc_angle_exponent_;
@@ -75,6 +76,7 @@ struct PlanningConfig {
     outliers_.use_outlier_removal_ = params.use_outlier_removal_;
 
     path_calculation_.dist_threshold_ = params.path_calculation_dist_threshold_;
+    path_calculation_.projected_point_distance_ = params.projected_point_distance;
     path_calculation_.angle_gain_ = params.nc_angle_gain_;
     path_calculation_.distance_gain_ = params.nc_distance_gain_;
     path_calculation_.angle_exponent_ = params.nc_angle_exponent_;

@@ -118,7 +118,7 @@ std::vector<std::unique_ptr<PathCalculation::MidPoint>> PathCalculation::createM
         MidPoint{Point((p1.x() + p2.x()) / 2, (p1.y() + p2.y()) / 2), {}});
 
     double dist = sqrt(pow(p1.x() - p2.x(), 2) + pow(p1.y() - p2.y(), 2));
-    if (dist > 2.5) {
+    if (dist > 2.5) { // constrained by the rules (cones 3m apart)
       mid_points.push_back(std::move(midPoint));
     }
   }
@@ -187,9 +187,8 @@ PathCalculation::findPathStartPoints(const std::vector<std::unique_ptr<MidPoint>
   }
 
   // Project a point based on pose orientation
-  double proj_distance = 1.0;  // 1 meter away from first point
-  MidPoint projected = {Point(first->point.x() + cos(anchor_pose.orientation) * proj_distance,
-                              first->point.y() + sin(anchor_pose.orientation) * proj_distance),
+  MidPoint projected = {Point(first->point.x() + cos(anchor_pose.orientation) * config_.projected_point_distance_,
+                              first->point.y() + sin(anchor_pose.orientation) * config_.projected_point_distance_),
                         {}};
 
   // Find second point based on projected point

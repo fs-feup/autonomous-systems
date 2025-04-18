@@ -37,6 +37,7 @@ PlanningParameters Planning::load_config(std::string &adapter) {
   params.cost_max_ = planning_config["cost_max"].as<double>();
   params.use_memory_cone_coloring_ = planning_config["use_memory_cone_coloring"].as<bool>();
 
+  params.projected_point_distance = planning_config["projected_point_distance"].as<double>();
   params.nc_angle_gain_ = planning_config["nc_angle_gain"].as<double>();
   params.nc_distance_gain_ = planning_config["nc_distance_gain"].as<double>();
   params.nc_angle_exponent_ = planning_config["nc_angle_exponent"].as<double>();
@@ -135,7 +136,7 @@ Planning::Planning(const PlanningParameters &params)
 }
 
 void Planning::fetch_discipline() {
-  if (!param_client_->wait_for_service(std::chrono::seconds(2))) {
+  if (!param_client_->wait_for_service(std::chrono::milliseconds(100))) {
     RCLCPP_ERROR(this->get_logger(), "Service /pacsim/pacsim_node/get_parameters not available.");
     return;
   }
