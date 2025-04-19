@@ -8,8 +8,8 @@
 DeviationValidator::DeviationValidator(double min_xoy, double max_xoy, double min_z, double max_z)
     : _min_xoy_(min_xoy), _max_xoy_(max_xoy), _min_z_(min_z), _max_z_(max_z) {}
 
-std::vector<double> DeviationValidator::coneValidator(Cluster* cone_point_cloud,
-                                                      [[maybe_unused]] Plane& plane) const {
+void DeviationValidator::coneValidator(Cluster* cone_point_cloud, EvaluatorResults* results,
+                                       [[maybe_unused]] Plane& plane) const {
   // Vectors to store deviations in XOY and Z
   std::vector<double> deviations_xoy;
   std::vector<double> deviations_z;
@@ -48,10 +48,8 @@ std::vector<double> DeviationValidator::coneValidator(Cluster* cone_point_cloud,
   double std_dev_xoy = calc_std_dev(deviations_xoy);
   double std_dev_z = calc_std_dev(deviations_z);
 
-  // index 0 = if not in xoy interval, ratio between the std deviation of the cluster and the
-  // maximum or minimum deviation, whichever is closest to.
-  // index 1 = if not z in interval, ratio between the std deviation of the cluster and the maximum
-  // or minimum deviation, whichever is the closest to z
-  return {std::min({_min_xoy_ > 0 ? std_dev_xoy / _min_xoy_ : 1.0, _max_xoy_ / std_dev_xoy, 1.0}),
-          std::min({_min_z_ > 0 ? std_dev_z / _min_z_ : 1.0, _max_z_ / std_dev_z, 1.0})};
+  results->deviation_xoy =
+      std::min({_min_xoy_ > 0 ? std_dev_xoy / _min_xoy_ : 1.0, _max_xoy_ / std_dev_xoy, 1.0});
+  results->deviation_z =
+      std::min({_min_z_ > 0 ? std_dev_z / _min_z_ : 1.0, _max_z_ / std_dev_z, 1.0});
 }

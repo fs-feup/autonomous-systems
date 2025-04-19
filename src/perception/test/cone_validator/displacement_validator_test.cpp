@@ -5,6 +5,7 @@
 
 #include <cone_validator/displacement_validator.hpp>
 #include <utils/cluster.hpp>
+#include <utils/evaluator_results.hpp>
 #include <utils/plane.hpp>
 
 /**
@@ -20,6 +21,7 @@ protected:
   }
 
   Plane plane;  ///< Plane object for testing.
+  EvaluatorResults results;
 };
 
 /**
@@ -34,11 +36,11 @@ TEST_F(DisplacementValidatorTest, ClusterWithWellDistributedPoints) {
 
   Cluster cone_point_cloud = Cluster(point_cloud);
 
-  std::vector<double> result = validator.coneValidator(&cone_point_cloud, plane);
+  validator.coneValidator(&cone_point_cloud, &results, plane);
 
-  ASSERT_DOUBLE_EQ(result[0], 1.0);
-  ASSERT_DOUBLE_EQ(result[1], 1.0);
-  ASSERT_DOUBLE_EQ(result[2], 1.0);
+  ASSERT_DOUBLE_EQ(results.displacement_x, 1.0);
+  ASSERT_DOUBLE_EQ(results.displacement_y, 1.0);
+  ASSERT_DOUBLE_EQ(results.displacement_z, 1.0);
 }
 
 /**
@@ -54,12 +56,12 @@ TEST_F(DisplacementValidatorTest, BelowThresholdOnXAxis) {
 
   Cluster cone_point_cloud = Cluster(point_cloud);
 
-  std::vector<double> result = validator.coneValidator(&cone_point_cloud, plane);
+  validator.coneValidator(&cone_point_cloud, &results, plane);
 
-  ASSERT_LT(result[0], 1.0);
-  ASSERT_GE(result[0], 0.0);
-  ASSERT_DOUBLE_EQ(result[1], 1.0);
-  ASSERT_DOUBLE_EQ(result[2], 1.0);
+  ASSERT_LT(results.displacement_x, 1.0);
+  ASSERT_GE(results.displacement_x, 0.0);
+  ASSERT_DOUBLE_EQ(results.displacement_y, 1.0);
+  ASSERT_DOUBLE_EQ(results.displacement_z, 1.0);
 }
 
 /**
@@ -75,12 +77,12 @@ TEST_F(DisplacementValidatorTest, BelowThresholdOnYAxis) {
 
   Cluster cone_point_cloud = Cluster(point_cloud);
 
-  std::vector<double> result = validator.coneValidator(&cone_point_cloud, plane);
+  validator.coneValidator(&cone_point_cloud, &results, plane);
 
-  ASSERT_DOUBLE_EQ(result[0], 1.0);
-  ASSERT_LT(result[1], 1.0);
-  ASSERT_GE(result[1], 0.0);
-  ASSERT_DOUBLE_EQ(result[2], 1.0);
+  ASSERT_DOUBLE_EQ(results.displacement_x, 1.0);
+  ASSERT_LT(results.displacement_y, 1.0);
+  ASSERT_GE(results.displacement_y, 0.0);
+  ASSERT_DOUBLE_EQ(results.displacement_z, 1.0);
 }
 
 /**
@@ -96,10 +98,10 @@ TEST_F(DisplacementValidatorTest, BelowThresholdOnZAxis) {
 
   Cluster cone_point_cloud = Cluster(point_cloud);
 
-  std::vector<double> result = validator.coneValidator(&cone_point_cloud, plane);
+  validator.coneValidator(&cone_point_cloud, &results, plane);
 
-  ASSERT_DOUBLE_EQ(result[0], 1.0);
-  ASSERT_DOUBLE_EQ(result[1], 1.0);
-  ASSERT_LT(result[2], 1.0);
-  ASSERT_GE(result[2], 0.0);
+  ASSERT_DOUBLE_EQ(results.displacement_x, 1.0);
+  ASSERT_DOUBLE_EQ(results.displacement_y, 1.0);
+  ASSERT_LT(results.displacement_z, 1.0);
+  ASSERT_GE(results.displacement_z, 0.0);
 }

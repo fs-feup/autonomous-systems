@@ -4,6 +4,7 @@
 #include <pcl/point_types.h>
 
 #include <utils/cluster.hpp>
+#include <utils/evaluator_results.hpp>
 #include <utils/plane.hpp>
 
 #include "sensor_msgs/msg/point_cloud2.hpp"
@@ -22,5 +23,6 @@ public:
    * @param cone_point_cloud Point Cloud to be Validated
    * @return vector with all double values for the respective validator
    */
-  virtual std::vector<double> coneValidator(Cluster* cone_point_cloud, Plane& plane) const = 0;
+  virtual void coneValidator(Cluster* cone_point_cloud, EvaluatorResults* results,
+                             Plane& plane) const = 0;
 };

@@ -36,7 +36,8 @@ public:
    * Index 1 -> if not z in interval, ratio between cluster std deviation and the closest limit on
    * the z axis.
    */
-  std::vector<double> coneValidator(Cluster* cone_point_cloud, Plane& plane) const override;
+  void coneValidator(Cluster* cone_point_cloud, EvaluatorResults* results,
+                     Plane& plane) const override;
 
   /**
    * @brief Virtual destructor for DeviationValidator.

@@ -51,5 +51,6 @@ public:
    * Index 1 -> Ratio of between distance to the farthest point and the cylinder heigth.|
    * Index 2 -> Ratio between the number of points outside the cylinder and the total.
    */
-  std::vector<double> coneValidator(Cluster* cone_point_cloud, Plane& plane) const override;
+  void coneValidator(Cluster* cone_point_cloud, EvaluatorResults* results,
+                     Plane& plane) const override;
 };

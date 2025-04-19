@@ -4,6 +4,7 @@
 
 #include <cone_validator/cylinder_validator.hpp>
 #include <utils/cluster.hpp>
+#include <utils/evaluator_results.hpp>
 #include <utils/plane.hpp>
 
 // Non-owning deleter: does nothing.
@@ -22,6 +23,7 @@ protected:
    */
   void SetUp() override { plane = Plane(1, 0, 0, 0); }
   Plane plane;  ///< Plane object for testing.
+  EvaluatorResults results;
 };
 
 /**
@@ -39,12 +41,13 @@ TEST_F(CylinderValidatorTest, PointsInsideSmallCylinder) {
 
   Cluster cylinderPointCloud(cloud_ptr);
 
-  std::vector<double> result = validator.coneValidator(&cylinderPointCloud, plane);
+  validator.coneValidator(&cylinderPointCloud, &results, plane);
 
   // Check the results.
-  ASSERT_NEAR(result[0], 1.0, 1e-6);  // Distance XY ratio is 1.
-  ASSERT_NEAR(result[1], 1.0, 1e-6);  // Distance Z ratio is 1.
-  ASSERT_DOUBLE_EQ(result[2], 1.0);   // All points are inside the cylinder.
+  ASSERT_NEAR(results.cylinder_out_distance_xy_small, 1.0, 1e-6);  // Distance XY ratio is 1.
+  ASSERT_NEAR(results.cylinder_out_distance_z_small, 1.0, 1e-6);   // Distance Z ratio is 1.
+  ASSERT_DOUBLE_EQ(results.cylinder_n_out_points + results.cylinder_n_large_points,
+                   0.0);  // All points are inside the cylinder.
 }
 
 /**
@@ -60,14 +63,13 @@ TEST_F(CylinderValidatorTest, PointsInsideLargeCylinder) {
       &cloud, NonOwningDeleter<pcl::PointCloud<pcl::PointXYZI>>());
 
   Cluster cylinderPointCloud(cloud_ptr);
-  // Simulate height validator and set cluster as large.
-  cylinderPointCloud.set_is_large();
 
-  std::vector<double> result = validator.coneValidator(&cylinderPointCloud, plane);
+  validator.coneValidator(&cylinderPointCloud, &results, plane);
 
-  ASSERT_NEAR(result[0], 1.0, 1e-6);  // Distance XY ratio is 1.
-  ASSERT_NEAR(result[1], 1.0, 1e-6);  // Distance Z ratio is 1.
-  ASSERT_DOUBLE_EQ(result[2], 1.0);   // All points are inside the cylinder.
+  ASSERT_NEAR(results.cylinder_out_distance_xy_large, 1.0, 1e-6);  // Distance XY ratio is 1.
+  ASSERT_NEAR(results.cylinder_out_distance_z_large, 1.0, 1e-6);   // Distance Z ratio is 1.
+  ASSERT_DOUBLE_EQ(results.cylinder_n_out_points,
+                   0.0);  // All points are inside the cylinder.
 }
 
 /**
@@ -85,11 +87,14 @@ TEST_F(CylinderValidatorTest, PointsFarOutsideCylinders) {
 
   Cluster cylinderPointCloud(cloud_ptr);
 
-  std::vector<double> result = validator.coneValidator(&cylinderPointCloud, plane);
+  validator.coneValidator(&cylinderPointCloud, &results, plane);
 
-  ASSERT_NEAR(result[0], 0.0, 1e-6);  // Distance XY ratio is 0.
-  ASSERT_NEAR(result[1], 0.0, 1e-6);  // Distance Z ratio is 0.
-  ASSERT_LT(result[2], 1.0);          // Some points are outside the cylinder.
+  ASSERT_NEAR(results.cylinder_out_distance_xy_small, 0.0, 1e-6);  // Distance XY ratio is 1.
+  ASSERT_NEAR(results.cylinder_out_distance_z_small, 0.0, 1e-6);   // Distance Z ratio is 1.
+  ASSERT_NEAR(results.cylinder_out_distance_xy_large, 0.0, 1e-6);  // Distance XY ratio is 1.
+  ASSERT_NEAR(results.cylinder_out_distance_z_large, 0.0, 1e-6);   // Distance Z ratio is 1.
+  ASSERT_EQ(results.cylinder_n_out_points + results.cylinder_n_large_points,
+            3.0);  // All points are inside the cylinder.
 }
 
 /**
@@ -107,11 +112,12 @@ TEST_F(CylinderValidatorTest, PointsOutsideCylinders) {
 
   Cluster cylinderPointCloud(cloud_ptr);
 
-  std::vector<double> result = validator.coneValidator(&cylinderPointCloud, plane);
+  validator.coneValidator(&cylinderPointCloud, &results, plane);
 
-  ASSERT_GE(result[0], 0.5);  // Distance XY ratio is higher than cap.
-  ASSERT_LE(result[0], 1.0);  // Distance XY ratio is capped at 1.
-  ASSERT_GE(result[1], 0.5);  // Distance Z ratio is higher than cap.
-  ASSERT_LE(result[1], 1.0);  // Distance Z ratio is capped at 1.
-  ASSERT_LT(result[2], 1.0);  // Some points are outside the cylinder.
+  ASSERT_GE(results.cylinder_out_distance_xy_small, 0.5);  // Distance XY ratio is higher than cap.
+  ASSERT_LE(results.cylinder_out_distance_xy_small, 1.0);  // Distance XY ratio is capped at 1.
+  ASSERT_GE(results.cylinder_out_distance_z_small, 0.5);   // Distance Z ratio is higher than cap.
+  ASSERT_LE(results.cylinder_out_distance_z_small, 1.0);   // Distance Z ratio is capped at 1.
+  ASSERT_GE(results.cylinder_n_large_points + results.cylinder_n_out_points,
+            0.0);  // Some points are outside the cylinder.
 }

@@ -16,43 +16,48 @@ double CylinderValidator::large_getRadius() const {
   return std::sqrt(2 * large_width * large_width) / 2;
 }
 
-std::vector<double> CylinderValidator::coneValidator(Cluster* cone_point_cloud,
-                                                     [[maybe_unused]] Plane& plane) const {
+void CylinderValidator::coneValidator(Cluster *cone_point_cloud, EvaluatorResults *results,
+                                      [[maybe_unused]] Plane &plane) const {
   pcl::PointCloud<pcl::PointXYZI>::Ptr point_cloud = cone_point_cloud->get_point_cloud();
 
-  double out_distanceXY = 1;
-  double out_distanceZ = 1;
-  int n_out_points = 0;
+  double out_distanceXY_small = 1, out_distanceXY_large = 1;
+  double out_distanceZ_small = 1, out_distanceZ_large = 1;
+  double n_large_points = 0;
+  double n_out_points = 0;
 
-  for (const auto& point : *cone_point_cloud->get_point_cloud()) {
+  pcl::PointXYZ center(cone_point_cloud->get_centroid().x(), cone_point_cloud->get_centroid().y(),
+                       cone_point_cloud->get_centroid().z());
+  for (const auto &point : *point_cloud) {
     // Calculate the distance between the point and the cylinder's centroid
-    double distanceXY = std::sqrt((point.x - cone_point_cloud->get_centroid().x()) *
-                                      (point.x - cone_point_cloud->get_centroid().x()) +
-                                  (point.y - cone_point_cloud->get_centroid().y()) *
-                                      (point.y - cone_point_cloud->get_centroid().y()));
+    double distanceXY = std::sqrt((point.x - center.x) * (point.x - center.x) +
+                                  (point.y - center.y) * (point.y - center.y));
 
     // Calculate distance between the point and the centroid along the z-axis
-    double distanceZ = std::abs(point.z - cone_point_cloud->get_centroid().z());
+    double distanceZ = std::abs(point.z - center.z);
 
-    // Choose which cylinder to use depending on the size of the cluster (decided in
-    // height_validator).
-    if (cone_point_cloud->get_is_large() &&
-        (distanceXY > large_getRadius() || distanceZ > large_height / 2)) {
-      n_out_points++;
-      out_distanceXY = std::min(out_distanceXY, large_getRadius() / distanceXY);
-      out_distanceZ = std::min(out_distanceZ, large_height / (2 * distanceZ));
+    if (distanceXY > small_getRadius() || distanceZ > small_height / 2) {
+      out_distanceXY_small = std::min(out_distanceXY_small, small_getRadius() / distanceXY);
+      out_distanceZ_small = std::min(out_distanceZ_small, small_height / (2 * distanceZ));
 
-    } else if (distanceXY > small_getRadius() || distanceZ > small_height / 2) {
-      n_out_points++;
-      out_distanceXY = std::min(out_distanceXY, small_getRadius() / distanceXY);
-      out_distanceZ = std::min(out_distanceZ, small_height / (2 * distanceZ));
+      if (distanceXY <= large_getRadius() && distanceZ <= large_height / 2) {
+        n_large_points++;
+      } else {
+        n_out_points++;
+        out_distanceXY_large = std::min(out_distanceXY_large, large_getRadius() / distanceXY);
+        out_distanceZ_large = std::min(out_distanceZ_large, large_height / (2 * distanceZ));
+      }
     }
-    out_distanceXY = out_distanceXY >= out_distance_cap ? out_distanceXY : 0.0;
-    out_distanceZ = out_distanceZ >= out_distance_cap ? out_distanceZ : 0.0;
   }
-  // index 0 = ratio of between distance to the farthest point and the cylinder radius.
-  // index 1 = ratio of between distance to the farthest point and the cylinder heigth.
-  // index 2 = ratio between the number of points outside the cylinder and the number of total
-  // points.
-  return {out_distanceXY, out_distanceZ, 1.0 - (double)n_out_points / point_cloud->size()};
+  out_distanceXY_large = out_distanceXY_large >= out_distance_cap ? out_distanceXY_large : 0.0;
+  out_distanceZ_large = out_distanceZ_large >= out_distance_cap ? out_distanceZ_large : 0.0;
+
+  out_distanceXY_small = out_distanceXY_small >= out_distance_cap ? out_distanceXY_small : 0.0;
+  out_distanceZ_small = out_distanceZ_small >= out_distance_cap ? out_distanceZ_small : 0.0;
+
+  results->cylinder_out_distance_xy_large = out_distanceXY_large;
+  results->cylinder_out_distance_z_large = out_distanceZ_large;
+  results->cylinder_out_distance_xy_small = out_distanceXY_small;
+  results->cylinder_out_distance_z_small = out_distanceZ_small;
+  results->cylinder_n_large_points = n_large_points;
+  results->cylinder_n_out_points = n_out_points;
 }

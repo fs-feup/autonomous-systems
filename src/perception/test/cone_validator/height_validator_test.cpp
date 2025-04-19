@@ -20,6 +20,7 @@ protected:
   }
 
   Plane plane;  ///< Plane object for testing.
+  EvaluatorResults results;
 };
 
 /**
@@ -33,11 +34,11 @@ TEST_F(HeightValidatorTest, ConeWithinSmallHeightThreshold) {
 
   Cluster cone_point_cloud = Cluster(point_cloud);
 
-  std::vector<double> result = validator.coneValidator(&cone_point_cloud, plane);
+  validator.coneValidator(&cone_point_cloud, &results, plane);
 
-  ASSERT_DOUBLE_EQ(result[0], 1.0);
-  ASSERT_NEAR(result[1], 0.8, 1e-6);  // 0.3/0.375
-  ASSERT_FALSE(cone_point_cloud.get_is_large());
+  ASSERT_DOUBLE_EQ(results.height_out_ratio_small, 1.0);
+  ASSERT_NEAR(results.height_in_ratio_small, 0.8, 1e-6);  // 0.3/0.375
+  ASSERT_FALSE(results.height_large);
 }
 
 /**
@@ -52,11 +53,11 @@ TEST_F(HeightValidatorTest, ConeWithinLargeHeightThreshold) {
 
   Cluster cone_point_cloud = Cluster(point_cloud);
 
-  std::vector<double> result = validator.coneValidator(&cone_point_cloud, plane);
+  validator.coneValidator(&cone_point_cloud, &results, plane);
 
-  ASSERT_DOUBLE_EQ(result[0], 1.0);
-  ASSERT_NEAR(result[1], 0.8, 1e-6);  // 0.4/0.5
-  ASSERT_TRUE(cone_point_cloud.get_is_large());
+  ASSERT_DOUBLE_EQ(results.height_out_ratio_large, 1.0);
+  ASSERT_NEAR(results.height_in_ratio_large, 0.8, 1e-6);  // 0.4/0.5
+  ASSERT_TRUE(results.height_large);
 }
 
 /**
@@ -70,12 +71,12 @@ TEST_F(HeightValidatorTest, ConeExceedsHeightThreshold) {
 
   Cluster cone_point_cloud = Cluster(point_cloud);
 
-  std::vector<double> result = validator.coneValidator(&cone_point_cloud, plane);
+  validator.coneValidator(&cone_point_cloud, &results, plane);
 
-  ASSERT_LT(result[0], 1.0);
-  ASSERT_GE(result[0], 0.0);
-  ASSERT_DOUBLE_EQ(result[1], 0.0);
-  ASSERT_TRUE(cone_point_cloud.get_is_large());
+  ASSERT_LT(results.height_out_ratio_small, 1.0);
+  ASSERT_GE(results.height_out_ratio_small, 0.0);
+  ASSERT_DOUBLE_EQ(results.height_in_ratio_small, 0.0);
+  ASSERT_TRUE(results.height_large);
 }
 
 /**
@@ -89,11 +90,11 @@ TEST_F(HeightValidatorTest, ConeBelowHeightThreshold) {
 
   Cluster cone_point_cloud = Cluster(point_cloud);
 
-  std::vector<double> result = validator.coneValidator(&cone_point_cloud, plane);
+  validator.coneValidator(&cone_point_cloud, &results, plane);
 
-  ASSERT_DOUBLE_EQ(result[0], 0.0);  // Lower than cap
-  ASSERT_DOUBLE_EQ(result[1], 0.0);
-  ASSERT_FALSE(cone_point_cloud.get_is_large());
+  ASSERT_DOUBLE_EQ(results.height_out_ratio_small, 0.0);  // Lower than cap
+  ASSERT_DOUBLE_EQ(results.height_in_ratio_small, 0.0);
+  ASSERT_FALSE(results.height_large);
 }
 
 /**
@@ -107,9 +108,9 @@ TEST_F(HeightValidatorTest, ConeNearMinimumHeight) {
 
   Cluster cone_point_cloud = Cluster(point_cloud);
 
-  std::vector<double> result = validator.coneValidator(&cone_point_cloud, plane);
+  validator.coneValidator(&cone_point_cloud, &results, plane);
 
-  ASSERT_DOUBLE_EQ(result[0], 1.0);
-  ASSERT_NEAR(result[1], 0.4, 1e-6);  // 0.15/0.375
-  ASSERT_FALSE(cone_point_cloud.get_is_large());
+  ASSERT_DOUBLE_EQ(results.height_out_ratio_small, 1.0);
+  ASSERT_NEAR(results.height_in_ratio_small, 0.4, 1e-6);  // 0.15/0.375
+  ASSERT_FALSE(results.height_large);
 }

@@ -3,7 +3,6 @@
 #include <cone_evaluator/cone_evaluator.hpp>
 #include <cone_validator/cylinder_validator.hpp>
 #include <cone_validator/deviation_validator.hpp>
-#include <cone_validator/z_score_validator.hpp>
 #include <string>
 #include <unordered_map>
 #include <utils/plane.hpp>

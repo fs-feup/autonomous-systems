@@ -8,7 +8,6 @@ struct EvaluatorParameters {
   std::shared_ptr<ConeValidator> cylinder_validator;
   std::shared_ptr<ConeValidator> deviation_validator;
   std::shared_ptr<ConeValidator> displacement_validator;
-  std::shared_ptr<ConeValidator> zscore_validator;
 
   // Height weights
   double height_out_weight = 0.0;
@@ -30,6 +29,7 @@ struct EvaluatorParameters {
   double deviation_z_weight = 0.0;
 
   double min_confidence = 1.0;
+  int min_large_points = 0;
 
   EvaluatorParameters() = default;
   double getSum() const;

@@ -42,7 +42,8 @@ public:
    * Index 0 -> the ratio between the clusters height and the limit, 1 if inside.
    * Index 1 -> if in height interval, how close is it to the maximum height, else 0.
    */
-  std::vector<double> coneValidator(Cluster* cone_point_cloud, Plane& plane) const override;
+  void coneValidator(Cluster* cone_point_cloud, EvaluatorResults* results,
+                     Plane& plane) const override;
 
   /**
    * @brief Virtual destructor for HeightValidator.

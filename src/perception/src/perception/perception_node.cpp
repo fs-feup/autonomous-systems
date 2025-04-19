@@ -132,11 +132,6 @@ PerceptionParameters Perception::load_config() {
   double min_distance_y = perception_config["min_distance_y"].as<double>();
   double min_distance_z = perception_config["min_distance_z"].as<double>();
 
-  double min_z_score_x = perception_config["min_z_score_x"].as<double>();
-  double max_z_score_x = perception_config["max_z_score_x"].as<double>();
-  double min_z_score_y = perception_config["min_z_score_y"].as<double>();
-  double max_z_score_y = perception_config["max_z_score_y"].as<double>();
-
   double out_distance_cap = perception_config["out_distance_cap"].as<double>();
 
   // Evaluator Parameters (ConeValidators + weights + minimum confidence)
@@ -152,8 +147,6 @@ PerceptionParameters Perception::load_config() {
       std::make_shared<DeviationValidator>(min_xoy, max_xoy, min_z, max_z);
   eval_params->displacement_validator =
       std::make_shared<DisplacementValidator>(min_distance_x, min_distance_y, min_distance_z);
-  eval_params->zscore_validator =
-      std::make_shared<ZScoreValidator>(min_z_score_x, max_z_score_x, min_z_score_y, max_z_score_y);
 
   // Weight values for cone evaluator
   eval_params->height_out_weight = perception_config["height_out_weight"].as<double>();
@@ -172,6 +165,7 @@ PerceptionParameters Perception::load_config() {
 
   // Minimum confidence needed for a cluster to be considered a cone.
   eval_params->min_confidence = perception_config["min_confidence"].as<double>();
+  eval_params->min_large_points = perception_config["min_points_large"].as<int>();
 
   params.cone_evaluator_ = params.cone_evaluator_ = std::make_shared<ConeEvaluator>(eval_params);
 

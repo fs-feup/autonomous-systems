@@ -18,6 +18,7 @@ protected:
   void SetUp() override { plane = Plane(1, 0, 0, 0); }
 
   Plane plane;  ///< Plane object for testing.
+  EvaluatorResults results;
 };
 
 /**
@@ -31,9 +32,9 @@ TEST_F(NPointsValidatorTest, ConeWithFewerPointsThanThreshold) {
 
   Cluster cone_point_cloud(point_cloud);
 
-  std::vector<double> result = validator.coneValidator(&cone_point_cloud, plane);
+  validator.coneValidator(&cone_point_cloud, &results, plane);
 
-  ASSERT_LT(result[0], 1.0);
+  ASSERT_LT(results.n_points, 1.0);
 }
 
 /**
@@ -50,9 +51,9 @@ TEST_F(NPointsValidatorTest, ConeWithExactMinPoints) {
 
   Cluster cone_point_cloud(point_cloud);
 
-  std::vector<double> result = validator.coneValidator(&cone_point_cloud, plane);
+  validator.coneValidator(&cone_point_cloud, &results, plane);
 
-  ASSERT_DOUBLE_EQ(result[0], 1.0);
+  ASSERT_DOUBLE_EQ(results.n_points, 1.0);
 }
 
 /**
@@ -70,7 +71,7 @@ TEST_F(NPointsValidatorTest, ConeWithMorePointsThanThreshold) {
 
   Cluster cone_point_cloud(point_cloud);
 
-  std::vector<double> result = validator.coneValidator(&cone_point_cloud, plane);
+  validator.coneValidator(&cone_point_cloud, &results, plane);
 
-  ASSERT_DOUBLE_EQ(result[0], 1.0);
+  ASSERT_DOUBLE_EQ(results.n_points, 1.0);
 }

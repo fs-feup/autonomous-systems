@@ -21,6 +21,7 @@ public:
   // We will create stack instances in each test.
   pcl::PointCloud<pcl::PointXYZI>* _point_cloud_ptr_;
   Plane _plane_;
+  EvaluatorResults results;
 };
 
 /**
@@ -40,11 +41,10 @@ TEST_F(StandardDeviationTest, ZeroZDeviation) {
   auto cluster = Cluster(cloud_ptr);
   const auto deviation_validator = DeviationValidator(-1, 100, 0.1, 100);
 
-  auto result = deviation_validator.coneValidator(&cluster, _plane_);
-  EXPECT_EQ(result.size(), 2);
-  ASSERT_NEAR(result[0], 1.0, 1e-6);
-  ASSERT_LT(result[1], 1.0);
-  ASSERT_GE(result[1], 0.0);
+  deviation_validator.coneValidator(&cluster, &results, _plane_);
+  ASSERT_NEAR(results.deviation_xoy, 1.0, 1e-6);
+  ASSERT_LT(results.deviation_z, 1.0);
+  ASSERT_GE(results.deviation_z, 0.0);
 }
 
 /**
@@ -61,10 +61,9 @@ TEST_F(StandardDeviationTest, NonZeroZDeviation) {
   auto cluster = Cluster(cloud_ptr);
   const auto deviation_validator = DeviationValidator(-1, 100, 0.1, 100);
 
-  auto result = deviation_validator.coneValidator(&cluster, _plane_);
-  EXPECT_EQ(result.size(), 2);
-  ASSERT_NEAR(result[0], 1.0, 1e-6);
-  ASSERT_NEAR(result[1], 1.0, 1e-6);
+  deviation_validator.coneValidator(&cluster, &results, _plane_);
+  ASSERT_NEAR(results.deviation_xoy, 1.0, 1e-6);
+  ASSERT_NEAR(results.deviation_z, 1.0, 1e-6);
 }
 
 /**
@@ -81,11 +80,10 @@ TEST_F(StandardDeviationTest, ZeroXoYDeviation) {
   auto cluster = Cluster(cloud_ptr);
   const auto deviation_validator = DeviationValidator(0.1, 100, -1, 100);
 
-  auto result = deviation_validator.coneValidator(&cluster, _plane_);
-  EXPECT_EQ(result.size(), 2);
-  ASSERT_LT(result[0], 1.0);
-  ASSERT_GE(result[0], 0.0);
-  ASSERT_NEAR(result[1], 1.0, 1e-6);
+  deviation_validator.coneValidator(&cluster, &results, _plane_);
+  ASSERT_LT(results.deviation_xoy, 1.0);
+  ASSERT_GE(results.deviation_xoy, 0.0);
+  ASSERT_NEAR(results.deviation_z, 1.0, 1e-6);
 }
 
 /**
@@ -102,10 +100,9 @@ TEST_F(StandardDeviationTest, NonZeroXoYDeviation) {
   auto cluster = Cluster(cloud_ptr);
   const auto deviation_validator = DeviationValidator(0.1, 100, -1, 100);
 
-  auto result = deviation_validator.coneValidator(&cluster, _plane_);
-  EXPECT_EQ(result.size(), 2);
-  ASSERT_NEAR(result[0], 1.0, 1e-6);
-  ASSERT_NEAR(result[1], 1.0, 1e-6);
+  deviation_validator.coneValidator(&cluster, &results, _plane_);
+  ASSERT_NEAR(results.deviation_xoy, 1.0, 1e-6);
+  ASSERT_NEAR(results.deviation_z, 1.0, 1e-6);
 }
 
 /**
@@ -122,11 +119,11 @@ TEST_F(StandardDeviationTest, ZeroXoYAndZDeviation) {
   auto cluster = Cluster(cloud_ptr);
   const auto deviation_validator = DeviationValidator(0.1, 100, 0.1, 100);
 
-  auto result = deviation_validator.coneValidator(&cluster, _plane_);
-  ASSERT_LT(result[0], 1.0);
-  ASSERT_GE(result[0], 0.0);
-  ASSERT_LT(result[1], 1.0);
-  ASSERT_GE(result[1], 0.0);
+  deviation_validator.coneValidator(&cluster, &results, _plane_);
+  ASSERT_LT(results.deviation_xoy, 1.0);
+  ASSERT_GE(results.deviation_xoy, 0.0);
+  ASSERT_LT(results.deviation_z, 1.0);
+  ASSERT_GE(results.deviation_z, 0.0);
 }
 
 /**
@@ -143,7 +140,7 @@ TEST_F(StandardDeviationTest, NonZeroXoYAndZDeviation) {
   auto cluster = Cluster(cloud_ptr);
   const auto deviation_validator = DeviationValidator(0.1, 100, 0.1, 100);
 
-  auto result = deviation_validator.coneValidator(&cluster, _plane_);
-  ASSERT_NEAR(result[0], 1.0, 1e-6);
-  ASSERT_NEAR(result[1], 1.0, 1e-6);
+  deviation_validator.coneValidator(&cluster, &results, _plane_);
+  ASSERT_NEAR(results.deviation_xoy, 1.0, 1e-6);
+  ASSERT_NEAR(results.deviation_z, 1.0, 1e-6);
 }

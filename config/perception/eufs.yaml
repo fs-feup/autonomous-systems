@@ -26,10 +26,6 @@ perception:
   max_xoy: 100.0
   min_z: -100.0
   max_z: 100.0
-  min_z_score_x: -100.0
-  max_z_score_x: 100.0
-  min_z_score_y: -100.0
-  max_z_score_y: 100.0
   out_distance_cap: 0.5
   min_distance_x: 0.02
   min_distance_y: 0.04

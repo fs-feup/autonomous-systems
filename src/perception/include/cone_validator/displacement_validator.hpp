@@ -41,7 +41,8 @@ public:
    * Index 1 -> ratio between the y axis displacement and the minimum distance for that axis. |
    * Index 2 -> ratio between the z axis displacement and the minimum distance for that axis.
    */
-  std::vector<double> coneValidator(Cluster* cone_point_cloud, Plane& plane) const override;
+  void coneValidator(Cluster* cone_point_cloud, EvaluatorResults* results,
+                     Plane& plane) const override;
 
   /**
    * @brief Virtual destructor for DisplacementValidator.

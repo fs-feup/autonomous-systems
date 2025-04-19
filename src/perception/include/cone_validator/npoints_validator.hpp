@@ -32,7 +32,8 @@ public:
    * @param cone_point_cloud Pointer to a Cluster object representing the point cloud of the cone.
    * @return vector containing the ratio between the size of cluster and total points on index 0.
    */
-  std::vector<double> coneValidator(Cluster* cone_point_cloud, Plane& plane) const override;
+  void coneValidator(Cluster* cone_point_cloud, EvaluatorResults* results,
+                     Plane& plane) const override;
 
   /**
    * @brief Virtual destructor for NpointsValidator.

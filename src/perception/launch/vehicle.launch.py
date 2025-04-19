@@ -149,26 +149,6 @@ def generate_launch_description():
                 "max_z", description="Maximum z axis deviation", default_value="0.6"
             ),
             DeclareLaunchArgument(
-                "min_z_score_x",
-                description="Minimum z score on cones distribution (x)",
-                default_value="-100000000.0",
-            ),
-            DeclareLaunchArgument(
-                "max_z_score_x",
-                description="Maximum z score on cones distribution (x)",
-                default_value="100000000000.0",
-            ),
-            DeclareLaunchArgument(
-                "min_z_score_y",
-                description="Minimum z score on cones distribution (y)",
-                default_value="-1000000000.0",
-            ),
-            DeclareLaunchArgument(
-                "max_z_score_y",
-                description="Minimum z score on cones distribution (y)",
-                default_value="1000000000.0",
-            ),
-            DeclareLaunchArgument(
                 "min_distance_x",
                 description="Minimum distance on the x axis for a cluster to be a cone",
                 default_value="0.02",  # not on ground tested
@@ -310,10 +290,6 @@ def generate_launch_description():
                     {"max_xoy": LaunchConfiguration("max_xoy")},
                     {"min_z": LaunchConfiguration("min_z")},
                     {"max_z": LaunchConfiguration("max_z")},
-                    {"min_z_score_x": LaunchConfiguration("min_z_score_x")},
-                    {"max_z_score_x": LaunchConfiguration("max_z_score_x")},
-                    {"min_z_score_y": LaunchConfiguration("min_z_score_y")},
-                    {"max_z_score_y": LaunchConfiguration("max_z_score_y")},
                     {"out_distance_cap": LaunchConfiguration("out_distance_cap")},
                     {"min_distance_x": LaunchConfiguration("min_distance_x")},
                     {"min_distance_y": LaunchConfiguration("min_distance_y")},
