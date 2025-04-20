@@ -17,7 +17,6 @@ struct PathCalculationConfig {
   int max_points_ = 50;
 
   PathCalculationConfig() = default;
-  explicit PathCalculationConfig(float dist_threshold) : dist_threshold_(dist_threshold) {}
 };
 
 #endif  // SRC_PLANNING_INCLUDE_CONFIG_PATH_CALCULATION_CONFIG_HPP_
