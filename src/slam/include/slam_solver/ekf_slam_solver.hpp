@@ -103,6 +103,7 @@ public:
   EKFSLAMSolver(const SLAMParameters& params,
                 std::shared_ptr<DataAssociationModel> data_association,
                 std::shared_ptr<V2PMotionModel> motion_model,
+                std::shared_ptr<LandmarkFilter> landmark_filter,
                 std::shared_ptr<std::vector<double>> execution_times,
                 std::weak_ptr<rclcpp::Node> node);
   /**

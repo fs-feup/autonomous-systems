@@ -1,13 +1,13 @@
 #pragma once
 
 struct LandmarkFilterParameters {
-  int minimum_number_of_observations = 3;
-  int minimum_frequency = 5;
+  int minimum_observation_count_ = 3;
+  double minimum_frequency_of_detections_ = 5;
 
   LandmarkFilterParameters() = default;
 
-  LandmarkFilterParameters(const double minimum_number_of_observations,
-                           const double minimum_frequency)
-      : minimum_number_of_observations(minimum_number_of_observations),
-        minimum_frequency(minimum_frequency) {}
+  LandmarkFilterParameters(const int minimum_observation_count,
+                           const double minimum_frequency_of_detections)
+      : minimum_observation_count_(minimum_observation_count),
+        minimum_frequency_of_detections_(minimum_frequency_of_detections) {}
 };

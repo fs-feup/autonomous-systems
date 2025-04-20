@@ -45,7 +45,7 @@ Eigen::VectorXd ConsecutiveCounterFilter::filter(const Eigen::VectorXd& state,
     if (!was_observed[i]) {
       continue;
     } else {
-      if (this->counter(i) == this->_params_.minimum_number_of_observations - 1) {
+      if (this->counter(i) >= this->_params_.minimum_observation_count_ - 1) {
         filtered_observations.conservativeResize(filtered_observations.size() + 2);
         filtered_observations.segment(filtered_observations.size() - 2, 2) =
             this->map.segment(i * 2 + 3, 2);

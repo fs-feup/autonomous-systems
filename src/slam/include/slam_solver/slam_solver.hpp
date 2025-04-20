@@ -7,6 +7,7 @@
 #include "common_lib/structures/velocities.hpp"
 #include "motion_lib/v2p_models/base_v2p_motion_model.hpp"
 #include "perception_sensor_lib/data_association/base_data_association.hpp"
+#include "perception_sensor_lib/landmark_filter/base_landmark_filter.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "slam_config/general_config.hpp"
 
@@ -20,6 +21,7 @@ protected:
   SLAMParameters _params_;
   std::shared_ptr<DataAssociationModel> _data_association_;
   std::shared_ptr<V2PMotionModel> _motion_model_;
+  std::shared_ptr<LandmarkFilter> _landmark_filter_;
   std::shared_ptr<std::vector<double>>
       _execution_times_;  //< Execution times: 0 -> total motion; 1 -> total
                           // observation; the rest are solver specific
@@ -42,6 +44,7 @@ public:
    */
   SLAMSolver(const SLAMParameters& params, std::shared_ptr<DataAssociationModel> data_association,
              std::shared_ptr<V2PMotionModel> motion_model,
+             std::shared_ptr<LandmarkFilter> landmark_filter,
              std::shared_ptr<std::vector<double>> execution_times,
              std::weak_ptr<rclcpp::Node> node);
 
@@ -55,6 +58,7 @@ public:
    */
   SLAMSolver(const SLAMParameters& params, std::shared_ptr<DataAssociationModel> data_association,
              std::shared_ptr<V2PMotionModel> motion_model,
+             std::shared_ptr<LandmarkFilter> landmark_filter,
              std::shared_ptr<std::vector<double>> execution_times);
 
   virtual ~SLAMSolver() = default;

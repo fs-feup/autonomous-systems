@@ -18,6 +18,9 @@ SLAMParameters::SLAMParameters(const SLAMParameters &params) {
   slam_solver_name_ = params.slam_solver_name_;
   slam_min_pose_difference_ = params.slam_min_pose_difference_;
   slam_optimization_period_ = params.slam_optimization_period_;
+  landmark_filter_name_ = params.landmark_filter_name_;
+  minimum_frequency_of_detections_ = params.minimum_frequency_of_detections_;
+  minimum_observation_count_ = params.minimum_observation_count_;
 }
 
 std::string SLAMParameters::load_config() {
@@ -51,6 +54,10 @@ std::string SLAMParameters::load_config() {
   this->slam_solver_name_ = slam_config["slam"]["slam_solver_name"].as<std::string>();
   this->slam_min_pose_difference_ = slam_config["slam"]["slam_min_pose_difference"].as<float>();
   this->slam_optimization_period_ = slam_config["slam"]["slam_optimization_period"].as<double>();
+  this->landmark_filter_name_ = slam_config["slam"]["landmark_filter_name"].as<std::string>();
+  this->minimum_observation_count_ = slam_config["slam"]["minimum_observation_count"].as<int>();
+  this->minimum_frequency_of_detections_ =
+      slam_config["slam"]["minimum_frequency_of_detections"].as<double>();
 
   return adapter;
 }
