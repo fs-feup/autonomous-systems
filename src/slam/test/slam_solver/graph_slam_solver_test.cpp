@@ -14,6 +14,15 @@ public:
               (const, override));
 };
 
+class MockLandmarkFilter : public LandmarkFilter {
+public:
+  MOCK_METHOD(Eigen::VectorXd, filter,
+              (const Eigen::VectorXd& state, const Eigen::MatrixXd& covariance,
+               const Eigen::VectorXd& observations, const Eigen::VectorXd& observation_confidences,
+               const Eigen::VectorXi& associations),
+              (override));
+};
+
 class MockV2PModel : public V2PMotionModel {
 public:
   MOCK_METHOD(Eigen::Vector3d, get_next_pose,
@@ -38,15 +47,17 @@ public:
     mock_motion_model_ptr = std::make_shared<MockV2PModel>();
     mock_data_association_ptr = std::make_shared<MockDataAssociationModel>();
     motion_model_ptr = mock_motion_model_ptr;
+    landmark_filter_ptr = std::make_shared<MockLandmarkFilter>();
     data_association_ptr = mock_data_association_ptr;
-    solver =
-        std::make_shared<GraphSLAMSolver>(params, data_association_ptr, motion_model_ptr, nullptr);
+    solver = std::make_shared<GraphSLAMSolver>(params, data_association_ptr, motion_model_ptr,
+                                               landmark_filter_ptr, nullptr);
   }
 
   SLAMParameters params;
   std::shared_ptr<MockV2PModel> mock_motion_model_ptr;
   std::shared_ptr<MockDataAssociationModel> mock_data_association_ptr;
   std::shared_ptr<V2PMotionModel> motion_model_ptr;
+  std::shared_ptr<LandmarkFilter> landmark_filter_ptr;
   std::shared_ptr<DataAssociationModel> data_association_ptr;
   std::shared_ptr<GraphSLAMSolver> solver;
 };

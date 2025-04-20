@@ -82,11 +82,9 @@ class EKFSLAMSolver : public SLAMSolver {
    * @param covariance covariance matrix of the state vector
    * @param new_landmarks new landmarks in the form {x_cone_1, y_cone_1, x_cone_2, y_cone_2, ...} in
    * the car's frame
-   * @param new_landmarks_confidence confidence of the new landmarks
    */
   void state_augmentation(Eigen::VectorXd& state, Eigen::MatrixXd& covariance,
-                          const Eigen::VectorXd& new_landmarks,
-                          const Eigen::VectorXd& new_landmarks_confidence);
+                          const Eigen::VectorXd& new_landmarks);
 
   std::vector<common_lib::structures::Cone> get_map_estimate() override;
   common_lib::structures::Pose get_pose_estimate() override;
