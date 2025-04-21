@@ -84,6 +84,9 @@ Planning::Planning(const PlanningParameters &params)
     // Publisher for visualization
     this->visualization_pub_ =
         this->create_publisher<visualization_msgs::msg::Marker>("/path_planning/smoothed_path", 10);
+
+    this->triangulations_pub_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
+        "/path_planning/triangulations", 10);
   }
   // Publishes path from file in Skidpad & Acceleration events
   this->timer_ = this->create_wall_timer(
@@ -257,7 +260,6 @@ bool Planning::is_predicitve_mission() const {
 
 void Planning::publish_visualization_msgs(const std::vector<PathPoint> &after_triangulations_path,
                                           const std::vector<PathPoint> &final_path) const {
-
   this->triangulations_pub_->publish(common_lib::communication::marker_array_from_structure_array(
       after_triangulations_path, "after_triangulations_path", this->_map_frame_id_, "orange"));
   this->visualization_pub_->publish(common_lib::communication::line_marker_from_structure_array(
