@@ -156,8 +156,9 @@ TEST_F(PerceptionPerformanceTest, TestPerformance) {
         new pcl::PointCloud<pcl::PointXYZI>);
 
     Plane plane;
+    const SplitParameters split_params;
 
-    ground_removal->ground_removal(pcl_cloud, ground_removed_cloud, plane);
+    ground_removal->ground_removal(pcl_cloud, ground_removed_cloud, plane, split_params);
 
     auto ransac_time = std::chrono::high_resolution_clock::now();
     executionTime.RANSAC_time =

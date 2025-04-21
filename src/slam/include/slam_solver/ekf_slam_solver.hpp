@@ -14,6 +14,7 @@ class EKFSLAMSolver : public SLAMSolver {
   Eigen::VectorXd state_ = Eigen::VectorXd::Zero(3);
   Eigen::MatrixXd covariance_;
   Eigen::MatrixXd process_noise_matrix_;
+  Eigen::VectorXd pose = Eigen::VectorXd::Zero(3);
 
   rclcpp::Time last_update_;
 
@@ -81,17 +82,29 @@ class EKFSLAMSolver : public SLAMSolver {
    * @param covariance covariance matrix of the state vector
    * @param new_landmarks new landmarks in the form {x_cone_1, y_cone_1, x_cone_2, y_cone_2, ...} in
    * the car's frame
+   * @param new_landmarks_confidence confidence of the new landmarks
    */
   void state_augmentation(Eigen::VectorXd& state, Eigen::MatrixXd& covariance,
-                          const Eigen::VectorXd& new_landmarks);
+                          const Eigen::VectorXd& new_landmarks,
+                          const Eigen::VectorXd& new_landmarks_confidence);
 
-  std::vector<common_lib::structures::Cone> get_map_estimate() override { return {}; }
-  common_lib::structures::Pose get_pose_estimate() override { return {}; }
+  std::vector<common_lib::structures::Cone> get_map_estimate() override;
+  common_lib::structures::Pose get_pose_estimate() override;
+
+  /**
+   * @brief update the process noise matrix so that its dimensions match the covariance matrix
+   */
+  void update_process_noise_matrix();
+
+  friend class EKFSLAMSolverTest_stateAugmentation_Test;
+  friend class EKFSLAMSolverTest_stateAugmentation2_Test;
 
 public:
   EKFSLAMSolver(const SLAMParameters& params,
                 std::shared_ptr<DataAssociationModel> data_association,
-                std::shared_ptr<V2PMotionModel> motion_model);
+                std::shared_ptr<V2PMotionModel> motion_model,
+                std::shared_ptr<std::vector<double>> execution_times,
+                std::weak_ptr<rclcpp::Node> node);
   /**
    * @brief Executed to deal with new velocity data
    *
@@ -105,4 +118,11 @@ public:
    * @param position
    */
   void add_observations(const std::vector<common_lib::structures::Cone>& positions) override;
+
+  /**
+   * @brief Get the covariance matrix of the EKF
+   *
+   * @return Eigen::MatrixXd covariance matrix
+   */
+  Eigen::MatrixXd get_covariance() override { return covariance_; }
 };

@@ -6,15 +6,22 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 endif()
 
 # find dependencies
-find_package(ament_cmake REQUIRED)
-find_package(Eigen3 REQUIRED)
-find_package(eufs_msgs REQUIRED)
-find_package(fs_msgs REQUIRED)
-find_package(visualization_msgs REQUIRED)
-find_package(std_msgs REQUIRED)
-find_package(rclcpp REQUIRED)
-find_package(geometry_msgs REQUIRED)
-find_package(custom_interfaces REQUIRED)
+set(PACKAGES
+  ament_cmake
+  Eigen3
+  eufs_msgs
+  fs_msgs
+  visualization_msgs
+  std_msgs
+  rclcpp
+  geometry_msgs
+  custom_interfaces
+  yaml-cpp
+)
+
+foreach(pkg ${PACKAGES})
+  find_package(${pkg} REQUIRED)
+endforeach()
 
 # Enable OpenMP
 find_package(OpenMP)
@@ -40,17 +47,21 @@ set(IMPLEMENTATION_FILES
   src/communication/interfaces.cpp
   src/config_load/config_load.cpp
   src/conversions/cones.cpp
+  src/car_parameters/car_parameters.cpp
 )
 
 add_library(${PROJECT_NAME} SHARED ${IMPLEMENTATION_FILES})
-ament_target_dependencies(${PROJECT_NAME} eufs_msgs std_msgs rclcpp visualization_msgs fs_msgs custom_interfaces)
+target_link_libraries(${PROJECT_NAME} tbb yaml-cpp)
+ament_target_dependencies(${PROJECT_NAME} ${PACKAGES})
 
-ament_export_targets(${PROJECT_NAME} HAS_LIBRARY_TARGET)
 
 target_include_directories(${PROJECT_NAME} PUBLIC
-$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-$<INSTALL_INTERFACE:include>
-${EIGEN3_INCLUDE_DIR})
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>
+  ${EIGEN3_INCLUDE_DIR}
+)
+
+ament_export_targets(${PROJECT_NAME} HAS_LIBRARY_TARGET)
 
 install(
   TARGETS ${PROJECT_NAME}
@@ -80,11 +91,13 @@ if(BUILD_TESTING)
 
   # Unit tests
   ament_add_gtest(${PROJECT_NAME}_test ${TESTFILES} ${IMPLEMENTATION_FILES} TIMEOUT 600)
-  ament_target_dependencies(${PROJECT_NAME}_test eufs_msgs rclcpp fs_msgs std_msgs visualization_msgs custom_interfaces)
+  target_link_libraries(${PROJECT_NAME}_test tbb yaml-cpp)
+  ament_target_dependencies(${PROJECT_NAME}_test ${PACKAGES})
   target_include_directories(${PROJECT_NAME}_test PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
-    ${EIGEN3_INCLUDE_DIR})
+    ${EIGEN3_INCLUDE_DIR}
+  )
 
   install(TARGETS ${PROJECT_NAME}_test DESTINATION lib/${PROJECT_NAME})
 endif()

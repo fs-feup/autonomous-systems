@@ -59,19 +59,34 @@ PerceptionParameters Perception::load_config() {
 
   TrimmingParameters trim_params;
   trim_params.lidar_rotation = perception_config["lidar_rotation"].as<double>();
-  trim_params.fov_trim_angle = perception_config["fov_trim_angle"].as<double>();
-  trim_params.max_range = perception_config["max_range"].as<double>();
+  trim_params.lidar_pitch = perception_config["lidar_pitch"].as<double>();
   trim_params.min_range = perception_config["min_range"].as<double>();
   trim_params.max_height = perception_config["max_height"].as<double>();
   trim_params.lidar_height = perception_config["lidar_height"].as<double>();
 
+  trim_params.max_range = perception_config["max_range"].as<double>();
+  trim_params.fov_trim_angle = perception_config["fov_trim_angle"].as<double>();
+  trim_params.split_params.n_angular_grids = perception_config["n_angular_grids"].as<int>();
+  trim_params.split_params.radius_resolution = perception_config["radius_resolution"].as<double>();
+  trim_params.split_params.fov_angle = 2 * trim_params.fov_trim_angle;
+
   trim_params.acc_max_range = perception_config["acc_max_range"].as<double>();
   trim_params.acc_fov_trim_angle = perception_config["acc_fov_trim_angle"].as<double>();
   trim_params.acc_max_y = perception_config["acc_max_y"].as<double>();
+  trim_params.acc_split_params.n_angular_grids = perception_config["acc_n_angular_grids"].as<int>();
+  trim_params.acc_split_params.radius_resolution =
+      perception_config["acc_radius_resolution"].as<double>();
+  trim_params.acc_split_params.fov_angle = 2 * trim_params.acc_fov_trim_angle;
 
   trim_params.skid_max_range = perception_config["skid_max_range"].as<double>();
-  trim_params.skid_min_distance_to_cone =
-      perception_config["skid_min_distance_to_cone"].as<double>();
+  const double min_distance_to_cone = perception_config["skid_min_distance_to_cone"].as<double>();
+  trim_params.skid_fov_trim_angle =
+      90 - std::acos(1.5 / std::max(min_distance_to_cone, 1.5)) * 180 / M_PI;
+  trim_params.skid_split_params.n_angular_grids =
+      perception_config["skid_n_angular_grids"].as<int>();
+  trim_params.skid_split_params.radius_resolution =
+      perception_config["skid_radius_resolution"].as<double>();
+  trim_params.skid_split_params.fov_angle = 2 * trim_params.skid_fov_trim_angle;
 
   auto acceleration_trimming = std::make_shared<AccelerationTrimming>(trim_params);
   auto skidpad_trimming = std::make_shared<SkidpadTrimming>(trim_params);
@@ -93,10 +108,7 @@ PerceptionParameters Perception::load_config() {
   if (ground_removal_algorithm == "ransac") {
     params.ground_removal_ = std::make_shared<RANSAC>(ransac_epsilon, ransac_iterations);
   } else if (ground_removal_algorithm == "grid_ransac") {
-    int n_angular_grids = perception_config["n_angular_grids"].as<int>();
-    double radius_resolution = perception_config["radius_resolution"].as<double>();
-    params.ground_removal_ = std::make_shared<GridRANSAC>(ransac_epsilon, ransac_iterations,
-                                                          n_angular_grids, radius_resolution);
+    params.ground_removal_ = std::make_shared<GridRANSAC>(ransac_epsilon, ransac_iterations);
   }
 
   int clustering_n_neighbours = perception_config["clustering_n_neighbours"].as<int>();
@@ -227,17 +239,17 @@ void Perception::point_cloud_callback(const sensor_msgs::msg::PointCloud2::Share
   pcl::fromROSMsg(*msg, *pcl_cloud);
 
   // Pass-trough Filter (trim Pcl)
-  _fov_trim_map_->at(_mission_type_)->fov_trimming(pcl_cloud);
+  const SplitParameters split_params = _fov_trim_map_->at(_mission_type_)->fov_trimming(pcl_cloud);
 
   // Ground Removal
   pcl::PointCloud<pcl::PointXYZI>::Ptr ground_removed_cloud(new pcl::PointCloud<pcl::PointXYZI>);
-  _ground_removal_->ground_removal(pcl_cloud, ground_removed_cloud, _ground_plane_);
+  _ground_removal_->ground_removal(pcl_cloud, ground_removed_cloud, _ground_plane_, split_params);
 
   // Debugging utils -> Useful to check the ground removed point cloud
-  sensor_msgs::msg::PointCloud2 ground_remved_msg;
-  pcl::toROSMsg(*ground_removed_cloud, ground_remved_msg);
-  ground_remved_msg.header.frame_id = _vehicle_frame_id_;
-  this->_ground_removed_publisher_->publish(ground_remved_msg);
+  sensor_msgs::msg::PointCloud2 ground_removed_msg;
+  pcl::toROSMsg(*ground_removed_cloud, ground_removed_msg);
+  ground_removed_msg.header.frame_id = _vehicle_frame_id_;
+  this->_ground_removed_publisher_->publish(ground_removed_msg);
 
   // Clustering
   std::vector<Cluster> clusters;

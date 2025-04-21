@@ -20,6 +20,7 @@
 #include "slam_config/general_config.hpp"
 #include "slam_solver/slam_solver.hpp"
 #include "std_msgs/msg/float64.hpp"
+#include "std_msgs/msg/float64_multi_array.hpp"
 
 /**
  * @brief Class representing the main SLAM node responsible for publishing
@@ -33,15 +34,20 @@ protected:
   rclcpp::Publisher<custom_interfaces::msg::Pose>::SharedPtr _vehicle_pose_publisher_;
   rclcpp::Publisher<custom_interfaces::msg::ConeArray>::SharedPtr _map_publisher_;
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr _visualization_map_publisher_;
+  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr
+      _visualization_perception_map_publisher_;
   rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr _position_publisher_;
-  rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr _correction_execution_time_publisher_;
-  rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr _prediction_execution_time_publisher_;
+  rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr _execution_time_publisher_;
+  rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr _covariance_publisher_;
   rclcpp::TimerBase::SharedPtr _timer_;      /**< timer */
   std::shared_ptr<SLAMSolver> _slam_solver_; /**< SLAM solver object */
   std::vector<common_lib::structures::Cone> _perception_map_;
   common_lib::structures::Velocities _vehicle_state_velocities_;
   std::vector<common_lib::structures::Cone> _track_map_;
   common_lib::structures::Pose _vehicle_pose_;
+  std::shared_ptr<std::vector<double>>
+      _execution_times_;  //< Execution times: 0 -> total motion; 1
+                          //-> total observation; the rest are solver specific
   common_lib::competition_logic::Mission _mission_;
   bool _go_;  /// flag to start the mission
   std::string _adapter_name_;
@@ -74,6 +80,12 @@ protected:
    *
    */
   void _publish_map();
+
+  /**
+   * @brief publishes the covariance of the state
+   *
+   */
+  void _publish_covariance();
 
 public:
   // /**

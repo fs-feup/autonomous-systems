@@ -6,6 +6,8 @@
 
 #include "perception_sensor_lib/data_association/maximum_likelihood_md.hpp"
 #include "perception_sensor_lib/data_association/maximum_likelihood_nll.hpp"
+#include "perception_sensor_lib/data_association/nearest_neighbor.hpp"
+#include "perception_sensor_lib/data_association/nearest_neighbour.hpp"
 
 /**
  * @brief Map of data association models, with the key being the name of the data association model
@@ -24,5 +26,13 @@ const std::map<
         {"maximum_likelihood_nll",
          [](const DataAssociationParameters& params) -> std::shared_ptr<DataAssociationModel> {
            return std::make_shared<MaximumLikelihoodNLL>(params);
+         }},
+        {"nearest_neighbour",
+         [](const DataAssociationParameters& params) -> std::shared_ptr<DataAssociationModel> {
+           return std::make_shared<NearestNeighbour>(params);
+         }},
+        {"nearest_neighbor",
+         [](const DataAssociationParameters& params) -> std::shared_ptr<DataAssociationModel> {
+           return std::make_shared<NearestNeighbor>(params);
          }},
 };

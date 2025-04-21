@@ -7,6 +7,7 @@
 #include <string>
 #include <unordered_map>
 #include <utils/plane.hpp>
+#include <utils/trimming_parameters.hpp>
 #include <vector>
 
 #include "clustering/dbscan.hpp"

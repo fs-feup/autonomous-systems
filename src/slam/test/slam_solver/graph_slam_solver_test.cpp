@@ -4,6 +4,8 @@
 #include <gtest/gtest.h>
 #include <yaml-cpp/yaml.h>
 
+#include <iostream>
+
 class MockDataAssociationModel : public DataAssociationModel {
 public:
   MOCK_METHOD(Eigen::VectorXi, associate,
@@ -19,7 +21,12 @@ public:
                double delta_t),
               (override));
 
-  MOCK_METHOD(Eigen::Matrix3d, get_jacobian,
+  MOCK_METHOD(Eigen::Matrix3d, get_jacobian_pose,
+              (const Eigen::Vector3d& previous_pose, const Eigen::Vector3d& velocities,
+               const double delta_t),
+              (override));
+
+  MOCK_METHOD(Eigen::Matrix3d, get_jacobian_velocities,
               (const Eigen::Vector3d& previous_pose, const Eigen::Vector3d& velocities,
                const double delta_t),
               (override));
@@ -32,7 +39,8 @@ public:
     mock_data_association_ptr = std::make_shared<MockDataAssociationModel>();
     motion_model_ptr = mock_motion_model_ptr;
     data_association_ptr = mock_data_association_ptr;
-    solver = std::make_shared<GraphSLAMSolver>(params, data_association_ptr, motion_model_ptr);
+    solver =
+        std::make_shared<GraphSLAMSolver>(params, data_association_ptr, motion_model_ptr, nullptr);
   }
 
   SLAMParameters params;
@@ -43,15 +51,22 @@ public:
   std::shared_ptr<GraphSLAMSolver> solver;
 };
 
-TEST_F(GraphSlamSolverTest, Prediction_1) {
+/**
+ * @brief Test the GraphSLAMSolver add_motion_prior method
+ */
+TEST_F(GraphSlamSolverTest, Prediction) {
   // Arrange
   EXPECT_CALL(*mock_motion_model_ptr, get_next_pose)
       .Times(1)
       .WillOnce(testing::Return(Eigen::Vector3d(1.0, 0.0, 0.0)));
   solver->_last_pose_update_ = rclcpp::Clock().now();
 
+  //   EXPECT_CALL(*mock_motion_model_ptr, get_jacobian_velocities)
+  //       .Times(1)
+  //       .WillOnce(testing::Return(Eigen::Matrix3d::Identity() * 0.1));
+
   common_lib::structures::Velocities velocities;
-  velocities.timestamp = solver->_last_pose_update_ + rclcpp::Duration(1, 0);
+  velocities.timestamp_ = solver->_last_pose_update_ + rclcpp::Duration(1, 0);
   velocities.velocity_x = 1.0;
   velocities.velocity_y = 0.0;
   velocities.rotational_velocity = 0.0;
@@ -65,7 +80,10 @@ TEST_F(GraphSlamSolverTest, Prediction_1) {
   EXPECT_FLOAT_EQ(result.position.x, 1.0);
 }
 
-TEST_F(GraphSlamSolverTest, Prediction_2) {
+/**
+ * @brief Test the GraphSLAMSolver in one iteration of inputs
+ */
+TEST_F(GraphSlamSolverTest, MotionAndObservation) {
   // Arrange
   Eigen::VectorXi associations_first = Eigen::VectorXi::Ones(4) * -1;
   Eigen::VectorXi associations_second = Eigen::VectorXi::Ones(4) * -1;
@@ -79,13 +97,16 @@ TEST_F(GraphSlamSolverTest, Prediction_2) {
       .WillOnce(testing::Return(Eigen::Vector3d(2.2, 0.0, 0.0)))
       .WillOnce(testing::Return(Eigen::Vector3d(3.3, 0.0, 0.0)))
       .WillOnce(testing::Return(Eigen::Vector3d(4.4, 0.0, 0.0)));
+  //   EXPECT_CALL(*mock_motion_model_ptr, get_jacobian_velocities)
+  //       .Times(4)
+  //       .WillRepeatedly(testing::Return(Eigen::Matrix3d::Identity() * 0.1));
   EXPECT_CALL(*mock_data_association_ptr, associate)
       .Times(2)
       .WillOnce(testing::Return(associations_first))
       .WillOnce(testing::Return(associations_second));
 
   common_lib::structures::Velocities velocities;
-  velocities.timestamp = solver->_last_pose_update_ + rclcpp::Duration(1, 0);
+  velocities.timestamp_ = solver->_last_pose_update_ + rclcpp::Duration(1, 0);
   velocities.velocity_x = 1.1;
   velocities.velocity_y = 0.0;
   velocities.rotational_velocity = 0.0;
@@ -107,13 +128,13 @@ TEST_F(GraphSlamSolverTest, Prediction_2) {
   // Act
   solver->add_observations(cones_start);
   solver->add_motion_prior(velocities);
-  velocities.timestamp += rclcpp::Duration(1, 0);
+  velocities.timestamp_ += rclcpp::Duration(1, 0);
   solver->add_motion_prior(velocities);
-  velocities.timestamp += rclcpp::Duration(1, 0);
+  velocities.timestamp_ += rclcpp::Duration(1, 0);
   solver->add_motion_prior(velocities);
-  velocities.timestamp += rclcpp::Duration(1, 0);
+  velocities.timestamp_ += rclcpp::Duration(1, 0);
   solver->add_motion_prior(velocities);
-  velocities.timestamp += rclcpp::Duration(1, 0);
+  velocities.timestamp_ += rclcpp::Duration(1, 0);
   solver->add_motion_prior(velocities);
   const common_lib::structures::Pose pose_before_observations = solver->get_pose_estimate();
   const std::vector<common_lib::structures::Cone> map_before_observations =

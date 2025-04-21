@@ -59,9 +59,13 @@ void PacsimAdapter::_pacsim_perception_subscription_callback(
 void PacsimAdapter::_pacsim_velocities_subscription_callback(
     const geometry_msgs::msg::TwistWithCovarianceStamped& msg) {
   custom_interfaces::msg::Velocities velocities;
+  velocities.header.stamp = msg.header.stamp;
   velocities.velocity_x = msg.twist.twist.linear.x;
   velocities.velocity_y = msg.twist.twist.linear.y;
   velocities.angular_velocity = msg.twist.twist.angular.z;
   velocities.header.stamp = msg.header.stamp;
+  for (unsigned int i = 0; i < 9; i++) {
+    velocities.covariance[i] = 0.0;
+  }
   _velocities_subscription_callback(velocities);
 }

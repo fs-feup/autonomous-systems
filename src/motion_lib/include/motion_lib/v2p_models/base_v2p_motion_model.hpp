@@ -20,7 +20,7 @@ public:
    *
    * @param base_process_noise standard non variating noise if used
    */
-  explicit V2PMotionModel(Eigen::Vector3d base_process_noise);
+  explicit V2PMotionModel(const Eigen::Vector3d base_process_noise);
 
   virtual ~V2PMotionModel() = default;
 
@@ -28,7 +28,7 @@ public:
    * @brief Predict the pose of the robot given the velocities
    *
    * @param previous_pose
-   * @param velocities
+   * @param velocities (vx, vy, omega)
    * @param delta_t
    * @return Eigen::Vector3d
    */
@@ -37,14 +37,26 @@ public:
                                         const double delta_t) = 0;
 
   /**
-   * @brief Get the Jacobian matrix of the motion model
+   * @brief Get the Jacobian matrix of the motion model in relation to the pose (state)
    * @param previous_pose
    * @param velocities
    * @param delta_t
    * @return Eigen::Matrix3d
    */
-  virtual Eigen::Matrix3d get_jacobian(const Eigen::Vector3d &previous_pose,
-                                       const Eigen::Vector3d &velocities, const double delta_t) = 0;
+  virtual Eigen::Matrix3d get_jacobian_pose(const Eigen::Vector3d &previous_pose,
+                                            const Eigen::Vector3d &velocities,
+                                            const double delta_t) = 0;
+
+  /**
+   * @brief Get the Jacobian matrix of the motion model in relation to velocities (commands)
+   * @param previous_pose
+   * @param velocities
+   * @param delta_t
+   * @return Eigen::Matrix3d
+   */
+  virtual Eigen::Matrix3d get_jacobian_velocities(const Eigen::Vector3d &previous_pose,
+                                                  const Eigen::Vector3d &velocities,
+                                                  const double delta_t) = 0;
 
   /**
    * @brief Get the process noise matrix

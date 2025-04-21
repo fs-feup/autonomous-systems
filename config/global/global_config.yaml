@@ -1,5 +1,5 @@
 global:
-  adapter: "pacsim" # "vehicle" or "pacsim" or...
+  adapter: "vehicle" # "vehicle" or "pacsim" or...
   config_name: "" # version of the configuration, appended to the adapter name on the file name e.g. "_faster_control"
   use_simulated_se: true # use simulated state estimator from the simulator
   use_simulated_perception: false # use simulated perception from the simulator

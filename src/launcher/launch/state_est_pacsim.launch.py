@@ -11,6 +11,17 @@ def generate_launch_description():
             PathJoinSubstitution([FindPackageShare("slam"), "launch", "slam.launch.py"])
         ),
     )
+    ve_launch_description = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            PathJoinSubstitution(
+                [
+                    FindPackageShare("velocity_estimation"),
+                    "launch",
+                    "velocity_estimation.launch.py",
+                ]
+            )
+        ),
+    )
     evaluator_launch_description = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             PathJoinSubstitution(
@@ -28,7 +39,8 @@ def generate_launch_description():
     return LaunchDescription(
         [
             slam_launch_description,
+            ve_launch_description,
             pacsim_launch_description,
-            # evaluator_launch_description
+            evaluator_launch_description,
         ],
     )
