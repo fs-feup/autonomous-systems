@@ -18,6 +18,7 @@
 #include <rclcpp/rclcpp.hpp>
 
 #include "common_lib/maths/transformations.hpp"
+#include <loop_closure.hpp>
 
 void GraphSLAMSolver::_init() {
   // Create a new factor graph
@@ -182,6 +183,11 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
   associations = this->_data_association_->associate(
       state, covariance, observations,
       observations_confidences);  // TODO: implement different mahalanobis distance
+
+    LoopClosure loop_closure(5, 6);
+    std::pair<bool,double> result = loop_closure.detect(
+        current_pose, cones, associations,
+        cones);
 
   rclcpp::Time association_time = rclcpp::Clock().now();
 
