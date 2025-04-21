@@ -18,7 +18,6 @@
 #include "custom_interfaces/msg/point2d.hpp"
 #include "custom_interfaces/msg/point_array.hpp"
 #include "custom_interfaces/msg/vehicle_state.hpp"
-#include "planning/cone_coloring.hpp"
 #include "planning/outliers.hpp"
 #include "planning/path_calculation.hpp"
 #include "planning/smoothing.hpp"
@@ -52,7 +51,6 @@ class Planning : public rclcpp::Node {
 
   PlanningConfig planning_config_;
 
-  ConeColoring cone_coloring_;
   Outliers outliers_;
   PathCalculation path_calculation_;
   PathSmoothing path_smoothing_;
@@ -82,17 +80,9 @@ class Planning : public rclcpp::Node {
   rclcpp::Publisher<custom_interfaces::msg::PathPointArray>::SharedPtr local_pub_;
   /**< Publisher for the final path*/
   rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr visualization_pub_;
-  /**< Publisher for blue cones after cone coloring*/
-  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr blue_cones_pub_;
-  /**< Publisher for yellow cones after cone coloring*/
-  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr yellow_cones_pub_;
   /**< Publisher for path after triangulations */
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr triangulations_pub_;
   /**< Timer for the periodic publishing */
-  /**< Publisher for blue cones after cone coloring*/
-  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr after_rem_blue_cones_pub_;
-  /**< Publisher for yellow cones after cone coloring*/
-  rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr after_rem_yellow_cones_pub_;
   rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr _planning_execution_time_publisher_;
   rclcpp::TimerBase::SharedPtr timer_;
   /**
@@ -148,11 +138,7 @@ class Planning : public rclcpp::Node {
    * @param after_triangulations_path path after triangulations
    * @param final_path final path after smoothing
    */
-  void publish_visualization_msgs(const std::vector<Cone> &left_cones,
-                                  const std::vector<Cone> &right_cones,
-                                  const std::vector<Cone> &after_refining_blue_cones,
-                                  const std::vector<Cone> &after_refining_yellow_cones,
-                                  const std::vector<PathPoint> &after_triangulations_path,
+  void publish_visualization_msgs(const std::vector<PathPoint> &after_triangulations_path,
                                   const std::vector<PathPoint> &final_path) const;
 
   /**
