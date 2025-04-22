@@ -164,10 +164,10 @@ void Planning::run_planning_algorithms() {
   std::vector<PathPoint> triangulations_path = {};
   std::vector<PathPoint> final_path = {};
 
-  if ((this->mission == common_lib::competition_logic::Mission::SKIDPAD)) {
+  if (this->mission == common_lib::competition_logic::Mission::SKIDPAD) {
     final_path = path_calculation_.skidpad_path(this->cone_array_, this->pose);
 
-  } else if ((this->mission == common_lib::competition_logic::Mission::ACCELERATION)) {
+  } else if (this->mission == common_lib::competition_logic::Mission::ACCELERATION) {
     triangulations_path = path_calculation_.no_coloring_planning(this->cone_array_, this->pose);
     // Smooth the calculated path
     final_path = path_smoothing_.smooth_path(triangulations_path, this->pose,
