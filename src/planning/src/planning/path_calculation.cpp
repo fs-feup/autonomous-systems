@@ -175,7 +175,7 @@ PathCalculation::findPathStartPoints(const std::vector<std::unique_ptr<MidPoint>
     double dx = p->point.x() - anchor_pose.position.x;
     double dy = p->point.y() - anchor_pose.position.y;
 
-    double dist = sqrt(dx * dx + dy * dy);
+    double dist = std::sqrt(dx * dx + dy * dy);
     if (dist < min_dist) {
       min_dist = dist;
       first = p.get();
