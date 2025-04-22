@@ -105,7 +105,7 @@ public:
    * @param pose The current pose of the vehicle
    * @return std::vector<PathPoint> The generated path
    */
-  std::vector<PathPoint> no_coloring_planning(std::vector<Cone>& cone_array,
+  std::vector<PathPoint> no_coloring_planning(const std::vector<Cone>& cone_array,
                                               common_lib::structures::Pose pose);
 
   /**
@@ -152,7 +152,7 @@ public:
    * @return MidPoint* The second point for the path
    */
   MidPoint* findSecondPoint(const std::vector<std::unique_ptr<MidPoint>>& mid_points,
-                            MidPoint* first, const MidPoint& projected,
+                            const MidPoint* first, const MidPoint& projected,
                             const common_lib::structures::Pose& anchor_pose);
 
   /**

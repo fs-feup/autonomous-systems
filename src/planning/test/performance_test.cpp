@@ -112,8 +112,8 @@ void iterate_smoothing(std::vector<PathPoint> &path) {
  */
 TEST(Planning, planning_exec_time) {
   std::string directory_path = "../../src/planning/test/maps/";
-  int size;
-  int n_outliers;
+  int size = 0;
+  int n_outliers = 0;
   for (const auto &entry : fs::directory_iterator(directory_path)) {
     if (fs::is_regular_file(entry.path())) {
       std::string filename = entry.path().filename().string();
