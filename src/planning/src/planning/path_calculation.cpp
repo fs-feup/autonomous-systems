@@ -29,14 +29,14 @@ std::pair<double, PathCalculation::MidPoint*> PathCalculation::dfs_cost(int dept
     }
 
     // Distance calculation
-    double distance = sqrt(pow(current->point.x() - next->point.x(), 2) +
-                           pow(current->point.y() - next->point.y(), 2));
+    double distance = std::sqrt(std::pow(current->point.x() - next->point.x(), 2) +
+                           std::pow(current->point.y() - next->point.y(), 2));
 
     // Angle calculation
     double angle_with_previous =
-        atan2(current->point.y() - previous->point.y(), current->point.x() - previous->point.x());
+        std::atan2(current->point.y() - previous->point.y(), current->point.x() - previous->point.x());
     double angle_with_next =
-        atan2(next->point.y() - current->point.y(), next->point.x() - current->point.x());
+        std::atan2(next->point.y() - current->point.y(), next->point.x() - current->point.x());
 
     // Normalize angle to be between 0 and π
     double angle = std::abs(angle_with_next - angle_with_previous);
@@ -44,8 +44,8 @@ std::pair<double, PathCalculation::MidPoint*> PathCalculation::dfs_cost(int dept
 
     // Local cost calculation
     double local_cost =
-        pow(angle, this->config_.angle_exponent_) * this->config_.angle_gain_ +
-        pow(distance, this->config_.distance_exponent_) * this->config_.distance_gain_;
+        std::pow(angle, this->config_.angle_exponent_) * this->config_.angle_gain_ +
+        std::pow(distance, this->config_.distance_exponent_) * this->config_.distance_gain_;
 
     // Skip if local cost exceeds maximum allowed cost
     if (local_cost > maxcost) {
@@ -117,7 +117,7 @@ std::vector<std::unique_ptr<PathCalculation::MidPoint>> PathCalculation::createM
     auto midPoint = std::make_unique<MidPoint>(
         MidPoint{Point((p1.x() + p2.x()) / 2, (p1.y() + p2.y()) / 2), {}});
 
-    double dist = sqrt(pow(p1.x() - p2.x(), 2) + pow(p1.y() - p2.y(), 2));
+    double dist = std::sqrt(std::pow(p1.x() - p2.x(), 2) + std::pow(p1.y() - p2.y(), 2));
     if (dist > config_.minimum_cone_distance_) { // constrained by the rules (cones 3m apart)
       mid_points.push_back(std::move(midPoint));
     }
@@ -218,8 +218,8 @@ PathCalculation::MidPoint* PathCalculation::findSecondPoint(
     double dot_product = dx * car_direction_x + dy * car_direction_y;
     if (dot_product <= 0.0) continue;  // Skip points not in front
 
-    double dist = sqrt(pow(p->point.x() - projected.point.x(), 2) +
-                       pow(p->point.y() - projected.point.y(), 2));
+    double dist = std::sqrt(std::pow(p->point.x() - projected.point.x(), 2) +
+                       std::pow(p->point.y() - projected.point.y(), 2));
     if (dist < min_dist) {
       min_dist = dist;
       second = p.get();
@@ -311,7 +311,7 @@ std::vector<PathPoint> PathCalculation::process_delaunay_triangulations(
       // Calculate the midpoint between the two cones
       double x_dist = cone2.position.x - cone1.position.x;
       double y_dist = cone2.position.y - cone1.position.y;
-      double dist = sqrt(pow(x_dist, 2) + pow(y_dist, 2));
+      double dist = std::sqrt(std::pow(x_dist, 2) + std::pow(y_dist, 2));
 
       if (dist < config_.dist_threshold_) {
         PathPoint pt = PathPoint(cone1.position.x + x_dist / 2, cone1.position.y + y_dist / 2);
@@ -348,10 +348,10 @@ std::vector<PathPoint> PathCalculation::skidpad_path(std::vector<Cone>& cone_arr
     }
     // sort the cones by distance
     std::sort(cone_array.begin(), cone_array.end(), [&pose](Cone& a, Cone& b) {
-      return sqrt(pow((a.position.x - pose.position.x), 2) +
-                  pow((a.position.y - pose.position.y), 2)) <
-             sqrt(pow((b.position.x - pose.position.x), 2) +
-                  pow((b.position.y - pose.position.y), 2));
+      return std::sqrt(std::pow((a.position.x - pose.position.x), 2) +
+                  std::pow((a.position.y - pose.position.y), 2)) <
+             std::sqrt(std::pow((b.position.x - pose.position.x), 2) +
+                  std::pow((b.position.y - pose.position.y), 2));
     });
 
     // get the middle point between the two closest points
@@ -370,7 +370,7 @@ std::vector<PathPoint> PathCalculation::skidpad_path(std::vector<Cone>& cone_arr
     double slope = (dx != 0) ? (dy / dx) : 10000000000;                  // --------------------
 
     // calculate the angle
-    double angle = atan(slope);
+    double angle = std::atan(slope);
 
     // rotate all the points by the angle and add the origin point
     for (auto& point : hardcoded_path_) {
