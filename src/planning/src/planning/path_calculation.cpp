@@ -118,7 +118,7 @@ std::vector<std::unique_ptr<PathCalculation::MidPoint>> PathCalculation::createM
         MidPoint{Point((p1.x() + p2.x()) / 2, (p1.y() + p2.y()) / 2), {}});
 
     double dist = sqrt(pow(p1.x() - p2.x(), 2) + pow(p1.y() - p2.y(), 2));
-    if (dist > 2.5) { // constrained by the rules (cones 3m apart)
+    if (dist > config_.minimum_cone_distance_) { // constrained by the rules (cones 3m apart)
       mid_points.push_back(std::move(midPoint));
     }
   }

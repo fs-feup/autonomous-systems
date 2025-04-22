@@ -1,9 +1,10 @@
 planning:
+  minimum_cone_distance: 2.0 # minimum distance between cones -> The rules say 3m, but we should keep it lower for safety
   projected_point_distance: 1.0 # the distamce from the first point to the projected point to search for the second point
-  nc_angle_gain: 20.0  # Parameters for path planning with no coloring (nc)
+  nc_angle_gain: 25.0  # Parameters for path planning with no coloring (nc)
   nc_distance_gain: 5.0
-  nc_angle_exponent: 3.0
-  nc_distance_exponent: 2.0
+  nc_angle_exponent: 2.0
+  nc_distance_exponent: 1.0
   nc_max_cost: 40.0
   nc_search_depth: 4
   nc_max_points: 200 # --------------------------

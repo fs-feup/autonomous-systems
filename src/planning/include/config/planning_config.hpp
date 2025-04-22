@@ -1,7 +1,6 @@
 #ifndef SRC_PLANNING_INCLUDE_CONFIG_PLANNING_CONFIG_HPP_
 #define SRC_PLANNING_INCLUDE_CONFIG_PLANNING_CONFIG_HPP_
 
-#include "cone_coloring_config.hpp"
 #include "outliers_config.hpp"
 #include "path_calculation_config.hpp"
 #include "simulation_config.hpp"
@@ -10,7 +9,9 @@
 #include <string>
 
 struct PlanningParameters {
-  double projected_point_distance;
+  double minimum_cone_distance_;
+
+  double projected_point_distance_;
   double nc_angle_gain_;
   double nc_distance_gain_;
   double nc_angle_exponent_;
@@ -43,7 +44,6 @@ struct PlanningParameters {
  *
  */
 struct PlanningConfig {
-  ConeColoringConfig cone_coloring_;
   OutliersConfig outliers_;
   PathCalculationConfig path_calculation_;
   PathSmoothingConfig smoothing_;
@@ -57,7 +57,8 @@ struct PlanningConfig {
     outliers_.coeffs_ratio_ = params.outliers_spline_coeffs_ratio_;
     outliers_.use_outlier_removal_ = params.use_outlier_removal_;
 
-    path_calculation_.projected_point_distance_ = params.projected_point_distance;
+    path_calculation_.minimum_cone_distance_ = params.minimum_cone_distance_;
+    path_calculation_.projected_point_distance_ = params.projected_point_distance_;
     path_calculation_.angle_gain_ = params.nc_angle_gain_;
     path_calculation_.distance_gain_ = params.nc_distance_gain_;
     path_calculation_.angle_exponent_ = params.nc_angle_exponent_;

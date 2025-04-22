@@ -27,7 +27,8 @@ PlanningParameters Planning::load_config(std::string &adapter) {
   YAML::Node planning = YAML::LoadFile(planning_config_path);
   auto planning_config = planning["planning"];
 
-  params.projected_point_distance = planning_config["projected_point_distance"].as<double>();
+  params.minimum_cone_distance_ = planning_config["minimum_cone_distance"].as<double>();
+  params.projected_point_distance_ = planning_config["projected_point_distance"].as<double>();
   params.nc_angle_gain_ = planning_config["nc_angle_gain"].as<double>();
   params.nc_distance_gain_ = planning_config["nc_distance_gain"].as<double>();
   params.nc_angle_exponent_ = planning_config["nc_angle_exponent"].as<double>();
@@ -107,7 +108,7 @@ Planning::Planning(const PlanningParameters &params)
 }
 
 void Planning::fetch_discipline() {
-  if (!param_client_->wait_for_service(std::chrono::milliseconds(200))) {
+  if (!param_client_->wait_for_service(std::chrono::milliseconds(100))) {
     RCLCPP_ERROR(this->get_logger(), "Service /pacsim/pacsim_node/get_parameters not available.");
     this->mission = common_lib::competition_logic::Mission::AUTOCROSS;
     return;
@@ -140,7 +141,7 @@ void Planning::fetch_discipline() {
 
 void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &msg) {
   auto number_of_cones_received = static_cast<int>(msg.cone_array.size());
-  RCLCPP_DEBUG(this->get_logger(), "Planning received %i cones", number_of_cones_received);
+  RCLCPP_INFO(this->get_logger(), "Planning received %i cones", number_of_cones_received);
   this->cone_array_ = common_lib::communication::cone_vector_from_custom_interfaces(msg);
   this->received_first_track_ = true;
   if (!(this->received_first_pose_)) {
@@ -152,7 +153,7 @@ void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &msg) 
 }
 
 void Planning::run_planning_algorithms() {
-  RCLCPP_DEBUG(rclcpp::get_logger("planning"), "Running Planning Algorithms");
+  RCLCPP_INFO(rclcpp::get_logger("planning"), "Running Planning Algorithms");
   if (this->cone_array_.empty()) {
     publish_track_points({});
     return;

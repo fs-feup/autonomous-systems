@@ -6,6 +6,7 @@
  *
  */
 struct PathCalculationConfig {
+  double minimum_cone_distance_ = 2.5;
   double dist_threshold_ = 7.0;
   double projected_point_distance_ = 1.0;
   double angle_gain_ = 20.0;
