@@ -12,7 +12,7 @@
 using namespace std;
 
 std::pair<double, PathCalculation::MidPoint*> PathCalculation::dfs_cost(int depth,
-                                                                        MidPoint* previous,
+                                                                        const MidPoint* previous,
                                                                         MidPoint* current,
                                                                         double maxcost) {
   if (depth == 0) {
@@ -106,7 +106,7 @@ std::vector<std::unique_ptr<PathCalculation::MidPoint>> PathCalculation::createM
 
   // Insert cones into triangulation
   for (auto cone : cone_array) {
-    dt.insert(Point(cone.position.x, cone.position.y));
+    auto _ = dt.insert(Point(cone.position.x, cone.position.y));
   }
 
   // Create midpoints
@@ -128,7 +128,7 @@ std::vector<std::unique_ptr<PathCalculation::MidPoint>> PathCalculation::createM
 
 
 void PathCalculation::establishMidPointConnections(
-    std::vector<std::unique_ptr<MidPoint>>& mid_points) {
+    const std::vector<std::unique_ptr<MidPoint>>& mid_points) {
   // Comparison function for priority queue
   auto cmp = [](const std::pair<double, MidPoint*>& distance_to_midpoint1,
                 const std::pair<double, MidPoint*>& distance_to_midpoint2) {
@@ -218,8 +218,7 @@ PathCalculation::MidPoint* PathCalculation::findSecondPoint(
     double dy = p->point.y() - first->point.y();
 
     // Dot product checks whether the candidate is in front of the first point
-    double dot_product = dx * car_direction_x + dy * car_direction_y;
-    if (dot_product <= 0.0) {continue;}  // Skip points not in front
+    if ((dx * car_direction_x + dy * car_direction_y) <= 0.0) {continue;}  // Skip points not in front
 
     double dist = std::sqrt(std::pow(p->point.x() - projected.point.x(), 2) +
                        std::pow(p->point.y() - projected.point.y(), 2));

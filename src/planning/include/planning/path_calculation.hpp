@@ -52,10 +52,6 @@ public:
   struct MidPoint {
     Point point;
     std::vector<MidPoint*> close_points;
-
-    bool operator==(const MidPoint& other) const {
-      return (point.x() == other.point.x()) && (point.y() == other.point.y());
-    }
   };
 
   /**
@@ -95,7 +91,7 @@ public:
    * @param maxcost Maximum cost allowed for path segment
    * @return std::pair<double, MidPoint*> Cost and next point pair
    */
-  std::pair<double, MidPoint*> dfs_cost(int depth, MidPoint* previous, MidPoint* current,
+  std::pair<double, MidPoint*> dfs_cost(int depth, const MidPoint* previous, MidPoint* current,
                                         double maxcost);
 
   /**
@@ -122,7 +118,7 @@ public:
    *
    * @param mid_points Vector of midpoints to connect
    */
-  void establishMidPointConnections(std::vector<std::unique_ptr<MidPoint>>& mid_points);
+  void establishMidPointConnections(const std::vector<std::unique_ptr<MidPoint>>& mid_points);
 
   /**
    * @brief Updates the anchor point if not already set

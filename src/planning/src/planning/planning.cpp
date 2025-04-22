@@ -108,35 +108,39 @@ Planning::Planning(const PlanningParameters &params)
 }
 
 void Planning::fetch_discipline() {
+  common_lib::competition_logic::Mission mission_result =
+      common_lib::competition_logic::Mission::AUTOCROSS;
+
   if (!param_client_->wait_for_service(std::chrono::milliseconds(100))) {
     RCLCPP_ERROR(this->get_logger(), "Service /pacsim/pacsim_node/get_parameters not available.");
-    this->mission = common_lib::competition_logic::Mission::AUTOCROSS;
-    return;
+  } else {
+    auto request = std::make_shared<rcl_interfaces::srv::GetParameters::Request>();
+    request->names.push_back("discipline");
+
+    param_client_->async_send_request(
+        request, [this](rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedFuture future) {
+          auto response = future.get();
+          common_lib::competition_logic::Mission mission_result =
+              common_lib::competition_logic::Mission::AUTOCROSS;
+
+          if (!response->values.empty() && response->values[0].type == 4) {  // Type 4 = string
+            std::string discipline = response->values[0].string_value;
+            RCLCPP_INFO(this->get_logger(), "Discipline received: %s", discipline.c_str());
+
+            if (discipline == "skidpad") {
+              mission_result = common_lib::competition_logic::Mission::SKIDPAD;
+            } else if (discipline == "acceleration") {
+              mission_result = common_lib::competition_logic::Mission::ACCELERATION;
+            }
+          } else {
+            RCLCPP_ERROR(this->get_logger(), "Failed to retrieve discipline parameter.");
+          }
+
+          this->mission = mission_result;
+        });
   }
 
-  auto request = std::make_shared<rcl_interfaces::srv::GetParameters::Request>();
-  request->names.push_back("discipline");
-
-  auto future_result = param_client_->async_send_request(
-      request, [this](rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedFuture future) {
-        auto response = future.get();
-
-        if (!response->values.empty() && response->values[0].type == 4) {  // Type 4 = string
-          std::string discipline = response->values[0].string_value;
-          RCLCPP_INFO(this->get_logger(), "Discipline received: %s", discipline.c_str());
-          if (discipline == "skidpad") {
-            RCLCPP_INFO(this->get_logger(), "Discipline received: %s", discipline.c_str());
-            this->mission = common_lib::competition_logic::Mission::SKIDPAD;
-          } else if (discipline == "acceleration") {
-            RCLCPP_INFO(this->get_logger(), "Discipline received: %s", discipline.c_str());
-            this->mission = common_lib::competition_logic::Mission::ACCELERATION;
-          } else {
-            this->mission = common_lib::competition_logic::Mission::AUTOCROSS;
-          }
-        } else {
-          RCLCPP_ERROR(this->get_logger(), "Failed to retrieve discipline parameter.");
-        }
-      });
+  this->mission = mission_result;
 }
 
 void Planning::track_map_callback(const custom_interfaces::msg::ConeArray &msg) {
