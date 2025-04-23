@@ -1,6 +1,9 @@
 #include "ros_node/slam_node.hpp"
 
+#include <tf2/LinearMath/Quaternion.h>
+
 #include <fstream>
+#include <geometry_msgs/msg/transform_stamped.hpp>
 
 #include "common_lib/communication/marker.hpp"
 #include "common_lib/maths/transformations.hpp"
@@ -62,6 +65,7 @@ SLAMNode::SLAMNode(const SLAMParameters &params) : Node("slam") {
       "/state_estimation/slam_execution_time", 10);
   this->_covariance_publisher_ = this->create_publisher<std_msgs::msg::Float64MultiArray>(
       "/state_estimation/slam_covariance", 10);
+  this->_tf_broadcaster_ = std::make_shared<tf2_ros::TransformBroadcaster>(this);
 
   RCLCPP_INFO(this->get_logger(), "SLAM Node has been initialized");
 }
@@ -136,6 +140,7 @@ void SLAMNode::_velocities_subscription_callback(const custom_interfaces::msg::V
 
 void SLAMNode::_publish_vehicle_pose() {
   auto message = custom_interfaces::msg::Pose();
+  auto tf_message = geometry_msgs::msg::TransformStamped();
   message.x = this->_vehicle_pose_.position.x;
   message.y = this->_vehicle_pose_.position.y;
   message.theta = this->_vehicle_pose_.orientation;
@@ -144,6 +149,22 @@ void SLAMNode::_publish_vehicle_pose() {
 
   RCLCPP_DEBUG(this->get_logger(), "PUB - Pose: (%f, %f, %f)", message.x, message.y, message.theta);
   this->_vehicle_pose_publisher_->publish(message);
+
+  // Publish the transform
+  tf_message.header.stamp = message.header.stamp;
+  tf_message.header.frame_id = "map";
+  tf_message.child_frame_id = "vehicle_estimate";
+
+  tf2::Quaternion q;
+  q.setRPY(0.0, 0.0, message.theta);
+  tf_message.transform.translation.x = message.x;
+  tf_message.transform.translation.y = message.y;
+  tf_message.transform.translation.z = 0.0;
+  tf_message.transform.rotation.x = q.x();
+  tf_message.transform.rotation.y = q.y();
+  tf_message.transform.rotation.z = q.z();
+  tf_message.transform.rotation.w = q.w();
+  this->_tf_broadcaster_->sendTransform(tf_message);
 }
 
 void SLAMNode::_publish_map() {

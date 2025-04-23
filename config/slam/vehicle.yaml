@@ -11,4 +11,4 @@ slam:
   angular_velocity_noise: 0.1 # sigma of the noise for the angular velocity
   slam_solver_name: "graph_slam" # "graph_slam" or "ekf_slam" or ... -> name of the slam solver
   slam_min_pose_difference: 0.3 # Minimum distance between poses to consider adding to factor graph
-  slam_optimization_period: 0.0 # Time between optimization steps in seconds, 0.0 means optimization every time observations are added
+  slam_optimization_period: 0.2 # Time between optimization steps in seconds, 0.0 means optimization every time observations are added

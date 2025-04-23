@@ -151,12 +151,12 @@ def main():
             if key == "a":
                 pub_thread.new_command = True
                 clicked = True
-                steering += math.pi / 16
+                steering += math.pi / 32
                 steering = min(steering, math.pi / 8)
             elif key == "d":
                 pub_thread.new_command = True
                 clicked = True
-                steering += -math.pi / 16
+                steering += -math.pi / 32
                 steering = max(steering, -math.pi / 8)
             if key == "q":
                 break

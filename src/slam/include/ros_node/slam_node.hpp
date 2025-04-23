@@ -1,6 +1,7 @@
 #pragma once
 
 #include <gtest/gtest_prod.h>
+#include <tf2_ros/transform_broadcaster.h>
 
 #include <memory>
 #include <string>
@@ -39,6 +40,7 @@ protected:
   rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr _position_publisher_;
   rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr _execution_time_publisher_;
   rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr _covariance_publisher_;
+  std::shared_ptr<tf2_ros::TransformBroadcaster> _tf_broadcaster_;
   rclcpp::TimerBase::SharedPtr _timer_;      /**< timer */
   std::shared_ptr<SLAMSolver> _slam_solver_; /**< SLAM solver object */
   std::vector<common_lib::structures::Cone> _perception_map_;

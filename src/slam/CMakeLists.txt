@@ -21,6 +21,8 @@ set(PACKAGES
     visualization_msgs
     message_filters
     motion_lib
+    tf2
+    tf2_ros
     perception_sensor_lib
     yaml-cpp
 )

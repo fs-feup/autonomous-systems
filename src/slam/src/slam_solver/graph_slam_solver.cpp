@@ -176,10 +176,12 @@ void GraphSLAMInstance::process_observations(const ObservationData& observation_
   for (unsigned int i = 0; i < observations.size() / 2; i++) {
     gtsam::Point2 landmark;
     gtsam::Symbol landmark_symbol;
+    bool landmark_lost_in_optimization =
+        static_cast<int>(this->_landmark_counter_) < (associations(i) - 3) / 2 + 1;
     if (associations(i) == -2) {
       // No association
       continue;
-    } else if (associations(i) == -1) {
+    } else if (associations(i) == -1 || landmark_lost_in_optimization) {
       // Create new landmark
       landmark_symbol = gtsam::Symbol('l', ++(this->_landmark_counter_));
       landmark = gtsam::Point2(observations_global(i * 2), observations_global(i * 2 + 1));
@@ -221,7 +223,41 @@ GraphSLAMSolver::GraphSLAMSolver(const SLAMParameters& params,
   // TODO: transform into range and bearing noises
 }
 
-// -------------------------------------------------------------------------------------------
+// ------------------------------ PoseUpdater --------------------------------------
+
+void PoseUpdater::update_pose(const MotionData& motion_data,
+                              std::shared_ptr<V2PMotionModel> motion_model) {
+  if (!this->_received_first_velocities_) {
+    this->_last_pose_ = Eigen::Vector3d(0.0, 0.0, 0.0);
+    this->_last_pose_update_ = motion_data.timestamp_;
+    this->_received_first_velocities_ = true;
+    return;
+  }
+
+  this->_last_pose_ =
+      motion_model->get_next_pose(this->_last_pose_, *(motion_data.velocities_),
+                                  (motion_data.timestamp_ - this->_last_pose_update_).seconds());
+  this->_last_pose_update_ = motion_data.timestamp_;
+}
+
+PoseUpdater::PoseUpdater(const PoseUpdater& other) {
+  this->_last_pose_ = other._last_pose_;
+  this->_last_pose_update_ = other._last_pose_update_;
+  this->_received_first_velocities_ = other._received_first_velocities_;
+}
+
+PoseUpdater& PoseUpdater::operator=(const PoseUpdater& other) {
+  if (this == &other) return *this;  // Prevent self-assignment
+
+  // Copy each member individually
+  this->_last_pose_ = other._last_pose_;
+  this->_last_pose_update_ = other._last_pose_update_;
+  this->_received_first_velocities_ = other._received_first_velocities_;
+
+  return *this;
+}
+
+// ------------------------------- GraphSLAMSolver ---------------------------------
 
 void GraphSLAMSolver::init(std::weak_ptr<rclcpp::Node> node) {
   // Create a timer for asynchronous optimization
@@ -233,7 +269,7 @@ void GraphSLAMSolver::init(std::weak_ptr<rclcpp::Node> node) {
         rclcpp::CallbackGroupType::Reentrant);  // Allow callbacks to execute in parallel
     this->_optimization_timer_ = node_ptr->create_wall_timer(
         std::chrono::milliseconds(
-            static_cast<int>(this->_params_.slam_optimization_period_ * 10000)),
+            static_cast<int>(this->_params_.slam_optimization_period_ * 1000)),
         [this]() { this->_asynchronous_optimization_routine(); }, this->_reentrant_group_);
     RCLCPP_INFO(rclcpp::get_logger("slam"), "Optimization timer created with period %f seconds",
                 this->_params_.slam_optimization_period_);
@@ -450,36 +486,4 @@ common_lib::structures::Pose GraphSLAMSolver::get_pose_estimate() {
 
 Eigen::MatrixXd GraphSLAMSolver::get_covariance() {
   return this->_graph_slam_instance_.get_covariance_matrix();
-}
-
-void PoseUpdater::update_pose(const MotionData& motion_data,
-                              std::shared_ptr<V2PMotionModel> motion_model) {
-  if (!this->_received_first_velocities_) {
-    this->_last_pose_ = Eigen::Vector3d(0.0, 0.0, 0.0);
-    this->_last_pose_update_ = motion_data.timestamp_;
-    this->_received_first_velocities_ = true;
-    return;
-  }
-
-  this->_last_pose_ =
-      motion_model->get_next_pose(this->_last_pose_, *(motion_data.velocities_),
-                                  (motion_data.timestamp_ - this->_last_pose_update_).seconds());
-  this->_last_pose_update_ = motion_data.timestamp_;
-}
-
-PoseUpdater::PoseUpdater(const PoseUpdater& other) {
-  this->_last_pose_ = other._last_pose_;
-  this->_last_pose_update_ = other._last_pose_update_;
-  this->_received_first_velocities_ = other._received_first_velocities_;
-}
-
-PoseUpdater& PoseUpdater::operator=(const PoseUpdater& other) {
-  if (this == &other) return *this;  // Prevent self-assignment
-
-  // Copy each member individually
-  this->_last_pose_ = other._last_pose_;
-  this->_last_pose_update_ = other._last_pose_update_;
-  this->_received_first_velocities_ = other._received_first_velocities_;
-
-  return *this;
 }
