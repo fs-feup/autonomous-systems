@@ -137,18 +137,15 @@ void GraphSLAMInstance::process_pose(const gtsam::Pose2& pose) {
   }
 
   // Calculate noise
-  // // TODO: Implement noise -> this was shit because covariance from velocity estimation had
-  // too
+  // // TODO: Implement noise -> this was shit because covariance from velocity estimation had too
   // // small error
   // Eigen::Matrix3d velocities_noise = Eigen::Matrix3d::Identity(); velocities_noise(0,
   // 0) = velocities.velocity_x_noise_; velocities_noise(1, 1) = velocities.velocity_y_noise_;
   // velocities_noise(2, 2) = velocities.rotational_velocity_noise_;
-  // RCLCPP_DEBUG(rclcpp::get_logger("slam"), "Velocities noise: %f %f %f", velocities_noise(0,
-  // 0),
+  // RCLCPP_DEBUG(rclcpp::get_logger("slam"), "Velocities noise: %f %f %f", velocities_noise(0, 0),
   //              velocities_noise(1, 1), velocities_noise(2, 2));
   // Eigen::Matrix3d velocities_jacobian =
-  //     this->_motion_model_->get_jacobian_velocities(previous_pose, velocities_vector,
-  // delta_t);
+  //     this->_motion_model_->get_jacobian_velocities(previous_pose, velocities_vector, delta_t);
   // Eigen::Matrix3d motion_covariance =
   //     velocities_jacobian * velocities_noise * velocities_jacobian.transpose();
   // RCLCPP_DEBUG(rclcpp::get_logger("slam"), "Motion covariance: %f %f %f", motion_covariance(0,

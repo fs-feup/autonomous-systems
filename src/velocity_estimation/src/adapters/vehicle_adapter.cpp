@@ -28,6 +28,10 @@ void VehicleAdapter::wss_callback(const custom_interfaces::msg::WheelRPM& rl_whe
   wss_data.rr_rpm = rr_wheel_rpm_msg.rr_rpm;
   wss_data.fl_rpm = rl_wheel_rpm_msg.rl_rpm;
   wss_data.fr_rpm = rr_wheel_rpm_msg.rr_rpm;
+  if (rr_wheel_rpm_msg.rr_rpm > 1000 || rr_wheel_rpm_msg.rr_rpm > 1000) {
+    RCLCPP_WARN(this->get_logger(), "Wheel RPM is too high");
+    return;
+  }
   this->_velocity_estimator_->wss_callback(wss_data);
   this->_velocity_estimator_->motor_rpm_callback(
       (rl_wheel_rpm_msg.rl_rpm + rr_wheel_rpm_msg.rr_rpm) * 0.5 *

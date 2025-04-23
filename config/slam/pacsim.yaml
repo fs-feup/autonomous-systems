@@ -1,5 +1,5 @@
 slam:
-  motion_model_name: "constant_velocity" # "constant_velocity" or "constant_velocity_turnrate" or ... -> name of the motion model
+  motion_model_name: "constant_velocity_turnrate" # "constant_velocity" or "constant_velocity_turnrate" or ... -> name of the motion model
   data_association_model_name: "nearest_neighbor" # "maximum_likelihood_md" or "maximum_likelihood_nll" or "nearest_neighbor" or... -> name of the data association model
   data_association_limit_distance: 70 # maximum distance to consider a cone for data association
   data_association_gate: 1.23 # Maximum allowed Malahanobis distance (or euclidean distance for nearest neighbor) between an observation and matched landmark

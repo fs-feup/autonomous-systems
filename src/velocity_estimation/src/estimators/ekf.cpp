@@ -105,15 +105,6 @@ void EKF::correct(Eigen::Vector3d& state, Eigen::Matrix3d& covariance,
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "y: \n" << y);
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "Jacobian: \n" << jacobian);
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("velocity_estimation"), "Kalman gain: \n" << kalman_gain);
-  // auto A = jacobian * covariance * jacobian.transpose() + this->measurement_noise_matrix_;
-  // auto A2 = A.inverse();
-  // std::cout << "A: " << std::endl;
-  // print_matrix(A);
-  // std::cout << "A inverse: " << std::endl;
-  // print_matrix(A2);
-  // Eigen::Vector3d dx = kalman_gain * y;
-  // std::cout << "dx: ";
-  // print_matrix(dx);
   state += kalman_gain * y;
   covariance = (Eigen::Matrix3d::Identity() - kalman_gain * jacobian) * covariance;
 }
