@@ -13,6 +13,7 @@ struct SLAMParameters {
   std::string motion_model_name_ = "constant_velocity";
   std::string data_association_model_name_ = "nearest_neighbor";
   std::string slam_solver_name_ = "graph_slam";
+  std::string frame_id_ = "map";
   float data_association_limit_distance_ = 70;
   float observation_x_noise_ = 0.01;
   float observation_y_noise_ = 0.01;

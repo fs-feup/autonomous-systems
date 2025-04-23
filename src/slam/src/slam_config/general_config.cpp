@@ -18,6 +18,7 @@ SLAMParameters::SLAMParameters(const SLAMParameters &params) {
   slam_solver_name_ = params.slam_solver_name_;
   slam_min_pose_difference_ = params.slam_min_pose_difference_;
   slam_optimization_period_ = params.slam_optimization_period_;
+  frame_id_ = params.frame_id_;
 }
 
 std::string SLAMParameters::load_config() {
@@ -29,6 +30,7 @@ std::string SLAMParameters::load_config() {
   std::string adapter = global_config["global"]["adapter"].as<std::string>();
   this->use_simulated_velocities_ = global_config["global"]["use_simulated_velocities"].as<bool>();
   this->use_simulated_perception_ = global_config["global"]["use_simulated_perception"].as<bool>();
+  this->frame_id_ = global_config["global"]["vehicle_frame_id"].as<std::string>();
 
   std::string slam_config_path =
       common_lib::config_load::get_config_yaml_path("slam", "slam", adapter);
