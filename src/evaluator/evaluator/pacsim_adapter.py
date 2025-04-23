@@ -55,16 +55,16 @@ class PacsimAdapter(Adapter):
             10,
         )
 
-        self._time_sync_slam_ = message_filters.ApproximateTimeSynchronizer(
-            [
-                self.node.vehicle_pose_subscription_,
-                self.node.map_subscription_,
-            ],
-            10,
-            0.1,
-        )  # TODO: separate the time sync for the map and the vehicle pose
-
-        self._time_sync_slam_.registerCallback(self.slam_callback)
+        # self._time_sync_slam_ = message_filters.ApproximateTimeSynchronizer(
+        #     [
+        #         self.node.vehicle_pose_subscription_,
+        #         self.node.map_subscription_,
+        #     ],
+        #     10,
+        #     0.1,
+        # )
+        self.node.vehicle_pose_subscription_.registerCallback(self.pose_callback)
+        self.node.map_subscription_.registerCallback(self.map_callback)
 
         # self._time_sync_velocities_.registerCallback(self.velocities_callback)
 
@@ -79,18 +79,31 @@ class PacsimAdapter(Adapter):
 
         self._planning_time_sync_.registerCallback(self.planning_callback)
 
-    def slam_callback(
-        self,
-        vehicle_pose: Pose,
-        map: ConeArray,
-    ):
+    def map_callback(self, map: ConeArray):
         """!
-        Callback function to process synchronized messages
-        and compute pose and map metrics.
+        Callback function to process map messages.
 
         Args:
-            vehicle_pose (Pose): Pose of the vehicle.
             map (ConeArray): Map data.
+        """
+        if self._groundtruth_map_ is None:
+            self.node.get_logger().warn("Groundtruth map not received")
+            return
+        map_treated: np.ndarray = format_cone_array_msg(map)
+        groundtruth_map_treated: np.ndarray = format_marker_array_msg(
+            self._groundtruth_map_
+        )
+        self.node.compute_and_publish_map(
+            map_treated,
+            groundtruth_map_treated,
+        )
+
+    def pose_callback(self, vehicle_pose: Pose):
+        """!
+        Callback function to process vehicle pose messages.
+
+        Args:
+            vehicle_pose (Pose): Vehicle pose data.
         """
         if self._groundtruth_map_ is None:
             self.node.get_logger().warn("Groundtruth map not received")
@@ -101,16 +114,10 @@ class PacsimAdapter(Adapter):
         if transform is None:
             return
         groundtruth_pose_treated: np.ndarray = format_transform_stamped_msg(transform)
-        map_treated: np.ndarray = format_cone_array_msg(map)
-        groundtruth_map_treated: np.ndarray = format_marker_array_msg(
-            self._groundtruth_map_
-        )
         pose_treated: np.ndarray = format_vehicle_pose_msg(vehicle_pose)
-        self.node.compute_and_publish_slam(
+        self.node.compute_and_publish_pose(
             pose_treated,
             groundtruth_pose_treated,
-            map_treated,
-            groundtruth_map_treated,
         )
 
     def velocities_callback(
