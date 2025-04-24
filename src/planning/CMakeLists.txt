@@ -36,7 +36,6 @@ set(TESTFILES
   test/main.cpp
   test/integration_tests.cpp
   test/performance_test.cpp
-  test/cone_coloring_tests.cpp
   test/outliers_tests.cpp
   test/path_calculation_tests.cpp
   test/smoothing_tests.cpp
@@ -51,7 +50,6 @@ set(IMPLEMENTATION_FILES
   src/adapter_planning/pacsim.cpp
   src/adapter_planning/vehicle.cpp
   src/planning/path_calculation.cpp
-  src/planning/cone_coloring.cpp
   src/planning/smoothing.cpp
   src/planning/outliers.cpp
   src/planning/planning.cpp
