@@ -13,19 +13,19 @@ Eigen::VectorXi NearestNeighbour::associate(const Eigen::VectorXd& landmarks,
   std::unordered_set<int> used_indices(num_landmarks);
 
   for (int i = 0; i < num_observations; i++) {
-
     double min_distance = std::numeric_limits<double>::max();
     int min_index = -1;
     for (int j = 0; j < num_landmarks; j++) {
-      const double euclidean_distance = std::hypot(observations(2*i) - landmarks(2*j),
-                                                     observations(2*i+1) - landmarks(2*j+1));
+      const double euclidean_distance = std::hypot(observations(2 * i) - landmarks(2 * j),
+                                                   observations(2 * i + 1) - landmarks(2 * j + 1));
       if (euclidean_distance < min_distance) {
         min_distance = euclidean_distance;
-        min_index = j;
+        min_index = 2 * j;
       }
     }
 
-    if (observation_confidences(i) >= this->_params_.new_landmark_confidence_gate && used_indices.find(min_index) == used_indices.end()) {
+    if (observation_confidences(i) >= this->_params_.new_landmark_confidence_gate &&
+        used_indices.find(min_index) == used_indices.end()) {
       if (min_distance < this->_params_.association_gate) {
         associations(i) = min_index;
         used_indices.insert(min_index);

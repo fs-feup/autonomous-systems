@@ -12,7 +12,7 @@ Eigen::VectorXi NearestNeighbor::associate(const Eigen::VectorXd& landmarks,
 
   Eigen::VectorXi associations =
       Eigen::VectorXi::Constant(num_observations, -2);  // Default: not associated (-2)
-  
+
   for (int i = 0; i < num_observations; ++i) {
     Eigen::Vector2d obs;
     obs << observations(2 * i),
@@ -21,15 +21,14 @@ Eigen::VectorXi NearestNeighbor::associate(const Eigen::VectorXd& landmarks,
     double best_cost = std::numeric_limits<double>::max();
     int best_landmark_index = -1;
 
-    for (int j = 0; j < landmarks.size(); j++) {
-
-      const double euclidean_distance = std::hypot(obs(0) - landmarks(2*j),
-                                                     obs(1) - landmarks(2*j+1));
+    for (int j = 0; j < num_landmarks; j++) {
+      const double euclidean_distance =
+          std::hypot(obs(0) - landmarks(2 * j), obs(1) - landmarks(2 * j + 1));
 
       // Check if this landmark is a good candidate for association
       if (euclidean_distance < best_cost) {
         best_cost = euclidean_distance;
-        best_landmark_index = j;
+        best_landmark_index = 2 * j;
       }
     }
 
