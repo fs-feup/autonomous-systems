@@ -110,7 +110,7 @@
         "editor.formatOnSave": true
     },
     "sonarlint.connectedMode.project": {
-        "connectionId": "FS FEUP",
+        "connectionId": "fs-feup",
         "projectKey": "fs-feup_autonomous-systems"
     },
     "C_Cpp.default.compilerPath": "/usr/bin/g++",
