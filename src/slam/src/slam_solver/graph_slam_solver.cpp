@@ -18,7 +18,7 @@
 #include <rclcpp/rclcpp.hpp>
 
 #include "common_lib/maths/transformations.hpp"
-#include <perception_sensor_lib/loop_closure/loop_closure.hpp>
+#include <perception_sensor_lib/loop_closure/lap_counter.hpp>
 
 void GraphSLAMSolver::_init() {
   // Create a new factor graph
@@ -28,6 +28,10 @@ void GraphSLAMSolver::_init() {
   const gtsam::noiseModel::Diagonal::shared_ptr prior_noise =
       gtsam::noiseModel::Diagonal::Sigmas(gtsam::Vector3(0.0, 0.0, 0.0));
   _factor_graph_.add(gtsam::PriorFactor<gtsam::Pose2>(pose_symbol, prior_pose, prior_noise));
+
+  // Loop closure
+  this->loop_closure_ = std::make_shared<LapCounter>(5,6);
+  this->lap_counter_ = 0;
 
   // Create a new values object
   _graph_values_ = gtsam::Values();
@@ -184,10 +188,15 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
       state, covariance, observations,
       observations_confidences);  // TODO: implement different mahalanobis distance
 
-  LoopClosure loop_closure(5, 6);
-  std::pair<bool, double> result = loop_closure.detect(current_pose, cones, associations, cones);
-
   rclcpp::Time association_time = rclcpp::Clock().now();
+
+  LoopClosure::Result result = loop_closure_->detect(current_pose, cones, associations, cones);
+  RCLCPP_INFO(rclcpp::get_logger("slam"), "Loop closure detected: %d", result.detected);
+
+  if(result.detected) {
+    lap_counter_++;
+    RCLCPP_INFO(rclcpp::get_logger("slam"), "Lap counter: %d", lap_counter_);
+  }
 
   // Create a new observation factor
   for (unsigned int i = 0; i < cones.size(); i++) {

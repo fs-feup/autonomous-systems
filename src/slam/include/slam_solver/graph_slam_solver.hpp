@@ -4,6 +4,7 @@
 #include <gtsam/inference/Symbol.h>
 #include <gtsam/nonlinear/NonlinearFactorGraph.h>
 #include <gtsam/nonlinear/Values.h>
+#include <perception_sensor_lib/loop_closure/loop_closure.hpp>
 
 #include "slam_solver/slam_solver.hpp"
 
@@ -26,6 +27,9 @@ class GraphSLAMSolver : public SLAMSolver {
   gtsam::Pose2
       _last_pose_;  //< Last calculated pose (from the motion model, different than the graph)
   rclcpp::TimerBase::SharedPtr _optimization_timer_;  //< Timer for asynchronous optimization
+  
+  std::shared_ptr<LoopClosure> loop_closure_;  //< Loop closure object pointer
+  int lap_counter_;
 
   /**
    * @brief Optimize the graph

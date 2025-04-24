@@ -1,12 +1,12 @@
-#include "perception_sensor_lib/loop_closure/loop_closure.hpp"
+#include "perception_sensor_lib/loop_closure/lap_counter.hpp"
 #include <cmath>
 
-LoopClosure::LoopClosure(double threshold_dist, int first_x_cones)
+LapCounter::LapCounter(double threshold_dist, int first_x_cones)
   : threshold_dist_(threshold_dist),
     first_x_cones_(first_x_cones)
 {}
 
-LoopClosure::Result LoopClosure::detect(
+LoopClosure::Result LapCounter::detect(
   const gtsam::Pose2& current_pose,
   const std::vector<common_lib::structures::Cone>& map_cones,
   const Eigen::VectorXi& associations,
@@ -16,7 +16,7 @@ LoopClosure::Result LoopClosure::detect(
   double dy = current_pose.y();
   double dist = std::sqrt(dx * dx + dy * dy);
 
-  // only start checking after leaving the start region by +1 meter
+  // only enable checking after leaving the start region by +1 meter
   if (!searching_) {
     if (dist > threshold_dist_ + 1.0) {
       searching_ = true;
