@@ -41,11 +41,14 @@ void EKFSLAMSolver::add_observations(const std::vector<common_lib::structures::C
   std::vector<int> matched_landmarks_indices;
   Eigen::VectorXd matched_observations(0);
   Eigen::VectorXd new_landmarks(0);
+  Eigen::VectorXd new_confidences(0);
   Eigen::VectorXd observations(2 * num_observations);
   Eigen::VectorXd observation_confidences(num_observations);
   common_lib::conversions::cone_vector_to_eigen(cones, observations, observation_confidences);
+  Eigen::VectorXd global_observations =
+      common_lib::maths::local_to_global_coordinates(this->state_.segment(0, 3), observations);
   Eigen::VectorXi associations = this->_data_association_->associate(
-      this->state_, this->covariance_, observations, observation_confidences);
+      this->state_, global_observations, this->covariance_, observation_confidences);
   for (int i = 0; i < num_observations; ++i) {
     if (associations(i) == -2) {
       continue;
@@ -53,6 +56,8 @@ void EKFSLAMSolver::add_observations(const std::vector<common_lib::structures::C
       new_landmarks.conservativeResize(new_landmarks.size() + 2);
       new_landmarks(new_landmarks.size() - 2) = observations(2 * i);
       new_landmarks(new_landmarks.size() - 1) = observations(2 * i + 1);
+      new_confidences.conservativeResize(new_confidences.size() + 1);
+      new_confidences(new_confidences.size() - 1) = observation_confidences(i);
     } else {
       matched_landmarks_indices.push_back(associations(i));
       matched_observations.conservativeResize(matched_observations.size() + 2);
@@ -60,8 +65,8 @@ void EKFSLAMSolver::add_observations(const std::vector<common_lib::structures::C
       matched_observations(matched_observations.size() - 1) = observations(2 * i + 1);
     }
   }
-  Eigen::VectorXd filtered_new_landmarks = this->_landmark_filter_->filter(
-      this->state_, this->covariance_, observations, observation_confidences, associations);
+  Eigen::VectorXd filtered_new_landmarks =
+      this->_landmark_filter_->filter(new_landmarks, new_confidences);
   this->correct(this->state_, this->covariance_, matched_landmarks_indices, matched_observations);
   this->state_augmentation(this->state_, this->covariance_, filtered_new_landmarks);
   this->update_process_noise_matrix();

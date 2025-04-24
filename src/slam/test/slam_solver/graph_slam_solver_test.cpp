@@ -9,17 +9,15 @@
 class MockDataAssociationModel : public DataAssociationModel {
 public:
   MOCK_METHOD(Eigen::VectorXi, associate,
-              (const Eigen::VectorXd& state, const Eigen::MatrixXd& covariance,
-               const Eigen::VectorXd& observations, const Eigen::VectorXd& observation_confidences),
+              (const Eigen::VectorXd& state, const Eigen::VectorXd& observations,
+               const Eigen::MatrixXd& covariance, const Eigen::VectorXd& observation_confidences),
               (const, override));
 };
 
 class MockLandmarkFilter : public LandmarkFilter {
 public:
   MOCK_METHOD(Eigen::VectorXd, filter,
-              (const Eigen::VectorXd& state, const Eigen::MatrixXd& covariance,
-               const Eigen::VectorXd& observations, const Eigen::VectorXd& observation_confidences,
-               const Eigen::VectorXi& associations),
+              (const Eigen::VectorXd& observations, const Eigen::VectorXd& observation_confidences),
               (override));
 };
 

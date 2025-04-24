@@ -182,7 +182,7 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
   // Data association
   Eigen::VectorXi associations(cones.size());
   associations = this->_data_association_->associate(
-      state, covariance, observations,
+      state, observations_global, covariance,
       observations_confidences);  // TODO: implement different mahalanobis distance
 
   rclcpp::Time association_time = rclcpp::Clock().now();
