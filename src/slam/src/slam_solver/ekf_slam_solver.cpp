@@ -48,7 +48,9 @@ void EKFSLAMSolver::add_observations(const std::vector<common_lib::structures::C
   Eigen::VectorXd global_observations =
       common_lib::maths::local_to_global_coordinates(this->state_.segment(0, 3), observations);
   Eigen::VectorXi associations = this->_data_association_->associate(
-      this->state_, global_observations, this->covariance_, observation_confidences);
+      this->state_.segment(3, this->state_.size() - 3), global_observations,
+      this->covariance_.block(3, 3, this->state_.size() - 3, this->state_.size() - 3),
+      observation_confidences);
   for (int i = 0; i < num_observations; ++i) {
     if (associations(i) == -2) {
       continue;

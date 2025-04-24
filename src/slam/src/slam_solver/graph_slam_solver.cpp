@@ -175,7 +175,7 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
   rclcpp::Time initialization_time = rclcpp::Clock().now();
 
   Eigen::MatrixXd covariance = Eigen::MatrixXd::Zero(
-      observations.size(), observations.size());  // TODO(marhcouto): true covariance
+      state.size() - 3, state.size() - 3);  // TODO(marhcouto): true covariance
 
   rclcpp::Time covariance_time = rclcpp::Clock().now();
 
