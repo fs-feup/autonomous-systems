@@ -26,20 +26,12 @@ public:
    * @brief This function receives a new set of observations and returns a filtered set of landmarks
    * in global coordinates that are ready to be added to be added to the map
    *
-   * @param state ector of car's position and landmarks in the form of [car_x, car_y,
-   * car_orientation, x1, y1, x2, y2, ...] all in the global frame
-   * @param covariance Covariance matrix of the state vector
-   * @param observations Observations in the form of [x1, y1, x2, y2, ...] in the car's frame
+   * @param observations Observations in the form of [x1, y1, x2, y2, ...] in the global frame
    * @param observation_confidences Confidence in the observations in the same order as the
    * observations
-   * @param associations Associations between the observations and the landmarks, one entry for each
-   * observation indicating that it is new (-1), an outlier (-2) or the index of the landmark in the
-   * state vector
    * @return Eigen::VectorXd the filtered observations in the form of [x1, y1, x2, y2, ...] in the
    * global frame
    */
-  virtual Eigen::VectorXd filter(const Eigen::VectorXd& state, const Eigen::MatrixXd& covariance,
-                                 const Eigen::VectorXd& observations,
-                                 const Eigen::VectorXd& observation_confidences,
-                                 const Eigen::VectorXi& associations) = 0;
+  virtual Eigen::VectorXd filter(const Eigen::VectorXd& new_observations,
+                                 const Eigen::VectorXd& new_observation_confidences) = 0;
 };
