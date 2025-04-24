@@ -34,6 +34,13 @@ Eigen::VectorXd ConsecutiveCounterFilter::filter(
     }
     if (this->counter(i) >= this->_params_.minimum_observation_count_ - 1) {
       filtered_observations.conservativeResize(filtered_observations.size() + 2);
+      for (int j = 0; j < num_new_observations; j++) {
+        if (new_associations[j] == i * 2) {
+          filtered_observations.segment(filtered_observations.size() - 2, 2) =
+              new_observations.segment(j * 2, 2);
+          break;
+        }
+      }
       filtered_observations.segment(filtered_observations.size() - 2, 2) =
           this->map.segment(i * 2, 2);
     } else {
