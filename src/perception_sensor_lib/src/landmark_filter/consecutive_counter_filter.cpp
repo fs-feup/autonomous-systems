@@ -1,4 +1,5 @@
 #include "perception_sensor_lib/landmark_filter/consecutive_counter_filter.hpp"
+#include "common_lib/maths/transformations.hpp"
 
 #include <iostream>
 Eigen::VectorXd ConsecutiveCounterFilter::filter(const Eigen::VectorXd& state,
@@ -44,21 +45,20 @@ Eigen::VectorXd ConsecutiveCounterFilter::filter(const Eigen::VectorXd& state,
   for (int i = 0; i < was_observed.size(); i++) {
     if (!was_observed[i]) {
       continue;
+    }
+    if (this->counter(i) >= this->_params_.minimum_observation_count_ - 1) {
+      filtered_observations.conservativeResize(filtered_observations.size() + 2);
+      filtered_observations.segment(filtered_observations.size() - 2, 2) =
+          this->map.segment(i * 2 + 3, 2);
     } else {
-      if (this->counter(i) >= this->_params_.minimum_observation_count_ - 1) {
-        filtered_observations.conservativeResize(filtered_observations.size() + 2);
-        filtered_observations.segment(filtered_observations.size() - 2, 2) =
-            this->map.segment(i * 2 + 3, 2);
-      } else {
-        new_map.conservativeResize(new_map.size() + 2);
-        new_map.segment(new_map.size() - 2, 2) = this->map.segment(i * 2 + 3, 2);
-        new_counter.conservativeResize(new_counter.size() + 1);
-        new_counter(new_counter.size() - 1) = this->counter(i) + 1;
-      }
+      new_map.conservativeResize(new_map.size() + 2);
+      new_map.segment(new_map.size() - 2, 2) = this->map.segment(i * 2 + 3, 2);
+      new_counter.conservativeResize(new_counter.size() + 1);
+      new_counter(new_counter.size() - 1) = this->counter(i) + 1;
     }
   }
   new_map.conservativeResize(new_map.size() + to_be_added_to_map.size());
-  new_map.tail(to_be_added_to_map.size()) = to_be_added_to_map;
+  new_map.tail(to_be_added_to_map.size()) = common_lib::maths::local_to_global_coordinates(state.segment(0,3), to_be_added_to_map);
   new_counter.conservativeResize(new_counter.size() + to_be_added_to_map.size() / 2);
   new_counter.tail(to_be_added_to_map.size() / 2).setOnes();
   this->map = new_map;
