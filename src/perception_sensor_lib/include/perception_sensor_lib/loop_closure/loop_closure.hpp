@@ -1,6 +1,5 @@
 #pragma once
 
-#include <gtsam/geometry/Pose2.h>
 #include <Eigen/Core>
 #include <common_lib/structures/cone.hpp>
 #include <vector>
@@ -35,8 +34,8 @@ public:
    * @return                 result indicating if loop closure was detected
    */
   virtual Result detect(
-    const gtsam::Pose2& current_pose,
-    const std::vector<common_lib::structures::Cone>& map_cones,
+    const Eigen::Vector3d& current_pose,
+    const std::vector<Eigen::Vector2d>& map_cones,
     const Eigen::VectorXi& associations,
-    const std::vector<common_lib::structures::Cone>& observations) const = 0;
+    const Eigen::VectorXi& observations) const = 0;
 };

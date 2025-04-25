@@ -25,10 +25,10 @@ public:
    * @return                 {true,0.0} once you re‑see any of map_cones[0..X-1]
    */
   Result detect(
-    const gtsam::Pose2& current_pose,
-    const std::vector<common_lib::structures::Cone>& map_cones,
+    const Eigen::Vector3d& current_pose,
+    const std::vector<Eigen::Vector2d>& map_cones,
     const Eigen::VectorXi& associations,
-    const std::vector<common_lib::structures::Cone>& observations) const override;
+    const Eigen::VectorXi& observations) const override;
 
 private:
   double threshold_dist_;

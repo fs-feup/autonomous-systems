@@ -7,10 +7,10 @@ LapCounter::LapCounter(double threshold_dist, int first_x_cones)
 {}
 
 LoopClosure::Result LapCounter::detect(
-  const gtsam::Pose2& current_pose,
-  const std::vector<common_lib::structures::Cone>& map_cones,
+  const Eigen::Vector3d& current_pose,
+  const std::vector<Eigen::Vector2d>& map_cones,
   const Eigen::VectorXi& associations,
-  const std::vector<common_lib::structures::Cone>& observations) const
+  const Eigen::VectorXi& observations) const
 {
   double dx = current_pose.x();
   double dy = current_pose.y();

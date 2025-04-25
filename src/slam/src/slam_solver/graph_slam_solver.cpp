@@ -15,10 +15,10 @@
 #include <gtsam/slam/PriorFactor.h>
 #include <gtsam/slam/ProjectionFactor.h>
 
+#include <perception_sensor_lib/loop_closure/lap_counter.hpp>
 #include <rclcpp/rclcpp.hpp>
 
 #include "common_lib/maths/transformations.hpp"
-#include <perception_sensor_lib/loop_closure/lap_counter.hpp>
 
 void GraphSLAMSolver::_init() {
   // Create a new factor graph
@@ -30,7 +30,7 @@ void GraphSLAMSolver::_init() {
   _factor_graph_.add(gtsam::PriorFactor<gtsam::Pose2>(pose_symbol, prior_pose, prior_noise));
 
   // Loop closure
-  this->loop_closure_ = std::make_shared<LapCounter>(5,6);
+  this->loop_closure_ = std::make_shared<LapCounter>(5, 6);
   this->lap_counter_ = 0;
 
   // Create a new values object
@@ -189,11 +189,21 @@ void GraphSLAMSolver::add_observations(const std::vector<common_lib::structures:
       observations_confidences);  // TODO: implement different mahalanobis distance
 
   rclcpp::Time association_time = rclcpp::Clock().now();
+  Eigen::Vector3d pose;
+  pose << current_pose.x(), current_pose.y(), current_pose.theta();
 
-  LoopClosure::Result result = loop_closure_->detect(current_pose, cones, associations, cones);
+  std::vector<Eigen::Vector2d> landmarks;
+  for (auto it = _graph_values_.begin(); it != _graph_values_.end(); ++it) {
+    if (gtsam::Symbol(it->key).chr() == 'l') {
+      const gtsam::Point2 landmark = it->value.cast<gtsam::Point2>();
+      landmarks.emplace_back(Eigen::Vector2d(landmark.x(), landmark.y()));
+    }
+  }
+
+  LoopClosure::Result result = loop_closure_->detect(pose, landmarks, associations, observations);
   RCLCPP_INFO(rclcpp::get_logger("slam"), "Loop closure detected: %d", result.detected);
 
-  if(result.detected) {
+  if (result.detected) {
     lap_counter_++;
     RCLCPP_INFO(rclcpp::get_logger("slam"), "Lap counter: %d", lap_counter_);
   }
